@@ -17,7 +17,11 @@
      BohemiaBarNews.list(o)          o = {here:{name|id, block?:[x,y]}, day, traits: settlement_traits.json, ledger:{marks}}
                                      -> [{id, kind:'news', place, trait, caused, by, dist, dir, says, draft}], one per town,
                                      what happened first, then the nearest; never here, never a town the bar may not name
-     BohemiaBarNews.quiet(o)         the keeper's line when no town in reach has news (about one visit in twenty) */
+     BohemiaBarNews.quiet(o)         the keeper's line when no town in reach has news (about one visit in twenty)
+     BohemiaBarNews.nearestTo(place) the town nearest a town on the map's own cells (ties by name), never itself
+     BohemiaBarNews.refugeesAt(o)    o = {here, day, ledger} -> {place, of, by, ago, from, until} while the town NEAREST here
+                                     stands RAIDED in the ledger (RUN TWO [the neighbour takes the refugees], ECONOMY day 70:
+                                     'the dear town is the one NEXT to it, where the people went'), else null */
 (function (root) {
   'use strict';
   var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
@@ -64,7 +68,31 @@
     var t = L[(seedOf(trait + ':' + Math.floor((day || 0) / 7)) + (nth || 0)) % L.length];
     var of = p.of || ('the ' + p.name + "'s place");
     return t.replace(/\{at\}/g, p.at || ('over by the ' + p.name)).replace(/\{of_cap\}/g, of.charAt(0).toUpperCase() + of.slice(1)).replace(/\{of\}/g, of)
-      .replace(/\{dir\}/g, fill.dir).replace(/\{by\}/g, fill.by || 'crew').replace(/\{ago\}/g, fill.ago || '');
+      .replace(/\{dir\}/g, fill.dir).replace(/\{by\}/g, fill.by || 'crew').replace(/\{ago\}/g, fill.ago || '').replace(/\{from\}/g, fill.from || 'a town up the road');
+  }
+  function nearestTo(p) {
+    var ps = (PLACES && PLACES.places) || [], best = null, bd = Infinity;
+    ps.forEach(function (q) {
+      if (q === p) return;
+      var d = Math.sqrt((q.x - p.x) * (q.x - p.x) + (q.y - p.y) * (q.y - p.y));
+      if (d < bd || (d === bd && best && q.id < best.id)) { bd = d; best = q; }
+    });
+    return best;
+  }
+  function placeById(id) { var ps = (PLACES && PLACES.places) || []; for (var i = 0; i < ps.length; i++) if (ps[i].id === id) return ps[i]; return null; }
+  /* the people a raid drove out are in the nearest town for the raid's own days; the newest raid if two point here */
+  function refugeesAt(o) {
+    o = o || {};
+    if (!READY) return null;
+    var me = placeOf(o.here), day = o.day || 0, best = null;
+    if (!me) return null;
+    ((o.ledger && o.ledger.marks) || []).forEach(function (m) {
+      if (m.trait !== 'raided' || !(day >= m.from && day < m.until)) return;
+      var P = placeById(m.place); if (!P || P === me || nearestTo(P) !== me) return;
+      if (!best || m.from > best.m.from) best = { m: m, P: P };
+    });
+    if (!best) return null;
+    return { place: best.P.name, of: best.P.of || ('the ' + best.P.name + "'s place"), by: best.m.by || null, ago: agoOf(day - best.m.from), from: best.m.from, until: best.m.until };
   }
   function list(o) {
     o = o || {};
@@ -79,14 +107,16 @@
       /* what happened there first: the ledger's mark live on the map's day (the same test BohemiaArrivalTraits.active makes) */
       var hit = null;
       CAUSED.forEach(function (id) { if (hit) return; marks.forEach(function (m) { if (!hit && m.place === p.id && m.trait === id && day >= m.from && day < m.until) hit = m; }); });
-      var trait = hit ? hit.trait : null;
+      var trait = hit ? hit.trait : null, ref = null;
+      if (!trait) { ref = refugeesAt({ here: p, day: day, ledger: o.ledger }); if (ref && NEWS.lines.refugees) trait = 'refugees'; }
       if (!trait && o.traits && lm && lm.traitsFor) {
         var rolled = lm.traitsFor(o.traits, p.name, day).filter(function (t) { return NEWS.lines[t.id]; });
         if (rolled.length) trait = rolled[0].id;
       }
       if (!trait) return;
-      out.push({ id: 'news:' + p.id + ':' + trait, kind: 'news', place: p.name, trait: trait, caused: !!hit, by: hit ? hit.by || null : null,
-                 dist: d.dist, dir: d.key, says: null, draft: true, _p: p, _fill: { dir: d.words, by: hit && hit.by, ago: hit ? agoOf(day - hit.from) : '' } });
+      out.push({ id: 'news:' + p.id + ':' + trait, kind: 'news', place: p.name, trait: trait, caused: !!(hit || ref), by: hit ? hit.by || null : ref ? ref.by : null,
+                 from: ref ? ref.place : null, dist: d.dist, dir: d.key, says: null, draft: true, _p: p,
+                 _fill: { dir: d.words, by: hit ? hit.by : ref && ref.by, ago: hit ? agoOf(day - hit.from) : ref ? ref.ago : '', from: ref ? ref.of : '' } });
     });
     out.sort(function (a, b) { return (b.caused - a.caused) || (a.dist - b.dist) || (seedOf(a.id + day) - seedOf(b.id + day)); });
     var nth = {};
@@ -99,7 +129,7 @@
     var k = norm(o && o.here && o.here.name) + ':quiet:' + Math.floor(((o && o.day) || 0) / 7);
     return { id: 'news:quiet', kind: 'news', place: null, trait: null, says: Q[seedOf(k) % Q.length], draft: true };
   }
-  var API = { load: load, set: set, ready: ready, list: list, quiet: quiet, dirOf: dirOf, CAUSED: CAUSED };
+  var API = { load: load, set: set, ready: ready, list: list, quiet: quiet, dirOf: dirOf, nearestTo: nearestTo, refugeesAt: refugeesAt, CAUSED: CAUSED };
   if (HASREQ) module.exports = API;
   root.BohemiaBarNews = API;
 })(typeof window !== 'undefined' ? window : this);

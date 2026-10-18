@@ -31,6 +31,10 @@
     "A trucker came in from {of}, {dir}. They are coughing over there, mijo, and the clinic has boards on the windows.",
     "Don't drink with anybody from {of} this week. Half of them are coughing, so medicine sells dear up there, pues."
    ],
+   "refugees": [
+    "The lot {at} is full of people from {from}, mijo. The {by} burned them out and food is short up there now.",
+    "Everybody from {from} walked to {of} after the {by} hit them. Food costs more up there this week, pues."
+   ],
    "market_day": [
     "It's market day {at}, {dir}. Everybody is out selling, so if you have something to sell, órale, go.",
     "My cousin says it's market day {at}. Full stalls and new faces wanting work, but they charge you more to buy, ya sabes."

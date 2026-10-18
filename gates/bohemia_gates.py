@@ -9253,6 +9253,13 @@ GATES = [
      "the map's own dice for that town that day (a planted lie caught); the ledger's raid told first; live on his phone's "
      "profile the bar's first line each visit is the free one under the keeper's fresh talking face, nothing spent, a round "
      "tells the next town, no 'Marked on your map', the bar still pours with the places file blocked", True),
+    ('THE NEIGHBOUR TAKES THE REFUGEES', ['node', 'gates/the_neighbour_takes_the_refugees_gate.js'],
+     "RUN TWO [the neighbour takes the refugees] (ECONOMY day 70: 'the dear town is the one NEXT to it, where the people "
+     "went'). The refugees card equals the wiki's page 1660 read from the library (food -25% available, +25% price, items "
+     "-10%) and is never rolled; every seat's nearest is the closest on the map's own cells and a raid on each seat sends its "
+     "people there for exactly the raid's days; live through the map's own message the neighbour reads REFUGEES, the elder "
+     "names the raided place and the crew under a fresh face, the shelves a tenth thinner, the ration dearer; the map's dice "
+     "handed beside the ledger no longer switch the raid off; the bar tells the raid, then where its people went", True),
     ('THE BOARD\'S QUESTS ARE PEOPLE', ['node', 'gates/the_boards_quests_are_people_gate.js'],
      "RUN TWO [the board's quests are people] (his 10/17 'no more cards with quests, make an actual quest'; QUESTS research "
      "only, rule 35, read never asked). The shelf is the bake of QUESTS' act-one contract designs, byte for byte: every row "

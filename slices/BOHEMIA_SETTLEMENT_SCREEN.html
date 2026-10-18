@@ -211,7 +211,26 @@ fetch('../records/target/settlement_traits.json').then(function(r){ return r.jso
 fetch('../records/target/bb/arrival_traits.json').then(function(r){ return r.json(); }).then(function(j){ ARR = j; if(window.BohemiaArrivalTraits) BohemiaArrivalTraits.set(j); placeTraits(); restock(); }).catch(function(){});
 function caused(t){ return !!(t && t.caused_by); }
 /* the dice (engine/bohemia_livingmap.js traitsFor rolls the same, line for line, for the map's crowd), then the ledger */
-function placeTraits(){ rollTraits(); if(!Array.isArray(S.forceTraits)) ledgerTraits().forEach(function(t){ S.traits.unshift(t); }); }   /* what happened here is said first */
+/* what happened here is said first, then who came here from it, then the dice. The map hands its dice as traits (the living map's
+   roll at the gate) and its ledger beside them: a raid stands on top of the dice, never instead of the ledger (RUN TWO 10/18: before,
+   handing traits switched the ledger off, so a raid the map handed with its crowd's roll would never have reached the counter) */
+function placeTraits(){
+  rollTraits();
+  var has = function(t){ return S.traits.some(function(x){ return x.id === t.id; }); };
+  refugeeTraits().forEach(function(t){ if(!has(t)) S.traits.unshift(t); });
+  ledgerTraits().forEach(function(t){ if(!has(t)) S.traits.unshift(t); });
+}
+/* RUN TWO [the neighbour takes the refugees], 10/18 (ECONOMY day 70: 'the raided town is not dearer, it is EMPTY... the dear town
+   is the one NEXT to it, where the people went'; South Africa 2021, Los Angeles 1992). While FACTIONS' ledger marks RAIDED on the
+   town NEAREST this one on the map's own cells (slices/bohemia_bar_news.js refugeesAt, the seats the map arrives at), this town
+   reads the wiki's Refugees card (page 1660) for the same days, and its people say whose they are and who burned them out. */
+function refugeeTraits(){
+  if(!S.ledger || !TRAITS || !window.BohemiaBarNews || !BohemiaBarNews.ready()) return [];
+  var r = BohemiaBarNews.refugeesAt({here:S.ledgerPlace ? {id:S.ledgerPlace, name:S.ledgerPlace} : S.place, day:buildDay(), ledger:S.ledger});
+  var card = TRAITS.traits.filter(function(t){ return t.id === 'refugees'; })[0];
+  if(!r || !card) return [];
+  return [Object.assign({}, card, {from:r.of, fromPlace:r.place, by:r.by, ago:r.ago})];
+}
 function rollTraits(){
   S.traits = []; S.traitSaid = {};
   if(!TRAITS) return;
@@ -233,9 +252,9 @@ function ledgerTraits(){
 /* the knobs: buy and sell apart (a card can move them opposite ways), the shelf, the men (a multiplier; none is 'nobody
    signs on'). A caused trait reads the ledger file's effects; a rolled one its own fields */
 function traitMult(){
-  var m = {buy:1, sell:1, stock:1, men:1, meds:1, none:false};
+  var m = {buy:1, sell:1, stock:1, men:1, meds:1, food:1, foodStock:1, none:false};
   (S.traits||[]).forEach(function(t){
-    if(caused(t)){
+    if(caused(t) && t.caused_by === 'ledger'){
       var f = (ARR && ARR.traits[t.id] && ARR.traits[t.id].effects) || {}, v = function(k){ return f[k] ? f[k].value : 1; };
       m.buy *= v('buy_price_mult'); m.sell *= v('sell_price_mult'); m.stock *= v('items_mult'); m.men *= v('recruits_mult');
       return;
@@ -243,12 +262,17 @@ function traitMult(){
     /* a rolled trait's own card (ECONOMY day 71): buy and sell apart, the shelf, the men, medicine alone (Sickness) */
     m.buy *= (t.buy_mult || t.price_mult || 1); m.sell *= (t.sell_mult || t.price_mult || 1); m.stock *= (t.stock_mult||1);
     m.men *= (t.recruits_mult||1); m.meds *= (t.medicine_buy_mult||1);
+    m.food *= (t.food_buy_mult||1); m.foodStock *= (t.food_stock_mult||1);   /* the Refugees card: food dearer and scarcer */
     if((t.recruits||0) < 0) m.none = true;
   });
   return m;
 }
+/* a card that came from somewhere says where: {from} the town the people came from, {by} the crew, {ago} when */
+function fillTrait(t, line){
+  return String(line).replace(/\{from\}/g, t.from || 'a town up the road').replace(/\{by\}/g, t.by || 'crew').replace(/\{ago\}/g, t.ago || 'a few nights back');
+}
 function traitLine(k){
-  for(var i=0;i<(S.traits||[]).length;i++){ var t = S.traits[i]; if(t.says && (t.says[k] || t.says.any)) return t.says[k] || t.says.any; }
+  for(var i=0;i<(S.traits||[]).length;i++){ var t = S.traits[i]; if(t.says && (t.says[k] || t.says.any)) return fillTrait(t, t.says[k] || t.says.any); }
   return null;
 }
 /* THE LOOK, drawn over the painted place until COMBAT TWO's trait pictures exist: a burnt house
@@ -509,7 +533,7 @@ fetch('../records/target/settlement_rumours.json').then(function(r){ return r.js
    of nearby settlements': so a round, or a stranger with something to say, tells the next town's TRUE situation first
    (slices/bohemia_bar_news.js: FACTIONS' ledger, then the map's own dice on the map's day, nearest first) and the old
    eleven only when every town in reach is told. The keeper's FIRST line each visit is one of them, free (newsFree). */
-if(window.BohemiaBarNews) BohemiaBarNews.load('../records/target/');
+if(window.BohemiaBarNews) BohemiaBarNews.load('../records/target/', function(){ if(TRAITS){ placeTraits(); restock(); } });   /* the refugees need the map's towns */
 function newsHere(){
   if(!window.BohemiaBarNews || !BohemiaBarNews.ready()) return [];
   return BohemiaBarNews.list({here:S.place, day:buildDay(), traits:TRAITS, ledger:S.ledger});
@@ -1178,7 +1202,7 @@ function openB(k, line){
     var stm = traitMult();
     STALL.forEach(function(g){
       /* one battery each; a card moves it (Sickness triples the meds), never below one */
-      var pr = Math.max(1, Math.round(stm.buy * (g.good === 'meds' ? stm.meds : 1)));
+      var pr = Math.max(1, Math.round(stm.buy * (g.good === 'meds' ? stm.meds : 1) * (g.good === 'food' ? stm.food : 1)));
       var ab = act(g.label, pr + (pr === 1 ? ' battery' : ' batteries'), function(){
         if(bats()<pr) return openB('stall','You are out of batteries. Come back with ' + pr + '.');
         P.debit(S.purse,'electricity',pr,'stall:'+g.good,S.place.name,S.day);
@@ -1435,7 +1459,7 @@ function arrive(){
   /* no sound of its own: SOUNDS' arrival cue already fires once per new town on the map (cf9b7d8b) */
   post('arrive', {tier:tier, traits:(S.traits||[]).map(function(t){ return t.id; }), opinion:op, band:band, faction:S.faction ? S.faction.name : null, line:line});
 }
-function arriveWhenReady(){ if((TRAITS && ARR) || S.arriveTries > 20){ arrive(); return; } S.arriveTries = (S.arriveTries||0) + 1; setTimeout(arriveWhenReady, 50); }
+function arriveWhenReady(){ if((TRAITS && ARR && (!window.BohemiaBarNews || BohemiaBarNews.ready())) || S.arriveTries > 20){ arrive(); return; }   /* the refugees read the map's towns */ S.arriveTries = (S.arriveTries||0) + 1; setTimeout(arriveWhenReady, 50); }
 
 /* ---------- OPEN ---------- */
 function open(o){

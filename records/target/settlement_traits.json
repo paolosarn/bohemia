@@ -41,6 +41,18 @@
             "hall": "Some of the old crew want out from under the new bosses. Look them over."}},
   {"id": "well_supplied", "bb": "Well Supplied", "name": "WELL SUPPLIED", "look": null, "caused_by": "ledger", "numbers": "records/target/bb/arrival_traits.json traits.well_supplied (the wiki's Well Supplied card, page 2199)", "draft": true,
    "says": {"any": "A convoy made it in. The shelves are full and nobody is fighting over the price.",
-            "smith": "Fresh steel off the convoy. I can let it go cheaper this week."}}
+            "smith": "Fresh steel off the convoy. I can let it go cheaper this week."}},
+  {"id": "refugees", "bb": "Refugees", "name": "REFUGEES", "look": "crowd", "caused_by": "ledger_neighbour", "draft": true,
+   "numbers": "the wiki's Refugees card (page 1660): -25% food available, +25% food prices, -10% items, 'Refugees are more likely to be available for hire' (no number on the card, so the posts' count and price do not move: TUNING's table when it has one). It stands, never rolled, while FACTIONS' raid ledger marks RAIDED on the place NEAREST this one on the map (records/target/BOHEMIA_BAR_NEWS_PLACES.json, the map's own seats and cells), on the same days (RUN TWO [the neighbour takes the refugees]; ECONOMY day 70: 'the raided town is not dearer, it is EMPTY... the dear town is the one NEXT to it, where the people went')",
+   "food_buy_mult": 1.25, "food_stock_mult": 0.75, "stock_mult": 0.9,
+   "says": {"any": "These are people from {from}, mijo. The {by} burned them out {ago} and now they sleep in our lot.",
+            "board": "We have half of {from} sleeping in our lot since the {by} hit them {ago}. Be patient with us, mijo.",
+            "hall": "Half the ones at the posts walked here from {from} after the {by} hit it. They will work for food, pues.",
+            "stall": "Food goes fast with all the people from {from} here. It costs more this week, ni modo.",
+            "bar": "The bar is full of people from {from}, drinking on credit. The {by} took everything they had.",
+            "clinic": "Burns and cut feet, all of them from {from}. The {by} did not leave much.",
+            "smith": "Men from {from} keep asking me for a blade to go back with. They have nothing to pay, carnal.",
+            "armourer": "Half my stock went to people from {from} who want to go back and fight the {by}.",
+            "barber": "Nobody from {from} wants a haircut, mijo. They want a place to sleep."}}
  ]
 }
