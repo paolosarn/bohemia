@@ -29,8 +29,9 @@ const PORT = 8700 + Math.floor(Math.random() * 200);
 
 function seedOf(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
 
+let srv = null;   /* the local server; killed on the way out, a crash included */
 (async () => {
-  const srv = cp.spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: REPO, stdio: 'ignore' });
+  srv = cp.spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: REPO, stdio: 'ignore' });
   await new Promise(r => setTimeout(r, 800));
   const b = await chromium.launch();
   const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
@@ -158,4 +159,4 @@ function seedOf(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) 
   console.log(JSON.stringify(out.measured));
   console.log(sheet.map(c => c.name + ' (was ' + c.was + ', ' + c.look + ')').join('\n'));
   if (errs.length) console.log('page errors: ' + errs.join(' | '));
-})().catch(e => { console.error(e); process.exit(1); });
+})().catch(e => { console.error(e); if (srv) srv.kill(); process.exit(1); });
