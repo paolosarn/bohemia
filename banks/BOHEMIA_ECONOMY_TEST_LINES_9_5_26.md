@@ -4910,3 +4910,46 @@ SSSSSSSSSSSSSSSSSSSSSSSSS8  a kid asking why the far road is the bad road       
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## OOOOOOOOOOOOOOOOOOOOOOOOO. WHAT A BATTERY BUYS ON DAY ONE (round 69)
+# Record: records/BOHEMIA_ECONOMY_DAY_69_WHAT_A_BATTERY_BUYS_ON_DAY_ONE_10_18_26.md
+# Row [batteries at the counter], under rule 88's hold: a page, no sheet, nothing in the game.
+
+TTTTTTTTTTTTTTTTTTTTTTTTT1  the stall keeper, the first counter, to a stranger        draft:true
+    "One gets you a day of it. The whole brick is six, and you don't look like six."
+
+TTTTTTTTTTTTTTTTTTTTTTTTT2  the same keeper, asked for change                         draft:true
+    "Change? There's no under one, mijo. Take a wafer and call it even."
+
+TTTTTTTTTTTTTTTTTTTTTTTTT3  a man at the bar, counting heads for the round             draft:true
+    "Three of you, three cells. The round's by the head, not by the glass."
+
+TTTTTTTTTTTTTTTTTTTTTTTTT4  the keeper, on the one thing that costs two                draft:true
+    "Bandage is two. Everything's one till you're bleeding, then it's two."
+
+TTTTTTTTTTTTTTTTTTTTTTTTT5  a woman buying a single pill out of the box                draft:true
+    "Don't sell me the box. One dose, one cell, and I'll be back if it works."
+
+TTTTTTTTTTTTTTTTTTTTTTTTT6  the keeper, handing over five rounds                       draft:true
+    "Five for a cell. Count them, nobody sells a sixth for free."
+
+TTTTTTTTTTTTTTTTTTTTTTTTT7  an old hand who remembers the price tags                   draft:true
+    "There used to be a sticker. Now there's me. Ask, and I'll tell you what it is today."
+
+TTTTTTTTTTTTTTTTTTTTTTTTT8  a crew boss doing day-one arithmetic out loud              draft:true
+    "Work pays one. Eating costs one. You see the problem, and it isn't the stall."
+
+## PPPPPPPPPPPPPPPPPPPPPPPPP. WHAT IS NOT HERE, ON PURPOSE (round 69)
+
+- No line names Zimbabwe, Venezuela, Lebanon, a wiki page or a crown. The whole finding is said
+  as a keeper selling the day instead of the brick, a till with no under-one, a round by the head,
+  the bandage at two, the single pill, five rounds counted, the sticker that became a person, and
+  a boss who can add.
+- TTTTTTTTTTTTTTTTTTTTTTTTT1, 4 and 6 carry the page's numbers (one a ration, two a bandage, five
+  rounds a battery): the wiki's crowns at ten to one, floored; not a ruling, not a felt number;
+  TUNING's table first.
+- No line names a town, a street, a faction or a real place. MAP LAW.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
+  keeper or a crew mouth with a face, at a counter.
+- Spanish register: 1 of 8 lines (TTTTTTTTTTTTTTTTTTTTTTTTT2's mijo). Under the 15% cap.

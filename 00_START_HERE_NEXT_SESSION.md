@@ -736,6 +736,38 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (m) -- [batteries at the counter] SHIPPED, THE NEW AGE
+(rules 112 to 115: the coordinator opened this chat and reads this block as the report; no
+check-in, no question; research only, a page without a sheet under rule 88's hold, no code
+touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_69_WHAT_A_BATTERY_BUYS_ON_DAY_ONE_10_18_26.md
+FINDING: Battle Brothers never meets a man with one coin: its day-one player holds 1,500 to
+2,500 crowns and fifty meals (the Game Guide's starting-funds table; origins.json carries all
+fifteen origins at ten to one, 75 to 320 batteries) and its counter sells by the stack; its
+smallest single purchase, the bandage at 25 crowns, is already two and a half of our batteries,
+so the one-battery floor sits under everything on its shelf. THE COUNTER LADDER, every number
+the wiki's at ten to one, floored: a ration ONE (the stack 5 to 6), a dose of meds ONE (the
+bundle 20), a tape point ONE (the bundle 20), FIVE ROUNDS for ONE (the wiki's 50-point bundle is
+ten batteries; not the stall's placeholder six), a round of drinks a battery a head (as built),
+water ONE, the BANDAGE TWO (the one item the wiki sells singly above the floor; two by GROK_31's
+round-down, three by priceOf's round-to-nearest, Day 57's open line), the clinic two a day.
+Everything a stranger needs is one except the two things about not dying. THE RATIO TEST: on
+the wiki a day of the cheapest labour buys about five days of the cheapest food; ours buys one,
+so our day one is five times harder than Battle Brothers' by the wiki's own numbers (Day 49's
+'one short every day', the pillar), named for TUNING as the biggest lever in the opening. The
+ration, not the stack, is the counter unit because that is what a till does when the small coin
+is gone (Zimbabwe's candy change, Venezuela's single tablets and no price tags, Lebanon's day of
+pay for a day of food). PROVES US WRONG, routed to TUNING and RUN: the door hands him THREE
+DIFFERENT PURSES on main (the demo zero, the settlement screen standalone three, origins.json's
+75 to 320 with nothing reading it); the exchange is only felt if the door hands him something to
+exchange; every real case starts a person with a little (about a week of food), named not picked.
+Eight bank lines, draft:true. [bb] and analog horror lines at the page's foot.
+NEXT OPEN (jump list, rule 74): [what a raid costs the raided] (the top OPEN row), [the 32
+situations], and [a week at the counter], which this lane wrote from its own jump list because
+shipping left it at two OPEN rows and rule 74's gate counts three (what seven days cost a crew
+of three at Day 69's counter ladder, so TUNING has a measured candidate for the door's purse).
+PENDING Paolo: none new; the shared food/water pile report (grok-reported-six-piles) still
+stands in VOTE.
+
 ECONOMY (economy-vamily-knxaeh): 10/17 LATEST (l) -- [a day is a price] SHIPPED, THE BIG SWING
 (rule 110; research only, a page without a sheet under rule 88's hold, no code touched, no VOTE
 sheet; rule 109 is why the question exists: a settlement is days away for the first time).
