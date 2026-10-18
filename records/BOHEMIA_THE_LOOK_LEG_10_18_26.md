@@ -70,7 +70,8 @@ the 1.5x upscale and noise RED; the robot and the truck he voted up never RED; t
 ## MEASURED ON THE RUNNER
 
 Runs (Actions, "look ruler"): 39152357532, 39152518660, 39152693910, 39153198933, 39153830493, and the
-confirming run on a7dfbdc5. What each one taught:
+confirming run 39154521184 on a7dfbdc5: TWIN GATE 24 passed, 1 failed with LOOK measured, every L leg green,
+the one red T3 on COOK TWO's street joins (the same red the container reads, 17/1). What each run taught:
 
 | run | what happened | what changed |
 |---|---|---|
