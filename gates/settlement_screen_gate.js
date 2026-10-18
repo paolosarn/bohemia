@@ -27,6 +27,7 @@ const PORT = 8833;
 const SHOT = proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_SETTLEMENT_SCREEN_10_1.png'));
 const SHOT2 = proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_SETTLEMENT_SCREEN_BARBER_10_1.png'));
 const SHOT3 = proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_OFFER_IS_A_MOUTH_10_17.png'));   /* [the offer is a mouth]: the client speaking under his face */
+const SHOT4 = proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_SCAVENGE_BUTTON_10_18.png'));   /* [the scavenge button]: a body in the lot, its rounds said by YOU */
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json' };
 
 let pass = 0, fail = 0;
@@ -351,18 +352,46 @@ const srv = http.createServer((rq, rs) => {
   ok('the hall hires the one who asked', hired.length === 1, hired.join());
 
   /* scavenge: one thing or nothing, and the lot runs out */
-  const finds = [];
+  const finds = [], kinds = [], says = [];
   for (let i = 0; i < 40; i++) {
     await tapB('lot'); await p.waitForTimeout(60);
     const btn = await p.$('#sbody .act');
     if (!btn || await btn.isDisabled()) break;
     await btn.click(); await p.waitForTimeout(60);
     finds.push(await p.evaluate(() => { const l = window.__settleLog.filter(m => m.act === 'scavenge').pop(); return l.result.found ? 1 : 0; }));
+    kinds.push(await p.evaluate(() => { const l = window.__settleLog.filter(m => m.act === 'scavenge').pop(); return l.kind || '-'; }));
+    says.push(await p.evaluate(() => document.querySelector('#sbody .say p').textContent));
   }
   const total = finds.reduce((a, c) => a + c, 0);
   const clean = await p.evaluate(() => /took it all|picked clean/.test(document.getElementById('sbody').textContent) ? 'picked clean' : 'not');
   ok('scavenge finds one thing or nothing, never a pile', finds.every(f => f === 0 || f === 1), finds.join(''));
   ok('  and the lot runs out', clean === 'picked clean' && total === 6, total + ' found, shelf says ' + clean);
+  /* RUN TWO [the scavenge button] 10/18: every find is ONE of the six supplies, named, out of YOUR mouth under your face */
+  const SIX = ['food', 'medicine', 'battery', 'tape', 'ammo', 'water'];
+  const named = kinds.filter((k, i) => finds[i] === 1);
+  ok('  and every find is one of the six supplies, said out loud (never a card)', named.length === 6 && named.every(k => SIX.includes(k)) && kinds.every((k, i) => finds[i] === 1 || k === '-')
+     && says.every((t, i) => finds[i] === 0 || t.length > 12), named.join(',') + ' | ' + says.filter((t, i) => finds[i]).slice(0, 2).join(' / '));
+  const kinds52 = await p.evaluate(() => { const c = {}; for (let i = 1; i <= 600; i++) { const k = ['food', 'medicine', 'battery', 'tape', 'ammo', 'water'][(function(str){ var h = 2166136261; for (var j = 0; j < str.length; j++) { h ^= str.charCodeAt(j); h = Math.imul(h, 16777619); } return h >>> 0; })('PLACE' + (i % 50) + ':find:' + ((i / 50) | 0)) % 6]; c[k] = (c[k] || 0) + 1; } return c; });
+  ok('  and the six are each about as likely (600 finds, every kind 60 to 140)', SIX.every(k => kinds52[k] >= 60 && kinds52[k] <= 140), JSON.stringify(kinds52));
+  /* his bonus: 'a recent battle: more ammo' -- every man who fell here is rounds, found for certain, until searched */
+  await p.click('#close'); await p.waitForTimeout(200);
+  const fight = await p.evaluate(async () => {
+    BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: [], fights: [{ day: 3, fallen: 2 }] });
+    return null; });
+  const fk = [];
+  for (let i = 0; i < 3; i++) {
+    await tapB('lot'); await p.waitForTimeout(60);
+    const btn = await p.$('#sbody .act'); if (!btn || await btn.isDisabled()) { fk.push('shut'); break; }
+    await btn.click(); await p.waitForTimeout(60);
+    fk.push(await p.evaluate(() => { const l = window.__settleLog.filter(m => m.act === 'scavenge').pop(); return (l.result.fromFight ? 'body:' : '') + (l.kind || '-'); }));
+    if (i === 0) await p.screenshot({ path: SHOT4 });
+  }
+  await p.click('#close'); await p.waitForTimeout(200);
+  await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: [], fights: [{ day: 3, fallen: 2 }] }));
+  await tapB('lot'); await p.waitForTimeout(60);
+  const again = await p.evaluate(() => document.querySelector('#sbody .say p').textContent);
+  ok('  and where two men fell, two searches find their rounds for certain, then the picked lot again (a searched body stays searched)', fk[0] === 'body:ammo' && fk[1] === 'body:ammo' && fk[2] === 'shut' && !/bodies|body/.test(again),
+     fk.join(',') + ' | ' + again.slice(0, 50));
 
   await p.click('#close'); await p.waitForTimeout(300);
 

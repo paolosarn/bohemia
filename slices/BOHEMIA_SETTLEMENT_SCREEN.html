@@ -979,7 +979,7 @@ function face(k, who, look){
   var kp = KEEPERS[k] || {who:who}, f = S.faces[kp.who];
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
   if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,64,64); }; im.src = f; c.dataset.face = 'portrait'; }
-  else if((look = look || lookOf(k))){ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = 'sheet'; }
+  else if((look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null))){   /* YOU wear your own sheet's face (fight_people/you), never the dim head */ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = 'sheet'; }
   else {
     /* no face handed over yet: ask the game for it (the same road the city uses) and
        hold a dim head shape meanwhile, never a blank box */
@@ -1167,13 +1167,15 @@ function openB(k, line){
   else if(k==='build'){ return buildSheet(body, acts, line); }   /* __BUILD_ON_THE_SCREEN__ */
   else if(k==='lot'){
     var l = left();
-    body.appendChild(speak(k, line || (l.left===0 ? 'Nothing left on this lot. You took it all.' : 'Four hours in the lot. It is luck whether I find anything.')));
+    var dead = deadLeft();
+    body.appendChild(speak(k, line || (dead ? 'There was a fight here. ' + dead + (dead === 1 ? ' body' : ' bodies') + ' still in the lot with their rounds on them.'
+      : l.left===0 ? 'Nothing left on this lot. You took it all.' : 'Four hours in the lot. It is luck whether I find anything.')));
     acts.appendChild(act('Search the lot', '4 hours', function(){
-      var r = scavenge(); post('scavenge',{result:r}); shelf();
+      var r = scavenge(); post('scavenge',{result:r, kind:r.got || null}); shelf();
       openB('lot', r.why==='PICKED_CLEAN' ? 'Nothing left on this lot. You took it all.'
-                 : r.found ? 'Found something. One thing, '+r.left+' left on this lot.'
+                 : r.got ? FIND_SAYS[r.got] + (r.fromFight ? ' Off one of the dead.' : ' ' + r.left + ' left on this lot.')
                  : 'Four hours. Nothing.');
-    }, l.left===0));
+    }, l.left===0 && !dead));
   }
   body.appendChild(acts);
   show();
@@ -1196,10 +1198,36 @@ function left(){
   var w = lotWorld(), Sc = window.BohemiaScavenge;
   return Sc ? Sc.leftOn(S.scav, w.m, w.block) : {left:0,total:0};
 }
+/* RUN TWO [the scavenge button] 10/18 (his 9/27 'a scavenge button, you only wanna do this if you're extremely low
+   on food or medicine or batteries, then test your luck', and 9/29 'it's not a great way to get resources').
+   WORLD's engine decides WHETHER (the share of the lot left, a ratio of two counts) and ships WHICH empty, so the
+   screen names it with the most boring rule there is: one of the six supplies, each as likely, from the same seed,
+   ONE of it (EVERYTHING COSTS ONE): four hours for one thing the stall sells for a battery, worse than buying.
+   HIS BONUS ('a recent battle: more ammo'): the game hands open({fights:[{day, fallen}]}); every man who fell here is
+   one more thing in the lot, and it is ROUNDS, found for certain, until each body is searched. A count, not a dial:
+   no chance or day-window is typed here (TUNING owns those if one is ever wanted). Food lands in the purse like the
+   stall's; the rest is posted, like the stall's water and meds. */
+var FIND = ['food', 'medicine', 'battery', 'tape', 'ammo', 'water'];
+var FIND_GOOD = {food:'food', medicine:'meds', battery:'batteries', tape:'tape', ammo:'rounds', water:'water'};
+var FIND_SAYS = {food:'A can of beans under a car seat. One ration.', medicine:'A first-aid kit with one dose still sealed.',
+  battery:'A battery out of a dead flashlight. Still holds a charge.', tape:'Half a roll of tape in a toolbox.',
+  ammo:'Six rounds loose in a jacket pocket.', water:'A gallon jug, cap still on. Four litres.'};   /* draft:true, YOU speak them (the player is not Spanglish) */
+function fightKey(f){ return S.place.name + ':' + (f.day|0); }
+function deadLeft(){ var n = 0; (S.fights||[]).forEach(function(f){ n += Math.max(0, (f.fallen|0) - ((S.deadTaken||{})[fightKey(f)]|0)); }); return n; }
+function searchBody(){ S.deadTaken = S.deadTaken || {}; var fs = S.fights||[];
+  for(var i=0;i<fs.length;i++){ var k = fightKey(fs[i]); if(((S.deadTaken[k]|0)) < (fs[i].fallen|0)){ S.deadTaken[k] = (S.deadTaken[k]|0) + 1; return; } } }
 function scavenge(){
-  var w = lotWorld();
+  var w = lotWorld(), r;
   S.day++;
-  return BohemiaScavenge.search({map:w.m, blocks:w.blocks, state:S.scav, block:w.block, day:S.day});
+  if(deadLeft() > 0){ searchBody(); r = {ok:true, found:true, fromFight:true, got:'ammo', left:left().left, spent:'time'}; }
+  else {
+    r = BohemiaScavenge.search({map:w.m, blocks:w.blocks, state:S.scav, block:w.block, day:S.day});
+    if(r && r.found) r.got = FIND[seedOf(S.place.name + ':find:' + r.taken) % FIND.length];
+  }
+  if(r && r.got === 'food') P.credit(S.purse, 'resources', 1, 'scavenge:food', S.place.name, S.day);
+  if(r && r.got === 'battery') P.credit(S.purse, 'electricity', 1, 'scavenge:battery', S.place.name, S.day);
+  if(r && r.got) r.good = FIND_GOOD[r.got];
+  return r;
 }
 
 /* ---------- THE ARRIVAL (RUN TWO 10/18, [the arrival]) ----------
@@ -1311,6 +1339,7 @@ function open(o){
   if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
   if(typeof o.day === 'number') S.mapDay = o.day;   /* __BUILD_ON_THE_SCREEN__: the map's day */
   if(o.traits !== undefined) S.forceTraits = o.traits;   /* the game (or the VOTE shot) can name them */
+  if(Array.isArray(o.fights)) S.fights = o.fights.slice(); else if(o.place) S.fights = [];   /* RUN TWO [the scavenge button]: fights at this place; a searched body stays searched (S.deadTaken) */
   if(o.ledger !== undefined) S.ledger = o.ledger;   /* RUN TWO [the raid is a record]: FACTIONS' raid ledger ({marks}) and this place's id in it */
   if(o.ledgerPlace !== undefined) S.ledgerPlace = o.ledgerPlace; else if(o.place) S.ledgerPlace = null;
   view.cx = null; pickVariant();

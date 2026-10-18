@@ -9200,7 +9200,7 @@
    "id": "run2-who-is-wearing-what-10-18",
    "kind": "ui",
    "lane": "run 2",
-   "sha": "pending",
+   "sha": "b47f391",
    "made": "10/18",
    "title": "WHO IS WEARING WHAT: EVERY MAN'S FOUR SLOTS FILLED, TAP ONE TO SWAP FROM THE BAG",
    "why": "You said there was still no button to view your crew and equip them from your storage, so the company screen now lists every man with his face and his four slots filled with what he wears, and tapping a slot opens your bag inside his row showing only what fits there, one tap to swap it and his old piece goes back in the bag. You see it in the VOTE tab under LOOK, and in the demo when you tap CREW in any place's bar.",
@@ -9715,6 +9715,20 @@
      "SIZE: true size at 57 px a metre, one ruler with the man: the lamp is 222 px tall against your 96, the car 342 px long against your 96, the gun 100 px. Your tiles are icon-sized; the rig draws things as big as they really are beside a person.",
      "LOOK: all three pass the rig's card (2 of 8 numbers out each, never 3); the car carries 5,049 colours like your tiles, the lamp and gun fewer because they are thin. The gun is a heavy machine gun because a shotgun at its real size is a 60 by 6 pixel stick."
     ]
+   },
+   "draft": true
+  },
+  {
+   "id": "run2-the-scavenge-button-10-18",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "SCAVENGE: FOUR HOURS IN THE LOT FOR ONE THING, AND THE DEAD CARRY ROUNDS",
+   "why": "You said scavenging is for when you are down bad and not a great way to get resources, so a search costs four hours and finds one of the six supplies or nothing (a fresh lot of six gives about one find every two searches, a stall sells the same thing for one battery), and where men fell in a fight each body gives its rounds for certain until searched. You see it in the VOTE tab under LOOK, and in the demo when you tap the junk lot in any place.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SCAVENGE_BUTTON_10_18.png"
    },
    "draft": true
   }
