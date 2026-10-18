@@ -38,8 +38,11 @@ where LOOK joins the verdict like any ruler and these legs hold:
       against torch (cosine at or over 0.9999 on every input).
   L2  THE LINES CARRY LOOK for every family (the packs' 10th percentile cosine, pair and centroid, IN/OUT;
       their 1st percentile, OUT/FAR).
-  L3  IT BITES BOTH WAYS ON LOOK ALONE: his piece against itself reads cosine 1 and IN; noise against his
-      ground tile reads FAR on LOOK. (T2 and T3 then carry LOOK inside every verdict.)
+  L3  IT BITES BOTH WAYS ON LOOK ALONE: his piece against itself reads cosine 1 and IN, his car turned the
+      other way IN, his own tiles against each other FAR under 2 in 100; his car cut into 8 px blocks and
+      shuffled (his colours and grain, no car: what COLOUR and PATTERN cannot see) FAR; noise never IN
+      (noise is COLOUR's and PATTERN's: on the runner DINOv2 put it nearer one ground tile than his own
+      roughest 1 in 100 ground pairs, run 39152693910). T2 and T3 then carry LOOK inside every verdict.
   L4  THE LINES AGREE ACROSS BOXES: the runner's COLOUR, PATTERN, PAINTER, SHAPE and GRID lines equal the
       committed ones (only when $BOHEMIA_TWIN_COMMITTED_CAL names the committed copy; the workflow sets it).
 
@@ -109,7 +112,7 @@ def t2(cal, d):
     tw, p = planted(d)
     r = TG.score(tw, tw, cal=cal)
     ok('T2 a pack piece against itself is GREEN', r['verdict'] == 'GREEN', '%s %s' % (r['verdict'], r['why']))
-    rng = np.random.default_rng(82); reds = []; n = 0; t0 = time.time()
+    rng = np.random.default_rng(82); reds = []; n = 0; t0 = time.time(); lk = []
     for fam in ('ground', 'road'):
         fs = TG.pack_pieces(fam)
         for _ in range(40):
@@ -117,9 +120,14 @@ def t2(cal, d):
             v = TG.score(fs[i], fs[j], fam, cal); n += 1
             if v['verdict'] == 'RED':
                 reds.append('%s vs %s: %s' % (os.path.basename(fs[i]), os.path.basename(fs[j]), v['why'][:1]))
+            if 'look' in v['rulers']:
+                lk.append(v['rulers']['look']['level'])
     each = (time.time() - t0) / n
     ok('T2 his own tiles against each other: %d of %d pairs RED (under 5 in 100)' % (len(reds), n),
        len(reds) * 100 < 5 * n, '; '.join(reds[:3]))
+    if lk:
+        ok('L3 his own tiles against each other read FAR on LOOK alone in %d of %d pairs, OUT in %d (FAR under 2 in 100)'
+           % (lk.count(2), len(lk), lk.count(1)), lk.count(2) * 100 < 2 * len(lk))
     for k, what in (('flat', 'a flat six-step ramp tile'), ('up15', 'a 1.5x nearest upscale (fractional grid)'), ('noise', 'noise')):
         v = TG.score(p[k], tw, cal=cal)
         ok('T2 %s is RED against his ground tile' % what, v['verdict'] == 'RED', '%s %s' % (v['verdict'], v['why']))
@@ -138,6 +146,25 @@ def held_items(reg, base):
             and i.get('kind') not in NOT_ART and isinstance(i.get('twin'), dict) and i['twin'].get('src')]
 
 
+_TRACKED = None
+
+
+def tracked():
+    global _TRACKED
+    if _TRACKED is None:
+        _TRACKED = set(subprocess.run(['git', 'ls-files'], cwd=ROOT, capture_output=True, text=True).stdout.split('\n'))
+    return _TRACKED
+
+
+def own_before(src):
+    """a twin that is one of our own sheets (outside reference/art_bank) that git tracks: the runner's sparse
+    checkout leaves most of records/ and slices/ off disk, so the index answers, not the disk (run 39152693910)."""
+    if src.startswith('pack:'):
+        return False
+    rels = {os.path.normpath(src), os.path.normpath(os.path.join('slices', src))}
+    return any(r in tracked() and not r.startswith('reference' + os.sep + 'art_bank') for r in rels)
+
+
 def cull(reg, base, cal, cards=CARDS):
     probs, scored = [], 0
     for it in held_items(reg, base):
@@ -145,6 +172,8 @@ def cull(reg, base, cal, cards=CARDS):
         twin = TG.resolve(src)
         if twin and not src.startswith('pack:') and not os.path.abspath(twin).startswith(TG.BANK + os.sep):
             continue   # a 'before' of our own (an old sheet), not a pack twin: the twin law holds pack twins only
+        if not twin and own_before(src):
+            continue   # the same, on a box whose checkout does not carry it
         if not twin:
             probs.append('%s: its twin %r is not in the bank; name a twin the bank holds (reference/art_bank, '
                          'e.g. "pack:10. Abandoned cars#0")' % (it['id'], it['twin']['src'])); continue
@@ -280,15 +309,45 @@ def look_legs(cal, d):
     me = TG.score(tw, tw, cal=cal)['rulers'].get('look', {})
     ok('L3 his piece against itself reads LOOK cosine %s, IN' % me.get('twin'),
        (me.get('twin') or 0) >= 0.9999 and me.get('level') == 0, str(me))
-    for k, what in (('noise', 'noise'), ('flat', 'the flat six-step ramp'), ('up15', 'the 1.5x upscale')):
+    lv = lambda r: {0: 'IN', 1: 'OUT', 2: 'FAR'}.get(r.get('level'), '?')
+    r = TG.score(p['noise'], tw, cal=cal)['rulers'].get('look', {})
+    ok('L3 noise against his ground tile is never IN on LOOK (%s: cos %s to the twin, %s to the family)' % (
+        lv(r), r.get('twin'), r.get('family')), r.get('level') in (1, 2), str(r))
+    for k, what in (('flat', 'the flat six-step ramp'), ('up15', 'the 1.5x upscale (GRID\'s to catch, not LOOK\'s)')):
         r = TG.score(p[k], tw, cal=cal)['rulers'].get('look', {})
-        lv = {0: 'IN', 1: 'OUT', 2: 'FAR'}.get(r.get('level'), '?')
-        if k == 'noise':
-            ok('L3 noise against his ground tile reads FAR on LOOK alone (cos %s, %sx the line)' % (r.get('twin'), r.get('over_line')),
-               r.get('level') == 2, str(r))
-        else:
-            print('  --   LOOK on %s against his ground tile: %s (cos %s to the twin, %s to the family, %sx the line)' % (
-                what, lv, r.get('twin'), r.get('family'), r.get('over_line')))
+        print('  --   LOOK on %s against his ground tile: %s (cos %s to the twin, %s to the family)' % (
+            what, lv(r), r.get('twin'), r.get('family')))
+    # what only LOOK can see: his own car with its colours and grain kept and its shape gone
+    car = TG.resolve('pack:10. Abandoned cars#0')
+    a = TG.rgba(car).astype(np.uint8)
+    ys, xs = np.nonzero(a[..., 3] >= 128)
+    a = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    h8, w8 = a.shape[0] // 8 * 8, a.shape[1] // 8 * 8
+    a = a[:h8, :w8]
+    blocks = [a[y:y + 8, x:x + 8] for y in range(0, h8, 8) for x in range(0, w8, 8)]
+    order = np.random.default_rng(7).permutation(len(blocks))
+    cols = w8 // 8
+    sh = np.zeros_like(a)
+    for n, i in enumerate(order):
+        y, x = divmod(n, cols)
+        sh[y * 8:y * 8 + 8, x * 8:x * 8 + 8] = blocks[i]
+    paths = {'shuffle': os.path.join(d, 'car_shuffled.png'), 'mirror': os.path.join(d, 'car_mirror.png')}
+    Image.fromarray(sh, 'RGBA').save(paths['shuffle'])
+    Image.open(car).convert('RGBA').transpose(Image.FLIP_LEFT_RIGHT).save(paths['mirror'])
+    rm = TG.score(paths['mirror'], car, 'prop', cal)
+    ok('L3 his car turned the other way reads IN on LOOK (cos %s)' % rm['rulers']['look']['twin'],
+       rm['rulers']['look']['level'] == 0, str(rm['rulers']['look']))
+    rs = TG.score(paths['shuffle'], car, 'prop', cal)
+    ok('L3 his car cut into 8 px blocks and shuffled (his colours, his grain, no car) reads FAR on LOOK '
+       '(cos %s to the twin, %s to the family; COLOUR %s, PATTERN %s)' % (
+           rs['rulers']['look']['twin'], rs['rulers']['look']['family'],
+           {0: 'IN', 1: 'OUT', 2: 'FAR'}[rs['rulers']['colour']['level']], {0: 'IN', 1: 'OUT', 2: 'FAR'}[rs['rulers']['pattern']['level']]),
+       rs['rulers']['look']['level'] == 2, str(rs['rulers']['look']))
+    for fam, what in (('lamp', 'a lamp'), ('road', 'a road tile'), ('door', 'a door')):
+        q = TG.pack_pieces(fam)[0]
+        r = TG.score(q, car, 'prop', cal)
+        print('  --   LOOK on %s against his car: %s (cos %s to the car, %s to the props; verdict %s)' % (
+            what, lv(r['rulers']['look']), r['rulers']['look']['twin'], r['rulers']['look']['family'], r['verdict']))
     com = os.environ.get('BOHEMIA_TWIN_COMMITTED_CAL')
     if com:
         c = json.load(open(com))
