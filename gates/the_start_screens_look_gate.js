@@ -58,8 +58,12 @@ async function look(page) {
     const picks = Array.from(N.querySelectorAll('button')).map(b => b.getBoundingClientRect()).filter(r => r.width > 0);
     const un = rowB.find(b => !b.classList.contains('on')), ur = un.getBoundingClientRect(), sr = strip.getBoundingClientRect(), ob = N.querySelector('.org b');
     const casing = Array.from(document.fonts).some(f => f.family.replace(/["']/g, '') === 'BohemiaCasing' && f.status === 'loaded');
-    return { dressed: !!document.getElementById('bm-frontdoor'), casing,
-      mats: { cards: rowB.filter(b => !b.classList.contains('on')).every(b => /url\(/.test(bg(b))), lit: rowB.filter(b => b.classList.contains('on')).every(b => /gradient/.test(bg(b))), sheet: /url\(/.test(bg(strip)), form: /url\(/.test(bg(name)) },
+    /* THE FRONT SCREEN, JUST THE FONT (10/18): when the door's switch is on, the picks are typed on the terminal's glass
+       (a 1 px line round each, the picked one in the wordmark's gold) instead of taped cardboard on it */
+    const bare = document.getElementById('front').getAttribute('data-look') === 'just-the-font', bc = el => getComputedStyle(el).backgroundColor;
+    return { dressed: !!document.getElementById('bm-frontdoor'), casing, bare,
+      mats: bare ? { cards: rowB.filter(b => !b.classList.contains('on')).every(b => bc(b) === 'rgb(10, 13, 11)' && getComputedStyle(b).borderTopWidth === '1px'), lit: rowB.filter(b => b.classList.contains('on')).every(b => bc(b) === 'rgb(200, 171, 99)'), sheet: !/url\(|gradient/.test(bg(strip)), form: !/url\(|gradient/.test(bg(name)) }
+        : { cards: rowB.filter(b => !b.classList.contains('on')).every(b => /url\(/.test(bg(b))), lit: rowB.filter(b => b.classList.contains('on')).every(b => /gradient/.test(bg(b))), sheet: /url\(/.test(bg(strip)), form: /url\(/.test(bg(name)) },
       ring: on ? getComputedStyle(on).boxShadow : '', fams: { card: F(rowB[0]), org: F(ob), line: F(N.querySelector('.org i')), name: F(name.querySelector('span')) },
       small: picks.filter(r => r.height < 44).length, n: picks.length,
       cardBox: [ur.x + ur.width - 14, ur.y + 4, 10, ur.height - 8], cardCol: getComputedStyle(un).color,
@@ -67,8 +71,13 @@ async function look(page) {
   }, fam);
   if (!a) { ok('the front door\'s picks are on the page', false); return; }
   ok('THE FRONT DOOR IS DRESSED (the materials file found #newco by itself)', a.dressed);
-  ok('  the fights and shelves are cards of cardboard (the picked one lit amber), the origins a posted sheet, the name a form on paper', a.mats.cards && a.mats.lit && a.mats.sheet && a.mats.form, JSON.stringify(a.mats));
-  ok('  the picked origin is ringed in marker', /168, 48, 28/.test(a.ring), a.ring);
+  if (a.bare) {
+    ok('  [just the font] the fights and shelves are typed on the glass with a 1 px line, the picked one in the wordmark\'s gold; no taped sheet, no paper form', a.mats.cards && a.mats.lit && a.mats.sheet && a.mats.form, JSON.stringify(a.mats));
+    ok('  [just the font] the picked origin is ringed in the gold', /200, 171, 99/.test(a.ring), a.ring);
+  } else {
+    ok('  the fights and shelves are cards of cardboard (the picked one lit amber), the origins a posted sheet, the name a form on paper', a.mats.cards && a.mats.lit && a.mats.sheet && a.mats.form, JSON.stringify(a.mats));
+    ok('  the picked origin is ringed in marker', /168, 48, 28/.test(a.ring), a.ring);
+  }
   ok('  CASING on what is stamped, ROM on what is printed (faces loaded)', a.casing && a.fams.card === 'BohemiaCasing' && a.fams.org === 'BohemiaCasing' && a.fams.name === 'BohemiaCasing' && a.fams.line === 'BohemiaROM', JSON.stringify(a.fams));
   ok('  every pick is 44 points or more', a.n >= 10 && a.small === 0, a.n + ' picks, ' + a.small + ' small');
   const c1 = await contrast(page, [{ k: 'card', box: a.cardBox, col: a.cardCol }, { k: 'origin name', box: a.sheetBox, col: a.orgCol }, { k: 'origin line', box: a.sheetBox, col: a.lineCol }]);
@@ -85,13 +94,19 @@ async function look(page) {
     const api = BohemiaMaterials.startScreen(document.body, { onNew: () => __got.push('new'), onContinue: () => __got.push('continue'), onSettings: () => __got.push('settings'), saved: null });
     window.__ss = api;
     const bs = Array.from(api.root.querySelectorAll('.b')).map(b => { const r = b.getBoundingClientRect(), t = b.querySelector('b'), rg = document.createRange(); rg.selectNodeContents(t); const tr = rg.getBoundingClientRect();
-      return { k: b.getAttribute('data-k'), bg: getComputedStyle(b).backgroundImage.slice(0, 400), h: r.height, w: r.width, tx: tr.left - r.left, align: getComputedStyle(b).textAlign, fam: F(t), dis: b.disabled, sub: b.querySelector('i').textContent }; });
-    return { bs };
+      return { k: b.getAttribute('data-k'), bg: getComputedStyle(b).backgroundImage.slice(0, 400), col: getComputedStyle(b).backgroundColor, h: r.height, w: r.width, tx: tr.left - r.left, align: getComputedStyle(b).textAlign, fam: F(t), dis: b.disabled, sub: b.querySelector('i').textContent }; });
+    return { bs, bare: api.root.classList.contains('jtf') };
   }, fam);
   /* the whole background, not the first bytes of the picture: every PNG opens with the same header */
   const kinds = s.bs.map(b => b.bg);
-  ok('THE START SCREEN\'S LOOK: THREE THINGS OF THREE MATERIALS', s.bs.length === 3 && s.bs.every(b => /url\(/.test(b.bg)) && new Set(kinds).size === 3, s.bs.map(b => b.k).join(' / '));
-  ok('  each read from the left, 60 points or more, in CASING', s.bs.every(b => b.align !== 'center' && b.tx < 60 && b.h >= 60 && b.fam === 'BohemiaCasing'), s.bs.map(b => b.k + ' ' + Math.round(b.h) + ' +' + Math.round(b.tx) + ' ' + b.fam).join(', '));
+  const GOLD = 'rgb(200, 171, 99)';
+  if (s.bare) {
+    ok('THE START SCREEN\'S LOOK [just the font]: ONE GOLD THING (NEW GAME with no run) AND TWO PRINTED LINES, no material, no gradient', s.bs.length === 3 && s.bs.filter(b => b.col === GOLD).map(b => b.k).join() === 'new' && s.bs.every(b => !/url\(|gradient/.test(b.bg)), s.bs.map(b => b.k + ' ' + b.col).join(' / '));
+    ok('  each read from the left, in CASING, the gold one 60 points or more, the printed lines 48', s.bs.every(b => b.align !== 'center' && b.tx < 60 && b.fam === 'BohemiaCasing' && b.h >= (b.col === GOLD ? 60 : 48)), s.bs.map(b => b.k + ' ' + Math.round(b.h) + ' +' + Math.round(b.tx) + ' ' + b.fam).join(', '));
+  } else {
+    ok('THE START SCREEN\'S LOOK: THREE THINGS OF THREE MATERIALS', s.bs.length === 3 && s.bs.every(b => /url\(/.test(b.bg)) && new Set(kinds).size === 3, s.bs.map(b => b.k).join(' / '));
+    ok('  each read from the left, 60 points or more, in CASING', s.bs.every(b => b.align !== 'center' && b.tx < 60 && b.h >= 60 && b.fam === 'BohemiaCasing'), s.bs.map(b => b.k + ' ' + Math.round(b.h) + ' +' + Math.round(b.tx) + ' ' + b.fam).join(', '));
+  }
   ok('  NO RUN: CONTINUE IS DARK AND SAYS SO', s.bs[1].dis && s.bs[1].sub === 'NO RUN SAVED', s.bs[1].dis + ' "' + s.bs[1].sub + '"');
   await page.evaluate(() => __ss.paint({ day: 3, min: 600 }));
   const tapK = async (k) => { const b = await page.evaluate((k) => { const r = __ss.root.querySelector('[data-k="' + k + '"]').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, k);
@@ -100,6 +115,8 @@ async function look(page) {
   const g = await page.evaluate(() => ({ got: __got.slice(), sub: __ss.root.querySelector('[data-k="continue"] i').textContent, front: getComputedStyle(document.getElementById('front')).display }));
   ok('  EACH TAP REACHES RUN\'S CALLBACK (and nothing behind it)', g.got.join(',') === 'new,continue,settings' && g.front !== 'none', g.got.join(','));
   ok('  with a run, CONTINUE prints its day and hour', g.sub === 'DAY 3 · 10:00', g.sub);
+  if (s.bare) { const lead = await page.evaluate(() => Array.from(__ss.root.querySelectorAll('.b')).filter(b => getComputedStyle(b).backgroundColor === 'rgb(200, 171, 99)').map(b => b.getAttribute('data-k')).join());
+    ok('  [just the font] with a run the one gold thing is CONTINUE', lead === 'continue', lead); }
   await page.evaluate(() => __ss.arm('DAY 3 IS KEPT ASIDE, NOT DELETED'));
   const ar = await page.evaluate(() => __ss.root.querySelector('[data-k="new"]').textContent);
   ok('  the arm line reads (TAP AGAIN, what happens to the run)', /TAP AGAIN/.test(ar) && /KEPT ASIDE/.test(ar), ar);
