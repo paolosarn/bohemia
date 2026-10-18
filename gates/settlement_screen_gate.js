@@ -293,13 +293,14 @@ const srv = http.createServer((rq, rs) => {
     out.other = BohemiaSettlement.traitsNow().indexOf('raided') >= 0;
     BohemiaSettlement.state.mapDay = undefined; BohemiaSettlement.open({ ledger: null, traits: [] }); return out;
   });
-  /* SICKNESS is the wiki's card (page 1792): medicine buying +200%, nothing else (ECONOMY day 71: ours raised every price) */
+  /* SICKNESS is the wiki's card (page 1792): +100% food prices, medicine buying +200%, nothing else (ECONOMY day 71: ours raised
+     every price; RUN TWO [the clinic's cough] 10/18: the food line is on the library's own page, printed first) */
   const sick = await roll(['sickness']);
   await tapB('stall'); await p.waitForTimeout(250);
   const stall = await p.evaluate(() => [...document.querySelectorAll('#sbody .act')].map(b => b.textContent.replace(/\s+/g, ' ').trim()));
   await p.click('#close'); await p.waitForTimeout(300);
   const meds = stall.find(t => /meds/i.test(t)) || '', food = stall.find(t => /food/i.test(t)) || '';
-  ok('  and a sick town triples the meds at the stall and leaves the blades and the bread alone', /3 batteries/.test(meds) && /1 battery/.test(food) && common.every(id => priceOf(sick.st, id) === priceOf(plain.st, id) || priceOf(sick.st, id) == null),
+  ok('  and a sick town triples the meds, doubles the bread, and leaves the blades alone', /3 batteries/.test(meds) && /2 batteries/.test(food) && common.every(id => priceOf(sick.st, id) === priceOf(plain.st, id) || priceOf(sick.st, id) == null),
      meds + ' / ' + food);
   /* THE SHELF RESTOCKS (RUN TWO 10/18): Battle Brothers' market refreshes about every 3 days (GROK_21 line 17). A real buy
      at the smith stays gone on the same delivery (reopened, day 2), and day 3 is a new roll, the slot refilled */

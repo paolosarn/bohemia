@@ -9264,6 +9264,12 @@ GATES = [
      "the map's own dice for that town that day (a planted lie caught); the ledger's raid told first; live on his phone's "
      "profile the bar's first line each visit is the free one under the keeper's fresh talking face, nothing spent, a round "
      "tells the next town, no 'Marked on your map', the bar still pours with the places file blocked", True),
+    ('THE CLINIC\'S COUGH', ['node', 'gates/the_clinics_cough_gate.js'],
+     "RUN TWO [the clinic's cough] (the clinic said 'no room' and treated anyway at the usual price; Battle Brothers' temple has "
+     "no queue). The sickness card equals the library's page 1792 (food +100%, medicine +200%, recruits -25%); the same hurt "
+     "man costs and heals the same sick or well (the wiki's temple formula); the sick keeper says it first under a fresh "
+     "talking face, the cough fills the cots and yours come first, never 'no room' (a control catches the old line); treating "
+     "works; the stall sick 2 and 3, well 1 and 1", True),
     ('THE NEIGHBOUR TAKES THE REFUGEES', ['node', 'gates/the_neighbour_takes_the_refugees_gate.js'],
      "RUN TWO [the neighbour takes the refugees] (ECONOMY day 70: 'the dear town is the one NEXT to it, where the people "
      "went'). The refugees card equals the wiki's page 1660 read from the library (food -25% available, +25% price, items "
