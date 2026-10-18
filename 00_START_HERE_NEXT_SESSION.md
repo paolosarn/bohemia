@@ -1265,6 +1265,36 @@ NEXT (top OPEN): [the powered blocks], then [the feed], then [taken by a deal].
 RUN (run-eak241): 10/16b LATEST -- BIG SWING (rule 110): [the long freeze] and [the map at Battle Brothers' size] CLAIMED and round one shipped, [ten seconds to play] round five. [the long freeze]: the cause is the whole map drawn several times in one frame (four animation loops each drawing it), written under the stop block line 2; fix __ONE_RENDER_A_FRAME__ (map page); five minutes at 4x x3: stalls 18-24 -> 11-18, worst 2.9 s -> 1.2 s; the end state (no stall over a beat) waits on one draw being cheaper (PLUMBER's map budget). [the map at Battle Brothers' size]: slices/bohemia_region.js: two grids, the valley's 96 x 96 and a region of the same blocks around it, 496 x 496 (BB about 140 x 140), read off the land painter; he walks out (roads half, hills 1.8); twelve real places as settlements; the far stop is the whole region with the land unhazed there (the old far stop keeps its haze, 104f); 1.9 days rim to rim on a road, 3.7 open; 26 settlements (BB 17). GATE THE REGION IS BATTLE BROTHERS' SIZE 8/0, three mutations red. FOR WORLD [the region]: the land out there is vbCore's backdrop; make it the real region and the places' own ground. FOR FACTIONS: bases and parties can move out onto the region (BOH_REGION.places, passAt). FOR EYES [the map's four numbers]: BB's crossing days and zoom stops are owed. [ten seconds to play] round five: the morning ring's distance baked by the cut (keyed), the crowd's later people in one message; after BEGIN 4x frozen 68-80% -> 43-54%. THE CUT IS HELD (the stop): the committed demo stays 10/13b; the next cut carries round five and its leg B12 (held in my scratch). MY MISTAKE: cac272f5 'wip' reached main under the claim (a rebase carried an unfinished commit); e546b533 finished it the same round. records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md, records/BOHEMIA_THE_REGION_RUN_10_16_26.md, records/BOHEMIA_TEN_SECONDS_TO_PLAY_ROUND_FIVE_RUN_10_16_26.md. TAB: the DEMO's map, pinch all the way out, tap a town out in the desert.
 RUN (run-eak241): 10/13b LATEST -- [ten seconds to play] round four, about 3 of 4: THE MAP PEOPLE COME BAKED. The row's stopwatch (THE MAP ANSWERS AFTER BEGIN M1, 4x Pages-like): BEGIN lit 14.5-15.8 -> 11.4-12.4 s, his first block 19.1-21.5 -> 15.9-16.8 s from the link; BEGIN ready at full speed 3.8 -> 2.5-2.7 s. The cut bakes the map's people once (tools/bohemia_bake_the_demo_cast.js, run by the cut after every cut, skipped when current): BOHEMIA_DEMO_CAST.json (the six's stills and breath, 192 frames, 157 KB on the wire, fetched in the demo's first line) and BOHEMIA_DEMO_CROWD.json (six later people and twelve walks, 576 frames, 508 KB, fetched after the door); keyed to the workshop the demo was cut from, a file from another cut refused and baked live; the deploy re-cuts on every push so pages.yml now installs a browser before the cut (a step that cannot fail the deploy; without it the demo bakes live). Frames proven the same as the workshop's live bake (B10, M7). GATES: THE DEMO BOOTS LIGHT 13/0 (B11 new, B9 and B3 re-aimed), THE MAP ANSWERS AFTER BEGIN 11/0 (M10 new); five mutations red. NOTED: the cord at AK lifted, [the long freeze] OPEN on my board (the 14.8 s freeze, one run in two; my bet to check first: the live fight's first load or the late sprite files, each one freeze). LEFT: after BEGIN still 68-80% frozen at 4x, now mostly the late street-sprite script files (eight of 1.6-4.2 MB, one freeze each up to 2 s at 4x) -> smaller files (WORLD's chunker) and none while travelling; BEGIN 11 s (parse 0.9 s full speed, city boot and paints 0.8 s). records/BOHEMIA_TEN_SECONDS_TO_PLAY_ROUND_FOUR_RUN_10_13_26.md. VOTE run-the-map-people-come-baked-10-13. TAB: the DEMO, open the link, BEGIN, tap the map.
 RUN (run-eak241): 10/11f LATEST -- [ten seconds to play] round three, about 3 of 4: THE MAP ANSWERS AFTER BEGIN. The row's own stopwatch now runs (gate leg M1): the link, NEW GAME, BEGIN when it lights, one tap on open ground a second later, the clock stops when the party crosses its first block, 4x served like Pages: main 32.5 to 34.7 s, now 19.1 to 21.5 s. MEASURED: the 20 s after BEGIN were 91 to 93% frozen, the longest 3.9 to 5.7 s; five causes cut: the act faces built nine street blocks to find nobody (now 'either' without the search); the morning ring built six street blocks in one task (now dry-run search, a block a task, none while travelling); every street sprite made a picture in one task (now 6 ms handfuls, families handed over whole); the crowd a whole person a task (now a facing a task, after his walk and the breath, none while moving); the city frame's late load event (after the 26 MB of sprites) re-sent his body and put the save back (in the demo, not what the map already asked for). Now the longest freeze after BEGIN 1.8 to 2.4 s, 68 to 79% frozen. GATE THE MAP ANSWERS AFTER BEGIN 10/0 (6 red on main), six mutations each red. FOR LIFE + CITY: the alpha re-sends its first six after the first later person landed, wiping 'apron' from the alpha's map (main too). FOR PLUMBER: the driver's knock() taps #fronttap then #front, and the second tap lands on the map (a journey to the screen centre). LEFT for 10 s: BEGIN lights at about 12.5 s at 4x (the six's stills 0.95 s full speed, parse 0.72, city boot 0.7, first paints 0.36), then about 2 s of BEGIN answer and travel. records/BOHEMIA_TEN_SECONDS_TO_PLAY_ROUND_THREE_RUN_10_11_26.md. VOTE run-the-map-answers-after-begin-10-11. TAB: the DEMO, press BEGIN and tap the map.
+PLUMBER (plumber-ont6t5): 10/18 LATEST -- *** CHAT 18. ROUND 60 (opened by the coordinator, rule 112; Opus 5.5, rule
+116): [the allow list gate] AND [the not vibe coded gates] SHIPPED, WITH ROUND TWO'S RENDERED-SPRITE SET. ***
+Record: records/BOHEMIA_THE_NOT_VIBE_CODED_GATES_AND_THE_ALLOW_LIST_GATE_10_18_26.md. The chat before this one left
+nothing uncommitted on these rows; both were built from zero this round.
+ALLOW LIST (11/0, reads only): RED ON ITS FIRST RUN, 26 TOOLS. The cloud container names the session server
+mcp__bf7c680d-5fdc-5ef4-b4a0-abadb619bf0a__ (a name-derived UUID, the same in every container); the list carried
+only Claude_Code_Remote and claude-code-remote, so none of the coordinator's session calls matched under that name.
+Three server-wide entries added to .claude/settings.json in the same commit; every spelling seen is a leg.
+NOT VIBE CODED (27/0, 3 s, no browser): tools/bohemia_not_vibe_coded.py holds Section D's ten in order plus round
+two's R2 (binary alpha, no filter residue) and R8 (eight facings on one foot row, one light, area within 25%).
+MEASURED FIRST: the research's colour caps fail HIS PACKS on 175 of 175 pieces, so the band of his packs (90th
+percentile over 1,938 pieces, records/target/BOHEMIA_NOT_VIBE_CODED_BANDS.json, --bands rebuilds it in 8 min)
+holds where the research cannot; the band is toothless on light and hue (180 degrees, every ramp straight), so
+those hold to the research line. DIRECTION'S STYLE GUIDE LANDED MID-ROUND (077f30f) and now holds the rendered
+classes: a colour FLOOR and the top-eight share, its light row, the hue shift on the source palette. Both of
+this gate's first rulers (the pack-band colour ceiling, the centroid light angle) FAILED THE ROBOT, so they print
+only; leg N5 holds the robot and the truck through the held five on all eight facings. COOK THREE's thug passes;
+round two's truck (58 colours) and the dire wolf (482, top eight 18.6%) fail the floor.
+[FOR EVERY ART LANE] an art item you register in VOTE from now carries "sprites": [the PNGs the sheet shows],
+"class": person|beast|vehicle|prop|tile, "look": {"px": 1, "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+"light": "guide"}; without them NOT VIBE CODED is red and prints this shape. The 619 items already registered are
+frozen and reported, never held.
+[FOR DIRECTION] the rendered-sprite set on the master rig: the foot row moves 14 to 34 px between facings on every
+subject (the still is the walk's passing pose), heights differ 20 to 55 px, and the old robot carries 2,221
+half-transparent edge pixels (the truck 5,874); G6 and G8 in your guide say 1 px and binary. Printed every run.
+ALSO FIXED ON MAIN: the suite's table was malformed (RAGDOLL HITS, BEAST IN EIGHT rows had no slow flag), so the
+whole suite refused to start; fixed (RAGDOLL HITS timed 49 s, slow). GATE REGISTRY skipped every double-quoted row
+name; fixed: 68 REAL ORPHANS remain, gates other lanes wrote and the suite never runs. New row [the orphan gates].
+NEXT (the board's order): [the orphan gates], [the twin gate], [aseprite in the pipe].
+
 PLUMBER (plumber-ont6t5): 10/17 LATEST -- *** CHAT 18. ROUND 59, THE BIG SWING (rule 110): THREE ROWS SHIPPED IN ONE
 ROUND, [the quartermaster's count] 6b5860d, [the one stopwatch] f3fa1fb, [the art pipe gate] 27a5b00. ***
 Records: records/BOHEMIA_THE_QUARTERMASTERS_COUNT_10_17_26.md, records/BOHEMIA_THE_ONE_STOPWATCH_10_17_26.md,
@@ -1295,44 +1325,6 @@ NOT DONE: the Lua per-job scripts and the runner Action ([aseprite in the pipe]:
 minutes); the twin gate; nothing registered in VOTE (this lane registers only what he feels in the game).
 NEXT (the board's order): [the twin gate], [aseprite in the pipe] with the build recipe above, [the turn leg],
 [the readback leg].
-
-PLUMBER (plumber-ont6t5): 10/16 LATEST -- *** CHAT 18. ROUND 58. [the trail file] SHIPPED eeb17de5: THE MOVES RAN ON
-10/16's MAIN. ***
-Record: records/BOHEMIA_THE_TRAIL_FILE_ROUND_TWO_10_11_26.md. Hearback (sweeps AI, AK) folded in: rules 0-13 and his
-words fold at 14 silent sweeps and never leave; held lanes' rows keep their clock; the split refuses on a hazard; plus
-the floor (no running lane moved under three OPEN rows) and this lane's unpushed commits counted as cites.
-MOVES: START 136,863 -> 6,540 lines (51 blocks kept, 1,880 in 26 files under handoffs/); 37 rules folded,
-0 left; 46 OPEN rows to records/BOHEMIA_EVAPORATED_ROWS.md, 1 STALE; 459 records to archive/ with registry
-lines; canon index regenerated. This lane's older blocks are in handoffs/PLUMBER_ARCHIVE.md.
-WHY IT TOOK FIVE DAYS: on 10/11 a safety check on this session's commands refused the last step and then every
-command; the work waited on this lane's branch and was re-run on today's main rather than replayed.
-PAOLO ON ROUND 1'S CARD: UP, "This is so miscellaneous to me I have no fucking clue what's going on." This lane
-registers a VOTE card only for what he feels in the game; none this round.
-NEXT (sweep AK's order): [the quartermaster's count], then [the one stopwatch].
-
-PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 57. [the trail file] ROUND 1 SHIPPED 0e61a30: THE MACHINE
-AND ITS DRY RUN (rule 96). NOTHING MOVED. ***
-Record: records/BOHEMIA_THE_TRAIL_FILE_ROUND_ONE_10_10_26.md (the dry run printed in full at its foot). VOTE
-plumber-the-trail-file-10-10. Row kept CLAIMED (rule 6): the moves are round 2.
-BUILT: tools/bohemia_trail_sweep.js. History from a slim copy of main in the temp folder (blob-less, 45 days, 5 MB,
-refreshed each run; the working clone is shallow). Clock = lettered sweep commits 'VAMILY m/d X:' (30, B..AH; same
-letter twice is one sweep). Coordinator = sessions that wrote a sweep, COORDINATOR or PAOLO commit (2). Cite = a lane
-commit's message (rule numbers incl. 'rules 82 and 82a', 'rule-89'; [labels]; file names) or a record/law it touched;
-a rule is also cited through the law/record files its text points to. Births and open-since from the last 15 sweeps'
-boards. Records: 30 days or reachable from roots (rg over live files, not the canon index, not moving blocks).
-Handoff split: heads 'LANE (slug): date', '## LANE (', '=== LANE: ... (date'; aliases SOUND/MUSIC/SFX->SOUNDS,
-CITY->LIFE + CITY, ART->DIRECTION; hazard = a line naming a lane with a date of the last 3 days in a moving block.
-Writes records/target/BOHEMIA_TRAIL.json (one mark a line, empty fields dropped, 927 KB, sealed). Gate THE TRAIL FILE
-(gates/trail_gate.js) 5/0, mutation-proved (lane order, blocks kept).
-DRY RUN: handoff 135,428 -> 9,467 lines; 33 rules leave + 9 fold; 156 OPEN rows out + 4 STALE; 390 records leave, 0 laws.
-[FOR THE COORDINATOR, HEARBACK] (1) 18 sweeps in 7 days: 14 sweeps = 5.4 days, so rules 0, 1, 4 and 30 more would
-leave the page; exempt the manual (0-13) or count in days? (2) 156 OPEN rows out, many in lanes rule 88 holds. (3) The
-split is refused while a hazard exists (1 today, a false alarm); COMBAT, DIRECTION and DYNASTY write their newest
-state inside 1,100- to 2,300-line standing blocks, which is most of the 9,467 kept lines. CORRECT, or NEGATIVE with the
-one thing, and round 2 makes the moves (the handoff gate reads handoffs/ in the same commit).
-Gates this round: THE TRAIL FILE 5/0; HANDOFF 10/0. Red elsewhere, not this lane's files: ENGINE CENSUS, FENCE ORPHAN,
-NO ORPHAN SCRIPT, PAGES PUBLISH (533 MB, tickets/ not in the workflow).
-NEXT: [the trail file] round 2 on CORRECT; else the top OPEN row, [the turn leg].
 
 PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 56. [the reply leg] SHIPPED 4dfc12e: THE LAST FIVE
 LINES ARE THE REPLY (rule 90, school round 10). ***

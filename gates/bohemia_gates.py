@@ -5404,7 +5404,10 @@ GATES = [
      'for DIRECTION\'s style guide. Holds: every check bites both ways on planted sprites, sheets and CSS; the band '
      'is current against the packs on disk; an art item registered after this gate names its sprites and its look '
      '(px, palette, light) and passes the first five against the packs, or it never reaches the tab; no new UI '
-     'default in the demo or the alpha. The master rig is printed through all ten every run.', False),
+     'default in the demo or the alpha. DIRECTION\'s style guide (records/target/BOHEMIA_STYLE_GUIDE.json) holds the '
+     'rendered classes where it sets a number (a colour FLOOR, the top-eight share, the light row, the hue shift on the '
+     'source palette), and the robot and the truck must pass the held five on all eight facings (his YES is the ruler). '
+     'The master rig is printed through all ten every run.', False),
     ('NEVER WORSE', ['node', 'tools/bohemia_never_worse.js'],
      'THE RATCHET AS A MACHINE. 9/20, PLUMBER lane, row [never worse], PAOLO rule 18c. He said '
      '"I just want to restart all of this... we were closer to being able to play before, right now '

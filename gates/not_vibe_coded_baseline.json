@@ -1,5 +1,5 @@
 {
-"_readme": "FROZEN 10/18 by PLUMBER [the not vibe coded gates]: the VOTE items registered before the gate (reported, never held by N3) and the UI default counts in the shipped demo and alpha (N4: may only go down). Never add an id; lower a UI count when a lane removes a default.",
+"_readme": "FROZEN 10/18 (the 614 at the gate's first run plus five registered on main the same hour, before the gate landed) by PLUMBER [the not vibe coded gates]: the VOTE items registered before the gate (reported, never held by N3) and the UI default counts in the shipped demo and alpha (N4: may only go down). Never add an id; lower a UI count when a lane removes a default.",
 "items": [
 "ui-how-a-label-is-spaced-9-12",
 "ui-five-ways-the-screen-reads-9-13",
@@ -614,7 +614,12 @@
 "run2-who-is-wearing-what-10-18",
 "sounds-a-desert-not-a-rainforest-10-18",
 "sounds-the-title-is-the-desert-10-18",
-"tuning-the-twenty-fields-four-studios-10-18"
+"tuning-the-twenty-fields-four-studios-10-18",
+"direction-the-look-bible-everything-the-same-10-18",
+"direction-the-style-guide-do-and-dont-10-18",
+"direction-the-hand-finish-10-18",
+"cook4-the-motel-straight-roof-10-18",
+"cook3-the-thug-through-the-rig-10-18"
 ],
 "ui": {
 "slices/BOHEMIA_DEMO.html": {

@@ -71,10 +71,13 @@ N1 every check bites both ways: a planted made sprite (one light, a hue-shifted 
 planted twin (mixels, a smooth gradient, lit from below, straight darkening, noise everywhere, a box, one
 value, salted orphans, a mirrored box; two identical silhouettes; one tile repeated; gradient, Arial, a
 12 px radius and a glow; a soft edge; a facing that sinks 6 px). N2 the band is current against the pack
-pieces on disk. N3 THE CULL: an art item registered in VOTE after this gate (its id not among the 614 in
-gates/not_vibe_coded_baseline.json) that shows an image names "sprites" (png paths) and "look" ({"px",
+pieces on disk. N3 THE CULL: an art item registered in VOTE after this gate (its id not among the 619 in
+gates/not_vibe_coded_baseline.json: 614 at the first run and five registered on main the same hour, before the
+gate landed) that shows an image names "sprites" (png paths) and "look" ({"px",
 "palette", "light"}), and every sprite passes D1 to D5 against its family's band, or it never reaches the
-tab. N4 no new UI default in the shipped demo and alpha (232 frozen: 39 gradients, 17 glows, 77 radii over
+tab. The registry row carries "sprites": [the PNGs the sheet shows], "class": person, beast, vehicle,
+prop or tile, and "look": {"px": 1, "palette": "records/target/BOHEMIA_STYLE_PALETTE.json", "light": "guide"};
+the red line prints that shape. N4 no new UI default in the shipped demo and alpha (232 frozen: 39 gradients, 17 glows, 77 radii over
 2 px in each; only down).
 
 ### Three things the instrument got wrong on the way, caught by its own plants
@@ -88,11 +91,32 @@ tab. N4 no new UI default in the shipped demo and alpha (232 frozen: 39 gradient
 3. R2's boundary-only colour counted the outline colour itself. Now a boundary-only colour is residue only
    when it is rare (3 pixels or fewer); a ring colour is a decision.
 
-## 3. THE MASTER RIG THROUGH THE TEN (printed every run, not held)
+### DIRECTION'S STYLE GUIDE LANDED MID-ROUND, AND IT NOW HOLDS THE RENDERED CLASSES
 
-HELD (the first five as N3 would hold a new item): the man, the dire wolf and round two's truck PASS all five;
-the robot fails D2 (5,871 colours against the packs' 5,590) and D4 (straight darkening); the old truck fails D2
-(13,047); the fox and round two's fox fail D4, round two's fox and man fail D3 from the S facing.
+DIRECTION shipped records/target/BOHEMIA_STYLE_GUIDE.json (077f30f) while this round ran, with tests G1 to G10
+naming the keys a gate reads. It decided against the research on two of the first five, with his YES as the
+reason: no output colour cap (a FLOOR: a person or beast at least 800 colours, a vehicle or prop 2,330, a
+sprite smaller than one tile by the props' density of 370 per 1,000 px, and the top eight colours under 11.1
+percent) and no stepped ramp (the hue shift lives in the SOURCE palette and the warm sun). Its tie-breaker 1:
+a number that would fail the robot or the truck is the wrong number.
+
+That caught this gate's own pack-band ceiling on D2: the robot's 5,871 colours are over the packs' 90th
+percentile (5,590), so the ceiling failed the maquette. And the bright-minus-dark centroid angle (D3) failed
+the robot from the S facing (41 degrees off) and the truck from the E and NW facings (55, 53): on a model of
+several materials the centroid reads the paint as much as the sun. So for a RENDERED class the gate holds:
+D1 the research line, D2 the guide's G2, D3 the guide's own card row (the top half at least as bright as the
+bottom, within -2.5 values, which both maquettes pass on all eight facings), D4 the guide's G4 on the source
+palette (16 roles, every ramp walks 8 degrees or more: passes), D5 the pack band of the guide's judge family.
+Every research verdict still prints beside the held one. A new leg, N5 THE MAQUETTES PASS, holds the robot and
+the truck through the held five on all eight facings: if a future number fails them, the gate goes red on the
+number, not on the art. N5 also proves G2 and the light row bite both ways on the plants.
+
+UNDER THE GUIDE: the robot, the truck, the man and COOK THREE's new thug (all eight facings) pass the held
+five; round two's truck fails G2 (58 colours, the snap the guide names as its "never"); the dire wolf fails G2
+(482 colours, top eight 18.6 percent: a clean surface); the man and round two's man fail the light row on
+their S-side facings (the top half darker than the bottom).
+
+## 3. THE MASTER RIG THROUGH THE TEN (printed every run, not held)
 
 S facing, research numbers: every subject fails D2 (robot 5,871 colours, truck 13,047, man 1,404, fox 970,
 dire wolf 482), and ROUND TWO'S TRUCK HOLDS 58, the first rig render near a cap: the quantise step in

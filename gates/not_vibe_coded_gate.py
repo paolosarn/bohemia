@@ -31,6 +31,9 @@ THE LEGS
       pack band, D1, D3 (its own declared light) and D4 against the research line (RULER below says why).
       A sheet that fails the first five never reaches the tab. The 614 items registered before this gate
       are reported, never held (a frozen baseline that never grows).
+  N5  THE MAQUETTES PASS (DIRECTION's style guide, tie-breaker 1: his YES wins over every number): the robot and
+      the truck pass the held first five on all eight facings, and the guide's G2 and light row bite both ways
+      on the plants. When the guide is on disk it holds the rendered classes (RULER below).
   N4  NO NEW UI DEFAULT (D10): gradients, blur, glow, radius over 2 px, panel hues 250 to 290 and system
       fonts in the shipped demo and alpha may only go down from the frozen counts.
 
@@ -62,7 +65,7 @@ NOT_ART = {'verdict', 'line', 'sound', 'text'}
 KIND_FAMILY = {'tile': 'ground', 'outfit': 'all', 'face': 'all', 'animation': 'all', 'prop': 'prop',
                'building': 'settlement', 'vehicle': 'prop', 'beast': 'all', 'door': 'door', 'lamp': 'lamp'}
 RIG = os.path.join(ROOT, 'records', 'target', 'master_rig')
-RIG_CLASS = {'man': 'character', 'robot': 'character', 'truck': 'vehicle', 'fox': 'beast',
+RIG_CLASS = {'man': 'person', 'robot': 'person', 'truck': 'vehicle', 'fox': 'beast',
              'dire_wolf': 'beast', 'game_wolf': 'beast'}
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 
@@ -142,29 +145,50 @@ def n2():
     fams = sorted(d for d in os.listdir(N.BANK) if N.pack_pieces(d))
     now = sum(len(N.pack_pieces(f)) for f in fams)
     missing = [f for f in fams if f not in b['families']]
-    ok('N2 the pack band is current (%d families, %d pieces)' % (len(fams), now),
-       not missing and b.get('pack_files') == now,
+    drift = abs(now - (b.get('pack_files') or 0)) / float(max(now, 1))
+    ok('N2 the pack band is current (%d families, %d pieces on disk, band over %s; drift under 2%%)' % (
+        len(fams), now, b.get('pack_files')),
+       not missing and drift <= 0.02,
        'band built over %s pieces, %d on disk; families missing %s. Run: python3 tools/bohemia_not_vibe_coded.py --bands'
        % (b.get('pack_files'), now, missing))
     return b
 
 
-# WHICH RULER HOLDS WHICH CHECK. The packs' 90th percentile is the worst possible value on D3 (angle 180)
-# and D4 (every ramp straight) in every family: a band there passes anything, so those two hold to the
-# research line (D3 against the item's OWN declared light, which is the research's rule: one scene, one
-# light). D1 holds to the research line because every pack piece passes it. D2 and D5, where the research
-# numbers fail every piece he bought, hold to the packs.
-RULER = {'D1': 'research', 'D2': 'packs', 'D3': 'research', 'D4': 'research', 'D5': 'packs'}
+# WHICH RULER HOLDS WHICH CHECK.
+# A RENDERED CLASS (person, beast, vehicle, prop) is held to DIRECTION's style guide where it sets the number
+# (rule 114a; records/target/BOHEMIA_STYLE_GUIDE.json, tests G1 to G10): D2 is G2 (the class's colour FLOOR and
+# the top-eight share, not a cap: the guide decided against the research's caps with his YES on the robot at
+# 5,871 colours), D3 is the guide's card row (top half at least as bright as the bottom), D4 is G4 on the
+# SOURCE palette (the guide put the hue shift there, not in a stepped ramp), D5 is the pack band of the
+# guide's judge family. Everything else, and every class when no guide is on disk, holds to the research line
+# where the packs pass it (D1, D3 against the item's own declared light, D4) and to the pack band where the
+# research numbers fail every piece he bought (D2, D5); on D3 and D4 the packs' 90th percentile is the worst
+# possible value (180 degrees, every ramp straight), so a band there would pass anything.
+RENDERED = {'person', 'beast', 'vehicle', 'prop'}
+CLASS_ALIAS = {'character': 'person', 'enemy': 'person', 'boss': 'person'}
 
 
-def held_verdict(rep, fam, bands):
+def held_verdict(rep, fam, bands, cls=None, src=None, g=None):
+    cls = CLASS_ALIAS.get(cls, cls)
     bv = N.band_verdict(rep, fam, bands) if bands else {}
-    out = {}
-    for d, r in RULER.items():
-        if r == 'packs' and bands:
+    out = {'D1': (rep['D1']['ok'], rep['D1']['why'])}
+    if g is not None and cls in RENDERED and src is not None:
+        rgb, a = N.load(src)
+        fam = g['classes'][cls].get('judge_family', fam)
+        bv = N.band_verdict(rep, fam, bands) if bands else {}
+        r2, r3, r4 = N.g2(rgb, a, g, cls), N.g3(rgb, a, g), N.g4_palette(g)
+        out['D2'] = (r2['ok'], 'the guide\'s G2: ' + r2['why'])
+        out['D3'] = (r3['ok'], 'the guide\'s light row: ' + r3['why'])
+        out['D4'] = (r4['ok'], 'the guide\'s G4 on the source palette: ' + r4['why'])
+        out['D5'] = (bv.get('D5', {}).get('ok'), 'against the %s packs: %s' % (fam, bv.get('D5', {}).get('why', '')))
+        return out
+    for d in ('D2', 'D5'):
+        if bands:
             out[d] = (bv.get(d, {}).get('ok'), 'against the %s packs: %s' % (fam, bv.get(d, {}).get('why', '')))
         else:
             out[d] = (rep[d]['ok'], rep[d]['why'])
+    for d in ('D3', 'D4'):
+        out[d] = (rep[d]['ok'], rep[d]['why'])
     return out
 
 
@@ -182,16 +206,20 @@ def n3(T, bands):
         held += 1
         look = it.get('look') or {}
         if not it.get('sprites'):
-            probs.append('%s: names no sprites (rule 114c: "sprites": [png paths])' % it['id']); continue
+            probs.append('%s: names no sprites. Add to its registry row: "sprites": ["<each png the sheet shows, '
+                         'e.g. the eight rig_<facing>.png>"], "class": "person|beast|vehicle|prop|tile", "look": '
+                         '{"px": 1, "palette": "records/target/BOHEMIA_STYLE_PALETTE.json", "light": "guide"} '
+                         '(rule 114c)' % it['id']); continue
         if not all(k in look for k in ('px', 'palette', 'light')):
-            probs.append('%s: its look does not name px, palette and light (rule 114c)' % it['id']); continue
+            probs.append('%s: its look does not name px, palette and light (rule 114c): "look": {"px": 1, '
+                         '"palette": "<file>", "light": "guide"}' % it['id']); continue
         fam = KIND_FAMILY.get(it.get('kind'), 'all')
         for sp in it['sprites']:
             p = os.path.join(ROOT, sp)
             if not os.path.exists(p):
                 probs.append('%s: sprite %s is not on disk' % (it['id'], sp)); continue
             rep = N.sprite_report(p, it.get('class', 'character'), look.get('light', 'upper-left'), None, T)
-            v = held_verdict(rep, fam, bands)
+            v = held_verdict(rep, fam, bands, it.get('class'), p, N.guide())
             bad = [d for d in ('D1', 'D2', 'D3', 'D4', 'D5') if v[d][0] is False]
             if bad:
                 probs.append('%s: %s fails %s (%s)' % (it['id'], sp, ','.join(bad), '; '.join(v[d][1] for d in bad)))
@@ -212,6 +240,32 @@ def n4():
         total, sum(sum(c.values()) for c in base.values())), not grew, '; '.join(grew))
 
 
+def n5(T, bands):
+    """THE MAQUETTES PASS (the guide's tie-breaker 1: his YES wins over every number; a number that would
+    have failed the robot or the truck is the wrong number). Every facing of both, through the held five."""
+    g = N.guide()
+    if g is None:
+        print('  --   N5 no style guide on disk: the maquette leg waits for it')
+        return
+    for subj, cls in (('robot', 'person'), ('truck', 'vehicle')):
+        bad = []
+        for f in FACINGS:
+            p = os.path.join(RIG, subj, 'rig_%s.png' % f)
+            if not os.path.exists(p):
+                bad.append('%s missing' % f); continue
+            rep = N.sprite_report(p, 'character', 'upper-left', None, T)
+            v = held_verdict(rep, 'prop', bands, cls, p, g)
+            bad += ['%s %s (%s)' % (f, d, v[d][1]) for d in ('D1', 'D2', 'D3', 'D4', 'D5') if v[d][0] is False]
+        ok('N5 the maquette %s passes the held first five in all eight facings (his YES is the ruler)' % subj,
+           not bad, '; '.join(bad[:6]))
+    # and the guide's checks bite, both ways, on the plants
+    made = N.load(P.made()); smooth = N.load(P.smooth()); below = N.load(P.lit_from_below())
+    ok('N5 G2 fails a four-colour clean surface and passes a many-colour one',
+       N.g2(*made, g, 'person')['ok'] is False and N.g2(*smooth, g, 'person')['ok'] is True)
+    ok('N5 the guide\'s light row fails a sprite lit from below and passes one lit from above',
+       N.g3(*below, g)['ok'] is False and N.g3(*made, g)['ok'] is True)
+
+
 def rig_report(T, bands):
     """printed, never held: the master rig through the ten checks, the research numbers and the packs'."""
     if not os.path.isdir(RIG):
@@ -223,13 +277,13 @@ def rig_report(T, bands):
         if not os.path.exists(p):
             continue
         cls = RIG_CLASS.get(subj, 'character')
-        rep = N.sprite_report(p, cls, 'upper-left', None, T)
+        rep = N.sprite_report(p, CLASS_ALIAS.get(cls, cls) if cls not in ('person',) else 'character', 'upper-left', None, T)
         fam = 'prop' if cls == 'vehicle' else 'all'
         bv = N.band_verdict(rep, fam, bands) if bands else {}
         if not subj.startswith('round2_'):   # one subject, two rounds: one silhouette on purpose
             alphas.append(N.load(p)[1]); names.append(subj)
         mark = lambda v: {True: 'ok', False: 'F', None: '-'}[v]
-        hv = held_verdict(rep, fam, bands)
+        hv = held_verdict(rep, fam, bands, cls, p, N.guide())
         print('    %-12s %s' % (subj, ' '.join('%s %s|%s' % (d, mark(rep[d]['ok']), mark(bv.get(d, {}).get('ok')))
                                               for d in ('D1', 'D2', 'D3', 'D4', 'D5', 'D7', 'D8'))) +
               '   colours %d   HELD (first five): %s' % (rep['D2']['value']['colours'],
@@ -254,6 +308,7 @@ def main():
     bands = n2()
     n3(T, bands)
     n4()
+    n5(T, bands)
     rig_report(T, bands)
     print('\nTHE NOT VIBE CODED GATE: %d passed, %d failed' % (passed, failed))
     return 1 if failed else 0

@@ -176,8 +176,12 @@ def d3(rgb, a, T, light='upper-left'):
     if v is None:
         return res(None, {}, 'too few opaque pixels', unmeasured=True)
     dx, dy, mag = v
-    want = LIGHTS[light]
-    ang = math.degrees(math.atan2(dy, dx)); wang = math.degrees(math.atan2(want[1], want[0]))
+    ang = math.degrees(math.atan2(dy, dx))
+    if light == 'guide' and guide() is not None:
+        wang = guide_light_image_deg(guide())
+    else:
+        want = LIGHTS.get(light, LIGHTS['upper-left'])
+        wang = math.degrees(math.atan2(want[1], want[0]))
     off = abs((ang - wang + 180) % 360 - 180)
     ok = mag >= T['d3_min_len'] and off <= T['d3_within']
     why = '' if ok else ('the light is %d degrees off %s' % (off, light) if mag >= T['d3_min_len']
@@ -631,6 +635,124 @@ def r8_facings(paths, T, light='upper-left'):
     return res(not why, {'facings': len(paths), 'height': [int(min(hs)), int(max(hs))],
                          'foot': [int(min(feet)), int(max(feet))], 'lit_facings': lit,
                          'area_spread': round(max(abs(x - am) / am for x in areas), 3)}, '; '.join(why))
+
+
+# ---- THE STYLE GUIDE (DIRECTION, rule 114a): records/target/BOHEMIA_STYLE_GUIDE.json ---------------------------
+# Where the guide sets a number for a rendered class (person, beast, vehicle, prop), its number holds; it was
+# written against the maquettes (the robot and the truck, his YES; tie-breaker 1: a number that fails them is the
+# wrong number). It decided AGAINST the research on two of the five: no output colour cap (a FLOOR instead, and
+# a top-eight share), no stepped ramp (the hue shift is at the SOURCE, the palette, and in the warm sun).
+GUIDE = os.path.join(ROOT, 'records', 'target', 'BOHEMIA_STYLE_GUIDE.json')
+W3 = np.array([0.299, 0.587, 0.114])      # DIRECTION's value weights (the card of numbers)
+
+
+def guide():
+    try:
+        return json.load(open(GUIDE))
+    except (OSError, ValueError):
+        return None
+
+
+def gfield(g, key):
+    for f in g.get('fields', []):
+        if f.get('key') == key:
+            return f.get('value') or {}
+    return {}
+
+
+def guide_light_image_deg(g):
+    """the guide's screen light (screen y up, degrees) as an angle in image coordinates (y down)."""
+    deg = g['rig']['calibration']['screen_light_deg']
+    return math.degrees(math.atan2(-math.sin(math.radians(deg)), math.cos(math.radians(deg))))
+
+
+def g2(rgb, a, g, cls):
+    """G2 for a rendered class: at or over the class's colour floor (a sprite under one 96 px tile's area by
+    the props' density instead), and the top eight colours at or under the guide's share."""
+    op = a > 127
+    n = int(op.sum())
+    if n < 50:
+        return res(None, {}, 'too few opaque pixels', unmeasured=True)
+    vals, cnt = np.unique(keys(rgb)[op], return_counts=True)
+    top8 = 100.0 * np.sort(cnt)[::-1][:8].sum() / n
+    cb = gfield(g, 'colour_budget')
+    floor = (cb.get('output_floor_rendered') or {}).get(cls) or g['classes'][cls]['output_floor']
+    small = n < 96 * 96
+    dens = (cb.get('colour_floor_small') or {}).get('density_per_1000px', 370)
+    need = min(floor, int(math.ceil(dens * n / 1000.0))) if small else floor
+    tmax = cb.get('top8_share_max_pct', 11.1)
+    why = []
+    if len(vals) < need:
+        why.append('%d colours under the %s floor of %d (a clean surface)' % (len(vals), cls, need))
+    if top8 > tmax:
+        why.append('the top eight colours carry %.1f%% (the guide: %.1f%%)' % (top8, tmax))
+    return res(not why, {'colours': int(len(vals)), 'floor': need, 'top8_pct': round(top8, 1)}, '; '.join(why))
+
+
+def g3(rgb, a, g):
+    """G3 for a rendered sprite, by the guide's own card row (fields.light.card_row): the opaque top half at
+    least as bright as the bottom, within -2.5 values. The centroid angle (D3) is printed beside it: on a
+    model of many materials the bright-minus-dark centroid reads the paint as much as the sun, and it fails
+    both maquettes on some facings, which the guide's tie-breaker says makes it the wrong number to hold."""
+    op = a > 127
+    if op.sum() < 50:
+        return res(None, {}, 'too few opaque pixels', unmeasured=True)
+    L = rgb.astype(float) @ W3
+    ys, xs = np.nonzero(op); cy = ys.mean()
+    rows = np.arange(op.shape[0])[:, None]
+    tb = float(L[op & (rows < cy)].mean() - L[op & (rows >= cy)].mean())
+    lim = -2.5
+    m = re.search(r'>=\s*(-?[\d.]+)', str(gfield(g, 'light').get('card_row', '')))
+    if m:
+        lim = float(m.group(1))
+    v = light_vector(rgb, a)
+    ang = None
+    if v is not None:
+        ang = round(abs((math.degrees(math.atan2(v[1], v[0])) - guide_light_image_deg(g) + 180) % 360 - 180), 1)
+    ok = tb >= lim
+    return res(ok, {'top_minus_bottom': round(tb, 1), 'floor': lim, 'centroid_angle_off': ang},
+               '' if ok else 'lit from below: the top half is %.1f values under the bottom' % -tb)
+
+
+def g4_palette(g):
+    """G4: every ramp of the source palette walks at least the guide's hue shift end to end."""
+    pf = os.path.join(ROOT, gfield(g, 'palette').get('file', 'records/target/BOHEMIA_STYLE_PALETTE.json'))
+    try:
+        pal = json.load(open(pf))
+    except (OSError, ValueError):
+        return res(False, {}, 'the guide names a palette file that does not load')
+    need = gfield(g, 'palette').get('hue_shift_deg_min', 8)
+    short = []
+    for role, r in pal.get('roles', {}).items():
+        ramp = [tuple(int(h[i:i + 2], 16) for i in (1, 3, 5)) for h in r.get('ramp', [])]
+        if len(ramp) < 3:
+            continue
+        H, S, V = hsv(np.array([ramp[0], ramp[-1]], np.int16)[None])
+        if S[0].min() < 0.08:
+            continue   # a grey ramp has no hue to walk
+        dh = abs((H[0][1] - H[0][0] + 180) % 360 - 180)
+        if dh < need:
+            short.append('%s %.0f' % (role, dh))
+    return res(not short, {'roles': len(pal.get('roles', {})), 'short': short},
+               '' if not short else 'ramps under %d degrees: %s' % (need, ', '.join(short)))
+
+
+def g7(rgb, a, g):
+    op = a > 127
+    if op.sum() < 50:
+        return res(None, {}, 'too few opaque pixels', unmeasured=True)
+    sh = gfield(g, 'shading')
+    L = rgb.astype(float) @ W3
+    pz = np.pad(op, 1)
+    inner = op & pz[:-2, 1:-1] & pz[2:, 1:-1] & pz[1:-1, :-2] & pz[1:-1, 2:]
+    span = float(np.percentile(L[op], 95) - np.percentile(L[op], 5))
+    dark = float(L[inner].min()) if inner.any() else 255.0
+    why = []
+    if span < sh.get('value_span_min', 118):
+        why.append('value span %d under %d' % (span, sh.get('value_span_min', 118)))
+    if dark < 12:
+        why.append('a body pixel at value %d (black)' % dark)
+    return res(not why, {'span': round(span, 1), 'darkest_inside': round(dark, 1)}, '; '.join(why))
 
 
 # ---- THE PACK BAND: the packs are the ruler (rule 82, 82a) ----------------------------------------

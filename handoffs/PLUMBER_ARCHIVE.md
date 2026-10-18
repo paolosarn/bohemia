@@ -1,5 +1,44 @@
 # PLUMBER ARCHIVE (rule 96: the blocks older than the lane's two newest, newest first; moved by tools/bohemia_trail_sweep.js, nothing deleted)
 
+<!-- moved 10/18 by PLUMBER round 60 (the lane keeps its two newest blocks) -->
+PLUMBER (plumber-ont6t5): 10/16 LATEST -- *** CHAT 18. ROUND 58. [the trail file] SHIPPED eeb17de5: THE MOVES RAN ON
+10/16's MAIN. ***
+Record: records/BOHEMIA_THE_TRAIL_FILE_ROUND_TWO_10_11_26.md. Hearback (sweeps AI, AK) folded in: rules 0-13 and his
+words fold at 14 silent sweeps and never leave; held lanes' rows keep their clock; the split refuses on a hazard; plus
+the floor (no running lane moved under three OPEN rows) and this lane's unpushed commits counted as cites.
+MOVES: START 136,863 -> 6,540 lines (51 blocks kept, 1,880 in 26 files under handoffs/); 37 rules folded,
+0 left; 46 OPEN rows to records/BOHEMIA_EVAPORATED_ROWS.md, 1 STALE; 459 records to archive/ with registry
+lines; canon index regenerated. This lane's older blocks are in handoffs/PLUMBER_ARCHIVE.md.
+WHY IT TOOK FIVE DAYS: on 10/11 a safety check on this session's commands refused the last step and then every
+command; the work waited on this lane's branch and was re-run on today's main rather than replayed.
+PAOLO ON ROUND 1'S CARD: UP, "This is so miscellaneous to me I have no fucking clue what's going on." This lane
+registers a VOTE card only for what he feels in the game; none this round.
+NEXT (sweep AK's order): [the quartermaster's count], then [the one stopwatch].
+
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 57. [the trail file] ROUND 1 SHIPPED 0e61a30: THE MACHINE
+AND ITS DRY RUN (rule 96). NOTHING MOVED. ***
+Record: records/BOHEMIA_THE_TRAIL_FILE_ROUND_ONE_10_10_26.md (the dry run printed in full at its foot). VOTE
+plumber-the-trail-file-10-10. Row kept CLAIMED (rule 6): the moves are round 2.
+BUILT: tools/bohemia_trail_sweep.js. History from a slim copy of main in the temp folder (blob-less, 45 days, 5 MB,
+refreshed each run; the working clone is shallow). Clock = lettered sweep commits 'VAMILY m/d X:' (30, B..AH; same
+letter twice is one sweep). Coordinator = sessions that wrote a sweep, COORDINATOR or PAOLO commit (2). Cite = a lane
+commit's message (rule numbers incl. 'rules 82 and 82a', 'rule-89'; [labels]; file names) or a record/law it touched;
+a rule is also cited through the law/record files its text points to. Births and open-since from the last 15 sweeps'
+boards. Records: 30 days or reachable from roots (rg over live files, not the canon index, not moving blocks).
+Handoff split: heads 'LANE (slug): date', '## LANE (', '=== LANE: ... (date'; aliases SOUND/MUSIC/SFX->SOUNDS,
+CITY->LIFE + CITY, ART->DIRECTION; hazard = a line naming a lane with a date of the last 3 days in a moving block.
+Writes records/target/BOHEMIA_TRAIL.json (one mark a line, empty fields dropped, 927 KB, sealed). Gate THE TRAIL FILE
+(gates/trail_gate.js) 5/0, mutation-proved (lane order, blocks kept).
+DRY RUN: handoff 135,428 -> 9,467 lines; 33 rules leave + 9 fold; 156 OPEN rows out + 4 STALE; 390 records leave, 0 laws.
+[FOR THE COORDINATOR, HEARBACK] (1) 18 sweeps in 7 days: 14 sweeps = 5.4 days, so rules 0, 1, 4 and 30 more would
+leave the page; exempt the manual (0-13) or count in days? (2) 156 OPEN rows out, many in lanes rule 88 holds. (3) The
+split is refused while a hazard exists (1 today, a false alarm); COMBAT, DIRECTION and DYNASTY write their newest
+state inside 1,100- to 2,300-line standing blocks, which is most of the 9,467 kept lines. CORRECT, or NEGATIVE with the
+one thing, and round 2 makes the moves (the handoff gate reads handoffs/ in the same commit).
+Gates this round: THE TRAIL FILE 5/0; HANDOFF 10/0. Red elsewhere, not this lane's files: ENGINE CENSUS, FENCE ORPHAN,
+NO ORPHAN SCRIPT, PAGES PUBLISH (533 MB, tickets/ not in the workflow).
+NEXT: [the trail file] round 2 on CORRECT; else the top OPEN row, [the turn leg].
+
 <!-- moved 10/16 (CORRECT: AI and AK (the hearback's NEGATIVE folded in; sweep AK: the trail file's round 2 first, one commit)) -->
 PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 55. [the picture leg] SHIPPED e8cff0e: WHAT HE CANNOT
 SEE DID NOT SHIP (rule 89). AND THIS LANE'S HALF OF [first load] SHIPPED. ***
