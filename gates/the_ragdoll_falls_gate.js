@@ -18,8 +18,10 @@ let pass = 0, fail = 0;
 const ok = (n, c, why) => { c ? (pass++, console.log('  ok   ' + n)) : (fail++, console.log('  FAIL ' + n + (why ? '  [' + why + ']' : ''))); };
 const done = () => { console.log('\nTHE RAGDOLL FALLS GATE: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
 const src = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html'), 'utf8');
-ok('the clip is in the bank on the grid (four beats), not a loop, and routed to the simulation',
-  /ragdoll:4,/.test(src) && /const TERMINAL=\{[^}]*ragdoll:1/.test(src) && /if\(clip==='ragdoll'\)return ragdollPose\(d,ph\);/.test(src));
+/* 10/18 __THE_CHOPPY_FALL__: his 'choppy, a little too slow' moved the clip from four beats to TWO, drawn on 24 keys
+   (gates/the_choppy_fall_gate.js holds the clock); the physics this gate asks of is unchanged */
+ok('the clip is in the bank on the grid (two beats since 10/18), not a loop, and routed to the simulation',
+  /ragdoll:2,/.test(src) && /const TERMINAL=\{[^}]*ragdoll:1/.test(src) && /if\(clip==='ragdoll'\)return ragdollPose\(d,ph\);/.test(src));
 
 (async () => {
   const d = await open({ alpha: true });

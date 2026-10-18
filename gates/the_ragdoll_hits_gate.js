@@ -76,12 +76,13 @@ ok('the registry row shows the page and is a PLACEHOLDER', !!row && row.show && 
             let sp = 0; const k0 = F.length - 25; for (let i = k0 + 1; i < F.length; i++) for (const j in F[i]) sp = Math.max(sp, Math.hypot(F[i][j][0] - F[i - 1][j][0], F[i][j][1] - F[i - 1][j][1]) * 120);
             if (sp > (kind === 'blow' ? 6 : 40)) out.restless.push(L + '/' + dir + '/' + kind + ' ' + sp.toFixed(1) + ' px/s'); if (kind !== 'blow') out.worstRest = Math.max(out.worstRest, sp);
             RAGDOLL.kind = kind; FRAME_CACHE.map.clear();
-            const pics = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(k => meas(buildFrame(dir, 'ragdoll', (k + 0.5) / 12))), dead = meas(buildFrame(dir, 'ragdoll', 1));
+            const NK = (RAGDOLL.play && RAGDOLL.play.keys) || 12;   /* __THE_CHOPPY_FALL__ (10/18): the drawn keys are the clock's, 24 now */
+            const pics = Array.from({ length: NK }, (_, k) => meas(buildFrame(dir, 'ragdoll', (k + 0.5) / NK))), dead = meas(buildFrame(dir, 'ragdoll', 1));
             if (!flat(dead, kind)) out.notFlat.push(L + '/' + dir + '/' + kind + ' ' + dead.w + 'x' + dead.h);
             if (!headDown(dead)) out.notHead.push(L + '/' + dir + '/' + kind);
             pics.forEach((m, i) => { if (m.edge) out.cut.push(L + '/' + dir + '/' + kind + '/' + i); });
             if (TABLE && TABLE.lifts && TABLE.lifts[L + '|' + kind]) { const tl = TABLE.lifts[L + '|' + kind][dir] || [];
-              for (let k = 0; k < 13; k++) { const ph = k < 12 ? (k + 0.5) / 12 : 1; const lift = ragdollPose(dir, ph).present._lift || 0; if (Math.abs(lift - (tl[k] || 0)) > 1) out.liftOff.push(L + '/' + dir + '/' + kind + '/' + k); } }
+              for (let k = 0; k <= NK; k++) { const ph = k < NK ? (k + 0.5) / NK : 1; const lift = ragdollPose(dir, ph).present._lift || 0; if (Math.abs(lift - (tl[k] || 0)) > 1) out.liftOff.push(L + '/' + dir + '/' + kind + '/' + k); } }
             if (kind === 'roof') { let lowest = -1e9, startLow = 1e9; for (const j in F[0]) startLow = Math.min(startLow, gy - F[0][j][1]); for (const j in last) lowest = Math.max(lowest, last[j][1] + 6);
               if (startLow < 100) out.roofStart.push(L + '/' + dir + ' ' + startLow.toFixed(0) + 'px'); if (gy - lowest > 3) out.roofLand.push(L + '/' + dir + ' ' + (gy - lowest).toFixed(0) + 'px up'); }
           }

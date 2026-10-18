@@ -9431,6 +9431,22 @@
     "scale": "1:1"
    },
    "draft": true
+  },
+  {
+   "id": "animation-the-shadow-line-and-the-choppy-fall-10-18",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "PLACEHOLDER: NO SHADOW LINE BEHIND YOU, AND A QUICKER, SMOOTHER FALL",
+   "redoOf": "animation-the-party-walks-as-one-10-11",
+   "said": "Like there's a shadow line behind the main character bro like what's wrong with you?",
+   "why": "The dark streak behind you on the map was your three shadows running together, so now each of you stands on a small shadow of your own that never touches the others. The ragdoll now falls in half the time and draws twice the pictures, so it is quicker and smoother. You see both in the VOTE tab at the game's own size, and nothing is in the game until your moodboard.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_SHADOW_LINE_AND_THE_CHOPPY_FALL.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

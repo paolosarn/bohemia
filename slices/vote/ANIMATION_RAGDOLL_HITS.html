@@ -36,7 +36,7 @@
   function pick(n){ look=n; document.getElementById('b0').className=n?'':'on'; document.getElementById('b1').className=n?'on':''; }
   document.getElementById('b0').onclick=function(){pick(0);}; document.getElementById('b1').onclick=function(){pick(1);};
   im.onload=function(){ var t0=performance.now();
-    (function tick(){ var t=((performance.now()-t0)/BEAT)%6, k=t<T.beats?Math.min(11,Math.floor(t/T.beats*12)):12;   /* four beats of fall, two lying, again */
+    (function tick(){ var NK=T.keys-1, t=((performance.now()-t0)/BEAT)%(T.beats+2), k=t<T.beats?Math.min(NK-1,Math.floor(t/T.beats*NK)):NK;   /* the fall over its beats (two since 10/18, 24 pictures), two lying, again */
       cells.forEach(function(c){ var L=T.looks[look], row=T.rows[L+'|'+c.dir+'|'+c.kind], lifts=T.lifts[L+'|'+c.kind][c.dir], lift=lifts[k]||0;
         var x=c.cv.getContext('2d'); x.imageSmoothingEnabled=false; x.clearRect(0,0,CW,H); x.fillStyle='#2a2219'; x.fillRect(0,0,CW,H);
         var gy=H-8; x.fillStyle='#3a3024'; x.fillRect(0,gy,CW,8);

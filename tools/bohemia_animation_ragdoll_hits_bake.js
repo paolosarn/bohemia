@@ -19,23 +19,25 @@ const KINDS = ['blow', 'shot', 'club', 'roof'], LOOKS = ['you', 'faction_reds'],
   for (let i = 0; i < 360 && !ready; i++) { ready = await d.page.evaluate(() => typeof ragdollSim === 'function' && typeof buildFrame === 'function' && !!window.FACTION_LOOKS).catch(() => false); if (!ready) await d.page.waitForTimeout(500); }
   if (!ready) { console.error('the alpha did not boot'); process.exit(1); }
   console.error('booted in ' + ((Date.now() - t0) / 1000).toFixed(0) + ' s');
-  const table = { kinds: KINDS, looks: LOOKS, dirs: DIRS, keys: 13, beats: 4, cell: null, lifts: {}, files: [] };
+  /* 10/18 __THE_CHOPPY_FALL__: the keys and beats are the alpha's clock (RAGDOLL.play), read at boot, never written here */
+  const PLAY = await d.page.evaluate(() => RAGDOLL.play || { keys: 12, beats: 4 });
+  const NK = PLAY.keys, table = { kinds: KINDS, looks: LOOKS, dirs: DIRS, keys: NK + 1, beats: PLAY.beats, cell: null, lifts: {}, files: [] };
   for (const L of LOOKS) {
     await d.page.evaluate((id) => { const m = id === 'you' ? null : FACTION_LOOKS.filter(x => 'faction_' + x.faction.toLowerCase() === id)[0];
       if (m) { window.G_WORN = m.worn; G.bodyVar = m.dials; G.age = m.age || 'adult'; } rebuildFromRig(); FRAME_CACHE.map.clear(); }, L);
     for (const kind of KINDS) {
-      const r = await d.page.evaluate(([kind, DIRS]) => {
+      const r = await d.page.evaluate(([kind, DIRS, NK]) => {
         RAGDOLL.kind = kind; FRAME_CACHE.map.clear(); const out = { cell: null, pics: [], lifts: {} };
         const cv = document.createElement('canvas');
         for (const dir of DIRS) { out.lifts[dir] = [];
-          for (let k = 0; k < 13; k++) { const ph = k < 12 ? (k + 0.5) / 12 : 1; const f = buildFrame(dir, 'ragdoll', ph);
+          for (let k = 0; k <= NK; k++) { const ph = k < NK ? (k + 0.5) / NK : 1; const f = buildFrame(dir, 'ragdoll', ph);
             out.lifts[dir].push(ragdollPose(dir, ph).present._lift || 0);
             cv.width = f.CW; cv.height = f.CH; const g = cv.getContext('2d'); const im = g.createImageData(f.CW, f.CH);
             for (let i = 0; i < f.px.length; i++) { const p = f.px[i]; if (!p) continue; im.data[i * 4] = p[0]; im.data[i * 4 + 1] = p[1]; im.data[i * 4 + 2] = p[2]; im.data[i * 4 + 3] = 255; }
             g.putImageData(im, 0, 0); out.cell = [f.CW, f.CH]; out.pics.push(cv.toDataURL('image/png').split(',')[1]); } }
-        return out; }, [kind, DIRS]);
+        return out; }, [kind, DIRS, NK]);
       table.cell = r.cell; table.lifts[L + '|' + kind] = r.lifts;
-      r.pics.forEach((b64, i) => { const dir = DIRS[(i / 13) | 0], k = i % 13; const fn = L + '_' + kind + '_' + dir + '_k' + String(k).padStart(2, '0') + '.png';
+      r.pics.forEach((b64, i) => { const dir = DIRS[(i / (NK + 1)) | 0], k = i % (NK + 1); const fn = L + '_' + kind + '_' + dir + '_k' + String(k).padStart(2, '0') + '.png';
         fs.writeFileSync(path.join(OUT, fn), Buffer.from(b64, 'base64')); table.files.push(fn); });
       console.error(L + ' ' + kind + ': ' + r.pics.length + ' pictures');
     }

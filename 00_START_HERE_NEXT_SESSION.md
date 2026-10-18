@@ -1685,6 +1685,25 @@ arm was not captured, so it is written down rather than called clean.
 
 --------------------------------------------------------------------------------
 
+ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (a) LATEST -- *** [the shadow line and the choppy
+fall] IN VOTE, WAITS THE MOODBOARD (rule 100). TAB: VOTE, PLACEHOLDER: NO SHADOW LINE BEHIND YOU, AND A QUICKER, SMOOTHER FALL
+(the party on the real map, two walks across the glass; the fall before beside now, eight facings, four kinds). ***
+THE LINE: his 22 px ground oval and the two companions' ovals overlapped (they walk 13 and 22 px behind him): one piece of
+shade under two of them on 5 of 8 trips, the nearer one's shadow painted over his boots; the old card's BEFORE panel also
+still showed the banner pole (gone from this card). __THE_SHADOW_LINE__ (slices/BOHEMIA_CITY_WORLD.html, inside the OFF
+candidate MAP_PARTY_AS_ONE): mapPartyShadow lays the three shadows once as one fill before anybody is drawn, each the
+width of the feet (feet 0.13, flat 0.4), none touching; mapCompanySpot shared; MAP_SHADOW_DONE skips the per-person oval.
+THE FALL: 12 pictures over 4 beats (6 a second), down at 0.8 to 1.6 s, jumps to 54 px. Gravity 840/1120 left facings
+unsettled (the knobs are tuned to 560), so __THE_CHOPPY_FALL__ (slices/BOHEMIA_ALPHA_0_9.html) changes the CLOCK only:
+RAGDOLL.play {secs 1.8, beats 2, keys 24}, ANIMBEATS.ragdoll 2; jumps 25 max / 7 average, the blow down by 0.70 s, every
+kind by 0.9 s, ends 1.7 px from rest. Style guide field 15: one_shot_keys_per_beat 6 (cycles keep 3). The hits bake reads
+the clock; the old strip kept as ANIMATION_THE_CHOPPY_FALL_BEFORE. Gates (in the suite): THE SHADOW LINE 7/0 (3 mutations),
+THE CHOPPY FALL 7/0 (the old clock fails in-gate); RAGDOLL FALLS 15/0, RAGDOLL HITS 19/0, PARTY AS ONE 7/0, MAP GLIDES 14/0,
+PARTIES WALK 10/0, STYLE GUIDE 27/0. Red and not mine: FACE ON THE MAP A2/B2 and VOTE TAB's whys row (red on main).
+Tools: tools/bohemia_animation_the_shadow_line_film.js + .py. records/BOHEMIA_THE_SHADOW_LINE_AND_THE_CHOPPY_FALL_10_18_26.md.
+NEXT: [the beasts through the rig, the wolf redone] (OPEN): the dire wolf remodelled to the fox's level, then the bestiary
+in order, one per round, DIRECTION's recipe.
+
 ANIMATION (animation-lr9y9i): 10/17 (b) LATEST -- *** [ragdoll hits] IN VOTE AS A PLACEHOLDER (the MODE line's other half,
 rule 110). TAB: VOTE, PLACEHOLDER: THE RAGDOLL'S HITS: eight facings x (blow, shot, club, roof), YOU and THE REDS, on the beat
 at 1:1, the roof fall lifted by the physics' own height. *** The alpha's __RAGDOLL__ takes RAGDOLL.kind ('blow' default, the

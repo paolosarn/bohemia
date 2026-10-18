@@ -389,7 +389,9 @@
     "reversal_max_deg": 120,
     "holds": "declared per clip, a hold repeats the previous key's render",
     "puppet_jitter_cm": 0,
-    "face_swap": "one render per expression at full weight, swapped on a beat"
+    "face_swap": "one render per expression at full weight, swapped on a beat",
+    "one_shot_keys_per_beat": 6,
+    "one_shot_why": "ANIMATION 10/18 (his 'choppy, not smooth, a little too slow' on the ragdoll): a physics one-shot (the fall) is drawn on twos, six keys a beat (12 a second, the claymation cadence), because at three a beat one picture to the next moved a joint up to 54 px; the cycles keep three. The ragdoll plays 1.8 s of its simulation in two beats on 24 keys (slices/BOHEMIA_ALPHA_0_9.html RAGDOLL.play; gates/the_choppy_fall_gate.js)."
    },
    "do": "six drawn keys a walk, nothing rendered between them",
    "dont": "a smooth 30-frame walk with motion blur: a render, not a puppet"

@@ -1,0 +1,73 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · Shadow line and fall</title>
+<!-- ANIMATION [the shadow line and the choppy fall], 10/18 (his thirteenth votes: NO on the party card, 'there's a shadow
+     line behind the main character bro, like what's wrong with you?'; and on the ragdoll, 'choppy, not smooth, a little
+     too slow'). Two halves, both played LIVE from the game's own frames, nothing redrawn.
+     ONE, THE PARTY ON THE MAP: the real map in the alpha with the candidate on, filmed by
+     tools/bohemia_animation_the_shadow_line_film.js, 160 x 110 map px at the phone's 3x, one map pixel to one phone
+     pixel. The streak was three ground shadows overlapping (his 22 px oval and their two, the two walking 13 and 22 px
+     behind him); now one shade laid once, each oval the width of the feet, none touching (gate THE SHADOW LINE). No
+     before panel: the old card's before showed the banner pole, the thing he had already said no to.
+     TWO, THE FALL: the 10/17 strip (twelve pictures over four beats) beside the new clock (24 pictures over two beats,
+     the same physics played 1.8x), for you and the Reds, eight facings, the blow plus the three kinds (gate THE CHOPPY
+     FALL). PIXEL SIZE: the rig's 112 box, one art pixel to one phone pixel; PALETTE: the wardrobe's own (the alpha's
+     sheets); LIGHT: the rig's, unchanged. Rule 25: no vote inside. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  h2{font-size:11px;letter-spacing:2px;margin:18px 0 6px;color:#7fa06b}
+  p{margin:0 0 10px;color:#b3a890;max-width:60ch}
+  .bar{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}
+  button{font:inherit;font-size:11px;letter-spacing:1px;background:#22212b;color:var(--ink);border:1px solid var(--line);border-radius:0;padding:6px 10px}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .grid{display:grid;grid-template-columns:24px repeat(5,max-content);gap:4px 8px;align-items:end;overflow-x:auto}
+  .h{font-size:9px;letter-spacing:2px;color:#7fa06b}.h.old{color:#9a6b6b}
+  .dir{font-size:9px;color:#6d6656}
+  canvas{display:block;image-rendering:pixelated;background:#2a2219}
+</style>
+<h1>THE SHADOW LINE AND THE CHOPPY FALL</h1>
+<p>The dark streak behind you on the map was the three of your shadows running together. Now each of you stands on your own small shadow, and they never touch.</p>
+<h2>YOUR PARTY ON THE MAP</h2>
+<div class="row"><canvas id="pa"></canvas><canvas id="pb"></canvas></div>
+<h2>THE FALL: BEFORE AND NOW</h2>
+<p>Before, he took four beats to fall, six pictures a second. Now the same fall takes two beats, twelve pictures a second, so it is quicker and smoother.</p>
+<div class="bar"><button id="b0" class="on">YOU</button><button id="b1">THE REDS (LONG COAT)</button></div>
+<div class="grid" id="g"><div></div><div class="h old">BEFORE</div><div class="h">NOW</div><div class="h">SHOT</div><div class="h">CLUB</div><div class="h">ROOF</div></div>
+<script src="ANIMATION_RAGDOLL_HITS_TABLE.js"></script>
+<script src="ANIMATION_THE_CHOPPY_FALL_BEFORE_TABLE.js"></script>
+<script>
+(function(){
+  var dpr=window.devicePixelRatio||1, BEAT=500;
+  /* ONE: the party, two walks, 48 pictures each at 50 ms (a step a beat), one map pixel to one phone pixel */
+  var PW=480, PH=330, pims=[new Image(),new Image()], pcv=[document.getElementById('pa'),document.getElementById('pb')], pready=0;
+  pcv.forEach(function(c){ c.width=PW; c.height=PH; c.style.width=(PW/dpr)+'px'; c.style.height=(PH/dpr)+'px'; });
+  function party(){ var t0=performance.now();
+    (function tick(){ var k=Math.floor((performance.now()-t0)/50)%48;
+      pcv.forEach(function(c,i){ var x=c.getContext('2d'); x.imageSmoothingEnabled=false; x.drawImage(pims[i],(k%12)*PW,Math.floor(k/12)*PH,PW,PH,0,0,PW,PH); });
+      requestAnimationFrame(tick); })(); }
+  pims.forEach(function(im,i){ im.onload=function(){ if(++pready===2) party(); }; im.src='ANIMATION_THE_SHADOW_LINE_'+(i?'BACK':'ACROSS')+'.webp'; });
+  /* TWO: the fall, each strip on its own clock, then two beats lying, again */
+  var N=window.RAGDOLL_HITS, B=window.RAGDOLL_HITS_BEFORE, CW=N.cell[0], CH=N.cell[1], LIFT=140, H=CH+LIFT, look=0, cells=[];
+  var imN=new Image(), imB=new Image(), ready=0, g=document.getElementById('g');
+  var COLS=[{T:B,im:imB,kind:'blow'},{T:N,im:imN,kind:'blow'},{T:N,im:imN,kind:'shot'},{T:N,im:imN,kind:'club'},{T:N,im:imN,kind:'roof'}];
+  N.dirs.forEach(function(d){ var l=document.createElement('div'); l.className='dir'; l.textContent=d; g.appendChild(l);
+    COLS.forEach(function(col){ var c=document.createElement('canvas'); c.width=CW; c.height=H; c.style.width=(CW/dpr)+'px'; c.style.height=(H/dpr)+'px'; g.appendChild(c); cells.push({cv:c,dir:d,col:col}); }); });
+  function pick(n){ look=n; document.getElementById('b0').className=n?'':'on'; document.getElementById('b1').className=n?'on':''; }
+  document.getElementById('b0').onclick=function(){pick(0);}; document.getElementById('b1').onclick=function(){pick(1);};
+  function fall(){ var t0=performance.now();
+    (function tick(){ var tb=(performance.now()-t0)/BEAT;
+      cells.forEach(function(c){ var T=c.col.T, NK=T.keys-1, t=tb%(B.beats+2), k=t<T.beats?Math.min(NK-1,Math.floor(t/T.beats*NK)):NK;   /* both on the before's six-beat loop, so they start together */
+        var L=T.looks[look], row=T.rows[L+'|'+c.dir+'|'+c.col.kind], lifts=T.lifts[L+'|'+c.col.kind][c.dir], lift=lifts[k]||0;
+        var x=c.cv.getContext('2d'); x.imageSmoothingEnabled=false; x.fillStyle='#2a2219'; x.fillRect(0,0,CW,H);
+        var gy=H-8; x.fillStyle='#3a3024'; x.fillRect(0,gy,CW,8);
+        if(c.col.kind==='roof'){ var ry=gy-(lifts[0]||0); x.fillStyle='#1c1813'; x.fillRect(0,ry,CW,3); }
+        x.drawImage(c.col.im, k*CW, row*CH, CW, CH, 0, gy-T.ground_y-lift, CW, CH); });
+      requestAnimationFrame(tick); })(); }
+  imN.onload=imB.onload=function(){ if(++ready===2) fall(); };
+  imN.src='ANIMATION_RAGDOLL_HITS.webp'; imB.src='ANIMATION_THE_CHOPPY_FALL_BEFORE.webp';
+})();
+</script>

@@ -44705,8 +44705,9 @@ function mapPersonDraw(set, face, beat, sx, footY, walkPh){
   if (walkPh != null && f.walk && f.walk.length) { fr = f.walk[Math.floor((((walkPh % 1) + 1) % 1) * f.walk.length) % f.walk.length]; if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.walking = (MAP_DREW.art.walking | 0) + 1; }
   var s56 = 56 / Math.max(56, fr.width);   /* a 112 body is drawn at the size a 56 one was: one art pixel to one device pixel on a 3x phone */
   var w = fr.width * s56 * MAP_PERSON_K * MAP_PEOPLE_K, h = fr.height * s56 * MAP_PERSON_K * MAP_PEOPLE_K;
-  g.fillStyle = 'rgba(10,8,6,0.45)';
-  g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill();
+  if (!MAP_SHADOW_DONE) {   /* __THE_SHADOW_LINE__: the party's one pass already laid this one on the ground */
+    g.fillStyle = 'rgba(10,8,6,0.45)';
+    g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill(); }
   g.imageSmoothingEnabled = false;
   g.drawImage(fr, mapSnap(sx - w / 2), mapSnap(footY - h * 0.93), w, h);
   return { w: w, h: h * 0.93 };
@@ -44790,7 +44791,36 @@ function mapCompanyNear(){ var v = MAP_VEC_OF[mapFaceNow()] || [1, 1]; return (v
    way he faces: one unit. OFF BY DEFAULT: rule 100 (nothing into the game before his FINAL; the four look rows are
    cook rounds, candidates in VOTE). His FINAL flips it. COOK's new marker (cook-the-party-marker-at-full-pixels-10-10)
    is where a banner comes back, if he wants one. */
-var MAP_PARTY_AS_ONE = { on: false, back: 8, side: 15 };   /* 13 back and 8 out hid one of the two wholly behind his body on every frame (filmed 10/11) */
+var MAP_PARTY_AS_ONE = { on: false, back: 8, side: 15, feet: 0.13, flat: 0.4, shade: 'rgba(14,11,8,0.55)' };
+/* __THE_SHADOW_LINE__ (ANIMATION [the shadow line and the choppy fall], 10/18; his thirteenth votes, NO on this card:
+   'there's a shadow line behind the main character bro, like what's wrong with you?'). LOOKED AT on the card he judged:
+   his ground shadow was 22 px wide at 0.6 (the planted ellipse) and each of the two drew its own 16 px one at 0.45; the
+   two walk 13 and 22 px behind him, so the three ovals OVERLAPPED into one dark streak trailing from his heels, darker
+   where two stacked, and the companion nearer the camera laid its shadow AFTER his body, over his boots. The cause is
+   three shadows drawn as three people instead of one company standing on one ground. ON (the candidate): the party's
+   shadows are laid ONCE, before anybody is drawn, as one path filled once (overlap can never stack darker), each one
+   the width of the feet that stand on it (feet x the body's drawn width, flat x that tall), so no two touch at any
+   facing; nobody's shadow is ever painted over anybody's body. OFF draws exactly what the game drew. */
+var MAP_SHADOW_DONE = false;
+function mapCompanySpot(k, dx, dy, K){ var o2 = k ? 1 : -1;
+  if (Math.abs(dx) > 0.3) { var sg = Math.sign(dx); return [-sg * (k ? 22 : 13) * K, (k ? -4 : 5) * K - dy * (k ? 6 : 3) * K]; }
+  return [o2 * 13 * K, -dy * 10 * K]; }
+function mapPartyShadow(gx, gy){
+  if (!MAP_PARTY_AS_ONE.on) return false;
+  try {
+    var f = mapFaceNow(), v = MAP_VEC_OF[f] || [1, 1];
+    var dx = (v[0] - v[1]) * TW / 2, dy = (v[0] + v[1]) * TH / 2, dl = Math.hypot(dx, dy) || 1; dx /= dl; dy /= dl;
+    var K = Math.max(0.75, MAP_PEOPLE_K), P = MAP_PARTY_AS_ONE;
+    var cw = 112 * (56 / 112) * MAP_PERSON_K * MAP_PEOPLE_K;   /* a companion's drawn width (mapPersonDraw's w for the 112 box) */
+    var sh = [{ x: gx, y: gy, rx: 56 * P.feet }];                /* his drawn width is the 112 box at half */
+    [0, 1].forEach(function(k){ if (!mapCastOf(7 + k * 3)) return; var sp = mapCompanySpot(k, dx, dy, K); sh.push({ x: gx + sp[0], y: gy + sp[1], rx: cw * P.feet }); });
+    g.fillStyle = P.shade; g.beginPath();
+    sh.forEach(function(e){ e.ry = e.rx * P.flat; g.moveTo(e.x + e.rx, e.y); g.ellipse(e.x, e.y, e.rx, e.ry, 0, 0, Math.PI * 2); });
+    g.fill('nonzero');   /* one fill: where two meet it is the same shade, never darker */
+    MAP_DREW = MAP_DREW || {}; MAP_DREW.shadows = sh.map(function(e){ return [e.x, e.y, e.rx, e.ry]; });
+    return true;
+  } catch (_e) { return false; }
+}   /* 13 back and 8 out hid one of the two wholly behind his body on every frame (filmed 10/11) */
 function mapCompanyDraw(gx, gy, lift, moving, G, pass){
   try {
     var f = mapFaceNow(), v = MAP_VEC_OF[f] || [1, 1];
@@ -44804,13 +44834,11 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
        up or down it, one each side of him a step back. Whoever stands lower on the glass is nearer the camera and is
        drawn in front of him, the other behind (pass 'front' / 'back'). A ground-true formation hid one of the two
        behind his body on every cross-screen walk, and pushing it clear put it AHEAD of him (both measured 10/11). */
-    var spot = function(k){ var o2 = k ? 1 : -1;
-      if (Math.abs(dx) > 0.3) { var sg = Math.sign(dx); return [-sg * (k ? 22 : 13) * K, (k ? -4 : 5) * K - dy * (k ? 6 : 3) * K]; }
-      return [o2 * 13 * K, -dy * 10 * K]; };
+    var spot = function(k){ return mapCompanySpot(k, dx, dy, K); };
     [[-1, 0.25], [1, 0.5]].forEach(function(o, k){
       var m = mapCastOf(7 + k * 3); if (!m) return;
       if (ONE && pass) { var sp = spot(k); if ((pass === 'front') !== (sp[1] > 0)) return;
-        mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + sp[0], gy + sp[1], moving && st != null ? st + o[1] : null);
+        MAP_SHADOW_DONE = true; try { mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + sp[0], gy + sp[1], moving && st != null ? st + o[1] : null); } finally { MAP_SHADOW_DONE = false; }
         MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + sp[0]), Math.round(gy + sp[1]), f]);
         return; }
       /* level across the glass at his shoulders, or, as one, off each shoulder ACROSS HIS WAY (the perpendicular to his facing) */
@@ -46688,8 +46716,8 @@ function renderCity(){
     const __moving=!!(TRAVEL || __G.u<1);
     g.save(); g.globalAlpha=1;
     /* PLANTED: a dark ellipse under the feet, so he stands on the map, not over it */
-    g.fillStyle='rgba(14,11,8,0.6)';
-    g.beginPath(); g.ellipse(__gx,__gy,11,4,0,0,7); g.fill();
+    if(!mapPartyShadow(__gx,__gy)){ g.fillStyle='rgba(14,11,8,0.6)';
+    g.beginPath(); g.ellipse(__gx,__gy,11,4,0,0,7); g.fill(); }
     /* THE HOP IS ANIMATION'S (__THE_MAP_GLIDES__, one per beat): the foot stays on the
        ground and everything above it lifts, done as the same translate the pin used so
        THE MAP GLIDES keeps measuring it off the draw. */
