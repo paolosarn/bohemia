@@ -25,9 +25,41 @@ const shot = n => proofShot(path.join(ROOT, 'slices/vote/COMBAT_THE_FIGHT_REBUIL
 /* phone-size jpegs: the published site is already over its cap, so a gate's pictures stay small */
 const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
 const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed: 9, taps: false }];
-/* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar) */
-const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_people")>=0)window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3)window.__bars++;return fr.apply(this,arguments);};})();';
+/* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar); a bar is three CSS
+   points tall, counted only in CSS space (the marks on the board are laid in device pixels, a cell three tall on his phone) */
+const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_people")>=0)window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3&&this.getTransform().a===(window.devicePixelRatio||1))window.__bars++;return fr.apply(this,arguments);};})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
+/* THE MARKS ON THE BOARD, read in the page (COMBAT [the marks on the board]): one frame with the marks, one with only the ground
+   (to count the ground's own grid strokes out), one with AUTO on (his reach, the rings and the walk gone, the people kept) */
+const MARKS_READ = () => {
+  const c = document.getElementById('cv'), g = c.getContext('2d'), P = CanvasRenderingContext2D.prototype, n = { stroke: 0, dash: 0 };
+  const o = { s: P.stroke, r: P.strokeRect, d: P.setLineDash };
+  P.stroke = function () { if (this === g) n.stroke++; return o.s.apply(this, arguments); };
+  P.strokeRect = function () { if (this === g) n.stroke++; return o.r.apply(this, arguments); };
+  P.setLineDash = function (a) { if (this === g && a && a.length) n.dash++; return o.d.apply(this, arguments); };
+  const U = FIGHT_UI, S = FIGHT.S, D = c.width / innerWidth, frame = () => { draw(performance.now()); return g.getImageData(0, 0, c.width, c.height).data; };
+  let A, B, ground, strokes, dash;
+  try {
+    U.groundOnly = true; n.stroke = 0; frame(); ground = n.stroke; U.groundOnly = false;
+    n.stroke = 0; n.dash = 0; A = frame(); strokes = n.stroke - ground; dash = n.dash;
+  } finally { U.groundOnly = false; P.stroke = o.s; P.strokeRect = o.r; P.setLineDash = o.d; }
+  const pend = U.pend, u = FIGHT.current(), f = FIGHT.reach(u, null, true), path = (pend && pend.path) || [];
+  U.auto = true; U.pend = null; B = frame(); U.auto = false; U.pend = pend;
+  let lA = 0, lB = 0, m = 0;
+  for (let i = 0; i < A.length; i += 16) { m++; if (Math.max(A[i], A[i + 1], A[i + 2]) - Math.min(A[i], A[i + 1], A[i + 2]) > 127) lA++;
+    if (Math.max(B[i], B[i + 1], B[i + 2]) - Math.min(B[i], B[i + 1], B[i + 2]) > 127) lB++; }
+  const tiles = Object.keys(f.best).map(Number).map(k => ({ x: k % S.w, y: Math.floor(k / S.w) })).filter(t =>
+    !FIGHT.zocOn(u, t.x, t.y).length && !path.some(q => q.x === t.x && q.y === t.y) && (t.x !== u.x || t.y !== u.y) &&
+    !S.units.some(v => FIGHT.onField(v) && Math.abs(v.x - t.x) <= 1 && v.y >= t.y && v.y <= t.y + 3))
+    .map(t => ({ X: Math.round(sx((t.x + .5) * U.tw) * D), Y: Math.round(sy((t.y + .35) * U.th) * D) }))
+    .filter(q => q.X > 4 && q.Y > TOPH * D + 4 && q.X < c.width - 4 && q.Y < (H - BOTH) * D - 4).slice(0, 8);
+  /* a tile's middle with and without the marks: how much lighter, and how much colour it gained */
+  const L = (p, i) => .3 * p[i] + .59 * p[i + 1] + .11 * p[i + 2], C = (p, i) => Math.max(p[i], p[i + 1], p[i + 2]) - Math.min(p[i], p[i + 1], p[i + 2]);
+  let dL = 0, dC = 0, k = 0;
+  tiles.forEach(q => { for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const i = ((q.Y + dy) * c.width + q.X + dx) * 4; k++;
+    dL += L(A, i) - L(B, i); dC += C(A, i) - C(B, i); } });
+  return { strokes, dash, loud: Math.max(0, lA - lB) / m, tiles: tiles.length, lift: k ? dL / k : 0, tint: k ? dC / k : 0 };
+};
 const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0, skill: 0, auto: {} };
 
 async function fight(F, first) {
@@ -204,6 +236,15 @@ async function fight(F, first) {
     const scr = await ev(t => ({ x: sx((t.x + .5) * FIGHT_UI.tw), y: sy((t.y + .5) * FIGHT_UI.th) }), plan.to);
     await p.touchscreen.tap(scr.x, scr.y); await p.waitForTimeout(120);
     const lit = await ev(() => !!(FIGHT_UI.pend && FIGHT_UI.pend.path));
+    /* THE MARKS ON THE BOARD (COMBAT [the marks on the board], rules 88, 114, 117): with his reach, the enemy's rings and the
+       walk up, the same frame is drawn with the marks and without them (AUTO's frame), and read back */
+    const mk = await ev(MARKS_READ);
+    leg(mk.strokes === 0 && mk.dash === 0, '*** THE MARKS ARE LAID, NOT STROKED (rule 114: no anti-aliased line on the ground) ***: nothing on the board is a stroked curve or a dashed box past the ground\'s own grid; chalk, tape and paint are laid cell by cell',
+      mk.strokes + ' strokes, ' + mk.dash + ' dashes');
+    leg(mk.loud < .0005, 'no mark is loud: the marks add no pixel of chroma over half (the red wash and its dashed edge were the loudest thing on the board, verdict 22)',
+      (100 * mk.loud).toFixed(3) + '% of the glass');
+    leg(mk.tiles >= 1 && mk.lift >= 3 && mk.tint <= 1, 'his reach is lit in the ground\'s own colour (rule 46f), never a tinted wash (AH-03 T3): inside it a tile\'s middle is lighter and gains no colour',
+      mk.tiles + ' tiles read: ' + mk.lift.toFixed(1) + ' lighter, ' + mk.tint.toFixed(1) + ' more colour (of 255)');
     await p.touchscreen.tap(scr.x, scr.y);
     await until(() => !FIGHT_UI.anim.length, 10000);
     const after = await ev(id => { const u = FIGHT.byId(id); return { x: u.x, y: u.y, ap: u.ap }; }, plan.id);
@@ -783,10 +824,12 @@ async function zocMelee() {
     /* the ring follows the weapon: the pistol man takes up a pipe */
     place(); a.weapon = cls('mace'); const swapped = FIGHT.zocOn(u, 7, 6).indexOf(a) >= 0; a.weapon = cls('dagger');
     /* the board says it: on your turn the ring is drawn round the melee man and not round the gunman */
-    place(); b.weapon = cls('mace'); FIGHT_UI.anim = []; const P = CanvasRenderingContext2D.prototype, sr = P.strokeRect, rects = [];
-    P.strokeRect = function (x, y, w, h) { if (this.strokeStyle && /232, ?104, ?76|e8684c/i.test(this.strokeStyle)) rects.push([x, y]); return sr.apply(this, arguments); };
-    draw(performance.now()); P.strokeRect = sr;
-    const at = f => [sx((f.x - 1) * FIGHT_UI.tw) + 1, sy((f.y - 1) * FIGHT_UI.th) + 1], near = (p, q) => Math.abs(p[0] - q[0]) < 2 && Math.abs(p[1] - q[1]) < 2;
+    /* (COMBAT [the marks on the board]: the ring is RUST PAINT hatched on each of its tiles now, read as the hatch's fills on the
+       tile west of each man; it was a red dashed box read by its stroke) */
+    place(); b.weapon = cls('mace'); FIGHT_UI.anim = []; const P = CanvasRenderingContext2D.prototype, fr = P.fillRect, rects = [];
+    P.fillRect = function (x, y) { if (this.fillStyle instanceof CanvasPattern) rects.push([x, y]); return fr.apply(this, arguments); };
+    draw(performance.now()); P.fillRect = fr;
+    const at = f => { const T = mkTile(f.x - 1, f.y); return [T.x0 * MKU, T.y0 * MKU]; }, near = (p, q) => Math.abs(p[0] - q[0]) < 2 && Math.abs(p[1] - q[1]) < 2;
     return { guns, melee, pastGun, pastPipe, swapped, ringPipe: rects.some(p => near(p, at(b))), ringGun: rects.some(p => near(p, at(a))) }; });
   r.err = d.errs[0]; await d.close();
   leg(r.guns.every(g => !g.ring) && r.melee.every(m => m.ring) && !r.err, '*** ZONE OF CONTROL IS MELEE ONLY (rule 103) ***: the pistol, the shotgun and the rifle hold no ring; a pipe, a blade, an axe do',

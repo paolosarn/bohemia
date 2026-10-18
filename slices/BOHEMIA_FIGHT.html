@@ -2054,6 +2054,89 @@ function stepGlide(now) {
   clampCam(); if (k >= 1) UI.glide = null;
 }
 
+/* ---------------- the marks on the board ----------------
+   THE MARKS ON THE BOARD (COMBAT [the marks on the board], rule 88; rule 114: no anti-aliased line, no see-through wash, no
+   glow, the palette's own ramps; rule 117: one mark per meaning, fewer on the glass). Everything the fight draws on the ground
+   is something a crew would put on a street, laid cell by cell on the grid the people are drawn at (one CSS pixel: three
+   device pixels on his phone), never a stroked curve. Three materials, one meaning each: CHALK (bone) is where your man can
+   go (your line while you set it, his reach, the walk he is about to take); GAFFER TAPE on a tile's corners is THIS man (the
+   one acting, the one you picked), the way a stage marks where an actor stands; RUST PAINT is theirs (the ring a melee man of
+   theirs holds, hatched; the corners of a man you can hit; a painted X under the man you are about to swing at). Under every
+   man only his contact shadow. His reach is also lit in the ground's own colour (rule 46f), the one light that is not paint. A hard
+   one-cell ink shadow under each mark, to the lower right (the light comes from the upper left, the style guide's field 6),
+   so it reads on sand and asphalt. Masking tape was tried first and dropped: its #c2a878 is the sand's own #b09060.
+   Colours: records/target/BOHEMIA_STYLE_PALETTE.json (clay_bone, tape_grey, clay_rust, clay_teal, cloth_black). */
+const MK = { chalk: '#efe9ca', chalkDim: '#b8a886', tape: '#cac9c1', rust: '#9a4f2c', rustLit: '#c48454',
+  teal: '#7ea499', ink: '#1d1b1b', shade: 'rgba(0,0,0,.42)', lift: 'rgb(16,16,16)' };
+let MKU = 1;
+/* every mark is drawn in device pixels on the cell grid; mkOn() opens it, mkOff() puts the CSS transform back */
+function mkOn() { cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); MKU = Math.max(1, Math.round(DPR)); }
+function mkOff() { cx.restore(); }
+function mc(v) { return Math.round(v * DPR / MKU); }   /* a CSS coordinate to its cell */
+function mkCell(x, y, w, h, c) { cx.fillStyle = c; cx.fillRect(x * MKU, y * MKU, w * MKU, h * MKU); }
+/* a stable coin per place, so chalk's breaks and tape's seams hold still from frame to frame (the bible's long hold) */
+function mkHash(a, b, c) { let h = (a * 73856093) ^ (b * 19349663) ^ (c * 83492791); h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+/* an ellipse laid row by row: 'fill' (a contact shadow) or 'rim' (one cell round) */
+function mkEllipse(X, Y, rx, ry, col, mode) {
+  const c0 = mc(X), r0 = mc(Y), a = Math.max(1, mc(rx)), b = Math.max(1, mc(ry));
+  const w = function (j) { return Math.abs(j) > b ? -1 : Math.round(a * Math.sqrt(Math.max(0, 1 - j * j / (b * b)))); };
+  for (let j = -b; j <= b; j++) {
+    const o = w(j);
+    if (mode === 'fill') { mkCell(c0 - o, r0 + j, o + o + 1, 1, col); continue; }
+    const i = Math.min(o, w(j + (j < 0 ? -1 : 1)) + 1);
+    if (i <= 0) { mkCell(c0 - o, r0 + j, o + o + 1, 1, col); continue; }
+    mkCell(c0 + i, r0 + j, o - i + 1, 1, col); mkCell(c0 - o, r0 + j, o - i + 1, 1, col);
+  }
+}
+/* a straight mark, cell by cell (Bresenham), t cells thick */
+function mkLine(x0, y0, x1, y1, col, t) {
+  let a = mc(x0), b = mc(y0); const c = mc(x1), d = mc(y1), dx = Math.abs(c - a), dy = -Math.abs(d - b), ix = a < c ? 1 : -1, iy = b < d ? 1 : -1;
+  let e = dx + dy;
+  for (;;) { mkCell(a, b, t, t, col); if (a === c && b === d) break; const e2 = e + e; if (e2 >= dy) { e += dy; a += ix; } if (e2 <= dx) { e += dx; b += iy; } }
+}
+/* a tile's box on the cell grid */
+function mkTile(x, y) { return { x0: mc(sx(x * UI.tw)), y0: mc(sy(y * UI.th)), x1: mc(sx((x + 1) * UI.tw)), y1: mc(sy((y + 1) * UI.th)) }; }
+/* four corners of a tile, two cells thick, with the ink shadow: TAPE on the man acting, RUST on a man you can hit */
+function mkCorners(x, y, col) {
+  const T = mkTile(x, y), L = Math.max(3, Math.round(Math.min(T.x1 - T.x0, T.y1 - T.y0) * .3)), x0 = T.x0 + 1, y0 = T.y0 + 1, x1 = T.x1 - 3, y1 = T.y1 - 3;
+  [MK.ink, col].forEach(function (c, s) { const o = s ? 0 : 1;
+    mkCell(x0 + o, y0 + o, L, 2, c); mkCell(x0 + o, y0 + o, 2, L, c); mkCell(x1 - L + 2 + o, y0 + o, L, 2, c); mkCell(x1 + o, y0 + o, 2, L, c);
+    mkCell(x0 + o, y1 + o, L, 2, c); mkCell(x0 + o, y1 - L + 2 + o, 2, L, c); mkCell(x1 - L + 2 + o, y1 + o, L, 2, c); mkCell(x1 + o, y1 - L + 2 + o, 2, L, c); });
+}
+/* the outline of a set of tiles ({key: true}, key = y * w + x), one cell inside its edge: CHALK, broken where chalk breaks, a
+   run here and there worn dim; or RUST PAINT, unbroken */
+function mkOutline(set, w, col, chalk) {
+  Object.keys(set).forEach(function (k) {
+    k = Number(k); const x = k % w, y = Math.floor(k / w), T = mkTile(x, y);
+    [[0, -1, T.x0, T.y0, T.x1 - T.x0, true], [0, 1, T.x0, T.y1 - 1, T.x1 - T.x0, true], [-1, 0, T.x0, T.y0, T.y1 - T.y0, false], [1, 0, T.x1 - 1, T.y0, T.y1 - T.y0, false]]
+      .forEach(function (s, side) {
+        if (set[(y + s[1]) * w + x + s[0]]) return;
+        let i = 0;
+        while (i < s[4]) {
+          const run = chalk ? 4 + Math.floor(mkHash(x, y, side * 97 + i) * 14) : s[4], n = Math.min(run, s[4] - i);
+          const c = chalk && mkHash(y, x, side * 31 + i) < .3 ? MK.chalkDim : col;
+          if (s[5]) { mkCell(s[2] + i + 1, s[3] + 1, n, 1, MK.ink); mkCell(s[2] + i, s[3], n, 1, c); }
+          else { mkCell(s[2] + 1, s[3] + i + 1, 1, n, MK.ink); mkCell(s[2], s[3] + i, 1, n, c); }
+          i += n + (chalk ? 1 + Math.floor(mkHash(i, side, x + y) * 2) : 0);
+        }
+      });
+  });
+}
+/* RUST PAINT HATCHED over a tile: one stroke every six cells, the hatch fixed to the ground, not to the glass */
+function mkHatch(x, y) {
+  const P = 6, u = MKU;
+  if (!UI.hatch || UI.hatch.u !== u) {
+    const c = document.createElement('canvas'); c.width = c.height = P * u; const g = c.getContext('2d');
+    for (let i = 0; i < P; i++) { g.fillStyle = MK.rust; g.fillRect(i * u, (P - 1 - i) * u, u, u); }
+    UI.hatch = { u: u, pat: cx.createPattern(c, 'repeat') };
+  }
+  const T = mkTile(x, y), ox = mc(sx(0)) * u, oy = mc(sy(0)) * u;
+  if (UI.hatch.pat.setTransform) UI.hatch.pat.setTransform(new DOMMatrix([1, 0, 0, 1, ox, oy]));
+  cx.fillStyle = UI.hatch.pat; cx.fillRect(T.x0 * u, T.y0 * u, (T.x1 - T.x0) * u, (T.y1 - T.y0) * u);
+}
+/* a chalk dot, two cells and its shadow, where he may stand */
+function mkDot(X, Y, col) { const c = mc(X) - 1, r = mc(Y) - 1; mkCell(c + 1, r + 1, 2, 2, MK.ink); mkCell(c, r, 2, 2, col || MK.chalk); }
+
 /* ---------------- drawing ---------------- */
 function draw(now) {
   stepGlide(now);
@@ -2069,64 +2152,67 @@ function draw(now) {
   if (UI.groundOnly) return;
   const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
   const busy = UI.anim.length > 0;
-  /* YOUR FORMATION: your two columns lit, the man you picked ringed */
+  mkOn();
+  /* YOUR FORMATION: your two columns in one chalk line (where your men can go); once a man is picked, a chalk dot on every free
+     tile he may stand on, and tape on his */
   if (S.deploy && !UI.auto) {
-    for (let y = 0; y < S.h; y++) FIGHT._t.zoneCols().forEach(function (x) {
-      if (!FIGHT._t.passable(x, y)) return;
-      cx.fillStyle = UI.dsel ? 'rgba(240,196,110,.32)' : 'rgba(240,196,110,.2)'; cx.fillRect(sx(x * UI.tw) + 1, sy(y * UI.th) + 1, tw - 2, th - 2);
+    const zc = FIGHT._t.zoneCols(), zone = {};
+    for (let y = 0; y < S.h; y++) zc.forEach(function (x) { zone[y * S.w + x] = true; });
+    mkOutline(zone, S.w, MK.chalk, true);   /* one plain box round both columns; the houses in it get no line of their own */
+    if (UI.dsel || UI.drag) Object.keys(zone).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      if (FIGHT._t.passable(x, y) && !S.units.some(function (v) { return FIGHT.onField(v) && v.x === x && v.y === y; })) mkDot(sx((x + .5) * UI.tw), sy((y + .9) * UI.th));
     });
-    /* the zone's edge, a hard one-pixel line with a dark one under it, so it reads on sand and on asphalt */
-    const zc = FIGHT._t.zoneCols(), x0 = sx(Math.min.apply(null, zc) * UI.tw), x1 = sx((Math.max.apply(null, zc) + 1) * UI.tw);
-    cx.lineWidth = 2; cx.strokeStyle = 'rgba(20,14,8,.7)'; cx.strokeRect(x0 + 1, sy(0) + 1, x1 - x0, UI.board.height * UI.zoom);
-    cx.strokeStyle = '#f0d296'; cx.strokeRect(x0, sy(0), x1 - x0, UI.board.height * UI.zoom);
-    if (UI.dsel) { cx.strokeStyle = '#f0d296'; cx.lineWidth = 2; cx.strokeRect(sx(UI.dsel.x * UI.tw) + 1.5, sy(UI.dsel.y * UI.th) + 1.5, tw - 3, th - 3); }
-    /* DRAGGING A MAN INTO HIS LINE (rule 110b): the tile under the finger answers, green where he may stand (a friend there
-       trades places), red where he may not; the tile he left is marked until he lands */
+    if (UI.dsel && !UI.drag) mkCorners(UI.dsel.x, UI.dsel.y, MK.tape);
+    /* DRAGGING A MAN INTO HIS LINE (rule 110b): the tile under the finger answers, tape where he may stand (a friend there
+       trades places), rust where he may not; the tile he left keeps dim chalk corners until he lands */
     if (UI.drag) {
       const p = dragTile(), ok = FIGHT.inZone(p.x, p.y) && FIGHT._t.passable(p.x, p.y) && !S.units.some(function (v) { return FIGHT.onField(v) && v.side !== 'you' && v.x === p.x && v.y === p.y; });
-      cx.fillStyle = ok ? 'rgba(143,174,106,.45)' : 'rgba(196,85,63,.35)'; cx.fillRect(sx(p.x * UI.tw) + 1, sy(p.y * UI.th) + 1, tw - 2, th - 2);
-      cx.strokeStyle = ok ? '#b9d98a' : '#ec6246'; cx.lineWidth = 2.5; cx.strokeRect(sx(p.x * UI.tw) + 2, sy(p.y * UI.th) + 2, tw - 4, th - 4);
-      cx.setLineDash([6, 4]); cx.strokeStyle = 'rgba(240,210,150,.8)'; cx.lineWidth = 2; cx.strokeRect(sx(UI.drag.u.x * UI.tw) + 2, sy(UI.drag.u.y * UI.th) + 2, tw - 4, th - 4); cx.setLineDash([]);
+      mkCorners(UI.drag.u.x, UI.drag.u.y, MK.chalkDim);
+      mkCorners(p.x, p.y, ok ? MK.tape : MK.rust);
     }
   }
   /* reach lit: where the active man can step, and who he can hit */
   if (u && crewControlled(u) && !busy && !S.over && !S.deploy) {
-    /* RULE 103, ON THE BOARD: a melee man's ring (the eight tiles round him) is lit as his, a gunman's neighbours are not */
+    /* RULE 103, ON THE BOARD: a melee man's ring (the eight tiles round him) is RUST PAINT hatched on the ground, the rings of
+       every such man of theirs one patch with one painted edge (it was a red wash and a dashed red box per man, the loudest
+       thing on the board); a gunman's neighbours are not his. Walking through it costs the free swing the walk line counts. */
+    const zoc = {};
     S.units.forEach(function (t) {
       if (t.side === u.side || !FIGHT.onField(t) || !FIGHT.sideSees('you', t) || !FIGHT.holdsRing(t)) return;
-      cx.fillStyle = RING_FILL;
-      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { if (!dx && !dy) continue; cx.fillRect(sx((t.x + dx) * UI.tw) + 1, sy((t.y + dy) * UI.th) + 1, tw - 2, th - 2); }
-      cx.strokeStyle = RING_EDGE; cx.lineWidth = 2.5; cx.setLineDash([7, 5]);
-      cx.strokeRect(sx((t.x - 1) * UI.tw) + 1, sy((t.y - 1) * UI.th) + 1, tw * 3 - 2, th * 3 - 2); cx.setLineDash([]);
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const x = t.x + dx, y = t.y + dy; if ((dx || dy) && x >= 0 && y >= 0 && x < S.w && y < S.h) zoc[y * S.w + x] = true; }
     });
-    const f = FIGHT.reach(u, null, true);
-    Object.keys(f.best).forEach(function (k) {
-      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
-      if (x === u.x && y === u.y) return;
-      cx.fillStyle = FIGHT.zocOn(u, x, y).length ? 'rgba(200,110,70,.18)' : 'rgba(217,168,90,.16)'; cx.fillRect(sx(x * UI.tw) + 1, sy(y * UI.th) + 1, tw - 2, th - 2);
-    });
-    S.units.forEach(function (t) {
-      if (!FIGHT.canStrike(u, t) || !FIGHT.sideSees('you', t)) return;
-      /* a man he can hit: his tile filled and edged red, so the reach reads at a glance (rule 83: a gun's begins at two) */
-      cx.fillStyle = 'rgba(196,85,63,.42)'; cx.fillRect(sx(t.x * UI.tw) + 1, sy(t.y * UI.th) + 1, tw - 2, th - 2);
-      cx.strokeStyle = 'rgba(236,98,70,.95)'; cx.lineWidth = 2.5; cx.strokeRect(sx(t.x * UI.tw) + 2, sy(t.y * UI.th) + 2, tw - 4, th - 4);
-    });
-    if (UI.skillMode) {
-      FIGHT.skillTargets(u, UI.skillMode).forEach(function (q) {
-        cx.fillStyle = 'rgba(120,170,220,.3)'; cx.fillRect(sx(q.x * UI.tw) + 1, sy(q.y * UI.th) + 1, tw - 2, th - 2);
-      });
-    }
+    Object.keys(zoc).forEach(function (k) { k = Number(k); mkHatch(k % S.w, Math.floor(k / S.w)); });
+    mkOutline(zoc, S.w, MK.rust, false);
+    /* where he can step: the tiles LIT IN THE GROUND'S OWN COLOUR (rule 46f: a neutral lift, the way a lamp lights a tile, never a
+       tinted wash; AH-03 T3), and one CHALK line round all of it */
+    const f = FIGHT.reach(u, null, true), reach = {}; reach[u.y * S.w + u.x] = true;
+    Object.keys(f.best).forEach(function (k) { reach[k] = true; });
+    cx.globalCompositeOperation = 'lighter'; cx.fillStyle = MK.lift;   /* +16 on every channel: the same colour a step up */
+    Object.keys(reach).forEach(function (k) { k = Number(k); const T = mkTile(k % S.w, Math.floor(k / S.w)); cx.fillRect(T.x0 * MKU, T.y0 * MKU, (T.x1 - T.x0) * MKU, (T.y1 - T.y0) * MKU); });
+    cx.globalCompositeOperation = 'source-over';
+    mkOutline(reach, S.w, MK.chalk, true);
+    /* a man he can hit: RUST corners on his tile (rule 83: a gun's begins at two) */
+    S.units.forEach(function (t) { if (FIGHT.canStrike(u, t) && FIGHT.sideSees('you', t)) mkCorners(t.x, t.y, MK.rustLit); });
+    if (UI.skillMode) FIGHT.skillTargets(u, UI.skillMode).forEach(function (q) { mkCorners(q.x, q.y, MK.teal); });
+    /* the walk he is about to take: chalk dots from his feet to where his feet will be, and his ring there in chalk */
     if (UI.pend && UI.pend.path) {
-      cx.strokeStyle = 'rgba(240,210,150,.9)'; cx.lineWidth = Math.max(2, tw * .04); cx.beginPath();
-      cx.moveTo(sx((u.x + .5) * UI.tw), sy((u.y + .5) * UI.th));
-      UI.pend.path.forEach(function (p) { cx.lineTo(sx((p.x + .5) * UI.tw), sy((p.y + .5) * UI.th)); });
-      cx.stroke();
+      const pts = [{ x: u.x, y: u.y }].concat(UI.pend.path).map(function (p) { return [sx((p.x + .5) * UI.tw), sy((p.y + .9) * UI.th)]; });
+      const gap = 6 / DPR * MKU, r = Math.max(4, Math.min(tw * .4, manH() * RING_W)), seg = [];
+      let total = 0;
+      for (let i = 1; i < pts.length; i++) { const L = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); seg.push([pts[i - 1], pts[i], total, L]); total += L; }
+      for (let s = r + gap, i = 0; s < total - r - gap / 2; s += gap) {
+        while (s > seg[i][2] + seg[i][3]) i++;
+        const q = seg[i], k = (s - q[2]) / q[3]; mkDot(q[0][0] + (q[1][0] - q[0][0]) * k, q[0][1] + (q[1][1] - q[0][1]) * k);
+      }
+      const e = pts[pts.length - 1];
+      mkEllipse(e[0], e[1] + 1, r, r * .36, MK.ink, 'rim'); mkEllipse(e[0], e[1], r, r * .36, MK.chalk, 'rim');
     }
   }
-  if (u && !S.over && !S.deploy) {
-    cx.strokeStyle = u.side === 'you' ? '#f0d296' : '#f08a70'; cx.lineWidth = 2;
-    cx.strokeRect(sx(dx(u) * UI.tw) + 1.5, sy(dy(u) * UI.th) + 1.5, tw - 3, th - 3);
-  }
+  /* the man acting: GAFFER TAPE on his tile's corners (his side's paint for theirs) */
+  if (u && !S.over && !S.deploy) mkCorners(dx(u), dy(u), u.side === 'you' ? MK.tape : MK.rustLit);
+  mkOff();
   S.units.filter(function (v) { return (v.dead || v.down) && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
   /* the people, back rows first */
   /* THE ENEMY'S LINE IS VISIBLE WHILE HE SETS HIS (rule 110b): FIGHT.shown draws every man of theirs before FIGHT; the man he is
@@ -2137,21 +2223,16 @@ function draw(now) {
   if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
   /* what a blow did, as light on the man, never as words on the ground (rule 46f): the words are in the bar */
   UI.pops = UI.pops.filter(function (p) { return now - p.t < beatMs() * 2; });
+  /* the ripple steps on the beat's keys (three a beat, the rig's keys_per_beat), a pixel rim, never a smooth swell */
+  mkOn();
   UI.pops.forEach(function (p) {
-    const k = Math.max(0, Math.min(1, (now - p.t) / (beatMs() * 2)));   /* a pop made later in this frame than 'now' is not negative */
+    const k = Math.floor(Math.max(0, Math.min(.999, (now - p.t) / (beatMs() * 2))) * 6) / 6;   /* a pop made later in this frame than 'now' is not negative */
     const X = sx((p.x + .5) * UI.tw), Y = sy((p.y + .62) * UI.th), r = Math.max(5, tw * .2) * (1 + k * (p.big ? 1.6 : .9));
-    cx.globalAlpha = (1 - k) * .9; cx.strokeStyle = p.col; cx.lineWidth = Math.max(1.5, tw * (p.big ? .05 : .03));
-    cx.beginPath(); cx.ellipse(X, Y, r, r * .45, 0, 0, Math.PI * 2); cx.stroke();
+    cx.globalAlpha = (1 - k) * .9; mkEllipse(X, Y, r, r * .45, p.col, 'rim');
+    if (p.big) mkEllipse(X, Y, r - 1 / DPR * MKU, r * .45 - 1 / DPR * MKU, p.col, 'rim');
     cx.globalAlpha = 1;
   });
-  /* the man you are about to swing at: a reticle, the chance is in the bar */
-  if (UI.pend && UI.pend.target && u) {
-    const t = UI.pend.target, X0 = sx(t.x * UI.tw) + 3, Y0 = sy(t.y * UI.th) + 3, X1 = X0 + tw - 6, Y1 = Y0 + th - 6, c = Math.min(tw, th) * .22;
-    cx.strokeStyle = '#e0604a'; cx.lineWidth = Math.max(2, tw * .03); cx.beginPath();
-    [[X0, Y0, 1, 1], [X1, Y0, -1, 1], [X0, Y1, 1, -1], [X1, Y1, -1, -1]].forEach(function (q) {
-      cx.moveTo(q[0] + q[2] * c, q[1]); cx.lineTo(q[0], q[1]); cx.lineTo(q[0], q[1] + q[3] * c); });
-    cx.stroke();
-  }
+  mkOff();
 }
 /* the fallen stay where they fell: a body on the ground, no word over it */
 /* THE CHARACTER BANK ON THE BOARD (rule 69): every man is a frame of his own look's atlas, baked from the
@@ -2202,16 +2283,25 @@ function drawMan(v, tw, th) {
      ring was 0.72 of his height across, a figure is 0.41, so a bright gold or orange arc stood out past both his sides like
      an outline; now it is his feet's width plus a little (RING_W), in the side's colour with the shine taken out */
   lampShadow(v, X, Y, h);
-  const trim = you ? RING_YOU : RING_THEM, base = Math.max(4, Math.min(tw * .4, h * RING_W));
-  cx.fillStyle = 'rgba(0,0,0,.42)'; cx.beginPath(); cx.ellipse(X, Y, base, base * .36, 0, 0, Math.PI * 2); cx.fill();
-  cx.strokeStyle = trim; cx.lineWidth = Math.max(1.5, h * .022); cx.beginPath(); cx.ellipse(X, Y, base, base * .36, 0, 0, Math.PI * 2); cx.stroke();
-  if (FIGHT.current() === v) { cx.strokeStyle = 'rgba(240,210,150,.85)'; cx.lineWidth = Math.max(1, h * .012); cx.beginPath(); cx.ellipse(X, Y, base * 1.18, base * .44, 0, 0, Math.PI * 2); cx.stroke(); }
+  /* THE RING IS HIS SHADOW (COMBAT [the marks on the board]; DIRECTION's F3 owner line, verdict 23: 'the gold rings to a thin dark
+     contact shadow'; rule 46f: no ovals painted on the board; his 10/17 NO on the coloured outline): the contact shadow laid in
+     cells, nothing in a side's colour round him. Whose turn it is and whom you can hit are on the tiles (tape, rust corners).
+     The man you are about to swing at stands on a painted X; the chance is in the bar. */
+  const base = Math.max(4, Math.min(tw * .4, h * RING_W));
+  mkOn();
+  mkEllipse(X, Y, base, base * .36, MK.shade, 'fill');
+  if (UI.pend && UI.pend.target === v && crewControlled(FIGHT.current())) {
+    const a = base * 1.6, b = a * .36;   /* flat on the ground, its arms out past his body so all four read */
+    [[MK.ink, 1 / DPR * MKU], [MK.rustLit, 0]].forEach(function (q) {
+      mkLine(X - a, Y - b + q[1], X + a, Y + b + q[1], q[0], 2); mkLine(X - a, Y + b + q[1], X + a, Y - b + q[1], q[0], 2); });
+  }
+  mkOff();
   if (v.morale === 'Fleeing') cx.globalAlpha = .7;
   blitMan(v, X, Y, h, face, now, false);
   cx.globalAlpha = 1;
   /* bars over a man only while he acts or is picked (rule 67a), as wide as the man, three points tall */
   if (h > 26 && (FIGHT.current() === v || (UI.pend && UI.pend.target === v) || UI.allBars)) {
-    const bw = Math.max(18, h * .42), bx = X - bw / 2, by = Y - h - 9;
+    const bw = Math.round(Math.max(18, h * .42)), bx = Math.round(X - bw / 2), by = Math.round(Y - h - 9);   /* on whole pixels: no soft edge */
     cx.fillStyle = 'rgba(0,0,0,.65)'; cx.fillRect(bx - 1, by - 1, bw + 2, BAR_PT * 2 + 3);
     cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), BAR_PT);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
@@ -2600,20 +2690,21 @@ function deployTap(px, py) {
   if (UI.dsel && (!pick || pick !== UI.dsel) && FIGHT.inZone(p.x, p.y)) {
     if (FIGHT.deployMove(UI.dsel, p.x, p.y)) { UI.dsel = null; say(KEPT_SAY); keepLine(); hud(); return; }
   }
-  if (pick) { UI.dsel = UI.dsel === pick ? null : pick; say(UI.dsel ? pick.name + ': drag him, or tap a lit tile of your two columns.' : deploySay()); hud(); return; }
+  if (pick) { UI.dsel = UI.dsel === pick ? null : pick; say(UI.dsel ? pick.name + ': tap a chalk dot, or drag him.' : deploySay()); hud(); return; }
   if (UI.dsel) say(OUTSIDE_SAY);
 }
 /* the line's words: the first time, how to set it; when it came back from the last fight, that it did; after a move, that it is kept */
-const DEPLOY_SAY = 'Set your line: drag a man to a lit tile. It is kept for the next fight. FIGHT when ready.';
-const KEPT_OPEN_SAY = 'Your line, as you left it. Drag a man to change it. FIGHT when ready.';
+/* RULE 117 (fewer words, one clear next thing) and the marks they name: the line is chalked now, nothing is 'lit'; the old
+   first line ran past the speech box sideways at 844 x 390 ('FIGHT when / ready.' clipped; the button already says FIGHT) */
+const DEPLOY_SAY = 'Drag a man inside the chalk. Kept for the next fight.';
+const KEPT_OPEN_SAY = 'Your line, as you left it. FIGHT when ready.';
 const KEPT_SAY = 'Kept. Drag another, or FIGHT.';
-const OUTSIDE_SAY = 'Only inside your two lit columns.';
+const OUTSIDE_SAY = 'Only inside the chalk.';
 function deploySay() { return FIGHT.S.formationKept ? KEPT_OPEN_SAY : DEPLOY_SAY; }
 /* THE SHELL HEARS THE LINE (rule 110b): the alpha and the demo may keep it with the company's save; the fight keeps its own copy */
 function keepLine() { try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_FIGHT_FORMATION', formation: FIGHT.S.formation }, '*'); } catch (_e) {} }
-const WALK_SAY = 'Tap a lit tile to walk, a red man to aim. Pinch for the board.';
-const RING_YOU = '#b0925e', RING_THEM = '#a65a46', RING_W = 0.27;
-const RING_FILL = 'rgba(196,85,63,.2)', RING_EDGE = 'rgba(232,104,76,.95)';
+const WALK_SAY = 'Tap inside the chalk to walk. Tap a marked man to hit.';
+const RING_W = 0.27;   /* the ring's half-width over his height: his feet's width and a little (the side colours are MK's) */
 function deployZoom() { return fitBoth().z; }   /* rule 104a: setting the line sees both lines; the man still 112 (rule 21) */
 /* BOTH TEAMS ON ONE SCREEN (rule 104a, his eighth votes: 'I should see the two teams finding each other at the same time
    without touching anything; I don't want to swipe'): the zoom and centre that hold every man of both teams on the glass,
