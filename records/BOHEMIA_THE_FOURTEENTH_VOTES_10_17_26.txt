@@ -1,0 +1,161 @@
+BOHEMIA VOTE -- 10/17 (THE FOURTEENTH VOTES; his export received 10/18; only the verdicts the registry did not already carry, 35 of 412 lines)
+
+YES  PLACEHOLDER: THE STRAIGHT-ROOF FAMILY IN THE VALLEY'S TANS, NOTHING BRIGHT
+     id    cook4-the-family-in-the-valley-tans-10-18
+     lane  cook 4   on 10/17
+     said  That's way better holy shit
+
+YES  PLACEHOLDER: THE RAGDOLL'S HITS, A SHOT, A CLUB, A FALL FROM A ROOF
+     id    animation-ragdoll-hits-10-17
+     lane  animation   on 10/17
+
+YES  CANDIDATE: ONE REAL LAS VEGAS STREET FROM YOUR OWN TILES, THE HOUSES WITH THE TAN ROOFS
+     id    cook2-one-real-street-10-18
+     lane  cook 2   on 10/17
+
+YES  THE THUG, BUILT AS A 3D MODEL AND TURNED INTO PIXELS LIKE THE ROBOT
+     id    cook3-the-thug-through-the-rig-10-18
+     lane  cook 3   on 10/17
+     said  Bro, it's so bad. I actually kinda like it bro that's insane. I like that like bro it's like it's giving this like analog horror AI slop and I love it.
+
+YES  WHO IS WEARING WHAT: EVERY MAN'S FOUR SLOTS FILLED, TAP ONE TO SWAP FROM THE BAG
+     id    run2-who-is-wearing-what-10-18
+     lane  run 2   on 10/17
+     said  Bro, the portrait sucks. Everything else is cool, but the portrait is so bad.
+
+YES  A DESERT, NOT A RAINFOREST
+     id    sounds-a-desert-not-a-rainforest-10-18
+     lane  sounds   on 10/17
+
+YES  PLACEHOLDER: THE ROBOT, THE TRUCK, A MAN, A BEAST AND A DRUM FROM ONE TABLE
+     id    direction-the-look-bible-everything-the-same-10-18
+     lane  direction   on 10/17
+
+YES  PLACEHOLDER: THE DIRE WOLF REDONE, IDLE, STEP AND BITE IN EIGHT
+     id    animation-the-wolf-redone-10-18
+     lane  animation   on 10/17
+
+YES  YOUR COMPANY SHOWS FACES, NOT TINY BODIES
+     id    run2-faces-not-tiny-bodies-10-18
+     lane  run 2   on 10/17
+
+YES  THE SCREENS LOSE THE PHONE-APP LOOK
+     id    ui-no-browser-defaults-10-18
+     lane  ui   on 10/17
+
+NO   SCAVENGE: FOUR HOURS IN THE LOT FOR ONE THING, AND THE DEAD CARRY ROUNDS
+     id    run2-the-scavenge-button-10-18
+     lane  run 2   on 10/17
+     said  So ass, bro, I can't hear The portrait is ass, bro. I can't even stare at it anymore.
+
+YES  PLACEHOLDER: A LAMP POST, A MACHINE GUN AND A WRECKED CAR, MADE THE CLAY WAY THE TRUCK WAS
+     id    cook-props-through-the-rig-10-18
+     lane  cook   on 10/17
+
+YES  THE MAP SOUNDS LIKE THE DESERT
+     id    sounds-the-map-hears-the-desert-10-18
+     lane  sounds   on 10/17
+     said  The districts are looking like shit the streets looking like shit doesn't look like shits connected that smart like it should bro something like dog shit bro for real
+
+YES  PLACEHOLDER: NO SHADOW LINE BEHIND YOU, AND A QUICKER, SMOOTHER FALL
+     id    animation-the-shadow-line-and-the-choppy-fall-10-18
+     lane  animation   on 10/17
+
+NO   THE MAP FILLS THE SCREEN SIDEWAYS
+     id    combat-the-fat-map-sideways-10-18
+     lane  combat   on 10/17
+     said  Bro, what the fuck is that blue collision bro what the fuck this is? It's getting better but like what the fuck
+
+YES  NO BLUE OR ORANGE LINE AROUND YOUR MEN
+     id    combat-no-coloured-outline-10-18
+     lane  combat   on 10/17
+
+YES  THE GANG PRINTS ON THE 3D CLOTHES, AND HANDS WITH A THUMB
+     id    character-the-print-and-the-hands-10-18
+     lane  character   on 10/17
+
+YES  THE THIRTEEN GANG LOOKS, BUILT AS 3D MODELS LIKE THE ROBOT
+     id    character-the-thirteen-through-the-rig-10-18
+     lane  character   on 10/17
+     said  Nice direction very good not final
+
+YES  THE RIG'S TRUCK DRIVES THE MAP IN THE DEMO
+     id    run-the-rig-truck-on-the-map-10-18
+     lane  run   on 10/17
+     said  It's kind of like the rest of the world, though for real
+
+YES  THE MARKSMAN, A 3D MODEL WITH HIS RIFLE SLUNG OVER HIS SHOULDER
+     id    cook3-the-marksman-through-the-rig-10-18
+     lane  cook 3   on 10/17
+     said  Good direction now finally looks like they're all plain face from Batman. Shit I really appreciate that. I like that.
+
+NO   THE POACHER, A 3D MODEL WHOSE COAT TAILS SWING WHEN HE WALKS
+     id    cook3-the-poacher-through-the-rig-10-18
+     lane  cook 3   on 10/17
+
+YES  PLACEHOLDER: THE POACHER'S FACE, A 3D HEAD UNDER A FIELD HAT ON HIS OWN BODY, THAT TALKS
+     id    portrait-the-poachers-face-from-the-same-model-10-18
+     lane  portrait   on 10/17
+     said  You might change the game with this one big star event. Tell the master coordinator this is the first star I've handed out, but this is the coordinator. I'm proud of you promoting.good shit the first star event and you are in
+
+YES  PLACEHOLDER: THE THUG'S FACE, BUILT AS A 3D HEAD ON HIS OWN BODY, THAT TALKS AND FROWNS
+     id    portrait-the-face-from-the-same-model-10-18
+     lane  portrait   on 10/17
+     said  This is good i love this direction ai slop gore horror analog amazing vibes
+
+YES  THE SETTLEMENT SOUNDS REAL, IN THE GAME
+     id    sounds-the-settlement-sounds-real-in-the-game-10-18
+     lane  sounds   on 10/17
+
+YES  THE PHONE OPENS ON ITS APPS
+     id    ui-the-phones-apps-10-18
+     lane  ui   on 10/17
+     said  The front screen looks like dog shit the first one so let's update that too, bro it's looking like dog shit
+
+YES  THE NUMBERS AROUND THE FIGHT
+     id    tuning-the-numbers-around-the-fight-10-18
+     lane  tuning   on 10/17
+     said  Thanks for the research. I appreciate it. Just always remember that I want you to be easier than battle Brothers like a matching bat bringing battle Brothers into this fun like Nintendo simplified way kind of vibes like minimalist vibes you know, bro like if there's a lot to do let's just like make the people feel that they're successfully doing it really good vibes.
+
+YES  PLACEHOLDER: THE WAREHOUSE UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS
+     id    cook4-the-warehouse-10-18
+     lane  cook 4   on 10/17
+
+YES  PLACEHOLDER: THE GAS STATION UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS
+     id    cook4-the-gas-station-10-18
+     lane  cook 4   on 10/17
+
+YES  PLACEHOLDER: THE MOTEL UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS
+     id    cook4-the-motel-straight-roof-10-18
+     lane  cook 4   on 10/17
+
+YES  CANDIDATE: THE THREE FIGHT BOARDS AGAIN, NOW WITH ALL FIVE TAN HOUSES
+     id    combat2-the-five-houses-on-the-board-10-18
+     lane  combat 2   on 10/17
+
+YES  PLACEHOLDER: HOW MUCH A HAND CHANGES THE ROBOT AFTER THE RENDER
+     id    direction-the-hand-finish-10-18
+     lane  direction   on 10/17
+
+YES  PLACEHOLDER: THE STYLE GUIDE, ONE RIGHT AND ONE WRONG FOR EVERY RULE
+     id    direction-the-style-guide-do-and-dont-10-18
+     lane  direction   on 10/17
+
+YES  THE ARRIVAL: THE TOWN'S NAME, ITS ELDER'S LINE AND WHAT IT THINKS OF YOU, TWO SECONDS, THEN THE PLACE
+     id    run2-the-arrival-10-18
+     lane  run 2   on 10/17
+     said  Fantastic
+
+YES  PLACEHOLDER: THE TRUCK WITHOUT THE FROST, AND THE ROBOT FINISHED BY HAND
+     id    direction-the-rig-round-five-10-18
+     lane  direction   on 10/17
+     said  The truck looks like a little too much like like a plate toy for real so turn it up, bro. It's not it's not gonna look like that anymore.
+
+YES  THE TITLE IS THE DESERT
+     id    sounds-the-title-is-the-desert-10-18
+     lane  sounds   on 10/17
+
+ANYTHING ELSE
+More analog horror no more cards with quest just make an actual actual quiz make make the make the pixels make the sound
+
+COUNT: 35 new verdicts, 32 YES, 3 NO; the one card he did not vote on is TUNING's gray research card (tuning-the-twenty-fields-four-studios-10-18). The registry carries 503 verdicts after the splice.
