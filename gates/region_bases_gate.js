@@ -238,9 +238,9 @@ function fourSeated(d) {
   ok('THE FOUR SEATED hold on the real file and WORLD\'s real land', real.length === 0, real.join('; '));
   for (const w of wild.concat(settled)) {
     const x = Math.round(mid + w.east), y = Math.round(mid - w.north), a = RL.at(x, y, REAL), wp = WPL.find(p => p.name === w.world_place);
-    console.log('  on WORLD\'s land: ' + w.id + ' (' + x + ',' + y + ') ' + (a ? a.kind : '?') + (wp ? ', ' + Math.max(Math.abs(wp.x - x), Math.abs(wp.y - y)) + ' from ' + wp.name : ', no world_place yet (gaps: [the wild on real land])'));
+    console.log('  on WORLD\'s land: ' + w.id + ' (' + x + ',' + y + ') ' + (a ? a.kind : '?') + (wp ? ', ' + Math.max(Math.abs(wp.x - x), Math.abs(wp.y - y)) + ' from ' + wp.name : ', no world_place yet (gaps: [real camps])'));
   }
-  ok('the eight older wild rows are named as off WORLD\'s land in the gaps, not hidden', D.gaps.some(g => /NOT ON WORLD'S REAL LAND/.test(g) && /the wild on real land/.test(g)));
+  ok('the eight older wild rows are named as off WORLD\'s land in the gaps, not hidden', D.gaps.some(g => /NOT ON WORLD'S REAL LAND/.test(g) && /real camps/.test(g)));
   /* the planted mistakes: each must turn the check red by its own name */
   const plant = (name, fn) => { const c = JSON.parse(JSON.stringify(D)); fn(c); const b = fourSeated(c); ok('planted ' + name + ' turns it red by name', b.some(x => x.indexOf(name) === 0), b.join('; ') || 'nothing'); };
   const row = (c, id) => (c.hostile_locations || []).concat(c.settled_locations || []).find(w => w.id === id);

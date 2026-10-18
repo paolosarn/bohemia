@@ -21,7 +21,7 @@ no seat on purpose and turns out wherever a crew is going.
   16 to 68 blocks from the real place it names (Nelson 68, Railroad Pass 56, Jean Dry Lake 48, Sloan and Gypsum Cave
   40, Apex and the Lost City 32, Tule Springs 16) and seven of eight stand on ground their own faction does not hold
   (the Gypsum Cave lair is inside the lake's district; the Jean Dry Lake nomads are on the McCullough Range). This is
-  the finding that proves us wrong, and it is the next row: [the wild on real land].
+  the finding that proves us wrong, and it is the next row: [real camps].
 - THE PARTIES MODULE SENDS CARAVANS TO A BEAST'S DEN. Handed a settled seat beside the wild rows, its other parties
   went by friendliesOf(), which counts every seat between() has never heard of as a friend; the eye's first draft sent
   a caravan to the Tule Springs den. Battle Brothers' city states send 'caravans to trade with other settlements', so
@@ -118,7 +118,7 @@ Why these places, in the real world:
 - COMBAT: how many men a watch turns out with (Battle Brothers: a rich town fields more).
 - TUNING: far_blocks 60 puts the two new camps on their late rosters from day one (rule 117 is yours); one head-taker
   party at a time.
-- WORLD: nothing to change; WORLD's 34 real places are the seats now. [the wild on real land] will ask whether the
+- WORLD: nothing to change; WORLD's 34 real places are the seats now. [real camps] will ask whether the
   twelve places follow WORLD's places too (HENDERSON is inside the valley box in WORLD's land and MESQUITE past the rim).
 
 ## [bb four seated] SCHOOL LINE
