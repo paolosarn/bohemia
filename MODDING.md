@@ -38,3 +38,6 @@ The loader names the file and field. Every message has a code (M01 to M20) with 
 
 ## Your first hour, step by step
 `records/BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.md`. When the data changes under your mod: `records/BOHEMIA_MODS_THE_DATA_CHANGELOG_10_10_26.md`.
+
+## A sprite in a mod
+Not yet. The game loads no mod pictures and the checker ignores a PNG today. How a sprite would be declared beside its file and checked (geometry skips, style reports): `records/BOHEMIA_MODS_A_MODDER_RUNS_THE_SAME_TEN_TESTS_10_18_26.md` and `records/BOHEMIA_MODS_THE_STYLE_GUIDE_AS_DATA_10_18_26.md`.

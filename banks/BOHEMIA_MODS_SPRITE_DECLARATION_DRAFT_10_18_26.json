@@ -1,0 +1,63 @@
+{
+ "draft": true,
+ "lane": "mods",
+ "date": "10/18/26",
+ "rows": [
+  "[the style guide as data]",
+  "[the ten gates as a mod check]"
+ ],
+ "rule": "RESEARCH ONLY (rule 22, 38g). Nothing reads this file. It is the SHAPE two files would take, so DIRECTION's style guide and PLUMBER's gate family and a modder's sprite all speak one language. Every number here that is not already a ruling (57 px a metre, the 112 box, 120 BPM, twelve keys a bar, tilt 45) is a placeholder DIRECTION replaces; the research page says which is which.",
+ "the_style_guide_file": {
+  "why_this_shape": "One JSON, schema-numbered like the data folder; a 'classes' table keyed by asset class so a sprite names its class and the checker looks up its limits; a 'tests' list that names the ten checks with their threshold KEYS, so the gate family and the mod check read the same numbers; the measured bands from his packs stay in the card of numbers file and are referenced, not copied.",
+  "schema": 1,
+  "identity": "one sentence, DIRECTION's (field 1)",
+  "pixel": { "ppm": 57, "person_box_px": 112, "display_scale": [1, 2, 3, 4], "subpixel": false },
+  "camera": { "tilt_deg": 45, "turn_deg": 0, "ortho": true },
+  "palette": { "file": "records/target/BOHEMIA_MASTER_PALETTE.json", "family_population": "reference/art_bank/<family>/ (the snap, rule 115)", "ramp_steps": [4, 5], "hue_shift_min_deg": 8, "roles": "DIRECTION fills (ground, wall, skin, cloth, metal, neon, ui)" },
+  "light": { "azimuth_deg": "DIRECTION fills (rig.json says 'upper left, above' in words today)", "elevation_deg": "DIRECTION fills", "tolerance_deg": 30 },
+  "shading": { "values_min": 3, "shadow_black": false, "banding": 0 },
+  "classes": {
+   "person": { "box_px": 112, "facings": 8, "colours_max": "DIRECTION fills (his packs hold no people; the rig's robot holds 152,549)", "outline": "DIRECTION fills", "detail_max_share": "DIRECTION fills", "rest_min_share": "DIRECTION fills", "silhouette_feature": "one per enemy class, DIRECTION fills" },
+   "beast": { "facings": 8, "through": "the master rig" },
+   "prop": { "band_from": "records/target/DIRECTION_THE_CARD_OF_NUMBERS.json families.prop.band", "long_side_min_px": 96 },
+   "tile": { "band_from": "families.ground / families.road", "variants_min": 2, "max_run": 4 },
+   "building": { "band_from": "families.settlement", "asymmetry_min": "one window or door" },
+   "portrait": { "head_min_px": 96, "facings": ["S", "SE", "SW"] },
+   "ui": { "font_file": "DIRECTION fills", "radius_max_px": 1, "gradients": false, "blur": false, "glow": false, "system_fonts": false }
+  },
+  "contact": { "line_px": 1, "cast_px": 2 },
+  "animation": { "bpm": 120, "keys_per_bar": 12, "max_reverse_deg": 120 },
+  "tie_breaker": ["readability at 1x", "palette over detail", "silhouette over colour"],
+  "tests": [
+   { "id": "T01", "name": "one pixel size", "reads": "pixel.display_scale", "block": true },
+   { "id": "T02", "name": "palette and colour count", "reads": "classes.<class>.colours_max, palette.file" },
+   { "id": "T03", "name": "one light direction", "reads": "light.*" },
+   { "id": "T04", "name": "hue shift in ramps", "reads": "palette.hue_shift_min_deg" },
+   { "id": "T05", "name": "detail and rest", "reads": "classes.<class>.detail_max_share, rest_min_share" },
+   { "id": "T06", "name": "silhouette separation", "reads": "classes.<class>.silhouette_feature" },
+   { "id": "T07", "name": "three values", "reads": "shading.values_min" },
+   { "id": "T08", "name": "clean lines", "reads": "shading.banding" },
+   { "id": "T09", "name": "repetition and variation", "reads": "classes.tile.variants_min, max_run" },
+   { "id": "T10", "name": "UI defaults", "reads": "classes.ui.*" }
+  ]
+ },
+ "a_mods_sprite_declaration": {
+  "why_this_shape": "The fight's own sheet declaration (slices/fight_people/fight_people.json: frame, figure_bbox, rows of facings, cols of clip@phase, looks keyed by id with a file) is already the Battle Brothers metadata.xml of this game. A mod's sprites.json uses the same row shape under 'rows', keyed '<modid>:<name>', plus the three words the checker needs: class, family and guide.",
+  "file_in_the_mod_folder": "sprites.json (proposed; the reference merge ignores it today, M19)",
+  "example": {
+   "rows": {
+    "my-mod:robot": {
+     "file": "robot_S.png",
+     "class": "prop",
+     "family": "prop",
+     "facing": "S",
+     "frame": 112,
+     "anchor": "foot-centre",
+     "guide": "bohemia-style-guide@1",
+     "claims": ["T01", "T02", "T03"]
+    }
+   }
+  },
+  "what_the_check_does": "For each row: the file exists (else M21, row skipped); frame and facings match the class (else M22/M23, row skipped: geometry blocks, the way Factorio, Minecraft and Terraria block); the ten tests run with the class's thresholds from the style guide file and print OK/OUT per test (M25, a report, loads anyway: warn never block, his 9/30, the Minecraft 'incompatible but loads' model); an unknown class is M24 (warn, prop's band)."
+ }
+}
