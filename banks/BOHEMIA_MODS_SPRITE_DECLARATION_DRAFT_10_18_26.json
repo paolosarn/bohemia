@@ -4,7 +4,8 @@
  "date": "10/18/26",
  "rows": [
   "[the style guide as data]",
-  "[the ten gates as a mod check]"
+  "[the ten gates as a mod check]",
+  "[a sheet's class]"
  ],
  "rule": "RESEARCH ONLY (rule 22, 38g). Nothing reads this file. It is the SHAPE two files would take, so DIRECTION's style guide and PLUMBER's gate family and a modder's sprite all speak one language. Every number here that is not already a ruling (57 px a metre, the 112 box, 120 BPM, twelve keys a bar, tilt 45) is a placeholder DIRECTION replaces; the research page says which is which.",
  "the_style_guide_file": {
@@ -58,6 +59,72 @@
     }
    }
   },
-  "what_the_check_does": "For each row: the file exists (else M21, row skipped); frame and facings match the class (else M22/M23, row skipped: geometry blocks, the way Factorio, Minecraft and Terraria block); the ten tests run with the class's thresholds from the style guide file and print OK/OUT per test (M25, a report, loads anyway: warn never block, his 9/30, the Minecraft 'incompatible but loads' model); an unknown class is M24 (warn, prop's band)."
+  "what_the_check_does": "For each row: the file exists (else M21, row skipped); frame and facings match the class (else M22/M23, row skipped: geometry blocks, the way Factorio, Minecraft and Terraria block); the ten tests run with the class's thresholds from the style guide file and print OK/OUT per test (M25, a report, loads anyway: warn never block, his 9/30, the Minecraft 'incompatible but loads' model); an unknown class is M24 (warn, prop's band).",
+  "a_packed_sheet": {
+   "why_this_shape": "[a sheet's class], 10/18: a packed sheet is not one class. The row's own 'class' is the DEFAULT for every frame on the grid; two optional keys name the exceptions, nothing else changes. 'blocks' gives any area off the frame grid its own class and rectangle (Content Patcher's FromArea is X, Y, Width, Height and nothing more; ours adds the class because a check needs it). 'pose' on a clip says the body is not standing, so the guide can skip or widen the light row there. Measured on the 26 fight looks: only the dead clip lies (50 of 52 frames wider than tall, 51 of 52 lit more than 45 degrees off the look's standing light); down sits (0 wide, 42 of 208 off, against 6 to 16 on the standing clips); every other clip stands.",
+   "example": {
+    "rows": {
+     "my-mod:drifter": {
+      "file": "drifter.webp",
+      "class": "person",
+      "frame": 112,
+      "rows": [
+       "SE",
+       "SW"
+      ],
+      "cols": [
+       "idle@0",
+       "walk@0",
+       "walk@0.5",
+       "sleep@0",
+       "crawl-dying@0.1042"
+      ],
+      "clips": {
+       "idle": {
+        "cols": [
+         "idle@0"
+        ]
+       },
+       "step": {
+        "cols": [
+         "walk@0",
+         "walk@0.5"
+        ]
+       },
+       "down": {
+        "cols": [
+         "crawl-dying@0.1042"
+        ],
+        "pose": "low"
+       },
+       "dead": {
+        "cols": [
+         "sleep@0"
+        ],
+        "pose": "lying"
+       }
+      },
+      "blocks": [
+       {
+        "name": "face",
+        "class": "portrait",
+        "rect": [
+         560,
+         0,
+         64,
+         64
+        ]
+       }
+      ],
+      "guide": "bohemia-style-guide@1"
+     }
+    }
+   },
+   "the_two_keys": {
+    "blocks": "optional list; each {name, class, rect:[x,y,w,h]} in sheet pixels; a pixel inside a block is checked as that class and never as a frame; a block outside the image is M22 (geometry, the block skipped by name). The fight's own 'face: {size, at: words}' becomes one block, its rect computed once: [cols x frame, 0, size, size] = [3808, 0, 64, 64].",
+    "pose": "optional on a clip: 'standing' (default), 'low' (sitting, crawling), 'lying'. The guide, not the mod, says what each does to a test (DIRECTION's call; the measured split says lying skips the light row and low is reported, not failed). A sheet that declares no pose: the check falls back to the alpha box (wider than tall = lying), which finds dead on 50 of 52 and never finds low."
+   },
+   "not_added": "a class per frame or per row (every row of a sheet is one body seen from another side; Battle Brothers and Stardew tag the FILE, not the sprite), and a second class word beside 'family' (rig.json's card.family reads 'prop' on 39 of 40 rigs including the man, the thug and the wolf: it names the card band, never the class, so a check must not read it as one)."
+  }
  }
 }

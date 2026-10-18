@@ -224,6 +224,21 @@ the Mob's four valley cells and RUN's region fortress); TUNING (the +n and the
 base cost). PENDING Paolo: nothing.
 
 
+MODS (mods-opus-10-18): 10/18 LATEST (c) -- *** THE NEW AGE (rules 112 to 117; opened by the coordinator, Opus per rule 116, no check-in) SHIPPED
+[a sheet's class]. *** Record records/BOHEMIA_MODS_WHERE_A_SHEET_NAMES_ITS_CLASS_10_18_26.md; instrument
+tools/bohemia_mods_sheet_class.py (reads only, about one minute); draft key a_packed_sheet in
+banks/BOHEMIA_MODS_SPRITE_DECLARATION_DRAFT_10_18_26.json (draft:true, nothing reads it). A packed fight sheet needs a class
+in TWO places beyond the file: the face block (portrait, at the rig portrait's other pixel size) and ONE lying clip. PROVES
+THE ROW WRONG: sleep IS dead (the dead clip plays sleep@0); only dead lies (50 of 52 wider than tall, 51 of 52 off the
+look's standing light); down SITS (0 wide, 42 of 208 off, against 6 to 16 per 200 on standing clips). Nothing names a class
+today: kind is who, face.at is English, rig.json's card.family reads prop on 39 of 40 incl. the man and the wolf (a band,
+not a class; the draft's own robot example had copied it). School: Battle Brothers tags the brush, Content Patcher's areas
+are X, Y, Width, Height and nothing else (fetched); both tag the FILE and keep the portrait a separate file. Smallest
+addition: optional blocks {name, class, rect} and pose on a clip (standing, low, lying), the style guide saying what each
+does. Routed DIRECTION (low and lying on G3, the portrait block against G1, family is not class), PLUMBER (read blocks and
+pose in the sheet check), COMBAT (no ask; face.at in words, floor-rise@0.1042 in no clip). New OPEN row [the face apart]
+(rule 74); [a png in the bundle] and [grok sources] stand. Rule 88 kept: no VOTE sheet. PENDING Paolo: nothing.
+
 MODS (mods-59jyd6): 10/18 LATEST (b) -- *** THE NEW AGE (rules 112 to 116; opened by the coordinator, no check-in) SHIPPED
 [sheets not stills]. *** Record records/BOHEMIA_MODS_THE_TEN_TESTS_ON_A_PACKED_SHEET_10_18_26.md; instrument
 tools/bohemia_mods_sheet_cost.py (reads only, about 2.5 min). Measured on all 26 looks in slices/fight_people (1,768
