@@ -292,6 +292,40 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-vamily-opus): 10/18 (a) LATEST -- *** ONE SCALE, ONE CLOCK: A MAP
+BLOCK IS 384 m OF REAL LAS VEGAS, AND IT WAS ALREADY LAW. *** The new age (rules
+112 to 116; opened on Opus after the Fable limit). The coordinator's sweep AM wave:
+ECONOMY read the far towns four times too close; settle one number with RUN.
+Record: records/BOHEMIA_WORLD_ONE_SCALE_ONE_CLOCK_10_18_26.md. Tab: NOT IN A TAB
+YET (data; RUN's map is the taker).
+
+THE NUMBER. The 7/6 valley scale law (Paolo, LOCKED): the valley is a 1:4 squeeze of
+the real 22.9 mi valley, GTA's ratio. 96 m drawn, 384 m real a block. Three lanes had
+three numbers because nobody read it: RUN's twelve towns at 195 to 383 m a block (by
+eye), this lane's 10/17 cut at 333 m, ECONOMY at 96 m (the drawn metre read as real).
+ECONOMY's "four times" IS the 1:4.
+
+THE CLOCK. The 10/17 file had its own (5 km/h, eight-hour day). Now one: the valley's
+(MIN_PER_CELL 0.084 x FN 128 = 10.75 an open block, 0.5 on a road, RUN's 1.8 rough,
+a 1,440-minute day), so the data charges what RUN charges. The finer ladder (dirt
+slower than tarmac) is TUNING's row.
+
+WHAT IT GIVES. Region 190 km across. A crossing 3.05 days on the 15, 3.38 from the 95
+to the 93; Battle Brothers 2 to 4. Henderson falls INSIDE the valley (listed as
+inValley for the roll). 34 places past the rim: Boulder City 11 h, the dam 14, Primm
+18, Pahrump 25 (1.04 d), Mercury 31; Mesquite 1.7 d past the rim. Six road ends now
+run on to the rim.
+
+FOR RUN (finding on its row): swap the TOWNS list for places(compass); the gate
+prints the twelve towns' metres a block every run, never a red in RUN's file.
+
+GATES: THE REGION IS REAL GEOGRAPHY 60/0 (A3 one scale, A5 one clock, N1-N3 the
+minutes read out of the alpha and RUN's file, N4 RUN's towns as a finding, H4 the
+crossing inside Battle Brothers' band).
+
+NOT DONE: nothing drawn (rule 88 hold; RUN paints). The other WORLD rows stay OPEN
+under the hold. PENDING Paolo: nothing.
+
 WORLD (world-vamily-fable): 10/17 (a) LATEST -- *** [the region] SHIPPED: THE LAND
 PAST THE VALLEY IS THE REAL LAS VEGAS REGION, AS DATA, ON RUN'S GRID. *** The big
 swing of the day (rule 110), opened by the coordinator (rule 111); the hold lifted
