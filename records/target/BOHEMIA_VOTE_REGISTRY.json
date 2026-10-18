@@ -9985,6 +9985,22 @@
     ]
    },
    "draft": true
+  },
+  {
+   "id": "combat-the-fat-map-no-blue-10-18",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "ca8ff575",
+   "made": "10/18",
+   "title": "THE FAT MAP SIDEWAYS, NO BLUE",
+   "redoOf": "combat-the-fat-map-sideways-10-18",
+   "said": "what the fuck is that blue collision... it's getting better but like what the fuck",
+   "why": "The blue was a hole where a piece of the map never loaded, and the night light painted the empty spot blue; now the ground goes down first, so a missing piece shows dirt, never blue. You see it in the COMBAT tab with the phone turned sideways at night.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_FAT_MAP_NO_BLUE_10_18.jpg"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
