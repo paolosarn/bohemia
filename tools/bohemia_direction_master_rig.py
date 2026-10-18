@@ -98,9 +98,18 @@ judged frame against frame, so the rig now hands a gate what it needs to tell mo
   * THE OBJECT-ID PASS: every mesh part becomes one flat colour (obj_table in rig.json) and the eight stills AND every
     clip key are rendered again at one sample as rigobj_*.png on the same box, so a part's pixels can be counted per
     frame (R11: a part that vanishes and returns) and the moving parts' pixels masked (R12).
+  * THE HOLD (rig.hold_px, research C3 taken per part): a rigid part that would move under half a pixel since its
+    last DRAWN pose keeps that pose, so a fifth-of-a-pixel drift never resamples its grain (measured on the robot's
+    idle: 72 percent of the sprite changed outside the moving parts, 10.9 percent visibly); a skinned part rides the
+    rigid part its strongest bone carries; a key where every part holds repeats the key before, copied bit for bit.
   * THE MOTION TABLE (clips.<name>.motion_px): for each facing and key, how far each part's furthest vertex moved on
-    the screen since the key before (cyclic, a loop), from the model's own evaluated vertices under the one camera;
-    a part that moved half a pixel or more is inside the moving mask, every other pixel is a hold.
+    the screen since the key before (cyclic, a loop), in what is DRAWN (the holds laid on), from the model's own
+    evaluated vertices under the one camera; a part that moved hold_px or more is inside the moving mask.
+  * THE MOVERS' LIGHT (rig.light_mask_samples, rig.light_mask_values): for a key where some parts move and some hold,
+    white clay rendered with and without the movers in the light (camera rays only): their cast shadow and bounce on
+    the parts that hold is motion, not boil; riglight_*.png on the same box.
+  * THE WEAR BY MATERIAL (rig.wear_by_material): hair, skin and eyes take a share of the dust and the chips (CHARACTER,
+    COOK THREE: every dark crown rendered grey; PORTRAIT: the chips blotch skin).
 
 REFERENCE CHECK (the 9/4 standing duty): the compare law, the approved asset index (the twin is his own car from the
 7/13 UP set), the card of numbers, skills/bohemia-pixel-art, AH-01, AH-03. No reference game.
@@ -454,8 +463,8 @@ def clip_holds(sc, objs, root, cam, res, frames, hold_px):
     RIGID part (a mesh carried by a bone, no armature of its own) whose furthest vertex would move under hold_px on the
     screen since its last DRAWN pose keeps that drawn pose (its world matrix is pinned); once the true pose is hold_px
     or more away it is drawn where it truly is, so a slow drift still arrives, in whole visible steps. A SKINNED part
-    rides the rigid part nearest it: when that anchor holds, the same correction is carried onto it, so a hand never
-    slides off a held arm. Two passes round the loop so the first key knows the last. Returns the pins per facing and
+    rides the rigid part its strongest bone carries (bone_anchor): when that anchor holds, the same correction is
+    carried onto it, so a hand never slides off a held arm. Two passes round the loop so the first key knows the last. Returns the pins per facing and
     key, and THE MOTION TABLE of what is drawn: each part's furthest vertex movement on the screen since the key before,
     in pixels, cyclic, from the model's own vertices after every modifier, under the one ortho camera."""
     import bpy
@@ -486,10 +495,10 @@ def clip_holds(sc, objs, root, cam, res, frames, hold_px):
                 b = b.parent
         return min(rigid, key=lambda r: np.linalg.norm(centre(r) - centre(o))).name
     anchor = {o.name: bone_anchor(o) for o in skinned} if rigid else {}
-    pins, motion = {}, {}
+    pins, motion, snaps = {}, {}, {}
     for i, f in enumerate(FACINGS):
         root.rotation_euler = (0, 0, math.radians(180 - 45 * i)); bpy.context.view_layer.update()
-        last, keyed = {}, []
+        last, slast, keyed = {}, {}, []
         for rnd in (0, 1):
             for j, fr in enumerate(frames):
                 sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
@@ -503,32 +512,54 @@ def clip_holds(sc, objs, root, cam, res, frames, hold_px):
                     an = anchor.get(o.name)
                     if an in hold:
                         cur = np.array(bpy.data.objects[an].matrix_world); carry[o.name] = hold[an] @ np.linalg.inv(cur)
+                # a SKINNED part holds its whole shape: bones bend it, so pinning its place is not enough (the robot's
+                # hand: a third of a pixel of finger drift resampled it, measured); under hold_px since its last drawn
+                # shape, the rig draws a frozen copy of that shape (snapshot) where it was drawn
+                skhold, sk = {}, {}
+                if skinned:
+                    dgk = bpy.context.evaluated_depsgraph_get()
+                    for o in skinned:
+                        e = o.evaluated_get(dgk); me = e.to_mesh(); co = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', co); e.to_mesh_clear()
+                        W = carry.get(o.name, np.eye(4)) @ np.array(o.matrix_world); v = co.reshape(-1, 3); sc_ = px(W, v[::max(1, len(v) // 600)])
+                        L = slast.get(o.name)
+                        if L is not None and L[0].shape == sc_.shape and np.sqrt(((sc_ - L[0]) ** 2).sum(1)).max() < hold_px: skhold[o.name] = (L[1], L[2]); sk[o.name] = L[0]
+                        else: slast[o.name] = (sc_, j, W); sk[o.name] = sc_
                 if rnd == 1:
-                    sk = {}
-                    if skinned:
-                        dgk = bpy.context.evaluated_depsgraph_get()
-                        for o in skinned:
-                            e = o.evaluated_get(dgk); me = e.to_mesh(); co = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', co); e.to_mesh_clear()
-                            W = carry.get(o.name, np.eye(4)) @ np.array(o.matrix_world); v = co.reshape(-1, 3); sk[o.name] = px(W, v[::max(1, len(v) // 600)])
-                    keyed.append(dict(hold=hold, carry=carry, scr={**{n: px(M, loc[n]) for n, M in drawn.items()}, **sk}))
-        pins[f] = [dict(hold={n: M.tolist() for n, M in k['hold'].items()}, carry={n: M.tolist() for n, M in k['carry'].items()}) for k in keyed]
+                    keyed.append(dict(hold=hold, carry=carry, skin=skhold, scr={**{n: px(M, loc[n]) for n, M in drawn.items()}, **sk}))
+        for k in keyed:
+            for nm, (j0, W0) in k['skin'].items():
+                if (nm, j0) not in snaps:   # the shape the part was drawn with at key j0, frozen as its own mesh
+                    sc.frame_set(int(math.floor(frames[j0])), subframe=frames[j0] - math.floor(frames[j0]))
+                    e = bpy.data.objects[nm].evaluated_get(bpy.context.evaluated_depsgraph_get())
+                    snaps[(nm, j0)] = bpy.data.meshes.new_from_object(e, preserve_all_data_layers=True, depsgraph=bpy.context.evaluated_depsgraph_get()).name
+        pins[f] = [dict(hold={n: M.tolist() for n, M in k['hold'].items()}, carry={n: M.tolist() for n, M in k['carry'].items()},
+                        skin={n: dict(mesh=snaps[(n, j0)], W=W0.tolist()) for n, (j0, W0) in k['skin'].items()}) for k in keyed]
         n = len(frames)
         motion[f] = [{nm: round(float(np.sqrt(((keyed[j]['scr'][nm] - keyed[j - 1]['scr'][nm]) ** 2).sum(1)).max()), 3) for nm in keyed[j]['scr']} for j in range(n)]
     return pins, motion
 
 
 def pose_key(sc, root, i, fr, pk):
-    """the facing, the clip's time, then the holds of THE HOLD laid on; returns what to restore after the render"""
+    """the facing, the clip's time, then the holds of THE HOLD laid on (rigid parts pinned, skinned parts carried or
+    swapped for the frozen copy of their last drawn shape); returns what to restore after the render"""
     import bpy, mathutils
     root.rotation_euler = (0, 0, math.radians(180 - 45 * i)); sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
     undo = []
     if pk:
         for nm, M in list(pk['hold'].items()) + list(pk['carry'].items()):
-            o = bpy.data.objects[nm]; undo.append((o, o.matrix_basis.copy()))
+            o = bpy.data.objects[nm]; B = o.matrix_basis.copy(); undo.append(lambda o=o, B=B: setattr(o, 'matrix_basis', B))
         for nm, M in pk['hold'].items(): bpy.data.objects[nm].matrix_world = mathutils.Matrix(M)
         bpy.context.view_layer.update()
         for nm, M in pk['carry'].items():
             o = bpy.data.objects[nm]; o.matrix_world = mathutils.Matrix(M) @ o.matrix_world
+        for nm, h in pk.get('skin', {}).items():
+            o = bpy.data.objects[nm]; px_ = bpy.data.objects.get('bohemia_hold_' + nm)
+            if px_ is None: px_ = bpy.data.objects.new('bohemia_hold_' + nm, bpy.data.meshes[h['mesh']]); sc.collection.objects.link(px_)
+            px_.data = bpy.data.meshes[h['mesh']]; px_.matrix_world = mathutils.Matrix(h['W'])
+            for k, slot in enumerate(o.material_slots):   # the original's materials, the ID passes' included
+                if k < len(px_.material_slots): px_.material_slots[k].link = slot.link; px_.material_slots[k].material = slot.material
+            px_.hide_render = False; o.hide_render = True
+            undo.append(lambda o=o, px_=px_: (setattr(px_, 'hide_render', True), setattr(o, 'hide_render', False)))
         bpy.context.view_layer.update()
     return undo
 
@@ -569,7 +600,7 @@ def light_footprint(sc, root, out, name, f, i, j, poses, movers):
 
 def unpose(undo):
     import bpy
-    for o, B in undo: o.matrix_basis = B
+    for u in undo: u()
     if undo: bpy.context.view_layer.update()
 
 
