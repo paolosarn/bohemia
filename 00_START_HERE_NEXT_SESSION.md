@@ -1390,7 +1390,36 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
-ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (q) -- [a held road] SHIPPED, THE NEW AGE
+ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (r) -- [what a day costs, in one number] SHIPPED, THE NEW AGE
+(the coordinator's rule 117 row, taken as a second round in the same session after (q) was closed and
+pushed; research and a number, no screen built, no data file touched, no VOTE sheet). Record:
+records/BOHEMIA_ECONOMY_DAY_74_WHAT_A_DAY_COSTS_IN_ONE_NUMBER_IS_DAYS_AND_AT_THE_117_START_IT_READS_27_TO_48_AGAINST_BATTLE_BROTHERS_46_10_18_26.md (751330d3)
+THE NUMBER IS DAYS: how many more nightfalls the crew gets through at today's spend if nothing else
+comes in. Carried piles first (food = headcount x 2 x ground; water = headcount x 4 litres; meds one a
+day per hurt man), then the purse at Day 69's counter (a ration ONE, four litres ONE, a dose ONE) with
+the wage daily; the exact one is the stash screen's own day() loop. On the live map (EVERYTHING COSTS
+ONE) it is two divisions: the smaller of FOOD (a day eats one) and BATTERIES over lit circuits held.
+Gross, no income counted, so a battery in makes it jump (117(c)). BATTLE BROTHERS BESIDE IT: food shown
+in days on the bar, crowns against wages left to the player's head, no colour, a man walks after about
+three unpaid days. RED: DAYS 3 or fewer (the 72-hour floor; the stash screen's 2 is the other
+candidate) or carried days short of the trip to the nearest counter plus one; one colour, no amber.
+117(a) CHECK: at TUNING's 250 start the number reads 41 (no wage), 27 (the stash screen's noon wage),
+48 (plus a seeded week) against Battle Brothers' 46 at its default, worked day by day: only the seeded
+week clears it (the burn is the reason: 6 a day against BB's 5.4, water and the ration premium);
+matching 46 by purse alone needs about 280 with no wage, 415 with it. PROVES US WRONG: the water rate
+the stash screen says ECONOMY owes is on main (bohemia_economy.js GOODS.water.need 4 L, gated 3 to 6);
+stash_rates.json (this lane's) and daySpend() carry no water and no wage; the stash screen, where the
+days already print per pile with red at 2, is opened by no page; the bar's FOOD is eaten by every fight
+too ('fight:plate' spends 'resources'). Routed: RUN TWO (water from GOODS, DAYS at the top, open the
+screen from the bar's tap), UI (one number beside the battery count, red, the jump heard), TUNING (3
+against 2, the gross rule, the 117 check), RUN (the demo's 0 is red from the first second), ECONOMY
+self after the hold (water into stash_rates.json, daySpend's water and wage). Six bank lines
+draft:true (section Y, 0 of 6 in Spanish).
+GATES (rule 13, by name): ECONOMY 13/0, ATTEMPT 15/0, LANGUAGE 85/0, DIALOGUE CATALOGUE 63/0.
+NEXT OPEN (jump list, rule 74): [the rumour] (now the top), [the poverty premium], [made here].
+PENDING Paolo: none new.
+
+ECONOMY (economy-vamily-knxaeh): 10/18 (q) -- [a held road] SHIPPED, THE NEW AGE
 (rules 112 to 117: the coordinator opened this chat and reads this block as the report; no
 check-in, no question; research only, a page without a sheet under rule 88's hold, no code and no
 data file touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_73_A_HELD_ROAD_ON_OPEN_DESERT_A_CAMP_IS_AN_HOUR_AT_A_PASS_IT_IS_A_DAY_AND_NOTHING_ON_MAIN_CAN_HOLD_EITHER_10_18_26.md (cbfd0ab7)
