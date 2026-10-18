@@ -9068,6 +9068,28 @@
    "draft": true
   },
   {
+   "id": "cook4-the-gas-station-10-18",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE GAS STATION UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "why": "The next building of the family you said yes to: a canopy on posts over two pumps, the sales office with its glass front, two tall lift bays with roll-up doors, the same tan roofs, sitting on a shadow. One bay door stopped a little off the floor with only dark under it. You see it in the VOTE tab beside your pack house, the tan ranch and the tan motel at the same size, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_GAS_STATION.png"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; the office and the bays wear the same measured shape (1.49 walls tall) in the tan of his own render wall; the canopy is a flat deck of his slate in grey-tan, seen from above.",
+     "MASSING: his house is one small box; ours is three pieces: a free-standing 8 by 6 m canopy at 4.3 m clear, a 6 m office, two 4 m lift bays a storey taller than the office.",
+     "LIGHT AND GROUND: as his, from above; we add only the shade under the eaves and the canopy, the one-pixel outline and a contact shadow. One wrong thing: bay 2's door stopped 0.7 m up, dark under it."
+    ]
+   },
+   "draft": true
+  },
+  {
    "id": "run2-who-is-wearing-what-10-18",
    "kind": "ui",
    "lane": "run 2",
