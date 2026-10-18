@@ -132,5 +132,75 @@ ok('the gaps are written down honestly', D.gaps && D.gaps.length >= 2);
   ok('the same ask gives the same party', JSON.stringify(F.guardFor('freeway', 33)) === JSON.stringify(F.guardFor('freeway', 33)));
   ok('leaders are in the make-up and ours', D.factions.every(f => f.leaders && f.leaders.ours === true && f.leaders.value.every(l => (f.mix.late[l] || f.mix.early[l]))));
 }
+/* ---- THE HUMAN FLOOR (row [home bases], rule 42a, 9/29: 'at least 8 human combat factions with rosters (roaming crews, the home
+   bases' guards, rival companies, the beast-keepers, casino security, the Amalgamation's faithful, militia, kids' runners), each roster
+   from records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md'; the count record: 'at least 12 factions').
+   floor(D) answers the failures by name, so the gate can prove it bites on planted mistakes below. ---- */
+{ const MATH = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/party_math.json'), 'utf8'));
+  const ROLES = { 'roaming crews': 'brigands', "the home bases' guards": 'noble_houses', 'rival companies': 'mercenaries', 'the beast-keepers': 'barbarians',
+    'casino security': 'city_states', "the Amalgamation's faithful": 'cultists', 'militia': 'militia', "kids' runners": 'goblins' };
+  const MOVED = { open_desert: 'barbarians', casino_floor: 'city_states', suburb_block: 'militia', lot_and_bigbox: 'goblins',
+    wash_and_shore: 'beasts', industrial: 'noble_houses', the_strip: 'mercenaries' };
+  const own = {}; EN.forEach(e => { (own[e.faction] = own[e.faction] || new Set()).add(e.id); });
+  const CHILD = /\b(kid|kids|child|children)\b/i;
+  /* the one man a band never has two of, named by the wiki, not by the table (a table that drops its own leader list is still caught) */
+  const ONE = { barbarians: ['barbarian_beastmaster'], city_states: ['officer'], militia: ['militia_captain'], goblins: ['goblin_overseer'] };
+  const floor = d => {
+    const bad = [], fx = id => d.factions.find(f => f.id === id), units = f => [].concat(...Object.values(f.mix).map(Object.keys));
+    F.set(d, MATH);
+    if (!(d.factions.length >= 12)) bad.push('TWELVE_OR_MORE');
+    for (const role in ROLES) {
+      const f = fx(ROLES[role]);
+      if (!f) { bad.push('ROLE_MISSING ' + role); continue; }
+      if (!units(f).every(u => own[f.enemy_faction] && own[f.enemy_faction].has(u))) bad.push('ROSTER_NOT_ITS_OWN ' + role);
+      if (!(Object.keys(f.mix.late || {}).length >= Math.min(3, own[f.enemy_faction].size))) bad.push('ROSTER_TOO_THIN ' + role);
+      if (!(f.mix.early && f.mix.late)) bad.push('NO_EARLY_AND_LATE ' + role);
+    }
+    for (const f of d.factions) {
+      const mixes = Object.values(f.mix);
+      if (mixes.some(x => ('barbarian_beastmaster' in x) !== ('armored_unhold' in x))) bad.push('KEEPER_WITHOUT_HIS_BEAST ' + f.id);
+      if (units(f).indexOf('assassin') >= 0) bad.push('AN_ASSASSIN_ROAMS ' + f.id);
+      if ([f.name, f.face && f.face.role, f.voice && f.voice.text].concat(f.lines && f.lines.value ? Object.values(f.lines.value) : []).some(t => CHILD.test(t || ''))) bad.push('A_CHILD_IN_A_FIGHT ' + f.id);
+    }
+    for (const k in MOVED) { const h = F.byGround(k); if (!h || h.id !== MOVED[k]) bad.push('GROUND ' + k + ' is ' + (h && h.id)); }
+    const kp = fx('barbarians');
+    if (kp) for (const t of [2, 3, 5, 12, 40]) { const p = F.guardFor(kp.ground[0], t).party || {}; if (p.barbarian_beastmaster !== 1 || p.armored_unhold !== 1) bad.push('THE_PAIR_IS_NOT_HELD at ' + t); }
+    for (const id in ONE) { const f = fx(id); if (!f) continue;
+      for (const t of [2, 5, 12, 40]) { const p = F.guardFor(f.ground[0], t).party || {}; if (!ONE[id].every(l => p[l] === 1)) bad.push('A_LEADER_IS_NOT_ONE ' + id + ' at ' + t); } }
+    return bad;
+  };
+  const real = floor(D);
+  ok('THE HUMAN FLOOR holds on the real table (rule 42a, the count record\'s twelve)', real.length === 0, real.join('; '));
+  for (const role in ROLES) ok('rule 42a: ' + role + ' is ' + ROLES[role] + ', a roster of its own wiki faction', !real.some(b => b.indexOf(role) >= 0));
+  const QUOTES = [
+    ['0598_Dev Blog 120: The Barbarians, Part III.txt', 'In battle, the beastmaster will always appear with one or more unholds.'],
+    ['0598_Dev Blog 120: The Barbarians, Part III.txt', 'they become confused, and every round there is a chance that they become feral, change to the beast faction'],
+    ['0195_Barbarians.txt', 'In the late game you will encounter armored Chosen, and entire warbands consisting only of them. Also their Armored Unholds will appear, and Beastmasters to control them.'],
+    ['0382_City States.txt', 'They’re not encountered roaming on the world map, but exclusively as part of contracts and events.'],
+    ['0382_City States.txt', 'Conscripts make up the bulk of the military force of the city states.'],
+    ['0724_Factions and Relations.txt', 'A prosperous settlement might have a militia captain, an experienced veteran who provides them with a morale bonus.'],
+    ['0724_Factions and Relations.txt', 'A rich town can field more militia than a poor town.'],
+    ['0878_Goblins.txt', 'may mandate the drafting of Goblins from the lower caste led by a Goblin Overseer'],
+    ['0878_Goblins.txt', 'Wolfriders are their cavalry. Avoiding direct combat, they try to encircle your squad and strike from behind.'],
+    ['0667_Drive Away Barbarians.txt', 'The barbarians attack you and want to raid the settlement that gave you the contract afterwards.'],
+    ['0383_Civilian.txt', 'when enemies come close, can send militia squads to fight them.']];
+  for (const [pg, q] of QUOTES) ok('the floor\'s quote is on its wiki page: ' + q.slice(0, 50), wikiHas('bb_all/' + pg, q), pg);
+  ok('the record the floor is counted from exists', fs.existsSync(path.join(ROOT, 'records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md')));
+  /* it bites: each planted mistake is named */
+  const plant = (why, f) => { const c = JSON.parse(JSON.stringify(D)); f(c); const got = floor(c); ok('the floor is red on a planted mistake: ' + why, got.some(b => b.indexOf(why) === 0), got.join('; ') || 'green'); };
+  const get = (c, id) => c.factions.find(f => f.id === id);
+  plant('AN_ASSASSIN_ROAMS', c => { get(c, 'city_states').mix.late.assassin = 1; });
+  plant('KEEPER_WITHOUT_HIS_BEAST', c => { delete get(c, 'barbarians').mix.late.armored_unhold; get(c, 'barbarians').leaders.value = ['barbarian_beastmaster']; });
+  plant('THE_PAIR_IS_NOT_HELD', c => { get(c, 'barbarians').leaders.value = ['barbarian_beastmaster']; });
+  plant('ROLE_MISSING', c => { c.factions = c.factions.filter(f => f.id !== 'goblins'); });
+  plant('TWELVE_OR_MORE', c => { c.factions = c.factions.filter(f => f.id !== 'goblins'); });
+  plant('ROSTER_NOT_ITS_OWN', c => { get(c, 'militia').mix.late.brigand_thug = 2; });
+  plant('ROSTER_TOO_THIN', c => { get(c, 'city_states').mix.late = { conscript: 9, officer: 1 }; get(c, 'city_states').leaders.value = ['officer']; });
+  plant('A_CHILD_IN_A_FIGHT', c => { get(c, 'goblins').name = 'The kids'; });
+  plant('GROUND', c => { get(c, 'militia').ground = ['airport']; get(c, 'bounty_hunters').ground = ['suburb_block']; });
+  plant('A_LEADER_IS_NOT_ONE', c => { get(c, 'militia').leaders.value = []; get(c, 'militia').mix.late.militia_captain = 4; });
+  F.set(D, MATH);
+  ok('after the planted mistakes the real table answers again', floor(D).length === 0);
+}
 console.log('FACTIONS GATE ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

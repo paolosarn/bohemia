@@ -298,7 +298,7 @@ const CARRIERS = [
   ['engine/bohemia_blockgen.js', ['LANE_W'], 'the 7/16 engine', 2, 'no live page loads it (F4)'],
   ['engine/bohemia_engine_graphics_7_14_26.js', ['LANE_W'], 'the 7/14 engine', 2, 'no live page loads it (F4)'],
   ['banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json', ['blocks_per_day_open'], 'FACTIONS'],
-  ['banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json', ['blocks_per_day_road'], 'FACTIONS', 260, '496 blocks over RUN\'s rounded 1.9 days (10/16); the clock is 1,440 / 5.376'],
+  ['banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json', ['blocks_per_day_road'], 'FACTIONS'],  /* owed at 260 until FACTIONS set the clock's 268, 10/18 */
   ['tools/bohemia_combat2_the_board_cut_from_the_map_cell_cook_10_18_26.py', ['world_block_m'], 'COMBAT TWO'],
   ['tools/bohemia_combat2_the_board_cut_from_the_map_cell_cook_10_18_26.py', ['M_FINE'], 'COMBAT TWO', 1.8, 'read off LANE_W 2, before THE ONE RULER'],
   ['reference/art_bank/fight_board/COMBAT2_CUT_FROM_THE_MAP_10_18.json', ['world_block_m'], 'COMBAT TWO'],
@@ -449,8 +449,10 @@ section('F. one number for a block: every file that carries it', () => {
     ok(name, wantRed ? M.red.length > 0 : M.red.length === 0, M.red.length ? M.red[0].msg : (M.fixed.find(x => /now agrees|lower|off the owed/.test(x)) || M.newAgree[0] || 'no red')); };
   const sub = (f, a, b) => { const t = read(f); if (t.indexOf(a) < 0) throw new Error('mutation anchor gone in ' + f + ': ' + a); return t.replace(a, b); };
   mut('FM1 a listed carrier drifts: the reach module says 230 m a block', { 'engine/bohemia_reach.js': sub('engine/bohemia_reach.js', 'METRES_PER_BLOCK  = 384', 'METRES_PER_BLOCK  = 230') }, true);
-  mut('FM2 an owed carrier moves to a third number: FACTIONS 250 road blocks a day', { 'banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json': sub('banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json', '"blocks_per_day_road": 260', '"blocks_per_day_road": 250') }, true);
-  mut('FM3 the fix is never blocked: FACTIONS 268 road blocks a day passes', { 'banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json': sub('banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json', '"blocks_per_day_road": 260', '"blocks_per_day_road": 268') }, false);
+  /* FM2 and FM3 pinned FACTIONS' 260 until FACTIONS fixed it (10/18); they now ride the frozen 7/16 block generator, owed at LANE_W 2, where 3 or 4 agrees (a 3.0 or 3.75 m lane) */
+  mut('FM2 an owed carrier moves to a third number: the 7/16 block generator says LANE_W 9', { 'engine/bohemia_blockgen.js': sub('engine/bohemia_blockgen.js', 'const LANE_W=2;', 'const LANE_W=9;') }, true);
+  mut('FM3 the fix is never blocked: the 7/16 block generator at LANE_W 4 passes', { 'engine/bohemia_blockgen.js': sub('engine/bohemia_blockgen.js', 'const LANE_W=2;', 'const LANE_W=4;') }, false);
+  mut('FM3b a fixed carrier never goes back: FACTIONS at the old 260 road blocks a day', { 'banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json': sub('banks/BOHEMIA_FACTIONS_THE_SIGHT_NUMBERS_10_18_26.json', '"blocks_per_day_road": 268', '"blocks_per_day_road": 260') }, true);
   mut('FM4 an unlisted file declares a block of 230 m', { 'engine/__the_one_ruler_mutation.js': 'var metresPerBlock = 230;\n' }, true);
   mut('FM5 an unlisted file that agrees is a note, not a red', { 'engine/__the_one_ruler_mutation.js': 'const CELL_M = 0.75, TILE_FINE = 128;\n' }, false);
   mut('FM6 a road kind drawn by the 2-cell lane: freeway off the kit list', { 'slices/BOHEMIA_CITY_WORLD.html': sub('slices/BOHEMIA_CITY_WORLD.html', 'const KIT_ROAD={strip:1,arterial:1,freeway:1,', 'const KIT_ROAD={strip:1,arterial:1,') }, true);

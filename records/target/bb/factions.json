@@ -1,5 +1,5 @@
 {
- "_about": "The demo's factions (four, then eight from FACTIONS [more banners] 10/18) as one table RUN's parties and the map card read (VAMILY rows [the parties on the map] and [a house you give a fuck about], rule 80c). Every faction has a banner ink, a party make-up (enemy ids from enemies.json, counts from party_math.json), a home ground, a behaviour, and a FACE, a WANT and a BASE. Mixes and behaviours are Battle Brothers' and cite the wiki; banner inks, wants, face slots and voice lines are OURS and marked ours/draft. A face id is a SLOT for PEOPLE and PORTRAIT to fill (portrait:null until they do); nothing here names a person. No purple (PURPLE RESERVATION).",
+ "_about": "The demo's factions (four, then eight from FACTIONS [more banners] 10/18, then twelve from FACTIONS [home bases] 10/18: rule 42a's human floor, the keepers, the eye in the sky, the block watch and the runners) as one table RUN's parties and the map card read (VAMILY rows [the parties on the map] and [a house you give a fuck about], rule 80c). Every faction has a banner ink, a party make-up (enemy ids from enemies.json, counts from party_math.json), a home ground, a behaviour, and a FACE, a WANT and a BASE. Mixes and behaviours are Battle Brothers' and cite the wiki; banner inks, wants, face slots and voice lines are OURS and marked ours/draft. A face id is a SLOT for PEOPLE and PORTRAIT to fill (portrait:null until they do); nothing here names a person. No purple (PURPLE RESERVATION).",
  "banner_rule": {
   "value": "a faction's ink is nobody else's; chosen by CIEDE2000 distance from every shipped faction colour in engine/BOHEMIA_faction_colours.json",
   "ours": true,
@@ -113,8 +113,6 @@
    },
    "ground": [
     "industrial",
-    "suburb_block",
-    "lot_and_bigbox",
     "golf_and_park"
    ],
    "behaviour": "caravan",
@@ -154,7 +152,7 @@
    "mix_ours": true,
    "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix",
    "ground_ours": true,
-   "ground_note": "settled ground, and industrial because 'the house wants the depot' (VAMILY row); the streets line is ground_quote",
+   "ground_note": "settled ground the house keeps for itself: industrial because 'the house wants the depot' (VAMILY row), and the green; the streets line is ground_quote. FACTIONS [home bases] 10/18 handed the suburb blocks to the block watch and the lots to the runners: a house owns the valley, the neighbours defend the houses (Battle Brothers 1.1: every settlement is a house's, and its militia still defend it)",
    "ground_quote": {
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
     "quote": "These settlements will spawn patrols, which secure the streets between the settlements of their house."
@@ -274,7 +272,6 @@
     }
    },
    "ground": [
-    "open_desert",
     "wash_and_shore"
    ],
    "behaviour": "roam",
@@ -311,7 +308,7 @@
    "mix_ours": true,
    "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix",
    "ground_ours": true,
-   "ground_note": "wilderness: the open desert and the washes (ground_quote)",
+   "ground_note": "wilderness: the washes and the shore (ground_quote), where the lab's animals went for water and where the valley's own fossils lie (Tule Springs is the upper Las Vegas Wash); the open desert went to the keepers who walk a herd across it (FACTIONS [home bases] 10/18)",
    "ground_quote": {
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0224_Beasts.txt",
     "quote": "Various wild beasts roam the lands."
@@ -431,8 +428,7 @@
     }
    },
    "ground": [
-    "the_strip",
-    "casino_floor"
+    "the_strip"
    ],
    "behaviour": "roam",
    "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1260_Mercenary Companies.txt",
@@ -471,7 +467,7 @@
    "mix_ours": true,
    "mix_note": "ours, from the wiki's line 'They consist of highly skilled Mercenaries that are well armed and armored. Some companies spawn together with Hedge Knights, Swordmasters, Master Archers' (bb_all/1260_Mercenary Companies.txt): plain mercenaries early, the named three join late",
    "ground_ours": true,
-   "ground_note": "the hired guns stand where the money is: the Strip and the casino floor still pay in batteries; Battle Brothers' companies take contracts from settlements (behaviour_quote), and in this valley the settlement with money is the Strip",
+   "ground_note": "the hired guns stand where the money is: the Strip still pays in batteries; Battle Brothers' companies take contracts from settlements (behaviour_quote), and in this valley the settlement with money is the Strip; the casino floor inside it is the house security's since FACTIONS [home bases] 10/18",
    "leaders": {
     "value": [],
     "ours": true,
@@ -634,6 +630,339 @@
     "spanglish": true
    },
    "banner_note": "FACTIONS [more banners] 10/18: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the three shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80 so no ink is a screaming primary; never purple; draft, his to swap"
+  },
+  {
+   "id": "barbarians",
+   "name": "The keepers",
+   "enemy_faction": "barbarians",
+   "banner": "#ffa591",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "barbarian_thrall": 5,
+     "barbarian_reaver": 1,
+     "warhound": 2
+    },
+    "late": {
+     "barbarian_beastmaster": 1,
+     "armored_unhold": 1,
+     "barbarian_thrall": 2,
+     "barbarian_reaver": 3,
+     "barbarian_chosen": 2,
+     "barbarian_drummer": 1
+    }
+   },
+   "ground": [
+    "open_desert"
+   ],
+   "behaviour": "roam",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0594_Dev Blog 116: The Barbarians, Part I.txt",
+   "behaviour_quote": "They roam the harsh and infertile lands as they have been for hundreds of years",
+   "face": {
+    "id": "face-barbarians-beastmaster",
+    "role": "the keeper with the whip on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "Don't touch the big one, vecino. It only listens to me.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "feed-the-herd",
+    "text": "to keep the herd fed, whoever it has to eat from",
+    "ours": true,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0667_Drive Away Barbarians.txt",
+    "quote": "The barbarians attack you and want to raid the settlement that gave you the contract afterwards."
+   },
+   "base": {
+    "kind": "camp",
+    "tier": "camp",
+    "note": "a camp on the open desert that moves with the herd ('They roam the harsh and infertile lands', bb_all/0594); Battle Brothers sends you to a barbarian camp by contract (bb_all/0667_Drive Away Barbarians.txt); which seat is RUN's read"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "ours, shaped on the wiki's tactics (bb_all/0195_Barbarians.txt): 'Even their weakest units, Thralls, often have throwing weapons' early, with the dogs; 'In the late game you will encounter armored Chosen... Also their Armored Unholds will appear, and Beastmasters to control them' late. THE KEEPERS ARE THE LAB-BREAKOUT PEOPLE (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md): the Armored Unhold is the lab's plated short-faced bear or ground sloth, the warhound a dog",
+   "ground_ours": true,
+   "ground_note": "the open desert is the valley's 'harsh and infertile lands' (ground_quote); the keepers walk the herd across it, and the beasts that broke loose without a keeper keep the washes and the shore (FACTIONS [home bases] 10/18 moved the open desert from the beasts to the keepers)",
+   "ground_quote": {
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0594_Dev Blog 116: The Barbarians, Part I.txt",
+    "quote": "They roam the harsh and infertile lands as they have been for hundreds of years"
+   },
+   "leaders": {
+    "value": [
+     "barbarian_beastmaster",
+     "armored_unhold"
+    ],
+    "ours": true,
+    "why": "the pair stays at one each whatever the party size, the beastmaster first: 'In battle, the beastmaster will always appear with one or more unholds' (bb_all/0598_Dev Blog 120); kill the keeper and the plated beast turns on everybody ('they become feral, change to the beast faction', the same page)"
+   },
+   "lines": {
+    "value": {
+     "cold": "Los animales tienen hambre, flaco. Keep walking or you are the meal.",
+     "neutral": "Don't touch the big one, vecino. It only listens to me.",
+     "warm": "Amigo, the herd knows your smell now. Walk with us a while."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
+   },
+   "banner_note": "FACTIONS [home bases] 10/18, rule 42a's human floor: the same machine as [more banners]: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the seven shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80; never purple; draft, his to swap; band 10 to 20 degrees (raw hide)"
+  },
+  {
+   "id": "city_states",
+   "name": "The eye in the sky",
+   "enemy_faction": "city_states",
+   "banner": "#af9b5a",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "indebted": 4,
+     "conscript": 3,
+     "conscript_with_polearm": 1
+    },
+    "late": {
+     "officer": 1,
+     "mortar": 1,
+     "conscript": 3,
+     "conscript_with_polearm": 2,
+     "gunner": 2,
+     "engineer": 1
+    }
+   },
+   "ground": [
+    "casino_floor"
+   ],
+   "behaviour": "patrol",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0382_City States.txt",
+   "behaviour_quote": "Southern city states send regiments to patrol surroundings, and caravans to trade with other settlements.",
+   "face": {
+    "id": "face-city-states-pit-boss",
+    "role": "the pit boss on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "Keep your hands where the camera sees them, vecino.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "guard-the-money",
+    "text": "to keep the money on the floor and everybody else off it",
+    "ours": true,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0382_City States.txt",
+    "quote": "Southern city states send regiments to patrol surroundings"
+   },
+   "base": {
+    "kind": "casino",
+    "tier": "fortress",
+    "note": "a casino that still has its doors, its cameras and its cage (ours); Battle Brothers' city states are its biggest walled cities; which seat is RUN's read"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "ours, shaped on the wiki's page (bb_all/0382_City States.txt): 'Conscripts make up the bulk of the military force of the city states'; the indebted early ('usually send first against the enemy to tire out their lines'), gunners, an engineer and the mortar late, one officer. NO ASSASSIN in a roaming party: 'They're not encountered roaming on the world map, but exclusively as part of contracts and events.' THE SKIN (draft, his to strike): the indebted are the markered, people working off what they owe the house; the 9/29 draft makes this 'the only faction with working heavy guns and a mortar'",
+   "ground_ours": true,
+   "ground_note": "the casino floor is where the money still is and the cameras still watch; the Strip outside it stays the hired guns' (FACTIONS [home bases] 10/18 moved the casino floor from the hired guns to the house's security); the wiki has no ground line for the city states, so this is ours",
+   "leaders": {
+    "value": [
+     "officer",
+     "mortar"
+    ],
+    "ours": true,
+    "why": "one officer to a regiment (bb_all/0382: 'Officers of the city states are mostly made up of the wealthy'), and the one heavy gun stays one whatever the size; ours, draft"
+   },
+   "lines": {
+    "value": {
+     "cold": "La casa no olvida. Your marker is still on the books.",
+     "neutral": "Keep your hands where the camera sees them, vecino.",
+     "warm": "The floor is yours tonight, amigo. Drinks are on la casa."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
+   },
+   "banner_note": "FACTIONS [home bases] 10/18, rule 42a's human floor: the same machine as [more banners]: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the seven shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80; never purple; draft, his to swap; band 35 to 55 degrees (tarnished gold)"
+  },
+  {
+   "id": "militia",
+   "name": "The block watch",
+   "enemy_faction": "civilians",
+   "banner": "#006432",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "militia": 6,
+     "armed_peasant": 2
+    },
+    "late": {
+     "militia_captain": 1,
+     "militia": 3,
+     "militia_veteran": 3,
+     "militia_marksman": 2
+    }
+   },
+   "ground": [
+    "suburb_block"
+   ],
+   "behaviour": "patrol",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "behaviour_quote": "If hostile troops raid a village or town, a group of militia soldiers spawn, ready to defend their homes and families.",
+   "face": {
+    "id": "face-militia-block-captain",
+    "role": "the block captain on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "Nadie comes down this street at night, so say your business.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "keep-the-block",
+    "text": "to keep the block standing and strangers walking",
+    "ours": true,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0383_Civilian.txt",
+    "quote": "when enemies come close, can send militia squads to fight them."
+   },
+   "base": {
+    "kind": "block",
+    "tier": "town",
+    "note": "the block itself, no barracks: the watch is the neighbours ('ready to defend their homes and families', bb_all/0724); a richer block fields more ('A rich town can field more militia than a poor town.', the same page); which seat is RUN's read"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "ours, shaped on the wiki's militia list (bb_all/0724_Factions and Relations.txt: Militia, Militia Marksman, Militia Veteran, Militia Captain): neighbours and armed peasants early, veterans and a captain late ('A prosperous settlement might have a militia captain, an experienced veteran who provides them with a morale bonus.')",
+   "ground_ours": true,
+   "ground_note": "the suburb blocks are where people still live in houses; Battle Brothers' militia defend their homes (ground_quote), so the watch holds the houses (FACTIONS [home bases] 10/18 moved the suburb block from the house to the watch; the house keeps the depots and the green)",
+   "ground_quote": {
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+    "quote": "If hostile troops raid a village or town, a group of militia soldiers spawn, ready to defend their homes and families."
+   },
+   "leaders": {
+    "value": [
+     "militia_captain"
+    ],
+    "ours": true,
+    "why": "one captain to a watch: 'A prosperous settlement might have a militia captain' (bb_all/0724)"
+   },
+   "lines": {
+    "value": {
+     "cold": "Vete. This is our block and every porch has a rifle.",
+     "neutral": "Nadie comes down this street at night, so say your business.",
+     "warm": "Mijo, you look after this block and this block looks after you."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
+   },
+   "banner_note": "FACTIONS [home bases] 10/18, rule 42a's human floor: the same machine as [more banners]: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the seven shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80; never purple; draft, his to swap; band 125 to 165 degrees (lawn green)"
+  },
+  {
+   "id": "goblins",
+   "name": "The runners",
+   "enemy_faction": "goblins",
+   "banner": "#5fd25a",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "goblin_skirmisher": 4,
+     "goblin_ambusher": 2
+    },
+    "late": {
+     "goblin_overseer": 1,
+     "goblin_skirmisher": 3,
+     "goblin_ambusher": 3,
+     "goblin_wolfrider": 2,
+     "goblin_shaman": 1
+    }
+   },
+   "ground": [
+    "lot_and_bigbox"
+   ],
+   "behaviour": "raid",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0878_Goblins.txt",
+   "behaviour_quote": "Instead of brute force they usually ambush their enemies.",
+   "face": {
+    "id": "face-goblins-dispatcher",
+    "role": "the dispatcher who sends the runners, on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "Anything across the valley by sundown, para cash or batteries.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "hit-and-run",
+    "text": "to hit what stands near the lots and be gone before anybody shoots",
+    "ours": true,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0878_Goblins.txt",
+    "quote": "Instead of brute force they usually ambush their enemies."
+   },
+   "base": {
+    "kind": "lot",
+    "tier": "camp",
+    "note": "a dead big-box store and its lot, the bikes and the quads inside (ours); Battle Brothers' goblins keep camps a contract sends you to (bb_all/0542_Defeat Goblin Location.txt); which seat is RUN's read"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "ours, shaped on the wiki's tactics (bb_all/0878_Goblins.txt: 'Their strategy in general has one main goal: preventing you from starting a proper melee fight'): net-throwers and slingers early; riders late ('Wolfriders are their cavalry. Avoiding direct combat, they try to encircle your squad and strike from behind'), a shaman and one overseer. THE SKIN (the 9/29 draft): runners on bikes and dirt quads with slings and nets; the wolfrider is the quad. THEY ARE GROWN: the 9/29 draft's word 'kids' is a courier's age, never a child; nobody in a fight is a child (ours, draft)",
+   "ground_ours": true,
+   "ground_note": "the empty lots and the dead big-box stores, where a bike or a quad runs any way it likes; Battle Brothers' goblins live beyond the reach of the towns (ground_quote), and in this valley that is the lot nobody parks in any more (FACTIONS [home bases] 10/18 moved the lots from the house to the runners)",
+   "ground_quote": {
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0878_Goblins.txt",
+    "quote": "Goblins live in the lands beyond the reach of human civilization"
+   },
+   "leaders": {
+    "value": [
+     "goblin_overseer"
+    ],
+    "ours": true,
+    "why": "one overseer to a band: the council drafts the lower caste 'led by a Goblin Overseer' (bb_all/0878_Goblins.txt)"
+   },
+   "lines": {
+    "value": {
+     "cold": "You will not catch us, pero we will catch you.",
+     "neutral": "Anything across the valley by sundown, para cash or batteries.",
+     "warm": "Amigo, we saw who followed you. We lost them for you."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
+   },
+   "banner_note": "FACTIONS [home bases] 10/18, rule 42a's human floor: the same machine as [more banners]: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the seven shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80; never purple; draft, his to swap; band 85 to 125 degrees (bike-flag green)"
   }
  ],
  "gaps": [
@@ -641,8 +970,9 @@
   "face portraits are slots, PEOPLE/PORTRAIT fill them",
   "the house has no banner ink: its colour is canon (COLOUR IS TERRITORY)",
   "ground lists are ours, draft, except the wilderness and fortified-streets lines quoted in each ground_note",
-  "every board ground is held since FACTIONS [more banners] (10/18): the_strip and casino_floor by the hired guns, trailer_park by the flock, airport by the head takers, solar_and_pumps by the water people; a made-up ground still answers NO_FACTION_HOLDS_THIS_GROUND",
-  "the four new factions' grounds, wants and banner inks are ours and draft; their make-ups are ours except the flock's 25 (the wiki's); no portrait, no art, nothing drawn (the rule-88 hold)"
+  "every board ground is held since FACTIONS [more banners] (10/18): the_strip by the hired guns, trailer_park by the flock, airport by the head takers, solar_and_pumps by the water people; since FACTIONS [home bases] (10/18) casino_floor by the eye in the sky, open_desert by the keepers, suburb_block by the block watch, lot_and_bigbox by the runners; a made-up ground still answers NO_FACTION_HOLDS_THIS_GROUND",
+  "the four new factions' grounds, wants and banner inks are ours and draft; their make-ups are ours except the flock's 25 (the wiki's); no portrait, no art, nothing drawn (the rule-88 hold)",
+  "rule 42a's human floor (FACTIONS [home bases] 10/18): eight human factions with rosters (road crews, the house, the hired guns, the keepers, the eye in the sky, the flock, the block watch, the runners, plus the water people and the head takers); their grounds, wants, inks, skins and lines are ours and draft, their make-ups ours on the wiki's rosters; the greenskins' orcs (the heavy) have no row yet; no portrait, no art, nothing drawn (the rule-88 hold)"
  ],
  "tones": {
   "value": {

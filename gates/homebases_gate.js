@@ -567,6 +567,9 @@ const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:]
   ok('the logic reads no cell, no grid and no per-lot ownership: none of turf, holderOf, grid, cells or 9216',
      !/\bturf\b|holderOf|\bgrid\b|\bcells?\b|9216|\bat\(\s*[a-z]+\s*,\s*[a-z]+\s*\)/i.test(logic));
   ok('and it does not require the superseded ledger', !/turfledger|TurfLedger/.test(logic));
+  const readsLedger = src => /BohemiaTurfLedger|bohemia_turfledger/.test(stripComments(src));
+  ok('a reader in code is still caught and a sentence in a comment is not', readsLedger('var L = BohemiaTurfLedger.netFor(1);') && readsLedger("require('./bohemia_turfledger.js')")
+     && !readsLedger('// that shape was 9,216 cells (engine/bohemia_turfledger.js, SUPERSEDED)') && !readsLedger('/* BohemiaTurfLedger is dead */'));
   const allowed = new Set(['engine/bohemia_turfledger.js', 'engine/bohemia_future.js', 'gates/turf_ledger_gate.js',
                            'gates/three_acts_gate.js', 'gates/homebases_gate.js', 'engine/bohemia_homebases.js']);
   const offenders = [];
@@ -577,8 +580,9 @@ const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:]
       if (!/\.(js|html|py)$/.test(f)) continue;
       const rel = dir + '/' + f;
       if (allowed.has(rel)) continue;
-      const src = fs.readFileSync(path.join(d, f), 'utf8');
-      if (/BohemiaTurfLedger|bohemia_turfledger/.test(src)) offenders.push(rel);
+      /* code only: a page that inlines engine/bohemia_homebases.js byte for byte carries its header, which NAMES the dead ledger
+         to say this is not it (FACTIONS 10/18: slices/BOHEMIA_CITY_WORLD.html was red for that sentence alone) */
+      if (readsLedger(fs.readFileSync(path.join(d, f), 'utf8'))) offenders.push(rel);
     }
   }
   ok('NOTHING BUT THE NAMED FEW FILES TOUCHES THE SUPERSEDED 9,216-CELL LEDGER: a new reader is a dead shape returning',

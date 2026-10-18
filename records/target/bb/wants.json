@@ -1,5 +1,5 @@
 {
-  "_about": "WHAT A FACTION WANTS DECIDES WHERE ITS PARTIES GO (FACTIONS lane, row [wants send parties], 10/18; WORLD [parties move] BUY half). records/target/bb/factions.json already says what each of the demo factions (four, eight since FACTIONS [more banners] 10/18) WANTS (want.id). This file says, for each want, WHAT KIND OF PLACE OR GROUND that want sends a party at, and quotes the Battle Brothers line it is translated from. engine/bohemia_wants.js reads it; nothing here is a number (the row: 'no new numbers'): who goes first is the map's own distance, how many go is BohemiaTowns.REACH, the grounds are BohemiaBoardTerrain.KINDS. A modder edits this file to change where a faction's parties go (rule 38g). Page: records/BOHEMIA_FACTIONS_WHAT_A_FACTION_WANTS_DECIDES_WHERE_ITS_PARTIES_GO_10_18_26.md.",
+  "_about": "WHAT A FACTION WANTS DECIDES WHERE ITS PARTIES GO (FACTIONS lane, row [wants send parties], 10/18; WORLD [parties move] BUY half). records/target/bb/factions.json already says what each of the demo factions (four, eight since FACTIONS [more banners] 10/18, twelve since FACTIONS [home bases] 10/18) WANTS (want.id). This file says, for each want, WHAT KIND OF PLACE OR GROUND that want sends a party at, and quotes the Battle Brothers line it is translated from. engine/bohemia_wants.js reads it; nothing here is a number (the row: 'no new numbers'): who goes first is the map's own distance, how many go is BohemiaTowns.REACH, the grounds are BohemiaBoardTerrain.KINDS. A modder edits this file to change where a faction's parties go (rule 38g). Page: records/BOHEMIA_FACTIONS_WHAT_A_FACTION_WANTS_DECIDES_WHERE_ITS_PARTIES_GO_10_18_26.md.",
   "school": {
     "camps_harass_the_nearest_village": {
       "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0553_Defend Settlement Bandits.txt",
@@ -60,6 +60,26 @@
     "cultists_find_followers": {
       "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0512_Davkul Cultists.txt",
       "quote": "Find more followers, acquire riches"
+    },
+    "barbarians_roam": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0594_Dev Blog 116: The Barbarians, Part I.txt",
+      "quote": "They roam the harsh and infertile lands as they have been for hundreds of years"
+    },
+    "barbarians_raid_the_settlement": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0667_Drive Away Barbarians.txt",
+      "quote": "The barbarians attack you and want to raid the settlement that gave you the contract afterwards."
+    },
+    "city_states_patrol": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0382_City States.txt",
+      "quote": "Southern city states send regiments to patrol surroundings, and caravans to trade with other settlements."
+    },
+    "militia_defend_their_homes": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+      "quote": "If hostile troops raid a village or town, a group of militia soldiers spawn, ready to defend their homes and families."
+    },
+    "goblins_hit_and_run": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0878_Goblins.txt",
+      "quote": "Instead of brute force they usually ambush their enemies."
     }
   },
   "wants": {
@@ -174,10 +194,65 @@
       ],
       "ours": true,
       "why": "the flock wants more of the people nobody counts; Battle Brothers' cultists are met only in two events and go at no settlement, so the flock holds the trailer park it gathers in, and a chapel off it walks to the nearest one"
+    },
+    "feed-the-herd": {
+      "agenda": "crew",
+      "goes_at": "nearest_places",
+      "any_tier": true,
+      "wiki": [
+        "barbarians_raid_the_settlement",
+        "camps_harass_the_nearest_village",
+        "barbarians_roam"
+      ],
+      "ours": true,
+      "why": "the keepers want the herd fed; Battle Brothers' barbarians are wildmen who roam and, crossed, 'want to raid the settlement', and every camp's raiders go at the nearest village, so the keepers go at the nearest place of any size, the dead's rule without the dead's taste for a place already raided: a herd eats wherever it is"
+    },
+    "guard-the-money": {
+      "agenda": "patrol",
+      "goes_at": "nearest_ground",
+      "ground": [
+        "casino_floor",
+        "the_strip"
+      ],
+      "stays_if_on_it": true,
+      "wiki": [
+        "city_states_patrol",
+        "castles_patrol_the_roads"
+      ],
+      "ours": true,
+      "why": "the eye in the sky wants the money kept where it is; Battle Brothers' city states send regiments to patrol their surroundings, so the security's first party patrols the nearest casino floor or Strip, a casino already on it holds it, and the rest of a settled seat's business is the parties module's"
+    },
+    "keep-the-block": {
+      "agenda": "patrol",
+      "goes_at": "nearest_ground",
+      "ground": [
+        "suburb_block"
+      ],
+      "stays_if_on_it": true,
+      "wiki": [
+        "militia_defend_their_homes"
+      ],
+      "ours": true,
+      "why": "the block watch wants the block left standing; Battle Brothers' militia only turn out when somebody raids their homes and never march on anyone, so the watch holds the nearest block of houses, a watch already on one stays, and it goes at no place"
+    },
+    "hit-and-run": {
+      "agenda": "crew",
+      "goes_at": "places_by_ground",
+      "ground": [
+        "lot_and_bigbox"
+      ],
+      "order": "the trip: the map distance from the camp to the place plus the place's distance to the nearest lot or big-box cell, shortest first; then nearer the camp; then by name",
+      "any_tier": true,
+      "wiki": [
+        "goblins_hit_and_run",
+        "camps_harass_the_nearest_village"
+      ],
+      "ours": true,
+      "why": "the runners want to hit and be gone; Battle Brothers' goblins ambush instead of fighting fair and every camp's raiders go at the nearest village, so the runners go at what stands nearest the open lots they ride, the road crews' rule with the lots in place of the freeway: in, out, across the lot"
     }
   },
   "gaps": [
-    "the region's wild row for ancient_dead (THE LOST CITY) carries no want in factions.json (the ancient dead are not one of the eight), so it keeps the parties module's own choice; the nomads and the mercenaries got wants from FACTIONS [more banners] 10/18",
+    "the region's wild row for ancient_dead (THE LOST CITY) carries no want in factions.json (the ancient dead are not one of the twelve), so it keeps the parties module's own choice; the nomads and the mercenaries got wants from FACTIONS [more banners] 10/18; no region row carries the keepers, the eye in the sky, the block watch or the runners yet, so their four wants move nobody until a seat or a location does (FACTIONS [home bases] 10/18)",
     "the valley's fourteen seats carry no want of their own (his canon graph's notes are not wants and this lane does not invent his factions' wants), so their crews still go at the worst canon feud's seat; the camps and towns become reachable through the wild crews that are handed in beside them",
     "outside the valley the map's ground is RUN's region (slices/bohemia_region.js passAt: 1 is a road); the module takes the grounds as cells the caller hands it, so RUN adds the region's road cells as freeway and nothing here changes"
   ]

@@ -199,6 +199,41 @@ for (const s of wanting.filter(s => s.faction === 'brigands')) {
   ok('every one of the eight factions has a want with a rule', FACTIONS.factions.length >= 8 && FACTIONS.factions.every(f => !!W.wantOf(f.id, DATA)));
 }
 
+/* ---- H. the human floor (row [home bases], rule 42a): the four new wants each send by their own rule ---- */
+{
+  const opt = { data: DATA, cells, n: m.n };
+  const seat = (faction, x, y, ground, wild) => ({ faction, tier: wild === false ? 'fortress' : 'camp', kind: 'camp', x, y, power: 1, wild: wild !== false, ground: ground || [] });
+  const nearest = (kinds, at) => Math.min.apply(null, cells.filter(c => kinds.indexOf(c.kind) >= 0).map(c => d(at, c)));
+  const kindAt = p => BT.at(m, p.to.x, p.to.y).kind;
+  const kp = seat('barbarians', 70, 70, ['open_desert']), keep = W.sendFor(kp, seats, opt) || [], km = W.marksFor(kp, seats);
+  ok('the keepers send crews only, REACH[camp] of them', keep.length === T.REACH.camp && keep.every(p => p.agenda === 'crew' && p.want === 'feed-the-herd'), keep.map(p => p.agenda).join());
+  ok('the keepers go at the nearest place first, whatever its size', keep.length && d(kp, keep[0].to) === Math.min.apply(null, km.map(o => d(kp, o))));
+  ok('the keepers go at their places in order of distance', keep.every((p, i) => i === 0 || d(kp, keep[i - 1].to) <= d(kp, p.to)));
+  ok('every keepers\' mark is a real place, never an empty cell', keep.every(p => km.some(o => o.x === p.to.x && o.y === p.to.y)));
+  const eye = W.sendFor(seat('city_states', 10, 10), seats, opt) || [];
+  ok('the eye in the sky patrols the nearest casino floor or Strip, never a place', eye.length === 1 && eye[0].agenda === 'patrol' && eye[0].toward === null
+    && ['casino_floor', 'the_strip'].indexOf(kindAt(eye[0])) >= 0 && d({ x: 10, y: 10 }, eye[0].to) === nearest(['casino_floor', 'the_strip'], { x: 10, y: 10 }), eye[0] && JSON.stringify(eye[0].to));
+  const eyeOn = W.sendFor(seat('city_states', 10, 10, ['casino_floor']), seats, opt) || [];
+  ok('a casino already on the floor holds it', eyeOn.length === 1 && eyeOn[0].to.x === 10 && eyeOn[0].to.y === 10);
+  const cas = seat('city_states', 40, 40, [], false), casSent = W.sendFor(cas, seats.concat([cas]), opt) || [];
+  ok('a settled casino sends one patrol first and no more than REACH[fortress]', casSent.length >= 1 && casSent[0].agenda === 'patrol' && casSent.length <= T.REACH.fortress
+    && casSent.filter(p => p.agenda === 'patrol').length === 1, casSent.map(p => p.agenda).join());
+  const watch = W.sendFor(seat('militia', 5, 5), seats, opt) || [];
+  ok('the block watch patrols the nearest block of houses and goes at no place', watch.length === 1 && watch[0].agenda === 'patrol' && watch[0].toward === null
+    && kindAt(watch[0]) === 'suburb_block' && d({ x: 5, y: 5 }, watch[0].to) === nearest(['suburb_block'], { x: 5, y: 5 }), watch[0] && JSON.stringify(watch[0].to));
+  const watchOn = W.sendFor(seat('militia', 5, 5, ['suburb_block']), seats, opt) || [];
+  ok('a watch already on its block stays', watchOn.length === 1 && watchOn[0].to.x === 5 && watchOn[0].to.y === 5);
+  const lots = cells.filter(c => c.kind === 'lot_and_bigbox'), ltrip = (s, o) => d(s, o) + Math.min.apply(null, lots.map(c => d(o, c)));
+  const rp = seat('goblins', 26, 2, ['lot_and_bigbox']), run = W.sendFor(rp, seats, opt) || [], rm = W.marksFor(rp, seats);
+  ok('the runners send crews only, REACH[camp] of them', run.length === T.REACH.camp && run.every(p => p.agenda === 'crew' && p.want === 'hit-and-run'), run.map(p => p.agenda).join());
+  ok('the runners\' first mark has the shortest trip by way of a lot (at 26,2 the freeway\'s way picks another, measured)', run.length && ltrip(rp, run[0].to) === Math.min.apply(null, rm.map(o => ltrip(rp, o))));
+  { const sw = JSON.parse(JSON.stringify(WANTS)); sw.wants['keep-the-block'].ground = ['airport'];
+    const moved = W.sendFor(seat('militia', 5, 5), seats, { data: { factions: FACTIONS, wants: sw }, cells, n: m.n }) || [];
+    ok('the data file drives it: a watch wanting the airport walks to the airport instead', moved.length === 1 && kindAt(moved[0]) === 'airport'); }
+  ok('every one of the twelve factions has a want with a rule (rule 42a\'s human floor)', FACTIONS.factions.length >= 12
+    && ['barbarians', 'city_states', 'militia', 'goblins'].every(f => FACTIONS.factions.some(x => x.id === f) && !!W.wantOf(f, DATA)));
+}
+
 /* ---- F. the shape ------------------------------------------------------------ */
 {
   const again = W.all(all, { n: m.n, data: DATA, cells });

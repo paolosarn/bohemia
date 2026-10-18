@@ -575,8 +575,8 @@
   "agenda"
  ],
  "gaps": [
-  "the greenskins (orcs and goblins) and the barbarians have no Bohemia skin ruled yet, so no location fields them; the beasts law's gate owes the roster count",
-  "the City States (the Holy War's other side) are not in the canon graph; no southern city holds region ground",
+  "the greenskins' orcs (the heavy) have no Bohemia skin; the goblins and the barbarians have a draft one since FACTIONS [home bases] 10/18 (the runners and the keepers, records/target/bb/factions.json, rule 42a) but no location fields them yet, so their wants move nobody; the beasts law's gate owes the roster count",
+  "the City States (the Holy War's other side) are not in the canon graph; no southern city holds region ground; inside the valley their skin, the eye in the sky, holds the casino floor since FACTIONS [home bases] 10/18",
   "Colorful, Homeless and Custom hold no region place: their notes say community-based not territorial, the sewer HQ under the city, and the player",
   "the positions are bearings in RUN's frame; RUN's placer pulls each onto its road or open ground at boot, so the drawn marker can sit up to 24 blocks from the bearing",
   "what a region party is WORTH in a fight is COMBAT's enemy_tiers by tier (rule 75b); this file names units only for the wild locations whose faction is Battle Brothers'"

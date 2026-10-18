@@ -23,5 +23,5 @@
   {"id": "map.sight.outside", "bb": "not drawn", "bb_source": "the explorable fog (Dev Blog 55) and rule 102d's words: 'nothing, not a dot'", "ours": 0, "unit": "pixels of a party outside the circle", "owner": "run"}
  ],
  "the_seam": {"function": "BohemiaParties.near(parties, x, y, radius)", "file": "engine/bohemia_parties.js", "callers_today": 0, "note": "Chebyshev distance (a square); whether it becomes a circle is RUN's call"},
- "scale_today": {"region_blocks": 496, "bb_tiles": 140, "blocks_per_bb_tile": 3.54, "blocks_per_day_road": 260, "blocks_per_day_open": 135, "far_stop_blocks_across_glass": 202, "source": "records/BOHEMIA_THE_REGION_RUN_10_16_26.md"}
+ "scale_today": {"region_blocks": 496, "bb_tiles": 140, "blocks_per_bb_tile": 3.54, "blocks_per_day_road": 268, "blocks_per_day_road_note": "the clock the party is charged, 1,440 minutes over 5.376 a road block (WORLD [the block size settled], records/BOHEMIA_WORLD_ONE_NUMBER_FOR_A_BLOCK_10_18_26.md); was 260, 496 blocks over RUN's rounded 1.9 days (FACTIONS 10/18)", "blocks_per_day_open": 135, "far_stop_blocks_across_glass": 202, "source": "records/BOHEMIA_THE_REGION_RUN_10_16_26.md"}
 }
