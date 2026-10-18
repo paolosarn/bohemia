@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. NUMBERS CHECKED: the coefficient sin(n pi d)/(n pi) is right, and at 25 percent only every fourth harmonic is nulled, so the other even ones stay, as the page says. ERRATUM THAT MATTERS: a worklet that makes 'the raw edges the hardware had' at the browser's 44.1 or 48 kHz WILL alias, which is the sand; the 2A03 runs at 1.79 MHz and its own output filter removes it, so a worklet must step at the chip's rate and average down (what emulators do) or band-limit its edges, else use the PeriodicWave of 188, which is band-limited already. The order list is how tracker songs are made, a proposal. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # DUTY COEFF NESTED WORKLET
 
 ## PAOLO SAID IN THIS CHAT

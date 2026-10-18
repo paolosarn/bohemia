@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. NUMBERS CHECKED: the four duties and the 16-step envelope that reloads on loop are the hardware's (nesdev APU Pulse, Envelope); the 25 ms timer and 100 ms window are Chris Wilson's ('A tale of two clocks', web.dev). ERRATUM: createPeriodicWave does NOT escape the browser's anti-aliasing, a PeriodicWave is band-limited by the same engine (Chrome builds its own square from one); the real reason to use it is that the built-in square is 50 percent only, and a PeriodicWave is the way to get 12.5, 25 and 75. Fewer harmonics make it duller, not cleaner. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # PERIODIC ENVELOPE SCHEDULER
 
 ## PAOLO SAID IN THIS CHAT

@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. NUMBERS CHECKED: the triangle has no volume, sounds one octave below a pulse on the same timer, and a high DMC level ($4011) quiets the triangle and the noise through the nonlinear mixer (nesdev APU Triangle, Mixer). ERRATUM: in Web Audio a constant offset does not fade anything, the sum is linear; it only works through the nonlinear curve of Grok 194. FIT: 'bass under 55, lead 60-84' are MIDI note numbers, our song engine counts semitones up from 110 Hz (noteHz), so convert before using them; 4-7 Hz and 5-15 cents are proposals. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # TRIANGLE VIBRATO RULES
 
 ## PAOLO SAID IN THIS CHAT

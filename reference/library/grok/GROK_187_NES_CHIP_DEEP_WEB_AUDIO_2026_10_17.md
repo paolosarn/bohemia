@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named (the NES is the hardware, not a reference game; Chris Wilson is the Web Audio engineer, not a game). NUMBERS CHECKED: four duties, sixteen volume steps, a triangle with no volume, noise in two modes at sixteen rates and a nonlinear mixer are the hardware's (nesdev APU Pulse, Noise, Mixer); the famichord is real, a seventh chord with the fifth dropped, named by the chip musician Linus Akesson (his 'Elements of Chip Music'; Ludomusicology 2015); the 25-100 ms lookahead is Chris Wilson's scheduler ('A tale of two clocks', web.dev: a 25 ms timer, a 100 ms window). ERRATUM: browser oscillators do not alias, they are band-limited wavetables in Chrome, Safari and Firefox (Firefox since 37), so the gentle low-pass is for tone, as the hardware's 14 kHz filter is, not to stop aliasing. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # NES CHIP DEEP WEB AUDIO
 
 ## PAOLO SAID IN THIS CHAT

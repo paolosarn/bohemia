@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. NUMBERS CHECKED: a 15-bit register, bit 0 XOR bit 1 in long mode (32767 steps), bit 0 XOR bit 6 in short mode (93 or 31 steps, depending where the register sat), sixteen rates, the channel silent when bit 0 is set (nesdev APU Noise); exponentialRampToValueAtTime cannot reach 0, it throws a RangeError (WebKit's source, the Web Platform Tests), so the 0.0001 target and setTargetAtTime(0, t, 0.015) are right. RULINGS: noise for song drums only (10/18); effects stay real material (9/23, 32e). 15-30 ms ramps and 16 or 32 steps are proposals. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # LFSR ORDER CLICK
 
 ## PAOLO SAID IN THIS CHAT

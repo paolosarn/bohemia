@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named (the NES is the hardware, not a reference game). RULINGS: fits the 10/18 8-bit ruling on SOUNDS' song row; its COOK line hands the songs to the art coordinator, wrong lane, songs are SOUNDS'. NUMBERS: the 12-16 kHz low-pass matches the hardware's 14 kHz low-pass (nesdev APU Mixer, which also lists high-passes at 90 Hz and 440 Hz on every channel, triangle included); 'classic NES tracks sit 120-150 BPM' is (recall), no source; 80 Hz, the 0.05-0.2 volumes and 3-4 voices are proposals to tune by ear, not facts. OUR SIDE: the alpha's music bus ends in a compressor (ratio 6 at -14 dB) and a brickwall limiter (ratio 20 at -5 dB), the 'heavy limiting' this page names as sand; records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # CHIP MUSIC 120BPM HTML
 
 ## PAOLO SAID IN THIS CHAT

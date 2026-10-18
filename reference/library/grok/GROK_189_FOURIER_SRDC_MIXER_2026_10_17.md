@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. NUMBERS CHECKED: the mixer formula is exact (nesdev APU Mixer: pulse_out = 95.88 / (8128 / (p1 + p2) + 100); the other group 159.79 with 8227, 12241, 22638, inputs 0-15, DMC 0-127, a group of all zeros set to zero); the harmonic size sin(n pi d)/n is right. ERRATUM: 'real parts stay zero for odd functions' is wrong for any duty but 50 percent, a 25 percent pulse is not an odd function; sine terms alone give the right harmonic sizes (it sounds the same on a held note) but not the pulse's shape. SRDC and the sentence are standard phrase forms, no number to source. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # FOURIER SRDC MIXER
 
 ## PAOLO SAID IN THIS CHAT

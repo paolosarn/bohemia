@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. A WRONG NUMBER THAT BREAKS THE 120 BPM LAW: 'common values give 16th, 8th, quarter, half, whole notes at about 160-180 bpm' is false. The length table's two note families are 4/4 at 90 bpm (10, 20, 40, 80, 160) and at 75 bpm (12, 24, 48, 96, 192), counted at the length counter's 120 Hz on NTSC (nesdev APU Length Counter names 75 bpm; Furnace's NES table: 80 = 667 ms, a quarter at 90). Its advice, 'schedule the note stop time from the same table, do not free-form the duration', puts our notes off the 120 BPM grid: a quarter at 120 is 60 counts and a half is 120, and 120 is not in the table. Not cited. Its counterpoint and worklet paragraphs are sound and are covered by Grok 186 and 190. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # LENGTH COUNTERPOINT WORKLET
 
 ## PAOLO SAID IN THIS CHAT

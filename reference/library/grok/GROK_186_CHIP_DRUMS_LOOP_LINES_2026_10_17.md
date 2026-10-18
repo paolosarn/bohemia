@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. RULINGS: noise drums are allowed INSIDE A SONG by the 10/18 8-bit ruling; for sound effects the 9/23 NO SAND ruling still stands (32e: the band-limited noise recipe is dead, effects come from real material), so this page is never cited for an effect. The loop advice (the audio clock, never setTimeout) fits the 120 BPM law. NUMBERS: 8 or 16 bars, under 100 ms, 30 s of testing are proposals, no fact to source. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # CHIP DRUMS LOOP LINES
 
 ## PAOLO SAID IN THIS CHAT

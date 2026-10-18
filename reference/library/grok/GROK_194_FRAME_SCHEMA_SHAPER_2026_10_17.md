@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. NUMBERS CHECKED: in 4-step mode envelopes and the triangle's linear counter clock at about 240 Hz, lengths and sweeps at about 120 Hz; 5-step mode at about 192 and 96 Hz; writing $4017 resets the sequence (nesdev APU Frame Counter). FIT NOTE: the mixer formula takes channel LEVELS 0 to 15 (a pulse pair 0 to 30), not a signed -1 to 1 signal, so the curve must map the summed signal onto 0-30 and a high-pass must follow it to take out the offset, as the hardware's 90 Hz filter does; WaveShaperNode's 2x oversample is real. The note schema is a proposal. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # FRAME SCHEMA SHAPER
 
 ## PAOLO SAID IN THIS CHAT

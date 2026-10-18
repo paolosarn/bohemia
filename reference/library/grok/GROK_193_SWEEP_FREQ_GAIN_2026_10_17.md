@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. NUMBERS CHECKED: pulse 1 negates by ones' complement (an extra minus one), pulse 2 by two's complement; a target over $7FF or a period under 8 mutes the channel (nesdev APU Sweep); the NTSC CPU is 1.789773 MHz, a pulse is CPU / (16 x (t + 1)), the triangle half that (nesdev APU Pulse, Triangle); integer periods put more cents of error on high notes, true. The 0.3-0.5 master gain is a proposal. OUR SIDE: 'no compressor, no limiter' is the opposite of the alpha's music bus today (a compressor and a brickwall limiter at its end); records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # SWEEP FREQ GAIN
 
 ## PAOLO SAID IN THIS CHAT

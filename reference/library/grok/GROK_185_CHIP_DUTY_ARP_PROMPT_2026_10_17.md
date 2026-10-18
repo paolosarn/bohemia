@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none named. RULINGS: fits 10/18 (8-bit songs) and the 120 BPM law (arpeggio speed locked to eighths or sixteenths). NUMBERS: the duty cycles are the hardware's (nesdev APU Pulse: 12.5, 25, 50 and 75 percent; 75 sounds the same as 25, inverted); thin, bright and hollow are a description, not a measurement; 4-6 Hz vibrato, a few cents, and hits under 100 ms are proposals to tune by ear. Its COOK line names the art coordinator: songs are SOUNDS'. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # CHIP DUTY ARP PROMPT
 
 ## PAOLO SAID IN THIS CHAT
