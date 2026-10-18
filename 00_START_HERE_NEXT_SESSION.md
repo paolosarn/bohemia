@@ -2612,7 +2612,36 @@ arm was not captured, so it is written down rather than called clean.
 
 --------------------------------------------------------------------------------
 
-ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (c) LATEST -- *** [the beasts through the rig,
+ANIMATION (animation-opus-10-18d, opened by the coordinator, rules 112 to 117): 10/18 (d) LATEST -- *** [the beasts through
+the rig, the wolf redone] ROUND THREE IN VOTE, WAITS THE MOODBOARD (rule 100). TAB: VOTE, PLACEHOLDER: THE FERAL DOG PACK
+(all three dogs now: the pit, the shepherd, the cur, eight facings, idle, step and bite, held like stop-motion). ***
+READ FIRST: the front page's 111 to 117, Grok 170 to 177 (the coordinator's note: CRASHBOX timing).
+THE TWO HELD DOGS, REMADE AT THE SOURCE (tools/bohemia_animation_the_feral_dog_pack_prep.py, round three's knobs in its
+header): the cur's rest area is its liver LOW (the rig's grain makes a white coat an edge on nearly every pixel, so only
+dark parts rest; a liver rump read lit from below in the front view): D5 on all eight, worst 0.081. The shepherd a
+black-and-tan, the saddle on the back only, the tail black on top, deep red-tan below: lit from above on all eight
+(worst +0.6), card 2 of 8, not BACK. The pit: back plain, brindle darker (rig round 7 put its D5 at 0.056; and its coat
+was 18 levels from the shepherd, line 20; now 0.067 and 24.5). All three on DIRECTION's rig round 7.
+THE HOLDS (CRASHBOX, new): the bake writes holds and slots into every table (6 slots a beat, a key at least one; the bite
+3-2-1-2-1-3 with the bite on the second beat; the step per beat by stillness; the idle's three pauses a beat apart, 417
+ms); the page plays the slots. Gate legs + 3 mutations; THE FERAL DOG PACK (SHEPHERD) and (CUR) added to the suite.
+THE CAVE HYENA (bestiary 3): tools/bohemia_animation_the_hyena_prep.py (a slope field, round spots from a jittered grid,
+crest, face, stockings, brush), passes A to G: D5, light and the slope (13 px) pass on all eight, card 2 of 8. HELD, not on
+a card: its colours are 6 levels from the pit (line 20; a distribution ruler measured 8.6, so the ruler stands; a lighter
+sand and clay mustard each failed). Page, sheet, gate (--hyena, not in the suite) ready; one registry row unholds it.
+GROUND: DIRECTION b82807c5 found ground_px was the look point; this lane's six rig.json and VOTE tables recomputed by its
+formula (37485ce4): the pages' ground line now under the feet.
+GATES: the pack 47/0 x3, WOLF REDONE 31/0, BEAST IN EIGHT 26/0, REFERENCE CHECK 494/0, STYLE GUIDE (dogs pass; red is
+PORTRAIT's crew), NOT VIBE CODED N3 (my 24 stills pass; red is 11 other lanes' rows), VOTE TAB (red: DYNASTY's whys).
+FULL SUITE NOT RUN, said (rule 13): every gate my files touch was run by name. Filmed at 390 px, 3x: 72 cells, 0 errors.
+Tooling: bpy 4.2 in a scratch venv (python3.11 -m venv v; pip install bpy==4.2.0 numpy pillow); a full rig render is 1.6
+to 2.5 min; a stills-only render crops tighter and poses the idle, so it is no measure for D5.
+ROUTED (records): DIRECTION, the card's light row reads paint (countershading) and the bestiary needs a colour family per
+beast after the rig's dust; DIRECTION, field 15 has no row for the timing holds.
+NEXT: the same row: the hyena onto a card the round DIRECTION rules the beast colours, then 4 THE FERAL HOG SOUNDER.
+records/BOHEMIA_THE_FERAL_DOG_PACK_ROUND_THREE_10_18_26.md, records/BOHEMIA_THE_CAVE_HYENA_HELD_10_18_26.md.
+
+ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (c) -- *** [the beasts through the rig,
 the wolf redone] ROUND TWO IN VOTE, WAITS THE MOODBOARD (rule 100). TAB: VOTE, PLACEHOLDER: THE FERAL DOG PACK (the pit mix in
 eight facings, idle, step and bite on the beat, the fox it came from beside it). ***
 THE PACK, FROM THE SAME SOURCE: tools/bohemia_animation_the_feral_dog_pack_prep.py reuses the wolf tool's reshape and its texel
