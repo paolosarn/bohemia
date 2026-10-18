@@ -10679,26 +10679,26 @@
    },
    "draft": true
   },
-    {
-     "id": "run2-the-boards-people-10-18",
-     "kind": "ui",
-     "lane": "run 2",
-     "sha": "61c6e611",
-     "made": "10/18",
-     "title": "EVERY TOWN'S BOARD HAS ITS OWN PEOPLE NOW, NOT THE SAME FOUR",
-     "why": "You said no more cards with quests, make an actual quest, so every place's job board now has its own people from the 72 jobs the quest chat wrote: a camp 1, a town 2, a fortress 3, each with a face that talks and says the job and the pay, and a town that just got raided asks you to hit the crew that did it. You see it here under LOOK, the same four people everywhere on the left and each place's own on the right, and in the demo when you tap a town's board or your phone's jobs.",
-     "show": {
-      "how": "image",
-      "src": "vote/RUN2_THE_BOARDS_PEOPLE_BEFORE_AFTER_10_18.png"
-     },
-     "said": "no more cards with quests, make an actual quest",
-     "before_after": {
-      "before": "the four drafted offers, the same people at every board",
-      "after": "QUESTS' act-one shelf (39 jobs from 39 designs), picked per place by its size, what happened there and the map's day; the phone lists the same",
-      "scale": "half his phone's 3x"
-     },
-     "draft": true
-    },
+  {
+   "id": "run2-the-boards-people-10-18",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "61c6e611",
+   "made": "10/18",
+   "title": "EVERY TOWN'S BOARD HAS ITS OWN PEOPLE NOW, NOT THE SAME FOUR",
+   "why": "You said no more cards with quests, make an actual quest, so every place's job board now has its own people from the 72 jobs the quest chat wrote: a camp 1, a town 2, a fortress 3, each with a face that talks and says the job and the pay, and a town that just got raided asks you to hit the crew that did it. You see it here under LOOK, the same four people everywhere on the left and each place's own on the right, and in the demo when you tap a town's board or your phone's jobs.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_BOARDS_PEOPLE_BEFORE_AFTER_10_18.png"
+   },
+   "said": "no more cards with quests, make an actual quest",
+   "before_after": {
+    "before": "the four drafted offers, the same people at every board",
+    "after": "QUESTS' act-one shelf (39 jobs from 39 designs), picked per place by its size, what happened there and the map's day; the phone lists the same",
+    "scale": "half his phone's 3x"
+   },
+   "draft": true
+  },
   {
    "id": "eyes-where-the-sand-is-10-18",
    "kind": "verdict",
@@ -10863,6 +10863,25 @@
     "px": 1,
     "palette": "reference/art_bank/fight_board/COMBAT2_DISTRICTS_10_18.json",
     "light": "upper-left"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-night-freight-10-18",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "THE MIDDLE GROUND: A MAP SONG BUILT LIKE YOURS",
+   "why": "You asked for a middle ground, so this map song is built the way your songs are (your two-minute form, the key moving every four bars, your REPO MAN's five notes, half time, no drums until bar 9) and only the sound is clean 8-bit. You hear it on this page over the real map at night, A the new one and B your REPO MAN as the map plays it now at the same loudness, and on the map's night shuffle beside your songs once you say yes.",
+   "options": [
+    "A, NIGHT FREIGHT, the new one",
+    "B, his REPO MAN, as the map plays it now",
+    "C, no song, the desert alone"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_NIGHT_FREIGHT_10_18_26.html"
    },
    "draft": true
   }

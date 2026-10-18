@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIGHT FREIGHT</title>
+<!-- SOUNDS lane, 10/18, row [the middle ground], round three of [a new song every round]. PAOLO 10/18, his YES on
+     OVER THE RIDGE: 'Awesome I like it, but I just questioned... whether it really goes with the vibe of bohemia... it
+     sounds very different than the rest of our songs... so I wonder if there's like a middleground to reach for all of
+     this, but yeah, like I like it.' The coordinator: 'his canon songs' own style and arrangement played the clean
+     8-bit way, so old and new sound like one game.'
+
+     THE SONG: NIGHT FREIGHT (a name, draft), the map's song at night. HIS FORM, read off his songs and never edited:
+     the 64-bar TWO MINUTE LAW arrangement (A core, B the tune, C kick and bass, D the high line), the whole song
+     moving to another root every four bars by his SONG_ROOT, G on the five notes of his REPO MAN (G A Bb D Eb), half
+     time, the kick on 1 and 3, the hat soft on 2 and 4, no snare, his four-kick fill, and the beat arriving late (no
+     drums for eight bars, the way the map holds the kit on every one of his songs). THE 8-BIT WAY: the tune on a clean
+     50 percent pulse, the NES echo on a 12.5 percent pulse three sixteenths late, the triangle bass, his kick as a chip
+     boom. Data: slices/vote/songs/night_freight.json (tools/bohemia_sounds_middle_ground.py writes it).
+
+     WHAT THIS PAGE IS: the real valley map (slices/BOHEMIA_MAP_CURRENT.html, untouched) from its own camera, the
+     recorded desert under it at the map's level (MAPDESERT's file, his YES), and A NIGHT FREIGHT, B HIS REPO MAN as the
+     map plays it now (recorded from the alpha's own music engine by tools/bohemia_sounds_record_his_song.js, set to
+     the same loudness so the A/B is the music and not the volume), C NO SONG. His songs are never touched; on his YES
+     this one JOINS the map's shuffle beside his (CUE 7.5, RUN's cut, rule 93). Gate: gates/night_freight_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{display:flex;flex-direction:column}
+  #map{flex:1 1 auto;min-height:0;width:100%;border:0;background:#0d0b08}
+  #bar{flex:0 0 auto;box-sizing:border-box;padding:10px 16px 12px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.old{background:#b9a77e}
+  .num{font-size:12px;color:#b9a77e;margin-top:8px;min-height:3em}
+</style></head><body>
+<iframe id="map" src="BOHEMIA_MAP_CURRENT.html" title="the valley map"></iframe>
+<div id="bar">
+  <div class="row">
+    <button id="song">A. NIGHT FREIGHT</button>
+    <button id="his" class="old">B. HIS REPO MAN</button>
+    <button id="none" class="old">C. NO SONG</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="num">Tap A, then B. The new song is built the way your songs are. The desert is under all three.</div>
+</div>
+<script src="../engine/bohemia_chip_song.js"></script>
+<script>
+(function(){
+  'use strict';
+  var AC=null, OUT=null, n=document.getElementById('num'), SONG=null, chip=null, mode=null, bed=null, bedT=null, clock=null, BUF={}, his=null, hisT0=0;
+  fetch('vote/songs/night_freight.json').then(function(r){ return r.json(); }).then(function(s){ SONG=s; }).catch(function(e){ n.textContent='the song did not load: '+e.message; });
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function load(path){ if(BUF[path]) return Promise.resolve(BUF[path]);
+    return fetch(path).then(function(r){ if(!r.ok) throw new Error(path+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[path]=b); }); }
+  /* the desert under the map, the same file, loop and level as the alpha's MAPDESERT */
+  function bedOn(){ if(bed) return; var my=bed=AC.createGain(); my.gain.setValueAtTime(0,AC.currentTime); my.gain.linearRampToValueAtTime(0.45,AC.currentTime+1.5); my.connect(OUT);
+    load('vote/settlement_heard/bed_day.mp3').then(function(b){ var XF=1.0, step=b.duration-XF;
+      (function one(at){ if(bed!==my) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(my);
+        v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF); v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+        s.start(at); bedT=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000)); })(AC.currentTime+0.05); }); }
+  function bedOff(){ if(bedT) clearTimeout(bedT); bedT=null; if(bed){ var x=bed; bed=null; x.gain.cancelScheduledValues(AC.currentTime); x.gain.setValueAtTime(x.gain.value,AC.currentTime); x.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); setTimeout(function(){ try{x.disconnect();}catch(e){} },900); } }
+
+  /* the parts, from the song's own record of his form */
+  var PARTNAME={ A:'the core: bass, his kick, one note on beat one', B:'the tune', C:'the strip: kick and bass', D:'the high line' };
+  var KEYNAME={ 0:'G', 2:'A', 3:'B flat', 7:'D' };
+  function part(b){ var s=SONG.his_form.sections.filter(function(x){ return x[0]<=b; }).pop(); return PARTNAME[s[1]]+', in '+KEYNAME[s[2]]+(b<=SONG.his_form.held_bars?', no drums yet (the beat arrives late)':''); }
+  function where(){
+    if(mode==='song'&&chip){ var b=((chip.bar-1)%SONG.order.length)+1; n.textContent=LABEL.song+'  Bar '+b+' of '+SONG.order.length+': '+part(b)+'.'; }
+    else if(mode==='his'&&his){ var t=(AC.currentTime-hisT0)%his.buffer.duration, hb=Math.min(32,Math.floor(Math.max(0,t-0.05)/2)+1); n.textContent=LABEL.his+'  Bar '+hb+' of its first 32.'; }
+  }
+  function songOff(){ if(chip){ chip.stop(); chip=null; } if(his){ var h=his; his=null; try{ h.g.gain.cancelScheduledValues(AC.currentTime); h.g.gain.setValueAtTime(h.g.gain.value,AC.currentTime); h.g.gain.linearRampToValueAtTime(0,AC.currentTime+0.15); h.src.stop(AC.currentTime+0.2); }catch(e){} } if(clock){ clearInterval(clock); clock=null; } }
+  var LABEL={ song:'NIGHT FREIGHT: your form and your groove, the tune on clean 8-bit.', his:'Your REPO MAN, the first minute, exactly as the map plays it now.',
+              none:'The map as it sounds between songs: the desert and nothing else.' };
+  function mark(id){ ['song','his','none'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
+  function go(id){
+    ctx(); if(id==='song'&&!SONG){ n.textContent='the song is still loading, tap again'; return; }
+    songOff(); mode=id; mark(id); n.textContent=LABEL[id]; bedOn();
+    if(id==='song'){ chip=BOH_CHIP.make(AC, OUT, SONG, { tape: 0 }); chip.play({ loop:true }); clock=setInterval(where, 250); }
+    if(id==='his'){ load('vote/songs/his_repo_man_on_the_map.mp3').then(function(b){ if(mode!=='his') return; var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; s.loop=true; g.gain.value=0;
+        g.gain.setValueAtTime(0,AC.currentTime); g.gain.linearRampToValueAtTime(1,AC.currentTime+0.03); s.connect(g); g.connect(OUT); hisT0=AC.currentTime+0.02; s.start(hisT0); his={src:s,g:g,buffer:b}; clock=setInterval(where,250); })
+        .catch(function(e){ n.textContent='his song did not load: '+e.message; }); }
+  }
+  ['song','his','none'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
+  document.getElementById('stop').onclick=function(){ if(!AC) return; songOff(); bedOff(); mode=null; mark(null); n.textContent='Stopped.'; };
+  window.__freight=function(){ return { mode:mode, song:!!SONG, bar:chip?chip.bar:0, playing:!!(chip&&chip.playing), his:!!his, notes:chip?chip.log.length:0, bed:!!bed, log:chip?chip.log.slice(-96):[] }; };
+})();
+</script>
+</body></html>

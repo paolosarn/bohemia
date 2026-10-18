@@ -1,0 +1,479 @@
+{
+ "_readme": "A CHIP SONG IN HIS FORM (SOUNDS 10/18/26, row [the middle ground]): played by engine/bohemia_chip_song.js, written by tools/bohemia_sounds_middle_ground.py (edit the tool, or edit this and the tool's --check will say so). A bar is 16 steps at 120 BPM (a step is a sixteenth, 125 ms). In a voice's line a token is a note (C#5, Bb3) that holds through the dots after it, '-' stops it; the drums line names hits (b his boom as a chip kick, f the fill's short boom, c his soft hat). order is one pattern per bar; 'name@3' plays that bar's pitched voices 3 semitones up, which is his form moving the root (SONG_ROOT). Four voices like the NES's four channels: the tune (a 50 percent pulse), the echo and the motif (a 12.5 percent pulse), the bass (the triangle), the drums (the noise). env is the volume sequence, one of the 16 levels a frame at 60 Hz. draft:true until his vote.",
+ "id": "night-freight",
+ "title": "NIGHT FREIGHT",
+ "draft": true,
+ "made": "10/18/26",
+ "lane": "sounds",
+ "screen": "the map, the party travelling at night",
+ "bpm": 120,
+ "steps_per_bar": 16,
+ "key": "G on his [0,2,3,7,8] (G A Bb D Eb), the scale of REPO MAN; the root moves by his SONG_ROOT: G, Bb, D, A",
+ "his_form": {
+  "SONG_ARR": [
+   "A",
+   "B",
+   "B",
+   "A",
+   "C",
+   "B",
+   "D",
+   "B",
+   "A",
+   "B",
+   "C",
+   "A",
+   "D",
+   "D",
+   "B",
+   "A"
+  ],
+  "SONG_ROOT": [
+   0,
+   0,
+   2,
+   0,
+   3,
+   2,
+   0,
+   1,
+   0,
+   2,
+   3,
+   0,
+   1,
+   2,
+   0,
+   0
+  ],
+  "scale": [
+   0,
+   2,
+   3,
+   7,
+   8
+  ],
+  "held_bars": 8,
+  "sections": [
+   [
+    1,
+    "A",
+    0
+   ],
+   [
+    5,
+    "B",
+    0
+   ],
+   [
+    9,
+    "B",
+    3
+   ],
+   [
+    13,
+    "A",
+    0
+   ],
+   [
+    17,
+    "C",
+    7
+   ],
+   [
+    21,
+    "B",
+    3
+   ],
+   [
+    25,
+    "D",
+    0
+   ],
+   [
+    29,
+    "B",
+    2
+   ],
+   [
+    33,
+    "A",
+    0
+   ],
+   [
+    37,
+    "B",
+    3
+   ],
+   [
+    41,
+    "C",
+    7
+   ],
+   [
+    45,
+    "A",
+    0
+   ],
+   [
+    49,
+    "D",
+    2
+   ],
+   [
+    53,
+    "D",
+    3
+   ],
+   [
+    57,
+    "B",
+    0
+   ],
+   [
+    61,
+    "A",
+    0
+   ]
+  ]
+ },
+ "voices": {
+  "lead": {
+   "kind": "pulse",
+   "duty": 0.5,
+   "vol": 0.16,
+   "env": [
+    15,
+    14,
+    13,
+    12,
+    11,
+    10,
+    10,
+    9,
+    9,
+    8,
+    8,
+    7,
+    7,
+    7,
+    6,
+    6,
+    6,
+    5
+   ],
+   "legato": 0.92,
+   "vibrato": {
+    "after": 0.35,
+    "hz": 5,
+    "cents": 9
+   }
+  },
+  "echo": {
+   "kind": "pulse",
+   "duty": 0.125,
+   "vol": 0.2,
+   "env": [
+    11,
+    10,
+    9,
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    4,
+    4,
+    3
+   ],
+   "legato": 0.9
+  },
+  "bass": {
+   "kind": "triangle",
+   "vol": 0.3,
+   "legato": 0.9
+  },
+  "drums": {
+   "kind": "noise",
+   "vol": 0.2
+  }
+ },
+ "kit": {
+  "b": {
+   "noise": 12,
+   "short": false,
+   "env": [
+    12,
+    7,
+    4,
+    2,
+    1
+   ],
+   "tri": [
+    110,
+    34,
+    0.28
+   ]
+  },
+  "f": {
+   "noise": 12,
+   "short": false,
+   "env": [
+    8,
+    4,
+    2
+   ],
+   "tri": [
+    120,
+    50,
+    0.1
+   ]
+  },
+  "c": {
+   "noise": 0,
+   "short": false,
+   "env": [
+    6,
+    3,
+    1
+   ]
+  }
+ },
+ "patterns": {
+  "A1h": {
+   "part": "core",
+   "lead": "",
+   "echo": "G5 - . . . . . . . . . . . . . .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": ""
+  },
+  "A2h": {
+   "part": "core",
+   "lead": "",
+   "echo": "D5 - . . . . . . . . Eb5 - . . . .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": ""
+  },
+  "A3h": {
+   "part": "core",
+   "lead": "",
+   "echo": "Bb5 - . . . . . . . . . . . . . .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": ""
+  },
+  "A4h": {
+   "part": "core",
+   "lead": "",
+   "echo": "A5 - . . . . . . . . G5 - . . . .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": ""
+  },
+  "B1h": {
+   "part": "lift: the tune",
+   "lead": "D5 . - . Eb5 . D5 . Bb4 . . . A4 . Bb4 .",
+   "echo": ". . . D5 . - . Eb5 . D5 . Bb4 . . . A4",
+   "bass": "G2 . . - . . A3 . - . G2 . - . Eb3 .",
+   "drums": ""
+  },
+  "B2h": {
+   "part": "lift: the tune",
+   "lead": "G4 . . . . . . - D4 . . . . . . -",
+   "echo": ". Bb4 . G4 . . . . . . - D4 . . . .",
+   "bass": "G2 . . - . . A3 . - . G2 . - . Eb3 .",
+   "drums": ""
+  },
+  "B3h": {
+   "part": "lift: the tune",
+   "lead": "D5 . - . Eb5 . D5 . Bb4 . D5 . Eb5 . G5 .",
+   "echo": ". . . D5 . - . Eb5 . D5 . Bb4 . D5 . Eb5",
+   "bass": "G2 . . - . . A3 . - . G2 . - . Eb3 .",
+   "drums": ""
+  },
+  "B4h": {
+   "part": "lift: the tune",
+   "lead": "Eb5 . . . . . . - D5 . . . . . . -",
+   "echo": ". G5 . Eb5 . . . . . . - D5 . . . .",
+   "bass": "G2 . . - . . A3 . - . G2 . - . Eb3 .",
+   "drums": ""
+  },
+  "B1": {
+   "part": "lift: the tune",
+   "lead": "D5 . - . Eb5 . D5 . Bb4 . . . A4 . Bb4 .",
+   "echo": ". . . D5 . - . Eb5 . D5 . Bb4 . . . A4",
+   "bass": "G2 . . - . . A3 . - . G2 . - . Eb3 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "B2": {
+   "part": "lift: the tune",
+   "lead": "G4 . . . . . . - D4 . . . . . . -",
+   "echo": ". Bb4 . G4 . . . . . . - D4 . . . .",
+   "bass": "G2 . . - . . A3 . - . G2 . - . Eb3 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "B3": {
+   "part": "lift: the tune",
+   "lead": "D5 . - . Eb5 . D5 . Bb4 . D5 . Eb5 . G5 .",
+   "echo": ". . . D5 . - . Eb5 . D5 . Bb4 . D5 . Eb5",
+   "bass": "G2 . . - . . A3 . - . G2 . - . Eb3 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "B4": {
+   "part": "lift: the tune",
+   "lead": "Eb5 . . . . . . - D5 . . . . . . -",
+   "echo": ". G5 . Eb5 . . . . . . - D5 . . . .",
+   "bass": "G2 . . - . . A3 . - . G2 . - . Eb3 .",
+   "drums": "b . . . c . . . b . . . fc f f f"
+  },
+  "A1": {
+   "part": "core",
+   "lead": "",
+   "echo": "G5 - . . . . . . . . . . . . . .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "A2": {
+   "part": "core",
+   "lead": "",
+   "echo": "D5 - . . . . . . . . Eb5 - . . . .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "A3": {
+   "part": "core",
+   "lead": "",
+   "echo": "Bb5 - . . . . . . . . . . . . . .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "A4": {
+   "part": "core",
+   "lead": "",
+   "echo": "A5 - . . . . . . . . G5 - . . . .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . c . . . b . . . fc f f f"
+  },
+  "C1": {
+   "part": "strip: kick and bass",
+   "lead": "",
+   "echo": "",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . . . . . b . . . . . . ."
+  },
+  "C2": {
+   "part": "strip: kick and bass",
+   "lead": "",
+   "echo": "",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . . . . . b . . . . . . ."
+  },
+  "C3": {
+   "part": "strip: kick and bass",
+   "lead": "",
+   "echo": "",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . . . . . b . . . . . . ."
+  },
+  "C4": {
+   "part": "strip: kick and bass",
+   "lead": "",
+   "echo": "",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . . . . . b . . . f f f f"
+  },
+  "D1": {
+   "part": "full: the high line",
+   "lead": "D5 . - . Eb5 . D5 . Bb4 . . . A4 . Bb4 .",
+   "echo": "D6 . - . Eb6 . D6 . Bb5 . . . A5 . Bb5 .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "D2": {
+   "part": "full: the high line",
+   "lead": "G4 . . . . . . - D4 . . . . . . -",
+   "echo": "G5 . . . . . . - D5 . . . . . . -",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "D3": {
+   "part": "full: the high line",
+   "lead": "D5 . - . Eb5 . D5 . Bb4 . D5 . Eb5 . G5 .",
+   "echo": "D6 . - . Eb6 . D6 . Bb5 . D6 . Eb6 . G6 .",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . c . . . b . . . c . . ."
+  },
+  "D4": {
+   "part": "full: the high line",
+   "lead": "Eb5 . . . . . . - D5 . . . . . . -",
+   "echo": "Eb6 . . . . . . - D6 . . . . . . -",
+   "bass": "G2 . . - . . A2 . - . G2 . - . Eb2 .",
+   "drums": "b . . . c . . . b . . . fc f f f"
+  }
+ },
+ "order": [
+  "A1h",
+  "A2h",
+  "A3h",
+  "A4h",
+  "B1h",
+  "B2h",
+  "B3h",
+  "B4h",
+  "B1@3",
+  "B2@3",
+  "B3@3",
+  "B4@3",
+  "A1",
+  "A2",
+  "A3",
+  "A4",
+  "C1@7",
+  "C2@7",
+  "C3@7",
+  "C4@7",
+  "B1@3",
+  "B2@3",
+  "B3@3",
+  "B4@3",
+  "D1",
+  "D2",
+  "D3",
+  "D4",
+  "B1@2",
+  "B2@2",
+  "B3@2",
+  "B4@2",
+  "A1",
+  "A2",
+  "A3",
+  "A4",
+  "B1@3",
+  "B2@3",
+  "B3@3",
+  "B4@3",
+  "C1@7",
+  "C2@7",
+  "C3@7",
+  "C4@7",
+  "A1",
+  "A2",
+  "A3",
+  "A4",
+  "D1@2",
+  "D2@2",
+  "D3@2",
+  "D4@2",
+  "D1@3",
+  "D2@3",
+  "D3@3",
+  "D4@3",
+  "B1",
+  "B2",
+  "B3",
+  "B4",
+  "A1",
+  "A2",
+  "A3",
+  "A4"
+ ]
+}

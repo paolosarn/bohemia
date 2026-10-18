@@ -64,6 +64,14 @@
       "made": "10/18/26",
       "lane": "sounds",
       "why": "ADDED ON PURPOSE (SOUNDS 10/18, row [the map's song], round two of [a new song every round]; Paolo 10/18: 'I haven't heard a new song that was made in a long time... what's up?'): the map's travel song, 8-bit, 120 BPM, 32 bars, played by engine/bohemia_chip_song.js. A new song beside his, none of his touched; on his YES it joins the map's shuffle, never replacing one. In VOTE as sounds-the-long-road-10-18; if it changes after he hears it, this hash changes in the same commit with a reason."
+    },
+    {
+      "id": "night-freight",
+      "file": "slices/vote/songs/night_freight.json",
+      "md5": "d82afc2202b93ac6a73c7d8bbe2a329a",
+      "made": "10/18/26",
+      "lane": "sounds",
+      "why": "ADDED ON PURPOSE (SOUNDS 10/18, row [the middle ground], round three of [a new song every round]; Paolo 10/18 on OVER THE RIDGE: 'it sounds very different than the rest of our songs... I wonder if there's like a middleground'): the map's night song in HIS form (SONG_ARR and SONG_ROOT read, never edited; REPO MAN's scale; half time, the kick on 1 and 3, the hat on 2 and 4, his fill, the beat late), the tune on the chip's clean pulses, 64 bars, played by engine/bohemia_chip_song.js. A new song beside his, none of his touched; on his YES it joins the map's night shuffle, never replacing one. In VOTE as sounds-night-freight-10-18 beside his REPO MAN; if it changes after he hears it, this hash changes in the same commit with a reason."
     }
   ]
 }

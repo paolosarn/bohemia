@@ -26,6 +26,10 @@
      { id, title, bpm, steps_per_bar: 16, voices: { name: { kind: 'pulse'|'triangle'|'noise', duty, vol, env } },
        patterns: { name: { voice: 'C5 . E5 - ...' } }, order: [ pattern names, one per bar ] }
      a note is a pitch (C#5, Bb3) that holds through the dots after it, '-' stops it; the drums line names hits.
+     AN ORDER ENTRY MAY CARRY A KEY SHIFT, 'name@3' (SOUNDS 10/18, [the middle ground]): every pitched voice of that
+     bar is played 3 semitones up, the drums untouched. His canon form moves the WHOLE song to another root every four
+     bars (SONG_ARR and SONG_ROOT, read, never edited); this is that, as data. A song MAY carry its own kit,
+     { kit: { letter: { noise, short, env, tri } } }, laid over the engine's (his drum voices' character, as chip hits).
    const C = BOH_CHIP.make(ctx, destination, song, { tape: 0 | 1 });
    C.play({ loop: true }); C.stop();                 // live, on the look-ahead clock
    C.renderAll(fromBar, toBar);                      // offline: every note scheduled at once */
@@ -107,6 +111,8 @@
   function make(ctx, dest, song, opts) {
     opts = opts || {};
     var W = bank(ctx), spb = song.steps_per_bar || 16, stepS = 60 / song.bpm / (spb / 4);
+    var kit = {}; Object.keys(KIT).forEach(function (h) { kit[h] = KIT[h]; });
+    if (song.kit) Object.keys(song.kit).forEach(function (h) { kit[h] = song.kit[h]; });   /* the song's own hits over the engine's */
     var level = NUM.MASTER * (opts.gain === undefined ? 1 : opts.gain);
     var master = ctx.createGain(); master.gain.value = level;
     if (opts.tape) { var tl = ctx.createBiquadFilter(); tl.type = 'lowpass'; tl.frequency.value = NUM.TAPE.LP_HZ; tl.Q.value = 0.4; master.connect(tl); tl.connect(dest); }
@@ -146,7 +152,7 @@
         if (this.log.length > 8192) this.log.shift();
       },
       drum: function (vname, v, hit, at) {
-        var k = KIT[hit]; if (!k) return;
+        var k = kit[hit]; if (!k) return;
         var s = ctx.createBufferSource(), g = ctx.createGain(), dur = k.env.length * NUM.FRAME;
         g.gain.value = 0;
         s.buffer = noiseBuf(ctx, k.noise, k.short);
@@ -161,13 +167,14 @@
         this.log.push({ v: vname, hit: hit, at: Math.round(at * 1000) / 1000 });
       },
       layBar: function (b, at) {
-        var self = this, P = song.patterns[song.order[b % song.order.length]] || {};
+        var ent = String(song.order[b % song.order.length]), at2 = ent.indexOf('@');
+        var self = this, P = song.patterns[at2 < 0 ? ent : ent.slice(0, at2)] || {}, shift = at2 < 0 ? 1 : Math.pow(2, (+ent.slice(at2 + 1) || 0) / 12);
         Object.keys(song.voices).forEach(function (vn) {
           var v = song.voices[vn], cells = parse(P[vn], spb);
           if (v.kind === 'noise') { cells.forEach(function (c, i) { if (c !== '.' && c !== '-') c.split('').forEach(function (h) { self.drum(vn, v, h, at + i * stepS); }); }); return; }
           for (var i = 0; i < spb; i++) {
             var c = cells[i]; if (c === '.' || c === '-') continue;
-            var f = hz(c); if (!f) continue;
+            var f = hz(c) * shift; if (!f) continue;
             var j = i + 1; while (j < spb && cells[j] === '.') j++;   /* a note holds to the next note or stop, never past its bar */
             self.note(vn, v, f, at + i * stepS, (j - i) * stepS * (v.legato === undefined ? 0.92 : v.legato));
           }
