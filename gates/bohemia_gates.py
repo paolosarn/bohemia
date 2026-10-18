@@ -5436,6 +5436,17 @@ GATES = [
      'rendered classes where it sets a number (a colour FLOOR, the top-eight share, the light row, the hue shift on the '
      'source palette), and the robot and the truck must pass the held five on all eight facings (his YES is the ruler). '
      'The master rig is printed through all ten every run.', False),
+    ('TWIN GATE', ['python3', 'gates/twin_gate.py'],
+     'A NEW PICTURE AGAINST ITS PACK TWIN. 10/18, PLUMBER lane, row [the twin gate]; rule 108 round eight (c); the '
+     'twin law (82). tools/bohemia_twin_gate.py scores a piece against its named pack twin AND its family at the '
+     'twin\'s pixel size with rulers that share no formula: COLOUR (earth mover\'s distance in Lab), PATTERN (local '
+     'binary patterns), PAINTER (DIRECTION\'s five numbers), GRID (one honest pixel grid, no fractional upscale), '
+     'SHAPE (8x8 ink); SSIM printed as the hack detector; DINOv2 when its weights reach the box (Apache-2.0 read). '
+     'Every line is the packs measuring themselves (records/target/BOHEMIA_TWIN_CALIBRATION.json). GREEN / AMBER / '
+     'RED; an art item registered after this gate with a pack twin and sprites is RED here if any sprite is RED, '
+     'and its card (both crops at his size) is written to records/target/twin_cards. RED CASE: a flat six-step '
+     'ramp tile, a 1.5x upscale and noise against his ground tile, and a planted registry row, every run; his own '
+     'tiles against each other 1 of 80 RED; the robot and the truck (his YES) never RED. About 4 s.', False),
     ('NEVER WORSE', ['node', 'tools/bohemia_never_worse.js'],
      'THE RATCHET AS A MACHINE. 9/20, PLUMBER lane, row [never worse], PAOLO rule 18c. He said '
      '"I just want to restart all of this... we were closer to being able to play before, right now '
