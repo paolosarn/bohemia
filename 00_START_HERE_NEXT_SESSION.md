@@ -1406,6 +1406,41 @@ COMBAT TWO (combat 2, Opus 5.5 chat opened by the coordinator, rule 112/116): 10
 COMBAT TWO (combat2-jn8t7itH): 10/16 (al) LATEST -- THE BIG SWING (rule 110, MODE line): [the houses on the board] ROUND ONE IN as a CANDIDATE (rule 100): three suburb fight boards, small 9x7 / middle 14x10 / large 20x15 house tiles, laid by tools/bohemia_combat2_three_boards_from_the_whole_bank_cook_10_16_26.py from COOK TWO's 1:1 recipe cells (the 47, the curb), COOK FOUR's straight-roof ranch (COOK4_THE_ROOF_MEASURED.png, 1:1, flipped only) and 158 pack keys from 16 of his packs; terrain, cover in metres and lights per board in reference/art_bank/fight_board/COMBAT2_THREE_BOARDS_10_16.json; the small board committed whole, the middle and large regenerate from the seed (.gitignore there). Sheet records/target/COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16.webp, VOTE combat2-three-boards-from-the-whole-bank-10-16, record records/BOHEMIA_COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16_26.md. I INTENDED to lay the kit under the house, MEASURED the kit at 2x/42.9 px per m against the house at 1:1/57, NOW the boards sit on the 1:1 cells (82 px = 1.44 m, 8 = the ranch's 11.5 m front = a Vegas roadway; a 656 x 648 square tile, the pack's camera, not the fight's 515 x 364 cos45 block). FINDINGS FOR THE COORDINATOR: his packs draw every prop in one 96-px box (a car and a cone the same size), so props stand at the integer scale nearest real size, never under 1x, cones/bins/hydrants left out; the never-judged '1. Ground Tiles' pebbles are 96x70 patches, not tiles (striped the yards, left out); the bank has no gravel-yard tile and no street light taller than a garden post. WEAK: one house kind (COOK FOUR's five had not landed), yards change colour at the lot line, 2x props on 1x ground, no back of a house exists so no house fronts a street's south side. NEXT: re-lay the round COOK FOUR's kinds land; DIRECTION's card on the 2x props. [PENDING Paolo]: none.
 COMBAT TWO (combat2-8ca291aa): 10/11 (ag) LATEST -- RULE 108 READ: my cook tools (tools/bohemia_combat2_*, every block drawn rectangle by rectangle) make no more candidates; this lane only LAYS kits the cooks generate against his packs. STILL BLOCKED: [the houses on the board] (COOK FOUR's fight-scale house kit; COOK FOUR is on [no roof tops]), [the boards from the packs] (COOK TWO's four-way piece, freeway and lot kits; COOK TWO is on [the corners] and [no borders], both waiting on his word). Nothing laid, nothing in VOTE this round, on purpose (STOP PRODUCING).
 COMBAT TWO (combat2-8ca291aa): 10/10 (af) LATEST -- RULES 100/101 READ: COMBAT TWO is an art lane; no writes to slices/ until his FINAL; everything shipped is a placeholder (files listed in records/BOHEMIA_PLACEHOLDERS.md). BLOCKED: [the houses on the board] waits on COOK FOUR's fight-scale house kit; [the boards from the packs] on COOK TWO's four-way piece and freeway/lot kits; [the warehouse inside] and [the future settlements] are new art / a placeholder edit, not this lane's under 100/101. DONE THIS ROUND: the study page records/BOHEMIA_COMBAT2_HOW_THE_PACK_LAYS_ITS_GROUND_10_10_26.md (pack ground 4,140 colours per 96 px, our cooked blocks 18-29, the casino 4, the kit ~2,000).
+EYES AND EARS (eyes-opus-10-18c): 10/18 (cm) LATEST -- *** [the Grok pages, stamped] SHIPPED: ALL 38 STAMPED, MUSIC
+FIRST; AND OUR SAND IS NOT THE SQUEEZE. ***
+TAB: VOTE, the card "WHERE THE SAND IS" (one song three ways over the map by day: as the game plays it, without the
+squeeze at the end, with only the hiss taken out).
+
+Every page read whole and every number checked against its source (nesdev's APU pages, the Web Audio engines' own
+source and tests, Chris Wilson's scheduler, Linus Akesson for the famichord, Wikipedia and the fan wikis for CRASHBOX)
+through the search tool; this box cannot open nesdev or Wikipedia directly.
+MUSIC 184 to 195: 11 PASSED (six with an erratum on line 2; 190's matters: raw edges at 48 kHz alias, which is sand),
+1 FAILED: 195, the NES length table is 4/4 at 90 and 75 bpm, not 160 to 180, and "durations from the table" breaks
+the 120 BPM grid. SOUNDS cites 184 to 194.
+THE LOOK 158 to 183: 2 PASSED (159 candidates; 160 CRASHBOX, facts checked), 24 FAILED on Grok's generic pixel rules
+against our card measured from his tiles (12 fps vs twelve keys a bar; 16 to 64 px vs the 112 box; checker dither; a
+Lospec whole-game palette, neither found; flat light) plus the rig (115a), the pack ground (115b), the frozen UI
+(rule 28), the fresh portrait (115h), the one-pixel border, Moral Orel out (115d). Crashbox facts that check out are
+in the record's section 4.
+THE FINDING (tools/bohemia_eyes_the_squeeze.js, all 142 songs through the engine's own scheduler, with and without
+the chain's two compressors in one render): the typical song is squeezed 0.07 dB, past 3 dB only in the first half
+second; the chain makes the music 8.0 dB louder and that is all. THE GAPS IN THE HYMNAL is the one crushed song
+(21.8 dB over full scale, 18.7 dB squeeze; SOUNDS' 9/12 finding, still open). Off the 8-bit way: a white-noise layer
+in 119 of 142 songs carrying their top end (17 dB of it in THE MARKER ON THE DOOR), and 51 percent sine and 25
+percent saw voices (24 percent of notes are a voice an NES has).
+ROUTED (record section 7): SOUNDS (cite 184 to 194, not 195; the hiss and the voices, not the chain; the hymnal);
+ANIMATION (its claimed row reads Grok 170 to 177, all FAILED: 12 fps and the hand-drawn road); DIRECTION (cite 160
+and the record for CRASHBOX); COORDINATOR (its 10/18 note to ANIMATION relays Grok's 12 fps; SOUNDS' row says 184 to
+195; the grok branch still has 158 to 195 with a blank line 2, so the next copy brings new pages only or the stamps
+are wiped; the filter gate reads paths, not "Grok NNN" in prose, PLUMBER's call).
+QA LEAD LINE (rule 113a): nothing from another lane was measured this round beyond the song shelf; the vote tab's
+reds (DYNASTY's two cards with no place named; PEOPLE, FACTIONS, WORLD not cooked; two look cards without a
+before-and-after) are the same with and without this card.
+Record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md.
+NEXT: the top OPEN row is [the star is the bar] (every new face beside the starred poacher); then the turned
+translation-count row (its two-line post-mortem first, rule 95), then [where the minutes go].
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-opus-10-18b): 10/18 (cl) LATEST -- *** [the new demo cut, measured] SHIPPED: THE NEW CUT IS
 BETTER ON EVERY WALK NUMBER, AND THE RIG TRUCK COSTS NOTHING. ***
 TAB: VOTE, the card "THE NEW DEMO CUT, MEASURED".

@@ -10558,7 +10558,20 @@
       "scale": "half his phone's 3x"
      },
      "draft": true
-    }
+    },
+  {
+   "id": "eyes-where-the-sand-is-10-18",
+   "kind": "verdict",
+   "lane": "eyes and ears",
+   "sha": "c821869ff",
+   "made": "10/18",
+   "title": "WHERE THE SAND IS: NOT THE SQUEEZE AT THE END, THE HISS INSIDE THE SONGS",
+   "why": "All 142 of your songs played through the game's own sound and measured: the squeeze at the end does nothing you can hear on 141 of them, it only makes them louder, while a hiss layer inside 119 songs carries their whole top end. You hear it in the VOTE tab over the map by day: one song as the game plays it, without the squeeze, and with only the hiss taken out.",
+   "show": {
+    "how": "page",
+    "src": "vote/EYES_THE_SQUEEZE.html"
+   }
+  }
  ],
  "verdicts": [
   {

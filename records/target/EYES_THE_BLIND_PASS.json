@@ -14,145 +14,65 @@
    "back_on_predictors": 5
   },
   "clear": {
-   "n": 446,
-   "back": 252,
+   "n": 505,
+   "back": 260,
    "by_leg": {
     "1": 58,
     "2": 29,
     "4": 3,
-    "5": 152,
-    "6": 55
+    "5": 158,
+    "6": 60
    },
    "back_on_predictors": 29
   }
  },
  "pass_rate_by_lane": {
-  "animation": "1 of 1",
-  "cook 3": "0 of 1",
-  "cook 4": "0 of 2",
-  "direction": "3 of 3",
-  "run 2": "1 of 1",
-  "sounds": "2 of 2",
-  "tuning": "1 of 1"
+  "combat": "1 of 1",
+  "cook": "0 of 1",
+  "cook 4": "1 of 1",
+  "eyes and ears": "1 of 1",
+  "run 2": "0 of 1"
  },
  "items": [
   {
-   "id": "direction-the-look-bible-everything-the-same-10-18",
-   "lane": "direction",
-   "made": "10/18",
-   "eyes": "PASS",
-   "why": "",
-   "legs_failed": [],
-   "notes": [
-    "note: 2 sentences, longest 33 words"
-   ]
-  },
-  {
-   "id": "direction-the-style-guide-do-and-dont-10-18",
-   "lane": "direction",
-   "made": "10/18",
-   "eyes": "PASS",
-   "why": "",
-   "legs_failed": [],
-   "notes": [
-    "note: 2 sentences, longest 31 words"
-   ]
-  },
-  {
-   "id": "direction-the-hand-finish-10-18",
-   "lane": "direction",
-   "made": "10/18",
-   "eyes": "PASS",
-   "why": "",
-   "legs_failed": [],
-   "notes": [
-    "note: 2 sentences, longest 37 words"
-   ]
-  },
-  {
-   "id": "animation-ragdoll-hits-10-17",
-   "lane": "animation",
-   "made": "10/17",
-   "eyes": "PASS",
-   "why": "",
-   "legs_failed": [],
-   "notes": [
-    "note: 2 sentences, longest 42 words"
-   ]
-  },
-  {
-   "id": "cook4-the-family-in-the-valley-tans-10-18",
+   "id": "cook4-the-casino-10-18",
    "lane": "cook 4",
+   "made": "10/18",
+   "eyes": "PASS",
+   "why": "",
+   "legs_failed": [],
+   "notes": [
+    "note: 2 sentences, longest 58 words"
+   ]
+  },
+  {
+   "id": "combat-the-marks-on-the-board-10-18",
+   "lane": "combat",
+   "made": "10/18",
+   "eyes": "PASS",
+   "why": "",
+   "legs_failed": [],
+   "notes": [
+    "note: 2 sentences, longest 47 words"
+   ]
+  },
+  {
+   "id": "cook-the-block-wars-cover-10-18",
+   "lane": "cook",
    "made": "10/18",
    "eyes": "BACK",
    "why": "a look with no before and after at one to one",
    "legs_failed": [
-    5
+    5,
+    6
    ],
    "notes": [
-    "note: 2 sentences, longest 56 words"
+    "note: 2 sentences, longest 71 words"
    ]
   },
   {
-   "id": "cook4-the-motel-straight-roof-10-18",
-   "lane": "cook 4",
-   "made": "10/18",
-   "eyes": "BACK",
-   "why": "a look with no before and after at one to one",
-   "legs_failed": [
-    5
-   ],
-   "notes": [
-    "note: 2 sentences, longest 42 words"
-   ]
-  },
-  {
-   "id": "run2-who-is-wearing-what-10-18",
+   "id": "run2-the-boards-people-10-18",
    "lane": "run 2",
-   "made": "10/18",
-   "eyes": "PASS",
-   "why": "",
-   "legs_failed": [],
-   "notes": [
-    "note: 2 sentences, longest 66 words"
-   ]
-  },
-  {
-   "id": "sounds-a-desert-not-a-rainforest-10-18",
-   "lane": "sounds",
-   "made": "10/18",
-   "eyes": "PASS",
-   "why": "",
-   "legs_failed": [],
-   "notes": [
-    "note: 2 sentences, longest 49 words"
-   ]
-  },
-  {
-   "id": "sounds-the-title-is-the-desert-10-18",
-   "lane": "sounds",
-   "made": "10/18",
-   "eyes": "PASS",
-   "why": "",
-   "legs_failed": [],
-   "notes": [
-    "note: 2 sentences, longest 53 words"
-   ]
-  },
-  {
-   "id": "tuning-the-twenty-fields-four-studios-10-18",
-   "lane": "tuning",
-   "made": "10/18",
-   "eyes": "PASS",
-   "why": "",
-   "legs_failed": [],
-   "notes": [
-    "note: 2 sentences, longest 33 words"
-   ]
-  },
-  {
-   "id": "cook3-the-thug-through-the-rig-10-18",
-   "lane": "cook 3",
    "made": "10/18",
    "eyes": "BACK",
    "why": "team business, not the game (\"chat\")",
@@ -160,7 +80,18 @@
     6
    ],
    "notes": [
-    "note: 2 sentences, longest 38 words"
+    "note: 2 sentences, longest 67 words"
+   ]
+  },
+  {
+   "id": "eyes-where-the-sand-is-10-18",
+   "lane": "eyes and ears",
+   "made": "10/18",
+   "eyes": "PASS",
+   "why": "",
+   "legs_failed": [],
+   "notes": [
+    "note: 2 sentences, longest 44 words"
    ]
   }
  ]
