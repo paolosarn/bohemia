@@ -470,6 +470,24 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-opus-10-18d): 10/18 LATEST (round twenty-six, [the map's song], and his sixteenth votes read) --
+*** HIS VOTES ON THIS SESSION'S WORK: YES ON THE TITLE SONG, NO ON THE FIGHT STEPS ('Was broke'), AND WHAT BROKE IS FOUND. ***
+OVER THE RIDGE: UP, 'Awesome I like it', with a question: does it fit Bohemia, it sounds unlike the rest of our songs,
+'I wonder if there's like a middleground'. CUE 7.3 now has both YESes (the song and the wind): RUN's next cut. The next
+song is the middle ground (the coordinator's note): row [the middle ground] is FIRST, read his canon songs as music before a
+note. THE LONG ROAD (the map's song, built this round in the same pure chip style, ca4d29fa) was PULLED from VOTE before he
+heard it, CUE 7.4 SCRUB; the song stays on disk as a step. Building it found a real defect in the engine: a Web Audio gain is
+1 until its first event, so a note starting between two samples leaked one sample at full scale (0.50); every gain is born at
+zero now and both song gates refuse a jump over 0.4 (mutated with the leak back: red). THE FIGHT STEPS, MEASURED in a VOTE-sized
+frame on a 1.6 Mbps network: every tap reloaded the whole fight (12 s, 5 MB), the first step came 32 s after the tap, and one
+footstep per 125 ms tile is eight a second, a stutter. The gate was green because it ran three times as fast, full height, on a
+local server. Post-mortem: records/BOHEMIA_THE_STEP_IN_THE_FIGHT_POST_MORTEM_10_18_26.md; the redo is row [the step comes back]
+(load once, a step within two seconds, two footfalls a beat across the move, a gate that drives it his way), CUE 7.2 waits on
+the redo's YES. Gates: the long road 33/0, over the ridge 32/0, song lock 22/0, fight steps 34/0, vote tab red only on DYNASTY's
+two items. Records: records/BOHEMIA_THE_LONG_ROAD_10_18_26.md, the post-mortem. PENDING Paolo: nothing. FOR RUN: CUE 7.1 and
+CUE 7.3 have his YES.
+UNDER UI (rule 113a): SOUNDS: his YES on the title song, his NO on the fight steps diagnosed, VOTE tab, COOKING.
+
 SOUNDS (sound-opus-10-18d): 10/18 LATEST (round twenty-five, [a new song every round] round one) --
 *** A NEW SONG FOR THE TITLE, 8-BIT, IN VOTE: OVER THE RIDGE. *** His 10/18 'I haven't heard a new song in a long time' and
 'he likes 8-bit'. engine/bohemia_chip_song.js (new) plays the NES's four voices at the 2A03's own numbers: pulse PeriodicWaves

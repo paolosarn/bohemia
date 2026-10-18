@@ -95,7 +95,9 @@ const srv = http.createServer((rq, rs) => {
   const yes = (reg.verdicts || []).some(v => v.id === ID && /^(up|yes|star)$/i.test(String(v.vote)));
   const wired = /the_long_road\.json/.test(alpha);
   ok('unjudged is silent: the map plays nothing new until his YES', !wired || yes, wired ? (yes ? 'wired after his YES' : 'WIRED WITHOUT A YES') : 'not wired');
-  ok('the VOTE item is registered as a song and shows this page', !!item && item.kind === 'song' && item.show && item.show.src === path.basename(PAGE) && item.draft === true);
+  /* PULLED BEFORE HE HEARD IT (10/18): his YES on the title song came with 'I wonder if there's a middle ground'; this song is
+     the pure chip style he questioned, so it waits for the middle ground and never reaches the tab as it is */
+  ok('not in the VOTE tab: pulled for the middle ground before he heard it', !item, item ? 'REGISTERED' : 'pulled');
   ok('  its title and the song\'s own are drafts (a name is an attempt)', song.draft === true);
 
   /* ---- the render, in a real browser ---- */
