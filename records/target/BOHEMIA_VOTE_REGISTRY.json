@@ -10407,7 +10407,21 @@
       "scale": "half his phone's 3x"
      },
      "draft": true
-    }
+    },
+  {
+   "id": "tuning-easier-measured-10-18",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "d4bc2e2c",
+   "made": "10/18",
+   "draft": true,
+   "title": "EASIER, MEASURED",
+   "why": "We played 14,400 real fights by themselves at Battle Brothers' numbers and at our easier start: across four fights you will meet, you win 78 in 100 instead of 46, and 3.8 of your men go down a fight instead of 6.3. You see it on this page, with the five places the game is still harder than Battle Brothers marked.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.html"
+   }
+  }
  ],
  "verdicts": [
   {

@@ -39,6 +39,33 @@ ART LEAD LINES (rule 113a, from their newest commits):
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-vamily-opus-measured): 10/18 (d) LATEST -- [easier than Battle Brothers, measured] SHIPPED d4bc2e2c (research only, rule 38g;
+no game code touched; the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
+READBACK: every felt number beside Battle Brothers' own, compared by machine, and the fight played headless at both so 'easier' is a count.
+Done: 209 rows, 0 unsorted; 14,400 fights.
+TAB: VOTE, item EASIER, MEASURED (a page, gray, draft:true).
+RECORD: records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md.
+DATA: banks/BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.json (the fights), banks/BOHEMIA_TUNING_EASIER_ROWS_10_18_26.json (the rows); the lever file
+gained 5 levers (31) and 3 corrections; the one table regenerated (marks only). TOOLS: tools/bohemia_tuning_easier_measured.js (the bench:
+the live fight-data and fight-rules scripts in node, two hooks spliced in memory, each anchor asserted once; --control replays the unhooked
+fight event for event, 6 of 6), tools/bohemia_tuning_easier_page.js (the rows, the page, the VOTE page).
+THE MEASURE (four fights a player meets, averaged; 300 seeded fights a cell, AUTO on both sides): Battle Brothers' Veteran wins 46 in 100,
+6.3 men down a fight, 114 dead in 100 fights; THE START wins 78, 3.8 down, 71 dead; their Expert 19, 7.8, 140. The grown company (8 men,
+level 3, two skulls, day 22): 8 -> 86 won. Single levers: the tier days +12.7 won, the hit roll +6, the party at Beginner +3.2, breath
+yours +2.2 (both sides +0.5: a shared rule bent buys nothing), their nerve +1.7, the streak breaker +1.5 (and 0.5 -> 0.2 bad streaks).
+FINDINGS: (1) a level never raises a stat in the fight (crewUnit rolls fresh from the background) while the map adds 2 strength a level to
+size the enemy: harder than Battle Brothers, no word; small at level 3 (+4 won), +25 skill and defence by level 11; COMBAT + RUN TWO.
+(2) the door opens on Battle Brothers' own defaults (combat 'seen' = Veteran, economy 'thin' = Medium funds); the start is 'new' and
+'full'; RUN + UI. (3) harder with no word: a hire stars 1 stat not 3; the hall's militiaman 225 vs the formula's 49, farmhand 41 vs 29.
+(4) ours.own_nerve 1.1 PROPOSED (your men who ran 1.1 -> 0.8 a fight, won 78 -> 82). (5) CORRECTED: the veteran row is easier (0.20 <
+0.67), not harder; my last page's three outside citations withdrawn (the row's frame: Battle Brothers and Nintendo-simple only).
+ROUTED: COMBAT (the gains, the levers as R() rows, breath yours only, the first band by the job math), RUN + UI (the door's two words),
+RUN TWO + PEOPLE (three stars; the roster hands stats), RUN TWO + ECONOMY (hire prices), PEOPLE + COMBAT (own nerve).
+NEXT (the jump list): [the first hour's numbers] is the top OPEN row (the coordinator's, this sweep); this page's 'first' and 'newcrew'
+fights are its first two measured rows. Then [the 32 situations], [origin food and goods].
+[bb Battle Brothers makes a fight harder by sending more men sooner and by your dice and money, and a man gets better every level; we keep all of it and start one step easier.]
+[analog horror: the rout is the loudest win these numbers make (their men who ran 1.1 -> 2.7 a fight at the start); named for SOUNDS, not moved.]
+
 TUNING (tuning-vamily-opus-117): 10/18 (c) LATEST -- [rule 117 in the table] SHIPPED 0dffb201 and [how long a life is] SHIPPED 9cf0d49b (research only,
 rule 38g; no game code touched; the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
 READBACK [rule 117 in the table]: every felt number carries a 117 mark, Battle Brothers' value the hard end of its slider, our start easier,
