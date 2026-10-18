@@ -12,9 +12,10 @@ camera sees (glTF front is -Y).
          post): an octagonal plinth, a pole with a collar, a straight arm with its brace, a cone shade hung from the arm
          on a short chain link, a sodium bulb (the only self-lit colour). The odd thing: a strip of masking tape and a
          paper flyer wrapped round the pole at eye height, and the shade knocked 9 degrees off true.
-  gun    a 1.05 m pump shotgun lying on its side, the twin's set (pack:12. Weapons and supplies#6): a wooden stock and
-         pump, a painted receiver, a steel barrel and tube, a trigger guard that is a real ring. The odd thing: grey duct
-         tape wound round the stock's wrist where it split.
+  gun    a heavy machine gun on its low tripod, 1.75 m flash hider to ammo can, the twin's set (pack:12. Weapons and supplies#11, the
+         SMG, the nearest he owns): a receiver, a cooling jacket with its vent rings, three splayed legs, an ammo can on
+         the ground with the brass belt riding up into the feed. The odd thing: grey tape round a cracked jacket, its
+         tail hanging. (A shotgun was tried first: at true size it is a 60 x 6 px stick, under the prop floor.)
   wreck  a 4.7 m four-door sedan, dead (pack:9. Abandoned cards#0): a body shell from boxes pulled into a puppet's
          shape, the cabin sunk, a caved roof, windows gone dark, one front wheel missing so the nose sits on its rim
          (the odd thing), the bonnet sprung open 12 degrees, rust patches as their own panels.
@@ -22,7 +23,7 @@ camera sees (glTF front is -Y).
 Run with the rig's Blender python (bpy 4.2):
     <venv>/bin/python tools/bohemia_cook_model_props.py lamp|gun|wreck [--out reference/models/bohemia/<name>.glb]
 then
-    <venv>/bin/python tools/bohemia_direction_master_rig.py reference/models/bohemia/<name>.glb records/target/master_rig/cook_<name> --real-height 3.2 | --real-length 1.05 | 4.7
+    <venv>/bin/python tools/bohemia_direction_master_rig.py reference/models/bohemia/<name>.glb records/target/master_rig/cook_<name> --real-height 3.2 | --real-length 1.75 | 4.7
 
 REFERENCE CHECK (the 9/4 standing law): the twins are his own approved tiles named above, shown whole beside the
 render at 1:1 on the sheet; the palette is DIRECTION's source palette; the card of numbers judges the render. No
@@ -79,7 +80,7 @@ def lamp(bpy, mathutils):
     paint, rust, steel = mat(bpy, 'paint_olive', 'metal_painted'), mat(bpy, 'rust', 'clay_rust'), mat(bpy, 'steel', 'tape_grey', 1)
     cyl(bpy, 'plinth', paint, 0.17, 0.34, (0, 0, 0.17), verts=8, smooth=False)
     cyl(bpy, 'plinth_cap', rust, 0.13, 0.06, (0, 0, 0.37), verts=8, smooth=False)
-    cyl(bpy, 'base_grime', mat(bpy, 'grime', 'clay_rust', 0), 0.176, 0.07, (0, 0, 0.035), verts=8, smooth=False)
+    cyl(bpy, 'base_grime', rust, 0.176, 0.07, (0, 0, 0.035), verts=8, smooth=False)
     pole = cyl(bpy, 'pole', paint, 0.05, H - 0.4, (0, 0, 0.4 + (H - 0.4) / 2), verts=16)
     for v in pole.data.vertices:   # a pole a truck leaned on once: 4 cm of lean toward the camera, mostly up high
         t = (v.co.z + (H - 0.4) / 2) / (H - 0.4); v.co.y -= 0.04 * t * t
@@ -98,39 +99,65 @@ def lamp(bpy, mathutils):
     # round two of the loop: the first shade (0.24 m, rust) read as a copper ball from 45 degrees and hid the bulb; the
     # shade is now smaller, flatter and dark paint, and the bulb hangs below its rim where the camera sees it lit
     bpy.ops.mesh.primitive_cone_add(vertices=16, radius1=0.18, radius2=0.05, depth=0.13, location=(L - 0.04, -0.04, H - 0.33), rotation=tilt)
-    put(bpy, bpy.context.active_object, 'shade', mat(bpy, 'shade', 'metal_painted', 1))
+    put(bpy, bpy.context.active_object, 'shade', paint)
     cyl(bpy, 'shade_rim', rust, 0.185, 0.025, (L - 0.04, -0.05, H - 0.395), rot=tilt, verts=16)
     bpy.ops.mesh.primitive_uv_sphere_add(radius=0.075, location=(L - 0.04, -0.1, H - 0.56), segments=12, ring_count=8)
     put(bpy, bpy.context.active_object, 'bulb', mat(bpy, 'sodium', 'sodium', 3, glow=1.4))
     cyl(bpy, 'socket', steel, 0.022, 0.16, (L - 0.04, -0.085, H - 0.47), rot=tilt, verts=8)   # the bulb hangs 16 cm under the rim on its socket: from 45 degrees up a bulb inside the shade is never seen
     # THE ONE ASYMMETRIC THING: a flyer taped round the pole at eye height, facing the S camera
-    box(bpy, 'flyer', mat(bpy, 'flyer', 'clay_bone', 3), (0.2, 0.012, 0.27), (0.0, -0.06, 1.62), rot=(0, math.radians(3), 0))
+    paper = mat(bpy, 'paper', 'tape_masking', 3)   # the flyer and its tape are one material: the guide caps a prop at five
+    box(bpy, 'flyer', paper, (0.2, 0.012, 0.27), (0.0, -0.06, 1.62), rot=(0, math.radians(3), 0))
     for z in (1.75, 1.49):
-        cyl(bpy, 'tape_%d' % int(z * 100), mat(bpy, 'masking', 'tape_masking'), 0.056, 0.04, (0, -0.002, z), verts=16)
+        cyl(bpy, 'tape_%d' % int(z * 100), paper, 0.056, 0.04, (0, -0.002, z), verts=16)
+
+
+def rod(bpy, name, m, p0, p1, r, verts=8):
+    """a cylinder from one point to another (a tripod leg, a brace)"""
+    import mathutils
+    p0, p1 = mathutils.Vector(p0), mathutils.Vector(p1); d = p1 - p0
+    o = cyl(bpy, name, m, r, d.length, (p0 + p1) / 2, verts=verts)
+    o.rotation_mode = 'QUATERNION'; o.rotation_quaternion = mathutils.Vector((0, 0, 1)).rotation_difference(d)
+    return o
 
 
 def gun(bpy, mathutils):
-    wood, wood_d = mat(bpy, 'wood', 'clay_rust', 2), mat(bpy, 'wood_dark', 'clay_rust', 1)
-    recv, steel, tape = mat(bpy, 'receiver', 'rubber', 2), mat(bpy, 'barrel', 'metal_painted', 1), mat(bpy, 'tape', 'tape_grey')
-    Z = 0.03   # it lies on its left side: the profile faces up, the long side runs along X
-    # the stock: a wedge from the wrist to the butt, built as a box with its far end pulled wide and down
-    st = box(bpy, 'stock', wood, (0.36, 0.04, 0.06), (-0.33, 0, Z), bevel=0.008)
-    for v in st.data.vertices:
-        if v.co.x < 0: v.co.y *= 2.1; v.co.y -= 0.02
-    box(bpy, 'butt_pad', mat(bpy, 'pad', 'rubber', 1), (0.025, 0.14, 0.065), (-0.52, -0.02, Z), bevel=0.006)
-    # the receiver and the trigger guard, a real ring
-    box(bpy, 'receiver', recv, (0.2, 0.06, 0.07), (-0.06, 0.005, Z), bevel=0.006)
-    bpy.ops.mesh.primitive_torus_add(major_radius=0.03, minor_radius=0.006, location=(-0.07, -0.05, Z), major_segments=16, minor_segments=6)
-    put(bpy, bpy.context.active_object, 'guard', recv)
-    box(bpy, 'trigger', steel, (0.008, 0.03, 0.02), (-0.065, -0.04, Z))
-    # the barrel over the magazine tube, and the pump on the tube
-    cyl(bpy, 'barrel', steel, 0.012, 0.6, (0.33, 0.022, Z + 0.005), rot=(0, math.pi / 2, 0), verts=12)
-    cyl(bpy, 'tube', steel, 0.011, 0.46, (0.26, -0.006, Z), rot=(0, math.pi / 2, 0), verts=12)
-    pump = cyl(bpy, 'pump', wood_d, 0.02, 0.18, (0.2, -0.004, Z), rot=(0, math.pi / 2, 0), verts=12)
-    cyl(bpy, 'bead', mat(bpy, 'bead', 'chrome', 1), 0.005, 0.01, (0.62, 0.038, Z + 0.005), verts=6)
-    # THE ONE ASYMMETRIC THING: duct tape wound round the stock's wrist where it split
-    for i, dx in enumerate((-0.19, -0.215, -0.24)):
-        cyl(bpy, 'tape_%d' % i, tape, 0.038 + 0.004 * i, 0.024, (dx, -0.004, Z), rot=(0, math.pi / 2, math.radians(4 * i)), verts=12)
+    # round two of the loop: the first gun was a 1.05 m shotgun on its side and at true size it is a 60 x 6 px stick
+    # (the card 5 of 8 out, under the guide's prop floor of 29 x 36 px). A gun that STANDS on a fight tile at its true
+    # size is the machine gun on its tripod: his own word for the big weapon (9/24, A MACHINE GUN IS THE GREATSWORD)
+    dark, steel = mat(bpy, 'gunmetal', 'rubber', 1), mat(bpy, 'steel', 'metal_painted', 2)
+    olive, brass, tape = mat(bpy, 'ammo_can', 'metal_painted', 1), mat(bpy, 'brass', 'clay_mustard', 4), mat(bpy, 'tape', 'tape_grey')
+    Z = 0.5   # the bore height on a low tripod
+    box(bpy, 'receiver', dark, (0.32, 0.075, 0.11), (0, 0, Z), bevel=0.008)
+    box(bpy, 'feed_cover', steel, (0.17, 0.08, 0.025), (0.02, 0, Z + 0.065), bevel=0.005)
+    box(bpy, 'back_plate', dark, (0.04, 0.06, 0.12), (-0.18, 0, Z - 0.005), bevel=0.006)
+    box(bpy, 'grip', dark, (0.04, 0.045, 0.12), (-0.2, 0, Z - 0.09), rot=(0, math.radians(18), 0), bevel=0.008)
+    jacket = cyl(bpy, 'jacket', steel, 0.034, 0.52, (0.42, 0, Z + 0.01), rot=(0, math.pi / 2, 0), verts=14)
+    for i in range(6):   # the cooling holes, dark rings let into the jacket
+        cyl(bpy, 'vent_%d' % i, dark, 0.036, 0.022, (0.24 + i * 0.07, 0, Z + 0.01), rot=(0, math.pi / 2, 0), verts=14)
+    cyl(bpy, 'muzzle', dark, 0.018, 0.4, (0.87, 0, Z + 0.01), rot=(0, math.pi / 2, 0), verts=10)   # the heavy gun's long bare barrel past the jacket
+    cyl(bpy, 'flash_hider', steel, 0.026, 0.06, (1.08, 0, Z + 0.01), rot=(0, math.pi / 2, 0), verts=10)
+    box(bpy, 'front_sight', dark, (0.012, 0.012, 0.05), (0.66, 0, Z + 0.06))
+    box(bpy, 'carry_handle', steel, (0.14, 0.02, 0.05), (0.32, 0, Z + 0.07), bevel=0.006)
+    # the tripod: a pintle, one leg forward, two splayed back, a traverse bar between the back two
+    cyl(bpy, 'pintle', steel, 0.025, 0.1, (0.04, 0, Z - 0.1), verts=10)
+    top = (0.04, 0, Z - 0.15)
+    rod(bpy, 'leg_front', steel, top, (0.55, 0.0, 0.0), 0.018)
+    rod(bpy, 'leg_left', steel, top, (-0.42, -0.32, 0.0), 0.018)
+    rod(bpy, 'leg_right', steel, top, (-0.42, 0.32, 0.0), 0.018)
+    rod(bpy, 'traverse', steel, (-0.3, -0.23, 0.1), (-0.3, 0.23, 0.1), 0.012)
+    for x, y in ((0.55, 0.0), (-0.42, -0.32), (-0.42, 0.32)):
+        box(bpy, 'foot_%d_%d' % (int(x * 100), int(y * 100)), dark, (0.07, 0.05, 0.02), (x, y, 0.01))
+    # the ammo can on the ground behind and left, the belt riding up out of it into the feed
+    box(bpy, 'ammo_can', olive, (0.28, 0.13, 0.19), (-0.5, -0.12, 0.095), rot=(0, 0, math.radians(-14)), bevel=0.01)
+    box(bpy, 'can_lid', steel, (0.29, 0.14, 0.02), (-0.5, -0.12, 0.2), rot=(0, 0, math.radians(-14)), bevel=0.004)
+    for i in range(10):
+        t = i / 9
+        x = -0.46 + t * 0.47; y = -0.11 + t * 0.07; z = 0.22 + (Z - 0.22) * (t ** 0.6) - 0.06 * math.sin(math.pi * t)
+        box(bpy, 'round_%d' % i, brass, (0.022, 0.07, 0.02), (x, y - 0.0, z), rot=(0, math.radians(-40 * (1 - t)), math.radians(8)))
+    # THE ONE ASYMMETRIC THING: grey tape wound round the jacket where it cracked, a tail hanging loose toward the camera
+    for i, dx in enumerate((0.5, 0.525)):
+        cyl(bpy, 'tape_%d' % i, tape, 0.039, 0.02, (dx, 0, Z + 0.01), rot=(0, math.pi / 2, math.radians(5 * i)), verts=14)
+    box(bpy, 'tape_tail', tape, (0.024, 0.006, 0.09), (0.515, -0.04, Z - 0.05), rot=(math.radians(-12), 0, 0))
 
 
 def wreck(bpy, mathutils):
