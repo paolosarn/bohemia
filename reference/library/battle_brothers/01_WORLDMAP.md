@@ -9,7 +9,15 @@ castles and manors are their seats. Enemy locations spawn in the wild: brigand h
 goblin camps, undead crypts, beast lairs, ruins with legendary loot; some grow and send raiding parties.
 TRAVEL: one marker for the company. Click a point or a settlement and the company walks in real time
 (pausable, 2x speed exists). Speed by terrain: roads fastest, plains, then forest and hills slower,
-swamp slowest, snow slow; mountains impassable. Sight radius shrinks in forest and at night. NIGHT:
+swamp slowest, snow slow; mountains impassable. SIGHT (sourced 10/18, FACTIONS [the sight numbers],
+records/BOHEMIA_FACTIONS_HOW_FAR_A_COMPANY_SEES_ON_BATTLE_BROTHERS_MAP_10_18_26.md): the base radius is
+never printed; the Global Map page's terrain table multiplies it, hills 1.25, mountains 2, every other
+ground 1 (forest included); forest does NOT shrink your circle, it HIDES the party standing in it until you
+are closer (the developer, Developer Posts 52: "Some terrain can hide parties within so you'll have to be
+closer to them than on open terrain before they're revealed. One example would be forests"); the Lookout
+follower adds 25%; the Scout follower is +15% travel speed, not sight; no background, perk, trait or
+ambition widens the map circle; weather is cosmetic; no enemy sees farther than you by day, and at night
+the undead and werewolves keep their sight while everyone else loses some. NIGHT:
 travel is slower, sight shorter, enemy parties harder to see, ambushes more likely; some enemies (undead)
 are stronger at night. CAMPING: the company can camp anywhere to rest, heal and repair; a camp can be
 attacked. TRACKS: every party leaves footprints (a different print per kind: human boots, orc feet, goblin,

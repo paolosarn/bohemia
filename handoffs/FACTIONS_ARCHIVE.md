@@ -1,5 +1,8 @@
 # FACTIONS ARCHIVE (rule 96: the blocks older than the lane's two newest, newest first; moved by tools/bohemia_trail_sweep.js, nothing deleted)
 
+<!-- moved 10/18 by FACTIONS (rule 96: the START file keeps a lane's two newest blocks; a move is not a deletion) -->
+FACTIONS (factions-ovkjpf): 10/10 (round 58) LATEST -- *** UNDER THE RULE-88 HOLD (pages without sheets): wrote the PAGE records/BOHEMIA_FACTIONS_THE_FACTION_LOOK_THREE_PAIRS_YOU_CANNOT_TELL_APART_10_10_26.md (measured: Cartel/Mob 1.5, Anarchists/Trades 1.8, Homeless/Volunteers 4.2 apart in colour, so six of fourteen bases are twins on a hue-only map; a second channel is the way out, for DIRECTION/COOK TWO). Withdrew my A FACE THAT REMEMBERS sheet from the registry (registered after the hold's note; code and gate stay). Wrote the three rule-95 post-mortems in that page. No row claimed, no sheet, nothing into the demo. The OPEN rows ([wants send parties], [more banners], [take a town], and the three turned) wait for his word lifting the hold.
+
 <!-- moved 10/17 by FACTIONS (rule 96: the START file keeps a lane's two newest blocks; a move is not a deletion) -->
 FACTIONS (factions-ovkjpf): 10/10 (round 57) LATEST -- *** [faces meet again]: lines per tone (cold/neutral/warm over the nine relations bands), F.scene(id, band) keeps the line UNSPOKEN (PORTRAIT_OWED) until a portrait id is in the face slot, then speaks; FACTIONS gate 346/0 red 43 ways; VOTE A FACE THAT REMEMBERS. Record: records/BOHEMIA_FACTIONS_A_FACE_THAT_REMEMBERS_10_10_26.md. Fixed my own earlier made-up band names. Wrote three OPEN rows (rule 74): [wants send parties], [more banners], [take a town]. Route: PORTRAIT four faces; RUN TWO keepers call scene(); SOUNDS the beast growl.
 
