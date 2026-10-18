@@ -39,9 +39,13 @@ against 2,899 blockers): the things a man stands behind in a city fight, each wi
   rubble    a rubble mound 4.6 m across and 1.4 m high, what a two-storey house comes down to: gravel fill, 450 lumps,
             a floor slab cracked in two across the top with its rebar bridging the crack; the MOUND (high ground) a man
             stands on, the twin pack:9. Rubble and debris#1. The odd thing: a white bathtub tipped up at its foot.
+  corral    a supermarket cart corral, 6 m of galvanised pipe, COVER that stops a man, holding LAST ROUND'S CART four
+            times nested (imported whole from cart.glb, never remodelled); he owns no cart or corral (the twin is his
+            wire bin, pack:15. Street props#21). The odd thing: one cart left outside on its side by the open end.
 
 Run with the rig's Blender python (bpy 4.2):
-    <venv>/bin/python tools/bohemia_cook_model_props.py lamp|gun|wreck [--out reference/models/bohemia/<name>.glb]
+    <venv>/bin/python tools/bohemia_cook_model_props.py <name> [--out reference/models/bohemia/<name>.glb]   (it prints the model's
+        size in metres and its materials; pass the size to the rig as --real-length and --real-dims)
 then
     <venv>/bin/python tools/bohemia_direction_master_rig.py reference/models/bohemia/<name>.glb records/target/master_rig/cook_<name> --real-height 3.2 | --real-length 1.75 | 4.7
 
@@ -905,6 +909,62 @@ def rubble(bpy, mathutils):
         chunk(bpy, 'lump_tub_%d' % i, conc_d, (0.3, 0.24, 0.16), (x, y, 0.08), (0.2, -0.3, i), rnd)
 
 
+def import_model(bpy, path, loc, rot, drop=()):
+    """an earlier prop brought in whole (its own glb, untouched) under a new handle: the cart in the corral is last
+    round's cart, not a new one. Objects whose names start with a word in drop are removed (a bag left in one cart is
+    not left in five); materials of the same name are made one, so the guide's cap counts kinds, not copies"""
+    before = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=path)
+    new = [o for o in bpy.data.objects if o not in before]
+    for o in [o for o in new if o.name.split('.')[0].startswith(tuple(drop))] if drop else []:
+        new.remove(o); bpy.data.objects.remove(o, do_unlink=True)
+    for me in list(bpy.data.meshes):
+        if me.users == 0: bpy.data.meshes.remove(me)
+    bpy.ops.object.empty_add(location=loc); h = bpy.context.active_object; h.rotation_euler = rot
+    for o in new:
+        if o.parent is None: o.parent = h
+    first = {}
+    for m in bpy.data.materials: first.setdefault(m.name.split('.')[0], m)
+    for o in new:
+        if o.type == 'MESH':
+            for s in o.material_slots:
+                if s.material: s.material = first[s.material.name.split('.')[0]]
+    for m in list(bpy.data.materials):
+        if m.users == 0: bpy.data.materials.remove(m)
+    return h
+
+
+def corral(bpy, mathutils):
+    # a cart corral from a supermarket car park, 6.0 m of galvanised pipe (the board count's 'cart corral 6.0 x 2.5
+    # COVER that stops you': 1.0 m rails a man fires over and cannot walk through), a U at the closed end, the open
+    # end flared, the sign on its post. Inside, LAST ROUND'S CART four times nested, the model imported whole and
+    # untouched (tools/bohemia_cook_model_props.py cart, reference/models/bohemia/cart.glb), the bag taken out of all
+    # but the last. He owns no cart and no corral (the quartermaster's line says zero); the nearest he owns is the wire
+    # bin and a street railing. The odd thing: one cart left outside on its side by the open end. The pipe is the
+    # cart's own wire material and the sign its handle red, so the whole thing stays inside five materials.
+    cart_glb = os.path.join(ROOT, 'reference/models/bohemia/cart.glb')
+    for i in range(4):
+        import_model(bpy, cart_glb, (-2.1 + i * 0.3, 0.0, 0.0), (0, 0, math.pi), drop=('bag',) if i < 3 else ())
+    import_model(bpy, cart_glb, (2.0, -0.66, 0.29), (math.radians(90), 0, math.radians(-15)), drop=('bag',))
+    pipe = bpy.data.materials['wire']; red = bpy.data.materials['handle_red']
+    W, x0, x1 = 0.5, -2.5, 3.0
+    rails = []
+    for z in (0.15, 0.55, 1.0):
+        for sy in (-1, 1):
+            rails += [((x0, sy * W, z), (x1 - 0.3, sy * W, z)), ((x1 - 0.3, sy * W, z), (x1, sy * (W + 0.15), z))]   # flared at the mouth
+        pts = [(x0 - W * math.sin(math.pi * k / 12), -W * math.cos(math.pi * k / 12), z) for k in range(13)]     # the U at the closed end
+        rails += list(zip(pts[:-1], pts[1:]))
+    tubes(bpy, 'rails', pipe, rails, 0.028, n=8)
+    posts = []
+    for x in (-2.5, -0.7, 1.1, 2.7):
+        for sy in (-1, 1):
+            posts.append(((x, sy * W, 0.0), (x, sy * W, 1.03)))
+            box(bpy, 'foot_%d_%d' % (int(x * 10), sy), pipe, (0.14, 0.14, 0.012), (x, sy * W, 0.006))
+    posts.append(((x0 - W, 0, 0.0), (x0 - W, 0, 1.95)))
+    tubes(bpy, 'posts', pipe, posts, 0.032, n=8)
+    box(bpy, 'sign', red, (0.58, 0.04, 0.4), (x0 - W, -0.05, 1.68), rot=(0, 0, math.radians(-20)), bevel=0.01)   # to the car park, not edge-on to it
+
+
 def dims(bpy):
     import mathutils
     lo, hi = [1e9] * 3, [-1e9] * 3
@@ -917,7 +977,7 @@ def dims(bpy):
 
 
 BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres,
-            'sandbags': sandbags, 'fence': fence, 'container': container, 'propane': propane, 'rubble': rubble}
+            'sandbags': sandbags, 'fence': fence, 'container': container, 'propane': propane, 'rubble': rubble, 'corral': corral}
 
 
 def build(name, out):
@@ -925,7 +985,7 @@ def build(name, out):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     BUILDERS[name](bpy, mathutils)
     bpy.context.view_layer.update()
-    print('DIMS x y z (m):', dims(bpy), 'materials:', len(bpy.data.materials))
+    print('DIMS x y z (m):', dims(bpy), 'materials:', sorted(m.name for m in bpy.data.materials if m.users))
     for o in bpy.context.scene.objects: o.select_set(True)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', use_selection=False)
