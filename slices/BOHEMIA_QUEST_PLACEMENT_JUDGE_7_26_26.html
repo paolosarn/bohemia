@@ -12174,6 +12174,41 @@ function layoutFromSeed(seed){
       return false; };
     let g6=0; while(bad()&&g6++<12){ datafort.x+=dxs*2; datafort.y+=dys*2; }
   }
+  // THE HENDERSON LEG (WORLD 10/18/26; Paolo 10/18: 'the freeway as it runs through the city should be
+  // unified'): the real I-515 / US-93 leaves the Spaghetti Bowl for Henderson and crosses the valley's real
+  // EAST edge at row 80 (engine/BOHEMIA_REGION_LAND.json, the I-515 portal; THE FREEWAY IS ONE ROAD holds the
+  // two equal). The roll laid nothing that way, so the real road stopped 11 to 20 blocks short of the ring on
+  // 16 of 20 seeds. A straight 2-wide leg from the ring's east side to the border, on the mid-block row
+  // nearest 80 or the ring's own bottom pair carried straight on; never through the water cluster, the air
+  // base or a mine (they claim ground first and would sever it), never beside a pass; a placed rect it would
+  // cut costs it a mile. No r(): every other piece of every valley stays where it was.
+  const HENDERSON_Y=80;
+  let henderson=null;
+  {
+    const east1=fwyX<stripX;                        // the compass's rule: east is the town's side of the 15
+    const x0=east1?beltRect.rgt+1:0, x1=east1?N-1:beltRect.lft-1;
+    const hard=[intake,gypsum,quarry,truckstop,lakeLV,boulder,damR,mead,airbase];
+    const soft=[hri,apSE,apNW,unlv,csn,medical,convention,stadiumA,speedway,wp1,wp2,minigp,craigRanch,sunsetPark,
+      cemetery,reclaim,landfill,watertreat,prison,terminal,sphere,cashman,ballparkS,datafort,mall,railyard,mtChar]
+      .concat(basins,casinos,gated,golf,schools);
+    const sidePass=axisFlip?[]:(east1?passesB:passesA);
+    const rows=[];
+    for(let hy=4;hy<N;hy+=9) if(hy>=beltRect.top+3&&hy+1<=beltRect.bot-3) rows.push({y:hy,kind:'side'});
+    rows.push({y:beltRect.bot-1,kind:'corner'});
+    let best=null;
+    for(const c of rows){
+      if(sidePass.some(p=>p>=c.y-2&&p<=c.y+3))continue;
+      let blocked=false; const cut=new Set();
+      for(let x=x0;x<=x1&&!blocked;x++)for(const y of [c.y,c.y+1]){
+        if(hard.some(R=>inRect(x,y,R)))blocked=true;
+        soft.forEach((R,i)=>{ if(inRect(x,y,{x:R.x,y:R.y,w:R.w||1,h:R.h||1}))cut.add(i); });
+      }
+      if(blocked)continue;
+      const cost=Math.abs(c.y+0.5-HENDERSON_Y)+9*cut.size;
+      if(!best||cost<best.cost)best={y:c.y,x0,x1,kind:c.kind,east:east1?'x1':'x0',cost};
+    }
+    if(best){ delete best.cost; henderson=best; }
+  }
   // ===== GENERIC CLEAR-SPOT NUDGER (FACTORY LAW, 7/5/26) =====
   // One mechanism for every small piece: forbidden = all freeway geometry +
   // every placed rect. Spiral-search offsets until clear. No more ad-hoc dodges.
@@ -12193,6 +12228,7 @@ function layoutFromSeed(seed){
       if((py>=B5.top-1&&py<=B5.top+2)||(py>=B5.bot-2&&py<=B5.bot+1))return false;
       if(Math.abs(px-railX)<=1)return false;
       if(exits.some(e=>px>=e.x-1&&px<=e.x+2))return false;
+      if(henderson&&py>=henderson.y-1&&py<=henderson.y+2&&px>=henderson.x0-1&&px<=henderson.x1+1)return false;
       if(!axisFlip){ if(passesA.concat(passesB).some(p=>Math.abs(py-p)<=1&&(px<=B5.lft+2||px>=B5.rgt-2)))return false; }
       else { if(passesA.concat(passesB).some(p=>Math.abs(px-p)<=1&&(py<=B5.top+2||py>=B5.bot-2)))return false; }
       for(const R of hardRects){ if(px>=R.x-1&&px<R.x+(R.w||1)+1&&py>=R.y-1&&py<R.y+(R.h||1)+1)return false; }
@@ -12222,7 +12258,7 @@ function layoutFromSeed(seed){
     for(const p of reservoirs)nudge(p);
   }
   return {axisFlip, stripX, fwyX, beltInset, beltVarW, beltVarH, beltRect,
-          ind1, ind2, exits, hri, apSE, apNW, airbase, unlv, csn,
+          ind1, ind2, exits, henderson, hri, apSE, apNW, airbase, unlv, csn,
           passesA, passesB, footA, footB, railX, railyard,
           lakeLV, boulder, damR, mead, mall, monorail, tunnels,
           stripEndY, bendNorthY, i15Exit, bowl, sunsetPark, craigRanch, wash, medical,
@@ -12248,6 +12284,8 @@ function skeleton(x,y,L){
   if(inRect(x,y,L.mead))return DISTRICT.WATER;
   if(inRect(x,y,L.airbase))return DISTRICT.AIRBASE;
   for(const e of L.exits){ if((x===e.x||x===e.x+1)&&y>=e.y0&&y<=e.y1)return DISTRICT.FREEWAY; }
+  // THE HENDERSON LEG: I-515 / US-93 out of the ring's east side to the real east border
+  if(L.henderson&&(y===L.henderson.y||y===L.henderson.y+1)&&x>=L.henderson.x0&&x<=L.henderson.x1)return DISTRICT.FREEWAY;
   // THE SPAGHETTI BOWL claims the corner; the legs feed into it
   if(inRect(x,y,L.bowl))return DISTRICT.INTERCHANGE;
   // I-15 SPINE: dead-straight vertical, south border to the north bend (90-degree law)

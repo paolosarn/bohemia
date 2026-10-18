@@ -108,3 +108,42 @@ the valley.
 
 [analog horror line] The overhead sign over the dead interchange still says I-15 NORTH, SALT LAKE CITY, and the
 arrow points at a wall of stopped cars that has not moved since the dollar died.
+
+## 7. THE GAP CLOSED: THE HENDERSON LEG (10/18/26, the coordinator's FIRST, round world-vamily-opus5)
+
+The coordinator: "US-95 still has a 14-block gap toward Henderson. FIRST: close that gap (his word: the freeway must
+read as one road)." Section 3 said the fix was the roll's, not the data's. It is in the roll now.
+
+**engine/bohemia_overmap.js, layoutFromSeed: THE HENDERSON LEG.** The real I-515 / US-93 leaves the Spaghetti Bowl
+for Henderson and crosses the valley's real east edge at row 80 (the region file's I-515 portal). The roll lays a
+straight two-wide freeway from the ring's real-east side out to the border on the mid-block row nearest 80 (rows
+76-77 on most seeds), or carries the ring's own bottom pair straight on when that is nearer. It never runs through
+the water cluster, the air base or a mine (they claim ground first and would sever it), never beside a mountain pass;
+a placed rect it would cut costs it nine blocks, so it picks the next row. **It calls no dice**: every other piece
+of every valley stays exactly where it was; only the leg's own blocks and the streets that met them change. The
+small-piece nudger now keeps clear of it.
+
+**engine/bohemia_freeways.js** reads the leg as an exit piece laid into the ring's own columns (so the crossing is a
+junction), and I-515 / US-93 prefers it (FIT, as I-15 S prefers the spine).
+
+| | before | after |
+|---|---|---|
+| the game's seed | US-95 and I-11 / US-93 broken, 14 blocks toward Henderson | 0 breaks; I-515 joins the leg (rows 76-77) with 3 made rim blocks |
+| 20 seeds | 16 broken, up to 20 blocks | 0 broken; I-515 on the leg every seed, worst 12 made blocks |
+| 200 seeds | | 0 breaks, 0 holes, 0 unnamed, 0 lone halves; made blocks median 3, worst 21 (seeds whose water cluster holds the real south-east, so the leg takes row 67) |
+| valley freeway cells | 968 | 994 (the leg's 26) |
+| US-95 | 740 steps, one hole | 749 steps, rim to rim, no hole |
+
+The six pages that carry the overmap's body byte for byte (the CITY frame, the CITY tab, the slice, the MAP tab, the
+quest placement judge, the RUN slice the demo opens) carry the new body (ENGINE SYNC LAW).
+
+**THE CHECK, TIGHTENED** (THE FREEWAY IS ONE ROAD, 35/0): no break on the game's seed or on any of twenty (was:
+the known break allowed); B10 the roll's row and the region's I-515 portal row are one number (80); B11 and C7
+I-515 / US-93 joins the leg, at most 3 made blocks on the game's seed and 22 on any seed; M7 the leg removed brings
+the 14-block break back, said.
+
+**WEAK, SAID.** The leg leaves the ring due east, not south-east as the real road bends toward Railroad Pass; the
+rim joins its last 3 to 21 blocks one block outside the box (the seam, counted). On seeds where the roll put Lake
+Mead and Boulder City in the valley's real south-east corner the leg takes a row up to 13 blocks north of the real
+road; [the dam in one place] (pull the dam, the town and the lake out of the box, where the region already has
+them) removes that case.

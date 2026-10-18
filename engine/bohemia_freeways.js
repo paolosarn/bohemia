@@ -45,7 +45,9 @@
    CC-215; each real highway's portal on the box (engine/BOHEMIA_REGION_LAND.json)
    takes the valley exit nearest it around the box, one road to one exit, two
    abreast only. A road with no exit within half a side is a BREAK, said with the
-   blocks it lacks.
+   blocks it lacks. THE HENDERSON LEG (10/18, the roll's, engine/bohemia_overmap.js
+   layoutFromSeed) is I-515 / US-93's own exit, out of the ring's real-east side at
+   the region portal's row: since it, no seed breaks.
 
    Gate: gates/the_freeway_is_one_road_gate.js. Pure: same om, same answer, no DOM.
    ========================================================================== */
@@ -67,7 +69,7 @@ var RIM_BUDGET = 48;                      /* half a side: further than that and 
 /* the piece each real road is, where the valley has it: the spine is the 15 to the south, the cross-town is the 95
    both ways out of the bowl (the overmap's own words, 7/5: 'the cross-town freeway (US-95) runs BOTH directions
    through the bowl'); a road takes its own piece over a nearer stub when the two are within FIT blocks */
-var FIT = { 'I-15 S': 'spine', 'US-95 NW': 'bend', 'I-515 / US-93': 'bend' }, FIT_BONUS = 12;
+var FIT = { 'I-15 S': 'spine', 'US-95 NW': 'bend', 'I-515 / US-93': 'henderson' }, FIT_BONUS = 12;
 
 function key(x, y) { return x + ',' + y; }
 
@@ -99,6 +101,10 @@ function of(om, land, compass) {
   run('ringBot', 'ring', 'ew', B.bot - 1, 2, B.rgt, B.lft);
   run('ringLft', 'ring', 'ns', B.lft, 2, B.bot, B.top);
   (L.exits || []).forEach(function (e, i) { run('exit' + i, 'exit', 'ns', e.x, 2, e.y0 === 0 ? 0 : N - 1, e.y0 === 0 ? e.y1 : e.y0); });
+  /* the Henderson leg (the roll's, 10/18): I-515 / US-93 from the real east border into the ring's side, or carried
+     straight on from the ring's bottom pair; it is laid INTO the ring's own columns so the crossing is a junction */
+  var H = L.henderson;
+  if (H) run('henderson', 'exit', 'ew', H.y, 2, H.east === 'x1' ? N - 1 : 0, H.east === 'x1' ? B.rgt - 1 : B.lft + 1);
   if (!L.axisFlip) {
     (L.passesA || []).forEach(function (p, i) { run('passA' + i, 'pass', 'ew', p, 1, 0, B.lft + 1); });
     (L.passesB || []).forEach(function (p, i) { run('passB' + i, 'pass', 'ew', p, 1, N - 1, B.rgt - 1); });
@@ -110,7 +116,7 @@ function of(om, land, compass) {
      a cell two pieces run ACROSS each other is a junction; so is the bowl */
   var along = {}, cover = {};
   raw.forEach(function (p) {
-    p.steps = p.steps.map(function (c) { return c.filter(function (q) { var k = key(q[0], q[1]); if (along[k] === p.axis) return false; return true; }); });
+    p.steps = p.steps.map(function (c) { return c.filter(function (q) { var k = key(q[0], q[1]); if (along[k] === p.axis && p.id !== 'henderson') return false; return true; }); });
     p.steps.forEach(function (c) { c.forEach(function (q) { var k = key(q[0], q[1]); if (!along[k]) along[k] = p.axis; (cover[k] = cover[k] || []).push(p.id); }); });
   });
   var isJ = {};

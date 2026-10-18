@@ -18,10 +18,13 @@
       no name; a pair with one half; I-15 with a hole or an end short of the
       rim, or not through the Spaghetti Bowl; CC-215 not a closed loop; US-95's
       north-west leg broken; a class-1 highway joined at the rim to an exit one
-      cell wide; a step with no district; the breaks growing past the known one
-      (the roll lays no freeway out toward Henderson: I-515 / US-93, 14 blocks).
-   C. TWENTY SEEDS: the same, every seed; the breaks only ever toward I-515 /
-      US-93, on no more seeds and no longer than today.
+      cell wide; a step with no district; ANY break (10/18, the coordinator's
+      first: the roll now lays THE HENDERSON LEG, I-515 / US-93 out of the
+      ring's east side, so the 14-block gap toward Henderson is closed); the
+      roll's leg row out of step with the region's I-515 portal; I-515 / US-93
+      not joined to the leg.
+   C. TWENTY SEEDS: the same, every seed; no break on any seed; the leg on every
+      seed with I-515 / US-93 joined to it.
    D. RUN'S SWAP: the joins by name land in the loader's own connector table
       (the clock and the pass grid see them).
    AND IT PRINTS, NEVER REDS: what today's stitch() joins each valley exit to.
@@ -43,8 +46,12 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
 const say = (n, note) => console.log('  NOTE ' + n + (note ? '  (' + note + ')' : ''));
 const section = (t, f) => { console.log('\n--- ' + t + ' ---'); f(); };
 
-/* THE KNOWN BREAKS (the roll's, row [the roll]): only toward I-515 / US-93, the real road to Henderson */
-const KNOWN = { seedBreaks: 2, seedGap: 14, toward: 'I-515 / US-93', seedsWithBreaks: 16, worstGap: 20 };
+/* THE KNOWN BREAKS: none since 10/18. Before, the roll laid no freeway toward I-515 / US-93 (Henderson): 14 blocks
+   on the game's seed, 16 of 20 seeds, up to 20 blocks. The Henderson leg (engine/bohemia_overmap.js) closed it. */
+const KNOWN = { seedBreaks: 0, seedGap: 0, toward: 'I-515 / US-93', seedsWithBreaks: 0, worstGap: 0 };
+/* the leg's join to the real road: blocks of made rim between the leg and the portal (measured 10/18: 3 on the game's
+   seed; over 200 seeds median 3, worst 21, where the water cluster holds the real south-east corner) */
+const LEG_MADE = { seed: 3, worst: 22 };
 const SIX = ['I-15 S', 'I-15 N', 'US-95 NW', 'I-515 / US-93', 'I-11 / US-93', 'US-95 S'];
 
 console.log('THE FREEWAY IS ONE ROAD: every real freeway, one road from rim to rim');
@@ -104,9 +111,14 @@ section('B. the game\'s seed', () => {
   ok('B7 every step past the valley carries its real district', A.noDistrict === 0);
   ok('B8 the valley\'s I-15 has its lanes and its ramps (an exit at every mile street it crosses)', A.i15.steps.filter(s => s.where === 'valley' && !s.junction).every(s => s.lanes === 5) && A.i15.ramps.length >= 10,
      A.i15.ramps.length + ' ramps, ' + A.i15.interchanges.length + ' interchanges, 5 lanes each way');
-  ok('B9 the breaks are only the known one: no freeway out toward ' + KNOWN.toward + ', ' + KNOWN.seedGap + ' blocks', A.offToward.length === 0 && A.breaks.length <= KNOWN.seedBreaks && A.breaks.every(b => (b.gap || 0) <= KNOWN.seedGap),
+  ok('B9 no break: every real freeway reaches its portal (the Henderson leg closed the 14 blocks toward ' + KNOWN.toward + ')', A.offToward.length === 0 && A.breaks.length <= KNOWN.seedBreaks && A.breaks.every(b => (b.gap || 0) <= KNOWN.seedGap),
      A.breaks.map(b => b.name + ' toward ' + b.at + ', ' + b.gap + ' blocks').join('; ') || 'none');
   for (const b of A.breaks) say('BREAK, the roll\'s (row [the roll])', b.name + ': ' + b.why + '; the nearest valley freeway is ' + b.gap + ' blocks from it, at ' + JSON.stringify(b.from));
+  const legY = +((read('engine/bohemia_overmap.js').match(/const HENDERSON_Y=(\d+);/) || [])[1]), p515 = (JSON_.portals || []).find(p => p.road === KNOWN.toward);
+  ok('B10 the roll aims the Henderson leg at the real I-515\'s row (the region file\'s portal)', !!p515 && legY === p515.y, 'roll ' + legY + ', region ' + (p515 && p515.y));
+  const j515 = F.joins.find(j => j.road === KNOWN.toward), H = om.layout.henderson;
+  ok('B11 I-515 / US-93 joins the Henderson leg at the rim, ' + LEG_MADE.seed + ' made blocks at most', !!H && !!j515 && j515.piece === 'henderson' && j515.made <= LEG_MADE.seed,
+     H ? 'leg rows ' + H.y + '-' + (H.y + 1) + ' (' + H.kind + '), ' + (j515 ? j515.made + ' made' : 'not joined') : 'no leg');
   say('made road at the rim (blocks the real map does not have, the seam)', F.joins.map(j => j.road + ' ' + j.made).join(', '));
   /* today's stitch, for RUN: what the nearest-portal-on-the-same-side join gives this valley */
   const N = om.n, L = om.layout, road = new Uint8Array(N * N);
@@ -121,7 +133,7 @@ section('B. the game\'s seed', () => {
 
 section('C. twenty seeds', () => {
   const seeds = [typeof seed === 'number' ? seed : 2691674296]; for (let i = 1; i < 20; i++) seeds.push(i * 7919);
-  let orph = 0, lone = 0, i15bad = [], ringBad = [], nwBad = [], off = [], withBreaks = 0, worst = 0, joinBad = 0;
+  let orph = 0, lone = 0, i15bad = [], ringBad = [], nwBad = [], off = [], withBreaks = 0, worst = 0, joinBad = 0, legBad = [], legWorst = 0;
   for (const sd of seeds) {
     const G = FW.of(OM.buildOvermap(sd), land), B = audit(G);
     orph += G.counts.orphans; lone += G.counts.lonely + B.noMedian; joinBad += B.badJoin.length;
@@ -131,14 +143,18 @@ section('C. twenty seeds', () => {
     if (B.offToward.length) off.push(sd + ' ' + B.offToward.map(b => b.at).join('/'));
     if (G.breaks.length) withBreaks++;
     G.breaks.forEach(b => worst = Math.max(worst, b.gap || 0));
+    const jl = G.joins.find(j => j.road === KNOWN.toward);
+    if (!jl || jl.piece !== 'henderson') legBad.push(sd); else legWorst = Math.max(legWorst, jl.made);
   }
   ok('C1 every seed: every valley freeway cell named, every pair whole', orph === 0 && lone === 0, orph + ' unnamed, ' + lone + ' halves wrong');
   ok('C2 every seed: I-15 one road rim to rim through the bowl', i15bad.length === 0, i15bad.join(', ') || '20 of 20');
   ok('C3 every seed: CC-215 closes', ringBad.length === 0, ringBad.join(', ') || '20 of 20');
   ok('C4 every seed: US-95 from the north-west reaches the bowl', nwBad.length === 0, nwBad.join(', ') || '20 of 20');
   ok('C5 every seed: no class-1 highway joined to a one-cell exit', joinBad === 0);
-  ok('C6 the breaks: only ever toward ' + KNOWN.toward + ', on no more seeds and no longer than today', off.length === 0 && withBreaks <= KNOWN.seedsWithBreaks && worst <= KNOWN.worstGap,
+  ok('C6 no break on any seed (was 16 of 20, up to 20 blocks toward ' + KNOWN.toward + ')', off.length === 0 && withBreaks <= KNOWN.seedsWithBreaks && worst <= KNOWN.worstGap,
      withBreaks + ' of 20 seeds, worst ' + worst + ' blocks' + (off.length ? '; elsewhere: ' + off.join(', ') : ''));
+  ok('C7 every seed: I-515 / US-93 joins the Henderson leg, ' + LEG_MADE.worst + ' made blocks at most', legBad.length === 0 && legWorst <= LEG_MADE.worst,
+     (legBad.length ? 'not joined on ' + legBad.join(', ') : '20 of 20') + ', worst ' + legWorst + ' made');
 });
 
 section('D. RUN\'s swap: the joins by name are the loader\'s own connectors', () => {
@@ -171,6 +187,11 @@ section('M. mutations, each must go red (and the module stays pure)', () => {
   const moved = JSON.parse(JSON.stringify(JSON_)); moved.portals = moved.portals.filter(p => p.road !== 'I-15 S');
   G = FW.of(om, RL.load(moved));
   ok('M5 the I-15 S portal gone: I-15 breaks toward it, never silently', G.breaks.some(b => b.name === 'I-15'), G.breaks.filter(b => b.name === 'I-15').map(b => b.why).join('; '));
+  const H = om.layout.henderson, noLeg = {};
+  if (H) for (let x = H.x0; x <= H.x1; x++) { noLeg[x + ',' + H.y] = 'desert'; noLeg[x + ',' + (H.y + 1)] = 'desert'; }
+  const wl = wrap(noLeg); wl.layout = Object.assign({}, om.layout, { henderson: null });
+  G = FW.of(wl, land);
+  ok('M7 the Henderson leg gone: the break toward ' + KNOWN.toward + ' comes back, said', G.breaks.some(b => b.at === KNOWN.toward), G.breaks.filter(b => b.at === KNOWN.toward).map(b => b.name + ', ' + b.gap + ' blocks').join('; '));
   const again = FW.of(om, land);
   ok('M6 pure: the same valley gives the same answer', JSON.stringify(again.counts) === JSON.stringify(F.counts) && again.freeways.map(f => f.steps.length).join() === F.freeways.map(f => f.steps.length).join());
 });
