@@ -27,8 +27,11 @@ records/BOHEMIA_RESEARCH_UNLOCK_THE_LIMITS_03_GIVING_THE_CHATS_EYES_10_11_26.md 
            against the best of three pixel-scrambled copies of ITSELF (every pixel moved, none changed: the same
            colours, the structure gone); the piece must beat its own scramble by the MARGIN his YES pieces beat
            theirs by (the weakest YES item, per family, an item's gap the median of its sprites'; the
-           registry's newest verdict 'up', a pack twin, its sprites). Under the margin is LOOK FAR. The same against an 8 px block scramble (the 10/18 attack's
-           own scale) is measured and printed beside it
+           registry's newest verdict 'up', a pack twin, its sprites). MEASURED WRONG BOTH WAYS (run 39156939522:
+           it passed his car shuffled in squares and failed his own ground tiles), so it prints and holds nothing.
+           HELD INSTEAD, the same idea pointed at the piece itself (run 39158132507): STRUCTURE, a THING (twin a
+           prop, door or lamp) must lose more to its own 8 px scramble than every piece of its twin's pack and
+           every YES item named against that pack; past that line it is squares, not a thing, and LOOK is FAR
   SSIM     structural similarity to the twin, printed on every card, never a pass condition: the research's
            hack detector (a learned score that climbs while SSIM falls is a hacked score)
 
@@ -61,6 +64,11 @@ SCRAMBLE_SEEDS = (1, 2, 3)
 SCRAMBLE_BLOCK = 8
 SCRAMBLE_HELD = ()   # measured 10/18 run 39156939522: held at his YES margin it passed the shuffled car and failed his own ground tiles
 STRUCTURE_SCALES = (1, 6, 8, 16)
+# THE HELD FORM (run 39158132507): a THING (its twin a prop, a door or a lamp) must lose more to its own 8 px scramble
+# than every piece of its twin's pack and every YES item named against that pack do; his cars at most 0.530 and his
+# YES robot and trucks at most 0.519 against his car shuffled in squares 0.739 (16 px) to 0.911 (6 px)
+STRUCTURE_HELD = 8
+THINGS = ('prop', 'door', 'lamp')
 PAINTER_EPS = {'col_kpx': 1.0, 'value_range': 2.0, 'dark_line': 0.005, 'detail': 0.5, 'sat': 0.02}
 RATIO_LINE = (0.33, 3.0)
 
@@ -317,18 +325,48 @@ def look_scramble(cells, et):
             'gap_pixel': round(med(ct) - med(cp), 4), 'gap_block': round(med(ct) - med(cb), 4)}
 
 
-def look_structure(cells):
+def look_structure(cells, scales=None):
     """each cell against ITSELF scrambled: the LOOK cosine between the picture and the most alike of three scrambles of
     itself at each scale (1: every pixel moved; k: k x k squares shuffled); medians over the cells. A picture that
     reads like its own scramble has no arrangement to lose: it is a texture, or it is squares already shuffled."""
     out = {}
-    for k in STRUCTURE_SCALES:
+    for k in scales or STRUCTURE_SCALES:
         v = []
         for c in cells:
             e = look_embed(c)
             v.append(max(float(look_embed(scramble(c, s, k)) @ e) for s in SCRAMBLE_SEEDS))
         out['self_%d' % k] = round(float(np.median(v)), 4)
     return out
+
+
+def structure_lines(scramble_cal, log=print, least=8):
+    """THE STRUCTURE LINE PER PACK, for the things (prop, door, lamp): the highest reading of any piece of the pack
+    against its own 8 px scramble, raised to any YES item whose twin is in that pack (his word is the ruler); a pack
+    with fewer than eight pieces in the bank has no line and holds nothing."""
+    k = STRUCTURE_HELD
+    by = {}
+    for fam in THINGS:
+        for f in pack_pieces(fam):
+            by.setdefault(pack_of(f), []).append(f)
+    yes = {}
+    for x in (scramble_cal or {}).get('yes', []):
+        tw = os.path.join(ROOT, x['twin']) if x.get('twin') else None
+        yes.setdefault(pack_of(tw), {}).setdefault(x['id'], []).append(x['self_%d' % k])
+    out = {}
+    for pk, fs in sorted((p, v) for p, v in by.items() if p):
+        if len(fs) < least:
+            continue
+        r = [(look_structure(measured_cells(f, rgba(f)) or [rgba(f)], (k,))['self_%d' % k], os.path.basename(f)) for f in fs]
+        top = max(r)
+        line = {'line': top[0], 'set_by': top[1], 'pieces': len(fs), 'median': round(float(np.median([v for v, _ in r])), 4)}
+        for iid, vals in yes.get(pk, {}).items():
+            m = round(float(np.median(vals)), 4)
+            if m > line['line']:
+                line.update(line=m, set_by='YES ' + iid)
+        out[pk] = line
+    log('  STRUCTURE lines (each thing against its own %d px scramble; the highest in his pack or his YES): %d packs; %s' % (
+        k, len(out), ', '.join('%s %.3f' % (p[5:], v['line']) for p, v in sorted(out.items(), key=lambda kv: -kv[1]['line'])[:6])))
+    return {'scale': k, 'families': list(THINGS), 'packs': out}
 
 
 def measured_cells(path, twin_arr):
@@ -410,7 +448,7 @@ def scramble_lines(log=print):
             r['id'][:46], r['sprite'][-58:], r['cos'], r['pixel'], r['gap_pixel'], r['block'], r['gap_block']))
     return {'seeds': list(SCRAMBLE_SEEDS), 'block': SCRAMBLE_BLOCK, 'held': list(SCRAMBLE_HELD), 'margin': margin,
             'items': sorted(per, key=lambda x: x['gap_pixel']),
-            'yes': [{k: r[k] for k in ('id', 'sprite', 'family', 'cos', 'pixel', 'block', 'gap_pixel', 'gap_block')
+            'yes': [{k: r[k] for k in ('id', 'sprite', 'twin', 'family', 'cos', 'pixel', 'block', 'gap_pixel', 'gap_block')
                      + tuple('self_%d' % s for s in STRUCTURE_SCALES)} for r in rows]}
 
 
@@ -500,6 +538,7 @@ def calibrate(families=None, per_family=160, pairs=600, log=print):
     if look:
         out['look'] = {'onnx': os.path.basename(ONNX), 'measured': True, 'embedded': len(seen),
                        'packs': look_pack_lines(seen, rng, log), 'scramble': scramble_lines(log)}
+        out['look']['structure'] = structure_lines(out['look']['scramble'], log)
     return out
 
 
@@ -651,6 +690,16 @@ def score(ours_path, twin_path, fam=None, cal=None, cls=None):
             if not all(sc['ok_' + k] for k in sc['held']):
                 rep['rulers']['look']['line_level'] = lk
                 rep['rulers']['look']['level'] = 2
+        # THE STRUCTURE: a thing that reads like its own 8 px scramble more than anything in his twin's pack does
+        SL = ((cal.get('look') or {}).get('structure') or {}).get('packs', {}).get(pack_of(twin_path))
+        if SL and fam in THINGS:
+            k = STRUCTURE_HELD
+            me = look_structure(mc, (k,))['self_%d' % k]
+            st = {'self_%d' % k: me, 'line': SL['line'], 'set_by': SL['set_by'], 'ok': me <= SL['line'] + 1e-9}
+            rep['rulers']['look']['structure'] = st
+            if not st['ok']:
+                rep['rulers']['look'].setdefault('line_level', rep['rulers']['look']['level'])
+                rep['rulers']['look']['level'] = 2
         rep['look'] = round(med(kt), 4)
     names = {'colour': 'COLOUR (Lab EMD)', 'pattern': 'PATTERN (LBP)', 'painter': 'PAINTER (DIRECTION\'s five)',
              'look': 'LOOK (DINOv2 cosine)'}
@@ -659,9 +708,15 @@ def score(ours_path, twin_path, fam=None, cal=None, cls=None):
     for k in held:
         lv = rep['rulers'][k]['level']
         if k == 'look' and 'line_level' in rep['rulers'][k]:
-            rep['why'].append('LOOK SCRAMBLE: not nearer his twin than its own pixels scrambled by his YES margin (cos %.3f '
-                              'against %.3f scrambled, gap %+.3f; his YES pieces beat theirs by %+.3f or more)' % (
-                                  sc['cos'], sc['pixel'], sc['gap_pixel'], sc['margin_pixel']))
+            if sc and not all(sc['ok_' + h] for h in sc['held']):
+                rep['why'].append('LOOK SCRAMBLE: not nearer his twin than its own pixels scrambled by his YES margin (cos %.3f '
+                                  'against %.3f scrambled, gap %+.3f; his YES pieces beat theirs by %+.3f or more)' % (
+                                      sc['cos'], sc['pixel'], sc['gap_pixel'], sc['margin_pixel']))
+            st = rep['rulers'][k].get('structure')
+            if st and not st['ok']:
+                rep['why'].append('LOOK STRUCTURE: it reads like its own %d px scramble (%.3f) more than anything in his twin\'s '
+                                  'pack or his YES does (%.3f, %s): squares, not a thing' % (
+                                      STRUCTURE_HELD, st['self_%d' % STRUCTURE_HELD], st['line'], st['set_by']))
             lv = rep['rulers'][k]['line_level']
         if lv == 2:
             rep['why'].append('%s FAR: %s' % (names[k], json.dumps({x: rep['rulers'][k][x] for x in rep['rulers'][k] if x != 'level'})))

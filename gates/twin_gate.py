@@ -66,11 +66,16 @@ where LOOK joins the verdict like any ruler and these legs hold:
       against itself scrambled at 1, 6, 8 and 16 px) prints for his cars, his YES items, the attacks and his
       tiles, with a road tile, a door and a lamp named as his car's twin, his cars pack's other pieces and his
       NO pieces.
+  S4  THE STRUCTURE, HELD (run 39158132507): a THING (twin a prop, a door or a lamp) must lose more to its own
+      8 px scramble than every piece of its twin's pack and every YES item named against that pack (the line per
+      pack of eight or more pieces, tools/bohemia_twin_gate.py structure_lines); past it LOOK is FAR. His car cut
+      into 8, 6 and 16 px squares and shuffled is RED on it; his cars pack and his YES things pass; a road tile, a
+      door and a lamp named as his car's twin print.
   L4  THE LINES AGREE ACROSS BOXES: the runner's COLOUR, PATTERN, PAINTER, SHAPE and GRID lines equal the
       committed ones (only when $BOHEMIA_TWIN_COMMITTED_CAL names the committed copy; the workflow sets it).
 
 RED CASE: T2's planted flat tile, fractional upscale and noise, T3's planted registry row and L0's planted
-tracked export, every run; S0's planted colour change; on the runner L3's noise.
+tracked export, every run; S0's planted colour change; on the runner L3's noise and S4's car shuffled in 8, 6 and 16 px squares.
 
   python3 gates/twin_gate.py
 """
@@ -373,6 +378,41 @@ def structure_lines(cal, d, car, paths):
             print('  --     YES item %-40s %s' % (x['id'][:40], '/'.join('%.3f' % x['self_%d' % k] for k in TG.STRUCTURE_SCALES)))
 
 
+def structure_legs(cal, d, car, paths):
+    """S4, HELD: THE STRUCTURE. A thing must lose more to its own 8 px scramble than anything in his twin's pack or his
+    YES does; his car cut into squares (8, 6 and 16 px) is RED on it, his cars and his YES are not."""
+    SL = ((cal.get('look') or {}).get('structure') or {}).get('packs', {})
+    pk = SL.get(TG.pack_of(car))
+    ok('S4 the lines carry STRUCTURE for %d packs of things; his cars pack %s (set by %s)' % (
+        len(SL), pk and pk['line'], pk and pk['set_by']), bool(pk) and len(SL) >= 10,
+       'no STRUCTURE in the lines: run python3 tools/bohemia_twin_gate.py --calibrate on this box')
+    if not pk:
+        return
+    st = lambda r: (r['rulers'].get('look') or {}).get('structure') or {}
+    for k in ('shuffle', 'shuffle_6', 'shuffle_16'):
+        r = TG.score(paths[k], car, 'prop', cal)
+        ok('S4 his car cut into %s px squares and shuffled is RED on STRUCTURE (%.3f against his pack\'s %.3f)' % (
+            {'shuffle': 8, 'shuffle_6': 6, 'shuffle_16': 16}[k], st(r).get('self_8', -1), pk['line']),
+           st(r).get('ok') is False and r['verdict'] == 'RED', json.dumps(st(r)))
+    sib = [f for f in TG.pack_pieces('prop') if TG.pack_of(f) == TG.pack_of(car)]
+    bad = [(os.path.basename(f), st(r).get('self_8')) for f, r in ((f, TG.score(f, car, 'prop', cal)) for f in sib) if not st(r).get('ok')]
+    ok('S4 his cars pack against his car: %d of %d pass STRUCTURE' % (len(sib) - len(bad), len(sib)), not bad, str(bad))
+    yes, by = TG.yes_pieces(), {}
+    for y in yes:
+        if TG.family_of(os.path.join(ROOT, y['twin'])) in TG.THINGS:
+            r = TG.score(os.path.join(ROOT, y['sprite']), os.path.join(ROOT, y['twin']), None, cal, y['cls'])
+            if st(r):
+                by.setdefault(y['id'], []).append(st(r)['self_8'])
+    lines = {y['id']: SL.get(TG.pack_of(os.path.join(ROOT, y['twin'])), {}).get('line') for y in yes}
+    fails = ['%s %.3f > %.3f' % (i, float(np.median(v)), lines[i]) for i, v in by.items() if round(float(np.median(v)), 4) > lines[i] + 1e-9]
+    ok('S4 every YES thing passes STRUCTURE on the median of its sprites (%d of %d items)' % (len(by) - len(fails), len(by)),
+       by and not fails, '; '.join(fails))
+    for fam, what in (('lamp', 'a lamp'), ('road', 'a road tile'), ('door', 'a door')):
+        r = TG.score(TG.pack_pieces(fam)[0], car, 'prop', cal)
+        print('  --   STRUCTURE on %s named as his car\'s twin: %.3f against %.3f, %s (verdict %s)' % (
+            what, st(r).get('self_8', -1), pk['line'], 'passes' if st(r).get('ok') else 'RED', r['verdict']))
+
+
 def scramble_legs(cal, d, car, paths, rm):
     S = (cal.get('look') or {}).get('scramble') or {}
     yes = S.get('yes') or []
@@ -431,6 +471,7 @@ def scramble_legs(cal, d, car, paths, rm):
                 if os.path.isfile(p):
                     nos.append((it['id'], sp, TG.score(p, t, None, cal, it.get('class'))['rulers'].get('look', {}).get('scramble')))
     structure_lines(cal, d, car, paths)
+    structure_legs(cal, d, car, paths)
     print('  --   SCRAMBLE on his NO pieces (%d sprites): %s' % (len(nos), '; '.join(
         '%s %s %s' % (i, os.path.basename(sp), fmt(sc)) for i, sp, sc in nos if sc) or 'none name a pack twin and sprites'))
 
