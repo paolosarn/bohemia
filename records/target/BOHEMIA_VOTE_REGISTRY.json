@@ -9185,10 +9185,10 @@
    "id": "cook3-the-thug-through-the-rig-10-18",
    "kind": "outfit",
    "lane": "cook 3",
-   "sha": "17cc8b7",
+   "sha": "PENDING",
    "made": "10/18",
    "title": "THE THUG, BUILT AS A 3D MODEL AND TURNED INTO PIXELS LIKE THE ROBOT",
-   "why": "The people chat built the thug the robot's way: a quilted padded coat, a belt, a knit cap and a rusty pipe, each one a real shape on the body's bones, so they turn and walk with him. You see him in eight directions and two walks, next to the game's flat thug, on the sheet in the VOTE tab.",
+   "why": "The thug built the robot's way (a quilted coat, belt, knit cap and rusty pipe as real shapes on his bones), and this round his colours come from the game's one paint box so his lights go brighter and the cap stays red. You see him in eight directions and two walks beside the game's flat thug on the sheet in the VOTE tab.",
    "show": {
     "how": "image",
     "src": "../records/target/cook3/COOK3_THE_THUG_THROUGH_THE_RIG.png"
@@ -9198,7 +9198,7 @@
     "diffs": [
      "THE COAT: ours is a padded coat built as a shape, with stitched channels that catch the sun from every side; the game's thug has the padding painted on as grey stripes, front only.",
      "THE PIPE: ours carries a rusty pipe in his right hand that swings when he walks; the game's thug has no weapon you can see.",
-     "THE HEAD: the game's thug has the better head (real hair, a face shape); ours has a boxy head from the test body, and the rig's dust turns his dark red cap grey. Both get fixed in the body model, not in paint."
+     "THE HEAD: the game's thug has the better head (real hair, a face shape); ours has a boxy head from the test body. That gets fixed in the body model, not in paint."
     ]
    },
    "draft": true,
@@ -9308,6 +9308,49 @@
     "before": "the game's own thug face, renderFace() at 64 px (right of the top row)",
     "after": "the thug's head modelled and rendered through the rig, S, SE, SW and seven shapes (left)",
     "scale": "1:1 and 2x"
+   }
+  },
+  {
+   "id": "cook3-the-poacher-through-the-rig-10-18",
+   "kind": "outfit",
+   "lane": "cook 3",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "THE POACHER, A 3D MODEL WHOSE COAT TAILS SWING WHEN HE WALKS",
+   "why": "The second enemy tier built the robot's way: a knee-length leather coat whose four tails are tied to his legs so they swing on every step (your 'no trenchcoat action' note), a wide hat and a hatchet. You see him in eight directions and two walks beside the game's flat poacher on the sheet in the VOTE tab.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook3/COOK3_THE_POACHER_THROUGH_THE_RIG.png"
+   },
+   "twin": {
+    "src": "records/cook3/enemy_tiers_repainted.png",
+    "diffs": [
+     "THE COAT: ours is a real coat that stops at the knee, split at the front and the back, and the tails move with his legs; the game's poacher has a brown jacket painted on a standing body.",
+     "THE HAT: ours wears a wide field hat that shades his face; the game's poacher is bareheaded.",
+     "THE HEAD: the game's poacher has hair and a face shape; ours has the test body's boxy head under the hat, fixed in the body model later."
+    ]
+   },
+   "draft": true,
+   "before_after": {
+    "before": "the game's own flat poacher as last painted (right on the sheet)",
+    "after": "the poacher as a model, rendered through the rig: eight facings and the walk (left on the sheet)",
+    "scale": "1:1"
+   },
+   "sprites": [
+    "records/target/cook3/rig/poacher/rig_N.png",
+    "records/target/cook3/rig/poacher/rig_NE.png",
+    "records/target/cook3/rig/poacher/rig_E.png",
+    "records/target/cook3/rig/poacher/rig_SE.png",
+    "records/target/cook3/rig/poacher/rig_S.png",
+    "records/target/cook3/rig/poacher/rig_SW.png",
+    "records/target/cook3/rig/poacher/rig_W.png",
+    "records/target/cook3/rig/poacher/rig_NW.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
    }
   }
  ],

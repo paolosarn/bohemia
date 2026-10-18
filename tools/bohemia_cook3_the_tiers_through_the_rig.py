@@ -20,15 +20,21 @@ and every garment is GEOMETRY skinned to the man's own bones, so it turns in eig
   * THE KIT, per tier, every piece a mesh: the thug wears a quilted gambeson to mid-thigh with half sleeves, a wide
     leather belt, a knit cap with a folded brim, work trousers, boots, and carries a length of rusted pipe in his
     right fist (skinned to the hand bone: it swings with the arm).
-  * THE COLOURS are the tier paint file's materials (padded, leather, steel), linearised for the renderer, the
-    vibrance down (his 9/23); the runway's black for the trousers, oxblood for the one accent above the waist (the cap).
-    The rig's source pass then puts the wear in (matte, crevice grime, up-face dust, drift, grain).
+  * THE COLOURS are steps of the style palette's roles (records/target/BOHEMIA_STYLE_PALETTE.json; the style guide's
+    field 5), linearised for the renderer, at most 8 materials a person; the runway's black for the thug's cloth, one
+    red accent above the waist. The rig's source pass then puts the wear in (matte, crevice grime, up-face dust, drift,
+    grain). Round 2 moved the thug here from the tier paint file: his value span went 105 -> 134 (the card's floor 118).
+  * THE POACHER'S COAT (round 2): the coat above the hip is the body lifted (sleeves to the wrist, a stand collar); below
+    the hip it is a SKIRT built as rings to the knee, split into four panels by the open front and the back vent, each
+    panel skinned to its own thigh bone more and more toward the hem (pelvis at the top, 90 percent thigh at the hem),
+    so the tails swing with the legs: his 'a trenchcoat and there's no trenchcoat action' answered. Knee length, not the
+    floor: TRENCHCOATS ARE FOR BADASSES (8/27). A wide field hat on the head bone is the tier's silhouette feature.
 
-Run with Blender's Python (bpy 4.2; see tools/bohemia_direction_master_rig.py):
+Run with Blender's Python (bpy 4.2; see tools/bohemia_direction_master_rig.py), TIER is THUG or POACHER:
     v/bin/python tools/bohemia_cook3_the_tiers_through_the_rig.py THUG records/cook3/rig/thug.glb
 then the rig, then the sheet (plain python3):
     v/bin/python tools/bohemia_direction_master_rig.py records/cook3/rig/thug.glb records/target/cook3/rig/thug \
-        --real-height 1.72 --family none --wear 0.6 --still pass --clip Anim_0:6
+        --real-height 1.72 --family none --wear 0.6 --still pass --clip Anim_0:6 --class person
     python3 tools/bohemia_cook3_the_tiers_through_the_rig.py --sheet THUG records/target/cook3/rig/thug records/target/cook3/COOK3_THE_THUG_THROUGH_THE_RIG.png
 
 REUSE CHECK: the body, its bones and its walk are the rig's man (CesiumMan, the model DIRECTION renders), reused whole;
@@ -51,22 +57,43 @@ def lin(c):
     return (f(c[0]), f(c[1]), f(c[2]), 1.0)
 
 
-# the runway's black and the oxblood accent (engine/bohemia_cook3_runway_paint.json's Reds base #7a2a22, pulled down)
-RUNWAY_BLACK = (34, 32, 30)
-OXBLOOD = (74, 28, 24)   # darker than the paint file's: the rig's up-face dust lifts a cap toward pink (measured, cycle 3)
-SKIN = (150, 112, 88)
-RUST = (92, 70, 54)
-OAT = (124, 106, 82)   # the padded ramp's 110,104,92 warmed: under the rig's grey sky fill the cool one read green
+# THE BASE COLOURS ARE STEPS OF THE STYLE PALETTE'S ROLES (records/target/BOHEMIA_STYLE_PALETTE.json; the style guide's
+# field 5: 'every base colour is a step of one role's ramp in the source palette'). Round 1 painted from the tier paint
+# file and came out 2 of 8 on the card: VALUE SPAN 105 against 118 (the oat gambeson sat mid-ramp, nothing on the body
+# reached the light end) and COLOURS 1,743 against the prop tile's 2,330 (a person is judged by the person class's
+# floor, 800, with --class person; the colour row was the wrong ruler, the span row was a real fault).
+PAL = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_PALETTE.json')))['roles']
+
+
+def step(role, i):
+    h = PAL[role]['ramp'][i].lstrip('#'); return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
+
 
 TIERS = {
     'THUG': dict(
         what='a quilted gambeson to mid-thigh with half sleeves, a wide leather belt, a knit cap with a folded brim, work trousers, boots, a length of rusted pipe',
-        garment=dict(material='padded', colour=OAT, z=(0.47, 1.15), sleeve_x=0.36, chest_t=0.026, skirt_t=0.05,
+        garment=dict(material='padded', colour=step('tape_masking', 2), z=(0.47, 1.15), sleeve_x=0.36, chest_t=0.026, skirt_t=0.05,
                      quilt=dict(every_m=0.075, depth_m=0.013, ring_x=0.22)),
-        belt=dict(colour=PAINT['leather'][1], z=(0.645, 0.705), t=0.062),
-        cap=dict(colour=OXBLOOD, down_m=0.075, t=0.012, brim_m=0.03, brim_t=0.02),
-        trousers=RUNWAY_BLACK, sleeves=RUNWAY_BLACK, boots=PAINT['leather'][0], skin=SKIN,
-        weapon=dict(kind='pipe', colour=RUST, r=0.022, back=0.08, fore=0.42),
+        belt=dict(colour=step('clay_rust', 1), z=(0.645, 0.705), t=0.062),
+        cap=dict(colour=step('blood', 1),   # step 0 bleached to grey under the rig's up-face dust (cycle 5); the mid holds red
+                 down_m=0.075, t=0.012, brim_m=0.03, brim_t=0.02),
+        trousers=step('cloth_black', 2), sleeves=step('cloth_black', 2), boots=step('rubber', 2), skin=step('skin_mid', 2),
+        eyes=step('skin_mid', 0),
+        weapon=dict(kind='pipe', colour=step('clay_rust', 2), r=0.022, back=0.08, fore=0.42),
+        head_scale=1.2),
+    # THE POACHER (round 2): his NO on the Reds loop, 'a trenchcoat and there's no trenchcoat action', answered with
+    # geometry. The coat stops at the KNEE, not the floor: TRENCHCOATS ARE FOR BADASSES (8/27) reserves the floor-length
+    # coat; a poacher's is a hunting coat in the law's THIGH-to-knee band. Its skirt is four panels (open at the front, a
+    # vent at the back) each skinned to its own thigh bone, so the tails swing with the legs on the walk.
+    'POACHER': dict(
+        what='a knee-length hunting coat of saddle leather, open at the front with a back vent, its four tails swinging on the thigh bones, a stand collar, a wide-brimmed field hat, a bone shirt, olive trousers, boots, a rusted hatchet',
+        coat=dict(colour=step('clay_mustard', 1), z_top=1.17, sleeve_x=0.465, t=0.016, open_from_z=0.80,   # cycle 2: open from the chest, the body's coarse faces cut a jagged V; open from the waist down
+                  skirt_top=0.70, hem_z=0.36,
+                  vent_z=0.56, flare_x=1.16, flare_y=1.45, swing=0.9, collar=(1.12, 1.20, 0.028)),
+        hat=dict(colour=step('tape_masking', 2), down_m=0.035, crown_h=0.065, crown_r=0.85, brim_r=1.45, brim_t=0.012, droop=0.022),   # cycle 1: brim 1.9 hid the face from the 45-degree camera
+        shirt=True, trousers=step('metal_painted', 2), sleeves=step('clay_bone', 2), boots=step('rubber', 2), skin=step('skin_deep', 3),   # cycle 2: skin_light read pink under the dust
+        eyes=step('skin_deep', 0),
+        weapon=dict(kind='hatchet', colour=step('tape_grey', 1), r=0.014, back=0.06, fore=0.34),
         head_scale=1.2),
 }
 
@@ -105,18 +132,21 @@ def build(tier, out):
 
     # 2. THE BODY'S OWN MATERIALS, by region (the mannequin's decal texture is gone: the body is skin, sleeves, trousers, boots)
     body.data.materials.clear()
+    # the style guide's field 5 caps a person at 8 materials: the sleeves and the trousers are one cloth when one colour
+    cloth = mat('%s_cloth' % tier.lower(), T['trousers']) if T['sleeves'] == T['trousers'] else None
     for nm, rgb in (('skin', T['skin']), ('sleeves', T['sleeves']), ('trousers', T['trousers']), ('boots', T['boots'])):
-        body.data.materials.append(mat('%s_%s' % (tier.lower(), nm), rgb))
+        body.data.materials.append(cloth if nm in ('sleeves', 'trousers') and T['sleeves'] == T['trousers'] else mat('%s_%s' % (tier.lower(), nm), rgb))
     for f in body.data.polygons:
         c = world(f.center)
         if c.z > 1.19: i = 0
         elif abs(c.x) > 0.47: i = 0
         elif abs(c.x) > 0.30 and c.z > 0.75: i = 1
+        elif T.get('shirt') and c.z > 0.62: i = 1   # the shirt: the sleeves' colour carried over the torso
         elif c.z < 0.10: i = 3
         else: i = 2
         f.material_index = i
 
-    def lift(name, keep, thick, colour, rim=0.012, subdiv=2, groove=None):
+    def lift(name, keep, thick, colour, rim=0.012, subdiv=2, groove=None, material=None):
         """a garment: the body's faces inside keep(world centre), copied with their weights, pushed out along the normal by
         thick(world point), subdivided, grooved, hemmed; skinned to the same armature"""
         g = body.copy(); g.data = body.data.copy(); g.name = name; sc.collection.objects.link(g)
@@ -130,7 +160,7 @@ def build(tier, out):
             p = M @ v.co; n = (R @ v.normal).normalized()
             v.co = Mi @ (p + n * thick(p))
         bm.to_mesh(g.data); bm.free()
-        g.data.materials.clear(); g.data.materials.append(mat(name, colour))
+        g.data.materials.clear(); g.data.materials.append(material or mat(name, colour))
         for f in g.data.polygons: f.material_index = 0
         bpy.context.view_layer.objects.active = g
         for o in sc.objects: o.select_set(o is g)
@@ -148,7 +178,102 @@ def build(tier, out):
         am = g.modifiers.new('Armature', 'ARMATURE'); am.object = arm
         return g
 
-    G = T['garment']
+    def band(za, zb):
+        """the body's cross-section between two heights: centre and half-widths in x and y"""
+        ps = [M @ v.co for v in body.data.vertices if za <= (M @ v.co).z <= zb and abs((M @ v.co).x) < 0.25]
+        xs = [q.x for q in ps]; ys = [q.y for q in ps]
+        return (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2, (max(xs) - min(xs)) / 2, (max(ys) - min(ys)) / 2
+
+    def skin_to(o, weights):
+        """parent a built mesh to the armature and give every vertex its bone weights: weights(world point) -> {bone: w}"""
+        mw = o.matrix_world.copy(); o.parent = arm; o.matrix_world = mw
+        groups = {}
+        for v in o.data.vertices:
+            for bn, w in weights(o.matrix_world @ v.co).items():
+                if w <= 0: continue
+                if bn not in groups: groups[bn] = o.vertex_groups.new(name=bn)
+                groups[bn].add([v.index], w, 'REPLACE')
+        am = o.modifiers.new('Armature', 'ARMATURE'); am.object = arm
+
+    def coat(K):
+        """THE COAT: the body above the hip lifted (sleeves to the wrist, a stand collar, open down the front below the
+        chest), and below the hip a SKIRT built as rings, four panels split by the front opening and the back vent, each
+        panel skinned to its own thigh bone more and more toward the hem: the tails swing with the legs"""
+        cm = mat('%s_coat' % tier.lower(), K['colour'], rough=0.9)
+        def half_open(z):   # the front opening's half-width at a height: shut at the chest, a widening V below it
+            return 0.0 if z >= K['open_from_z'] else 0.014 + (K['open_from_z'] - z) * 0.10
+        def upper(p):
+            if not (0.60 <= p.z <= K['z_top'] and abs(p.x) < K['sleeve_x']): return False
+            return not (p.y < -0.02 and abs(p.x) < half_open(p.z))
+        lift('%s_coat' % tier.lower(), upper, lambda p: K['t'], None, rim=0.008, subdiv=2, material=cm)
+        za, zb, ct = K['collar']
+        lift('%s_collar' % tier.lower(), lambda p: za <= p.z <= zb and abs(p.x) < 0.11 and not (p.y < -0.02 and abs(p.x) < 0.02),
+             lambda p: ct, None, rim=0.008, subdiv=1, material=cm)
+        # the skirt, from just inside the coat's lower edge to the knee
+        cx, cy, rx0, ry0 = band(0.62, 0.70)
+        rx0 += K['t'] + 0.006; ry0 += K['t'] + 0.006
+        z0_, z1_ = K['skirt_top'], K['hem_z']; rows = 16; segs = 64
+        bm = bmesh.new(); grid = []
+        for r in range(rows + 1):
+            u = r / rows; z = z0_ + (z1_ - z0_) * u
+            rx = rx0 * (1 + (K['flare_x'] - 1) * u); ry = ry0 * (1 + (K['flare_y'] - 1) * u)
+            grid.append([bm.verts.new((cx + rx * math.cos(2 * math.pi * k / segs), cy + ry * math.sin(2 * math.pi * k / segs), z)) for k in range(segs)])
+        for r in range(rows):
+            for k in range(segs):
+                k2 = (k + 1) % segs; vs = (grid[r][k], grid[r][k2], grid[r + 1][k2], grid[r + 1][k])
+                mx = sum(v.co.x for v in vs) / 4; my = sum(v.co.y for v in vs) / 4; mz = sum(v.co.z for v in vs) / 4
+                if my < cy and abs(mx - cx) < half_open(mz): continue                      # the open front
+                if my > cy and mz < K['vent_z'] and abs(mx - cx) < 0.012: continue         # the back vent
+                bm.faces.new(vs)
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+        me = bpy.data.meshes.new('%s_coat_skirt' % tier.lower()); bm.to_mesh(me); bm.free()
+        sk = bpy.data.objects.new(me.name, me); sc.collection.objects.link(sk)
+        for f in me.polygons: f.use_smooth = True
+        me.materials.append(cm)
+        bpy.context.view_layer.objects.active = sk
+        for o in sc.objects: o.select_set(o is sk)
+        so = sk.modifiers.new('rim', 'SOLIDIFY'); so.thickness = 0.008; so.offset = 1; so.use_rim = True
+        bpy.ops.object.modifier_apply(modifier='rim')
+        def w(p):
+            t = max(0.0, min(1.0, (z0_ - p.z) / (z0_ - z1_))) ** 1.3 * K['swing']
+            split = p.y < cy or p.z < K['vent_z'] + 0.01   # a panel edge at the front or in the vent belongs to one leg
+            side = (1.0 if p.x > cx else 0.0) if split else max(0.0, min(1.0, 0.5 + (p.x - cx) / 0.08))
+            return {'Skeleton_torso_joint_1': 1 - t, 'leg_joint_L_1': t * side, 'leg_joint_R_1': t * (1 - side)}
+        skin_to(sk, w)
+
+    def hat(H, top):
+        """a wide-brimmed field hat: a crown and a drooping brim, every vertex on the head bone (the silhouette's one feature)"""
+        hb = 'Skeleton_neck_joint_2'
+        hv = [M @ v.co for v in body.data.vertices if (M @ v.co).z > top - 0.12]
+        hx = (min(q.x for q in hv) + max(q.x for q in hv)) / 2; hy = (min(q.y for q in hv) + max(q.y for q in hv)) / 2
+        hr = max(max(q.x for q in hv) - min(q.x for q in hv), max(q.y for q in hv) - min(q.y for q in hv)) / 2
+        base = top - H['down_m']
+        bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=hr * H['crown_r'] + 0.008, depth=H['crown_h'] + H['down_m'],
+                                            location=(hx, hy, base + (H['crown_h'] + H['down_m']) / 2))
+        cr = bpy.context.active_object
+        for v in cr.data.vertices:   # the crown pinched at the top and dented down the middle front to back
+            if v.co.z > 0:
+                v.co.x *= 0.82; v.co.y *= 0.88
+                v.co.z -= 0.018 * max(0.0, 1 - abs(v.co.x) / (hr * 0.5))
+        bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+        bpy.ops.mesh.primitive_cylinder_add(vertices=32, radius=hr * H['brim_r'], depth=H['brim_t'], end_fill_type='TRIFAN', location=(hx, hy, base + 0.004))
+        br = bpy.context.active_object
+        bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.subdivide(number_cuts=3); bpy.ops.object.mode_set(mode='OBJECT')
+        for v in br.data.vertices:   # the brim droops at the front and the back, up at the sides a little
+            d = math.hypot(v.co.x, v.co.y) / (hr * H['brim_r'])
+            ang = math.atan2(v.co.y, v.co.x)
+            v.co.z -= H['droop'] * d * d * (0.6 + 0.4 * abs(math.sin(ang)))
+        bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+        for o in sc.objects: o.select_set(o in (cr, br))
+        bpy.context.view_layer.objects.active = cr; bpy.ops.object.join()
+        cr.name = '%s_hat' % tier.lower()
+        for f in cr.data.polygons: f.use_smooth = True
+        cr.data.materials.append(mat('%s_hat' % tier.lower(), H['colour']))
+        skin_to(cr, lambda p: {hb: 1.0})
+
+    if 'coat' in T: coat(T['coat'])
+    G = T.get('garment') or dict(z=(0, 0), sleeve_x=0, chest_t=0, skirt_t=0, quilt=None, colour=None)
     z0, z1 = G['z']
     def in_coat(p): return z0 <= p.z <= z1 and abs(p.x) < G['sleeve_x']
     def coat_t(p):   # thick at the chest, flaring to the skirt below the belt
@@ -166,23 +291,28 @@ def build(tier, out):
             u = ang * r / Q['every_m']
         c = math.cos(2 * math.pi * u)
         return Q['depth_m'] * max(0.0, c) ** 10   # a narrow groove, a broad pillow of padding between
-    lift('%s_gambeson' % tier.lower(), in_coat, coat_t, G['colour'], rim=0.014, subdiv=2, groove=quilt)
+    if 'garment' in T: lift('%s_gambeson' % tier.lower(), in_coat, coat_t, G['colour'], rim=0.014, subdiv=2, groove=quilt)
 
-    B = T['belt']
-    lift('%s_belt' % tier.lower(), lambda p: B['z'][0] <= p.z <= B['z'][1] and abs(p.x) < 0.25, lambda p: B['t'], B['colour'], rim=0.008, subdiv=1)
+    B = T.get('belt')
+    if B: lift('%s_belt' % tier.lower(), lambda p: B['z'][0] <= p.z <= B['z'][1] and abs(p.x) < 0.25, lambda p: B['t'], B['colour'], rim=0.008, subdiv=1)
 
     # the cap sits from the crown down to the brow, measured from the SCALED head's top (the head grew 1.3x)
-    C = T['cap']
+    C = T.get('cap') or T['hat']
     top = max((M @ v.co).z for v in body.data.vertices)
     cz = top - C['down_m']   # lower at the back of the skull (+y is behind)
     # THE EYES: two sockets in the brow's shadow, a material on the body's own faces (2 px a socket at the ruler)
-    body.data.materials.append(mat('%s_eyes' % tier.lower(), (40, 26, 22)))
-    front = min((M @ f.center).y for f in body.data.polygons if (M @ f.center).z > cz - 0.15)
+    body.data.materials.append(mat('%s_eyes' % tier.lower(), T['eyes']))
+    ez = top - 0.075   # the sockets sit at the brow whatever is on the head (cycle 2: a hat's line put them under the brim)
+    front = min((M @ f.center).y for f in body.data.polygons if (M @ f.center).z > ez - 0.15)
     for f in body.data.polygons:
         c = M @ f.center
-        if cz - 0.07 <= c.z <= cz - 0.025 and c.y < front + 0.045 and 0.01 < abs(c.x) < 0.065: f.material_index = len(body.data.materials) - 1
-    lift('%s_cap' % tier.lower(), lambda p: p.z >= cz - 0.025 * (p.y > 0.0), lambda p: C['t'], C['colour'], rim=0.01, subdiv=1)
-    lift('%s_cap_brim' % tier.lower(), lambda p: cz - 0.025 * (p.y > 0.0) <= p.z <= cz + C['brim_m'] - 0.025 * (p.y > 0.0), lambda p: C['brim_t'], C['colour'], rim=0.012, subdiv=1)
+        if ez - 0.07 <= c.z <= ez - 0.025 and c.y < front + 0.045 and 0.01 < abs(c.x) < 0.065: f.material_index = len(body.data.materials) - 1
+    if 'cap' in T:
+        capm = mat('%s_cap' % tier.lower(), C['colour'])   # the crown and the folded brim are one knit: one material
+        lift('%s_cap' % tier.lower(), lambda p: p.z >= cz - 0.025 * (p.y > 0.0), lambda p: C['t'], C['colour'], rim=0.01, subdiv=1, material=capm)
+        lift('%s_cap_brim' % tier.lower(), lambda p: cz - 0.025 * (p.y > 0.0) <= p.z <= cz + C['brim_m'] - 0.025 * (p.y > 0.0), lambda p: C['brim_t'], C['colour'], rim=0.012, subdiv=1, material=capm)
+    else:
+        hat(C, top)
 
     # 3. THE WEAPON: a length of pipe in the right fist, every vertex on the hand bone
     W = T.get('weapon')
@@ -194,19 +324,37 @@ def build(tier, out):
         axis = (fore * 0.9 + mathutils.Vector((0, -1, 0)) * 0.3).normalized()   # carried low at his side, the far end ahead of the knee
         L = W['back'] + W['fore']
         bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=W['r'], depth=L)
-        p = bpy.context.active_object; p.name = '%s_pipe' % tier.lower()
+        p = bpy.context.active_object; p.name = '%s_%s' % (tier.lower(), W['kind'])
         rot = mathutils.Vector((0, 0, 1)).rotation_difference(axis)
         p.rotation_mode = 'QUATERNION'; p.rotation_quaternion = rot
         p.location = fist + axis * (L / 2 - W['back'])
         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
-        # a collar near each end (a pipe fitting): the silhouette's one feature
-        for t_ in (W['fore'] - 0.03, -W['back'] + 0.02):
-            bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=W['r'] * 1.45, depth=0.035)
-            c = bpy.context.active_object; c.rotation_mode = 'QUATERNION'; c.rotation_quaternion = rot; c.location = fist + axis * t_
-            bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+        def join(c):
             for o in sc.objects: o.select_set(o in (p, c))
             bpy.context.view_layer.objects.active = p; bpy.ops.object.join()
-        p.data.materials.append(mat('%s_pipe' % tier.lower(), W['colour'], rough=0.8))
+        if W['kind'] == 'pipe':   # a collar near each end (a pipe fitting): the silhouette's one feature
+            for t_ in (W['fore'] - 0.03, -W['back'] + 0.02):
+                bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=W['r'] * 1.45, depth=0.035)
+                c = bpy.context.active_object; c.rotation_mode = 'QUATERNION'; c.rotation_quaternion = rot; c.location = fist + axis * t_
+                bpy.ops.object.transform_apply(location=True, rotation=True, scale=True); join(c)
+        elif W['kind'] == 'hatchet':   # a wedge head at the far end, its edge turned away from the body (outward, +x is his left)
+            out_ = axis.cross(mathutils.Vector((0, 1, 0))).normalized()
+            if out_.x > 0: out_ = -out_   # the right hand is at -x: the blade points away from the leg
+            bpy.ops.mesh.primitive_cube_add(size=1.0)
+            c = bpy.context.active_object
+            c.scale = (0.11, 0.022, 0.065)   # 11 cm out, 2.2 cm thick, 6.5 cm tall at the edge
+            frame = mathutils.Matrix((out_, out_.cross(axis).normalized(), axis)).transposed()   # columns: blade out, flat, along the haft
+            c.rotation_mode = 'QUATERNION'; c.rotation_quaternion = frame.to_quaternion()
+            c.location = fist + axis * (W['fore'] - 0.04) + out_ * 0.04
+            bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+            for v in c.data.vertices:   # the wedge: thin at the edge, flared top and bottom (a bearded axe)
+                q = v.co - (fist + axis * (W['fore'] - 0.04) + out_ * 0.04); along_out = q.dot(out_)
+                if along_out > 0:
+                    flat = out_.cross(axis).normalized()
+                    v.co -= flat * q.dot(flat) * 0.8
+                    v.co += axis * q.dot(axis) * 0.5
+            join(c)
+        p.data.materials.append(mat('%s_%s' % (tier.lower(), W['kind']), W['colour'], rough=0.8))
         # skin it: parent to the armature's object space, every vertex weight 1 on the hand bone
         mw = p.matrix_world.copy(); p.parent = arm; p.matrix_world = mw
         vg = p.vertex_groups.new(name=hb.name); vg.add(list(range(len(p.data.vertices))), 1.0, 'REPLACE')
@@ -248,14 +396,15 @@ def sheet(tier, frames, out):
     H = 70 + (ch + 30) * 2 + 30 + 4 * max(ch, tw.height) + 120
     S = Image.new('RGB', (Wd, H), BG); d = ImageDraw.Draw(S)
     d.text((12, 8), 'COOK THREE: THE %s, MODELLED AND RENDERED THROUGH THE RIG (rule 115c), 1:1. A CANDIDATE: nothing is final before the moodboard.' % tier, fill=(220, 214, 200))
-    d.text((12, 24), '57 px a metre (1.72 m = 98 px), one pixel size, block 1 | palette: engine/bohemia_cook3_tier_paint.json (padded, leather) + the runway black and oxblood | ONE light: the rig\'s sun, upper left, above', fill=(160, 154, 140))
-    d.text((12, 38), 'every garment is geometry on the man\'s bones: the quilted gambeson (grooves 7.5 cm, 13 mm deep), the belt, the knit cap, the pipe in the right fist', fill=(160, 154, 140))
+    d.text((12, 24), '57 px a metre (1.72 m = 98 px), one pixel size, block 1 | palette: records/target/BOHEMIA_STYLE_PALETTE.json, every base colour a step of a role | ONE light: the rig\'s sun, upper left, above', fill=(160, 154, 140))
+    import textwrap
+    for i, ln in enumerate(textwrap.wrap('every garment is geometry on the man\'s bones: ' + TIERS[tier]['what'], 170)[:2]): d.text((12, 38 + 10 * i), ln, fill=(160, 154, 140))
     def strip(ims, y, labels):
         x = 12
         for im, lb in zip(ims, labels):
             S.paste(GROUND, (x, y, x + cw, y + ch)); S.paste(im, (x, y), im); d.text((x, y + ch + 2), lb, fill=(160, 154, 140)); x += cw + 6
     y = 58; d.text((12, y), 'EIGHT FACINGS, STILL (the passing pose)', fill=(200, 190, 120)); strip(row1, y + 14, fac)
-    y += ch + 34; d.text((12, y), 'THE WALK, S then SE, 6 DRAWN KEYS = 2 BEATS AT 120 (the pipe swings with the hand: it is on the hand bone)', fill=(200, 190, 120))
+    y += ch + 34; d.text((12, y), 'THE WALK, S then SE, 6 DRAWN KEYS = 2 BEATS AT 120 (the %s swings with the hand: it is on the hand bone)' % TIERS[tier]['weapon']['kind'], fill=(200, 190, 120))
     strip(row2, y + 14, ['S k%d' % k for k in range(6)] + ['SE k%d' % k for k in range(6)])
     y += ch + 34
     d.text((12, y), 'OURS (the model)  |  HIS TWIN TODAY: the game\'s own flat %s as last painted   at 1:1, then 4x' % tier, fill=(200, 190, 120)); y += 16
@@ -265,10 +414,10 @@ def sheet(tier, frames, out):
     for im in (s1, tw):
         b = im.resize((im.width * 4, im.height * 4), Image.NEAREST); S.paste(GROUND, (x, y, x + b.width, y + b.height)); S.paste(b, (x, y), b); x += b.width + 16
     y += 4 * max(ch, tw.height) + 10
-    c = rig['card']
-    d.text((12, y), 'the card on the S still (%s): %s' % (c['family'], c['verdict']), fill=(200, 190, 120))
-    for i, r in enumerate(c['rows']): d.text((12 + (i % 4) * 230, y + 16 + 14 * (i // 4)), r, fill=(150, 144, 132))
-    d.text((12, y + 52), 'colours across the set %d; model %s; rendered %s' % (rig['colours'], rig['model'], rig['still']), fill=(120, 116, 108))
+    c = rig.get('card_guide') or rig['card']
+    d.text((12, y), 'the card on the S still, under the style guide (class %s): %s' % (c.get('cls', c.get('family')), c['verdict']), fill=(200, 190, 120))
+    for i, r in enumerate(c['rows']): d.text((12 + (i % 2) * 560, y + 16 + 14 * (i // 2)), r, fill=(150, 144, 132))
+    d.text((12, y + 78), 'colours across the set %d; model %s; rendered %s' % (rig['colours'], rig['model'], rig['still']), fill=(120, 116, 108))
     os.makedirs(os.path.dirname(out), exist_ok=True); S.save(out); print('sheet', out)
 
 
