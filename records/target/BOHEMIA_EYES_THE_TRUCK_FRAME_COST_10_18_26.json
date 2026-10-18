@@ -1,0 +1,58 @@
+{
+  "what": "EYES [the new demo cut, measured]: the rig truck's frame cost on the demo map at three zooms",
+  "demoStamp": "DEMO - BUILD 10/18b - THE RIG TRUCK ON THE MAP",
+  "throttle": 4,
+  "line": "THE RIG TRUCK ON THE MAP (4x phone profile, 40 interleaved renders a zoom): zoom 0.21 -41.70 ms, zoom 2.48 17.45 ms, zoom 4.74 -1.40 ms of a 16.7 ms frame; drawn alone 8 us at worst.",
+  "worstTruckCostMs": 17.449999999953434,
+  "frameBudgetMs": 16.666666666666668,
+  "rows": [
+    {
+      "zoom": 0.21443298969072166,
+      "onGlass": true,
+      "truckPx": [
+        18,
+        18
+      ],
+      "renderWithTruckMs": 510.7500000001164,
+      "renderWithBoxMs": 544.3500000000931,
+      "truckCostMs": -41.699999999953434,
+      "firstOfPairMs": 437.19999999995343,
+      "secondOfPairMs": 596.5,
+      "truckDrawAloneMs": 0.0075999999999767165,
+      "boxDrawAloneMs": 0.001,
+      "n": 40
+    },
+    {
+      "zoom": 2.477586865215731,
+      "onGlass": true,
+      "truckPx": [
+        18,
+        18
+      ],
+      "renderWithTruckMs": 437.25,
+      "renderWithBoxMs": 436.95000000006985,
+      "truckCostMs": 17.449999999953434,
+      "firstOfPairMs": 378.95000000006985,
+      "secondOfPairMs": 510.80000000004657,
+      "truckDrawAloneMs": 0.004599999999976717,
+      "boxDrawAloneMs": 0.0018500000000931322,
+      "n": 40
+    },
+    {
+      "zoom": 4.7407407407407405,
+      "onGlass": true,
+      "truckPx": [
+        18,
+        18
+      ],
+      "renderWithTruckMs": 366.1500000000233,
+      "renderWithBoxMs": 369.4000000000233,
+      "truckCostMs": -1.3999999999068677,
+      "firstOfPairMs": 366.1500000000233,
+      "secondOfPairMs": 369.9000000000233,
+      "truckDrawAloneMs": 0.004099999999976717,
+      "boxDrawAloneMs": 0.001,
+      "n": 40
+    }
+  ]
+}

@@ -43,8 +43,11 @@ const THROTTLE = 4;
       for (let i = 0; i < 4; i++) render();               /* warm both paths before the clock starts */
       const withT = [], withB = [];
       for (let i = 0; i < n; i++) {
-        window.__RIG_TRUCK = TRUCK; let t = performance.now(); render(); withT.push(performance.now() - t);
-        window.__RIG_TRUCK = BOX; t = performance.now(); render(); withB.push(performance.now() - t);
+        /* ABBA: the first run of 10/18 put the truck first in every pair and the box's render came out 126 ms
+           SLOWER than the truck's, which no 18-point drawImage can cause: the second render of a pair pays for
+           something the first left behind. Swapping the order every pair puts that cost on both sides. */
+        const one = (img, arr) => { window.__RIG_TRUCK = img; const t = performance.now(); render(); arr.push(performance.now() - t); };
+        if (i % 2) { one(BOX, withB); one(TRUCK, withT); } else { one(TRUCK, withT); one(BOX, withB); }
       }
       window.__RIG_TRUCK = TRUCK; render();
       /* the truck's own draw, alone: same call, same size, same smoothing switch, as the map makes it */
@@ -60,8 +63,9 @@ const THROTTLE = 4;
       render();
       const med = a => { const s = a.slice().sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
       const diffs = withT.map((v, i) => v - withB[i]);
+      const first = withT.map((v, i) => i % 2 ? withB[i] : v), second = withT.map((v, i) => i % 2 ? v : withB[i]);
       return { zoom: z, onGlass, truckPx: [tw, th], renderWithTruckMs: med(withT), renderWithBoxMs: med(withB),
-        truckCostMs: med(diffs), truckDrawAloneMs: truckDraw, boxDrawAloneMs: boxDraw, n };
+        truckCostMs: med(diffs), firstOfPairMs: med(first), secondOfPairMs: med(second), truckDrawAloneMs: truckDraw, boxDrawAloneMs: boxDraw, n };
     }, [z, N]);
     rows.push(r);
     console.log('zoom ' + r.zoom.toFixed(3) + (r.onGlass ? '' : ' (TRUCK OFF THE GLASS)') + ': render ' + r.renderWithTruckMs.toFixed(2)
