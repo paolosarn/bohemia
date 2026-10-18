@@ -5165,3 +5165,48 @@ YYYYYYYYYYYYYYYYYYYYYYYYY6  a crewman, the morning a job pays                   
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth
   with a face, at a fire, a stall, a stop, a clinic or a morning.
 - Spanish register: 0 of 6 lines. Under the 15% cap (one mijo in six would be 16.7 in 100, over it).
+
+## AAAAAAAAAAAAAAAAAAAAAAAAAA. THE RUMOUR: WHAT THE NEXT TOWN KNOWS ABOUT THIS ONE (round 75)
+# Record: records/BOHEMIA_ECONOMY_DAY_75_THE_RUMOUR_THE_NEXT_TOWN_HAS_NEWS_94_PERCENT_OF_THE_TIME_AND_THE_BAR_TELLS_NONE_10_18_26.md
+# Row [the rumour], under rule 88's hold: a page, no sheet, nothing in the game.
+
+AAAAAAAAAAAAAAAAAAAAAAAAAA1  the bar keeper, pouring the first glass of the night               draft:true
+    "First one's on the house, and so's the news. Up the road they're coughing. Don't buy your medicine there."
+
+AAAAAAAAAAAAAAAAAAAAAAAAAA2  a trucker at the bar, after somebody buys the room a round         draft:true
+    "Market week down the road. Everybody's selling high over there, so carry what you've got and sell it there."
+
+AAAAAAAAAAAAAAAAAAAAAAAAAA3  a patron, wiping his mouth, asked how he knows                      draft:true
+    "Heard it from a guy who walked in this morning. That's fresh enough. It's a short walk."
+
+AAAAAAAAAAAAAAAAAAAAAAAAAA4  the clinic keeper, to a crew that came in from the next town      draft:true
+    "You came from up there? Then you saw it. Half of them are sick, and they'll pay anything for a dose."
+
+AAAAAAAAAAAAAAAAAAAAAAAAAA5  the stall keeper, refusing to come down on a price                draft:true
+    "Don't tell me what they charge over the hill. If it's cheaper there, walk there. You lose the day, not me."
+
+AAAAAAAAAAAAAAAAAAAAAAAAAA6  an old man at the fire, on stories that travel                     draft:true
+    "A story walks as fast as you do. From next door it's still true. From the far end of the valley it's already a lie."
+
+AAAAAAAAAAAAAAAAAAAAAAAAAA7  the bar keeper, when the crew asks a second time                    draft:true
+    "Two people told you the same thing tonight? Then it's true. One person, maybe he just wants you gone."
+
+AAAAAAAAAAAAAAAAAAAAAAAAAA8  a patron at the end of the bar, to nobody in particular           draft:true
+    "Pues, everybody knows the next town's prices now. So nobody gets rich walking over there anymore."
+
+## BBBBBBBBBBBBBBBBBBBBBBBBBB. WHAT IS NOT HERE, ON PURPOSE (round 75)
+
+- No line names a wiki page, a game, a paper, a country, a percentage, a number of batteries or a
+  real event. The finding is said as a free glass with the news in it, a market week to sell into, a
+  cough up the road, a story as fast as a man, a second mouth, and a gap everybody already knows.
+- AAAAAAAAAAAAAAAAAAAAAAAAAA1 carries candidate A (the keeper's free one); 2 carries the room's round
+  (B) and the market-day card; 3 and 6 carry the age of news at our distances (D, section 3c); 4 the
+  sickness card's medicine; 5 Day 68's day as a price; 7 the second mouth (E); 8 the Kerala shape
+  (public news closes the gap, C). None is a ruling or a felt number; TUNING's table first.
+- No person, town, street or faction is named: 'up the road', 'over the hill', 'next door', 'the
+  next town'. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27. No phone in anybody's hand: the phone is in the city
+  view only (his 9/23 vote); candidate F belongs to the phone, not to a mouth.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth
+  with a face, at a bar, a clinic, a stall or a fire.
+- Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.
