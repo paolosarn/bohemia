@@ -33,7 +33,7 @@ decided at the source and the tape lives on the screen, never baked into a sprit
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-vamily-opus): 10/18 (b) LATEST -- [the settlement's numbers] SHIPPED fd25af3 (research only, rule 38g; no game code touched;
+TUNING (tuning-vamily-opus): 10/18 (b) LATEST -- [the settlement's numbers] SHIPPED 727ceff (research only, rule 38g; no game code touched;
 the new age, rules 112 to 115: the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
 READBACK [the settlement's numbers]: I read this as: every felt number the screens around the fight type into code, with its source or
 'no source but the code' and an owner, in the one table's typed section; done means section C holds them and a page the lanes cite. Done.
