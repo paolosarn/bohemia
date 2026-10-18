@@ -47,12 +47,60 @@
     try {
       if (r && r.pass && r.D && r.seed === om.seed) {
         R.pass = r.pass; R.D = r.D; R.K = r.K; R.N = om.n; R.ready = true; R.compass = r.compass || null;
-        placeTowns(r);
+        R.lastLand = r;
+        if (!adoptRealLand(r)) placeTowns(r);
         try { if (typeof render === 'function') render(); } catch(_e){}
       }
     } catch(_e){}
     return out;
   };
+
+  /* ---- THE REAL LAND (RUN 10/18, round two; WORLD [the region] c6df0bd + c1aaeb8, engine/BOHEMIA_REGION_LAND.json) ----
+     WORLD wrote the real Las Vegas region on this grid (the lake east on every seed, the highways in three classes, the
+     real places at their real kilometres) and the pass grid in this file's own codes, so the swap is: the party walks on
+     WORLD's land, the twelve made-up TOWNS give way to its places, and a block costs the data's minutes.
+     THE ONE SCALE NUMBER (the coordinator at AM: 'settle it with WORLD, one number') was already law and WORLD settled it
+     (c1aaeb8, laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md): A BLOCK IS 384 m OF REAL GROUND (96 m drawn, the 7/6
+     law's 1:4), the region 190 km across, and a block costs THE VALLEY'S OWN MINUTES on the valley's own 1,440-minute
+     clock (10.752 open, half that on a road, 1.8 times in the hills or a wash). So out there is the same clock as in
+     here: the data's minutes are used as they come, nothing scaled. What that gives: the real I-15 rim to rim 3.05 days,
+     the 95 to the 93 3.38, open ground straight 3.7; Battle Brothers 2 to 4 (players' reports, EYES 10/17).
+     (This round first picked 333 m and a twelve-hour marching day; WORLD's ruling landed the same hour, it is the law's,
+     and this file follows it.) ECONOMY's 'four times too close' (its page 3c) was round one's implied 96 m block.
+     The painter keeps painting its own land until COOK's tiles come; where the two disagree the party walks on the real
+     one. Until the data arrives (a fetch), or if it never does, round one's land and twelve TOWNS stand as they were. */
+  var CLOCK_PER_MARCH = 1;   /* the data's minutes are the valley's clock minutes (WORLD c1aaeb8) */
+  R.metresPerBlock = 384; R.real = false; R.land = null;
+  (function loadRealLand(){
+    try {
+      if (typeof document === 'undefined' || typeof fetch !== 'function') return;
+      var s = document.createElement('script'); s.src = '../engine/bohemia_region_land.js';
+      s.onload = function(){
+        fetch('../engine/BOHEMIA_REGION_LAND.json').then(function(r){ return r.json(); }).then(function(j){
+          if (typeof BohemiaRegionLand === 'undefined') return;
+          R.land = BohemiaRegionLand.load(j); R.metresPerBlock = R.land.metresPerCell || 384;
+          if (R.lastLand && adoptRealLand(R.lastLand)) { try { if (typeof render === 'function') render(); } catch(_e){} }
+        }).catch(function(){});
+      };
+      (document.head || document.documentElement).appendChild(s);
+    } catch(_e){}
+  })();
+  function adoptRealLand(r){
+    var L = R.land; if (!L || L.D !== r.D || L.K !== r.K || L.N !== om.n) return false;
+    var C = r.compass || { n: 'y0', s: 'y1', e: 'x1', w: 'x0' };
+    try { R.stitched = L.stitch(r.roads || [], C); } catch(_e){ R.stitched = null; }
+    R.pass = L.passGrid(C); R.compass = C; R.real = true;
+    R.places = L.places(C).filter(function(p){ return !inCity(p.x, p.y) && inRegion(p.x, p.y) && passAt(p.x, p.y) < 3; })
+      .map(function(p){ return { name: p.name, x: p.x, y: p.y, tier: p.tier, role: p.role, km: p.km, road: passAt(p.x, p.y) === 1, what: p.what }; });
+    return true;
+  }
+  /* the minutes on the clock for one block out there, the real land's way */
+  function realMins(x, y){
+    var a = R.land.at(x, y, R.compass); if (!a || a.minutes == null) return null;
+    var dm = 1;
+    try { if (typeof BohemiaFollowers !== 'undefined' && typeof CT_FOLLOWERS !== 'undefined') dm = BohemiaFollowers.travelMultiplier(CT_FOLLOWERS); } catch(_e){}
+    return a.minutes * CLOCK_PER_MARCH * dm;
+  }
 
   /* ---- the places: a real bearing and distance from the city, pulled onto ground he can stand on ---- */
   /* east / north in blocks past the city's middle; the map's own compass says which way is which (north is y = 0) */
@@ -91,7 +139,7 @@
   R.placeAt = function(x, y, rr){
     var best = null, bd = 1e9;
     R.places.forEach(function(p){ var d = Math.max(Math.abs(p.x - x), Math.abs(p.y - y));
-      if (d <= (rr == null ? 1 : rr) && d < bd) { bd = d; best = { name: p.name, x: p.x, y: p.y, tier: p.tier, region: true }; } });
+      if (d <= (rr == null ? 1 : rr) && d < bd) { bd = d; best = { name: p.name, x: p.x, y: p.y, tier: p.tier, role: p.role || 'base', region: true }; } });
     return best;
   };
 
@@ -104,6 +152,7 @@
   var _mins = cityStepMins;
   cityStepMins = function(x, y){
     if (inCity(x, y) || !R.ready) return _mins(x, y);
+    if (R.real) { var rm = realMins(x, y); if (rm != null) return rm; }
     var base = _mins(x, y);   /* the street's own rough-going block, with the scout's multiplier */
     var p = passAt(x, y);
     var m = base * (p === 1 ? COST[1] : p === 2 ? COST[2] : COST[0]);
@@ -127,6 +176,7 @@
   };
   function stepCost(x, y){
     if (inCity(x, y)) return 1;   /* the valley's roads: its own fast going */
+    if (R.real) { var a = R.land.at(x, y, R.compass); if (a && a.minutes != null) return a.minutes / 5.376; }   /* a road block is 1 */
     var p = passAt(x, y); return p === 1 ? 1 : p === 2 ? 4 : 2;
   }
   function regionRoute(ax, ay, bx, by){
@@ -249,11 +299,14 @@
     if (!R.ready) return null;
     var base = _mins(Math.floor(om.n / 2), Math.floor(om.n / 2));
     var crossOpen = R.D * base * COST[0], crossRoad = R.D * base * COST[1];
+    if (R.real) { var sp = R.land.json.speeds; crossOpen = R.D * sp.open.minutesPerCell * CLOCK_PER_MARCH; crossRoad = R.D * sp.paved.minutesPerCell * CLOCK_PER_MARCH; }
     var vb = (typeof ctBases === 'function' && ctBases()) ? Object.keys(ctBases()).length : 0;
     var zb = zoomBounds();
     return {
       tilesAcross: R.D, tiles: R.D * R.D, bbTilesAcross: 140, bbTiles: 19600,
-      daysAcrossOpen: +(crossOpen / 1440).toFixed(1), daysAcrossRoad: +(crossRoad / 1440).toFixed(1), bbDaysAcross: null,
+      daysAcrossOpen: +(crossOpen / 1440).toFixed(1), daysAcrossRoad: +(crossRoad / 1440).toFixed(1), bbDaysAcross: [2, 4], bbDaysAcrossSource: 'players\' reports, no official figure (EYES 10/17, records/BOHEMIA_EYES_THE_MAPS_FOUR_NUMBERS_OURS_BESIDE_BATTLE_BROTHERS_10_17_26.md)',
+      realLand: R.real, metresPerBlock: R.metresPerBlock, kmAcross: Math.round(R.D * R.metresPerBlock / 100) / 10,
+      realCrossings: R.real && R.land.numbers ? (R.land.numbers().daysAcross || null) : null,
       settlements: vb + R.places.length, regionPlaces: R.places.length, bbSettlements: 17,
       zoomFar: +zb[0].toFixed(3), zoomNear: +zb[1].toFixed(2),
       farShowsBlocksAcross: Math.round(CVW / (TW0 * zb[0])), nearShowsBlocksAcross: +(CVW / (TW0 * zb[1])).toFixed(1)

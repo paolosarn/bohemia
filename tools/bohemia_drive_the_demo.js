@@ -499,7 +499,10 @@ async function open(opts) {
         }
       }
       if (!hit) for (const label of ['GET UP', 'NOT NOW', 'SKIP', 'CONTINUE', 'CLOSE', 'OK']) {
-        const h = await fr.$(`text="${label}"`).catch(() => null);
+        /* VISIBLE ONLY (RUN 10/18): the first text="CLOSE" on the page is the phone's
+           hidden close (span#phoneclose), so the notes box's own CLOSE was never
+           pressed and every walk that opened NOTES stayed under it (15 of 21). */
+        const h = await fr.$(`text="${label}" >> visible=true`).catch(() => null);
         if (h && await h.isVisible().catch(() => false)) {
           const b = await h.boundingBox();
           if (b) { await tapAt(b.x + b.width / 2, b.y + b.height / 2); hit = true; break; }

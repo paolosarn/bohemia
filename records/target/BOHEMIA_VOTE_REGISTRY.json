@@ -9352,6 +9352,19 @@
     "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
     "light": "guide"
    }
+  },
+  {
+   "id": "run-the-rig-truck-on-the-map-10-18",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "THE RIG'S TRUCK DRIVES THE MAP IN THE DEMO",
+   "why": "The worn truck you voted up now rolls down the freeway on the demo's map, where a little yellow box used to be, the first rig-made thing in the game you play. You see it on the DEMO's map: pinch to the middle zoom and look along the freeway for the yellow truck.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_RIG_TRUCK_ON_THE_MAP_10_18.png"
+   }
   }
  ],
  "verdicts": [

@@ -20,6 +20,9 @@
      R6 the places are drawn at the far stop (twelve set on ground he can stand on, those on the glass drawn)
      R7 the valley's own journeys never leave the valley (a route between two valley blocks stays inside its box)
      R8 nothing threw
+     R9 *** THE REGION IS THE REAL LAND, AT BATTLE BROTHERS' DAYS *** (10/18: WORLD's engine/BOHEMIA_REGION_LAND.json is
+        what he walks on, every sampled block passing and costing the way it says; its places at their real km; a block
+        384 m (the valley-scale law, WORLD c1aaeb8); the real crossings and open ground inside Battle Brothers' 2 to 4)
    node gates/the_region_is_battle_brothers_size_gate.js
    ========================================================================== */
 'use strict';
@@ -92,6 +95,21 @@ const done = () => { console.log('THE REGION IS BATTLE BROTHERS\' SIZE: ' + pass
       let routes = 0, left = 0; for (const b of cands.slice(0, 14)) { if (!a || (b[0] === a[0] && b[1] === a[1])) continue; const pa = cityRoute(a[0], a[1], b[0], b[1]); if (!pa) continue; routes++; if (pa.some(c => !BOH_REGION.inCity(c[0], c[1]))) left++; }
       return { routes, left }; });
     ok('R7 the valley\'s own journeys never leave the valley (' + V.routes + ' routes between valley blocks, ' + V.left + ' left the box)', V.routes >= 3 && V.left === 0);
+    /* R9 (RUN 10/18, round two): the party walks on WORLD's real land, not the painter's guess, at the one scale WORLD
+       settled by the valley-scale law (c1aaeb8): a block is 384 m, a block costs the valley's own minutes on the valley's
+       clock, the real crossings land inside Battle Brothers' 2 to 4 days, and every place sits at its real kilometres */
+    for (let i = 0; i < 80; i++) { if (await fr.evaluate(() => !!BOH_REGION.real)) break; await d.page.waitForTimeout(250); }
+    const W = await fr.evaluate(() => { const R = BOH_REGION, n = R.numbers(); let agree = 0, of = 0, clock = 0, cof = 0;
+      if (R.real) for (let k = 0; k < 400; k++) { const x = -R.K + ((k * 97) % R.D), y = -R.K + ((k * 61) % R.D); if (R.inCity(x, y)) continue;
+        const a = R.land.at(x, y, R.compass); if (!a) continue; of++; if (a.pass === R.passAt(x, y)) agree++;
+        if (a.minutes != null && a.pass < 3) { cof++; if (Math.abs(cityStepMins(x, y) - a.minutes) < 1e-6 * a.minutes + 1e-9) clock++; } }
+      const mid = (om.n - 1) / 2; let kmOk = 0;
+      for (const p of R.places) { const km = Math.hypot(p.x - mid, p.y - mid) * n.metresPerBlock / 1000; if (p.km && Math.abs(km - p.km) <= Math.max(3, p.km * 0.15)) kmOk++; }
+      const rc = n.realCrossings ? Object.values(n.realCrossings) : [];
+      return { real: R.real, places: R.places.length, agree, of, clock, cof, kmOk, m: n.metresPerBlock, km: n.kmAcross, rc, open: n.daysAcrossOpen }; });
+    ok('*** R9 THE REGION IS THE REAL LAND, AT BATTLE BROTHERS\' DAYS *** (real ' + W.real + '; ' + W.places + ' real places, ' + W.kmOk + ' at their real km; ' + W.agree + ' of ' + W.of + ' sampled blocks pass the way WORLD\'s land says, ' + W.clock + ' of ' + W.cof + ' cost its minutes; a block ' + W.m + ' m, ' + W.km + ' km across; the real crossings ' + W.rc.join(' and ') + ' days, open ground ' + W.open + '; Battle Brothers 2 to 4)',
+      W.real && W.places >= 30 && W.kmOk === W.places && W.of > 100 && W.agree === W.of && W.cof > 50 && W.clock === W.cof && W.m === 384
+        && W.rc.length >= 2 && W.rc.every(v => v >= 2 && v <= 4) && W.open >= 2 && W.open <= 4);
     ok('R8 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 140) : '') + ')', d.errs.length === 0);
   } catch (e) { ok('the gate ran without throwing [' + String(e.message).slice(0, 200) + ']', false); }
   await d.close();

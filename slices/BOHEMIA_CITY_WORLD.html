@@ -46037,7 +46037,16 @@ function renderCity(){
 
   // CARGO rolling the I-15 spine (ambient, never stops)
   { const L=om.layout, cy2=Math.round(6+cargo.t*(96-12));
-    const p=iso(L.fwyX,cy2,ox,oy); g.fillStyle='#e8b048'; g.fillRect(p.sx-3,p.sy-2,6,4); }
+    const p=iso(L.fwyX,cy2,ox,oy);
+    /* __THE_RIG_TRUCK_ON_THE_MAP__ (RUN [the demo wears the rig], rule 115g, Paolo 10/18 'is the demo changing,
+       I liked the robot'): the cargo is the rig's worn truck he voted UP (direction-the-look-at-the-source-10-17),
+       its SW facing because the cargo rolls down and left on the glass, 18 points wide at every zoom (a marker keeps
+       its pixels, rule 102b); baked by tools/bohemia_run_the_rig_truck_on_the_map_bake.py; the old box until it loads. */
+    const tk=window.__RIG_TRUCK||(window.__RIG_TRUCK=(function(){ const im=new Image(); im.onload=function(){ try{ render(); }catch(_e){} };
+      im.src='data:image/png;base64,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'; return im; })());
+    if(tk.complete&&tk.naturalWidth){ const tw=18, th=Math.round(18*tk.naturalHeight/tk.naturalWidth), sm=g.imageSmoothingEnabled;
+      g.imageSmoothingEnabled=false; g.drawImage(tk,Math.round(p.sx-tw/2),Math.round(p.sy+2-th),tw,th); g.imageSmoothingEnabled=sm; }
+    else { g.fillStyle='#e8b048'; g.fillRect(p.sx-3,p.sy-2,6,4); } }
   // PLANE gliding into HRI (rarity is act-gated later)
   if(plane){ const L=om.layout;
     const px2=L.hri.x+4+(1-plane.vis)*30, py2=L.hri.y+2-(1-plane.vis)*26;
@@ -85951,26 +85960,35 @@ window.BOHEMIA_SKIN = (function(){
      browser for twenty years, and the chip SAYS which one happened. A button that
      silently did nothing is the defect this lane wrote down on 9/15 ("a dead button is
      indistinguishable from a close button"). */
-  function copyAll(){
-    var t=body(), done=false;
+  /* THE CLIPBOARD SAYS NO LATER, NOT NOW (RUN 10/18, the five minutes' one page error):
+     writeText hands back a promise and a refused write REJECTS it a moment later, so the
+     old line called it done, said COPIED, and left an uncaught "Write permission denied"
+     on the page. Now the refusal is caught, the old road runs, and the chip tells the truth. */
+  function copyOld(t){
     try{
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(t); done=true;
-      }
-    }catch(e){}
-    if(!done){
-      try{
-        var ta=document.createElement('textarea');
-        ta.value=t; ta.setAttribute('readonly','');
-        ta.style.cssText='position:fixed;left:-9999px;top:0';
-        document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0,t.length);
-        done=document.execCommand('copy'); ta.remove();
-      }catch(e2){}
-    }
+      var ta=document.createElement('textarea');
+      ta.value=t; ta.setAttribute('readonly','');
+      ta.style.cssText='position:fixed;left:-9999px;top:0';
+      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0,t.length);
+      var ok=document.execCommand('copy'); ta.remove(); return !!ok;
+    }catch(e2){ return false; }
+  }
+  function copySaid(done){
     var c=document.getElementById('notecopy');
     if(c){ c.textContent = done ? ('COPIED '+notes.length+(notes.length===1?' NOTE':' NOTES'))
                                 : 'COULD NOT COPY - USE EXPORT';
            setTimeout(function(){ if(c) c.textContent='COPY ALL'; }, 2200); }
+  }
+  function copyAll(){
+    var t=body(), p=null;
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText) p=navigator.clipboard.writeText(t);
+    }catch(e){ p=null; }
+    if(p && typeof p.then==='function'){
+      p.then(function(){ copySaid(true); }, function(){ copySaid(copyOld(t)); });
+      return t;
+    }
+    var done=copyOld(t); copySaid(done);
     return done ? t : '';
   }
 

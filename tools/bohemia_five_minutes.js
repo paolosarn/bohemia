@@ -132,8 +132,74 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     return b ? b.toString('base64') : null;
   };
 
-  const controls = await d.controls();
-  console.log('  ' + controls.length + ' control(s) on screen at the door');
+  /* WHAT A PLAYER WOULD PRESS (RUN 10/18, [the long freeze]: "what covers 15 of the 21
+     controls at the door"). Measured on the committed demo, NOTHING covered them: the
+     driver's list is every short piece of text on the glass, and at the door that is
+     21 things of which four are readouts (240, 0, the dash, 06:00), one is a zero-size
+     label, and two are feed posts scrolled below the phone's clipped screen (the
+     canvas is what sits under their middle). And every control without an id was
+     tapped by its words but checked with querySelector('text="..."'), which throws,
+     so the walk filed it as never tapped. Fixed here and only here (the driver's
+     controls() is shared by other gates and stays as it is): a control is something
+     that says it can be pressed (a pointer, a button, a role), whose middle is inside
+     every box that clips it, and it is marked with data-fm so the tap and the check
+     find the SAME element by a real selector. */
+  const pressable = () => d.fr.evaluate(() => {
+    const out = [], seen = {};
+    let n = 0;
+    for (const el of Array.from(document.querySelectorAll('div,button,span,a'))) {
+      if (el.children.length > 2) continue;
+      const t = (el.textContent || '').trim();
+      if (!t || t.length > 28 || seen[t]) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width < 8 || r.height < 8) continue;
+      const x = r.x + r.width / 2, y = r.y + r.height / 2;
+      if (x < 0 || y < 0 || x > innerWidth || y > innerHeight) continue;
+      const st = getComputedStyle(el);
+      if (st.display === 'none' || st.visibility === 'hidden' || +st.opacity === 0) continue;
+      if (!(st.cursor === 'pointer' || el.tagName === 'BUTTON' || el.tagName === 'A'
+        || el.getAttribute('role') === 'button')) continue;
+      let clipped = false;
+      for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+        const ps = getComputedStyle(p);
+        if (ps.overflow === 'visible' && ps.overflowY === 'visible' && ps.overflowX === 'visible') continue;
+        const pr = p.getBoundingClientRect();
+        if (x < pr.left || x > pr.right || y < pr.top || y > pr.bottom) { clipped = true; break; }
+      }
+      if (clipped) continue;
+      el.setAttribute('data-fm', String(++n));
+      seen[t] = 1; out.push({ text: t, id: el.id || '', sel: '[data-fm="' + n + '"]' });
+    }
+    return out; });
+
+  /* The panel's own way out, the TOPMOST one: with the phone and the notes box both
+     open, the first visible CLOSE is the phone's, under the notes box, and pressing it
+     presses the box. So: the exit word whose middle is really under the finger. */
+  const closePanels = async () => {
+    for (let k = 0; k < 4; k++) {
+      const sel = await d.fr.evaluate(() => {
+        const words = ['CLOSE', 'SAVE AND KEEP PLAYING', 'BACK', '✕', 'X', 'GET UP', 'NOT NOW'];
+        for (const el of Array.from(document.querySelectorAll('div,button,span,a'))) {
+          const t = (el.textContent || '').trim();
+          if (words.indexOf(t) < 0) continue;
+          const r = el.getBoundingClientRect(); if (r.width < 4 || r.height < 4) continue;
+          const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+          if (!top || !(top === el || el.contains(top))) continue;
+          el.setAttribute('data-fmx', '1'); return '[data-fmx="1"]';
+        }
+        return null; }).catch(() => null);
+      if (!sel) return;
+      await d.tapEl(sel).catch(() => {});
+      await d.fr.evaluate(() => { const e = document.querySelector('[data-fmx]');
+        if (e) e.removeAttribute('data-fmx'); }).catch(() => {});
+      await sleep(700);
+    }
+  };
+
+  const controls = await pressable();
+  const listed = (await d.controls()).length;
+  console.log('  ' + controls.length + ' control(s) a player would press at the door ('
+    + listed + ' short texts on the glass, the rest readouts or scrolled out of their box)');
 
   const taps = [];
   const t0 = Date.now();
@@ -141,7 +207,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   /* Walk him around and press what he can see, turn and turn about, until the
      five minutes are up. The order is fixed so two runs are comparable. */
   while ((Date.now() - t0) / 1000 < SECONDS) {
-    const live = await d.controls();
+    const live = await pressable();
     if (!live.length) break;
     const c = live[i % live.length];
     i++;
@@ -152,7 +218,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
        an id is a handle and matching words can hit a hidden copy (the driver's own
        trap 3). Fall back to the words only when there is no id. */
     let ok = false;
-    const sel = c.id ? '#' + c.id : 'text="' + c.text.replace(/"/g, '') + '"';
+    const sel = c.id ? '#' + c.id : c.sel;
     /* DID THE TAP EVEN REACH THE CONTROL? (fixed 9/14, after the first real walk.)
        The first five-minute walk reported 162 DEAD TAPS of 230 -- 70% -- and the
        number was WRONG. Verified on the glass one at a time from a clean state, all
@@ -164,7 +230,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
        So a tap only counts at all if the topmost thing at those coordinates IS the
        control. Anything else is a tap the player would never have made, and counting
        it is how an instrument reports its own confusion as the game's. */
-    let reached = false;
+    let reached = false, coveredBy = null, at = null;
     try {
       /* THE CONTROL WALK (--no-taps). The whole walk, one difference: NOBODY PRESSES
          ANYTHING. Everything else is identical -- same order, same waits, same two
@@ -173,13 +239,30 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
          game and never was. This is the planted-bug test QUESTS used on its own gate
          (e909bc5f) and it is the only honest way to ask an instrument whether it
          measures anything. A counter with no control walk is an opinion. */
-      ok = NO_TAPS ? true : await d.tapEl(sel);
-      if (ok) reached = await d.fr.evaluate((q) => {
-        const el = document.querySelector(q); if (!el) return false;
-        const r = el.getBoundingClientRect();
-        const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
-        return !!(top && (top === el || el.contains(top) || top.contains(el)));
+      /* WHAT COVERED IT (RUN 10/18, [the long freeze]: the coordinator's walk at AM
+         landed 6 of 21 and nobody could say what the other 15 hit). Asked BEFORE the
+         finger goes down: the old check ran after the tap, so pressing NOTES opened the
+         notes box over NOTES itself and the tap that worked was filed as covered. A
+         covered control is not pressed (a player cannot press what he cannot see) and
+         names the topmost thing at its middle, so "covered by something" is a name. */
+      const r = await d.fr.evaluate((q) => {
+        const el = document.querySelector(q); if (!el) return { reached: false, by: '(gone)' };
+        const b = el.getBoundingClientRect();
+        const x = b.x + b.width / 2, y = b.y + b.height / 2;
+        const top = document.elementFromPoint(x, y);
+        const hit = !!(top && (top === el || el.contains(top) || top.contains(el)));
+        const name = (n) => !n ? '(nothing: off the glass)' : n.tagName.toLowerCase()
+          + (n.id ? '#' + n.id : '') + (n.className && typeof n.className === 'string'
+            ? '.' + n.className.trim().split(/\s+/).slice(0, 2).join('.') : '');
+        let by = null;
+        if (!hit) { by = name(top); const p = top && top.closest('[id]');
+          if (p && p !== top) by += ' in #' + p.id; }
+        return { reached: hit, by, at: [Math.round(x), Math.round(y)] };
       }, sel);
+      reached = r.reached; coveredBy = r.by; at = r.at;
+      ok = true;
+      if (reached && !NO_TAPS) ok = await d.tapEl(sel);
+      if (!ok) reached = false;
     } catch (e) { ok = false; }
     await sleep(900);                       /* nearly two beats to answer */
     const post = await shot();
@@ -204,7 +287,13 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
         return st.visibility !== 'hidden' && st.display !== 'none' && +st.opacity !== 0;
       }, sel).catch(() => null);
     }
-    taps.push({ text: c.text, id: c.id, tapped: !!ok, reached: !!reached, changed, survived });
+    taps.push({ text: c.text, id: c.id, tapped: !!ok, reached: !!reached, changed, survived,
+      coveredBy, at });
+    /* A PANEL HE OPENED IS CLOSED THE WAY HE WOULD CLOSE IT. The walk opens NOTES and
+       the notes box (z 60, the whole wrap) then sits over everything; a player presses
+       its CLOSE, the old walk pressed the next button through it forever. The tap that
+       met the panel still does not count; the next one starts from a clear glass. */
+    if (ok && !reached) await closePanels();
     if (taps.length % 25 === 0) {
       const el = ((Date.now() - t0) / 1000).toFixed(0);
       /* count the SAME way the report does, or the running line teaches a number the
@@ -241,6 +330,13 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   console.log('    DEAD TAPS     ' + String(dead.length).padStart(6)
     + '   of ' + driven.length + ' taps that REACHED their control, on the glass'
     + (blocked.length ? '   (' + blocked.length + ' more were covered by something and do not count)' : ''));
+  if (blocked.length) {
+    const by = {};
+    for (const t of blocked) { const k = (t.id || t.text) + '  under  ' + t.coveredBy; by[k] = (by[k] || 0) + 1; }
+    console.log('\n  WHAT COVERED THEM (the control  under  the topmost thing at its middle):');
+    for (const [k, v] of Object.entries(by).sort((a, b) => b[1] - a[1]).slice(0, 15))
+      console.log('      ' + String(v).padStart(3) + '  ' + k);
+  }
   if (shut.length) {
     console.log('                  ' + String(shut.length).padStart(6)
       + '   more moved the screen AND VANISHED. Rule 14(h): that is what a close looks'
@@ -387,6 +483,8 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
           worstGapMs: +fm.worst.toFixed(0) },
     floorsFailed: floors,
     deadByName: dead.reduce((a, t) => (a[t.text] = (a[t.text] || 0) + 1, a), {}),
+    coveredBy: blocked.reduce((a, t) => { const k = (t.id || t.text) + ' under ' + t.coveredBy;
+      a[k] = (a[k] || 0) + 1; return a; }, {}),
     errors: [...new Set(errs)],
   }, null, 1));
   console.log('\n  ' + RECORD);
