@@ -1507,7 +1507,11 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   -webkit-tap-highlight-color:transparent}
 #voteOver{flex:1 1 auto;width:100%;border:0;background:#f2ece1}
 </style>
-<div id="front">
+<!-- THE FRONT SCREEN, JUST THE FONT (UI 10/18, Paolo: 'I don't want the card behind it, I just want the crazy font...
+     the whole front screen looks like dog shit'). data-look="just-the-font" puts UI's bare front screen on (his letters
+     with the card taken out, the cold ground, gold only for the one next thing; slices/bohemia_ui_materials.js,
+     frontJustTheFont); "classic" is the door as it was. RUN flips it at the cut (rule 93, BUILD_CALLING_SCRIPT.md). -->
+<div id="front" data-look="classic">
   <!-- THE NAME SITS ON A PLATE, ON PURPOSE (UI lane, 8/27). His approved
        wordmark is 400x130 and FULLY OPAQUE -- measured, no alpha anywhere --
        so it carries its own warm grey ground. On a near-black door that read

@@ -9342,6 +9342,8 @@ GATES = [
      "SOUNDS gate, registered by PLUMBER 10/18 [the orphan gates] (it landed on main mid-round without a row, 666abb38). THE SETTLEMENT HEARD GATE, row [the settlement's sounds] round four. green at registration, 21/0, 46 s", True),
     ('WHO YOU WERE', ['node', 'gates/who_you_were_gate.js'],
      'PEOPLE gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). BOHEMIA WHO YOU WERE THE DAY THE MONEY DIED (9/27/26, PEOPLE lane). VAMILY [origins], rule 36c. Plus [the injured], rule 36b. green at registration, 49 s', True),
+    ('THE FRONT SCREEN JUST THE FONT', ['node', 'gates/the_front_screen_just_the_font_gate.js'],
+     "UI gate, 10/18, row [the front screen, just the font]. PAOLO 10/18: 'the loading screen, the Bohemia title card, I don't want the card behind it, I just want the crazy font... the whole front screen looks like dog shit.' With the door's switch on (data-look just-the-font; RUN flips it at the cut, rule 93): his letters with the card keyed out, every kept pixel his, one pixel size, no browser default on the title, the picks, the terminal or the NOTES sheet, every word 4.5 to 1 and in the sun, one gold next thing, thumbs, nothing off the glass upright or sideways, and the classic door untouched while the switch says classic; nine planted defects caught every run. green at registration, 42/0, about 150 s", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

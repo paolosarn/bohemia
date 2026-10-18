@@ -302,13 +302,17 @@
   function startScreen(host, opts) {
     opts = opts || {}; host = host || document.body;
     rootVars(); style('bm-start-css', LOOK_CSS);
-    var root = document.createElement('div'); root.className = 'bm-start'; root.setAttribute('role', 'dialog'); root.setAttribute('aria-label', 'start');
+    /* THE FRONT SCREEN, JUST THE FONT (below): when the door asks for it, the title wears the bare look, his letters
+       with the card taken out over the valley drawn at the letters' own pixel size */
+    var bare = jtfOn(); if (bare) { jtfVars(); style('bm-jtf-css', JTF_CSS); }
+    var root = document.createElement('div'); root.className = 'bm-start' + (bare ? ' jtf' : ''); root.setAttribute('role', 'dialog'); root.setAttribute('aria-label', 'start');
     var W = Math.max(320, Math.min(1400, Math.round(innerWidth))), H = Math.max(320, Math.min(1400, Math.round(innerHeight)));
-    var gr = ground(Math.round(W / 2), Math.round(H / 2)); gr.className = 'gr'; root.appendChild(gr);
+    var gr = bare ? groundBare(W, H) : ground(Math.round(W / 2), Math.round(H / 2)); gr.className = 'gr'; root.appendChild(gr);
     var t = document.createElement('div'); t.className = 't';
     /* his approved wordmark when the page has it (#logobig), else the name in the casing face */
-    var src = document.getElementById('logobig'), mark = null;
-    if (src) { mark = document.createElement('canvas'); mark.width = src.width; mark.height = src.height; t.appendChild(mark); }
+    var src = bare ? null : document.getElementById('logobig'), mark = null;
+    if (bare) t.appendChild(markCanvas(function () { return innerWidth > innerHeight ? innerWidth * 0.48 - 40 : innerWidth - 40; }));
+    else if (src) { mark = document.createElement('canvas'); mark.width = src.width; mark.height = src.height; t.appendChild(mark); }
     else { var wd = document.createElement('div'); wd.className = 'word'; wd.textContent = 'BOHEMIA'; t.appendChild(wd); }
     var sub = document.createElement('div'); sub.className = 'sub'; sub.textContent = opts.sub || 'POST-ECONOMIC APOCALYPSE - LAS VEGAS'; t.appendChild(sub);
     root.appendChild(t);
@@ -320,7 +324,8 @@
     var stamp = document.createElement('div'); stamp.className = 'stamp'; var bs = document.getElementById('buildstamp'); stamp.textContent = bs ? bs.textContent.trim() : ''; root.appendChild(stamp);
     var q = function (k) { return m.querySelector('[data-k="' + k + '"]'); };
     var MK = { 'new': ['new', '#f0c46a'], 'continue': ['cont', '#5a3a14'], 'settings': ['set', '#f0c46a'] };
-    ['new', 'continue', 'settings'].forEach(function (k) { q(k).style.setProperty('--bm-mark', 'url(' + markURL(MK[k][0], MK[k][1]) + ')'); });
+    ['new', 'continue', 'settings'].forEach(function (k) { q(k).style.setProperty('--bm-mark', 'url(' + markURL(MK[k][0], MK[k][1]) + ')');
+      if (bare) { q(k).style.setProperty('--jtf-bone', 'url(' + markURL(MK[k][0], '#b3a993') + ')'); q(k).style.setProperty('--jtf-ink', 'url(' + markURL(MK[k][0], '#0e0a05') + ')'); } });
     var call = function (fn) { return function (e) { e.stopPropagation(); if (typeof fn === 'function') fn(e); }; };
     q('new').addEventListener('click', call(opts.onNew)); q('continue').addEventListener('click', call(opts.onContinue)); q('settings').addEventListener('click', call(opts.onSettings));
     ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'mousedown', 'mouseup', 'click'].forEach(function (ev) { root.addEventListener(ev, function (e) { e.stopPropagation(); }); });
@@ -330,7 +335,7 @@
     var api = {
       root: root,
       paint: function (saved) {
-        var c = q('continue'); c.disabled = !saved;
+        var c = q('continue'); c.disabled = !saved; root.classList.toggle('saved', !!saved);   /* the bare look lights the one next thing */
         c.querySelector('i').textContent = saved ? ((saved.day ? 'DAY ' + saved.day : 'YOUR RUN') + (saved.min == null ? '' : ' \u00b7 ' + clockOf(saved.min))) : 'NO RUN SAVED';
       },
       arm: function (line) { var n = q('new'); n.classList.add('armed'); n.querySelector('b').textContent = 'TAP AGAIN'; n.querySelector('i').textContent = line || 'YOUR RUN IS KEPT ASIDE'; },
@@ -883,12 +888,295 @@
     try { setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 0); setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 1500); } catch (e) {}
     return true;
   }
-  function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) { iconTheMarket(); dressPosts(); } dressMapBar(); dressPhone(); dressRoster();
+  /* ======================================================================================================
+     THE FRONT SCREEN, JUST THE FONT  (UI [the front screen, just the font], 10/18/26)
+     PAOLO 10/18: 'the loading screen, the Bohemia title card, I don't want the card behind it, I just want the crazy
+     font... the whole front screen looks like dog shit.' (records/BOHEMIA_PAOLO_THE_FRONT_SCREEN_JUST_THE_FONT_NO_PLATE_
+     10_18_26.md; this round: records/BOHEMIA_THE_FRONT_SCREEN_JUST_THE_FONT_10_18_26.md)
+     MEASURED FIRST: his wordmark is 400 x 130 and fully opaque. 46,248 of its pixels are the grey card (a value under a
+     quarter or a saturation under a quarter) and 5,731 are the gold letters with their spray and drips; nothing sits
+     between the two. So the card comes out by a rule, not by hand: a pixel stays when it is gold, every kept pixel is his,
+     and the letters are cropped to their own ink (321 x 71), drawn at one css pixel a pixel (three on his phone), the
+     same size as every pixel around them.
+     THE SYSTEM: a cold dark ground everywhere; GOLD ONLY FOR WHAT MATTERS, the name, a pick that is yours and the one next
+     thing (rule 117); the gold is the wordmark's own three steps lit from the top (#e6c475, #c8ab63, #a78949); the
+     terminal keeps his pick's green (loads B, 9/21) with its lines from the bottom and its real bar; words in the casing
+     (stamped) or the ROM (printed) at 10 or 20 css px, where their ten dots a letter land on whole phone pixels; no
+     gradient, glow, blur or round corner anywhere (rule 114 D10); every word 4.5 to 1 and again in the sun (rule 73);
+     nothing blinks (bible R3); sideways the picks and the terminal stand side by side instead of running off the glass.
+     ON ONLY WHERE THE DOOR SAYS SO: #front[data-look="just-the-font"]. The alpha carries data-look="classic" until RUN
+     flips it at the cut (rule 93); on a door that does not ask, nothing here runs and the sheet matches nothing.
+     ====================================================================================================== */
+  var JTF = 'just-the-font';
+  function jtfOn() { var f = document.getElementById('front'); return !!(f && f.getAttribute('data-look') === JTF); }
+  /* his letters with the card taken out */
+  var MARK = null, MARK_WAIT = [], MARK_ASKED = false;
+  function keyMark(img) {
+    var w = img.naturalWidth, h = img.naturalHeight, c = canvas(w, h), g = c.getContext('2d');
+    g.drawImage(img, 0, 0);
+    var d = g.getImageData(0, 0, w, h), p = d.data, x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (var i = 0; i < p.length; i += 4) {
+      var mx = Math.max(p[i], p[i + 1], p[i + 2]), mn = Math.min(p[i], p[i + 1], p[i + 2]);
+      if (mx < 64 || (mx - mn) * 4 < mx) { p[i + 3] = 0; continue; }   /* value under a quarter, or saturation under a quarter: the card */
+      p[i + 3] = 255;
+      var q = i >> 2, x = q % w, y = (q - x) / w;
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    if (x1 < 0) return null;
+    g.putImageData(d, 0, 0);
+    var out = canvas(x1 - x0 + 1, y1 - y0 + 1);
+    out.getContext('2d').drawImage(c, x0, y0, out.width, out.height, 0, 0, out.width, out.height);
+    return out;
+  }
+  function wantMark(cb) {
+    if (MARK) { cb(MARK); return; }
+    MARK_WAIT.push(cb); if (MARK_ASKED) return; MARK_ASKED = true;
+    var tries = 0;
+    (function ask() {   /* his wordmark is a variable in the page, written a little after this file loads */
+      if (typeof window.BOH_FRONT_LOGO_B64 !== 'string') { if (++tries < 400) setTimeout(ask, 25); return; }
+      var im = new Image();
+      im.onload = function () { MARK = keyMark(im); if (!MARK) return; var w = MARK_WAIT; MARK_WAIT = []; w.forEach(function (f) { try { f(MARK); } catch (e) {} }); };
+      im.src = 'data:image/png;base64,' + window.BOH_FRONT_LOGO_B64;
+    })();
+  }
+  /* the letters at the largest WHOLE scale that fits room() css pixels across: one on a phone, two on a tablet or a computer */
+  var JTF_MARKS = [];
+  function markCanvas(room) {
+    var c = document.createElement('canvas'); c.className = 'jtf-mark'; c.width = 1; c.height = 1; c._room = room;
+    JTF_MARKS.push(c); wantMark(function () { sizeMark(c); }); return c;
+  }
+  function sizeMark(c) {
+    if (!MARK) return;
+    if (c.width !== MARK.width || c.height !== MARK.height) {
+      c.width = MARK.width; c.height = MARK.height; var g = c.getContext('2d'); g.imageSmoothingEnabled = false; g.drawImage(MARK, 0, 0);
+    }
+    var k = Math.max(1, Math.min(4, Math.floor((c._room ? c._room() : innerWidth - 32) / MARK.width)));
+    c.style.width = (MARK.width * k) + 'px'; c.style.height = (MARK.height * k) + 'px';
+  }
+  /* THE VALLEY AT NIGHT, AT THE LETTERS' PIXEL SIZE: one css pixel a pixel, not two (rule 114's first tell is two pixel
+     sizes on one screen), and NO SMOOTH FADE ANYWHERE (bible R4: every lumen has a source). The sky is two flat values
+     meeting in an ordered band; the ridges are flat silhouettes; the dead grid of the valley; ONE BLOCK STILL HAS POWER,
+     its sodium lamps and their pools in two stepped rings (R1, the one wrong thing; R7, the lit street with nobody home);
+     the pylons that carried the grid, plotted pixel by pixel so no line has a soft edge. Painted once (R10). */
+  function groundBare(w, h) {
+    var c = canvas(w, h), g = c.getContext('2d'), img = g.createImageData(w, h), D = img.data, s = 23;
+    function r() { s = (s * 16807) % 2147483647; return s / 2147483647; }
+    function put(x, y, k) { x = Math.round(x); y = Math.round(y); if (x < 0 || y < 0 || x >= w || y >= h) return; var i = (y * w + x) * 4; D[i] = k[0]; D[i + 1] = k[1]; D[i + 2] = k[2]; D[i + 3] = 255; }
+    function line(x0, y0, x1, y1, k) { var n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0), 1); for (var i = 0; i <= n; i++) put(x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * i / n, k); }
+    var BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+    var SKY_HI = [8, 10, 14], SKY_LO = [12, 16, 22], FAR = [9, 11, 15], NEAR = [6, 7, 9], FLOOR = [5, 6, 8], GRID = [12, 14, 18],
+        DUST = [17, 19, 24], POLE = [2, 2, 3], LAMP = [255, 208, 138], POOL1 = [58, 42, 20], POOL2 = [30, 23, 13];
+    var wide = w > h, hz = Math.round(h * (wide ? 0.72 : 0.58)), x, y, i;
+    for (i = 0; i < w * h; i++) { D[i * 4] = SKY_HI[0]; D[i * 4 + 1] = SKY_HI[1]; D[i * 4 + 2] = SKY_HI[2]; D[i * 4 + 3] = 255; }
+    /* the sky's last light, low over the ridge: the lower sky meets the upper in a sixteen-step ordered band */
+    var band = Math.round(h * 0.14), yb = Math.max(0, hz - 46 - band);
+    for (y = yb; y < hz; y++) { var t = Math.min(16, (y - yb) / band * 16); for (x = 0; x < w; x++) if (BAYER[(y & 3) * 4 + (x & 3)] < t) put(x, y, SKY_LO); }
+    /* the far ridge, then the near one, flat */
+    var far = [], near = [];
+    for (x = 0; x < w; x++) { far[x] = Math.round(hz - 36 - Math.sin(x / 94) * 20 - Math.sin(x / 26) * 6 - r() * 2); near[x] = Math.round(hz - 8 - Math.sin(x / 62 + 2) * 12 - r() * 2); }
+    for (x = 0; x < w; x++) { for (y = far[x]; y < h; y++) put(x, y, FAR); for (y = near[x]; y < h; y++) put(x, y, NEAR); for (y = hz + 6; y < h; y++) put(x, y, FLOOR); }
+    /* the valley floor: the dead grid, its streets as lines that open up toward the glass */
+    for (y = hz + 16; y < h; y += 14 + Math.round((y - hz) / 9)) for (x = 0; x < w; x++) if ((x + y) % 3) put(x, y, GRID);
+    for (i = 0; i < w * (h - hz) / 220; i++) { x = r() * w; y = hz + 20 + r() * (h - hz - 20); put(x, y, DUST); put(x + 1, y, DUST); }
+    /* the one block with power, under the ridge and clear of the menu: sodium lamps, each pool two stepped rings */
+    var bx = wide ? w * 0.18 : w * 0.64, by = hz + 14, lamps = [];
+    /* a block's corners and one mid-street pole, not a grid of nine; two of the poles dead */
+    [[0, 0], [30, 2], [58, -1], [4, 21], [61, 19], [27, 40], [57, 41]].forEach(function (o, n) { if (n !== 2 && n !== 5) lamps.push([Math.round(bx + o[0] + r() * 3), Math.round(by + o[1] + r() * 3)]); });
+    var lit = {};
+    lamps.forEach(function (L) {
+      for (var yy = -14; yy <= 14; yy++) for (var xx = -16; xx <= 16; xx++) {
+        var e = Math.sqrt(xx * xx + yy * yy * 1.6), px = Math.round(L[0] + xx), py = Math.round(L[1] + yy), key = px + ',' + py, b = BAYER[(py & 3) * 4 + (px & 3)];
+        var lv = e <= 5 ? (b < 10 ? 2 : 1) : e <= 9 ? (b < 6 ? 2 : b < 11 ? 1 : 0) : e <= 15 ? (b < 3 ? 1 : 0) : 0;
+        if (lv > (lit[key] || 0)) { lit[key] = lv; put(px, py, lv === 2 ? POOL1 : POOL2); }
+      }
+    });
+    lamps.forEach(function (L) { put(L[0], L[1], LAMP); put(L[0] + 1, L[1], LAMP); put(L[0], L[1] + 1, LAMP); put(L[0] + 1, L[1] + 1, LAMP); });
+    /* the pylons and their cables against the sky: the grid that died */
+    var pyl = wide ? [[w * 0.05, hz - 10, hz * 0.20], [w * 0.36, hz - 20, hz * 0.14], [w * 0.47, hz - 16, hz * 0.09]]
+                   : [[w * 0.10, hz - 12, hz * 0.26], [w * 0.46, hz - 24, hz * 0.18], [w * 0.86, hz - 18, hz * 0.12]];
+    pyl.forEach(function (p) {
+      var X = Math.round(p[0]), Y = Math.round(p[1]), H = p[2];
+      line(X - H * 0.16, Y, X, Y - H, POLE); line(X + H * 0.16, Y, X, Y - H, POLE);
+      line(X - H * 0.28, Y - H * 0.82, X + H * 0.28, Y - H * 0.82, POLE); line(X - H * 0.28, Y - H * 0.82 + 1, X + H * 0.28, Y - H * 0.82 + 1, POLE);
+      line(X - H * 0.2, Y - H * 0.62, X + H * 0.2, Y - H * 0.62, POLE);
+    });
+    for (var j = 0; j + 1 < pyl.length; j++) [-0.28, 0.28].forEach(function (o) {
+      var a = pyl[j], b2 = pyl[j + 1], ax = a[0] + a[2] * o, ay = a[1] - a[2] * 0.82, cx = b2[0] + b2[2] * o, cy = b2[1] - b2[2] * 0.82;
+      var mx = (ax + cx) / 2, my = Math.max(ay, cy) + 26, n = Math.ceil(Math.abs(cx - ax) * 1.5) + 1;
+      for (var k = 0; k <= n; k++) { var tt = k / n, u = 1 - tt; put(u * u * ax + 2 * u * tt * mx + tt * tt * cx, u * u * ay + 2 * u * tt * my + tt * tt * cy, POLE); }
+    });
+    g.putImageData(img, 0, 0);
+    return c;
+  }
+  var JD = 'html body #front[data-look="just-the-font"]';
+  var JTF_CSS = [
+    /* THE DOOR: the cold ground, his letters alone where the plate was, at the height the title will put them */
+    JD + '{background:#07090b;justify-content:flex-start;gap:12px;padding-top:19vh;padding-top:19dvh}',
+    JD + ' #logoplate{width:auto;background:none;padding:0;-webkit-clip-path:none;clip-path:none;line-height:0}',
+    JD + ' #logobig{display:none}',
+    JD + ' .jtf-mark,html body .bm-start.jtf .jtf-mark{display:block;margin:0 auto;image-rendering:pixelated;image-rendering:crisp-edges}',
+    JD + ' #frontsub{padding:0;font-family:"BohemiaCasing",monospace;font-size:10px;letter-spacing:2px;color:#b3a993}',
+    /* THE ONE NEXT THING sits where the thumb is, in the same place on every front screen; quiet until the game is in */
+    JD + ' #fronttap{position:absolute;left:0;right:0;bottom:calc(40px + env(safe-area-inset-bottom,0px));z-index:2;width:max-content;min-width:208px;max-width:calc(100% - 32px);min-height:48px;margin:0 auto;padding:0 16px;'
+       + 'display:flex;align-items:center;justify-content:center;font-family:"BohemiaCasing",monospace;font-size:10px;letter-spacing:4px;color:#a9bfa2;background:#07090b;border:1px solid #3a4a37;animation:none;text-shadow:none;box-shadow:none}',
+    JD + '.jtf-lit #fronttap,' + JD + '.load.ready #fronttap{color:#0e0a05;background:#c8ab63;border-color:#0e0a05;box-shadow:inset 0 2px 0 #e6c475,inset 0 -2px 0 #a78949}',
+    JD + '.jtf-big.jtf-lit #fronttap,' + JD + '.jtf-big.load.ready #fronttap{font-size:20px;letter-spacing:6px}',
+    JD + ' #buildstamp{bottom:12px!important;font-family:"BohemiaROM",monospace!important;font-size:10px!important;letter-spacing:1px!important;color:#b3a993!important}',
+    /* THE TERMINAL (his loads B): the whole phone is the screen, its glass flat, its lines thin and baked */
+    JD + '.load{padding-top:16px;background:#0a0d0b var(--jtf-scan) 0 0/1px 3px repeat}',
+    JD + '.load #loadwrap{padding-top:16px}',
+    JD + '.load #fronttap{width:208px;min-width:0;padding:0;background:#0a0d0b}',
+    JD + ' #loadtag{padding:0 0 12px}',
+    JD + ' #loadtag b{display:none}',
+    JD + ' #loadtag i{margin-top:8px;font-family:"BohemiaCasing",monospace;font-size:10px;letter-spacing:2px;color:#a9bfa2}',
+    /* THE PICKS, typed on the same glass: a 1 px line round each, the one that is yours in the wordmark's gold */
+    JD + ' #newco{margin:0 0 10px;padding:0;border:0;background:transparent;font-family:"BohemiaROM",monospace;font-size:10px;letter-spacing:0;color:#c9dcc4}',
+    JD + ' #newco h4{margin:12px 0 6px;font-family:"BohemiaCasing",monospace;font-weight:400;font-size:10px;letter-spacing:2px;color:#a9bfa2}',
+    JD + ' #newco h4:first-child{margin-top:0}',
+    JD + ' #newco .row{gap:6px}',
+    JD + ' #newco .row button{position:relative;min-height:44px;padding:8px 8px 7px;text-align:left;border:1px solid #55684f;border-radius:0;background:#0a0d0b;color:#e7dcc6;filter:none;box-shadow:none;'
+       + 'font-family:"BohemiaCasing",monospace;font-size:10px;letter-spacing:1px;line-height:10px}',
+    JD + ' #newco .row button small{display:block;margin-top:6px;font-family:"BohemiaROM",monospace;font-size:10px;line-height:10px;letter-spacing:0;color:#a9bfa2;opacity:1}',
+    JD + ' #newco .row button.on{background:#c8ab63;color:#0e0a05;border-color:#0e0a05;box-shadow:inset 0 1px 0 #e6c475,inset 0 -1px 0 #a78949}',
+    JD + ' #newco .row button.on small{color:#0e0a05}',
+    JD + ' #newco .row button::after,' + JD + ' #newco .row button.on::after{content:none;display:none}',
+    JD + ' #newco .strip{gap:6px;padding:0 0 6px;background:none;filter:none}',
+    JD + ' #newco .org{flex:0 0 172px;min-height:96px;margin:0;padding:8px;border:1px solid #55684f;border-radius:0;background:#0a0d0b;box-shadow:none;color:#c9dcc4}',
+    JD + ' #newco .org.on{border-color:#c8ab63;border-radius:0;background:#0a0d0b;box-shadow:inset 0 0 0 1px #c8ab63}',
+    JD + ' #newco .org b{font-family:"BohemiaCasing",monospace;font-weight:400;font-size:10px;letter-spacing:1px;color:#e7dcc6}',
+    JD + ' #newco .org.on b{color:#e6c475}',
+    JD + ' #newco .org i{font-family:"BohemiaROM",monospace;font-size:10px;line-height:14px;color:#bccfb6}',
+    JD + ' #newco .org em{padding:2px 4px;border:1px solid currentColor;background:transparent;transform:none;font-family:"BohemiaCasing",monospace;font-size:10px;letter-spacing:1px;color:#a9cf99}',
+    JD + ' #newco .org em.d2{color:#e3cf86}' + JD + ' #newco .org em.d3{color:#f0a47e}' + JD + ' #newco .org em.d4{color:#ff9a90}',
+    JD + ' #newco .name{gap:6px;padding:0;background:none;filter:none}',
+    JD + ' #newco .name span{min-height:44px;padding:0 4px;border:0;border-bottom:1px solid #a9bfa2;background:transparent;color:#e7dcc6;font-family:"BohemiaCasing",monospace;font-weight:400;font-size:10px;letter-spacing:2px}',
+    JD + ' #newco .name button{min-width:88px;min-height:44px;padding:0 10px;border:1px solid #55684f;border-radius:0;background:#0a0d0b;color:#e7dcc6;box-shadow:none;'
+       + 'font-family:"BohemiaCasing",monospace;font-size:10px;letter-spacing:1px;text-align:center}',
+    /* THE LOG fills from the bottom as it always did; the one wrong line a shade, never a colour (R5) */
+    JD + ' #loadgl{padding:6px 2px;background:transparent;font-family:"BohemiaROM",monospace;font-size:10px;line-height:20px;letter-spacing:0;color:#c9dcc4}',
+    JD + ' #loadgl::before,' + JD + ' #loadgl::after{content:none;display:none}',
+    JD + ' #loadgl .w{color:#a9bfa2}',
+    /* THE BAR in the units it can prove: one cell a stage, lit from the top like everything else */
+    JD + ' #loadrow{margin-top:10px;gap:10px}',
+    JD + ' #loadwell{position:relative;height:12px;padding:0;border:1px solid #55684f;border-radius:0;background:#0a0d0b;box-shadow:none}',
+    JD + ' #loadfill{height:10px;border-radius:0;transition:none;background:#9fc48f;box-shadow:inset 0 1px 0 #d4ebc8,inset 0 -1px 0 #6c8f60}',
+    JD + ' #loadwell .jtf-tick{position:absolute;top:0;bottom:0;width:2px;background:#0a0d0b}',
+    JD + ' #loadpct{min-width:52px;font-family:"BohemiaROM",monospace;font-size:10px;letter-spacing:1px;color:#c9dcc4}',
+    JD + ' #title .notes{min-height:40px;padding:0 12px;display:flex;align-items:center;border:1px solid #55684f;border-radius:0;background:#07090b;color:#e7dcc6;box-shadow:none;text-shadow:none;'
+       + 'font-family:"BohemiaCasing",monospace;font-size:10px;letter-spacing:3px}',
+    /* RUN's NOTES sheet over the title: the same glass, KEEP IT the one next thing; the box types at 20 so a phone
+       never zooms into it (iOS zooms any field under 16) */
+    JD + ' #title .sheet{background:#07090b}',
+    JD + ' #title .sheet .card{padding:16px;border:1px solid #55684f;background:#07090b;box-shadow:none}',
+    JD + ' #title .sheet h2{margin:0 0 12px;font-family:"BohemiaCasing",monospace;font-weight:400;font-size:10px;letter-spacing:3px;color:#e7dcc6}',
+    JD + ' #title .sheet textarea{min-height:120px;padding:8px;border:1px solid #55684f;border-radius:0;outline:0;background:#0a0d0b;color:#e7dcc6;font:20px/24px "BohemiaROM",monospace}',
+    JD + ' #title .sheet textarea:focus{border-color:#c8ab63}',
+    JD + ' #title .sheet textarea::placeholder{color:#8f8571}',
+    JD + ' #title .sheet .cnt{font-family:"BohemiaROM",monospace;font-size:10px;color:#a9bfa2}',
+    JD + ' #title .sheet .row .it{min-height:48px;padding:0;display:flex;align-items:center;justify-content:center;border:1px solid #55684f;background:#07090b;box-shadow:none;color:#e7dcc6;transform:none}',
+    JD + ' #title .sheet .row .it b{font-family:"BohemiaCasing",monospace;font-weight:400;font-size:10px;letter-spacing:3px;color:inherit;text-shadow:none}',
+    JD + ' #title .sheet .row .it[data-k=nsave]{border-color:#0e0a05;background:#c8ab63;color:#0e0a05;box-shadow:inset 0 2px 0 #e6c475,inset 0 -2px 0 #a78949}',
+    JD + ' #standalonenote{font-family:"BohemiaROM",monospace!important;font-size:10px!important;color:#b3a993!important}',
+    /* SIDEWAYS (and a tablet or a computer on its side): the picks on the left, the name, the log, the bar and BEGIN on
+       the right, so nothing runs off the glass (measured before: the picks ran 74 px past the bottom and BEGIN sat on the
+       origins) */
+    '@media (min-aspect-ratio: 4/3){'
+      + JD + '.load #loadwrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;grid-template-rows:auto minmax(0,1fr) auto 62px;column-gap:20px;'
+      +   'padding-bottom:calc(26px + env(safe-area-inset-bottom,0px))}'
+      + JD + ' #newco{grid-column:1;grid-row:1 / 5;margin:0;min-height:0;overflow-y:auto;overscroll-behavior:contain}'
+      + JD + ' #newco h4{margin:5px 0 3px}'
+      + JD + ' #newco .row button{padding:6px 6px 5px}'
+      + JD + ' #newco .row button small{margin-top:4px}'
+      + JD + ' #newco .strip{padding-bottom:2px}'
+      + JD + ' #newco .org{flex-basis:230px;min-height:0;padding:6px;gap:3px}'
+      + JD + ' #newco .org i{line-height:12px}'
+      + JD + '.load #buildstamp{left:auto!important;right:14px!important;width:340px;text-align:center!important}'
+      + JD + ' #loadtag{grid-column:2;grid-row:1}'
+      + JD + ' #loadgl{grid-column:2;grid-row:2;min-height:0}'
+      + JD + ' #loadrow{grid-column:2;grid-row:3}'
+      + JD + '.load #fronttap{left:auto;right:calc(80px + env(safe-area-inset-right,0px));margin:0;bottom:calc(30px + env(safe-area-inset-bottom,0px))}'
+      + JD + '{padding-top:12vh;padding-top:12dvh}'
+    + '}',
+    /* A SHORT PHONE UPRIGHT (667 tall): the same tightening, so the log keeps three lines instead of one */
+    '@media (max-aspect-ratio: 4/3) and (max-height: 720px){'
+      + JD + ' #newco h4{margin:7px 0 4px}'
+      + JD + ' #newco .row button{padding:6px 6px 5px}'
+      + JD + ' #newco .row button small{margin-top:4px}'
+      + JD + ' #newco .strip{padding-bottom:2px}'
+      + JD + ' #newco .org{min-height:0;padding:6px;gap:3px}'
+      + JD + ' #newco .org i{line-height:12px}'
+      + JD + ' #loadtag{padding-bottom:8px}'
+    + '}',
+    /* THE TITLE (startScreen): the letters over the valley, the one next thing in gold, the other two quiet printed lines */
+    'html body .bm-start.jtf{background:#07090b;font-family:"BohemiaROM",monospace}',
+    'html body .bm-start.jtf .t{left:20px;right:20px;top:19%;align-items:center;gap:12px;transform:none}',
+    'html body .bm-start.jtf .sub{padding:0;border:0;background:none;font-size:10px;letter-spacing:2px;color:#b3a993}',
+    'html body .bm-start.jtf .m{gap:4px}',
+    'html body .bm-start.jtf .b{min-height:48px;padding:0 14px;gap:12px;border:0;outline:0;background:transparent;color:#e7dcc6;box-shadow:none;filter:none;transform:none}',
+    'html body .bm-start.jtf .b::before{flex:0 0 12px;height:12px;background:var(--jtf-bone) center/12px 12px no-repeat}',
+    'html body .bm-start.jtf .b::after,html body .bm-start.jtf .b .tp2{content:none;display:none}',
+    'html body .bm-start.jtf .b .tx{flex-direction:row;align-items:baseline;gap:12px}',
+    'html body .bm-start.jtf .b b{font-size:10px;letter-spacing:3px;color:#e7dcc6}',
+    'html body .bm-start.jtf .b i{font-size:10px;letter-spacing:1px;color:#b3a993}',
+    'html body .bm-start.jtf .b.rec:disabled b,html body .bm-start.jtf .b.rec:disabled i{color:#5f594e}',
+    'html body .bm-start.jtf .b.rec:disabled::before{opacity:.4}',
+    'html body .bm-start.jtf:not(.saved) .b.card,html body .bm-start.jtf.saved .b.rec{min-height:64px;background:#c8ab63;color:#0e0a05;outline:1px solid #0e0a05;box-shadow:inset 0 2px 0 #e6c475,inset 0 -2px 0 #a78949}',
+    'html body .bm-start.jtf:not(.saved) .b.card::before,html body .bm-start.jtf.saved .b.rec::before{background-image:var(--jtf-ink)}',
+    'html body .bm-start.jtf:not(.saved) .b.card .tx,html body .bm-start.jtf.saved .b.rec .tx{flex-direction:column;align-items:flex-start;gap:6px}',
+    'html body .bm-start.jtf:not(.saved) .b.card b,html body .bm-start.jtf.saved .b.rec b{font-size:20px;letter-spacing:4px;color:#0e0a05}',
+    'html body .bm-start.jtf:not(.saved) .b.card i,html body .bm-start.jtf.saved .b.rec i{color:#0e0a05}',
+    'html body .bm-start.jtf .b.armed{min-height:64px;background:#7a2414;outline:1px solid #0e0a05;box-shadow:inset 0 2px 0 #a8432c,inset 0 -2px 0 #4a1208}',
+    'html body .bm-start.jtf .b.armed b,html body .bm-start.jtf .b.armed i{color:#fff2e6}',
+    'html body .bm-start.jtf .stamp{text-align:center;font-size:10px;letter-spacing:1px;color:#b3a993}',
+    JD + ' #title .bm-start.jtf .stamp{color:#b3a993}',   /* RUN's fallback title colours every .stamp under #title, and an id outranks a class */
+    '@media (min-aspect-ratio: 4/3){html body .bm-start.jtf .t{right:52%;top:12%;bottom:auto;justify-content:flex-start;transform:none}}'
+  ].join('\n');
+  var JTF_VARS = false;
+  function jtfVars() {
+    if (JTF_VARS) return; JTF_VARS = true;
+    var c = canvas(1, 3), g = c.getContext('2d'); g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(0, 2, 1, 1);   /* the tube's lines, baked */
+    var R = document.documentElement.style; R.setProperty('--jtf-scan', 'url(' + c.toDataURL('image/png') + ')');
+  }
+  function placeTicks() {
+    var well = document.getElementById('loadwell'), pct = document.getElementById('loadpct'); if (!well) return;
+    var n = +(((pct && pct.textContent) || '').match(/OF\s+(\d+)/) || [])[1] || 5, w = well.clientWidth;
+    var ticks = well.querySelectorAll('.jtf-tick');
+    if (ticks.length !== n - 1) { Array.prototype.forEach.call(ticks, function (t) { t.remove(); }); for (var i = 1; i < n; i++) { var t = document.createElement('i'); t.className = 'jtf-tick'; well.appendChild(t); } ticks = well.querySelectorAll('.jtf-tick'); }
+    Array.prototype.forEach.call(ticks, function (t, i) { t.style.left = (Math.round(w * (i + 1) / n) - 1) + 'px'; });
+  }
+  var JTF_DONE = false;
+  function frontJustTheFont() {
+    if (!jtfOn()) return false;
+    jtfVars(); style('bm-jtf-css', JTF_CSS);
+    if (JTF_DONE) return true; JTF_DONE = true;
+    var f = document.getElementById('front');
+    var lp = document.getElementById('logoplate'); if (lp) lp.appendChild(markCanvas(function () { return Math.min(innerWidth - 32, 760); }));
+    var lt = document.getElementById('loadtag');
+    if (lt) lt.insertBefore(markCanvas(function () { return innerWidth > innerHeight * 4 / 3 ? 340 : Math.min(innerWidth - 28, 700); }), lt.firstChild);
+    placeTicks();
+    /* the one next thing lights when the game is really in (the door's own word for it is __LOAD_READY), and the word
+       BEGIN is set big when it is short enough to be */
+    setInterval(function () {
+      var tap = document.getElementById('fronttap'), ready = !!window.__LOAD_READY;
+      f.classList.toggle('jtf-lit', ready && !f.classList.contains('load'));
+      f.classList.toggle('jtf-big', !!tap && (tap.textContent || '').length <= 8);
+    }, 500);
+    addEventListener('resize', function () { JTF_MARKS.forEach(sizeMark); placeTicks(); });
+    return true;
+  }
+  /* the moment the door is parsed (this file loads in the page's head, long before the end of a six-megabyte page), so
+     the door's first frames are already bare; a page that finishes loading with no door stops asking */
+  (function wait(n) {
+    try { if (document.getElementById('loadwell')) { frontJustTheFont(); return; } } catch (e) { return; }
+    if (document.readyState !== 'loading' || n > 900) return;
+    setTimeout(function () { wait(n + 1); }, 16);
+  })(0);
+  function dressAll() { dressFrontDoor(); frontJustTheFont(); dressSettlement(); if (document.getElementById('sbody')) { iconTheMarket(); dressPosts(); } dressMapBar(); dressPhone(); dressRoster();
     /* the bar and the pad are built after load by the city's own modules: try again until they exist */
     if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
   window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
-    startScreen: startScreen, dressFrontDoor: dressFrontDoor, settleTag: settleTag, dressSettlement: dressSettlement,
+    startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
     itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars };
 })();
