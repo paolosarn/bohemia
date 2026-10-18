@@ -5082,3 +5082,48 @@ WWWWWWWWWWWWWWWWWWWWWWWWW8  the stall keeper, to a stranger with nothing        
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
   keeper or a mouth with a face, at a counter, a corner, a road, a door or a clinic.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## WWWWWWWWWWWWWWWWWWWWWWWWW. A HELD ROAD: WHAT A CAMP ON THE ROAD COSTS THE TOWNS AT BOTH ENDS (round 73)
+# Record: records/BOHEMIA_ECONOMY_DAY_73_A_HELD_ROAD_ON_OPEN_DESERT_A_CAMP_IS_AN_HOUR_AT_A_PASS_IT_IS_A_DAY_AND_NOTHING_ON_MAIN_CAN_HOLD_EITHER_10_18_26.md
+# Row [a held road], under rule 88's hold: a page, no sheet, nothing in the game.
+
+XXXXXXXXXXXXXXXXXXXXXXXXX1  a hauler at the last stop before the climb                          draft:true
+    "They're sitting on the climb. Round by the flats is most of a day. Through is them."
+
+XXXXXXXXXXXXXXXXXXXXXXXXX2  the stall keeper in the cut-off town, quoting both ways               draft:true
+    "I'll give you more for that than last month. And this costs more. Nothing's coming up the road, so both are true."
+
+XXXXXXXXXXXXXXXXXXXXXXXXX3  the smith, at a thin rack                                            draft:true
+    "Six on the rack. It was eight. The truck turns round at the bottom of the hill now."
+
+XXXXXXXXXXXXXXXXXXXXXXXXX4  a keeper at the other end of the same road, stock stacked to the ceiling  draft:true
+    "Can't sell it here, everybody's got it. Can't get it there, they're on the road. So it sits, and it goes off."
+
+XXXXXXXXXXXXXXXXXXXXXXXXX5  a guide on the open flat, pointing wide of a campfire                 draft:true
+    "Out here a camp's nothing, mijo. Walk wide, lose an hour, you're back on the blacktop by noon."
+
+XXXXXXXXXXXXXXXXXXXXXXXXX6  a man on the hall's bench in the cut-off town                        draft:true
+    "Nobody hires a hauler when the road's shut. I've been on this bench since they lit that fire."
+
+XXXXXXXXXXXXXXXXXXXXXXXXX7  the stall keeper in the cut-off town, to a crew that walked round     draft:true
+    "You came round them with that on your backs? Then name it. I'm not in a position to argue."
+
+XXXXXXXXXXXXXXXXXXXXXXXXX8  the same keeper, the morning after the camp is gone                    draft:true
+    "Truck came up at dawn. First one in weeks. Look at the shelf. Go on, look at it."
+
+## XXXXXXXXXXXXXXXXXXXXXXXXX. WHAT IS NOT HERE, ON PURPOSE (round 73)
+
+- No line names a wiki page, a game, a highway, a town, a percentage, a number of batteries or a
+  real event. The finding is said as a climb and a flat (the pass is a day, the open ground is an
+  hour), a keeper who pays more and charges more, a thin rack, a glut at the other end, an idle
+  hauler, a crew that walked round and named its price, and the shelf the morning the camp is gone.
+- XXXXXXXXXXXXXXXXXXXXXXXXX2 and 3 carry Battle Brothers' card (dearer to buy, better to sell into,
+  emptier); XXXXXXXXXXXXXXXXXXXXXXXXX4 carries the far end the card leaves out (the record's glut);
+  XXXXXXXXXXXXXXXXXXXXXXXXX1 and 5 carry the page's measured ground; XXXXXXXXXXXXXXXXXXXXXXXXX7 the
+  trader's win and XXXXXXXXXXXXXXXXXXXXXXXXX8 the cleared road's win (rule 117(c)). None is a ruling or
+  a felt number; TUNING's table first.
+- No person, town, street or faction is named. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
+  keeper or a mouth with a face, at a counter, a rack, a bench, a stop before the climb or the flat.
+- Spanish register: 1 of 8 lines (XXXXXXXXXXXXXXXXXXXXXXXXX5's mijo). Under the 15% cap.
