@@ -1068,7 +1068,31 @@
   },
   "combat2-a-board-from-every-district-10-18": {
    "tag": "red",
-   "why": "rule 118: the five district fight boards he was sent to look for and could not find; one card, on his first screen; the floor under them is being redrawn (COOK TWO [the fight floor he hates]), and the card says so"
+   "why": "the coordinator named it to him (rule 118); five district boards from the map; sweep AY"
+  },
+  "ui-the-front-screen-just-the-font-10-18": {
+   "tag": "red",
+   "why": "his own ask ('I don't want the card behind it, just the crazy font'); the coordinator told him it was coming; sweep AY"
+  },
+  "run2-the-crew-screen-at-fourteen-10-18": {
+   "tag": "red",
+   "why": "his ask, a crew of fourteen on one phone screen; sweep AY"
+  },
+  "cook2-the-curb-on-the-map-10-18": {
+   "tag": "red",
+   "why": "the map's look, his 'the streets look like shit' answered from his own tiles; sweep AY"
+  },
+  "ui-the-line-on-a-ground-10-18": {
+   "tag": "red",
+   "why": "a look he can judge in one glance, the company on a camp at night; sweep AY"
+  },
+  "cook4-the-second-pass-10-18": {
+   "tag": "yellow",
+   "why": "the houses sit on the fight floor he just said he hates; comes back on COOK TWO's new floor; sweep AY"
+  },
+  "eyes-the-star-is-the-bar-10-18": {
+   "tag": "yellow",
+   "why": "a check sheet (11 of 13 faces match his star); the faces reach him on RUN TWO's screens; sweep AY"
   }
  }
 }

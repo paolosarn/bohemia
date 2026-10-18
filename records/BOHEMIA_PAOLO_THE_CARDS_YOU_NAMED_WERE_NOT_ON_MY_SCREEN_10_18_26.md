@@ -40,3 +40,7 @@ THE COORDINATOR SAYS 'IN THE VOTE TAB' ONLY FOR A CARD THAT IS ON HIS FIRST SCRE
 - EYES, NO on where the sand is: 'That whole city is looking like shit shit I'm not talking to that shit'. The card's sound sat over the map, and the map is what he answered. EYES note (a sound card plays over a screen he said YES to, or over black); DIRECTION note; RUN [the districts connect on the map] stands.
 - COOK THREE, NO on the raider: 'It's kind of funny telling you that we were gonna have like this that's insane'. COOK THREE note.
 - YES with no words: the casino, the boards' people, the block wars cover, the barber on the skull, the rig round six, the bar names the news. RUN [the demo keeps up] carries every YES into the demo.
+
+## CORRECTION (sweep AY, 20:35)
+
+Two of the five were registered around the time he wrote. COMBAT TWO registered combat2-a-board-from-every-district-10-18 at 0142e111 (20:06) but UNTAGGED, so the tab of that hour put it behind MORE (RUN TWO's [new cards show first], 3b415b32, landed at 20:08); its reopened chat (combat2-opus55-e) measured it red and second above the fold at 390 x 844 and is fixing the card's picture and its wrong 'REDONE' line. UI registered ui-the-front-screen-just-the-font-10-18 at f0d6a050 after sweep AX. The coordinator checked an older copy of main and called both 'never a card'. What he saw stands: none of the five was on his screen when he wrote. By sweep AY both are red on his first screen. The tuning grid, the freeway and the in-between song still have no card.
