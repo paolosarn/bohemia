@@ -18,10 +18,23 @@ const ROOT = path.dirname(__dirname), PORT = 8878;
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp' };
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
-let blockFolk = false;
+let blockFolk = false, landed = false;
+/* WHEN PORTRAIT LANDS (round 2, 10/18): the manifest as it will read the day PORTRAIT adds the thirteen faction heads
+   (rest A E O M at 64 and 128, the crew's shape), each faction file served by a crew face as a stand-in. Nothing in the
+   screen or the face module is told; if the street does not light up from the manifest alone, the last quarter of the
+   row needs code, and this leg says so before PORTRAIT's round, not after. */
+const MANI = 'records/target/portrait/crew/BOHEMIA_CREW_FACES.json';
+const FACTION_LOOKS = (() => { try { return Object.keys(JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/settlement_people/settlement_people.json'), 'utf8')).looks || {}).filter(l => /^faction_/.test(l)); } catch (e) { return []; } })();
 const srv = http.createServer((rq, rs) => {
   const u = decodeURIComponent(rq.url.split('?')[0]);
   if (blockFolk && /settlement_people\.json$/.test(u)) { rs.statusCode = 404; return rs.end(); }
+  if (landed && u === '/' + MANI) {
+    const j = JSON.parse(fs.readFileSync(path.join(ROOT, MANI), 'utf8'));
+    FACTION_LOOKS.forEach(l => { if (!j.faces[l]) j.faces[l] = { look: l, files: Object.fromEntries(['rest', 'A', 'E', 'O', 'M'].map(k => [k, 'records/target/portrait/crew/' + l + '/' + k + '_{64|128}.png'])) }; });
+    rs.setHeader('content-type', 'application/json'); return rs.end(JSON.stringify(j));
+  }
+  const fm = landed && u.match(/^\/records\/target\/portrait\/crew\/(faction_[a-z]+)\/(rest|A|E|O|M)_(64|128)\.png$/);
+  if (fm && !fs.existsSync(path.join(ROOT, u))) { rs.setHeader('content-type', 'image/png'); return fs.createReadStream(path.join(ROOT, 'records/target/portrait/crew/you/' + fm[2] + '_' + fm[3] + '.png')).pipe(rs); }
   const f = path.join(ROOT, u.replace(/^\/+/, ''));
   if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); }
   rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs);
@@ -105,6 +118,33 @@ const moved = r => r.k !== 'fresh' || r.mouths >= 2;
   const early = await q.evaluate(READ);
   ok('a keeper tapped before the street\'s people load still speaks under a fresh face, never the dim head', early.rows.length >= 1 && early.rows.every(x => x.k === 'fresh' && moved(x)), JSON.stringify(early.rows));
   blockFolk = false;
+
+  /* WHEN PORTRAIT LANDS: the same street, the manifest naming the thirteen faction heads, nothing else changed */
+  landed = true;
+  const L = await ctx.newPage(); L.on('pageerror', e => errs.push(e.message));
+  await L.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
+  await L.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready() && BohemiaSettlement.folk().length > 0 && window.BohemiaCrewFaces && BohemiaCrewFaces.LOOKS.some(l => /^faction_/.test(l)), null, { timeout: 30000 }).catch(() => {});
+  const named = await L.evaluate(() => (window.BohemiaCrewFaces ? BohemiaCrewFaces.LOOKS : []).filter(l => /^faction_/.test(l)).length);
+  const lit = new Set(), notLit = [];
+  for (const tier of ['camp', 'town', 'fortress']) {
+    await L.evaluate(t => BohemiaSettlement.open({ place: { name: 'FACES ' + t.toUpperCase(), tier: t }, traits: [], day: 4 }), tier);
+    await L.waitForTimeout(400);
+    const n = await L.evaluate(() => BohemiaSettlement.folk().length);
+    for (let i = 0; i < n; i++) {
+      if (await L.evaluate(() => document.getElementById('sheet').classList.contains('on'))) { await L.click('#close'); await L.waitForTimeout(220); }
+      const pt = await L.evaluate(i => { const q = BohemiaSettlement.folk()[i], s0 = BohemiaSettlement.scale(); BohemiaSettlement.where(q.keeper ? q.k : 'stall');
+        const v = BohemiaSettlement._view(), r = document.getElementById('scene').getBoundingClientRect();
+        return { x: r.left + v.ox + q.x * v.s, y: r.top + v.oy + (q.y - s0.person * 0.45) * v.s, keeper: !!q.keeper, look: q.look }; }, i);
+      if (pt.keeper || !/^faction_/.test(pt.look)) continue;
+      await L.waitForTimeout(120); await L.mouse.click(pt.x, pt.y); await L.waitForTimeout(150);
+      if (await L.evaluate(() => BohemiaSettlement.state.open !== 'person')) continue;
+      const r = await L.evaluate(READ);
+      r.rows.forEach(x => { if (x.k === 'fresh' && moved(x)) lit.add(x.look); else notLit.push(tier + ':' + x.look + ':' + x.k); });
+    }
+  }
+  landed = false;
+  ok('WHEN PORTRAIT LANDS: with the manifest naming the faction heads, every street speaker in a faction look talks under the fresh face, no code changed', named === FACTION_LOOKS.length && FACTION_LOOKS.length === 13 && lit.size >= 3 && notLit.length === 0,
+     named + ' of ' + FACTION_LOOKS.length + ' named, ' + lit.size + ' looks heard fresh' + (notLit.length ? ', still old ' + notLit.slice(0, 3).join(' ') : ''));
   ok('no page errors', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();
   console.log('\nEVERY SPEAKER HAS A FACE: ' + pass + ' passed, ' + fail + ' failed');
