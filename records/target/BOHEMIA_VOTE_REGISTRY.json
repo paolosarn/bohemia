@@ -10466,6 +10466,20 @@
     "src": "BOHEMIA_OVER_THE_RIDGE_10_18_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "combat-the-marks-on-the-board-10-18",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "58a102bf",
+   "made": "10/18",
+   "title": "THE MARKS ON THE FIGHT'S GROUND: CHALK, TAPE AND RUST PAINT",
+   "why": "The marks the fight puts on the ground were flat lines and see-through red boxes; now chalk shows where your man can go, grey tape marks the man acting, rust paint marks the enemy's danger zone, and a painted X sits under the man you aim at. You see it in the COMBAT tab when you pick a man.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_MARKS_ON_THE_BOARD_10_18.jpg"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
