@@ -9055,7 +9055,12 @@
      "THE REST: as the family he voted on, five kinds on a shadow with the man at every door; nothing but the roof colour moved, so the vote is on the colour alone."
     ]
    },
-   "draft": true
+   "draft": true,
+   "before_after": {
+    "before": "the five ranches with bright orange clay and metal-blue slate roofs (the orange plain ranch on the sheet)",
+    "after": "the same five houses, only the roofs, in the valley's tans from his own wall and rock tiles",
+    "scale": "1:1"
+   }
   },
   {
    "id": "cook4-the-motel-straight-roof-10-18",
@@ -9079,13 +9084,18 @@
      "LIGHT AND GROUND: as his, from above; we add only the shade under the eaves and the walk, the one-pixel outline and a contact shadow so it sits on the ground. One wrong thing: room 4's marked door and boarded window."
     ]
    },
-   "draft": true
+   "draft": true,
+   "before_after": {
+    "before": "the flat-roofed motel showing a roof plan and floating (the card it redoes)",
+    "after": "the motel under the family's straight tan roof, a covered walk, on a shadow, the man at room 3",
+    "scale": "1:1"
+   }
   },
   {
    "id": "cook4-the-gas-station-10-18",
    "kind": "tile",
    "lane": "cook 4",
-   "sha": "pending",
+   "sha": "57a9ec3",
    "made": "10/18",
    "title": "PLACEHOLDER: THE GAS STATION UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
    "why": "The next building of the family you said yes to: a canopy on posts over two pumps, the sales office with its glass front, two tall lift bays with roll-up doors, the same tan roofs, sitting on a shadow. One bay door stopped a little off the floor with only dark under it. You see it in the VOTE tab beside your pack house, the tan ranch and the tan motel at the same size, a placeholder until your moodboard.",
@@ -9100,6 +9110,38 @@
      "MASSING: his house is one small box; ours is three pieces: a free-standing 8 by 6 m canopy at 4.3 m clear, a 6 m office, two 4 m lift bays a storey taller than the office.",
      "LIGHT AND GROUND: as his, from above; we add only the shade under the eaves and the canopy, the one-pixel outline and a contact shadow. One wrong thing: bay 2's door stopped 0.7 m up, dark under it."
     ]
+   },
+   "draft": true,
+   "before_after": {
+    "before": "no gas station: the town had none drawn the pack's way",
+    "after": "the canopy over two pumps, the office and two lift bays under the measured tan roofs, the man at the office door",
+    "scale": "1:1"
+   }
+  },
+  {
+   "id": "cook4-the-warehouse-10-18",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE WAREHOUSE UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "why": "The next building of the family you said yes to: a tall shed of concrete panels, three roll-up doors on a loading dock a truck bed high, small windows up under the roof, the office on the end, the same tan roofs, on a shadow. Every door is down, but the office window is lit warm from inside. You see it in the VOTE tab beside your pack house, the tan ranch and the gas station at the same size, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_WAREHOUSE.png"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; the shed and the office wear the same measured shape (1.49 walls tall) in the tan of his own render wall.",
+     "MASSING: his house is one small box; ours is a 6 m shed twice a house's height, 18 m long, a 1.2 m dock in front of it, and a 3.2 m office on the end, 23 m in all.",
+     "LIGHT AND GROUND: as his, from above; we add only the shade under the eaves, the dock's lit edge, the outline and a contact shadow. One wrong thing: the office's barred window is lit warm in a dead yard."
+    ]
+   },
+   "before_after": {
+    "before": "no warehouse: the town had none drawn the pack's way",
+    "after": "the shed, the dock and three dock doors, the office with its lit window, under the measured tan roofs, the man at the office door",
+    "scale": "1:1"
    },
    "draft": true
   },
