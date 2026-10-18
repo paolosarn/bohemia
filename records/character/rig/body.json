@@ -23,7 +23,9 @@
   "Cesium_Man": 3273,
   "body_trouser": 2568,
   "body_shoe": 3148,
-  "body_hair": 17968
+  "body_hair": 17968,
+  "body_hand_L": 392,
+  "body_hand_R": 392
  },
  "materials": {
   "body_eyes": [

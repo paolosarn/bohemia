@@ -7584,7 +7584,7 @@
    "sha": "2d614108",
    "made": "10/10",
    "title": "THE BODY SCALE GATE WAS RED FOR THE WRONG REASON",
-   "why": "My own checker for keeping a person one size while he walks was crashing, and it was not the body: the demo now opens on the map by default, so the checker asked for a street nobody was standing on. Fixed the checker, not the game. You see it here, the full story in the record.",
+   "why": "My own checker for keeping a person one size while he walks was crashing, and it was not the body: the demo now opens on the map by default, so the checker asked for a street nobody was standing on. Fixed the checker, not the game; you see it here, the full story in the record.",
    "show": {
     "how": "text",
     "src": "records/BOHEMIA_THE_BODY_SCALE_GATE_WAS_MEASURING_NOBODY_10_10_26.txt\n\nSeen in: no tab, this is a gate fix, no pixel moved."
@@ -8442,7 +8442,7 @@
    "sha": "pending",
    "made": "10/13",
    "title": "THE OLD BODY'S REAL MEASUREMENTS, FOR THE TEAM BUILDING THE REAL ONE",
-   "why": "The team building your real 3D body needs to know exactly how tall and wide the old formula's man is, in real meters, so the new one lands in the same spot. I read it straight off the live rig and put a door and a street lamp next to it so the numbers are easy to check by eye. You see it in the record, no tab, nothing was drawn or changed.",
+   "why": "The team building your real 3D body needs to know exactly how tall and wide the old formula's man is, in real meters, so the new one lands in the same spot. I read it straight off the live rig and put a door and a street lamp next to it so the numbers are easy to check by eye, and you see it in the record, no tab, nothing was drawn or changed.",
    "show": {
     "how": "text",
     "src": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md\n\nSeen in: no tab, this is a measurement page, no pixel moved."
@@ -9592,6 +9592,34 @@
    "before_after": {
     "before": "the thirteen as the street wears them now, flat sprites in the runway paint (second row on the sheet)",
     "after": "the same thirteen as models on the rig's man, rendered through the rig (first row, then eight facings and the walk)",
+    "scale": "1:1"
+   }
+  },
+  {
+   "id": "character-the-print-and-the-hands-10-18",
+   "kind": "outfit",
+   "lane": "character",
+   "made": "10/18",
+   "sha": "PENDING",
+   "draft": true,
+   "redoOf": "character-the-thirteen-through-the-rig-10-18",
+   "title": "THE GANG PRINTS ON THE 3D CLOTHES, AND HANDS WITH A THUMB",
+   "why": "The 3D gang looks had the colours but not the patterns, and the body had mitts for hands. Now the Mob wears a chalk pinstripe, the Caravans a blanket plaid and the Colorful a striped tee, built into the cloth itself, and every hand has a palm, fingers and a thumb. You see last round, this round and the street's flat look side by side at real size and blown up, in the VOTE tab.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/character/CHARACTER_THE_PRINT_AND_THE_HANDS.png"
+   },
+   "twin": {
+    "src": "records/cook3/thirteen_repainted.png",
+    "diffs": [
+     "THE MOB: the street's flat look paints wide bands on the mantle; ours is a thin chalk pinstripe that runs down the mantle, the cape and the trousers, a suit, and it follows the body as he turns.",
+     "THE CARAVANS: the street's flat look shows a plain sand coat; ours throws a plaid blanket over the shoulders and shows the plaid shirt in the coat's V.",
+     "THE HANDS: the street's flat sprites draw a hand as a pale block; ours is a modelled palm with a thumb that stands off it, so a fist and a thumb read even at real size."
+    ]
+   },
+   "before_after": {
+    "before": "last round's models: plain cloth and mitt hands (first three of each group, and the BEFORE close-ups)",
+    "after": "the same models with the print in the cloth and modelled hands (next three, and the AFTER close-ups)",
     "scale": "1:1"
    }
   },

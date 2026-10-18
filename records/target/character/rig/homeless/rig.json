@@ -3,7 +3,7 @@
  "res": 210,
  "ortho_scale": 3.6842105263157894,
  "real_dims_m": [
-  0.554,
+  0.551,
   0.404,
   1.685
  ],
@@ -29,9 +29,9 @@
   "what": [
    "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
-   "dust and bleach on up-facing surfaces under a 50 cm mask",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
-   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.49 in a patch or a crevice, 0.07 on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured"
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0833)"
@@ -59,7 +59,7 @@
   "homeless_trousers": "#19a9ff"
  },
  "model": "records/character/rig/homeless.glb",
- "rig_round": 4,
+ "rig_round": 5,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -93,16 +93,26 @@
   "records/target/character/rig/homeless/rig_NW.png"
  ],
  "crop_box_px": [
-  89,
+  88,
   54,
   123,
   166
  ],
+ "shadow_files": [
+  "records/target/character/rig/homeless/shadow_N.png",
+  "records/target/character/rig/homeless/shadow_NE.png",
+  "records/target/character/rig/homeless/shadow_E.png",
+  "records/target/character/rig/homeless/shadow_SE.png",
+  "records/target/character/rig/homeless/shadow_S.png",
+  "records/target/character/rig/homeless/shadow_SW.png",
+  "records/target/character/rig/homeless/shadow_W.png",
+  "records/target/character/rig/homeless/shadow_NW.png"
+ ],
  "ground_px": [
-  16,
+  17,
   51
  ],
- "colours": 11081,
+ "colours": 9950,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -112,19 +122,19 @@
   "out": 1,
   "rows": [
    "OK   long side >= floor 96: 112",
-   "OUT  colours >= 2330: 1971",
-   "OK   top 8 carry <= 11%: 1.9",
-   "OK   value span >= 118: 129",
-   "OK   saturation <= 0.81: 0.122",
-   "OK   light: top minus bottom >= -2.5: 30.1",
-   "OK   edge between -35 and +7: -13.5",
-   "OK   grain <= 2.22 px a run: 1.83"
+   "OUT  colours >= 2330: 1717",
+   "OK   top 8 carry <= 11%: 4.4",
+   "OK   value span >= 118: 131",
+   "OK   saturation <= 0.81: 0.117",
+   "OK   light: top minus bottom >= -2.5: 27.9",
+   "OK   edge between -35 and +7: -12.9",
+   "OK   grain <= 2.22 px a run: 1.7"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.4%",
+   "OK   stray pixels at 8 steps <= 14%: 3.8%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 263.8"
+   "OK   light from above (180 to 360 degrees, or flat): 262.1"
   ],
   "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/homeless/rig_S.png"
@@ -135,13 +145,13 @@
   "out": 0,
   "rows": [
    "OK   long side >= floor 96: 112",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2209 px): 1971",
-   "OK   top 8 carry <= 11%: 1.9",
-   "OK   value span >= 118: 129",
-   "OK   saturation <= 0.81: 0.122",
-   "OK   light: top minus bottom >= -2.5: 30.1",
-   "OK   edge between -35 and +7: -13.5",
-   "OK   grain <= 2.22 px a run: 1.83"
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2221 px): 1717",
+   "OK   top 8 carry <= 11%: 4.4",
+   "OK   value span >= 118: 131",
+   "OK   saturation <= 0.81: 0.117",
+   "OK   light: top minus bottom >= -2.5: 27.9",
+   "OK   edge between -35 and +7: -12.9",
+   "OK   grain <= 2.22 px a run: 1.7"
   ],
   "reread": [
    "colours by field 5"
@@ -151,8 +161,8 @@
    32,
    106
   ],
-  "opaque_px": 2209,
-  "colours": 1971
+  "opaque_px": 2221,
+  "colours": 1717
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -186,7 +196,22 @@
   "alpha_threshold": 127,
   "keys_per_beat": 3,
   "bpm": 120,
-  "puppet_jitter_cm": 0
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65
  },
  "breaks": [],
  "guide": {

@@ -33,7 +33,9 @@
   "trades_pouch.001": 24,
   "trades_hair": 17968,
   "trades_hat": 3092,
-  "trades_visor": 48
+  "trades_visor": 48,
+  "trades_hand_L": 392,
+  "trades_hand_R": 392
  },
  "materials": {
   "Cesium_Man-effect": [

@@ -26,7 +26,9 @@
   "reds_shoe": 3916,
   "reds_coat": 17338,
   "reds_coat_skirt": 8508,
-  "reds_hair": 17968
+  "reds_hair": 17968,
+  "reds_hand_L": 392,
+  "reds_hand_R": 392
  },
  "materials": {
   "Cesium_Man-effect": [

@@ -29,7 +29,9 @@
   "remnants_coat_skirt": 4596,
   "remnants_hair": 17968,
   "remnants_hat": 4548,
-  "remnants_hat_brim": 2362
+  "remnants_hat_brim": 2362,
+  "remnants_hand_L": 392,
+  "remnants_hand_R": 392
  },
  "materials": {
   "Cesium_Man-effect": [

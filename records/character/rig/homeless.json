@@ -26,7 +26,9 @@
   "homeless_shoe": 3916,
   "homeless_mantle": 19230,
   "homeless_hair": 30198,
-  "homeless_hair_fall": 2646
+  "homeless_hair_fall": 2646,
+  "homeless_hand_L": 392,
+  "homeless_hand_R": 392
  },
  "materials": {
   "Cesium_Man-effect": [

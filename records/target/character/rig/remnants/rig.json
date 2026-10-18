@@ -3,7 +3,7 @@
  "res": 216,
  "ortho_scale": 3.789473684210526,
  "real_dims_m": [
-  0.569,
+  0.581,
   0.441,
   1.734
  ],
@@ -31,9 +31,9 @@
   "what": [
    "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
-   "dust and bleach on up-facing surfaces under a 50 cm mask",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
-   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.49 in a patch or a crevice, 0.07 on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured"
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1067)"
@@ -63,7 +63,7 @@
   "remnants_trousers": "#ce19ff"
  },
  "model": "records/character/rig/remnants.glb",
- "rig_round": 4,
+ "rig_round": 5,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -97,16 +97,26 @@
   "records/target/character/rig/remnants/rig_NW.png"
  ],
  "crop_box_px": [
-  91,
+  90,
   55,
-  125,
-  169
+  126,
+  170
+ ],
+ "shadow_files": [
+  "records/target/character/rig/remnants/shadow_N.png",
+  "records/target/character/rig/remnants/shadow_NE.png",
+  "records/target/character/rig/remnants/shadow_E.png",
+  "records/target/character/rig/remnants/shadow_SE.png",
+  "records/target/character/rig/remnants/shadow_S.png",
+  "records/target/character/rig/remnants/shadow_SW.png",
+  "records/target/character/rig/remnants/shadow_W.png",
+  "records/target/character/rig/remnants/shadow_NW.png"
  ],
  "ground_px": [
-  17,
+  18,
   53
  ],
- "colours": 8929,
+ "colours": 8206,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -115,20 +125,20 @@
   "family": "prop",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 114",
-   "OUT  colours >= 2330: 1980",
-   "OK   top 8 carry <= 11%: 1.5",
-   "OUT  value span >= 118: 81",
-   "OK   saturation <= 0.81: 0.2",
-   "OK   light: top minus bottom >= -2.5: 3.0",
+   "OK   long side >= floor 96: 115",
+   "OUT  colours >= 2330: 1716",
+   "OK   top 8 carry <= 11%: 2.5",
+   "OUT  value span >= 118: 79",
+   "OK   saturation <= 0.81: 0.204",
+   "OK   light: top minus bottom >= -2.5: 3.4",
    "OK   edge between -35 and +7: -15.6",
-   "OK   grain <= 2.22 px a run: 2.07"
+   "OK   grain <= 2.22 px a run: 1.98"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.5%",
+   "OK   stray pixels at 8 steps <= 14%: 3.1%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 256.2"
+   "OK   light from above (180 to 360 degrees, or flat): 231.5"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/remnants/rig_S.png"
@@ -138,25 +148,25 @@
   "cls": "person",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 114",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2334 px): 1980",
-   "OK   top 8 carry <= 11%: 1.5",
-   "OUT  value span >= 118: 81",
-   "OK   saturation <= 0.81: 0.2",
-   "OK   light: top minus bottom >= -2.5: 3.0",
+   "OK   long side >= floor 96: 115",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2329 px): 1716",
+   "OK   top 8 carry <= 11%: 2.5",
+   "OUT  value span >= 118: 79",
+   "OK   saturation <= 0.81: 0.204",
+   "OK   light: top minus bottom >= -2.5: 3.4",
    "OK   edge between -35 and +7: -15.6",
-   "OK   grain <= 2.22 px a run: 2.07"
+   "OK   grain <= 2.22 px a run: 1.98"
   ],
   "reread": [
    "colours by field 5"
   ],
   "verdict": "1 of 8 out under the style guide",
   "size_px": [
-   32,
+   33,
    108
   ],
-  "opaque_px": 2334,
-  "colours": 1980
+  "opaque_px": 2329,
+  "colours": 1716
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -190,7 +200,22 @@
   "alpha_threshold": 127,
   "keys_per_beat": 3,
   "bpm": 120,
-  "puppet_jitter_cm": 0
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65
  },
  "breaks": [],
  "guide": {

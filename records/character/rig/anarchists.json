@@ -29,7 +29,9 @@
   "anarchists_hair": 30198,
   "anarchists_hair_fall": 2646,
   "anarchists_hat": 3444,
-  "anarchists_hat_brim": 2106
+  "anarchists_hat_brim": 2106,
+  "anarchists_hand_L": 392,
+  "anarchists_hand_R": 392
  },
  "materials": {
   "anarchists_coat": [

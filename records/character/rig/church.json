@@ -28,7 +28,9 @@
   "church_vestment": 5852,
   "church_mantle": 17882,
   "church_hair": 17968,
-  "church_hat": 1518
+  "church_hat": 1518,
+  "church_hand_L": 392,
+  "church_hand_R": 392
  },
  "materials": {
   "Cesium_Man-effect": [

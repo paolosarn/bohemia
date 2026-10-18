@@ -25,12 +25,14 @@
   "Cesium_Man": 3273,
   "colorful_trouser": 2568,
   "colorful_shoe": 3916,
-  "colorful_coat": 18310,
+  "colorful_coat": 17146,
   "colorful_coat_skirt": 7812,
   "colorful_hair": 30198,
   "colorful_hair_fall": 2254,
   "colorful_hat": 4548,
-  "colorful_hat_brim": 2362
+  "colorful_hat_brim": 2362,
+  "colorful_hand_L": 392,
+  "colorful_hand_R": 392
  },
  "materials": {
   "Cesium_Man-effect": [
@@ -77,6 +79,11 @@
    0.0513,
    0.162,
    0.15
+  ],
+  "colorful_shirt_print": [
+   0.8,
+   0.8,
+   0.8
   ],
   "colorful_shoe": [
    0.2159,

@@ -28,7 +28,9 @@
   "cartel_cape": 4674,
   "cartel_hair": 17968,
   "cartel_hat": 3444,
-  "cartel_hat_brim": 2106
+  "cartel_hat_brim": 2106,
+  "cartel_hand_L": 392,
+  "cartel_hand_R": 392
  },
  "materials": {
   "cartel_cape": [

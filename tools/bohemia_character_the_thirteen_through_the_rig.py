@@ -138,6 +138,45 @@ LOOKS = {
 }
 ORDER = sorted(LOOKS, key=lambda k: LOOKS[k]['order'])
 
+# [the print and the hands] (10/18): THE PRINT IS A MATERIAL ON THE GARMENT, never painted on the pixels. Each print is a
+# tile in METRES, made as an image the rig reads as the cloth's own colour (its source pass keeps a linked Base Color and
+# puts the wear on top), mapped round the body in metres so a stripe is as wide on every look. Sizes are the real cloth's
+# pushed to what reads at 57 px a metre: a 1 cm pinstripe is half a pixel and vanishes, so the chalk line is 2 cm on an
+# 8 cm repeat (a banker's chalk stripe, the widest a suit wears); the plaid's bands are 6 and 1.5 cm on a 16 cm repeat (a
+# blanket plaid); the tee's bands 3 cm. THE PRINT GOES ON THE PIECE THE EYE SEES: the Mob's pinstripe shirt sits under a
+# mantle and a cape, so the suit is the mantle, the cape and the trousers (the twin wears its bands on the mantle); the
+# Caravans' plaid shirt sits under a closed cocoon coat, so the plaid is the shoulder mantle, a blanket over the coat, and
+# the shirt shows in a V; the Colorful striped tee shows down the open car coat, its V widened to the twin's panel.
+PRINTS = {
+    'Mob': {'mantle': ('pinstripe', (50, 48, 50), (150, 140, 118)), 'cape': ('pinstripe', (50, 48, 50), (150, 140, 118)),
+            'trouser': ('pinstripe', (52, 42, 40), (132, 118, 98)), 'body:trousers': ('pinstripe', (52, 42, 40), (132, 118, 98))},
+    'Caravans': {'mantle': ('plaid', (88, 78, 58), (60, 54, 40), (128, 82, 58)), 'body:shirt': ('plaid', (118, 100, 74), (82, 70, 52), (150, 92, 60))},
+    'Colorful': {'body:shirt': ('stripe', (64, 112, 108), (190, 184, 164))},
+}
+PRINT_V = {'Caravans': 0.06, 'Colorful': 0.085}   # the coat's V opened so the print under it shows
+TILE_M, TILE_PX = 0.32, 128   # one print tile is 32 cm of cloth at 400 px a metre
+
+
+def print_tile(spec, path):
+    """the print as an image tile in metres (TILE_M square), repeated round the body"""
+    from PIL import Image
+    import numpy as np
+    kind = spec[0]; ppm = TILE_PX / TILE_M
+    yy, xx = np.mgrid[0:TILE_PX, 0:TILE_PX] / ppm   # metres
+    a = np.zeros((TILE_PX, TILE_PX, 3)); a[:] = spec[1]
+    if kind == 'pinstripe':   # vertical chalk lines, 2 cm on a 7 cm repeat: 0.32 / 0.08 = 4 repeats, so the tile wraps clean
+        a[(xx % 0.08) < 0.02] = spec[2]
+    elif kind == 'stripe':    # horizontal bands, 3 cm on 6
+        a[(yy % 0.064) < 0.032] = spec[2]
+    elif kind == 'plaid':     # a blanket plaid: wide dark bands both ways (they cross darker), a thin coloured line between
+        bx = (xx % 0.16) < 0.06; by = (yy % 0.16) < 0.06
+        g = np.array(spec[1], float); d = np.array(spec[2], float)
+        a[bx ^ by] = d; a[bx & by] = d * 0.8
+        tl = (np.abs((xx % 0.16) - 0.11) < 0.0075) | (np.abs((yy % 0.16) - 0.11) < 0.0075)
+        a[tl] = spec[3]
+    Image.fromarray(a.astype('uint8'), 'RGB').save(path)
+    return path
+
 
 def lin(c):
     f = lambda v: (v / 255.0) / 12.92 if v / 255.0 <= 0.04045 else ((v / 255.0 + 0.055) / 1.055) ** 2.4
@@ -256,6 +295,67 @@ def build(name, outdir):
             bpy.ops.object.modifier_apply(modifier='rim')
         bpy.ops.object.shade_smooth()
         am = g.modifiers.new('Armature', 'ARMATURE'); am.object = arm
+        return g
+
+    # 1b. THE HANDS ([the print and the hands], 10/18): the rig's man has mitts, one lump per hand. Each mitt is measured
+    # in its own frame (from the wrist joint: its long axis to the farthest point, its thin axis the back of the hand, the
+    # third the width), folded into the palm (its vertices pulled 60% to the wrist, so the indices and the weights stand),
+    # and a hand is MODELLED in that frame on the same bone: a palm, four fingers of two joints each curled toward the
+    # palm, a thumb set off the palm on the side toward the body's midline (palm down, as the mitt holds it; the Stand
+    # pose swings it to hang). Pixel-art hands are drawn big and the thumb is what reads: the fingers are 12% fatter than
+    # life and the thumb stands off the palm by its own width, so at 1:1 the hand is a palm, a thumb and a fist's edge.
+    import numpy as np
+    hands = []
+    for hb in ('Skeleton_arm_joint_L__2_', 'Skeleton_arm_joint_R__3_'):
+        gi = next(g.index for g in body.vertex_groups if g.name == hb)
+        wr = arm.matrix_world @ arm.data.bones[hb].head_local
+        idx = [i for i, fm in enumerate(fam_v) if fm == 'hand' and max(body.data.vertices[i].groups, key=lambda g: g.weight).group == gi]
+        pts = np.array([tuple(M @ body.data.vertices[i].co) for i in idx]); d = pts - np.array(wr)
+        far = d[np.argmax(np.linalg.norm(d, axis=1))]; ln = float(np.linalg.norm(far)); ax = V(tuple(far / ln))
+        c = pts.mean(0); _, _, Vt = np.linalg.svd(pts - c)
+        th = V(tuple(Vt[2])); th = (th - ax * th.dot(ax)).normalized()
+        if th.z > 0: th = -th                                           # the palm faces down, as the mitt holds it
+        wd = ax.cross(th).normalized()
+        if wd.x * math.copysign(1, wr.x) > 0: wd = -wd                  # the thumb toward the midline
+        dd = [V(tuple(x)) for x in d]
+        width = max(p.dot(wd) for p in dd) - min(p.dot(wd) for p in dd)
+        for i in idx:
+            p = M @ body.data.vertices[i].co; body.data.vertices[i].co = Mi @ (wr + (p - wr) * 0.4)
+        hands.append((hb, wr, ax, wd, th, ln, width))
+    body.data.update()
+
+    def hand_mesh(hb, wr, ax, wd, th, ln, width):
+        bm = bmesh.new()
+        def ell(cen, a, b, c, seg=10, ring=6):
+            r = bmesh.ops.create_uvsphere(bm, u_segments=seg, v_segments=ring, radius=1.0)
+            for v in r['verts']:
+                x, y, z = v.co; v.co = cen + a * x + b * y + c * z
+        def bend(v, about, deg):
+            return (mathutils.Matrix.Rotation(math.radians(deg), 3, about) @ v).normalized()
+        L0 = ln * 0.92; hw = min(width, L0 * 0.55) * 0.5
+        # the palm: a flattened egg from the wrist to the knuckles
+        ell(wr + ax * (L0 * 0.24), ax * (L0 * 0.25), wd * hw, th * (hw * 0.42))
+        # four fingers, index (thumb side) to little, two joints each, curled toward the palm (+th)
+        for k, (off, flen) in enumerate(((0.72, 0.42), (0.24, 0.46), (-0.24, 0.43), (-0.70, 0.34))):
+            rr = hw * 0.30 * 1.12
+            base = wr + ax * (L0 * 0.47) + wd * (hw * off) + th * (rr * 0.1)
+            d1 = bend(ax, wd, -22); seg1 = L0 * flen * 0.55
+            ell(base + d1 * (seg1 * 0.5), d1 * (seg1 * 0.6), wd * rr, th * (rr * 0.9), seg=8, ring=5)
+            d2 = bend(d1, wd, -34); b2 = base + d1 * seg1; seg2 = L0 * flen * 0.45
+            ell(b2 + d2 * (seg2 * 0.5), d2 * (seg2 * 0.6), wd * (rr * 0.92), th * (rr * 0.85), seg=8, ring=5)
+        # the thumb: off the palm's thumb edge, out and forward, standing off by its own width
+        tr = hw * 0.36
+        tb = wr + ax * (L0 * 0.12) + wd * (hw * 0.95) + th * (tr * 0.3)
+        # cycle 1: at 0.75 out the thumb splayed like a claw from the front
+        t1 = (ax * 0.65 + wd * 0.55 + th * 0.4).normalized(); s1 = L0 * 0.24
+        ell(tb + t1 * (s1 * 0.5), t1 * (s1 * 0.6), wd.cross(t1).normalized() * tr, th * (tr * 0.85), seg=8, ring=5)
+        t2 = (ax * 0.85 + wd * 0.35 + th * 0.4).normalized(); s2 = L0 * 0.2; b2 = tb + t1 * s1
+        ell(b2 + t2 * (s2 * 0.5), t2 * (s2 * 0.6), wd.cross(t2).normalized() * (tr * 0.9), th * (tr * 0.8), seg=8, ring=5)
+        for v in bm.verts: v.co = Mi @ v.co
+        me = bpy.data.meshes.new('%s_hand' % tag); bm.to_mesh(me); bm.free()
+        g = bpy.data.objects.new('%s_hand_%s' % (tag, 'L' if wr.x > 0 else 'R'), me); sc.collection.objects.link(g)
+        g.parent = body.parent; g.matrix_world = M
+        vg = g.vertex_groups.new(name=hb); vg.add(list(range(len(me.vertices))), 1.0, 'REPLACE')
         return g
 
     # 2. THE BODY'S OWN SURFACE: skin, the shirt by its sleeve, the trousers, the shoe
@@ -390,7 +490,7 @@ def build(name, outdir):
     # 4. THE COAT: the body and sleeves lifted, the skirt a tube cut to the pattern
     C = L.get('coat')
     if C:
-        vneck = C.get('v', 0.0); cy0 = section(0.95, ('torso',))['cy']
+        vneck = PRINT_V.get(name, C.get('v', 0.0)); cy0 = section(0.95, ('torso',))['cy']
         def keepc(fm, c, vneck=vneck, cy0=cy0):
             if vneck and fm in ('torso', 'neck') and c.y < cy0 and abs(c.x) < vneck * smooth(0.80, 1.12, c.z): return False   # the open neck shows the shirt
             return (fm in ('torso', 'upper', 'fore') and c.z > 0.66) or (fm == 'neck' and c.z < 1.16)
@@ -526,6 +626,49 @@ def build(name, outdir):
             m = (n.lerp(r, t)); m.z = min(m.z, 0.5); m.normalize()
             ns.append(tuple((mri @ m).normalized()))
         o.data.normals_split_custom_set_from_vertices(ns)
+
+    # 8c. THE HANDS (1b), on the hand bones, in skin
+    for h in hands:
+        made.append(finish(hand_mesh(*h), SKIN, 'skin', 0, 0))
+
+    # 8d. THE PRINT (PRINTS, above): the cloth's colour becomes a tile mapped in METRES round the body: the side of a
+    # piece by its angle round the torso (or round its own leg below the hip, so a trouser stripe keeps its width on the
+    # leg's side) and its height; a face that looks up (a mantle's shoulders) by its plan. The seam is at the back.
+    import tempfile
+    real_k = RULER_M * (1 + 0.05 * D['height']) / body_top   # model units to the real metres the rig scales to
+    cy_t = section(0.95, ('torso',))['cy']
+    def apply_print(o, spec, key, slot=None):
+        path = print_tile(spec, os.path.join(tempfile.gettempdir(), 'bohemia_print_%s_%s.png' % (tag, key.replace(':', '_'))))
+        m = bpy.data.materials.new('%s_%s_print' % (tag, key.replace('body:', ''))); m.use_nodes = True
+        nt = m.node_tree; b = next(n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'); b.inputs['Roughness'].default_value = 0.95
+        tx = nt.nodes.new('ShaderNodeTexImage'); tx.image = bpy.data.images.load(path); tx.image.pack(); tx.extension = 'REPEAT'
+        nt.links.new(tx.outputs['Color'], b.inputs['Base Color'])
+        me = o.data
+        while me.uv_layers: me.uv_layers.remove(me.uv_layers[0])
+        uv = me.uv_layers.new(name='UVMap')
+        mw = o.matrix_world; mr = mw.to_3x3().normalized()
+        for f in me.polygons:
+            n = (mr @ f.normal).normalized(); pts = [mw @ me.vertices[me.loops[li].vertex_index].co for li in f.loop_indices]
+            if abs(n.z) > 0.7:
+                uvs = [(p.x * real_k / TILE_M, p.y * real_k / TILE_M) for p in pts]
+            else:
+                cz = sum(p.z for p in pts) / len(pts); leg = cz < 0.62 and key in ('trouser', 'body:trousers')
+                cx = math.copysign(0.085, sum(p.x for p in pts)) if leg else 0.0; r0 = 0.07 if leg else 0.16
+                th = [math.atan2(p.x - cx, -(p.y - cy_t)) for p in pts]
+                if max(th) - min(th) > math.pi: th = [t + 2 * math.pi if t < 0 else t for t in th]
+                uvs = [(t * r0 * real_k / TILE_M, p.z * real_k / TILE_M) for t, p in zip(th, pts)]
+            for li, q in zip(f.loop_indices, uvs): uv.data[li].uv = q
+        if slot is None:
+            me.materials.clear(); me.materials.append(m)
+            for f in me.polygons: f.material_index = 0
+        else:
+            me.materials[slot] = m
+    for key, spec in PRINTS.get(name, {}).items():
+        if key.startswith('body:'):
+            want = '%s_%s' % (tag, key[5:])
+            apply_print(body, spec, key, slot=next(i for i, mm in enumerate(body.data.materials) if mm.name == want))
+        else:
+            for o in [o for o in made if o is not None and o.name == '%s_%s' % (tag, key)]: apply_print(o, spec, key)
 
     # 9. A STANDING POSE (COOK THREE's finding, 10/18: 'the passing pose on this body lands mid-stride; an idle clip would
     # give the standing still the sheets want'): an action 'Stand', the legs at rest (feet under the hips), the upper arms

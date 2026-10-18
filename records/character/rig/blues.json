@@ -28,7 +28,9 @@
   "blues_coat": 19050,
   "blues_coat_skirt": 2464,
   "blues_mantle": 11634,
-  "blues_hair": 17968
+  "blues_hair": 17968,
+  "blues_hand_L": 392,
+  "blues_hand_R": 392
  },
  "materials": {
   "blues_coat": [

@@ -3,7 +3,7 @@
  "res": 206,
  "ortho_scale": 3.6140350877192984,
  "real_dims_m": [
-  0.457,
+  0.468,
   0.393,
   1.685
  ],
@@ -30,9 +30,9 @@
   "what": [
    "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
-   "dust and bleach on up-facing surfaces under a 50 cm mask",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
-   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.49 in a patch or a crevice, 0.07 on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured"
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0833)"
@@ -61,7 +61,7 @@
   "cartel_trousers": "#ecff19"
  },
  "model": "records/character/rig/cartel.glb",
- "rig_round": 4,
+ "rig_round": 5,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -96,15 +96,25 @@
  ],
  "crop_box_px": [
   64,
-  44,
+  45,
   142,
   168
  ],
+ "shadow_files": [
+  "records/target/character/rig/cartel/shadow_N.png",
+  "records/target/character/rig/cartel/shadow_NE.png",
+  "records/target/character/rig/cartel/shadow_E.png",
+  "records/target/character/rig/cartel/shadow_SE.png",
+  "records/target/character/rig/cartel/shadow_S.png",
+  "records/target/character/rig/cartel/shadow_SW.png",
+  "records/target/character/rig/cartel/shadow_W.png",
+  "records/target/character/rig/cartel/shadow_NW.png"
+ ],
  "ground_px": [
   39,
-  59
+  58
  ],
- "colours": 19752,
+ "colours": 18659,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -201,20 +211,20 @@
   "family": "prop",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 124",
-   "OUT  colours >= 2330: 1529",
-   "OK   top 8 carry <= 11%: 2.2",
-   "OUT  value span >= 118: 91",
-   "OK   saturation <= 0.81: 0.096",
-   "OK   light: top minus bottom >= -2.5: 6.3",
-   "OK   edge between -35 and +7: -15.2",
-   "OK   grain <= 2.22 px a run: 1.93"
+   "OK   long side >= floor 96: 123",
+   "OUT  colours >= 2330: 1337",
+   "OK   top 8 carry <= 11%: 2.5",
+   "OUT  value span >= 118: 92",
+   "OK   saturation <= 0.81: 0.091",
+   "OK   light: top minus bottom >= -2.5: 6.0",
+   "OK   edge between -35 and +7: -15.7",
+   "OK   grain <= 2.22 px a run: 1.89"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.0%",
+   "OK   stray pixels at 8 steps <= 14%: 2.9%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 259.3"
+   "OK   light from above (180 to 360 degrees, or flat): 243.8"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/cartel/rig_S.png"
@@ -224,14 +234,14 @@
   "cls": "person",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 124",
-   "OK   colours >= 722 (field 5: the class floor, or 370 per 1,000 of 1950 px): 1529",
-   "OK   top 8 carry <= 11%: 2.2",
-   "OUT  value span >= 118: 91",
-   "OK   saturation <= 0.81: 0.096",
-   "OK   light: top minus bottom >= -2.5: 6.3",
-   "OK   edge between -35 and +7: -15.2",
-   "OK   grain <= 2.22 px a run: 1.93"
+   "OK   long side >= floor 96: 123",
+   "OK   colours >= 727 (field 5: the class floor, or 370 per 1,000 of 1964 px): 1337",
+   "OK   top 8 carry <= 11%: 2.5",
+   "OUT  value span >= 118: 92",
+   "OK   saturation <= 0.81: 0.091",
+   "OK   light: top minus bottom >= -2.5: 6.0",
+   "OK   edge between -35 and +7: -15.7",
+   "OK   grain <= 2.22 px a run: 1.89"
   ],
   "reread": [
    "colours by field 5"
@@ -241,8 +251,8 @@
    26,
    106
   ],
-  "opaque_px": 1950,
-  "colours": 1529
+  "opaque_px": 1964,
+  "colours": 1337
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -276,7 +286,22 @@
   "alpha_threshold": 127,
   "keys_per_beat": 3,
   "bpm": 120,
-  "puppet_jitter_cm": 0
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65
  },
  "breaks": [],
  "guide": {

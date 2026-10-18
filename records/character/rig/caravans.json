@@ -26,11 +26,13 @@
   "Cesium_Man": 3273,
   "caravans_trouser": 2568,
   "caravans_shoe": 2508,
-  "caravans_coat": 19050,
+  "caravans_coat": 17762,
   "caravans_coat_skirt": 4704,
   "caravans_mantle": 17626,
   "caravans_hair": 17968,
-  "caravans_hat": 128
+  "caravans_hat": 128,
+  "caravans_hand_L": 392,
+  "caravans_hand_R": 392
  },
  "materials": {
   "caravans_coat": [
@@ -63,10 +65,20 @@
    0.0762,
    0.0423
   ],
+  "caravans_mantle_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
   "caravans_shirt": [
    0.1812,
    0.1274,
    0.0685
+  ],
+  "caravans_shirt_print": [
+   0.8,
+   0.8,
+   0.8
   ],
   "caravans_shoe": [
    0.1022,

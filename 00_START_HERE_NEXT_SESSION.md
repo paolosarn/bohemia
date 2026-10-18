@@ -81,6 +81,23 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-vamily): 10/18 (p) LATEST -- *** THE GANG PRINTS ARE IN THE 3D CLOTH, AND THE HANDS HAVE A THUMB. ***
+TAB: VOTE, the card character-the-print-and-the-hands-10-18 (last round, this round and his twin side by side).
+Records: records/BOHEMIA_THE_PRINT_AND_THE_HANDS_10_18_26.md, records/BOHEMIA_CHARACTER_LIT_FROM_BELOW_IS_A_COLOUR_NOT_A_LIGHT_10_18_26.md.
+Opened by the coordinator (rule 112) on Opus (rule 116).
+FIRST, THE COORDINATOR'S ASK (MODS 2d9f2d9, four looks lit from below): a colour, not a light. The whole-sprite angle
+reads dark hair over a pale skirt as a low light; a light read between neighbours on one surface recovers the rig's
+own sun on its renders and finds satchel 1 of 48 frames, caravans 0, colorful 4, church 0. The real ones it finds
+instead: cast_barearms 36 of 48 and faction_anarchists 23 (both to the remake order). MODS' open number settled: the
+rig's 155.4 is y-up, 204.6 in check.py's y-down, and check.py's 180 to 360 band cuts the rig's own window: to
+PLUMBER and DIRECTION for G3. Nothing in slices/ touched.
+THEN THE ROW: the Mob's chalk pinstripe (mantle, cape, trousers), the Caravans' blanket plaid (shoulder mantle, shirt in
+a V), the Colorful striped tee, as a cloth material in metres the rig wears like the cloth; every hand a modelled palm,
+four fingers and a thumb on the hand bone instead of the mitt. All fourteen rebuilt and re-rendered; cards unchanged.
+NEXT ON MY BOARD: [the walk of every look] (all fourteen walking in eight, for RUN's demo cut, rule 115g).
+GATES: CHARACTER IN THE VOTE TAB 9/0; THE VOTE TAB fails one leg on four other lanes' whys (mine trimmed to pass).
+Blender: python3.11 venv + pip bpy==4.2.0; the rig segfaults on exit after writing every file (harmless).
+Nothing to slices/, engine/ or the demo (rule 100). PENDING Paolo: nothing.
 CHARACTER (character-013SW): 10/18 (o) LATEST -- *** THE THIRTEEN GANG LOOKS ARE 3D MODELS NOW, LIKE
 THE ROBOT: EVERY COAT, CAPE AND HAT IS A REAL SHAPE ON THE BODY'S BONES. ***
 TAB: VOTE, the card character-the-thirteen-through-the-rig-10-18 (redo of the texture set he called glitchy).

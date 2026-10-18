@@ -3,7 +3,7 @@
  "res": 218,
  "ortho_scale": 3.824561403508772,
  "real_dims_m": [
-  0.587,
+  0.583,
   0.396,
   1.767
  ],
@@ -16,22 +16,22 @@
   "wear": 0.6,
   "materials": [
    "mob_belt",
-   "mob_cape",
+   "mob_cape_print",
    "mob_eyes",
    "mob_hair",
-   "mob_mantle",
+   "mob_mantle_print",
    "mob_shirt",
    "mob_shoe",
    "mob_shoes",
    "mob_skin",
-   "mob_trousers"
+   "mob_trousers_print"
   ],
   "what": [
    "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
-   "dust and bleach on up-facing surfaces under a 50 cm mask",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
-   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.49 in a patch or a crevice, 0.07 on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured"
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1418)"
@@ -48,18 +48,18 @@
  },
  "id_table": {
   "mob_belt": "#ff1919",
-  "mob_cape": "#195cff",
+  "mob_cape_print": "#195cff",
   "mob_eyes": "#9fff19",
   "mob_hair": "#ff19e2",
-  "mob_mantle": "#19ffd8",
+  "mob_mantle_print": "#19ffd8",
   "mob_shirt": "#ff9519",
   "mob_shoe": "#5219ff",
   "mob_shoes": "#23ff19",
   "mob_skin": "#ff1966",
-  "mob_trousers": "#19a9ff"
+  "mob_trousers_print": "#19a9ff"
  },
  "model": "records/character/rig/mob.glb",
- "rig_round": 4,
+ "rig_round": 5,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -98,11 +98,21 @@
   127,
   172
  ],
+ "shadow_files": [
+  "records/target/character/rig/mob/shadow_N.png",
+  "records/target/character/rig/mob/shadow_NE.png",
+  "records/target/character/rig/mob/shadow_E.png",
+  "records/target/character/rig/mob/shadow_SE.png",
+  "records/target/character/rig/mob/shadow_S.png",
+  "records/target/character/rig/mob/shadow_SW.png",
+  "records/target/character/rig/mob/shadow_W.png",
+  "records/target/character/rig/mob/shadow_NW.png"
+ ],
  "ground_px": [
   17,
   54
  ],
- "colours": 7784,
+ "colours": 9120,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -112,19 +122,19 @@
   "out": 2,
   "rows": [
    "OK   long side >= floor 96: 117",
-   "OUT  colours >= 2330: 1912",
-   "OK   top 8 carry <= 11%: 1.6",
-   "OUT  value span >= 118: 92",
-   "OK   saturation <= 0.81: 0.158",
-   "OK   light: top minus bottom >= -2.5: 5.6",
-   "OK   edge between -35 and +7: -15.5",
-   "OK   grain <= 2.22 px a run: 2.05"
+   "OUT  colours >= 2330: 1810",
+   "OK   top 8 carry <= 11%: 2.9",
+   "OUT  value span >= 118: 101",
+   "OK   saturation <= 0.81: 0.183",
+   "OK   light: top minus bottom >= -2.5: 3.7",
+   "OK   edge between -35 and +7: -18.0",
+   "OK   grain <= 2.22 px a run: 1.6"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 1.9%",
+   "OK   stray pixels at 8 steps <= 14%: 3.7%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 261.1"
+   "OK   light from above (180 to 360 degrees, or flat): 236.4"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/mob/rig_S.png"
@@ -135,13 +145,13 @@
   "out": 1,
   "rows": [
    "OK   long side >= floor 96: 117",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2278 px): 1912",
-   "OK   top 8 carry <= 11%: 1.6",
-   "OUT  value span >= 118: 92",
-   "OK   saturation <= 0.81: 0.158",
-   "OK   light: top minus bottom >= -2.5: 5.6",
-   "OK   edge between -35 and +7: -15.5",
-   "OK   grain <= 2.22 px a run: 2.05"
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2287 px): 1810",
+   "OK   top 8 carry <= 11%: 2.9",
+   "OUT  value span >= 118: 101",
+   "OK   saturation <= 0.81: 0.183",
+   "OK   light: top minus bottom >= -2.5: 3.7",
+   "OK   edge between -35 and +7: -18.0",
+   "OK   grain <= 2.22 px a run: 1.6"
   ],
   "reread": [
    "colours by field 5"
@@ -151,8 +161,8 @@
    34,
    112
   ],
-  "opaque_px": 2278,
-  "colours": 1912
+  "opaque_px": 2287,
+  "colours": 1810
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -186,7 +196,22 @@
   "alpha_threshold": 127,
   "keys_per_beat": 3,
   "bpm": 120,
-  "puppet_jitter_cm": 0
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65
  },
  "breaks": [],
  "guide": {

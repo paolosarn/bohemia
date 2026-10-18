@@ -26,7 +26,9 @@
   "network_shoe": 3836,
   "network_coat": 19050,
   "network_coat_skirt": 4704,
-  "network_hair": 17968
+  "network_hair": 17968,
+  "network_hand_L": 392,
+  "network_hand_R": 392
  },
  "materials": {
   "Cesium_Man-effect": [
