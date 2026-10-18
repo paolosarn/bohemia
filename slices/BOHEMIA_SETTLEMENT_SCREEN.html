@@ -151,6 +151,8 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
 <script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <script src="bohemia_board_shelf.js"></script>  <!-- RUN TWO [the board's quests are people]: the board's people from QUESTS' act-one shelf; the phone picks the same -->
+<script src="../engine/bohemia_livingmap.js"></script>  <!-- RUN TWO [the bar names the news]: the map's own dice for every town (traitsFor), so the news is what you find there -->
+<script src="bohemia_bar_news.js"></script>  <!-- RUN TWO [the bar names the news]: the keeper's free one, a true thing from a town near here (ECONOMY day 75) -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -502,7 +504,31 @@ function clinicPrice(w){
    the four above are the fallback if it does not load */
 var RUMOR_FILE = null;
 fetch('../records/target/settlement_rumours.json').then(function(r){ return r.json(); }).then(function(j){ RUMOR_FILE = j.rumours; }).catch(function(){});
+/* THE NEWS DOWN THE ROAD (RUN TWO [the bar names the news], 10/18; ECONOMY day 75: the next town has news 94 percent of
+   the time and this bar told none). Battle Brothers 1.4 moved flavour out of the tavern to make room for 'the situations
+   of nearby settlements': so a round, or a stranger with something to say, tells the next town's TRUE situation first
+   (slices/bohemia_bar_news.js: FACTIONS' ledger, then the map's own dice on the map's day, nearest first) and the old
+   eleven only when every town in reach is told. The keeper's FIRST line each visit is one of them, free (newsFree). */
+if(window.BohemiaBarNews) BohemiaBarNews.load('../records/target/');
+function newsHere(){
+  if(!window.BohemiaBarNews || !BohemiaBarNews.ready()) return [];
+  return BohemiaBarNews.list({here:S.place, day:buildDay(), traits:TRAITS, ledger:S.ledger});
+}
+function nextNews(){
+  S.heardIds = S.heardIds || {};
+  var fresh = newsHere().filter(function(r){ return !S.heardIds[r.id]; });
+  if(!fresh.length) return null;
+  S.heardIds[fresh[0].id] = true; return fresh[0];
+}
+/* Battle Brothers' 'each time you visit the Tavern you get 1 free rumor' (wiki 1931): the first time the bar opens in a
+   visit the keeper says one, before anything is bought; when no town in reach has news he says it is quiet */
+function newsFree(){
+  if(S.freeSaid || !window.BohemiaBarNews || !BohemiaBarNews.ready()) return null;
+  S.freeSaid = true;
+  return nextNews() || BohemiaBarNews.quiet({here:S.place, day:buildDay()});
+}
 function nextRumour(){
+  var nw = nextNews(); if(nw) return nw;
   var list = RUMOR_FILE || RUMOURS.map(function(t, i){ return {id:'r'+i, says:t}; });
   S.heardIds = S.heardIds || {};
   var fresh = list.filter(function(r){ return !S.heardIds[r.id]; }); if(!fresh.length) return null;
@@ -1113,6 +1139,9 @@ function openB(k, line){
   if(k==='clinic' && S.open!=='clinic') sfx('door_open', view.night ? NIGHT_TRIM : null);
   S.open = k;
   if(window.BohemiaHeard){ BohemiaHeard.night(view.night); BohemiaHeard.opened(k, view.night ? NIGHT_TRIM : null); }   /* SOUNDS 10/18: the building answers with its recording */
+  /* the bar's first line each visit is the free news from down the road (newsFree); here's own trait the elder already said */
+  var free = (k==='bar' && !line) ? newsFree() : null;
+  if(free) line = free.says;
   /* a trait is said once per building, first thing, by the one who lives with it */
   if(!line && !(S.traitSaid||{})[k]){ var tl = traitLine(k); if(tl){ line = tl; S.traitSaid[k] = true; } }
   var body = document.getElementById('sbody'); body.textContent = '';
@@ -1179,7 +1208,9 @@ function openB(k, line){
        up to four a visit; each lifts the company's morale a step and the town's opinion of you by a
        tenth (GROK_118), and the keeper tells you one thing he heard, out of his own mouth */
     var price = roundPrice(), roundsLeft = 4 - (S.rounds||0);
-    body.appendChild(speak(k, line || (roundsLeft > 0 ? 'A round for the whole crew, ' + price + ' batter' + (price===1?'y':'ies') + '. Drink, and I tell you what I heard.' : 'That is enough for one night. Come back tomorrow.')));
+    var bw = speak(k, line || (roundsLeft > 0 ? 'A round for the whole crew, ' + price + ' batter' + (price===1?'y':'ies') + '. Drink, and I tell you what I heard.' : 'That is enough for one night. Come back tomorrow.'));
+    if(free){ bw.dataset.news = free.id; post('news', {free:true, rumour:free.id, about:free.place, trait:free.trait, line:free.says}); }
+    body.appendChild(bw);
     acts.appendChild(act('Buy the crew a round', price + ' batt', function(){
       if(bats() < price) return openB('bar', 'No batteries, no round, compa.');
       P.debit(S.purse, 'electricity', price, 'bar:round', S.place.name, S.day);
@@ -1194,7 +1225,9 @@ function openB(k, line){
       if(rm && rm.mark) post('rumour', {rumour:rm, mark:rm.mark});
       shelf(); openB('bar', rm ? rm.says : 'Nothing new tonight. Drink anyway.');
       var sb = document.getElementById('sbody').querySelector('.acts'), tag = document.createElement('div'); tag.className = 'slots';
-      tag.textContent = 'The crew\'s spirits come up a step.  ' + S.place.name + ' likes you a little more.' + (rm && rm.mark ? '  Marked on your map: ' + rm.mark + '.' : '');
+      /* no 'Marked on your map' any more: nothing on the map draws a rumour's mark (ECONOMY day 75, 3d), so the line was a
+         promise the interface broke; the act still posts it for the day the map draws one */
+      tag.textContent = 'The crew\'s spirits come up a step.  ' + S.place.name + ' likes you a little more.';
       sb.insertBefore(tag, sb.firstChild);
     }, roundsLeft <= 0 || bats() < price));
   }
@@ -1417,7 +1450,7 @@ function open(o){
   if(o.contracts) S.held = o.contracts.slice(0,SLOTS);
   if(o.hired) S.hired = o.hired;
   if(typeof o.crewSize === 'number') S.crewSize = o.crewSize;
-  if(o.place){ S.rounds = 0; S.heardIds = {}; }   /* a new visit, a new night at the bar */
+  if(o.place){ S.rounds = 0; S.heardIds = {}; S.freeSaid = false; }   /* a new visit, a new night at the bar, a new free one */
   if(Array.isArray(o.bag)) S.stash = o.bag.slice(0, BAG_SLOTS); else if(!S.bagLoaded){ bagLoad(); }
   S.bagLoaded = true;
   if(o.wounded) S.wounded = o.wounded.slice();

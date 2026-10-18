@@ -1,0 +1,139 @@
+{
+ "_about": "THE PLACES THE BAR CAN NAME (RUN TWO [the bar names the news], baked by tools/bohemia_run2_bar_news_places.py; never edit by hand). The towns the map's loop arrives at: the faction seats on the valley's 384 m cells (x east, y south), how a keeper says each one, and the reach a rumour carries. The news itself is never stored here: slices/bohemia_bar_news.js reads each town's situation from the map's own dice (engine/bohemia_livingmap.js traitsFor) and FACTIONS' raid ledger on the map's day, so what the keeper says is what you find when you get there.",
+ "source": "slices/BOHEMIA_CITY_WORLD.html CT_BASES_BAKED (seed \"bohemia\"), the table loopTownAt reads",
+ "seed": "bohemia",
+ "cell_m": 384,
+ "reach_cells": 106,
+ "reach_why": "Battle Brothers' tavern names an item up to 30 tiles out on a 140-tile map (wiki 1931 Tavern Rumors); scaled to the region's 496 cells that is 106 (ECONOMY day 75, 3b). Every valley seat is inside it, so the keeper tells the nearest town with news first.",
+ "draft": true,
+ "places": [
+  {
+   "id": "Anarchists",
+   "name": "Anarchists",
+   "x": 24,
+   "y": 82,
+   "at": "over by the Anarchists",
+   "of": "the Anarchists' place",
+   "draft": true
+  },
+  {
+   "id": "Blues",
+   "name": "Blues",
+   "x": 71,
+   "y": 48,
+   "at": "over by the Blues",
+   "of": "the Blues' place",
+   "draft": true
+  },
+  {
+   "id": "Caravans",
+   "name": "Caravans",
+   "x": 56,
+   "y": 88,
+   "at": "over by the Caravans",
+   "of": "the Caravans' place",
+   "draft": true
+  },
+  {
+   "id": "Cartel",
+   "name": "Cartel",
+   "x": 64,
+   "y": 78,
+   "at": "over by the Cartel",
+   "of": "the Cartel's place",
+   "draft": true
+  },
+  {
+   "id": "Church",
+   "name": "Church",
+   "x": 47,
+   "y": 50,
+   "at": "over by the Church",
+   "of": "the Church's place",
+   "draft": true
+  },
+  {
+   "id": "Colorful",
+   "name": "Colorful",
+   "x": 35,
+   "y": 56,
+   "at": "over by the Colorful",
+   "of": "the Colorful's place",
+   "draft": true
+  },
+  {
+   "id": "Custom",
+   "name": "Custom",
+   "x": 61,
+   "y": 73,
+   "at": "over by the Custom",
+   "of": "the Custom's place",
+   "draft": true,
+   "told": false,
+   "why": "the player's own faction slot (BOHEMIA_faction_graph.json: 'Player faction. No preset philosophy.')"
+  },
+  {
+   "id": "Homeless",
+   "name": "Homeless",
+   "x": 24,
+   "y": 75,
+   "at": "over by the Homeless",
+   "of": "the Homeless' place",
+   "draft": true
+  },
+  {
+   "id": "Mob",
+   "name": "Mob",
+   "x": 41,
+   "y": 29,
+   "at": "over by the Mob",
+   "of": "the Mob's place",
+   "draft": true
+  },
+  {
+   "id": "Network",
+   "name": "Network",
+   "x": 37,
+   "y": 26,
+   "at": "over by the Network",
+   "of": "the Network's place",
+   "draft": true
+  },
+  {
+   "id": "Reds",
+   "name": "Reds",
+   "x": 42,
+   "y": 24,
+   "at": "over by the Reds",
+   "of": "the Reds' place",
+   "draft": true
+  },
+  {
+   "id": "Remnants",
+   "name": "Remnants",
+   "x": 86,
+   "y": 49,
+   "at": "over by the Remnants",
+   "of": "the Remnants' place",
+   "draft": true
+  },
+  {
+   "id": "Trades",
+   "name": "Trades",
+   "x": 79,
+   "y": 62,
+   "at": "over by the Trades",
+   "of": "the Trades' place",
+   "draft": true
+  },
+  {
+   "id": "Volunteers",
+   "name": "Volunteers",
+   "x": 37,
+   "y": 23,
+   "at": "over by the Volunteers",
+   "of": "the Volunteers' place",
+   "draft": true
+  }
+ ]
+}

@@ -23,5 +23,55 @@
    "says": "A man came in talking about a chip under his skin, swore it kept him alive once. I did not look. Gracias a Dios, some things stay closed."},
   {"id": "board_robotics_plant", "kind": "keeper", "keeper": "board", "draft": true,
    "says": "There is a contract nobody has posted yet. Something about the old robotics plant by the airport. Not ready to talk about it."}
- ]
+ ],
+ "news": {
+  "_about": "THE NEWS DOWN THE ROAD (RUN TWO [the bar names the news], 10/18; ECONOMY day 75: the next town has news 94 percent of the time and the bar told none). Battle Brothers' tavern gives ONE rumour free every visit and, since 1.4, tells the situations of nearby towns so you know where to trade, hire and work (wiki 1931 Tavern Rumors, Dev Blog 138). These lines are how a keeper says a town's TRUE situation: slices/bohemia_bar_news.js fills them from the map's own dice (traitsFor) and FACTIONS' raid ledger on the map's day, never invented. {at} 'over by the Mob', {of} 'the Mob's place', {dir} where it lies from here, {by} the crew in the ledger, {ago} when. One line per kind is picked by the place and the day. The source and the doubt are in the mouth, the Battle Brothers way ('a trucker told me'). The place and what is happening are always in English (the language law: Spanish never carries the information). draft:true words; WORDS owns the voice.",
+  "lines": {
+   "sickness": [
+    "A trucker came in from {of}, {dir}. They are coughing over there, mijo, and the clinic has boards on the windows.",
+    "Don't drink with anybody from {of} this week. Half of them are coughing, so medicine sells dear up there, pues."
+   ],
+   "market_day": [
+    "It's market day {at}, {dir}. Everybody is out selling, so if you have something to sell, órale, go.",
+    "My cousin says it's market day {at}. Full stalls and new faces wanting work, but they charge you more to buy, ya sabes."
+   ],
+   "raided": [
+    "The {by} hit {of} {ago}. Half of what they had walked out the door with them, pues.",
+    "You hear about {of}? The {by} came through {ago} and burned a house. The ones left want work, mijo."
+   ],
+   "conquered": [
+    "{of_cap} has new bosses now, the {by}. They take a cut off every sale up there, so you pay more, ni modo.",
+    "A man from {of} says the {by} run it now. Same stalls, new cut on every sale, carnal."
+   ],
+   "well_supplied": [
+    "A convoy made it in {at}, {dir}. Full shelves and cheap steel, if you hurry, compa.",
+    "They say the shelves are full {at} since the convoy got in. Good week to buy up there, mijo."
+   ],
+   "quiet": [
+    "Nothing from up the road this week, mijo. Quiet is good.",
+    "No news from the other towns tonight. Ni modo, quiet is good for business."
+   ]
+  },
+  "dir": {
+   "near": "just up the road",
+   "N": "up north",
+   "NE": "up to the northeast",
+   "E": "out east",
+   "SE": "down to the southeast",
+   "S": "down south",
+   "SW": "down to the southwest",
+   "W": "out west",
+   "NW": "up to the northwest",
+   "near_cells": 6,
+   "unknown": "down the road"
+  },
+  "ago": {
+   "0": "today",
+   "1": "last night",
+   "n": "{n} nights back",
+   "words": ["two", "three", "four", "five", "six", "seven"],
+   "week": "a week back"
+  },
+  "draft": true
+ }
 }

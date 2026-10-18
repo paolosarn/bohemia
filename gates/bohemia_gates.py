@@ -9244,7 +9244,15 @@ GATES = [
      "taps at a camp, a town and a fortress: every keeper, the elder and YOU speak under PORTRAIT's fresh portrait with the "
      "mouth moving; every person in the picture who speaks has a face (a faction look on the painted 64 only while PORTRAIT's "
      "manifest lacks its head, printed as WAITING ON PORTRAIT); no spoken line without a face; the arrival's elder; a keeper "
-     "before the street loads never wears the dim head", True),
+     "before the street loads never wears the dim head; WHEN PORTRAIT LANDS (the manifest naming the thirteen faction "
+     "heads, nothing else changed) every faction-look street speaker talks under the fresh face", True),
+    ('THE BAR NAMES THE NEWS', ['node', 'gates/the_bar_names_the_news_gate.js'],
+     "RUN TWO [the bar names the news] (ECONOMY day 75: the next town has news 94 percent of the time and the bar told none; "
+     "Battle Brothers' one free rumour a visit and 1.4's nearby situations). The places are the bake of the map's seats, byte "
+     "for byte; a line for every card the dice roll and the ledger writes; over 14 seats and 52 weeks every piece of news is "
+     "the map's own dice for that town that day (a planted lie caught); the ledger's raid told first; live on his phone's "
+     "profile the bar's first line each visit is the free one under the keeper's fresh talking face, nothing spent, a round "
+     "tells the next town, no 'Marked on your map', the bar still pours with the places file blocked", True),
     ('THE BOARD\'S QUESTS ARE PEOPLE', ['node', 'gates/the_boards_quests_are_people_gate.js'],
      "RUN TWO [the board's quests are people] (his 10/17 'no more cards with quests, make an actual quest'; QUESTS research "
      "only, rule 35, read never asked). The shelf is the bake of QUESTS' act-one contract designs, byte for byte: every row "
