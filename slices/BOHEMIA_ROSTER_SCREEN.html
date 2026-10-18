@@ -33,6 +33,7 @@
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13px/1.35 ui-monospace,Menlo,Consolas,monospace;-webkit-tap-highlight-color:transparent;user-select:none}
 #bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:max(8px,env(safe-area-inset-top)) 12px 8px;background:var(--plate2);border-bottom:1px solid var(--line)}
 #bar .t{flex:1;font-weight:700;letter-spacing:1px}
+#sortbag{display:block;margin:0 12px 6px;min-height:44px;padding:0 14px;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700;letter-spacing:1px}
 #done{min-width:76px;min-height:44px;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700}
 .h{margin:12px 12px 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
 #lines{overflow-x:auto;padding:0 12px 4px}
@@ -110,10 +111,12 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 <div id="card"></div>
 <div id="said"></div>
 <div class="h" id="bagh">YOUR BAG</div>
+<button id="sortbag" type="button">SORT THE BAG</button>
 <div id="bag"></div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_long_injury.js"></script>
+<script src="../engine/bohemia_bag_sort.js"></script>
 <script src="bohemia_ui_materials.js"></script>
 <script>
 (function(){
@@ -338,6 +341,7 @@ function drawCard(){
   }
 }
 function drawBag(){
+  var sb = document.getElementById('sortbag'); if(sb) sb.style.display = S.bag.length > 1 && window.BohemiaBagSort ? '' : 'none';
   document.getElementById('bagh').textContent = 'YOUR BAG  ' + S.bag.length + ' / ' + BAG_SLOTS + '   DRAG ONTO A SLOT ABOVE, OR TAP';
   var el = document.getElementById('bag'); el.textContent = '';
   for(var i=0;i<BAG_SLOTS;i++){
@@ -423,6 +427,7 @@ function open(o){
 }
 window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed};
 window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN') open(d); if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
+document.getElementById('sortbag').addEventListener('click', function(){ if(!window.BohemiaBagSort) return; S.bag = BohemiaBagSort.sort(S.bag); saveBag(); post('sort', {bag:S.bag.map(function(i){ return i.id; })}); say('Sorted: weapons, armour, heads, then the rest.'); draw(); });   /* RUN TWO [the bag sorts] */
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
 C.load().then(function(){ open({}); }).catch(function(err){ say('The company did not load.'); });
 })();

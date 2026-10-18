@@ -9026,6 +9026,10 @@ GATES = [
      "name, tier and traits; the elder speaks one line under a drawn face, the trait's line or the tier's; the opinion "
      "bar sits on the wiki's band (no number is the wiki's start, Neutral); the faction only when named; inside the glass; "
      "gone at two seconds; a tap skips and opens no building; the same place again and arrival:false play nothing", True),
+    ('THE BAG SORTS', ['node', 'gates/the_bag_sorts_gate.js'],
+     "RUN TWO [the bag sorts] (Battle Brothers' stash has a sort button; ours filled in the order things were bought). "
+     "On his phone's profile with real taps, the smith's bag and the crew screen's bag sort through ONE function: weapons, "
+     "armour, heads, goods, the dearest first; kept in bohemia.bag.v1 and posted; nothing lost; a second tap is a no-op", True),
     ('WHO LIVES WHERE', ['node', 'gates/who_lives_where_gate.js'],
      "PEOPLE 10/17, rule 110's swing under the hold: a page, backgrounds by place across the 26 places. "
      "The bank is draft and nothing live reads it; the 14 valley places are the derived seats and the 12 "

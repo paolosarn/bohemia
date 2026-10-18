@@ -146,7 +146,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_scavenge.js"></script>
 <script src="../engine/bohemia_goodbros.js"></script>
 <script src="../engine/bohemia_arrivaltraits.js"></script>
-<script src="../engine/bohemia_relations.js"></script>  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
+<script src="../engine/bohemia_relations.js"></script>
+<script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
 <script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -390,6 +391,8 @@ function shopSheet(k, body, acts, line){
     }, it.price + 'b'));
   });
   var h2 = document.createElement('div'); h2.className = 'gridh'; h2.textContent = 'YOUR BAG  ' + S.stash.length + ' / ' + BAG_SLOTS; acts.appendChild(h2);
+  /* RUN TWO [the bag sorts]: Battle Brothers' sort button, one shared function (engine/bohemia_bag_sort.js) */
+  if(window.BohemiaBagSort && S.stash.length > 1){ var sortB = act('Sort the bag', 'by kind', function(){ S.stash = BohemiaBagSort.sort(S.stash); bagSave(); post('sort', {bag:S.stash.map(function(i){ return i.id; })}); openB(k); }); sortB.id = 'sortbag'; acts.appendChild(sortB); }
   var bagG = document.createElement('div'); bagG.className = 'grid bag'; bagG.id = 'baggrid'; acts.appendChild(bagG);
   for(var si = 0; si < BAG_SLOTS; si++){
     (function(it){
