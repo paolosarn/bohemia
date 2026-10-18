@@ -9022,6 +9022,13 @@ GATES = [
      "out of the tarball at gate time; every mark a real permanent row, every place one of the 26; and the "
      "measured gap holds: the live sickness trait carries no cause and no engine file writes 'sick' on a "
      "person (building either turns leg E red on purpose)", False),
+    ('HEIRS BACKGROUNDS', ['node', 'gates/heirs_backgrounds_gate.js'],
+     "PEOPLE 10/18, row [heirs backgrounds] under the hold: a page, a kid is taught or told. The bank is draft "
+     "and nothing live reads it; four heir backgrounds split by whether the parent lived to teach and whether "
+     "the trade survived the money; every one of Battle Brothers' 74 traits, read off its Traits page out of "
+     "the tarball, in exactly one class (body .40, mind .20, earned and chance 0); every Apprentice Learns "
+     "quote byte for byte; and the measured gap holds: every heir carries the parent's pre-crash trade and a "
+     "dead man's kid keeps the skill as often as a living teacher's (building it turns leg E red on purpose)", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

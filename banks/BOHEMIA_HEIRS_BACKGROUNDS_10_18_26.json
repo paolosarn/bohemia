@@ -1,0 +1,335 @@
+{
+ "_about": "PEOPLE 10/18, row [heirs backgrounds] A-KILLER'S-KID-COMES-PREPARED, under the hold (rule 88: a page is the ship). What an heir of the company can be, which of the parent's traits pass and how often, what the trade does, the name and the gear. draft:true, tuned:false, NOTHING LIVE READS THIS FILE. Every number a player would feel is TUNING's to replace (rule 38g); the trait shares and the trade shares come from the real studies named in `real`, the Battle Brothers shapes are read out of the library's tarball by gates/heirs_backgrounds_gate.js. Page: records/BOHEMIA_PEOPLE_THE_HEIRS_BACKGROUNDS_10_18_26.md.",
+ "draft": true,
+ "tuned": false,
+ "never_before": [
+  "nothing here fires in the first minute (rule 32a)",
+  "an heir exists only after the flip, which unlocks at the first crisis (rule 85), so never before the first fight"
+ ],
+ "real": {
+  "trade_follows": {
+   "source": "US Census Bureau, Current Population Reports P23-11, Lifetime Occupational Mobility of Adult Males: March 1962 (1964), https://www.census.gov/library/publications/1964/demo/p23-011.html",
+   "numbers": [
+    "23 percent of men 25 to 64 worked in the same major occupation group as their father",
+    "about 41 percent of professionals' sons matched their fathers",
+    "sons of clerical, sales, service and labourer fathers matched at roughly 10 to 15 percent",
+    "85 percent of farmers had farmer fathers (inflow, the other direction; not used as a share)"
+   ],
+   "said": "read through search text; the report itself did not open from this container. Major occupation GROUPS, so the true same-trade number is lower than these, never higher."
+  },
+  "traits_pass": {
+   "source": "Vukasovic and Bratko 2015, Heritability of personality: a meta-analysis of behavior genetic studies, Psychological Bulletin, https://pubmed.ncbi.nlm.nih.gov/25961374/",
+   "numbers": [
+    "average heritability of personality .40 across 62 effect sizes and over 100,000 people",
+    "twin studies .47, family and adoption studies .22"
+   ],
+   "rule": "a parent and child share half their genes, so for an additive trait the parent-child correlation is about half the heritability (Falconer, the standard quantitative-genetics result, from memory, said so): personality about .20, a highly heritable body trait (height h2 about .8, from memory) about .40",
+   "said": "read through search text."
+  }
+ },
+ "bb_shape": {
+  "apprentice_learns": {
+   "page": "bb_all/0124_Apprentice Learns.txt",
+   "quotes": [
+    "*The [[Apprentice (Background)|Apprentice]] needs to be level 4 or higher",
+    "*The teacher needs to be level 6 or higher",
+    "*The [[Apprentice (Background)|Apprentice]] can be trained only once at all",
+    "Cooldown in Days]] 90"
+   ],
+   "reads": "a trade passes by TEACHING, from a living teacher who has the levels, once, as a fixed package the teacher's background decides (+2-4 Melee Skill and more); nothing passes from a dead man"
+  },
+  "master_no_use_apprentice": {
+   "page": "bb_all/1251_Master No Use Apprentice.txt",
+   "quotes": [
+    "You come across a fencing master chewing out a student for his impatience.",
+    "**You gain an [[File:Apprentice.png|25px]] [[Apprentice (Background)|Apprentice]] brother"
+   ],
+   "reads": "an apprentice arrives through his teacher's hand, not on a hiring post"
+  },
+  "apprentice_background": {
+   "page": "bb_all/0123_Apprentice (Background).txt",
+   "quotes": [
+    "*+10% [[File:Xp_received.png|25px|Experience recieved|bottom]]"
+   ],
+   "reads": "the taught kid learns faster; that is the whole background"
+  },
+  "squire_background": {
+   "page": "bb_all/1861_Squire (Background).txt",
+   "quotes": [
+    "*May learn from a hedge knight for +1-4 [[File:Resolve.png|25px|Resolve]]"
+   ],
+   "reads": "the kid who grew up carrying for a fighter learns nerve, not a trade"
+  },
+  "traits": {
+   "page": "bb_all/2024_Traits.txt",
+   "quotes": [
+    "New recruits to your mercenary company may have 0 to 2 randomly selected traits",
+    "Occasionally, new traits (such as \"Fat\") can be suffered through events or certain event choices."
+   ],
+   "reads": "the master trait list exists: this page lists every trait (the gate counts them); some are born, some are suffered"
+  },
+  "hate_for_beasts": {
+   "page": "bb_all/0943_Hate for Beasts.txt",
+   "quotes": [
+    "*This trait cant be gained afterwards."
+   ],
+   "reads": "a hate is something you arrive with: an heir arrives, so the parent's death can be where it came from"
+  },
+  "fat": {
+   "page": "bb_all/0742_Fat.txt",
+   "quotes": [
+    "*Can be gained upon the ([[Events#glutton_gets_fat|Glutton Gets Fat]]) event."
+   ],
+   "reads": "an earned trait; a kid does not get his father's belly from his father's dinners"
+  }
+ },
+ "trait_classes": {
+  "_about": "every trait on Battle Brothers' Traits page, each in exactly one class (ours: the classing is this lane's reading, the shares are the real studies'). BODY passes like a body (about .40), MIND like a temperament (about .20), EARNED never passes by blood (a life made it), CHANCE never passes (luck is not a gene).",
+  "share": {
+   "BODY": 0.4,
+   "MIND": 0.2,
+   "EARNED": 0.0,
+   "CHANCE": 0.0
+  },
+  "share_tuning": true,
+  "BODY": [
+   "Asthmatic",
+   "Athletic",
+   "Bleeder",
+   "Clubfooted",
+   "Clumsy",
+   "Dexterous",
+   "Eagle Eyes",
+   "Fragile",
+   "Huge",
+   "Iron Jaw",
+   "Iron Lungs",
+   "Night Blind",
+   "Night Owl",
+   "Quick",
+   "Short Sighted",
+   "Strong",
+   "Sure Footing",
+   "Swift",
+   "Tiny",
+   "Tough"
+  ],
+  "MIND": [
+   "Bloodthirsty",
+   "Brave",
+   "Bright",
+   "Brute",
+   "Cocky",
+   "Craven",
+   "Deathwish",
+   "Determined",
+   "Disloyal",
+   "Drunkard",
+   "Dumb",
+   "Fainthearted",
+   "Fearless",
+   "Gluttonous",
+   "Greedy",
+   "Hesitant",
+   "Impatient",
+   "Insecure",
+   "Irrational",
+   "Loyal",
+   "Optimist",
+   "Paranoid",
+   "Pessimist",
+   "Spartan",
+   "Superstitious",
+   "Team Player",
+   "Weasel"
+  ],
+  "EARNED": [
+   "Acolyte of Davkul",
+   "Addict",
+   "Ailing",
+   "Arena Fighter",
+   "Arena Veteran",
+   "Chosen of Davkul",
+   "Dastard",
+   "Disciple of Davkul",
+   "Fanatic of Davkul",
+   "Fat",
+   "Fear of Beasts",
+   "Fear of Greenskins",
+   "Fear of Undead",
+   "Glorious Endurance",
+   "Glorious Quickness",
+   "Glorious Resolve",
+   "Hate for Beasts",
+   "Hate for Greenskins",
+   "Hate for Undead",
+   "Mad",
+   "Old",
+   "Pit Fighter",
+   "Player Character",
+   "Prophet of Davkul",
+   "Survivor",
+   "Zealot of Davkul"
+  ],
+  "CHANCE": [
+   "Lucky"
+  ],
+  "notes": {
+   "Drunkard": "MIND, not EARNED: the risk runs in families (alcohol use disorder heritability about .5 in twin studies, from memory, said so)",
+   "Fat": "EARNED: Battle Brothers makes it at a table, by an event",
+   "Hate for Beasts": "EARNED, and the one an heir can be BORN into: see death_leaves"
+  }
+ },
+ "death_leaves": {
+  "_about": "ours, draft: how the parent died can be what the kid arrives with (Battle Brothers: a hate cant be gained afterwards, so it is a thing you arrive with)",
+  "beast": "Hate for Beasts",
+  "drowned_in_debt": null,
+  "note": "one row only until COMBAT names what killed a man (ctHeirDied carries no cause yet)"
+ },
+ "trade_follows": {
+  "_about": "the chance an heir took the parent's trade, by what the trade became the day the money died (WAS_WORDS, engine/bohemia_people.js). A trade with nothing kept is a dead trade: no kid can follow it, there is no work. Shares are the Census's, mapped by this lane, TUNING's to replace.",
+  "tuning": true,
+  "by_trade": {
+   "plant": {
+    "share": 0.41,
+    "why": "professional and technical (Census: about 41 percent)"
+   },
+   "sparks": {
+    "share": 0.41,
+    "why": "professional and technical (about 41 percent)"
+   },
+   "water": {
+    "share": 0.41,
+    "why": "professional and technical (about 41 percent)"
+   },
+   "nurse": {
+    "share": 0.41,
+    "why": "professional (about 41 percent)"
+   },
+   "teacher": {
+    "share": 0.41,
+    "why": "professional (about 41 percent)"
+   },
+   "builder": {
+    "share": 0.23,
+    "why": "a craft; the Census's all-groups 23 percent stands in, no craft figure was read"
+   },
+   "driver": {
+    "share": 0.23,
+    "why": "a craft; 23 percent stands in"
+   },
+   "wrench": {
+    "share": 0.23,
+    "why": "a craft; 23 percent stands in"
+   },
+   "kitchen": {
+    "share": 0.125,
+    "why": "service (10 to 15 percent, the middle)"
+   },
+   "laundry": {
+    "share": 0.125,
+    "why": "service (10 to 15 percent)"
+   },
+   "docks": {
+    "share": 0.125,
+    "why": "labour (10 to 15 percent)"
+   },
+   "dealer": {
+    "share": 0.0,
+    "why": "the trade died with the money: no deck, no work, nothing to follow"
+   },
+   "valet": {
+    "share": 0.0,
+    "why": "the trade died"
+   },
+   "pit": {
+    "share": 0.0,
+    "why": "the trade died"
+   },
+   "floor": {
+    "share": 0.0,
+    "why": "the trade died"
+   }
+  }
+ },
+ "backgrounds": [
+  {
+   "id": "apprentice",
+   "label": "THE APPRENTICE",
+   "draft": true,
+   "when": "the parent SURVIVED the act and the trade keeps something, and the trade_follows coin says the kid took it",
+   "carries": {
+    "took": "the parent's trade",
+    "keeps": "the trade's keeps, taught, always",
+    "traits": "by class",
+    "gear": "the family's",
+    "name": "the parent's surname"
+   },
+   "bb_shape": "apprentice_learns",
+   "grew_up": "at the parent's elbow",
+   "says": {
+    "heir": "Mi papá me enseñó con las manos. He made me do it till I did it without looking."
+   }
+  },
+  {
+   "id": "camp_kid",
+   "label": "THE CAMP KID",
+   "draft": true,
+   "when": "the parent SURVIVED and the kid did not take the trade (or the trade died)",
+   "carries": {
+    "took": null,
+    "keeps": null,
+    "traits": "by class",
+    "gear": "the family's",
+    "name": "the parent's surname"
+   },
+   "bb_shape": "squire_background",
+   "grew_up": "in the company's carts, carrying",
+   "says": {
+    "heir": "I grew up holding his rifle while he slept. No sé hacer nada más."
+   }
+  },
+  {
+   "id": "the_one_left",
+   "label": "RAISED BY THE ONE LEFT",
+   "draft": true,
+   "when": "the parent DIED (LONG_ENOUGH or FAMILY): there was nobody to teach the trade",
+   "carries": {
+    "took": null,
+    "keeps": null,
+    "traits": "by class",
+    "gear": "the family's, kept by the one left",
+    "name": "the parent's surname if the company ever asked it; a whole name of its own if not"
+   },
+   "bb_shape": null,
+   "bb_none": "Battle Brothers has no orphan background; the nearest is the Bastard, a name with no father's hand, and it is not this",
+   "grew_up": "with the mother, or whoever stayed",
+   "says": {
+    "heir": "Lo conocí por las historias. They say I walk like him. I would not know."
+   }
+  },
+  {
+   "id": "the_dead_trade",
+   "label": "THE KID OF A DEAD TRADE",
+   "draft": true,
+   "when": "the parent's trade kept nothing (dealer, valet, pit, floor): whatever else is true, the trade is a story, never a skill",
+   "carries": {
+    "took": null,
+    "keeps": null,
+    "traits": "by class",
+    "gear": "the family's",
+    "name": "the parent's surname"
+   },
+   "bb_shape": null,
+   "bb_none": "no Battle Brothers trade ever dies; ours did, the day the money died",
+   "grew_up": "hearing about a room with four thousand people in it",
+   "says": {
+    "heir": "My mother dealt cards in a place with a ceiling painted like the sky. I have never seen a card table."
+   }
+  }
+ ],
+ "was": {
+  "_about": "every heir is 15 to 35 when the act after opens, 35 years on (the phone strip's +35Y), so the oldest was born the day the money died and the rest after: no heir can have been anything THE DAY THE MONEY DIED. An heir's `was` is null; what he is lives in `grew_up` and `took`.",
+  "heir_was": null
+ }
+}

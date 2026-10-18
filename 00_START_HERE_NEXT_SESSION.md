@@ -100,6 +100,36 @@ bohemia_cook2_stretch_the_pack_recolour_10_16_26.py and the ratchet stays red by
 they add it. Nothing to slices/, engine/ or the demo (rule 100).
 PENDING Paolo: nothing.
 CAUSE (RUN, 10/16, [the long freeze], measured, not guessed; records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md): the coordinator's own five minutes at 4x, unchanged, with a CPU profile of the whole walk, three runs on BUILD 10/13b, every unbroken busy stretch over a second listed with what ran in it: DURING PLAY THE MAIN THREAD WAS DRAWING THE WHOLE MAP SEVERAL TIMES IN ONE FRAME. A step on the map starts four animation loops that each draw the whole map every frame (the movers' tween in moversAdvance, the party's glide, the beat's animate loop, the roaming parties' glide); one draw is 0.4-0.7 s at 4x, so one frame stacks to 1.6-2.8 s (measured 2.6 s = tw 1,645 ms + loop 444 + parties 377; 2.1; 1.7), and a heavier view or one more loop stacks to the 9.1 and 14.8 s. FIXED in the map page (__ONE_RENDER_A_FRAME__, e546b533, live on the demo with no cut): a draw asked for inside an animation frame happens at most once in it, the rest fold into one draw next frame; draws from taps, timers, messages and checks untouched. SEEN ON THE PHONE PROFILE, five minutes at 4x, three runs each: main 18/21/24 stalls, worst 2.9/2.4/1.65 s; now 11/18/12, worst 1.2/1.2/1.07 s. GATE: THE MAP ANSWERS AFTER BEGIN M11 (the folds happen on his first trip and no frame gap passes 1.5 s; the fold removed: 1,433 ms, red). Left over a beat: one whole draw at 4x (0.6-0.9 s, PLUMBER's map budget), the phone's first open, his body before the door. The demo cut waits for the station's restart.
+PEOPLE (people-0196h6wh): 10/18 LATEST -- under the hold (rule 88), the new age (rules 112 to 116):
+[the plague] closed on the board (the chat before shipped it, 45350d3, and ran out of
+usage before writing its row; the row now says SHIPPED). [heirs backgrounds] SHIPPED as
+a page. *** A KID IS TAUGHT OR TOLD, AND TODAY EVERY HEIR IS NEITHER. ***
+NOT IN A TAB (a page, rule 88): records/BOHEMIA_PEOPLE_THE_HEIRS_BACKGROUNDS_10_18_26.md
+
+THE FINDING THAT PROVES US WRONG: every heir the game makes carries the parent's old job
+from before the crash (6,000 of 6,000), but every heir was born on or after the day the
+money died, so none of them ever had that job. And a dead man's kid learns the trade's
+skill exactly as often as a living teacher's kid (1,094 of 2,200 each): the word
+APPRENTICE changes nothing. Battle Brothers only moves a trade by a living teacher, once.
+
+THE DESIGN (draft, TUNING's numbers): four heir backgrounds (the apprentice, the camp
+kid, raised by the one left, the kid of a dead trade); a share per trade from the 1962
+Census (41% of skilled men's kids, 23% crafts, 12.5% service, 0 for the casino trades),
+which weighs to 26% against the Census's 23; all 74 Battle Brothers traits classed:
+body .40, mind .20, earned and luck never; a beast's kill leaves Hate for Beasts.
+Found too: the master trait list exists in the library, so good bros' own comment
+saying it does not is wrong (fixed with the post when the hold lifts).
+
+Bank: banks/BOHEMIA_HEIRS_BACKGROUNDS_10_18_26.json, draft:true, nothing live reads it.
+Gate: HEIRS BACKGROUNDS 105/0, registered, six mutations each red. Rule 80 line 24.
+No VOTE item, no demo, no question.
+ROUTED: DYNASTY [heirs] (heirOf's was null, the coin reads the classes and the WHY);
+TUNING [recruit odds] (the shares); COMBAT (ctHeirDied needs a cause); WORDS (four lines).
+NEXT OPEN: [recruit at the place] (RUN TWO's settlement screen) and [deeds and memory].
+SEEN RED, NOT MINE: DYNASTY's HEIRS gate is 102/5 on clean main before this commit (the five
+legs on the glass: the phone's HEIRS row in act 2 and 3 shows no chips); routed to DYNASTY.
+PENDING Paolo: nothing.
+
 PEOPLE (people-ctqoqx): 10/17 LATEST -- BIG SWING (rule 110e, under the hold):
 [who lives where] SHIPPED as a page, 9f10575e. *** EVERY ONE OF THE 26 PLACES NOW HAS
 ITS OWN LIST OF WHO IS FOR HIRE, FROM BATTLE BROTHERS' OWN BOOK, AND THE BOOK
