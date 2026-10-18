@@ -29,6 +29,25 @@
  "version": 1,
  "items": [
   {
+   "id": "run2-the-neighbour-takes-the-refugees-10-18",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "c38f2cad",
+   "made": "10/18",
+   "title": "WHEN A GANG RAIDS A TOWN, THE PEOPLE WHO RAN SHOW UP IN THE TOWN NEXT DOOR",
+   "why": "When a gang raids a town, the people who ran now end up in the nearest town on the map for the same days, so that town is crowded, food costs more and the shelves are thinner, and its elder tells you whose people they are and who burned them out, the way Battle Brothers' Refugees card works. You see it here under LOOK, before on the left and after on the right, and in the demo once the map hands the screen its raid list.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_NEIGHBOUR_TAKES_THE_REFUGEES_BEFORE_AFTER_10_18.png"
+   },
+   "before_after": {
+    "before": "a raid touched only the raided town (and not even that when the map handed its dice), the town next door never heard of it",
+    "after": "the nearest town on the map reads the wiki's Refugees card for the raid's own days (food dearer, a tenth fewer items), its elder and keepers name the raided town and the crew; the raided town itself reads RAIDED beside its dice",
+    "scale": "half his phone's 3x"
+   },
+   "draft": true
+  },
+  {
    "id": "run2-the-bar-names-the-news-10-18",
    "kind": "ui",
    "lane": "run 2",
