@@ -10557,7 +10557,27 @@
     ]
    },
    "draft": true
-  }
+  },
+    {
+     "id": "run2-the-boards-people-10-18",
+     "kind": "ui",
+     "lane": "run 2",
+     "sha": "61c6e611",
+     "made": "10/18",
+     "title": "EVERY TOWN'S BOARD HAS ITS OWN PEOPLE NOW, NOT THE SAME FOUR",
+     "why": "You said no more cards with quests, make an actual quest, so every place's job board now has its own people from the 72 jobs the quest chat wrote: a camp 1, a town 2, a fortress 3, each with a face that talks and says the job and the pay, and a town that just got raided asks you to hit the crew that did it. You see it here under LOOK, the same four people everywhere on the left and each place's own on the right, and in the demo when you tap a town's board or your phone's jobs.",
+     "show": {
+      "how": "image",
+      "src": "vote/RUN2_THE_BOARDS_PEOPLE_BEFORE_AFTER_10_18.png"
+     },
+     "said": "no more cards with quests, make an actual quest",
+     "before_after": {
+      "before": "the four drafted offers, the same people at every board",
+      "after": "QUESTS' act-one shelf (39 jobs from 39 designs), picked per place by its size, what happened there and the map's day; the phone lists the same",
+      "scale": "half his phone's 3x"
+     },
+     "draft": true
+    }
  ],
  "verdicts": [
   {
