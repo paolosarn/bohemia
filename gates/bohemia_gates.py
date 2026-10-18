@@ -946,7 +946,15 @@ GATES = [
      'Henderson outside the valley; the map\'s own cells (measured by tools/bohemia_world_the_one_ruler_10_18_26.js) '
      'not a real lane, kerb to kerb, sidewalk, tract house and houses a hectare at CELL_M, with a proof that read '
      'at 230 m a block they fail; a measurement of another seed; a live file saying 230 m a block. Prints: the '
-     'painter changed since the measurement; the Strip drawn 2.2 times its real length. Mutation-proved four ways.', False),
+     'painter changed since the measurement; the Strip drawn 2.2 times its real length. Mutation-proved four ways. '
+     'AND ROW [the block size settled] (WORLD 10/18, section F, ONE NUMBER FOR A BLOCK): every live file that DECLARES '
+     'a block\'s size, a fine cell or the clock (engine, slices, banks, mods, the fight board manifests; the cook tools '
+     'for the names only the map uses) is listed with its owner and held to the region file and the overmap. Refuses: '
+     'a listed carrier that drifts; an owed one (its wrong number pinned: COMBAT TWO 1.8 m and 230 m, FACTIONS 260 '
+     'road blocks a day, the July painters\' 2-cell lane) moving to a third number; an unlisted declaration of another '
+     'number; a road kind on the game\'s seed drawn by the CITY frame\'s 2-cell lane; a live page loading the 7/16 '
+     'block generator; the canon registry without the block\'s two sizes and the clock; a new VOTE item saying 230 m; '
+     'RUN\'s fallback towns drifting further. Never blocks a fix. Eight in-memory mutations inside.', False),
     ('THE DISTRICTS JOIN', ['node', 'gates/region_districts_gate.js'],
      'ROW [the districts as data, joined] (WORLD 10/18; Paolo 10/18 \'doesn\'t look like shit\'s connected\'). '
      'engine/BOHEMIA_REGION_LAND.json carries the 26 real districts of the Las Vegas region (basins, ranges, the lake, '
