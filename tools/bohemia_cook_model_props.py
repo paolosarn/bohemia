@@ -160,55 +160,73 @@ def gun(bpy, mathutils):
     box(bpy, 'tape_tail', tape, (0.024, 0.006, 0.09), (0.515, -0.04, Z - 0.05), rot=(math.radians(-12), 0, 0))
 
 
+def blotch(bpy, name, m, r, loc, rot, seed, thick=0.014):
+    """a rust patch with a ragged edge: an n-gon whose every corner sits at its own radius (his car's rust is a stain,
+    never a square)"""
+    import random
+    rnd = random.Random(seed)
+    o = cyl(bpy, name, m, r, thick, loc, rot=rot, verts=11, smooth=False)
+    for v in o.data.vertices:
+        d = math.hypot(v.co.x, v.co.y)
+        if d > 1e-6:
+            k = rnd.uniform(0.55, 1.25); v.co.x *= k; v.co.y *= k * rnd.uniform(0.6, 1.0)
+    return o
+
+
 def wreck(bpy, mathutils):
+    # round two of the loop: the first body sat 0.31 m off the ground over 0.33 m wheels (a toy van), the rust was
+    # salmon squares and the sprung bonnet a plank. Now: a sedan's 1.42 m, the body down over bigger wheels, the cabin
+    # tapered in plan and in section, the rust ragged stains in two depths, the bonnet up 7 degrees at its front edge
     L, W = 4.7, 1.78
     paint, paint_lo = mat(bpy, 'paint_teal', 'clay_teal', 2), mat(bpy, 'paint_teal_low', 'clay_teal', 1)
-    rust, rust_d, glass = mat(bpy, 'rust', 'clay_rust', 2), mat(bpy, 'rust_dark', 'clay_rust', 0), mat(bpy, 'glass_gone', 'glass_eye', 0)
+    rust, rust_d, glass = mat(bpy, 'rust', 'clay_rust', 1), mat(bpy, 'rust_dark', 'clay_rust', 0), mat(bpy, 'glass_gone', 'glass_eye', 0)
     rubber, trim = mat(bpy, 'tyre', 'rubber', 1), mat(bpy, 'trim', 'tape_grey', 1)
-    # the lower body: one long box, its ends tucked in and down like a sedan's nose and tail
-    lo = box(bpy, 'body_low', paint, (L, W, 0.62), (0, 0, 0.62), bevel=0.06)
-    bm_sub = lo.modifiers.new('sub', 'SUBSURF'); bm_sub.levels = 1; bpy.ops.object.modifier_apply(modifier='sub')
+    lo = box(bpy, 'body_low', paint, (L, W, 0.58), (0, 0, 0.55), bevel=0.07)
+    sub = lo.modifiers.new('sub', 'SUBSURF'); sub.levels = 1; bpy.ops.object.modifier_apply(modifier='sub')
     for v in lo.data.vertices:
         ex = abs(v.co.x) / (L / 2)
-        if ex > 0.8 and v.co.z > 0.62: v.co.z -= (ex - 0.8) * 0.5   # the bonnet and the boot lid fall away to the bumpers
-        if ex > 0.9: v.co.y *= 1 - (ex - 0.9) * 0.6
-    # the cabin, sunk and the roof caved where something sat on it
-    cab = box(bpy, 'cabin', paint, (2.3, W * 0.86, 0.5), (-0.25, 0, 1.17), bevel=0.05)
+        if ex > 0.75 and v.co.z > 0.55: v.co.z -= (ex - 0.75) * 0.42   # the bonnet and the boot fall away to the bumpers
+        if ex > 0.9: v.co.y *= 1 - (ex - 0.9) * 0.7
+        if v.co.z < 0.4 and abs(abs(v.co.x) - 1.42) < 0.42: v.co.z += 0.12 * (1 - abs(abs(v.co.x) - 1.42) / 0.42)   # the wheel arches
+    cab = box(bpy, 'cabin', paint, (2.25, W * 0.84, 0.46), (-0.3, 0, 1.06), bevel=0.06)
     cs = cab.modifiers.new('sub', 'SUBSURF'); cs.levels = 2; bpy.ops.object.modifier_apply(modifier='sub')
     for v in cab.data.vertices:
-        top = v.co.z > 1.17
-        if top: v.co.x *= 0.78   # the screens raked in
-        d = math.hypot(v.co.x + 0.35, v.co.y - 0.1)
-        if top and d < 0.75: v.co.z -= (0.75 - d) * 0.22   # the cave-in
-    # dark holes where the glass was: thin panels just proud of each cabin face
-    box(bpy, 'screen_front', glass, (0.04, W * 0.72, 0.36), (0.67, 0, 1.16), rot=(0, math.radians(-34), 0))
-    box(bpy, 'screen_rear', glass, (0.04, W * 0.72, 0.32), (-1.17, 0, 1.15), rot=(0, math.radians(30), 0))
+        if v.co.z > 1.06:
+            u = (v.co.z - 1.06) / 0.23
+            v.co.x = (v.co.x + 0.3) * (1 - 0.3 * u) - 0.3 - 0.05 * u   # the screens raked, the rear more upright
+            v.co.y *= 1 - 0.12 * u                                       # the roof narrower than the waist
+            d = math.hypot(v.co.x + 0.4, v.co.y - 0.12)
+            if d < 0.7: v.co.z -= (0.7 - d) * 0.2                         # the cave-in where something sat on it
+    box(bpy, 'screen_front', glass, (0.03, W * 0.66, 0.33), (0.5, 0, 1.08), rot=(0, math.radians(-40), 0))
+    box(bpy, 'screen_rear', glass, (0.03, W * 0.66, 0.29), (-1.12, 0, 1.07), rot=(0, math.radians(34), 0))
     for side in (-1, 1):
-        for x0, w in ((0.2, 0.72), (-0.6, 0.72)):
-            box(bpy, 'window_%d_%d' % (side, int(x0 * 10)), glass, (w, 0.03, 0.3), (x0 - 0.25, side * W * 0.43, 1.18))
-    # rust as its own panels, laid on the paint (his car's patches, not a noise)
-    for i, (x, y, z, sx, sy) in enumerate(((1.6, 0.2, 0.9, 0.7, 0.9), (-0.2, -0.3, 1.39, 0.9, 0.6), (-1.9, -0.1, 0.86, 0.5, 0.7))):
-        box(bpy, 'rust_top_%d' % i, rust, (sx, sy, 0.012), (x, y, z), rot=(0, math.radians(-6 if x > 0 else 4), 0))
-    box(bpy, 'rust_side', rust_d, (1.3, 0.012, 0.28), (0.6, -W / 2 - 0.004, 0.48))
-    box(bpy, 'sill_rot', rust_d, (3.2, W + 0.02, 0.1), (0, 0, 0.36))
-    # the bonnet, sprung 12 degrees from its catch
-    box(bpy, 'bonnet', paint_lo, (1.15, W * 0.86, 0.035), (1.55, 0, 0.98), rot=(0, math.radians(-12), 0))
-    # bumpers and the light holes
+        for x0, w in ((0.05, 0.68), (-0.72, 0.62)):
+            box(bpy, 'window_%d_%d' % (side, int(x0 * 10)), glass, (w, 0.04, 0.26), (x0 - 0.2, side * W * 0.43, 1.07))   # under the caved roofline on both sides
+    # the rust: ragged stains, the deep ones inside the light ones, on the roof, the boot, the bonnet and down the sides
+    stains = ((-0.35, 0.0, 1.27, 0.55, 0), (-0.1, -0.25, 1.28, 0.3, 4), (-1.95, 0.1, 0.79, 0.42, 0), (1.85, -0.3, 0.8, 0.3, 0))
+    for i, (x, y, z, r, tilt) in enumerate(stains):
+        blotch(bpy, 'rust_%d' % i, rust, r, (x, y, z), (0, math.radians(tilt), 0), seed=i + 1)
+        blotch(bpy, 'rust_deep_%d' % i, rust_d, r * 0.45, (x + 0.05, y - 0.03, z + 0.012), (0, math.radians(tilt), 0), seed=i + 11, thick=0.022)
+    for i, (x, z, r) in enumerate(((0.75, 0.48, 0.32), (-0.9, 0.42, 0.26), (-1.9, 0.55, 0.2))):
+        for side in (-1, 1):
+            blotch(bpy, 'rust_side_%d_%d' % (i, side), rust, r, (x + side * 0.1, side * (W / 2 + 0.004), z), (math.pi / 2, 0, 0), seed=21 + i * 2 + side)
+    box(bpy, 'sill_rot', rust_d, (3.0, W + 0.02, 0.08), (0, 0, 0.3))
+    box(bpy, 'bonnet', paint_lo, (1.12, W * 0.84, 0.03), (1.62, 0, 0.84), rot=(0, math.radians(-7), 0))
     for sx in (-1, 1):
-        box(bpy, 'bumper_%d' % sx, trim, (0.12, W * 0.96, 0.16), (sx * (L / 2 + 0.01), 0, 0.42), bevel=0.03)
+        box(bpy, 'bumper_%d' % sx, trim, (0.12, W * 0.96, 0.15), (sx * (L / 2 + 0.01), 0, 0.36), bevel=0.03)
         for sy in (-1, 1):
-            box(bpy, 'lamp_%d_%d' % (sx, sy), rust_d, (0.04, 0.3, 0.12), (sx * (L / 2 - 0.02), sy * 0.62, 0.66))
-    # the wheels: three on, THE ONE ASYMMETRIC THING the front left gone, the nose down on its rim
-    for x, y in ((1.42, W / 2 - 0.08), (-1.42, W / 2 - 0.08), (-1.42, -W / 2 + 0.08)):
-        cyl(bpy, 'tyre_%d_%d' % (int(x * 10), int(y * 10)), rubber, 0.33, 0.22, (x, y, 0.33), rot=(math.pi / 2, 0, 0), verts=20)
-        cyl(bpy, 'hub_%d_%d' % (int(x * 10), int(y * 10)), rust_d, 0.16, 0.235, (x, y, 0.33), rot=(math.pi / 2, 0, 0), verts=12)
-    cyl(bpy, 'rim_bare', rust, 0.2, 0.12, (1.42, -W / 2 + 0.12, 0.2), rot=(math.pi / 2, 0, 0), verts=14)
-    # sit the whole car down on the missing wheel: nose-left drop and a roll, as one parent
+            box(bpy, 'lamp_%d_%d' % (sx, sy), rust_d, (0.04, 0.3, 0.11), (sx * (L / 2 - 0.02), sy * 0.62, 0.6))
+    # the wheels: three on, THE ONE ASYMMETRIC THING the front left gone, the nose down on its bare rim
+    for x, y in ((1.42, W / 2 - 0.1), (-1.42, W / 2 - 0.1), (-1.42, -W / 2 + 0.1)):
+        tag = '%d_%d' % (int(x * 10), int(y * 10))
+        cyl(bpy, 'tyre_' + tag, rubber, 0.34, 0.22, (x, y, 0.34), rot=(math.pi / 2, 0, 0), verts=20)
+        cyl(bpy, 'hub_' + tag, trim, 0.17, 0.235, (x, y, 0.34), rot=(math.pi / 2, 0, 0), verts=12)
+    cyl(bpy, 'rim_bare', rust_d, 0.21, 0.12, (1.42, -W / 2 + 0.14, 0.21), rot=(math.pi / 2, 0, 0), verts=14)
     bpy.ops.object.empty_add(location=(0, 0, 0)); root = bpy.context.active_object; root.name = 'wreck'
     for o in bpy.context.scene.objects:
         if o is not root: o.parent = root
-    root.rotation_euler = (math.radians(-2.5), math.radians(3.0), 0)
-    root.location.z = -0.05
+    root.rotation_euler = (math.radians(-2.5), math.radians(3.0), 0)   # down on the missing wheel: the nose and the left side drop
+    root.location.z = -0.04
 
 
 BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck}

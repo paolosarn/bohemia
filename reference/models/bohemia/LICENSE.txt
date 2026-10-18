@@ -12,3 +12,5 @@ lamp.glb (COOK [props through the rig], 10/18/26): modelled from nothing by tool
 records/target/BOHEMIA_STYLE_PALETTE.json. Ours, CC0.
 gun.glb (COOK [props through the rig], 10/18/26): a heavy machine gun on its tripod, modelled from nothing by tools/bohemia_cook_model_props.py gun,
 every base colour a step of records/target/BOHEMIA_STYLE_PALETTE.json. Ours, CC0.
+wreck.glb (COOK [props through the rig], 10/18/26): a dead four-door sedan, modelled from nothing by tools/bohemia_cook_model_props.py wreck,
+every base colour a step of records/target/BOHEMIA_STYLE_PALETTE.json. Ours, CC0.
