@@ -128,13 +128,14 @@
       NUM: NUM, song: song, stepS: stepS, barS: stepS * spb, timer: null, bar: 0, playing: false, log: [],
       note: function (vname, v, f, at, dur) {
         var o = ctx.createOscillator(), g = ctx.createGain(), tri = v.kind === 'triangle';
+        g.gain.value = 0;   /* BORN SILENT: a gain is 1 until its first event, and a start between two samples leaked one sample at full scale (measured 10/18: a -6 dB click on a hat at 0.55 s) */
         o.setPeriodicWave(tri ? W.tri : W.pulse[v.duty || 0.5]);
         o.frequency.setValueAtTime(f, at);
         var rel = tri ? NUM.TRI_GATE[1] : NUM.DECLICK;
         if (tri) { g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(v.vol, at + NUM.TRI_GATE[0]); g.gain.setValueAtTime(v.vol, at + dur); g.gain.linearRampToValueAtTime(0, at + dur + rel); }
         else envelope(g, v.env, v.vol, at, dur, rel);
         if (v.vibrato && dur > v.vibrato.after + 0.05) {    /* the vibrato waits for the note to settle, the way a singer's does */
-          var lf = ctx.createOscillator(), lg = ctx.createGain(); lf.frequency.value = v.vibrato.hz;
+          var lf = ctx.createOscillator(), lg = ctx.createGain(); lg.gain.value = 0; lf.frequency.value = v.vibrato.hz;
           lg.gain.setValueAtTime(0, at); lg.gain.setValueAtTime(0, at + v.vibrato.after); lg.gain.linearRampToValueAtTime(v.vibrato.cents, at + v.vibrato.after + 0.25);
           lf.connect(lg); lg.connect(o.detune); lf.start(at); lf.stop(at + dur + rel + 0.02);
         }
@@ -147,11 +148,12 @@
       drum: function (vname, v, hit, at) {
         var k = KIT[hit]; if (!k) return;
         var s = ctx.createBufferSource(), g = ctx.createGain(), dur = k.env.length * NUM.FRAME;
+        g.gain.value = 0;
         s.buffer = noiseBuf(ctx, k.noise, k.short);
         envelope(g, k.env, v.vol, at, dur, NUM.DECLICK);
         s.connect(g); g.connect(hpN); s.start(at, ((hits++ * 0.137) % 0.8)); s.stop(at + dur + NUM.DECLICK + 0.01);
         if (k.tri) {
-          var o = ctx.createOscillator(), og = ctx.createGain(); o.setPeriodicWave(W.tri);
+          var o = ctx.createOscillator(), og = ctx.createGain(); og.gain.value = 0; o.setPeriodicWave(W.tri);
           o.frequency.setValueAtTime(k.tri[0], at); o.frequency.exponentialRampToValueAtTime(k.tri[1], at + k.tri[2]);
           og.gain.setValueAtTime(0, at); og.gain.linearRampToValueAtTime(v.vol * 1.4, at + 0.002); og.gain.setValueAtTime(v.vol * 1.4, at + k.tri[2]); og.gain.linearRampToValueAtTime(0, at + k.tri[2] + NUM.TRI_GATE[1]);
           o.connect(og); og.connect(bassBus); o.start(at); o.stop(at + k.tri[2] + NUM.TRI_GATE[1] + 0.01);

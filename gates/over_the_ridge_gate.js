@@ -123,10 +123,12 @@ const srv = http.createServer((rq, rs) => {
     return { diff, peak: 20 * Math.log10(pk), bars, notes: r1.log.length,
       first: { lead: (r1.log.find(e => e.v === 'lead') || {}).at, drums: (r1.log.find(e => e.v === 'drums') || {}).at },
       hits2526: r1.log.filter(e => e.v === 'drums' && e.at >= 48.05 && e.at < 52.05).length,
+      jump: (() => { let m = 0, at = 0; for (let i = 1; i < d.length; i++) { const j = Math.abs(d[i] - d[i - 1]); if (j > m) { m = j; at = i / sr; } } return [m, at]; })(),
       d5: f0(8.07), ab5: f0(49.07), above8k: band(hp, 0, d.length) - band(d, 0, d.length) };
   });
   ok('the same song every render, within one part in 100,000 (float rounding, 100 dB under hearing)', R.diff < 1e-5, 'max diff ' + R.diff.toExponential(2));
   ok('the peak between -12 and -3 dBFS: no clip, no compressor needed', R.peak < -3 && R.peak > -12, R.peak.toFixed(2) + ' dB');
+  ok('no one-sample click: no sample jumps more than 0.4 (a gain born at 1 leaked one sample at 0.50, found on the map song and fixed in the engine)', R.jump[0] < 0.4, R.jump[0].toFixed(3) + ' at ' + R.jump[1].toFixed(3) + ' s');
   ok('no bar is silent', R.bars.every(x => x > -40), 'quietest ' + Math.min(...R.bars).toFixed(1) + ' dB');
   ok('the tune enters at bar 5 (8 s) and the beat at bar 13 (24 s), on the clock', Math.abs(R.first.lead - 8.05) < 0.002 && Math.abs(R.first.drums - 24.05) < 0.002, JSON.stringify(R.first));
   ok('the drums are gone under the wrong note: no hit in bars 25 and 26', R.hits2526 === 0);

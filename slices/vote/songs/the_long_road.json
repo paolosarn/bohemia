@@ -1,0 +1,327 @@
+{
+ "_readme": "A CHIP SONG (SOUNDS 10/18/26, row [a new song every round], round two): played by engine/bohemia_chip_song.js. A bar is 16 steps at 120 BPM (a step is a sixteenth, 125 ms). In a voice's line a token is a note (C#5, Bb3) that holds through the dots after it, '-' stops it; the drums line names hits (k kick, s snare, h hat, o open hat, t tom). order is one pattern per bar. Four voices like the NES's four channels: the lead (a 50 percent pulse), the arpeggio (a 12.5 percent pulse), the bass (the triangle), the drums (the noise). env is the volume sequence, one of the 16 levels a frame at 60 Hz. draft:true until his vote.",
+ "id": "the-long-road",
+ "title": "THE LONG ROAD",
+ "draft": true,
+ "made": "10/18/26",
+ "lane": "sounds",
+ "screen": "the map, the party travelling",
+ "bpm": 120,
+ "steps_per_bar": 16,
+ "key": "E Dorian (the C sharp is the road's light; the B flat chord at bar 27 is the wrong sign, on purpose, and bar 21 is the stall)",
+ "voices": {
+  "lead": {
+   "kind": "pulse",
+   "duty": 0.5,
+   "vol": 0.17,
+   "env": [
+    15,
+    14,
+    13,
+    12,
+    12,
+    11,
+    11,
+    10,
+    10,
+    10,
+    9,
+    9,
+    9,
+    9,
+    8
+   ],
+   "legato": 0.94,
+   "vibrato": {
+    "after": 0.3,
+    "hz": 5.5,
+    "cents": 12
+   }
+  },
+  "arp": {
+   "kind": "pulse",
+   "duty": 0.125,
+   "vol": 0.15,
+   "env": [
+    11,
+    8,
+    6,
+    5,
+    4,
+    3,
+    3,
+    2
+   ],
+   "legato": 0.75
+  },
+  "bass": {
+   "kind": "triangle",
+   "vol": 0.28,
+   "legato": 0.85
+  },
+  "drums": {
+   "kind": "noise",
+   "vol": 0.16
+  }
+ },
+ "patterns": {
+  "engine1": {
+   "chord": "Em",
+   "lead": "- . . . . . . . . . . . . . . .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "h . h . h . h . h . h . h . h ."
+  },
+  "engine2": {
+   "chord": "A",
+   "lead": "- . . . . . . . . . . . . . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "h . h . h . h . h . h . h . h ."
+  },
+  "engine3": {
+   "chord": "Em",
+   "lead": "- . . . . . . . . . . . . . . .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "h . h . h . h . h . h . h . h ."
+  },
+  "engine4": {
+   "chord": "A",
+   "lead": "- . . . . . . . . . . . . . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "h . h . h . h . h . h . h . h ."
+  },
+  "road1": {
+   "chord": "Em",
+   "lead": "E5 . . B4 . . E5 . F#5 . G5 . . . F#5 .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "k . h . h . h . k . h . h . h ."
+  },
+  "road2": {
+   "chord": "A",
+   "lead": "E5 . . . C#5 . . . D5 . E5 . . . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "k . h . h . h . k . h . h . h ."
+  },
+  "road3": {
+   "chord": "Em",
+   "lead": "E5 . . B4 . . E5 . F#5 . G5 . . . A5 .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "k . h . h . h . k . h . h . h ."
+  },
+  "road4": {
+   "chord": "A",
+   "lead": "B5 . . . A5 . . . G5 . F#5 . E5 . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "k . h . h . h . k . h . h . h ."
+  },
+  "road5": {
+   "chord": "Em",
+   "lead": "E5 . . B4 . . E5 . F#5 . G5 . . . F#5 .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "k . h . h . h . k . h . h . h ."
+  },
+  "road6": {
+   "chord": "A",
+   "lead": "E5 . . . C#5 . . . D5 . E5 . . . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "k . h . h . h . k . h . h . h ."
+  },
+  "road7": {
+   "chord": "C",
+   "lead": "G5 . . . E5 . . . C5 . . . E5 . G5 .",
+   "arp": "E4 G4 C5 G4 E4 G4 C5 G4 E4 G4 C5 G4 E4 G4 C5 G4",
+   "bass": "C3 . G2 . C3 . G2 . C3 . G2 . C3 . G2 .",
+   "drums": "k . h . h . h . k . h . h . h ."
+  },
+  "road8": {
+   "chord": "B",
+   "lead": "F#5 . . . . . . . D#5 . . . . . . -",
+   "arp": "D#4 F#4 B4 F#4 D#4 F#4 B4 F#4 D#4 F#4 B4 F#4 D#4 F#4 B4 F#4",
+   "bass": "B2 . F#2 . B2 . F#2 . B2 . F#2 . B2 . F#2 .",
+   "drums": "k . h . h . h . k . h . h . h ."
+  },
+  "open1": {
+   "chord": "C",
+   "lead": "C6 . . . B5 . . . G5 . . . E5 . . .",
+   "arp": "E4 G4 C5 G4 E4 G4 C5 G4 E4 G4 C5 G4 E4 G4 C5 G4",
+   "bass": "C3 . G2 . C3 . G2 . C3 . G2 . C3 . G2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "open2": {
+   "chord": "D",
+   "lead": "D6 . . . C6 . . . A5 . . . F#5 . . .",
+   "arp": "D4 F#4 A4 F#4 D4 F#4 A4 F#4 D4 F#4 A4 F#4 D4 F#4 A4 F#4",
+   "bass": "D3 . A2 . D3 . A2 . D3 . A2 . D3 . A2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "open3": {
+   "chord": "Em",
+   "lead": "B5 . . . . . . . G5 . . . E5 . . .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "open4": {
+   "chord": "Em",
+   "lead": "E5 . . . . . . . . . . . - . . .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "open5": {
+   "chord": "C",
+   "lead": "G5 . . . A5 . . . B5 . . . C6 . . .",
+   "arp": "E4 G4 C5 G4 E4 G4 C5 G4 E4 G4 C5 G4 E4 G4 C5 G4",
+   "bass": "C3 . G2 . C3 . G2 . C3 . G2 . C3 . G2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "open6": {
+   "chord": "D",
+   "lead": "D6 . . . . . . . A5 . . . F#5 . . .",
+   "arp": "D4 F#4 A4 F#4 D4 F#4 A4 F#4 D4 F#4 A4 F#4 D4 F#4 A4 F#4",
+   "bass": "D3 . A2 . D3 . A2 . D3 . A2 . D3 . A2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "open7": {
+   "chord": "B",
+   "lead": "F#5 . . . D#5 . . . B4 . . . D#5 . . .",
+   "arp": "D#4 F#4 B4 F#4 D#4 F#4 B4 F#4 D#4 F#4 B4 F#4 D#4 F#4 B4 F#4",
+   "bass": "B2 . F#2 . B2 . F#2 . B2 . F#2 . B2 . F#2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "open8": {
+   "chord": "B",
+   "lead": "F#5 . . . . . . . . . . . - . . .",
+   "arp": "D#4 F#4 B4 F#4 D#4 F#4 B4 F#4 D#4 F#4 B4 F#4 D#4 F#4 B4 F#4",
+   "bass": "B2 . F#2 . B2 . F#2 . B2 . F#2 . B2 . F#2 .",
+   "drums": "k . h . s . h . s . s . s s t t"
+  },
+  "stall": {
+   "chord": "Em",
+   "lead": "- . . . . . . . . . . . . . . .",
+   "arp": "- . . . . . . . . . . . . . . .",
+   "bass": "E2 . . . . . . . . . . . . . . .",
+   "drums": ""
+  },
+  "again1": {
+   "chord": "Em",
+   "lead": "E5 . . B4 . . E5 . F#5 . G5 . . . F#5 .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "again2": {
+   "chord": "A",
+   "lead": "E5 . . . C#5 . . . D5 . E5 . . . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "again3": {
+   "chord": "Em",
+   "lead": "E5 . . B4 . . E5 . F#5 . G5 . . . A5 .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "again4": {
+   "chord": "A",
+   "lead": "B5 . . . A5 . . . G5 . F#5 . E5 . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "again5": {
+   "chord": "Em",
+   "lead": "E5 . . B4 . . E5 . F#5 . G5 . . . F#5 .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "wrongsign": {
+   "chord": "Bb",
+   "lead": "F5 . . . D5 . . . Bb4 . . . D5 . . .",
+   "arp": "D4 F4 Bb4 F4 D4 F4 Bb4 F4 D4 F4 Bb4 F4 D4 F4 Bb4 F4",
+   "bass": "Bb2 . F2 . Bb2 . F2 . Bb2 . F2 . Bb2 . F2 .",
+   "drums": "k . h . s . h k k . h . s . h ."
+  },
+  "turn": {
+   "chord": "B",
+   "lead": "F#5 . . . . . . . D#5 . . . . . . -",
+   "arp": "D#4 F#4 B4 F#4 D#4 F#4 B4 F#4 D#4 F#4 B4 F#4 D#4 F#4 B4 F#4",
+   "bass": "B2 . F#2 . B2 . F#2 . B2 . F#2 . B2 . F#2 .",
+   "drums": "k . h . s . h . s . s . s s t t"
+  },
+  "home1": {
+   "chord": "Em",
+   "lead": "E5 . . . . . . . . . . . . . . .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "h . h . h . h . h . h . h . h ."
+  },
+  "home2": {
+   "chord": "A",
+   "lead": "- . . . . . . . . . . . . . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "h . h . h . h . h . h . h . h ."
+  },
+  "home3": {
+   "chord": "Em",
+   "lead": "- . . . . . . . . . . . . . . .",
+   "arp": "E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4 E4 B4 E5 B4",
+   "bass": "E2 . B2 . E2 . B2 . E2 . B2 . E2 . B2 .",
+   "drums": "h . h . h . h . h . h . h . h ."
+  },
+  "home4": {
+   "chord": "A",
+   "lead": "- . . . . . . . . . . . . . . .",
+   "arp": "E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4 E4 A4 C#5 A4",
+   "bass": "A2 . E2 . A2 . E2 . A2 . E2 . A2 . E2 .",
+   "drums": "h . h . h . h . h . h . h . h ."
+  }
+ },
+ "order": [
+  "engine1",
+  "engine2",
+  "engine3",
+  "engine4",
+  "road1",
+  "road2",
+  "road3",
+  "road4",
+  "road5",
+  "road6",
+  "road7",
+  "road8",
+  "open1",
+  "open2",
+  "open3",
+  "open4",
+  "open5",
+  "open6",
+  "open7",
+  "open8",
+  "stall",
+  "again1",
+  "again2",
+  "again3",
+  "again4",
+  "again5",
+  "wrongsign",
+  "turn",
+  "home1",
+  "home2",
+  "home3",
+  "home4"
+ ]
+}

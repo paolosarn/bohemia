@@ -10480,6 +10480,25 @@
     "src": "vote/COMBAT_THE_MARKS_ON_THE_BOARD_10_18.jpg"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-the-long-road-10-18",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "A NEW SONG FOR THE MAP",
+   "why": "The second new song: an 8-bit road song for the map while your crew travels, 120 BPM, a minute long, with one bar where the band stalls and one wrong road sign of a chord. You hear it on this page over the real map and the desert, clean (A) or on a worn tape (B), or the map with no song (C), and on the map once you say yes, beside your songs, never replacing one.",
+   "options": [
+    "A, the song, clean 8-bit",
+    "B, the song on a worn tape",
+    "C, no song on the map"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_LONG_ROAD_10_18_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

@@ -98,3 +98,9 @@ hiss is the desert's.
 - On his YES: CUE 7.3 (RUN). On B: the same, tape on.
 - The row's next song: the map's travel song (his order: the title, then the map, then the fight), the same engine, a
   new tune; the engine is the road for every song after this one.
+
+## FIXED AFTER (the same session, round two)
+
+The engine leaked one sample at full scale at the start of some hits (a gain is 1 until its first event); the map
+song found it, the engine's gains are now born at zero, and this song's gate refuses any jump over 0.4 (now 0.28).
+The song's data and its lock hash did not change. Record: records/BOHEMIA_THE_LONG_ROAD_10_18_26.md.

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE LONG ROAD</title>
+<!-- SOUNDS lane, 10/18, row [the map's song], round two of [a new song every round]. PAOLO 10/18: 'I haven't heard a
+     new song that was made in a long time... what's up?' and 'he likes 8-bit'. The row's order: the title (OVER THE
+     RIDGE, round one), then the map's travel song, then the fight's.
+
+     THE SONG: THE LONG ROAD (a name, draft), the map's song while the party travels. E Dorian, 120 BPM, 32 bars, 64
+     seconds, loops. The same four voices as the NES (engine/bohemia_chip_song.js): the tune on a 50 percent pulse (a
+     hollower voice than the title's 25), the arpeggio on a 12.5 percent pulse, a driving triangle bass, root and
+     fifth in eighths, and the noise kit. Bars 1 to 4 the engine turns over (the bass and the road's tick); the tune at
+     bar 5 with the kick only; the snare arrives late at bar 13 for the climb; bar 21 THE STALL, everything stops but
+     one low E for a whole bar; the road again; bar 27 THE WRONG SIGN, a B flat chord, the flat fifth of E; bars 29
+     to 32 one long E and back to the top. Data: slices/vote/songs/the_long_road.json.
+
+     WHAT THIS PAGE IS: the real valley map (slices/BOHEMIA_MAP_CURRENT.html, untouched) from its own camera, the
+     recorded desert under it at the map's level (MAPDESERT's file, his YES), and A THE SONG, B ON A WORN TAPE,
+     C THE MAP WITHOUT A SONG. His own songs already play on the map in the shuffle; on his YES this one JOINS the
+     shuffle, never replacing one (CUE 7.4, RUN's cut, rule 93). Gate: gates/the_long_road_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{display:flex;flex-direction:column}
+  #map{flex:1 1 auto;min-height:0;width:100%;border:0;background:#0d0b08}
+  #bar{flex:0 0 auto;box-sizing:border-box;padding:10px 16px 12px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.old{background:#b9a77e}
+  .num{font-size:12px;color:#b9a77e;margin-top:8px;min-height:3em}
+</style></head><body>
+<iframe id="map" src="BOHEMIA_MAP_CURRENT.html" title="the valley map"></iframe>
+<div id="bar">
+  <div class="row">
+    <button id="song">A. THE SONG</button>
+    <button id="tape">B. ON A WORN TAPE</button>
+    <button id="none" class="old">C. NO SONG</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="num">Tap one. The desert is under all three, like on the map. The song is a minute long and loops.</div>
+</div>
+<script src="../engine/bohemia_chip_song.js"></script>
+<script>
+(function(){
+  'use strict';
+  var AC=null, OUT=null, n=document.getElementById('num'), SONG=null, chip=null, mode=null, bed=null, bedT=null, clock=null, BUF={};
+  fetch('vote/songs/the_long_road.json').then(function(r){ return r.json(); }).then(function(s){ SONG=s; }).catch(function(e){ n.textContent='the song did not load: '+e.message; });
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function load(path){ if(BUF[path]) return Promise.resolve(BUF[path]);
+    return fetch(path).then(function(r){ if(!r.ok) throw new Error(path+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[path]=b); }); }
+  /* the desert under the map, the same file, loop and level as the alpha's MAPDESERT */
+  function bedOn(){ if(bed) return; var my=bed=AC.createGain(); my.gain.setValueAtTime(0,AC.currentTime); my.gain.linearRampToValueAtTime(0.45,AC.currentTime+1.5); my.connect(OUT);
+    load('vote/settlement_heard/bed_day.mp3').then(function(b){ var XF=1.0, step=b.duration-XF;
+      (function one(at){ if(bed!==my) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(my);
+        v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF); v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+        s.start(at); bedT=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000)); })(AC.currentTime+0.05); }); }
+  function bedOff(){ if(bedT) clearTimeout(bedT); bedT=null; if(bed){ var x=bed; bed=null; x.gain.cancelScheduledValues(AC.currentTime); x.gain.setValueAtTime(x.gain.value,AC.currentTime); x.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); setTimeout(function(){ try{x.disconnect();}catch(e){} },900); } }
+
+  var PART=[[1,'the engine turns over'],[5,'the road: the tune'],[13,'the open desert: the snare arrives'],[21,'the stall'],[22,'the road again'],[27,'the wrong sign: B flat'],[28,'the turn home'],[29,'one long E, back to the top']];
+  function where(){ if(!chip||mode==='none'||!mode) return; var b=((chip.bar-1)%SONG.order.length)+1, p=PART.filter(function(x){ return x[0]<=b; }).pop();
+    n.textContent=LABEL[mode]+'  Bar '+b+' of '+SONG.order.length+': '+p[1]+'.'; }
+  function songOff(){ if(chip){ chip.stop(); chip=null; } if(clock){ clearInterval(clock); clock=null; } }
+  var LABEL={ song:'Clean 8-bit, the way the NES made it, over the desert.', tape:'The same song on a worn tape: the pitch drifts a hair and the top goes dull. Never crushed.',
+              none:'The map as it sounds now: the desert and nothing else here.' };
+  function mark(id){ ['song','tape','none'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
+  function go(id){
+    ctx(); if(id!=='none'&&!SONG){ n.textContent='the song is still loading, tap again'; return; }
+    songOff(); mode=id; mark(id); n.textContent=LABEL[id]; bedOn();
+    if(id!=='none'){ chip=BOH_CHIP.make(AC, OUT, SONG, { tape: id==='tape'?1:0 }); chip.play({ loop:true }); clock=setInterval(where, 250); }
+  }
+  ['song','tape','none'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
+  document.getElementById('stop').onclick=function(){ if(!AC) return; songOff(); bedOff(); mode=null; mark(null); n.textContent='Stopped.'; };
+  window.__road=function(){ return { mode:mode, song:!!SONG, bar:chip?chip.bar:0, playing:!!(chip&&chip.playing), notes:chip?chip.log.length:0, bed:!!bed, log:chip?chip.log.slice(-64):[] }; };
+})();
+</script>
+</body></html>
