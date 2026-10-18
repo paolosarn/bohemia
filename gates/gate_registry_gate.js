@@ -88,8 +88,10 @@ function registeredPaths() {
   const body = src.slice(i);
   /* one row is  ('NAME', ['python3', 'gates/x_gate.py'], ... */
   /* the name may be in double quotes when it carries an apostrophe ("QUARTERMASTER'S COUNT"); the
-     single-quote-only pattern of 9/7 skipped those rows and called their files orphans (10/18) */
-  const rowRe = /^ {4}\((?:'([^']+)'|"([^"]+)"),\s*(\[[^\]]*\])/gm;
+     single-quote-only pattern of 9/7 skipped those rows and called their files orphans (10/18). AND it may be
+     in single quotes with the apostrophe escaped ('THE BOARD\'S QUESTS ARE PEOPLE', RUN TWO 10/18): the
+     pattern stopped at the backslash and called two registered green gates orphans (PLUMBER 10/18) */
+  const rowRe = /^ {4}\((?:'((?:[^'\\\n]|\\.)+)'|"((?:[^"\\\n]|\\.)+)"),\s*(\[[^\]]*\])/gm;
   const rows = [];
   const paths = new Set();
   let m;

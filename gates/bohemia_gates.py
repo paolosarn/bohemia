@@ -3327,6 +3327,16 @@ GATES = [
      'judging surface. VOTE is tab #1, opens on what has no verdict, thumbs + comments + SUN + .txt, '
      'and the queue is derived from DECLARED @VERDICT lines rather than parsed out of his prose',
      False),
+    ('THE CARD I NAME IS ON HIS SCREEN', ['node', 'gates/the_card_i_name_is_on_his_screen_gate.js'],
+     'PLUMBER 10/18, row [the card I name is on his screen], rule 118 (Paolo 10/18: "A lot of the votes you saying '
+     'were on a card visible we\'re not visible for me"; five of fourteen things the coordinator sent him to the VOTE '
+     'tab for never had a card). Runs the VOTE tab\'s OWN script on the committed registry and triage (no copy of the '
+     'sort) and reads what it draws on his first screen. R1-R3: the coordinator\'s newest round record carries ON HIS '
+     'SCREEN, one card id per line, each in the registry, unvoted, not tagged out, not behind MORE. B1/B2: a board row '
+     'that says IN VOTE names a registered card id; P1: a row that says it pulled a card names an id out of the '
+     'registry. 14 planted cases and 5 on copies of the real record and board (his five missing things as prose, as '
+     'unregistered ids, voted, the heading gone, COMBAT TWO\'s all-four-cards promise). Green at birth, 26/0, no '
+     'browser, under a second', False),
     ('INTERIOR LEVELS',['node', 'gates/interior_levels_gate.js'],
      'three interiors disagreed about the word "levels" -- an ARRAY in the floorplan, a COUNT in the '
      'garage, absent in the crypt -- and neither mistake throws, so a walker would have read undefined '
