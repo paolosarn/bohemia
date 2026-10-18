@@ -64,12 +64,14 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    registry is that it lives OUTSIDE slices/ where every lane can append to it. This
    mirrors production: _site carries slices/ and records/target/ side by side. */
 let plant = null;   /* when set, this body is served as the registry */
+let triPlant = null;   /* when set, this body is served as the sort file (RUN TWO [new cards show first]) */
 let noSort = false;  /* when set, the sort file (rule 92) answers 404, as a deploy that lost it would */
 function serve() {
   return new Promise(res => {
     const s = http.createServer((rq, rs) => {
       const rel = decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, '');
       if (noSort && rel === 'records/target/BOHEMIA_VOTE_TRIAGE.json') { rs.statusCode = 404; return rs.end('no'); }
+      if (triPlant && rel === 'records/target/BOHEMIA_VOTE_TRIAGE.json') { rs.setHeader('content-type', 'application/json'); return rs.end(triPlant); }
       if (plant && rel === REGREL) {
         rs.setHeader('content-type', 'application/json');
         return rs.end(plant);
@@ -272,15 +274,22 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
     await pg.evaluate(() => { const f = document.getElementById('fold'); if (f && !f.hidden && document.getElementById('more').hidden) f.click(); });
     await pg.waitForTimeout(80);
     return pg.evaluate(() => Array.from(document.querySelectorAll('#list .row, #more .row')).map(r => r.getAttribute('data-id'))); };
-  const want = (reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id))
-                                .map(i => i.id).filter(kept);
+  /* NEWEST FIRST is the day a card was made, then its place in the file (RUN TWO [new cards show first], 10/18: eight 10/18
+     cards put at the head of items[] were drawn under 9/12 ones). want runs OLDEST to NEWEST, so want[want.length-1] is
+     the newest, as before. */
+  const madeOf = i => { const m = String(i.made || '').match(/^(\d{1,2})\/(\d{1,2})/); return m ? (+m[1]) * 100 + (+m[2]) : 0; };
+  const byNew = items => items.map((it, k) => ({ it, k, d: madeOf(it) })).sort((a, b) => (b.d - a.d) || (b.k - a.k)).map(x => x.it);
+  const want = byNew((reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id)))
+                                .map(i => i.id).filter(kept).reverse();
   const cap = (TRI && TRI.cap) || 12;
-  const redsWanted = want.slice().reverse().filter(id => tagOf(id) === 'red').slice(0, cap);
-  ok('in front of him: the red ones, newest first, at most ' + cap + ', and nothing else',
-     TRI ? (rows.length === redsWanted.length && rows.every((id, i) => id === redsWanted[i])) : rows.length === want.length,
-     rows.length + ' in front, ' + redsWanted.length + ' red');
+  const newest = want.slice().reverse();
+  const redsWanted = newest.filter(id => tagOf(id) === 'red');
+  const frontWanted = redsWanted.concat(newest.filter(id => !tagOf(id))).slice(0, cap);
+  ok('in front of him: the red ones, then the ones nobody has sorted yet, newest first, at most ' + cap + ', and nothing else',
+     TRI ? (rows.length === frontWanted.length && rows.every((id, i) => id === frontWanted[i])) : rows.length === want.length,
+     rows.length + ' in front, ' + redsWanted.length + ' red, ' + (frontWanted.length - Math.min(cap, redsWanted.length)) + ' new');
   const foldN = await p.evaluate(() => { const f = document.getElementById('fold'); return f && !f.hidden ? +document.getElementById('foldn').textContent : 0; });
-  ok('  the rest wait behind one fold that says MORE with its count', !TRI || foldN === want.length - redsWanted.length, foldN + ' behind MORE, ' + (want.length - redsWanted.length) + ' wanted');
+  ok('  the rest wait behind one fold that says MORE with its count', !TRI || foldN === want.length - frontWanted.length, foldN + ' behind MORE, ' + (want.length - frontWanted.length) + ' wanted');
   const all = await queue();
   ok('every unjudged candidate the sort keeps is in the queue, and no green or gray one is',
      all.length === want.length && want.every(id => all.indexOf(id) >= 0),
@@ -292,8 +301,42 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
      after a full sitting, and passed vacuously on an empty queue. It now reads the first row he sees, in front or
      behind the fold. */
   const topRow = rows.length ? rows[0] : all[0];
-  ok('the newest thing is at the top (in front, or first behind the fold when nothing is red)', topRow === (TRI && redsWanted.length ? redsWanted[0] : want[want.length - 1]),
+  ok('the newest thing is at the top (the newest red, else the newest new one)', topRow === (TRI && frontWanted.length ? frontWanted[0] : want[want.length - 1]),
      'top is ' + topRow);
+
+  /* NEW CARDS SHOW FIRST (RUN TWO, Paolo 10/18 'the votes aren't loading what you're telling me'): a card nobody has tagged
+     is on his FIRST screen, never behind MORE. Two planted untagged cards: one appended the way the readme says, one put at
+     the HEAD of items[] with the newest day (the way eight cards were). Read twice: with nothing tagged, both lead the list;
+     with the coordinator's real tags, both sit right after the reds while the cap has room. A tag only demotes: the same
+     card tagged yellow waits behind MORE, tagged green it is nowhere. */
+  {
+    const today = '10/18';
+    const mk = (id, made) => ({ id, kind: 'ui', lane: 'run 2', sha: 'gate', made, title: 'PLANTED BY THE GATE', why: 'Planted. You see it nowhere but this check.', show: { how: 'image', src: 'vote/none.png' } });
+    const reg2 = JSON.parse(JSON.stringify(reg));
+    reg2.items.unshift(mk('gate-planted-at-the-head', '12/31')); reg2.items.push(mk('gate-planted-appended', today));
+    plant = JSON.stringify(reg2);
+    const read = async () => { await open(); return p.evaluate(() => ({ list: Array.from(document.querySelectorAll('#list .row')).map(r => r.getAttribute('data-id')),
+      more: +(document.getElementById('fold').hidden ? 0 : document.getElementById('foldn').textContent) })); };
+    triPlant = JSON.stringify({ made: 'gate', cap: 12, tags: {} });
+    const bare2 = await read();
+    ok('NEW CARDS SHOW FIRST: with nothing tagged, two planted untagged cards lead his first screen (one at the head of the file, one appended)',
+       bare2.list[0] === 'gate-planted-at-the-head' && bare2.list.indexOf('gate-planted-appended') >= 0 && bare2.list.indexOf('gate-planted-appended') < 12, bare2.list.slice(0, 3).join(', '));
+    const realTags = (TRI && TRI.tags) || {}, realCap = (TRI && TRI.cap) || 12;
+    triPlant = JSON.stringify({ made: 'gate', cap: realCap, tags: realTags });
+    const tagged = await read();
+    const reds2 = redsWanted.length, a = tagged.list.indexOf('gate-planted-at-the-head'), z = tagged.list.indexOf('gate-planted-appended');
+    ok('  with the coordinator\'s real tags they sit right after the ' + reds2 + ' red while the cap (' + realCap + ') has room, else first behind MORE',
+       reds2 + 2 <= realCap ? (a === Math.min(reds2, realCap) && z > a && z < realCap) : (a < 0 && tagged.more > 0), 'at ' + a + ' and ' + z + ' of ' + tagged.list.length);
+    const demote = Object.assign({}, realTags, { 'gate-planted-at-the-head': { tag: 'yellow' }, 'gate-planted-appended': { tag: 'green' } });
+    triPlant = JSON.stringify({ made: 'gate', cap: realCap, tags: demote });
+    const dem = await read();
+    await p.evaluate(() => { const f = document.getElementById('fold'); if (f && !f.hidden && document.getElementById('more').hidden) f.click(); });
+    await p.waitForTimeout(80);
+    const behind = await p.evaluate(() => Array.from(document.querySelectorAll('#more .row')).map(r => r.getAttribute('data-id')));
+    ok('  a tag only demotes: tagged yellow it waits behind MORE, tagged green it is nowhere', dem.list.indexOf('gate-planted-at-the-head') < 0 && behind.indexOf('gate-planted-at-the-head') >= 0
+       && dem.list.concat(behind).indexOf('gate-planted-appended') < 0, behind.length + ' behind MORE');
+    plant = null; triPlant = null; await open();
+  }
   /* AND WITHOUT THE SORT FILE THE TAB SHOWS EVERYTHING, NEVER NOTHING (the row's done-test) */
   noSort = true; await open();
   const bare = await p.evaluate(() => ({ n: document.querySelectorAll('#list .row').length, fold: !document.getElementById('fold').hidden }));

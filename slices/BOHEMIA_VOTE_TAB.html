@@ -168,9 +168,11 @@
   var items = [];
   var lastGone = null;
   /* THE SORT (UI [the triage filter], rule 92): records/target/BOHEMIA_VOTE_TRIAGE.json is the coordinator's file. RED
-     he sees now, first and alone, at most the file's cap (twelve); YELLOW, a red past the cap, and anything the
-     coordinator has not tagged yet wait behind one fold that says MORE with its count; GREEN (the lane's pick stands)
-     and GRAY (the team already knows) never show. No file, or a broken one: everything shows, as it always did. */
+     he sees first; then anything the coordinator has NOT tagged yet, both newest first, together at most the file's cap
+     (twelve); YELLOW and whatever is past the cap wait behind one fold that says MORE with its count; GREEN (the lane's
+     pick stands) and GRAY (the team already knows) never show. A tag only ever DEMOTES (RUN TWO [new cards show first],
+     Paolo 10/18 'the votes aren't loading what you're telling me': the untagged went behind MORE, the coordinator stopped
+     tagging after sweep AP, and his list showed nothing new for hours). No file, or a broken one: everything shows. */
   var TRI = null, TRI_URL = '../records/target/BOHEMIA_VOTE_TRIAGE.json', foldOpen = false;
 
   function readPhone(){
@@ -351,21 +353,28 @@
 
   /* ---------- DRAW ---------- */
   function tagOf(id){ var t = TRI && TRI.tags && TRI.tags[id]; return t && t.tag ? String(t.tag).toLowerCase() : null; }
+  /* NEWEST FIRST, by the day a card says it was made, then by where it sits in the file (the readme says append, so later
+     is newer). The day leads because a card put at the TOP of the file was drawn last for weeks (measured 10/18: eight
+     10/18 cards at the head of items[] sat under 9/12 ones). */
+  function madeOf(it){ var m = String((it && it.made) || '').match(/^(\d{1,2})\/(\d{1,2})/); return m ? (+m[1]) * 100 + (+m[2]) : 0; }
+  function newestFirst(){
+    return items.map(function(it, i){ return {it:it, i:i, d:madeOf(it)}; })
+      .sort(function(a, b){ return (b.d - a.d) || (b.i - a.i); }).map(function(x){ return x.it; });
+  }
   function draw(){
     var list = document.getElementById('list'), more = document.getElementById('more'), fold = document.getElementById('fold');
     list.textContent = ''; more.textContent = '';
-    /* NEWEST FIRST. The registry is appended to, so the end of the file is the newest. */
-    var i, n = 0, cap = (TRI && TRI.cap) || 12, later = [];
-    for(i = items.length - 1; i >= 0; i--){
-      var it = items[i];
-      if(!it || !it.id) continue;
-      if(judged(it.id)) continue;      /* A VOTE CONSUMES. This line is the whole law. */
-      if(!TRI){ list.appendChild(row(it)); n++; continue; }
+    var cap = (TRI && TRI.cap) || 12, reds = [], fresh = [], rest = [];
+    newestFirst().forEach(function(it){
+      if(!it || !it.id) return;
+      if(judged(it.id)) return;        /* A VOTE CONSUMES. This line is the whole law. */
+      if(!TRI){ list.appendChild(row(it)); return; }
       var tg = tagOf(it.id);
-      if(tg === 'green' || tg === 'gray' || tg === 'grey') continue;   /* the team already has it: never on his screen */
-      if(tg === 'red' && n < cap){ list.appendChild(row(it)); n++; continue; }
-      later.push(it);                                                    /* yellow, a red past the cap, or not sorted yet */
-    }
+      if(tg === 'green' || tg === 'gray' || tg === 'grey') return;      /* the team already has it: never on his screen */
+      if(tg === 'red') reds.push(it); else if(!tg) fresh.push(it); else rest.push(it);   /* red, not sorted yet, yellow */
+    });
+    var front = reds.concat(fresh), later = front.slice(cap).concat(rest);   /* red first, then the new; a tag only demotes */
+    front.slice(0, cap).forEach(function(it){ list.appendChild(row(it)); });
     fold.hidden = !TRI || !later.length;
     fold.dataset.n = String(later.length);
     more.hidden = !foldOpen;
