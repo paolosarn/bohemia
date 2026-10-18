@@ -9,6 +9,10 @@ the whole sheet is then doubled with nearest neighbour, so there is ONE pixel si
     python3 tools/bohemia_cook_props_through_the_rig_sheet.py          ->  records/target/COOK_PROPS_THROUGH_THE_RIG.png
     python3 tools/bohemia_cook_props_through_the_rig_sheet.py fight    ->  records/target/COOK_FIGHT_PROPS_THROUGH_THE_RIG.png
       ([the fight props through the rig]: the barrier, the dumpster, the cart and the tyres a fight tile stands on)
+    python3 tools/bohemia_cook_props_through_the_rig_sheet.py blockwar ->  records/target/COOK_THE_BLOCK_WARS_COVER.png
+      ([the block war's cover]: the sandbags, the chain-link and its gate, the container, the propane tank, the rubble
+      mound and the cart corral; a row may name the facing its MINE picture stands at, the three-quarter his pack
+      draws a container at, and says so in the caption)
 
 REFERENCE CHECK: the twins are his approved tiles named in each row; the cards are the rig's own (rig.json).
 REUSE CHECK: it draws nothing; it lays out his approved tiles from reference/art_bank (the twins and the street tile),
@@ -33,11 +37,30 @@ FIGHT_ROWS = [
     ('cart', 'THE SHOPPING CART, 1.0 m', 'a shopping cart', ['--words', 'shopping', 'trolley', '--nearest', '15. Street props#21', '--verdict', 'OWNS ZERO, BUY OR COMMISSION (no cart in 294 packs; the twin is his wire bin, the same wire)'], 'pack:15. Street props#21', None),
     ('tyres', 'THE TYRES, TWO STACKS', 'a stack of tyres', ['--packs', '3. Barricades and blockades', '--nearest', '3. Barricades and blockades#5'], 'pack:3. Barricades and blockades#5', None),
 ]
+BLOCKWAR_ROWS = [
+    ('sandbags', 'THE SANDBAG WALL, 2.6 m, 0.85 m HIGH (COVER)', 'a sandbag wall', ['--packs', '5. Barricades and defenses', '--nearest', '5. Barricades and defenses#2'], 'pack:5. Barricades and defenses#2', None),
+    ('fence', 'THE CHAIN-LINK RUN AND ITS GATE, 5.5 m (A BLOCKER YOU SEE THROUGH)', 'a chain-link fence and gate', ['--packs', '6. Chain link fences', '13. Fences and wire', '--nearest', '6. Chain link fences#0', '13. Fences and wire#10'], 'pack:6. Chain link fences#0', None),
+    ('container', 'THE SHIPPING CONTAINER, 6.06 m (A BLOCKER YOU CLIMB)', 'a shipping container', ['--packs', 'Cargo, crates and containers', '--nearest', 'Cargo, crates and containers#36'], 'pack:Cargo, crates and containers#36', 'records/target/direction_the_truck_turned_up/truck/rig_SW.png', 'SW'),
+    ('propane', 'THE PROPANE TANK, 3.02 m (COVER THAT STOPS YOU)', 'a propane tank', ['--packs', '9. Boilers and tanks', 'Cargo, crates and containers', '--nearest', 'Cargo, crates and containers#22', '9. Boilers and tanks#25'], 'pack:Cargo, crates and containers#22', None),
+    ('rubble', 'THE RUBBLE MOUND, 4.6 m, 1.4 m HIGH (THE MOUND: HIGH GROUND)', 'a rubble mound', ['--packs', '9. Rubble and debris', '--nearest', '9. Rubble and debris#1'], 'pack:9. Rubble and debris#1', None),
+    ('corral', 'THE CART CORRAL, 6.3 m, WITH LAST ROUND\'S CART FOUR TIMES (COVER THAT STOPS YOU)', 'a cart corral', ['--words', 'shopping', 'trolley', 'corral', '--nearest', '15. Street props#21', '--verdict', 'OWNS ZERO, BUY OR COMMISSION (no cart and no corral in 294 packs; the twin is his wire bin; the carts are last round\'s model)'], 'pack:15. Street props#21', None, 'SE'),
+]
 SETS = {
     'props': (ROWS, 'records/target/COOK_PROPS_THROUGH_THE_RIG.png', 'COOK [props through the rig] 10/18: THREE PROPS MODELLED AT THE SOURCE, RENDERED THROUGH THE MASTER RIG'),
     'fight': (FIGHT_ROWS, 'records/target/COOK_FIGHT_PROPS_THROUGH_THE_RIG.png', 'COOK [the fight props through the rig] 10/18: FOUR THINGS A FIGHT TILE STANDS ON, MODELLED AT THE SOURCE, THROUGH THE MASTER RIG'),
+    'blockwar': (BLOCKWAR_ROWS, 'records/target/COOK_THE_BLOCK_WARS_COVER.png', "COOK [the block war's cover] 10/18: SIX THINGS A MAN STANDS BEHIND IN A CITY FIGHT, MODELLED AT THE SOURCE, THROUGH THE MASTER RIG (round six's recipe)", 1),
 }
 BG, INK, DIM = (34, 33, 31, 255), (226, 218, 198, 255), (150, 144, 130, 255)
+WRAP = 1700   # the eight facings of a six-metre box are 3,700 px in one row (a 7,472 px sheet, 5.2 MB on his phone): they wrap
+
+
+def lines_of(eight, wrap_at):
+    """the eight facings in rows no wider than wrap_at, each row [(facing, picture), ...]"""
+    rows, cur, w = [], [], 0
+    for f, e in zip(FACINGS, eight):
+        if cur and w + e.width + 6 > wrap_at: rows.append(cur); cur, w = [], 0
+        cur.append((f, e)); w += e.width + 6
+    return rows + [cur]
 
 
 def font(sz):
@@ -79,30 +102,35 @@ def wrap(d, text, f, width):
 
 
 def main(which='props'):
-    rows, out, headline = SETS[which]
+    rows, out, headline = SETS[which][:3]
+    zoom = SETS[which][3] if len(SETS[which]) > 3 else 2   # six props at true size doubled is 49 million pixels, too heavy for his phone
+    wrap_at = WRAP if len(SETS[which]) > 3 else 10 ** 6    # the earlier sheets keep their one row of eight
     tile = his(GROUND)
     blocks, W = [], 0
-    for name, title, what, qargs, twin_key, maquette in rows:
+    for row in rows:
+        name, title, what, qargs, twin_key, maquette = row[:6]
+        face = row[6] if len(row) > 6 else 'S'
         d = 'records/target/master_rig/cook_%s' % name
         rig = json.load(open(os.path.join(ROOT, d, 'rig.json')))
         twin = his(twin_key)
-        s = Image.open(os.path.join(ROOT, d, 'rig_S.png')).convert('RGBA')
-        pics = [('HIS', twin), ('MINE', on_ground(s, tile))]
+        s = Image.open(os.path.join(ROOT, d, 'rig_%s.png' % face)).convert('RGBA')
+        pics = [('HIS', twin), ('MINE' if face == 'S' else 'MINE (%s)' % face, on_ground(s, tile))]
         if maquette: pics.append(('MAQUETTE', Image.open(os.path.join(ROOT, maquette)).convert('RGBA')))
         eight = [Image.open(os.path.join(ROOT, d, 'rig_%s.png' % f)).convert('RGBA') for f in FACINGS]
+        if wrap_at < 10 ** 6: eight = [e.crop(e.getbbox()) for e in eight]   # the rig's one shared box is mostly air on a long thing: trimmed, never resampled
         blocks.append((title, qm(what, qargs), rig, pics, eight))
-        W = max(W, sum(p.width for _, p in pics) + 16 * len(pics), sum(e.width for e in eight) + 6 * 8)
+        W = max(W, sum(p.width for _, p in pics) + 16 * len(pics), min(sum(e.width for e in eight) + 6 * 8, wrap_at))
     W = max(W, 900) + 24
     f1, f2, f3 = font(14), font(9), font(10)
     probe = ImageDraw.Draw(Image.new('RGBA', (1, 1)))
     hs = []
     for title, line, rig, pics, eight in blocks:
         n = len(wrap(probe, line, f2, W - 24)) + 3
-        hs.append(24 + n * 12 + max(p.height for _, p in pics) + 20 + max(e.height for e in eight) + 30)
+        hs.append(24 + n * 12 + max(p.height for _, p in pics) + sum(20 + max(e.height for _, e in ln) for ln in lines_of(eight, wrap_at)) + 30)
     head = 74
     sheet = Image.new('RGBA', (W, head + sum(hs)), BG); dr = ImageDraw.Draw(sheet)
     dr.text((12, 10), headline, font=f1, fill=INK)
-    for i, t in enumerate(wrap(dr, 'Pixel size: 57 px a metre, true size, one pixel size on the sheet (all at 1:1, the sheet doubled). Palette: records/target/BOHEMIA_STYLE_PALETTE.json, five materials a prop, eight a vehicle. Light: one sun from the upper left, the rig\'s own. Nothing is final before his moodboard (rule 108).', f2, W - 24)):
+    for i, t in enumerate(wrap(dr, 'Pixel size: 57 px a metre, true size, one pixel size on the sheet (all at 1:1%s). Palette:' % (', the sheet doubled' if zoom == 2 else '') + ' records/target/BOHEMIA_STYLE_PALETTE.json, five materials a prop, eight a vehicle. Light: one sun from the upper left, the rig\'s own. Nothing is final before his moodboard (rule 108).', f2, W - 24)):
         dr.text((12, 32 + i * 12), t, font=f2, fill=DIM)
     y = head
     for (title, line, rig, pics, eight), h in zip(blocks, hs):
@@ -115,12 +143,15 @@ def main(which='props'):
         for cap, p in pics:
             dr.text((x, yy - 11), cap, font=f2, fill=INK)
             sheet.alpha_composite(p, (x, yy + ph - p.height)); x += p.width + 16
-        yy += ph + 20; x = 12; eh = max(e.height for e in eight)
-        for f, e in zip(FACINGS, eight):
-            dr.text((x, yy - 11), f, font=f2, fill=DIM)
-            sheet.alpha_composite(e, (x, yy + eh - e.height)); x += e.width + 6
+        yy += ph + 20
+        for ln in lines_of(eight, wrap_at):
+            x = 12; eh = max(e.height for _, e in ln)
+            for f, e in ln:
+                dr.text((x, yy - 11), f, font=f2, fill=DIM)
+                sheet.alpha_composite(e, (x, yy + eh - e.height)); x += e.width + 6
+            yy += eh + 20
         y += h
-    sheet = sheet.resize((sheet.width * 2, sheet.height * 2), Image.NEAREST)
+    if zoom > 1: sheet = sheet.resize((sheet.width * zoom, sheet.height * zoom), Image.NEAREST)
     sheet.save(os.path.join(ROOT, out), optimize=True)
     print(out, sheet.size)
 

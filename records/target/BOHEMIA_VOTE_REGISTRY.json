@@ -10535,6 +10535,28 @@
     "src": "BOHEMIA_THE_LONG_ROAD_10_18_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "cook-the-block-wars-cover-10-18",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "70c84c0e",
+   "made": "10/18",
+   "title": "PLACEHOLDER: SANDBAGS, A FENCE AND GATE, A SHIPPING CONTAINER, A PROPANE TANK, A RUBBLE HEAP AND A CART CORRAL FOR THE CITY FIGHT, MADE THE CLAY WAY",
+   "why": "You loved the truck and said yes to the props made the clay way, so the things a man hides behind in a city fight now come off the same table: a sandbag wall, a chain-link fence with its chain cut and the gate open, a shipping container somebody lived in, a drained propane tank, a rubble heap with a bathtub in it, and a cart corral holding last round's carts. You see it in the VOTE tab beside your own sandbags, fence, container, gas bottles, rubble and wire bin at the same pixel size in all eight directions, and nothing is final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_THE_BLOCK_WARS_COVER.png"
+   },
+   "twin": {
+    "src": "pack:5. Barricades and defenses#2",
+    "diffs": [
+     "METHOD: yours are drawn flat; mine are modelled in 3D from the game's own clay palette and rendered by the one master rig, the way the truck and last round's props were (rule 115a), under round six's recipe (no toy shine, chipped edges, dents).",
+     "SIZE: true size at 57 px a metre, one ruler with the man: the sandbag wall is 151 px long against your 96, the propane tank 171, the rubble heap 261, the container 346. Yours are icon-sized; the rig draws each as big as it really is on a house-sized fight tile.",
+     "LOOK: all six pass the rig's card (0 to 2 of 8 numbers out, never 3) and sit inside the style guide's real proportions. You own no cart and no corral in 294 packs, so that twin is your wire bin; the container and the corral stand at the three-quarter turn your pack draws them at."
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [
