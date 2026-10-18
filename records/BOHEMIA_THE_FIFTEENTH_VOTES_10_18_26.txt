@@ -1,0 +1,59 @@
+BOHEMIA VOTE -- 10/18 (THE FIFTEENTH VOTES; only the verdicts the registry did not already carry, 13 of 425 lines)
+
+YES  THE NEW DEMO CUT, MEASURED: BETTER ON EVERY WALK NUMBER, AND THE RIG TRUCK COSTS NOTHING
+     id    eyes-the-new-cut-measured-10-18
+     lane  eyes and ears   on 10/18
+
+YES  PLACEHOLDER: THE TRUCK, NOT A PLAY TOY
+     id    direction-the-truck-turned-up-10-18
+     lane  direction   on 10/18
+
+YES  THE PHONE'S FRONT SCREEN, REDONE
+     id    ui-the-phones-front-screen-10-18
+     lane  ui   on 10/18
+
+YES  REAL SHOES ON THE MAP
+     id    sounds-the-steps-from-a-recording-10-18
+     lane  sounds   on 10/18
+
+YES  THE FAT MAP SIDEWAYS, NO BLUE
+     id    combat-the-fat-map-no-blue-10-18
+     lane  combat   on 10/18
+
+YES  PLACEHOLDER: A CONCRETE BARRIER, A DUMPSTER, A SHOPPING CART AND A PILE OF TYRES FOR THE FIGHT, MADE THE CLAY WAY
+     id    cook-fight-props-through-the-rig-10-18
+     lane  cook   on 10/18
+
+YES  THE OLD FACES ARE OUT: YOUR CREW AND THE LOT WEAR THE CLAY RIG
+     id    run2-the-starred-faces-10-18
+     lane  run 2   on 10/18
+     said  No, you see there's a whole fucking difference you showed me portraits that I really liked and then on some of the on 90% of the characters there's a zoomed in of the model asset, bro it can't be like that I told you what I liked. I liked it when it was the portrait not when you zoom in on the fucking creepy model's face bro is it's it's a difference it has to be made fresh portrait.
+
+YES  THE POACHER'S BODY AGAIN, UNDER THE FACE YOU STARRED
+     id    cook3-the-poachers-body-again-10-18
+     lane  cook 3   on 10/18
+
+YES  ALL FOURTEEN 3D LOOKS WALK, IN ALL EIGHT DIRECTIONS
+     id    character-the-walk-of-every-look-10-18
+     lane  character   on 10/18
+
+YES  EASIER THAN BATTLE BROTHERS
+     id    tuning-easier-than-battle-brothers-10-18
+     lane  tuning   on 10/18
+
+YES  HOW LONG A LIFE IS
+     id    tuning-how-long-a-life-is-10-18
+     lane  tuning   on 10/18
+
+YES  PLACEHOLDER: THE SCHOOL UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS
+     id    cook4-the-school-10-18
+     lane  cook 4   on 10/18
+
+YES  CANDIDATE: THE FIGHT BOARD CUT FROM THE MAP: A STREET, A YARD, A LOT
+     id    combat2-the-board-cut-from-the-map-10-18
+     lane  combat 2   on 10/18
+
+ANYTHING ELSE (unchanged from the thirteenth and fourteenth)
+More analog horror no more cards with quest just make an actual actual quiz make make the make the pixels make the sound
+
+COUNT: 13 new verdicts, 13 YES, 0 NO. The registry carries 516 verdicts after the splice. Not yet voted (posted after his export): portrait-every-face-from-the-same-model-10-18, cook2-the-street-joins-for-the-map-10-18, tuning-the-twenty-fields-four-studios-10-18.
