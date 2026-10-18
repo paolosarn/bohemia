@@ -90,6 +90,25 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-01QeMHUZ): 10/18 (q) LATEST -- *** ALL FOURTEEN 3D LOOKS WALK, IN ALL EIGHT DIRECTIONS. ***
+TAB: VOTE, the card character-the-walk-of-every-look-10-18 (a page: every look walking on the beat beside the flat
+sprite the game draws today, 1:1; tap a name for its eight facings).
+Record: records/BOHEMIA_THE_WALK_OF_EVERY_LOOK_10_18_26.md. Opened by the coordinator (rule 112) on Opus (rule 116).
+THE ROW: last round four of the fourteen models walked; the other ten (Body, Blues, Caravans, Church, Colorful,
+Homeless, Mob, Network, Remnants, Volunteers) are now rendered through DIRECTION's rig unedited, the same call the four
+used, after the models were rebuilt byte for byte. Every look: 8 stills + 48 walk frames (eight facings, six keys, two
+beats at 120). The twin is the game's own flat walk read live off buildFrame at the same six phases (read-only).
+Stills unchanged (12 to 27 px by at most 8 values). Page tested served at 390 px x3: 36 canvases drawing, 0 errors.
+Measured and dropped: the model's stride is not longer than the flat one (feet 35 to 52 px vs 44 to 51).
+FOR RUN (rule 115g): any look's walk is on disk in eight the moment its card passes:
+records/target/character/rig/<look>/rig_Anim_0_<F>_kNN.png, one crop box per model (ground_px in rig.json).
+NEXT ON MY BOARD: [the barber on the skull] (the barber's cuts as sculpted hair on the model). The coordinator's note
+(sweep ar): when PORTRAIT hands over the head's shape controls, wire the face maker's dials to them.
+GATES: CHARACTER IN THE VOTE TAB 9/0; REFERENCE CHECK 490/0; RIG NO-DRIFT 23/0; THE TEXTURE SET 8/0; THE VOTE TAB red
+only on two DYNASTY whys; REUSE-FIRST, RIG CHECK and PAGES PUBLISH red only on other lanes' files and the site's size
+(the same reds without my change).
+Nothing to engine/ or the demo; slices/vote only (rule 100). PENDING Paolo: nothing.
+
 CHARACTER (character-vamily): 10/18 (p) LATEST -- *** THE GANG PRINTS ARE IN THE 3D CLOTH, AND THE HANDS HAVE A THUMB. ***
 TAB: VOTE, the card character-the-print-and-the-hands-10-18 (last round, this round and his twin side by side).
 Records: records/BOHEMIA_THE_PRINT_AND_THE_HANDS_10_18_26.md, records/BOHEMIA_CHARACTER_LIT_FROM_BELOW_IS_A_COLOUR_NOT_A_LIGHT_10_18_26.md.
