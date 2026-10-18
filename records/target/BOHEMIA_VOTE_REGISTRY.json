@@ -10357,6 +10357,35 @@
     "src": "BOHEMIA_THE_STEP_IN_THE_FIGHT_10_18_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "combat2-a-board-you-read-in-one-look-10-18",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "baec964c",
+   "made": "10/18",
+   "title": "CANDIDATE: THE SAME THREE FIGHT BOARDS, WITH EVERYTHING THAT DOES NOTHING IN A FIGHT TAKEN OFF",
+   "redoOf": "combat2-the-five-houses-on-the-board-10-18",
+   "said": "I want you to be easier than battle Brothers... like Nintendo simplified way kind of vibes like minimalist vibes",
+   "why": "Your five-house boards with everything that does nothing in a fight taken off: no stop signs or other words, no weeds, pallets or loose rocks, one tree a yard and two lamps at each crossing, so the large board goes from 1,320 things on the ground to 470 and the houses all stay. You see it here in the VOTE tab, not in the game: each pair is the whole board on a phone the way the fight opens, before on the left and after on the right.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COMBAT2_A_BOARD_YOU_READ_IN_ONE_LOOK_10_18.webp"
+   },
+   "before_after": {
+    "before": "round two's board as he said yes to it, the whole board at the phone's own pixels the way the fight opens",
+    "after": "the same board and the same houses with only cover, trees, fences, houses and two lamps a crossing standing; then the same crossing at 1:1 with three men on it",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "WORDS: his pack sells a STOP sign and a KEEP OUT sign; on the board no word stands (26 signs off the large board).",
+     "PROPS: his pack draws weeds, rocks, pallets and mail boxes in the same 96-px box as a car; on the board only a piece that is a fight rule stands (cover, a tree, a fence, a lamp at a crossing).",
+     "HOUSE: his pack house #30 stands alone on its tile; cook 4's five tan houses stand on the board exactly as in round two, all 52 kept."
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [
