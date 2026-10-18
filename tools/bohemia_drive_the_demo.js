@@ -369,7 +369,8 @@ async function open(opts) {
         if (r.width < 4 || r.height < 4) return null;
         return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
       }, id);
-      if (b) await page.touchscreen.tap(b.x, b.y);
+      /* the 'computer' profile has no touchscreen, and tapping one threw before the door (RUN 10/18): a mouse there */
+      if (b) { if (prof.hasTouch) await page.touchscreen.tap(b.x, b.y); else await page.mouse.click(b.x, b.y); }
       await page.evaluate((i) => { const f = document.getElementById(i); if (f) f.click(); }, id);
     }
   };

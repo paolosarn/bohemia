@@ -1,0 +1,39 @@
+{
+ "what": "RUN [the demo wears the rig] 10/18: the thirteen gangs rendered on the rig, one row per gang and turn",
+ "src": "records/target/character/rig (CHARACTER, character-the-thirteen-through-the-rig-10-18, his YES)",
+ "walks": [
+  "anarchists",
+  "cartel",
+  "reds",
+  "trades"
+ ],
+ "w": 72,
+ "h": 131,
+ "foot": 121,
+ "cols": 7,
+ "gangs": [
+  "anarchists",
+  "blues",
+  "caravans",
+  "cartel",
+  "church",
+  "colorful",
+  "homeless",
+  "mob",
+  "network",
+  "reds",
+  "remnants",
+  "trades",
+  "volunteers"
+ ],
+ "dirs": [
+  "S",
+  "SE",
+  "E",
+  "NE",
+  "N",
+  "NW",
+  "W",
+  "SW"
+ ]
+}

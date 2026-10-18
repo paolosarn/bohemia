@@ -251,6 +251,62 @@
     return R.ready ? R.placeAt(x, y, r) : null;
   };
 
+  /* ---- __THE_ROADS_OUT_JOIN__ (RUN [the districts connect on the map], 10/18) ----
+     PAOLO 10/18: "doesn't look like shit's connected." MEASURED: 31 of the 34 places out here stand ON a road
+     (3,298 road blocks in the pass grid), but the roads were only the land picture's faint lines, so a town read
+     as a stamp on sand. Now the roads are drawn the way the valley's streets are (__THE_STREETS_JOIN__): one dark
+     band block to block, joined to the valley's own roads at the rim, and the three places off a road get a dirt
+     track to the nearest one. Painted inside the cached ground, so it costs nothing while the camera slides. */
+  var RJ = { key: null, segs: null, tracks: null };
+  function roadsOutBuild(){
+    if (RJ.key === R.pass) return;
+    RJ.key = R.pass; RJ.segs = []; RJ.tracks = [];
+    var J = (typeof STREETS_JOIN !== 'undefined') ? STREETS_JOIN.J : { freeway: 1, arterial: 1 };
+    var isRoad = function(x, y){ if (inCity(x, y)) { var t = om.at(x, y); return !!(t && J[t.district]); } return passAt(x, y) === 1; };
+    /* each block draws from the middle of each road edge it shares: a block with two links at a right angle draws
+       the straight cut between the two edge middles, so a staircase of blocks reads as one diagonal road; any other
+       block draws its links through its own middle. The valley's own blocks are the valley's (__THE_STREETS_JOIN__);
+       only the half of a rim link on this side is drawn here. */
+    var NB = [[1,0],[-1,0],[0,1],[0,-1]];
+    for (var y = -R.K; y < R.N + R.K; y++) for (var x = -R.K; x < R.N + R.K; x++) {
+      if (inCity(x, y) || !isRoad(x, y)) continue;
+      var ln = [];
+      for (var k = 0; k < 4; k++) if (isRoad(x + NB[k][0], y + NB[k][1])) ln.push([x + NB[k][0] / 2, y + NB[k][1] / 2]);
+      if (ln.length === 2 && ln[0][0] !== ln[1][0] && ln[0][1] !== ln[1][1]) { RJ.segs.push([ln[0][0], ln[0][1], ln[1][0], ln[1][1]]); continue; }
+      for (var m = 0; m < ln.length; m++) RJ.segs.push([x, y, ln[m][0], ln[m][1]]);
+    }
+    R.places.forEach(function(p){
+      if (passAt(p.x, p.y) === 1) return;
+      var best = null, bd = 1e9;
+      for (var dy = -40; dy <= 40; dy++) for (var dx = -40; dx <= 40; dx++) {
+        var d = Math.abs(dx) + Math.abs(dy); if (d >= bd) continue;
+        if (isRoad(p.x + dx, p.y + dy)) { bd = d; best = [p.x + dx, p.y + dy]; } }
+      if (!best) return;
+      var path = null; try { path = regionRoute(p.x, p.y, best[0], best[1]); } catch(_e){}
+      if (path) RJ.tracks.push(path);
+    });
+    R.roadsOut = { segments: RJ.segs.length, tracks: RJ.tracks.length };
+  }
+  R.drawRoads = function(ox, oy, night){
+    if (!R.ready || !R.pass || window.__STREETS_OFF) return;
+    roadsOutBuild();
+    var C = (typeof STREETS_JOIN !== 'undefined') ? (night ? STREETS_JOIN.night : STREETS_JOIN.day) : { asph: '#34322f', edge: '#a39a84' };
+    var ctr = function(x, y){ var q = iso(x, y, ox, oy); return [q.sx, q.sy + TH / 2]; };
+    var w = Math.max(1.2, TW * 0.17), kb = TW >= 6 ? Math.max(1, Math.round(TW * 0.05)) : 0;
+    var path = function(){ g.beginPath();
+      for (var i = 0; i < RJ.segs.length; i++) { var s = RJ.segs[i], a = ctr(s[0], s[1]), b = ctr(s[2], s[3]);
+        if ((a[0] < -240 && b[0] < -240) || (a[0] > CVW + 240 && b[0] > CVW + 240) || (a[1] < -240 && b[1] < -240) || (a[1] > CVH + 240 && b[1] > CVH + 240)) continue;
+        g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); } };
+    g.save(); g.lineCap = 'square'; g.globalAlpha = 1;
+    if (kb) { g.strokeStyle = C.edge; g.lineWidth = w + 2 * kb; path(); g.stroke(); }
+    g.strokeStyle = C.asph; g.lineWidth = w; path(); g.stroke();
+    /* the tracks: packed dirt, dashed, half the road's width */
+    g.strokeStyle = night ? '#4a3e2c' : '#7a6444'; g.lineWidth = Math.max(1, w * 0.6); g.setLineDash([Math.max(2, TW * 0.4), Math.max(1.5, TW * 0.25)]);
+    g.beginPath();
+    RJ.tracks.forEach(function(t){ for (var i = 0; i < t.length; i++) { var c = ctr(t[i][0], t[i][1]); if (i) g.lineTo(c[0], c[1]); else g.moveTo(c[0], c[1]); } });
+    g.stroke(); g.restore();
+  };
+
   /* ---- the places drawn: the map's own settlement art, named ---- */
   var _rc = renderCity;
   renderCity = function(){

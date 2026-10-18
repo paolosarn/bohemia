@@ -44325,6 +44325,30 @@ function _overpassCalc(x,y){
   }
   return 0;
 }
+/* ==== __THE_DISTRICTS_READ_APART__ (RUN [the districts connect on the map], 10/18) ====
+   PAOLO 10/18: "the districts are looking like shit". MEASURED: the suburbs (2,582 blocks, 28% of the
+   map), the arterial blocks (2,434) and the commercial strips (358) were the SAME grey, so the map read
+   as one carpet and no district started or ended. His standing note on the roofs (the thirteenth votes):
+   "more tan, never bright medieval orange or metal blue". So each district family wears ONE quiet cast
+   over its own art, laid only where the art has paint (source-atop), made once per picture and reused:
+   homes warm tan, shops and offices a cool dust, industry rust, the towers left as they are. The roads
+   stay neutral, which is what lets the dark street bands (__THE_STREETS_JOIN__) read on top. */
+var HERO_TINTS={ suburb:['#b48a52',0.26], estate:['#b48a52',0.22], gated:['#b48a52',0.22], trailer:['#b48a52',0.18],
+  apartment:['#a8744e',0.20], commercial:['#7c8c96',0.20], mall:['#7c8c96',0.16], convention:['#7c8c96',0.14],
+  industrial:['#8e5e3e',0.24], warehouse:['#8e5e3e',0.22], storage:['#8e5e3e',0.20], railyard:['#8e5e3e',0.18] };
+var HERO_TINTED={};
+function heroTint(name,im){
+  if(window.__DISTRICTS_OFF) return im;
+  var tn=HERO_TINTS[name]; if(!tn) return im;
+  var c=HERO_TINTED[name]; if(c && c.__src===im) return c;
+  try{
+    c=document.createElement('canvas'); c.width=im.naturalWidth; c.height=im.naturalHeight;
+    var x=c.getContext('2d'); x.drawImage(im,0,0);
+    x.globalCompositeOperation='source-atop'; x.globalAlpha=tn[1]; x.fillStyle=tn[0]; x.fillRect(0,0,c.width,c.height);
+    c.__src=im; c.naturalWidth=c.width; c.naturalHeight=c.height; c.complete=true;
+    HERO_TINTED[name]=c; return c;
+  }catch(_e){ return im; }
+}
 function drawHero(name,p,flip,span){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;
   var plate=(HERO_PLATE&&HERO_PLATE[name])||(im.naturalWidth-28),sc=TW*(span||1)/plate,a=HERO_ANCH[name];
   var dx=p.sx-a.bx*sc, dy=p.sy+TH/2-a.by*sc, w=im.naturalWidth*sc, h=im.naturalHeight*sc;
@@ -44334,6 +44358,7 @@ function drawHero(name,p,flip,span){var im=HERO_IMG[name];if(!im||!im.complete||
      camera slid), and a third of a pixel is never exact in floating point, so a slid picture
      could not equal a fresh one: measured 12,585 to 55,077 phone pixels off at three slides. */
   dx=Math.round(dx); dy=Math.round(dy);
+  im=heroTint(name,im);   /* __THE_DISTRICTS_READ_APART__ */
   /* __THE_TAP_PICKS_WHAT_YOU_SEE__ (9/11) -- AND THIS IS WHERE THE CITY IS ACTUALLY
      DRAWN. The first cut of this fix recorded prism(), the procedural block fallback,
      and measured ZERO prism calls at every zoom: the valley is painted with BAKED HERO
@@ -44742,9 +44767,62 @@ function mapPartyFace(p){
   var dx = Math.sign((t.x | 0) - (at.x | 0)), dy = Math.sign((t.y | 0) - (at.y | 0));
   return MAP_FACE_OF[dx + ',' + dy] || 'S';
 }
+/* ==== __THE_GANGS_WEAR_THE_RIG__ (RUN [the demo wears the rig], rule 115g, 10/18) ====
+   PAOLO 10/18: "is the demo changing, I liked the robot that got made type shit." The thirteen gang looks built as
+   3D models on the rig got his YES (character-the-thirteen-through-the-rig-10-18: "Nice direction very good not
+   final"), and the map's roaming parties ARE those thirteen gangs, drawn until now from the street's generic cast
+   under a coloured flag. So a party wears ITS OWN GANG'S rig model: the Reds walk the map in the Reds' duster, the
+   Church in the Church's robes. One sheet (tools/bohemia_bake_the_rig_cast.py: 296 frames, 366 KB), fetched the
+   first time a party is drawn, never at the door; until it lands, and for any party with no gang, the cast as
+   before. Each frame is laid in a 112-wide picture with its feet at 0.93 of the height, the cast's own frame, so
+   mapPersonDraw draws it at the cast's size (one art pixel to two phone pixels): the body is the same height as
+   the people beside it. Four gangs walk (CHARACTER walked four); the other nine glide standing, as before. */
+var RIG_CAST = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
+function rigCastLoad(){
+  if (RIG_CAST.state) return; RIG_CAST.state = 1;
+  try {
+    fetch('BOHEMIA_RIG_CAST.json').then(function(r){ return r.json(); }).then(function(m){
+      var im = new Image();
+      im.onload = function(){ RIG_CAST.meta = m; RIG_CAST.img = im; RIG_CAST.state = 2; };
+      im.onerror = function(){ RIG_CAST.state = 3; };
+      im.src = 'BOHEMIA_RIG_CAST.png';
+    }).catch(function(){ RIG_CAST.state = 3; });
+  } catch (_e) { RIG_CAST.state = 3; }
+}
+function rigSetOf(fac){
+  if (!fac || window.__RIG_CAST_OFF) return null;   /* the switch is for the before-and-after picture only */
+  if (RIG_CAST.state !== 2) { rigCastLoad(); return null; }
+  var key = String(fac).toLowerCase();
+  if (RIG_CAST.sets[key] !== undefined) return RIG_CAST.sets[key];
+  var m = RIG_CAST.meta, gi = m.gangs.indexOf(key);
+  if (gi < 0) return (RIG_CAST.sets[key] = null);
+  var H = 130, walks = m.walks.indexOf(key) >= 0, set = {};
+  var cut = function(row, col){
+    var c = document.createElement('canvas'); c.width = 112; c.height = H;
+    var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+    x.drawImage(RIG_CAST.img, col * m.w, row * m.h, m.w, m.h, 56 - m.w / 2, Math.round(H * 0.93) - m.foot, m.w, m.h);
+    return c;
+  };
+  for (var di = 0; di < m.dirs.length; di++) {
+    var row = gi * m.dirs.length + di, f = { idle: cut(row, 0) };
+    if (walks) { f.walk = []; for (var k = 1; k < m.cols; k++) f.walk.push(cut(row, k)); }
+    set[m.dirs[di]] = f;
+  }
+  return (RIG_CAST.sets[key] = set);
+}
 function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
   if (!mapCastOf(0)) return false;
   var fac = p && p.from && p.from.faction;
+  var rig = null; try { rig = rigSetOf(fac); } catch (_e) { rig = null; }
+  if (rig) {   /* __THE_GANGS_WEAR_THE_RIG__ */
+    var kq = MAP_PEOPLE_K, fq = mapPartyFace(p);
+    mapPersonDraw(rig, fq, beat + 1, sx + 7 * kq, footY - 2 * kq, walkPh == null ? null : walkPh + 0.5);
+    var lq = mapPersonDraw(rig, fq, beat, sx - 3 * kq, footY + kq, walkPh);
+    mapFlagDraw(sx - 11 * kq, footY + kq, (lq ? lq.h : 30 * kq) + 8 * kq, mapFactionColour(fac), beat, true);
+    if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.partyPeople += 2; MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 2; }
+    RIG_CAST.drew += 2;
+    return true;
+  }
   var base = mapHash(String(fac || '').length * 31 + idx, idx * 7 + 3);
   var face = mapPartyFace(p);
   var kp = MAP_PEOPLE_K;
@@ -44933,6 +45011,59 @@ function mapGroundBlit(dx,dy){
   g.drawImage(MG.cv, 0,0,MG.cv.width,MG.cv.height, dx-MG.M, dy-MG.M, CVW+2*MG.M, CVH+2*MG.M);
   g.imageSmoothingEnabled=sm;
 }
+/* ==== __THE_STREETS_JOIN__ (RUN [the districts connect on the map], 10/18) ====
+   PAOLO 10/18, on the map's card: "the districts are looking like shit, the streets looking like shit,
+   doesn't look like shit's connected that smart like it should."
+   MEASURED FIRST: the street NETWORK is whole (3,483 road blocks, ONE connected piece, 4-neighbour), so
+   nothing was broken in the data. What broke is the PICTURE: every road block is its own baked tile with
+   its own little lanes and lots drawn inside it, the lanes of one block never meet the next block's, and
+   the asphalt sits at the same grey value as the suburbs' roofs (26% of the map is arterial, 28% suburb).
+   So a street never reads as a line that runs; the city reads as one grey carpet.
+   THE FIX DRAWS THE NETWORK THE DATA ALREADY HAS: from the middle of every road block a band runs to the
+   middle of each road neighbour, so a street is ONE continuous stroke across block seams, darker than
+   anything around it, with the sidewalk's tan as its kerb. Freeways are wider and carry the faded centre
+   line; a freeway on its deck rises with the deck and a street that dips under it dips, so the ramps
+   draw themselves. Painted inside the cached ground (once per cache build, never per frame). Skipped
+   where a block is under six pixels wide, where the far end's own city picture takes over. */
+var STREETS_JOIN={ on:true, drew:0, J:{freeway:2,beltway:2,interchange:2,arterial:1,strip:1} };
+/* called from the tile loop RIGHT AFTER a road block's own art, so a building on a block in front still
+   stands in front of the street (painter's order); each block draws only its own halves, from its middle
+   to the shared edge, with flat ends there, so two halves meet exactly and no kerb crosses a street. */
+function mapStreetTile(x,y,t,ox,oy,night){
+  if(!STREETS_JOIN.on || window.__STREETS_OFF || TW<6) return;
+  var J=STREETS_JOIN.J, k=J[t.district]; if(!k) return;
+  var lift=function(x,y){ var o=overpassAt(x,y); return o===1?Math.round(TH*0.55):o===2?-Math.round(TH*0.16):0; };
+  var p=iso(x,y,ox,oy), ax=p.sx, ay=p.sy+TH/2-lift(x,y);
+  var hs=[], hf=[];
+  for(var d=0; d<4; d++){
+    var nx=x+(d===0?1:d===1?-1:0), ny=y+(d===2?1:d===3?-1:0);
+    var u=om.at(nx,ny); var ku=u&&J[u.district]; if(!ku) continue;
+    var q=iso(nx,ny,ox,oy), bx=q.sx, by=q.sy+TH/2-lift(nx,ny);
+    /* a street meeting a freeway is a street (an on-ramp), never a wide freeway stub */
+    ((k===2&&ku===2)?hf:hs).push([(ax+bx)/2,(ay+by)/2]);
+  }
+  var wS=Math.max(1.5,TW*0.17), wF=Math.max(2.5,TW*0.30), kb=Math.max(1,Math.round(TW*0.05));
+  var C=night?STREETS_JOIN.night:STREETS_JOIN.day;
+  var run=function(list,w,col){
+    g.strokeStyle=col; g.lineWidth=w; g.beginPath();
+    for(var i=0;i<list.length;i++){ g.moveTo(ax,ay); g.lineTo(list[i][0],list[i][1]); }
+    g.stroke();
+    /* the joint in the middle: a diamond the band's width, so a corner or a T has no notch */
+    g.fillStyle=col; var r=w/2; g.beginPath(); g.moveTo(ax,ay-r*0.5); g.lineTo(ax+r,ay); g.lineTo(ax,ay+r*0.5); g.lineTo(ax-r,ay); g.closePath(); g.fill();
+  };
+  g.save(); g.lineCap='butt';
+  if(!hs.length&&!hf.length){ (k===2?hf:hs).push([ax,ay]); }
+  if(hs.length) run(hs, wS+2*kb, C.edge);
+  if(hf.length) run(hf, wF+2*kb, C.fedge);
+  if(hs.length) run(hs, wS, C.asph);
+  if(hf.length) run(hf, wF, C.fwy);
+  if(hf.length && TW>=14){ g.setLineDash([Math.max(2,TW*0.12),Math.max(2,TW*0.12)]); g.strokeStyle=C.line; g.lineWidth=Math.max(1,TW*0.03);
+    g.beginPath(); for(var i=0;i<hf.length;i++){ g.moveTo(ax,ay); g.lineTo(hf[i][0],hf[i][1]); } g.stroke(); }
+  g.restore();
+  STREETS_JOIN.drew++;
+}
+STREETS_JOIN.day={ asph:'#34322f', fwy:'#2a2927', edge:'#a39a84', fedge:'#6e685c', line:'#b8a46a' };
+STREETS_JOIN.night={ asph:'#1d1c1b', fwy:'#171615', edge:'#4a4438', fedge:'#3a362e', line:'#6a5e3a' };
 function mapGroundBegin(ox,oy,night,G){
   var MG=MAP_GROUND;
   if(!MG.on || typeof MODE==='undefined' || MODE!=='city') return null;
@@ -44962,6 +45093,7 @@ function mapGroundBegin(ox,oy,night,G){
   x.imageSmoothingEnabled=false;   /* pixel art, the map's steady state: the markers leave g unsmoothed after the first frame */
   x.clearRect(-M,-M,CVW+2*M,CVH+2*M);
   var st={ reused:false, M:M, g0:g, ox:ox, oy:oy, key:key, t:now };
+  try{ STREETS_JOIN.drew=0; }catch(_e){}   /* __THE_STREETS_JOIN__: counted per paint */
   g=x;
   return st;
 }
@@ -46029,6 +46161,7 @@ function renderCity(){
         case 'dam': dia(p,'#b0b4bc'); prism(p,8,'#c8ccd4','#e8ecf4'); break;
         default: dia(p,'#a09a8a');
       }
+      if(STREETS_JOIN.J[d]){ try{ mapStreetTile(x,y,t,ox,oy,night); }catch(_e){ window.__STREETS_ERR=String(_e&&_e.message||_e); } }   /* __THE_STREETS_JOIN__ */
       if(t.canopy){ g.fillStyle='rgba(120,220,255,0.8)'; g.fillRect(p.sx-TW*0.4,p.sy-2,TW*0.8,2); }
       if(t.chinatown){ g.fillStyle='#e83838'; g.fillRect(p.sx-2,p.sy-3,4,2); }
       if(t.homestead){ g.fillStyle='#8aa84a'; g.fillRect(p.sx-TW*0.28,p.sy+TH*0.55,TW*0.32,2); g.fillStyle='#7ad8f0'; g.fillRect(p.sx+TW*0.14,p.sy+TH*0.5,2.5,2.5); }
@@ -46058,7 +46191,8 @@ function renderCity(){
       g.globalAlpha=1;
     }
   }
-  if(!__vista){ try{ vbSeam(ox,oy,night); vbCityDraw(ox,oy,night); }catch(_e){} }   /* __THE_VALLEY_HAS_AN_EDGE__ + rule 65: the city painted at the far end */   /* __THE_VALLEY_HAS_AN_EDGE__: the map's edge dithered into the land */
+  if(!__vista){ try{ vbSeam(ox,oy,night); vbCityDraw(ox,oy,night); }catch(_e){} }
+  if(!__vista){ try{ if(typeof BOH_REGION!=='undefined'&&BOH_REGION.drawRoads) BOH_REGION.drawRoads(ox,oy,night); }catch(_e){ window.__STREETS_ERR=String(_e&&_e.message||_e); } }   /* __THE_ROADS_OUT_JOIN__ */   /* __THE_VALLEY_HAS_AN_EDGE__ + rule 65: the city painted at the far end */   /* __THE_VALLEY_HAS_AN_EDGE__: the map's edge dithered into the land */
   if(__mg) __mg.done=true;
   } finally { if(__mg) mapGroundEnd(__mg); }   /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: g back on the glass, the picture blitted */
   }
