@@ -884,6 +884,31 @@ COMBAT TWO (combat 2, Opus 5.5 chat opened by the coordinator, rule 112/116): 10
 COMBAT TWO (combat2-jn8t7itH): 10/16 (al) LATEST -- THE BIG SWING (rule 110, MODE line): [the houses on the board] ROUND ONE IN as a CANDIDATE (rule 100): three suburb fight boards, small 9x7 / middle 14x10 / large 20x15 house tiles, laid by tools/bohemia_combat2_three_boards_from_the_whole_bank_cook_10_16_26.py from COOK TWO's 1:1 recipe cells (the 47, the curb), COOK FOUR's straight-roof ranch (COOK4_THE_ROOF_MEASURED.png, 1:1, flipped only) and 158 pack keys from 16 of his packs; terrain, cover in metres and lights per board in reference/art_bank/fight_board/COMBAT2_THREE_BOARDS_10_16.json; the small board committed whole, the middle and large regenerate from the seed (.gitignore there). Sheet records/target/COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16.webp, VOTE combat2-three-boards-from-the-whole-bank-10-16, record records/BOHEMIA_COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16_26.md. I INTENDED to lay the kit under the house, MEASURED the kit at 2x/42.9 px per m against the house at 1:1/57, NOW the boards sit on the 1:1 cells (82 px = 1.44 m, 8 = the ranch's 11.5 m front = a Vegas roadway; a 656 x 648 square tile, the pack's camera, not the fight's 515 x 364 cos45 block). FINDINGS FOR THE COORDINATOR: his packs draw every prop in one 96-px box (a car and a cone the same size), so props stand at the integer scale nearest real size, never under 1x, cones/bins/hydrants left out; the never-judged '1. Ground Tiles' pebbles are 96x70 patches, not tiles (striped the yards, left out); the bank has no gravel-yard tile and no street light taller than a garden post. WEAK: one house kind (COOK FOUR's five had not landed), yards change colour at the lot line, 2x props on 1x ground, no back of a house exists so no house fronts a street's south side. NEXT: re-lay the round COOK FOUR's kinds land; DIRECTION's card on the 2x props. [PENDING Paolo]: none.
 COMBAT TWO (combat2-8ca291aa): 10/11 (ag) LATEST -- RULE 108 READ: my cook tools (tools/bohemia_combat2_*, every block drawn rectangle by rectangle) make no more candidates; this lane only LAYS kits the cooks generate against his packs. STILL BLOCKED: [the houses on the board] (COOK FOUR's fight-scale house kit; COOK FOUR is on [no roof tops]), [the boards from the packs] (COOK TWO's four-way piece, freeway and lot kits; COOK TWO is on [the corners] and [no borders], both waiting on his word). Nothing laid, nothing in VOTE this round, on purpose (STOP PRODUCING).
 COMBAT TWO (combat2-8ca291aa): 10/10 (af) LATEST -- RULES 100/101 READ: COMBAT TWO is an art lane; no writes to slices/ until his FINAL; everything shipped is a placeholder (files listed in records/BOHEMIA_PLACEHOLDERS.md). BLOCKED: [the houses on the board] waits on COOK FOUR's fight-scale house kit; [the boards from the packs] on COOK TWO's four-way piece and freeway/lot kits; [the warehouse inside] and [the future settlements] are new art / a placeholder edit, not this lane's under 100/101. DONE THIS ROUND: the study page records/BOHEMIA_COMBAT2_HOW_THE_PACK_LAYS_ITS_GROUND_10_10_26.md (pack ground 4,140 colours per 96 px, our cooked blocks 18-29, the casino 4, the kit ~2,000).
+EYES AND EARS (eyes-opus-10-18): 10/18 (ck) LATEST -- *** THREE ROWS: [the blind pass] SHIPPED (both rounds),
+[the keep rate and the queue] SHIPPED, [the five tells by hand] ROUND ONE MEASURED. THE RIFLE IS A PISTOL. ***
+TAB: none new from EYES (QA shows, it does not cook); the findings name RUN TWO's crew screen in the VOTE tab.
+
+The blind pass: every card nobody has sorted yet now gets PASS or BACK from its own words. I taught it on his own
+467 votes: of 21 cards he called confusing, the one thing the words predict is the card never saying where in the
+game he meets the thing (24 percent of confusing cards, 7 of clear ones). Long sentences do not predict it.
+This round 8 PASS, 3 BACK (two COOK FOUR roof cards with no before-and-after on the card, COOK THREE's thug card
+saying "the people chat").
+Keep rate: 46 to 77 percent per sitting, never under 40; the last sitting 69. Queue on him: 11, cap 20. Green.
+Five tells: 7 new sheets measured against DIRECTION's style guide, calibrated on the robot and truck he loved.
+Three of the five tells as the research wrote them fail his own robot (colour count, output hue shift, the
+sphere's light angle), so colours and hue are held at the source (as the guide says) and light is read against
+the robot's band. No sheet fails a tell his YES passes; the do-and-dont's 2x robot is its own deliberate DON'T.
+FINDING: the crew screen's "rifle" icon (market_icons/w_rifle.png) is a revolver; a rifle and a pistol look the
+same gun on his phone. RUN TWO (the screen) and COOK (the icon). I don't fix, I show.
+QA LEAD LINE (rule 113a, fleet-wide this round): DIRECTION 3 of 3 cards PASS; SOUNDS 2 of 2; ANIMATION 1 of 1;
+RUN TWO 1 of 1 PASS but the rifle icon is wrong; TUNING 1 of 1; COOK FOUR 0 of 2 (before-and-after field);
+COOK THREE 0 of 1 (team word on the card). For PLUMBER's ten gates: measure gates 2 and 4 on the source palette and
+gate 3 against the maquettes' band, or the gates cull the robot.
+Record: records/BOHEMIA_EYES_THE_BLIND_PASS_THE_FIVE_TELLS_AND_THE_QUEUE_10_18_26.md.
+Suite: THE QUEUE ON HIM, THE BLIND PASS (both planted first, both green).
+NEXT: [the five tells by hand] re-runs each sweep on new sheets; [the map's four numbers] re-opens when RUN's row moves.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/17 (cj) LATEST -- *** THE BIG SWING (rule 110): THE EIGHT RED CARDS READ, AND
 [the map's four numbers] SHIPPED. THE MAP'S FAR STOP BY FINGER IS THE MOON. ***
 TAB: VOTE tab, two new cards from EYES (the eight red cards read; the map's four numbers).

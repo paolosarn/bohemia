@@ -1,0 +1,226 @@
+{
+ "made": "EYES [the five tells by hand], tools/bohemia_eyes_the_five_tells_10_18_26.py, against records/target/BOHEMIA_STYLE_GUIDE.json; read only; REST_STD 8.0 calibrated on his two maquettes",
+ "guide": {
+  "light_deg": 155.4,
+  "light_tol": 30,
+  "hue_min": 8,
+  "top8_max": 11.1,
+  "bands": [
+   [
+    96.4,
+    139.6
+   ],
+   [
+    87.3,
+    277.5
+   ]
+  ],
+  "rest_floor": [
+   0.336,
+   0.046
+  ]
+ },
+ "sheets": [
+  {
+   "sheet": "records/target/direction_style_guide/DIRECTION_THE_LOOK_BIBLE_EVERYTHING_THE_SAME.png",
+   "sprites": 16,
+   "1_native_sizes": [
+    1
+   ],
+   "1_declared_zooms": [
+    2
+   ],
+   "2_colours_max": 53484,
+   "2_top8_max_pct": 21.8,
+   "2_top8_over_guide": 6,
+   "3_light_sectors": [
+    90,
+    135,
+    180,
+    225
+   ],
+   "3_light_outside_guide": 5,
+   "3_light_read": 16,
+   "4_ramps_no_hue_shift": 20,
+   "4_ramps_read": 25,
+   "5_rest_present": 10,
+   "5_rest_median": 0.312,
+   "road": "rig",
+   "cull": [],
+   "id": "direction-the-look-bible-everything-the-same-10-18",
+   "lane": "direction"
+  },
+  {
+   "sheet": "records/target/direction_style_guide/DIRECTION_THE_STYLE_GUIDE_DO_AND_DONT.png",
+   "sprites": 30,
+   "1_native_sizes": [
+    1,
+    2,
+    3
+   ],
+   "1_declared_zooms": [],
+   "2_colours_max": 9917,
+   "2_top8_max_pct": 23.3,
+   "2_top8_over_guide": 12,
+   "3_light_sectors": [
+    90,
+    135
+   ],
+   "3_light_outside_guide": 1,
+   "3_light_read": 30,
+   "4_ramps_no_hue_shift": 29,
+   "4_ramps_read": 32,
+   "5_rest_present": 27,
+   "5_rest_median": 0.375,
+   "road": "rig",
+   "cull": [
+    "two pixel sizes"
+   ],
+   "id": "direction-the-style-guide-do-and-dont-10-18",
+   "lane": "direction"
+  },
+  {
+   "sheet": "records/target/direction_style_guide/DIRECTION_THE_HAND_FINISH_RAW_AND_FINISHED.png",
+   "sprites": 28,
+   "1_native_sizes": [
+    1
+   ],
+   "1_declared_zooms": [
+    3
+   ],
+   "2_colours_max": 5870,
+   "2_top8_max_pct": 58.5,
+   "2_top8_over_guide": 17,
+   "3_light_sectors": [
+    90,
+    135,
+    180
+   ],
+   "3_light_outside_guide": 2,
+   "3_light_read": 28,
+   "4_ramps_no_hue_shift": 19,
+   "4_ramps_read": 19,
+   "5_rest_present": 26,
+   "5_rest_median": 0.333,
+   "road": "rig",
+   "cull": [],
+   "id": "direction-the-hand-finish-10-18",
+   "lane": "direction"
+  },
+  {
+   "sheet": "records/target/COOK4_THE_FAMILY_IN_THE_VALLEY_TANS.png",
+   "sprites": 22,
+   "1_native_sizes": [
+    1
+   ],
+   "1_declared_zooms": [],
+   "2_colours_max": 30937,
+   "2_top8_max_pct": 68.8,
+   "2_top8_over_guide": 8,
+   "3_light_sectors": [
+    45,
+    90,
+    135,
+    225,
+    270,
+    315
+   ],
+   "3_light_outside_guide": 8,
+   "3_light_read": 15,
+   "4_ramps_no_hue_shift": 19,
+   "4_ramps_read": 23,
+   "5_rest_present": 0,
+   "5_rest_median": 0.016,
+   "road": "pack",
+   "cull": [],
+   "id": "cook4-the-family-in-the-valley-tans-10-18",
+   "lane": "cook 4"
+  },
+  {
+   "sheet": "records/target/COOK4_THE_MOTEL_STRAIGHT_ROOF.png",
+   "sprites": 11,
+   "1_native_sizes": [
+    1
+   ],
+   "1_declared_zooms": [],
+   "2_colours_max": 30360,
+   "2_top8_max_pct": 68.8,
+   "2_top8_over_guide": 7,
+   "3_light_sectors": [
+    0,
+    225,
+    270
+   ],
+   "3_light_outside_guide": 5,
+   "3_light_read": 5,
+   "4_ramps_no_hue_shift": 10,
+   "4_ramps_read": 11,
+   "5_rest_present": 0,
+   "5_rest_median": 0.0,
+   "road": "pack",
+   "cull": [],
+   "id": "cook4-the-motel-straight-roof-10-18",
+   "lane": "cook 4"
+  },
+  {
+   "sheet": "slices/vote/RUN2_WHO_IS_WEARING_WHAT_10_18.png",
+   "sprites": 61,
+   "1_native_sizes": [
+    1
+   ],
+   "1_declared_zooms": [],
+   "2_colours_max": 2691,
+   "2_top8_max_pct": 91.2,
+   "2_top8_over_guide": 61,
+   "3_light_sectors": [
+    0,
+    45,
+    90,
+    135,
+    180,
+    225,
+    270,
+    315
+   ],
+   "3_light_outside_guide": 44,
+   "3_light_read": 60,
+   "4_ramps_no_hue_shift": 56,
+   "4_ramps_read": 64,
+   "5_rest_present": 58,
+   "5_rest_median": 0.748,
+   "road": "ui",
+   "cull": [],
+   "id": "run2-who-is-wearing-what-10-18",
+   "lane": "run 2"
+  },
+  {
+   "sheet": "records/target/cook3/COOK3_THE_THUG_THROUGH_THE_RIG.png",
+   "sprites": 21,
+   "1_native_sizes": [
+    1
+   ],
+   "1_declared_zooms": [
+    4
+   ],
+   "2_colours_max": 8905,
+   "2_top8_max_pct": 85.8,
+   "2_top8_over_guide": 19,
+   "3_light_sectors": [
+    45,
+    90,
+    135,
+    270
+   ],
+   "3_light_outside_guide": 3,
+   "3_light_read": 8,
+   "4_ramps_no_hue_shift": 17,
+   "4_ramps_read": 19,
+   "5_rest_present": 13,
+   "5_rest_median": 0.682,
+   "road": "rig",
+   "cull": [],
+   "id": "cook3-the-thug-through-the-rig-10-18",
+   "lane": "cook 3"
+  }
+ ]
+}

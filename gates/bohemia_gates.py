@@ -9041,6 +9041,19 @@ GATES = [
      "(feed, jobs, stash, crew, settings, the timeline only after the first crisis) laid in the browser only and read "
      "back: every icon a pack prop at its own pixels, A and B different, every press 44 points, zero gradients, blur, "
      "glow, corners over 1 or system fonts (rule 114 D10), nothing in slices/ or engine/, the VOTE card whole", False),
+    ('THE QUEUE ON HIM', ['python3', 'tools/bohemia_eyes_the_keep_rate_and_the_queue_10_18_26.py', '--gate'],
+     "EYES AND EARS 10/18, row [the keep rate and the queue], rule 113(c) and (e): the VOTE tab holds at most ABOUT "
+     "TWENTY items waiting on him, and his keep rate per sitting is a signal the coordinator reads. Read only over the "
+     "registry and the coordinator's triage: waiting on him is no verdict and a tag of red, yellow or none (green and "
+     "gray never render). Red when more than twenty wait; planted first (21 unsorted goes red, the same 21 gray wait on "
+     "nobody, one yes and one no is 50 percent)", False),
+    ('THE BLIND PASS', ['python3', 'tools/bohemia_eyes_the_blind_pass_10_18_26.py', '--selftest'],
+     "EYES AND EARS 10/18, row [the blind pass], rules 99 and 104k (his 'I'm so confused what is the purpose of this'): "
+     "every new VOTE item gets EYES' PASS or BACK from its own fields. The legs are his rulings (a thing to see or hear, "
+     "no code word, the before and after at 1:1, no team business) plus the one predictor the school found on his 467 "
+     "verdicts (the card never says where in the game he meets it: 24 percent of his confused cards against 7 of his "
+     "clear ones); length and 'what he decides' were measured and do not predict him, so they are notes. Planted wrong "
+     "cards each sent back, and red if the predictor stops BACKing his confused cards at twice the clear rate", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
