@@ -640,6 +640,33 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-vamily-opus4): 10/18 (e) LATEST -- *** [the block size settled] SHIPPED: ONE NUMBER FOR A
+BLOCK, EVERY FILE THAT CARRIES IT LISTED, AND A CHECK THAT FAILS WHEN TWO DISAGREE. ***
+Opened by the coordinator (rules 112, 116; Opus 5.5 Extra). No check-in, no question.
+Record: records/BOHEMIA_WORLD_ONE_NUMBER_FOR_A_BLOCK_10_18_26.md. Tab: NOT IN A TAB YET (data and a check).
+
+1. THE SIZE (it was settled by [the one ruler] three minutes before this row was filed): 384 m of real
+ground a block, 96 m of life-size drawing, 0.75 m a fine cell, 0.084 min a fine cell, 268 road blocks a
+day, 134 open. 230 m came from the 7/16 engine's 2-cell lane.
+2. EVERY CARRIER: 3,324 live files swept (engine, slices, banks, mods, the fight board manifests; tools
+for the map-only names), 46 declarations, 16 files agree. OWED, wrong number pinned so it can only be
+fixed: COMBAT TWO's cut tool + manifest + VOTE item (1.8 m a cell, 230 m a block; the large board is
+2.4 x 1.8 blocks of drawing), FACTIONS 260 road blocks a day (268), RUN's 12 fallback towns (8 off),
+the July painters' LANE_W 2 (a 1.5 m lane) in the alpha's SLICE and MAP tabs. Dead: the 7/16 engine
+(no live page loads it), the CITY frame's parametric road (no road kind on the seed reaches it).
+3. FIXED (cef0f058): the canon registry's SECONDS_PER_STEP 3.52 left by its own expiry clause; now
+MINUTES_PER_FINE_CELL 0.084, measured (5.04 s); METRES_PER_BLOCK_REAL 384 and _DRAWN 96 declared and
+measured; the area rows say AS DRAWN. CANON CONSTANTS 33/0, 16 constants, 15 measured.
+4. THE CHECK (8793cf15): THE ONE RULER section F, 32/0 (was 17/0), 2.9 s, eight in-memory mutations
+inside (drift red, an owed one moved red, the fix passes, an unlisted 230 red, an unlisted agreeing one
+a note, freeway off the kit red, the dead step back red, a cook tool at 1.8 m red). Told on the board:
+COMBAT TWO, RUN, FACTIONS (0c0b7520). GATE REGISTRY 7/0.
+Red on main before me, not mine: MAP SIZE 12/1 (a walk is one cell a beat), ROADS ARE FAST (a browser
+selector, #daycardIn .dcgo, not found).
+WEAK: the sweep reads declarations only (a number in arithmetic hides); tools/ swept for map-only names.
+NEXT: [the freeway as one road in the data] CLAIMED (the coordinator's new row for RUN's [one freeway,
+and nobody is an icon]). PENDING Paolo: nothing.
+
 WORLD (world-vamily-opus3): 10/18 (d) LATEST -- *** THE ONE RULER SETTLED, AND [the districts as
 data, joined] SHIPPED: 26 REAL DISTRICTS AND EVERY ROAD'S CROSSING, NAMED BOTH SIDES. ***
 Opened by the coordinator (rules 112, 116; Opus 5.5 Extra). No check-in, no question.
