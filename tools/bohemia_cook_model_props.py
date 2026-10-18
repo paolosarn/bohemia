@@ -36,6 +36,9 @@ against 2,899 blockers): the things a man stands behind in a city fight, each wi
   propane   a 500-gallon propane tank at its real 3.02 m by 0.95 m, 2:1 heads, saddle legs on concrete pads, the valve
             dome, COVER that stops a man, the twins pack:Cargo, crates and containers#22 (his gas bottles) and
             9. Boilers and tanks#25. The odd thing: the dome's lid thrown back and a cut hose run off the open valve.
+  rubble    a rubble mound 4.6 m across and 1.4 m high, what a two-storey house comes down to: gravel fill, 450 lumps,
+            a floor slab cracked in two across the top with its rebar bridging the crack; the MOUND (high ground) a man
+            stands on, the twin pack:9. Rubble and debris#1. The odd thing: a white bathtub tipped up at its foot.
 
 Run with the rig's Blender python (bpy 4.2):
     <venv>/bin/python tools/bohemia_cook_model_props.py lamp|gun|wreck [--out reference/models/bohemia/<name>.glb]
@@ -799,6 +802,109 @@ def propane(bpy, mathutils):
     cyl(bpy, 'hose_cut', steel, 0.024, 0.04, (-1.32, -0.51, 0.03), rot=(0, math.pi / 2, math.radians(-20)), verts=8)
 
 
+def chunk(bpy, name, m, size, loc, rot, rnd, jit=(0.22, 0.22, 0.22)):
+    """a broken lump of concrete: a box cut once and every corner knocked a different way, so no two faces are square
+    (jit: how far a corner moves, a share of the size on each axis; a floor slab breaks in plan, not in thickness)"""
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, 0))
+    o = bpy.context.active_object; o.scale = size; bpy.ops.object.transform_apply(scale=True)
+    md = o.modifiers.new('cut', 'SUBSURF'); md.subdivision_type = 'SIMPLE'; md.levels = 1; bpy.ops.object.modifier_apply(modifier='cut')
+    seen = {}
+    for v in o.data.vertices:
+        k = tuple(round(c, 4) for c in v.co)
+        if k not in seen: seen[k] = [rnd.uniform(-j, j) * s for j, s in zip(jit, size)]
+        v.co = [c + d for c, d in zip(v.co, seen[k])]
+    o.location = loc; o.rotation_euler = rot
+    return put(bpy, o, name, m, smooth=False)
+
+
+def rubble(bpy, mathutils):
+    # a rubble mound (the twin pack:9. Rubble and debris#1): what a two-storey house comes down to, about 4 m across
+    # and 1.2 m high, a dome of broken fill (plaster, brick dust, gravel), concrete lumps from fist to suitcase, a floor
+    # slab come down across the top with its rebar torn out of the broken edge, more rebar bent out of the heap. It is
+    # the MOUND the fight rests on (high ground, the first floor effect, rule 59): the slab is the flat place a man
+    # stands. The odd thing: a white bathtub tipped on its side and half buried at one end of the heap.
+    import random
+    rnd = random.Random(11)
+    # round two of the loop: the slab broke like a crystal (a corner knocked 22% of 1.7 m is a spike), the fill was a
+    # smooth beige dome with lumps sat on it, his heap is lumps all the way down, and the tub faced away (a white brick).
+    # The slab breaks in plan only, 170 small lumps cover the heap over a darker fill, the tub's open side to the street
+    fill, conc, conc_d = mat(bpy, 'fill', 'clay_bone', 0), mat(bpy, 'concrete', 'tape_grey', 2), mat(bpy, 'concrete_old', 'tape_grey', 1)
+    rebar, tub = mat(bpy, 'rebar', 'clay_rust', 1), mat(bpy, 'enamel', 'clay_bone', 4)
+    A, B, Hd = 1.9, 1.6, 0.62
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=40, ring_count=20, location=(0, 0, 0))
+    dome = put(bpy, bpy.context.active_object, 'fill', fill, smooth=False)
+    p1, p2 = rnd.uniform(0, 6), rnd.uniform(0, 6)
+    for v in dome.data.vertices:
+        a = math.atan2(v.co.y, v.co.x)
+        k = 1 + 0.13 * math.sin(3 * a + p1) + 0.07 * math.sin(5 * a + p2)               # a ragged edge, never an ellipse
+        z = max(0.0, v.co.z) ** 1.4                                                       # slumped, a heap not a ball
+        v.co = (v.co.x * A * k, v.co.y * B * k, z * Hd * (1 + 0.12 * math.sin(4 * v.co.x + 2 * v.co.y)))
+    # round three: the fill itself knobbled like gravel (a cell texture at 12 cm pushing the surface 7 cm), because a
+    # smooth dome under scattered lumps still read as a dome
+    sub = dome.modifiers.new('cut', 'SUBSURF'); sub.subdivision_type = 'SIMPLE'; sub.levels = 2; bpy.ops.object.modifier_apply(modifier='cut')
+    tex = bpy.data.textures.new('gravel', 'VORONOI'); tex.noise_scale = 0.12; tex.distance_metric = 'DISTANCE'
+    dsp = dome.modifiers.new('gravel', 'DISPLACE'); dsp.texture = tex; dsp.texture_coords = 'GLOBAL'; dsp.strength = 0.07; dsp.mid_level = 0.6
+    bpy.ops.object.modifier_apply(modifier='gravel')
+    for v in dome.data.vertices:
+        if v.co.z < 0: v.co.z = 0
+    def top(x, y):   # the fill's height under a point, for seating a lump on it
+        u = (x / A) ** 2 + (y / B) ** 2
+        return Hd * max(0.0, 1 - u) ** 0.7
+    # the lumps: big ones round the foot where they rolled, smaller up the slope, a few on the top
+    for i in range(30):
+        a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.15, 1.05) ** 0.6
+        x, y = A * d * math.cos(a) * 0.98, B * d * math.sin(a) * 0.98
+        s = rnd.uniform(0.12, 0.26) * (1.5 if d > 0.85 else 1.0)
+        size = (s * rnd.uniform(1.0, 2.0), s * rnd.uniform(0.8, 1.5), s * rnd.uniform(0.5, 0.9))
+        chunk(bpy, 'lump_%d' % i, conc if rnd.random() < 0.65 else conc_d, size, (x, y, top(x, y) + size[2] * 0.2),
+              (rnd.uniform(-0.5, 0.5), rnd.uniform(-0.5, 0.5), rnd.uniform(0, 3)), rnd, jit=(0.15, 0.15, 0.15))
+    for i in range(420):   # the small stuff the heap is made of, fist to brick, over all of it
+        a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.0, 1.0) ** 0.5
+        x, y = A * d * math.cos(a), B * d * math.sin(a)
+        s = rnd.uniform(0.06, 0.14)
+        size = (s * rnd.uniform(1.0, 1.8), s * rnd.uniform(0.8, 1.4), s * rnd.uniform(0.5, 0.9))
+        chunk(bpy, 'grit_%d' % i, conc if rnd.random() < 0.55 else conc_d, size, (x, y, top(x, y) + size[2] * 0.1),
+              (rnd.uniform(-0.6, 0.6), rnd.uniform(-0.6, 0.6), rnd.uniform(0, 3)), rnd, jit=(0.2, 0.2, 0.2))
+    # the floor slab across the top, tilted, and the rebar torn out of its broken edge
+    # the slab cracked across in two, the far half dropped and tipped (round three: one clean plate looked new)
+    chunk(bpy, 'slab_far', conc_d, (0.75, 1.2, 0.16), (-0.62, 0.38, 0.62), (math.radians(4), math.radians(-17), math.radians(22)), random.Random(5), jit=(0.06, 0.06, 0.03))
+    slab = chunk(bpy, 'slab', conc, (0.95, 1.25, 0.16), (0.42, -0.02, 0.8), (math.radians(7), math.radians(-9), math.radians(22)), random.Random(4), jit=(0.06, 0.06, 0.03))
+    bars = []
+    for i in range(7):
+        t = -0.55 + i * 0.18
+        # out of the crack between the two halves, still bridging it, bent where it tore
+        p0 = mathutils.Vector((-0.47, t, 0.0)); p1 = p0 + mathutils.Vector((-rnd.uniform(0.12, 0.3), rnd.uniform(-0.12, 0.12), rnd.uniform(-0.05, 0.25)))
+        p2 = p1 + mathutils.Vector((-rnd.uniform(0.05, 0.2), rnd.uniform(-0.15, 0.15), rnd.uniform(-0.25, 0.05)))
+        m_ = slab.matrix_world
+        bars += [(tuple(m_ @ p0), tuple(m_ @ p1)), (tuple(m_ @ p1), tuple(m_ @ p2))]
+    for i in range(6):   # and bars bent up out of the heap itself
+        a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.3, 0.75)
+        x, y = A * d * math.cos(a), B * d * math.sin(a); z = top(x, y)
+        p1 = (x + rnd.uniform(-0.2, 0.2), y + rnd.uniform(-0.2, 0.2), z + rnd.uniform(0.3, 0.6))
+        bars += [((x, y, z - 0.05), p1), (p1, (p1[0] + rnd.uniform(-0.25, 0.25), p1[1] + rnd.uniform(-0.25, 0.25), p1[2] - rnd.uniform(0.0, 0.2)))]
+    tubes(bpy, 'rebar', rebar, bars, 0.016, n=6)
+    # THE ONE ASYMMETRIC THING: a bathtub on its side, its open face toward the street, half sunk in the heap's left end
+    # (round three: a box with a box cut out of it came out a white frame with no floor; the tub is now an open shell)
+    import bmesh
+    bm = bmesh.new(); bmesh.ops.create_cube(bm, size=1.0)
+    for v in bm.verts: v.co.x *= 1.52; v.co.y *= 0.72; v.co.z *= 0.52
+    bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.normal.z > 0.9], context='FACES')
+    me = bpy.data.meshes.new('tub'); bm.to_mesh(me); bm.free()
+    t = bpy.data.objects.new('tub', me); bpy.context.collection.objects.link(t); t.data.materials.append(tub)
+    bpy.context.view_layer.objects.active = t; t.select_set(True)
+    bv = t.modifiers.new('round', 'BEVEL'); bv.width = 0.12; bv.segments = 3
+    sol = t.modifiers.new('shell', 'SOLIDIFY'); sol.thickness = 0.05; sol.offset = -1
+    bpy.ops.object.modifier_apply(modifier='round'); bpy.ops.object.modifier_apply(modifier='shell')
+    for p in me.polygons: p.use_smooth = True
+    # round four: on its side and sunk in the heap, the fill ran through its inside and it read as a white frame; tipped
+    # up at the heap's foot instead, the white inside toward the street and the sky, a few lumps fallen into it
+    t.location = (-1.62, -0.72, 0.36); t.rotation_euler = (math.radians(58), math.radians(-12), math.radians(-24))
+    for i, (x, y, z) in enumerate(((-1.75, -0.86, 0.3), (-1.42, -0.8, 0.33))):
+        chunk(bpy, 'lump_in_tub_%d' % i, conc, (0.16, 0.13, 0.09), (x, y, z), (0.3, 0.1, i * 1.7), rnd)
+    for i, (x, y) in enumerate(((-1.0, -0.95), (-1.85, -0.25))):   # the heap spilt over its rim
+        chunk(bpy, 'lump_tub_%d' % i, conc_d, (0.3, 0.24, 0.16), (x, y, 0.08), (0.2, -0.3, i), rnd)
+
+
 def dims(bpy):
     import mathutils
     lo, hi = [1e9] * 3, [-1e9] * 3
@@ -811,7 +917,7 @@ def dims(bpy):
 
 
 BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres,
-            'sandbags': sandbags, 'fence': fence, 'container': container, 'propane': propane}
+            'sandbags': sandbags, 'fence': fence, 'container': container, 'propane': propane, 'rubble': rubble}
 
 
 def build(name, out):
