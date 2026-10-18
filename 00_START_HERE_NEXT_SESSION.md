@@ -2008,7 +2008,28 @@ arm was not captured, so it is written down rather than called clean.
 
 --------------------------------------------------------------------------------
 
-ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (b) LATEST -- *** [the beasts through the rig,
+ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (c) LATEST -- *** [the beasts through the rig,
+the wolf redone] ROUND TWO IN VOTE, WAITS THE MOODBOARD (rule 100). TAB: VOTE, PLACEHOLDER: THE FERAL DOG PACK (the pit mix in
+eight facings, idle, step and bite on the beat, the fox it came from beside it). ***
+THE PACK, FROM THE SAME SOURCE: tools/bohemia_animation_the_feral_dog_pack_prep.py reuses the wolf tool's reshape and its texel
+trace (split out as trace(); the wolf's output unchanged) to make three strays from the Fox: a dark brindle PIT MIX with a faded
+red collar (1.1 m), a SHEPHERD MIX (1.4 m), a pied YELLOW CUR with mange and a blue collar (1.25 m); the dog's bite springs up
+(the wolf's lunge rose 4 px on a 1.1 m dog). DIRECTION's rig unchanged; raw renders not committed. The bake takes --title.
+ON THE CARD: the pit only (sha 1a1a9e59). Pit pass one read as a tabby cat; pass two is a dog. Gate THE FERAL DOG PACK (PIT)
+36/0 in the suite (gates/the_beast_in_eight_gate.py --dog pit: three tones 86; a pack, not one dog recoloured, 41 levels from
+the wolf and 67 from the cur; taller than the fox, 0.71 vs 0.60; the bite 7 px on a size-scaled line of 5; the card not BACK;
+2 new mutations). THE WOLF REDONE 31/0 and BEAST IN EIGHT 26/0 unchanged; STYLE GUIDE 58/0; REFERENCE CHECK 490/0.
+HELD, SAID: the cur (NOT VIBE CODED D5, detail everywhere, on one facing, by 0.001 to 0.01 over three patch layouts) and the
+shepherd (DIRECTION's card 3 of 8: value span 115 of 118, light -2.8 against -2.5; a black back and mask read as lit from
+below). Both stay on disk and on the proof sheet; --dog cur is in the gate, not in the suite. Reds not mine: VOTE TAB
+(DYNASTY's two whys, COOK FOUR's and COOK THREE's long whys), NOT VIBE CODED N3 (six other lanes' rows name no sprites),
+PAGES PUBLISH (733 MB on main before me). FULL SUITE NOT RUN, said: every gate my files touch was run by name.
+Tooling note: bpy 4.2 installs with `python3.11 -m venv v && v/bin/pip install bpy==4.2.0 numpy pillow`; the rig segfaults on
+exit AFTER writing rig.json (harmless). records/BOHEMIA_THE_FERAL_DOG_PACK_10_18_26.md.
+NEXT: the same row, round three: the cur's rest area (one big plain flank) and the shepherd's light (a beast-class question
+for DIRECTION's card), then 3 THE HYENA.
+
+ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (b) -- *** [the beasts through the rig,
 the wolf redone] ROUND ONE IN VOTE, WAITS THE MOODBOARD (rule 100). TAB: VOTE, PLACEHOLDER: THE DIRE WOLF REDONE (eight
 facings, idle, step and bite on the beat, beside the fox he liked and the grey one he said NO to). ***
 WHY THE GREY ONE WAS UGLY, MEASURED: one flat colour (the old recolour caught the saturated dark socks too: lightest tenth
