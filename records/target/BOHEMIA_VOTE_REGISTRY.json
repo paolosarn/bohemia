@@ -10585,6 +10585,65 @@
     "how": "page",
     "src": "vote/EYES_THE_SQUEEZE.html"
    }
+  },
+  {
+   "id": "character-the-barber-on-the-skull-10-18",
+   "kind": "haircut",
+   "lane": "character",
+   "made": "10/18",
+   "sha": "cac46f42",
+   "draft": true,
+   "title": "THE BARBER'S CUTS ON THE STARRED FACE: A TAPER, COILS AND A LAYERED FALL",
+   "why": "You asked if the starred face can be customised: now the barber's first three cuts, the temple taper, the coil crown and the layered fall, are sculpted clay hair on that same head, walking in all eight directions and at portrait size. In the VOTE tab you see it walk beside the flat cut the game draws today at real size, and you tap a cut to watch it walk all eight ways.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_BARBER_ON_THE_SKULL.html"
+   },
+   "twin": {
+    "src": "records/target/character/barber_flat/temple_taper_SE_k01.png",
+    "diffs": [
+     "THE FADE: the game's flat taper fades by darker and lighter pixel rows; ours is a short sculpted crown that thins to nothing, with a stubble skin under it in three dithered bands, so it reads as clipper stubble on the face and one gradient on the street.",
+     "THE VOLUME: the game's coil crown is a flat outline with a wobbly edge; ours is a real mass of coils on the skull, clumps that break the outline from every side and small coils you see on the face.",
+     "THE FALL: the game's layered fall is one painted shape that turns with the sprite; ours is a parted cap, one hanging curtain that rests on the shoulders and seven locks on top that sway with the walk."
+    ]
+   },
+   "before_after": {
+    "before": "the game's flat body (in the same wrapped boots) wearing the same cut, walking SE (left of each pair), then all eight facings under the model",
+    "after": "the same body with the starred head and the sculpted cut, walking SE at the same six phases, its face at portrait size",
+    "scale": "1:1"
+   },
+   "sprites": [
+    "records/target/character/barber/temple_taper/rig_N.png",
+    "records/target/character/barber/temple_taper/rig_NE.png",
+    "records/target/character/barber/temple_taper/rig_E.png",
+    "records/target/character/barber/temple_taper/rig_SE.png",
+    "records/target/character/barber/temple_taper/rig_S.png",
+    "records/target/character/barber/temple_taper/rig_SW.png",
+    "records/target/character/barber/temple_taper/rig_W.png",
+    "records/target/character/barber/temple_taper/rig_NW.png",
+    "records/target/character/barber/coil_crown/rig_N.png",
+    "records/target/character/barber/coil_crown/rig_NE.png",
+    "records/target/character/barber/coil_crown/rig_E.png",
+    "records/target/character/barber/coil_crown/rig_SE.png",
+    "records/target/character/barber/coil_crown/rig_S.png",
+    "records/target/character/barber/coil_crown/rig_SW.png",
+    "records/target/character/barber/coil_crown/rig_W.png",
+    "records/target/character/barber/coil_crown/rig_NW.png",
+    "records/target/character/barber/layered_fall/rig_N.png",
+    "records/target/character/barber/layered_fall/rig_NE.png",
+    "records/target/character/barber/layered_fall/rig_E.png",
+    "records/target/character/barber/layered_fall/rig_SE.png",
+    "records/target/character/barber/layered_fall/rig_S.png",
+    "records/target/character/barber/layered_fall/rig_SW.png",
+    "records/target/character/barber/layered_fall/rig_W.png",
+    "records/target/character/barber/layered_fall/rig_NW.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   }
   }
  ],
  "verdicts": [

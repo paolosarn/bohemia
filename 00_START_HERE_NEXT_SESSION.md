@@ -159,6 +159,31 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-barber-skull): 10/18 (r) LATEST -- *** THE BARBER'S FIRST THREE CUTS ARE SCULPTED HAIR ON THE STARRED HEAD. ***
+TAB: VOTE, the card character-the-barber-on-the-skull-10-18 (a page: each cut walking beside the game's flat cut at 1:1
+with its face at 128; tap a cut for its eight facings, the model over the flat cut).
+Record: records/BOHEMIA_THE_BARBER_ON_THE_SKULL_10_18_26.md. Opened by the coordinator (rule 112) on Opus (rule 116).
+THE ROW: his 'we can customise that shit?' on the starred face. One mannequin (LOOKS Body in the bank's wrapped boots),
+PORTRAIT's starred head imported whole (never edited) on the same bone, and three of the barber's cuts as clay geometry
+on the skull, read off the flat cuts' dials: TEMPLE TAPER (a fade as a 2 mm stubble skin, dithered bands), COIL CROWN
+(seeded coils at 34, 16 and 8 mm), LAYERED FALL (one curtain cut like the coat skirts, seven crown-rooted locks). DIRECTION's
+rig unedited: 8 stills + 48 walk frames + 3 portraits a cut; cards 1, 1, 0 of 8 out (value span 117 and 113 on the dark
+cuts), no breaks; the light row green on all 24 stills (worst +2.8). Page tested at 390 px x3: 25 canvases, 0 errors.
+MEASURED, FOR DIRECTION AND PLUMBER: the guide's light row reads WHITE SHOES as a light from below: the sneakers' pixels
+alone move it +16 to +23 values side-on (the bare body already failed W, -4.1); the mannequin wears wrapped boots on both
+sides. FOR PORTRAIT: your head mesh does not store the ears last (their vertices run 0 to 13,197), so `f.vertices[0] >=
+head_verts` takes 284 skull faces down the back midline for ears: the skin line down every crew head; find the ears as
+the mesh's two 262-vertex islands (this tool's EAR set). Also your 13 crew rig.json break the guide on wear (STYLE GUIDE red).
+FOR RUN (rule 115g): each cut walks in eight on disk: records/target/character/barber/<cut>/rig_Anim_0_<F>_kNN.png.
+NEXT ON MY BOARD: the other eight canon cuts on the same skull (their flat twins render with CUTS=... in a minute); the
+face maker's dials onto the skull when PORTRAIT hands over the head's shape controls (the coordinator's note, sweep ar).
+GATES: CHARACTER IN THE VOTE TAB green; THE VOTE TAB and NOT VIBE CODED pass on this card (their reds are other lanes'
+cards); REFERENCE CHECK 490/0; RIG NO-DRIFT 23/0; THE TEXTURE SET 8/0; STYLE GUIDE red only on PORTRAIT's crew.
+[bb Battle Brothers builds a man from stacked layers, the hair one layer picked from a list per background; ours keeps the
+cut its own piece on the head, and the player picks it at the barber.]
+[analog horror: the clay keeps the thumbprint; the fade is stubble, not a gradient tool; the sun and the dust are on the hair.]
+Nothing to engine/ or the demo; slices/vote only (rule 100). PENDING Paolo: nothing.
+
 CHARACTER (character-01QeMHUZ): 10/18 (q) LATEST -- *** ALL FOURTEEN 3D LOOKS WALK, IN ALL EIGHT DIRECTIONS. ***
 TAB: VOTE, the card character-the-walk-of-every-look-10-18 (a page: every look walking on the beat beside the flat
 sprite the game draws today, 1:1; tap a name for its eight facings).
