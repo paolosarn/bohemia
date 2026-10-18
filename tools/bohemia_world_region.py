@@ -47,6 +47,8 @@ speeds below ship tagged tuned:false with their source), who holds what (FACTION
   python3 tools/bohemia_world_region.py --thumb    also prints a 62-wide ascii thumbnail
 """
 import json, math, os, sys, hashlib, heapq
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import bohemia_world_region_districts as DISTRICTS_OF   # [the districts as data, joined], 10/18
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'engine', 'BOHEMIA_REGION_LAND.json')
@@ -522,6 +524,12 @@ def main():
     us93 = [c for c in road_cells(ROADS[4][2]) if in_grid(*c)][-1]
     crossings = {'I-15 south rim to I-15 north rim': cross(i15s, i15n), 'US-95 north-west rim to US-93 Arizona rim': cross(us95, us93)}
     km_across = round(D * METRES_PER_CELL / 1000.0, 1)
+    # the districts and the roads across their lines ([the districts as data, joined], 10/18)
+    me = sys.modules.get(__name__) or type(sys)('region')   # loaded by path (the gate) it has no sys.modules entry
+    if not hasattr(me, 'build'): me.__dict__.update(globals())
+    own, dnames, dletters = DISTRICTS_OF.build_districts(me, grid, road, places, portals)
+    line_crossings, road_ends, road_paths = DISTRICTS_OF.roads_across(me, grid, road, own, dnames, places, portals)
+    districts = DISTRICTS_OF.describe(me, grid, road, own, dnames, dletters, places, line_crossings, road_paths)
     counts = {}
     for j in range(D):
         for i in range(D):
@@ -560,11 +568,22 @@ def main():
         'portalsWhy': 'where each real highway meets the valley box (the first block outside it, on which side). The valley rolls its own exits per seed; the loader stitches each rolled exit to the nearest portal on the same side (Lego, rule 77: a road never ends in sand).',
         'places': places, 'inValley': in_valley_places, 'inValleyWhy': 'real places that fall inside the valley box at 384 m a block; the valley generator (the roll) seats them as its own districts, so this file lists them and draws nothing', 'beyond': beyond, 'crossingsDays': crossings,
         'counts': counts, 'roadCounts': road_counts,
+        'districts': districts,
+        'districtRows': rle_rows(own, D, D, lambda v: dletters[v]),
+        'districtLegend': {dletters[i]: n for i, n in enumerate(dnames)},
+        'districtsWhy': 'THE REGION\'S DISTRICTS ([the districts as data, joined], WORLD 10/18; Paolo 10/18 \'doesn\'t look like shit\'s connected\'): every block belongs to one real district of the Las Vegas region, a basin (the valley people live in), a range, the lake, or the land past a state line. Each grows from real points by the cost of walking the GROUND (a basin over the flats, a range over the hills, a lake over its water; never along a road), so a line falls where the ground changes, on the ridges, where Nevada\'s real basins are cut. The California line is the real survey line through Primm. A road running along a ridge crosses it once (a dip of under ' + str(DISTRICTS_OF.MIN_RUN) + ' blocks is given back), and every district is one piece. The valley\'s box is the Las Vegas Valley, whole. Rows are run-length like rows, one letter a block. tools/bohemia_world_region_districts.py.',
+        'lineCrossings': line_crossings,
+        'lineCrossingsWhy': 'every place a road leaves one district for the next: the road, the first block on the far side (x, y) and the last on the near side (fromX, fromY), the two districts, and the road\'s real local name on each side. live: the road layer holds a road on both sides (the valley\'s box counts as road: the roll\'s streets).',
+        'localNamesWhy': DISTRICTS_OF.LOCAL_NAMES_WHY,
+        'roadEnds': road_ends,
+        'roadEndsWhy': 'what each end of each road really stops at: rim (the road goes on past the region, the beyond list), valley (the box: the roll\'s streets take it, the loader stitches), junction (another road), place, water (a ramp), gate (a fence, a crest, a canyon head: named one by one), or break (nothing: the defect). atLine: the end touches a district line.',
         'numbers': {
             'tilesAcross': D, 'tiles': D * D, 'kmAcross': km_across,
             'valleyTiles': N * N, 'regionTiles': D * D - N * N,
             'places': len(places), 'inValley': len(in_valley_places), 'beyond': len(beyond), 'valleySeats': 14,
             'settlementsInAll': len(places) + 14,
+            'districts': len(districts), 'lineCrossings': len(line_crossings),
+            'roadEndsBroken': sum(1 for e in road_ends if e['kind'] == 'break'),
             'daysAcross': crossings,
             'daysAcrossRoadStraight': round(D * mins_of('paved') / MINUTES_A_DAY, 2),
             'daysAcrossOpenStraight': round(D * mins_of('open') / MINUTES_A_DAY, 2),
@@ -579,6 +598,9 @@ def main():
     for p in places: print('  %-20s x%4d y%4d %-9s %-15s %5.1f km  %s  %s h  %s d' % (p['name'], p['x'], p['y'], p['tier'], p['kind'], p['km'], 'road' if p['road'] else 'off ', p['hours'], p['days']))
     for b in beyond: print('  beyond %-22s %4d km via %-14s rim (%s,%s) %s d' % (b['name'], b['km'], b['via'], b['rimX'], b['rimY'], b['days']))
     print('portals', [(p['road'], p['edge'], p['x'], p['y']) for p in portals])
+    for d in districts: print('  district %s %-24s %-6s %6d blocks %5d km2  seat %-20s %s' % (d['id'], d['name'], d['kind'], d['blocks'], d['km2'], d['seat'], ', '.join(d['places'])))
+    for c in line_crossings: print('  crossing %-24s %-22s -> %-22s %s -> %s' % (c['road'], c['from'], c['to'], c['nameFrom'], c['nameTo']))
+    print('road ends', {k: sum(1 for e in road_ends if e['kind'] == k) for k in ('rim', 'valley', 'junction', 'place', 'water', 'gate', 'break')})
     if '--thumb' in sys.argv:
         step = 8
         for j in range(-K, N + K, step):

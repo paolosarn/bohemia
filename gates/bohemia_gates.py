@@ -939,6 +939,15 @@ GATES = [
      'not a real lane, kerb to kerb, sidewalk, tract house and houses a hectare at CELL_M, with a proof that read '
      'at 230 m a block they fail; a measurement of another seed; a live file saying 230 m a block. Prints: the '
      'painter changed since the measurement; the Strip drawn 2.2 times its real length. Mutation-proved four ways.', False),
+    ('THE DISTRICTS JOIN', ['node', 'gates/region_districts_gate.js'],
+     'ROW [the districts as data, joined] (WORLD 10/18; Paolo 10/18 \'doesn\'t look like shit\'s connected\'). '
+     'engine/BOHEMIA_REGION_LAND.json carries the 26 real districts of the Las Vegas region (basins, ranges, the lake, '
+     'past a state line), cut on the ground by tools/bohemia_world_region_districts.py, and every road\'s crossing of a '
+     'district line with its real local name on each side; engine/bohemia_region_land.js reads them in RUN\'s compass. '
+     'Refuses: a block with no district; a district in two pieces; a seat outside its district; the lines off the rough '
+     'ground or California off the real survey line; a one-sided or unnamed crossing; a road zigzagging along a line; a '
+     'road end at nothing (checked against the land, not the label); a seat no road reaches; the real names lost; the '
+     'mirrored compass reading another map. Mutation-proved three ways inside the gate.', False),
     ('THE INSIDES',['node', 'gates/the_insides_gate.js'],
      'ROW [the valley has no inside], A COMBAT TILE IS A HOUSE (Paolo 9/4) and the '
      'INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED). *** THE ROW WAS WRONG AND THIS LANE '

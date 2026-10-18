@@ -19,6 +19,10 @@
                                  road out of the valley never ends in sand; returns the connector cells
      passGrid(compass)        -> Uint8Array D*D in RUN's layout and codes (0 open, 1 road, 2 rough, 3 cannot)
      places(compass), placeAt(x, y, r, compass), numbers()
+     districtAt(x, y, compass) -> { id, name, kind, seat }   the real district a block is in (10/18)
+     districtSides(x, y, compass) -> [n, e, s, w]  null, or the id across a district line, or 'rim'
+     districts(), lineCrossings(compass), roadEnds(compass)   where every road crosses a line, named
+                              on both sides, and what every road end really stops at
 
    Headless-safe: no canvas, no DOM. In node: require() and pass the JSON (or call load() with no
    argument and it reads the file beside it). In a page: fetch the JSON and pass it to load().
@@ -168,6 +172,31 @@
         edge: m ? (p.edge === 'x0' ? 'x1' : p.edge === 'x1' ? 'x0' : p.edge) : p.edge }; });
     };
     L.numbers = function () { return json.numbers; };
+
+    /* THE DISTRICTS ([the districts as data, joined], WORLD 10/18): every block's real district (a basin, a
+       range, the lake, past a state line), where its lines run, and where a road crosses one with its name on
+       each side. Same compass rule as the land: x mirrors, y never does. */
+    var DLET = json.districtLegend ? Object.keys(json.districtLegend) : [];
+    var dIndex = {}; DLET.forEach(function (c, i) { dIndex[c] = i + 1; });
+    var DIST = json.districtRows ? decodeRows(json.districtRows, D, function (ch) { return dIndex[ch] || 0; }) : null;
+    var DBY = {}; (json.districts || []).forEach(function (d) { DBY[d.id] = d; });
+    function districtIdAt(x, y, compass) { if (!DIST || !inGrid(x, y)) return null; return DLET[DIST[index(x, y, compass)] - 1] || null; }
+    function mirrorXs(list, compass, keys) {
+      var m = mirrored(compass);
+      return (list || []).map(function (c) { var q = {}, k; for (k in c) q[k] = c[k]; if (m) keys.forEach(function (kk) { if (q[kk] != null) q[kk] = N - 1 - q[kk]; }); return q; });
+    }
+    L.districtAt = function (x, y, compass) {
+      var d = DBY[districtIdAt(x, y, compass)];
+      return d ? { id: d.id, name: d.name, kind: d.kind, seat: d.seat } : null;
+    };
+    /* [n, e, s, w]: null where the neighbour is the same district, its id where a line runs, 'rim' at the world's edge */
+    L.districtSides = function (x, y, compass) {
+      var id = districtIdAt(x, y, compass); if (!id) return null;
+      return [[0, -1], [1, 0], [0, 1], [-1, 0]].map(function (o) { var n = districtIdAt(x + o[0], y + o[1], compass); return n === null ? 'rim' : (n === id ? null : n); });
+    };
+    L.districts = function () { return json.districts || []; };
+    L.lineCrossings = function (compass) { return mirrorXs(json.lineCrossings, compass, ['x', 'fromX']); };
+    L.roadEnds = function (compass) { return mirrorXs(json.roadEnds, compass, ['x']); };
     L.inGrid = inGrid; L.inValley = inValley; L.mirrored = mirrored;
     return L;
   }
