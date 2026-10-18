@@ -5,7 +5,7 @@
  "marks": {
   "EASIER": "a lever: our start is easier than Battle Brothers' value, which is the hard end of the slider",
   "ALREADY EASIER": "his ruling or our design is already easier than Battle Brothers; it stays, and Battle Brothers' number is the hard end",
-  "HARDER THAN BB": "today the game is HARDER than Battle Brothers on this number without his word: a NO before he sees it (rule 117, last line); the owner moves it to the start named",
+  "HARDER THAN BB": "today the game is HARDER than Battle Brothers on this number without his word: a NO before he sees it (rule 117, last line); the owner moves it to the start named. Measured by machine from 10/18 (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md)",
   "HELD AT BB, BOTH SIDES": "the same rule for him and for them (a hit chance, a cost, a weapon row); held at Battle Brothers' value; the easier comes from the levers, never from bending a shared rule",
   "NOT A HARDNESS NUMBER": "the shape of the game (a look, a board size, a beat, a list of names); rule 117 does not move it",
   "PRICE, FRIENDLY END": "a price or a pay: ECONOMY owns the number; rule 117 says it starts at the friendly end of Battle Brothers' range"
@@ -48,7 +48,7 @@
    "shown": "SHOWN inside the hit number",
    "win": "a bad streak ends: the streak never runs three long on a good shot",
    "owner": "COMBAT builds; TUNING holds",
-   "why": "XCOM: Enemy Unknown does this on its two easier settings (+15 a miss over 50, community-read from the game's config; Ufopaedia, Difficulty (EU2012)); Sid Meier, GDC 2010: players feel a 3-to-1 fight is a fight they should win. A genre study, not a reference game."
+   "why": "Battle Brothers has no help: every roll is clean. A 50-plus shot that misses three times running is the miss a player blames the dice for; measured on the live fight (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md s2), the help cuts those streaks, and it sits inside the shown number so the tile never lies"
   },
   {
    "id": "ours.band_size_mult",
@@ -61,11 +61,11 @@
     1.0,
     1.15
    ],
-   "way": "the enemy party is built from this much of its budget (ours.first_band is nine men today: eight thugs and a raider; at 0.85 it is seven or eight)",
+   "way": "the party is sized at this share of the job math (records/target/bb/party_math.json difficulty_count_mult: the door's 'new' pick is 0.85 already; the door opens on 'seen', 1.0). The fixed first band of nine is already the Beginner count for the twelve (ten at Veteran)",
    "mark": "EASIER",
    "shown": "UNDER the surface (he sees fewer men, never the number)",
    "win": "you outnumber them more often: the fight ends inside the 2 to 4 minutes he set",
-   "owner": "COMBAT builds; TUNING holds",
+   "owner": "RUN (the door opens on new) + COMBAT (the first fight sized by the job math)",
    "why": "Battle Brothers moves difficulty through the COUNT of the enemy, not their stats (wiki: 'enemies carry the same equipment with the same stats on all difficulty levels'); we do the same"
   },
   {
@@ -124,20 +124,19 @@
   {
    "id": "ours.veteran_death_chance",
    "in_table": true,
-   "bb": "no veteran rule in Battle Brothers: 0.67 for everyone",
+   "bb": "0.67 for everyone (no veteran rule in Battle Brothers)",
    "bb_value": 0.67,
-   "start": 0.1,
+   "start": 0.2,
    "slider": [
-    0.1,
+    0.2,
     0.67
    ],
-   "way": "how often a veteran at zero dies",
-   "mark": "HARDER THAN BB",
-   "harder_today": "his ruling is 0.10 and the fight never reads it, so in the demo a veteran dies at 0.20: twice his number (TUNING [the injury table] finding, routed to COMBAT 10/17, still open)",
+   "way": "how often a veteran at zero dies (superseded: every man rolls the flat 0.20)",
+   "mark": "ALREADY EASIER",
    "shown": "UNDER the surface",
    "win": "the men you kept alive stay alive",
-   "owner": "COMBAT (read the row)",
-   "why": "harder than his own ruling is harder than he asked; rule 117 makes it a NO"
+   "owner": "nobody reads it on purpose; COMBAT holds the flat roll",
+   "why": "the fifth votes' flat 0.20 (10/1) is newer than the third votes' 0.10 (9/28) and rules (COMBAT 10/18); 0.20 is under Battle Brothers' 0.67, so the row is EASIER, and last round's HARDER THAN BB mark was wrong (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md s3.2)"
   },
   {
    "id": "ours.main_character_dies",
@@ -189,12 +188,12 @@
     15,
     12
    ],
-   "way": "breath back each turn",
+   "way": "breath back each turn, YOUR men only (theirs keep Battle Brothers' 15)",
    "mark": "EASIER",
    "shown": "UNDER the surface: a breath bar, never the number (rule 117b)",
    "win": "a man can swing one more time before he is spent",
    "owner": "COMBAT; TUNING holds",
-   "why": "fatigue is Battle Brothers' hidden tax and the one players learn last; a fifth more breath keeps it a choice and not a wall"
+   "why": "measured (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md s3.4): 18 for both sides is a shared rule bent and buys almost nothing, because they breathe more too; 18 for his men only is the lever"
   },
   {
    "id": "ours.enemy_nerve",
@@ -319,20 +318,20 @@
   {
    "id": "start.funds",
    "in_table": false,
-   "bb": "High 2500, Medium 2000, Low 1500 crowns (wiki, Game Guide)",
-   "bb_value": 200,
-   "start": 250,
+   "bb": "A New Crew, the door's default origin: High 2900, Medium 2400, Low 1900 crowns (records/target/bb/origins.json, the wiki's origin page); the door's default 'thin' IS the Medium",
+   "bb_value": 240,
+   "start": 290,
    "slider": [
-    250,
-    200,
-    150
+    290,
+    240,
+    190
    ],
-   "way": "batteries you start with (10 crowns a battery)",
+   "way": "batteries you start with: the door's economy pick, 'full' (their High) at the start, 'thin' (their Medium) the hard end",
    "mark": "PRICE, FRIENDLY END",
    "shown": "SHOWN as the one battery count",
    "win": "the first trip to the market feels rich",
-   "owner": "ECONOMY",
-   "why": "Battle Brothers' High is our start; their Medium the hard end"
+   "owner": "RUN (the door) + ECONOMY",
+   "why": "Battle Brothers' High is our start; their Medium, the door's default today, is the hard end (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md s3.3)"
   },
   {
    "id": "carry.caps",
@@ -510,10 +509,101 @@
    "win": "you always see it coming at least one act before",
    "owner": "PEOPLE + ANIMATION",
    "why": "records/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_THREE_SETS_ACROSS_THREE_ACTS_10_18_26.md (measured by tools/bohemia_tuning_lifespans_sim.js)"
+  },
+  {
+   "id": "door.combat_pick_default",
+   "in_table": false,
+   "bb": "Veteran, Battle Brothers' default",
+   "bb_value": "seen",
+   "start": "new",
+   "slider": [
+    "new",
+    "seen",
+    "out"
+   ],
+   "way": "the start screen's combat pick, as the door opens",
+   "mark": "EASIER",
+   "today": "the door opens on 'seen', Battle Brothers' Veteran: as hard as Battle Brothers by default (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md s3.3)",
+   "shown": "SHOWN on the door (one word)",
+   "win": "the first fights end with your men still standing",
+   "owner": "RUN (the door) + UI (its stamp)",
+   "why": "rule 117a: Battle Brothers' default sits at our hard end, so ours opens one step easier"
+  },
+  {
+   "id": "door.econ_pick_default",
+   "in_table": false,
+   "bb": "Medium funds, Battle Brothers' default",
+   "bb_value": "thin",
+   "start": "full",
+   "slider": [
+    "full",
+    "thin",
+    "bare"
+   ],
+   "way": "the start screen's economy pick, as the door opens",
+   "mark": "EASIER",
+   "today": "the door opens on 'thin', Battle Brothers' Medium (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md s3.3)",
+   "shown": "SHOWN on the door (one word)",
+   "win": "the first market feels rich",
+   "owner": "RUN (the door) + UI (its stamp) + ECONOMY",
+   "why": "rule 117a, the same as the combat pick"
+  },
+  {
+   "id": "fight.level_raises_stats",
+   "in_table": false,
+   "bb": "three stats a level (wiki, Level and Experience: melee skill and defence 1 to 4, ranged skill, hp, breath and nerve 2 to 5, initiative 3 to 6)",
+   "bb_value": 3,
+   "start": 3,
+   "slider": [
+    3
+   ],
+   "way": "a level-up makes his man stronger in the fight",
+   "mark": "HARDER THAN BB",
+   "harder_today": "the fight rolls every man fresh from his background and his level only picks his perks, while the map adds two strength a level to size the enemy: every level makes the enemy bigger and his men no better (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md s3.1)",
+   "shown": "SHOWN as the level-up (the stars rise)",
+   "win": "the men you kept alive are visibly better",
+   "owner": "COMBAT (crewUnit) + RUN TWO (the roster hands the stats)",
+   "why": "Battle Brothers' own rule; going under it is harder than Battle Brothers"
+  },
+  {
+   "id": "hire.price_farmhand_top",
+   "in_table": true,
+   "bb": "29 batteries by the wiki's formula (engine/bohemia_pricetable.js, base plus 1.25 x the kit)",
+   "bb_value": 29,
+   "start": 23,
+   "slider": [
+    23,
+    29
+   ],
+   "way": "what a cheap hire costs",
+   "mark": "HARDER THAN BB",
+   "harder_today": "the hall asks up to 41 batteries; the formula gives 29 (TUNING [the settlement's numbers] finding)",
+   "shown": "SHOWN as the price",
+   "win": "a cheap man is cheap",
+   "owner": "RUN TWO + ECONOMY",
+   "why": "four fifths of the formula, the same as the militiaman"
+  },
+  {
+   "id": "ours.own_nerve",
+   "in_table": false,
+   "bb": "1.0: your men break at their own resolve",
+   "bb_value": 1.0,
+   "start": 1.1,
+   "slider": [
+    1.1,
+    1.0,
+    0.9
+   ],
+   "way": "your men's nerve (their resolve x this)",
+   "mark": "EASIER",
+   "shown": "UNDER the surface (fewer of his men run)",
+   "win": "your line holds when theirs breaks",
+   "owner": "COMBAT builds; PEOPLE (who breaks); TUNING holds",
+   "why": "rule 117's set eased their nerve and not his; measured (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md s3.6)"
   }
  ],
  "shown_rule": {
-  "_why": "rule 117b, Nintendo-simple: fewer numbers on the screen. Fire Emblem (Nintendo) shows only hit, damage and crit in its forecast and keeps the rest of the maths underneath; from The Binding Blade on it rolls two numbers and averages them, so a shown 80 lands about 92 in 100 and a shown 30 about 18 (fireemblemwiki.org, True hit). A genre study, not a reference game.",
+  "_why": "rule 117b, Nintendo-simple (his word, 10/18): fewer numbers on the screen. Battle Brothers itself shows the hit chance on the tile and the bars and keeps the maths in a tooltip; we show less than that, never a number that is not the real one",
   "SHOWN": [
    "the hit chance on the tile",
    "his hp and armour as two bars",

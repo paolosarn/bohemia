@@ -81,3 +81,14 @@ COUNT and the TIMING. We do the same: the levers sit on the count, the timing, t
 
 [bb Battle Brothers moves difficulty through the enemy's count and timing and your dice and money, never the shared rules; that is the shape we keep, set one step easier.]
 [analog horror: the rout is the loudest win and it should sound like it: men turning and running, the beat landing; named for SOUNDS, not moved.]
+
+## CORRECTED 10/18 (TUNING [easier than Battle Brothers, measured], records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md)
+- SECTION 3 STEPPED OUTSIDE THE FRAME. The board's row says 'no reference game he has not named; Battle Brothers and his word
+  Nintendo-simple are the whole frame.' The three outside citations above (a strategy designer's keynote, a squad-tactics game's
+  hidden streak help, a Nintendo strategy series' forecast) are WITHDRAWN as sources. The levers they backed now stand on Battle
+  Brothers' own numbers and on the fight played headless at both (the measured page); the lever file's two 'why' lines that cited
+  them are rewritten the same commit.
+- SECTION 1.1 WAS WRONG. ours.veteran_death_chance (0.10) is superseded on purpose by the fifth votes' flat 0.20 (COMBAT 10/18);
+  0.20 is under Battle Brothers' 0.67, so the row is EASIER than Battle Brothers, not harder. Its HARDER THAN BB mark is withdrawn.
+- SECTION 2's BREATH LEVER bent a shared rule. 18 a turn for both sides is the rule this page said we never bend; measured, it
+  moves almost nothing (both sides breathe more). The lever is now YOUR men only, and the measured page shows the difference.
