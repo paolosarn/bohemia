@@ -3344,6 +3344,16 @@ GATES = [
      'judging surface. VOTE is tab #1, opens on what has no verdict, thumbs + comments + SUN + .txt, '
      'and the queue is derived from DECLARED @VERDICT lines rather than parsed out of his prose',
      False),
+    ('THE EIGHT FACINGS', ['python3', 'gates/the_eight_facings_gate.py'],
+     'PLUMBER 10/18, row [the eight facings], rule 107 (Paolo 10/10: "when you create something it has to be made in '
+     'all eight directions"; a mirrored half is not a direction). Reads pixels: every rig render folder (any '
+     'records/target/**/rig.json, 83 at birth) has eight stills and eight per clip, no west side its east twin flipped '
+     '(each picture on its own box, 0.90 of the silhouette; real renders 0.47 at most, a flip 1.00); every sheet the '
+     'game draws, found by its data (rows or dirs of compass facings, looks/walks dirs tables, the alpha MIRROR table, '
+     'the wildlife bank), has eight distinct or sits on the DEBT of old flat sprites rule 115(c) keeps until their rig '
+     'replacement passes VOTE, shrink only, printed every run (24 facings owed on 5 sheets at birth). 9 planted, 3 on '
+     'copies of the real files. RED AT REGISTRATION ON PURPOSE, named to ANIMATION: slices/fight_beasts/dire_wolf is one '
+     'facing, SW is SE flipped in 36 of 36 cells, and nothing in the game draws it. 4 s, no browser', False),
     ('THE CARD I NAME IS ON HIS SCREEN', ['node', 'gates/the_card_i_name_is_on_his_screen_gate.js'],
      'PLUMBER 10/18, row [the card I name is on his screen], rule 118 (Paolo 10/18: "A lot of the votes you saying '
      'were on a card visible we\'re not visible for me"; five of fourteen things the coordinator sent him to the VOTE '
