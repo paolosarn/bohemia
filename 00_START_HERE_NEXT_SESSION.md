@@ -324,6 +324,21 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-opus-10-18c): 10/18 LATEST (round twenty-three, [steps from a recording]) --
+*** REAL SHOES UNDER TRAVEL, IN VOTE, READY FOR ONE CUE. *** Four CC0 Freesound walks via ESC-50's footsteps class
+(asphalt: Ryding's 'Fotsteg pa asfalt', hintringer's 'walking slow on the street'; gravel, never sand: Ryding's 'Fotsteg pa
+grus', soundmary's 'gravel pavement'), every footfall cut out on its own by tools/bohemia_from_a_recording.py --steps (four
+per recording, eight per surface, levelled by the hit: the road within 0.1 dB, the gravel within 3.2), sprites in
+slices/vote/travel_steps/ (49 KB each). engine/bohemia_travel_steps.js lays them on the beat at TRAVELBED's own cadence and
+level (the road two a beat, the dirt one, REL 0.5), never the same cut twice in a row. VOTE sounds-the-steps-from-a-recording-
+10-18: the real map, the desert bed under it, ROAD / DIRT against WHAT PLAYS NOW (the engine step). THE ALPHA IS UNTOUCHED:
+any alpha byte forces a demo re-cut and the cut is RUN's (rule 93); the swap is CUE 7.1 in BUILD_CALLING_SCRIPT.md for RUN on
+his YES (one script tag, STEPS.ensure in place of __travelBedEnsure). Gate travel steps 31/0, run twice, registered; it caught
+the page's STOP button wrapping off a 390 px phone (fixed). Red before me and not mine: vote tab, two DYNASTY items with no
+'where you see it' (dynasty-flip-at-crisis-10-9, dynasty-animal-era-10-10), measured with my round stashed. Next row OPEN:
+[the step in the fight]. Record: records/BOHEMIA_THE_STEPS_FROM_A_RECORDING_10_18_26.md. PENDING Paolo: nothing.
+UNDER UI (rule 113a): SOUNDS made real shoes for the map, VOTE tab, COOKING.
+
 SOUNDS (sound-opus-10-18b): 10/18 LATEST (round twenty-two, [the desert under travel]) --
 *** THE MAP NOW SOUNDS LIKE THE DESERT, DAY AND NIGHT. ***
 TAB: the RUN tab's map (and the demo), and the VOTE tab card
