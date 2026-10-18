@@ -54,7 +54,13 @@ const ROOT = path.join(__dirname, '..');
 const NO_TAPS = process.argv.includes('--no-taps');
 const BEAT = 500;            /* 120 BPM, the law */
 const FRAME = 1000 / 60;     /* the only frame budget in the building */
-const RECORD = 'records/BOHEMIA_FIVE_MINUTES.json';
+/* --profile phone_landscape (EYES 10/18, [the new demo cut, measured]: 'one walk at 4x on the phone
+   profile and one sideways'): the driver's four screen classes. Unset is the phone held upright and
+   writes the record as before; any other profile writes its own record so it never overwrites it. */
+const PROFILE = (() => { const i = process.argv.indexOf('--profile');
+  return i > 0 && process.argv[i + 1] ? process.argv[i + 1] : null; })();
+const RECORD = PROFILE && PROFILE !== 'phone_portrait'
+  ? 'records/BOHEMIA_FIVE_MINUTES_' + PROFILE.toUpperCase() + '.json' : 'records/BOHEMIA_FIVE_MINUTES.json';
 
 /* THROTTLE. PAOLO 9/15, his second play: "it's kinda not running as smoothly as I would
    like, maybe it's cause things are loading in real time." Coordinator ruling 5 sends
@@ -112,7 +118,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
      the rate. Leaving them at their 1x values would make the driver throw "no city
      frame" on a game that boots perfectly, which is the exact failure the driver's
      own header warns about (trap 5). */
-  const d = await D.open({ throttle: TH,
+  const d = await D.open({ throttle: TH, profile: PROFILE || undefined,
     boot: 15000 * Math.max(1, TH), settle: 22000 * Math.max(1, TH) });
   await d.fr.evaluate(WATCH);
   if (TH > 1) console.log('  CPU THROTTLED ' + TH + 'x -- this container is not a handset, '
