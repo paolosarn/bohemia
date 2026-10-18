@@ -1023,7 +1023,7 @@
     JD + '.jtf-big.jtf-lit #fronttap,' + JD + '.jtf-big.load.ready #fronttap{font-size:20px;letter-spacing:6px}',
     JD + ' #buildstamp{bottom:12px!important;font-family:"BohemiaROM",monospace!important;font-size:10px!important;letter-spacing:1px!important;color:#b3a993!important}',
     /* THE TERMINAL (his loads B): the whole phone is the screen, its glass flat, its lines thin and baked */
-    JD + '.load{padding-top:16px;background:#0a0d0b var(--jtf-scan) 0 0/1px 3px repeat}',
+    JD + '.load{padding-top:16px;background:var(--jtf-tube) 0 0/100% 100% no-repeat,var(--jtf-scan) 0 0/1px 3px repeat,#0a0d0b}',
     JD + '.load #loadwrap{padding-top:16px}',
     JD + '.load #fronttap{width:208px;min-width:0;padding:0;background:#0a0d0b}',
     JD + ' #loadtag{padding:0 0 12px}',
@@ -1135,7 +1135,26 @@
   function jtfVars() {
     if (JTF_VARS) return; JTF_VARS = true;
     var c = canvas(1, 3), g = c.getContext('2d'); g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(0, 2, 1, 1);   /* the tube's lines, baked */
-    var R = document.documentElement.style; R.setProperty('--jtf-scan', 'url(' + c.toDataURL('image/png') + ')');
+    var R = document.documentElement.style; R.setProperty('--jtf-scan', 'url(' + c.toDataURL('image/png') + ')'); R.setProperty('--jtf-tube', 'none');
+  }
+  /* THE TUBE IS CURVED, SO THE CORNERS FALL AWAY (his loads B, 9/21: 'the corners going dark because a tube is curved';
+     bible R8, an in-world screen). It was a radial gradient; here it is painted at the screen's own pixels, each corner
+     a quarter circle with two dithered steps before the black, so the light still has no smooth fade (rule 114 D10) */
+  function paintTube() {
+    var f = document.getElementById('front'); if (!f) return;
+    var w = Math.max(1, Math.round(innerWidth)), h = Math.max(1, Math.round(innerHeight)), key = w + 'x' + h;
+    if (f._jtfTube === key) return; f._jtfTube = key;
+    var c = canvas(w, h), g = c.getContext('2d'), img = g.createImageData(w, h), D = img.data, R = Math.round(Math.min(w, h) * 0.12);
+    var BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+    [[0, 0, 1, 1], [w - R, 0, -1, 1], [0, h - R, 1, -1], [w - R, h - R, -1, -1]].forEach(function (q) {
+      for (var y = 0; y < R; y++) for (var x = 0; x < R; x++) {
+        var px = q[0] + x, py = q[1] + y, cx = q[2] > 0 ? R - x : x + 1, cy = q[3] > 0 ? R - y : y + 1, dd = Math.sqrt(cx * cx + cy * cy), b = BAYER[(py & 3) * 4 + (px & 3)];
+        var a = dd > R ? 200 : dd > R - 5 ? (b < 8 ? 200 : 0) : dd > R - 12 ? (b < 3 ? 200 : 0) : 0;
+        if (a) { var i = (py * w + px) * 4; D[i] = 0; D[i + 1] = 0; D[i + 2] = 0; D[i + 3] = a; }
+      }
+    });
+    g.putImageData(img, 0, 0);
+    f.style.setProperty('--jtf-tube', 'url(' + c.toDataURL('image/png') + ')'); f.dataset.jtfTube = '1';
   }
   function placeTicks() {
     var well = document.getElementById('loadwell'), pct = document.getElementById('loadpct'); if (!well) return;
@@ -1153,7 +1172,7 @@
     var lp = document.getElementById('logoplate'); if (lp) lp.appendChild(markCanvas(function () { return Math.min(innerWidth - 32, 760); }));
     var lt = document.getElementById('loadtag');
     if (lt) lt.insertBefore(markCanvas(function () { return innerWidth > innerHeight * 4 / 3 ? 340 : Math.min(innerWidth - 28, 700); }), lt.firstChild);
-    placeTicks();
+    placeTicks(); paintTube();
     /* the one next thing lights when the game is really in (the door's own word for it is __LOAD_READY), and the word
        BEGIN is set big when it is short enough to be */
     setInterval(function () {
@@ -1161,7 +1180,7 @@
       f.classList.toggle('jtf-lit', ready && !f.classList.contains('load'));
       f.classList.toggle('jtf-big', !!tap && (tap.textContent || '').length <= 8);
     }, 500);
-    addEventListener('resize', function () { JTF_MARKS.forEach(sizeMark); placeTicks(); });
+    addEventListener('resize', function () { JTF_MARKS.forEach(sizeMark); placeTicks(); paintTube(); });
     return true;
   }
   /* the moment the door is parsed (this file loads in the page's head, long before the end of a six-megabyte page), so

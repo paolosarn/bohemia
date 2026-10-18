@@ -180,7 +180,11 @@ function serve() {
       return { tap: box('fronttap'), row: box('loadrow'), stamp: box('buildstamp'),
                lines: gl ? Array.from(gl.children).map(d => d.textContent) : [],
                wrong: gl ? Array.from(gl.querySelectorAll('.w')).map(d => d.textContent) : [],
-               tube: gl ? getComputedStyle(gl).backgroundImage.indexOf('radial-gradient') >= 0 : false };
+               /* UI 10/18 [the front screen, just the font]: with the door's switch on, the same curve is painted at the
+                  screen's own pixels (rule 114 D10 bans the gradient, not the tube): the door carries it */
+               tube: gl ? (getComputedStyle(gl).backgroundImage.indexOf('radial-gradient') >= 0
+                 || (document.getElementById('front').getAttribute('data-look') === 'just-the-font' && document.getElementById('front').dataset.jtfTube === '1'
+                     && /url\(/.test(getComputedStyle(document.getElementById('front')).backgroundImage))) : false };
     }).catch(() => ({}));
     const clear = (a, b2) => a && b2 && (a.b <= b2.t || b2.b <= a.t);
     ok('the button does not sit on the bar ('
