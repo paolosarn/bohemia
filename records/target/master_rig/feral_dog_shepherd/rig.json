@@ -18,15 +18,25 @@
    "fox_material"
   ],
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 0.0087)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 0.0087)",
+  "dents": {
+   "meshes": 1,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -41,7 +51,7 @@
   "fox_material": "#ff1919"
  },
  "model": "reference/models/bohemia/feral_dog_shepherd.glb",
- "rig_round": 5,
+ "rig_round": 6,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -76,7 +86,7 @@
  ],
  "crop_box_px": [
   42,
-  39,
+  38,
   140,
   137
  ],
@@ -92,9 +102,9 @@
  ],
  "ground_px": [
   49,
-  52
+  53
  ],
- "colours": 47768,
+ "colours": 42245,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -354,50 +364,50 @@
  },
  "card": {
   "family": "prop",
-  "out": 3,
+  "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 98",
-   "OUT  colours >= 2330: 527",
-   "OK   top 8 carry <= 11%: 7.7",
-   "OUT  value span >= 118: 113",
-   "OK   saturation <= 0.81: 0.136",
-   "OUT  light: top minus bottom >= -2.5: -3.0",
-   "OK   edge between -35 and +7: -14.3",
-   "OK   grain <= 2.22 px a run: 1.57"
+   "OK   long side >= floor 96: 99",
+   "OUT  colours >= 2330: 561",
+   "OK   top 8 carry <= 11%: 7.1",
+   "OUT  value span >= 118: 109",
+   "OK   saturation <= 0.81: 0.254",
+   "OK   light: top minus bottom >= -2.5: 7.1",
+   "OK   edge between -35 and +7: -9.8",
+   "OK   grain <= 2.22 px a run: 1.67"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 5.5%",
+   "OK   stray pixels at 8 steps <= 14%: 4.8%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OUT  light from above (180 to 360 degrees, or flat): 111.2"
+   "OK   light from above (180 to 360 degrees, or flat): 180.2"
   ],
-  "verdict": "3 of 8 out -> BACK before VOTE",
+  "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/master_rig/feral_dog_shepherd/rig_S.png"
  },
  "cls": "person",
  "card_guide": {
   "cls": "person",
-  "out": 2,
+  "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 98",
-   "OK   colours >= 270 (field 5: the class floor, or 370 per 1,000 of 731 px): 527",
-   "OK   top 8 carry <= 11%: 7.7",
-   "OUT  value span >= 118: 113",
-   "OK   saturation <= 0.81: 0.136",
-   "OUT  light: top minus bottom >= -2.5: -3.0",
-   "OK   edge between -35 and +7: -14.3",
-   "OK   grain <= 2.22 px a run: 1.57"
+   "OK   long side >= floor 96: 99",
+   "OK   colours >= 280 (field 5: the class floor, or 370 per 1,000 of 757 px): 561",
+   "OK   top 8 carry <= 11%: 7.1",
+   "OUT  value span >= 118: 109",
+   "OK   saturation <= 0.81: 0.254",
+   "OK   light: top minus bottom >= -2.5: 7.1",
+   "OK   edge between -35 and +7: -9.8",
+   "OK   grain <= 2.22 px a run: 1.67"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "2 of 8 out under the style guide",
+  "verdict": "1 of 8 out under the style guide",
   "size_px": [
-   16,
+   18,
    60
   ],
-  "opaque_px": 731,
-  "colours": 527
+  "opaque_px": 757,
+  "colours": 561
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -446,7 +456,24 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12
  },
  "breaks": [],
  "guide": {

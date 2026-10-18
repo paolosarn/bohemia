@@ -19,14 +19,19 @@ UVs). This file only sets each dog's numbers and paints each dog's coat from the
     noise), a WHITE chest and blaze, dark feet, a faded red collar. Pass one (fawn with dark stripes, white paws) read as
     a tabby cat and the white paws lit it from below (the card's light row OUT, -8.9). 1.1 m nose to tail.
   * THE SHEPHERD MIX: the tall one with the ears. Legs 1.32, limbs 1.4, ears 1.0 (they stand), the muzzle 1.12, the tail
-    0.9 (it keeps its brush), the ruff 1.12. Tan with a dark SABLE SADDLE wider than the wolf's and a black mask forward
-    of the eyes; STOPPED AT PASS FIVE and HELD BACK by DIRECTION's card (3 of 8: colours, value span 115 of 118, light
-    -2.8 against -2.5), so it is not on the VOTE card; no white (the fox's white goes pale tan); no collar (it was never anyone's, or it lost it).
-    1.4 m (1.35 left it at 94 px, under the 96 floor; a shepherd mix is 1.4 to 1.5 m nose to tail tip). Three passes by eye, then stopped (rule 97).
-  * THE YELLOW CUR: the village dog. Legs 1.28, limbs 1.3, ears 0.78, muzzle 1.0, the tail 0.62. OFF-WHITE under big
-    soft PATCHES of liver brown from a slow 3D noise (patches the size of a hand, never spots), one patch always over
-    the right eye and ear, and two MANGE patches where the coat is gone to grey skin (analog horror: the thing is sick).
-    A faded blue collar. 1.25 m.
+    0.9 (it keeps its brush), the ruff 1.12. A BLACK-AND-TAN: a black SADDLE from the withers back over the top of the
+    back only, the tail BLACK along its top, a black MASK forward of the eyes, deep red-tan legs and belly, a light tan
+    throat; no white, no collar (it was never anyone's, or it lost it). 1.4 m (1.35 left it at 94 px, under the 96
+    floor). ROUND TWO held it (DIRECTION's card 3 of 8: its saddle wrapped the flanks and its belly was cream, so the
+    paint read as a light from below on four facings); ROUND THREE moved the dark to where the sun cannot be blamed for
+    it (the saddle on the back, the tail's top, the mask low in the front view) and the cream off the underside: lit
+    from above on all eight, the rest area on all eight, the card 2 of 8. Passes A to E, stopped (rule 97).
+  * THE YELLOW CUR: the village dog. Legs 1.28, limbs 1.3, ears 0.78, muzzle 1.0, the tail 0.62. OFF-WHITE, with LIVER
+    EARS and the liver over the right eye, LIVER BREECHES low on the hind legs (one big plain patch, its edge wavered by
+    a slow 3D noise: the rest area the white cannot give, because the rig's grain on a bright coat reads as an edge on
+    nearly every pixel, measured), one MANGE patch gone to grey skin (analog horror: the thing is sick), a faded blue
+    collar. 1.25 m. ROUND TWO held it (NOT VIBE CODED D5 from behind: hand-sized patches everywhere, no rest area);
+    a liver rump fixed that and read as lit from below in the front view, so the liver went low; passes 1 to 4, stopped.
   Every coat keeps the Fox texture's own baked light (the wolf's way) and a body-scale grizzle at 0 (short coats; the
   rig's own grain is enough, and a coat grain too left no flat rest area: NOT VIBE CODED D5).
 
@@ -50,9 +55,28 @@ DOGS = {
 }
 # the coats (sRGB, the byte texture's own space)
 FAWN, BRINDLE, WHITE = (0.68, 0.52, 0.38), (0.24, 0.19, 0.15), (0.88, 0.86, 0.80)
-TAN, BLACK, PALE_TAN = (0.70, 0.53, 0.34), (0.14, 0.12, 0.10), (0.95, 0.88, 0.74)   # pass two: 0.14 bleached to the wolf grey under the rig sun; pass three: the pale belly lighter (value span 100, line 118); pass four (a card fix, not a look pass): the 0.06 saddle lit the top darker than the belly (light -3.4), 0.10 barely moved it (-3.3), so the saddle back to 0.14 (a sable, not a black-and-tan) with the paler belly kept; stopped
-OFF_WHITE, LIVER, SKIN = (0.84, 0.80, 0.70), (0.36, 0.25, 0.19), (0.58, 0.50, 0.47)
+TAN, BLACK, PALE_TAN = (0.70, 0.53, 0.34), (0.08, 0.07, 0.06), (0.84, 0.72, 0.54)   # the shepherd's. Round two: 0.14 bleached to the wolf grey under the rig sun, 0.06 on a saddle that wrapped the flanks lit the top darker than the belly (light -3.4), a cream (0.95) belly lifted the bottom; round three: the saddle on the back only, so it can be truly dark (0.08), and the throat a light tan (pass D, the front views +1.6 to +8.1)
+OFF_WHITE, LIVER, SKIN = (0.84, 0.80, 0.70), (0.30, 0.20, 0.15), (0.58, 0.50, 0.47)   # the cur's; round three's liver darker (0.36 left the front view's value span at 116, line 118)
 RED_COLLAR, BLUE_COLLAR = (0.50, 0.24, 0.20), (0.26, 0.34, 0.42)
+# ROUND THREE's knobs (10/18, the two held dogs; records/BOHEMIA_THE_FERAL_DOG_PACK_ROUND_THREE_10_18_26.md)
+# the cur: the rig's grain is loud on a bright coat (nearly every pixel of the white read as an edge, measured) and only
+# the liver read as rest. Pass 1, ONE BIG LIVER PATCH over the rump and hips (the half you see from behind): the rest
+# area passed (0.067) and the front view read lit from below (-11.4, the rump is that view's top). Pass 2, the liver LOW,
+# breeches on the hind legs: both pass on all eight, the front view's value span 115. Pass 3, liver ears: 116. Pass 4,
+# a darker liver: 122. Stopped.
+CUR_RUMP_Y, CUR_RUMP_Z, CUR_RUMP_WAVER = 10.0, 30.0, 4.0     # pass 1's rump (behind y, above z); its edge wavers +-4
+CUR_BREECH = (14.0, 52.0)                                      # (y behind, z under): the liver low on the hind legs (pass 2)
+CUR_EARS = 77.0                                                # z over which the head is liver: both ears (pass 3)
+CUR_MANGE = (14.0, 0.88)                                       # one bigger bald patch, not a sprinkle
+# the shepherd: pass A the saddle on the BACK only (it wrapped the flanks) with deep tan below (seven facings lit from
+# above, N not: the saddle ran up the neck, that view's top); B the saddle from the withers and a darker mask (all eight,
+# stills only); C the tail black along its top (a shepherd's is); full render: from behind-left the rest area 0.048, the
+# tan grainy everywhere; D a truly dark saddle (0.054); E the saddle a little wider and forward over the shoulders: the
+# rest area 0.060 and the light +0.6 at worst, on all eight. Stopped.
+SHEP_SADDLE_UP, SHEP_SADDLE_RAMP = -0.2, 0.4                  # up = clip((N.z + UP) / RAMP): only where the back faces up
+SHEP_BELLY, SHEP_LEG = (0.62, 0.44, 0.27), 0.65                # the belly and the legs a deep red-tan, never cream
+SHEP_SADDLE_Y, SHEP_MASK = -36.0, (0.06, 0.05, 0.045)          # the saddle from the withers back; the mask's own black
+SHEP_TAIL = (-0.3, (0.08, 0.07, 0.06))                         # (normal z over which, colour): the tail black along its top
 
 
 # THE DOG'S BITE: the wolf's keys (tools/bohemia_animation_the_beast_in_eight_prep.py BITE) with the spring lifted: the
@@ -127,25 +151,39 @@ def painter(kind, seed=7):
             out = np.where(band[..., None], np.array(RED_COLLAR, np.float32) * shade, out)
             stats = dict(stripe=int(stripe.sum()), collar=int(band.sum()))
         elif kind == 'shepherd':
-            up = np.clip((N[..., 2] + 0.15) / 0.4, 0, 1)        # pass two: the saddle wraps further down the flanks
+            up = np.clip((N[..., 2] + SHEP_SADDLE_UP) / SHEP_SADDLE_RAMP, 0, 1)        # round three: only where the back faces up (round two wrapped it down the flanks at +0.15)
             high = np.clip((P[..., 2] - (W.BELLY_Z * W.LEG + 2)) / 8, 0, 1)
             saddle = up * high * (~(is_head & (P[..., 1] < -40)))
+            if SHEP_SADDLE_Y is not None:
+                saddle = saddle * np.clip((P[..., 1] - SHEP_SADDLE_Y) / 6.0, 0, 1)
             mask = is_head & (P[..., 1] < W.EYE_Y - 2)
             coat = np.array(TAN, np.float32) * shade * (1 - saddle[..., None]) + np.array(BLACK, np.float32) * saddle[..., None]
             out = np.where(orange[..., None], coat, out)
             # the bright cream only high up (the cheeks and the throat): a bright belly lit the bottom over the top (pass four)
             out = np.where(white[..., None], np.array(PALE_TAN, np.float32) * (0.84 + 0.16 * is_head[..., None]) * shade, out)
-            out = np.where(dark[..., None], np.array(TAN, np.float32) * 0.85, out)
-            out = np.where((mask & ~white)[..., None], np.array(BLACK, np.float32), out)   # a tan face instead measured worse (-19.5), kept
+            if SHEP_BELLY is not None:
+                out = np.where((white & ~is_head)[..., None], np.array(SHEP_BELLY, np.float32) * shade, out)
+            out = np.where(dark[..., None], np.array(TAN, np.float32) * SHEP_LEG, out)
+            out = np.where((mask & ~white)[..., None], np.array(SHEP_MASK or BLACK, np.float32), out)   # a tan face instead measured worse (-19.5), kept
             tipm = np.isin(BONE, list(tailidx)) & white
             out = np.where(tipm[..., None], np.array(BLACK, np.float32), out)
+            if SHEP_TAIL is not None:
+                tailtop = np.isin(BONE, list(tailidx)) & (N[..., 2] > SHEP_TAIL[0])
+                out = np.where(tailtop[..., None], np.array(SHEP_TAIL[1], np.float32), out)
             stats = dict(saddle=int((saddle > 0.5).sum()), mask=int(mask.sum()))
         else:
-            blob = smooth_noise(P, 20.0, seed + 3)   # 14 made patches the size of a hand all over: no rest area (D5)
-            patch = (blob > 0.62)
+            # round three: one big liver patch over the rump and hips (round two's 0.62 blobs at 20 units, and 14 before
+            # them, scattered hand-sized patches everywhere: no rest area, NOT VIBE CODED D5 from behind)
+            wav = (smooth_noise(P, 16.0, seed + 3) - 0.5) * 2 * CUR_RUMP_WAVER
+            tail = np.isin(BONE, list(tailidx))
+            rump = (P[..., 1] + wav > CUR_RUMP_Y) & (P[..., 2] > CUR_RUMP_Z) & ~tail
+            if CUR_BREECH is not None:
+                rump = (P[..., 1] + wav > CUR_BREECH[0]) & (P[..., 2] + wav < CUR_BREECH[1]) & ~tail
             eye = is_head & (P[..., 0] > 0) & (P[..., 1] > W.EYE_Y - 6)            # the right eye and ear, always
-            patch = (patch | eye) & covered
-            mange = (smooth_noise(P, 9.0, seed + 9) > 0.86) & ~is_head & ~patch & covered
+            if CUR_EARS is not None:
+                eye |= is_head & (P[..., 2] > CUR_EARS)
+            patch = (rump | eye) & covered
+            mange = (smooth_noise(P, CUR_MANGE[0], seed + 9) > CUR_MANGE[1]) & ~is_head & ~patch & covered
             out = np.where(covered[..., None], np.array(OFF_WHITE, np.float32) * shade, out)
             out = np.where(patch[..., None], np.array(LIVER, np.float32) * shade, out)
             out = np.where(mange[..., None], np.array(SKIN, np.float32) * shade, out)
