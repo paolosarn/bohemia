@@ -4,89 +4,89 @@
  "instrument": "tools/bohemia_first_load.js readOnce: a fresh browser, cold cache, no service worker, served like GitHub Pages, nobody touching the glass",
  "throttle": 4,
  "lingerMs": 20000,
- "taken": "2026-10-17T22:11:37.141Z",
+ "taken": "2026-10-18T17:45:24.017Z",
  "demo": {
-  "stamp": "DEMO - BUILD 10/13b - THE MAP PEOPLE COME BAKED",
-  "hash": "6bc210fb"
+  "stamp": "DEMO - BUILD 10/18b - THE RIG TRUCK ON THE MAP",
+  "hash": "7f4b3e66"
  },
  "median": {
-  "titleMs": 1490.1,
-  "doorMs": 9181.9,
-  "bytesBeforeDoor": 3564041,
-  "bytesAfterDoor": 26566298,
-  "filesAfterDoor": 12
+  "titleMs": 1430.3,
+  "doorMs": 10597.8,
+  "bytesBeforeDoor": 3577870,
+  "bytesAfterDoor": 26882094,
+  "filesAfterDoor": 15
  },
  "spread": {
   "titleMs": [
-   1382.2,
-   1626.4
+   1352.2,
+   1514.9
   ],
   "doorMs": [
-   9092.8,
-   9272.2
+   10344.4,
+   10979.3
   ]
  },
  "readings": [
   {
-   "titleMs": 1490.1,
-   "buttonsMs": 2223.4,
-   "doorMs": 9189.8,
-   "firstPaintMs": 1932,
-   "bytesBeforeDoor": 3564041,
-   "bytesAfterDoor": 26566298,
-   "filesAfterDoor": 12,
-   "bytesAll": 30130339,
+   "titleMs": 1514.9,
+   "buttonsMs": 2198.1,
+   "doorMs": 10597.8,
+   "firstPaintMs": 1960,
+   "bytesBeforeDoor": 3577870,
+   "bytesAfterDoor": 26882094,
+   "filesAfterDoor": 15,
+   "bytesAll": 30459964,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1626.4,
-   "buttonsMs": 2059.7,
-   "doorMs": 9092.8,
-   "firstPaintMs": 1924,
-   "bytesBeforeDoor": 3564041,
-   "bytesAfterDoor": 26566298,
-   "filesAfterDoor": 12,
-   "bytesAll": 30130339,
+   "titleMs": 1363.1,
+   "buttonsMs": 2046.4,
+   "doorMs": 10979.3,
+   "firstPaintMs": 1828,
+   "bytesBeforeDoor": 3577870,
+   "bytesAfterDoor": 26882094,
+   "filesAfterDoor": 15,
+   "bytesAll": 30459964,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1382.2,
-   "buttonsMs": 2015.5,
-   "doorMs": 9181.9,
-   "firstPaintMs": 1844,
-   "bytesBeforeDoor": 9406185,
-   "bytesAfterDoor": 20724154,
-   "filesAfterDoor": 11,
-   "bytesAll": 30130339,
+   "titleMs": 1444.8,
+   "buttonsMs": 2094.7,
+   "doorMs": 10344.4,
+   "firstPaintMs": 1868,
+   "bytesBeforeDoor": 3577870,
+   "bytesAfterDoor": 26882094,
+   "filesAfterDoor": 15,
+   "bytesAll": 30459964,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1539.2,
-   "buttonsMs": 2105.8,
-   "doorMs": 9272.2,
-   "firstPaintMs": 1916,
-   "bytesBeforeDoor": 9412162,
-   "bytesAfterDoor": 20718177,
-   "filesAfterDoor": 10,
-   "bytesAll": 30130339,
+   "titleMs": 1352.2,
+   "buttonsMs": 1952.2,
+   "doorMs": 10785.2,
+   "firstPaintMs": 1732,
+   "bytesBeforeDoor": 3577870,
+   "bytesAfterDoor": 26882094,
+   "filesAfterDoor": 15,
+   "bytesAll": 30459964,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1457,
-   "buttonsMs": 2023.6,
-   "doorMs": 9156.7,
-   "firstPaintMs": 1796,
-   "bytesBeforeDoor": 3564041,
-   "bytesAfterDoor": 26566298,
-   "filesAfterDoor": 12,
-   "bytesAll": 30130339,
+   "titleMs": 1430.3,
+   "buttonsMs": 2063.6,
+   "doorMs": 10463.3,
+   "firstPaintMs": 1864,
+   "bytesBeforeDoor": 3577870,
+   "bytesAfterDoor": 26882094,
+   "filesAfterDoor": 15,
+   "bytesAll": 30459964,
    "twice": 0,
    "errors": 0
   }
  ],
- "line": "THE DEMO (DEMO - BUILD 10/13b - THE MAP PEOPLE COME BAKED, demo 6bc210fb): title 1.5 s, the door (NEW GAME ready) 9.2 s on the 4x phone profile, median of 5 (9.1 to 9.3); 3.4 MB before the door, 25.3 MB in 12 files in the 20 s after it."
+ "line": "THE DEMO (DEMO - BUILD 10/18b - THE RIG TRUCK ON THE MAP, demo 7f4b3e66): title 1.4 s, the door (NEW GAME ready) 10.6 s on the 4x phone profile, median of 5 (10.3 to 11.0); 3.4 MB before the door, 25.6 MB in 15 files in the 20 s after it."
 }
