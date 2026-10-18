@@ -1,0 +1,149 @@
+{
+  "id": "the-rosary-on-channel-3",
+  "name": "THE ROSARY ON CHANNEL 3",
+  "draft": true,
+  "made": "10/18",
+  "lane": "sounds",
+  "row_why": "SOUNDS 10/18, row [his sound, not a revamp], rule 119 (Paolo 10/18, his NO on The Long Road: 'both songs not giving analog horror vibes... I was hoping the research that Grok helped you do would make it easier... not like have a whole revamp process where you're like making songs I don't fit aesthetic'). A new song is ONE ROW in the shape of his MLOOPS rows, played by his own engine (MUS.playStep, synthV, drumV, his SONG_ARR form and SONG_ROOT moves), the way his map's night songs were made: REPO MAN, GHOST IN THE GRID, SLOW BLEED and SATELLITE PRAYER are siblings that differ in three to five fields. This one is SATELLITE PRAYER's own row with two fields changed. Every field below is a value one of his CANON songs uses, named in provenance. His rows, his voices and his form are read, never edited; this row is pushed into MLOOPS in a page's memory only, never on disk, until his YES.",
+  "parent": "SATELLITE PRAYER",
+  "beside": [
+    "SATELLITE PRAYER",
+    "REPO MAN",
+    "THE MARKER ON THE DOOR"
+  ],
+  "row": {
+    "n": "THE ROSARY ON CHANNEL 3",
+    "acc": "#8a5a6a",
+    "root": 52,
+    "scale": [
+      0,
+      2,
+      3,
+      7,
+      8
+    ],
+    "wave": "sine",
+    "kick": [
+      0,
+      8
+    ],
+    "bass": [
+      0,
+      7,
+      11
+    ],
+    "hat": [
+      4,
+      12
+    ],
+    "inst": {
+      "b": "deadsat",
+      "l": "brokenrosary"
+    },
+    "am": "powergrid",
+    "kit": {
+      "k": "thud",
+      "h": "wood"
+    },
+    "mel": "longs",
+    "swing": 0,
+    "feel": "half",
+    "klay": "melody",
+    "ff": true
+  },
+  "provenance": {
+    "root": [
+      "SATELLITE PRAYER",
+      "F sharp, his satellite's key"
+    ],
+    "wave": [
+      "SATELLITE PRAYER",
+      "unused when the bass names a voice; kept so the row is his shape"
+    ],
+    "kick": [
+      "SATELLITE PRAYER",
+      "half time, the kick on 1 and 3"
+    ],
+    "bass": [
+      "SATELLITE PRAYER",
+      "his bass rule: the steps it plays on, the pitch from the scale"
+    ],
+    "hat": [
+      "SATELLITE PRAYER",
+      "the hat on 2 and 4, where a snare would be; no snare"
+    ],
+    "inst.b": [
+      "SATELLITE PRAYER",
+      "deadsat: a sine that drifts off pitch at 0.7 Hz, the satellite still transmitting with nobody on it, under every bar"
+    ],
+    "am": [
+      "SATELLITE PRAYER",
+      "powergrid: the grid's three low saws, held on beat one of the core"
+    ],
+    "kit": [
+      "SATELLITE PRAYER",
+      "his soft thud and the wood block"
+    ],
+    "mel": [
+      "SATELLITE PRAYER",
+      "longs: two held notes a bar (THE MARKER ON THE DOOR's shape too, the rosary's own)"
+    ],
+    "swing": [
+      "SATELLITE PRAYER",
+      "no swing"
+    ],
+    "feel": [
+      "SATELLITE PRAYER",
+      "half time"
+    ],
+    "klay": [
+      "SATELLITE PRAYER",
+      "melody: how it grows in a fight, his own ladder"
+    ],
+    "ff": [
+      "SATELLITE PRAYER",
+      "his row's own flag, carried as it is"
+    ],
+    "inst.l": [
+      "THE MARKER ON THE DOOR",
+      "brokenrosary: his 8/2 'one of my new favorite songs that you've made', five beads on one note, each duller, the gaps widening like a thread slipping"
+    ],
+    "scale": [
+      "REPO MAN",
+      "his five dark notes, the map's most common (root, 2, minor 3rd, 5th, flat 6th). Measured, not picked by taste: on SATELLITE PRAYER's own scale his songs already hold all five longs tunes his engine can make, so a new tune needs another of his scales; this one is the map's"
+    ],
+    "n": [
+      "(new)",
+      "a name is an attempt, draft. His engine draws a longs tune from the name's length: on this scale his songs hold four of the five tunes it can make (length mod 5 = 0, 1, 2, 4); 23 letters is the fifth, so the tune is new and still his engine's"
+    ],
+    "acc": [
+      "(new)",
+      "the row's colour in the MUSIC tab, an attempt"
+    ]
+  },
+  "analog_horror_at_the_source": [
+    "the tune is a plain minor line on a rosary that slips: every note is five beads, each duller, the gaps widening, so a warm melody sounds like a mechanism failing (the law's 'a warm melody heard through a dead broadcast', built from his own voice, no filter on top)",
+    "under every bar the bass is his deadsat, a sine drifting off pitch at 0.7 Hz: a satellite still transmitting with nobody on it",
+    "on beat one of the core the grid hums: his powergrid, three low saws with the filter shaking at 50 Hz",
+    "the beat arrives late (no drums for the first eight bars on the map, his 9/12 rule) and the strip sections leave only kick and bass: silence used as an instrument",
+    "no crush, no added hiss, no tape filter: the wrongness is in what plays, never in grinding the sound (NO SAND)"
+  ],
+  "card": {
+    "id": "sounds-the-rosary-on-channel-3-10-18",
+    "kind": "song",
+    "lane": "sounds",
+    "made": "10/18",
+    "title": "A NEW NIGHT SONG MADE WITH YOUR SONGS' OWN MACHINE",
+    "why": "This night song is your SATELLITE PRAYER's own row with two things changed, each taken from one of your songs: the lead is the rosary from THE MARKER ON THE DOOR, the one you called a favorite, and the five notes are your REPO MAN's darker ones. You hear it on this page over the real map at night, A the new one beside B your SATELLITE PRAYER, both played by the game's own music engine at the same level.",
+    "options": [
+      "A, THE ROSARY ON CHANNEL 3, the new one",
+      "B, his SATELLITE PRAYER, as the map plays it",
+      "C, no song, the desert alone"
+    ],
+    "show": {
+      "how": "page",
+      "src": "BOHEMIA_THE_ROSARY_ON_CHANNEL_3_10_18_26.html"
+    },
+    "draft": true
+  }
+}

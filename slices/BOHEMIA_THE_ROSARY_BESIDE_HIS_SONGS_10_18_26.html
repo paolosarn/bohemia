@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE ROSARY BESIDE HIS SONGS</title>
+<!-- SOUNDS lane, 10/18, row [his sound, not a revamp]. RULE 119(c): 'Before VOTE the song plays beside two canon songs
+     and EYES AND EARS writes one line: same game? analog horror? If no, it does not go to VOTE.' THIS PAGE IS THAT
+     LISTENING, NOT THE VOTE CARD: the new song and three of his canon songs, all four recorded from the alpha's own music
+     engine by tools/bohemia_sounds_his_machine.js at the engine's own level, and the numbers that tool measured
+     (slices/vote/songs/the_rosary_on_channel_3/measured.json). EYES AND EARS writes its one line on SOUNDS' row
+     [his sound, not a revamp]; only after a yes does tools/bohemia_sounds_register_song.py put the card in the tab.
+     SOUNDS never writes that line: verification is never self-attestation. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#b9a77e; }
+  html,body{margin:0;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  main{max-width:720px;margin:0 auto;padding:16px}
+  h1{font-size:16px;letter-spacing:2px;margin:0 0 8px}
+  p{color:var(--dim);margin:6px 0 12px}
+  .row{display:grid;grid-template-columns:1fr;gap:8px}
+  button{font:inherit;font-size:13px;text-align:left;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:10px;min-height:44px;cursor:pointer;border-radius:0}
+  button.on{background:#6a1d10;color:var(--paper)}
+  #num{font-size:12px;color:var(--dim);min-height:2.4em;margin:8px 0}
+  table{border-collapse:collapse;width:100%;font-size:12px;margin-top:8px}
+  th,td{border-bottom:1px solid #3a3020;padding:4px 6px;text-align:left;vertical-align:top}
+  th{color:var(--dim);font-weight:normal}
+  .wrap{overflow-x:auto}
+</style></head><body><main>
+<h1>THE ROSARY ON CHANNEL 3, BESIDE HIS SONGS</h1>
+<p>Rule 119(c). Hear the new one beside his, then write one line on SOUNDS' row: same game or not, analog horror or not. A "not" keeps it out of VOTE.</p>
+<div class="row">
+  <button id="b0">1. THE ROSARY ON CHANNEL 3 (new, draft)</button>
+  <button id="b1">2. SATELLITE PRAYER (his, the row it came from)</button>
+  <button id="b2">3. REPO MAN (his, where the five notes came from)</button>
+  <button id="b3">4. THE MARKER ON THE DOOR (his, where the rosary came from)</button>
+  <button id="stop">STOP</button>
+</div>
+<div id="num">Each is the first 32 bars, as the map plays a song: no drums for eight bars.</div>
+<div class="wrap"><table id="t"><tr><th>loading the numbers</th></tr></table></div>
+</main>
+<script>
+(function(){
+  'use strict';
+  var AC=null, cur=null, BUF={}, M=null, n=document.getElementById('num'), DIR='vote/songs/the_rosary_on_channel_3/';
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function load(p){ if(BUF[p]) return Promise.resolve(BUF[p]);
+    return fetch(p).then(function(r){ if(!r.ok) throw new Error(p+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[p]=b); }); }
+  function off(){ if(cur){ try{ cur.stop(); }catch(e){} cur=null; } [0,1,2,3].forEach(function(i){ document.getElementById('b'+i).classList.remove('on'); }); }
+  function play(i){ ctx(); off(); if(!M){ n.textContent='the numbers are still loading'; return; } var s=M.songs[i]; document.getElementById('b'+i).classList.add('on'); n.textContent='Playing '+s.name+'.';
+    load(s.file.replace(/^slices\//,'')).then(function(b){ var src=AC.createBufferSource(); src.buffer=b; src.connect(AC.destination); src.start(); cur=src; src.onended=function(){ if(cur===src){ off(); n.textContent='Done. Tap another.'; } }; })
+      .catch(function(e){ n.textContent='did not load: '+e.message; }); }
+  [0,1,2,3].forEach(function(i){ document.getElementById('b'+i).onclick=function(){ play(i); }; });
+  document.getElementById('stop').onclick=function(){ off(); n.textContent='Stopped.'; };
+  var KEY=['C','C#','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
+  fetch(DIR+'measured.json').then(function(r){ return r.json(); }).then(function(m){ M=m;
+    var rows=[
+      ['made by', function(s){ return s.role==='new'?'his engine, a new row':'his engine, his row'; }],
+      ['tempo', function(s){ return s.schedule_64_bars.bpm+' BPM'; }],
+      ['key, scale', function(s){ return KEY[(s.row.root-31+9+1200)%12]+', '+s.row.scale.join(' '); }],
+      ['feel, tune shape', function(s){ return (s.row.feel||'normal')+', '+(s.row.mel||'seed8'); }],
+      ['bass, lead, accent', function(s){ return s.row.inst.b+', '+s.row.inst.l+', '+(s.row.am||'(the lead)'); }],
+      ['kit', function(s){ return s.row.kit.k+' + '+s.row.kit.h+', kick on '+s.row.kick.join(' '); }],
+      ['first drum', function(s){ return s.schedule_64_bars.first_drum_s+' s (bar '+s.schedule_64_bars.first_drum_bar+')'; }],
+      ['tune in bars (of 64)', function(s){ return s.schedule_64_bars.tune_bars; }],
+      ['pitched notes a bar', function(s){ return s.schedule_64_bars.pitched_notes_a_bar; }],
+      ['peak, rms', function(s){ return s.audio.peak_db+' dB, '+s.audio.rms_db+' dB'; }],
+      ['on a phone speaker', function(s){ return s.audio.phone_rms_db+' dB'; }],
+      ['the tune over the mix, phone', function(s){ return s.audio.tune_on_a_phone_vs_the_mix_db+' dB'; }],
+      ['energy above 5 kHz', function(s){ return s.audio.above_5k_pct+' %'; }],
+      ['centre of the sound', function(s){ return s.audio.centroid_hz+' Hz'; }],
+      ['largest jump (a click)', function(s){ return s.audio.largest_jump; }]
+    ];
+    var h='<tr><th></th>'+m.songs.map(function(s){ return '<th>'+s.name+'</th>'; }).join('')+'</tr>';
+    rows.forEach(function(r){ h+='<tr><th>'+r[0]+'</th>'+m.songs.map(function(s){ return '<td>'+r[1](s)+'</td>'; }).join('')+'</tr>'; });
+    document.getElementById('t').innerHTML=h; })
+    .catch(function(e){ document.getElementById('t').innerHTML='<tr><td>the numbers did not load: '+e.message+'</td></tr>'; });
+  window.__beside=function(){ return { loaded:!!M, songs:M?M.songs.length:0, playing:!!cur, buffers:Object.keys(BUF) }; };
+})();
+</script>
+</body></html>

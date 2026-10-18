@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE ROSARY ON CHANNEL 3</title>
+<!-- SOUNDS lane, 10/18, row [his sound, not a revamp]. RULE 119, PAOLO 10/18, his NO on THE LONG ROAD: 'both songs not
+     giving analog horror vibes I was hoping the research that Grok helped you do would make it easier to do what you
+     needed to do not like have a whole revamp process where you're like making songs I don't fit aesthetic'.
+
+     THE SONG: THE ROSARY ON CHANNEL 3 (a name, draft), a night song for the map, made with HIS SONGS' OWN MACHINE and
+     nothing else: one row in the shape of his MLOOPS rows (slices/vote/songs/the_rosary_on_channel_3.json), played by
+     the alpha's own music engine (MUS.playStep, his synthV and drumV voices, his 64-bar form and key moves). It is his
+     SATELLITE PRAYER's row with two fields changed, each taken from one of his canon songs: the lead (brokenrosary) from
+     THE MARKER ON THE DOOR, his 8/2 'one of my new favorite songs', and the five notes from REPO MAN (on SATELLITE
+     PRAYER's own scale his songs already hold every longs tune his engine can make). No chip engine, no new voice, no
+     filter on top.
+
+     WHAT THIS PAGE IS: the real valley map (slices/BOHEMIA_MAP_CURRENT.html, untouched) from its own camera, the
+     recorded desert under it at the map's level (MAPDESERT's file, his YES), and A the new song, B HIS SATELLITE PRAYER, both
+     recorded from the alpha's own engine by tools/bohemia_sounds_his_machine.js the way the map plays them (the beat
+     arrives late), at the engine's own level, C NO SONG. His songs are never touched; on his YES this one JOINS the
+     map's night shuffle beside his (CUE 7.6, RUN's cut, rule 93). Gate: gates/the_rosary_on_channel_3_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{display:flex;flex-direction:column}
+  #map{flex:1 1 auto;min-height:0;width:100%;border:0;background:#0d0b08}
+  #bar{flex:0 0 auto;box-sizing:border-box;padding:10px 16px 12px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.old{background:#b9a77e}
+  .num{font-size:12px;color:#b9a77e;margin-top:8px;min-height:3em}
+</style></head><body>
+<iframe id="map" src="BOHEMIA_MAP_CURRENT.html" title="the valley map"></iframe>
+<div id="bar">
+  <div class="row">
+    <button id="song">A. THE ROSARY</button>
+    <button id="his" class="old">B. HIS SATELLITE PRAYER</button>
+    <button id="none" class="old">C. NO SONG</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="num">Tap A, then B. Both are played by the game's own music engine, the way the map plays your songs. The desert is under all three.</div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var AC=null, OUT=null, n=document.getElementById('num'), mode=null, bed=null, bedT=null, clock=null, BUF={}, cur=null, t0=0;
+  var FILE={ song:'vote/songs/the_rosary_on_channel_3/song.mp3', his:'vote/songs/the_rosary_on_channel_3/his_satellite_prayer.mp3' };
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function load(p){ if(BUF[p]) return Promise.resolve(BUF[p]);
+    return fetch(p).then(function(r){ if(!r.ok) throw new Error(p+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[p]=b); }); }
+  /* the desert under the map, the same file, loop and level as the alpha's MAPDESERT */
+  function bedOn(){ if(bed) return; var my=bed=AC.createGain(); my.gain.setValueAtTime(0,AC.currentTime); my.gain.linearRampToValueAtTime(0.45,AC.currentTime+1.5); my.connect(OUT);
+    load('vote/settlement_heard/bed_day.mp3').then(function(b){ var XF=1.0, step=b.duration-XF;
+      (function one(at){ if(bed!==my) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(my);
+        v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF); v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+        s.start(at); bedT=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000)); })(AC.currentTime+0.05); }); }
+  function bedOff(){ if(bedT) clearTimeout(bedT); bedT=null; if(bed){ var x=bed; bed=null; x.gain.cancelScheduledValues(AC.currentTime); x.gain.setValueAtTime(x.gain.value,AC.currentTime); x.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); setTimeout(function(){ try{x.disconnect();}catch(e){} },900); } }
+
+  /* his form, as his engine plays it (MUS.ARR, the first 32 bars), and the key it moves to (MUS.RT on the scale) */
+  var ARR=['A','B','B','A','C','B','D','B'], RT=[0,0,2,0,3,2,0,1], SCALE={ song:[0,2,3,7,8], his:[0,2,4,7,9] };
+  var PART={ A:'the core: the bass, the kick, one drifting note on beat one', B:'the tune', C:'the strip: kick and bass only', D:'the tune an octave up' };
+  var NOTE=['C','C sharp','D','E flat','E','F','F sharp','G','A flat','A','B flat','B'];
+  var ROOT={ song:6, his:6 };       /* both F sharp (root 52): noteHz(semi) = 110 * 2^(semi/12), the tune on root - 31 */
+  function where(){ if(!cur) return; var t=AC.currentTime-t0; if(t<0) return; var b=Math.min(32,Math.floor(Math.max(0,t)/2)+1), si=Math.floor((b-1)/4);
+    var key=NOTE[(ROOT[mode]+SCALE[mode][RT[si]%5])%12];
+    n.textContent=LABEL[mode]+'  Bar '+b+' of 32: '+PART[ARR[si]]+', in '+key+(b<=8?', no drums yet (the beat arrives late)':'')+'.'; }
+  function songOff(){ if(cur){ var h=cur; cur=null; try{ h.g.gain.cancelScheduledValues(AC.currentTime); h.g.gain.setValueAtTime(h.g.gain.value,AC.currentTime); h.g.gain.linearRampToValueAtTime(0,AC.currentTime+0.15); h.src.stop(AC.currentTime+0.2); }catch(e){} } if(clock){ clearInterval(clock); clock=null; } }
+  var LABEL={ song:'THE ROSARY ON CHANNEL 3: your SATELLITE PRAYER\'s machine, the rosary from THE MARKER ON THE DOOR.', his:'Your SATELLITE PRAYER, the first minute, as the map plays it.',
+              none:'The map as it sounds between songs: the desert and nothing else.' };
+  function mark(id){ ['song','his','none'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
+  function go(id){
+    ctx(); songOff(); mode=id; mark(id); n.textContent=LABEL[id]; bedOn();
+    if(id==='none') return;
+    load(FILE[id]).then(function(b){ if(mode!==id) return; var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; g.gain.setValueAtTime(0,AC.currentTime); g.gain.linearRampToValueAtTime(1,AC.currentTime+0.03);
+        s.connect(g); g.connect(OUT); t0=AC.currentTime+0.02; s.start(t0); cur={src:s,g:g,buffer:b}; clock=setInterval(where,250);
+        s.onended=function(){ if(cur&&cur.src===s){ cur=null; if(clock){ clearInterval(clock); clock=null; } n.textContent='That was the first minute. Tap it again, or the other one.'; } }; })
+      .catch(function(e){ n.textContent='the song did not load: '+e.message; });
+  }
+  ['song','his','none'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
+  document.getElementById('stop').onclick=function(){ if(!AC) return; songOff(); bedOff(); mode=null; mark(null); n.textContent='Stopped.'; };
+  window.__rosary=function(){ return { mode:mode, playing:!!cur, file:cur?(mode&&FILE[mode]):null, seconds:cur?+(AC.currentTime-t0).toFixed(2):0, bed:!!bed, loaded:Object.keys(BUF), text:n.textContent }; };
+})();
+</script>
+</body></html>

@@ -72,6 +72,14 @@
       "made": "10/18/26",
       "lane": "sounds",
       "why": "ADDED ON PURPOSE (SOUNDS 10/18, row [the middle ground], round three of [a new song every round]; Paolo 10/18 on OVER THE RIDGE: 'it sounds very different than the rest of our songs... I wonder if there's like a middleground'): the map's night song in HIS form (SONG_ARR and SONG_ROOT read, never edited; REPO MAN's scale; half time, the kick on 1 and 3, the hat on 2 and 4, his fill, the beat late), the tune on the chip's clean pulses, 64 bars, played by engine/bohemia_chip_song.js. A new song beside his, none of his touched; on his YES it joins the map's night shuffle, never replacing one. In VOTE as sounds-night-freight-10-18 beside his REPO MAN; if it changes after he hears it, this hash changes in the same commit with a reason."
+    },
+    {
+      "id": "the-rosary-on-channel-3",
+      "file": "slices/vote/songs/the_rosary_on_channel_3.json",
+      "md5": "a5dcccdc393d1914833e518596d5a988",
+      "made": "10/18/26",
+      "lane": "sounds",
+      "why": "ADDED ON PURPOSE (SOUNDS 10/18, row [his sound, not a revamp], rule 119; Paolo 10/18, his NO on The Long Road: 'both songs not giving analog horror vibes... not like have a whole revamp process where you're like making songs I don't fit aesthetic'): a night song made with HIS SONGS' OWN MACHINE, one row in the shape of his MLOOPS rows, SATELLITE PRAYER's own row with two fields changed (the lead brokenrosary from THE MARKER ON THE DOOR, the five notes from REPO MAN), played by MUS.playStep with his synthV and drumV voices and his SONG_ARR form; no chip engine, no new voice. Pushed into MLOOPS in a page's memory only; MLOOPS, synthV, drumV, SONG_ARR and SONG_ROOT untouched (their hashes above). On his YES it joins the map's night shuffle beside his six, never replacing one (CUE 7.6). Its card waits in the file until EYES AND EARS says same game and analog horror (rule 119c); if the row changes after he hears it, this hash changes in the same commit with a reason."
     }
   ]
 }
