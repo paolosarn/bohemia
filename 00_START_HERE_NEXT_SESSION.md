@@ -1619,7 +1619,7 @@ PENDING Paolo: none.
 ECONOMY (economy-opus-10-18-qrg2): 10/18 LATEST (u) -- [the poverty premium] SHIPPED, THE NEW AGE
 (the top OPEN row, the new crew's sack cost; opened by the coordinator on Opus 5.5 Extra, rules 112 to 117; research
 and numbers only, no screen, no code, no data file, no VOTE sheet, rule 88). Record:
-records/BOHEMIA_ECONOMY_DAY_77_THE_BOWL_COSTS_TWO_AND_A_HALF_TIMES_THE_SACK_WHERE_THE_RECORD_SAYS_A_TENTH_AND_TUNING_READ_IT_AS_EASIER_10_18_26.md (ecfd3bf6)
+records/BOHEMIA_ECONOMY_DAY_77_THE_BOWL_COSTS_TWO_AND_A_HALF_TIMES_THE_SACK_WHERE_THE_RECORD_SAYS_A_TENTH_AND_TUNING_READ_IT_AS_EASIER_10_18_26.md (f6abde02)
 THE FINDING: the poverty premium on main lives in ONE pile of six, food. Meds, tape and rounds sell at the wiki
 bundle's own rate (the stall's 'six rounds' is 17 in 100 UNDER it); water has no sack anywhere on main; the grain
 sack is in price_table.json and on no shelf. Across the rule 117(e) grid (crews 1, 3, 6, 12, 14 and every origin;
