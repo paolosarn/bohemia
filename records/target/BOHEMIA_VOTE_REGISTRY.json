@@ -9089,6 +9089,20 @@
    "draft": true
   },
   {
+   "id": "tuning-the-numbers-around-the-fight-10-18",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "fd25af3",
+   "made": "10/18",
+   "draft": true,
+   "title": "THE NUMBERS AROUND THE FIGHT",
+   "why": "Every price and roll on the settlement, roster and hiring screens, 48 numbers, each read off the live game, with where it should come from. It shows a hired man gets stars on one stat where Battle Brothers gives three, and that camp staff cost nothing.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_THE_NUMBERS_AROUND_THE_FIGHT_10_18_26.html"
+   }
+  },
+  {
    "id": "tuning-the-twenty-fields-four-studios-10-18",
    "kind": "tile",
    "lane": "tuning",

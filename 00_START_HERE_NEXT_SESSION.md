@@ -33,6 +33,27 @@ decided at the source and the tape lives on the screen, never baked into a sprit
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-vamily-opus): 10/18 (b) LATEST -- [the settlement's numbers] SHIPPED fd25af3 (research only, rule 38g; no game code touched;
+the new age, rules 112 to 115: the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
+READBACK [the settlement's numbers]: I read this as: every felt number the screens around the fight type into code, with its source or
+'no source but the code' and an owner, in the one table's typed section; done means section C holds them and a page the lanes cite. Done.
+TAB: VOTE, item THE NUMBERS AROUND THE FIGHT (a page, gray, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_SCREENS_AROUND_THE_FIGHT_IN_THE_ONE_TABLE_10_18_26.md
+DATA: tools/bohemia_tuning_screens_seed.js (each of 48 rows a pattern that must match the live file once and capture its value; a changed
+screen prints DRIFTED, proven by flipping one value) -> banks/BOHEMIA_TUNING_THE_SCREENS_SEED_10_18_26.json (draft:true) and the VOTE page;
+tools/bohemia_tuning_one_table_seed.js now folds them in: the one table 160 -> 208 rows, section C 7 -> 55, the fight's 160 values identical.
+WHAT: settlement screen 32, hire roll 6, starting crew 4, roster 3, camp staff 3; 17 already in the table unread, 10 no source, 6 his rulings.
+THE FINDING: a hired man (engine/bohemia_goodbros.js) gets stars on ONE stat, applied to his STARTING roll; the wiki's Talents page puts stars
+on THREE stats and they raise LEVEL-UPS (the roster's levelUp reads that right); the starting crew rolls one to three. Also: camp staff on the
+hall say '1 battery a night', their line says 200 once, the tap charges nothing; engine/bohemia_pricetable.js computes the wiki's sell-back,
+buy price, hire range and contract pay and no live screen loads it, so a level-one militiaman costs up to 225 batteries vs the formula's 49.
+ROUTED: PEOPLE + RUN TWO (three stars, one roll, level-ups only), RUN TWO + ECONOMY (staff price, load the price file, one clinic function),
+COMBAT (section C is the list), MODS, WORLD (two contract slots vs the wiki's one).
+NEXT (the jump list, two OPEN rows stand): [the 32 situations], [origin food and goods]; and the twenty style-guide numbers as rows once DIRECTION
+writes them.
+[bb Battle Brothers rolls every recruit through one function with three talents always; ours splits it across two files that disagree.]
+[analog horror: the bar's night trim (0.5, half as loud after dark) is a typed number with no row; named, not moved.]
+
 TUNING (tuning-vamily-fable): 10/18 LATEST -- [the twenty fields] SHIPPED (research only, rule 38g; no code touched;
 the new age, rules 112 to 115: the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
 READBACK [the twenty fields]: I read this as: for each of the twenty style-guide fields, what Battle Brothers, Dead Cells, Blasphemous and
