@@ -1,0 +1,106 @@
+{
+ "_readme": "THE TITLE, FROM A RECORDING (SOUNDS 10/18/26, row [a desert, not a rainforest]): the detuned title is in the graveyard (his 10/17 NO: the hiss too loud, the music bad). These start from a real wind; the only hiss is the wind, at the stated rms. before_*.mp3 is the cut with nothing but the fades.",
+ "made": "10/18/26",
+ "lane": "sounds",
+ "draft": true,
+ "titles": [
+  {
+   "id": "title_wind",
+   "title": "A. THE TITLE IS THE DESERT WIND, NOTHING ELSE",
+   "what": "a real wind through the valley on a bad tape, 32 seconds, loops; the only hiss is the wind's own, at minus 30 dB rms",
+   "room": null,
+   "wet": 0.0,
+   "rms_asked_db": -30.0,
+   "above_2k_db": -18.4,
+   "above_4k_db": -31.2,
+   "sources": [
+    {
+     "stem": "5-179496-A-16",
+     "db": 0.0,
+     "mode": "loop",
+     "speed": 1.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/toiletrolltube/sounds/179496/",
+     "author": "toiletrolltube",
+     "licence": "CC0",
+     "category": "Wind"
+    }
+   ],
+   "seconds": 31.0,
+   "peak_db": -18.17,
+   "rms_db": -30.0,
+   "first_1ms_db": -26.7,
+   "last_1ms_db": -24.5
+  },
+  {
+   "id": "title_wind_and_bell",
+   "title": "B. THE WIND, AND A BELL SLOWED TO HALF",
+   "what": "the same wind, and one real church bell at half speed (an octave down, twice as long) struck twice in 32 seconds, far, in a big dead hall; that is the whole theme",
+   "room": "hall",
+   "wet": 0.5,
+   "rms_asked_db": -30.0,
+   "above_2k_db": -18.5,
+   "above_4k_db": -31.7,
+   "sources": [
+    {
+     "stem": "5-179496-A-16",
+     "db": 0.0,
+     "mode": "loop",
+     "speed": 1.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/toiletrolltube/sounds/179496/",
+     "author": "toiletrolltube",
+     "licence": "CC0",
+     "category": "Wind"
+    },
+    {
+     "stem": "5-219044-A-46",
+     "db": -4.0,
+     "mode": "once",
+     "speed": 0.5,
+     "at": 3.0,
+     "freesound": "http://www.freesound.org/people/JarredGibb/sounds/219044/",
+     "author": "JarredGibb",
+     "licence": "CC0",
+     "category": "Church bells"
+    },
+    {
+     "stem": "5-219044-A-46",
+     "db": -7.0,
+     "mode": "once",
+     "speed": 0.5,
+     "at": 19.0,
+     "freesound": "http://www.freesound.org/people/JarredGibb/sounds/219044/",
+     "author": "JarredGibb",
+     "licence": "CC0",
+     "category": "Church bells"
+    }
+   ],
+   "seconds": 31.0,
+   "peak_db": -17.31,
+   "rms_db": -30.0,
+   "first_1ms_db": -26.8,
+   "last_1ms_db": -27.7
+  }
+ ],
+ "sources": {
+  "5-179496-A-16": {
+   "author": "toiletrolltube",
+   "category": "Wind",
+   "file": "5-179496-A-16.wav",
+   "freesound_id": "179496",
+   "licence": "CC0",
+   "source": "111224_04 wind.WAV",
+   "url": "http://www.freesound.org/people/toiletrolltube/sounds/179496/"
+  },
+  "5-219044-A-46": {
+   "author": "JarredGibb",
+   "category": "Church bells",
+   "file": "5-219044-A-46.wav",
+   "freesound_id": "219044",
+   "licence": "CC0",
+   "source": "Church Clock Strikes 12.wav",
+   "url": "http://www.freesound.org/people/JarredGibb/sounds/219044/"
+  }
+ }
+}

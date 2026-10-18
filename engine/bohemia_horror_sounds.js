@@ -1625,6 +1625,11 @@
   }
 
   /* ==== 13b. THE TITLE'S OWN MUSIC (row [the title's music], 10/5) ===============
+     *** GRAVEYARDED 10/17 (his vote on sounds-the-title-is-detuned-10-5, DOWN: "the hiss
+     noise is way too loud and even then the music behind it like sucks ass"). The function
+     stays as evidence and for the gate's measurements; it is never registered, wired or
+     re-skinned (A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME). The title's replacement
+     starts from a recording: tools/bohemia_from_a_recording.py, TITLES, 10/18. ***
      PAOLO 10/5: "I wish there was cool main menu music... everything we do has to
      follow this analog horror aesthetic." Rule 66a names the pieces: tape hiss and
      wow, a mains hum, a detuned slow theme, the room tone of the power authority's

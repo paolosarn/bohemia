@@ -39,6 +39,8 @@ because EchoThief's real rooms are behind the same network wall):
   7. LIMITER  threshold minus 1 dB, and a final peak check under minus 1 dBFS
 
   python3 tools/bohemia_from_a_recording.py            # renders everything, writes the manifest
+  python3 tools/bohemia_from_a_recording.py --beds     # the beds and the far things only (10/18: the thinned desert beds)
+  python3 tools/bohemia_from_a_recording.py --title    # the title candidates into slices/vote/title_heard/
   python3 tools/bohemia_from_a_recording.py --check    # re-reads the rendered files and verifies the pass criteria
 """
 import json, os, sys, subprocess, tempfile, math
@@ -303,16 +305,39 @@ RECIPE = [
 ]
 
 BEDS = [
-  dict(id='bed_day', title='THE BED, DAY: WIND, CHICKENS, BIRDS', what='a real wind across the lot, real hens behind a fence, real birds, a rooster once, far',
+  # A DESERT, NOT A RAINFOREST (row [a desert, not a rainforest], 10/18). PAOLO 10/17, voting the settlement
+  # UP: "I just heard too many bird noises and insect noises, like you know in a economic apocalypse Las
+  # Vegas that probably doesn't sound like rainforest, too many birds going on." The 10/17 bed looped a
+  # hen clip (8 calls per 5 s) and a songbird clip (10 per 5 s) for the whole 24 s and crowed a rooster
+  # every loop: 218 animal calls a minute by construction. Las Vegas's own birds (the great-tailed grackle,
+  # the mourning dove, the house finch, the pigeon: UNLV's campus guide, birders' Strip walks) are heard one
+  # at a time across a parking lot, and a pre-dawn Mojave field recording near Welcome Spring is catalogued
+  # with NO animal sound at all, only wind through the Joshua trees. So: the wind is the bed. By day ONE
+  # hen call and ONE two-chirp phrase in 24 s, both far; the rooster leaves the bed for the far pool. By
+  # night the crickets drop 12 dB (a quarter of the loudness) so one far cricket is somewhere, not a chorus.
+  # animal=True marks a layer the count reads (calls_per_minute in the manifest, by construction).
+  dict(id='bed_day', title='THE BED, DAY: THE DESERT WIND, A HEN ONCE, A BIRD ONCE', what='a real wind across the lot is the whole bed; one real hen far off, one real bird, and nothing else for the rest of the loop',
        seconds=24.0, peak=-12.0, tape=0.5, hi=8000,
        layers=[dict(stem='5-179496-A-16', mode='loop', db=0.0, seed=3),
-               dict(stem='4-200330-A-6', mode='loop', db=-9.0, seed=5, hi=5000),
-               dict(stem='4-187769-B-14', mode='loop', db=-13.0, seed=7, hi=7000),
-               dict(stem='4-170078-A-1', mode='once', at=9.5, db=-16.0, hi=3500, win=(0.0, 3.2))]),
-  dict(id='bed_night', title='THE BED, NIGHT: WIND, CRICKETS, A FIRE BARREL', what='a thinner real wind, real crickets low, a real fire in a barrel somewhere on the block',
+               dict(stem='4-200330-A-6', mode='once', at=5.0, db=-20.0, hi=4000, win=(0.0, 1.05), animal=True),
+               dict(stem='4-187769-B-14', mode='once', at=15.5, db=-22.0, hi=6000, win=(2.7, 3.5), animal=True)]),
+  dict(id='bed_night', title='THE BED, NIGHT: THE DESERT WIND, A FIRE BARREL, ONE FAR CRICKET', what='a thinner real wind, the fire in the barrel, and the crickets twelve decibels further off than before: one, somewhere, not a chorus',
        seconds=24.0, peak=-12.0, tape=0.5, hi=7000,
        layers=[dict(stem='3-117504-A-16', mode='loop', db=0.0, seed=11),
-               dict(stem='4-202749-A-13', mode='loop', db=-6.0, seed=13, hi=6000),
+               dict(stem='4-202749-A-13', mode='loop', db=-18.0, seed=13, hi=6000, animal=True),
+               dict(stem='4-181563-A-12', mode='loop', db=-5.0, seed=17, hi=3000)]),
+  # THE 10/17 BEDS, KEPT UNDER THEIR OWN NAMES so the A/B on the judge page plays what he voted on. Never
+  # the default again: his note is the ruling (NOTES ARE RULINGS, 7/19).
+  dict(id='bed_day_rainforest', title='THE 10/17 DAY BED (WHAT HE CALLED A RAINFOREST)', what='the bed he voted up on 10/17 with the note: hens and birds looping the whole time, a rooster every loop',
+       seconds=24.0, peak=-12.0, tape=0.5, hi=8000, kept='10/17, for the A/B only',
+       layers=[dict(stem='5-179496-A-16', mode='loop', db=0.0, seed=3),
+               dict(stem='4-200330-A-6', mode='loop', db=-9.0, seed=5, hi=5000, animal=True),
+               dict(stem='4-187769-B-14', mode='loop', db=-13.0, seed=7, hi=7000, animal=True),
+               dict(stem='4-170078-A-1', mode='once', at=9.5, db=-16.0, hi=3500, win=(0.0, 3.2), animal=True)]),
+  dict(id='bed_night_rainforest', title='THE 10/17 NIGHT BED (THE CRICKET CHORUS)', what='the night bed he heard on 10/17: the crickets at minus six, a chorus the whole loop',
+       seconds=24.0, peak=-12.0, tape=0.5, hi=7000, kept='10/17, for the A/B only',
+       layers=[dict(stem='3-117504-A-16', mode='loop', db=0.0, seed=11),
+               dict(stem='4-202749-A-13', mode='loop', db=-6.0, seed=13, hi=6000, animal=True),
                dict(stem='4-181563-A-12', mode='loop', db=-5.0, seed=17, hi=3000)]),
   dict(id='bed_bar_murmur', title='THE BAR: THE MURMUR THROUGH THE DOOR', what='three real people laughing and one sipping, low-passed and through the bar\'s own room, the murmur this lane could never fake',
        seconds=20.0, peak=-14.0, tape=0.8, hi=1800, room='bar', wet=0.7,
@@ -327,7 +352,60 @@ EVENTS = [
   dict(id='far_helicopter', title='FAR: A HELICOPTER', what='a real helicopter passing over the valley', layers=[R('3-154926-A-40', (0.4, 3.2), hi=1500)], peak=-14.0, tape=0.6),
   dict(id='far_siren', title='FAR, NIGHT: A SIREN', what='a real civil defence siren, far, at night', layers=[R('1-54084-A-42', (0.0, 4.6), hi=2000)], peak=-18.0, tape=0.6),
   dict(id='far_crow', title='FAR: A CROW', what='a real crow on a wire', layers=[R('4-188287-A-9', (0.0, 2.0), hi=5000)], peak=-16.0, tape=0.6),
+  dict(id='far_rooster', title='FAR, DAY: A ROOSTER', what='a real rooster, streets away, once in a long while (out of the day bed since 10/18)', layers=[R('4-170078-A-1', (0.0, 2.5), hi=3500)], peak=-20.0, tape=0.6),
 ]
+
+
+# ----------------------------------------------------------------------------------------
+# THE TITLE (row [a desert, not a rainforest], 10/18). PAOLO 10/17 on the detuned title (DOWN):
+# "the hiss noise is way too loud and even then the music behind it like sucks ass." That title was
+# built from the engine's noise generator (songThroughSpeaker's HISS at 0.28 of full scale) and an
+# oscillator phrase; it is in the graveyard. Here the title starts from a recording, like everything
+# else since 10/17: the desert's own wind IS the hiss, at a stated level, and the music is either
+# removed (A) or redone as one real church bell slowed to half speed, struck twice in 32 s (B).
+# ----------------------------------------------------------------------------------------
+TITLE_OUT = os.path.join(ROOT, 'slices', 'vote', 'title_heard')
+TITLES = [
+  dict(id='title_wind', title='A. THE TITLE IS THE DESERT WIND, NOTHING ELSE', what='a real wind through the valley on a bad tape, 32 seconds, loops; the only hiss is the wind\'s own, at minus 30 dB rms',
+       seconds=32.0, rms=-30.0, tape=1.0, hi=6000,
+       layers=[dict(stem='5-179496-A-16', mode='loop', db=0.0, seed=41)]),
+  dict(id='title_wind_and_bell', title='B. THE WIND, AND A BELL SLOWED TO HALF', what='the same wind, and one real church bell at half speed (an octave down, twice as long) struck twice in 32 seconds, far, in a big dead hall; that is the whole theme',
+       seconds=32.0, rms=-30.0, tape=1.0, hi=6000, room='hall', wet=0.5,
+       layers=[dict(stem='5-179496-A-16', mode='loop', db=0.0, seed=41),
+               dict(stem='5-219044-A-46', mode='once', at=3.0, db=-4.0, win=(1.56, 5.0), spd=0.5),
+               dict(stem='5-219044-A-46', mode='once', at=19.0, db=-7.0, win=(1.56, 5.0), spd=0.5)]),
+]
+
+def count_calls(spec):
+    """Animal calls a minute, by construction: the onsets inside each animal layer's window, times how
+    often the bed plays that window. A loop plays its clip seconds/len times; a once plays once."""
+    total = 0.0
+    for L in spec['layers']:
+        if not L.get('animal'): continue
+        x = load(L['stem'])
+        if L['mode'] == 'loop':
+            a, b = auto_window(x, tail=0.0) if L.get('win') is None else L['win']
+            seg = x[int(a * SR):int(b * SR)] if (b - a) > 1.0 else x
+            total += len(onsets(seg)) * (spec['seconds'] / (len(seg) / SR))
+        else:
+            a, b = L['win']; total += len(onsets(x[int(a * SR):int(b * SR)]))
+    return round(total * 60.0 / spec['seconds'], 1)
+
+def onsets(x, w=0.02, jump=8.0):
+    n = int(SR * w); f = []
+    for i in range(0, len(x) - n, n):
+        s_ = x[i:i + n]; f.append(20 * math.log10(float(np.sqrt((s_ ** 2).mean())) + 1e-9))
+    f = np.array(f); fl = np.percentile(f, 10); out = []; above = False
+    for k, v in enumerate(f):
+        if v > fl + jump and not above: out.append(round(k * w, 2)); above = True
+        elif v <= fl + jump - 3: above = False
+    return out
+
+def band_db(y, lo, hi):
+    """How much of the file's energy sits in a band, in dB against the whole: the number a bird or a
+    cricket moves (they live above 2 kHz; the wind lives below)."""
+    Y = np.abs(np.fft.rfft(y.astype(np.float64))) ** 2; f = np.fft.rfftfreq(len(y), 1.0 / SR)
+    return round(10 * math.log10(Y[(f >= lo) & (f < hi)].sum() / (Y.sum() + 1e-12) + 1e-12), 1)
 
 def render_layer(L):
     x = load(L['stem'])
@@ -367,15 +445,23 @@ def render_bed(spec):
             y = loop_to(norm_peak(seg, -6.0), spec['seconds'] + 1.0, seed=L.get('seed', 1))[:n]
         else:
             a, b = L.get('win', (0.0, len(x) / SR)); y = norm_peak(window(x, a, b), -6.0)
+            if L.get('spd', 1.0) != 1.0: y = speed(y, L['spd'])
         if L.get('hi'): y = lp(y, L['hi'])
         place(out, y, L.get('at', 0.0), L['db'])
-    raw = norm_peak(out, spec['peak'])
+    raw = norm_peak(out, spec.get('peak', -12.0))
     y = hp(out, 120.0)
     y = tape(y, spec.get('tape', 0.5))
     y = lp(y, spec.get('hi', 9000.0))
     y = room(y, spec.get('room'), spec.get('wet', 0.0))[:n]
     y = seamless(y, 1.0)
-    y = norm_peak(y, spec['peak'])
+    if spec.get('rms') is not None:
+        # the title asks for a LEVEL, not a peak: rms at the stated dBFS by pure gain (the limiter adds
+        # make-up gain, measured 10/18: +6.75 dB on a -36 dB test, so it cannot sit after the level is set)
+        r = 20 * math.log10(float(np.sqrt((y ** 2).mean())) + 1e-12)
+        y = gain_db(y, spec['rms'] - r)
+        if np.abs(y).max() > 10 ** (-1.0 / 20.0): y = norm_peak(y, -1.0)
+    else:
+        y = norm_peak(y, spec['peak'])
     return raw[:len(y)], y
 
 def write_mp3(path, y, kbps=80, ceiling_db=-1.0):
@@ -400,14 +486,37 @@ def measure(y):
     return dict(seconds=round(len(y) / SR, 3), peak_db=round(20 * math.log10(p), 2), rms_db=round(20 * math.log10(rms), 2),
                 first_1ms_db=round(20 * math.log10(head + 1e-12), 1), last_1ms_db=round(20 * math.log10(tail + 1e-12), 1))
 
-def main():
-    stems = sorted({L['stem'] for s in RECIPE + EVENTS for L in s['layers']} | {L['stem'] for b in BEDS for L in b['layers']})
+def render_titles(src):
+    os.makedirs(TITLE_OUT, exist_ok=True)
+    man = dict(_readme='THE TITLE, FROM A RECORDING (SOUNDS 10/18/26, row [a desert, not a rainforest]): the detuned title is in the graveyard (his 10/17 NO: the hiss too loud, the music bad). These start from a real wind; the only hiss is the wind, at the stated rms. before_*.mp3 is the cut with nothing but the fades.',
+               made='10/18/26', lane='sounds', draft=True, titles=[], sources={})
+    for spec in TITLES:
+        raw, y = render_bed(spec)
+        write_mp3(os.path.join(TITLE_OUT, spec['id'] + '.mp3'), y, 96)
+        write_mp3(os.path.join(TITLE_OUT, 'before_' + spec['id'] + '.mp3'), raw, 96)
+        m = measure(y)
+        e = dict(id=spec['id'], title=spec['title'], what=spec['what'], room=spec.get('room'), wet=spec.get('wet', 0.0), rms_asked_db=spec['rms'],
+                 above_2k_db=band_db(y, 2000, 20000), above_4k_db=band_db(y, 4000, 20000),
+                 sources=[dict(stem=L['stem'], db=L['db'], mode=L['mode'], speed=L.get('spd', 1.0), at=L.get('at', 0.0), freesound=src[L['stem']]['url'], author=src[L['stem']]['author'], licence=src[L['stem']]['licence'], category=src[L['stem']]['category']) for L in spec['layers']], **m)
+        man['titles'].append(e)
+        for L in spec['layers']: man['sources'][L['stem']] = src[L['stem']]
+        print('%-24s %6.2fs peak %6.2f dB rms %6.2f dB  above 2k %6.1f dB' % (spec['id'], m['seconds'], m['peak_db'], m['rms_db'], e['above_2k_db']))
+    json.dump(man, open(os.path.join(TITLE_OUT, 'manifest.json'), 'w'), indent=1)
+    return man
+
+def main(only=None):
+    stems = sorted({L['stem'] for s in RECIPE + EVENTS + TITLES for L in s['layers']} | {L['stem'] for b in BEDS for L in b['layers']})
     src = freeze_sources(stems)
+    if only == 'title': return render_titles(src)
     os.makedirs(OUT, exist_ok=True)
-    manifest = dict(_readme='FROM A RECORDING (SOUNDS 10/17/26): every file here starts from a CC0 Freesound recording (via ESC-50) and goes through the chain in tools/bohemia_from_a_recording.py. before_*.mp3 is the same window of the same recording with nothing but the fades; the other file is after the chain. Licence per source in sources.',
+    if only == 'beds':
+        manifest = json.load(open(os.path.join(OUT, 'manifest.json')))
+        manifest['beds'] = []; manifest['events'] = []; manifest['sources'] = src
+        manifest['_readme_10_18'] = 'A DESERT, NOT A RAINFOREST (10/18): bed_day and bed_night are the thinned beds (his 10/17 note); bed_*_rainforest are the 10/17 beds kept for the A/B; calls_per_minute is animal calls by construction.'
+    else: manifest = dict(_readme='FROM A RECORDING (SOUNDS 10/17/26): every file here starts from a CC0 Freesound recording (via ESC-50) and goes through the chain in tools/bohemia_from_a_recording.py. before_*.mp3 is the same window of the same recording with nothing but the fades; the other file is after the chain. Licence per source in sources.',
                     made='10/17/26', lane='sounds', draft=True, chain='window > speed > high-pass 120 Hz > tape (shelf, saturation, wow and flutter, 2:1) > low-pass 9 kHz > modelled room > limiter, peak under -1 dBFS',
                     rooms={}, sounds=[], beds=[], events=[], sources=src)
-    for spec in RECIPE + EVENTS:
+    for spec in (EVENTS if only == 'beds' else RECIPE + EVENTS):
         raw, y, wins = render_oneshot(spec)
         write_mp3(os.path.join(OUT, spec['id'] + '.mp3'), y)
         write_mp3(os.path.join(OUT, 'before_' + spec['id'] + '.mp3'), raw)
@@ -423,9 +532,10 @@ def main():
         write_mp3(os.path.join(OUT, spec['id'] + '.mp3'), y, 96)
         write_mp3(os.path.join(OUT, 'before_' + spec['id'] + '.mp3'), raw, 96)
         m = measure(y)
-        manifest['beds'].append(dict(id=spec['id'], title=spec['title'], what=spec['what'], room=spec.get('room'), wet=spec.get('wet', 0.0),
-                                     sources=[dict(stem=L['stem'], db=L['db'], mode=L['mode'], freesound=src[L['stem']]['url'], author=src[L['stem']]['author'], licence=src[L['stem']]['licence'], category=src[L['stem']]['category']) for L in spec['layers']], **m))
-        print('%-24s %6.2fs peak %6.2f dB rms %6.2f dB' % (spec['id'], m['seconds'], m['peak_db'], m['rms_db']))
+        manifest['beds'].append(dict(id=spec['id'], title=spec['title'], what=spec['what'], room=spec.get('room'), wet=spec.get('wet', 0.0), kept=spec.get('kept'),
+                                     calls_per_minute=count_calls(spec), above_2k_db=band_db(y, 2000, 20000), above_4k_db=band_db(y, 4000, 20000), cricket_band_db=band_db(y, 2000, 6000),
+                                     sources=[dict(stem=L['stem'], db=L['db'], mode=L['mode'], at=L.get('at', 0.0), freesound=src[L['stem']]['url'], author=src[L['stem']]['author'], licence=src[L['stem']]['licence'], category=src[L['stem']]['category']) for L in spec['layers']], **m))
+        print('%-24s %6.2fs peak %6.2f dB rms %6.2f dB  calls/min %6.1f  above 2k %6.1f dB' % (spec['id'], m['seconds'], m['peak_db'], m['rms_db'], manifest['beds'][-1]['calls_per_minute'], manifest['beds'][-1]['above_2k_db']))
     for k in ('small', 'shed', 'hall', 'bar'):
         h, rt, asked, e_abs = room_ir(k); manifest['rooms'][k] = dict(rt60_measured_s=round(rt, 3), rt60_asked_s=asked, sabine_absorption=e_abs, ir_seconds=round(len(h) / SR, 3))
     json.dump(manifest, open(os.path.join(OUT, 'manifest.json'), 'w'), indent=1)
@@ -454,8 +564,25 @@ def check():
         if e in m['sounds'] and (e['first_1ms_db'] > -26 or e['last_1ms_db'] > -40): bad.append('%s clicks (head %.1f tail %.1f)' % (e['id'], e['first_1ms_db'], e['last_1ms_db']))
         for s in e['sources']:
             if s['licence'] != 'CC0': bad.append(e['id'] + ' uses a non-CC0 source')
-    print(('CHECK FAIL\n  ' + '\n  '.join(bad)) if bad else 'CHECK PASS: %d sounds, %d beds, %d events, every peak under -1 dBFS after the mp3, no click at either end, every source CC0' % (len(m['sounds']), len(m['beds']), len(m['events'])))
+    # the thinned beds hold their numbers (10/18): under a tenth of the 10/17 calls by day, and the
+    # cricket band at least 8 dB further down by night; the title's rms at its asked level, within 1 dB
+    beds = {e['id']: e for e in m['beds']}
+    if 'bed_day' in beds and 'bed_day_rainforest' in beds and not (beds['bed_day']['calls_per_minute'] * 10 <= beds['bed_day_rainforest']['calls_per_minute']):
+        bad.append('bed_day is not a tenth of the rainforest: %.1f vs %.1f calls a minute' % (beds['bed_day']['calls_per_minute'], beds['bed_day_rainforest']['calls_per_minute']))
+    if 'bed_night' in beds and 'bed_night_rainforest' in beds and not (beds['bed_night']['cricket_band_db'] <= beds['bed_night_rainforest']['cricket_band_db'] - 6):
+        bad.append('bed_night crickets did not come down 6 dB: %.1f vs %.1f dB in the 2 to 6 kHz band' % (beds['bed_night']['cricket_band_db'], beds['bed_night_rainforest']['cricket_band_db']))
+    tman = os.path.join(TITLE_OUT, 'manifest.json')
+    if os.path.exists(tman):
+        for e in json.load(open(tman))['titles']:
+            p = os.path.join(TITLE_OUT, e['id'] + '.mp3')
+            if not os.path.exists(p): bad.append(e['id'] + ' missing'); continue
+            x, sr = sf.read(p, dtype='float32')
+            r = 20 * math.log10(float(np.sqrt((x ** 2).mean())) + 1e-12)
+            if abs(r - e['rms_asked_db']) > 1.0: bad.append('%s rms %.1f dB, asked %.1f' % (e['id'], r, e['rms_asked_db']))
+            for s_ in e['sources']:
+                if s_['licence'] != 'CC0': bad.append(e['id'] + ' uses a non-CC0 source')
+    print(('CHECK FAIL\n  ' + '\n  '.join(bad)) if bad else 'CHECK PASS: %d sounds, %d beds, %d events, every peak under -1 dBFS after the mp3, no click at either end, every source CC0; the thinned beds hold; the title at its level' % (len(m['sounds']), len(m['beds']), len(m['events'])))
     return 1 if bad else 0
 
 if __name__ == '__main__':
-    sys.exit(check() if '--check' in sys.argv else (main() and 0))
+    sys.exit(check() if '--check' in sys.argv else (main('beds' if '--beds' in sys.argv else 'title' if '--title' in sys.argv else None) and 0))

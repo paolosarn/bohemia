@@ -8909,6 +8909,7 @@
    "draft": true
   },
   {
+<<<<<<< Updated upstream
    "id": "animation-ragdoll-hits-10-17",
    "kind": "animation",
    "lane": "animation",
@@ -8959,6 +8960,40 @@
    "show": {
     "how": "image",
     "src": "vote/RUN2_WHO_IS_WEARING_WHAT_10_18.png"
+=======
+   "id": "sounds-a-desert-not-a-rainforest-10-18",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "A DESERT, NOT A RAINFOREST",
+   "why": "You said the settlement had too many birds and insects for a dead Las Vegas, so the bed under it is now the desert wind with one hen and one bird in 24 seconds by day and one far cricket by night, played next to the one you heard. Press SOUND ON, flip DESERT and RAINFOREST for day and night, and you hear it.",
+   "options": [
+    "A, the desert as it is here",
+    "B, thinner still: the wind and the fire only, no bird and no cricket at all"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_A_DESERT_NOT_A_RAINFOREST_10_18_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-title-is-the-desert-10-18",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "THE TITLE IS THE DESERT",
+   "why": "You said the title's hiss was way too loud and the music behind it was bad, so both are gone: the title is now a real recording of the desert wind 30 dB under full, alone (A) or with one real church bell slowed to half speed, struck twice in 32 seconds (B). Press SOUND ON and PLAY IT on each, and you hear it.",
+   "options": [
+    "A, the wind alone, no music",
+    "B, the wind and the slow bell"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_TITLE_IS_THE_DESERT_10_18_26.html"
+>>>>>>> Stashed changes
    },
    "draft": true
   }

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE TITLE IS THE DESERT</title>
+<!-- SOUNDS lane, 10/18, row [a desert, not a rainforest]. PAOLO 10/17 on the detuned title (DOWN):
+     "the hiss noise is way too loud and even then the music behind it like sucks ass, bro."
+     That title was the engine's noise generator (its hiss at 0.28 of full scale) under an oscillator
+     phrase. It is in the graveyard (GRAVEYARD IS FINAL: no button for it here). This page starts the
+     title from a recording, like every sound since 10/17: the desert's own wind is the only hiss, at a
+     stated level (A), and the music is either gone (A) or one real church bell slowed to half speed,
+     struck twice in 32 seconds (B). Files: slices/vote/title_heard/, rendered by
+     tools/bohemia_from_a_recording.py (the TITLES list). NOTHING IS WIRED: the title screen still plays
+     nothing, as it did before 10/5. Unjudged is silent. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; --hot:#7a1f10; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  button.raw{font-size:12px;min-height:40px;padding:8px 10px}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  .src{font-size:11px;color:var(--dim);margin-top:6px}
+  .src a{color:var(--dim)}
+  #heard{font-size:12px;letter-spacing:1px;color:var(--hot);min-height:18px;margin:6px 0 10px}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+  .skip{font-size:12px;color:var(--dim);margin:0 0 14px}
+</style></head><body><div class="wrap">
+
+<h1>THE TITLE IS THE DESERT</h1>
+<div class="sub">SOUNDS &middot; 10/18 &middot; the title screen plays nothing right now; the detuned one is dead</div>
+
+<div class="loud">You said the hiss was way too loud and the music behind it was bad. Both are gone. The title now starts
+from a real recording of wind, like everything since the settlement: the only hiss is the wind's own, 30 dB under full
+volume. A is the wind and nothing else. B is the wind and one real church bell slowed to half speed, struck twice in
+32 seconds, far off in a big dead hall. Each loops if you let it keep going.</div>
+
+<div class="card">
+  <div class="row"><button id="unlock">SOUND ON</button><button id="stop">STOP</button></div>
+  <div id="heard">&nbsp;</div>
+  <div class="num" id="status">loading the recordings...</div>
+</div>
+
+<div id="cards"></div>
+
+<div class="card">
+  <h2>WHAT THE OLD ONE WAS, IN NUMBERS (NO BUTTON: IT IS IN THE GRAVEYARD)</h2>
+  <div class="why">The 10/5 title ran a noise generator as its hiss at 0.28 of full scale inside the broadcast, under a
+  synthesised phrase on a 3 percent flat deck. Here the hiss is a recording, and the level is written on the card.</div>
+</div>
+
+<div class="foot">
+  <div class="skip">NO VOTES HERE. The vote is in the VOTE tab. Write anything below and send it back.</div>
+  <label for="all">NOTES</label>
+  <textarea id="all" placeholder="what you heard, what to change"></textarea>
+  <div class="row" style="margin-top:10px">
+    <button id="copy">COPY NOTES</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">registry id: sounds-the-title-is-the-desert-10-18</div>
+</div>
+
+<script>
+var DIR = 'vote/title_heard/';
+var BUF = {}, AC = null, MASTER = null, live = null;
+function say(t){ document.getElementById('heard').textContent = t; }
+function status(t){ document.getElementById('status').textContent = t; }
+function ac(){
+  if(!AC){ AC = new (window.AudioContext || window.webkitAudioContext)(); MASTER = AC.createGain(); MASTER.gain.value = 1; MASTER.connect(AC.destination); }
+  if(AC.state === 'suspended') AC.resume();
+  return AC;
+}
+function load(id){
+  if(BUF[id]) return Promise.resolve(BUF[id]);
+  return fetch(DIR + id + '.mp3', {cache:'no-store'}).then(function(r){ return r.arrayBuffer(); })
+    .then(function(ab){ return new Promise(function(res, rej){ ac().decodeAudioData(ab, res, rej); }); })
+    .then(function(b){ BUF[id] = b; return b; });
+}
+/* the same two-copy crossfade player as the settlement pages: the loop never clicks at the seam */
+function BedPlayer(){ this.id = null; this.timer = null; this.g = null; }
+BedPlayer.prototype.start = function(id, level){
+  var self = this; this.stop(); this.id = id;
+  load(id).then(function(b){
+    if(self.id !== id) return;
+    self.g = ac().createGain(); self.g.gain.value = level; self.g.connect(MASTER);
+    var XF = 1.0, step = b.duration - XF, t0 = ac().currentTime + 0.05;
+    function one(at){
+      if(self.id !== id) return;
+      var s = ac().createBufferSource(); s.buffer = b; var g = ac().createGain(); s.connect(g); g.connect(self.g);
+      g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(1, at + XF);
+      g.gain.setValueAtTime(1, at + b.duration - XF); g.gain.linearRampToValueAtTime(0, at + b.duration);
+      s.start(at);
+      self.timer = setTimeout(function(){ one(at + step); }, Math.max(100, (at + step - ac().currentTime - 0.5) * 1000));
+    }
+    one(t0);
+    window.__bed = id;
+  });
+};
+BedPlayer.prototype.stop = function(){ this.id = null; if(this.timer) clearTimeout(this.timer); if(this.g){ try{ this.g.gain.linearRampToValueAtTime(0, ac().currentTime + 0.6); }catch(e){} var g = this.g; setTimeout(function(){ try{ g.disconnect(); }catch(_e){} }, 800); this.g = null; } window.__bed = null; };
+var BED = new BedPlayer();
+function stopAll(){ BED.stop(); document.querySelectorAll('button[data-play]').forEach(function(b){ b.classList.remove('on'); }); say(''); }
+document.getElementById('stop').onclick = stopAll;
+document.getElementById('unlock').onclick = function(){ ac(); this.classList.add('on'); this.textContent = 'SOUND IS ON'; };
+
+function card(e, into){
+  var c = document.createElement('div'); c.className = 'card';
+  var h = document.createElement('h2'); h.textContent = e.title; c.appendChild(h);
+  var w = document.createElement('div'); w.className = 'why'; w.textContent = e.what + '.'; c.appendChild(w);
+  var r = document.createElement('div'); r.className = 'row';
+  var p = document.createElement('button'); p.textContent = 'PLAY IT'; p.dataset.play = e.id;
+  p.onclick = function(){ ac(); if(BED.id === e.id){ stopAll(); return; } stopAll(); BED.start(e.id, 1.0); p.classList.add('on'); say(e.id.replace(/_/g, ' ') + ', looping'); };
+  var q = document.createElement('button'); q.textContent = 'RAW 10 S'; q.className = 'raw';
+  q.onclick = function(){ ac(); stopAll(); load('before_' + e.id).then(function(b){ var s = ac().createBufferSource(); s.buffer = b; s.connect(MASTER); s.start(); setTimeout(function(){ try{ s.stop(); }catch(_e){} }, 10000); say('raw: the cut before the chain'); }); };
+  r.appendChild(p); r.appendChild(q); c.appendChild(r);
+  var n = document.createElement('div'); n.className = 'num';
+  n.textContent = 'level ' + e.rms_db + ' dB rms (asked ' + e.rms_asked_db + '), peak ' + e.peak_db + ' dB, the part above 2 kHz (where hiss lives) ' + e.above_2k_db + ' dB under the whole, ' + e.seconds + ' s loop' + (e.room ? ', the bell in the ' + e.room + ' at ' + Math.round(e.wet * 100) + '% wet' : '');
+  c.appendChild(n);
+  var s = document.createElement('div'); s.className = 'src';
+  s.innerHTML = e.sources.map(function(x){ return 'from <a href="' + x.freesound + '" target="_blank" rel="noopener">' + x.category + '</a> by ' + x.author + ' [' + x.licence + ']' + (x.speed && x.speed !== 1 ? ', at ' + x.speed + 'x speed' : '') + (x.mode === 'once' ? ', at ' + x.at + ' s' : ''); }).join('; ');
+  c.appendChild(s);
+  into.appendChild(c);
+}
+fetch(DIR + 'manifest.json', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(m){
+  window.__manifest = m;
+  var into = document.getElementById('cards'); m.titles.forEach(function(e){ card(e, into); });
+  status('loaded: ' + m.titles.length + ' candidates');
+}).catch(function(e){ status('the manifest did not load: ' + e); });
+
+/* ---------- NOTES ---------- */
+var KEY='bohemia_the_title_is_the_desert_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){ try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE TITLE IS THE DESERT (SOUNDS, 10/18). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-the-title-is-the-desert-10-18\n\n' + (a || '(nothing written yet)'); }
+function flash(msg){ var n=document.getElementById('footnote'), was=n.textContent; n.textContent=msg; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); flash('COPIED. Paste it back to me.'); }catch(e){ flash('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function(){ flash('COPIED. Paste it back to me.'); }, fb); else fb(); };
+document.getElementById('exp').onclick=function(){ var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a'); el.href=u; el.download='BOHEMIA_NOTES_THE_TITLE_IS_THE_DESERT.txt';
+  document.body.appendChild(el); el.click(); el.remove(); setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

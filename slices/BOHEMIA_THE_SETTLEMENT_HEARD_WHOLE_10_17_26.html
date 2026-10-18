@@ -55,7 +55,8 @@
 
 <div class="loud">This is the real settlement screen. Press SOUND ON once, then tap the buildings: every one answers
 with a recording of the real thing (a real door, a real can, a real saw, real people laughing behind the bar door),
-and a real wind with chickens, or crickets and a fire barrel at night, sits under the whole screen.</div>
+and a real desert wind sits under the whole screen (a hen once and a bird once by day, the fire barrel and one far
+cricket by night: THINNED 10/18 on your note, "too many bird noises and insect noises", the A/B is on its own page).</div>
 
 <div class="card">
   <div class="row">
@@ -143,15 +144,18 @@ function bedNow(){
   BED.start(night ? 'bed_night' : 'bed_day', 1.0);
   scheduleFar();
 }
-/* THE FAR THINGS: a car horn, a helicopter, a crow by day; a siren and a crow by night; one every 14 to 32 s, never two at once */
+/* THE FAR THINGS: a car horn, a helicopter, a crow or the rooster by day; a siren or a helicopter by night (a crow does
+   not call at night); one every 20 to 50 s, never two at once. THINNED 10/18 (row [a desert, not a rainforest], his
+   10/17 note: too many birds and insects for a desert city): the rooster left the day bed for this pool, the crow
+   left the night pool, and the gap grew from 14-32 s to 20-50 s. */
 function scheduleFar(){
   if(evTimer) clearTimeout(evTimer);
   evTimer = setTimeout(function(){
     if(!bedOn || !AC) return;
-    var pool = night ? ['far_siren','far_crow','far_crow'] : ['far_horn','far_helicopter','far_crow'];
+    var pool = night ? ['far_siren','far_helicopter'] : ['far_horn','far_helicopter','far_crow','far_rooster'];
     play(pool[Math.floor(Math.random() * pool.length)], 1);
     scheduleFar();
-  }, 14000 + Math.random() * 18000);
+  }, 20000 + Math.random() * 30000);
 }
 
 /* ---------- THE SCREEN: the real one, in a frame, its own taps answered here ----------
@@ -230,7 +234,7 @@ function card(e, into, isBed){
   q.onclick = function(){ ac(); play('before_' + e.id, isBed ? 1 : 1).then(function(s){ if(isBed) setTimeout(function(){ try{ s.stop(); }catch(_e){} }, 10000); }); };
   r.appendChild(p); r.appendChild(q); c.appendChild(r);
   var n = document.createElement('div'); n.className = 'num';
-  n.textContent = e.seconds + ' s, peak ' + e.peak_db + ' dB, loudness ' + e.rms_db + ' dB' + (e.room ? ', room: ' + e.room + ' at ' + Math.round(e.wet * 100) + '% wet' : ', no room, outdoors');
+  n.textContent = e.seconds + ' s, peak ' + e.peak_db + ' dB, loudness ' + e.rms_db + ' dB' + (e.room ? ', room: ' + e.room + ' at ' + Math.round(e.wet * 100) + '% wet' : ', no room, outdoors') + (e.calls_per_minute != null ? ', ' + e.calls_per_minute + ' animal calls a minute' : '') + (e.kept ? ' (KEPT FROM ' + e.kept.toUpperCase() + '; the screen does not play it)' : '');
   c.appendChild(n);
   var s = document.createElement('div'); s.className = 'src';
   s.innerHTML = e.sources.map(function(x){ return 'from <a href="' + x.freesound + '" target="_blank" rel="noopener">' + x.category + '</a> by ' + x.author + ' [' + x.licence + ']' + (x.speed && x.speed !== 1 ? ', at ' + x.speed + 'x speed' : ''); }).join('; ');

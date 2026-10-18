@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A DESERT, NOT A RAINFOREST</title>
+<!-- SOUNDS lane, 10/18, row [a desert, not a rainforest]. PAOLO 10/17, voting the settlement UP:
+     "I just heard too many bird noises and insect noises, like you know in a economic apocalypse
+     Las Vegas that probably doesn't sound like rainforest, too many birds going on, but yeah, I like it."
+     NOTES ARE RULINGS: the bed under the settlement screen is thinned to what the Mojave has, and
+     this page plays the thinned bed against the one he heard, day and night, with the count.
+     Files: slices/vote/settlement_heard/ (bed_day, bed_night are the desert; bed_*_rainforest are
+     the 10/17 beds kept for this A/B only), rendered by tools/bohemia_from_a_recording.py. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; --hot:#7a1f10; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  button.hero{min-height:56px;font-size:15px}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  .src{font-size:11px;color:var(--dim);margin-top:6px}
+  .src a{color:var(--dim)}
+  #heard{font-size:12px;letter-spacing:1px;color:var(--hot);min-height:18px;margin:6px 0 10px}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+  .skip{font-size:12px;color:var(--dim);margin:0 0 14px}
+  table{border-collapse:collapse;font-size:12px;margin-top:8px;width:100%}
+  td,th{border:1px solid var(--line);padding:5px 7px;text-align:left}
+  th{background:var(--paper);letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<h1>A DESERT, NOT A RAINFOREST</h1>
+<div class="sub">SOUNDS &middot; 10/18 &middot; the bed under the settlement, thinned to the Mojave</div>
+
+<div class="loud">You said the settlement had too many birds and insects for an economic apocalypse Las Vegas.
+Press SOUND ON, then switch between THE DESERT (the new bed) and THE RAINFOREST (the one you heard) for day and
+for night. The desert's day is the wind, one hen far off and one bird in 24 seconds. Its night is the wind, the fire
+barrel and one far cricket instead of a chorus.</div>
+
+<div class="card">
+  <div class="row">
+    <button id="unlock" class="hero">SOUND ON</button>
+    <button id="day" class="on">DAY</button>
+    <button id="night">NIGHT</button>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <button id="desert" class="hero on">THE DESERT (NEW)</button>
+    <button id="rain" class="hero">THE RAINFOREST (10/17)</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div id="heard">&nbsp;</div>
+  <div class="num" id="status">loading the recordings...</div>
+</div>
+
+<div class="card">
+  <h2>THE COUNT</h2>
+  <div class="why">Animal calls a minute, counted from the recordings as they are placed in the bed, and how much of the
+  sound sits up where birds and crickets live (2 to 6 kHz), against the whole.</div>
+  <table id="count"><tr><th>bed</th><th>calls a minute</th><th>2 to 6 kHz</th><th>loudness</th></tr></table>
+  <div class="num">What the Mojave has: Las Vegas's own birds (the great-tailed grackle, the mourning dove, the house finch, the
+pigeon) are heard one at a time across a lot, and a pre-dawn Mojave field recording near Welcome Spring is catalogued with
+no animal sound at all, only wind through the Joshua trees. The rooster is out of the day bed and in the far pool, once in
+a long while.</div>
+</div>
+
+<h3 style="font-size:13px;letter-spacing:2px;margin:22px 0 10px;color:var(--dim)">THE BEDS, ONE BY ONE</h3>
+<div id="beds"></div>
+
+<div class="foot">
+  <div class="skip">NO VOTES HERE. The vote is in the VOTE tab. Write anything below and send it back.</div>
+  <label for="all">NOTES</label>
+  <textarea id="all" placeholder="what you heard, what to change"></textarea>
+  <div class="row" style="margin-top:10px">
+    <button id="copy">COPY NOTES</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">registry id: sounds-a-desert-not-a-rainforest-10-18</div>
+</div>
+
+<script>
+var DIR = 'vote/settlement_heard/';
+var MAN = null, BUF = {}, AC = null, MASTER = null, night = false, which = 'desert';
+function say(t){ document.getElementById('heard').textContent = t; }
+function status(t){ document.getElementById('status').textContent = t; }
+function ac(){
+  if(!AC){ AC = new (window.AudioContext || window.webkitAudioContext)(); MASTER = AC.createGain(); MASTER.gain.value = 1; MASTER.connect(AC.destination); }
+  if(AC.state === 'suspended') AC.resume();
+  return AC;
+}
+function load(id){
+  if(BUF[id]) return Promise.resolve(BUF[id]);
+  return fetch(DIR + id + '.mp3', {cache:'no-store'}).then(function(r){ return r.arrayBuffer(); })
+    .then(function(ab){ return new Promise(function(res, rej){ ac().decodeAudioData(ab, res, rej); }); })
+    .then(function(b){ BUF[id] = b; return b; });
+}
+/* THE BED PLAYER: two copies of a loop-ready file overlapped by one second, equal-power crossfade (the same
+   player the settlement page uses, so what you hear here is what the screen plays). */
+function BedPlayer(){ this.id = null; this.timer = null; this.g = null; }
+BedPlayer.prototype.start = function(id, level){
+  var self = this; this.stop(); this.id = id;
+  load(id).then(function(b){
+    if(self.id !== id) return;
+    self.g = ac().createGain(); self.g.gain.value = level; self.g.connect(MASTER);
+    var XF = 1.0, step = b.duration - XF, t0 = ac().currentTime + 0.05;
+    function one(at){
+      if(self.id !== id) return;
+      var s = ac().createBufferSource(); s.buffer = b; var g = ac().createGain(); s.connect(g); g.connect(self.g);
+      g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(1, at + XF);
+      g.gain.setValueAtTime(1, at + b.duration - XF); g.gain.linearRampToValueAtTime(0, at + b.duration);
+      s.start(at);
+      self.timer = setTimeout(function(){ one(at + step); }, Math.max(100, (at + step - ac().currentTime - 0.5) * 1000));
+    }
+    one(t0);
+    window.__bed = id;
+  });
+};
+BedPlayer.prototype.stop = function(){ this.id = null; if(this.timer) clearTimeout(this.timer); if(this.g){ try{ this.g.gain.linearRampToValueAtTime(0, ac().currentTime + 0.6); }catch(e){} var g = this.g; setTimeout(function(){ try{ g.disconnect(); }catch(_e){} }, 800); this.g = null; } window.__bed = null; };
+var BED = new BedPlayer();
+function idNow(){ return (night ? 'bed_night' : 'bed_day') + (which === 'rain' ? '_rainforest' : ''); }
+function bedNow(){
+  if(!AC) return;
+  var id = idNow(); BED.start(id, 1.0);
+  say((which === 'rain' ? 'THE RAINFOREST, ' : 'THE DESERT, ') + (night ? 'NIGHT' : 'DAY') + ': ' + id.replace(/_/g, ' '));
+}
+function setNight(n){ night = n; document.getElementById('day').classList.toggle('on', !n); document.getElementById('night').classList.toggle('on', n); bedNow(); }
+function setWhich(w){ which = w; document.getElementById('desert').classList.toggle('on', w === 'desert'); document.getElementById('rain').classList.toggle('on', w === 'rain'); bedNow(); }
+document.getElementById('day').onclick = function(){ setNight(false); };
+document.getElementById('night').onclick = function(){ setNight(true); };
+document.getElementById('desert').onclick = function(){ setWhich('desert'); };
+document.getElementById('rain').onclick = function(){ setWhich('rain'); };
+document.getElementById('stop').onclick = function(){ BED.stop(); say(''); };
+document.getElementById('unlock').onclick = function(){ ac(); this.classList.add('on'); this.textContent = 'SOUND IS ON'; bedNow(); };
+
+function card(e, into){
+  var c = document.createElement('div'); c.className = 'card';
+  var h = document.createElement('h2'); h.textContent = e.title; c.appendChild(h);
+  var w = document.createElement('div'); w.className = 'why'; w.textContent = e.what + '.'; c.appendChild(w);
+  var r = document.createElement('div'); r.className = 'row';
+  var p = document.createElement('button'); p.textContent = 'PLAY 10 S';
+  p.onclick = function(){ ac(); BED.stop(); load(e.id).then(function(b){ var s = ac().createBufferSource(); s.buffer = b; s.connect(MASTER); s.start(); setTimeout(function(){ try{ s.stop(); }catch(_e){} }, 10000); say(e.id.replace(/_/g, ' ')); }); };
+  r.appendChild(p); c.appendChild(r);
+  var n = document.createElement('div'); n.className = 'num';
+  n.textContent = e.calls_per_minute + ' animal calls a minute, ' + e.cricket_band_db + ' dB in the 2 to 6 kHz band, loudness ' + e.rms_db + ' dB, ' + e.seconds + ' s loop' + (e.kept ? ' (kept from ' + e.kept + ')' : '');
+  c.appendChild(n);
+  var s = document.createElement('div'); s.className = 'src';
+  s.innerHTML = e.sources.map(function(x){ return 'from <a href="' + x.freesound + '" target="_blank" rel="noopener">' + x.category + '</a> by ' + x.author + ' [' + x.licence + '] at ' + x.db + ' dB' + (x.mode === 'once' ? ', once at ' + x.at + ' s' : ', looping'); }).join('; ');
+  c.appendChild(s);
+  into.appendChild(c);
+}
+fetch(DIR + 'manifest.json', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(m){
+  MAN = m; window.__manifest = m;
+  var order = ['bed_day', 'bed_day_rainforest', 'bed_night', 'bed_night_rainforest'];
+  var by = {}; m.beds.forEach(function(e){ by[e.id] = e; });
+  var t = document.getElementById('count'), into = document.getElementById('beds');
+  order.forEach(function(id){ var e = by[id]; if(!e) return;
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + id.replace(/_/g, ' ') + '</td><td>' + e.calls_per_minute + '</td><td>' + e.cricket_band_db + ' dB</td><td>' + e.rms_db + ' dB</td>';
+    t.appendChild(tr); card(e, into); });
+  status('loaded: ' + order.filter(function(id){ return by[id]; }).length + ' beds');
+}).catch(function(e){ status('the manifest did not load: ' + e); });
+
+/* ---------- NOTES ---------- */
+var KEY='bohemia_a_desert_not_a_rainforest_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){ try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- A DESERT, NOT A RAINFOREST (SOUNDS, 10/18). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-a-desert-not-a-rainforest-10-18\n\n' + (a || '(nothing written yet)'); }
+function flash(msg){ var n=document.getElementById('footnote'), was=n.textContent; n.textContent=msg; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); flash('COPIED. Paste it back to me.'); }catch(e){ flash('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function(){ flash('COPIED. Paste it back to me.'); }, fb); else fb(); };
+document.getElementById('exp').onclick=function(){ var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a'); el.href=u; el.download='BOHEMIA_NOTES_A_DESERT_NOT_A_RAINFOREST.txt';
+  document.body.appendChild(el); el.click(); el.remove(); setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

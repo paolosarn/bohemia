@@ -11,9 +11,11 @@
      - A TAP STOPS IT: a real pointerdown while speaking cancels, and does not
        swallow the tap (no preventDefault, no capture that blocks the screen
        underneath)
-     - THE RECAP SPEAKS THE REAL TEXT: slices/BOHEMIA_FIGHT.html's showOver()
-       calls BohemiaNarrator.speak() with the exact headline drawn on the screen
-       plus the same summary sentence, never the per-man table
+     - THE RECAP DOES NOT SPEAK (flipped 10/18, row [a desert, not a rainforest];
+       his 10/17 DOWN on sounds-the-recap-speaks-10-16: "this voice was so fucking
+       bad"): slices/BOHEMIA_FIGHT.html no longer loads the narrator and its
+       showOver() never calls speak(); the wrapper itself stays for the day a
+       voice that passes exists, so its three behaviour claims still run
    Serves the repo over a real HTTP server because BOHEMIA_FIGHT.html fetches
    its sourced numbers (records/target/bb/*.json) and file:// cannot fetch.
 
@@ -90,13 +92,13 @@ const srv = http.createServer((rq, rs) => {
   const ferrs = [];
   fp.on('pageerror', e => ferrs.push(String(e.message)));
   await fp.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_FIGHT.html');
-  await fp.waitForFunction(() => typeof window.BohemiaNarrator !== 'undefined' && typeof window.showOver === 'function', null, { timeout: 15000 });
+  await fp.waitForFunction(() => typeof window.showOver === 'function', null, { timeout: 15000 });
   const fight = await fp.evaluate(() => {
-    const N = window.BohemiaNarrator;
-    N.setEnabled(true);
+    /* the pull, proved behaviourally: the narrator is not on the page, and even if a
+       stub is planted where it used to be, the recap never asks it to speak */
+    const loaded = typeof window.BohemiaNarrator !== 'undefined';
     const spoken = [];
-    const origSpeak = N.speak;
-    N.speak = function (text, opts) { spoken.push(text); return origSpeak.call(N, text, opts); };
+    window.BohemiaNarrator = { speak: function (t) { spoken.push(t); return true; }, wireTapToStop: function () {}, setEnabled: function () {}, enabled: function () { return true; } };
     let threw = null;
     try {
       FIGHT.S = { round: 6, units: [
@@ -106,16 +108,15 @@ const srv = http.createServer((rq, rs) => {
       ] };
       showOver('won');
     } catch (e) { threw = String(e); }
-    N.speak = origSpeak;
-    N.setEnabled(false);
-    return { spoken, threw, headline: document.getElementById('oh') ? document.getElementById('oh').textContent : null };
+    delete window.BohemiaNarrator;
+    return { loaded, spoken, threw, headline: document.getElementById('oh') ? document.getElementById('oh').textContent : null };
   });
-  ok('THE RECAP SPEAKS THE REAL TEXT drawn on the same screen, not a second copy of it',
-    fight.threw === null && fight.spoken.length === 1
-    && fight.spoken[0].indexOf('The road crew ran') === 0
-    && fight.headline === 'THE ROAD CREW RAN'
-    && fight.spoken[0].indexOf('1 of theirs down, 1 ran') > -1,
+  ok('THE RECAP DOES NOT SPEAK (pulled 10/18 on his 10/17 DOWN): the fight never loads the narrator and showOver() never calls speak()',
+    fight.threw === null && fight.loaded === false && fight.spoken.length === 0 && fight.headline === 'THE ROAD CREW RAN',
     JSON.stringify(fight));
+  const fightSrc = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_FIGHT.html'), 'utf8');
+  ok('and the fight\'s own source carries no narrator script tag and no speak() call',
+    !/<script[^>]*bohemia_narrator\.js/.test(fightSrc) && !/BohemiaNarrator\.speak\(/.test(fightSrc));
   await fp.close();
 
   ok('nothing threw anywhere in this sweep', errs.length === 0 && ferrs.length === 0,

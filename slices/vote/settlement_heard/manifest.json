@@ -18,13 +18,13 @@
    "ir_seconds": 0.499
   },
   "hall": {
-   "rt60_measured_s": 1.695,
+   "rt60_measured_s": 1.711,
    "rt60_asked_s": 1.3,
    "sabine_absorption": 0.208,
    "ir_seconds": 2.819
   },
   "bar": {
-   "rt60_measured_s": 0.871,
+   "rt60_measured_s": 0.869,
    "rt60_asked_s": 0.55,
    "sabine_absorption": 0.27,
    "ir_seconds": 1.174
@@ -595,15 +595,119 @@
  "beds": [
   {
    "id": "bed_day",
-   "title": "THE BED, DAY: WIND, CHICKENS, BIRDS",
-   "what": "a real wind across the lot, real hens behind a fence, real birds, a rooster once, far",
+   "title": "THE BED, DAY: THE DESERT WIND, A HEN ONCE, A BIRD ONCE",
+   "what": "a real wind across the lot is the whole bed; one real hen far off, one real bird, and nothing else for the rest of the loop",
    "room": null,
    "wet": 0.0,
+   "kept": null,
+   "calls_per_minute": 7.5,
+   "above_2k_db": -17.9,
+   "above_4k_db": -30.2,
+   "cricket_band_db": -17.9,
    "sources": [
     {
      "stem": "5-179496-A-16",
      "db": 0.0,
      "mode": "loop",
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/toiletrolltube/sounds/179496/",
+     "author": "toiletrolltube",
+     "licence": "CC0",
+     "category": "Wind"
+    },
+    {
+     "stem": "4-200330-A-6",
+     "db": -20.0,
+     "mode": "once",
+     "at": 5.0,
+     "freesound": "http://www.freesound.org/people/jsbarrett/sounds/200330/",
+     "author": "jsbarrett",
+     "licence": "CC0",
+     "category": "Hen"
+    },
+    {
+     "stem": "4-187769-B-14",
+     "db": -22.0,
+     "mode": "once",
+     "at": 15.5,
+     "freesound": "http://www.freesound.org/people/dwareing/sounds/187769/",
+     "author": "dwareing",
+     "licence": "CC0",
+     "category": "Chirping birds"
+    }
+   ],
+   "seconds": 23.0,
+   "peak_db": -12.0,
+   "rms_db": -24.66,
+   "first_1ms_db": -17.6,
+   "last_1ms_db": -15.9
+  },
+  {
+   "id": "bed_night",
+   "title": "THE BED, NIGHT: THE DESERT WIND, A FIRE BARREL, ONE FAR CRICKET",
+   "what": "a thinner real wind, the fire in the barrel, and the crickets twelve decibels further off than before: one, somewhere, not a chorus",
+   "room": null,
+   "wet": 0.0,
+   "kept": null,
+   "calls_per_minute": 108.0,
+   "above_2k_db": -16.5,
+   "above_4k_db": -26.9,
+   "cricket_band_db": -16.6,
+   "sources": [
+    {
+     "stem": "3-117504-A-16",
+     "db": 0.0,
+     "mode": "loop",
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/klangfabrik/sounds/117504/",
+     "author": "klangfabrik",
+     "licence": "CC0",
+     "category": "Wind"
+    },
+    {
+     "stem": "4-202749-A-13",
+     "db": -18.0,
+     "mode": "loop",
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/rayjensen/sounds/202749/",
+     "author": "rayjensen",
+     "licence": "CC0",
+     "category": "Crickets"
+    },
+    {
+     "stem": "4-181563-A-12",
+     "db": -5.0,
+     "mode": "loop",
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/kingsrow/sounds/181563/",
+     "author": "kingsrow",
+     "licence": "CC0",
+     "category": "Crackling fire"
+    }
+   ],
+   "seconds": 23.0,
+   "peak_db": -12.0,
+   "rms_db": -23.8,
+   "first_1ms_db": -21.0,
+   "last_1ms_db": -14.3
+  },
+  {
+   "id": "bed_day_rainforest",
+   "title": "THE 10/17 DAY BED (WHAT HE CALLED A RAINFOREST)",
+   "what": "the bed he voted up on 10/17 with the note: hens and birds looping the whole time, a rooster every loop",
+   "room": null,
+   "wet": 0.0,
+   "kept": "10/17, for the A/B only",
+   "calls_per_minute": 418.5,
+   "above_2k_db": -15.2,
+   "above_4k_db": -24.4,
+   "cricket_band_db": -15.2,
+   "sources": [
+    {
+     "stem": "5-179496-A-16",
+     "db": 0.0,
+     "mode": "loop",
+     "at": 0.0,
      "freesound": "http://www.freesound.org/people/toiletrolltube/sounds/179496/",
      "author": "toiletrolltube",
      "licence": "CC0",
@@ -613,6 +717,7 @@
      "stem": "4-200330-A-6",
      "db": -9.0,
      "mode": "loop",
+     "at": 0.0,
      "freesound": "http://www.freesound.org/people/jsbarrett/sounds/200330/",
      "author": "jsbarrett",
      "licence": "CC0",
@@ -622,6 +727,7 @@
      "stem": "4-187769-B-14",
      "db": -13.0,
      "mode": "loop",
+     "at": 0.0,
      "freesound": "http://www.freesound.org/people/dwareing/sounds/187769/",
      "author": "dwareing",
      "licence": "CC0",
@@ -631,6 +737,7 @@
      "stem": "4-170078-A-1",
      "db": -16.0,
      "mode": "once",
+     "at": 9.5,
      "freesound": "http://www.freesound.org/people/dudermensch/sounds/170078/",
      "author": "dudermensch",
      "licence": "CC0",
@@ -644,16 +751,22 @@
    "last_1ms_db": -15.7
   },
   {
-   "id": "bed_night",
-   "title": "THE BED, NIGHT: WIND, CRICKETS, A FIRE BARREL",
-   "what": "a thinner real wind, real crickets low, a real fire in a barrel somewhere on the block",
+   "id": "bed_night_rainforest",
+   "title": "THE 10/17 NIGHT BED (THE CRICKET CHORUS)",
+   "what": "the night bed he heard on 10/17: the crickets at minus six, a chorus the whole loop",
    "room": null,
    "wet": 0.0,
+   "kept": "10/17, for the A/B only",
+   "calls_per_minute": 108.0,
+   "above_2k_db": -9.6,
+   "above_4k_db": -26.7,
+   "cricket_band_db": -9.7,
    "sources": [
     {
      "stem": "3-117504-A-16",
      "db": 0.0,
      "mode": "loop",
+     "at": 0.0,
      "freesound": "http://www.freesound.org/people/klangfabrik/sounds/117504/",
      "author": "klangfabrik",
      "licence": "CC0",
@@ -663,6 +776,7 @@
      "stem": "4-202749-A-13",
      "db": -6.0,
      "mode": "loop",
+     "at": 0.0,
      "freesound": "http://www.freesound.org/people/rayjensen/sounds/202749/",
      "author": "rayjensen",
      "licence": "CC0",
@@ -672,6 +786,7 @@
      "stem": "4-181563-A-12",
      "db": -5.0,
      "mode": "loop",
+     "at": 0.0,
      "freesound": "http://www.freesound.org/people/kingsrow/sounds/181563/",
      "author": "kingsrow",
      "licence": "CC0",
@@ -732,7 +847,13 @@
    "peak_db": -14.0,
    "rms_db": -30.56,
    "first_1ms_db": -28.3,
-   "last_1ms_db": -27.6
+   "last_1ms_db": -27.6,
+   "calls_per_minute": 0.0,
+   "above_2k_db": -13.7,
+   "above_4k_db": -27.8,
+   "cricket_band_db": -13.7,
+   "kept": null,
+   "note": "the 10/17 render kept (its room is ray-traced, so a re-render differs by a fraction of a dB); the band numbers are read off that file"
   }
  ],
  "events": [
@@ -863,314 +984,347 @@
    "rms_db": -25.99,
    "first_1ms_db": -94.0,
    "last_1ms_db": -79.6
+  },
+  {
+   "id": "far_rooster",
+   "building": null,
+   "title": "FAR, DAY: A ROOSTER",
+   "what": "a real rooster, streets away, once in a long while (out of the day bed since 10/18)",
+   "kind": "event",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.0,
+     2.5
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "4-170078-A-1",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/dudermensch/sounds/170078/",
+     "author": "dudermensch",
+     "licence": "CC0",
+     "category": "Rooster"
+    }
+   ],
+   "seconds": 2.5,
+   "peak_db": -20.0,
+   "rms_db": -30.14,
+   "first_1ms_db": -97.9,
+   "last_1ms_db": -215.4
   }
  ],
  "sources": {
   "1-103995-A-30": {
-   "category": "Door knock",
-   "source": "Bassdrum_Shell_Ticks.aif",
-   "url": "http://www.freesound.org/people/RutgerMuller/sounds/103995/",
    "author": "RutgerMuller",
-   "licence": "CC0",
+   "category": "Door knock",
    "file": "1-103995-A-30.wav",
-   "freesound_id": "103995"
+   "freesound_id": "103995",
+   "licence": "CC0",
+   "source": "Bassdrum_Shell_Ticks.aif",
+   "url": "http://www.freesound.org/people/RutgerMuller/sounds/103995/"
   },
   "1-103999-A-30": {
-   "category": "Door knock",
-   "source": "Wood_Knocks_2.aif",
-   "url": "http://www.freesound.org/people/RutgerMuller/sounds/103999/",
    "author": "RutgerMuller",
-   "licence": "CC0",
+   "category": "Door knock",
    "file": "1-103999-A-30.wav",
-   "freesound_id": "103999"
+   "freesound_id": "103999",
+   "licence": "CC0",
+   "source": "Wood_Knocks_2.aif",
+   "url": "http://www.freesound.org/people/RutgerMuller/sounds/103999/"
   },
   "1-155858-E-25": {
-   "category": "Footsteps",
-   "source": "Footsteps in Factory Hall on Wood and Concrete.wav",
-   "url": "http://www.freesound.org/people/RutgerMuller/sounds/155858/",
    "author": "RutgerMuller",
-   "licence": "CC0",
+   "category": "Footsteps",
    "file": "1-155858-E-25.wav",
-   "freesound_id": "155858"
+   "freesound_id": "155858",
+   "licence": "CC0",
+   "source": "Footsteps in Factory Hall on Wood and Concrete.wav",
+   "url": "http://www.freesound.org/people/RutgerMuller/sounds/155858/"
   },
   "1-36164-A-26": {
-   "category": "Laughing",
-   "source": "laughs2.wav",
-   "url": "http://www.freesound.org/people/sagetyrtle/sounds/36164/",
    "author": "sagetyrtle",
-   "licence": "CC0",
+   "category": "Laughing",
    "file": "1-36164-A-26.wav",
-   "freesound_id": "36164"
+   "freesound_id": "36164",
+   "licence": "CC0",
+   "source": "laughs2.wav",
+   "url": "http://www.freesound.org/people/sagetyrtle/sounds/36164/"
   },
   "1-37226-A-29": {
-   "category": "Drinking - sipping",
-   "source": "drinking.wav",
-   "url": "http://www.freesound.org/people/sagetyrtle/sounds/37226/",
    "author": "sagetyrtle",
-   "licence": "CC0",
+   "category": "Drinking - sipping",
    "file": "1-37226-A-29.wav",
-   "freesound_id": "37226"
+   "freesound_id": "37226",
+   "licence": "CC0",
+   "source": "drinking.wav",
+   "url": "http://www.freesound.org/people/sagetyrtle/sounds/37226/"
   },
   "1-54084-A-42": {
-   "category": "Siren",
-   "source": "civildefense.wav",
-   "url": "http://www.freesound.org/people/guitarguy1985/sounds/54084/",
    "author": "guitarguy1985",
-   "licence": "CC0",
+   "category": "Siren",
    "file": "1-54084-A-42.wav",
-   "freesound_id": "54084"
+   "freesound_id": "54084",
+   "licence": "CC0",
+   "source": "civildefense.wav",
+   "url": "http://www.freesound.org/people/guitarguy1985/sounds/54084/"
   },
   "1-9886-A-49": {
-   "category": "Hand saw",
-   "source": "WoodSaw1.wav",
-   "url": "http://www.freesound.org/people/Pingel/sounds/9886/",
    "author": "Pingel",
-   "licence": "CC0",
+   "category": "Hand saw",
    "file": "1-9886-A-49.wav",
-   "freesound_id": "9886"
+   "freesound_id": "9886",
+   "licence": "CC0",
+   "source": "WoodSaw1.wav",
+   "url": "http://www.freesound.org/people/Pingel/sounds/9886/"
   },
   "2-118624-A-30": {
-   "category": "Door knock",
-   "source": "Door Open and Close - Close Mic.wav",
-   "url": "http://www.freesound.org/people/E-Audio/sounds/118624/",
    "author": "E-Audio",
-   "licence": "CC0",
+   "category": "Door knock",
    "file": "2-118624-A-30.wav",
-   "freesound_id": "118624"
+   "freesound_id": "118624",
+   "licence": "CC0",
+   "source": "Door Open and Close - Close Mic.wav",
+   "url": "http://www.freesound.org/people/E-Audio/sounds/118624/"
   },
   "2-141563-A-39": {
-   "category": "Glass breaking",
-   "source": "Glass Break",
-   "url": "http://www.freesound.org/people/avrahamy/sounds/141563/",
    "author": "avrahamy",
-   "licence": "CC0",
+   "category": "Glass breaking",
    "file": "2-141563-A-39.wav",
-   "freesound_id": "141563"
+   "freesound_id": "141563",
+   "licence": "CC0",
+   "source": "Glass Break",
+   "url": "http://www.freesound.org/people/avrahamy/sounds/141563/"
   },
   "2-144031-A-34": {
-   "category": "Can opening",
-   "source": "Soda Can Open.aif",
-   "url": "http://www.freesound.org/people/timgormly/sounds/144031/",
    "author": "timgormly",
-   "licence": "CC0",
+   "category": "Can opening",
    "file": "2-144031-A-34.wav",
-   "freesound_id": "144031"
+   "freesound_id": "144031",
+   "licence": "CC0",
+   "source": "Soda Can Open.aif",
+   "url": "http://www.freesound.org/people/timgormly/sounds/144031/"
   },
   "2-152895-A-31": {
-   "category": "Mouse click",
-   "source": "Sound of a mouse being clicked ",
-   "url": "http://www.freesound.org/people/davidkyoku/sounds/152895/",
    "author": "davidkyoku",
-   "licence": "CC0",
+   "category": "Mouse click",
    "file": "2-152895-A-31.wav",
-   "freesound_id": "152895"
+   "freesound_id": "152895",
+   "licence": "CC0",
+   "source": "Sound of a mouse being clicked ",
+   "url": "http://www.freesound.org/people/davidkyoku/sounds/152895/"
   },
   "3-117504-A-16": {
-   "category": "Wind",
-   "source": "winter wind 01a.aiff",
-   "url": "http://www.freesound.org/people/klangfabrik/sounds/117504/",
    "author": "klangfabrik",
-   "licence": "CC0",
+   "category": "Wind",
    "file": "3-117504-A-16.wav",
-   "freesound_id": "117504"
+   "freesound_id": "117504",
+   "licence": "CC0",
+   "source": "winter wind 01a.aiff",
+   "url": "http://www.freesound.org/people/klangfabrik/sounds/117504/"
   },
   "3-119459-A-26": {
-   "category": "Laughing",
-   "source": "Male Laughter.wav",
-   "url": "http://www.freesound.org/people/Eneasz/sounds/119459/",
    "author": "Eneasz",
-   "licence": "CC0",
+   "category": "Laughing",
    "file": "3-119459-A-26.wav",
-   "freesound_id": "119459"
+   "freesound_id": "119459",
+   "licence": "CC0",
+   "source": "Male Laughter.wav",
+   "url": "http://www.freesound.org/people/Eneasz/sounds/119459/"
   },
   "3-154926-A-40": {
-   "category": "Helicopter",
-   "source": "London Exterior  helicopter passes overhead.mp3",
-   "url": "http://www.freesound.org/people/kerouac21/sounds/154926/",
    "author": "kerouac21",
-   "licence": "CC0",
+   "category": "Helicopter",
    "file": "3-154926-A-40.wav",
-   "freesound_id": "154926"
+   "freesound_id": "154926",
+   "licence": "CC0",
+   "source": "London Exterior  helicopter passes overhead.mp3",
+   "url": "http://www.freesound.org/people/kerouac21/sounds/154926/"
   },
   "3-96606-A-49": {
-   "category": "Hand saw",
-   "source": "Wood saw.wav",
-   "url": "http://www.freesound.org/people/Ohrwurm/sounds/96606/",
    "author": "Ohrwurm",
-   "licence": "CC0",
+   "category": "Hand saw",
    "file": "3-96606-A-49.wav",
-   "freesound_id": "96606"
+   "freesound_id": "96606",
+   "licence": "CC0",
+   "source": "Wood saw.wav",
+   "url": "http://www.freesound.org/people/Ohrwurm/sounds/96606/"
   },
   "4-107120-A-33": {
-   "category": "Door - wood creaks",
-   "source": "CrDr_005.wav",
-   "url": "http://www.freesound.org/people/tec%20studios/sounds/107120/",
    "author": "tec studios",
-   "licence": "CC0",
+   "category": "Door - wood creaks",
    "file": "4-107120-A-33.wav",
-   "freesound_id": "107120"
+   "freesound_id": "107120",
+   "licence": "CC0",
+   "source": "CrDr_005.wav",
+   "url": "http://www.freesound.org/people/tec%20studios/sounds/107120/"
   },
   "4-170078-A-1": {
-   "category": "Rooster",
-   "source": "Rooster at Max's.mp3",
-   "url": "http://www.freesound.org/people/dudermensch/sounds/170078/",
    "author": "dudermensch",
-   "licence": "CC0",
+   "category": "Rooster",
    "file": "4-170078-A-1.wav",
-   "freesound_id": "170078"
+   "freesound_id": "170078",
+   "licence": "CC0",
+   "source": "Rooster at Max's.mp3",
+   "url": "http://www.freesound.org/people/dudermensch/sounds/170078/"
   },
   "4-173865-B-9": {
-   "category": "Crow",
-   "source": "ANML_M_Ext_Crows_Flock_Angry2.wav",
-   "url": "http://www.freesound.org/people/conleec/sounds/173865/",
    "author": "conleec",
-   "licence": "CC0",
+   "category": "Crow",
    "file": "4-173865-B-9.wav",
-   "freesound_id": "173865"
+   "freesound_id": "173865",
+   "licence": "CC0",
+   "source": "ANML_M_Ext_Crows_Flock_Angry2.wav",
+   "url": "http://www.freesound.org/people/conleec/sounds/173865/"
   },
   "4-181563-A-12": {
-   "category": "Crackling fire",
-   "source": "Fire Crackling 01.wav",
-   "url": "http://www.freesound.org/people/kingsrow/sounds/181563/",
    "author": "kingsrow",
-   "licence": "CC0",
+   "category": "Crackling fire",
    "file": "4-181563-A-12.wav",
-   "freesound_id": "181563"
+   "freesound_id": "181563",
+   "licence": "CC0",
+   "source": "Fire Crackling 01.wav",
+   "url": "http://www.freesound.org/people/kingsrow/sounds/181563/"
   },
   "4-187769-B-14": {
-   "category": "Chirping birds",
-   "source": "binaural-birds-06-05-2013.flac",
-   "url": "http://www.freesound.org/people/dwareing/sounds/187769/",
    "author": "dwareing",
-   "licence": "CC0",
+   "category": "Chirping birds",
    "file": "4-187769-B-14.wav",
-   "freesound_id": "187769"
+   "freesound_id": "187769",
+   "licence": "CC0",
+   "source": "binaural-birds-06-05-2013.flac",
+   "url": "http://www.freesound.org/people/dwareing/sounds/187769/"
   },
   "4-188191-C-29": {
-   "category": "Drinking - sipping",
-   "source": "Fast food soda with ice, sip slurp straw.wav",
-   "url": "http://www.freesound.org/people/MentalSanityOff/sounds/188191/",
    "author": "MentalSanityOff",
-   "licence": "CC0",
+   "category": "Drinking - sipping",
    "file": "4-188191-C-29.wav",
-   "freesound_id": "188191"
+   "freesound_id": "188191",
+   "licence": "CC0",
+   "source": "Fast food soda with ice, sip slurp straw.wav",
+   "url": "http://www.freesound.org/people/MentalSanityOff/sounds/188191/"
   },
   "4-188287-A-9": {
-   "category": "Crow",
-   "source": "crow 1",
-   "url": "http://www.freesound.org/people/pepv/sounds/188287/",
    "author": "pepv",
-   "licence": "CC0",
+   "category": "Crow",
    "file": "4-188287-A-9.wav",
-   "freesound_id": "188287"
+   "freesound_id": "188287",
+   "licence": "CC0",
+   "source": "crow 1",
+   "url": "http://www.freesound.org/people/pepv/sounds/188287/"
   },
   "4-200330-A-6": {
-   "category": "Hen",
-   "source": "chicken_chatter.aif",
-   "url": "http://www.freesound.org/people/jsbarrett/sounds/200330/",
    "author": "jsbarrett",
-   "licence": "CC0",
+   "category": "Hen",
    "file": "4-200330-A-6.wav",
-   "freesound_id": "200330"
+   "freesound_id": "200330",
+   "licence": "CC0",
+   "source": "chicken_chatter.aif",
+   "url": "http://www.freesound.org/people/jsbarrett/sounds/200330/"
   },
   "4-202749-A-13": {
-   "category": "Crickets",
-   "source": "Soft, Chilled Crickets Field Recording",
-   "url": "http://www.freesound.org/people/rayjensen/sounds/202749/",
    "author": "rayjensen",
-   "licence": "CC0",
+   "category": "Crickets",
    "file": "4-202749-A-13.wav",
-   "freesound_id": "202749"
+   "freesound_id": "202749",
+   "licence": "CC0",
+   "source": "Soft, Chilled Crickets Field Recording",
+   "url": "http://www.freesound.org/people/rayjensen/sounds/202749/"
   },
   "4-218304-B-25": {
-   "category": "Footsteps",
-   "source": "01-21 Footsteps, sneakers on gravel and leaves.wav",
-   "url": "http://www.freesound.org/people/MentalSanityOff/sounds/218304/",
    "author": "MentalSanityOff",
-   "licence": "CC0",
+   "category": "Footsteps",
    "file": "4-218304-B-25.wav",
-   "freesound_id": "218304"
+   "freesound_id": "218304",
+   "licence": "CC0",
+   "source": "01-21 Footsteps, sneakers on gravel and leaves.wav",
+   "url": "http://www.freesound.org/people/MentalSanityOff/sounds/218304/"
   },
   "5-179496-A-16": {
-   "category": "Wind",
-   "source": "111224_04 wind.WAV",
-   "url": "http://www.freesound.org/people/toiletrolltube/sounds/179496/",
    "author": "toiletrolltube",
-   "licence": "CC0",
+   "category": "Wind",
    "file": "5-179496-A-16.wav",
-   "freesound_id": "179496"
+   "freesound_id": "179496",
+   "licence": "CC0",
+   "source": "111224_04 wind.WAV",
+   "url": "http://www.freesound.org/people/toiletrolltube/sounds/179496/"
   },
   "5-179860-A-43": {
-   "category": "Car horn",
-   "source": "car horn 1 - 9.4.11.wav",
-   "url": "http://www.freesound.org/people/toiletrolltube/sounds/179860/",
    "author": "toiletrolltube",
-   "licence": "CC0",
+   "category": "Car horn",
    "file": "5-179860-A-43.wav",
-   "freesound_id": "179860"
+   "freesound_id": "179860",
+   "licence": "CC0",
+   "source": "car horn 1 - 9.4.11.wav",
+   "url": "http://www.freesound.org/people/toiletrolltube/sounds/179860/"
   },
   "5-219044-A-46": {
-   "category": "Church bells",
-   "source": "Church Clock Strikes 12.wav",
-   "url": "http://www.freesound.org/people/JarredGibb/sounds/219044/",
    "author": "JarredGibb",
-   "licence": "CC0",
+   "category": "Church bells",
    "file": "5-219044-A-46.wav",
-   "freesound_id": "219044"
+   "freesound_id": "219044",
+   "licence": "CC0",
+   "source": "Church Clock Strikes 12.wav",
+   "url": "http://www.freesound.org/people/JarredGibb/sounds/219044/"
   },
   "5-231551-A-36": {
-   "category": "Vacuum cleaner",
-   "source": "Vacuum cleaner",
-   "url": "http://www.freesound.org/people/MrAuralization/sounds/231551/",
    "author": "MrAuralization",
-   "licence": "CC0",
+   "category": "Vacuum cleaner",
    "file": "5-231551-A-36.wav",
-   "freesound_id": "231551"
+   "freesound_id": "231551",
+   "licence": "CC0",
+   "source": "Vacuum cleaner",
+   "url": "http://www.freesound.org/people/MrAuralization/sounds/231551/"
   },
   "5-235644-A-30": {
-   "category": "Door knock",
-   "source": "Door Knock.mp3",
-   "url": "http://www.freesound.org/people/Coonick/sounds/235644/",
    "author": "Coonick",
-   "licence": "CC0",
+   "category": "Door knock",
    "file": "5-235644-A-30.wav",
-   "freesound_id": "235644"
+   "freesound_id": "235644",
+   "licence": "CC0",
+   "source": "Door Knock.mp3",
+   "url": "http://www.freesound.org/people/Coonick/sounds/235644/"
   },
   "5-238492-A-23": {
-   "category": "Breathing",
-   "source": "3_Breath sport.wav",
-   "url": "http://www.freesound.org/people/mariiao2/sounds/238492/",
    "author": "mariiao2",
-   "licence": "CC0",
+   "category": "Breathing",
    "file": "5-238492-A-23.wav",
-   "freesound_id": "238492"
+   "freesound_id": "238492",
+   "licence": "CC0",
+   "source": "3_Breath sport.wav",
+   "url": "http://www.freesound.org/people/mariiao2/sounds/238492/"
   },
   "5-252248-A-34": {
-   "category": "Can opening",
-   "source": "can opening.wav",
-   "url": "http://www.freesound.org/people/Reitanna/sounds/252248/",
    "author": "Reitanna",
-   "licence": "CC0",
+   "category": "Can opening",
    "file": "5-252248-A-34.wav",
-   "freesound_id": "252248"
+   "freesound_id": "252248",
+   "licence": "CC0",
+   "source": "can opening.wav",
+   "url": "http://www.freesound.org/people/Reitanna/sounds/252248/"
   },
   "5-263775-A-26": {
-   "category": "Laughing",
-   "source": "Laughing Man",
-   "url": "http://www.freesound.org/people/scottemoil/sounds/263775/",
    "author": "scottemoil",
-   "licence": "CC0",
+   "category": "Laughing",
    "file": "5-263775-A-26.wav",
-   "freesound_id": "263775"
+   "freesound_id": "263775",
+   "licence": "CC0",
+   "source": "Laughing Man",
+   "url": "http://www.freesound.org/people/scottemoil/sounds/263775/"
   },
   "5-263775-B-26": {
-   "category": "Laughing",
-   "source": "Laughing Man",
-   "url": "http://www.freesound.org/people/scottemoil/sounds/263775/",
    "author": "scottemoil",
-   "licence": "CC0",
+   "category": "Laughing",
    "file": "5-263775-B-26.wav",
-   "freesound_id": "263775"
+   "freesound_id": "263775",
+   "licence": "CC0",
+   "source": "Laughing Man",
+   "url": "http://www.freesound.org/people/scottemoil/sounds/263775/"
   }
- }
+ },
+ "_readme_10_18": "A DESERT, NOT A RAINFOREST (10/18): bed_day and bed_night are the thinned beds (his 10/17 note); bed_*_rainforest are the 10/17 beds kept for the A/B; calls_per_minute is animal calls by construction."
 }
