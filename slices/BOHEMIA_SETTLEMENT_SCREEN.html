@@ -146,6 +146,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_place.js"></script>
 <script src="../engine/bohemia_scavenge.js"></script>
 <script src="../engine/bohemia_goodbros.js"></script>
+<script src="../engine/bohemia_names.js"></script>  <!-- PEOPLE [the names wired in]: every recruit and keeper named from the county's mix, the name reads as the face -->
 <script src="../engine/bohemia_arrivaltraits.js"></script>
 <script src="../engine/bohemia_relations.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
@@ -451,19 +452,23 @@ function shopSheet(k, body, acts, line){
 }
 
 /* WHO STANDS IN EACH BUILDING. draft:true: names and lines are attempts (rule 8/11);
-   they speak Spanglish, the player does not (the first votes). */
+   they speak Spanglish, the player does not (the first votes).
+   PEOPLE [the names wired in] 10/18: the keeper is a person of THIS place. Before, the same nine names stood in all
+   26 places (LUPE at every hall, IRMA the armourer on whatever face the place drew); now each place's keeper is
+   named by keeperName(k) from the county's mix, keyed by the place and the building, the name reading as his face.
+   `role` is what he is here; the name goes in front of it. */
 var KEEPERS = {
-  hall:   {who:'settle-hall',   name:'LUPE, AT THE HALL',  draft:true},
-  board:  {who:'settle-board',  name:'THE ELDER',          draft:true},
-  stall:  {who:'settle-stall',  name:'NENA, AT THE STALL', draft:true},
-  barber: {who:'settle-barber', name:'CHUY, THE BARBER',   draft:true},
-  bar:    {who:'settle-bar',    name:'MANNY, BEHIND THE BAR', draft:true},
-  clinic: {who:'settle-clinic', name:'DOC ROSALES',        draft:true},
-  train:  {who:'settle-yard',   name:'SARGE, AT THE YARD', draft:true},
-  arms:   {who:'settle-arms',   name:'TOÑO, GUNS AND PLATE', draft:true},
-  smith:  {who:'settle-smith',  name:'RUBÉN, THE SMITH',   draft:true},
-  armourer:{who:'settle-armour',name:'IRMA, THE ARMOURER', draft:true},
-  lot:    {who:'you',           name:'YOU',                draft:true}
+  hall:   {who:'settle-hall',   role:'AT THE HALL',     draft:true},
+  board:  {who:'settle-board',  role:'THE ELDER',       draft:true},
+  stall:  {who:'settle-stall',  role:'AT THE STALL',    draft:true},
+  barber: {who:'settle-barber', role:'THE BARBER',      draft:true},
+  bar:    {who:'settle-bar',    role:'BEHIND THE BAR',  draft:true},
+  clinic: {who:'settle-clinic', role:'THE DOC',         draft:true},
+  train:  {who:'settle-yard',   role:'AT THE YARD',     draft:true},
+  arms:   {who:'settle-arms',   role:'GUNS AND PLATE',  draft:true},
+  smith:  {who:'settle-smith',  role:'THE SMITH',       draft:true},
+  armourer:{who:'settle-armour',role:'THE ARMOURER',    draft:true},
+  lot:    {who:'you',           name:'YOU',             draft:true}
 };
 
 /* CONTRACTS. Rule 51: one main quest and TWO contracts at a time; the phone only shows
@@ -992,7 +997,14 @@ function sub(k){
    market day, none in a raided or sick place. Names are draft:true attempts. Paying puts him on the
    roster with his stats as rolled and his gear in the bag. */
 var POST_COUNT = {camp:2, town:4, fortress:6};
-var HIRE_NAMES = ['Chuy','Lalo','Neto','Beto','Tavo','Memo','Pancho','Rudy','Lupe','Yesenia','Marisol','Dani','Kiki','Ofelia','Rocco','Nacho']; /* draft:true */
+/* THE NAME AT THE POST (PEOPLE [the names wired in], 10/18): sixteen one-word names stood here, 12 of 16 read
+   Hispanic in a county that is a third Hispanic, Pancho and Nacho among them. A recruit is now named by the one roll
+   the keepers and the city's strangers use (engine/bohemia_names.js: the census first, then the name by who he is),
+   two words, keyed by his slot at this post, and the name reads as the face he wears. draft:true */
+function hireName(key, i, look){
+  if(!window.BohemiaNames) return 'A STRANGER';
+  return BohemiaNames.roll('post:' + key + ':' + i, {sex: BohemiaNames.faceReads(look)}).full;
+}
 var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['butcher_s_cleaver','leather_wraps'], brawler:[null,'sackcloth'],
            thief:['knife','leather_tunic'], militia:['militia_spear','padded_surcoat']};
 function recruitsHere(){
@@ -1004,7 +1016,7 @@ function recruitsHere(){
     S.postKey = pk; S.taken = {};
     var six = BohemiaGoodBros.sixAtThePost(key), more = n > 6 ? BohemiaGoodBros.sixAtThePost(key + ':more') : [];
     S.recruits = six.concat(more).slice(0, n).map(function(r, i){
-      r.id = 'rc' + i; r.name = HIRE_NAMES[seedOf(key + ':name:' + i) % HIRE_NAMES.length]; r.look = 'cast_' + ['longcoat','barearms','pack','skirt','widebrim','cape','apron','poncho','bedroll','shorts','satchel','shortcoat'][seedOf(key + ':look:' + i) % 12];
+      r.id = 'rc' + i; r.look = 'cast_' + ['longcoat','barearms','pack','skirt','widebrim','cape','apron','poncho','bedroll','shorts','satchel','shortcoat'][seedOf(key + ':look:' + i) % 12]; r.name = hireName(key, i, r.look);
       return r; });
   }
   return (S.recruits||[]).filter(function(r){ return !S.taken[r.id]; });
@@ -1073,6 +1085,15 @@ function flatFace(x, look){
   im.src = 'fight_people/' + look + '.webp';
 }
 function lookOf(k){ var L = folkList(), p = L.filter(function(q){ return q.keeper && q.k === k; })[0]; return p ? p.look : null; }
+/* PEOPLE [the names wired in]: this place's keeper, one person: the face the place drew for him and a name from the
+   county's mix that reads as that face, the same every visit */
+function keeperName(k){
+  var kp = KEEPERS[k]; if(!kp) return '';
+  if(kp.name) return kp.name;
+  if(!window.BohemiaNames) return kp.role;
+  var look = lookOf(k);
+  return (BohemiaNames.roll('keeper:' + S.place.name + ':' + k, {sex: look ? BohemiaNames.faceReads(look) : null}).full + ', ' + kp.role).toUpperCase();
+}
 function face(k, who, look){
   var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
   var kp = KEEPERS[k] || {who:who}, f = S.faces[kp.who];
@@ -1096,7 +1117,7 @@ function speak(k, line){
   var w = document.createElement('div'); w.className = 'who';
   w.appendChild(mouth(face(k), line));
   var s = document.createElement('div'); s.className = 'say';
-  var n = document.createElement('div'); n.className = 'nm'; n.textContent = KEEPERS[k].name; s.appendChild(n);
+  var n = document.createElement('div'); n.className = 'nm'; n.textContent = keeperName(k); s.appendChild(n);
   var p = document.createElement('p'); p.textContent = line; s.appendChild(p);
   w.appendChild(s); return w;
 }

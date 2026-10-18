@@ -13,14 +13,18 @@
  *      two points of the census the bank cites (33.4 / 35.6 / 14.4 / 12.5)
  *   B  NOTHING OF HIS IS DELETED: every given name and surname in the live
  *      engine pool is in exactly one of the bank's pools; no pool is empty
- *   C  THE MEASURED GAP IS STILL TRUE (goes red the day somebody wires the
- *      bank; then rewrite the page): the live engine draws given and surname
- *      independently, so more people's names read Hispanic than the county
- *      is Hispanic; the post's hire names read Hispanic 12 of 16
+ *   C  THE MEASURED GAP, AS HISTORY (rewritten 10/18 when PEOPLE [the names
+ *      wired in] wired the bank, as this line said to): the 9/22 draw, re-run
+ *      on his names, drew given and surname independently, so more people's
+ *      names read Hispanic than the county is Hispanic; the post's old hire
+ *      names (frozen in this bank) read Hispanic 12 of 16; the engine keeps
+ *      that draw only behind the roll, and the post's list is gone
  *   D  THE BANK FIXES IT: under the bank's rule the share of names that read
  *      Hispanic is within five points of the census, the white-heritage share
  *      within two, and the most common full name is under one percent
- *   E  the hold holds: nothing in engine/ or slices/ reads the bank
+ *   E  nothing in engine/ or slices/ LOADS the bank at run time (the roller,
+ *      engine/bohemia_names.js, cites it and carries its pools, held to it name
+ *      for name by gates/the_names_wired_in_gate.js)
  *   F  the page exists, names the bank, carries the finding, the twenty
  *      sample names the gate prints, a ROUTED section, the [bb and [ah lines
  *
@@ -99,15 +103,16 @@ for (var i = 0; i < N; i++) {
   if (hisG[g] || hisS[s]) liveHis++;
 }
 var liveShare = liveHis / N;
-ok('the live draw makes more names read Hispanic than the county is', liveShare > CENSUS.hispanic + 0.10, pct(liveShare) + ' of names vs ' + pct(CENSUS.hispanic) + ' of people');
-ok('the live draw still pairs given and surname independently',
-  /GIVEN\[a % GIVEN\.length\] \+ ' ' \+ SURNAME\[b % SURNAME\.length\]/.test(engine));
+ok('the 9/22 draw made more names read Hispanic than the county is', liveShare > CENSUS.hispanic + 0.10, pct(liveShare) + ' of names vs ' + pct(CENSUS.hispanic) + ' of people');
+ok('the engine keeps the 9/22 draw only behind the roll',
+  /GIVEN\[a % GIVEN\.length\] \+ ' ' \+ SURNAME\[b % SURNAME\.length\]/.test(engine) &&
+  /if \(N\) return N\.roll\(key, \{ sex: sex \}\)\.full;/.test(engine));
 var post = fs.readFileSync('slices/BOHEMIA_SETTLEMENT_SCREEN.html', 'utf8');
-var pm = post.match(/var HIRE_NAMES = \[([^\]]*)\]/);
-var hire = pm ? (pm[1].match(/'([^']+)'/g) || []).map(function (s) { return s.slice(1, -1); }) : [];
+var hire = bank.the_post_names.list;
 var hireHis = hire.filter(function (n) { return bank.the_post_names.reads_hispanic.indexOf(n) >= 0; });
-ok('the post\'s hire names are the list the bank measured', hire.join() === bank.the_post_names.list.join(), hire.length + ' names');
-ok('12 of 16 hire names read Hispanic', hireHis.length === 12, hireHis.length + ' of ' + hire.length + ' (' + pct(hireHis.length / Math.max(1, hire.length)) + ')');
+ok('the post\'s old hire names (frozen here) read Hispanic 12 of 16', hire.length === 16 && hireHis.length === 12,
+  hireHis.length + ' of ' + hire.length + ' (' + pct(hireHis.length / Math.max(1, hire.length)) + ')');
+ok('the post\'s fixed list is gone from the screen', !/var HIRE_NAMES\b/.test(post));
 
 head('D  the bank fixes it');
 function pick(pools, rule, her, u1, u2, all) {
@@ -142,13 +147,15 @@ for (i = 0; i < 20; i++) SAMPLES.push(bankName('sample:' + i).name);
 console.log('  twenty: ' + SAMPLES.join(', '));
 console.log('  MEASURED: live ' + pct(liveShare) + ' read Hispanic; bank ' + pct(bankShare) + '; census ' + pct(CENSUS.hispanic));
 
-head('E  the hold holds');
+head('E  nothing loads the bank at run time');
 function anyReads(dir) {
+  var LOAD = /(fetch|require|readFileSync|src=)\s*\(?\s*['"][^'"]*BOHEMIA_THE_NAMES_MIX/;
   return fs.readdirSync(dir).filter(function (f) { return /\.(js|html)$/.test(f); })
-    .filter(function (f) { return fs.readFileSync(path.join(dir, f), 'utf8').indexOf('BOHEMIA_THE_NAMES_MIX') >= 0; });
+    .filter(function (f) { return LOAD.test(fs.readFileSync(path.join(dir, f), 'utf8')); });
 }
 var readers = anyReads('engine').concat(anyReads('slices'));
-ok('nothing in engine/ or slices/ reads the bank', readers.length === 0, readers.join(','));
+ok('nothing in engine/ or slices/ loads the bank', readers.length === 0, readers.join(','));
+ok('the roller cites the bank as its source', fs.readFileSync('engine/bohemia_names.js', 'utf8').indexOf(path.basename(BANK)) >= 0);
 
 head('F  the page');
 var pageText = fs.existsSync(PAGE) ? fs.readFileSync(PAGE, 'utf8') : '';

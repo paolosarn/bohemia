@@ -28,7 +28,9 @@
  *   G  THE MEASURED POST (live, goes red the day RUN TWO wires the fix): most men at a post wear a
  *      crewmate's face; every face meets exactly four names; the three faces that read as women never
  *      meet a woman's name
- *   H  the hold holds: nothing in engine/ or slices/ reads the bank
+ *   H  nothing in engine/ or slices/ LOADS the bank at run time (the roller,
+ *      engine/bohemia_names.js, carries its ten names and its readings and is
+ *      held to it by gates/the_names_wired_in_gate.js)
  *   I  the page: exists, names the bank, the finding that proves us wrong, the fifteen names, the
  *      measured numbers, a ROUTED section, the [bb faces] and [ah] lines; the sheet and the talking
  *      faces exist
@@ -186,16 +188,18 @@ ok('the measured gap: the game\'s mouth rule today takes at least 1.8 times as l
 var alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
 ok('the game\'s mouth still plays a shape for 250 ms (rewrite the page the day it moves)', /var VISEME_MS\s*=\s*FACE_BEAT_MS \/ 2;/.test(alpha));
 
-head('G  the measured post (live)');
+head('G  the measured post (the faces live; the names as they were, the old list frozen in the names mix bank)');
+/* rewritten 10/18 when PEOPLE [the names wired in] wired the names: the faces at the post are still rolled the
+   same way (live, read from the screen); the old sixteen names are the names mix bank's frozen list, so the
+   finding is kept as history; leg G2 below is the post today */
 var post = fs.readFileSync('slices/BOHEMIA_SETTLEMENT_SCREEN.html', 'utf8');
 var sm = post.match(/function seedOf\(str\)\{([^\n]*?)\}\n/);
-var hm = post.match(/var HIRE_NAMES = \[([^\]]*)\]/);
 var lm = post.match(/r\.look = 'cast_' \+ \[([^\]]*)\]\[seedOf\(key \+ ':look:' \+ i\) % 12\]/);
-var nm = /r\.name = HIRE_NAMES\[seedOf\(key \+ ':name:' \+ i\) % HIRE_NAMES\.length\]/.test(post);
-ok('the post still rolls the name and the face with two hashes', !!(sm && hm && lm && nm));
-if (sm && hm && lm && nm) {
+var nm = /r\.name = hireName\(key, i, r\.look\)/.test(post);
+ok('the post rolls the face as it did, and names the man after his face', !!(sm && lm && nm));
+if (sm && lm && nm) {
   var seedOf = new Function('str', sm[1]);
-  var HN = hm[1].match(/'([^']+)'/g).map(function (s) { return s.slice(1, -1); });
+  var HN = names.the_post_names.list;
   var PL = lm[1].match(/'([^']+)'/g).map(function (s) { return 'cast_' + s.slice(1, -1); });
   var PC = new Function('return ' + post.match(/var POST_COUNT = (\{[^}]*\})/)[1])();
   var crewFaces = {}; ours.crew.value.forEach(function (def, i) { if (!def.main) crewFaces[CAST[i % CAST.length]] = 1; });
@@ -215,13 +219,28 @@ if (sm && hm && lm && nm) {
     womenFaces.map(function (k) { return k + ':' + Object.keys(carries[k] || {}).sort().join('/'); }).join('  '));
 }
 
-head('H  the hold holds');
+head('G2  the post today (PEOPLE [the names wired in])');
+if (sm && lm && nm) {
+  var NR = require(path.join(ROOT, 'engine/bohemia_names.js')), now = {};
+  where.places.forEach(function (pl) { for (var w2 = 0; w2 < 13; w2++) { for (var i2 = 0; i2 < (PC[pl.tier] || 4); i2++) {
+    var key2 = pl.name + ':' + w2, l2 = PL[seedOf(key2 + ':look:' + i2) % 12];
+    (now[l2] = now[l2] || {})[NR.roll('post:' + key2 + ':' + i2, { sex: NR.faceReads(l2) }).full] = 1; } } });
+  var many = Object.keys(now).map(function (k) { return Object.keys(now[k]).length; });
+  ok('every face at the post now meets many names, not four', many.length === 12 && many.every(function (c) { return c >= 30; }), many.join(','));
+  var wf = Object.keys(now).filter(function (k) { return F[k] && F[k].reads_as.sex === 'f'; });
+  ok('the three faces that read as women meet only names a woman carries', wf.length === 3 && wf.every(function (k) {
+    return Object.keys(now[k]).every(function (n) { var sx = bank.given_sex[n.split(' ')[0]]; return sx === 'f' || sx === 'x'; }); }),
+    wf.map(function (k) { return k + ' ' + Object.keys(now[k]).length; }).join(', '));
+}
+
+head('H  nothing loads the bank at run time');
 function readers(dir) {
+  var LOAD = /(fetch|require|readFileSync|src=)\s*\(?\s*['"][^'"]*BOHEMIA_WHO_THE_FACE_IS/;
   return fs.readdirSync(dir).filter(function (f) { return /\.(js|html)$/.test(f); })
-    .filter(function (f) { return fs.readFileSync(path.join(dir, f), 'utf8').indexOf('BOHEMIA_WHO_THE_FACE_IS') >= 0; });
+    .filter(function (f) { return LOAD.test(fs.readFileSync(path.join(dir, f), 'utf8')); });
 }
 var rd = readers('engine').concat(readers('slices'));
-ok('nothing in engine/ or slices/ reads the bank', rd.length === 0, rd.join(','));
+ok('nothing in engine/ or slices/ loads the bank', rd.length === 0, rd.join(','));
 
 head('I  the page');
 var page = fs.existsSync(PAGE) ? fs.readFileSync(PAGE, 'utf8') : '';

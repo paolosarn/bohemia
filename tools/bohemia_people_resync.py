@@ -46,6 +46,30 @@ FRAMES = [
 ]
 
 
+# THE NAMES ROLL (PEOPLE [the names wired in], 10/18): generatedName now draws through
+# engine/bohemia_names.js, so a frame that inlines the identity module must carry the
+# roller IN FRONT of it, or a stranger's name falls back to the old two-list draw. The
+# names block sits immediately before the people block's start marker; the first run
+# puts the two markers there once, every later run replaces only the bytes between them.
+NAMES_MODULE = 'engine/bohemia_names.js'
+NAMES_START = '/* ==== engine/bohemia_names.js (PEOPLE, the names wired in, 10/18) ==== */'
+NAMES_END = '/* ==== /engine/bohemia_names.js ==== */'
+
+
+def names_block(html, people_start):
+    src = open(NAMES_MODULE, encoding='utf-8').read().strip()
+    if html.count(NAMES_START) == 0 and html.count(NAMES_END) == 0:
+        at = html.index(people_start)
+        return html[:at] + NAMES_START + '\n' + src + '\n' + NAMES_END + '\n' + html[at:], True
+    if html.count(NAMES_START) != 1 or html.count(NAMES_END) != 1:
+        sys.exit('FAILED: the names markers are not one and one. Refusing to guess.')
+    a = html.index(NAMES_START) + len(NAMES_START)
+    b = html.index(NAMES_END)
+    if html[a:b].strip() == src:
+        return html, False
+    return html[:a] + '\n' + src + '\n' + html[b:], True
+
+
 def main():
     src = open(MODULE, encoding='utf-8').read().strip()
     touched = 0
@@ -63,8 +87,17 @@ def main():
         if b < a:
             sys.exit('FAILED: %s has the end marker before the start marker.' % path)
         was = len(html[a:b].strip())
+        html, names_moved = names_block(html, start)
+        if names_moved:
+            print('  names roll put in front  ' + path)
+        a = html.index(start) + len(start)
+        b = html.index(end)
         if html[a:b].strip() == src:
-            print('  already current  ' + path)
+            if names_moved:
+                open(path, 'w', encoding='utf-8').write(html)
+                touched += 1
+            else:
+                print('  already current  ' + path)
             continue
         html = html[:a] + '\n' + src + '\n' + html[b:]
         open(path, 'w', encoding='utf-8').write(html)

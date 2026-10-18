@@ -9159,7 +9159,8 @@ GATES = [
      "given name and surname he voted UP in exactly one pool; under the bank's rule the names that read "
      "Hispanic sit within five points of the county; and the measured gap holds: the live engine draws the two "
      "words independently (56 percent of names read Hispanic against 33.4) and the post's hire names read "
-     "Hispanic 12 of 16 (wiring the bank turns leg C red on purpose)", False),
+     "Hispanic 12 of 16, kept as history since [the names wired in] wired the bank (10/18); nothing loads the "
+     "bank at run time, the roller cites it", False),
     ('WHO THE FACE IS', ['node', 'gates/who_the_face_is_gate.js'],
      "PEOPLE 10/18, row [a name for every starred face] under the hold: a page, a face is a person, not a "
      "costume. The bank is draft and nothing live reads it; every face PORTRAIT shipped the starred way (its "
@@ -9168,7 +9169,17 @@ GATES = [
      "Brothers' book, the crew screen's own background, one line whose Spanish is the engine's closed lexicon "
      "(none in the player's), the bilingual lines under the valley's share, PORTRAIT's own mouth keys on the "
      "syllable; and the measured gap holds: 91 percent of men at a post wear a crewmate's face and each face "
-     "meets the same four names (wiring ONE KEY DRAWS THE MAN turns leg G red on purpose)", False),
+     "meets the same four names (the old names kept as history since [the names wired in], 10/18; leg G2: each "
+     "face now meets about a hundred names and the women's faces only women's names)", False),
+    ('THE NAMES WIRED IN', ['node', 'gates/the_names_wired_in_gate.js'],
+     "PEOPLE 10/18, row [the names wired in]: his 9/21 'a little more percentage of white people names, keep it "
+     "natural'. One roll (engine/bohemia_names.js) names the man at the post, the keeper in each building and the "
+     "stranger who tells you his name: its pools, shares, crossover and readings are the names mix's and "
+     "who-the-face-is's, name for name; 1,000 rolls through each surface's own code (the screen's hireName and "
+     "keeperName lifted out and run, the city frame's inlined copy run in a sandbox) land the five backgrounds "
+     "within 4.5 points, the names that read Hispanic within 5 of the county's 33.4, every name two words, no "
+     "name over 1 percent, and the name reads as the face 1,000 of 1,000; the post's fixed list is gone; the "
+     "twelve on the VOTE sheet are today's roll", False),
     ('THE PHONES APPS', ['python3', 'gates/the_phones_apps_gate.py'],
      "UI 10/18, row [the phone's apps]: his 10/17 'there's a whole app on the phone too'. The candidate home screen "
      "(feed, jobs, stash, crew, settings, the timeline only after the first crisis) laid in the browser only and read "

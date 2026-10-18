@@ -1,0 +1,139 @@
+{
+ "made": "tools/bohemia_people_names_wired_in.js",
+ "row": "PEOPLE [the names wired in]",
+ "draft": true,
+ "measured": {
+  "places": 26,
+  "recruits": 98,
+  "recruits_named_on_their_card": 98,
+  "recruits_name_reads_as_face": 98,
+  "keepers": 198,
+  "keepers_name_reads_as_face": 198,
+  "keeper_names_different": 196,
+  "recruit_names_different": 98,
+  "recruits_heritage": {
+   "white": 38,
+   "hispanic": 26,
+   "mixed": 5,
+   "black": 15,
+   "asian": 14
+  },
+  "recruits_read_hispanic": 0.296,
+  "page_errors": 0,
+  "before_keepers_with_a_sexed_name": 146,
+  "before_keeper_name_against_face": 66,
+  "post_slots_26_places_13_weeks": 1274,
+  "companies_of_8_hires_with_a_repeated_name_before": 0.877,
+  "companies_of_8_hires_with_a_repeated_name_now": 0.0034
+ },
+ "cards": [
+  {
+   "place": "THE STRIP (Mob)",
+   "week": 0,
+   "slot": 0,
+   "look": "cast_longcoat",
+   "name": "Silas Sutton",
+   "background": "Farmhand",
+   "was": "Kiki"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "week": 0,
+   "slot": 1,
+   "look": "cast_shortcoat",
+   "name": "Kai Dorsey",
+   "background": "Messenger",
+   "was": "Nacho"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "week": 0,
+   "slot": 2,
+   "look": "cast_satchel",
+   "name": "Ruben Arroyo",
+   "background": "Butcher",
+   "was": "Neto"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "week": 0,
+   "slot": 3,
+   "look": "cast_shorts",
+   "name": "Travis Fontenot",
+   "background": "Brawler",
+   "was": "Memo"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "week": 0,
+   "slot": 4,
+   "look": "cast_widebrim",
+   "name": "Delroy Kimura",
+   "background": "Thief",
+   "was": "Chuy"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "week": 0,
+   "slot": 5,
+   "look": "cast_skirt",
+   "name": "Citlali Munoz",
+   "background": "Militia",
+   "was": "Beto"
+  },
+  {
+   "place": "HENDERSON",
+   "week": 0,
+   "slot": 0,
+   "look": "cast_pack",
+   "name": "Octavio Whitaker",
+   "background": "Farmhand",
+   "was": "Neto"
+  },
+  {
+   "place": "HENDERSON",
+   "week": 0,
+   "slot": 1,
+   "look": "cast_barearms",
+   "name": "Esteban Novak",
+   "background": "Messenger",
+   "was": "Memo"
+  },
+  {
+   "place": "HENDERSON",
+   "week": 0,
+   "slot": 2,
+   "look": "cast_widebrim",
+   "name": "Ruben Cisneros",
+   "background": "Butcher",
+   "was": "Kiki"
+  },
+  {
+   "place": "HENDERSON",
+   "week": 0,
+   "slot": 3,
+   "look": "cast_skirt",
+   "name": "Paloma Rivera",
+   "background": "Brawler",
+   "was": "Nacho"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "week": 0,
+   "slot": 0,
+   "look": "cast_satchel",
+   "name": "Otis Kirkland",
+   "background": "Farmhand",
+   "was": "Pancho"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "week": 0,
+   "slot": 1,
+   "look": "cast_shorts",
+   "name": "Ezekiel Ashby",
+   "background": "Messenger",
+   "was": "Yesenia"
+  }
+ ]
+}

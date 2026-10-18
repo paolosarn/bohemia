@@ -1959,10 +1959,27 @@
   function readsAs(name) {
     if (!name) return 'either';
     var given = String(name).trim().split(/\s+/)[0];
-    return NAME_READS[given] || 'either';
+    if (NAME_READS[given]) return NAME_READS[given];
+    var N = names(), s = N ? N.sexOf(given) : null;   /* the names the mix added since 9/21 */
+    return s === 'f' ? 'she' : s === 'm' ? 'he' : 'either';
   }
 
-  function generatedName(key) {
+  /* __THE_NAMES_WIRED_IN__ (10/18, PEOPLE [the names wired in]). THE TWO WORDS ARE ONE PERSON NOW.
+     Measured before this: the first name and the surname came from two independent draws over the two
+     lists above, so 56.0% of the valley's names read Hispanic against a county that is 33.4% Hispanic
+     (records/BOHEMIA_PEOPLE_THE_NAMES_MIX_10_18_26.md). A stranger's name now comes from the one roll the
+     hire post and the keepers use too (engine/bohemia_names.js: who first from the census, then the name
+     by who). GIVEN and SURNAME above stay as the record of the names he voted UP; every one of them is in
+     the roller's pools. sex (optional, 'he'/'she'/'m'/'f') makes the name agree with a body already drawn.
+     Where the roller is not loaded the old draw answers, so no frame goes nameless. */
+  function names() {
+    if (root.BohemiaNames) return root.BohemiaNames;
+    if (HASREQ) { try { return require('./bohemia_names.js'); } catch (e) { return null; } }
+    return null;
+  }
+  function generatedName(key, sex) {
+    var N = names();
+    if (N) return N.roll(key, { sex: sex }).full;
     var h = 0;
     for (var i = 0; i < key.length; i++) h = (Math.imul(h, 31) + key.charCodeAt(i)) >>> 0;
     var a = mix32(h), b = mix32(h ^ 0x9e3779b9);

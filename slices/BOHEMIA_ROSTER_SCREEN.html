@@ -249,7 +249,7 @@ function draw(){
       var d = document.createElement('div'); d.className = 'cell' + (ix != null ? ' full' : '') + (ix === S.sel ? ' sel' : '');
       d.dataset.drop = row + ':' + si;
       if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.appendChild(headCanvas(m));
-        var b = document.createElement('b'); b.textContent = m.name; d.appendChild(b); d.setAttribute('aria-label', m.name); }
+        var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b); d.setAttribute('aria-label', m.name); }   /* a hire's name is two words (PEOPLE [the names wired in]); the 48 px slot carries the first, his card the whole */
       el.appendChild(d);
     });
   });
