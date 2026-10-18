@@ -395,6 +395,35 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-vamily-opus2): 10/18 (c) LATEST -- *** [the map's roads as one kit]
+CLAIMED, DATA HALF DONE: THE STREETS ARE JOINED, THE PICTURE IS NOT. ***
+Record: records/BOHEMIA_WORLD_THE_STREETS_ARE_JOINED_THE_PICTURE_IS_NOT_10_18_26.md.
+Tab: NOT IN A TAB YET (data; RUN draws, rule 88 hold, no VOTE sheet).
+
+THE COORDINATOR'S QUESTION (is WORLD's data why 'doesn't look connected'?): mostly NO.
+On the game's seed the street grid is one joined network with 1 real break (75,7, a stub
+the generator's prune keeps because it counts the I-15 beside it as a road). THE CAUSE
+IS THE PICTURE: the map draws all 2,515 street cells with one straight picture, so 556
+junctions (22%: 269 cross, 215 tee, 72 corner) show a straight road where roads meet.
+The kit's crossing picture arterial_x / strip_x is loaded and never asked for on the map.
+43 ends at the railway and the washes are now named crossings: 17 level, 7 bridges.
+
+WHAT. engine/bohemia_map_joins.js: joinsFor(om) -> every road cell's kind, sides, piece,
+quarter turns; crossings; stops; breaks. pieceAt(J,x,y) for a renderer. One JOIN table:
+a street never joins a freeway side (over, under, or an interchange).
+
+GATE: MAP JOINS 23/0, registered (GATE REGISTRY 7/0). Two-sided joins, the JOIN rule,
+real crossings, breaks ratchet 1 (game seed) / 7 (worst of 20), seed + generator read
+from the CITY frame, seven hand-made valleys. Mutation-proved three ways.
+
+FOR RUN ([the districts connect on the map]): inline the module in the CITY frame, call
+pieceAt in renderCity: cross -> arterial_x / strip_x fixes 269 cells with art already
+loaded. FOR COOK TWO ([the street joins for the map]): the bill is corner x72, tee x215,
+end x125, level crossing x17, bridge x7.
+
+NEXT: this row ships when RUN draws from it and the before/after is in VOTE. Then [the
+three sizes of place] or [the roll]. PENDING Paolo: nothing.
+
 WORLD (world-vamily-opus): 10/18 (b) LATEST -- *** [one table for the rooms]
 SHIPPED: ONE TABLE SAYS WHICH ROOMS A BUILDING GETS, AND A NEW COPY IS A RED. ***
 Record: records/BOHEMIA_WORLD_ONE_TABLE_FOR_THE_ROOMS_10_18_26.md. Tab: NOT IN A

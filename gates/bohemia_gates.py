@@ -922,6 +922,14 @@ GATES = [
      'Refuses: the file differing from DISTGEN by one byte; a live district in no place or two; a grammar '
      'the floorplan generator does not make; a NEW hand-kept district-to-room copy anywhere in the repo; '
      'the CITY app\'s IN_ZONE drifting past its 6 (a ratchet). Mutation-proved three ways.', False),
+    ('MAP JOINS', ['node', 'gates/map_joins_gate.js'],
+     'ROW [the map\'s roads as one kit] (WORLD 10/18; Paolo 10/10 \'BRO ON THE MAP NOT ON THE COMBAT\', '
+     'and his 10/18 \'doesn\'t look connected\'). engine/bohemia_map_joins.js says which piece every road '
+     'cell of the map is (straight, corner, tee, cross, end) and where a street crosses the railway, a wash '
+     'or the freeway. Refuses: a one-sided join, a join the JOIN table does not allow (a street never joins '
+     'a freeway side), a crossing that is not one, the breaks growing (1 on the game\'s seed, 7 worst of '
+     'twenty), a second valley (the seed and the generator read out of the CITY frame). Prints, never reds: '
+     'how many junctions the map still draws with the straight picture.', False),
     ('THE INSIDES', ['node', 'gates/the_insides_gate.js'],
      'ROW [the valley has no inside], A COMBAT TILE IS A HOUSE (Paolo 9/4) and the '
      'INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED). *** THE ROW WAS WRONG AND THIS LANE '
