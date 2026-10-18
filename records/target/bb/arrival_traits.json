@@ -77,6 +77,12 @@
     "bb": "the Noble War: houses take over rival settlements without destroying them",
     "bb_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
     "bb_quote": "They begin to take over rival settlements reducing those settlements supply/wealth levels without destroying them."
+   },
+   "duration_days": {
+    "value": 3,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1793_Siege Fortification.txt",
+    "quote": "After this contract the settlement will gain the conquered settlement situation for 3 days.",
+    "why": "FIXED 10/18 (FACTIONS [take a town]): this file said Conquered's length was 'not on the wiki' and used the shared 7; the Siege Fortification contract page prints 3 days, the one number the wiki gives for it. Raided and well supplied keep the shared duration_days below."
    }
   }
  },
@@ -84,7 +90,7 @@
   "value": 7,
   "ours": true,
   "draft": true,
-  "why": "not on the wiki; RUN TWO's trait period is 7 days (records/target/settlement_traits.json roll.period_days)"
+  "why": "not on the wiki for raided and well supplied; RUN TWO's trait period is 7 days (records/target/settlement_traits.json roll.period_days). Conquered carries its own, quoted (traits.conquered.duration_days)."
  },
  "stacking": {
   "value": "a second arrival refreshes the end day; it never doubles the effect",

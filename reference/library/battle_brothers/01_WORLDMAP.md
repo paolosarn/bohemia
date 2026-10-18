@@ -42,6 +42,12 @@ CRISES (late-game arcs): THE WAR OF THE NOBLE HOUSES (houses fight; contracts to
 settlements change hands), THE GREENSKIN INVASION (orc and goblin hosts sweep in; settlements burn),
 THE UNDEAD SCOURGE (undead spread from the south; ancient dead legions), later HOLY WAR (Blazing Deserts)
 and others. A crisis changes what every town needs and what contracts appear.
+TAKING A TOWN (FACTIONS 10/18, read off the wiki tarball, records/BOHEMIA_FACTIONS_TAKING_A_TOWN_THE_BATTLE_BROTHERS_WAY_10_18_26.md):
+the company NEVER owns a town (the developer: a permanent base "will make the player very stationary");
+houses take each other's towns in the Noble War and hire you for the siege (Siege Fortification: hold the
+siege, a surrender or an assault or fire, then "the defenders send their last attack force at you"); the
+town is Conquered "for 3 days" after; a crisis is foretold day 50-70, starts day 80-100, lasts 30-100 days,
+gated on days passed and roster, not renown (Late Game Crises).
 LEGENDARY LOCATIONS: the Goblin City, the Kraken, the Sunken Library, the Ijirok, the Black Monolith,
 the Witch Hut, the Rachegeist; each a named fight with a named reward.
 RENDERING (sourced 9/28, DIRECTION [bb density]; records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md): the

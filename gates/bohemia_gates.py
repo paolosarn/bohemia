@@ -841,6 +841,14 @@ GATES = [
      '(4 of 4, five seeds) and the wild road crews and dead sent caravans; AFTER, on the real valley with the region\'s rows: the road crews and the dead send crews only, at 2 camps, 1 town and 1 fortress '
      '(a valley camp among them), the beasts hold their own ground, no wild seat goes at another; the road crew\'s first mark has the shortest trip to the freeway; the dead take a raided place first; '
      'the house patrols the nearest depot ground; a seat with no want is byte for byte what the parties module gave it; no number and no faction typed in the module. Red ten ways by mutation of the module and on a bad quote or ground in the data file.', True),
+    ('TAKE A TOWN', ['node', 'gates/take_a_town_gate.js'],
+     'ROW [take a town] OWNING-ANOTHER-SETTLEMENT-IS-ENDGAME (rule 56, Paolo 10/1: "owning other settlements is a big deal, endgame, not cheap; not even Battle Brothers lets you take over a city"): '
+     'records/target/bb/take.json, read by engine/bohemia_take.js, which writes only through the home base ledger (took or ruined, by contract). Battle Brothers never gives the company a town; its War of the Noble Houses and Siege Fortification '
+     'contract are the chain, every one of 25 lines re-read from the wiki tarball. FIVE STEPS IN ORDER: the ask (a door: hired by the holder\'s canon enemy at Open, opened from inside, or the holder\'s own beef with you; '
+     'the late third of the act, openAt(fortress); a home of your own; one take per act), cut the roads (no party out), the siege (the raid chain\'s own days), the gate (surrender after the siege, assault any time after the roads, '
+     'or burn), the hold (the last force when anybody is left to send one). On the REAL valley: too early for every tier, a camp you may raid still waits; the Remnants hire you against the Cartel at 60 and not at 59; '
+     'the Church at Hostile is beef; the inside door never opens a fortress; a won take writes ONE entry by contract; Conquered stands the wiki\'s 3 days; a burn is a ruin; a lost fight writes nothing. No number typed in the data '
+     'or the module, every one recomputed from where it is read. Red on six module mutations and on a false quote.', True),
     ('FACTIONS', ['node', 'gates/factions_gate.js'],
      'ROWS [the parties on the map] and [a house you give a fuck about] (rule 80c): the demo\'s four factions in one data file RUN reads. '
      'Every faction has a face slot (never a person\'s name), a want with a source, a base, a draft voice line, a beef-driven memory, a banner nobody else owns and never purple '

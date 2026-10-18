@@ -82,7 +82,8 @@ const pty = (id, f, power, x, y, agenda) => ({ id, agenda: agenda || 'patrol', f
 { const rec = AT.make(), day = 20;
   const made = W.onSettled([{ base: 'Remnants', by: 'Cartel', outcome: 'taken', how: 'unattended', day }, { base: 'Caravans', by: 'Cartel', outcome: 'held', how: 'unattended', day }, { base: 'Mob', by: 'x', outcome: 'ruined', how: 'fought', day }], rec, day);
   ok('a base the world TOOK is Conquered; one that held or was ruined is not', made.length === 1 && made[0].place === 'Remnants' && made[0].trait === 'conquered');
-  ok('it stands for the trait period and then ends', AT.active(rec, 'Remnants', day).indexOf('conquered') >= 0 && AT.active(rec, 'Remnants', day + 7).indexOf('conquered') < 0);
+  const cd = AD.traits.conquered.duration_days.value;   /* the wiki's 3 days (Siege Fortification), fixed 10/18 by [take a town] */
+  ok('it stands the wiki\'s ' + cd + ' days and then ends', cd === 3 && AT.active(rec, 'Remnants', day + cd - 1).indexOf('conquered') >= 0 && AT.active(rec, 'Remnants', day + cd).indexOf('conquered') < 0);
   ok('its effects are the wiki\'s: items 60%, buy 110%, sell 90%, food 90%', (() => { const e = AT.effects(rec, 'Remnants', day + 1); return e.items_mult === 0.6 && e.buy_price_mult === 1.1 && e.sell_price_mult === 0.9 && e.food_mult === 0.9; })());
   ok('a second taking refreshes, never doubles', W.onSettled([{ base: 'Remnants', by: 'Cartel', outcome: 'taken' }], rec, day + 3).length === 0 && AT.effects(rec, 'Remnants', day + 4).items_mult === 0.6);
   ok('it is never burned: no ruin is written anywhere by this module', !/ruined\(|closeRaid|\.ruin\b/.test(fs.readFileSync(path.join(ROOT, 'engine/bohemia_war.js'), 'utf8'))); }

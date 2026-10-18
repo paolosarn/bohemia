@@ -37,7 +37,7 @@
   function markTaken(rec, place, by, day) {
     if (!rec || !place || typeof day !== 'number' || !D.traits.conquered) return null;
     if (!rec.marks) rec.marks = [];
-    var until = day + D.duration_days.value;
+    var own = D.traits.conquered.duration_days, until = day + (own ? own.value : D.duration_days.value);   /* the wiki's 3 days (Siege Fortification), fixed 10/18 */
     for (var k = 0; k < rec.marks.length; k++) if (rec.marks[k].place === place && rec.marks[k].trait === 'conquered') { rec.marks[k].until = Math.max(rec.marks[k].until, until); return null; }
     var m = { place: place, trait: 'conquered', by: by || null, party: null, from: day, until: until };
     rec.marks.push(m); return m;

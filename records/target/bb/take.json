@@ -1,0 +1,297 @@
+{
+  "_about": "HOW THE COMPANY TAKES ANOTHER SETTLEMENT (VAMILY row [take a town], OWNING-ANOTHER-SETTLEMENT-IS-ENDGAME; FACTIONS lane, 10/18/26). Read by engine/bohemia_take.js, held by gates/take_a_town_gate.js, the page is records/BOHEMIA_FACTIONS_TAKING_A_TOWN_THE_BATTLE_BROTHERS_WAY_10_18_26.md. Battle Brothers never lets the company own a town: its noble houses take each other's settlements in the War of the Noble Houses and the company is hired to help (the siege contract), and the town goes to the employer. That is the one place we differ, on his words, and it is marked ours. Everything Battle Brothers does is quoted below and re-read from the wiki tarball by the gate. This file types no number of its own: every number the chain reads is in the_numbers with where it is read from, and the gate recomputes each one.",
+  "his_words": [
+    {
+      "quote": "owning other settlements is a big deal, endgame, not cheap; not even Battle Brothers lets you take over a city; your settlement at your base",
+      "source": "records/BOHEMIA_PAOLO_THE_FIFTH_VOTES_SIDEWALKS_45_DEGREES_NO_AUTHORED_FIRST_FIGHT_10_1_26.md",
+      "reading": "the take opens only in the late third of an act, the company must already hold a base of its own, and it is a chain of five steps, never a click"
+    },
+    {
+      "quote": "if you attack the whole faction settlement it's yours or ruined",
+      "source": "records/BOHEMIA_PAOLO_THIRD_VOTES_9_28_26.md",
+      "reading": "the chain ends in one of two writes to the home base ledger: taken by you, or ruined by you"
+    },
+    {
+      "quote": "I want you to be easier than Battle Brothers",
+      "source": "VAMILY.md",
+      "reading": "rule 117: no hidden dice in the chain, every step shows where you stand, patience is rewarded with a surrender instead of a fight"
+    }
+  ],
+  "school": {
+    "crisis_timing": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+      "quote": "it will be foretold around the 50th to 70th day of the campaign and start around the 80th - 100th day.",
+      "reading": "the war that lets towns change hands comes late and is warned first; ours is the act's late third"
+    },
+    "crisis_gate": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+      "quote": "There is no renown requirement for a crisis to start, but a certain amount of days need to have passed in your campaign, as well a minimum roster",
+      "reading": "the gate is TIME, not fame: ours reads how far through the act the game is"
+    },
+    "crisis_length": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+      "quote": "A crisis can take from 30 to 100 days to finish although its possible to drag it even longer.",
+      "reading": "a long chain, not a click"
+    },
+    "houses_take_towns": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+      "quote": "They begin to take over rival settlements reducing those settlements supply/wealth levels without destroying them.",
+      "reading": "a taken town is Conquered, not burned"
+    },
+    "war_goes_on_without_you": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+      "quote": "While the war will finish with or without you",
+      "reading": "the world takes towns whether you come or not (the raid chain already does); the company TAKING one is the new thing"
+    },
+    "contract_besiege": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+      "quote": "Besiege enemy forts",
+      "reading": "the siege is a contract"
+    },
+    "contract_raid": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+      "quote": "Raid enemy caravans and settlements",
+      "reading": "before a town falls its roads are cut"
+    },
+    "siege_hold": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1793_Siege Fortification.txt",
+      "quote": "You will maintain the siege and intercept anyone trying to break through.",
+      "reading": "holding the siege is a step of its own, measured in days"
+    },
+    "siege_besieged": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1793_Siege Fortification.txt",
+      "quote": "During the contract the settlement will have the besieged settlement situation.",
+      "reading": "the town shows it is under siege while the chain runs"
+    },
+    "siege_surrender": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1793_Siege Fortification.txt",
+      "quote": "The objective has fallen. Your opponent surrenders.",
+      "reading": "a siege can end with no assault"
+    },
+    "siege_fire": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1793_Siege Fortification.txt",
+      "quote": "After the castle was set on fire",
+      "reading": "burning it is one of the ways a siege ends"
+    },
+    "siege_last_force": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1793_Siege Fortification.txt",
+      "quote": "The defenders send their last attack force at you.",
+      "reading": "after the gate, one more fight to keep it"
+    },
+    "siege_conquered_days": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1793_Siege Fortification.txt",
+      "quote": "After this contract the settlement will gain the conquered settlement situation for 3 days.",
+      "reading": "the ONE number the wiki prints for how long Conquered lasts; records/target/bb/arrival_traits.json said 'not on the wiki' and used 7, fixed this round with this line"
+    },
+    "make_a_stand": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0435_Conquer Holy Site Northern.txt",
+      "quote": "You will have an option to make a stand in the holy site, attack them in the open or run away which will result in failing the contract.",
+      "reading": "the hold is a fight you can lose, and losing fails the take"
+    },
+    "nobles_notice_you": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1234_Make Nobles Aware.txt",
+      "quote": "Become known as 'Professional' (1,050 renown) in order to catch the attention of the noble houses.",
+      "reading": "a house hires you only once it knows you; ours: an employer at Open or better"
+    },
+    "allied_needs_open": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0044_Allied Nobles.txt",
+      "quote": "'Open' or higher relations with at least one noble house",
+      "reading": "Open is the bar Battle Brothers itself uses for 'they will work with you'"
+    },
+    "war_status_words": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0541_Defeat Civil War.txt",
+      "quote": "status of the crisis is visible: \"Just started\", \"Raging\", \"Dragging On\", \"Almost Over\"",
+      "reading": "Battle Brothers shows where the war stands in four words; ours shows the five steps lit"
+    },
+    "war_ambition_renown": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0541_Defeat Civil War.txt",
+      "quote": "must have at least 1500",
+      "reading": "the end of the war is gated on fame as well; ours is not (rule 117: easier), the time gate and the home are enough"
+    },
+    "fortress_has_no_town_bar": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+      "quote": "Fortified settlements (Fortified Manor/Castle/Stronghold) are fully affiliated with their Noble House and do not have separate",
+      "reading": "a fortress has no townsfolk of its own to open the gate from inside"
+    },
+    "dev_no_player_base": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "Having a permanent base, like a castle or such, will make the player very stationary.",
+      "reading": "Battle Brothers chose no base on purpose; we have home bases (his third votes), so the take is ours"
+    },
+    "dev_allegiance": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "Open conflicts between nobles are a great opportunity for mercenaries and this could also lead to settlements changing allegiance thus having a lasting impact on the world.",
+      "reading": "the developer wanted towns to change hands for good, and the company to be the hired hand in it"
+    },
+    "dev_retake_contract": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "The most straight forward solution would obviously be a contract where you are hired to help retake and rebuild a settlement.",
+      "reading": "the developer's own shape for it is a CONTRACT; ours is the take contract"
+    },
+    "dev_razed": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "not helping a town under siege could mean it being razed and no longer available in the game world as a place of commerce and safety in the region.",
+      "reading": "a ruin is a real loss to the map, which is why burning is a choice with a cost"
+    },
+    "ending_leaving_a_mark": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1692_Retirement.txt",
+      "quote": "One late game crisis ended",
+      "reading": "ending the late war is what earns Battle Brothers' good ending; ours: a town taken is what the next generation inherits (rule 31)"
+    }
+  },
+  "real_world": [
+    {
+      "who": "Braccio da Montone, condottiere, Perugia 1416",
+      "what": "beat Perugia's army at Sant'Egidio on 12 July 1416 with the city's own exiles in his force, entered days later and was acclaimed lord; the Pope recognised it in 1420",
+      "url": "https://en.wikipedia.org/wiki/Braccio_da_Montone",
+      "url_2": "https://en.wikipedia.org/wiki/Battle_of_Sant%27Egidio",
+      "reading": "the INSIDE door: a hired captain takes a city with people from inside it, after breaking its army in the field"
+    },
+    {
+      "who": "Francesco Sforza, condottiere, Milan 1447 to 1450",
+      "what": "hired by the Ambrosian Republic, broke with it in 1448, then took the city after a siege in early 1450 and was made duke",
+      "url": "https://en.wikipedia.org/wiki/Milanese_War_of_Succession",
+      "reading": "the HIRED door and the long chain: hired, the field war, the siege, the city falls, and a captain ends up holding the town he was paid to fight for"
+    }
+  ],
+  "doors": {
+    "hired": {
+      "test": "hostile_to_holder",
+      "wiki": ["contract_besiege", "nobles_notice_you", "allied_needs_open", "dev_retake_contract"],
+      "ours": true,
+      "why": "Battle Brothers' only door: a house at war with the town's house hires you to besiege it, once it knows you (Open or better). Ours: any faction hostile to the holder (the canon graph's own edges, read through bohemia_between) whose bar with you is Open or better; and the town is YOURS at the end, not the employer's (his words: yours or ruined)."
+    },
+    "inside": {
+      "test": "inside_not_fortress",
+      "wiki": ["fortress_has_no_town_bar", "allied_needs_open"],
+      "ours": true,
+      "why": "Braccio took Perugia with its own exiles. A faction living inside the holder's ground (the hidden four live inside other factions, row [hidden factions]) and Open or better with you opens the gate from inside. Never at a fortress: the wiki says a fortified place has no townsfolk of its own, only its house."
+    },
+    "beef": {
+      "test": "holder_hostile_to_you",
+      "wiki": ["war_goes_on_without_you", "make_a_stand"],
+      "ours": true,
+      "why": "His beef rule (sixth votes, row [beef]): a settlement that comes for you can be gone after. When the holder's own bar with you is in the Hostile band, the company needs no employer to go and take its home."
+    }
+  },
+  "steps": [
+    {
+      "id": "the_ask",
+      "name": "THE ASK",
+      "draft": true,
+      "closes_when": "the chain opens: a door is found, the late third has come, the company holds a base of its own, and this act has no take yet",
+      "wiki": ["crisis_timing", "crisis_gate", "nobles_notice_you"],
+      "ours": true,
+      "why": "Battle Brothers gates the war on days passed and hires you once a house knows you. Ours is the act's late third (the fortress third his DEPTH table already draws) and one of the three doors."
+    },
+    {
+      "id": "cut_the_roads",
+      "name": "CUT THE ROADS",
+      "draft": true,
+      "closes_when": "the holder has no party out (the caller counts them with the parties module); while one walks, the step waits",
+      "wiki": ["contract_raid", "siege_hold"],
+      "ours": true,
+      "why": "Before a town falls its caravans and patrols are broken (Raid enemy caravans; intercept anyone trying to break through). A town whose parties still walk can still be relieved, so the siege cannot start."
+    },
+    {
+      "id": "the_siege",
+      "name": "THE SIEGE",
+      "draft": true,
+      "closes_when": "the company has held the siege for the siege days (the raid chain's own warning days, read from the home base ledger)",
+      "wiki": ["siege_hold", "siege_besieged", "contract_besiege"],
+      "ours": true,
+      "why": "Holding the siege is its own step in Battle Brothers. Ours reuses the number the raid at your gate already uses, so a siege on them is as long as a siege on you."
+    },
+    {
+      "id": "the_gate",
+      "name": "THE GATE",
+      "draft": true,
+      "closes_when": "SURRENDER after the siege held (no fight), or ASSAULT any time after the roads are cut (one fight; a lost assault fails the take), or BURN (the town is ruined, by you)",
+      "wiki": ["siege_surrender", "siege_fire", "dev_razed"],
+      "ours": true,
+      "why": "Battle Brothers rolls for a surrender (its 40% branch). Ours has no dice (rule 117): patience earns the surrender, impatience costs a fight, and burning it is the other half of his 'yours or ruined'."
+    },
+    {
+      "id": "the_hold",
+      "name": "THE HOLD",
+      "draft": true,
+      "closes_when": "the old holder's last force is beaten, or nobody is left to send one (the holder holds no other base and no warm friend holds one)",
+      "wiki": ["siege_last_force", "make_a_stand", "houses_take_towns", "siege_conquered_days"],
+      "ours": true,
+      "why": "Battle Brothers sends the defenders' last force at you on its 60% branch. Ours sends it whenever somebody is left to send it, never on a roll; then the town is yours and Conquered for the wiki's 3 days."
+    }
+  ],
+  "the_numbers": {
+    "late_third": {
+      "read_from": "engine/bohemia_homebases.js openAt('fortress') (his DEPTH thirds in engine/bohemia_towns.js)",
+      "at_write": "2/3",
+      "ours": true,
+      "why": "the row: a gate that refuses before the late third of an act. Every tier waits for it, even a camp you could RAID from the start: raiding is not owning."
+    },
+    "siege_days": {
+      "read_from": "engine/bohemia_homebases.js RAID_DEFAULTS.prepDays",
+      "at_write": "4",
+      "draft": true,
+      "tuning": true,
+      "why": "not on the wiki; the raid at your gate's warning days (QUESTS QR-R), so the two sieges are one length"
+    },
+    "per_act": {
+      "read_from": "engine/bohemia_homebases.js RAID_DEFAULTS.perAct",
+      "at_write": "1",
+      "draft": true,
+      "tuning": true,
+      "why": "QR-R's NOT A FARM finding; one take per act for the company, failed or won, so taking is the act's climax and never a farm"
+    },
+    "open_bar": {
+      "read_from": "records/target/bb/relations.json bands, 'open' lo",
+      "at_write": "60",
+      "why": "the wiki's Open band; Allied Nobles asks for Open or higher"
+    },
+    "hostile_bar": {
+      "read_from": "records/target/bb/relations.json bands, 'hostile' hi",
+      "at_write": "9",
+      "why": "the wiki's Hostile band top, the same bar taking a side drops a war's enemies to"
+    },
+    "conquered_days": {
+      "read_from": "records/target/bb/arrival_traits.json traits.conquered.duration_days",
+      "at_write": "3",
+      "why": "Siege Fortification: 'the conquered settlement situation for 3 days'"
+    }
+  },
+  "refusals": {
+    "NO_BASE": "no base named",
+    "NO_PROGRESS": "how far through the act is the caller's; without it the answer is no, never a guess",
+    "TOO_EARLY": "before the late third of the act",
+    "RUIN": "nobody takes a ruin; it is moved into a generation later (the ledger's own rule)",
+    "ALREADY_YOURS": "the company already holds it",
+    "ALREADY_OPEN": "a take is already running on it",
+    "NO_HOME": "the company holds no base of its own ('your settlement at your base')",
+    "ONE_PER_ACT": "this act's take is spent, won or lost",
+    "NO_DOOR": "nobody hires you against it, nobody inside opens it, and it has no beef with you",
+    "NO_CHAIN": "no take is running on that base",
+    "OUT_OF_ORDER": "a step before this one is not done",
+    "NOT_YET": "the step's condition is not met yet (a party still out, the siege not held long enough)",
+    "SIEGE_NOT_HELD": "a surrender comes only after the siege held its days",
+    "MOOT": "the base changed hands or fell while the take ran; the take is over",
+    "BAD_EVENT": "the step was called without what it needs (a count, days, a how, won)"
+  },
+  "easier_than_bb": [
+    "no dice: Battle Brothers rolls the surrender (its 40% branch) and the last force (its 60% branch); ours decides both from what you did and who is left",
+    "no fame gate: Battle Brothers asks 1,500 renown for the war's ambition; ours asks only the late third and a home",
+    "one clear next thing: the timeline lights the step you are on, the way Battle Brothers' four war words do, but per step",
+    "patience is a win: hold the siege its days and the gate opens with no fight"
+  ],
+  "gaps": [
+    "THE REGION'S TWELVE PLACES: the home base ledger keys a base by its name and seeds its holder as that name, so Henderson's holder reads 'henderson', not the Trades; the take module takes the seed from the caller (t.seed) but the ledger's entry would record from:'henderson'. One line in engine/bohemia_homebases.js put() (a seed holder for a base with no entry) closes it: FACTIONS [region in the ledger].",
+    "THE BESIEGED SITUATION is quoted (siege_besieged) but no trait file carries Besieged's numbers yet; RUN TWO's settlement traits own the list (the Besieged page: +25% buying prices, +100% food prices, -25% items, -50% recruits).",
+    "THE TIMELINE IN VOTE is owed the round the rule-88 hold lifts on this lane: the five steps, lit, for one valley town.",
+    "THE INSIDE DOOR needs who lives inside whose ground: the hidden four's carriers (row [hidden factions]) are people, not a per-base list; the caller hands the list in (ctx.inside)."
+  ],
+  "routed": [
+    "RUN TWO: the settlement screen of a town the company could take shows the timeline (status()) and the one next thing; a town you took is your base (H.ownedBy), which the build screen already reads.",
+    "RUN: the map's day passes the act progress, the parties out per holder (the parties module), and the siege days to step().",
+    "COMBAT: two fights call back into step(): the ASSAULT at the gate and the LAST FORCE at the hold, with won true or false.",
+    "TUNING: siege_days and per_act are drafts in the one table; the rest are read from the wiki or his DEPTH table.",
+    "WORDS: the five step names are draft; a town's people say the ask from a mouth with a portrait (A QUEST IS PEOPLE, PLACES AND THINGS)."
+  ]
+}
