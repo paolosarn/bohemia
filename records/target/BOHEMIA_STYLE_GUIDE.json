@@ -54,12 +54,12 @@
   {
    "research_said": "Round two D9 (R12): XOR each frame against the previous; changed pixels outside the declared moving mask under 3 percent.",
    "decided": "TAKEN WITH TWO READINGS. A change is a move of more than 3 values on a channel (or an alpha flip), the exact count printed beside it; and the moving mask holds the moving parts AND their light (their cast shadow and bounce on the parts that hold, from the rig's light pass).",
-   "why": "Measured (round six): the rig renders the same frame twice bit for bit, so a held key that repeats the key before is exact (keys 0 and 6 of the idle are copies); but when the head turns, a path tracer re-lights every part it bounces onto by 1 to 3 values (the exact count stays at 25.94% on those keys while the visible count is 4.71%), and the head's own shadow sweeping the torso is the head's motion, which a stop-motion head turn also throws."
+   "why": "Measured (round six): the rig renders the same frame twice bit for bit, so a held key that repeats the key before is exact (keys 0 and 6 of the idle are copies); but when the head turns, a path tracer re-lights every part it bounces onto by 1 to 3 values (the exact count stays at 10.55% on those keys while the visible count is 0.28%), and the head's own shadow sweeping the torso is the head's motion, which a stop-motion head turn also throws."
   },
   {
    "research_said": "Round two C3: snap the model root to the pixel grid every frame, so a sub-pixel move never resamples the sprite (R12, pixel creep).",
    "decided": "TAKEN PER PART, NOT AT THE ROOT. Every rigid part that would move under half a pixel since its last drawn pose holds that pose (rig.hold_px); a skinned part rides its bone's rigid part.",
-   "why": "Measured on the robot's idle (round six): the hips bob 0.7 to 1.0 px while the feet stay planted, so snapping the root makes the planted feet creep instead; a 0.27 px head drift alone changed 10.88% of the idle's pixels by more than 3 values. Holding each part is what a stop-motion animator does (a part that would not read as moving is not touched), and it leaves the bob, a real move, alone."
+   "why": "Measured on the robot's idle (round six): the hips bob 0.7 to 1.0 px while the feet stay planted, so snapping the root makes the planted feet creep instead; a 0.27 px head drift alone (S, key 0, nothing else moving) changed 9.83% of the idle's pixels by more than 3 values. Holding each part is what a stop-motion animator does (a part that would not read as moving is not touched), and it leaves the bob, a real move, alone."
   }
  ],
  "fields": [
@@ -393,7 +393,7 @@
      "test": "D8 (PLUMBER 10/18): one-pixel islands of a colour none of its 8 neighbours has, anti-aliasing excepted, per 1,000 opaque pixels, against his packs' band (not a fixed number)",
      "measured": {
       "robot": 283.79,
-      "anarchists": null
+      "mob": 245.28
      }
     }
    },
@@ -505,11 +505,11 @@
        "dropouts": 1
       },
       "robot_idle_held": {
-       "worst_pct": 25.94,
-       "mean_pct": 4.29,
-       "visible_worst_pct": 4.71,
-       "dropouts": 1,
-       "hidden_by_a_mover": 0
+       "worst_pct": 10.55,
+       "mean_pct": 2.25,
+       "visible_worst_pct": 0.28,
+       "dropouts": 0,
+       "hidden_by_a_mover": 1
       }
      }
     }

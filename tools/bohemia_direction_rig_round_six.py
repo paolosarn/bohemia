@@ -10,10 +10,11 @@ table and the movers' light; the Mob, CHARACTER's model rebuilt byte for byte, e
      moved half a pixel or more on the screen (the rig's motion table, from the model's own vertices), in either frame,
      grown by one pixel, plus the movers' light (the rig's riglight_ pass: their cast shadow and bounce on the parts
      that hold); what changed OUTSIDE it is boil. The idle is the declared hold: under 3 percent of the opaque
-     pixels. A second count only takes changes of more than 3 values (what an eye can see), so the record can say how
-     much of the boil is the renderer's own noise.
+     pixels, counted as a move of more than 3 values on a channel (the guide's field 15: a path tracer re-lights every
+     part by 1 to 3 values when anything moves); the exact count (any change) is printed beside it.
   2. DROPOUTS (research R11): a part's pixel count per key from the object-ID pass; zero in a key and not zero in the
-     keys either side is a dropout; zero allowed. The thinnest part's smallest count is printed.
+     keys either side is a dropout, unless a moving part now covers it (hidden) or the picture did not change where it
+     was (the one-sample ID pass flipped a boundary pixel); zero allowed. The thinnest part's smallest count is printed.
   3. THE HOLE (round five's R2 note on the robot NW): every transparent region the body closes round, per facing, with
      the parts (object-ID) and the materials (material-ID) that touch it.
   4. THE TEN CHECKS (PLUMBER's tools/bohemia_not_vibe_coded.py, read through the gate's held_verdict, with his three
@@ -82,13 +83,18 @@ def hold(subj, clip, rig):
         for j in range(keys):
             l, names = labels(subj, 'rigobj_%s_%s_k%02d.png' % (clip, f, j), rig); labs.append(fill(l, frames[j][..., 3] > 127))
         counts = [{n: int((l == i).sum()) for i, n in enumerate(names)} for l in labs]
-        drops, hidden = [], []
+        drops, hidden, flicker = [], [], []
         for j in range(keys):
             movers = [names.index(n) for n, v in mot[f][j].items() if v >= thr]
             for n in names:
                 if counts[j][n] == 0 and counts[j - 1][n] > 0 and counts[(j + 1) % keys][n] > 0:
                     was = labs[j - 1] == names.index(n)   # R11 is a thin part lost to sampling; a part a moving part now covers is hidden, not dropped
-                    (hidden if np.isin(labs[j][was], movers).mean() > 0.5 else drops).append((n, j))
+                    under = np.isin(labs[j], movers) & was
+                    if under.sum() * 2 > was.sum(): hidden.append((n, j)); continue
+                    # the one-sample ID picture can flip a boundary pixel to its neighbour; if the drawing itself did not
+                    # change where the part was (no move over 3 values off the movers), nothing dropped out of the picture
+                    seen = np.abs(frames[j] - frames[j - 1])[..., :3].max(2) > VISIBLE
+                    (drops if (seen & was & ~under).any() else flicker).append((n, j))
         for j in range(keys):
             A, B = frames[j], frames[j - 1]; body = (A[..., 3] > 127) | (B[..., 3] > 127)
             moving = [names.index(n) for n, v in mot[f][j].items() if v >= thr]
@@ -105,14 +111,15 @@ def hold(subj, clip, rig):
                        outside_alpha_px=int((alpha & ~mask).sum()), mask_pct=round(100.0 * (mask & body).sum() / n, 1), light_pct=round(100.0 * (light & body).sum() / n, 1),
                        repeat=j in set(c.get('repeated_keys', {}).get(f, [])))
             per.append(row)
-            if worst is None or row['outside_pct'] > worst[0]['outside_pct']: worst = (row, A, B, mask, out, out_seen)
-        per.append(dict(facing=f, dropouts=drops, hidden=hidden, thinnest=min(((n, min(cn[n] for cn in counts)) for n in names if any(cn[n] for cn in counts)), key=lambda x: x[1])))
+            if worst is None or row['outside_seen_pct'] > worst[0]['outside_seen_pct']: worst = (row, A, B, mask, out, out_seen)
+        per.append(dict(facing=f, dropouts=drops, hidden=hidden, id_flicker=flicker, thinnest=min(((n, min(cn[n] for cn in counts)) for n in names if any(cn[n] for cn in counts)), key=lambda x: x[1])))
     rows = [r for r in per if 'key' in r]
     return dict(clip=clip, keys=keys, declared_hold=(clip == 'Idle'), max_outside_pct=max(r['outside_pct'] for r in rows),
                 mean_outside_pct=round(float(np.mean([r['outside_pct'] for r in rows])), 2), max_outside_seen_pct=max(r['outside_seen_pct'] for r in rows),
                 mean_changed_pct=round(float(np.mean([r['changed_pct'] for r in rows])), 1),
-                dropouts=[x for r in per if 'dropouts' in r for x in r['dropouts']], hidden_by_a_mover=[(r['facing'],) + tuple(x) for r in per if 'hidden' in r for x in r['hidden']], thinnest=[(r['facing'],) + tuple(r['thinnest']) for r in per if 'thinnest' in r],
-                ok=max(r['outside_pct'] for r in rows) < HOLD_MAX, rows=rows), worst
+                dropouts=[x for r in per if 'dropouts' in r for x in r['dropouts']], hidden_by_a_mover=[(r['facing'],) + tuple(x) for r in per if 'hidden' in r for x in r['hidden']],
+                id_flicker_only=[(r['facing'],) + tuple(x) for r in per if 'id_flicker' in r for x in r['id_flicker']], thinnest=[(r['facing'],) + tuple(r['thinnest']) for r in per if 'thinnest' in r],
+                ok=max(r['outside_seen_pct'] for r in rows) < HOLD_MAX, rows=rows), worst
 
 
 def holes(subj, rig):
@@ -224,7 +231,7 @@ def sheet(rep, worst):
         y += h * 2 + 40
     # the hold map of the worst pair: the frame, grey = the moving mask, red = changed outside it, amber = visible change outside
     row, A, B, mask, o, os_ = worst
-    dr.text((pad, y), 'THE HOLD MAP, THE WORST IDLE PAIR (%s, key %d against %d): grey = the parts that moved, red = any change outside them, amber = a change over 3 values outside them; %.2f%% outside (bar 3%%)' % (row['facing'], row['key'], (row['key'] - 1) % 12, row['outside_pct']), font=font(15), fill=INK); y += 26
+    dr.text((pad, y), 'THE HOLD MAP, THE WORST IDLE PAIR (%s, key %d against %d): grey = the parts that moved and their light, red = any change outside them (the path tracer\'s 1 to 3 values), amber = over 3 values; %.2f%% visible outside (bar 3%%), %.2f%% any' % (row['facing'], row['key'], (row['key'] - 1) % 12, row['outside_seen_pct'], row['outside_pct']), font=font(15), fill=INK); y += 26
     base = Image.fromarray(np.clip(A, 0, 255).astype(np.uint8), 'RGBA'); vis = np.zeros(A.shape, np.uint8)
     vis[mask & (A[..., 3] > 127)] = (120, 120, 120, 150); vis[o] = (214, 74, 60, 255); vis[os_] = (232, 170, 40, 255)
     m = Image.new('RGBA', base.size, (40, 38, 34, 255)); m.alpha_composite(base); m.alpha_composite(Image.fromarray(vis, 'RGBA'))

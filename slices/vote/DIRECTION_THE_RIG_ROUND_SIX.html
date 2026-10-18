@@ -1,0 +1,44 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The robot moves, and the first runway body</title>
+<!-- DIRECTION [the rig round six], 10/18 (rule 115c and 115g; his YES on rig round five, 'the robot finished by hand').
+     PLACEHOLDER until the moodboard (ROUND THIRTEEN). Played LIVE on the 120 beat from DIRECTION_THE_RIG_ROUND_SIX.webp
+     (lossless, the drawn keys only: the robot's idle 12 and walk 6, the Mob's walk 6; three keys a beat), eight
+     facings each, every frame on its own shadow layer, ONE ART PIXEL TO ONE PHONE PIXEL. The frames come from DIRECTION's
+     master rig (one camera, 57 px a metre, one sun) turning the two 3D models: rule 108, no pixel drawn in code. The
+     pattern is ANIMATION's wolf page (reuse first). Rule 25: an item is asked ONCE, on the row; no vote inside the page. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 10px;color:#b3a890;max-width:60ch}
+  .lab{font-size:10px;letter-spacing:2px;color:#7fa06b;margin:10px 0 4px}
+  .grid{display:grid;grid-template-columns:28px repeat(3,max-content);gap:4px 10px;align-items:end}
+  .dir{font-size:9px;color:#6d6656}
+  .h{font-size:9px;color:#6d6656;letter-spacing:1px}
+  canvas{display:block;image-rendering:pixelated;background:#2a2219;border-radius:2px}
+</style>
+<h1>PLACEHOLDER: THE ROBOT MOVES, AND THE FIRST RUNWAY BODY</h1>
+<p>You said yes to the robot finished by hand, so now it moves: its idle and its walk in all eight directions, made with the same recipe as the truck, on the beat at the game's own pixels. Beside it walks the first person made the same way, the Mob's look in a charcoal shoulder cape, pinstripes, cropped trousers and stacked soles, so you can see a person and the robot come out of one machine.</p>
+<div class="lab">EIGHT FACINGS, LIVE, ON THE BEAT</div>
+<div class="grid" id="g"><div></div><div class="h">ROBOT IDLE</div><div class="h">ROBOT WALK</div><div class="h">MOB WALK</div></div>
+<script src="DIRECTION_THE_RIG_ROUND_SIX_TABLE.js"></script>
+<script>
+(function(){
+  var BEAT=500, DIRS=['S','SE','E','NE','N','NW','W','SW'], T=window.RIG6_TABLE, im=new Image(), cells=[];
+  var dpr=window.devicePixelRatio||1;   /* one art pixel to one phone pixel */
+  function canvas(w,h){ var c=document.createElement('canvas'); c.width=w; c.height=h; c.style.width=(w/dpr)+'px'; c.style.height=(h/dpr)+'px'; return c; }
+  var g=document.getElementById('g'), CW=T.cell[0], CH=T.cell[1];
+  DIRS.forEach(function(d){ var l=document.createElement('div'); l.className='dir'; l.textContent=d; g.appendChild(l);
+    T.clips.forEach(function(c){ var cv=canvas(CW,CH); g.appendChild(cv); cells.push({cv:cv,row:T.rows[c.subject+' '+d],col:c.col,keys:c.keys,beats:c.beats}); }); });
+  im.onload=function(){ var t0=performance.now();
+    (function tick(){ var b=(performance.now()-t0)/BEAT;
+      cells.forEach(function(c){ var x=c.cv.getContext('2d'); x.imageSmoothingEnabled=false;
+        var k=Math.floor((b%c.beats)/c.beats*c.keys);
+        x.clearRect(0,0,CW,CH); x.fillStyle='#2a2219'; x.fillRect(0,0,CW,CH); x.fillStyle='#3a3024'; x.fillRect(0,T.ground_y,CW,3);
+        x.drawImage(im,(c.col+k)*CW,c.row*CH,CW,CH,0,0,CW,CH); });
+      requestAnimationFrame(tick); })(); };
+  im.src='DIRECTION_THE_RIG_ROUND_SIX.webp';
+})();
+</script>

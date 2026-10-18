@@ -10703,6 +10703,59 @@
     "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
     "light": "guide"
    }
+  },
+  {
+   "id": "direction-the-rig-round-six-10-18",
+   "kind": "animation",
+   "lane": "direction",
+   "sha": "PENDING",
+   "made": "10/18",
+   "draft": true,
+   "title": "PLACEHOLDER: THE ROBOT MOVES, AND THE FIRST PERSON FROM THE SAME MACHINE",
+   "why": "You said yes to the robot finished by hand, so it now idles and walks in all eight directions with the truck's recipe, and its body no longer shimmers when only its head turns. You see it in the VOTE tab playing on the beat at the game's own pixels, beside the Mob's look walking, the first person made the same way.",
+   "show": {
+    "how": "page",
+    "src": "vote/DIRECTION_THE_RIG_ROUND_SIX.html"
+   },
+   "question": "Do the robot's idle and walk still feel like the robot you liked, and does the Mob look like it came off the same table?",
+   "caption": "PIXEL SIZE 1:1, 57 px a metre | PALETTE records/target/BOHEMIA_STYLE_PALETTE.json | LIGHT one sun, upper left (155.4 deg on screen)",
+   "class": "person",
+   "sprites": [
+    "records/target/direction_rig_round_six/robot/rig_N.png",
+    "records/target/direction_rig_round_six/robot/rig_NE.png",
+    "records/target/direction_rig_round_six/robot/rig_E.png",
+    "records/target/direction_rig_round_six/robot/rig_SE.png",
+    "records/target/direction_rig_round_six/robot/rig_S.png",
+    "records/target/direction_rig_round_six/robot/rig_SW.png",
+    "records/target/direction_rig_round_six/robot/rig_W.png",
+    "records/target/direction_rig_round_six/robot/rig_NW.png",
+    "records/target/direction_rig_round_six/mob/rig_N.png",
+    "records/target/direction_rig_round_six/mob/rig_NE.png",
+    "records/target/direction_rig_round_six/mob/rig_E.png",
+    "records/target/direction_rig_round_six/mob/rig_SE.png",
+    "records/target/direction_rig_round_six/mob/rig_S.png",
+    "records/target/direction_rig_round_six/mob/rig_SW.png",
+    "records/target/direction_rig_round_six/mob/rig_W.png",
+    "records/target/direction_rig_round_six/mob/rig_NW.png"
+   ],
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   },
+   "twin": {
+    "src": "records/target/character/rig/mob/rig_SE.png",
+    "diffs": [
+     "THE HAIR: CHARACTER's Mob from last round wears a grey dusted crown (the rig dusted every dark head); this one is charcoal, because hair, skin and eyes now take only a share of the dust and the chips.",
+     "THE PAINT: last round's Mob was rendered before the truck's recipe; this one has the old paint, the worn edges and no shine the truck got, so the person and the robot age the same way.",
+     "THE MOTION: the robot's idle last round was stills only; now it moves, and a part that would move less than half a pixel holds still, so its body stops shimmering when only its head turns."
+    ]
+   },
+   "before_after": {
+    "before": "CHARACTER's Mob as rendered last round (grey crown, before the recipe)",
+    "after": "the robot's idle and walk and the Mob's walk, eight facings, on the beat",
+    "scale": "1:1"
+   }
   }
  ],
  "verdicts": [
