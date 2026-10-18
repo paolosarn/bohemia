@@ -134,6 +134,20 @@ the Mob's four valley cells and RUN's region fortress); TUNING (the +n and the
 base cost). PENDING Paolo: nothing.
 
 
+MODS (mods-59jyd6): 10/18 LATEST (b) -- *** THE NEW AGE (rules 112 to 116; opened by the coordinator, no check-in) SHIPPED
+[sheets not stills]. *** Record records/BOHEMIA_MODS_THE_TEN_TESTS_ON_A_PACKED_SHEET_10_18_26.md; instrument
+tools/bohemia_mods_sheet_cost.py (reads only, about 2.5 min). Measured on all 26 looks in slices/fight_people (1,768
+frames) against DIRECTION's real style guide (077f30f). A SHEET PASSES PER FRAME: checked whole, the light row reads
+flat on all 26 and banding doubles (YOU 54.5 against 23.2); per frame is cheaper too (2.7 s a look for the craft rows,
+34 s with the card, about 15 min for the fleet). PROVES THE ROW WRONG: 26 looks, not 27; TWO facings (SE, SW), not
+eight, so G6 must read the sheet's own rows; SW is drawn, not mirrored (overlap 0.85 to 0.90). The tests do their job
+on the old sprites: every frame far under the person floor of 800 colours (23 on YOU's idle), four looks lit from
+below (satchel 68/68, colorful 66, caravans 62, church 45). ONE NUMBER TO SETTLE: the guide's screen light 155.4
+against check.py's 180 to 360 band; the good looks sit at 267 to 273, so the two are in two conventions or two
+lights; routed to DIRECTION and PLUMBER. School: Stardew (fixed frames, left is right flipped) and Battle Brothers
+(one brush entry per sprite by id) both judge a sprite inside a sheet, never the sheet. New OPEN row [a sheet's
+class] (rule 74); [a png in the bundle] and [grok sources] stand. Rule 88 kept: no VOTE sheet. PENDING Paolo: nothing.
+
 MODS (mods-59jyd6): 10/18 LATEST -- *** THE NEW AGE (rules 112 to 115; opened by the coordinator, no check-in) SHIPPED TWO
 RESEARCH ROWS: [the style guide as data] and [the ten gates as a mod check]. *** Records
 records/BOHEMIA_MODS_THE_STYLE_GUIDE_AS_DATA_10_18_26.md and records/BOHEMIA_MODS_A_MODDER_RUNS_THE_SAME_TEN_TESTS_10_18_26.md;
