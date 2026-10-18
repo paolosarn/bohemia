@@ -11065,6 +11065,20 @@
    ]
   },
   "draft": true
+ },
+ {
+   "id": "people-the-names-wired-in-10-18",
+   "kind": "line",
+   "lane": "people",
+   "sha": "691e377f",
+   "made": "10/18",
+   "draft": true,
+   "title": "WHO STANDS AT THE POST: REAL NAMES, LAS VEGAS'S REAL MIX",
+   "why": "Every man at the hiring post, every shopkeeper and every stranger now gets a two-word name from Las Vegas's real mix (about a third Hispanic, not over half), a woman's face always gets a woman's name, and you stop losing hired men who shared a name like CHUY. You see it here, twelve real hire cards with the old name under each, and in the demo when you tap the hall in any town.",
+   "show": {
+     "how": "image",
+     "src": "vote/PEOPLE_THE_NAMES_WIRED_IN_10_18.png"
+   }
  }
  ],
  "verdicts": [
