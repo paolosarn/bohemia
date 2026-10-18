@@ -12,8 +12,8 @@ in its order, each a pure image or text test with the number its tell carries in
                           and long enough to be a light at all (tell 9)
   D4  HUE SHIFT           ramps of 3+ steps move hue 8+ degrees dark to light; over half straight is the tell (6)
   D5  REST AND FOCUS      edge density per block: Gini 0.4+, the quietest quartile under 40% of the busiest (16, 18)
-  D6  SILHOUETTE          8x8 mask IoU between sprites of one class under 0.85; the 3x3 mask is not a box (17)
-  D7  THREE VALUES        three luminance bins each 12%+ of the sprite, none over 75% (15)
+  D6  SILHOUETTE          8x8 mask IoU between sprites of one class under 0.85; the 8x8 mask is not a box (17)
+  D7  THREE VALUES        three luminance bins (1st to 99th percentile) each 12%+ of the sprite, none over 75% (15)
   D8  CLEAN LINES         orphans under 2 per 1,000 opaque; no 2x2 outline blocks; jaggies under 3 per 100
                           outline pixels; banding under 15%; pillow r under 0.7 (10, 11, 12, 13)
   D9  REPETITION          on a scene or tile sheet: no 16x16 hash over 30% of the filled blocks and no run of
@@ -319,14 +319,18 @@ def mask_n(a, n):
 
 
 def d6_one(a, T, cls='character'):
+    """a box at 8x8 (10/18, DIRECTION's reading on round five: the 3x3 mask filled all nine cells on every
+    render incl. the maquettes, his YES; the research's own D10 reads the 8x8 silhouette). Fewer than
+    d6_box_empty of the 64 cells empty is a box: the planted box reads 0, the truck and the drum 4, the
+    robot 18, the man 26."""
     if cls == 'tile':
         return res(None, {}, 'a tile is a square on purpose', unmeasured=True)
-    m3 = mask_n(a, 3)
-    if m3 is None:
+    m8 = mask_n(a, 8)
+    if m8 is None:
         return res(None, {}, 'empty', unmeasured=True)
-    holes = int((~m3).sum())
-    ok = holes >= 2
-    return res(ok, {'3x3_empty_cells': holes}, '' if ok else 'reads as a box at 3x3 (%d empty cells)' % holes)
+    holes = int((~m8).sum())
+    ok = holes >= T.get('d6_box_empty', 4)
+    return res(ok, {'8x8_empty_cells': holes}, '' if ok else 'reads as a box at 8x8 (%d of 64 cells empty)' % holes)
 
 
 def d6_set(alphas, names, T):
@@ -352,10 +356,12 @@ def d7(rgb, a, T):
     op = a >= 128
     if op.sum() < 20:
         return res(None, {}, 'too few opaque pixels', unmeasured=True)
-    v = lum(rgb)[op]; lo, hi = v.min(), v.max()
+    # the 1st to 99th percentile, not min to max (10/18, DIRECTION: two eye-glint pixels on the finished robot
+    # squeezed its light third to 9% while the raw render read 24/46/30; one glint is not the sprite's range)
+    v = lum(rgb)[op]; lo, hi = np.percentile(v, 1), np.percentile(v, 99)
     if hi - lo < 1e-6:
         return res(False, {'bins': [1.0, 0, 0]}, 'one value only')
-    t = (v - lo) / (hi - lo)
+    t = np.clip((v - lo) / (hi - lo), 0, 1)
     bins = [float((t < 1 / 3).mean()), float(((t >= 1 / 3) & (t < 2 / 3)).mean()), float((t >= 2 / 3).mean())]
     ok = min(bins) >= T['d7_min_bin'] and max(bins) <= T['d7_max_bin']
     return res(ok, {'bins': [round(b, 3) for b in bins]},
@@ -825,6 +831,43 @@ def build_bands(families=None, T=None, log=print):
                                        for d, kv in allv.items()}}
     out['pack_files'] = sum(len(pack_pieces(f)) for f in fams)
     return out
+
+
+_CELL = {}
+
+
+def pack_cell(fam):
+    """the family's own tile size: the median longer side of its pack pieces (ground 96, road 96). A kit
+    piece of sixteen pack tiles is judged a pack tile at a time (10/18, COOK TWO [the ground ruler]: 18 of 21
+    kit pieces failed D2 whole against the band of ONE pack tile, 0 of 63 cut to his tile's size)."""
+    if fam in _CELL:
+        return _CELL[fam]
+    sides = []
+    for f in pack_pieces(fam):
+        try:
+            sides.append(max(Image.open(f).size))
+        except OSError:
+            pass
+    _CELL[fam] = int(np.median(sides)) if sides else 96
+    return _CELL[fam]
+
+
+def tile_cells(src, cell):
+    """a tile sheet cut into cell x cell pieces; a ragged edge under half a cell joins nothing and is
+    dropped, a sheet no bigger than one cell is itself the one cell."""
+    im = Image.open(src).convert('RGBA')
+    w, h = im.size
+    if w <= cell * 1.5 and h <= cell * 1.5:
+        return [im]
+    out = []
+    for y in range(0, h, cell):
+        for x in range(0, w, cell):
+            if min(cell, w - x) * 2 < cell or min(cell, h - y) * 2 < cell:
+                continue
+            c = im.crop((x, y, min(x + cell, w), min(y + cell, h)))
+            if (np.asarray(c)[..., 3] >= 128).mean() >= 0.5:
+                out.append(c)
+    return out or [im]
 
 
 def band_verdict(rep, family, bands):

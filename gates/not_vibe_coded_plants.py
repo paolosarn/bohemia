@@ -128,3 +128,21 @@ def tiled_sheet(vary):
             t = tiles[rng.integers(0, 8)] if vary else tiles[0]
             img[ty * 16:(ty + 1) * 16, tx * 16:(tx + 1) * 16, :3] = t
     return Image.fromarray(img, 'RGBA')
+
+
+def ground_sheet(bad_cell=False, noise=False):
+    """a 192 px ground sheet of four of his own pack tiles (the tile class's ruler, 10/18); bad_cell swaps the
+    last for a noise cell, noise fills all four."""
+    import glob, os
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    packs = [f for f in sorted(glob.glob(os.path.join(root, 'reference', 'art_bank', 'ground', 'pack_*.png')))
+             if Image.open(f).size == (96, 96)]   # his tiles at his size, never resized
+    rng = np.random.default_rng(1)
+    im = Image.new('RGBA', (192, 192))
+    for i, (x, y) in enumerate([(0, 0), (96, 0), (0, 96), (96, 96)]):
+        if noise or (bad_cell and i == 3):
+            c = rng.integers(0, 256, (96, 96, 4), dtype=np.uint8); c[..., 3] = 255
+            im.paste(Image.fromarray(c, 'RGBA'), (x, y))
+        else:
+            im.paste(Image.open(packs[i]).convert('RGBA'), (x, y))
+    return im

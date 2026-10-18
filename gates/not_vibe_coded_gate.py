@@ -34,6 +34,11 @@ THE LEGS
   N5  THE MAQUETTES PASS (DIRECTION's style guide, tie-breaker 1: his YES wins over every number): the robot and
       the truck pass the held first five on all eight facings, and the guide's G2 and light row bite both ways
       on the plants. When the guide is on disk it holds the rendered classes (RULER below).
+  N6  THE GROUND RULER (10/18, COOK TWO [the ground ruler]): class tile is judged a pack tile at a time
+      (cut to the family's median pack size, 96 px), D2 and D5 every cell against the ground packs, D3 not
+      held (a top-down slab has no light; the packs' own 90th percentile is 180 degrees), D4 to the pack
+      band; his road tiles pass 228 of 278 and his ground 335 of 391 (were 9 and 24), COOK TWO's kit 21 of
+      21 (was 0); a sheet with one noise cell is red.
   N4  NO NEW UI DEFAULT (D10): gradients, blur, glow, radius over 2 px, panel hues 250 to 290 and system
       fonts in the shipped demo and alpha may only go down from the frozen counts.
 
@@ -168,8 +173,44 @@ RENDERED = {'person', 'beast', 'vehicle', 'prop'}
 CLASS_ALIAS = {'character': 'person', 'enemy': 'person', 'boss': 'person'}
 
 
-def held_verdict(rep, fam, bands, cls=None, src=None, g=None):
+def tile_verdict(rep, fam, bands, src, T):
+    """CLASS TILE, THE GROUND RULER (10/18, COOK TWO's measurement, records/target/COOK2_THE_GROUND_AGAINST_
+    THE_CULL.json): his own bought tiles fail the research line on D3 (256 of 278 road, 355 of 391 ground) and
+    D4 (122 of 278, 119 of 391), and a kit piece of sixteen pack tiles was held to the band of ONE pack tile.
+    So a tile is judged A PACK TILE AT A TIME (cut to the family's own median size): D1 on the research line,
+    D2 and D5 every cell against the family's pack band. D3 is not held: a top-down slab carries no light
+    direction, and the ground packs' own 90th percentile is 180 degrees, the worst value there is. D4 holds
+    to the pack band, which on the ground is every ramp straight (1.0); both say so in the card rather than
+    printing a pass a ruler did not earn."""
+    tfam = fam if fam in N.TILE_FAMILIES else 'ground'
+    cell = N.pack_cell(tfam)
+    out = {'D1': (rep['D1']['ok'], rep['D1']['why'])}
+    bad = {'D2': [], 'D5': []}
+    cells = N.tile_cells(src, cell)
+    for i, c in enumerate(cells):
+        r = N.sprite_report(c, 'tile', 'upper-left', None, T)
+        bv = N.band_verdict(r, tfam, bands) if bands else {d: {'ok': r[d]['ok'], 'why': r[d]['why']} for d in ('D2', 'D5')}
+        for d in ('D2', 'D5'):
+            if bv.get(d, {}).get('ok') is False:
+                bad[d].append('cell %d: %s' % (i, bv[d]['why']))
+    for d in ('D2', 'D5'):
+        out[d] = (not bad[d], 'against the %s packs a %d px cell at a time (%d cells): %s' % (
+            tfam, cell, len(cells), '; '.join(bad[d][:3])))
+    lim3 = (bands or {}).get('families', {}).get(tfam, {}).get('band', {}).get('D3', {}).get('angle_off')
+    out['D3'] = (None, 'not held on a tile: a top-down slab has no light direction (the %s packs\' 90th '
+                       'percentile is %s degrees)' % (tfam, lim3))
+    bv = N.band_verdict(rep, tfam, bands) if bands else {}
+    lim4 = (bands or {}).get('families', {}).get(tfam, {}).get('band', {}).get('D4', {}).get('straight_share')
+    d4ok = bv.get('D4', {}).get('ok')
+    out['D4'] = (d4ok, 'against the %s packs (their 90th percentile: %s of ramps straight) %s' % (
+        tfam, lim4, bv.get('D4', {}).get('why', '')))
+    return out
+
+
+def held_verdict(rep, fam, bands, cls=None, src=None, g=None, T=None):
     cls = CLASS_ALIAS.get(cls, cls)
+    if cls == 'tile' and src is not None:
+        return tile_verdict(rep, fam, bands, src, T or N.thresholds())
     bv = N.band_verdict(rep, fam, bands) if bands else {}
     out = {'D1': (rep['D1']['ok'], rep['D1']['why'])}
     if g is not None and cls in RENDERED and src is not None:
@@ -213,13 +254,13 @@ def n3(T, bands):
         if not all(k in look for k in ('px', 'palette', 'light')):
             probs.append('%s: its look does not name px, palette and light (rule 114c): "look": {"px": 1, '
                          '"palette": "<file>", "light": "guide"}' % it['id']); continue
-        fam = KIND_FAMILY.get(it.get('kind'), 'all')
+        fam = it.get('family') or KIND_FAMILY.get(it.get('kind'), 'all')
         for sp in it['sprites']:
             p = os.path.join(ROOT, sp)
             if not os.path.exists(p):
                 probs.append('%s: sprite %s is not on disk' % (it['id'], sp)); continue
             rep = N.sprite_report(p, it.get('class', 'character'), look.get('light', 'upper-left'), None, T)
-            v = held_verdict(rep, fam, bands, it.get('class'), p, N.guide())
+            v = held_verdict(rep, fam, bands, it.get('class'), p, N.guide(), T)
             bad = [d for d in ('D1', 'D2', 'D3', 'D4', 'D5') if v[d][0] is False]
             if bad:
                 probs.append('%s: %s fails %s (%s)' % (it['id'], sp, ','.join(bad), '; '.join(v[d][1] for d in bad)))
@@ -266,6 +307,22 @@ def n5(T, bands):
        N.g3(*below, g)['ok'] is False and N.g3(*made, g)['ok'] is True)
 
 
+def n6(T, bands):
+    """THE GROUND RULER (10/18, COOK TWO's ask): a tile is judged a pack tile at a time against the ground
+    packs, both ways on four of his own tiles."""
+    if not bands:
+        return
+    d = tempfile.mkdtemp()
+    for name, kw, want in (('four of his ground tiles', {}, True), ('three of his and one noise cell', {'bad_cell': True}, False),
+                           ('four noise cells', {'noise': True}, False)):
+        p = os.path.join(d, name.replace(' ', '_') + '.png'); P.ground_sheet(**kw).save(p)
+        rep = N.sprite_report(p, 'tile', 'upper-left', None, T)
+        v = held_verdict(rep, 'ground', bands, 'tile', p, N.guide(), T)
+        bad = [x for x in ('D1', 'D2', 'D3', 'D4', 'D5') if v[x][0] is False]
+        ok('N6 the ground ruler %s a sheet of %s (a 96 px cell at a time; D3 not held on a slab)' % (
+            'passes' if want else 'fails', name), (not bad) == want, 'failed %s: %s' % (bad, '; '.join(v[x][1] for x in bad)))
+
+
 def rig_report(T, bands):
     """printed, never held: the master rig through the ten checks, the research numbers and the packs'."""
     if not os.path.isdir(RIG):
@@ -309,6 +366,7 @@ def main():
     n3(T, bands)
     n4()
     n5(T, bands)
+    n6(T, bands)
     rig_report(T, bands)
     print('\nTHE NOT VIBE CODED GATE: %d passed, %d failed' % (passed, failed))
     return 1 if failed else 0
