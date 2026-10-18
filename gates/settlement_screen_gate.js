@@ -238,7 +238,7 @@ const srv = http.createServer((rq, rs) => {
   /* A PLACE HAS TRAITS (rule 71): the same town rolled two ways looks different, prices differently,
      and the keeper says why first */
   const roll = async ids => {
-    await p.evaluate(ids => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: ids }), ids);
+    await p.evaluate(ids => { BohemiaSettlement.state.sold = {}; BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: ids }); }, ids);   /* the traits, not what was bought */
     await p.waitForFunction(() => (BohemiaSettlement.state.stock.smith || []).length > 0, null, { timeout: 30000 });
     await p.waitForTimeout(500);
     const px = await p.evaluate(() => { const c = document.getElementById('cv'); const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let h = 0; for (let i = 0; i < d.length; i += 400) h = (h * 31 + d[i] + d[i + 1] * 3 + d[i + 2] * 7) >>> 0; return h; });
@@ -301,6 +301,24 @@ const srv = http.createServer((rq, rs) => {
   const meds = stall.find(t => /meds/i.test(t)) || '', food = stall.find(t => /food/i.test(t)) || '';
   ok('  and a sick town triples the meds at the stall and leaves the blades and the bread alone', /3 batteries/.test(meds) && /1 battery/.test(food) && common.every(id => priceOf(sick.st, id) === priceOf(plain.st, id) || priceOf(sick.st, id) == null),
      meds + ' / ' + food);
+  /* THE SHELF RESTOCKS (RUN TWO 10/18): Battle Brothers' market refreshes about every 3 days (GROK_21 line 17). A real buy
+     at the smith stays gone on the same delivery (reopened, day 2), and day 3 is a new roll, the slot refilled */
+  const smithIds = () => p.evaluate(() => (BohemiaSettlement.state.stock.smith || []).map(i => i.id));
+  const at = d => p.evaluate(d => { BohemiaSettlement.open({ place: { tier: 'town', name: 'RESTOCK ROW' }, traits: [], day: d }); }, d);
+  await at(0); const r0 = await smithIds();
+  await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 400, 'gate', null, 0));
+  await tapB('smith'); await p.waitForTimeout(200);
+  await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(150);
+  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  await p.click('#close'); await p.waitForTimeout(150);
+  await at(0); const r0b = await smithIds();
+  await at(2); const r2 = await smithIds();
+  await at(3); const r3 = await smithIds();
+  await at(0); const rBack = await smithIds();
+  ok('  THE SHELF RESTOCKS: a piece bought stays gone all delivery (day 0 reopened, day 2), day 3 is a new roll with every slot full',
+     r0.length > 2 && r0b.length === r0.length - 1 && r0b.every(id => r0.includes(id)) && r2.join() === r0b.join() && r3.length === r0.length && r3.join() !== r0.join() && rBack.join() === r0b.join(),
+     r0.length + ' -> ' + r0b.length + ' (day 2: ' + r2.length + ') -> day 3: ' + r3.length + ', ' + r3.filter(id => !r0.includes(id)).length + ' new');
+  await p.evaluate(() => { BohemiaSettlement.state.mapDay = undefined; });
   ok('  and a mark in the raid ledger raids that place on its days only (day 9 no, 10 and 12 yes, 13 no; the next town no)', !led[9] && led[10] && led[12] && !led[13] && !led.other, JSON.stringify(led));
   await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(400);

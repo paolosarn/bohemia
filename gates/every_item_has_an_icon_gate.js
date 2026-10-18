@@ -83,6 +83,11 @@ const done = () => { console.log('\nEVERY ITEM HAS AN ICON: ' + pass + ' ok, ' +
   const slotRead = (k) => p.evaluate(k => {
     const st = BohemiaSettlement.state, H = c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let h = 0; for (let i = 0; i < d.length; i += 24) h = (h * 31 + d[i] + d[i + 1] * 7 + d[i + 2] * 13) >>> 0; return h; };
     const read = (grid, list) => !grid ? [] : Array.from(grid.children).map((b, i) => { const it = list[i]; if (!it) return null; const c = b.querySelector('canvas.bm-icon');
+      /* RUN TWO 10/18: since [the market in the pack's art] (10/11, UI's own additive line in bohemia_ui_materials.js) a weapon
+         wears HIS PACK'S tile (img.pk, by Battle Brothers class) instead of the drawn icon; which tile each class gets is held by
+         gates/market_pack_art_gate.js, so here a pack tile counts as the icon when it is drawn at 28+ px */
+      const pk = b.querySelector('img.pk');
+      if (!c && pk) { const r = pk.getBoundingClientRect(); return { t: it.name, id: it.id, icon: pk.complete && pk.naturalWidth > 0, obj: 'pack:' + pk.src.split('/').pop(), w: Math.max(r.width, r.height), same: true, says: true }; }
       if (!c) return { t: it.name, icon: false }; const r = c.getBoundingClientRect();
       return { t: it.name, id: it.id, icon: true, obj: c.dataset.obj, w: r.width, same: c.dataset.id === it.id && H(c) === H(BohemiaMaterials.itemIcon(it, 30)), says: it.name.indexOf(c.dataset.obj) >= 0 }; }).filter(Boolean);
     return { shelf: read(document.getElementById('shelfgrid'), st.stock[k] || []), bag: read(document.getElementById('baggrid'), st.stash || []) };
@@ -99,7 +104,7 @@ const done = () => { console.log('\nEVERY ITEM HAS AN ICON: ' + pass + ' ok, ' +
     await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(700);
     (await slotRead(k)).shelf.forEach(g => lines.push(Object.assign({ k }, g)));
   }
-  ok('EVERY ITEM ON THE SMITH\'S AND THE ARMOURER\'S SHELF WEARS ITS ICON', lines.length >= 6 && lines.every(l => l.icon && l.w >= 28), lines.map(l => l.k + ':' + (l.icon ? l.obj : 'NONE')).join(' '));
+  ok('EVERY ITEM ON THE SMITH\'S AND THE ARMOURER\'S SHELF WEARS ITS ICON', lines.length >= 6 && lines.every(l => l.icon && l.w >= 28), lines.map(l => l.k + ':' + (l.icon ? l.obj + '@' + Math.round(l.w) : 'NONE')).join(' '));
   ok('  of the object its name says, and the same item always draws the same picture', lines.every(l => l.says && l.same), lines.filter(l => !(l.says && l.same)).map(l => l.t).join(' | '));
   /* buy the first thing on the armourer's shelf: it lands in the bag wearing the same icon */
   const first = await p.evaluate(() => { const b = document.querySelector('#shelfgrid .slot.full'); const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, id: BohemiaSettlement.state.stock.armourer[0].id }; });

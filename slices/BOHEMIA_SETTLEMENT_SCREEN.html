@@ -100,7 +100,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
 .slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c;box-shadow:inset 0 1px 0 rgba(255,235,200,.1),0 1px 0 #000}
 .slot i{font-style:normal;font-size:16px;color:var(--gold);line-height:1}
-.slot img.pk{width:auto;height:46%;max-width:80%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
+.slot img.pk{width:auto;height:58%;max-width:84%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
 .act img.pk{width:34px;height:34px;object-fit:contain;image-rendering:pixelated;margin-right:8px;vertical-align:middle;flex:none}
 .slot span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .slot em{font-style:normal;color:var(--dim);font-size:9px}
@@ -306,13 +306,21 @@ function armourItem(kind, r){
           line: kind==='shields' ? 'Held up, it takes the hit first.' : 'Takes hits until it is worn through.',
           nums:'holds '+r.durability+(r.fatigue!=null?'  weight '+Math.abs(r.fatigue):'')};
 }
+/* RUN TWO [the shelf restocks] 10/18: Battle Brothers' marketplace 'refreshes about every 3 days'
+   (reference/library/grok/GROK_21_WIKI_ROUND_01_2026_09_30.md line 17). The shelf is rolled from the place's name AND
+   the game's day / 3 (the map's clock, open({day}); never the phone's, never the scavenge hours), so the same visit
+   reads the same shelf, a bought piece stays gone until the next delivery, and three days on the shelf is a new roll
+   at the same tier, the sold-out slot refilled. Day 0 to 2 keep the old seed, so nothing already shown moves. */
+var RESTOCK_DAYS = 3;
+function restockPeriod(){ return Math.floor(((typeof S.mapDay === 'number') ? S.mapDay : 0) / RESTOCK_DAYS); }
+function soldKey(){ return S.place.name + ':' + restockPeriod(); }
 /* the shelf: what a place this size carries, rolled from its name so it is the same every visit */
 function restock(){
   if(!BB.weapons || !BB.armor || !VAR) return;
   var tier = S.place.tier, band = tier==='camp' ? [0,.4] : tier==='town' ? [.15,.75] : [.3,1];
   /* each shelf rolls on its own stream, so a trait that takes or adds items never reshuffles the rest */
   function pick(rows, n, key){
-    var R0 = rng(seedOf(S.place.name + ':stock:' + key));
+    var per = restockPeriod(), R0 = rng(seedOf(S.place.name + ':stock:' + key + (per ? ':' + per : '')));
     var sorted = rows.filter(function(r){ return r.value != null; }).sort(function(a,b){ return a.value-b.value; });
     var lo = Math.floor(sorted.length*band[0]), hi = Math.max(lo+1, Math.floor(sorted.length*band[1])), out = [], seen = {};
     for(var t=0; t<60 && out.length<n; t++){ var r = sorted[lo + Math.floor(R0()*(hi-lo))]; if(r && !seen[r.id]){ seen[r.id]=1; out.push(r); } }
@@ -325,6 +333,9 @@ function restock(){
   S.stock = {arms: W(sm(4),'arms').concat(A(sm(3),'arms')), smith: W(sm(7),'smith'), armourer: A(sm(6),'armourer').concat(pick(BB.armor.shields, 2, 'shields').map(function(r){ return armourItem('shields', r); }))};
   /* a trait moves every price on the shelves, never below one battery */
   for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.base = it.price; it.price = Math.max(1, Math.round(it.price * tm.buy)); });
+  /* what you bought here this delivery stays bought */
+  var gone = ((S.sold||{})[soldKey()] || []).slice();
+  for(var sk2 in S.stock) S.stock[sk2] = S.stock[sk2].filter(function(it){ var j = gone.indexOf(sk2 + ':' + it.id); if(j >= 0){ gone.splice(j, 1); return false; } return true; });
 }
 /* ---------- THE BAG (rule 76, Paolo 10/5: 'a standardized way where you buy things and they end up
    in your inventory, inventory space with icons'). Battle Brothers' stash: 36 slots to start. A shop
@@ -371,6 +382,7 @@ function shopSheet(k, body, acts, line){
         if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
         P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
         S.stock[k].splice(S.stock[k].indexOf(it), 1); S.stash.push(it); bagSave();
+        S.sold = S.sold || {}; (S.sold[soldKey()] = S.sold[soldKey()] || []).push(k + ':' + it.id);   /* [the shelf restocks] */
         post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB(k, 'Yours. It is in your bag.');
       }, full || bats() < it.price));
       sb.appendChild(act('Not this one', '', function(){ openB(k); }));
