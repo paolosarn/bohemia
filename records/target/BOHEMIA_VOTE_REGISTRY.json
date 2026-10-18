@@ -9167,6 +9167,15 @@
     "before": "no gas station: the town had none drawn the pack's way",
     "after": "the canopy over two pumps, the office and two lift bays under the measured tan roofs, the man at the office door",
     "scale": "1:1"
+   },
+   "sprites": [
+    "reference/art_bank/settlement/COOK4_GAS_STATION_STRAIGHT_ROOF.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
    }
   },
   {
@@ -9194,7 +9203,52 @@
     "after": "the shed, the dock and three dock doors, the office with its lit window, under the measured tan roofs, the man at the office door",
     "scale": "1:1"
    },
-   "draft": true
+   "draft": true,
+   "sprites": [
+    "reference/art_bank/settlement/COOK4_WAREHOUSE_STRAIGHT_ROOF.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
+  },
+  {
+   "id": "cook4-the-school-10-18",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE SCHOOL UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "why": "The next building of the family you said yes to: an old valley grade school, three classrooms with rows of windows and their own doors off a covered walk on posts, the tall gym and lunch room on the end with steel double doors, the same tan roofs, on a shadow. Every classroom is broken or boarded, but room 3's glass is whole and glows grey-blue, like a TV somebody left on. You see it in the VOTE tab beside your pack house, the tan ranch and the motel at the same size, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_SCHOOL.png"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; the classroom wing and the gym wear the same measured shape (1.49 walls tall) in the tan of his own render wall; the covered walk is a flat deck of his slate in grey-tan.",
+     "MASSING: his house is one small box; ours is a 27 m classroom wing at 3.3 m and an 11 m multipurpose room at 5.2 m on the end, 38 m in all, a post every half classroom along the walk.",
+     "LIGHT AND GROUND: as his, from above; we add only the shade under the eaves and the walk, the outline and a contact shadow. One wrong thing: room 3's wire glass whole and lit cold grey-blue in a dead school."
+    ]
+   },
+   "before_after": {
+    "before": "no school: the town had none drawn the pack's way",
+    "after": "three classrooms off a covered walk and the multipurpose room under the measured tan roofs, the man at the double doors",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_bank/settlement/COOK4_SCHOOL_STRAIGHT_ROOF.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
   },
   {
    "id": "run2-who-is-wearing-what-10-18",
