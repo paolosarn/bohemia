@@ -10386,7 +10386,28 @@
     ]
    },
    "draft": true
-  }
+  },
+    {
+     "id": "run2-the-fresh-portraits-10-18",
+     "kind": "redo",
+     "lane": "run 2",
+     "sha": "fc0bbbd3",
+     "made": "10/18",
+     "title": "FRESH PORTRAITS ON YOUR CREW, NO MORE ZOOM ON THE CLAY MODEL'S FACE",
+     "why": "You liked the portraits, not the zoom on the creepy model's face, so all 13 faces on the crew screen, the junk lot and the hiring post are now the fresh portraits the face chat made, and their mouths move when they talk. You see it here under LOOK, the old zoom on the left and the new faces talking on the right, and in the demo when you tap CREW or the junk lot.",
+     "show": {
+      "how": "image",
+      "src": "vote/RUN2_THE_FRESH_PORTRAITS_BEFORE_AFTER_10_18.png"
+     },
+     "redoOf": "run2-the-starred-faces-10-18",
+     "said": "I liked it when it was the portrait not when you zoom in on the fucking creepy model's face bro is it's it's a difference it has to be made fresh portrait.",
+     "before_after": {
+      "before": "the rig body's head cut out and zoomed x4 (11 of 13 faces)",
+      "after": "PORTRAIT's 13 fresh portraits (eb12c4a2), the card's man and YOU at the lot talking, a mouth a half beat",
+      "scale": "half his phone's 3x"
+     },
+     "draft": true
+    }
  ],
  "verdicts": [
   {
