@@ -1151,7 +1151,10 @@ def rows_sheet(out, title, lines, rows, today_label, foot=None):
     os.makedirs(os.path.dirname(os.path.join(ROOT, out)), exist_ok=True); S.save(os.path.join(ROOT, out)); print('sheet', out, S.size)
 
 
-def faction_sheet(out):
+HAIR_STRIP = ('you', 'cast_barearms', 'cast_cape', 'cast_skirt', 'cast_poncho', 'cast_shortcoat', 'cast_longcoat')
+
+
+def faction_sheet(out, before=None):
     """the thirteen gangs: the game's 64 face today (2x) beside the new head on the gang's own body, and the street's line
     at the size the settlement draws a speaker, today against the fresh faces"""
     from PIL import Image
@@ -1171,11 +1174,21 @@ def faction_sheet(out):
             S.paste((58, 52, 46), (x, y, x + 64, y + 64)); S.paste(today, (x, y), today)
             S.paste((58, 52, 46), (x, y + 84, x + 64, y + 148)); S.paste(f, (x, y + 84), f)
         d.text((12, y + 66), 'today', fill=(160, 154, 140)); d.text((12, y + 150), 'from the same model', fill=(160, 154, 140))
+        if not before: return
+        # HIS CHAIN-MAIL NOTE, ANSWERED ON THE CARD: the crew's hair as he voted it (round 1, a grid of ripples) over the
+        # same faces re-rendered with locks, at 128 (the size the crew screen's big box shows)
+        y += 172
+        d.text((12, y), 'YOUR NOTE ON THE CREW: "some hair looks like medieval chain-mail armor". Top: the crew as you voted it (a grid of ripples). Bottom: the same faces, hair as locks. 128 px.', fill=(200, 190, 120))
+        y += 16
+        for i, look in enumerate(HAIR_STRIP):
+            x = 12 + i * 134
+            for j, src in enumerate((os.path.join(before, look, 'rest_128.png'), os.path.join(ROOT, CREW_OUT, look, 'rest_128.png'))):
+                f = Image.open(src).convert('RGBA'); S.paste((58, 52, 46), (x, y + j * 134, x + 128, y + j * 134 + 128)); S.paste(f, (x, y + j * 134), f)
     rows_sheet(out, 'PORTRAIT: THE SPEAKERS\' FACES (rule 115h, a fresh portrait never a zoom). The thirteen gangs the settlement\'s street draws, each head MODELLED on its gang\'s own body (the rig looks he voted up). A PLACEHOLDER.',
                ['head 128 px chin to crown, camera tilt 80, one pixel size, block 1 | palette: style palette steps (skin from the game\'s own face, hair and gear from the worn list) | ONE light: the rig\'s sun, upper left, above | wear 0.45',
                 'the first heads with the face maker\'s dials: no two share a skull (each row says what moved); beards and scars are parts of the model',
                 'columns: TODAY (the game\'s 64 px face, 2x) | S | SE | SW | talking A | O | Angry, all 1:1 straight from DIRECTION\'s rig, unedited'],
-               rows, 'today (64 px)', (foot, 190))
+               rows, 'today (64 px)', (foot, 190 + (300 if before else 0)))
 
 
 def maker_sheet(out):
@@ -1223,7 +1236,8 @@ def dials_spec(out):
 
 if __name__ == '__main__':
     if sys.argv[1] == '--faction-faces':
-        crew_faces('faction'); faction_sheet(sys.argv[2] if len(sys.argv) > 2 else 'records/target/portrait/PORTRAIT_THE_SPEAKERS_FACES.png'); sys.exit(0)
+        crew_faces('faction'); crew_faces('crew')
+        faction_sheet('records/target/portrait/PORTRAIT_THE_SPEAKERS_FACES.png', sys.argv[2] if len(sys.argv) > 2 else None); sys.exit(0)
     if sys.argv[1] == '--maker-sheet':
         dials_spec('records/portrait/BOHEMIA_HEAD_DIALS.json'); maker_sheet(sys.argv[2] if len(sys.argv) > 2 else 'records/target/portrait/PORTRAIT_THE_STARRED_FACE_CUSTOMISABLE.png'); sys.exit(0)
     if sys.argv[1] == '--crew-faces':

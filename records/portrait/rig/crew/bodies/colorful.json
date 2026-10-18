@@ -1,0 +1,114 @@
+{
+ "look": "Colorful",
+ "shape": "small / long coat / knit cap / long hem",
+ "worn": {
+  "hair": "SHAG",
+  "base": "TEAL STRIPED TEE",
+  "outer": "GRASS CAR COAT",
+  "head": "ROSE KNIT CAP",
+  "legs": "GRASS DROP TROUSER",
+  "feet": "GRASS BOOTS"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/portrait/rig/crew/bodies/colorful.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5613,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.7044,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "colorful_trouser": 2568,
+  "colorful_shoe": 3916,
+  "colorful_coat": 17146,
+  "colorful_coat_skirt": 7812,
+  "colorful_hair": 30198,
+  "colorful_hair_fall": 2254,
+  "colorful_hat": 4548,
+  "colorful_hat_brim": 2362,
+  "colorful_hand_L": 392,
+  "colorful_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "colorful_coat": [
+   0.1746,
+   0.305,
+   0.107
+  ],
+  "colorful_coat_skirt": [
+   0.1746,
+   0.305,
+   0.107
+  ],
+  "colorful_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "colorful_hair": [
+   0.0612,
+   0.0273,
+   0.016
+  ],
+  "colorful_hair_fall": [
+   0.0612,
+   0.0273,
+   0.016
+  ],
+  "colorful_hat": [
+   0.552,
+   0.0612,
+   0.0887
+  ],
+  "colorful_hat_brim": [
+   0.552,
+   0.0612,
+   0.0887
+  ],
+  "colorful_shirt": [
+   0.0513,
+   0.162,
+   0.15
+  ],
+  "colorful_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "colorful_shoe": [
+   0.2159,
+   0.1981,
+   0.162
+  ],
+  "colorful_shoes": [
+   0.2159,
+   0.1981,
+   0.162
+  ],
+  "colorful_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "colorful_trouser": [
+   0.1559,
+   0.1413,
+   0.107
+  ],
+  "colorful_trousers": [
+   0.1559,
+   0.1413,
+   0.107
+  ]
+ }
+}

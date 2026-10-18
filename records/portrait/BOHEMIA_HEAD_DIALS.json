@@ -1,0 +1,404 @@
+{
+ "version": "head-dials-10-18d",
+ "lane": "portrait",
+ "row": "[the starred face, customisable]",
+ "law": "HE CAN BUILD HIS OWN FACE (8/28), on the modelled head (rule 115h)",
+ "draft": true,
+ "tool": "tools/bohemia_portrait_the_head_from_the_model.py (face_dials, warp, face_push)",
+ "how": "a person's face spec is a dict of these keys (any subset; missing keys are the default); the tool clamps it with the 2D panel's own anatomy rules, builds the head on the body, and DIRECTION's rig renders it. Every default together is the starred head, unchanged.",
+ "dials": [
+  {
+   "key": "face.len",
+   "label": "FACE LENGTH",
+   "lo": 28,
+   "hi": 40,
+   "default": 33,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the face below the head's centre stretches, the chin 5.8 mm a pixel (the neck stays in its collar)"
+  },
+  {
+   "key": "face.craniumH",
+   "label": "CRANIUM",
+   "lo": 7,
+   "hi": 15,
+   "default": 10,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the skull above the centre stretches, the crown 5.8 mm a pixel"
+  },
+  {
+   "key": "face.foreheadW",
+   "label": "FOREHEAD",
+   "lo": 19,
+   "hi": 31,
+   "default": 24,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the width above the brow, 2.9 percent a pixel"
+  },
+  {
+   "key": "face.cheekW",
+   "label": "CHEEKS",
+   "lo": 24,
+   "hi": 38,
+   "default": 30,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the width at the cheekbones, 2.3 percent a pixel"
+  },
+  {
+   "key": "face.jawW",
+   "label": "JAW",
+   "lo": 20,
+   "hi": 34,
+   "default": 26,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the width at the jaw's corner, 2.7 percent a pixel"
+  },
+  {
+   "key": "face.chinW",
+   "label": "CHIN",
+   "lo": 7,
+   "hi": 20,
+   "default": 12,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the chin's width, 3.75 percent a pixel"
+  },
+  {
+   "key": "face.browY",
+   "label": "BROW HEIGHT",
+   "lo": -3,
+   "hi": 3,
+   "default": 0,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the brow ridge up or down, 5.8 mm a pixel (held under 15 mm)"
+  },
+  {
+   "key": "face.eyeY",
+   "label": "EYE HEIGHT",
+   "lo": -3,
+   "hi": 3,
+   "default": 0,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the eyes and their sockets up or down, 5.8 mm a pixel (13 mm max)"
+  },
+  {
+   "key": "face.noseY",
+   "label": "NOSE HEIGHT",
+   "lo": -3,
+   "hi": 3,
+   "default": 0,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the nose up or down, 5.8 mm a pixel (18 mm max)"
+  },
+  {
+   "key": "face.mouthY",
+   "label": "MOUTH HEIGHT",
+   "lo": -3,
+   "hi": 3,
+   "default": 0,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the mouth and lips up or down, 5.8 mm a pixel (14 mm max)"
+  },
+  {
+   "key": "eyes.gap",
+   "label": "EYE SPACING",
+   "lo": 3,
+   "hi": 11,
+   "default": 6,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "each eye out from the middle, 3.5 mm a pixel (18 mm max)"
+  },
+  {
+   "key": "brows.len",
+   "label": "BROW LENGTH",
+   "lo": 4,
+   "hi": 11,
+   "default": 7,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the brow ridge's length, 8.6 percent a pixel"
+  },
+  {
+   "key": "mouth.w",
+   "label": "MOUTH WIDTH",
+   "lo": 5,
+   "hi": 15,
+   "default": 9,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the mouth's width (and the speak-along shapes with it), 6.7 percent a pixel"
+  },
+  {
+   "key": "nose.w",
+   "label": "NOSE WIDTH",
+   "lo": 2,
+   "hi": 5,
+   "default": 3,
+   "units": "the 64 px face's pixels (the alpha's FACE_SLIDERS)",
+   "moves": "the nose and its wings, 16.7 percent a pixel"
+  }
+ ],
+ "clamps": [
+  "cheeks >= forehead + 2",
+  "jaw <= cheeks - 1",
+  "chin <= jaw - 6",
+  "5 <= mouth <= jaw - 8"
+ ],
+ "parts": {
+  "cuts": [
+   "coil",
+   "fall",
+   "fringe",
+   "long",
+   "shag",
+   "slick",
+   "taper"
+  ],
+  "extra_cuts": [
+   "buzz (the thug)",
+   "curls (the poacher)"
+  ],
+  "gear": [
+   "knit cap",
+   "watch cap",
+   "slouch beanie",
+   "work cap",
+   "skull cap",
+   "field hat",
+   "cone hat",
+   null
+  ],
+  "beard": [
+   null,
+   "stubble",
+   "moustache",
+   "goatee",
+   "full"
+  ],
+  "scar": [
+   null,
+   "brow",
+   "cheek",
+   "lip"
+  ],
+  "hair_colours": {
+   "jet": [
+    26,
+    28,
+    40
+   ],
+   "black": [
+    32,
+    30,
+    27
+   ],
+   "ash": [
+    70,
+    66,
+    62
+   ],
+   "brown": [
+    82,
+    58,
+    38
+   ],
+   "auburn": [
+    104,
+    44,
+    30
+   ],
+   "ginger": [
+    158,
+    80,
+    28
+   ],
+   "rust": [
+    124,
+    58,
+    34
+   ],
+   "sand": [
+    150,
+    120,
+    80
+   ],
+   "platinum": [
+    196,
+    178,
+    132
+   ],
+   "bleach": [
+    210,
+    202,
+    178
+   ],
+   "steel": [
+    112,
+    112,
+    116
+   ],
+   "grey": [
+    104,
+    104,
+    112
+   ],
+   "white": [
+    186,
+    186,
+    194
+   ],
+   "acid": [
+    110,
+    164,
+    52
+   ],
+   "moss": [
+    98,
+    104,
+    54
+   ],
+   "magenta": [
+    142,
+    32,
+    92
+   ],
+   "teal": [
+    26,
+    110,
+    108
+   ],
+   "violet": [
+    84,
+    52,
+    134
+   ],
+   "pink": [
+    196,
+    150,
+    150
+   ],
+   "red": [
+    200,
+    60,
+    40
+   ]
+  },
+  "skin": "a step of skin_light, skin_mid or skin_deep (records/target/BOHEMIA_STYLE_PALETTE.json)"
+ },
+ "example": {
+  "LONG FACE, PLATINUM": {
+   "face": {
+    "face.len": 39,
+    "face.cheekW": 27,
+    "face.jawW": 23,
+    "face.chinW": 9,
+    "face.foreheadW": 23,
+    "nose.w": 2,
+    "face.craniumH": 12
+   },
+   "skin": [
+    "skin_light",
+    3
+   ],
+   "hair": "taper",
+   "hair_colour": "platinum",
+   "gear": null,
+   "beard": null,
+   "scar": "brow"
+  },
+  "BROAD, FULL BEARD": {
+   "face": {
+    "face.len": 30,
+    "face.cheekW": 36,
+    "face.jawW": 32,
+    "face.chinW": 16,
+    "face.foreheadW": 28,
+    "brows.len": 10,
+    "mouth.w": 11
+   },
+   "skin": [
+    "skin_deep",
+    3
+   ],
+   "hair": "coil",
+   "hair_colour": "black",
+   "gear": null,
+   "beard": "full",
+   "scar": null
+  },
+  "HEAVY FRINGE, MAGENTA": {
+   "face": {
+    "face.len": 32,
+    "face.cheekW": 29,
+    "face.jawW": 24,
+    "eyes.gap": 8,
+    "mouth.w": 7,
+    "nose.w": 2,
+    "face.chinW": 10
+   },
+   "skin": [
+    "skin_mid",
+    3
+   ],
+   "hair": "fringe",
+   "hair_colour": "magenta",
+   "gear": null,
+   "beard": null,
+   "scar": null
+  },
+  "SLICKED, GINGER MOUSTACHE": {
+   "face": {
+    "face.len": 35,
+    "face.cheekW": 31,
+    "face.jawW": 28,
+    "face.chinW": 14,
+    "face.browY": -2,
+    "eyes.gap": 5
+   },
+   "skin": [
+    "skin_light",
+    2
+   ],
+   "hair": "slick",
+   "hair_colour": "ginger",
+   "gear": null,
+   "beard": "moustache",
+   "scar": null
+  },
+  "WATCH CAP, GREY FALL, GOATEE": {
+   "face": {
+    "face.len": 34,
+    "face.cheekW": 30,
+    "face.jawW": 26,
+    "face.mouthY": 1,
+    "face.noseY": 1,
+    "brows.len": 5
+   },
+   "skin": [
+    "skin_mid",
+    2
+   ],
+   "hair": "fall",
+   "hair_colour": "grey",
+   "gear": "watch cap",
+   "beard": "goatee",
+   "scar": null
+  },
+  "FIELD HAT, AUBURN SHAG, SCARRED": {
+   "face": {
+    "face.len": 36,
+    "face.jawW": 30,
+    "face.cheekW": 33,
+    "face.eyeY": -1,
+    "nose.w": 4,
+    "face.chinW": 15
+   },
+   "skin": [
+    "skin_deep",
+    2
+   ],
+   "hair": "shag",
+   "hair_colour": "auburn",
+   "gear": "field hat",
+   "beard": null,
+   "scar": "cheek"
+  }
+ },
+ "identity_check": "every dial at its default: F['identity'] is True and the warp is skipped, so the poacher, the thug and the crew's thirteen rebuild unchanged (measured 10/18d: the same vertex counts and materials, positions within 1.5e-8 m, the export's own run-to-run noise)"
+}

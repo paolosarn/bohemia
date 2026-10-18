@@ -1,0 +1,90 @@
+{
+ "look": "Homeless",
+ "shape": "small / mantle / bare head / long hem",
+ "worn": {
+  "hair": "LAYERED FALL",
+  "base": "TATTERED TEE",
+  "back": "SHOULDER MANTLE",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/portrait/rig/crew/bodies/homeless.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5436,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6851,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "homeless_trouser": 2568,
+  "homeless_shoe": 3916,
+  "homeless_mantle": 19230,
+  "homeless_hair": 30198,
+  "homeless_hair_fall": 2646,
+  "homeless_hand_L": 392,
+  "homeless_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "homeless_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "homeless_hair": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "homeless_hair_fall": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "homeless_mantle": [
+   0.305,
+   0.2874,
+   0.2462
+  ],
+  "homeless_shirt": [
+   0.2664,
+   0.2582,
+   0.2384
+  ],
+  "homeless_shoe": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "homeless_shoes": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "homeless_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "homeless_trouser": [
+   0.013,
+   0.0116,
+   0.0116
+  ],
+  "homeless_trousers": [
+   0.013,
+   0.0116,
+   0.0116
+  ]
+ }
+}

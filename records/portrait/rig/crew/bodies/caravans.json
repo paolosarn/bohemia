@@ -1,0 +1,114 @@
+{
+ "look": "Caravans",
+ "shape": "broad / mantle / wide brim",
+ "worn": {
+  "hair": "COIL CROWN",
+  "base": "DUST PLAID SHIRT",
+  "outer": "SAND COCOON COAT",
+  "back": "OLIVE SHOULDER MANTLE",
+  "head": "CHINESE RICE FARMER HAT",
+  "legs": "DUST TROUSERS",
+  "feet": "SANDWALKERS"
+ },
+ "dials": {
+  "height": -0.3,
+  "belly": 0.55,
+  "shoulders": 0.6,
+  "hips": 0.15
+ },
+ "model": "records/portrait/rig/crew/bodies/caravans.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.6283,
+ "real_height_m": 1.6942,
+ "real_height_for_rig": 1.8051,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "caravans_trouser": 2568,
+  "caravans_shoe": 2508,
+  "caravans_coat": 17762,
+  "caravans_coat_skirt": 4704,
+  "caravans_mantle": 17626,
+  "caravans_hair": 17968,
+  "caravans_hat": 128,
+  "caravans_hand_L": 392,
+  "caravans_hand_R": 392
+ },
+ "materials": {
+  "caravans_coat": [
+   0.1329,
+   0.0976,
+   0.0612
+  ],
+  "caravans_coat_skirt": [
+   0.1329,
+   0.0976,
+   0.0612
+  ],
+  "caravans_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "caravans_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "caravans_hat": [
+   0.2086,
+   0.1559,
+   0.0802
+  ],
+  "caravans_mantle": [
+   0.0976,
+   0.0762,
+   0.0423
+  ],
+  "caravans_mantle_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "caravans_shirt": [
+   0.1812,
+   0.1274,
+   0.0685
+  ],
+  "caravans_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "caravans_shoe": [
+   0.1022,
+   0.0865,
+   0.0704
+  ],
+  "caravans_shoes": [
+   0.1022,
+   0.0865,
+   0.0704
+  ],
+  "caravans_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "caravans_trouser": [
+   0.0887,
+   0.063,
+   0.0482
+  ],
+  "caravans_trousers": [
+   0.0887,
+   0.063,
+   0.0482
+  ],
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ]
+ }
+}
