@@ -9008,6 +9008,13 @@ GATES = [
      "it; tap one and they swap, the old piece back in the bag, the count unchanged; TAKE OFF empties a slot; every slot "
      "thumb-sized on the glass; the company the fight reads carries the ids; the same rows through the one door from the "
      "settlement's CREW button", True),
+    ('THE ARRIVAL', ['node', 'gates/the_arrival_gate.js'],
+     "RUN TWO [the arrival] (THE OVERWORLD IS BATTLE BROTHERS: a place is a settlement screen, and the town's name, size "
+     "and opinion of you come first). On his phone's profile through the game's own door: three arrivals (a raided camp "
+     "at 15, a market-day town held by a faction at 72, a fortress with no trait and no number); the torn tag carries the "
+     "name, tier and traits; the elder speaks one line under a drawn face, the trait's line or the tier's; the opinion "
+     "bar sits on the wiki's band (no number is the wiki's start, Neutral); the faction only when named; inside the glass; "
+     "gone at two seconds; a tap skips and opens no building; the same place again and arrival:false play nothing", True),
     ('WHO LIVES WHERE', ['node', 'gates/who_lives_where_gate.js'],
      "PEOPLE 10/17, rule 110's swing under the hold: a page, backgrounds by place across the 26 places. "
      "The bank is draft and nothing live reads it; the 14 valley places are the derived seats and the 12 "

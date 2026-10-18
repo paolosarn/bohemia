@@ -112,6 +112,21 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .hstats .star{color:var(--gold)}
 .hire .act{grid-column:1 / -1;margin:0}
 #heard{min-height:20px;padding:0 12px;color:var(--dim);font-size:12px;background:var(--plate2)}
+/* THE ARRIVAL (RUN TWO 10/18, [the arrival]): the town's name on a torn tag, its tier, the elder's one line under
+   his face, the town's opinion of you, its banner if it has one; two seconds over the picture, a tap skips */
+#arrive{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  padding:16px;background:rgba(9,7,5,.78);opacity:0;transition:opacity .18s steps(3)}
+#arrive.on{opacity:1}
+#arrive canvas.tag{image-rendering:pixelated;max-width:100%}
+#arrive .who{max-width:340px;width:100%;background:rgba(22,17,12,.92);border:1px solid var(--line);border-radius:4px;padding:8px}
+#arrive .op{max-width:340px;width:100%;font-size:11px;letter-spacing:1px;color:var(--dim)}
+#arrive .op .rail{position:relative;height:10px;margin-top:4px;background:#16110c;border:1px solid var(--line);display:grid;grid-template-columns:repeat(9,1fr)}
+#arrive .op .rail i{border-right:1px solid #2a2119}
+#arrive .op .rail b{position:absolute;top:-4px;width:4px;height:16px;margin-left:-2px;background:var(--gold);box-shadow:0 1px 0 #000}
+#arrive .op .bandw{color:var(--ink)}
+#arrive .fac{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:1px;color:var(--dim)}
+#arrive .fac .sw{width:22px;height:22px;border:1px solid #000;box-shadow:inset 0 0 0 1px rgba(255,235,200,.15)}
+#arrive .fac img{width:40px;height:40px;image-rendering:pixelated;border:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -1156,6 +1171,92 @@ function scavenge(){
   return BohemiaScavenge.search({map:w.m, blocks:w.blocks, state:S.scav, block:w.block, day:S.day});
 }
 
+/* ---------- THE ARRIVAL (RUN TWO 10/18, [the arrival]) ----------
+   THE OVERWORLD IS BATTLE BROTHERS: in its game you reach a town and its name, its size and what it thinks of you
+   come first, then the picture. Ours, before a building is touched: the town's name on a torn tag (UI's receipt
+   paper and tape, the settlement's own labels' material), its tier, ONE line spoken by the place's elder under his
+   face (the trait's line when a trait stands, else the tier's; draft, rule 8/11), the opinion bar on the wiki's nine
+   relation bands (records/target/bb/relations.json, FACTIONS [beef]; the game hands open({opinion}), a place it does
+   not name sits at the wiki's start, 50, Neutral), and the holding faction's colour and name and face when the game
+   hands open({faction:{name, hex, face}}). Two seconds, then the picture; a tap skips. Once per new place. Not a
+   card: the words are a mouth with a portrait, the tag is the town's own sign. Posts 'arrive'. */
+var ARRIVE_MS = 2000;
+var TIER_WORD = {camp:'A CAMP', town:'A TOWN', fortress:'A FORTRESS'};
+var TIER_LINE = {
+  camp: 'Not much out here, mijo. A board, a stall, and whoever is still standing.',
+  town: 'Bienvenido. Batteries talk here, so keep yours where we can hear them.',
+  fortress: 'You are inside the walls now. Behave, and the walls are yours too.'
+};
+var REL = null;
+fetch('../records/target/bb/relations.json').then(function(r){ return r.json(); }).then(function(j){ REL = j; }).catch(function(){});
+function bandOf(v){
+  var b = REL && REL.bands && REL.bands.value;
+  var B9 = b || [{id:'hostile',lo:0,hi:9},{id:'threatening',lo:10,hi:19},{id:'unfriendly',lo:20,hi:29},{id:'cold',lo:30,hi:39},
+    {id:'neutral',lo:40,hi:59},{id:'open',lo:60,hi:69},{id:'friendly',lo:70,hi:79},{id:'very_friendly',lo:80,hi:89},{id:'allied',lo:90,hi:100}];
+  for(var i=0;i<B9.length;i++) if(v >= B9[i].lo && v <= B9[i].hi + .999) return B9[i].id;
+  return v < 0 ? B9[0].id : B9[B9.length-1].id;
+}
+function arrivalLine(){ return traitLine('board') || TIER_LINE[S.place.tier] || TIER_LINE.town; }
+function arrivalTag(title, line){
+  var F1 = '22px "BohemiaCasing", ui-sans-serif, sans-serif', F2 = '12px "BohemiaROM", ui-monospace, monospace';
+  var c = document.createElement('canvas'), x = c.getContext('2d');
+  x.font = F1; var w1 = x.measureText(title).width; x.font = F2; var w2 = x.measureText(line).width;
+  var pw = Math.min(Math.ceil(Math.max(w1, w2) + 40), Math.max(160, (view.W || 360) - 32)), ph = 70;
+  c.width = pw + 4; c.height = ph + 12; c.className = 'tag';
+  x.imageSmoothingEnabled = false;
+  var M = window.BohemiaMaterials, px = 2, py = 8;
+  function path(){
+    x.beginPath(); x.moveTo(px, py); x.lineTo(px + pw, py);
+    for(var yy = py + 4; yy < py + ph; yy += 4) x.lineTo(px + pw - ((yy/4) % 2 ? 2 : 0), yy);
+    for(var xx = px + pw; xx > px; xx -= 4) x.lineTo(xx, py + ph - ((xx/4) % 2 ? 0 : 4));
+    for(yy = py + ph; yy > py; yy -= 4) x.lineTo(px + ((yy/4) % 2 ? 2 : 0), yy);
+    x.closePath();
+  }
+  x.translate(0, 2); path(); x.fillStyle = 'rgba(0,0,0,.85)'; x.fill(); x.translate(0, -2);   /* the contact edge */
+  path(); x.save(); x.clip();
+  if(M && M.receipt){ x.drawImage(M.receipt(), px, py, pw, ph); x.fillStyle = 'rgba(255,250,236,.45)'; x.fillRect(px, py, pw, ph); }
+  else { x.fillStyle = '#e4dcc6'; x.fillRect(px, py, pw, ph); }
+  x.restore();
+  if(M && M.tape) x.drawImage(M.tape(), Math.round(px + pw/2 - 30), 0, 60, 16);
+  x.fillStyle = '#1f1710'; x.textBaseline = 'alphabetic';
+  x.font = F1; x.fillText(title, px + 16, py + 33, pw - 28);
+  x.font = F2; x.fillText(line, px + 16, py + 55, pw - 28);
+  c.dataset.title = title; c.dataset.line = line;
+  return c;
+}
+function arrive(){
+  S.arrivePending = false;
+  var sc = document.getElementById('scene'), old = document.getElementById('arrive'); if(old) old.remove();
+  var tier = S.place.tier || 'town', tw = TIER_WORD[tier] || 'A PLACE';
+  var traits = (S.traits||[]).map(function(t){ return t.name || t.id; });
+  var op = (typeof S.opinion === 'number') ? Math.max(0, Math.min(100, S.opinion)) : ((REL && REL.start && REL.start.value) || 50);
+  var band = bandOf(op), line = arrivalLine();
+  var o = document.createElement('div'); o.id = 'arrive'; o.dataset.place = S.place.name; o.dataset.tier = tier; o.dataset.band = band;
+  o.appendChild(arrivalTag(String(S.place.name).toUpperCase(), tw + (traits.length ? '  ·  ' + traits.join(', ').toUpperCase() : '')));
+  var w = speak('board', line); w.dataset.line = line; o.appendChild(w);
+  var opd = document.createElement('div'); opd.className = 'op';
+  opd.innerHTML = 'WHAT THEY THINK OF YOU: <span class="bandw"></span><div class="rail"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>';
+  opd.querySelector('.bandw').textContent = band.replace(/_/g, ' ').toUpperCase();
+  opd.querySelector('.rail b').style.left = op + '%';
+  o.appendChild(opd);
+  if(S.faction && S.faction.name){
+    var f = document.createElement('div'); f.className = 'fac';
+    if(S.faction.face){ var im = document.createElement('img'); im.alt = ''; im.src = S.faction.face; f.appendChild(im); }
+    var sw = document.createElement('span'); sw.className = 'sw'; sw.style.background = S.faction.hex || '#6d5c42'; f.appendChild(sw);
+    var fn = document.createElement('span'); fn.textContent = 'HELD BY ' + String(S.faction.name).toUpperCase(); f.appendChild(fn);
+    o.appendChild(f);
+  }
+  var gone = false;
+  function off(how){ if(gone) return; gone = true; clearTimeout(t); o.classList.remove('on'); setTimeout(function(){ o.remove(); }, 200); post('arrived', {how:how}); }
+  o.addEventListener('pointerdown', function(e){ e.preventDefault(); e.stopPropagation(); off('tap'); });
+  sc.appendChild(o);
+  requestAnimationFrame(function(){ o.classList.add('on'); });
+  var t = setTimeout(function(){ off('time'); }, ARRIVE_MS);
+  /* no sound of its own: SOUNDS' arrival cue already fires once per new town on the map (cf9b7d8b) */
+  post('arrive', {tier:tier, traits:(S.traits||[]).map(function(t){ return t.id; }), opinion:op, band:band, faction:S.faction ? S.faction.name : null, line:line});
+}
+function arriveWhenReady(){ if(TRAITS || S.arriveTries > 20){ arrive(); return; } S.arriveTries = (S.arriveTries||0) + 1; setTimeout(arriveWhenReady, 50); }
+
 /* ---------- OPEN ---------- */
 function open(o){
   o = o || {};
@@ -1181,8 +1282,13 @@ function open(o){
   if(o.traits !== undefined) S.forceTraits = o.traits;   /* the game (or the VOTE shot) can name them */
   view.cx = null; pickVariant();
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
+  if(typeof o.opinion === 'number') S.opinion = o.opinion; else if(o.place) S.opinion = undefined;
+  if(o.faction !== undefined) S.faction = o.faction; else if(o.place) S.faction = null;
   hide(); shelf(); layout();
   if(window.BohemiaHeard) BohemiaHeard.night(view.night);   /* SOUNDS 10/18: the bed follows the screen's own hour */
+  /* THE ARRIVAL: once per new place, before the picture is touched. It plays when the GAME sends a place (the
+     BOHEMIA_SETTLEMENT_OPEN message, arrival:false skips it); the page's own open() is the screen at rest */
+  if(o.place && o.arrival === true && S.arrivedAt !== S.place.name){ S.arrivedAt = S.place.name; S.arriveTries = 0; arriveWhenReady(); }
 }
 /* THE CREW BUTTON (RUN TWO [equip from the stash]): the company screen over the place, the stash as its bag; closing it
    re-reads the bag the roster changed */
@@ -1192,7 +1298,7 @@ window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, sca
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
-  if(d.type==='BOHEMIA_SETTLEMENT_OPEN') open(d);
+  if(d.type==='BOHEMIA_SETTLEMENT_OPEN') open(Object.assign({}, d, {arrival: d.arrival !== false}));
   if(d.type==='BOHEMIA_SETTLEMENT_FACE' && d.who){ S.faces[d.who] = d.src; if(S.open) openB(S.open); }
 });
 document.getElementById('close').addEventListener('click', hide);
@@ -1200,7 +1306,8 @@ document.getElementById('leave').addEventListener('click', function(){ post('lea
 window.addEventListener('resize', layout);
 
 var q = new URLSearchParams(location.search);
-open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier}, batteries: S.standalone ? 3 : undefined});
+/* the page's own first open is the screen at rest; the arrival plays when the game sends a place (?arrival=1 plays it here) */
+open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier}, batteries: S.standalone ? 3 : undefined, arrival: q.get('arrival') === '1'});
 /* window.BohemiaSettlement.order() is the open buildings; where(k) is the middle of a building's own tappable pixels */
 requestAnimationFrame(loop);
 })();

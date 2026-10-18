@@ -98,7 +98,7 @@ async function roster(profile) {
     ok('NO TYPED STAR IS LEFT ON HIS PAGE; THE DRAWN STARS ARE EXACTLY HIS OWN', st.typed === 0 && st.drawn === st.own && st.own > 0 && st.drawnW, st.name + ': ' + st.drawn + ' drawn, ' + st.own + ' his, ' + st.typed + ' typed');
     ok('HIS GEAR WEARS ITS ICONS, EACH THE ITEM IN THAT SLOT', st.gear.filter(g => g.full).length > 0 && st.gear.every(g => g.full ? g.icon === g.want : !g.icon), st.gear.map(g => g.slot + ' ' + (g.icon || '-')).join(', '));
     /* a real finger takes the weapon off; the bag's slot wears the same icon */
-    const main = await p.evaluate(() => { const g = document.querySelector('#card .gslot[data-slot=main]'); const r = g.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, id: BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel].gear.main.id }; });
+    const main = await p.evaluate(() => { const g = document.querySelector('#card .gslot[data-slot=main]'); g.scrollIntoView({ block: 'center' }); const r = g.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, id: BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel].gear.main.id }; });
     await p.touchscreen.tap(main.x, main.y); await p.waitForTimeout(900);
     const bag = await p.evaluate(() => { const S = BohemiaRosterScreen.state, i = S.bag.length - 1, sl = document.querySelectorAll('#bag .slot')[i]; return { n: S.bag.length, id: S.bag[i] && S.bag[i].id, icon: sl && sl.querySelector('.bm-icon') ? sl.querySelector('.bm-icon').dataset.id : null }; });
     ok('  a real finger takes his weapon off, and the bag\'s slot wears the same icon', bag.id === main.id && bag.icon === main.id, 'bag ' + bag.n + ', slot icon ' + bag.icon + ', item ' + bag.id);
@@ -119,9 +119,9 @@ async function roster(profile) {
     ok('EVERY WORD ON HIS PAGE PASSES 4.5 TO 1 ON WHAT IT SITS ON, PLAIN AND IN THE SUN', cr.length >= 8 && passes(cr), worst(cr) + ' | ' + show(cr));
 
     /* CLIMBING: a point to spend (the screen's own state, as a level-up leaves it), then a real finger */
-    const sel = await p.evaluate(() => { const S = BohemiaRosterScreen.state; S.crew[S.sel].points = 1; const r = document.querySelector('.cell.sel').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    const sel = await p.evaluate(() => { const S = BohemiaRosterScreen.state; S.crew[S.sel].points = 1; const c = document.querySelector('.cell.sel'); c.scrollIntoView({ block: 'center' }); const r = c.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     await p.touchscreen.tap(sel.x, sel.y); await p.waitForTimeout(900);   /* the cells take a finger, not a click: the tap redraws his page */
-    const pk = await p.evaluate(() => { const b = document.getElementById('pick'); if (!b) return null; const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
+    const pk = await p.evaluate(() => { const b = document.getElementById('pick'); if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
       return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: r.width, h: r.height, bg: cs.backgroundImage, align: cs.textAlign, fam: cs.fontFamily.split(',')[0].replace(/["']/g, ''), ink: cs.color, box: [r.right - 10, r.top + 8, 5, r.height - 16] }; });
     ok('CLIMBING: WITH A POINT TO SPEND THE PICK IS LIT AMBER, STAMPED, READ FROM THE LEFT', !!pk && /rgb\(244, 207, 124\)/.test(pk.bg) && pk.align === 'left' && pk.fam === 'BohemiaCasing' && pk.h >= 44, pk ? pk.bg.slice(0, 40) + ' ' + pk.align + ' ' + pk.fam + ' ' + Math.round(pk.w) + 'x' + Math.round(pk.h) : 'no pick');
     if (pk) {

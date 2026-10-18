@@ -43,6 +43,8 @@ const srv = http.createServer((rq, rs) => {
   await p.waitForTimeout(500);
   /* 2. the board: take a contract */
   const f = fr();
+  /* RUN TWO [the arrival]: the town's tag plays first, the way a player meets it; wait it out (two seconds) */
+  await f.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 5000 }).catch(() => {});
   await p.mouse.click(...Object.values(await f.evaluate(() => { const w = BohemiaSettlement.where('board'); return {x:w.x, y:w.y}; }))); await p.waitForTimeout(300);
   const boardPay = await f.evaluate(() => { const e = document.querySelector('#sbody .act:not([disabled]) em'); return e ? parseInt((e.textContent.match(/(\d+)\s*batt/) || [])[1], 10) : null; });
   await f.click('#sbody .act:not([disabled])'); await p.waitForTimeout(300);
