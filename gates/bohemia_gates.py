@@ -930,7 +930,16 @@ GATES = [
      'a freeway side), a crossing that is not one, the breaks growing (1 on the game\'s seed, 7 worst of '
      'twenty), a second valley (the seed and the generator read out of the CITY frame). Prints, never reds: '
      'how many junctions the map still draws with the straight picture.', False),
-    ('THE INSIDES', ['node', 'gates/the_insides_gate.js'],
+    ('THE ONE RULER', ['node', 'gates/the_one_ruler_gate.js'],
+     'ROW [the one ruler] (WORLD 10/18; the coordinator, from COMBAT TWO\'s 230 m against WORLD\'s 384 m) and the '
+     'VALLEY SCALE LAW (Paolo 7/6, LOCKED: the map is the whole valley, 1:4). A block is 384 m of real Las Vegas '
+     'ground and its drawing is 96 m at life size (0.75 m a fine cell). Refuses: the region file off the law\'s '
+     '22.9 miles over 96; the long arterials not a real section-line mile apart at 384 m on the game\'s seed; '
+     'Henderson outside the valley; the map\'s own cells (measured by tools/bohemia_world_the_one_ruler_10_18_26.js) '
+     'not a real lane, kerb to kerb, sidewalk, tract house and houses a hectare at CELL_M, with a proof that read '
+     'at 230 m a block they fail; a measurement of another seed; a live file saying 230 m a block. Prints: the '
+     'painter changed since the measurement; the Strip drawn 2.2 times its real length. Mutation-proved four ways.', False),
+    ('THE INSIDES',['node', 'gates/the_insides_gate.js'],
      'ROW [the valley has no inside], A COMBAT TILE IS A HOUSE (Paolo 9/4) and the '
      'INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED). *** THE ROW WAS WRONG AND THIS LANE '
      'WROTE IT. *** It said that across all 50 district kits, of 813 named pieces 256 are '
