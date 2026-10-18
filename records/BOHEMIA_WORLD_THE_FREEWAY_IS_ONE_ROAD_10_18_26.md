@@ -147,3 +147,13 @@ rim joins its last 3 to 21 blocks one block outside the box (the seam, counted).
 Mead and Boulder City in the valley's real south-east corner the leg takes a row up to 13 blocks north of the real
 road; [the dam in one place] (pull the dam, the town and the lake out of the box, where the region already has
 them) removes that case.
+
+**SEEN FROM THE MAP'S CAMERA** (tools/bohemia_world_the_freeway_reaches_henderson_shot.js: the committed demo twice, the
+map frame served from main before the leg and as it is now; the two cropped side by side in
+records/target/world_henderson_leg/before_after.png, the full frames left out for the published folder's weight).
+After the leg, the region's real I-515 bends in at the box's edge and meets the valley's freeway, as the data says. But
+RUN's far-land painter (slices/BOHEMIA_CITY_WORLD.html, 'THE ROADS OUT: every freeway that reaches the map's edge keeps
+going') also carries the leg STRAIGHT ON across the desert, so the map shows two roads where the data has one. It already
+does this at every exit whose real road leaves at an angle (the band at the top of both shots). Not this lane's file:
+handed to RUN on the board (where the region has a real road at an exit, the painter follows it, BohemiaFreeways joins by
+name). No VOTE card for the leg until that is fixed: a picture of two roads would ask him to judge a painter, not a road.

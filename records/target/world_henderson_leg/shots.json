@@ -1,0 +1,28 @@
+{
+ "before": {
+  "leg": null,
+  "ringEast": 13,
+  "row76freeway": 6,
+  "zoom": 1.6,
+  "at": [
+   0,
+   78
+  ]
+ },
+ "after": {
+  "leg": {
+   "y": 76,
+   "x0": 0,
+   "x1": 12,
+   "kind": "side",
+   "east": "x0"
+  },
+  "ringEast": 13,
+  "row76freeway": 19,
+  "zoom": 1.6,
+  "at": [
+   0,
+   78
+  ]
+ }
+}
