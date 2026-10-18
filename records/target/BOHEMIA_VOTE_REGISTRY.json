@@ -9393,7 +9393,7 @@
     "diffs": [
      "THE FACE: ours is a modelled head the sun falls across (a brow over deep eye sockets, a nose, cheekbones, a chin), 128 pixels tall; the game's face today is a flat drawing 64 pixels square with sunglasses over the eyes.",
      "IT TALKS: ours opens its jaw on a hinge into four mouth shapes (open, wide, round, closed) and turns its brows and lids for angry, sad and surprised; the game's face moves a drawn mouth only.",
-     "ONE PERSON: ours is the same 3D model as his body below it, so the face matches the body from every side; the game's face is drawn separately. The rig's dust still blotches the skin and greys the red cap, which is DIRECTION's to fix in the rig."
+     "ONE PERSON: ours is the same 3D model as his body below it, so the face matches the body from every side; the game's face is drawn separately. Re-rendered this round: his neck had landed at his feet and now sits in his collar. The rig's dust still blotches the skin, which is DIRECTION's to fix in the rig."
     ]
    },
    "draft": true,
@@ -9401,6 +9401,71 @@
     "before": "the game's own thug face, renderFace() at 64 px (right of the top row)",
     "after": "the thug's head modelled and rendered through the rig, S, SE, SW and seven shapes (left)",
     "scale": "1:1 and 2x"
+   },
+   "sprites": [
+    "records/target/portrait/rig/thug/rig_portrait_S.png",
+    "records/target/portrait/rig/thug/rig_portrait_SE.png",
+    "records/target/portrait/rig/thug/rig_portrait_SW.png",
+    "records/target/portrait/rig/thug/rig_S.png",
+    "records/target/portrait/rig/thug/rig_SE.png",
+    "records/target/portrait/rig/thug/rig_E.png",
+    "records/target/portrait/rig/thug/rig_NE.png",
+    "records/target/portrait/rig/thug/rig_N.png",
+    "records/target/portrait/rig/thug/rig_NW.png",
+    "records/target/portrait/rig/thug/rig_W.png",
+    "records/target/portrait/rig/thug/rig_SW.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   }
+  },
+  {
+   "id": "portrait-the-poachers-face-from-the-same-model-10-18",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE POACHER'S FACE, A 3D HEAD UNDER A FIELD HAT ON HIS OWN BODY, THAT TALKS",
+   "why": "The face chat built the poacher a real 3D head on his own 3D body, with his black curls coming out from under a field hat worn pushed back so you can see his eyes, the same way the thug got his. You see it in the VOTE tab: three angles, four talking mouths and three moods, next to his flat 64 pixel face today; nothing is final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/portrait/PORTRAIT_THE_POACHERS_FACE_FROM_THE_SAME_MODEL.png"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/brigand-poacher.png",
+    "diffs": [
+     "THE FACE: ours is a modelled head the sun falls across (a brow over deep eye sockets, a nose, cheekbones, a chin), 128 pixels tall; the game's face today is a flat drawing 64 pixels square.",
+     "THE HAT AND THE HAIR: ours wears COOK THREE's field hat as a solid crown and brim, tipped back, with black curls as lumps of geometry at the sides and the back; the game's face draws a black cap of curls and no hat.",
+     "IT TALKS: ours opens its jaw on a hinge into four mouth shapes and turns its brows and lids for angry, sad and surprised; the game's face moves a drawn mouth only."
+    ]
+   },
+   "draft": true,
+   "before_after": {
+    "before": "the game's own poacher face, renderFace() at 64 px (right of the top row)",
+    "after": "the poacher's head modelled and rendered through the rig, S, SE, SW and seven shapes (left)",
+    "scale": "1:1 and 2x"
+   },
+   "sprites": [
+    "records/target/portrait/rig/poacher/rig_portrait_S.png",
+    "records/target/portrait/rig/poacher/rig_portrait_SE.png",
+    "records/target/portrait/rig/poacher/rig_portrait_SW.png",
+    "records/target/portrait/rig/poacher/rig_S.png",
+    "records/target/portrait/rig/poacher/rig_SE.png",
+    "records/target/portrait/rig/poacher/rig_E.png",
+    "records/target/portrait/rig/poacher/rig_NE.png",
+    "records/target/portrait/rig/poacher/rig_N.png",
+    "records/target/portrait/rig/poacher/rig_NW.png",
+    "records/target/portrait/rig/poacher/rig_W.png",
+    "records/target/portrait/rig/poacher/rig_SW.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
    }
   },
   {

@@ -2,7 +2,7 @@
  "head_px": 128,
  "head_m": 0.4015,
  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.402 m",
- "ppm": 318.781,
+ "ppm": 318.78,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -45,5 +45,5 @@
  ],
  "model": "records/portrait/rig/thug_head.glb",
  "body_rig": "rig.json",
- "colours": 22906
+ "colours": 30552
 }

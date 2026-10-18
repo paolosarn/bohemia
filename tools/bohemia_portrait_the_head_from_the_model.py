@@ -76,8 +76,37 @@ PEOPLE = {
     'THUG': dict(body='records/cook3/rig/thug.glb', drop=('thug_cap', 'thug_cap_brim'), cut_z=1.165,
                  centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
                  gear='knit cap', hair='buzz', stubble=True, twin='records/target/taste/portrait_heads/brigand-thug.png',
-                 cook3='records/target/cook3/rig/thug'),
+                 cook3='records/target/cook3/rig/thug', sheet_out='records/target/portrait/PORTRAIT_THE_FACE_FROM_THE_SAME_MODEL.png',
+                 palette="COOK THREE's thug colours, the cap his own blood 1 step",
+                 kit='the knit cap ribbed with a folded brim',
+                 # round 2: the cap is COOK THREE's own step (blood 1) on the same body, not round 1's off-palette oxblood,
+                 # which read the head's top 10.9 values under its bottom (the guide's light row, D3) at SE
+                 colours=dict(gear=('blood', 1))),
+    # round 2: COOK THREE's poacher. His colours are steps of the style palette (field 5), read from COOK THREE's own
+    # tier table; the face's few are steps too. The game's own poacher face has black curls out from under his head
+    # gear and no beard, so the head keeps that: curls at the sides and the back, the field hat over them.
+    'POACHER': dict(body='records/cook3/rig/poacher.glb', drop=('poacher_hat',), cut_z=1.165,
+                    centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
+                    gear='field hat', hair='curls', stubble=False, twin='records/target/taste/portrait_heads/brigand-poacher.png',
+                    cook3='records/target/cook3/rig/poacher', sheet_out='records/target/portrait/PORTRAIT_THE_POACHERS_FACE_FROM_THE_SAME_MODEL.png',
+                    palette='steps of the style palette (skin_deep 3, cloth_black 1, tape_masking 2: COOK THREE\'s poacher)',
+                    kit='the field hat worn pushed back, a dark band, black curls out from under it at the sides and the back',
+                    colours=dict(skin=('skin_deep', 3), lips=('skin_deep', 2), hair=('cloth_black', 1), gear=('tape_masking', 2),
+                                 iris=('skin_deep', 1))),
 }
+
+
+def palette_step(role, i):
+    """a step of a role's ramp in the style palette (records/target/BOHEMIA_STYLE_PALETTE.json, field 5)"""
+    h = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_PALETTE.json')))['roles'][role]['ramp'][i].lstrip('#')
+    return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
+
+
+def colours(P):
+    """the person's face colours: the thug's round-one constants, or a person's palette steps"""
+    c = dict(skin=SKIN, stubble=STUBBLE, hair=BUZZ, lips=LIPS, gear=OXBLOOD, iris=IRIS)
+    for k, v in P.get('colours', {}).items(): c[k] = palette_step(*v)
+    return c
 
 MOUTH_Z = -0.089     # the mouth line, metres from the head's centre
 MOUTH_HALF = 0.033   # half the mouth's width
@@ -141,6 +170,7 @@ def build(who, out):
         return m
 
     C = Vector(P['centre']); RX, RY, RZ = P['radii']
+    K = colours(P)
 
     # 2. THE SKULL: an ellipsoid with a jaw and a nape, the face pushed forward by its features
     bm = bmesh.new()
@@ -165,7 +195,7 @@ def build(who, out):
     head = bpy.data.meshes.new('portrait_head'); bm.to_mesh(head); bm.free()
     ho = bpy.data.objects.new('portrait_head', head); sc.collection.objects.link(ho)
     ho.location = C
-    for nm, rgb in (('skin', SKIN), ('lips', LIPS), ('mouth', MOUTH), ('stubble', STUBBLE), ('buzz', BUZZ)):
+    for nm, rgb in (('skin', K['skin']), ('lips', K['lips']), ('mouth', MOUTH), ('stubble', K['stubble']), ('buzz', K['hair'])):
         head.materials.append(mat('portrait_%s_%s' % (who.lower(), nm), rgb, rough=0.85 if nm == 'lips' else 0.92))
     V = head.vertices
     lower_side = [V[i].co.z < MOUTH_Z for i in range(len(V))]
@@ -176,7 +206,7 @@ def build(who, out):
         if front and len(sides) == 2 and abs(x) < MOUTH_HALF: f.material_index = 2          # the mouth line
         elif front and abs(x) < MOUTH_HALF + 0.004 and -0.108 < z < -0.072: f.material_index = 1   # the lips
         elif P['stubble'] and z < -0.058 + 0.04 * max(0.0, min(1.0, (y + 0.05) / 0.07)) and y < 0.03 and not (abs(x) < 0.03 and z > -0.072): f.material_index = 3   # the beard line rises from the cheek to the jaw's angle
-        elif P['hair'] == 'buzz' and ((z > -0.030 and y > 0.000) or (z > -0.020 and y > -0.026 and abs(x) > RX * 0.8)): f.material_index = 4   # the back, the sides behind the ear, a sideburn
+        elif P['hair'] in ('buzz', 'curls') and ((z > -0.030 and y > 0.000) or (z > -0.020 and y > -0.026 and abs(x) > RX * 0.8)): f.material_index = 4   # the back, the sides behind the ear, a sideburn
 
     # 3. THE SHAPE KEYS: the jaw turns about the hinge in front of the ear; the mouth, the brows and the corners move
     ho.shape_key_add(name='Basis')
@@ -240,7 +270,7 @@ def build(who, out):
         bmesh.ops.create_uvsphere(bm, u_segments=28, v_segments=20, radius=EYE_R, matrix=Matrix.Translation((s * EYE_X, eye_cy, EYE_Z)))
     eyes = bpy.data.meshes.new('portrait_head_eyes'); bm.to_mesh(eyes); bm.free()
     eo = bpy.data.objects.new('portrait_head_eyes', eyes); sc.collection.objects.link(eo); eo.location = C
-    for nm, rgb in (('sclera', SCLERA), ('iris', IRIS), ('pupil', PUPIL)):
+    for nm, rgb in (('sclera', SCLERA), ('iris', K['iris']), ('pupil', PUPIL)):
         eyes.materials.append(mat('portrait_%s_%s' % (who.lower(), nm), rgb, rough=0.6))
     for f in eyes.polygons:
         cx = EYE_X if f.center.x > 0 else -EYE_X
@@ -263,7 +293,7 @@ def build(who, out):
     bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
     lids = bpy.data.meshes.new('portrait_head_lids'); bm.to_mesh(lids); bm.free()
     lo = bpy.data.objects.new('portrait_head_lids', lids); sc.collection.objects.link(lo); lo.location = C
-    lids.materials.append(mat('portrait_%s_lids' % who.lower(), SKIN, rough=0.92))
+    lids.materials.append(head.materials[0])   # the lids are the face's own skin (one material, field 5's cap)
     so = lo.modifiers.new('rim', 'SOLIDIFY'); so.thickness = 0.002; so.offset = 1
     bpy.context.view_layer.objects.active = lo
     for o in sc.objects: o.select_set(o is lo)
@@ -308,22 +338,81 @@ def build(who, out):
             v.co = p + v.normal * t
         for f in bm.faces: f.material_index = 0
         cap = bpy.data.meshes.new('portrait_cap'); bm.to_mesh(cap); bm.free()
-        cap.materials.clear(); cap.materials.append(mat('portrait_%s_cap' % who.lower(), OXBLOOD))
+        cap.materials.clear(); cap.materials.append(mat('portrait_%s_cap' % who.lower(), K['gear']))
         co_ = bpy.data.objects.new('portrait_cap', cap); sc.collection.objects.link(co_); co_.location = C
         bpy.context.view_layer.objects.active = co_
         for o in sc.objects: o.select_set(o is co_)
         sd = co_.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.008; sd.offset = -1
         bpy.ops.object.modifier_apply(modifier='rim')
         objs.append(co_)
+    if P['gear'] == 'field hat':
+        # COOK THREE's field hat (the tier's silhouette feature), rebuilt on this skull: a crown pinched at the top and
+        # dented front to back, a brim that droops front and back. Sized to the modelled head, so the brim clears the
+        # eyes from the portrait's 80-degree camera.
+        bm = bmesh.new()
+        base_z, crown_h, cr = 0.098, 0.140, RX * 1.02
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=48, radius1=cr, radius2=cr, depth=crown_h,
+                              matrix=Matrix.Translation((0.0, 0.006, base_z + crown_h / 2)))
+        bmesh.ops.subdivide_edges(bm, edges=[e for e in bm.edges if abs(e.verts[0].co.z - e.verts[1].co.z) > 0.01], cuts=6, use_grid_fill=True)
+        for v in bm.verts:
+            t = (v.co.z - base_z) / crown_h
+            if t > 0.55:
+                k = (t - 0.55) / 0.45
+                v.co.x *= 1.0 - 0.20 * k; v.co.y = 0.006 + (v.co.y - 0.006) * (1.0 - 0.13 * k)
+            if t > 0.98: v.co.z -= 0.024 * max(0.0, 1 - abs(v.co.x) / (RX * 0.45))       # the dent, front to back
+            if 0.08 < t < 0.24: v.co.x *= 1.012; v.co.y = 0.006 + (v.co.y - 0.006) * 1.012  # the band
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=64, radius1=RX * 1.42, radius2=RX * 1.42, depth=0.010,
+                              matrix=Matrix.Translation((0.0, 0.006, base_z + 0.010)))
+        bm.verts.ensure_lookup_table()
+        for v in bm.verts:
+            r = math.hypot(v.co.x, v.co.y - 0.006)
+            if r > cr * 1.02:   # the brim: down at the front and the back, a little up at the sides
+                d = (r - cr) / (RX * 1.42 - cr); ang = math.atan2(v.co.y - 0.006, v.co.x)
+                v.co.z -= 0.030 * d * d * abs(math.sin(ang)) - 0.008 * d * abs(math.cos(ang))
+        for v in bm.verts: v.co.z -= 0.16 * (v.co.y - 0.006)   # worn pushed back (cycle 2: level, the front brim hid both eyes)
+        bm.normal_update()
+        hat = bpy.data.meshes.new('portrait_hat'); bm.to_mesh(hat); bm.free()
+        for f in hat.polygons: f.use_smooth = True
+        hat.materials.append(mat('portrait_%s_hat' % who.lower(), K['gear']))
+        bmat = mat('portrait_%s_band' % who.lower(), K['hair'])
+        hat.materials.append(bmat)
+        for f in hat.polygons:
+            if math.hypot(f.center.x, f.center.y - 0.006) < cr * 1.03 and base_z + 0.012 < f.center.z < base_z + 0.040: f.material_index = 1
+        ha = bpy.data.objects.new('portrait_hat', hat); sc.collection.objects.link(ha); ha.location = C
+        objs.append(ha)
+    if P['hair'] == 'curls':
+        # BLACK CURLS out from under the hat at the sides and the back (the game's own poacher face): the skull's own
+        # faces lifted 16 mm, every curl a lump 9 mm high on a 22 mm grid, nothing over the face or the ears' front
+        bm = bmesh.new(); bm.from_mesh(head)
+        def hair_at(c):
+            return c.z > -0.050 + 0.06 * max(0.0, min(1.0, (-c.y) / 0.08)) and (c.y > -0.05 or abs(c.x) > RX * 0.82)
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.verts[0].index >= head_verts or not hair_at(f.calc_center_median())], context='FACES')
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+        bm.normal_update()
+        for v in bm.verts:
+            p = v.co; ang = math.atan2(p.y, p.x)
+            lump = (0.5 + 0.5 * math.cos(2 * math.pi * ang * RX / 0.022)) * (0.5 + 0.5 * math.cos(2 * math.pi * p.z / 0.022))
+            v.co = p + v.normal * (0.012 + 0.009 * lump ** 0.7)
+        for f in bm.faces: f.material_index = 0; f.smooth = True
+        hm = bpy.data.meshes.new('portrait_curls'); bm.to_mesh(hm); bm.free()
+        hm.materials.clear(); hm.materials.append(head.materials[4])
+        hc = bpy.data.objects.new('portrait_curls', hm); sc.collection.objects.link(hc); hc.location = C
+        objs.append(hc)
 
     # 7. SKIN IT: every piece on the head bone; the neck blends down onto the neck bone
+    # (round 2: the head's offset is baked into every mesh first; left as an object location, the exporter dropped it
+    # on the pieces added after the skull, and the neck, the hat and the curls landed at the body's feet)
+    bpy.context.view_layer.update()
+    for o in objs:
+        o.data.transform(Matrix.Translation(C), shape_keys=True); o.location = (0.0, 0.0, 0.0)
+    bpy.context.view_layer.update()
     for o in objs:
         mw = o.matrix_world.copy(); o.parent = arm; o.matrix_world = mw
         vh = o.vertex_groups.new(name=HEAD_BONE)
         if o is no:
             vn = o.vertex_groups.new(name=NECK_BONE)
             for v in o.data.vertices:
-                w = sstep(-0.24, -0.14, v.co.z); vh.add([v.index], w, 'REPLACE'); vn.add([v.index], 1.0 - w, 'REPLACE')
+                w = sstep(C.z - 0.24, C.z - 0.14, v.co.z); vh.add([v.index], w, 'REPLACE'); vn.add([v.index], 1.0 - w, 'REPLACE')
         else:
             vh.add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
         am = o.modifiers.new('Armature', 'ARMATURE'); am.object = arm
@@ -361,8 +450,8 @@ def sheet(who, frames, out):
     H = 90 + (2 * ph + 34) + (ph + 34) + (2 * ph + 34) + max(s_new.height, s_old.height) * 2 + 140
     S = Image.new('RGB', (Wd, H), BG); d = ImageDraw.Draw(S)
     d.text((12, 8), 'PORTRAIT: THE FACE FROM THE SAME MODEL (rule 115c). The %s\'s head MODELLED and rendered close through DIRECTION\'s rig; the body below is the same model. A PLACEHOLDER: nothing is final before the moodboard.' % who, fill=INK)
-    d.text((12, 24), 'head %d px chin to crown (%.3f m, %s), camera tilt 80, one pixel size, block 1 | palette: COOK THREE\'s thug colours (engine/bohemia_cook3_tier_paint.json, the runway oxblood) + the face\'s own (bone eye whites, never white) | ONE light: the rig\'s sun, upper left, above' % (pj['head_px'], pj['head_m'], pj['head_how'].split(':')[0]), fill=DIM)
-    d.text((12, 38), 'every feature is geometry: the brow ridge 14 mm over sockets 22 mm deep, a 32 mm nose, lips, chin, ears, eyeballs and lids; the knit cap ribbed with a folded brim; the mouth opens on the jaw\'s hinge', fill=DIM)
+    d.text((12, 24), 'head %d px chin to crown (%.3f m, %s), camera tilt 80, one pixel size, block 1 | palette: %s + the face\'s own (bone eye whites, never white) | ONE light: the rig\'s sun, upper left, above' % (pj['head_px'], pj['head_m'], pj['head_how'].split(':')[0], P['palette']), fill=DIM)
+    d.text((12, 38), 'every feature is geometry: the brow ridge 14 mm over sockets 22 mm deep, a 32 mm nose, lips, chin, ears, eyeballs and lids; %s; the mouth opens on the jaw\'s hinge' % P['kit'], fill=DIM)
 
     def put(im, x, y, k=1):
         b = im.resize((im.width * k, im.height * k), Image.NEAREST) if k > 1 else im
@@ -384,7 +473,7 @@ def sheet(who, frames, out):
         if im is None: continue
         x += put(im, x, y, 2) + 12
     y += 2 * ph + 20
-    d.text((12, y), 'ONE MODEL: the body\'s S still with this head (left) beside COOK THREE\'s thug with the test body\'s box head (right), at 2x', fill=HEAD); y += 14
+    d.text((12, y), 'ONE MODEL: the body\'s S still with this head (left) beside COOK THREE\'s %s with the test body\'s box head (right), at 2x' % who.lower(), fill=HEAD); y += 14
     x = 12; x += put(s_new, x, y, 2) + 24; put(s_old, x, y, 2)
     y += 2 * max(s_new.height, s_old.height) + 10
     c = rig.get('card', {})

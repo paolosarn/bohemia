@@ -1,0 +1,156 @@
+{
+ "person": "POACHER",
+ "model": "records/portrait/rig/poacher_head.glb",
+ "from_body": "records/cook3/rig/poacher.glb",
+ "dropped": [
+  "poacher_hat"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "field hat",
+ "hair": "curls",
+ "stubble": false,
+ "meshes": {
+  "Cesium_Man": 1208,
+  "poacher_coat": 23278,
+  "poacher_coat_skirt": 2012,
+  "poacher_collar": 2024,
+  "poacher_hatchet": 84,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hat": 512,
+  "portrait_curls": 5642
+ },
+ "materials": {
+  "poacher_boots": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "poacher_coat": [
+   0.2051,
+   0.0742,
+   0.0123
+  ],
+  "poacher_eyes": [
+   0.0212,
+   0.006,
+   0.0052
+  ],
+  "poacher_hat": [
+   0.5395,
+   0.3916,
+   0.1878
+  ],
+  "poacher_hatchet": [
+   0.1329,
+   0.1248,
+   0.117
+  ],
+  "poacher_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "poacher_sleeves": [
+   0.4793,
+   0.3916,
+   0.2384
+  ],
+  "poacher_trousers": [
+   0.1529,
+   0.159,
+   0.1119
+  ],
+  "portrait_poacher_band": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "portrait_poacher_buzz": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "portrait_poacher_hat": [
+   0.5395,
+   0.3916,
+   0.1878
+  ],
+  "portrait_poacher_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_poacher_lips": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "portrait_poacher_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_poacher_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_poacher_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_poacher_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "portrait_poacher_stubble": [
+   0.2159,
+   0.1274,
+   0.0931
+  ]
+ }
+}

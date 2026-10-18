@@ -814,6 +814,24 @@ QUESTS (quests-dvybth): 10/10 (d) LATEST -- [ninth shelf] SHIPPED: QR-AP, 20 des
 
 QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
 
+PORTRAIT (portrait-vamily-10-18b): 10/18 LATEST (round fourteen, [the face from the same model] round 2; Opus 5.5,
+opened by the coordinator, rule 112, run to the end, no question) -- *** THE POACHER'S FACE IS A MODELLED HEAD UNDER A
+FIELD HAT ON HIS OWN BODY, AND IT TALKS. ***
+COOK THREE's poacher (021822b) got the modelled head: his field hat rebuilt on the skull and worn pushed back (cycle 1's
+level brim hid both eyes), black curls as geometry at the sides and back (his game face has them), no beard, colours as
+style palette steps. Rendered through DIRECTION's rig unedited (--class person): three portraits, seven shapes, eight
+stills; body S still card 1 of 8 out (the colour row on the prop floor, DIRECTION's ruler). BUG FIXED IN THE TOOL: the
+neck, hat and curls were exported at the body's feet (object location dropped); the offset is now baked into the mesh;
+the thug is rebuilt and re-rendered (his neck in his collar; his cap now COOK THREE's own blood 1 step, the off-palette
+oxblood had failed the guide's light row at SE); both cards name sprites, class and look (NOT VIBE CODED N3 clean for both).
+FILES: records/portrait/rig/poacher_head.glb + .json; records/target/portrait/rig/poacher/; sheet
+records/target/portrait/PORTRAIT_THE_POACHERS_FACE_FROM_THE_SAME_MODEL.png. Record:
+records/BOHEMIA_PORTRAIT_THE_POACHERS_FACE_FROM_THE_SAME_MODEL_10_18_26.md.
+VOTE: portrait-the-poachers-face-from-the-same-model-10-18, a PLACEHOLDER (nothing final before the moodboard). TAB: VOTE.
+TO DIRECTION (re-sent): --class portrait still crashes (no output_floor); the dust pass blotches skin.
+PENDING Paolo: nothing.
+NEXT: the marksman, raider, leader and marauder heads as COOK THREE remodels each tier; then the rest of the twenty.
+
 PORTRAIT (portrait-vamily-10-18): 10/18 LATEST (round thirteen, [the face from the same model] round 1; Opus 5.5,
 rule 116; opened by the coordinator, rule 112, run to the end, no question) -- *** THE THUG'S FACE IS A MODELLED HEAD
 ON HIS OWN BODY, AND IT TALKS. ***
