@@ -238,6 +238,94 @@
      "source": "footsteps - gravel pavement.wav"
     }
    ]
+  },
+  "carpet": {
+   "title": "THE CASINO FLOOR: SHOES ON CARPET",
+   "what": "real shoes on a real carpet, one recordist, six footfalls cut out on their own; the casino floor in the fight",
+   "tape": 0.8,
+   "low_pass_hz": 6000,
+   "hit_level_asked_db": -23.0,
+   "per_beat": null,
+   "used_by": "the fight",
+   "peak_db_after_mp3": -9.59,
+   "slots": [
+    {
+     "i": 0,
+     "offset": 0.02,
+     "seconds": 0.22,
+     "stem": "5-234855-A-25",
+     "window": [
+      0.045,
+      0.265
+     ],
+     "prominence_db": 38.8
+    },
+    {
+     "i": 1,
+     "offset": 0.52,
+     "seconds": 0.22,
+     "stem": "5-234855-A-25",
+     "window": [
+      1.784,
+      2.004
+     ],
+     "prominence_db": 17.3
+    },
+    {
+     "i": 2,
+     "offset": 1.02,
+     "seconds": 0.22,
+     "stem": "5-234855-A-25",
+     "window": [
+      2.438,
+      2.658
+     ],
+     "prominence_db": 31.1
+    },
+    {
+     "i": 3,
+     "offset": 1.52,
+     "seconds": 0.22,
+     "stem": "5-234855-A-25",
+     "window": [
+      3.128,
+      3.348
+     ],
+     "prominence_db": 32.0
+    },
+    {
+     "i": 4,
+     "offset": 2.02,
+     "seconds": 0.22,
+     "stem": "5-234855-A-25",
+     "window": [
+      3.824,
+      4.044
+     ],
+     "prominence_db": 42.5
+    },
+    {
+     "i": 5,
+     "offset": 2.52,
+     "seconds": 0.22,
+     "stem": "5-234855-A-25",
+     "window": [
+      4.176,
+      4.396
+     ],
+     "prominence_db": 39.7
+    }
+   ],
+   "sources": [
+    {
+     "stem": "5-234855-A-25",
+     "freesound": "http://www.freesound.org/people/mlsulli/sounds/234855/",
+     "author": "mlsulli",
+     "licence": "CC0",
+     "category": "Footsteps",
+     "source": "Footsteps_Carpet.wav"
+    }
+   ]
   }
  },
  "sources": {
@@ -276,6 +364,15 @@
    "licence": "CC0",
    "file": "4-117627-A-25.wav",
    "freesound_id": "117627"
+  },
+  "5-234855-A-25": {
+   "category": "Footsteps",
+   "source": "Footsteps_Carpet.wav",
+   "url": "http://www.freesound.org/people/mlsulli/sounds/234855/",
+   "author": "mlsulli",
+   "licence": "CC0",
+   "file": "5-234855-A-25.wav",
+   "freesound_id": "234855"
   }
  }
 }

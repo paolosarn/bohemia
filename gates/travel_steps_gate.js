@@ -47,7 +47,7 @@ const srv = http.createServer((rq, rs) => {
     const slots = d.slots || [];
     const f = path.join(DIR, 'steps_' + surf + '.mp3');
     ok(surf + ': the sprite is on disk and small', fs.existsSync(f) && fs.statSync(f).size < 150000, fs.existsSync(f) ? fs.statSync(f).size + ' bytes' : 'missing');
-    ok('  eight cuts, cut k at k x ' + NUM.SLOT + ' s + ' + NUM.LEAD + ' s', slots.length === NUM.N && slots.every((s, k) => Math.abs(s.offset - (k * NUM.SLOT + NUM.LEAD)) < 0.002), slots.map(s => s.offset).join(','));
+    ok('  eight cuts, cut k at k x ' + NUM.SLOT + ' s + ' + NUM.LEAD + ' s', slots.length === NUM.N[surf] && slots.every((s, k) => Math.abs(s.offset - (k * NUM.SLOT + NUM.LEAD)) < 0.002), slots.map(s => s.offset).join(','));
     ok('  no cut is longer than the engine plays of it', slots.every(s => s.seconds <= NUM.CUT[surf] + 0.001), slots.map(s => s.seconds).join(','));
     const stems = [...new Set(slots.map(s => s.stem))];
     ok('  the cuts come from two recordings, four each', stems.length === 2 && stems.every(st => slots.filter(s => s.stem === st).length === 4), stems.join(' '));
@@ -92,7 +92,7 @@ const srv = http.createServer((rq, rs) => {
       const buf = await AC.decodeAudioData(ab); const d = buf.getChannelData(0), sr = buf.sampleRate, N = BOH_TRAVEL_STEPS.NUM;
       const db = (a, z) => { let m = 0; for (let i = Math.max(0, Math.round(a * sr)); i < Math.min(d.length, Math.round(z * sr)); i++) m = Math.max(m, Math.abs(d[i])); return 20 * Math.log10(m + 1e-9); };
       out[s] = { seconds: buf.duration, slots: [] };
-      for (let k = 0; k < N.N; k++) { const at = k * N.SLOT + N.LEAD; out[s].slots.push({ pre: +db(k * N.SLOT + 0.002, at - 0.008).toFixed(1), hit: +db(at - 0.004, at + 0.06).toFixed(1), after: +db(at + N.CUT[s] + 0.02, (k + 1) * N.SLOT - 0.002).toFixed(1) }); }
+      for (let k = 0; k < N.N[s]; k++) { const at = k * N.SLOT + N.LEAD; out[s].slots.push({ pre: +db(k * N.SLOT + 0.002, at - 0.008).toFixed(1), hit: +db(at - 0.004, at + 0.06).toFixed(1), after: +db(at + N.CUT[s] + 0.02, (k + 1) * N.SLOT - 0.002).toFixed(1) }); }
     }
     return out;
   });

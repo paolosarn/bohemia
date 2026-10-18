@@ -42,6 +42,7 @@ because EchoThief's real rooms are behind the same network wall):
   python3 tools/bohemia_from_a_recording.py --beds     # the beds and the far things only (10/18: the thinned desert beds)
   python3 tools/bohemia_from_a_recording.py --title    # the title candidates into slices/vote/title_heard/
   python3 tools/bohemia_from_a_recording.py --steps    # the party's footsteps under travel into slices/vote/travel_steps/ (10/18)
+  python3 tools/bohemia_from_a_recording.py --steps=carpet   # one surface only, the others kept byte for byte (the fight's casino floor, 10/18)
   python3 tools/bohemia_from_a_recording.py --check    # re-reads the rendered files and verifies the pass criteria
 """
 import json, os, sys, subprocess, tempfile, math
@@ -393,9 +394,14 @@ STEP_SLOT = 0.5
 STEP_LEAD = 0.02
 STEPS = [
   dict(surface='asphalt', title='THE ROAD: SHOES ON ASPHALT', what='real shoes on a real asphalt street, two recordists, each footfall cut out on its own',
-       sources=['3-94343-A-25', '3-249913-A-25'], keep=4, tail=0.22, tape=0.8, hi=7500, rms=-19.0),
+       sources=['3-94343-A-25', '3-249913-A-25'], keep=4, tail=0.22, tape=0.8, hi=7500, rms=-19.0, per_beat=2, used_by='the map and the fight'),
   dict(surface='dirt', title='THE DIRT: SHOES ON GRAVEL', what='real shoes on a real gravel track, two recordists, each footfall cut out on its own; grit, never sand',
-       sources=['3-94344-A-25', '4-117627-A-25'], keep=4, tail=0.38, tape=0.8, hi=6500, rms=-19.0),
+       sources=['3-94344-A-25', '4-117627-A-25'], keep=4, tail=0.38, tape=0.8, hi=6500, rms=-19.0, per_beat=1, used_by='the map and the fight'),
+  # THE CASINO FLOOR (row [the step in the fight], 10/18): the fight's casino block is drawn as one carpet, wall to wall,
+  # and a gravel crunch there would be a lie. mlsulli's 'Footsteps_Carpet' (CC0) is the one carpet walk in ESC-50's
+  # footsteps class; it holds six footfalls, all six kept. Softer than the street by 4 dB: carpet eats the hit.
+  dict(surface='carpet', title='THE CASINO FLOOR: SHOES ON CARPET', what='real shoes on a real carpet, one recordist, six footfalls cut out on their own; the casino floor in the fight',
+       sources=['5-234855-A-25'], keep=6, tail=0.22, tape=0.8, hi=6000, rms=-23.0, per_beat=None, used_by='the fight'),
 ]
 
 def footfalls(x, dist=0.32, prom=8.0):
@@ -412,11 +418,13 @@ def footfalls(x, dist=0.32, prom=8.0):
         out.append(dict(at=j / SR, peak=i / SR, prominence=round(float(db[i] - fl), 1)))
     return out
 
-def render_steps(src):
+def render_steps(src, only=None):
     os.makedirs(STEPS_OUT, exist_ok=True)
-    man = dict(_readme='THE STEPS UNDER TRAVEL, FROM A RECORDING (SOUNDS 10/18/26, row [steps from a recording]): every footfall here is cut out of a CC0 Freesound recording (via ESC-50) and goes through the chain (high-pass 120 Hz, tape, low-pass, a level). steps_<surface>.mp3 holds one cut per %.1f s slot; slots[i] is where cut i starts and how long it is. before_steps_<surface>.mp3 is the same cuts with nothing but the fades.' % STEP_SLOT,
+    old = os.path.join(STEPS_OUT, 'manifest.json')
+    man = json.load(open(old)) if only and os.path.exists(old) else dict(_readme='THE STEPS UNDER TRAVEL, FROM A RECORDING (SOUNDS 10/18/26, row [steps from a recording]): every footfall here is cut out of a CC0 Freesound recording (via ESC-50) and goes through the chain (high-pass 120 Hz, tape, low-pass, a level). steps_<surface>.mp3 holds one cut per %.1f s slot; slots[i] is where cut i starts and how long it is. before_steps_<surface>.mp3 is the same cuts with nothing but the fades.' % STEP_SLOT,
                made='10/18/26', lane='sounds', draft=True, slot_seconds=STEP_SLOT, surfaces={}, sources={})
     for spec in STEPS:
+        if only and spec['surface'] not in only: continue   # --steps=carpet renders one surface and keeps the others byte for byte
         cuts = []
         for stem in spec['sources']:
             x = load(stem)
@@ -445,7 +453,7 @@ def render_steps(src):
         pk = write_mp3(os.path.join(STEPS_OUT, 'steps_' + spec['surface'] + '.mp3'), sprite, 96)
         write_mp3(os.path.join(STEPS_OUT, 'before_steps_' + spec['surface'] + '.mp3'), before, 96)
         man['surfaces'][spec['surface']] = dict(title=spec['title'], what=spec['what'], tape=spec['tape'], low_pass_hz=spec['hi'], hit_level_asked_db=spec['rms'],
-                                               per_beat=2 if spec['surface'] == 'asphalt' else 1, peak_db_after_mp3=round(pk, 2), slots=slots,
+                                               per_beat=spec['per_beat'], used_by=spec['used_by'], peak_db_after_mp3=round(pk, 2), slots=slots,
                                                sources=[dict(stem=s_, freesound=src[s_]['url'], author=src[s_]['author'], licence=src[s_]['licence'], category=src[s_]['category'], source=src[s_]['source']) for s_ in spec['sources']])
         for s_ in spec['sources']: man['sources'][s_] = src[s_]
         print('%-8s %d cuts from %s, peak %.2f dB' % (spec['surface'], len(cuts), ', '.join(spec['sources']), pk))
@@ -597,7 +605,7 @@ def main(only=None):
     stems = sorted({L['stem'] for s in RECIPE + EVENTS + TITLES for L in s['layers']} | {L['stem'] for b in BEDS for L in b['layers']} | {x for st in STEPS for x in st['sources']})
     src = freeze_sources(stems)
     if only == 'title': return render_titles(src)
-    if only == 'steps': return render_steps(src)
+    if only == 'steps': return render_steps(src, STEPS_ONLY)
     os.makedirs(OUT, exist_ok=True)
     if only == 'beds':
         manifest = json.load(open(os.path.join(OUT, 'manifest.json')))
@@ -674,5 +682,7 @@ def check():
     print(('CHECK FAIL\n  ' + '\n  '.join(bad)) if bad else 'CHECK PASS: %d sounds, %d beds, %d events, every peak under -1 dBFS after the mp3, no click at either end, every source CC0; the thinned beds hold; the title at its level' % (len(m['sounds']), len(m['beds']), len(m['events'])))
     return 1 if bad else 0
 
+STEPS_ONLY = next((a.split('=', 1)[1].split(',') for a in sys.argv if a.startswith('--steps=')), None)
 if __name__ == '__main__':
+    if STEPS_ONLY: sys.argv.append('--steps')
     sys.exit(check() if '--check' in sys.argv else (main('beds' if '--beds' in sys.argv else 'title' if '--title' in sys.argv else 'steps' if '--steps' in sys.argv else None) and 0))
