@@ -1,0 +1,51 @@
+# QD-AU13: THE PICKER'S WORDS FROM A CHILD
+ACT: 2
+KIND: contract
+CRISIS: none
+ECONOMY: either
+PLACE: the wash under Flamingo, the tunnel mouths; the child lives with the tunnel people
+STATUS: draft:true, research only, nothing built (rule 35). Names, lines and numbers are attempts; Paolo's to change. TUNING owns every number.
+SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is the Amalgamation's use of a dead follower's job (after the act-1 reveal only; a mouth that is not the follower).
+PAIR: QD-AQ04 THE PICKER WHO SAW THE BODY (the act-1 job the picker died owing an answer to).
+CHECKLIST: not yet run (owed). Stamped owed at birth by QR-AT's rule; only a later line-by-line round may write "passes all 32".
+
+## THE SITUATION
+Act 2, and only if the picker follower died in act 1 with QD-AQ04 THE PICKER WHO SAW THE BODY unfinished. A tunnel child, Chayo, about seven, carries an old implant the tunnel people call the whisper. She walks up to the company at the wash and says the picker's words, in his order, with his pauses.
+
+## THE PERSON, THE PLACE, THE THING (never a card)
+At the wash the child speaks; her own portrait is shown, a real child's face, and her eyes do not move with the words. CHAYO: "The body in the culvert had a ring. I took it. Give it back to her mother." / CHAYO: "Her mother is at the laundry on Paradise." / CHAYO, in her own voice after: "Can I have some water?"
+- THE WANT, ONE LINE: The words want the ring returned; the child wants water; the tunnel people want the child left alone.
+- PAY: None from the words. The mother at the laundry pays 6 BATTERIES if the ring reaches her, said by her. SKULLS: 0. Declining is free and writes nothing.
+
+## THE CHOICES
+A. RETURN THE RING: it is in the picker's old bag in the cart. The mother at the laundry takes it, asks who sent you, and pays.
+B. HELP THE CHILD: give her water, and take her to the clinic in town to have the implant looked at; the medic can switch it off (a day, 4 batteries of meds); the words stop.
+C. BOTH: return the ring, then take her to the clinic. Costs the day and the meds and pays the 6.
+D. GIVE HER WATER AND GO (`Q131.X7`): she drinks; she walks back into the tunnel; the next time you come to the wash she says the same words again.
+IF A FIGHT HAPPENS AND IS LOST: no fight is planned; the tunnel people's men come out if you touch the child without asking. A fight there is your choice; losing means the child is hidden and the words stop reaching you.
+Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36); a veteran of about 20 fights dies at 10% (the third votes). Followers never fight.
+
+## WHAT THE WORLD SHOWS AFTER
+THE WIN YOU SEE AND HEAR: the child laughs at the clinic, in her own voice, on the beat; the wash picture gains a child playing at the mouth.
+The laundry window: a ring on a string (A, C). The wash: the child playing (B, C) or standing still at the mouth (D). The Network loses one listener (B, C); act 3 reads it.
+
+## THE ONE WRONG DETAIL (analog horror, said plainly, never explained)
+She says the picker's words in his voice's rhythm and stops exactly where he used to cough.
+
+## ASSET NEEDED (the pixels; for the art lanes, nothing drawn here)
+the wash under Flamingo as a settlement screen (tunnel mouths, a shopping cart, a mattress, a painted saint); Chayo's portrait with still eyes; the ring. COOK FOUR, PORTRAIT. Made the rig way (rule 115) for every person and thing; the places from the packs (rule 115b).
+
+## SOUND NEEDED (the sound; for SOUNDS, from real material, no sand)
+water trickling in a concrete wash; a seven-year-old's voice speaking an old man's rhythm (the words are hers, the timing is his); one cough-shaped silence.
+
+## CITED FROM
+- `Q058.W3`: audio as the primary tool; the horror is in the timing.
+- `Q034.W4`: the abandoned self, shown not told.
+- `Q138.W2`: help declared is help denied; she asks only for water.
+- `Q200.W7`: she may not know what she is carrying.
+
+## FLAWS IT AVOIDS
+- `Q058.X2`: the implant is not a curse or an illness; the medic switches it off.
+- `Q058.X1`: the child is not a superpower or a plot device; she wants water.
+- `Q095.X3`, `Q098.X2`: a lost fight is a result, never a reload, and the job's own fate on a loss is written.
+- `Q148.X3`: a plain job, no twist; the wrong detail is never a mechanic.
