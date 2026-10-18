@@ -41,7 +41,7 @@ bright paint only darkens, the way sun and grime age a real car; the frost was a
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-vamily-opus-117): 10/18 (c) LATEST -- [rule 117 in the table] SHIPPED 0dffb201 and [how long a life is] SHIPPED (research only,
+TUNING (tuning-vamily-opus-117): 10/18 (c) LATEST -- [rule 117 in the table] SHIPPED 0dffb201 and [how long a life is] SHIPPED 9cf0d49b (research only,
 rule 38g; no game code touched; the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
 READBACK [rule 117 in the table]: every felt number carries a 117 mark, Battle Brothers' value the hard end of its slider, our start easier,
 shown or under; done means the table prints the mark on all rows and a page the lanes cite. Done: 209 rows, 0 unmarked.
