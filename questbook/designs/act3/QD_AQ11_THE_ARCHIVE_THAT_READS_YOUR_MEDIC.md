@@ -7,7 +7,7 @@ PLACE: a city-tier settlement around a dead data center, the hall is a server-ro
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE03 THE PAPER BACKUPS (the same racks, the same night).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated), 30 (destroying her drive paid 15 of 22) and 31 (every road ran through the guard machines) fixed in place)
 
 ## THE SITUATION
 As the Network crumbles, a data center offers jobs to recover drives before they fail. One drive holds the scan of the first medic (act 1), uploaded without consent when she died. Her apprentice's apprentice, the act-3 medic, wants the drive destroyed. The archive wants it kept.
@@ -25,9 +25,12 @@ First line after accept: "She never signed."
 
 ## THE CHOICES
 A. PULL AND DELIVER: a fight against the data center's guard machines, tough, 10 minutes.
-B. PULL AND DESTROY HER DRIVE: the archivist pays 15; the medic thanks you once.
+B. PULL AND DESTROY HER DRIVE: the archivist pays the full 22, and his lobby closes to the company for the act, his name off the door. (QR-AT, line 30: the kind road paid 15 of 22, `Q108.X2`, `Q190.X1`; now the price is a door that closes, shown.) The medic thanks you once.
 C. LISTEN FIRST: the drive plays one sentence in the old medic's voice; the medic decides.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. BETWEEN THE SWEEPS (QR-AT, line 31: the theme met with no won fight, `Q216.X1`, `Q197.X1`): the archivist says it, "the guards sweep on the hour," and the lobby log shows the times. Slip in between; a night longer, no fight.
+E. NOT RACK NINE (QR-AT, line 12: `Q131.X7`, `Q139.P2`): you pull the other racks and leave nine. He pays 10 and her drive fails with the rest.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the machines hold rack nine; there was no advance, he pays nothing, and the clinic shelf stays bare; the drives fail on their own and the medic says so.
 THE FOLLOWER'S CALL: The medic decides: delete, keep, or give the drive to the family.
 
 ## WHAT THE LEDGERS REMEMBER

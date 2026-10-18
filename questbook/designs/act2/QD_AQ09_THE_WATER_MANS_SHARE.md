@@ -7,7 +7,7 @@ PLACE: a town-tier settlement on the dam road, the hall is a pump house office
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE18 ONE NIGHT AT THE PUMP HOUSE (the same pump house).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 31 (every road ran through the hyena fight) fixed in place)
 
 ## THE SITUATION
 The water-man holds a share of the dam pumps. The pump board wants to cut his share and give it to a growing settlement. He hires the company himself to escort his complaint, with a pump part as proof, to the board on the far bank, through hyena country.
@@ -28,6 +28,9 @@ A. ESCORT: a hunt fight with a hyena pack on house tiles of the spillway, routin
 B. LET THE GROWING SETTLEMENT SPEAK TOO: a stop on the way; the board splits it; he sulks one line.
 C. GIVE IT UP: he decides at the board to hand the share over; you are paid in full.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. THE CATWALK (QR-AT, line 31: the theme met with no won fight, `Q216.X1`, `Q183.X3`): the dam's maintenance catwalk over the spillway, by day, half a day longer; he says it's there and that he hates heights. No hyenas.
+E. TURN BACK (QR-AT, line 12: `Q131.X7`, `Q139.P2`): at the spillway you say no further. He goes alone by the catwalk; he pays 4 BATTERIES for the half of the road you walked.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the pack drives you back to the pump house; he pays 4 BATTERIES and goes by the catwalk alone; the camps' tanks show his result next visit.
 THE FOLLOWER'S CALL: The water-man decides at the board: fight for the share or give it.
 
 ## WHAT THE LEDGERS REMEMBER

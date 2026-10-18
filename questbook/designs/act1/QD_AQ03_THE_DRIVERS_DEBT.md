@@ -7,7 +7,7 @@ PLACE: a town-tier settlement on the old Boulder highway, the hall is a tire sho
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AQ01 THE COOK'S STOLEN POT (both jobs run the south roads; the tire town sits between).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal) and 23 (lost fight unstated) fixed in place)
 
 ## THE SITUATION
 The driver owes a tire shop owner for the cart's wheels, a debt from before he joined. The owner now offers a job to anyone: recover a stolen battery bank from a gang in a parking structure. Do it, and the driver's debt is written off on top of the pay.
@@ -28,6 +28,8 @@ A. TAKE THE STRUCTURE: a fight on three stacked house tiles, the roof is high gr
 B. BUY IT BACK: 8 BATTERIES to the gang; the pay is a wash, the debt still clears.
 C. LEAVE THE DEBT: finish and ask for 4 more BATTERIES instead of the debt; the driver says one line.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. NOT THE STRUCTURE (QR-AT, line 12: `Q131.X7`, `Q134.X2`, `Q139.P2`): you tell her you will not go up to level three. She pays 4 BATTERIES for the gang's count and the way in, and the debt stays; the driver says one line.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the gang keeps level three lit; she pays the scouting 4 and the debt stays on her wall in chalk next visit.
 THE FOLLOWER'S CALL: The driver decides whether to tell the owner it was him who sold her the bad wheels in the first place. His call.
 
 ## WHAT THE LEDGERS REMEMBER

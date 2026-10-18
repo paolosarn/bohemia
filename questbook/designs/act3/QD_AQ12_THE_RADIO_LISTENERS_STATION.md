@@ -7,7 +7,7 @@ PLACE: a town-tier settlement on Sunrise Mountain, the hall is a transmitter hut
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE15 THE GROUND TRACK NORTH (the rocket's ground track, one road).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 32 (letting them listen was free and lost nothing) fixed in place)
 
 ## THE SITUATION
 The radio listener's heir runs the company's radio now. The rocket build needs a ground station to track the launch, and the only working dish is the listener family's old one on the mountain, held by squatting dish-cultists who hear voices in it.
@@ -25,9 +25,11 @@ First line after accept: "My father heard everything through that dish."
 
 ## THE CHOICES
 A. CLEAR: a fight on two roof house tiles, high ground, 4 minutes; the dish may take damage (costs 2 TAPE).
-B. LET THEM LISTEN: the cultists stay as dish-keepers if the heir says so.
+B. LET THEM LISTEN: the cultists stay as dish-keepers if the heir says so. (QR-AT, line 32: B cost nothing, was kind and lost nothing, so it was the obvious pick, `Q226.X2`, `Q157.X1`.) The engineer says the price: half a day to teach them the tracking, and their voice hour shuts the dish one night a week, which the launch must miss; the fee is full.
 C. TRADE: give them a working radio (from the company's stores).
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. NOT MY ROOF (QR-AT, line 12: `Q131.X7`, `Q139.P2`): you climb, see the dish whole, and will not move them. The heir pays 5 BATTERIES for the look and the dish stays theirs.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the cultists keep the roof; the heir pays 5, the dish in the map picture is dark, and the engineer says the rocket will look for another.
 THE FOLLOWER'S CALL: The heir decides whether the cultists stay.
 
 ## WHAT THE LEDGERS REMEMBER

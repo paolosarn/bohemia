@@ -7,7 +7,7 @@ PLACE: a town-tier settlement on the Strip edge, the hall is a former bank lobby
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE07 THE COLLECTOR'S RIDE (the same faction road, the collector rides the morning after).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 29 (the note and the truth room had unsaid effects) fixed in place)
 
 ## THE SITUATION
 Act 2. The medic is now the heir of the act-1 medic, an apprentice who learned from her. A faction board will license clinics if someone escorts their inspector through a raider-held block to see the old clinic. The apprentice wants the license. The inspector wants the block cleared.
@@ -25,9 +25,11 @@ First line after accept: "She'd want the paper."
 
 ## THE CHOICES
 A. ESCORT THROUGH: a fight on four house tiles with the inspector held back; 4 minutes.
-B. GO AROUND: a day longer; the inspector notes the company "avoided conflict"; no fight.
-C. LET HER SEE THE TRUTH: the inspector also sees the act-1 medic's unlicensed amputation room; the apprentice decides what she says.
+B. GO AROUND: a day longer; the inspector notes the company "avoided conflict"; no fight. (QR-AT, line 29: the clerk says it at the offer, "The board only cares that she sees it. How you get her there is yours," so the note changes nothing and no check is hidden, `Q155.P2`, `Q155.X1`.)
+C. LET HER SEE THE TRUTH: the inspector also sees the act-1 medic's unlicensed amputation room; the apprentice decides what she says. (QR-AT, line 29: the inspector says what it costs before the door opens, "If I see a room I wasn't shown, I write it down," and the license is stamped with a red line on the sign; the fee is the same, `Q155.X1`.)
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. NOT THROUGH THAT BLOCK (QR-AT, line 12: `Q131.X7`, `Q139.P2`): you walk her to the block's edge and no further. She sees the clinic through binoculars; the clerk pays 8 BATTERIES and the license is "pending" on the sign.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the inspector is walked back to the bank lobby unhurt; the clerk pays the advance only and the clinic's door sign stays blank next visit.
 THE FOLLOWER'S CALL: The apprentice decides: hang the license, or burn it because the board asked for the old medic's records.
 
 ## WHAT THE LEDGERS REMEMBER

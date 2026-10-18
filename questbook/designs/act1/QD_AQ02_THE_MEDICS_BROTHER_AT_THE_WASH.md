@@ -7,7 +7,7 @@ PLACE: a village-tier settlement around a flooded wash crossing, the hall is a l
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE10 THE WOLVES THAT FOLLOW THE WATER (the wolves track the same wash; one trip, two slots).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 31 (every road to the fee was the fight) fixed in place)
 
 ## THE SITUATION
 The company's medic learns, from a road rumor, that her younger brother runs with a scav crew camped at the wash crossing. The village pays to clear the crew. She stands beside the client and asks for one thing: that the boy walks out.
@@ -28,6 +28,9 @@ A. CLEAR AND SPARE: the fight on four house tiles, 3 to 4 minutes; the boy is ma
 B. TALK HIM OUT FIRST: costs half a day; he leaves, the crew is one fewer.
 C. CLEAR IT ALL: the job is paid in full; the medic says one line, once.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. THE BOY CARRIES THE OFFER (QR-AT, line 31: the theme met with no won fight, `Q216.X1`, `Q183.X3`, `Q087.X4`): after B, the boy takes the keeper's offer back to the crew, one water day a week shared at the upper crossing. The company pays the first share, 4 WATER from its stores (a price out of your own purse, `Q108.X2`). The crew moves upstream, the toll is gone by the keeper's own words, full fee.
+E. ONLY THE BOY (QR-AT, line 12: `Q131.X7`, `Q139.P2`): you walk the boy out and leave the crew. The keeper pays 5 BATTERIES for one fewer at the rope, not 15.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the party falls back to the laundromat; the toll rope stays in the crossing's picture, the keeper keeps the fee and the advance is yours. The boy's orange hood is at the crossing or gone next visit, and the medic says which.
 THE FOLLOWER'S CALL: If the boy lives, the medic decides: he joins the camp as nobody, or she sends him to the village. Her call.
 
 ## WHAT THE LEDGERS REMEMBER

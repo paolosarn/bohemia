@@ -7,7 +7,7 @@ PLACE: a camp-tier clinic tent (act 1) that becomes a hospital floor in the same
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AQ04 THE PICKER WHO SAW THE BODY (act 1, the same quarry road).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one act-1 road), 12 (the stop had no price), 18 (no read if act 1 never ran), 23 (lost fight unstated) and 31 (act 1 was only the fight) fixed in place)
 
 ## THE SITUATION
 The midwife keeps a list of every child she delivered in act 1. Some were taken by a raider crew to work. In act 1 she offers a job to find one. In act 3, through the flip, her heir offers the job to find the rest, now adults, with records the past never had.
@@ -24,10 +24,12 @@ The midwife keeps a list of every child she delivered in act 1. Some were taken 
 First line after accept: "Eleven names. One of them got taken."
 
 ## THE CHOICES
-A. ACT 1: clear the crew's quarry camp, routine.
+A. ACT 1: clear the crew's quarry camp, routine. (QR-AT, lines 9 and 31: act 1 had one road and it was a fight, `Q087.X4`, `Q216.X1`.) Or buy her work-debt from the quarry boss, 6 BATTERIES out of your own stores; or the midwife hums the song she hummed at the birth at the shift change, the girl's head turns (heard and seen, `Q141.X3`), and she walks out with the water carriers. Both no fight, same fee.
 B. ACT 3: search the faction records (a find job, two settlement visits).
-C. ACT 3: the heir decides to stop at the ones who want to be found.
+C. ACT 3: the heir decides to stop at the ones who want to be found. (QR-AT, line 12: the stop had no price, `Q131.X7`, `Q139.P2`.) She pays 15 for the ones who want it.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+IF ACT 1 WAS NEVER PLAYED (QR-AT, line 18: the landing needs a full read if the plant was never set, `Q096.X1`, `Q121.X1`): the heir says "She never found any. I want all eleven," and the list is uncrossed.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): act 1: the crew keeps the quarry, the midwife pays nothing and the name stays unticked in the list picture; act 3: the records office stays shut a week.
 THE FOLLOWER'S CALL: The heir decides who is told.
 
 ## WHAT THE LEDGERS REMEMBER

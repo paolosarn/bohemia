@@ -7,7 +7,7 @@ PLACE: a camp-tier settlement on the dry wash, the hall is a shipping container 
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE09 THE WATER CARTS TO THE WASH (the same south road; the pharmacy is a stop on the cart route).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal inside) and 23 (the lost night fight had no result) fixed in place)
 
 ## THE SITUATION
 La Cocinera's big pot, the one that feeds twelve, was taken in the night by a family of four squatting in a gutted pharmacy two hours south. Without it the company eats in shifts. She wants it back. She does not want the family hurt; she wants them to know whose it was.
@@ -28,6 +28,8 @@ A. TALK: give the family 4 FOOD for the pot; she gets it back and the family eat
 B. SCARE: walk in armed; the father hands it over; no fight, no FOOD lost.
 C. TAKE IT AT NIGHT: a quiet fight against the two adults if they wake, routine, 2 minutes on two house tiles.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. LEAVE IT WITH THEM (QR-AT, line 12: the priced refusal inside the taken job, `Q131.X7`, `Q139.P2`): you tell her the family needs it more. She pays 3 FOOD for the word, not 6, and the company eats in shifts for a week; the pharmacy shows her pot on their stove.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the adults wake and run east with the pot; she pays nothing and says "Nobody bled. Good." The pharmacy is empty on the map next pass.
 THE FOLLOWER'S CALL: She makes the last call when you bring it: keep the family's spoon they left in it, or send it back. Her line either way.
 
 ## WHAT THE LEDGERS REMEMBER

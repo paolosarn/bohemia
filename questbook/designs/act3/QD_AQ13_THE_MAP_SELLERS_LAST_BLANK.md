@@ -7,7 +7,7 @@ PLACE: a town-tier settlement at the north solar fields, the hall is a surveyor'
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE02 THE HYENAS UNDER THE LAUNCH FENCE (the same hyena range).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (the seal had no stated price), 23 (lost fight unstated) and 30 (drawing without killing paid 20 of 35) fixed in place)
 
 ## THE SITUATION
 Three generations of map-sellers drew the valley. One square has always been blank: a sealed lab annex at the fossil beds where the beasts came from. The act-3 map-seller wants it drawn. The solar co-op wants the annex cleared of the sabre-tooth that dens there.
@@ -25,9 +25,10 @@ First line after accept: "My grandfather never drew that square."
 
 ## THE CHOICES
 A. HUNT: a tough beast fight, the sabre-tooth and two hyenas, 10 to 12 minutes.
-B. DRAW, DO NOT KILL: the map-seller maps the annex at night; the cat is moved off by a lure; pay drops to 20.
-C. SEAL IT AGAIN: the map-seller decides to leave the square blank.
+B. DRAW, DO NOT KILL: the map-seller maps the annex at night; the cat is moved off by a lure. (QR-AT, line 30: the kind road paid 20 of 35, the kindness taxed, `Q108.X2`, `Q148.W9`.) The fee is the full 35; the lure is 4 FOOD out of your own stores.
+C. SEAL IT AGAIN: the map-seller decides to leave the square blank. (QR-AT, line 12: the refusal had no stated price, `Q131.X7`, `Q139.P2`.) The foreman pays the 10 advance and no more; the cat stays out there and the co-op moves its panels west.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the cat keeps the annex; the foreman pays the advance, and the co-op's panels move west in the map picture next visit.
 THE FOLLOWER'S CALL: The map-seller decides: draw it, or leave it blank for the next one.
 
 ## WHAT THE LEDGERS REMEMBER

@@ -7,7 +7,7 @@ PLACE: a village-tier settlement in a library branch, the hall is the reading ro
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE04 THE MAN WHO WALKED OUT OF BED FOUR (the same failing relay line).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (leaving the gap had no price), 23 (lost fight unstated) and 31 (every road ran through the relay fight) fixed in place)
 
 ## THE SITUATION
 The chronicler keeps the family's unrecorded history by hand. One year in act 2 is missing: someone tore it out. A collector in the reading room is offering a job to recover a box of torn pages from a Network relay that is failing. The chronicler stands beside him.
@@ -26,8 +26,10 @@ First line after accept: "Somebody tore out a year of your family."
 ## THE CHOICES
 A. RECOVER: a fight at the relay against scavs and one machine, routine to tough.
 B. READ THEM THERE: the pages say who tore them (a family member, act 2).
-C. LEAVE THE GAP: the chronicler decides some years stay unwritten.
+C. LEAVE THE GAP: the chronicler decides some years stay unwritten. (QR-AT, line 12: the refusal had no stated price, `Q131.X7`, `Q139.P2`.) The collector pays 8 for the rest of the box; the year stays out.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. THE NOON DUMP (QR-AT, line 31: the theme met with no won fight, `Q216.X1`, `Q197.X1`): the collector says it, "it spits paper at noon," and the paper is seen blowing over the fence on the map. Wait outside the fence a day; no fight.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the scavs keep the box; the collector pays nothing, the book in the camp picture stays gapped, and the chronicler says "it waited this long."
 THE FOLLOWER'S CALL: The chronicler decides whether the year goes back in the book.
 
 ## WHAT THE LEDGERS REMEMBER

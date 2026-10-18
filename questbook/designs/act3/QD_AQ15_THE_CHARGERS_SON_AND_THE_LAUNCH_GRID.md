@@ -7,7 +7,7 @@ PLACE: a town-tier settlement at the dam, the hall is the turbine control room
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AQ14 WHO CARRIES THE BAG UP (both feed the same launch).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal) and 23 (lost fight unstated) fixed in place)
 
 ## THE SITUATION
 The launch needs a surge from the dam grid. The charger's son runs the company's batteries; his mother (the act-1 charger) wired the line he must now reroute. A faction holds the switchyard and wants a price. The son brings the offer himself.
@@ -28,6 +28,8 @@ A. HOLD THE YARD: a hold job on three house tiles for one hour of map time, 5 mi
 B. PAY THE FACTION: 20 BATTERIES; no fight; the faction keeps a cut of the surge.
 C. HE CHANGES THE TAGS: he rewrites his mother's tags with his own name; his call.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. NOT THE YARD (QR-AT, line 12: `Q131.X7`, `Q139.P2`): you will neither hold nor pay. He reads the tags for the faction's own men; he pays 8 for the walk and the surge comes late, the pylons lit a week behind.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the faction holds the yard; he pays 8, and the pylons to the dry lake stay dark in the dam picture next visit.
 THE FOLLOWER'S CALL: The son decides whether to keep his mother's tags.
 
 ## WHAT THE LEDGERS REMEMBER

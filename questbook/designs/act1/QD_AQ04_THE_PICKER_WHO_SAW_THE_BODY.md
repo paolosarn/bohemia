@@ -7,7 +7,7 @@ PLACE: a camp-tier settlement in a strip mall, the hall is a nail salon
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE19 THE CATTLE IN THE INTAKE (the same northern road where the Destroyer scouts ride).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 31 (every road ran through the Destroyer fight) fixed in place)
 
 ## THE SITUATION
 The picker scavenged a fight site and found a dead woman wearing a company armband from a base the Destroyers burned. He kept her ring. Now the dead woman's sister is in the hall offering a job: find who killed her and bring back her things.
@@ -28,6 +28,9 @@ A. GIVE THE RING NOW: the picker hands it over at accept; the job becomes a shor
 B. FIND THE REST FIRST: a trip north, a fight with 6 Destroyer scouts on house tiles, 3 to 4 minutes; then the ring and her jacket.
 C. THE PICKER KEEPS IT: he decides to keep the ring; the job is still done; she never knows.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. HE WALKS HER THERE (QR-AT, line 31: the theme met with no won fight, `Q216.X1`, `Q197.X1`): the picker takes the sister to the fight site by day, after the scouts ride north (he says when, a line). She finds the place and the jacket herself. A day longer, full fee (her words: "Bring me anything of hers").
+E. ONLY THE RING (QR-AT, line 12: `Q131.X7`, `Q139.P2`): you will not go north. The ring is handed over; she pays the 3 FOOD advance and nothing more.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the scouts keep the north road; the party falls back with the ring only and she pays as for E. The nail salon has no photo next visit, only the ring on a nail.
 THE FOLLOWER'S CALL: The picker decides whether he tells her he took it off her sister. His call, one line.
 
 ## WHAT THE LEDGERS REMEMBER

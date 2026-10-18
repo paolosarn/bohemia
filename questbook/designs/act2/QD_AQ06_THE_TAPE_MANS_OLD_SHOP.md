@@ -7,7 +7,7 @@ PLACE: a town-tier settlement in the old arts district, the hall is a print shop
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE16 THE TABLE ON THE THIRD FLOOR (the arts district, the same evening).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 23 (lost fight unstated) and 32 (tearing up the deed was free, kind and paid in full) fixed in place)
 
 ## THE SITUATION
 The tape-man (act 1) is old now and stayed at a held base. His act-2 heir, his niece, wants his old shop back from a family who moved into it during the bad years and repaired it well. The client is the niece. The other side is not a villain.
@@ -26,8 +26,9 @@ First line after accept: "I have the deed. They have the roof they fixed."
 ## THE CHOICES
 A. EVICT: a short fight with their two hired guards; routine; the family leaves.
 B. BROKER: pay the family 10 BATTERIES of the fee; they stay as tenants, she gets the workbench.
-C. TEAR UP THE DEED: she decides at the door; the pay is still yours.
+C. TEAR UP THE DEED: she decides at the door. (QR-AT, line 32: C cost nothing, was the kindest and paid in full, so it was the obvious pick, `Q226.X2`, `Q231.X3`, `Q157.X1`.) Now the fee was hers and she has no shop to pay it from: she pays 5 BATTERIES and the 3 TAPE, "it's what's left," the same net as B, and her uncle's bench stays with the family.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the guards keep the door; she pays nothing and the shop keeps the family's sign; her uncle's wrench is still on her belt.
 THE FOLLOWER'S CALL: The niece decides at the door: deed, deal, or let it go.
 
 ## WHAT THE LEDGERS REMEMBER

@@ -7,7 +7,7 @@ PLACE: a city-tier settlement in a reclaimed casino, the hall is a glass atrium 
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE11 THE FIRST BATCH FROM FLOOR NINE (the same tower district).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 30 (sharing paid 20 of 30) fixed in place)
 
 ## THE SITUATION
 Act 3. La Cocinera is gone; her granddaughter cooks for the company now. The atrium settlement has a lab oven that bakes from hydroponic flour, and a factory crew outside town has the oven's controller. She wants it for the camp. The settlement wants the crew cleared.
@@ -26,8 +26,10 @@ First line after accept: "My abuela fed twelve from this pot. I want to feed six
 ## THE CHOICES
 A. CLEAR THE CANNERY: a fight on four house tiles, 4 minutes.
 B. BUY THE CONTROLLER: 20 BATTERIES to the crew; no fight.
-C. SHARE IT: she proposes the oven bakes for both the atrium and the camp; the pay drops to 20.
+C. SHARE IT: she proposes the oven bakes for both the atrium and the camp. (QR-AT, line 30: the kind road paid 20 of 30, the kindness taxed, `Q108.X2`, `Q148.W9`.) The grower pays the full 30, "sixty plates is my bread too," and the price is the camp's: the oven bakes for the camp two days in three.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. NOT THE CANNERY (QR-AT, line 12: `Q131.X7`, `Q139.P2`): you will not go out to the crew. She tells the grower where the controller is; the grower pays 8 FOOD for the word and keeps the advance.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the crew keeps the controller; the grower pays 8 FOOD, the camp picture has the old pot and no glow, and the granddaughter says "sixty can wait."
 THE FOLLOWER'S CALL: The granddaughter decides where the oven stands.
 
 ## WHAT THE LEDGERS REMEMBER

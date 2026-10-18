@@ -7,7 +7,7 @@ PLACE: a village-tier settlement in a tract-home cul-de-sac, the hall is a garag
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE18 ONE NIGHT AT THE PUMP HOUSE (the quarry crew uses the pump-house road).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated), 30 (the recruit was paid on top of the talk road) and 31 (every road ended in a fight) fixed in place)
 
 ## THE SITUATION
 La Sargenta was a fighter who retired with a lasting injury and became the drill sergeant. She hears that a kid she trained in act 1, now grown (met only now, rule 84), leads a raider crew that hits this village. The village posts a clear job. She asks to come along to talk first.
@@ -26,8 +26,11 @@ First line after accept: "Let me talk to him first."
 ## THE CHOICES
 A. SHE TALKS: costs a night; half the crew stands down; the fight is against 4, routine.
 B. NO TALK: a full fight against 8 on quarry house tiles, tough, 8 to 10 minutes.
-C. SHE HIRES HIM: if the talk works, he may OFFER to join (a separate offer, his own screen).
+C. SHE HIRES HIM: if the talk works, he may OFFER to join (a separate offer, his own screen). (QR-AT, line 30: a recruit is people, and people count as pay, so he joins only at his own named wage like any hire; a man you buy is not a reward, `Q108.X2`, `Q190.X1`.)
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36). Followers never fight.
+D. HE TAKES THEM HOME (QR-AT, line 31: the theme met with no won fight, `Q197.X1`, `Q199.X3`): if she talks, she asks him to take the whole crew off the village. He asks 6 ROUNDS to feed them on the way; the company pays it from stores. No fight, full fee, the captain's raids end by his own word.
+E. ONLY THE TALK (QR-AT, line 12: `Q131.X7`, `Q139.P2`): you let her talk and will not fight the half that stays. The captain pays 7 BATTERIES for half the raids and keeps the advance.
+IF THE FIGHT IS LOST (QR-AT, line 23: a lost fight is a result, never a reload, and the tell is in the picture, `Q095.X3`, `Q098.X2`, `Q093.X2`): the crew keeps the quarry; she limps home with you and the captain pays the advance only; the garage window stays plywood.
 THE FOLLOWER'S CALL: La Sargenta decides what to tell the village about who he was.
 
 ## WHAT THE LEDGERS REMEMBER
