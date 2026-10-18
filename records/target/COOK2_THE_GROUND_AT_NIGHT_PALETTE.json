@@ -1,0 +1,5094 @@
+{
+ "lane": "cook 2",
+ "row": "the ground at night from the packs",
+ "made": "10/18",
+ "what": "every colour the night crossing uses; each is a colour that already exists in his bought road, ground or lamp tiles, with the first tile it was found in",
+ "count": 1017,
+ "colours": [
+  {
+   "rgb": "#393838",
+   "px": 45765,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#242630",
+   "px": 42454,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_021.png"
+  },
+  {
+   "rgb": "#614f44",
+   "px": 35059,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#1f2228",
+   "px": 31856,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_018.png"
+  },
+  {
+   "rgb": "#392722",
+   "px": 31639,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#8c8680",
+   "px": 31534,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_021.png"
+  },
+  {
+   "rgb": "#81463e",
+   "px": 29337,
+   "from": "reference/art_bank/road/pack_3_stone_paths_003.png"
+  },
+  {
+   "rgb": "#f3e3b8",
+   "px": 27478,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#623d39",
+   "px": 25248,
+   "from": "reference/art_bank/road/pack_3_stone_paths_001.png"
+  },
+  {
+   "rgb": "#e8d1ac",
+   "px": 24333,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_022.png"
+  },
+  {
+   "rgb": "#6c594a",
+   "px": 21158,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#5c5047",
+   "px": 21150,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#50463d",
+   "px": 20268,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#979590",
+   "px": 19842,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_001.png"
+  },
+  {
+   "rgb": "#171c24",
+   "px": 19154,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_020.png"
+  },
+  {
+   "rgb": "#eddcb7",
+   "px": 18400,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#252a33",
+   "px": 18114,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_018.png"
+  },
+  {
+   "rgb": "#443d3a",
+   "px": 18056,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#482e2a",
+   "px": 17774,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#87807c",
+   "px": 17577,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#8f8a83",
+   "px": 17457,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#201f28",
+   "px": 17233,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#c98962",
+   "px": 16656,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_002.png"
+  },
+  {
+   "rgb": "#958d89",
+   "px": 16596,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#7f7870",
+   "px": 16500,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#ffd38b",
+   "px": 16205,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_002.png"
+  },
+  {
+   "rgb": "#693938",
+   "px": 14500,
+   "from": "reference/art_bank/road/pack_floor_tiles_1_005.png"
+  },
+  {
+   "rgb": "#402d29",
+   "px": 14429,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#1e1f20",
+   "px": 13222,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#543732",
+   "px": 13052,
+   "from": "reference/art_bank/road/pack_3_stone_paths_004.png"
+  },
+  {
+   "rgb": "#171818",
+   "px": 12680,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_002.png"
+  },
+  {
+   "rgb": "#d3cabb",
+   "px": 11896,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#9d9892",
+   "px": 11576,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#262424",
+   "px": 10784,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#e8a96e",
+   "px": 9364,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_025.png"
+  },
+  {
+   "rgb": "#df9b6d",
+   "px": 8544,
+   "from": "reference/art_bank/road/pack_2_rusted_metal_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#302f30",
+   "px": 8391,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_002.png"
+  },
+  {
+   "rgb": "#d1c6b9",
+   "px": 8146,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#534640",
+   "px": 7970,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_018.png"
+  },
+  {
+   "rgb": "#1e1718",
+   "px": 7712,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#4c4742",
+   "px": 7666,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#a7a09a",
+   "px": 7551,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#fbc280",
+   "px": 7348,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_001.png"
+  },
+  {
+   "rgb": "#c0b6a8",
+   "px": 7228,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#3f403b",
+   "px": 7091,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_022.png"
+  },
+  {
+   "rgb": "#c5baaa",
+   "px": 6875,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#f2ac79",
+   "px": 6773,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_006.png"
+  },
+  {
+   "rgb": "#707069",
+   "px": 6362,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#767471",
+   "px": 6234,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_000.png"
+  },
+  {
+   "rgb": "#8f8879",
+   "px": 6224,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#eddfd1",
+   "px": 5855,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_016.png"
+  },
+  {
+   "rgb": "#301f22",
+   "px": 5827,
+   "from": "reference/art_bank/lamp/pack_18_light_sources_and_fire_barrels_017.png"
+  },
+  {
+   "rgb": "#423f40",
+   "px": 5704,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#2e313a",
+   "px": 5473,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_018.png"
+  },
+  {
+   "rgb": "#fabb82",
+   "px": 5462,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_009.png"
+  },
+  {
+   "rgb": "#262728",
+   "px": 5386,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#d8c09b",
+   "px": 5378,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_022.png"
+  },
+  {
+   "rgb": "#594937",
+   "px": 5193,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#393532",
+   "px": 5186,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#7f7c7b",
+   "px": 5115,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_002.png"
+  },
+  {
+   "rgb": "#9d9390",
+   "px": 5100,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#e0d7c5",
+   "px": 5060,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_026.png"
+  },
+  {
+   "rgb": "#6f6a68",
+   "px": 5052,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_000.png"
+  },
+  {
+   "rgb": "#96908a",
+   "px": 4801,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#c4bbb1",
+   "px": 4729,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_029.png"
+  },
+  {
+   "rgb": "#131111",
+   "px": 4696,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#e0d5c8",
+   "px": 4681,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#66605c",
+   "px": 4475,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#f0d9b1",
+   "px": 4458,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#47403b",
+   "px": 4287,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#928f90",
+   "px": 4202,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_025.png"
+  },
+  {
+   "rgb": "#80715a",
+   "px": 4181,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#010000",
+   "px": 4091,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#868183",
+   "px": 4084,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#494648",
+   "px": 4065,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_000.png"
+  },
+  {
+   "rgb": "#f8bd7b",
+   "px": 4022,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_000.png"
+  },
+  {
+   "rgb": "#857a7a",
+   "px": 3875,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#272828",
+   "px": 3702,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#8f8d8c",
+   "px": 3676,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_001.png"
+  },
+  {
+   "rgb": "#e9d2b0",
+   "px": 3671,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#5e5550",
+   "px": 3627,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#898789",
+   "px": 3501,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#c7c2b0",
+   "px": 3499,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_037.png"
+  },
+  {
+   "rgb": "#6f6960",
+   "px": 3466,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_006.png"
+  },
+  {
+   "rgb": "#ddd6c3",
+   "px": 3409,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#12100c",
+   "px": 3294,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#795e50",
+   "px": 3291,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#756b64",
+   "px": 3221,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#0f1011",
+   "px": 3187,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#21201b",
+   "px": 3067,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#c4b9a3",
+   "px": 3005,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_006.png"
+  },
+  {
+   "rgb": "#c8bfb3",
+   "px": 3000,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_044.png"
+  },
+  {
+   "rgb": "#303130",
+   "px": 2966,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#d9cebb",
+   "px": 2929,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_019.png"
+  },
+  {
+   "rgb": "#b87447",
+   "px": 2861,
+   "from": "reference/art_bank/road/pack_2_rusted_metal_floor_tiles_021.png"
+  },
+  {
+   "rgb": "#a8a5a3",
+   "px": 2790,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#1e1918",
+   "px": 2758,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#1f201d",
+   "px": 2723,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#767873",
+   "px": 2701,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_005.png"
+  },
+  {
+   "rgb": "#373837",
+   "px": 2662,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_001.png"
+  },
+  {
+   "rgb": "#767063",
+   "px": 2649,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#7f786a",
+   "px": 2627,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#96998e",
+   "px": 2605,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#bcb3aa",
+   "px": 2598,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#6b4f44",
+   "px": 2585,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#5a5852",
+   "px": 2562,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#292427",
+   "px": 2522,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#b3b0a3",
+   "px": 2426,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#2f2f39",
+   "px": 2422,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_021.png"
+  },
+  {
+   "rgb": "#0e0b10",
+   "px": 2404,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#2f302f",
+   "px": 2363,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#424040",
+   "px": 2338,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#a69e94",
+   "px": 2334,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#2b2928",
+   "px": 2253,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_016.png"
+  },
+  {
+   "rgb": "#918880",
+   "px": 2249,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#1b1a10",
+   "px": 2234,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#070708",
+   "px": 2156,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#999184",
+   "px": 2146,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#878074",
+   "px": 2145,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#f5e5b7",
+   "px": 2145,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_014.png"
+  },
+  {
+   "rgb": "#9c9898",
+   "px": 2116,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_033.png"
+  },
+  {
+   "rgb": "#8e9082",
+   "px": 2112,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#adaba6",
+   "px": 2105,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_034.png"
+  },
+  {
+   "rgb": "#070808",
+   "px": 2082,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#cbc5b1",
+   "px": 1994,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#f6e9c4",
+   "px": 1985,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_026.png"
+  },
+  {
+   "rgb": "#7f8273",
+   "px": 1958,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#aaa19a",
+   "px": 1920,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#fbf3dd",
+   "px": 1897,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_007.png"
+  },
+  {
+   "rgb": "#575148",
+   "px": 1813,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#b4aa99",
+   "px": 1785,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#7f7171",
+   "px": 1781,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#524e49",
+   "px": 1769,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_001.png"
+  },
+  {
+   "rgb": "#bcb2a1",
+   "px": 1715,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#b3a896",
+   "px": 1705,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#584d4c",
+   "px": 1631,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#74574d",
+   "px": 1614,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_046.png"
+  },
+  {
+   "rgb": "#0f181c",
+   "px": 1550,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_020.png"
+  },
+  {
+   "rgb": "#fcf0c4",
+   "px": 1548,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_024.png"
+  },
+  {
+   "rgb": "#261e20",
+   "px": 1529,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#0e130b",
+   "px": 1524,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#6d695c",
+   "px": 1514,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#bcb9a7",
+   "px": 1470,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_032.png"
+  },
+  {
+   "rgb": "#524f50",
+   "px": 1347,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_000.png"
+  },
+  {
+   "rgb": "#151618",
+   "px": 1334,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#5b5137",
+   "px": 1323,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#baad99",
+   "px": 1312,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#77796c",
+   "px": 1310,
+   "from": "reference/art_bank/road/pack_2_rusted_metal_floor_tiles_023.png"
+  },
+  {
+   "rgb": "#3f3931",
+   "px": 1290,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_005.png"
+  },
+  {
+   "rgb": "#e0cfc2",
+   "px": 1254,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_017.png"
+  },
+  {
+   "rgb": "#181311",
+   "px": 1218,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#5d584c",
+   "px": 1213,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#7e7269",
+   "px": 1210,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#a3a1a0",
+   "px": 1206,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_002.png"
+  },
+  {
+   "rgb": "#2d2822",
+   "px": 1177,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#dfd3ad",
+   "px": 1167,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_015.png"
+  },
+  {
+   "rgb": "#d1c6b1",
+   "px": 1157,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#bbb8b3",
+   "px": 1131,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#795748",
+   "px": 1112,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_019.png"
+  },
+  {
+   "rgb": "#beb9ac",
+   "px": 1103,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_026.png"
+  },
+  {
+   "rgb": "#5d5a58",
+   "px": 1102,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_035.png"
+  },
+  {
+   "rgb": "#5b4741",
+   "px": 1098,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#686255",
+   "px": 1094,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#9f9888",
+   "px": 1051,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#2f2f30",
+   "px": 1014,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_002.png"
+  },
+  {
+   "rgb": "#e8e0cf",
+   "px": 1009,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_006.png"
+  },
+  {
+   "rgb": "#bdb09f",
+   "px": 982,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_002.png"
+  },
+  {
+   "rgb": "#050a07",
+   "px": 976,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#4d4d41",
+   "px": 971,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#545350",
+   "px": 969,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#67685c",
+   "px": 938,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_033.png"
+  },
+  {
+   "rgb": "#0f1219",
+   "px": 934,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_038.png"
+  },
+  {
+   "rgb": "#716f6a",
+   "px": 932,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#061016",
+   "px": 907,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#6f7065",
+   "px": 892,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#353127",
+   "px": 878,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#7c807f",
+   "px": 874,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#5f605c",
+   "px": 867,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_006.png"
+  },
+  {
+   "rgb": "#484038",
+   "px": 856,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#706768",
+   "px": 835,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_035.png"
+  },
+  {
+   "rgb": "#a7a08f",
+   "px": 811,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_007.png"
+  },
+  {
+   "rgb": "#afaca8",
+   "px": 811,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#656153",
+   "px": 775,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#a5a191",
+   "px": 768,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_005.png"
+  },
+  {
+   "rgb": "#4a493b",
+   "px": 758,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#efe6d8",
+   "px": 746,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_019.png"
+  },
+  {
+   "rgb": "#97917c",
+   "px": 744,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_007.png"
+  },
+  {
+   "rgb": "#352b28",
+   "px": 740,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#cbbda9",
+   "px": 731,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#2f3226",
+   "px": 711,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#635955",
+   "px": 702,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#c4b7a1",
+   "px": 701,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#454032",
+   "px": 688,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#403632",
+   "px": 687,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#6f6459",
+   "px": 685,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#4f504c",
+   "px": 680,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_005.png"
+  },
+  {
+   "rgb": "#d9d3bf",
+   "px": 680,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#817f80",
+   "px": 672,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#92858c",
+   "px": 640,
+   "from": "reference/art_bank/ground/pack_2_dirt_path_tiles_023.png"
+  },
+  {
+   "rgb": "#b1ada9",
+   "px": 634,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#0b0808",
+   "px": 630,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#2c3640",
+   "px": 623,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_019.png"
+  },
+  {
+   "rgb": "#fff3c8",
+   "px": 623,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_026.png"
+  },
+  {
+   "rgb": "#2d281e",
+   "px": 611,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#a39885",
+   "px": 589,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#8e7f81",
+   "px": 585,
+   "from": "reference/art_bank/road/pack_3_stone_paths_006.png"
+  },
+  {
+   "rgb": "#c8c2b8",
+   "px": 585,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_026.png"
+  },
+  {
+   "rgb": "#797778",
+   "px": 575,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#575848",
+   "px": 552,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#b1afa3",
+   "px": 548,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#706256",
+   "px": 528,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#1e2117",
+   "px": 524,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_016.png"
+  },
+  {
+   "rgb": "#b8aca6",
+   "px": 523,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_029.png"
+  },
+  {
+   "rgb": "#4f4e4a",
+   "px": 512,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_002.png"
+  },
+  {
+   "rgb": "#b6b3b0",
+   "px": 508,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#5e554c",
+   "px": 504,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#373229",
+   "px": 489,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#b1a399",
+   "px": 489,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#333a43",
+   "px": 486,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_023.png"
+  },
+  {
+   "rgb": "#979281",
+   "px": 480,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#867b71",
+   "px": 473,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#885c41",
+   "px": 470,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_016.png"
+  },
+  {
+   "rgb": "#75705e",
+   "px": 464,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#988787",
+   "px": 462,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#cdcaba",
+   "px": 458,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#28201a",
+   "px": 456,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#676865",
+   "px": 454,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#dccca2",
+   "px": 450,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#4d5043",
+   "px": 443,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#aea08c",
+   "px": 443,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#b8afac",
+   "px": 440,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_017.png"
+  },
+  {
+   "rgb": "#818b82",
+   "px": 439,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#6a6768",
+   "px": 438,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_010.png"
+  },
+  {
+   "rgb": "#5d5946",
+   "px": 433,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#afab99",
+   "px": 414,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_029.png"
+  },
+  {
+   "rgb": "#a99c8e",
+   "px": 410,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#3f4031",
+   "px": 401,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#8e8877",
+   "px": 384,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_001.png"
+  },
+  {
+   "rgb": "#373740",
+   "px": 383,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_021.png"
+  },
+  {
+   "rgb": "#523f3d",
+   "px": 378,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#1f2021",
+   "px": 366,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#6e5748",
+   "px": 354,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#968780",
+   "px": 352,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_021.png"
+  },
+  {
+   "rgb": "#716564",
+   "px": 350,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#8f8778",
+   "px": 345,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#a79e8f",
+   "px": 334,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#cec1ad",
+   "px": 331,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#392e2b",
+   "px": 330,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#dfdccc",
+   "px": 320,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#d0cac4",
+   "px": 319,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#986645",
+   "px": 310,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_016.png"
+  },
+  {
+   "rgb": "#d0beb5",
+   "px": 303,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_024.png"
+  },
+  {
+   "rgb": "#413a2c",
+   "px": 302,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#9f927e",
+   "px": 301,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#795741",
+   "px": 296,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#988f95",
+   "px": 295,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_025.png"
+  },
+  {
+   "rgb": "#a09490",
+   "px": 293,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#87806c",
+   "px": 292,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#8e7e78",
+   "px": 288,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_021.png"
+  },
+  {
+   "rgb": "#5f6151",
+   "px": 284,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_034.png"
+  },
+  {
+   "rgb": "#d4d2c5",
+   "px": 283,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#635e60",
+   "px": 281,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_017.png"
+  },
+  {
+   "rgb": "#e5e1d1",
+   "px": 281,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_018.png"
+  },
+  {
+   "rgb": "#262b20",
+   "px": 280,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#7d7865",
+   "px": 280,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_007.png"
+  },
+  {
+   "rgb": "#b7b098",
+   "px": 278,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_013.png"
+  },
+  {
+   "rgb": "#252a1f",
+   "px": 275,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_046.png"
+  },
+  {
+   "rgb": "#aea290",
+   "px": 265,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#474847",
+   "px": 259,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_037.png"
+  },
+  {
+   "rgb": "#d6c9b4",
+   "px": 257,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#887864",
+   "px": 254,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#c0afa0",
+   "px": 248,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_016.png"
+  },
+  {
+   "rgb": "#cbc1a6",
+   "px": 248,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#6e706d",
+   "px": 245,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_005.png"
+  },
+  {
+   "rgb": "#d9d3cc",
+   "px": 245,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_029.png"
+  },
+  {
+   "rgb": "#faebbd",
+   "px": 241,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_006.png"
+  },
+  {
+   "rgb": "#89806a",
+   "px": 235,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#c8c3c0",
+   "px": 232,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#383638",
+   "px": 225,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#b2a5a4",
+   "px": 222,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#b1aeb0",
+   "px": 221,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#bbb097",
+   "px": 219,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#d4d0bb",
+   "px": 216,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_017.png"
+  },
+  {
+   "rgb": "#d8c7b8",
+   "px": 215,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_016.png"
+  },
+  {
+   "rgb": "#747867",
+   "px": 211,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#ada88f",
+   "px": 211,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#6d6a56",
+   "px": 209,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_016.png"
+  },
+  {
+   "rgb": "#fffcdb",
+   "px": 209,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#574f42",
+   "px": 205,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#8e8575",
+   "px": 205,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#56503f",
+   "px": 201,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#161c10",
+   "px": 196,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#322728",
+   "px": 195,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#746857",
+   "px": 195,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#7c745e",
+   "px": 189,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#1e180f",
+   "px": 187,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#bebbb9",
+   "px": 187,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#262115",
+   "px": 186,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#918476",
+   "px": 186,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#afa992",
+   "px": 184,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#645a59",
+   "px": 182,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#a5ab9d",
+   "px": 182,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#cbb7a8",
+   "px": 181,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_016.png"
+  },
+  {
+   "rgb": "#453c31",
+   "px": 174,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#67604c",
+   "px": 174,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#827960",
+   "px": 169,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#b6a88e",
+   "px": 167,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#7b6e72",
+   "px": 165,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#cec8ae",
+   "px": 165,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_015.png"
+  },
+  {
+   "rgb": "#9f9388",
+   "px": 161,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#37404f",
+   "px": 160,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#7d7263",
+   "px": 160,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#30291d",
+   "px": 159,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#99a095",
+   "px": 159,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#958874",
+   "px": 158,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#373a27",
+   "px": 157,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_046.png"
+  },
+  {
+   "rgb": "#6f6162",
+   "px": 157,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_046.png"
+  },
+  {
+   "rgb": "#3c2f30",
+   "px": 156,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_010.png"
+  },
+  {
+   "rgb": "#384052",
+   "px": 156,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#796a69",
+   "px": 156,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#f4efe2",
+   "px": 156,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_026.png"
+  },
+  {
+   "rgb": "#958a7c",
+   "px": 152,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#746b5b",
+   "px": 151,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#ab9c85",
+   "px": 151,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#988b84",
+   "px": 150,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#87898a",
+   "px": 149,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_027.png"
+  },
+  {
+   "rgb": "#87777b",
+   "px": 148,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_023.png"
+  },
+  {
+   "rgb": "#404858",
+   "px": 140,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#e5dbc4",
+   "px": 139,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#74665a",
+   "px": 138,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#907f7c",
+   "px": 138,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#a2937b",
+   "px": 138,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_035.png"
+  },
+  {
+   "rgb": "#40402a",
+   "px": 136,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#393129",
+   "px": 135,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#483b31",
+   "px": 128,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#705e55",
+   "px": 128,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#eee9d8",
+   "px": 128,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#302920",
+   "px": 126,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#868067",
+   "px": 125,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#6a5e50",
+   "px": 123,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#7b6e62",
+   "px": 123,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#281f1b",
+   "px": 122,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#291f20",
+   "px": 121,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#9f9d82",
+   "px": 120,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#382e1c",
+   "px": 119,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#383949",
+   "px": 117,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#786e5f",
+   "px": 116,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#c5b89c",
+   "px": 116,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_015.png"
+  },
+  {
+   "rgb": "#e5dec9",
+   "px": 115,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#b3b2ae",
+   "px": 114,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#3a3222",
+   "px": 112,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#575842",
+   "px": 111,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_034.png"
+  },
+  {
+   "rgb": "#c3b9b8",
+   "px": 110,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#615551",
+   "px": 107,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#a79a98",
+   "px": 107,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#dbd8c2",
+   "px": 106,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#4b412f",
+   "px": 104,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#aa9e98",
+   "px": 103,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#cacac2",
+   "px": 102,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_022.png"
+  },
+  {
+   "rgb": "#777055",
+   "px": 100,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#908168",
+   "px": 99,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#b1a088",
+   "px": 99,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_046.png"
+  },
+  {
+   "rgb": "#87796a",
+   "px": 98,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#22210d",
+   "px": 95,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#d6c8af",
+   "px": 93,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_007.png"
+  },
+  {
+   "rgb": "#63564d",
+   "px": 91,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#e0dad4",
+   "px": 90,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#d7cfc9",
+   "px": 89,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_029.png"
+  },
+  {
+   "rgb": "#d8d4d0",
+   "px": 89,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#897c6f",
+   "px": 88,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#404253",
+   "px": 87,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#474848",
+   "px": 87,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_037.png"
+  },
+  {
+   "rgb": "#5f614a",
+   "px": 85,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#474a32",
+   "px": 84,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#b8b7b3",
+   "px": 79,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#2c3019",
+   "px": 78,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#d0c1a7",
+   "px": 78,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#4f4830",
+   "px": 77,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#726b71",
+   "px": 76,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_033.png"
+  },
+  {
+   "rgb": "#160e11",
+   "px": 75,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#575041",
+   "px": 75,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#88908f",
+   "px": 75,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#cccac8",
+   "px": 74,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#978b6f",
+   "px": 73,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#878978",
+   "px": 72,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#989398",
+   "px": 72,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_025.png"
+  },
+  {
+   "rgb": "#aaa285",
+   "px": 70,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#b4a390",
+   "px": 69,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#3a311c",
+   "px": 68,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#3e3928",
+   "px": 68,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#e0ddd8",
+   "px": 68,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#3d3927",
+   "px": 65,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#4f5036",
+   "px": 65,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#878875",
+   "px": 64,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#e5d9bd",
+   "px": 64,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#4c3f42",
+   "px": 63,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_036.png"
+  },
+  {
+   "rgb": "#a69380",
+   "px": 63,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#d9c9c1",
+   "px": 62,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#e2d7d2",
+   "px": 62,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_025.png"
+  },
+  {
+   "rgb": "#8f9078",
+   "px": 61,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#938578",
+   "px": 61,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#40342d",
+   "px": 60,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#969275",
+   "px": 60,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#a7987b",
+   "px": 59,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#20180e",
+   "px": 58,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#5b5759",
+   "px": 58,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_001.png"
+  },
+  {
+   "rgb": "#f3e9d4",
+   "px": 58,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_007.png"
+  },
+  {
+   "rgb": "#f8b67b",
+   "px": 57,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_015.png"
+  },
+  {
+   "rgb": "#392f25",
+   "px": 55,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#626160",
+   "px": 55,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#2f3820",
+   "px": 54,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#e6e0cd",
+   "px": 54,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#302420",
+   "px": 53,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#988b7d",
+   "px": 53,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#998489",
+   "px": 52,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_012.png"
+  },
+  {
+   "rgb": "#272912",
+   "px": 51,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#665948",
+   "px": 51,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#807253",
+   "px": 51,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#baaf8d",
+   "px": 51,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#c0b7b8",
+   "px": 51,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_033.png"
+  },
+  {
+   "rgb": "#5f593a",
+   "px": 50,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#847f89",
+   "px": 50,
+   "from": "reference/art_bank/ground/pack_2_dirt_path_tiles_045.png"
+  },
+  {
+   "rgb": "#cdbba3",
+   "px": 50,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#d1d0cc",
+   "px": 50,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#6c5c46",
+   "px": 48,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#6e705b",
+   "px": 48,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_041.png"
+  },
+  {
+   "rgb": "#9fa28a",
+   "px": 48,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_031.png"
+  },
+  {
+   "rgb": "#baad91",
+   "px": 48,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#403526",
+   "px": 47,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#4a3d38",
+   "px": 47,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#705e5b",
+   "px": 47,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#b09f92",
+   "px": 46,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_016.png"
+  },
+  {
+   "rgb": "#5f503f",
+   "px": 45,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#a59fa4",
+   "px": 45,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#b5b094",
+   "px": 45,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_032.png"
+  },
+  {
+   "rgb": "#5f4e53",
+   "px": 44,
+   "from": "reference/art_bank/ground/pack_1_water_tiles_033.png"
+  },
+  {
+   "rgb": "#6f604d",
+   "px": 44,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#c9bd9a",
+   "px": 44,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#da9763",
+   "px": 44,
+   "from": "reference/art_bank/road/pack_2_rusted_metal_floor_tiles_021.png"
+  },
+  {
+   "rgb": "#0c070b",
+   "px": 43,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#4f523a",
+   "px": 43,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_028.png"
+  },
+  {
+   "rgb": "#d9c6b2",
+   "px": 43,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#36371b",
+   "px": 42,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#696447",
+   "px": 41,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#c6c1c0",
+   "px": 41,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#7e785f",
+   "px": 40,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#c4c6ba",
+   "px": 40,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_015.png"
+  },
+  {
+   "rgb": "#dbd8d3",
+   "px": 40,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#443822",
+   "px": 38,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#988c6f",
+   "px": 38,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_021.png"
+  },
+  {
+   "rgb": "#8e886a",
+   "px": 37,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#291c12",
+   "px": 36,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#796f41",
+   "px": 36,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#aa9e97",
+   "px": 36,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#2c2217",
+   "px": 35,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#564b39",
+   "px": 35,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#555839",
+   "px": 35,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#c8b59f",
+   "px": 35,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#3e4024",
+   "px": 32,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#403b1a",
+   "px": 32,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#4e4132",
+   "px": 32,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#4d5050",
+   "px": 32,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#c4b496",
+   "px": 32,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#e0dbb0",
+   "px": 32,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#2c2911",
+   "px": 31,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#444829",
+   "px": 31,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#080304",
+   "px": 30,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#485060",
+   "px": 30,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#776948",
+   "px": 30,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#93855e",
+   "px": 30,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#9b8971",
+   "px": 30,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#f7f1e0",
+   "px": 30,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_026.png"
+  },
+  {
+   "rgb": "#12190d",
+   "px": 29,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#87805e",
+   "px": 29,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_015.png"
+  },
+  {
+   "rgb": "#8f8167",
+   "px": 29,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#e4d1bd",
+   "px": 29,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#7d7351",
+   "px": 28,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#817060",
+   "px": 28,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#9c976e",
+   "px": 28,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#9b9865",
+   "px": 28,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#565856",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#6c5c3d",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#7f8068",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#878450",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#8b7b56",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#a09074",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#d8c8ae",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#e6d695",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#eae085",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_012.png"
+  },
+  {
+   "rgb": "#f2eedc",
+   "px": 27,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_018.png"
+  },
+  {
+   "rgb": "#96906a",
+   "px": 26,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#969882",
+   "px": 26,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#9a8768",
+   "px": 26,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_010.png"
+  },
+  {
+   "rgb": "#c2b38b",
+   "px": 26,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#d8d472",
+   "px": 26,
+   "from": "reference/art_bank/road/pack_3_stone_paths_007.png"
+  },
+  {
+   "rgb": "#f8f4ed",
+   "px": 26,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_021.png"
+  },
+  {
+   "rgb": "#180e10",
+   "px": 25,
+   "from": "reference/art_bank/road/pack_2_rusted_metal_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#636030",
+   "px": 25,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#6a6b4a",
+   "px": 25,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#8a8553",
+   "px": 25,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#908363",
+   "px": 25,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#aba36f",
+   "px": 25,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#48382b",
+   "px": 24,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#5a4d3a",
+   "px": 24,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#676568",
+   "px": 24,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_003.png"
+  },
+  {
+   "rgb": "#a9a476",
+   "px": 24,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#c7b39a",
+   "px": 24,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#ece9d6",
+   "px": 24,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_044.png"
+  },
+  {
+   "rgb": "#7a784a",
+   "px": 23,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#a7a280",
+   "px": 23,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#eedec9",
+   "px": 23,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#444c38",
+   "px": 22,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#71713b",
+   "px": 22,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#b9b899",
+   "px": 22,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#e0d5af",
+   "px": 22,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#0c1004",
+   "px": 21,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#41514b",
+   "px": 21,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_020.png"
+  },
+  {
+   "rgb": "#504a2f",
+   "px": 21,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#998a56",
+   "px": 21,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#9f9371",
+   "px": 21,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#c8bbb8",
+   "px": 21,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_017.png"
+  },
+  {
+   "rgb": "#f0ede9",
+   "px": 21,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#fff9d3",
+   "px": 21,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_021.png"
+  },
+  {
+   "rgb": "#8f895a",
+   "px": 20,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#907c63",
+   "px": 20,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#a0a9a6",
+   "px": 20,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#b7baa7",
+   "px": 20,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_020.png"
+  },
+  {
+   "rgb": "#c3c379",
+   "px": 20,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#dede91",
+   "px": 20,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#4e5948",
+   "px": 19,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_011.png"
+  },
+  {
+   "rgb": "#50412e",
+   "px": 19,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#6e6841",
+   "px": 19,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#816e68",
+   "px": 19,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#99a09c",
+   "px": 19,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#bcb75f",
+   "px": 19,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#c6c566",
+   "px": 19,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#cdc899",
+   "px": 19,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_008.png"
+  },
+  {
+   "rgb": "#374228",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#3f3e40",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_000.png"
+  },
+  {
+   "rgb": "#57522f",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#60503d",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#645b39",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#826f47",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#94925a",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#9b9250",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#9c9267",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#a09266",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#a09188",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#a7b0a6",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_2_rusted_metal_floor_tiles_023.png"
+  },
+  {
+   "rgb": "#b5a987",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#fffffb",
+   "px": 18,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#231b18",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#273023",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#3b3b1a",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#4c4123",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#4f4b2b",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#4e5321",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#605346",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#725e45",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#907e72",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_035.png"
+  },
+  {
+   "rgb": "#9d9a6a",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#a7a664",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#aca855",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#d8c3a6",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_018.png"
+  },
+  {
+   "rgb": "#e5e0c3",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_3_stone_paths_005.png"
+  },
+  {
+   "rgb": "#eadec6",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#ebe2c6",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_020.png"
+  },
+  {
+   "rgb": "#f4e49c",
+   "px": 17,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_012.png"
+  },
+  {
+   "rgb": "#211815",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#465030",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#63633a",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#67682f",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#796f7b",
+   "px": 16,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_033.png"
+  },
+  {
+   "rgb": "#7a7643",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#7f8061",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_033.png"
+  },
+  {
+   "rgb": "#909248",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#a28756",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#a08c75",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#cbbc6f",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_031.png"
+  },
+  {
+   "rgb": "#e3dc83",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_3_stone_paths_005.png"
+  },
+  {
+   "rgb": "#e1e0dd",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#eaddbd",
+   "px": 16,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_015.png"
+  },
+  {
+   "rgb": "#162017",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_026.png"
+  },
+  {
+   "rgb": "#404854",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#4b4a1b",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#5b4a2f",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#6b683b",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_019.png"
+  },
+  {
+   "rgb": "#8e883c",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_048.png"
+  },
+  {
+   "rgb": "#8d8963",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#937a53",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#909896",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#ded682",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_005.png"
+  },
+  {
+   "rgb": "#e3e0b9",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_041.png"
+  },
+  {
+   "rgb": "#e6e5e1",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#eae6a5",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_014.png"
+  },
+  {
+   "rgb": "#f5ef96",
+   "px": 15,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_007.png"
+  },
+  {
+   "rgb": "#1d200a",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#323114",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#61575a",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_031.png"
+  },
+  {
+   "rgb": "#635826",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#6a6036",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#74702a",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#858142",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#a49972",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_021.png"
+  },
+  {
+   "rgb": "#bfbe5b",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#c4ab91",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_045.png"
+  },
+  {
+   "rgb": "#dbc785",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_012.png"
+  },
+  {
+   "rgb": "#dac9b3",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_002.png"
+  },
+  {
+   "rgb": "#ddd3b2",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_015.png"
+  },
+  {
+   "rgb": "#e0d99b",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#f1eace",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#f6f6f1",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#fffdbb",
+   "px": 14,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_031.png"
+  },
+  {
+   "rgb": "#3a271e",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#575858",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_027.png"
+  },
+  {
+   "rgb": "#505868",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#7a6956",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#868b5c",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#8d9341",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#a6a848",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#ad9f7e",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#c0ba8e",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#c5cb79",
+   "px": 13,
+   "from": "reference/art_bank/ground/pack_rocks_and_stones_027.png"
+  },
+  {
+   "rgb": "#d4d392",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#ffffef",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#fdfaf4",
+   "px": 13,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#565232",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#7c7d36",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#837642",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#827851",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_015.png"
+  },
+  {
+   "rgb": "#89715a",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#8b825a",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#9c885a",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_035.png"
+  },
+  {
+   "rgb": "#a1906a",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_010.png"
+  },
+  {
+   "rgb": "#a89792",
+   "px": 12,
+   "from": "reference/art_bank/ground/pack_rocks_and_stones_070.png"
+  },
+  {
+   "rgb": "#acb098",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_032.png"
+  },
+  {
+   "rgb": "#b09d87",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#b1a173",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#c9c7c8",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_2_rusted_metal_floor_tiles_027.png"
+  },
+  {
+   "rgb": "#cfcd5b",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#d6cc88",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#d8ce82",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#e5e392",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_041.png"
+  },
+  {
+   "rgb": "#e2e0b1",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_3_stone_paths_011.png"
+  },
+  {
+   "rgb": "#eae1b7",
+   "px": 12,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_009.png"
+  },
+  {
+   "rgb": "#201612",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#3f3a17",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#44373a",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_017.png"
+  },
+  {
+   "rgb": "#4e5832",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#5b5c26",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#7b7941",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#9b973e",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#c2ac9b",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_046.png"
+  },
+  {
+   "rgb": "#c4b6b2",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_017.png"
+  },
+  {
+   "rgb": "#ccb771",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_031.png"
+  },
+  {
+   "rgb": "#e3c997",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_3_stone_paths_002.png"
+  },
+  {
+   "rgb": "#e1cdb8",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_022.png"
+  },
+  {
+   "rgb": "#ebe376",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_004.png"
+  },
+  {
+   "rgb": "#f7f9cb",
+   "px": 11,
+   "from": "reference/art_bank/ground/pack_wooden_and_nature_props_036.png"
+  },
+  {
+   "rgb": "#fffce1",
+   "px": 11,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_006.png"
+  },
+  {
+   "rgb": "#2c250a",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#343c29",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#43531a",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#5e512f",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#5c6043",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#624f28",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#665846",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#79634a",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#796568",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_019.png"
+  },
+  {
+   "rgb": "#78722f",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#7a754e",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#7d8037",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#7e8942",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#816744",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_036.png"
+  },
+  {
+   "rgb": "#84756a",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#8a7576",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#8d795d",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#958e62",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#9f9359",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#a79c5e",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#a7a33e",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#a89872",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#b1a75e",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#b9b67a",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#c2bd96",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#c7c150",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#c2c45a",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#c9bf73",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#ccbe92",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#d4ba97",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#ddc576",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_3_stone_paths_005.png"
+  },
+  {
+   "rgb": "#dcd3a2",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#e2d08f",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_010.png"
+  },
+  {
+   "rgb": "#e8d7c2",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#eae891",
+   "px": 10,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_009.png"
+  },
+  {
+   "rgb": "#303849",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#504517",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#576353",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_3_stone_paths_012.png"
+  },
+  {
+   "rgb": "#66684c",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_028.png"
+  },
+  {
+   "rgb": "#6e784d",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_034.png"
+  },
+  {
+   "rgb": "#705f38",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#7a6f4c",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#846f63",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#998776",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#98877a",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#a69b56",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#a1a151",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_020.png"
+  },
+  {
+   "rgb": "#d3c35a",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#d8d295",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#efebce",
+   "px": 9,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_031.png"
+  },
+  {
+   "rgb": "#27301b",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#372a15",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#3f4834",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#474449",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cracked_street_tiles_004.png"
+  },
+  {
+   "rgb": "#503c2b",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#575a29",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#595327",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#61532a",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#756846",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#7f7b50",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#877958",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#8e6f50",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#a18f59",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#afa961",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#bab372",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_034.png"
+  },
+  {
+   "rgb": "#bdbb61",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#c2b355",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#d9cb9e",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_019.png"
+  },
+  {
+   "rgb": "#e5ca79",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_012.png"
+  },
+  {
+   "rgb": "#e1c8a7",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#e3d88e",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_031.png"
+  },
+  {
+   "rgb": "#ebd0a2",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_016.png"
+  },
+  {
+   "rgb": "#eee498",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_3_stone_paths_018.png"
+  },
+  {
+   "rgb": "#e9ecbc",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#f7f9e5",
+   "px": 8,
+   "from": "reference/art_bank/ground/pack_rocks_and_stones_073.png"
+  },
+  {
+   "rgb": "#f8ecda",
+   "px": 8,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_017.png"
+  },
+  {
+   "rgb": "#6c5f6b",
+   "px": 7,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_010.png"
+  },
+  {
+   "rgb": "#6e7235",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_022.png"
+  },
+  {
+   "rgb": "#6d7043",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#8d9052",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#959954",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#9c9146",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#aca57d",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#afab86",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_021.png"
+  },
+  {
+   "rgb": "#b0a845",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#b4aa6b",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#c0b060",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#f7f1d1",
+   "px": 7,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_041.png"
+  },
+  {
+   "rgb": "#242a0f",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#402e23",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#464021",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#48372d",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#5e5b28",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#625e30",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#71704b",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#777c48",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#76795b",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#816a54",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#89844b",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#8e906a",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#8c9172",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#96702f",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#aea94f",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#b29d65",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#b19a6b",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#beaf68",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_006.png"
+  },
+  {
+   "rgb": "#bdb060",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#bdb48a",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#c3a88a",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_045.png"
+  },
+  {
+   "rgb": "#c6c5a8",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#cdc460",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#cdca61",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_006.png"
+  },
+  {
+   "rgb": "#d3c76a",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_3_stone_paths_005.png"
+  },
+  {
+   "rgb": "#d6c69f",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#d2c977",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_3_stone_paths_023.png"
+  },
+  {
+   "rgb": "#d6cfa5",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#d9d47d",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_012.png"
+  },
+  {
+   "rgb": "#dbd999",
+   "px": 6,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_022.png"
+  },
+  {
+   "rgb": "#e5dca4",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_015.png"
+  },
+  {
+   "rgb": "#e7e29b",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_012.png"
+  },
+  {
+   "rgb": "#e3e0aa",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_041.png"
+  },
+  {
+   "rgb": "#efe793",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_012.png"
+  },
+  {
+   "rgb": "#f2f1c9",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_3_stone_paths_007.png"
+  },
+  {
+   "rgb": "#fdf87f",
+   "px": 6,
+   "from": "reference/art_bank/road/pack_3_stone_paths_009.png"
+  },
+  {
+   "rgb": "#5d4c40",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#666b51",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_013.png"
+  },
+  {
+   "rgb": "#68622c",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#786e2e",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#828230",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#8c8a37",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#906935",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#a19a41",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#c09c6e",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#c5c588",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_033.png"
+  },
+  {
+   "rgb": "#d4c496",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#d3c0ab",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_000.png"
+  },
+  {
+   "rgb": "#dde08a",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_3_stone_paths_006.png"
+  },
+  {
+   "rgb": "#e7d2b1",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#f2e8b3",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#f7f3df",
+   "px": 5,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_007.png"
+  },
+  {
+   "rgb": "#110a07",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#100b09",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#16200a",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_029.png"
+  },
+  {
+   "rgb": "#223011",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#30231c",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#373918",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#383410",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#39401e",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#39462f",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_047.png"
+  },
+  {
+   "rgb": "#412f1f",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#423412",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#41401a",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#404819",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#483519",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#524923",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#574a36",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_002.png"
+  },
+  {
+   "rgb": "#566244",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_3_stone_paths_004.png"
+  },
+  {
+   "rgb": "#5c633d",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#5c6837",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#655d28",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#676040",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#695d29",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#6e7154",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#705637",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_016.png"
+  },
+  {
+   "rgb": "#715d48",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#706725",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_012.png"
+  },
+  {
+   "rgb": "#716838",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#785e4a",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_045.png"
+  },
+  {
+   "rgb": "#7a6725",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_046.png"
+  },
+  {
+   "rgb": "#816d58",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#857c4d",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#86834b",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#878853",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#8b742d",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#8b734d",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#8a7e4e",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#8c8740",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#906548",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_016.png"
+  },
+  {
+   "rgb": "#977141",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#927e6e",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#908449",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#918550",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#979663",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#988757",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#988061",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_008.png"
+  },
+  {
+   "rgb": "#999a48",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#9d9b57",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#9f9b5c",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_005.png"
+  },
+  {
+   "rgb": "#9c9a7b",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#9fa656",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#a6a64f",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#a5a470",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#a9967f",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#af993c",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_036.png"
+  },
+  {
+   "rgb": "#ad9f63",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#afa742",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#afa355",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#aca167",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_045.png"
+  },
+  {
+   "rgb": "#aeac69",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#b0915c",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#b4a07b",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#b2ac63",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#b6aa73",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#b1b651",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#b6b763",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#b5b081",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#b6b188",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#ba986a",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#bfa16e",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_2_rusted_metal_floor_tiles_021.png"
+  },
+  {
+   "rgb": "#b9aa5e",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#b8b7b8",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_025.png"
+  },
+  {
+   "rgb": "#bac06c",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_033.png"
+  },
+  {
+   "rgb": "#c09c76",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_021.png"
+  },
+  {
+   "rgb": "#c3b37f",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#c2b284",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#c1bb53",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#c4bf82",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#c4c5a2",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_017.png"
+  },
+  {
+   "rgb": "#c89f52",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#c8a16e",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#c8b57a",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#cdbd54",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#cec084",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_005.png"
+  },
+  {
+   "rgb": "#cbca79",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_044.png"
+  },
+  {
+   "rgb": "#c9d169",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_033.png"
+  },
+  {
+   "rgb": "#cfd382",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_3_stone_paths_007.png"
+  },
+  {
+   "rgb": "#d6c755",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#d0c689",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#d1c4c1",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_033.png"
+  },
+  {
+   "rgb": "#d1c954",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#d1c97d",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#d4cc81",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_032.png"
+  },
+  {
+   "rgb": "#d2cb92",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#d4d260",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_3_stone_paths_006.png"
+  },
+  {
+   "rgb": "#d6d39b",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#d6d879",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_3_stone_paths_002.png"
+  },
+  {
+   "rgb": "#dbc6ad",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#decb8b",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_011.png"
+  },
+  {
+   "rgb": "#e7cb9f",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_021.png"
+  },
+  {
+   "rgb": "#e2d77d",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_032.png"
+  },
+  {
+   "rgb": "#e4dd97",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#e6d9ad",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_031.png"
+  },
+  {
+   "rgb": "#e7e896",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#e7e9cb",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_3_stone_paths_007.png"
+  },
+  {
+   "rgb": "#e3e8df",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_023.png"
+  },
+  {
+   "rgb": "#ebdba9",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#ece4be",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_metal_floor_tiles_032.png"
+  },
+  {
+   "rgb": "#e8e9b5",
+   "px": 4,
+   "from": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_013.png"
+  },
+  {
+   "rgb": "#f0dfbc",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_019.png"
+  },
+  {
+   "rgb": "#f1ddcc",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_016.png"
+  },
+  {
+   "rgb": "#f3dfd6",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_006.png"
+  },
+  {
+   "rgb": "#fdf697",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_2_soil_and_dirt_tiles_005.png"
+  },
+  {
+   "rgb": "#fffdc6",
+   "px": 4,
+   "from": "reference/art_bank/road/pack_3_stone_paths_007.png"
+  },
+  {
+   "rgb": "#1a0d0b",
+   "px": 3,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#5d5f60",
+   "px": 3,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#786459",
+   "px": 3,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#928a54",
+   "px": 3,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_005.png"
+  },
+  {
+   "rgb": "#979a6b",
+   "px": 3,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#b5ae56",
+   "px": 3,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#312417",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#373816",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#3a2917",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#42280e",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_023.png"
+  },
+  {
+   "rgb": "#464d27",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#493e18",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#4d3921",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#4d411a",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#4f4923",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#4f5926",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_027.png"
+  },
+  {
+   "rgb": "#513d23",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#594f21",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_006.png"
+  },
+  {
+   "rgb": "#5d5c30",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#5d6022",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#5c6428",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#636122",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#6c4e18",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#6a5d1d",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_015.png"
+  },
+  {
+   "rgb": "#6e6a2d",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#705e2a",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#726140",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#71614f",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#757021",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#757d41",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_048.png"
+  },
+  {
+   "rgb": "#7a6335",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_001.png"
+  },
+  {
+   "rgb": "#786d25",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_004.png"
+  },
+  {
+   "rgb": "#7d7134",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#7b813c",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#7f8243",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#81591f",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#826a4d",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#857b30",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#85823d",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#828b33",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#838844",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#85884c",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#808865",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_017.png"
+  },
+  {
+   "rgb": "#887645",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#8a894f",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_003.png"
+  },
+  {
+   "rgb": "#89904e",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#926f48",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#927e3f",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_036.png"
+  },
+  {
+   "rgb": "#94895e",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_011.png"
+  },
+  {
+   "rgb": "#919b45",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#9f815b",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#998f47",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_014.png"
+  },
+  {
+   "rgb": "#9f934a",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_007.png"
+  },
+  {
+   "rgb": "#9ca05b",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#9ea162",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#a2825d",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_045.png"
+  },
+  {
+   "rgb": "#a38a42",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_043.png"
+  },
+  {
+   "rgb": "#a59f36",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_046.png"
+  },
+  {
+   "rgb": "#a2a143",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#a5a46a",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_031.png"
+  },
+  {
+   "rgb": "#a4aa5e",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_033.png"
+  },
+  {
+   "rgb": "#a6b354",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#ae9677",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_034.png"
+  },
+  {
+   "rgb": "#a89fa4",
+   "px": 2,
+   "from": "reference/art_bank/ground/pack_2_dirt_path_tiles_040.png"
+  },
+  {
+   "rgb": "#b09789",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_floor_tiles_1_025.png"
+  },
+  {
+   "rgb": "#b7b85c",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#b5bd73",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#b8a363",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_004.png"
+  },
+  {
+   "rgb": "#baa078",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#b8ab45",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#bca977",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_038.png"
+  },
+  {
+   "rgb": "#b8b281",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_041.png"
+  },
+  {
+   "rgb": "#bebc54",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#bcbb69",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#bdba71",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_013.png"
+  },
+  {
+   "rgb": "#cbaa73",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_036.png"
+  },
+  {
+   "rgb": "#c9b4a1",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_001.png"
+  },
+  {
+   "rgb": "#c9bd7e",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#cdc55d",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_009.png"
+  },
+  {
+   "rgb": "#d5b483",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#d0bc41",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_010.png"
+  },
+  {
+   "rgb": "#d3c761",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_003.png"
+  },
+  {
+   "rgb": "#d3d481",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_032.png"
+  },
+  {
+   "rgb": "#d7d0a7",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_3_stone_paths_007.png"
+  },
+  {
+   "rgb": "#d4d2b1",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_030.png"
+  },
+  {
+   "rgb": "#d9da8b",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_041.png"
+  },
+  {
+   "rgb": "#dfdca8",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#e6e17d",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_3_stone_paths_009.png"
+  },
+  {
+   "rgb": "#e9e27d",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_3_stone_paths_005.png"
+  },
+  {
+   "rgb": "#efe3d0",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_006.png"
+  },
+  {
+   "rgb": "#eceb8e",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_005.png"
+  },
+  {
+   "rgb": "#eaebab",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_035.png"
+  },
+  {
+   "rgb": "#ece8c3",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_041.png"
+  },
+  {
+   "rgb": "#f1e7d0",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_039.png"
+  },
+  {
+   "rgb": "#f0ec8b",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_3_stone_paths_008.png"
+  },
+  {
+   "rgb": "#f0ea9b",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_3_stone_paths_008.png"
+  },
+  {
+   "rgb": "#f2f1b5",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_033.png"
+  },
+  {
+   "rgb": "#faf3b9",
+   "px": 2,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_014.png"
+  },
+  {
+   "rgb": "#3f4040",
+   "px": 1,
+   "from": "reference/art_bank/road/pack_1_cracked_contrete_tiles_008.png"
+  },
+  {
+   "rgb": "#422e16",
+   "px": 1,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_009.png"
+  },
+  {
+   "rgb": "#887260",
+   "px": 1,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png"
+  },
+  {
+   "rgb": "#8f7468",
+   "px": 1,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_033.png"
+  },
+  {
+   "rgb": "#afa85a",
+   "px": 1,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  },
+  {
+   "rgb": "#b7a087",
+   "px": 1,
+   "from": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_049.png"
+  }
+ ]
+}

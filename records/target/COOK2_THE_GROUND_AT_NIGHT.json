@@ -1,0 +1,134 @@
+{
+ "lane": "cook 2",
+ "row": "the ground at night from the packs",
+ "round": 1,
+ "made": "10/18",
+ "board": "slices/fight_ground/block_corner_0.webp",
+ "window_px": [
+  667,
+  405,
+  1907,
+  1405
+ ],
+ "scale": "1:1",
+ "his_colours_in_the_three_families": 11123,
+ "his_road_shadow_hue_deg": 28.9,
+ "moon_hue_used_deg": 222.0,
+ "night_colours_used": 1017,
+ "night_colours_not_his": 0,
+ "pack_palette_night": {
+  "luminance_night_over_day": 0.572
+ },
+ "combat_night_now": {
+  "luminance_night_over_day": 0.778
+ },
+ "pool_over_dark": 3.0,
+ "pool_floor": 3.0,
+ "lamps": {
+  "tile": "reference/art_bank/lamp/pack_18_light_sources_and_fire_barrels_000.png",
+  "feet_px_in_window": [
+   [
+    345,
+    317
+   ],
+   [
+    897,
+    317
+   ],
+   [
+    345,
+    708
+   ],
+   [
+    897,
+    708
+   ]
+  ],
+  "pool_m": 7.0,
+  "bulb_rgb": [
+   250,
+   241,
+   159
+  ],
+  "at_own_pixels": [
+   56,
+   96
+  ]
+ },
+ "pool_edge": "ordered 4x4 dither over the outer quarter; zero half-transparent pixels",
+ "cells": [
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_00.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_01.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_02.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_03.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_04.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_05.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_06.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_07.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_08.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_09.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_10.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_11.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_12.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_13.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_14.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_15.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_16.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_17.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_18.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_19.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_20.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_21.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_22.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_23.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_24.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_25.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_26.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_27.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_28.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_29.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_30.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_31.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_32.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_33.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_34.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_35.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_36.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_37.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_38.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_39.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_40.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_41.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_42.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_43.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_44.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_45.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_46.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_47.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_48.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_49.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_50.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_51.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_52.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_53.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_54.png",
+  "records/target/COOK2_THE_GROUND_AT_NIGHT_CELL_55.png"
+ ],
+ "map": {
+  "lum_keep": 0.6,
+  "sat_keep": 0.5,
+  "hue_max_dark_deg": 22.0,
+  "hue_max_light_deg": 9.0,
+  "pool_curve": 2.4,
+  "bulb_screen": 0.1
+ },
+ "cull_on_cells": {
+  "cells": 56,
+  "fails": {
+   "D3": 49,
+   "D4": 21
+  },
+  "all_five_pass": 4,
+  "read": "held the same way as [the same crossing before and after] (class tile, the ground band, the guide); compare his own tiles: D3 fails 92% of his road, D4 44%"
+ }
+}
