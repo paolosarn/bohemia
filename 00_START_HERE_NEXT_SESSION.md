@@ -381,6 +381,26 @@ the Mob's four valley cells and RUN's region fortress); TUNING (the +n and the
 base cost). PENDING Paolo: nothing.
 
 
+MODS (mods-opus-10-18c): 10/18 LATEST (e) -- *** THE NEW AGE (rules 112 to 117; opened by the coordinator, Opus 5.5 at Extra per rule 116, no check-in) SHIPPED
+[a modder's first hour]. *** Record records/BOHEMIA_MODS_CHANGE_ONE_THING_IN_TEN_MINUTES_10_18_26.md; instrument
+tools/bohemia_mods_ten_minutes.js (reads only; about 4 min live, 3 s with --no-live). THREE STRANGERS (fresh agents in
+throwaway worktrees, MODDING.md only, three orders, two models) made the three changes: the pistol 1.9, 1.9 and 6.2 min, the bar
+1.2, 1.3 and 5.3, the haircut's body 7.3, 7.3 and 10.3; the face kept the old hair every time. Best case from published rates (238 wpm,
+KLM): pistol about 4 min, bar about 3 (19 if he trusts the guide), haircut about 15 for the body (11 reading, a 230 s
+bake) and the face impossible here (Blender). PROVES THE DATA LINE WRONG: easy is the word on the screen finding its
+line, not the file type: the bar (code) beat the pistol (data) for every stranger; 0 of 7 crew weapon names (PISTOL is
+dagger ...) are in weapons.json or armor.json. ALSO MEASURED: the cache wall (python3 -m http.server, the guide's: a plain
+reload kept the old number for a tenth of the clone's age, 60 s for 10 min, 2.4 h for a day; shift-reload and a private
+window see it); MODDING.md's knife is carried by nobody (0 of 120 crew, 0 of 30 foes on 10 first roads); the demo's door
+company (newcrew, 3 men) carries PIPE, PIPE and SLEDGE, no pistol; 10 of 12 men wear a different look in the fight than on the crew
+screen (ours.people_looks.crew against engine/bohemia_roster.js's key order; why the strangers named OSO and NENA for one
+look); the bake rewrites 4 untouched sheets (148 to 311 px, byte-identical in three copies: the committed ones are behind the
+alpha); the first-hour page's 'the demo's older fight ignores these files' was stale and is corrected. MODDING.md gained one section, 'See your change in the game today' (help, no rule, no mod). Routed RUN (a README;
+lead line), COMBAT (no-cache fetch, a look per crew row, the 4 sheets), RUN TWO (building names as data, the keeper's
+title, the roster's look order), CHARACTER (one haircut word per look as data), PORTRAIT (read it). New OPEN row
+[the screen's word] (rule 74); [only the board's looks], [a png in the bundle] and [grok sources] stand. Rule 88 kept: no
+VOTE sheet. RUN lead line: MODS COOKING (a page, NOT IN A TAB). PENDING Paolo: nothing.
+
 MODS (mods-opus-10-18b): 10/18 LATEST (d) -- *** THE NEW AGE (rules 112 to 117; opened by the coordinator, Opus 5.5 at Extra per rule 116, no check-in) SHIPPED
 [the face apart]. *** Record records/BOHEMIA_MODS_WHAT_THE_FACE_COSTS_INSIDE_THE_SHEET_AND_OUT_10_18_26.md; instruments
 tools/bohemia_mods_face_apart.py (bytes and readers, about 3 min; --split DIR writes outside the repo only) and

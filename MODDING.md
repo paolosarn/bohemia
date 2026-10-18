@@ -23,6 +23,13 @@ Make the knife hit harder: copy the two files above, put the folder next to the 
 `node tools/bohemia_mods_check.js path/to/folder-of-mods`
 It says what changed and, for anything it skipped, what that means and how to fix it, in plain words. Today this check runs the reference loader; the game does not read a mods folder yet, so the check is how you see your mod work. The design for the folder in the game is `records/BOHEMIA_MODS_THE_MODS_FOLDER_DESIGN_10_10_26.md`.
 
+## See your change in the game today
+Three strangers tried three changes from this page; this is what they needed and did not find (records/BOHEMIA_MODS_CHANGE_ONE_THING_IN_TEN_MINUTES_10_18_26.md).
+- **The names on the screen are not the names in the file.** Your crew's weapons are Battle Brothers rows under a nickname (records/target/bb/ours.json, `weapon_rows`): PISTOL is `dagger`, PIPE `bludgeon`, SHOTGUN `handgonne`, RIFLE `light_crossbow`, SLEDGE `two_handed_mallet`, BOTTLES `bundle_of_throwing_axes`, CAR DOOR `wooden_shield`. The weapon card's small print names the row ("Battle Brothers: Dagger"). The knife above is carried by nobody in your company, so change the dagger to see a number in your own fight. A row is shared: an enemy's dagger changes too.
+- **Where it shows.** The game reads `records/target/bb/` directly: edit a file, serve the repo, open `slices/BOHEMIA_FIGHT.html` (twelve men) and hold a finger on a man to see his weapon's card. The demo's starting crew (A NEW CREW) is three men with pipes and a sledge; pick THE BLOCK WATCH to field all twelve, the pistol among them. In a town (`slices/BOHEMIA_SETTLEMENT_SCREEN.html`) hold a finger on a building to read its name.
+- **Your browser may keep the old file.** After an edit, shift-reload or open a private window. A plain reload, and typing the address again, kept the old number for a tenth of the time since you cloned (measured: 60 seconds for a clone 10 minutes old, 2.4 hours for a clone a day old).
+- **Not data yet.** A building's name is the `B` table in `slices/BOHEMIA_SETTLEMENT_SCREEN.html`. A crew member's haircut is two words: the body's in `CITY_CAST_LOOKS` in `slices/BOHEMIA_ALPHA_0_9.html` (then `node tools/bohemia_fight_people_bake.js`, about 4 minutes), and the face's in `tools/bohemia_portrait_the_head_from_the_model.py` (a Blender render). Neither can travel in a mod yet.
+
 ## What a patch can do
 - Change a row: name its id and the fields. Rows are found by id.
 - Add a row: use a new id and copy a whole base row so no field is missing.

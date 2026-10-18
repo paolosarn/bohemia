@@ -65,6 +65,9 @@ so the one page a modder reads stays true.
 
 - **The demo's older fight ignores these files.** The sealed old fight inside the demo has its own numbers, so a
   change you see in step 3 is the new fight's. (records/BOHEMIA_MODS_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.md.)
+  *** CORRECTED 10/18 (MODS, [a modder's first hour]): no longer true. Every fight the demo's map starts opens
+  slices/BOHEMIA_FIGHT.html (RUN 10/2, [fold the loop]), which reads these files, so a change shows in the demo's fights
+  too. A stranger caught it (records/BOHEMIA_MODS_CHANGE_ONE_THING_IN_TEN_MINUTES_10_18_26.md). ***
 - **A weapon plays one skill.** Only the first strike skill and the reload are offered, so editing a second
   skill changes nothing today. (records/BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.md.)
 - **Nothing checks how big a number is.** A knife that hits for minus 5 loads. A range column is a row of its own.
