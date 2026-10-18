@@ -9921,6 +9921,28 @@
    "redoOf": "run2-the-scavenge-button-10-18",
    "said": "So ass, bro, I can't hear The portrait is ass, bro. I can't even stare at it anymore.",
    "draft": true
+  },
+  {
+   "id": "cook-fight-props-through-the-rig-10-18",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "7c4c1b36",
+   "made": "10/18",
+   "title": "PLACEHOLDER: A CONCRETE BARRIER, A DUMPSTER, A SHOPPING CART AND A PILE OF TYRES FOR THE FIGHT, MADE THE CLAY WAY",
+   "why": "You said yes to the lamp, the gun and the wreck made the clay way, so the cover a fight stands on now comes off the same table: a broken concrete road barrier, an overflowing dumpster with one lid thrown back, a shopping cart missing a wheel, and a pile of tyres, all at their real size in eight directions. You see them in the VOTE tab beside your own barrier, dumpster, wire bin and tyres at the same pixel size, standing on your cracked street tile; nothing is final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_FIGHT_PROPS_THROUGH_THE_RIG.png"
+   },
+   "twin": {
+    "src": "pack:3. Barricades and blockades#4",
+    "diffs": [
+     "METHOD: yours are drawn flat; mine are modelled in 3D from the game's own clay palette and rendered by the one master rig, the way the truck, the lamp, the gun and the wreck were (rule 115a).",
+     "SIZE: true size at 57 px a metre, one ruler with the man: the barrier is 223 px long against your 96, the dumpster about 120, the tyres about 110. Yours are icon-sized; the rig draws things as big as they really are beside a person on a house-sized fight tile.",
+     "LOOK: all four pass the rig's card (1 or 2 of 8 numbers out, never 3). The rig's dust makes black rubber and black plastic read grey from above where yours stay dark; that is DIRECTION's dust rule, left unchanged. You own no shopping cart in 294 packs, so its twin is your wire bin."
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [
