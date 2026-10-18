@@ -174,8 +174,8 @@ if (hireSrc) {
 var keep = [];
 if (keeperSrc) {
   var kn = Object.keys(KEEPERS).filter(function (k) { return !KEEPERS[k].name; });
-  ok('every keeper but YOU is a role, not a fixed name', kn.length >= 9 && Object.keys(KEEPERS).every(function (k) {
-    return KEEPERS[k].name ? KEEPERS[k].who === 'you' : typeof KEEPERS[k].role === 'string'; }), kn.join(','));
+  ok('every keeper but YOU and THE ELDER (a title, no first name) is a role, not a fixed name', kn.length >= 9 && Object.keys(KEEPERS).every(function (k) {
+    return KEEPERS[k].name ? (KEEPERS[k].who === 'you' || KEEPERS[k].name === 'THE ELDER') : typeof KEEPERS[k].role === 'string'; }), kn.join(','));
   var faceNow = null, S = { place: { name: '' } };
   var keeperName = new Function('window', 'BohemiaNames', 'KEEPERS', 'S', 'lookOf', keeperSrc + '\nreturn keeperName;')(
     { BohemiaNames: N }, N, KEEPERS, S, function () { return faceNow; });

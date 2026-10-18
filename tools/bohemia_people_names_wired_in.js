@@ -58,7 +58,7 @@ function seedOf(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) 
     for (const k of await p.evaluate(() => BohemiaSettlement.order())) {
       if (k === 'lot' || k === 'build' || !(await tap(k))) continue;
       const said = await p.evaluate(() => [...document.querySelectorAll('.say .nm')].map(e => e.textContent)[0] || null);
-      if (said && keeperLooks[k]) keepers.push({ place: pl.name, k, look: keeperLooks[k], said });
+      if (said && keeperLooks[k] && said !== 'THE ELDER') keepers.push({ place: pl.name, k, look: keeperLooks[k], said });   /* the elder is a title */
       if (k === 'hall') {
         await p.waitForTimeout(700);   /* PORTRAIT's fresh portraits draw from files */
         const rs = await p.evaluate(() => (BohemiaSettlement.state.recruits || []).map((r, i) => ({ slot: i, name: r.name, look: r.look, bg: r.backgroundName })));

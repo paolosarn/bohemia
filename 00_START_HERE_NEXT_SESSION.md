@@ -306,8 +306,8 @@ it; readsAs knows the new names; the city frame carries the roller in front of t
 tools/bohemia_people_resync.py). The company slot (RUN TWO's roster, one line, told) shows a hire's first word.
 
 MEASURED on the real settlement screen, 26 places (tools/bohemia_people_names_wired_in.js, local server):
-98/98 recruits and 198/198 keepers read as their face (before 80 of 146 keepers), 196 different keepers
-(before 9), 0 page errors. THE FINDING: the company keeps a hire by his NAME (roster open() skips a hired man
+98/98 recruits and 172/172 named keepers read as their face (before 80 of 146 keepers), 170 different keepers
+(before 9; THE ELDER stays a title, RUN TWO's arrival speaks under it), 0 page errors. THE FINDING: the company keeps a hire by his NAME (roster open() skips a hired man
 whose name a hired man has; saveClimb by name), so with sixteen one-word names a company of eight hires
 repeated a name 87.7% of the time (two CHUYs hired, the company shows one); now 0.34%.
 

@@ -55,7 +55,8 @@ both ways (Kai, Sunny, Dana, Anh) fits either.
   faces read as women). Two words. Pancho and Nacho are gone.
 - **the keepers**: keyed by the place and the building; the name reads as the face the
   place drew for him; his role after it ('SHANNON PIKE, AT THE HALL'). Each place has
-  its own nine or ten people now.
+  its own nine people now. THE ELDER stays a title (the arrival speaks under it, and the
+  whole town calls him that, as Battle Brothers' village elder).
 - **the strangers**: engine/bohemia_people.js generatedName(key, sex) rolls through it;
   the city frame carries the roller byte for byte in front of the people engine
   (tools/bohemia_people_resync.py puts it there). readsAs answers for the new names.
@@ -72,8 +73,8 @@ the first week, no situation moving the post, a local server the way Pages serve
 |---|---|---|
 | recruits read, named on their card | | 98 of 98 |
 | recruit's name reads as his face | women's names on men's faces | 98 of 98 |
-| keepers' names reading as their face | 80 of 146 | 198 of 198 |
-| different keepers in the valley | 9 | 196 of 198 |
+| keepers' names reading as their face | 80 of 146 | 172 of 172 |
+| different named keepers in the valley | 9 | 170 of 172 |
 | a company of 8 hires repeats a name | 87.7% | 0.34% |
 | page errors | | 0 |
 

@@ -456,10 +456,11 @@ function shopSheet(k, body, acts, line){
    PEOPLE [the names wired in] 10/18: the keeper is a person of THIS place. Before, the same nine names stood in all
    26 places (LUPE at every hall, IRMA the armourer on whatever face the place drew); now each place's keeper is
    named by keeperName(k) from the county's mix, keyed by the place and the building, the name reading as his face.
-   `role` is what he is here; the name goes in front of it. */
+   `role` is what he is here; the name goes in front of it. THE ELDER stays a title the whole town calls him by
+   (Battle Brothers' village elder; the arrival speaks under it). */
 var KEEPERS = {
   hall:   {who:'settle-hall',   role:'AT THE HALL',     draft:true},
-  board:  {who:'settle-board',  role:'THE ELDER',       draft:true},
+  board:  {who:'settle-board',  name:'THE ELDER',       draft:true},
   stall:  {who:'settle-stall',  role:'AT THE STALL',    draft:true},
   barber: {who:'settle-barber', role:'THE BARBER',      draft:true},
   bar:    {who:'settle-bar',    role:'BEHIND THE BAR',  draft:true},
