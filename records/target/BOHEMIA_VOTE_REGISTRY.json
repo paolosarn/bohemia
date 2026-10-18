@@ -9731,6 +9731,20 @@
     "src": "vote/RUN2_THE_SCAVENGE_BUTTON_10_18.png"
    },
    "draft": true
+  },
+  {
+   "id": "run2-faces-not-tiny-bodies-10-18",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "YOUR COMPANY SHOWS FACES, NOT TINY BODIES",
+   "why": "You said the roster should show portraits all the time, not a tiny full body, so every man on the line, in the who-is-wearing-what rows and at the hiring posts is his face now, and the body is gone from every list. You see it in the VOTE tab under LOOK as before and after, and in the demo when you tap CREW in any place's bar.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_FACES_NOT_TINY_BODIES_BEFORE_AFTER_10_18.png"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
