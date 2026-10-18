@@ -11011,6 +11011,39 @@
     "scale": "1:1"
    },
    "draft": true
+  },
+  {
+   "id": "ui-the-line-on-a-ground-10-18",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "55fb5333",
+   "made": "10/18",
+   "title": "YOUR COMPANY STANDS ON SOMETHING: A CAMP AT NIGHT",
+   "why": "Your company screen sat on flat black, so your men now stand on your own dirt tiles re-lit for night under one street lamp that still has power, with the rig's truck, sandbags and tyres parked beside them, and the hall's hire cards sit on your cracked slabs. You see it on the company screen (the CREW button) upright and on its side and in a town's hall, today next to A (they stand in the camp), B (the camp behind their cardboard) and C (the ground only); pick one, or NO with what is wrong.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/ui_line_on_a_ground/UI_THE_LINE_ON_A_GROUND.png"
+   },
+   "options": [
+    "A",
+    "B",
+    "C",
+    "NO"
+   ],
+   "twin": {
+    "src": "records/target/ui_front_screen/before_upright_title.png",
+    "diffs": [
+     "THE GROUND: the opening screen you called awesome sits on a painted night valley; the company screen sat on flat #120e0a. Now it sits on your own '2. Soil and dirt tiles' at night, the same tiles you bought, only re-lit.",
+     "THE LIGHT: the opening screen's valley is lit by a few dead-city lamps; here one rig-made street lamp is the only light, its pool in five stepped rings, never a fade.",
+     "THE THINGS IN IT: the opening screen has pylons and wires; here the rig's own truck, sandbags and tyres stand in the camp at one pixel to one pixel, the same source as the robot and the truck you loved."
+    ]
+   },
+   "before_after": {
+    "before": "the two lines on flat near-black; every man on a cardboard backing; the right half of the band empty when the phone is on its side; the hall's cards on a near-black sheet",
+    "after": "the two lines on his dirt at night under one lamp, the truck, sandbags and tyres in the empty half; every word still 4.5 to 1 in the sun (worst 5.42, unchanged); the hall on his cracked slabs, the speaker's name 9.07 / 5.18",
+    "scale": "1:1"
+   },
+   "draft": true
   }
 ],
  "verdicts": [
