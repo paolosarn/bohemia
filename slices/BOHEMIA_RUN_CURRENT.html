@@ -13282,6 +13282,8 @@ function layoutFromSeed(seed){
       cemetery,reclaim,landfill,watertreat,prison,terminal,sphere,cashman,ballparkS,datafort,mall,railyard,mtChar]
       .concat(basins,casinos,gated,golf,schools);
     const sidePass=axisFlip?[]:(east1?passesB:passesA);
+    /* the solar field is the valley's power (skeleton's border band): the leg never cuts it */
+    const solar=(x,y)=>axisFlip?(x<4&&y>6&&y<N-6):(y<4&&x>6&&x<N-6);
     const rows=[];
     for(let hy=4;hy<N;hy+=9) if(hy>=beltRect.top+3&&hy+1<=beltRect.bot-3) rows.push({y:hy,kind:'side'});
     rows.push({y:beltRect.bot-1,kind:'corner'});
@@ -13290,7 +13292,7 @@ function layoutFromSeed(seed){
       if(sidePass.some(p=>p>=c.y-2&&p<=c.y+3))continue;
       let blocked=false; const cut=new Set();
       for(let x=x0;x<=x1&&!blocked;x++)for(const y of [c.y,c.y+1]){
-        if(hard.some(R=>inRect(x,y,R)))blocked=true;
+        if(hard.some(R=>inRect(x,y,R))||solar(x,y))blocked=true;
         soft.forEach((R,i)=>{ if(inRect(x,y,{x:R.x,y:R.y,w:R.w||1,h:R.h||1}))cut.add(i); });
       }
       if(blocked)continue;
