@@ -25,6 +25,10 @@ against 2,899 blockers): the things a man stands behind in a city fight, each wi
   sandbags  a 2.6 m sandbag wall, 0.85 m high (cover under the 1.3 m chest line), real 0.56 x 0.3 x 0.13 m bags in
             seven courses, the twin pack:5. Barricades and defenses#2. The odd thing: the right-hand top bag burst, its
             sand poured into a pile at the foot, and one bag fallen off the top.
+  fence     a 5.5 m chain-link run with its walk gate: 1.83 m fabric on posts 2.1 m apart, a razor-wire coil on the
+            arms, a BLOCKER you see through, the twin pack:6. Chain link fences#0 (his gate 13. Fences and wire#10).
+            The odd thing: the gate standing open, the chain that held it cut and hanging off the latch post, the
+            padlock still shut on it.
 
 Run with the rig's Blender python (bpy 4.2):
     <venv>/bin/python tools/bohemia_cook_model_props.py lamp|gun|wreck [--out reference/models/bohemia/<name>.glb]
@@ -513,6 +517,111 @@ def sandbags(bpy, mathutils):
     sack(bpy, 'bag_fallen', burlap, (L, W, H), (1.08, -0.36, H / 2 * 0.55), (0.0, 0.12, math.radians(35)), rnd, flat=0.6)
 
 
+def tubes(bpy, name, m, segs, r, n=6):
+    """many thin round bars in ONE mesh (a chain-link's wires, barbed strands): each segment a ring of n at both ends"""
+    import mathutils
+    vs, fs = [], []
+    for p0, p1 in segs:
+        p0, p1 = mathutils.Vector(p0), mathutils.Vector(p1); d = (p1 - p0).normalized()
+        u = d.orthogonal().normalized(); w = d.cross(u)
+        b = len(vs)
+        for p in (p0, p1):
+            for i in range(n):
+                a = 2 * math.pi * i / n; vs.append(tuple(p + r * (math.cos(a) * u + math.sin(a) * w)))
+        fs += [(b + i, b + (i + 1) % n, b + n + (i + 1) % n, b + n + i) for i in range(n)]
+    me = bpy.data.meshes.new(name); me.from_pydata(vs, [], fs); me.update()
+    o = bpy.data.objects.new(name, me); bpy.context.collection.objects.link(o); o.data.materials.append(m)
+    for p in me.polygons: p.use_smooth = True
+    return o
+
+
+def diamonds(x0, x1, z0, z1, pitch):
+    """the chain-link weave as straight wires: two families of 45 degree lines clipped to the panel"""
+    segs = []
+    for sgn in (1, -1):
+        c = x0 - (z1 - z0)
+        while c < x1 + (z1 - z0):
+            pts = []
+            for z in (z0, z1):                                   # where the line z - z0 = sgn (x - c) meets the top and bottom
+                x = c + (z - z0) * sgn if sgn > 0 else c + (z1 - z)
+                pts.append((x, z))
+            (xa, za), (xb, zb) = pts
+            # clip to x0..x1 along the line
+            if xa > xb: (xa, za), (xb, zb) = (xb, zb), (xa, za)
+            if xb > x0 and xa < x1:
+                k = (zb - za) / (xb - xa)
+                if xa < x0: za += k * (x0 - xa); xa = x0
+                if xb > x1: zb -= k * (xb - x1); xb = x1
+                segs.append(((xa, 0.0, za), (xb, 0.0, zb)))
+            c += pitch
+    return segs
+
+
+def fence(bpy, mathutils):
+    # a chain-link run with its walk gate (the twin pack:6. Chain link fences#0; his gate pack:13. Fences and wire#10):
+    # 1.83 m (six foot) fabric on line posts 2.1 m apart, a top rail, three strands of barbed wire on arms leaning out
+    # toward the street, a 1.2 m walk gate between two heavier gate posts. It blocks a man and a bullet passes it: a
+    # BLOCKER you see through (the board count's 'chain-link run 6.0 x 0.1 BLOCKER see-through'). The weave at a
+    # puppet's 10 cm diamond and 1.8 cm wire (a real 5 cm diamond in 3 mm wire is under a pixel at 57 px a metre and
+    # vanishes). The odd thing: the gate standing open toward the camera, the chain that held it cut and hanging off
+    # the latch post with its padlock still locked; a yellow sign wired to the fabric.
+    # round two of the loop: the first run was pale and thin beside his (his posts chunky with knob caps, his weave
+    # dark, his wire on top reading as wire); the three strands leant at the camera and flattened to a rusty rail from
+    # 45 degrees up (value span 100, 2,005 colours). Heavier posts with ball caps, the weave a step darker, and a coil
+    # of razor wire along the arms, which reads from any side
+    steel, wire, barb, sign = mat(bpy, 'galvanised', 'tape_grey', 2), mat(bpy, 'fabric', 'tape_grey', 0), mat(bpy, 'barbed_rust', 'clay_rust', 1), mat(bpy, 'sign_yellow', 'clay_mustard', 3)
+    H, P, R = 1.83, 0.10, 0.009
+    posts = [-2.7, -0.6, 1.5, 2.7]                                   # terminal, line, gate post, latch post
+    for i, x in enumerate(posts):
+        heavy = i != 1
+        cyl(bpy, 'post_%d' % i, steel, 0.06 if heavy else 0.045, H + 0.06, (x, 0, (H + 0.06) / 2), verts=10)
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=0.07 if heavy else 0.055, location=(x, 0, H + 0.1), segments=10, ring_count=6)
+        put(bpy, bpy.context.active_object, 'cap_%d' % i, steel)
+        cyl(bpy, 'footing_%d' % i, steel, 0.075 if heavy else 0.06, 0.06, (x, 0, 0.03), verts=10)
+        if i < 3:   # the barbed arm on every post but the latch post, leaning out 30 degrees toward the street (-Y)
+            rod(bpy, 'arm_%d' % i, steel, (x, 0, H + 0.04), (x, -0.18, H + 0.35), 0.02, verts=6)
+    rod(bpy, 'top_rail', steel, (posts[0], 0, H - 0.02), (posts[2], 0, H - 0.02), 0.022, verts=8)
+    rod(bpy, 'tension_wire', wire, (posts[0], 0, 0.06), (posts[2], 0, 0.06), 0.007, verts=6)
+    segs = diamonds(posts[0] + 0.05, posts[2] - 0.05, 0.05, H - 0.03, P)
+    tubes(bpy, 'fabric', wire, segs, R)
+    # a coil of razor wire along the arms (0.3 m across, a turn every 0.22 m), barbs as small crosses on each turn,
+    # and one straight strand under it
+    coil, barbs, x0, x1 = [], [], posts[0] + 0.04, posts[2] - 0.02
+    cy, cz, cr = -0.1, H + 0.3, 0.15
+    n = int((x1 - x0) / 0.22 * 14)
+    pts = [(x0 + (x1 - x0) * i / n, cy + cr * math.cos(2 * math.pi * i / 14), cz + cr * math.sin(2 * math.pi * i / 14) * 0.85) for i in range(n + 1)]
+    coil = list(zip(pts[:-1], pts[1:]))
+    for i in range(0, n, 4):
+        x, y, z = pts[i]
+        barbs += [((x - 0.03, y, z - 0.03), (x + 0.03, y, z + 0.03)), ((x - 0.03, y, z + 0.03), (x + 0.03, y, z - 0.03))]
+    tubes(bpy, 'razor_coil', barb, coil, 0.009)
+    tubes(bpy, 'razor_barbs', barb, barbs, 0.008, n=4)
+    tubes(bpy, 'barbed', barb, [((posts[0], -0.09, H + 0.2), (posts[2], -0.09, H + 0.2))], 0.008)
+    # the gate: a tube frame with its own fabric and a middle brace, hung on the gate post, swung 50 degrees open
+    # toward the camera
+    gw, gh = 1.12, 1.75
+    parts = [tubes(bpy, 'gate_frame', steel, [((0, 0, 0.06), (gw, 0, 0.06)), ((gw, 0, 0.06), (gw, 0, gh)), ((gw, 0, gh), (0, 0, gh)),
+                                              ((0, 0, gh), (0, 0, 0.06)), ((0, 0, 0.9), (gw, 0, 0.9))], 0.02, n=8),
+             tubes(bpy, 'gate_fabric', wire, diamonds(0.03, gw - 0.03, 0.08, gh - 0.02, P), R)]
+    for z in (0.3, 1.45):   # the hinges
+        bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=0.035, depth=0.08, location=(0.0, 0, z))
+        parts.append(put(bpy, bpy.context.active_object, 'hinge_%d' % int(z * 100), steel))
+    bpy.ops.object.empty_add(location=(posts[2] + 0.06, 0, 0)); g = bpy.context.active_object; g.name = 'gate'
+    for p in parts: p.parent = g
+    g.rotation_euler = (0, 0, math.radians(-50))
+    # THE ONE ASYMMETRIC THING: the chain that held the gate cut through, hanging off the latch post, the padlock still
+    # shut on it; links as small rings
+    import mathutils as mu
+    for i in range(9):   # round three: links at a real 5 cm were a rusty smear; a heavy gate chain's 8 cm links read
+        z = 1.1 - i * 0.1; dx = 0.08 + 0.02 * math.sin(i * 1.3)
+        bpy.ops.mesh.primitive_torus_add(major_radius=0.045, minor_radius=0.013, major_segments=10, minor_segments=5,
+                                         location=(posts[3] - dx, -0.05, z), rotation=(0 if i % 2 else math.pi / 2, math.pi / 2, 0))
+        put(bpy, bpy.context.active_object, 'link_%d' % i, barb)
+    box(bpy, 'padlock', barb, (0.08, 0.035, 0.1), (posts[3] - 0.09, -0.05, 0.16), bevel=0.01)
+    # a sign wired to the fabric on the first panel, a little crooked
+    box(bpy, 'sign', sign, (0.48, 0.015, 0.32), (-1.75, -0.025, 1.2), rot=(0, math.radians(4), 0), bevel=0.006)
+
+
 def dims(bpy):
     import mathutils
     lo, hi = [1e9] * 3, [-1e9] * 3
@@ -525,7 +634,7 @@ def dims(bpy):
 
 
 BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres,
-            'sandbags': sandbags}
+            'sandbags': sandbags, 'fence': fence}
 
 
 def build(name, out):
