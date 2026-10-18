@@ -267,6 +267,12 @@ window.addEventListener('message', function(e){
     G.crew.push({id:'h'+G.crew.length, role:d.role, name:NAMES[G.crew.length % NAMES.length], hp:3, max:3, armour:0,
                  weapon: d.role === 'driver' || d.role === 'fixer' ? 'pipe' : 'rifle', hurt:0});
   }
+  /* a man from the hiring post (PEOPLE's good bros, the hall's cards since 10/10): he joins by his own name and trade
+     (RUN TWO 10/18: the hall's Hire posts 'hireMan', and the loop only knew the camp staff's 'hire') */
+  if(d.act === 'hireMan' && d.man){
+    G.crew.push({id:'h'+G.crew.length, role:d.man.background, name:String(d.man.name || NAMES[G.crew.length % NAMES.length]), hp:3, max:3, armour:0,
+                 weapon:'pipe', hurt:0});
+  }
   if(d.act === 'buy'){ if(d.good === 'food') G.food++; if(d.good === 'rounds') G.rounds += 6; }
   if(d.act === 'clinic'){ G.crew.forEach(function(c){ if(c.name === d.who) c.hurt = Math.ceil(c.hurt/2); }); }
   if(d.act === 'scavenge' && d.result && d.result.found){ G.food++; say('Scavenged: a ration, in your pack.'); }

@@ -83,6 +83,9 @@ const srv = http.createServer((rq, rs) => {
   await p.click('#pad button[data-s="5"]');
   ok('back to a town', await waitFor(() => { const ev = document.getElementById('ev'); if (ev.style.display === 'block') ev.querySelector('button').click(); return LOOP.G.mode === 'settle'; }, 90000));
   await p.waitForTimeout(500);
+  /* RUN TWO 10/18: the town's ARRIVAL card holds the glass two seconds and a tap only skips it (it ate this tap, and the
+     click below landed on the board's leftover client button); wait for it to go */
+  await fr().waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
   await p.mouse.click(...Object.values(await fr().evaluate(() => { const w = BohemiaSettlement.where('hall'); return {x:w.x, y:w.y}; }))); await p.waitForTimeout(300);
   await fr().click('#sbody .act'); await p.waitForTimeout(300);
   ok('hire one at the hall', await G(() => LOOP.G.crew.length === 4), await G(() => LOOP.G.crew.map(c => c.name + ':' + c.role).join()));
