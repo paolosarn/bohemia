@@ -1246,6 +1246,14 @@ NEXT OPEN (jump list, rule 74): none held; the section's OPEN rows are exhausted
 PENDING Paolo: none new; the shared food/water pile report from several rounds back still
 stands.
 
+UI (ui-opus-b): 10/18 LATEST -- [no browser defaults on the HUD] CANDIDATE in VOTE (cook only): rule 114 D10, his 10/16 'it can't look vibe coded'.
+Measured first, what the browser resolves on six screens on his phone: 33 gradients, 26 glows, 71 corners over 1, 1 purple panel, 67 lines in phone faces (ui-monospace, -apple-system, ui-sans-serif), 0 blur; the opened phone is the worst (107), the fight the cleanest (4).
+The strip laid in the browser only: a fade becomes its middle stop with its own lightest and darkest stops as hard 1 px lines; shadows hard, glows gone, corners 0, words in BohemiaCasing (labels) or BohemiaROM (sentences, text boxes). After: zero on all six; map, fight, settlement boxes unmoved; phone 7 and VOTE 4 boxes shift by word width only.
+Gate NO BROWSER DEFAULTS 9/0 in the suite, 4 planted breaks caught. VOTE ui-no-browser-defaults-10-18 (YES / NO). Record records/BOHEMIA_NO_BROWSER_DEFAULTS_ON_THE_HUD_10_18_26.md. Sheet records/target/ui_no_defaults/.
+FOR RUN, RUN TWO, PLUMBER after his YES: fold the strip's rules into the source (never ship the script); PLUMBER's N4 source baseline (266) then drops.
+NEXT: [the phone's apps] and this wait on his picks; the row stays CLAIMED until the source carries it (its END STATE is the alpha passing D10). Then the phone's crack, behind [one screen].
+UNDER UI (rule 113a, one line per lane): WORDS: nothing made, no tab, no commit since 10/10: FROZEN. SOUNDS: no new commit seen since the title candidates (7e9e31b), in the VOTE tab: COOKING.
+
 UI (ui-opus): 10/18 LATEST -- [the phone's apps] CANDIDATE in VOTE (cook only): his 10/17 'a whole app on the phone'.
 Measured first: the opened phone is a lock screen with 10 gradients, 18 rounded corners, 14 glows, 46 lines in system fonts.
 The home screen laid in the browser only: FEED, JOBS, STASH, CREW, SETTINGS, and TIMELINE (the flip) only after the first crisis; twelve pack props at their own pixels; A cardboard tiles taped to the glass, B props straight on the glass; three across upright, six in a row sideways.

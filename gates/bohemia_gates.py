@@ -9052,6 +9052,12 @@ GATES = [
      "(feed, jobs, stash, crew, settings, the timeline only after the first crisis) laid in the browser only and read "
      "back: every icon a pack prop at its own pixels, A and B different, every press 44 points, zero gradients, blur, "
      "glow, corners over 1 or system fonts (rule 114 D10), nothing in slices/ or engine/, the VOTE card whole", False),
+    ('NO BROWSER DEFAULTS', ['python3', 'gates/no_browser_defaults_gate.py'],
+     "UI 10/18, row [no browser defaults on the HUD]: rule 114 tell D10, his 10/16 'it can't look vibe coded'. Six game "
+     "screens (map upright and sideways, the opened phone, the fight, the settlement, the VOTE tab) read for what the browser "
+     "resolves (gradients, blur, glow, corners over 1, hue 250-290, phone fonts), then the strip laid in the browser only: "
+     "zero of each after, the light left as 1 px lines of the gradient's own stops, the map, fight and settlement boxes "
+     "unmoved, nothing in slices/ or engine/, the VOTE card whole", False),
     ('THE QUEUE ON HIM', ['python3', 'tools/bohemia_eyes_the_keep_rate_and_the_queue_10_18_26.py', '--gate'],
      "EYES AND EARS 10/18, row [the keep rate and the queue], rule 113(c) and (e): the VOTE tab holds at most ABOUT "
      "TWENTY items waiting on him, and his keep rate per sitting is a signal the coordinator reads. Read only over the "

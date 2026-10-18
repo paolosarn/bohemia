@@ -1,0 +1,550 @@
+{
+ "screens": {
+  "map_portrait": {
+   "title": "THE MAP (the HUD you play on)",
+   "now": {
+    "gradient": 8,
+    "blur": 0,
+    "glow": 4,
+    "radius": 14,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "after": {
+    "gradient": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius": 0,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "size": [
+    1170,
+    2532
+   ],
+   "strip": [
+    {
+     "rules": 1,
+     "fixed": {
+      "gradient": 8,
+      "blur": 0,
+      "glow": 4,
+      "radius": 14,
+      "hue 250-290": 0,
+      "system font": 0
+     }
+    },
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 0,
+      "blur": 0,
+      "glow": 0,
+      "radius": 0,
+      "hue 250-290": 0,
+      "system font": 0
+     }
+    }
+   ],
+   "faces_after": [
+    {
+     "BohemiaMono": 1,
+     "BohemiaCasing": 28,
+     "BohemiaROM": 12
+    }
+   ],
+   "boxes": 24,
+   "moved": [],
+   "rows_after": [],
+   "y": 162
+  },
+  "phone_portrait": {
+   "title": "THE CRACKED PHONE, OPENED",
+   "now": {
+    "gradient": 16,
+    "blur": 0,
+    "glow": 16,
+    "radius": 30,
+    "hue 250-290": 1,
+    "system font": 44,
+    "font not loaded": 0
+   },
+   "after": {
+    "gradient": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius": 0,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "size": [
+    1170,
+    2532
+   ],
+   "strip": [
+    {
+     "rules": 1,
+     "fixed": {
+      "gradient": 16,
+      "blur": 0,
+      "glow": 15,
+      "radius": 30,
+      "hue 250-290": 1,
+      "system font": 41
+     }
+    },
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 0,
+      "blur": 0,
+      "glow": 0,
+      "radius": 0,
+      "hue 250-290": 0,
+      "system font": 2
+     }
+    }
+   ],
+   "faces_after": [
+    {
+     "BohemiaMono": 1,
+     "BohemiaCasing": 44,
+     "BohemiaROM": 44
+    }
+   ],
+   "boxes": 36,
+   "moved": [
+    [
+     "12#phone",
+     [
+      0,
+      0,
+      390,
+      807
+     ],
+     [
+      0,
+      0,
+      390,
+      778
+     ]
+    ],
+    [
+     "12#bootln",
+     [
+      96,
+      442,
+      198,
+      13
+     ],
+     [
+      96,
+      423,
+      198,
+      9
+     ]
+    ],
+    [
+     "12#lock",
+     [
+      0,
+      0,
+      390,
+      807
+     ],
+     [
+      0,
+      0,
+      390,
+      778
+     ]
+    ],
+    [
+     "12#nav",
+     [
+      16,
+      9,
+      126,
+      14
+     ],
+     [
+      16,
+      12,
+      125,
+      9
+     ]
+    ],
+    [
+     "12#lockbtn",
+     [
+      198,
+      10,
+      14,
+      13
+     ],
+     [
+      190,
+      10,
+      14,
+      13
+     ]
+    ],
+    [
+     "12#sig",
+     [
+      222,
+      9,
+      152,
+      14
+     ],
+     [
+      214,
+      9,
+      160,
+      14
+     ]
+    ],
+    [
+     "12#home",
+     [
+      0,
+      29,
+      390,
+      778
+     ],
+     [
+      0,
+      29,
+      390,
+      749
+     ]
+    ]
+   ],
+   "rows_after": [],
+   "y": 1702
+  },
+  "fight_portrait": {
+   "title": "THE FIGHT'S BAR",
+   "now": {
+    "gradient": 1,
+    "blur": 0,
+    "glow": 2,
+    "radius": 1,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "after": {
+    "gradient": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius": 0,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "size": [
+    1170,
+    2532
+   ],
+   "strip": [
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 1,
+      "blur": 0,
+      "glow": 2,
+      "radius": 1,
+      "hue 250-290": 0,
+      "system font": 0
+     }
+    },
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 0,
+      "blur": 0,
+      "glow": 0,
+      "radius": 0,
+      "hue 250-290": 0,
+      "system font": 0
+     }
+    }
+   ],
+   "faces_after": [
+    {
+     "BohemiaCasing": 5,
+     "BohemiaROM": 2
+    }
+   ],
+   "boxes": 21,
+   "moved": [],
+   "rows_after": [],
+   "y": 3242
+  },
+  "settlement_portrait": {
+   "title": "THE SETTLEMENT SCREEN",
+   "now": {
+    "gradient": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius": 2,
+    "hue 250-290": 0,
+    "system font": 5,
+    "font not loaded": 0
+   },
+   "after": {
+    "gradient": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius": 0,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "size": [
+    1170,
+    2532
+   ],
+   "strip": [
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 0,
+      "blur": 0,
+      "glow": 0,
+      "radius": 2,
+      "hue 250-290": 0,
+      "system font": 5
+     }
+    },
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 0,
+      "blur": 0,
+      "glow": 0,
+      "radius": 0,
+      "hue 250-290": 0,
+      "system font": 0
+     }
+    }
+   ],
+   "faces_after": [
+    {
+     "BohemiaROM": 5
+    }
+   ],
+   "boxes": 11,
+   "moved": [],
+   "rows_after": [],
+   "y": 4782
+  },
+  "vote_portrait": {
+   "title": "THE VOTE TAB",
+   "now": {
+    "gradient": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius": 10,
+    "hue 250-290": 0,
+    "system font": 18,
+    "font not loaded": 0
+   },
+   "after": {
+    "gradient": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius": 0,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "size": [
+    1170,
+    2532
+   ],
+   "strip": [
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 0,
+      "blur": 0,
+      "glow": 0,
+      "radius": 13,
+      "hue 250-290": 0,
+      "system font": 21
+     }
+    },
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 0,
+      "blur": 0,
+      "glow": 0,
+      "radius": 0,
+      "hue 250-290": 0,
+      "system font": 0
+     }
+    }
+   ],
+   "faces_after": [
+    {
+     "BohemiaCasing": 11,
+     "BohemiaROM": 7
+    }
+   ],
+   "boxes": 4,
+   "moved": [
+    [
+     "0#tally",
+     [
+      131,
+      22,
+      68,
+      20
+     ],
+     [
+      173,
+      22,
+      53,
+      20
+     ]
+    ],
+    [
+     "0#sun",
+     [
+      207,
+      10,
+      75,
+      44
+     ],
+     [
+      234,
+      10,
+      63,
+      44
+     ]
+    ],
+    [
+     "0#out",
+     [
+      290,
+      10,
+      88,
+      44
+     ],
+     [
+      305,
+      10,
+      73,
+      44
+     ]
+    ],
+    [
+     "0#list",
+     [
+      12,
+      148,
+      366,
+      2750
+     ],
+     [
+      12,
+      169,
+      366,
+      2860
+     ]
+    ]
+   ],
+   "rows_after": [],
+   "y": 6322
+  },
+  "map_landscape": {
+   "title": "THE MAP, PHONE ON ITS SIDE",
+   "now": {
+    "gradient": 8,
+    "blur": 0,
+    "glow": 4,
+    "radius": 14,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "after": {
+    "gradient": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius": 0,
+    "hue 250-290": 0,
+    "system font": 0,
+    "font not loaded": 0
+   },
+   "size": [
+    2532,
+    1170
+   ],
+   "strip": [
+    {
+     "rules": 1,
+     "fixed": {
+      "gradient": 8,
+      "blur": 0,
+      "glow": 4,
+      "radius": 14,
+      "hue 250-290": 0,
+      "system font": 0
+     }
+    },
+    {
+     "rules": 0,
+     "fixed": {
+      "gradient": 0,
+      "blur": 0,
+      "glow": 0,
+      "radius": 0,
+      "hue 250-290": 0,
+      "system font": 0
+     }
+    }
+   ],
+   "faces_after": [
+    {
+     "BohemiaMono": 1,
+     "BohemiaCasing": 21,
+     "BohemiaROM": 5
+    }
+   ],
+   "boxes": 24,
+   "moved": [],
+   "rows_after": [],
+   "y": 7862
+  }
+ },
+ "sheet": "records/target/ui_no_defaults/UI_NO_BROWSER_DEFAULTS.png",
+ "sheet_size": [
+  2430,
+  10052
+ ],
+ "total_now": {
+  "gradient": 33,
+  "blur": 0,
+  "glow": 26,
+  "radius": 71,
+  "hue 250-290": 1,
+  "system font": 67,
+  "font not loaded": 0
+ },
+ "total_after": {
+  "gradient": 0,
+  "blur": 0,
+  "glow": 0,
+  "radius": 0,
+  "hue 250-290": 0,
+  "system font": 0,
+  "font not loaded": 0
+ }
+}
