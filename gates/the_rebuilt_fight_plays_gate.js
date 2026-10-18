@@ -1037,6 +1037,12 @@ async function struckDown() {
     for (let i = 0; i < 1000; i++) { const o = roll(hire); if (o.dead) dead++; else if (o.inj) { injured++; days.push(o.days); ids[o.inj.id] = 1; } }
     for (let i = 0; i < 1000; i++) { const o = roll(main); if (o.dead) mainDead++; }
     const perm = DB.injuries.rows.filter(j => j.kind === 'permanent').map(j => j.id);
+    /* WHO DIES, a little more per mark carried (his fifth votes; ours.struck_down_death_per_mark) */
+    const own = hire.injuries.slice(), rows = DB.injuries.rows.filter(j => j.kind === 'permanent');
+    const rate = (n) => { hire.injuries = rows.slice(0, n); let k = 0; for (let i = 0; i < 1000; i++) if (roll(hire).dead) k++; return k; };
+    const marked = { two: rate(2), six: rate(6), twoChance: (hire.injuries = rows.slice(0, 2), T.deathChance(hire)), sixChance: (hire.injuries = rows.slice(0, 6), T.deathChance(hire)) };
+    hire.injuries = rows.slice(0, 1); for (let i = 0; i < 200; i++) { const o = roll(hire); if (o.inj && o.inj.id === rows[0].id) marked.again = true; }
+    hire.injuries = own;
     roll(hire); let tries = 0; while (hire.dead && tries++ < 50) roll(hire);
     keep.forEach(k => { if (k[0] !== hire) { k[0].morale = k[1]; k[0].dead = k[2]; k[0].down = k[3]; k[0].hp = k[4]; } });
     /* the recap and the message home */
@@ -1049,9 +1055,12 @@ async function struckDown() {
     const A = ag.getImageData(0, 0, w, h).data, B = bg.getImageData(0, 0, w, h).data; let rim = 0, darkRim = 0;
     for (let i = 3; i < A.length; i += 4) if (A[i] === 0 && B[i] > 0) { rim++; if (.3 * B[i - 3] + .59 * B[i - 2] + .11 * B[i - 1] < 40) darkRim++; }
     return { dead, mainDead, injured, perm, ids: Object.keys(ids), dMin: Math.min(...days), dMax: Math.max(...days), range: R('ours.struck_down_laid_up_days'),
-      hire: { name: hire.name, inj: hire.longInjury && hire.longInjury.name, days: hire.laidUp }, recap, sent: sent && sent.crew && sent.crew.find(c => c.name === hire.name), rim, darkRim };
+      marked, hire: { name: hire.name, inj: hire.longInjury && hire.longInjury.name, days: hire.laidUp }, recap, sent: sent && sent.crew && sent.crew.find(c => c.name === hire.name), rim, darkRim };
   });
   leg(r.dead >= 170 && r.dead <= 230 && r.mainDead === 0, '*** STRUCK DOWN: A THOUSAND ROLLS, 17 TO 23 PERCENT DEAD; THE MAIN CHARACTER NEVER *** (his fifth votes and his third)', r.dead / 10 + '% of a hire, ' + r.mainDead + ' of a thousand for the main character');
+  leg(Math.abs(r.marked.twoChance - 0.3) < 1e-9 && Math.abs(r.marked.sixChance - 0.4) < 1e-9 && r.marked.two >= 260 && r.marked.two <= 340 && r.marked.six >= 355 && r.marked.six <= 445 && !r.marked.again,
+    '*** WHO DIES, A LITTLE MORE PER MARK *** (his fifth votes): two carried marks die 26 to 34 in 100, six are capped at four marks (36 to 44), and a fall never hands a mark he already carries',
+    'two marks ' + r.marked.two / 10 + '%, six marks ' + r.marked.six / 10 + '% (the cap)');
   leg(r.injured === 1000 - r.dead && r.ids.every(x => r.perm.indexOf(x) >= 0) && r.ids.length >= 8 && r.dMin >= r.range[0] && r.dMax <= r.range[1],
     'every man who lives carries one of the wiki\'s permanent injuries (each as likely), laid up 30 to 40 days', r.ids.length + ' of the ' + r.perm.length + ' drawn, ' + r.dMin + ' to ' + r.dMax + ' days');
   leg(r.hire.inj && r.recap.toUpperCase().indexOf(r.hire.inj.toUpperCase()) >= 0 && r.recap.indexOf('LAID UP ' + r.hire.days + ' DAYS') >= 0 && r.sent && r.sent.injury && r.sent.injury.name === r.hire.inj && r.sent.laidUpDays === r.hire.days,

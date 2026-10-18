@@ -389,8 +389,11 @@ const FIGHT = (function () {
     const xp = R('parsed.brother_xp');
     const lv = c.level || rint(bg.starting_level[0], bg.starting_level[bg.starting_level.length - 1]);   /* an origin's stated level (rule 75a) */
     const perks = Array.isArray(c.perks) ? c.perks.slice() : pickPerks(R('ours.perk_builds')[job], (lv - 1) * DB.perks.rules.perk_point_per_level);   /* the roster's picks (RUN TWO [climbing]) */
+    /* THE MARKS HE CARRIES (his fifth votes, WHO DIES): the permanent injuries of an earlier fall come in with him, bite with
+       their own effects, and each adds to the death roll (ours.struck_down_death_per_mark) */
+    const carried = (c.marks || []).map(function (k) { return DB.injuries.rows.filter(function (r) { return r.kind === 'permanent' && r.id === (k && k.id || k); })[0]; }).filter(Boolean);
     const lk = R('ours.people_looks').crew;
-    return makeUnit({ look: lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
+    return makeUnit({ injuries: carried, look: lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head,
@@ -574,7 +577,7 @@ const FIGHT = (function () {
     const roster = (Array.isArray(opts.company) && opts.company.length
       ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
           if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
-          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.name && i > 0) t.name = m.name; return t; })
+          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; return t; })
       : base);
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length)));
     const crewUnits = crew.map(crewUnit);
@@ -1094,16 +1097,21 @@ const FIGHT = (function () {
     const j = can[Math.floor(rng() * can.length)];
     t.injuries.push(j); emit({ t: 'injury', id: t.id, name: j.name });
   }
+  /* WHO DIES (his fifth votes): a flat 20 in 100, a little more per mark carried, capped */
+  function deathChance(t) {
+    const pm = R('ours.struck_down_death_per_mark'), n = t.injuries.filter(function (j) { return j.kind === 'permanent'; }).length;
+    return R('ours.struck_down_death_chance') + pm.per_mark * Math.min(pm.cap_marks, n);
+  }
   function fall(t, a) {
     t.hp = 0;
     if (t.side === 'them') { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
-    else if (rng() < R('ours.struck_down_death_chance')) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
+    else if (rng() < deathChance(t)) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else {
       /* STRUCK DOWN, ALIVE (ours.struck_down_injury): one of the wiki's permanent injuries, each as likely, the part hit not
          mattering; ours lasts the days he is laid up */
       const d = R('ours.struck_down_laid_up_days'), kind = R('ours.struck_down_injury').from_kind;
-      const pool = DB.injuries.rows.filter(function (r) { return r.kind === kind; }), j = pool[Math.floor(rng() * pool.length)];
+      const pool = DB.injuries.rows.filter(function (r) { return r.kind === kind && !t.injuries.some(function (h) { return h.id === r.id; }); }), j = pool[Math.floor(rng() * pool.length)];
       t.down = true; t.laidUp = rint(d[0], d[1]);
       t.longInjury = j ? { id: j.id, name: j.name, line: (j.effects_text || []).filter(function (x) { return !/reserve/i.test(x); }).join(', '), days: t.laidUp } : null;
       emit({ t: 'down', id: t.id, days: t.laidUp, injury: j ? j.id : null });
@@ -1483,7 +1491,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { fall: fall, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();

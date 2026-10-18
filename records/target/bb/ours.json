@@ -20,6 +20,16 @@
   "source": "laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md",
   "quote": "When a person is STRUCK DOWN in a fight: 20% they die"
  },
+ "struck_down_death_per_mark": {
+  "value": {
+   "per_mark": 0.05,
+   "cap_marks": 4
+  },
+  "source": "laws/BOHEMIA_ADDENDUM_THE_FIFTH_VOTES_10_1_26.md",
+  "quote": "5. WHO DIES: a flat 20% when no perk is in play; a little more per debilitating trait or injury carried.",
+  "picked_by": "TUNING 10/10, records/BOHEMIA_TUNING_RESPEC_BB_ALREADY_HAS_A_RESET_AND_IT_COSTS_SEVEN_RARE_PARTS_10_10_26.md: death.per_mark 0.05, capped at 4 marks, so 0.40 at worst, under Battle Brothers 0.67",
+  "why": "a mark is one of the permanent injuries he carries from an earlier time struck down; each one adds 5 in 100 to the death roll, four at most; the main character never dies whatever he carries"
+ },
  "struck_down_laid_up_days": {
   "value": [
    30,
