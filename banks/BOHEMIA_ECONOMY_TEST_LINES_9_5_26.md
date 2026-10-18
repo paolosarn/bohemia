@@ -4996,3 +4996,47 @@ UUUUUUUUUUUUUUUUUUUUUUUUU8  an old woman at the burnt house, three nights on    
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
   keeper or a mouth with a face, at a counter, a hall or a road.
 - Spanish register: 1 of 8 lines (UUUUUUUUUUUUUUUUUUUUUUUUU6's mijo). Under the 15% cap.
+
+## SSSSSSSSSSSSSSSSSSSSSSSSS. THE TOWN'S WEATHER: WHAT A SITUATION SOUNDS LIKE AT THE COUNTER (round 71)
+# Record: records/BOHEMIA_ECONOMY_DAY_71_THE_32_SITUATIONS_ARE_44_AND_THIRTEEN_FOOD_PRICES_ARE_NOT_ON_THE_PAGE_10_18_26.md
+# Row [the 32 situations], under rule 88's hold: a page, no sheet, nothing in the game.
+
+VVVVVVVVVVVVVVVVVVVVVVVVV1  a keeper in a scared town, quoting high and buying low          draft:true
+    "I'll take it. For less. And what you want costs more. Don't look at me like that, look out there."
+
+VVVVVVVVVVVVVVVVVVVVVVVVV2  the same keeper, asked what is out there                          draft:true
+    "Something comes up out of the wash at night. Kill it and I'll give you a real price."
+
+VVVVVVVVVVVVVVVVVVVVVVVVV3  a keeper on convention week, everything up and glad of it         draft:true
+    "Everything's up this week. Sell me what you've got, though. This week I pay."
+
+VVVVVVVVVVVVVVVVVVVVVVVVV4  a hauler two towns off, the rumour before the road               draft:true
+    "Don't buy food at the lake. Boat went down Thursday. Buy it here and carry it."
+
+VVVVVVVVVVVVVVVVVVVVVVVVV5  a fisher at the lake camp, the nets full                          draft:true
+    "Take two. Take four. It goes bad by tonight, I'd rather it go in you."
+
+VVVVVVVVVVVVVVVVVVVVVVVVV6  the clinic, on a sick week                                         draft:true
+    "The blade's the same price it always was. The pills are three times. Guess which one you need."
+
+VVVVVVVVVVVVVVVVVVVVVVVVV7  a man at the hall the week after a house's war ends               draft:true
+    "They sent us home with the gear on our backs. Hire me, the gear comes free."
+
+VVVVVVVVVVVVVVVVVVVVVVVVV8  a stall keeper, the dust coming in                                draft:true
+    "Nothing came in since the dust. Nothing's going out. What's on the shelf, that's the shelf."
+
+## TTTTTTTTTTTTTTTTTTTTTTTTT. WHAT IS NOT HERE, ON PURPOSE (round 71)
+
+- No line names a wiki page, a percentage, a game, a city outside the valley or a real event. The
+  finding is said as a keeper who charges more and pays less, a beast that holds the price up, a
+  week where everything is dear and selling is good, a rumour about the lake, a full net, pills at
+  three times and a blade unchanged, a demobbed man, and a dust storm.
+- VVVVVVVVVVVVVVVVVVVVVVVVV1, 3, 6 carry the page's shape (fear is two knobs turned opposite ways; a fair is dearer AND
+  better to sell into; sickness moves medicine, not the blade): the wiki's cards, not a ruling, not
+  a felt number; TUNING's table first.
+- VVVVVVVVVVVVVVVVVVVVVVVVV4 is Dev Blog 138's rumour: a situation is heard about in the next town before you arrive.
+- No person, town, street or faction is named. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
+  keeper or a mouth with a face, at a counter, a hall, a camp or a road.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

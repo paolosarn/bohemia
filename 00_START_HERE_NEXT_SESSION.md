@@ -978,7 +978,32 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
-ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (n) -- [what a raid costs the raided] SHIPPED, THE NEW AGE
+ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (o) -- [the 32 situations] SHIPPED, THE NEW AGE
+(rules 112 to 116: the coordinator opened this chat and reads this block as the report; no
+check-in, no question; research only, a page without a sheet under rule 88's hold, no code and no
+data file touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_71_THE_32_SITUATIONS_ARE_44_AND_THIRTEEN_FOOD_PRICES_ARE_NOT_ON_THE_PAGE_10_18_26.md
+FINDING: THE WIKI HAS 44 SETTLEMENT SITUATIONS, NOT 32 (index page 1764). All 44 laid out as rows
+with their page numbers and 'the wiki does not say' blanks (section 2). TUNING's JSON
+(records/BOHEMIA_TUNING_SELL_RATIO_TABLE_10_10_26.json): every buy and sell number on a card
+matches, but 15 of its 32 rows are wrong: 13 carry a food PRICE no card prints (the cards print
+food AVAILABLE: Drought -50, Short on Food -50, Good Harvest +100...), Besieged has food +100 where
+the card has items -25 and recruits -50, Sickness has food +100 where the card has MEDICINE +200%,
+Collectors doubles every sale where the card doubles trophies only; no row carries items or
+recruits (17 and 17 cards). Three families: 10 caused by someone, 8 cleared by a hunt, 26 not
+said (Dev Blog 105: most roll by the place's type, so dice ARE the way for that family). Seven
+cards turn buy and sell opposite ways (fear: dearer to buy, cheaper to sell); the settlement
+screen has ONE price knob (sell-back is a seventh of the same price), so those cannot exist;
+market_day 'bb: Celebration' is no Battle Brothers situation and runs Seasonal Fair backwards
+(ours cheaper, the card dearer and better to sell into); sickness raises every price where the
+card raises medicine only. Routed: TUNING (the rows), RUN TWO (two knobs, market_day, sickness),
+RUN TWO and FACTIONS (caused family from the ledger, not dice). Eight bank lines draft:true
+(section S x25).
+NEXT OPEN (jump list, rule 74): [a week at the counter] (now the top), [a held road], and
+[the rumour], written this round (what the next town knows about this one's prices: Battle
+Brothers' tavern rumours, Kerala's fishermen and the phone, for the feed on the phone).
+PENDING Paolo: none new.
+
+ECONOMY (economy-vamily-knxaeh): 10/18 (n) -- [what a raid costs the raided] SHIPPED, THE NEW AGE
 (rules 112 to 115: the coordinator opened this chat and reads this block as the report; no
 check-in, no question; research only, a page without a sheet under rule 88's hold, no code and no
 data file touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_70_WHAT_A_RAID_COSTS_THE_RAIDED_THE_SHELF_AND_THE_MEN_NOT_THE_PRICE_10_18_26.md
