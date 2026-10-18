@@ -66,11 +66,13 @@ CELLS_PER_SIDE | 96 | laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md | distri
 TILES_PER_CELL_SIDE | 128 | laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md | fine tiles across one district
 FINE_TILES_PER_SIDE | 12288 | laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md | 96 x 128, the whole valley's fine grid
 METRES_PER_TILE | 0.75 | laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md | real-world scale of one fine tile
-VALLEY_KM2 | 84.93 | records/BOHEMIA_MAP_SIZE_VS_THE_REFERENCES_8_3_26.md | total valley area
-BUILT_KM2 | 38.35 | records/BOHEMIA_MAP_SIZE_VS_THE_REFERENCES_8_3_26.md | of it that is built
-ONFOOT_KM2 | 76.09 | records/BOHEMIA_MAP_SIZE_VS_THE_REFERENCES_8_3_26.md | of it you can put a foot on
+VALLEY_KM2 | 84.93 | records/BOHEMIA_MAP_SIZE_VS_THE_REFERENCES_8_3_26.md | total valley area AS DRAWN (9.2 km a side at 0.75 m a fine cell); the real ground it stands for is 16 times it, 36.9 km a side at 384 m a block
+BUILT_KM2 | 38.35 | records/BOHEMIA_MAP_SIZE_VS_THE_REFERENCES_8_3_26.md | of it that is built, as drawn
+ONFOOT_KM2 | 76.09 | records/BOHEMIA_MAP_SIZE_VS_THE_REFERENCES_8_3_26.md | of it you can put a foot on, as drawn
 STEPS_ACROSS_VALLEY | 12288 | laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md | steps to cross Vegas
-SECONDS_PER_STEP | 3.52 | laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md | average, in-game
+METRES_PER_BLOCK_REAL | 384 | records/BOHEMIA_WORLD_THE_ONE_RULER_10_18_26.md | one map block in real Las Vegas ground: the 7/6 law's 22.9 miles over 96 (where things are, how long a trip takes)
+METRES_PER_BLOCK_DRAWN | 96 | records/BOHEMIA_WORLD_THE_ONE_RULER_10_18_26.md | one map block as drawn, life size: 128 fine cells x 0.75 m (a lane, a house, a sidewalk at their real size)
+MINUTES_PER_FINE_CELL | 0.084 | laws/BOHEMIA_LAWS_MASTER_9_4_26.md | the travel clock: minutes a fine cell of open ground costs (10.752 a block, a road half); replaced SECONDS_PER_STEP 3.52 of the 7/27 camp law on 10/18, newest date wins
 BEAT_SECONDS | 0.5 | laws/BOHEMIA_ADDENDUM_THE_ACTION_COST_SHAPE_7_31_26.md | the 120 BPM LAW's beat
 BPM | 120 | laws/BOHEMIA_ADDENDUM_120BPM_FIRST_AND_THE_PERMISSION_PRESS_7_26_26.md | everything quantises to it
 LIT_PERCENT | 12 | laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md | CLUSTERED POWER: the lit share, and it is OWNED
@@ -78,8 +80,9 @@ CURRENCIES | 3 | laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md | res
 GENERATIONS | 3 | laws/BOHEMIA_ADDENDUM_ACT3_MOONSHOT_STRUCTURE_7_19_26.md | Animal / Human / Angel
 ```
 
-Fourteen. Deliberately small: **only quantities that are LOCKED and UNAMBIGUOUS go in
-here.** A number still under discussion does not belong in a registry that fails builds,
+Sixteen (fourteen on 8/5; on 10/18 WORLD declared the map block's two sizes and swapped the
+dead step for the live clock, section ONE NUMBER FOR A BLOCK below). Deliberately small:
+**only quantities that are LOCKED and UNAMBIGUOUS go in here.** A number still under discussion does not belong in a registry that fails builds,
 and neither does one whose meaning depends on context.
 
 ## MEASURED OUT OF THE RUNNING WORLD (added 8/7/26)
@@ -113,31 +116,33 @@ slice. **These rows cannot drift, because nobody types them.**
 # Measured off the running engine at canon seed 7.
 # canon_constants_gate.js regenerates this and fails if it moved, so these
 # rows cannot drift from the world the way the hand-typed ones did.
-CELLS_PER_SIDE      | 96       | engine/bohemia_overmap.js OVER_N, live
-TILES_PER_CELL_SIDE | 128      | engine/bohemia_overmap.js TILE_FINE, live
-FINE_TILES_PER_SIDE | 12288    | OVER_N x TILE_FINE, derived from live
-METRES_PER_TILE     | 0.75     | engine/bohemia_overmap.js CELL_M, live
-VALLEY_KM2          | 84.93    | buildOvermap(7) census: all 9216 cells x 0.009216 km2
-BUILT_KM2           | 38.35    | census minus road/desert/rock: 4161 cells
-ONFOOT_KM2          | 76.09    | census minus rock/water: 8256 cells
-STEPS_ACROSS_VALLEY | 12288    | one step per fine tile, so === FINE_TILES_PER_SIDE
-BEAT_SECONDS        | 0.5      | engine Heartbeat.MS_PER_BEAT / 1000, live
-BPM                 | 120      | engine Heartbeat.BPM, live
-CURRENCIES          | 3        | bohemia_engine.js CURRENCIES array length (structural, not live)
-GENERATIONS         | 3        | engine Generations.GEN_COUNT, live
+CELLS_PER_SIDE         | 96       | engine/bohemia_overmap.js OVER_N, live
+TILES_PER_CELL_SIDE    | 128      | engine/bohemia_overmap.js TILE_FINE, live
+FINE_TILES_PER_SIDE    | 12288    | OVER_N x TILE_FINE, derived from live
+METRES_PER_TILE        | 0.75     | engine/bohemia_overmap.js CELL_M, live
+VALLEY_KM2             | 84.93    | buildOvermap(7) census: all 9216 cells x 0.009216 km2
+BUILT_KM2              | 38.35    | census minus road/desert/rock: 4161 cells
+ONFOOT_KM2             | 76.09    | census minus rock/water: 8256 cells
+STEPS_ACROSS_VALLEY    | 12288    | one step per fine tile, so === FINE_TILES_PER_SIDE
+METRES_PER_BLOCK_REAL  | 384      | engine/BOHEMIA_REGION_LAND.json metresPerCell, the file RUN loads
+METRES_PER_BLOCK_DRAWN | 96       | engine/bohemia_overmap.js TILE_M = TILE_FINE x CELL_M, live
+MINUTES_PER_FINE_CELL  | 0.084    | slices/BOHEMIA_CITY_WORLD.html var MIN_PER_CELL (structural, the clock the party is charged)
+BEAT_SECONDS           | 0.5      | engine Heartbeat.MS_PER_BEAT / 1000, live
+BPM                    | 120      | engine Heartbeat.BPM, live
+CURRENCIES             | 3        | bohemia_engine.js CURRENCIES array length (structural, not live)
+GENERATIONS            | 3        | engine Generations.GEN_COUNT, live
 ```
 
 **THE ANTI-VACUITY RULE.** Every constant is either MEASURED above or EXEMPT with a written
 reason, and the gate asserts the exempt set is EXACTLY those two. Nothing can join it
 silently.
 
-- **`SECONDS_PER_STEP`** — a design number in
-  `laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md`. The action clock in
-  `bohemia_engine.js` spends time per ACTION, not per step, so there is nothing running to
-  measure. Becomes measurable the day a per-step cost lands in code, and must be measured
-  then. (This row's reason originally named the law only in words and cited no file, which
-  failed W3 — the check demanding that every exemption name a real artifact. Fixed by
-  citing it, not by loosening the check.)
+- **`SECONDS_PER_STEP`** (8/7 to 10/18) — EXPIRED BY ITS OWN CLAUSE and left this list. Its
+  reason said it 'becomes measurable the day a per-step cost lands in code, and must be
+  measured then'. That cost is in code: the CITY frame the demo opens charges
+  `MIN_PER_CELL` 0.084 minutes a fine cell (the 9/4 laws master measured the walk at it),
+  which is **5.04 s, not the camp law's 3.52 s**. Newest date wins, so the row is now
+  `MINUTES_PER_FINE_CELL` 0.084 and it is MEASURED above.
 - **`LIT_PERCENT`** — CLUSTERED POWER says 12% lit and OWNED. Neither `bohemia_overmap.js`
   nor `bohemia_world.js` exports any power/lit/grid accessor (checked 8/7), so the share
   cannot be counted off a real world. Whoever builds the power grid adds the accessor and
@@ -148,6 +153,18 @@ declared value, because a lane legitimately adding a district really does change
 area and a strict equality there would cry wolf every time the city grew. The generated
 block records the EXACT live number every run, so the tolerance hides nothing: it only
 decides when a human has to come and re-measure.
+
+## ONE NUMBER FOR A BLOCK (10/18/26, WORLD [the block size settled])
+
+COMBAT TWO read a map block as 230 m; WORLD's region says 384 m. Settled from the data in
+`records/BOHEMIA_WORLD_THE_ONE_RULER_10_18_26.md`: **a block is 384 m of real Las Vegas ground
+and its drawing is 96 m at life size**, two true numbers for two jobs, and 230 m is nobody's.
+Both are declared above so the registry holds them, and both are MEASURED (the region file RUN
+loads, the overmap's `TILE_M`). The three area rows are the DRAWN valley: 84.93 km² is 9.2 km a
+side, the real ground behind it is 16 times that. The full list of every file that carries a
+block's size, and the check that fails when two of them disagree, is
+`records/BOHEMIA_WORLD_ONE_NUMBER_FOR_A_BLOCK_10_18_26.md` and section F of
+`gates/the_one_ruler_gate.js`.
 
 ## WHAT I LEFT OUT, AND WHY — SO NOBODY THINKS IT WAS AN OVERSIGHT
 

@@ -96,6 +96,16 @@ function measure(seed) {
 
   const round = (v, dp) => Number(v.toFixed(dp));
 
+  /* THE BLOCK AND THE CLOCK (10/18, WORLD [the block size settled]). A map block has
+     two true sizes for two jobs (records/BOHEMIA_WORLD_THE_ONE_RULER_10_18_26.md): the
+     real ground it stands for, read off the region file RUN loads, and the life-size
+     drawing inside it, the overmap's own product. The clock is what the party is
+     charged a fine cell, read STRUCTURALLY off the CITY frame the demo opens (it is a
+     page constant, not an engine export), the same way CURRENCIES is read. */
+  const region = JSON.parse(fs.readFileSync(path.join(ROOT, 'engine/BOHEMIA_REGION_LAND.json'), 'utf8'));
+  const frameSrc = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+  const mpc = frameSrc.match(/\bvar\s+MIN_PER_CELL\s*=\s*([0-9.]+)/);
+
   return {
     seed: s,
     census: census,
@@ -112,6 +122,9 @@ function measure(seed) {
       BUILT_KM2:           [round(built * cellKm2, 2),     'census minus road/desert/rock: ' + built + ' cells'],
       ONFOOT_KM2:          [round((cells - rock) * cellKm2, 2), 'census minus rock/water: ' + (cells - rock) + ' cells'],
       STEPS_ACROSS_VALLEY: [OM.OVER_N * OM.TILE_FINE,      'one step per fine tile, so === FINE_TILES_PER_SIDE'],
+      METRES_PER_BLOCK_REAL:  [region.metresPerCell,       'engine/BOHEMIA_REGION_LAND.json metresPerCell, the file RUN loads'],
+      METRES_PER_BLOCK_DRAWN: [OM.TILE_M,                  'engine/bohemia_overmap.js TILE_M = TILE_FINE x CELL_M, live'],
+      MINUTES_PER_FINE_CELL:  [mpc ? +mpc[1] : NaN,        'slices/BOHEMIA_CITY_WORLD.html var MIN_PER_CELL (structural, the clock the party is charged)'],
       BEAT_SECONDS:        [ENG.Heartbeat.MS_PER_BEAT / 1000, 'engine Heartbeat.MS_PER_BEAT / 1000, live'],
       BPM:                 [ENG.Heartbeat.BPM,             'engine Heartbeat.BPM, live'],
       CURRENCIES:          [currencyNames.length,          'bohemia_engine.js CURRENCIES array length (structural, not live)'],
@@ -131,12 +144,12 @@ const EXEMPT = {
      citations could not verify the excuse for the one row it excuses. Fixed by
      citing the file, which is what the registry demands of every other row --
      fix the target, not the ruler. */
-  SECONDS_PER_STEP:
-    'a DESIGN number in laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md (average seconds ' +
-    'one step costs in-game). No engine module carries it: the action clock in ' +
-    'bohemia_engine.js spends time per ACTION, not per step, so there is nothing running ' +
-    'to measure. Becomes measurable the day a per-step cost lands in code, and must be ' +
-    'measured then. [PENDING Paolo owns the number itself.]',
+  /* SECONDS_PER_STEP LEFT THIS LIST ON 10/18 BY ITS OWN EXPIRY CLAUSE ('becomes measurable
+     the day a per-step cost lands in code, and must be measured then'). That cost is in
+     code: the CITY frame charges MIN_PER_CELL 0.084 minutes a fine cell (the 9/4 laws
+     master measured the walk at it), 5.04 s, against the 7/27 camp law's 3.52 s. Newest
+     date wins, so the registry row became MINUTES_PER_FINE_CELL and it is MEASURED above.
+     WORLD [the block size settled], records/BOHEMIA_WORLD_ONE_NUMBER_FOR_A_BLOCK_10_18_26.md. */
   LIT_PERCENT:
     'CLUSTERED POWER says 12% of the valley is lit and OWNED. Nothing in the world model ' +
     'exposes a lit-cell set yet -- neither bohemia_overmap.js nor bohemia_world.js exports ' +
