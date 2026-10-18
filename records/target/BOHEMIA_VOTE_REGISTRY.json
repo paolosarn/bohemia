@@ -8839,7 +8839,7 @@
    "id": "combat2-three-boards-from-the-whole-bank-10-16",
    "kind": "tile",
    "lane": "combat 2",
-   "sha": "pending",
+   "sha": "1e77398",
    "made": "10/16",
    "title": "CANDIDATE: THREE FIGHT BOARDS CUT FROM YOUR PACKS, WITH THE STRAIGHT-ROOF HOUSES",
    "why": "A small, a middle and a large fight board for a Vegas suburb, every pixel from the tiles you bought: the street and sidewalks the way cook 2 cuts them, the ranch the way cook 4 built it, and the cars, fences, walls, lamps, barrels and junk from your packs. Houses face the street on one side, back walls and chain link on the other, a wreck in most driveways. One thing to know: your packs draw every prop in one small box, so a car and a cone come the same size; the cars are doubled to look right next to the man, and the cones are left out. Not in the game. Look at the 1:1 cuts, not the shrunk maps.",
@@ -8858,6 +8858,35 @@
      "SIZE: his props all come in one 96-px box, so a car and a cone are the same size; at the man's ruler a car is doubled with whole pixels and the cones stay off the board.",
      "THE CURB: his street and slab tiles have no curb; the sidewalk edge is his slab's own south face, cook 2's recipe, on every corner the 47 ways.",
      "THE HOUSE: his pack house is one tile for a tiny person; ours is his roof, wall, door and window tiles laid at the man's size (cook 4), two tiles wide, the garage a second tile."
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "combat2-the-five-houses-on-the-board-10-18",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "CANDIDATE: THE THREE FIGHT BOARDS AGAIN, NOW WITH ALL FIVE TAN HOUSES",
+   "redoOf": "combat2-three-boards-from-the-whole-bank-10-16",
+   "said": "color these roofs to make it more tan, they're looking bright medieval orange and metal blue",
+   "why": "The same three fight boards, but every street now mixes cook 4's five house shapes in the tan roofs you asked for, never the same house twice in a row, so the gaps a fighter walks through change house to house, each drive runs to its own garage or carport, and the carports hold a car. Here in the VOTE tab, not in the game: look at the 1:1 before and after, where one yard per block also stops the dirt changing colour at every lot line.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COMBAT2_THE_FIVE_HOUSES_ON_THE_BOARD_10_18.webp"
+   },
+   "before_after": {
+    "before": "round one's small board at one lot: cook 4's one orange ranch, flipped, one art pixel to one phone pixel",
+    "after": "the same lot of the same board now: the house that lot was dealt from the five, in the tans, same scale",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "SHAPE: his pack has one house; the board deals five (plain, garage, carport, wing, porch), 658 to 1,294 px wide in a 1,312 px lot, so the lanes between houses run 3.4 to 9.9 m.",
+     "COLOUR: his house wears orange clay; these wear the tan of his own render wall and flagstones (cook 4's recolour), nothing bright.",
+     "GROUND: his house floats on a clear tile; ours stand on one yard per block with a drive to the garage or carport and a car under the carport."
     ]
    },
    "draft": true
