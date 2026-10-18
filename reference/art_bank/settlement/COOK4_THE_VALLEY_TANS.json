@@ -1,0 +1,284 @@
+{
+ "_what": "COOK FOUR, the valley tans (10/18): the roof fields of his pack recoloured onto tans sampled from his own tiles; rule 114c names this file in the sheet caption. Native pixel size 96 px pieces at 1:1, 57 px a metre; light from above.",
+ "method": "each face pixel keeps its rank in the field's light order and takes hue and saturation from the source pixel at the same rank; value pulled 50 percent toward the source; the wooden eave frame is untouched",
+ "sources": {
+  "tan": {
+   "tile": "settlement/pack_wall_tiles_1_007.png",
+   "what": "Wall tiles (1) #7, his flat tan render",
+   "mean": {
+    "rgb": [
+     89,
+     74,
+     60
+    ],
+    "hue": 29,
+    "sat": 0.33,
+    "val": 0.35
+   }
+  },
+  "gravel": {
+   "tile": "ground/pack_rocks_and_stones_053.png",
+   "what": "rocks and stones #53, his grey-tan flagstones",
+   "mean": {
+    "rgb": [
+     108,
+     101,
+     87
+    ],
+    "hue": 40,
+    "sat": 0.19,
+    "val": 0.42
+   }
+  }
+ },
+ "fields": {
+  "COOK4_ROOF_TAN_FIELD.png": {
+   "from": "settlement/pack_5_roof_tiles_026.png",
+   "takes": "tan",
+   "before": {
+    "rgb": [
+     102,
+     38,
+     11
+    ],
+    "hue": 18,
+    "sat": 0.89,
+    "val": 0.4
+   },
+   "after": {
+    "rgb": [
+     96,
+     81,
+     64
+    ],
+    "hue": 32,
+    "sat": 0.33,
+    "val": 0.38
+   },
+   "ramp": [
+    {
+     "rank": 0.1,
+     "hex": "#1d1712",
+     "hue": 27,
+     "sat": 0.38,
+     "val": 0.11
+    },
+    {
+     "rank": 0.3,
+     "hex": "#473a2e",
+     "hue": 29,
+     "sat": 0.35,
+     "val": 0.28
+    },
+    {
+     "rank": 0.5,
+     "hex": "#615141",
+     "hue": 30,
+     "sat": 0.33,
+     "val": 0.38
+    },
+    {
+     "rank": 0.7,
+     "hex": "#7a6652",
+     "hue": 30,
+     "sat": 0.33,
+     "val": 0.48
+    },
+    {
+     "rank": 0.9,
+     "hex": "#9b8368",
+     "hue": 32,
+     "sat": 0.33,
+     "val": 0.61
+    }
+   ],
+   "hue_shift_30_to_90": 3
+  },
+  "COOK4_ROOF_TAN_EAVE.png": {
+   "from": "settlement/pack_5_roof_tiles_014.png",
+   "takes": "tan",
+   "before": {
+    "rgb": [
+     102,
+     37,
+     11
+    ],
+    "hue": 17,
+    "sat": 0.89,
+    "val": 0.4
+   },
+   "after": {
+    "rgb": [
+     97,
+     81,
+     65
+    ],
+    "hue": 30,
+    "sat": 0.33,
+    "val": 0.38
+   },
+   "ramp": [
+    {
+     "rank": 0.1,
+     "hex": "#211a15",
+     "hue": 25,
+     "sat": 0.36,
+     "val": 0.13
+    },
+    {
+     "rank": 0.3,
+     "hex": "#493c31",
+     "hue": 28,
+     "sat": 0.33,
+     "val": 0.29
+    },
+    {
+     "rank": 0.5,
+     "hex": "#655443",
+     "hue": 30,
+     "sat": 0.34,
+     "val": 0.4
+    },
+    {
+     "rank": 0.7,
+     "hex": "#75624f",
+     "hue": 30,
+     "sat": 0.32,
+     "val": 0.46
+    },
+    {
+     "rank": 0.9,
+     "hex": "#957f65",
+     "hue": 32,
+     "sat": 0.32,
+     "val": 0.58
+    }
+   ],
+   "hue_shift_30_to_90": 4
+  },
+  "COOK4_ROOF_GRAVEL_FIELD.png": {
+   "from": "settlement/pack_5_roof_tiles_027.png",
+   "takes": "gravel",
+   "before": {
+    "rgb": [
+     56,
+     54,
+     54
+    ],
+    "hue": 0,
+    "sat": 0.04,
+    "val": 0.22
+   },
+   "after": {
+    "rgb": [
+     84,
+     78,
+     65
+    ],
+    "hue": 41,
+    "sat": 0.23,
+    "val": 0.33
+   },
+   "ramp": [
+    {
+     "rank": 0.1,
+     "hex": "#10120f",
+     "hue": 100,
+     "sat": 0.17,
+     "val": 0.07
+    },
+    {
+     "rank": 0.3,
+     "hex": "#2f2a1f",
+     "hue": 41,
+     "sat": 0.34,
+     "val": 0.18
+    },
+    {
+     "rank": 0.5,
+     "hex": "#5a5142",
+     "hue": 37,
+     "sat": 0.27,
+     "val": 0.35
+    },
+    {
+     "rank": 0.7,
+     "hex": "#726959",
+     "hue": 38,
+     "sat": 0.22,
+     "val": 0.45
+    },
+    {
+     "rank": 0.9,
+     "hex": "#948c77",
+     "hue": 43,
+     "sat": 0.2,
+     "val": 0.58
+    }
+   ],
+   "hue_shift_30_to_90": 2
+  },
+  "COOK4_ROOF_GRAVEL_EAVE.png": {
+   "from": "settlement/pack_5_roof_tiles_015.png",
+   "takes": "gravel",
+   "before": {
+    "rgb": [
+     52,
+     53,
+     57
+    ],
+    "hue": 228,
+    "sat": 0.09,
+    "val": 0.22
+   },
+   "after": {
+    "rgb": [
+     85,
+     80,
+     68
+    ],
+    "hue": 42,
+    "sat": 0.2,
+    "val": 0.33
+   },
+   "ramp": [
+    {
+     "rank": 0.1,
+     "hex": "#111310",
+     "hue": 100,
+     "sat": 0.16,
+     "val": 0.07
+    },
+    {
+     "rank": 0.3,
+     "hex": "#313027",
+     "hue": 54,
+     "sat": 0.2,
+     "val": 0.19
+    },
+    {
+     "rank": 0.5,
+     "hex": "#625a4b",
+     "hue": 39,
+     "sat": 0.23,
+     "val": 0.38
+    },
+    {
+     "rank": 0.7,
+     "hex": "#706858",
+     "hue": 40,
+     "sat": 0.21,
+     "val": 0.44
+    },
+    {
+     "rank": 0.9,
+     "hex": "#8c8471",
+     "hue": 42,
+     "sat": 0.19,
+     "val": 0.55
+    }
+   ],
+   "hue_shift_30_to_90": -12
+  }
+ }
+}

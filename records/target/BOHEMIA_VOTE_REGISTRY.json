@@ -8923,6 +8923,30 @@
     "src": "vote/ANIMATION_RAGDOLL_HITS.html"
    },
    "draft": true
+  },
+  {
+    "id": "cook4-the-family-in-the-valley-tans-10-18",
+    "kind": "tile",
+    "lane": "cook 4",
+    "sha": "pending",
+    "made": "10/18",
+    "title": "PLACEHOLDER: THE STRAIGHT-ROOF FAMILY IN THE VALLEY'S TANS, NOTHING BRIGHT",
+    "redoOf": "cook4-the-straight-roof-family-10-17",
+    "said": "Bet, bro, I honestly should be able to color the roof these roofs to make it more tan like they're looking bright, medieval, orange and like metal blue and shit like bro",
+    "why": "The same five houses you said yes to, only the roofs change: the orange clay is now the tan of your own flat render wall, the blue slate on the garage, carport and porch is now the grey-tan of your own flagstones. Every tile keeps its own highlight and shadow, only the colour moved, nothing bright, and you see it in the VOTE tab beside your pack house, your two roof tiles before and after, the two tiles the tans came from, and the orange plain ranch for the eye, all at 1:1, a placeholder until your moodboard.",
+    "show": {
+      "how": "image",
+      "src": "../records/target/COOK4_THE_FAMILY_IN_THE_VALLEY_TANS.png"
+    },
+    "twin": {
+      "src": "pack:5. Roof tiles#30",
+      "diffs": [
+        "COLOUR: his pack house wears the orange clay; ours wear the tan of his own render wall (Wall tiles 1 #7), and the flat roofs the grey-tan of his flagstones (rocks and stones #53). Hue 17 at saturation .89 became hue 32 at saturation .33.",
+        "STRUCTURE: unchanged. Every tile keeps his highlight, body and shadow gap in his order; the wooden eave frame is his pixels; the roof shape is the measured one (roof 1.49 walls tall, 14 percent eaves, a 6 percent lean).",
+        "THE REST: as the family he voted on, five kinds on a shadow with the man at every door; nothing but the roof colour moved, so the vote is on the colour alone."
+      ]
+    },
+    "draft": true
   }
  ],
  "verdicts": [
