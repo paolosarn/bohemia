@@ -1,0 +1,56 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The Town Is Alive</title>
+<!-- ANIMATION [the settlement's idle people], 10/9, rule 71a. RUN TWO's real town picture (settlement_ground/town_0) with
+     this lane's settlement_people sheets placed at the doors, the stall, the posts and the sidewalk, ten seconds on the
+     120 beat. RUN TWO places them in the screen; this page shows what they do. RULE 25: IT PLAYS. Two sentences. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 12px;color:#b3a890;max-width:60ch}
+  canvas{display:block;width:100%;max-width:720px;image-rendering:pixelated;border-radius:4px;background:#1a140f}
+</style>
+<h1>THE TOWN IS ALIVE</h1>
+<p>The town screen now has its people: keepers at their doors smoke and wait, the stall keeper haggles, a hire leans at the posts and people walk past. When your finger comes near a building its keeper looks up at you and waves you in.</p>
+<canvas id="cv" width="720" height="440"></canvas>
+<script>
+(function(){
+  var BEAT=500, LOOP=20, F=112;   /* 20 beats = ten seconds */
+  var CROP=[380,180,1580,880];    /* the part of town_0 a phone shows at once (picture px) */
+  var cv=document.getElementById('cv'), g=cv.getContext('2d'), S=cv.width/(CROP[2]-CROP[0]);
+  var M=null, pic=new Image(), sheets={};
+  /* who stands where (picture px, feet), which outfit, which facing, and what he does on which beats */
+  var CAST=[
+    {look:'cast_longcoat', x:618, y:352, face:'S', plan:function(t,f){ return f? (t<9?['greet',8]:['beckon',8]) : ['wait',0]; }, finger:true},
+    {look:'faction_church', x:1428, y:332, face:'S', plan:function(t){ return t%8<4?['smoke',0]:['wait',4]; }},
+    {look:'cast_apron', x:1203, y:520, face:'S', plan:function(t){ return ['trade',0]; }},
+    {look:'faction_mob', x:470, y:556, face:'SE', plan:function(t){ return t%10<6?['lean',0]:['smoke',6]; }},
+    {look:'cast_poncho', walk:[[380,640],[1580,700]], face:'SE', speed:60},
+    {look:'faction_volunteers', walk:[[1580,610],[380,600]], face:'SW', speed:52, start:6}];
+  function frameOf(clip,beatsIn){ var c=M.clips[clip], k=(beatsIn/c.beats)%1; return M.cols.indexOf(c.cols[Math.floor(k*c.cols.length)%c.cols.length]); }
+  function person(look,face,col,x,y){
+    var im=sheets[look]; if(!im||col<0) return;
+    var r=M.rows.indexOf(face), dw=M.scale.draw_frame_at*S, fx=(x-CROP[0])*S, fy=(y-CROP[1])*S;
+    var bb=M.figure_bbox, k=dw/F;
+    g.drawImage(im, col*F, r*F, F, F, Math.round(fx-dw/2), Math.round(fy-(bb[1]+bb[3])*k), Math.round(dw), Math.round(dw)); }
+  function draw(now){
+    var t=(now/BEAT)%LOOP;
+    g.imageSmoothingEnabled=false; g.drawImage(pic, CROP[0], CROP[1], CROP[2]-CROP[0], CROP[3]-CROP[1], 0, 0, cv.width, cv.height);
+    var fingerOn = t>=8 && t<15;
+    var order=CAST.map(function(c){ var x=c.x,y=c.y,col;
+      if(c.walk){ var tt=((t-(c.start||0))%LOOP+LOOP)%LOOP, d=Math.hypot(c.walk[1][0]-c.walk[0][0],c.walk[1][1]-c.walk[0][1]), u=Math.min(1,tt*BEAT/1000*c.speed/d);
+        x=c.walk[0][0]+(c.walk[1][0]-c.walk[0][0])*u; y=c.walk[0][1]+(c.walk[1][1]-c.walk[0][1])*u; col=frameOf('walk',tt); }
+      else { var p=c.plan(t, c.finger&&fingerOn); col=frameOf(p[0], t-p[1]); }
+      return {c:c,x:x,y:y,col:col}; }).sort(function(a,b){ return a.y-b.y; });
+    order.forEach(function(o){ person(o.c.look,o.c.face,o.col,o.x,o.y); });
+    if(fingerOn){ var fx=(640-CROP[0])*S, fy=(250-CROP[1])*S; g.strokeStyle='rgba(255,255,255,.85)'; g.lineWidth=2; g.beginPath(); g.arc(fx,fy,14,0,7); g.stroke(); g.fillStyle='rgba(255,255,255,.25)'; g.fill(); }
+  }
+  fetch('../settlement_people/settlement_people.json').then(function(r){ return r.json(); }).then(function(m){ M=m;
+    var need=[pic].concat(CAST.map(function(c){ var im=new Image(); sheets[c.look]=im; im.src='../settlement_people/'+m.looks[c.look].file; return im; }));
+    pic.src='../settlement_ground/town_0.webp';
+    return Promise.all(need.map(function(im){ return new Promise(function(r){ if(im.complete&&im.naturalWidth) r(); else { im.onload=r; im.onerror=r; } }); }));
+  }).then(function(){ var t0=performance.now(); (function tick(){ draw(performance.now()-t0); requestAnimationFrame(tick); })(); });
+})();
+</script>

@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the old interstate from the south-west, where it enters the valley past the dry lakebed; a column on foot walking in
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E7 THE PEOPLE WALKING THE OTHER WAY (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: QD-B06 (act 2, families walking OUT from a rumour of the nuke). These people walk IN, toward something good, which is the half of E7 the shelf lacked (`Q031.X2`: some groups are going somewhere good).
 
 ## THE SITUATION

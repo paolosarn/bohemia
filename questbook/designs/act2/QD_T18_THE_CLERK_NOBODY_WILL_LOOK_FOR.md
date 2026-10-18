@@ -7,7 +7,7 @@ PLACE: the tower offices home base (town tier), the hall on the ground floor; th
 SITUATION: a death (QR-S situation 21) that the base will not look at: Neri Solis, a ration clerk who kept the towers' foreclosure list, was found in the stairwell. The towers wrote "fall". Her sister does not believe it -> a name is given, and if it is the wrong name, somebody else on the list dies
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Neri kept the list of which co-op families lose their rooms next. Two people wanted her dead: Fabian, a squatter whose mother is at the top of the list, who shouted at her in public, and Mrs. Aldana, the towers' own collections chief, who needed the list to say something it did not. The towers' guards logged the body and went to lunch.

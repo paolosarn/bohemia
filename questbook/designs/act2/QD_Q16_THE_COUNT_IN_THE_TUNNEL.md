@@ -5,7 +5,7 @@ CRISIS: the whisper broadcast
 ECONOMY: either
 PLACE: a flood tunnel under the Strip, the tunnel people's meeting chamber; no cameras, no phones (the phone does not exist off the city view)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 17: this is on the main road by design.
+CHECKLIST: passes all 32. Line 17: this is on the main road by design. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the story master: act 2 ends with the whisper broadcast, truth released at once through trusted people, and the Amalgamation's blind spot is the unrecorded self. HOW the broadcast works is Paolo's. This beat is only the COUNT before it: the people who will carry it, face to face, in the one room nothing records. Who comes is derived from every contract and event the family did in acts 1 and 2 with a person, not a faction (QD-H03 is the first of them returning; this is all of them at once).

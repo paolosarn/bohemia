@@ -4,10 +4,10 @@ KIND: main-beat
 CRISIS: none
 ECONOMY: bust (act 1) -> either (act 2)
 PLACE: the first home base, the family house (QD-T11), read under rule 43 as the first part of the city the family holds, seen in act 1 and then, through the flip, twenty years on in act 2
-SITUATION: THE FIRST FLIP. The second generation unlocked at the first base (rule 39c); the flip is a big transition unlocked mid-act (third votes). The first time the player uses it, the game must prove in one screen that the future is DERIVED from the past: what the first person built stands, what they lost is a ruin, and the first face met is somebody's heir
+SITUATION: THE FIRST FLIP. The second generation unlocked when act 1's first endgame crisis started (rule 85, around day 80 to 100); the flip is a big transition unlocked mid-act (third votes). The first time the player uses it, the game must prove in one screen that the future is DERIVED from the past: what the first person built stands, what they lost is a ruin, and the first face met is somebody's heir
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30 (the arrival is silent for its first 60 seconds)
+CHECKLIST: passes all 32 (the arrival is silent for its first 60 seconds) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 In act 1 the player taps the house and chooses to go forward. The transition is long and plain: the settlement screen of the base ages in place, lot by lot. Then act 2. The same base, the same house. Whatever the first person built on the lots is there, weathered. Whatever was raided is a black shell. The heir stands at the window of the house, and the player sees him from the settlement screen: a tiny figure in a lit square.

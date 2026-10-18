@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a neighbourhood substation behind a chain-link fence; the route is forty houses on the four sides of one block (QR-AC, line 8: one block, cut as the fight board)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the low reading has a tell), 8 (four sides of one block), 9 (three ways round), 12 (the half book), 22 (the chalked schedule), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the low reading has a tell), 8 (four sides of one block), 9 (three ways round), 12 (the half book), 22 (the chalked schedule), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHOWS: the "BENEATH YOU / LOW PAY" no; and a contract that is EXACTLY WHAT IT SAYS (C7, C15)
 
 ## THE SITUATION

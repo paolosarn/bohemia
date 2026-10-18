@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL05
 FIRST-LINE: FL11
 TWIST: none (the dogs are dogs)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (the only no-fight road was the refusal) and is fixed in place by choice 4, feed them out) (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
 
 ## THE SITUATION
 Act 1, bust, the hungriest stretch. The kitchen feeds forty people a day from a tank yard behind the church: an old utility tank with a hand pump. A pack of feral dogs has taken the yard. Two volunteers were bitten filling jugs. The kitchen has no batteries to pay with. It has food.
@@ -31,6 +31,8 @@ The yard on the fight board (house-sized tiles): a fence with two gaps, the tank
 1. **Clear the yard.** Fight the pack. DONE; the food days go into the company's stores.
 2. **Drive them, don't kill them.** Close the two fence gaps (two props) with the pickup's tailgate and a pallet, then push the pack out through the third gap with noise and the dial for the one dog that holds. DONE; the same food. It takes longer on the grid.
 3. **"I won't fight nine dogs with what I have."** Tell her so. The priced refusal: nothing paid, she thanks you for saying it, and the offer stays in the kitchen for the next company. Not a drop.
+
+4. **Feed them out** (QR-AM, line 31; `Q216.X1`, `Q087.X4`, `Q095.X3`). The kitchen's scraps go on the dirt road east, three nights running, each night one house tile further from the fence; on the fourth the pack beds down at the old dump and the yard is empty. No fight; three map days and 3 FOOD of the company's own; DONE, the same food days. The pack is on the map east, fed and nobody's.
 
 ## WHAT THE LEDGERS REMEMBER
 - Declined: nothing.

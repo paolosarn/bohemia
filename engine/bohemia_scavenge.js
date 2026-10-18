@@ -98,8 +98,21 @@
      sentence uses ("food, medicine or batteries") plus the two the game already
      spends (tape is materials, per the purse's own comment). A kind is a THING,
      never a balance: what a find is worth, and whether medicine is a currency at
-     all, is not settled here. */
-  var KINDS = ['food', 'medicine', 'battery', 'tape', 'ammo'];
+     all, is not settled here.
+
+     *** CORRECTED 10/9 BY RULE 47 (Paolo 9/29): THE SIX RESOURCES ARE BATTERIES,
+     FOOD, MEDS, ROUNDS, TAPE AND WATER. *** This list was written 9/29 off his
+     scavenge sentence alone and came out FIVE, missing WATER -- so the one thing a
+     body in a desert needs most was the one thing a search in the Mojave could
+     never turn up. Rule 47 is newer than the hedge above it and settles the
+     currency question too: MEDS is one of the six, so `medicine` is not a pending
+     fourth icon any more, it is ruled. The names here stay the singular nouns the
+     older consumers already read; mapping them onto rule 47's six is one line each
+     (food->FOOD, medicine->MEDS, battery->BATTERIES, tape->TAPE, ammo->ROUNDS,
+     water->WATER) and the rename belongs with ECONOMY's ledger and MODS' file,
+     which rule 47 gives them by name. The gate now refuses a list that is missing
+     any of the six, so this cannot drift back to five. */
+  var KINDS = ['food', 'medicine', 'battery', 'tape', 'ammo', 'water'];
 
   /* *** SHIPS EMPTY ON PURPOSE. *** Which ground gives up which kind is content.
      The MECHANISM below works the moment he fills one line in. */

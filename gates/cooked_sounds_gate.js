@@ -314,6 +314,7 @@ const MEASURE = `
         bell: look(H.struckMetal(ctx, { what: 'bell' })),
         cracked: look(H.struckMetal(ctx, { what: 'cracked' })),
         pipe: look(H.struckMetal(ctx, { what: 'pipe' })),
+        glass: look(H.struckMetal(ctx, { what: 'glass' })),
         noiseInSource: H.struckMetal.toString().indexOf('noiseInto') >= 0
       };
     } catch (e) { out.strikeErr = String(e && e.message).slice(0,120); }
@@ -731,6 +732,174 @@ const MEASURE = `
     } catch (e) { out.groundTakesItErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE TURN CLOSES (10/4, row [one song and the volumes]). A small steel catch heard
+     before it has time to ring like the pipe it is built from -- the whole claim is
+     that it REUSES struckMetal's own modes rather than inventing a new material, and
+     that the buffer is short enough for the 200 ms end-fade to cover all of it (no
+     chopped edge, which is how a ring becomes a click by accident). */
+  (function () {
+    try {
+      const et = H.endTurnClick(ctx, {});
+      const sr = ctx.sampleRate;
+      out.endTurnClick = {
+        seconds: et.seconds, what: et.what, f0: et.f0,
+        samples: Math.round(et.seconds * sr),
+        fadeCoversAll: Math.round(et.seconds * sr) <= Math.round(0.20 * sr),
+        shorterThanPipesOwnRing: et.seconds < H.STRIKE.pipe.secs,
+        usesPipeTable: et.what === 'pipe',
+        f0RaisedFromPipeDefault: et.f0 > H.STRIKE.pipe.f0
+      };
+    } catch (e) { out.endTurnClickErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* THE MAP IN MOTION (row [the map's sounds], 10/5). Three claims: the road bed is
+     footstepWalk on asphalt at the RUNNING cadence (perBeat 2, "the road faster"), the
+     dirt bed is the same function on dirt at the walking cadence, and the two render
+     different footfall counts for the same length -- the only way tempo actually shows
+     up in a rendered buffer. The insects are a dense click train, not a hiss: clicks
+     counted off the EVENTS crackleInto returns, never assumed from the rate asked for,
+     and band-limited where a cricket's own calling song sits. */
+  (function () {
+    try {
+      const road = H.travelRoadBed(ctx, { beats: 8 });
+      const dirt = H.travelDirtBed(ctx, { beats: 8 });
+      out.travelBeds = {
+        roadSteps: road.steps, roadSurface: road.surface, roadPerBeat: road.perBeat,
+        dirtSteps: dirt.steps, dirtSurface: dirt.surface, dirtPerBeat: dirt.perBeat,
+        roadIsDenser: road.steps > dirt.steps
+      };
+    } catch (e) { out.travelBedsErr = String(e && e.message).slice(0,160); }
+    try {
+      const ins = H.nightInsects(ctx, {});
+      const d = ins.buffer.getChannelData(0), n = d.length;
+      let q = 0, pk = 0;
+      for (let i = 0; i < n; i++) { q += d[i] * d[i]; const a = Math.abs(d[i]); if (a > pk) pk = a; }
+      out.nightInsects = {
+        clicks: ins.clicks, lo: ins.lo, hi: ins.hi, noiseSources: ins.noiseSources,
+        rms: Math.sqrt(q / n), peak: pk
+      };
+    } catch (e) { out.nightInsectsErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* THE TITLE'S OWN MUSIC (row [the title's music], 10/5). Three claims: it really is
+     detuned (the rendered root sits at exactly 0.97 of the canon F3, not the canon pitch
+     itself), it really does carry wow (the same depth/rate numbers songOnTape already
+     proves, read back off this function and not assumed to have survived the mix), and
+     the room tone is really mixed in underneath it (summing song and room changes the
+     buffer; the title's own rms has to differ from the song rendered alone). */
+  (function () {
+    try {
+      const tt = H.titleTheme(ctx, {});
+      /* THE ROOM IS REALLY IN THE MIX, PROVED BEHAVIOURALLY. A metadata field saying
+         roomRel is not proof it was ever added to a sample; changing it and hearing the
+         difference is. Rendered twice, same song, room silenced the second time (rel 0)
+         -- if the two buffers read identically, the room was never summed in at all. */
+      const silentRoom = H.titleTheme(ctx, { roomRel: 0 });
+      const a = tt.buffer.getChannelData(0), b = silentRoom.buffer.getChannelData(0);
+      let maxDiff = 0;
+      for (let i = 0; i < a.length; i += 1009) maxDiff = Math.max(maxDiff, Math.abs(a[i] - b[i]));
+      out.titleTheme = {
+        root: tt.root, canonRoot: tt.canonRoot, detune: tt.detune,
+        wowDepth: tt.wowDepth, wowRateHz: tt.wowRateHz, roomRel: tt.roomRel,
+        machineHi: tt.machine && tt.machine.hi, seconds: tt.seconds,
+        roomChangesTheBuffer: maxDiff > 0.0001
+      };
+    } catch (e) { out.titleThemeErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* THE SETTLEMENT'S SOUNDS (row [the settlement's sounds], 10/5). Four taps, four
+     REUSE-FIRST functions; each claim reads a number straight off the primitive it
+     reused, not a label the wrapper could have typed without calling it. */
+  (function () {
+    try {
+      const bc = H.barberClippers(ctx, {});
+      const d = bc.buffer.getChannelData(0), n = d.length;
+      let q = 0; for (let i = 0; i < n; i++) q += d[i] * d[i];
+      out.barberClippers = { hz: bc.hz, noiseSources: bc.noiseSources, synth: bc.synth,
+        machineIsEar: !!bc.machine && bc.machine.hi === null, rms: Math.sqrt(q / n) };
+    } catch (e) { out.barberClippersErr = String(e && e.message).slice(0,160); }
+    try {
+      const cw = H.canOnWood(ctx, {});
+      out.canOnWood = { woodSurface: cw.woodSurface, tinF0: cw.tinF0,
+        machineIsEar: !!cw.machine && cw.machine.hi === null, seconds: cw.seconds };
+    } catch (e) { out.canOnWoodErr = String(e && e.message).slice(0,160); }
+    try {
+      const bn = H.boardNail(ctx, {});
+      out.boardNail = { what: bn.what, f0: bn.f0, seconds: bn.seconds,
+        machineIsEar: !!bn.machine && bn.machine.hi === null };
+    } catch (e) { out.boardNailErr = String(e && e.message).slice(0,160); }
+    try {
+      const pr = H.paperRustle(ctx, {});
+      const d = pr.buffer.getChannelData(0), n = d.length;
+      let pk = 0; for (let i = 0; i < n; i++) { const a = Math.abs(d[i]); if (a > pk) pk = a; }
+      out.paperRustle = { clicks: pr.clicks, lo: pr.lo, hi: pr.hi, noiseSources: pr.noiseSources,
+        machineIsEar: !!pr.machine && pr.machine.hi === null, peak: pk };
+    } catch (e) { out.paperRustleErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (row [the soundscape], 10/9). Both reuse
+     struckMetal's own free-free bar series; the claims read the real difference (mass and
+     cadence) off the actual render, not off a label. */
+  (function () {
+    try {
+      const sh = H.smithHammer(ctx, {});
+      out.smithHammer = { what: sh.what, f0: sh.f0, seconds: sh.seconds,
+        machineIsEar: !!sh.machine && sh.machine.hi === null };
+    } catch (e) { out.smithHammerErr = String(e && e.message).slice(0,160); }
+    try {
+      const ar = H.armourerRivets(ctx, {});
+      const d = ar.buffer.getChannelData(0), n = d.length;
+      let pk = 0; for (let i = 0; i < n; i++) { const a = Math.abs(d[i]); if (a > pk) pk = a; }
+      out.armourerRivets = { what: ar.what, f0: ar.f0, strikes: ar.strikes, seconds: ar.seconds,
+        machineIsEar: !!ar.machine && ar.machine.hi === null, peak: pk };
+    } catch (e) { out.armourerRivetsErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* THE BAR'S GLASS (row [the soundscape], 10/10). canOnWood's own construction, a
+     contact landing summed with a material's own ring, done a second time for a glass
+     set down on the bar's counter instead of a can on the stall's. */
+  (function () {
+    try {
+      const bg = H.barGlassDown(ctx, {});
+      out.barGlassDown = { woodSurface: bg.woodSurface, glassF0: bg.glassF0, seconds: bg.seconds,
+        machineIsEar: !!bg.machine && bg.machine.hi === null };
+    } catch (e) { out.barGlassDownErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* THE BLOCK (row [not sand], the keep/redo list's last eight, 10/10). canOnWood's own
+     construction a third time: a parry is two hard things touching, the same definition
+     the redo list's own criterion already names. */
+  (function () {
+    try {
+      const wb = H.weaponBlock(ctx, {});
+      out.weaponBlock = { woodSurface: wb.woodSurface, edgeF0: wb.edgeF0, seconds: wb.seconds,
+        machineIsEar: !!wb.machine && wb.machine.hi === null };
+    } catch (e) { out.weaponBlockErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: 'the best sounds of all time... impress
+     me'). struckMetal's bell and powerOnHum are both already proven sounds; what is NEW here
+     is a real sidechain duck, so the claim has to prove the duck actually happens over time,
+     not just that two layers are present. TWO RENDERS AT THE DUCK'S OWN EXTREMES (0 and 0.9)
+     are compared in two windows: right after the strike, where the bell's envelope is near
+     its peak and a duck should make a real difference, and two seconds later, where the
+     bell has mostly decayed and a duck has almost nothing left to grab. */
+  (function () {
+    try {
+      const lf = H.legendaryFind(ctx, {});
+      const bellAlone = H.struckMetal(ctx, { what: 'bell' });
+      const d0 = H.legendaryFind(ctx, { duckAmount: 0 }).buffer.getChannelData(0);
+      const d9 = H.legendaryFind(ctx, { duckAmount: 0.9 }).buffer.getChannelData(0);
+      const rmsDiff = (a1, a2, lo, hi) => { let s = 0, c = 0; for (let i = lo; i < hi && i < a1.length && i < a2.length; i++) { const x = a1[i] - a2[i]; s += x * x; c++; } return c ? Math.sqrt(s / c) : 0; };
+      const earlyLo = 0, earlyHi = Math.round(SR * 0.05);
+      const lateLo = Math.round(SR * 2.0), lateHi = Math.round(SR * 2.2);
+      out.legendaryFind = { bellF0: lf.bellF0, duckAmount: lf.duckAmount, seconds: lf.seconds,
+        machineIsEar: !!lf.machine && lf.machine.hi === null,
+        bellRatiosCount: bellAlone.ratios.length,
+        earlyDiff: rmsDiff(d0, d9, earlyLo, earlyHi), lateDiff: rmsDiff(d0, d9, lateLo, lateHi) };
+    } catch (e) { out.legendaryFindErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1119,6 +1288,81 @@ const MEASURE = `
           const one = sandStep(ctx, {});
           return { buffer: one.buffer, steps: 1, surface: 'mutated', perBeat: 1, atSeconds: [0] };
         };
+        /* AND THE TURN CLOSES (10/4): SAME TRAP AGAIN. endTurnClick calls struckMetal BY
+           CLOSURE, so the H.struckMetal swap above never reaches it; the falsifier has to
+           replace H.endTurnClick itself, with the full-length pipe ring at its own f0 and
+           none of the short-cut-off fields the claims read. */
+        H.endTurnClick = (ctx, o) => {
+          const m = realStrike(ctx, { what: 'pipe', f0: 196 });
+          return { buffer: m.buffer, seconds: m.seconds, what: 'pipe', f0: 196 };
+        };
+        /* AND THE MAP IN MOTION (10/5): SAME TRAP A THIRD TIME. travelRoadBed and
+           travelDirtBed call the local footstepWalk BY CLOSURE, and nightInsects calls
+           the local crackleInto and bandTo the same way, so none of the swaps above
+           reach them. The falsifier has to replace all three exported names directly:
+           both travel beds collapse to the SAME perBeat (no tempo difference at all),
+           and the insects become a flat, unfiltered noise bed (the thing rule 32e
+           graveyarded) with no clicks to count.
+           Flat noise it may be, but it is not SILENT noise -- rms has to clear the
+           claim's own 0.01 floor as a plain safety-check so this does not falsely read
+           as "clicks: 0" ever doing the mutation's job for it. */
+        const flatSameTempo = (ctx, o) => {
+          const beats = (o && o.beats != null) ? o.beats : 6;
+          return { buffer: ctx.createBuffer(1, 1, ctx.sampleRate), surface: 'mutated',
+            perBeat: 1, steps: beats, seconds: beats * 0.5 };
+        };
+        H.travelRoadBed = flatSameTempo; H.travelDirtBed = flatSameTempo;
+        H.nightInsects = (ctx, o) => {
+          const secs = (o && o.secs) || 4.0, sr = ctx.sampleRate, n = Math.round(sr * secs);
+          const buf = ctx.createBuffer(1, n, sr), dd = buf.getChannelData(0);
+          for (let i = 0; i < n; i++) dd[i] = (Math.random() * 2 - 1) * 0.5;
+          return { buffer: buf, seconds: secs, clicks: 0, lo: 0, hi: sr / 2, noiseSources: 1 };
+        };
+        /* AND THE TITLE'S OWN MUSIC (10/5): titleTheme calls the local songOnTape and
+           roomHum BY CLOSURE, so no swap above reaches it either. The falsifier plays the
+           canon pitch untouched (detune 1, so root equals canonRoot exactly), zero wow,
+           and never actually sums the room in regardless of roomRel -- all three claims
+           have to go red together. */
+        H.titleTheme = (ctx, o) => {
+          const canon = (o && o.root) || 174.61;
+          const n = Math.round(ctx.sampleRate * 2);
+          return { buffer: ctx.createBuffer(1, n, ctx.sampleRate), seconds: n / ctx.sampleRate,
+            root: canon, canonRoot: canon, detune: 1, wowDepth: 0, wowRateHz: 0,
+            roomRel: (o && o.roomRel) == null ? 0.025 : o.roomRel,
+            machine: { hi: 5000 } };
+        };
+        /* AND THE SETTLEMENT'S SOUNDS (10/5): all four call harmonicHum, objectSetDown,
+           struckMetal or crackleInto BY CLOSURE, so each falsifier replaces the OUTER
+           wrapper's own exported name directly, same as every reused wrapper above. */
+        H.barberClippers = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          hz: 60, noiseSources: 1, synth: 'noise', machine: { hi: 5000 } });
+        H.canOnWood = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          woodSurface: 'mutated', tinF0: 0, seconds: 0, machine: { hi: 5000 } });
+        H.boardNail = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          what: 'mutated', f0: 0, seconds: 1, machine: { hi: 5000 } });
+        H.paperRustle = (ctx, o) => {
+          const secs = (o && o.secs) || 1.5, sr = ctx.sampleRate, n = Math.round(sr * secs);
+          const buf = ctx.createBuffer(1, n, sr), dd = buf.getChannelData(0);
+          for (let i = 0; i < n; i++) dd[i] = (Math.random() * 2 - 1) * 0.5;
+          return { buffer: buf, clicks: 0, lo: 0, hi: sr / 2, noiseSources: 1, machine: { hi: 5000 } };
+        };
+        /* AND THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (10/9): both call struckMetal BY
+           CLOSURE, same trap, same fix. */
+        H.smithHammer = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          what: 'mutated', f0: 0, seconds: 1, machine: { hi: 5000 } });
+        H.armourerRivets = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          what: 'mutated', f0: 0, strikes: 0, seconds: 1, machine: { hi: 5000 } });
+        /* AND THE BAR'S GLASS (10/10): the same trap a third time, objectSetDown and
+           struckMetal both by closure. */
+        H.barGlassDown = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          woodSurface: 'mutated', glassF0: 0, seconds: 0, machine: { hi: 5000 } });
+        /* AND THE BLOCK (10/10): the same trap a fourth time. */
+        H.weaponBlock = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          woodSurface: 'mutated', edgeF0: 0, seconds: 0, machine: { hi: 5000 } });
+        /* AND SOMETHING HERE STILL WORKS (10/10): struckMetal and powerOnHum both by
+           closure, and the duck itself only exists inside this wrapper. */
+        H.legendaryFind = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          bellF0: 0, duckAmount: 0, seconds: 0, machine: { hi: 5000 } });
       });
     }
     d = await p.evaluate(MEASURE);
@@ -1392,10 +1636,10 @@ const MEASURE = `
 
     /* ---- WHAT THIS VALLEY STRIKES ON THE HOUR (9/24) ------------------------ */
     if (d.strike) {
-      const B = d.strike.bell, C = d.strike.cracked, P = d.strike.pipe;
-      claim('THERE IS NO NOISE IN ANY OF THE THREE STRIKES, read off the shipped function',
+      const B = d.strike.bell, C = d.strike.cracked, P = d.strike.pipe, G = d.strike.glass;
+      claim('THERE IS NO NOISE IN ANY OF THE FOUR STRIKES, read off the shipped function',
         d.strike.noiseInSource === false
-          && B.noiseSources === 0 && C.noiseSources === 0 && P.noiseSources === 0,
+          && B.noiseSources === 0 && C.noiseSources === 0 && P.noiseSources === 0 && G.noiseSources === 0,
         'rule 32e: new sounds from real material. A struck metal object is a set of MODES, '
         + 'so there is nothing here for a noise generator to do, and the check is on the '
         + 'code rather than on a spectrum because that is a fact about how it was built');
@@ -1448,9 +1692,37 @@ const MEASURE = `
         + B.stepP999.toFixed(4) + ', ' + C.stepP999.toFixed(4) + ', ' + P.stepP999.toFixed(4)
         + '. The first cut chopped the bell mid-ring with 0.21 rms still going');
       claim('AND NONE OF THEM CLIPS (school rule 8)',
-        B.peak <= 1 && C.peak <= 1 && P.peak <= 1,
+        B.peak <= 1 && C.peak <= 1 && P.peak <= 1 && G.peak <= 1,
         'peaks ' + B.peak.toFixed(4) + ', ' + C.peak.toFixed(4) + ', ' + P.peak.toFixed(4)
-        + ', through a tanh rather than a ceiling');
+        + ', ' + G.peak.toFixed(4) + ', through a tanh rather than a ceiling');
+      /* THE BAR'S GLASS (10/10): a drinking glass's own real character, against the same
+         test that caught the bare-sine false positive on this table once already (a claim
+         that only asks "loud enough" cannot tell a chord from a tone, so the count itself
+         is the claim, exactly as it is for the bell and the pipe above). */
+      claim('AND THE GLASS IS THE ONE ENTRY WITH A SINGLE PARTIAL, which is its own real character',
+        G.ratios.length === 1 && G.partialsDb.length === 1 && G.partialsDb[0] > -3
+          && B.ratios.length > 1 && P.ratios.length > 1,
+        'the bell carries ' + B.ratios.length + ' modes and the pipe ' + P.ratios.length
+        + '; the glass carries ' + G.ratios.length + ', reading ' + G.partialsDb[0]
+        + ' dB under its own loudest bin, which IS its loudest bin -- a struck tumbler\'s '
+        + 'well-known "one clear pitch" against the bell\'s chord and the pipe\'s clangy stack');
+      /* THE FIRST CUT OF THIS CLAIM ASSUMED LOWER DAMPING MEANS A LONGER RING, AND IT IS
+         WRONG: tail = 1/(pi f damp), so PITCH MATTERS AS MUCH AS LOSS. The pipe's own
+         196 Hz fundamental outrings the glass's 650 Hz one even though the glass loses
+         less energy per cycle, because the glass pays that advantage back in cycles per
+         second. A real bar tumbler's clink really is brief, and this is the honest reason
+         why: not fast energy loss, a high pitch. */
+      claim('AND THE GLASS RINGS SHORTER THAN THE PIPE DESPITE LOSING LESS PER CYCLE, because pitch outweighs loss here',
+        G.longestTail < P.longestTail && G.f0 > P.f0,
+        'the glass rings ' + G.longestTail + ' s against the pipe\'s ' + P.longestTail
+        + ' s, even though its damping (0.05%) is below the pipe\'s own 0.08%: tail time is '
+        + '1/(pi f damp), and the glass\'s 650 Hz against the pipe\'s 196 Hz decides it. A '
+        + 'glass really does clink and go quiet fast, and the real reason is its pitch, not '
+        + 'a hidden loss this table never gave it');
+      claim('AND THE GLASS STILL LANDS ON THE BEAT AND NEITHER CLIPS NOR CHOPS',
+        G.peakAtMs < 55 && G.lastSample <= G.stepP999 * 0.05,
+        'loudest instant ' + G.peakAtMs.toFixed(1) + ' ms; last sample ' + G.lastSample.toFixed(6)
+        + ' against its own 99.9th-percentile step of ' + G.stepP999.toFixed(4));
     } else { claim('WHAT THIS VALLEY STRIKES was measured', false, d.strikeErr || 'no reading'); }
 
     /* ---- THE DECK, AND THE FLIP AS A TAPE CHANGING (9/27) -------------------- */
@@ -1815,6 +2087,156 @@ const MEASURE = `
         + 'forever" is exactly what asking for a second variant already proves');
     } else { claim('The ground takes it and things get set down were measured', false,
       d.groundTakesItErr || 'no reading'); }
+
+    /* ---- THE TURN CLOSES (10/4, row [one song and the volumes]) ---------------- */
+    if (d.endTurnClick) {
+      const ET = d.endTurnClick;
+      claim('THE TURN CLOSES IS BUILT FROM THE PIPE\'S OWN MODES, NOT A NEW MATERIAL',
+        ET.usesPipeTable === true && ET.f0RaisedFromPipeDefault === true,
+        'endTurnClick calls struckMetal with what:"pipe", f0 ' + ET.f0 + ' Hz raised from the '
+        + 'pipe\'s own default so a small stiff part rings higher than a pipe somebody is holding');
+      claim('AND IT IS HEARD BEFORE THE PIPE HAS TIME TO RING, which is what turns a ring into a click',
+        ET.seconds < 0.15 && ET.shorterThanPipesOwnRing === true,
+        'rendered at ' + ET.seconds + ' s against the pipe\'s own ' + 'full ring; the strike\'s bright '
+        + 'first instant, nothing invented for the cut-off');
+      claim('AND THE WHOLE BUFFER IS INSIDE THE STRIKE\'S OWN END-FADE, so nothing is chopped',
+        ET.fadeCoversAll === true,
+        ET.samples + ' samples against a 200 ms fade window -- the natural envelope, not a second '
+        + 'one pasted over a cut edge');
+    } else { claim('The turn closes was measured', false, d.endTurnClickErr || 'no reading'); }
+
+    /* ---- THE MAP IN MOTION (row [the map's sounds], 10/5) ---------------------- */
+    if (d.travelBeds) {
+      const TB = d.travelBeds;
+      claim('THE ROAD IS FASTER THAN DIRT, AND IT IS A FOOTFALL COUNT, NOT A LABEL',
+        TB.roadSurface === 'asphalt' && TB.dirtSurface === 'dirt'
+          && TB.roadPerBeat === 2 && TB.dirtPerBeat === 1 && TB.roadIsDenser === true,
+        'over the same 8 beats, asphalt at perBeat 2 renders ' + TB.roadSteps
+        + ' footfalls against dirt at perBeat 1\'s ' + TB.dirtSteps
+        + ' -- the travel time ratio read onto the footfall engine, not a second number typed for ambience');
+    } else { claim('The travel beds were measured', false, d.travelBedsErr || 'no reading'); }
+    if (d.nightInsects) {
+      const NI = d.nightInsects;
+      claim('THE NIGHT\'S INSECTS ARE A CLICK TRAIN, NOT A HISS, AND THEY SIT IN THEIR OWN BAND',
+        NI.noiseSources === 0 && NI.clicks > 300 && NI.lo === 3000 && NI.hi === 6000 && NI.rms > 0.01,
+        NI.clicks + ' discrete clicks (crackleInto, zero noise generators) band-limited to '
+        + NI.lo + '-' + NI.hi + ' Hz, a field cricket\'s own range, rms ' + NI.rms.toFixed(4));
+    } else { claim('Night insects were measured', false, d.nightInsectsErr || 'no reading'); }
+
+    /* ---- THE TITLE'S OWN MUSIC (row [the title's music], 10/5) ---------------- */
+    if (d.titleTheme) {
+      const TT = d.titleTheme;
+      claim('THE TITLE IS DETUNED, A FIXED OFFSET AND NOT THE SAME THING AS WOW',
+        Math.abs(TT.root - TT.canonRoot * TT.detune) < 0.01 && TT.detune !== 1,
+        'rendered root ' + TT.root.toFixed(3) + ' Hz against the canon F3 ' + TT.canonRoot
+        + ' Hz times ' + TT.detune + ' -- a fixed drift, read off the actual render, not a '
+        + 'label on an untouched pitch');
+      claim('AND IT STILL CARRIES THE SAME WOW THE TAPE DECK ALREADY PROVES',
+        TT.wowDepth > 0 && TT.wowRateHz > 0 && TT.wowDepth < 0.01,
+        'wow depth ' + TT.wowDepth + ' at ' + TT.wowRateHz + ' Hz, read back off songOnTape\'s '
+        + 'own output rather than assumed to have survived the mix');
+      claim('AND THE ROOM TONE IS REALLY SUMMED IN, PROVED BY SILENCING IT AND HEARING THE DIFFERENCE',
+        TT.roomChangesTheBuffer === true,
+        'the same theme rendered with the room at rel 0 differs from the real one; a room '
+        + 'that changes nothing when turned off was never in the mix');
+    } else { claim('The title\'s own music was measured', false, d.titleThemeErr || 'no reading'); }
+
+    /* ---- THE SETTLEMENT'S SOUNDS (row [the settlement's sounds], 10/5) ------- */
+    if (d.barberClippers) {
+      const BC = d.barberClippers;
+      claim('THE BARBER\'S CLIPPERS ARE A STRUCK ARMATURE AT MAINS DOUBLE-RATE, NOT A MOTOR TONE',
+        BC.hz === 120 && BC.noiseSources === 0 && BC.synth === 'additive' && BC.machineIsEar
+          && BC.rms > 0.01,
+        BC.hz + ' Hz, zero noise generators, heard directly (EAR), rms ' + BC.rms.toFixed(4));
+    } else { claim('The barber\'s clippers were measured', false, d.barberClippersErr || 'no reading'); }
+    if (d.canOnWood) {
+      const CW = d.canOnWood;
+      claim('A CAN ON THE COUNTER IS TWO MATERIALS, THE WOOD CONTACT AND THE TIN RING, NOT ONE',
+        CW.woodSurface === 'boards' && CW.tinF0 === 740 && CW.machineIsEar && CW.seconds > 0,
+        'objectSetDown on ' + CW.woodSurface + ' summed with struckMetal\'s pipe at ' + CW.tinF0
+        + ' Hz, read off the actual render');
+    } else { claim('A can on the counter was measured', false, d.canOnWoodErr || 'no reading'); }
+    if (d.boardNail) {
+      const BN = d.boardNail;
+      claim('THE BOARD\'S OWN NAIL IS endTurnClick\'S SAME STRIKE, SMALLER AND HIGHER',
+        BN.what === 'pipe' && BN.f0 === 1900 && BN.seconds < 0.1 && BN.machineIsEar,
+        BN.f0 + ' Hz pipe mode, ' + BN.seconds.toFixed(3) + ' s -- shorter and higher than the '
+        + 'bolt catch it is a variation of');
+    } else { claim('The board\'s own nail was measured', false, d.boardNailErr || 'no reading'); }
+    if (d.paperRustle) {
+      const PR = d.paperRustle;
+      claim('PAPER AGAINST THE POST IS A DENSE CLICK TRAIN, BROADBAND, NOT A HISS',
+        PR.noiseSources === 0 && PR.clicks > 300 && PR.lo === 1200 && PR.hi === 8000
+          && PR.machineIsEar && PR.peak > 0.01,
+        PR.clicks + ' discrete creases (crackleInto, zero noise generators) band-limited to '
+        + PR.lo + '-' + PR.hi + ' Hz, peak ' + PR.peak.toFixed(4));
+    } else { claim('Paper against the post was measured', false, d.paperRustleErr || 'no reading'); }
+
+    /* ---- THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (row [the soundscape], 10/9) ---- */
+    if (d.smithHammer) {
+      const SH = d.smithHammer;
+      claim('THE SMITH\'S HAMMER RINGS LOW AND SHORT, AN ANVIL BLEEDING INTO ITS OWN STUMP',
+        SH.what === 'pipe' && SH.f0 === 140 && SH.seconds <= 0.6 && SH.machineIsEar,
+        SH.f0 + ' Hz pipe mode, ' + SH.seconds.toFixed(2) + ' s -- the same free-free bar series '
+        + 'as a held pipe, lower and far shorter because the mass behind it is a bolted anvil');
+    } else { claim('The smith\'s hammer was measured', false, d.smithHammerErr || 'no reading'); }
+    if (d.armourerRivets) {
+      const AR = d.armourerRivets;
+      claim('A RIVET IS SET IN SEVERAL QUICK BLOWS, NOT ONE, AND THE RENDER IS AS LONG AS FOUR STRIKES SAY IT SHOULD BE',
+        AR.what === 'pipe' && AR.f0 === 2600 && AR.strikes === 4 && AR.machineIsEar && AR.peak > 0.01,
+        AR.strikes + ' strikes at ' + AR.f0 + ' Hz, ' + AR.seconds.toFixed(3) + ' s total -- a '
+        + 'pneumatic riveter\'s own working cadence, read off the actual render\'s length');
+    } else { claim('The armourer\'s rivets were measured', false, d.armourerRivetsErr || 'no reading'); }
+    if (d.barGlassDown) {
+      const BG = d.barGlassDown;
+      claim('THE BAR\'S GLASS IS TWO MATERIALS TOO, THE WOOD CONTACT AND THE GLASS\'S OWN RING',
+        BG.woodSurface === 'boards' && BG.glassF0 === 650 && BG.machineIsEar && BG.seconds > 0,
+        'objectSetDown on ' + BG.woodSurface + ' summed with struckMetal\'s new glass mode at '
+        + BG.glassF0 + ' Hz, read off the actual render -- canOnWood\'s own construction, a '
+        + 'second real material');
+    } else { claim('The bar\'s glass was measured', false, d.barGlassDownErr || 'no reading'); }
+    if (d.weaponBlock) {
+      const WB = d.weaponBlock;
+      claim('A BLOCK IS TWO MATERIALS TOO, THE WOOD CONTACT AND THE BLADE\'S OWN PIPE MODE',
+        WB.woodSurface === 'boards' && WB.edgeF0 === 1700 && WB.machineIsEar && WB.seconds > 0,
+        'objectSetDown on ' + WB.woodSurface + ' summed with struckMetal\'s pipe mode at '
+        + WB.edgeF0 + ' Hz, read off the actual render -- canOnWood\'s own construction, a '
+        + 'third time, and the only one of the three that needed no new table entry at all');
+      /* THE REDO LIST'S OWN BAR, READ OFF THE SAME GENERIC ROW EVERY OTHER COOKED SOUND
+         GETS (the for-of loop over H.list() above, which calls measure() on every recipe):
+         1% of its energy above 4 kHz, the criterion records/BOHEMIA_THE_KEEP_REDO_LIST_
+         9_24_26.md 3 sets for "two hard things touching," grounded two orders of magnitude
+         over the shelf's 0.273% median and clear of the frozen block id's own 0.289%. */
+      const BR = d.rows && d.rows['sounds-a-block-is-two-things-touching-10-10'];
+      claim('AND THE BLOCK CLEARS THE REDO LIST\'S OWN BAR, WHICH THE FROZEN ID NEVER DID',
+        !!BR && BR.above4k > 0.01,
+        BR ? (100*BR.above4k).toFixed(2) + '% of its energy sits above 4 kHz, against the '
+          + 'redo list\'s own 1% bar and the frozen block id\'s measured 0.289%' : 'no row');
+    } else { claim('The block was measured', false, d.weaponBlockErr || 'no reading'); }
+    if (d.legendaryFind) {
+      const LF = d.legendaryFind;
+      claim('SOMETHING HERE STILL WORKS IS BOTH ALREADY-SHIPPED MATERIALS, NEITHER ONE NEW',
+        LF.bellF0 === 220 && LF.bellRatiosCount === 8 && LF.machineIsEar && LF.seconds > 0,
+        'struckMetal\'s bell at ' + LF.bellF0 + ' Hz, its full 8-partial founder-tuned series '
+        + '-- the same table entry [bb ambience]\'s hourly chime already uses, no new row '
+        + 'added for this -- summed with powerOnHum, also already shipped');
+      /* THE REAL CLAIM: a sidechain duck is a construction nobody in this file has done
+         before, so its own PRESENCE has to be measured, not assumed from reading the
+         code. Two renders at the duck's own extremes (0 and 0.9) are compared in two
+         windows: right at the strike, where ducking should matter, and two seconds later,
+         where the bell has mostly decayed and there is almost nothing left to duck. */
+      claim('AND THE DUCK IS REAL: the two duck settings sound measurably different right at the strike',
+        LF.earlyDiff > 0.02,
+        'two renders at duckAmount 0 and 0.9 differ by ' + LF.earlyDiff.toFixed(4) + ' rms '
+        + 'in the first 50 ms, where the bell\'s own envelope is near its peak and a real '
+        + 'duck has the most hum to pull back');
+      claim('AND THE DUCK LETS GO: the same two settings converge once the bell has decayed',
+        LF.lateDiff < LF.earlyDiff * 0.5,
+        'the same two renders differ by only ' + LF.lateDiff.toFixed(4) + ' rms two seconds '
+        + 'in, ' + (LF.earlyDiff / Math.max(LF.lateDiff, 1e-9)).toFixed(1) + 'x less than at '
+        + 'the strike -- a real envelope follower releases as the thing driving it quiets '
+        + 'down, it does not hold a fixed cut the whole buffer');
+    } else { claim('Something here still works was measured', false, d.legendaryFindErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

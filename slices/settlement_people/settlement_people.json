@@ -1,0 +1,413 @@
+{
+ "version": "settlement-people-10-9",
+ "built": "10/9/26",
+ "lane": "animation",
+ "rule": "71a, 69",
+ "for_screen": "slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO places them)",
+ "source": "slices/BOHEMIA_ALPHA_0_9.html: famPaintBody (the 112 rig, the runway clothes, the hair bank) and the bank clips idle, smoke, lean, scratch-back, look-around, nod, beckon, haggle, walk",
+ "frame": 112,
+ "figure_bbox": [
+  36,
+  6,
+  42,
+  102
+ ],
+ "rows": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "cols": [
+  "idle@0.0208",
+  "idle@0.1458",
+  "idle@0.2708",
+  "idle@0.3958",
+  "idle@0.5208",
+  "idle@0.6458",
+  "idle@0.7708",
+  "idle@0.8958",
+  "smoke@0.0208",
+  "smoke@0.1458",
+  "smoke@0.2708",
+  "smoke@0.3958",
+  "smoke@0.5208",
+  "smoke@0.6458",
+  "smoke@0.7708",
+  "smoke@0.8958",
+  "lean@0.0208",
+  "lean@0.1458",
+  "lean@0.2708",
+  "lean@0.3958",
+  "lean@0.5208",
+  "lean@0.6458",
+  "lean@0.7708",
+  "lean@0.8958",
+  "scratch-back@0.0208",
+  "scratch-back@0.1458",
+  "scratch-back@0.2708",
+  "scratch-back@0.3958",
+  "scratch-back@0.5208",
+  "scratch-back@0.6458",
+  "scratch-back@0.7708",
+  "scratch-back@0.8958",
+  "look-around@0.0208",
+  "look-around@0.1458",
+  "look-around@0.2708",
+  "look-around@0.3958",
+  "look-around@0.5208",
+  "look-around@0.6458",
+  "look-around@0.7708",
+  "look-around@0.8958",
+  "nod@0.0208",
+  "nod@0.1458",
+  "nod@0.2708",
+  "nod@0.3958",
+  "nod@0.5208",
+  "nod@0.6458",
+  "nod@0.7708",
+  "nod@0.8958",
+  "beckon@0.0208",
+  "beckon@0.1458",
+  "beckon@0.2708",
+  "beckon@0.3958",
+  "beckon@0.5208",
+  "beckon@0.6458",
+  "beckon@0.7708",
+  "beckon@0.8958",
+  "haggle@0.0208",
+  "haggle@0.1458",
+  "haggle@0.2708",
+  "haggle@0.3958",
+  "haggle@0.5208",
+  "haggle@0.6458",
+  "haggle@0.7708",
+  "haggle@0.8958",
+  "walk@0.0208",
+  "walk@0.1458",
+  "walk@0.2708",
+  "walk@0.3958",
+  "walk@0.5208",
+  "walk@0.6458",
+  "walk@0.7708",
+  "walk@0.8958"
+ ],
+ "clips": {
+  "wait": {
+   "clip": "idle",
+   "cols": [
+    "idle@0.0208",
+    "idle@0.1458",
+    "idle@0.2708",
+    "idle@0.3958",
+    "idle@0.5208",
+    "idle@0.6458",
+    "idle@0.7708",
+    "idle@0.8958"
+   ],
+   "beats": 4,
+   "loop": true,
+   "for": "standing at his door or post, breathing",
+   "faces": [
+    "S",
+    "SE",
+    "SW"
+   ]
+  },
+  "smoke": {
+   "clip": "smoke",
+   "cols": [
+    "smoke@0.0208",
+    "smoke@0.1458",
+    "smoke@0.2708",
+    "smoke@0.3958",
+    "smoke@0.5208",
+    "smoke@0.6458",
+    "smoke@0.7708",
+    "smoke@0.8958"
+   ],
+   "beats": 4,
+   "loop": true,
+   "for": "a smoke while nobody comes",
+   "faces": [
+    "S",
+    "SE",
+    "SW"
+   ]
+  },
+  "lean": {
+   "clip": "lean",
+   "cols": [
+    "lean@0.0208",
+    "lean@0.1458",
+    "lean@0.2708",
+    "lean@0.3958",
+    "lean@0.5208",
+    "lean@0.6458",
+    "lean@0.7708",
+    "lean@0.8958"
+   ],
+   "beats": 4,
+   "loop": true,
+   "for": "his shoulder on the wall",
+   "faces": [
+    "S",
+    "SE",
+    "SW"
+   ]
+  },
+  "scratch": {
+   "clip": "scratch-back",
+   "cols": [
+    "scratch-back@0.0208",
+    "scratch-back@0.1458",
+    "scratch-back@0.2708",
+    "scratch-back@0.3958",
+    "scratch-back@0.5208",
+    "scratch-back@0.6458",
+    "scratch-back@0.7708",
+    "scratch-back@0.8958"
+   ],
+   "beats": 4,
+   "loop": true,
+   "for": "a scratch at the shoulder blade",
+   "faces": [
+    "SE",
+    "SW"
+   ]
+  },
+  "look": {
+   "clip": "look-around",
+   "cols": [
+    "look-around@0.0208",
+    "look-around@0.1458",
+    "look-around@0.2708",
+    "look-around@0.3958",
+    "look-around@0.5208",
+    "look-around@0.6458",
+    "look-around@0.7708",
+    "look-around@0.8958"
+   ],
+   "beats": 4,
+   "loop": true,
+   "for": "looking up and down the street",
+   "faces": [
+    "S",
+    "SE",
+    "SW"
+   ]
+  },
+  "greet": {
+   "clip": "nod",
+   "cols": [
+    "nod@0.0208",
+    "nod@0.1458",
+    "nod@0.2708",
+    "nod@0.3958",
+    "nod@0.5208",
+    "nod@0.6458",
+    "nod@0.7708",
+    "nod@0.8958"
+   ],
+   "beats": 2,
+   "loop": true,
+   "for": "the finger nears his building: he looks up at you",
+   "faces": [
+    "S"
+   ]
+  },
+  "beckon": {
+   "clip": "beckon",
+   "cols": [
+    "beckon@0.0208",
+    "beckon@0.1458",
+    "beckon@0.2708",
+    "beckon@0.3958",
+    "beckon@0.5208",
+    "beckon@0.6458",
+    "beckon@0.7708",
+    "beckon@0.8958"
+   ],
+   "beats": 2,
+   "loop": true,
+   "for": "the finger is on his building: come in",
+   "faces": [
+    "S"
+   ]
+  },
+  "trade": {
+   "clip": "haggle",
+   "cols": [
+    "haggle@0.0208",
+    "haggle@0.1458",
+    "haggle@0.2708",
+    "haggle@0.3958",
+    "haggle@0.5208",
+    "haggle@0.6458",
+    "haggle@0.7708",
+    "haggle@0.8958"
+   ],
+   "beats": 4,
+   "loop": true,
+   "for": "his shop is open: the offer, the shrug",
+   "faces": [
+    "S"
+   ]
+  },
+  "walk": {
+   "clip": "walk",
+   "cols": [
+    "walk@0.0208",
+    "walk@0.1458",
+    "walk@0.2708",
+    "walk@0.3958",
+    "walk@0.5208",
+    "walk@0.6458",
+    "walk@0.7708",
+    "walk@0.8958"
+   ],
+   "beats": 2,
+   "loop": true,
+   "for": "the market-day crowd crossing",
+   "faces": [
+    "SE",
+    "SW"
+   ]
+  }
+ },
+ "clips_by": "frame = cols[floor(progress * 8)], progress over beats * 500 ms (the 120 beat)",
+ "scale": {
+  "px_per_metre": 42.9,
+  "person_metres": 1.75,
+  "person_px_in_picture": 75,
+  "draw_frame_at": 82.4,
+  "note": "the figure is 102 of the 112 frame: draw the frame at this many picture px and his feet on the door step"
+ },
+ "looks": {
+  "cast_longcoat": {
+   "file": "cast_longcoat.webp",
+   "name": "longcoat",
+   "kind": "cast"
+  },
+  "cast_barearms": {
+   "file": "cast_barearms.webp",
+   "name": "barearms",
+   "kind": "cast"
+  },
+  "cast_pack": {
+   "file": "cast_pack.webp",
+   "name": "pack",
+   "kind": "cast"
+  },
+  "cast_skirt": {
+   "file": "cast_skirt.webp",
+   "name": "skirt",
+   "kind": "cast"
+  },
+  "cast_widebrim": {
+   "file": "cast_widebrim.webp",
+   "name": "widebrim",
+   "kind": "cast"
+  },
+  "cast_cape": {
+   "file": "cast_cape.webp",
+   "name": "cape",
+   "kind": "cast"
+  },
+  "cast_apron": {
+   "file": "cast_apron.webp",
+   "name": "apron",
+   "kind": "cast"
+  },
+  "cast_poncho": {
+   "file": "cast_poncho.webp",
+   "name": "poncho",
+   "kind": "cast"
+  },
+  "cast_bedroll": {
+   "file": "cast_bedroll.webp",
+   "name": "bedroll",
+   "kind": "cast"
+  },
+  "cast_shorts": {
+   "file": "cast_shorts.webp",
+   "name": "shorts",
+   "kind": "cast"
+  },
+  "cast_satchel": {
+   "file": "cast_satchel.webp",
+   "name": "satchel",
+   "kind": "cast"
+  },
+  "cast_shortcoat": {
+   "file": "cast_shortcoat.webp",
+   "name": "shortcoat",
+   "kind": "cast"
+  },
+  "faction_caravans": {
+   "file": "faction_caravans.webp",
+   "name": "Caravans",
+   "kind": "faction"
+  },
+  "faction_colorful": {
+   "file": "faction_colorful.webp",
+   "name": "Colorful",
+   "kind": "faction"
+  },
+  "faction_anarchists": {
+   "file": "faction_anarchists.webp",
+   "name": "Anarchists",
+   "kind": "faction"
+  },
+  "faction_blues": {
+   "file": "faction_blues.webp",
+   "name": "Blues",
+   "kind": "faction"
+  },
+  "faction_homeless": {
+   "file": "faction_homeless.webp",
+   "name": "Homeless",
+   "kind": "faction"
+  },
+  "faction_church": {
+   "file": "faction_church.webp",
+   "name": "Church",
+   "kind": "faction"
+  },
+  "faction_reds": {
+   "file": "faction_reds.webp",
+   "name": "Reds",
+   "kind": "faction"
+  },
+  "faction_cartel": {
+   "file": "faction_cartel.webp",
+   "name": "Cartel",
+   "kind": "faction"
+  },
+  "faction_trades": {
+   "file": "faction_trades.webp",
+   "name": "Trades",
+   "kind": "faction"
+  },
+  "faction_mob": {
+   "file": "faction_mob.webp",
+   "name": "Mob",
+   "kind": "faction"
+  },
+  "faction_network": {
+   "file": "faction_network.webp",
+   "name": "Network",
+   "kind": "faction"
+  },
+  "faction_volunteers": {
+   "file": "faction_volunteers.webp",
+   "name": "Volunteers",
+   "kind": "faction"
+  },
+  "faction_remnants": {
+   "file": "faction_remnants.webp",
+   "name": "Remnants",
+   "kind": "faction"
+  }
+ },
+ "packed": "lossless WebP, every pixel checked identical to the bake"
+}

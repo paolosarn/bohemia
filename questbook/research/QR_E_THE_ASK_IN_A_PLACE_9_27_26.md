@@ -10,6 +10,7 @@ the first 60 seconds, a mouth with a portrait, and the free no.
 
 STATUS: research only (rule 35). Nothing here is built. Every sentence of dialogue on this page is an
 attempt, draft:true, and the contents (names, lines) are Paolo's to change.
+FOLDED 10/9 (QR-AL): QR-U's rule 17 and the sharpens of rules 3, 7 and 15, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 SWEPT 9/29 (VAMILY rules 38 to 40; questbook/research/QR_W_THE_SHELF_SWEPT_FOR_RULES_38_TO_40_9_29_26.md):
 the close-scale street this page was written for is dead. Nobody walks through the city (rule 38): the city
@@ -365,6 +366,17 @@ first 60 s, never forced (walking past is now not tapping); rule 19: a mouth wit
     per batch stays under a set minority. (`Q148.X3`, `Q148.P4`)
 16. REWARD DOES NOT PICK THE MORAL. Where an ask has a moral fork, the endings pay the same one.
     (`Q004.W4`, `Q097.W10`, `Q108.X2`)
+
+17. THE ASK COMES FROM SOMEONE WHO NEEDS YOU. (folded 10/9 from QR-U) Purpose arrives as a small grounded task from someone who needs
+you, the honest way people re-enter life after catastrophe (`Q235.W4`); the mentor needs you, does not save you
+(`Q235.W8`); a hollow fetch collapses the turn (`Q235.X3`). Test: the first asks of the game are needs, not tests;
+each names what the asker loses if nobody comes.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rules 3 and 7 (the person is doing something; the first line is about them): the vending-machine client is the flaw
+  (`Q236.X3`); the face IS the negotiation interface, and a portrait whose mood shifts per ask makes a number feel like
+  a person's patience (`Q236.W4`). On the offer screen the portrait carries the idle action rule 3 wanted on the street.
+- Rule 15 (one twist, rationed): the small favour that hid the weight is the twist worth rationing (`Q158.W8`).
 
 ## WHAT TO AVOID (the flaws)
 

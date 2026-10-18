@@ -6,7 +6,7 @@ CRISIS: the rocket
 ECONOMY: either
 PLACE: the ridge overlook above the valley, beside the sibling's grave from the first act
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from three locked pieces: the one-way launch "with the player's chosen companions (the ones

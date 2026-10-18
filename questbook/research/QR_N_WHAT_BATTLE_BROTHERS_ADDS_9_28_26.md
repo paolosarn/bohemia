@@ -3,6 +3,7 @@
 QUESTION (row [bb contract study], letter N): Our four contract pages (QR-A the free no, QR-C the twist bank, QR-E the ask in a place, QR-L the pay) were written from the 152-study library before Battle Brothers itself was on the shelf. Now that study #236 exists (filed as 236 because 153 to 235 are already on disk; the law index holds only 1 to 152) (questbook/BOHEMIA_QUESTBOOK_236_BATTLE_BROTHERS_CONTRACTS.md), where do our pages MATCH Battle Brothers, where do we DELIBERATELY DIFFER, and what did we MISS?
 
 STATUS: draft:true, research only, nothing built (rule 35). For RUN, WORLD, ECONOMY, TUNING, UI, WORDS. Battle Brothers facts carry the tags from #236: [V] verified by web search this round, [R] recall. #236 is NOT yet in the law index (see OPEN 1), so its findings are cited here by section (for example #236 W5), never as a Q236 id.
+FOLDED 10/9 (QR-AL): QR-U's rules 11 and 12 and the Q236 confirmations of rules 1 to 10, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -60,6 +61,19 @@ Our pages already agree with Battle Brothers on the bones: a person with a portr
 8. PER HEAD ONLY FOR GROUP KILL JOBS. And capped by the stated group (`Q041.W6`).
 9. AN OFFER LEAVES WHEN ITS SITUATION LEAVES, never because the player said no.
 10. AUTHORED ASKS ARE THE MINORITY. Generated offers are the floor; authored people-in-places are rationed like twists (`Q148.P4`, `Q044.P8`).
+
+11. RENOWN BRINGS BIGGER CLIENTS. (folded 10/9 from QR-U) Renown gates the tiers, so the board is its own progression with no quest
+log (`Q236.W9`). Compatible with QR-O rule 14: renown enriches a board and never locks a screen.
+12. THE CLIENT IS NOT A VENDING MACHINE. (folded 10/9 from QR-U) The elder with a portrait and no want beyond the fee is the flaw
+(`Q236.X3`); every client wants something besides the fee (QR-A C20).
+
+SHARPENED (folded 10/9 from QR-U) (`Q236` is now in the law index, so its ids are cited here):
+- Rules 1 and 2: the hall is a readout of the map (`Q236.W1`), `Q236.W8`, a finished pump job flips the base from dry
+  to running (`Q236.P4`).
+- Rule 3: `Q236.W2`, `Q236.N1` (our count is two; `Q236.W2` is what we differ from).
+- Rule 4: `Q236.W3`. Rule 5: `Q236.P3` (the thrown-out half is ours, `Q236.N3`). Rule 6: `Q236.P2`, `Q236.X1`.
+- Rule 7: `Q236.P5`, `Q236.N3`. Rule 8: `Q236.N3` ("more per head", gated on a kill contract).
+- Rule 10: no hidden jobs behind charm; the board IS the town's need (`Q236.N1`).
 
 ## WHAT TO AVOID (the flaws)
 

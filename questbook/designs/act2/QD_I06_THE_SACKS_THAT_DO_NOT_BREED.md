@@ -43,4 +43,4 @@ The sacks leak seed onto the caravan's yard every day, and nothing ever comes up
 ## FLAWS IT AVOIDS
 `Q129.X5` (the opaque timer: the field's six days are on the screen and on the map), `Q142.X3` (the clock fights the talking: nothing closes during a conversation), `Q121.X1` (a choice cosmetic in its own game: Act 3 reads it), `Q134.X2` (a refusal with no content: C is a full ending).
 
-CHECKLIST: passes all 30 (line 2 read with the 9/28 amendment).
+CHECKLIST: passes all 32 (line 2 read with the 9/28 amendment). (QR-AM 10/10: lines 31 and 32 run, pass as written)

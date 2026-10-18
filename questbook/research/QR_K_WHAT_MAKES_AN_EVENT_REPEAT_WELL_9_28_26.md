@@ -5,6 +5,7 @@ resolves in records/BOHEMIA_QUESTBOOK_LAW_INDEX.json. The Battle Brothers facts 
 reference/library/battle_brothers/08_CONTRACTS_EVENTS.md (a recall volume; the library has no Battle Brothers study).
 Companion designs: questbook/designs/*/QD_K01 to QD_K10, one per QR-B shape, each written as a second use of a shape
 the first shelf already used (or a first use where the shelf had none).
+FOLDED 10/9 (QR-AL): QR-U's rule 14 and the sharpens of rules 2, 5 and 7, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 QUESTION: When an event SHAPE is reused many times over a hundred hours, the Battle Brothers way, what does the
 library say keeps it fresh instead of turning it into a vending machine? Variation by who, where and what state;
@@ -195,6 +196,18 @@ the third, sixth and ninth must do that the first did not.
    36), so a changed company changes the events. (`Q043.W2`, `Q046.W9`)
 13. THE WRONG DETAIL IS PER INSTANCE, NEVER A SET. No two instances share their wrong detail, and no wrong detail is a
    reliable tell for the twist version (it appears in both versions or neither). (Our analog horror law; see OPEN 3.)
+
+14. THE PARANOIA SHAPE. (folded 10/9 from QR-U) Isolated and threatened, people suspect each other (`Q233.W5`); isolate them,
+convince them a threat is among them, and they destroy each other, at any scale (`Q233.W7`). A company event shape (a
+theft in camp during a long siege or a snowed-in road) that reads the roster and has no villain. Test: the shape fires
+only on a stalled company and names two members from the roster.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 2 (authored flesh on a shared skeleton): the quiet-encounter shape collapses into one sentimental template
+  unless the lives vary, funny, prickly, boring, evasive (`Q202.X2`); done well, the weight of many teaches that every
+  corner holds a world (`Q202.W8`).
+- Rule 5 (ration the twist): `Q236.X2`, a second study for the template problem.
+- Rule 7 (the second fire knows the first): most harm resets; one grievance sticks, and later fires read it (`Q153.P3`).
 
 ## HOW THE TEN K DESIGNS APPLY IT (a worked check)
 | design | shape | second use of | what varies it (rule) |

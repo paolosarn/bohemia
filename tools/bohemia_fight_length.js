@@ -30,7 +30,10 @@ const N = +process.argv[2] || 3, CAP = (+process.argv[3] || 300) * 1000, MODE = 
     for (let k = 0; k < N; k++) {
       const r = await fr.evaluate(async ({ seed, cap, mode }) => {
         const sleep = ms => new Promise(r => setTimeout(r, ms));
-        BohemiaArena.set(seed); setupCombat(); await sleep(600);
+        /* EVERY FIGHT STARTS AT FULL HEALTH, through the game's own restart (fullResetCombat). Until 10/1 this called
+           setupCombat alone, which keeps the last fight's health: fights 2 and 3 of every run started at 0 and
+           died to the first hit, so their short times were this tool's, not the game's. */
+        BohemiaArena.set(seed); if (typeof fullResetCombat === 'function') fullResetCombat(); else { G.pHP = G.pMax || 100; setupCombat(); } G.pHP = G.pMax || 100; await sleep(600);
         const t0 = performance.now(); let shots = 0, steps = 0, pops = 0, holds = 0; const seen = {};
         const DIRS = [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
         const live = () => (G.e || []).filter(e => e && !e.dead && !e.downed && !e.fleeing && !e.broken);

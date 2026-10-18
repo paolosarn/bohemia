@@ -7,7 +7,7 @@ PLACE: the solar field home base (town tier); the job is rows four to nine of th
 SITUATION: a dust storm buried six panel rows just as the dam road started buying the field's surplus, and thirty storm refugees are sleeping between the rows -> the rows are clean, the field's charge price falls one for a refresh, and the thirty either work, walk on to the wash camp, or are swept around
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The dam road has started buying the field's surplus, which makes this a boom week for the Trades. Then a dust storm put six rows under sand. Clean, those rows are the field's whole month. In rows four and five, thirty people from the wash sheltered from the storm behind the panels and have not left. The field's own crew will not sweep around them.

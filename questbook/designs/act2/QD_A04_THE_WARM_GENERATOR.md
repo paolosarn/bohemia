@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a night market in a gutted casino parking structure, level three; the delivery runs across town to a clinic
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1); bends 12 on purpose: this design exists to show TAKEN AND DROPPED, the one path that is a deed, so the way out at the porch is a drop with a debt, not a priced refusal that finishes (`Q040.W10`). Fixed in place: 1 (the lie has a tell), 21 and 30 (d, the kind finish at the full fee; QR-X had passed this, but no kind branch paid in full), 28 (flags and saves named).
+CHECKLIST: passes 31 of 32 (QR-AC line-by-line run, 10/1); bends 12 on purpose: this design exists to show TAKEN AND DROPPED, the one path that is a deed, so the way out at the porch is a drop with a debt, not a priced refusal that finishes (`Q040.W10`). Fixed in place: 1 (the lie has a tell), 21 and 30 (d, the kind finish at the full fee; QR-X had passed this, but no kind branch paid in full), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHOWS: TAKEN AND DROPPED, the one path that is a deed, priced honestly (C10, C13, C16). This is the minority twist.
 
 ## THE SITUATION

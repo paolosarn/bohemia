@@ -47,4 +47,4 @@ That night in the city view, the feed shows a new post from his account: a photo
 ## FLAWS IT AVOIDS
 `Q105.X5` (the offscreen goodbye), `Q137.X5` (the plaque funeral), `Q129.X9` (the company says nothing), `Q125.X7` (loot in the grave), `Q144.X2` (death as lost progress: no stat talk on this screen at all).
 
-CHECKLIST: passes all 30. Line 26 (one warm or funny beat) is carried by choice C's jacket and the passing road line; line 12 is not applicable to an event.
+CHECKLIST: passes all 32. Line 26 (one warm or funny beat) is carried by choice C's jacket and the passing road line; line 12 is not applicable to an event. (QR-AM 10/10: lines 31 and 32 run, pass as written)

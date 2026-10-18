@@ -5,7 +5,7 @@ CRISIS: the earth-side nuke (act 2); the rocket (act 3)
 ECONOMY: either
 PLACE: two home bases on the east side, a reclaimed hospital and a water treatment plant; one of them is TAKEN by a raider band in the gap between acts
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 12 met by choice C in act 3.
+CHECKLIST: passes all 32. Line 12 met by choice C in act 3. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 THE FUTURE GOES BOTH WAYS, the TAKEN version (QD-Q09 is the ruined version). In act 2, during the nuke scare, two bases ask the family for the same week of protection through two contracts in two halls. The family can take one (or neither). The one without the family is taken by a raider band. In act 3 the taken base is a raider home base: working, walled, and cruel. Its people did not leave. They work for the band.

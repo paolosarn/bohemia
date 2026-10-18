@@ -254,14 +254,14 @@ drafted by WORDS, draft:true.
 ### 3.5 Across three generations
 1. Each generation has its own ambitions; the founder's are about surviving the ruin, the second's about holding and
    rebuilding, the third's about leaving and healing (the three eras' tones).
-2. WHEN THE GENERATION TURNS (the transition, default at the first home base) with an ambition open, it is NOT carried
+2. WHEN THE GENERATION TURNS (the transition, unlocked when the first endgame crisis starts, rule 85, around day 80 to 100) with an ambition open, it is NOT carried
    as a task. At the heir's first fire, the company's voice offers it as one of the three: "Your abuela wanted a wall
    around the pump house. She never got it." The heir may take it or say "Not now" (nothing written, as always).
 3. INHERITED AMBITIONS KEEP THEIR PROGRESS (the wall half-built stays half-built on the base, `Q147.W7`), so the heir
    finishes it rather than restarting it, and the reward names both: "the wall your grandmother started".
 4. SOME AMBITIONS EXIST ONLY FOR HEIRS (`Q144.N1` later unlocks): they are drawn only if a prior generation did a named
    deed (killed the lion, held the dam road, found the lab's door). A founder cannot conceive of them.
-5. THE THREE ACTS ARE OPEN AT ONCE after the flip unlocks: an ambition the founder finished changes what act 2 offers
+5. THE THREE ACTS ARE OPEN AT ONCE after the flip unlocks (rule 85, the first endgame crisis): an ambition the founder finished changes what act 2 offers
    (a held block in act 1 is a held block in act 2, the future derived from the past); an ambition dropped in act 1
    can be offered in act 2 as "the one they gave up on". The ledger holds the fact; the offer is always optional.
 6. THE AMALGAMATION'S OFFER: in act 2 or 3, once an inherited ambition exists, the Network may offer (through its

@@ -314,11 +314,13 @@ member, because the beast fights; this page cross-references him and does not co
 ### 3.6 Across three generations: THE HEIRS OF FOLLOWERS
 This is where Bohemia goes past Battle Brothers. A Battle Brothers follower is ageless and the campaign is one
 generation. Ours age (the third votes' random lifespans), and the household is the chamberlain class (`Q152.P4`).
-1. FOLLOWERS AGE. Each follower is generated with a lifespan (DYNASTY and TUNING). Most reach the generation turn; some
-   do not. A follower never dies in a fight (they never fight) and never dies to a random roll mid-act; they die old,
-   or at the turn, or leave by their own choice.
+1. FOLLOWERS AGE BETWEEN ACTS, NOT INSIDE ONE (rule 84, 10/10: an act is about a year, 300 to 450 days). Each follower
+   is generated with a lifespan (DYNASTY and TUNING) that is read only at the generation turn. Inside an act nobody
+   visibly ages and nobody dies of age; a follower never dies in a fight (they never fight); they are found old, or
+   gone, when the next act opens, or they leave by their own choice.
 2. EVERY FOLLOWER CAN HAVE AN HEIR: a child, a niece, an apprentice. The heir is visible during the parent's life (a kid
-   at the fire, then a teenager handing the medic the tape). Raising the follower's heir costs a little (one FOOD share,
+   at the fire handing the medic the tape; the same kid, never grown inside the act, rule 84: the grown heir is met
+   only when the next act opens). Raising the follower's heir costs a little (one FOOD share,
    `Q144.N2` at small scale) and the player can see it happening.
 3. AT THE GENERATION TURN, each follower's heir OFFERS to take the place for the player's heir. It is the same offer
    screen, never automatic: "My mother cooked for your grandfather. I cook better. Same price." The heir may say Not
@@ -331,7 +333,7 @@ generation. Ours age (the third votes' random lifespans), and the household is t
    heir never saw (`Q084.W2`).
 6. A FOLLOWER LINE CAN END. No heir, or the heir says no to you (because the parent was treated badly, `Q081.W4`, or
    starved). The gap is felt (`Q144.W3`), and the empty place is visible at the fire.
-7. THE THREE ACTS ARE OPEN AT ONCE after the flip unlocks: a follower hired in act 1 makes their heir available in act 2,
+7. THE THREE ACTS ARE OPEN AT ONCE after the flip unlocks (rule 85: when the act's first endgame crisis starts, around day 80 to 100): a follower hired in act 1 makes their heir available in act 2,
    the future derived from the past; a follower line that ended in act 1 means act 2's camp lacks it, and the place it
    would have been is empty. The ledger holds the fact; the hire is always optional.
 8. THE AMALGAMATION'S FOLLOWER: once in act 2 or 3, after a follower line has ended by death, the Network offers (through

@@ -111,7 +111,7 @@ const done = () => {
        can be stood on and is three to six blocks of route away. */
     const near = await fr.evaluate(() => {
       const c = document.getElementById('cv'), r = c.getBoundingClientRect();
-      const kx = c.width / r.width, ky = c.height / r.height;
+      const kx = (window.CVW || c.width) / r.width, ky = (window.CVH || c.height) / r.height;   /* CSS pixels: the backing store is the phone pixels on the map (10/1) */
       let best = null;
       for (let sy = 60; sy < r.height - 60; sy += 9) for (let sx = 20; sx < r.width - 20; sx += 9) {
         const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
@@ -146,7 +146,7 @@ const done = () => {
     ok('the marker walked the route on its own, one block a beat', trips.length >= 3 || hands > 0);
     const wrong = trips.filter(t => t.paid == null || Math.abs(t.paid - t.owed) > 1e-9);
     ok('*** EVERY TRAVELLED BLOCK CHARGED EXACTLY ITS OWN GROUND\'S MINUTES *** ('
-       + (trips.length - wrong.length) + ' of ' + trips.length + ')', trips.length > 0 && wrong.length === 0);
+       + (trips.length - wrong.length) + ' of ' + trips.length + (wrong.length ? '; off: ' + JSON.stringify(wrong.slice(0, 3)) : '') + ')', trips.length > 0 && wrong.length === 0);
     if (hands === 0) {
       ok('*** THE SHORT JOURNEY ARRIVED *** and said so', arrived && /^Arrived/.test(line));
       const at = await fr.evaluate(() => [city.x, city.y]);
@@ -160,7 +160,7 @@ const done = () => {
     if (hands === 0) {
       const far = await fr.evaluate(() => {
         const c = document.getElementById('cv'), r = c.getBoundingClientRect();
-        const kx = c.width / r.width, ky = c.height / r.height;
+        const kx = (window.CVW || c.width) / r.width, ky = (window.CVH || c.height) / r.height;   /* CSS pixels: the backing store is the phone pixels on the map (10/1) */
         let best = null;
         for (let sy = 60; sy < r.height - 60; sy += 13) for (let sx = 20; sx < r.width - 20; sx += 13) {
           const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;

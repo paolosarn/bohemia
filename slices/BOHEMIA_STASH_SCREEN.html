@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bohemia Stash</title>
+<!--
+  THE STASH SCREEN (RUN TWO, row [the stash screen], 10/10/26).
+  A tap on the bar's six opens this: each supply with its count and what it means in days.
+  THE SIX (rule 47a, his order): batteries, food, meds, rounds, tape, water.
+  EVERY RATE IS ECONOMY's, from records/target/bb/stash_rates.json and price_table.json's dailyRates
+  (the wiki's Provisions, Medical Supplies, Tools and Supplies pages); this file only divides:
+    food   : headcount x 2 a day (foodPerManPerDay) x the ground you stand on (foodByTerrain)
+    meds   : 1 a day per open injury (medicine.pointsPerInjuryPerDay); nobody hurt = nothing spent
+    batteries: the wage, each man's backgrounds.json daily wage / 10, paid at noon
+    rounds : spent only in a fight (ammo.costPerShot; a gun is the handgonne's 2), so it reads in shots
+    tape   : spent on repair, 15 durability a point (toolDurabilityRepairedPerTool), so it reads in repair
+    water  : NO RATE in the data yet (ECONOMY owes it); shown as a count, never a made-up day
+  The icons are UI's drawn objects (slices/bohemia_ui_materials.js supplyIcon).
+  IN : postMessage {type:'BOHEMIA_STASH_OPEN', six:{...}, crew:[{name, wage}], terrain, injuries,
+        hour, difficulty, nextTown:{name, sells:[good...]}}
+       and {type:'BOHEMIA_SETTLEMENT', act:'buy', good} (the stall) lands its unit here.
+  OUT: {type:'BOHEMIA_STASH', act:'done'|'day', six}
+-->
+<style>
+:root{--bg:#120e0a;--plate:#2a2119;--plate2:#1c1611;--ink:#e9dcc4;--dim:#a8977c;--gold:#d9a85a;--line:#3a2f24;--red:#d0604a}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13px/1.35 ui-monospace,Menlo,Consolas,monospace;-webkit-tap-highlight-color:transparent;user-select:none}
+#bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:max(8px,env(safe-area-inset-top)) 12px 8px;background:var(--plate2);border-bottom:1px solid var(--line)}
+#bar .t{flex:1;font-weight:700;letter-spacing:1px;color:var(--gold)}
+#done{min-width:76px;min-height:44px;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700}
+.h{margin:12px 12px 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
+#six{margin:0 12px;display:grid;gap:6px}
+.sup{display:flex;align-items:center;gap:10px;min-height:56px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(#241c15,#1a140f);box-shadow:inset 0 1px 0 rgba(255,235,200,.08),0 2px 0 #000}
+.sup img{width:30px;height:30px;image-rendering:pixelated;flex:0 0 30px}
+.sup .nm{flex:1}
+.sup .nm b{display:block;letter-spacing:1px}
+.sup .nm i{display:block;font-style:normal;color:var(--dim);font-size:11px}
+.sup .ct{font-size:20px;font-weight:700;color:var(--gold);min-width:44px;text-align:right}
+.sup .dl{min-width:78px;text-align:right;font-size:12px}
+.sup .dl.low{color:var(--red)}
+.sup.flash{outline:2px solid var(--gold)}
+#wage,#next{margin:8px 12px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--plate2)}
+#next ul{margin:4px 0 0;padding-left:18px}
+#said{margin:8px 12px 24px;color:var(--dim);font-size:11px;min-height:16px}
+</style>
+</head>
+<body>
+<div id="bar"><span class="t">THE STASH</span><button id="done">DONE</button></div>
+<div class="h">WHAT YOU CARRY, AND HOW LONG IT LASTS AT YOUR CREW'S RATE</div>
+<div id="six"></div>
+<div id="wage"></div>
+<div id="next"></div>
+<div id="said"></div>
+<script src="bohemia_ui_materials.js"></script>
+<script>
+'use strict';
+var SIX = ['batteries','food','meds','rounds','tape','water'];
+var LABEL = {batteries:'BATTERIES', food:'FOOD', meds:'MEDS', rounds:'ROUNDS', tape:'TAPE', water:'WATER'};
+var GOODMAP = {food:'food', water:'water', meds:'meds', rounds:'rounds', tape:'tape', batteries:'batteries'};
+var R = null, P = null;
+var S = {six:{batteries:30, food:24, meds:4, rounds:36, tape:6, water:8}, crew:null, terrain:'plains', injuries:0, hour:8, difficulty:'veteran',
+  nextTown:null, ready:false, standalone:(window.parent===window)};
+function post(act, extra){ var m = Object.assign({type:'BOHEMIA_STASH', act:act, six:Object.assign({}, S.six)}, extra||{});
+  window.__stashLog = window.__stashLog || []; window.__stashLog.push(m);
+  if(!S.standalone) try{ window.parent.postMessage(m,'*'); }catch(e){} }
+function say(t){ document.getElementById('said').textContent = t; }
+function icon(k){ try{ if(window.BohemiaMaterials && BohemiaMaterials.supplyIcon) return BohemiaMaterials.supplyIcon(k); }catch(e){} return ''; }
+function headcount(){ return S.crew ? S.crew.length : 0; }
+function wageTotal(){ return (S.crew||[]).reduce(function(s, m){ return s + (m.wage||0); }, 0); }
+/* the day's spend, counts consumed (ECONOMY's engine/bohemia_stash.js daySpend, same files, same arithmetic) */
+function perDay(){
+  var mult = R.foodByTerrain[S.terrain]; if(typeof mult !== 'number') mult = R.foodByTerrain.plains;
+  return { food: headcount() * P.dailyRates.foodPerManPerDay.value * mult,
+           meds: S.injuries * R.medicine.pointsPerInjuryPerDay,
+           batteries: wageTotal() };
+}
+function daysLeft(k){ var d = perDay()[k]; if(d == null) return null; if(!(d > 0)) return Infinity; return Math.floor((S.six[k]||0) / d); }
+function line(k){
+  var d = perDay(), n = S.six[k]||0;
+  if(k === 'food') return {what:headcount() + ' mouths, ' + d.food + ' a day on ' + S.terrain, left:daysLeft('food')};
+  if(k === 'meds') return {what:S.injuries ? S.injuries + ' hurt, ' + d.meds + ' a day or they do not heal' : 'nobody hurt, nothing spent', left:daysLeft('meds')};
+  if(k === 'batteries') return {what:'the wage, ' + d.batteries + ' at noon', left:daysLeft('batteries')};
+  if(k === 'rounds'){ var c = R.ammo.costPerShot.handgonne; return {what:'spent in a fight, ' + c + ' a shot', shots:Math.floor(n / c)}; }
+  if(k === 'tape') return {what:'fixes ' + (n * P.dailyRates.toolDurabilityRepairedPerTool.value) + ' armour, ' + P.dailyRates.toolDurabilityRepairedPerTool.value + ' a roll', repair:true};
+  return {what:'no daily rate yet', none:true};
+}
+function draw(){
+  var el = document.getElementById('six'); el.textContent = '';
+  SIX.forEach(function(k){
+    var L = line(k), row = document.createElement('div'); row.className = 'sup'; row.dataset.s = k;
+    var im = document.createElement('img'); im.alt = ''; var src = icon(k); if(src) im.src = src; row.appendChild(im);
+    var nm = document.createElement('div'); nm.className = 'nm'; var b = document.createElement('b'); b.textContent = LABEL[k]; var i = document.createElement('i'); i.textContent = L.what; nm.appendChild(b); nm.appendChild(i); row.appendChild(nm);
+    var ct = document.createElement('div'); ct.className = 'ct'; ct.textContent = S.six[k]||0; row.appendChild(ct);
+    var dl = document.createElement('div'); dl.className = 'dl';
+    if(L.left !== undefined){ dl.dataset.days = L.left === Infinity ? 'inf' : L.left; dl.textContent = L.left === Infinity ? 'NOT SPENT' : L.left + (L.left === 1 ? ' DAY' : ' DAYS'); if(L.left !== Infinity && L.left <= 2) dl.className += ' low'; }
+    else if(L.shots !== undefined) dl.textContent = L.shots + ' SHOTS';
+    else if(L.repair) dl.textContent = 'REPAIR';
+    else dl.textContent = '–';
+    row.appendChild(dl); el.appendChild(row);
+  });
+  var w = document.getElementById('wage'), due = wageTotal(), hrs = (12 - S.hour + 24) % 24;
+  w.textContent = 'WAGE DUE AT NOON: ' + due + ' BATTERIES for ' + headcount() + ' men' + (hrs ? ', in ' + hrs + ' hours.' : ', now.') + (S.six.batteries < due ? ' YOU ARE SHORT ' + (due - S.six.batteries) + '.' : '');
+  var nx = document.getElementById('next'); nx.textContent = '';
+  var h = document.createElement('div'); nx.appendChild(h);
+  if(S.nextTown && S.nextTown.sells && S.nextTown.sells.length){
+    h.textContent = 'THE NEXT TOWN, ' + S.nextTown.name + ', SELLS:';
+    var ul = document.createElement('ul'); S.nextTown.sells.forEach(function(g){ var li = document.createElement('li'); li.textContent = (LABEL[g]||g).toLowerCase(); ul.appendChild(li); }); nx.appendChild(ul);
+  } else h.textContent = 'NO ROAD PICKED. Tap a town on the map to see what it sells.';
+}
+/* a day on the road: the clock spends exactly perDay() (gate: the days-left number matches the spend) */
+function day(){
+  var d = perDay();
+  ['food','meds','batteries'].forEach(function(k){ S.six[k] = Math.max(0, Math.round(((S.six[k]||0) - d[k]) * 100) / 100); });
+  draw(); post('day', {spent:d}); return d;
+}
+/* the stall's buy lands here, one unit of the good it named */
+function land(good, n){ var k = GOODMAP[good]; if(!k) return false; S.six[k] = (S.six[k]||0) + (n||1); draw();
+  var row = document.querySelector('.sup[data-s="' + k + '"]'); if(row){ row.classList.add('flash'); setTimeout(function(){ row.classList.remove('flash'); }, 600); }
+  say('Bought ' + LABEL[k].toLowerCase() + '. It is in the stash.'); return true; }
+function open(o){
+  o = o || {};
+  if(o.six) S.six = Object.assign({}, S.six, o.six);
+  if(Array.isArray(o.crew)) S.crew = o.crew;
+  if(!S.crew) S.crew = DEFAULT_CREW.slice();
+  ['terrain','injuries','hour','difficulty','nextTown'].forEach(function(k){ if(o[k] !== undefined) S[k] = o[k]; });
+  S.ready = true; draw();
+}
+var DEFAULT_CREW = [];
+Promise.all([fetch('../records/target/bb/stash_rates.json').then(function(r){ return r.json(); }),
+             fetch('../records/target/bb/price_table.json').then(function(r){ return r.json(); }),
+             fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); }),
+             fetch('../records/target/bb/backgrounds.json').then(function(r){ return r.json(); })])
+  .then(function(a){ R = a[0]; P = a[1];
+    /* the starting crew, each at his background's wiki wage / 10, the roster's own rule */
+    DEFAULT_CREW = a[2].crew.value.map(function(c){ var bg = a[3].rows.filter(function(r){ return r.id === c.background; })[0] || {};
+      return {name:c.name, wage:Math.max(1, Math.round((bg.daily_wage || 10) / 10))}; });
+    open({}); })
+  .catch(function(e){ say('THE STASH DID NOT LOAD: ' + e.message); });
+window.BohemiaStashScreen = {open:open, state:S, perDay:function(){ return perDay(); }, daysLeft:daysLeft, day:day, land:land};
+window.addEventListener('message', function(e){ var d = e.data||{};
+  if(d.type === 'BOHEMIA_STASH_OPEN') open(d);
+  if(d.type === 'BOHEMIA_SETTLEMENT' && d.act === 'buy') land(d.good, 1); });
+document.getElementById('done').addEventListener('click', function(){ post('done'); say('Back to the road.'); });
+</script>
+</body>
+</html>

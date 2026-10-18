@@ -1,0 +1,102 @@
+THE APPROVED CORPUS, OUT TO PNG, BY FAMILY -- MEASURED
+(COOK [the pack is the twin] round 1, 10/10/26; rules 82, 82a, 87)
+==============================================================================
+
+PAOLO 10/10: "all the art assets you made look like AI slop, take inspiration from the
+assets we downloaded, we are extremely far off." And then: "the cars is an asset we
+downloaded; a lot of the original street tiles and sidewalks we downloaded; LOOK AGAIN."
+
+HE WAS RIGHT AND THE ASSETS WERE ALWAYS HERE. They are the purchased HD packs taken in
+on 7/7 and judged by him in the 7/13 sweep: 2,604 tiles looked at one by one, 1,927 of
+them marked UP. They have been sitting in four bank files as base64 the whole time,
+which is why nobody was looking at them. THEY ARE FILES NOW.
+
+WHAT CAME OUT:
+  door          30 tiles   doors, gates and arches
+  ground       391 tiles   terrain and desert: dirt, grass, water, rock, dead trees
+  lamp          47 tiles   lamps, fire barrels and what still burns
+  marking       67 tiles   what is painted or spilled ON the ground: warnings, hazards, blood
+  prop         784 tiles   props and the cars: crates, barrels, trash, tools, furniture, bones
+  road         290 tiles   streets, sidewalks, kerbs and the floors you walk on
+  settlement   318 tiles   houses and their skins: roofs, walls, windows, fences, stalls, ruins
+  TOTAL       1927 tiles   31.7 MB, and reference/ is excluded from the site so it costs the
+                            published page nothing.
+
+EVERY TILE IS NAMED BY THE KEY HE JUDGED IT UNDER, pack and index, so a twin line can
+say pack:<pack>#<idx> and the vote gate checks that key against his own sweep. The map
+from key to file is reference/art_bank/CORPUS.json. One CONTACT SHEET a family, sectioned
+by pack, at the tiles' own pixels and never scaled, because a resampled reference is not
+the reference.
+
+*** NOT ONE TILE DIRECTION ALREADY PLACED WAS MOVED. *** Their 10/10 round sampled twenty
+packs into road, ground, prop and settlement and said in its own docstring that COOK owns
+extracting the whole corpus. Those twenty keep the family they gave them, even where I
+would have filed one elsewhere: their warning signs sit in prop and I would have called
+them markings. Two tools disagreeing about where a tile lives is worse than either answer.
+The other sixty-four packs are assigned here and THE BUILD REFUSES IF ONE OF THE 84 IS
+UNASSIGNED, because a bucket that quietly swallows what the rules did not name is how a
+corpus turns into a pile.
+
+NAMES IN THE MAP THAT MATCH NO APPROVED PACK (reported, not hidden): 1. Ground Tiles, 1. Marble floor tiles, 11. Fences and gates, 4. House wall tiles, 6. Stone paths and roads
+
+THE THREE DIFFERENCES, MEASURED, NOT GUESSED. This lane has written "his has more detail"
+before and it is worth nothing: it cannot be checked and it does not say what to change.
+His 24 street tiles against every street and sidewalk cell in our own approved 7/28
+starter set:
+  COLOURS PER TEN THOUSAND PIXELS      his  5131.4   ours    36.7   (140 times over)
+  COLOURS TO COVER HALF THE TILE       his    1121   ours       2
+  HOW FAR A DARK MARK RUNS (of width)  his    4.2%   ours    7.4%
+
+ALL THREE ARE RATIOS ON PURPOSE. The first cut of this measurement used raw counts, so
+a 96 px pack tile beside a whole contact sheet read "his 5,120 pixels, ours 2,405,520".
+Both numbers true, both meaningless. A measurement that compares the wrong two things is
+worse than no measurement, because it looks like evidence.
+  OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell.
+
+THE SECOND NUMBER IS THE ONE THAT EXPLAINS HIM. It takes a couple of colours to cover
+half of one of our tiles and hundreds to cover half of one of his. That is what "looks
+like AI slop" is actually describing: a surface made of a handful of flat values. It is
+a fair reading of our own tiles and not an insult.
+
+AND THE FINDING THE THREE NEW CHATS NEED BEFORE THEY START. The 87 packs were drawn by
+MANY HANDS. Battle Brothers reads as one world because every tile in a biome came from
+one hand and one palette, so a road tile and a forest tile belong to each other before
+either is placed. Ours will NOT do that by itself: laying pack tiles straight down will
+give a board that is sharper than what we cook and still incoherent. The coherence has
+to come from a weather, wear and light pass of our own ON TOP, which is exactly what rule
+82a already says ("placed, flipped, weathered, recoloured INSIDE the pack's palette").
+COOK TWO and COOK FOUR: that pass is your first problem, not an afterthought.
+
+*** AND PLUMBER'S BOUNCE-BACK IS ANSWERED IN THE SAME ROUND (rule 8: his bugs beat the
+*** queue). Three sheets this lane registered carry no reference twin, which rule 82 now
+requires. A twin is not a line of prose, it is HIS tile beside ours and three
+differences, so each was measured against a pack tile of its own kind:
+  cook-the-far-end-as-tiles-10-10    twin pack:3. Grass and ground tiles#1
+      - COLOURS PER TEN THOUSAND PIXELS: his 8104.3, ours 2799.5. Ours is built from six-step ramps, so it bands where his reads as a surface.
+      - COLOURS TO COVER HALF THE PICTURE: his 2801, ours 17. He bought a surface; we drew a palette.
+      - HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 2.8%, ours 9.3%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell.
+  cook-the-building-props-10-10      twin pack:15. Street props#0
+      - COLOURS PER TEN THOUSAND PIXELS: his 4819.0, ours 9.5. Ours is built from six-step ramps, so it bands where his reads as a surface.
+      - COLOURS TO COVER HALF THE PICTURE: his 267, ours 2. He bought a surface; we drew a palette.
+      - HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 1.2%, ours 7.8%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell.
+  cook-his-block-as-a-place-10-10    twin pack:5. Roof tiles#1
+      - COLOURS PER TEN THOUSAND PIXELS: his 6090.1, ours 113.8. Ours is built from six-step ramps, so it bands where his reads as a surface.
+      - COLOURS TO COVER HALF THE PICTURE: his 964, ours 4. He bought a surface; we drew a palette.
+      - HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 4.1%, ours 4.0%. The marks run about the same length. The difference is in the two numbers above it, not in this one.
+
+MEASURED THIS RUN:
+  OK   EVERY TILE HE JUDGED UP IS OUT AS A PNG: 1927 of the 1927 in his own 7/13 sweep
+  OK   EVERY APPROVED PACK HAS A FAMILY AND NONE WAS SWALLOWED BY A BUCKET: 84 packs over 7 families
+  OK   door          30 tiles  doors, gates and arches
+  OK   ground       391 tiles  terrain and desert: dirt, grass, water, rock, dead trees
+  OK   lamp          47 tiles  lamps, fire barrels and what still burns
+  OK   marking       67 tiles  what is painted or spilled ON the ground: warnings, hazards, blood
+  OK   prop         784 tiles  props and the cars: crates, barrels, trash, tools, furniture, bones
+  OK   road         290 tiles  streets, sidewalks, kerbs and the floors you walk on
+  OK   settlement   318 tiles  houses and their skins: roofs, walls, windows, fences, stalls, ruins
+  OK   NOTHING DIRECTION ALREADY PLACED WAS MOVED: their 19 packs keep the family their own 10/10 tool gave them
+  OK   EVERY TILE IS KEYED THE WAY HE JUDGED IT, so a twin can cite it and the gate can check it: 1927 keys of the form pack:<pack>#<idx>
+  OK   EVERY KEY IS A FILE ON DISK (1927 checked)
+  OK   NOTHING WAS RESIZED ON THE WAY OUT: the biggest tile is 96x96, his masters are capped at 96
+  OK   AND THE SHELF IS NOT ON THE SITE: reference/ is excluded in _config.yml, so 31.7 MB of his tiles cost the published page nothing
+  OK   THE NAMES IN THE MAP THAT MATCH NO APPROVED PACK ARE REPORTED, NOT HIDDEN: 5 (1. Ground Tiles, 1. Marble floor tiles, 11. Fences and gates, 4. House wall tiles, 6. Stone paths and roads)

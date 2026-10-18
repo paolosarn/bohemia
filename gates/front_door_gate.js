@@ -26,6 +26,7 @@
    node gates/front_door_gate.js
    ============================================================================ */
 'use strict';
+const { throughTheTitle } = require(require('path').join(__dirname, '..', 'tools/bohemia_through_the_title.js'));   /* rule 66: the title is in front of the door now */
 const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 
@@ -56,6 +57,7 @@ function requirePlaywright() {
 
   try {
     await page.goto('file://' + ALPHA);
+    await throughTheTitle(page);   /* __THE_START_SCREEN__: a stranger presses NEW GAME first, then meets this door as before */
     await SETTLE(page, 6000);
 
     const front = await page.evaluate(() => {

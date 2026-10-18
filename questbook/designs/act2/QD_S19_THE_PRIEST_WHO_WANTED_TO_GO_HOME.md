@@ -7,7 +7,7 @@ PLACE: the chapel town and clinic home base (town tier); the job is a coffin car
 SITUATION: a death: the chapel's priest of forty years died and asked to be buried in his home town, and the chapel stops its services until a new priest comes -> he is buried at home (or in the chapel yard), a new priest rides back with the truck from his home town, and the chapel's board resumes with a service guard offer
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Father Anselmo kept the chapel for forty years through the worst of it. He died in his sleep. He asked, a long time ago and in front of witnesses, to be buried in the farm town he came from, two days east, past the line the Destroyers held in the first act. The chapel is between priests and its services have stopped. The town is in mourning, and the board shows it: one offer, this one.

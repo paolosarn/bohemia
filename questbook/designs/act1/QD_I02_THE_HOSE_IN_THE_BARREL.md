@@ -43,4 +43,4 @@ One door on the street carries a fresh chalk mark every morning, and nobody in t
 ## FLAWS IT AVOIDS
 `Q148.X2` (investigations that cannot fail: this one can), `Q128.X2` (silent failure: the chalk count is the tell), `Q081.X4` (a firehose of names: one client, two neighbours), `Q074.X5` (reading-required: the rule is said once, aloud).
 
-CHECKLIST: passes all 30 (line 2 read with the 9/28 amendment).
+CHECKLIST: passes all 32 (line 2 read with the 9/28 amendment). (QR-AM 10/10: lines 31 and 32 run, pass as written)

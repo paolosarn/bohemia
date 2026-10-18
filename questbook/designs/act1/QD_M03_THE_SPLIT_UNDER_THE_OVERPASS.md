@@ -46,4 +46,4 @@ There are six cells in the pile when the screen opens, and the fight's log said 
 ## FLAWS IT AVOIDS
 `Q126.X5` (the chorus), `Q109.X4` (a company that never collides), `Q137.X2` (loyalty as a forever fuse: every effect lasts three fights), `Q043.X2` (no nagging, one line each).
 
-CHECKLIST: passes all 30. Line 12 reads as choice C (walking away from the fire costs nothing and finishes the scene); line 18 not triggered.
+CHECKLIST: passes all 32. Line 12 reads as choice C (walking away from the fire costs nothing and finishes the scene); line 18 not triggered. (QR-AM 10/10: lines 31 and 32 run, pass as written)

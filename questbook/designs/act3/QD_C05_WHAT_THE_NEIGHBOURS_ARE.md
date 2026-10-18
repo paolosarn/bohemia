@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: a glass tower apartment with working lifts in a rebuilt district, and the courtyard it overlooks
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 12 (stop after night one), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 12 (stop after night one), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 TWIST: T20 THE CLIENT'S FEAR IS THE JOB (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs STANDING or A PERSON. Lands AT HAND-IN, pays out ACTS LATER.
 
 ## THE SITUATION

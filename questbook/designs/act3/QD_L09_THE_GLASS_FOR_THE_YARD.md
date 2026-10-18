@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL09
 FIRST-LINE: FL04
 TWIST: T28 THE TRAITOR IS A VICTIM (costs a person)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; line 17 does not apply; line 18 does not apply: nothing is planted for another act)
+CHECKLIST: passes all 32 (line 2 read under the 9/28 ruling; line 17 does not apply; line 18 does not apply: nothing is planted for another act) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, cyberpunk healing, but a local bust: the glass buyers in the reclaimed quarter defaulted, and the kilns fired a whole run of heat-shield tiles for the rocket on credit. The kiln master has one buyer left who pays on delivery: the rocket yard itself. Two days across the salt. He sends his own scout, Rafa, who has guided the company twice before. Rafa owes a debt crew. They hold his sister until he pays, and his price is the glass.

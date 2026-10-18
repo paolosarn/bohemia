@@ -7,7 +7,7 @@ PLACE: the solar field town, a part of the city the family holds in act 2 (rule 
 SITUATION: a surplus of power (QR-S situation 9), MADE BY A BUILD: the family built a charge shed on the field's lot, and the depot's trucks now reroute to charge here -> the co-op gets cells at a fair price, the field's board grows by one offer while the shed stands, and the brightness pulls a party
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 BUILD: this contract was WRITTEN BY A BUILD. No shed, no offer. The shed costs 16 batteries and 4 map days; it was built before this offer could exist.
 
 ## THE SITUATION

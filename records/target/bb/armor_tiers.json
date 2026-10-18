@@ -1,0 +1,267 @@
+{
+ "_about": "CHARACTER [armour you can see], 10/9/26. Every armor.json row sorted into one of four Battle Brothers tiers (padded, leather, mail, plate) by durability quartile -- the data has no tier field, so the method is the real stat the wiki gives every row, split into four equal buckets, never hand-typed per item. body: 78 rows / 4 = 20/20/19/19. head: 87 rows / 4 = 22/22/22/21.",
+ "_method": "quartile by durability, ascending, equal count (remainder to the earliest buckets)",
+ "body_tiers": {
+  "PADDED": {
+   "durability_range": [
+    5,
+    50
+   ],
+   "count": 20,
+   "ids": [
+    "tattered_sackcloth",
+    "sackcloth",
+    "linen_tunic",
+    "cloth_sash",
+    "leather_wraps",
+    "monk_s_robe",
+    "noble_tunic",
+    "wizard_s_robe",
+    "apron",
+    "butcher_s_apron",
+    "undertaker_s_apron",
+    "leather_tunic",
+    "thick_furs",
+    "nomad_robe",
+    "dark_thick_tunic",
+    "thick_tunic",
+    "gladiator_harness",
+    "animal_hide_armor",
+    "padded_surcoat",
+    "thick_nomad_robe"
+   ]
+  },
+  "LEATHER": {
+   "durability_range": [
+    55,
+    105
+   ],
+   "count": 20,
+   "ids": [
+    "rugged_surcoat",
+    "dark_rugged_surcoat",
+    "padded_vest",
+    "wanderer_s_coat",
+    "gambeson",
+    "leather_nomad_robe",
+    "reinforced_animal_hide_armor",
+    "blotched_gambeson",
+    "linothorax",
+    "scrap_metal_armor",
+    "padded_leather",
+    "stitched_nomad_armor",
+    "cultist_leather_robe",
+    "patched_mail_shirt",
+    "leather_lamellar_armor",
+    "hide_and_bone_armor",
+    "reinforced_leather_armor",
+    "direwolf_hide_armor",
+    "ancient_mail",
+    "plated_nomad_mail"
+   ]
+  },
+  "MAIL": {
+   "durability_range": [
+    110,
+    180
+   ],
+   "count": 19,
+   "ids": [
+    "southern_mail_shirt",
+    "worn_mail_shirt",
+    "basic_mail_shirt",
+    "assassin_s_robe",
+    "ancient_double_layer_mail",
+    "ancient_scale_harness",
+    "mail_shirt",
+    "mail_with_lamellar_plating",
+    "ancient_breastplate",
+    "direwolf_mail_armor",
+    "leather_scale_armor",
+    "rugged_scale_armor",
+    "adorned_mail_shirt",
+    "mail_hauberk",
+    "noble_mail",
+    "light_scale_armor",
+    "heavy_iron_armor",
+    "decayed_reinforced_mail_hauberk",
+    "ancient_plated_mail_hauberk"
+   ]
+  },
+  "PLATE": {
+   "durability_range": [
+    190,
+    320
+   ],
+   "count": 19,
+   "ids": [
+    "footman_s_armor",
+    "ancient_scale_coat",
+    "adorned_warrior_s_armor",
+    "southern_long_mail_shirt_with_padding",
+    "ancient_plate_harness",
+    "reinforced_mail_hauberk",
+    "ancient_plated_scale_hauberk",
+    "lamellar_harness",
+    "thick_plated_barbarian_armor",
+    "scale_armor",
+    "decayed_coat_of_scales",
+    "heraldic_hauberk",
+    "sellsword_s_armor",
+    "decayed_coat_of_plates",
+    "heavy_lamellar_armor",
+    "padded_mail_and_lamellar_hauberk",
+    "adorned_heavy_mail_hauberk",
+    "coat_of_scales",
+    "coat_of_plates"
+   ]
+  }
+ },
+ "head_tiers": {
+  "PADDED": {
+   "durability_range": [
+    10,
+    45
+   ],
+   "count": 22,
+   "ids": [
+    "mouthpiece",
+    "headscarf",
+    "hood",
+    "straw_hat",
+    "nomad_head_wrap",
+    "southern_head_wrap",
+    "hunter_s_hat",
+    "feathered_hat",
+    "leather_headband",
+    "engineer_s_hat",
+    "gunner_s_hat",
+    "jester_s_hat",
+    "cultist_hood",
+    "undertaker_s_hat",
+    "witchhunter_s_hat",
+    "dark_cowl",
+    "assassin_s_head_wrap",
+    "aketon_cap",
+    "open_leather_cap",
+    "leather_head_wrap",
+    "desert_stalker_s_head_wrap",
+    "full_leather_cap"
+   ]
+  },
+  "LEATHER": {
+   "durability_range": [
+    50,
+    125
+   ],
+   "count": 22,
+   "ids": [
+    "full_aketon_cap",
+    "nomad_leather_cap",
+    "bear_headpiece",
+    "blade_dancer_s_head_wrap",
+    "cultist_leather_hood",
+    "nomad_light_helmet",
+    "physician_s_mask",
+    "duelist_s_hat",
+    "rusty_mail_coif",
+    "mail_coif",
+    "closed_mail_coif",
+    "ancient_household_helmet",
+    "reinforced_mail_coif",
+    "nasal_helmet",
+    "wrapped_southern_helmet",
+    "leather_helmet",
+    "heavy_mail_coif",
+    "padded_dented_nasal_helmet",
+    "kettle_hat",
+    "sallet_helmet",
+    "masked_kettle_helmet",
+    "flat_top_helmet"
+   ]
+  },
+  "MAIL": {
+   "durability_range": [
+    125,
+    210
+   ],
+   "count": 22,
+   "ids": [
+    "nordic_helmet",
+    "spiked_skull_cap_with_mail",
+    "nomad_reinforced_helmet",
+    "padded_nasal_helmet",
+    "beastmaster_s_headpiece",
+    "ancient_legionary_helmet",
+    "assassin_s_face_mask",
+    "padded_kettle_hat",
+    "nasal_helmet_with_rusty_mail",
+    "crude_metal_helmet",
+    "padded_flat_top_helmet",
+    "zweihander_s_helmet",
+    "crude_faceguard_helmet",
+    "closed_flat_top_helmet",
+    "closed_and_padded_flat_top",
+    "ancient_honor_guard_helmet",
+    "barbute_helmet",
+    "closed_scrap_metal_helmet",
+    "nasal_helmet_with_mail",
+    "steppe_helmet_with_mail",
+    "southern_helmet_with_coif",
+    "bascinet_with_mail"
+   ]
+  },
+  "PLATE": {
+   "durability_range": [
+    215,
+    320
+   ],
+   "count": 21,
+   "ids": [
+    "kettle_hat_with_mail",
+    "gladiator_helmet",
+    "flat_top_with_mail",
+    "decayed_closed_flat_top_with_mail",
+    "covered_decayed_closed_flat_top_with_mail",
+    "nasal_helmet_with_closed_mail",
+    "decayed_full_helm",
+    "adorned_closed_flat_top",
+    "kettle_hat_with_closed_mail",
+    "heavy_horned_plate_helmet",
+    "heavy_lamellar_helmet",
+    "decayed_great_helm",
+    "nordic_helmet_with_closed_mail",
+    "conic_helmet_with_closed_mail",
+    "flat_top_with_closed_mail",
+    "conic_helmet_with_faceguard",
+    "closed_flat_top_with_mail",
+    "turban_helmet",
+    "adorned_full_helm",
+    "full_helm",
+    "decorated_full_helm"
+   ]
+  }
+ },
+ "skins": {
+  "PADDED": {
+   "base": "OLIVE HOODIE"
+  },
+  "LEATHER": {
+   "base": "OLIVE HOODIE",
+   "outer": "LEATHER JACKET",
+   "head": "CHARCOAL WATCH CAP"
+  },
+  "MAIL": {
+   "base": "OLIVE HOODIE",
+   "outer": "TACTICAL VEST",
+   "head": "DESERT SHEMAGH"
+  },
+  "PLATE": {
+   "base": "OLIVE HOODIE",
+   "outer": "TACTICAL VEST",
+   "gear": "SCRAP CHEST PLATE",
+   "head": "SCRAP HELM",
+   "back": "SHOULDER MANTLE"
+  }
+ }
+}

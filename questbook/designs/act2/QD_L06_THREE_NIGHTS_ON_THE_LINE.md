@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL07
 FIRST-LINE: FL01
 TWIST: none (the wire strippers are wire strippers)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 32 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a bust year. The power share reaches the west side on one pole line. At night, crews cut the copper and sell it by weight. Every cut is a brownout for six hundred houses. The line warden has no crew left who will walk it at night. This is the patrol contract: walk the line three nights and keep it whole.

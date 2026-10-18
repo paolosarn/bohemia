@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a reclaimed urgent-care clinic on East Charleston; a take-a-number counter on the wall and a queue on the sidewalk (PL03, THE QUEUE, and PL14, THE STATION THAT IS TOO NORMAL)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (the counter read 9 and 8 at once; now 8), 9 (road, alley, or cart), 10 and 23 (a lost fight has a result), 12 (hold nine for him), 28 (flags and saves named); rule 51 applied (it sits beside one other contract).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (the counter read 9 and 8 at once; now 8), 9 (road, alley, or cart), 10 and 23 (a lost fight has a result), 12 (hold nine for him), 28 (flags and saves named); rule 51 applied (it sits beside one other contract). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2: the clinic is open again, which is new, and medicine moves through it on a number system. The

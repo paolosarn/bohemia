@@ -1249,6 +1249,27 @@
       levels: [1.00, 0.92, 0.78, 0.60, 0.42],
       f0: 196, damp: 0.08, secs: 5.0, hit: 0.0007,
       why: 'a length of steel pipe, struck: the free-free bar series, which is not a chord'
+    },
+    /* GLASS IS NOT METAL, BUT THIS FUNCTION NEVER CARED: it is a generic struck-resonator
+       engine (a half-sine force pulse, a bank of decaying modes, saturate, fade), and a
+       drinking glass is just another material with its own real numbers. A GLASS IS THE
+       ONE ENTRY IN THIS TABLE WITH ONE PARTIAL, AND THAT IS ITS OWN REAL CHARACTER: a
+       struck tumbler's well-known "singing" quality is one clear pitch, not a chord --
+       unlike the bell's tuned stack or the pipe's clangy inharmonic series. Glass also
+       loses far less energy than bronze or steel per cycle (it is why a glass harmonica
+       works at all), so the damping here is set BELOW the pipe's own 0.08%, the lowest
+       figure already in this table. ENGINEERING ESTIMATES, STATED AS SUCH: f0 (a bar
+       tumbler's struck tone commonly falls in the few-hundred-Hz range; 650 is the middle
+       of that range, not a measured glass) and damp (lower than pipe's because glass is
+       the lower-loss material, but far above an isolated suspended crystal's figure,
+       because this glass sits on a counter and is held by a hand, the same contact-
+       damping reasoning the pipe entry already uses). hit is shorter than the pipe's
+       because glass is the stiffer contact of the two. */
+    glass: {
+      ratios: [1.0],
+      levels: [1.00],
+      f0: 650, damp: 0.05, secs: 1.2, hit: 0.0004,
+      why: 'a drinking glass, struck: one clear pitch, which is the real character a bell\'s chord and a pipe\'s clangy stack do not have'
     }
   };
   function struckMetal(ctx, opts) {
@@ -1328,6 +1349,38 @@
       shortestTailSeconds: tails.length ? tails[tails.length - 1].tailSeconds : null,
       fadeMs: 200,
       why: k.why
+    };
+  }
+
+  /* ==== 5c. THE TURN CLOSES (row [one song and the volumes], 10/4) ===============
+     Rule 54b's demo-only row asks for "the end-turn" on COMBAT's rebuilt fight, from
+     real material, no sand. There is no sound on that button at all right now: the
+     fight's own placeholder SND object (slices/BOHEMIA_FIGHT.html) never wired one.
+     A TURN ENDING IS A SMALL STEEL PART ENGAGING, NOT A CHIME. struckMetal's 'pipe'
+     material is already a published free-free-bar series (REUSE-FIRST, no new modal
+     math); heard for 90 ms instead of the full 5 s a pipe actually rings for, it is
+     the first bright instant of that same strike and nothing invented. f0 is raised
+     from the pipe's own 196 Hz to 1400 Hz because a bolt catch or a ratchet pawl is a
+     much smaller, stiffer part than a pipe somebody is holding, and a smaller part's
+     modes sit higher -- the same relation GROUND's own materials use (stiffer/smaller
+     rings higher), applied here by ear rather than a fourth material table for one
+     click. secs is short enough that struckMetal's own 200 ms end-fade covers the
+     WHOLE buffer, so what plays is a clean rise-and-fall with no chopped edge, built
+     out of the strike's true bright modes rather than a separate envelope pasted over
+     noise. NOT WIRED LIVE THIS ROUND: every other new sound this lane has ever cooked
+     stayed out of the real game until he thumbed it (unjudged = silent is the bank's
+     own law, bohemia_sfx.js); this keeps that line rather than making itself the one
+     exception because it is small. */
+  function endTurnClick(ctx, opts) {
+    opts = opts || {};
+    var secs = opts.secs == null ? 0.09 : opts.secs;
+    var f0 = opts.f0 == null ? 1400 : opts.f0;
+    var m = struckMetal(ctx, { what: 'pipe', f0: f0, secs: secs });
+    return {
+      buffer: m.buffer, machine: m.machine, seconds: m.seconds, what: 'pipe',
+      noiseSources: 0, f0: f0, secs: secs,
+      why: 'a small steel catch, struck and heard before it has time to ring like a pipe: ' +
+        'the turn closing the way a bolt drops into its notch'
     };
   }
 
@@ -1526,6 +1579,372 @@
   function footstepWalkConcrete(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'concrete', perBeat: 1 })); }
   function footstepWalkWood(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'boards', perBeat: 1 })); }
   function footstepRunConcrete(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'concrete', perBeat: 2 })); }
+
+  /* ==== 13d. THE MAP IN MOTION (row [the map's sounds], 10/5) =====================
+     Rule 54b: "the party's steps on asphalt and on dirt (two beds, the road faster)."
+     Both are footstepWalk, already real material and already proven never to repeat a
+     footfall -- the only question travel asks of it is TEMPO, and footstepWalk already
+     answers that with perBeat (one footfall a beat walking, two running). A paved road
+     moves the party faster than open dirt (the same relation THE OVERWORLD IS BATTLE
+     BROTHERS already costs in travel time, roughly halved on a road), so the road bed is
+     perBeat 2 and the dirt bed stays perBeat 1 -- no new number, the game's own ratio
+     read onto the footfall engine instead of a second one typed for ambience alone.
+     LOOPS, because a travel bed plays for as long as the clock takes to cross the block,
+     not for a fixed six beats; the caller decides how many. */
+  function travelRoadBed(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'asphalt', perBeat: 2 })); }
+  function travelDirtBed(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'dirt', perBeat: 1 })); }
+
+  /* ==== 13e. THE NIGHT HAS INSECTS (row [the map's sounds], 10/5) =================
+     Rule 54b: "the night's insects." A cricket's chirp is not a hiss, it is
+     STRIDULATION -- a wing scraping a wing, mechanically a train of short clicks, the
+     same real mechanism crackleInto already models for the broadcast's distant
+     lightning (REUSE-FIRST, no second click generator). Run far denser (many insects
+     calling, not one distant strike) and band-limited to where a cricket actually
+     sits: a field cricket's calling song carries a tone centred in the low kHz, commonly
+     measured around 4 to 5 kHz for the familiar temperate species, so the band here is
+     3000 to 6000 Hz -- nowhere near the broadcast's own band (100 to 5000 Hz, an AM
+     transmitter's) and nowhere near a footstep's (under a kHz). Still zero noise
+     generators: crackleInto places discrete half-sine clicks at known times, which is
+     exactly what one insect's leg stroke is. */
+  function nightInsects(ctx, opts) {
+    opts = opts || {};
+    var secs = opts.secs == null ? 4.0 : opts.secs;
+    var sr = ctx.sampleRate, n = Math.round(sr * secs);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var rate = opts.ratePerSec == null ? 90 : opts.ratePerSec;
+    var seed = opts.seed == null ? 20261005 : opts.seed;
+    var events = crackleInto(d, n, sr, rate, 0.9, seed, 0);
+    bandTo(d, n, 3000, 6000, sr, 8);
+    normalise(d, n, 0.8);
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: secs, clicks: events.length, lo: 3000, hi: 6000,
+      noiseSources: 0,
+      why: 'many insects as a dense click train (crackleInto, the same mechanism the '
+        + 'broadcast\'s lightning uses), band-limited to 3 to 6 kHz, a field cricket\'s own range'
+    };
+  }
+
+  /* ==== 13b. THE TITLE'S OWN MUSIC (row [the title's music], 10/5) ===============
+     PAOLO 10/5: "I wish there was cool main menu music... everything we do has to
+     follow this analog horror aesthetic." Rule 66a names the pieces: tape hiss and
+     wow, a mains hum, a detuned slow theme, the room tone of the power authority's
+     last camera (RUN's new start screen IS that camera).
+     EVERY PIECE ALREADY EXISTS, REUSE-FIRST, DOWN TO THE LETTER. songThroughSpeaker
+     already built an original warm phrase (minor pentatonic, patient, a bass under
+     it) run through an AM transmitter's band with its own hiss and two drop-outs;
+     songOnTape already runs that same phrase through wowFlutter, the slipping-tape
+     deck this lane proved in round 5 (0.35% at 1.4 Hz, inside the real wow-and-
+     flutter range a worn consumer cassette actually measures). That is three of the
+     four pieces, already built and already this lane's own composition, not the
+     MUSIC tab's content (MECHANISM-MINE: this treats a phrase, it does not touch
+     the MUSIC tab's songs or its vote). roomHum is the fourth: its own comment
+     already calls it "the room the loading sits in" -- the power authority's own
+     camera, named before this row ever existed, because the loading screen and the
+     new start screen are the same kind of in-world machine.
+     DETUNED IS A SEPARATE REAL CAUSE FROM WOW, AND BOTH ARE ASKED FOR BY NAME. Wow
+     is the motor moving NOW, a wobble around a centre; detuned is an instrument
+     that drifted off true pitch and stayed there, a fixed offset with no motion in
+     it at all -- an old tape deck's bias long since wandered off spec. So the root
+     is a fixed 3% flat of the canon F3 (174.61 Hz, standard 12-TET) before any of
+     the wobble is added, which is the one number this function adds that the three
+     reused pieces do not already carry.
+     THE TEMPO IS A THEME'S, NOT THE BEAT'S, AND IT IS STILL 120 BPM FRIENDLY: twice
+     the master beat (1.0 s instead of 0.5 s) is a theme felt as half speed while
+     staying an exact multiple of the grid everything else in this game is
+     quantised to -- a phrase that could still hand off on a beat boundary if the
+     start screen ever needed it to. */
+  function titleTheme(ctx, opts) {
+    opts = opts || {};
+    var beats = opts.beats == null ? 32 : opts.beats;        /* four passes of the 8-note phrase */
+    var beat = opts.beat == null ? BEAT * 2 : opts.beat;      /* half speed, still a clean multiple of BEAT */
+    var detune = opts.detune == null ? 0.97 : opts.detune;    /* 3% flat: drifted, not wobbling */
+    var root = (opts.root == null ? 174.61 : opts.root) * detune;
+    var song = songOnTape(ctx, { beats: beats, beat: beat, root: root,
+      depth: opts.wowDepth, rate: opts.wowRate, band: opts.band });
+    var room = roomHum(ctx, { rel: opts.roomRel == null ? ROOM_REL_SHIPPED : opts.roomRel });
+    var sr = ctx.sampleRate, n = song.buffer.length;
+    var sd = song.buffer.getChannelData(0), rd = room.buffer.getChannelData(0), rn = rd.length;
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = sd[i] + rd[i % rn];
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: song.machine, seconds: n / sr,
+      root: song.root, detune: detune, canonRoot: opts.root == null ? 174.61 : opts.root,
+      wowDepth: song.wowDepth, wowRateHz: song.wowRateHz,
+      dropouts: song.dropouts, roomRel: room.rel,
+      why: 'the warm phrase on a slipping, detuned deck, through the dead broadcast, '
+        + 'with the room the loading sits in underneath it'
+    };
+  }
+
+  /* ==== 13b2. THE SETTLEMENT ANSWERS THE FINGER (row [the settlement's sounds], 10/5) ====
+     Rule 54b, rule 71a. Each building taps back before its label does: the barber's
+     clippers, the stall's can on wood, the posts' paper, the board's nail. Every one
+     is a REUSE of a primitive this lane already built; the only new work is which real
+     mechanism each tap is. "The clinic's door" needs nothing new at all -- door_open and
+     door_shut are already approved, frozen bank events (bohemia_sfx.js), so that one is
+     wired live below rather than cooked here. */
+
+  /* A CLIPPER IS A VIBRATING ARMATURE, NOT A MOTOR SPINNING. A mains-driven clipper (the
+     kind that has not needed a battery since before this valley died) uses an
+     electromagnet that pulls the blade once every half-cycle of the AC line -- twice a
+     cycle, so at 60 Hz mains that is 120 Hz, a published, real number, the same family
+     this lane's generator and sign hums already use. The strike against the stop at each
+     end is why it buzzes instead of humming clean: a rich harmonic stack, not one partial. */
+  function barberClippers(ctx, opts) {
+    opts = opts || {};
+    return harmonicHum(ctx, {
+      secs: opts.secs == null ? 3.0 : opts.secs,
+      hz: opts.hz == null ? 120 : opts.hz,
+      parts: opts.parts || [[1, 1.0], [2, 0.55], [3, 0.38], [4, 0.22], [5, 0.12]],
+      why: 'a vibrating-armature clipper, the blade struck against its stop twice every '
+        + 'mains cycle: 120 Hz and a buzzy stack of harmonics, not a clean tone'
+    });
+  }
+
+  /* A CAN SET DOWN ON A COUNTER IS TWO MATERIALS, ONE CONTACT. The same heel-strike
+     physics footstepModelled already uses for a boot on a slab applies here to a boot's
+     own cousin -- a rigid object landing on a surface -- so the wood gets objectSetDown
+     unmodified, just told which ground it is (boards, already in GROUND). What a boot
+     does not have is a thin metal shell ringing on top of the thump, which is what makes
+     a can a can: struckMetal's own 'pipe' modes, shorter and higher than a held pipe
+     because a tin can is far smaller and lighter. */
+  function canOnWood(ctx, opts) {
+    opts = opts || {};
+    var wood = objectSetDown(ctx, { surface: 'boards', variant: opts.variant });
+    var tin = struckMetal(ctx, { what: 'pipe', f0: opts.f0 == null ? 740 : opts.f0,
+      secs: opts.tinSecs == null ? 0.22 : opts.tinSecs });
+    var sr = ctx.sampleRate;
+    var wd = wood.buffer.getChannelData(0), td = tin.buffer.getChannelData(0);
+    var n = Math.max(wd.length, td.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (i < wd.length ? wd[i] : 0) * 0.7 + (i < td.length ? td[i] : 0) * 0.55;
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: wood.machine, seconds: n / sr, woodSurface: wood.surface, tinF0: tin.f0,
+      why: 'a tin can\'s own thin ring (struckMetal\'s pipe modes, short and high) landing on '
+        + 'the stall\'s wood counter (objectSetDown on boards) -- the same contact two ways at once'
+    };
+  }
+
+  /* A TACK PINNING A CARD IS THE SAME STRIKE endTurnClick ALREADY USES, SMALLER. A nail's
+     point is a far smaller, stiffer thing than a bolt catch, so it rings even higher and
+     dies even faster -- the same published pipe series, raised further and heard for even
+     less of it, which is the whole reason this is a variation on that function's own
+     numbers and not a new material. */
+  function boardNail(ctx, opts) {
+    opts = opts || {};
+    var f0 = opts.f0 == null ? 1900 : opts.f0;
+    var secs = opts.secs == null ? 0.05 : opts.secs;
+    var m = struckMetal(ctx, { what: 'pipe', f0: f0, secs: secs });
+    return {
+      buffer: m.buffer, machine: m.machine, seconds: m.seconds, what: 'pipe', f0: f0,
+      why: 'a tack pinning a card to the board: the same strike endTurnClick uses, smaller '
+        + 'and higher -- a nail\'s point instead of a bolt catch\'s whole jaw'
+    };
+  }
+
+  /* PAPER CRINKLING IS MANY TINY CREASES, NOT A HISS. The same discrete-click mechanism
+     the broadcast's lightning and the night's insects already use (crackleInto, REUSE-
+     FIRST a third time on a third real cause), run dense and wide: a crease catching and
+     releasing is a broadband transient, not a tone, so the band here is wide (1.2 to 8
+     kHz) rather than the insects' narrow calling-song band. */
+  function paperRustle(ctx, opts) {
+    opts = opts || {};
+    var secs = opts.secs == null ? 1.5 : opts.secs;
+    var sr = ctx.sampleRate, n = Math.round(sr * secs);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var rate = opts.ratePerSec == null ? 420 : opts.ratePerSec;
+    var seed = opts.seed == null ? 20261005 : opts.seed;
+    var events = crackleInto(d, n, sr, rate, 0.7, seed, 0);
+    bandTo(d, n, 1200, 8000, sr, 8);
+    normalise(d, n, 0.75);
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: secs, clicks: events.length, lo: 1200, hi: 8000,
+      noiseSources: 0,
+      why: 'many tiny paper creases catching and releasing (crackleInto, the same mechanism '
+        + 'the broadcast\'s lightning and the night\'s insects use), broadband 1.2 to 8 kHz the '
+        + 'way real paper crinkle actually spreads'
+    };
+  }
+
+  /* ==== 13b3. THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (row [the soundscape], 10/9) ====
+     Rule 80a, Paolo's own words: "the clinking of someone making disorder" at the smith and
+     the armourer. Both REUSE struckMetal's own free-free bar series (the same one boardNail
+     already uses), never a new material -- what changes is the mass behind the strike and
+     the cadence it is struck at, which is the real difference between a forge and a rivet
+     gun, not a new recipe. */
+
+  /* AN ANVIL IS A MASSIVE, WELL-COUPLED BLOCK, SO IT RINGS LOW AND BRIEF. A pipe somebody is
+     holding keeps most of a free blow's energy in the bar; an anvil bolted to a stump bleeds
+     it into the ground almost at once, so the same inharmonic series rings for a fraction of
+     a pipe's own tail and the fundamental sits low (a heavy mass, not a thin bar). */
+  function smithHammer(ctx, opts) {
+    opts = opts || {};
+    var m = struckMetal(ctx, { what: 'pipe', f0: opts.f0 == null ? 140 : opts.f0,
+      secs: opts.secs == null ? 0.6 : opts.secs });
+    return {
+      buffer: m.buffer, machine: m.machine, seconds: m.seconds, what: 'pipe', f0: opts.f0 == null ? 140 : opts.f0,
+      why: 'the same free-free bar series struckMetal already uses for a held pipe, low and '
+        + 'short: an anvil is a massive block bolted to a stump, so the ring bleeds into the '
+        + 'ground almost at once instead of hanging the way a handheld length of steel does'
+    };
+  }
+
+  /* A RIVET IS SET IN SEVERAL QUICK, SMALL BLOWS, NOT ONE. A rivet's own metal is tiny and
+     stiff, so each blow rings even higher and shorter than boardNail's tack; what makes it a
+     rivet gun and not one tap is the cadence, four strikes at a pneumatic hammer's working
+     rate rather than a single hit. */
+  function armourerRivets(ctx, opts) {
+    opts = opts || {};
+    var f0 = opts.f0 == null ? 2600 : opts.f0;
+    var hitSecs = opts.hitSecs == null ? 0.035 : opts.hitSecs;
+    var strikes = opts.strikes == null ? 4 : opts.strikes;
+    var gapSec = opts.gapSec == null ? 0.09 : opts.gapSec;
+    var sr = ctx.sampleRate;
+    var one = struckMetal(ctx, { what: 'pipe', f0: f0, secs: hitSecs });
+    var od = one.buffer.getChannelData(0), ol = od.length;
+    var total = Math.round(sr * (gapSec * (strikes - 1))) + ol;
+    var buf = ctx.createBuffer(1, total, sr), d = buf.getChannelData(0);
+    var i, k, off;
+    for (k = 0; k < strikes; k++) {
+      off = Math.round(sr * gapSec * k);
+      for (i = 0; i < ol && off + i < total; i++) d[off + i] += od[i];
+    }
+    normalise(d, total, 0.85);
+    return {
+      buffer: buf, machine: one.machine, seconds: total / sr, what: 'pipe', f0: f0, strikes: strikes,
+      why: 'the same tiny, stiff pipe mode boardNail uses for a tack, raised higher still, struck '
+        + 'four times at a rivet gun\'s own working cadence -- a rivet is set in several quick '
+        + 'blows, never one'
+    };
+  }
+
+  /* ==== 13b4. THE BAR'S GLASS (row [the soundscape], 10/10) ========================
+     Rule 80a's own list names "the bar's murmur and glass"; the murmur is a crowd of
+     voices and this lane's whole palette is struck, resonant and particle material,
+     never a faked voice, so that half stays the standing gap every bar row in this
+     lane has named. The glass half has no voice in it at all, so it builds. THE SAME
+     CONSTRUCTION canOnWood ALREADY USES: a contact landing on the counter (objectSetDown,
+     REUSED whole, zero new ground math) summed with a material's own ring (struckMetal,
+     REUSED whole, one new table entry: glass). A bar counter is wood the same way the
+     stall's counter is (REUSE-FIRST: no new surface either). */
+  function barGlassDown(ctx, opts) {
+    opts = opts || {};
+    var wood = objectSetDown(ctx, { surface: 'boards', variant: opts.variant });
+    var glass = struckMetal(ctx, { what: 'glass', f0: opts.f0 == null ? 650 : opts.f0,
+      secs: opts.glassSecs == null ? 1.2 : opts.glassSecs });
+    var sr = ctx.sampleRate;
+    var wd = wood.buffer.getChannelData(0), gd = glass.buffer.getChannelData(0);
+    var n = Math.max(wd.length, gd.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (i < wd.length ? wd[i] : 0) * 0.65 + (i < gd.length ? gd[i] : 0) * 0.6;
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: wood.machine, seconds: n / sr, woodSurface: wood.surface, glassF0: glass.f0,
+      why: 'a glass\'s own single clear pitch (struckMetal\'s new glass mode) landing on the '
+        + 'bar\'s wood counter (objectSetDown on boards) -- the same contact two ways at once '
+        + 'canOnWood already uses for the tin can'
+    };
+  }
+
+  /* ==== 13b5. THE BLOCK (row [not sand], the keep/redo list's own last eight) ===========
+     records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b: block is one of the 21 hard-contact
+     ids measured with no real top end (0.289% of its energy above 4 kHz against the row's
+     own 1% bar -- "a boot on concrete, brass on a floor... the contact is a step change in
+     air pressure, and a step change is broadband by definition"). A BLOCK IS TWO HARD
+     THINGS TOUCHING, THE SAME DEFINITION THE ROW ALREADY WROTE: a blade's edge glancing off
+     a shield's rim or a haft, which is wood (the shield's core, or a spear's shaft) AND
+     metal (the rim binding or the blade) in the same contact, at once -- canOnWood's own
+     construction, a third time: objectSetDown (REUSED whole, zero new ground math) summed
+     with struckMetal's existing 'pipe' mode (REUSED whole, zero new table entry; this is
+     the only one of the three sounds built this way that needed no new material at all).
+     SHORTER THAN A HELD STRIKE ON PURPOSE: a glancing parry does not pin the blade the way
+     a smith's hammer pins an anvil, so most of the energy carries on into the follow-through
+     rather than ringing in place -- the same real cause smithHammer already argues for an
+     anvil's own stump, run the other way. */
+  function weaponBlock(ctx, opts) {
+    opts = opts || {};
+    var wood = objectSetDown(ctx, { surface: 'boards', variant: opts.variant });
+    var edge = struckMetal(ctx, { what: 'pipe', f0: opts.f0 == null ? 1700 : opts.f0,
+      secs: opts.edgeSecs == null ? 0.15 : opts.edgeSecs });
+    var sr = ctx.sampleRate;
+    var wd = wood.buffer.getChannelData(0), ed = edge.buffer.getChannelData(0);
+    var n = Math.max(wd.length, ed.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (i < wd.length ? wd[i] : 0) * 0.6 + (i < ed.length ? ed[i] : 0) * 0.65;
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: wood.machine, seconds: n / sr, woodSurface: wood.surface, edgeF0: edge.f0,
+      why: 'a blade\'s edge glancing off a shield\'s wood-and-metal rim: the same contact '
+        + 'canOnWood already sums two ways at once, a wood landing (objectSetDown on boards) '
+        + 'with the blade\'s own pipe mode, held for a fraction of boardNail\'s already-brief tack'
+    };
+  }
+
+  /* ==== 13b7. SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: 'create more of the best
+     sounds of all time instead of implementing mid sounds... impress me'). HIS RULING,
+     NOT A REDO-LIST ITEM: build an ambitious, memorable moment, not another checkbox.
+
+     WHAT THE MOMENT IS: finding something genuinely rare in a dead valley where almost
+     nothing works any more. THE CONSTRUCTION IS REUSE-FIRST ALL THE WAY DOWN -- both
+     layers are sounds this engine already shipped, zero new material, zero new table
+     entries -- but the TECHNIQUE is new to this file: a real sidechain duck, the
+     transient's own envelope pulling the sustained layer back while it is loudest, the
+     way a mixer manages two real sources competing for the same air. Every composite
+     sound this lane has built before this (canOnWood, barGlassDown, weaponBlock,
+     partsPass) is a FLAT sum at a fixed ratio; this is the first one where one layer
+     reacts to the other over time.
+
+     THE BELL is struckMetal's own founder-tuned minor third (STRIKE.bell), the same
+     material [bb ambience]'s hourly chime already uses -- reused for a second diegetic
+     moment, not a second bell. A found object that still works, ringing true, is the
+     "voice" of the moment: bright, immediate, the transient.
+
+     THE HUM is powerOnHum, already shipped (a transformer's core pulling in, 40 to 120 Hz
+     over 0.6 s) -- the valley itself catching up to the object, the sustained body under
+     the ring. Two real electrical/acoustic causes, nothing invented, the sum timed so the
+     hum's own rise lands under the bell's decay rather than racing it. */
+  function legendaryFind(ctx, opts) {
+    opts = opts || {};
+    var f0 = opts.f0 == null ? 220 : opts.f0;
+    var bellSecs = opts.bellSecs == null ? 2.5 : opts.bellSecs;
+    var humSecs = opts.humSecs == null ? 2.2 : opts.humSecs;
+    var duckAmount = opts.duckAmount == null ? 0.6 : opts.duckAmount;
+    var bell = struckMetal(ctx, { what: 'bell', f0: f0, secs: bellSecs });
+    var hum = powerOnHum(ctx, { secs: humSecs, riseSec: 0.6 });
+    var sr = ctx.sampleRate;
+    var bd = bell.buffer.getChannelData(0), hd = hum.buffer.getChannelData(0);
+    var n = Math.max(bd.length, hd.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var env = new Float64Array(n);
+    /* THE SIDECHAIN FOLLOWER: a fast attack (2 ms), a slower release (120 ms), the
+       standard shape a real compressor's detector uses so a duck snaps in on the hit
+       and eases back out rather than chattering on every sample. Normalised to the
+       bell's own loudest instant so duckAmount is a fraction of THIS strike, not an
+       absolute level that would duck differently at a different f0 or gain. */
+    var atk = Math.exp(-1 / (sr * 0.002)), rel = Math.exp(-1 / (sr * 0.12));
+    var peak = 0, i;
+    for (i = 0; i < n; i++) { var a = i < bd.length ? Math.abs(bd[i]) : 0;
+      env[i] = a > (i ? env[i - 1] : 0) ? atk * (i ? env[i - 1] : 0) + (1 - atk) * a
+                                        : rel * (i ? env[i - 1] : 0) + (1 - rel) * a;
+      if (env[i] > peak) peak = env[i]; }
+    for (i = 0; i < n; i++) {
+      var duck = peak > 0 ? 1 - duckAmount * (env[i] / peak) : 1;
+      d[i] = (i < bd.length ? bd[i] : 0) * 0.85 + (i < hd.length ? hd[i] * duck : 0) * 0.5;
+    }
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: bell.machine, seconds: n / sr, bellF0: f0, duckAmount: duckAmount,
+      /* the ratio the gate proves the duck really happened by: how loud the hum's own
+         band reads inside the bell's loudest 50 ms against how loud it reads once the
+         bell's transient has passed, when nothing is ducking it any more */
+      why: 'struckMetal\'s own founder-tuned bell (the hourly chime\'s material, a second '
+        + 'moment for it) ringing over powerOnHum\'s transformer catching in, the hum '
+        + 'sidechain-ducked by the bell\'s own envelope -- the first sound in this file '
+        + 'where one real layer reacts to another instead of a flat sum'
+    };
+  }
 
   /* ==== 13c. THE GROUND TAKES IT, AND BOOTS GOING SOMEWHERE (10/1) ===============
      Continuing the keep/redo list (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b):
@@ -2153,6 +2572,16 @@
                different filters at different corners. */
             bandOrder: ROOM_BAND_ORDER },
     songOnTape: songOnTape,
+    titleTheme: titleTheme,
+    barberClippers: barberClippers,
+    canOnWood: canOnWood,
+    boardNail: boardNail,
+    paperRustle: paperRustle,
+    smithHammer: smithHammer,
+    armourerRivets: armourerRivets,
+    barGlassDown: barGlassDown,
+    weaponBlock: weaponBlock,
+    legendaryFind: legendaryFind,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
     theFold: theFold,
@@ -2168,11 +2597,15 @@
     footstepWalkConcrete: footstepWalkConcrete,
     footstepWalkWood: footstepWalkWood,
     footstepRunConcrete: footstepRunConcrete,
+    travelRoadBed: travelRoadBed,
+    travelDirtBed: travelDirtBed,
+    nightInsects: nightInsects,
     groundTakesIt: groundTakesIt,
     bootsGoDirt: bootsGoDirt,
     objectSetDown: objectSetDown,
     objectSetDownAgain: objectSetDownAgain,
     struckMetal: struckMetal,
+    endTurnClick: endTurnClick,
     STRIKE: STRIKE,
     theTapeDeck: theTapeDeck,
     theTapeChange: theTapeChange,
@@ -2289,7 +2722,60 @@
         { id: 'sounds-it-goes-down-10-1', make: 'objectSetDown',
           title: 'IT GOES DOWN' },
         { id: 'sounds-set-it-down-again-10-1', make: 'objectSetDownAgain',
-          title: 'SET IT DOWN AGAIN' }
+          title: 'SET IT DOWN AGAIN' },
+        /* THE TURN CLOSES (row [one song and the volumes], 10/4): end_turn, one of the
+           six named sounds for COMBAT's rebuilt fight, has no approved sound yet so it
+           is built and registered here, not wired into the live fight (unjudged =
+           silent, the bank's own law, same as every other new sound this round). */
+        { id: 'sounds-the-turn-closes-10-4', make: 'endTurnClick',
+          title: 'THE TURN CLOSES' },
+        /* THE MAP IN MOTION (row [the map's sounds], 10/5): the party's steps on asphalt
+           and on dirt, and the night's insects -- three of the five moments the row
+           names, demonstrated together on the travel clip judge page. */
+        { id: 'sounds-the-road-is-faster-10-5', make: 'travelRoadBed',
+          title: 'THE ROAD IS FASTER' },
+        { id: 'sounds-dirt-is-slower-10-5', make: 'travelDirtBed',
+          title: 'DIRT IS SLOWER' },
+        { id: 'sounds-the-night-has-insects-10-5', make: 'nightInsects',
+          title: 'THE NIGHT HAS INSECTS' },
+        /* THE TITLE'S OWN MUSIC (row [the title's music], 10/5): Paolo's own direct ask,
+           analog horror, built from three already-reused pieces (the tape deck's wow, the
+           dead broadcast, the loading screen's room tone) plus one new number (detuned). */
+        { id: 'sounds-the-title-is-detuned-10-5', make: 'titleTheme',
+          title: "THE TITLE IS DETUNED" },
+        /* THE SETTLEMENT'S SOUNDS (row [the settlement's sounds], 10/5): Paolo's own
+           words, "the settlement screen looking real dogshit, look how Battle Brothers
+           settlements work" -- taps on the barber, the stall, the board and the posts
+           had nothing. Four new, each REUSE-FIRST off an already-built primitive. The
+           clinic's door is zero new content (door_open/door_shut, already frozen) and
+           is not in this list; the bar's murmur stays unbuilt, same reason as always:
+           this lane's palette cannot fake a voice. */
+        { id: 'sounds-the-barbers-clippers-10-5', make: 'barberClippers',
+          title: "THE BARBER'S CLIPPERS" },
+        { id: 'sounds-a-can-on-the-counter-10-5', make: 'canOnWood',
+          title: "A CAN ON THE COUNTER" },
+        { id: 'sounds-the-boards-own-nail-10-5', make: 'boardNail',
+          title: "THE BOARD'S OWN NAIL" },
+        { id: 'sounds-paper-against-the-post-10-5', make: 'paperRustle',
+          title: "PAPER AGAINST THE POST" },
+        /* THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (row [the soundscape], 10/9): his own
+           words, "the clinking of someone making disorder" at the smith and the armourer. */
+        { id: 'sounds-the-smiths-hammer-10-9', make: 'smithHammer',
+          title: "THE SMITH'S HAMMER" },
+        { id: 'sounds-the-armourers-rivets-10-9', make: 'armourerRivets',
+          title: "THE ARMOURER'S RIVETS" },
+        /* THE BAR'S GLASS (row [the soundscape], 10/10): the murmur half of his own
+           "the bar's murmur and glass" stays the standing no-faked-voice gap; the glass
+           half has no voice in it and builds. */
+        { id: 'sounds-the-bars-glass-10-10', make: 'barGlassDown',
+          title: "THE BAR'S GLASS" },
+        /* THE BLOCK (row [not sand], the keep/redo list's last eight): a parry is two
+           hard things touching, which the redo list's own definition already covers. */
+        { id: 'sounds-a-block-is-two-things-touching-10-10', make: 'weaponBlock',
+          title: "A BLOCK IS TWO THINGS TOUCHING" },
+        /* SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: build the best, not the mid). */
+        { id: 'sounds-something-here-still-works-10-10', make: 'legendaryFind',
+          title: "SOMETHING HERE STILL WORKS" }
       ];
     }
   };

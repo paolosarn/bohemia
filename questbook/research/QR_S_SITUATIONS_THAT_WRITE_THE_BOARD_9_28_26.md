@@ -3,6 +3,7 @@
 QUESTION: row [fourth shelf], letter S. QR-N found the big miss (the board is written by the world: an offer exists BECAUSE a home base has a situation, and hand-in changes that situation). QR-O drew the fourteen home bases and their contract kinds. This page is the missing middle: a catalogue of the SITUATIONS a base can be in (short of water, raided last week, a wedding, a plague, a strike, a new boss, a glut and so on), and for each one, the contract kinds it writes, which bases it fits, what a finished contract changes, and the library ids that back it. It closes with rules the building lanes can test.
 
 STATUS: draft:true, research only, nothing built (rule 35). For RUN, WORLD, FACTIONS, ECONOMY, PEOPLE, WORDS, TUNING and DYNASTY. Designs cut from it: QD-S01 to QD-S20 (at least one per home base). Battle Brothers facts are from reference/library/battle_brothers/ and QR-N's #236 notes, cited by file, never as a Q id.
+FOLDED 10/9 (QR-AL): QR-U's the sharpens of rules 1, 9, 10, 12 and 14, the hired-verdict reading of rule 12, and four catalogue entries, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -161,6 +162,20 @@ Twenty contracts, one or more per base: dam (S01, S20), Strip (S02, S15), data c
 12. THE RESULT OF A VOTE, A TABLE OR A TRIAL IS NOT THE PLAYER'S PICK. The contract gets the thing there; the world decides. Test: no contract choice sets a vote's outcome directly. (`Q136.W2`, `Q107.X1`)
 13. A DECLINE WRITES NOTHING, EVER, whatever the situation. The base copes alone and the board shows the cheaper result, which is the world, not a punishment. Test: ledgers byte-identical after a decline; only the situation's own default resolution runs. (`Q084.X5`, `Q131.X7`)
 14. ACROSS THE ACTS, a situation resolved in one act may become a BASE FACT in a later act (the garage the camp moved to, the grave in the yard), with a full default read if the earlier act was never played. (`Q049.P3`, `Q096.X1`)
+
+SHARPENED (folded 10/9 from QR-U):
+- Rules 1 and 9 (every offer has a situation; hand-in leaves marks): `Q236.W1`, `Q236.W8`, `Q236.P4`, and each base's
+  offers generated from its current situation (`Q236.P1`).
+- Rule 12 (a vote, a table or a trial is not the player's pick): the verdict predates the work (`Q182.W2`); being right
+  is not power (`Q182.W3`); the powers are plural (`Q182.W9`); the denial must be legibly the system's (`Q182.P2`).
+- Rule 12, the one exception: a name must be given (`Q234.W6`), decided without verifying (`Q234.W1`), carried for
+  generations (`Q234.W3`). When a base HIRES the company to judge, the naming is the player's, on the offer screen
+  before the yes, and it becomes a base fact (rule 14).
+- Rule 10 (one link of chain): allocation consequences land downstream, at bases that never saw the console (`Q169.W8`).
+- Rule 14 (a situation becomes a base fact in a later act): returning years later and seeing the verdict still shaping
+  lives (`Q234.W8`).
+- Catalogue additions: THE LAW HAS LEFT (`Q160.W1`), THE CURE IS HELD (`Q232.W4`), THE SHARE IS BROKEN (`Q169.W2`), THE
+  LID (`Q192.W1`). Each writes offers a boom base or a bust base can post.
 
 ## WHAT TO AVOID (the flaws)
 

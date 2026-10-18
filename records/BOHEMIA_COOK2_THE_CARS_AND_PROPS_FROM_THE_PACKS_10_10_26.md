@@ -1,0 +1,9 @@
+# COOK TWO [the cars and the props from the packs], round one (Paolo 10/10: 'the cars is an asset we downloaded'; rule 82a)
+READBACK: the fight's cover pieces cut from his approved pack sprites, keyed; done means COMBAT TWO's cover table points at them and a same-spot before/after shows it.
+- 16 pieces in slices/fight_ground/kit_cover/ (kit_cover.json keys every one {pack, idx}): car_lane, car_kerb, car_drive (the patrol car), car_suv, car_burned from '9. Abandoned cards' (his three-quarter wrecks, all 35 UP); jersey, barricade, sandbags, barrel, tyres from '3. Barricades and blockades'; lamp, pole, cone, bin, pallet, tyre from '15. Street props'. Every one UP in the confirmed set; the tool asserts it and stopped me once (street props 30 is a bollard he voted DOWN; the bin is 21).
+- Sized in metres at the house tile's 42.9 px/m, nearest-neighbour: a car 4.6 m wide; a lamp by its 6 m HEIGHT x cos45 (198 px; first sized by width it came out a 52 px toy). One contact shadow from the sprite's own footprint, so it sits on the ground.
+- THE FINDING: the cover cars in the fight now are his top-down '10. Abandoned cars' squashed, with a mirrored smear for a side. His three-quarter set was in the same bank all along and is what the 45 DEGREE ART LAW wants.
+- Rule 89 picture: slices/vote/COOK2_THE_CARS_BEFORE_AFTER.png, the live main block, old cars vs his wrecks at the same spots, 1:1. Kit on asphalt: kit_cover/kit_cover_sheet.webp.
+- Gate: COOK2 STREET KIT grew a cover leg (every piece exists, every key UP): 428/0; mutation (key the voted-down bollard) went red, restored green. Pack gate: this lane's files clean.
+- NOT DONE: the dumpster (no dumpster in the approved street packs this round; the old one stays named); COMBAT TWO points cover[car_*].src at kit_cover and places the rest; DIRECTION's pass, then VOTE.
+- [bb cover] Battle Brothers' props are three-quarter sprites with a baked contact shadow; so are these.

@@ -78,3 +78,5 @@ NOT YET IN THE BUILD (rows exist): the death rule (20%/10% veteran, 30-40 days),
   number TUNING will own, the spill rule is COMBAT's code.
 - MODS [data line]: every name in section 4 is a constant inside a base64 blob; none is in a data file yet.
 - Test material: the toy page is draft:true, a bank of example plates, never in the game.
+
+## STALE FOR THE DEMO 10/10: the fight numbers on this page were measured on the old fight tab (COMBAT_B64). The demo fights in BOHEMIA_FIGHT.html on the wiki rows. See section 3 of records/BOHEMIA_TUNING_THE_FELT_NUMBERS_TABLE_IS_REAL_AND_MY_FIGHT_FINDINGS_ARE_STALE_10_10_26.md.

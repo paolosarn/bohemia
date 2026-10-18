@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL11
 FIRST-LINE: FL08
 TWIST: none (a favour that is exactly what it says)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 32 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a boom: the toll road is busy, the reclaimed quarter is hiring, money moves. A widow who has fed every company that ever stopped at the truck stop has one thing to ask. Her husband's toolbox (sixty years of hand tools) should go to their grandson, who has opened a repair shop in the quarter. She cannot carry it and cannot pay anyone to. This is the favour contract: it pays nothing, and says so.

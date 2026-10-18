@@ -7,7 +7,7 @@ PLACE: a desert road between the dark data-fortress quarter and the valley's eas
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E7, THE PEOPLE WALKING THE OTHER WAY (QR-B), two people instead of thirty
 STAGE: THE SILENCE (QR-J): the thing has gone quiet; its carriers are lost
-CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free KEEP MOVING)
+CHECKLIST: passes all 32 (lines 11 and 12 are read as the event's free KEEP MOVING) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, after the severance. Canon: the thing can no longer talk to people the way it used to, the Network's god

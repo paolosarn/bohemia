@@ -138,7 +138,7 @@ const drawn = (fr, id) => fr.evaluate((i) => {
     const before = await where();
     const spot = await fr.evaluate(() => {
       const c = document.getElementById('cv'), r = c.getBoundingClientRect();
-      const kx = c.width / r.width, ky = c.height / r.height;
+      const kx = (window.CVW || c.width) / r.width, ky = (window.CVH || c.height) / r.height;   /* CSS pixels: the backing store is the phone pixels on the map (10/1) */
       for (let sy = 60; sy < r.height - 60; sy += 11) for (let sx = 20; sx < r.width - 20; sx += 11) {
         const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
         const p = cityRoute(city.x, city.y, cell[0], cell[1]);
@@ -229,7 +229,8 @@ const drawn = (fr, id) => fr.evaluate((i) => {
     await d.pageEval(() => { try { cityEncounterIn({ packageId: 1, label: 'the cut proof', street: true }); } catch (e) { window.__ENCERR = String(e.message); } });
     await d.page.waitForTimeout(3500);
     const fight = await d.pageEval(() => {
-      const f = document.getElementById('combatFrame');
+      /* the door opens the REBUILT fight since 10/2 (rule 63, __THE_NEW_FIGHT_IS_THE_FIGHT__), the frozen one only if that is switched off */
+      const f = document.getElementById('fightFrame') || document.getElementById('combatFrame');
       const b = f ? f.getBoundingClientRect() : null;
       return { frame: !!f, err: window.__ENCERR || null,
                w: b ? Math.round(b.width) : 0, h: b ? Math.round(b.height) : 0,

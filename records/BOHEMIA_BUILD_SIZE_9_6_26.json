@@ -1,6 +1,6 @@
 {
   "what": "BOHEMIA -- what is in the thing we serve, byte by byte. Taken by gates/bohemia_build_size.js, held by gates/build_size_gate.js.",
-  "takenOn": "2026-09-06T05:25:57.929Z",
+  "takenOn": "2026-10-09T22:41:30.407Z",
   "staleAfterDays": 30,
   "refreshCommand": "node gates/bohemia_build_size.js --record",
   "entryPoints": [
@@ -13,50 +13,50 @@
     "records/target"
   ],
   "measured": {
-    "publishedBytes": 246973312,
-    "publishedFiles": 642,
-    "reachableBytes": 170422109,
-    "reachableFiles": 197,
-    "unreachableBytes": 76551203,
-    "unreachableFiles": 445,
+    "publishedBytes": 486352314,
+    "publishedFiles": 1571,
+    "reachableBytes": 166215653,
+    "reachableFiles": 228,
+    "unreachableBytes": 320136661,
+    "unreachableFiles": 1343,
     "surfaces": {
       "BOHEMIA_ALPHA_0_9.html": {
-        "bytes": 4809421,
-        "gzipped": 1732021,
+        "bytes": 6283993,
+        "gzipped": 2490228,
         "biggestBlocks": [
           {
             "kind": "literal",
             "name": "COMBAT_B64",
-            "bytes": 1817635,
-            "gzipped": 764887
+            "bytes": 2668671,
+            "gzipped": 1301206
           },
           {
             "kind": "rest",
             "name": "everything else (markup, small scripts, css)",
-            "bytes": 1383277,
+            "bytes": 1652577,
             "gzipped": null
           },
           {
             "kind": "script",
-            "name": "script@3936755",
-            "bytes": 305726,
-            "gzipped": 101064
+            "name": "script@5724051",
+            "bytes": 492376,
+            "gzipped": 139161
           },
           {
             "kind": "script",
-            "name": "script@4242573",
-            "bytes": 265202,
-            "gzipped": 124103
+            "name": "script@5107521",
+            "bytes": 350363,
+            "gzipped": 116998
           },
           {
             "kind": "script",
-            "name": "script@4507911",
-            "bytes": 248865,
-            "gzipped": 61209
+            "name": "script@5457976",
+            "bytes": 265939,
+            "gzipped": 124390
           },
           {
             "kind": "script",
-            "name": "script@3595856",
+            "name": "script@4850747",
             "bytes": 224928,
             "gzipped": 66397
           },
@@ -68,13 +68,13 @@
           },
           {
             "kind": "script",
-            "name": "script@3849012",
-            "bytes": 84047,
-            "gzipped": 32464
+            "name": "script@4744558",
+            "bytes": 106109,
+            "gzipped": 39892
           },
           {
             "kind": "script",
-            "name": "script@46416",
+            "name": "script@66967",
             "bytes": 82397,
             "gzipped": 28972
           },
@@ -85,56 +85,50 @@
             "gzipped": 60522
           },
           {
-            "kind": "script",
-            "name": "script@128814",
-            "bytes": 50579,
-            "gzipped": 20266
+            "kind": "style",
+            "name": "style@4002",
+            "bytes": 61325,
+            "gzipped": 37933
           },
           {
-            "kind": "style",
-            "name": "style@3691",
-            "bytes": 42557,
-            "gzipped": 27842
+            "kind": "script",
+            "name": "script@149365",
+            "bytes": 50579,
+            "gzipped": 20266
           }
         ]
       },
       "BOHEMIA_DEMO.html": {
-        "bytes": 4816323,
-        "gzipped": 1734962,
+        "bytes": 3631185,
+        "gzipped": 1195173,
         "biggestBlocks": [
-          {
-            "kind": "literal",
-            "name": "COMBAT_B64",
-            "bytes": 1817635,
-            "gzipped": 764887
-          },
           {
             "kind": "rest",
             "name": "everything else (markup, small scripts, css)",
-            "bytes": 1390177,
+            "bytes": 1668438,
             "gzipped": null
           },
           {
             "kind": "script",
-            "name": "script@3936308",
-            "bytes": 305726,
-            "gzipped": 101064
+            "name": "script@3054952",
+            "bytes": 492376,
+            "gzipped": 139161
           },
           {
             "kind": "script",
-            "name": "script@4242126",
-            "bytes": 265202,
-            "gzipped": 124103
+            "name": "script@2438422",
+            "bytes": 350363,
+            "gzipped": 116998
           },
           {
             "kind": "script",
-            "name": "script@4507464",
-            "bytes": 248865,
-            "gzipped": 61209
+            "name": "script@2788877",
+            "bytes": 265939,
+            "gzipped": 124390
           },
           {
             "kind": "script",
-            "name": "script@3595409",
+            "name": "script@2181648",
             "bytes": 224928,
             "gzipped": 66397
           },
@@ -146,13 +140,13 @@
           },
           {
             "kind": "script",
-            "name": "script@3848565",
-            "bytes": 84047,
-            "gzipped": 32464
+            "name": "script@2075459",
+            "bytes": 106109,
+            "gzipped": 39892
           },
           {
             "kind": "script",
-            "name": "script@46689",
+            "name": "script@67240",
             "bytes": 82397,
             "gzipped": 28972
           },
@@ -163,183 +157,183 @@
             "gzipped": 60522
           },
           {
-            "kind": "script",
-            "name": "script@129087",
-            "bytes": 50579,
-            "gzipped": 20266
+            "kind": "style",
+            "name": "style@4007",
+            "bytes": 61325,
+            "gzipped": 37933
           },
           {
-            "kind": "style",
-            "name": "style@3696",
-            "bytes": 42557,
-            "gzipped": 27842
+            "kind": "script",
+            "name": "script@149638",
+            "bytes": 50579,
+            "gzipped": 20266
           }
         ]
       }
     },
-    "duplicatedAcrossSurfacesBytes": 3425478,
-    "biggestSingleBlockBytes": 1817635,
+    "duplicatedAcrossSurfacesBytes": 1961896,
+    "biggestSingleBlockBytes": 2668671,
     "biggestSingleBlockName": "COMBAT_B64",
     "topOrphans": [
       {
+        "rel": "slices/BOHEMIA_VOTE_CURRENT.html",
+        "bytes": 6466360
+      },
+      {
+        "rel": "slices/vote/COOK_THE_FAR_END_SHEET.png",
+        "bytes": 5233998
+      },
+      {
         "rel": "slices/BOHEMIA_LIVE_SLICE_V9_7_14_26.html",
         "bytes": 4585387
+      },
+      {
+        "rel": "records/target/PAOLO_THE_TAP_PICKS_THE_WRONG_TILE_9_8_26.png",
+        "bytes": 4141828
+      },
+      {
+        "rel": "records/target/PAOLO_CITY_MODE_9_22_26.png",
+        "bytes": 3649265
+      },
+      {
+        "rel": "slices/vote/RUN2_TRAITS_TWO_ROLLS_10_5.png",
+        "bytes": 3520479
+      },
+      {
+        "rel": "slices/vote/LIFECITY_A_DAY_ON_THE_MAP_10_9.gif",
+        "bytes": 3449062
       },
       {
         "rel": "slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html",
         "bytes": 3146972
       },
       {
+        "rel": "slices/vote/RUN_ONE_SONG_10_4.wav",
+        "bytes": 2646044
+      },
+      {
+        "rel": "slices/vote/COMBAT2_SETTLEMENT_PICTURES_10_4.png",
+        "bytes": 2641421
+      },
+      {
         "rel": "slices/BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html",
         "bytes": 2631411
+      },
+      {
+        "rel": "records/target/PAOLO_WHY_DOES_THE_CITY_LOOK_LIKE_THIS_9_8_26.png",
+        "bytes": 2408904
+      },
+      {
+        "rel": "slices/vote/COOK_THE_FAR_END_TILED.png",
+        "bytes": 2358010
+      },
+      {
+        "rel": "slices/fight_ground/block_scrub_2_raided.webp",
+        "bytes": 2270290
+      },
+      {
+        "rel": "slices/vote/COOK_THE_FIGHTS_FLOOR.png",
+        "bytes": 2255264
+      },
+      {
+        "rel": "slices/fight_ground/block_scrub_0_raided.webp",
+        "bytes": 2140700
+      },
+      {
+        "rel": "slices/fight_ground/block_wash_1_raided.webp",
+        "bytes": 2132574
+      },
+      {
+        "rel": "slices/vote/DIRECTION_THE_DEMO_EVERY_SCREEN.png",
+        "bytes": 2118926
+      },
+      {
+        "rel": "slices/fight_ground/block_scrubroad_0_raided.webp",
+        "bytes": 2077520
+      },
+      {
+        "rel": "slices/fight_ground/block_scrub_1_raided.webp",
+        "bytes": 2072126
+      },
+      {
+        "rel": "slices/vote/DIRECTION_FIGHT_VERDICT_ROUND_3.png",
+        "bytes": 2057416
+      },
+      {
+        "rel": "records/target/combat/FIGHT_VERDICT_ROUND_3_SHEET.png",
+        "bytes": 2057416
+      },
+      {
+        "rel": "slices/fight_ground/block_wash_0_raided.webp",
+        "bytes": 2043248
+      },
+      {
+        "rel": "slices/fight_ground/block_scrubroad_1_raided.webp",
+        "bytes": 1996320
+      },
+      {
+        "rel": "slices/fight_ground/block_scrub_2_reclaimed.webp",
+        "bytes": 1908568
+      },
+      {
+        "rel": "slices/vote/COMBAT_A_TURN_YOU_CAN_READ_10_9.gif",
+        "bytes": 1868520
+      },
+      {
+        "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_RAIDED_10_5.png",
+        "bytes": 1843669
+      },
+      {
+        "rel": "slices/vote/UI_WHAT_THE_BAR_SAYS_9_27.png",
+        "bytes": 1842600
+      },
+      {
+        "rel": "slices/vote/COOK_THE_CIRCLES_BECOME_PLACES.png",
+        "bytes": 1816949
       },
       {
         "rel": "slices/BOHEMIA_V12_BAKE_PROOF_35_6.html",
         "bytes": 1815098
       },
       {
+        "rel": "slices/fight_ground/block_scrub_0_reclaimed.webp",
+        "bytes": 1761074
+      },
+      {
+        "rel": "slices/fight_ground/block_wash_1_reclaimed.webp",
+        "bytes": 1742408
+      },
+      {
+        "rel": "slices/fight_ground/block_scrubroad_0_reclaimed.webp",
+        "bytes": 1742200
+      },
+      {
+        "rel": "slices/fight_ground/block_scrub_1_reclaimed.webp",
+        "bytes": 1720766
+      },
+      {
+        "rel": "slices/vote/COMBAT_THE_STREET_HAS_KERBS_10_1.png",
+        "bytes": 1704313
+      },
+      {
+        "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_10_1.png",
+        "bytes": 1693850
+      },
+      {
+        "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_MARKET_DAY_10_5.png",
+        "bytes": 1690600
+      },
+      {
+        "rel": "slices/fight_ground/block_scrubroad_1_reclaimed.webp",
+        "bytes": 1679364
+      },
+      {
         "rel": "records/target/PAL_FROZEN.png",
         "bytes": 1676437
       },
       {
-        "rel": "slices/BOHEMIA_V12_BAKE_PROOF_36_6.html",
-        "bytes": 1651416
-      },
-      {
-        "rel": "slices/BOHEMIA_REAL_VEGAS_BLOCKS_7_14_26.html",
-        "bytes": 1514727
-      },
-      {
-        "rel": "slices/BOHEMIA_ANIM_GAP_PROOF_7_14_26.html",
-        "bytes": 1418139
-      },
-      {
-        "rel": "slices/BOHEMIA_STREET_GEN_GALLERY_7_13_26.html",
-        "bytes": 1302538
-      },
-      {
-        "rel": "slices/BOHEMIA_STREET_TILE_ROLES_7_13_26.html",
-        "bytes": 1295058
-      },
-      {
-        "rel": "slices/BOHEMIA_DESERT_LOT_PROOF_7_18_26.png",
-        "bytes": 1291890
-      },
-      {
-        "rel": "slices/BOHEMIA_NIGHT_BLOCKS_PROOF_7_14_26.html",
-        "bytes": 1230019
-      },
-      {
-        "rel": "records/target/BOHEMIA_TARGET_A_FRONTFACE.png",
-        "bytes": 1144289
-      },
-      {
-        "rel": "slices/BOHEMIA_HOUSE_PART_ROLES_7_14_26.html",
-        "bytes": 1103050
-      },
-      {
-        "rel": "slices/BOHEMIA_V12_SCATTER_PROOF_7_18_26.png",
-        "bytes": 1067930
-      },
-      {
-        "rel": "slices/BOHEMIA_V12_INTERSECTION_PROOF_7_17_26.png",
-        "bytes": 1065530
-      },
-      {
-        "rel": "slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.png",
-        "bytes": 1063311
-      },
-      {
-        "rel": "slices/BOHEMIA_LIVE_SLICE_V12_7_18_26.html",
-        "bytes": 991834
-      },
-      {
-        "rel": "records/target/BOHEMIA_PIXEL_CRAFT_AUDIT.json",
-        "bytes": 955419
-      },
-      {
-        "rel": "records/target/BOUGHT_WALLS.png",
-        "bytes": 913167
-      },
-      {
-        "rel": "records/target/graveyard/BOHEMIA_TARGET_B_ISOBLOCK.png",
-        "bytes": 808402
-      },
-      {
-        "rel": "records/target/graveyard/BOHEMIA_TARGET_C_CUTAWAY.png",
-        "bytes": 793647
-      },
-      {
-        "rel": "records/target/TEXTURE_MATCH_CONTACT.png",
-        "bytes": 741059
-      },
-      {
-        "rel": "records/target/VALLEY_DOWNTOWN.png",
-        "bytes": 734782
-      },
-      {
-        "rel": "slices/BOHEMIA_SESSION_SHOWCASE_7_10_26.html",
-        "bytes": 728838
-      },
-      {
-        "rel": "records/target/STREET_TEXTURED.png",
-        "bytes": 693659
-      },
-      {
-        "rel": "slices/eyes/alpha-19-art.png",
-        "bytes": 689050
-      },
-      {
-        "rel": "records/target/LOOK_AGAIN_RECOOK.png",
-        "bytes": 688712
-      },
-      {
-        "rel": "records/target/VALLEY_INDUSTRIAL.png",
-        "bytes": 681860
-      },
-      {
-        "rel": "slices/look/runway-before-after.png",
-        "bytes": 672536
-      },
-      {
-        "rel": "records/target/PERIMETER.png",
-        "bytes": 638803
-      },
-      {
-        "rel": "slices/BOHEMIA_V12_BAKE_PROOF_33_6.html",
-        "bytes": 629658
-      },
-      {
-        "rel": "records/target/PERIMETER_WALL_LIVE.png",
-        "bytes": 623599
-      },
-      {
-        "rel": "records/target/STREET_AFTER_YARD.png",
-        "bytes": 623439
-      },
-      {
-        "rel": "records/target/PERIMETER_GATE_LIVE.png",
-        "bytes": 621691
-      },
-      {
-        "rel": "slices/BOHEMIA_V12_MOUNTAIN_PROOF_7_18_26.png",
-        "bytes": 600578
-      },
-      {
-        "rel": "slices/BOHEMIA_V12_BAKE_PROOF_34_6.html",
-        "bytes": 598938
-      },
-      {
-        "rel": "records/target/PALETTE_AB.png",
-        "bytes": 594476
-      },
-      {
-        "rel": "slices/BOHEMIA_DOOR_SINGLE_LEAF_PROOF_7_14_26.html",
-        "bytes": 572632
-      },
-      {
-        "rel": "slices/BOHEMIA_V12_DESERT_PROOF_7_18_26.png",
-        "bytes": 543165
+        "rel": "slices/vote/COMBAT_THE_GROUND_IS_45_10_1.png",
+        "bytes": 1674126
       }
     ],
     "couldLoadLater": {
@@ -347,8 +341,8 @@
         {
           "kind": "literal",
           "name": "COMBAT_B64",
-          "bytes": 1817635,
-          "gzipped": 764887
+          "bytes": 2668671,
+          "gzipped": 1301206
         },
         {
           "kind": "literal",
@@ -357,8 +351,8 @@
           "gzipped": 35739
         }
       ],
-      "bytes": 1945571,
-      "gzipped": 800626,
+      "bytes": 2796607,
+      "gzipped": 1336945,
       "test": "a whole other page carried inline as base64, on a tab the door does not open on",
       "perSurface": true
     }
@@ -368,19 +362,22 @@
     "unreachableBytes": 82675300,
     "alphaBytes": 5194175,
     "alphaGzipped": 1870583,
-    "demoBytes": 5201629,
-    "demoGzipped": 1873759,
+    "demoBytes": 3921680,
+    "demoGzipped": 1290787,
     "biggestSingleBlockBytes": 1963046,
     "twinBytes": 262144,
     "__basis": {
       "rule": "ONE-WAY RATCHET, DOWN ONLY. A byte count has no run-to-run spread, so unlike the speed budget there is nothing here to leave headroom for.",
-      "tightenedThisRefresh": []
+      "tightenedThisRefresh": [
+        "demoBytes: 5201629 -> 3921680",
+        "demoGzipped: 1873759 -> 1290787"
+      ]
     }
   },
   "duplication": [
     {
-      "name": "COMBAT_B64",
-      "bytes": 1817635,
+      "name": "script@5724051",
+      "bytes": 492376,
       "copies": 2,
       "files": [
         "slices/BOHEMIA_ALPHA_0_9.html",
@@ -388,8 +385,8 @@
       ]
     },
     {
-      "name": "script@3936755",
-      "bytes": 305726,
+      "name": "script@5107521",
+      "bytes": 350363,
       "copies": 2,
       "files": [
         "slices/BOHEMIA_ALPHA_0_9.html",
@@ -397,8 +394,8 @@
       ]
     },
     {
-      "name": "script@4242573",
-      "bytes": 265202,
+      "name": "script@5457976",
+      "bytes": 265939,
       "copies": 2,
       "files": [
         "slices/BOHEMIA_ALPHA_0_9.html",
@@ -406,16 +403,7 @@
       ]
     },
     {
-      "name": "script@4507911",
-      "bytes": 248865,
-      "copies": 2,
-      "files": [
-        "slices/BOHEMIA_ALPHA_0_9.html",
-        "slices/BOHEMIA_DEMO.html"
-      ]
-    },
-    {
-      "name": "script@3595856",
+      "name": "script@4850747",
       "bytes": 224928,
       "copies": 2,
       "files": [
@@ -433,8 +421,8 @@
       ]
     },
     {
-      "name": "script@3849012",
-      "bytes": 84047,
+      "name": "script@4744558",
+      "bytes": 106109,
       "copies": 2,
       "files": [
         "slices/BOHEMIA_ALPHA_0_9.html",
@@ -442,7 +430,7 @@
       ]
     },
     {
-      "name": "script@46416",
+      "name": "script@66967",
       "bytes": 82397,
       "copies": 2,
       "files": [
@@ -460,7 +448,16 @@
       ]
     },
     {
-      "name": "script@128814",
+      "name": "style@4002",
+      "bytes": 61325,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@149365",
       "bytes": 50579,
       "copies": 2,
       "files": [
@@ -469,8 +466,8 @@
       ]
     },
     {
-      "name": "style@3691",
-      "bytes": 42557,
+      "name": "script@6216555",
+      "bytes": 39474,
       "copies": 2,
       "files": [
         "slices/BOHEMIA_ALPHA_0_9.html",
@@ -478,16 +475,7 @@
       ]
     },
     {
-      "name": "script@4756904",
-      "bytes": 37258,
-      "copies": 2,
-      "files": [
-        "slices/BOHEMIA_ALPHA_0_9.html",
-        "slices/BOHEMIA_DEMO.html"
-      ]
-    },
-    {
-      "name": "script@3537873",
+      "name": "script@4686577",
       "bytes": 29774,
       "copies": 2,
       "files": [
@@ -496,8 +484,17 @@
       ]
     },
     {
-      "name": "script@3820785",
+      "name": "script@5075676",
       "bytes": 28147,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@6261006",
+      "bytes": 22122,
       "copies": 2,
       "files": [
         "slices/BOHEMIA_ALPHA_0_9.html",
@@ -510,36 +507,264 @@
   ],
   "allUnreachable": [
     {
+      "rel": "slices/BOHEMIA_VOTE_CURRENT.html",
+      "bytes": 6466360
+    },
+    {
+      "rel": "slices/vote/COOK_THE_FAR_END_SHEET.png",
+      "bytes": 5233998
+    },
+    {
       "rel": "slices/BOHEMIA_LIVE_SLICE_V9_7_14_26.html",
       "bytes": 4585387
+    },
+    {
+      "rel": "records/target/PAOLO_THE_TAP_PICKS_THE_WRONG_TILE_9_8_26.png",
+      "bytes": 4141828
+    },
+    {
+      "rel": "records/target/PAOLO_CITY_MODE_9_22_26.png",
+      "bytes": 3649265
+    },
+    {
+      "rel": "slices/vote/RUN2_TRAITS_TWO_ROLLS_10_5.png",
+      "bytes": 3520479
+    },
+    {
+      "rel": "slices/vote/LIFECITY_A_DAY_ON_THE_MAP_10_9.gif",
+      "bytes": 3449062
     },
     {
       "rel": "slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html",
       "bytes": 3146972
     },
     {
+      "rel": "slices/vote/RUN_ONE_SONG_10_4.wav",
+      "bytes": 2646044
+    },
+    {
+      "rel": "slices/vote/COMBAT2_SETTLEMENT_PICTURES_10_4.png",
+      "bytes": 2641421
+    },
+    {
       "rel": "slices/BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html",
       "bytes": 2631411
+    },
+    {
+      "rel": "records/target/PAOLO_WHY_DOES_THE_CITY_LOOK_LIKE_THIS_9_8_26.png",
+      "bytes": 2408904
+    },
+    {
+      "rel": "slices/vote/COOK_THE_FAR_END_TILED.png",
+      "bytes": 2358010
+    },
+    {
+      "rel": "slices/fight_ground/block_scrub_2_raided.webp",
+      "bytes": 2270290
+    },
+    {
+      "rel": "slices/vote/COOK_THE_FIGHTS_FLOOR.png",
+      "bytes": 2255264
+    },
+    {
+      "rel": "slices/fight_ground/block_scrub_0_raided.webp",
+      "bytes": 2140700
+    },
+    {
+      "rel": "slices/fight_ground/block_wash_1_raided.webp",
+      "bytes": 2132574
+    },
+    {
+      "rel": "slices/vote/DIRECTION_THE_DEMO_EVERY_SCREEN.png",
+      "bytes": 2118926
+    },
+    {
+      "rel": "slices/fight_ground/block_scrubroad_0_raided.webp",
+      "bytes": 2077520
+    },
+    {
+      "rel": "slices/fight_ground/block_scrub_1_raided.webp",
+      "bytes": 2072126
+    },
+    {
+      "rel": "slices/vote/DIRECTION_FIGHT_VERDICT_ROUND_3.png",
+      "bytes": 2057416
+    },
+    {
+      "rel": "records/target/combat/FIGHT_VERDICT_ROUND_3_SHEET.png",
+      "bytes": 2057416
+    },
+    {
+      "rel": "slices/fight_ground/block_wash_0_raided.webp",
+      "bytes": 2043248
+    },
+    {
+      "rel": "slices/fight_ground/block_scrubroad_1_raided.webp",
+      "bytes": 1996320
+    },
+    {
+      "rel": "slices/fight_ground/block_scrub_2_reclaimed.webp",
+      "bytes": 1908568
+    },
+    {
+      "rel": "slices/vote/COMBAT_A_TURN_YOU_CAN_READ_10_9.gif",
+      "bytes": 1868520
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_RAIDED_10_5.png",
+      "bytes": 1843669
+    },
+    {
+      "rel": "slices/vote/UI_WHAT_THE_BAR_SAYS_9_27.png",
+      "bytes": 1842600
+    },
+    {
+      "rel": "slices/vote/COOK_THE_CIRCLES_BECOME_PLACES.png",
+      "bytes": 1816949
     },
     {
       "rel": "slices/BOHEMIA_V12_BAKE_PROOF_35_6.html",
       "bytes": 1815098
     },
     {
+      "rel": "slices/fight_ground/block_scrub_0_reclaimed.webp",
+      "bytes": 1761074
+    },
+    {
+      "rel": "slices/fight_ground/block_wash_1_reclaimed.webp",
+      "bytes": 1742408
+    },
+    {
+      "rel": "slices/fight_ground/block_scrubroad_0_reclaimed.webp",
+      "bytes": 1742200
+    },
+    {
+      "rel": "slices/fight_ground/block_scrub_1_reclaimed.webp",
+      "bytes": 1720766
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_STREET_HAS_KERBS_10_1.png",
+      "bytes": 1704313
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_10_1.png",
+      "bytes": 1693850
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_MARKET_DAY_10_5.png",
+      "bytes": 1690600
+    },
+    {
+      "rel": "slices/fight_ground/block_scrubroad_1_reclaimed.webp",
+      "bytes": 1679364
+    },
+    {
       "rel": "records/target/PAL_FROZEN.png",
       "bytes": 1676437
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_GROUND_IS_45_10_1.png",
+      "bytes": 1674126
+    },
+    {
+      "rel": "slices/fight_ground/block_wash_0_reclaimed.webp",
+      "bytes": 1658156
     },
     {
       "rel": "slices/BOHEMIA_V12_BAKE_PROOF_36_6.html",
       "bytes": 1651416
     },
     {
+      "rel": "slices/vote/COMBAT_COVER_IS_A_THING_10_1.png",
+      "bytes": 1603809
+    },
+    {
+      "rel": "slices/fight_ground/block_landfill_1_raided.webp",
+      "bytes": 1585810
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_FORTRESS_10_1.png",
+      "bytes": 1579823
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_BARBER_10_1.png",
+      "bytes": 1576637
+    },
+    {
+      "rel": "slices/fight_ground/block_landfill_0_raided.webp",
+      "bytes": 1552218
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_BAR_10_9.png",
+      "bytes": 1542316
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_PARTIES_WALK_AFTER.png",
+      "bytes": 1537616
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_SAME_MAN_EVERY_FRAME_9_24.png",
+      "bytes": 1527068
+    },
+    {
       "rel": "slices/BOHEMIA_REAL_VEGAS_BLOCKS_7_14_26.html",
       "bytes": 1514727
     },
     {
+      "rel": "slices/vote/COOK_THE_SETTLEMENT_PICTURES_FINISHED.png",
+      "bytes": 1513358
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_FLOOR_SET_10_1.png",
+      "bytes": 1494183
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_PARTIES_WALK_BEFORE.png",
+      "bytes": 1487751
+    },
+    {
+      "rel": "slices/vote/RUN_THE_LOOP_ON_THE_MAP_10_2.png",
+      "bytes": 1475648
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_FLOOR_ROUND_TWO_10_1.png",
+      "bytes": 1444352
+    },
+    {
       "rel": "slices/BOHEMIA_ANIM_GAP_PROOF_7_14_26.html",
       "bytes": 1418139
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_ONLY_HIGH_GROUND_9_27.png",
+      "bytes": 1411089
+    },
+    {
+      "rel": "slices/vote/COMBAT_A_STREET_OF_HOUSES_9_30.png",
+      "bytes": 1394795
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_FUTURE_BOARDS_10_9.png",
+      "bytes": 1368526
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_FIGHT_IS_ON_CELLS_9_28.png",
+      "bytes": 1365858
+    },
+    {
+      "rel": "slices/fight_ground/block_shore_0_raided.webp",
+      "bytes": 1347714
+    },
+    {
+      "rel": "slices/vote/UI_HER_PAGE_9_28.png",
+      "bytes": 1345048
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_ENEMY_PLAYS_ITS_PART_10_5.gif",
+      "bytes": 1339975
+    },
+    {
+      "rel": "slices/fight_ground/block_shore_1_raided.webp",
+      "bytes": 1333430
     },
     {
       "rel": "slices/BOHEMIA_STREET_GEN_GALLERY_7_13_26.html",
@@ -550,20 +775,80 @@
       "bytes": 1295058
     },
     {
+      "rel": "slices/vote/COMBAT_A_HOUSE_IS_NEVER_SMALLER_THAN_A_MAN_9_29.png",
+      "bytes": 1293702
+    },
+    {
       "rel": "slices/BOHEMIA_DESERT_LOT_PROOF_7_18_26.png",
       "bytes": 1291890
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_CLINIC_10_9.png",
+      "bytes": 1291808
+    },
+    {
+      "rel": "slices/vote/COMBAT_NOTHING_ON_THE_GROUND_10_1.png",
+      "bytes": 1274946
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_LOOP_BOARD_10_1.png",
+      "bytes": 1268954
     },
     {
       "rel": "slices/BOHEMIA_NIGHT_BLOCKS_PROOF_7_14_26.html",
       "bytes": 1230019
     },
     {
+      "rel": "slices/fight_ground/block_landfill_1_reclaimed.webp",
+      "bytes": 1229052
+    },
+    {
+      "rel": "slices/fight_ground/block_landfill_0_reclaimed.webp",
+      "bytes": 1227542
+    },
+    {
+      "rel": "slices/vote/COMBAT2_TILES_ARE_LEGOS_10_5.png",
+      "bytes": 1212729
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BUILDINGS_WAREHOUSE_AND_CASINO_10_5.png",
+      "bytes": 1207530
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_GROUND_IN_THE_NEW_FIGHT_10_2.png",
+      "bytes": 1195015
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_FLOOR_SET_R2_10_1.png",
+      "bytes": 1193220
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_FREEWAY_REDONE_10_9.png",
+      "bytes": 1177220
+    },
+    {
       "rel": "records/target/BOHEMIA_TARGET_A_FRONTFACE.png",
       "bytes": 1144289
     },
     {
+      "rel": "slices/vote/RUN_THE_MAP_ICONS_ARE_THE_GAMES_OWN_ART_10_1.png",
+      "bytes": 1140337
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_GROUND_PACKED_10_2.png",
+      "bytes": 1116903
+    },
+    {
       "rel": "slices/BOHEMIA_HOUSE_PART_ROLES_7_14_26.html",
       "bytes": 1103050
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_ROOF_YOU_STAND_ON_9_28.png",
+      "bytes": 1092548
+    },
+    {
+      "rel": "slices/vote/COMBAT2_MIXED_BOARDS_IN_THE_FIGHT_10_2.png",
+      "bytes": 1074186
     },
     {
       "rel": "slices/BOHEMIA_V12_SCATTER_PROOF_7_18_26.png",
@@ -574,20 +859,120 @@
       "bytes": 1065530
     },
     {
+      "rel": "slices/vote/DIRECTION_FIGHT_VERDICT_22_THE_FREEWAY.png",
+      "bytes": 1064520
+    },
+    {
       "rel": "slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.png",
       "bytes": 1063311
+    },
+    {
+      "rel": "slices/vote/LIFECITY_BUILD_ON_THE_SCREEN_10_9.png",
+      "bytes": 1024634
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BUILDINGS_GAS_AND_MOTEL_10_5.png",
+      "bytes": 1022651
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BUILDINGS_IN_THE_FIGHT_10_4.png",
+      "bytes": 1009417
+    },
+    {
+      "rel": "slices/fight_ground/block_shore_0_reclaimed.webp",
+      "bytes": 995482
     },
     {
       "rel": "slices/BOHEMIA_LIVE_SLICE_V12_7_18_26.html",
       "bytes": 991834
     },
     {
+      "rel": "slices/fight_ground/block_ruin_1_raided.webp",
+      "bytes": 972602
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BUILDINGS_CHURCH_AND_SCHOOL_10_5.png",
+      "bytes": 971064
+    },
+    {
+      "rel": "slices/vote/COMBAT2_FREEWAY_LANDFILL_IN_THE_FIGHT_10_4.png",
+      "bytes": 958371
+    },
+    {
       "rel": "records/target/BOHEMIA_PIXEL_CRAFT_AUDIT.json",
       "bytes": 955419
     },
     {
+      "rel": "slices/vote/COOK_THE_FAR_END_PAINTED.png",
+      "bytes": 938534
+    },
+    {
+      "rel": "slices/fight_ground/block_shore_1_reclaimed.webp",
+      "bytes": 933238
+    },
+    {
+      "rel": "slices/vote/COMBAT_ONE_HOUSE_IS_NOT_ONE_TILE_9_27.png",
+      "bytes": 931768
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BUILDING_TYPES_10_4.png",
+      "bytes": 927872
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_BOARD_KINDS_10_1.png",
+      "bytes": 916934
+    },
+    {
       "rel": "records/target/BOUGHT_WALLS.png",
       "bytes": 913167
+    },
+    {
+      "rel": "slices/vote/UI_THE_PHONES_LOOK_10_9.png",
+      "bytes": 909015
+    },
+    {
+      "rel": "slices/vote/RUN_THE_ORIGIN_SETS_THE_COMPANY_10_5.jpg",
+      "bytes": 907010
+    },
+    {
+      "rel": "slices/vote/RUN_A_FEW_NOT_TWELVE_10_5.jpg",
+      "bytes": 906712
+    },
+    {
+      "rel": "slices/fight_ground/block_ruin_1_reclaimed.webp",
+      "bytes": 895382
+    },
+    {
+      "rel": "slices/vote/UI_THE_FIGHT_IS_A_DIFFERENT_GAME_9_27.png",
+      "bytes": 893008
+    },
+    {
+      "rel": "slices/fight_ground/block_ruin_0_raided.webp",
+      "bytes": 884200
+    },
+    {
+      "rel": "slices/vote/DIRECTION_THE_MAP_AT_EVERY_STOP.png",
+      "bytes": 874039
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_POSTS_10_10.png",
+      "bytes": 871780
+    },
+    {
+      "rel": "slices/vote/RUN_THE_VALLEY_EDGE_10_2.png",
+      "bytes": 860929
+    },
+    {
+      "rel": "slices/vote/COMBAT_EVERY_FIGHT_ENDS_10_1.png",
+      "bytes": 824807
+    },
+    {
+      "rel": "slices/fight_ground/block_ruin_0_reclaimed.webp",
+      "bytes": 824268
+    },
+    {
+      "rel": "slices/vote/COMBAT2_FREEWAY_AND_LANDFILL_RECUT_10_4.png",
+      "bytes": 818929
     },
     {
       "rel": "records/target/graveyard/BOHEMIA_TARGET_B_ISOBLOCK.png",
@@ -598,6 +983,22 @@
       "bytes": 793647
     },
     {
+      "rel": "slices/vote/RUN2_THE_SETTLEMENT_SCREEN_SMITH_10_5.png",
+      "bytes": 786704
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_CASINO_FLOOR_10_9.png",
+      "bytes": 783297
+    },
+    {
+      "rel": "slices/vote/RUN_THE_MAP_AT_YOUR_PIXELS_10_1.png",
+      "bytes": 776084
+    },
+    {
+      "rel": "slices/vote/DIRECTION_THE_FLOOR_UNDER_THEIR_FEET.png",
+      "bytes": 766336
+    },
+    {
       "rel": "records/target/TEXTURE_MATCH_CONTACT.png",
       "bytes": 741059
     },
@@ -606,8 +1007,16 @@
       "bytes": 734782
     },
     {
+      "rel": "slices/vote/UI_ONE_SET_OF_BUTTONS_9_25.png",
+      "bytes": 732789
+    },
+    {
       "rel": "slices/BOHEMIA_SESSION_SHOWCASE_7_10_26.html",
       "bytes": 728838
+    },
+    {
+      "rel": "slices/vote/COOK_THE_GROUND_YOU_FIGHT_ON.png",
+      "bytes": 721638
     },
     {
       "rel": "records/target/STREET_TEXTURED.png",
@@ -622,6 +1031,10 @@
       "bytes": 688712
     },
     {
+      "rel": "slices/fight_ground/block_freewayo_0_raided.webp",
+      "bytes": 684708
+    },
+    {
       "rel": "records/target/VALLEY_INDUSTRIAL.png",
       "bytes": 681860
     },
@@ -630,8 +1043,20 @@
       "bytes": 672536
     },
     {
+      "rel": "slices/vote/ANIMATION_FAST_TRAVEL_GLIDES_AFTER.png",
+      "bytes": 663847
+    },
+    {
+      "rel": "slices/settlement_ground/fortress_1_night.webp",
+      "bytes": 651834
+    },
+    {
       "rel": "records/target/PERIMETER.png",
       "bytes": 638803
+    },
+    {
+      "rel": "records/target/COORDINATOR_FIVE_MINUTES_9_13_H_walk_right.png",
+      "bytes": 633597
     },
     {
       "rel": "slices/BOHEMIA_V12_BAKE_PROOF_33_6.html",
@@ -650,6 +1075,34 @@
       "bytes": 621691
     },
     {
+      "rel": "slices/vote/COMBAT2_BOARDS_BY_SIZE_STREET_10_9.png",
+      "bytes": 618129
+    },
+    {
+      "rel": "slices/fight_ground/block_freewayo_0_reclaimed.webp",
+      "bytes": 613990
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_BUTTON_YOUR_THUMB_FINDS_9_24.png",
+      "bytes": 610950
+    },
+    {
+      "rel": "slices/vote/DIRECTION_AI_SLOP_THREE_PAIRS.png",
+      "bytes": 610009
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BOARDS_BY_SIZE_SUBURB_10_9.png",
+      "bytes": 609851
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BOARDS_BY_SIZE_WORKS_10_9.png",
+      "bytes": 607242
+    },
+    {
+      "rel": "slices/vote/COMBAT_REACH_IS_LIT_10_1.png",
+      "bytes": 601467
+    },
+    {
       "rel": "slices/BOHEMIA_V12_MOUNTAIN_PROOF_7_18_26.png",
       "bytes": 600578
     },
@@ -662,8 +1115,32 @@
       "bytes": 594476
     },
     {
+      "rel": "slices/vote/COMBAT2_THE_COVER_PIECES_10_1.png",
+      "bytes": 587155
+    },
+    {
+      "rel": "slices/vote/UI_THE_MAPS_BAR_10_5.png",
+      "bytes": 579080
+    },
+    {
       "rel": "slices/BOHEMIA_DOOR_SINGLE_LEAF_PROOF_7_14_26.html",
       "bytes": 572632
+    },
+    {
+      "rel": "slices/vote/UI_HOW_YOU_PICK_A_BUILDING_9_28.png",
+      "bytes": 571482
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BOARDS_BY_SIZE_LOT_10_9.png",
+      "bytes": 568683
+    },
+    {
+      "rel": "slices/vote/COMBAT2_BOARDS_BY_SIZE_STRIP_10_9.png",
+      "bytes": 567587
+    },
+    {
+      "rel": "slices/settlement_ground/town_1_night.webp",
+      "bytes": 548442
     },
     {
       "rel": "slices/BOHEMIA_V12_DESERT_PROOF_7_18_26.png",
@@ -678,24 +1155,64 @@
       "bytes": 537758
     },
     {
+      "rel": "slices/vote/COMBAT2_BOARDS_BY_SIZE_FREEWAY_10_9.png",
+      "bytes": 536384
+    },
+    {
+      "rel": "slices/vote/COMBAT2_FOUR_MORE_BOARD_KINDS_10_1.png",
+      "bytes": 532068
+    },
+    {
       "rel": "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html",
       "bytes": 530291
+    },
+    {
+      "rel": "slices/fight_ground/block_freeway_0_raided.webp",
+      "bytes": 529572
+    },
+    {
+      "rel": "slices/settlement_ground/camp_0_night.webp",
+      "bytes": 522296
     },
     {
       "rel": "records/target/STREET_BEFORE_YARD.png",
       "bytes": 519930
     },
     {
+      "rel": "slices/vote/COOK_THE_FAR_END_AS_TILES.png",
+      "bytes": 511401
+    },
+    {
+      "rel": "slices/vote/COOK_A_HOUSE_IS_ONE_TILE.png",
+      "bytes": 511160
+    },
+    {
       "rel": "records/target/RECOOK_FRAME_AB.png",
       "bytes": 507988
+    },
+    {
+      "rel": "slices/settlement_ground/town_0_night.webp",
+      "bytes": 507936
     },
     {
       "rel": "records/target/BOUGHT_ROOFS.png",
       "bytes": 506289
     },
     {
+      "rel": "slices/vote/ANIMATION_THE_MAP_GLIDES_AFTER.png",
+      "bytes": 506115
+    },
+    {
       "rel": "records/target/PERIMETER_RUNS.png",
       "bytes": 504896
+    },
+    {
+      "rel": "slices/vote/COMBAT2_LINES_RUN_THROUGH_10_4.png",
+      "bytes": 503413
+    },
+    {
+      "rel": "slices/settlement_ground/camp_1_night.webp",
+      "bytes": 501878
     },
     {
       "rel": "records/target/BEFORE_RUN.png",
@@ -706,12 +1223,32 @@
       "bytes": 491072
     },
     {
+      "rel": "slices/vote/COMBAT2_THE_GROUND_FOR_THE_NEW_FIGHT_10_2.png",
+      "bytes": 480146
+    },
+    {
+      "rel": "records/target/COORDINATOR_FIVE_MINUTES_9_13_I_zoomed_out.png",
+      "bytes": 478465
+    },
+    {
       "rel": "slices/BOHEMIA_RUN_HANDOFF_PROOF_7_26_26.png",
       "bytes": 475228
     },
     {
       "rel": "slices/BOHEMIA_V12_BAKE_PROOF_33_6.png",
       "bytes": 471854
+    },
+    {
+      "rel": "records/target/COOK_THE_STREET_BESIDE_THE_FIGHT_9_20_26.png",
+      "bytes": 468453
+    },
+    {
+      "rel": "slices/vote/COMBAT_HOUSES_AND_A_MOUND_9_28.png",
+      "bytes": 466594
+    },
+    {
+      "rel": "records/target/COOK_STREET_AS_HE_SEES_IT_9_13_26.png",
+      "bytes": 465301
     },
     {
       "rel": "records/target/LOGO_SHEET.png",
@@ -722,12 +1259,48 @@
       "bytes": 463733
     },
     {
+      "rel": "records/target/DIRECTION_THE_TURN_FROZEN_AT_THE_SWAP_9_12_26.png",
+      "bytes": 457560
+    },
+    {
+      "rel": "slices/vote/COMBAT2_SHORE_LANDFILL_RUIN_10_1.png",
+      "bytes": 451121
+    },
+    {
+      "rel": "slices/vote/UI_THE_SETTLEMENTS_LABELS_10_5.png",
+      "bytes": 450824
+    },
+    {
       "rel": "slices/BOHEMIA_V12_BAKE_PROOF_34_6.png",
       "bytes": 448813
     },
     {
+      "rel": "slices/vote/COMBAT2_STREETS_RUN_THROUGH_10_2.png",
+      "bytes": 448019
+    },
+    {
       "rel": "slices/BOHEMIA_ANSWER_SHEET_7_31_26.html",
       "bytes": 447186
+    },
+    {
+      "rel": "slices/vote/UI_THE_FIGHTS_BAR_BEFORE_AFTER_10_4.png",
+      "bytes": 447113
+    },
+    {
+      "rel": "records/target/COORDINATOR_FIVE_MINUTES_9_13_G_walk_up.png",
+      "bytes": 446622
+    },
+    {
+      "rel": "slices/vote/UI_HOW_YOU_KNOW_SHE_IS_WITH_YOU_9_28.png",
+      "bytes": 444787
+    },
+    {
+      "rel": "slices/settlement_ground/camp_1.webp",
+      "bytes": 428766
+    },
+    {
+      "rel": "slices/settlement_ground/camp_0.webp",
+      "bytes": 425168
     },
     {
       "rel": "slices/BOHEMIA_INTERIOR_PROOF_SCHOOL_7_26_26.png",
@@ -738,6 +1311,10 @@
       "bytes": 419390
     },
     {
+      "rel": "records/target/DIRECTION_THE_HANDOFF_FIGHT_9_12_26.png",
+      "bytes": 416874
+    },
+    {
       "rel": "records/target/FRAME_OLD.png",
       "bytes": 405413
     },
@@ -746,12 +1323,68 @@
       "bytes": 405413
     },
     {
+      "rel": "records/target/BOHEMIA_VOTE_REGISTRY.json",
+      "bytes": 404624
+    },
+    {
       "rel": "slices/BOHEMIA_RUN_SLICE_7_26_26.html",
       "bytes": 404155
     },
     {
+      "rel": "slices/settlement_ground/town_1.webp",
+      "bytes": 402970
+    },
+    {
+      "rel": "slices/vote/UI_THE_SIX_IN_THE_BAR_10_1.png",
+      "bytes": 396545
+    },
+    {
+      "rel": "slices/vote/FACTIONS_A_CREW_AT_YOUR_GATE_1_WARNING_10_1.png",
+      "bytes": 394999
+    },
+    {
+      "rel": "slices/vote/FACTIONS_A_CREW_AT_YOUR_GATE_2_AT_THE_GATE_10_1.png",
+      "bytes": 394744
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_AERIAL_JUDGED_9_13_26.png",
+      "bytes": 393666
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_PHONE_AND_THE_AERIAL_LIVE_9_12_26.png",
+      "bytes": 390936
+    },
+    {
+      "rel": "slices/vote/FACTIONS_A_CREW_AT_YOUR_GATE_3_FOUR_DAYS_LATER_10_1.png",
+      "bytes": 387147
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_MAP_TODAY_9_24.png",
+      "bytes": 385342
+    },
+    {
       "rel": "records/target/PERIMETER_JUDGE_PROOF.png",
       "bytes": 383328
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_MAP_9_27.png",
+      "bytes": 383058
+    },
+    {
+      "rel": "records/target/COORDINATOR_FIVE_MINUTES_9_13_F_street.png",
+      "bytes": 382356
+    },
+    {
+      "rel": "records/target/DIRECTION_FIGHT_VERDICT_1_THE_FIGHT_9_20_26.png",
+      "bytes": 382094
+    },
+    {
+      "rel": "slices/vote/FACTIONS_REAL_CITY_9_24.png",
+      "bytes": 381392
+    },
+    {
+      "rel": "slices/fight_ground/block_freeway_0_reclaimed.webp",
+      "bytes": 381030
     },
     {
       "rel": "slices/BOHEMIA_NEW_ENCOUNTER_SONG_PROOF_7_26_26.png",
@@ -762,6 +1395,14 @@
       "bytes": 374542
     },
     {
+      "rel": "slices/vote/ANIMATION_FAST_TRAVEL_GLIDES_BEFORE.png",
+      "bytes": 374432
+    },
+    {
+      "rel": "slices/vote/COMBAT2_HOUSES_AT_45_AND_THE_BIG_BOARD_10_1.png",
+      "bytes": 373595
+    },
+    {
       "rel": "slices/eyes/alpha-05-look.png",
       "bytes": 372827
     },
@@ -770,16 +1411,76 @@
       "bytes": 371050
     },
     {
+      "rel": "slices/vote/UI_THE_PHONE_IN_YOUR_POCKET_9_23.png",
+      "bytes": 368793
+    },
+    {
       "rel": "slices/BOHEMIA_INTERIOR_PROOF_HOUSE_7_26_26.png",
       "bytes": 362491
+    },
+    {
+      "rel": "slices/settlement_ground/town_0.webp",
+      "bytes": 354248
+    },
+    {
+      "rel": "slices/vote/COMBAT2_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2.png",
+      "bytes": 354191
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_CROWD_BEFORE_AND_AFTER.png",
+      "bytes": 352934
+    },
+    {
+      "rel": "records/target/COORDINATOR_FIVE_MINUTES_9_13_G2_after_round.png",
+      "bytes": 346922
+    },
+    {
+      "rel": "slices/vote/COOK_THE_CELL_IS_THE_STEP.png",
+      "bytes": 342146
+    },
+    {
+      "rel": "slices/vote/UI_THE_START_SCREENS_LOOK_10_5.png",
+      "bytes": 336319
     },
     {
       "rel": "slices/eyes/alpha-07-cutscene.png",
       "bytes": 335135
     },
     {
+      "rel": "records/target/bb/enemies.json",
+      "bytes": 333522
+    },
+    {
+      "rel": "slices/vote/FACTIONS_WHO_IS_COMING_LINES_9_29.png",
+      "bytes": 333420
+    },
+    {
       "rel": "records/target/LIFE_HUB_SHOT.png",
       "bytes": 331638
+    },
+    {
+      "rel": "slices/vote/COMBAT2_THE_WIDE_BOARD_10_5.png",
+      "bytes": 328962
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_FREEWAY_AS_SHIPPED_9_13_26.png",
+      "bytes": 326671
+    },
+    {
+      "rel": "slices/vote/FACTIONS_TOOK_BEFORE_9_24.png",
+      "bytes": 323679
+    },
+    {
+      "rel": "records/target/COORDINATOR_FIVE_MINUTES_9_13_A_title.png",
+      "bytes": 322305
+    },
+    {
+      "rel": "records/target/EYES_E17_SPLASH.png",
+      "bytes": 322299
+    },
+    {
+      "rel": "slices/fight_ground/block_culdesac_0_raided.webp",
+      "bytes": 322174
     },
     {
       "rel": "slices/eyes/demo-00-splash.png",
@@ -790,8 +1491,32 @@
       "bytes": 321224
     },
     {
+      "rel": "slices/fight_ground/block_culdesac_1_raided.webp",
+      "bytes": 319706
+    },
+    {
+      "rel": "slices/settlement_ground/fortress_0_night.webp",
+      "bytes": 318790
+    },
+    {
+      "rel": "slices/vote/RUN_THE_NEW_FIGHT_IN_THE_DEMO_10_2.jpg",
+      "bytes": 318173
+    },
+    {
+      "rel": "slices/vote/FACTIONS_WHO_IS_COMING_AS_IT_IS_9_29.png",
+      "bytes": 316929
+    },
+    {
+      "rel": "slices/vote/UI_THE_CRACKED_IPHONE_9_24.png",
+      "bytes": 316854
+    },
+    {
       "rel": "slices/BOHEMIA_RUN_IN_ALPHA_7_26_26.png",
       "bytes": 316428
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_FIFTY_PERK_NAMES_10_4.jpg",
+      "bytes": 315963
     },
     {
       "rel": "records/target/FRONT_SCREEN.png",
@@ -806,28 +1531,92 @@
       "bytes": 306560
     },
     {
+      "rel": "slices/vote/FACTIONS_REAL_STREET_9_24.png",
+      "bytes": 305860
+    },
+    {
+      "rel": "slices/vote/FACTIONS_TOOK_AFTER_9_24.png",
+      "bytes": 305196
+    },
+    {
+      "rel": "slices/vote/COMBAT2_NIGHT_BOARDS_10_1.png",
+      "bytes": 301384
+    },
+    {
+      "rel": "slices/vote/DIRECTION_THE_CAR_BEFORE_AFTER.png",
+      "bytes": 299998
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_CAR_RECOOK_JUDGED_9_7_26.png",
+      "bytes": 299998
+    },
+    {
+      "rel": "slices/vote/UI_SETTINGS_IN_OUR_MATERIALS_10_4.png",
+      "bytes": 297224
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_FOURTEEN_LATE_9_28.png",
+      "bytes": 296687
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_FOURTEEN_AFTER_A_RAID_9_28.png",
+      "bytes": 295522
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_FOURTEEN_LIST_9_28.png",
+      "bytes": 295420
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_FOURTEEN_EARLY_9_28.png",
+      "bytes": 294343
+    },
+    {
       "rel": "slices/BOHEMIA_SFX_JUDGE_PROOF_7_29_26.png",
       "bytes": 294201
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_FOURTEEN_AS_IT_IS_9_28.png",
+      "bytes": 293899
+    },
+    {
+      "rel": "slices/vote/FACTIONS_WHO_IS_COMING_WHOLE_9_29.png",
+      "bytes": 292258
     },
     {
       "rel": "slices/look/bone-scale.png",
       "bytes": 292219
     },
     {
+      "rel": "slices/vote/FACTIONS_YOUR_BASE_GROWS_2_TOWNS_9_30.png",
+      "bytes": 291866
+    },
+    {
+      "rel": "slices/vote/FACTIONS_YOUR_BASE_GROWS_3_FORTRESSES_9_30.png",
+      "bytes": 291838
+    },
+    {
+      "rel": "slices/vote/FACTIONS_YOUR_BASE_GROWS_1_CAMPS_9_30.png",
+      "bytes": 291796
+    },
+    {
       "rel": "slices/eyes/alpha-14-combat.png",
       "bytes": 291571
+    },
+    {
+      "rel": "slices/vote/UI_EVERY_ITEM_IS_AN_ICON_10_5.png",
+      "bytes": 291103
     },
     {
       "rel": "slices/eyes/alpha-16-map.png",
       "bytes": 290619
     },
     {
-      "rel": "records/target/BOTTOMLEFT.png",
-      "bytes": 281748
+      "rel": "engine/bohemia_engine.js",
+      "bytes": 285062
     },
     {
-      "rel": "engine/bohemia_engine.js",
-      "bytes": 281738
+      "rel": "records/target/BOTTOMLEFT.png",
+      "bytes": 281748
     },
     {
       "rel": "records/target/RUN_TAB_IS_CITY.png",
@@ -838,8 +1627,20 @@
       "bytes": 280726
     },
     {
+      "rel": "slices/fight_ground/block_corner_0_raided.webp",
+      "bytes": 279130
+    },
+    {
       "rel": "slices/eyes/alpha-18-life.png",
       "bytes": 276138
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_STREET_AS_SHIPPED_9_13_26.png",
+      "bytes": 275384
+    },
+    {
+      "rel": "slices/fight_ground/block_culdesac_0_reclaimed.webp",
+      "bytes": 275158
     },
     {
       "rel": "records/target/TEXTURE_SEAM_3x3.png",
@@ -848,6 +1649,10 @@
     {
       "rel": "slices/BOHEMIA_QUEST_JUDGE_PROOF_7_26_26.png",
       "bytes": 272807
+    },
+    {
+      "rel": "slices/fight_ground/block_corner_1_raided.webp",
+      "bytes": 271642
     },
     {
       "rel": "records/target/FRAME_NEW.png",
@@ -862,40 +1667,256 @@
       "bytes": 271179
     },
     {
+      "rel": "slices/fight_ground/block_subs_0_raided.webp",
+      "bytes": 270062
+    },
+    {
+      "rel": "slices/BOHEMIA_SUBURB_WALK_7_18_26.html",
+      "bytes": 268076
+    },
+    {
+      "rel": "slices/vote/COOK_WHAT_A_GOOD_TILE_LOOKS_LIKE.png",
+      "bytes": 267619
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_HANDOFF_BEFORE_9_12_26.png",
+      "bytes": 266746
+    },
+    {
+      "rel": "slices/fight_ground/block_culdesac_1_reclaimed.webp",
+      "bytes": 265882
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_BUILT_SHRINK_9_12_26.png",
+      "bytes": 265452
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_1_raided.webp",
+      "bytes": 263942
+    },
+    {
+      "rel": "slices/fight_ground/block_corner_2_raided.webp",
+      "bytes": 263428
+    },
+    {
+      "rel": "slices/settlement_ground/fortress_1.webp",
+      "bytes": 261912
+    },
+    {
       "rel": "records/target/PIXEL_CRAFT_JUDGE_SHOT.png",
       "bytes": 261360
     },
     {
-      "rel": "slices/BOHEMIA_SUBURB_WALK_7_18_26.html",
-      "bytes": 259373
+      "rel": "slices/fight_ground/block_suburb_stem_1_raided.webp",
+      "bytes": 259706
+    },
+    {
+      "rel": "records/target/PAOLO_THE_CAR_IS_ASS_9_7_26.jpg",
+      "bytes": 259610
+    },
+    {
+      "rel": "slices/fight_ground/block_cornerw_0_raided.webp",
+      "bytes": 258172
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_2_raided.webp",
+      "bytes": 256606
     },
     {
       "rel": "records/target/RECOOK_CONTACT.png",
       "bytes": 255470
     },
     {
+      "rel": "slices/vote/RUN2_THE_ROSTER_10_9.png",
+      "bytes": 254666
+    },
+    {
+      "rel": "slices/vote/PEOPLE_ORIGIN_KEEPS_9_27.png",
+      "bytes": 253226
+    },
+    {
+      "rel": "slices/settlement_ground/fortress_0.webp",
+      "bytes": 252828
+    },
+    {
+      "rel": "slices/vote/PEOPLE_ORIGIN_HURT_9_27.png",
+      "bytes": 252629
+    },
+    {
+      "rel": "slices/fight_ground/block_cornerw_1_raided.webp",
+      "bytes": 252360
+    },
+    {
+      "rel": "slices/vote/PEOPLE_CAST_ROAD_9_24.png",
+      "bytes": 249862
+    },
+    {
+      "rel": "slices/fight_ground/block_suburb_stem_0_raided.webp",
+      "bytes": 249226
+    },
+    {
+      "rel": "slices/fight_ground/block_culdesac_0.webp",
+      "bytes": 247944
+    },
+    {
+      "rel": "slices/vote/UI_THE_RESHUFFLE_MARK_10_9.png",
+      "bytes": 245089
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_FREEWAY_REJUDGED_9_14_26.png",
+      "bytes": 243407
+    },
+    {
+      "rel": "slices/fight_ground/block_corner_2_reclaimed.webp",
+      "bytes": 242614
+    },
+    {
+      "rel": "slices/fight_ground/block_culdesac_1.webp",
+      "bytes": 242602
+    },
+    {
+      "rel": "slices/vote/LIFECITY_BUILT_ON_THE_MAP_10_9.png",
+      "bytes": 242546
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_3_raided.webp",
+      "bytes": 241290
+    },
+    {
       "rel": "slices/BOHEMIA_RHYTHM_PROOF_7_26_26.png",
       "bytes": 241112
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_FREEWAY_AFTER_THE_DECK_FIX_9_13_26.png",
+      "bytes": 239134
     },
     {
       "rel": "slices/BOHEMIA_BEAT_PERMISSION_PROOF_7_26_26.png",
       "bytes": 238132
     },
     {
+      "rel": "slices/fight_ground/block_cornerw_1_reclaimed.webp",
+      "bytes": 236100
+    },
+    {
+      "rel": "slices/vote/RUN_THE_FRONT_DOOR_10_2.png",
+      "bytes": 235591
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_THIRTEEN_ARE_WEARING_IT.html",
+      "bytes": 235205
+    },
+    {
+      "rel": "slices/fight_ground/block_corner_1_reclaimed.webp",
+      "bytes": 234214
+    },
+    {
+      "rel": "slices/vote/PEOPLE_HIRE_STANDING_9_28.png",
+      "bytes": 233167
+    },
+    {
+      "rel": "slices/vote/PEOPLE_HIRE_STRANGER_9_28.png",
+      "bytes": 233030
+    },
+    {
+      "rel": "slices/vote/RUN_THE_NEAR_END_IS_THE_BLOCK_10_4.jpg",
+      "bytes": 232800
+    },
+    {
+      "rel": "slices/fight_ground/block_corner_0_reclaimed.webp",
+      "bytes": 232484
+    },
+    {
+      "rel": "records/target/PAOLO_THE_NIGHT_CARD_9_20_26.jpg",
+      "bytes": 228542
+    },
+    {
       "rel": "slices/eyes/alpha-04-looks.png",
       "bytes": 228536
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_0_reclaimed.webp",
+      "bytes": 227138
     },
     {
       "rel": "engine/bohemia_sfx.js",
       "bytes": 224822
     },
     {
+      "rel": "slices/fight_ground/block_scrub_2.webp",
+      "bytes": 222750
+    },
+    {
+      "rel": "slices/vote/QUESTS_SOMEBODY_STOPS_YOU_AT_YOUR_DOOR_9_22.png",
+      "bytes": 222484
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_2_reclaimed.webp",
+      "bytes": 219820
+    },
+    {
+      "rel": "slices/fight_ground/block_cornerw_0_reclaimed.webp",
+      "bytes": 219596
+    },
+    {
+      "rel": "slices/fight_ground/block_scrubroad_0.webp",
+      "bytes": 218480
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_HANDOFF_MID_9_12_26.png",
+      "bytes": 217934
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_1_reclaimed.webp",
+      "bytes": 216394
+    },
+    {
+      "rel": "slices/fight_ground/block_scrubroad_1.webp",
+      "bytes": 215802
+    },
+    {
+      "rel": "slices/fight_ground/block_corner_0.webp",
+      "bytes": 214214
+    },
+    {
+      "rel": "slices/fight_ground/block_corner_1.webp",
+      "bytes": 213972
+    },
+    {
+      "rel": "slices/fight_ground/block_suburb_stem_0_reclaimed.webp",
+      "bytes": 213734
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_3_reclaimed.webp",
+      "bytes": 213060
+    },
+    {
+      "rel": "records/target/COOK_EVERY_PROP_AT_ONE_TO_ONE_9_18_26.png",
+      "bytes": 213001
+    },
+    {
+      "rel": "slices/fight_ground/block_corner_2.webp",
+      "bytes": 212810
+    },
+    {
       "rel": "slices/eyes/alpha-01-after-the-tap.png",
       "bytes": 210255
     },
     {
+      "rel": "slices/fight_ground/block_cornerw_1.webp",
+      "bytes": 209044
+    },
+    {
       "rel": "slices/eyes/alpha-09-run.png",
       "bytes": 208529
+    },
+    {
+      "rel": "records/target/DIRECTION_HOSTILES_IN_THE_CROWD_9_6_26.png",
+      "bytes": 208367
+    },
+    {
+      "rel": "slices/fight_ground/block_suburb_stem_1_reclaimed.webp",
+      "bytes": 208058
     },
     {
       "rel": "slices/eyes/alpha-99-back-on-the-game.png",
@@ -906,12 +1927,48 @@
       "bytes": 205098
     },
     {
+      "rel": "slices/vote/PEOPLE_RUMOUR_2_VAGUE.png",
+      "bytes": 203767
+    },
+    {
+      "rel": "slices/vote/PEOPLE_RUMOUR_3_WRONG.png",
+      "bytes": 203263
+    },
+    {
+      "rel": "slices/fight_ground/block_cornerw_0.webp",
+      "bytes": 203236
+    },
+    {
+      "rel": "slices/vote/PEOPLE_RUMOUR_1_TRUE.png",
+      "bytes": 202814
+    },
+    {
+      "rel": "slices/vote/PEOPLE_WAITS_2_SPOKE.png",
+      "bytes": 199810
+    },
+    {
       "rel": "slices/eyes/demo-01-after-the-tap.png",
       "bytes": 198885
     },
     {
+      "rel": "slices/vote/PEOPLE_STOOD_3_TURN.png",
+      "bytes": 198786
+    },
+    {
+      "rel": "slices/fight_ground/block_scrub_0.webp",
+      "bytes": 198664
+    },
+    {
       "rel": "slices/eyes/demo-02-t15s.png",
       "bytes": 198641
+    },
+    {
+      "rel": "slices/vote/PEOPLE_STOOD_2_OWED.png",
+      "bytes": 198532
+    },
+    {
+      "rel": "slices/vote/PEOPLE_STOOD_1_BEFORE.png",
+      "bytes": 198309
     },
     {
       "rel": "slices/eyes/alpha-06-words.png",
@@ -920,6 +1977,10 @@
     {
       "rel": "records/target/JUDGE_ASK_SHOT.png",
       "bytes": 197579
+    },
+    {
+      "rel": "slices/fight_ground/block_wash_0.webp",
+      "bytes": 197256
     },
     {
       "rel": "slices/eyes/demo-03-t21s.png",
@@ -934,20 +1995,112 @@
       "bytes": 196657
     },
     {
+      "rel": "slices/fight_ground/block_suburb_stem_1.webp",
+      "bytes": 196326
+    },
+    {
+      "rel": "slices/fight_ground/block_wash_1.webp",
+      "bytes": 195792
+    },
+    {
+      "rel": "slices/vote/PEOPLE_CAST_TOGETHER_9_24.png",
+      "bytes": 195665
+    },
+    {
+      "rel": "slices/fight_ground/block_suburb_stem_0.webp",
+      "bytes": 195188
+    },
+    {
+      "rel": "slices/vote/PEOPLE_CAST_BEFORE_9_24.png",
+      "bytes": 194665
+    },
+    {
+      "rel": "slices/vote/COOK_THE_BLOCK_WAR_KIT.png",
+      "bytes": 194444
+    },
+    {
+      "rel": "records/target/COOK_EVERY_GROUND_TILE_THE_FIGHT_OWNS_9_20_26.png",
+      "bytes": 194208
+    },
+    {
+      "rel": "slices/fight_ground/block_ruin_0.webp",
+      "bytes": 194158
+    },
+    {
+      "rel": "slices/fight_ground/block_ruin_1.webp",
+      "bytes": 193788
+    },
+    {
+      "rel": "slices/fight_ground/block_main_1_raided.webp",
+      "bytes": 193662
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_STREET_REJUDGED_9_14_26.png",
+      "bytes": 193030
+    },
+    {
+      "rel": "slices/vote/PEOPLE_WAITS_1_QUIET.png",
+      "bytes": 192937
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_1.webp",
+      "bytes": 192498
+    },
+    {
+      "rel": "slices/fight_ground/block_scrub_1.webp",
+      "bytes": 192020
+    },
+    {
+      "rel": "slices/fight_ground/block_lots_0_raided.webp",
+      "bytes": 191934
+    },
+    {
       "rel": "records/target/HOUSE_JUDGE.png",
       "bytes": 191197
     },
     {
+      "rel": "slices/fight_ground/block_subs_0.webp",
+      "bytes": 190206
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_3.webp",
+      "bytes": 189718
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_YARD_AFTER_9_13_26.png",
+      "bytes": 188623
+    },
+    {
+      "rel": "slices/fight_ground/block_subs_2.webp",
+      "bytes": 187296
+    },
+    {
+      "rel": "slices/vote/RUN_THE_FAR_END_IS_PAINTED_10_2.jpg",
+      "bytes": 186700
+    },
+    {
       "rel": "slices/BOHEMIA_ENTER_SLICE_7_18_26.html",
-      "bytes": 185525
+      "bytes": 186262
     },
     {
       "rel": "records/target/PROOF_roof.png",
       "bytes": 184331
     },
     {
+      "rel": "slices/vote/COMBAT_THE_FIGHT_ON_EVERY_SCREEN_10_4.jpg",
+      "bytes": 180601
+    },
+    {
+      "rel": "slices/vote/RUN_CLOUDS_AND_THE_NEAR_STOP_10_2.jpg",
+      "bytes": 178356
+    },
+    {
       "rel": "slices/BOHEMIA_RUN_TARGET_LOOK_7_26_26.png",
       "bytes": 178156
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_ELDER_STOOPS.png",
+      "bytes": 177363
     },
     {
       "rel": "records/target/TILESET_CONTACT.png",
@@ -958,6 +2111,10 @@
       "bytes": 176159
     },
     {
+      "rel": "slices/vote/ANIMATION_THE_MAP_GLIDES_BEFORE.png",
+      "bytes": 175731
+    },
+    {
       "rel": "slices/BOHEMIA_FIGHT_PULSE_PROOF_7_26_26.png",
       "bytes": 169155
     },
@@ -966,24 +2123,176 @@
       "bytes": 167718
     },
     {
+      "rel": "records/target/BOHEMIA_THE_LIGHT_IN_THE_ROOM_9_21_26.png",
+      "bytes": 164451
+    },
+    {
+      "rel": "slices/vote/COOK_THE_GROUND_TELLS_YOU.png",
+      "bytes": 163025
+    },
+    {
+      "rel": "records/target/bb/backgrounds.json",
+      "bytes": 161946
+    },
+    {
+      "rel": "records/target/EYES_E17_CITY.png",
+      "bytes": 161538
+    },
+    {
+      "rel": "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
+      "bytes": 160455
+    },
+    {
       "rel": "slices/BOHEMIA_REASSEMBLY_RECOOK_7_28_26.html",
       "bytes": 159408
+    },
+    {
+      "rel": "slices/fight_ground/block_lots_0_reclaimed.webp",
+      "bytes": 159320
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_MOON_ZOOM_9_15_26.png",
+      "bytes": 156942
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_LOOP_PAID_10_1.png",
+      "bytes": 156938
+    },
+    {
+      "rel": "records/target/DIRECTION_FIGHT_VERDICT_1_THE_STREET_9_20_26.png",
+      "bytes": 156739
+    },
+    {
+      "rel": "engine/bohemia_horror_sounds.js",
+      "bytes": 155766
+    },
+    {
+      "rel": "records/target/combat/FIGHT_LOOKS_9_20_A_THE_WALK.jpg",
+      "bytes": 154701
     },
     {
       "rel": "records/target/CIVIC_OPENINGS.png",
       "bytes": 154580
     },
     {
+      "rel": "records/target/combat/FIGHT_LOOKS_9_24_A_THE_WALK.jpg",
+      "bytes": 154427
+    },
+    {
+      "rel": "records/target/BOHEMIA_PORTRAIT_MATCHES_BODY_9_20_26.png",
+      "bytes": 152867
+    },
+    {
       "rel": "slices/eyes/alpha-03-ui.png",
       "bytes": 152158
     },
     {
-      "rel": "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
-      "bytes": 133951
+      "rel": "records/target/combat/FIGHT_LOOKS_9_21_A_THE_WALK.jpg",
+      "bytes": 152092
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_SHADES_ON_9_21.png",
+      "bytes": 152022
+    },
+    {
+      "rel": "records/target/BOHEMIA_THE_PORTRAIT_WEARS_THE_SHADES_9_21_26.png",
+      "bytes": 152022
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_EIGHT_DIALS_9_22.png",
+      "bytes": 151998
+    },
+    {
+      "rel": "records/target/BOHEMIA_EIGHT_DIALS_YOU_COULD_NOT_TOUCH_9_22_26.png",
+      "bytes": 151998
+    },
+    {
+      "rel": "records/target/COORDINATOR_FIVE_MINUTES_9_13_D_first_card.png",
+      "bytes": 148812
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_STREET_GETS_AGES.png",
+      "bytes": 148407
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_TRACKS_JUDGED_9_13_26.png",
+      "bytes": 148328
+    },
+    {
+      "rel": "slices/fight_ground/block_main_1_reclaimed.webp",
+      "bytes": 148206
+    },
+    {
+      "rel": "slices/fight_ground/block_lots_0.webp",
+      "bytes": 144980
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_AERIAL_GREYSCALE_9_13_26.png",
+      "bytes": 139770
+    },
+    {
+      "rel": "slices/fight_ground/block_freewayo_0.webp",
+      "bytes": 139342
+    },
+    {
+      "rel": "records/target/combat/FIGHT_LOOKS_9_24_B_THE_FIGHT.jpg",
+      "bytes": 139020
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_KID_WALKS.html",
+      "bytes": 137917
+    },
+    {
+      "rel": "records/target/combat/FIGHT_LOOKS_9_20_B_THE_FIGHT.jpg",
+      "bytes": 136936
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_THIRTEEN_ON_THE_RUNWAY.png",
+      "bytes": 136299
+    },
+    {
+      "rel": "slices/vote/COMBAT_AUTO_PLAYS_LIKE_BATTLE_BROTHERS_10_4.jpg",
+      "bytes": 135933
+    },
+    {
+      "rel": "slices/vote/RUN_THE_FAR_STOP_KEEPS_THE_LAND_10_4.jpg",
+      "bytes": 135624
+    },
+    {
+      "rel": "engine/bohemia_people.js",
+      "bytes": 135266
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_EYE_RANGE_9_22.png",
+      "bytes": 134250
+    },
+    {
+      "rel": "records/target/BOHEMIA_THE_EYES_HAVE_RANGE_9_22_26.png",
+      "bytes": 134250
+    },
+    {
+      "rel": "slices/vote/UI_THE_PHONE_WHILE_IT_WAKES_UP_9_24.png",
+      "bytes": 133804
+    },
+    {
+      "rel": "records/target/BOHEMIA_THE_FACE_HAS_LIGHT_9_21_26.png",
+      "bytes": 131009
+    },
+    {
+      "rel": "records/target/COORDINATOR_FIVE_MINUTES_9_13_F2_after_round.png",
+      "bytes": 130062
     },
     {
       "rel": "records/target/PIXEL_CRAFT_JUDGE_SHOT2.png",
       "bytes": 129511
+    },
+    {
+      "rel": "records/target/PAOLO_THE_SNATCHER_CARD_9_20_26.jpg",
+      "bytes": 129448
+    },
+    {
+      "rel": "slices/vote/RUN_THE_START_SCREEN_10_4.jpg",
+      "bytes": 129204
     },
     {
       "rel": "records/target/PROOF_car.png",
@@ -994,12 +2303,80 @@
       "bytes": 128429
     },
     {
-      "rel": "engine/bohemia_people.js",
-      "bytes": 112810
+      "rel": "slices/vote/COMBAT_THE_ENEMY_MATH_10_5.jpg",
+      "bytes": 127060
+    },
+    {
+      "rel": "records/target/combat/FIGHT_LOOKS_9_21_B_THE_FIGHT.jpg",
+      "bytes": 125784
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_TRACKS_MAGNIFIED_9_13_26.png",
+      "bytes": 125783
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_THE_HEAD_AND_THE_GEAR.png",
+      "bytes": 125514
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_NIGHT_IS_LIT_BY_THE_STREET_10_4.jpg",
+      "bytes": 125505
+    },
+    {
+      "rel": "records/target/PAOLO_THE_FEED_IS_NOT_A_PHONE_9_8_26.jpg",
+      "bytes": 124809
+    },
+    {
+      "rel": "slices/fight_ground/block_main_1.webp",
+      "bytes": 123762
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_LOOP_MAP_10_1.png",
+      "bytes": 123450
+    },
+    {
+      "rel": "records/target/DIRECTION_DEMO_FIRST_SCREEN_9_6_26.png",
+      "bytes": 122893
+    },
+    {
+      "rel": "slices/vote/FACTIONS_WHERE_YOU_STAND_PANEL_9_27.png",
+      "bytes": 117518
+    },
+    {
+      "rel": "slices/fight_ground/block_works_0_raided.webp",
+      "bytes": 117020
+    },
+    {
+      "rel": "slices/vote/COOK_WHICH_WAY_IS_HE_FACING.png",
+      "bytes": 116782
+    },
+    {
+      "rel": "slices/vote/DYNASTY_HEIRS_10_1.png",
+      "bytes": 114742
+    },
+    {
+      "rel": "records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg",
+      "bytes": 113711
+    },
+    {
+      "rel": "slices/vote/DYNASTY_THREE_ON_THE_PHONE_9_24.png",
+      "bytes": 111605
     },
     {
       "rel": "slices/eyes/alpha-08-direct.png",
       "bytes": 110507
+    },
+    {
+      "rel": "slices/vote/COMBAT_YOUR_FORMATION_10_5.jpg",
+      "bytes": 108730
+    },
+    {
+      "rel": "records/target/DIRECTION_DEMO_SECOND_SCREEN_9_6_26.png",
+      "bytes": 108596
+    },
+    {
+      "rel": "records/target/PAOLO_THE_RAIL_COLLIDES_9_8_26.jpg",
+      "bytes": 107961
     },
     {
       "rel": "slices/eyes/alpha-11-clothes.png",
@@ -1010,16 +2387,60 @@
       "bytes": 106067
     },
     {
+      "rel": "records/target/BOHEMIA_THE_FOUR_FACES_HE_MEETS_9_21_26.png",
+      "bytes": 105956
+    },
+    {
+      "rel": "slices/vote/COMBAT_WEAPONS_SAY_WHAT_THEY_DO_10_5.jpg",
+      "bytes": 105157
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_IDLE_REDO.png",
+      "bytes": 104572
+    },
+    {
+      "rel": "slices/fight_ground/block_works_0_reclaimed.webp",
+      "bytes": 104296
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_ATTACHMENTS_TRADE.html",
+      "bytes": 103434
+    },
+    {
+      "rel": "slices/fight_ground/block_strip_1_raided.webp",
+      "bytes": 102572
+    },
+    {
       "rel": "slices/eyes/alpha-13-rig.png",
       "bytes": 101615
+    },
+    {
+      "rel": "slices/vote/COOK_THE_EDGE_THAT_DRUMS.png",
+      "bytes": 98164
     },
     {
       "rel": "engine/bohemia_coldopen_set.js",
       "bytes": 97947
     },
     {
+      "rel": "records/target/BOHEMIA_PORTRAIT_MATCHES_BODY.json",
+      "bytes": 97739
+    },
+    {
+      "rel": "slices/fight_ground/block_landfill_1.webp",
+      "bytes": 97732
+    },
+    {
       "rel": "slices/BOHEMIA_CITY_CURRENT.html",
       "bytes": 97673
+    },
+    {
+      "rel": "slices/fight_ground/block_strip_0_raided.webp",
+      "bytes": 96886
+    },
+    {
+      "rel": "slices/fight_ground/block_landfill_0.webp",
+      "bytes": 96706
     },
     {
       "rel": "slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26.png",
@@ -1030,24 +2451,72 @@
       "bytes": 93697
     },
     {
+      "rel": "slices/vote/COMBAT_THE_BOARD_FITS_THE_PARTY_10_9.jpg",
+      "bytes": 91687
+    },
+    {
       "rel": "records/target/FEATURE_COMPARE.png",
       "bytes": 91419
+    },
+    {
+      "rel": "records/target/COOK_CAR_AT_ONE_TO_ONE_9_16_26.png",
+      "bytes": 90722
     },
     {
       "rel": "slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26_STRANGER.png",
       "bytes": 89994
     },
     {
+      "rel": "slices/vote/COOK_FOOTSTEPS_THAT_LEAD_YOU.png",
+      "bytes": 89759
+    },
+    {
+      "rel": "records/target/COOK_PURPLE_THE_32_9_12_26.png",
+      "bytes": 88463
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_EVERY_DIAL_A_SLIDER.png",
+      "bytes": 88405
+    },
+    {
+      "rel": "engine/bohemia_utility.js",
+      "bytes": 88380
+    },
+    {
       "rel": "records/target/VEG_HARDWARE.png",
       "bytes": 88072
     },
     {
-      "rel": "engine/bohemia_utility.js",
-      "bytes": 87607
+      "rel": "slices/fight_ground/block_works_0.webp",
+      "bytes": 87818
+    },
+    {
+      "rel": "slices/vote/COOK_THE_LANE_LINE_DRUMS_TOO.png",
+      "bytes": 87490
     },
     {
       "rel": "slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html",
-      "bytes": 84983
+      "bytes": 86654
+    },
+    {
+      "rel": "slices/fight_ground/block_strip_1.webp",
+      "bytes": 85822
+    },
+    {
+      "rel": "slices/fight_ground/block_strip_1_reclaimed.webp",
+      "bytes": 85822
+    },
+    {
+      "rel": "slices/fight_ground/block_strip_0_reclaimed.webp",
+      "bytes": 85740
+    },
+    {
+      "rel": "slices/fight_ground/block_strip_0.webp",
+      "bytes": 85304
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_THREE_D_EAT_TWO_D.png",
+      "bytes": 85158
     },
     {
       "rel": "slices/BOHEMIA_GROOVE_PROOF_7_26_26.png",
@@ -1058,8 +2527,16 @@
       "bytes": 83163
     },
     {
+      "rel": "engine/bohemia_loop.js",
+      "bytes": 82701
+    },
+    {
       "rel": "slices/eyes/alpha-12-anim.png",
       "bytes": 81933
+    },
+    {
+      "rel": "engine/bohemia_towns.js",
+      "bytes": 81738
     },
     {
       "rel": "records/target/BOHEMIA_HERO_ONE.png",
@@ -1074,68 +2551,216 @@
       "bytes": 80697
     },
     {
-      "rel": "engine/bohemia_loop.js",
-      "bytes": 79579
+      "rel": "slices/vote/COMBAT_NIGHT_YOU_CAN_READ_10_4.jpg",
+      "bytes": 80683
+    },
+    {
+      "rel": "slices/fight_ground/block_shore_0.webp",
+      "bytes": 80092
     },
     {
       "rel": "records/target/PERIMETER_VS_HIS.png",
       "bytes": 79539
     },
     {
+      "rel": "slices/fight_ground/block_freeway_0.webp",
+      "bytes": 76550
+    },
+    {
       "rel": "records/target/RECOOK_road_0.png",
       "bytes": 76417
+    },
+    {
+      "rel": "slices/fight_ground/block_shore_1.webp",
+      "bytes": 76250
     },
     {
       "rel": "slices/eyes/alpha-17-slice.png",
       "bytes": 75990
     },
     {
+      "rel": "slices/vote/DYNASTY_ONE_THEN_HEIRS_9_29.png",
+      "bytes": 73919
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_ONE_CELL_SPRITE.html",
+      "bytes": 73771
+    },
+    {
       "rel": "slices/lab/BOHEMIA_LAB_STARDEW_WORLD_7_26_26.html",
       "bytes": 73597
+    },
+    {
+      "rel": "slices/vote/RUN2_THE_LOOP_FIGHT_10_1.png",
+      "bytes": 73427
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_WALL_HAS_FEET_9_13_26.png",
+      "bytes": 72586
     },
     {
       "rel": "slices/eyes/alpha-10-char.png",
       "bytes": 72288
     },
     {
+      "rel": "records/target/COOK_CARFAIL_BARREL_9_15_26.png",
+      "bytes": 72279
+    },
+    {
       "rel": "slices/BOHEMIA_SPRINT_FREE_PROOF_7_26_26.png",
       "bytes": 72134
     },
     {
+      "rel": "records/target/DIRECTION_THE_DOOR_9_23.png",
+      "bytes": 71657
+    },
+    {
+      "rel": "records/target/COOK_HAIR_21_COLOURS_9_11_26.png",
+      "bytes": 71348
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_HAND_AT_THE_FACE_PLAYS.png",
+      "bytes": 71316
+    },
+    {
+      "rel": "engine/bohemia_agents.js",
+      "bytes": 69830
+    },
+    {
       "rel": "engine/bohemia_world.js",
-      "bytes": 69342
+      "bytes": 69788
     },
     {
       "rel": "engine/bohemia_arterial.js",
       "bytes": 69092
     },
     {
+      "rel": "slices/vote/CHARACTER_A_NEW_THIRTEEN.png",
+      "bytes": 68717
+    },
+    {
+      "rel": "slices/vote/ANIMATION_A_TRADER_FACING_YOU_AFTER.png",
+      "bytes": 68131
+    },
+    {
+      "rel": "engine/bohemia_population.js",
+      "bytes": 67164
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_TWELVE_PEOPLE.png",
+      "bytes": 66379
+    },
+    {
+      "rel": "slices/vote/ANIMATION_EVERY_GAIT_AFTER.png",
+      "bytes": 65945
+    },
+    {
+      "rel": "engine/bohemia_engine_graphics_7_14_26.js",
+      "bytes": 65372
+    },
+    {
+      "rel": "slices/vote/ANIMATION_A_TRADER_FACING_YOU_BEFORE.png",
+      "bytes": 65017
+    },
+    {
+      "rel": "records/target/bb/rules.json",
+      "bytes": 64925
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_HAND_REACHES_THE_FACE.png",
+      "bytes": 64387
+    },
+    {
       "rel": "records/target/logos/LOGO_03.png",
       "bytes": 63962
+    },
+    {
+      "rel": "slices/vote/ANIMATION_EVERY_GAIT_BEFORE.png",
+      "bytes": 63580
+    },
+    {
+      "rel": "slices/vote/WORDS_RUMOUR_6_SURE.png",
+      "bytes": 63215
+    },
+    {
+      "rel": "slices/vote/COMBAT_YOUR_CHARACTERS_IN_THE_FIGHT_10_4.jpg",
+      "bytes": 62793
+    },
+    {
+      "rel": "slices/vote/WORDS_RUMOUR_2_HEARD.png",
+      "bytes": 62517
     },
     {
       "rel": "records/target/BOHEMIA_ICON_GRID.png",
       "bytes": 62426
     },
     {
-      "rel": "engine/bohemia_population.js",
-      "bytes": 61985
+      "rel": "slices/vote/WORDS_RUMOUR_5_FLAT.png",
+      "bytes": 62415
     },
     {
-      "rel": "engine/bohemia_agents.js",
-      "bytes": 61864
+      "rel": "slices/vote/WORDS_RUMOUR_1_SAW.png",
+      "bytes": 62239
+    },
+    {
+      "rel": "slices/vote/WORDS_RUMOUR_4_WHEN.png",
+      "bytes": 62175
+    },
+    {
+      "rel": "slices/vote/WORDS_RUMOUR_3_WHERE.png",
+      "bytes": 61989
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.png",
+      "bytes": 61926
     },
     {
       "rel": "records/target/logos/LOGO_07.png",
       "bytes": 61588
     },
     {
+      "rel": "engine/bohemia_landmarks.js",
+      "bytes": 61138
+    },
+    {
+      "rel": "slices/vote/ANIMATION_A_HIT_FACING_YOU_AFTER.png",
+      "bytes": 61017
+    },
+    {
+      "rel": "slices/vote/ANIMATION_A_HIT_FACING_YOU_BEFORE.png",
+      "bytes": 60621
+    },
+    {
+      "rel": "slices/fight_ground/block_casino_2_raided.webp",
+      "bytes": 60564
+    },
+    {
       "rel": "records/target/logos/LOGO_11.png",
       "bytes": 60300
     },
     {
+      "rel": "slices/fight_ground/block_casino_0_raided.webp",
+      "bytes": 59714
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_THIRTEEN_FACTIONS.png",
+      "bytes": 59712
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_BAR_IN_OUR_MATERIALS_10_4.jpg",
+      "bytes": 59531
+    },
+    {
+      "rel": "slices/vote/COOK_THE_VALLEY_READS_AS_LAND.png",
+      "bytes": 59479
+    },
+    {
       "rel": "slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html",
       "bytes": 59264
+    },
+    {
+      "rel": "slices/vote/ANIMATION_TAKING_A_HIT_AFTER.png",
+      "bytes": 59261
     },
     {
       "rel": "records/target/logos/LOGO_06.png",
@@ -1146,6 +2771,14 @@
       "bytes": 59029
     },
     {
+      "rel": "records/target/EYES_E17_PURPLE_TILES.png",
+      "bytes": 57692
+    },
+    {
+      "rel": "slices/vote/ANIMATION_TAKING_A_HIT_BEFORE.png",
+      "bytes": 57565
+    },
+    {
       "rel": "records/target/logos/LOGO_09.png",
       "bytes": 57366
     },
@@ -1154,8 +2787,16 @@
       "bytes": 57167
     },
     {
+      "rel": "slices/vote/WORLD_THREE_SHAPES.png",
+      "bytes": 56969
+    },
+    {
       "rel": "engine/bohemia_suburb.js",
       "bytes": 56786
+    },
+    {
+      "rel": "slices/fight_ground/block_casino_1_raided.webp",
+      "bytes": 56314
     },
     {
       "rel": "slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html",
@@ -1166,28 +2807,92 @@
       "bytes": 55083
     },
     {
-      "rel": "engine/bohemia_district_kit.js",
-      "bytes": 52902
+      "rel": "records/target/COOK_THE_FIGHT_DRAWS_THE_GREY_STREET_9_20_26.png",
+      "bytes": 54534
     },
     {
-      "rel": "engine/bohemia_engine_graphics_7_14_26.js",
-      "bytes": 52801
+      "rel": "slices/vote/COMBAT_THE_FIGHT_REBUILT_WALK_10_2.jpg",
+      "bytes": 54368
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_PERKS_ON_HIS_CARD_10_2.jpg",
+      "bytes": 54324
+    },
+    {
+      "rel": "engine/bohemia_district_kit.js",
+      "bytes": 54263
+    },
+    {
+      "rel": "records/target/bb/BOHEMIA_GROUND_EDGES.json",
+      "bytes": 53978
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_PERK_SKILLS_ON_HIS_CARD_10_2.jpg",
+      "bytes": 53393
     },
     {
       "rel": "engine/bohemia_dead.js",
       "bytes": 52632
     },
     {
+      "rel": "slices/vote/DYNASTY_THREE_NAMES_RESHUFFLE_9_27.png",
+      "bytes": 51011
+    },
+    {
+      "rel": "slices/vote/ANIMATION_BRACE_AND_SHADOWBOX_AFTER.png",
+      "bytes": 50770
+    },
+    {
+      "rel": "records/target/PAOLO_THE_PAD_IS_BROKEN_9_7_26.jpg",
+      "bytes": 50606
+    },
+    {
       "rel": "engine/bohemia_strip.js",
       "bytes": 50397
+    },
+    {
+      "rel": "slices/vote/COOK_WHO_IS_THAT_ON_THE_ROAD.png",
+      "bytes": 50308
+    },
+    {
+      "rel": "slices/vote/COOK_THE_HOLE_IN_THE_SCREEN.png",
+      "bytes": 50136
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_FOURTEEN_NORTH_AFTER_9_28.png",
+      "bytes": 50081
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_FOURTEEN_NORTH_BEFORE_9_28.png",
+      "bytes": 49647
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_FIGHT_REBUILT_FIGHT_10_2.jpg",
+      "bytes": 49055
+    },
+    {
+      "rel": "slices/settlement_people/faction_remnants.webp",
+      "bytes": 48940
+    },
+    {
+      "rel": "slices/vote/COOK_THE_WHEEL_THAT_STOPPED.png",
+      "bytes": 48882
+    },
+    {
+      "rel": "slices/vote/PLUMBER_BIND_ONCE_10_9.png",
+      "bytes": 48635
     },
     {
       "rel": "slices/lab/BOHEMIA_LAB_VALHEIM_COMFORT_7_27_26.html",
       "bytes": 48482
     },
     {
-      "rel": "engine/bohemia_landmarks.js",
-      "bytes": 48280
+      "rel": "slices/vote/COMBAT_THE_FIGHT_REBUILT_AIM_10_2.jpg",
+      "bytes": 48370
+    },
+    {
+      "rel": "engine/bohemia_standing.js",
+      "bytes": 48018
     },
     {
       "rel": "slices/icons/bohemia-512.png",
@@ -1198,12 +2903,108 @@
       "bytes": 47115
     },
     {
+      "rel": "slices/vote/CHARACTER_BARBER_AFTER_HAIR.png",
+      "bytes": 47051
+    },
+    {
+      "rel": "slices/settlement_people/cast_satchel.webp",
+      "bytes": 46350
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_OTHER_HALF_AFTER.png",
+      "bytes": 45895
+    },
+    {
+      "rel": "slices/settlement_people/faction_reds.webp",
+      "bytes": 45584
+    },
+    {
+      "rel": "slices/vote/CHARACTER_SHORT_MEDIAN_TALL.png",
+      "bytes": 45577
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_EVERY_DIAL_A_SLIDER.html",
+      "bytes": 45451
+    },
+    {
+      "rel": "slices/settlement_people/faction_caravans.webp",
+      "bytes": 45114
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_ROOM_MARCO_9_21.png",
+      "bytes": 45110
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_ROOM_RAY_9_21.png",
+      "bytes": 44892
+    },
+    {
+      "rel": "slices/settlement_people/faction_blues.webp",
+      "bytes": 44842
+    },
+    {
+      "rel": "records/target/COOK_PURPLE_WIDER_BAND_9_12_26.png",
+      "bytes": 44656
+    },
+    {
+      "rel": "slices/settlement_people/faction_network.webp",
+      "bytes": 44530
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_DIRECTIONS_AFTER.png",
+      "bytes": 44493
+    },
+    {
       "rel": "slices/BOHEMIA_CITY_MAP_PROOF_7_18_26.png",
       "bytes": 44475
     },
     {
+      "rel": "slices/settlement_people/faction_anarchists.webp",
+      "bytes": 44318
+    },
+    {
+      "rel": "slices/settlement_people/cast_longcoat.webp",
+      "bytes": 44184
+    },
+    {
+      "rel": "slices/vote/ANIMATION_BRACE_AND_SHADOWBOX_BEFORE.png",
+      "bytes": 43923
+    },
+    {
+      "rel": "slices/fight_ground/block_casino_0_reclaimed.webp",
+      "bytes": 43820
+    },
+    {
+      "rel": "slices/fight_ground/block_casino_2_reclaimed.webp",
+      "bytes": 43610
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_ROOM_NINA_9_21.png",
+      "bytes": 43511
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_ROOM_DENISE_9_21.png",
+      "bytes": 43501
+    },
+    {
       "rel": "engine/bohemia_exchanges.js",
-      "bytes": 43400
+      "bytes": 43406
+    },
+    {
+      "rel": "slices/settlement_people/faction_mob.webp",
+      "bytes": 43270
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_DIRECTIONS_BEFORE.png",
+      "bytes": 43220
+    },
+    {
+      "rel": "slices/settlement_people/faction_church.webp",
+      "bytes": 43204
+    },
+    {
+      "rel": "slices/settlement_people/faction_trades.webp",
+      "bytes": 43200
     },
     {
       "rel": "records/target/HOUSE_01_SHEET.png",
@@ -1214,24 +3015,180 @@
       "bytes": 42292
     },
     {
+      "rel": "slices/settlement_people/cast_shortcoat.webp",
+      "bytes": 42280
+    },
+    {
       "rel": "records/target/ACT_TRIPTYCH.png",
       "bytes": 42190
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_OTHER_HALF_BEFORE.png",
+      "bytes": 41797
+    },
+    {
+      "rel": "slices/settlement_people/faction_colorful.webp",
+      "bytes": 41784
+    },
+    {
+      "rel": "slices/settlement_people/cast_apron.webp",
+      "bytes": 40880
+    },
+    {
+      "rel": "slices/vote/PEOPLE_STREET_BORROWED_10_9_21.png",
+      "bytes": 40835
+    },
+    {
+      "rel": "slices/settlement_people/cast_bedroll.webp",
+      "bytes": 40368
+    },
+    {
+      "rel": "slices/vote/CHARACTER_NO_CHILDREN_NO_OLD.png",
+      "bytes": 40321
+    },
+    {
+      "rel": "slices/settlement_people/cast_skirt.webp",
+      "bytes": 40252
+    },
+    {
+      "rel": "slices/fight_ground/block_casino_1_reclaimed.webp",
+      "bytes": 40202
+    },
+    {
+      "rel": "slices/vote/PEOPLE_STREET_BORROWED_20_9_21.png",
+      "bytes": 40145
+    },
+    {
+      "rel": "slices/settlement_people/faction_volunteers.webp",
+      "bytes": 39976
+    },
+    {
+      "rel": "slices/settlement_people/cast_cape.webp",
+      "bytes": 39818
+    },
+    {
+      "rel": "slices/settlement_people/cast_widebrim.webp",
+      "bytes": 39496
+    },
+    {
+      "rel": "slices/settlement_people/cast_pack.webp",
+      "bytes": 39436
+    },
+    {
+      "rel": "slices/settlement_people/cast_poncho.webp",
+      "bytes": 39144
+    },
+    {
+      "rel": "slices/settlement_people/faction_homeless.webp",
+      "bytes": 38910
+    },
+    {
+      "rel": "slices/settlement_people/faction_cartel.webp",
+      "bytes": 37922
     },
     {
       "rel": "records/target/BOHEMIA_GRID_quarry.png",
       "bytes": 37691
     },
     {
+      "rel": "slices/vote/ANIMATION_FACING_YOU_HE_DID_NOTHING_AFTER.png",
+      "bytes": 37579
+    },
+    {
+      "rel": "slices/vote/CHARACTER_BARBER_AFTER_FACE.png",
+      "bytes": 37572
+    },
+    {
+      "rel": "slices/vote/PEOPLE_NOCLUMP_NOW_10_9_22.png",
+      "bytes": 37513
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_FIGHT_REBUILT_OPEN_10_2.jpg",
+      "bytes": 37368
+    },
+    {
+      "rel": "slices/vote/COMBAT_THE_FIGHT_REBUILT_END_10_2.jpg",
+      "bytes": 37046
+    },
+    {
+      "rel": "slices/vote/ANIMATION_FACING_YOU_HE_DID_NOTHING_BEFORE.png",
+      "bytes": 36450
+    },
+    {
+      "rel": "slices/vote/PEOPLE_STREET_WORLD_10_9_21.png",
+      "bytes": 36049
+    },
+    {
+      "rel": "slices/settlement_people/cast_shorts.webp",
+      "bytes": 36040
+    },
+    {
+      "rel": "slices/settlement_people/cast_barearms.webp",
+      "bytes": 35952
+    },
+    {
       "rel": "records/target/logos/LOGO_04.png",
       "bytes": 35943
+    },
+    {
+      "rel": "slices/vote/CHARACTER_TWO_PEOPLE_TOO_STILL.png",
+      "bytes": 35663
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_LIGHT_MARCO_9_21.png",
+      "bytes": 35560
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_LIGHT_RAY_9_21.png",
+      "bytes": 35453
     },
     {
       "rel": "engine/bohemia_freeway.js",
       "bytes": 35291
     },
     {
+      "rel": "slices/vote/PEOPLE_NOCLUMP_NOW_20_9_22.png",
+      "bytes": 35152
+    },
+    {
+      "rel": "slices/vote/PEOPLE_STREET_WORLD_20_9_21.png",
+      "bytes": 34845
+    },
+    {
+      "rel": "slices/fight_ground/block_casino_0.webp",
+      "bytes": 34774
+    },
+    {
+      "rel": "slices/vote/PEOPLE_STREET_BORROWED_3_9_21.png",
+      "bytes": 34733
+    },
+    {
+      "rel": "slices/fight_ground/block_casino_2.webp",
+      "bytes": 34558
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_LIGHT_DENISE_9_21.png",
+      "bytes": 34464
+    },
+    {
       "rel": "records/target/BOHEMIA_GRID_radio.png",
       "bytes": 34336
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_LIGHT_NINA_9_21.png",
+      "bytes": 34120
+    },
+    {
+      "rel": "records/target/COOK_THE_WELCOME_SIGN_9_12_26.png",
+      "bytes": 33894
+    },
+    {
+      "rel": "slices/vote/DIRECTION_THE_GROUND_RULER.png",
+      "bytes": 33735
+    },
+    {
+      "rel": "records/target/COOK_CITY_FROM_ABOVE_LAST_FIVE_9_12_26.png",
+      "bytes": 33477
     },
     {
       "rel": "engine/bohemia_look.css",
@@ -1246,12 +3203,28 @@
       "bytes": 32763
     },
     {
+      "rel": "slices/vote/WORDS_NAMING_1_PREPARED.png",
+      "bytes": 32456
+    },
+    {
+      "rel": "records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json",
+      "bytes": 32357
+    },
+    {
+      "rel": "records/target/CHARACTER_ONE_STEP_FROM_THE_CROWD_9_6_26.png",
+      "bytes": 32348
+    },
+    {
       "rel": "slices/lab/BOHEMIA_LAB_CDDA_ACTION_COST_7_31_26.html",
       "bytes": 32070
     },
     {
       "rel": "slices/BOHEMIA_RUN_PROOF_loud_7_26_26.png",
       "bytes": 31839
+    },
+    {
+      "rel": "slices/vote/COOK_WHO_IS_THAT_ON_THE_ROAD.html",
+      "bytes": 31560
     },
     {
       "rel": "engine/bohemia_rail.js",
@@ -1262,8 +3235,28 @@
       "bytes": 31030
     },
     {
+      "rel": "slices/fight_ground/block_casino_1.webp",
+      "bytes": 30824
+    },
+    {
+      "rel": "slices/vote/WORDS_NAMING_2_NAMED.png",
+      "bytes": 30686
+    },
+    {
+      "rel": "slices/vote/CHARACTER_BARBER_BEFORE.png",
+      "bytes": 30467
+    },
+    {
       "rel": "slices/BOHEMIA_RUN_PROOF_quiet_7_26_26.png",
       "bytes": 30411
+    },
+    {
+      "rel": "slices/BOHEMIA_LOOP.html",
+      "bytes": 30057
+    },
+    {
+      "rel": "records/target/bb/perks.json",
+      "bytes": 29716
     },
     {
       "rel": "engine/bohemia_voice.js",
@@ -1278,12 +3271,40 @@
       "bytes": 29562
     },
     {
+      "rel": "slices/vote/COOK_THE_MAP_HAS_MARKERS.png",
+      "bytes": 29539
+    },
+    {
       "rel": "engine/bohemia_story_surface.js",
       "bytes": 29522
     },
     {
       "rel": "engine/bohemia_introductions.js",
       "bytes": 29078
+    },
+    {
+      "rel": "slices/fight_people/faction_remnants.webp",
+      "bytes": 28522
+    },
+    {
+      "rel": "slices/fight_people/faction_network.webp",
+      "bytes": 28492
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_FACE_MARCO_9_21.png",
+      "bytes": 28441
+    },
+    {
+      "rel": "slices/fight_people/faction_caravans.webp",
+      "bytes": 28388
+    },
+    {
+      "rel": "slices/fight_people/faction_mob.webp",
+      "bytes": 28102
+    },
+    {
+      "rel": "slices/fight_people/cast_satchel.webp",
+      "bytes": 28078
     },
     {
       "rel": "engine/bohemia_school.js",
@@ -1295,15 +3316,71 @@
     },
     {
       "rel": "engine/bohemia_quirk.js",
-      "bytes": 27807
+      "bytes": 27759
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_FACE_NINA_9_21.png",
+      "bytes": 27711
+    },
+    {
+      "rel": "slices/fight_people/faction_blues.webp",
+      "bytes": 27702
+    },
+    {
+      "rel": "slices/fight_people/cast_shortcoat.webp",
+      "bytes": 27386
+    },
+    {
+      "rel": "slices/fight_people/faction_trades.webp",
+      "bytes": 27334
+    },
+    {
+      "rel": "slices/fight_people/faction_reds.webp",
+      "bytes": 27052
+    },
+    {
+      "rel": "slices/fight_people/faction_anarchists.webp",
+      "bytes": 27012
     },
     {
       "rel": "records/target/BOHEMIA_GRID_interchange.png",
       "bytes": 26987
     },
     {
+      "rel": "slices/fight_people/cast_longcoat.webp",
+      "bytes": 26620
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_FACE_RAY_9_21.png",
+      "bytes": 26600
+    },
+    {
+      "rel": "slices/fight_people/cast_apron.webp",
+      "bytes": 26268
+    },
+    {
+      "rel": "slices/fight_people/faction_homeless.webp",
+      "bytes": 26264
+    },
+    {
+      "rel": "slices/fight_people/cast_cape.webp",
+      "bytes": 26140
+    },
+    {
+      "rel": "slices/fight_people/cast_bedroll.webp",
+      "bytes": 25992
+    },
+    {
       "rel": "engine/bohemia_blockgen.js",
       "bytes": 25974
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_FACE_DENISE_9_21.png",
+      "bytes": 25971
+    },
+    {
+      "rel": "slices/fight_people/faction_church.webp",
+      "bytes": 25882
     },
     {
       "rel": "engine/bohemia_belonging.js",
@@ -1314,20 +3391,88 @@
       "bytes": 25846
     },
     {
+      "rel": "slices/fight_people/cast_poncho.webp",
+      "bytes": 25534
+    },
+    {
+      "rel": "slices/fight_people/cast_widebrim.webp",
+      "bytes": 25480
+    },
+    {
+      "rel": "slices/fight_people/cast_pack.webp",
+      "bytes": 25472
+    },
+    {
+      "rel": "slices/fight_people/faction_colorful.webp",
+      "bytes": 25356
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_PICK_YOUR_MAN_OUT.png",
+      "bytes": 25314
+    },
+    {
+      "rel": "slices/vote/PEOPLE_BUBBLE_AFTER.png",
+      "bytes": 25235
+    },
+    {
       "rel": "engine/bohemia_hazard.js",
       "bytes": 25171
+    },
+    {
+      "rel": "engine/bohemia_acts.js",
+      "bytes": 25046
     },
     {
       "rel": "records/target/RECOOK_road_0_PHONE.png",
       "bytes": 25033
     },
     {
-      "rel": "engine/bohemia_purse.js",
-      "bytes": 24975
+      "rel": "slices/BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.html",
+      "bytes": 24852
+    },
+    {
+      "rel": "slices/vote/PEOPLE_BUBBLE_BEFORE.png",
+      "bytes": 24798
+    },
+    {
+      "rel": "slices/fight_people/cast_skirt.webp",
+      "bytes": 24666
+    },
+    {
+      "rel": "engine/bohemia_payday.js",
+      "bytes": 24453
+    },
+    {
+      "rel": "slices/fight_people/faction_cartel.webp",
+      "bytes": 24256
+    },
+    {
+      "rel": "records/target/COOK_TEAL_LEGS_9_13_26.png",
+      "bytes": 24116
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_ENEMY_TIERS_DRESSED.html",
+      "bytes": 23940
+    },
+    {
+      "rel": "slices/fight_ground/cover_outcrop.webp",
+      "bytes": 23934
+    },
+    {
+      "rel": "slices/fight_people/cast_barearms.webp",
+      "bytes": 23934
+    },
+    {
+      "rel": "slices/fight_people/faction_volunteers.webp",
+      "bytes": 23692
     },
     {
       "rel": "engine/bohemia_speedway.js",
       "bytes": 23549
+    },
+    {
+      "rel": "slices/vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png",
+      "bytes": 23453
     },
     {
       "rel": "engine/bohemia_wash.js",
@@ -1338,24 +3483,64 @@
       "bytes": 23114
     },
     {
+      "rel": "slices/fight_people/cast_shorts.webp",
+      "bytes": 22908
+    },
+    {
       "rel": "engine/bohemia_cityhall.js",
       "bytes": 22719
     },
     {
-      "rel": "engine/bohemia_payday.js",
-      "bytes": 22081
+      "rel": "records/target/bb/perk_translation.json",
+      "bytes": 22497
     },
     {
-      "rel": "engine/bohemia_standing.js",
-      "bytes": 21242
+      "rel": "slices/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.html",
+      "bytes": 22053
+    },
+    {
+      "rel": "slices/vote/LIFECITY_EVERYTHING_YOU_CAN_BUILD_10_1.png",
+      "bytes": 22027
+    },
+    {
+      "rel": "engine/bohemia_against.js",
+      "bytes": 21686
+    },
+    {
+      "rel": "engine/bohemia_haggle.js",
+      "bytes": 21469
+    },
+    {
+      "rel": "slices/vote/PEOPLE_USED_TO_BE_COMPARE_9_29.png",
+      "bytes": 21148
+    },
+    {
+      "rel": "engine/bohemia_lattice.js",
+      "bytes": 21138
     },
     {
       "rel": "engine/bohemia_golf.js",
       "bytes": 21096
     },
     {
+      "rel": "engine/bohemia_floorplan.js",
+      "bytes": 21051
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_STEP_DROPS_A_FRAME.png",
+      "bytes": 20735
+    },
+    {
+      "rel": "slices/fonts/BohemiaCasing-Regular.ttf",
+      "bytes": 20732
+    },
+    {
       "rel": "records/target/BOHEMIA_GRID_strip.png",
       "bytes": 20708
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_WHY_A_FACE_READS_AS_NOBODY.png",
+      "bytes": 20411
     },
     {
       "rel": "records/target/HOUSE_02_FACING_AB.png",
@@ -1370,28 +3555,64 @@
       "bytes": 20374
     },
     {
-      "rel": "engine/bohemia_floorplan.js",
-      "bytes": 20314
-    },
-    {
       "rel": "engine/bohemia_dress.js",
       "bytes": 20293
+    },
+    {
+      "rel": "slices/vote/COOK_THE_BIGGEST_SCREEN_EVER_BUILT.png",
+      "bytes": 20191
     },
     {
       "rel": "engine/bohemia_downtown.js",
       "bytes": 20180
     },
     {
+      "rel": "slices/vote/COOK_THE_MAP_HAS_MARKERS.html",
+      "bytes": 20024
+    },
+    {
       "rel": "engine/bohemia_railyard.js",
       "bytes": 20013
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_THE_MACHINE_SPEAKS_9_15_26.html",
+      "bytes": 19972
+    },
+    {
+      "rel": "slices/vote/LIFECITY_THE_STREET_FALLS_AND_THE_HOUSE_STAYS_LIT_9_28.png",
+      "bytes": 19782
+    },
+    {
+      "rel": "slices/fonts/BohemiaROM-Regular.ttf",
+      "bytes": 19692
     },
     {
       "rel": "records/target/OPENINGS.png",
       "bytes": 19659
     },
     {
+      "rel": "engine/bohemia_encounters.js",
+      "bytes": 19614
+    },
+    {
+      "rel": "engine/bohemia_chapel.js",
+      "bytes": 19589
+    },
+    {
       "rel": "engine/bohemia_ballpark.js",
       "bytes": 19444
+    },
+    {
+      "rel": "slices/fonts/BohemiaBody-Regular.ttf",
+      "bytes": 19416
+    },
+    {
+      "rel": "records/target/bb/ours.json",
+      "bytes": 19403
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_REDO_TAKE_COVER_8_FACINGS_9_13_26.png",
+      "bytes": 19333
     },
     {
       "rel": "engine/bohemia_demoquests.js",
@@ -1402,6 +3623,10 @@
       "bytes": 19240
     },
     {
+      "rel": "slices/vote/COOK_THE_TOWER_STILL_STANDING.png",
+      "bytes": 19234
+    },
+    {
       "rel": "records/target/BOHEMIA_GRID_datafort.png",
       "bytes": 19086
     },
@@ -1410,8 +3635,20 @@
       "bytes": 19059
     },
     {
+      "rel": "engine/bohemia_heirs.js",
+      "bytes": 19029
+    },
+    {
       "rel": "engine/bohemia_quest_placement.js",
       "bytes": 19000
+    },
+    {
+      "rel": "slices/fight_people/you.webp",
+      "bytes": 18940
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_NOT_STRANGERS_ANYMORE.png",
+      "bytes": 18835
     },
     {
       "rel": "records/target/BOHEMIA_GRID_freeway.png",
@@ -1430,6 +3667,10 @@
       "bytes": 18557
     },
     {
+      "rel": "engine/bohemia_ladder_data.js",
+      "bytes": 18544
+    },
+    {
       "rel": "engine/bohemia_library.js",
       "bytes": 18316
     },
@@ -1438,20 +3679,64 @@
       "bytes": 18219
     },
     {
-      "rel": "engine/bohemia_chapel.js",
-      "bytes": 18118
+      "rel": "records/target/DIRECTION_THE_REDO_COVER_DROP_8_FACINGS_9_13_26.png",
+      "bytes": 18213
+    },
+    {
+      "rel": "engine/bohemia_deeds.js",
+      "bytes": 18198
+    },
+    {
+      "rel": "engine/bohemia_parties.js",
+      "bytes": 18179
+    },
+    {
+      "rel": "engine/bohemia_family.js",
+      "bytes": 18024
     },
     {
       "rel": "engine/bohemia_terminal.js",
       "bytes": 17912
     },
     {
+      "rel": "slices/bohemia_loading_screen.js",
+      "bytes": 17712
+    },
+    {
+      "rel": "slices/BOHEMIA_ROSTER_SCREEN.html",
+      "bytes": 17696
+    },
+    {
+      "rel": "slices/vote/CHARACTER_ARMOUR_YOU_CAN_SEE.html",
+      "bytes": 17690
+    },
+    {
       "rel": "engine/bohemia_furnish.js",
       "bytes": 17653
     },
     {
+      "rel": "slices/BOHEMIA_THE_ONES_NOBODY_CAME_FOR_9_24_26.html",
+      "bytes": 17556
+    },
+    {
+      "rel": "engine/bohemia_pockets.js",
+      "bytes": 17495
+    },
+    {
       "rel": "engine/bohemia_town.js",
       "bytes": 17412
+    },
+    {
+      "rel": "slices/vote/LIFECITY_WHAT_YOU_HOLD_9_30.png",
+      "bytes": 17364
+    },
+    {
+      "rel": "engine/bohemia_work.js",
+      "bytes": 17339
+    },
+    {
+      "rel": "slices/BOHEMIA_FOUR_WAYS_THE_FIGHT_READS_9_21_26.html",
+      "bytes": 17323
     },
     {
       "rel": "slices/BOHEMIA_SUBURB_MODULAR_PROOF.html",
@@ -1462,6 +3747,10 @@
       "bytes": 16974
     },
     {
+      "rel": "slices/BOHEMIA_THE_DECK_AND_THE_FLIP_9_27_26.html",
+      "bytes": 16886
+    },
+    {
       "rel": "engine/bohemia_quest_runtime.js",
       "bytes": 16835
     },
@@ -1470,16 +3759,20 @@
       "bytes": 16791
     },
     {
-      "rel": "engine/bohemia_towns.js",
+      "rel": "engine/bohemia_claims.js",
       "bytes": 16775
-    },
-    {
-      "rel": "engine/bohemia_deeds.js",
-      "bytes": 16744
     },
     {
       "rel": "engine/bohemia_vista.js",
       "bytes": 16716
+    },
+    {
+      "rel": "engine/bohemia_owing.js",
+      "bytes": 16715
+    },
+    {
+      "rel": "engine/bohemia_groundeffects.js",
+      "bytes": 16574
     },
     {
       "rel": "engine/bohemia_mall.js",
@@ -1494,6 +3787,14 @@
       "bytes": 16381
     },
     {
+      "rel": "engine/bohemia_powergrid.js",
+      "bytes": 16321
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_TURN_TAKES_THE_BEAT.png",
+      "bytes": 16286
+    },
+    {
       "rel": "engine/bohemia_save.js",
       "bytes": 16285
     },
@@ -1502,16 +3803,32 @@
       "bytes": 16283
     },
     {
+      "rel": "slices/BOHEMIA_THREE_SOUNDS_9_21_26.html",
+      "bytes": 16280
+    },
+    {
       "rel": "engine/bohemia_asking.js",
       "bytes": 16274
+    },
+    {
+      "rel": "records/target/BOHEMIA_GROUND_EFFECTS.json",
+      "bytes": 16057
     },
     {
       "rel": "engine/bohemia_mountain.js",
       "bytes": 15949
     },
     {
+      "rel": "engine/bohemia_mandate.js",
+      "bytes": 15937
+    },
+    {
       "rel": "engine/bohemia_stage.js",
       "bytes": 15869
+    },
+    {
+      "rel": "slices/vote/WORLD_THE_VALLEY_THREE_ACTS.png",
+      "bytes": 15593
     },
     {
       "rel": "engine/bohemia_tests.js",
@@ -1520,6 +3837,10 @@
     {
       "rel": "engine/bohemia_ties.js",
       "bytes": 15515
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_A_PERSON_TALKS_9_21_26.html",
+      "bytes": 15432
     },
     {
       "rel": "records/target/BOHEMIA_GRID_casino.png",
@@ -1538,8 +3859,24 @@
       "bytes": 15267
     },
     {
+      "rel": "slices/vote/WORLD_THE_VALLEY_AT_NIGHT.png",
+      "bytes": 15232
+    },
+    {
+      "rel": "engine/bohemia_future.js",
+      "bytes": 15096
+    },
+    {
       "rel": "engine/bohemia_bq.js",
       "bytes": 14984
+    },
+    {
+      "rel": "engine/bohemia_asks.js",
+      "bytes": 14963
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_THE_VOTE_TAB_SITS_9_21_26.html",
+      "bytes": 14838
     },
     {
       "rel": "engine/bohemia_cemetery.js",
@@ -1550,20 +3887,32 @@
       "bytes": 14786
     },
     {
-      "rel": "engine/bohemia_landfill.js",
-      "bytes": 14511
+      "rel": "slices/BOHEMIA_FIVE_WAYS_THE_WRITING_READS_9_13_26.html",
+      "bytes": 14700
     },
     {
-      "rel": "engine/bohemia_encounters.js",
-      "bytes": 14503
+      "rel": "slices/BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.html",
+      "bytes": 14566
+    },
+    {
+      "rel": "engine/bohemia_landfill.js",
+      "bytes": 14511
     },
     {
       "rel": "slices/BOHEMIA_EYES_ROUND_1_9_5_26.html",
       "bytes": 14469
     },
     {
+      "rel": "slices/vote/WORLD_GROUND_EFFECTS.png",
+      "bytes": 14367
+    },
+    {
       "rel": "engine/bohemia_scene.js",
       "bytes": 14267
+    },
+    {
+      "rel": "engine/bohemia_roads.js",
+      "bytes": 14186
     },
     {
       "rel": "engine/bohemia_production.js",
@@ -1574,12 +3923,20 @@
       "bytes": 14116
     },
     {
+      "rel": "engine/bohemia_origins.js",
+      "bytes": 14068
+    },
+    {
       "rel": "engine/bohemia_world_resolve.js",
       "bytes": 14010
     },
     {
       "rel": "engine/bohemia_blackbox.js",
       "bytes": 13977
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_PHONE_IS_AN_OBJECT_9_11_26.html",
+      "bytes": 13964
     },
     {
       "rel": "engine/bohemia_scheduler.js",
@@ -1598,20 +3955,28 @@
       "bytes": 13818
     },
     {
+      "rel": "slices/BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.html",
+      "bytes": 13812
+    },
+    {
       "rel": "records/target/BOHEMIA_GRID_mountain.png",
       "bytes": 13729
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_THE_BUST.png",
+      "bytes": 13718
     },
     {
       "rel": "records/target/BOHEMIA_CANVAS_MEMORY.json",
       "bytes": 13711
     },
     {
-      "rel": "engine/bohemia_mandate.js",
-      "bytes": 13706
-    },
-    {
       "rel": "engine/bohemia_succession.js",
       "bytes": 13696
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_LAST_LIGHT_9_23_26.html",
+      "bytes": 13670
     },
     {
       "rel": "engine/bohemia_park.js",
@@ -1620,6 +3985,10 @@
     {
       "rel": "engine/bohemia_claim.js",
       "bytes": 13373
+    },
+    {
+      "rel": "engine/bohemia_watch.js",
+      "bytes": 13272
     },
     {
       "rel": "engine/bohemia_hostiles.js",
@@ -1634,8 +4003,28 @@
       "bytes": 13127
     },
     {
+      "rel": "slices/BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.html",
+      "bytes": 13108
+    },
+    {
+      "rel": "slices/vote/WORLD_THE_ROADS.png",
+      "bytes": 13098
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_THE_SCREEN_READS_9_13_26.html",
+      "bytes": 13052
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_VALLEY_STILL_BROADCASTS_9_24_26.html",
+      "bytes": 12994
+    },
+    {
       "rel": "records/target/BOHEMIA_GRID_resort.png",
       "bytes": 12930
+    },
+    {
+      "rel": "engine/bohemia_tract.js",
+      "bytes": 12849
     },
     {
       "rel": "records/target/BOHEMIA_GRID_arterial_x.png",
@@ -1646,8 +4035,20 @@
       "bytes": 12779
     },
     {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_THE_GAME_OPENS_9_21_26.html",
+      "bytes": 12708
+    },
+    {
+      "rel": "engine/bohemia_lend.js",
+      "bytes": 12617
+    },
+    {
       "rel": "engine/bohemia_valleymap.js",
       "bytes": 12613
+    },
+    {
+      "rel": "slices/BOHEMIA_TUNING_EVERY_NUMBER_THE_FIGHT_FEELS_10_10_26.html",
+      "bytes": 12580
     },
     {
       "rel": "engine/bohemia_truckstop.js",
@@ -1658,8 +4059,28 @@
       "bytes": 12535
     },
     {
+      "rel": "slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html",
+      "bytes": 12493
+    },
+    {
+      "rel": "engine/bohemia_turfledger.js",
+      "bytes": 12477
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_FOUR_BUTTONS_FIT_9_13_26.html",
+      "bytes": 12459
+    },
+    {
       "rel": "engine/bohemia_personlook.js",
       "bytes": 12452
+    },
+    {
+      "rel": "engine/bohemia_ground.js",
+      "bytes": 12376
+    },
+    {
+      "rel": "engine/bohemia_livingmap.js",
+      "bytes": 12358
     },
     {
       "rel": "records/target/BOHEMIA_GRID_minigp.png",
@@ -1674,12 +4095,72 @@
       "bytes": 12195
     },
     {
-      "rel": "engine/bohemia_economy.js",
-      "bytes": 12094
+      "rel": "engine/bohemia_down.js",
+      "bytes": 12151
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_SIGNS_AT_NIGHT_9_22_26.html",
+      "bytes": 12075
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_SAND_IS_OUT_9_24_26.html",
+      "bytes": 12048
+    },
+    {
+      "rel": "engine/bohemia_company.js",
+      "bytes": 12042
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_TOP_MENU_BAR_9_7_26.html",
+      "bytes": 12029
+    },
+    {
+      "rel": "slices/vote/WORLD_FIFTEEN_GROUNDS.png",
+      "bytes": 11998
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_DARK_INSTITUTIONS_9_22_26.html",
+      "bytes": 11976
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_A_CHOICE_LOOKS_9_13_26.html",
+      "bytes": 11968
+    },
+    {
+      "rel": "records/target/DIRECTION_THE_MOB_SWAP_9_13_26.png",
+      "bytes": 11957
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_20.webp",
+      "bytes": 11936
+    },
+    {
+      "rel": "slices/BOHEMIA_THREE_HUMS_OFF_THE_GRID_9_28_26.html",
+      "bytes": 11850
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_ONE_DOOR_9_14_26.html",
+      "bytes": 11828
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_THE_NOTES_SECTION_SITS_9_21_26.html",
+      "bytes": 11784
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html",
+      "bytes": 11761
+    },
+    {
+      "rel": "engine/bohemia_obligation.js",
+      "bytes": 11754
     },
     {
       "rel": "engine/bohemia_medical.js",
       "bytes": 11719
+    },
+    {
+      "rel": "slices/BOHEMIA_WHAT_A_FLIP_SOUNDS_LIKE_9_25_26.html",
+      "bytes": 11663
     },
     {
       "rel": "slices/icons/bohemia-192.png",
@@ -1690,6 +4171,26 @@
       "bytes": 11651
     },
     {
+      "rel": "engine/bohemia_direct_bq.js",
+      "bytes": 11632
+    },
+    {
+      "rel": "engine/bohemia_aftermoney.js",
+      "bytes": 11629
+    },
+    {
+      "rel": "engine/bohemia_valleyground.js",
+      "bytes": 11521
+    },
+    {
+      "rel": "slices/BOHEMIA_A_FOOTSTEP_THAT_IS_NOT_SAND_9_24_26.html",
+      "bytes": 11505
+    },
+    {
+      "rel": "engine/bohemia_ladderwalk.js",
+      "bytes": 11484
+    },
+    {
       "rel": "engine/bohemia_firestation.js",
       "bytes": 11465
     },
@@ -1698,28 +4199,88 @@
       "bytes": 11454
     },
     {
-      "rel": "engine/bohemia_against.js",
-      "bytes": 11313
+      "rel": "slices/BOHEMIA_THE_FIVE_REGISTERS_9_12_26.html",
+      "bytes": 11419
+    },
+    {
+      "rel": "engine/bohemia_godgear.js",
+      "bytes": 11376
+    },
+    {
+      "rel": "engine/bohemia_fold.js",
+      "bytes": 11322
+    },
+    {
+      "rel": "engine/bohemia_pumps.js",
+      "bytes": 11292
     },
     {
       "rel": "engine/bohemia_fuse.js",
       "bytes": 11282
     },
     {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_A_CHOICE_FITS_9_13_26.html",
+      "bytes": 11241
+    },
+    {
       "rel": "records/target/BOHEMIA_GRID_dam.png",
       "bytes": 11181
+    },
+    {
+      "rel": "engine/bohemia_strike.js",
+      "bytes": 11099
+    },
+    {
+      "rel": "slices/vote/WORLD_TWO_FUTURES.png",
+      "bytes": 11057
+    },
+    {
+      "rel": "slices/BOHEMIA_WHAT_THIS_VALLEY_STRIKES_9_24_26.html",
+      "bytes": 11053
+    },
+    {
+      "rel": "slices/vote/WORLD_PLACES_WORTH_GOING_TO.png",
+      "bytes": 11038
+    },
+    {
+      "rel": "engine/bohemia_ask_spoken.js",
+      "bytes": 10984
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html",
+      "bytes": 10973
     },
     {
       "rel": "engine/bohemia_industrial.js",
       "bytes": 10906
     },
     {
+      "rel": "engine/bohemia_boardterrain.js",
+      "bytes": 10800
+    },
+    {
+      "rel": "slices/vote/LIFECITY_TWO_DAYS_OF_BUILDING_9_29.png",
+      "bytes": 10764
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_0.webp",
+      "bytes": 10762
+    },
+    {
       "rel": "engine/bohemia_apartment.js",
       "bytes": 10749
     },
     {
+      "rel": "slices/BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html",
+      "bytes": 10717
+    },
+    {
       "rel": "engine/bohemia_warehouse.js",
       "bytes": 10715
+    },
+    {
+      "rel": "engine/bohemia_charge.js",
+      "bytes": 10710
     },
     {
       "rel": "engine/bohemia_swapmeet.js",
@@ -1734,28 +4295,84 @@
       "bytes": 10628
     },
     {
+      "rel": "slices/BOHEMIA_THE_ROOM_ON_THE_TAP_9_21_26.html",
+      "bytes": 10616
+    },
+    {
+      "rel": "slices/vote/LIFECITY_THE_BATTERY_SHED_9_21.png",
+      "bytes": 10555
+    },
+    {
+      "rel": "slices/BOHEMIA_MODS_AT_BOOT_9_28_26.html",
+      "bytes": 10531
+    },
+    {
+      "rel": "slices/fight_ground/cover_car_lane.webp",
+      "bytes": 10482
+    },
+    {
       "rel": "engine/bohemia_storage.js",
       "bytes": 10444
     },
     {
-      "rel": "engine/bohemia_century.js",
-      "bytes": 10322
+      "rel": "records/target/DIRECTION_THE_TRADES_SWAP_9_13_26.png",
+      "bytes": 10338
+    },
+    {
+      "rel": "slices/bohemia_sign_kit.js",
+      "bytes": 10333
     },
     {
       "rel": "engine/bohemia_jail.js",
       "bytes": 10188
     },
     {
+      "rel": "slices/fight_ground/cover_rock_3.webp",
+      "bytes": 10162
+    },
+    {
+      "rel": "slices/BOHEMIA_DOES_A_RUN_SOUND_LIKE_A_RUN_9_24_26.html",
+      "bytes": 10146
+    },
+    {
       "rel": "engine/bohemia_waterpark.js",
       "bytes": 10137
+    },
+    {
+      "rel": "slices/fight_people/fight_people.json",
+      "bytes": 10096
     },
     {
       "rel": "engine/bohemia_substation.js",
       "bytes": 10080
     },
     {
-      "rel": "engine/bohemia_housing.js",
-      "bytes": 9972
+      "rel": "slices/fight_ground/cover_car_kerb.webp",
+      "bytes": 10048
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_6.webp",
+      "bytes": 10040
+    },
+    {
+      "rel": "slices/BOHEMIA_THREE_MORE_GROUNDS_9_29_26.html",
+      "bytes": 10026
+    },
+    {
+      "rel": "slices/BOHEMIA_A_WALK_THAT_NEVER_REPEATS_9_30_26.html",
+      "bytes": 10000
+    },
+    {
+      "rel": "slices/bohemia_ui_3d.css",
+      "bytes": 9993
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_LEFT_RAIL_9_11_26.html",
+      "bytes": 9985
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_11.webp",
+      "bytes": 9962
     },
     {
       "rel": "engine/bohemia_battery.js",
@@ -1766,36 +4383,300 @@
       "bytes": 9830
     },
     {
+      "rel": "slices/vote/ANIMATION_ONE_CELL_AFTER.png",
+      "bytes": 9819
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_12.webp",
+      "bytes": 9782
+    },
+    {
+      "rel": "engine/bohemia_cells.js",
+      "bytes": 9715
+    },
+    {
       "rel": "engine/bohemia_favour.js",
       "bytes": 9702
+    },
+    {
+      "rel": "slices/vote/CHARACTER_SPIKE_IN_WARDROBE_BEFORE.png",
+      "bytes": 9691
+    },
+    {
+      "rel": "slices/vote/ANIMATION_ONE_CELL_BEFORE.png",
+      "bytes": 9688
+    },
+    {
+      "rel": "slices/vote/CHARACTER_WHOLE_TRADE_BEFORE.png",
+      "bytes": 9680
+    },
+    {
+      "rel": "slices/vote/CHARACTER_WHOLE_TRADE_AFTER.png",
+      "bytes": 9679
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_14.webp",
+      "bytes": 9676
+    },
+    {
+      "rel": "slices/vote/CHARACTER_SPIKE_IN_WARDROBE_AFTER.png",
+      "bytes": 9640
+    },
+    {
+      "rel": "slices/vote/WORLD_HOW_FAST_AND_WHO.png",
+      "bytes": 9599
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_2.webp",
+      "bytes": 9552
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_1.webp",
+      "bytes": 9514
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_3.webp",
+      "bytes": 9498
+    },
+    {
+      "rel": "slices/fight_ground/cover_car_drive.webp",
+      "bytes": 9482
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_13.webp",
+      "bytes": 9426
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_PICK_YOUR_MAN_OUT.html",
+      "bytes": 9404
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_8.webp",
+      "bytes": 9340
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_10.webp",
+      "bytes": 9302
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_16.webp",
+      "bytes": 9240
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_9.webp",
+      "bytes": 9224
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_6.webp",
+      "bytes": 9222
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_GROUND_TAKES_IT_AND_THINGS_GET_SET_DOWN_10_1_26.html",
+      "bytes": 9190
     },
     {
       "rel": "engine/bohemia_drivein.js",
       "bytes": 9118
     },
     {
+      "rel": "slices/BOHEMIA_FOUR_WAYS_THE_TOP_BAR_FITS_9_22_26.html",
+      "bytes": 9076
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_15.webp",
+      "bytes": 9068
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_PANEL_IS_A_PLATE_9_12_26.html",
+      "bytes": 9025
+    },
+    {
+      "rel": "engine/bohemia_backhouse.js",
+      "bytes": 9008
+    },
+    {
+      "rel": "engine/bohemia_stayed.js",
+      "bytes": 8998
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_5.webp",
+      "bytes": 8964
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_7.webp",
+      "bytes": 8950
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_9.webp",
+      "bytes": 8940
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_0.webp",
+      "bytes": 8914
+    },
+    {
+      "rel": "slices/fight_ground/cover_rubble_4.webp",
+      "bytes": 8884
+    },
+    {
       "rel": "engine/bohemia_trailer.js",
       "bytes": 8878
+    },
+    {
+      "rel": "engine/bohemia_coalition.js",
+      "bytes": 8812
+    },
+    {
+      "rel": "slices/BOHEMIA_NO_SLOP_9_11_26.html",
+      "bytes": 8792
+    },
+    {
+      "rel": "slices/vote/FACTIONS_THE_FOURTEEN_HOME_BASES_9_28.html",
+      "bytes": 8733
+    },
+    {
+      "rel": "slices/BOHEMIA_HOW_LOW_THE_ROOM_9_23_26.html",
+      "bytes": 8730
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_4.webp",
+      "bytes": 8720
     },
     {
       "rel": "engine/bohemia_loop_faction_bridge_tests.js",
       "bytes": 8717
     },
     {
-      "rel": "engine/bohemia_powergrid.js",
-      "bytes": 8362
+      "rel": "slices/fight_ground/cover_rock_5.webp",
+      "bytes": 8702
+    },
+    {
+      "rel": "engine/bohemia_tilekinds.js",
+      "bytes": 8683
+    },
+    {
+      "rel": "records/target/bb/ai.json",
+      "bytes": 8653
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html",
+      "bytes": 8637
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_AMBIENCE_COMES_DOWN_10_4_26.html",
+      "bytes": 8621
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_THE_QUEUE_READS_9_15_26.html",
+      "bytes": 8588
+    },
+    {
+      "rel": "records/target/bb/price_table.json",
+      "bytes": 8536
+    },
+    {
+      "rel": "slices/BOHEMIA_WHAT_MODS_FIX_9_29_26.html",
+      "bytes": 8494
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_17.webp",
+      "bytes": 8476
+    },
+    {
+      "rel": "records/target/BOHEMIA_VALLEY_GROUNDS.json",
+      "bytes": 8472
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_11.webp",
+      "bytes": 8436
+    },
+    {
+      "rel": "engine/bohemia_ownpower.js",
+      "bytes": 8429
+    },
+    {
+      "rel": "slices/BOHEMIA_HOW_A_LABEL_IS_SPACED_9_12_26.html",
+      "bytes": 8421
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_10.webp",
+      "bytes": 8412
     },
     {
       "rel": "engine/bohemia_slice_engine.js",
       "bytes": 8333
     },
     {
+      "rel": "engine/bohemia_heir.js",
+      "bytes": 8323
+    },
+    {
+      "rel": "engine/bohemia_pricetable.js",
+      "bytes": 8274
+    },
+    {
+      "rel": "slices/BOHEMIA_GOOD_BROS_10_9_26.html",
+      "bytes": 8162
+    },
+    {
+      "rel": "engine/bohemia_barter.js",
+      "bytes": 8057
+    },
+    {
       "rel": "engine/bohemia_combatfloor.js",
       "bytes": 8045
     },
     {
+      "rel": "slices/vote/LIFECITY_THE_SHOP_IS_STILL_LIT_9_21.png",
+      "bytes": 8040
+    },
+    {
+      "rel": "slices/fight_ground/cover_wall_broken.webp",
+      "bytes": 8018
+    },
+    {
+      "rel": "slices/settlement_people/settlement_people.json",
+      "bytes": 7910
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_STREET_AT_THREE_HOURS_9_21_26.html",
+      "bytes": 7905
+    },
+    {
+      "rel": "engine/bohemia_ambitions.js",
+      "bytes": 7849
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_8.webp",
+      "bytes": 7844
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_RING_DRESSED_9_7_26.html",
+      "bytes": 7843
+    },
+    {
+      "rel": "slices/vote/LIFECITY_THE_WATER_YOU_COULD_STAND_ON_9_27.png",
+      "bytes": 7830
+    },
+    {
+      "rel": "slices/vote/LIFECITY_THE_SAME_STREET_RECLAIMED_9_24.png",
+      "bytes": 7792
+    },
+    {
+      "rel": "slices/BOHEMIA_WHAT_PEOPLE_REPEAT_ABOUT_YOU_9_22_26.html",
+      "bytes": 7786
+    },
+    {
       "rel": "engine/bohemia_interior_levels.js",
       "bytes": 7746
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_REACH_AT_HALF_9_7_26.html",
+      "bytes": 7673
+    },
+    {
+      "rel": "engine/bohemia_kept.js",
+      "bytes": 7639
     },
     {
       "rel": "engine/bohemia_brownout.js",
@@ -1806,44 +4687,184 @@
       "bytes": 7615
     },
     {
+      "rel": "slices/BOHEMIA_TUNING_EVERY_NUMBER_9_28_26.html",
+      "bytes": 7614
+    },
+    {
+      "rel": "engine/bohemia_roster.js",
+      "bytes": 7580
+    },
+    {
       "rel": "slices/BOHEMIA_FLOORPLAN_PROOF_7_18_26.png",
       "bytes": 7558
+    },
+    {
+      "rel": "engine/bohemia_lock.js",
+      "bytes": 7545
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_TITLE_IS_DETUNED_10_5_26.html",
+      "bytes": 7402
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_NOT_STRANGERS_ANYMORE.html",
+      "bytes": 7371
     },
     {
       "rel": "engine/bohemia_ending.js",
       "bytes": 7335
     },
     {
+      "rel": "slices/vote/PORTRAIT_THE_BUST.html",
+      "bytes": 7312
+    },
+    {
+      "rel": "slices/vote/LIFECITY_THE_STREET_THAT_IS_STILL_LIT_9_23.png",
+      "bytes": 7275
+    },
+    {
+      "rel": "engine/bohemia_draw_budget.json",
+      "bytes": 7233
+    },
+    {
+      "rel": "slices/BOHEMIA_ONE_GUN_FORTY_TWO_PLACES_9_28_26.html",
+      "bytes": 7219
+    },
+    {
+      "rel": "slices/BOHEMIA_UI_SIZE_OPTIONS_9_6_26.html",
+      "bytes": 7193
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_WHY_A_FACE_READS_AS_NOBODY.html",
+      "bytes": 7192
+    },
+    {
+      "rel": "slices/BOHEMIA_FOUR_WAYS_A_WORD_IS_STAMPED_9_21_26.html",
+      "bytes": 7170
+    },
+    {
+      "rel": "slices/vote/FACTIONS_TERRITORY_SURVIVES_THE_REBUILD_9_27.html",
+      "bytes": 7159
+    },
+    {
+      "rel": "slices/vote/LIFECITY_THE_SHIFT_IS_LOGGED_9_24.png",
+      "bytes": 7147
+    },
+    {
       "rel": "slices/BOHEMIA_BUILTLOT_PROOF_7_18_26.png",
       "bytes": 7107
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_2.webp",
+      "bytes": 7082
+    },
+    {
+      "rel": "slices/vote/ANIMATION_HOW_YOU_CROSS_THE_MAP.html",
+      "bytes": 7075
     },
     {
       "rel": "engine/bohemia_cityedit.js",
       "bytes": 7055
     },
     {
+      "rel": "slices/fight_ground/cover_rock_19.webp",
+      "bytes": 7002
+    },
+    {
       "rel": "engine/bohemia_weather.js",
       "bytes": 6992
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_ONE_WHO_WALKS_WITH_YOU_9_21_26.html",
+      "bytes": 6982
+    },
+    {
+      "rel": "records/target/bb/factions.json",
+      "bytes": 6965
+    },
+    {
+      "rel": "slices/vote/FACTIONS_A_CREW_AT_YOUR_GATE_10_1.html",
+      "bytes": 6937
     },
     {
       "rel": "engine/bohemia_overmap_bridge.js",
       "bytes": 6879
     },
     {
+      "rel": "slices/fight_ground/cover_rock_1.webp",
+      "bytes": 6870
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html",
+      "bytes": 6814
+    },
+    {
       "rel": "engine/bohemia_known.js",
       "bytes": 6732
+    },
+    {
+      "rel": "slices/fight_ground/light_lamp_house_side.webp",
+      "bytes": 6664
+    },
+    {
+      "rel": "slices/fight_ground/light_lamp_your_side.webp",
+      "bytes": 6664
     },
     {
       "rel": "engine/bohemia_loop_slice_tests.js",
       "bytes": 6653
     },
     {
+      "rel": "slices/vote/LIFECITY_THE_SHOP_THAT_IS_OPEN_9_22.png",
+      "bytes": 6636
+    },
+    {
       "rel": "engine/bohemia_tilepool.js",
       "bytes": 6625
     },
     {
+      "rel": "engine/bohemia_contracts.js",
+      "bytes": 6618
+    },
+    {
+      "rel": "slices/vote/WORLD_THE_SAME_CORNER.png",
+      "bytes": 6584
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_RETINUE_10_1_26.html",
+      "bytes": 6562
+    },
+    {
+      "rel": "slices/BOHEMIA_REAL_FAMILIES_DONT_COME_OUT_FOUR_OF_FOUR_9_28_26.html",
+      "bytes": 6498
+    },
+    {
+      "rel": "slices/vote/WORLD_THE_CORNER_RECLAIMED.png",
+      "bytes": 6443
+    },
+    {
+      "rel": "engine/bohemia_hunger.js",
+      "bytes": 6359
+    },
+    {
+      "rel": "engine/bohemia_stash.js",
+      "bytes": 6344
+    },
+    {
+      "rel": "slices/vote/WORLD_PICKED_CLEAN.png",
+      "bytes": 6329
+    },
+    {
+      "rel": "records/target/BOHEMIA_PORTRAIT_COMMENTS_ANSWERED.json",
+      "bytes": 6272
+    },
+    {
       "rel": "records/target/BOHEMIA_TARGET_MANIFEST.txt",
       "bytes": 6250
+    },
+    {
+      "rel": "slices/BOHEMIA_TRY_A_MOD_9_28_26.html",
+      "bytes": 6249
     },
     {
       "rel": "engine/bohemia_patrol.js",
@@ -1854,28 +4875,164 @@
       "bytes": 6180
     },
     {
+      "rel": "slices/fight_ground/light_oil_drum.webp",
+      "bytes": 6174
+    },
+    {
+      "rel": "slices/BOHEMIA_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.html",
+      "bytes": 6163
+    },
+    {
+      "rel": "records/target/bb/weapon_lines.json",
+      "bytes": 6150
+    },
+    {
       "rel": "engine/bohemia_conversation.js",
       "bytes": 6131
+    },
+    {
+      "rel": "slices/vote/ANIMATION_EVERY_GAIT.html",
+      "bytes": 6122
+    },
+    {
+      "rel": "records/target/bb/contract_terms.json",
+      "bytes": 6114
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html",
+      "bytes": 6086
+    },
+    {
+      "rel": "slices/vote/ANIMATION_ONE_CELL.html",
+      "bytes": 6083
+    },
+    {
+      "rel": "records/target/bb/armor_tiers.json",
+      "bytes": 6044
     },
     {
       "rel": "engine/bohemia_quest_runtime_tests.js",
       "bytes": 6012
     },
     {
+      "rel": "slices/vote/FACTIONS_YOUR_BASE_GROWS_PART_BY_PART_9_30.html",
+      "bytes": 5980
+    },
+    {
+      "rel": "slices/BOHEMIA_ONE_STORY_THREE_MOUTHS_9_22_26.html",
+      "bytes": 5924
+    },
+    {
+      "rel": "slices/vote/FACTIONS_TWO_LADDERS_NEITHER_READS_GROUND_9_27.html",
+      "bytes": 5919
+    },
+    {
+      "rel": "slices/vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html",
+      "bytes": 5909
+    },
+    {
+      "rel": "engine/bohemia_reach.js",
+      "bytes": 5884
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_PAD_IS_ONE_RING_9_7_26.html",
+      "bytes": 5862
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_18.webp",
+      "bytes": 5852
+    },
+    {
       "rel": "engine/bohemia_rooms.js",
       "bytes": 5841
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_SURER_THE_WRONGER_9_24_26.html",
+      "bytes": 5827
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_THE_FACE_AT_REST.png",
+      "bytes": 5765
     },
     {
       "rel": "engine/bohemia_light_registry.js",
       "bytes": 5731
     },
     {
+      "rel": "slices/vote/FACTIONS_FOURTEEN_CREWS_NONE_ON_THE_MAP_9_27.html",
+      "bytes": 5707
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_TURN_CLOSES_10_4_26.html",
+      "bytes": 5668
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_A_ROW_HAS_A_BODY_9_16_26.html",
+      "bytes": 5661
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_A_NOTE_LANDS_9_20_26.html",
+      "bytes": 5635
+    },
+    {
       "rel": "engine/BOHEMIA_faction_graph.json",
       "bytes": 5584
     },
     {
+      "rel": "slices/vote/FACTIONS_YOU_CANNOT_SEE_TERRITORY_9_24.html",
+      "bytes": 5581
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_ONE_WHO_FELL_IN_9_24_26.html",
+      "bytes": 5573
+    },
+    {
+      "rel": "slices/BOHEMIA_UI_SKIN_OPTIONS_9_7_26.html",
+      "bytes": 5552
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_TURN_TAKES_THE_BEAT.html",
+      "bytes": 5500
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_STEP_DROPS_A_FRAME.html",
+      "bytes": 5478
+    },
+    {
       "rel": "engine/bohemia_prop_scale.js",
       "bytes": 5451
+    },
+    {
+      "rel": "slices/BOHEMIA_WHO_YOU_WERE_9_27_26.html",
+      "bytes": 5369
+    },
+    {
+      "rel": "slices/vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html",
+      "bytes": 5349
+    },
+    {
+      "rel": "slices/fight_ground/cover_rock_7.webp",
+      "bytes": 5272
+    },
+    {
+      "rel": "slices/BOHEMIA_A_GOAL_THE_COMPANY_SETS_ITSELF_9_30_26.html",
+      "bytes": 5228
+    },
+    {
+      "rel": "slices/BOHEMIA_A_SIGHTED_PARTY_STOPS_THE_MARCH_9_30_26.html",
+      "bytes": 5181
+    },
+    {
+      "rel": "slices/vote/ANIMATION_A_TRADER_FACING_YOU.html",
+      "bytes": 5170
+    },
+    {
+      "rel": "slices/vote/FACTIONS_A_BLOCK_CHANGED_HANDS_9_24.html",
+      "bytes": 5170
+    },
+    {
+      "rel": "slices/BOHEMIA_FIVE_WAYS_A_LABEL_SITS_ON_THE_WORLD_9_18_26.html",
+      "bytes": 5138
     },
     {
       "rel": "records/target/BOHEMIA_VISUAL_CONSTITUTION.json",
@@ -1890,20 +5047,128 @@
       "bytes": 5046
     },
     {
+      "rel": "slices/BOHEMIA_A_STRANGER_GETS_THE_WORST_WORK_9_28_26.html",
+      "bytes": 4988
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_ONE_WHO_STOOD_THERE_9_23_26.html",
+      "bytes": 4923
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_OTHER_HALF.html",
+      "bytes": 4906
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_DIRECTIONS.html",
+      "bytes": 4885
+    },
+    {
+      "rel": "slices/vote/ANIMATION_TAKING_A_HIT.html",
+      "bytes": 4876
+    },
+    {
+      "rel": "slices/vote/ANIMATION_A_HIT_FACING_YOU.html",
+      "bytes": 4867
+    },
+    {
       "rel": "engine/bohemia_loop_ledger_tests.js",
       "bytes": 4860
+    },
+    {
+      "rel": "slices/BOHEMIA_ARGUING_THE_PRICE_9_21_26.html",
+      "bytes": 4813
+    },
+    {
+      "rel": "slices/BOHEMIA_NOBODY_STANDS_ON_ANYBODY_9_22_26.html",
+      "bytes": 4784
     },
     {
       "rel": "engine/bohemia_bq_tests.js",
       "bytes": 4731
     },
     {
+      "rel": "slices/vote/ANIMATION_FACING_YOU_HE_DID_NOTHING.html",
+      "bytes": 4713
+    },
+    {
+      "rel": "slices/vote/WORLD_WHAT_A_TILE_IS.png",
+      "bytes": 4703
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_FIGHTS_CLIPS.html",
+      "bytes": 4670
+    },
+    {
+      "rel": "slices/BOHEMIA_NOBODY_STOPS_YOU_YET_9_24_26.html",
+      "bytes": 4624
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_THE_FACE_AT_REST.html",
+      "bytes": 4572
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.html",
+      "bytes": 4561
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_TOWN_IS_ALIVE.html",
+      "bytes": 4534
+    },
+    {
+      "rel": "slices/vote/ANIMATION_BRACE_AND_SHADOWBOX.html",
+      "bytes": 4500
+    },
+    {
       "rel": "engine/bohemia_slice_core.js",
       "bytes": 4498
     },
     {
+      "rel": "slices/BOHEMIA_ONE_HUMAN_ONE_PAST_9_29_26.html",
+      "bytes": 4449
+    },
+    {
+      "rel": "slices/BOHEMIA_HER_NAME_AND_HER_FACE_9_24_26.html",
+      "bytes": 4416
+    },
+    {
       "rel": "engine/bohemia_loop_profile_tests.js",
       "bytes": 4406
+    },
+    {
+      "rel": "records/target/bb/stash_rates.json",
+      "bytes": 4336
+    },
+    {
+      "rel": "slices/BOHEMIA_TUNING_WHO_DIES_9_30_26.html",
+      "bytes": 4251
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_ELDER_STOOPS.html",
+      "bytes": 4251
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_HAND_AT_THE_FACE_PLAYS.html",
+      "bytes": 4244
+    },
+    {
+      "rel": "slices/BOHEMIA_ONE_HONEST_NUMBER_BESIDE_THE_ARMOUR_10_1_26.html",
+      "bytes": 4223
+    },
+    {
+      "rel": "slices/vote/WORLD_THE_CAMP_THAT_HOLDS_THE_POWER.png",
+      "bytes": 4209
+    },
+    {
+      "rel": "engine/bohemia_act_state.js",
+      "bytes": 4177
+    },
+    {
+      "rel": "records/target/BOHEMIA_THE_ROADS.json",
+      "bytes": 4079
+    },
+    {
+      "rel": "slices/vote/FACTIONS_A_HOUSE_YOU_CARE_ABOUT_10_9.html",
+      "bytes": 4073
     },
     {
       "rel": "engine/bohemia_garage.js",
@@ -1916,6 +5181,14 @@
     {
       "rel": "slices/BOHEMIA_WORLD_ZOOM_PROOF_7_18_26.png",
       "bytes": 3956
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_IDLE_REDO.html",
+      "bytes": 3942
+    },
+    {
+      "rel": "slices/BOHEMIA_TUNING_THE_DIFFICULTY_DIALS_10_1_26.html",
+      "bytes": 3912
     },
     {
       "rel": "records/target/HOUSE_02_ISO.png",
@@ -1938,16 +5211,48 @@
       "bytes": 3710
     },
     {
+      "rel": "slices/vote/ANIMATION_THE_MAP_GLIDES.html",
+      "bytes": 3643
+    },
+    {
+      "rel": "slices/vote/ANIMATION_FAST_TRAVEL_GLIDES.html",
+      "bytes": 3592
+    },
+    {
       "rel": "engine/bohemia_loop_channel_tests.js",
       "bytes": 3586
+    },
+    {
+      "rel": "slices/BOHEMIA_TUNING_WHEN_THE_AMMO_RUNS_OUT_10_10_26.html",
+      "bytes": 3583
+    },
+    {
+      "rel": "records/target/BOHEMIA_GOD_GEAR_PLACES.json",
+      "bytes": 3565
+    },
+    {
+      "rel": "slices/BOHEMIA_THE_ONE_WRONG_DETAIL_9_21_26.html",
+      "bytes": 3539
     },
     {
       "rel": "records/target/BOHEMIA_MASTER_PALETTE.json",
       "bytes": 3536
     },
     {
+      "rel": "slices/BOHEMIA_SOMEBODY_ASKS_YOU_9_21_26.html",
+      "bytes": 3535
+    },
+    {
+      "rel": "records/target/BOHEMIA_BOARD_TERRAINS.json",
+      "bytes": 3514
+    },
+    {
       "rel": "engine/bohemia_loop_talk_tests.js",
       "bytes": 3470
+    },
+    {
+      "rel": "slices/vote/WORLD_THE_ONLY_PUMP.png",
+      "bytes": 3463
     },
     {
       "rel": "engine/bohemia_terrain_noise.js",
@@ -1962,16 +5267,48 @@
       "bytes": 3439
     },
     {
+      "rel": "slices/BOHEMIA_TUNING_HOW_LONG_A_FIGHT_TAKES_9_29_26.html",
+      "bytes": 3391
+    },
+    {
+      "rel": "engine/BOHEMIA_faction_colours.json",
+      "bytes": 3294
+    },
+    {
       "rel": "engine/bohemia_crypt.js",
       "bytes": 3267
+    },
+    {
+      "rel": "slices/vote/WORLD_THE_RIG_ON_THE_ROOF.png",
+      "bytes": 3201
     },
     {
       "rel": "engine/bohemia_loop_feed_tests.js",
       "bytes": 3183
     },
     {
+      "rel": "slices/BOHEMIA_TUNING_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.html",
+      "bytes": 3159
+    },
+    {
       "rel": "slices/SLICES_MANIFEST.json",
       "bytes": 3152
+    },
+    {
+      "rel": "slices/BOHEMIA_TUNING_WHAT_EACH_DIFFICULTY_CHANGES_10_9_26.html",
+      "bytes": 3149
+    },
+    {
+      "rel": "slices/BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.html",
+      "bytes": 3112
+    },
+    {
+      "rel": "slices/BOHEMIA_MODS_THE_MODS_FOLDER_10_10_26.html",
+      "bytes": 3088
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_SPEAK_ALONG.html",
+      "bytes": 3067
     },
     {
       "rel": "records/target/floor/wood_3.png",
@@ -1994,6 +5331,10 @@
       "bytes": 2834
     },
     {
+      "rel": "slices/BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.html",
+      "bytes": 2761
+    },
+    {
       "rel": "records/target/floor/carpet_5.png",
       "bytes": 2740
     },
@@ -2004,6 +5345,18 @@
     {
       "rel": "records/target/logos/LOGO_08.png",
       "bytes": 2719
+    },
+    {
+      "rel": "slices/BOHEMIA_TUNING_HOW_LONG_THEY_LIVE_9_28_26.html",
+      "bytes": 2707
+    },
+    {
+      "rel": "slices/fight_ground/cover_wall.webp",
+      "bytes": 2698
+    },
+    {
+      "rel": "slices/vote/CHARACTER_THE_BARBER.html",
+      "bytes": 2680
     },
     {
       "rel": "records/target/floor/slab_2.png",
@@ -2018,8 +5371,16 @@
       "bytes": 2594
     },
     {
+      "rel": "slices/vote/WORLD_THE_RING_ROAD.png",
+      "bytes": 2587
+    },
+    {
       "rel": "records/target/floor/wood_4.png",
       "bytes": 2579
+    },
+    {
+      "rel": "engine/bohemia_factions.js",
+      "bytes": 2549
     },
     {
       "rel": "records/target/floor/slab_1.png",
@@ -2034,8 +5395,32 @@
       "bytes": 2459
     },
     {
+      "rel": "records/target/BOHEMIA_LIT_AND_EMPTY_9_23.json",
+      "bytes": 2397
+    },
+    {
       "rel": "records/target/floor/slab_3.png",
       "bytes": 2385
+    },
+    {
+      "rel": "slices/BOHEMIA_TUNING_FIVE_POINTS_9_28_26.html",
+      "bytes": 2344
+    },
+    {
+      "rel": "records/target/BOHEMIA_THE_LIGHT_IN_THE_ROOM.json",
+      "bytes": 2311
+    },
+    {
+      "rel": "records/target/BOHEMIA_TILE_KINDS.json",
+      "bytes": 2311
+    },
+    {
+      "rel": "slices/vote/ANIMATION_THE_PARTIES_WALK.html",
+      "bytes": 2293
+    },
+    {
+      "rel": "slices/vote/PORTRAIT_THE_HEAD_AND_THE_GEAR.html",
+      "bytes": 2291
     },
     {
       "rel": "records/target/floor/lino_2.png",
@@ -2046,6 +5431,14 @@
       "bytes": 2219
     },
     {
+      "rel": "slices/vote/RUN_ONE_SONG_10_4.html",
+      "bytes": 2206
+    },
+    {
+      "rel": "slices/bohemia_option_sheet.css",
+      "bytes": 2196
+    },
+    {
       "rel": "records/target/floor/lino_3.png",
       "bytes": 2183
     },
@@ -2054,8 +5447,28 @@
       "bytes": 2182
     },
     {
+      "rel": "slices/vote/PORTRAIT_THREE_D_EAT_TWO_D.html",
+      "bytes": 2178
+    },
+    {
       "rel": "records/target/floor/wood_0.png",
       "bytes": 2133
+    },
+    {
+      "rel": "slices/fight_ground/cover_wall_corner.webp",
+      "bytes": 2086
+    },
+    {
+      "rel": "slices/fonts/BohemiaCasingCand108-Regular.woff2",
+      "bytes": 2064
+    },
+    {
+      "rel": "slices/fonts/BohemiaCasingCand115-Regular.woff2",
+      "bytes": 2048
+    },
+    {
+      "rel": "slices/fonts/BohemiaCasingCand100-Regular.woff2",
+      "bytes": 2040
     },
     {
       "rel": "records/target/floor/lino_0.png",
@@ -2064,6 +5477,14 @@
     {
       "rel": "records/target/logos/LOGO_01.png",
       "bytes": 1962
+    },
+    {
+      "rel": "slices/vote/PEOPLE_FAMILY_EYES_AFTER_FATHER_9_28.png",
+      "bytes": 1958
+    },
+    {
+      "rel": "slices/vote/PEOPLE_FAMILY_EYES_BEFORE_FATHER_9_28.png",
+      "bytes": 1958
     },
     {
       "rel": "records/target/BOHEMIA_MASTER_PALETTE.png",
@@ -2082,8 +5503,36 @@
       "bytes": 1858
     },
     {
+      "rel": "slices/vote/PEOPLE_FAMILY_EYES_AFTER_BROTHER_9_28.png",
+      "bytes": 1835
+    },
+    {
+      "rel": "slices/vote/PEOPLE_FAMILY_EYES_BEFORE_BROTHER_9_28.png",
+      "bytes": 1835
+    },
+    {
+      "rel": "slices/vote/PEOPLE_FAMILY_EYES_AFTER_SISTER_9_28.png",
+      "bytes": 1815
+    },
+    {
+      "rel": "slices/vote/PEOPLE_FAMILY_EYES_BEFORE_SISTER_9_28.png",
+      "bytes": 1813
+    },
+    {
+      "rel": "slices/vote/PEOPLE_FAMILY_EYES_BEFORE_MOTHER_9_28.png",
+      "bytes": 1769
+    },
+    {
+      "rel": "slices/vote/PEOPLE_FAMILY_EYES_AFTER_MOTHER_9_28.png",
+      "bytes": 1765
+    },
+    {
       "rel": "records/target/floor/slab_0.png",
       "bytes": 1691
+    },
+    {
+      "rel": "slices/vote/WORDS_RUMOUR_SAID.json",
+      "bytes": 1651
     },
     {
       "rel": "engine/bohemia_transitions.js",
@@ -2094,12 +5543,20 @@
       "bytes": 1380
     },
     {
+      "rel": "records/target/BOHEMIA_THE_FACE_HAS_LIGHT.json",
+      "bytes": 1298
+    },
+    {
       "rel": "engine/bohemia_daycycle.js",
       "bytes": 1251
     },
     {
       "rel": "engine/BOHEMIA_AGENT_RAGS_7_10_26.js",
       "bytes": 1126
+    },
+    {
+      "rel": "slices/vote/PEOPLE_COMPANION_12_12_900_9_21.png",
+      "bytes": 1125
     },
     {
       "rel": "records/target/char/walk_SE_1.png",
@@ -2118,6 +5575,10 @@
       "bytes": 1037
     },
     {
+      "rel": "slices/vote/PEOPLE_BUBBLE_READS.json",
+      "bytes": 1028
+    },
+    {
       "rel": "records/target/char/walk_SE_3.png",
       "bytes": 1024
     },
@@ -2132,6 +5593,10 @@
     {
       "rel": "records/target/logos/LOGO_02.png",
       "bytes": 1015
+    },
+    {
+      "rel": "records/target/BOHEMIA_THREE_D_EAT_TWO_D.json",
+      "bytes": 1008
     },
     {
       "rel": "records/target/char/walk_SW_1.png",
@@ -2254,6 +5719,10 @@
       "bytes": 849
     },
     {
+      "rel": "slices/vote/DIRECTION_THE_FLOOR_UNDER_THEIR_FEET.json",
+      "bytes": 826
+    },
+    {
       "rel": "records/target/char/idle_E.png",
       "bytes": 824
     },
@@ -2278,12 +5747,132 @@
       "bytes": 768
     },
     {
+      "rel": "slices/settlement/lot/lot.json",
+      "bytes": 726
+    },
+    {
+      "rel": "records/target/BOHEMIA_THREE_CITIES_9_24.json",
+      "bytes": 670
+    },
+    {
+      "rel": "slices/vote/PEOPLE_RUMOUR_SAID.json",
+      "bytes": 623
+    },
+    {
+      "rel": "slices/settlement/lot/solar.png",
+      "bytes": 603
+    },
+    {
+      "rel": "slices/settlement/lot/stall.png",
+      "bytes": 550
+    },
+    {
+      "rel": "records/target/BOHEMIA_WHOSE_SHIFT_9_24.json",
+      "bytes": 523
+    },
+    {
+      "rel": "slices/vote/PEOPLE_STOOD_SAID.json",
+      "bytes": 489
+    },
+    {
+      "rel": "slices/settlement/lot/roof.png",
+      "bytes": 470
+    },
+    {
+      "rel": "slices/settlement/lot/tank.png",
+      "bytes": 443
+    },
+    {
+      "rel": "slices/fight_ground/cover_shed.webp",
+      "bytes": 384
+    },
+    {
+      "rel": "slices/settlement/lot/pump.png",
+      "bytes": 313
+    },
+    {
+      "rel": "slices/settlement/lot/garden.png",
+      "bytes": 304
+    },
+    {
+      "rel": "slices/settlement/lot/shed.png",
+      "bytes": 300
+    },
+    {
+      "rel": "records/target/BOHEMIA_THE_PORTRAIT_WEARS_THE_SHADES.json",
+      "bytes": 254
+    },
+    {
+      "rel": "slices/settlement/lot/wall.png",
+      "bytes": 249
+    },
+    {
+      "rel": "slices/vote/DIRECTION_FIGHT_VERDICT_22_THE_FREEWAY.json",
+      "bytes": 229
+    },
+    {
+      "rel": "slices/fight_ground/cover_slot_bank.webp",
+      "bytes": 198
+    },
+    {
+      "rel": "slices/vote/PEOPLE_WAITS_SAID.json",
+      "bytes": 185
+    },
+    {
+      "rel": "slices/fight_ground/cover_pump.webp",
+      "bytes": 168
+    },
+    {
+      "rel": "records/target/BOHEMIA_THE_HEAD_AND_THE_GEAR.json",
+      "bytes": 159
+    },
+    {
+      "rel": "slices/fight_ground/cover_pillar.webp",
+      "bytes": 154
+    },
+    {
+      "rel": "slices/fight_ground/cover_trailer.webp",
+      "bytes": 152
+    },
+    {
+      "rel": "slices/fight_ground/cover_dock.webp",
+      "bytes": 140
+    },
+    {
+      "rel": "slices/fight_ground/cover_jersey.webp",
+      "bytes": 136
+    },
+    {
+      "rel": "slices/fight_ground/cover_table.webp",
+      "bytes": 136
+    },
+    {
+      "rel": "slices/fight_ground/cover_steps.webp",
+      "bytes": 130
+    },
+    {
+      "rel": "slices/fight_ground/cover_fence.webp",
+      "bytes": 120
+    },
+    {
+      "rel": "slices/fight_ground/cover_dumpster.webp",
+      "bytes": 116
+    },
+    {
       "rel": "slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.occ.json",
       "bytes": 114
     },
     {
+      "rel": "slices/vote/DIRECTION_THE_MAP_AT_EVERY_STOP.json",
+      "bytes": 72
+    },
+    {
       "rel": "records/target/BOHEMIA_DEMO_BLOCKERS.json",
       "bytes": 57
+    },
+    {
+      "rel": "slices/fight_ground/light_slot_glow.webp",
+      "bytes": 48
     },
     {
       "rel": "records/target/HERO_SPRITE.json",

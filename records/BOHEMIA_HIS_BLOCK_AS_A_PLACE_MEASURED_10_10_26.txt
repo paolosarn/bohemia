@@ -1,0 +1,86 @@
+HIS BLOCK, AS A PLACE YOU ARRIVE AT -- MEASURED  (COOK [settlement art] round 1, 10/10/26)
+==============================================================================
+
+THE ROW, rule 37b: "the settlement screen's picture, ONE REAL PLACE FIRST (HIS BLOCK),
+buildings tappable and readable at phone size, lights and people moving under the bible,
+from the game's camera; DIRECTION judges; RUN wires the taps."
+
+*** THE FIRST THING THIS ROUND DID WAS OPEN THE SCREEN, AND MOST OF THE ROW WAS
+*** ALREADY BUILT BY OTHER LANES.
+  the picture      COMBAT TWO 10/4: camp, town, fortress, two variants each, hotspots.
+                   This lane painted them over on 10/10.
+  people moving    ANIMATION 10/9: slices/settlement_people, the 112 rig in the runway
+                   clothes, nine clips on the 120 beat, 25 looks, three facings.
+  placing them     RUN TWO 10/10: a keeper at each door on his building's clip, a crowd
+                   by the stall sized by the place's traits, depth-sorted, thinned at night.
+  the taps         RUN TWO: the hotspot lights under the finger, names itself on touch.
+So there was NO POINT cooking a crowd: one exists, by the lane that owns rigs, at this
+exact scale, and cooking a second one would have been this lane drawing something that
+was already in the cupboard -- the mistake it made twice last round.
+
+WHAT NOBODY HAD TOUCHED IS THE ROW'S FIRST FOUR WORDS: ONE REAL PLACE FIRST. The three
+places are SIZES, not places. Camp, town and fortress are how big a settlement is; none
+of them is ANYWHERE. His block is somewhere. It is the one he wakes on, it is the home
+base of the third votes, and it is the only address in this game that is his.
+
+SO THIS ROUND MAKES THE FOURTH PLACE, AND IT IS A PLACE AND NOT A SIZE:
+  board  THE KERB: the board on its pole where the block's paper goes
+  hall   YOUR HOUSE: the door you wake behind, your step under it,
+  lot    THE DRIVEWAY: his own 7/28 wreck, still on it. SCAVENGE.
+  stall  NEXT DOOR: his gate shut, his table out at the kerb
+                 and the couch out front nobody moved
+Four taps, and they are THE CAMP TIER'S OWN LIST on purpose, so RUN TWO wires a new
+place by naming it and nothing else.
+
+BUILT FROM THEIR OWN MACHINERY, NOT A SECOND SET OF PARTS. The ground, the houses at 45,
+the stall, the board on its pole, the night and its measure are COMBAT TWO's own
+functions, imported and called. The finish (rain down the walls, the ground worn where
+people walk, what they dropped, the light out of a door) is this lane's own 10/10 pass,
+imported. The wreck and both lamps are HIS 7/28 sprites, placed by their own placer.
+FOUR THINGS ARE NEW: your step, your driveway, the gate next door, the couch.
+
+*** AND THE LABELS COME OFF, WHICH IS THIS LANE'S OWN DEFECT FROM LAST ROUND, NAMED
+*** HERE WITH THE EVIDENCE AND FIRST IN THE QUEUE FOR THE NEXT ROUND.
+COMBAT TWO's manifest says, in their own words: "no text on the picture; name it only
+when touched." Their tool's own law says each usable building must say what it is with
+one object you can see from across the screen -- "NEVER A LABEL." On 10/10 this lane
+painted CUTS, CLINIC, ROOMS, TRADE and NOTICES onto their six day sheets and six night
+sheets as floating word boxes. That is three things wrong at once: it is text on the
+picture, it is a SECOND name on top of the one RUN TWO's screen already gives on touch,
+and rule 19 bans player-facing prose with no mouth and no portrait behind it. THIS place
+carries no text at all and loads no font. The twelve sheets that carry it are the next
+round's first job, done as its own thing so a correction to three other places is not
+smuggled in under a fourth.
+
+MEASURED THIS RUN:
+  OK   THE PLACE CARRIES THE FOUR TAPS A HOME BLOCK HAS, AND THEY ARE THE CAMP TIER'S OWN LIST so the screen wires it by naming it: board, hall, lot, stall
+  OK   EVERY TAP LIES ON THE PICTURE AND HAS REAL SIZE: board  (352, 494, 470, 583)  (118 x 89 px)
+  OK   EVERY TAP LIES ON THE PICTURE AND HAS REAL SIZE: hall   (532, 225, 790, 412)  (258 x 187 px)
+  OK   EVERY TAP LIES ON THE PICTURE AND HAS REAL SIZE: lot    (862, 368, 1184, 583)  (322 x 215 px)
+  OK   EVERY TAP LIES ON THE PICTURE AND HAS REAL SIZE: stall  (86, 444, 257, 583)  (171 x 139 px)
+  OK   READABLE AT PHONE SIZE: board  is 46 px on his phone (the screen opens this picture at 0.386, its own formula), against a 44 px thumb
+  OK   READABLE AT PHONE SIZE: hall   is 100 px on his phone (the screen opens this picture at 0.386, its own formula), against a 44 px thumb
+  OK   READABLE AT PHONE SIZE: lot    is 124 px on his phone (the screen opens this picture at 0.386, its own formula), against a 44 px thumb
+  OK   READABLE AT PHONE SIZE: stall  is 66 px on his phone (the screen opens this picture at 0.386, its own formula), against a 44 px thumb
+  OK   NO TWO TAPS OVERLAP (nobody stands on anybody, his first votes): checked 6 pairs
+  OK   YOUR STEP IS UNDER YOUR DOOR, MEASURED OFF YOUR OWN TILE, not placed at a guessed offset: the door runs tile x (108, 139) and the step is centred on it
+  OK   EVERY PIXEL IS HIS: the day picture
+  OK   EVERY PIXEL IS HIS: the night picture
+  OK   NO TEXT ON THE PICTURE, COUNTED AT THE DRAW (their manifest's own rule, and this lane broke it on their sheets last round): 0 text draws while building it
+  OK   THE FAR ROW IS FOUR ROOFS WITH FOUR WEATHERS, not one house printed four times: one left alone and -1 moved 77177 px, -3 moved 81238 px, -2 moved 77224 px
+  OK   THE FINISH IS THE SAME ONE THE OTHER THREE PLACES GOT: 3594 rain runs down the walls, 81336 px of ground worn where people walk, 9985 pieces of what they dropped
+  OK   AT LEAST ONE LAMP STILL BURNS AND NOT ALL OF THEM DO (their rule): 2 of 4 kept
+  OK   AND A DOOR LEAKS LIGHT ONTO THE DIRT: 2957 px lit at the doorways
+  OK   RULE 73, NIGHT IS A COLOUR AND THE GAME IS PLAYABLE IN THE SUN: plain ground median 0.261 (bar 0.20), lit against unlit 3.4x (bar 3.0), in sunlight 0.387 (bar 0.20)
+
+THE MANIFEST WAS SPLICED, NOT REWRITTEN: %d places before, %d after, and every tier that
+  3 places before, 4 after.
+
+[bb settlements] 10_UI_AND_FEEL.md: their settlement screen is ONE PAINTED VIEW with the
+buildings as the buttons, and their sound line says "the settlement has CROWD MURMUR and
+a blacksmith". WHAT MOVES THAT THEIR PICTURE DOES NOT (rule 33g, which that same file
+states as our own law: "what we do not copy: THE STILLS"): you HEAR a crowd in a Battle
+Brothers town and you never see one, because the painting is fixed and empty. Ours draws
+the people you hear. And more than that, OURS HAS AN ADDRESS: their town screen is a
+TYPE, reused at every village of that type on the map, while this place is one block,
+yours, with your door on it and your wreck on the drive.

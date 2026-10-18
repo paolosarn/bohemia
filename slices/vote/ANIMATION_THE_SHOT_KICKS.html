@@ -1,0 +1,37 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The Shot Kicks</title>
+<!-- ANIMATION [the shot kicks], 10/9, rules 63 and 69. A volley played from the fight's own sheets (slices/fight_people)
+     and the clip table: BEFORE the shot as the fight draws it today (two-hand@0, the aim held); NOW the table's shot and
+     shot_1h (fire-2h, fire-1h). RULE 25: IT PLAYS, on the 120 beat. Two sentences. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 12px;color:#b3a890;max-width:60ch}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .lab{font-size:10px;letter-spacing:2px;margin-bottom:4px}.old{color:#9a6b6b}.new{color:#7fa06b}
+  canvas{display:block;width:100%;max-width:448px;image-rendering:pixelated;background:#2a2219;border-radius:3px}
+</style>
+<h1>THE SHOT KICKS</h1>
+<p>In the fight a shot used to be a man standing still with his gun up; now the gun kicks into his shoulder, he rocks back and settles, and a pistol flips higher than a rifle. Three men fire one after another on the beat, before beside now.</p>
+<div class="panel"><div class="lab old">BEFORE: THE AIM, HELD</div><canvas id="a" width="448" height="150"></canvas></div>
+<div class="panel"><div class="lab new">NOW: THE KICK</div><canvas id="b" width="448" height="150"></canvas></div>
+<script>
+(function(){
+  var BEAT=500, LOOP=8, F=112;
+  var MEN=[{look:'you',x:20,shot:'shot',at:1},{look:'faction_mob',x:168,shot:'shot_1h',at:3},{look:'faction_reds',x:316,shot:'shot',at:5}];
+  var M, imgs={}, A=document.getElementById('a').getContext('2d'), B=document.getElementById('b').getContext('2d');
+  function col(name){ return M.cols.indexOf(name); }
+  function draw(g,t,now){
+    g.fillStyle='#2a2219'; g.fillRect(0,0,448,150); g.fillStyle='#3a3024'; g.fillRect(0,124,448,26);
+    MEN.forEach(function(m){ var im=imgs[m.look]; if(!im) return; var c=col('two-hand@0'), into=t-m.at;
+      if(now && into>=0 && into<1){ var cl=M.clips[m.shot]; c=col(cl.cols[Math.min(cl.cols.length-1,Math.floor(into*cl.cols.length))]); }
+      g.imageSmoothingEnabled=false; g.drawImage(im,c*F,0,F,F,m.x,130-F+4,F,F); });
+  }
+  fetch('../fight_people/fight_people.json').then(function(r){return r.json();}).then(function(m){ M=m;
+    return Promise.all(MEN.map(function(x){ return new Promise(function(res){ var im=new Image(); im.onload=function(){imgs[x.look]=im;res();}; im.onerror=res; im.src='../fight_people/'+m.looks[x.look].file; }); }));
+  }).then(function(){ var t0=performance.now(); (function tick(){ var t=((performance.now()-t0)/BEAT)%LOOP; draw(A,t,false); draw(B,t,true); requestAnimationFrame(tick); })(); });
+})();
+</script>

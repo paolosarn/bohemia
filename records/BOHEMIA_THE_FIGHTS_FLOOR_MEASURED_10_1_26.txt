@@ -1,0 +1,179 @@
+THE FIGHT'S FLOOR -- MEASURED  (COOK [board assets] round 2, 10/1/26, rule 46f)
+==============================================================================
+
+PAOLO 10/1: "combat is soooo fucked up bro holy shit the tiles below the people
+dont look good man its all fucked up"
+
+WHAT I TRIED TO MEASURE OFF HIS SCREENSHOT, AND WHAT I WILL NOT CLAIM:
+  COMBAT's own sheet, the game-camera panel, found by its dark gutters. Its ground
+  repeats on a 24 px period across and the fighters on 78. I wanted to turn that
+  into "one metre of his paving is stretched over N metres of street", which is
+  what the picture looks like. I AM NOT CLAIMING THAT NUMBER. The panel is a
+  picture of a picture: it is 491 px wide and his phone is 1170, so the sheet has
+  already resized it by a factor I cannot recover from the file, and every length
+  inside it is multiplied by that factor. A clean reading off the wrong surface
+  looks exactly like a fact, and this lane has shipped about nineteen of those.
+  THE REAL MEASUREMENT IS EYES', on the running fight at his phone's profile.
+
+WHAT IS ESTABLISHED WITHOUT ME RE-DERIVING IT (COMBAT [device canvas], DIRECTION
+FIGHT VERDICT 19-20, PLUMBER 9/28): the fight canvas's backing store is CSS-sized,
+so on a 3x phone every painted pixel is a 3 x 3 block before any art is drawn.
+
+AND HERE IS THE FAULT THAT IS MINE TO FIX, WHICH NEEDED NO MEASUREMENT AT ALL:
+  THERE WAS NEVER A HOUSE-SIZED GROUND TILE. Not one. The banks hold 44 px cells
+  of paving and the board holds a 12 m house tile, and nothing in the repo ever
+  said how many of one go in the other. No metre contract, so the board was free
+  to paint a paving cell at whatever size it liked, and it did. That is why the
+  ground reads as a smear with a faint grid instead of a street.
+
+THE FIX, AND IT IS ONE CONTRACT: a house tile is a whole number of his cells,
+authored at HIS OWN DENSITY, pasted at 1:1, never scaled.
+  a house tile is 12 OF HIS PAVING CELLS, exactly, which is why it tiles at all
+  a house tile is 12 m  =  528 painted pixels  =  42.9 px a metre
+  the floor DIRECTION set is 39 px a metre. His street is 42.9. We are over both.
+  the phone gives a house tile 588 device px (196 CSS x 3). 528 fills 90% of it,
+  so the board DOWNSCALES at worst and never blows anything up.
+
+THE GUARD THAT GOT REWRITTEN TWICE, BECAUSE IT IS THE LESSON OF THIS ROUND:
+  To prove nothing had been resampled I measured the repeat of each tile and
+  demanded it be 44. IT FAILED MY OWN GOOD ART, TWICE, FOR TWO DIFFERENT REASONS.
+  First: a MULTIPLE of a period is a louder peak than the period, so three paving
+  variants answer 132 and the jitter answers 176, both perfectly honest. Second,
+  and worse: the YARD has almost no repeat at all, because his yard cells meet
+  edge to edge with nearly no contrast. THAT IS GOOD ART. A ruler that demands a
+  visible grid is a ruler that rewards a worse picture.
+  The proof is EXACT now and needs no ruler: every cell this build pastes is
+  compared, pixel for pixel, with the bank cell it came from, at the moment it is
+  laid. 720 cells, zero differences, and 81 to 100 per cent of each finished tile
+  is still his untouched pixels.
+
+THE CONTRACT FOR COMBAT, IN ONE LINE:
+  THE FLOOR IS A DENSITY, NOT A TILE SIZE: 42.9 painted pixels per metre, laid on a 44 px cell lattice that tiles seamlessly, so a house tile is TILE_METRES x 42.9 pixels, whatever TILE_METRES turns out to be. The pieces ship as 528 px patches (12 cells, 12.31 m). Never draw a metre of this into fewer than 42.9 device pixels on the phone: a downscale is fine, a blow-up is the fault he saw.
+
+WHAT IS IN THE BANK (7 pieces):
+  THE ROAD           12.31 x 12.31   m   0.00 m  FLOOR     two lanes, the line, the gutters
+  THE KERB           12.31 x 12.31   m   0.15 m  FLOOR     road, gutter, kerb, walk, yard
+  THE YARD           12.31 x 12.31   m   0.00 m  FLOOR     dirt, scrub, the worn path
+  THE SLAB           12.31 x 12.31   m   0.00 m  FLOOR     pour joints and parking bays
+  THE ROOF           12.31 x 12.31   m   0.00 m  MOUND     gravel, parapet, drain, a way up
+  THE DEAD CAR        4.48 x 2.14    m   1.45 m  BLOCKER   cabin 1.45 blocks, hood and boot 1.10 are cover
+  THE BLOCK WALL     12.31 x 0.20    m   1.90 m  BLOCKER   1.9 m blocks, a 3 m section down to 1.0 m: cover
+
+THE GUARDS, EVERY ONE RUN, EVERY ONE ABLE TO REFUSE THE BUILD:
+  OK   NO ATARI: every ground tile is 42.9 painted pixels per metre, over the floor of 39 and over his own approved street
+  OK   NOTHING RESAMPLED in THE ROAD: all 204 cells laid are his bank cells pixel for pixel, and 72% of the finished tile is still his untouched pixels
+  OK   NOTHING RESAMPLED in THE KERB: all 252 cells laid are his bank cells pixel for pixel, and 93% of the finished tile is still his untouched pixels
+  OK   NOTHING RESAMPLED in THE YARD: all 288 cells laid are his bank cells pixel for pixel, and 84% of the finished tile is still his untouched pixels
+  OK   NOTHING RESAMPLED in THE SLAB: all 144 cells laid are his bank cells pixel for pixel, and 96% of the finished tile is still his untouched pixels
+  OK   NOTHING RESAMPLED in THE ROOF: all 468 cells laid are his bank cells pixel for pixel, and 81% of the finished tile is still his untouched pixels
+  OK   EVERY PIXEL IS HIS in THE ROAD
+  OK   EVERY PIXEL IS HIS in THE KERB
+  OK   EVERY PIXEL IS HIS in THE YARD
+  OK   EVERY PIXEL IS HIS in THE SLAB
+  OK   EVERY PIXEL IS HIS in THE ROOF
+  OK   EVERY PIXEL IS HIS in THE DEAD CAR
+  OK   EVERY PIXEL IS HIS in THE BLOCK WALL
+  OK   THE GROUND IS ONLY THE GROUND in THE ROAD: no see-through pixel, and nothing within 12 of the pads he was shown
+  OK   THE GROUND IS ONLY THE GROUND in THE KERB: no see-through pixel, and nothing within 12 of the pads he was shown
+  OK   THE GROUND IS ONLY THE GROUND in THE YARD: no see-through pixel, and nothing within 12 of the pads he was shown
+  OK   THE GROUND IS ONLY THE GROUND in THE SLAB: no see-through pixel, and nothing within 12 of the pads he was shown
+  OK   THE GROUND IS ONLY THE GROUND in THE ROOF: no see-through pixel, and nothing within 12 of the pads he was shown
+  OK   NOT THE SAME PICTURE: THE ROAD and THE KERB (asphalt / ground, 185 apart)
+  OK   NOT THE SAME PICTURE: THE ROAD and THE YARD (asphalt / ground, 245 apart)
+  OK   NOT THE SAME PICTURE: THE ROAD and THE SLAB (asphalt / concrete, 150 apart)
+  OK   NOT THE SAME PICTURE: THE ROAD and THE ROOF (asphalt / deck, 115 apart)
+  OK   NOT THE SAME PICTURE: THE KERB and THE YARD (ground / ground, 60 apart)
+  OK   NOT THE SAME PICTURE: THE KERB and THE SLAB (ground / concrete, 35 apart)
+  OK   NOT THE SAME PICTURE: THE KERB and THE ROOF (ground / deck, 70 apart)
+  OK   NOT THE SAME PICTURE: THE YARD and THE SLAB (ground / concrete, 96 apart)
+  OK   NOT THE SAME PICTURE: THE YARD and THE ROOF (ground / deck, 131 apart)
+  OK   NOT THE SAME PICTURE: THE SLAB and THE ROOF (concrete / deck, 35 apart)
+  OK   A TILE TILES: THE ROAD joins itself at 42 against its own inside at 18
+  OK   A TILE TILES: THE KERB joins itself at 49 against its own inside at 23
+  OK   A TILE TILES: THE YARD joins itself at 29 against its own inside at 16
+  OK   A TILE TILES: THE SLAB joins itself at 90 against its own inside at 44
+  OK   A BUILDING TOP HAS A PARAPET ALL THE WAY ROUND: THE ROOF edges stand 91/78/177/82 off its own deck
+  OK   COVER IS NOT A BLOCKER: THE DEAD CAR is BLOCKER at 1.45 m against a chest at 1.30, and its cover end is 1.10
+  OK   COVER IS NOT A BLOCKER: THE BLOCK WALL is BLOCKER at 1.90 m against a chest at 1.30, and its cover end is 1.00
+  OK   THE ROOF IS STANDABLE: its deck is flat (18 row to row) and its lit lip (227, 130, 71) is not the ramp's white accent (255, 255, 250)
+
+WHAT THIS DOES NOT FIX, AND IT IS NOW THE LOUDEST THING ON THE BOARD:
+  the BODIES. The fight draws a body at 0.57 of a tile (the 112 box against the
+  196 slot), so on a 3x phone a body fills about 336 device px, and the body art
+  we own is 67 px tall. That is a 5.0x blow-up. With the ground at 1:1 the people
+  become the coarsest thing in the picture. They are in the AFTER panel at a clean
+  4x on purpose, so he can see it. THAT IS THE NEXT JOB AFTER THE FLOOR.
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/
+  02_COMBAT_RULES.md, the TERRAIN and BOARD lines: a BB board is generated from the
+  map terrain it happens on, and its ground is flat, quiet and readable because
+  every piece of information lives in the UI or in a piece, never painted on the
+  dirt. Taken whole. WHAT MOVES THAT THEIR PICTURE DOES NOT: BB's ground is a
+  still field that never changes once the fight starts. Ours is a city floor that
+  keeps what the fight does to it, and the roof is a floor you can be standing on
+  while the street below you is a different fight.
+
+*** AND A CONTRADICTION I FOUND ON THE BOARD THE SAME ROUND, WHICH IS A BUG, NOT A CHOICE ***
+HOW BIG IS A HOUSE TILE? There are two live numbers in the repo right now:
+  12.0 m   the fight's own code: TILE_WIDE 1.75 x the 112 fighter box = a 196 px tile, and
+           gates/no_atari_gate.js carries 12 m as the DEFAULT he chose.
+  ~20 m    WORLD, 10/1, measured off our own suburb kit: a house footprint is 15.8 x 9.0 m
+           and THE LOT PITCH, house centre to house centre, is 19.5 m over a range of 18.0
+           to 21.8. WORLD's reading is that what tiles a city is the house PLUS its yard and
+           half its driveway, so "a house tile is about twenty metres square".
+That is a 1.7x disagreement about the single most basic measurement on the fight board, and
+it is newer and better evidenced on WORLD's side: theirs came off our own drawn city, the
+12 came off a sprite-width convention.
+THIS FLOOR DOES NOT HAVE TO PICK, and that is on purpose. It is authored as a DENSITY on a
+seamless lattice, not as a fixed tile: 42.9 painted pixels a metre, laid on his 44 px cell,
+wrapping on both axes. Lay 12 cells for a 12.3 m tile or 20 for a 20.5 m one; the art is
+identical either way and nothing is resampled in either case. The pieces ship as 12-cell
+patches because that is the smaller of the two, and a patch is cheap to repeat.
+WHOSE CALL IT IS: COMBAT's, with WORLD's number in front of them. It is flagged here rather
+than decided here, because picking it would change how far a man walks in a turn and how
+many tiles a board is, and neither of those is this lane's.
+
+================================================================================
+*** CORRECTION, WRITTEN AFTER THE PUSH: TWO CHATS COOKED THIS FLOOR THE SAME ROUND,
+*** AND THEIRS IS THE ONE THAT FITS THE BOARD.
+================================================================================
+Reading main's newest commits right after pushing, COMBAT 2 shipped
+banks/BOHEMIA_THE_FIGHT_FLOOR_SET_10_1_26.txt in the same round: the same job, out
+of the same 7/28 approved bank, with px_per_metre 42.9 and tile_metres 12.0, and a
+dead_car and a block_wall as its two cover pieces. That is the same density, the
+same source and the same two props this record describes.
+
+WHY IT HAPPENED: rule 55 (Paolo 10/1) moved the floor art to COMBAT 2 -- "COMBAT 2
+makes the floor art, COMBAT 1 drops it in" -- and rule 54 paused COOK, both while
+this round was already cooking. The board moved under the work. Nobody did anything
+wrong; the one-system-one-session rule was overtaken by two rules landing mid-round.
+
+AND THEIRS IS RIGHT WHERE MINE IS WRONG, WHICH IS THE PART THAT MATTERS:
+  their ground tiles are 515 x 364. Mine are 528 x 528.
+  364 / 515 = 0.707 = cos 45. They applied the 45 DEGREE ART LAW (rule 56): the
+  board's camera is pitched 45 degrees, so depth and height are foreshortened and a
+  ground tile is NOT square. Mine is drawn flat from straight above.
+SO THESE TILES, AS BAKED, DO NOT SIT ON THE FIGHT BOARD. That is a defect in this
+deliverable and it is named here rather than left for somebody to trip over.
+DO NOT FIX IT BY SQUASHING THE PNGs. Scaling a finished tile to 0.707 resamples
+every one of his pixels, which is the exact fault this whole round was about. The
+tiles have to be CUT at the foreshortened height from the start: in
+tools/bohemia_the_fights_floor_cook_10_1_26.py the five builders take px = TILE_PX
+for both axes, and cells() already lays any width by any height, so the change is
+passing a separate height of round(TILE_PX * 0.7071) = 373 and re-running. COOK is
+paused (rule 54), so that is COMBAT 2's to do or to ignore.
+
+WHAT SURVIVES AND IS WORTH TAKING, EVEN THOUGH THE TILES DO NOT:
+ 1 TWO LANES REACHED 42.9 px A METRE INDEPENDENTLY, off the same bank by different
+   routes. That is a real cross-check on the number the whole floor rests on, and
+   neither lane knew the other was measuring.
+ 2 THE METRE CONTRACT. Nothing in the repo said how many paving cells go in a house
+   tile. Both banks now carry the answer in a field a reader can find.
+ 3 THE DEAD CAR IS HIS OWN APPROVED WRECK, NOT ONE PIXEL TOUCHED. Theirs is 218x114
+   against his sprite's 192x92, so theirs has been rescaled; REUSE-FIRST says the
+   approved pixels win where they can be used as they are.
+ 4 A PIECE CARRIES TWO HEIGHTS. The car's cabin blocks at 1.45 m and its hood is
+   cover at 1.10. A board that files a car as one or the other gets it wrong twice.
+ 5 THE GUARD LESSONS in this file, which are about how to check art, not about this
+   art: a repeat ruler certifies nothing on a low-contrast field, a shadow that
+   lightens is not a shadow, and lighting by multiplying a colour invents colours.

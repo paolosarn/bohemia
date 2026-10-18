@@ -85,6 +85,23 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .act em{font-style:normal;color:var(--gold);white-space:nowrap}
 .slots{margin-top:10px;color:var(--dim);font-size:12px}
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
+/* the shelf and the bag: square slots, Battle Brothers' stash grid */
+.gridh{margin:10px 0 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.slot{aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);
+  font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;
+  box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
+.slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c;box-shadow:inset 0 1px 0 rgba(255,235,200,.1),0 1px 0 #000}
+.slot i{font-style:normal;font-size:16px;color:var(--gold);line-height:1}
+.slot span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.slot em{font-style:normal;color:var(--dim);font-size:9px}
+/* the hire card: face, name, background, eight stats, the starred one gold, the price */
+.hire{display:grid;grid-template-columns:64px 1fr;gap:4px 8px;padding:6px;border:1px solid var(--line);border-radius:4px;background:#16110c;margin-top:6px}
+.hire .face{width:64px;height:64px;flex:none}
+.hire .nm{color:var(--gold);font-size:11px;letter-spacing:1px}
+.hstats{display:grid;grid-template-columns:repeat(4,auto);gap:1px 8px;font-size:10px;color:var(--dim);margin-top:3px}
+.hstats .star{color:var(--gold)}
+.hire .act{grid-column:1 / -1;margin:0}
 #heard{min-height:20px;padding:0 12px;color:var(--dim);font-size:12px;background:var(--plate2)}
 </style>
 </head>
@@ -96,7 +113,6 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
     <div id="sheet" aria-live="polite"><button id="close" aria-label="close">&times;</button><div id="sbody"></div></div>
   </div>
   <div id="heard"></div>
-  <div id="shelf"></div>
 </div>
 <script src="../engine/bohemia_economy.js"></script>
 <script src="../engine/bohemia_purse.js"></script>
@@ -104,33 +120,219 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_followers.js"></script>
 <script src="../engine/bohemia_place.js"></script>
 <script src="../engine/bohemia_scavenge.js"></script>
+<script src="../engine/bohemia_goodbros.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
+<!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
+<script src="../engine/bohemia_century.js"></script>
+<script src="../engine/bohemia_housing.js"></script>
+<script src="../engine/bohemia_powerbuild.js"></script>
+<script src="../engine/bohemia_homebases.js"></script>
+<script src="../engine/bohemia_lotbuild.js"></script>
+<!-- __/BUILD_ON_THE_SCREEN__ scripts -->
+<script src="bohemia_ui_materials.js"></script>  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
 <script>
 (function(){
 'use strict';
-var ART = '../records/target/tileforms/TF-ART-008__SHOPRUN_IN_PLACE_2x.png';
-/* The storefront run is 1408x616. Each building is a rect in ITS pixels; the screen maps
-   them through the same transform it draws with, so a tap lands on the picture. */
+/* ROUND THREE (RUN TWO, 10/4; the sixth votes, rule 67, Paolo 10/2: 'the settlement screen
+   looking real dogshit, look how Battle Brothers settlements work... the buildings will be the
+   buttons, extra buttons not needed'; and 'always a 45-degree angle looking down').
+   Battle Brothers' settlement is one painted picture of the town with its buildings standing in
+   it; you click a building and its window opens; there is nothing else on the screen but the
+   town's name and the way out. So: the town is a 3x3 plot of the game's OWN 45-degree buildings
+   (the sixty the map's ground is painted with, HERO_SRC, copied to slices/settlement/), each one
+   standing on its lot, and a tap on the building's own pixels opens it. The shelf of plates is
+   gone. A place only has the buildings its size carries (Battle Brothers: a hamlet has fewer);
+   an empty lot is bare ground. Translated names (rule 48). */
 var B = {
-  stall:  {x:88,  y:88, w:440, h:270, name:'THE STALL',   short:'buy, sell'},
-  hall:   {x:616, y:88, w:264, h:262, name:'THE HALL',    short:'who wants work'},
-  board:  {x:528, y:200, w:88, h:150, name:'THE BOARD',   short:'contracts'},
-  barber: {x:968, y:88, w:352, h:270, name:'THE BARBER',  short:'1 battery'},
-  bar:    {x:1496, y:88, w:440, h:270, name:'THE BAR',    short:'a round, a rumour'},
-  clinic: {x:2024, y:88, w:264, h:262, name:'THE CLINIC', short:'cuts wound days'},
-  train:  {x:2376, y:88, w:352, h:270, name:'THE YARD',   short:'swap a mastery'},
-  lot:    {x:0,   y:360, w:2816, h:160, name:'SCAVENGE',  short:'one thing or nothing'}
+  hall:   {spr:'chapel',      gx:0, gy:0, name:'THE HALL',   short:'who wants work'},
+  board:  {spr:'cityhall',    gx:1, gy:0, name:'THE BOARD',  short:'contracts'},
+  clinic: {spr:'medical',     gx:2, gy:0, name:'THE CLINIC', short:'heals faster'},
+  stall:  {spr:'swapmeet',    gx:0, gy:1, name:'THE STALL',  short:'buy, sell'},
+  barber: {spr:'commercial',  gx:2, gy:1, name:'THE BARBER', short:'1 battery'},
+  train:  {spr:'firestation', gx:0, gy:2, name:'THE YARD',   short:'swap a mastery'},
+  bar:    {spr:'truckstop',   gx:1, gy:2, name:'THE BAR',    short:'a round, a rumour'},
+  arms:   {name:'GUNS AND PLATE', short:'buy, sell'},
+  smith:  {name:'THE SMITH',     short:'weapons'},
+  armourer:{name:'THE ARMOURER', short:'armour'},
+  lot:    {spr:'boneyard',    gx:2, gy:2, name:'SCAVENGE',   short:'one thing or nothing'}
 };
-/* ROUND TWO (RUN 2, 10/1): A PLACE HAS THE BUILDINGS ITS SIZE CARRIES, like Battle Brothers,
-   where a hamlet has a market and recruits and a city has the temple and the training hall
-   (GROK_20/21, stamped). The street is the shop run twice, so the second three fronts are
-   real fronts; the ones a place does not have are drawn SHUT, never hidden. Translated
-   (rule 48): tavern -> THE BAR, temple -> THE CLINIC, training hall -> THE YARD. */
+
 var TIERS = {
   camp:     ['hall','board','stall','lot'],
   town:     ['hall','board','stall','barber','bar','lot'],
-  fortress: ['hall','board','stall','barber','bar','clinic','train','lot']
+  fortress: ['clinic','board','hall','stall','barber','bar','train','lot']
 };
 var ORDER = TIERS.town.slice();
+
+/* ---------- A PLACE HAS TRAITS (rule 71, Paolo 10/4: 'settlements have traits too, depending on
+   random variables'). Battle Brothers' situations, from records/target/settlement_traits.json: rolled
+   per place by its name and the week, so a trait comes and goes; each changes the picture, the
+   shelves' prices and stock, who stands at the posts, and what the keepers say first. ---------- */
+var TRAITS = null;
+fetch('../records/target/settlement_traits.json').then(function(r){ return r.json(); }).then(function(j){ TRAITS = j; rollTraits(); restock(); }).catch(function(){});
+function rollTraits(){
+  S.traits = []; S.traitSaid = {};
+  if(!TRAITS) return;
+  if(Array.isArray(S.forceTraits)){
+    S.traits = TRAITS.traits.filter(function(t){ return S.forceTraits.indexOf(t.id) >= 0; });
+  } else {
+    var per = (TRAITS.roll && TRAITS.roll.period_days) || 7, R1 = rng(seedOf(S.place.name + ':traits:' + Math.floor((S.day||0)/per)));
+    if(R1() < ((TRAITS.roll && TRAITS.roll.chance_any) || .7)){
+      var pool = TRAITS.traits.slice(), n = 1 + (R1() < .3 ? 1 : 0);
+      for(var i=0; i<n && pool.length; i++) S.traits.push(pool.splice(Math.floor(R1()*pool.length), 1)[0]);
+    }
+  }
+}
+function traitMult(){
+  var m = {price:1, stock:1, recruits:0};
+  (S.traits||[]).forEach(function(t){ m.price *= (t.price_mult||1); m.stock *= (t.stock_mult||1); m.recruits += (t.recruits||0); });
+  return m;
+}
+function traitLine(k){
+  for(var i=0;i<(S.traits||[]).length;i++){ var t = S.traits[i]; if(t.says && (t.says[k] || t.says.any)) return t.says[k] || t.says.any; }
+  return null;
+}
+/* THE LOOK, drawn over the painted place until COMBAT TWO's trait pictures exist: a burnt house
+   with smoke still rising, planks across the clinic's windows, a crowd round the stall. Each is
+   placed on a building already in that tier's picture (picked by eye). */
+var LOOKBOX = {burnt:{camp:[180,150,310,225], town:[40,60,490,365], fortress:[1620,560,1980,860]}};
+function drawTraitLooks(s){
+  if(!VAR || !(S.traits||[]).length) return;
+  var now = performance.now(), tier = S.place.tier;
+  function box(b){ return {x:view.ox+b[0]*s, y:view.oy+b[1]*s, w:(b[2]-b[0])*s, h:(b[3]-b[1])*s}; }
+  S.traits.forEach(function(t){
+    if(t.look === 'burnt'){
+      var b = box((LOOKBOX.burnt[tier]||LOOKBOX.burnt.town));
+      cx.save(); cx.globalCompositeOperation = 'multiply'; cx.fillStyle = 'rgb(70,52,40)'; cx.fillRect(b.x, b.y, b.w, b.h); cx.restore();
+      cx.fillStyle = 'rgba(20,14,10,.55)'; for(var i=0;i<14;i++){ var px = b.x + ((i*37)%100)/100*b.w, py = b.y + ((i*61)%100)/100*b.h; cx.fillRect(px, py, b.w*.12, b.h*.08); }
+      /* smoke, still rising: slow puffs on the beat, never a glow */
+      for(var j=0;j<6;j++){ var ph = ((now/1000*.25) + j/6) % 1; cx.fillStyle = 'rgba(60,56,52,' + (0.35*(1-ph)).toFixed(3) + ')';
+        cx.beginPath(); cx.arc(b.x + b.w*.55 + Math.sin(j*2+now/1400)*b.w*.06, b.y - ph*b.h*.9, (6 + ph*22)*s*3, 0, 7); cx.fill(); }
+    }
+    if(t.look === 'boarded' && VAR.boxes.clinic){
+      var c = box(VAR.boxes.clinic), y0 = c.y + c.h*.62;
+      cx.fillStyle = '#6b5236'; cx.strokeStyle = '#3a2a1a'; cx.lineWidth = 1;
+      for(var k2=0;k2<5;k2++){ var px2 = c.x + c.w*(.08 + k2*.18);
+        for(var r=0;r<2;r++){ cx.save(); cx.translate(px2 + c.w*.07, y0 + r*c.h*.12); cx.rotate(r ? -.12 : .1);
+          cx.fillRect(-c.w*.08, -2.5*s*3, c.w*.16, 5*s*3); cx.strokeRect(-c.w*.08, -2.5*s*3, c.w*.16, 5*s*3); cx.restore(); } }
+    }
+  });
+}
+
+/* ---------- THE ARMS: the wiki's rows (records/target/bb/, rule 63d), in our names ----------
+   A renamed thing keeps its numbers. The job names are COMBAT's (ours.json weapon_jobs); the classes
+   COMBAT has not named yet get a plain one here (draft:true). The quality word is the row's rank in
+   its class by the wiki's own value. Price: 10 crowns to 1 battery, floor 1 (GROK_33, stamped).
+   Selling back: the wiki pages in the repo do not give the cut, so it is HALF, marked for TUNING. */
+var BB = {weapons:null, armor:null};
+fetch('../records/target/bb/weapons.json').then(function(r){ return r.json(); }).then(function(j){ BB.weapons = j.rows; restock(); }).catch(function(){});
+fetch('../records/target/bb/armor.json').then(function(r){ return r.json(); }).then(function(j){ BB.armor = j; restock(); }).catch(function(){});
+var CLASSNAME = {dagger:'pistol', mace:'pipe', hammer:'sledge', crossbow:'rifle', firearm:'shotgun', throwing:'bottles',
+  throwable_item:'bottles', sword:'machete', axe:'fire axe', spear:'rebar spear', cleaver:'cleaver', flail:'chain',
+  polearm:'pole hook', bow:'compound bow'};
+var PLAIN = {pistol:'One house away, ignores some armour, spends rounds.', pipe:'Next house over, dents plate, spends nothing.',
+  sledge:'Breaks armour and doors.', rifle:'One hard shot, then rack it.', shotgun:'A short loud cone, reload eats the turn.',
+  bottles:'Thrown, a few houses.', machete:'Cuts fast, bleeds them.', 'fire axe':'Splits shields.', 'rebar spear':'Keeps them a step off.',
+  cleaver:'Opens wounds.', chain:'Goes over a shield.', 'pole hook':'Reaches over your own front row.', 'compound bow':'Quiet, far, rounds-free.'};
+var SELL_CUT = 1/7;  /* TUNING 10/10 (tuning-what-a-settlement-pays-you-10-10): Battle Brothers pays back about a seventh of what you paid */
+function priceOf(v){ return Math.max(1, Math.round((v||0)/10)); }
+function qualityWord(rank, n){ var q = rank/(Math.max(1,n-1)); return q < .34 ? 'beat-up' : q < .67 ? 'solid' : 'good'; }
+function armourName(kind, dur){
+  if(kind==='head') return dur < 40 ? 'a rag hood' : dur < 100 ? 'a hard hat' : dur < 180 ? 'a riot helmet' : 'a full riot helm';
+  if(kind==='shields') return dur < 40 ? 'a car door' : 'a riot shield';
+  return dur < 40 ? 'a work jacket' : dur < 100 ? 'a padded vest' : dur < 180 ? 'a plate carrier' : 'full riot armour';
+}
+function rng(seed){ var x = seed>>>0 || 1; return function(){ x ^= x<<13; x ^= x>>>17; x ^= x<<5; return ((x>>>0)%100000)/100000; }; }
+function weaponItem(r){
+  var c = CLASSNAME[r['class']] || r['class'], same = BB.weapons.filter(function(x){ return x['class'] === r['class']; }).sort(function(a,b){ return a.value-b.value; });
+  var nm = qualityWord(same.indexOf(r), same.length) + ' ' + c;
+  return {id:r.id, kind:'weapon', name:nm, was:r.name, price:priceOf(r.value), line:PLAIN[c]||'',
+          nums:'dmg '+r.damage_min+'-'+r.damage_max+(r.armor_damage_pct!=null?'  vs armour '+r.armor_damage_pct+'%':'')+(r.range_max?'  reach '+r.range_max:'')};
+}
+function armourItem(kind, r){
+  return {id:r.id, kind:kind==='body'?'body':kind==='head'?'head':'shield', name:armourName(kind, r.durability), was:r.name, price:priceOf(r.value),
+          line: kind==='shields' ? 'Held up, it takes the hit first.' : 'Takes hits until it is worn through.',
+          nums:'holds '+r.durability+(r.fatigue!=null?'  weight '+Math.abs(r.fatigue):'')};
+}
+/* the shelf: what a place this size carries, rolled from its name so it is the same every visit */
+function restock(){
+  if(!BB.weapons || !BB.armor || !VAR) return;
+  var tier = S.place.tier, band = tier==='camp' ? [0,.4] : tier==='town' ? [.15,.75] : [.3,1];
+  /* each shelf rolls on its own stream, so a trait that takes or adds items never reshuffles the rest */
+  function pick(rows, n, key){
+    var R0 = rng(seedOf(S.place.name + ':stock:' + key));
+    var sorted = rows.filter(function(r){ return r.value != null; }).sort(function(a,b){ return a.value-b.value; });
+    var lo = Math.floor(sorted.length*band[0]), hi = Math.max(lo+1, Math.floor(sorted.length*band[1])), out = [], seen = {};
+    for(var t=0; t<60 && out.length<n; t++){ var r = sorted[lo + Math.floor(R0()*(hi-lo))]; if(r && !seen[r.id]){ seen[r.id]=1; out.push(r); } }
+    return out;
+  }
+  var W = function(n, key){ return pick(BB.weapons.filter(function(r){ return CLASSNAME[r['class']]; }), n, key).map(weaponItem); };
+  var A = function(n, key){ return pick(BB.armor.body, Math.ceil(n/2), key+':b').map(function(r){ return armourItem('body', r); })
+                    .concat(pick(BB.armor.head, Math.floor(n/2), key+':h').map(function(r){ return armourItem('head', r); })); };
+  var tm = traitMult(), sm = function(n){ return Math.max(1, Math.round(n * tm.stock)); };
+  S.stock = {arms: W(sm(4),'arms').concat(A(sm(3),'arms')), smith: W(sm(7),'smith'), armourer: A(sm(6),'armourer').concat(pick(BB.armor.shields, 2, 'shields').map(function(r){ return armourItem('shields', r); }))};
+  /* a trait moves every price on the shelves, never below one battery */
+  for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.price = Math.max(1, Math.round(it.price * tm.price)); });
+}
+/* ---------- THE BAG (rule 76, Paolo 10/5: 'a standardized way where you buy things and they end up
+   in your inventory, inventory space with icons'). Battle Brothers' stash: 36 slots to start. A shop
+   is two grids, its shelf on top and your bag under it, the way Battle Brothers' trade screen puts
+   the town's goods beside your stash. An item is an icon (UI [item icons] draws the real ones; until
+   then a drawn mark of its kind and its short name). Buying moves it shelf -> bag and takes the
+   batteries; selling moves it back. The bag lives with the company, so it is posted to the game on
+   every change ('bag') and handed back on open ({bag}); this phone keeps a copy too. */
+var BAG_SLOTS = 36, BAGKEY = 'bohemia.bag.v1';
+function bagSave(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.stash)); }catch(e){} post('bag', {bag:S.stash.slice(), slots:BAG_SLOTS}); }
+function bagLoad(){ try{ var b = JSON.parse(localStorage.getItem(BAGKEY) || '[]'); if(Array.isArray(b)) S.stash = b; }catch(e){} }
+var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
+function iconTile(it, onTap, sub){
+  var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
+  if(it){
+    var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g);
+    var n = document.createElement('span'); n.textContent = it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; b.appendChild(n);
+    if(sub){ var c = document.createElement('em'); c.textContent = sub; b.appendChild(c); }
+    b.setAttribute('aria-label', it.name);
+    b.addEventListener('click', onTap);
+  } else b.disabled = true;
+  return b;
+}
+function shopSheet(k, body, acts, line){
+  var items = S.stock[k] || [];
+  var hello = {arms:'Guns and plate, whatever made it through. Everything has a price, mijo.', smith:'Fixed, sharpened, loaded. Pick one.', armourer:'If it stops a pipe, I sell it.'}[k];
+  body.appendChild(speak(k, line || (items.length ? hello : 'Shelves are empty today.')));
+  var h1 = document.createElement('div'); h1.className = 'gridh'; h1.textContent = 'THEIR SHELF'; acts.appendChild(h1);
+  var shelfG = document.createElement('div'); shelfG.className = 'grid'; shelfG.id = 'shelfgrid'; acts.appendChild(shelfG);
+  items.forEach(function(it){
+    shelfG.appendChild(iconTile(it, function(){
+      openB(k, it.name.charAt(0).toUpperCase() + it.name.slice(1) + '. ' + it.price + ' batter' + (it.price===1?'y':'ies') + '. ' + it.line);
+      var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
+      var card = document.createElement('div'); card.className = 'slots'; card.textContent = it.nums + '   (was ' + it.was + ')'; sb.appendChild(card);
+      var full = S.stash.length >= BAG_SLOTS;
+      sb.appendChild(act(full ? 'Your bag is full' : 'Buy it', it.price + ' batt', function(){
+        if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
+        P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
+        S.stock[k].splice(S.stock[k].indexOf(it), 1); S.stash.push(it); bagSave();
+        post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB(k, 'Yours. It is in your bag.');
+      }, full || bats() < it.price));
+      sb.appendChild(act('Not this one', '', function(){ openB(k); }));
+    }, it.price + 'b'));
+  });
+  var h2 = document.createElement('div'); h2.className = 'gridh'; h2.textContent = 'YOUR BAG  ' + S.stash.length + ' / ' + BAG_SLOTS; acts.appendChild(h2);
+  var bagG = document.createElement('div'); bagG.className = 'grid bag'; bagG.id = 'baggrid'; acts.appendChild(bagG);
+  for(var si = 0; si < BAG_SLOTS; si++){
+    (function(it){
+      var back = it ? Math.max(1, Math.floor(it.price * SELL_CUT)) : 0;
+      bagG.appendChild(iconTile(it, function(){
+        openB(k, 'Your ' + it.name.replace(/^(a|an) /,'') + '? I give you ' + back + ' for it.');
+        var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
+        sb.appendChild(act('Sell it', '+' + back + ' batt', function(){
+          P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
+          S.stash.splice(S.stash.indexOf(it), 1); bagSave(); post('sellArms', {item:it, got:back}); shelf(); openB(k, 'Pleasure. ' + back + ' batteries.');
+        }));
+        sb.appendChild(act('Keep it', '', function(){ openB(k); }));
+      }, it ? '+' + back : null));
+    })(S.stash[si] || null);
+  }
+}
 
 /* WHO STANDS IN EACH BUILDING. draft:true: names and lines are attempts (rule 8/11);
    they speak Spanglish, the player does not (the first votes). */
@@ -142,6 +344,9 @@ var KEEPERS = {
   bar:    {who:'settle-bar',    name:'MANNY, BEHIND THE BAR', draft:true},
   clinic: {who:'settle-clinic', name:'DOC ROSALES',        draft:true},
   train:  {who:'settle-yard',   name:'SARGE, AT THE YARD', draft:true},
+  arms:   {who:'settle-arms',   name:'TOÑO, GUNS AND PLATE', draft:true},
+  smith:  {who:'settle-smith',  name:'RUBÉN, THE SMITH',   draft:true},
+  armourer:{who:'settle-armour',name:'IRMA, THE ARMOURER', draft:true},
   lot:    {who:'you',           name:'YOU',                draft:true}
 };
 
@@ -150,16 +355,19 @@ var KEEPERS = {
    (camp 1, town 2, fortress 3). Pay is ONE battery (EVERYTHING COSTS ONE) until TUNING
    prices a contract. Words are draft:true attempts. */
 var OFFERS = [
-  {id:'ct-escort-water', title:'Walk the water cart to the pump', pay:1, draft:true,
+  {id:'ct-escort-water', skulls:1, title:'Walk the water cart to the pump', pay:30, draft:true,
    says:'The cart goes to the pump at dawn, mijo. Two hands, one battery when it comes back full.'},
-  {id:'ct-road-crew',    title:'Run the road crew off the corner', pay:1, draft:true,
+  {id:'ct-road-crew', skulls:2,    title:'Run the road crew off the corner', pay:60, draft:true,
    says:'Six of them on the corner, pipes and one pistol. They leave, you get paid. Simple.'},
-  {id:'ct-find-the-kid', title:'Find the Ortiz kid', pay:1, draft:true,
+  {id:'ct-find-the-kid', skulls:2, title:'Find the Ortiz kid', pay:60, draft:true,
    says:'The Ortiz boy went out for copper and did not come back. Bring him home, alive if you can.'},
-  {id:'ct-dogs',         title:'Clear the dog lot', pay:1, draft:true,
+  {id:'ct-dogs', skulls:3,         title:'Clear the dog lot', pay:90, draft:true,
    says:'The dogs took the lot behind the wash. Not pets no more. Clear it and the lot is ours again.'}
 ];
 var TIER_OFFERS = {camp:1, town:2, fortress:3};
+/* PAY BY SKULLS (10/5, with the market): a job must buy a gun, so it pays like Battle Brothers' at
+   ten crowns a battery: the wiki's contract line is 610 to 760 crowns (GROK_10, unverified), so a
+   one-skull job 30, two 60, three 90. TUNING owns these numbers. */
 /* THE BAR's rumours: draft:true attempts, each one a real thing the valley has (a pump, a
    road crew, the lab's animals), never a quest card. Spanglish from his mouth. */
 var RUMOURS = [
@@ -169,133 +377,461 @@ var RUMOURS = [
   'Somebody is buying copper by the Strip and paying in real batteries. Too good, if you ask me.'
 ];
 var SLOTS = 2;
+/* THE HURT: the game hands them as {name, injury, days, level, pain}; a bare name (older callers) gets
+   a long injury rolled from injuries.json so the screen is never empty-handed */
+var INJ = null;
+fetch('../records/target/bb/injuries.json').then(function(r){ return r.json(); }).then(function(j){ INJ = j; }).catch(function(){});
+function woundedList(){
+  return (S.wounded||[]).map(function(w, i){
+    if(typeof w === 'string'){ w = {name:w}; S.wounded[i] = w; }
+    if(!w.injuryName){
+      var rows = (INJ && INJ.rows || []).filter(function(r){ return r.kind !== 'temporary' || r.heal_days; });
+      var R4 = rng(seedOf(w.name + ':injury')), r = rows.length ? rows[Math.floor(R4()*rows.length)] : null;
+      if(w.injury && INJ) r = INJ.rows.filter(function(x){ return x.id === w.injury; })[0] || r;
+      w.injuryName = r ? r.name.toLowerCase() : 'a long wound';
+      if(w.days == null) w.days = r && r.heal_days ? r.heal_days[1] : 30;
+    }
+    w.level = w.level || 1;
+    return w;
+  });
+}
+function clinicPrice(w){
+  var crowns = 20 * 1 * traitMult().price * w.days * (1 + (w.level - 1) * 0.2);
+  return Math.max(1, Math.round(crowns / 10));
+}
+/* the bar's rumours live in a data file QUESTS and WORLD feed (records/target/settlement_rumours.json);
+   the four above are the fallback if it does not load */
+var RUMOR_FILE = null;
+fetch('../records/target/settlement_rumours.json').then(function(r){ return r.json(); }).then(function(j){ RUMOR_FILE = j.rumours; }).catch(function(){});
+function nextRumour(){
+  var list = RUMOR_FILE || RUMOURS.map(function(t, i){ return {id:'r'+i, says:t}; });
+  S.heardIds = S.heardIds || {};
+  var fresh = list.filter(function(r){ return !S.heardIds[r.id]; }); if(!fresh.length) return null;
+  var R3 = rng(seedOf(S.place.name + ':rumour:' + (S.day||0) + ':' + (S.rounds||0))), r = fresh[Math.floor(R3()*fresh.length)];
+  S.heardIds[r.id] = true; return r;
+}
+/* Battle Brothers prices the round by the company's size; ours: a battery a head */
+function roundPrice(){ return Math.max(1, S.crewSize || 3); }
 /* THE STALL. What the shelf holds is ECONOMY's to rule (BohemiaPlace.STOCKS is empty on
    purpose); until then the stall sells the goods the economy already names, ONE battery
    each, and only FOOD is counted by the purse (the six in the bar). */
 var STALL = [{good:'food', label:'A ration of food', counts:'resources'},
              {good:'water', label:'Water, four litres', counts:null},
-             {good:'meds', label:'A dose of meds', counts:null}];
+             {good:'meds', label:'A dose of meds', counts:null},
+             {good:'rounds', label:'Six rounds', counts:null}];
 
 var S = {
   place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
-  purse:null, day:0, rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
+  purse:null, day:0, traits:[], traitSaid:{}, stock:{}, stash:[], rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
 };
 var P = window.BohemiaPurse;
 function bats(){ return P ? P.balance(S.purse,'electricity') : 0; }
 function post(act, o){
-  var m = {type:'BOHEMIA_SETTLEMENT', act:act, place:S.place.name};
+  var m = {type:'BOHEMIA_SETTLEMENT', act:act, place:S.place.name, batteries:bats()};
   for(var k in (o||{})) m[k]=o[k];
   window.__settleLog = (window.__settleLog||[]); window.__settleLog.push(m);
   if(!S.standalone) try{ window.parent.postMessage(m,'*'); }catch(e){}
 }
 function heard(t){ document.getElementById('heard').textContent = t; }
+/* THE CLINIC'S DOOR (row [the settlement's sounds], 10/5): door_open and door_shut are
+   already approved, frozen bank events (bohemia_sfx.js), so this is wiring, not new
+   content -- the same postMessage bridge BOHEMIA_FIGHT.html already uses, reused rather
+   than built twice.
+   THE NIGHT VARIANT QUIETER (10/9): the valley is quieter after dark, same as the
+   ambience trim his sixth votes already asked for elsewhere (-6 dB, half the energy,
+   AMB_TRIM in the alpha). A ratio OVER the approved recipe, never a rewrite of it, and
+   scoped to the CALL rather than the event name: this door is only quieter when it is
+   the settlement's own door at night, never the same door_open walking into a building
+   in daylight anywhere else in the valley. NIGHT_TRIM applies to every building sound
+   this file plays through sfx(), so it reaches the four new building sounds for free
+   once a vote lets this file wire them live -- nothing further to do here then. */
+var NIGHT_TRIM = 0.5;
+function sfx(ev, mul) {
+  window.__settleLog = (window.__settleLog||[]); window.__settleLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev, mul:mul||null});
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev, mul: mul||null }, '*'); } catch (_e) {}
+}
 
-/* ---------- THE PLACE, DRAWN ---------- */
-var img = new Image(), view = {s:1,ox:0,oy:0}, t0 = performance.now();
+/* ---------- THE PLACE, DRAWN: ONE PAINTED PICTURE (rule 71a, Paolo 10/4) ----------
+   'The buildings look like options; it looks like dog shit.' So the place is ONE 45-degree picture,
+   COMBAT TWO's (slices/settlement_ground/, rounds 17-18: camp, town, fortress, two variants each,
+   each with its own night), and the buildings are IN it: the barber a house with a pole, the stall
+   on the sidewalk, the posts a wall with paper, the clinic a storefront with a cross, the board
+   nailed to a pole, scavenge the junk lot. Nothing is written on the picture: a building lights
+   under the finger and names itself only when touched. On an upright phone the picture fills the
+   height and you drag it sideways; a wide screen sees it whole. */
+/* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9) */
+/* BUILD ON THE SCREEN (rule 40b: "a more deep rich interactable buildable world"; rule 43: you build
+   where you hold). The list, the cost, the day and what each thing does are engine/bohemia_lotbuild.js;
+   this block is only the place on the picture, the mouth, and the drawing of what stands. */
+B.build = {name:'BUILD', short:'1 battery, 1 day'};
+KEEPERS.build = {who:'you', name:'YOU', draft:true};
+var BUILDBOX = {camp:[1600,440,2010,600], town:[420,400,1080,530], fortress:[1640,480,2040,760]};
+var BUILD_LOTS = 4;                                   /* lots on a place's open ground: mine, draft, TUNING */
+var LOTSPR = {};
+['wall','tank','shed','pump','garden','solar','stall','roof'].forEach(function(id){
+  var im = new Image(); im.src = 'settlement/lot/' + id + '.png'; LOTSPR[id] = im; });
+function buildKey(){ return 'bohemia.lots.' + S.place.name; }
+/* INSIDE THE GAME THE MAP OWNS THE LOTS ([built on the map], 10/9): the same object, from the parent
+   (same origin), so the map's morning finishes them, pays its own purse and writes its own century, and
+   draws them at the base. The page keeps its own only when it is played on its own. */
+function buildParent(){ try{ var w = window.parent; return (w && w !== window && typeof w.lotBookFor === 'function') ? w : null; }catch(e){ return null; } }
+function buildState(){
+  if(S.build && S.build.name === S.place.name) return S.build;
+  var PW = buildParent();
+  if(PW){ S.build = { name: S.place.name, site: PW.lotBookFor(S.place.name), century: null, parent: true }; return S.build; }
+  var LB = window.BohemiaLotBuild, C = window.BohemiaCentury, st = null;
+  try{ st = JSON.parse(localStorage.getItem(buildKey()) || 'null'); }catch(e){ st = null; }
+  S.build = { name: S.place.name,
+              site: (st && LB && LB.load(JSON.stringify(st.site))) || (LB ? LB.site({base:S.place.name}) : null),
+              century: (C && st && st.century) ? C.load(st.century) : (C ? C.make({act:1}) : null) };
+  return S.build;
+}
+function buildSave(){ var b = S.build; if(!b || b.parent) return;   /* the map saves its own */
+  try{ localStorage.setItem(buildKey(), JSON.stringify({site: JSON.parse(BohemiaLotBuild.save(b.site)),
+                                                        century: BohemiaCentury.save(b.century)})); }catch(e){} }
+/* the ledger FACTIONS keeps, written from the map's answer: one taking, or nothing */
+function buildHold(){
+  var H = window.BohemiaHomeBases; if(!H) return null;
+  var rec = H.make({act:1});
+  if(buildMine()) H.took(rec, {base:S.place.name, to:H.YOU, day:buildDay()});
+  return {rec:rec, act:1};
+}
+/* whose ground: the map always says (held in the open message); the page alone, played on its own purse
+   (its header: 'Standalone it runs on its own purse with 3 batteries so it can be played'), is your place */
+function buildMine(){ return (S.mine === undefined) ? !!S.standalone : !!S.mine; }
+function buildDay(){ return (typeof S.mapDay === 'number') ? S.mapDay : (S.day|0); }
+function buildTick(){
+  var LB = window.BohemiaLotBuild, b = buildState(); if(!LB || !b.site) return null;
+  if(b.parent) return null;   /* the map's morning ticks it, into the map's purse and century */
+  var r = LB.tick(b.site, S.purse, b.century, buildDay(), buildHold()); buildSave(); return r;
+}
+function buildFreeLot(){ var b = buildState(); for(var i=0;i<BUILD_LOTS;i++) if(!b.site.lots[i+',0']) return {x:i, y:0}; return null; }
+function buildDoes(e){
+  if(e.houses) return 'a family';
+  if(e.makes && e.makes.clout) return 'your name';
+  if(e.six) return '+1 ' + (e.six === 'batteries' ? 'battery' : e.six) + '/day';
+  return e.guards ? 'keeps out ' + e.guards : 'nothing';
+}
+/* HELD (rule 88, Paolo 10/10: looks first, features hold): Take it shipped 43 minutes after the hold and is switched off
+   in the game until he lifts it; the machinery stays and its gate switches it on to keep it honest. */
+window.BUILD_TAKE_ON = false;
+var BUILD_NO = { NOT_HELD:'This is not our ground. We build where we hold. Take it first.', RUIN:'Nothing stands on a ruin this generation.',
+  NO_HOLD:'This is not our ground. We build where we hold. Take it first.', CANNOT_AFFORD:'No battery, nothing goes up.',
+  LOT_TAKEN:'Something is already going up there.', KIND_LOCKED:'We do not know how to build that yet.' };
+function buildSheet(body, acts, line){
+  var LB = window.BohemiaLotBuild, b = buildState(), hold = buildHold();
+  /* the place's gossip is the keepers' to say, and this keeper is YOU: the player does not speak it */
+  if(line && line === traitLine('build')) line = null;
+  if(!LB || !b.site){ body.appendChild(speak('build', 'Nothing to build with.')); body.appendChild(acts); return show(); }
+  buildTick();
+  if(!buildMine()){
+    /* TAKE THE NEXT PART ([take the next part], rule 43: what you hold grows by taking). Inside the game, one act:
+       go to their gate. The map runs it (one fight there; win and the place is yours, lose and it is a reload). */
+    body.appendChild(speak('build', line || 'This is not our ground. We build where we hold.'));
+    if(window.BUILD_TAKE_ON && buildParent()) acts.appendChild(act('Take it', 'a fight at their gate', function(){
+      post('take', {}); heard('You go to their gate.');
+    }));
+    body.appendChild(acts); return show();
+  }
+  var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);
+  body.appendChild(speak('build', line || (free ? 'One battery and a day for any of these. What goes up?' : 'Every lot here has something on it.')));
+  list.forEach(function(e){
+    acts.appendChild(act(e.name, '1 batt  ' + buildDoes(e), function(){
+      var lot = buildFreeLot(); if(!lot) return openB('build', 'Every lot here has something on it.');
+      var r = LB.start(b.site, S.purse, lot, e.id, buildDay(), hold);
+      if(!r.ok) return openB('build', BUILD_NO[r.why] || 'It will not go up.');
+      buildSave(); post('build', {id:e.id, lot:lot, day:buildDay()}); shelf();
+      heard('The ' + e.name.toLowerCase() + ' goes up. It stands tomorrow.'); openB('build', 'It goes up tonight. Tomorrow it stands.');
+    }, !free || !e.affordable));
+  });
+  var sl = document.createElement('div'); sl.className = 'slots';
+  var up = [], going = [];
+  for(var k in b.site.lots){ var L = b.site.lots[k], nm = (LB.markerOf(L.id) || {}).name || L.id; (L.done ? up : going).push(nm); }
+  sl.textContent = 'Standing: ' + (up.length ? up.join(', ') : 'nothing yet') + (going.length ? '.  Going up: ' + going.join(', ') + '.' : '.')
+                 + '  Lots: ' + Object.keys(b.site.lots).length + ' of ' + BUILD_LOTS + '.';
+  body.appendChild(acts); body.appendChild(sl); return show();
+}
+/* WHAT STANDS, ON ITS LOT: the street's own art, its foot on the box's floor; going up is faint */
+function drawBuilt(s){
+  if(!VAR || !VAR.boxes.build) return;
+  var b = buildState(); if(!b.site) return;
+  var bx = VAR.boxes.build, lw = (bx[2]-bx[0]) / BUILD_LOTS, lh = bx[3]-bx[1];
+  for(var k in b.site.lots){
+    var L = b.site.lots[k], im = LOTSPR[L.id]; if(!im || !im.complete || !im.naturalWidth) continue;
+    var k2 = Math.min(2, (lw*0.92)/im.naturalWidth, (lh*0.95)/im.naturalHeight);
+    var w = im.naturalWidth*k2, h = im.naturalHeight*k2;
+    var x = view.ox + (bx[0] + lw*L.x + (lw - w)/2)*s, y = view.oy + (bx[3] - h)*s;
+    cx.save(); cx.imageSmoothingEnabled = false; cx.globalAlpha = L.done ? 1 : 0.35;
+    cx.drawImage(im, Math.round(x), Math.round(y), Math.round(w*s), Math.round(h*s)); cx.restore();
+  }
+}
+/* __/BUILD_ON_THE_SCREEN__ */
+var GROUND = null, PIC = {day:null, night:null}, VAR = null;
+var KMAP = {posts:'hall', board:'board', stall:'stall', barber:'barber', clinic:'clinic'};
+/* scavenge has no hotspot in the pictures, so it is the junk/empty lot in each, picked by eye */
+/* THE MARKET (rule 75d, Paolo 10/5: 'there's no place where you can buy weapons or armor'). Battle
+   Brothers' shape: a camp has one stall for both, a town a smith and an armourer, a fortress both
+   plus its market. The buildings are ones already standing in COMBAT TWO's pictures, picked by eye. */
+var ARMSBOX = {camp:{arms:[86,130,300,250], bar:[1290,120,1420,260]}, town:{smith:[1060,944,1490,1092], armourer:[1590,944,2040,1092], bar:[40,944,490,1092]},
+               fortress:{smith:[90,30,560,470], armourer:[560,30,1110,470], bar:[1880,820,2010,1030]}};
+var LOTBOX = {camp:[1290,680,1570,800], town:[520,900,1050,1092], fortress:[1330,700,1480,830]};
+var view = {s:1, ox:0, oy:0, W:0, H:0, cx:null, cy:null, lit:null, night:false}, t0 = performance.now();
 var cv = document.getElementById('cv'), cx = cv.getContext('2d');
+fetch('settlement_ground/settlement_ground.json').then(function(r){ return r.json(); }).then(function(j){ GROUND = j; pickVariant(); }).catch(function(){});
+function seedOf(str){ var h = 2166136261; for(var i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h>>>0; }
+function pickVariant(){
+  if(!GROUND) return;
+  var t = GROUND.tiers[S.place.tier] || GROUND.tiers.town, vs = t.variants || [t];
+  VAR = vs[seedOf(S.place.name) % vs.length];
+  VAR.boxes = {};
+  for(var h in VAR.hotspots){ var k = KMAP[h]; if(k) VAR.boxes[k] = VAR.hotspots[h].box; }
+  VAR.boxes.lot = LOTBOX[S.place.tier] || LOTBOX.town;
+  VAR.boxes.build = BUILDBOX[S.place.tier] || BUILDBOX.town;   /* __BUILD_ON_THE_SCREEN__ */
+  var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
+  ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot','build'].filter(function(k){ return VAR.boxes[k]; });
+  rollTraits(); restock();
+  /* you arrive looking at what happened here: a raided place opens on its burnt house */
+  if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
+    var bb2 = LOOKBOX.burnt[S.place.tier] || LOOKBOX.burnt.town; view.cx = (bb2[0] + bb2[2])/2 + 260; }
+  ['day','night'].forEach(function(w){
+    var im = new Image(); im.onload = function(){ layout(); }; im.src = 'settlement_ground/' + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;
+  });
+  shelf(); layout();
+}
+function picW(){ return VAR ? VAR.px[0] : 2060; }
+function picH(){ return VAR ? VAR.px[1] : 1092; }
 function layout(){
   var sc = document.getElementById('scene'), W = sc.clientWidth, H = sc.clientHeight;
+  view.W = W; view.H = H;
+  if(W < 40 || H < 40) return;
   var dpr = window.devicePixelRatio||1;
   cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
   cv.style.width = W+'px'; cv.style.height = H+'px';
-  /* Fit the run's height into the scene; on a phone it is wider than the screen, so it
-     is centred on the hall and the edges crop, the art never squashes. */
-  var s = Math.min(H/616, W/(1408*0.62));
-  view.s = s; view.W = W; view.oy = Math.round(H*0.30);
-  pan(view.cx == null ? (B.hall.x + B.hall.w/2) : view.cx);
-  hots(); draw();
+  /* rule 62: the picture covers the scene; an upright phone fills the height and pans, a wide
+     screen fills the width */
+  /* you see the PLACE, not one roof: an upright phone shows about 60 percent of the picture's
+     width at once and drags for the rest; a wide screen fits all of it */
+  view.s = Math.min(Math.max(W/(picW()*0.6), H*0.5/picH()), H/picH());
+  /* RUN TWO [the sideways band], 10/10 (UI's review, his NO on 'the brown-grey sides'): a glass wider than the
+     picture FILLS THE WIDTH and crops top and bottom (Battle Brothers' town screen fills its glass at any width);
+     a drag then also moves up and down, so no building is ever out of reach */
+  if(W/picW() > view.s) view.s = W/picW();
+  panY(view.cy == null ? picH()/2 : view.cy);
+  pan(view.cx == null ? picW()/2 : view.cx);
 }
-/* THE STREET PANS: drag it, or tap a plate and it walks the camera to that front */
-function pan(cxArt){
-  var s = view.s, half = view.W/2/s;
-  cxArt = Math.max(half, Math.min(2816 - half, cxArt));
-  view.cx = cxArt; view.ox = Math.round(view.W/2 - cxArt*s);
-  if(document.querySelector('.hot')) placeHots();
+function pan(cxPic){
+  var half = view.W/2/view.s;
+  cxPic = Math.max(half, Math.min(picW() - half, cxPic));
+  view.cx = cxPic; view.ox = Math.round(view.W/2 - cxPic*view.s);
 }
+function panY(cyPic){
+  if(picH()*view.s <= view.H){ view.cy = picH()/2; view.oy = Math.round((view.H - picH()*view.s)/2); return; }
+  var half = view.H/2/view.s;
+  cyPic = Math.max(half, Math.min(picH() - half, cyPic));
+  view.cy = cyPic; view.oy = Math.round(view.H/2 - cyPic*view.s);
+}
+/* THE PEOPLE OF THE PLACE (RUN TWO [the finished pictures in], 10/10): ANIMATION's idle people
+   (slices/settlement_people, the 112 rig in the runway clothes, nine clips on the 120 beat) stand in
+   the painted picture at its own scale (settlement_people.json scale.draw_frame_at): a keeper at each
+   building's door step doing his building's clip, and a crowd by the stall whose size the place's
+   traits set (market day fills it, raided or sick empties it, night thins it). */
+var FOLK = null, FOLK_IM = {};
+fetch('settlement_people/settlement_people.json').then(function(r){ return r.json(); }).then(function(j){ FOLK = j;
+  Object.keys(j.looks).forEach(function(k){ var im = new Image(); im.src = 'settlement_people/' + j.looks[k].file; FOLK_IM[k] = im; }); }).catch(function(){});
+var KEEPER_CLIP = {hall:'beckon', board:'look', stall:'trade', bar:'lean', arms:'trade', smith:'trade', armourer:'wait', barber:'smoke', clinic:'wait', lot:'scratch'};
+var CROWD_BASE = {camp:2, town:5, fortress:4};
+var CROWD_CLIPS = ['wait','look','smoke','greet','scratch','lean'];
+function crowdCount(){
+  var n = CROWD_BASE[S.place.tier] || 3, tr = (S.traits||[]).map(function(t){ return t.id; });
+  if(tr.indexOf('market_day') >= 0) n += 6;
+  if(tr.indexOf('raided') >= 0) n = Math.min(n, 1);
+  if(tr.indexOf('sickness') >= 0) n = Math.min(n, 1);
+  if(view.night) n = Math.ceil(n/2);
+  return n;
+}
+function folkList(){
+  if(!FOLK || !VAR) return [];
+  var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
+  if(VAR.folkKey === key) return VAR.folk;
+  var R = rng(seedOf(S.place.name + ':folk')), looks = Object.keys(FOLK.looks), out = [];
+  var cast = looks.filter(function(l){ return FOLK.looks[l].kind === 'cast'; }); if(!cast.length) cast = looks;
+  ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
+    out.push({k:k, keeper:true, look:cast[Math.floor(R()*cast.length)], clip:KEEPER_CLIP[k] || 'wait', face:FOLK.rows[i % 3],
+      x:(b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, y:b[3] - 2, ph:R()}); });
+  var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount();
+  for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7;
+    out.push({crowd:true, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:FOLK.rows[Math.floor(R()*3)],
+      x:(st[0]+st[2])/2 + Math.cos(ang)*(st[2]-st[0])*rad*.8, y:Math.min(picH()-4, st[3] + 6 + Math.abs(Math.sin(ang))*22*rad), ph:R()}); }
+  out.sort(function(a, c){ return a.y - c.y; });
+  VAR.folkKey = key; VAR.folk = out; return out;
+}
+function drawPeople(s){
+  var L = folkList(); if(!L.length) return;
+  var F = FOLK.frame, at = FOLK.scale.draw_frame_at, now = performance.now(), d = at*s;
+  L.forEach(function(p){
+    var im = FOLK_IM[p.look], c = FOLK.clips[p.clip] || FOLK.clips.wait; if(!im || !im.complete || !im.naturalWidth) return;
+    var prog = ((now/(c.beats*500)) + p.ph) % 1, col = FOLK.cols.indexOf(c.cols[Math.floor(prog*c.cols.length)]), row = FOLK.rows.indexOf(p.face);
+    if(col < 0 || row < 0) return;
+    var x = view.ox + p.x*s - d/2, y = view.oy + p.y*s - d*(FOLK.figure_bbox[1]+FOLK.figure_bbox[3])/F;
+    cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(view.ox + p.x*s, view.oy + p.y*s, d*.16, d*.05, 0, 0, 7); cx.fill();
+    cx.drawImage(im, col*F, row*F, F, F, Math.round(x), Math.round(y), Math.round(d), Math.round(d));
+  });
+}
+
 function draw(){
-  var dpr = window.devicePixelRatio||1, now = performance.now();
+  var dpr = window.devicePixelRatio||1, W = view.W, H = view.H;
+  if(W < 40 || H < 40) return;
   cx.setTransform(dpr,0,0,dpr,0,0); cx.imageSmoothingEnabled = false;
-  cx.fillStyle = '#0b0907'; cx.fillRect(0,0,cv.width,cv.height);
-  if(img.complete && img.naturalWidth){
-    var Wc = cv.width/dpr, Hc = cv.height/dpr, s = view.s;
-    /* THE SKY: act one's dusk, dead power line across it, no glow */
-    var sk = cx.createLinearGradient(0,0,0,view.oy);
-    sk.addColorStop(0,'#17120e'); sk.addColorStop(1,'#3a2c20');
-    cx.fillStyle = sk; cx.fillRect(0,0,Wc,view.oy+2);
-    cx.strokeStyle = 'rgba(10,8,6,.9)'; cx.lineWidth = 1;
-    for(var li=0;li<2;li++){ cx.beginPath(); cx.moveTo(0,view.oy*0.35+li*6);
-      cx.quadraticCurveTo(Wc/2,view.oy*0.55+li*6,Wc,view.oy*0.30+li*6); cx.stroke(); }
-    /* THE ROAD keeps going toward you: the run's own asphalt rows, repeated down, darker
-       the closer they get, never a new drawing */
-    var ry = view.oy + 616*s, step = 90*s, n = 0;
-    for(var y = ry; y < Hc; y += step, n++){
-      for(var c=0;c<2;c++) cx.drawImage(img, 0, 526, 1408, 90, view.ox+c*1408*s, Math.floor(y), 1408*s, Math.ceil(step)+1);
-      cx.fillStyle = 'rgba(0,0,0,'+Math.min(.6,.12+n*.08).toFixed(2)+')'; cx.fillRect(0,Math.floor(y),Wc,Math.ceil(step)+1);
+  cx.fillStyle = '#1a140f'; cx.fillRect(0,0,W,H);
+  var im = view.night ? PIC.night : PIC.day;
+  if(!VAR || !im || !im.complete || !im.naturalWidth) return;
+  var s = view.s;
+  /* the valley goes on past the edge of the place: the same picture, far bigger and sunk in dusk,
+     fills the glass behind it, so the town fades out instead of ending in a black band */
+  var sb = Math.max(H/picH(), W/picW()) * 1.15;
+  cx.drawImage(im, W/2 - (view.cx*sb), (H - picH()*sb)/2, picW()*sb, picH()*sb);
+  cx.fillStyle = 'rgba(14,10,7,.78)'; cx.fillRect(0,0,W,H);
+  cx.drawImage(im, view.ox, view.oy, picW()*s, picH()*s);
+  drawTraitLooks(s);
+  try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
+  try{ drawPeople(s); }catch(e){}
+  try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
+  var fe = 18; var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
+  cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
+  var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
+  cx.fillStyle = gb; cx.fillRect(0, view.oy+picH()*s-fe, W, fe);
+  /* THE LIT ONE: the building under the finger (or open) catches light, from its own pixels */
+  var k = view.lit || S.open, b = k && VAR.boxes[k];
+  if(b){
+    var x = view.ox + b[0]*s, y = view.oy + b[1]*s, w = (b[2]-b[0])*s, h = (b[3]-b[1])*s;
+    var beat = ((performance.now()-t0)/500)|0, a = .22 + .05*Math.sin((performance.now()-t0)/500*Math.PI);
+    cx.save(); cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = a;
+    cx.drawImage(im, b[0], b[1], b[2]-b[0], b[3]-b[1], x, y, w, h); cx.restore();
+    /* it names itself only under the finger (UI [the settlement's labels], rule 71a: gone when the finger
+       lifts): UI's torn tag from bohemia_ui_materials.js; the plate below is the fallback if that file is missing */
+    var t = B[k].name, t2 = sub(k) || '';
+    if(view.lit === k && window.BohemiaMaterials && BohemiaMaterials.settleTag){ BohemiaMaterials.settleTag(cx, {x:x, y:y, w:w, h:h}, t, t2, W, H); }
+    else if(view.lit === k){
+    cx.font = 'bold 11px ui-monospace,Menlo,monospace'; var w1 = cx.measureText(t).width;
+    cx.font = '10px ui-monospace,Menlo,monospace'; var w2 = cx.measureText(t2).width;
+    var pw = Math.max(w1,w2) + 14, px = Math.max(4, Math.min(W - pw - 4, x + w/2 - pw/2)), py = Math.min(H - 34, y + h + 6);
+    cx.fillStyle = 'rgba(14,11,8,.9)'; cx.fillRect(Math.round(px), Math.round(py), Math.round(pw), t2 ? 30 : 18);
+    cx.fillStyle = '#d9a85a'; cx.fillRect(Math.round(px), Math.round(py), 2, t2 ? 30 : 18);
+    cx.textAlign = 'center'; cx.fillStyle = '#e9dcc4'; cx.font = 'bold 11px ui-monospace,Menlo,monospace'; cx.fillText(t, px + pw/2, py + 13);
+    if(t2){ cx.fillStyle = '#a8977c'; cx.font = '10px ui-monospace,Menlo,monospace'; cx.fillText(t2, px + pw/2, py + 25); }
     }
-    for(var c2=0;c2<2;c2++) cx.drawImage(img, view.ox+c2*1408*s, view.oy, 1408*s, 616*s);
-    /* SHUT: a front this place does not have is dark behind its shutter, and says so */
-    ['stall','barber','bar','clinic','train'].forEach(function(k){
-      if(ORDER.indexOf(k) >= 0) return;
-      var r = B[k]; cx.fillStyle = 'rgba(8,6,4,.72)';
-      cx.fillRect(view.ox+r.x*s, view.oy+r.y*s, r.w*s, r.h*s);
-      cx.fillStyle = '#6e5f4c'; cx.font = '11px ui-monospace,monospace'; cx.textAlign = 'center';
-      cx.fillText('SHUT', view.ox+(r.x+r.w/2)*s, view.oy+(r.y+r.h/2)*s);
-    });
-    /* THE HUM: the shop light over the stall breathes on the 120 BPM beat and drops out
-       for a beat every so often, on its own, at the source. */
-    var beat = ((now-t0)/500)|0, out = (beat % 13 === 7);
-    var a = out ? 0 : 0.10 + 0.04*Math.sin((now-t0)/500*Math.PI);
-    cx.fillStyle = 'rgba(255,214,140,'+a.toFixed(3)+')';
-    cx.fillRect(view.ox+88*view.s, view.oy+88*view.s, 440*view.s, 90*view.s);
   }
-  /* the dusk over everything: act one is the ruin */
-  var g = cx.createRadialGradient(cv.width/dpr/2, cv.height/dpr/2, 40, cv.width/dpr/2, cv.height/dpr/2, Math.max(cv.width,cv.height)/dpr*0.7);
-  g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(1,'rgba(0,0,0,.55)');
-  cx.fillStyle = g; cx.fillRect(0,0,cv.width/dpr,cv.height/dpr);
+  var g2 = cx.createRadialGradient(W/2, H/2, 40, W/2, H/2, Math.max(W,H)*0.75);
+  g2.addColorStop(0,'rgba(0,0,0,0)'); g2.addColorStop(1,'rgba(0,0,0,.45)');
+  cx.fillStyle = g2; cx.fillRect(0,0,W,H);
 }
 function loop(){ draw(); requestAnimationFrame(loop); }
-
-function hots(){
-  var sc = document.getElementById('scene');
-  [].slice.call(sc.querySelectorAll('.hot')).forEach(function(h){ h.remove(); });
-  ORDER.forEach(function(k){
-    var r = B[k], h = document.createElement('button');
-    h.className = 'hot'; h.dataset.k = k; h.setAttribute('aria-label', r.name);
-    var lab = document.createElement('span'); lab.textContent = r.name; h.appendChild(lab);
-    h.addEventListener('click', function(){ if(!view.dragged) openB(k); });
-    sc.insertBefore(h, document.getElementById('sheet'));
-  });
-  placeHots();
+/* a small thing (the board on its pole) still takes a thumb: its tap area is at least 44 px */
+function tapBox(k){
+  var b = VAR.boxes[k], m = 44/view.s, w = b[2]-b[0], h = b[3]-b[1];
+  var dx = Math.max(0, (m-w)/2), dy = Math.max(0, (m-h)/2);
+  return [b[0]-dx, b[1]-dy, b[2]+dx, b[3]+dy];
 }
-/* a front off the edge of the screen has no button until you pan to it */
-function placeHots(){
-  var W = view.W;
-  [].slice.call(document.querySelectorAll('.hot')).forEach(function(h){
-    var r = B[h.dataset.k];
-    var x = view.ox + r.x*view.s, y = view.oy + r.y*view.s, w = r.w*view.s, hh = r.h*view.s;
-    if(x < 0){ w += x; x = 0; } if(x + w > W) w = W - x;
-    h.style.display = w < 30 ? 'none' : '';
-    if(w < 44){ x -= (44-w)/2; w = 44; }
-    h.style.left = x+'px'; h.style.top = y+'px'; h.style.width = w+'px'; h.style.height = Math.max(44,hh)+'px';
-  });
+function hitAt(x, y){
+  if(!VAR) return null;
+  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, best = null, area = Infinity;
+  ORDER.forEach(function(k){ if(!VAR.boxes[k]) return; var b = tapBox(k);
+    if(px >= b[0] && px <= b[2] && py >= b[1] && py <= b[3]){ var a = (b[2]-b[0])*(b[3]-b[1]); if(a < area){ area = a; best = k; } } });
+  return best;
 }
+/* where a building can be tapped: it pans the picture to it and gives its middle (the driver uses it) */
+function where(k){
+  if(!VAR || !VAR.boxes[k] || ORDER.indexOf(k) < 0) return null;
+  var b = tapBox(k); pan((b[0]+b[2])/2); panY((b[1]+b[3])/2);
+  var r = document.getElementById('scene').getBoundingClientRect();
+  var x = view.ox + (b[0]+b[2])/2*view.s, y = view.oy + (b[1]+b[3])/2*view.s;
+  return {x: r.left + x, y: r.top + y, px: Math.round((b[2]-b[0])*view.s*(b[3]-b[1])*view.s)};
+}
+(function(){
+  var x0 = null, c0 = 0, y0 = 0, cy0 = 0, moved = false;
+  cv.addEventListener('pointerdown', function(e){
+    x0 = e.clientX; c0 = view.cx; y0 = e.clientY; cy0 = view.cy; moved = false;
+    var r = cv.getBoundingClientRect(); view.lit = hitAt(e.clientX - r.left, e.clientY - r.top);
+  });
+  window.addEventListener('pointermove', function(e){
+    if(x0 === null) return; var d = e.clientX - x0, dy = e.clientY - y0;
+    if(Math.abs(d) > 8 || Math.abs(dy) > 8){ moved = true; view.lit = null; }
+    if(moved){ pan(c0 - d/view.s); panY(cy0 - dy/view.s); }
+  });
+  window.addEventListener('pointerup', function(e){
+    if(x0 === null) return; x0 = null; view.lit = null;
+    if(moved) return;
+    var r = cv.getBoundingClientRect(), k = hitAt(e.clientX - r.left, e.clientY - r.top);
+    if(k) openB(k); else if(S.open) hide();
+  });
+})();
 function shelf(){
-  var sh = document.getElementById('shelf'); sh.textContent = '';
-  ORDER.forEach(function(k){
-    var b = document.createElement('button'); b.className = 'pl'+(S.open===k?' on':''); b.dataset.k = k;
-    var n = document.createElement('b'); n.textContent = B[k].name.replace('THE ',''); b.appendChild(n);
-    var s = document.createElement('small'); s.textContent = sub(k); b.appendChild(s);
-    b.addEventListener('click', function(){ if(k!=='lot') pan(B[k].x + B[k].w/2); openB(k); });
-    sh.appendChild(b);
-  });
   document.getElementById('bat').textContent = bats()+' BATTER'+(bats()===1?'Y':'IES');
   document.getElementById('pname').textContent = S.place.name;
 }
 function sub(k){
   if(k==='board') return S.held.length+' of '+SLOTS+' held';
+  if(k==='build') return buildMine() ? '1 battery, 1 day' : 'not your ground';   /* __BUILD_ON_THE_SCREEN__ */
   if(k==='lot'){ var l = left(); return l.left===0 ? 'picked clean' : l.left+' left'; }
   if(k==='hall'){ var o = window.BohemiaFollowers && BohemiaFollowers.offerFor(S.hired,{}); return o ? o+' for hire' : 'nobody'; }
   return B[k].short;
+}
+
+/* ---------- THE POSTS: recruits as hire cards (RUN TWO [the posts screen]) ----------
+   PEOPLE owns the roll (engine/bohemia_goodbros.js: six real backgrounds, the wiki's stat ranges and
+   hiring prices, the 60/30/10 star split); this screen shows them and hires them. How many stand at
+   the posts is Battle Brothers' shape by size: a camp two, a town four, a fortress six, two more on
+   market day, none in a raided or sick place. Names are draft:true attempts. Paying puts him on the
+   roster with his stats as rolled and his gear in the bag. */
+var POST_COUNT = {camp:2, town:4, fortress:6};
+var HIRE_NAMES = ['Chuy','Lalo','Neto','Beto','Tavo','Memo','Pancho','Rudy','Lupe','Yesenia','Marisol','Dani','Kiki','Ofelia','Rocco','Nacho']; /* draft:true */
+var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['butcher_s_cleaver','leather_wraps'], brawler:[null,'sackcloth'],
+           thief:['knife','leather_tunic'], militia:['militia_spear','padded_surcoat']};
+function recruitsHere(){
+  if(!window.BohemiaGoodBros || traitMult().recruits < 0) return [];
+  var key = S.place.name + ':' + Math.floor((S.day||0)/7);
+  if(S.postKey !== key){
+    S.postKey = key; S.taken = {};
+    var n = (POST_COUNT[S.place.tier] || 4) + ((S.traits||[]).some(function(t){ return t.id === 'market_day'; }) ? 2 : 0);
+    var six = BohemiaGoodBros.sixAtThePost(key), more = n > 6 ? BohemiaGoodBros.sixAtThePost(key + ':more') : [];
+    S.recruits = six.concat(more).slice(0, n).map(function(r, i){
+      r.id = 'rc' + i; r.name = HIRE_NAMES[seedOf(key + ':name:' + i) % HIRE_NAMES.length]; r.look = 'cast_' + ['longcoat','barearms','pack','skirt','widebrim','cape','apron','poncho','bedroll','shorts','satchel','shortcoat'][seedOf(key + ':look:' + i) % 12];
+      return r; });
+  }
+  return (S.recruits||[]).filter(function(r){ return !S.taken[r.id]; });
+}
+var STAT_SHORT = {hp:'HP', fatigue:'FAT', resolve:'RES', initiative:'INI', melee_skill:'MSK', ranged_skill:'RSK', melee_defense:'MDF', ranged_defense:'RDF'};
+function hireCard(r){
+  var c = document.createElement('div'); c.className = 'hire'; c.dataset.id = r.id;
+  var f = document.createElement('canvas'); f.width = 64; f.height = 64; f.className = 'face';
+  var im = new Image(); im.onload = function(){ var x = f.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(im, im.naturalWidth - 64, 0, 64, 64, 0, 0, 64, 64); }; im.src = 'fight_people/' + r.look + '.webp';   /* the face sits at the sheet's right edge, however many frames it carries */
+  c.appendChild(f);
+  var t = document.createElement('div'); t.className = 'hiret';
+  var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + r.backgroundName.toUpperCase(); t.appendChild(nm);
+  var st = document.createElement('div'); st.className = 'hstats';
+  BohemiaGoodBros.STAT_KEYS.forEach(function(k){ var e = document.createElement('span'); e.textContent = STAT_SHORT[k] + ' ' + r.stats[k] + (k === r.starredStat ? ' ' + '★'.repeat(r.starCount) : ''); if(k === r.starredStat) e.className = 'star'; st.appendChild(e); });
+  t.appendChild(st); c.appendChild(t);
+  c.appendChild(act('Hire', r.priceBatteries + ' batt', function(){
+    if(bats() < r.priceBatteries) return openB('hall', r.name + ' wants ' + r.priceBatteries + '. You have ' + bats() + '.');
+    P.debit(S.purse, 'electricity', r.priceBatteries, 'hire:' + r.backgroundId, S.place.name, S.day);
+    S.taken[r.id] = true;
+    var kit = KIT[r.backgroundId] || [], def = {name:r.name.toUpperCase(), background:r.backgroundId, jobs:[], stats:r.stats, stars:(function(o){ o[r.starredStat] = r.starCount; return o; })({}), look:r.look, kit:kit};
+    hireIntoCompany(def);
+    post('hireMan', {man:def, price:r.priceBatteries}); shelf(); openB('hall', r.name + ' is yours. ' + (kit.filter(Boolean).length ? 'What they carry is in your bag.' : 'They came with nothing but their hands.'));
+  }, bats() < r.priceBatteries));
+  return c;
+}
+/* the company lives with the roster screen: it reads this list on open (and the game can hand it) */
+function hireIntoCompany(def){
+  try{ var h = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'); h.push(def); localStorage.setItem('bohemia.hired.v1', JSON.stringify(h)); }catch(e){}
+  /* his gear goes in the bag, as items the bag already speaks */
+  (def.kit||[]).forEach(function(id, i){ if(!id) return;
+    var w = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0];
+    if(w){ S.stash.push(weaponItem(w)); return; }
+    var a = BB.armor && BB.armor.body.filter(function(x){ return x.id === id; })[0];
+    if(a) S.stash.push(armourItem('body', a));
+  });
+  bagSave();
 }
 
 /* ---------- A MOUTH WITH A FACE ---------- */
@@ -331,12 +867,20 @@ function act(label, right, fn, off){
 
 /* ---------- THE BUILDINGS ---------- */
 function openB(k, line){
+  if(k==='clinic' && S.open!=='clinic') sfx('door_open', view.night ? NIGHT_TRIM : null);
   S.open = k;
+  /* a trait is said once per building, first thing, by the one who lives with it */
+  if(!line && !(S.traitSaid||{})[k]){ var tl = traitLine(k); if(tl){ line = tl; S.traitSaid[k] = true; } }
   var body = document.getElementById('sbody'); body.textContent = '';
   var acts = document.createElement('div'); acts.className = 'acts';
   if(k==='hall'){
     var F = window.BohemiaFollowers, id = F && F.offerFor(S.hired, S.asked);
-    body.appendChild(speak(k, line || (id ? F.askLine(id) : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
+    if(traitMult().recruits < 0) id = null;   /* raided or sick: nobody signs on */
+    var men = recruitsHere();
+    body.appendChild(speak(k, line || (men.length ? 'These want work. Look them over, it costs nothing to look.' : id ? F.askLine(id) : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
+    /* THE POSTS (Battle Brothers' recruits, Grok's 'see the hire'): every man's card before you pay */
+    men.forEach(function(r){ acts.appendChild(hireCard(r)); });
+    if(id){ var hs = document.createElement('div'); hs.className = 'gridh'; hs.textContent = 'CAMP STAFF'; acts.appendChild(hs); }
     if(id){
       acts.appendChild(act('Take the '+id+' on', '1 battery a night', function(){
         S.hired[id] = true; post('hire',{role:id}); heard(F.hireLine(id)); shelf(); openB('hall');
@@ -350,7 +894,7 @@ function openB(k, line){
     for(var i=0;i<OFFERS.length && shown<n;i++){
       (function(o){
         if(S.held.indexOf(o.id)>=0) return; shown++;
-        acts.appendChild(act(o.title, o.pay+' battery', function(){
+        acts.appendChild(act(o.title, '\u2620'.repeat(o.skulls||1) + '  ' + o.pay + ' batt', function(){
           openB('board', o.says);
           var sb = document.getElementById('sbody').querySelector('.acts');
           sb.textContent = '';
@@ -372,7 +916,7 @@ function openB(k, line){
         if(bats()<1) return openB('stall','You are out of batteries. Come back with one.');
         P.debit(S.purse,'electricity',1,'stall:'+g.good,S.place.name,S.day);
         if(g.counts) P.credit(S.purse,g.counts,1,'stall:'+g.good,S.place.name,S.day);
-        post('buy',{good:g.good}); shelf(); openB('stall','There you go. Gracias.');
+        post('buy',{good:g.good}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB('stall','There you go. Gracias.');
       }, bats()<1));
     });
   }
@@ -388,23 +932,46 @@ function openB(k, line){
       sb.appendChild(act('Your haircut', '12 cuts', function(){ post('barber',{open:'hairBank'}); heard('The haircut shelf opens.'); }));
     }, bats()<1));
   }
+  else if(k==='arms' || k==='smith' || k==='armourer'){ shopSheet(k, body, acts, line); }
   else if(k==='bar'){
-    body.appendChild(speak(k, line || 'A round for the crew is one battery. Drink, and I tell you what I heard.'));
-    acts.appendChild(act('Buy the crew a round', '1 battery', function(){
-      if(bats()<1) return openB('bar','No battery, no round, compa.');
-      P.debit(S.purse,'electricity',1,'bar:round',S.place.name,S.day);
-      var rm = RUMOURS[S.rumour++ % RUMOURS.length];
-      post('round',{rumour:rm}); shelf(); openB('bar', rm);
-    }, bats()<1));
+    /* BATTLE BROTHERS' TAVERN (GROK_20/21): a round for the company, priced by how many you are,
+       up to four a visit; each lifts the company's morale a step and the town's opinion of you by a
+       tenth (GROK_118), and the keeper tells you one thing he heard, out of his own mouth */
+    var price = roundPrice(), roundsLeft = 4 - (S.rounds||0);
+    body.appendChild(speak(k, line || (roundsLeft > 0 ? 'A round for the whole crew, ' + price + ' batter' + (price===1?'y':'ies') + '. Drink, and I tell you what I heard.' : 'That is enough for one night. Come back tomorrow.')));
+    acts.appendChild(act('Buy the crew a round', price + ' batt', function(){
+      if(bats() < price) return openB('bar', 'No batteries, no round, compa.');
+      P.debit(S.purse, 'electricity', price, 'bar:round', S.place.name, S.day);
+      S.rounds = (S.rounds||0) + 1;
+      var rm = nextRumour();
+      post('round', {morale:1, relation:0.1, price:price, rumour:rm});
+      if(rm && rm.mark) post('rumour', {rumour:rm, mark:rm.mark});
+      shelf(); openB('bar', rm ? rm.says : 'Nothing new tonight. Drink anyway.');
+      var sb = document.getElementById('sbody').querySelector('.acts'), tag = document.createElement('div'); tag.className = 'slots';
+      tag.textContent = 'The crew\'s spirits come up a step.  ' + S.place.name + ' likes you a little more.' + (rm && rm.mark ? '  Marked on your map: ' + rm.mark + '.' : '');
+      sb.insertBefore(tag, sb.firstChild);
+    }, roundsLeft <= 0 || bats() < price));
   }
   else if(k==='clinic'){
-    var hurt = (S.wounded||[]).length;
-    body.appendChild(speak(k, line || (hurt ? 'Leave them with me. One battery and a long wound heals in half the days.'
+    /* BATTLE BROTHERS' TEMPLE, our clinic (records/target/bb/injuries.json rules): treatment HALVES the
+       healing time, at 20 crowns x the place's price multiplier x the days left x (1 + 0.2 per level
+       past one), ten crowns a battery; a hired medic (BB's surgeon) takes a day more */
+    var hurt = woundedList();
+    body.appendChild(speak(k, line || (hurt.length ? 'Leave them with me. I can halve the days, if you can pay.'
       : 'Nobody in your crew is hurt right now, gracias a Dios. Come back when somebody is.')));
-    acts.appendChild(act('Pay to cut the wound days', '1 battery', function(){
-      P.debit(S.purse,'electricity',1,'clinic:wound',S.place.name,S.day);
-      post('clinic',{who:S.wounded.shift()}); shelf(); openB('clinic','Half the days. Bring them back in one piece next time.');
-    }, !hurt || bats()<1));
+    hurt.forEach(function(w){
+      var price = clinicPrice(w), cut = Math.ceil(w.days/2) - ((S.hired && S.hired.medic) ? 1 : 0);
+      var row = document.createElement('div'); row.className = 'slots';
+      row.textContent = w.name + ': ' + w.injuryName + ', ' + w.days + ' day' + (w.days===1?'':'s') + ' left' + (w.pain ? '. ' + w.pain : '');
+      acts.appendChild(row);
+      acts.appendChild(act('Treat ' + w.name + ': ' + w.days + ' days to ' + Math.max(1, cut), price + ' batt', function(){
+        if(bats() < price) return openB('clinic', 'That is ' + price + ' batteries for ' + w.name + '. You have ' + bats() + '.');
+        P.debit(S.purse, 'electricity', price, 'clinic:' + w.name, S.place.name, S.day);
+        var before = w.days; w.days = Math.max(1, cut); w.treated = true;
+        post('clinic', {who:w.name, before:before, days:w.days, price:price}); shelf();
+        openB('clinic', w.name + ' stays with me. ' + w.days + ' day' + (w.days===1?'':'s') + ' instead of ' + before + '.');
+      }, w.treated || bats() < price));
+    });
   }
   else if(k==='train'){
     var vets = (S.veterans||[]).length;
@@ -415,6 +982,7 @@ function openB(k, line){
       post('train',{who:S.veterans[0]}); shelf(); openB('train','Done. Three days on the yard and it sticks.');
     }, !vets || bats()<1));
   }
+  else if(k==='build'){ return buildSheet(body, acts, line); }   /* __BUILD_ON_THE_SCREEN__ */
   else if(k==='lot'){
     var l = left();
     body.appendChild(speak(k, line || (l.left===0 ? 'Nothing left on this lot. You took it all.' : 'Four hours in the lot. It is luck whether I find anything.')));
@@ -430,10 +998,9 @@ function openB(k, line){
 }
 function show(){
   document.getElementById('sheet').classList.add('on');
-  [].slice.call(document.querySelectorAll('.hot,.pl')).forEach(function(h){ h.classList.toggle('on', h.dataset.k===S.open); });
+
 }
-function hide(){ S.open = null; document.getElementById('sheet').classList.remove('on'); shelf();
-  [].slice.call(document.querySelectorAll('.hot')).forEach(function(h){ h.classList.remove('on'); }); }
+function hide(){ if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;
@@ -465,14 +1032,22 @@ function open(o){
   }
   if(o.contracts) S.held = o.contracts.slice(0,SLOTS);
   if(o.hired) S.hired = o.hired;
+  if(typeof o.crewSize === 'number') S.crewSize = o.crewSize;
+  if(o.place){ S.rounds = 0; S.heardIds = {}; }   /* a new visit, a new night at the bar */
+  if(Array.isArray(o.bag)) S.stash = o.bag.slice(0, BAG_SLOTS); else if(!S.bagLoaded){ bagLoad(); }
+  S.bagLoaded = true;
   if(o.wounded) S.wounded = o.wounded.slice();
   if(o.veterans) S.veterans = o.veterans.slice();
-  ORDER = (TIERS[S.place.tier] || TIERS.town).slice();
-  view.cx = null;
+  if(typeof o.night === 'boolean') view.night = o.night;
+  S.build = null;   /* __BUILD_ON_THE_SCREEN__: a new place, its own lots */
+  if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
+  if(typeof o.day === 'number') S.mapDay = o.day;   /* __BUILD_ON_THE_SCREEN__: the map's day */
+  if(o.traits !== undefined) S.forceTraits = o.traits;   /* the game (or the VOTE shot) can name them */
+  view.cx = null; pickVariant();
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {_view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
@@ -482,21 +1057,10 @@ window.addEventListener('message', function(e){
 document.getElementById('close').addEventListener('click', hide);
 document.getElementById('leave').addEventListener('click', function(){ post('leave',{}); heard('You head back out to the map.'); });
 window.addEventListener('resize', layout);
-(function(){
-  var sc = document.getElementById('scene'), x0 = null, c0 = 0;
-  sc.addEventListener('pointerdown', function(e){ if(e.target.closest('#sheet')) return; x0 = e.clientX; c0 = view.cx; view.dragged = false; });
-  window.addEventListener('pointermove', function(e){
-    if(x0 === null) return; var d = e.clientX - x0;
-    if(Math.abs(d) > 8) view.dragged = true;
-    if(view.dragged) pan(c0 - d/view.s);
-  });
-  window.addEventListener('pointerup', function(){ x0 = null; setTimeout(function(){ view.dragged = false; }, 0); });
-})();
-img.onload = layout; img.src = ART;
 
 var q = new URLSearchParams(location.search);
 open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier}, batteries: S.standalone ? 3 : undefined});
-/* window.BohemiaSettlement.order() is the open buildings, in shelf order */
+/* window.BohemiaSettlement.order() is the open buildings; where(k) is the middle of a building's own tappable pixels */
 requestAnimationFrame(loop);
 })();
 </script>

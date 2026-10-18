@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE TURN CLOSES</title>
+<!-- SOUNDS lane, 10/4, row [one song and the volumes], rule 54b.
+     The rebuilt fight's END TURN button makes no sound at all. A turn ending is a
+     small steel part engaging, not a chime: struckMetal's own 'pipe' modes (a
+     published free-free-bar series, REUSE-FIRST), heard for 90 ms instead of the
+     full ring, raised to 1400 Hz because a bolt catch is smaller and stiffer than
+     a pipe somebody is holding. NOT WIRED LIVE: every other new sound this lane
+     has ever cooked stayed out of the real game until he thumbed it. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THE TURN CLOSES</h1>
+<div class="sub">SOUNDS &middot; 10/4 &middot; the END TURN button, right now, is silent</div>
+
+<div class="card">
+  <h2>A SMALL STEEL CATCH</h2>
+  <div class="why">Not a chime. The same pipe this valley already strikes on the hour, heard
+  only for its first bright instant, before it has time to ring -- the way a bolt catch or a
+  ratchet pawl sounds when it drops into its notch.</div>
+  <div class="row"><button id="play">PLAY IT</button></div>
+  <div class="num" id="num"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT IT</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = null;
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+var m = null;
+function made(){ if(!m) m = H.endTurnClick(ac(), {}); return m; }
+document.getElementById('play').onclick = function(){
+  try{ if(live) live.stop(); }catch(e){}
+  var c = ac(), mm = made();
+  var s = c.createBufferSource(); s.buffer = mm.buffer;
+  var g = c.createGain(); g.gain.value = 0.9;
+  s.connect(g); g.connect(c.destination); s.start();
+  live = s; this.classList.add('on');
+  var self = this; setTimeout(function(){ self.classList.remove('on'); }, mm.seconds*1000+100);
+};
+function head(){
+  var mm = made();
+  document.getElementById('num').textContent =
+    mm.seconds.toFixed(3) + ' s, ' + mm.f0 + ' Hz, the pipe\'s own modes (' + mm.what + '): '
+    + mm.why;
+}
+head();
+
+var KEY='bohemia_turn_closes_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE TURN CLOSES (SOUNDS, 10/4). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-the-turn-closes-10-4\n\n' + (a || '(nothing written yet)'); }
+function say(msg){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=msg; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THE_TURN_CLOSES.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

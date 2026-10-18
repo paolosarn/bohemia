@@ -7,7 +7,7 @@ PLACE: the tower offices home base (town tier); the job is a stone house in the 
 SITUATION: a new faction boss took the top floor after the old director fled with the battery ledger, and without it the tower does not know who owes it -> the ledger comes back (whole, or with the debt pages burned); the tower's board posts collection jobs next visit, or thins by one when the director learns what was burned
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: yes (rationed, one board in five): the ledger's skim page names the new director
-CHECKLIST: passes all 30 (line 27: this is the rationed twist, drawn from the tower's own history)
+CHECKLIST: passes all 32 (line 27: this is the rationed twist, drawn from the tower's own history) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, money moving again. The tower's old director left for the foothills the night the new one took the top floor, and he took the tower's memory with him: the ledger of who owes what, since when. A boom is when debts are worth collecting. The new director wants the book.

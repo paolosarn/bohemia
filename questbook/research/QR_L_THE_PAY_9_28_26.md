@@ -4,6 +4,7 @@ QUESTION (row [second shelf], the CONTRACTS half, letter L): How does the librar
 
 STATUS: draft:true, research only, nothing built (rule 35). For RUN, ECONOMY, TUNING, WORDS, UI. Every example line is an attempt; contents are Paolo's.
 FOLDED 10/1 (QR-AB): new P16 (QR-U), reconciled with QR-G line 30 by QR-X's house rule; a note on P7. Each edit is marked in place.
+FOLDED 10/9 (QR-AL): QR-U's the sharpens of P3, P8, P9, P13 and P14, and the recorded difference on P11, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -100,6 +101,22 @@ P14. **THE SCREEN PRICE AND THE STREET PRICE AGREE.** A contract offered in a bu
 P15. **DECLINE STAYS FREE.** Decline writes nothing, anywhere (QR-A C6). The offer stays in the hall until the world changes it. Test: state after decline equals state before the offer, except the clock. (`Q126.W3`, `Q126.N12`, `Q134.W3`)
 
 P16. **A PRICE ON A PERSON OR A SACRED THING TEMPTS, AND IT LIVES ONLY ON EVENTS AND MAIN BEATS.** (folded 10/1 from QR-U, reconciled with QR-G line 30 by QR-X's house rule.) THE HOUSE RULE, written the same way on both pages so no sweep has to choose: CONTRACTS PAY ONE FEE ON EVERY BRANCH THAT COUNTS AS DONE (P7); EVENTS AND MAIN BEATS MAY CARRY ONE STATED TEMPTATION, WITH THE NUMBER ON THE BUTTON, AND THE OTHER SIDE FULLY BUILT. The library says why the number must be there: the miracle gets priced, cash held against a homecoming (`Q204.W5`); a price that is cartoonishly evil tempts nobody, so the money must matter to a desperate company (`Q204.X3`); "the temptation has a number on it, the only kind that tempts" (`Q166.W4`). And why it stays off the contract: when a side's reward buys the decision, the choice is bought (`Q164.W4`), and a contract's reward economy that tilts the fork undercuts it (`Q070.X2`, `Q108.X2`). The other side is fully built when it carries its own real weight (a person, standing, a later door), never only "the right thing" (`Q226.X2`, `Q157.X1`, `Q161.X3`; QR-G line 32). Tests: (a) no contract's DONE rows differ in fee (P7); (b) an event or main beat has at most ONE button whose number exceeds the others, and that number is printed on the button and said by a mouth; (c) the other button names what it gives or keeps. How often the road may carry such a price is TUNING's research (QR-U OPEN 1). (`Q204.W5`, `Q204.X3`, `Q166.W4`, `Q164.W4`, `Q226.X2`)
+
+SHARPENED (folded 10/9 from QR-U):
+- P8 (ask for more has a visible ceiling): Battle Brothers' real numbers, each ask adds 3 to 6 annoyance, fail chance
+  annoyance x 0.1, thrown out at 9 (`Q236.N3`; greed has a clock, `Q236.W5`). Players published the math and the face
+  became a slot machine (`Q236.X1`). The second ask states the ceiling in a line; a third ends the offer (`Q236.P2`).
+- P11 (the third push writes nothing), a deliberate difference: every ask costs about 0.5 percent relations in Battle
+  Brothers (`Q236.N3`). Ours writes nothing (Paolo's free no, QR-A C6). Recorded so nobody "fixes" it to the reference.
+- P9 (the advance is part of the same fee): "more up front" moves 25 percent of the pay into the advance and rounding
+  loses money (`Q236.N3`); ours is an honest loan, one battery now, one less at the end (`Q236.P5`); the payment mode
+  is a choice about risk (`Q236.W6`). Test clause: advance plus remainder equals the locked fee to the battery.
+- P3 (a fair contract beats its keep, a little): the wage treadmill makes every offer weighed (`Q236.W10`) and forces
+  the yes (`Q236.X4`); P3 plus QR-A C19 keeps the pressure without killing the free no.
+- P14 (screen price and street price agree): the poor cannot pay; a bust base pays in kind or a favour, never in
+  batteries it does not have (`Q232.W2`).
+- P13 (a favour names what it opens): nothing is given for free; the archive is a consequence, not a charity
+  (`Q175.W8`).
 
 ## WHAT TO AVOID (the flaws)
 

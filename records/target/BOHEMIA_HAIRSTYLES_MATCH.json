@@ -1,0 +1,70 @@
+{
+ "when": "2026-10-09T07:18:26.951Z",
+ "beforeStats": {
+  "avg": 0.6283039705476672,
+  "worst": 0.9307692307692308,
+  "worstPair": "TEMPLE TAPER / DRY TAPER"
+ },
+ "afterStats": {
+  "avg": 0.5900078107297504,
+  "worst": 0.8879781420765027,
+  "worstPair": "CURTAIN CUT / HEAVY FRINGE"
+ },
+ "counts": [
+  {
+   "name": "TEMPLE TAPER",
+   "beforeCount": 363,
+   "afterCount": 378
+  },
+  {
+   "name": "SHAG",
+   "beforeCount": 665,
+   "afterCount": 665
+  },
+  {
+   "name": "ROPE LOCKS",
+   "beforeCount": 737,
+   "afterCount": 737
+  },
+  {
+   "name": "SHORT ROPES",
+   "beforeCount": 435,
+   "afterCount": 435
+  },
+  {
+   "name": "DUST WEAVE",
+   "beforeCount": 568,
+   "afterCount": 568
+  },
+  {
+   "name": "COIL CROWN",
+   "beforeCount": 600,
+   "afterCount": 600
+  },
+  {
+   "name": "LAYERED FALL",
+   "beforeCount": 892,
+   "afterCount": 892
+  },
+  {
+   "name": "CURTAIN CUT",
+   "beforeCount": 704,
+   "afterCount": 704
+  },
+  {
+   "name": "HEAVY FRINGE",
+   "beforeCount": 678,
+   "afterCount": 678
+  },
+  {
+   "name": "DRY TAPER",
+   "beforeCount": 390,
+   "afterCount": 417
+  },
+  {
+   "name": "DEEP TAPER",
+   "beforeCount": 366,
+   "afterCount": 415
+  }
+ ]
+}

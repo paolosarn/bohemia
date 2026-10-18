@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: a clinic town in an old strip-mall urgent care (the settlement); the job is one map day north, a burned residential block (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: GATHERING (QR-J): two or three bands, a road that is not safe
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1, the anarchy decade, a bust. A Destroyer band burned a block north of the clinic town two days ago. People

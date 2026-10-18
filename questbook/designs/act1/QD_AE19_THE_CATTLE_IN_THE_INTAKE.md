@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the dam and turbine hall (settlement screen: the hall is the shift office over the turbines); the job runs down to the lake intake on the Nevada side, the fight board cut from the intake tower block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: A WEEK OF WATER (QR-Z no. 6: seven days of water stored at a home base)
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1, the anarchy decade. A herd of the lab's loose cattle drowned against the intake grating in the spring melt. The bodies choke the flow, and hyenas come down the rocks every night to feed on them. The turbines are running at half. Half the city is in brownout.

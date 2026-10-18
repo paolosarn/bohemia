@@ -1,0 +1,134 @@
+THE SIX BUILDINGS' PROPS -- MEASURED  (COOK [the board props] round 2, 10/10/26)
+==============================================================================
+
+THE ROW: COMBAT TWO built six buildings, and this lane owes "the props those buildings
+need at the house-tile scale (the pumps, the pews through a broken wall, the school
+fence, the motel ice machine, the pallets, the slot machines in the back lot), each
+with its cover value named, typed edges where they touch the ground; COMBAT TWO
+places them."
+
+*** THE FIRST THING THIS ROUND DID WAS OPEN THEIR BANK AND LOOK AT THE SIX BOARDS,
+*** AND THE ROW IS RIGHT THAT THE PROPS ARE MISSING. Their gas station is a canopy on
+*** posts over an EMPTY forecourt: the pump islands are painted out and there is not a
+*** pump on them. A fight on that board is a fight in a car park with a roof.
+
+WHAT SHIPPED, ONE PER BUILDING:
+  FUEL PUMPS ON THEIR ISLAND       gas_station    5.00 x 1.20 m  1.90 m  BLOCKER 
+  PEW ROW THROUGH THE BROKEN WALL  church         6.00 x 1.60 m  0.92 m  COVER   
+  SCHOOL FENCE WITH ITS GATE       school        12.00 x 0.10 m  1.83 m  BLOCKER 
+  MOTEL ICE MACHINE                motel          0.95 x 0.80 m  1.70 m  BLOCKER 
+  PALLET STACKS                    warehouse      2.40 x 1.00 m  1.05 m  COVER   
+  SLOT MACHINES IN THE BACK LOT    casino_back    4.80 x 3.00 m  1.55 m  BLOCKER 
+
+AND WHY ONE EACH, NOT SIX OF EVERYTHING. Battle Brothers keeps a SHORT prop vocabulary
+per terrain on purpose (02_COMBAT_RULES.md, the TERRAIN line) so that a board reads
+from across the screen. What this kit does that theirs does not: BB's props are
+nature's and the same in every forest, while every piece here is what one particular
+BUILDING left behind when the money stopped. The pumps belong to the gas station and
+nothing else. A board made of them tells you what the place used to be.
+
+COVER OR BLOCKER IS MEASURED AGAINST A MAN'S CHEST AT 1.30 m, NEVER FILED BY EYE.
+This lane filed two pieces wrong by eye on 9/30 and the tape corrected it, so the tape
+runs on every piece here and the build refuses if a height and a kind disagree:
+  FUEL PUMPS ON THEIR ISLAND       1.90 m -> BLOCKER
+  PEW ROW THROUGH THE BROKEN WALL  0.92 m -> COVER
+  SCHOOL FENCE WITH ITS GATE       1.83 m -> BLOCKER
+  MOTEL ICE MACHINE                1.70 m -> BLOCKER
+  PALLET STACKS                    1.05 m -> COVER
+  SLOT MACHINES IN THE BACK LOT    1.55 m -> BLOCKER  (and 0.62 m where it has fallen -> COVER)
+
+THE PIECE THAT GIVES A BOARD BOTH HEIGHTS AT ONCE is the back lot: two machines still
+standing at 1.55 m stop a shot, two on their faces at 0.62 m are something to crouch
+behind, and they are one prop. One piece that gives a board two heights is worth two
+that give one.
+
+RULE 77, AND THE PART THAT IS NOT A LABEL. Every prop declares what runs out of its
+four sides. TWO of the six claim to RUN end to end -- the pew row down the nave and the
+school fence -- and both were LAID DOWN TWICE AND THE JOINT MEASURED against the
+inside of the piece. The other four are single objects and their edges say so, which
+is not dodging the test: this lane typed a sign gantry as a run earlier the same round,
+the measurement said the joint was twelve times the inside, and the measurement was
+right and the label was wrong.
+
+REUSE-FIRST PAID AGAIN, AND ON THE PIECE IT MATTERED MOST. A school fence IS a
+chain-link run with one way through, so the school prop is this lane's own 9/30
+chain-link run, two lengths of it, with the gate cut in the middle and its leaf
+standing open against the mesh. Nothing was redrawn. The back lot stands on his own
+7/28 yard rubble. Every ramp, every cell and every material in the kit is his:
+  FUEL PUMPS ON THEIR ISLAND       his 7/28 stucco, concrete and terracotta ramps for the pumps and the island (his oil drum was tried on it and taken back out: see the record)
+  PEW ROW THROUGH THE BROKEN WALL  his 7/28 deck ramp for the wood and stucco ramp for the plaster
+  SCHOOL FENCE WITH ITS GATE       this lane's own 9/30 CHAIN-LINK RUN x2, gate cut in it
+  MOTEL ICE MACHINE                his 7/28 stucco, concrete and terracotta ramps
+  PALLET STACKS                    his 7/28 deck ramp, the same wood as his own decking
+  SLOT MACHINES IN THE BACK LOT    his 7/28 asphalt, terracotta and deck ramps (his yard rubble was tried at the foot of it and taken back out: see the record)
+
+*** AND TWO WHOLE PIECES CAME OFF THE SHELF AND WENT BACK ON IT, WHICH IS ALSO WHAT
+*** REUSE-FIRST LOOKS LIKE. I gave myself a rule this round that two of the six had to
+be a whole piece out of the cupboard. To hit that number I put his yard rubble at the
+foot of the slot machines and his oil drum on the fuel island, and both times the
+picture said no:
+  rubble_yard  tried in the casino back lot        painted for bright open ground at a finer grain than this kit; in a dark service yard it read as boulders and took the eye off the machines
+  oil_drum     tried in the gas station island     it is a BURNING BARREL with a lit fire in it; a fire on a fuel island is wrong twice over, and it is painted hotter than anything else in the kit
+A quota I invented is not the law. REUSE-FIRST says look first and say what you found,
+and this is what I found. One whole piece earned its place: the school fence.
+
+AND THE GATE IS THE WHOLE POINT OF THE SCHOOL PIECE. A wall is geometry. A wall with
+ONE DOOR IN IT is a decision, and both sides know where you have to come through.
+2.4 m wide, in the middle of 12 m of fence you can see straight through, which is the
+only reason to put chain-link on a board: you know what is coming and you still
+cannot get to it.
+
+WHAT COMBAT TWO DOES WITH IT. Each prop carries its FOOTPRINT in metres (w x l)
+SEPARATELY from its picture. Place the footprint on the pitched board; do not scale the
+face, because squashing a finished picture resamples every pixel and that is how a
+painted thing turns to mush.
+
+MEASURED THIS RUN:
+  OK   SIX PROPS, ONE PER BUILDING, WHICH IS WHAT THE ROW NAMES AND NO MORE (BB keeps a short blocker vocabulary per terrain on purpose): 6
+  OK   AND WE AGREE ON THE RULER: their building bank is 42.9 px a metre and so is this kit
+  OK   EVERY PROP BELONGS TO A BUILDING THAT ACTUALLY EXISTS IN THEIR BANK: casino_back, church, gas_station, motel, school, warehouse
+  OK   AND THE SIX THE ROW NAMES ARE ALL COVERED, none doubled up: 6 buildings for 6 props
+  OK   EVERY PIECE SAYS WHERE ITS ART CAME FROM (reuse-first is a law, not a preference): FUEL PUMPS ON THEIR ISLAND       his 7/28 stucco, concrete and terracotta ramps for the pumps and the island (his oil drum was tried on it and taken back out: see the record)
+  OK   EVERY PIECE SAYS WHERE ITS ART CAME FROM (reuse-first is a law, not a preference): PEW ROW THROUGH THE BROKEN WALL  his 7/28 deck ramp for the wood and stucco ramp for the plaster
+  OK   EVERY PIECE SAYS WHERE ITS ART CAME FROM (reuse-first is a law, not a preference): SCHOOL FENCE WITH ITS GATE       this lane's own 9/30 CHAIN-LINK RUN x2, gate cut in it
+  OK   EVERY PIECE SAYS WHERE ITS ART CAME FROM (reuse-first is a law, not a preference): MOTEL ICE MACHINE                his 7/28 stucco, concrete and terracotta ramps
+  OK   EVERY PIECE SAYS WHERE ITS ART CAME FROM (reuse-first is a law, not a preference): PALLET STACKS                    his 7/28 deck ramp, the same wood as his own decking
+  OK   EVERY PIECE SAYS WHERE ITS ART CAME FROM (reuse-first is a law, not a preference): SLOT MACHINES IN THE BACK LOT    his 7/28 asphalt, terracotta and deck ramps (his yard rubble was tried at the foot of it and taken back out: see the record)
+  OK   AND ONE OF THEM IS A WHOLE PIECE OUT OF THE CUPBOARD, not a ramp borrowed: 1  (the school fence IS this lane's own 9/30 chain-link run, twice, with the gate cut in it)
+  OK   AND THE TWO THAT CAME OFF THE SHELF AND WENT BACK ON IT ARE WRITTEN DOWN WITH THE REASON (reuse-first means look first; a quota I invented is not the law): rubble_yard, oil_drum
+  OK   REAL SIZE AT HIS OWN DENSITY: FUEL PUMPS ON THEIR ISLAND       5.00 m wide is 214 px at 42.9 px/m (drawn 214)
+  OK   REAL SIZE AT HIS OWN DENSITY: PEW ROW THROUGH THE BROKEN WALL  6.00 m wide is 257 px at 42.9 px/m (drawn 258)
+  OK   REAL SIZE AT HIS OWN DENSITY: SCHOOL FENCE WITH ITS GATE       12.00 m wide is 515 px at 42.9 px/m (drawn 514)
+  OK   REAL SIZE AT HIS OWN DENSITY: MOTEL ICE MACHINE                0.95 m wide is 41 px at 42.9 px/m (drawn 41)
+  OK   REAL SIZE AT HIS OWN DENSITY: PALLET STACKS                    2.40 m wide is 103 px at 42.9 px/m (drawn 103)
+  OK   REAL SIZE AT HIS OWN DENSITY: SLOT MACHINES IN THE BACK LOT    4.80 m wide is 206 px at 42.9 px/m (drawn 206)
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: FUEL PUMPS ON THEIR ISLAND       BLOCKER at 1.90 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: PEW ROW THROUGH THE BROKEN WALL  COVER at 0.92 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: SCHOOL FENCE WITH ITS GATE       BLOCKER at 1.83 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: MOTEL ICE MACHINE                BLOCKER at 1.70 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: PALLET STACKS                    COVER at 1.05 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: SLOT MACHINES IN THE BACK LOT    BLOCKER at 1.55 m against a chest at 1.30
+  OK   RULE 77, FOUR TYPED EDGES: FUEL PUMPS ON THEIR ISLAND       N forecourt / E forecourt / S forecourt / W forecourt
+  OK   RULE 77, FOUR TYPED EDGES: PEW ROW THROUGH THE BROKEN WALL  N nave / E pew / S nave / W pew
+  OK   RULE 77, FOUR TYPED EDGES: SCHOOL FENCE WITH ITS GATE       N yard / E fence / S walk / W fence
+  OK   RULE 77, FOUR TYPED EDGES: MOTEL ICE MACHINE                N walk / E walk / S walk / W walk
+  OK   RULE 77, FOUR TYPED EDGES: PALLET STACKS                    N concrete / E concrete / S concrete / W concrete
+  OK   RULE 77, FOUR TYPED EDGES: SLOT MACHINES IN THE BACK LOT    N yard / E yard / S yard / W yard
+  OK   AND THE RUNS ACTUALLY JOIN, MEASURED: PEW ROW THROUGH THE BROKEN WALL  laid end to end the joint is 0 against 11 inside it
+  OK   AND THE RUNS ACTUALLY JOIN, MEASURED: SCHOOL FENCE WITH ITS GATE       laid end to end the joint is 84 against 43 inside it
+  OK   TWO OF THE SIX CLAIM TO RUN AND BOTH WERE LAID END TO END (the other four are single objects and say so): 2
+  OK   EVERY PIXEL IS HIS: FUEL PUMPS ON THEIR ISLAND      
+  OK   EVERY PIXEL IS HIS: PEW ROW THROUGH THE BROKEN WALL 
+  OK   EVERY PIXEL IS HIS: SCHOOL FENCE WITH ITS GATE      
+  OK   EVERY PIXEL IS HIS: MOTEL ICE MACHINE               
+  OK   EVERY PIXEL IS HIS: PALLET STACKS                   
+  OK   EVERY PIXEL IS HIS: SLOT MACHINES IN THE BACK LOT   
+  OK   NOTHING IS STAMPED: no two props are the same picture (0 duplicates)
+  OK   THE WORDS SHIP AS AN ATTEMPT, TAGGED draft (the 8/11 amendment): 1 piece(s) carry player-facing text and every one is marked
+  OK   NOTHING IS CROPPED BY ITS OWN PLATE: FUEL PUMPS ON THEIR ISLAND       painted again with a 40 px margin, px out past the plate: 0 right, 0 below
+  OK   NOTHING IS CROPPED BY ITS OWN PLATE: PEW ROW THROUGH THE BROKEN WALL  painted again with a 40 px margin, px out past the plate: 0 right, 0 below
+  OK   NOTHING IS CROPPED BY ITS OWN PLATE: SCHOOL FENCE WITH ITS GATE       painted again with a 40 px margin, px out past the plate: 0 right, 0 below
+  OK   NOTHING IS CROPPED BY ITS OWN PLATE: MOTEL ICE MACHINE                painted again with a 40 px margin, px out past the plate: 0 right, 0 below
+  OK   NOTHING IS CROPPED BY ITS OWN PLATE: PALLET STACKS                    painted again with a 40 px margin, px out past the plate: 0 right, 0 below
+  OK   NOTHING IS CROPPED BY ITS OWN PLATE: SLOT MACHINES IN THE BACK LOT    painted again with a 40 px margin, px out past the plate: 0 right, 0 below
+  OK   AND THE KIT IS NOT ALL ONE HEIGHT (a board needs things to crouch behind AND things to hide behind): [0.92, 1.05, 1.55, 1.7, 1.83, 1.9]

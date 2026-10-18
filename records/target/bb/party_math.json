@@ -1,0 +1,101 @@
+{
+ "_about": "How big a party is (rule 75b: 'a party is sized by Battle Brothers' math, never twelve against twelve, and the first roads give a few thugs'). The INPUTS and their directions are Battle Brothers' (the wiki's Game Mechanics page and GROK_60): roster strength, the job's skulls, days, distance from towns, the combat difficulty, the count words. The wiki gives NO arithmetic from those to a head count, and no unit costs, so the few coefficients that make a number are OURS, draft, each marked 'ours', calibrated on the rule's own anchor (a fresh three-man crew's first job on day one is a few thugs) and waiting on Grok ask 22 (the hidden formulas) and TUNING. The MAKE-UP of a party (thugs, raiders, a leader) is COMBAT's, by tier, in ours.json enemy_tiers; this file only says how many.",
+ "roster_strength": {
+  "value": {
+   "per_man": 10,
+   "per_level": 2,
+   "strongest": 12,
+   "strongest_wide": 14,
+   "wide_origins": [
+    "watch",
+    "debt"
+   ]
+  },
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0828_Game Mechanics.txt:105,111; reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md",
+  "quote": "the strength of your roster (which equals a sum of individual strengths [10 + 2*(lvl-1)] of 12 strongest brothers) / (GROK_60) Peasant militia and manhunters use 14"
+ },
+ "count_words": {
+  "value": [
+   {
+    "word": "A FEW",
+    "lo": 2,
+    "hi": 3
+   },
+   {
+    "word": "SOME",
+    "lo": 4,
+    "hi": 6
+   },
+   {
+    "word": "MANY",
+    "lo": 7,
+    "hi": 10
+   },
+   {
+    "word": "LOTS",
+    "lo": 11,
+    "hi": 13
+   },
+   {
+    "word": "A PLETHORA",
+    "lo": 14,
+    "hi": 99
+   }
+  ],
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0828_Game Mechanics.txt:121-129",
+  "quote": "A few 2-3 / Some 4-6 / Many 7-10 / Lots 11-13 / A plethora 14+"
+ },
+ "day_cap": {
+  "value": 100,
+  "source": "reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md",
+  "quote": "A roaming party uses days and the crew score. Day scaling for those stops at day 100."
+ },
+ "difficulty_by_pick": {
+  "value": {
+   "new": 0,
+   "seen": 1,
+   "out": 2
+  },
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0828_Game Mechanics.txt:101; records/target/bb/ours.json enemy_tiers.difficulty_days (COMBAT's 1..3)",
+  "quote": "Combat difficulty which is set at the start of the game, which increases both numbers and tier / COMBAT's scale (ours.json enemy_tiers): 0 Beginner, 1 Veteran, 2 Expert, 3 Legendary; each above Veteran counts as 20 days later"
+ },
+ "difficulty_count_mult": {
+  "value": [
+   0.85,
+   1,
+   1.15,
+   1.3
+  ],
+  "ours": true,
+  "source": "ours (draft, rule 75b): the direction is the wiki's ('increases both numbers and tier'), the size of the step is ours until Grok ask 22",
+  "quote": "On higher combat difficulty harder enemy groups appear sooner."
+ },
+ "job": {
+  "value": {
+   "strength_per_enemy": 10,
+   "skull_mult": {
+    "1": 0.8,
+    "2": 1.0,
+    "3": 1.3
+   },
+   "min": 2,
+   "max": 13
+  },
+  "ours": true,
+  "source": "ours (draft): a job 'scales with the strength of your roster, the skulls, and the type' (reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0828_Game Mechanics.txt:105); one enemy per 10 points of roster strength (one level-1 man) at two skulls, calibrated so a fresh three-man crew's one-skull job is a few (rule 75b's anchor)",
+  "quote": "Contract difficulty scales with the strength of your roster, the difficulty rating (skulls), the type of contract"
+ },
+ "roaming": {
+  "value": {
+   "base": 2,
+   "per_day": 0.1,
+   "per_block_from_town": 0.1,
+   "per_strength": 0.01,
+   "min": 2,
+   "max": 13
+  },
+  "ours": true,
+  "source": "ours (draft): roaming parties 'scale mostly with distance to civilization and time... also slightly with player strength, but less so than contracts' (reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0828_Game Mechanics.txt:107); two on day one at a town's edge (rule 75b), about lots by day 100",
+  "quote": "Difficulty of non-contract locations and roaming parties scales mostly with distance to civilization and time. Roaming parties also scale slightly with player strength, but less so than contracts"
+ }
+}

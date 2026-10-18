@@ -13,26 +13,30 @@ h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4p
 button{background:#1a1510;color:var(--ink);border:1px solid var(--line);padding:10px 12px;font:inherit}
 </style></head><body>
 <h1>WHO DIES</h1>
-<p>How often a man is struck down matters more than the 20%. Slide it. Then see how long a man lives, how many scars he collects, and how many of your twelve are laid up at once.</p>
+<p>Battle Brothers itself kills 67 of every 100 struck-down men (only 33 survive). Your rule is 20. Tap the red button to feel the difference. How often a man is struck down matters more than the 20%. Slide it. Then see how long a man lives, how many scars he collects, and how many of your twelve are laid up at once.</p>
 <div class="row">STRUCK DOWN PER FIGHT <b id="pv"></b>%<input id="p" type="range" min="1" max="25" value="5"></div>
+<div class="row">STRUCK DOWN, IT KILLS <b id="kv"></b>% (veterans half) <input id="k" type="range" min="5" max="70" value="20"></div>
 <div class="row">A FIGHT EVERY <b id="fv"></b> DAYS<input id="f" type="range" min="1" max="10" value="4"></div>
 <div class="row">DAYS OUT <b id="dv"></b><input id="d" type="range" min="10" max="60" value="35"></div>
 <div class="row"><div>A man usually lives <span id="lifeN" class="big g"></span> fights, and dies with <span id="sc" class="big a"></span> scars.</div>
 <div>Dead before his 20th fight (before he is a veteran): <span id="early" class="big r"></span></div>
 <div>Laid up at once out of twelve: <span id="out" class="big"></span></div>
 <div class="b"><i id="ob"></i></div></div>
-<button id="rollb">ROLL 12 MEN AGAIN</button><div id="men"></div>
+<button id="bbb">BATTLE BROTHERS REAL: 67% DIE, NO VETERAN BREAK</button> <button id="rollb">ROLL 12 MEN AGAIN</button><div id="men"></div>
 <script>
-function life(p){var f=0,s=0;while(f<3000){f++;if(Math.random()<p){var d=f>=20?0.1:0.2;if(Math.random()<d)return[f,s];s++;}}return[f,s];}
-function stats(p){var R=4000,fs=[],sc=0,e=0;for(var i=0;i<R;i++){var l=life(p);fs.push(l[0]);sc+=l[1];if(l[0]<20)e++;}fs.sort(function(a,b){return a-b});return{m:fs[R>>1],s:sc/R,e:e/R};}
-var life_=document.getElementById('lifeN');
-function draw(){var p=+document.getElementById('p').value/100,f=+document.getElementById('f').value,d=+document.getElementById('d').value;
- document.getElementById('pv').textContent=(p*100).toFixed(0);document.getElementById('fv').textContent=f;document.getElementById('dv').textContent=d;
- var st=stats(p),out=(1/f)*6*p*0.85*d;
- life_.textContent=st.m;document.getElementById('sc').textContent=st.s.toFixed(1);document.getElementById('early').textContent=Math.round(st.e*100)+'%';
+var NOVET=false;
+function life(p,pd){var f=0,s=0;while(f<3000){f++;if(Math.random()<p){var d=NOVET?pd:(f>=20?pd/2:pd);if(Math.random()<d)return[f,s];s++;}}return[f,s];}
+function stats(p,pd){var R=4000,fs=[],sc=0,e=0;for(var i=0;i<R;i++){var l=life(p,pd);fs.push(l[0]);sc+=l[1];if(l[0]<20)e++;}fs.sort(function(a,b){return a-b});return{m:fs[R>>1],s:sc/R,e:e/R};}
+function draw(){var p=+document.getElementById('p').value/100,f=+document.getElementById('f').value,d=+document.getElementById('d').value,pd=+document.getElementById('k').value/100;
+ document.getElementById('pv').textContent=(p*100).toFixed(0);document.getElementById('fv').textContent=f;document.getElementById('dv').textContent=d;document.getElementById('kv').textContent=Math.round(pd*100);
+ var st=stats(p,pd),out=(1/f)*6*p*0.85*d;
+ document.getElementById('lifeN').textContent=st.m;document.getElementById('sc').textContent=st.s.toFixed(1);document.getElementById('early').textContent=Math.round(st.e*100)+'%';
  var o=document.getElementById('out');o.textContent=out.toFixed(1);o.className='big '+(out>6?'r':out>3?'a':'g');
  document.getElementById('ob').style.width=Math.min(100,out/12*100)+'%';
- var h='';for(var i=0;i<12;i++){var l=life(p);h+='<div class="b"><i class="d" style="width:'+Math.min(100,l[0]/2)+'%"></i><span style="position:relative;font-size:12px;padding-left:4px">died at fight '+l[0]+' with '+l[1]+' scars</span></div>';}
+ var h='';for(var i=0;i<12;i++){var l=life(p,pd);h+='<div class="b"><i class="d" style="width:'+Math.min(100,l[0]/2)+'%"></i><span style="position:relative;font-size:12px;padding-left:4px">died at fight '+l[0]+' with '+l[1]+' scars</span></div>';}
  document.getElementById('men').innerHTML=h;}
-['p','f','d'].forEach(function(i){document.getElementById(i).oninput=draw});document.getElementById('rollb').onclick=draw;draw();
+['p','f','d','k'].forEach(function(i){document.getElementById(i).oninput=function(){NOVET=false;draw();}});
+document.getElementById('rollb').onclick=draw;
+document.getElementById('bbb').onclick=function(){document.getElementById('k').value=67;NOVET=true;draw();};
+draw();
 </script></body></html>

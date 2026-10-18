@@ -1,0 +1,319 @@
+{
+ "lane": "cook 2",
+ "rule": "87 / 82a",
+ "px_per_metre": 42.916666666666664,
+ "anchor": "bottom-centre of the sprite is the ground point",
+ "note": "COMBAT TWO: point cover[car_lane|car_kerb|car_drive].src at kit_cover/; the rest are new pieces to place",
+ "pieces": {
+  "cover_car_lane": {
+   "src": "cover_car_lane.webp",
+   "keys": [
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 0
+    }
+   ],
+   "width_m": 4.6,
+   "name": "DEAD CAR, IN THE LANE",
+   "size_px": [
+    213,
+    131
+   ]
+  },
+  "cover_car_kerb": {
+   "src": "cover_car_kerb.webp",
+   "keys": [
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 2
+    }
+   ],
+   "width_m": 4.6,
+   "name": "DEAD CAR, AT THE KERB",
+   "size_px": [
+    213,
+    135
+   ]
+  },
+  "cover_car_drive": {
+   "src": "cover_car_drive.webp",
+   "keys": [
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 21
+    }
+   ],
+   "width_m": 4.8,
+   "name": "DEAD PATROL CAR, ON THE DRIVE",
+   "size_px": [
+    222,
+    136
+   ]
+  },
+  "cover_car_suv": {
+   "src": "cover_car_suv.webp",
+   "keys": [
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 9
+    }
+   ],
+   "width_m": 5.0,
+   "name": "DEAD SUV",
+   "size_px": [
+    231,
+    166
+   ]
+  },
+  "cover_car_burned": {
+   "src": "cover_car_burned.webp",
+   "keys": [
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 30
+    }
+   ],
+   "width_m": 4.6,
+   "name": "BURNED-OUT CAR",
+   "size_px": [
+    213,
+    133
+   ]
+  },
+  "cover_jersey": {
+   "src": "cover_jersey.webp",
+   "keys": [
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 4
+    }
+   ],
+   "width_m": 3.0,
+   "name": "CONCRETE BARRIER",
+   "size_px": [
+    145,
+    113
+   ]
+  },
+  "cover_barricade": {
+   "src": "cover_barricade.webp",
+   "keys": [
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 13
+    }
+   ],
+   "width_m": 2.0,
+   "name": "ROAD BARRICADE",
+   "size_px": [
+    102,
+    92
+   ]
+  },
+  "cover_sandbags": {
+   "src": "cover_sandbags.webp",
+   "keys": [
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 0
+    }
+   ],
+   "width_m": 1.8,
+   "name": "SANDBAGS",
+   "size_px": [
+    93,
+    88
+   ]
+  },
+  "cover_barrel": {
+   "src": "cover_barrel.webp",
+   "keys": [
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 16
+    }
+   ],
+   "width_m": 1.3,
+   "name": "OIL DRUMS",
+   "size_px": [
+    72,
+    66
+   ]
+  },
+  "cover_tyres": {
+   "src": "cover_tyres.webp",
+   "keys": [
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 5
+    }
+   ],
+   "width_m": 1.4,
+   "name": "TYRE STACK",
+   "size_px": [
+    76,
+    69
+   ]
+  },
+  "cover_lamp": {
+   "src": "cover_lamp.webp",
+   "keys": [
+    {
+     "pack": "15. Street props",
+     "idx": 4
+    }
+   ],
+   "width_m": -6.0,
+   "name": "STREET LAMP",
+   "size_px": [
+    113,
+    198
+   ]
+  },
+  "cover_pole": {
+   "src": "cover_pole.webp",
+   "keys": [
+    {
+     "pack": "15. Street props",
+     "idx": 3
+    }
+   ],
+   "width_m": -6.0,
+   "name": "DEAD LAMP POST",
+   "size_px": [
+    107,
+    198
+   ]
+  },
+  "cover_cone": {
+   "src": "cover_cone.webp",
+   "keys": [
+    {
+     "pack": "15. Street props",
+     "idx": 9
+    }
+   ],
+   "width_m": 0.45,
+   "name": "TRAFFIC CONE",
+   "size_px": [
+    35,
+    40
+   ]
+  },
+  "cover_bin": {
+   "src": "cover_bin.webp",
+   "keys": [
+    {
+     "pack": "15. Street props",
+     "idx": 21
+    }
+   ],
+   "width_m": 0.7,
+   "name": "TRASH CAN",
+   "size_px": [
+    46,
+    60
+   ]
+  },
+  "cover_pallet": {
+   "src": "cover_pallet.webp",
+   "keys": [
+    {
+     "pack": "15. Street props",
+     "idx": 40
+    }
+   ],
+   "width_m": 1.2,
+   "name": "PALLET",
+   "size_px": [
+    67,
+    49
+   ]
+  },
+  "cover_tyre": {
+   "src": "cover_tyre.webp",
+   "keys": [
+    {
+     "pack": "15. Street props",
+     "idx": 43
+    }
+   ],
+   "width_m": 0.8,
+   "name": "TYRE",
+   "size_px": [
+    50,
+    43
+   ]
+  },
+  "kit_cover_sheet": {
+   "src": "kit_cover_sheet.webp",
+   "keys": [
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 0
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 2
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 21
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 9
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 30
+    },
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 4
+    },
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 13
+    },
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 0
+    },
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 16
+    },
+    {
+     "pack": "3. Barricades and blockades",
+     "idx": 5
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 4
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 3
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 9
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 21
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 40
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 43
+    }
+   ],
+   "note": "every piece on his street kit, for DIRECTION beside the pack sheet"
+  }
+ }
+}

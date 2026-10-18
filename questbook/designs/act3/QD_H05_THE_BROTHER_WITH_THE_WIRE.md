@@ -6,7 +6,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom (the world healing; the reclaimed city is techier than the start)
 PLACE: a relay mast on a reclaimed rooftop that keeps the super-captcha running
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 28 (flags and saves named); a walk-era trigger ('close enough') became a tap.
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 28 (flags and saves named); a walk-era trigger ('close enough') became a tap. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the ACT3 MOONSHOT law: the Network's god has gone silent, its leaders want the

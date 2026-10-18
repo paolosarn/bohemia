@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the solar field (settlement screen: the hall is the panel crew's tool shed); the escort runs one leg up the tower road to the farm tower (a town by act 3), the fight board cut from the frontage road block at the old feed store
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE06 (the Camelops in the glass rows, at the farm tower). THE ROAD THEY SHARE: the tower road, solar field to farm tower, one map day.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, a boom. The solar field's crew grew seedlings under spare panels all spring: tomatoes, beans, a corn nobody has eaten since the crash. The farm tower has the floors to grow them out. The trays dry fast in a truck.

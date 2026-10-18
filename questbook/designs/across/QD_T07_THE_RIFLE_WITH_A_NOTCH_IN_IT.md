@@ -7,7 +7,7 @@ PLACE: the Strip casino block home base (fortress tier) in act 2; the cashier's 
 SITUATION: THE COMPANY INHERITS (rule 39d): act 2's company are the heirs of act 1's, and gear stays in the family. Tavo, 19, carries his father Ruben's rifle; in act 1 Ruben shot a Strip collector named Lalo Vega with it, and cut a notch -> Lalo's sister, now the pit boss, wants to buy the rifle, and the heir decides what the family's gear is for
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 DEFAULT READ (act 1 never played, or Ruben never shot anyone): the rifle came to Ruben second-hand with the notch already in it, and the sister has the same claim on it; the pay and the choices do not change.
 
 ## THE SITUATION

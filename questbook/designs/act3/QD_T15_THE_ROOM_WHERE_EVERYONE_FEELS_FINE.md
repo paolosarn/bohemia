@@ -7,7 +7,7 @@ PLACE: the data centre home base (fortress, falling to town as the Network crumb
 SITUATION: the Network near (QR-S situation 36), in its last act: the racks are failing, and the people paid to sit the server rooms stop coming home. They are not held. They say they feel fine -> Elena comes out, or the room goes dark, or a company member goes in and comes back feeling fine too
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The data centre pays sitters to watch the racks overnight. For a month, the sitters of hall B have not left. Their families bring food to the door. The sitters eat, smile, say they feel fine, and go back in. Elena Rosas has been in nineteen days. Her husband wants her home.

@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: a council home base in a reclaimed school on the east side; the job is a block of apartment towers one map stop east, done door to door on each tower's screen (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 12 met by choice C.
+CHECKLIST: passes all 32. Line 12 met by choice C. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, the healing. The new council wants to count the valley: who lives where, for water shares and ration lines. For forty years the Network did the counting, and it is going dark. The council hires the company to count one block by hand. On the fourth floor lives a family that never appears in any record, anywhere: they were never on the Network. They are the Amalgamation's blind spot made flesh (the unrecorded). They are ordinary, and scared of being written down.

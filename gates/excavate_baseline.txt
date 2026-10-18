@@ -2,6 +2,7 @@
 # Every published file (slices/, engine/, records/target/) that NOTHING the game can reach names,
 # frozen at the first measurement: 423 files, 90.2 MB of 288.5 MB published.
 # +1 AT LANDING (main moved during the round): slices/vote/LIFECITY_WHERE_A_RAID_IS_FOUGHT_9_28.png, added by b202b0e7 and not in the VOTE registry; routed to LIFE+CITY. 424 lines.
+# -4 10/9 (PLUMBER [first load] round): engine/bohemia_future.js, bohemia_place.js, bohemia_turfledger.js and records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json are reached now (the game loads them). 418 lines (422 before).
 # gates/excavate_gate.js REPORTS (by name, not as a fail) any unreached published file not on it; the size cap is PAGES PUBLISH.
 # (It refused them for one hour on 9/28 and that was wrong: a vote consumes an item, so his own vote made a page 'new dead'.)
 # A line comes off when its file is moved off the site or the game starts loading it; the gate prints which.
@@ -16,7 +17,6 @@ engine/bohemia_bq_tests.js
 engine/bohemia_charge.js
 engine/bohemia_draw_budget.json
 engine/bohemia_engine_graphics_7_14_26.js
-engine/bohemia_future.js
 engine/bohemia_graphics_tests.js
 engine/bohemia_interior_levels.js
 engine/bohemia_light_pass.js
@@ -33,7 +33,6 @@ engine/bohemia_loop_quests_tests.js
 engine/bohemia_loop_slice_tests.js
 engine/bohemia_loop_talk_tests.js
 engine/bohemia_personlook.js
-engine/bohemia_place.js
 engine/bohemia_plotgen.js
 engine/bohemia_prop_scale.js
 engine/bohemia_quest_runtime_tests.js
@@ -42,7 +41,6 @@ engine/bohemia_slice_engine.js
 engine/bohemia_tilepool.js
 engine/bohemia_tract.js
 engine/bohemia_transitions.js
-engine/bohemia_turfledger.js
 engine/bohemia_watch.js
 records/target/ACT_TRIPTYCH.png
 records/target/BEFORE_RUN.png
@@ -83,7 +81,6 @@ records/target/BOHEMIA_THE_EYES_HAVE_RANGE_9_22_26.png
 records/target/BOHEMIA_THE_FACE_HAS_LIGHT.json
 records/target/BOHEMIA_THE_FACE_HAS_LIGHT_9_21_26.png
 records/target/BOHEMIA_THE_FOUR_FACES_HE_MEETS_9_21_26.png
-records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json
 records/target/BOHEMIA_THE_LIGHT_IN_THE_ROOM.json
 records/target/BOHEMIA_THE_LIGHT_IN_THE_ROOM_9_21_26.png
 records/target/BOHEMIA_THE_PORTRAIT_WEARS_THE_SHADES.json

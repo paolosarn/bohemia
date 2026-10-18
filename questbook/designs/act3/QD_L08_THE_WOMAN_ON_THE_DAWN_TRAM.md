@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL06
 FIRST-LINE: FL06
 TWIST: T07 THE TARGET KEEPS A SCHEDULE (costs time)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 32 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, cyberpunk healing, a boom. The valley is re-metering its grid house by house, and every new meter must be calibrated against a reference nobody alive can build except one woman, Paz Ibarra, a retired instrument maker. The meter guild has written to her nine times. She has not answered. The guild wants her brought to the hall to hear their offer. It is a job of finding and asking, not taking.

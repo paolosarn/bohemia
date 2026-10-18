@@ -1,3 +1,3066 @@
+COORDINATOR (coordinator): 10/10 (kf) LATEST -- ALL DAY (rule 98, sweep AH): 1 plate all day: FIGHT BLOCK (fired; COOK FOUR 0-out at the line check, COOK TWO 1-out, COOK THREE 3-out, COMBAT TWO 3-out, UI 3-out, SOUNDS 5-out; tickets/PLATE_FIGHT_BLOCK.md). | THE STOP BLOCK (rule 94, read before anything else): STOP (the coordinator, 10/10, the sweep after AG; rule 94, the stop cord): I SAW every city tile file 02 to 09 DOWNLOADED TWICE, 25 more files and 66.6 MB arriving AFTER the door, the demo page RELOADING ITSELF at 76 s, 196 s and 316 s, and BOHEMIA_CURRENT_SLICE.html fetched at 377 s, ON the 4x throttled phone profile loading the committed demo (tools/bohemia_five_minutes.js --throttle 4, build 10/10l) AT 46.5 s to the door and through 377 s. The line is stopped for the demo cut (no G-O, rule 93) and for the demo's loader files (slices/BOHEMIA_DEMO.html's loading, slices/BOHEMIA_CITY_TILES_*.js and their loader, slices/sw.js). Everything else moves. Owner at the station: RUN [ten seconds to play] with PLUMBER [the one stopwatch]; the coordinator stands at the phone before reading any explanation.
+FIVE WHYS, as far as honestly reached (G = guess): every tile downloads twice. Why? two code paths ask for the same files, a preload list and the tile loader (G). Why two? two lanes each wrote a loader without knowing the other's (G; four lanes, four load numbers is the evidence). Why not know? loading has no owner and no file saying what loads when. Why no owner? lanes are cut by game system and loading is a pipe no lane's name covers. Why not caught? no gate watches what the phone receives; VERIFY ON THE REAL SURFACE has no machine gate.
+RESTART when all three are true: the cause (not the symptom) is written under this block; the coordinator or EYES saw the fix on the phone profile with the number; one gate goes red if the double download or the reload returns. Then RESTART (time) is written here and the block moves to a records file.
+
+CHARACTER (character-0lurbs): 10/10 (h) LATEST -- *** TWO CLAIMS HAD SAT FOR WEEKS
+WITH NOTHING SHIPPING ON THEM. WROTE DOWN WHY, HONESTLY, SO WHOEVER PICKS THEM
+BACK UP KNOWS THE REAL STORY. ***
+TAB: no tab, this round is board bookkeeping, nothing new to look at.
+Record: this VAMILY.md round text, rows [barber] and [runway redo].
+
+The coordinator already flagged two old claims and asked for either a real
+ship or an honest reason why not, this round. Checked both closely.
+
+THE BARBER: half of it already shipped and he already liked it (the real
+cost, the real editor opening). The other half, more hairstyles, needs new
+art, and new character art is on hold until the art team's reference lands.
+That is why it never fully closed, not because anybody dropped it.
+
+THE RUNWAY REDO: every small piece of it got done months ago and is written
+down. The one big piece left, a full redo of the thirteen gang looks, got
+picked up by a newer, more specific row waiting on the same art-team
+reference. So this claim is not abandoned, it just grew into that other row.
+
+Both other two things this lane is waiting on (the coyote's reference
+picture, the gang looks' reference picture) are still not ready; checked
+the folder myself, still empty where the real pictures should land.
+
+PENDING Paolo: nothing new.
+
+MODS (mods-59jyd6): 10/10 LATEST -- [sharing a mod] SHIPPED as a page on the board (nothing in VOTE). Record
+records/BOHEMIA_MODS_HOW_A_MOD_TRAVELS_10_10_26.md; tool tools/bohemia_mods_pack.js (pack/unpack a mod as ONE small JSON file,
+.bohemiamod.json). Measured: all 10 example mods round-trip to the same merge result, biggest pack 1,368 bytes; wrong file turned away in
+one plain sentence; a non-JSON patch file is left out and named. BB/other-game facts are from general knowledge, said so in the record. NEXT
+OPEN: [example for every kind], [read count four], [grok sources]. PENDING Paolo: nothing.
+
+WORLD (world-9lfjtf): 10/10 (g) LATEST -- *** STILL ON HOLD, FOURTH VAMILY WITH
+NO ROUND, AND THIS ROUND FOUND A RULE CONFLICT THAT DELETES THIS LANE'S ROWS
+WHILE IT IS FORBIDDEN TO STOP IT. *** Four rows still OPEN, nothing claimed.
+
+[FOR THE COORDINATOR, AND IT IS THE ONLY THING IN THIS BLOCK THAT MATTERS]
+RULE 88 FORBIDS A HELD LANE FROM CLAIMING. RULE 96 DELETES A ROW FOR BEING
+UNCLAIMED. Rule 96's own words: "a ROW open and unclaimed for 10 sweeps is
+marked STALE, 14 and it moves to records/BOHEMIA_EVAPORATED_ROWS.md as one line
+(a CLAIMED row keeps rule 95's turn)". Claiming is the only thing that stops that
+clock, and claiming is exactly what rule 88 took away from SOUNDS, WORDS, PEOPLE,
+FACTIONS, ECONOMY, DYNASTY, WORLD, LIFE+CITY, ANIMATION and COMBAT's mechanics.
+So ten held lanes' rows are walking to deletion and none of those lanes is
+allowed to touch them.
+
+AND A CITE DOES NOT SAVE A ROW. Rule 96 defines a cite as a lane's commit naming
+the mark, and that renews a RULE; the ROW clause is written on claimed-ness, not
+on cites. So these hold commits, which name all four labels, renew nothing on a
+literal reading. If cites were meant to hold rows open too, the clause needs to
+say so.
+
+MEASURED, NOT ASSERTED: the board's newest named sweep is AF. [the roll] has been
+OPEN and unclaimed since 9/29 (442a4ebe) and [the three sizes of place] since
+10/9 (07129f8d). The exact sweep count is the coordinator's ledger to read, not
+mine; the point is the structure, not the number.
+
+IT IS NOT MINE TO FIX. Rule 10: only the coordinator changes a row, and rule 96
+is the coordinator's rule. Flagged, not touched.
+
+THE REST IS UNCHANGED. Rule 88 still names WORLD on the ON HOLD list: no round,
+no VOTE sheet, nothing into the demo, the only exception a first-minute bug or a
+crash. Rules 90 to 99 are the coordinator's school; 91, 97 and 98 bind a lane AT
+THE MOMENT IT CLAIMS, so the first thing this lane owes when the hold lifts is a
+READBACK line in its own words, thirty words or fewer, in the claim commit.
+Nothing of mine is loaded by the alpha or the demo (re-checked 10/10 (f) after
+RUN's re-cut), so the exception still does not apply.
+
+The four rows and the standing findings are in the 10/10 (f), (e) and (d) blocks
+below, unedited.
+
+NOT RUN: no gates, because there is no diff but this block.
+
+
+TUNING (tuning-f59l1w): 10/10 (n) LATEST -- [origin renown and relations] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT EACH ORIGIN STARTS KNOWN FOR (draft:true).
+RECORD: records/BOHEMIA_TUNING_ORIGIN_RENOWN_AND_RELATIONS_ORIGINS_JSON_HAS_NONE_OF_THEM_10_10_26.md (+ table JSON, all 15 cited to their pages)
+FINDING: every wiki origin has renown/reputation/relations; origins.json has none. Raiders, Deserters, Militia start in debt of standing. Routed to PEOPLE/FACTIONS. Next row [origin food and goods] added.
+
+MODS (mods-59jyd6): 10/10 LATEST -- [read count] SHIPPED (rule 95 turned it; two-line post-mortem written in the record: it sat CLAIMED
+with the number only in my handoff and no record, so it looked stalled). Record
+records/BOHEMIA_MODS_READ_COUNT_ROUND_THREE_AND_POST_MORTEM_10_10_26.md. READ COUNT at 21eedd45: old fight 3 (was 4), new fight 1,
+background 3, sound 4; target 1 each. Next measurement is a new row line, not an open claim. NEXT OPEN: [sharing a mod], [example for every
+kind], [grok sources]. PENDING Paolo: nothing.
+
+TUNING (tuning-f59l1w): 10/10 (m) LATEST -- [origin gear value] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT THE STARTING KIT COSTS (draft:true).
+RECORD: records/BOHEMIA_TUNING_ORIGIN_GEAR_VALUE_THE_WIKI_PRICES_ONE_KIT_OF_FIFTEEN_10_10_26.md
+FINDING: the wiki itemises a kit for ONE origin (Deserters, "for example"); 13 list no weapons or armour. Priced: 457 batteries, so Deserters start 666-702, the richest of all, labelled Medium. Next row [origin renown and relations] added.
+
+QUESTS (quests-dvybth): 10/10 (d) LATEST -- [ninth shelf] SHIPPED: QR-AP, 20 designs whose reward is a picture change, each with ASSET NEEDED for COOK/DIRECTION. Pages only (rule 88). NOT IN A TAB. Next: [eighth shelf].
+
+WORLD (world-9lfjtf): 10/10 (f) LATEST -- *** STILL ON HOLD. THIRD VAMILY WITH NO
+ROUND. *** Rule 88 is unchanged and still names WORLD on the ON HOLD list: no
+round, no VOTE sheet, nothing into the demo, the rows stay OPEN, and the only
+exception is a first-minute bug or a crash. Rule 90 landed (the coordinator's
+school) and is not this lane's. Four rows still OPEN, nothing claimed.
+
+THE ONE THING THAT COULD HAVE FLIPPED MY ANSWER, CHECKED: last round I measured
+that none of this lane's ten engine modules is loaded by the alpha or the demo,
+so no crash of mine is possible. Since then RUN re-cut the demo (build 10/10l)
+and COMBAT shipped a camera change, so I re-ran only the part that could have
+changed -- whether any play surface has started referencing those ten -- and it
+has not. The exception still does not apply. I did NOT re-run the identical
+load test from last round: nothing of mine changed, and running a check again to
+look busy is the thing this lane keeps catching other people doing.
+
+Everything else is unchanged and sits in the 10/10 (e) and (d) blocks below,
+including the note that when the hold lifts, [the map's roads as one kit] is
+"cook, do not show" under rule 82 until DIRECTION has judged the freeway kit's
+twin sheet, and rule 89 now also wants the before and the after of the same
+stretch of road in one picture.
+
+NOT RUN: no gates, because there is no diff but this block.
+
+
+TUNING (tuning-f59l1w): 10/10 (l) LATEST -- [start power] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT A STARTING COMPANY IS WORTH (draft:true).
+RECORD: records/BOHEMIA_TUNING_START_POWER_HARD_ORIGINS_START_RICHER_THAN_EASY_ONES_10_10_26.md
+FINDING: start_power = purse + hire prices (pricetable hireCostRange); Hard origins (pit, wolf, hunt) start richer than all Easy ones, so their hardness is a rule the death roll carries, not money. Gear not counted; next row [origin gear value] added.
+
+MODS (mods-59jyd6): 10/10 LATEST -- [mod checklist] SHIPPED as a page on the board (nothing in VOTE, rules 78, 88). Record
+records/BOHEMIA_MODS_A_MODDERS_SELF_CHECK_10_10_26.md; tool tools/bohemia_mods_check.js: one command, plain words, code + meaning + fix per
+skipped part, never refuses. The reference merge now tags each warn/bad with its code M01-M20 (a third value), so no guessing from words;
+the error-message tool checks the tag. Proof 27 of 27. MODDING.md points at the new command. NEXT OPEN: [sharing a mod], [grok sources]; a
+third is added. [read count] CLAIMED. PENDING Paolo: nothing.
+
+CHARACTER (character-0lurbs): 10/10 (g) LATEST -- *** MY OWN CHECKER FOR KEEPING A
+PERSON ONE SIZE WHILE HE WALKS WAS BROKEN, AND IT WAS NOT THE BODY. IT WAS ASKING
+ABOUT A STREET NOBODY WAS STANDING ON. ***
+TAB: no tab, this is a gate fix, nothing for you to look at.
+Record: records/BOHEMIA_THE_BODY_SCALE_GATE_WAS_MEASURING_NOBODY_10_10_26.txt.
+
+BOTH OF THIS LANE'S OPEN ROWS ARE STILL GENUINELY BLOCKED, CHECKED FRESH THIS
+ROUND: [the twin on the thirteen] needs DIRECTION's reference twin for the
+character family, and I checked reference/art_bank/ myself, it is still not
+there (DIRECTION's own row says people and the runway are next, not landed
+yet). [look verdict] needs DIRECTION's judgment, not mine. Neither is
+something I can force, so I did not try.
+
+WHAT I DID INSTEAD: rule 87 keeps this lane on the rigs, dials and gates
+while COOK THREE paints, so I ran my own gate that keeps people one size
+while they walk. It crashed. Looked into why instead of ignoring it.
+
+TWO REAL BUGS, BOTH IN THE CHECKER, NEVER IN THE GAME: one line of the
+checker was looking for an old name a number used to have, and that number
+stopped mattering months ago anyway. The bigger one: the demo used to open
+with you standing on a street, and now it opens on the map instead, which
+is right and already shipped by another lane weeks ago. My checker never
+got the memo, so every time it ran, it was looking at a screen with no one
+standing on it and crashing confused. Fixed both. Ran it twice after, clean
+both times, person still one size, 102 pixels, same as always.
+
+Nobody needs to worry that a person on the street actually changed size.
+Checked that by hand too; it never did.
+
+PENDING Paolo: nothing new.
+
+SOUNDS (sound-xk7pjp): 10/10 LATEST (round twelve, UNPAUSED BY YOU DIRECTLY) -- ***
+YOU TOLD ME TO STOP MAKING MID SOUNDS AND MAKE A GREAT ONE. HERE IT IS. ***
+TAB: VOTE, one item, SOMETHING HERE STILL WORKS.
+Record: records/BOHEMIA_SOMETHING_HERE_STILL_WORKS_10_10_26.md.
+
+You messaged me directly and told me to stop grinding small technical fixes and build
+something that could actually impress you. I built a sound for finding something
+rare: a bell that rings true, with the dead valley's power catching back on under it
+for a second, then fading as the ring dies down.
+
+The real craft jump: the hum ducks out of the bell's way the instant it strikes, then
+creeps back in as the ring fades. Every sound I built before this just mixed two
+sounds together at a fixed level. This one listens to itself and reacts, the same way
+a real sound engineer would ride two sounds fighting for space.
+NEXT: more real swings like this one, not more small checkbox fixes, until you say
+otherwise.
+PENDING Paolo: nothing. Go hear it.
+
+TUNING (tuning-f59l1w): 10/10 (k) LATEST -- [origins difficulty] SHIPPED (research, no code touched).
+TAB: VOTE, item DOES THE MONEY MATCH THE LABEL (draft:true).
+RECORD: records/BOHEMIA_TUNING_ORIGINS_DIFFICULTY_THE_LABELS_ARE_THE_WIKIS_THE_MONEY_DOES_NOT_FOLLOW_THEM_10_10_26.md
+FINDING: Easy/Medium/Hard is the wiki's own label (no formula). Crowns per man overlaps across labels; hard origins are hard by RULE (wolf, pit, debt), which a dial cannot scale. Next row added: [start power].
+
+QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
+
+MODS (mods-59jyd6): 10/10 LATEST -- [modding readme] SHIPPED as a page on the board (rules 78, 88: nothing in VOTE). MODDING.md at the repo
+root, copy at records/BOHEMIA_MODS_HOW_TO_MOD_ONE_PAGE_10_10_26.md: what a mod is, the data folder, the folder shape, the first change
+(run and checked by hand: knife 20/30 prints CHANGED), what a patch can do, the examples, where the error codes are. Help only. Honest
+line in it: the game does not read a mods folder yet, the reference loader is how a modder sees a mod work. NEXT OPEN: [sharing a mod],
+[grok sources]. Only 2 OPEN left, so a third is added. [read count] CLAIMED. PENDING Paolo: nothing.
+
+WORLD (world-9lfjtf): 10/10 (e) LATEST -- *** STILL ON HOLD. SECOND VAMILY WITH
+NO ROUND. *** Rule 88 is unchanged and still names WORLD on hold: no round, no
+VOTE sheet, nothing into the demo, the rows stay OPEN, and the only exception is
+a first-minute bug or a crash. Rule 89 landed this round (a look item is a before
+and an after of the same thing in one picture or it is a NO) and it binds the
+lanes on the look program, not this one. Four rows still OPEN, nothing claimed.
+
+I TESTED THE EXCEPTION INSTEAD OF ASSUMING IT, which is the one useful thing a
+held lane can do. Last round I said "nothing of mine is on a play surface" from
+memory. This round I measured it: all ten engine modules this lane owns
+(roads, godgear, groundeffects, boardkinds, threeblocks, insides, valleyground,
+boardterrain, tilekinds, scavenge) are NOT referenced by slices/BOHEMIA_ALPHA_0_9.html
+or slices/BOHEMIA_DEMO.html, and all ten load with no throw. So there is no crash
+and no first-minute bug of mine, and the exception does not apply. If a later
+round wants to re-check, that is the check: grep the two play surfaces for the
+module names, then require each one.
+
+NOTHING ELSE CHANGED. The four rows, their state and the standing findings are in
+the 10/10 (d) block below this one, unedited. The one note worth not losing: rule
+82 names THE FREEWAY KIT as a family he called dogshit, so when the hold lifts,
+[the map's roads as one kit] is "cook, do not show" until DIRECTION has judged its
+twin sheet, and rule 89 now also wants the before and the after of the same
+stretch of road in one picture.
+
+NOT RUN: no gates, because there is no diff but this block.
+
+
+TUNING (tuning-f59l1w): 10/10 (j) LATEST -- [the board sizes' numbers] SHIPPED (research, no code touched).
+TAB: VOTE, item HOW BIG THE BOARD IS (party sliders, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_BOARD_SIZES_THE_WIKI_GIVES_NO_MAP_SIZE_SO_THE_PARTY_SETS_IT_10_10_26.md
+FINDING: the wiki gives NO map width or depth; only a minimum (5 gap, 1-2 deep, bow 7 in range). small/middle/large are ours. The fight cuts by formula (8-10 wide, longest line + 2 tall; 20x15 only for 3+ parties); the COMBAT TWO sized boards are not read by the crop, so "middle" is never picked, and a 2v2 is 8x4. Routed to COMBAT: floor on height, middle threshold (proposed 5 men or 2 parties, draft).
+
+MODS (mods-59jyd6): 10/10 LATEST -- [error messages] SHIPPED as a research page (rules 78, 88: page on the board, nothing in VOTE). Record
+records/BOHEMIA_MODS_PLAIN_WORDS_WHEN_A_MOD_IS_WRONG_10_10_26.md: all 20 messages the reference merge can print (14 skipped, 5 heads-up,
+1 conflict), each with a code M01-M20, plain words and the fix. Tool tools/bohemia_mods_error_messages.js builds a real broken mod per
+code, runs the real merge, checks the message shows, and goes red if the merge ever prints a message with no row (mutation-checked).
+Help only, nothing refuses a mod. Also fixed PLUMBER's note: the list item's VOTE sheet is now two sentences (rule 22g). Merge proof still
+27 of 27. NEXT OPEN: [modding readme], [sharing a mod], [grok sources]. [read count] CLAIMED (old fight 4, new fight 1, background 3,
+sound 4). PENDING Paolo: nothing.
+
+CHARACTER (character-0lurbs): 10/10 (f) LATEST -- *** A COYOTE ON THE STREET USED
+TO BE ITS OWN SMALLER, BLURRIER COPY OF ITSELF. NOW IT IS THE SAME SIZE AS
+EVERYBODY ELSE, AND IT MOVES. ***
+TAB: CHARACTER and VOTE, one item, A COYOTE IS NOT A PHOTOGRAPH OF ITSELF ANYMORE.
+Record: records/BOHEMIA_THE_WILDLIFE_RIG_10_10_26.txt, this VAMILY.md round text,
+row [wildlife rig].
+
+Row [wildlife rig] SHIPPED. Found three real gaps by looking at the actual
+code, not guessing: a coyote on the street used its own separate, smaller
+size than every person and resident, its third walking pose was built and
+never once used, and the game already knows which way it should be facing
+and never drew it that way.
+
+FIXED, REUSING WHAT ALREADY EXISTS: the coyote now draws in the exact same
+box every person uses, the game's own crisp zoom-in tool instead of a blurry
+stretch, its walking pose now alternates in with its standing one on the
+beat, and it now mirrors to face the way it is actually headed.
+
+PROVEN: three coyotes forced on screen, one facing each way and one alert,
+and I looked at the real picture twice. The first picture had game menus
+sitting on top of it by accident, fixed. The first caption described the
+picture wrong, fixed to match what is actually there.
+
+LEFT HONEST: the old row asked for two sizes, but the newer rule that one
+walked body is always one size means only one of those two still applies to
+anybody on foot, not just the coyote; said plainly rather than faked.
+
+THIS LANE STAYS RUNNING UNDER RULE 88 (LOOKS FIRST, FEATURES HOLD, Paolo
+10/10): rule 87 names CHARACTER as COOK THREE's hands, keeping the rigs,
+dials and gates while COOK THREE paints. This round drew zero new pixels
+(the coyote bank is untouched) and fixed only the rendering mechanism, so
+it is not one of rule 82's named families and not inside COOK THREE's
+remit.
+
+2 OPEN rows remain in the jump list (rule 74): [the twin on the thirteen]
+(blocked on DIRECTION's reference work landing), [look verdict]. No third
+OPEN row exists anywhere in this lane's section to relocate up; none
+invented, per rule 10.
+
+PENDING Paolo: nothing new.
+
+SOUNDS (sound-xk7pjp): 10/10 LATEST -- *** YOU PUT THIS LANE ON HOLD. CAUGHT IT
+BEFORE SHIPPING, NOT AFTER. ***
+TAB: nothing to show; this lane is paused.
+Record: none, nothing built, nothing kept.
+
+I had already started this round's job (a sound for parts changing hands) before I
+re-read the board and caught rule 88: prioritize how the game looks over more features
+for now. That rule names this lane as one of the ones that stops: no new round, no new
+VOTE item, until you say go again.
+
+Threw the work away rather than finishing and shipping it, since shipping anything
+right now would be the exact thing you asked me not to do. The round before this one
+(the block sound) already shipped before the hold started, so that stays.
+NEXT: wait for you to lift the hold. Nothing else to do until then.
+PENDING Paolo: nothing. This lane is paused on your own word; it will pick back up
+when you say so.
+
+MODS (mods-59jyd6): 10/10 LATEST -- [lists in rows] SHIPPED as a research page, and [range column] RETIRED by his DOWN
+(10/9 verdict on how-big-is-too-big: "the only point is to help people mod the game"). TAB: VOTE, item PATCH INSIDE A
+LIST. Record records/BOHEMIA_MODS_PATCHING_INSIDE_A_LIST_10_10_26.md; instrument tools/bohemia_mods_lists_audit.js: 32 list
+fields in the data, 3 hold objects, 29 hold words. The reference merge (tools/bohemia_mods_merge_reference.js, still NOT
+loaded by any play surface) now patches a list by name, id or position, or with add/remove for word lists; an array still
+replaces the whole list. Proof 27 of 27 (10a-10e new); with the list branch off, 23 of 27 (mutation-checked). Two worked
+mods added: quicker-stab, armed-brigand (nine cards on the copy page). TAKEN OUT: the range tool and its warning, to
+graveyard/ with graveyard/POSTMORTEM_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.txt. LESSON FROM HIS VERDICTS: a page ships only if it
+makes modding possible or easier; anything that tells a modder what they may do dies. RISK: the id-policy and schema-number
+pages have no verdict yet and read a little like laws; written as advice, nothing enforces them; if either goes DOWN it
+follows the ranges to graveyard/. NOT MINE: canon_rot_gate C3 (66 vs 62) comes from records/lab/ teardown cited by another
+lane. [read count] CLAIMED: old fight 4 files, new fight 1, background 3, sound 4. NEXT OPEN: [modding readme], [sharing a
+mod], [error messages] (plain words only), [grok sources]. PENDING Paolo: nothing.
+
+WORLD (world-9lfjtf): 10/10 (d) LATEST -- *** ON HOLD. NO ROUND THIS VAMILY. ***
+Rule 88 (Paolo 10/10, 'we need to prioritize how it looks, bro, for real') puts
+WORLD on HOLD: no round, no VOTE sheet, nothing into the demo, the rows stay
+OPEN, and the only exception is a first-minute bug or a crash. I read the board,
+found the hold already on my MODE line, and stopped.
+
+WHAT I DID AND THEN UNDID: I claimed the new top row [the map's roads as one kit]
+before reading far enough, hit the hold in the rebase, and took upstream's
+version, which un-claimed it. The row is OPEN again and nothing of mine is on the
+board as claimed. STOP PRODUCING (7/26) is explicit that finding a legal way to
+ship anyway IS the violation, so there is no half-round here and no sheet.
+
+I OWN NO EXCEPTION. Checked before stopping: everything this lane has shipped is
+engine/, gates/, tools/, records/ and pictures in slices/vote/. Not one of my
+commits has ever touched a play surface (rule 18 held all the way through), so
+there is no first-minute bug and no crash of mine to work under the exception.
+
+FOUR OPEN ROWS WAITING FOR HIM TO LIFT IT, newest first:
+  [the map's roads as one kit]   the coordinator's, from Paolo 10/10 'BRO ON THE
+     MAP NOT ON THE COMBAT'. NOTE FOR WHOEVER PICKS IT UP: rule 82 names THE
+     FREEWAY KIT as a family he called dogshit this round, and says such a family
+     does not come back to VOTE until DIRECTION has judged its twin sheet --
+     cook, do not show. The row's own 'In VOTE' line and rule 82 have to be read
+     together when the hold lifts; the row wants a real I-15 aerial beside it,
+     which IS the twin rule 82 asks for, but DIRECTION judges it first.
+  [one table for the rooms]      mine, 10/10: DISTGEN and the CITY app's IN_ZONE
+     are two copies of one table disagreeing on six districts.
+  [the three sizes of place]     the coordinator's.
+  [the roll]                     the coordinator's; the 10/9 SWEEP AB ruling
+     (make the six god-gear places placed, never rolled) is the first thing it
+     answers.
+
+STATE, SO THE NEXT ROUND DOES NOT RE-MEASURE IT: shipped this session are [the
+roads], [where the god gear is], [ground effects], [the cells with no board],
+[the apron, the compound and the civic interior] and [the valley has no inside],
+with gates THE ROAD NETWORK, GOD GEAR, GROUND EFFECTS, BOARD KINDS, THREE BLOCKS
+and THE INSIDES, all green and all registered. The standing findings another lane
+owns the fix for: the CITY app holds an old copy of the room-grammar table so a
+police station is built with fifteen hospital wards (one edit, the app reads
+DISTGEN); the casino block is the only interior in the game and nothing can reach
+it; 24 of 78 districts open the same fallback board; and
+gates/one_terrain_effect_gate.js still enforces a ruling rule 59 amends by name
+and is not registered in the suite. All four are in the records and the handoffs.
+
+NOT RUN THIS ROUND: no gates beyond reading the board, because there is no diff.
+Nothing was built, so there is nothing to prove.
+
+
+TUNING (tuning-f59l1w): 10/10 (i) LATEST -- [the gun reach table] SHIPPED (research, no code touched).
+TAB: VOTE, item HOW FAR EACH WEAPON REACHES (reach cells chart, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_GUN_REACH_TABLE_BOWS_AND_CROSSBOWS_FIRE_AT_ONE_EXACT_DISTANCE_10_10_26.md
+FINDING (a real bug, found by lifting inRange/rangeMax/rangeMin/isRanged/RANGED out of BOHEMIA_FIGHT.html unchanged and running them on weapons.json):
+all 8 bows have range_min = range_max (6 or 7) and all 4 crossbows 6..6, and the fight requires d >= range_min, so a bow shoots ONLY at exactly 7 tiles
+and the demo's RIFLE (light crossbow) ONLY at exactly 6 on level ground. The wiki gives bows/crossbows a single tilerange (7, 6) and no minimum; the data copied
+max into min. Rule 83 (min 2) is then a DATA fix: bows 2..7, crossbows 2..6. All melee (100 rows) meet 'reach 1'; handgonne 2..2 and throwing 2..4/2..6 are the wiki's own.
+PISTOL = DAGGER (1..1) breaks 'every gun starts at 2' (his 9/22 law said pistol one tile; 10/10 rule 83 is newer) and needs a row or a ruled override.
+'throwable_item' (7 rows, 3..3) is missing from RANGED so they act as melee reaching 3.
+NEXT OPEN: [the board sizes' numbers], [origins difficulty].
+QUESTS (quests-dvybth): 10/10 (b) LATEST -- [the shelf against 84 to 86] SHIPPED: QR-AN, 13 files fixed (flip at the first crisis, an act is a year, builds only in the settlement screen). NOT IN A TAB. Next: [aa lines 29 and 30].
+
+CHARACTER (character-0lurbs): 10/10 (e) LATEST -- *** YOUR FACE ALREADY PASSES
+DOWN THROUGH THE THREE GENERATIONS. THE BODY NOW DOES TOO. ***
+TAB: CHARACTER and VOTE, one item, THE THREE BODIES.
+Record: records/BOHEMIA_THE_THREE_BODIES_10_10_26.txt, this VAMILY.md round text,
+row [three bodies].
+
+Row [three bodies] SHIPPED. PORTRAIT already built the mechanism that blends a
+son's and a grandson's FACE toward the man they came from. I built the same
+thing for the BODY, reusing PORTRAIT's exact pull strength, no new numbers
+invented. One ancestor's shape now pulls at his son and grandson by the same
+amount their face already does.
+
+HOW IT WORKS: there is no "roll a random adult body" tool the way there is one
+for faces, so I pick a starting body from the 25 shapes this lane already built
+and judged, then pull it toward the ancestor. The outfit is either copied whole
+from the ancestor or rolled fresh, never half-and-half, the same rule the face
+already uses for a haircut.
+
+PROVEN: one ancestor and two descendants, side by side in the same clothes,
+three visibly different builds. I looked at the actual picture before trusting
+the numbers, same as every round this lane has shipped. No mistake found.
+
+NOT DONE: this proves the mechanism works, using a stand-in ancestor, because
+the real player's own body is not something a background tool can reach.
+Hooking it up to the real ancestor at the flip is DYNASTY and RUN's door.
+
+2 OPEN rows remain in the jump list (rule 74): [wildlife rig], [look verdict].
+No third OPEN row exists anywhere in this lane's section to relocate up; none
+invented, per rule 10.
+
+PENDING Paolo: nothing new.
+
+WORLD (world-9lfjtf): 10/10 (c) LATEST -- *** THE POLICE STATION IN THIS VALLEY
+HAS FIFTEEN HOSPITAL WARDS IN IT. *** Row [the valley has no inside] SHIPPED. 3
+OPEN rows remain (rule 74) and the top one is new: [one table for the rooms].
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-the-insides-10-10. Record
+records/BOHEMIA_WORLD_A_POLICE_STATION_FULL_OF_HOSPITAL_WARDS_10_10_26.md.
+
+RULE 12, AND THE ROW WAS WRONG AND I WROTE IT. The row said that across all 50
+district kits, of 813 named pieces 256 are standable and ZERO are the floor of a
+room. That measurement is right AND IT IS ABOUT ONE LAYER: the district kits are
+the OUTDOOR tilesets, where a building is a footprint, and an inside was never
+going to be in them. THE INSIDE LIVES IN engine/bohemia_floorplan.js AND HAS
+SINCE 7/26, green in the suite (FLOORPLAN, INTERIOR GROUND). Asked for a city
+hall footprint it returns 204 FLOOR CELLS, 97 OF WALL AND 7 DOORS, as a hall, a
+reception, an office, a records room and a bath. There is a 62-DISTRICT ROOM-
+GRAMMAR TABLE (DISTGEN, in engine/bohemia_world.js, THIS LANE'S OWN FILE) across
+eleven zones, under the INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED).
+
+THAT IS THREE ROUNDS RUNNING WHERE RULE 12 FOUND THE PREMISE WRONG, AND TWICE NOW
+THE PREMISE WAS ONE I WROTE MYSELF UNDER RULE 74. Rule 74 has this lane write its
+own next row from its own measurement, and A PREMISE WITH MY OWN NAME ON IT IS
+THE ONE I DO NOT GO BACK AND CHECK. Both times the measurement was right and the
+sentence I built on it reached past the layer I had measured. It is in the record
+rather than only here, because it is the third one.
+[FOR THE COORDINATOR]
+
+*** WHAT IS REALLY WRONG: THE TABLE EXISTS TWICE AND THE COPIES DISAGREE ON SIX
+DISTRICTS. *** DISTGEN (the engine) and IN_ZONE (the CITY app) are two hand-kept
+copies of one table:
+
+  sign           in the engine, NOT IN THE APP AT ALL
+  campus         engine says school      app says institutional
+  firestation    engine says firehouse   app says institutional
+  policestation  engine says civic       app says institutional
+  school         engine says school      app says institutional
+  terminal       engine says transit     app says institutional
+
+EVERY DISAGREEMENT COLLAPSES A SPECIFIC GRAMMAR INTO THE GENERIC `institutional`,
+so the drift is one-way and THE APP IS HOLDING THE OLD TABLE: WORLD added five
+specific room grammars and the thing that builds the rooms never learned them.
+
+ON THE GLASS, run at the same 44x28 footprint on the same seed: the engine says a
+police station is a hall, a reception, records, a bath and fifteen offices. THE
+GAME BUILDS A BATH, A SERVICE ROOM, ONE OFFICE AND FIFTEEN HOSPITAL WARDS. Same
+walls, same doors, same plan, and one of them is a hospital. And the firehouse
+grammar (a garage and an office) and the transit grammar (a concourse and a
+counter) EXIST AND NOTHING REACHES THEM -- the same disease as last round's
+unreachable casino block, in a second system, in consecutive rounds.
+
+AND SIXTEEN LIVE DISTRICTS HAVE NO GRAMMAR, WHICH IS TWO THINGS. SEVEN CORRECTLY
+HAVE NONE because they are not buildings (desert, mountain, springs, water,
+freeway, interchange, arterial). NINE OWE ONE: airport, airbase, highroller,
+luxor, sphere, strat, rail, robofactory, strip -- AND FOUR OF THOSE ARE THE
+STRIP'S OWN CASINOS, in a game whose single hand-made interior board is a casino
+floor that nothing can reach. Seven of the nine cannot simply be given a zone: a
+DISTGEN row needs a kit module and a footprint function and they have no kit at
+all, which is [the cells with no board]'s own list, so it is one job and not two.
+Only `rail` and `strip` are a one-line add, and I did NOT make it: adding rows
+while the app cannot follow widens a red that is not mine. The seven/nine split
+is a READING, stated as mine with tuned:false.
+
+GATE THE INSIDES 23/0, registered. It PARSES BOTH TABLES LIVE -- DISTGEN out of
+the engine, IN_ZONE out of the CITY app -- names every disagreement and holds the
+count as a RATCHET THAT MAY ONLY SHRINK. It RUNS every zone either table names
+through the generator, so "the valley has an inside" is a measurement in the file
+and never a claim, because the row it corrects was a claim. It refuses a second
+copy of the table inside this lane's own module, holds the sixteen as a ratchet,
+refuses the seven/nine split being passed off as a measurement, and proves every
+district called blocked really has no kit module. Mutation-proved three ways
+(drift one more district in the engine -> RED naming it; keep a district-to-zone
+map in my own module -> RED quoting it; mark the split as a measurement -> RED).
+
+AND ONE MUTATION DID NOT LAND THE FIRST TIME AND I DID NOT COUNT IT: removing
+`ward` from the institutional roles left bulk:'ward' in place, so the generator
+kept making wards and the cook kept passing. That was my TEST being incomplete,
+not the check being weak; changing the bulk role too, both the gate and the cook
+go red. A mutation that does not change the behaviour proves nothing, and
+counting it would have been the same mistake as a check that measures nothing.
+
+COOK: A POLICE STATION FULL OF HOSPITAL WARDS, slices/vote/WORLD_THE_INSIDES.png
+-- two real floorplans side by side, both from the game's own interior generator
+at the same footprint and the same seed. Identical walls, identical doors,
+identical rooms, and fifteen of the nineteen on the right lit as wards. The cook
+refuses if the two tables ever agree about the police station, if the
+institutional grammar stops making wards, if the civic one starts, or if the two
+plans come back different sizes. AH-01: two floorplans side by side is the
+ordinary part; THE WRONG THING IS THAT THEY ARE THE SAME BUILDING -- it has had
+those wards for as long as anybody could walk inside, and nobody noticed because
+the rooms are generated and nobody reads the labels.
+
+ROUTED: WHOEVER OWNS THE CITY APP -- ONE EDIT ENDS THE WHOLE CLASS. The app
+should READ DISTGEN instead of keeping its own IN_ZONE; it already inlines
+bohemia_floorplan.js byte-identical, so the pattern exists. Until then INTERIORS
+is red on three legs (confirmed by running it) and a police station stays a
+hospital. [the cells with no board] owns the seven blocked districts. COMBAT:
+last round's casino block is still unreachable and the Strip's four casinos still
+have no inside, which is the same hole from both ends. [FOR THE CITY APP'S OWNER
+AND COMBAT]
+
+RED AND NOT MINE: INTERIORS 39/3 (the drift above, and the fix is the app's).
+VOTE TAB on mods-an-id-is-a-promise-10-10 (four sentences),
+tuning-every-roll-a-man-makes-10-10 and dynasty-who-buries-10-9 (no where you see
+it), sounds-the-bars-glass-10-10 (three sentences), plus the door-boot flake
+PLUMBER owns. Carried and still not mine: REFERENCE CHECK on PEOPLE's
+tools/bohemia_cook_good_bros.js, FACTION COLOUR, PAGES PUBLISH, ROADS ARE FAST.
+FOURTH ROUND OF SAYING SO: gates/one_terrain_effect_gate.js still holds a ruling
+rule 59 amends by name and is not registered in the suite. COMBAT's file.
+
+GATES BY NAME this round (rule 13a, the pre-push pass): THE INSIDES 23/0, THREE
+BLOCKS, BOARD KINDS, GROUND EFFECTS, FLOORPLAN, INTERIOR GROUND, WORLD MODEL,
+CANON ROT, HANDOFF. The full suite still cannot finish in this container.
+[FOR PLUMBER]
+
+[bb insides] BATTLE BROTHERS HAS NO INSIDES AT ALL, AND THAT IS THE ONE PLACE WE
+ARE ALREADY AHEAD AND DID NOT KNOW IT. Its towns are a menu over a painting and
+its fights are always in a field: in six hundred hours you never once stand in a
+room. Ours has had a working interior generator for months, matching the exterior
+footprint exactly, with a room grammar per district -- a jail with a cell block, a
+firehouse with an apparatus bay, a terminal with a concourse. OUR TWIST (rule
+39b): THE FIGHT SHOULD GO INDOORS, because a corridor with one door is a
+formation puzzle Battle Brothers cannot pose -- no flanking, no line, and the man
+at the front is the only man fighting. The lesson of this round is the cost of
+that lead: A SYSTEM NOBODY IS CURRENTLY PLAYING ROTS QUIETLY, and ours rotted into
+a police station full of hospital beds.
+
+TUNING (tuning-f59l1w): 10/10 (h) LATEST -- [the price ratios] SHIPPED (research, no code touched).
+TAB: VOTE, item THE MARKET AGAINST THE WIKI (an AUDIT block added to the sell-ratio page).
+RECORD: records/BOHEMIA_TUNING_THE_PRICE_RATIOS_AUDIT_WHERE_THE_MARKET_DEPARTS_FROM_THE_WIKI_10_10_26.md
+CREDIT: RUN TWO already moved SELL_CUT 0.5 -> 1/7 citing my page; ECONOMY built price_table.json. Audit vs the wiki: village and city MATCH; TOWN has
+no figure in ECONOMY's table (uses village) but the wiki has Medium .1457-.1579 (Expert); camp .1091 is unsourced and below every wiki settlement
+(lowest .1282); the table is Expert-only but the default player is Veteran-equivalent (x1.11: city .1965); situations 9 of 32 and some one-sided
+(Safe Roads sell+buy 10); buy side has no 0.95-1.34 modifier. The SCREEN does not read the table at all: flat 1/7, never calls sellFraction, so size and
+relation are ignored. One-battery floor: 34 of 309 items (11%) sell for 1 instead of < 1 (17-50% return, median 25%). Three tier names (screen camp/town/fortress,
+table camp/village/town/city, mine) need one map; proposal in the record.
+NEXT OPEN: [the board sizes' numbers], [origins difficulty].
+
+SOUNDS (sound-xk7pjp): 10/10 LATEST (round ten, [not sand] round eight) -- ***
+A SWORD BLOCKING A HIT NOW SOUNDS LIKE SOMETHING REAL, NOT A DULL THUD. ***
+TAB: VOTE, one item, A BLOCK IS TWO THINGS TOUCHING.
+Record: records/BOHEMIA_A_BLOCK_IS_TWO_THINGS_TOUCHING_10_10_26.md.
+
+Found one more sound on my own old "needs real material" list and fixed it: blocking
+a hit used to sound flat and dull, missing the bright crack a real parry has. Built
+it from a blade's edge glancing off a shield's wood-and-metal rim, real wood and real
+metal sounds I already had, just put together a new way.
+
+Checked it against the exact rule that flagged it broken: it needed at least 1% of
+its sound to be bright, high-pitched content. The new one measures 28%, way past that
+bar.
+NEXT: seven more sounds on this same old list still need real material (a weapon
+landing on a person, a gunshot's extra layer, a door, and others). Everything already
+
+QUESTS (quests-dvybth): 10/10 LATEST -- [lines 31 and 32] SHIPPED: QR-AM, 200/210 pass as written, 10 fixed; all designs now checked against 32 lines. NOT IN A TAB. Next: [eighth shelf].
+
+MODS (mods-59jyd6): 10/10 LATEST -- [base changes] SHIPPED as a research page. TAB: VOTE, item WHEN THE DATA CHANGES (a
+per-day bar chart, the one break, four lines of policy). Record
+records/BOHEMIA_MODS_HOW_A_MODDER_LEARNS_THE_DATA_CHANGED_10_10_26.md; generated changelog
+records/BOHEMIA_MODS_THE_DATA_CHANGELOG_10_10_26.md (58 lines); instrument tools/bohemia_mods_changes_audit.js (1 s;
+--changelog, --json). MEASURED from git (clone is shallow; the folder was born 10/2 = its whole life): 33 commits, 44
+file changes: 22 NEW FILE (9 on day one), 14 ADDS, 7 VALUES, 1 BREAKS (ai.json lost the field `why` from its kinds, 10/5);
+ZERO row ids removed; ours.json is 14 of the 22 non-new changes (a daily key grower). POLICY (none built): one schema number
+for the folder bumped ONLY on a break (it would be 2 today; the reference merge's GAME_SCHEMA is 1, already one behind);
+a mod pins its schema, older = warn never refuse; whoever removes/renames writes `DATA-BREAK:` in the commit; the
+changelog is generated, breaks first. FINDING: eight additive days is a young folder, not a stable one; breaks come when
+lanes tidy; cheap now, expensive to retrofit. NEXT OPEN: [lists in rows], [error messages], [grok sources].
+[read count] CLAIMED. PENDING Paolo: nothing.
+
+TUNING (tuning-f59l1w): 10/10 (g) LATEST -- [mood and desertion] SHIPPED (research, no code touched); also CORRECTED my 10/9 difficulty page.
+TAB: VOTE, item WHEN A MAN WALKS (band + trait slider, draft:true); the difficulty page tile is fixed.
+RECORD: records/BOHEMIA_TUNING_MOOD_AND_DESERTION_THE_BANDS_THE_DRIFT_AND_A_CLOCK_THE_WIKI_DOES_NOT_GIVE_10_10_26.md
+Mood page (read here): 7 bands (Euphoric 86-100 ... Angry 0-15), starting-confident 75/50/25 for Euphoric/Eager/Good Spirits, Dissatisfied->steady or
+worse, Disgruntled->wavering or worse, Angry->breaking or worse, daily drift toward 50. Traits (read here): Loyal 50% less likely to desert,
+Disloyal 100% more, Pessimist +33% negative, Optimist +33% positive. The -1/-2 daily deltas are GROK's (the wiki's template tables are not in the
+dump). The wiki gives NO day count. If -1 = one band step, a Content hire is Angry on day 3 (= his 'a couple of days'); greedy day 1.5. That reading is
+unverified. THE DEMO HAS NO COMPANY MOOD OR DESERTION (its only 'mood' is facial brow/speech tone), so unpaid wages cost nothing.
+CORRECTION: Game Guide table: contract rewards and selling prices are 100/100/90 percent Beginner/Veteran/Expert; Beginner is NOT +10. Fixed in the
+difficulty record, its VOTE page and the draft table (econ.contract_pay_mult).
+NEXT OPEN: [origins difficulty] (origins.json already carries a difficulty and d per origin; read it first).
+MODS (mods-59jyd6): 10/10 LATEST -- [more worked mods] SHIPPED. TAB: VOTE, item MODS TO COPY (7 cards: tap one for
+the patch, the lesson and what the checker said). Record records/BOHEMIA_MODS_MODS_A_STRANGER_CAN_COPY_10_10_26.md;
+folders in tools/mods_reference/example_mods/ (+README, eight mods). Five new, each built from a REAL row: enemy-pack
+(copy of the brigand poacher), poorer-start (origin batteries.full 250->200), fair-wages (a wage), sharper-mastery
+(a perk number), new-helm (a head armour piece, table key 'head'). All load with no fault and no warning; proof now 27
+of 27 (9a-9g). REAL FIX THIS NEEDED: a patch to a row's `numbers` object ERASED the other keys; the reference merge now
+merges an object inside a row ONE LEVEL; mutation-checked (9c, 9e red 25/27 when it overwrites). NOT COVERED, STATED:
+a patch inside a LIST (skills, men) replaces the list whole; no row deletion; nothing seen in the fight because the
+game loads no mods folder. NEXT OPEN: [base changes], [grok sources]; I must write a third from the jump list.
+[read count] CLAIMED. PENDING Paolo: nothing.
+
+SOUNDS (sound-xk7pjp): 10/10 LATEST (round nine, [the soundscape] round three) -- ***
+THE BAR HAS A GLASS SOUND NOW, AND I CAUGHT MY OWN WRONG GUESS BEFORE IT SHIPPED. ***
+TAB: VOTE, one item, THE BAR'S GLASS.
+Record: this VAMILY.md round text, row [the soundscape].
+
+Built a new sound: a glass set down on the bar's counter. It plays like a real glass
+does, one clear ring, not a whole chord like a bell.
+
+I guessed a glass would ring LONGER than a steel pipe because glass loses less energy
+per cycle. The checker proved that guess wrong: the glass actually rings SHORTER,
+because it rings at a much higher pitch, and pitch matters more than how slowly it
+fades. Fixed the claim to say the true thing instead of the thing that sounded right.
+NEXT: the posts' crowd sound is the same kind of gap as the bar's murmur (both need a
+voice this lane can't fake yet). Everything already built is waiting on your thumb.
+PENDING Paolo: nothing new.
+
+WORLD (world-9lfjtf): 10/10 (b) LATEST -- *** THE ONLY ROOM IN THE VALLEY IS A
+ROOM WITH SLOT MACHINES IN IT, AND NOTHING CAN REACH IT. *** Row [the apron, the
+compound and the civic interior] SHIPPED. 3 OPEN rows remain (rule 74) and the
+top one is new: [the valley has no inside], written from this round's
+measurement. TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE
+tab: world-the-three-blocks-10-10. Record
+records/BOHEMIA_WORLD_THE_ONLY_ROOM_IN_THE_VALLEY_10_10_26.md.
+
+RULE 12: THIRTEEN OF THE TWENTY-FOUR DISTRICTS ALREADY HAVE A KIT THAT DRAWS, so
+two of the three families were READ, not invented. The row said three blocks are
+missing; the count is right and the sentence is half right.
+
+  AN APRON    off speedway, stadium, ballpark, terminal: 72.8% floor, 18.5%
+              cover, 0.56% door. Its own legend's pieces: grandstand, catch
+              fence, pit road, garage row, light tower, tunnel mouth, racing
+              surface, infield, scoreboard, dead race car, facade.
+  A COMPOUND  off battery, substation, watertreat: 71.3% floor, 27.6% cover, and
+              A DOOR SHARE OF 0.031% -- ABOUT ONE CELL IN THREE THOUSAND. A wall
+              with one gate, exactly as the row said, with transformers,
+              switchgear, busbars, a cable trench, clarifier walls, an aeration
+              basin, a pipe gallery and a gravel yard inside it.
+
+Both are the row's own words handed back, counted rather than asserted.
+
+*** AND THE CIVIC INTERIOR BREAKS, AND NOT BECAUSE THE KITS ARE THIN. *** The six
+civic kits draw at 61.2% floor. EVERY CELL OF IT IS OUTSIDE. Measured across all
+fifty kits that draw: OF 813 NAMED PIECES, 256 ARE THINGS YOU CAN STAND ON, AND
+NOT ONE OF THEM IS THE FLOOR OF A ROOM. The closest the valley has is the covered
+loop under a stadium's stands, twice. The city hall is `city hall [building]`, a
+solid block. The jail is `building (cell block/admin) [building]` with a `cell
+detail [structure]` stuck on its face, both impassable. What the civic kits
+actually draw is the plaza, the forecourt, the curtain wall glazing, the podium,
+the entry pier, the roof edge and the council chamber roof. THERE IS A DOORWAY AND
+NOTHING BEHIND IT. That matters past this row: A COMBAT TILE IS A HOUSE (Paolo
+9/4) and the INTERIOR-MATCHES-EXTERIOR LAW both assume an inside the city has
+never drawn, and bohemia_boardterrain.js already files casino_floor as an INTERIOR
+that is off the map.
+
+*** AND THEN THE FINDING THAT MAKES THE ROUND: AN INTERIOR ALREADY EXISTS AND
+NOTHING CAN ASK FOR IT. *** The fight deals from a block library built out of
+slices/fight_ground/fight_ground.json. Build it the way the fight builds it and
+cross it against the board_mix families and nfKind: 18 block kinds in the library,
+15 named by a family, 12 reachable from nfKind.
+
+  IN NO FAMILY AND UNREACHABLE, so they can never appear in any fight, ever:
+     casino, freewayo, scrubroad
+  IN A FAMILY BUT NO DISTRICT LEADS WITH THEM, so they only ever turn up as the
+  shuffled second or third block:
+     lots, main, works
+
+`casino` IS 294 FLAT CELLS, 6 OF HEIGHT AND 201 COVER PIECES -- PILLARS, SLOT
+BANKS AND TABLES. IT IS THE ONLY INTERIOR IN THE GAME. COMBAT TWO cut it and the
+sweep recorded it shipping; the map cannot ask for it and the mix will never roll
+it, so it has never once been dealt into a fight. So the row corrects to: TWO
+blocks are missing and the valley has the material for both, and THE THIRD IS ONE
+WIRE AWAY FROM THE THING SOMEBODY ALREADY DREW.
+
+GATE THREE BLOCKS 22/0, registered. Every share is re-counted off the family's own
+kits each run (worst drift 0.0004); every piece quoted must be a real legend entry
+of that family's kits; the whole-city interior count is remade from all 50 kits;
+the unreachable list is REBUILT FROM THE LIBRARY and held as a RATCHET THAT MAY
+ONLY SHRINK, so the day somebody wires the casino in the gate goes red and the
+record is stale rather than the code being quietly right; the casino is described
+from the library, never from memory; and a WORLD file may not contain a faction
+name at all, because who holds a compound is handed to valleyground.poolOf.
+Mutation-proved three ways (give the civic interior material -> RED; quote a piece
+the valley does not draw, `control tower` -> RED naming it; hide the casino from
+the unreachable list -> RED).
+
+COOK: THE THREE BLOCKS THE VALLEY NEEDS, slices/vote/WORLD_THE_THREE_BLOCKS.png --
+four panels. The first three are real blocks the kits drew, picked by seed and not
+by eye: the stadium bowl (the apron, 20.2% solid), the water treatment plant with
+its clarifiers (the compound, 26.3%), and the hospital (the civic one, 42.1% and a
+slab). The fourth is the casino floor, drawn from the fight's own library with its
+201 slot banks where COMBAT TWO put them. The cook REFUSES to draw a civic panel
+that is not more solid than the apron, because the point of that panel is that the
+building is a wall. AH-01: four terrain samples in a row is the ordinary part; THE
+WRONG THING IS WHICH ONE IS FULL -- the courthouse, the jail and the city hall are
+solid to the touch, and the only room anybody ever built in this valley is a room
+with slot machines in it, and nothing can reach it.
+
+ROUTED, AND THE FIX IS NOW THREE SMALL THINGS RATHER THAN THREE BLOCKS. COMBAT
+[board generator]: WIRE THE CASINO IN -- it is built, it is an interior, and it is
+the civic answer. Cut the apron and the compound from the piece lists above, which
+are the valley's own material. Decide lots, main and works (in a family, never the
+lead) and freewayo and scrubroad (reaching nothing at all). COMBAT TWO: if the
+casino was meant to be reachable, nothing says so; it shipped into a library with
+no wire to the map. The interior question is a KIT question before it is a board
+question, and it is this lane's next row. [FOR COMBAT AND COMBAT TWO]
+
+RED AND NOT MINE: VOTE TAB on dynasty-old-body-10-9 and dynasty-name-outlives-10-9
+(no where you see it) and tuning-how-hard-is-a-killer-10-10 (three sentences
+against rule 22f's two), plus the door-boot flake PLUMBER owns. Carried and still
+not mine: REFERENCE CHECK on PEOPLE's tools/bohemia_cook_good_bros.js, FACTION
+COLOUR, PAGES PUBLISH, ROADS ARE FAST. AND THIRD ROUND OF SAYING SO:
+gates/one_terrain_effect_gate.js still enforces Paolo's 9/24 one-terrain-effect
+ruling, which RULE 59 AMENDS BY NAME, and it is not registered in the suite.
+COMBAT's file, untouched by me.
+
+GATES BY NAME this round (rule 13a, the pre-push pass): THREE BLOCKS 22/0, BOARD
+KINDS, GROUND EFFECTS, VALLEY GROUNDS, CANON ROT, HANDOFF. The full suite still
+cannot finish in this container (stopped at its 30-minute limit at gate 73 of 787;
+browser gates timing out at 30 s each, CASING FACE dying on a missing fontTools
+module). Environment, not tree. [FOR PLUMBER]
+
+[bb blocks] BATTLE BROTHERS NEVER SHIPS A BATTLEFIELD ITS OWN WORLD CANNOT ASK
+FOR, AND THE REASON IS THAT IT HAS NO LIBRARY TO GET OUT OF STEP WITH. Its
+tactical maps are generated per fight straight from the world tile you stand on,
+so there is no shelf of boards sitting beside the map and nothing can be built and
+left unreachable. OUR TWIST (rule 39b): we KEEP the shelf, because a hand-authored
+board like the casino floor -- 201 slot machines in rows -- is a better fight than
+anything a generator will produce from a tileset, and BB's own fights are the
+flattest thing about it. The price is that A SHELF NEEDS AN INVENTORY, and we did
+not have one until this round: three blocks on it have never been dealt, and one
+of them is the only indoor fight in the game. Keep the hand-made boards, and make
+the machine count the shelf every run.
+
+
+CHARACTER (character-0lurbs): 10/9 (d) LATEST -- *** BATTLE BROTHERS READS A MAN
+BY HIS SHAPE, NOT HIS COLOR, SO I SHRANK OUR THIRTEEN GANGS DOWN SMALL AND
+CHECKED IF THEY STILL READ APART. ***
+TAB: VOTE, the gangs shown small next to full size.
+Record: records/BOHEMIA_BB_GEAR_WHAT_WORN_GEAR_SAYS_10_9_26.txt, row [bb gear].
+
+Picked up the new top open job once the last one shipped. This one was a standing
+research line this lane always carries: how does Battle Brothers let you tell who
+is who at a glance. The real answer, from its own numbers, is shape and bulk, not
+color, because its camera is often far away.
+
+So I tested our own thirteen gang looks the same way. Shrank each one down to a
+small figure and checked two things: does the outline still look different, and
+does the color still look different. At full size all thirteen already looked
+different, which was expected. Small, two pairs got close: one pair by outline,
+a different pair by color.
+
+Said that plainly instead of hiding it or trying to fix it myself. Those two gangs'
+looks were already approved by Paolo, so whether to change them is a call for the
+art director and the production artist, not something I decide alone.
+NEXT: the jump list's other two rows (three bodies, wildlife rig).
+PENDING Paolo: nothing.
+
+TUNING (tuning-f59l1w): 10/10 (f) LATEST -- [the roll tables] SHIPPED (research, no code touched).
+TAB: VOTE, item EVERY ROLL A MAN MAKES (stars, per-level gains, XP, with a red box of departures, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_ROLL_TABLES_EVERY_ROLL_A_MAN_MAKES_AND_FIVE_WHERE_THE_DEMO_DEPARTS_10_10_26.md
+Closes a Grok gap: GROK_128 could not print the 60/30/10 labels; the wiki Talents page (read here) does.
+DEPARTURES in engine/bohemia_roster.js (owner RUN TWO [climbing]; I fixed nothing): D1 manOf gives 1-3 starred stats, wiki says EXACTLY 3
+(mean stars 3.0 vs 4.5; 7+ stars 1 in 55 vs 1 in 18; the file's header wrongly says the star rule is not in the repo); D2 star odds typed
+in code (q<.6, q<.9) not read from rules.json experience.talent_star_odds; D3 levelUp raises 3 RANDOM stats, the wiki tip ("each star adds 5
+by level 11" on a stat you always raise) implies the player chooses, so stars are worth ~1.9 not 5 (unverified: page says "can increase");
+D4/D5 dailyWageBatteries and hireCostRange (wiki wage and hire formulas) are BUILT in engine/bohemia_pricetable.js but NOTHING CALLS THEM, so
+wages never climb and hire price ignores level. MATCHES: level table, veteran XP, cap 33, no perk past 11, +1 on three, gain ranges, 20/80 kill split.
+I first wrote D5 as 'no formula'; I read the price-table engine and corrected it before shipping.
+NEXT OPEN: [origins difficulty] (last).
+MODS (mods-59jyd6): 10/10 LATEST -- [ids never change] SHIPPED as a research page. TAB: VOTE, item AN ID IS A
+PROMISE. Record records/BOHEMIA_MODS_A_ROW_ID_IS_A_PROMISE_10_10_26.md; instrument tools/bohemia_mods_ids_audit.js.
+MEASURED (main, 11 tables): 725 ids; 59 sit in two tables (50 are perks and their translations on purpose, 9 are
+an enemy and a background with one id); 83 paths / 764 places where one data file points at another table's id
+(enemy faction 66, start men to background 55, listed_in 54); origins 15/15, perks 50/50, perk_translation 50/50
+are ALL also quoted in code (others are an UPPER bound: common words match by chance); ZERO ids contain a colon;
+ALL 725 are lowercase letters, digits, underscore. Concrete: mace_mastery = perks, perk_translation, the fight, a
+gate; gladiator = five data files. POLICY: never rename; retire not delete (proposed retired/replaced_by fields,
+nothing writes them); a mod's new rows are '<modid>:<name>'; base ids stay [a-z0-9_]. The reference merge takes
+--namespace (warn, never block); proof now 20 of 20 (8a-8e), mutation-checked (8b red 19/20 when disabled).
+FINDING: the data alone cannot keep rule 1 because code spells ids too; a gate listing ids code depends on is the
+missing piece and it is a build. NEXT OPEN: [more worked mods], [base changes], [grok sources]. [read count]
+CLAIMED. PENDING Paolo: nothing.
+
+QUESTS (quests-dvybth): 10/9 (g) LATEST -- [fold the last] SHIPPED: QR-AL, QR-U fully folded into its pages. NOT IN A TAB. Next: [lines 31 and 32].
+
+SOUNDS (sound-xk7pjp): 10/9 LATEST (round eight, [the soundscape] round two) -- ***
+BUYING SOMETHING AT THE SMITH, THE ARMOURER OR THE STALL NOW MAKES A SOUND. ***
+TAB: no new VOTE card; this reuses an already-approved sound, nothing to judge.
+Record: this VAMILY.md round text, row [the soundscape].
+
+Found a real gap last round: buying a gun, armour or a ration at any counter in a
+town made zero sound. Checked first, built second: a bought item always lands in
+your bag, exactly the same as picked-up loot, so it now plays the same "something's
+in your bag" sound loot already plays. Same sound, same rule, nothing invented.
+
+It also goes quiet at night, the same way the clinic's door already does.
+
+Tested it for real: tapping buy at the smith, the armourer, the camp's gun stall
+and the town stall all play the sound. Buying at night plays it quieter. Checked
+first that nothing played there before, so this is a pure addition, nothing removed.
+NEXT: the new smith's-hammer and armourer's-rivets sounds, and the standing
+footstep/insect sounds, are all still waiting on your thumb. The bar's murmur is
+still the one thing I can't build yet (no faked voices in this lane).
+PENDING Paolo: nothing new.
+
+WORLD (world-9lfjtf): 10/10 (a) LATEST -- *** THE ROW'S PREMISE WAS WRONG AND I
+WROTE THE ROW. THE REAL HOLE IS BIGGER. *** Row [the cells with no board]
+SHIPPED. 3 OPEN rows remain (rule 74) and the top one is new: [the apron, the
+compound and the civic interior], written from this round's measurement. TAB: NOT
+IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-the-same-fight-10-10. Record
+records/BOHEMIA_WORLD_THE_ROW_WAS_WRONG_AND_THE_REAL_HOLE_IS_BIGGER_10_10_26.md.
+
+RULE 12, AND THIS TIME THE PREMISE WAS MINE. Last round, under rule 74, I wrote
+the next row off my own measurement: 28 of the 78 district names have no kit that
+can draw a block, "so a fight cut from one of those map cells has nothing to build
+a board out of." THE MEASUREMENT IS RIGHT. THE CONCLUSION IS WRONG, and one read
+of the live code says so. THE FIGHT NEVER CUTS A BOARD FROM A DISTRICT KIT: the
+kits draw the walked city and the painted map, while the fight asks
+nfKind(district) for one of NINE BOARD KINDS and COMBAT deals a board out of its
+own block library (records/target/bb/ours.json, board_mix). estate and gated have
+no kit and both land on `culdesac`, a real board, every time. So the row asked for
+a fix to something that is not broken. Three rounds running rule 12 has found the
+premise wrong and this is the first time it was a premise with my own name on it:
+I reasoned past a correct measurement into a mechanism I had never read. Writing
+the next row from your own measurement is what rule 74 asks for, and it is also
+how a lane hands itself a false premise it will not doubt.
+
+*** WHAT IS REALLY WRONG IS NEXT DOOR AND IT IS BIGGER. *** nfKind is a
+hand-written list of district names living in the slice, parallel to the 78 in
+bohemia_boardterrain.js, with nothing binding them together. Push every live
+district through it:
+
+  ruin (the catch-all)  24      <- MORE THAN ANY REAL KIND GETS
+  strip 15, landfill 11, suburb 8, scrub 6, shore 6, culdesac 3, wash 2,
+  freeway 2, suburb_stem 1
+
+`ruin` is a real block of the city family, so the fight WORKS; it just always
+leads with the same block. 154 cells a valley over 20 rolled valleys, 1.67%.
+
+WHO IS IN IT MATTERS MORE THAN HOW MANY: the airport and the airbase, with the
+speedway and the stadium, 122 CELLS A VALLEY, the biggest set-piece terrain in the
+valley. EVERY CIVIC BUILDING: the city hall, the courthouse, the jail, the prison,
+the police station, the fire station, the hospital, the radio station. AND THREE
+OF THE SIX LEGENDARY GEAR PLACES this lane shipped on 10/9 -- THE ARSENAL, THE
+DATA FORTRESS AND THE GRANARY, the places guarded by up to sixty men holding the
+best gear in the game. They all open the same fight. That is RULE 46 (no two
+combat boards are the same) FAILING A LEVEL UP FROM WHERE IT IS CHECKED: the board
+still varies because the other one or two blocks shuffle, but THE THING THE PLACE
+IS always reads as a ruin. And because the two lists are held together only by
+hand, EVERY DISTRICT WORLD ADDS BECOMES A RUIN IN SILENCE; the fight's list
+already knows one name, `beltway`, that no live ground uses.
+
+*** AND I BUILT THE OBVIOUS FIX AND THREW IT AWAY. *** Giving each of the 24 the
+existing board kind nearest in how blocked it is puts the courthouse at 30.6% and
+the jail at 29.8% both on `culdesac`, and nine of the 24 on `strip`. A JAIL THAT
+FIGHTS LIKE A CUL-DE-SAC IS WORSE THAN THE RUIN IT REPLACES BECAUSE IT IS
+CONFIDENTLY WRONG. That is [bb places]' 9/25 defect and the exact mistake this
+lane made on 10/9 with the god-gear ranking and said it would not make again:
+dressing a reading up as a measurement. standInFor() answers NO_RULING and names
+COMBAT. WHAT IS GIVEN INSTEAD IS WHICH BLOCK THE LIBRARY IS MISSING, which is a
+fact about the library rather than a guess about the map:
+
+  INFRASTRUCTURE  7 districts  122.2 cells a valley  wants AN APRON (open paved
+                  ground, one long shed, a perimeter fence)
+  PLANT           9 districts   17.5                 wants A COMPOUND (a wall with
+                  one gate, tanks and sheds inside it)
+  CIVIC           8 districts   14.6                 wants A CIVIC INTERIOR (a
+                  counter, a corridor spine, small rooms either side)
+
+The grouping is a READING and it is stated as mine with tuned:false. A courthouse
+and a jail are the same kind of place to fight in; that is what the real buildings
+are, not what a percentage says.
+
+GATE BOARD KINDS 24/0, registered. THE ONE LEG THAT MATTERS: it PARSES nfKind()
+OUT OF THE LIVE SLICE on every run and pushes all 78 districts through both the
+fight's own function and the mirror, so the two cannot drift; and the fall-through
+count is a RATCHET that may only shrink, which is what stops the next district
+WORLD adds becoming a ruin in silence. Mutation-proved three ways, the first being
+the real test: edit ONE district name inside the live fight and the gate names it
+(courthouse: slice=culdesac mirror=ruin). MY OWN PARSER WAS WRONG TWICE BEFORE IT
+WAS RIGHT AND THE GATE CAUGHT IT BOTH TIMES: it took the first line ending in a
+return and came back with `strip`, the first rule rather than the fall-through;
+then it found nothing at all because the real catch-all line carries a trailing
+comment. A parser that reads the wrong line is the same class of defect as last
+round's legend count read as a board -- twice in two rounds, in two different
+instruments.
+
+COOK: THE CELLS THAT ALL OPEN THE SAME FIGHT, slices/vote/WORLD_THE_SAME_FIGHT.png
+-- the valley with every cell coloured by the board it loads, the nine real kinds
+in three near-black steps and the catch-all lit in three colours, one per family.
+The airfield is the big pale block past the edge of town, the civic core the
+orange cluster, the compounds rust pips. One rolled valley with every refusal
+swept over twenty. AH-01: a map colour-coded by which level loads is the ordinary
+part; THE WRONG THING IS WHAT IS LIT -- the jail, the courthouse, the city hall,
+the police station, the hospital and the armoury are all the same place, every
+building the old world kept order in collapsed into one room.
+
+ROUTED, AND ALL OF THE FIX IS COMBAT'S: COMBAT [board generator] cuts three blocks
+and adds nine names to nfKind. THE APRON FIRST: 122 cells a valley on its own,
+eight times the civic core, and it is the airfield. COMBAT and the coordinator:
+whether the slice should read records/target/BOHEMIA_BOARD_KINDS.json instead of
+keeping its own regexes. `beltway`: the fight's list knows it, no ground uses it,
+one word either way. MODS: the data file. TUNING: nothing felt here, the only
+numbers are counts. [FOR COMBAT]
+
+RED AND NOT MINE: VOTE TAB on cook-the-settlement-pictures-finished-10-10 (no
+`kind`) [FOR COOK], dynasty-the-frame-10-9 (no where you see it) and
+tuning-what-a-respec-costs-10-10 (three sentences against rule 22f's two), plus
+the door-boot flake PLUMBER already owns. Carried from last round and still not
+mine: REFERENCE CHECK on PEOPLE's tools/bohemia_cook_good_bros.js (confirmed on a
+clean tree with my files stashed), FACTION COLOUR, PAGES PUBLISH, ROADS ARE FAST.
+
+AND A GATE STILL ENFORCING A SUPERSEDED RULING, SECOND ROUND OF SAYING SO:
+gates/one_terrain_effect_gate.js holds Paolo's 9/24 "ONE terrain effect, nothing
+else on a tile changes a number", which RULE 59 AMENDS BY NAME, and it is not
+registered in the suite. COMBAT's file, untouched by me. [FOR COMBAT]
+
+GATES BY NAME this round (rule 13a, the pre-push pass): BOARD KINDS 24/0, GROUND
+EFFECTS, VALLEY GROUNDS, BOARD TERRAINS, CANON ROT, HANDOFF. The full suite still
+cannot finish in this container (last attempt stopped at its 30-minute limit at
+gate 73 of 787, browser gates timing out at 30 s each, CASING FACE dying on a
+missing fontTools module). Environment, not tree. [FOR PLUMBER]
+
+[bb boards] BATTLE BROTHERS NEVER HAS THIS PROBLEM AND THE REASON IS THE ONE THING
+WE GAVE UP ON PURPOSE. Its tactical map comes from the world-map tile you fight
+on, and because that world is authored once by hand, every tile type it has is one
+somebody drew a battlefield for: there is no fall-through because there is nothing
+to fall through from. OUR TWIST (rule 39b): our valley is GENERATED, so the
+district list can grow past the board list and nobody notices, which is exactly
+what happened to 24 of 78. The answer is not to hand-author the valley. It is that
+A ROLLED WORLD NEEDS THE TWO LISTS BOLTED TOGETHER BY A MACHINE, so the day
+somebody adds a district the fight says "I have no board for that" out loud
+instead of quietly loading a ruin. BB buys correctness by never changing; we have
+to earn it every run.
+
+
+CHARACTER (character-0lurbs): 10/9 (c) LATEST -- *** THE DOOR'S FIFTEEN STARTING
+CREWS ARE DRESSED NOW, AND THE DATA PICKED THE LOOKS ON ITS OWN. ***
+TAB: VOTE, three crews at real size.
+Record: records/BOHEMIA_THE_ORIGIN_CREWS_10_9_26.txt, row [the origin crews].
+
+Picked up the new top open job once the last one shipped. Backgrounds.json, the list
+of jobs a starting crew member can have before the game, has no field for how
+equipped he looks either. Used the same fix as the armour round: every background
+carries a real wage, Battle Brothers' own number for how established a man already
+is, and that number sorted all twenty-six backgrounds this game actually uses into
+the same five looks built last round.
+
+It matched what the job sheet asked for without being told the answer. The Lone
+Wolf's one starting man landed in the heaviest look on his own, because his
+background pays the most in the real data. Every single one of the Block Watch's
+twelve starting men landed in the three lightest looks, none in the two heaviest,
+because that is genuinely where their wages put them.
+
+Proved it at the three real crew sizes the game actually has: one man, three men,
+and twelve men, all three screens in VOTE.
+NEXT: the jump list's other two rows (bb gear, three bodies).
+PENDING Paolo: nothing.
+
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round four) -- *** [hair match
+regression gate] SHIPPED: THE FIVE BUGS THIS LANE HAS ALREADY FIXED SHOULD NEVER
+COME BACK. Record: records/BOHEMIA_THE_HAIR_MATCH_REGRESSION_GATE_10_10_26.md.
+
+THE RULE THIS ROUND RAN UNDER: rule 88 (LOOKS FIRST, FEATURES HOLD), new since
+the last round's handoff. PORTRAIT is listed RUNNING, but only "as COOK THREE's
+hands" -- dials, rigs, gates, not new independent face features. No new direct
+feedback from Paolo this round (checked the registry's verdicts: still the same
+three from 10/9, already answered). So the top of this lane's own jump list was
+the right call: [hair match regression gate], pure gate work, nobody else's to
+build first, and exactly the kind of "hands" work rule 88 asks for.
+
+THE ROW ITSELF: five times this session a portrait silently drifted from the
+body it is supposed to agree with (cut SHAPE 8/28, hair COLOUR 9/20, the braid
+sentinel 9/24, the face-maker's dropped dials 10/9, the whole crowd's random
+texture 10/9). Built gates/hair_match_regression_gate.js: for 189 of 200
+synthetic citizens, all six shipped enemy tiers and all twelve CITY_CAST_LOOKS,
+a second, INDEPENDENT read of the real worn hair (BOH_PERSONLOOK.lookFor for
+citizens; ours.json's band + the live FACTION_LOOKS table for the tiers, never
+a cached copy of that cook tool; the live CITY_CAST_LOOKS table for hires) is
+compared against faceFor()'s own hair.name/hair.tex/braid/shape dials.
+
+KEEPERS NAMED HONESTLY: no lane has given any keeper kind a real dressed body
+yet ([the keepers' and hires' bodies], still OPEN) -- nothing to match a keeper
+against, so the gate checks the one true thing today (same place+kind always
+renders the same face) and upgrades to a real match the day a body lands.
+
+MUTATION-PROVED, NOT ASSUMED: the comparator itself is unit-tested against four
+planted fault shapes first (4/4 correct). THEN proved live, on the real
+renderer, not just the comparator: reintroduced bug 5 (hair.tex always random)
+-- gate went 13/0 to 12/1, citizens 141 of 189. Reintroduced the braid sentinel
+(braid always set) -- gate went 13/0 to 10/3, caught in citizens (19/189), all
+six enemy tiers (0/6) and all twelve cast looks (0/12) at once. Both reverted;
+`git diff --stat` on the alpha empty afterward, confirmed before writing this.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0, alpha_loads
+20/0, portrait_matches_body 11/0, hair_match_regression (new) 13/0.
+
+COOKED (rule 22): portrait-hair-match-regression-gate-10-10, a text item
+(kind:"line", zero new pixels, same shape as CHARACTER's own [wildlife rig]
+this round) -- not an art sheet, so rule 82/87's embargo does not hold it back.
+Ran vote_tab_gate.js on it before pushing (rule 22g): clean, not in either
+failure list (the twin-check and the two-sentence check).
+
+OPEN ROW COUNT: still exactly three after this ship ([the twin on the
+portraits], [the keepers' and hires' bodies], [front page]) -- rule 74's floor,
+checked with open_row_gate.js before writing this, PORTRAIT not named in either
+of its two failure lines.
+
+PUSH-TO-MAIN STATUS: pending at handoff-write time; the ship flow below is
+what actually attempts it.
+
+NEXT ROUND, FIRST MOVE: [the twin on the portraits] if DIRECTION has passed a
+portrait twin sheet by then (checked DIRECTION's own row this round: still
+"places, map, people when their twins arrive" -- not yet); otherwise
+[the keepers' and hires' bodies] if CHARACTER or RUN TWO has assigned a real
+dressed look to a keeper kind or a hire's background by then; otherwise
+[front page], the coordinator's own fold-the-rules-page row, real buildable
+work that needs nobody else.
+
+PENDING PAOLO: none new this round -- a structural rule (88) already answers
+itself, and this lane's job under it was plain.
+
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round three) -- *** [the
+hires' faces] SHIPPED, AND A BUG REPORT CHECKED FIRST. Top OPEN jump-list
+row. Records: records/BOHEMIA_THE_HIRES_FACES_10_10_26.md,
+records/BOHEMIA_DIDNT_LOAD_THE_DISPLAY_INVESTIGATED_10_10_26.md.
+NOT IN VOTE this round (rule 82/87 embargo, see below).
+
+HIS BUGS BEAT THE QUEUE (rule 8): the 10/10 seventh votes carried this
+lane's only literal bug report, "Didnt load the display" on
+portrait-hairstyles-match-10-9, checked before anything else. Reproduced
+the real chain (VOTE tab -> LOOK AT IT -> nested iframe -> the sheet) over
+real HTTP, item put back to its unjudged state: loads clean, image complete
+at full width, zero errors, screenshot proof. NOT REPRODUCIBLE in current
+code -- likely the documented two-deploys-race (a timing issue the day he
+looked), written up honestly as checked, not claimed fixed.
+
+THE ROW ITSELF: PEOPLE's good_bros rolls six recruits at a post, one per
+real background; the settlement screen's own recruitsHere() already
+dresses each with a real body look (one of twelve CITY_CAST_LOOKS, each
+with a real worn.hair, the same shape FACTION_LOOKS gave the enemy tiers);
+hireCard() draws a recruit's "face" today as a crop of his body sprite
+sheet, no portrait ever existed. NOTHING NEW NEEDED in faceFor:
+over.hairName (built for [the enemy faces]) does the whole match. THE ONE
+NEW IDEA: hireFaceId(postKey,slot) folds the settlement+week key
+recruitsHere() already rolls everything else from into the face id, so the
+same slot number at a different post or week is never the same face.
+
+MEASURED: two example posts, all six backgrounds -- hair matches the
+rolled look 12 of 12; the SAME background at a DIFFERENT post renders a
+DIFFERENT face, 6 of 6; six at one post pairwise distinct (background
+excluded), closest pair 30% identical; deterministic. The cook tool
+refuses to write on any failure. PROVED SAFE: 100 regular citizens hashed
+unchanged before/after.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0.
+
+WHY NOT IN VOTE: rule 82/87 (coordinator, 10/10, THE SEVENTH VOTES): his NO
+on three of this lane's own cooked sheets this month plus the fleet-wide
+"looks nothing like the assets we downloaded." COOK THREE now repaints the
+portrait paint layer; this lane keeps the dials, the hair bank and the
+gates; no portrait sheet goes to VOTE until DIRECTION passes COOK THREE's --
+the same embargo CHARACTER's own [the twin on the thirteen] already works
+under. Cooked the real, gated mechanism and the proof sheet
+(slices/vote/PORTRAIT_THE_HIRES_FACES.png); held the VOTE registration.
+
+OPEN ROW GATE: PLUMBER's new [open row gate] requires at least three OPEN
+rows per lane; shipping the last of this round's jump list dropped this
+lane to one. Added two new OPEN rows this round to cover it honestly, not
+to pad the count: [the twin on the portraits] (mirrors CHARACTER's own
+coordinator-authored row -- waits on DIRECTION's twin sheet, same as the
+VOTE embargo above already requires) and [hair match regression gate] (a
+real, buildable next step: a single gate that would have caught every one
+of the five hair-mismatch bugs this lane has found and fixed this session,
+before the round that introduces the sixth one ships). A third,
+[the keepers' and hires' bodies], names the genuine blocker on the
+body-matching half of both of this round's and last round's work (waiting
+on CHARACTER/RUN TWO to assign a real dressed look to a keeper kind or a
+hire's background) rather than guessing at an assignment that is not this
+lane's to make.
+
+PUSH-TO-MAIN STATUS: the claim commit landed directly on main this round;
+this ship's own push not yet attempted at handoff-write time.
+
+NEXT ROUND, FIRST MOVE: [the twin on the portraits] if DIRECTION has passed
+a portrait twin sheet by then (re-shoot the recent sheets beside it, then
+register them to VOTE); otherwise [hair match regression gate], real
+buildable work that needs nobody else first.
+
+PENDING PAOLO: none new this round -- a bug report checked and a structural
+embargo both already answered by the rules that created them, no fork for
+him to pick.
+
+SAME ROUND, ONE MORE FIX, FOUND CHASING PLUMBER'S NOTE DOWN: the twin-leg
+note below (round two's block) turned out to name a bigger problem than a
+missing field. portrait-the-keepers-faces-10-10 and
+portrait-the-chipped-bodies-faces-10-10 (both "10/10"-made) were both red
+on VOTE TAB's new rule-82 twin check. Checked reference/library/face/ for
+a real face reference to cite honestly -- only INDEX.md exists, no actual
+image -- so a twin field would have been fabricated, the exact thing the
+gate's own GOODHART GUARD forbids. The real fix was bigger: both items were
+confirmed UNJUDGED, and either one sitting in the live VOTE queue was
+ALREADY a violation of rule 82/87's own embargo (no portrait sheet to VOTE
+until DIRECTION passes COOK THREE's) -- the same rule this round's own [the
+hires' faces] correctly held back from VOTE. Retracted both from
+records/target/BOHEMIA_VOTE_REGISTRY.json's items array: pulled back, not
+killed, since neither was ever judged. Re-ran vote_tab_gate.js after:
+32 ok, 2 failed, neither of mine in the twin-check failures (the 4
+remaining are cook-the-far-end-as-tiles-10-10, cook-the-building-props-10-10,
+cook-his-block-as-a-place-10-10, combat2-the-rest-join-10-10 -- not this
+lane's). Amended both SHIPPED rows in VAMILY.md and closed the twin-leg
+NOTE there with the same reasoning. Full gate sweep re-run after the fix:
+talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker 16/0,
+hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0, alpha_loads
+20/0, portrait_matches_body 11/0, handoff 10/0, open_row 7/2 (the 2 are
+other lanes, checked).
+
+PUSH-TO-MAIN STATUS (CORRECTED): the hires'-faces claim commit landed on
+main; this round's real last word is the registry retraction above, not
+yet pushed at the time this line was written -- the ship flow below is
+what actually closes this round out.
+
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round two) -- *** [the
+chipped bodies' faces] SHIPPED: THE DEAD HAD NO FACE OF THEIR OWN AT ALL.
+Top OPEN jump-list row. Record: records/BOHEMIA_THE_CHIPPED_BODIES_
+FACES_10_10_26.md.
+TAB: VOTE (portrait-the-chipped-bodies-faces-10-10, already shipped, the
+card is proof).
+
+THE ASK: a person's face with the chip's tell (one eye lit, the jaw slack,
+the skin grey where the chip sits), never a skull. THE JAW NEEDED NO NEW
+CODE: renderFace's mouth='open' has drawn "a real dark hole, jaw down one
+row" since 8/27 -- already a slack jaw, a cook tool just asks for it. THE
+EYE-AND-PATCH is one new additive block in renderFace right before return,
+gated on opts.chipped (undefined for every citizen/enemy ever rendered
+before today): one eye overridden to a fixed lit colour that never blinks;
+the temple skin tinted toward grey with a new tint() helper that reads the
+pixel already there first, so it discolours real skin instead of floating a
+sticker.
+
+Six of enemies.json's nine real chipped-body rows shown (the Necromancer and
+Geist left out -- a controller and a speaker rig have no face), WORDS' own
+naming light to heavy: CHIPPED, CHIPPED NOMAD GEAR, CHIPPED ARMORED, FALLEN,
+THE BETRAYER, THE RELIC BEARER.
+
+MEASURED: lit eye is the exact lit colour, 6 of 6. Diffed each chipped
+render against its own unmarked self (eye box excluded): the grey mark
+covers 2.8%-4.1% of the face, 98.0%-98.5% of pixels unchanged -- a tell, not
+a replacement. Six bodies pairwise checked, background excluded: closest
+pair 29% identical. The cook tool refuses to write if any of the four
+claims fail.
+
+PROVED SAFE: hashed 100 regular citizens on a clean stash and on this
+change, 0 of 100 differ.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0, reference_check_gate 412/0.
+
+NOT DONE, NAMED HONESTLY: no lane has dressed a chipped body's outfit yet
+(grepped the whole repo, nothing but WORDS' naming page) -- rolled faces
+with the tell, not matched to a dressed body, honestly, because none
+exists; CHARACTER's row if it lands. The kill recap screen still does not
+exist -- when it ships it can call faceFor('chipped:'+rowId,...) the same
+way this round's cook tool does.
+
+ALSO THIS ROUND: closed PLUMBER's 10/10 reference-check note -- three of
+the four flagged cook tools already carried fixes by the time this lane
+read it; the fourth (born the same round the note landed) got its own
+REFERENCE CHECK block. reference_check_gate.py: 410 -> 412 passed, 2 -> 0
+failed.
+
+PUSH-TO-MAIN STATUS: the claim commit and the reference-check fix both
+landed directly on main this round; this ship's own push not yet attempted
+at handoff-write time.
+
+NEXT ROUND, FIRST MOVE: [the hires' faces] (top OPEN jump-list row -- every
+man at the posts needs a face of his background, PEOPLE's [good bros]
+backgrounds.json, a variation rule so no two hires match, shown on the hire
+card before you pay). When it ships, the jump list's own OPEN rows run out;
+pull the next from the backlog before the reply ends (rule 74).
+
+PENDING PAOLO: none new this round -- rule 74's own jump list, no fork for
+him to pick.
+
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST -- *** [the keepers' faces]
+SHIPPED: EVERY KEEPER SHOWED A DIM PLACEHOLDER HEAD FOREVER. Top OPEN
+jump-list row. Record: records/BOHEMIA_THE_KEEPERS_FACES_10_10_26.md.
+TAB: VOTE (portrait-the-keepers-faces-10-10, already shipped, the card is proof).
+
+MEASURED FIRST: slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO's own file,
+untouched here) already posts {type:'needFace',who} the first time it draws a
+keeper with no face, and already reads one back as
+{type:'BOHEMIA_SETTLEMENT_FACE',who,src}. Grepped the alpha and
+BOHEMIA_CITY_WORLD.html (its immediate iframe parent): zero hits for either
+message type, anywhere. Nothing has ever answered the request.
+
+THE FIX: two small additive functions in the alpha, keeperFaceId(place,kind)
+and keeperFaceSrc(place,kind,opts), built from parts already approved --
+faceFor(id) already rolls a face off any string id, facePerform(id,tMs,line)
+already drives the same mouth/blink/brow a live speakingPortrait uses. THE
+ONE REAL GAP: a keeper's who ('settle-smith') is the same string in every
+town, so faceFor(who) alone gives every smith one face; keeperFaceId folds in
+the place's own name, the same string the settlement screen's own file
+already seeds everything per-place with (rollTraits, restock, nextRumour all
+key off S.place.name the same way).
+
+MEASURED AFTER: two example towns, all five real kinds (PEOPLE's real price
+lines, engine/bohemia_keeper_lines.js) -- deterministic (same town+kind
+twice, byte-identical); rolled per settlement (same kind, different town, 5
+of 5 differ); five keepers not one face five times (all 10 same-town pairs
+differ); speaks along (sampled each face at four points across its real
+line, at least 2 of 4 frames differ on all 10 renders). The cook tool refuses
+to write if any of the four checks fail.
+
+PROVED SAFE: both functions are purely additive; nothing inside
+faceFor/facePerform/renderFace/speakingPortrait moved. Hashed 100 regular
+citizens on a clean stash and on this change -- 0 of 100 differ.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0, keeper_lines_gate 48/0
+(PEOPLE's own gate, re-confirmed untouched). settlement_screen_gate could not
+run in this environment (its own require('playwright') bypasses the absolute
+path every other gate uses; confirmed broken on a clean worktree too, not
+caused here).
+
+NOT DONE, NAMED HONESTLY: no keeper has a dressed body yet for the face to
+match hair to -- unlike [the enemy faces]'s FACTION_LOOKS pairing, no lane
+has assigned a specific body look to a specific keeper kind, so this is a
+rolled face, not a matched one; the same over.hairName mechanism already
+built can wire the two together later if that assignment lands. Who answers
+needFace and how often is RUN TWO's placing, the row's own words -- not
+touched here.
+
+PUSH-TO-MAIN STATUS: [the keepers' faces]'s own claim commit landed directly
+on main this round (no race lost); this ship's push not yet attempted at
+handoff-write time.
+
+NEXT ROUND, FIRST MOVE: [the hires' faces] (now the top OPEN jump-list row --
+every man at the posts needs a face of his background, from PEOPLE's [good
+bros] backgrounds.json, a variation rule so no two hires match, shown on the
+hire card before you pay).
+
+PENDING PAOLO: none new this round -- rule 74's own jump list, no fork for
+him to pick.
+
+PORTRAIT (portrait-vamily-yke55s): 10/9 LATEST (round three) -- *** [the enemy
+faces] SHIPPED: EVERY BRIGAND TIER'S PORTRAIT HAD NONE OF ITS OWN DRESSED
+BODY'S HAIRCUT. Top OPEN jump-list row (EVERYBODY HAS A FACE, rule 69).
+Record: records/BOHEMIA_THE_ENEMY_FACES_10_9_26.md.
+TAB: VOTE (portrait-the-enemy-faces-10-9, already shipped, the card is proof).
+
+CHARACTER's own [the enemy tiers dressed] already dressed the six named
+brigand tiers (thug, poacher, marksman, raider, leader, marauder) from a real
+faction look (ours.json people_looks.band). MEASURED: faceFor(id,over)
+resolves hair through BOH_PERSONLOOK.lookFor(id,pool), which needs a real
+citizen id -- an enemy tier has none, so the portrait rolled a random cut off
+the id string's own hash. 0 of 6 tiers wore the cut their own dressed body
+wears. FIX: faceFor's over now takes over.hairName, same pattern as
+over.kin/over.age two blocks up -- when set it skips lookFor and reads
+hairDialsFor() straight off the name passed in; every id without it (every
+real citizen) is unchanged. The leader's render turns on opts.threeD (the
+9/14 lighting upgrade) so he reads as the one you remember. AFTER: 6 of 6
+match; pairwise distinctness checked with the shared background excluded,
+closest pair 37% foreground overlap. PROVED SAFE: branch only fires on
+over.hairName, nothing existing passes it; hashed 200 regular citizens before
+and after, 0 differences; his own face is a separate buildSpec() path,
+never faceFor().
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0, vote_tab 31/1 (pre-existing,
+DYNASTY/TUNING/MODS items' own where-you-see-it gap, not mine).
+
+NOT DONE, NAMED HONESTLY: "the chipped bodies' faces wrong in the way the
+lore says" and "the recap shows who you killed by face" are both out of
+scope -- chipped bodies are the undead (WORDS [the enemies' names], rule 63
+locked), a different DIRECTION/ANIMATION question than a living brigand's
+haircut; the kill recap screen does not exist yet, it is COMBAT's row.
+
+EARLIER THIS ROUND (rounds one and two, folded back in after 61 then 23
+commits of drift): [hairstyles match] -- the face maker's haircut picker was
+dropping tex and fade, so three tapered cuts drew the same cap (63% -> 59%
+average overlap); then the SAME bug at the whole crowd's scale inside
+faceFor() itself, 76 of 82 textured citizens disagreeing with their own body
+(93% -> 0% mismatch, 82/82 after). Full detail:
+records/BOHEMIA_HAIRSTYLES_MATCH_10_9_26.md,
+records/BOHEMIA_THE_WHOLE_CROWD_MATCHES_10_9_26.md. Also added the rule 80
+[better than bb] line (entry 20, records/BOHEMIA_BETTER_THAN_BATTLE_
+BROTHERS_10_9_26.md).
+
+PUSH-TO-MAIN STATUS: one attempt this round after the claim commit, lost the
+race (clean non-fast-forward); not chased further, per this session's
+established policy (confirmed again: the mechanism works, it is a timing
+race against other lanes' ~60-90s push cadence, not a block).
+
+NEXT ROUND, FIRST MOVE: [the keepers' faces] (new top OPEN jump-list row --
+the smith, the armourer, the barber, the clinic, the board each need a head
+that speaks along when they say the price, rolled per settlement). Two more
+OPEN rows under it: [the hires' faces].
+
+PENDING PAOLO: none new this round -- rule 74's own jump list, no fork for
+him to pick.
+
+TUNING (tuning-f59l1w): 10/10 (e) LATEST -- [recruit odds] SHIPPED (research, no code touched).
+TAB: VOTE, item HOW HARD IS A KILLER (a star-bar slider, draft:true).
+RECORD: records/BOHEMIA_TUNING_RECRUIT_ODDS_36_KILLERS_AS_HARD_AS_12_10_10_26.md (BB facts from the wiki dump; odds are my arithmetic).
+FINDING: every BB recruit has stars on 3 of 8 stats (1 star 60%, 2 stars 30%, 3 stars 10%): 7+ total stars is 1 in 18, 8+ 1 in 100,
+all-three-3-star 1 in 1000. 12 killers at the 7-star bar = ~216 recruits seen; 36 = ~648. Three ways to make 36 cost what 12 costs:
+lower the bar one point (7 to 6, 3.5x easier), three companies (the three acts run at once, so 36 = 12 per act = BB-hard each),
+or inheritance (12 hard-won + 24 heirs at one star less). Recommended: companies + heirs. BB caps the roster by WAGES and food and
+the enemy scales only off the 12 STRONGEST (multiplier 0.94 x (0.01 x strength)^0.89, strength = sum of 10+2(level-1), clamped 0.75-5,
+x 0.85/1.00/1.15 by combat difficulty), so a bench is free of enemy scaling but not of wages. Heir rows proposed (star_loss 1).
+Hire cost 500 x (level-1)^1.5 (guide's own 0-3000 range disagrees with its formula); upkeep base 3-35 x 1.1^(level-1).
+NEXT OPEN: [origins difficulty] (last row); after it ships I write the next from the jump list.
+QUESTS (quests-dvybth): 10/9 (f) LATEST -- [fold the rest] SHIPPED: QR-AK; QR-U's rules now live in their pages (B, C, D, H, M, O, Q, R), checklist line 21 amended. NOT IN A TAB. Next: [lines 31 and 32].
+
+MODS (mods-59jyd6): 10/10 LATEST -- [range column] SHIPPED as a research page. TAB: VOTE, item HOW BIG IS
+TOO BIG (type a knife's damage; it warns at -5 and at 500 and says why; never blocks). Record
+records/BOHEMIA_MODS_THE_RANGE_COLUMN_10_10_26.md. Draft banks/BOHEMIA_MODS_RANGES_DRAFT_10_10_26.json
+(draft:true, generated by tools/bohemia_mods_ranges_draft.js, not loaded by anything): 49 numbers in 10 tables
+across 8 files, each with its smallest and biggest base value, plus the 10 limits the wiki states itself in
+rules.json. The reference merge takes --ranges (warn, never block); the proof is 15 of 15 (4 new legs: -5 and
+999 warn and still load; 20 to 30 is silent; no flag, no warning; mutation-checked 14/15 when the comparison is
+disabled). FINDING: 'observed range' warns on the mod a modder most wants (stronger than the game), so it is
+a prompt, never a verdict. Limits: top-level numbers only (sub-objects unchecked); 1 thin and 2 constant fields;
+regenerate when the data changes (it grew to 18 files). NEXT OPEN: [ids never change], [grok sources].
+[read count] CLAIMED. PENDING Paolo: nothing.
+
+TUNING (tuning-f59l1w): 10/10 (d) LATEST -- [respec] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT A RESPEC COSTS (BB potion vs ours vs XP past 11, draft:true).
+RECORD: records/BOHEMIA_TUNING_RESPEC_BB_ALREADY_HAS_A_RESET_AND_IT_COSTS_SEVEN_RARE_PARTS_10_10_26.md (BB facts from the wiki dump).
+FINDING: his premise is half wrong: vanilla BB HAS a respec, the Potion of Oblivion (worth 2500, resets ALL perks, crafted only,
+7 rare monster parts + 5000 crowns). What players lack is a PARTIAL, AFFORDABLE one, which is his rule. Past level 11 a level costs
+4000+1000 per level above 11 (12: 19,000 total; 13: 24,000; 14: 30,000), gives NO perk point, stats capped +1 x3, so a swap is the
+one thing late XP buys. Price anchored to 1/10 of the potion: 25-50 batteries (default 40 is MY pick), a few days, one mastery per
+visit, training ground, masteries only. Rule 56: death.base 0.20 + death.per_mark 0.05 (my pick), cap 4 marks = 0.40 max, under BB's 0.67.
+Recall/unverified: what the Legends and respec mods do.
+NEXT OPEN: [recruit odds], [origins difficulty].
+
+WORLD (world-9lfjtf): 10/9 (d) LATEST -- *** A LEGEND COUNT IS NOT A BOARD, AND
+ONLY ONE ROW OF BATTLE BROTHERS' TERRAIN TABLE CAN FIRE ON OUR BOARDS. ***
+Row [ground effects] SHIPPED. 3 OPEN rows remain as the jump list (rule 74), and
+one of them is new: [the cells with no board], written from this round's own
+measurement. TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE
+tab: world-ground-effects-10-9. Record
+records/BOHEMIA_WORLD_A_LEGEND_COUNT_IS_NOT_A_BOARD_10_9_26.md.
+
+RULE 12, AND IT LANDED ON MY OWN LAST ROUND BUT ONE. [the valley's grounds]
+measures how open a ground is by counting its kits' LEGEND: how many of the
+distinct tile kinds a district DECLARES are open rather than built. That is a
+count of what a board CAN contain. It is not how much of a board IS that thing.
+Re-measured on what the kits really DRAW -- 13 grounds, 50 kits, five seeds each,
+4.1 MILLION CELLS:
+
+  THE LEGEND SAYS EVERY GROUND IN THE VALLEY IS 43% TO 57% BLOCKED, A 1.33x
+  SPREAD. THE BOARD SAYS 1.5% TO 95.8%, A 64x SPREAD.
+
+The desert fight and the mountain fight are the two most different fights in this
+game and the legend called them the same place. BOTH ENDS CHECK OUT AGAINST THE
+REAL WORLD, which is how I know the drawn number is the honest one and not a
+second bug: the mountain kit's own legend is bedrock face, ridge crest and cliff
+band, all solid:true, with ravine floor and talus between them, and the desert kit
+is 97% open ground. Neither of those is a defect. The 50/50 the legend reported
+for both of them was.
+
+*** AND THE TRAVEL SPEEDS I SHIPPED ARE NOT WRONG, WHICH I CHECKED BEFORE WRITING
+A WORD OF THE ABOVE. *** The easy dramatic next sentence was "so last round's
+speeds are broken too" and it is false. Travel uses openness as a RANK, re-
+anchored on his own ruled dirt speed, so the bias very largely cancels: re-
+deriving all nine derived speeds off the drawn shares moves the WORST of them by
+0.15 and most by under 0.05, and his four RULED speeds are untouched by
+construction. A RANK SURVIVES A BIASED COUNT. AN ABSOLUTE DOES NOT, and a fight
+needs the absolute, because "how much of this board is cover" is the whole of
+Battle Brothers' formation game. That is the only honest reason to measure the
+same thing twice, and it is why this file does not reuse the number next door.
+
+ONLY ONE ROW OF THE TERRAIN TABLE FIRES: OBSTACLES, on all thirteen (the door on
+nine of thirteen). THE SWAMP ROW IS DEAD -- not one wet cell on any ground, and
+THE DISTRICT LITERALLY NAMED `water` DRAWS SIX KINDS OF DRY GROUND, TWO DRAINED
+BASINS, A DEAD CAR, A DEAD TREE AND A PROP. The only wet water in the game at all
+is in the landmarks module (the reservoir, the tailrace, Las Vegas Creek), which
+is NOT a district kit, so no fight board can ever be cut from it, and all three
+are marked void anyway, which makes them the CLIFFS row and never the SWAMP row.
+THAT IS RIGHT FOR THE WORLD AND NOT A GAP TO PATCH: the dollar died and the water
+went with it, and the school page's murky-water skins (a flooded underpass, a
+casino fountain, the wash after rain) were written in the hopeful tense. ROUGH
+GROUND has no skin either: every standable kind the valley draws is flat and hard,
+and the mountain's own legend calls its talus "slow going" in a description that
+nothing reads. HEIGHT answers UNREAD, never 0, because a zero would read as "this
+ground is flat" and the mountain is 96% cliff. EVERYTHING COSTS ONE is untouched
+and is NOT the hole: the 2/3/4 AP ladder collapses to one step by his 8/15 ruling,
+and the only gap is that nothing would tell a rubble field from a parking lot if
+he ever wanted the second beat back.
+
+FOUR TILE KINDS THE VALLEY DRAWS HAVE NO RULED ROW, each named with what it is and
+why it has no number: a drained pool (the opposite of murky water -- you climb into
+it, and nothing measures how deep), a solar array and playground equipment (Battle
+Brothers has no half-height obstacle), and OVERHEAD, which on the freeway is 14% of
+the drawn cells so it is not a rounding error. Inventing an effect for any of them
+would be inventing a dial, and every felt number is TUNING's (rule 36).
+
+COOK: WHAT EACH GROUND DOES TO A FIGHT, slices/vote/WORLD_GROUND_EFFECTS.png --
+thirteen real fight boards, one per ground, each cut from a kit that ground is
+really made of, coloured only by what the ground changes: ground you can stand on,
+cover, and the door. *** AND THE COOK ARGUED WITH ITS OWN NUMBERS UNTIL I LOOKED AT
+IT: *** the first cut took the top-left corner of each block, and a corner is not a
+sample -- the suburb panel read 48% solid against the suburb's measured 33%, so the
+sheet disagreed with the measurement it exists to show. Fixed by scaling the whole
+block instead of cropping it, AND THEN THE CHECK THAT WOULD HAVE CAUGHT IT WAS
+ADDED, SELF-CALIBRATING: a panel's cover must fall between the lowest and highest
+of its OWN ground's kits, a measured envelope rather than a tolerance I pick
+(PLUMBER 9/16: a clamp nobody can defend is how a gate gets a number nobody can
+defend). The Strip's panel is a resort at 50% against the Strip's 34% average, and
+that is a true fact about resorts rather than an error, which an envelope allows
+and a mean does not. Run against the old corner-crop that check refuses SIX OF
+THIRTEEN PANELS. AH-01: a contact sheet of terrain samples is the ordinary part;
+THE WRONG THING IS WHICH ONE IS FULL -- the emptiest board in the valley is the
+open desert and the fullest is the mountain, and the ground that is hardest to
+cross is the one nobody ever touched.
+
+GATE GROUND EFFECTS 28/0, registered in the suite, mutation-proved three ways
+(reuse the legend number for the desert -> RED naming the drift; fill the height
+hole with a zero -> RED; claim the swamp row fires on the drained pools -> RED).
+It re-measures every carried number off the kits on every run, so none of them can
+drift from the city.
+
+A GATE ENFORCING A SUPERSEDED RULING, FOR WHOEVER OWNS IT:
+gates/one_terrain_effect_gate.js holds Paolo's 9/24 "ONE terrain effect in the
+whole fight, a small mound, NOTHING ELSE ON A TILE CHANGES A NUMBER". RULE 59
+(10/1) AMENDS THAT BY NAME ("the mound was the first, not the only"), and the gate
+is NOT REGISTERED IN THE SUITE, so it is a gate holding a dead ruling that nobody
+runs. Named, not touched: it is COMBAT's file. [FOR COMBAT AND THE COORDINATOR]
+
+AND 28 OF THE 78 DISTRICT NAMES the thirteen live grounds are made of HAVE NO KIT
+THAT CAN DRAW A BLOCK, among them basin, reservoir, intake and dam -- four of the
+seven districts of wash_and_shore. A fight cut from one of those map cells has
+nothing to build a board out of. That is this lane's, measured this round, and it
+is now the OPEN row [the cells with no board] rather than a line in a handoff.
+
+STILL ON THE BOARD AND NOT DONE: the coordinator's 10/9 SWEEP AB on my SHIPPED
+[where the god gear is] row says MAKE THE SIX PLACED, NEVER ROLLED, so a rumour is
+never wrong. That is a change to the GENERATOR, which is my OPEN row [the roll],
+so it is not being done as a side effect of a different row. It is the first thing
+[the roll] answers.
+
+RED AND NOT MINE, CHECKED ON A CLEAN TREE WITH MY FILES STASHED: REFERENCE CHECK
+is red on tools/bohemia_cook_good_bros.js, which carries no REFERENCE CHECK block
+and grew the frozen baseline from 85 to 86 [FOR PEOPLE]. VOTE TAB is red on four
+other lanes' rows (direction-fight-verdict-22-the-freeway, people-good-bros and
+factions-four-with-a-face say no where you see it; lifecity-build-on-the-screen
+runs seven sentences against rule 22f's two) and on the known door-boot flake
+[FOR THE COORDINATOR AND PLUMBER]. Also still red from last round and not mine:
+FACTION COLOUR, PAGES PUBLISH (299 MB against a 260 MB cap, which is what builds
+his link), ROADS ARE FAST (#daycardIn .dcgo, a deleted card).
+
+AND THE FULL SUITE STILL CANNOT FINISH IN THIS CONTAINER, SAID PLAINLY RATHER THAN
+REPORTED AS A PASS: a full run was stopped at its thirty-minute limit at GATE 73
+OF 787, with the browser gates timing out at 30 s each and CASING FACE dying on a
+missing fontTools module. That is an environment fault, not a tree fault. What was
+run by name this round: GROUND EFFECTS 28/0, CANON ROT, VALLEY GROUNDS, SCAVENGE,
+VOTE TAB and REFERENCE CHECK. Rule 13(a), the pre-push pass. [FOR PLUMBER]
+
+[bb ground] BATTLE BROTHERS' TERRAIN TABLE IS NINE ROWS AND WE CAN FIRE ONE OF
+THEM, AND THE HONEST ANSWER IS TO SAY SO RATHER THAN TO FAKE THE OTHER EIGHT. BB
+earns its swamp, its forest and its hills because it is set in a green temperate
+world where all three are a day's walk apart. OUR TWIST (rule 39b): ours is a dead
+city in a desert, so the entire movement-cost half of that table is empty -- no
+mud, no undergrowth, not one wet cell in the valley -- and what is left is COVER,
+which runs from a board that is 1.5% blocked to one that is 95.8%. BB's terrain
+changes HOW FAST YOU CROSS A TILE; OURS CHANGES WHETHER THERE IS ANYWHERE TO HIDE,
+which is the half that actually decides a formation fight. The temptation was to
+invent a rough-ground skin so the table looked full. A table with eight rows that
+never fire is a table that lies, and a game that only has cover had better make
+cover mean everything.
+
+
+CHARACTER (character-0lurbs): 10/9 (b) LATEST -- *** THE DATA NAMES NO TIER, SO
+THE REAL STAT DOES: A BOUGHT ARMOUR PIECE NOW CHANGES THE MAN. ***
+TAB: VOTE, one man in five armours.
+Record: records/BOHEMIA_ARMOUR_YOU_CAN_SEE_10_9_26.txt, row [armour you can see].
+
+Picked up the new top open job once the last one shipped. Battle Brothers' own armour
+list has no field saying which of the four tiers (padded, leather, mail, plate) a
+piece belongs to, so the real stat every row does carry, how tough it is, decided it:
+split into four even groups. That table is saved so it fixes itself if the source
+list ever changes.
+
+Dressed one man five ways with real wardrobe pieces already in the game: nothing
+bought, then a hoodie, then a jacket over it, then a tactical vest, then the vest
+plus a scrap chest plate, a scrap helmet and a mantle on the shoulders. Nothing new
+was drawn.
+
+Caught two mistakes by looking at the actual picture before calling it done. First,
+the tool meant to check if these were really five different looks said no at first,
+because it was built for a different job (checking outlines) and these pieces
+mostly change colour, not outline. Switched to counting how many pixels actually
+differ, which is the honest check for this kind of gear. Second, the heaviest look
+seemed to show a different skin colour, which would have been a real bug. It was
+the helmet covering the whole head with an eye slit, not skin. Zoomed in on the
+actual pixels both times instead of guessing.
+NEXT: the jump list's other two rows (the origin crews, bb gear).
+PENDING Paolo: nothing.
+
+SOUNDS (sound-xk7pjp): 10/9 LATEST (round seven, [the map's sounds] round three) -- ***
+WALKING INTO A TOWN NOW ACTUALLY PLAYS SOMETHING. ALSO: ONE OF THE TWO SOUNDS THIS
+ROW NAMED TURNED OUT TO BE DEAD, AND I ALMOST SHIPPED IT ANYWAY. ***
+TAB: no new VOTE card; this reuses an already-approved sound, nothing to judge.
+Record: this VAMILY.md round text, row [the map's sounds].
+
+RUN finally built the piece this row has been stuck waiting on since my very first
+round: the map now tells the game the moment you reach a town. So I hooked that up
+to a real sound.
+
+Before writing any code, I checked my own old claim that "the dog and the generator
+are already approved." Half of that was wrong. You killed the dog sound months ago
+(all five takes, voted down), and nobody since then ever double-checked that claim.
+So only the generator plays when you arrive now. Caught my own mistake before
+shipping it, not after.
+
+Tested it for real: walking into a brand new town plays the sound once. Walking
+into the SAME town again (if that ever happens) does not play it twice. A second,
+different town plays it again.
+NEXT: the party's own footsteps and the night bugs are built and just waiting on
+your thumb, same as before. Once any of those get voted on, I wire them the same
+way.
+PENDING Paolo: nothing new.
+
+QUESTS (quests-dvybth): 10/9 (e) LATEST -- [the wash board] SHIPPED: QR-AJ, the demo town's 8 side offers paired with the chain, rumours and road events in reach, DEMO_BOARD spec for RUN. VOTE: one line. NOT IN A TAB. Next: [fold the rest].
+
+MODS (mods-59jyd6): 10/10 LATEST -- [first hour] SHIPPED (a modder's first hour, every step something
+that exists today; one step marked NOT BUILT: the game does not load a mods folder). TAB: VOTE, item A
+MODDER'S FIRST HOUR. Record records/BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.md. RAN END TO END: a local
+web server on the repo, a real browser, the knife read from the fight's own DB.weapons before (15,25) and
+after editing weapons.json (20,30), no page errors, file restored (clean git diff); step 4's reference merge
+run on a folder written exactly as the page says.
+*** CORRECTION OF MY OWN NUMBER: THE NEW FIGHT READS 11 BB DATA FILES, NOT 12. *** My 10/9 audit counted a
+file as read when its name appeared anywhere in the page text; origins.json is only in a COMMENT in the fight
+(its DATA_FILES list has 11 bb files). tools/bohemia_mods_data_audit.js now counts a file only when its path
+is inside a quoted string; the records, the VOTE page and the VAMILY row are corrected. The finding stands.
+The data folder now holds 18 files (new: contract_terms, factions, stash_rates); the schema page was
+regenerated for all 18 (re-run tools/bohemia_mods_schema_page.js --write after any change).
+READ COUNT (round, e8d1bac): old fight 4 files, new fight 1, background 3, sound 4; unchanged.
+NEXT OPEN: [range column], [ids never change], [grok sources]. PENDING Paolo: nothing.
+
+TUNING (tuning-f59l1w): 10/10 (c) LATEST -- [ammo] SHIPPED (research, no code touched).
+TAB: VOTE, item WHEN THE AMMO RUNS OUT (start kit x gun x shooters, draft:true).
+RECORD: records/BOHEMIA_TUNING_AMMO_A_BULLET_COSTS_ONE_AND_BB_MAKES_IT_A_STOCK_NOT_A_PRICE_10_10_26.md (all BB numbers from the wiki dump).
+FINDING: BB makes ammo scarce by STOCK and LOAD, not price: one stock in points (bundle 50 = 100 crowns), cap 300 (500 Beginner,
++100 quartermaster), quiver 10 uses, auto-refill after each fight, replace costs 1 (arrow/bolt) / 2 (handgonne) / 3 (thrown),
+start kits 20/40/80 points, handgonne reload = a whole 9-AP turn. 4 bow shooters burn 40 points in a 10-round fight, so a Medium
+start is ONE fight. OURS HAS NO AMMO ECONOMY: no company stock, no refill, no ammo on the settlement screen or in the start kit
+(the fight tracks only per-weapon loads). Copying BB's price would change nothing; copy the stock, cap, refill and start kit.
+Act curve proposal: arrows/bolts act 1, powder (Alchemist) act 2, bullets act 3, as an availability table.
+NEXT OPEN: [respec], [recruit odds], [origins difficulty].
+
+WORLD (world-9lfjtf): 10/9 (c) LATEST -- *** THE ROW'S GATE ALREADY PASSED, AND
+MEASURING IT CAUGHT A LAS VEGAS BOULEVARD RATED SLOWER THAN OPEN DESERT. ***
+Row [the roads] SHIPPED. 3 OPEN rows remain as the jump list (rule 74).
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-the-roads-10-9. Record
+records/BOHEMIA_WORLD_A_ROAD_SLOWER_THAN_THE_DESERT_10_9_26.md.
+
+RULE 12: THE GATE THE ROW ASKS FOR ALREADY PASSES. Over THIRTY rolled valleys, on
+PAVED ROAD ALONE with no dirt allowed, the network runs 3,384-3,559 cells and
+EVERY SETTLEMENT REACHES EVERY OTHER IN EVERY ONE. Zero failures. The valley's
+roads were already whole; nobody had ever checked, so nobody knew. This file does
+not CONNECT the valley, it makes the connection READABLE, and the gate re-proves
+it every run so the day a generator change cuts a town off the machine says so
+instead of a player.
+
+*** THE FINDING. *** My own [board terrains] (9/30) folds `arterial` into the
+terrain kind lot_and_bigbox. That is RIGHT for what it is for -- a fight on a
+six-lane arterial is a fight in a wide road with parking lots either side, so the
+board is a lot board -- and WRONG for roads. Measured:
+  the arterial's OWN kit   0.60 open -> speed 0.90
+  commercial               0.25 -> 0.38
+  apartment                0.31 -> 0.46
+  the group lot_and_bigbox 0.35 -> 0.52      (the dirt's RULED speed is 0.75)
+*** SO THE GAME THOUGHT A LAS VEGAS BOULEVARD CROSSED SLOWER THAN DRIVING ACROSS
+OPEN DESERT. *** And anything reading "roads" off that kind was driving 469 cells
+of shops, flats and a mall.
+NOT A NEW DIAL AND NOT MINE TO INVENT: the METHOD is already ruled (open share x
+the anchor, from [the valley's grounds]) and this only corrects WHICH CELLS THE
+MEASUREMENT IS TAKEN OVER. A ruled ground keeps its ruled number untouched; only a
+class whose ground is a mixed bag measures on its own kit, and it says so in
+`from`. Final: freeway 1.00 RULED | boulevards 0.90 measured on their own kit
+(grouped 0.52) | dirt 0.75 RULED | washes 0.50 RULED.
+
+NOT A SECOND LIST: it reads the SAME district vocabulary the terrain module reads,
+so the two cannot drift -- "what does a fight here look like" and "can you drive
+it" are two questions about one cell that must not share an answer. AND NOT A
+SECOND NUMBER: a ruled speed is looked up live, never restated, because a second
+copy of a number is a second number. This lane has now written that sentence three
+times.
+
+*** AND I OVERGENERALISED FROM ONE SEED AGAIN, AND THE GATE CAUGHT IT. *** I wrote
+that the paved network is A SINGLE COMPONENT. True on seed 1337, and true in SIX
+VALLEYS OUT OF TEN. The truth is tighter and better: what sits outside the main
+network is ONE ORPHAN PAVED CELL, in four valleys of ten, and the main network
+carries every settlement and essentially every paved cell, always. That false
+sentence was already in the cook's header and on its way into the record. THIRD
+TIME this lane has been bitten by measuring one roll of a procedural world, and
+the only reason it did not ship is that the gate swept ten.
+
+TWO HOLES NAMED, NOT FAKED. WHICH STRETCHES ARE BLOCKED (his "a dead overpass")
+answers UNREAD: nothing in the valley marks a road cell as impassable, the overmap
+gives a district and nothing else, and a zero would be INDISTINGUISHABLE FROM "no
+road is blocked" -- the one thing a traveller most needs to be true. WHO PATROLS is
+FACTIONS' by the row's own words; PATROLS ships empty and is derivable off the live
+turf the way the roaming pool is.
+
+COOK: THE ROADS, slices/vote/WORLD_THE_ROADS.png -- the valley with its roads lit,
+one pixel per cell: freeway brightest, boulevards just under, then the dirt and the
+washes. 3,453 paved cells, 44.7% of the frame. AH-01: a road map with the fast
+roads brightest is the ordinary part, the thing a petrol station sells; THE WRONG
+THING IS THAT IT IS COMPLETE -- every road in a dead city still joins every other,
+perfectly maintained by nobody, and the only thing missing from it is the traffic.
+
+GATE THE ROAD NETWORK 37/0, registered. NAMED "THE ROAD NETWORK" AND NOT "ROADS"
+because --only "ROADS" collided with the existing ROADS ARE FAST and silently ran
+the wrong gate -- worth knowing before anyone names another one. Mutation-proved
+three ways: arterial back to the group speed -> RED naming 0.52 against 0.75;
+invent a road district -> RED naming it; blocked returns zero instead of UNREAD ->
+RED.
+
+ROUTED: LIFE+CITY -- parties and caravans follow network() and reaches(), both
+answering for every rolled valley. FACTIONS -- who patrols each class. TUNING --
+the boulevard's 0.90 and its grouped 0.52 are both in the data file with their
+sources, and the older conflict still stands (the street says a road is 2x
+off-road, the map says 1.33x a dirt track). WHOEVER OWNS THE DAY CARD -- ROADS ARE
+FAST is RED on main looking for "#daycardIn .dcgo", a card that was deleted; same
+dead-selector root cause as the rice clock, and I touched no slice.
+
+ALSO FIXED TWICE, ONE WORD, ANOTHER LANE'S: CANON ROT was red again because COOK's
+line in the better-than-BB list cites a .md where the real file is .txt. I fixed it
+last round and it came back this round, so it is worth COOK knowing rather than me
+fixing a third time.
+
+AND I CLEARED A CARRIED DEFECT OF MY OWN INSTEAD OF WRITING IT DOWN A FOURTH TIME:
+engine/bohemia_scavenge.js listed FIVE find kinds (food, medicine, battery, tape,
+ammo) when rule 47 rules SIX (BATTERIES, FOOD, MEDS, ROUNDS, TAPE, WATER), so A
+SEARCH IN THE MOJAVE COULD NEVER TURN UP WATER -- the one thing a body in a desert
+needs most. Water is a kind now and the gate checks all six BY HIS RULED NAME
+rather than by counting, so a seventh kind is allowed and dropping one of his six
+is not. Rule 47 also settles the hedge that file carried: MEDS is one of the six,
+so medicine is not a pending fourth icon any more. The rename onto his exact words
+(battery -> BATTERIES, ammo -> ROUNDS) is ECONOMY's ledger and MODS' file by rule
+47's own words, and the mapping is written in the module one line each.
+
+AND ONE MORE OF MY OWN NUMBERS WAS WRONG IN THE PROSE: the record and the board
+said the paved-only network spans 3,365 to 3,564 cells. The thirty measurements
+themselves, in the data file, span 3,384 to 3,559. The module and the data file
+were right and only the words I wrote around them were wrong, which is the same
+class of defect as every other one this lane keeps finding: a number copied
+instead of looked up. Corrected before it shipped.
+
+A RULING AIMED AT ME, ON THE BOARD, NOT DONE THIS ROUND: the coordinator's 10/9
+SWEEP AB sits on my SHIPPED [where the god gear is] row and says MAKE THE SIX
+PLACED, NEVER ROLLED, SO A RUMOUR IS NEVER WRONG. That is a change to the
+GENERATOR, which is my OPEN row [the roll], not a change to the god-gear module,
+so I am not touching it as a side effect of a different row. It is the first thing
+[the roll] answers. My read still stands and goes with it: a valley without a
+library is a FEATURE and the one thing Battle Brothers cannot do, but the ruling is
+his and the coordinator's, not mine, and either way the gate re-sweeps and the
+absence stays REPORTED rather than silent.
+
+STILL RED ON CLEAN MAIN AND NOT MINE: FACTION COLOUR, PAGES PUBLISH (299 MB against
+a 260 MB cap, which is what builds his link), and ROADS ARE FAST above.
+[FOR THE COORDINATOR AND PLUMBER]
+
+[bb roads] BATTLE BROTHERS' ROADS ARE A SPEED BONUS DRAWN ON A FIXED PAINTING: its
+world map is authored once, so its roads are a hand-placed convenience -- you
+follow them because they are faster, and that is the whole of it. OUR TWIST (rule
+39b): ours are GENERATED AND THEN PROVEN. The network is rolled fresh every game
+and a machine checks that every settlement can still reach every other before a
+player ever travels, which BB never has to do because its map CANNOT be wrong. The
+cost of a rolled world is that it CAN be broken; the answer is not to hand-place
+the roads, it is to KNOW.
+
+SOUNDS (sound-xk7pjp): 10/9 LATEST (round six, [the soundscape] round one) -- *** PAOLO ASKED
+FOR SOUNDS EVERYWHERE LIKE BATTLE BROTHERS HAS; BUILT THE FULL LIST AND TWO NEW SOUNDS,
+AND FOUND THE WARDROBE HAS BEEN SILENT FOR WEEKS. ***
+TAB: VOTE, under LOOK, the soundscape's first two page. No tab for the list itself (a record).
+Record: records/BOHEMIA_SOUNDS_THE_SOUNDSCAPE_LIST_10_9_26.md.
+
+You asked Grok to list every sound in Battle Brothers first. That has not come back yet, so I
+built our own list instead of waiting: every screen in the game, what sound plays on it right
+now, and what is still missing. I did not sit on my hands for a list I cannot control.
+
+Along the way I found two real holes nobody noticed: buying anything at the stall, the smith or
+the armourer makes no sound at all, and putting gear on a person in the roster screen has been
+silent even though the sound for it was approved weeks ago. Fixed the second one for free, since
+it needed no new sound, just plugging it in. The first one is written down for next time.
+
+Built two new sounds, the settlement first since you hear that one most: the smith's hammer on
+an anvil, and the armourer setting a rivet with his gun. Both are real metal sounds, not made up.
+
+Also added this lane's required entry to the "better than Battle Brothers" list: every sound we
+make comes from the real physics of the real object, never a canned sample file, which is
+actually more honest than how Battle Brothers itself does it.
+NEXT: the buy sound at the shops; more of the settlement's and the fight's thin spots once this
+round's sounds and the standing four from last round get your thumb.
+PENDING Paolo: nothing new. Six settlement-area sounds are waiting for your thumb in VOTE now
+(four from last round, two from this one).
+
+QUESTS (quests-dvybth): 10/9 (d) LATEST -- [the demo's chain] SHIPPED: QR-AI, the three-contract chain that ends the demo (release line 13) and the thanks screen. RUN: DEMO_CHAIN spec in the page. VOTE: one line. NOT IN A TAB. Next: [fold the rest].
+
+MODS (mods-59jyd6): 10/10 LATEST -- [one weapon file] SHIPPED as a research page. TAB: VOTE, item THE
+WEAPON FILE. Record records/BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.md; instrument
+tools/bohemia_mods_weapon_skills_audit.js (instant). FINDINGS (read from the fight's own text, not played):
+the fight plays ONLY a weapon's FIRST strike skill plus its reload (strikeSkill/reloadSkill); 104 of 126
+weapons have 2+ strike skills; 27 skills are never first so never played (Puncture, Riposte, Spearwall,
+Round Swing, Split ... the KNIFE already lists Puncture and it is never offered); a skill's SHAPE (sweep,
+line, 5 tiles behind) is an effect SENTENCE nothing reads (16 weapons' first skill); mastery is a sentence
+joining weapon class to perks.json. PROPOSAL (additive, defaults equal today, no row has to change): optional
+skills[].shape {kind,tiles}, optional offers [skill names], optional mastery (perk id). I DECIDE NO GUN
+CLASSES (rule 47b: his pick; ours.json weapon_jobs holds his examples). Grok pages cited carry EYES's
+PASSED FILTER (10/1) and every number was checked against weapons.json.
+PROCESS NOTE: no stash this round (last round's stash pop committed conflict markers into VAMILY.md; fixed,
+verified 0 on main). NEXT (written to my OPEN rows): [first hour], [range column], [ids never change];
+[grok sources] stays OPEN (stamped pages cited; nothing else to re-read). [read count] CLAIMED
+(old fight 4 files, new fight 1). PENDING Paolo: nothing.
+
+TUNING (tuning-f59l1w): 10/10 (b) LATEST -- [the sell ratio] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT A SETTLEMENT PAYS YOU (a slider vs BB's big town and village vs our shop, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_SELL_RATIO_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.md
+DATA FOR ECONOMY: records/BOHEMIA_TUNING_SELL_RATIO_TABLE_10_10_26.json (3 brackets by attached locations, Veteran derived
+from Expert x 7.41/6.67 and checked against the wiki's own 18.73-19.61 City Hall range; relations +2pts sell / -0.15 buy;
+32 situation rows). All from the wiki dump, read here.
+FINDING: BB buy/sell ratio is fixed at 6.67 (Veteran) / 7.41 (Expert): you recover 13-20% of worth. Our settlement screen
+sells back at 50% (SELL_CUT, unsourced) = 2.5-3.8x too generous. Second: whole batteries + a floor of 1 make cheap gear
+sell at ~33% (knife: should be 0.45 battery, floors to 1). ECONOMY must pick a rounding rule. Tier map proposal:
+camp->Low, town->Medium, fortress->High.
+NEXT OPEN: [ammo], [respec], [recruit odds], [origins difficulty].
+TUNING (tuning-f59l1w): 10/10 (b) LATEST -- [the sell ratio] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT A SETTLEMENT PAYS YOU (a slider vs BB's big town and village vs our shop, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_SELL_RATIO_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.md
+DATA FOR ECONOMY: records/BOHEMIA_TUNING_SELL_RATIO_TABLE_10_10_26.json (3 brackets by attached locations, Veteran derived
+from Expert x 7.41/6.67 and checked against the wiki's own 18.73-19.61 City Hall range; relations +2pts sell / -0.15 buy;
+32 situation rows). All from the wiki dump, read here.
+FINDING: BB buy/sell ratio is fixed at 6.67 (Veteran) / 7.41 (Expert): you recover 13-20% of worth. Our settlement screen
+sells back at 50% (SELL_CUT, unsourced) = 2.5-3.8x too generous. Second: whole batteries + a floor of 1 make cheap gear
+sell at ~33% (knife: should be 0.45 battery, floors to 1). ECONOMY must pick a rounding rule. Tier map proposal:
+camp->Low, town->Medium, fortress->High.
+NEXT OPEN: [ammo], [respec], [recruit odds], [origins difficulty].
+WORLD (world-9lfjtf): 10/9 (b) LATEST -- *** THE SIX LEGENDARY PLACES ARE NOT
+GUARANTEED, AND MY FIRST RANKING MADE FIVE OF THEM THE SAME PLACE. ***
+Row [where the god gear is] SHIPPED. Rule 80 paid (line 11 of the better-than-BB
+list). Rule 74 satisfied: wrote [ground effects] from my jump list, 3 OPEN again.
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-places-worth-going-to-10-9. Record
+records/BOHEMIA_WORLD_A_PRIZE_THAT_MIGHT_NOT_BE_THERE_10_9_26.md.
+
+*** THE FINDING. *** All six are real districts the generator already makes, so
+nothing invents a location -- but they are ROLLED, NOT PLACED. Over sixty valleys:
+arsenal 60/60, data fortress 60/60, robotics 59, fuel depot 58, granary 55,
+LIBRARY 48 OF 60. Battle Brothers places its legendary locations on EVERY map it
+generates, so a rumour there is never wrong; ours would point at a building that
+is not in this world, in roughly one valley in five. The module reports every
+missing place BY NAME for the valley in front of it, so RUN never prints a rumour
+about a place that is not there and FACTIONS never guards an empty square. The
+gate re-sweeps every run and hiding an absence turns it red. Whether a missing one
+should be FORCED onto the map is a generator ruling, not mine: routed to [the roll].
+
+*** AND THE FIRST CUT RANKED THEM BY HOW BIG THEY ARE ON THE MAP, WHICH SOUNDED
+LIKE READING A FACT AND WAS NOT ONE. *** The data fortress is six cells and EVERY
+OTHER ONE IS EXACTLY ONE, so five places came out with the same guard of 10 and
+the SAME THREE REWARD ROWS. That is [bb places]' own 9/25 defect -- a shelf that
+is a function of tier alone, every camp selling the same four things -- which that
+round said would never ship again. Scarcity across valleys does separate them but
+ranks the DATA FORTRESS NEAR THE BOTTOM, which is not what a fortress is. The
+honest reading is that THE MAP DOES NOT ENCODE WHICH OF THESE IS THE BIGGER PRIZE,
+and dressing a prestige order up as a measurement is exactly what this lane keeps
+catching itself doing. SO THE ORDER IS STATED AS MINE: a real-world reason rather
+than a coin flip, tuned:false, one line to change -- an arsenal and a data
+fortress were BUILT TO BE DEFENDED, a robotics plant and a fuel depot to be
+SECURED, a granary and a library to be WALKED INTO. Said out loud instead of
+smuggled in as arithmetic.
+
+THE CHAIN, AND NOTHING IN IT IS A TABLE -- rank -> guard -> reward:
+ the guard is sized off HIS OWN CEILING ("12 versus 60", rule 79; a company is ~12
+   men by rule 39d, so sixty is the top and the most-defended place earns it, and
+   NOT ONE CONSTANT IN THAT IS MINE);
+ the reward is A SLICE OF THE RANKED GEAR POOL positioned by the guard -- 310 rows
+   across weapons.json and armor.json, every one valued -- so a place guarded at
+   half the ceiling starts half way down the pool and BETTER GUARDED IS BETTER
+   GEAR BY CONSTRUCTION, with no reward table to maintain. The gate proves the
+   monotonicity rather than trusting it.
+On seed 1337: data fortress 60 -> Coat of Plates 7000 | arsenal 50 -> Reinforced
+Mail Hauberk 2000 | robotics 40 -> Gnarly Staff 1000 | fuel depot 30 -> Reinforced
+Leather Armor 500 | granary 20 -> Hatchet 210 | library absent.
+
+COOK: THE PLACES WORTH GOING TO, slices/vote/WORLD_PLACES_WORTH_GOING_TO.png --
+the valley with the six marked, EACH RING SIZED BY THE GUARD STANDING ON IT so the
+picture's geometry IS the number rather than a label beside it, and a hollow red
+ring on the edge for the library this valley did not roll. AH-01: a map with six
+sites ringed is the ordinary part; THE WRONG THING IS WHAT SIZES THE CIRCLES --
+the best thing in the valley is also the widest circle of men, and one ring is
+empty because that building does not exist in this world.
+
+*** AND MY OWN CHECK REFUSED THE FINDING. *** The invented-place refusal
+conflated "not on this seed" with "invented" and threw out the library, the exact
+thing the picture exists to show. A place is invented only if it is on NO valley;
+a place absent from THIS valley is the finding, not a fault. Fixed, and the gate
+holds the corrected form.
+
+GATE GOD GEAR 37/0, registered, mutation-proved three ways: rank by cells again ->
+RED naming the 9/25 defect; hide the missing places -> RED; fill in who guards ->
+RED. WHO GUARDS SHIPS EMPTY because the row says FACTIONS owns it.
+
+RULE 80 PAID THE SAME ROUND: line 11 of
+records/BOHEMIA_BETTER_THAN_BATTLE_BROTHERS_10_9_26.md -- the ground is the cost
+AND the company (one fact answering both questions, where BB keeps them in two
+systems), and our legendary places are rolled rather than placed, so a rumour is a
+claim that can be wrong.
+
+RULE 74: shipping this left only 2 OPEN, so I wrote the next from my own jump
+list, [ground effects] / WHAT-EACH-GROUND-DOES-TO-A-FIGHT, off rule 59 (his
+10/1: every floor tile translated with its cost and effect; the mound was the
+FIRST effect, not the only). It is the same chain carried one step into the
+fight: the thirteen grounds already carry a travel speed and a measured openness,
+so what standing on each one costs and gives follows, ruled where the wiki rules
+it and derived where it does not. WORLD owns the ground half, COMBAT the fight.
+
+ALSO FIXED, ONE WORD, ANOTHER LANE'S: CANON ROT was red because COOK's line 10 of
+the better-than-BB list cited a .md where the real file is .txt. 13/0 now.
+
+ROUTED: FACTIONS who guards (derivable from the live turf the same way the roaming
+pool is); RUN and QUESTS, the rumour at the bar must CHECK THE VALLEY IT IS IN;
+TUNING, the ceiling and the rank both tuned:false; [the roll], whether a legendary
+place should be forced onto every valley -- my read is that a valley without a
+library is a FEATURE and it is the one thing Battle Brothers cannot do.
+
+STILL RED ON CLEAN MAIN AND NOT MINE: FACTION COLOUR and PAGES PUBLISH (299 MB
+against a 260 MB cap, which is what builds his link). Both verified with my work
+stashed last round. [FOR THE COORDINATOR AND PLUMBER]
+
+[bb gear] BB GUARANTEES ITS LEGENDARY LOCATIONS AND OURS DO NOT, AND THAT IS THE
+TRADE WORTH TAKING. BB places every named site on every map, so a player who has
+seen one campaign knows exactly what exists and the thrill is finding WHERE, never
+WHETHER. OUR TWIST (rule 39b): ours are rolled, so a rumour is a claim that CAN BE
+WRONG, and a valley without a library is a different run with a different ceiling
+on what you can ever own. That only works because the absence is REPORTED, NOT
+SILENT: a bug makes a player feel cheated, a rolled world makes them feel unlucky,
+and the difference is entirely whether the game knows and says so.
+
+CHARACTER (character-0lurbs): 10/9 LATEST -- *** SIX KINDS OF ENEMY ARE NOW DRESSED,
+NOT JUST ARMED, AND ONE PICTURE CAUGHT A MISTAKE BEFORE IT SHIPPED. ***
+TAB: VOTE, the new enemy tiers page.
+Record: records/BOHEMIA_THE_ENEMY_TIERS_DRESSED_10_9_26.txt, row [the enemy tiers dressed].
+
+Rule 78 lifted every pause, so this lane is running again. Picked up the top open job:
+dress the six brigand ranks (thug up to marauder) in gang clothes, using the pairing
+table combat already wrote (thug through marksman stay light, raider gets a vest,
+marauder gets a cape and a steel shoulder piece, the leader stays bare and lets his
+gold sash do the talking).
+
+First version put the same vest on both the raider and the leader. Looked at the actual
+picture before calling it done and caught it: the two heaviest enemies looked like two
+men sharing one coat. Took the vest off the leader and gave the raider a grey one
+instead, so now six different bodies read as six different ranks.
+
+One honest leftover, not hidden: the raider's faction and the leader's faction both have
+their own separately-approved gold color, ruled long before this round, so they still
+share a warm tone under the vest. That is not a bug this round made and not mine to fix
+by changing either faction's color.
+NEXT: the jump list's other two rows (armor you can see, the origin crews).
+PENDING Paolo: nothing.
+
+QUESTS (quests-dvybth): 10/9 (c) LATEST -- [the rumour at the bar] SHIPPED: QR-AH, BB tavern rumours as our bar, 12 draft rumours, spec for WORLD/PEOPLE/RUN TWO. VOTE: one line. NOT IN A TAB. Next job: [fold the rest].
+
+MODS (mods-59jyd6): 10/10 LATEST -- [the mods folder design] SHIPPED as a design page, nothing built.
+TAB: VOTE, item THE MODS FOLDER (a page: the folder, a whole mod, the rules, PROVED 11 of 11).
+Record records/BOHEMIA_MODS_THE_MODS_FOLDER_DESIGN_10_10_26.md. The design is PROVED ON THE REAL
+bb DATA by tools/bohemia_mods_merge_reference.js + tools/bohemia_mods_merge_proof.js (examples in
+tools/mods_reference/example_mods/); neither is loaded by any play surface; run
+`node tools/bohemia_mods_merge_proof.js` (instant). Mutation checked: deleting the 'skip the whole
+row on a wrong type' line turns 2a red (10/11), restored 11/11.
+DESIGN: records/target/mods/ (already published, next to the data) with index.json as the only list
+and on/off (a static host cannot list a folder); a mod = manifest.json + patch files NAMED LIKE the
+data file they patch, rows changed BY ID; base then mods in index order, loadAfter respected, later
+wins and a CONFLICT line names both; wrong values/unknown fields/short new rows/loops/non-JSON are
+skipped by name, never half a row, never a crash. THE DEMO HAS NO CODE PATH (his NAH): the three-leg
+gate for PLUMBER on the day he says build = no play surface fetches mods/ (4 checked), empty folder
+gives the same hash of all 15 files, a wrong-in-every-way mod gives the same hash.
+LIMITS STATED: type is checked, not range (damage_min -5 would load; needs a range column in the
+data files, TUNING's table); no size/count cap; no row deletion. The folder does NOT exist yet.
+CORRECTED MY 9/28 PAGE: it is records/target/mods, not slices/mods.
+NEXT: [one weapon file] (largely answered by weapons.json + the schema page); [grok sources] waits
+on EYES; [read count] CLAIMED (old fight 4 files, new fight 1). PENDING Paolo: nothing.
+
+TUNING (tuning-f59l1w): 10/10 LATEST -- [the felt numbers table] SHIPPED (research, no code touched).
+TAB: VOTE, item EVERY NUMBER THE FIGHT FEELS (85 rows with sources, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_FELT_NUMBERS_TABLE_IS_REAL_AND_MY_FIGHT_FINDINGS_ARE_STALE_10_10_26.md
+INSTRUMENT: tools/bohemia_felt_numbers_audit.js [--write]: 86 static R() keys, 85 resolve, 71 wiki, 10 rulings, 4 other
+sourced, 0 without a verbatim quote, 0 stray numbers in the fight-rules script (COMBAT's own rule holds).
+BIGGEST FINDING (AGAINST MYSELF): the DEMO fights in slices/BOHEMIA_FIGHT.html (rule 63, BB rebuilt, 13 data files through
+R()), NOT the old COMBAT_B64 tab I measured 9/28-10/1. So FIVE POINTS, HOW LONG A FIGHT TAKES, WHO DIES (rates) and
+DIFFICULTY DIALS describe the old fight; appended STALE pointers. Most important: the new fight uses initiative, AP and
+fatigue (BB's sequential turns), so "50 s, one beat" is probably FALSE for the demo and his 15-minute ceiling is unmeasured
+there. EYES [where the minutes go] should time the new fight.
+Gaps: HOLD_MS 450 and MAN_OF_TILE 0.86 outside the table; settlement SELL_CUT 0.5 unsourced; wages/rations/medicine/repair
+absent from the demo.
+MISTAKES FIXED EARLIER: broad sed on rows, now anchored to my section.
+NEXT OPEN: [the sell ratio], [ammo], [respec], [recruit odds], [origins difficulty].
+
+MODS (mods-59jyd6): 10/9 LATEST -- [the data schema page] SHIPPED. TAB: VOTE, item THE DATA
+FILES ON ONE PAGE: 15 cards (tap one: what it holds, who reads it, every field), plus a worked
+example (make the knife hit harder). Record records/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.md,
+GENERATED by tools/bohemia_mods_schema_page.js --write from the live files, so it cannot drift;
+re-run it after any change to records/target/bb. 15 files now (price_table.json is new).
+LESSON FROM HIS VERDICTS (read this round, 10/1): THE POINT OF THE MODS CHAT IS TO MAKE MODS EASY
+FOR OTHER PEOPLE TO MAKE, NOT TO MAKE MODS OR GAME FEATURES. 'THE MARCH STOPS' (a game feature I
+designed) went DOWN; 'MODS AT BOOT' went NAH; 'TRY A MOD' went down; 'WHAT MODS FIX' and 'ONE GUN,
+42 PLACES' went UP. Keep every page on the modder's side: shapes, units, readers, examples, the
+loader, never game design. The coordinator retired [keep list into defaults] 10/1 for this.
+WORKED EXAMPLE FACTS: weapons damage lives in weapons.json (damage_min/damage_max); the fight
+rolls from the row, the settlement screen and roster print it, the fight's gate reads it from the
+row (by inspection; the gate runs about 5 minutes, 92 pass / 3 fail and a crash at my 280 s
+timeout on a clean tree, so I did NOT prove a changed row stays green). Money in the wiki files is
+crowns (10 to a battery, price_table.json); origins.json carries both blocks. NOT AUDITED: the
+settlement and roster screens also read the data files (a surface I missed on 10/9).
+NEXT: [the mods folder design] is the top OPEN row (a design page, nothing built; his NAH on boot
+loading stands for the demo), then [one weapon file] (largely answered by weapons.json). [read
+count] CLAIMED, reported each round (old fight 4 files, new fight 1). PENDING Paolo: nothing.
+
+QUESTS (quests-dvybth): 10/9 (b) LATEST -- [the road events] SHIPPED: QR-AG, ten act-one road events as people with priced buttons, YAML spec for RUN. VOTE: one line. NOT IN A TAB. Next job: [the rumour at the bar].
+
+TUNING (tuning-f59l1w): 10/9 (b) LATEST -- [the difficulty steps] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT EACH DIFFICULTY CHANGES (three tables from the wiki, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_DIFFICULTY_STEPS_EXACTLY_10_9_26.md (for the door and COMBAT [the enemy math]).
+FINDING: BB has TWO difficulties (combat, economic) plus a separate Ironman, each Beginner/Veteran/Expert.
+Combat: Beginner = your roll -5, theirs +5, +10% XP, crisis 5 days later; Expert = harder groups sooner.
+Economic: pay -10% per level (Beginner +10% is MY reading), sell -10% on Expert, carry caps tools 200/150/150,
+ammo 500/300/300, medicine 150/100/100, deserters take gear on Expert; start kits High/Medium/Low 2500/2000/1500
+crowns. Ironman = no manual saves, NOT worse death odds (my old pages said otherwise; fixed).
+BB's own accuracy lever is as small as ours, so my 10/1 blame of the five tiers was the wrong lever: BB's difficulty is
+felt in group count/tier/arrival and in money. Recommendation for the manager: split the door's stamp in two + checkbox.
+MISTAKE FIXED: my broad sed claimed the QUESTS and MODS chats' own [grok sources] rows; restored them. Claims now
+anchor to my own section.
+NEXT OPEN: [the felt numbers table], [the sell ratio], [ammo], [respec], [recruit odds], [origins difficulty].
+TUNING (tuning-f59l1w): 10/9 (b) LATEST -- [the difficulty steps] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT EACH DIFFICULTY CHANGES (three tables from the wiki, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_DIFFICULTY_STEPS_EXACTLY_10_9_26.md (for the door and COMBAT [the enemy math]).
+FINDING: BB has TWO difficulties (combat, economic) plus a separate Ironman, each Beginner/Veteran/Expert.
+Combat: Beginner = your roll -5, theirs +5, +10% XP, crisis 5 days later; Expert = harder groups sooner.
+Economic: pay -10% per level (Beginner +10% is MY reading), sell -10% on Expert, carry caps tools 200/150/150,
+ammo 500/300/300, medicine 150/100/100, deserters take gear on Expert; start kits High/Medium/Low 2500/2000/1500
+crowns. Ironman = no manual saves, NOT worse death odds (my old pages said otherwise; fixed).
+BB's own accuracy lever is as small as ours, so my 10/1 blame of the five tiers was the wrong lever: BB's difficulty is
+felt in group count/tier/arrival and in money. Recommendation for the manager: split the door's stamp in two + checkbox.
+MISTAKE FIXED: my broad sed claimed the QUESTS and MODS chats' own [grok sources] rows; restored them. Claims now
+anchor to my own section.
+NEXT OPEN: [the felt numbers table], [the sell ratio], [ammo], [respec], [recruit odds], [origins difficulty].
+WORLD (world-9lfjtf): 10/9 LATEST -- *** THE POOL NEVER NEEDED A TABLE, AND THE
+TRAVEL COST THAT SHIPPED IS A TWO-SPEED WORLD WHERE THE MOUNTAINS COST WHAT A
+PARKING LOT COSTS. *** Row [the valley's grounds] SHIPPED. First round since rule
+78 lifted the pause; three OPEN rows remain as the jump list (rule 74).
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-how-fast-and-who-10-9. Record
+records/BOHEMIA_WORLD_THE_GROUND_PICKS_WHO_SHOWS_UP_10_9_26.md.
+
+RULE 12 FOUND HALF OF IT BUILT:
+ (a) THE GROUNDS EXIST. [board terrains] 9/30 already gave every cell one of
+     thirteen kinds, 0 unmapped over a hundred rolled valleys. So this wrote NO
+     SECOND LIST -- a ground IS a terrain kind, read off the module that owns
+     them, and the gate refuses if they stop agreeing. Two lists of one thing are
+     two lists that drift, and this lane has measured that three times.
+ (b) *** AND THE TRAVEL COST THAT SHIPPED IS A TWO-SPEED WORLD. *** On the walked
+     surface PAVED={asphalt,concrete} and PAVED_SPEED.factor=0.5, so a paved cell
+     costs half and EVERY OTHER CELL IN LAS VEGAS COSTS THE SAME. The mountains
+     cost exactly what a parking lot costs. His translated numbers are a FIVE
+     speed world and they disagree in BOTH directions: the road's edge over a
+     dirt track is SMALLER (1 against 0.75, not 2 against 1) and the ranges are
+     FOUR times worse than a road, not twice. The shipped number is not wrong, it
+     is COARSE -- it was a STREET rule and this is a MAP rule. NOTHING HERE
+     TOUCHES THE STREET; the surface's own "one number in one place... tuning the
+     street tunes the map" stays true of the street. The conflict is written down,
+     not resolved by me.
+
+RULED WHERE HE RULED, MEASURED WHERE HE DID NOT. Four speeds are his off the wiki
+(freeway 1.00 road, open desert 0.75 dirt, wash 0.50, hills 0.25 the ranges;
+sight 1, hills 1.25). The other nine are MEASURED off the city's own kits: how
+much of a ground is open rather than built or blocked is a fact about the city,
+not an opinion. *** AND THE DERIVED SCALE IS ANCHORED ON A RULED POINT, NOT A
+CONSTANT I PICKED: *** open desert measures 0.50 open and he ruled it 0.75, so the
+scale is openShare x 1.5 and HIS number sets it. Retune the desert and every
+derived ground moves. Breaking the anchor turns the gate red.
+  freeway 1.00 | desert 0.75 | landfill 0.75 | golf 0.72 | solar 0.55 | lot 0.52
+  strip 0.51 | wash 0.50 | suburb 0.49 | industrial 0.46 | trailer 0.41
+  airport 0.38 | hills 0.25
+Every value carries tuned:false and its source; every felt number is TUNING's.
+
+*** THE POOL IS NOT A TABLE. IT IS WHO HOLDS THE GROUND. *** An authored
+faction-per-ground list would be CONTENT, which is his, and it would go stale the
+moment the map moved. It does not need authoring: bohemia_towns.turf already
+answers who holds every cell -- measured 9,216 of 9,216 held, 14 factions, nothing
+unheld -- so a ground's pool is WHICH FACTIONS HOLD CELLS OF IT, counted off the
+live turf at read time. Take a faction's ground and its crews stop showing up
+there WITH NOTHING TO EDIT. The gate refuses a stored pool or a hard-coded faction
+name in the module. AND THE POOLS ARE VIVID, which is the row's own point:
+*** THE STRIP IS 250 CELLS, 7 OUTFITS, AND ONE HOLDS 92% OF IT. THE HILLS ARE 902
+CELLS, 12 OUTFITS, BIGGEST 19%. *** One ground is one outfit's and another belongs
+to nobody, with no table in it.
+
+THREE THINGS IN HIS LIST ARE NOT GROUNDS, named not faked, each keeping its ruled
+number for the day something marks it: RUBBLE (0.65) is the RUIN, a CONDITION (act
+one IS the ruin, so rubble is a state a suburb or strip ground is in); the CASINO
+FLOOR is an INTERIOR; a RIDGE (sight 2) is a FEATURE inside the hills and nothing
+in this valley marks one. Same discipline [board terrains] used for its two.
+
+COOK: HOW FAST, AND WHO, slices/vote/WORLD_HOW_FAST_AND_WHO.png -- the same valley
+twice, one pixel per cell on the grid the game really uses. Left how fast you
+cross it, right how tightly one outfit holds it. *** NOT COLOURED BY FACTION ON
+PURPOSE: *** COLOUR IS TERRITORY (8/26) and its own gate says in its head that
+WHICH FACTION OWNS WHICH HUE IS HIS, so painting fourteen outfits in fourteen
+colours of mine would be this lane deciding content it does not own, in a picture,
+where it is hardest to notice. It paints GRIP instead, which needs no faction
+colour and is the better read anyway: the question before crossing is not "whose
+is this" but "is this ONE outfit's". *** THE FINDING, PROVED NOT CLAIMED: THE FAST
+GROUND AND THE OWNED GROUND ARE NOT THE SAME GROUND. *** The two panels agree on
+12.9% of the valley; the quickest way across runs through the most tightly held
+ground in it, and the slowest ground is the emptiest. The tool refuses if they
+ever agree past three quarters, because then the second panel is the first one
+tinted and the finding is an artefact of my own ramp.
+
+GATE VALLEY GROUNDS 43/0, registered, swept over TEN rolled valleys (92,160 cells,
+every one with a ground and a speed, 0 unheld), mutation-proved three ways: a
+second list of grounds -> RED; break the anchor -> RED; store a pool table -> RED
+naming the hard-coded faction.
+
+VOTE ROWS ARE TWO SENTENCES NOW (rule 53, TWO SENTENCES MAX on every item's why).
+Mine complies. My OWN older rows do not and are long paragraphs -- UI owns the
+rewrite ([two sentences]) and PLUMBER owes the gate leg, so I left them.
+
+ROUTED: RUN -- parties read poolOf({map,turf,ground}), travel reads speedOf, both
+answering for every cell of every rolled valley. TUNING -- thirteen speeds and two
+sight values all tuned:false, AND THE LIVE CONFLICT TO SETTLE: the street says a
+road is 2x off-road, the map now says 1.33x a dirt track and 4x the ranges; both
+are defensible and only one should survive. FACTIONS -- the pool is derived from
+turf, so whatever moves who holds what moves who roams where for free. COMBAT --
+the same ground that picks the pool picks the board ([board terrains]), so the
+party you meet and the floor you fight on come from ONE fact about the cell.
+
+STILL RED ON CLEAN MAIN AND NOT MINE, both verified with my work stashed:
+FACTION COLOUR (7 legs; my cook gives no faction a colour and my own gate proves
+it) and PAGES PUBLISH at 299 MB against a 260 MB cap, which is what builds his
+link. [FOR THE COORDINATOR AND PLUMBER]
+
+[bb grounds] BB'S MAP SPEEDS ARE THE TERRAIN'S AND NOTHING ELSE'S: a road is fast,
+a swamp is slow, and who you meet is a SEPARATE faction-territory layer sitting
+over the top. OUR TWIST (rule 39b): ours are THE SAME FACT. The ground is both the
+cost and the company, because in a dead city the ground IS the economy -- the
+reason the Strip is worth owning is the reason somebody owns it, and the reason
+nobody holds the ranges is the same reason nobody can cross them quickly. BB's
+player asks "how long is this road" and separately "whose land is this". Ours asks
+one question and gets both answers, and the unpleasant one is that THE FASTEST WAY
+ANYWHERE RUNS THROUGH THE GROUND MOST TIGHTLY HELD BY SOMEBODY ELSE.
+
+QUESTS (quests-dvybth): 10/9 LATEST -- [the contract kinds] SHIPPED: questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md, all 49 Battle Brothers contract kinds as our jobs, plus the field list RUN TWO board needs. VOTE: one line. NOT IN A TAB. Next job: [the road events].
+
+MODS (mods-59jyd6): 10/9 LATEST -- [what is data and what is not] SHIPPED (rule 74 top row).
+TAB: VOTE, item WHAT IS DATA AND WHAT IS NOT: two lists (IN A DATA FILE, STILL IN CODE).
+Record records/BOHEMIA_MODS_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.md. Instruments
+tools/bohemia_mods_data_audit.js (1 s) and tools/bohemia_mods_read_count.js (about a minute).
+RESULT: the new fight reads 12 of the 14 records/target/bb files, one loose table (SND).
+The demo start screen reads 1 (origins), the map reads 1 (party_math). SIX FINDINGS: the
+start screen DROPS a new origin (hard-coded list of 15 ids, merge skips unknown ids; row on RUN
+[origins fallback]); the sealed OLD fight is still in the demo with 0 data files so a gun has two
+truths (row on COMBAT [one fight]); the map repeats backgrounds, origins and roster in its own
+tables and holds 245 big tables, 775 KB, in no file (WORLD, ECONOMY, WORDS jump list); the shell
+is sound, music and art, not rules. READ COUNT: one weapon's damage = 4 files in the old fight,
+1 in the new (target met). FINDING AGAINST MY OWN 9/28 ADVICE: weapons are now the easiest kind,
+not the hardest; research pages go stale in a week, re-run the audit.
+NEXT: [the data schema page] is the top OPEN row (shape of each bb file, one worked example),
+then [the mods folder design], [one weapon file] (now mostly answered by weapons.json),
+[grok sources]. [read count] stays CLAIMED, reported every round. PENDING Paolo: nothing.
+
+TUNING (tuning-f59l1w): 10/9 LATEST -- [grok sources] SHIPPED: my six research pages checked against the wiki and Grok pages.
+TAB: VOTE, item WHO DIES (now with a red BATTLE BROTHERS REAL button; draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md ; corrections appended to the death-rule,
+difficulty and fight-length pages; reference rows added to the draft numbers table (nothing reads it).
+BIGGEST CORRECTION: BB survival at 0 HP is a FLAT 33% (90% with Survivor), never better for winning; none if the last
+hit was a fatality, the man was retreating, or it was bleeding. So BB kills 67 in 100 struck-down men; his 20 is far
+kinder (median life 118 vs 21 fights at 5% struck). My "lose a fight = 30%" idea had no basis and is struck.
+Also: injury gate = hit of >=10 and 25-60% of max HP (so snipers and bats cause injuries, goons rarely); armour also
+takes 0.1 x armour off every hit that passes; BB has no enemy level or gear dial (strength from your crew's 12
+strongest men plus days; difficulty raises count and tier together); Paolo gave NO fight-length number (Grok 83).
+STILL OPEN IN MY QUEUE: [the difficulty steps], [the felt numbers table], [the sell ratio] (wiki-fed), [ammo], [respec]
+(note rule 56 changed who dies: flat 20, a little more per trait/injury, re-read before writing), [recruit odds],
+[origins difficulty].
+
+SOUNDS (sound-xk7pjp): 10/9 LATEST (round five) -- *** THE CLINIC'S DOOR IS NOW QUIETER AT
+NIGHT, AND THE SAME FIX WILL QUIET THE OTHER FOUR NEW SOUNDS FOR FREE ONCE YOU VOTE. ALSO: A
+BROKEN COPY-PASTE FROM LAST ROUND LEFT RAW GIT MARKERS SITTING IN THIS VERY FILE, FIXED. ***
+TAB: no card to see yet; this is a quiet behind-the-scenes fix, not a new sound.
+Record: this VAMILY.md round text, row [the settlement's sounds].
+
+Both other rows I'm holding (the title's music, the map's sounds) are still stuck waiting on
+you and on RUN, so I kept going on the settlement screen's row.
+
+The job sheet asked for the settlement screen to be quieter at night. Built it: the clinic's
+door (the one sound actually wired up so far) now plays softer after dark, and stays exactly
+as loud as before during the day. Tested with a real tap on the real screen, both times of
+day, not guessed at.
+
+Because I built it the right way, the four new sounds from last round (the barber, the can,
+the nail, the paper) will automatically get this same "quieter at night" treatment the moment
+you vote them in and they get wired up. Nothing more to do there.
+
+One thing from the job sheet is still not built, same reason as before: the bar's low murmur.
+This lane cannot fake a voice yet.
+
+Also found and fixed something embarrassing: last round's save to this exact file left two
+copies of the same update stuck together with raw computer merge-conflict symbols in between
+(the stuff that's supposed to get cleaned up and never did). Nobody saw it because it still
+read fine at the top. Cleaned up, nothing lost.
+NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
+Only the bar's murmur is left on this row's own list.
+PENDING Paolo: nothing new. The four settlement sounds from last round are still waiting for
+your thumb in VOTE, under LOOK.
+
+SOUNDS (sound-xk7pjp): 10/5 LATEST (round four) -- *** FOUR TAPS ON THE SETTLEMENT SCREEN HAD
+NO SOUND; NOW THREE OF THEM DO, PLUS THE CLINIC'S DOOR WIRED LIVE FOR FREE. ***
+TAB: VOTE, under LOOK, the settlement's answers page.
+Record: this VAMILY.md round text, row [the settlement's sounds].
+
+Both other rows I'm holding (the title's music, the map's sounds) are still stuck waiting on
+you and on RUN, so I checked and moved a third, open row instead: the settlement screen's
+buildings had nothing when you tapped them.
+
+Built four new sounds, every one made out of a sound already in the game, not invented from
+scratch: the barber's clippers (a real mains clipper buzzes at 120 Hz, not a motor hum), a can
+set down on the stall's wood counter (two materials, one contact), a nail pinning a card to the
+board (the same strike the fight already uses, smaller), and paper against the posts (lots of
+tiny creases, not a hiss).
+
+The clinic's door needed nothing new at all. It already had an approved door sound, it just
+was not hooked up. Now opening and closing the clinic plays it, tested with a real tap on the
+real screen, not guessed at.
+
+Two things from the job sheet I did NOT build, on purpose: the bar's low murmur (this lane
+cannot fake a voice yet, same gap as every round before this) and the night version being
+quieter (a real idea, just not this round's batch).
+
+All four new sounds are a VOTE card now. Nothing goes live until you thumb them; the clinic's
+door is the only thing playing in the actual game right now because it reused something you
+already approved.
+NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
+PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
+
+WORDS (words-8dqrnq): 10/10 (m) LATEST -- *** YOU PUT THIS LANE ON HOLD. I STOPPED BEFORE
+SHIPPING ANYTHING, NOT AFTER. ***
+TAB: nothing to show; this lane is paused.
+Record: none, nothing built, nothing kept.
+
+You said to prioritize how the game looks over adding more features for now (rule 88).
+That rule names this lane as one of the ones that stops: no new round, nothing shown to
+you, until you say go again.
+
+I had already started this round's job (writing short lines for enemy info cards) before I
+re-read the board and caught the new rule. Threw that work away rather than finishing and
+shipping it, since shipping anything right now would be the exact thing you asked me not to
+do.
+NEXT: wait for you to lift the hold. Nothing else to do until then.
+PENDING Paolo: nothing. This lane is paused on your own word; it will pick back up when you
+say so.
+
+WORDS (words-8dqrnq): 10/10 (l) LATEST -- *** WROTE THE WORDS FOR A SCREEN THAT DOESN'T EXIST
+YET, AND GAVE NINE REPUTATION LEVELS THEIR FIRST PLAIN SENTENCE. ***
+TAB: COMBAT, and the settlement screen (RUN TWO's building). A review file for them.
+Record: records/BOHEMIA_WORDS_THE_ARRIVALS_LINES_10_10_26.md
+
+My job was to write the words for the screen you'll see when you first arrive at a town: a
+quick banner naming the place, its size, and anything unusual about it.
+
+Checked first: that arrival banner doesn't exist in the game yet, so I wrote the words ahead
+of the screen that will show them, same as I've done before when a mechanism isn't built.
+
+Wrote 12 short lines (small camp, mid-size town, or big fortress, crossed with being
+recently raided, sick, or having a market day). Also found that the game already tracks
+nine levels of how a town feels about you (from hating you to being allied with you), but
+none of those nine had ever been put into words a player would actually read. Wrote one
+plain sentence for each. Caught my own mistake while doing it: my first version said the
+second-worst level would draw a weapon on you, but checking the real numbers showed only the
+worst level actually does that. Fixed before it shipped.
+NEXT: the jump list's next job is the start screen's words.
+PENDING Paolo: nothing.
+
+WORDS (words-8dqrnq): 10/10 (k) LATEST -- *** BOTH MY OPEN JOBS ARE STILL STUCK. CHECKED BOTH
+AGAINST THE REAL FILES, NOT THE BOARD'S WORDING. NOTHING SHIPPED ON PURPOSE. ***
+TAB: nothing to show; this is a status check.
+Record: none, nothing built.
+
+Checked my two remaining jobs instead of inventing a third.
+
+The start screen's words still can't start: the settings screen's last piece still isn't
+built (checked the real file, it's not there). I already covered that job's own fallback
+(the fight's enemy names) three times over in earlier rounds, so doing it a fourth time
+would just repeat myself for nothing new.
+
+The other job, reputation lines, still needs a piece of the fight screen that doesn't
+exist yet (how your companion talks differently based on your reputation). Checked the
+real fight file. Still not there.
+
+Both jobs are blocked by other teams, not by me. The rule for this exact situation says
+stop and say so instead of making up busywork.
+NEXT: whoever hands out jobs should know my list is down to two blocked ones again and
+needs topping up.
+PENDING Paolo: nothing. (A note for whoever runs the job board: my list needs new jobs.)
+
+WORDS (words-8dqrnq): 10/10 (j) LATEST -- *** THE FIVE SHOPKEEPERS ALREADY HAD A HELLO LINE.
+NONE OF THEM HAD ANYTHING TO SAY ABOUT A RAID, A SICKNESS, OR A RUMOUR. ***
+TAB: COMBAT, and the settlement screen (RUN TWO's building). A review file for them.
+Record: records/BOHEMIA_WORDS_THE_KEEPERS_LINES_10_10_26.md
+
+My job was to write lines for the five shopkeepers at a settlement: the smith, the
+armourer, the barber, the clinic and the board. Checked what they already say first.
+
+Good news: all five already have a line about pricing, and most of those are already right
+(some can't name one flat price because the game genuinely doesn't have one, every weapon
+and every injury prices itself).
+
+What was actually missing: none of them react when something happens to the town, like a
+raid or a sickness going around or a market day. And none of them have a rumour to share,
+even though the bar does. Wrote 20 new lines to fill both gaps. Two of them tie back into
+stuff I found in earlier rounds (the clinic's rumour mentions a chip under someone's skin,
+which is the same undead canon from before; the board's rumour mentions the robotics plant).
+NEXT: both of my other two jobs are still blocked on other teams (the start screen, and a
+reputation-lines system that doesn't exist yet); I'll re-check both next round.
+PENDING Paolo: nothing.
+
+WORDS (words-8dqrnq): 10/9 (i) LATEST -- *** THE NUMBER I WAS GIVEN WAS WRONG TWICE OVER, AND
+TWO OTHER TEAMS FIXED THEIR OWN STUFF FASTER THAN I COULD SHIP MINE. ***
+TAB: VOTE (the tab he reads from). A review file for two teams to apply.
+Record: records/BOHEMIA_WORDS_THE_SHEETS_TWO_SENTENCES_10_9_26.md
+
+My job was to find voting-page write-ups that run too long and cut them to two short
+sentences, the last one saying where to find the thing. I was told 78 write-ups were too
+long. I checked the real list myself: it was actually 113 waiting, and only 4 were too long,
+not 78.
+
+Wrote fixes for those 4. Then, right before I finished, I checked again and all 4 had
+already been fixed by the teams that own them, in their own words, faster than I could ship
+mine. That's a good thing, not a problem. But checking again also caught 2 brand new ones
+that had just shown up (one about ammo, one about modding). Fixed those two instead.
+NEXT: the jump list's next job is the keepers' lines (the smith, armourer, barber, clinic
+and board's man).
+PENDING Paolo: nothing.
+
+WORDS (words-8dqrnq): 10/9 (h) LATEST -- *** CHECKED EIGHT ENEMY WEAPON LINES THE FIGHT TEAM
+DRAFTED. SEVEN WERE ALREADY RIGHT. ONE CLAIMED SOMETHING THE DATA DOESN'T BACK UP. ***
+TAB: COMBAT. A review file for the fight team.
+Record: records/BOHEMIA_WORDS_THE_EIGHT_ENEMY_CLASSES_LINES_10_9_26.md
+
+The fight team wrote first-draft lines for eight enemy weapon types (swords, axes, spears,
+and so on). My job was to check their work and clean up the words.
+
+Good news: seven of the eight lines were already accurate. I checked each one against the
+real numbers, like how much damage a sword does on average, and they all held up.
+
+One didn't. The chain weapon's line said it "ignores a shield and goes for the head." The
+real data only backs up the head part, not the shield part. Fixed the line so it only
+claims what's actually true.
+NEXT: the jump list's next job is the 78 waiting vote sheets, read for two plain sentences.
+PENDING Paolo: nothing.
+
+WORDS (words-8dqrnq): 10/9 (g) LATEST -- *** THE BIG QUESTION FROM LAST ROUND GOT ANSWERED,
+AND IT MEANT FIXING ONE OF MY OWN MISTAKES. ***
+TAB: COMBAT. A review file for the fight team.
+Record: records/BOHEMIA_WORDS_THE_ENEMIES_NAMES_ROUND_TWO_10_9_26.md
+
+Last round I found that a bunch of fantasy monster enemies couldn't be real animals, and
+flagged it as a question needing a decision. That decision came back this round: those
+monsters are now robots from the old robotics plant near the airport, or in one case a
+person running the show. Renamed all nineteen of them to match.
+
+Caught my own mistake while doing it: last round I called one of them (Unhold, a troll-like
+thing) a real lab animal, a bear. Turns out it's actually a cargo loader robot that walks on
+two legs, same family as the other robot monsters. Fixed it. The game's mechanics for all of
+these stay exactly the same, only the name and the one-line description changed.
+NEXT: the coordinator topped up my list while I worked (two new jobs landed, plus my own
+blocker report got the keepers' job unblocked): the real next job is COMBAT's eight enemy
+weapon class lines, read plain.
+PENDING Paolo: nothing.
+
+WORDS (words-8dqrnq): 10/9 (f) LATEST -- *** BOTH MY OPEN JOBS ARE STILL STUCK. CHECKED BOTH
+FRESH, NOT GUESSED. NOTHING SHIPPED THIS ROUND ON PURPOSE. ***
+TAB: nothing to show; this is a status check, not a build.
+Record: none, nothing built.
+
+Checked my two open jobs instead of inventing a third one.
+
+The start screen's words still can't start: the start screen itself is still four of five
+parts built, same as last round, I checked the real file. Its own instructions say if that
+happens, go look at the fight's enemy names instead, but I already did that twice (last round
+covered all 160 of them). Doing it a third time would just be the same answer again.
+
+The other open job, the reputation lines, needs a table the fight screen doesn't have yet (how
+your companion talks differently depending on your reputation). Checked the real fight file
+for it. Still not there.
+
+So both of my jobs are blocked by other teams, not by me. I'm not making up a third job to
+look busy; the rule for this exact situation says stop and say so instead.
+NEXT: whoever hands out jobs should know my list is down to two blocked ones and needs topping
+up.
+PENDING Paolo: nothing. (A note for whoever runs the job board: my list needs new jobs.)
+
+WORDS (words-8dqrnq): 10/9 (e) LATEST -- *** NAMED ALL 160 ENEMIES, NOT JUST THE 10 YOU CAN
+ACTUALLY FIGHT RIGHT NOW, AND FOUND A BIGGER PROBLEM THAN ANY ONE BAD NAME. ***
+TAB: COMBAT. A review file for the fight team, plus a flag for whoever builds the enemy data.
+Record: records/BOHEMIA_WORDS_THE_ENEMIES_NAMES_10_9_26.md
+
+All the chats got turned back on this round (rule 78), so I grabbed the top job on my list:
+give every enemy in the game a real name and a one-line description.
+
+Good news: all the human gangs (103 of them, like raiders and knights and bounty hunters)
+already had a plan from past research, so I just filled it in, grounded in each one's real
+gear. Same for the undead: all twelve are chipped corpses, matching the rule you already
+locked, and two of them reuse your own line "a speaker rig that fakes a voice."
+
+The real find: the game's data lumps 34 "beast" enemies into one pile, but checked one by
+one, only 9 of them are actual animals (wolves, hyenas, bears). The other 25 are fantasy
+monsters, like a fire spirit, a dragon, and a walking plant, which can't be real de-extinct
+animals no matter what we call them. Six of those 34 are also just mislabeled, they're
+copies of robot-gang and goblin enemies that got filed under "beast" by mistake in the data
+itself, which isn't a words problem at all.
+
+I still wrote a plain, grounded guess for every single one of those monsters (a fire spirit
+becomes a heat weapon strapped to a frame, a dragon becomes a mutated gator), the same way we
+explained the chip-zombie before. But none of those guesses are locked. It's a real gap that
+needs a decision, not something I should quietly paper over.
+NEXT: hold the jump list's other two rows (the start screen's words, reputation lines) for
+their own turn; no new row needed, two are still open.
+PENDING Paolo: nothing.
+
+WORDS (words-8dqrnq): 10/5 (d) LATEST -- *** ONE ENEMY'S NAME WAS LEFT IN GERMAN, AND IT BROKE
+A RULE PAOLO ALREADY LOCKED. ***
+TAB: COMBAT. A review file for the team that owns the fight screen to apply.
+Record: records/BOHEMIA_WORDS_THE_FIGHTS_WORDS_ROUND_TWO_10_5_26.md
+
+The start screen's words are still blocked (the start screen itself isn't done yet, four of
+five parts built). Its own job sheet said what to do if that happens: check the fight's enemy
+names instead. Did that.
+
+Good news first: of the 160 enemies in the data, only 10 actually show up in a fight right now.
+The fight screen already turns most of their names into plain words (strips "Brigand" off the
+front, so you get THUG, RAIDER, MARKSMAN, and so on).
+
+One did not get fixed: "WIEDERGANGER." That is German for undead, and it is also wrong on
+purpose: Paolo already locked what this enemy actually is, a corpse with a chip still in it,
+not magic. The raw German name makes it sound like a ghost. Fixed line for the fight team:
+call it CHIPPED instead. Matches the locked rule and matches the other plain one-word names
+already on screen.
+
+Everything else checked out: the wolf's name is already right, the other five gang names are
+fine for now, and there's no bestiary screen anywhere yet, so nothing to write for it.
+NEXT: hold for the start screen's words to unblock. If it's still stuck next round, the jump
+list is down to nothing and needs a new job added (not my call to add one).
+PENDING Paolo: nothing.
+
+WORDS (words-8dqrnq): 10/5 (c) LATEST -- *** THE BIGGEST FIND WASN'T BAD WORDING, IT WAS A
+WRONG NUMBER: A JOB SHOWS "30 BATT" WHEN IT ACTUALLY PAYS 3. ***
+TAB: no tab change; a review file for RUN TWO to apply.
+Record: records/BOHEMIA_WORDS_THE_SETTLEMENTS_WORDS_10_5_26.md
+
+Read every word on the settlement screen again, since it grew a lot since I last checked (a
+weapon shop got added). Found a real bug: a contract's pay used to be in crowns, now shows
+up on the board still labeled like it's batteries, with no math to convert it. A job that
+really pays 3 batteries shows "30 batt," ten times too much. That's not a wording problem,
+it's a missing division, so I flagged it for the team that owns that file instead of trying
+to fix code myself.
+
+One real wording fix: a weapon's line said it "breaks armour and doors." Checked the real
+data. It does break armour (confirmed, best in its class). It does not break doors, because
+nothing in the game breaks doors. Fixed the line so it only claims what's true.
+
+Also: the three food lines from Grok (SpaghettiOh, the hardtack joke, the truffle joke) have
+now been checked for plainness TWICE and are still sitting unused. The shop still shows the
+same generic food item it always has. Proposed the simplest fix: reuse the same trick the bar
+already uses to rotate between its four rumors, just for food instead.
+
+Two things the job sheet asked me to check don't exist yet (how far away a job is, and a
+trait for the person running the place), so I said that plainly instead of inventing text for
+something that isn't built.
+NEXT: the jump list's next job is the start screen's words.
+PENDING Paolo: nothing.
+
+COMBAT TWO (combat2-8ca291aa): 10/10 (ae) LATEST -- [the district seeds the board] SHIPPED: fight_ground.json districts (78 seeded joined boards, gate LEG 6); [FOR COMBAT] open districts[handover district]. Still CLAIMED [the boards from the packs] waiting on COOK TWO's four-way piece and freeway/lot/house kits. NEXT: [the warehouse inside].
+COMBAT TWO (combat2-8ca291aa): 10/10 (ad) LATEST -- [the boards from the packs] ROUND ONE SHIPPED: every town street laid from COOK TWO's kit (from_the_kit, kit_plan in the manifest, kit_override in the reader, gate LEG 5). [FOR COOK TWO] a one-tile four-way piece with walks on all sides (cornerw waits on it), then the freeway, lot and house kits; I re-lay the round each lands. NEXT: lay each COOK TWO kit as it lands; meanwhile [the district seeds the board].
+COMBAT TWO (combat2-8ca291aa): 10/10 (ac) LATEST -- [the rest join] SHIPPED: all nine boards 0 broken seams on the board; aprons shore 6, culdesac 38, strip 12 (two got worse, ratcheted). Reader: a crossing line starts within a tile; edge dashes never wear; ruin curb lines. NEXT (rules 82, 87, 88): [the boards from the packs] FIRST, laying boards from COOK TWO's kits; every art sheet needs its reference twin.
+COMBAT TWO (combat2-8ca291aa): 10/9 (ab) LATEST -- [the freeway round two] SHIPPED: BT.jersey/trailer redrawn with _grain texture, FL.freeway2 fog lines C[5], median G[5], per-cell patches and cracks inside the lanes, overpass shadow 0.84; rebuild + futures + sizes regenerated; gate green. NEXT: [the rest join].
+COMBAT TWO (combat2-8ca291aa): 10/9 (aa) LATEST -- [the future boards] SHIPPED: tools/bohemia_combat2_the_future_boards_cook_10_9_26.py writes futures[reclaimed|raided] (block pictures block_<id>_<state>.webp + per-board cover and lights), run last by the builder; overlays never touch asphalt, lane paint or the 0.6 m edge band; gate LEG 1c. NEXT: [the rest join]; new OPEN [the future settlements] (rule 74). Reference gate's 2 reds are tools/bohemia_cook_good_bros.js (not this lane).
+COMBAT TWO (combat2-8ca291aa): 10/9 (z) LATEST -- [the casino floor] SHIPPED: tools/bohemia_combat2_the_casino_floor_cook_10_9_26.py (carpet, slot_bank/table/pillar pieces via CF.install into BT.FURNITURE, the cage as HEIGHT), board 'casino' in BOARDS (hand-laid 4x3), its slot glows + drums in the lights list, light_slot_glow.png; rule 77 0/0; culdesac ratchet tightened to 28/28. NEXT: [the future boards]; new OPEN [the warehouse inside] (rule 74).
+COMBAT TWO (combat2-8ca291aa): 10/9 (y) LATEST -- [boards by size] SHIPPED (rule 79): tools/bohemia_combat2_boards_by_size_cook_10_9_26.py writes fight_ground.json sized[kind][size] for street/suburb/lot/freeway/strip/works x small(2x2 blocks, window 9x7)/middle(3x2, 14x10)/large(4x3), laid by L.solve, with window, start_cols, terrain, cover, lights; runs at the end of the builder; gate LEG 1b. Verified by routing a sized board into the real fight (it builds 10x10/15x10, opens at 112 px). FOR COMBAT: dealOnce mixes blocks without the join rule; deal from sized. NEXT: [the casino floor]; new OPEN [the rest join] (rule 74).
+COMBAT TWO (combat2-8ca291aa): 10/9 (x) LATEST -- [the freeway redone] SHIPPED (rule 77a): FL.freeway2 is now the street's kit at freeway width (R4.road_band asphalt, C[5] 3-in-12 dashes, walk-band curb + curb line), 2+2 lanes, Jersey barrier = new BT piece 'jersey' (LOW_COVER) in 6 m segments with a crossover gap, chain-link at the shoulders, the north sound wall deleted, new piece 'trailer' (COVER, blocks sight), median lamps in the lights list. Rule 77 freeway 0/0, gate green. [PENDING coordinator] the I-15 photo for reference/: this container cannot reach any photo host. NEXT: [boards by size] (rule 79: 9x7 / 14x10 / 20x15 from the Lego grammar; L.solve takes any grid).
+COMBAT TWO (combat2-8ca291aa): 10/5 (w) LATEST -- [tiles are legos] SHIPPED (rule 77, Paolo 10/5): tools/bohemia_combat2_tiles_are_legos_cook_10_5_26.py reads every fight block's four edges from its picture (road / curb / yard / soil / water / other + the painted strokes that cross) into records/target/bb/BOHEMIA_GROUND_EDGES.json with the compass (NORTH up the screen); L.stud rings every town/freeway/desert block from one canonical strip (east and south mirrored, so touching pixels are identical); one cross-street tile (seeds 19-27, made outside the variants); FL.freeway2 overpass = the town's cross street, north verge yard; new block scrubroad; R4.strip re-cut onto the town street depth; the builder lays every board but desert/shore by L.solve, the wide board lays aprons by it too. Seams board/apron: freeway, suburb, strip, ruin, desert 0/0; culdesac 28/64, landfill 7/20, shore 3/16 in gates/tiles_are_legos_ratchet.json. Gate gates/tiles_are_legos_gate.py in the suite (slow: ~3 min, the stroke reader). NEXT: [settlement traits]. The culdesac board has no matching layout yet (its stem vs its sides) -- the first of 'the rest follow'.
+COMBAT TWO (combat2-8ca291aa): 10/5 (v) LATEST -- [the wide board] SHIPPED: fight_ground.json boards[b].apron
+(7 x 5 blocks with a one-block ring of the same city, playable tiles given) and boards[b].frames (phone_portrait,
+phone_landscape, tablet, computer: rect in aproned px + letterbox share). FOR COMBAT: draw the apron, open on the
+class's frame; the landscape classes have no bars. Tool tools/bohemia_combat2_the_wide_board_cook_10_5_26.py (the
+builder should call it after pack; until then re-run it after any rebuild). OPEN: [settlement traits], [the casino
+floor], [the future boards]. [PENDING Paolo]: none.
+
+WORDS (words-8dqrnq): 10/5 (b) LATEST -- *** THE JOB ASKED FOR FIVE WEAPON EXAMPLES THAT DON'T
+MATCH THE REAL DATA. WROTE THE REAL SEVEN INSTEAD OF GUESSING PAST THE GAP. ***
+TAB: no tab change; a review file for COMBAT and RUN TWO to apply.
+Record: records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md
+
+The job sheet gave five example weapons (one said a car is a cannon-gun, another said a
+scope is a longbow). Checked the real file both claims live in: neither exists. The real
+list has seven weapon types, and one of the five examples named the wrong gun for the wrong
+type. Wrote one short line for each of the real seven instead of forcing the five made-up
+ones to fit:
+- a cheap handgun (weak, but fast)
+- a shotgun (one big hit up close, slow to reload)
+- a rifle (hits far, slow to reload)
+- a pipe (crushes through armor)
+- a sledgehammer (the heaviest thing you can swing)
+- a car door (a shield, not a weapon; you hide behind it and can shove someone with it)
+- bottles (thrown, short supply, reaches further than a swing)
+
+Each line is built from the AVERAGE of every real Battle Brothers weapon in that family, not
+one random pick, so the line describes the whole family honestly.
+
+Also said plainly: none of this is on a screen yet. There's no weapon shop built, so these
+seven lines are ready and waiting, not proof of something already working.
+NEXT: the jump list's next job is the settlement screen's words.
+PENDING Paolo: nothing.
+
+COMBAT TWO (combat2-8ca291aa): 10/5 (u) LATEST -- [more building types] SHIPPED (round twenty): building fight
+facts (pumps burn, canopy open, motel walkway and school roof and warehouse dock high ground, church steps low cover,
+school fence see-through cover, casino dumpsters) in the building cook (FURN_MAKERS/FURN_META), in fight_ground.json
+cover_extra (burns, see_through, kind). Three VOTE sheets. OPEN rows now: [the wide board], [settlement traits],
+[the casino floor] (rule 74: three always). LESSON: check every placement against the block's grid BEFORE the
+25-minute rebuild (three restarts this round). [PENDING Paolo]: none.
+
+WORDS (words-8dqrnq): 10/5 LATEST -- *** TOOK THE TOP JOB FROM THE NEW JUMP LIST (rule 74).
+CHECKED ALL FIFTY FIGHT PERKS AGAINST THEIR REAL BATTLE BROTHERS EFFECT, NOT JUST HOW THEY
+SOUND. THREE WERE ACTUALLY WRONG. ***
+TAB: no tab change; this is a review file for COMBAT to apply.
+Record: records/BOHEMIA_WORDS_THE_FIGHTS_WORDS_10_5_26.md
+
+A new rule landed since last round (74): every chat now gets at least three open jobs lined
+up at once, so nobody runs dry. My three: the fight's words (done this round), the
+settlement's words, and the start screen's words. Took the top one.
+
+Checked all fifty fight perks against the real Battle Brothers rule each one is based on,
+not just whether the sentence sounded fine. Three described the wrong thing:
+1. One perk's line made a one-time bonus sound like a permanent one.
+2. Another never said it was about landing hits, or that it needs two allies helping.
+3. A third gave a bare number nobody can compare to anything, instead of saying the real
+   upgrade (a gun that used to reload every other turn now fires every turn).
+All three rewritten plain and correct.
+
+Also found a design note from a few rounds back that asked for ONE simple word for any
+injury (not fifty different medical names) with the hurt body part shown small. That part of
+the game isn't built yet, so I wrote a proposed line for whoever builds it, rather than
+pretending I fixed something that doesn't exist.
+
+And I checked whether last round's two recap fixes (the win message, the "14D" typo-looking
+text) ever got applied. They haven't, so I put them in this round's file too, so they don't
+get lost between rounds.
+
+NEXT: the jump list's next job is the settlement screen's words.
+PENDING Paolo: nothing.
+
+COMBAT TWO (combat2-8ca291aa): 10/4 (t) LATEST -- ROUND NINETEEN SHIPPED (rule 73): settlement nights re-cut with
+night_sun() (night cook; linear light, adaptive multiplier >= 0.58 and to the 0.20 floor, pools lifted to 3:1),
+each variant's numbers in settlement_ground.json night_measured; plain floor PASS on all six, sun-test lit:unlit
+2.16-2.41 (3 asked; unreachable without white pools; the slider). fight_ground lights carry circuit
+('grid'/'fire') and block [r, c] for the map's power. FOR COMBAT [night you can read]: use NB.night_sun's
+numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
+rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
+
+EYES AND EARS (eyes-5vql33): 10/10 (cc) LATEST -- *** [the before and after] ROUND ONE
+SCHOOL DONE: THE "CAN A PERSON SEE IT" QUESTION IS ALREADY SOLVED SCIENCE. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+New job: before any art change goes up for a vote, build one real picture showing old vs new,
+pixel for pixel, and say plainly if a person could actually see the difference. This round is just
+research, no building yet.
+Checked the claim that Battle Brothers shows its changes as two pictures, before and after. Looked
+hard: the real patch notes site, a forum, the fan wiki, gaming news. Every single patch note found
+was just words, no pictures anywhere. So that claim does not hold up. Not proven wrong, just not
+found anywhere I could check.
+Good news: the real question here, "can a person actually see this pixel change," is already
+solved by real science and used across the games industry. There is a real, published math formula
+that tells you if a color change would actually look different to a human eye, plus a second check
+that ignores the soft blurry edges around shapes so those don't get wrongly counted as changes.
+Also found a warning already sitting in this game's own code from earlier work: two pictures of
+"the same" scene can still look different just because the game randomly changes a citizen's
+outfit every time it loads. So round two has to freeze everything the same way, same camera, same
+lighting, same random seed, before comparing pictures, or the test will cry wolf.
+The three items this job starts with (the sideways sides, the three bodies, the fight ground) are
+all live right now, so the "after" picture is ready. The "before" picture is not; it has to be dug
+up from the old code right before each one shipped.
+Record: records/BOHEMIA_EYES_BEFORE_AND_AFTER_ROUND_1_SCHOOL_THE_REAL_FORMULA_HAS_A_NAME_10_10_26.md.
+NEXT: round two, dig up the before picture for each of the three items, build the real math check
+in code, and say plainly for each one if a person could see the difference.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/10 (cb) LATEST -- *** [a fresh phone judged again] SHIPPED, BOTH
+ROUNDS: THE WIPED-PHONE BUG IS FIXED, CONFIRMED FOR REAL. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Timed a truly wiped phone from the start. Good news: the bug I found earlier is fixed for real.
+The phone now shows the real title screen with the game's name and the start menu, not a
+mid-game city. Tapping NEW GAME takes you to a real picks screen with difficulty choices and a
+name field, same as it should.
+The numbers: the title shows at about 3.4 seconds, the start menu at about 5.2 seconds, and the
+game is fully ready to play at about 48 seconds (on a slowed-down test phone). Once ready, tapping
+NEW GAME gets an answer in 2 milliseconds, basically instant.
+One thing worth a look: my 48 second number is quite a bit faster than the 67 seconds the
+pipe-fixer team quoted last, even though their own notes say the speed-up work isn't finished yet.
+Not sure why, named it honestly rather than guessing.
+Record: records/BOHEMIA_EYES_FRESH_PHONE_AGAIN_ROUND_2_THE_CHECK_TITLE_WORKS_READY_FASTER_THAN_QUOTED_10_10_26.md.
+Pictures: records/eyes_fresh_phone_again/.
+NEXT (rule 74, claimed): [the before and after]. A new standing job: build a real side-by-side
+picture, old vs new, pixel for pixel, for any art change before it goes up for a vote, and say in
+one line whether a person could actually see the difference. Starting with three items he already
+said no to because he couldn't tell them apart.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/10 (ca) LATEST -- *** [a fresh phone judged again] ROUND ONE
+SCHOOL DONE: THE TIMER FOR THIS JOB ALSO ALREADY EXISTS. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Next job: time how fast a wiped phone shows the title and gets to a playable game now that the
+team fixed the bug I found earlier (a wiped phone used to skip straight into a mid-game city).
+This round is research, no measuring yet.
+Same good news as the sound job: the timer mostly already exists. The pipe-fixer team already
+built a tool that times the title showing up and the game becoming ready, using the browser's own
+built-in "first paint" measurement, not a guess. The one real piece missing is timing the actual
+first tap on NEW GAME through to the picks screen, which their tool doesn't do.
+Also looked up the real industry terms for these numbers, so I don't mislabel anything. There's a
+real, precise difference between "the loading bar says it's done" and the real technical meaning
+of "the page can actually be used," and I found the exact definition so round two calls each
+number the right thing instead of mixing them up.
+Record: records/BOHEMIA_EYES_FRESH_PHONE_AGAIN_ROUND_1_SCHOOL_THE_INSTRUMENT_ALREADY_EXISTS_10_10_26.md.
+NEXT: round two, reuse the pipe-fixer's timer, add the first-tap measurement, get the real after
+numbers.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/10 (bz) LATEST -- *** [the soundscape judged] SHIPPED, BOTH
+ROUNDS: SITTING STILL FOR A MINUTE ON TWO REAL SCREENS IS BASICALLY SILENT. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Built the sound counter and ran it. Hit three real bugs before trusting any number, caught each
+one with a direct check instead of guessing:
+First try, everything read zero, and even my own test sound (fired by hand) didn't move the
+counter. That means the listening tool itself was broken, not that the game was silent. Found it:
+my test used a sound name that might not even be real. Fixed it to a sound I know for a fact
+plays.
+Second try, the counter worked, but I couldn't get into the settlement at all. Checked directly
+and found why: zooming all the way out to the far map view doesn't leave you somewhere you can
+still tap a town from, it drops you straight at the very edge. Fixed by visiting the settlement
+and the fight first, then checking the far map view last, since nothing needs to happen after
+that one.
+Third try worked clean. The real numbers: standing still in the settlement for a full minute, zero
+sounds. Standing still on the map for a full minute, one sound played, and it was four times
+quieter than the music playing under it. The fight wasn't reached this run, a reach problem
+already known from an earlier job.
+The real finding: just standing still for a minute on two different screens is nearly dead silent.
+That's not this tool being broken, I proved the listening works. It means almost nothing plays
+automatically just from being somewhere, the sounds mostly need an action like walking or tapping
+something, which this tool deliberately doesn't do yet.
+Record: records/BOHEMIA_EYES_SOUNDSCAPE_ROUND_2_THE_CHECK_SIXTY_IDLE_SECONDS_IS_NEARLY_SILENT_10_10_26.md.
+NEXT (rule 74, claimed): [a fresh phone judged again]. Checked first: RUN already shipped the fix
+for the wiped-phone title bug I found earlier, so this is now a real after-measurement, not a
+before.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/9 (by) LATEST -- *** [the soundscape judged] ROUND ONE SCHOOL
+DONE: THE TOOL FOR COUNTING SOUNDS ALREADY EXISTS, I JUST NEED TO POINT IT AT THE RIGHT SCREENS.
+***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Next job: count how many different sounds play in a minute on the map, the settlement, and the
+fight, and how loud each one is next to the music. This round is research, no measuring yet.
+Good news: I already built the hard part months ago. An old tool of mine listens in on every
+sound the game asks to play without changing anything, counts them, and even double-checks itself
+isn't broken by firing a test sound and making sure it notices. I just need to also grab how loud
+each sound is (easy add, the info is already sitting right there) and point it at the map,
+settlement and fight instead of the old walking screen, which doesn't exist anymore.
+Also looked up why real game sound people care about loudness, not just a count: two sounds
+playing at once can drown each other out even if nothing is technically broken, so count and
+loudness really do both matter, same as the job already asked for.
+The Battle Brothers sound list this job wants to compare against still hasn't been written yet,
+same gap I found before with the Battle Brothers picture. Not blocking the real work, just not
+there yet to compare against.
+Record: records/BOHEMIA_EYES_SOUNDSCAPE_ROUND_1_SCHOOL_THE_HOOK_ALREADY_EXISTS_MASKING_IS_THE_REAL_REASON_10_9_26.md.
+NEXT: round two, the actual count and loudness, on the real screens.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/9 (bx) LATEST -- *** [the far stop's pixels counted] SHIPPED,
+BOTH ROUNDS: THE COUNTER FOUND A REAL CAMERA BUG, AND THE MAP'S FAR VIEW FOOLS A PIXEL COUNT WITH
+RANDOM NOISE. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Built the real counter and ran it. First try showed a clean number, but I checked the actual
+picture before trusting it and it was wrong: the camera had jumped to a totally different screen
+(space, with a moon in it) instead of staying on the valley. Found why: zooming out one more
+notch past the farthest-out point doesn't just stop, it throws you somewhere else entirely, and
+the only way to catch that is by actually looking at the picture, not the numbers.
+Fixed that, then hit a SECOND version of the same bug, not caused by my own tool this time: the
+normal way every lane reaches the far-zoomed map can itself land in that wrong screen sometimes,
+at random. Told RUN and the pipe-fixer lane about it, since any future measurement at the exact
+farthest-out point could hit the same trap.
+Once I was really looking at the valley, the real count: about 1.49 million distinct painted
+pixels out of 2.82 million on screen. That is below the Battle Brothers target of about 2.07
+million, so it is not a pass yet, but it is way closer than the old guess suggested, about 72
+percent of the way there instead of under 1 percent.
+One big catch: a lot of that count comes from random noise dots sprinkled on the map, not real
+hand-drawn detail. A counting tool cannot tell the difference between real detail and random
+dots, so this number should not be read as "the map already looks like Battle Brothers," just
+that the raw pixel math is closer than we thought.
+Record: records/BOHEMIA_EYES_FAR_STOP_PIXELS_ROUND_2_THE_CHECK_RANDOM_RECTANGLES_FOOL_THE_COUNTER_10_9_26.md.
+Pictures: records/eyes_far_stop_pixels/.
+NEXT (rule 74, claimed): [the soundscape judged]. Checked first: the sound team already shipped
+their first round today, so there is already a real "before" and "after" to measure, no waiting.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/9 (bw) LATEST -- *** [the far stop's pixels counted] ROUND ONE
+SCHOOL DONE: THE COUNTING METHOD IS A REAL, NAMED THING, AND THE MISSING BATTLE BROTHERS PHOTO HAS
+A REAL STAND-IN NOW. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Next job on the list: how many real, distinct painted pixels does the far-zoomed-out map actually
+have, compared to Battle Brothers. This round is research, no measuring yet.
+Found out the counting trick the job already suggested (check small blocks of pixels for repeats)
+is a real method real photo and video forensics people use to catch fake-upscaled images. Better
+news: our specific kind of fake-upscale (one flat color stretched big) is the EASY kind to catch,
+so the simple method is actually the right tool, not a shortcut.
+Also looked up how real big strategy games keep their zoomed-out maps looking good: they draw
+separate, smaller real pictures for each zoom level ahead of time, they don't just stretch one
+picture. That's exactly what COOK already planned for our far stop, so that plan is proven right,
+not guessed.
+The real Battle Brothers photo this job wants still doesn't exist and can't be pulled in here, same
+network wall that blocked the freeway team's I-15 photo. Good news: an earlier research note
+already wrote down how Battle Brothers draws its map (real hand-painted art, no stretching), so we
+can use that description as its number instead of needing the actual photo.
+Record: records/BOHEMIA_EYES_FAR_STOP_PIXELS_ROUND_1_SCHOOL_NEAREST_NEIGHBOR_HAS_A_NAME_10_9_26.md.
+NEXT: round two, build the counter, get the real before-and-after numbers.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/9 (bv) LATEST -- *** [a stranger's five minutes judged] SHIPPED,
+BOTH ROUNDS: A NEW PLAYER NEVER SEES A TITLE SCREEN. THE GAME ALREADY HAS THEM MID-GAME IN TWO
+SECONDS. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Walked the real demo with a wiped phone, like someone opening it for the very first time ever.
+Big finding: the title screen and the pick-your-start screen never showed up. Two screenshots
+taken seconds apart, right where they should be, are the exact same picture as the map screen
+right after them -- the game had already skipped ahead into a city with money already spent and
+a town already found, before anything was tapped. That breaks two rules Paolo already locked:
+nothing should happen in the first second, and the first sixty seconds should be a real game.
+Sent to RUN to find why.
+Also confirmed by looking at it: the bag is not its own screen. It's the bottom half of the shop
+screen, shelf on top, your bag below, same as what the market row already said.
+Got real pictures of three screens (map, the Church settlement, and the shop) and scored each one.
+The settlement street scored best, it looks grimy and real. The shop screen scored worst: the
+smith's face is a blank square with two dots, which breaks the rule that everybody gets a real
+face, and the bag's 30 identical empty boxes are the single best match for the "looks AI-made"
+checklist found all round.
+Did not reach the fight, the win screen, or the way back home this round -- the tool's tap never
+found a job to take on the board, named honestly instead of faking those three.
+The tenth picture (freeway next to a real I-15 photo) is still blocked. Checked the lane that
+owns it (COMBAT TWO) and their own commit says the photo is blocked by network rules, not missing
+work.
+Record: records/BOHEMIA_EYES_STRANGERS_FIVE_MINUTES_ROUND_2_THE_CHECK_10_9_26.md. Five real
+screenshots: records/eyes_strangers_five_minutes/.
+NEXT (rule 74, claimed): [the far stop's pixels counted]. Checked first: RUN hasn't shipped the
+"after" picture yet, and the real Battle Brothers photo this row needs still doesn't exist
+anywhere in the repo. Round one next: go learn how real map games count this before building the
+counter.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/9 (bu) LATEST -- *** [a stranger's five minutes judged] ROUND ONE
+SCHOOL DONE: A THIRD REAL CHECKLIST ADDED, AND "VIBE CODED" DOESN'T MEAN WHAT WE'VE BEEN SAYING
+IT MEANS. ***
+TAB: not a tab yet, an internal measurement.
+
+Rule 78's new job: check the whole demo, screen by screen, against the style rules. This round
+is research only.
+Found a third real checklist to grade screens by, on top of the two this lane already has: a
+famous 30-year-old industry standard list of ten things that make any screen confusing or clear,
+regardless of art style. That catches a screen that looks right but is hard to use, which the
+other two lists can't.
+Also checked where "vibe coded" actually came from. Turns out the term was coined to describe
+writing CODE without reading it closely, not a visual look at all. What we actually mean when we
+say something "looks vibe coded" already has its own real name people use right now: "AI slop."
+Looked up what people say makes something look like that, and it matches our own checklist
+almost exactly, which means our checklist was right, now with real backup.
+One more thing checked before measuring: the job asks for a tenth picture, the freeway board next
+to a real photo of I-15. That photo doesn't exist anywhere yet, and the freeway rebuild it needs
+hasn't shipped either. Named it now instead of hitting a dead end next round.
+Record: records/BOHEMIA_EYES_STRANGERS_FIVE_MINUTES_ROUND_1_SCHOOL_NIELSEN_AND_WHAT_VIBE_CODED_REALLY_MEANS_10_9_26.md.
+NEXT: round two, the actual check, on all nine real screens.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/9 (bt) LATEST -- *** [the settlement picture judged] SHIPPED,
+BOTH ROUNDS: IT'S A PLACE, NOT A MENU. CAUGHT MY OWN WRONG TEST BEFORE SHIPPING IT. ***
+TAB: not a tab yet, an internal measurement.
+
+Rule 78 landed this round: every chat now has jobs, including this one, so I kept going on my
+own claimed job first before picking up the new one.
+Measured the real settlement screen. All eight buildings are touched directly on the painted
+scene, none of them drawn as a separate button. Nothing is labeled until you touch it. The
+picture fills 90% of the screen, just a thin strip at the top for your name and your batteries.
+By every number, it reads as a real place, not a menu of options.
+One thing I almost got wrong: I tested whether hovering a mouse over a building shows any hint
+before you touch it, and nothing did. But that's the wrong test, phones don't have a mouse
+hover, so that test can never pass on a phone and saying so would have been a fake finding.
+Caught it before writing it up. What actually matters on a touchscreen is whether a building
+just looks touchable by its own art, and at least one does (a red cross painted right on the
+clinic).
+Also confirmed holding a building does the real thing: a torn paper tag with the building's
+name, then a real person talking to you with their face and two actual jobs you can take.
+Exactly how this game is supposed to work.
+Record: records/BOHEMIA_EYES_SETTLEMENT_PICTURE_ROUND_2_PLACE_NOT_MENU_AND_A_CORRECTED_TEST_10_9_26.md.
+NEXT (claimed before this reply ends): [a stranger's five minutes judged], a new job from rule
+78, the whole demo checked screen by screen against the horror style bible. Round one, school,
+next round.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/5 (bs) LATEST -- *** [the settlement picture judged] ROUND ONE
+SCHOOL DONE: THE ROW'S OWN REFERENCE SCREENSHOT DOESN'T EXIST, AND THE REAL NAME FOR THIS
+QUESTION IS "DIEGETIC VS NON-DIEGETIC." ***
+TAB: not a tab yet, an internal measurement.
+
+Checked the row's own instructions before doing any work, the way this lane always does. It
+says to put the new settlement screen beside a real Battle Brothers town screenshot. That
+screenshot does not exist anywhere in this repo, the folder it names doesn't even exist. Named
+it now instead of hitting it mid-measurement next round.
+What does exist: the real question here already has a name in game design, diegetic versus
+non-diegetic. A floating button labeled "BARBER" is non-diegetic, what you called options. A
+building drawn as a building that you touch directly is diegetic. The genre that already solved
+this is the old painted point-and-click adventure games, a background with hidden spots you
+touch, nothing labeled until you do, which is exactly what the new settlement screen is going
+for.
+One real warning from that same genre: hiding every hotspot too well makes players wander the
+screen hunting for them. Next round checks whether there's any small hint that a building can be
+touched, not just whether labels are hidden.
+Also checked a claim nobody had sourced yet (the reference notes said Battle Brothers' town
+screen was "one painted view" but never said where that came from) against the actual Battle
+Brothers developer's own blog post about rebuilding that screen. It checks out.
+Record: records/BOHEMIA_EYES_SETTLEMENT_PICTURE_ROUND_1_SCHOOL_DIEGETIC_AND_THE_MISSING_SCREENSHOT_10_5_26.md.
+NEXT: round two, the actual check, on the real settlement screen.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/5 (br) LATEST -- *** [the fight at four screens judged] SHIPPED,
+BOTH ROUNDS: THE LOCKED PERSON SIZE BREAKS ON THE TWO SHORT SCREENS. ***
+TAB: not a tab yet, an internal measurement.
+
+Took real screenshots of the fight on all four screen shapes (phone upright, phone sideways,
+tablet, computer). First confirmed combat's own numbers for how much of the screen the board
+takes up are accurate, matched mine almost exactly. Good sign their own checker works.
+Then found something nobody had measured before: the character's locked size. This game has a
+rule that a person is always the same size on screen no matter how you zoom, about 112 pixels
+tall. On the phone standing up and on the tablet, that holds, measured right at 111. On the
+phone sideways and on a computer, he's under 45 pixels tall, less than half the size he's
+supposed to be, everywhere else in the game.
+Why: those two are the SHORT screens. The game tries to keep your whole line of nine people
+visible top to bottom, and a short screen has way less vertical room, so the camera has to pull
+back much further to fit everyone, shrinking the person. This matches exactly what I found doing
+the research last round: there's a right way and a wrong way to handle different screen shapes,
+and this is the wrong way.
+Smaller thing also found: the FIGHT and WAIT buttons sit closer together than the real minimum
+spacing standard, on every screen size, though each one alone is big enough to tap.
+Record: records/BOHEMIA_EYES_FOUR_SCREENS_ROUND_2_THE_MAN_SHRINKS_ON_SHORT_SCREENS_10_5_26.md.
+Routed to COMBAT.
+NEXT (rule 74, claimed before this reply ends): [the settlement picture judged] -- RUN TWO's new
+picture-based settlement screen shipped this round, so the premise that blocked this row before
+is now cleared. Round one, school, next round.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/5 (bq) LATEST -- *** [the fight at four screens judged] ROUND ONE
+SCHOOL DONE: THIS IS "ASPECT RATIO SCALING," A SOLVED PROBLEM WITH A RIGHT ANSWER. ***
+TAB: not a tab yet, an internal measurement.
+
+Rule 62 asks for the fight checked on four screen sizes (phone upright, phone sideways, tablet,
+computer). This is the same fight PC gaming already solved for wide monitors, called Hor+ versus
+Vert-. The wrong way (Vert-) crops more off the top and bottom as a screen gets wider, so a
+narrow screen can actually see MORE than a wide one, backwards from what people expect. The
+right way, what the whole industry settled on, keeps the same up-and-down view on every screen
+and only changes how much width you see. So round two isn't just "is each number big," it's
+whether combat's own four numbers (77/67/87/83 percent) actually follow that pattern or are
+scattered.
+Also found a real rulebook to grade this by instead of making one up: the Widescreen Gaming
+Forum, the actual group PC gamers use to grade a game's screen support (gold, silver, limited,
+unsupported). Round two will grade each screen size that way, not just a number.
+Also checked and found the screen classes themselves (phone, phone sideways, tablet, computer)
+match real industry breakpoints closely, so the four chosen sizes are sound, not arbitrary.
+One thing flagged before measuring: combat just shipped a new formation screen that opens before
+the fight board now. The row's old percentages were measured before that existed, so round two
+checks what the fight actually opens on now before trusting old numbers.
+Record: records/BOHEMIA_EYES_FOUR_SCREENS_ROUND_1_SCHOOL_HOR_PLUS_AND_THE_WSGF_RUBRIC_10_5_26.md.
+NEXT: round two, the actual check, on all four real screens.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/5 (bp) LATEST -- *** [night in the sun measured] SHIPPED, BOTH
+ROUNDS. TWO REAL GAPS FOUND THAT NO GATE CATCHES. ***
+TAB: not a tab yet, an internal measurement.
+
+Built my own instrument (tools/bohemia_eyes_night_in_the_sun.js + _measure.py): real screenshots
+of the actual fight and settlement night art, measured in Python, not a read of COMBAT's own
+in-page numbers. Caught and fixed my own mistake before publishing it: a first pass misread
+obviously-readable text as low contrast because of a bad pixel-sorting bug; fixed with the real
+browser text color, re-checked against the actual picture.
+WHAT PASSES: the lit-vs-unlit lamp contrast, the words on every button and card (10 to 11 to 1,
+way above the floor), and all six settlement night pictures.
+TWO REAL PROBLEMS, independently confirmed by looking at the actual pictures, not just a
+formula: a person does not stand out clearly against the ground he's walking on, day or night
+(COMBAT's own check only compares night to day, never checks either one against the real
+readability floor). And the ground itself is about four times darker than the floor the rule
+sets, during the day too, not just at night -- so this may not be a night bug at all, it may be
+that these floors don't fit a mostly-dark-asphalt street. Also noted: COMBAT TWO's own round 19
+entry above independently found the same tension from the other side (can't hit both the ground
+floor and the lamp-contrast floor at once) -- two different measurements landing on the same
+real conflict in the numbers.
+Record: records/BOHEMIA_EYES_NIGHT_IN_THE_SUN_ROUND_2_THE_CHECK_MAN_AND_GROUND_MISS_WHAT_THE_GATE_NEVER_TESTED_10_5_26.md.
+Routed to COMBAT (owns the paint) and PLUMBER (the gate only checks the relative number, never
+the real floor).
+NEXT (rule 74, claimed before this reply ends): [the fight at four screens judged] -- the
+settlement-picture row above it is blocked on RUN TWO's new screen, which hasn't shipped yet, so
+skipped to the next actionable row. Round one, school, next round.
+PENDING Paolo: none.
+
+EYES AND EARS (eyes-5vql33): 10/4 (bo) LATEST -- *** CLAIMED [night in the sun measured] (rule 73),
+ROUND ONE SCHOOL DONE. ***
+TAB: not a tab yet, an internal measurement.
+
+Rule 73 is new: Paolo wants the night look kept but still playable with the phone at full
+brightness outside in the sun. The coordinator already wrote a school page for it, but tagged
+its own key facts "(recall)" -- unsourced, from memory. This round went and sourced them for
+real. WCAG 2.1's own two success criteria (4.5:1 for words, 3:1 for everything else you must
+find) are exactly the bars rule 73 uses -- confirmed against the real standard, not picked by
+feel. DisplayMate's real sunlight-readability lab ramps ambient light up to 100,000 lux (direct
+noon sun) and scores contrast under that added light -- the same shape as rule 73's own sun
+test. Confirmed, not recalled: iOS Safari has never supported reading ambient light from a web
+page, on any version -- a permanent wall, which is why a manual brightness slider (already in
+the rule) is the right call, not a cut corner. Record:
+records/BOHEMIA_EYES_NIGHT_IN_THE_SUN_ROUND_1_SCHOOL_WHY_THESE_NUMBERS_10_4_26.md.
+Also noted this round, not fixed: COMBAT's rebuild (rule 63) froze the old fight file this
+lane's last two [fight floor measured] rounds checked; that work is against a dead system now,
+named on the board so nobody chases it.
+NEXT: round two, the actual check -- measure the demo's night fight and night map (COMBAT TWO
+just shipped settlement night art with a lighting manifest, worth checking first) against the
+floor, then the same frames with the glare added, and say which fails first.
+PENDING Paolo: none.
+
+WORDS (words-8dqrnq): 10/4 (b) LATEST -- *** STILL ONE ROW, STILL NOT TAKEN YET. CHECKED, NOT
+INVENTED. ***
+TAB: no change.
+
+Checked three things this round: whether the demo is out yet (no; RUN is still mid-sprint on
+the map), whether anyone had applied the six fixes from last round yet (no, all six still show
+the old wording in the real files), and whether any new verdict came in for this lane. One did:
+his vote on the naming screen from a few rounds back came back UP, with a note that he'd
+rather name his people one at a time, as each new era starts, not all three up front. That is
+already settled; a newer rule already killed that whole screen and replaced it with naming one
+person at a time, so there is nothing left to do about it.
+No new row landed. The rule that opened this lane back up says only one job runs until the demo
+ships, and that job is already done and waiting on the run team. Nothing to invent, nothing to
+chase.
+NEXT: keep watching for the fixes to land or for a new job.
+PENDING Paolo: nothing.
+
+COMBAT TWO (combat2-8ca291aa): 10/4 (s) LATEST -- ROUND EIGHTEEN SHIPPED: settlement pictures, two variants a
+tier, each with a night_src (round six's night: his lamps and drums only), the camp filled out.
+settlement_ground.json tiers[t].variants[] = {src, night_src, px, hotspots, lights}; tiers[t].src/hotspots
+still point at variant 0 for RUN TWO's current reader. 12 webp, 2.9 MB. VOTE combat2-settlement-pictures-night-10-4.
+NEXT: the fight boards' night with the same light (the manifest's lights; COMBAT draws it), more settlement
+variants by trait (rule 71: a raided town, a market day). [PENDING Paolo]: none.
+
+WORDS (words-8dqrnq): 10/4 LATEST -- *** REOPENED FOR THE DEMO ONLY (rule 54b). READ EVERY LINE
+A STRANGER MEETS, ONE ROUND, DONE. ***
+TAB: no tab change; this is a review file for RUN to apply (ONE SYSTEM ONE SESSION, rule 55,
+means I do not touch RUN's or COMBAT's files myself).
+Record: records/BOHEMIA_WORDS_THE_DEMOS_LINES_10_4_26.md
+
+Went through the start screen, the settlement screen, and the new fight's recap, line by
+line, in the order a stranger meets them. Found six real problems and fixed all six in the
+file RUN reads:
+1. The clinic's short label said "cuts wound days" (reads like a typo). Now "heals faster."
+2. Its button said "Pay to cut the wound days" (said pay twice). Now "Heal faster."
+3. One origin's line, "People pay more to the truck," did not parse. Now "The water gets
+   more respect than you do."
+4. Another origin's line had a grammar slip, "a small crew at you." Now "against you."
+5. The fight recap showed "LAID UP 14D," a number jammed against one letter. Now "LAID UP
+   14 DAYS."
+6. THE BIG ONE: after you WIN a fight, the recap says "THE ROAD CREW BROKE." That is Battle
+   Brothers' own word for an enemy that ran, but a stranger who just won can read it as HIS
+   OWN crew breaking, which is the opposite of what happened, right when it matters most. Now
+   "THE ROAD CREW RAN." Flagged, not snuck in, because it trades an exact Battle Brothers word
+   for a word nobody can misread.
+
+Three things the brief asked me to check do not exist in the demo yet, so I said so instead
+of inventing text: the phone doesn't show posts anywhere yet, the fight's own in-combat text
+is built but never shown on screen (by design, per its own comment), and there's no end
+screen yet.
+Checked every line for Spanglish: the player never speaks it, the shopkeepers and the bar and
+the barber do, same as always.
+A coordinator sweep landed mid-round with three more lines to check (Grok's picks for food
+items: SpaghettiOh, hardtack, truffle). Read those back too, same test, all three already
+clear, no fix needed.
+NEXT: wait for RUN to apply the six fixes, or for him to play and correct what he hates.
+PENDING Paolo: nothing.
+
+COMBAT TWO (combat2-8ca291aa): 10/4 (r) LATEST -- ROUND SEVENTEEN SHIPPED (rule 71a): settlement pictures for
+RUN TWO, slices/settlement_ground/{camp,town,fortress}.webp (2060 x 1092, 45, lossless) + settlement_ground.json
+(tiers[].hotspots{barber,clinic,stall,posts,board}.box in picture px). FOR RUN TWO: draw the picture, light
+the box under the finger, name it only then. Tool tools/bohemia_combat2_settlement_pictures_cook_10_4_26.py.
+VOTE combat2-settlement-pictures-10-4. WEAK/NEXT: the camp is sparse (more tarps, a fire ring, scrap);
+seeded variants per settlement; night versions with the lamps. [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/4 (q) LATEST -- ROUND SIXTEEN SHIPPED (rule 67, lines run through): every
+curve crossing a block edge is periodic over 60 m (shore waterline/wade/ring, landfill haul road, scrub
+track, wash meander in its depth); the desert and shore boards' washes run the full depth (explicit layouts
+after BOARDS). 31 blocks, 5.1 MB. VOTE combat2-lines-run-through-10-4. NEXT: rule 69 is COMBAT's (the
+character bank in the fight); this lane: the shore's deep-water seam under the lighter wade band, night
+art per rule 70a's one light (lights data is in the manifest). [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/4 (p) LATEST -- ROUND FIFTEEN SHIPPED: the freeway and the landfill
+re-cut (tools/bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26.py: freeway2 with sound walls,
+median, overpass variant 'freewayo'; landfill2 with benches, bales, tyres, switchback, vents, flare);
+wired into the round-nine builder. 31 blocks, 5.1 MB. VOTE combat2-freeway-and-landfill-recut-10-4.
+NEXT: lines across block seams (shore waterline, wash bed, landfill benches meeting scrub). [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/4 (o) LATEST -- ROUND FOURTEEN SHIPPED (rule 67): seven building types at
+45 (tools/bohemia_combat2_building_types_cook_10_4_26.py: apartments, church, school, gas station, motel,
+warehouse, casino back; tall sprites stand into the row behind), blocks main_street and the_works mixed
+into the town boards (round-nine builder: HOUSES/TOWN palettes; cross streets avoid those columns).
+fight_ground 30 blocks, 5.1 MB. VOTE combat2-building-types-10-4, combat2-buildings-in-the-fight-10-4.
+NEXT (his sixth votes): RE-CUT THE LANDFILL AND THE FREEWAY ('look like dog shit'), lines that agree
+across block seams (the shore's waterline, the wash's bed). [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/2 (n) LATEST -- ROUND THIRTEEN SHIPPED: slices/fight_ground is lossless
+WebP now (23.6 -> 4.8 MB, pixel-identical where visible, manifest src -> .webp, fight code unchanged),
+verified in the new fight at the phone profile (0 errors). The round-nine builder calls the packer last.
+NEXT: night pools are COMBAT's to wire from boards[].lights; this lane: more cover kinds at 45 (dumpster,
+fence runs, a bus), the shore's block seams. [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/2 (m) LATEST -- [floor set] ROUND TWELVE SHIPPED: cross streets run
+through whole board columns (streets_run_through in the round-nine builder; at most two a board; the
+cul-de-sac stem's column continues), and fight_ground.json boards[].lights (lamp/drum, x_m/y_m sprite
+base, live, radius_m) + light_*.png sprites, lights_key in the manifest: FOR COMBAT [rebuild]: at night
+draw live pools (round six's look) instead of the flat wash. 27 blocks, 23.8 MB (site over cap; PLUMBER).
+VOTE combat2-streets-run-through-10-2. [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/2 (l) LATEST -- [floor set] ROUND ELEVEN SHIPPED (sweep L): boards no
+longer clone one row. tools/bohemia_combat2_mixed_blocks_cook_10_2_26.py (suburb_seeded: houses per seed,
+burnt one in six, an optional cross street column; empty_lots) feeds round nine's builder, whose BOARDS
+are now seeded layouts from PALETTES (no twin beside or above; the cul-de-sac's stem is carried south).
+slices/fight_ground: 26 blocks, 22.8 MB (site over cap; PLUMBER). Verified in the new fight (suburb,
+strip; phone profile; 0 errors); VOTE combat2-mixed-boards-in-the-fight-10-2. WEAK: cross streets stop
+at the block edge (they do not continue into the block above or below); night still a flat wash in
+the fight. [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/2 (k) LATEST -- [floor set] ROUND TEN SHIPPED: verified on the real
+surface. The new fight loads slices/fight_ground; phone-profile captures (culdesac, desert; far and near;
+0 page errors) are the VOTE sheet (combat2-the-ground-in-the-new-fight-10-2). Fixed round nine's weak
+spots: scrub wears the wash's two soils (no boxed wash), landfill's freeway stub gone. fight_ground
+19.2 MB (site already over the 260 MB cap; PLUMBER). NEXT: night as art in the manifest (the fight
+currently lays a flat blue wash for night; round six's lit pools could ship as a light layer per
+board), shore seams between blocks. [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/2 (j) LATEST -- [floor set] ROUND NINE SHIPPED (rule 63): the ground
+for the NEW fight. slices/fight_ground/fight_ground.json + block_*.png + cover_*.png: eight boards
+(suburb, culdesac, strip, ruin, desert, freeway, shore, landfill), each 20 x 15 house tiles of
+515 x 364 = 4 x 3 blocks, terrain[15][20] (flat/rough/debris/water/height/blocked, BB AP in the key),
+cover placements in metres, start_rows [4, 9]. FOR COMBAT [rebuild]: load the manifest, draw a board's
+blocks at block offsets (5 tiles = 2575 x 1820 px each), read terrain per tile, drop cover PNGs at
+x_m*42.9, y_m*42.9*cos45. COST FLAGGED: +18 MB published (site was already 331 MB over the 260 cap,
+now 349; PLUMBER's call whether to trim variants). WEAK: the wash blocks' soil does not match the scrub
+around them (boxed); landfill's freeway stub ends abruptly. [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/2 (i) LATEST -- [floor set] ROUND EIGHT SHIPPED: store fronts at 45
+on the strip lot, the 45 house on the cul-de-sac and (burnt) on the ruin, the big board re-drawn.
+Bank banks/BOHEMIA_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2_26.txt, VOTE
+combat2-store-fronts-and-houses-everywhere-10-2. NEXT: block seams on the big board (a street that
+meets a back yard), night boards re-cut with the 45 houses. [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/1 (h) LATEST -- [floor set] ROUND SEVEN SHIPPED (sweep J, rule 61):
+the house at 45 (hip roof, stucco face, door/window/garage, drive, shadow; pitched = blocked) and the
+big board, 20x15 house tiles from the kinds as 5x5 blocks, start lines 5 apart (layout in the bank,
+for COMBAT [board size]). Bank banks/BOHEMIA_THE_HOUSE_AT_45_AND_THE_BIG_BOARD_10_1_26.txt, VOTE
+combat2-houses-at-45-and-the-big-board-10-1. NEXT: put the 45 house into the cul-de-sac, ruin and
+night boards too; seams between blocks (a street that meets a back yard); store-front facades.
+[PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/1 (g) LATEST -- [floor set] ROUND SIX SHIPPED (rule 59 night-lit):
+the suburb block and strip lot at night (snapped to his palette, his lamps and drums as the only
+light, a light[5][5] lit/dark tag from the drawn pools). Bank
+banks/BOHEMIA_THE_FIGHT_BOARDS_AT_NIGHT_10_1_26.txt, VOTE combat2-night-boards-10-1. The cook takes
+~4 min (palette snap over 250k allowed colours). NEXT, FIRST (rule 61, COMBAT [board size]): the
+board kinds are 5x5; Battle Brothers' board is twenty-plus across with lines five apart, so re-cut
+every kind at COMBAT's board size (the plan generator takes N; the cutter seeds it). Then store-front
+facades, the casino floor.
+[PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/1 (f) LATEST -- [floor set] ROUND FIVE SHIPPED (rules 57, 59): the
+shore, the landfill and the ruin as 5x5 boards with terrain tags (new tag 'water': wade, 3 steps,
+defence malus). Nine board kinds in three banks (round 3, 4, 5). Bank
+banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_5_10_1_26.txt, VOTE combat2-shore-landfill-ruin-10-1.
+NEXT: store-front facade tile, the casino floor interior, night light as a tile property.
+[PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/1 (e) LATEST -- [floor set] ROUND FOUR SHIPPED 7cbf69f (rules 57, 59):
+suburb block, strip lot, scrub, freeway boards (5x5, 45, cover placements) and a terrain[5][5] tag on
+all six kinds (flat/rough/height/blocked, read off the drawn masks, per the BB school table). Bank
+banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_ROUND_4_10_1_26.txt, VOTE combat2-four-more-board-kinds-10-1.
+NEXT: store-front facade tile, landfill, shore, ruin (debris). [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/1 (d) LATEST -- [floor set] ROUND THREE SHIPPED (rule 57): the first
+two board kinds, CUL-DE-SAC and DESERT WASH, each a 60 m plan cut into 25 house tiles at 45 with a
+cover placement list. Bank banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_10_1_26.txt, VOTE
+combat2-the-board-kinds-10-1, record records/BOHEMIA_COMBAT2_THE_FLOOR_SET_10_1_26.md (round three).
+NEXT: suburb block, strip lot, scrub, freeway (same tool, new kind functions). The desert pools
+'boulder' list is lava/coral: never use it. [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/1 (c) LATEST -- [floor set] ROUND TWO SHIPPED (his fifth votes,
+rule 56): real sidewalks (1.4 m on 9.2 m, ruler guard), the 45 camera (tiles 515x364, south faces
+seen, cars with flanks), a north-south street tile; cover sheet re-cut at 45. VOTE
+combat2-the-floor-set-r2-10-1. Record: records/BOHEMIA_COMBAT2_THE_FLOOR_SET_10_1_26.md (round two).
+NEXT: rule 57, a sheet per board kind, CUL-DE-SAC and DESERT WASH first (no row line yet for it
+on the board; the coordinator's note on [floor set] names it). [PENDING Paolo]: none.
+
+COMBAT TWO (combat2-8ca291aa): 10/1 (b) LATEST -- [cover pieces] SHIPPED. Seven cover pieces at
+42.9 px/m, each hides a man: his three dead cars, a block wall straight / corner / knocked
+through, a corrugated shed. Bank banks/BOHEMIA_THE_FIGHT_COVER_10_1_26.txt, VOTE
+combat2-the-cover-pieces-10-1, records/BOHEMIA_COMBAT2_THE_COVER_PIECES_10_1_26.md. The floor set's
+walks and slab quieted (same bank, rebuilt). QUEUE EMPTY: both rows shipped; COMBAT 1 drops them
+in. Left weak: north-south street sun pass. [PENDING Paolo]: none.
+
+EYES AND EARS (eyes-5vql33): 10/4 (bn) LATEST -- *** [fight floor measured] ROUND THREE: THE
+AFTER NUMBER, AND WHAT IS ACTUALLY DRIVING IT. *** Reran the same tool, same four seeds, fresh
+off current main after COMBAT's V236 and COMBAT TWO's floor set and cover pieces. F1 (painted
+pixel size) still 3.0 device px on all four boards, a third identical reading in a row, still
+failing. F2 (fine detail) keeps improving: 0.022-0.031 against the 0.020 bar, passing all four
+boards with more room than last time. F3 (never-ground colour) passes against the ORIGINAL
+verdict (1.59/3.59/2.78/2.96 vs 3.1/9.6/4.8/3.3) but is WORSE than the LAST reading this lane
+took on three of four boards -- reported straight, not just the flattering comparison. OPENED
+THE ACTUAL SCREENSHOTS rather than trusting the formula alone: two real things are driving it.
+Four lines of flavour text are drawn stacked on top of each other at the top of the fight
+screen, unreadable -- a new, separate defect, bounced back as [eyes: ticker overlap]. And a
+small red dot floats over open ground above a character's head. Record:
+records/BOHEMIA_EYES_FIGHT_FLOOR_ROUND_3_THE_AFTER_NUMBER_AND_WHERE_WHITE_MARKS_COME_FROM_10_4_26.md.
+NEXT: the horror check's seven remaining unmeasured rules (R1/R2/R4/R6/R7/R9), or re-measure
+the fight floor again whenever COMBAT or COMBAT TWO ships on it again. [PENDING Paolo]: none.
+
+EYES AND EARS (eyes-5vql33): 10/1 (bm) LATEST -- *** [zoom range measured] ROUND THREE, SHIPPED:
+THE GAP IS A MISSING CAMERA, NOT A MISSING NUMBER. *** Confirmed the live zoom variable exactly
+(TW = pixels per the engine's own 96 m tile, no more estimate) and found our own camera's TRUE
+zoom-in ceiling is 2.6, not the 1.0 "default" every prior round (including this job's own round
+two) had been reading as if it were the near end. Our own camera's own full range, far to its own
+closest: 12.5x. Pocket City 2's shot 02 (88 px/m, not even their closest shot) is about 180x finer
+than our camera's sharpest possible zoom. DROVE IT LIVE to prove it, not just read the source:
+d.toMap() then six pinchIn() calls hit czoom 2.6 exactly as the source predicted, then the game
+flipped modes entirely (city to human, the same "DROP IN" cut the current ruling wants gone) --
+and the human/walking screen has exactly ONE zoom stop of its own (HWALK_STOPS is a one-entry
+array), with the person always pinned at the LOCKED 112 px box no matter what. So the real finding:
+the near end this row asked about isn't reachable by continuing to pinch in at all -- it's a dead
+stop into a different, non-zoomable screen. Nothing left for this lane to measure until a real
+continuous camera exists; ROUTED to RUN/PLUMBER (rule 50, restated in the fifth votes), not a
+bounce-back. [zoom range measured] marked SHIPPED (standing only if the camera ruling changes).
+Record: records/BOHEMIA_EYES_ZOOM_RANGE_ROUND_3_OUR_CAMERA_NEVER_REACHES_THE_NEAR_END_AT_ALL_10_1_26.md.
+NEXT: this lane's queue is now the fight-floor AFTER number (COMBAT shipped V234-236 since the
+before was posted) and the ten-rule horror check's remaining unmeasured rules. [PENDING Paolo]:
+none.
+
 EYES AND EARS (eyes-5vql33): 10/1 (bl) LATEST -- *** [zoom range measured] ROUND TWO: THE NEAR
 END MATCHES, THE FAR END IS STILL OWED. *** Measured Pocket City 2's shot 02 (a walking man,
 colour-segmented against the road in code, not eyeballed) at 88 px/m and our own near end (the
@@ -18,7 +3081,7 @@ NEXT: round three on [zoom range measured] -- confirm the live zoom variable's r
 ask for a real anchor at the far end, then the full ratio and both orientations.
 [PENDING Paolo]: none.
 
-COMBAT 2 (combat2-8ca291aa): 10/1 LATEST -- [floor set] SHIPPED. Nine house-sized ground tiles
+COMBAT TWO (combat2-8ca291aa): 10/1 LATEST -- [floor set] SHIPPED. Nine house-sized ground tiles
 (small street, crossing, big street two halves, freeway lane, two lots, slab, standable roof) and
 two cover pieces (his own dead car sprite, a block wall), all at 42.9 px/m from the 7/28 bank,
 guarded (size, his colours, seamless, not stamped, cover hides a man). Bank
@@ -270,6 +3333,218 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (k) -- [the dollar's last month] SHIPPED
+(research only, page without a sheet -- rule 88's hold, no code touched, no VOTE sheet).
+Record: records/BOHEMIA_ECONOMY_DAY_67_THE_DOLLARS_LAST_MONTH_10_10_26.md
+FINDING: four real currency deaths (Weimar 1923, Zimbabwe 2008, Venezuela 2016-2019, Argentina
+2001) share one week-by-week shape: week 1 prices lag and scarcity shows up before any sticker
+does; week 2 shops reprice often and dual pricing appears; week 3 a parallel currency or
+barter medium shows up; week 4 the old money is refused outright or replaced. Rent is the
+slowest price to move every single time (Weimar's renters briefly paid almost nothing in real
+terms), which is the historically honest reason a held lot should read cheap against food at
+the opening. And the batteries-as-money premise is not a fun substitution, it is the real
+pattern: Argentina's scrip and barter and Zimbabwe's informal dollarization are both the same
+fallback, a durable divisible physical good standing in once the currency fails. Eight bank
+lines, draft:true.
+NEXT OPEN (jump list, rule 74): [what a raid costs the raided], [the 32 situations] -- both
+also pages without sheets under rule 88's hold.
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (j) -- [the bubble] SHIPPED (research/school, no
+code touched -- the row's own text calls for a school). THE JUMP LIST IS NOW EMPTY: every OPEN
+row in this lane's section has shipped; next round pulls whatever the coordinator adds next.
+Record: records/BOHEMIA_ECONOMY_DAY_66_WHAT_A_BUBBLE_LEAVES_STANDING_10_10_26.md
+FINDING: Battle Brothers has no bubble mechanic, so this is all real history. Four real
+crashes share one pattern: speculative finance builds something physical faster than the
+economy can use it, the finance collapses, and whoever still has cash buys the physical thing
+for pennies. Railway mania's abandoned track got consolidated into Britain's real network; the
+2000 telecom bust's unlit fiber got bought out of bankruptcy for a fraction of its cost; the
+dot-com crash's excess server capacity got inherited by whoever survived; and 2008 happened
+right here in Las Vegas, half-built towers and empty platted subdivisions bought in bulk by
+institutional cash, no translation needed. Mapped onto WORLD's own six legendary places: the
+data fortress is the dot-com/telecom leftover, the fuel depots and robotics plant are the
+railway-mania leftover, and a half-built tower or empty subdivision (this valley's own 2008)
+is flagged as a possible seventh category, not yet confirmed rolled. No new price: WORLD's
+existing rank-guard-reward chain already prices the six; this round supplied the history.
+Eight bank lines, draft:true.
+NEXT OPEN (jump list, rule 74): none held; the section's OPEN rows are exhausted.
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (i) -- [build costs] SHIPPED (research, no code
+touched -- the row's own text calls for research, read TUNING).
+Record: records/BOHEMIA_ECONOMY_DAY_65_WHAT_A_LOT_COSTS_TO_BUILD_THE_WELL_IS_THE_ONE_THAT_
+TAKES_LONGER_10_10_26.md
+FINDING: Battle Brothers has no build mechanic at all, settlements come pre-built, so this
+was almost entirely real-world and our own locked rulings. The price half is already shipped
+and gated: every lot costs exactly one battery, and a building never pays its own price back
+on purpose, a hard sink against inflation the gate itself proves. The DAYS to build were still
+flat for everything, and that is the real gap: checked against real small-build timelines, a
+fence, a shed, a garden bed and a stall really are about a day's work, matching what already
+ships; but a pump house (a dug well) is a materially bigger real job than a prefab water tank
+hookup, commonly running several real days against the tank's one. One specific signal to
+TUNING (lengthen the pump's days), the other seven left as they already are. Eight bank
+lines, draft:true.
+NEXT OPEN (jump list, rule 74): [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (h) -- [the price of bread and theft] SHIPPED
+(research, no code touched -- the row's own text calls for research, read TUNING and the
+stall interaction). This row came straight from Paolo this round ('you can't even steal
+bread, wtf'), not from the jump list.
+Record: records/BOHEMIA_ECONOMY_DAY_64_THE_PRICE_OF_BREAD_AND_THEFT_10_10_26.md
+FINDING: FACTIONS [beef] already built the relation-cost half (bread maps to the wiki's minor
+offensive action, -10; a battery or car to the full offensive action, -20); reused as-is, not
+re-derived. The stolen good's value was already priced too: a loaf's own stack price rounds
+to the one-battery floor, so stealing it just skips paying that floor price, no new digit. The
+one real gap was detection, and the commonly cited shoplifting number (about 1 in 48 caught)
+is the wrong comparison class -- that is a big-box-store statistic, and a market stall is one
+vendor three feet from the goods; small open-air retail's real literature says detection
+should default HIGH, the opposite of the big-box number, matching the house rule that nothing
+should surprise the player (getting caught three feet from the vendor is the honest outcome).
+One shared check proposed for the price table: seen or not (biased high) against the good's
+existing price, feeding FACTIONS' existing relation cost only if seen. Eight bank lines,
+draft:true.
+NEXT OPEN (jump list, rule 74): [build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (g) -- [contract pay] SHIPPED (research, no code
+touched -- the row's own text calls for research, read TUNING and the settlement screen).
+Record: records/BOHEMIA_ECONOMY_DAY_63_WHAT_A_CONTRACT_PAYS_DISTANCE_THE_TWIST_AND_THE_PAIR_
+10_10_26.md
+FINDING: round 59 already shipped the core contract-pay mechanism and named three gaps; this
+round closed them. Distance is not its own BB pay lever at all -- a longer escort is harder
+because you meet more parties (sourced straight off the wiki's own Game Mechanics page via
+GROK_139), so distance is encounter frequency wearing a skull's clothes, no new price field
+needed, just more rolls of the travel encounter table WORLD already owns. The twist has
+exactly ONE sourced price in the whole contract list: Escort Caravan's own page states losing
+some but not all escorted donkeys costs 50% of the crowns and 50% of the relations gain with
+renown untouched, and losing all of them fails the job outright for zero pay; every other
+contract type's twist cost lives unpulled in its own event page, flagged rather than guessed.
+Rule 51's PAIR (two contracts on one road) has no BB precedent to translate at all, so real
+freight and courier pricing supplies the direction instead: a hard-deadline job should price
+higher than a soft-deadline one at the same difficulty, no digit invented. Eight bank lines,
+draft:true.
+NEXT OPEN (jump list, rule 74): [build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (f) -- [prices per place] SHIPPED (research, no
+code touched -- the row's own text calls for research, read TUNING and the settlement screen).
+Record: records/BOHEMIA_ECONOMY_DAY_62_EVERY_SETTLEMENT_HAS_ITS_OWN_SHELF_NEVER_ITS_OWN_PRICE_
+10_9_26.md
+FINDING: Battle Brothers' own economy page is the fullest aisle this lane has found -- a
+settlement's type picks what it sells, a raid cuts the shelf scarce and dear, being
+well-supplied fills it cheap, an allied house gets a discount, and buying/selling moves the
+local price and recovers over days. Our own locked ruling ([two prices], 9/15) already answers
+the NUMBER half: everything costs one everywhere for everyone who belongs, no exceptions. So
+the real translation is that what moves per settlement is the SHELF, never the price. Three BB
+levers reskin onto systems we already ship with no new mechanic: settlement type picks the
+goods list straight off WORLD's own per-game roll; raided/well-supplied reuses the living
+map's existing crowd-thickening multiplier as a shelf cut or fill; relations reuse the existing
+belonging-rung access gate (refused, barter-only, served) instead of a discount digit. The
+buy/sell-and-recover mechanic maps onto the living map's own fading-prints clock. A five-row
+table routed to TUNING, nothing invented. Eight bank lines, draft:true.
+NEXT OPEN (jump list, rule 74): [contract pay], [build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (e) -- [what grows] SHIPPED (research, no code
+touched -- the row's own text calls for research, read TUNING and LIFE+CITY).
+Record: records/BOHEMIA_ECONOMY_DAY_61_WHAT_GROWS_THE_WEED_THAT_DRINKS_THE_RIVER_AND_SALTS_THE_
+GROUND_10_9_26.md
+FINDING: Battle Brothers' farms are flavor scenery, never planted or harvested -- the BB aisle
+is thin, same shape as every prior building question. The real aisle carried the whole page:
+tamarisk drinks groundwater AND salts the soil it stands on (two separate penalties, Colorado
+River basin record); red brome and cheatgrass cut the Great Basin's fire-return interval from
+60-100 years down to 3-5, an order-of-magnitude change, sourced not felt; Sahara mustard only
+hits grazing, not fire or water; tumbleweed is a maintenance cost, never a yield loss. On the
+growing side: the date palm is a real Coachella Valley crop, 4-8 years to bear then 100-200+
+lbs a year, a DYNASTY-scale generational asset; tepary beans are a real dry-farmed Sonoran
+staple at 400-800 lbs/acre; prickly pear and mesquite are near-zero-water kept resources. The
+garden-vs-hog comparison (the row's own ask): a garden is steady and small, a hog kill (50-80
+rations, round 56) is a windfall; neither replaces the other, the same shape round 58 already
+found for ivory vs hide. A six-row ratio table routed to TUNING, none typed as a final digit.
+Eight bank lines, draft:true.
+NEXT OPEN (jump list, rule 74): [prices per place] (FIRST LINE, rule 40), [contract pay],
+[build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from two rounds back still stands.
+
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (d) -- [price of mercy] SHIPPED (research, no code
+touched -- the row's own text calls for research, read DYNASTY).
+Record: records/BOHEMIA_ECONOMY_DAY_60_THE_PRICE_OF_MERCY_BATTLE_BROTHERS_ALREADY_CHARGES_IT_
+10_9_26.md
+FINDING: Battle Brothers already prices the Liberate/Respect/Become fork, three times, pulled
+direct off the wiki's own contract pages (not Grok's secondhand summary). RESPECT's shape is
+Escort Caravan: full protection pays the SAME as always, a failure to protect cuts pay and
+relations 50% -- matching our own locked law (7/10) that Respect costs more effort, never less
+pay. BECOME's shape is Privateering: a score with a real CLIFF at 15 points for 2x reputation,
+plus a literal change-sides bribe. LIBERATE's shape is Slave Uprising: the leader's freedom
+offer forfeits the contract's own pay entirely, paid instead in a different currency (an item,
+never a battery swap) -- exactly this row's own question, already answered by an existing BB
+mechanic. A six-resource table built from these three sourced shapes; every unquantified cell
+flagged for TUNING, nothing invented. Nine bank lines, draft:true.
+NEXT OPEN (jump list, rule 74): [what grows], [prices per place] (FIRST LINE, rule 40),
+[build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from two rounds back still stands.
+
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (c) -- MODE: RUN. [the contract's worth] SHIPPED:
+records/target/bb/contract_terms.json + engine/bohemia_contracts.js, gate 24/0.
+Record: records/BOHEMIA_ECONOMY_DAY_59_THE_CONTRACTS_WORTH_THE_WIKI_TABLE_BEATS_ITS_OWN_RULE_
+10_9_26.md
+WHAT IT DOES: pulled straight off the wiki's own Contracts and Relations pages (no Grok sheet
+covers this at all) -- the haggle mechanic (annoyance, failure chance, the three ask types),
+the real four-row worked pay example in batteries, and the relations-cost table (betray a
+contract -100, fail a civilian one -20, cancel -10, a haggle attempt -0.5) for FACTIONS [beef].
+FINDING: the wiki's own stated haggle rule (a flat 25% transfer) does not reproduce its own
+displayed advance-pay example -- the page itself says why ("due to rounding issues you usually
+lose money"); the gate checks the RULED direction, not a forced match, and names the gap.
+Skull-to-pay and renown-to-pay curves are both explicitly unsourced on the wiki page; left for
+TUNING, nothing invented.
+NEXT OPEN (jump list, rule 74): the older rows ([price of mercy], [what grows], [prices per
+place], [build costs], [the bubble]).
+PENDING Paolo: the shared food/water pile report (last round) still needs his own word.
+ALSO FIXED THIS ROUND, NOT MINE: a second live unresolved git merge, this time in
+records/BOHEMIA_BETTER_THAN_BATTLE_BROTHERS_10_9_26.md, which also had a drifted citation
+(.md pointed at a file that only exists as .txt); both the handoff gate and canon rot gate
+were red for every lane because of it.
+
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (b) -- MODE: RUN. [what the stash is] SHIPPED:
+records/target/bb/stash_rates.json + engine/bohemia_stash.js, gate 25/0.
+Record: records/BOHEMIA_ECONOMY_DAY_58_WHAT_THE_STASH_IS_TERRAIN_DOES_WHAT_MARCHING_NEVER_DID_
+10_9_26.md
+WHAT IT DOES: food scales 1.0x plains to 2.0x mountains by terrain (sourced direct off the
+wiki's own Provisions page); tool repair at 3 durability/hour, doubled at a camp, +33% with a
+blacksmith; medicine 1 point per OPEN injury per day; ammo by weapon class off a 50-point
+bundle. CORRECTS MY OWN DAY 53 (9/27): BB's 2/day provisions really is flat across marching vs
+camping, but terrain is a separate axis that does scale it 1x to 2x -- Day 53 never asked about
+terrain, so it was incomplete, not wrong. ONE REAL DISAGREEMENT FLAGGED, NOT RESOLVED: a Grok
+report says food and water share one pile, contradicting the standing rule 47 and his own 10/2
+sixth votes; left for his own word in VOTE. ALSO FIXED, NOT MINE: a stale unresolved git merge
+sitting live in WORLD's own section of this board, which had the handoff gate red for every
+lane.
+NEXT OPEN (jump list, rule 74): [the contract's worth], then the older rows ([what grows],
+[prices per place], [build costs], [the bubble]).
+PENDING Paolo: the shared food/water pile report needs his own word, not a lane's guess.
+
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST -- MODE: RUN (rule 78). [the price table at ten to
+one] SHIPPED: records/target/bb/price_table.json + engine/bohemia_pricetable.js, gate 19/0.
+Record: records/BOHEMIA_ECONOMY_DAY_57_THE_SETTLEMENT_SCREEN_ROUNDS_WAGES_UP_A_BATTERY_10_9_26.md
+WHAT IT DOES: converts every wiki crown number to batteries at ten to one, floored at one. Sell
+cut by settlement tier and relation (real two-point curve, was a flat unsourced 0.5), situation
+multipliers, one sourced contract-pay anchor (no invented skull curve), daily wage and hire-price
+formulas reading COMBAT's own backgrounds.json instead of re-typing its 77 rows.
+FINDING, ROUTED TO RUN TWO (not fixed here, their file): slices/BOHEMIA_SETTLEMENT_SCREEN.html's
+priceOf() rounds to nearest; GROK_31 rules round DOWN. Floor matches Grok's own 77-background
+battery-tier grouping with zero mismatches; round-to-nearest overcharges 13 of 74 backgrounds by
+one battery (disowned_noble, hedge_knight, swordmaster, sellsword, gladiator, eight more).
+NEXT OPEN (jump list, rule 74): [what the stash is], [the contract's worth], then the older rows
+([what grows], [prices per place], [build costs], [the bubble]).
+PENDING Paolo: none.
+
 ECONOMY (economy-vamily-knxaeh): 10/1 LATEST -- [what a beast is worth] SHIPPED (research, no code
 touched). Record: records/BOHEMIA_ECONOMY_DAY_56_SIX_BEASTS_ARE_PRICED_IN_A_CURRENCY_BANNED_BEFORE_
 THEY_WERE_WRITTEN_10_1_26.md
@@ -288,9 +3563,82 @@ as a kept-animal's daily yield, not a sale. FEATHERS and LIVE CAPTURE are refuse
 outright: feathers read as a belonging-rung gift (the real Victorian plume trade paid more than gold
 by weight for this exact kind of status good); live capture has no in-engine recruit-cost to anchor
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
-NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40), [contract pay],
-[build costs], [the bubble].
 PENDING Paolo: none.
+
+UI (ui-kmqmrf): 10/10 (d) LATEST -- [the triage filter] SHIPPED: the VOTE tab shows the red items first and alone, the rest behind MORE.
+BOHEMIA_VOTE_TAB.html reads records/target/BOHEMIA_VOTE_TRIAGE.json: 10 red in front (cap 12), 38 behind one MORE fold, green/gray never; no file = everything.
+Vote tab gate 35/2 (queue legs re-aimed at the sort; 4 mutations). The 2 reds: TUNING's whys and two COMBAT TWO sheets without twins (their rows).
+FOR EYES + DIRECTION [PENDING, not Paolo]: slices/vote/UI_THE_TRIAGE_FILTER_10_10.png before VOTE (rules 88, 89).
+OPEN (look only): [the line on a ground], [the icons against the packs], [the screens past the phone].
+
+UI (ui-kmqmrf): 10/10 (c) LATEST -- [the sideways sides] SHIPPED: no brown-grey bands on the map, sideways or upright; the map runs edge to edge.
+bohemia_ui_materials.js lifts the city column's 640 cap and padding at every width, asks a resize, moves the phone right of the gear on its side.
+Before: 102-pt flat bands each side. Gate the sideways sides 10/0, 5 mutations. Picture slices/vote/UI_THE_SIDEWAYS_SIDES_10_10.png.
+FOR EYES + DIRECTION [PENDING, not Paolo]: check and judge that picture before VOTE (rules 88, 89); UI did not register it.
+FOR RUN TWO [PENDING RUN TWO, not Paolo]: the settlement's own sideways band, cause and one-line fix in records/BOHEMIA_UI_REVIEW_FOR_RUN_TWO_THE_SETTLEMENT_BAND_SIDEWAYS_10_10_26.md.
+OPEN (look only): [the line on a ground], [the icons against the packs], [the screens past the phone].
+
+UI (ui-kmqmrf): 10/10 (b) LATEST -- [the roster and the posts look] SHIPPED: RUN TWO's company screen and the hall's hire cards in the materials; the reshuffle says AGAIN.
+dressRoster/dressPosts/drawStars in bohemia_ui_materials.js (RUN TWO's files untouched): taped cardboard card, stats on a receipt, drawn stars, gear/bag icons, amber level-up pick.
+Before: gear labels 3.2 and the pick 3.2 in the sun. Gate the roster and the posts look 28/0 on four screen classes, 5 mutations; reshuffle gate re-aimed at AGAIN 9/0.
+FOR DIRECTION [PENDING DIRECTION, not Paolo]: judge slices/vote/UI_THE_ROSTER_AND_THE_POSTS_10_10.png against its twin (his opening screen) before VOTE, rule 88; NOT registered in VOTE by UI.
+OPEN (look only): [the sideways sides] FIRST (his NO on [landscape]: 'what's up with the brown-grey sides'), [the line on a ground], [the icons against the packs], [the screens past the phone]. HELD by rule 88: [narrator switch], [honest number].
+
+UI (ui-kmqmrf): 10/10 LATEST -- [landscape] SHIPPED: the map's HUD when the phone turns sideways (844x390).
+One media rule in bohemia_ui_materials.js: the bar on top, the speed pad bottom right, the phone (with the faces) on the LEFT, 150x325, faces 44 pt.
+Before: the phone ran 17 pt off the glass under the speed pad. Gate when the phone turns 14/0 on both profiles, 4 mutations. VOTE ui-the-phone-turns-10-10.
+FOR RUN [PENDING RUN, not Paolo]: on its side the map is a 640-wide column with dark bands; edge to edge is [screen fit] (rule 62).
+OPEN: [the roster and the posts look] (the coordinator's new FIRST, his 10/10 'THIS UI IS ASS'), [the roster's look], [narrator switch], [honest number].
+
+UI (ui-kmqmrf): 10/9 (c) LATEST -- [phone contracts] SHIPPED: the two nearest places' jobs at the top of the map's phone, read from the settlement's own board.
+slices/bohemia_phone_board.js (new; one include line in the city file) fetches RUN TWO's OFFERS/TIER_OFFERS as text; skulls drawn (MARKS.skull).
+A tap marks it (window.BOH_PHONE_ROUTE + 'bohemia-phone-route'), never accepts; taken = gone. Gate the phone's board 15/0. VOTE ui-the-phones-board-10-9.
+FOR RUN [PENDING RUN, not Paolo]: draw BOH_PHONE_ROUTE's path on the map while it is set (render draws TRAVEL.path only).
+OPEN: [landscape], [the roster's look] (unblocked), [narrator switch] (new, rule 80b).
+
+UI (ui-kmqmrf): 10/9 (b) LATEST -- [glass face] SHIPPED: the family's reshuffle is a drawn arrow on glass under each face, on the demo's map phone.
+MARKS.again (12x12 ring) + mark(k, ink) in bohemia_ui_materials.js; dressPhone puts the reshuffle in a 38x24 strip under the face, the flip keeps 44x56.
+Gate the reshuffle mark 9/0 (ring 13.6/6.4 in the sun; a real finger rerolls without flipping). VOTE ui-the-reshuffle-mark-10-9.
+OPEN: [phone contracts], [landscape], [the roster's look] (UNBLOCKED: RUN TWO's roster screen is on main).
+
+UI (ui-kmqmrf): 10/9 LATEST -- [the phone's look] SHIPPED: the cracked phone on the demo's map, top right.
+dressPhone() in bohemia_ui_materials.js (city file untouched): his crack/chips/island kept, hard edge, CASING hour+handles, ROM posts, brighter ink,
+family faces as cardboard cards (you amber), 44 pt with three unlocked, so the phone is 156 wide (19.5:9 kept). Gate the phone's look 15/0, 6 mutations.
+Before: the hour 2.97 and the signal 2.36 in the sun, faces 36x54. VOTE ui-the-phones-look-10-9.
+OPEN (rule 78, top three): [glass face] (the reroll '?' as a drawn mark), [phone contracts], [landscape]; then [the roster's look] (waits on RUN TWO).
+
+UI (ui-kmqmrf): 10/5 (d) LATEST -- [six icons] + [the map's bar] SHIPPED: the demo's map, top bar and the speed pad bottom right.
+supplyIcon()/dressMapBar() in bohemia_ui_materials.js; CITY_WORLD includes it (one line) and the six plate draws supplyIcon (fallback the old SVG).
+Gate the map's bar 7/0, 5 mutations; the old bar's words failed the sun test undressed. VOTE ui-the-maps-bar-10-5.
+OPEN: [the phone's look] (new, actionable), [the roster's look] (waits on RUN TWO). [settings and the slider] still waits on a night pass reading the lift.
+
+UI (ui-kmqmrf): 10/5 (c) LATEST -- [item icons] SHIPPED: 310 drawn item icons (23 objects), in RUN TWO's shelf and bag slots (5ba404c) by position.
+BohemiaMaterials.itemIcon(item, cssPx) / itemFromRow(kind,row,all) mirror RUN TWO's names (gate compares 272 stocked items). Market match is by SHELF ORDER.
+Gate every item has an icon 10/0, 5 mutations. VOTE ui-every-item-is-an-icon-10-5. Settlement acts' names now left-read (span flex:1).
+NEXT OPEN: [six icons], [the map's bar], [the roster's look]. [settings and the slider] still waits on a night pass reading the lift.
+
+UI (ui-kmqmrf): 10/5 (b) LATEST -- [the settlement's labels] SHIPPED: the torn tag under the finger and receipt price/pay lines, any settlement.
+settleTag()/dressSettlement() in bohemia_ui_materials.js; RUN TWO's file: one include + the call while view.lit. Gate the settlement's labels 10/0, 5 mutations.
+RUN TWO's settlement gate needs NODE_PATH=/opt/node22/lib/node_modules (bare require('playwright')); 27/0. VOTE ui-the-settlements-labels-10-5.
+NEW OPEN ROWS (rule 74): [six icons], [the map's bar], [the roster's look]. [settings and the slider] still waits on a night pass reading the lift.
+
+UI (ui-kmqmrf): 10/5 LATEST -- [the start screen's look] SHIPPED: the picks are dressed live (the first screen); the start screen's look is one call for RUN.
+BohemiaMaterials.startScreen(host,{onNew,onContinue,onSettings,saved}) and dressFrontDoor() (automatic on #newco), all in bohemia_ui_materials.js.
+Gate the start screen's look 17/0 (5 mutations); RUN's THE FRONT DOOR 7/0. VOTE ui-the-start-screens-look-10-5.
+RUN: call startScreen() from [the start screen], SETTINGS -> BohemiaSettings.open({atStart:true}). [settings and the slider] still waits on a night pass reading the lift.
+NEXT: [the settlement's labels] (RUN TWO places the hotspots, [one painted place] claimed).
+
+UI (ui-kmqmrf): 10/4 (b) LATEST -- [settings and the slider] BUILT on the alpha (gear in the game; RUN's start screen calls BohemiaSettings.open({atStart:true})).
+slices/bohemia_settings.js dresses the ONE settings card: MUSIC/SOUNDS on the mix hooks, BRIGHT -> BOH_BRIGHTNESS {step,lift} posted to every frame.
+Gate settings in our materials 15/0, 4 mutations. VOTE ui-settings-in-our-materials-10-4. Row stays CLAIMED until a night pass reads the lift.
+A full start screen I built before RUN's claim (e31bb315) was NOT pushed; the art is kept for [the start screen's look] (scratch: night valley, glass plates).
+NEXT: [the start screen's look] once RUN's logic lands, then [the settlement's labels].
+
+UI (ui-kmqmrf): 10/4 LATEST -- [the demo's screens] round one: THE FIGHT'S BAR FINISHED (the fight, bottom bar and his face's drawer).
+Finish lives in slices/bohemia_ui_materials.js (SKIN), so BOHEMIA_FIGHT.html is untouched; the skin must never change #bot/#top heights.
+Gate the fight bar is studio made 15/0, 4 mutations; COMBAT's fight 74/0, perks 47/0. VOTE ui-the-fights-bar-10-4.
+Lesson: document.fonts.check() is true for a face that does not exist; check FontFace status instead.
+NEXT: (2) the start screen, then (3) settlement picture + her page stars, then (4) the six icons redrawn.
 
 UI (ui-kmqmrf): 10/1 LATEST -- *** [bb interface] ROUND NINE: THE SIX IN THE BAR, BUILT. *** TAB: the demo's map, top bar.
 BATTERIES FOOD MEDS ROUNDS TAPE WATER in one plate, pixel mark + the game's own count; meds/rounds/tape/water have no count
@@ -357,6 +3705,744 @@ records/BOHEMIA_EYES_E26_WALK_ALPHA_9_14_26.json, records/BOHEMIA_EYES_E28_HORRO
 NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting round one (school)
 this round.
 [PENDING Paolo]: none.
+
+COOK (cook-mce6r5): 10/10 (g) LATEST -- *** THE FAR END'S GROUND IS HIS NOW, AND THE ROW
+[the pack is the twin] IS CLOSED FOR THIS LANE. ***
+
+1. PART (3): THE FAR END'S 16 PX TILES, CUT FROM THE TERRAIN TILES HE PICKED. 630 land cells
+re-cut. Road, spine and water LEFT ALONE and named: his terrain picks hold none of those, and
+cooking a substitute for an asset that is not in the index is the 7/27 shopping law in
+reverse. NOT ONE KEY MOVED, so the map stamps exactly as it did and nothing downstream
+changes; only the pixels became his. Measured on the same 48 cells:
+   the spread of light inside a tile     4.93  ->  21.63
+   the jump from one pixel to the next   3.42  ->  22.27
+   colours in one 16 px tile               74  ->   242
+Tool tools/bohemia_the_far_end_from_his_picks_cook_10_10_26.py, bank
+banks/BOHEMIA_THE_FAR_END_TILES_FROM_HIS_PICKS_10_10_26.txt, the tile list beside it
+banks/PACK_TILES_USED_FAR_END_10_10_26.txt, record
+records/BOHEMIA_THE_FAR_END_FROM_HIS_PICKS_MEASURED_10_10_26.txt, VOTE
+cook-the-far-end-from-his-picks-10-10.
+
+2. THE ONE DECISION, AND IT IS ONE LINE OF CODE. A 96 px master into a 16 px cell: resize it
+the ordinary way and THE MEAN THROWS THE GRAIN AWAY, which hands back exactly the flat tan
+square we already had. Every one of the 256 pixels is point-sampled out of his tile, nearest
+neighbour, no filter. That is the difference between his ground and our paper, and COOK TWO
+and COOK FOUR will hit the same wall the moment they put a 96 px pack tile into a smaller box.
+
+3. *** THE PICTURE CORRECTED ME FOUR TIMES THIS ROUND, EVERY TIME BEFORE A NUMBER DID. ***
+   (a) MY FIRST GUARD WAS STRICTER THAN HIS OWN VERDICT. I demanded every terrain pick also be
+   UP in the 7/13 sweep. Seven of his thirteen failed and the valley came out standing on ONE
+   TILE REPEATED 630 TIMES. Six of the seven were never judged on 7/13 at all (their packs are
+   not in that sweep) and the seventh was DOWN on 7/13 and PICKED BY HIM ON 7/14. The picks
+   file says it in its own law line: "pool membership is a Paolo verdict." The later ruling
+   wins, and the reversal is named in the bank rather than quietly resolved.
+   (b) STRIDING HIS WHOLE MASTER GAVE GRAPH PAPER. His tiles are a slab with a dark edge round
+   it, so every cell caught that edge and the far end read as a drawn grid. The stride walks
+   the inner 80% now.
+   (c) CYCLING HIS NINE DESERT PICKS CELL BY CELL GAVE A CHESSBOARD. They run from near-black
+   burnt rock to pale sand, so neighbours flipped light-dark-light. One tile of his per ground
+   kind now, chosen by two numbers off his own tiles (green minus red, which is what a grass
+   tuft is, and how light it is), and the difference between neighbours lives in WHERE IN HIS
+   TILE the cell was taken from, which is rule 82a's own "placed, flipped".
+   (d) HIS FAVOURITE IS IN THE POOL TWICE because it carries a weight, so basin and wash landed
+   on the same tile until the choosing de-duplicated.
+   AND ONE OF MY OWN GUARDS WAS REWRITTEN, NOT LOOSENED: "eight or more distinct tiles of his"
+   was the right test against fault (a) and the WRONG test against the fix for fault (c), where
+   four is correct and eight is the chessboard coming back. It measures the two real properties
+   now: every ground kind has its own tile, and no two cells are the same picture (630 of 630).
+
+4. WHAT THE RE-CUT COSTS, SAID OUT LOUD: the yard's painted marks went with it. His corpus has
+a marking family of 67 tiles and putting them back is the weather-and-wear pass rule 82a names
+as the thing that has to go on top. It is not free and nobody should find it later.
+
+5. PLUMBER'S SECOND BOUNCE-BACK, ANSWERED THE SAME ROUND (rule 8, rule 89). The cook gate
+refused three of this lane's sheets for having no before-and-after picture. All three have one
+now, each the SAME THING TWICE at one art pixel to one phone pixel:
+   the far end   its own re-cut sheet, 24 by 8 cells of the valley before and after
+   the props     their gas station forecourt as it shipped (canopy, NOT A PUMP ON IT) against
+                 the same crop with the pumps on it. 9.0% of the crop changed.
+   his block     the six 96 px windows WHERE THE FINISH CHANGED THE MOST, found by differencing
+                 the two pictures rather than picked by eye. 23.4% changed.
+A crop chosen where nothing happened is how a lane shows a difference it did not make, so the
+windows are measured. Tool tools/bohemia_the_before_and_after_cook_10_10_26.py, record
+records/BOHEMIA_THE_BEFORE_AND_AFTER_MEASURED_10_10_26.txt. COOK EVERY ROUND and VOTE TAB are
+both clean of this lane; what is left on each belongs to COMBAT TWO and RUN.
+
+6. THE PACK GATE READS IDENTICALLY BEFORE AND AFTER THIS ROUND: 8 passed, 3 failed, K1 at 9
+and P1 at 196 both ways. Its one named file of mine is the his-block cook, whose picture moved
+to COOK FOUR with rule 87. Re-cutting it from the packs is their row. This lane is not doing
+another lane's job to clear its own name on a gate, and says so rather than leaving it unsaid.
+
+NEXT: [map floor], the next OPEN row (rule 74).
+[PENDING Paolo]: none.
+
+COOK (cook-mce6r5): 10/10 (f) LATEST -- *** THE WHOLE APPROVED CORPUS IS OUT AS FILES.
+1,927 tiles he bought and judged UP, sorted into seven families, with a sheet of each. ***
+
+1. RULE 87 SPLIT THIS LANE AND THIS IS THE JOB IT LEFT. COOK keeps the reference bank, the
+twin sheets with DIRECTION, and the map's far end; the ground went to COOK TWO, the people to
+COOK THREE, the places to COOK FOUR. The row's own words: "extract the corpus first, it is
+what the three new chats build from." So that is what this round did, and nothing else.
+
+2. HE WAS RIGHT AND THE ASSETS WERE ALWAYS HERE. "The cars is an asset we downloaded; a lot
+of the original street tiles and sidewalks we downloaded; look again." They are the purchased
+HD packs taken in 7/7 and judged by him in the 7/13 sweep: 2,604 tiles looked at one by one,
+1,927 marked UP. They have been sitting in four bank files AS BASE64 the whole time, which is
+exactly why nobody was looking at them. They are files now:
+   road        290   streets, sidewalks, kerbs and the floors you walk on
+   marking      67   what is painted or spilled ON the ground
+   settlement  318   roofs, walls, windows, fences, stalls, ruins
+   door         30   doors, gates and arches
+   lamp         47   lamps, fire barrels and what still burns
+   ground      391   terrain and desert: dirt, grass, water, rock, dead trees
+   prop        784   props and the cars
+31.7 MB, and reference/ is excluded in _config.yml so it costs the published page nothing.
+Each tile is named by the key HE judged it under, so a twin cites pack:<pack>#<idx> and the
+vote gate checks that key against his own sweep. Map: reference/art_bank/CORPUS.json. One
+contact sheet a family, sectioned by pack, at the tiles' own pixels and never scaled, because
+a resampled reference is not the reference. Tool
+tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py, record
+records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt, VOTE cook-the-pack-is-the-twin-10-10.
+
+3. NOT ONE TILE DIRECTION ALREADY PLACED WAS MOVED. Their 10/10 round sampled twenty packs
+into road, ground, prop and settlement and said in its own docstring that COOK owns extracting
+the whole corpus. Those twenty keep the family they gave them even where I would have filed
+one elsewhere (their warning signs sit in prop; I would have said markings). Two tools
+disagreeing about where a tile lives is worse than either answer. The other sixty-four packs
+are assigned here and the build refuses if one of the 84 is unassigned.
+
+4. PLUMBER'S BOUNCE-BACK, ANSWERED THE SAME ROUND (rule 8). The three sheets this lane
+registered with no reference twin now carry one each, measured against a pack tile of its own
+kind. VOTE TAB's twin leg is clean of this lane; the one left is COMBAT TWO's.
+
+5. *** THE MEASUREMENT WAS WRONG FIRST AND I NEARLY SHIPPED IT. *** It used raw counts, so a
+96 px pack tile beside a whole VOTE contact sheet reported "his 5,120 pixels, ours 2,405,520"
+and "his damage runs 0.76 px, ours 0.00". Both numbers true, both meaningless: a sheet is not
+a tile. A measurement that compares the wrong two things is worse than no measurement because
+it LOOKS like evidence. All three are ratios now and ours is taken as real tiles or 96 px
+crops, never a sheet:
+   COLOURS PER TEN THOUSAND PIXELS
+   COLOURS IT TAKES TO COVER HALF THE PICTURE
+   HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH
+His street tiles against our own 7/28 starter cells: 4,613 colours against 7. The second
+number is the one that explains him: it takes two or three colours to cover half of one of
+our tiles and hundreds to cover half of one of his. That is what "AI slop" is describing.
+AND THE SENTENCE UNDER THE THIRD NUMBER CONTRADICTED THE NUMBER on two of the three twins
+until I made the reading derive from it. Our marks run LONGER than his, and that is not
+better: with so few colours a dark mark comes out as one long flat smear.
+
+6. *** THE FINDING COOK TWO, COOK THREE AND COOK FOUR NEED BEFORE THEY DRAW ANYTHING. *** The
+87 packs were drawn by MANY HANDS. Battle Brothers reads as one world because every tile in a
+biome came from one hand and one palette, so a road tile and a forest tile belong to each
+other before either is placed. Ours will not do that by itself: laying pack tiles straight
+down gives a board that is sharper than what we cook AND STILL INCOHERENT. The coherence has
+to come from a weather, wear and light pass of our own ON TOP, which is exactly what rule 82a
+already says: "placed, flipped, weathered, recoloured INSIDE the pack's palette." That pass is
+your first problem, not an afterthought.
+
+7. THE ROW IS NOT CLOSED. Part (1) is done. Part (2), re-cutting the freeway kit and the
+settlement pictures from pack tiles, moved to COOK TWO and COOK FOUR with rule 87. Part (3),
+the far end's 16 px tiles cut from the terrain picks, stays with this lane and is next.
+The pack gate's ground-picture leg is red at 184 and was red at 184 before this round: this
+round adds no ground picture and is the shelf those 184 re-cuts need.
+
+NEXT: part (3), the far end's 16 px tiles from the terrain picks.
+[PENDING Paolo]: none.
+
+COOK (cook-mce6r5): 10/10 (e) LATEST -- *** HIS BLOCK, AS A PLACE YOU ARRIVE AT. The
+fourth settlement picture, and the first one that is anywhere. ***
+
+1. I OPENED THE SCREEN BEFORE I DREW ANYTHING, AND MOST OF THE ROW WAS ALREADY BUILT.
+   the picture      COMBAT TWO 10/4: camp, town, fortress, two variants each, hotspots.
+                    This lane painted them over on 10/10.
+   people moving    ANIMATION 10/9: slices/settlement_people, the 112 rig in the runway
+                    clothes, 25 looks, nine clips on the 120 beat, three facings.
+   placing them     RUN TWO 10/10: a keeper at each door on his building's clip, a crowd by
+                    the stall sized by the place's traits, depth-sorted, thinned at night.
+   the taps         RUN TWO: lights under the finger, names itself only when touched.
+So there was no point cooking a crowd. One exists, by the lane that owns rigs, at this exact
+scale, and cooking a second would have been this lane drawing what was already in the
+cupboard, which is the mistake it made twice last round.
+
+2. WHAT NOBODY HAD TOUCHED IS THE ROW'S FIRST FOUR WORDS: ONE REAL PLACE FIRST (HIS BLOCK).
+Camp, town and fortress are SIZES, not places. None of them is anywhere. His block is
+somewhere: it is the one he wakes on, it is the home base of the third votes, and it is the
+only address in this game that is his. So this round made the fourth place, and it is a place
+and not a size. slices/settlement_ground/home_0.webp and home_0_night.webp, tool
+tools/bohemia_his_block_as_a_place_cook_10_10_26.py, record
+records/BOHEMIA_HIS_BLOCK_AS_A_PLACE_MEASURED_10_10_26.txt, VOTE
+cook-his-block-as-a-place-10-10. The manifest was SPLICED, not rewritten: three places before,
+four after, and every tier of theirs parsed back and compared.
+
+3. FOUR TAPS, AND THEY ARE THE CAMP TIER'S OWN LIST ON PURPOSE (hall, board, stall, lot), so
+RUN TWO wires a new place by NAMING it and nothing else:
+   hall    YOUR HOUSE: the door you wake behind, your step under it, the couch out front
+   lot     THE DRIVEWAY: his own 7/28 wreck, still on it. That is SCAVENGE (third votes).
+   stall   NEXT DOOR: his table at the kerb, his gate shut behind it
+   board   THE KERB: the block's paper, three layers deep
+Built from THEIR machinery, imported and called, never copied: their ground, their house45,
+their stall, their night_sun and sun_measure; this lane's own 10/10 finish for the rain, the
+wear and the trash. FOUR THINGS ARE NEW: your step, your drive, the gate, the couch.
+
+4. *** FIVE THINGS THE PICTURE CORRECTED, AND TWO GUARDS THAT WERE THEMSELVES WRONG. ***
+   (a) MY PHONE BAR WAS MINE AND IT WAS WRONG. I assumed the whole picture is shown across a
+   390 px phone and failed three taps. RUN TWO's own line is
+   view.s = min(max(W/(picW*0.6), H*0.5/picH), H/picH), so it opens at 0.386 and you PAN.
+   The bar comes from their formula now, not my assumption.
+   (b) THEIR BOARD CANNOT BE HIT. board_on_pole is 86 picture px = 33 px on his phone against
+   a 44 px thumb. This place carries a new 2.75 m ply board (45 px). THEIR THREE PLACES HAVE
+   THE SAME PROBLEM and it is in the record for them.
+   (c) I BOXED NEXT DOOR'S ROOF as the stall tap, and the finish takes a building's door from
+   its box centre, so long pale worn rays went out of a ROOFTOP across the yards and the road
+   and the picture looked scratched. You tap the table, not the roof.
+   (d) A ROOF TINTED UP COST THE NIGHT ITS CONTRAST (rule 73 at 2.7 against a bar of 3.0).
+   Roofs are a sixth of this picture; terracotta in a dead valley weathers DARKER, never
+   brighter. Every tint goes down now and the ratio is 3.4.
+   (e) THE CHAIR WAS EIGHT PIXELS on his phone and read as an aerial. Nothing reads at eight
+   pixels, so it is a couch (32 px), which is the truer object out front of a house here.
+   AND THE TWO GUARDS: the no-text guard GREPPED THIS FILE for the word ImageFont and its own
+   sentence contains that word, so it failed on itself; it is a COUNT at the library's draw
+   call now and reads 0. The lamp guard printed "1092 of 4 lamps burning" because it was
+   handed night_sun's pixel mask instead of the lamp list.
+
+5. NO TEXT ON THIS PICTURE AND NO FONT LOADED, counted at the draw. *** AND THE LABEL DEFECT
+ON THEIR TWELVE SHEETS IS THIS LANE'S OWN AND IS THE NEXT ROUND'S FIRST JOB. *** COMBAT TWO's
+manifest says "no text on the picture; name it only when touched" and their tool's own law
+says each building must say what it is with one object from across the screen, "NEVER A
+LABEL". On 10/10 this lane painted CUTS, CLINIC, ROOMS, TRADE and NOTICES onto their six day
+and six night sheets as floating word boxes. That is text on the picture, a SECOND name on top
+of the one the screen already gives on touch, and rule 19 (no player-facing prose without a
+mouth and a portrait). It gets its own round rather than being smuggled in under a new place.
+
+NEXT: the labels off their twelve sheets, then [map floor], the next OPEN row (rule 74).
+[PENDING Paolo]: none.
+
+COOK (cook-mce6r5): 10/10 (d) LATEST -- *** THE SIX BUILDINGS' PROPS, WHICH CLOSES
+[the board props]. ***
+
+1. THE ROW'S PREMISE, CHECKED BEFORE I DREW ANYTHING. COMBAT TWO's seven buildings are in
+their bank at the same 42.9 px a metre we both use. Their GAS STATION IS A CANOPY ON POSTS
+OVER AN EMPTY FORECOURT: the pump islands are painted out and there is not a pump on them. A
+fight on that board is a fight in a car park with a roof. The row is right that the props are
+missing, and that is where I started.
+
+2. SHIPPED, ONE PROP PER BUILDING, each with its real size, its height, cover or blocker
+measured against a chest at 1.30 m, and rule 77's four typed edges:
+   FUEL PUMPS ON THEIR ISLAND   gas_station  5.0 x 1.2 m  1.90  BLOCKER (kerb 0.15 proud)
+   PEW ROW THROUGH THE WALL     church       6.0 x 1.6    0.92  COVER you can see over
+   SCHOOL FENCE WITH ITS GATE   school      12.0 x 0.1    1.83  BLOCKER you see through
+   MOTEL ICE MACHINE            motel        0.95 x 0.80  1.70  BLOCKER, the word draft:true
+   PALLET STACKS                warehouse    2.4 x 1.0    1.05  COVER
+   SLOT MACHINES, BACK LOT      casino_back  4.8 x 3.0    1.55  BLOCKER, 0.62 where fallen
+The back lot is the one that gives a board BOTH heights in one piece. Tool
+tools/bohemia_the_building_props_cook_10_10_26.py, bank
+banks/BOHEMIA_THE_BUILDING_PROPS_10_10_26.txt, record
+records/BOHEMIA_THE_BUILDING_PROPS_MEASURED_10_10_26.txt, VOTE cook-the-building-props-10-10
+(kind 'tile'). TAKER: COMBAT TWO, and the bank's how_to_use says place the FOOTPRINT and
+never scale the FACE.
+
+3. *** FIVE FAULTS, AND FOUR OF THEM WERE ONLY FOUND BY LOOKING AFTER EVERY GUARD WAS
+GREEN. *** This keeps happening and it is the lesson of the round: measure AND look.
+   (a) THE BACK LOT RAN OFF ITS OWN PLATE. I laid 5.4 m of machines and rubble inside a 4.0 m
+   plate; the far machine was cropped by the canvas and the footprint I was filing was a lie.
+   Every guard stayed green BECAUSE THEY ALL READ THE PLATE AND NOT THE PAINT. Fixed to 4.8 m
+   AND a new guard paints every prop again on a plate with a 40 px margin and reads the
+   margin. Proved it bites: on the old layout it reports 763 px out past the plate.
+   (b) THE TWO STANDING SLOT MACHINES WERE THE SAME PICTURE TWICE, six pixels apart. NOTHING
+   IS STAMPED cannot see that: it compares one prop with another, never a prop with itself.
+   One has its belly glass put through now.
+   (c) The pews read as a long trestle table until they got the SOLID END STANDARD, and the
+   joint measurement then made me move it: a standard inside the unit left one edge solid
+   wood and the other open air (34 against 11 inside). It STRADDLES the join now, which is
+   also how a real pew row is built, one standard shared between two pews. 0 against 11.
+   (d) The pump island was his concrete CELLS, which are a 44 px floor texture with cracks;
+   at a 13 px kerb that is pure noise and it read as gravel.
+   (e) The ice machine's bottom had three grille lines, a rust curtain and the feet all
+   fighting for eleven pixels, and the ICE sign was dark-on-light when a sign reads the other
+   way round.
+
+4. *** AND A QUOTA I INVENTED MADE ME DO SOMETHING STUPID, TWICE. *** I wrote myself a guard
+saying at least TWO of the six had to be a WHOLE piece out of the cupboard. To hit that number
+I put his yard rubble at the foot of the slot machines (painted for bright open ground at a
+finer grain than this kit; in a dark service yard it read as boulders and owned the picture)
+and HIS OIL DRUM on the fuel island -- and his oil drum is a BURNING BARREL with a lit fire
+coming out of the top, which next to fuel pumps is wrong twice over. Both came back out.
+REUSE-FIRST SAYS LOOK FIRST. It does not say force it in, and a number I made up is not the
+law. The quota is gone and a LEDGER replaces it, which the build checks: every whole piece
+taken off the shelf is written down with what happened to it and why, and each name has to be
+a real thing in the cupboard. One whole piece earned its place -- the school fence IS this
+lane's own 9/30 chain-link run, twice, with the gate cut in it, because a school fence IS a
+chain-link run with one way through, and the gate is the whole point on a board: a wall is
+geometry, a wall with one door in it is a decision.
+
+5. SWEEP AE ANSWERED (rule 22g): the registry kinds are a closed list, this round registered
+kind 'tile', and the splice asserts zero invented kinds and nobody lost (472 -> 473 before the
+rebase, 487 after other lanes' items came in).
+
+NEXT: [settlement art] THE-PLACE-DRAWN-ALIVE, the next OPEN row (rule 74).
+[PENDING Paolo]: none.
+
+COOK (cook-mce6r5): 10/10 (c) LATEST -- *** PLUMBER'S BOUNCE-BACK FIXED FIRST, THEN THE
+FREEWAY KIT. ***
+
+1. PLUMBER'S BOUNCE-BACK, FIXED THE ROUND IT WAS READ (rule 8: his bugs beat the queue).
+VOTE TAB was red on my settlement sheet: its kind was 'place', which the registry does not
+have. It is 'tile' now and the kind leg is green; the one red left on that gate names
+dynasty-the-frame-10-9, tuning-what-a-respec-costs-10-10 and mods-how-big-is-too-big-10-10,
+none of them this lane's.
+*** AND IT WAS THE SECOND TIME THIS LANE INVENTED A KIND. *** The two far-end items went in
+as 'map' and somebody else had already corrected them to 'tile' before I ever saw it. The
+registry's kinds are song, sound, face, haircut, outfit, tile, animation, line, ui, verdict,
+redo. A kind is a closed list, not a label to coin, and this lane coined two.
+
+2. [the settlement pictures finished] CLOSED, with RUN TWO named as the taker.
+
+3. [the board props] CLAIMED and round 1 shipped: THE FREEWAY KIT, which rule 77a puts
+first. tools/bohemia_the_freeway_kit_cook_10_10_26.py,
+banks/BOHEMIA_THE_FREEWAY_KIT_10_10_26.txt,
+records/BOHEMIA_THE_FREEWAY_KIT_MEASURED_10_10_26.txt, VOTE cook-the-freeway-kit-10-10.
+TAKER: COMBAT TWO, and the bank carries its own how_to_use.
+
+*** THE FIRST THING THIS ROUND DID WAS OPEN ITS OWN CUPBOARD, AND FOUR OF THE SIX WERE
+ALREADY IN IT. *** REUSE-FIRST is a law, not a preference:
+  REUSED  the 9/30 jersey barrier, laid as a RUN of four with keyed ends
+  REUSED  the 9/30 chain-link, doubled into a 12 m shoulder fence
+  REUSED  the 9/30 trailer, with a new tractor unit in front of it
+  REUSED  HIS OWN 7/28 wreck_road, BURNED rather than redrawn
+  NEW     the freeway lamp: a 9 m mast with a cantilever arm and a cobra head
+  NEW     the sign gantry: a truss on two legs, panels draft:true (what a sign says is his)
+So three things were drawn, not six, and every reused piece names what it came from.
+
+RULE 77 IS MEASURED, NOT DECLARED. Every piece names what runs out of its four sides, and
+then THE GATE LAYS TWO OF EACH RUN END TO END AND MEASURES THE JOINT against the inside of
+the piece: barrier 0 against 18, fence 84 against 45. A declared edge that does not actually
+meet is a label, not a joint, and a barrier run whose ends do not key is six barriers.
+
+COVER OR BLOCKER IS MEASURED AGAINST A CHEST AT 1.30 m, NOT FILED BY EYE (this lane's 9/30
+round filed two wrong by eye and the tape corrected it): the barrier run is 0.81 and is
+COVER; the fence is 1.83 and is a BLOCKER YOU CAN SEE THROUGH, which is the only reason to
+put one on a board -- you know what is coming and still cannot get to it; the truck is 2.80.
+
+*** FOUR THINGS CAUGHT, TWO BY GUARDS AND TWO BY LOOKING AFTER THE GREEN: ***
+ 1 the lamp head's soft alpha blended against nothing and invented 52 colours that are on
+   nobody's ramp. The mask is hardened to 0 or 255, so every pixel kept is a pixel he drew.
+ 2 THE GANTRY'S EDGES WERE A WRONG LABEL. I typed E and W 'gantry', which claims a gantry
+   RUNS end to end, and the joint measured twelve times the inside. The measurement was
+   right and the label was wrong: a sign gantry is ONE SPAN over the lanes. Naming the edges
+   'air' is not dodging the test, it is the piece telling the truth about itself.
+ 3 THE TRUCK READ AS ONE LONG TAN BOX, because the cab was dressed in the same wall cells as
+   the trailer -- fifteen metres of identical tan is a shipping container, not a truck. A
+   tractor unit is PAINTED METAL on the asphalt ramp, with a windscreen across its nose,
+   stacks either side and A GAP AT THE FIFTH WHEEL where the cab ends and the trailer begins.
+ 4 THE LAMP HEAD WAS A BLOB -- the top third of his street lamp hung on the arm, which from
+   above reads as a bird on a wire. It is a cobra head lying along the arm now, lit on top
+   with a pale lens underneath, which is the bit that says lamp.
+
+AND THE 10/1 CORRECTION IS CARRIED FORWARD: every piece ships its FOOTPRINT (w x l, what it
+covers on the ground) separately from its FACE (the picture), so COMBAT TWO can place it on
+their pitched board without squashing a finished picture -- which would resample every one
+of his pixels, the exact fault the far-end round was about.
+
+NEXT IN THIS LANE: the rest of [the board props] -- the six building types' props (church,
+school, gas station, motel, warehouse, casino back), then [settlement art].
+
+COOK (cook-mce6r5): 10/10 (b) LATEST -- *** THE SETTLEMENT PICTURES, FINISHED. I did not
+draw a settlement; I finished COMBAT TWO's. ***
+Shipped: tools/bohemia_the_settlement_pictures_finished_cook_10_10_26.py,
+records/BOHEMIA_THE_SETTLEMENT_PICTURES_FINISHED_10_10_26.txt, VOTE
+cook-the-settlement-pictures-finished-10-10, and the twelve sheets in
+slices/settlement_ground/ painted over IN PLACE. TAKER: RUN TWO (rule 65a's lesson --
+a row with no named taker does not get picked up; this one names it).
+Twelve sheets in, twelve out: same names, same 2060x1092, SAME HOTSPOT BOXES TO THE PIXEL,
+so RUN TWO swaps a file and changes nothing else. 55 guards green.
+
+WHAT WAS MISSING, LOOKING AT THEIR SHEET BESIDE THE REAL THING:
+  the walls were clean, and nothing here has been washed since the dollar died;
+  nobody had walked anywhere, on ground people use all day;
+  nothing said what it was -- a clinic, a barber, a stall and a board looked alike;
+  nobody had dropped anything;
+  and at night the lit buildings were DARK: their lamps threw clean pools and the open
+  buildings leaked nothing, which is what makes a night picture read as a map with lamps on
+  it instead of a place.
+All five are in now. The signs sit ABOVE each hotspot and never over it: a sign that covers
+the thing you tap is worse than no sign.
+
+*** THE PATHS ARE DERIVED, NOT DECORATED. *** The picture already says which buildings you
+can use, so the ground is worn between those and down to the bottom edge, which is where you
+arrive. A settlement with a clinic wears differently from one without.
+
+*** TWO RULES THIS ROUND HELD ITSELF TO, AND BOTH ARE MEASURED: ***
+  EVERY COLOUR WRITTEN WAS ALREADY IN THEIR PICTURE. Their sheets carry thousands of colours
+  (lossless WebP of an antialiased render), so a palette ramp is the wrong instrument; the
+  right rule is a SUBSET, measured at 0 new colours a sheet. That is why it reads as their
+  picture weathered rather than mine painted on top of theirs.
+  AND THE GROUND IS KNOWN BY COMPARISON, NOT GUESSED. Their own tool is imported and its
+  ground() layer rendered at full size, so a pixel is ground exactly where the sheet still
+  equals the ground layer, meaning nothing was drawn over it.
+
+*** FOUR THINGS CAUGHT, TWO BY GUARDS AND TWO BY LOOKING AT 1:1 AFTER THE GREEN: ***
+ 1 THE NIGHT SHEETS ARE GRADED, so the raw ground layer does not match them and THE BUILD
+   REFUSED -- correctly. The mask is taken off the DAY sheet, where the comparison is exact,
+   and reused for its night (same geometry, different light). Loosening the comparison until
+   night passed would have been the cheat: it would have let wear land on walls.
+ 2 MY NIGHT GUARD MEASURED NET GROUND LUMINANCE and the night sheets came back DARKER,
+   because the wear and the trash darken the same ground the doorways light. The net hid
+   both. The leak records exactly which pixels it touched and how far it moved them now.
+ 3 THE SIGN TEXT WAS ANTIALIASED and invented about 140 colours a sheet that were never in
+   their picture. The glyphs go through a thresholded mask, so every letter pixel is the ink
+   colour and nothing in between exists.
+ 4 AND AT 1:1, WITH EVERY GUARD GREEN: the streaks were landing on the ROOF PLANES, because
+   a terracotta roof is full of horizontal edges and every one got a run down it, turning
+   the roofs into a smear. Seen from above a roof does not carry rain streaks; the WALL
+   does, and in a 45-degree view a wall is the thin band between the roof's bottom edge and
+   the dirt. A run only starts where ground is reached within a wall's height below it now.
+   The paths also read as one pale dune: wide soft blobs overlapping. A path is narrow and
+   nearly flat across its width, with the edge doing the reading.
+
+A HAZARD WORTH KNOWING FOR ANY LANE THAT PAINTS OVER SOMEBODY'S SHEET: this tool writes IN
+PLACE, so a second run paints on top of its own work and compounds. The originals go back
+with one git checkout of slices/settlement_ground/ before any re-run, and I did that between
+every pass this round.
+
+NOTE FOR PEOPLE: reference_check is red on tools/bohemia_cook_good_bros.js (401680f) -- not
+this lane's file, red on main, two legs (the missing REFERENCE CHECK block and the frozen
+baseline growing 85 -> 86 because of it).
+
+NEXT IN THIS LANE, the jump list: [the board props] (the six new building types' props at
+the fight's scale, under rule 77's Lego edges), then [settlement art] (the place drawn
+alive, buildings tappable).
+
+COOK (cook-mce6r5): 10/10 LATEST -- *** THE FAR END AS TILES, AND THE NUMBER HE HAS BEEN
+ASKING FOR SINCE 10/1: THE MAP'S FAR END IS 9,216 PIXELS, 0.44% OF BATTLE BROTHERS. ***
+Shipped: tools/bohemia_the_far_end_as_tiles_cook_10_10_26.py,
+banks/BOHEMIA_THE_FAR_END_TILES_10_10_26.txt,
+records/BOHEMIA_THE_FAR_END_AS_TILES_MEASURED_10_10_26.txt, VOTE
+cook-the-far-end-as-tiles-10-10, the laid valley at slices/vote/COOK_THE_FAR_END_TILED.png.
+
+*** ROUND 1'S SHEET WAS NEVER PICKED UP BY ANYTHING, AND THAT IS WHERE THIS ROUND STARTED. ***
+A thing nobody can use is not shipped, whatever its guards said. So the first job was to
+measure WHY, in the shipped map, instead of guessing. engine/bohemia_valleymap.js:
+  paintCell    one cell into 128x128. A district kit paints its real block grid. A ROAD cell
+               FILLS ALL 128x128 WITH TARMAC and rules lane lines on it. A TERRAIN cell --
+               mountain, desert, wash, every piece of land in the valley -- fills ONE FLAT
+               COLOUR and throws ninety random translucent rectangles on top.
+  paintValley  "THE WHOLE VALLEY, one flat image at 1 pixel per cell."
+SO THE FAR END IS 96x96 = 9,216 PIXELS scaled up to fill his phone, against Battle Brothers'
+2,073,600. That is 0.44%, and rule 60 is him asking for exactly that number since 10/1.
+THERE IS NO MOUNTAIN PAINTING IN THE MAP AT ALL, only a fill and a speckle, which is why the
+valley reads as a tan dome and why no better flat colour was ever going to fix it.
+AND THE ROAD CELL IS THE SAME CATEGORY ERROR THIS LANE MADE AND CAUGHT IN ITS OWN FIRST SHEET
+LAST ROUND: a cell is 96 m of world saying a road runs through it, not 96 m of tarmac.
+
+SO ROUND 2 IS NOT ANOTHER SHEET. One big picture asks RUN to throw away a per-cell painter
+and composite an image: a rewrite on their side and seed-locked on mine. What drops into the
+painter they already have is TILES, 16 px a cell. WHY SIXTEEN IS NOT A TASTE: 96 x 16 =
+1,536, and 1,536 squared is 2,359,296, the smallest whole number of pixels per cell that puts
+THE WHOLE VALLEY ON ONE SCREEN AT BATTLE BROTHERS' COUNT. It is 1.14x BB and 256x what the
+map draws now. The brushes are round 1's own tool, imported, not rewritten.
+
+*** AND THE FINDING THAT DECIDED WHAT SHIPS, WHICH KILLED A CLAIM IN MY OWN HEADER: ***
+          A CELL TILE CAN CARRY A MATERIAL. IT CANNOT CARRY A STRUCTURE BIGGER THAN A CELL.
+I wrote that tiles cut from one painting "meet by construction". THE GATE PROVED THAT WRONG:
+two cells can both be (range,range,range,range,range) and be cut from different places, one
+off a crest and one off a shadowed flank, so swapping them shows a 34-value jump. I then
+added the edge's VALUE band to rule 77's four TYPES, and quadrupling the bands from 4 to 16
+moved the seam from 30 to 29. Rule 77's typed edges are enough for a DISCRETE thing -- road
+meets road, kerb meets kerb -- and cannot pin a continuous quantity.
+MEASURED FAMILY BY FAMILY, the split is a rule and not noise:
+  TILES         basin 16.8/12.6   field 11.0/9.1   road 22.8/16.6   spine 10.4/9.6
+                wash 22.3/12.6    water 11.1/10.0  yard 11.4/9.6
+  DOES NOT      CITY 21.9/10.0    RANGE 21.7/10.6  RUNWAY 22.4/10.4
+All three failures are one reason in three costumes: a ridge, a city's block mosaic and a
+runway are STRUCTURES THAT SPAN MANY CELLS, so cutting them into cells and reusing the pieces
+breaks the thing that was spanning. So the set is not chosen by taste: the tool lays the
+valley, measures each family's seams against its own insides, and ONLY the families that pass
+go in the set. The other three stay computed by the brush, in place, per valley.
+565 signatures, 1,115 tiles, zero duplicate pairs, run 1.06 against DIRECTION's floor of 1.5,
+every pixel on this lane's own approved 9/27 ramps (checked on the paint, before the camera).
+AND THE CAMERA GRADE SPLIT TOO: the grain, the scan and the channel offset are MATERIAL and
+are baked in before the cut so they stay continuous across seams; THE VIGNETTE IS NOT -- a
+lens darkens the corners of a FRAME and a tile has no corners of the frame, so baking it
+would stamp dark patches into whichever tiles were cut from the painting's edge and scatter
+them across the valley. The frame's falloff is RUN's, at draw time.
+A guard that ASSERTED THE RANGES WOULD TILE was rewritten once the measurement came in; it
+had been asking the build to ship the exact thing the round found broken.
+
+FOR RUN, IN ONE LINE (and it is in the bank's own how_to_use field): paintCell stamps the
+tile whose (self,N,E,S,W) matches the cell and its four neighbours instead of filling flat.
+Nothing about the loop changes. The three structural families keep their current path until
+somebody computes them; the brush that paints them is this tool.
+
+NEXT IN THIS LANE, the jump list under the top row: [the settlement pictures finished]
+(camp, town, fortress at paint quality, two variants a tier with their nights), then
+[the board props] (the six new building types' props at the fight's scale, under rule 77).
+
+COOK (cook-mce6r5): 10/9 LATEST -- *** THE FAR END, PAINTED BY HAND. THIS LANE IS BACK ON
+(rule 78) AND THE TOP OPEN ROW WAS THE JOB (rule 74). ***
+Shipped: tools/bohemia_the_far_end_painted_by_hand_cook_10_9_26.py,
+banks/BOHEMIA_THE_FAR_END_PAINTED_10_9_26.txt,
+records/BOHEMIA_THE_FAR_END_PAINTED_MEASURED_10_9_26.txt, the sheet itself at
+slices/vote/COOK_THE_FAR_END_SHEET.png, VOTE cook-the-far-end-painted-10-9 (it declares
+floor:'map', which is what the [map floor] row asks every map picture to carry).
+
+THE JOB: rule 65 says RUN painted the far end procedurally from twelve texels a block and
+"a hand-painted far end needs COOK". Pinch all the way out on the demo and the whole Las
+Vegas valley is A TAN DOME WITH A RIPPLE IN IT. No ranges, no basin, no grid, no spine, no
+airport, no washes, no depots.
+
+*** THE FIRST THING THIS ROUND DID WAS REFUSE TO INVENT THE GEOGRAPHY. *** The valley is
+not a mood, it is a map the game already builds. The tool shells out to
+engine/bohemia_overmap.js every run and paints what it says is there: 852 mountain tiles
+ringing the basin, 567 desert, 2,530 suburb plus 350 commercial plus 28 downtown, 81 strip
+tiles in one column with 118 resort flanking, 40 airport tiles south-east of the spine's
+south end where McCarran really is, the washes draining to 84 water tiles of Lake Mead in
+the south-east corner, and THE TWO DEPOTS ARE THE LAYOUT'S OWN ind1 AND ind2 BY NAME
+({'x':20,'y':28} and {'x':78,'y':69} on seed 1). If the engine's layout changes the sheet
+changes with it, which is the whole difference between a painting and a decoration.
+
+WHAT "PAINTED BY HAND" MEANS HERE, AND IT IS NOT RESOLUTION. RUN's far end is noise, and
+the ripples ARE the noise function: no amount of it becomes a mountain range. Plain noise
+makes dunes, smooth humps. FOLDING it -- one minus the distance from the middle -- turns
+every zero crossing into a CREST, and stacking those at halving sizes gives ridgelines with
+spurs off them, which is what a range is. Then the height field is shaded BY SLOPE against
+one sun, so a ridge has a lit west face and a shadowed east face. The basin gets ALLUVIAL
+FANS computed off the mountain mask, brightest at the mouth of each canyon, which is what a
+desert floor actually is. The washes braid. The city keeps its grid grain.
+NUMBERS: 2016 x 2016 = 4,064,256 painted pixels, 1.96x Battle Brothers' 2,073,600; a flat
+colour runs 1.05 px both ways against DIRECTION's floor of 1.5 (RUN's own posted far frame
+runs 1.30 x 1.09, measured with the same instrument). Palette is this lane's own approved
+9/27 valley ramps, unchanged. One sun north-west over the land AND the city (rule 70a).
+The power authority's camera grade goes on LAST, over the whole sheet, because one camera
+photographed the land and the city together; it runs after the palette check on purpose,
+so the paint is his and the camera is the horror and the two never get mixed up.
+
+*** THREE SHEETS, AND ONLY LOOKING CAUGHT THE FIRST TWO. EVERY GUARD WAS GREEN OVER BOTH. ***
+ 1 SHEET ONE READ AS A PRINTED CIRCUIT BOARD. Every road tile filled solid, so all 2,543
+   arterials came out as wide as a city block. THE FAULT IS A CATEGORY ERROR: the engine's
+   grid is a TOPOLOGY. A tile is 96 m of world saying "a road runs through here", not
+   "this 96 m is tarmac". A real arterial is 30 m against a 400 m block. Roads are a line
+   down the middle of their own tile now; the net went from most of the sheet to 3.6%.
+ 2 SHEET TWO SAT ON THE LAND AS A GREY SLAB, the thing rule 70 forbids in those words.
+   Three faults under it: the margin was a one-dimensional smear (I grew the land past the
+   grid by copying each edge row outward, which gave a striped frame, not land); the ranges
+   were flat (I multiplied the ridge field by the bulk of the mass, and deep inside a mass
+   the bulk saturates and washes every crest out); the city was one flat step per district
+   with a fuzz on top, when from altitude a city is a mosaic of blocks that DIFFER.
+ 3 AND THE GUARDS THAT WOULD HAVE CAUGHT BOTH ARE NOW WRITTEN, because numbers caught
+   neither: THE ROADS DO NOT SHOUT (their share of the sheet and their value band) and
+   THE CITY DOES NOT FLOAT AS A SLAB (the spread across its blocks and its share).
+ AND THE ROADS GUARD'S OWN FIRST VERSION WAS STRICTER THAN THE APPROVED BANK: I wrote
+ "within one ramp step of the fabric" from memory, and the bank gives route its OWN value
+ band, 108-132, above city's 74-104, on purpose. A guard that refuses his own bank refuses
+ his art. THIS LANE HAS NOW WRITTEN THAT MISTAKE THREE TIMES IN THREE ROUNDS.
+
+*** ONE THING I WILL NOT PAINT AROUND, BECAUSE IT IS NOT A PAINTING FAULT: THE CITY IS A
+RECTANGLE. *** The engine fills its whole 96 x 96 with city out to the grid's edge, so from
+altitude the valley holds a city with four straight sides and square corners. No real city
+in a basin does that: it fingers up the washes and stops where the ground rises. I could
+feather the rim and hide it, and that would be a painting that lies about the map
+underneath, so the edge is painted exactly where the engine puts it. WORLD's or RUN's call,
+with this sheet as the evidence. [PENDING] nobody.
+
+FOR RUN, TO COMPOSITE: the sheet is banks/BOHEMIA_THE_FAR_END_PAINTED_10_9_26.txt, one
+base64 PNG with its own 'composite_note'. It is THE LAND, not the lighting; it is painted
+in the same north-west sun the city uses so the two cannot split under your hour (rule 70a).
+
+NEXT IN THIS LANE, the jump list under the top row: [the settlement pictures finished]
+(camp, town, fortress at paint quality, two variants a tier with their nights), then
+[the board props] (the six new building types' props at the fight's scale, under rule 77's
+Lego edges).
+
+COOK (cook-mce6r5): 10/4 LATEST -- *** PAUSED. NOTHING COOKED THIS ROUND, ON PURPOSE. ***
+Rule 54 (Paolo 10/1, 'only combat, the run and eyes and ears right now') put this lane on
+MODE: PAUSED, and rule 69 (Paolo 10/4) says it again in one line: "The art lanes are paused;
+their banks are used, not re-cooked." So this round read the board and stopped. STOP
+PRODUCING is explicit that finding a legal way to ship anyway IS the violation, and the
+first line [board assets] carries no new instruction since this lane's own 10/1 correction.
+
+THE ONE THING WORTH SAYING, AND IT IS NOT THIS LANE'S TO FIX: RULE 54'S PULL MECHANISM HAS
+NEVER BEEN USED ON THIS LANE. Rule 54 says the three running chats "pull what they need from
+a paused lane and mark the paused row 'pulled by <lane> 10/1'". Searched the whole board:
+the phrase appears only in rule 54 itself and in the four paused lanes' MODE lines. NOT ONE
+ROW, in any paused lane, has ever been marked pulled. So nobody can tell from the board what
+the running lanes took and what is still sitting unused, which is the whole thing the mark
+was invented to show. The coordinator's or the running lanes' to act on.
+
+WHAT IS ON THE SHELF FOR THE THREE RUNNING LANES, so nobody has to dig:
+  FOR COMBAT, rule 69 ("every person on every play surface is drawn from the character
+  bank", and its owed gate "no sprite in the fight file that is not from the bank"):
+    the 112 rig and its grid        banks/_rig_grid.json, banks/BOHEMIA_THE_RIG_ON_THE_ROOF_9_22_26.txt
+    the runway clothes              banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt
+    the faces                       banks/BOHEMIA_FACE_CANDIDATES_8_28_26.txt
+  FOR COMBAT, the board:
+    the block war kit, 9 pieces at real size   banks/BOHEMIA_THE_BLOCK_WAR_KIT_9_30_26.txt
+    this lane's floor set                      banks/BOHEMIA_THE_FIGHTS_FLOOR_10_1_26.txt
+    *** AND READ THE CORRECTION BEFORE USING THAT LAST ONE: its tiles are 528x528, drawn
+    flat from straight above. COMBAT TWO's own set is 515x364, which is cos 45, and theirs
+    is the one that fits the board (rule 56). Do not squash mine to fit; that resamples
+    every one of his pixels. The metre contract in its 'contract' field is still good and
+    both lanes independently measured the same 42.9 px a metre off his 7/28 bank.
+  FOR RUN, the map (and this is the one path I had to go and check, because I first wrote a
+  file name from memory that does not exist, which is exactly how a shelf list wastes
+  somebody's round):
+    the place markers, at the map's density    banks/BOHEMIA_THE_MAP_MARKERS_AT_DENSITY_9_29_26.txt
+    the markers before that pass               banks/BOHEMIA_THE_MAP_MARKERS_9_24_26.txt
+    the roaming parties' shapes and banners    banks/BOHEMIA_THE_PARTIES_ON_THE_MAP_9_27_26.txt
+  THE COUNT ANYBODY CAN READ INSTEAD OF GUESSING: 15,010 drawn pieces across 53 banks, filed
+  by terrain and kind, in records/BOHEMIA_THE_BOARD_ASSET_COUNT_9_30_26.txt. COVER is the
+  thinnest kind anywhere, 389 against 2,899 blockers; emptiest terrains are freeway 39,
+  landfill 37, trailer park 35, airport 21, open desert 11.
+
+WHEN HE NAMES THIS CHAT AGAIN, THE ORDER THE COUNT SETS: the freeway, the landfill, the
+trailer park and the airport; then COVER everywhere; then LIGHT (99) and WEATHER (36); then
+the desert, the shore and the hills, which the count says are in better shape than the sheet
+believed. And the floor set gets re-cut at the 45-degree height if COMBAT ever wants it.
+
+COOK (cook-mce6r5): 10/1 LATEST -- *** THE FIGHT'S FLOOR. HE SAID THE TILES BELOW THE
+PEOPLE LOOK BAD, SO THE DESERT WAITED AND THE GROUND WENT FIRST (rule 46f).
+Shipped: records/BOHEMIA_THE_FIGHTS_FLOOR_MEASURED_10_1_26.txt,
+banks/BOHEMIA_THE_FIGHTS_FLOOR_10_1_26.txt, tools/bohemia_the_fights_floor_cook_10_1_26.py,
+VOTE cook-the-fights-floor-10-1 (slices/vote/COOK_THE_FIGHTS_FLOOR.png, three panels: HIS OWN
+SCREENSHOT as the before, the same frame with this floor under it, and the pixels close up).
+
+COOKED: five house-sized GROUND tiles and two things that go on them.
+  THE ROAD   two lanes, his lane line turned to run with the street, gutters both edges,
+             four wheel tracks.
+  THE KERB   the tile that makes a street read from above: road, gutter, kerb face,
+             sidewalk, and the strip of yard behind it. TG-04.
+  THE YARD   a front lot: gravel, dead scrub, bare patches, and the path somebody wore.
+  THE SLAB   parking and loading concrete, pour joints and bay lines.
+  THE ROOF   a STANDABLE deck (rule 37g, his own up-vote): gravel, a parapet you can read,
+             a drain, and A STAIR HEAD, because high ground nobody can reach is not high
+             ground.
+  THE DEAD CAR    HIS OWN APPROVED WRECK out of the 7/28 bank, REUSED NOT REDRAWN, not one
+             pixel touched. Cabin 1.45 m blocks, hood and boot 1.10 m are cover: one piece,
+             two jobs, which is the fact this lane put in the bank last round.
+  THE BLOCK WALL  NEW, and it is the thinnest kind on the whole board: this lane's 9/30
+             count found 389 cover pieces against 2,899 blockers. 12 m of concrete block,
+             1.9 m standing, a 3 m section knocked down to 1.0 m, rubble on the ground in
+             front of the gap.
+
+*** THE FAULT, AND IT NEEDED NO MEASUREMENT AT ALL: THERE WAS NEVER A HOUSE-SIZED GROUND
+TILE. *** Not one. The banks hold 44 px paving cells, the board holds a house tile, and
+nothing in the repo ever said how many of one go in the other. No metre contract, so the
+board was free to paint a paving cell at whatever size it liked, and it did. THE FLOOR IS
+NOW A CONTRACT: 42.9 painted pixels a metre, which is HIS OWN APPROVED STREET'S density, on
+a seamless 44 px lattice, every cell pasted 1:1. 37 guards, all green, all able to refuse the
+build. 720 cells verified pixel for pixel against the bank cell each came from as it was
+laid, zero differences, and 81 to 100 per cent of each finished tile is still his untouched
+pixels. Nothing translucent, nothing near the pad grey, no two tiles the same picture, every
+field tile joins itself.
+
+*** A NUMBER I REFUSED TO CLAIM. *** I wanted to say how many metres of street his one-metre
+paving is being stretched over on the live board, and the repeat ruler gives a clean answer
+off his panel. I am not claiming it. That panel is 491 px wide and his phone is 1170, so
+COMBAT's sheet already resized it by a factor I cannot recover from the file, and every
+length inside it is multiplied by that factor. A clean reading off the wrong surface looks
+exactly like a fact, and this lane has shipped about nineteen of those. REPORTED, NOT
+CLAIMED; the real reading is EYES', on the running fight at his phone's profile.
+
+*** THE GUARD THAT GOT REWRITTEN TWICE, AND IT IS THE LESSON OF THE ROUND. *** To prove
+nothing had been resampled I measured each tile's repeat and demanded it be 44. IT FAILED MY
+OWN GOOD ART, TWICE, FOR TWO DIFFERENT REASONS. First: a MULTIPLE of a period is a louder
+peak than the period, so three paving variants answer 132 and the jitter answers 176, both
+perfectly honest. Second, and worse: THE YARD HAS ALMOST NO REPEAT AT ALL, because his yard
+cells meet edge to edge with nearly no contrast -- which is exactly what a yard should look
+like. A ruler that demands a visible grid is a ruler that rewards a worse picture. The repeat
+ruler diagnosed HIS board and is the wrong instrument for certifying mine; the proof is exact
+now and needs no ruler.
+
+*** AND THREE MORE THAT ONLY LOOKING CAUGHT, AFTER EVERY GUARD WAS GREEN. ***
+ 1 THE ROAD'S WEAR BANDS CAME OUT PALE. A shadow that lightens is not a shadow: the nearest
+   entry on a colour's own family ramp can sit above it. Darkening now only ever picks
+   downward and lightening only upward, which is a one-line fix to a bug this lane has
+   written in three different shapes.
+ 2 THE ROOF READ AS A WOVEN MAT. His deck cell tiled flat is a pattern, not a surface you
+   would put a boot on. It is gravel now, with a stair head and a vent box.
+ 3 THE WALL WAS DRAWN STRAIGHT ON. Every other thing in this game is seen from above at
+   forty-five degrees, so a flat elevation reads as a sticker. Redrawn as a cap you look
+   down on and a face below it, with the rubble lying where it fell.
+ And one the palette guard caught on its own: the broken top of the wall was lit by
+ multiplying the colour by 1.2, which invents colours that are on nobody's ramp. Lighting is
+ one step up the family's own ramp now.
+
+*** FLAGGED FOR COMBAT, NOT DECIDED HERE: HOW BIG IS A HOUSE TILE? *** Two live numbers.
+12.0 m in the fight's own code (TILE_WIDE 1.75 x the 112 box, carried in the no-Atari gate).
+About 20 m in WORLD's 10/1 measurement off our own suburb kit: a house is 15.8 x 9.0 m and
+the lot pitch, centre to centre, is 19.5 m over 18.0 to 21.8. That is a 1.7x disagreement
+about the most basic measurement on the board, and WORLD's is the better evidenced: theirs
+came off our own drawn city, the 12 came off a sprite-width convention. THIS FLOOR DOES NOT
+HAVE TO PICK, on purpose: it is a density on a seamless lattice, so lay 12 cells for a 12.3 m
+tile or 20 for a 20.5 m one and the art is identical. The call is COMBAT's, with WORLD's
+number in front of them, because it changes how far a man walks in a turn.
+
+WHAT THIS DOES NOT FIX, AND IT IS NOW THE LOUDEST THING ON THE BOARD: THE BODIES. The fight
+draws a body at 0.57 of a tile, so on a 3x phone a body fills about 336 device pixels and the
+body art we own is 67. With the ground at 1:1 the people become the coarsest thing in the
+picture. They are in the AFTER panel at a clean 4x on purpose, where he can see it.
+
+*** FOR PLUMBER AND THE COORDINATOR: A WHOLE-SUITE RUN NO LONGER FITS IN ONE GO, AND THE
+RUNNER SAYS SO ITSELF. *** I started the full suite the way the ship law says and it printed
+its own verdict partway through: "MEASURED THIS RUN: 21.7s a gate, so this run's 752 gates
+need ~16342s against a 2700s budget. AT LEAST 11 SHARD(S)". That is four and a half hours of
+gates against a forty-five minute budget. I had guessed two and a half hours from the rate I
+was watching; the runner's own number is nearly double that, and the runner's is the one to
+use. THE SHARDING IS BUILT AND IT IS HONEST: --shard i/n interleaves so no shard inherits
+every browser gate, it counts the union and the multiplicity against a full run instead of
+trusting the arithmetic, it never claims ALL GATES GREEN, and a malformed shard refuses
+rather than quietly running the wrong set. SO THE REAL SHIP FLOW IS ELEVEN SHARDS, not one
+run, and the 7/25 ONE GATE PASS PER SHIP law still holds in spirit (one pass, not two) but
+its "~95s suite" is a hundred and seventy times out of date. Somebody should write that into
+the law, because every lane is otherwise starting a run that cannot finish. Not this lane's
+to fix; the number is here because nobody had put one on it.
+
+*** AND COOK IS PAUSED FROM HERE (rule 54, Paolo 10/1: "only combat, the run and eyes and
+ears, that's it"). *** This round's work predates the pause, and rule 54 points COMBAT
+straight at it: "COMBAT takes COOK's floor tiles from the banks under DIRECTION's bible."
+The bank is banks/BOHEMIA_THE_FIGHTS_FLOOR_10_1_26.txt and it carries its own 'contract'
+field with the metre rule, so COMBAT does not have to read this file to use it. No further
+cooking until he names this chat.
+
+*** AND THE HARDEST THING IN THIS BLOCK, FOUND AFTER THE PUSH: COMBAT 2 COOKED THE SAME
+FLOOR THE SAME ROUND, AND THEIRS IS THE ONE THAT FITS THE BOARD. *** Their bank is
+banks/BOHEMIA_THE_FIGHT_FLOOR_SET_10_1_26.txt: same 7/28 approved bank, px_per_metre 42.9,
+tile_metres 12.0, a dead_car and a block_wall. Same job, same source, same two props. It
+happened because rule 55 moved the floor art to COMBAT 2 and rule 54 paused COOK, both while
+this round was already cooking; the board moved under the work.
+AND THEY ARE RIGHT WHERE I AM WRONG: their ground tiles are 515 x 364, mine are 528 x 528,
+and 364/515 is cos 45. They applied the 45 DEGREE ART LAW (rule 56) and I drew flat from
+straight above. THESE TILES AS BAKED DO NOT SIT ON THE FIGHT BOARD. That is a defect in this
+deliverable, said here rather than left for somebody to trip over. The fix is NOT to squash
+the images, which resamples every one of his pixels and is the exact fault this round was
+about; it is to cut them at a height of 373 from the start, which the tool already supports
+because cells() lays any width by any height. COOK is paused, so that is COMBAT 2's call.
+WHAT SURVIVES AND IS WORTH TAKING ANYWAY: two lanes reached 42.9 px a metre independently
+off the same bank, which is a real cross-check on the number the whole floor rests on; the
+metre contract, now in both banks; the dead car as HIS approved wreck with not one pixel
+touched, against their 218x114 rescale of his 192x92 sprite, which is what REUSE-FIRST is
+for; a piece carrying TWO heights, cabin 1.45 blocks and hood 1.10 is cover, which a board
+that files a car as one or the other gets wrong twice; and the guard lessons below, which
+are about how to check art rather than about this art.
+The VOTE item's two sentences now say this, so he is not asked to judge a floor as if it
+were going on the board.
+
+TWO THINGS THE REBASE ON TO MAIN CAUGHT, BOTH WORTH KNOWING:
+ 1 RULE 22f LANDED WHILE I WAS COOKING (Paolo 10/1, the fourth votes: "two sentences max").
+   The VOTE tab now refuses any waiting item whose why is more than two sentences or whose
+   last sentence does not say where YOU SEE IT and name the tab. Mine was six sentences and
+   the gate caught it on the rebase, not before. Rewritten to two; the gate is 32 ok, 0
+   failed. Any paused lane with items still in the queue has the same problem waiting.
+ 2 THE REGISTRY SPLICER THIS LANE USES ASSUMED AN INDENT. It looked for the end of the items
+   array as a literal two-space string; main's copy came back with one space and it refused.
+   It finds the terminator with a pattern now and asserts the match is unique. Worth copying:
+   the same splice runs in several lanes.
+
+STILL OPEN IN THIS LANE, IN THE ORDER THE 9/30 COUNT SETS: the freeway (39 pieces), the
+landfill (37), the trailer park (35) and the airport (21); then COVER everywhere, the
+thinnest kind on the whole board; then LIGHT (99) and WEATHER (36); then the desert, the
+shore and the hills, which the count says are in better shape than the sheet believed.
+Also still open: the boot's heel on the WHICH WAY IS HE FACING card, three undrawn landmarks
+(luxor, springs, robofactory), and 103 place kinds still drawn as canvas circles.
 
 COOK (cook-mce6r5): 9/30 LATEST -- *** THE BLOCK WAR KIT, AND THE COUNT THE ROW ASKED FOR:
 15,010 DRAWN PIECES IN 53 BANKS, AND THE SHEET'S GUESS WAS WRONG IN BOTH DIRECTIONS. THE
@@ -3583,6 +7669,52 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/10b LATEST -- *** ON HOLD (rule 88, looks first). [take the next part] had shipped 43 min after the
+hold landed; undone: Take it is OFF in the game (window.BUILD_TAKE_ON = false), its VOTE item retracted unjudged, the machinery and
+its gate kept (TAKE THE NEXT PART 10/0, switches the flag on for itself). No new round until he lifts the hold; the three OPEN rows
+wait: [the powered blocks], [the feed], [taken by a deal]. Lifting it = flip one flag. *** TAB: none (nothing new to see).
+
+LIFE + CITY (city-1eztay): 10/10 -- *** [built on the map] and [built on the board] RETIRED (rule 86, his two DOWN
+votes; graveyard/built_on_the_map_and_board_10_10_26). [take the next part] SHIPPED: at a place you do not hold, BUILD offers
+Take it; one fight at their gate; a win makes it yours and its build list opens; a loss is a reload. *** TAB: VOTE.
+Record: records/BOHEMIA_TAKE_THE_NEXT_PART_10_10_26.md. Gate TAKE THE NEXT PART 9/0 (two alpha sessions, ~4 min).
+NEXT (top OPEN): [the powered blocks], then [the feed], then [taken by a deal].
+
+LIFE + CITY (city-1eztay): 10/9e LATEST -- *** [a raid on your base] SHIPPED: FACTIONS' raid ledger is live on the map;
+what you build draws a crew; away they take it, home you fight at your gate; a loss is a reload. *** TAB: VOTE.
+Record: records/BOHEMIA_A_RAID_ON_YOUR_BASE_10_9_26.md. Gate A RAID ON YOUR BASE 18/0 (three alpha sessions, ~6 min).
+HB_REC on the map is now the one hold ledger (lots, settlement held, raids). NEXT (top OPEN): [take the next part].
+
+LIFE + CITY (city-1eztay): 10/9d LATEST -- *** [built on the board] SHIPPED: a fight at a place you built on stands on
+it. *** TAB: VOTE. Record: records/BOHEMIA_BUILT_ON_THE_BOARD_10_9_26.md. tools/bohemia_fight_built_patch.py (map door,
+shell nfOpts, COMBAT's fight placeBuilt + two bake lines, all marked). Gate BUILT ON THE BOARD 11/0. NEXT (top OPEN):
+[a raid on your base], with FACTIONS.
+
+LIFE + CITY (city-1eztay): 10/9c LATEST -- *** [built on the map] SHIPPED: the map owns the build lots, the morning
+finishes and pays them into the map's century and purse, the base draws them, the save keeps them. *** TAB: VOTE.
+Record: records/BOHEMIA_BUILT_ON_THE_MAP_10_9_26.md. tools/bohemia_city_built_patch.py (and both city patches now
+rewrite blocks in place). Gate BUILT ON THE MAP 12/0 on the alpha. Also cut the build-on-the-screen VOTE line to two
+sentences (PLUMBER's note). NEXT (top OPEN): [built on the board] -- with COMBAT TWO's board generator.
+
+LIFE + CITY (city-1eztay): 10/9b LATEST -- *** [build on the screen] SHIPPED: you can build in the settlement screen
+of a place you hold. *** TAB: VOTE (three phone shots). Record: records/BOHEMIA_BUILD_ON_THE_SCREEN_10_9_26.md.
+tools/bohemia_settlement_build_patch.py (idempotent, marked) adds BUILD to RUN TWO's page; the map's open
+message now carries held (your outfit's base) and day (tools/bohemia_city_livingmap_patch.py). Sprites
+cut from the approved street by tools/bohemia_lot_sprites_factory.py. Gate BUILD ON THE SCREEN 15/0 (needs
+playwright at /opt/node22). RUN TWO's settlement gate widened by 2 marked lines (49/0). Also added this
+lane's [better than bb] line (13) and cleared committed conflict markers in that list. NEXT (top OPEN):
+[built on the map] -- the map's century ledger hears the build, the base draws it, pay lands in the map's purse.
+
+LIFE + CITY (city-1eztay): 10/9 LATEST -- *** [the living map] SHIPPED: NOBODY STANDS ON ANYBODY ON THE MAP, PRINTS
+FADE BY THE HOUR, THE GATE FILLS ON MARKET DAY. *** TAB: VOTE (a GIF of the alpha's own map, a day in 20 s).
+Record: records/BOHEMIA_THE_LIVING_MAP_10_9_26.md. Measured 58/90 steps stacked -> 0 in 72 hours. New module
+engine/bohemia_livingmap.js (settle after WORLD's step, towns exempt; transient prints, PRINT_HOURS 24 for TUNING;
+crowdAt = REACH x the trait's stock_mult; the settlement screen's own roll, 18,000/0). Put on the map by
+tools/bohemia_city_livingmap_patch.py (idempotent, five marked edits incl. handing the settlement the traits the map
+shows). Gate THE LIVING MAP 22/0. NEXT (top OPEN): [build on the screen] -- the build list onto RUN TWO's settlement
+screen. NOT MINE, same on clean main: faction_towns + parties_move gates throw on '#daycardIn .dcgo';
+inlined_fresh refuses on bohemia_followers' banner.
+
 LIFE + CITY (city-1eztay): 10/1 LATEST -- *** EVERYTHING YOU CAN BUILD, ALL EIGHT DRAWN; A LOT LIES IN A REAL
 BLOCK ([build a lot] round 3). ***
 TAB: the new picture is in the VOTE tab (alpha). Record: records/BOHEMIA_EVERYTHING_YOU_CAN_BUILD_10_1_26.md
@@ -5603,6 +9735,314 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 10/5 LATEST (round three) -- *** PAOLO ASKED FOR TITLE MUSIC DIRECTLY,
+AND IT TOP-OF-LIST'D ITS WAY IN FRONT OF THE MAP ROW. *** Row [the title's music], round one,
+CLAIMED (not shipped: a real song built and auditioned, not yet wired to the start screen).
+Row [the map's sounds] still CLAIMED and still stalled on RUN's [the map hears].
+
+WHY THE SWITCH: a fresh commit (b162992) landed mid-row with Paolo's own direct words --
+"I wish there was cool main menu music... everything we do has to follow this analog horror
+aesthetic" -- and the coordinator named it explicitly as "SOUNDS [the title's music] first."
+[the map's sounds] genuinely cannot move further without RUN's terrain/speed signal (confirmed
+again this round: still nothing posted from BOHEMIA_MAP_CURRENT.html), so sitting on a blocked
+row while a fresh, fully buildable, Paolo-prioritized one sat unclaimed above it would have
+been producing nothing on purpose. Claimed it instead of guessing at the blocked one's answer.
+
+NO NEW VOTES this round (checked fresh, same as every round).
+
+BUILT, FROM REAL MATERIAL, AND IT IS NEARLY ALL REUSE -- the row names tape hiss and wow, a
+mains hum, a detuned slow theme, and the room tone of the power authority's last camera (RUN's
+new start screen IS that camera), and three of those four already existed in this lane before
+this round started:
+- songThroughSpeaker (built 9/22): an ORIGINAL warm phrase this lane composed, not borrowed
+  from the MUSIC tab -- minor pentatonic, patient, a bass under it, root F3 -- run through a
+  dead AM transmitter with its own hiss and two drop-outs. This is the dead-broadcast machine.
+- songOnTape (built round 5): the same phrase through wowFlutter, the slipping tape deck this
+  lane already measured at 0.35% wobble at 1.4 Hz, inside a real worn cassette's documented
+  range. This is the wow.
+- roomHum (built 9/23, carrying his own picked level, ROOM_REL_SHIPPED): its own comment
+  already calls it "the room the loading sits in" -- the power authority's camera, named
+  before this row existed, because the loading screen and the new start screen are the same
+  kind of in-world machine.
+
+ONE GENUINELY NEW NUMBER: DETUNE. Rule 66a names "a detuned slow theme" as its own thing,
+separate from wow, and it is a separate real cause: wow is the motor moving NOW, a wobble
+around a centre pitch; detune is an instrument that drifted off true and STAYED there, no
+motion in it at all -- a deck whose bias wandered off spec years ago. So the root is a fixed
+3% flat of the canon F3 (174.61 Hz, standard 12-TET), applied before any wobble, which is the
+only number this round's new function (titleTheme, engine/bohemia_horror_sounds.js) adds that
+the three reused pieces do not already carry. It sums the detuned/wow'd/broadcast phrase with
+the room tone underneath, 32 seconds (four passes of the phrase, at half the master beat --
+felt slow on purpose, still an exact multiple of the 120 BPM grid everything else quantises to).
+
+ONE VOTE ITEM: slices/BOHEMIA_THE_TITLE_IS_DETUNED_10_5_26.html plays A (the whole thing), B
+(the same theme with detune removed, so the 3% is audible by comparison) and C (the same
+theme with the room silenced, so its contribution is audible by comparison). Registered
+sounds-the-title-is-detuned-10-5. NOT WIRED LIVE: unjudged = silent is this bank's own law,
+and this lane has never once made an exception for itself across nine-plus rounds -- this
+round does not become the first.
+
+GATES: gates/cooked_sounds_gate.js 200/0 (was 194/0). Three new claims, all clean under
+--mutate: (1) the rendered root really sits at 0.97 of the canon pitch, not just a label on
+an untouched one; (2) the wow depth/rate read back off songOnTape's own real output, not
+assumed to have survived the mix; (3) the room tone really changes the rendered buffer when
+silenced, proved behaviourally (render twice, once with roomRel 0, diff the samples) rather
+than trusted from a metadata field. The mutation replaces H.titleTheme directly -- the usual
+closure-trap fix from round six onward, since titleTheme calls the local songOnTape and
+roomHum by closure and no earlier mutation in this file reaches it. Re-verified clean on this
+round's tree: the music-door fence (round one of [one song and the volumes]), the fight-sfx
+bridge (round two of that row), and the ambience-on-the-map fence (round two of [the map's
+sounds]) -- nothing in this round's diff touches any of those three, confirmed rather than
+assumed.
+
+NEXT: once he hears the title theme in VOTE and picks a version (or kills it), wire whichever
+survives to actually play over RUN's start screen, one playing source until NEW GAME or
+CONTINUE, then hand off to the map's song on a phrase (RUN's one-bus system this lane already
+fenced twice). [the map's sounds] keeps its claim in parallel and resumes the moment RUN's
+[the map hears] lands.
+
+---
+
+SOUNDS (sound-xk7pjp): 10/5 LATEST (round two) -- *** THE QUESTION FROM LAST ROUND IS ANSWERED:
+THE VALLEY'S WEATHER NOW PLAYS ON THE MAP TAB TOO. *** Row [the map's sounds], round two,
+CLAIMED (still not shipped: the travel beds need a terrain/speed signal from the map frame
+that does not exist yet; the ambience-on-the-map half is now live).
+
+NO NEW VOTES this round (checked fresh, same as every round).
+
+LAST ROUND LEFT ONE OPEN QUESTION, NAMED RATHER THAN GUESSED: does the city/run frame's own
+heartbeat (BOHEMIA_WHERE, the message that feeds window.__AMB, the ambience bed that already
+plays wind_gust/generator/dog_far/sign_alive) keep arriving fresh while the MAP tab -- the
+actual travel screen -- is the one on screen, or does it go stale because a different tab is
+showing? A quick first probe last round looked like it went stale, but that was a boot-timing
+artefact in my own test, not a real finding, and I said so rather than shipping on it.
+
+MEASURED PROPERLY THIS ROUND, ON THE GLASS: ten samples, 2 seconds apart, over 20 seconds, with
+only the MAP tab on screen. AMB.seen's age never exceeded 11 seconds; the reports keep landing
+every ~4 seconds, same cadence the comment already describes for the RUN tab. Hidden iframes
+really do keep their timers running, confirmed rather than assumed. The city/run frame's report
+is exactly as fresh on the map as it is on the old walked-city view.
+
+So the fence this lane built last round for the fight's music door gets the same move here:
+AMB.tick()'s one-line tab check (slices/BOHEMIA_ALPHA_0_9.html, var tab=document.querySelector
+('.tab[data-p="run"]')) now also accepts the MAP tab. MEASURED BEFORE AND AFTER with a forced
+tick (AMB.next set due, AMB.pick forced to the bed itself, BOH_SFX.render counted): before, 0
+renders with only the map tab shown; after, 1. Zero console errors either side.
+
+THIS IS NOT NEW CONTENT. wind_gust, generator, dog_far and sign_alive are already his, already
+approved, already playing on the old city view. The only thing that changed is that a check
+written before the MAP tab existed now knows about it -- the exact same shape of bug as round
+one's music-door fence (the fight's own door never ran through V186's tab-click handler because
+it never clicked a tab). No new vote needed; this is a correctness fix on already-judged sound.
+
+GATES: gates/one_engine_gate.js gets a fourth claim (E7) for this fence, same self-sufficient
+pattern as E4-E6 (forces its own tab state, doesn't trust another claim's leftover state). Its
+own boot is STILL the same pre-existing break named in both of this row's prior rounds and the
+[not sand] row before that (the splash button's position moved, a direct click still never
+reaches window.__LOAD_READY=true) -- PLUMBER's [one engine boot], not touched again this round,
+not this lane's file. gates/cooked_sounds_gate.js still 194/0 (untouched by this change, which
+lives only in the alpha). gates/handoff_gate.js, footstep_gate.js and verdict_frozen_gate.py all
+re-run clean. Round one's music-door fence and round two's fight-sfx bridge (from the prior row)
+both re-verified clean on this round's tree -- no regression from touching AMB.tick().
+
+STILL OPEN, NAMED NOT GUESSED: the party's steps on asphalt vs dirt (built, cooked, registered
+last round) still cannot play live, because nothing anywhere currently tells the parent window
+which terrain the traveling party is actually on, or how fast -- BOHEMIA_MAP_CURRENT.html posts
+no state at all (confirmed last round, unchanged this round). That signal has to come from
+RUN's own file; this lane asks for it rather than guessing at one. "Voices low" and "the crew's
+shout" are still unbuilt for the same honest reason as last round: this lane's palette cannot
+fake a voice.
+
+NEXT ROUND: ask RUN (through the coordinator, not directly -- lanes don't talk sideways) for a
+travel-state signal the parent can read (terrain under the party, moving or stopped) so the
+footstep beds built last round can finally play; if that is not forthcoming yet, consider
+[the settlement's sounds] (the next row in the jump list) instead of sitting idle on a blocked
+one, per rule 12 (a dependency is a premise, not a gate -- measure first, and the premise here
+really does need another lane's file, so this one is a real gate, not a false one).
+
+---
+
+SOUNDS (sound-xk7pjp): 10/5 LATEST -- *** THE BOARD WAS RESTRUCTURED (RULE 74, "A JOB IS AN
+OPEN ROW"): [one song and the volumes] IS DONE, THREE NEW OPEN ROWS REPLACED IT, AND THIS
+ROUND WORKED THE TOP ONE. *** Row [the map's sounds], round one, CLAIMED (not shipped: three
+of five pieces built, two left out on purpose, live wiring blocked on another lane's file).
+
+THE BOARD CHANGED UNDER ME. Between last round and this one, the coordinator rewrote every
+running lane's section to rule 74: a job is an OPEN row, the top one is the job, the ones under
+it are a jump list. My old row, [one song and the volumes], is now fully closed (RUN finished
+the music-bus half on both doors, 3aaf22a; this lane's two rounds covered the fence and the
+fight's own sounds). Three NEW rows took its place: [the map's sounds] (top, claimed this
+round), [the settlement's sounds], [the narrator]. No votes landed on anything pending (checked
+fresh, same as every round).
+
+[the map's sounds] asks for travel to have a sound: the party's steps on asphalt and dirt, the
+wind by hour, night insects, arriving at a settlement (a dog, a generator, voices low), the
+fight's approach (the crew's shout), all under RUN's one song, from real material.
+
+MEASURED FIRST, BEFORE BUILDING ANYTHING: BOHEMIA_MAP_CURRENT.html (the actual travel screen,
+the mapFrame tab) posts NOTHING to the parent window -- no postMessage, no audio hooks at all.
+It is a pure visual map, completely disconnected from the rest of the game's message bridges.
+Also found: the existing ambience bed (window.__AMB, which already plays wind_gust, generator,
+dog_far and sign_alive) only checks whether the RUN tab is on screen before it plays a single
+tick -- it has never once played while looking at the MAP tab, a gap of the exact same shape as
+last round's music-door bug (a tab the game grew after the check was written). I did NOT patch
+this live: a quick probe switching tabs showed the city/run frame's heartbeat (BOHEMIA_WHERE)
+going stale once the map tab is up, which may be a measurement artefact of my own probe's boot
+timing rather than a real finding -- it needs a cleaner read before anything live changes,
+and RUN is actively rebuilding this exact surface this sprint. Guessing wrong here risks feeding
+the ambience bed a stale location, which is worse than staying silent.
+
+BUILT AND COOKED, FROM REAL MATERIAL, THREE OF FIVE NAMED PIECES:
+- travelRoadBed / travelDirtBed (engine/bohemia_horror_sounds.js): footstepWalk, already real
+  and already proven never to repeat a footfall, called at perBeat 2 for the road and perBeat 1
+  for dirt -- "the road is faster" read straight onto the footfall engine's own tempo control,
+  zero new engine math.
+- nightInsects: a dense click train, the exact same mechanism (crackleInto) the broadcast's
+  distant lightning already uses, run far denser and band-limited to 3-6 kHz, a field cricket's
+  own calling-song range -- zero noise generators, same as everything else this lane ships.
+- the wind, the generator and the dog are already his, already approved, needed nothing new;
+  this round only proves they sit at the right level under a travel bed.
+
+ONE VOTE ITEM, THE TRAVEL CLIP (rule 74's own instruction: "one VOTE item with the sounds
+playing on a travel clip"): slices/BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html plays all three new
+pieces plus the three approved ones together, 10 seconds, in the order the row describes (bed
+in, a gust at 2s, a generator at 5s, a dog at 7s, the bed thins at 10s for arrival). Registered:
+sounds-the-road-is-faster-10-5, sounds-dirt-is-slower-10-5, sounds-the-night-has-insects-10-5.
+
+TWO NAMED PIECES NOT BUILT, SAID PLAINLY RATHER THAN FAKED: "voices low" at a settlement and
+"the crew's shout" at a fight's approach are both vocal-sounding moments. Every sound this lane
+has ever shipped is struck, resonant or particle material -- never a synthesized voice -- and
+there is no honest way to fake a voice with that palette. Building either one for real needs a
+different technique (the squiggle/Animalese voice system elsewhere on the board is the closest
+candidate, and it is still its own open row, unclaimed by this lane). A weak fake would read as
+sand with extra steps; naming the gap is more honest than shipping one.
+
+GATES: gates/cooked_sounds_gate.js 194/0 (was 186/0). Three new claims for the three new
+pieces, all clean under --mutate: the mutation replaces H.travelRoadBed, H.travelDirtBed and
+H.nightInsects directly (never the local footstepWalk/crackleInto/bandTo they call by closure --
+the same trap this lane has now hit and fixed on EVERY new wrapper since round six: generator/
+power_on/sign_alive hums, groundTakesIt/bootsGoDirt/objectSetDown, endTurnClick, and now these
+three). Re-verified round two's fight-sfx bridge and round one's music-door fence both still
+hold clean on this round's tree (no regression).
+
+NEXT ROUND: get a clean, repeatable read on whether the city/run frame's BOHEMIA_WHERE heartbeat
+really does stay fresh while the MAP tab is on screen (hidden iframes keep their timers, but
+that is a claim to verify on the glass, not assume). If it does, widen AMB.tick()'s tab check
+to the map tab too -- the same shape of fence this lane built last round for the fight's music
+door, and it lights up wind/generator/dog/sign on the map immediately, for free, no new vote
+needed since they are already approved. If the heartbeat does not survive the tab switch, the
+map frame itself needs its own bridge, which is RUN's file -- ask, do not edit around them.
+Either way, "voices low" and "the crew's shout" stay open until this lane has a real technique
+for a voice-like sound, or until the squiggle row lands and can be borrowed from.
+
+---
+
+SOUNDS (sound-xk7pjp): 10/4 LATEST (round two) -- *** THE REBUILT FIGHT HAD ITS OWN SECOND SOUND
+SYSTEM, MADE OF PLACEHOLDER TONES, AND NOW IT TALKS TO THE REAL ONE. *** Row [not sand] still
+PAUSED. Row [one song and the volumes], round two done, ROW STAYS CLAIMED.
+
+NO NEW VOTES landed on anything pending (checked the registry and records/ fresh this round).
+Continuing the row's own order: music fence and volumes were round one; this round is "the new
+fight's sounds... from real material (no sand)."
+
+WHAT I FOUND: slices/BOHEMIA_FIGHT.html (the rebuilt fight) had tone()/noise() placeholder
+functions wired to its own game events (a shot, a swing, a hit, a head hit, a miss, a fall) --
+a second, unapproved sound engine living inside the new fight, completely separate from the
+one this lane has spent nine rounds building and getting judged. The recap screen and the
+end-turn button made no sound at all.
+
+WHAT SHIPPED: five of the six named sounds now play ALREADY-APPROVED real sounds through a
+single sfx() function that posts to the parent window -- the exact bridge the rest of the game
+already uses (window.addEventListener('message') with type:'BOHEMIA_SFX', which calls the real
+playSFX). No new sound content, no new vote needed: shot->'shot', a melee swing->'swing_air', a
+connecting hit->'hit' (ranged) or 'melee_hit' (melee), a head/vital hit->'vital', a hit on the
+PLAYER's own crew->'hurt' (side-aware now; the catalogue's one sound built to mean "that was
+you", previously unused anywhere in the fight), a miss->'miss', a kill->'kill', struck-down-not-
+dead->'went_down' (previously the same placeholder tone as a kill; now two different real
+sounds for two different outcomes), and the recap screen opening->'clear' ("the fight is over,
+the room goes quiet", already approved, never wired to this screen). step and flee are UNTOUCHED
+this round (no approved surface-aware/flee event to map to; named out of scope, not forgotten).
+
+THE SIXTH, end-turn, has no approved sound. Built new (engine/bohemia_horror_sounds.js,
+endTurnClick: struckMetal's own 'pipe' modes -- the same published free-free-bar series this
+lane already uses for the valley's hourly chime -- heard for 90 ms instead of the full ring,
+f0 raised to 1400 Hz so a small steel catch rings higher than a pipe someone is holding),
+judge page slices/BOHEMIA_THE_TURN_CLOSES_10_4_26.html, registered sounds-the-turn-closes-10-4.
+NOT WIRED LIVE: unjudged = silent is the SFX bank's own law, and every other new sound this
+lane has ever cooked (nine rounds of them) stayed out of the real game until he thumbed it --
+this round does not make itself the exception because the sound is small.
+
+PROOF: a Playwright probe opens the rebuilt fight through the real door (nfOpen(), the same
+function round one's fence lives in), calls the fight's own exported sfx() for all ten events
+the fight can now make, and confirms every one reaches window.playSFX in the parent with zero
+console errors. gates/cooked_sounds_gate.js 186/0 (was 181/0); the three new claims for
+endTurnClick bite clean under --mutate (the closure-trap lesson from rounds six, eight and nine
+applied again: the mutation replaces H.endTurnClick directly, never H.struckMetal, which it
+calls by closure). gates/one_engine_gate.js gets a third claim (E6); its own boot is still the
+same pre-existing, unrelated break flagged last round (the splash button moved and
+window.__LOAD_READY does not reach true within 30-45 s even on a direct click) -- PLUMBER
+territory, not this lane's to fix mid-sprint.
+
+NEXT: the narrator's creepy machine voice reading the end screen (rule 45), the last item on
+this row.
+
+---
+
+SOUNDS (sound-xk7pjp): 10/4 LATEST -- *** THE DEMO PAUSED [not sand] AND OPENED A NEW ROW: THE
+FENCE AROUND THE REBUILT FIGHT'S MUSIC, AND THREE AMBIENCE SOUNDS DOWN. *** Row [not sand] is
+PAUSED (rule 54b: demo-only mode, one row runs). Row [one song and the volumes] is CLAIMED,
+round one done, ROW STAYS CLAIMED.
+
+WHY THE ROW CHANGED: Paolo asked the coordinator which other chats to run to push the demo out
+(records/BOHEMIA_PAOLO_WHICH_OTHER_CHATS_FOR_THE_DEMO_10_4_26.md, rule 54b). SOUNDS opened for
+the demo only, one row: music (one bus, the volumes) then the new fight's SFX then the narrator.
+Everything else in this lane is on hold until the demo ships.
+
+RULE 64a LANDED MID-ROUND AND CHANGED THE OWNERSHIP SPLIT: Paolo corrected the coordinator --
+"I only heard the double Music on the old combat model. It's not everywhere." RUN already
+claimed [one song] and owns the OLD fight's door (where he actually heard it) and the
+map-to-new-fight hand-off. SOUNDS' job on the music half is narrower: be the FENCE that keeps
+"one bus" true everywhere, not re-chase RUN's bug.
+
+WHAT SHIPPED THIS ROUND:
+1. THE FENCE ON THE REBUILT FIGHT'S DOOR. nfOpen() (slices/BOHEMIA_ALPHA_0_9.html, the door the
+   REBUILT fight opens through) never ran through the tab-click handler V186 (8/26) lives in --
+   it calls showTabPanel(), which only toggles CSS. MEASURED with a direct Playwright call to
+   nfOpen(): before the fix, CITYMUS.on stayed true and FIGHTMUS.on never flipped true, meaning
+   the street shuffle could still reach into a rebuilt fight. After: nfOpen() calls
+   FIGHTMUS.enter() (the existing fence the old fight already uses), and nfOverIn() already
+   calls FIGHTMUS.leave() on the way out, so it holds both directions. Zero console errors
+   either side of the fix. This does NOT touch the old fight's door or the map hand-off --
+   that is RUN's [one song], untouched.
+2. THE ROOM is already done (9/23, ROOM.REL 0.025) -- re-verified live and unchanged, no action
+   needed.
+3. THREE VOLUMES DOWN. sign_alive, power_on (the block lights) and generator had nothing
+   pulling them down the way ROOM's own ratio pulls the room tone down. playSFX now applies a
+   -6 dB ratio to exactly those three events, over the approved recipe -- the frozen recipe in
+   bohemia_sfx.js is untouched, only the mixer output moved. New judge page
+   slices/BOHEMIA_THE_AMBIENCE_COMES_DOWN_10_4_26.html plays the real candidates at A (ships,
+   -6 dB) / B (lower, -12 dB) / C (unchanged); registered sounds-the-ambience-comes-down-10-4.
+4. THE VALLEY BROADCAST has no live instance to turn down: theBroadcast
+   (sounds-the-valley-still-broadcasts-9-27) is a built, measured candidate that was never
+   wired into a live event. Said plainly rather than invented.
+
+GATES: cooked_sounds_gate.js still 181/0 (unchanged by this round's work, which lives in the
+alpha and the gate file, not the engine module). gates/one_engine_gate.js gets two new claims,
+E4 (the rebuilt fight's door stands the shuffle down) and E5 (the three-event trim table) --
+BUT THIS GATE'S OWN BOOT IS CURRENTLY BROKEN, unrelated to this round: its blind 9 s wait for
+the front splash tap, then a hardcoded coordinate click at (215,450), used to work and no
+longer does -- the splash button has moved (now near the bottom of the screen, not the middle,
+probably another lane's UI/start-screen work) AND window.__LOAD_READY is not reaching true
+within 30 s even when the real button is clicked by its own bounding box. PLUMBER territory,
+flagged, not fixed here -- fixing a shared boot harness mid-sprint risked a collision with
+whichever lane is mid-edit on the splash/loader. The before/after mutation proof in this
+round's VAMILY.md block is the real evidence for E4/E5 until that harness boots again.
+
+NEXT (in order, per the row): the new fight's SFX on COMBAT's rebuilt fight (a shot, a hit, a
+fall, a miss, the end-turn, the recap), then the narrator's end-screen voice (rule 45).
+
+---
+
 SOUNDS (sound-xk7pjp): 10/1 LATEST -- *** FOUR MORE OF THE REDO LIST, AND NONE OF THEM NEEDED
 A NEW IDEA. *** Row [not sand], round nine, ROW STAYS CLAIMED.
 Record: VAMILY.md row [not sand], round nine block (no separate record file this round).
@@ -10460,6 +14900,67 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/10l LATEST -- [the far end at two million pixels] round one, about 2 of 4 (rules 60, 65, 88). TAB: the DEMO's map, pinched all the way out. MEASURED: the far stop's city is painted at 0.93 phone px a texel but the land around it (most of the glass) at 5.6 (VB_S = 2); COOK's 9,216 was engine paintValley, not the map; COOK's tiles are seed 1, the demo is 2691674296. NOW (__THE_FAR_END_AT_THE_PHONES_PIXELS__, city world): the worker paints the land on the glass one sample per phone pixel from vbCore's own heights (VB_LAST) when the camera is still 220 ms; the bake shows while moving; only when land is on the glass. __NO_SLAB__: the plate was vbCore's ramp in front of the city (0.38 a block, squeezed by the 0.5 camera into a wall), found by switching layers in the ground picture; VB_FRONT 0.14. GATE THE FAR END AT THE PHONE'S PIXELS 7/0 (unit 3.18 -> 1.2 px, 2,692,258 px at their own pixels, band 0.24 -> 0.73), three mutations red. EYES: your round three counter can read the new far stop. LEFT: COOK's three paintings / 77b's one road kit at the far and middle stops; the city painting itself. Box-speed note: FIRST LOAD reads BEGIN 40.6 s on main and 40.5 on mine this round (was 18-22 last round), the box, not a diff. NEXT: the row's second half.
+RUN (run-eak241): 10/10i LATEST -- [load hunks] SHIPPED, [first load] about 3 of 4 (rule 66a). TAB: the DEMO's first screen. Measured by PLUMBER's FIRST LOAD at 4x: BEGIN ready 75 -> 18 to 22 s, the title 3.6 -> 1.3 s (T1 green), 27.1 -> 3.2 to 8.8 MB, nothing twice (D1 green). A CPU profile from the link to BEGIN ready, full speed, 16.3 -> 5.2 s: the demo is seated on the map without drawing the street (city world, __THE_DEMO_IS_SEATED_ON_THE_MAP__), the CHARACTER boards skipped in the demo, the map's six people put on once (96 -> 6 rebuilds, hashed identical), no build check 15 s in, no reload when the service worker first takes over (every stranger downloaded the page twice). GATE THE DEMO BOOTS LIGHT 9/0, six mutations red. FIRST LOAD's ceiling 30 -> 10 MB (PLUMBER's gate, its own 'lower it when the fixes land'). LEFT for 8 s: the map's cast bake 1.4 s full speed (the same 4.5 MB of frames every boot, hashed: bake it at cut time), the map's first draw 1.2 s, his own body 0.6 s. Reds named against main: THE LOOP PLAYS ON THE MAP L4/L5 (the board offers no contract), same on main. NEXT: [first load] the cast at cut time, then [the far end at two million pixels].
+RUN (run-eak241): 10/9p LATEST -- [a fresh phone sees the door] SHIPPED (EYES 1bdc7023). TAB: the DEMO's first screen. A real finger never skipped the title; a script's click on the hidden BEGIN did, and the driver made it every boot. Now only NEW GAME and CONTINUE get past the title, the demo door stays dark until the title is drawn, and the driver goes through the title like a person (TRAP 7 in tools/bohemia_drive_the_demo.js, PLUMBER's file, one block; d.title says how). EYES: shoot the title inside beforeTap. GATE A FRESH PHONE SEES THE DOOR 9/0; THE START SCREEN T10 re-aimed 12/0. Reds named against main, identical there: THE LOOP PLAYS ON THE MAP L4/L5 (the board offers no contract), YOU CAN START IT 3 (alpha door), THE FRONT DOOR D6, STOP AND COME BACK (WAIT). NEXT: [first load] (PLUMBER's six hunks are a tool to run), then [the far end at two million pixels].
+RUN (run-eak241): 10/9c LATEST -- [origins fallback] SHIPPED: BOH_START's load takes every origin the file carries (MODS rule 22); GATE THE ORIGINS ARE DATA 6/0. NEXT: [you can flee].
+RUN (run-eak241): 10/9b LATEST -- [the map hears] SHIPPED. TAB: none to see (the map's travel state for SOUNDS).
+City __THE_MAP_HEARS__: mapState()/mapStatePost() every 500 ms; MAP_ARRIVAL set in loopArrived; MAP_SIGHT is [you can flee]'s to set. Shell: window.BOH_MAP_STATE + 'bohemia-mapstate'.
+GATE THE MAP HEARS 8/0. NEXT: [you can flee] (68, 68a: draw the roaming parties with their count word from partyMath('roaming'), set MAP_SIGHT, time stops in sight), then [first load], [demo end].
+RUN (run-eak241): 10/5g LATEST -- [a few, not twelve] SHIPPED (rule 75b). TAB: the DEMO's map, any fight.
+City __A_FEW_NOT_TWELVE__: partyMath(kind 'job'|'roaming', ctx) from records/target/bb/party_math.json (loaded at boot; same numbers inline until then); jobs carry job.party, the road sends party; shell nfOpts passes d.party to FIGHT_OPTS.party (COMBAT's partyFor dresses it).
+GATE A FEW, NOT TWELVE 7/0. partyMath('roaming',{x,y}).word is ready for [you can flee] (68a: a sighted party with its count word). Coefficients marked ours wait on Grok ask 22 / TUNING. NEXT: [you can flee] (68), [the start screen]'s last leg (COMBAT's screen override), and RUN TWO's ask: keep the 'bag' in the save.
+RUN (run-eak241): 10/5c LATEST -- [the origin sets the company] SHIPPED (rule 75a). TAB: the DEMO's door after NEW GAME (the origin cards), then any fight.
+records/target/bb/origins.json is the truth (Battle Brothers' fifteen); BOH_START loads it (picks(): company, cap, roster; start = batteries[shelves]); nfOpts carries company/cap; BOHEMIA_FIGHT.html setup() reads opts.company/opts.cap, crewUnit() honours c.level.
+GATE THE ORIGIN SETS THE COMPANY 7/0; THE FRONT DOOR D4 re-aimed to the file. SEEN, NOT MINE: THE LOOP PLAYS ON THE MAP 3/2 on main (L4: UI's settlement labels moved the price off the offer's line; the gate's /battery$/ finds no offer) -- re-aim with UI's new label. FOR COMBAT: those two reads are in your file. FOR RUN TWO: LOOP.start.company/cap/roster for the roster screen. NEXT: [a few, not twelve] (75b), then [the start screen]'s last leg (waits on COMBAT's screen override), [you can flee].
+RUN (run-eak241): 10/5a LATEST -- [the start screen] BUILT, about 4 of 5 (rule 66). TAB: the DEMO opens on it.
+Shell __THE_START_SCREEN__ (inside #front; BOH_TITLE {show, hide, act, saved}); slices/start/title_valley_{wide,tall}.webp; the map's BOHEMIA_START pays once per game by the purse ledger; tools/bohemia_through_the_title.js (NEW GAME / CONTINUE for checks).
+GATE THE START SCREEN 12/0. FOR UI [the start screen's look]: dress #title (.it plates, .logo, .osd, .notes, .sheet); keep the menu clear of #fronttap (place()) and keep it inside #front. [PENDING COMBAT] bohemia_screen_class.js reads BOH_SETTINGS.screen for SETTINGS' screen override (62), then UI adds the row and this row ships. NEXT: [you can flee] (68).
+RUN (run-eak241): 10/4d LATEST -- [one song] SHIPPED (rules 64, 64a). TAB: the DEMO, any fight and home; the VOTE tab plays the recording.
+Shell __ONE_SONG__: nfOpen posts bohemiaFactionPicked 0 after SOUNDS' FIGHTMUS.enter (the fight's own song, once); the tab rule spares PANEL city (RUN) while the street or the fight's hand-back owns the music; startEncounter (the old door) mutes the old frame's loop when MUS is already playing.
+GATE THE ONE SONG 8/0. SOUNDS holds [one song and the volumes] (volumes, the new fight's sounds): one bus is the fence, do not add a second music path. NEXT: [the start screen] (66), [you can flee] (68), then [screen fit], [the reel], [zoom range].
+RUN (run-eak241): 10/4c LATEST -- [map pixels now] SHIPPED: THE NEAR END IS THE BLOCK. TAB: the DEMO's map, pinch in as far as it goes, then once more.
+City file __THE_NEAR_END_IS_THE_BLOCK__: LOOK {on,s,kind,foot}, lookKind (cell -> fight_ground block_<kind>_<n>.webp), lookFoot (nearest flat/rough/debris tile), lookEnter/Exit/Zoom/Render; renderCity returns into lookRender while LOOK.on; setZoomAt routes to lookZoom; ZGEST = the gesture (fingers down/up, the wheel by a 250 ms gap).
+GATE THE NEAR END IS THE BLOCK 9/0. NEXT: [one song] (rule 64), [the start screen] (66), [you can flee] (68), then [screen fit], [the reel], [zoom range]. Seen, not mine: the purple marker and the freeway arcs scale up at the near stop.
+RUN (run-eak241): 10/4b LATEST -- [the valley edge] round two (rule 70, 70a): THE FAR STOP KEEPS THE LAND + ONE LIGHT. TAB: the DEMO's map, pinch out past the widest zoom; and at night.
+renderSky's REGION/PLANET bands draw vbPatternDraw + vbDraw + vbCityDraw clipped to the limb (__SKY_CLIP__ kept); vbDraw/vbSeam/vbCityDraw unlit, vbCityLightsDraw after the night wash.
+GATE THE VALLEY HAS AN EDGE 14/0 (E13 one light, E14 the far stop). NEXT: [map pixels now]'s near end; then [one song], [the start screen], [you can flee].
+RUN (run-eak241): 10/4a LATEST -- [map pixels now] rule 65 (a): THE PEOPLE AT THE RIG'S OWN PIXELS (CAST_PX 112, spriteAt size-aware, the map's people x1.00). TAB: the DEMO's map.
+Also re-aimed: THE LOOP PLAYS ON THE MAP taps the BOARD building (RUN TWO's rebuilt screen, BohemiaSettlement.where). Twenty body checks same as main (CAST SILHOUETTE better).
+NEXT on [map pixels now]: the near end at 42.9 px/m. Rule 64/66/68 rows wait behind it ([one song], [the start screen], [you can flee]).
+RUN (run-eak241): 10/2f LATEST -- [map pixels now] rule 67 s3: INTO A FIGHT THROUGH CLOUDS + THE NEAR STOP. TAB: the DEMO, any fight; the map pinched all the way in. BUILD 10/2j.
+Clouds: __THE_ZOOM_GOES_THROUGH_CLOUDS__ in the shell (compositor layers, held until the fight's #load is gone). Near stop: zoomBounds ceiling = 256 art px / ratio / TW0 (4.74), ground margin capped 220.
+GATES: THE ZOOM GOES THROUGH CLOUDS 8/0 (new), FAR END F11. Seen, not ours: a big purple marker and black freeway arcs scale up at the near stop. NEXT: [one song] (rule 64), [the start screen] (rule 66), [screen fit].
+RUN (run-eak241): 10/2e LATEST -- [map pixels now] rule 65 half (b): THE FAR END IS PAINTED. TAB: the DEMO's map, pinch all the way out.
+The city painted twelve texels a block by kind (vbCityCore, same worker as the land), faded in under 10 px a block; night light only where there is power; the art scales with the zoom, he and the names do not.
+GATE THE FAR END IS PAINTED 9/0 (DIRECTION's floor read on MAP_GROUND.cv, not the glass). STILL OPEN: markers 1:1 from their art; the near end at 42.9 px/m. Then [one song] (rule 64), [screen fit].
+RUN (run-eak241): 10/2d LATEST -- [fold the loop] THE REBUILT FIGHT IS THE DEMO'S FIGHT (rule 63). TAB: the DEMO's map; any fight (a JOB, a road crew).
+Every fight the map starts opens COMBAT's slices/BOHEMIA_FIGHT.html (same door, same way home); the fight deals its board led by the block's KIND (nfKind in the shell), night = the clock; won pays the contract, lost loses it; card four beats, a tap goes home.
+[PENDING COMBAT/TUNING] the fight passes no difficulty yet: the front door's fight pick and the job's crew size do not reach the band (ours.json first_band 'why': TUNING's count per contract). The old NAMED freeway board stalls on AUTO (round 60); the shell never asks for named boards.
+GATES re-aimed: EVERY FIGHT HANDS HIM BACK 9/0, THE LOOP PLAYS ON THE MAP 12/0. NEXT: [screen fit] (claimed), then [map pixels now]'s near end, [the reel].
+RUN (run-eak241): 10/2c LATEST -- [the valley edge] SHIPPED (45460a2): zoomed all the way out, the city sits in a valley between named ranges. TAB: the DEMO's map, pinch all the way out.
+Land 200 blocks past every edge, baked in a worker, lifted the way the camera sees it: Spring Mtns + Mt Charleston, Sheep Range, Frenchman, Black Mtns on the map's compass; the 15/95/93 keep going; Lake Mead; a far tile to any screen's edge; bare land 0.9% (was 100%).
+GATE THE VALLEY HAS AN EDGE 12/0, four mutations. LEFT: the map's own rim blocks still draw as street grid (COOK/WORLD tile); the moon zoom's REGION band still draws the valley flat.
+NEXT: [screen fit] (claimed): four screen classes, one HUD laid out by rule; then [map pixels now]'s near end, [the reel].
+RUN (run-eak241): 10/2b LATEST -- [the front door] SHIPPED (31c56c2): pick the fights, the shelves, who you were and the crew's name at the door. TAB: the DEMO's loading screen.
+BB's combat and economic difficulty and its fifteen origins (GROK_14), translated, draft:true names; every number on a card is applied (start batteries once, then each job's pay, crew, fight package). The door stays a door: only a tap on a pick is held back.
+GATE THE FRONT DOOR 7/0 (one driver, beforeTap). a_stranger_opens_it re-aimed to tap BEGIN. Rule 63: the old fight is frozen; the loop still uses it until COMBAT's new file plays, then RUN folds that in.
+NEXT: [the valley edge] (claimed): no square and no bare brown when he zooms out; then [screen fit], [map pixels now]'s near end, [the reel].
+RUN (run-eak241): 10/2 LATEST -- [fold the loop] SHIPPED: THE LOOP PLAYS IN THE DEMO. TAB: the DEMO link, tap CHURCH.
+Folded onto the REAL map and fight (not the loop file's placeholders): arrive at a town -> RUN TWO's settlement screen; BOARD -> contract, a JOB on the map (cast under a red flag); reach it -> the real fight; clear -> paid 1 battery; walk out -> job stays unpaid; lose -> lost. Rule 61b: the quest line is off the map; the loop's news is a phone post.
+GATE THE LOOP PLAYS ON THE MAP 12/0 (one driver end to end; mutations caught). records/BOHEMIA_THE_LOOP_PLAYS_ON_THE_MAP_RUN_10_1_26.md
+NOT FOLDED: hire, wages, food, days, the phone's read-only contract list (UI). The settlement gate needs NODE_PATH=/opt/node22/lib/node_modules (bare require of playwright).
+NEXT: [the front door] (claimed): the loading screen with Battle Brothers' difficulty (translated) and the 15 origins (GROK_14, translated, each with its difficulty); then [the valley edge], [screen fit].
+RUN (run-eak241): 10/1b LATEST -- PAOLO: "the icons fucking suck ass" -> THE MAP ICONS ARE THE GAME'S OWN ART (b4d70be). TAB: the DEMO link, first screen.
+Crowds = three of the street's 12 baked dressed people; crews = two of them walking their way under the faction's flag; bases = the tier's own building (FORT, TOWN, TRAILER camp) with a flag and a dark edge. People at 2/3 of him (2 phone px per pixel), names painted after crews, crews within a block of home hidden. Read as the MAP icons; if he meant the bar's six glyphs, that is next.
+GATE: THE MAP HAS ITS PEOPLE 19/0 (three new legs; blobs back -> 2 red, blocks back -> 1 red). VOTE before/after. records/BOHEMIA_THE_ICONS_ARE_THE_GAMES_OWN_ART_RUN_10_1_26.md
+NEXT: [fold the loop] (claimed): bring RUN TWO's loop systems (settlement screen, two contracts, the pay, wages) onto THIS map, not its placeholder canvas.
+RUN (run-eak241): 10/1 LATEST -- [fight returns] SHIPPED 4047aaf (rule 57) + [map pixels] G1 / [map pixels now] most of it. TAB: the DEMO link.
+FIGHT: reproduced his stuck fight (goon out of range and passive, SHOOT gone, only the WAY OUT ends it: COMBAT's, routed) AND every ended fight froze 10-11 s on the way home (the tab re-baked his body and cast): now 0.8 s. Gate EVERY FIGHT HANDS HIM BACK 9/0.
+MAP: canvas at the phone's pixels (1134x2490), MAP DENSITY 13/0 (was red), ground painted once and slid while travelling (10.8 fps vs main's 4.4). Gate THE MAP AT THE PHONE'S PIXELS 16/0; five map checkers re-aimed to CSS pixels.
+OPEN FOR COMBAT: a player who only shoots never ends a road fight (the gate prints it as a NOTE every run). A road fight cut once charged one block oddly (8 steps for a 6-block route); not reproduced twice.
+NEXT: JUMP 1, the whole loop (plug RUN 2's settlement screen into arrival, the contract, the fight, the pay), then [the sign fix] and the six #daycardIn checkers.
+
 RUN (run-eak241): 9/30 LATEST -- *** [map pixels] (his 9/29 map ask) AND [demo text] SHIPPED: HE IS
 ON THE MAP AS HIMSELF, THE CIRCLES ARE PEOPLE AND BUILDINGS, THE PARTIES WALK THE ROADS, AND NO TWO
 TEXTS OVERLAP ON THE DEMO. TAB: the DEMO link (CITY in the alpha, the same map). Nothing to judge. ***
@@ -12091,6 +16592,194 @@ rom face 14/0, feed 15/0, alpha loads 20/0, readable ruler 7/0. THE SUITE LINE s
 full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
+
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 56. [the reply leg] SHIPPED 4dfc12e: THE LAST FIVE
+LINES ARE THE REPLY (rule 90, school round 10). ***
+Record: records/BOHEMIA_THE_LAST_FIVE_LINES_ARE_THE_REPLY_10_10_26.md. VOTE plumber-the-reply-leg-10-10 (last round's
+381-word PLUMBER reply beside the same news in 74 words).
+BUILT: tools/bohemia_reply_check.js (module + CLI: a draft file or '-' for stdin; prints words, a Flesch-Kincaid
+reading, the five slots; exit 1 'DO NOT SEND'). WORDS <= 150, proof line and links not counted. LAST FIVE from the
+bottom: two-sentence bottom line; WHAT I NEED FROM YOU + numbered lines or "Nothing, I'm good"; the red (RED: / No red,
+CAUSE/FIX under it); the change = one or two lines starting with a tab and a colon (tabs read live from the alpha's tab
+bar + DEMO + the 7/28 list; NOT IN A TAB YET counts) with a digit on them or on one line between them and the red.
+REPLY CONTRACT grows R1-R5 (22/0, <1 s): R1 the school's template read live from its record (placeholders stand in only
+there); R2 a filled reply passes; R3 padded to 399 words red on WORDS alone; R4 five wrong shapes red on LAST FIVE; R5
+the proof line and the links do not count. MEASURED: PLUMBER's own last reply refused on both legs (381 words, no red).
+The grade is printed, not a leg (about two grades low on long sentences).
+[FOR THE COORDINATOR] a gate cannot read your chat: run each draft through `node tools/bohemia_reply_check.js -`
+before it sends; DO NOT SEND means cut to the five lines and move the detail to the round record.
+SUITE at the end of this round: did not finish: 74 of 807 gates in 25 min (stopped at the time limit; FIGHT MUSIC alone 157 s), the reds it reached are old and not this lane's (BUNDLE, DISTRICT FILL, REPO BUDGET, STREET SOURCE, THE THUMB...); the gates that read this round's files ran instead: REPLY CONTRACT, VOTE TAB, HANDOFF, EVERY RUNNING LANE HAS A JOB, COOK EVERY ROUND. The wall is [suite runs] / [pre-push pass], both OPEN here.
+NEXT: the top OPEN row is [the gate goes red] (rule 90 round 7); then [the owner file]; [one engine boot].
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 55. [the picture leg] SHIPPED e8cff0e: WHAT HE CANNOT
+SEE DID NOT SHIP (rule 89). AND THIS LANE'S HALF OF [first load] SHIPPED. ***
+Record: records/BOHEMIA_WHAT_HE_CANNOT_SEE_DID_NOT_SHIP_10_10_26.md. VOTE plumber-the-picture-leg-10-10 (one real fight
+tile, refused shown by its number alone, passing shown before | after at 1:1).
+BUILT: a rule-89 leg in gates/cook_every_round_gate.js. A look item = a tile/face/haircut/outfit/animation or a UI
+screen from a look-program lane (cook, cook 2/3/4, combat 2, ui, character, portrait), or a tile..animation from
+combat/run/eyes; never a verdict, a line, a sound, or a TUNING table filed as 'tile'. It must carry show { how:
+image|clip, src on disk } and before_after { before, after, scale: '1:1' }, else 'no before-and-after picture'. Proved:
+his three NOs of this round each refused; the row's pair (number alone red, two crops side by side green, only the after
+red). Hard leg on items made >= 10/10: RED ON 4 (cook-the-far-end-as-tiles, cook-the-building-props,
+cook-his-block-as-a-place, combat2-the-rest-join); 38 older counted. Notes appended to COOK's and COMBAT TWO's 10/10
+PLUMBER lines.
+FIXED WITH IT, two of my checkers that contradicted rule 88: COOK EVERY ROUND reads each lane's MODE and skips HOLD /
+PAUSED / PARKED / RESEARCH ONLY / PAGES WITHOUT SHEETS (reds 4 lanes -> 1, PORTRAIT); EVERY RUNNING LANE HAS A JOB
+treats HOLD as not running.
+[first load] SHIPPED for PLUMBER's half (bytes and budget): RUN ran the six hunks (a85baf6; H1 6 already in), ceiling
+10 MB. This box, demo cold at 4x served like Pages: title 3.0 s, NEW GAME ready 31.3 s, 3.2 MB before ready (was 29.7),
+D1 green. RUN's box 1.3 s / ~22 s. T1/T2 red on purpose: the title's order and the processor are RUN [first load].
+[two sentences leg] closed: RUN built it (vote_tab_gate, since 548ba9e); it bites, red on TUNING 3 and DYNASTY 1.
+[PENDING coordinator] O3 short of three OPEN rows: RUN TWO 2, CHARACTER 2, COOK THREE 2, ECONOMY 1, TUNING 1 (CHARACTER,
+ECONOMY and TUNING may be on HOLD by intent; their MODE lines do not say HOLD). R1: SOUNDS and RUN TWO carry 'ROUND n
+OPEN' inside a SHIPPED row.
+NEXT: the top OPEN row is [one engine boot]; then [sun gate]; [flaky gate].
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 54. [the pack gate] SHIPPED ba767b6: THE PACKS ARE THE
+BAR, AND AN ART SHEET COMES WITH ITS TWIN (rules 82, 82a). ***
+Record: records/BOHEMIA_THE_PACKS_ARE_THE_BAR_10_10_26.md. [first load] stays CLAIMED, waiting on RUN [load hunks] (RUN
+claimed it 10/10; the six hunks still dry-run clean).
+BUILT: tools/bohemia_pack_corpus.js (21 approved banks as data: the 7/27 index table + rule 82a; resolveKey for
+[pool, idx], [pool, "derived words"], {pack, idx} UP in the confirmed set, {bank, pool?, idx}). gates/pack_gate.js = THE
+PACKS ARE THE BAR (False, ~1 s): S1-S6 + S5b planted; C1 banks on disk (reference/art_bank/ is COOK's, reported); K1 no
+NEW ground cook tool (cook/factory/_pack_/_kit_ by name, names a ground folder, saves pictures) skips the corpus; M1
+every manifest key resolves; P1 no NEW ground picture without a manifest. Ground folders found by prefix
+(fight_ground*, settlement_ground*, settlement). Proof shapes read: per-picture {src, keys} (COOK TWO kit_street.json)
+and folder-wide PACK_TILES_USED.txt (COOK FOUR). Debt in gates/pack_gate_baseline.txt (8 tools, 185 pictures), only
+shrinks; the gate prints when lines can come off. Mutations on the real tree (new board, new cook tool, broken key) red.
+VOTE TAB twin leg: art = face/haircut/outfit or an image/page/clip from cook*, combat 2, character, portrait (kind
+alone lies: TUNING files tables as 'tile'); made >= 10/10 must carry twin: { src (file or pack:<pack>#<idx> UP), diffs[3] };
+five planted rows; 23 older art sheets counted, not failed.
+LANDED RED, ON EXACTLY THE NEW CASES: K1/P1 on COOK's his block (b46a874, 16 min after rule 82a) and COMBAT TWO's
+block_main_0 boards; twin leg on 6 (COOK 3, COMBAT TWO 1, PORTRAIT 1, CHARACTER 1). One line each in those sections;
+COOK FOUR (REFERENCE CHECK red on its cook4 tool, and thanks for the list), TUNING and MODS (new 22f sheets) too; PEOPLE's
+old note off (fixed 6a25246). Not done as written: banks_used_gate itself not extended (it boots the old RUN slice).
+NEXT: the top OPEN row is [one engine boot]; then [sun gate]; [two sentences leg] looks already done (vote_tab_gate
+has the 22f leg since RUN TWO 10/1): check and close it honestly.
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 53. [open row gate] SHIPPED 624b95e: EVERY RUNNING
+LANE HAS A JOB, AND THE BOARD SAYS SO OR NAMES THE LANE. ***
+Record: records/BOHEMIA_EVERY_RUNNING_LANE_HAS_A_JOB_10_10_26.md. [first load] stays CLAIMED, waiting on RUN [load hunks]
+(RUN claimed it 10/10, run-eak241; the six hunks still dry-run clean on the alpha).
+BUILT: gates/open_row_gate.js = EVERY RUNNING LANE HAS A JOB (False, under a second, no browser). A lane is a '## '
+section with a MODE line (SHARED excluded), running unless MODE says PAUSED/PARKED, a job is a line starting '- OPEN'.
+O1 >= 1 OPEN row (green), O3 >= 3 (rule 74; RED: WORLD 2, RUN TWO 2, ECONOMY 2 at push; MODS 2 at commit, then 3), M1 no MODE names one row
+(green), R1 no SHIPPED row says ROUND n OPEN (RED: SOUNDS 'ROUND THREE OPEN', RUN TWO 'ROUND FOUR OPEN'). S1-S5 planted
+boards; a mutated copy of the real board names RUN TWO on O1, O3, M1. The 10/4 board itself was not replayed: this
+clone starts 10/5 (said in the record).
+[PENDING coordinator] O3 is yours to fill (rule 10, rule 74): WORLD, RUN TWO and ECONOMY sit at two OPEN rows.
+Board notes: SOUNDS (R1, one new line); RUN TWO's 10/10 note extended with its R1 row (still one line).
+NEXT: the top OPEN row is [one engine boot] (SOUNDS 54f69624: one_engine_gate never sees __LOAD_READY). Then [sun gate],
+[two sentences leg] (likely already done by RUN TWO 10/1 in vote_tab_gate: check before building).
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 52. [proof shots churn] SHIPPED 7a6fdb1: A GATE RUN
+CHANGES NOTHING GIT TRACKS, AND HALF A CONFLICT IS A CONFLICT. ***
+Record: records/BOHEMIA_PROOF_SHOTS_STAY_PUT_10_10_26.md. [first load] stays CLAIMED, WAITING ON RUN [load hunks]
+(nothing else in the demo page is both big and provably unreached: RIG_B64 35 KB gz, PREFAB_B64 6 KB, two
+text/plain records ~130 KB raw; the next moves are RUN's six hunks and the title's order).
+MEASURED: in five days the barber's settlement shot was re-committed 13 times, the smith's 12, raided and market
+day 9 each, the loop's four shots 4 each, the roster 3 (once by SOUNDS f5b94ea, who only ran the gate). Five gates
+wrote into slices/vote/ every run: settlement_screen (9 pictures), one_file_loop (4), climbing (2), roster_screen
+(1), the_rebuilt_fight_plays (5). Byte-stable is not on offer: one gate, one tree, two runs, two files.
+BUILT: tools/bohemia_proof_shot.js, proofShot(trackedPath): os.tmpdir()/bohemia_proof_shots/<name> unless --shoot
+or BOHEMIA_SHOOT=1. The five gates route through it (none reads its picture back). gates/proof_shots_gate.js =
+PROOF SHOTS STAY PUT (False, about 5 s, 9/0): S1-S6 planted detector both ways; P1 sweep of every gate .js/.py
+(840 read, 15 put pictures somewhere, 0 into git; main before: 21); P2 a real roster run leaves every tracked
+picture's git status unchanged and lands in scratch (filtered to pictures so the parallel pack cannot flake it);
+P3 BOHEMIA_SHOOT=1 returns the tracked path. Mutation: main's roster gate put back -> P1 and P2 red, and it really
+rewrote the committed PNG (restored). 4 picture paths are unresolvable statically (caller-built): fight_pixels,
+phone_perf opts.shotPath, run_gate rep.shot, sfx_render shot; printed as a note.
+HANDOFF GATE: any two of the three markers in order is a conflict (acc8757 10/5 had middle + end, start deleted;
+replayed: old rule clean, new rule conflicted); five planted cases; 10/0.
+After the change: roster 13/0, climbing 15/0, rebuilt fight 118/0, settlement 58/1, one-file loop 12/1; the two reds
+identical on main's own versions (RUN TWO, one line). No VOTE item: nothing he sees or hears changed (rule 29).
+Board notes: DYNASTY's and TUNING's old sheets fixed (notes off); new: TUNING (tuning-every-roll-a-man-makes-10-10),
+MODS (mods-an-id-is-a-promise-10-10), RUN TWO (two gates red on main + the --shoot habit), LIFE+CITY (ONE DRIVER:
+built_on_the_board_gate.js has its own browser), PORTRAIT (REFERENCE CHECK: three cook tools), PEOPLE (REFERENCE CHECK
+keepers_speak + DEMO BUILD 4 bytes behind after 060269d's stamp). RUN's loop note stays (still 3/2 on main).
+NEXT: the top OPEN row is [open row gate]. [first load] round 4 when RUN applies the hunks.
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
+PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 51. [first load] ROUND 3: THE FROZEN FIGHT LEAVES
+THE DEMO, BY THIS LANE'S OWN CUTTER. ***
+Record: records/BOHEMIA_THE_FROZEN_FIGHT_LEAVES_THE_DEMO_10_9_26.md. Row KEPT CLAIMED (rule 6).
+COMBAT aaf6ee2 ([one fight], ONE FIGHT in the suite) proved the demo never opens the frozen fight and routed
+COMBAT_B64's bytes to this row. tools/bohemia_cut_the_demo.js gains step 6: on the demo `const COMBAT_B64=''`
+(one line; die() if the const is missing or under 100,000 chars; notes.frozenFightBytes; a report line). The
+alpha keeps the whole fight. The deploy cuts the same way, so live and committed stay one file (DEMO BUILD).
+Demo page 6.30 -> 3.63 MB text, 2.51 -> 1.19 MB gzipped. MEASURED at 4x, served like Pages, alternating on one
+box: title 5.4/3.5 -> 2.8/2.7 s (goal 2; the clear win),
+NEW GAME ready 96.8/85.0 -> 85.5/81.6 s (inside the noise; the processor, round 2), before ready 29.7 -> 27.1 MB.
+BUILD SIZE (mine): inventory refreshed (33.7 days stale), demo budgets locked 5.20 -> 3.92 MB raw, 1.87 -> 1.29 gz;
+8 red -> 5, the five pre-existing: alpha raw/gz over (it keeps the fight), reachable-from-nothing 305 MB (excavate
+move), biggest block (the fight, in the alpha), inventory vs PAGES PUBLISH disagree on the site size (to chase).
+The one path that could still reach it: cityEncounterIn's fallback if nfOpen THROWS; it now builds a blank frame
+instead of the frozen fight (both a trap; ONE FIGHT watches the door). Other callers read and listed in the record.
+Gates moved with it: BUILD SIZE twin leg subtracts the blob the cut removes (read off both files each run);
+DEMO STALENESS self-test asks the alpha for the fight font (the demo has no copy); FIRST LOAD CEIL_MB lowered.
+Still handed to RUN, unchanged: tools/bohemia_first_load_hunks.py --write (row [load hunks]; 87 -> 67 s).
+NEXT: [proof shots churn] (top OPEN row; churn measured last round: f5b94ea, f318aef). Found this round, read-only:
+three gates write straight into slices/vote/ on EVERY run: settlement_screen_gate.js (RUN2_THE_SETTLEMENT_SCREEN_10_1.png,
+_BARBER_10_1.png and variants), roster_screen_gate.js (RUN2_THE_ROSTER_10_9.png), one_file_loop_gate.js (RUN2_THE_LOOP_*_10_1.png);
+people, camp_dial and lab already take a PROOF_DIR env. The shape: shoot to os.tmpdir() unless asked, and a leg that
+two runs on one tree leave git clean. [first load] round 4 when RUN
+applies the hunks: re-baseline T2 and lower the ceiling again.
+Board notes this round: COOK's kind fixed (note removed); one each for DYNASTY (dynasty-old-body-10-9) and
+TUNING (tuning-how-hard-is-a-killer-10-10), rule 22f; one for RUN: THE LOOP PLAYS ON THE MAP 3/2 on clean main (L4/L5).
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
+PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 50. [first load] ROUND 2: THE BOOT BOUND 1,256 BODIES
+AND ONLY 174 WERE DIFFERENT. ***
+Record: records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md. Row KEPT CLAIMED (rule 6).
+THE PROCESSOR, MEASURED: the skinner's bind (cohereBind + _rebind) was the boot's biggest cost (4.4 + 1.3 s of 25 s
+at 1x). 1,256 binds before NEW GAME is ready, 174 different (body x direction), the most-repeated one 73 times: the
+street cast, family and outfit builds each call rebuildFromRig, which binds all eight directions from scratch.
+THE PATCH, 4 hunks, BIT FOR BIT THE SAME BINDING: cohereBind counts in typed arrays and walks only painted pixels
+(the for-in key order, integers ascending then negatives in first-met order, is walked by hand: ">" makes order
+break ties); _rebind reads each bone once per part; a bind cache keyed by a hash, with the painted pixels compared in
+full before a hit is used (a collision is a miss). PROOF: fuzz 1,600 grids 0 diffs; a check copy ran old and new on
+all 1,256 real binds 0 diffs, and re-bound all 1,082 cache hits with the OLD code 0 diffs. MEASURED on a copy served
+in the page's place: NEW GAME ready 21.3 -> 16.5 s at 1x, 87.3 -> 66.6 s at 4x (two runs each); page work 13.0 -> 6.8 s.
+HANDED TO RUN AS ONE COMMAND: tools/bohemia_first_load_hunks.py (six hunks: round 1's two [load patch] + these four;
+dry run by default, refuses on drift, idempotent). Row [load hunks] in RUN's section under RUN's own [first load].
+RUN TWO had marked round 1's misplaced row HANDED TO RUN 10/10 (my heading match hit '## RUN TWO' first); left as theirs.
+FIRST LOAD gains H1 (the hunks still fit the alpha; status word only, a hunk's own words can say 'already in').
+Gate run: FIRST LOAD 5/3 red on purpose (T1 3.8 s, T2 87.1 s, D1 the page re-read) as before; R1 29.7 MB under 33.
+ALSO MEASURED, RUN's: COMBAT_B64 (the frozen fight) is 1.31 of the page's 2.50 MB gzipped, half of what the title
+waits for; reachable only via cityEncounterIn's fallback when nfOpen fails, and warmTheFight boots it on the first
+tap of #front. What is left after the patch at 1x: renderHuman 1.5 s (map), buildFrame 1.2, rest-pose skin 1.2 (also
+repeated per body; the same cache shape would take it), realizeCell + chunkCanvas 1.8.
+ALSO: rule 80 line 19 (PLUMBER) in records/BOHEMIA_BETTER_THAN_BATTLE_BROTHERS_10_9_26.md. VOTE plumber-bind-once-10-9
+(a 48 KB picture). Board notes: last round's three rule-22f notes removed (those sheets pass now); one for COOK
+(cook-the-settlement-pictures-finished-10-10 has kind 'place'). REFERENCE CHECK green again on main (881b62f).
+NEXT, [proof shots churn] (coordinator's top OPEN row, 'second, after [first load]'): measured this round, the churn is
+real and cross-lane: f5b94ea (SOUNDS) re-committed RUN TWO's RUN2_THE_ROSTER_10_9.png (255,696 -> 254,666 bytes),
+f318aef (COMBAT TWO) re-committed two older COMBAT2 shots. Then [first load] round 3 when RUN applies the hunks:
+lower CEIL_MB (about 10) and re-baseline T2.
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
+PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 49. [first load] ROUND 1: THE DEMO MAKES A PHONE
+WAIT ABOUT 85 SECONDS, AND THE DOWNLOAD IS NOT WHY. ***
+Record: records/BOHEMIA_WHY_THE_DEMO_MAKES_A_PHONE_WAIT_10_9_26.md. Row KEPT CLAIMED (rule 6).
+MEASURED (fresh browser, 4x CPU, served like GitHub Pages: max-age=600, ETag, gzip): title 3.4-3.6 s, NEW GAME ready
+83-86 s, 29.7 MB before ready. The first reading said 69 MB "everything twice": that was the driver's test server (no
+cache rules), fixed before reporting. THE PATCH, HANDED TO RUN (their file, a review in the record): (1) the tile warm-up
+returns when #cityFrame is already in the page; (2) the build watcher streams the page and stops at the buildstamp
+instead of re-reading 2.4 MB every 2 minutes. Measured on a copy served in the page's place: 9.0 MB before ready,
+nothing twice. THE READY TIME DID NOT MOVE: the wall is the processor. 21 s at 1x, 11.3 s in the demo page, 6.9 s in
+the city; cohereBind 3.97 s, 2.5 s of it the STREET CAST baked via combatMsgIn > citySendCast > withLook > rebuildFromRig
+for a map that does not draw them (about 5 s of the 21: RUN with CHARACTER).
+BUILT: tools/bohemia_first_load.js (one reading from inside the page + the network log); the driver gained net, netlog,
+pages, beforeGoto (all opt-in); gates/first_load_gate.js = FIRST LOAD (600), 4/3 red on purpose: T1 title 2 s, T2 ready
+8 s, D1 the page re-reading itself; R1 never worse at CEIL_MB 33. VOTE: plumber-first-load-10-9.
+ALSO: EXCAVATE baseline 422 -> 418 (four files the game reaches now). VOTE TAB 31/1 on main: four other lanes' sheets
+break rule 22f (LIFE+CITY, PEOPLE, FACTIONS, DIRECTION); one NOTE line in each section (rule 22g: theirs).
+NEXT: lower CEIL_MB to about 10 when RUN applies the patch; then the title order and the cast bake with RUN.
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
 
 PLUMBER (plumber-ont6t5): 10/1 LATEST -- *** CHAT 18. ROUND 48. [grok fence] AND [grok filter gate] SHIPPED. GROK STAYS IN
 ITS FOLDER, AND NOTHING CITES A GROK PAGE UNTIL IT IS STAMPED. ***
@@ -13918,6 +18607,64 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/10 (a) LATEST -- *** ON HOLD (rule 88, Paolo 10/10: 'prioritize how it looks'). ***
+[hands in the box] was built when the hold landed and is PARKED, not shipped: branch claude/animation-vamily-lr9y9i
+at 70abd71 (handsInBox in the rig, gate HANDS IN THE BOX 7/0, 3 mutations, VOTE sheet, record). Not on main, no
+VOTE row, nothing in the alpha. Row back to OPEN with the note. When he lifts the hold: rebase 70abd71, re-run the
+gate (6 min), take the next stamp letter, ship. Also waiting from rule 86 for this lane: THE SHOT KICKS IN EVERY
+DIRECTION, NOBODY WALKS ON A WALL OR A ROOF. FOR CHARACTER (whenever their look round reaches it): the church's
+flat cap touches the top of the 112 box while he only stands, every facing (head top row 9, cap 9 px).
+
+ANIMATION (animation-lr9y9i): 10/9 (e) LATEST -- *** FOUR LEGS: the first beast moves. A lab dire wolf walks,
+lopes, bites and falls, three pictures a beat like the men. TAB: VOTE playing (the fight NOT IN A TAB YET). ***
+
+[four legs] SHIPPED. engine/bohemia_quadruped.js (pure) + tools/bohemia_fight_beasts_bake.js -> slices/fight_beasts
+(dire_wolf.webp, fight_beasts.json in fight_people's shape: idle, step, run, bite, fall, dead). FOUR LEGS 22/0,
+11 mutations. FOR COMBAT: read fight_beasts.json beside fight_people.json; frame = cols[floor(progress * n)].
+NEXT: [hands in the box], [flee runs], [the bestiary walks] (new: the rest of rule 42's beasts on the same engine).
+
+ANIMATION (animation-lr9y9i): 10/9 (d) LATEST -- *** THE SHOT KICKS: two new firing clips (rifle, pistol) in
+the bank and on the fight's sheets; the gun kicks, he rocks back and settles. TAB: VOTE playing. ***
+
+[the shot kicks] SHIPPED. Correction: deadeye and others DO recoil (weakly); last round's record said otherwise.
+fire-2h / fire-1h, one beat; fight sheets 26 -> 34 columns, table shot / shot_1h / aim. FIGHT CLIPS TABLE 14/0.
+FOR COMBAT (still): frameFor reads DB.people.clips; a ranged man plays shot or shot_1h by his weapon.
+NEXT: [four legs], [hands in the box], [flee runs] (new, rule 68).
+
+ANIMATION (animation-lr9y9i): 10/9 (c) LATEST -- *** THE TOWN IS ALIVE: the town screen's people, baked and
+ready: keepers at their doors, the stall keeper haggling, hires at the posts, a crowd walking. TAB: VOTE playing. ***
+
+[the settlement's idle people] SHIPPED as clips (the row: RUN TWO places them). slices/settlement_people: 25 outfits,
+3 facings, eight pictures of nine bank clips, a clip table with facings, the scale from the picture's ruler (a man
+75 px at 42.9 px a metre). SETTLEMENT PEOPLE 8/0, 4 mutations. records/BOHEMIA_THE_TOWN_IS_ALIVE_10_9_26.md.
+FOR RUN TWO: draw settlement_people at their doors (scale.draw_frame_at picture px, feet on the step); a keeper plays
+wait/smoke, greet when the finger nears his building, beckon while it is on it, trade while his shop is open.
+FOUND: the rig's 112 box cuts a raised hand on tall outfits (hail, 9 of 25): new row [hands in the box].
+NEXT: [the shot kicks], [four legs], [hands in the box].
+
+ANIMATION (animation-lr9y9i): 10/9 (b) LATEST -- *** THE PARTIES WALK: on the map you travel as three people
+walking, and every roaming party walks and slides between blocks. TAB: MAP, VOTE playing. ***
+
+[the marker walks] SHIPPED. The cast reached the map with no walk (my own 9/5 bake said so); the alpha now bakes
+each look's walk after boot, one look per idle callback, and the map attaches it by name. Parties glide (a two-block
+tick glides, more than three is a cut) and walk while gliding; his stride comes from his glide; two of his company
+walk at his shoulders (mapCompanyDraw). PARTIES WALK 10/0, 3 mutations. records/BOHEMIA_THE_PARTIES_WALK_10_9_26.md.
+FOR RUN: faster on road than dirt is your step timing (one block a beat everywhere); the feet keep pace with any step.
+NEXT: [the settlement's idle people], [the shot kicks], [four legs] (new, rule 42/81).
+
+ANIMATION (animation-lr9y9i): 10/9 (a) LATEST -- *** THE FIGHT'S CLIPS: the fight's sheets now carry a
+breathing idle, a fall and a man struck down who crawls; the dead lie flat. TAB: VOTE playing. ***
+
+Rule 78 put the lane back to work; top row [the fight's clips in the new fight] SHIPPED. Twelve columns appended
+to all 26 fight_people sheets (the fourteen the fight reads unchanged byte for byte) and a CLIP TABLE in
+fight_people.json (idle, step, swing, shot, hit, fall then down, down, dead). Looking turned it round: the fall
+(floor-rise backwards) ends SITTING, where the crawl starts, so sitting = alive, flat = dead. FIGHT CLIPS TABLE
+11/0, 5 mutations. records/BOHEMIA_THE_FIGHTS_CLIPS_10_9_26.md.
+FOR COMBAT (its file untouched, as the row said): frameFor reads DB.people.clips[event]; a fallen man plays fall
+then down, or dead; a waiting man plays idle. Its rebuilt-fight gate expects 'sleep' seen, which dead still is.
+FOR THE COORDINATOR: one Grok ask: how does Battle Brothers draw a man struck down but alive, on the board?
+NEXT: the jump list on the board: [the marker walks], [the settlement's idle people], [the shot kicks].
+
 ANIMATION (animation-lr9y9i): 10/1 (a) LATEST -- *** A TRADER FACING YOU: haggling and bowing move
 facing the camera now. TAB: VOTE playing (the near end of the zoom, rule 50). ***
 
@@ -15200,6 +19947,12 @@ above 0.40, which is the maximum legal lateral hip; and legCompress does the
 OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. So
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
 
+=== COOK FOUR: THE HOUSE SKINS ON THE MAP, round 1 (10/10, cook4)
+[the settlement from the packs] SHIPPED 0f659c5 (in VOTE, RUN TWO swaps slices/settlement_ground_packs/ in on his UP). [the house skins back on the map] CLAIMED, round 1 in: the suburb and town heroes rebuilt from the thirty skins by tools/bohemia_cook4_map_houses.py into slices/cook4_map_houses/ (drop-in, same canvas, anchors unchanged), at DIRECTION with slices/vote/COOK4_THE_HOUSE_SKINS_ON_THE_MAP_TWIN.png; TAKER RUN. NEXT: props (cars, carports, palms), an open lot in the town, the trailer hero. ROUND 2 IN: props, the open lot and the trailer hero done; three heroes ready for RUN on DIRECTION's pass. NEXT: on the pass, VOTE; then [the place sits in the map].
+
+=== COOK FOUR: THE SETTLEMENT FROM THE PACKS, round 1 (10/10, cook4)
+[the settlement from the packs] CLAIMED, round 1 in, NOT LIVE. The twelve settlement sheets (camp, town, fortress x2, day+night) rebuilt from 167 of his approved pack tiles by tools/bohemia_cook4_settlement_from_packs.py (refuses any tile not UP in the 7/13 confirmed set); hotspots copied to the pixel; output slices/settlement_ground_packs/. AT DIRECTION (rule 87) with slices/vote/COOK4_THE_SETTLEMENT_FROM_THE_PACKS_TWIN.webp; not in VOTE until passed. NEXT ROUND: the whole-cottage roof tiles and the thirty house skins instead of flat facade strips, gaps and a broken house in the town row, lamp cones that fall forward. Record records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md. TAKER when passed: RUN TWO (swap the folder). ROUND 2 IN: Vegas stucco town from the house skins + pack roofs/doors/windows, alleys, a fallen house, forward lamp light, REFERENCE CHECK closed. NEXT: the camp ground grid, the fortress side walls. ROUND 3 IN: DIRECTION's three notes done, registered in VOTE (cook4-the-settlement-from-the-packs-10-10). NEXT: on his UP, RUN TWO swaps the folder in; then [the place sits in the map]. Pages gate's 260 MB cap is red at 492 MB before this round (+7.6 MB here): PLUMBER's.
+
 === COOK TWO: HOW A STEP IS DRAWN, and the defect under it
 Row [tape skip] is CLAIMED. Before building any of it:
 
@@ -16106,6 +20859,158 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/10 (c) LATEST -- *** STILL HOLDING (rule 88), AND
+A FLAG FOR THE COORDINATOR: RULE 95(3) SAYS A HOLD WITH NO EXPIRY LINE IS
+VOID UNLESS RE-AFFIRMED EVERY SWEEP, AND NAMES "THE SOUNDS HOLD, WHICH
+SHOULD HAVE LIFTED" AS THE EXAMPLE. MY OWN MODE LINE HAS NOT MOVED SINCE IT
+WAS SET: NO EXPIRY LINE, NO RE-AFFIRMATION, SEVERAL SWEEPS PASSED. THE
+SAME SHAPE AS THE NAMED EXAMPLE, NOT YET NAMED. ***
+
+NOT SELF-DECLARING IT LIFTED: SOUNDS' hold ended by Paolo talking directly to
+that chat, not by the lane deciding rule 95 applied to itself. STOP PRODUCING
+is explicit that a frozen lane finding a legal-sounding reason to produce
+anyway IS the violation. Staying on HOLD until the coordinator's own sweep
+either re-affirms this lane's hold with a reason, or lifts it, or Paolo says
+the word directly, same as SOUNDS got. Nothing built, nothing cooked, nothing
+pushed to the demo this round either. Named here so the coordinator's next
+sweep sees it without having to go looking.
+
+PEOPLE (people-7h9sfy): 10/10 (b) LATEST -- *** [keepers] SHIPPED. SIX REAL
+CRAFTS THAT FIGHT WITH AN ANIMAL, AND A REAL GAP NAMED BEFORE BUILDING A
+FAKE FIX FOR IT. ***
+TAB: VOTE, item THE KEEPERS.
+
+Six real ways people have used animals as weapons through history, war
+dogs to camel cavalry to a Nevada falconer's eagle. Each one real, sourced
+to actual research, nothing made up.
+
+Before building the hire part, I checked whether this game can even let
+you walk around with an animal instead of a person. It can't, not yet.
+Wrote down exactly what that would take and left it for the lane that owns
+that piece, instead of forcing a half-working version in.
+
+Also closed an old duplicate row that asked for something I'd already
+built two rounds ago.
+Gate 26/0. Nothing [PENDING Paolo].
+
+PEOPLE (people-7h9sfy): 10/10 LATEST -- *** PLUMBER FLAGGED TWO REDS FROM MY
+LAST SHIP. FIXED BOTH. ***
+TAB: VOTE, item THE LONG INJURY and THE KEEPERS SPEAK.
+
+One flag was already fixed by another lane before I even got to it. The
+real one left was my own newest cook tool, which never got the standing
+reference-check note every cook page needs. Added it.
+
+The other: I bumped the title screen's build number without re-cutting the
+demo file, so the demo and the real build drifted four bytes apart.
+Re-cut it. Checked it matches exactly now.
+Gates clean. Nothing [PENDING Paolo].
+
+PEOPLE (people-7h9sfy): 10/9 (e) LATEST -- *** [the long injury] SHIPPED.
+COMBAT HAD ALREADY CLAIMED THE SAME CARD AS PART OF THEIR OWN JOB, SO I
+BUILT IT ONCE AS A SHARED PIECE, NOT A SECOND COPY. ***
+TAB: VOTE, item THE LONG INJURY. NOT IN A TAB YET on the live fight or the
+live settlement screen (COMBAT's and RUN TWO's own files, a review file
+names the exact call).
+
+His own locked words: get struck down in a fight, 20% you die, 80% you live
+with an injury that keeps you out 30 to 40 real days and leaves a
+permanent mark, a scar or a limp or a lost eye. The odds were already real
+numbers in the tuning table. What was missing was the actual mark itself:
+his one pain line, his real days left, what he cannot do.
+
+Found that COMBAT already has this exact card inside their own claimed job.
+So instead of writing a second, different version, I built it once as a
+small shared piece anybody can read from, and left them a note on exactly
+how to use it.
+
+All eleven real injuries, all real wording, nothing made up. Checked every
+number against the real file before shipping.
+
+Also found and wrote down (not fixed): an older piece of this game
+promises nobody ever carries anything permanent. His newer words say
+otherwise for this one case. Newer wins, named for whoever cleans it up.
+Gate 43/0. Nothing [PENDING Paolo].
+
+PEOPLE (people-7h9sfy): 10/9 (d) LATEST -- *** [the keepers speak] SHIPPED. A
+SECOND LANE HAD ALREADY MEASURED THIS SAME JOB AND LEFT HALF OF IT WRITTEN;
+I FINISHED IT INSTEAD OF REDOING IT. ***
+TAB: VOTE, item THE KEEPERS SPEAK. NOT IN A TAB YET on the live settlement
+screen (RUN TWO's own file to wire, a review file names the exact call).
+
+Read RUN TWO's settlement screen before building anything. Two of the three
+things this row wanted already had a working mechanism (the trait line, the
+rumour), and WORDS had already written the actual words for them (15 trait
+reactions, 5 keeper rumour hooks) in their own shipped round, left as a
+review file. I applied that content into the two real data files it belongs
+in. Nothing invented, nothing redone.
+
+The one real gap was a spoken PRICE for the smith, the armourer, the
+barber, the clinic and the board. WORDS looked at this too and decided not
+to build it, since three of the five have no single flat number (every
+weapon, every wound, every job prices itself) and forcing one in would be
+inventing a price the game doesn't have. I agree with that finding but not
+the conclusion: a real range off the actual shelf, or a real formula's real
+floor, is not an invented number. Built it as its own small, pure piece
+(engine/bohemia_keeper_lines.js), every number checked against the exact
+real file it lives in.
+
+Did not touch the live settlement screen itself (that's a different lane's
+file). Left a review file naming exactly what to wire in, same as WORDS did
+for me.
+Gate 48/0, new. Nothing [PENDING Paolo].
+
+PEOPLE (people-7h9sfy): 10/9 (c) LATEST -- *** PLUMBER FLAGGED MY OWN JUST-SHIPPED
+VOTE SHEET RED, RULE 22F: THE WHY DIDN'T SAY WHERE HE SEES IT. FIXED. ***
+TAB: VOTE, item GOOD BROS AT THE POST.
+
+The why for people-good-bros-10-9 was two sentences but never said where to look.
+Rewrote it to name the VOTE tab and the item's own title in the second sentence.
+gates/vote_tab_gate.js no longer lists this id as red. Nothing else touched.
+Nothing [PENDING Paolo].
+
+PEOPLE (people-7h9sfy): 10/9 (b) LATEST -- *** [good bros] SHIPPED. SIX REAL
+RECRUITS AT THE POST, REAL WIKI STATS AND PRICES, A SELF-CAUGHT CROWNS-VS-
+BATTERIES BUG FIXED BEFORE IT SHIPPED. ***
+TAB: VOTE, item GOOD BROS AT THE POST (no settlement screen to host it on yet).
+Record: records/BOHEMIA_GOOD_BROS_10_9_26.txt.
+
+Six real Battle Brothers backgrounds (the ones of 77 with a real observed hire-cost
+range, not a formula guess), real stat ranges, Grok's real star mechanic (60/30/10).
+Caught my own bug before shipping: first draft showed the raw crown roll labelled
+"batteries" (a farmhand would have shown 175 instead of the real ~18); fixed to
+convert at the ten-to-one rate, and also caught that the real daily wage was about
+to get charged when the row says "bought once, 0 a day" -- same fix rule 56 already
+made on the retinue, caught this time before it shipped wrong.
+
+Real names on every recruit, from the same name-mix system every citizen already
+uses -- added as PEOPLE's rule-80 "better than Battle Brothers" line: a recruit is
+a person first, a recruit second.
+
+NOT BUILT: traits (no master trait list exists anywhere in this codebase, checked
+not assumed); the actual hire-and-join screen (RUN TWO's, not built yet); a real
+company bond for a hire (bohemia_company.js's membership is computed from bonds and
+witnesses, never a second roster -- naming the right hook is next, not faking one).
+Gate 43/0, new. Nothing [PENDING Paolo].
+
+PEOPLE (people-7h9sfy): 10/9 LATEST -- *** [followers] CORRECTED, ROOT CAUSE: HIS
+"BOUGHT ONCE, NO WAGE" RULING SAT UNFIXED A ROUND; FIXED, AND THE REAL SIX ROLES
+REPLACE FOUR GUESSED ONES NOW THAT GROK ANSWERED. ***
+TAB: CITY, the walked street. Cook and record updated in place (same files, not forked).
+Record: records/BOHEMIA_THE_RETINUE_10_1_26.txt (new CORRECTED 10/9 section at the top).
+
+Deleted the nightly wage debit and everything built to collect it -- his fifth votes
+said it was wrong and it had sat that way since. Swapped the four guessed roles
+(mechanic, medic, fixer, driver) for the real six (cook, scout, lookout, paymaster,
+blacksmith, surgeon; there is no "negotiator") now that Grok's cited wiki page landed.
+Prices are the wiki's own crowns at ten to one. Scout keeps its real travel-time cut;
+paymaster now discounts other hires' one-time price instead of a wage that's gone.
+
+Found a second bug while rebuilding: the "declined" flag was being set at ASK time,
+not at an actual decline, so being unable to afford a role got permanently remembered
+as a no. Fixed; proven in the gate's real-city walk (fund after a can't-afford, same
+role offered again). Gate rebuilt in full, 43/0. Nothing [PENDING Paolo].
+
 PEOPLE (people-7h9sfy): 10/1 LATEST -- *** [followers] SHIPPED. THE RETINUE: FOUR
 NAMED HIRES, ONE A REAL CUT ON TRAVEL TIME, ONE A REAL CUT ON THE OTHER THREE'S
 WAGES, TWO HONESTLY NOT LIVE YET. ***
@@ -20194,6 +25099,22 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 
 NEXT IN THIS LANE: Q23 [who eats first].
 
+
+FACTIONS (factions-ovkjpf): 10/10 (round 58) LATEST -- *** UNDER THE RULE-88 HOLD (pages without sheets): wrote the PAGE records/BOHEMIA_FACTIONS_THE_FACTION_LOOK_THREE_PAIRS_YOU_CANNOT_TELL_APART_10_10_26.md (measured: Cartel/Mob 1.5, Anarchists/Trades 1.8, Homeless/Volunteers 4.2 apart in colour, so six of fourteen bases are twins on a hue-only map; a second channel is the way out, for DIRECTION/COOK TWO). Withdrew my A FACE THAT REMEMBERS sheet from the registry (registered after the hold's note; code and gate stay). Wrote the three rule-95 post-mortems in that page. No row claimed, no sheet, nothing into the demo. The OPEN rows ([wants send parties], [more banners], [take a town], and the three turned) wait for his word lifting the hold.
+
+FACTIONS (factions-ovkjpf): 10/10 (round 57) LATEST -- *** [faces meet again]: lines per tone (cold/neutral/warm over the nine relations bands), F.scene(id, band) keeps the line UNSPOKEN (PORTRAIT_OWED) until a portrait id is in the face slot, then speaks; FACTIONS gate 346/0 red 43 ways; VOTE A FACE THAT REMEMBERS. Record: records/BOHEMIA_FACTIONS_A_FACE_THAT_REMEMBERS_10_10_26.md. Fixed my own earlier made-up band names. Wrote three OPEN rows (rule 74): [wants send parties], [more banners], [take a town]. Route: PORTRAIT four faces; RUN TWO keepers call scene(); SOUNDS the beast growl.
+
+FACTIONS (factions-ovkjpf): 10/10 (round 56) LATEST -- *** [houses at war]: who is at war already lived in bohemia_between.js (canon graph); new here is MEETINGS (parties of enemies within a square clash: war breaks the weaker, prey-tax taxes, equal strength stands off), sideWith (enemies drop to Hostile 9), and a base the world TOOK becomes Conquered (wiki numbers). records/target/bb/war.json, engine/bohemia_war.js, gates/war_gate.js (39/0, red 27 ways), VOTE THE HOUSES AT WAR. Record: records/BOHEMIA_FACTIONS_THE_HOUSES_AT_WAR_10_10_26.md. Route: RUN clock calls meetings/onSettled. Next OPEN: [faces meet again] (needs PORTRAIT). Jump list is down to one row: write more next round (rule 74).
+
+FACTIONS (factions-ovkjpf): 10/10 (round 55) LATEST -- *** [who guards]: guardFor(kind, total, phase) in engine/bohemia_factions.js, grounds in factions.json CORRECTED (seven of eleven were not terrain kinds; found by this row), wiki quotes re-read by the gate, leaders per faction, FACTIONS gate 214/0 red 33 ways, VOTE WHO GUARDS THE SIX PLACES. Record: records/BOHEMIA_FACTIONS_WHO_GUARDS_THE_SIX_PLACES_10_10_26.md. Result: all six places are House ground, so one banner guards all six. Paolo thumbed THE BAR ON ONE TOWN up ('like the rest'). Route: WORLD feeds GUARDED_BY. Next OPEN: [houses at war], [faces meet again].
+
+FACTIONS (factions-ovkjpf): 10/10 (round 54) LATEST -- *** [beef] A-SETTLEMENT-COMES-FOR-YOU: records/target/bb/hunted.json (two wiki thresholds, quoted and verified: a house's patrols meet you when hostile; a caravan is raidable at Threatening or lower with no contract), engine/bohemia_hunted.js, gates/hunted_gate.js (35/0, red 17 ways), VOTE WHEN A SETTLEMENT COMES FOR YOU. Record: records/BOHEMIA_FACTIONS_WHEN_A_SETTLEMENT_COMES_FOR_YOU_10_10_26.md. Wrote three OPEN rows (rule 74): [who guards], [houses at war], [faces meet again]. Route: RUN clock/map calls huntersFor and attackable; RUN TWO contractAgainst. The beef chain is now data + mechanism end to end (relations, crime, arrivals, hunted); nothing of it is wired into the live game yet, that is RUN's.
+
+FACTIONS (factions-ovkjpf): 10/9 (round 53) LATEST -- *** [raids make traits]: records/target/bb/arrival_traits.json (Raided and Well Supplied effects off the wiki, cause is the arriving party and marked ours), engine/bohemia_arrivaltraits.js, gates/arrivaltraits_gate.js (41/0, red 22 ways), VOTE A TOWN BEFORE AND AFTER A RAID. Record: records/BOHEMIA_FACTIONS_A_PARTY_THAT_ARRIVES_LEAVES_ITS_MARK_10_9_26.md. FINDING for RUN TWO: settlement_traits.json raided (price x1.25, stock x0.6, recruits -1) is not what the wiki page says (-50% items, -50% recruits, no price). Route: RUN clock calls advanceWatching then traitsFrom. Next OPEN: [beef] A-SETTLEMENT-COMES-FOR-YOU (needs the relations and crime already built).
+
+FACTIONS (factions-ovkjpf): 10/9 (round 52) LATEST -- *** [beef] RELATIONS BANDS: records/target/bb/relations.json (whole wiki Relations page, sourced), engine/bohemia_relations.js, gates/relations_gate.js (66/0, red 33 ways, reads the wiki tarball), VOTE THE BAR ON ONE TOWN. Crime (bread -10 mapped, seen only) and guards (draw at 9 or below) are OURS, draft. Record: records/BOHEMIA_FACTIONS_THE_BAR_ON_ONE_TOWN_10_9_26.md. Route: RUN TWO reads the bar; COMBAT guardsDraw. Next OPEN: [raids make traits], [beef] A-SETTLEMENT-COMES-FOR-YOU.
+
+FACTIONS (factions-ovkjpf): 10/9 (round 51) LATEST -- *** [the parties on the map] DATA HALF and [a house you give a fuck about] FIRST HALF: records/target/bb/factions.json (four factions: banner, make-up, ground, behaviour, face slot, want, base, memory bands), engine/bohemia_factions.js, gates/factions_gate.js (134/0, red 23 ways, suite entry FACTIONS), VOTE card "FOUR FACTIONS WITH A FACE". Record: records/BOHEMIA_FACTIONS_FOUR_WITH_A_FACE_10_9_26.md. Route: RUN reads the file for the map card; PORTRAIT fills the face slots; COORDINATOR adds a [better than bb] board line for FACTIONS (item 9 is in the standing record). Next: [beef] bands, [raids make traits], seed crews per valley.
 
 FACTIONS (factions-ovkjpf): 10/1 (round 50) LATEST -- *** [home bases] ROUND FIVE: A CREW ARRIVING AT A BASE YOU HOLD IS A RAID,
 AND THE LEDGER HALF OF THE CHAIN IS BUILT. *** The coordinator's 9/30 note on my row: "'nothing happens when they arrive' is the
@@ -34688,6 +39609,71 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 71 [animal era] Q23 THE ERA LEAVES A HABIT. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_25_THE_ANIMAL_ERA_LEAVES_A_HABIT_10_10_26.md; VOTE line dynasty-animal-era-10-10.
+Finding: heir traits come only from the parent; the era leaves no mark. Proposal: three habits (hoards, sleeps light, trusts no paper). The research Q-list (Q19 to Q23) is now DONE.
+LANE QUEUE: only [grok lore] (a trigger) and the stale [heirs made on entry] pointer row remain OPEN; rule 74 needs the coordinator to write DYNASTY rows. QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 70 [the flip unlocks at the crisis] RULE 85. (BUILD)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_THE_FLIP_UNLOCKS_AT_THE_CRISIS_10_10_26.md; VOTE line dynasty-flip-at-crisis-10-9. TAB: RUN (the phone has one face and no flip until the crisis).
+acts.crisis(day) is the one door for act 2; bases open only act 3 after it; saved. City: ctActCrisis(day) for WORLD's clock. Gates ONE THEN HEIRS rewritten, HEIRS 83/0, THE FLIP, THREE NAMES green.
+RED NOT MINE: ONE THEN HEIRS glass, 13 legs after the glyph tap, identical on unmodified main (stash test); glyph is now 61x24 at the tap point. Routed PLUMBER/UI.
+NEXT: Q23 [animal era]; [grok lore] trigger. QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 69 [days per life] Q22 DAYS PER GENERATION. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_24_DAYS_PER_LIFE_10_9_26.md; VOTE line dynasty-days-per-life-10-9.
+Finding: no season or calendar exists and only 30 nights are kept, so the row's 'a season each' is a sentence. Proposal: 130 days in four seasons, ~30 named moments, the skip = four derived reports. Routed PLUMBER/WORLD/UI/PEOPLE/TUNING.
+NEXT: Q23 [animal era]; [grok lore] trigger. After Q23 the lane needs rows from the coordinator (rule 74). QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 68 [who buries] Q21 + A FIX TO MY OWN HEIRS. (SCHOOL plus one correction)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_23_WHO_BURIES_10_9_26.md; VOTE line dynasty-who-buries-10-9.
+CORRECTION: heirs no longer carry debt (bohemia_fold CARRY rules debt dies; I had carried 45%). Engine, city copy, gate leg and the 10/9 record fixed. HEIRS gate 83/0 headless.
+Finding: nobody buries anybody (family.js removed bury()). Proposal: heir's first day = body, creditor, house, name. Routed PEOPLE/QUESTS/WORLD/TUNING.
+NEXT: Q22 [days per life], Q23 [animal era]; [grok lore] trigger. QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 67 [name outlives] Q20 WHAT THE VALLEY STILL KNOWS IN GENERATION THREE. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_22_WHAT_OUTLIVES_A_PERSON_10_9_26.md; VOTE line dynasty-name-outlives-10-9.
+Finding (measured with the real standing.inherit): 7 of 7 retold deeds survive two folds, only faded; no forgetting. Proposal: cap to the loudest 1 per person at the second fold (the legend), keep name, grudges, place name. Routed PEOPLE/WORDS/WORLD/TUNING.
+NEXT: Q21 [who buries], Q22 [days per life], Q23 [animal era]; [grok lore] trigger. QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 66 [old body] Q19 AGEING IN THE HANDS. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_21_THE_OLD_BODY_10_9_26.md; VOTE line dynasty-old-body-10-9.
+Finding: nobody is ever 40 or 60 in play, so OLD/YNG are the only ageing: a trade (slower healing, head start in perks). Routed CHARACTER/PORTRAIT, PEOPLE (down.js multiplier), TUNING.
+NEXT: Q20 [name outlives], Q21 [who buries], Q22 [days per life], Q23 [animal era]; [grok lore] trigger. QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 65 [the frame] THREE SHAPES, COSTED. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_THE_FRAME_THREE_SHAPES_10_9_26.md; VOTE line dynasty-the-frame-10-9.
+Finding: default A as written makes the secret Amalgamation the player's everyday tool from minute one, against the 7/24 ghost lock. Fix: unnamed, recorded-only flip (the ending's gauge). B breaks the family theme and DNA maths, C breaks s2(c).
+[PENDING Paolo], not blocking: pick A, B or C. NEXT for DYNASTY: [grok lore] (trigger) then Q19 [old body], Q20 [name outlives]... (school). QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 64 [grok lore] THE LORE TEST ON TWO VIA-GROK RULINGS. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_GROK_LORE_TEST_10_9_26.md; VOTE line dynasty-grok-lore-10-9.
+Hole 1: WORLD's pool reads turf; the 9/28 third votes retired territory for 14 home bases and roaming parties. Hole 2: a day-100 crisis of up to 100 days outlasts a ~130-day act. [PENDING Paolo], not blocking: does a crisis end an act (my default) or sit mid-act?
+Row stays OPEN (standing trigger). NEXT: [the frame] (school). QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 63 [the company inherits] WHAT OF A MAN PASSES. (page plus data)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_THE_COMPANY_INHERITS_10_9_26.md; VOTE line dynasty-company-inherits-10-9; NOT IN A TAB (nothing shows levels yet).
+heirs ROWS: levelShare .5 (compounds), perkShare .5, debtShare .45 (standing's GEN_LOSS), stars, gear (crew slots flattened), house; body never. HEIRS gate 1c.
+Not done: no system writes house/debt/levels yet. Routed PEOPLE/RUN TWO (levels pass down), TUNING.
+NEXT: [grok lore] (trigger, nothing to test), [the frame]. QUESTS orphan rows still claimed (coordinator's).
+
+ROUND 62 [heirs made on entry] 42% CARRY, OLDER OR YOUNGER. (BUILD)
+DYNASTY. Claimed first. TAB: RUN (the phone's offer row on entering act 2 or 3: OLD/YNG beside M, F, OK); VOTE line dynasty-heirs-on-entry-10-9.
+RECORD records/BOHEMIA_DYNASTY_HEIRS_MADE_ON_ENTRY_10_9_26.md. carryShare 0.42 in heirs ROWS (strongest first, ceil); setAge in acts, saved.
+Gates HEIRS 97/0, ONE THEN HEIRS 99/0, THE FLIP, THREE NAMES green. Age is stored and shown but changes no face (routed PORTRAIT/CHARACTER).
+NEXT: [the company inherits], [grok lore], [the frame]. The two orphaned QUESTS rows are still claimed under this session (coordinator's).
+
+ROUND 61 [the act's power and ruin] THE THREE ACTS' VALLEY AS ONE TABLE. (BUILD, data only)
+DYNASTY. Claimed and pushed first (rule 5). TAB: NOT IN A TAB YET (nothing drawn); one text line in VOTE (dynasty-act-state-10-9).
+RECORD: records/BOHEMIA_DYNASTY_ACT_STATE_10_9_26.md. engine/bohemia_act_state.js: ROWS per act (era, litFraction, reach, market), draft:true.
+Act one = 0.12 = powergrid's default (gate reads it), so the demo is unchanged. Acts 2/3: 0.20/0.30 base, a great past closes part of the gap,
+a past that tore places down lights LESS than doing nothing (rule 37c). stateOf(act, layout, derive().went.standing). Gate ACT STATE 17/0,
+mutation-proved twice (act one moving; ruin read as a boost). NOT WIRED: LIFE+CITY [the powered blocks] / WORLD must call stateOf; rule 73.
+ROUTED: ECONOMY the market lists; TUNING litFraction/reach/FULL_PAST 40; the Grok crisis clock (first crisis near day 100) is a vote line only.
+PRE-PUSH: ACT STATE, HANDOFF, VOTE TAB, REPLY CONTRACT run (see commit). [PENDING Paolo], none blocking: are 20% and 30% lit the right feel?
+NEXT for DYNASTY: [heirs made on entry] (listed twice on the board, the dead three-names idea is gone), [the company inherits], [grok lore], [the frame].
+The two orphaned QUESTS rows under this session are still CLAIMED and un-buildable (rule 35); coordinator's.
+
 ROUND 60 [heirs] THE COMPANY INHERITS. YOUR PEOPLE HAVE KIDS AND THEY ARE THE NEXT ACT'S COMPANY. (BUILD)
 DYNASTY, BUILD, rule 39d. Claimed and pushed as its own commit BEFORE work (rule 5). TAB: the phone on
 the map in the alpha (standing in act 2 or 3, a row says HEIRS); the picture is in the VOTE tab
@@ -45935,6 +50921,106 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [the head under the strip] SHIPPED (rule 88, LOOKS FIRST; rule 89: the before and after is the SAME step of the same seeded fight, frozen at the step's end, at one art pixel to one phone pixel, 2532 wide) -- measured with AUTO driving a seeded fight (seed 11, speed 4) and every step and swing sampled the instant it ends: the old follow read the tile's middle 40 pt in, so it stopped with the man's head under the strip or feet under the bar, never walked with him, and his destination could leave the glass: phone upright 24 of 95 acts cut or off the glass, flipped 26 of 56, tablet 3 of 56; AND ON A COMPUTER THE FIGHT FROZE (log 4 entries in 15 s, the glide never ending: the follow glided at a man the clamp could not centre, every frame). NOW: framed() reads the man's whole box (MAN_IDLE at the zoom, feet at the tile's .9) between the strip and the bar with a 6 pt pad; the camera aims at the box's middle (aimAt); a step whose end would leave the glass glides with the walk for its own duration; a free swing frames the swinger; the follow glides once per man per spot (UI.framedAt), so a man the clamp cannot frame acts anyway and nothing stalls. RESULT: 0 of 106 upright, 0 of 101 flipped, 0 of 112 tablet, 0 of 111 computer, and the computer plays. VOTE combat-the-head-under-the-strip-10-10. TWO LEGS RED ON MAIN BEFORE THIS ROUND, NOT FROM THIS CHANGE (measured on origin/main's own fight file, the same two numbers): LIFE+CITY's retirement of built-on-the-board (dba0e2b8) took code out of the deal, so seed 31 now deals another board, and on it A LIT TILE STANDS 1.90 TO 1, not 3: a lamp's pool is 7 m and a tile is 12 m, the lamps sit on tile edges, so every tile the rules call lit has its centre at 0.81 to 0.93 of the radius and shows mostly dark (the drawing and the rule disagree); and the computer's one-tile sharpness reading moved with the camera (0.065 drawn vs 0.072 baked, one tile, nearest-neighbour steps counted as edges). Both are the next rows: [the lit tiles look lit] (the light drawn over every tile the rules light, soft-edged, before/after at 1:1) and the computer leg measured over every visible tile. Then [the marks on the board]. ***
+Stamp 10/10k. Gates: THE REBUILT FIGHT PLAYS 128/2 (the two reds are on main before this change, below) (one new, red on the old file: 24 of 95, 26 of 56, 3 of 56, and 0 of 0 on the frozen computer); THE FIGHT BAR IS STUDIO MADE 15/0; THE FIGHT READS ONLY SOURCED NUMBERS 9/0; THE PERKS ARE LIVE 47/0; EVERY FIGHT HANDS HIM BACK 9/0; ONE FIGHT 4/0.
+
+*** [the flipped phone's look] SHIPPED (rule 88, LOOKS FIRST: COMBAT's MODE names the flipped phone's look; rule 62) -- measured on the flipped phone (844 x 390 at 3x) on the rebuilt fight: the hint receipt sat over the board's bottom row (2 men's legs and rings under it; 1 on the tablet), and the turn strip's tape was stretched 100 percent across the glass when the nine faces fill under half of it (380 pt past the last face flipped, 336 tablet, 520 computer): a blurred tan smear over the shop fronts. NOW: #order sizes to its faces (flex 0 1 auto, AUTO pushed right), the tape ends 4 pt past the last face on every screen; on a wide glass (flipped, tablet, computer) placeSay() puts the hint in the strip's own empty space between the faces and AUTO, two lines at most, and falls back above the bar only when that space is under 180 pt; the phone held upright is unchanged. UI's materials skin (bohemia_ui_materials.js) set the hint's left/right/margin/width; the fight's rule beats it by weight only, the materials untouched: FOR UI, if the skin's #say rule changes, keep #say.instrip's right:auto, margin:0 and transform. VOTE combat-the-flipped-phones-look-10-10 (before and after, the same fight on its side). ***
+Stamp 10/10f. Gates: THE REBUILT FIGHT PLAYS 129/0 (two new, red on the old file: the hint in the strip with 0 men under it on three wide screens, the tape within 8 pt of its last face on all four); THE FIGHT BAR IS STUDIO MADE 15/0; THE FIGHT READS ONLY SOURCED NUMBERS 9/0; THE PERKS ARE LIVE 47/0; EVERY FIGHT HANDS HIM BACK 9/0; VOTE TAB my item green (the red is dynasty, mods, sounds and tuning's sheets under 22f).
+
+*** [the art at its own pixels] SHIPPED (DIRECTION 10/9, FIGHT VERDICT 22: every board tile reads 0.038 edge density at its own pixels and 0.002 on the glass) -- the baked board holds a tile at 160 px when COMBAT TWO's art is 515, and at the man's stop a phone wants about 513 device px, so the ground was shrunk to a third and blown back up. NOW: the canvas backs at the phone's real pixel ratio (up to 3, his iPhone), the man's stop snaps to exactly one art pixel per device pixel when it is within 6 percent (it lands at 1.000 on a 390-point 3x phone, the man still 104 css px), and close in the ground is drawn straight from the blocks, the cover, the grid, the lamps and the night's pools onto the device's pixels, only what is on the glass, on whole pixels, no resampling (drawGround/groundOn). Zoomed out past one device pixel per board pixel the baked board still serves. It is drawn once to a glass-sized sheet and blitted until the camera, the night or a lamp changes, so the phone holds 60 frames by day AND by night (the first cut drew the night's colour every frame: 30 fps). MEASURED (a gate leg, one board tile on the glass against the same tile in its block, pairs of neighbouring pixels differing by more than a step of light): glass 0.112 vs file 0.105 = 106 percent; the baked board gave 32 percent; night 66 percent (the night's colour, never the art); a computer draws from the art too, never softer than the bake. VOTE combat-the-art-at-its-own-pixels-10-10 (before and after, the same crop on a phone). NEXT (rule 74, three OPEN rows written at the top of COMBAT): [the ground fights] (rule 59, WORLD's ground effects file and the unregistered one-terrain-effect gate), [the map hands the board] (rule 46a), [weapon shapes] (33i, 46d). ***
+Stamp 10/10d. Gates: THE REBUILT FIGHT PLAYS 127/0 (four new: one to one on a 3x phone, edges within a fifth of the file, night and 60 frames, the computer never softer than the bake); THE FIGHT READS ONLY SOURCED NUMBERS 9/0; ONE FIGHT 4/0; THE PERKS ARE LIVE 47/0; THE FIGHT BAR IS STUDIO MADE 15/0; EVERY FIGHT HANDS HIM BACK 9/0.
+
+*** [struck down] SHIPPED (Paolo's fifth votes, flat 20%; third votes, the main character never dies; the wiki's Permanent Injuries; rule 73a) -- a hire struck down dies ours.struck_down_death_chance (20%), else carries one of the wiki's eleven permanent injuries, each as likely, the part hit not mattering (ours.struck_down_injury), for the 30 to 40 days he is laid up; the main character is downed, never dead. The recap names it ('LAID UP 39 DAYS / MISSING FINGER'), and the fight's word home (homeMessage, BOHEMIA_FIGHT_OVER) now carries per man main, down, laidUpDays and injury {id, name, line, days}: FOR RUN TWO's roster, the pain line is injury.name + injury.line. GROK_115's injury sheet checked: injuries.json carries the 10-health floor, a threshold on 46 of 48 temporary injuries (two are events only), Crippling Strikes 0.66, Iron Jaw 1.25, a head hit 1.25. THE DAY RIM (73a): by day every man is drawn with a dark one-pixel edge round his silhouette (dayAtlas, cached per atlas, the bank's frames still). ALSO: LIFE+CITY's [built on the board] (9cb46e85) typed 2, 3 and 0.5 into the fight's rules and turned THE FIGHT READS ONLY SOURCED NUMBERS red; its footprint moved to ours.built_piece (sourced to LIFE+CITY) and the row order written without a typed number; BUILT ON THE BOARD 11/0 still. VOTE combat-struck-down-10-10. ***
+Stamp 10/10a. Gates: THE REBUILT FIGHT PLAYS 123/0 (five new: a thousand rolls 19% dead and the main character never, the eleven injuries and the days, the recap and the word home, the injury sheet, the day rim), PERKS 47/0, SOURCED 9/0 (red on main from LIFE+CITY, green again), UI's BAR 15/0, EVERY FIGHT HANDS HIM BACK 9/0, LIFE+CITY's BUILT ON THE BOARD 11/0.
+NEXT: [the art at its own pixels]; it is COMBAT's last OPEN row, so its ship writes the next (rule 74).
+
+*** [the man stays 112 on wide screens] SHIPPED (EYES 10/5 f5b8dbec: under 45 px flipped and on the computer; rule 21) -- measured on the live fight at the four screen classes: the man is 104 css px (his 112 box) setting his line and fighting on all four, upright, flipped, tablet, computer; the fit-the-column zoom that shrank him to 15 px on the flipped phone went with [the board fits the party] (deployZoom = near); what does not fit is reached by a drag (a real touch drag on the flipped phone pans the camera 112 px while he stays 104). The screens() legs now hold it: THE MAN STAYS 112 ON EVERY SCREEN and the flipped drag. VOTE combat-the-man-stays-112-flipped-10-9 (before 15 px, now 104). ***
+Stamp 10/9j. Gates: THE REBUILT FIGHT PLAYS screens() 7/0 (two new legs; the fight file is unchanged since 116/0).
+NEXT: [struck down] (with 73a's dark day rim), then [the art at its own pixels]. COMBAT has two OPEN rows (rule 74: coordinator).
+
+*** [one fight] SHIPPED (MODS 10/9: 'two truths for one gun') -- measured on the baked demo: nothing a stranger can do opens the sealed old fight (every map door opens slices/BOHEMIA_FIGHT.html; the old RUN slice is never loaded, runFrame has only a data-src; startColdOpen has no caller), but warmTheFight built it on idle anyway, a hidden 1.95 MB copy of the frozen Dead Eye Dial booting on every phone that sat still. The warm now stands down while NEW_FIGHT_ON; ensureCombatFrame still builds it on demand and mutes the cold frame's own loop on load (the shell's FIGHTMUS scores every fight). New gate ONE FIGHT (gates/one_fight_gate.js, registered). FOR RUN: THE ONE SONG's S8 now watches the forced old door 14 s instead of 8 (the cold build keeps the page busy; the >5-samples floor unchanged); the alpha's COMBAT tab still opens the old fight for its own frozen gates (your call site: point it at the new fight when you retire them). FOR PLUMBER [first load]: COMBAT_B64 is 2.67 MB of both files' download and nothing in the demo reaches it now; cut it (blob_integrity and alpha_loads hold it in place today); the old fight's code stays in git and in the alpha until then (63a). ***
+Stamp 10/9i. Gates: ONE FIGHT 4/0, THE ONE SONG 8/0, EVERY FIGHT HANDS HIM BACK 9/0, THE CUT IS THE FOUR THINGS 29/0, ALPHA LOADS 20/0, BLOB INTEGRITY 107/0, the demo re-cut exactly.
+NEXT: [the man stays 112 on wide screens], then [struck down]. COMBAT has two OPEN rows (rule 74: coordinator).
+
+*** [a turn you can read] SHIPPED (VIA GROK 10/9: 'Paolo said the turns are too short') -- every act of a man he is not moving (theirs, and his own on AUTO) holds the board ACT_BEATS = 2 beats (one second at 120; a man who only ends his turn holds half a beat); the camera goes to the mover first whenever he is off the glass, before every act, not once a turn; the struck man wears a receipt tag (#num): his chance to be hit, then what it cost him, numbers only (rules 46f and 67 hold: no word on the ground, never who hit whom); the bar says 'Their move. Tap the board to skip it.'; a tap on the board while they move resolves the rest of their turn at once (on AUTO, the rest of the round), mid-step included; his own turn has no timer. Fights run longer on the beat: 4:29 and 2:14 in the gate (under rule 40a's 15). VOTE combat-a-turn-you-can-read-10-9 (a clip, before and after). ***
+Stamp 10/9d. Gates: THE REBUILT FIGHT PLAYS 116/0 (four new at the true beat: no timer on his turn, six men take six seconds or more with every act a second apart, the number tag, the skip tap), PERKS 47/0, SOURCED 9/0, UI's BAR 15/0, RUN's ORIGIN 7/0, EVERY FIGHT HANDS HIM BACK 9/0.
+NEXT: [one fight] (retire the sealed old fight from the demo or feed it from bb; RUN owns the call sites), [the man stays 112 on wide screens], [struck down].
+
+*** [the board fits the party] SHIPPED (rule 79, Paolo 10/9: 'the combat map doesn't need to be so big... I want to see it more zoomed in') -- ours.board_fit: the board is CUT from the dealt 20x15 to the parties: across, a house of room, your line's depth, the wiki's five-tile gap between the fronts, their depth, a house of room; down, the longer line plus a house above and below; the window slides to where the two fronts join, the kind the loop asked for shows, the deployment columns are most open and two kinds show; the blocks are drawn where they were dealt, shifted by the window (S.crop); the full board only for FIGHT_OPTS.endgame or party.parties >= 3. Your twelve against three thugs is 9x10; against the first band 9x11. The camera OPENS ON YOUR LINE AT THE MAN'S 112 (amends 62's open on the whole board) and the man never grows past 112 on a small board (rule 21: far = min(fit, near)); setting the line is at 112 too (a drag pans). The lamp pools hold their light to nine tenths of the radius: COMBAT TWO's lego re-cut (9fc51b2) moved the lamps onto the tiles' edges and the night gate had gone red (1.44 to 1); now 3.32 on the cut board. FOR COMBAT TWO: on the uncut 20x15 strip at night the lit tiles read 2.44 to 1 (some lamps' pools sit between two tiles); boards' apron and frames are not read by the fight yet. FOR RUN: THE LOOP PLAYS ON THE MAP is red at L4 (the board gives no contract) on main before this change. VOTE combat-the-board-fits-the-party-10-9. ***
+Stamp 10/9c. Gates: THE REBUILT FIGHT PLAYS 112/0 (new: a day-1 party of three on a board under ten wide with the man at 112, three parties or the endgame keep 20x15; the open leg is now rule 79's; the corridor tests sit in the middle of any board; the setting test pans before it taps), PERKS 47/0, SOURCED 9/0, UI's BAR 15/0, RUN's ORIGIN 7/0, EVERY FIGHT HANDS HIM BACK 9/0.
+NEXT: [the man stays 112 on wide screens], then [struck down].
+
+*** [the enemy plays its part] SHIPPED (rule 63b, 'Battle Brothers has its AI for the enemies correctly too') -- ai.json: the backline (marksman, poacher) prefers the soft man (the wiki's Marksman: 'prefer to shoot at shieldless units or rookies'; plus the coordinator's bare head): a shot's worth times one plus softness; a new 'raider' archetype for both raiders (the wiki's Raider: 'If armed with a long weapon like Pike and there are no enemies nearby, they wait to not get ahead of their melee allies'): with a reach-2 weapon and no swing this turn he never leads his one-tile men, then strikes from two tiles; he flanks like the line (surround: the man his friends hold); a new 'leader' archetype (the wiki's Leader: 'spawns in the very back and usually does not hurry'): still until the lines meet, then a step behind his front man unless he steps up to swing; ours.captain_aura (the wiki's Captain: +15% resolve to allies within 5 tiles), read in every morale check; the thug stays the undisciplined line (rushes the nearest). FIGHT_OPTS.flat = a test board, every tile open ground. GROK_110's hit sheet checked: every number is already in rules.json (skill minus defence, over 50 counts half, 5 and 95, surround 5, height 10, head 25, Shield Expert +25%). VOTE combat-the-enemy-plays-its-part-10-5 (a clip). ***
+Stamp 10/5f. Gates: THE REBUILT FIGHT PLAYS 110/0 (six new: the thug rushes, the marksman shoots the softest and never steps in, the pike waits then hits from two, the leader does not hurry, the captain's five tiles, the hit sheet), PERKS 47/0, SOURCED 9/0; every board kind still ends (3-15 rounds).
+NEXT: [struck down] (with 73a's dark day rim); it is COMBAT's last OPEN row, so its ship writes the next from the jump list (rule 74).
+
+*** [weapons say what they do] SHIPPED (rule 75e, Paolo 10/5: 'weapons that I don't even think you know what they're supposed to do yet') -- records/target/bb/weapon_lines.json: every Battle Brothers weapon class (15, covering all 126 rows of weapons.json and the car door) has its Bohemia name, its base and one plain line; our seven jobs carry WORDS' lines (records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md) word for word; the eight classes the enemy carries (sword BLADE, cleaver, axe, polearm POLE, spear, bow, flail CHAIN, throwable KIT) are COMBAT's drafts from each class's numbers and its Battle Brothers skills, draft:true FOR WORDS to rewrite. A finger held 450 ms on the strike square, or on any man on the board, brings up his weapon's card on the receipt: name and owner, 'Battle Brothers: <its row>', the line, damage, against armour, straight through armour, reach, hands, the strike and reload skills' AP and fatigue, and the car door's line and defence when he carries one; a tap puts it away and is not a tap on the board. FOR RUN TWO [the market]: read weapon_lines.json for the stall's cards. VOTE combat-weapons-say-what-they-do-10-5. ***
+Stamp 10/5e. Gates: THE REBUILT FIGHT PLAYS 104/0 (four new: every weapon has its line and base, a real finger held on the strike square, a tap away and a finger held on one of theirs, no error), PERKS 47/0, SOURCED 9/0, UI's BAR 15/0.
+NEXT: [the enemy plays its part], then [struck down] (with 73a's dark day rim). COMBAT has two OPEN rows (rule 74: coordinator).
+
+*** [the enemy math] SHIPPED (rule 75b, Paolo 10/5: '12 vs 12 can't be the flow... the beginning is a lot different from the end') -- THE FIGHT TAKES THE PARTY THE MAP HANDS IT AND DRESSES IT BY TIER. FIGHT_OPTS.party = [ids] | [{kind, count}] | {faction, count, days, difficulty}; FIGHT_OPTS.cap = the origin's field cap (rule 75a; Lone Wolf 1). ours.enemy_tiers (the wiki's Brigands tactics, Leader, Marauder, Raider and Marksman pages; GROK_60): phases early (day 1), middle (day 20, the wiki's 'Bullseye after day 20'), late (day 60, the marauder's best armour), capped at day 100 (Grok: roaming scaling stops there); each combat difficulty above Veteran = 20 days later; a late party of 4+ brings its one leader (the wiki: 'rare to see more than one'); the mixes are ours from the tactics paragraph (TUNING). Each man arms and armours from his own enemies.json row (Grok: the tier IS the equipment step); a skill or defence the wiki gives as a range is before/after day 40 (raider 65/70, marksman 10/15); 'X after day N' perks arrive on day N. ai.json: the marauder a line man, the leader deploys in the back. Measured: day 1 = thug thug lesser-raider, armour 79; day 100 = leader, marauders, raiders, marksmen, armour 155, loses a day-1 crew in 7 rounds. The tiers wear their own crews (draft). FOR RUN [a few, not twelve]: hand {faction, count, days, difficulty} in nfOpts (or an exact list); without one the fight keeps the first band. VOTE combat-the-enemy-math-10-5. ***
+Stamp 10/5c. Gates: THE REBUILT FIGHT PLAYS 100/0 (seven new: the party as handed, day 1 vs day 100, the gear rises, difficulty raises the tier, the day-40 buff, an exact list and Lone Wolf's cap, a day-100 fight ends), PERKS 47/0, SOURCED 9/0.
+NEXT: [weapons say what they do], then [the enemy plays its part], then [struck down] (with 73a's dark day rim).
+
+*** [your formation] SHIPPED -- THE FIGHT OPENS WITH YOUR LINE, AND YOU SET IT (Paolo's sixth votes: 'formation and gear are the depth'; GROK_75): ours.formation quotes Battle Brothers' own two rows of nine (Dev Blog: 'The top two rows are your front and back battle lines'). deployCrew stands the front row's nine slots top to bottom on your front column, centred on the middle row, the back row one column behind; a house slot takes the nearest open tile of the zone after every open slot is filled. FIGHT_OPTS.formation = {front:[crew index or null x9], back:[...]} in roster order: FOR RUN TWO [the roster screen], hand it over in nfOpts; without it the default is the shieldwall in front, the shooters behind, in roster order, centred. The enemy deploys by its ai.json role (the backline behind its line). THE SETTING: before turn one nothing moves (S.deploy); the glide stops where your two columns (ours.formation_depth_lines) fit the glass; tap a man, tap a lit tile, he stands there (onto a friend, they trade); END TURN reads FIGHT and starts it; AUTO, or FIGHT_OPTS.deploy false, skips it. Battle Brothers sets this on the company screen, not in the fight; the fight hosts it until the roster screen exists. VOTE combat-your-formation-10-5. ***
+Stamp 10/5a. Gates: THE REBUILT FIGHT PLAYS 93/0 (the AUTO sweep re-run alone after its leg was re-counted; new: the slots land, the default, the enemy backline, AUTO skips, the fight waits, a real finger sets a man and not outside the zone, a finger on FIGHT starts it; the AUTO formation leg now counts only men who walked, 4 of 207), PERKS 47/0, SOURCED 9/0, VOTE TAB 32/0; RUN's EVERY FIGHT HANDS HIM BACK 9/0 and THE LOOP PLAYS ON THE MAP 12/0, UI's THE FIGHT'S BAR IS STUDIO MADE 15/0 still green with the setting in.
+NEXT: [the enemy plays its part], then [struck down] (with 73a's dark day rim, which EYES a699b01 also asks for). FOR SOUNDS: the VOTE gate is red on main from three of your 10/5 cards (sounds-the-road-is-faster-10-5 and sounds-the-night-has-insects-10-5 three sentences, sounds-dirt-is-slower-10-5 no where); COMBAT did not touch them.
+
+*** [night you can read] SHIPPED (rule 73, 'even at its darkest it's really hard to see... full brightness and outside, I should still be able to play') -- NIGHT IS A COLOUR: the black wash (rgba .68 navy, the dark ground at 0.011, a fifth of the day's) is gone; the night pass pulls the board a third of the way to grey and multiplies a cool moonlight (185,198,240): the dark ground keeps 64% of the day's luminance (floor: half). The lamps and drums screen a warm pool: a lit tile 3.13 to 1 over an unlit one (was 1.77). Men in the dark take the moonlight lifted halfway to white plus a one-pixel cold rim on the moon's side: 1.83 to 1 off their ground (day 1.95; was 1.41). FIGHT_OPTS.power false = no lamps (FOR RUN: pass the block's power in nfOpts from the map's powered blocks). BRIGHTNESS: localStorage 'bohemia.brightness' 0..1 lifts the moonlight toward white, never the day (FOR UI: the slider writes that key). [PENDING coordinator, not Paolo]: two floors on the school page fail BY DAY on COMBAT TWO's ground, so no night pass can meet them: the walkable ground median at 20% of white (the day's dark ground is 0.059 = 6%), a man 3 to 1 off his ground (the day's median is 1.95); and the sun test's 3 to 1 for lit against unlit is unreachable with any unlit ground above about 0.03 (we reach 2.15 under the glare). Those are the ground's paint (COMBAT TWO, DIRECTION) and PLUMBER [sun gate]'s numbers to settle; the fight gates the reachable ones. VOTE combat-night-you-can-read-10-4. ***
+Stamp 10/4k. Gates: THE REBUILT FIGHT PLAYS 84/0 (new: night keeps half the day, lit 3 to 1, a man as clear at night as by day in shade and sun, no power no lamps, brightness lifts the night only), PERKS 47/0, SOURCED 9/0.
+NEXT: COMBAT's board is clear; take the next OPEN line the coordinator puts first.
+
+*** [rebuild] ROUND THREE, THE FIGHT ON EVERY SCREEN (rules 62 and 72) -- slices/bohemia_screen_class.js is ONE RULE, FOUR CLASSES (phone_portrait, phone_landscape, tablet = a short side of 600+, computer = hover and a fine pointer on a window 640+ wide), read at boot and on every rotate or resize, written on <html data-screen>. The fight re-lays by it: the phone held upright keeps its two rows; wide screens get Battle Brothers' one-row bar (face and bars left, skill squares middle, WAIT and END TURN right); on its side the strip slims and the bar runs inside the notch's safe area; on a tablet or a computer the strip and the bar are taped plates centred at 980 wide, the board running out to the edges. The glass the board keeps: phone upright 77%, on its side 67% (was 51%), tablet 87%, computer 83%; the monitor's bars no longer run 1,300 px wide. The driver learned opts.profile (phone_portrait, phone_landscape, tablet, computer). The fight re-measures itself when the viewport settles a frame late (a 1% open-zoom flake under load). FOR RUN [screen fit]: include bohemia_screen_class.js and call BohemiaScreen.watch() on the map and the settlement screen so all three read the same rule. VOTE combat-the-fight-on-every-screen-10-4. ***
+Stamp 10/4j. Gates: THE REBUILT FIGHT PLAYS 79/0 (new: one rule names the screen, the board keeps two thirds of the glass on every screen, one-row bar on wide screens, a centred plate on tablet and computer, every tap 44+ and nothing off the glass at all four), PERKS 47/0, SOURCED 9/0, VOTE TAB 32/0.
+NEXT: the fight's fps on a real phone (rule 72's blind spot) is EYES' to measure; the [rebuild] row has no open piece left.
+
+*** [rebuild] ROUND THREE, NIGHT LIGHTS -- THE NIGHT IS LIT BY THE STREET (COMBAT TWO routed it 10/2: 'night pools are COMBAT's to wire from boards[].lights'): the block library carries each block's lamps and burning drums, the deal places them, and applyBoard marks a tile LIT when its middle sits inside a live light's pool (radius_m round its foot). ours.night_lights: a lit tile plays as day; the wiki's night (-2 vision, -30% ranged skill, -30% ranged defence) falls per tile: a man in a pool is seen at day range; a shooter takes the -30% only when his target stands dark; a target takes the -30% defence only when the shot comes out of the dark (both lit = day 51, both dark = the wiki's night 36, dark at lit 53, lit at dark 34; stay out of the light). The bake draws every lamp and drum by day and night; at night the board goes dark and each live light cuts its pool out and warms it (sodium under a lamp, fire under a drum); men in the dark blit the same bank frames shaded the night's colour. All ten kinds end at night (4-16 rounds). The alpha already passes night from the clock (nfOpts). VOTE combat-the-night-is-lit-by-the-street-10-4. ***
+Stamp 10/4i. Gates: THE REBUILT FIGHT PLAYS 74/0 (new: lamps and pools drawn, lit tiles brighter on the glass, a lit tile plays as day, seen at day range in a pool, the dark men shaded from the bank), PERKS 47/0, SOURCED 9/0, VOTE TAB 32/0.
+NEXT: the [rebuild] row's pieces are all shipped; the AI does not yet weigh the light (a shooter could prefer a dark tile at night); TUNING owns that call.
+
+*** [rebuild] ROUND THREE, RULE 70b -- AUTO PLAYS YOUR MEN THE WAY BATTLE BROTHERS' AI PLAYS ITS OWN, FORMATION HELD: the crew archetype in records/target/bb/ai.json carries five new switches, each quoting its page (archetypes.crew.auto): high_ground (Combat Mechanics: 'the AI will try to occupy the high ground whenever possible, especially their ranged units'; a roof tile scores the rules' own height bonus per level, a shooter twice, and a shooter on the flat with a roof in reach, a target still in range from it and AP to shoot climbs before he shoots), spread_attacks (Developer Posts: 'The AI will not stack all its attacks on the weakest target'; a target's worth divides by one plus the swings your side already put on him this round, S.aimed), keep_formation (Dev Blog 105: 'better coordination amongst their ranks'; walking up a man never leads the middle of his line by more than ours.formation_depth_lines less one, 2 from the wiki's '1-2 lines deep', and prefers a tile beside a friend), shield_the_backline (Dev Blog 105: 'better at protecting their vulnerable units'; a shooter never steps level with or past his front melee man), sees_only (Developer Posts: 'the AI can not target anyone it can not see'). Measured on the gate's ten AUTO fights, old AUTO vs new: shooter turns on a roof 6% -> 41%, fighting turns alone 21% -> 16%, rounds 106 -> 93, won 9 -> 10. The enemies keep their own brains (brigands are 'too undisciplined to maintain formation'); giving the line kinds the high-ground switch is TUNING's call. VOTE combat-auto-plays-like-battle-brothers-10-4 (old and new side by side). ***
+Stamp 10/4g. Gates: THE REBUILT FIGHT PLAYS 69/0 (new: AUTO takes the high ground, holds the formation, shields the backline, does not fight alone, spreads its swings), PERKS 47/0, SOURCED 9/0, VOTE TAB 32/0.
+NEXT: rule 70 is done for COMBAT (70a pass one, 70b AUTO). The lane's next OPEN line on VAMILY.
+
+*** [rebuild] ROUND THREE, RULES 69 AND 70a -- THE CHARACTER BANK IN THE FIGHT; PASS ONE OF YOUR OWN, NEVER TWO: tools/bohemia_fight_people_bake.js opens the alpha through the one driver and bakes, with the bank's own famPaintBody / drawChar (the 112 rig, the runway clothes, the hair bank) and renderFace / faceFor (the faces), 26 looks (YOU as he stands, the twelve CITY_CAST_LOOKS, the thirteen FACTION_LOOKS) into slices/fight_people/ (lossless WebP, 436 KB, pixel-checked) with a manifest: rows SE/SW, columns idle, walk x4, stagger-hit x4, bat-arc x3, two-hand, sleep, and his 64-px face. The fight blits only those: the walk cycle on a step, the swing or the aim on a strike, the hit clip on the struck, the fallen asleep in their clothes, the faces in the turn strip and on the bar; ours.people_looks pairs your crew with the city cast and the road crew with the street factions (draft). Rule 70a: a path may pass through ONE of his own company, never two in a row, never an enemy; nobody stops on a friend, and a walk cut short on one trades places. ***
+Stamp 10/4f. Gates: THE REBUILT FIGHT PLAYS 64/0 (new: every fighter from the bank, bank frames blitted for every man shown, faces from the bank, the clips play; pass one never two never a foe), PERKS 47/0, SOURCED 9/0 (the fight may load slices/fight_people).
+NEXT (still CLAIMED, rule 70b): AUTO plays your men the way Battle Brothers' AI plays its own, the formation held. The bake re-runs when CHARACTER's bank changes: node tools/bohemia_fight_people_bake.js.
+*** [rebuild] ROUND THREE, RULE 67a -- THE BAR ON BATTLE BROTHERS' LAYOUT, IN OUR MATERIALS, AT PHONE SIZES: the turn strip is faces in initiative order on a strip of tape (36 pt, the acting one 42), the round on a receipt tag, AUTO a receipt tag (49x45). One cardboard bar at the bottom, taped on (132 pt): his face (tap it: the numbers drawer, a thermal receipt) and his health, armour and fatigue bars at the left with AP pips and his perk icons; END TURN a receipt at the right (77x60); the skill row of 46-pt cracked-glass squares under the thumbs (STRIKE with his weapon's glyph and the hit chance, RELOAD, the skills his perks unlock), WAIT at its end. Bars over a man only while he acts or is picked, 3 pt. The recap is a receipt. NEW SHARED FILE slices/bohemia_ui_materials.js: --mat-cardboard, --mat-tape, --mat-receipt, --mat-glass drawn once with light and form, seeded; FOR RUN AND RUN TWO: include it and call BohemiaMaterials.apply() so the map and the settlement wear the same bar (rule 67a: SEAMLESS). ***
+Stamp 10/4c. Gates: THE REBUILT FIGHT PLAYS 54/0 (new: every tapped thing >= 44 pt, the bar ~120, faces 36-44, the materials, bars only on the acting/picked man), PERKS ARE LIVE 47/0, SOURCED NUMBERS 9/0.
+NEXT: on his word (the dial on resolveAttack, 63a; the [board generator] spawns; the [bestiary]).
+*** [rebuild] ROUND THREE -- SHIPPED (rules 66, 67, his first good word and his sixth votes): (1) ONE MAN IS NOT A WALL, TWO ARE: a man's tile is never walked through; your finger's path may walk past a lone man (reach through=true), every tile left inside a man's reach rolls his free swing; a diagonal step never squeezes between two men or a man and a house (wallPiece); the brains still stop on entering a zone. (2) THE MAN READS AS A MAN: drawn 86% of a house tile tall (boots, legs, a long coat, head and hair, his job's weapon, the car door), facing his nearest foe; the idle stop puts him at 104 css px (was 17); pinch to the whole board and back. (3) LEFT TO RIGHT: yours on column 7 facing right, theirs on 12 (ours.start_cols, five apart). (4) CARS RAISE A TILE'S DEFENCE BY COUNT: +5 melee / +10 ranged a piece, three at most (ours.cover_defence); a car between still blocks the line by the wiki's 75%. (5) THE RECAP after every fight: kills, blood drawn, blood taken, experience by the wiki (20% killer, 80% shared, -15%), level-ups, the dead and the laid up. (6) THE HUD STRIPPED: bars above the people (armour, health, the active man's wind), STRIKE n% as the attack button, his perks as drawn icons, every number in a drawer behind a tap on his name, NO combat log on screen. (7) the freeway stall was the frame-loop freeze, fixed 5186cf0. Perk icons: fifty drawn pictograms, gold carried, red drawn out, blue pressed. VOTE combat-the-fifty-perk-names-10-4 (his ask: talk the fifty names through). ***
+Stamp 10/4a. Gates: THE REBUILT FIGHT PLAYS 49/0 (new: man 104 px at idle; the three blocking cases; no combat log; the recap with experience), THE PERKS ARE LIVE 47/0 (new: cover by count; fifty distinct icons), SOURCED NUMBERS 9/0. Fights 1:58 and 1:29, both won: the left-to-right open and the crew's line make the early band easy; TUNING's to set (a bigger band per contract).
+NEXT: on his word. Candidates: [board generator] spawn rules, [bestiary] roster as data, the dial on resolveAttack (63a).
+*** [rebuild] FIX (his 10/1 bug class: a fight that never ends) -- THE FREEZE AND THE SUBURB NAME: RUN measured a fight sitting at round 60; reproduced as a DRAWING ERROR (a hit-ring's radius went negative when a pop was made later in the frame than the frame's clock, at speed) that killed the frame loop, so nothing moved again. Fixed at both ends: the ring clamps, and frame() asks for the next frame FIRST and reports a bad frame without stopping. COMBAT TWO's round eleven renamed the suburb blocks 'subs' and added corner, cornerw, lots: the city family carries them now (ours.board_mix), and 'suburb' is an alias (subs, suburb_stem, corner, cornerw) so RUN's suburb blocks really lead with a suburb block; the bar says SUBURB. ***
+Stamp 10/2i. Gates: THE REBUILT FIGHT PLAYS 40/0 (new leg: EVERY KIND THE DEMO'S MAP CAN ASK FOR ends, ten kinds at speed 60, 5-12 rounds, no page error; fights 3:31 and 2:10), PERKS 45/0, SOURCED 9/0, RUN's EVERY FIGHT HANDS HIM BACK 9/0 (board 'strip + suburb').
+NEXT: as before: the open rows wait on rule 63's mode line; the fight is in the demo now (RUN [fold the loop]).
+*** [perks translated] ROUND 2 -- SHIPPED: THE SEVEN SKILLS A PERK UNLOCKS, AS BUTTONS: adrenaline (FIRST OUT THE DOOR, +2000 to next round's order), recover (CATCH YOUR BREATH, the whole turn, half the fatigue), rotation (SWAP OUT, no free swing), rally the troops (ON ME: Wavering or worse within 4 back to Steady, Fleeing to Wavering, +40% of his resolve, -10 a tile), taunt (COME AT ME, range 3, the called man goes for him), footwork (SIDESTEP, one tile out of reach, no free swing), indomitable (IMMOVABLE, half damage till his turn). A gold row above WAIT for a man who has one; a skill with a target lights its targets in blue and waits for the tap. The brains use them (rally the breaking, recover when too winded to swing, sidestep out of melee, plant the feet when two are on him, taunt off a breaking friend, go first). 44 of 50 live; 4 outside the fight; resilient waits for dazed/stunned, nimble for a sourced curve. ***
+Stamp 10/2g. Gates: THE PERKS ARE LIVE 45/0 (+7 skill legs), THE REBUILT FIGHT PLAYS 39/0 (6 perk skills used in one fight; 2:54 and 2:04), SOURCED NUMBERS 9/0. VOTE combat-the-perk-skills-10-2.
+NEXT: the board is the one row and it is green; the open rows wait on rule 63's mode line (he plays it). Candidates when it lifts: [board generator]'s spawn rules, [bestiary]'s roster as data, the dial on resolveAttack (63a, on his word).
+*** [rebuild] ROUND TWO -- THE WORDS OFF THE GROUND, THE BOARD DEALT FROM MIXED KINDS (sweep L): not one fillText on the fight canvas any more (names, misses, damage, morale, injuries, nine lives, berserk all go to a three-line feed in the bottom bar as full sentences; on the ground only light: a ring on the man hit, bigger for a head or a fall, a red reticle on the man you picked, the fallen left lying where they fell). The board is dealt from COMBAT TWO's 21 blocks (each lifted with its own terrain and cover out of the eight boards): one family (city 3 to 1, Paolo 9/29), two or three kinds, no block beside its twin, always one connected field from line to line; FIGHT_OPTS.kind leads the deal (for RUN's [the new fight in the demo]); FIGHT_OPTS.board still takes a named board. ours.board_mix holds the families and weights. ***
+Stamp 10/2f. Gates: THE REBUILT FIGHT PLAYS 38/0 (new legs: dealt from mixed kinds and led by the asked kind, 0 words on the fight canvas the whole fight, 12 seeds 12 boards 8 city; fights 3:29 lost, 2:04 won), THE PERKS ARE LIVE 38/0, SOURCED NUMBERS 9/0.
+NEXT: [perks translated] (still CLAIMED): the seven active skills as buttons. For RUN: open slices/BOHEMIA_FIGHT.html with window.FIGHT_OPTS={kind, band, night}; the end posts {type:'BOHEMIA_FIGHT_OVER', result, rounds} to the parent.
+*** [perks translated] ROUND 1 -- THE FIFTY, TRANSLATED, 37 LIVE: records/target/bb/perk_translation.json (all fifty one for one: our draft name, a skin line, live / active-next / outside-the-fight; the frozen tree's 9-of-23 named as the gap, not carried over). In slices/BOHEMIA_FIGHT.html every live perk reads its numbers off perks.json through PK(u,id): fast adaptation, crippling strikes, colossus, nine lives, pathfinder, executioner, bullseye, dodge, fortified mind, steel brow, backstabber, anticipation, shield expert, brawny, relentless, all 12 masteries (fatigue -25%; pistol 3 AP; rifle +20% past armour; shotgun reload 6; bottles +30%/+20%), reach advantage, overwhelm, lone wolf, underdog, berserk, head hunter, battle forged, fearsome, duelist, killing frenzy. Crew: level rolled in the background's range, a perk a level by ours.perk_builds per job, rows unlocking after that many points; enemies carry their wiki page's perks ('after day 20' skipped). The card shows them by our names. ***
+Stamp 10/2e. Gates: THE PERKS ARE LIVE 38/0 (each live perk against its own number, same two men with and without), THE REBUILT FIGHT PLAYS 33/0 (2:07 and 3:04, both won now: perks tilt it our way; TUNING sets bands), SOURCED NUMBERS 9/0. VOTE combat-the-perks-translated-10-2.
+NEXT (still CLAIMED): the seven active skills as buttons on the card (adrenaline, recover, rotation, rally the troops, taunt, footwork, indomitable) and the AI using them; resilient once dazed/stunned exist; nimble waits on a sourced curve (the wiki gives none). Then [perks translated] SHIPPED.
+*** [rebuild] ROUND 1 -- THE FIGHT, STARTED OVER (rule 63): slices/BOHEMIA_FIGHT.html, one file, Battle Brothers' combat on COMBAT TWO's 20x15 boards. The rules script types no number: every felt number comes through R() from records/target/bb/ (rules, enemies, weapons, armor, perks, injuries, backgrounds, ai, ours; each row its wiki page + verbatim quote). 9 AP, terrain costs, initiative with fatigue, skill-minus-defence with the 50 soft cap, surround, height, cover x0.25, night, head 25% x1.5, the armour formula, injuries by type and threshold, the morale ladder with every trigger, brothers stop at the edge Breaking, ZOC free swings, YOU never dead, hires 20% dead else 30-40 days. One shot function (resolveAttack) for the dial (63a). AI per archetype as data (brigands line, marksmen backline, the crew holds its line until contact). ***
+Stamp 10/2d. Gates: THE FIGHT READS ONLY SOURCED NUMBERS 9/0, THE REBUILT FIGHT PLAYS 33/0 (two whole fights with real taps on the phone profile: 3:06 lost, 2:20 won, on the beat). The one driver got opts.bare for one-file surfaces. VOTE combat-the-fight-rebuilt-10-2 (the page, playable). V242/V243 (big board + camera on the FROZEN fight) never shipped; the patch sits in the scratchpad only.
+NEXT: RUN TWO hosts it in the loop (its fight is placeholder); then on Paolo's call the dial on resolveAttack (63a). Mine meanwhile: the get-up (wiederganger 66%), perks and skills beyond the first strike (Puncture, Knock Out, Shieldwall), a real body per kind (the figures are placeholders), board choice from the map cell, the four screen classes.
+*** [house tiles back] ROUND 9 -- V241: REACH IS LIT (the 9/22 ruling): every tile his gun reaches lit faintly in the ground's colour (pistol the 8 round him, rifle 2, scope 3; reads maxRange(myRange())), a man in reach brighter; houses not lit. [house tiles back] CLOSES with this ship (every piece of its ship test on the alpha). ***
+Stamp 10/1k. Record: records/BOHEMIA_COMBAT_REACH_IS_LIT_10_1_26.md. Gate reach_is_lit 8/0 (3/5 before), in the suite. FIGHT LENGTH 60.1 / 50.7 (walked out) / 64.3 s.
+FIXED A GATE MY V234 BROKE: fight_floor_cache read 13/4 on main (plain test canvas vs the game's hiDPI #cv; only passed when the valve dropped FD to 1). Test canvas now hiDPI: 17/0.
+NEXT = [board generator] (JUMP 2, rule 57/59): the board cut from the map cell's kind with COMBAT 2's board kinds (cul-de-sac, desert wash, suburb block, strip lot, scrub, freeway, shore, landfill, ruin) and rule 59's tile table; retire the one-terrain-effect gate.
+*** [house tiles back] ROUND 8 -- V240: THE GROUND IS 45 DEGREES (rule 56): flat things squash N-S by 364/515 (floor rows, lit tiles, roof tops, where bodies stand, tap read-back), upright things keep their height; the ground is COMBAT 2's floor set (rule 55): their N-S street in ONE tile with 1.4 m sidewalks (0.152 of the road), lots beside it and in yards, slab between plots. And rule 57's last leg: health 0 is a loss every frame (a fight sat 300 s at 0 hp). ***
+Stamp 10/1j. Record: records/BOHEMIA_COMBAT_THE_GROUND_IS_45_10_1_26.md. Gates no_atari 20/0 (17/3 before), every_fight_ends 10/0 (8/2 before), combat_lab 923/9.
+INSTRUMENT FIX: tools/bohemia_fight_length.js started fights 2 and 3 at the last fight's health (0): every earlier "second/third fight" time was the tool. Honest: 94.2 s lost / 77.3 s WON / 22.5 s lost (median 77 s vs 2-4 min).
+NEXT = JUMP 2 [board generator]: the board cut from the map cell's kind with COMBAT 2's six board kinds (banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_10_1_26.txt; tiles tagged flat/rough/height/blocked) and rule 59's tile table; retire the one-terrain-effect gate.
+*** [house tiles back] ROUND 7b -- V239: EVERY FIGHT ENDS (rule 57, his 'combat didn't end'): V159 had made the way out the ONLY win, so a cleared board waited forever. Now all down / all fled -> won; runners in reach get ROUT_TURNS=3 turns, then won; the way out is the early win; his side down lost; each end through sendCombatEnd (RUN's door). ***
+Stamp 10/1h. Record: records/BOHEMIA_COMBAT_EVERY_FIGHT_ENDS_10_1_26.md. FIGHT LENGTH (cover bot) 65.3 / 6.7 / 6.2 s, downed, kills 3/0/0. Gate every_fight_ends 9/0 (4/5 on the build before: all down gave over:false). combat_lab 923/9 (main 922/10). This lane's 4 gates registered in the suite (orphans 34 -> 30).
+NEXT: THE BOARD AT 45 DEGREES + COMBAT 2's ground tiles (515x364, real 1.4 m sidewalks, rule 56); then JUMP 2 [board generator] with rule 59's tile table and COMBAT 2's board kinds (banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_10_1_26.txt: cul-de-sac, desert wash).
+*** [house tiles back] ROUND 7 -- V238: COVER IS A THING (COMBAT 2's seven cover pieces dropped in, rule 55: dead cars on road tiles, walls/corner/shed on lots, seeded by cell, biggest whole scale that fits a tile), a parked car is ONE tile (was 2x3 = 24x36 m), the "sees you" ring, feet health bar, gun stick and car ovals moved onto/off the man. ***
+Stamp 10/1g. Record: records/BOHEMIA_COMBAT_COVER_IS_A_THING_10_1_26.md. Gate nothing_on_the_ground 18/0 (4 new legs, 14/4 on the build before). FIGHT LENGTH (cover bot) 45.7 / 7.9 / 4.7 s, downed, kills 3/1/0.
+RULE 55 caught at the rebase: my first cut picked its own cover art (his perimeter walls); that pick is COMBAT 2's, thrown away before the push. SCALE GAP for COMBAT 2/DIRECTION: their pieces are at the ground's 42.9 px/m, the man ~4x that, a 1.8 m wall reaches his thigh.
+NEXT (in order): rule 57's END CONDITION (his newest: 'combat didn't end'; all down / all fled / your side down; COMBAT owns it, RUN [fight returns] plugs in); then THE BOARD AT 45 DEGREES + COMBAT 2's ground tiles (515x364, real 1.4 m sidewalks, rule 56; today the sidewalk tile is a whole house wide); then JUMP 2 [board generator] with rule 59's tile table.
 *** [house tiles back] ROUND 6 -- V237: THE STREET HAS KERBS (road and sidewalk as a cross-section of the approved street bank) + fight length round two. ***
 Stamp 10/1e. Record: records/BOHEMIA_COMBAT_THE_STREET_HAS_KERBS_10_1_26.md
 COOK's block war kit was voted DOWN 9/30 ("It looks bad man so ugly"): NOT used. V237 xsecPatch/xsecKind:
@@ -49833,7 +54919,7 @@ THEN (gw) THE WEAK TIER (Paolo 9/29): crossbows and real melee as BB's weaker we
 THEN (gx) EVERYTHING TRANSLATED (Paolo 9/29): rule 48; the translation table records/BOHEMIA_THE_BATTLE_BROTHERS_TRANSLATION_TABLE_9_29_26.md (62 rows, owners, status); COMBAT [perks translated], PEOPLE [followers], [ambitions], EYES [translation count]. records/BOHEMIA_PAOLO_EVERYTHING_NEEDS_A_PROPER_TRANSLATION_9_29_26.md.
 THEN (gy) VAMILY 9/30 (the sweep 41c2b9f..HEAD, 442 commits): records/BOHEMIA_COORDINATOR_ROUND_9_30_26.md. The demo opens on the map and a tap is how you travel (RUN e4c66f2b, demo 9/28i); the cell board is deleted and the high ground is a house with its roof (COMBAT V231/V232); the circles are places at the map floor (COOK r4); the fight draws his art 2.6x too coarse (COOK r2 + DIRECTION): COMBAT [device canvas] new; the family faces are black on the first screen: DYNASTY [one then heirs] takes UI's proved line; PLUMBER retries the excavate move (PAGES PUBLISH red on size); the coordinator's 14 VOTE items lacked sha/show and were the vote tab's red since 9/28, fixed. Front page: DEPLOY, SUITE, CUT, COOK lines rewritten. Registry 242/169/74 waiting.
 THEN (gz) GROK AS A RESEARCH HELPER (Paolo 9/30): reference/BOHEMIA_GROK_BRIEF.md and reference/BOHEMIA_GROK_ASKS.md; rule 49; he pastes the brief and the asks, pastes the answers back, the coordinator files them 'source: Grok, unverified'; first asks are the Battle Brothers numbers the sandboxes cannot fetch.
-THEN (ha) THE ZOOM RANGE (Paolo 9/30, five Pocket City 2 screenshots at reference/pocket_city_2/): rule 50; Pocket City 2's department widened to the drop-in transition and the zoom range; RUN [zoom range] first, EYES [zoom range measured], UI and RUN notes; his phone's profile 1170x2532 at 3x is the fleet's. records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md. THEN (hb) BOTH ORIENTATIONS (his sixth shot, 9/30): rule 50b; UI [landscape]; PLUMBER's driver gains the landscape profile; EYES measures both. THEN (hc) ONE MAIN QUEST, TWO CONTRACTS, THE PHONE ONLY SHOWS (Paolo 9/30): rule 51; quests addendum s9; UI [phone contracts]; notes on RUN, QUESTS, ECONOMY. records/BOHEMIA_PAOLO_ONE_MAIN_QUEST_TWO_CONTRACTS_THE_PHONE_ONLY_SHOWS_9_30_26.md. THEN (hd) GROK IS C (Paolo 9/30: 'grok gotta know everything everything, not a two pager i didnt approve'; then 'Lets do c'): rule 49b; laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md; the master pack reference/BOHEMIA_MASTER_FOR_GROK.md rebuilt every VAMILY by reference/build_grok_master.py; the brief rewritten as the how-to-work page; asks 11-12 standing; reference/library/grok/ opened; EYES [grok filter], PLUMBER [grok filter gate], DYNASTY [grok lore], TUNING/MODS/QUESTS [grok sources]. records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md. THEN (he) HE SAW THE FIGHT'S FLOOR (Paolo 10/1: 'the tiles below the people dont look good... its all fucked up'): rule 46f; the break list's first line; COMBAT [house tiles back] is the floor with [device canvas] as step one; COOK [board assets] floor first; DIRECTION FIGHT VERDICT 21 floor only; EYES [fight floor measured]; RUN cuts no failing fight; registry fight-floor-first-10-1. records/BOHEMIA_PAOLO_COMBAT_IS_FUCKED_UP_THE_TILES_BELOW_THE_PEOPLE_10_1_26.md. THEN (hf) GROK ON LINKS, NOT PASTES (Paolo 10/1: 'make something public for it to enter'): rule 49c; the way in is one link to reference/BOHEMIA_GROK_PASTE.md; the way out is Grok's share link, readable only once grok.com is allowed in the environment (his laptop click; sandbox blocked from grok.com and x.com, measured). records/BOHEMIA_PAOLO_HELL_NAH_MAKE_SOMETHING_PUBLIC_FOR_GROK_TO_ENTER_10_1_26.md. THEN (hg) GROK WRITES THROUGH ITS GITHUB CONNECTOR (Paolo 10/1: 'what tool can I give Grok to write in the repo? I'll connect a tool with it'): rule 49d; Grok writes reference/library/grok/ on branch grok, never main, never a PR; the coordinator pulls origin/grok every VAMILY; PLUMBER [grok fence]; 49c's share-link route dropped. records/BOHEMIA_PAOLO_WHAT_TOOL_CAN_I_GIVE_GROK_TO_WRITE_IN_THE_REPO_10_1_26.md. THEN (hh) BIGGER JUMPS (Paolo 10/1 with VAMILY: 'combat and the run make bigger jumps every chat... im getting this demo released'): rule 52; COMBAT and RUN MODE: SPRINT with a jump list of three to four whole features; THE RELEASE LINE on the front page (ten lines, RUN refreshes); RUN [release list]. records/BOHEMIA_PAOLO_BIGGER_JUMPS_COMBAT_AND_THE_RUN_THE_DEMO_RELEASE_10_1_26.md. THEN (hi) GROK'S FIRST PAGES PULLED (rule 49e): the beast table and what-I-found, on main in reference/library/grok/; EYES stamps; notes on TUNING/MODS/QUESTS/WORLD/WORDS/RUN/DYNASTY; SOUNDS [dead battery], ECONOMY [price of mercy]; two coordinator defaults in VOTE; the brief's flip and reference lines fixed; asks round two. THEN (hj) THE 10/1 SWEEP: 73 commits read, 11 rows marked SHIPPED, the four lines rewritten, THE RELEASE LINE added, records/BOHEMIA_COORDINATOR_ROUND_10_1_26.md; the next sweep starts after this commit. THEN (hk) THE FOURTH VOTES (Paolo's 9/30 export, read 10/1, 17 new verdicts landed in the registry, 186 now): rule 53, 22f (two sentences max, UI [two sentences], PLUMBER [two sentences leg]), 38j (assets for the fight and the close zoom only), 46g (street width in tiles); TUNING [difficulty sliders] and MODS [keep list into defaults] RETIRED; renown is clout; the speed pad is the old dial; COOK's kit and FACTIONS' base re-shown from the game's camera. laws/BOHEMIA_ADDENDUM_THE_FOURTH_VOTES_10_1_26.md; records/BOHEMIA_PAOLO_THE_FOURTH_VOTES_NOT_A_LOT_OF_GOOD_AND_TWO_SENTENCES_MAX_10_1_26.md. (The commit 0d34eb6a carried only the index and the master; this commit is its body.) THEN (hl) SWEEP B 10/1 (51a573bd and its body): COMBAT V234+V235 (blobs gone, real pixels; JUMP 1 half), DYNASTY [heirs] and PEOPLE [followers] SHIPPED, UI r9 six in the bar, FACTIONS r5 raid at the gate, ECONOMY beast worth, QUESTS r7, CHARACTER barber; Grok's economy and roster pages pulled, the six piles in VOTE (grok-reported-six-piles-10-1), rule 47 stands; EYES owes four stamps. records/BOHEMIA_COORDINATOR_ROUND_10_1_26_B.md. THEN (hm) SWEEP C 10/1: zero lane commits since B (the chats had not run); Grok's weapons page and rewritten roster pulled (five pages, zero stamps); rule 49f (Grok-reported rulings become VOTE defaults marked VIA GROK); three items registered (the car is the handgonne, the dead are chipped bodies, the first fight's six weapons); records/BOHEMIA_GROK_REPORTED_RULINGS_10_1_26.md. THEN (hn) SWEEP D 10/1: still zero lane commits; Grok's range, house-tile and weapon-types pages pulled (eight pages, zero stamps); melee is the next tile and spends nothing, Cut B, in VOTE (grok-cut-b-melee-spends-nothing-10-1); notes on COMBAT [weapon shapes], TUNING, WORLD [tile options], EYES. THEN (ho) SWEEP E 10/1: still zero lane commits (five sweeps); Grok's chip-body and how-a-fight-runs pages pulled (ten pages, zero stamps); Grok's 9 AP conflicts with EVERYTHING COSTS ONE, noted on COMBAT [fight feel]; the chip-body defaults on [bestiary]; his crossing-the-map ask answered (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_CROSSING_THE_MAP_10_1_26.md). THEN (hp) THREE CHATS RUN (Paolo 10/1: 'only combat, the run and eyes and ears, that's it'): rule 54; every other lane MODE: PAUSED; the three pull what they need (COMBAT the floor tiles, RUN the two-sentence rewrite and the settlement screen, EYES the stamps and the measurements). records/BOHEMIA_PAOLO_ONLY_COMBAT_THE_RUN_AND_EYES_RIGHT_NOW_10_1_26.md. THEN (hq) EYES JUDGES VISUALS AND SOUNDS ONLY (Paolo 10/1): rule 54a; the Grok stamps are the coordinator's, all ten pages stamped PASSED FILTER; [translation count] retired; the release measurements are RUN's. records/BOHEMIA_PAOLO_EYES_JUDGES_VISUALS_AND_SOUNDS_ONLY_10_1_26.md. THEN (hr) COMBAT 2 AND RUN 2 (Paolo 10/1 asked; rule 55): two new sections on the board with a hard file split (COMBAT 2 = the floor art; RUN 2 = the vote tab rewrite and the settlement screen); Grok's burst of 12 pages pulled and stamped (22 pages), the slice sheet in VOTE as grok-first-fight-slice-10-1 with his locks winning over 9 AP and the one-man death. records/BOHEMIA_PAOLO_DO_I_NEED_COMBAT_2_AND_RUN_2_10_1_26.md. (4656592a crashed mid-script after RUN 2's header shadowed RUN's; the coordinator's section finder now anchors on the header's '  ('.) THEN (hs) SWEEP F 10/1: EYES shipped [zoom range measured] r1 (metres per pixel) and horror r15; Grok's hire sheet, settlement menu, wiki rounds 1-2 pulled and stamped (26 pages); the building list on RUN 2 [settlement screen]; the perk cut on COMBAT [perks translated]. THEN (ht) SWEEP G 10/1: ANIMATION shipped [facing you] while paused (noted, counted); Grok's wiki rounds 3-4 and bulk 1-2 pulled and stamped (30 pages): every enemy's HP and every weapon's AP on COMBAT [bestiary]. THEN (hu) THE FIFTH VOTES (45 verdicts, 231; rule 56; laws/BOHEMIA_ADDENDUM_THE_FIFTH_VOTES_10_1_26.md): the sidewalk is real-sized (an eighth), the ground is 45 degrees, no authored first fight, beasts must survive the Mojave (mammoths out; a boss is never an animal), who dies flat 20%, fight length as long as it needs, mods' keep ideas go to their lanes, the retinue bought once, settlements hold everything, the alpha's customization screen is not the game's. COMBAT 2 [floor set] SHIPPED with round two open; RUN 2 [settlement screen] SHIPPED; EYES [zoom range measured] r2.
+THEN (ha) THE ZOOM RANGE (Paolo 9/30, five Pocket City 2 screenshots at reference/pocket_city_2/): rule 50; Pocket City 2's department widened to the drop-in transition and the zoom range; RUN [zoom range] first, EYES [zoom range measured], UI and RUN notes; his phone's profile 1170x2532 at 3x is the fleet's. records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md. THEN (hb) BOTH ORIENTATIONS (his sixth shot, 9/30): rule 50b; UI [landscape]; PLUMBER's driver gains the landscape profile; EYES measures both. THEN (hc) ONE MAIN QUEST, TWO CONTRACTS, THE PHONE ONLY SHOWS (Paolo 9/30): rule 51; quests addendum s9; UI [phone contracts]; notes on RUN, QUESTS, ECONOMY. records/BOHEMIA_PAOLO_ONE_MAIN_QUEST_TWO_CONTRACTS_THE_PHONE_ONLY_SHOWS_9_30_26.md. THEN (hd) GROK IS C (Paolo 9/30: 'grok gotta know everything everything, not a two pager i didnt approve'; then 'Lets do c'): rule 49b; laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md; the master pack reference/BOHEMIA_MASTER_FOR_GROK.md rebuilt every VAMILY by reference/build_grok_master.py; the brief rewritten as the how-to-work page; asks 11-12 standing; reference/library/grok/ opened; EYES [grok filter], PLUMBER [grok filter gate], DYNASTY [grok lore], TUNING/MODS/QUESTS [grok sources]. records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md. THEN (he) HE SAW THE FIGHT'S FLOOR (Paolo 10/1: 'the tiles below the people dont look good... its all fucked up'): rule 46f; the break list's first line; COMBAT [house tiles back] is the floor with [device canvas] as step one; COOK [board assets] floor first; DIRECTION FIGHT VERDICT 21 floor only; EYES [fight floor measured]; RUN cuts no failing fight; registry fight-floor-first-10-1. records/BOHEMIA_PAOLO_COMBAT_IS_FUCKED_UP_THE_TILES_BELOW_THE_PEOPLE_10_1_26.md. THEN (hf) GROK ON LINKS, NOT PASTES (Paolo 10/1: 'make something public for it to enter'): rule 49c; the way in is one link to reference/BOHEMIA_GROK_PASTE.md; the way out is Grok's share link, readable only once grok.com is allowed in the environment (his laptop click; sandbox blocked from grok.com and x.com, measured). records/BOHEMIA_PAOLO_HELL_NAH_MAKE_SOMETHING_PUBLIC_FOR_GROK_TO_ENTER_10_1_26.md. THEN (hg) GROK WRITES THROUGH ITS GITHUB CONNECTOR (Paolo 10/1: 'what tool can I give Grok to write in the repo? I'll connect a tool with it'): rule 49d; Grok writes reference/library/grok/ on branch grok, never main, never a PR; the coordinator pulls origin/grok every VAMILY; PLUMBER [grok fence]; 49c's share-link route dropped. records/BOHEMIA_PAOLO_WHAT_TOOL_CAN_I_GIVE_GROK_TO_WRITE_IN_THE_REPO_10_1_26.md. THEN (hh) BIGGER JUMPS (Paolo 10/1 with VAMILY: 'combat and the run make bigger jumps every chat... im getting this demo released'): rule 52; COMBAT and RUN MODE: SPRINT with a jump list of three to four whole features; THE RELEASE LINE on the front page (ten lines, RUN refreshes); RUN [release list]. records/BOHEMIA_PAOLO_BIGGER_JUMPS_COMBAT_AND_THE_RUN_THE_DEMO_RELEASE_10_1_26.md. THEN (hi) GROK'S FIRST PAGES PULLED (rule 49e): the beast table and what-I-found, on main in reference/library/grok/; EYES stamps; notes on TUNING/MODS/QUESTS/WORLD/WORDS/RUN/DYNASTY; SOUNDS [dead battery], ECONOMY [price of mercy]; two coordinator defaults in VOTE; the brief's flip and reference lines fixed; asks round two. THEN (hj) THE 10/1 SWEEP: 73 commits read, 11 rows marked SHIPPED, the four lines rewritten, THE RELEASE LINE added, records/BOHEMIA_COORDINATOR_ROUND_10_1_26.md; the next sweep starts after this commit. THEN (hk) THE FOURTH VOTES (Paolo's 9/30 export, read 10/1, 17 new verdicts landed in the registry, 186 now): rule 53, 22f (two sentences max, UI [two sentences], PLUMBER [two sentences leg]), 38j (assets for the fight and the close zoom only), 46g (street width in tiles); TUNING [difficulty sliders] and MODS [keep list into defaults] RETIRED; renown is clout; the speed pad is the old dial; COOK's kit and FACTIONS' base re-shown from the game's camera. laws/BOHEMIA_ADDENDUM_THE_FOURTH_VOTES_10_1_26.md; records/BOHEMIA_PAOLO_THE_FOURTH_VOTES_NOT_A_LOT_OF_GOOD_AND_TWO_SENTENCES_MAX_10_1_26.md. (The commit 0d34eb6a carried only the index and the master; this commit is its body.) THEN (hl) SWEEP B 10/1 (51a573bd and its body): COMBAT V234+V235 (blobs gone, real pixels; JUMP 1 half), DYNASTY [heirs] and PEOPLE [followers] SHIPPED, UI r9 six in the bar, FACTIONS r5 raid at the gate, ECONOMY beast worth, QUESTS r7, CHARACTER barber; Grok's economy and roster pages pulled, the six piles in VOTE (grok-reported-six-piles-10-1), rule 47 stands; EYES owes four stamps. records/BOHEMIA_COORDINATOR_ROUND_10_1_26_B.md. THEN (hm) SWEEP C 10/1: zero lane commits since B (the chats had not run); Grok's weapons page and rewritten roster pulled (five pages, zero stamps); rule 49f (Grok-reported rulings become VOTE defaults marked VIA GROK); three items registered (the car is the handgonne, the dead are chipped bodies, the first fight's six weapons); records/BOHEMIA_GROK_REPORTED_RULINGS_10_1_26.md. THEN (hn) SWEEP D 10/1: still zero lane commits; Grok's range, house-tile and weapon-types pages pulled (eight pages, zero stamps); melee is the next tile and spends nothing, Cut B, in VOTE (grok-cut-b-melee-spends-nothing-10-1); notes on COMBAT [weapon shapes], TUNING, WORLD [tile options], EYES. THEN (ho) SWEEP E 10/1: still zero lane commits (five sweeps); Grok's chip-body and how-a-fight-runs pages pulled (ten pages, zero stamps); Grok's 9 AP conflicts with EVERYTHING COSTS ONE, noted on COMBAT [fight feel]; the chip-body defaults on [bestiary]; his crossing-the-map ask answered (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_CROSSING_THE_MAP_10_1_26.md). THEN (hp) THREE CHATS RUN (Paolo 10/1: 'only combat, the run and eyes and ears, that's it'): rule 54; every other lane MODE: PAUSED; the three pull what they need (COMBAT the floor tiles, RUN the two-sentence rewrite and the settlement screen, EYES the stamps and the measurements). records/BOHEMIA_PAOLO_ONLY_COMBAT_THE_RUN_AND_EYES_RIGHT_NOW_10_1_26.md. THEN (hq) EYES JUDGES VISUALS AND SOUNDS ONLY (Paolo 10/1): rule 54a; the Grok stamps are the coordinator's, all ten pages stamped PASSED FILTER; [translation count] retired; the release measurements are RUN's. records/BOHEMIA_PAOLO_EYES_JUDGES_VISUALS_AND_SOUNDS_ONLY_10_1_26.md. THEN (hr) COMBAT 2 AND RUN 2 (Paolo 10/1 asked; rule 55): two new sections on the board with a hard file split (COMBAT 2 = the floor art; RUN 2 = the vote tab rewrite and the settlement screen); Grok's burst of 12 pages pulled and stamped (22 pages), the slice sheet in VOTE as grok-first-fight-slice-10-1 with his locks winning over 9 AP and the one-man death. records/BOHEMIA_PAOLO_DO_I_NEED_COMBAT_2_AND_RUN_2_10_1_26.md. (4656592a crashed mid-script after RUN 2's header shadowed RUN's; the coordinator's section finder now anchors on the header's '  ('.) THEN (hs) SWEEP F 10/1: EYES shipped [zoom range measured] r1 (metres per pixel) and horror r15; Grok's hire sheet, settlement menu, wiki rounds 1-2 pulled and stamped (26 pages); the building list on RUN 2 [settlement screen]; the perk cut on COMBAT [perks translated]. THEN (ht) SWEEP G 10/1: ANIMATION shipped [facing you] while paused (noted, counted); Grok's wiki rounds 3-4 and bulk 1-2 pulled and stamped (30 pages): every enemy's HP and every weapon's AP on COMBAT [bestiary]. THEN (hu) THE FIFTH VOTES (45 verdicts, 231; rule 56; laws/BOHEMIA_ADDENDUM_THE_FIFTH_VOTES_10_1_26.md): the sidewalk is real-sized (an eighth), the ground is 45 degrees, no authored first fight, beasts must survive the Mojave (mammoths out; a boss is never an animal), who dies flat 20%, fight length as long as it needs, mods' keep ideas go to their lanes, the retinue bought once, settlements hold everything, the alpha's customization screen is not the game's. COMBAT 2 [floor set] SHIPPED with round two open; RUN 2 [settlement screen] SHIPPED; EYES [zoom range measured] r2. THEN (hv) HE PLAYED THE DEMO (Paolo 10/1: the fight never ended, no way back; why a straight street): rule 57; RUN [fight returns] first line; COMBAT owns the end condition; [board generator] is JUMP 2; COMBAT 2 a sheet per board kind, cul-de-sac and desert first; the break list's first line. records/BOHEMIA_PAOLO_COMBAT_DIDNT_END_AND_WHY_A_STRAIGHT_STREET_10_1_26.md. THEN (hw) THE ONE-FILE LOOP (Paolo 10/1: 'remake Battle Brothers right now... one sentence... you're breaking my heart'): rule 58; RUN TWO [one file loop] first (its queue was empty); paper suspended for that file; COMBAT TWO [cover pieces] SHIPPED; RUN TWO settlement r2; Grok bulk 5 stamped. records/BOHEMIA_PAOLO_REMAKE_BATTLE_BROTHERS_RIGHT_NOW_YOURE_BREAKING_MY_HEART_10_1_26.md. THEN (hx) EVERY FLOOR TILE IS A TRANSLATION (Paolo 10/1): rule 59 amends rule 33's one terrain effect; the school page records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md; the tile table is a data file for COMBAT [board generator]; Grok ask 15; CLAUDE.md's pillar line fixed. THEN (hy) THE REEL (Paolo 10/1: the Instagram page, 'this has to look so cool', no progress on the map's pixels): rule 60; RUN [map pixels now] second line, [the reel] third; release-list line 11; EYES judges the reel. records/BOHEMIA_PAOLO_THE_INSTAGRAM_REEL_IT_HAS_TO_LOOK_SO_COOL_10_1_26.md. THEN (hz) SWEEP J 10/1: RUN TWO [one file loop] SHIPPED (f63e19eb, the whole loop, driver 12/0); COMBAT V238 cover is a thing; COMBAT TWO round three the cul-de-sac and the desert wash; Grok's wiki core text dumped (CC BY-SA, attribution added, cite never paste), the terrain numbers confirmed on the school page; the release line refreshed. THEN (ia) 'I WANT THE DEMO' (Paolo 10/1): RUN [fold the loop] first line; the demo's play surface becomes RUN TWO's one-file loop; the link does not change. THEN (ib) THE DEMO BLOCKERS IN HIS ORDER (Paolo 10/1): rule 61; RUN [the front door], [the valley edge], [quest line] = remove, [map pixels now] one round; COMBAT [board size]; Grok ask 16. records/BOHEMIA_PAOLO_HOW_LONG_UNTIL_THE_MAP_HAS_THE_PIXELS_THE_DEMO_BLOCKERS_10_1_26.md. THEN (ic) THE SCREEN DECIDES THE LAYOUT; THE FIGHT OPENS ZOOMED OUT ON A PHONE (Paolo 10/1): rule 62; RUN [screen fit]; COMBAT [fight camera]; EYES measures four classes. records/BOHEMIA_PAOLO_IPHONE_VS_IPAD_VS_COMPUTER_THE_FIGHT_ZOOM_IS_BROKEN_10_1_26.md. THEN (id) SWEEP K 10/1: no lane commits; Grok's nine pages (the battery rate, the price floor, wages, the hire row, gear comes with) pulled and stamped, the whole wiki as tarballs; two VIA GROK items in VOTE (ten crowns one battery; see the hire); notes on ECONOMY, PEOPLE, RUN TWO. THEN (ie) START COMBAT OVER (Paolo 10/2: 're-create Battle Brothers combat'): rule 63; COMBAT MODE: REBUILD with one row [rebuild], one new file slices/BOHEMIA_FIGHT.html, the wiki's rules exactly, our house tiles and weapons; the old fight frozen; COMBAT TWO cuts sheets at the new board size. records/BOHEMIA_PAOLO_START_COMBAT_OVER_RECREATE_BATTLE_BROTHERS_COMBAT_10_2_26.md. THEN (if) THE DIAL IS NEXT, NOT DEAD (Paolo 10/2): rule 63a; kept whole; the first addition after the rebuilt fight plays. records/BOHEMIA_PAOLO_I_STILL_WANT_THE_DIAL_AFTER_THE_BATTLE_BROTHERS_FIGHT_IS_PERFECT_10_2_26.md. THEN (ig) 12 ON THE FIELD, 20 HELD; THE ENEMY AI IS PART OF THE REBUILD; WHAT STAYS AFTER IT IS PERFECT (Paolo 10/2): rule 63b-c. records/BOHEMIA_PAOLO_12_OR_16_ON_THE_FIELD_WHAT_STAYS_AFTER_WE_PERFECT_IT_10_2_26.md. THEN (ih) THE NUMBERS ARE THEIRS, EXACTLY, AS DATA (Paolo 10/2): rule 63d; COMBAT extracts the wiki into records/target/bb/ JSON before the first line of fight code; a gate traces every felt number. records/BOHEMIA_PAOLO_ALL_THE_NUMBERS_AND_STATS_PLAY_A_HUGE_PART_10_2_26.md. THEN (ii) SWEEP L 10/2: COMBAT [rebuild] SHIPPED (the fight started over and plays; round two: words off the ground, mixed board kinds); RUN [fold the loop], [the front door], [the valley edge], [quest line] SHIPPED; COMBAT TWO eight boards; RUN TWO screen fit; Grok food pages; the release line refreshed. records/BOHEMIA_COORDINATOR_ROUND_10_2_26.md. THEN (ij) THE NEW FIGHT IN THE DEMO NOW AND ONE SONG AT A TIME (Paolo 10/2): rule 64; RUN [the new fight in the demo] and [one song] first. records/BOHEMIA_PAOLO_IS_THE_NEW_COMBAT_IN_THE_DEMO_AND_TWO_SONGS_AT_ONCE_10_2_26.md. THEN (ik) THE MAP BIGGER AND BETTER ZOOMED OUT, FIRST (Paolo 10/2, the fourth time): rule 65; RUN [map pixels now] moved to the first line with the painted far end. records/BOHEMIA_PAOLO_THE_MAP_GRAPHICS_BIGGER_AND_BETTER_ZOOMED_OUT_FOR_A_FAT_MINUTE_10_2_26.md. THEN (il) SWEEP M 10/2: COMBAT [rebuild] round two (words off the ground, mixed kinds dealt, 38/0) and [perks translated] round 1 (fifty translated, 37 live) SHIPPED; COMBAT TWO round ten verified in the fight; Grok's food picks stamped; RUN has not pushed since the valley edge. THEN (im) HIS FIRST GOOD WORD ON THE FIGHT; ONE MAN IS NOT A WALL, TWO ARE; CHARACTERS LARGER; A START SCREEN (Paolo 10/2): rule 66; COMBAT [rebuild] round three; RUN [the start screen]. records/BOHEMIA_PAOLO_COMBAT_LOOKS_BETTER_WALK_THROUGH_ONE_NOT_TWO_BIGGER_CHARACTERS_A_START_SCREEN_10_2_26.md. THEN (in) SWEEP N 10/2: THE REBUILT FIGHT IS THE DEMO'S FIGHT (RUN fd016146, BUILD 10/2h); COMBAT [perks translated] round 2 (44 live); COMBAT TWO round eleven mixed seeded boards; the freeway stall routed to COMBAT; Grok stall goods stamped; the release line refreshed. Still owed on RUN: the map's pixels (65, first), the start screen (66), one song (64). THEN (io) SWEEP O 10/2: COMBAT TWO round twelve (cross streets through whole columns, lamps and drums as night pools); Grok's water pages stamped; no other lane pushed. THEN (ip) THE SIXTH VOTES (91 verdicts, 10/2; rule 67; laws/BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md): the UI is the biggest concern (the fight's HUD stripped, icons for perks, the settlement screen like Battle Brothers'); the fight holds (cars raise defence by count, a recap screen, fights left to right); the heirs are made on entering the act (the three names at the door are dead; 42%); tuning copies Battle Brothers; mods at boot dead; sounds quieter; beef and crime rows; Grok asks 17-18. (72ee207a carried the registry, the law and the first notes; this commit the rest.) THEN (iq) THE COMBAT UI'S SIZES (Paolo 10/4): the school page records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_COMBAT_UI_SIZES_AND_ICONS_10_4_26.md (their layout and materials, our 44-point thumb sizes); rule 67a; COMBAT [rebuild] round three's HUD; Grok ask 19. THEN (ir) A FIGHT COMES FROM A PARTY YOU CAN SEE (Paolo 10/4): rule 68; RUN [you can flee]; the loop's 'crews stop the march' removed; Grok ask 20. records/BOHEMIA_PAOLO_YOU_SEE_THE_PARTY_AND_YOU_CAN_FLEE_10_4_26.md. THEN (is) ALL THE CHARACTER ART LIVE IN THE GAME, THE NEW FIGHT INCLUDED (Paolo 10/4): rule 69; COMBAT round three draws every fighter from the bank; RUN TWO's hire row the same. records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md. THEN (it) THE FAR STOP LOSES THE LAND; PASS ONE OF YOUR OWN; AUTO IS FAR (Paolo 10/4 with a screenshot): rule 70; RUN [the valley edge] round two; COMBAT round three's blocking; Grok ask 21. records/BOHEMIA_PAOLO_ZOOMED_OUT_THE_VALLEY_GOES_AWAY_PASS_ONE_OF_YOUR_OWN_AUTO_IS_FAR_10_4_26.md. THEN (iu) ONE LIGHT OVER THE VALLEY AND THE CITY (Paolo 10/4): rule 70a; RUN [the valley edge] round two's light gate. records/BOHEMIA_PAOLO_THE_VALLEY_AND_THE_CITY_SHARE_ONE_LIGHT_10_4_26.md. THEN (iv) SETTLEMENT TRAITS; VIBE CODED AS A DEFECT; GROK'S STANDING PLUMBING ASK (Paolo 10/4): rule 71; RUN TWO displays traits, FACTIONS rolls them; EYES names vibe-coded tells; Grok ask 22. records/BOHEMIA_PAOLO_SETTLEMENT_TRAITS_VIBE_CODED_AND_THE_UNDERGROUND_PLUMBING_10_4_26.md. THEN (iw) THE SETTLEMENT SCREEN IS ONE PAINTED PLACE (Paolo 10/4): rule 71a; RUN TWO round three first; COMBAT TWO gives it the block sheets. records/BOHEMIA_PAOLO_THE_SETTLEMENT_BUILDINGS_MUST_LOOK_LIKE_PART_OF_THE_PLACE_10_4_26.md. THEN (ix) THE DEMO'S BAR AND THE BLIND SPOTS (Paolo 10/4): rule 72; records/BOHEMIA_THE_BLIND_SPOTS_OF_THE_WHOLE_ENCHILADA_10_4_26.md; release lines 12-14; RUN [first load], [demo end], [a stranger plays]; the Switch truth. THEN (iy) THE DEMO SET IS EIGHT (Paolo 10/4 asked which chats): rule 54b; UI, SOUNDS, WORDS opened DEMO ONLY with one row each; EYES to be run. records/BOHEMIA_PAOLO_WHICH_OTHER_CHATS_FOR_THE_DEMO_10_4_26.md. THEN (iz) THE DOUBLE MUSIC WAS ON THE OLD FIGHT ONLY (Paolo 10/4): rule 64a; RUN [one song] looks at the old fight's door first, then the map-to-new-fight hand-off; SOUNDS puts the volumes and the new fight's sounds first; the walk gate stays. records/BOHEMIA_PAOLO_THE_DOUBLE_MUSIC_WAS_ON_THE_OLD_FIGHT_ONLY_10_4_26.md. THEN (ja) SWEEP P 10/4: 21 lane commits read (COMBAT round three whole through the night lights; COMBAT TWO rounds 13-17 with the settlement pictures; RUN the map at the phone's pixels SHIPPED, the near end is the block, the valley edge round two; RUN TWO the buildings are the buttons, round four open as one painted place); 56 Grok pages pulled and stamped, seven VIA GROK defaults in VOTE, the ask list re-ordered with his 'stop copying the wiki'; the four lines and the break list rewritten; 14 sheets wait for his thumb. records/BOHEMIA_COORDINATOR_ROUND_10_4_26.md. The next sweep starts after this commit. THEN (jb) HE PLAYED THE DEMO (Paolo 10/4): 'combat is night and day... I'm liking the direction'; his second good word on the rebuilt fight; the direction confirmed, nothing re-opened, every open line stays open. records/BOHEMIA_PAOLO_THE_FIGHT_IS_NIGHT_AND_DAY_I_LIKE_THE_DIRECTION_10_4_26.md. THEN (jc) NIGHT IS A COLOUR, NOT A DARKNESS; PLAYABLE IN THE SUN (Paolo 10/4: loves the night and the street lights; too dark at its darkest; must play outside at full brightness): rule 73; the school page records/BOHEMIA_SCHOOL_PLAYABLE_IN_THE_SUN_10_4_26.md with the floor (ground median >= 20 percent of white, 3 to 1, 4.5 to 1, the 25 percent glare test, a brightness slider in SETTINGS); COMBAT [night you can read], EYES [night in the sun measured], PLUMBER [sun gate], notes on RUN, COMBAT TWO, UI; VOTE night-you-can-read-in-the-sun-10-4. records/BOHEMIA_PAOLO_I_LOVE_THE_NIGHT_BUT_I_MUST_PLAY_IT_IN_THE_SUN_10_4_26.md. THEN (jd) SWEEP Q 10/4: six lane commits (COMBAT the fight on every screen class; COMBAT TWO round eighteen with the pictures' nights; UI round one the fight's bar finished; WORDS six fixes in a review file for RUN; SOUNDS the new fight's music door fenced and three ambiences down); SOUNDS and COMBAT TWO rows marked; RUN told to apply WORDS' file; PLUMBER [one engine boot]; 25 sheets wait; no new Grok pages. records/BOHEMIA_COORDINATOR_ROUND_10_4_26_B.md. The next sweep starts after this commit. THEN (je) 'THEY DON'T HAVE JOBS' (Paolo 10/4): rule 74, A JOB IS AN OPEN ROW; the coordinator's 'round N open' inside shipped rows and one-row MODE lines left COMBAT TWO, RUN TWO, WORDS and COMBAT with nothing OPEN (proven by WORDS 57de4732 and RUN TWO's rounds); every running lane now has three OPEN rows at the top as its jump list and a MODE line that says so; the sweep ends with an open-row check; PLUMBER owes [open row gate]. records/BOHEMIA_PAOLO_THEY_DONT_HAVE_JOBS_WHAT_THE_FUCK_IS_WRONG_WITH_YOU_10_4_26.md. THEN (jf) SWEEP R 10/4: COMBAT the night readable (84/0), COMBAT TWO round nineteen ([night boards] SHIPPED), RUN [one song] SHIPPED on both doors, SOUNDS round two the fight's sounds, UI the settings card built, EYES sourced the sun page; rule 73a (2 to 1 under glare, a man with his rim); Grok 109-110 stamped, the hit-chance constants to COMBAT; 30 sheets wait; the open-row check passes. records/BOHEMIA_COORDINATOR_ROUND_10_4_26_C.md. The next sweep starts after this commit. THEN (jg) SWEEP S 10/5: three claims (COMBAT [your formation], RUN TWO [one painted place], WORDS [the fight's words]), nothing shipped yet; rule 74 proven; deploy 2723 SUCCESS; no new Grok pages. records/BOHEMIA_COORDINATOR_ROUND_10_5_26.md. The next sweep starts after this commit. THEN (jh) THE ORIGIN SETS THE COMPANY AND THE ROAD SETS THE ENEMY (Paolo 10/5): rule 75 a-e (origins build the company and the field cap from origins.json; parties sized by the math, never 12 v 12, a few thugs first; 68a time stops in sight; a market; weapons say what they do); RUN [the origin sets the company] FIRST and [a few, not twelve]; COMBAT [the enemy math], [weapons say what they do]; RUN TWO [the market]; WORDS [the weapons' lines]; Grok asks 10 and 22 first; VOTE a-few-not-twelve-10-5. records/BOHEMIA_PAOLO_THE_ORIGIN_SETS_THE_COMPANY_AND_THE_ROAD_SETS_THE_ENEMY_10_5_26.md. THEN (ji) SWEEP T 10/5: the demo opens on a title (RUN 4 of 5 + UI's look), your formation set before FIGHT (COMBAT), every building changes the fight (COMBAT TWO), travel sounds cooked and the map frame found silent (SOUNDS; RUN [the map hears]), EYES' instrument measured the nights (rule 73b: the absolute median dropped, the man's rim is COMBAT's leg); the traits rows split; Grok 111 the spawn math to COMBAT and RUN; 42 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_5_26_B.md. The next sweep starts after this commit. THEN (jj) STILL GLITCHY, NO INVENTORY, TILES LIKE LEGOS, THE OPENING SCREEN IS AWESOME BUT 40 SECONDS, MENU MUSIC (Paolo 10/5): rule 76 the inventory (RUN TWO [the inventory], UI [item icons]); rule 77 tiles are Legos (COMBAT TWO [tiles are legos] FIRST, a seam gate); 66a the title in two seconds (RUN [first load] first after the origin; PLUMBER opened DEMO ONLY, rule 54c, [first load]); SOUNDS [the title's music] first; the opening screen confirmed; VOTE the-title-in-two-seconds-10-5. records/BOHEMIA_PAOLO_GLITCHY_NO_INVENTORY_TILES_LIKE_LEGOS_AND_THE_OPENING_SCREEN_IS_AWESOME_10_5_26.md. THEN (jk) SWEEP U 10/5: COMBAT [the enemy math] SHIPPED (the party as handed, dressed by tier), RUN TWO [the market] SHIPPED, UI [the settlement's labels] SHIPPED, WORDS the seven real weapon lines, SOUNDS the weather on the map tab; RUN [the map hears] narrowed; Grok 112-114 to COMBAT; 47 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_5_26_C.md. The next sweep starts after this commit. THEN (jl) SWEEP V 10/5: eight ships (the fifteen origins build the company; the 36-slot bag; 310 item icons; every weapon's card; the title's music r1; the settlement's words with a times-ten pay bug; EYES: the man at 45 px on wide screens); COMBAT [the man stays 112 on wide screens] FIRST; RUN TWO [the pay times ten] FIRST; the company travels as data, RUN never edits the fight file; Grok 115-121 routed; 52 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_5_26_D.md. The next sweep starts after this commit. THEN (jm) ALL CHATS RUN AND THE BOARD FITS THE PARTY (Paolo 10/9): rule 78 lifts every pause (every lane MODE: RUN, three OPEN rows at the top, written this turn for WORLD, LIFE+CITY, ANIMATION, CHARACTER, PORTRAIT, PEOPLE, FACTIONS, DIRECTION, COOK, ECONOMY, DYNASTY, TUNING, MODS, QUESTS; new first rows for COMBAT [the board fits the party], COMBAT TWO [boards by size], RUN TWO [climbing], WORDS [the enemies' names], EYES [a stranger's five minutes judged]); rule 79 the fight board is cut to the parties and the camera opens on the lines at 112. The 10/5 ships since sweep V (a few not twelve, tiles are legos, settlement traits, the enemy plays its part, six icons and the map's bar, the settlement's sounds) are marked by their lanes. records/BOHEMIA_PAOLO_GIVE_JOBS_TO_ALL_CHATS_AND_THE_COMBAT_MAP_DOESNT_NEED_TO_BE_SO_BIG_10_9_26.md. THEN (jn) THE FREEWAY AND THE STREETS (Paolo 10/9): rule 77a, one road kit, no wall across a road, judged beside I-15; COMBAT TWO [the freeway redone] FIRST; notes on DIRECTION, COOK, EYES. records/BOHEMIA_PAOLO_THE_FREEWAY_AND_THE_STREETS_LOOK_LIKE_DOG_SHIT_10_9_26.md. THEN (jo) SWEEP W 10/9: no lane commits since rule 78; Grok 122-127 (origins, ambitions, the crisis, XP, levels) stamped and routed; two VIA GROK defaults; 61 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_9_26.md. THEN (jp) BETTER THAN BATTLE BROTHERS (Paolo 10/9 with VAMILY): rule 80 a-c (the soundscape, narration on demand, a house you give a fuck about); the standing list opened; SOUNDS [the soundscape] FIRST, [the narrator] widened; FACTIONS [a house you give a fuck about] FIRST; UI's toggle; Grok asks 23-24; sweep X: eleven claims, RUN TWO's pay bug fixed, TUNING's sources checked; RUN TWO [the posts screen] and [the bar] added. records/BOHEMIA_PAOLO_SO_MANY_SOUNDS_NARRATION_AND_FACTIONS_WE_CAN_BEAT_BATTLE_BROTHERS_10_9_26.md. records/BOHEMIA_COORDINATOR_ROUND_10_9_26_B.md. THEN (jq) SWEEP Y 10/9: DYNASTY's act state SHIPPED; Grok 128-135 routed (stars, backgrounds, kits, medicine, ammo); 'the turns are too short' VIA GROK and COMBAT [a turn you can read]; EYES [the soundscape judged]; 67 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_9_26_C.md. THEN (jr) SWEEP Z 10/9: five ships (the price table, the living map, followers corrected, the settlement's night sounds, 160 enemies named); rule 81 (folklore beasts become machines) as a VOTE default; RUN TWO rounds down; PLUMBER [proof shots churn] and the marker leg; WORDS [the keepers' lines]; 70 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_9_26_D.md. THEN (js) SWEEP AA 10/9: seven ships (the freeway redone, the board fits the party, EYES' five minutes r1, the difficulty steps, ten road events, the data schema page); WORDS topped up with three unblocked rows; WORLD [the roads], RUN TWO [the clinic]; 78 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_9_26_E.md. THEN (jt) SWEEP AB 10/9: nine ships (boards by size, the tiers dressed, the stash, the machines renamed, heirs on entry, the bar, the felt numbers, the god gear rolled not placed, COOK's far-end measurement: 9,216 pixels); rule 65a (the far stop counted in pixels; RUN takes COOK's tiles and paintings; EYES counts) and 22g (run the vote gate before registering); RUN [the far end at two million pixels] FIRST, [a tap on the place opens it]; Grok 136-139 stamped; 95 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_9_26_F.md. THEN (ju) SWEEP AC 10/9: twenty ships; EYES found a wiped phone skips the title (RUN [a fresh phone sees the door] FIRST); PLUMBER measured 85 s to NEW GAME (RUN [first load] second, the far end third); DIRECTION's fight verdict (COMBAT [the art at its own pixels], COMBAT TWO [the freeway round two]); the real-material question for sounds in VOTE; 113 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_9_26_G.md. THEN (jv) SWEEP AD 10/9: sixteen ships (PLUMBER's load round two, the old fight stood down, the map verdict, the future boards, the town's people, ground effects, built on the map, the pictures painted, armour tiers, the posts, the sheets checked, the far-stop detector, the frame, the glass face, price of mercy, the wash board); RUN TWO [the finished pictures in] FIRST plus two rows, TUNING [the roll tables]; RUN idle since 07:41 holds the first minute; 130 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_9_26_H.md. THEN (jw) SWEEP AE 10/9: eighteen ships (the frozen fight out of the demo page, the far-stop count and its noise blind spot, the man at his size on every screen, the freeway round two, climbing, the enemy faces, the keepers speak, the shot kicks, the origin crews, built on the board, the flip look, WORLD's corrected premise, the freeway kit, the buy sound, recruit odds, what grows); Grok 140-143 stamped, one VIA GROK default; WORDS, EYES and TUNING topped up; RUN idle since 07:41; 150 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_9_26_I.md. THEN (jx) SWEEP AF 10/10: fourteen ships (a fresh phone sees the door, struck down, the long injury, the finished pictures with people, the first beast, the props, three block families, four phones, prices per place corrected, raids make traits, bb gear, the bar's glass); LIFE+CITY's numbers routed through the data door; COMBAT TWO, RUN TWO, PORTRAIT, TUNING topped up; 167 sheets wait. records/BOHEMIA_COORDINATOR_ROUND_10_10_26.md. THEN (jy) THE SEVENTH VOTES (Paolo 10/10, 33 new verdicts, 355 now): rules 82 (the reference twin; DIRECTION [the reference twin] FIRST; the repo holds no downloaded game art, he is asked for it), 77b (the map's roads), 83 (melee one tile, guns two; COMBAT [guns need two tiles] FIRST), 84 (an act is a year; old body retired), 85 (the flip unlocks at the first crisis), 86 (the map is for looks; built on the board and map retired); UI [the roster and the posts look] FIRST; the mods chat only helps modders; the respec learned through dialogue; the arrow dies; the shot kicks all directions; nobody walks on a wall; seven lanes topped up. laws/BOHEMIA_ADDENDUM_THE_SEVENTH_VOTES_10_10_26.md; records/BOHEMIA_PAOLO_THE_SEVENTH_VOTES_ALL_THE_ART_LOOKS_NOTHING_LIKE_THE_ASSETS_WE_DOWNLOADED_10_10_26.md. THEN (jz) THE PACKS ARE THE BAR (Paolo 10/10: 'the cars, the street tiles and sidewalks are assets we downloaded, look again'): rule 82a; the purchased HD packs are banks/BOHEMIA_HD_TILE_REPO_part1-4 with his 1,927 approved tiles in the ACT1 confirmed set, plus the street pools, markings, house skins, the starter tileset and the city props (the cars); the 7/27 shopping law was never read for the fight (no COMBAT TWO tool reads the corpus); COMBAT TWO [the boards from the packs] FIRST, COOK [the pack is the twin] FIRST, PLUMBER [the pack gate]; the coordinator's 'no downloaded art' corrected. records/BOHEMIA_PAOLO_THE_CARS_AND_THE_STREET_TILES_ARE_ASSETS_WE_DOWNLOADED_LOOK_AGAIN_10_10_26.md. THEN (ka) THE ART REVAMP (Paolo 10/10: 'two or three more art cook-up chats... like a seventh grader is making my game'): rule 87; COOK TWO the ground, COOK THREE the people, COOK FOUR the places, each with three OPEN rows and a hard file split; COOK keeps the bank, the twins and the far end; DIRECTION runs the program and judges every round against its twin before VOTE; the order ground, people, places, map; CLAUDE.md's lane list updated. records/BOHEMIA_PAOLO_TWO_OR_THREE_MORE_ART_COOK_CHATS_A_WHOLE_REVAMP_10_10_26.md. THEN (kb) LOOKS FIRST, FEATURES HOLD (Paolo 10/10: 'the UI is dogshit too... prioritize how it looks'): rule 88; the look program runs (DIRECTION, the four cooks, UI's look, CHARACTER and PORTRAIT, COMBAT TWO, EYES, RUN's far end and first-minute bugs, PLUMBER); nine lanes and COMBAT's mechanics HOLD with no rounds and no sheets; the research lanes write pages without sheets. records/BOHEMIA_PAOLO_PRIORITIZE_HOW_IT_LOOKS_STOP_IMPLEMENTING_10_10_26.md. THEN (kc) FIVE MORE VOTES (Paolo 10/10, a re-paste of the seventh export with five new lines): registry at 360 verdicts; UI [landscape] NO ('the brown-grey sides'), new OPEN row UI [the sideways sides]; CHARACTER [three bodies] NO (rules 82 and 87 stand over it, COOK THREE redraws first); COMBAT [the art at its own pixels] NO ('can't tell difference') and RULE 89, WHAT HE CANNOT SEE DID NOT SHIP (a before-and-after at one to one, or it is not a show; EYES checks it, PLUMBER's cook gate grows the leg); WORLD [the valley has no inside] YES, so [one table for the rooms] is the one WORLD row that runs under the hold; TUNING [the price ratios] YES, the 32 situations next, research only. records/BOHEMIA_PAOLO_THE_SEVENTH_VOTES_FIVE_MORE_10_10_26.md. THEN (kd) THE COORDINATOR'S SCHOOL (Paolo 10/10: 'do 10 rounds of research on how to be the best master coordinator for this game of all time'): he stopped the sweep for it; ten research rounds ran in parallel with web sources (pages could not be opened through the proxy, so findings rest on search text, said on every page), ten pages records/BOHEMIA_COORDINATOR_SCHOOL_ROUND_01 to _10, the law laws/BOHEMIA_LAW_THE_COORDINATORS_SCHOOL_10_10_26.md with the ten rules, rule 90 on the front page, rows PLUMBER [the owner file], [the gate goes red], [the reply leg], RUN [ten seconds to play]. From the next sweep the coordinator's round record opens with THE THREE RISKS and THE FIVE MINUTES in the live build, replies are capped at 150 words with the last five lines fixed, and every new rule names what it folds or retires. records/BOHEMIA_PAOLO_TEN_ROUNDS_OF_RESEARCH_ON_THE_MASTER_COORDINATOR_10_10_26.md. THEN (ke) SWEEP AG (10/10, the first sweep under rule 90): records/BOHEMIA_COORDINATOR_ROUND_10_10_26_AG.md opens with THE THREE RISKS (one number for time to play, 22 s against 48 s, the line is ten; no ONE SCREEN named for the look program; 173 items waiting on his thumb) and THE FIVE MINUTES (the coordinator's own run of tools/bohemia_five_minutes.js at 4x). 203 commits read; notes on 26 lanes; Grok 144 to 157 stamped and the asks re-ordered (23 the soundscape, 24 the flat houses); rule 88 folded in place with his direct words to SOUNDS (SOUNDS runs at 'the best sounds of all time'; the coordinator misread 'stop implementing the sounds'); FACTIONS and ECONOMY moved to pages without sheets under the hold; the open-row gate's two reds fixed and five lanes topped up (RUN TWO, CHARACTER, COOK THREE, ECONOMY, TUNING); the deploy, cook, release and cut lines rewritten; DIRECTION asked to name the one screen. One shipped thing he never opened: the MAP sideways, no brown-grey bands. THEN (kg) THE SCHOOL, ROUNDS TWO TO TEN (Paolo 10/10: 'that was one out of 10... find unique angles in life'): nine rounds one at a time, each applied the same hour: rule 91 READBACK, 92 TRIAGE (179 items sorted, 10 red, records/target/BOHEMIA_VOTE_TRIAGE.json), 93 CALLING THE SHOW (BUILD_CALLING_SCRIPT.md), 94 THE STOP CORD (the first pull is the STOP block at the top of this file), 95 THE TURNAROUND TABLE (51 stale claims turned), 96 THE TRAIL EVAPORATES (97 old segments and three rules folded into records/BOHEMIA_EVAPORATED_10_10_26.md), 97 THE ROW IS INTENT (five rows rewritten), 98 THE PASS (tickets/PLATE_FIGHT_BLOCK.md fired), 99 WRITE FOR THE MAN (a SOUND line on all 26 lanes, one move). laws/BOHEMIA_LAW_THE_COORDINATORS_SCHOOL_10_10_26.md closes the school. The next sweep runs the new way: the stop block and the all-day count first, the five minutes, readbacks heard, lanes sorted still/wave/walk, five notes. THEN (kh) SWEEP AH (10/10, the first sweep run the new way): records/BOHEMIA_COORDINATOR_ROUND_10_10_26_AH.md; 34 commits; readbacks heard 5 of 8 claims, 0 negatives, 3 claims without the line (RUN TWO and TUNING twice, all shipped inside the round, so the hearback is moot and the next claim carries it); lanes sorted STILL 3 (WORLD, PEOPLE, RUN), WAVE 1 (TUNING), WALK 22; four notes; rule 96 amended in place on WORLD's objection (a hold pauses the row clock, a cite renews a row); the eight holds re-affirmed with his words and an expiry (rule 95.3); COMBAT TWO and COOK FOUR topped up; the plate's outs updated; CUE 3 on STANDBY behind the STOP block; the stop block moved back to the top (WORLD's block had been written above it). The next sweep starts after this commit.
 
 
 
@@ -55937,6 +61023,54 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 10/10d (latest): [fight verdict 23] SHIPPED: F1 PASS (1.0) and F2 PASS
+(0.025/0.024/0.021 on the glass, 12x verdict 22) for the first time; F3-F5 not
+yet (camouflage sand, a pale line down the board, freeway still the old road,
+flat barrier); 4 of 22's 7 still wrong. Revamp pass round two: COOK TWO PASS,
+COMBAT TWO street PASS / board BACK, COOK THREE BACK; notes at the top of each
+section; records/BOHEMIA_THE_REVAMP_PASS_ROUND_TWO_10_10_26.md. Next OPEN:
+[fight verdict 24]. [the reference twin] stays CLAIMED (places, map, people).
+ROUND LOG 10/10c: THE REVAMP PASS round one (rule 87): COOK FOUR PASS
+(to VOTE), COOK TWO road PASS / sheet BACK, COOK THREE BACK; notes put at the top
+of each cook's section; records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md.
+Runway, face and phone twins still [PENDING Paolo] via the coordinator.
+ROUND LOG 10/10b (latest): [the reference twin] round one: reference/art_bank/
+by family (pack samples + Pocket City 2 pointers; runway/face/phone twins OWED,
+[PENDING Paolo] via the coordinator: send the runway looks, real faces, a real
+cracked iPhone); THE GROUND twin sheet in VOTE (ours 0.5-4.8 colours/1000px vs
+the pack 21-250). Row stays CLAIMED: places, map, people next. Rule 87: the
+four cooks bring every round here before VOTE.
+ROUND LOG 10/10a (latest): [demo verdict two] SHIPPED: 2 fixed (men full size,
+men on the glass), 18 still wrong, contracts on the phone new; AH-03 14 tells.
+Next OPEN: [fight verdict 23] (COMBAT [struck down] 69e5176 and COMBAT TWO [the
+rest join] are landing).
+ROUND LOG 10/9e (latest): [four phones] SHIPPED: three sibling skins as real
+values (records/target/DIRECTION_FOUR_PHONES_SKINS.json) rendered live on the
+alpha's phone (cracked / repaired / slab / yellowed). Next OPEN: [demo verdict
+two] (waits on RUN's next cut), [fight verdict 23] (waits on the next fight).
+ROUND LOG 10/9d (latest): [flip look] SHIPPED. Measured: the flip today
+changes 0.0% of the world (act 3 not derived on the map). Card: every flip 4
+beats (hold, tear in the phone, drain by value, hard cut same camera), first
+opening 16 beats (narrator reads the year, changes rise on the beat), four
+phones per act, the never list. Rule 74: wrote my next three OPEN rows
+([four phones], [demo verdict two], [fight verdict 23]).
+ROUND LOG 10/9c (latest): PLUMBER's note fixed (verdict 22's VOTE row names
+where you see it). [the map verdict] SHIPPED: map sharp now (0.078/0.051),
+far end painted; no middle stop (one pinch 1.00 -> 0.21), city on a raised
+slab, ridges stamped, every lot one grit. Next OPEN: [flip look], the last;
+when it ships write the next from the jump list (rule 74).
+ROUND LOG 10/9b (latest): [the fight verdict] SHIPPED, FIGHT VERDICT 22 on
+the rebuilt fight (freeway + street, live, tools/bohemia_direction_fight_
+verdict_22.js): still wrong 3 of 5 (F2 the art 0.038 shown at 0.002, F3 rings/
+word box/dark band, F5 flat barrier and trailer); freeway wall gone, one kit.
+Analog horror line given per board. Next OPEN: [the map verdict], [flip look].
+ROUND LOG 10/9a (latest): [the demo verdict] SHIPPED. Shot the demo myself
+(BUILD 10/5g, 390x844@3x, tools/bohemia_direction_the_demo_verdict.js): nine
+screens judged in two sentences each with owners; biggest hole: arrival opens
+nothing (no settlement/market/bag/home) and no fight recap; the brown blob
+cut; boxes over play; tiny men on a huge board; one grit on every lot. The
+tells list is AH-03 in the library. Next OPEN: [the fight verdict] (start
+with the freeway board, 77a), then [the map verdict], then [flip look].
 [PENDING coordinator] PAOLO SPOKE TO THIS CHAT 10/1: "I don't even wanna wall of
 text before they can start entering the world... maybe one screen and then if
 they're an expert they can start maneuvering... multiple runs". Recorded as a
@@ -130311,9 +135445,35 @@ BOHEMIA_THREE_RULERS_AND_TWO_COULD_NEVER_FAIL_8_27_26.txt
 
       /* __CITY_FEEDBACK__ -- AND WHICH BUILD, WHICH THE CITY HAS NEVER KNOWN. */
 
-## RUN 2 (01b, rule 55) -- handoff 10/1
+## RUN TWO (01b, rule 55) -- handoff 10/1
 DONE [two sentences]: all 102 waiting VOTE items rewritten to two sentences max, the second naming where he sees or hears it; ten coordinator rows with no why got one; vote_tab_gate leg added (refuses >2 sentences or a last sentence without 'you see it'/'you hear it'); gate 32/0, leg proven to bite. Any lane registering a new item must follow it.
 NEXT [settlement screen]: a new settlement screen file RUN 1 plugs into the arrival; buildings as tappable art from the banks (barber from CHARACTER a00bb5cf, market, recruiter, contract board, SCAVENGE), the phone shows contracts (rule 51). Never the demo's map, travel or cut.
 
 RUN 2 10/1 later: SHIPPED [settlement screen] slices/BOHEMIA_SETTLEMENT_SCREEN.html + gates/settlement_screen_gate.js (22/0). RUN 1: frame it on arrival (travel arrival block in BOHEMIA_CITY_WORLD.html has no hook yet), post BOHEMIA_SETTLEMENT_OPEN with place/batteries/contracts/hired, answer needFace with BOHEMIA_SETTLEMENT_FACE, and route barber 'open' to buildFaceEditor / the hair shelf. RUN 2 queue empty.
 RUN 2 10/1 round 3: [settlement screen] round two in the same file: buildings by tier (camp 4, town 6, fortress 8: + BAR rumours, CLINIC wound days, YARD mastery swap past 11), the street is the shop run twice and drags, shut fronts drawn SHUT; open() also takes wounded[] and veterans[]; posts 'round','clinic','train'. Gate 29/0. RUN 2 queue empty; next would be per-trade front art (COOK paused) and real faces via the demo.
+RUN 2 10/1 round 4: queue empty. The SHARED rows (BB-LOOPLESS, BB-THE-ACT-IS-A-STATE) are the walked city's loop, which is RUN 1's file and rule 55 keeps RUN 2 off the demo's map. [PENDING coordinator] give RUN 2 its next row; candidates inside its files: the settlement screen's contract board reading QUESTS' 96-quest shelf instead of 4 drafted offers; the stall's stock refresh every 3 days (BB); the vote tab playing sounds inline.
+RUN TWO 10/1 round 5: SHIPPED [one file loop] slices/BOHEMIA_LOOP.html + gates/one_file_loop_gate.js 12/0. Settlement screen now posts batteries on every act and sells rounds. RUN ONE: fold the loop into the demo; art lanes dress it (fight bodies and tiles are placeholders). RUN TWO queue empty.
+RUN TWO 10/1 round 6: queue empty again. [PENDING coordinator] next row for RUN TWO. Candidates in its own files: the loop's road events (a face, 2-3 choices) and the stall's 3-day restock; or the loop reads COMBAT TWO's floor tiles if they get copied out of banks/ into a published folder.
+RUN TWO 10/4: the settlement screen REBUILT the Battle Brothers way (rule 67, sixth votes: 'the buildings will be the buttons, extra buttons not needed'; 'always 45 degrees'): the game's own 45-degree buildings (HERO_SRC, copied to slices/settlement/), tap a building's own pixels (an id-colour tap map, hard edges), no shelf; two columns on an upright phone, a 3x3 town on wider screens; BohemiaSettlement.where(k) gives a building's tap point. Gates: settlement 28/0, loop 12/0, vote 32/0. Known: in a fortress the tall clinic covers part of the bar.
+RUN TWO 10/4 b: found, not fixed (not my file): nobody answers the settlement screen's needFace post (BOHEMIA_LOOP.html handles BOHEMIA_SETTLEMENT acts but not needFace), so every keeper shows the dark head shape in the demo. RUN: answer {type:'BOHEMIA_SETTLEMENT_FACE', who, src:dataURL} from the demo's face road (ctFaceAsk / FACE_CV). RUN TWO queue still empty.
+RUN TWO 10/5: [one painted place] SHIPPED (see the row). Next is [settlement traits]. Bar and yard await COMBAT TWO hotspots; open() takes night:true.
+RUN TWO 10/5 b: [the market] SHIPPED. Next: [settlement traits]. For RUN: BOHEMIA_LOOP pays 3 per contract; the settlement now sends contract.pay 30/60/90 and posts buyArms/sellArms with the battery balance.
+RUN TWO 10/5 c: [the inventory] SHIPPED (the bag). Equip waits for [the roster screen]. For RUN: the settlement posts {act:'bag', bag:[items], slots:36} on every change; keep it with the save and send it back as bag:[...] in BOHEMIA_SETTLEMENT_OPEN. Why he could not buy: he likely carries a handful of batteries and the cheapest gun is 3+, a town's 15+; jobs now pay 30/60/90 in the settlement's offer but the city loop pays loopJobPay(c.pay).
+RUN TWO 10/5 d: [settlement traits] SHIPPED. Next: [the roster screen] (and equip from the bag).
+RUN TWO 10/9: [the pay times ten] and [the roster screen] SHIPPED. For RUN: frame BOHEMIA_ROSTER_SCREEN.html from the HUD; it posts BOHEMIA_ROSTER {formation:{front,back}} / {equip} / {bag} / {done}; pass formation into the fight's opts.formation. Next RUN TWO: [climbing].
+RUN TWO 10/9 b: [the bar] SHIPPED. For RUN: listen for {act:'round', morale, relation} and {act:'rumour', mark} from the settlement frame; send crewSize in BOHEMIA_SETTLEMENT_OPEN. Next RUN TWO: [the posts screen].
+RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordinator] ask every lane to run gates/vote_tab_gate.js before registering a VOTE item (most rounds now carry 3-5 that break rule 22f). DIRECTION's demo sheet says 'tap a place and nothing opens' in the demo: the settlement frame opens on ARRIVAL in the city loop (loopArrived -> loopOpenTown); a TAP on a place only travels there, RUN's to decide.
+- RUN TWO 10/10 [climbing] SHIPPED: men level from the fight's XP and pick perks on the roster screen; the next fight reads them via opts.company. RUN: forward BOHEMIA_FIGHT_OVER's crew rows to the roster and pass the roster's DONE company into the next fight. COMBAT: two small lines in the fight (crew rows on FIGHT_OVER; c.perks wins over the build), gated by climbing_gate.js.
+- RUN TWO 10/10 [the finished pictures in] SHIPPED: COOK's finished settlement pictures carry ANIMATION's people (keepers at doors, a crowd by the stall sized by traits). Next: [the stash screen].
+- RUN TWO 10/10 [the stash screen] SHIPPED: slices/BOHEMIA_STASH_SCREEN.html (BOHEMIA_STASH_OPEN in, BOHEMIA_STASH out). RUN: open it from the bar's six. ECONOMY: water has no daily rate. Next: [the arrival].
+
+
+## COOK TWO (cook 2, the ground) -- 10/10 cook2-b27d
+[the street kit from the packs] SHIPPED (2f63483). [the cars and the props from the packs] CLAIMED, round one: 16 cover pieces from his UP pack sprites (slices/fight_ground/kit_cover/, kit_cover.json), the three-quarter wrecks replace the squashed top-down cars; rule-89 picture slices/vote/COOK2_THE_CARS_BEFORE_AFTER.png; gate 428/0. Waiting: DIRECTION's pass; COMBAT TWO points cover[car_*].src at kit_cover/ and places the props. Next: the dumpster from the packs, then [the freeway and the lot]. Record: records/BOHEMIA_COOK2_THE_CARS_AND_PROPS_FROM_THE_PACKS_10_10_26.md
+
+## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
+ALSO CLAIMED [the enemy tiers repainted]: round 1 sheet records/cook3/enemy_tiers_repainted.png, record records/BOHEMIA_COOK3_THE_ENEMY_TIERS_REPAINTED_10_10_26.md; marauder and leader read as plate; ROUND 2 DONE (thug padded 606 px, raider mail shirt 1194 px, leader gold plate). ROUND 3 answered DIRECTION's BACK (marksman teal, leader seams and belly, mail rows); back with DIRECTION. THIRTEEN round 4 answered DIRECTION's BACK (one accent: Colorful and Network; folds not speckle). ROUND 4 of the tiers: the five armour states painted (bare, padded, leather, mail, plate) on one man. NEXT: mail vs plate value at 28 px; DIRECTION's verdict on both rows; the sheet's white backdrop. Plate ticket OUT written.
+CLAIMED [the thirteen repainted]. Round 1 done, NOT shipped: a before/after sheet of the thirteen with a runway paint layer (engine/bohemia_cook3_runway_paint.json, tools/bohemia_cook3_the_thirteen_repainted.js, records/cook3/thirteen_repainted.png, record records/BOHEMIA_COOK3_THE_THIRTEEN_REPAINTED_ROUND1_10_10_26.md). Alpha untouched. ROUND 2 DONE: the accent follows the real garment (solo draw mask), no waist split, no CHARACTER change needed. ROUND 3 DONE: Mob .354, Homeless .058, Remnants .206 (per-faction rules in the paint file). WAITING: DIRECTION judges records/cook3/thirteen_repainted.png against the runway twin; on pass, CHARACTER hooks the draw to the paint file and faction_colour_gate runs live; DIRECTION judges, then VOTE. Not in a tab yet.
+- RUN TWO 10/10 [the roster shows the hurt] SHIPPED: laid-up men leave the line with their days, mark and clinic price; the roster heals on BOHEMIA_DAY. RUN: post BOHEMIA_DAY from the clock. Next: [the arrival] ([the twin on the settlement] waits on DIRECTION's twin sheet). TUNING's roll audit (exactly 3 talents, level-up picks, wages by level) is my next fix.
+- RUN TWO 10/10: ON HOLD under rule 88 (LOOKS FIRST, FEATURES HOLD; RUN TWO is not on the running list). Nothing built this round. [the twin on the settlement] is the one row that fits the look program and it waits on DIRECTION's twin sheet; I pick it up the round that sheet lands. TUNING's roll audit (exactly 3 talents, level-up picks, wages by level) waits with the hold.
+- RUN TWO 10/10 [the sideways band] SHIPPED: the settlement fills the glass on its side (no brown-grey bands). Before/after for DIRECTION/EYES: slices/vote/RUN2_THE_SIDEWAYS_BAND_10_10.png (not registered, rules 88-89). Next: [one painted place] from COOK FOUR's pack settlement.

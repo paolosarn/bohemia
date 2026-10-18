@@ -7,7 +7,7 @@ PLACE: the map, the canal road between the co-op blocks and the dam; the event s
 SITUATION: THE COMPANY INHERITS, the debt side: in act 1 a company member, Lalo Paz, died owed four weeks' wages (the ledger holds the unpaid days). His widow Irma kept the chit. The heir of the family, leading the act-2 company, owes it by blood, not by memory
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 DEFAULT READ (act 1 never played, or no one died owed): Irma's husband is the act-1 default roster's first dead, and the chit is for the default four weeks. Never fires in the first minute of an act.
 
 ## THE SITUATION

@@ -1,0 +1,132 @@
+{
+  "fight_day": {
+    "label": "fight_day",
+    "ground_dark_median": 0.05570752700380216,
+    "ground_lit_median": 0.05621947391972796,
+    "lit_vs_dark": 1.0048430507309796,
+    "lit_vs_dark_glare": 1.0039399505442865,
+    "n_dark_tiles": 93,
+    "n_lit_tiles": 17,
+    "man_vs_ground_median": 1.6823615919904678,
+    "man_vs_ground_glare_median": 1.4734353376845388,
+    "n_men_sampled": 21
+  },
+  "fight_night": {
+    "label": "fight_night",
+    "ground_dark_median": 0.03387227153682064,
+    "ground_lit_median": 0.32431693084332136,
+    "lit_vs_dark": 4.462940182548806,
+    "lit_vs_dark_glare": 2.7186605775974475,
+    "n_dark_tiles": 93,
+    "n_lit_tiles": 17,
+    "man_vs_ground_median": 1.5648868398564229,
+    "man_vs_ground_glare_median": 1.383095447709477,
+    "n_men_sampled": 21
+  },
+  "words_day": [
+    {
+      "id": "R1",
+      "ink_px": 269,
+      "bg_px": 4255,
+      "contrast": 10.822932352914197,
+      "contrast_glare": 5.235019908892729
+    },
+    {
+      "id": "BOOKIE",
+      "ink_px": 699,
+      "bg_px": 1677,
+      "contrast": 10.562235543364825,
+      "contrast_glare": 5.053404419066114
+    },
+    {
+      "id": "END TURN",
+      "ink_px": 3696,
+      "bg_px": 37474,
+      "contrast": 10.533793122884354,
+      "contrast_glare": 5.094653570360867
+    },
+    {
+      "id": "WAIT",
+      "ink_px": 1693,
+      "bg_px": 22166,
+      "contrast": 10.20644061430134,
+      "contrast_glare": 4.957842697303806
+    },
+    {
+      "id": "AUTO",
+      "ink_px": 822,
+      "bg_px": 17918,
+      "contrast": 11.032275877246956,
+      "contrast_glare": 5.3084621305294775
+    }
+  ],
+  "words_night": [
+    {
+      "id": "R1 NIGHT",
+      "ink_px": 792,
+      "bg_px": 9786,
+      "contrast": 10.71092276150928,
+      "contrast_glare": 5.1957253131813355
+    },
+    {
+      "id": "BOOKIE",
+      "ink_px": 699,
+      "bg_px": 1677,
+      "contrast": 10.562235543364825,
+      "contrast_glare": 5.053404419066114
+    },
+    {
+      "id": "END TURN",
+      "ink_px": 3696,
+      "bg_px": 37474,
+      "contrast": 10.533793122884354,
+      "contrast_glare": 5.094653570360867
+    },
+    {
+      "id": "WAIT",
+      "ink_px": 1693,
+      "bg_px": 22166,
+      "contrast": 10.20644061430134,
+      "contrast_glare": 4.957842697303806
+    },
+    {
+      "id": "AUTO",
+      "ink_px": 822,
+      "bg_px": 17918,
+      "contrast": 11.032275877246956,
+      "contrast_glare": 5.3084621305294775
+    }
+  ],
+  "settlement": [
+    {
+      "file": "camp_0_night.webp",
+      "median_luminance": 0.2145959071822831,
+      "median_luminance_glare": 0.34938146695486755
+    },
+    {
+      "file": "camp_1_night.webp",
+      "median_luminance": 0.21858924561893706,
+      "median_luminance_glare": 0.3532231709981721
+    },
+    {
+      "file": "fortress_0_night.webp",
+      "median_luminance": 0.2468320536254161,
+      "median_luminance_glare": 0.38080935946221456
+    },
+    {
+      "file": "fortress_1_night.webp",
+      "median_luminance": 0.24546838399628848,
+      "median_luminance_glare": 0.379684586968033
+    },
+    {
+      "file": "town_0_night.webp",
+      "median_luminance": 0.2559552845845341,
+      "median_luminance_glare": 0.388119473963158
+    },
+    {
+      "file": "town_1_night.webp",
+      "median_luminance": 0.2559552845845341,
+      "median_luminance_glare": 0.388119473963158
+    }
+  ]
+}

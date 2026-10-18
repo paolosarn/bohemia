@@ -80,8 +80,8 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['alpha', 'arm', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
-                    'noWorker', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
+const KNOWN_OPTS = ['profile', 'alpha', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
+                    'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
    became a wait of ONE millisecond: one try, and a pass only when the RUN box happened to
@@ -117,11 +117,29 @@ async function open(opts) {
      this lane and would collide with whoever else is working. One map, opt-in, and the
      server behaves exactly as before when nobody passes it. */
   const serve = opts.serve || {};
+  /* opts.pages (PLUMBER 10/9, [first load]): SERVE LIKE GITHUB PAGES. This little server sends no
+     caching rules, so a browser re-downloads every file it asks for twice, and no compression, so
+     text crosses the wire at full size. The real site (GitHub's documented behaviour; github.io is
+     refused by this box's proxy, so it could not be read live) sends Cache-Control: max-age=600, an
+     ETag, Last-Modified, answers If-None-Match with 304, and gzips text. A byte count taken without
+     those blames the game for the test server. Off unless asked, so no other caller changes. */
+  const zlib = require('zlib');
+  const TEXTY = /\.(html?|js|mjs|json|css|txt|svg|md|webmanifest)$/i;
   const server = http.createServer((req, res) => {
     const u = decodeURIComponent(req.url.split('?')[0]);
     const f = serve[u] || path.join(ROOT, u.replace(/^\//, ''));
     if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end(); }
-    res.writeHead(200, { 'Content-Type': MIME[path.extname(f)] || 'application/octet-stream' });
+    const head = { 'Content-Type': MIME[path.extname(f)] || 'application/octet-stream' };
+    if (opts.pages) {
+      const st = fs.statSync(f), tag = '"' + st.size.toString(16) + '-' + Math.floor(st.mtimeMs).toString(16) + '"';
+      Object.assign(head, { 'Cache-Control': 'max-age=600', 'ETag': tag, 'Last-Modified': st.mtime.toUTCString(), 'Vary': 'Accept-Encoding' });
+      if (req.headers['if-none-match'] === tag) { res.writeHead(304, head); return res.end(); }
+      if (TEXTY.test(f) && /\bgzip\b/.test(req.headers['accept-encoding'] || '')) {
+        head['Content-Encoding'] = 'gzip'; res.writeHead(200, head);
+        return fs.createReadStream(f).pipe(zlib.createGzip({ level: 6 })).pipe(res);
+      }
+    }
+    res.writeHead(200, head);
     fs.createReadStream(f).pipe(res);
   });
   await new Promise(r => server.listen(0, '127.0.0.1', r));
@@ -133,10 +151,16 @@ async function open(opts) {
      always-fresh service worker (slices/sw.js), and a worker answers requests itself, so a
      probe that throttles or logs the NETWORK measures the worker, not the wire. Blocking it
      makes every request a real one. Off unless asked: the player's phone has the worker. */
-  const ctx = await browser.newContext({
-    viewport: { width: 390, height: 844 }, deviceScaleFactor: 3,
-    hasTouch: true, isMobile: true,
-    serviceWorkers: opts.noWorker ? 'block' : 'allow' });
+  /* opts.profile (COMBAT 10/4, rules 62 and 72: 'fit on an iPhone screen, fit differently flipped, on widescreen
+     monitors'): the four screen classes. Unset is the phone held upright, as before. */
+  const PROFILES = {
+    phone_portrait: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true },
+    phone_landscape: { viewport: { width: 844, height: 390 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true },
+    tablet: { viewport: { width: 820, height: 1180 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true },
+    computer: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, hasTouch: false, isMobile: false } };
+  const prof = PROFILES[opts.profile || 'phone_portrait'];
+  const ctx = await browser.newContext(Object.assign({}, prof, {
+    serviceWorkers: opts.noWorker ? 'block' : 'allow' }));
   /* EXTENDED 9/20 (PORTRAIT, rule 14(g), for [faces first]). opts.arm is a string of
      JavaScript run on EVERY new document BEFORE any page script, in the page AND in
      the city iframe. It exists because a question like "whose face does a stranger
@@ -184,6 +208,46 @@ async function open(opts) {
   if (opts.throttle && opts.throttle > 1) {
     await cdpEarly.send('Emulation.setCPUThrottlingRate', { rate: opts.throttle });
   }
+  /* EXTENDED 10/9 (PLUMBER, [first load], rule 72 line 12; extend the one driver, never fork it).
+     opts.net: a phone's network, { down: kbit/s, up: kbit/s, rtt: ms }, the same knob DevTools uses,
+     so "how long on cell data" is measured instead of guessed. This box's loopback serves 17 MB in
+     well under a second; a phone on LTE does not.
+     opts.netlog: every response's bytes on the wire and the moment it finished, in ms from the moment
+     the page's own document was requested, from the browser's network events (frames included), so
+     "what had to arrive before the title" is a list with sizes, not a feeling. Both off unless asked. */
+  const netlog = [];
+  if (opts.net || opts.netlog) await cdpEarly.send('Network.enable');
+  if (opts.net) {
+    await cdpEarly.send('Network.emulateNetworkConditions', { offline: false,
+      latency: opts.net.rtt || 0, downloadThroughput: (opts.net.down || 0) * 1000 / 8,
+      uploadThroughput: (opts.net.up || opts.net.down || 0) * 1000 / 8 });
+  }
+  /* opts.beforeGoto(cdp, page) (PLUMBER 10/9, [first load]): a hook with the browser's own debugging
+     session BEFORE the page is requested, for instruments that must see the very first millisecond
+     (a CPU profile of the boot). Off unless asked. */
+  if (typeof opts.beforeGoto === 'function') await opts.beforeGoto(cdpEarly, page);
+  if (opts.netlog) {
+    const sent = {}; let base = null;
+    cdpEarly.on('Network.requestWillBeSent', (e) => {
+      if (base === null && e.type === 'Document') base = e.timestamp;
+      sent[e.requestId] = { url: e.request.url.replace(/^https?:\/\/[^/]+/, '').split('?')[0], type: e.type, at: e.timestamp };
+    });
+    /* a download cut off on purpose (a reader that stops once it has what it needs) never
+       "finishes"; its bytes are the chunks that arrived, so those are counted too */
+    const got = {};
+    cdpEarly.on('Network.dataReceived', (e) => { got[e.requestId] = (got[e.requestId] || 0) + (e.encodedDataLength || 0); });
+    const done = (e, bytes, how) => {
+      const r = sent[e.requestId]; if (!r) return;
+      netlog.push({ url: r.url, type: r.type, bytes, how,
+        startMs: base === null ? null : Math.round((r.at - base) * 1000),
+        endMs: base === null ? null : Math.round((e.timestamp - base) * 1000) });
+    };
+    /* the page's OWN document is reported as 0 bytes in loadingFinished (measured 10/9: a 2.4 MB page
+       read 0 KB), so the chunks that arrived are the fallback; without it a later full re-read of the
+       page had no first copy to be compared with */
+    cdpEarly.on('Network.loadingFinished', (e) => done(e, Math.max(e.encodedDataLength || 0, got[e.requestId] || 0), 'finished'));
+    cdpEarly.on('Network.loadingFailed', (e) => done(e, got[e.requestId] || 0, e.canceled ? 'cancelled' : 'failed'));
+  }
 
   const tGoto = Date.now();
   /* THE DRIVER SAYS WHAT IT OPENED, ONCE, WITHOUT BEING ASKED. The row wanted this
@@ -195,6 +259,16 @@ async function open(opts) {
        : WANT === DEMO_FILE ? '  (the baked demo, which only RUN re-cuts)' : ''));
   await page.goto('http://127.0.0.1:' + port + '/slices/' + WANT,
     { waitUntil: 'load', timeout: 300000 });
+  /* EXTENDED 10/2 (COMBAT, [rebuild], rule 14g: extend the one driver, never fork it).
+     opts.bare: a ONE-FILE surface with no front door and no city frame (the rebuilt fight,
+     slices/BOHEMIA_FIGHT.html; the loop is the same shape). Same server, same phone, same
+     arm; the door and the city frame are skipped because there are none, and the caller
+     gets the page, the browser and the errors. Off unless asked, so nothing else changes. */
+  if (opts.bare) {
+    return { page, ctx, browser, errs, server, netlog, cdp: cdpEarly, openedFile: () => WANT, isAlpha: () => false,
+      says: () => 'measured on ' + WANT + ' (a one-file surface)',
+      close: async () => { await browser.close(); server.close(); } };
+  }
   /* WAIT FOR THE DOOR, DO NOT GUESS HOW LONG IT TAKES (COOK 9/14, [streets fixed] r3).
      The two waits here were blind: 15 s for the front splash, 22 s for the city frame.
      That is tuned to the DEMO on one machine. Pointed at the ALPHA -- which is where
@@ -260,6 +334,25 @@ async function open(opts) {
       opts.boot || 15000);
   }
   if (typeof opts.beforeTap === 'function') await opts.beforeTap(page);
+  /* *** TRAP 7: THE DOOR HAS A TITLE IN FRONT OF IT, AND A STRANGER GOES THROUGH IT. (RUN 10/9, [a fresh phone
+     sees the door], EYES 1bdc7023.) *** The knock below clicks #front from a script, which entered straight past
+     the demo's title (NEW GAME / CONTINUE / SETTINGS), so a walk "as a stranger" read no title and no picks.
+     The shell now drops every click on the door while the title is up, so the driver does what a person does:
+     NEW GAME with a real touch on a wiped phone, CONTINUE over a save. A caller that already went through it
+     in beforeTap (throughTheTitle) finds no title here and nothing changes. d.title says what happened. */
+  let titleWas = { seen: false, via: null };
+  try {
+    const T = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+    const up = () => page.evaluate(() => !!(window.BOH_TITLE && BOH_TITLE.up && BOH_TITLE.up())).catch(() => false);
+    if (await up()) {
+      titleWas.seen = true;
+      const hasSave = await page.evaluate(() => { try { return !!BOH_TITLE.saved(); } catch (_e) { return false; } }).catch(() => false);
+      if (hasSave) {
+        const tEnd = Date.now() + (opts.door || 90000);
+        while (Date.now() < tEnd && await up()) { if (await T.continueThroughTitle(page)) titleWas.via = 'continue'; await page.waitForTimeout(400); }
+      } else if (await T.throughTheTitle(page, opts.door || 90000)) titleWas.via = 'new';
+    }
+  } catch (_e) { /* no helper, no title: the knock is the whole door */ }
   /* TRAP 5, AND IT IS TRAP 3 WEARING A HAT: THERE ARE TWO FRONT DOORS AND ONLY ONE OF
      THEM OPENS. The alpha carries BOTH #fronttap and #front. This picked #fronttap with
      an || and clicked it, and on the alpha that is the wrong element: measured, the
@@ -492,7 +585,7 @@ async function open(opts) {
   return {
     page, fr, ctx, browser, errs,
     /* what loaded, and where the door was in that list (PLUMBER 9/15) */
-    loads, cdp: cdpEarly,
+    loads, cdp: cdpEarly, netlog,
     firstPaintMs: () => firstPaintAt,
     bootAt: () => t00,          /* the driver's zero, so a caller can share one axis */
     /* WHICH FILE THIS NUMBER IS ABOUT. The row asked for it by name: "PRINT which file
@@ -529,6 +622,8 @@ async function open(opts) {
     /* how long the door held after the first knock, so a caller can say whether it
        waited or walked straight in rather than guessing */
     doorMs: () => doorMs,
+    /* TRAP 7: whether the demo's title stood in front of the door, and how the driver went through it ('new' or 'continue') */
+    title: titleWas,
     pinchOut: () => pinch(150, 25),          /* toward the city */
     /* *** GET TO THE MAP AND PROVE YOU ARE ON IT (9/24, PLUMBER, row [bb budget]). ***
        A squeeze is a touch gesture at fixed coordinates, and whether it lands is not

@@ -5,7 +5,7 @@ CRISIS: the earth-side nuke
 ECONOMY: either
 PLACE: the highway leaving the valley to the south, where the paved road crosses the dry wash
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 5 and 18 (the act 3 landing moved to a settlement screen, with a floor if the event never fired), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 5 and 18 (the act 3 landing moved to a settlement screen, with a floor if the event never fired), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHAPE: E7, THE PEOPLE WALKING THE OTHER WAY (QR-B)
 
 ## THE SITUATION

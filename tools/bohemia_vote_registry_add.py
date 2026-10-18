@@ -7,23 +7,23 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-barber-10-1'
+MINE_ID = 'character-the-body-scale-gate-was-red-for-the-wrong-reason-10-10'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
-  "id": MINE_ID, "kind": "outfit", "lane": "character",
-  "sha": "pending", "made": "10/1",
-  "title": "THE BARBER",
-  "why": "You said you want to change your look at the barber and it should cost a battery. The settlement screen and the barber building itself are a different job, not built yet. What I show here is the two pieces that are mine: the cost, tested with real numbers (a visit really takes one battery, being broke really stops it), and the two editors a barber visit is for, really opening from a real tap, not a mockup. Left is before, closed. Then one tap on your own face opens the face editor. Then one tap on the hair shelf opens the haircut bank, twelve cuts on it today. New hairstyles are a separate job, coming next.",
+  "id": MINE_ID, "kind": "line", "lane": "character",
+  "sha": "pending", "made": "10/10",
+  "title": "THE BODY SCALE GATE WAS RED FOR THE WRONG REASON",
+  "why": "My own checker for keeping a person one size while he walks was crashing, and it was not the body: the demo now opens on the map by default, so the checker asked for a street nobody was standing on. Fixed the checker, not the game. You see it here, the full story in the record.",
   "show": {
-    "how": "page",
-    "src": "vote/CHARACTER_THE_BARBER.html"
+    "how": "text",
+    "src": "records/BOHEMIA_THE_BODY_SCALE_GATE_WAS_MEASURING_NOBODY_10_10_26.txt\n\nSeen in: no tab, this is a gate fix, no pixel moved."
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
-m = re.search(r'\n(\s*)\}\n(\s*)\],\n(\s*)"verdicts"', s)
+m = re.search(r'\n(\s*)\],\n(\s*)"verdicts"', s)
 assert m, 'cannot find the end of items[]'
-out = s[:m.start()] + '\n    },\n' + block + '\n  ],\n' + m.group(3) + '"verdicts"' + s[m.end():]
+out = s[:m.start()] + ',\n' + block + '\n' + m.group(1) + '],\n' + m.group(2) + '"verdicts"' + s[m.end():]
 json.loads(out)
 io.open(P, 'w', encoding='utf-8', newline='').write(out)
 print('spliced; items', len(json.loads(out)['items']))

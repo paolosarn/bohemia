@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the new solar road north of the rocket yard, where three sets of heavy tyre marks leave the paving and go down into a dry wash with nothing on the map at the end
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E3 THE TRACKS AT THE FORK (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: QD-B02 (act 1, a Destroyer band's footprints turning toward home). Here the tracks are TRUCKS in a boom, the danger is theft from the build, not a raid, and the reading is built to be wrong once.
 
 ## THE SITUATION

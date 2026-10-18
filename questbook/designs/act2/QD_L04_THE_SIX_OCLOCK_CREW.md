@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL10
 FIRST-LINE: FL10
 TWIST: T21 THE RESCUED DO NOT WANT RESCUE (costs standing)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 32 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, the world clawing back, and a boom in power work: every settlement wants linemen. A foreman who kept a substation alive through the worst years has lost his three best hands. They did not come in on Monday. He thinks they were taken, or robbed on the road. He wants them found and brought back.

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE SOUNDSCAPE'S FIRST TWO</title>
+<!-- SOUNDS lane, 10/9, row [the soundscape], rule 80a.
+     PAOLO 10/9: "there's so many sounds in Battle Brothers... the clinking of someone
+     making disorder" (the smith's hammer, the armourer at work). Both sounds here REUSE
+     struckMetal's own free-free bar series, the same inharmonic metal-rod modes
+     boardNail already uses -- what changes is the mass behind the strike and the
+     cadence, which is the real difference between a forge and a rivet gun, not a new
+     recipe. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THE SOUNDSCAPE'S FIRST TWO</h1>
+<div class="sub">SOUNDS &middot; 10/9 &middot; the smith and the armourer had nothing</div>
+
+<div class="loud">The valley's working sounds, from Grok ask 23's floor ("the clinking of
+someone making disorder"): the smith's own hammer, and the armourer setting a rivet.
+Both out of the same real metal mode this lane already uses for a held pipe.</div>
+
+<div class="card">
+  <h2>A. THE SMITH'S HAMMER</h2>
+  <div class="why">An anvil bolted to its stump: the same free-free bar series as a held pipe, lower and far shorter because the mass bleeds the ring into the ground almost at once.</div>
+  <div class="row"><button data-play="smith">PLAY IT</button></div>
+  <div class="num" id="num-smith"></div>
+</div>
+
+<div class="card">
+  <h2>B. THE ARMOURER'S RIVETS</h2>
+  <div class="why">A rivet's tiny, stiff metal rings even higher and shorter than a tack; a rivet gun sets it in several quick blows, never one.</div>
+  <div class="row"><button data-play="rivets">PLAY IT</button></div>
+  <div class="num" id="num-rivets"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = null;
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+var cache = {};
+function made(k){
+  if(cache[k]) return cache[k];
+  if(k==='smith')  cache[k] = H.smithHammer(ac(), {});
+  if(k==='rivets') cache[k] = H.armourerRivets(ac(), {});
+  return cache[k];
+}
+function stopAll(){ try{ if(live) live.stop(); }catch(e){} live=null;
+  document.querySelectorAll('button[data-play]').forEach(function(b){ b.classList.remove('on'); }); }
+document.querySelectorAll('button[data-play]').forEach(function(b){
+  b.onclick = function(){
+    var k = b.dataset.play;
+    if(live && live._k===k){ stopAll(); return; }
+    stopAll();
+    var c = ac(), m = made(k);
+    var s = c.createBufferSource(); s.buffer = m.buffer; s.loop = true;
+    var g = c.createGain(); g.gain.value = 0.9;
+    s.connect(g); g.connect(c.destination); s.start();
+    s._k = k; live = s; b.classList.add('on');
+  };
+});
+function head(){
+  var s = made('smith');
+  document.getElementById('num-smith').textContent =
+    s.what + ' mode at ' + s.f0 + ' Hz, ' + s.seconds.toFixed(2) + ' s';
+  var r = made('rivets');
+  document.getElementById('num-rivets').textContent =
+    r.strikes + ' strikes at ' + r.f0 + ' Hz, ' + r.seconds.toFixed(3) + ' s total';
+}
+head();
+
+var KEY='bohemia_soundscape_first_two_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE SOUNDSCAPE\'S FIRST TWO (SOUNDS, 10/9). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry ids: sounds-the-smiths-hammer-10-9, sounds-the-armourers-rivets-10-9\n\n'
+    + (a || '(nothing written yet)'); }
+function say(msg){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=msg; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THE_SOUNDSCAPES_FIRST_TWO.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

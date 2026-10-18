@@ -87,6 +87,25 @@ const MAKING = [
   ['WORLD',     'world',     'a thing on the phone'],
 ];
 
+/* A LANE THE BOARD HAS STOPPED IS NOT OWED A COOK (PLUMBER 10/10, with [the picture leg]). Rule 88 (Paolo 10/10,
+   'prioritize how it looks') put SOUNDS, WORDS, PEOPLE, FACTIONS, WORLD, LIFE+CITY, ANIMATION and others on HOLD:
+   "no round, no VOTE sheet". QUESTS, TUNING and MODS "write pages and register no sheets". A gate that still read
+   them as owing a sheet would be demanding the thing the board forbids. So the board's own MODE line decides: a
+   lane whose MODE says HOLD, PAUSED or PARKED, or pages without sheets, or RESEARCH ONLY, is reported and not held. */
+function stoppedLanes() {
+  const out = {}; let txt = '';
+  try { txt = fs.readFileSync(path.join(ROOT, 'VAMILY.md'), 'utf8'); } catch (e) { return out; }
+  const L = txt.split('\n');
+  for (let i = 0; i < L.length; i++) {
+    if (!L[i].startsWith('## ')) continue;
+    const key = L[i].slice(3).split('  (')[0].replace(/[^A-Z]/gi, '').toUpperCase();
+    const mode = (L[i + 1] || '').startsWith('MODE:') ? L[i + 1] : '';
+    if (/^MODE:\s*(HOLD|PAUSED|PARKED)\b/i.test(mode) || /RESEARCH ONLY|PAGES WITHOUT SHEETS/i.test(mode)) out[key] = mode.slice(0, 60);
+  }
+  return out;
+}
+const STOPPED = stoppedLanes();
+
 let pass = 0, fail = 0;
 const ok = (n, c, why) => { if (c) { pass++; console.log('  ok   ' + n); }
   else { fail++; console.log('  FAIL ' + n + (why ? '\n         ' + why : '')); } };
@@ -143,6 +162,9 @@ const dayOf = (iso) => Math.floor(Date.parse(iso) / 86400000);
 
   const behind = [];
   for (const [name, laneKey, what] of MAKING) {
+    if (STOPPED[name.replace(/[^A-Z]/gi, '').toUpperCase()]) {
+      console.log('  ' + name.padEnd(12) + 'not held: the board stops it (' + STOPPED[name.replace(/[^A-Z]/gi, '').toUpperCase()].replace(/\s+/g, ' ') + '...)');
+      continue; }
     const mine = cooked.filter(i => String(i.lane || '').toLowerCase() === laneKey);
     const newest = mine.map(i => ({ i, d: madeDay(i.made) })).filter(x => x.d != null)
       .sort((a, b) => b.d - a.d)[0];
@@ -177,9 +199,61 @@ const dayOf = (iso) => Math.floor(Date.parse(iso) / 86400000);
         : 'its newest commit on main is ' + b.gap + ' day(s) newer than the last thing it '
           + 'registered, so it has coded and checked since it last made ' + b.what + '.');
   }
-  for (const [name] of MAKING) if (!behind.find(b => b.name === name)) {
+  for (const [name] of MAKING) if (!behind.find(b => b.name === name) && !STOPPED[name.replace(/[^A-Z]/gi, '').toUpperCase()]) {
     pass++; console.log('  ok   ' + name + ' has cooked at least as recently as it has coded');
   }
+
+  /* ---- WHAT HE CANNOT SEE DID NOT SHIP (PLUMBER 10/10, row [the picture leg]; rule 89) ----------------
+     PAOLO 10/10, on the fight's ground drawn at its own pixels, measured sharper and voted NO: "Can't tell
+     difference. Looks like dogshit." Rule 89: a look item is shown as a before and an after of the SAME
+     thing, side by side in one picture, at one art pixel to one phone pixel; a number is the proof line,
+     never the show; "PLUMBER's cook gate grows a leg: a look item without a before-and-after picture is
+     refused." The row says it, so it is the words a lane reads: "no before-and-after picture".
+     A LOOK ITEM: a tile, face, haircut, outfit or animation, or a UI screen, from a lane on the look
+     program (rule 88: COOK and its numbered twins, COMBAT TWO, UI, CHARACTER, PORTRAIT), and a tile, face,
+     haircut, outfit or animation from COMBAT, RUN or EYES. A verdict, a line and a sound are not looks; the
+     kind alone cannot say it (TUNING files its number tables as "tile"), so the lane and the kind together.
+     THE PROOF IT CARRIES: show.how is ONE picture (image, or a clip for motion) that is on disk, and
+       before_after: { before: "<what one half shows>", after: "<what the other shows>", scale: "1:1" }.
+     Held from the rule's day (made 10/10 on). Grandfather nothing that counts: his three NOs of this round
+     are replayed from the registry as the first three tests, and each must be refused. */
+  const LOOK_LANE = /^(cook( ?(2|3|4|two|three|four))?|combat ?(2|two)|ui|character|portrait)$/i;
+  const ALSO_ART = /^(combat|run|eyes)$/i;
+  const ART = ['tile', 'face', 'haircut', 'outfit', 'animation'];
+  const isLook = it => { if (!it) return false; const l = String(it.lane || '').trim(), k = it.kind;
+    if (k === 'verdict' || k === 'line' || k === 'sound') return false;
+    return (LOOK_LANE.test(l) && (ART.includes(k) || k === 'ui')) || (ALSO_ART.test(l) && ART.includes(k)); };
+  const pictureWhy = it => {
+    const sh = it.show || {}, ba = it.before_after;
+    if (!/^(image|clip)$/.test(sh.how || '')) return 'no before-and-after picture (it shows ' + (sh.how ? 'a ' + sh.how : 'nothing') + ', not one picture)';
+    if (!ba || typeof ba !== 'object' || !String(ba.before || '').trim() || !String(ba.after || '').trim()) return 'no before-and-after picture';
+    if (String(ba.scale || '').replace(/\s/g, '') !== '1:1') return 'no before-and-after picture at one to one (scale ' + (ba.scale || 'unsaid') + ')';
+    if (!fs.existsSync(path.join(ROOT, 'slices', sh.src || '')) && !fs.existsSync(path.join(ROOT, sh.src || ''))) return 'no before-and-after picture (' + sh.src + ' is not on disk)';
+    return null; };
+  const madeOn = it => { const m = /^(\d+)\/(\d+)/.exec(String(it.made || '')); return m ? (+m[1]) * 100 + (+m[2]) : 0; };
+  { /* the three NOs of this round, from the registry as they were voted, and the row's pair */
+    const NOS = ['ui-the-phone-turns-10-10', 'character-the-three-bodies-10-10', 'combat-the-art-at-its-own-pixels-10-10'];
+    const found = NOS.map(id => items.find(i => i.id === id)).filter(Boolean);
+    const refused = found.filter(it => isLook(it) && pictureWhy(it));
+    ok('his three NOs of this round (' + NOS.join(', ') + ') are each refused as "no before-and-after picture"',
+       found.length === 3 && refused.length === 3, found.length + ' found in the registry, ' + refused.length + ' refused');
+    const any = fs.readdirSync(path.join(ROOT, 'slices/vote')).find(f => /\.(png|jpe?g|webp)$/i.test(f));
+    const numberOnly = { id: 't1', lane: 'combat 2', kind: 'tile', made: '10/10', show: { how: 'text', src: 'edge density 0.038 against 0.002' } };
+    const sideBySide = Object.assign({}, numberOnly, { show: { how: 'image', src: 'vote/' + any },
+      before_after: { before: 'the freeway tile as shipped, one art pixel to one phone pixel', after: 'the same tile sharpened, the same crop', scale: '1:1' } });
+    const halfSaid = Object.assign({}, sideBySide, { before_after: { after: 'only the after' } });
+    const notALook = { id: 't4', lane: 'tuning', kind: 'tile', made: '10/10', show: { how: 'page', src: 'x.html' } };
+    ok('the pair the row asks for: a sharpened tile shown by its number alone is refused, the same tile with its two crops side by side passes; only the after is refused; a TUNING table is not a look',
+       !!pictureWhy(numberOnly) && pictureWhy(sideBySide) === null && !!pictureWhy(halfSaid) && !isLook(notALook) && isLook(numberOnly),
+       JSON.stringify([pictureWhy(numberOnly), pictureWhy(sideBySide), pictureWhy(halfSaid), isLook(notALook)])); }
+  { const judged = new Set(verdicts.map(v => v && v.id));
+    const now = [], older = [];
+    for (const it of items) { if (!it || !it.id || judged.has(it.id) || !isLook(it)) continue;
+      const w = pictureWhy(it); if (!w) continue;
+      (madeOn(it) >= 1010 ? now : older).push(it.id + ' (' + w + ')'); }
+    ok('every look item waiting in VOTE since rule 89 carries its before-and-after picture (' + now.length + ' without)', !now.length,
+       now.slice(0, 8).join('\n         ') + '\n         rule 89: one picture, the same thing before and after at 1:1, and before_after: { before, after, scale: "1:1" } on the row; a number is the proof line, never the show.');
+    if (older.length) console.log('  note: ' + older.length + ' look items from before rule 89 are still waiting without one; DIRECTION\'s pass decides which come back (rules 82, 88, 89)'); }
 
   console.log('\n=== COOK EVERY ROUND GATE: ' + pass + ' passed, ' + fail + ' failed ===');
   if (fail) console.log('    ' + fail + ' making lane(s) are coding without cooking. That is the '

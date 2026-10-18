@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the Strip casino block (settlement screen: the hall is the cashier's cage); the escort runs one leg east on Flamingo to the co-op blocks and back, the fight board cut from the dead car wash block halfway
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE08 (the thief in the ration line, at the co-op blocks). THE ROAD THEY SHARE: Flamingo east, the Strip to the co-op, one map day. THIS IS THE SHELF'S ONE PAIR WITH A COLLISION, shown before the second yes.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a bust. The house lends batteries to families who cannot make the month. Every Tuesday a collector rides out to the co-op blocks. The last escort quit. The road gang at the car wash knows the collector carries what he collects.

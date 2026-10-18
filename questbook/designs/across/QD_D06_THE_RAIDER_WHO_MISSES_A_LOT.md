@@ -5,7 +5,7 @@ CRISIS: the Destroyers (plant); the whisper broadcast (landing)
 ECONOMY: bust
 PLACE: a torn-up parking structure on the Destroyers' line, act 1; a relay mast on a casino roof, act 2
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a beat inside a fight); bends 23 on purpose: the scene is the end of act 1's climax fight, which this design does not own; a lost climax leaves the row unset, and the floor reads that. Fixed in place: 5 and 18 (the floor), 21 and 30 (no battery pack off a body; letting him run is priced in standing), 28 (flags and saves named).
+CHECKLIST: passes 31 of 32 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a beat inside a fight); bends 23 on purpose: the scene is the end of act 1's climax fight, which this design does not own; a lost climax leaves the row unset, and the floor reads that. Fixed in place: 5 and 18 (the floor), 21 and 30 (no battery pack off a body; letting him run is priced in standing), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1's procedural climax, builders against the Destroyers. On the fight board in a parking structure, the group breaks and a boy of about sixteen drops his rifle and sits down against a pillar. This is a dial moment, the important shot, and it is not forced: the fight is over whether the player takes it or not.

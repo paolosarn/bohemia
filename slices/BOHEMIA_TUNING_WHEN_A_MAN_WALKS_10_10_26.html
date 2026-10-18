@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>When A Man Walks</title>
+<!-- TUNING 10/10 [mood and desertion], draft:true. Bands, trait multipliers and the drift are from the Battle Brothers wiki (Mood and trait pages). One step a day is Grok's not-paid -1 read as one band; that reading is unverified. Record: records/BOHEMIA_TUNING_MOOD_AND_DESERTION_THE_BANDS_THE_DRIFT_AND_A_CLOCK_THE_WIKI_DOES_NOT_GIVE_10_10_26.md -->
+<style>:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--amb:#e8a04a;--ok:#8fe89a;--hot:#e8593a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 12px}
+button{background:#1a1510;color:var(--ink);border:1px solid var(--line);padding:9px 11px;font:inherit;margin:2px}button.on{border-color:var(--amb);color:var(--amb)}
+.row{border:1px solid var(--line);padding:8px 10px;margin:8px 0}input[type=range]{width:100%}.big{font-size:24px}
+.band{display:flex;height:34px;margin:8px 0}.band div{flex:1;font-size:10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #0d0b09;color:#0d0b09}</style></head><body>
+<h1>WHEN A MAN WALKS</h1>
+<p>Seven moods, from happy to angry. Only an angry man deserts. Each unpaid day drops him one step. Set how he starts and what kind of man he is, then skip paydays.</p>
+<div>HE STARTS <span id="st"></span></div><div>HE IS <span id="tr"></span></div>
+<div class="row">DAYS UNPAID <b id="dv"></b><input id="d" type="range" min="0" max="8" value="0"></div>
+<div class="band" id="band"></div>
+<div class="row">Mood now: <span id="m" class="big"></span><div>Angry (can desert) in <span id="a" class="big"></span> days. <span id="w"></span></div></div>
+<script>
+function $(i){return document.getElementById(i)}
+var BANDS=[['ANGRY','#e8593a'],['DISGRUNTLED','#e8803a'],['DISSATISFIED','#e8a04a'],['CONTENT','#c8c47a'],['GOOD SPIRITS','#a8d48a'],['EAGER','#8fe89a'],['EUPHORIC','#6fe8b0']];
+var TR={normal:{n:'NORMAL',loss:1,desert:1},greedy:{n:'GREEDY',loss:2,desert:1},pessimist:{n:'PESSIMIST',loss:1.33,desert:1},loyal:{n:'LOYAL',loss:1,desert:0.5},disloyal:{n:'DISLOYAL',loss:1,desert:2}};
+var start=3,tr='normal';
+function btn(el,items,cur,fn){var h='';items.forEach(function(it){h+='<button data-k="'+it[0]+'" class="'+(it[0]==cur?'on':'')+'">'+it[1]+'</button>';});el.innerHTML=h;}
+function draw(){var d=+$('d').value,t=TR[tr];$('dv').textContent=d;
+ btn($('st'),BANDS.map(function(b,i){return[i,b[0]]}).reverse().slice(1,6),start);btn($('tr'),Object.keys(TR).map(function(k){return[k,TR[k].n]}),tr);
+ var lvl=Math.max(0,start-d*t.loss),idx=Math.round(lvl);
+ $('band').innerHTML=BANDS.map(function(b,i){return'<div style="background:'+b[1]+';'+(i==idx?'outline:3px solid #fff;outline-offset:-3px':'opacity:.55')+'">'+b[0].split(' ')[0]+'</div>'}).join('');
+ $('m').textContent=BANDS[idx][0];$('m').style.color=BANDS[idx][1];
+ $('a').textContent=(start/t.loss).toFixed(1);
+ $('w').textContent=idx===0?(t.desert===0.5?'He is angry, but loyal men are half as likely to leave.':t.desert===2?'He is angry, and disloyal men are twice as likely to leave.':'He may desert.'):'';}
+$('st').onclick=function(e){if(e.target.dataset.k!==undefined){start=+e.target.dataset.k;draw();}};$('tr').onclick=function(e){if(e.target.dataset.k){tr=e.target.dataset.k;draw();}};
+$('d').oninput=draw;draw();
+</script></body></html>

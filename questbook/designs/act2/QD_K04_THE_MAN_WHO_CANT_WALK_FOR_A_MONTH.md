@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the road past the dam clinic town, in camp at dusk, the truck parked one map stop short of the clinic
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E4 THE QUARREL IN THE COMPANY (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: QD-B03 (act 1, stolen batteries between a thief and a man robbed by thieves). This quarrel is about RULE 36's injury: what a company owes a man who cannot fight for a month.
 
 ## THE SITUATION

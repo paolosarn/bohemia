@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: a motel office at the edge of a dead strip mall, on a dirt road off the map's main highway
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 5 and 18 (the favour's landing and its floor), 9 (three ways past the burned stretch), 10 and 23 (a lost fight has a result), 12 (the waystation exit), 22 (the filter rig), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 5 and 18 (the favour's landing and its floor), 9 (three ways past the burned stretch), 10 and 23 (a lost fight has a result), 12 (the waystation exit), 22 (the filter rig), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 TWIST: T11 THE REWARD IS GONE (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs BATTERIES. Lands AT HAND-IN.
 
 ## THE SITUATION

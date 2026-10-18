@@ -1,0 +1,44 @@
+{
+  "_about": "ECONOMY [what the stash is], rule 74. What the bar's six counts (batteries, food, meds, rounds/ammo, tape/tools, water) cost PER DAY, from the wiki's own pages, never converted to batteries here -- a day's SPEND is a count consumed, not a price paid. Cross-cites records/target/bb/price_table.json's dailyRates block rather than re-typing the numbers that already live there (foodPerManPerDay, toolDurabilityRepairedPerTool, medicinePerWoundPerDay, the food stack crowns/batteries/spoil days, the tools crowns/batteries). engine/bohemia_stash.js is the mechanism; this file never computes anything. MECHANISM-MINE/CONTENTS-PAOLO'S: every number carries its source.",
+  "foodByTerrain": {
+    "_about": "the wiki's own baseline (2 a man a day, price_table.json dailyRates.foodPerManPerDay) is multiplied by the terrain the party is crossing that day. CORRECTS BOHEMIA_ECONOMY_DAY_53 (round one, 9/27): that round found BB's provisions a FLAT 2/day whether marching or camping and took that as the whole picture; this page's own source (GROK_116) shows BB does vary the daily food need, just along a different axis -- terrain type, not march-vs-camp. Both findings stand: the 2/day baseline really is flat across march/camp, and it really does scale 1x to 2x by terrain. Day 53's record is not wrong, it was incomplete.",
+    "plains": 1.0, "steppe": 1.1, "snow": 1.1, "hills": 1.1, "swamp": 1.1,
+    "badlands": 1.25, "desert": 1.5, "mountains": 2.0,
+    "source": "GROK_116_UNDERBELLY_DAY_2026_10_04.md, https://battlebrothers.fandom.com/wiki/Provisions"
+  },
+  "foodSpoilDaysExtended": {
+    "_about": "extends price_table.json dailyRates.foodSpoilDays (grains 7, bread 8, smokedHam 12, wine 14) with two more wiki entries and the cook's bonus. Eats the food that spoils soonest first (already our rule 47's ruling, confirmed by this same wiki page).",
+    "grains": 7, "strangeMeat": 4, "masterRations": 16, "cookAddsDays": 3,
+    "source": "GROK_116_UNDERBELLY_DAY_2026_10_04.md, https://battlebrothers.fandom.com/wiki/Provisions"
+  },
+  "toolRepair": {
+    "_about": "extends price_table.json dailyRates.toolDurabilityRepairedPerTool (15 durability per tool point) with the repair RATE over time, not just the exchange rate.",
+    "durabilityPerToolPoint": 15,
+    "ticksPerHour": 3,
+    "campMultiplier": 2,
+    "blacksmithBonus": 0.33,
+    "carryCap": { "veteranAndExpert": 150, "beginner": 200 },
+    "source": "GROK_116_UNDERBELLY_DAY_2026_10_04.md, https://battlebrothers.fandom.com/wiki/Tools_and_Supplies"
+  },
+  "medicine": {
+    "_about": "one point per injury per day or the injury does not heal (lost health itself heals on its own, unaffected). Extends price_table.json dailyRates.medicinePerWoundPerDay (1) with the carry caps and the quartermaster perk.",
+    "pointsPerInjuryPerDay": 1,
+    "carryCap": { "veteranAndExpert": 100, "beginner": 150 },
+    "quartermasterBonus": 50,
+    "source": "GROK_132_MEDICINE_DAY_2026_10_09.md, https://battlebrothers.fandom.com/wiki/Medical_Supplies"
+  },
+  "ammo": {
+    "_about": "no existing block to extend; this is the one true zero BOHEMIA_ECONOMY_DAY_55 found (no purse verb, no GOODS entry, no reach mechanic anywhere). A bundle is 50 points; each shot type spends a different amount; quivers refill after the fight from the carried pile, never mid-fight.",
+    "bundlePoints": 50,
+    "costPerShot": { "arrowOrBolt": 1, "handgonne": 2, "throwingWeaponOrFireLance": 3 },
+    "quiverRefillsAfterFight": true,
+    "carryCap": { "veteranAndExpert": 300, "beginner": 500 },
+    "quartermasterBonus": 100,
+    "gasIsAmmo": true,
+    "source": "GROK_134_AMMO_DAY_2026_10_09.md, https://battlebrothers.fandom.com/wiki/Ammunition"
+  },
+  "sharedPileNote": {
+    "_about": "GROK_116 reports Paolo said food and water share one pile in the Grok chat ('he said food and water share one pile'). This CONTRADICTS the already-ruled rule 47 ('food and water per man per day' as two separate counts) and his own 10/2 sixth votes ('rule 47's six stand', confirmed again by the 10/1 SWEEP B default). Flagged, not resolved here: VIA GROK is unverified until he says it in VOTE directly; the live six-count bar (UI [six icons], food and water as separate marks) is the standing ruling until he overturns it there.",
+    "source": "GROK_116_UNDERBELLY_DAY_2026_10_04.md"
+  }
+}

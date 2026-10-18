@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL03
 FIRST-LINE: FL07
 TWIST: none (this is the plain job; it shows a no-twist contract that still plays)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 32 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 A short boom inside the anarchy decade: somebody found a dead solar farm full of cells, and the drive-in swap meet is where they get traded. Every trade needs one thing: the swap's battery tester, the old voltmeter rig that says a cell is really charged. It broke. It went out for repair to the only man who can fix it, two days away. Nobody at the swap trusts a trade without it, so the swap has stopped. The job is to carry the tester home.

@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>An Id Is A Promise</title>
+<style>:root{--bg:#0b0d0c;--ink:#cfd6cc;--dim:#6f7a70;--red:#d8352a;--amber:#d9a441;--ok:#7fb069;--line:#1d2320}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,Consolas,monospace;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 40px}h1{font-size:20px;letter-spacing:.08em;margin:6px 0 2px;text-transform:uppercase}
+.sub{color:var(--dim);font-size:12px;margin-bottom:12px}h2{font-size:12px;letter-spacing:.1em;color:var(--dim);margin:18px 0 6px}
+.n{display:flex;gap:8px}.n div{flex:1;border:1px solid var(--line);padding:8px;background:#0e1110}.n b{display:block;font-size:28px;color:var(--ok);line-height:1}.n span{font-size:11px;color:var(--dim)}
+.r{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:12px}.r span{color:var(--dim);text-align:right;word-break:break-word;max-width:50%}.r b{font-weight:normal;word-break:break-word}
+.rule{border-left:3px solid var(--amber);padding:6px 10px;margin:6px 0;font-size:13px}.rule b{color:var(--ok)}pre{background:#0e1110;border:1px solid var(--line);padding:10px;font-size:12px;overflow-x:auto}.note{color:var(--dim);font-size:12px;margin-top:10px}</style></head><body><div class="wrap">
+<h1>An id is a promise</h1><div class="sub">MODS. A mod names a row by its id. Rename the id and every mod that touched it breaks. Nothing here is built.</div>
+<div class="n"><div><b>725</b><span>ids in 11 tables</span></div><div><b>764</b><span>places that point at another table's id</span></div><div><b>0</b><span>ids with a colon</span></div></div>
+<h2>FOUR RULES</h2>
+<div class="rule"><b>1</b> Never rename an id. A new name is a new row.</div>
+<div class="rule"><b>2</b> Retire, do not delete. The row keeps its id and says retired.</div>
+<div class="rule"><b>3</b> A mod names its own rows <i>modname:thing</i>. No game id has a colon, so they can never collide.</div>
+<div class="rule"><b>4</b> Ids stay lowercase letters, digits and underscore. All 725 already do.</div>
+<h2>A MOD'S NEW SWORD</h2><pre>"new-sword:moon-blade": { ... }</pre>
+<h2>WHAT POINTS AT AN ID TODAY (the biggest)</h2><div id="refs"></div>
+<h2>EVERY ID OF THESE TABLES IS ALSO A WORD IN THE GAME'S CODE</h2><div class="note">origins 15 of 15, perks 50 of 50, perk translations 50 of 50. Renaming one means data and code together.</div>
+<div class="note">The count of ids named in code can include common words by chance, so for the other tables it is an upper limit, not a fact.</div></div>
+<script>var R=[["enemies/rows[].faction", "factions/factions", 66], ["origins/origins[].men[].background", "backgrounds/rows", 55], ["enemies/rows[].listed_in[]", "factions/factions", 54], ["perk_translation/rows[].id", "perks/rows", 50], ["perks/rows[].id", "perk_translation/rows", 50], ["price_table/wageAndHire.wageBatteryTierCrossCheck.1[]", "backgrounds/rows", 47]];var d=document.getElementById('refs');R.forEach(function(r){var x=document.createElement('div');x.className='r';var b=document.createElement('b');b.textContent=r[0]+' to '+r[1];var s=document.createElement('span');s.textContent=r[2]+' places';x.appendChild(b);x.appendChild(s);d.appendChild(x);});</script></body></html>

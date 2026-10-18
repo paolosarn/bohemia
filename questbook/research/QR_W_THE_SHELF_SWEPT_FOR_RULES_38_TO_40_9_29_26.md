@@ -88,7 +88,7 @@ HOW IT WAS APPLIED.
 
 Paolo 9/28: "you start the game you can't flip between the three people... customize just one person, and when you
 hop into the second generation you'll be given an option to customize the person and it will start off generated
-based on how you made the first." Default: the second generation unlocks at the first home base. The name-all-three
+based on how you made the first." Default then: the second generation unlocks at the first home base (SUPERSEDED 10/10 by rule 85: the flip unlocks when the act's first endgame crisis starts, around day 80 to 100; QR-AN). The name-all-three
 screen and the three faces from frame one are dead as built. The flip itself lives on: it is "a big transition
 unlocked mid-act" (third votes).
 
@@ -359,7 +359,7 @@ the ceiling. Test: every siege, storm or multi-night design names "tough" and th
    list, QD-F01 and QD-F05 can walk again on the 112 art, never on a cell grid.
 
 Everything else was a default this lane could set and did, and each is for a building lane, not for him:
-- The trigger for act 3's unlock. Rule 39c names the default for the second generation (the first home base). The
+- The trigger for act 3's unlock. Rule 39c names the default for the second generation (the first home base; superseded by rule 85, the first endgame crisis, QR-AN). The
   sweep assumed the same shape for the third (a home base won in the act before) in QD-F06. DYNASTY owns it.
 - The family block at the start. Several round-one pages call the family's block "the family home base" from the
   first second. If owning a home base is what unlocks Gen 2, the start cannot be an owned home base; QD-F01 now says

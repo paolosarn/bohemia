@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: a fork on the old frontage road where a dirt track leaves toward the settlement the family sleeps in
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 23 (a lost fight at home has a result), 26 (the youngest asks for something sweet), 28 (flags and saves named); rule 51 applied (both slots can be made late).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 23 (a lost fight at home has a result), 26 (the youngest asks for something sweet), 28 (flags and saves named); rule 51 applied (both slots can be made late). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHAPE: E3, THE TRACKS AT THE FORK (QR-B)
 
 ## THE SITUATION

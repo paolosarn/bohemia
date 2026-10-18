@@ -1,0 +1,195 @@
+{
+ "_readme": "WORLD [the roads] 10/9: the valley's road network as data -- four classes, each with the districts it is made of and its travel speed. Written by tools/bohemia_roads_cook_10_9_26.js from engine/bohemia_roads.js -- do not hand edit. THE SPEEDS ARE NOT RESTATED HERE: a road takes its ground's ruled speed, looked up live from engine/bohemia_valleyground.js, EXCEPT the arterial, whose terrain kind groups it with shops and flats and gave it 0.52, under the dirt's ruled 0.75 -- measured on its own kit it is 0.90, which is what a six-lane boulevard is. *** THE ROW'S GATE PASSES AND ALWAYS DID: *** over 30 rolled valleys, on paved road alone, every settlement reaches every other, and what sits outside the main network is a single orphan paved cell. WHICH STRETCHES ARE BLOCKED is UNREAD (nothing marks a road impassable) and WHO PATROLS is FACTIONS'.",
+ "version": "BOHEMIA_THE_ROADS_v1",
+ "built": "2026-10-09",
+ "classes": [
+  {
+   "cls": "freeway",
+   "his": "the freeway corridor",
+   "districts": [
+    "freeway",
+    "interchange",
+    "speedway",
+    "minigp"
+   ],
+   "paved": true,
+   "ground": "freeway",
+   "speed": 1,
+   "speedFrom": "RULED",
+   "groupSpeedItWouldHaveHad": null,
+   "tuned": false
+  },
+  {
+   "cls": "arterial",
+   "his": "the boulevards and the surface streets",
+   "districts": [
+    "arterial"
+   ],
+   "paved": true,
+   "ground": "lot_and_bigbox",
+   "speed": 0.9,
+   "speedFrom": "MEASURED_ON_ITS_OWN_KIT",
+   "groupSpeedItWouldHaveHad": 0.52,
+   "tuned": false
+  },
+  {
+   "cls": "dirt",
+   "his": "the dirt",
+   "districts": [
+    "desert",
+    "gypsum",
+    "springs"
+   ],
+   "paved": false,
+   "ground": "open_desert",
+   "speed": 0.75,
+   "speedFrom": "RULED",
+   "groupSpeedItWouldHaveHad": null,
+   "tuned": false
+  },
+  {
+   "cls": "wash",
+   "his": "the washes",
+   "districts": [
+    "wash",
+    "basin"
+   ],
+   "paved": false,
+   "ground": "wash_and_shore",
+   "speed": 0.5,
+   "speedFrom": "RULED",
+   "groupSpeedItWouldHaveHad": null,
+   "tuned": false
+  }
+ ],
+ "blocked": {
+  "known": false,
+  "why": "UNREAD",
+  "because": "nothing in the valley marks a road cell as impassable. The overmap gives a district and nothing else, so \"a dead overpass\" is a fact this game does not store yet, and a zero here would be indistinguishable from \"no road is blocked\" -- which is the one thing a traveller most needs to be true (WORLD measured it 10/9)."
+ },
+ "patrolsIsFactions": "PATROLS ships empty; who patrols a stretch is FACTIONS', derivable from the live turf",
+ "measured": {
+  "seed": 1337,
+  "seedsSwept": 30,
+  "pavedFailures": 0,
+  "pavedOrDirtFailures": 0,
+  "pavedCells": [
+   3559,
+   3401,
+   3556,
+   3510,
+   3390,
+   3384,
+   3424,
+   3478,
+   3433,
+   3483,
+   3542,
+   3426,
+   3535,
+   3509,
+   3468,
+   3535,
+   3488,
+   3512,
+   3539,
+   3456,
+   3531,
+   3484,
+   3463,
+   3484,
+   3444,
+   3479,
+   3512,
+   3395,
+   3558,
+   3425
+  ],
+  "pavedComponents": [
+   2,
+   1,
+   1,
+   1,
+   1,
+   2,
+   1,
+   2,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   2,
+   1,
+   1,
+   2,
+   1,
+   2,
+   2,
+   1,
+   1,
+   1,
+   2,
+   1,
+   2,
+   2,
+   2
+  ],
+  "strandedOffMainNetwork": "at most one orphan paved cell; measured 0 or 1 per valley",
+  "onThisValley": {
+   "paved": {
+    "cells": 3453,
+    "byClass": {
+     "freeway": 942,
+     "arterial": 2511,
+     "dirt": 0,
+     "wash": 0
+    },
+    "components": 1,
+    "biggest": 3453
+   },
+   "reached": 14,
+   "withDirt": {
+    "cells": 4117,
+    "byClass": {
+     "freeway": 942,
+     "arterial": 2511,
+     "dirt": 611,
+     "wash": 53
+    },
+    "components": 23
+   },
+   "settlements": 14,
+   "unreached": []
+  },
+  "speeds": [
+   {
+    "cls": "freeway",
+    "speed": 1,
+    "from": "RULED",
+    "groupSpeed": null
+   },
+   {
+    "cls": "arterial",
+    "speed": 0.9,
+    "from": "MEASURED_ON_ITS_OWN_KIT",
+    "groupSpeed": 0.52
+   },
+   {
+    "cls": "dirt",
+    "speed": 0.75,
+    "from": "RULED",
+    "groupSpeed": null
+   },
+   {
+    "cls": "wash",
+    "speed": 0.5,
+    "from": "RULED",
+    "groupSpeed": null
+   }
+  ],
+  "litPct": 44.67
+ }
+}

@@ -64,10 +64,12 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    registry is that it lives OUTSIDE slices/ where every lane can append to it. This
    mirrors production: _site carries slices/ and records/target/ side by side. */
 let plant = null;   /* when set, this body is served as the registry */
+let noSort = false;  /* when set, the sort file (rule 92) answers 404, as a deploy that lost it would */
 function serve() {
   return new Promise(res => {
     const s = http.createServer((rq, rs) => {
       const rel = decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, '');
+      if (noSort && rel === 'records/target/BOHEMIA_VOTE_TRIAGE.json') { rs.statusCode = 404; return rs.end('no'); }
       if (plant && rel === REGREL) {
         rs.setHeader('content-type', 'application/json');
         return rs.end(plant);
@@ -166,6 +168,51 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   ok('every waiting why is two sentences at most and names where you see it',
      longWhy.length === 0, longWhy.slice(0, 4).join(', '));
 
+  /* AN ART SHEET COMES WITH ITS REFERENCE TWIN (PLUMBER 10/10, row [the pack gate]; rule 82, Paolo 10/10, the
+     seventh votes: "all the art we made looks nothing like the assets we downloaded"). "NO ART SHEET GOES TO VOTE
+     WITHOUT ITS REFERENCE TWIN beside it (the real thing or the downloaded asset of the same kind at the same
+     size) and the three biggest differences named ... vote_tab_gate refuses an art item without one (PLUMBER
+     leg)." The 9/4 compare law said the same and its gate never bit, because nothing in a VOTE row said what
+     the art was compared against. So the row says it now:
+       twin: { src: "<the reference: a file under slices/ or the repo, or pack:<pack>#<idx>, a pack tile he
+                     judged UP>", diffs: ["<difference 1>", "<2>", "<3>"] }
+     AN ART SHEET is a face, a haircut or an outfit, or a picture or page an art lane registers (COOK and its
+     numbered twins, COMBAT TWO, CHARACTER, PORTRAIT). The kind alone cannot say it: TUNING files its number
+     tables as "tile". Held from the rule's day (made 10/10 on); older waiting art is counted, not failed,
+     because DIRECTION's twin pass decides which of it comes back (rule 82, rule 87). */
+  const ART_LANE = /^(cook( ?(2|3|4|two|three|four))?|combat ?(2|two)|character|portrait)$/i;
+  const isArt = it => ['face', 'haircut', 'outfit'].includes(it.kind)
+    || (ART_LANE.test(String(it.lane || '').trim()) && !!it.show && /^(image|page|clip)$/.test(it.show.how || ''));
+  const madeOn = it => { const m = /^(\d+)\/(\d+)/.exec(String(it.made || '')); return m ? (+m[1]) * 100 + (+m[2]) : 0; };
+  const UP = (() => { try { const d = JSON.parse(fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt'), 'utf8'));
+    return new Set(d.verdicts.filter(v => v.v === 'UP').map(v => v.pack + '#' + v.idx)); } catch (e) { return new Set(); } })();
+  const twinWhy = it => {
+    const t = it.twin; if (!t || typeof t !== 'object') return 'no twin';
+    const src = String(t.src || ''); if (!src) return 'its twin names no reference';
+    if (/^pack:/.test(src)) { if (!UP.has(src.slice(5))) return src + ' is not a pack tile he judged UP'; }
+    else if (!fs.existsSync(path.join(ROOT, 'slices', src)) && !fs.existsSync(path.join(ROOT, src))) return 'its twin ' + src + ' is not on disk';
+    if (!Array.isArray(t.diffs) || t.diffs.length !== 3 || t.diffs.some(d => !String(d || '').trim()))
+      return 'it names ' + (Array.isArray(t.diffs) ? t.diffs.length : 0) + ' differences, not three';
+    return null; };
+  { const P = [
+      [{ id: 'p1', kind: 'tile', lane: 'cook', made: '10/10', show: { how: 'image' } }, true, 'no twin'],
+      [{ id: 'p2', kind: 'tile', lane: 'tuning', made: '10/10', show: { how: 'page' } }, false, null],
+      [{ id: 'p3', kind: 'face', lane: 'portrait', made: '10/10', show: { how: 'page' }, twin: { src: 'pack:1. Cobblestone floor tiles#0', diffs: ['a', 'b', 'c'] } }, true, null],
+      [{ id: 'p4', kind: 'outfit', lane: 'character', made: '10/10', show: { how: 'page' }, twin: { src: 'vote/__no_such_twin.png', diffs: ['a', 'b', 'c'] } }, true, 'not on disk'],
+      [{ id: 'p5', kind: 'tile', lane: 'cook 2', made: '10/11', show: { how: 'image' }, twin: { src: 'pack:1. Cobblestone floor tiles#0', diffs: ['a', 'b'] } }, true, 'not three']];
+    const wrong = P.filter(([it, art, why]) => isArt(it) !== art || (art && (why === null ? twinWhy(it) !== null : !String(twinWhy(it)).includes(why))));
+    ok('the twin test reads planted rows both ways (' + P.length + ': a cook sheet with no twin, a tuning table that is not art, a face with a pack twin, a twin not on disk, two differences)',
+       !wrong.length, wrong.length ? 'misread: ' + wrong.map(w => w[0].id).join(', ') : ''); }
+  const noTwin = [], oldNoTwin = [];
+  (reg.items || []).forEach(it => {
+    if (!it || !it.id || judgedIds.has(it.id) || !isArt(it)) return;
+    const w = twinWhy(it); if (!w) return;
+    (madeOn(it) >= 1010 ? noTwin : oldNoTwin).push(it.id + ' (' + w + ')'); });
+  ok('every art sheet registered since rule 82 carries its reference twin and three differences (' + noTwin.length + ' without)',
+     noTwin.length === 0, noTwin.slice(0, 6).join(', ')
+     + '\n         add twin: { src: "<the reference: a file, or pack:<pack>#<idx>>", diffs: ["...", "...", "..."] } to the row (rule 82)');
+  if (oldNoTwin.length) console.log('    note: ' + oldNoTwin.length + ' waiting art sheets from before rule 82 carry no twin; DIRECTION\'s twin pass decides which of them come back (rules 82, 87)');
+
   /* A ROW HE TAPS AND NOTHING HAPPENS IS WORSE THAN NO ROW. Lanes register a path by
      hand, so a typo or a renamed file lands here as a dead LOOK AT IT button and he has
      no way to tell that from a thing that is simply broken. Paths are relative to
@@ -215,15 +262,40 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
     Array.from(document.querySelectorAll('#list .row')).map(r => r.getAttribute('data-id')));
 
   let rows = await live();
+  /* THE SORT (UI [the triage filter], rule 92, 10/10): records/target/BOHEMIA_VOTE_TRIAGE.json, the coordinator's.
+     RED first and alone (at most the cap), the rest he has to see (yellow, a red past the cap, untagged) behind one
+     fold that says MORE with its count, GREEN and GRAY never. The queue is what is on the page once the fold is open. */
+  let TRI = null; try { TRI = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_VOTE_TRIAGE.json'), 'utf8')); } catch (e) { TRI = null; }
+  const tagOf = id => { const t = TRI && TRI.tags && TRI.tags[id]; return t && t.tag ? String(t.tag).toLowerCase() : null; };
+  const kept = id => !TRI || !/^(green|gray|grey)$/.test(tagOf(id) || '');
+  const queue = async (pg) => { pg = pg || p;
+    await pg.evaluate(() => { const f = document.getElementById('fold'); if (f && !f.hidden && document.getElementById('more').hidden) f.click(); });
+    await pg.waitForTimeout(80);
+    return pg.evaluate(() => Array.from(document.querySelectorAll('#list .row, #more .row')).map(r => r.getAttribute('data-id'))); };
   const want = (reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id))
-                                .map(i => i.id);
-  ok('every unjudged candidate is in the queue',
-     rows.length === want.length && want.every(id => rows.indexOf(id) >= 0),
-     rows.length + ' drawn, ' + want.length + ' waiting');
+                                .map(i => i.id).filter(kept);
+  const cap = (TRI && TRI.cap) || 12;
+  const redsWanted = want.slice().reverse().filter(id => tagOf(id) === 'red').slice(0, cap);
+  ok('in front of him: the red ones, newest first, at most ' + cap + ', and nothing else',
+     TRI ? (rows.length === redsWanted.length && rows.every((id, i) => id === redsWanted[i])) : rows.length === want.length,
+     rows.length + ' in front, ' + redsWanted.length + ' red');
+  const foldN = await p.evaluate(() => { const f = document.getElementById('fold'); return f && !f.hidden ? +document.getElementById('foldn').textContent : 0; });
+  ok('  the rest wait behind one fold that says MORE with its count', !TRI || foldN === want.length - redsWanted.length, foldN + ' behind MORE, ' + (want.length - redsWanted.length) + ' wanted');
+  const all = await queue();
+  ok('every unjudged candidate the sort keeps is in the queue, and no green or gray one is',
+     all.length === want.length && want.every(id => all.indexOf(id) >= 0),
+     all.length + ' drawn, ' + want.length + ' waiting' + (TRI ? ' (' + ((reg.items || []).length - want.length) + ' judged, green or gray)' : ''));
   /* NEWEST FIRST. The registry is appended to, so the LAST item in the file is the
-     newest thing anybody made, and it has to be the first thing he sees. */
-  ok('the newest thing is at the top', rows[0] === want[want.length - 1],
+     newest thing anybody made, and it has to be the first thing he sees (the newest red, once sorted). */
+  ok('the newest thing is at the top', rows[0] === (TRI && redsWanted.length ? redsWanted[0] : want[want.length - 1]),
      'top is ' + rows[0]);
+  /* AND WITHOUT THE SORT FILE THE TAB SHOWS EVERYTHING, NEVER NOTHING (the row's done-test) */
+  noSort = true; await open();
+  const bare = await p.evaluate(() => ({ n: document.querySelectorAll('#list .row').length, fold: !document.getElementById('fold').hidden }));
+  const unsorted = (reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id)).length;
+  ok('  and with the sort file missing, every waiting thing shows, no fold', bare.n === unsorted && !bare.fold, bare.n + ' shown of ' + unsorted + (bare.fold ? ', a fold' : ''));
+  noSort = false;
+  await open(); rows = await live();
 
   /* ---- 3. THE THUMB: every control on a row is 44 -------------------------- */
   const small = await p.evaluate((MIN) => {
@@ -310,7 +382,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   /* Plant a verdict on a candidate this phone has never seen. A cleared cache must
      not resurrect it. This is the exact complaint: "it needs to stop presenting
      itself like I didn't just vote on it." */
-  const victim = want[0];
+  const victim = rows[0];   /* one he can see without opening anything */
   const planted = JSON.parse(JSON.stringify(reg));
   planted.verdicts.push({ id: victim, vote: 'down', said: 'planted by the gate', when: '9/15' });
   plant = JSON.stringify(planted);
@@ -321,8 +393,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   await p2.goto(url('slices/BOHEMIA_VOTE_TAB.html'), { waitUntil: 'load', timeout: 60000 });
   await p2.waitForFunction('window.__voteReady === true', null, { timeout: 20000 });
   await p2.waitForTimeout(120);
-  const rows2 = await p2.evaluate(() =>
-    Array.from(document.querySelectorAll('#list .row')).map(r => r.getAttribute('data-id')));
+  const rows2 = await queue(p2);
   ok('a candidate with a verdict in the registry never renders again, even on a clean phone',
      rows2.indexOf(victim) < 0, 'planted ' + victim);
   ok('and the rest of the queue is untouched by that',
@@ -342,8 +413,9 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   const p3 = await fr2.newPage();
   await p3.goto(url('slices/BOHEMIA_VOTE_TAB.html'), { waitUntil: 'load', timeout: 60000 });
   await p3.waitForFunction('window.__voteReady === true', null, { timeout: 20000 });
+  await queue(p3);   /* a redo nobody has sorted yet waits behind the fold */
   const quoted = await p3.evaluate(() => {
-    const r = document.querySelector('#list .row[data-id="gate-redo-probe"]');
+    const r = document.querySelector('#list .row[data-id="gate-redo-probe"], #more .row[data-id="gate-redo-probe"]');
     const q = r && r.querySelector('.quote');
     return q ? q.textContent : '';
   });

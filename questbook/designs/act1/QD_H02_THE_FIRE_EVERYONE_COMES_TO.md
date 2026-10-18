@@ -6,7 +6,7 @@ CRISIS: the Destroyers (placeholder name, Paolo's)
 ECONOMY: either
 PLACE: the family's block, around one burning barrel in the street, with the map showing parties converging
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat); bends 13 on purpose: the roll call is more than three lines before the choice, because the count said aloud, one face and one job at a time, is the payoff (`Q136.W10`, `Q136.X5`); the neighbour himself says one line. Fixed in place: 5 and 18 (the floor if a later act comes first), 11 (the walk to the fire became a tap), 28 (flags and saves named).
+CHECKLIST: passes 31 of 32 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat); bends 13 on purpose: the roll call is more than three lines before the choice, because the count said aloud, one face and one job at a time, is the payoff (`Q136.W10`, `Q136.X5`); the neighbour himself says one line. Fixed in place: 5 and 18 (the floor if a later act comes first), 11 (the walk to the fire became a tap), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the ACT1 PROCEDURAL ENDING law. Near the end of act 1 the scattered wreckers COALESCE

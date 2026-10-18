@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONE SONG</title>
+<!-- RUN lane, 10/4, row [one song] (rule 64). The demo's own music recorded off its output while a
+     driver walked it: the map, a fight, home. records/BOHEMIA_ONE_SONG_RUN_10_4_26.md -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  audio{width:100%;margin:8px 0 14px}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  button{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--line);padding:11px 14px;min-height:48px;cursor:pointer;flex:1 1 140px;text-align:left}
+  button b{display:block;letter-spacing:1.5px}
+  button span{color:var(--dim);font-size:12px}
+  button.on{border:2px solid var(--ink)}
+</style></head><body><div class="wrap">
+<h1>ONE SONG</h1>
+<div class="sub">THE DEMO'S OWN MUSIC, RECORDED WHILE IT PLAYED: THE MAP, A FIGHT, HOME</div>
+<audio id="a" controls preload="auto" src="RUN_ONE_SONG_10_4.wav"></audio>
+<div class="row">
+  <button data-t="0"><b>THE MAP</b><span>0:00 the street's song</span></button>
+  <button data-t="8.9"><b>A FIGHT</b><span>0:09 the fight takes it</span></button>
+  <button data-t="21.2"><b>HOME</b><span>0:21 the fight's song ends its phrase</span></button>
+  <button data-t="42.5"><b>THE STREET</b><span>0:42 the street takes it back</span></button>
+</div>
+</div>
+<script>
+  var a = document.getElementById('a'), bs = [].slice.call(document.querySelectorAll('button'));
+  bs.forEach(function(b){ b.addEventListener('click', function(){ a.currentTime = +b.dataset.t; a.play(); }); });
+  a.addEventListener('timeupdate', function(){ var t = a.currentTime;
+    bs.forEach(function(b, i){ var n = bs[i + 1]; b.classList.toggle('on', t >= +b.dataset.t && (!n || t < +n.dataset.t)); }); });
+</script>
+</body></html>

@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: a trade town in a reclaimed outlet mall (the settlement); the job runs two map days up a dry wash to a salvage paper mill and back
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: GATHERING (QR-J): whatever is offline gets dear
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a boom. In one trade town the price of plain paper has tripled this month. The printer has orders from

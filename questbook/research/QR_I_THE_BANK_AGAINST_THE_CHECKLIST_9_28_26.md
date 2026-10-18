@@ -3,6 +3,7 @@
 QUESTION: row [bank against checklist]. Run QR-G's 28-line CHECKLIST (questbook/research/QR_G_WHAT_THE_FLAWS_FORBID_ON_A_PHONE_9_27_26.md, section THE CHECKLIST) over every quest in quests/bq/*.bq: the 5 main quests (M01 to M05), the 7 Act 1 openings (A01 to A07), the 27 side quests (S01 to S27) and the 3 designs-to-play (D001, D002, D013). For each: which lines pass and fail, and whether it is worth RE-CUTTING under rule 35c (one main quest; contracts taken or left; declining is free; the fee locked before the yes) and under Paolo's 9/28 ruling (a contract is a Battle Brothers settlement-menu OFFER SCREEN plus a job on the map and, if it comes to a fight, the fight board).
 
 STATUS: draft:true, research only, nothing built (rule 35). Author: QUESTS lane, writer I, round two (9/28). The .bq files were read in full and were NOT edited.
+FOLDED 10/9 (QR-AL): QR-U's the sharpens of rules 3, 7 and 14, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -153,6 +154,15 @@ Numbered, each testable against a re-cut or a new contract.
 12. THE QUIET ENDING STILL HAS A TELL. A kind act nobody saw is still visible as a changed place or a person's later line (`Q131.X2`, `Q146.X1`). Test: every ending names one thing in the world that changed.
 13. A FIGHT IN A CONTRACT OBEYS RULE 36. If a choice can lead to a fight, the design says so and names the price in company members; no kindest ending needs the fight (line 23 and 24).
 14. ONE-ROOM DILEMMAS ARE NOT CONTRACTS. If the whole quest is a decision in one place, it is an event or a main beat. Test: a contract names a job place that is not the hall.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 3 (the no says nothing hurt): draft haggle lines in the right register, "That's the top. Take it or don't."
+  (`Q236.P2`).
+- Rule 7 (every flag has a reader): a whodunit that breaks is worse than none; progression robust and machine-tested
+  (`Q160.P3`).
+- Rule 14 (one-room dilemmas are not contracts): the ledger in one room (`Q181.W10`), save one and lose the other
+  (`Q226.P1`), mercy and honesty owed to one ghost (`Q176.W1`) belong to road events and main beats. A builder porting
+  one into a contract first gives it a job place that is not the hall.
 
 ## WHAT TO AVOID (the bank's own flaws, by id)
 

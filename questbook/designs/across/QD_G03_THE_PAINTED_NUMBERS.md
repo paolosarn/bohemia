@@ -6,7 +6,7 @@ CRISIS: the Network crumbling (the Act 3 landing)
 ECONOMY: bust (Act 1) -> boom (Act 3)
 PLACE: the flood channel camp on the main road north of the Strip (a map stop the main quest crosses in Act 1); in Act 3 the same place is a reclaimed street of rebuilt houses on its settlement screen.
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to an ask that is not a contract). Fixed in place: 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to an ask that is not a contract). Fixed in place: 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 REBUILT FROM: the thesis assembled from six scattered, missable pieces (`Q098.X1`), the best content in an unmarked hole in a rock (`Q104.X3`), and the best branch gated on bookkeeping across games (`Q096.X1`, `Q121.X1`). The phone version is ONE piece per act, on a road the main quest must travel, with a full read even if you did nothing.
 

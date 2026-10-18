@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the back lot of a dead off-Strip casino, its blank tower wall used as a screen; car seats in rows on the asphalt
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E10 THE GOOD HOUR (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: no E10 exists on the first shelf. This is relief in the ruin, the shape QR-B says the storyteller sends after a hard hit.
 
 ## THE SITUATION

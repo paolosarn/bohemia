@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a corner bodega on a strip-mall street off Boulder Highway; one aisle, one shelf bare (PL01, THE EMPTY SHELF)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways at the truck), 10 and 23 (a lost fight has a result), 12 (tell her where the truck is), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways at the truck), 10 and 23 (a lost fight has a result), 12 (tell her where the truck is), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1, the anarchy decade. The player arrives on the strip from the map; the settlement screen draws it. The bodega's door is open.

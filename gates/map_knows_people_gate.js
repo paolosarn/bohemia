@@ -175,16 +175,16 @@ ok('A3 the cut demo loads the walked city, which is where this draws',
       const P = BohemiaPopulation, NB = P.NB;
       MODE = 'city'; city.x = hx >> 7; city.y = hy >> 7; renderCity();
       const drew = window.__PPL_MARKS | 0;
-      const ox = Math.round(cv.width / 2 - (city.x - city.y) * TW / 2 + panX);
-      const oy = Math.round(cv.height / 2 - (city.x + city.y) * TH / 2 + panY);
+      const ox = Math.round((window.CVW || cv.width) / 2 - (city.x - city.y) * TW / 2 + panX);
+      const oy = Math.round((window.CVH || cv.height) / 2 - (city.x + city.y) * TH / 2 + panY);
       let clustersInView = 0, anybodyInView = 0;
       const N = Math.ceil((om.n | 0) / NB);
       for (let ny = 0; ny < N; ny++) for (let nx = 0; nx < N; nx++) {
         const cx = nx * NB + (NB >> 1), cy = ny * NB + (NB >> 1);
         if (cx >= om.n || cy >= om.n) continue;
         const c = iso(cx, cy, ox, oy);
-        if (c.sx < -40 || c.sx > cv.width + 40) continue;
-        if (c.sy < -40 || c.sy > cv.height + 40) continue;
+        if (c.sx < -40 || c.sx > (window.CVW || cv.width) + 40) continue;
+        if (c.sy < -40 || c.sy > (window.CVH || cv.height) + 40) continue;
         let z = null, h = 0;
         try { z = P.zoneAt(om, POWER, nx * NB, ny * NB, seed); } catch (e) {}
         if (!z || z === 'empty') continue;
@@ -223,13 +223,17 @@ ok('A3 the cut demo loads the walked city, which is where this draws',
       if (!best) return { none: true };
       city.x = best[0] * NB + 2; city.y = best[1] * NB + 2;
       MODE = 'city'; renderCity();
-      const ox = Math.round(cv.width / 2 - (city.x - city.y) * TW / 2 + panX);
-      const oy = Math.round(cv.height / 2 - (city.x + city.y) * TH / 2 + panY);
+      const ox = Math.round((window.CVW || cv.width) / 2 - (city.x - city.y) * TW / 2 + panX);
+      const oy = Math.round((window.CVH || cv.height) / 2 - (city.x + city.y) * TH / 2 + panY);
       const c = iso(best[0] * NB + 2, best[1] * NB + 2, ox, oy);
       const lum = (x, y) => {
-        const d = g.getImageData(x | 0, y | 0, 1, 1).data;
+        /* RUN 10/1: the map canvas is the phone's own pixels now (CV_DPR backing pixels per CSS
+           pixel), so a CSS position is read at the backing pixel under it. Same claim, right unit. */
+        const D = Math.max(1, Math.round(window.CV_DPR || 1));
+        const d = g.getImageData((x | 0) * D, (y | 0) * D, D, D).data;   /* every phone pixel under that CSS pixel */
         const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
-        return 0.2126 * f(d[0]) + 0.7152 * f(d[1]) + 0.0722 * f(d[2]);
+        let L = 0; for (let i = 0; i < d.length; i += 4) L += 0.2126 * f(d[i]) + 0.7152 * f(d[i + 1]) + 0.0722 * f(d[i + 2]);
+        return L / (d.length / 4);   /* the light the eye gets from that spot: the mean, in linear light */
       };
       /* THE RING, NOT THE HOLE IN IT */
       const r = Math.max(4, TW * 0.34);

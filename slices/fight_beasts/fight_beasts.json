@@ -1,0 +1,155 @@
+{
+ "version": "fight-beasts-10-9",
+ "built": "10/9/26",
+ "lane": "animation",
+ "rule": "42, 69",
+ "for_screen": "slices/BOHEMIA_FIGHT.html (COMBAT reads it beside fight_people)",
+ "source": "engine/bohemia_quadruped.js: pose -> raster, palette-indexed, a one-pixel border, the back lit (45 law), the far legs in shadow",
+ "frame": 112,
+ "ground_y": 102,
+ "rows": [
+  "SE",
+  "SW"
+ ],
+ "cols": [
+  "idle@0",
+  "idle@0.0833",
+  "idle@0.1667",
+  "idle@0.25",
+  "idle@0.3333",
+  "idle@0.4167",
+  "idle@0.5",
+  "idle@0.5833",
+  "idle@0.6667",
+  "idle@0.75",
+  "idle@0.8333",
+  "idle@0.9167",
+  "walk@0",
+  "walk@0.1667",
+  "walk@0.3333",
+  "walk@0.5",
+  "walk@0.6667",
+  "walk@0.8333",
+  "lope@0",
+  "lope@0.1667",
+  "lope@0.3333",
+  "lope@0.5",
+  "lope@0.6667",
+  "lope@0.8333",
+  "lunge@0.0833",
+  "lunge@0.25",
+  "lunge@0.4167",
+  "lunge@0.5833",
+  "lunge@0.75",
+  "lunge@0.9167",
+  "fall@0.1667",
+  "fall@0.3333",
+  "fall@0.5",
+  "fall@0.6667",
+  "fall@0.8333",
+  "fall@1"
+ ],
+ "clips": {
+  "idle": {
+   "clip": "idle",
+   "cols": [
+    "idle@0",
+    "idle@0.0833",
+    "idle@0.1667",
+    "idle@0.25",
+    "idle@0.3333",
+    "idle@0.4167",
+    "idle@0.5",
+    "idle@0.5833",
+    "idle@0.6667",
+    "idle@0.75",
+    "idle@0.8333",
+    "idle@0.9167"
+   ],
+   "beats": 4,
+   "loop": true,
+   "for": "waiting on the board: the breath, the tail, an ear flick a bar"
+  },
+  "step": {
+   "clip": "walk",
+   "cols": [
+    "walk@0",
+    "walk@0.1667",
+    "walk@0.3333",
+    "walk@0.5",
+    "walk@0.6667",
+    "walk@0.8333"
+   ],
+   "beats": 2,
+   "loop": true,
+   "for": "moving one house tile: the four-beat walk, two or three paws always down"
+  },
+  "run": {
+   "clip": "lope",
+   "cols": [
+    "lope@0",
+    "lope@0.1667",
+    "lope@0.3333",
+    "lope@0.5",
+    "lope@0.6667",
+    "lope@0.8333"
+   ],
+   "beats": 2,
+   "loop": true,
+   "for": "a long move (fast, Battle Brothers' Direwolf): the gallop, a moment in the air"
+  },
+  "bite": {
+   "clip": "lunge",
+   "cols": [
+    "lunge@0.0833",
+    "lunge@0.25",
+    "lunge@0.4167",
+    "lunge@0.5833",
+    "lunge@0.75",
+    "lunge@0.9167"
+   ],
+   "beats": 2,
+   "loop": false,
+   "for": "the attack: crouch, spring with the jaws open, the bite shut on him, back"
+  },
+  "fall": {
+   "clip": "fall",
+   "cols": [
+    "fall@0.1667",
+    "fall@0.3333",
+    "fall@0.5",
+    "fall@0.6667",
+    "fall@0.8333",
+    "fall@1"
+   ],
+   "beats": 2,
+   "loop": false,
+   "for": "struck down: the legs go, it lies, the head last",
+   "then": "dead"
+  },
+  "dead": {
+   "clip": "fall",
+   "cols": [
+    "fall@1"
+   ],
+   "beats": 1,
+   "loop": false,
+   "for": "lying where it fell (the fall's last picture)"
+  }
+ },
+ "clips_by": "frame = cols[floor(progress * cols.length)], progress over beats * 500 ms (the 120 beat); three pictures a beat, the men's grid",
+ "scale": {
+  "note": "the same 112 frame and the same ground line as fight_people: a man is ~100 px tall in it, the dire wolf ~62 at the ears and 44 at the shoulder (a real one: 80 cm at the shoulder against a 1.75 m man)"
+ },
+ "beasts": {
+  "dire_wolf": {
+   "file": "dire_wolf.webp",
+   "id": "dire_wolf",
+   "name": "dire wolf",
+   "draft": true,
+   "bb": "Direwolf (fast, pack; 12 action points, bites three times if it does not move: library 09, Grok 01/08)",
+   "lore": "de-extinct from the Ice Age record (Aenocyon dirus), out of its lab when the dollar died; the yellow ear tag is its lab number"
+  }
+ },
+ "packed": "lossless WebP, every pixel checked identical to the bake"
+}

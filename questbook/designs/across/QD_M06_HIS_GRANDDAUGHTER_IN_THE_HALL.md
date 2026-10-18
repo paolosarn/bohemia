@@ -47,4 +47,4 @@ She has his limp, and she was born after he got it.
 ## FLAWS IT AVOIDS
 `Q046.X5` (inherited hatred), `Q144.X1` (the heir re-reads prose: the only repeated words are his, on purpose, once), `Q121.X1` and `Q096.X1` (a promissory note across acts: the default read is a full job).
 
-CHECKLIST: passes all 30. Line 12 is met by choice B (keeping her out of the fight is the price, half a day). Line 18 is met by the three written reads.
+CHECKLIST: passes all 32. Line 12 is met by choice B (keeping her out of the fight is the price, half a day). Line 18 is met by the three written reads. (QR-AM 10/10: lines 31 and 32 run, pass as written)

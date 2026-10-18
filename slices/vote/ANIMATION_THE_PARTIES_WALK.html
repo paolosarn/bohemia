@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The Parties Walk</title>
+<!-- ANIMATION [the marker walks], 10/9, rules 65 and 68. The same eight-block trip on the real map inside the alpha,
+     the game's clock stubbed, filmed off the map's own canvas: BEFORE (main before this round) and NOW.
+     RULE 25: IT PLAYS, 20 pictures a second, the trip's own time. No control. Two sentences (rule 22f). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 12px;color:#b3a890;max-width:60ch}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px;max-width:460px}
+  .lab{font-size:10px;letter-spacing:2px;margin-bottom:4px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  .clip{width:100%;aspect-ratio:320/200;image-rendering:pixelated;background-repeat:no-repeat;border-radius:3px;background-color:#101319}
+</style>
+<h1>THE PARTIES WALK</h1>
+<p>On the map you now travel as three people, you and two of your company walking at your shoulders, and every roaming party walks and slides between blocks instead of standing still and jumping. When the clock stops, everybody stops and breathes.</p>
+<div class="panel"><div class="lab old">BEFORE</div><div class="clip" id="a"></div></div>
+<div class="panel"><div class="lab new">NOW</div><div class="clip" id="b"></div></div>
+<script>
+(function(){
+  var N=40, COLS=8, FPS=20, els=[['a','ANIMATION_THE_PARTIES_WALK_BEFORE.png'],['b','ANIMATION_THE_PARTIES_WALK_AFTER.png']].map(function(x){
+    var e=document.getElementById(x[0]); e.style.backgroundImage='url('+x[1]+')'; e.style.backgroundSize=(COLS*100)+'% '+(5*100)+'%'; return e; });
+  var t0=performance.now();
+  (function tick(){ var i=Math.floor((performance.now()-t0)/1000*FPS)%N, c=i%COLS, r=Math.floor(i/COLS);
+    els.forEach(function(e){ e.style.backgroundPosition=(c*100/(COLS-1))+'% '+(r*100/4)+'%'; });
+    requestAnimationFrame(tick); })();
+})();
+</script>

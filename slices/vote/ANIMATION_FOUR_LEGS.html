@@ -1,0 +1,68 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · Four Legs</title>
+<!-- ANIMATION [four legs], 10/9, rule 42 (the beasts are lab-made; Battle Brothers' bestiary is the floor, its Direwolf
+     first). Played from the real sheets and their clip tables: slices/fight_beasts (the dire wolf, baked from
+     engine/bohemia_quadruped.js) and slices/fight_people (the man). BEFORE: the fight today, which has no beast to draw.
+     NOW: it walks in, lopes, bites, takes his swing, falls. And the pair at the map's size (a 112 frame drawn at 37 px).
+     RULE 25: IT PLAYS, on the 120 beat. Two sentences. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 12px;color:#b3a890;max-width:60ch}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .lab{font-size:10px;letter-spacing:2px;margin-bottom:4px}.old{color:#9a6b6b}.new{color:#7fa06b}
+  canvas{display:block;width:100%;max-width:448px;image-rendering:pixelated;background:#2a2219;border-radius:3px}
+</style>
+<h1>FOUR LEGS</h1>
+<p>The first lab-made beast moves: a dire wolf walks in, breaks into a lope, bites the man, takes his swing and goes down, three pictures a beat like the men. Before, the fight had nothing on four legs to draw; under it, the same pair at the map's size.</p>
+<div class="panel"><div class="lab old">BEFORE: THE FIGHT HAS NO BEAST</div><canvas id="a" width="448" height="150"></canvas></div>
+<div class="panel"><div class="lab new">NOW: THE DIRE WOLF</div><canvas id="b" width="448" height="150"></canvas></div>
+<div class="panel"><div class="lab new">ON THE MAP: THE SAME TWO AT 37 PX</div><canvas id="c" width="448" height="80"></canvas></div>
+<script>
+(function(){
+  var BEAT=500, LOOP=16, F=112, GY=130;                 /* GY: the board's ground line on the canvas */
+  var MX=190;                                            /* the man's frame, facing SW toward where it comes from */
+  /* the beast's script, in beats: walk 2, lope 4, the bite 2, his swing lands on the bite's last picture, the fall 2,
+     lying 6. Ground speed matches the paws: the walk 20 px a stride over 62% of 2 beats (32 px a second), the lope 26
+     over 40% of 2 beats (65 px a second), so no paw skates. */
+  var WALK=32/2, LOPE=65/2;                              /* px a beat */
+  var X0=-48, xWalkEnd=X0+2*WALK, xLopeEnd=xWalkEnd+4*LOPE;
+  var P, W, man, wolf, A=document.getElementById('a').getContext('2d'), B=document.getElementById('b').getContext('2d'), C=document.getElementById('c').getContext('2d');
+  function pick(T, ev, u){ var cl=T.clips[ev]; return T.cols.indexOf(cl.cols[Math.min(cl.cols.length-1, Math.floor(((u%1)+1)%1*cl.cols.length))]); }
+  function wolfAt(t){
+    if(t<2) return {ev:'step', u:t/2, x:X0+t*WALK};
+    if(t<6) return {ev:'run', u:(t-2)/2, x:xWalkEnd+(t-2)*LOPE};
+    if(t<8) return {ev:'bite', u:(t-6)/2, x:xLopeEnd};
+    if(t<10) return {ev:'fall', u:(t-8)/2, x:xLopeEnd};
+    return {ev:'dead', u:0, x:xLopeEnd};
+  }
+  function manAt(t){                                     /* bitten on the bite's shut picture (beat 7), swings back on beat 7.5 */
+    if(t>=7 && t<7.5) return {ev:'hit', u:(t-7)/0.5};
+    if(t>=7.5 && t<8.5) return {ev:'swing', u:(t-7.5)};
+    return {ev:'idle', u:(t%4)/4};
+  }
+  function board(g,h){ g.fillStyle='#2a2219'; g.fillRect(0,0,448,h); g.fillStyle='#3a3024'; g.fillRect(0,h-26,448,26); }
+  function drawMan(g,t){ var m=manAt(t), c=pick(P,m.ev,m.u); g.drawImage(man,c*F,F,F,F,MX,GY-106,F,F); }
+  function draw(g,t,now){
+    board(g,150); g.imageSmoothingEnabled=false;
+    if(now){ var w=wolfAt(t), c=pick(W,w.ev,w.u); g.drawImage(wolf,c*F,0,F,F,Math.round(w.x),GY-102,F,F); }
+    drawMan(g,t);
+  }
+  /* the map: a 112 frame at 37 px, nearest, as the map draws its people; walking in place side by side */
+  function drawMap(g,t){
+    board(g,80); g.imageSmoothingEnabled=false; var s=37/112;
+    var cw=pick(W,'step',t/2), cm=pick(P,'step',t/2);
+    g.drawImage(wolf,cw*F,0,F,F,170,60-Math.round(102*s),37,37);
+    g.drawImage(man,cm*F,F,F,F,210,60-Math.round(106*s),37,37);
+    var cr=pick(W,'run',t/2); g.drawImage(wolf,cr*F,F,F,F,280,60-Math.round(102*s),37,37);
+  }
+  function img(src){ return new Promise(function(res){ var im=new Image(); im.onload=function(){res(im);}; im.onerror=function(){res(null);}; im.src=src; }); }
+  Promise.all([fetch('../fight_people/fight_people.json').then(function(r){return r.json();}), fetch('../fight_beasts/fight_beasts.json').then(function(r){return r.json();})])
+  .then(function(j){ P=j[0]; W=j[1]; return Promise.all([img('../fight_people/'+P.looks.you.file), img('../fight_beasts/'+W.beasts.dire_wolf.file)]); })
+  .then(function(ims){ man=ims[0]; wolf=ims[1]; if(!man||!wolf) return; var t0=performance.now();
+    (function tick(){ var t=((performance.now()-t0)/BEAT)%LOOP; draw(A,t,false); draw(B,t,true); drawMap(C,t); requestAnimationFrame(tick); })(); });
+})();
+</script>

@@ -112,6 +112,169 @@ function ok(claim, cond, detail) {
     + ' a second here). The law is ONE ENGINE AT A TIME, never "tabs are quiet", and the first write of this claim got that wrong and went red on correct behaviour',
     inFight.shell < Math.max(2.5, inFight.combat * 0.25));
 
+  /* ---- E4: THE NEW FIGHT HAS ITS OWN DOOR, AND NFOPEN() NEVER WENT THROUGH THE
+     CLICK HANDLER THIS WHOLE LAW LIVES IN (SOUNDS, rule 54b, 10/4). Every claim
+     above opens combat by clicking the .tab element -- that is the OLD door, and
+     its click listener is where V186's stand-down lives. showTabPanel(), the
+     function the REBUILT fight's nfOpen() calls instead, only toggles CSS classes.
+     MEASURED: calling nfOpen() left CITYMUS.on true and never touched FIGHTMUS at
+     all -- the street shuffle rode straight through the rebuilt fight, the exact
+     "two songs" complaint, through a door this gate never opened until now. */
+  await p.click('[data-p="run"]'); await p.waitForTimeout(2000);
+  const nfCheck = await p.evaluate(async () => {
+    try { if (window.CITYMUS && !CITYMUS.on) CITYMUS.startShuffle(); } catch (e) {}
+    await new Promise(r => setTimeout(r, 300));
+    const cityOnBefore = !!(window.CITYMUS && CITYMUS.on);
+    let opened = false;
+    try { opened = !!(window.nfOpen && nfOpen({ district: 'ruin', at: null, faction: null })); } catch (e) {}
+    await new Promise(r => setTimeout(r, 300));
+    const cityOnAfter = !!(window.CITYMUS && CITYMUS.on);
+    const fightOnAfter = !!(window.FIGHTMUS && FIGHTMUS.on);
+    try { window.postMessage({ type: 'BOHEMIA_FIGHT_OVER', result: 'lost', rounds: 1 }, '*'); } catch (e) {}
+    return { cityOnBefore, opened, cityOnAfter, fightOnAfter };
+  });
+  console.log('  nfOpen() door: ' + JSON.stringify(nfCheck));
+  ok('E4 *** THE REBUILT FIGHT\'S OWN DOOR STANDS THE STREET DOWN TOO. *** nfOpen() is how a walked-into encounter opens the rebuilt fight. Before the fix this measured CITYMUS.on still true and FIGHTMUS.on still false after opening -- same bug as 8/26, on a door E1-E3 cannot see because it never clicks a .tab',
+    nfCheck.opened === true && nfCheck.cityOnBefore === true && nfCheck.cityOnAfter === false && nfCheck.fightOnAfter === true,
+    'nfOpen() left the street shuffle running: ' + JSON.stringify(nfCheck));
+
+  /* ---- E5: THE AMBIENCE COMES DOWN (SOUNDS, rule 54b, 10/4). "Quieter please,
+     it's loud." sign_alive, power_on and generator are TIER 1 ambience and nothing
+     was ever pulling them down the way ROOM's own ratio pulls the room tone down.
+     A ratio OVER the approved recipe, never a rewrite of it -- the recipe stays
+     frozen and only playSFX's output changes. */
+  const ambCheck = await p.evaluate(() => {
+    const trim = window.__ambTrim || {};
+    const fn = window.__sfxAmbTrim;
+    let trimmed = null, untouched = null;
+    try { trimmed = fn('power_on', { gain: 1 }); } catch (e) {}
+    try { untouched = fn('equip', { gain: 1 }); } catch (e) {}
+    return { trim, hasFn: typeof fn === 'function',
+      trimmedGain: trimmed && trimmed.gain, untouchedGain: untouched && untouched.gain };
+  });
+  console.log('  ambience trim: ' + JSON.stringify(ambCheck));
+  ok('E5 *** SIGN, BLOCK LIGHTS AND GENERATOR ARE QUIETER, AND NOTHING ELSE MOVED. *** playSFX applies a named ratio to these three ambience events only; power_on at gain 1 renders at ' + ambCheck.trimmedGain + ' (half), equip (not named) renders untouched at ' + ambCheck.untouchedGain,
+    ambCheck.hasFn && ambCheck.trim.sign_alive === 0.5 && ambCheck.trim.power_on === 0.5 && ambCheck.trim.generator === 0.5
+      && ambCheck.trimmedGain === 0.5 && ambCheck.untouchedGain === 1,
+    'ambience trim missing or wrong: ' + JSON.stringify(ambCheck));
+
+  /* ---- E6: THE REBUILT FIGHT'S OWN SOUNDS ARE REAL MATERIAL NOW, NOT SAND (SOUNDS,
+     rule 54b, 10/4). slices/BOHEMIA_FIGHT.html had its own placeholder tone()/noise()
+     for a shot, a hit, a fall, a miss and the recap -- a second, unapproved sound
+     system sitting inside the rebuilt fight. Each of those is now a postMessage to
+     the parent's one real engine, carrying an event this lane already shipped
+     elsewhere (shot, swing_air, hit, melee_hit, vital, hurt, miss, kill, went_down,
+     clear). Exercised through the fight's own exported sfx(), the same function its
+     game code calls, not a copy of it. */
+  const fightSfxCheck = await p.evaluate(async () => {
+    /* self-sufficient: opens its own fight rather than trusting E4's frame still to
+       be alive, since nfHome() removes fightFrame on a timer E4's own cleanup starts. */
+    try { if (window.nfOpen) nfOpen({ district: 'ruin', at: null, faction: null }); } catch (e) {}
+    await new Promise(r => setTimeout(r, 300));
+    const fr = document.getElementById('fightFrame');
+    if (!fr || !fr.contentWindow || typeof fr.contentWindow.sfx !== 'function')
+      return { ready: false };
+    const calls = [];
+    const orig = window.playSFX;
+    window.playSFX = function (ev, when) { calls.push(ev); return orig(ev, when); };
+    const want = ['shot', 'swing_air', 'hit', 'melee_hit', 'vital', 'hurt', 'miss', 'kill', 'went_down', 'clear'];
+    want.forEach(ev => fr.contentWindow.sfx(ev));
+    await new Promise(r => setTimeout(r, 200));
+    window.playSFX = orig;
+    return { ready: true, want: want, got: calls };
+  });
+  console.log('  rebuilt fight sfx bridge: ' + JSON.stringify(fightSfxCheck));
+  ok('E6 *** THE REBUILT FIGHT TALKS TO THE ONE REAL ENGINE, EVERY NAMED EVENT. *** a shot, a hit (ranged and melee), a vital hit, hurt (your own side taking it), a miss, a kill, a struck-down and the recap all reach window.playSFX through the fight\'s own iframe boundary, which is how every other approved sound in this game already gets heard',
+    fightSfxCheck.ready === true && fightSfxCheck.want && fightSfxCheck.got
+      && fightSfxCheck.want.every(ev => fightSfxCheck.got.includes(ev)),
+    'the fight\'s own sfx bridge is missing or incomplete: ' + JSON.stringify(fightSfxCheck));
+
+  /* ---- E7: THE VALLEY SPEAKS ON THE MAP TOO (SOUNDS, row [the map's sounds], 10/5).
+     AMB.tick() has checked only the RUN tab since before the MAP tab existed, so the
+     wind, the generator and somebody's dog have never once played while he is actually
+     travelling. MEASURED first: the city/run frame's heartbeat (BOHEMIA_WHERE) keeps
+     arriving every ~4 s whichever tab is on screen, worst gap 11 s, always inside the
+     12 s cutoff this bed already uses -- so the data was fresh the whole time and only
+     the tab check was blind to the new tab. */
+  const ambMapCheck = await p.evaluate(async () => {
+    try { if (window.__AMB && !window.__AMB.seen) return { ready: false }; } catch (e) {}
+    const AMB = window.__AMB;
+    const mapTab = document.querySelector('.tab[data-p="map"]');
+    if (mapTab) mapTab.click();
+    await new Promise(r => setTimeout(r, 300));
+    let renderCount = 0;
+    const origRender = window.BOH_SFX && window.BOH_SFX.render;
+    if (origRender) window.BOH_SFX.render = function () { renderCount++; return origRender.apply(this, arguments); };
+    const origPick = AMB.pick;
+    AMB.pick = function () { return this.kind; };
+    AMB.next = Date.now() - 1;
+    const runOn = !!document.querySelector('.tab[data-p="run"].on');
+    const mapOn = !!document.querySelector('.tab[data-p="map"].on');
+    const ageMs = Date.now() - AMB.seen;
+    AMB.tick();
+    if (origRender) window.BOH_SFX.render = origRender;
+    AMB.pick = origPick;
+    return { ready: true, runOn, mapOn, ageMs, renderCount };
+  });
+  console.log('  ambience on the map tab: ' + JSON.stringify(ambMapCheck));
+  ok('E7 *** THE WIND, THE GENERATOR AND THE DOG NOW REACH THE MAP TAB TOO. *** AMB.tick() used to return before rendering anything unless the RUN tab carried class \'on\'; with only the MAP tab on screen and the city frame\'s report well inside its own 12 s freshness window, a due tick now renders',
+    ambMapCheck.ready === true && ambMapCheck.mapOn === true && ambMapCheck.runOn === false
+      && ambMapCheck.ageMs < 12000 && ambMapCheck.renderCount > 0,
+    'the ambience bed is still blind to the map tab: ' + JSON.stringify(ambMapCheck));
+
+  /* ---- E8: THE SETTLEMENT'S DOOR IS QUIETER AFTER DARK, AND NOTHING ELSE MOVED
+     (SOUNDS, row [the settlement's sounds], 10/9). His sixth votes already asked for
+     the valley's ambience turned down (AMB_TRIM, E5); this is the same shape for a
+     sound that is only quieter in ONE CALLING CONTEXT, so the multiplier travels
+     with the CALL (playSFX's third argument) and not with the event name -- the same
+     door_open walking into any other building, in daylight, anywhere else in the
+     valley, is untouched. */
+  const nightTrimCheck = await p.evaluate(() => {
+    const fn = window.__sfxMul;
+    let night = null, day = null;
+    try { night = fn({ gain: 1 }, 0.5); } catch (e) {}
+    try { day = fn({ gain: 1 }, null); } catch (e) {}
+    return { hasFn: typeof fn === 'function', nightGain: night && night.gain, dayGain: day && day.gain };
+  });
+  console.log('  night trim: ' + JSON.stringify(nightTrimCheck));
+  ok('E8 *** A SOUND CAN BE QUIETER FOR ONE CALLER WITHOUT CHANGING FOR EVERY OTHER ONE. *** door_open at gain 1 with a 0.5 night multiplier renders at '
+    + nightTrimCheck.nightGain + ' (half), the same call with no multiplier renders untouched at ' + nightTrimCheck.dayGain,
+    nightTrimCheck.hasFn && nightTrimCheck.nightGain === 0.5 && nightTrimCheck.dayGain === 1,
+    'the per-call night trim is missing or wrong: ' + JSON.stringify(nightTrimCheck));
+
+  /* ---- E9: THE MAP SAYS WHEN A TOWN IS REACHED, AND THE VALLEY ANSWERS ONCE
+     (SOUNDS, row [the map's sounds], round three 10/9). RUN's [the map hears]
+     (10/9) now posts `arriving` on the real BOHEMIA_MAP_STATE bridge; before this
+     round nothing listened, so the row's own "arriving at a settlement" line had
+     never fired on a real arrival, only on AMB.tick()'s random clock. CHECKED FRESH
+     BEFORE WIRING ANYTHING: dog_far is DOWN on all five candidates (records/
+     BOHEMIA_SFX_VERDICT_8_12_26.txt, GRAVEYARD IS FINAL), so only generator plays
+     here -- the row named two sounds, his own vote already killed one of them. */
+  const arriveCheck = await p.evaluate(async () => {
+    const calls = [];
+    let origRender = null;
+    try { origRender = BOH_SFX.render;
+      BOH_SFX.render = function (v) { calls.push(v && v.ev); return origRender.apply(this, arguments); }; } catch (e) {}
+    window.postMessage({ type: 'BOHEMIA_MAP_STATE', seq: 1, arriving: { name: 'Town A', seq: 42, ago: 10 } }, '*');
+    await new Promise(r => setTimeout(r, 300));
+    window.postMessage({ type: 'BOHEMIA_MAP_STATE', seq: 2, arriving: { name: 'Town A', seq: 42, ago: 20 } }, '*');
+    await new Promise(r => setTimeout(r, 300));
+    const afterRepeat = calls.length;
+    window.postMessage({ type: 'BOHEMIA_MAP_STATE', seq: 3, arriving: { name: 'Town B', seq: 43, ago: 0 } }, '*');
+    await new Promise(r => setTimeout(r, 300));
+    try { BOH_SFX.render = origRender; } catch (e) {}
+    return { calls, afterRepeat, arrivedSeq: window.__AMB && window.__AMB.arrivedSeq,
+      arriveLog: window.__ambArriveLog, dogPool: window.__sfxPool ? window.__sfxPool('dog_far') : null };
+  });
+  console.log('  arrival sting: ' + JSON.stringify(arriveCheck));
+  ok('E9 *** REACHING A NEW TOWN PLAYS THE GENERATOR ONCE, A REPEAT OF THE SAME ARRIVAL PLAYS NOTHING, AND THE DEAD DOG STAYS DEAD. *** '
+    + arriveCheck.calls.length + ' render call(s) across two real arrivals (' + arriveCheck.calls.join(',') + '), '
+    + arriveCheck.afterRepeat + ' call(s) survive a repeated seq, dog_far\'s own pool is ' + JSON.stringify(arriveCheck.dogPool),
+    arriveCheck.calls.length === 2 && arriveCheck.calls.every(c => c === 'generator') && arriveCheck.afterRepeat === 1
+      && arriveCheck.arrivedSeq === 43 && Array.isArray(arriveCheck.arriveLog) && arriveCheck.arriveLog.length === 2
+      && Array.isArray(arriveCheck.dogPool) && arriveCheck.dogPool.length === 0,
+    'the arrival sting is missing, double-fires, or reaches for the graveyarded dog: ' + JSON.stringify(arriveCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);

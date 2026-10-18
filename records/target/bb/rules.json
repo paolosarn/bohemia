@@ -1,0 +1,1703 @@
+{
+ "_meta": {
+  "what": "Battle Brothers combat rules as numbers, every value carrying its wiki page and an exact quote. Reference only: describes Battle Brothers' own hex board; Bohemia's square grid and house tiles are separate locked rulings.",
+  "sources": {
+   "bb_all/*": "reference/library/grok/wiki/PAGES_ALL.tar.gz, extracted (bb_all/NNNN_Title.txt)",
+   "CORE_WIKITEXT.md": "reference/library/grok/wiki/CORE_WIKITEXT.md (its '# PAGE Combat_Mechanics' is byte-identical in body to bb_all/0424_Combat Mechanics.txt)"
+  },
+  "quote_rule": "Each quote is a verbatim substring of its source (whitespace collapsed); wiki markup is kept where it sits inside the quoted span.",
+  "wiki_caveat": {
+   "value": "Some weapons' parameters, skills, perks have not been updated since 'Blazing Deserts' (2020) and 'Of Flesh and Faith' (2022) DLCs.",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Some weapons' parameters, skills, perks have not been updated since 'Blazing Deserts' (2020) and 'Of Flesh and Faith' (2022) DLCs."
+  },
+  "conflicts": [
+   "Thrown-weapon base accuracy: Combat Mechanics says +30, Hit Chance says +20 (Throw Axe/Bola/Javelin/Spear). Both kept under hit_chance.ranged.distance.thrown.",
+   "Thrown-weapon first hex: Combat Mechanics says thrown weapons DO count the first hex; Hit Chance gives one formula (distance - 1) for every skill. Both kept.",
+   "Hit roll comparison: Combat Mechanics says 'lower than'; Hit Chance gives 'hit roll <= hit chance'. Both kept under hit_chance.roll.",
+   "Height: Combat Mechanics gives a flat +10/-10; Hit Chance gives +10 for being higher and -10 'per level difference' for being lower. Both kept."
+  ]
+ },
+ "board": {
+  "grid": {
+   "value": "hex",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "The battlefield is a hex-tiled grid, with elevation, obstacles/terrain considerations and zone of control mechanics."
+  },
+  "height_levels": {
+   "value": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Flat Ground (0 Height Level) [[File:Height 0.png]] * 1. Height Level [[File:Height 1.png]] * 2. Height Level [[File:Height 2.png]] * 3. Height Level [[File:Height 3.png]]"
+  },
+  "battlefield_size_hexes": {
+   "value": null,
+   "missing": true,
+   "searched": [
+    "bb_all/0424_Combat Mechanics.txt",
+    "CORE_WIKITEXT.md#PAGE Combat_Mechanics",
+    "bb_all/0828_Game Mechanics.txt",
+    "bb_all/1415_News and Dev Blogs.txt",
+    "bb_all/0626_Developer Posts.txt",
+    "bb_all/1869_Standard Bearer.txt",
+    "grep of all 2255 bb_all pages for '<n> x <n>', 'map size', 'battlefield size', 'tiles wide', 'hexes wide'",
+    "reference/library/grok/*.md"
+   ],
+   "note": "No page in the dump gives the battle map's dimensions in hexes. Closest statements quoted below.",
+   "nearest": [
+    {
+     "value": null,
+     "source": "bb_all/0626_Developer Posts.txt",
+     "quote": "The game is balanced around skirmish-level infantry combat in terms of map size, game mechanics and skills."
+    },
+    {
+     "value": null,
+     "source": "bb_all/1869_Standard Bearer.txt",
+     "quote": "The battlefield is too large for him to rally everyone, but a squad can deploy more than one Standard Bearer."
+    }
+   ]
+  },
+  "max_fielded_per_side_player": {
+   "value": 12,
+   "source": "bb_all/0828_Game Mechanics.txt",
+   "quote": "The player starts the game with 3 men, will [[Character_Backgrounds|hire]] more from settlements (up to 20) and can field a maximum of 12 men in battles."
+  },
+  "roster_max": {
+   "value": 20,
+   "source": "bb_all/0828_Game Mechanics.txt",
+   "quote": "will [[Character_Backgrounds|hire]] more from settlements (up to 20)"
+  },
+  "vision_default": {
+   "value": 7,
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Commonly, a hired mercenary has a Vision value of 7."
+  },
+  "vision_floor": {
+   "value": 1,
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Vision cannot be reduced below 1. Elevation is taken into account after the cap"
+  }
+ },
+ "deployment": {
+  "min_gap_between_lines_hexes": {
+   "value": 5,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy), with at least 5 hexes between parties."
+  },
+  "player_lines_deep": {
+   "value": {
+    "min": 1,
+    "max": 2
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "1-2 lines deep for your forces, may be deeper for the enemy"
+  },
+  "no_melee_closing_round_one": {
+   "value": true,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Human forces cannot close to melee distance within 1 round as traversing a hex takes a minimum of 2AP."
+  },
+  "ranged_in_range_round_one": {
+   "value": {
+    "bow_range": 7,
+    "bow_range_with_mastery": 8,
+    "crossbow_range": 6
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "As bows have a range of 7 tiles on the flat (8 with mastery) and crossbows have a range of 6 tiles, both sides start the 1st round within firing distance of ranged combatants."
+  },
+  "player_deployment_phase": {
+   "value": null,
+   "missing": true,
+   "searched": [
+    "bb_all/0424_Combat Mechanics.txt",
+    "bb_all/0626_Developer Posts.txt",
+    "bb_all/1415_News and Dev Blogs.txt"
+   ],
+   "note": "Dev posts only call a pre-battle deployment phase 'planned'; no rule stated.",
+   "nearest": [
+    {
+     "value": null,
+     "source": "bb_all/0626_Developer Posts.txt",
+     "quote": "A pre-battle formation setup or deployment phase is a planned feature. It won't be available when you're ambushed, though."
+    }
+   ]
+  },
+  "retreat_from_map_edge": {
+   "value": "men on the edge retreat safely; others auto-move to the edge with a ZoC defense bonus scaled by difficulty",
+   "source": "bb_all/0583_Dev Blog 105: Additions & Changes.txt",
+   "quote": "If your men are already on the edges of the map, you\u2019ll safely retreat as before. If they aren\u2019t, they\u2019ll now attempt to speedily move to the edges of the map automatically and by themselves until either they succeed or die. While this is going on, they\u2019ll get a defense bonus for moving through zones of control, the amount of which scales with the chosen difficulty level."
+  }
+ },
+ "ap": {
+  "per_turn": {
+   "value": 9,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "All brothers and most enemy units have 9AP."
+  },
+  "per_turn_exceptions": {
+   "value": {
+    "fewer": [
+     "Wiedergangers"
+    ],
+    "more": [
+     "Direwolves",
+     "Goblin Wolfriders"
+    ]
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "A few have less (ie Wiedergangers) and some have more (ie Direwolves, Goblin Wolfriders)."
+  },
+  "refresh": {
+   "value": "start of every round",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "AP is spent by actions (moving, striking, using special skills/consumables, etc) and refreshed at the start of the every round."
+  },
+  "refresh_exceptions": {
+   "value": [
+    "stunned",
+    "goblin poison",
+    "certain injury"
+   ],
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Action Points fully recover every round unless a unit is stunned or affected by goblin poison or by a certain injury."
+  },
+  "turn_ends_at_zero": {
+   "value": true,
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "When AP reach 0, the turn for the character ends, and the next unit acts"
+  },
+  "move_cost": {
+   "flat": {
+    "value": 2,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Movement on flat ground (Grass/Plains/Roads) costs 2AP."
+   },
+   "rough": {
+    "value": 3,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Rough terrain such as Forest/Snow have tiles that typically cost 3AP (there are tiles that still cost 2AP though (ie Light Snow))."
+   },
+   "murky_water_swamp": {
+    "value": 4,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Swamp costs 4AP for tiles with Murky Water."
+   },
+   "height_change_extra": {
+    "value": 1,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Changing elevation adds a further +1 to AP cost per tile."
+   },
+   "pathfinder": {
+    "value": {
+     "terrain_ap_reduction": 1,
+     "min_ap_per_tile": 2,
+     "fatigue_multiplier": 0.5,
+     "height_change_extra_ap": 0
+    },
+    "source": "bb_all/1528_Pathfinder.txt",
+    "quote": "Action Point costs for movement on all terrain is reduced by <span style=\"color: green\">-1</span> to a minimum of 2[[File:Action_points.png|25px|bottom]] Action Points per tile, and [[File:Fatigue.png|25px|bottom]] Fatigue cost is reduced to half. Changing height levels has no additional [[File:Action_points.png|25px|bottom]] Action Point cost anymore, but [[File:Fatigue.png|25px|bottom]] Fatigue cost is unaffected."
+   }
+  },
+  "strike_cost": {
+   "one_handed": {
+    "value": 4,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Most strikes from 1-handed weapons use 4AP (exception: Dagger (with Mastery) uses only 3AP)"
+   },
+   "one_handed_exceptions": {
+    "value": {
+     "Dagger (with Mastery)": 3
+    },
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "exception: Dagger (with Mastery) uses only 3AP"
+   },
+   "two_handed": {
+    "value": 6,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "strikes from 2-handed weapons use 6AP (exception: Warbrand, Rhomphaia and 2-Handed Cleavers use 4AP on regular strikes; Jagged Pike uses 5AP)."
+   },
+   "two_handed_exceptions": {
+    "value": {
+     "Warbrand": 4,
+     "Rhomphaia": 4,
+     "2-Handed Cleavers": 4,
+     "Jagged Pike": 5
+    },
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "exception: Warbrand, Rhomphaia and 2-Handed Cleavers use 4AP on regular strikes; Jagged Pike uses 5AP"
+   }
+  }
+ },
+ "fatigue": {
+  "action_needs_fatigue": {
+   "value": "a fully fatigued character can neither strike nor move",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Apart from AP, all weapon strikes and movement on the battlefield also cost fatigue to execute, therefore a fully fatigued character can neither strike nor move."
+  },
+  "recovery_per_turn": {
+   "value": 15,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Every character recovers 15 fatigue at the start of his turn."
+  },
+  "recovery_per_turn_attributes": {
+   "value": 15,
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Fatigue recovers for a basic amount of 15 every round."
+  },
+  "recovery_trait_iron_lungs_extra": {
+   "value": 3,
+   "source": "bb_all/1093_Iron Lungs.txt",
+   "quote": "Recovers an extra 3"
+  },
+  "on_dodge_or_block": {
+   "value": 2,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "dodging/blocking blows also increases Fatigue by 2 and getting struck by a blow increases Fatigue by 5."
+  },
+  "on_dodge_or_block_scope": {
+   "value": "melee only; dodging/blocking ranged attacks builds none",
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Dodging or blocking melee attacks with a shield builds up 2 Fatigue points. Some enemies\u2019 attacks build up more Fatigue on targets they hit (e.g. [[Fallen Hero]]es deal double fatigue damage, as well as [[Armored Wiederganger]]s after day 20). Dodging or blocking ranged attacks does not incur Fatigue build-up."
+  },
+  "on_struck": {
+   "value": 5,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "getting struck by a blow increases Fatigue by 5."
+  },
+  "on_struck_by_mace": {
+   "value": {
+    "one_handed_mace": 10,
+    "two_handed_mace": 20
+   },
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Being hit by melee or ranged weapon builds up 5 Fatigue, 10 and 20 if hit by one- and two-handed maces respectively."
+  },
+  "fatigue_damage_formula": {
+   "value": "5 * fatigue damage multiplier",
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "= 5 * fatigue damage multiplier"
+  },
+  "fatigue_damage_skill_bonus": {
+   "value": {
+    "Bash": 2,
+    "Cudgel": 4,
+    "Knock Out": 2,
+    "Strike Down": 4
+   },
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "|Bash |2 |- |Cudgel |4 |- |Knock Out |2 |- |Strike Down |4"
+  },
+  "orc_gear_extra_per_skill_for_humans": {
+   "value": 5,
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "also build up additional 5 Fatigue points for every skill when used by humans."
+  },
+  "initiative_penalty": {
+   "value": "current initiative = initiative - accumulated fatigue - penalty to max fatigue from gear",
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "The average Battle Brother has a value around 100, which is reduced by the current fatigue as well as any penalty to maximum fatigue (such as from heavy armor and weapons, other equipment)."
+  },
+  "initiative_penalty_one_for_one_confirmed": {
+   "value": 1.0,
+   "source": "bb_all/1674_Relentless.txt",
+   "quote": "At all times your [[File:Initiative.png|25px|bottom]] Initiative is reduced only by <span style=\"color: green\">50%</span> of your accumulated [[File:Fatigue.png|25px|bottom]] Fatigue, instead of all of it.",
+   "note": "Relentless halves it, so the default is 100% of accumulated fatigue."
+  },
+  "bag_items_penalty_multiplier": {
+   "value": 0.5,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "although this penalty is reduced by 50% while said items are in your bags"
+  },
+  "move_fatigue_per_terrain": {
+   "value": null,
+   "missing": true,
+   "searched": [
+    "bb_all/0424_Combat Mechanics.txt",
+    "CORE_WIKITEXT.md#PAGE Combat_Mechanics",
+    "bb_all/0160_Attributes.txt",
+    "bb_all/1528_Pathfinder.txt",
+    "bb_all/1415_News and Dev Blogs.txt",
+    "grep of all bb_all pages for 'fatigue per tile', terrain words near 'fatigue'"
+   ],
+   "note": "The wiki says moving and changing height cost fatigue, and Pathfinder halves it, but no page gives the per-terrain fatigue numbers.",
+   "nearest": [
+    {
+     "value": null,
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "Changing height level costs more action points and costs more fatigue than walking on the same height layer."
+    }
+   ]
+  },
+  "recover_perk": {
+   "value": {
+    "ap": 9,
+    "fatigue_multiplier": 0.5
+   },
+   "source": "bb_all/1654_Recover (Perk).txt",
+   "quote": "which allows to reduce accumulated [[File:Fatigue.png|bottom|25px]] Fatigue by <span style=\"color: green\">50%</span> by resting for the current turn (costs 9[[File:Action_points.png|25px|Action Points|bottom]])."
+  }
+ },
+ "initiative_and_turn_order": {
+  "order": {
+   "value": "highest initiative acts first each round",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "The character with the highest initiative will start first in a battle round, followed by characters with lower initiative."
+  },
+  "fatigue_moves_you_back": {
+   "value": true,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "As initiative is lowered when a character builds up fatigue or has a penalty to max. fatigue (due to armor/weapons or other effects), his turn may move from first to last very quickly, if he gets fatigued too fast and the enemies do not."
+  },
+  "average_brother": {
+   "value": 100,
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "The average Battle Brother has a value around 100"
+  },
+  "wait_penalty_next_round": {
+   "value": -0.25,
+   "source": "bb_all/1415_News and Dev Blogs.txt",
+   "quote": "Changed the waiting action to reduce initiative by 25% for the purpose of determining turn order the following turn. This is to lessen the problem of taking double-turns, i.e. two turns in quick succession."
+  },
+  "wait_penalty_relentless_removes": {
+   "value": 0,
+   "source": "bb_all/1674_Relentless.txt",
+   "quote": "Using the 'Wait' command no longer gives you a \u221225% penalty to [[File:Initiative.png|25px|bottom]] Initiative when determining the turn order on the next round."
+  },
+  "wait_acts_later_same_round": {
+   "value": null,
+   "missing": true,
+   "searched": [
+    "bb_all/1415_News and Dev Blogs.txt",
+    "bb_all/0626_Developer Posts.txt",
+    "bb_all/1674_Relentless.txt",
+    "bb_all/0160_Attributes.txt",
+    "bb_all/0424_Combat Mechanics.txt"
+   ],
+   "note": "Waiting moving a unit to later in the current round is implied by a dev post, not stated as a rule.",
+   "nearest": [
+    {
+     "value": null,
+     "source": "bb_all/0626_Developer Posts.txt",
+     "quote": "If a character would have already spent most of their AP and then waited, in essence already having concluded their turn save for 2 AP or so, and then get stunned, they\u2019d lose that same turn at the end of the round which they already acted on."
+    }
+   ]
+  },
+  "skip_round_button": {
+   "value": "all men skip their turns for the current round",
+   "source": "bb_all/0583_Dev Blog 105: Additions & Changes.txt",
+   "quote": "Clicking it (or using the hotkey) and confirming your choice in the following dialog will have all your men skip their turns for the current round."
+  },
+  "fleeing_turn_order": {
+   "value": -1000,
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "is also instantly moved to the end of turn order. At the start of a round Fleeing units have a penalty of -1000 initiative for turn order only, so they will act last"
+  },
+  "adrenaline": {
+   "value": 2000,
+   "source": "bb_all/0027_Adrenaline (Status Effect).txt",
+   "quote": "+2000</span> [[File:Initiative.png|25px|Initiative]]",
+   "note": "Status lasts 1 turn; 'The bonus initiative only counts towards the turn order.'"
+  },
+  "adrenaline_tiebreak": {
+   "value": "highest initiative among Adrenaline users first",
+   "source": "bb_all/0026_Adrenaline (Perk).txt",
+   "quote": "if two characters are using [[File:Perk_37_active.png|25px|bottom]] [[Adrenaline (20 fatigue)|Adrenaline skill]], the one with the highest [[File:Initiative.png|25px|bottom]] Initiative will act first."
+  }
+ },
+ "zone_of_control": {
+  "who_exerts": {
+   "value": "melee units: melee weapon, bare fists, or beasts (except alps and hexes)",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Melee units - units with a melee weapon, bare fists, or beasts (except for alps and hexes) - exert a Zone of Control on tiles directly adjacent to them."
+  },
+  "radius_hexes": {
+   "value": 1,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "exert a Zone of Control on tiles directly adjacent to them."
+  },
+  "free_attacks_on_leave": {
+   "value": {
+    "fatigue_cost_to_attacker": 0
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Any unit trying to leave a tile under Zone of Control will suffer automatic strikes from the hostiles controlling the ZoC (at no fatigue cost for the controlling unit)."
+  },
+  "leave_resolution": {
+   "value": "all miss = leaves; any hit = stays and must try again",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "If all strikes miss, the unit leaves the tile. If any strike hits, the attempt to leave the tile fails and the unit has to try again."
+  },
+  "no_zoc": {
+   "value": [
+    "ranged weapon user",
+    "fleeing",
+    "stunned",
+    "entangled",
+    "horrified",
+    "sleeping",
+    "smoke pot tiles (1 turn)"
+   ],
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "A unit using any kind of ranged weapon (i.e. bow, javelins), a fleeing or stunned unit does not exert a Zone of Control. A smoke pot removes the ZoC from affected tiles for 1 turn."
+  },
+  "no_zoc_more": {
+   "value": [
+    "entangled",
+    "horrified",
+    "sleeping"
+   ],
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Entangled, horrified, and sleeping units lose their ability to exert their ZoC."
+  },
+  "bypass": {
+   "value": [
+    "Footwork",
+    "Rotation"
+   ],
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Footwork skill allows to move through ZoC safely. Rotation skill allows a unit to leave the ZoC by swapping positions with another non-hostile unit."
+  },
+  "height_gap_breaks_zoc_levels": {
+   "value": 2,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "If there are two or more levels of height difference between the hex a character is standing on and an enemy in an adjacent hex, you do not count as being in melee attack range or being in each other's Zone of Control."
+  }
+ },
+ "hit_chance": {
+  "base_melee": {
+   "value": "melee skill - melee defense",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Base chance to hit (shown after selecting a skill and mousing over a target) is essentially: melee skill of brother subtracted against base melee defense of target."
+  },
+  "main_formula": {
+   "value": "hit chance = skill - defense; skill = skill * skill multiplier; defense = defense * defense multiplier",
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "hit chance = skill - defense With: skill = skill * skill multiplier defense = defense * defense multiplier"
+  },
+  "additive_vs_multiplicative": {
+   "value": {
+    "additive": [
+     "gear",
+     "elevation",
+     "surround"
+    ],
+    "multiplicative": [
+     "morale",
+     "injury"
+    ]
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Gear, elevation and surround bonuses are factored in additively. (ie an attacker with Melee Skill of 70 striking a defender with Melee Defense of 0 will have 70% hit chance. If said attacker had another friendly unit adjacent/surrounding the defender, he would get +5% or in other words his hit chance would be 75% instead) *Morale bonuses/penalties and injury penalties are factored in multiplicatively"
+  },
+  "defense_soft_cap": {
+   "value": {
+    "threshold": 50,
+    "over_threshold_multiplier": 0.5
+   },
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "if defense > 50, then defense = 50 + (defense - 50) * 0.5"
+  },
+  "defense_soft_cap_cm": {
+   "value": {
+    "threshold": 50,
+    "over_threshold_multiplier": 0.5
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "each Melee Defense attribute point over 50 is halved."
+  },
+  "surround": {
+   "per_extra_adjacent": {
+    "value": 5,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "For each unit after the first surrounding, a bonus of +5% melee hit chance is given to allies attacking the surrounded target."
+   },
+   "formula": {
+    "value": "melee defense = melee defense - surround bonus * (adjacent enemies - 1)",
+    "source": "bb_all/1002_Hit Chance.txt",
+    "quote": "melee defense = melee defense - surround bonus * (adjacent enemies - 1)"
+   },
+   "applies_to_non_adjacent_melee_attackers": {
+    "value": true,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Gunther is not adjacent to the surrounded [[Humans#Brigands|Raider]] and attacks him with a [[Longaxe]]. He will also benefit from a bonus of +10% hit chance"
+   },
+   "not_ranged": {
+    "value": true,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Bernhard will not benefit from any bonus because he is using a [[Ranged Weapons|Ranged Weapon]]."
+   },
+   "not_contributing": {
+    "value": [
+     "stunned",
+     "ranged-weapon wielders",
+     "non-hostile third parties"
+    ],
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "[[Stunned (Status Effect)|Stunned]] brothers or brothers with [[Ranged Weapons]] will not contribute to surround bonus."
+   },
+   "backstabber": {
+    "value": 10,
+    "source": "bb_all/0166_Backstabber.txt",
+    "quote": "The bonus to hitchance in melee is doubled to <span style=\"color: green\">+10%</span> for each ally"
+   },
+   "wiederganger": {
+    "value": 10,
+    "source": "bb_all/1002_Hit Chance.txt",
+    "quote": "|Wiederganger |10"
+   },
+   "underdog": {
+    "value": "negates surround malus; vs Backstabber normal malus applies",
+    "source": "bb_all/2068_Underdog.txt",
+    "quote": "The defense malus due to being surrounded by opponents no longer applies to this character. If an attacker has the Backstabber perk, the effect of that perk is negated, and the normal defense malus due to being surrounded is applied instead."
+   }
+  },
+  "height": {
+   "higher_attacker_bonus": {
+    "value": 10,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "When standing on a higher height level than your opponent, you gain a +10% chance to hit and they suffer a -10% penalty to hit."
+   },
+   "lower_attacker_penalty": {
+    "value": -10,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "they suffer a -10% penalty to hit."
+   },
+   "hit_chance_page_wording": {
+    "value": {
+     "higher": 10,
+     "lower_per_level": -10
+    },
+    "source": "bb_all/1002_Hit Chance.txt",
+    "quote": "If the attacker is on a tile that's more elevated than his target's a +10% bonus to hit chance is granted. If the attacker is on a tile that is below his target's a \u221210% penalty to hit chance per level difference is applied."
+   },
+   "melee_max_height_gap": {
+    "value": 1,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "You only count as being in melee attack range if there is a one level difference of height between opposing characters standing in adjacent hexes."
+   },
+   "ranged_range_per_level": {
+    "value": 1,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Ranged weapons gain an additional hex of range for each level of height and improved hit chance versus targets at a lower height level."
+   }
+  },
+  "ranged": {
+   "base": {
+    "value": "ranged skill - ranged defense",
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "to-hit = Ranged Skill of brother subtracted by base Ranged Defense of target."
+   },
+   "distance_formula": {
+    "value": "hit chance + (distance to target - 1) * hit chance per tile modifier",
+    "source": "bb_all/1002_Hit Chance.txt",
+    "quote": "hit chance = hit chance + (distance to target - 1) * hit chance per tile modifier"
+   },
+   "distance": {
+    "bow_quick_shot": {
+     "value": {
+      "per_hex": -4,
+      "base_bonus": 0
+     },
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "Regular [[bows]] suffer -4% accuracy per hex with [https://battlebrothers.fandom.com/wiki/Skills#Weapon_Skills Quickshot] (no base accuracy bonus)"
+    },
+    "bow_aimed_shot": {
+     "value": {
+      "per_hex": -2,
+      "base_bonus": 10
+     },
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "Regular [[bows]] suffer -2% accuracy per hex with [https://battlebrothers.fandom.com/wiki/Skills#Weapon_Skills Aimed Shot] (offset by a +10% base accuracy bonus)"
+    },
+    "crossbow_shoot_bolt": {
+     "value": {
+      "per_hex": -3,
+      "base_bonus": 15,
+      "base_bonus_spiked_impaler": 10
+     },
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "[[Crossbows]] suffer -3% accuracy per hex when using the [https://battlebrothers.fandom.com/wiki/Skills#Weapon_Skills Shoot Bolt] skill (offset by +15% base accuracy bonus for the Shoot Bolt skill (only +10% base accuracy bonus if using a [[Spiked Impaler]]))"
+    },
+    "crossbow_shoot_heavy_bolt": {
+     "value": {
+      "per_hex": -3,
+      "base_bonus": 10
+     },
+     "source": "bb_all/1002_Hit Chance.txt",
+     "quote": "|Shoot Heavy Bolt |3",
+     "also": {
+      "value": 10,
+      "source": "bb_all/1002_Hit Chance.txt",
+      "quote": "|Shoot Heavy Bolt |10"
+     }
+    },
+    "thrown": {
+     "value": {
+      "per_hex": -10,
+      "base_bonus": 30,
+      "counts_first_hex": true
+     },
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "Thrown weapons (e.g. [[Bundle of Javelins]]) suffer a penalty of -10% accuracy per hex (offset by a +30% base accuracy bonus). Note that, unlike bows and crossbows, thrown weapons DO count the first hex from the attacker for distance effects on accuracy."
+    },
+    "thrown_hit_chance_page": {
+     "value": {
+      "per_hex": -10,
+      "base_bonus": 20,
+      "skills": [
+       "Throw Axe",
+       "Throw Bola",
+       "Throw Javelin",
+       "Throw Spear"
+      ]
+     },
+     "source": "bb_all/1002_Hit Chance.txt",
+     "quote": "|Throw Axe |20 |- |Throw Bola |20 |- |Throw Javelin |20 |- |Throw Spear |20",
+     "note": "Conflicts with Combat Mechanics' +30; see _meta.conflicts."
+    },
+    "first_hex_not_counted_bows_crossbows": {
+     "value": true,
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "The first hex from the bowman is NOT counted and does not give penalties for the purposes of to-hit chance calculations."
+    },
+    "worked_example_aimed": {
+     "value": 48,
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "Aimed Shot] by a Ranged Skill 50 bowman on a [[Humans|Bandit Thug]] with a Ranged Defense skill of 0 who is 7 hexes away, will have 50% + 10% (Aimed Shot) - 12% (accuracy degradation of 2 for 6 hexes of distance) = 48% to-hit chance."
+    }
+   },
+   "cover_line_of_fire_blocked": {
+    "value": -0.75,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "reduces overall to-hit chance by 75%. This penalty can be reduced to 50% by the [https://battlebrothers.fandom.com/wiki/Perks#bullseye Bullseye] perk."
+   },
+   "cover_hit_chance_page": {
+    "value": {
+     "blocked_penalty": 0.75,
+     "bullseye": 0.5,
+     "astray_penalty": -15,
+     "over_ally_at_2_tiles_blocked": false
+    },
+    "source": "bb_all/1002_Hit Chance.txt",
+    "quote": "The base hit chance penalty to reach a blocked target is 75%. The Bullseye Perk reduces it to 50% (* 0.66). If this fails the shot goes astray. One among the intended target obstacles is randomly chosen and targeted instead. If the shot goes astray a \u221215% penalty to hit chance is applied. Attacks made over allies at a range of 2 tiles are not blocked."
+   },
+   "cover_bullseye": {
+    "value": 0.5,
+    "source": "bb_all/0324_Bullseye.txt",
+    "quote": "The penalty to hit chance when shooting at a target that has no clear line of fire is reduced from <span style=\"color: green\">75%</span> to <span style=\"color: green\">50%</span> for ranged weapons."
+   },
+   "astray_damage_multiplier": {
+    "value": 0.75,
+    "source": "bb_all/0504_Damage.txt",
+    "quote": "|Ranged |Shot goes astray |0.75"
+   },
+   "scatter": {
+    "value": {
+     "min_distance_tiles": 3,
+     "ai_chance": 0.25
+    },
+    "source": "bb_all/1002_Hit Chance.txt",
+    "quote": "Projectiles that miss a target (intended or not) at a distance > 2 tiles can scatter and hit adjacent targets. For attackers other than the player the chance is 25% but no ally must be adjacent to the target."
+   },
+   "scatter_beyond_range": {
+    "value": 1,
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Ranged attacks via the scatter mechanic can actually strike unintended targets one hex beyond the normal maximum range of the attack in question."
+   }
+  },
+  "night": {
+   "nighttime_status": {
+    "value": {
+     "vision": -2,
+     "ranged_skill_pct": -30,
+     "ranged_defense_pct": -30
+    },
+    "source": "bb_all/1423_Nighttime (Status Effect).txt",
+    "quote": "<span style=\"color:red\">-2</span> [[File:Vision.png|25px|Vision]]<br /><span style=\"color:red\">-30%</span> [[File:Ranged_skill.png|25px|Ranged Skill]]<br /><span style=\"color:red\">-30%</span> [[File:Ranged_defense.png|25px|Ranged Defense]]"
+   },
+   "combat_mechanics": {
+    "value": {
+     "vision": -2,
+     "ranged_skill_pct": -30,
+     "ranged_defense_pct": -30
+    },
+    "source": "bb_all/0424_Combat Mechanics.txt",
+    "quote": "Battles fought during the night give combatants the [[Nighttime (Status Effect)|'''''Nighttime''''']] debuff which gives them penalties of -2 Vision, -30% Ranged Skill and -30% Ranged Defense"
+   },
+   "multiplier": {
+    "value": 0.7,
+    "source": "bb_all/1002_Hit Chance.txt",
+    "quote": "|Nighttime |0.7"
+   }
+  },
+  "cap": {
+   "value": {
+    "min": 5,
+    "max": 95
+   },
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "Hit chance for regular attacks cannot be lower than 5% and cannot go higher than 95%. hit chance = max(5, min(95, hit chance))"
+  },
+  "utility_auto_hit": {
+   "value": 100,
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "Utility skills will always hit. hit chance = 100"
+  },
+  "roll": {
+   "value": "d100 1..100; hit if roll <= hit chance",
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "hit roll = rand(1, 100) hit = hit roll <= hit chance"
+  },
+  "roll_cm_wording": {
+   "value": "d100; hit if roll lower than hit chance",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "When an attack is made, a regular d100 roll happens (a procedure to get a random number in the range of 1 to 100). If the number is lower than the to-hit % chance, then this is a hit."
+  },
+  "beginner_difficulty_roll_shift": {
+   "value": {
+    "player": -5,
+    "enemy": 5
+   },
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "player hit roll = hit roll - 5 enemy hit roll = hit roll +5"
+  },
+  "lucky_reroll": {
+   "value": 0.1,
+   "source": "bb_all/1218_Lucky.txt",
+   "quote": "10%</span> chance to require the attacker to make 2 successful attack rolls to hit you"
+  },
+  "morale_multipliers": {
+   "value": {
+    "Confident": 1.1,
+    "Steady": 1.0,
+    "Wavering": 0.9,
+    "Breaking": 0.8,
+    "Fleeing": 0.7
+   },
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "|Confident |1.1 |- |Wavering |0.9 |- |Breaking |0.8 |- |Fleeing |0.7"
+  },
+  "morale_example": {
+   "value": 1.1,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "an archer with 86 Ranged Skill at Steady will have effectively 94 Ranged Skill at Confident (+10%)"
+  },
+  "terrain_swamp": {
+   "value": {
+    "melee_skill": 0.75,
+    "melee_defense": 0.75,
+    "ranged_defense": 0.75
+   },
+   "source": "bb_all/1903_Swamp (Status Effect).txt",
+   "quote": "<span style=\"color:red\">-25%</span> [[File:Melee_skill.png|25px|Melee Skill]]<br /> <span style=\"color:red\">-25%</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /> <span style=\"color:red\">-25%</span> [[File:Ranged_defense.png|25px|Ranged Defense]]"
+  },
+  "two_tile_melee_no_mastery": {
+   "value": -15,
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "|2 tiles melee attack |No mastery | |15"
+  },
+  "skill_bonuses_melee": {
+   "value": {
+    "Slash": 10,
+    "Thrust": 20,
+    "Impale": 10,
+    "Hook": 10,
+    "Prong": 10,
+    "Repel": 10,
+    "Overhead Strike": 5,
+    "Rupture": 5,
+    "Lightbringer": 10,
+    "Knock Back (no Shield Expert)": 25,
+    "Knock Back (Shield Expert)": 40
+   },
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "|Thrust | |20 |"
+  },
+  "dodge_perk": {
+   "value": 0.15,
+   "source": "bb_all/0652_Dodge.txt",
+   "quote": "Gain <span style=\"color: green\">15%</span> of the character's current Initiative as a bonus to Melee and Ranged Defense."
+  },
+  "shieldwall": {
+   "value": {
+    "shield_bonus_multiplier": 2,
+    "per_adjacent_shieldwall": 5
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "can be used in combat to double shield defense (inclusive of Shield Expert bonus) with a additional +5 bonus for each adjacent ally also using the"
+  },
+  "shields": {
+   "value": {
+    "Buckler": [
+     10,
+     5
+    ],
+    "Wooden Shield": [
+     15,
+     15
+    ],
+    "Adarga Shield": [
+     15,
+     20
+    ],
+    "Kite Shield": [
+     15,
+     25
+    ],
+    "Sipar Shield": [
+     18,
+     18
+    ],
+    "Heater Shield": [
+     20,
+     15
+    ]
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "| +10 [[File:Melee_defense.png|25px|Melee Defense]]<br />+ 5 [[File:Ranged_defense.png|25px|Ranged Defense]]",
+   "note": "[melee defense, ranged defense]; full table rows in the source, quote is the Buckler cell."
+  }
+ },
+ "head_and_critical": {
+  "head_roll_is_second_d100": {
+   "value": true,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "At this point, a second d100 roll is made to see if it the attack hits the head."
+  },
+  "head_hit_is_critical": {
+   "value": true,
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "If the head is hit the hit is a critical hit and will do additional [[damage]]."
+  },
+  "base_head_chance_pct": {
+   "value": 25,
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "! colspan=\"2\" align=\"center\" |default = 25"
+  },
+  "head_chance_formula": {
+   "value": "chance to hit head * chance to hit head multiplier",
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "critical hit chance = chance to hit head * chance to hit head multiplier"
+  },
+  "head_chance_bonuses": {
+   "value": {
+    "Reach melee weapons": 5,
+    "Two-handed swords (all)": 5,
+    "One-handed Flails (all)": 10,
+    "Two-handed Flails (all)": 15,
+    "Throwing Axes": 5,
+    "Hail": 100,
+    "Lash": 100,
+    "Bite (Wiederganger)": 15,
+    "Juggler": 5,
+    "Executioner": 10,
+    "Killer on the Run": 10,
+    "Head Hunter (after hit)": 100
+   },
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "|Reach melee weapons |5 |- |Two-handed swords (all) |5 |- |One-handed Flails (all) |10 |- |Two-handed Flails (all) |15 |- |Throwing Axes |5"
+  },
+  "head_chance_zero_skills": {
+   "value": {
+    "Terror": 0,
+    "Puncture": 0
+   },
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "|Terror |0 |- |Puncture |0"
+  },
+  "head_damage_multiplier": {
+   "value": 1.5,
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "|Head |1.5"
+  },
+  "head_damage_cm": {
+   "value": 1.5,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "if critical hit, everything is multiplied by 1.5: HP damage = HP damage * 1.5"
+  },
+  "head_extra_hp_only": {
+   "value": "+50% HP damage",
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Hits on the head are called '''critical hits''' and inflict 50% more [[File:Health.png|25px|bottom]]HP damage."
+  },
+  "head_bonus_adds": {
+   "value": {
+    "Chop": 0.5,
+    "Brute": 0.15
+   },
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "|Chop |Head |0.5 |- |Brute |Head |0.15"
+  },
+  "steel_brow": {
+   "value": 1,
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "|Steel Brow |1",
+   "note": "Sets body damage multiplier received to 1 (no critical bonus)."
+  }
+ },
+ "damage": {
+  "simplified_formula": {
+   "value": {
+    "armor_damage": "base damage * modifiers * effectiveness against armor %",
+    "hp_damage": "base damage * modifiers * ignoring armor damage % - armor * 0.1",
+    "if_armor_destroyed_add": "base damage * modifiers * (1 - ignoring armor damage %) - armor damage you already did (cannot be negative)",
+    "if_critical": "HP damage * 1.5"
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "armor damage = base damage * modifiers * effectiveness against armor % 1. HP damage = base damage * modifiers * ignoring armor damage % - armor * 0.1 2. if armor = 0 (destroyed), more damage is added (cannot be negative): + base damage * modifiers * (1 - ignoring armor damage %) - armor damage you already did 3. if critical hit, everything is multiplied by 1.5: HP damage = HP damage * 1.5"
+  },
+  "two_rolls": {
+   "value": "armor and HP damage rolled separately",
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Each type is rolled separately."
+  },
+  "regular_damage_dealt": {
+   "value": "rand(min, max) * regular damage multiplier * damage multiplier",
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "= rand(min regular damage, max regular damage) * regular damage multiplier * damage multiplier"
+  },
+  "armor_damage_dealt": {
+   "value": "rand(min, max) * armor damage multiplier * damage multiplier",
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "= rand(min regular damage, max regular damage) * armor damage multiplier * damage multiplier"
+  },
+  "armor_damage_received": {
+   "value": "min(armor, armor damage dealt * armor damage multiplier * damage multiplier)",
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "= min( armor, armor damage (dealt) * armor damage multiplier * damage multiplier)"
+  },
+  "hp_damage_received": {
+   "value": "(regular * direct dealt * direct mult - armor * 0.1 [+ if armor destroyed or direct==1: regular * (1 - direct dealt * direct mult) - armor damage]) * body damage multiplier; no step negative; floor at skill's minimum damage",
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "= (regular damage * direct damage (dealt) * direct damage multiplier - armor * armor direct damage mitigation multiplier and if armor is destroyed or direct damage (dealt) = 1 + regular damage * (1 - direct damage (dealt) * direct damage multiplier) - armor damage) and the last modifier is applied to the whole * body damage multiplier Note than none of the values in each step can be negative. If damage < damage minimum (dealt), damage = damage minimum (dealt)."
+  },
+  "remaining_armor_reduction": {
+   "value": 0.1,
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "===Armor Direct Damage Mitigation Multiplier=== {| class=\"article-table\" !style=\"text-align: center\"|Character = 0.1 (default)"
+  },
+  "remaining_armor_reduction_example": {
+   "value": 0.1,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Orc Warrior takes 27 - 18 (10% of remaining armor) = 9 * 1.5 = 13 damage to hitpoints"
+  },
+  "armor_destroyed_full_damage": {
+   "value": true,
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Once the armor is destroyed, the weapon damage applies at 100% to hitpoints."
+  },
+  "double_grip": {
+   "value": 1.25,
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "|Double Grip |Melee, off-hand free |1.25"
+  },
+  "dazed_damage": {
+   "value": 0.65,
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "|Dazed |0.65",
+   "note": "Dazed status page says -25% damage dealt; see status_effects.dazed."
+  },
+  "falling_damage_per_level": {
+   "value": 10,
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "The damage equals 10 per level difference."
+  },
+  "secondary_ignores_armor": {
+   "value": true,
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "Secondary damage ignores armor (unless it specifically targets it like acid)."
+  },
+  "weapon_durability_loss_vs_armor": {
+   "value": {
+    "per_hit": 3,
+    "only_if_armor_at_least": 50
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "Melee weapon durability is lowered by 3 when it strikes armor that has at least 50 durability remaining"
+  },
+  "ranged_weapon_durability_per_shot": {
+   "value": 2,
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "[[Bows|Bow]] or [[Crossbows|Crossbow]] durability is lowered by 2 with each shot."
+  }
+ },
+ "status_effects": {
+  "bleeding": {
+   "value": {
+    "hp_per_turn": 5,
+    "turns": 2,
+    "min_hp_damage_to_apply": 6,
+    "stacks": true,
+    "cleaver_mastery_hp_per_stack": 10
+   },
+   "source": "bb_all/0255_Bleeding (Status Effect).txt",
+   "quote": "Target loses 5 [[File:Health.png|25px|bottom|Hitpoints]] after its turn"
+  },
+  "bleeding_damage_page": {
+   "value": {
+    "min_hp_damage_to_apply": 6
+   },
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "The minimum (hitpoints) damage necessary for the effect to occur at all is 6."
+  },
+  "dazed": {
+   "value": {
+    "damage_dealt_pct": -25,
+    "initiative_pct": -25,
+    "fatigue_pct": -25,
+    "turns": 2
+   },
+   "source": "bb_all/0514_Dazed (Status Effect).txt",
+   "quote": "<span style=\"color:red\">-25%</span> [[File:Damage_dealt.png|25px|Damage dealt|bottom]]<br /><span style=\"color:red\">-25%</span> [[File:Initiative.png|Initiative|25px|bottom]]<br /><span style=\"color:red\">-25%</span> [[File:Fatigue.png|25px|Fatigue|bottom]]"
+  },
+  "stunned": {
+   "value": {
+    "ap": 0,
+    "turns": 1,
+    "turns_strike_down": 2,
+    "zoc": false,
+    "surround_contrib": false
+   },
+   "source": "bb_all/1893_Stunned (Status Effect).txt",
+   "quote": "Someone that is stunned has no zone of control, can't be rotated out and is not contributing to surround bonus."
+  },
+  "stunned_ap": {
+   "value": 0,
+   "source": "bb_all/1893_Stunned (Status Effect).txt",
+   "quote": "0 [[File:Action_points.png|25px|Action Points|bottom]]"
+  },
+  "poison_webknecht": {
+   "value": {
+    "hp_per_turn": 5,
+    "turns": 3,
+    "min_hp_damage_to_apply": 7
+   },
+   "source": "bb_all/0504_Damage.txt",
+   "quote": "Like bleeding, poison is only applied if 7 or more (hitpoints) damage has been dealt. The spider poison deals 5 damage per turn for 3 turns"
+  }
+ },
+ "morale": {
+  "states": {
+   "value": [
+    "Unbreakable",
+    "Confident",
+    "Steady",
+    "Wavering",
+    "Breaking",
+    "Fleeing"
+   ],
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "Morale has six states and represents the mental condition of combatants and their effectiveness in battle."
+  },
+  "default_state": {
+   "value": "Steady",
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "Steady is the default state, and non-undead enemies start with it"
+  },
+  "state_multipliers": {
+   "value": {
+    "Confident": {
+     "resolve": null,
+     "melee_skill": 1.1,
+     "ranged_skill": 1.1,
+     "melee_defense": 1.1,
+     "ranged_defense": 1.1
+    },
+    "Steady": {},
+    "Wavering": {
+     "resolve": 0.9,
+     "melee_skill": 0.9,
+     "ranged_skill": 0.9,
+     "melee_defense": 0.9,
+     "ranged_defense": 0.9
+    },
+    "Breaking": {
+     "resolve": 0.8,
+     "melee_skill": 0.8,
+     "ranged_skill": 0.8,
+     "melee_defense": 0.8,
+     "ranged_defense": 0.8
+    },
+    "Fleeing": {
+     "resolve": 0.7,
+     "melee_skill": 0.7,
+     "ranged_skill": 0.7,
+     "melee_defense": 0.7,
+     "ranged_defense": 0.7
+    }
+   },
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "|Confident|| ||1.1||1.1||1.1||1.1 |- | ||Steady|| || || || || |- |[[File:Icon wavering.png|x25px]]||Wavering ||0.9||0.9||0.9||0.9||0.9 |- |[[File:Icon breaking.png|x25px]]||Breaking||0.8||0.8||0.8||0.8||0.8 |- | [[File:Icon fleeing.png|x25px]]||Fleeing||0.7||0.7||0.7||0.7||0.7"
+  },
+  "multipliers_apply_after_additive": {
+   "value": true,
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "They count after additive bonuses from skills, perks and equipment, affecting them as well."
+  },
+  "starting_morale_brothers": {
+   "value": "from mood: good mood can start Confident, bad mood lowers max morale",
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "Brothers' morale depends on their [[mood]]: good mood gives a chance to start with Confident morale, and bad mood lowers the maximum possible level of morale the brother can have."
+  },
+  "fleeing_effects": {
+   "value": [
+    "cancels Shieldwall/Spearwall/Riposte/Indomitable",
+    "moved to end of turn order",
+    "-1000 initiative for turn order",
+    "cannot fight or use skills",
+    "player loses control"
+   ],
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "If morale drops to Fleeing, the unit cancels its active [[Shieldwall (20 fatigue)|Shieldwall]], [[Spears|Spearwall]], [[Riposte (25 fatigue)|Riposte]] and [[Indomitable (Status Effect)|Indomitable]], is also instantly moved to the end of turn order."
+  },
+  "fleeing_no_fight": {
+   "value": true,
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "Fleeing units try to run away from enemies and can't fight or use skills, and even don't fight if surrounded. Player loses control over fleeing brothers."
+  },
+  "check": {
+   "base_chance": {
+    "value": "resolve",
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "Resolve is the base chance to succeed."
+   },
+   "cap": {
+    "value": {
+     "max": 95,
+     "min": 0
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "The maximum chance to succeed is 95% (5% chance to fail), but minimum is 0% (always fail)."
+   },
+   "step": {
+    "value": 1,
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "Positive checks raise morale by one level, negative ones lower it by one level, but there are exceptions."
+   },
+   "hidden": {
+    "value": true,
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "They are not shown in the combat log."
+   },
+   "skipped_over_500": {
+    "value": 500,
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "The chance to succeed is more than 500% before it is capped."
+   },
+   "positive_cannot_lift_fleeing_to_breaking": {
+    "value": true,
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "Positive check tries to change Fleeing to Breaking (it fails)."
+   }
+  },
+  "check_modifiers": {
+   "allies_adjacent": {
+    "value": 3,
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Allies adjacent |Modifier | +3 per ally | |Only for negative checks"
+   },
+   "enemies_adjacent": {
+    "value": -3,
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Enemies adjacent |Modifier | -3 per enemy"
+   },
+   "fearsome": {
+    "value": "-0.15 * user's resolve, capped at -20",
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "| -0.15 * user's resolve, capped at -20"
+   }
+  },
+  "check_triggers": {
+   "struck_15_hp": {
+    "value": {
+     "threshold_hp": 15,
+     "modifier": "-40 * missing HP percent",
+     "type": "negative"
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "| 15 HP damage |Negative | -40 * missing HP percent | |Rolled after damage is applied."
+   },
+   "struck_threshold_confirm": {
+    "value": 15,
+    "source": "bb_all/0754_Fearsome.txt",
+    "quote": "as opposed to with no penalty and only if at or above 15 points of damage."
+   },
+   "enemy_dies": {
+    "value": {
+     "type": "positive",
+     "modifier": "-30 + 0.04 * enemy XP value - distance^3",
+     "killer_extra": 15
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Enemy dies |Positive | -30 + 0.04 * enemy XP value - distance<sup>3</sup>, killer gets extra +15 | |No effect on Fleeing morale."
+   },
+   "ally_dies": {
+    "value": {
+     "type": "negative",
+     "modifier": "+20 - 0.035 * ally XP value + distance^2.4"
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Ally dies |Negative | +20 - 0.035 * ally XP value + distance<sup>2.4</sup>"
+   },
+   "ally_flees": {
+    "value": {
+     "type": "negative",
+     "modifier": "+30 - 0.035 * ally XP value + distance^3"
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Ally flees |Negative | +30 - 0.035 * ally XP value + distance<sup>3</sup>"
+   },
+   "enemy_surrounds": {
+    "value": {
+     "type": "negative",
+     "modifier": "+50 - 0.1 * enemy XP value, capped at +10"
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Enemy surrounds |Negative | +50 - 0.1 * enemy XP value, capped at +10 | |Only rolled when number of adjacent enemies exceeds its maximum on this turn."
+   },
+   "pushed_into_surround": {
+    "value": {
+     "type": "negative",
+     "modifier": 40
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Pushed or pulled into surrounding |Negative | +40"
+   },
+   "brother_at_map_edge": {
+    "value": {
+     "type": "negative",
+     "modifier": -1000,
+     "result": "Breaking"
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Brother moves to the map edge |Negative | -1000 | |Lowers morale to Breaking."
+   },
+   "stop_fleeing": {
+    "value": {
+     "type": "positive",
+     "modifier": "+2 * rounds fleeing (+7 in arena)",
+     "result": "Wavering",
+     "requires": "not next to enemies"
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "|Stop fleeing |Positive | +2 * rounds fleeing (+7 * rounds fleeing in the arena) | |Must not be next to enemies. Morale becomes Wavering on success."
+   },
+   "orc_warcry_enemies": {
+    "value": {
+     "type": "negative",
+     "modifier": "+5 + distance^2.4"
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "| +5 + distance<sup>2.4</sup>"
+   }
+  },
+  "xp_value_of_brother": {
+   "value": "100 + 30 * (level - 1)",
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "XP value of a brother is 100 + 30 * (his level - 1)."
+  },
+  "distance_tables": {
+   "value": {
+    "x^2.4": [
+     1,
+     5.28,
+     13.97,
+     27.86,
+     47.59,
+     73.72,
+     106.72,
+     147.03
+    ],
+    "x^3": [
+     1,
+     8,
+     27,
+     64,
+     125,
+     216,
+     343,
+     512
+    ]
+   },
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "|'''x<sup>2.4</sup>'''||1||5.28||13.97||27.86||47.59||73.72||106.72||147.03 |- |'''x<sup>3</sup>'''||1||8||27||64||125||216||343||512"
+  },
+  "rally": {
+   "self_rally": {
+    "value": "Fleeing units can rally when not adjacent to enemies",
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "Fleeing units can rally on their own when not adjacent to enemies, or if targeted by skills like [[Rally the Troops]] that restore their morale."
+   },
+   "rally_the_troops": {
+    "value": {
+     "ap": 5,
+     "fatigue": 25,
+     "radius_tiles": 4,
+     "bonus": "0.4 * user's resolve",
+     "penalty_per_tile_if_not_fleeing": -10,
+     "max_state": "Steady",
+     "fleeing_becomes": "Wavering"
+    },
+    "source": "bb_all/1316_Morale.txt",
+    "quote": "| +0.4 * user's resolve, but extra -10 * distance if not fleeing | |Can't raise morale above Steady. Fleeing changes to Wavering on success."
+   },
+   "rally_skill_page": {
+    "value": {
+     "ap": 5,
+     "fatigue": 25,
+     "radius_tiles": 4
+    },
+    "source": "bb_all/1633_Rally (25 fatigue).txt",
+    "quote": "Triggers a morale check to raise morale of any ally at wavering or worse morale within 4 tiles, with a bonus of 40% of the skill user's [[File:Resolve.png|bottom|25px]] Resolve, and a penalty of -10 per tile of distance, to the roll. It can also rally fleeing allies within the same range at no penalty."
+   }
+  }
+ },
+ "injuries_and_death": {
+  "hp_zero": {
+   "value": "killed or struck down",
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "If this attribute falls to 0, the character is killed or \"''struck down''\"."
+  },
+  "temp_injury_min_damage": {
+   "value": 10,
+   "source": "bb_all/1936_Temporary Injuries.txt",
+   "quote": "damage received \u2265 10 hitpoints"
+  },
+  "temp_injury_threshold_range": {
+   "value": {
+    "min_fraction_max_hp": 0.25,
+    "max_fraction_max_hp": 0.6
+   },
+   "source": "bb_all/1936_Temporary Injuries.txt",
+   "quote": "Injuries have different thresholds comprised between 25% and 60% of maximum hitpoints (see the list for specific values)."
+  },
+  "temp_injury_formula": {
+   "value": "injury threshold * threshold mult * inflict mult * receive mult * bonus <= damage / max hitpoints",
+   "source": "bb_all/1936_Temporary Injuries.txt",
+   "quote": "injury = injury threshold \u00d7 injury threshold multiplier \u00d7 inflict injury threshold multiplier \u00d7 receive injury threshold multiplier \u00d7 bonus \u2264 damage \u00f7 max hitpoints"
+  },
+  "temp_injury_multipliers": {
+   "value": {
+    "crippling_strikes_inflict": 0.66,
+    "iron_jaw_receive": 1.25,
+    "head_hit_bonus": 1.25
+   },
+   "source": "bb_all/1936_Temporary Injuries.txt",
+   "quote": "the inflict injury threshold multiplier is modified by the Crippling Strikes [[perk]] which sets it at 0.66 effectively reducing the threshold by 33% *the receive injury threshold multiplier is modified by the Iron Jaw [[trait]] which sets it at 1.25 effectively raising the threshold by 25% *the bonus multiplier is set to 1.25 if the head was hit (critical hits deal more damage)"
+  },
+  "temp_injury_pick": {
+   "value": "uniform among weapon-type candidates",
+   "source": "bb_all/1936_Temporary Injuries.txt",
+   "quote": "All candidates have the same chance to be selected (no distinction is made between light and heavy injuries for instance)."
+  },
+  "struck_down_survival_chance": {
+   "value": 0.33,
+   "source": "bb_all/1540_Permanent Injuries.txt",
+   "quote": "The chance to survive is 33% or 90% with the Survivor [[trait]]."
+  },
+  "struck_down_survivor_trait": {
+   "value": 0.9,
+   "source": "bb_all/1901_Survivor.txt",
+   "quote": "90%</span> chance to survive if reduced to 0"
+  },
+  "struck_down_impossible_if": {
+   "value": [
+    "last hit was a fatality",
+    "character was retreating",
+    "damage was self inflicted (bleed, poison, etc.)"
+   ],
+   "source": "bb_all/1540_Permanent Injuries.txt",
+   "quote": "Surviving is not possible if: * the last hit was a fatality * the character was retreating * the damage was self inflicted (result of an effect like bleeding, poison, etc.)"
+  },
+  "struck_down_gives_permanent_injury": {
+   "value": true,
+   "source": "bb_all/1540_Permanent Injuries.txt",
+   "quote": "A character whose hitpoints have reached 0 has a chance of surviving with a random permanent injury an otherwise fatal blow."
+  },
+  "enemies_at_zero_always_die": {
+   "value": true,
+   "source": "bb_all/0160_Attributes.txt",
+   "quote": "Enemies reduced to 0 HP are always killed, unless they possess [[File:Perk_07.png|25px|bottom]] [[Nine Lives]] perk"
+  },
+  "nine_lives": {
+   "value": {
+    "uses_per_battle": 1,
+    "hp_restored": {
+     "min": 11,
+     "max": 15
+    },
+    "melee_defense": 15,
+    "ranged_defense": 15,
+    "resolve": 15,
+    "initiative": 15,
+    "removes_dot": true
+   },
+   "source": "bb_all/1425_Nine Lives.txt",
+   "quote": "Note: [[File:Health.png|25px|bottom]] Hitpoints gained are a random number between 11-15."
+  },
+  "nine_lives_text": {
+   "value": "once per battle",
+   "source": "bb_all/1425_Nine Lives.txt",
+   "quote": "Once per battle, upon receiving a killing blow, survive with a few"
+  }
+ },
+ "experience": {
+  "level_table_total_xp": {
+   "value": {
+    "2": 200,
+    "3": 500,
+    "4": 1000,
+    "5": 2000,
+    "6": 3500,
+    "7": 5000,
+    "8": 7000,
+    "9": 9000,
+    "10": 12000,
+    "11": 15000
+   },
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "|2 |200 |- | style=\"border-right:2px solid grey;\" |3 |500 |- | style=\"border-right:2px solid grey;\" |4 |1000 |- | style=\"border-right:2px solid grey;\" |5 |2000 |- | style=\"border-right:2px solid grey;\" |6 |3500 |- | style=\"border-right:2px solid grey;\" |7 |5000 |- | style=\"border-right:2px solid grey;\" |8 |7000 |- | style=\"border-right:2px solid grey;\" |9 |9000 |- | style=\"border-right:2px solid grey;\" |10 |12000 |- | style=\"border-right:2px solid grey;\" |11 |15000"
+  },
+  "veteran_level_xp": {
+   "value": "4000 + 1000 * (current_lvl - 11)",
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "Every level above 11 (= Veteran Level) requires '''4000+1000*(current_lvl-11)''' XP"
+  },
+  "veteran_level_rules": {
+   "value": {
+    "perk_point": false,
+    "max_per_stat": 1,
+    "stats": 3,
+    "max_level": 33
+   },
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "there is NO perk point awarded and the stat rolls are reduced to a maximum of +1 for three stats. The actual maximum level is 33"
+  },
+  "per_level": {
+   "value": {
+    "perk_points": 1,
+    "attributes_raised": 3
+   },
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "With each level your brothers gain they receive a [[Perks|perk]] point and can increase three different [[attributes]]."
+  },
+  "stat_gains": {
+   "value": {
+    "primary (melee skill, melee defense)": [
+     1,
+     4
+    ],
+    "secondary (ranged skill, ranged defense, HP, fatigue, resolve)": [
+     2,
+     5
+    ],
+    "initiative": [
+     3,
+     6
+    ]
+   },
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "'''Primary Attributes''' can be increased each level by 1-4 points, depending on a character's [http://battlebrothers.wikia.com/wiki/Talents talent]"
+  },
+  "stat_gains_by_stars": {
+   "value": {
+    "HP": [
+     "2-4",
+     "3-4",
+     "4",
+     "4-5"
+    ],
+    "Fatigue": [
+     "2-4",
+     "3-4",
+     "4",
+     "4-5"
+    ],
+    "Resolve": [
+     "2-4",
+     "3-4",
+     "4",
+     "4-5"
+    ],
+    "Initiative": [
+     "3-5",
+     "4-5",
+     "5",
+     "5-6"
+    ],
+    "Melee Skill": [
+     "1-3",
+     "2-3",
+     "3",
+     "3-4"
+    ],
+    "Ranged Skill": [
+     "2-4",
+     "3-4",
+     "4",
+     "4-5"
+    ],
+    "Melee Defense": [
+     "1-3",
+     "2-3",
+     "3",
+     "3-4"
+    ],
+    "Ranged Defense": [
+     "2-4",
+     "3-4",
+     "4",
+     "4-5"
+    ]
+   },
+   "source": "bb_all/1926_Talents.txt",
+   "quote": "A talent increases the additional attribute points available upon level-up. 1 star increases the minimum by 1, 2 stars by 2 and 3 stars also increase the maximum by one.",
+   "note": "Columns: no stars, 1 star, 2 stars, 3 stars."
+  },
+  "talent_star_odds": {
+   "value": {
+    "1": 0.6,
+    "2": 0.3,
+    "3": 0.1
+   },
+   "source": "bb_all/1926_Talents.txt",
+   "quote": "- 60% chance<br />[[File:2 Star Talent.png]] - 30% chance<br />[[File:3 Star Talent.png]] - 10% chance"
+  },
+  "kill_split": {
+   "value": {
+    "killer": 0.2,
+    "shared_among_party": 0.8
+   },
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "A character who dealt the killing blow gets 20% of the XP gained from the enemy. The other 80% is distributed equally among the combat party members."
+  },
+  "global_modifier": {
+   "value": -0.15,
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "Unconditional <span style=\"color:red\">-15%</span>"
+  },
+  "small_squad_penalty": {
+   "value": {
+    "two_brothers": -0.15,
+    "one_brother": -0.3
+   },
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "-15%</span> [[File:Xp_received.png|25px|Experience]] for two brothers, <span style=\"color:red\">-30%</span> [[File:Xp_received.png|25px|Experience]] if there is only one."
+  },
+  "modifiers_multiplicative": {
+   "value": true,
+   "source": "bb_all/1165_Level and Experience.txt",
+   "quote": "These modifiers are multiplicative."
+  },
+  "xp_per_enemy_type": {
+   "value": null,
+   "missing": true,
+   "searched": [
+    "bb_all/1165_Level and Experience.txt",
+    "bb_all/1316_Morale.txt",
+    "bb_all/0828_Game Mechanics.txt",
+    "grep of all bb_all pages for 'XP value'/'experience value'"
+   ],
+   "note": "No per-enemy XP values in the dump; only the brother formula (morale.xp_value_of_brother)."
+  }
+ },
+ "parsed": {
+  "morale_struck": {
+   "value": {
+    "threshold_hp": 15,
+    "per_missing_hp_fraction": -40
+   },
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "| 15 HP damage |Negative | -40 * missing HP percent | |Rolled after damage is applied.",
+   "from": "morale.check_triggers.struck_15_hp",
+   "why": "the trigger row's two numbers"
+  },
+  "morale_enemy_dies": {
+   "value": {
+    "base": -30,
+    "per_xp": 0.04,
+    "killer_extra": 15,
+    "distance_table": "x^3",
+    "distance_sign": -1
+   },
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "|Enemy dies |Positive | -30 + 0.04 * enemy XP value - distance<sup>3</sup>, killer gets extra +15 | |No effect on Fleeing morale.",
+   "from": "morale.check_triggers.enemy_dies",
+   "why": "the trigger row's numbers; distance is subtracted"
+  },
+  "morale_ally_dies": {
+   "value": {
+    "base": 20,
+    "per_xp": -0.035,
+    "distance_table": "x^2.4",
+    "distance_sign": 1
+   },
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "|Ally dies |Negative | +20 - 0.035 * ally XP value + distance<sup>2.4</sup>",
+   "from": "morale.check_triggers.ally_dies",
+   "why": "the trigger row's numbers; distance is added"
+  },
+  "morale_ally_flees": {
+   "value": {
+    "base": 30,
+    "per_xp": -0.035,
+    "distance_table": "x^3",
+    "distance_sign": 1
+   },
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "|Ally flees |Negative | +30 - 0.035 * ally XP value + distance<sup>3</sup>",
+   "from": "morale.check_triggers.ally_flees",
+   "why": "the trigger row's numbers; distance is added"
+  },
+  "morale_stop_fleeing": {
+   "value": {
+    "per_round": 2
+   },
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "|Stop fleeing |Positive | +2 * rounds fleeing (+7 * rounds fleeing in the arena) | |Must not be next to enemies. Morale becomes Wavering on success.",
+   "from": "morale.check_triggers.stop_fleeing",
+   "why": "+2 per round fleeing"
+  },
+  "brother_xp": {
+   "value": {
+    "base": 100,
+    "per_level": 30
+   },
+   "source": "bb_all/1316_Morale.txt",
+   "quote": "XP value of a brother is 100 + 30 * (his level - 1).",
+   "from": "morale.xp_value_of_brother",
+   "why": "100 + 30 * (level - 1)"
+  },
+  "hit_roll_die": {
+   "value": 100,
+   "source": "bb_all/1002_Hit Chance.txt",
+   "quote": "hit roll = rand(1, 100) hit = hit roll <= hit chance",
+   "from": "hit_chance.roll",
+   "why": "rand(1, 100)"
+  },
+  "handgonne": {
+   "value": {
+    "per_hex": -10,
+    "base_bonus": 10,
+    "ignores_line_of_fire": true
+   },
+   "source": "bb_all/0766_Fire Handgonne (5 fatigue).txt",
+   "quote": "<span style=\"color:green\">+10%</span> chance to hit, <span style=\"color:red\">-10%</span> chance to hit per tile of distance, chance is unaffected by objects or characters in the line of fire"
+  },
+  "throw_axe": {
+   "value": {
+    "per_hex": -10,
+    "base_bonus": 20,
+    "free_tiles": 2
+   },
+   "source": "bb_all/1990_Throw Axe (15 fatigue).txt",
+   "quote": "+20%</span> chance to hit, <span style=\"color:red\">-10%</span> chance to hit per tile of distance past 2",
+   "why": "the skill's own page is more exact than the general Hit Chance table (which counts from the first tile); it wins for this skill"
+  }
+ }
+}

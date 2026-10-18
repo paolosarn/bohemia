@@ -5,7 +5,7 @@ CRISIS: none (act 1); the whisper broadcast (act 2, background); the rocket (act
 ECONOMY: bust (act 1) -> either (act 2) -> boom (act 3)
 PLACE: THE LAB at the Tule Springs fossil beds, north of the city, as a block that can be HELD (rule 43); act 1 a ruin with a feeder, act 2 whoever holds it, act 3 what the ledgers made of it; its settlement screen exists only once someone holds it
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28 (bends line 5 on purpose: acts 2 and 3 read act 1; the default read for "never went to the lab" is below)
+CHECKLIST: passes all 32 (bends line 5 on purpose: acts 2 and 3 read act 1; the default read for "never went to the lab" is below) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: pass as written; 32 of 32)
 
 ## THE SITUATION
 The lab is one door, seen three times. The game never explains it. It shows the door, and who is behind it, in each era.

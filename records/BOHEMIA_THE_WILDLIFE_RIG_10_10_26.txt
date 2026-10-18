@@ -1,0 +1,62 @@
+THE WILDLIFE RIG (CHARACTER, 10/10/26, [wildlife rig])
+
+Ship test on the board: "Prove it draws a coyote crossing a street at 56 and 112."
+
+THREE REAL GAPS, ALL MEASURED FIRST (reconfirmed on this round's own main before
+any edit, matching records/BOHEMIA_THE_COYOTE_EXISTS_AND_CANNOT_TURN_9_6_26.md
+from 9/6): the draw loop kept its own size ladder (8/16/32/64) whose own comment
+claimed it matched the player's and residents' -- measured false, side by side:
+C=8 old=8 real bodyLadder(human)=112; C=20 old=16 real bodyLadder(human)=112; C=40 old=32 real bodyLadder(human)=112; C=70 old=64 real bodyLadder(human)=112.
+The bank ships rest/look/go for all eight animals (confirmed: rest=true,
+look=true, go=true) and go was never once selected.
+BohemiaWildlife.near() already computes a facing and nothing ever read it.
+
+THE FIX, REUSE-FIRST, ZERO NEW NUMBERS: wildPass now asks bodyLadder(C) for its
+box and spriteAt(spr, bodySpriteC(C)) for its art, the exact two functions the
+player and every resident already call. go now alternates with rest on the
+shared BEAT clock (the two frames differ by 12 of 256
+pixels, a real stance change, not a no-op). facing now drives a horizontal
+mirror about the sprite's own centre line, the exact technique the street's
+hero art already uses for a flip.
+
+PROVEN LIVE: three forced sightings (one facing east, one facing west, one
+alert) all drew (3 of 3, WILD_DREW 3 of 3), the
+east and west ones mirror images of each other, the alert one on its look
+frame, the box 112 px (bodyLadder at C=40, human mode, the only mode wildPass
+is ever called from). Screenshot: slices/vote/CHARACTER_WILDLIFE_RIG.png.
+
+THE HONEST LIMIT ON "56": bodyLadder returns a single FIXED 112 whenever
+MODE==='human', the only mode the walked street (and so wildPass) ever runs
+in -- THE GROUND MAY ZOOM, THE PERSON MAY NOT (law 9/21) locks every body on
+foot to that one size. This row's own text is dated 9/7, two weeks before
+that law existed, from when the walked view still carried a variable ladder.
+56 is not reachable for ANYBODY on foot any more, player included, so it is
+not a gap this round leaves open. The mechanism still generalises: forced
+into city mode, the same call gives
+C=8->28, C=20->56, C=40->112, C=70->224
+-- the same four rungs (28/56/112/224) every other body gets there, as far
+as a rig proof can honestly go for a screen wildlife is not currently drawn
+on.
+
+THE OTHER HONEST LIMIT: spriteAt's edge-preserving upscale (epx2) tops out
+at 4x, calibrated around a ~56px source. The bank's coyote is 16px native,
+so 4x reaches 64 real pixels; past that the 64px crisp canvas fills the rest
+of the box in one resize -- cleaner than the old code's raw 16px stretched
+straight up by the browser, never a claim that 112 painted pixels are
+native. Redrawing the bank bigger is new pixels, COOK's call, not built
+this round.
+
+NOT THIS LANE'S, NOT TOUCHED: tier 2 (packPass, groups/dens) has no facing
+field in the engine at all and keeps its own ladder this round; it is a
+different function with a different data shape, named here so it is not
+mistaken for fixed.
+
+CAUGHT BY LOOKING AT THE PICTURE, TWICE: a first capture used page.screenshot(),
+which photographs the whole DOM, so the walked street's HUD and the home
+interior overlay sat on top of the canvas in the image; fixed by reading
+cv.toDataURL() directly, the exact buffer wildPass drew on. And a first
+caption described the three coyotes as "left/middle/right" when the real
+layout is two at the bottom and the alert one above them; fixed to match the
+picture, not the sentence that sounded right.
+
+VOTE: character-wildlife-rig-10-10.

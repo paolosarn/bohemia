@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: the road outside a reclaimed casino on the Strip that is now a museum of the crash years
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30.
+CHECKLIST: passes all 32. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. A young curator stops the party on the road outside the museum. They are building a room about the anarchy decade. They want one thing from the family's act 1 years, and the thing is read from the ledgers: the founder's first battery if kept, the cut cable from the dark kitchen (QD-F01) if kept, or the company's first contract paper. They offer batteries for it. The payoff is being seen by history, and history getting it slightly wrong.

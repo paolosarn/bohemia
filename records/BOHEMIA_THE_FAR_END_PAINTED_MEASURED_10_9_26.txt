@@ -1,0 +1,140 @@
+THE FAR END, PAINTED BY HAND -- MEASURED  (COOK, 10/9/26, rules 65 and 60)
+==============================================================================
+
+THE ROW: "RUN painted it procedurally from twelve texels a block; a hand-painted
+far end needs COOK." Pinch all the way out on the demo and the valley is a tan
+dome with a repeating ripple in it.
+
+THE FIRST THING THIS ROUND DID WAS REFUSE TO INVENT THE GEOGRAPHY.
+  The valley is not a mood, it is a map the game already builds. This tool shells
+  out to engine/bohemia_overmap.js every run and paints what it says is there:
+    the ranges          8841 tiles
+    the basin           4098 tiles
+    the grid            3030 tiles
+    the strip's spine     81 tiles
+    the dead airport      40 tiles
+    the washes            59 tiles
+    the two depots        37 tiles
+    and Lake Mead         92 tiles
+  The two depots are the layout's own ind1 and ind2, by name: {'x': 20, 'y': 28} and {'x': 78, 'y': 69}.
+  If the engine's layout changes, this sheet changes with it.
+
+WHAT "PAINTED BY HAND" MEANS, AND IT IS NOT RESOLUTION:
+  RUN's far end is noise. The ripples ARE the noise function, and no amount of
+  it becomes a mountain range. Plain noise makes dunes: smooth humps. FOLDING it
+  -- one minus the distance from the middle -- turns every zero crossing into a
+  CREST, and stacking those at halving sizes gives ridgelines with spurs off
+  them, which is what a range is. Then the height field is shaded BY SLOPE
+  against one sun, so a ridge has a lit west face and a shadowed east face.
+  The basin gets ALLUVIAL FANS computed off the mountain mask, so the floor is
+  brightest at the mouth of each canyon and fades into the middle, the way a
+  real desert floor is the spread of what came down off the ranges.
+  The washes braid. The city keeps its grid grain at one step off the fabric.
+
+THE NUMBERS:
+  the sheet          2016 x 2016 = 4,064,256 painted pixels
+  Battle Brothers    2,073,600 (1920 x 1080), so this is 1.96x their count
+  flat-colour run    1.05 across, 1.05 down, against DIRECTION's floor of 1.5
+  palette            this lane's own 9/27 valley ramps, unchanged
+
+ONE LIGHT (rule 70a, Paolo 10/4): there is one sun in this file, north-west, and
+the ranges, the fans, the city blocks and the lake all take their shading from
+it. Nothing is lit on its own. RUN composites the sheet under its own hour; the
+sheet is the LAND, not the lighting, and it is painted in the same sun the city
+uses so the two cannot split.
+
+THE POWER AUTHORITY'S CAMERA GRADE (the row's words; rule 20): the last aerial
+survey the valley's power authority ever flew, on a camera already old. One
+channel sits a pixel west, a scan structure in the horizontal, grain, and the
+falloff a cheap lens gives at its corners. ONE pass over the whole sheet,
+because one camera photographed the land and the city together. It runs AFTER
+the palette check on purpose: the paint is his, the camera is the horror, and
+the two are not allowed to get mixed up.
+
+THE GUARDS, EVERY ONE RUN, EVERY ONE ABLE TO REFUSE THE BUILD:
+  OK   BATTLE BROTHERS' PIXEL COUNT: the sheet is 2016 x 2016 = 4,064,256 painted pixels, against their 2,073,600
+  OK   NOT A DOME: a flat colour runs 1.05 px across and 1.05 down, against DIRECTION's floor of 1.5
+  OK   EVERY PIXEL IS ON THIS LANE'S OWN APPROVED VALLEY RAMPS (checked on the paint, before the camera)
+  OK   THE RANGES is on the sheet, from the engine's own layout: 8841 tiles
+  OK   THE BASIN is on the sheet, from the engine's own layout: 4098 tiles
+  OK   THE GRID is on the sheet, from the engine's own layout: 2530 tiles
+  OK   THE STRIP'S SPINE is on the sheet, from the engine's own layout: 81 tiles
+  OK   THE DEAD AIRPORT is on the sheet, from the engine's own layout: 40 tiles
+  OK   THE WASHES is on the sheet, from the engine's own layout: 59 tiles
+  OK   THE TWO DEPOTS is on the sheet, from the engine's own layout: 37 tiles
+  OK   AND THE TWO DEPOTS ARE THE LAYOUT'S OWN ind1 AND ind2, by name, not two industrial blobs I picked: {'x': 20, 'y': 28} and {'x': 78, 'y': 69}
+  OK   THE RANGES ARE LIT, NOT RIPPLED: the mountains carry 98 steps of value between their lit faces and their shadowed ones
+  OK   AND THE LIGHT IS ONE LIGHT (rule 70a): every lit face is the north-west one (mean 0.46, spread 0.24)
+  OK   THE THREE BANDS HOLD, the ones this lane measured on 9/27: mountains darkest 51, city in the middle 89, open ground brightest 119
+  OK   THE ROADS DO NOT SHOUT: the road net is 3.6% of the sheet, and it sits in the bank's own route band (125 against [108, 132]) while the fabric sits in the city band (89 against [74, 104])
+  OK   THE CITY DOES NOT FLOAT AS A SLAB ON A FLAT (rule 70, his words): its blocks carry 6.0 of spread and it is 16% of the sheet, with land around it
+  OK   AND IT BEATS THE FAR END HE WAS SHOWN: RUN's far frame runs 1.30 x 1.09, this sheet runs 1.05 x 1.05
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/
+  01_WORLDMAP.md, the WORLD MAP and TERRAIN lines: BB's map reads at a glance
+  because every terrain owns a value band AND a texture, never colour alone, and
+  mountains are the darkest thing on it. Taken whole; this lane's own three
+  bands from 9/27 are the same rule measured on our valley. WHAT MOVES THAT
+  THEIR PICTURE DOES NOT: BB's world map is one fixed painting of one fixed
+  world. Ours is painted from a layout the engine rolls, so the ranges, the
+  spine and the depots land where THIS valley put them, and the same brushes
+  paint a different valley next seed.
+
+================================================================================
+*** THREE SHEETS, AND ONLY LOOKING CAUGHT THE FIRST TWO. EVERY GUARD WAS GREEN
+*** OVER BOTH OF THEM.
+================================================================================
+SHEET 1 passed fifteen checks and read as a PRINTED CIRCUIT BOARD. Every road tile
+was filled solid, so at this scale all 2,543 arterials came out as wide as a city
+block and the grid drowned the valley. THE FAULT IS A CATEGORY ERROR, not a bug:
+the engine's grid is a TOPOLOGY. A tile is 96 m of world and it says "a road runs
+through here", not "this 96 m is tarmac". A real arterial is about 30 m against a
+400 m block. Roads are drawn as a line down the middle of their own tile now, wide
+for a freeway and a hairline for an arterial, with the city fabric painted through
+underneath. The road net went from most of the sheet to 3.6% of it.
+
+SHEET 2 passed again and the city SAT ON THE LAND AS A GREY SLAB, which is the
+thing rule 70 forbids in those words. Three faults under it:
+  * the margin was a one-dimensional smear. I grew the land past the engine's grid
+    by copying each edge row and column outward, which gave the sheet a pale band
+    left and right and a dark band top and bottom: a striped frame, not land. A
+    range does not continue by repeating a row, it continues by being further
+    range, so the padding is grown from the distance to the nearest real mountain,
+    broken with noise.
+  * the ranges were flat. I multiplied the ridge field by the bulk of the mass, and
+    deep inside a big mass the bulk saturates, so every crest washed out and the
+    mountains came back as a dark crust. The bulk is only there to stop a cliff at
+    the mask's edge; it is a clipped skirt now and the crest keeps its full range.
+  * the city was one flat step per district with a fine fuzz on top. From altitude a
+    city is a mosaic of blocks that DIFFER. One value per block, not a fine grain.
+
+AND THE GUARDS THAT WOULD HAVE CAUGHT BOTH, now written, because numbers caught
+neither and a green check over a worse picture is the most dangerous state there is:
+  THE ROADS DO NOT SHOUT          their share of the sheet, and their value band
+  THE CITY DOES NOT FLOAT AS A SLAB  the spread across its blocks, and its share
+
+*** AND THE ROADS GUARD'S OWN FIRST VERSION WAS STRICTER THAN THE APPROVED BANK. ***
+I wrote "within one ramp step of the fabric" from memory of this lane's own 9/27
+sentence. The bank says something different and the bank is what was approved: route
+gets its OWN value band, 108 to 132, above city's 74 to 104, on purpose, because 38%
+of the valley's cells are road and the grid is how you read a city from altitude. A
+guard that refuses his own bank refuses his art. This lane has now written that
+mistake three times across three rounds; it tests what the bank says now.
+
+*** ONE THING I AM NOT GOING TO PAINT AROUND, BECAUSE IT IS NOT A PAINTING FAULT ***
+THE CITY IS A RECTANGLE. The engine fills its whole 96 x 96 with city out to the
+grid's edge, so from altitude the valley holds a city with four straight sides and
+square corners. No real city in a basin does that; it fingers up the washes and
+stops where the ground rises. I could feather the rim and hide it, and that would be
+a painting that lies about the map underneath, so the edge is painted exactly where
+the engine puts it. WORLD's or RUN's call, with this sheet as the evidence.
+
+*** AND A FOURTH ONE, CAUGHT BY A GATE AFTER I HAD ALREADY CALLED THE ROUND DONE. ***
+I registered the VOTE item with floor:'map' and MAP DENSITY failed it: 1514x1006, run 2.31.
+The gate was right and the label was wrong. floor:'map' holds a MAP PICTURE to DIRECTION's
+floor, and what the item SHOWS is a contact sheet -- before, after and a 1:1 crop, with card
+chrome and flat dark margins -- because the row asks for before and after side by side. A
+card is not a map picture, and labelling it one to collect a pass is gaming the label. The
+map picture is the sheet, slices/vote/COOK_THE_FAR_END_SHEET.png and the bank, and it runs
+1.05 both ways. The item says so in a field of its own now instead of claiming a floor it
+was never drawn to.

@@ -41,4 +41,4 @@ His mother's table has a place set for him, still warm, and she did not know he 
 ## FLAWS IT AVOIDS
 `Q043.X1` (the bench that cries), `Q041.X2` (roster churn as busywork: one screen, one choice), `Q049.X4` (the injury handled with respect, never a joke at him), `Q041.X1` (the injury came from a struck-down roll the formation produced, not from nowhere).
 
-CHECKLIST: passes all 30. Line 12 is not applicable to an event; line 3 is met because his term counts in map days and his splint shows it.
+CHECKLIST: passes all 32. Line 12 is not applicable to an event; line 3 is met because his term counts in map days and his splint shows it. (QR-AM 10/10: lines 31 and 32 run, pass as written)

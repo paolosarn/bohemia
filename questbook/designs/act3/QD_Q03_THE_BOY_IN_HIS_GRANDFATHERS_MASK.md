@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: the road between two reclaimed home bases on the east side, at a bus shelter with solar panels on the roof
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30.
+CHECKLIST: passes all 32. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The party is stopped by a teenage boy at the shelter. He is wearing a Destroyer's welded mask from the act 1 climax, as fashion. He does not know what it was. He wants a ride to the next base for work. The event reads the act 1 ledger: how the builders-versus-Destroyers climax went. The kid's grandfather was one of them.

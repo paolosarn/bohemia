@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: offered at the cartel yards home base (fortress, draft seat the Cartel); the job is the tower offices home base (town, draft seat the Reds), a twelve-storey office tower on Paradise Road with the only panel roof over forty metres on the east side
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 21 met: TAKEN and RUINED pay the same; the starve route pays the same as the storm, never more.
+CHECKLIST: passes all 32. Line 21 met: TAKEN and RUINED pay the same; the starve route pays the same as the storm, never more. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 THE TAKE CONTRACT, the other hall. In a boom, power is what everyone fights over, and the tower's roof array sells the Cartel its own power back. The Cartel will not do its own assault (it needs the Reds' trade next year). It hires a company. The people inside the tower are ordinary: two floors of families, a school timetable taped to a door.

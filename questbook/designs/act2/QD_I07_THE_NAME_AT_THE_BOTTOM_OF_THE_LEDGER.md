@@ -42,4 +42,4 @@ The top line of the ledger is always the same name, in fresh ink, and nobody at 
 ## FLAWS IT AVOIDS
 `Q130.X9` (the payment rewards feeding the fear), `Q144.X2` (grind outweighs grief: the pitch does not escalate the pay, it changes one line once), `Q084.X5` (the punished no), `Q131.X7` (the refusal with no dignity: B and C are full endings).
 
-CHECKLIST: passes all 30 (line 2 read with the 9/28 amendment; line 27: raider entries are plain, debtor entries are the rationed minority, about one in five).
+CHECKLIST: passes all 32 (line 2 read with the 9/28 amendment; line 27: raider entries are plain, debtor entries are the rationed minority, about one in five). (QR-AM 10/10: lines 31 and 32 run, pass as written)

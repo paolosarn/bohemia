@@ -7,7 +7,7 @@ PLACE: the frontage road below a block the Destroyers burned, two days after; bl
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E5, THE TRADER WITH ONE GOOD THING (QR-B)
 STAGE: GATHERING (QR-J): the "raided" situation, seen from the road
-CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free KEEP MOVING; line 21 is met because the
+CHECKLIST: passes all 32 (lines 11 and 12 are read as the event's free KEEP MOVING; line 21 is met because the (QR-AM 10/10: lines 31 and 32 run, pass as written)
 cheaper purchase is not cruel, only cheap, and the kinder buy costs more)
 
 ## THE SITUATION

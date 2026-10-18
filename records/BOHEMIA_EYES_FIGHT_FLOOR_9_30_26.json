@@ -1,7 +1,7 @@
 {
   "what": "F1-F3 of the fight floor, read by machine, fresh off the current alpha",
   "row": "[fight floor measured], rule 46f",
-  "when": "2026-10-01T02:53:47.772Z",
+  "when": "2026-10-04T21:12:55.473Z",
   "surface": "slices/BOHEMIA_ALPHA_0_9.html (current main)",
   "seeds": [
     1,
@@ -13,7 +13,7 @@
     {
       "name": "C0 THE DOOR IS BEHIND US",
       "pass": true,
-      "detail": "the door held 33704 ms after the first knock"
+      "detail": "the door held 17251 ms after the first knock"
     },
     {
       "name": "C1 THE FIGHT ANSWERED: setupCombat/houseOn found in a real frame",
@@ -35,7 +35,7 @@
     {
       "seed": 1,
       "w": 390,
-      "h": 635,
+      "h": 641,
       "cw": 390,
       "ch": 641,
       "x": 0,
@@ -48,7 +48,7 @@
     {
       "seed": 5,
       "w": 390,
-      "h": 635,
+      "h": 641,
       "cw": 390,
       "ch": 641,
       "x": 0,
@@ -61,7 +61,7 @@
     {
       "seed": 9,
       "w": 390,
-      "h": 635,
+      "h": 641,
       "cw": 390,
       "ch": 641,
       "x": 0,
@@ -74,7 +74,7 @@
     {
       "seed": 13,
       "w": 390,
-      "h": 635,
+      "h": 641,
       "cw": 390,
       "ch": 641,
       "x": 0,
@@ -94,51 +94,51 @@
   "F1_pass": false,
   "F2_fine_band": [
     [
-      0.0191,
-      0.0191
+      0.0248,
+      0.0224
     ],
     [
-      0.0213,
-      0.0207
+      0.0278,
+      0.0247
     ],
     [
-      0.026,
-      0.026
+      0.0281,
+      0.0254
     ],
     [
-      0.0214,
-      0.0219
+      0.0307,
+      0.0285
     ]
   ],
-  "F2_pass": false,
+  "F2_pass": true,
   "F3_never_ground_pct": [
     {
-      "pale pads": 0.08,
-      "red": 0.33,
-      "white marks": 0.79,
-      "green words": 0.04,
-      "fake_pct": 1.25
-    },
-    {
-      "pale pads": 0.08,
-      "red": 0.21,
-      "white marks": 1.22,
+      "pale pads": 0.07,
+      "red": 0.27,
+      "white marks": 1.19,
       "green words": 0.06,
-      "fake_pct": 1.57
+      "fake_pct": 1.59
     },
     {
-      "pale pads": 0.06,
-      "red": 0.07,
-      "white marks": 2.07,
-      "green words": 0.07,
-      "fake_pct": 2.27
+      "pale pads": 0.07,
+      "red": 1.5,
+      "white marks": 1.96,
+      "green words": 0.06,
+      "fake_pct": 3.59
     },
     {
-      "pale pads": 0.26,
+      "pale pads": 0.07,
       "red": 0.08,
-      "white marks": 2.12,
+      "white marks": 2.54,
+      "green words": 0.09,
+      "fake_pct": 2.78
+    },
+    {
+      "pale pads": 0.22,
+      "red": 0.1,
+      "white marks": 2.6,
       "green words": 0.04,
-      "fake_pct": 2.5
+      "fake_pct": 2.96
     }
   ],
   "F3_pass": false,
@@ -175,20 +175,20 @@
     ],
     "F2_now": [
       [
-        0.0191,
-        0.0191
+        0.0248,
+        0.0224
       ],
       [
-        0.0213,
-        0.0207
+        0.0278,
+        0.0247
       ],
       [
-        0.026,
-        0.026
+        0.0281,
+        0.0254
       ],
       [
-        0.0214,
-        0.0219
+        0.0307,
+        0.0285
       ]
     ],
     "F3_then_pct": [
@@ -198,10 +198,10 @@
       3.3
     ],
     "F3_now_pct": [
-      1.25,
-      1.57,
-      2.27,
-      2.5
+      1.59,
+      3.59,
+      2.78,
+      2.96
     ]
   }
 }

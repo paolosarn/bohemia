@@ -7,7 +7,7 @@ PLACE: the co-op blocks home base (town tier); the job is block seven, cut off a
 SITUATION: the co-op votes on letting the Strip open a charge counter in its square, and block seven's sixty votes sit in a sealed box behind a washed-out road -> the box arrives before the count and block seven is counted; the result (not the player's) sets the co-op's next board: a charge counter and Mob guard jobs, or co-op ration work
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 A boom pocket in act 1: the Strip wants to open a charge counter in the co-op's square. More batteries in, more Mob in. The co-op votes on it in three nights. Block seven, on the far side of a road the last rain took, has sixty votes in a box nobody can reach on foot in time.

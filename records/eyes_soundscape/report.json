@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-10T00:39:04.976Z",
+  "screens": {
+    "settlement": {
+      "seconds": 60,
+      "town": "Church",
+      "asked": {},
+      "levels": [],
+      "renders": 0
+    },
+    "fight": {
+      "error": "fight not reached this run"
+    },
+    "map": {
+      "seconds": 60,
+      "asked": {},
+      "levels": [
+        {
+          "ev": "?",
+          "gain": 0.2,
+          "musGain": 0.8,
+          "t": 1791592839445
+        }
+      ],
+      "renders": 1
+    }
+  },
+  "hookInfo": {
+    "sfxWrapped": true,
+    "renderWrapped": true
+  },
+  "audioContext": {
+    "afterTitle": "running",
+    "afterSettlementReach": "running",
+    "afterToMap": "running"
+  },
+  "control": {
+    "before": 1,
+    "after": 2,
+    "moved": true,
+    "how": "stepSfx('asphalt')"
+  }
+}

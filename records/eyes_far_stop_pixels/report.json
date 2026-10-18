@@ -1,0 +1,156 @@
+{
+  "at": "2026-10-09T22:48:38.267Z",
+  "toMapState": {
+    "mode": "city",
+    "czoom": 0.208
+  },
+  "farStopCzoom": 0.2083,
+  "skyCheck": false,
+  "skyRecoveries": 1,
+  "canvas": {
+    "w": 1134,
+    "h": 2490
+  },
+  "blockSweep": [
+    {
+      "k": 2,
+      "totalBlocks": 705915,
+      "uniformBlocks": 168559,
+      "matchPct": 23.88,
+      "nonUniformPx": 2149424,
+      "globalDistinct": 2317983
+    },
+    {
+      "k": 3,
+      "totalBlocks": 313740,
+      "uniformBlocks": 6437,
+      "matchPct": 2.05,
+      "nonUniformPx": 2765727,
+      "globalDistinct": 2772164
+    },
+    {
+      "k": 4,
+      "totalBlocks": 176932,
+      "uniformBlocks": 1613,
+      "matchPct": 0.91,
+      "nonUniformPx": 2798676,
+      "globalDistinct": 2800289
+    },
+    {
+      "k": 6,
+      "totalBlocks": 78435,
+      "uniformBlocks": 233,
+      "matchPct": 0.3,
+      "nonUniformPx": 2815272,
+      "globalDistinct": 2815505
+    },
+    {
+      "k": 8,
+      "totalBlocks": 44304,
+      "uniformBlocks": 100,
+      "matchPct": 0.23,
+      "nonUniformPx": 2818620,
+      "globalDistinct": 2818720
+    },
+    {
+      "k": 10,
+      "totalBlocks": 28386,
+      "uniformBlocks": 24,
+      "matchPct": 0.08,
+      "nonUniformPx": 2821260,
+      "globalDistinct": 2821284
+    },
+    {
+      "k": 12,
+      "totalBlocks": 19760,
+      "uniformBlocks": 11,
+      "matchPct": 0.06,
+      "nonUniformPx": 2822220,
+      "globalDistinct": 2822231
+    },
+    {
+      "k": 14,
+      "totalBlocks": 14418,
+      "uniformBlocks": 4,
+      "matchPct": 0.03,
+      "nonUniformPx": 2822876,
+      "globalDistinct": 2822880
+    },
+    {
+      "k": 16,
+      "totalBlocks": 11076,
+      "uniformBlocks": 1,
+      "matchPct": 0.01,
+      "nonUniformPx": 2823404,
+      "globalDistinct": 2823405
+    },
+    {
+      "k": 20,
+      "totalBlocks": 7125,
+      "uniformBlocks": 0,
+      "matchPct": 0,
+      "nonUniformPx": 2823660,
+      "globalDistinct": 2823660
+    },
+    {
+      "k": 24,
+      "totalBlocks": 4992,
+      "uniformBlocks": 0,
+      "matchPct": 0,
+      "nonUniformPx": 2823660,
+      "globalDistinct": 2823660
+    },
+    {
+      "k": 32,
+      "totalBlocks": 2808,
+      "uniformBlocks": 0,
+      "matchPct": 0,
+      "nonUniformPx": 2823660,
+      "globalDistinct": 2823660
+    },
+    {
+      "k": 48,
+      "totalBlocks": 1248,
+      "uniformBlocks": 0,
+      "matchPct": 0,
+      "nonUniformPx": 2823660,
+      "globalDistinct": 2823660
+    },
+    {
+      "k": 64,
+      "totalBlocks": 702,
+      "uniformBlocks": 0,
+      "matchPct": 0,
+      "nonUniformPx": 2823660,
+      "globalDistinct": 2823660
+    }
+  ],
+  "bestBlockSize": {
+    "k": 2,
+    "totalBlocks": 705915,
+    "uniformBlocks": 168559,
+    "matchPct": 23.88,
+    "nonUniformPx": 2149424,
+    "globalDistinct": 2317983
+  },
+  "canvasBuffer": {
+    "totalPx": 2823660,
+    "distinctPainted2x2": 1485640,
+    "blocks": 705915,
+    "uniformBlocks": 168559,
+    "uniformBlockPct": 23.88,
+    "uniqueColours": 42885
+  },
+  "canvasPngBytes": 2343110,
+  "fullPngBytes": 2451075,
+  "verdict": {
+    "cookTheoreticalFloor": 9216,
+    "battleBrothersFloorSourced": 2073600,
+    "localDistinct2x2": 1485640,
+    "note2x2": "a LOCAL measure (is each pixel a copy of its own 2x2 neighbour), not the global source-pixel count COOK's 9,216 and the gate's 2,073,600 both mean",
+    "globalDistinctAtBestFit": 2317983,
+    "globalFitBlockSize": 2,
+    "globalFitMatchPct": 23.88,
+    "passesBattleBrothersFloor": true
+  }
+}

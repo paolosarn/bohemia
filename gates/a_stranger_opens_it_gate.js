@@ -72,6 +72,7 @@
    fifth time in two weeks on this lane. So this gate presses ONE direction.
    ========================================================================== */
 'use strict';
+const { throughTheTitle } = require(require('path').join(__dirname, '..', 'tools/bohemia_through_the_title.js'));   /* rule 66: the title is in front of the door now */
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
@@ -158,6 +159,7 @@ const GROUND_FLOOR = 2000;
     /* ---- 1. THE DOOR ---------------------------------------------------- */
     const t0 = Date.now();
     await page.goto(DEMO, { waitUntil: 'load', timeout: 240000 });
+    await throughTheTitle(page);   /* __THE_START_SCREEN__: a stranger presses NEW GAME first, then meets this door as before */
     const loadMs = Date.now() - t0;
     await SETTLE(page, 3000);
     ok('the demo opens on a phone in ' + loadMs + 'ms (ceiling ' + LOAD_CEIL_MS + ')',
@@ -223,7 +225,10 @@ const GROUND_FLOOR = 2000;
 
     /* ---- 2. THE TAP ----------------------------------------------------- */
     const t1 = Date.now();
-    await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); });
+    /* RE-AIMED 10/2 (RUN [the front door]): the middle of the door is the new company now (the fights,
+       the shelves, who you were), so a tap there makes a pick, not an entrance. BEGIN is the door, the
+       instruction this gate already reads above; it is what a stranger presses, and what the one driver taps. */
+    await page.tap('#fronttap').catch(async () => { await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); }); });
     await SETTLE(page, WORLD_CEIL_MS, async () => {
       const f = page.frames().find(x => x.name() === 'cityFrame');
       if (!f) return false;
@@ -403,7 +408,7 @@ const GROUND_FLOOR = 2000;
     const FB = await (await city.frameElement()).boundingBox();
     const spot = await city.evaluate(() => {
       const c = document.getElementById('cv'), r = c.getBoundingClientRect();
-      const kx = c.width / r.width, ky = c.height / r.height;
+      const kx = (window.CVW || c.width) / r.width, ky = (window.CVH || c.height) / r.height;   /* CSS pixels: the backing store is the phone pixels on the map (10/1) */
       for (let sy = 60; sy < r.height - 60; sy += 11) for (let sx = 20; sx < r.width - 20; sx += 11) {
         const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
         const p = cityRoute(city.x, city.y, cell[0], cell[1]);

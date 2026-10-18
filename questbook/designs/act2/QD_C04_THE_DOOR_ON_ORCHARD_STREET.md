@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: a housing office in a reclaimed casino lobby, and a single-storey house on a residential grid street
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1); bends 30 on purpose, as QR-X set it: the test twist (T04) rewards the kind doors with a standing contract, but the fee is locked at the offer and the reward cannot be known before the choice, so the fork is not bought; the refund of the 6 stays cut. Lines 1 to 28 pass as written. Fixed in place: 28 (flags and saves named).
+CHECKLIST: passes 31 of 32 (QR-AM 10/10: line 32 failed (C cost nothing and paid the most) and is fixed in place: C no longer saves the family and its contract waits a refresh) (QR-AC line-by-line run, 10/1); bends 30 on purpose, as QR-X set it: the test twist (T04) rewards the kind doors with a standing contract, but the fee is locked at the offer and the reward cannot be known before the choice, so the fork is not bought; the refund of the 6 stays cut. Lines 1 to 28 pass as written. Fixed in place: 28 (flags and saves named).
 TWIST: T04 THE JOB WAS A TEST, AND THE PASS WAS NO (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs NOTHING. Lands AT HAND-IN.
 
 ## THE SITUATION
@@ -34,6 +34,8 @@ At the door:
 - B. PAY THE RENT YOURSELF. Cost: 6 batteries of the company's own.
 - C. COME BACK WITH NOTHING AND SAY WHY. Cost: nothing, yet.
 At the hand-in, Duarte pays all three the 8 batteries (the fee was locked). Then the twist: on C, she offers the company a standing contract with the office (steady work, act 2). On B, she offers it too, and does not return the 6 ("That was yours to spend."). On A, she pays and says, plainly, "We have enough of those."
+
+C IS NOT FREE (QR-AM, line 32; `Q226.X2`, `Q231.X3`, `Q161.X3`, `Q157.X1`): coming back with nothing protects nobody. Duarte sends the next crew within the week and the family is put out anyway, unless the player also pays (B). So C keeps the company's hands clean and leaves the family on the street; B keeps them in the house and costs 6. On C the standing contract waits one refresh ("Come back when you've done one"), so the cleanest hands are not also the best paid (QR-G line 30).
 
 ## WHAT THE LEDGERS REMEMBER
 The office's opinion of the company (a standing contract or not). The family's fate on the map. The contract is FINISHED on every branch: the hand-in is the finish. DECLINING LEAVES NOTHING: nobody remembers the no, and the office does not treat a declined offer as a failed test.

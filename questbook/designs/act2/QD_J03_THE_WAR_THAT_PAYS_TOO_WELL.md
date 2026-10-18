@@ -7,7 +7,7 @@ PLACE: a faction's fortified casino garage (the settlement); the job is a chain-
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE RUNGS (QR-J): the canon ladder's "quietly accelerated faction conflict"
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Late act 2. Two factions that shared a water truck three months ago are suddenly shooting at each other over a

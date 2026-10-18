@@ -7,7 +7,7 @@ PLACE: the squat home base (town tier); the job is the tower offices' holding ro
 SITUATION: the tower took one of the squat's founders for back rent and will auction his debt in four map days, and whoever buys it owns a year of his work -> the founder comes home (by force, by purchase, or by the squat's labour), and the squat's board goes from one angry offer to two
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The squat sits in a building the tower says it owns since the tower said so. Tavo, one of the founders, was taken for 40 batteries of back rent. In four map days his debt is sold on the tower steps, and the buyer owns a year of him. The squat has anger and favours and almost nothing else.

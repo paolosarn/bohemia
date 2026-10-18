@@ -41,4 +41,4 @@ She is holding an open umbrella, and it is dry.
 ## FLAWS IT AVOIDS
 `Q142.X3` (the clock fights the talking), `Q095.X1` (the hard fail nobody signposted), `Q106.X5` (the missed appointment that silently deletes content), `Q084.X5` (the punished no: C writes nothing about the company), `Q141.X3` (the sound-only clue: the rain is a sound AND a grey smear in the picture).
 
-CHECKLIST: passes all 30 (line 11 read for an event: C is the free walk-past; line 3 has no deadline because the event resolves the clock in one screen).
+CHECKLIST: passes all 32 (line 11 read for an event: C is the free walk-past; line 3 has no deadline because the event resolves the clock in one screen). (QR-AM 10/10: lines 31 and 32 run, pass as written)

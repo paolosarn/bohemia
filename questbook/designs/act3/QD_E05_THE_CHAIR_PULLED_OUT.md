@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: a reclaimed 24-hour diner on Fremont, clean and bright; one booth set for two, one chair pulled out, a screen on the wall of the booth (PL11, THE TABLE SET FOR SOMEONE)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 5 and 18 (the earlier-act landing and its floor), 9 (road, tunnels, or the registrar first), 12 (bring the drive back), 23 (a lost fight costs the day), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 5 and 18 (the earlier-act landing and its floor), 9 (road, tunnels, or the registrar first), 12 (bring the drive back), 23 (a lost fight costs the day), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, cyberpunk healing: the valley is reclaimed and techy, and the Network is crumbling as the rocket

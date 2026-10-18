@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: the old air base on the north side, now a home base training the rocket's guard; the job is ten map days on the base's range
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST (30 lines; 29 and 30 pass, QR-X 9/30): bends line 10 on purpose: the job lends a veteran for ten days, which is a real cost, stated on the offer screen. Line 12 met by choice C.
+CHECKLIST (32 lines; 29 to 32 pass, QR-X 9/30 and QR-AM 10/10): bends line 10 on purpose: the job lends a veteran for ten days, which is a real cost, stated on the offer screen. Line 12 met by choice C.
 
 ## THE SITUATION
 Act 3. The rocket needs a guard, and the guard is kids. The base wants to borrow the company's most experienced member for ten days to train them. It is the late game spending what the early game built: the veteran's twenty fights are the thing being paid for. The company rests a member for ten days (they are off the road). This is the only contract in the library shelf that hires a person rather than the company.

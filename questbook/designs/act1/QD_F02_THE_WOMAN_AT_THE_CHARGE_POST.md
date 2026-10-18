@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a ruined street corner: a street with its sidewalks, a crushed car, a public charge post with six sockets, a pump house down the road (on the fight board, about five house-sized tiles: the corner, the car, two street tiles, the pump house)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the cord has a tell), 10 and 23 (a lost push has a result), 12 (stop at the car), 22 and 26 (the full drum, the companion drinks first), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the cord has a tell), 10 and 23 (a lost push has a result), 12 (stop at the car), 22 and 26 (the full drum, the companion drinks first), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 (9/28: the second-by-second walk was the round-one front door. Swept 9/29 for VAMILY rules 38 to 40: the walk is dead; the first sixty seconds are the settlement screen, and the push after ACCEPT is played on the fight board, house-sized tiles cut from this corner. See QR-P and QR-W.)

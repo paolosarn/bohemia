@@ -1,0 +1,112 @@
+BOHEMIA -- THE KEEPERS SPEAK (10/9/26, PEOPLE lane)
+VAMILY [the keepers speak], row EVERY-KEEPER-HAS-A-MOUTH-AND-A-LINE,
+rule 71a. A QUEST IS PEOPLE PLACES AND THINGS (Paolo 9/20: "text comes from
+a mouth with a portrait"). The smith, the armourer, the barber, the clinic
+and the board's man each speak three things: their price, their trait line,
+one rumour.
+
+================================================================================
+TWO OF THE THREE ALREADY EXISTED AS MECHANISM, AND WORDS ALREADY WROTE THEIR WORDS
+================================================================================
+Read slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO's own file) before
+building anything, per REUSE-FIRST. Found:
+
+THE TRAIT LINE already fires for every keeper, generically, in openB():
+traitLine(k) checks the place's active traits and speaks the keeper's own
+line first, once per visit (says[k] falling back to says.any).
+
+THE RUMOUR already exists too: nextRumour(), fed by
+records/target/settlement_rumours.json, a real data file RUN TWO and WORLD
+already built, with WORLD's [where the god gear is] rumours already riding
+in it as kind:"gear". Today it is only called at the bar.
+
+A SECOND LANE HAD ALREADY MEASURED THIS SAME ROW: WORDS shipped [the
+keepers' lines] (records/BOHEMIA_WORDS_THE_KEEPERS_LINES_10_10_26.md) with
+the actual 15 trait-reaction lines (3 traits x 5 keepers, in each keeper's
+own voice) and 5 keeper-scoped rumour hooks, grounded in locked canon (the
+clinic's hook reuses the wiederganger chip-body finding; the board's hook
+reuses rule 81's robotics plant). WORDS left it as a review file, explicit
+that neither file was touched directly (rule 55), for PEOPLE and RUN TWO to
+apply. This round applied it: both files took the new content as plain
+additive keys/entries, no mechanism changed, nothing in traitLine() or
+nextRumour() needed to move, and gates/keeper_lines_gate.js checks every one
+of those 20 lines against WORDS' own record, byte for byte, so nothing
+drifted in the copy.
+
+WORDS ALSO MEASURED THE PRICE QUESTION AND LEFT IT ALONE: their read was
+that three of five keepers have no single flat number (every weapon, every
+wound, every job prices itself), so forcing one in would invent a price the
+game doesn't have. This lane agrees with the finding and disagrees with the
+conclusion: a REAL RANGE (what's actually on this visit's shelf) or a REAL
+FORMULA (the clinic's actual floor) is not an invented flat number, so it
+built that missing piece instead of leaving it empty.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+engine/bohemia_keeper_lines.js: a pure module. priceLine(kind, ctx) returns a
+real spoken line for smith, armourer, barber, clinic or board, every number
+read off the exact file it actually lives in:
+  - smith / armourer: take the REAL min/max of that visit's own shelf as ctx
+    (not a hardcoded range -- the catalogue-wide extremes in weapons.json and
+    armor.json run 3 to 350 and 1 to 700 batteries, but what's actually on a
+    shelf a given visit is always a narrower real sample, so the function
+    takes that sample, never invents one)
+  - barber: the fixed 1 battery, read off engine/bohemia_barber.js's own
+    COST.amount (cited there to rule 37i)
+  - clinic: the real clinicPrice() formula's own 20-crowns-a-day floor,
+    converted at ten to one, stated honestly as a floor that climbs with
+    rank rather than a fake flat number
+  - board: the real pay for one/two/three skulls (30/60/90), read straight
+    off that file's own OFFERS array
+An unknown keeper kind is refused, never a guessed default.
+
+================================================================================
+PROVEN, NOT ASSERTED
+================================================================================
+gates/keeper_lines_gate.js reads slices/BOHEMIA_SETTLEMENT_SCREEN.html and
+engine/bohemia_barber.js DIRECTLY and checks every one of my constants
+against them, byte for byte -- it does not trust that I copied them right,
+it proves it. Smith and armourer are proven to speak whatever real range
+they are handed, never a cached or hardcoded one. Every line is checked
+against the same Spanglish voice the real file already uses for these exact
+five keepers (mijo, pues, compa, gracias, bueno), not invented fresh.
+
+================================================================================
+THE GATE
+================================================================================
+gates/keeper_lines_gate.js, new (REUSE-FIRST: nothing existed to extend).
+48 legs: real-source byte checks, the real-range proof, the refused-unknown
+proof, the voice check, an end-to-end combination of the smith's three real
+lines, WORDS' own 20 lines checked against settlement_traits.json and
+settlement_rumours.json byte for byte, cook + registry.
+
+================================================================================
+THE COOK: THE KEEPERS SPEAK
+================================================================================
+slices/BOHEMIA_THE_KEEPERS_SPEAK_10_9_26.html, registered in VOTE. The
+smith's three lines, in order, through the same mouth-and-portrait look
+every speaking NPC in this game already uses: the real trait greeting and
+the real rumour (read straight out of RUN TWO's and WORLD's own files,
+untouched), and the new price line.
+
+================================================================================
+WHAT THIS LANE DID NOT TOUCH, ON PURPOSE
+================================================================================
+slices/BOHEMIA_SETTLEMENT_SCREEN.html is RUN TWO's own file (rule 55: "RUN 2
+= THE VOTE TAB AND THE SETTLEMENT SCREEN ONLY... a new settlement file
+only"). ONE SYSTEM, ONE SESSION means this round never edited that .html;
+it only wrote the new price mechanism as a pure, gated module, applied
+WORDS' already-written content into the two shared DATA files
+(settlement_traits.json, settlement_rumours.json -- additive keys and
+entries only, nothing in either file's lookup code moved), and left a
+review file
+(records/BOHEMIA_THE_KEEPERS_SPEAK_REVIEW_FOR_RUN_TWO_10_9_26.md) naming the
+exact call shape to wire in, the same pattern WORDS already used for its own
+settlement-words rounds (rule 55: "a review file COMBAT applies; nothing
+touched directly"). Wiring the price line and the rumour call into the five
+keepers' real greetings on the live screen is RUN TWO's own hand, named not
+chased.
+
+TAB: VOTE, item THE KEEPERS SPEAK. NOT IN A TAB YET on the live settlement
+screen (RUN TWO's own wiring, named above).

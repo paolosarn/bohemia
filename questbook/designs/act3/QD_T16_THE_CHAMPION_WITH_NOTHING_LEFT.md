@@ -7,7 +7,7 @@ PLACE: the map, the Strip road at the old pit arena's gate; the event screen sto
 SITUATION: the boom made the pits illegal. Hector "El Once", undefeated in the Strip's pits in act 1 (the ledger may hold the family's own loss to him, or a default), is 71 and has nothing left to win. He asks the family's act-3 heir for one real fight
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30 (never in the first minute of an act)
+CHECKLIST: passes all 32 (never in the first minute of an act) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 DEFAULT READ (act 1 never met him): the barber's rumour line has carried his name since act 1; the heir knows him as a story.
 
 ## THE SITUATION

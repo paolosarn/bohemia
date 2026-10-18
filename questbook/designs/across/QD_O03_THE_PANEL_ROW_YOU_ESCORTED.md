@@ -5,7 +5,7 @@ CRISIS: the Destroyers (act 1) / none (act 3)
 ECONOMY: bust (act 1) / boom (act 3)
 PLACE: the solar field home base (town tier), the panel yard
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1: the Destroyers smash panels on the south rows. The field's board posts an escort for a truck of salvaged

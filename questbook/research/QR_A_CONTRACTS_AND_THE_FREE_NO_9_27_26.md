@@ -11,6 +11,7 @@ STATUS: research only (rule 35, laws/BOHEMIA_ADDENDUM_QUESTS_IS_RESEARCH_ONLY_9_
 The builders (RUN, WORLD, PEOPLE, WORDS) cite this page when they build contracts.
 FOLDED 10/1 (QR-AB): C1 (the phone shows a read-only board, rule 51), C9 (two contract slots, rule 51), new C19 (the
 scavenge floor, QR-U), OPEN 5, and section 4's count. Each edit is marked in place.
+FOLDED 10/9 (QR-AL): QR-U's C20 and C21, and the sharpens and readings of C3, C4, C6, C7, C8, C9, C12 and C15, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -288,6 +289,37 @@ keep (FOOD and WATER, rule 47) at a thin margin, so one declined offer never for
 clean; C19 keeps the purse honest. Test: a company that declines every offer for ten map days and scavenges at each
 stop does not go bankrupt at default tuning. TUNING owns the numbers (QR-U rule 3). (`Q236.X4`, `Q236.W10`,
 `Q236.W7`, `Q126.W3`.)
+
+C20. **THE CLIENT WANTS SOMETHING BESIDES THE FEE.** (folded 10/9 from QR-U) The Battle Brothers elder has a portrait and a mood but no
+want beyond the fee and no life on the map (`Q236.X3`); the study's own law is a person in a place with a want the
+player can see, whose place changes after the hand-in. QR-G line 25 says this for every item. Test: every offer screen
+names one want of the client that is not the fee, and the hand-in changes the client's place.
+
+C21. **A CLIENT WHO REFUSES TO PAY.** (folded 10/9 from QR-U) At hand-in the client may refuse, a twist: take it by force or leave unpaid,
+which makes the player price his own honour (`Q236.N5`). QR-C's T11 and T12 remove the payer; this is the payer who is
+present and says no. It closes as DONE (the deed is the client's) unless the player takes the pay by force, which is
+his own deed. It rides the twist ration (C15). Test: a refused hand-in writes no deed against the player unless he
+takes the pay by force.
+
+SHARPENED (folded 10/9 from QR-U):
+- C4 and C6 (no is ungated, declining writes nothing): the accept button is the only promise (`Q236.W7`); decline
+  returns to the hall, the offer stays, nothing is written (`Q236.N2`); only accept, finish, fail and drop are deeds
+  (`Q236.P3`). The first primary study behind C6, which stood on `Q126.W3` and Paolo's words.
+- C9 (two slots): a further offer is readable but not takeable, taught as a greyed button, not a speech (`Q236.N1`,
+  `Q236.W2`). Test: while both slots are TAKEN, every other offer screen still opens and shows its terms; only accept
+  is disabled.
+- C3 (clean terms in one breath): complicity chosen with full information is worse than being fooled (`Q159.W7`); the
+  skulls are a reading, so "too strong for me" is the player's informed call (`Q236.W3`). Clean terms make the yes his.
+- C8 (world-state, not a name): ignore it and the man dies off-screen (`Q158.W7`), but `Q158.P4` and `Q158.X3` want a
+  failure to land against the player. Reading: a declined job's harm lands without the player's id (C8, `Q055.W1`); a
+  taken job that failed lands with it (C12, C13).
+- C7 inside C17 only: the refusal cracks the disguise (`Q161.W5`). Banned on a contract; on the main quest's
+  honest-devil offers the counterfeit family's face may change when refused, inside `Q126.P24`.
+- C12 (failing is not dropping): Battle Brothers counts a walk-away after a twist as FAILED with a relations drop
+  (`Q236.N4`). Ours stays sharper: a twist that proves the client lied VOIDS (QR-C rule 11, `Q003.W1`); one that did
+  not lie and is walked away from is DROPPED, priced by C13.
+- C15 (most contracts are what they say): veterans treat the contraband caravan as an expected beat by the tenth time
+  (`Q236.X2`, the same law as `Q148.X3`); the best rare twist is the small favour that hides the weight (`Q158.W8`).
 
 ## WHAT TO AVOID (the flaws)
 

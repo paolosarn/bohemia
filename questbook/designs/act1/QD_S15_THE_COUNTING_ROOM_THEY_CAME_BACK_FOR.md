@@ -7,7 +7,7 @@ PLACE: the Strip casino block home base (fortress tier, RAIDED shape: one offer 
 SITUATION: a raid last week: a roaming party hit the counting room, took 300 batteries and shot two guards, and word is they come back for the charge room the next night the power is up -> the charge room holds (or is empty when they come), the Strip's chips trade at face again, and a party beaten here counts toward its name
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Last week the Glass Dogs, a roaming party of eight, hit the casino's counting room. Two guards dead, 300 batteries gone. The house's board is the raided shape: one offer, and it pays in chips, because the batteries are gone. Chips are money on the Strip, mostly. Since the raid, the market takes them at five for eight.

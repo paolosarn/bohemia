@@ -6,7 +6,7 @@ CRISIS: the whisper broadcast, and the earth-side nuke behind it
 ECONOMY: either
 PLACE: a pump house on the dam road, the one place every faction's share of power and water meets
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 5 and 18 (the floor if act 3 comes first), 26 (the name written twice on the carton), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 5 and 18 (the floor if act 3 comes first), 26 (the name written twice on the carton), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the story master's act 2 end: the whisper broadcast goes out, the family stops the

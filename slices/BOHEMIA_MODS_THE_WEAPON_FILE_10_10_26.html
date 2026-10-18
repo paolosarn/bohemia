@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Weapon File</title>
+<style>:root{--bg:#0b0d0c;--ink:#cfd6cc;--dim:#6f7a70;--red:#d8352a;--amber:#d9a441;--ok:#7fb069;--line:#1d2320}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,Consolas,monospace;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 40px}h1{font-size:20px;letter-spacing:.08em;margin:6px 0 2px;text-transform:uppercase}
+.sub{color:var(--dim);font-size:12px;margin-bottom:12px}.n{display:flex;gap:10px;margin:8px 0}.n div{flex:1;border:1px solid var(--line);padding:8px;background:#0e1110}
+.n b{display:block;font-size:30px;color:var(--ok);line-height:1}.n b.r{color:var(--red)}.n span{font-size:11px;color:var(--dim)}
+h2{font-size:12px;letter-spacing:.1em;color:var(--dim);margin:18px 0 6px}pre{background:#0e1110;border:1px solid var(--line);padding:10px;font-size:12px;overflow-x:auto}
+.p{padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}.note{color:var(--dim);font-size:12px;margin-top:10px}</style></head><body><div class="wrap">
+<h1>The weapon file</h1><div class="sub">MODS. What a modder can and cannot change about a weapon. A proposal, nothing built.</div>
+<div class="n"><div><b>126</b><span>weapons in the file</span></div><div><b class="r">27</b><span>skills never played</span></div></div>
+<div class="n"><div><b>104</b><span>weapons with 2+ skills, the fight plays one</span></div><div><b class="r">16</b><span>weapons whose shape is only a sentence</span></div></div>
+<h2>YOU CAN TODAY</h2><div class="p">Change damage, armour damage, range, durability, price (in crowns), the skill's AP and fatigue.</div>
+<h2>YOU CANNOT TODAY</h2><div class="p">Give a skill a shape (a sweep, a line, five tiles behind). It is a sentence, and nothing reads it.</div><div class="p">Make a weapon offer a second skill. The fight plays the first one and the reload.</div><div class="p">Point a weapon at its mastery. That link is a sentence in another file.</div>
+<h2>THREE OPTIONAL FIELDS, AND NOTHING MOVES UNTIL USED</h2>
+<pre>skills[].shape   {"kind":"behind","tiles":5}
+offers           ["Stab","Puncture"]
+mastery          "mace_mastery"</pre>
+<h2>THE KNIFE ALREADY HAS PUNCTURE IN THE FILE, AND THE FIGHT NEVER OFFERS IT</h2><pre>{ "id": "knife",
+  "damage_min": 15, "damage_max": 25,
+  "offers": ["Stab", "Puncture"] }</pre>
+<div class="note">Which weapon the game's guns and pipes are is not decided here. That stays yours.</div></div></body></html>

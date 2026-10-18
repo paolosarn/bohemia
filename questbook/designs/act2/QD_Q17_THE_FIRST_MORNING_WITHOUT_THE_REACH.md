@@ -5,7 +5,7 @@ CRISIS: the Network crumbling (its first morning)
 ECONOMY: either
 PLACE: the family's home base (rule 43: a base is the parts of the city the family holds) and the three nearest settlements, seen on the map at dawn after the act 2 severance
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30.
+CHECKLIST: passes all 32. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the story master: after the super-captcha severs the reach, Vegas is free locally, but the win is incomplete, and the Amalgamation is international and off-world. This beat is the morning after, before act 3 opens. It is not a victory screen. It is the valley waking up without the thing it did not know it used. The grief apps are silent. The Network's ration kiosks show a blue screen. Some people are happy. Some people lost their dead a second time.

@@ -112,6 +112,11 @@
                  background:var(--paper); color:var(--ink) }
  #foot .fb{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap }
  #saidit{ font-size:13px; color:var(--cool); margin-top:8px; min-height:18px }
+ /* THE FOLD (UI [the triage filter], rule 92): what is not red waits behind one button with its count */
+ #fold{ width:100%; margin:16px 0 4px; justify-content:space-between; font-size:14px; letter-spacing:1.5px;
+        border-style:dashed }
+ #fold b{ font-size:15px; color:var(--gold) }
+ #more[hidden]{ display:none }
 </style></head><body>
 
 <header>
@@ -124,6 +129,8 @@
 <p class="say">Everything new lands here. Tap the thumb. What you vote on leaves and does not come back.</p>
 
 <div class="wrap"><div id="list"></div>
+<button id="fold" type="button" hidden><span>MORE</span><b id="foldn"></b></button>
+<div id="more" hidden></div>
 
 <div id="empty" hidden>
   <b>NOTHING IS WAITING ON YOU.</b>
@@ -158,6 +165,11 @@
   var theirs = {};    /* id -> verdict from the registry */
   var items = [];
   var lastGone = null;
+  /* THE SORT (UI [the triage filter], rule 92): records/target/BOHEMIA_VOTE_TRIAGE.json is the coordinator's file. RED
+     he sees now, first and alone, at most the file's cap (twelve); YELLOW, a red past the cap, and anything the
+     coordinator has not tagged yet wait behind one fold that says MORE with its count; GREEN (the lane's pick stands)
+     and GRAY (the team already knows) never show. No file, or a broken one: everything shows, as it always did. */
+  var TRI = null, TRI_URL = '../records/target/BOHEMIA_VOTE_TRIAGE.json', foldOpen = false;
 
   function readPhone(){
     try{ mine = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }
@@ -314,29 +326,42 @@
 
   function tally(){
     var live = document.querySelectorAll('#list .row:not(.gone)').length;
+    /* behind the fold: the rows themselves once it is open, its count while it is shut */
+    var later = foldOpen ? document.querySelectorAll('#more .row:not(.gone)').length : +(document.getElementById('fold').dataset.n || 0);
     var done = 0, id;
     for(id in mine){ if(Object.prototype.hasOwnProperty.call(mine, id)) done++; }
     var t = document.getElementById('tally');
-    if(t) t.textContent = live + ' WAITING' + (done ? '  ·  ' + done + ' JUDGED' : '');
+    if(t) t.textContent = live + ' WAITING' + (done ? '  ·  ' + done + ' JUDGED' : '');   /* the MORE count lives on the fold: in the header it pushed EXPORT onto a second line */
+    var fn = document.getElementById('foldn'); if(fn && TRI) fn.textContent = String(later);
+    var fb = document.getElementById('fold'); if(fb && TRI && !later) fb.hidden = true;
     var em = document.getElementById('empty');
-    if(em) em.hidden = live > 0;
+    if(em) em.hidden = live > 0 || later > 0;
   }
 
   /* ---------- DRAW ---------- */
+  function tagOf(id){ var t = TRI && TRI.tags && TRI.tags[id]; return t && t.tag ? String(t.tag).toLowerCase() : null; }
   function draw(){
-    var list = document.getElementById('list');
-    list.textContent = '';
+    var list = document.getElementById('list'), more = document.getElementById('more'), fold = document.getElementById('fold');
+    list.textContent = ''; more.textContent = '';
     /* NEWEST FIRST. The registry is appended to, so the end of the file is the newest. */
-    var i, n = 0;
+    var i, n = 0, cap = (TRI && TRI.cap) || 12, later = [];
     for(i = items.length - 1; i >= 0; i--){
       var it = items[i];
       if(!it || !it.id) continue;
       if(judged(it.id)) continue;      /* A VOTE CONSUMES. This line is the whole law. */
-      list.appendChild(row(it));
-      n++;
+      if(!TRI){ list.appendChild(row(it)); n++; continue; }
+      var tg = tagOf(it.id);
+      if(tg === 'green' || tg === 'gray' || tg === 'grey') continue;   /* the team already has it: never on his screen */
+      if(tg === 'red' && n < cap){ list.appendChild(row(it)); n++; continue; }
+      later.push(it);                                                    /* yellow, a red past the cap, or not sorted yet */
     }
+    fold.hidden = !TRI || !later.length;
+    fold.dataset.n = String(later.length);
+    more.hidden = !foldOpen;
+    if(foldOpen) later.forEach(function(it){ more.appendChild(row(it)); });
     tally();
   }
+  document.getElementById('fold').addEventListener('click', function(){ foldOpen = !foldOpen; draw(); });
 
   /* ---------- EXPORT ----------
      .txt, never .json (the verdict workflow). The block is written so it can be dropped
@@ -430,8 +455,14 @@
     }
   }
 
+  /* the sort is read beside the list; if it cannot be read the tab shows everything, never nothing */
+  var triage = fetch(TRI_URL, { cache: 'no-store' })
+    .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(t){ TRI = (t && t.tags && typeof t.tags === 'object') ? t : null; })
+    .catch(function(){ TRI = null; });
   fetch(REG, { cache: 'no-store' })
     .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(d){ return triage.then(function(){ return d; }); })
     .then(function(d){
       items = (d && d.items) || [];
       ((d && d.verdicts) || []).forEach(function(v){ if(v && v.id) theirs[v.id] = v; });

@@ -11,6 +11,7 @@ superseded, and what do the first sixty seconds look like when places are settle
 STATUS: research only (rule 35, laws/BOHEMIA_ADDENDUM_QUESTS_IS_RESEARCH_ONLY_9_27_26.md). Nothing here is built.
 Companion edit this round: all 22 round-one contract designs now carry a "## THE SETTLEMENT AND THE OFFER SCREEN"
 section, and 6 non-contract designs whose door was a walk-up carry "## THE FRONT DOOR AFTER 9/28".
+FOLDED 10/9 (QR-AL): QR-U's the sharpens of P1, P2, P7, P10 and P12, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -229,6 +230,15 @@ leave with one ledger row and a later world tell. (QR-F 7, 8; `Q050.W4`, `Q143.W
 
 P13. RATION THE TWIST HARDER ON A SCREEN. Test: per settlement hall, per act, the twist share stays under the cap
 QR-A C15 sets. (`Q148.X3`, `Q148.P4`)
+
+SHARPENED (folded 10/9 from QR-U):
+- P1 and P2 (the door is the offer screen; three taps): a list of faces, each with a one-line problem and skulls,
+  leave writes nothing (`Q236.N1`); the offer is problem, pay, mode, then accept, negotiate, decline (`Q236.N2`).
+- P7: `Q236.P3`.
+- P10 (discovery lives on the road and in special places): the unflagged, missable person (`Q158.W7`, `Q202.W9`).
+  These are not jobs, so `Q236.N1` holds; the quiet person is a road event (QR-B rule 15) or someone on a job's ground.
+- P12 (the first silent choice): the first errand is a neighbour's small grounded task in the family's first place
+  (`Q235.P1`); under round five that is the first offer screen in the family home base, about the ruin (QR-F).
 
 ## WHAT TO AVOID (the flaws)
 

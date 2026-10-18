@@ -1,0 +1,24 @@
+THE ORIGIN CREWS -- CHARACTER, 10/9/26, [the origin crews], RUN [the origin sets the company]
+
+backgrounds.json has no armour field, same gap [armour you can see] found in armor.json.
+Same method, a different real stat: every background carries a daily wage, Battle
+Brothers' own proxy for how equipped a man already is. Sort the 26 backgrounds this
+game's 15 origins actually use by wage, split into the SAME five states this lane
+already ships (bare, padded, leather, mail, plate) -- zero new art, this row reuses
+last round's table whole.
+
+MATCHES HIS OWN TWO EXAMPLES WITHOUT BEING TOLD TO: hedge_knight (wage 35, tied for
+highest in the data) lands in PLATE on its own -- the Lone Wolf's one man, in worn
+plate. Every one of the Block Watch's twelve men's backgrounds lands in bare, padded
+or leather, never mail or plate -- weak men in work clothes, because that is where the
+real wage data puts them, not a label pasted on.
+
+THREE ORIGINS' FIRST SCREENS, THE SHIP TEST, EVERY CREW SIZE THE DATA ACTUALLY HAS:
+  THE LONE WOLF (Lone Wolf), 1 men: hedge_knight=PLATE
+  A NEW CREW (A New Company), 3 men: companion_2hand=MAIL, companion_1hand=MAIL, companion_ranged=MAIL
+  THE BLOCK WATCH (Peasant Militia), 12 men: farmhand=LEATHER, farmhand=LEATHER, poacher=LEATHER, daytaler=BARE, daytaler=BARE, miller=PADDED, fisherman=PADDED, militia=LEATHER, militia=LEATHER, minstrel=BARE, vagabond=PADDED, butcher=PADDED
+
+NOT HERE, ON PURPOSE: this tool proves the table and renders three origins at real
+crew size. Wiring origins.json's own pick (which men, at which level) to the door's
+NEW GAME screen is RUN's; this lane's job was the visual mapping, background ->
+real tier -> real worn piece, now data for whoever reads it next.

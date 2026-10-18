@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the depot, now the tram works (settlement screen: the hall is the survey office); the clearing runs along the old wash where act 1 fought its first fights, the fight board cut from the wash bend block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: THE GRAVE WITH A NAME (QR-Z no. 17: return to a dead member's grave and mark it)
-CHECKLIST: passes all 30 (bends line 5 on purpose: it reads an act 1 death; the default read, "nobody of ours buried in the wash", is below)
+CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (the stones sat behind a mandatory fight) and line 32 failed (C cost nothing); both fixed in place) (bends line 5 on purpose: it reads an act 1 death; the default read, "nobody of ours buried in the wash", is below)
 
 ## THE SITUATION
 Act 3. The first tram since the crash will run along the old wash. Hyenas den in the bend where the line must go. The surveyor's stakes keep being pulled up at night.
@@ -28,6 +28,9 @@ The bend is cleared on the fight board (a pack of four hyenas, routine, 3 to 4 m
 A. BEND THE LINE. Ask Ruth to curve around the stones. She does; she pays 5 batteries less, said aloud: "That's your year, not the city's."
 B. MOVE HIM. The company carries the bones to the new stop's garden and marks them there: one day, 2 TAPE for the box.
 C. MARK HIM WHERE HE IS. A plaque in the rail bed; the tram runs over him, his name in the stop's tile. No cost; Ruth: "Everybody will read it and nobody will know who he was."
+
+THE BEND WITHOUT A FIGHT (QR-AM, line 31; `Q216.X1`, `Q095.X3`, `Q098.X2`): the hyenas at the bend can also be moved: a carcass dragged up the wash at dusk (2 FOOD, half a day) pulls them a mile north, or Ruth's survey waits one day for the pack to move on. The stones are reached either way; a lost fight at the bend costs a day, never the stones.
+C IS NOT FREE (QR-AM, line 32; `Q226.X2`, `Q157.X1`, `Q204.X3`): a plaque in the rail bed means nobody stands on the grave again. The company member who buried him refuses the tram for the rest of the act, says why once, and walks the loop, so every loop trip with her costs a day more. A, B and C each cost something now.
 
 ## WHAT THE LEDGERS REMEMBER
 Any of the three marks the grave and counts for the ambition. The tram runs; the stop is named on the map. DEFAULT READ (no company death in the wash): the stones are a stranger's, the company's line is not said, and the three choices stand as they are. Declining leaves nothing.

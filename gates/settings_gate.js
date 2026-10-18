@@ -27,6 +27,7 @@
    only moved the music would be a lie on its own label.
    ============================================================================ */
 'use strict';
+const { throughTheTitle } = require(require('path').join(__dirname, '..', 'tools/bohemia_through_the_title.js'));   /* rule 66: the title is in front of the door now */
 const path = require('path'), http = require('http'), fs = require('fs');
 const ROOT = path.dirname(__dirname), SLICES = path.join(ROOT, 'slices'), PORT = 8799;
 let pass = 0, fail = 0;
@@ -52,6 +53,7 @@ const MIN = 44;
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', e => errs.push(String(e).slice(0,130)));
   await p.goto('http://127.0.0.1:'+PORT+'/BOHEMIA_DEMO.html',{waitUntil:'load',timeout:120000});
+  await throughTheTitle(p);   /* __THE_START_SCREEN__: a stranger presses NEW GAME first, then meets the door as before */
   await p.waitForTimeout(1300);
 
   /* THE SPLASH HAS EXACTLY ONE THING TO DO. A second button on the one screen that has

@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the dirt road below the ranch town in the north valley, a trader's handcart stopped in the shade of a billboard
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E5 THE TRADER WITH ONE GOOD THING (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: QD-B07 (act 3, boom, a stolen rocket guidance board). This is act 1 and bust, the good thing is medicine, and the catch is the dose, not the provenance.
 
 ## THE SITUATION

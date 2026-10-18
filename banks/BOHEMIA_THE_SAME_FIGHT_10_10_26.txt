@@ -1,0 +1,1 @@
+{"id":"WORLD_THE_SAME_FIGHT","made":"10/10/26","lane":"world","row":"[the cells with no board]","draft":true,"measured":{"districts":78,"fallThrough":24,"seedsSwept":20,"cellsAValley":154.2,"pctOfValley":1.67,"byFamilyAValley":{"civic":14.6,"infrastructure":122.2,"plant":17.5},"litPctOfFrame":1.65,"ghosts":["beltway"]}}

@@ -7,7 +7,7 @@ PLACE: a council town beside the dark data-fortress quarter (the settlement); th
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE FALL (QR-J): the Network's buildings go dark; its hoards come out
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The Network is falling apart. Canon names what it kept in its forge: the robotics factory, the data

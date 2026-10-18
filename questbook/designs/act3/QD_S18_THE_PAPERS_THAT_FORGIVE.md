@@ -7,7 +7,7 @@ PLACE: the tower offices home base (town tier); the job is four stops of outer b
 SITUATION: the council declared the crash-era debts void, the tower must hand back 212 cancelled foreclosure notices, and freelance collectors who bought those debts cheap are racing to collect first -> the debtors get their papers, rent at the outer blocks' markets falls, the collectors' party goes bust, and the tower's last collection job leaves its board for good
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, the valley healing, and the council has done what healing economies sometimes do: it cancelled the old debts. The law says the debts are dead. The paper that proves it is in a box at the tower. Collectors who bought the debts at a discount have the list too, and they know a debtor who has not seen the paper will still pay.

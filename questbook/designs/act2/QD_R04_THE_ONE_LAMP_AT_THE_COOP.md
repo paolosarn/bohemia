@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: the co-op blocks home base (town, draft seat the Blues), fallen: three garden apartment blocks on Sahara, the hall a boarded laundry room; the event opens when the player taps the hall of the fallen base
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 1 is this design's whole purpose.
+CHECKLIST: passes all 32. Line 1 is this design's whole purpose. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 THE AFTERMATH AT A FALLEN BASE. The co-op was TAKEN nine map days ago while the family was on the other side of the valley. The player has already seen the tells: its lights went out on the map but one, a feed post in the city view, water dearer at the neighbours. Now the party arrives. The settlement screen is drawn fallen: laundry lines cut, doors open, one lamp in the laundry room. The buildings are greyed except the hall and SCAVENGE.

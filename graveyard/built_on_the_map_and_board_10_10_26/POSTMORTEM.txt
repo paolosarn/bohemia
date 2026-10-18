@@ -1,0 +1,36 @@
+POSTMORTEM: [built on the map] AND [built on the board] (LIFE+CITY, shipped 10/9, retired 10/10)
+
+WHAT THEY WERE
+  [built on the map]   what you built at your base was drawn beside it on the map (the street's cut sprites).
+  [built on the board] a fight near a place you built on put those things on the board: a wall as cover, a tank as a
+                       blocker with its own picture, a roof as high ground drawn on its tile.
+
+HIS VERDICTS, IN THE TAB, 10/9, BOTH DOWN
+  map:   "Nah the settlements are all looking like dogshit and not organic with the map man fr"
+  board: "Nah the map is mainly for looks u cant be putting a bunch of micro features the player doesnt understand
+          battle brothers doesnt make it complicated and neither should you"
+  Rule 86 (the seventh votes): what you build lives in the settlement screen of your base and nowhere else; both
+  RETIRED, their code out of the fight's and the map's paths.
+
+WHY THEY FAILED (the lesson, for every lane)
+  1. Rule 40b listed three places a build shows (the map, the fight board, the derived future) and I built all three
+     because a law said so, without asking whether a player READS them. Battle Brothers' map shows a town, not its
+     sheds; its fights are cut from terrain, not from your purchases. Copying a law's list is not the same as
+     recreating the reference game's feel (rule 46c: how did Battle Brothers do it, first).
+  2. Both pictures were tiny things on busy screens (a 16 px wall beside a base; a tank on one tile of a 9x11 board).
+     A feature you need a caption to find is a micro feature. The test is "would a stranger notice it unprompted".
+  3. Green gates proved both worked. Neither proved anybody wanted them (STOP PRODUCING: green gates are never an
+     argument).
+
+WHAT STAYS, AND WHY IT IS NOT THE SAME FEATURE
+  - Building in the settlement screen ([build on the screen]): his place for it.
+  - The lots kept by the game and finished each morning into the century ledger (invisible plumbing: the settlement
+    screen's building persists and the derived future counts it). Gate renamed THE LOTS ARE KEPT, which now also
+    asserts that NOTHING of them is drawn on the map.
+  - [a raid on your base] (still SHIPPED, unjudged): its fight at the gate is now a plain board.
+
+WHAT IS HERE
+  removed_code.txt   every piece taken out of slices/BOHEMIA_FIGHT.html, BOHEMIA_ALPHA_0_9.html, BOHEMIA_CITY_WORLD.html
+  the fight patch tool, the board gate, both cooks. GRAVEYARD IS FINAL: nothing here comes back under a new name.
+  The demo (RUN's cut) still carries the shell's one-line hand-over of `built`; harmless (nothing sends it), RUN's
+  next cut drops it.

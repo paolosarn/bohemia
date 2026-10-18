@@ -1,0 +1,185 @@
+{
+ "_about": "How each kind of enemy fights in the rebuilt fight (rule 63b: 'Battle Brothers has its AI for the enemies correctly'; every archetype's behaviour from the library as data, before any skin). A behaviour is a set of switches the fight's one AI reads; each row quotes the wiki page (or Paolo's rule) it comes from. No number here is felt: the numbers they use (reach, hit chance, AP) are the rules' and the weapons'.",
+ "kinds": {
+  "brigand_thug": {
+   "value": "line",
+   "source": "bb_all/0299_Brigands.txt",
+   "quote": "In the early game Brigand groups usually consist of [[Brigand Thug|Thugs]] and sometimes [[Brigand Raider|Raiders]]."
+  },
+  "lower_brigand_raider": {
+   "value": "raider",
+   "source": "bb_all/0297_Brigand Raider.txt",
+   "quote": "If armed with a long weapon like Pike and there are no enemies nearby, they wait to not get ahead of their melee allies."
+  },
+  "brigand_raider": {
+   "value": "raider",
+   "source": "bb_all/0297_Brigand Raider.txt",
+   "quote": "If armed with a long weapon like Pike and there are no enemies nearby, they wait to not get ahead of their melee allies."
+  },
+  "lower_brigand_marksman": {
+   "value": "backline",
+   "source": "bb_all/0299_Brigands.txt",
+   "quote": "Their backline usually consists of [[Brigand Marksman|Marksmen]] who give Brigands ranged superiority, and if they think they have it, they will stand their ground and shoot at you."
+  },
+  "brigand_marksman": {
+   "value": "backline",
+   "source": "bb_all/0299_Brigands.txt",
+   "quote": "Their backline usually consists of [[Brigand Marksman|Marksmen]] who give Brigands ranged superiority, and if they think they have it, they will stand their ground and shoot at you."
+  },
+  "brigand_poacher": {
+   "value": "backline",
+   "source": "bb_all/0299_Brigands.txt",
+   "quote": "Their backline usually consists of [[Brigand Marksman|Marksmen]] who give Brigands ranged superiority"
+  },
+  "wiederganger": {
+   "value": "walker",
+   "source": "bb_all/2205_Wiederganger.txt",
+   "quote": "They don't have any idea about careful approach and instead slowly walk towards you"
+  },
+  "direwolf": {
+   "value": "rusher",
+   "source": "bb_all/0629_Direwolf.txt",
+   "quote": "Direwolves rush you even if they will have no AP left to attack."
+  },
+  "brigand_marauder": {
+   "value": "line",
+   "source": "bb_all/0293_Brigand Marauder.txt",
+   "quote": "Brigand Marauders start appearing in the middle game, one or more among weaker brigands."
+  },
+  "brigand_leader": {
+   "value": "leader",
+   "source": "bb_all/0290_Brigand Leader.txt",
+   "quote": "The Leader spawns in the very back and usually does not hurry to enter battle."
+  }
+ },
+ "archetypes": {
+  "line": {
+   "value": {
+    "advance": true,
+    "hold_if_ranged_superiority": false,
+    "surround": true,
+    "break_formation": true
+   },
+   "source": "bb_all/0299_Brigands.txt",
+   "quote": "However, Brigands are often too undisciplined to maintain formation. Some of them can run towards you even when they have ranged superiority."
+  },
+  "backline": {
+   "value": {
+    "advance": false,
+    "stand_and_shoot": true,
+    "step_out_of_melee": true,
+    "reload": true,
+    "prefers_soft": true
+   },
+   "source": "bb_all/0299_Brigands.txt",
+   "quote": "if they think they have it, they will stand their ground and shoot at you",
+   "soft": {
+    "source": "bb_all/0294_Brigand Marksman.txt",
+    "quote": "Being a ranged units, they can target anyone they want and prefer to shoot at shieldless units or rookies",
+    "also": "COMBAT [the enemy plays its part] (coordinator): 'pick the unarmoured head'",
+    "how": "a shot's worth is multiplied by one plus how soft the man is: no car door, a rookie (level 1), a bare head"
+   }
+  },
+  "walker": {
+   "value": {
+    "advance": true,
+    "straight": true,
+    "surround": false
+   },
+   "source": "bb_all/2205_Wiederganger.txt",
+   "quote": "slowly walk towards you, getting hit by [[Spears|spearwalls]]"
+  },
+  "rusher": {
+   "value": {
+    "advance": true,
+    "rush_even_without_ap_to_strike": true,
+    "go_round_for_weakest": true
+   },
+   "source": "VAMILY.md rule 63b (and bb_all/0629_Direwolf.txt: they rush you)",
+   "quote": "wolves run round the back for the weakest"
+  },
+  "crew": {
+   "value": {
+    "advance": true,
+    "hold_line": true,
+    "surround": true,
+    "stand_and_shoot": true,
+    "step_out_of_melee": true,
+    "reload": true,
+    "high_ground": true,
+    "spread_attacks": true,
+    "keep_formation": true,
+    "shield_the_backline": true,
+    "sees_only": true
+   },
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy), with at least 5 hexes between parties.",
+   "why": "the crew keeps the line it starts in and lets the undisciplined brigands come (VAMILY rule 63b: 'the driver gate fields 12 against a crew that behaves'); it walks forward only when no foe is coming",
+   "auto": {
+    "_about": "Rule 70b (Paolo 10/4: 'the Auto button, we are far from complete'): AUTO plays your men the way Battle Brothers' AI plays its own, formation held. Each switch the crew brain reads, with the page it comes from.",
+    "high_ground": {
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "It is always advantageous to have the high ground in any battle and the AI will try to occupy the high ground whenever possible, especially their ranged units.",
+     "how": "a tile on a roof scores the rules' own height bonus per level over flat; a shooter weighs it twice"
+    },
+    "spread_attacks": {
+     "source": "bb_all/0626_Developer Posts.txt",
+     "quote": "The AI will not stack all its attacks on the weakest target as this would be unfair and really hard to counter.",
+     "how": "a target's worth is divided by one plus the number of times your men already swung at him this round"
+    },
+    "keep_formation": {
+     "source": "bb_all/0583_Dev Blog 105: Additions & Changes.txt",
+     "quote": "all enemies will benefit from better positioning and better coordination amongst their ranks.",
+     "how": "a man walking toward the fight never ends more than the line's depth ahead of the middle of his own line, and prefers a tile with a friend beside him (ours.formation_depth_lines)"
+    },
+    "shield_the_backline": {
+     "source": "bb_all/0583_Dev Blog 105: Additions & Changes.txt",
+     "quote": "They'll be better at protecting their vulnerable units",
+     "also": "bb_all/1145_Late Game Builds.txt: 'they must not be left unprotected for highly mobile melee units will slay them without difficulty'",
+     "how": "a shooter never steps level with or ahead of the front man of his own melee line while that line stands"
+    },
+    "sees_only": {
+     "source": "bb_all/0626_Developer Posts.txt",
+     "quote": "the AI can not target anyone it can not see.",
+     "how": "a man picks only targets his side can see"
+    }
+   }
+  },
+  "raider": {
+   "value": {
+    "advance": true,
+    "surround": true,
+    "break_formation": true,
+    "long_weapon_waits": true
+   },
+   "source": "bb_all/0297_Brigand Raider.txt",
+   "quote": "If armed with a long weapon like Pike and there are no enemies nearby, they wait to not get ahead of their melee allies.",
+   "why": "a raider flanks like the line (surround: he goes for the man his friends already hold); with a two-tile weapon he never walks out ahead of the one-tile men"
+  },
+  "leader": {
+   "value": {
+    "advance": true,
+    "stays_back": true,
+    "surround": true
+   },
+   "source": "bb_all/0290_Brigand Leader.txt",
+   "quote": "The Leader spawns in the very back and usually does not hurry to enter battle.",
+   "also": "bb_all/0343_Captain.txt: 'Captain is an aura that increases the Resolve of other allies by +15% (range of 5 tiles)' (ours.captain_aura)",
+   "how": "before the lines meet he does not move; after, he never steps ahead of his own front man, so his aura stays over his line"
+  }
+ },
+ "hunt": {
+  "value": "an enemy that sees nobody walks the shortest open path toward your crew, never through a house",
+  "source": "VAMILY.md rule 63b",
+  "quote": "Battle Brothers has its AI for the enemies correctly",
+  "why": "measured on the frozen fight (V165): enemies who never see you hold forever and the fight never ends"
+ },
+ "tactics": {
+  "avoid_surround": {
+   "value": true,
+   "source": "bb_all/1191_Loading Screen Tips.txt",
+   "quote": "Surrounding an opponent from multiple sides makes it easier to score a hit.",
+   "why": "every brain weighs a tile by friends beside it against foes beside it, so nobody walks alone into three men"
+  }
+ }
+}

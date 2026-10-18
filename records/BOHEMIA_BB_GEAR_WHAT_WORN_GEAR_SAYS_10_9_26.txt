@@ -1,0 +1,27 @@
+BB GEAR: WHAT WORN GEAR SAYS -- CHARACTER, 10/9/26, [bb gear], rule 33 / law s5
+
+SCHOOL (reference/library/battle_brothers/04_ARMOUR_SHIELDS.md): Battle Brothers reads a
+man's kit at a glance by TIER AND SILHOUETTE, not colour. Rags and padded cloth read
+soft and thin, mail and lamellar read bulkier, a great helm covers the whole head, a
+shield widens the arm. The hex board is small and the camera is often far; the game
+stays readable because the SHAPE survives being small, every time. BB never counts on a
+player being close enough to read a colour.
+
+THE SHAPE FOR US, MEASURED: the runway thirteen is our version of that kit-reading, a
+faction's look is how a stranger knows who they are before they are close. Shot all
+thirteen at this lane's real 112 render, then downsampled with the engine's own
+nearest-neighbour rule to 28 px, this repo's own precedent for a small figure (rule 34).
+Not a claim about the live map camera's exact zoom; an honest proxy for how small before
+the shape has to carry the identity alone.
+
+AT FULL SIZE (112, the baseline): closest pair Anarchists / Volunteers, 0.0364 apart. Already established, re-confirmed.
+AT MARKER SIZE (28 px), OUTLINE: closest pair Cartel / Volunteers, 0.0188 apart.
+AT MARKER SIZE (28 px), COLOUR: closest pair Anarchists / Trades, 6.3 apart (0-441 scale, RGB euclidean).
+
+FINDING, SAID PLAINLY: not every pair survives being small. The closest outline pair (Cartel and Volunteers) and the closest colour pair (Anarchists and Trades) are worth DIRECTION and COOK's eyes --
+this lane measures and reports, it does not redesign thirteen already-judged faction
+looks on its own say-so.
+
+NOT HERE, ON PURPOSE: the live map camera's real on-screen pixel size for a party marker
+is RUN's file; this lane's job is the shape and colour identity of the runway thirteen
+itself, measured honestly at a small, sourced proxy size, not guessed at full size.

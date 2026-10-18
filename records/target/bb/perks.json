@@ -1,0 +1,589 @@
+{
+ "_about": "Battle Brothers perks, all 50, extracted from the fandom wiki dump. tier = the perk row (1-7) on the Perks page. effect = the wiki description cell, wikitext stripped (icons replaced by their label words, refs removed), notes kept. numbers = every number in the effect, keyed by meaning; pct keys are percent as written. Word-numbers ('two extra bag slots', 'once per battle', 'eleventh level') are included as digits. Perk rules from the Perks page: 1 perk point per level; to unlock row 2 spend 1 point, row 3 two points; 'Upon reaching the veteran character level a regular mercenary brother will gain 10 perk points.' Extraction 2026-10-02, research only.",
+ "rules": {
+  "perk_point_per_level": 1,
+  "perk_points_at_veteran_level": 10,
+  "rows": 7,
+  "quote": "With each new character level reached by your mercenary he will gain 1 Perk point... There is a total of 7 Perk rows. To unlock the second perk row, you need to spend one perk point. To unlock the third row you need to spend two perk points... Upon reaching the veteran character level a regular mercenary brother will gain 10 perk points.",
+  "source": "CORE_WIKITEXT.md # PAGE Perks"
+ },
+ "rows": [
+  {
+   "id": "fast_adaptation",
+   "name": "Fast Adaptation",
+   "tier": 1,
+   "effect": "Gain an additional stacking +10% chance to hit with each attack that misses an opponent. Bonus is reset upon landing a hit.\n\nNote: For the purposes of a reset on ranged attacks, hitting terrain blocking the target or a scattered shot counts as a hit and will reset the counter.",
+   "numbers": {
+    "hit_chance_per_miss_pct": 10
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0741_Fast Adaptation.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "crippling_strikes",
+   "name": "Crippling Strikes",
+   "tier": 1,
+   "effect": "Lowers the threshold to inflict injuries by 33% for both melee and ranged attacks.\n\nNote: some enemies are immune to injuries or have very large health pool that protects them from receiving injuries.",
+   "numbers": {
+    "injury_threshold_reduction_pct": 33
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0457_Crippling Strikes.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "colossus",
+   "name": "Colossus",
+   "tier": 1,
+   "effect": "Hitpoints are increased by 25%, which also reduces the chance to sustain debilitating injuries when being hit.\n\nNote: the bonus is always retroactively updated with maximum Hitpoints.",
+   "numbers": {
+    "hitpoints_increase_pct": 25
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0421_Colossus.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "nine_lives",
+   "name": "Nine Lives",
+   "tier": 1,
+   "effect": "Once per battle, upon receiving a killing blow, survive with a few Hitpoints left and receive +15 Melee Defense, +15 Ranged Defense, +15 Resolve,+15 Initiative until your next turn. All damage over time status effects (bleed, poison, etc) are removed.\n\nNote: Hitpoints gained are a random number between 11-15.",
+   "numbers": {
+    "uses_per_battle": 1,
+    "melee_defense_bonus": 15,
+    "ranged_defense_bonus": 15,
+    "resolve_bonus": 15,
+    "initiative_bonus": 15,
+    "hitpoints_left_min": 11,
+    "hitpoints_left_max": 15
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1425_Nine Lives.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "bags_and_belts",
+   "name": "Bags and Belts",
+   "tier": 1,
+   "effect": "Unlock two extra bag slots to carry all your favorite things. Items placed in bags no longer give a penalty to Maximum Fatigue, except for two-handed weapons.",
+   "numbers": {
+    "extra_bag_slots": 2
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0170_Bags and Belts.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "pathfinder",
+   "name": "Pathfinder",
+   "tier": 1,
+   "effect": "Learn to move on difficult terrain. Action Point costs for movement on all terrain is reduced by -1 to a minimum of 2 Action Points per tile, and Fatigue cost is reduced to half. Changing height levels has no additional Action Point cost anymore, but Fatigue cost is unaffected.",
+   "numbers": {
+    "movement_ap_reduction": 1,
+    "movement_ap_min_per_tile": 2,
+    "fatigue_cost_multiplier": 0.5,
+    "height_change_extra_ap": 0
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1528_Pathfinder.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "adrenaline",
+   "name": "Adrenaline",
+   "tier": 1,
+   "effect": "Unlocks the Adrenaline skill (costs 1 Action Point and 20 Fatigue) which puts you first in the turn order for the next round, to have another turn before your enemies do.\n\nNote: if two characters are using Adrenaline skill, the one with the highest Initiative will act first. The character attracts slightly more attention from enemies.",
+   "numbers": {
+    "skill_ap_cost": 1,
+    "skill_fatigue_cost": 20
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0026_Adrenaline (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "recover",
+   "name": "Recover",
+   "tier": 1,
+   "effect": "Unlocks the Recover skill which allows to reduce accumulated Fatigue by 50% by resting for the current turn (costs 9 Action Points).",
+   "numbers": {
+    "fatigue_reduction_pct": 50,
+    "skill_ap_cost": 9
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1654_Recover (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "student",
+   "name": "Student",
+   "tier": 1,
+   "effect": "Gain additional 20% Experience from battle. At the eleventh character level, you gain an additional perk point and this perk becomes inert.\nPlaying the Manhunters origin, your Indebted get the perk point refunded at the seventh character level.",
+   "numbers": {
+    "experience_bonus_pct": 20,
+    "inert_at_level": 11,
+    "perk_point_refund_at_level_manhunters_indebted": 7
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1892_Student.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "executioner",
+   "name": "Executioner",
+   "tier": 2,
+   "effect": "Inflict additional 20% Damage against targets that have sustained any injury effects, like a broken arm.",
+   "numbers": {
+    "damage_bonus_vs_injured_pct": 20
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0716_Executioner (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "bullseye",
+   "name": "Bullseye",
+   "tier": 2,
+   "effect": "The penalty to hit chance when shooting at a target that has no clear line of fire is reduced from 75% to 50% for ranged weapons.\nNote: this affects an initial, separate, hidden roll which determines whether the shot hits the intended target, and only applies when the intended target has cover. See Combat Mechanics and Hit Chance for further details.",
+   "numbers": {
+    "no_line_of_fire_penalty_before_pct": 75,
+    "no_line_of_fire_penalty_after_pct": 50
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0324_Bullseye.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "dodge",
+   "name": "Dodge",
+   "tier": 2,
+   "effect": "Gain 15% of the character's current Initiative as a bonus to Melee and Ranged Defense.",
+   "numbers": {
+    "initiative_to_defense_pct": 15
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0652_Dodge.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "fortified_mind",
+   "name": "Fortified Mind",
+   "tier": 2,
+   "effect": "Resolve is increased by 25%.\n\nNote: the bonus is always retroactively updated with maximum Resolve.",
+   "numbers": {
+    "resolve_increase_pct": 25
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0808_Fortified Mind.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "resilient",
+   "name": "Resilient",
+   "tier": 2,
+   "effect": "Any negative status effect with a finite duration (e.g. Bleeding, Charmed) has its duration reduced to 1 turn. Status effects that have their effects grow weaker over several turns (e.g. Goblin Poison) are at their weakest state from the start.",
+   "numbers": {
+    "negative_status_duration_turns": 1
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1684_Resilient.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "steel_brow",
+   "name": "Steel Brow",
+   "tier": 2,
+   "effect": "Hits to the head no longer cause critical damage to this character, which also lowers the risk of sustaining debilitating head injuries.\n\nNote: Steel Brow negates the additional damage provided by Brute or Chop.",
+   "numbers": {},
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1879_Steel Brow.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "missing": [
+    "numbers (the effect text gives no number)"
+   ]
+  },
+  {
+   "id": "quick_hands",
+   "name": "Quick Hands",
+   "tier": 2,
+   "effect": "Swapping any item in battle except for shields becomes a free action with no Action Point cost once every turn.\n\nNote: This perk doesn't extend its effect for any actions with shields.",
+   "numbers": {
+    "free_swaps_per_turn": 1,
+    "swap_ap_cost": 0
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1613_Quick Hands.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "gifted",
+   "name": "Gifted",
+   "tier": 2,
+   "effect": "Instantly gain a levelup to increase this character's attributes with maximum rolls but without talents.",
+   "numbers": {
+    "instant_levelups": 1
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0838_Gifted.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "backstabber",
+   "name": "Backstabber",
+   "tier": 3,
+   "effect": "The bonus to hitchance in melee is doubled to +10% for each ally (including your Hounds) surrounding and distracting your target.\nNote: surrounding starts when two allies are adjacent to an enemy. See this section in Combat Mechanics and Hit Chance.",
+   "numbers": {
+    "surround_hit_bonus_per_ally_pct": 10,
+    "surround_starts_at_adjacent_allies": 2
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0166_Backstabber.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "anticipation",
+   "name": "Anticipation",
+   "tier": 3,
+   "effect": "When being attacked with ranged weapons, gain 1 + 10% of your base Ranged Defense as additional Ranged Defense per tile that the attacker is away, bonus is minimum +10 Ranged Defense.",
+   "numbers": {
+    "ranged_defense_per_tile_flat": 1,
+    "ranged_defense_per_tile_pct_of_base": 10,
+    "ranged_defense_bonus_min": 10
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0117_Anticipation.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "shield_expert",
+   "name": "Shield Expert",
+   "tier": 3,
+   "effect": "The shield defense bonus is increased by 25%. This also applies to the additional defense bonus of the Shieldwall skill.\nShield damage received is reduced by 50% to a minimum of 1.\nThe 'Knock Back' skill gains +15% chance to hit.",
+   "numbers": {
+    "shield_defense_bonus_increase_pct": 25,
+    "shield_damage_reduction_pct": 50,
+    "shield_damage_min": 1,
+    "knock_back_hit_bonus_pct": 15
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1777_Shield Expert.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "brawny",
+   "name": "Brawny",
+   "tier": 3,
+   "effect": "The Fatigue and Initiative penalty from wearing armor and helmet is reduced by 30%.",
+   "numbers": {
+    "armor_fatigue_initiative_penalty_reduction_pct": 30
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0285_Brawny.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "relentless",
+   "name": "Relentless",
+   "tier": 3,
+   "effect": "At all times your Initiative is reduced only by 50% of your accumulated Fatigue, instead of all of it. Using the 'Wait' command no longer gives you a −25% penalty to Initiative when determining the turn order on the next round.",
+   "numbers": {
+    "initiative_reduced_by_fatigue_pct": 50,
+    "wait_initiative_penalty_removed_pct": 25
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1674_Relentless.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "rotation",
+   "name": "Rotation",
+   "tier": 3,
+   "effect": "Unlocks the Rotation skill (costs 3 Action Points and 25 Fatigue) which allows two characters to switch places while ignoring Zone of Control as long as neither character is stunned, rooted or otherwise disabled.",
+   "numbers": {
+    "skill_ap_cost": 3,
+    "skill_fatigue_cost": 25,
+    "characters_swapped": 2
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1711_Rotation (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "rally_the_troops",
+   "name": "Rally the Troops",
+   "tier": 3,
+   "effect": "Unlocks the 'Rally' skill (costs 5 Action Points and 25 Fatigue) which can rally fleeing allies, and raise morale of all nearby allies to a steady level. The higher the Resolve of the character using the skill, the higher the chance to succeed.\n\nNote: Rally triggers a morale check to raise morale of any ally at Wavering or worse morale within 4 tiles; with a bonus of 40% of the skill user's Resolve, and a penalty of -10 per tile of distance, to the roll. It can also rally fleeing allies within the same range at no penalty. Character attracts moderately more attention from enemies.",
+   "numbers": {
+    "skill_ap_cost": 5,
+    "skill_fatigue_cost": 25,
+    "range_tiles": 4,
+    "resolve_bonus_pct_of_user": 40,
+    "penalty_per_tile": -10
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1634_Rally the Troops.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "taunt",
+   "name": "Taunt",
+   "tier": 3,
+   "effect": "Unlocks the Taunt skill (costs 4 Action Points and 15 Fatigue, maximum range 3) which makes the targeted opponent take offensive actions instead of defensive ones, and attack the taunting character over another, potentially more vulnerable one.\nNote: this only works if the taunted enemy is able to engage the taunting character, ranged or melee. And will be ignored if there is no unobstructed path. While active, the character attracts more attention from enemies and higher Resolve further increases the attraction.",
+   "numbers": {
+    "skill_ap_cost": 4,
+    "skill_fatigue_cost": 15,
+    "max_range_tiles": 3
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1929_Taunt (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "mace_mastery",
+   "name": "Mace Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nKnock Out, Knock Over and Strike Down have a 100% (+25%) chance to stun the target if not immune.\nThe Polemace no longer has a penalty for attacking targets directly adjacent.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "stun_chance_pct": 100,
+    "stun_chance_increase_pct": 25
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1223_Mace Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "flail_mastery",
+   "name": "Flail Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nLash and Hail ignore the defense bonus of shield.\nPound gains +10% Direct Damage on a hit to the head.\nThresh gains +5% chance to hit.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "pound_head_direct_damage_bonus_pct": 10,
+    "thresh_hit_bonus_pct": 5
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0784_Flail Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "hammer_mastery",
+   "name": "Hammer Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nDestroy Armor and Demolish Armor inflict 33% more damage against armor.\nShatter gains +5% chance to hit.\nThe Polehammer no longer has a penalty for attacking targets directly adjacent.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "destroy_demolish_armor_damage_bonus_pct": 33,
+    "shatter_hit_bonus_pct": 5
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0931_Hammer Mastery (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "axe_mastery",
+   "name": "Axe Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nSplit Shield damage to shields is increased by 50% when used with axes.\nRound Swing gains +5% chance to hit.\nThe Longaxe no longer has a penalty for attacking targets directly adjacent.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "split_shield_damage_bonus_pct": 50,
+    "round_swing_hit_bonus_pct": 5
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0161_Axe Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "cleaver_mastery",
+   "name": "Cleaver Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nBleeding damage inflicted by cleavers and whips is doubled to 10 and 20 per turn, respectively. (bleeding damage is increased from 5 to 10 per stack)\nDisarm penalty to hit is reduced to -10%. (down from -20%)",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "bleed_per_turn_cleaver": 10,
+    "bleed_per_turn_whip": 20,
+    "bleed_per_stack_before": 5,
+    "bleed_per_stack_after": 10,
+    "disarm_hit_penalty_pct": -10,
+    "disarm_hit_penalty_before_pct": -20
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0402_Cleaver Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "sword_mastery",
+   "name": "Sword Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nRiposte no longer has a penalty to hitchance.\nSplit and Swing gain a +10% chance to hit.\nGash has 50% lower threshold to inflict injuries (+17%).",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "split_swing_hit_bonus_pct": 10,
+    "gash_injury_threshold_reduction_pct": 50,
+    "gash_injury_threshold_note_pct": 17
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1913_Sword Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "dagger_mastery",
+   "name": "Dagger Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nStab, Puncture and Deathblow have a reduced Action Point cost (3 AP from 4) to allow for an additional attack each turn.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "stab_puncture_deathblow_ap_cost": 3,
+    "stab_puncture_deathblow_ap_cost_before": 4
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0502_Dagger Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "polearm_mastery",
+   "name": "Polearm Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nPolearm skills have their action point cost reduced to 5, and no longer have a penalty for attacking targets directly adjacent.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "polearm_skill_ap_cost": 5
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1580_Polearm Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "spear_mastery",
+   "name": "Spear Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nSpearwall is no longer disabled once an opponent manages to overcome it. Instead, Spearwall continues to give free attacks on any further opponent attempting to enter the zone of control.\nSpearwall can be activated when being already adjacent to opponents.\nThe Spetum and Warfork no longer have a penalty for attacking targets directly adjacent.",
+   "numbers": {
+    "fatigue_reduction_pct": 25
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1838_Spear Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "crossbow_mastery",
+   "name": "Crossbow and Firearms Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nAn additional 20% of damage inflicted with crossbows ignores armor.\nHandgonnes now require 6 Action Points to reload and can be fired every turn instead of every other turn.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "crossbow_armor_ignore_bonus_pct": 20,
+    "handgonne_reload_ap_cost": 6
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0460_Crossbow and Firearms Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "wiki_title": "Crossbow Mastery",
+   "note": "'Crossbow Mastery' redirects to 'Crossbow and Firearms Mastery'"
+  },
+  {
+   "id": "bow_mastery",
+   "name": "Bow Mastery",
+   "tier": 4,
+   "effect": "Skills build up 25% less Fatigue.\nVision is increased by 1.\nMaximum firing range with bows is increased by 1.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "vision_bonus": 1,
+    "bow_range_bonus": 1
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0272_Bow Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "throwing_mastery",
+   "name": "Throwing Mastery",
+   "tier": 4,
+   "effect": "Throwing weapons skills build up 25% less Fatigue.\nDamage is increased by 30% when attacking at 2 tiles of distance.\nDamage is increased by 20% when attacking at 3 tiles of distance.\nNote: Throwable consumables and Slings cost less Fatigue to use. Slings receive damage bonus as well.",
+   "numbers": {
+    "fatigue_reduction_pct": 25,
+    "near_distance_tiles": 2,
+    "damage_bonus_at_2_tiles_pct": 30,
+    "far_distance_tiles": 3,
+    "damage_bonus_at_3_tiles_pct": 20
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2003_Throwing Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "reach_advantage",
+   "name": "Reach Advantage",
+   "tier": 5,
+   "effect": "Each hit with a two-handed melee weapon adds a stack of Reach Advantage that increases your Melee Defense by 5, up to a maximum of 5 stacks, until this character's next turn. A single attack hitting multiple targets can add several stacks at once.\nIf you put away your weapon, you lose all stacks.",
+   "numbers": {
+    "melee_defense_per_stack": 5,
+    "max_stacks": 5
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1645_Reach Advantage.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "overwhelm",
+   "name": "Overwhelm",
+   "tier": 5,
+   "effect": "Learn to take advantage of your high Initiative and prevent the enemy from attacking effectively by overwhelming them with your attacks!\nWith every attack, hit or miss, against an opponent that acts after you in the current round, inflict the 'Overwhelmed' status effect which lowers both Melee Skill and Ranged Skill by 10% for one turn.\nThe effect stacks with each attack, and can be applied to multiple targets at once with a single attack.",
+   "numbers": {
+    "melee_ranged_skill_reduction_pct": 10,
+    "duration_turns": 1
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1509_Overwhelm.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "lone_wolf",
+   "name": "Lone Wolf",
+   "tier": 5,
+   "effect": "I work best alone. With no ally within 3 tiles of distance, gain a 15% bonus to Melee Skill, Ranged Skill, Melee Defense, Ranged Defense, and Resolve.",
+   "numbers": {
+    "no_ally_within_tiles": 3,
+    "bonus_pct": 15
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1195_Lone Wolf (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "underdog",
+   "name": "Underdog",
+   "tier": 5,
+   "effect": "The defense malus due to being surrounded by opponents no longer applies to this character. If an attacker has the Backstabber perk, the effect of that perk is negated, and the normal defense malus due to being surrounded is applied instead.",
+   "numbers": {},
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2068_Underdog.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "missing": [
+    "numbers (the effect text gives no number)"
+   ]
+  },
+  {
+   "id": "footwork",
+   "name": "Footwork",
+   "tier": 5,
+   "effect": "Unlocks the Footwork skill (costs 3 Action Points and 20 Fatigue) which allows to move while being in the enemy Zone of Control or to leave it without triggering opportunity attacks.",
+   "numbers": {
+    "skill_ap_cost": 3,
+    "skill_fatigue_cost": 20
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0804_Footwork (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "berserk",
+   "name": "Berserk",
+   "tier": 6,
+   "effect": "Once per turn, upon killing an enemy, 4 Action Points are immediately regained. Characters can not regain more than their maximum Action Points and no more than 4 for a single attack.\nThe character attracts slightly more attention from opponents.",
+   "numbers": {
+    "uses_per_turn": 1,
+    "ap_regained_on_kill": 4,
+    "ap_regained_max_per_attack": 4
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0232_Berserk.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "head_hunter",
+   "name": "Head Hunter",
+   "tier": 6,
+   "effect": "Hitting the head of a target will give you a guaranteed hit to the head also with your next attack. Connecting with your hit will reset the effect, but missing a hit - won't.",
+   "numbers": {},
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0956_Head Hunter.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "missing": [
+    "numbers (the effect text gives no number)"
+   ]
+  },
+  {
+   "id": "nimble",
+   "name": "Nimble",
+   "tier": 6,
+   "effect": "Specialize in light armor: the lighter your armor and helmet, the more you benefit! Hitpoint damage taken is reduced by up to 60%, but lowered exponentially by the total penalty to Maximum Fatigue from body and head armor above 15.\nBrawny does not affect this perk. Does not affect damage from mental attacks or status effects.",
+   "numbers": {
+    "hitpoint_damage_reduction_max_pct": 60,
+    "fatigue_penalty_free_threshold": 15
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1424_Nimble.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "battle_forged",
+   "name": "Battle Forged",
+   "tier": 6,
+   "effect": "Specialize in heavy armor: the heavier your armor and helmet, the more you benefit! Armor damage taken is reduced by a percentage equal to 5% of the current total armor value of both body and head armor.\nDoes not affect damage from mental attacks or status effects.",
+   "numbers": {
+    "armor_damage_reduction_pct_of_total_armor": 5
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0213_Battle Forged.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "fearsome",
+   "name": "Fearsome",
+   "tier": 7,
+   "effect": "Make them scatter and flee! Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent with a penalty equal to 15% of your Resolve, as opposed to with no penalty and only if at or above 15 points of damage.\n\nNote: only triggers once per target for a same skill use (however, for Orcs it is applied on each Charge vs Spearwall). Bonus from Resolve is capped at 20.",
+   "numbers": {
+    "min_hitpoint_damage_to_trigger": 1,
+    "morale_penalty_pct_of_resolve": 15,
+    "normal_trigger_damage_threshold": 15,
+    "resolve_bonus_cap": 20
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0754_Fearsome.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "duelist",
+   "name": "Duelist",
+   "tier": 7,
+   "effect": "With the offhand free or carrying a throwable tool (e.g. a throwing net), an additional +25% of any damage ignores armor. Does not work with two-handed weapons.",
+   "numbers": {
+    "armor_ignore_bonus_pct": 25
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0678_Duelist.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "killing_frenzy",
+   "name": "Killing Frenzy",
+   "tier": 7,
+   "effect": "A kill increases all damage by 25% for 2 turns. Does not stack, but another kill will reset the timer. The character attracts more attention from opponents.\n\nNote: the timer starts on the turn it activates, meaning that the buff will expire on the end of the character's next turn.",
+   "numbers": {
+    "damage_bonus_pct": 25,
+    "duration_turns": 2
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1118_Killing Frenzy.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  },
+  {
+   "id": "indomitable",
+   "name": "Indomitable",
+   "tier": 7,
+   "effect": "Unlocks the Indomitable skill (costs 5 Action Points and 25 Fatigue) which grants a 50% damage reduction and immunity to being stunned, knocked back or grabbed for one turn.\nThe character attracts less attention from opponents.",
+   "numbers": {
+    "skill_ap_cost": 5,
+    "skill_fatigue_cost": 25,
+    "damage_reduction_pct": 50,
+    "duration_turns": 1
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1077_Indomitable (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+  }
+ ]
+}

@@ -139,6 +139,7 @@ function report(m) {
     console.log('     about the instrument, not about him.');
   }
   const d = m.demo_fight_font, a = m.alpha_fight_font;
+  if (!d && a) console.log('  the frozen fight is not in the demo at all (the cut empties COMBAT_B64; the alpha keeps it)');
   if (d && a) {
     console.log('  the fight\'s font, demo vs alpha:  Space Grotesk ' + d.space_grotesk + ' vs '
       + a.space_grotesk + ',  fonts.googleapis ' + d.googleapis + ' vs ' + a.googleapis
@@ -169,7 +170,9 @@ if (process.argv.includes('--selftest')) {
   const ok = fake.commits_behind === 109
           && real.commits_behind >= 0
           && real.demo_stamp !== 'unreadable'
-          && real.demo_fight_font !== null
+          /* the demo's may be null: since 10/9 the cut empties COMBAT_B64 on the demo (the frozen
+             fight is never opened there; PLUMBER [first load] round 3), so only the alpha carries it */
+          && real.alpha_fight_font !== null
           && real.split && real.split.frozen_bytes > 0 && real.split.live_bytes > 0
           && real.split.frozen_share > 0 && real.split.frozen_share < 100;
   report(fake);

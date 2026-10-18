@@ -6,7 +6,7 @@ ECONOMY: either
 PLACE: the squat (settlement screen: the hall is a kitchen in a gutted bank); the job runs under the city in the storm tunnels, the fight board cut from the tunnel junction block below the old convention centre
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: A ROOM THAT ISN'T RECORDED (QR-Z no. 24: find and hold an unrecorded place)
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (the door choice sat behind a mandatory fight) and is fixed in place by the noon ladder)
 
 ## THE SITUATION
 Act 3. The new council wants the storm tunnels sealed before the rains: people live down there, dogs breed there, and the council cannot see what it cannot count. The squat's crew took the sealing job for the pay and wants guns beside them. One junction under the convention centre has never had a signal in it, not once, not even when the Network was whole.
@@ -28,6 +28,8 @@ Feral dogs hold the junction: the fight board is the junction block, low ceiling
 A. WELD ALL SIX. Full pay; the council's map shows the tunnels sealed.
 B. WELD FIVE, KEEP ONE. The junction door gets a lock only the company has. Priced and said, the contract's "I won't do this part": 12 batteries; Nico: "I'll tell them it's welded. You never heard me." The room is held.
 C. WELD FIVE, LEAVE ONE OPEN FOR THE PEOPLE. The tunnel families keep their way out. Priced the same as B; no lock, no room for the company; the squat's board later posts a thank-you.
+
+THE JUNCTION WITHOUT A FIGHT (QR-AM, line 31; `Q216.X1`, `Q095.X3`, `Q098.X2`): the dogs sleep through noon in the dry pipe. With Nico's tunnel map the company comes down the tunnel families' own ladder at noon and shuts the pipe grate before the first weld (a half day, 1 TAPE for the chain). A lost or skipped fight never closes the sixth door's choice; A, B and C are reached on every road.
 
 ## WHAT THE LEDGERS REMEMBER
 A: sealed; the tunnel families surface in the wash camp next season. B: the company holds an unrecorded room (the ambition's place; the canon blind spot: talk there is never heard). C: the tunnels stay a road for the poor. B and C both write a two-line fold entry: told (welded) and happened. Declining leaves nothing.

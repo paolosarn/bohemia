@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: either
 PLACE: a relay kiosk at a bus depot, act 2; a rooftop garden flat in the reclaimed quarter, act 3
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 10 and 23 (a lost tunnel fight still delivers by relay), 13 (the offer screen it lacked), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 10 and 23 (a lost tunnel fight still delivers by relay), 13 (the offer screen it lacked), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, the world clawing back. A woman with a short time left wants her last words to reach her son, who left for the reclaimed quarter and does not answer. She offers a contract: 3 batteries to carry a message to him. There are two ways to carry it. The relay kiosk sends it in a second and the Network keeps a copy forever. The tunnels take two days, on foot, and nothing records a word said face to face. She does not know which is safer. Nobody does.

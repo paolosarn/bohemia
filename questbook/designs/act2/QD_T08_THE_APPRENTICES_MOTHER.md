@@ -7,7 +7,7 @@ PLACE: the co-op blocks home base (town tier); the job runs on the map from the 
 SITUATION: THE COMPANY INHERITS (rule 39d): Beto Cruz was struck down in act 1 and was the 20% who died (rule 36). His son Mateo, 17, is on the heirs' list the ledger prepared for act 2, with his father's steady hands. His mother Paz posts an ordinary grain escort, and under it one ask: do not take my son -> Mateo joins, or does not, or sees one run and decides
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 DEFAULT READ (act 1 never played): Beto is the dead veteran the act-1 default roster names; Paz's lines do not change.
 
 ## THE SITUATION

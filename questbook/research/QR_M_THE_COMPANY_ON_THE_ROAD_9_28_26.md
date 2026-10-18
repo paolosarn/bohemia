@@ -1,6 +1,7 @@
 # QR-M: WHAT THE LIBRARY SAYS ABOUT THE COMPANY, THE PEOPLE WHO TRAVEL AND FIGHT WITH YOU
 
 QUESTS lane (chat 19), research only, round 9/28. Row [company voices]. Writer M. Nothing here is built (rule 35).
+FOLDED 10/9 (QR-AK): QR-U rules 16 and 17 and the sharpens of rules 1, 6, 8, 10 and 14, at the end of THE RULE FOR THE BUILDERS, each marked in place.
 Written for PEOPLE (who owns the person, the injured, the dead), WORDS (the lines), RUN (the event and offer screens),
 COMBAT [gambits] (where the company's behaviour lives) and DYNASTY (the company across the three acts). Every id
 below resolves in records/BOHEMIA_QUESTBOOK_LAW_INDEX.json. Battle Brothers facts are from
@@ -307,6 +308,28 @@ says about giving an automated fighter a personality:
     act 1 company; the default covers a member who died or left early). (`Q067.W6`, `Q069.W3`, `Q116.W10`, `Q144.W3`, QR-G checklist 5 and 18)
 15. NO INHERITED HATRED. A companion's descendant never arrives hostile to the player for a thing the player was not
     shown. (`Q046.X5`, `Q137.X1`)
+
+16. THE MEMBER'S LIFE CHOICE IS HIS. (folded 10/9 from QR-U) The player counsels, the member chooses (`Q220.W9`); the reckoning is aided,
+    not authored (`Q201.W8`); the player can second him (`Q183.W9`). Test: a member's red line (rule 4) and personal
+    ask (rule 7) end on his words, and no speech turns his choice into a persuade check (`Q201.X3`).
+17. SAVE ONE OF TWO. (folded 10/9 from QR-U) Two known members struck down in one fight, one can be pulled out (`Q226.P1`, `Q226.W2`),
+    both equally built (`Q226.X2`). Under rule 36 the one left rolls the 20 percent. Test: both names had a scene
+    before the fight.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 1 (no loyalty meter): an ending gated on an invisible accrual loses a caring player a companion without telling
+  him why (`Q165.X1`, `Q165.X3`); the accrual gives legible feedback (`Q165.P2`); loyalty on a standing number is a
+  stat check (`Q178.X2`). New test: every step of PEOPLE's hidden gradient emits a tell in the same scene (a line, a
+  stance, a fight-board tile he will not take).
+- Rule 6 (the quarrel happens without you): the faces confirm the break before the words (`Q167.W8`); bonds broken by
+  a reveal rebuild scarred, never back to default (`Q167.P4`, `Q167.X3`).
+- Rule 8 (every death is a receipt): the loss is permanent, the survivor a reminder, the undo discouraged
+  (`Q226.W5`, `Q226.W6`, `Q226.P2`).
+- Rule 10 (the injured stay): presence is the only gift (`Q173.W8`); you choose which loss, not whether (`Q173.W10`);
+  a body that is a countdown, each cure a patch (`Q173.P1`).
+- Rule 14 (the company crosses acts as heirs): the son walks the father's road by absence and example (`Q219.W2`); a
+  recruit from outside earns what heirs got free (`Q183.W3`); belonging eases the wound, never erases the origin
+  (`Q183.P2`, `Q183.W7`).
 
 ## WHAT TO AVOID (flaw X ids)
 

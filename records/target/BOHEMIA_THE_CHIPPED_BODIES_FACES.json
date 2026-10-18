@@ -1,0 +1,83 @@
+{
+ "when": "2026-10-10T00:35:36.055Z",
+ "worst": 0.2919334186939821,
+ "worstPair": "CHIPPED, NOMAD GEAR/CHIPPED, ARMORED",
+ "plainVsChip": [
+  {
+   "id": "wiederganger",
+   "samePixelShare": 0.982421875
+  },
+  {
+   "id": "wiederganger_nomad",
+   "samePixelShare": 0.984619140625
+  },
+  {
+   "id": "armored_wiederganger",
+   "samePixelShare": 0.984375
+  },
+  {
+   "id": "fallen_hero",
+   "samePixelShare": 0.984130859375
+  },
+  {
+   "id": "fallen_betrayer",
+   "samePixelShare": 0.98193359375
+  },
+  {
+   "id": "rachegeist",
+   "samePixelShare": 0.97998046875
+  }
+ ],
+ "rows": [
+  {
+   "id": "wiederganger",
+   "label": "CHIPPED",
+   "side": -1,
+   "armor": "2-30",
+   "eyeIsLit": true,
+   "greyShare": 0.028259473346178548
+  },
+  {
+   "id": "wiederganger_nomad",
+   "label": "CHIPPED, NOMAD GEAR",
+   "side": -1,
+   "armor": "15-105",
+   "eyeIsLit": true,
+   "greyShare": 0.029005524861878452
+  },
+  {
+   "id": "armored_wiederganger",
+   "label": "CHIPPED, ARMORED",
+   "side": 1,
+   "armor": "27-115",
+   "eyeIsLit": true,
+   "greyShare": 0.030555555555555555
+  },
+  {
+   "id": "fallen_hero",
+   "label": "FALLEN",
+   "side": 1,
+   "armor": "85-260",
+   "eyeIsLit": true,
+   "greyShare": 0.032327586206896554
+  },
+  {
+   "id": "fallen_betrayer",
+   "label": "THE BETRAYER",
+   "side": 1,
+   "armor": "85-260",
+   "eyeIsLit": true,
+   "greyShare": 0.03435114503816794
+  },
+  {
+   "id": "rachegeist",
+   "label": "THE RELIC BEARER",
+   "side": 1,
+   "armor": 400,
+   "eyeIsLit": true,
+   "greyShare": 0.0410958904109589
+  }
+ ],
+ "citizenHashesChecked": 100,
+ "citizenDiffs": 0
+}

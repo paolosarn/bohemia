@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: a brickworks at the edge of the colourful market, grown into a camp of its own (settlement screen: the hall is the kiln office); the guard is one night at the kiln yard, the fight board cut from the kiln yard block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: FINISH WHAT ABUELA STARTED (QR-Z no. 18, inherited; here the inherited ambition is A WALL AROUND IT, no. 13)
-CHECKLIST: passes all 30 (bends line 5 on purpose: it reads an act 1 or act 2 ambition; the default read, "no inherited wall", is below)
+CHECKLIST: passes all 32 (bends line 5 on purpose: it reads an act 1 or act 2 ambition; the default read, "no inherited wall", is below) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The rocket's blast wall needs fired brick, and the brickworks is firing its biggest kiln in twenty years. A firing takes one night and cannot stop. Last time, a crew stole half the stack while it cooled.

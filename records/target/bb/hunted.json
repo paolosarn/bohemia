@@ -1,0 +1,32 @@
+{
+ "_about": "When a settlement comes for you (VAMILY row [beef] A-SETTLEMENT-COMES-FOR-YOU). Two thresholds are Battle Brothers', quoted off the wiki; the rest is ours and marked. Bands are NAMES here, looked up in relations.json, so the number lives in one place. Settlements are keyed by their faction (the seat's faction), which is also the key of the relations bars.",
+ "patrol_hunts": {
+  "band": "hostile",
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1430_Noble Houses.txt",
+  "quote": "Their patrols are a common sight and they protect supply caravans and the more well fortified towns and castles. Can be encountered through the Noble War, Holy War or by just being hostile to one of the houses through one of several ways.",
+  "reading": "a faction's patrols come for you when its bar is in the Hostile band (the wiki says 'just being hostile'; the band named Hostile is 0 to 9)",
+  "ours": false,
+  "reading_ours": true
+ },
+ "caravan_attackable": {
+  "band": "threatening",
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+  "quote": "Trading caravans can be attacked by the player using Ctrl+Click, if he doesn't have an active contract and when the player has a low relation with the settlement it originates from (usually a relation with the status \"threatening\" or lower.)",
+  "needs_no_contract": true
+ },
+ "contract_against_them": {
+  "act": "attack_them",
+  "ours": true,
+  "why": "the row says a contract against a settlement drops its standing; the wiki has no such row, so it is mapped to the wiki's Attacking Them (-30), not a new number"
+ },
+ "crews_never_hunt_for_standing": {
+  "value": true,
+  "ours": true,
+  "why": "a crew has its own agenda (raid a fortress); standing does not send it. Only patrols hunt you, because the wiki ties hostility to patrols"
+ },
+ "first_minute": {
+  "value": "never",
+  "ours": true,
+  "why": "nothing happens in the first second (his 9/23 vote): a hunt needs a bar that was knocked down, and every bar starts at 50"
+ }
+}

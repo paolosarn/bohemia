@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the golf-course home base in the south-west (the pond feeds a hydroponic farm) (settlement screen: the hall is the pro shop); the lair is the seventeenth hole's pond and its reeds, the fight board cut from that block, the water as a tile nobody stands on
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the sabre-tooth, Smilodon (the seventeen, no. 10). BB lesson: the Alp, the night has rules; ambush and vanish; it cannot chase. Tough, 8 to 12 minutes at night, 4 to 6 by day.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: 30 failed (canines on top; the done road C paid half), fixed in place; 32 of 32)
 
 ## THE SITUATION
 The golf course grows food now, on the fairways, watered from the pond. The pump man goes down to the pond at dusk to change the filter. Two pump men have not come back. The third refuses. The farm will be dry in six days.
@@ -28,10 +28,10 @@ On the map, tracks only at the water's edge, never on the paths. The lair: reeds
 ## THE CHOICES
 A. GO AT DUSK, LIKE THE PUMP MEN. It strikes from the reed tile at the man nearest the water, then the reeds swallow it for a beat (the tell: the reeds go still, no insects). Paper-thin once found; deadly first. The player's choice, and the hardest fight.
 B. GO AT NOON. It lies up in the culvert under the cart bridge and cannot chase. Reach it from two sides before it gets back to the reeds. Shorter, safer. Same pay.
-C. CUT THE REEDS. Burn the reed tile by day (2 ROUNDS of flare or a torch). No ambush left; it leaves the pond and moves to another water on the map. Half pay; the next water's settlement posts it later.
+C. CUT THE REEDS. Burn the reed tile by day (2 ROUNDS of flare or a torch). No ambush left; it leaves the pond and moves to another water on the map. The pond is safe, so Kofi pays the full fee (QR-AO, line 30: one fee on every done road); the next water's settlement posts it later.
 
 ## WHAT THE LEDGERS REMEMBER
-A or B: the canines, the trophy buyer's rarest item (20 batteries), or kept; the farm's FOOD price drops a step. C: the cat is a visible party at another pond. Declining leaves nothing; the farm fails and the golf course drops a tier (the future goes both ways).
+A or B: the canines go in the pro shop's trophy case, Kofi's, not the company's (QR-AO, line 30); the farm's FOOD price drops a step. C: the cat is a visible party at another pond. Declining leaves nothing; the farm fails and the golf course drops a tier (the future goes both ways).
 
 ## THE ONE WRONG DETAIL
 The upright boot has its laces tied in a double bow, the way the first pump man never tied them.

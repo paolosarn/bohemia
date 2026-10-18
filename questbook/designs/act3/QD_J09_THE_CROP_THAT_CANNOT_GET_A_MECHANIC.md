@@ -7,7 +7,7 @@ PLACE: a hydroponics co-op town in a converted big-box store (the settlement); t
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE BUILD (QR-J): the valley's skilled labour pulled toward the yard
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)
-CHECKLIST: passes all 30 (line 3: the one deadline, six map days, is said aloud on the screen and shown on the
+CHECKLIST: passes all 32 (line 3: the one deadline, six map days, is said aloud on the screen and shown on the (QR-AM 10/10: lines 31 and 32 run, pass as written)
 co-op's settlement screen as the grow room dimming)
 
 ## THE SITUATION

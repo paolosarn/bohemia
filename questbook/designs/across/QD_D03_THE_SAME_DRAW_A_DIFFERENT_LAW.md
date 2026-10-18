@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a metered main under a reclaimed laundry block in act 3; the valve pit on the same corner in act 1
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (Thursday became three map days, shown in the water), 5 and 18 (the floor without THE TAP), 9 (haul it, a no-verb way), 13 (the offer screen it lacked), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (Thursday became three map days, shown in the water), 5 and 18 (the floor without THE TAP), 9 (haul it, a no-verb way), 13 (the offer screen it lacked), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The verb crosses the ages. In act 1 the family beat THE TAP (boss 2) and holds its verb: draw from any main in the valley, whoever thinks they own it. In act 1 that is survival. By act 3 the valley has reclaimed its water: a cooperative meters it, reads it on a panel, and bills in batteries. The family's valve key, a hand-cut T-bar with the grandmother's mark filed into it, is still in the heir's kit. A contract in act 3: the man who runs a laundry that employs nine people has had his meter cut for arrears. He offers 6 batteries to get the water back on before the week's loads spoil.

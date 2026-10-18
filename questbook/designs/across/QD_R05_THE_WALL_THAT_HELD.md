@@ -5,7 +5,7 @@ CRISIS: the Destroyers (plant); the rocket (landing)
 ECONOMY: bust (act 1) -> boom (act 3)
 PLACE: the rail and truck depot home base (fortress, draft seat the Caravans) on the east side: act 1 a yard of dead trucks and a rail cut; act 3 a busy freight terminal feeding the rocket build
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 18 met by three written reads, including never-played; line 5 met (any act order).
+CHECKLIST: passes all 32. Line 18 met by three written reads, including never-played; line 5 met (any act order). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 THE SIEGE THAT LEARNS, across two generations. In act 1 the Destroyers besiege the depot and the family defends it. In the preparation days the player chooses which side to wall: the EAST (a line of dead trucks) or the NORTH (the rail cut). Whatever happens, the fold writes where the wall held and where it broke. In act 3 the depot is rich and the rocket runs on its freight, which is exactly what draws a siege (prosperity draws raids). The new attackers are the grandchildren of act 1's. They read the old siege. They come at the wall that held, because nobody guards a monument.

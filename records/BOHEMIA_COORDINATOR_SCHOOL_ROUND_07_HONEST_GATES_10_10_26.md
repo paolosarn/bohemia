@@ -1,0 +1,62 @@
+# BOHEMIA COORDINATOR SCHOOL, ROUND 7 OF 10: HONEST GATES (10/10/26)
+
+## THE QUESTION (one paragraph)
+We run 100+ automated gates before every commit because a law without a machine gate is not enforced. The gates go green and Paolo sees something wrong on his phone anyway: a pixel counter fooled by noise, lanes self-attesting, two lanes measuring the same thing and disagreeing, a 95-second suite, and checkers that read code but cannot see the screen or feel the frame rate. The question: how do the best studios and software teams keep automated gates HONEST for the things you see (visual regression) and feel (performance on a phone), and keep a big suite fast without letting it rot? Fifteen searches were spent; direct fetches of the primary pages failed on this machine, so numbers are as the search index reported them from the named source.
+
+## WHAT I FOUND
+
+1. **Pixel diffs use a perceptual color threshold plus a pixel-count cap, never raw equality.** Playwright's screenshot assertion exposes `threshold`, `maxDiffPixels` and `maxDiffPixelRatio`; production guides land on 0.1% to 0.5% ratio for component shots and 1% to 2% for text-heavy pages, with animations disabled, a fixed viewport, one pinned browser and committed baselines. Source: https://testquality.com/playwright-visual-regression-guide/ and https://oneuptime.com/blog/post/2026-01-27-playwright-visual-testing/view. Why it matters here: our pixel counter had one number; the field uses two and freezes everything that moves.
+
+2. **Chromatic's default diff threshold is 0.063 and it ignores anti-aliased pixels by default; its docs warn that 0.8 can stop it detecting real changes such as positioning.** Source: https://docs.chromaticqa.com/threshold. Why it matters here: a gate loosened until green is a gate that no longer sees.
+
+3. **pixelmatch compares in YIQ color space and detects anti-aliasing; one team found anti-aliased edges the number one false positive and added a morphological open so only solid changed regions count.** Source: https://pypi.org/project/pixelmatch/0.1.1 and https://autocontrol.readthedocs.io/en/latest/Eng/doc/new_features/v149_features_doc.html. Why it matters here: on 112 px pixel art, noise is thin and a real break is a blob; count regions, not pixels.
+
+4. **At Google 1.5% of test runs are flaky, about 16% of tests have some flakiness, and 84% of pass-to-fail transitions in post-submit CI involve a flaky test.** Source: John Micco, Google Testing Blog, https://testing.googleblog.com/search/label/John%20Micco and https://soft.vub.ac.be/benevol2019/papers/BENEVOL_2019_paper_21.pdf. Why it matters here: when a gate flips red and no code changed, the first suspect is the gate, five times out of six.
+
+5. **Chromium's sheriff rule for a flake: revert the culprit if you can find it, otherwise disable the test as narrowly as possible; the infrastructure tracks builds failing due to flaky tests as a metric and has a written policy for tests exonerated in presubmit for being too flaky.** Source: https://chromium.googlesource.com/chromium/src/+/df94de8cd60da998eda3283f027a07560bd9f53e/docs/sheriff.md and https://chromium.googlesource.com/chromium/src/+/679e840e46c07dfe29cc6ac9056ac6c8423b8b0b/infra/config/luci-analysis.cfg. Why it matters here: we have no quarantine lane; a flaky gate blocks everyone or gets loosened in silence.
+
+6. **Facebook's predictive test selection runs about one third of the tests that depend on a change, still catches more than 99.9% of regressions before trunk, and halved test infrastructure cost; Google's TAP likewise runs a focused presubmit and a periodic postsubmit over everything potentially affected, because running everything before every submit is infeasible.** Source: https://engineering.fb.com/2018/11/21/developer-tools/predictive-test-selection/ and https://conf.researchr.org/details/icst-2023/cciw-2023-papers/5/What-Breaks-Google-. Why it matters here: two tiers, fast-before and full-after, is the standard answer to a slow suite; 100+ gates on every commit is the opposite.
+
+7. **Google ran mutation testing on almost 17 million mutants across 760,000 changes and surfaced about 2 million findings in code review; they dropped the mutation score as infeasible and instead show a few surviving mutants as concrete test suggestions, which led developers to write more and better tests.** Source: https://arxiv.org/pdf/2102.11378v1 and https://www.arxiv.org/pdf/2103.07189. Why it matters here: the honest question is not "is it green" but "does it go red when I break the thing," made small and routine.
+
+8. **Stryker's docs say coverage does not tell you about the effectiveness of your tests and point at the assertion-free test written only to raise coverage; 90% line coverage still ships a `<=` to `<` boundary bug.** Source: https://stryker-mutator.io/docs/ and https://medium.com/@josesousa8/mutation-testing-improving-code-quality-with-stryker-67ee7ec8979f. Why it matters here: "the gate exists" is our coverage number; a gate with no failing case is the assertion-free test.
+
+9. **Riot runs about 100,000 League of Legends test cases a day against well over 100 changes a day, results back within about an hour, by driving the real client and server through RPC endpoints.** Source: https://www.riotgames.com/en/news/automated-testing-league-legends. Why it matters here: they test the game by playing it by machine; the test and the player see the same surface.
+
+10. **Rare built Sea of Thieves with automated gameplay testing from the start, mixing unit, integration and "actor tests" that treat engine concepts as first-class dependencies, because open-world feature interactions had to be re-checked forever.** Source: https://gdconf.com/news/sea-thieves-devs-share-automated-testing-tips-gdc-2019 and https://gdcvault.com/play/1026366/Automated-Testing-of-Gameplay-Features. Why it matters here: a 26-lane game in one alpha file is all interactions; the gate that matters most runs the actual scene.
+
+11. **EA SEED counts 601 features in Battlefield V, about 0.5 million hours to test by hand; a soak test leaves the game running for hours with no input to catch leaks and slow failures.** Source: https://ea.com/seed/news/seed-ml-research-aaa-game-testing and https://modl.ai/dictionary?letter=24. Why it matters here: we have never run the alpha for an hour unattended and watched memory, and the game is 100 hours long.
+
+12. **Ubisoft published its Commit Assistant with both numbers at once: about 6 in 10 bugs caught, about 30% false alarms.** Source: https://overclock3d.net/news/software/ubisoft-reveals-commit-assistant-ai-driven-bug-fixing/. Why it matters here: none of our gates reports either number.
+
+13. **Core Web Vitals pass only at the 75th percentile of real users (LCP 2.5 s, INP 200 ms, CLS 0.1); lab runs do not count. The frame budget is 16.667 ms, and iOS Safari kills a page over memory with no error: one WebKit bug shows the process terminated at 1.25 GB on an iPad Air 3, and Unity WebGL tabs force-reload on iOS past 256 MB.** Source: https://web.dev/articles/defining-core-web-vitals-thresholds, https://webkit.org/blog/3996/introducing-the-rendering-frames-timeline/, https://bugs.webkit.org/show_bug.cgi?id=219780, https://discussions.unity.com/t/webgl-memory-increment-issue-and-crash-on-ios/894771. Why it matters here: "60 on a phone" is frame time and memory, measured on the phone, and the memory failure leaves no log line.
+
+14. **Goodhart's law, "when a measure becomes a target, it ceases to be a good measure," is Marilyn Strathern's 1997 phrasing of Goodhart's 1975 point; Campbell's law said it in 1969.** Source: https://en.wikipedia.org/wiki/Goodhart%27s_law. Why it matters here: "all gates green" became our target, so lanes optimise for green, and green stopped meaning good.
+
+## WHAT THE BEST DO THAT WE DON'T
+
+- **They test the test.** Google surfaces surviving mutants in every code review; Stryker calls coverage a lie. Not one of our 100+ gates has a recorded case where it went red on a deliberately broken input. A gate that has never failed is a comment with a return code.
+- **They look at the screen, not the source.** Riot drives the real client, Rare runs the real scene, Chromatic diffs a real render. Most of our gates grep files. The director sees a render; the gate sees a regex; they cannot agree.
+- **They publish the false-alarm rate next to the hit rate.** Ubisoft said 6 of 10 and 30% false alarms in one breath; Chromium tracks builds failed by flakes as a metric. We know how many gates we have and nothing about how often each lies.
+- **They tier.** Facebook runs a third of dependent tests before merge and the rest after; Google runs focused presubmit and periodic postsubmit. We run everything before every commit, which is why 95 seconds is defended instead of split.
+- **They quarantine in the open and measure on the device.** Chromium disables a flake narrowly and logs it; Core Web Vitals do not count a lab run. We block everyone or loosen quietly, and "60 on a phone" has never been a number sent from a phone.
+
+## THE CHANGES FOR THE COORDINATOR
+
+1. **No gate ships without a red case.** Every gate carries a sibling fixture that breaks its law on purpose; a meta-gate runs each gate against its fixture and refuses the suite if any gate stays green on its own broken input. Testable: gates-with-a-red-case equals the gate count, and a broken fixture turns the right gate red.
+
+2. **Two tiers, by the clock.** Tier A runs before commit, capped at 30 seconds: only gates whose declared input globs the diff touched, plus the cook gate. Tier B is the full suite, run after the push on main and on a schedule; a Tier B red opens a row on the offending lane and blocks that lane's next ship. Testable: Tier A wall clock under 30 s on a typical diff; Tier B still runs every gate; a known Tier B break lands as a row within one deploy.
+
+3. **A quarantine shelf with a number on it.** A gate that flips without a code change moves to QUARANTINE in the suite manifest with a date, a reason and a one-line hypothesis; it still runs and reports but does not block. The coordinator's status reply carries the count. Over 5 quarantined, or any gate quarantined past 7 rounds, is PLUMBER's top row. Testable: the manifest field exists, the suite prints the count, the count appears in the reply.
+
+4. **Every "it looks right" gate diffs a render and counts regions.** A gate claiming a visual law (border, scale, face, 45 degrees, analog horror) runs the real page headless, screenshots a fixed scene with animations off against a committed baseline, and compares with a perceptual diff that ignores anti-aliasing and counts changed REGIONS over a minimum size, with a color threshold and a pixel-ratio cap written in the gate. Testable: a shifted sprite turns it red; one-pixel anti-aliasing jitter does not.
+
+5. **"60 on a phone" is a number from a phone.** The alpha, on Paolo's device via his tiny NOTES button, posts a 30-second sample of frame times and a memory estimate to the deed ledger; the gate passes only when the 75th percentile frame time is under 16.7 ms and no sample shows a silent reload. A 60-minute unattended soak runs once a round and records the memory slope. Testable: the sample carries a non-desktop device string, the percentile is computed not averaged, the soak record has a slope per round.
+
+## ONE RULE
+
+**A GATE THAT HAS NEVER GONE RED IS NOT A GATE.** Every automated check must carry a broken input that turns it red, must say how often it lies, and must look at the same surface the director looks at, or it is not enforcing anything.
+
+## FOR PAOLO, IN PLAIN WORDS
+
+The best game studios do not trust a checker until they break the game on purpose and watch the checker catch it. Right now we have over a hundred checkers and none of them has ever proven it can catch anything, which is why they say fine while your phone says wrong. The fix is to make every checker prove it can fail, run only the fast ones before each save, and get the speed number from your actual phone instead of a computer that is not yours.

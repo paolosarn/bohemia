@@ -214,7 +214,7 @@ CANON: interprets the locked custodial rule; adds that it holds your family's po
 
 THE TWIST: the flip between acts, which derives the future from the past's ledgers (three acts law s2), is revealed at the end as the same kind of machine as the Amalgamation: a thing that models people from their records. The futures the player flipped into were forecasts. They became real because the family then lived them.
 
-PLANTS. Act 1: the first unlock of the second generation (default: the first home base) arrives with a face "generated from how you made the first" (s11b); nobody in the world comments. Act 2: a person in act 2 remembers an act 3 event that has not happened yet, once, and is wrong about one detail. Act 3: the derived act 3 city shows a building the player never built in any act.
+PLANTS. Act 1: the first unlock of the second generation (rule 85: the first endgame crisis starting, around day 80 to 100) arrives with a face "generated from how you made the first" (s11b); nobody in the world comments. Act 2: a person in act 2 remembers an act 3 event that has not happened yet, once, and is wrong about one detail. Act 3: the derived act 3 city shows a building the player never built in any act.
 
 THE PAY: at the point of no return the family meets the forecast of itself. What the forecast got wrong is every unrecorded deed (ties to Shape 1).
 

@@ -4,6 +4,48 @@ admission: Followers was one of the two rows the table itself listed NOT
 STARTED (the other was ambitions, shipped 9/30).
 
 ================================================================================
+CORRECTED 10/9/26, ROOT CAUSE, NOT PATCHED AROUND
+================================================================================
+His fifth votes (rule 56, LOCKED) ruled directly against this round's own
+design: "THE RETINUE IS BOUGHT ONCE, NO DAILY WAGE... one time purchases."
+The nightly wage below, and everything built to collect it (followerWagesNight,
+the fixer's every-other-night relief, the unpaid-leaves-the-same-night
+consequence), is DELETED from the real code. It is left in this record,
+unmarked further below, as the honest account of what this lane actually
+tried first and why -- the mechanism-mine reasoning for why wages were a
+transfer and not a fifth frozen verb was sound ENGINEERING; the premise that
+followers should have a recurring cost at all was simply wrong, by his own
+direct words, and no amount of correct plumbing under a wrong premise fixes
+that.
+
+THE SAME ROUND ALSO FIXED A SECOND THING: Grok's follower research finally
+landed (reference/library/grok/GROK_121_UNDERBELLY_FOLLOWERS_2026_10_04.md,
+PASSED FILTER, cited to the wiki's own Retinue page) while the row below was
+still open as research. It says the real Battle Brothers retinue is SIX
+roles -- cook, scout, lookout, paymaster, blacksmith, surgeon -- and there is
+no "negotiator" anywhere in it. This round's original four (mechanic, medic,
+fixer, driver) are gone; the real six replace them, at the wiki's own
+one-time prices (2,000 to 3,500 crowns, converted at this game's established
+ten-to-one rate), tuned:false. THE LIVE EFFECTS CHANGED TOO: the scout
+(formerly "driver") still cuts real travel time 15%, unchanged and still
+wired into cityStepMins; the paymaster (there is no more "fixer") now
+discounts every OTHER role's one-time hire price by 15% instead of relieving
+a wage that no longer exists -- the SAME self-contained, provable shape, re-aimed
+at the thing that is actually still true. The other four (cook, lookout,
+blacksmith, surgeon) stay honestly not-live, for the same reason the original
+two were not: the systems they would speed up (a food/health clock, a sight
+radius, a repair meter, a wound clock) still do not exist in code. Grok's own
+page adds one more honest constraint this round kept: a surgeon never saves
+the MAIN CHARACTER from a fatal blow, who is downed, never dead, by a separate,
+earlier lock of his.
+
+gates/followers_gate.js was rewritten in full against the real six and the
+one-time price; the decline-advances self-test from the original bug this row
+found is kept and re-proven, since the SAME class of bug (skip hired roles
+only, not declined ones) would still be possible in a one-time-purchase
+world if offerFor had not already been fixed for it.
+
+================================================================================
 THE REAL SHAPE, AND THE REAL GAP IN THE LIBRARY
 ================================================================================
 PEOPLE's own board row: "Battle Brothers' followers (scout, surgeon,

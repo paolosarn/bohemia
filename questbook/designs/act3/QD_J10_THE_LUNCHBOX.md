@@ -7,7 +7,7 @@ PLACE: the highway under the gantry lights at shift change, workers walking home
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E1, THE ONE ON THE SHOULDER (QR-B)
 STAGE: THE BUILD (QR-J), in a bust stretch: batteries tight, medicine tighter
-CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free SAY NOTHING; line 21 is met because no
+CHECKLIST: passes all 32 (lines 11 and 12 are read as the event's free SAY NOTHING; line 21 is met because no (QR-AM 10/10: lines 31 and 32 run, pass as written)
 branch pays the company)
 
 ## THE SITUATION

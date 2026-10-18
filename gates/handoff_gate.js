@@ -254,15 +254,36 @@ if (head) {
    rule finds ZERO. It separates the two cleanly with nothing in between. */
 const START = /^<<<<<<< \S/, MID = /^=======$/, END = /^>>>>>>> \S/;
 
+/* *** AND HALF A CONFLICT IS STILL A CONFLICT (PLUMBER 10/9, row [proof shots churn], its handoff
+   half, from SOUNDS ed11dc55). *** acc8757 (10/5) deleted the `<<<<<<<` line of a rebase conflict in
+   THIS file and committed the `=======` and the `>>>>>>> aa744ae (SOUNDS ...)` under it. The triad rule
+   needed all three, so the handoff read clean for four days until SOUNDS found it by eye. ANY TWO OF
+   THE THREE, IN ORDER, is a conflict now: start then middle (the bottom deleted), middle then end (the
+   top deleted, acc8757's shape), start then end. Measured on 10/9's tree: zero, and the one record that
+   quotes a marker (8/27) carries a lone end line, which is still not one. Planted below, both ways,
+   and replayed on acc8757's own copy of the handoff. */
 function hasRealConflict(body) {
-  let state = 0;                       /* 0 nothing, 1 saw start, 2 saw the middle */
+  let start = false, mid = false;
   for (const line of body.split('\n')) {
-    if (START.test(line)) { state = 1; continue; }
-    if (MID.test(line)) { if (state === 1) state = 2; continue; }
-    if (END.test(line)) { if (state === 2) return true; state = 0; }
+    if (START.test(line)) { start = true; mid = false; continue; }
+    if (MID.test(line)) { if (start) return true; mid = true; continue; }
+    if (END.test(line)) { if (start || mid) return true; start = mid = false; }
   }
   return false;
 }
+{ const P = [
+    ['a whole conflict', '<<<<<<< HEAD\na\n=======\nb\n>>>>>>> 1234567 (x)\n', true],
+    ["acc8757's shape: the top deleted", 'a\n=======\nb\n>>>>>>> aa744ae (SOUNDS [the settlement\'s sounds] round one)\n', true],
+    ['the bottom deleted', '<<<<<<< HEAD\na\n=======\nb\n', true],
+    ['a record quoting an end line (8/27)', 'he saw\n>>>>>>> 7333cce (0 FOR 8. I CHOSE FOUR VOICES)\non the splash\n', false],
+    ['a heading underlined with =======', 'TITLE\n=======\ntext\n', false]];
+  const wrong = P.filter(([, b, want]) => hasRealConflict(b) !== want).map(([n]) => n);
+  let replay = null;
+  try { replay = hasRealConflict(execFileSync('git', ['show', 'acc8757:00_START_HERE_NEXT_SESSION.md'],
+    { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28, stdio: ['ignore', 'pipe', 'ignore'] })); } catch (e) { /* a clone too shallow to hold it */ }
+  ok('the conflict test is planted both ways (' + P.length + ' cases' + (replay === null ? '; acc8757 not in this clone'
+     : ', and acc8757\'s own handoff reads ' + (replay ? 'CONFLICTED' : 'clean')) + ')',
+     !wrong.length && replay !== false, wrong.length ? 'misread: ' + wrong.join(', ') : 'acc8757 committed half a conflict into the handoff and this test reads it clean'); }
 
 ok('THE HANDOFF CARRIES NO UNRESOLVED MERGE', !hasRealConflict(text));
 

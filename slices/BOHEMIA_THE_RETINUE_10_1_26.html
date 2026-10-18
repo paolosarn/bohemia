@@ -25,7 +25,6 @@
   .tag{font-size:10px;letter-spacing:.12em;color:var(--dim);margin:0 0 4px;text-transform:uppercase}
   .tag.hire{color:var(--warm)}
   .tag.bad{color:var(--bad)}
-  .reward-line{font-size:11.5px;color:var(--warm);margin-top:6px}
   .note{color:var(--dim);font-size:12.5px;margin:10px 0 0;padding-top:10px;
         border-top:1px solid var(--edge)}
   h2{font-size:12px;letter-spacing:.16em;color:var(--dim);margin:26px 0 10px;font-weight:600}
@@ -36,6 +35,7 @@
   .big{color:var(--ink);font-size:14px}
   .live{color:var(--warm)}
   .notlive{color:var(--dim)}
+  .was{color:var(--bad);text-decoration:line-through}
   @media (prefers-color-scheme:light){
     :root:not([data-theme="dark"]){ --ink:#1b1b19; --dim:#6a655c; --bg:#efece5;
       --card:#fff; --edge:#d8d3c8; --warm:#8a6d12; --cold:#2f6b86; --bad:#9c3f28; }
@@ -43,80 +43,67 @@
 </style></head><body><div class="wrap">
 
 <h1>THE RETINUE</h1>
-<p class="sub">The same real functions, the same real currency, walked start to finish.</p>
+<p class="sub">Corrected this round: bought once, the real six, real wiki prices.</p>
 
-<p class="quote">Battle Brothers hires camp staff for a daily wage: a scout, a surgeon, a
-negotiator, a blacksmith. This is ours, offered by whoever is walking with you, never a
-popup, and paid out of the same purse everything else in this game already uses.</p>
+<div class="card">
+  <p class="note" style="margin-top:0;padding-top:0;border-top:none">
+  <span class="was">The first version charged a battery a night.</span> You ruled that
+  wrong: "THE RETINUE IS BOUGHT ONCE, NO DAILY WAGE... one time purchases." This is the
+  fix. It also swaps out three roles this lane had guessed at for the real six Battle
+  Brothers actually has: cook, scout, lookout, paymaster, blacksmith, surgeon. There was
+  never a "negotiator" in the real game.</p>
+</div>
 
 <div class="card">
   <div class="beat">
     <div class="who co">CO</div>
     <div class="bubble">
       <div class="tag">the first offer</div>
-      "I used to keep machines running for a living. A mechanic, if you want one. A battery a night."
+      "I can keep food from going bad and nurse a man back up. A cook, for 200 batteries, once."
     </div>
   </div>
   <div class="beat">
     <div class="who co">CO</div>
     <div class="bubble">
-      <div class="tag hire">stay close two beats, and</div>
-      "The mechanic falls in."
+      <div class="tag hire">stay close two beats, pay once, and</div>
+      "The cook falls in."
     </div>
   </div>
   <div class="beat">
     <div class="who co">CO</div>
     <div class="bubble">
-      <div class="tag">the next one, asked once</div>
-      "I can talk a price down, for a cut. A fixer, if you want one. A battery a night."
-    </div>
-  </div>
-  <div class="beat">
-    <div class="who co">CO</div>
-    <div class="bubble">
-      <div class="tag hire">stay close two beats, and</div>
-      "The fixer falls in. The rest of the crew gets paid a little less often now."
-    </div>
-  </div>
-  <div class="beat">
-    <div class="who co">CO</div>
-    <div class="bubble">
-      <div class="tag bad">unpaid, overnight</div>
-      "The mechanic says the batteries dried up, and leaves."
+      <div class="tag bad">can't afford one</div>
+      "Can't afford a surgeon right now."
+      <div class="note" style="margin-top:4px;padding-top:0;border-top:none">Not a "no" &mdash; nothing is remembered. Come back with the batteries and the same offer stands.</div>
     </div>
   </div>
 </div>
 
-<h2>WALKING OFF IS A FREE NO</h2>
-<div class="card">
-  <p class="note">Ask for a medic, then walk up to somebody else before two beats pass:
-  the offer is gone, no cost, and medic is never asked again this game. But the NEXT
-  role still gets offered the moment you ask again &mdash; a single decline used to block
-  every role after it forever, found and fixed this round (measured below).</p>
-</div>
-
-<h2>THE FOUR ROLES, AND WHAT EACH ONE ACTUALLY CHANGES</h2>
+<h2>THE REAL SIX, THE WIKI'S OWN PRICES, OUR TEN-TO-ONE</h2>
 <div class="card">
   <table>
-    <tr><th>our name</th><th>Battle Brothers name</th><th>what it changes</th></tr>
-    <tr><td>The driver</td><td>scout</td><td class="live">LIVE: every block crossed on the map costs 15% less time</td></tr>
-    <tr><td>The fixer</td><td>negotiator</td><td class="live">LIVE: every other hired follower is only charged every second night</td></tr>
-    <tr><td>The medic</td><td>surgeon</td><td class="notlive">not yet live: this game has no wound clock to speed up yet</td></tr>
-    <tr><td>The mechanic</td><td>blacksmith</td><td class="notlive">not yet live: this game has a flat repair switch, not a meter to make cheaper</td></tr>
+    <tr><th>role</th><th>price</th><th>what it changes</th></tr>
+    <tr><td>Cook</td><td class="big">200</td><td class="notlive">not yet live: +3 days food, +1 health/hour</td></tr>
+    <tr><td>Scout</td><td class="big">250</td><td class="live">LIVE: every map block costs 15% less time</td></tr>
+    <tr><td>Lookout</td><td class="big">250</td><td class="notlive">not yet live: +25% sight</td></tr>
+    <tr><td>Paymaster</td><td class="big">350</td><td class="live">LIVE: every other hire costs 15% less</td></tr>
+    <tr><td>Blacksmith</td><td class="big">300</td><td class="notlive">not yet live: +20% repair speed, -20% tool use</td></tr>
+    <tr><td>Surgeon</td><td class="big">350</td><td class="notlive">not yet live: -1 day injury time, saves a man from a fatal blow</td></tr>
   </table>
-  <p class="note">Every number here is a first attempt, not a final ruling (tuned:false).
-  The real Battle Brothers numbers are an open ask to Grok (reference/BOHEMIA_GROK_ASKS.md
-  #9); this ships the mechanism now rather than wait on an answer that has not come back.</p>
+  <p class="note">Prices are the wiki's own crowns (2,000 to 3,500) at this game's
+  established rate, ten crowns to one battery. Every number here is a first attempt, not
+  a final ruling.</p>
 </div>
 
-<h2>WHY TWO OF THE FOUR AREN'T LIVE YET</h2>
+<h2>WHY FOUR OF THE SIX AREN'T LIVE YET</h2>
 <div class="card">
-  <p class="note">A medic who heals faster needs a wound to heal; this game only has a
-  ruling that a struck-down man is out 30 to 40 days (rule 36b), not code that tracks it.
-  A mechanic who repairs cheaper needs a repair meter; this game only has a flat
-  yes-or-no switch for a spent plate. Building a fake meter just to give these two
-  something to discount would be inventing a system nobody asked for. They are hired for
-  real, paid for real, and will do real work the day those two systems exist.</p>
+  <p class="note">A surgeon who saves a man from a fatal blow needs a wound to save him
+  from; a cook who adds health needs an hourly health clock; a lookout who sees further
+  needs a sight radius; a blacksmith who repairs cheaper needs a repair meter. None of
+  those systems exist in this game yet. They are hired for real and stand in your
+  retinue for real; they will do real work the day those systems exist. Also by his own
+  lock: a surgeon never saves the MAIN CHARACTER from a fatal blow &mdash; he is downed,
+  never dead, already.</p>
 </div>
 
 <h2>MEASURED, NOT EYEBALLED</h2>
@@ -124,14 +111,12 @@ popup, and paid out of the same purse everything else in this game already uses.
   <table>
     <tr><th>step</th><th>result</th></tr>
     <tr><td>the ask fires once per role, through the real bark</td><td class="big">confirmed</td></tr>
-    <tr><td>stays quiet while an offer is live and under two beats</td><td class="big">confirmed</td></tr>
-    <tr><td>two beats with the same companion hires them</td><td class="big">confirmed</td></tr>
-    <tr><td>walking off to somebody else declines for free</td><td class="big">confirmed</td></tr>
-    <tr><td>a decline advances to the next role, never blocks it</td><td class="big">confirmed</td></tr>
-    <tr><td>a night with a fixer hired charges the fixer and skips the rest</td><td class="big">1 electricity, half of 2</td></tr>
-    <tr><td>the driver's real travel-time function runs 15% faster, hired</td><td class="big">confirmed, read off cityStepMins itself</td></tr>
-    <tr><td>a wage nobody can pay ends that hire the same night</td><td class="big">confirmed, no grace period</td></tr>
-    <tr><td>never speaks with nobody walking with you</td><td class="big">confirmed</td></tr>
+    <tr><td>two beats later, the one-time price debits once, for real</td><td class="big">confirmed</td></tr>
+    <tr><td>can't afford one: says so, nothing remembered, retry later</td><td class="big">confirmed</td></tr>
+    <tr><td>walking off to somebody else declines for free, advances to the next role</td><td class="big">confirmed</td></tr>
+    <tr><td>a hired paymaster cuts another hire's price by 15%, read off the real price function</td><td class="big">confirmed</td></tr>
+    <tr><td>a hired scout cuts real travel time by 15%, read off the same function the map calls</td><td class="big">confirmed</td></tr>
+    <tr><td>no nightly charge exists anywhere any more</td><td class="big">confirmed</td></tr>
   </table>
 </div>
 

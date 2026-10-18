@@ -7,7 +7,7 @@ PLACE: the wash camp home base (camp tier in act 1, one offer); the job is the c
 SITUATION: the old men smell rain in the east and the wash will run in two or three nights, so everything the camp owns must go up the bank to a garage that has a landlord -> the camp survives the flood; in act 3 the garage is the camp's own housing block, the Mob's again, or empty, by what the family did
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30 (line 18: act 3 has a full read if act 1 never set the plant)
+CHECKLIST: passes all 32 (line 18: act 3 has a full read if act 1 never set the plant) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION (ACT 1)
 The wash camp lives in a flood channel because nobody else will. The old men say rain is coming from the east, two nights, maybe three. Flash floods in these channels are real and fast. Everything the camp owns (water jugs, blankets, the radio cart) has to go up the bank to the old casino garage, and the garage is rented out by a Mob crew.

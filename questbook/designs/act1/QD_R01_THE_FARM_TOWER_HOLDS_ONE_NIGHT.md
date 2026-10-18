@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: the farm tower home base (camp tier, draft seat the Volunteers): a hydroponics farm in a gutted five-storey parking structure off Charleston; the fight is on the structure's ground floor and its roof deck
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 12 met by choice B and by the way-out edge; line 23 met by choice B (no fight).
+CHECKLIST: passes all 32. Line 12 met by choice B and by the way-out edge; line 23 met by choice B (no fight). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 THE DEFEND CONTRACT, QR-R's plain shape. The Destroyers are coalescing in act 1, and a party of them has camped two map stops from the farm tower for four days (tracks converging on the map, the tower's seed and water gone dear in its market, a family walking away on the road). The tower is a camp: one offer on its board. This is it.

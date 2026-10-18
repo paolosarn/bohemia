@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a rock ridge above the family's block, looking down on the valley; the same rock the menu shows and the same rock QD-H06 returns to
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 23: no fight on the ridge, ever.
+CHECKLIST: passes all 32. Line 23: no fight on the ridge, ever. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the story master's act 1 opening: the raid, a sibling dies, the grief dinner, the ridge burial that becomes the menu. The raid is not played (QD-F01 opens on the aftermath). This beat is the burial. It waits forever (a main beat with no clock, QR-H), but the ridge is visible on the map from the first stop, a small cairn marker. The player walks up when ready. It is the one place in act 1 where nothing is sold and nobody asks for anything.
