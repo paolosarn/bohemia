@@ -13,6 +13,7 @@
    game's letters too.
 
      node tools/bohemia_ui_the_front_screen_sheet.js            # writes records/target/ui_front_screen/
+     BM_REUSE=1 node tools/bohemia_ui_the_front_screen_sheet.js # lays the sheet from the shots already there
    ========================================================================================================== */
 'use strict';
 const fs = require('fs');
@@ -41,6 +42,9 @@ async function shot(page, file) {
 
 async function moments(profile, bare, tag) {
   const files = {};
+  /* BM_REUSE=1 lays the sheet from shots already taken (a run cut off after its shots, 10/18) */
+  if (process.env.BM_REUSE && ['title', 'picks'].every(k => fs.existsSync(path.join(OUT, tag + '_' + k + '.png'))))
+    return { title: path.relative(ROOT, path.join(OUT, tag + '_title.png')), picks: path.relative(ROOT, path.join(OUT, tag + '_picks.png')) };
   const d = await open({ profile, keepCards: true,
     beforeGoto: async (cdp, page) => { if (bare) await page.addInitScript(FORCE); },
     beforeTap: async (page) => {

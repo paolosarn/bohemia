@@ -10980,8 +10980,39 @@
     "how": "image",
     "src": "vote/EYES_THE_STAR_IS_THE_BAR.webp"
    }
+  },
+  {
+   "id": "ui-the-front-screen-just-the-font-10-18",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "90bd03cc",
+   "made": "10/18",
+   "title": "THE FRONT SCREEN: JUST YOUR LETTERS, NO CARD",
+   "why": "You said the front screen looked like dog shit and you only wanted the crazy BOHEMIA letters without the card behind them, so the grey card is cut away pixel by pixel (every gold pixel still yours), the screen sits on a cold dark ground with one block of the dead valley still lit, and only the one thing to press next is gold. You see it on the title and the new-company picks, on your phone upright and on its side, today on the left and the new one on the right; YES and RUN puts it in the demo at the next cut, NO with what is wrong.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/ui_front_screen/UI_THE_FRONT_SCREEN_JUST_THE_FONT.png"
+   },
+   "options": [
+    "YES",
+    "NO"
+   ],
+   "twin": {
+    "src": "records/target/ui_front_screen/before_upright_title.png",
+    "diffs": [
+     "THE CARD: today his letters sit on a grey card (46,248 card pixels); here the card is cut away and only his 5,731 gold pixels stand, every one unchanged.",
+     "THE GROUND: today three heavy blocks of cardboard, receipt and glass over a valley painted at two pixel sizes with smooth fades; here one cold ground, the valley at one pixel size with stepped light and nothing that fades.",
+     "THE CHOICE: today every button shouts the same; here only the next thing (NEW GAME, or CONTINUE once you have a run) is gold, the rest are quiet printed lines, and on its side nothing runs off the glass any more."
+    ]
+   },
+   "before_after": {
+    "before": "his wordmark on its grey card, three tilted blocks, the valley at half resolution with gradients, the picks running 74 px off the glass sideways",
+    "after": "his letters alone, a cold dark ground, one gold choice, no gradient, glow, blur or round corner, the picks and the terminal side by side on a phone on its side",
+    "scale": "1:1"
+   },
+   "draft": true
   }
- ],
+],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

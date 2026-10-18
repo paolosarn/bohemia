@@ -1,0 +1,24 @@
+{
+ "sheet": "records/target/ui_front_screen/UI_THE_FRONT_SCREEN_JUST_THE_FONT.png",
+ "shots": {
+  "up_before": {
+   "title": "records/target/ui_front_screen/before_upright_title.png",
+   "picks": "records/target/ui_front_screen/before_upright_picks.png"
+  },
+  "up_after": {
+   "title": "records/target/ui_front_screen/after_upright_title.png",
+   "picks": "records/target/ui_front_screen/after_upright_picks.png"
+  },
+  "side_before": {
+   "title": "records/target/ui_front_screen/before_sideways_title.png",
+   "picks": "records/target/ui_front_screen/before_sideways_picks.png"
+  },
+  "side_after": {
+   "title": "records/target/ui_front_screen/after_sideways_title.png",
+   "picks": "records/target/ui_front_screen/after_sideways_picks.png"
+  }
+ },
+ "made": "10/18",
+ "lane": "ui",
+ "row": "[the front screen, just the font]"
+}
