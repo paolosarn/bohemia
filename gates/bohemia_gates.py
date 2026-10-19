@@ -9450,6 +9450,8 @@ GATES = [
      "UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). RULE 66 (Paolo 10/2: 'there should be a start screen'); RULE 67/71 (not AI slop: no default fonts, no flat boxes, no centred labels). RUN builds the s. green at registration, 25 s", True),
     ('THE TEXTURE SET', ['node', 'gates/the_texture_set_gate.js'],
      'CHARACTER gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. The texture set is the clothes this lane owns, cut off the formula into pieces a rigged model wears, wit. green at registration, 0 s', False),
+    ('ONE SKIN, ONE PERSON', ['python3', 'gates/one_skin_one_person_gate.py'],
+     "CHARACTER gate, 10/19, row [one skin, one person] (rule 120(d); his 10/18: 'the portraits don't even look alike... Black people looking like white people'): one skin per person in records/target/character/BOHEMIA_ONE_SKIN.json, the alpha's look tables carry it, famPaintBody's body reads the face's tone, the fight and settlement sheets and the 64 faces off the pixels, the rig models' skin, PORTRAIT's faces on the rig ladder with a frozen list that only shrinks. green at registration, 15/0, 9 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],
      'SOUNDS gate, registered by PLUMBER 10/18 [the orphan gates] (it landed on main mid-round without a row, 23426c8c). THE MAP HEARD GATE, row [the desert under travel]: the map hears the same recorded desert. green at registration, 17/0, 15 s', True),
     ('TRAVEL STEPS', ['node', 'gates/travel_steps_gate.js'],

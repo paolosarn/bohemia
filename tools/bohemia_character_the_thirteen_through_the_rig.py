@@ -44,7 +44,28 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BODY = os.path.join(ROOT, 'reference/models/khronos/CesiumMan.glb')
 RULER_M = 1.72   # CHARACTER [the body in meters]: the formula's man, 98 px at 57 px a metre
 
-SKIN = (150, 112, 88)
+SKIN = (150, 112, 88)       # the bare mannequin ('Body') only; a person wears his own (skin_for, below)
+ONE_SKIN = os.path.join(ROOT, 'records/target/character/BOHEMIA_ONE_SKIN.json')
+
+
+def skin_for(name):
+    """CHARACTER [one skin, one person] (10/19, rule 120(d)): the skin a look's model wears, body and hands, is THE PERSON'S
+    one skin (records/target/character/BOHEMIA_ONE_SKIN.json, people[id].rig_rgb), the same step PORTRAIT's head on this
+    body reads, so a head and its own body cannot disagree. Every look wore the one constant above until 10/19: the
+    thirteen gangs all one tan while their faces ran from porcelain to deep. A LOOKS entry may carry its own skin=(r,g,b)
+    (an imported caller adding a person in memory); a name the file does not list keeps the mannequin's."""
+    L = LOOKS.get(name) or {}
+    if L.get('skin'):
+        return tuple(L['skin'])
+    try:
+        P = json.load(open(ONE_SKIN))['people']
+    except Exception:
+        return SKIN
+    t = str(name).lower()
+    for k in (t, 'faction_' + t, 'cast_' + t):
+        if k in P:
+            return tuple(P[k]['rig_rgb'])
+    return SKIN
 BLACK = (28, 26, 26)
 HAIR_DARK = (38, 28, 22)   # darker at the source: the rig's up-face dust lifts a crown toward grey (measured, cycle 1)
 
@@ -361,7 +382,8 @@ def build(name, outdir):
     # 2. THE BODY'S OWN SURFACE: skin, the shirt by its sleeve, the trousers, the shoe
     S = L['shirt']; T = L['trousers']; F = L['shoes']
     body.data.materials.clear()
-    for k, rgb in (('skin', SKIN), ('shirt', S['colour']), ('trousers', T['colour']), ('shoes', F['colour']), ('eyes', (40, 26, 22))):
+    SK = skin_for(name)
+    for k, rgb in (('skin', SK), ('shirt', S['colour']), ('trousers', T['colour']), ('shoes', F['colour']), ('eyes', (40, 26, 22))):
         body.data.materials.append(mat(k, rgb))
     sleeve_to = {'none': (), 'short': ('upper',), 'long': ('upper', 'fore')}[S['sleeve']]
     for f in body.data.polygons:
@@ -629,7 +651,7 @@ def build(name, outdir):
 
     # 8c. THE HANDS (1b), on the hand bones, in skin
     for h in hands:
-        made.append(finish(hand_mesh(*h), SKIN, 'skin', 0, 0))
+        made.append(finish(hand_mesh(*h), SK, 'skin', 0, 0))
 
     # 8d. THE PRINT (PRINTS, above): the cloth's colour becomes a tile mapped in METRES round the body: the side of a
     # piece by its angle round the torso (or round its own leg below the hip, so a trouser stripe keeps its width on the
