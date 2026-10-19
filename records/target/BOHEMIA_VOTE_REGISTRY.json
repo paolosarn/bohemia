@@ -11204,7 +11204,40 @@
     "src": "vote/EYES_EVERY_FACE_BESIDE_ITS_BODY.webp"
    },
    "draft": true
-  }
+  },
+ {
+  "id": "cook-the-first-guns-off-the-rig-10-19",
+  "kind": "tile",
+  "lane": "cook",
+  "sha": "036afbc2",
+  "made": "10/19",
+  "title": "PLACEHOLDER: THE GUNS YOU START WITH, MADE THE CLAY WAY: TWO PISTOLS, TWO SHOTGUNS, TWO RIFLES ON AN ARMOURER'S RACK",
+  "why": "You said the gun is supposed to be how a fight is won, and the game had no gun picture of its own (the market's rifle is your silenced pistol and its shotgun your SMG), so six guns now come off the same table as the robot and the truck, two of each kind on an armourer's rack: A is a 1911 pistol, a sawn-off double barrel and a bolt deer rifle with a seatbelt sling, B is a revolver, a pump shotgun and a lever carbine. You see it in the VOTE tab beside your own pistols, revolver and sawn-offs and beside what the game shows today, at the same pixel size; pick A, B, MIX (say which) or NO with what is wrong.",
+  "options": [
+   "A",
+   "B",
+   "MIX",
+   "NO"
+  ],
+  "show": {
+   "how": "image",
+   "src": "../records/target/COOK_THE_FIRST_GUNS_OFF_THE_RIG.png"
+  },
+  "twin": {
+   "src": "pack:12. Weapons and supplies#6",
+   "diffs": [
+    "METHOD: yours are drawn flat; mine are modelled in 3D at their real size from the game's own clay palette and rendered by the one master rig, the way the robot and the truck were (rule 115a), and each gun is its own model with the grip where a hand holds it, so the same gun can go in a man's hand.",
+    "SIZE: one ruler for all six, eight times the fight's: my pistol is 105 px long beside your 96, and the long guns are four to five times longer because they are (your pack draws every gun in the same 96 box). At the fight's own size, the last row, a pistol is 13 px and a rifle 62.",
+    "LOOK: you close every gun in a near-black line and your shading spans a wider range of dark to light (132 to 162 against the rack's 90); the rig's softer edge is DIRECTION's to change. You own no modern rifle in 294 packs, so the rifle's twin is your flintlock blunderbuss, and these are the first rifles in the game."
+   ]
+  },
+  "before_after": {
+   "before": "what the game shows for each gun line today: the market's pictures (your pistol #6 for the pistol, your SMG #7 for the shotgun, your silenced pistol #10 for the rifle), one art pixel to one sheet pixel",
+   "after": "the two new guns for each line from the rig's close camera, one art pixel to one sheet pixel",
+   "scale": "1:1"
+  },
+  "draft": true
+ }
  ],
  "verdicts": [
   {
