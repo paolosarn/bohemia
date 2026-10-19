@@ -15,6 +15,8 @@
 //   node tools/bohemia_economy_first_bullets.js            prints the table
 //   node tools/bohemia_economy_first_bullets.js --write    also writes banks/BOHEMIA_ECONOMY_FIRST_BULLETS_10_19_26.json
 //   --n 300  fights per cell (default 300); --jobs 4  worker processes
+//   --grid [--write] [--n 100]   ECONOMY [the grid's money]: companies 1, 3, 6, 12, 14 against a job the map sizes at 1, 2, 3
+//              skulls and against 3, 6, 12, 20, 38; writes banks/BOHEMIA_ECONOMY_THE_GRIDS_MONEY_10_19_26.json
 // Seeded: cell (scenario, kit, hand) fight k plays seed 7800 + 100*scenario + k, so every kit and hand meets the same seeds.
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
@@ -140,6 +142,59 @@ function felt(T) {
     your_men_down_per_fight: r2(T.down / f), your_men_dead_per_100: r1(100 * T.dead / f) };
 }
 
+/* ---------- THE GRID'S MONEY (ECONOMY [the grid's money], rule 117(e)): TUNING's companies against TUNING's counts ----------
+   the company as TUNING's whole grid builds it (tools/bohemia_tuning_the_whole_grid.js companyOf, the early stage): 1 = the Lone
+   Wolf origin's man, 3 = A New Crew's three, else the twelve's places in order (each man his place's kit); the band as the map
+   sizes a job (party_math at 1, 2 and 3 skulls) or a fixed count (3, 6, 12, 20, 38). Counted for the money: shots, every injury
+   with its heal days (injuries.json heal_days, the middle), every man struck down (his laid-up days off the 'down' event), the
+   dead. */
+const GRID_N = [1, 3, 6, 12, 14], GRID_COUNTS = ['s1', 's2', 's3', 3, 6, 12, 20, 38];
+function gridCompany(n) {
+  const origins = J('records/target/bb/origins.json').origins, crew = OURS.crew.value;
+  if (n === 1) return origins.filter(o => o.id === 'wolf')[0].men.map(m => ({ background: m.background, level: m.level }));
+  if (n === 3) return origins.filter(o => o.id === 'newcrew')[0].men.map(m => ({ background: m.background, level: m.level }));
+  return Array.from({ length: n }, (_, i) => ({ background: crew[i % crew.length].background }));
+}
+function gridCell(n, cnt, fights) {
+  const ctx = engine(), F = ctx.FIGHT, DB = ctx.DB;
+  const heal = {}; DB.injuries.rows.forEach(r => { if (r.heal_days) heal[r.name] = (r.heal_days[0] + r.heal_days[r.heal_days.length - 1]) / 2; });
+  const T = { fights: 0, won: 0, shots: 0, injuries: 0, healDays: 0, down: 0, laidDays: 0, dead: 0, enemies: 0, rounds: [], unfinished: 0, beats: 0 };
+  let shotsThis = 0;
+  ctx.HOOK = { shot: a => { if (a.side === 'you' && F.isRanged(a.weapon)) shotsThis++; }, careful: () => true };
+  const lv = gridCompany(n).map(m => m.level || 1), meanLv = lv.reduce((a, b) => a + b, 0) / lv.length;
+  const count = typeof cnt === 'string' ? jobCount(n, meanLv, Number(cnt.slice(1)), 1) : cnt;
+  for (let k = 0; k < fights; k++) {
+    ctx.setSeed(9100 + 1000 * GRID_N.indexOf(n) + 100 * GRID_COUNTS.indexOf(cnt) + k);
+    shotsThis = 0;
+    F.setup({ auto: true, formation: null, company: gridCompany(n), cap: 14, party: { count: count, days: 3, difficulty: 1, faction: 'brigands' } });
+    let g = 0;
+    while (!F.S.over && g < 60000) { const u = F.current(); if (!u) break; F.aiStep(u); g++; }
+    const S = F.S, ids = new Set(S.units.filter(u => u.side === 'you').map(u => u.id));
+    T.fights++; T.enemies += S.units.length - ids.size; T.rounds.push(S.round); if (!S.over) T.unfinished++;
+    if (S.result === 'won') T.won++;
+    T.shots += shotsThis;
+    let acted = false, open = false;
+    S.log.forEach(e => {
+      if (e.t === 'turn') { if (open) T.beats += acted ? 2 : 0.5; open = true; acted = false; }
+      else if (e.t === 'step' || e.t === 'attack' || e.t === 'reload' || e.t === 'skill') acted = true;
+      if (!ids.has(e.id)) return;
+      if (e.t === 'injury') { T.injuries++; T.healDays += heal[e.name] || 0; }
+      if (e.t === 'down') { T.down++; T.laidDays += e.days || 0; }
+      if (e.t === 'dead') T.dead++;
+    });
+    if (open) T.beats += acted ? 2 : 0.5;
+  }
+  const f = T.fights, r2 = x => Math.round(x * 100) / 100, rs = T.rounds.sort((a, b) => a - b);
+  return { company: n, count: cnt, enemies: count, fights: f, won_in_100: Math.round(100 * T.won / f), unfinished: T.unfinished,
+    rounds_median: rs[Math.floor(rs.length / 2)], minutes_on_auto: Math.round(T.beats / f / 120 * 10) / 10, shots_per_fight: r2(T.shots / f),
+    injuries_per_fight: r2(T.injuries / f), heal_days_per_fight: r2(T.healDays / f), down_per_fight: r2(T.down / f),
+    laid_up_days_per_fight: r2(T.laidDays / f), dead_per_fight: r2(T.dead / f) };
+}
+if (process.argv[2] === '--gridcell') {
+  const c = process.argv[4];
+  process.stdout.write(JSON.stringify(gridCell(Number(process.argv[3]), /^s/.test(c) ? c : Number(c), Number(process.argv[5]))));
+  process.exit(0);
+}
 if (process.argv[2] === '--cell') {
   const [, , , sc, kit, hand, n] = process.argv;
   process.stdout.write(JSON.stringify(felt(cell({ sc: sc, kit: kit, hand: hand }, Number(n)))));
@@ -147,6 +202,40 @@ if (process.argv[2] === '--cell') {
 }
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? Number(process.argv[i + 1]) : d; };
 const N = arg('--n', 300), JOBS = arg('--jobs', 4), t0 = Date.now(), table = {};
+if (process.argv.includes('--grid')) {
+  const GN = arg('--n', 100), work = [], out = {};
+  GRID_N.forEach(n => GRID_COUNTS.forEach(c => work.push({ n: n, c: c })));
+  let gi = 0, gr = 0;
+  const gpump = () => {
+    while (gr < JOBS && gi < work.length) {
+      const w = work[gi++]; gr++;
+      require('child_process').execFile(process.execPath, [__filename, '--gridcell', String(w.n), String(w.c), String(GN)], { maxBuffer: 1 << 24 }, (err, o) => {
+        gr--;
+        if (err) { console.error('cell failed', w, err.message); process.exit(1); }
+        out[w.n + '|' + w.c] = JSON.parse(o); process.stderr.write('.');
+        if (gi >= work.length && gr === 0) gdone(); else gpump();
+      });
+    }
+  };
+  const gdone = () => {
+    process.stderr.write('\n');
+    const cols = ['enemies', 'won_in_100', 'unfinished', 'rounds_median', 'minutes_on_auto', 'shots_per_fight', 'injuries_per_fight', 'heal_days_per_fight', 'down_per_fight', 'laid_up_days_per_fight', 'dead_per_fight'];
+    console.log('cell'.padEnd(10) + cols.map(c => c.split('_').map(w => w[0]).join('').padStart(7)).join(''));
+    work.forEach(w => { const k = w.n + '|' + w.c; console.log(k.padEnd(10) + cols.map(x => String(out[k][x]).padStart(7)).join('')); });
+    console.log(work.length + ' cells x ' + GN + ' fights in ' + Math.round((Date.now() - t0) / 1000) + ' s');
+    if (process.argv.includes('--write')) {
+      const GOUT = path.join(ROOT, 'banks/BOHEMIA_ECONOMY_THE_GRIDS_MONEY_10_19_26.json');
+      fs.writeFileSync(GOUT, JSON.stringify({ _readme: 'ECONOMY [the grid\'s money] 10/19 (rule 117(e); rule 38g research only). draft:true. NOTHING IN THE GAME READS THIS FILE. '
+        + 'Every cell is ' + GN + ' fights of the live fight (tools/bohemia_economy_first_bullets.js --grid), both sides on AUTO, the company as TUNING\'s whole grid builds it '
+        + '(early stage: each man his place\'s kit, today\'s rows), the band a job the map sizes at 1, 2, 3 skulls (s1, s2, s3) or a fixed count. Page: records/BOHEMIA_ECONOMY_DAY_79_THE_GRIDS_MONEY_10_19_26.md',
+        draft: true, schema: 1, fights_per_cell: GN, companies: GRID_N, counts: GRID_COUNTS,
+        felt: work.reduce((o, w) => { const k = w.n + '|' + w.c; o[k] = out[k]; return o; }, {}) }, null, 1) + '\n');
+      console.log('wrote ' + path.relative(ROOT, GOUT));
+    }
+    process.exit(0);
+  };
+  gpump();
+} else {
 let next = 0, running = 0;
 function pump(done) {
   while (running < JOBS && next < CELLS.length) {
@@ -177,5 +266,6 @@ if (process.argv.includes('--write')) {
     felt: CELLS.reduce((o, c) => { const k = c.sc + '|' + c.kit + '|' + c.hand; o[k] = table[k]; return o; }, {})
   }, null, 1) + '\n');
   console.log('wrote ' + path.relative(ROOT, OUT));
+}
 }
 }
