@@ -45810,7 +45810,7 @@ function vbView(inp){
    fields, the rim mountains rising toward the ranges outside -- some blocks burned (act one is the
    ruin), and at night only the blocks with power show light. Baked in the worker, drawn once a
    frame over the tiles as the camera pulls out. */
-var VB_CS = 12, VB_CPAD = 2;   /* twelve texels a block: 0.93 device px a texel at the far stop (DIRECTION's 3a floor is 1.5) */
+var VB_CS = 24, VB_CPAD = 2;   /* 24 texels a block (RUN 10/19, __THE_MAP_HE_OPENS_IS_PAINTED__: the painting carries the opening zoom, where Paolo's floor is a painted unit of 1.5 device px; it was 12, 0.93 device px a texel at the far stop, and at the far stop a texel under a device pixel is averaged down, never skipped) */
 var VB_CLASS = { lot: 0, road: 1, freeway: 2, blvd: 3, houses: 4, roof: 5, tower: 6, casino: 7, green: 8, water: 9, land: 10, mountain: 11, solar: 12, field: 13, dam: 14, rail: 15 };
 function vbClassOf(d){
   d = String(d || '');
@@ -45839,6 +45839,8 @@ var VB_CCOL = { yard: '#76694d', yard2: '#6a5f46', roofA: '#8a6650', roofB: '#9c
 function vbCityCore(inp){
   var t0 = performance.now();
   var N = inp.N, S = inp.S, PAD = inp.PAD, D = N + 2 * PAD, P = D * S, sd = ((inp.seed | 0) ^ 0x7c1d) >>> 0;
+  /* the picture was drawn at 12 texels a block; Q scales every size in it, so a finer S is the same city at more pixels (RUN 10/19) */
+  var Q = Math.max(1, Math.round(S / 12));
   var C = {}; for (var k in VB_CCOL) C[k] = vbHex(VB_CCOL[k]);
   var cls = inp.cls, live = inp.live;
   function clsAt(x, y){ return (x < 0 || y < 0 || x >= N || y >= N) ? -1 : cls[y * N + x]; }
@@ -45860,42 +45862,43 @@ function vbCityCore(inp){
     var burned = (cl === VB_CLASS.houses || cl === VB_CLASS.roof) && h2 < 0.16;   /* act one is the ruin */
     var horiz = (clsAt(cx - 1, cy) === cl || clsAt(cx + 1, cy) === cl), vert = (clsAt(cx, cy - 1) === cl || clsAt(cx, cy + 1) === cl);
     for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
-      var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u, v, sd + 5);
+      var qx = (tx / Q) | 0, qy = (ty / Q) | 0;
+      var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u, v, sd + 5), rq = Q === 1 ? r : vbHash(((cx + PAD) * 12 + qx), ((cy + PAD) * 12 + qy), sd + 5);
       switch (cl) {
         case VB_CLASS.road: case VB_CLASS.freeway: case VB_CLASS.blvd: {
-          var along = (horiz && !vert) ? ty : (vert && !horiz) ? tx : -1, mid = S / 2;
-          if (cl === VB_CLASS.freeway) { part = (along === 0 || along === S - 1) ? PART.edge : (along === mid && ((cl === VB_CLASS.freeway && ((horiz ? tx : ty) % 3) !== 0))) ? PART.line : PART.ground; }
-          else if (along === mid - 1 && ((horiz ? tx : ty) % 4) < 2) part = PART.line;
-          if (cl === VB_CLASS.blvd && (tx === 0 || ty === 0 || tx === S - 1 || ty === S - 1) && r < 0.35) part = PART.neon;
-          if (cl === VB_CLASS.road && (along === 0 || along === S - 1) && ((horiz ? tx : ty) % 4) === 1) part = PART.lampspot;
+          var along = (horiz && !vert) ? qy : (vert && !horiz) ? qx : -1, mid = 6, SQ = 12;
+          if (cl === VB_CLASS.freeway) { part = (along === 0 || along === SQ - 1) ? PART.edge : (along === mid && ((cl === VB_CLASS.freeway && ((horiz ? qx : qy) % 3) !== 0))) ? PART.line : PART.ground; }
+          else if (along === mid - 1 && ((horiz ? qx : qy) % 4) < 2) part = PART.line;
+          if (cl === VB_CLASS.blvd && (qx === 0 || qy === 0 || qx === SQ - 1 || qy === SQ - 1) && rq < 0.35) part = PART.neon;
+          if (cl === VB_CLASS.road && (along === 0 || along === SQ - 1) && ((horiz ? qx : qy) % 4) === 1) part = PART.lampspot;
           break; }
-        case VB_CLASS.rail: part = ((horiz ? tx : ty) % 2 === 0) ? PART.line : PART.ground; break;
+        case VB_CLASS.rail: part = ((horiz ? qx : qy) % 2 === 0) ? PART.line : PART.ground; break;
         case VB_CLASS.houses: {
-          var lx = tx % 4, ly = ty % 4, lot = (tx >> 2) + 2 * (ty >> 2), hh = vbHash(cx * 2 + (tx >> 2), cy * 2 + (ty >> 2), sd + 9);
+          var lx = qx % 4, ly = qy % 4, lot = (qx >> 2) + 2 * (qy >> 2), hh = vbHash(cx * 2 + (qx >> 2), cy * 2 + (qy >> 2), sd + 9);
           var ox = hh < 0.5 ? 0 : 1, oy = hh < 0.25 || hh > 0.75 ? 0 : 1;
-          if (lx >= ox && lx < ox + 3 && ly >= oy && ly < oy + 3) { lift = 1; part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : ((lx - ox) < 1.5 ? PART.roofL : PART.roof); if (lx === ox + 1 && ly === oy + 1 && !burned) part = PART.window; }
+          if (lx >= ox && lx < ox + 3 && ly >= oy && ly < oy + 3) { lift = Q; part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : ((lx - ox) < 1.5 ? PART.roofL : PART.roof); if (lx === ox + 1 && ly === oy + 1 && !burned) part = PART.window; }
           else if (r < 0.06) part = PART.spot;
           break; }
         case VB_CLASS.roof: {
-          if (tx >= 1 && tx < S - 1 && ty >= 1 && ty < S - 1) { lift = 1 + (h0 < 0.4 ? 1 : 0); part = burned ? (r < 0.35 ? PART.hole : PART.burn) : (r < 0.08 ? PART.spot : PART.roof); if (!burned && tx === 2 && ty % 2 === 0) part = PART.window; }
+          if (qx >= 1 && qx < 11 && qy >= 1 && qy < 11) { lift = Q * (1 + (h0 < 0.4 ? 1 : 0)); part = burned ? (r < 0.35 ? PART.hole : PART.burn) : (r < 0.08 ? PART.spot : PART.roof); if (!burned && qx === 2 && qy % 2 === 0) part = PART.window; }
           break; }
         case VB_CLASS.tower: case VB_CLASS.casino: {
           var half = S >> 1, two = h0 < 0.45, q4 = S >> 2;
-          var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= 1 && (tx % half) < half - 1 && (ty % half) >= 1 && (ty % half) < half - 1)
+          var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= Q && (tx % half) < half - Q && (ty % half) >= Q && (ty % half) < half - Q)
                         : (tx >= q4 && tx < S - q4 && ty >= q4 && ty < S - q4);
           if (inT) { var th = ((cl === VB_CLASS.casino ? 3 : 4) + Math.floor((two ? vbHash(cx + (tx < half ? 0 : 1), cy, sd + 11) : h1) * (cl === VB_CLASS.casino ? 6 : 11))) * S / 8; lift = th; part = PART.top; }
           else if (r < 0.05) part = PART.spot;
           break; }
-        case VB_CLASS.green: if (r < 0.12) { part = PART.tree; lift = 1; } break;
+        case VB_CLASS.green: if (rq < 0.12) { part = PART.tree; lift = Q; } break;
         case VB_CLASS.water: part = PART.ground; break;
         case VB_CLASS.land: if (r < 0.07) part = PART.spot; else if (r > 0.965) part = PART.row; break;
         case VB_CLASS.mountain: {
           var fxm = (tx + 0.5) / S, fym = (ty + 0.5) / S, xa = Math.min(N - 1, cx + 1), ya = Math.min(N - 1, cy + 1);
           var hm = (MH[cy * N + cx] * (1 - fxm) + MH[cy * N + xa] * fxm) * (1 - fym) + (MH[ya * N + cx] * (1 - fxm) + MH[ya * N + xa] * fxm) * fym;
-          lift = hm * S + (vbNoise(u / 5, v / 5, sd + 13) - 0.5) * 2; if (lift < 0) lift = 0; if (r < 0.06) part = PART.spot; break; }
-        case VB_CLASS.solar: part = (ty % 2 === 0 && tx > 0 && tx < S - 1) ? PART.row : PART.ground; break;
-        case VB_CLASS.field: part = ((tx + ty) % 5 === 0 && r < 0.5) ? PART.line : PART.ground; break;
-        case VB_CLASS.dam: lift = 2; part = PART.top; break;
+          lift = hm * S + (vbNoise(u / (5 * Q), v / (5 * Q), sd + 13) - 0.5) * 2 * Q; if (lift < 0) lift = 0; if (r < 0.06) part = PART.spot; break; }
+        case VB_CLASS.solar: part = (qy % 2 === 0 && qx > 0 && qx < 11) ? PART.row : PART.ground; break;
+        case VB_CLASS.field: part = ((qx + qy) % 5 === 0 && rq < 0.5) ? PART.line : PART.ground; break;
+        case VB_CLASS.dam: lift = 2 * Q; part = PART.top; break;
         default: if (r < 0.1) part = PART.spot;
       }
       HS[o] = lift; COLI[o] = idx(cl, part) + (burned ? 16 * 32 : 0);
@@ -45947,7 +45950,7 @@ function vbCityCore(inp){
       if (lv) {
         var lr = vbHash(qu, qv, sd + 19), Lc = null;
         if (part2 === PART.window && top) Lc = C.lit;
-        else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) && (liftk % 2 === 1) && lr < 0.45) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;
+        else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) && (((liftk / Q) | 0) % 2 === 1) && lr < 0.45) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;
         else if (part2 === PART.lampspot) Lc = C.lamp;
         else if (part2 === PART.neon) Lc = lr < 0.5 ? C.neonN : C.lit;
         if (Lc) { for (var z2 = 0; z2 < 3; z2++) { night[o8 + z2] = Lc[z2]; lights[o8 + z2] = Lc[z2]; } lights[o8 + 3] = 255; }
@@ -46027,11 +46030,19 @@ function vbCityReady(){
   return !!VBC.day && VBC.seed === om.seed;
 }
 /* the far end: the painted city fades in over the tiles as the blocks get small */
-var VB_CITY_FULL = 6, VB_CITY_NONE = 10;   /* CSS px a block: painted below 6, tiles above 10 */
+/* __THE_MAP_HE_OPENS_IS_PAINTED__ (RUN [the main map looks good], rule 121, 10/19; his 'the main map is looking so bad,
+   bro, it's really sad'). The opening zoom (a block 18 CSS px) drew every block's pack picture shrunk to 18 px: one
+   speckle for every district, the freeway a string of separate tiles ('the freeway... should be unified, it doesn't
+   look unified, it looks really bad', 10/18; 'the districts look like shit... doesn't look connected'). The painted
+   city he said YES to at the far end ('good as long as it procedurally generates with the rest', run-the-far-end-is-
+   painted-10-2) draws the same cells as one picture: the freeway one band, the streets one net, the districts apart.
+   So it now carries the map up to a block 24 px, and the pack tiles take over by 34, where a block is big enough for
+   its own art. Was: painted below 6, tiles above 10. */
+var VB_CITY_FULL = 16, VB_CITY_NONE = 34;   /* CSS px a block: all painting below 16, the opening zoom (18) 0.89 painting over the tiles, tiles above 34 */
 function vbCityDraw(ox, oy, night){
   if (TW >= VB_CITY_NONE || !vbCityReady()) return;
   var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
-  g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = a;
+  g.save(); g.imageSmoothingEnabled = (TW / S) * ((typeof CV_DPR === 'number' && CV_DPR) || 1) < 1; g.globalAlpha = a;   /* under a device pixel a texel: averaged down */
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
   g.drawImage(VBC.day, 0, 0);   /* unlit: the city's night pass lights it like everything else (rule 70a) */
   g.restore(); g.imageSmoothingEnabled = sm; VBC.draws++; VBC.alpha = a;
@@ -46054,7 +46065,7 @@ function vbPatternDraw(ox, oy, tw){
 function vbCityLightsDraw(ox, oy){
   if (TW >= VB_CITY_NONE || !VBC.lights || VBC.seed !== om.seed) return;
   var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
-  g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = a;
+  g.save(); g.imageSmoothingEnabled = (TW / S) * ((typeof CV_DPR === 'number' && CV_DPR) || 1) < 1; g.globalAlpha = a;   /* under a device pixel a texel: averaged down */
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
   g.drawImage(VBC.lights, 0, 0);
   g.restore(); g.imageSmoothingEnabled = sm; VBC.lightDraws = (VBC.lightDraws | 0) + 1;
@@ -46848,7 +46859,10 @@ function renderCity(){
             window.__PCELLS = __cc;
           }
           var __pc = window.__PCELLS;
-          if (__pc && __pc.length) {
+          /* __THE_MAP_HE_OPENS_IS_PAINTED__: a light is seen at night. By day the 247 lit cells on his opening screen were
+             a string of glowing beads over every arterial (his 9/22 'what are the peach dots'; rule 86, the map is for
+             looks); after dark they are the lit streets, as this layer was written for. */
+          if (__pc && __pc.length && night) {
             /* which circuits went out TONIGHT, as opposed to some night before */
             var __fresh = {};
             try { for (var __fi = 0; __fi < RENT_DOUSED.length; __fi++)

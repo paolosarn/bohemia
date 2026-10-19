@@ -1200,6 +1200,8 @@ const done = () => {
         try { document.getElementById('phoneclose').click(); } catch (e) {}
         try { document.getElementById('modechip').click(); } catch (e) {}
         await new Promise(r => setTimeout(r, 1500));
+        /* RUN 10/19 (__THE_MAP_HE_OPENS_IS_PAINTED__): the map draws a light where it is seen, after dark, so the grid is read at night */
+        try { T.min = 22 * 60; } catch (e) {}
         render(); await new Promise(r => setTimeout(r, 350));
         const hashOf = () => { const c = document.querySelector('canvas'), g = c.getContext('2d');
           const d = g.getImageData(0, 0, c.width, c.height).data; let h = 2166136261 >>> 0, s = 0;
