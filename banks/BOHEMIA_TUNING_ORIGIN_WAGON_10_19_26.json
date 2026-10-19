@@ -1,0 +1,563 @@
+{
+ "_readme": "TUNING [origin food and goods] 10/19 (rule 38g research only). draft:true. NOTHING IN THE GAME READS THIS FILE. Each Battle Brothers origin page's provisions and goods, priced from the wiki's Provisions, Trade and Treasures pages; ten crowns a battery.",
+ "draft": true,
+ "schema": 1,
+ "rows": [
+  {
+   "id": "rebuild",
+   "name": "THE CREW THAT IS LEFT",
+   "bb": "Rebuilding a Company",
+   "page": "bb_all/1651_Rebuilding a Company.txt",
+   "men": 3,
+   "food": [
+    {
+     "n": 2,
+     "name": "Ground Grains",
+     "worth": 50,
+     "kind": "food",
+     "total": 100
+    }
+   ],
+   "other": [],
+   "food_units": 50,
+   "days_of_food": 8.3,
+   "first_spoil_days": 7,
+   "worth_crowns": 100,
+   "worth_batteries": 10,
+   "unpriced": [],
+   "start_power_mid": 227,
+   "start_power_with_wagon": 237
+  },
+  {
+   "id": "newcrew",
+   "name": "A NEW CREW",
+   "bb": "A New Company",
+   "page": "bb_all/0002_A New Company.txt",
+   "men": 3,
+   "food": [
+    {
+     "n": 2,
+     "name": "Ground Grains",
+     "worth": 50,
+     "kind": "food",
+     "total": 100
+    }
+   ],
+   "other": [],
+   "food_units": 50,
+   "days_of_food": 8.3,
+   "first_spoil_days": 7,
+   "worth_crowns": 100,
+   "worth_batteries": 10,
+   "unpriced": [],
+   "start_power_mid": 267,
+   "start_power_with_wagon": 277
+  },
+  {
+   "id": "south",
+   "name": "UP FROM HENDERSON",
+   "bb": "Southern Mercenaries",
+   "page": "bb_all/1834_Southern Mercenaries.txt",
+   "men": 3,
+   "food": [
+    {
+     "n": 2,
+     "name": "Rice",
+     "worth": 60,
+     "kind": "food",
+     "total": 120
+    }
+   ],
+   "other": [],
+   "food_units": 50,
+   "days_of_food": 8.3,
+   "first_spoil_days": 8,
+   "worth_crowns": 120,
+   "worth_batteries": 12,
+   "unpriced": [],
+   "start_power_mid": 267,
+   "start_power_with_wagon": 279
+  },
+  {
+   "id": "truck",
+   "name": "THE WATER TRUCK",
+   "bb": "Trading Caravan",
+   "page": "bb_all/2021_Trading Caravan.txt",
+   "men": 2,
+   "food": [
+    {
+     "n": 1,
+     "name": "Bread",
+     "worth": 65,
+     "kind": "food",
+     "total": 65
+    },
+    {
+     "n": 1,
+     "name": "Wine",
+     "worth": 110,
+     "kind": "food",
+     "total": 110
+    },
+    {
+     "n": 1,
+     "name": "Mead",
+     "worth": 90,
+     "kind": "food",
+     "total": 90
+    }
+   ],
+   "other": [
+    {
+     "n": 1,
+     "name": "Amber",
+     "worth": 260,
+     "kind": "trade",
+     "total": 260
+    },
+    {
+     "n": 1,
+     "name": "Cloth Rolls",
+     "worth": 140,
+     "kind": "trade",
+     "total": 140
+    },
+    {
+     "n": 1,
+     "name": "Dyes",
+     "worth": 400,
+     "kind": "trade",
+     "total": 400
+    },
+    {
+     "n": 1,
+     "name": "Furs",
+     "worth": 300,
+     "kind": "trade",
+     "total": 300
+    },
+    {
+     "n": 1,
+     "name": "Salt",
+     "worth": 340,
+     "kind": "trade",
+     "total": 340
+    }
+   ],
+   "food_units": 75,
+   "days_of_food": 18.8,
+   "first_spoil_days": 8,
+   "worth_crowns": 1705,
+   "worth_batteries": 171,
+   "unpriced": [],
+   "start_power_mid": 158,
+   "start_power_with_wagon": 329
+  },
+  {
+   "id": "watch",
+   "name": "THE BLOCK WATCH",
+   "bb": "Peasant Militia",
+   "page": "bb_all/1533_Peasant Militia.txt",
+   "men": 12,
+   "food": [
+    {
+     "n": 4,
+     "name": "Ground Grains",
+     "worth": 50,
+     "kind": "food",
+     "total": 200
+    }
+   ],
+   "other": [],
+   "food_units": 100,
+   "days_of_food": 4.2,
+   "first_spoil_days": 7,
+   "worth_crowns": 200,
+   "worth_batteries": 20,
+   "unpriced": [],
+   "start_power_mid": 208,
+   "start_power_with_wagon": 228
+  },
+  {
+   "id": "scav",
+   "name": "THE SCAVENGERS",
+   "bb": "Band of Poachers",
+   "page": "bb_all/0172_Band of Poachers.txt",
+   "men": 3,
+   "food": [
+    {
+     "n": 1,
+     "name": "Cured Venison",
+     "worth": 95,
+     "kind": "food",
+     "total": 95
+    }
+   ],
+   "other": [
+    {
+     "n": 1,
+     "name": "Furs",
+     "worth": 300,
+     "kind": "trade",
+     "total": 300
+    }
+   ],
+   "food_units": 25,
+   "days_of_food": 4.2,
+   "first_spoil_days": 12,
+   "worth_crowns": 395,
+   "worth_batteries": 40,
+   "unpriced": [],
+   "start_power_mid": 227,
+   "start_power_with_wagon": 267
+  },
+  {
+   "id": "promise",
+   "name": "THE PROMISE KEEPERS",
+   "bb": "Oathtakers",
+   "page": "bb_all/1470_Oathtakers.txt",
+   "men": 2,
+   "food": [
+    {
+     "n": 1,
+     "name": "Ground Grains",
+     "worth": 50,
+     "kind": "food",
+     "total": 50
+    }
+   ],
+   "other": [
+    {
+     "n": 1,
+     "name": "Young Anselm's Skull",
+     "worth": null
+    },
+    {
+     "n": 1,
+     "name": "Battle Standard",
+     "worth": null
+    }
+   ],
+   "food_units": 25,
+   "days_of_food": 6.3,
+   "first_spoil_days": 7,
+   "worth_crowns": 50,
+   "worth_batteries": 5,
+   "unpriced": [
+    "1x Young Anselm's Skull",
+    "1x Battle Standard"
+   ],
+   "start_power_mid": 259,
+   "start_power_with_wagon": 264
+  },
+  {
+   "id": "desert",
+   "name": "THE DESERTERS",
+   "bb": "Deserters",
+   "page": "bb_all/0571_Deserters.txt",
+   "men": 3,
+   "food": [
+    {
+     "n": 2,
+     "name": "Ground Grains",
+     "worth": 50,
+     "kind": "food",
+     "total": 100
+    }
+   ],
+   "other": [],
+   "food_units": 50,
+   "days_of_food": 8.3,
+   "first_spoil_days": 7,
+   "worth_crowns": 100,
+   "worth_batteries": 10,
+   "unpriced": [],
+   "start_power_mid": 227,
+   "start_power_with_wagon": 237
+  },
+  {
+   "id": "raid",
+   "name": "THE RAIDERS",
+   "bb": "Northern Raiders",
+   "page": "bb_all/1459_Northern Raiders.txt",
+   "men": 4,
+   "food": [
+    {
+     "n": 1,
+     "name": "Goat Cheese",
+     "worth": 85,
+     "kind": "food",
+     "total": 85
+    },
+    {
+     "n": 1,
+     "name": "Smoked Ham",
+     "worth": 95,
+     "kind": "food",
+     "total": 95
+    }
+   ],
+   "other": [
+    {
+     "n": 1,
+     "name": "Silverware",
+     "worth": 350,
+     "kind": "treasure",
+     "total": 350
+    },
+    {
+     "n": 1,
+     "name": "Silver Bowl",
+     "worth": 490,
+     "kind": "treasure",
+     "total": 490
+    },
+    {
+     "n": 1,
+     "name": "Warhound",
+     "worth": null
+    }
+   ],
+   "food_units": 50,
+   "days_of_food": 6.3,
+   "first_spoil_days": 11,
+   "worth_crowns": 1020,
+   "worth_batteries": 102,
+   "unpriced": [
+    "1x Warhound"
+   ],
+   "start_power_mid": 559,
+   "start_power_with_wagon": 661
+  },
+  {
+   "id": "lab",
+   "name": "THE LAB RATS",
+   "bb": "Anatomists",
+   "page": "bb_all/0080_Anatomists.txt",
+   "men": 3,
+   "food": [
+    {
+     "n": 1,
+     "name": "Mead",
+     "worth": 90,
+     "kind": "food",
+     "total": 90
+    },
+    {
+     "n": 1,
+     "name": "Smoked Ham",
+     "worth": 95,
+     "kind": "food",
+     "total": 95
+    }
+   ],
+   "other": [
+    {
+     "n": 1,
+     "name": "Greenskin Research Notes",
+     "worth": null
+    },
+    {
+     "n": 1,
+     "name": "Ledger of the Dead",
+     "worth": null
+    },
+    {
+     "n": 1,
+     "name": "Tome of Beasts",
+     "worth": null
+    },
+    {
+     "n": 1,
+     "name": "Book of Legends",
+     "worth": null
+    },
+    {
+     "n": 1,
+     "name": "Apotheosis potion",
+     "worth": null
+    }
+   ],
+   "food_units": 50,
+   "days_of_food": 8.3,
+   "first_spoil_days": 11,
+   "worth_crowns": 185,
+   "worth_batteries": 19,
+   "unpriced": [
+    "1x Greenskin Research Notes",
+    "1x Ledger of the Dead",
+    "1x Tome of Beasts",
+    "1x Book of Legends",
+    "1x Apotheosis potion"
+   ],
+   "start_power_mid": 297,
+   "start_power_with_wagon": 316
+  },
+  {
+   "id": "faith",
+   "name": "THE FAITHFUL",
+   "bb": "Davkul Cultists",
+   "page": "bb_all/0512_Davkul Cultists.txt",
+   "men": 4,
+   "food": [
+    {
+     "n": 1,
+     "name": "Ground Grains",
+     "worth": 50,
+     "kind": "food",
+     "total": 50
+    }
+   ],
+   "other": [],
+   "food_units": 25,
+   "days_of_food": 3.1,
+   "first_spoil_days": 7,
+   "worth_crowns": 50,
+   "worth_batteries": 5,
+   "unpriced": [],
+   "start_power_mid": 276,
+   "start_power_with_wagon": 281
+  },
+  {
+   "id": "debt",
+   "name": "THE DEBT COLLECTORS",
+   "bb": "Manhunters",
+   "page": "bb_all/1239_Manhunters.txt",
+   "men": 6,
+   "food": [
+    {
+     "n": 3,
+     "name": "Rice",
+     "worth": 60,
+     "kind": "food",
+     "total": 180
+    }
+   ],
+   "other": [
+    {
+     "n": 1,
+     "name": "Company Ledger",
+     "worth": null
+    }
+   ],
+   "food_units": 75,
+   "days_of_food": 6.3,
+   "first_spoil_days": 8,
+   "worth_crowns": 180,
+   "worth_batteries": 18,
+   "unpriced": [
+    "1x Company Ledger"
+   ],
+   "start_power_mid": 254,
+   "start_power_with_wagon": 272
+  },
+  {
+   "id": "hunt",
+   "name": "THE HUNTERS",
+   "bb": "Beast Slayers",
+   "page": "bb_all/0220_Beast Slayers.txt",
+   "men": 3,
+   "food": [
+    {
+     "n": 1,
+     "name": "Ground Grains",
+     "worth": 50,
+     "kind": "food",
+     "total": 50
+    }
+   ],
+   "other": [
+    {
+     "n": 1,
+     "name": "Witch Hair",
+     "worth": null
+    },
+    {
+     "n": 2,
+     "name": "Unusually Large Wolf Pelt",
+     "worth": null
+    },
+    {
+     "n": 1,
+     "name": "Night Owl Elixir",
+     "worth": null
+    },
+    {
+     "n": 1,
+     "name": "Wardog",
+     "worth": null
+    }
+   ],
+   "food_units": 25,
+   "days_of_food": 4.2,
+   "first_spoil_days": 7,
+   "worth_crowns": 50,
+   "worth_batteries": 5,
+   "unpriced": [
+    "1x Witch Hair",
+    "2x Unusually Large Wolf Pelt",
+    "1x Night Owl Elixir",
+    "1x Wardog"
+   ],
+   "start_power_mid": 327,
+   "start_power_with_wagon": 332
+  },
+  {
+   "id": "pit",
+   "name": "THE FIGHT PIT",
+   "bb": "Gladiators",
+   "page": "bb_all/0848_Gladiators.txt",
+   "men": 3,
+   "food": [
+    {
+     "n": 1,
+     "name": "Wine",
+     "worth": 110,
+     "kind": "food",
+     "total": 110
+    },
+    {
+     "n": 1,
+     "name": "Dried Lamb",
+     "worth": 105,
+     "kind": "food",
+     "total": 105
+    }
+   ],
+   "other": [],
+   "food_units": 50,
+   "days_of_food": 8.3,
+   "first_spoil_days": 13,
+   "worth_crowns": 215,
+   "worth_batteries": 22,
+   "unpriced": [],
+   "start_power_mid": 520,
+   "start_power_with_wagon": 542
+  },
+  {
+   "id": "wolf",
+   "name": "THE LONE WOLF",
+   "bb": "Lone Wolf",
+   "page": "bb_all/1194_Lone Wolf.txt",
+   "men": 1,
+   "food": [
+    {
+     "n": 1,
+     "name": "Smoked Ham",
+     "worth": 95,
+     "kind": "food",
+     "total": 95
+    }
+   ],
+   "other": [],
+   "food_units": 25,
+   "days_of_food": 12.5,
+   "first_spoil_days": 12,
+   "worth_crowns": 95,
+   "worth_batteries": 10,
+   "unpriced": [],
+   "start_power_mid": 368,
+   "start_power_with_wagon": 378
+  }
+ ]
+}
