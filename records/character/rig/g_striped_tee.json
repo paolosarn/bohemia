@@ -1,0 +1,116 @@
+{
+ "look": "G_striped_tee",
+ "shape": "the barber's mannequin in STRIPED TEE (TEE)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "STRIPED TEE",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_striped_tee.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_striped_tee_trouser": 2568,
+  "g_striped_tee_shoe": 3916,
+  "g_striped_tee_shirt": 40296,
+  "g_striped_tee_collar": 1536,
+  "g_striped_tee_sleeve_hem": 2048,
+  "g_striped_tee_hem": 1792,
+  "g_striped_tee_hair": 17968,
+  "g_striped_tee_hand_L": 392,
+  "g_striped_tee_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_striped_tee_collar": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "g_striped_tee_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_striped_tee_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_striped_tee_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_striped_tee_hem": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "g_striped_tee_shirt": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "g_striped_tee_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_striped_tee_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_striped_tee_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_striped_tee_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_striped_tee_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_striped_tee_sleeve_hem": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "g_striped_tee_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_striped_tee_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_striped_tee_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

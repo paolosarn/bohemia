@@ -1,0 +1,90 @@
+{
+ "look": "G_charcoal_turtleneck",
+ "shape": "the barber's mannequin in CHARCOAL TURTLENECK (TURTLENECK)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "CHARCOAL TURTLENECK",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_charcoal_turtleneck.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_charcoal_turtleneck_trouser": 2568,
+  "g_charcoal_turtleneck_shoe": 3916,
+  "g_charcoal_turtleneck_shirt": 79720,
+  "g_charcoal_turtleneck_cuffs": 2048,
+  "g_charcoal_turtleneck_hem": 1792,
+  "g_charcoal_turtleneck_hair": 17968,
+  "g_charcoal_turtleneck_hand_L": 392,
+  "g_charcoal_turtleneck_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_charcoal_turtleneck_cuffs": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "g_charcoal_turtleneck_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_charcoal_turtleneck_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_charcoal_turtleneck_hem": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "g_charcoal_turtleneck_shirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "g_charcoal_turtleneck_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_charcoal_turtleneck_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_charcoal_turtleneck_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_charcoal_turtleneck_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_charcoal_turtleneck_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}
