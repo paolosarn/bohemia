@@ -54,6 +54,16 @@ COOK THREE's thug and poacher have no Stand (their still is the walk's passing p
 ahead of him, the other 28 behind), so every clip laid on them came out lopsided (the thug aimed with one arm); their arms
 now rest at the walk's mean over the whole cycle before any clip is laid, and both were rendered again.
 
+THE MAN AGAINST HIS GROUND AT NIGHT (rule 73; the rebuilt gate's 'a man stands off his ground at night as well as by day,
+within a tenth'): with the carry the leg went red, 0.88 of the day's stand-off (1.52 against 1.73). MEASURED, step by step:
+not the 64 colours (128 read 1.53), not the gun (left dark, 1.52; not drawn, 1.52), the carry pose itself, and per man it
+barely moved: the board's men stand some darker than their night ground and some lighter, so one moon lift for all helps
+one set and hurts the other (the stand-off rose from lift 0.2 to 0.4 and fell past 0.5, never over 1.54). BUILT the
+figure-on-ground rule: the night ground's light is read once per tile at the bake (groundLums), and a man on ground brighter
+than MOON_SILHOUETTE (0.055) stands on it as a silhouette, the moon's tint a quarter darker (MOON_SHADE), while on darker
+ground the moon still lifts him halfway (MAN_MOON). 1.61 of 1.73 (0.93), in the sun 1.44 of 1.48 (0.97); the threshold
+reads the same from 0.04 to 0.07; the day rim stays dark ink in both.
+
 HIS SIZE STAYS (the nineteenth votes: NO, no words, on 'THE PEOPLE A LITTLE SMALLER: 104, 92 OR 84'; the coordinator: the
 men keep today's size): no size card. The man is 98 points on his phone, the whole-pixel size between the 104 and the 92
 (three phone pixels to the rig's pixel; 92 would be 2.8, every pixel a different width).

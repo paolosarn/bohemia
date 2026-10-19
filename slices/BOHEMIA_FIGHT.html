@@ -1771,6 +1771,7 @@ function bakeBoard() {
         g.drawImage(im, l.x_m * pxm * k - im.width * k / 2, l.y_m * pym * k - im.height * k, im.width * k, im.height * k);
       });
       if (FIGHT.S.night) nightPools(g, c, B.lights || [], k, pxm, pym);
+      UI.groundLum = FIGHT.S.night ? groundLums(c) : null;
       UI.board = c; fitStops();
     });
 }
@@ -1879,15 +1880,42 @@ function lightMask(m, live, onGlass) {
    catches the light his ground swallows), so he stands off the night's ground; his day rim is in his sheet's pixels and stays
    dark ink (his 10/17 NO on the coloured outline). A rig sheet in the night's colour is built once, then held as an ImageBitmap */
 const MAN_MOON = 0.5;
-function nightSheet(img) {
+/* THE MAN AGAINST HIS GROUND AT NIGHT (rule 73: playable in the dark): one lift for every man helped the men on dark ground
+   and hurt the men on pale ground (measured 10/19 on the strip at night: a man 0.035 to 0.065 in light, his ground 0.03 to
+   0.10; the stand-off rose from lift 0.2 to 0.4 and fell past 0.5). So a man whose night ground is brighter than
+   MOON_SILHOUETTE stands on it dark, a silhouette (the moon's tint taken a quarter darker, MOON_SHADE), and on darker ground
+   the moon lifts him: the readability rule of a figure on a ground, light on dark, dark on light. His day rim stays dark ink
+   in both. Measured on the gate's night board: a man's stand-off 0.88 of the day's with one lift, 0.93 (0.97 in the sun)
+   with the two; the threshold flat from 0.04 to 0.07 */
+const MOON_SILHOUETTE = 0.055, MOON_SHADE = -0.25;
+function moonOf(x, y) {
+  const L = UI.groundLum, S = FIGHT.S;
+  return L && x >= 0 && y >= 0 && x < S.w && y < S.h && L[y * S.w + x] > MOON_SILHOUETTE ? MOON_SHADE : MAN_MOON;
+}
+/* the night ground's light under each tile, once at the bake: the middle of four points on the tile, read off the baked board
+   (relative luminance, WCAG's) */
+function groundLums(c) {
+  const S = FIGHT.S, g = c.getContext('2d'), out = new Float32Array(S.w * S.h);
+  const lin = function (v) { v /= 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); };
+  for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
+    const v = [[.08, .2], [.92, .2], [.08, .6], [.92, .6]].map(function (o) {
+      const d = g.getImageData(Math.min(c.width - 1, Math.floor((x + o[0]) * UI.tw)), Math.min(c.height - 1, Math.floor((y + o[1]) * UI.th)), 1, 1).data;
+      return .2126 * lin(d[0]) + .7152 * lin(d[1]) + .0722 * lin(d[2]); }).sort(function (p, q) { return p - q; });
+    out[y * S.w + x] = (v[1] + v[2]) / 2;
+  }
+  return out;
+}
+function nightSheet(img, lift) {
+  if (lift === undefined) lift = MAN_MOON;
   UI.darkOf = UI.darkOf || new Map();
-  let c = UI.darkOf.get(img);
+  let m = UI.darkOf.get(img); if (!m) { m = {}; UI.darkOf.set(img, m); }
+  let c = m[lift];
   if (!c) {
     c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
     const g = c.getContext('2d'); g.drawImage(img, 0, 0);
-    nightPass(g, c.width, c.height, img, MAN_MOON);
-    c.src = img.src; c.night = true; UI.darkOf.set(img, c);
-    if (typeof createImageBitmap === 'function') createImageBitmap(c).then(function (b) { b.src = img.src; b.night = true; UI.darkOf.set(img, b); }, function () {});
+    nightPass(g, c.width, c.height, img, lift);
+    c.src = img.src; c.night = true; m[lift] = c;
+    if (typeof createImageBitmap === 'function') createImageBitmap(c).then(function (b) { b.src = img.src; b.night = true; m[lift] = b; }, function () {});
   }
   return c;
 }
@@ -2521,7 +2549,8 @@ function clipCol(name, k, L) { const c = (L && L.clips || DB.rig.clips)[name]; r
 /* the sheet a man is drawn from: his look's, in the night's colour where no lamp reaches him (cached per sheet) */
 function sheetOf(v) {
   const img = UI.imgs['fight_rig/' + lookOf(v).file]; if (!img) return null;
-  return FIGHT.S.night && !FIGHT._t.litAt(Math.round(dx(v)), Math.round(dy(v))) ? nightSheet(img) : img;
+  const x = Math.round(dx(v)), y = Math.round(dy(v));
+  return FIGHT.S.night && !FIGHT._t.litAt(x, y) ? nightSheet(img, moonOf(x, y)) : img;
 }
 /* THE ONE NATIVE PIXEL (rule 114a; DIRECTION's ruler: 98 painted px = a 1.72 m man at 57 px a metre): a man is drawn at a
    WHOLE number of device pixels to the rig's pixel, the one nearest the size asked, so every pixel of the model is the same
@@ -2601,7 +2630,8 @@ function gunSheet(v, L) {
   const G = DB.rig.guns; if (!G || !L.guns || !v.weapon || !FIGHT.isGun(v.weapon)) return null;
   const kind = G.by_class[(v.weapon.of && v.weapon.of.class) || v.weapon.class], row = G.order.indexOf(kind); if (row < 0) return null;   /* a pistol rides a thrown row: its own class names it */
   const img = UI.imgs['fight_rig/' + L.guns]; if (!img) return null;
-  return { img: FIGHT.S.night && !FIGHT._t.litAt(Math.round(dx(v)), Math.round(dy(v))) ? nightSheet(img) : img, row: row };
+  const x = Math.round(dx(v)), y = Math.round(dy(v));
+  return { img: FIGHT.S.night && !FIGHT._t.litAt(x, y) ? nightSheet(img, moonOf(x, y)) : img, row: row };
 }
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
 function blitMan(v, X, feet, now, alpha) {
