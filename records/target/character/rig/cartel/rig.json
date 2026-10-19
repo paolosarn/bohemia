@@ -10,6 +10,10 @@
  "scale_from_model": 1.0833,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
+ "ground_screen": [
+  103.0,
+  151.0282
+ ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
@@ -27,16 +31,31 @@
    "cartel_trouser",
    "cartel_trousers"
   ],
+  "wear_by_material": {
+   "cartel_hair": 0.15,
+   "cartel_skin": 0.25,
+   "cartel_eyes": 0.0
+  },
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0833)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0833)",
+  "dents": {
+   "meshes": 9,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -60,8 +79,19 @@
   "cartel_trouser": "#19a9ff",
   "cartel_trousers": "#ecff19"
  },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "cartel_cape": "#ff6cc7",
+  "cartel_hair": "#6ce9ff",
+  "cartel_hand_L": "#fff86c",
+  "cartel_hand_R": "#d86cff",
+  "cartel_hat": "#6cffb1",
+  "cartel_hat_brim": "#ff796c",
+  "cartel_shoe": "#6ca1ff",
+  "cartel_trouser": "#ccff6c"
+ },
  "model": "records/character/rig/cartel.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -96,8 +126,8 @@
  ],
  "crop_box_px": [
   64,
-  45,
-  142,
+  44,
+  143,
   168
  ],
  "shadow_files": [
@@ -112,9 +142,13 @@
  ],
  "ground_px": [
   39,
-  58
+  107
  ],
- "colours": 18659,
+ "look_px": [
+  39,
+  59
+ ],
+ "colours": 20216,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -129,6 +163,116 @@
    "frames": [
     1.5
    ],
+   "motion_px": {
+    "N": [
+     {
+      "cartel_cape": 0.0,
+      "cartel_hair": 0.0,
+      "cartel_hand_L": 0.0,
+      "cartel_hand_R": 0.0,
+      "cartel_hat": 0.0,
+      "cartel_hat_brim": 0.0,
+      "cartel_shoe": 0.0,
+      "cartel_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "cartel_cape": 0.0,
+      "cartel_hair": 0.0,
+      "cartel_hand_L": 0.0,
+      "cartel_hand_R": 0.0,
+      "cartel_hat": 0.0,
+      "cartel_hat_brim": 0.0,
+      "cartel_shoe": 0.0,
+      "cartel_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "E": [
+     {
+      "cartel_cape": 0.0,
+      "cartel_hair": 0.0,
+      "cartel_hand_L": 0.0,
+      "cartel_hand_R": 0.0,
+      "cartel_hat": 0.0,
+      "cartel_hat_brim": 0.0,
+      "cartel_shoe": 0.0,
+      "cartel_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "cartel_cape": 0.0,
+      "cartel_hair": 0.0,
+      "cartel_hand_L": 0.0,
+      "cartel_hand_R": 0.0,
+      "cartel_hat": 0.0,
+      "cartel_hat_brim": 0.0,
+      "cartel_shoe": 0.0,
+      "cartel_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "S": [
+     {
+      "cartel_cape": 0.0,
+      "cartel_hair": 0.0,
+      "cartel_hand_L": 0.0,
+      "cartel_hand_R": 0.0,
+      "cartel_hat": 0.0,
+      "cartel_hat_brim": 0.0,
+      "cartel_shoe": 0.0,
+      "cartel_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "cartel_cape": 0.0,
+      "cartel_hair": 0.0,
+      "cartel_hand_L": 0.0,
+      "cartel_hand_R": 0.0,
+      "cartel_hat": 0.0,
+      "cartel_hat_brim": 0.0,
+      "cartel_shoe": 0.0,
+      "cartel_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "W": [
+     {
+      "cartel_cape": 0.0,
+      "cartel_hair": 0.0,
+      "cartel_hand_L": 0.0,
+      "cartel_hand_R": 0.0,
+      "cartel_hat": 0.0,
+      "cartel_hat_brim": 0.0,
+      "cartel_shoe": 0.0,
+      "cartel_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "cartel_cape": 0.0,
+      "cartel_hair": 0.0,
+      "cartel_hand_L": 0.0,
+      "cartel_hand_R": 0.0,
+      "cartel_hat": 0.0,
+      "cartel_hat_brim": 0.0,
+      "cartel_shoe": 0.0,
+      "cartel_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/cartel/rig_Stand_N_k00.png",
     "records/target/character/rig/cartel/rig_Stand_NE_k00.png",
@@ -138,7 +282,8 @@
     "records/target/character/rig/cartel/rig_Stand_SW_k00.png",
     "records/target/character/rig/cartel/rig_Stand_W_k00.png",
     "records/target/character/rig/cartel/rig_Stand_NW_k00.png"
-   ]
+   ],
+   "light_files": []
   },
   "Anim_0": {
    "keys": 6,
@@ -155,6 +300,556 @@
     36.0,
     44.0
    ],
+   "motion_px": {
+    "N": [
+     {
+      "cartel_cape": 2.476,
+      "cartel_hair": 4.027,
+      "cartel_hand_L": 6.894,
+      "cartel_hand_R": 8.438,
+      "cartel_hat": 4.091,
+      "cartel_hat_brim": 4.106,
+      "cartel_shoe": 18.852,
+      "cartel_trouser": 12.13,
+      "Cesium_Man": 18.243
+     },
+     {
+      "cartel_cape": 2.689,
+      "cartel_hair": 7.094,
+      "cartel_hand_L": 17.016,
+      "cartel_hand_R": 24.41,
+      "cartel_hat": 7.293,
+      "cartel_hat_brim": 7.541,
+      "cartel_shoe": 18.289,
+      "cartel_trouser": 20.797,
+      "Cesium_Man": 20.195
+     },
+     {
+      "cartel_cape": 2.544,
+      "cartel_hair": 2.295,
+      "cartel_hand_L": 14.602,
+      "cartel_hand_R": 6.987,
+      "cartel_hat": 2.389,
+      "cartel_hat_brim": 2.475,
+      "cartel_shoe": 18.829,
+      "cartel_trouser": 16.205,
+      "Cesium_Man": 15.995
+     },
+     {
+      "cartel_cape": 4.283,
+      "cartel_hair": 4.274,
+      "cartel_hand_L": 14.415,
+      "cartel_hand_R": 13.032,
+      "cartel_hat": 4.384,
+      "cartel_hat_brim": 4.47,
+      "cartel_shoe": 20.877,
+      "cartel_trouser": 12.754,
+      "Cesium_Man": 20.109
+     },
+     {
+      "cartel_cape": 5.124,
+      "cartel_hair": 9.97,
+      "cartel_hand_L": 22.621,
+      "cartel_hand_R": 12.416,
+      "cartel_hat": 10.225,
+      "cartel_hat_brim": 10.492,
+      "cartel_shoe": 24.209,
+      "cartel_trouser": 23.602,
+      "Cesium_Man": 22.649
+     },
+     {
+      "cartel_cape": 5.082,
+      "cartel_hair": 4.283,
+      "cartel_hand_L": 5.138,
+      "cartel_hand_R": 14.037,
+      "cartel_hat": 4.201,
+      "cartel_hat_brim": 4.249,
+      "cartel_shoe": 13.335,
+      "cartel_trouser": 17.559,
+      "Cesium_Man": 16.423
+     }
+    ],
+    "NE": [
+     {
+      "cartel_cape": 2.968,
+      "cartel_hair": 6.143,
+      "cartel_hand_L": 7.299,
+      "cartel_hand_R": 10.697,
+      "cartel_hat": 6.235,
+      "cartel_hat_brim": 6.34,
+      "cartel_shoe": 19.111,
+      "cartel_trouser": 13.485,
+      "Cesium_Man": 18.49
+     },
+     {
+      "cartel_cape": 2.602,
+      "cartel_hair": 6.951,
+      "cartel_hand_L": 18.491,
+      "cartel_hand_R": 26.084,
+      "cartel_hat": 7.144,
+      "cartel_hat_brim": 7.361,
+      "cartel_shoe": 21.508,
+      "cartel_trouser": 21.006,
+      "Cesium_Man": 21.628
+     },
+     {
+      "cartel_cape": 2.767,
+      "cartel_hair": 3.598,
+      "cartel_hand_L": 15.862,
+      "cartel_hand_R": 6.752,
+      "cartel_hat": 3.699,
+      "cartel_hat_brim": 3.802,
+      "cartel_shoe": 21.188,
+      "cartel_trouser": 15.486,
+      "Cesium_Man": 19.18
+     },
+     {
+      "cartel_cape": 4.707,
+      "cartel_hair": 4.204,
+      "cartel_hand_L": 13.256,
+      "cartel_hand_R": 13.205,
+      "cartel_hat": 4.325,
+      "cartel_hat_brim": 4.433,
+      "cartel_shoe": 21.142,
+      "cartel_trouser": 14.266,
+      "Cesium_Man": 20.452
+     },
+     {
+      "cartel_cape": 4.91,
+      "cartel_hair": 7.741,
+      "cartel_hand_L": 24.095,
+      "cartel_hand_R": 14.231,
+      "cartel_hat": 7.905,
+      "cartel_hat_brim": 8.077,
+      "cartel_shoe": 29.869,
+      "cartel_trouser": 23.532,
+      "Cesium_Man": 28.431
+     },
+     {
+      "cartel_cape": 5.278,
+      "cartel_hair": 3.163,
+      "cartel_hand_L": 6.556,
+      "cartel_hand_R": 15.059,
+      "cartel_hat": 2.982,
+      "cartel_hat_brim": 2.992,
+      "cartel_shoe": 15.862,
+      "cartel_trouser": 16.84,
+      "Cesium_Man": 15.779
+     }
+    ],
+    "E": [
+     {
+      "cartel_cape": 3.536,
+      "cartel_hair": 6.887,
+      "cartel_hand_L": 7.409,
+      "cartel_hand_R": 11.259,
+      "cartel_hat": 6.997,
+      "cartel_hat_brim": 7.126,
+      "cartel_shoe": 17.82,
+      "cartel_trouser": 14.464,
+      "Cesium_Man": 17.524
+     },
+     {
+      "cartel_cape": 2.622,
+      "cartel_hair": 6.403,
+      "cartel_hand_L": 20.483,
+      "cartel_hand_R": 29.959,
+      "cartel_hat": 6.624,
+      "cartel_hat_brim": 6.898,
+      "cartel_shoe": 27.77,
+      "cartel_trouser": 21.589,
+      "Cesium_Man": 26.858
+     },
+     {
+      "cartel_cape": 2.854,
+      "cartel_hair": 4.421,
+      "cartel_hand_L": 18.095,
+      "cartel_hand_R": 7.418,
+      "cartel_hat": 4.565,
+      "cartel_hat_brim": 4.669,
+      "cartel_shoe": 25.731,
+      "cartel_trouser": 18.489,
+      "Cesium_Man": 25.341
+     },
+     {
+      "cartel_cape": 4.725,
+      "cartel_hair": 3.729,
+      "cartel_hand_L": 16.951,
+      "cartel_hand_R": 12.787,
+      "cartel_hat": 3.849,
+      "cartel_hat_brim": 3.979,
+      "cartel_shoe": 19.945,
+      "cartel_trouser": 15.805,
+      "Cesium_Man": 19.484
+     },
+     {
+      "cartel_cape": 4.507,
+      "cartel_hair": 6.717,
+      "cartel_hand_L": 22.686,
+      "cartel_hand_R": 15.125,
+      "cartel_hat": 6.978,
+      "cartel_hat_brim": 7.258,
+      "cartel_shoe": 36.257,
+      "cartel_trouser": 24.464,
+      "Cesium_Man": 35.154
+     },
+     {
+      "cartel_cape": 5.286,
+      "cartel_hair": 2.692,
+      "cartel_hand_L": 7.583,
+      "cartel_hand_R": 20.103,
+      "cartel_hat": 2.713,
+      "cartel_hat_brim": 2.73,
+      "cartel_shoe": 22.842,
+      "cartel_trouser": 17.215,
+      "Cesium_Man": 22.658
+     }
+    ],
+    "SE": [
+     {
+      "cartel_cape": 3.696,
+      "cartel_hair": 6.987,
+      "cartel_hand_L": 5.572,
+      "cartel_hand_R": 10.246,
+      "cartel_hat": 7.1,
+      "cartel_hat_brim": 7.232,
+      "cartel_shoe": 15.041,
+      "cartel_trouser": 12.472,
+      "Cesium_Man": 14.989
+     },
+     {
+      "cartel_cape": 2.685,
+      "cartel_hair": 6.513,
+      "cartel_hand_L": 18.585,
+      "cartel_hand_R": 26.825,
+      "cartel_hat": 6.784,
+      "cartel_hat_brim": 7.064,
+      "cartel_shoe": 26.943,
+      "cartel_trouser": 20.738,
+      "Cesium_Man": 26.223
+     },
+     {
+      "cartel_cape": 2.915,
+      "cartel_hair": 4.763,
+      "cartel_hand_L": 16.564,
+      "cartel_hand_R": 6.947,
+      "cartel_hat": 4.853,
+      "cartel_hat_brim": 4.976,
+      "cartel_shoe": 30.613,
+      "cartel_trouser": 21.584,
+      "Cesium_Man": 30.137
+     },
+     {
+      "cartel_cape": 4.383,
+      "cartel_hair": 2.545,
+      "cartel_hand_L": 18.573,
+      "cartel_hand_R": 9.335,
+      "cartel_hat": 2.681,
+      "cartel_hat_brim": 2.835,
+      "cartel_shoe": 17.758,
+      "cartel_trouser": 14.474,
+      "Cesium_Man": 17.565
+     },
+     {
+      "cartel_cape": 3.75,
+      "cartel_hair": 7.588,
+      "cartel_hand_L": 16.226,
+      "cartel_hand_R": 12.406,
+      "cartel_hat": 7.813,
+      "cartel_hat_brim": 8.109,
+      "cartel_shoe": 33.51,
+      "cartel_trouser": 20.693,
+      "Cesium_Man": 32.418
+     },
+     {
+      "cartel_cape": 5.068,
+      "cartel_hair": 3.893,
+      "cartel_hand_L": 7.154,
+      "cartel_hand_R": 21.497,
+      "cartel_hat": 3.929,
+      "cartel_hat_brim": 3.964,
+      "cartel_shoe": 27.104,
+      "cartel_trouser": 19.922,
+      "Cesium_Man": 26.871
+     }
+    ],
+    "S": [
+     {
+      "cartel_cape": 3.575,
+      "cartel_hair": 6.777,
+      "cartel_hand_L": 3.298,
+      "cartel_hand_R": 10.293,
+      "cartel_hat": 6.89,
+      "cartel_hat_brim": 7.015,
+      "cartel_shoe": 12.865,
+      "cartel_trouser": 10.821,
+      "Cesium_Man": 12.86
+     },
+     {
+      "cartel_cape": 2.442,
+      "cartel_hair": 7.009,
+      "cartel_hand_L": 13.996,
+      "cartel_hand_R": 20.524,
+      "cartel_hat": 7.221,
+      "cartel_hat_brim": 7.45,
+      "cartel_shoe": 25.76,
+      "cartel_trouser": 20.298,
+      "Cesium_Man": 25.52
+     },
+     {
+      "cartel_cape": 2.868,
+      "cartel_hair": 4.767,
+      "cartel_hand_L": 14.413,
+      "cartel_hand_R": 5.244,
+      "cartel_hat": 4.824,
+      "cartel_hat_brim": 4.95,
+      "cartel_shoe": 31.845,
+      "cartel_trouser": 22.537,
+      "Cesium_Man": 31.343
+     },
+     {
+      "cartel_cape": 3.574,
+      "cartel_hair": 2.775,
+      "cartel_hand_L": 16.451,
+      "cartel_hand_R": 3.536,
+      "cartel_hat": 2.742,
+      "cartel_hat_brim": 2.9,
+      "cartel_shoe": 14.869,
+      "cartel_trouser": 12.359,
+      "Cesium_Man": 14.678
+     },
+     {
+      "cartel_cape": 2.88,
+      "cartel_hair": 9.285,
+      "cartel_hand_L": 11.111,
+      "cartel_hand_R": 10.54,
+      "cartel_hat": 9.531,
+      "cartel_hat_brim": 9.563,
+      "cartel_shoe": 29.317,
+      "cartel_trouser": 16.396,
+      "Cesium_Man": 27.972
+     },
+     {
+      "cartel_cape": 4.714,
+      "cartel_hair": 4.896,
+      "cartel_hand_L": 6.937,
+      "cartel_hand_R": 20.345,
+      "cartel_hat": 4.936,
+      "cartel_hat_brim": 4.979,
+      "cartel_shoe": 28.188,
+      "cartel_trouser": 20.764,
+      "Cesium_Man": 27.978
+     }
+    ],
+    "SW": [
+     {
+      "cartel_cape": 3.067,
+      "cartel_hair": 5.698,
+      "cartel_hand_L": 5.251,
+      "cartel_hand_R": 11.283,
+      "cartel_hat": 5.78,
+      "cartel_hat_brim": 5.873,
+      "cartel_shoe": 15.854,
+      "cartel_trouser": 13.204,
+      "Cesium_Man": 15.771
+     },
+     {
+      "cartel_cape": 2.052,
+      "cartel_hair": 7.215,
+      "cartel_hand_L": 15.708,
+      "cartel_hand_R": 23.782,
+      "cartel_hat": 7.41,
+      "cartel_hat_brim": 7.653,
+      "cartel_shoe": 26.419,
+      "cartel_trouser": 20.738,
+      "Cesium_Man": 25.94
+     },
+     {
+      "cartel_cape": 2.621,
+      "cartel_hair": 4.415,
+      "cartel_hand_L": 15.425,
+      "cartel_hand_R": 5.158,
+      "cartel_hat": 4.399,
+      "cartel_hat_brim": 4.524,
+      "cartel_shoe": 30.85,
+      "cartel_trouser": 21.674,
+      "Cesium_Man": 30.36
+     },
+     {
+      "cartel_cape": 2.68,
+      "cartel_hair": 3.782,
+      "cartel_hand_L": 15.147,
+      "cartel_hand_R": 7.133,
+      "cartel_hat": 3.903,
+      "cartel_hat_brim": 4.031,
+      "cartel_shoe": 17.433,
+      "cartel_trouser": 14.267,
+      "Cesium_Man": 17.248
+     },
+     {
+      "cartel_cape": 3.308,
+      "cartel_hair": 10.114,
+      "cartel_hand_L": 17.798,
+      "cartel_hand_R": 13.395,
+      "cartel_hat": 10.397,
+      "cartel_hat_brim": 10.665,
+      "cartel_shoe": 33.302,
+      "cartel_trouser": 20.036,
+      "Cesium_Man": 32.175
+     },
+     {
+      "cartel_cape": 5.012,
+      "cartel_hair": 5.356,
+      "cartel_hand_L": 7.532,
+      "cartel_hand_R": 21.01,
+      "cartel_hat": 5.402,
+      "cartel_hat_brim": 5.451,
+      "cartel_shoe": 27.254,
+      "cartel_trouser": 19.945,
+      "Cesium_Man": 27.016
+     }
+    ],
+    "W": [
+     {
+      "cartel_cape": 2.329,
+      "cartel_hair": 3.237,
+      "cartel_hand_L": 7.257,
+      "cartel_hand_R": 10.622,
+      "cartel_hat": 3.296,
+      "cartel_hat_brim": 3.35,
+      "cartel_shoe": 17.898,
+      "cartel_trouser": 14.386,
+      "Cesium_Man": 17.499
+     },
+     {
+      "cartel_cape": 1.849,
+      "cartel_hair": 6.901,
+      "cartel_hand_L": 20.136,
+      "cartel_hand_R": 29.542,
+      "cartel_hat": 7.146,
+      "cartel_hat_brim": 7.392,
+      "cartel_shoe": 28.101,
+      "cartel_trouser": 21.609,
+      "Cesium_Man": 27.199
+     },
+     {
+      "cartel_cape": 2.013,
+      "cartel_hair": 3.533,
+      "cartel_hand_L": 17.853,
+      "cartel_hand_R": 6.841,
+      "cartel_hat": 3.283,
+      "cartel_hat_brim": 3.404,
+      "cartel_shoe": 26.402,
+      "cartel_trouser": 18.688,
+      "Cesium_Man": 25.974
+     },
+     {
+      "cartel_cape": 2.957,
+      "cartel_hair": 4.152,
+      "cartel_hand_L": 17.645,
+      "cartel_hand_R": 11.616,
+      "cartel_hat": 4.229,
+      "cartel_hat_brim": 4.314,
+      "cartel_shoe": 19.939,
+      "cartel_trouser": 15.829,
+      "Cesium_Man": 19.524
+     },
+     {
+      "cartel_cape": 4.561,
+      "cartel_hair": 10.057,
+      "cartel_hand_L": 23.762,
+      "cartel_hand_R": 15.25,
+      "cartel_hat": 10.231,
+      "cartel_hat_brim": 10.516,
+      "cartel_shoe": 36.317,
+      "cartel_trouser": 24.386,
+      "Cesium_Man": 35.224
+     },
+     {
+      "cartel_cape": 5.277,
+      "cartel_hair": 5.384,
+      "cartel_hand_L": 7.049,
+      "cartel_hand_R": 21.357,
+      "cartel_hat": 5.439,
+      "cartel_hat_brim": 5.491,
+      "cartel_shoe": 23.256,
+      "cartel_trouser": 17.263,
+      "Cesium_Man": 23.046
+     }
+    ],
+    "NW": [
+     {
+      "cartel_cape": 2.311,
+      "cartel_hair": 2.065,
+      "cartel_hand_L": 7.412,
+      "cartel_hand_R": 8.341,
+      "cartel_hat": 2.196,
+      "cartel_hat_brim": 2.304,
+      "cartel_shoe": 19.113,
+      "cartel_trouser": 13.119,
+      "Cesium_Man": 18.493
+     },
+     {
+      "cartel_cape": 2.433,
+      "cartel_hair": 6.76,
+      "cartel_hand_L": 19.479,
+      "cartel_hand_R": 28.873,
+      "cartel_hat": 6.921,
+      "cartel_hat_brim": 7.212,
+      "cartel_shoe": 22.678,
+      "cartel_trouser": 21.024,
+      "Cesium_Man": 23.818
+     },
+     {
+      "cartel_cape": 2.185,
+      "cartel_hair": 2.314,
+      "cartel_hand_L": 16.952,
+      "cartel_hand_R": 7.48,
+      "cartel_hat": 1.948,
+      "cartel_hat_brim": 2.041,
+      "cartel_shoe": 20.769,
+      "cartel_trouser": 15.617,
+      "Cesium_Man": 18.664
+     },
+     {
+      "cartel_cape": 3.535,
+      "cartel_hair": 4.243,
+      "cartel_hand_L": 18.206,
+      "cartel_hand_R": 13.254,
+      "cartel_hat": 4.347,
+      "cartel_hat_brim": 4.446,
+      "cartel_shoe": 21.147,
+      "cartel_trouser": 14.215,
+      "Cesium_Man": 20.443
+     },
+     {
+      "cartel_cape": 5.046,
+      "cartel_hair": 10.058,
+      "cartel_hand_L": 23.605,
+      "cartel_hand_R": 13.845,
+      "cartel_hat": 10.267,
+      "cartel_hat_brim": 10.596,
+      "cartel_shoe": 30.293,
+      "cartel_trouser": 23.521,
+      "Cesium_Man": 28.826
+     },
+     {
+      "cartel_cape": 5.223,
+      "cartel_hair": 5.024,
+      "cartel_hand_L": 5.373,
+      "cartel_hand_R": 17.309,
+      "cartel_hat": 5.087,
+      "cartel_hat_brim": 5.14,
+      "cartel_shoe": 16.114,
+      "cartel_trouser": 16.862,
+      "Cesium_Man": 15.822
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/cartel/rig_Anim_0_N_k00.png",
     "records/target/character/rig/cartel/rig_Anim_0_N_k01.png",
@@ -204,27 +899,28 @@
     "records/target/character/rig/cartel/rig_Anim_0_NW_k03.png",
     "records/target/character/rig/cartel/rig_Anim_0_NW_k04.png",
     "records/target/character/rig/cartel/rig_Anim_0_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   }
  },
  "card": {
   "family": "prop",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 123",
-   "OUT  colours >= 2330: 1337",
-   "OK   top 8 carry <= 11%: 2.5",
-   "OUT  value span >= 118: 92",
-   "OK   saturation <= 0.81: 0.091",
-   "OK   light: top minus bottom >= -2.5: 6.0",
+   "OK   long side >= floor 96: 124",
+   "OUT  colours >= 2330: 1408",
+   "OK   top 8 carry <= 11%: 2.6",
+   "OUT  value span >= 118: 114",
+   "OK   saturation <= 0.81: 0.111",
+   "OK   light: top minus bottom >= -2.5: 21.3",
    "OK   edge between -35 and +7: -15.7",
-   "OK   grain <= 2.22 px a run: 1.89"
+   "OK   grain <= 2.22 px a run: 1.73"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.9%",
+   "OK   stray pixels at 8 steps <= 14%: 3.2%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 243.8"
+   "OK   light from above (180 to 360 degrees, or flat): 265.3"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/cartel/rig_S.png"
@@ -234,25 +930,25 @@
   "cls": "person",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 123",
-   "OK   colours >= 727 (field 5: the class floor, or 370 per 1,000 of 1964 px): 1337",
-   "OK   top 8 carry <= 11%: 2.5",
-   "OUT  value span >= 118: 92",
-   "OK   saturation <= 0.81: 0.091",
-   "OK   light: top minus bottom >= -2.5: 6.0",
+   "OK   long side >= floor 96: 124",
+   "OK   colours >= 722 (field 5: the class floor, or 370 per 1,000 of 1951 px): 1408",
+   "OK   top 8 carry <= 11%: 2.6",
+   "OUT  value span >= 118: 114",
+   "OK   saturation <= 0.81: 0.111",
+   "OK   light: top minus bottom >= -2.5: 21.3",
    "OK   edge between -35 and +7: -15.7",
-   "OK   grain <= 2.22 px a run: 1.89"
+   "OK   grain <= 2.22 px a run: 1.73"
   ],
   "reread": [
    "colours by field 5"
   ],
   "verdict": "1 of 8 out under the style guide",
   "size_px": [
-   26,
-   106
+   28,
+   107
   ],
-  "opaque_px": 1964,
-  "colours": 1337
+  "opaque_px": 1951,
+  "colours": 1408
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -301,7 +997,32 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "breaks": [],
  "guide": {
@@ -317,5 +1038,71 @@
   "records/target/character/rig/cartel/rigid_SW.png",
   "records/target/character/rig/cartel/rigid_W.png",
   "records/target/character/rig/cartel/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/character/rig/cartel/rigobj_N.png",
+  "records/target/character/rig/cartel/rigobj_NE.png",
+  "records/target/character/rig/cartel/rigobj_E.png",
+  "records/target/character/rig/cartel/rigobj_SE.png",
+  "records/target/character/rig/cartel/rigobj_S.png",
+  "records/target/character/rig/cartel/rigobj_SW.png",
+  "records/target/character/rig/cartel/rigobj_W.png",
+  "records/target/character/rig/cartel/rigobj_NW.png",
+  "records/target/character/rig/cartel/rigobj_Stand_N_k00.png",
+  "records/target/character/rig/cartel/rigobj_Stand_NE_k00.png",
+  "records/target/character/rig/cartel/rigobj_Stand_E_k00.png",
+  "records/target/character/rig/cartel/rigobj_Stand_SE_k00.png",
+  "records/target/character/rig/cartel/rigobj_Stand_S_k00.png",
+  "records/target/character/rig/cartel/rigobj_Stand_SW_k00.png",
+  "records/target/character/rig/cartel/rigobj_Stand_W_k00.png",
+  "records/target/character/rig/cartel/rigobj_Stand_NW_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_N_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_N_k01.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_N_k02.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_N_k03.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_N_k04.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_N_k05.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NE_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NE_k01.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NE_k02.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NE_k03.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NE_k04.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NE_k05.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_E_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_E_k01.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_E_k02.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_E_k03.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_E_k04.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_E_k05.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SE_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SE_k01.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SE_k02.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SE_k03.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SE_k04.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SE_k05.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_S_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_S_k01.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_S_k02.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_S_k03.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_S_k04.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_S_k05.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SW_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SW_k01.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SW_k02.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SW_k03.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SW_k04.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_SW_k05.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_W_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_W_k01.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_W_k02.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_W_k03.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_W_k04.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_W_k05.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NW_k00.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NW_k01.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NW_k02.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NW_k03.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NW_k04.png",
+  "records/target/character/rig/cartel/rigobj_Anim_0_NW_k05.png"
  ]
 }
