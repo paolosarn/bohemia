@@ -1,61 +1,61 @@
 {
  "mul": {
-  "caliche": 0.8753,
-  "desert": 0.8842,
-  "rough": 0.7668,
-  "playa": 0.8526,
-  "concrete": 0.9754,
-  "asphalt": 0.8616,
-  "track": 0.644,
-  "paint": 0.3034,
-  "lawn": 0.5728,
-  "gutter": 0.6943
+  "caliche": 0.879,
+  "desert": 0.8887,
+  "rough": 0.7715,
+  "playa": 0.8443,
+  "concrete": 0.9929,
+  "asphalt": 0.7953,
+  "track": 0.6466,
+  "paint": 0.4837,
+  "lawn": 0.5716,
+  "gutter": 0.6955
  },
- "rounds": 9,
+ "rounds": 10,
  "last": {
   "caliche": {
    "render": [
     169,
     157,
-    136
+    135
    ],
    "target": [
     170,
     157,
     135
    ],
-   "mul": 0.8753
+   "mul": 0.879
   },
   "desert": {
    "render": [
     172,
     159,
-    137
+    136
    ],
    "target": [
     174,
     159,
     134
    ],
-   "mul": 0.8842
+   "mul": 0.8887
   },
   "rough": {
    "render": [
-    160,
+    159,
     149,
-    130
+    129
    ],
    "target": [
     160,
     149,
     130
    ],
-   "mul": 0.7668
+   "mul": 0.7715
   },
   "playa": {
    "render": [
-    180,
-    172,
+    181,
+    173,
     149
    ],
    "target": [
@@ -63,38 +63,38 @@
     171,
     150
    ],
-   "mul": 0.8526
+   "mul": 0.8443
   },
   "concrete": {
    "render": [
+    164,
     161,
-    158,
-    150
+    153
    ],
    "target": [
     166,
     162,
     154
    ],
-   "mul": 0.9754
+   "mul": 0.9929
   },
   "asphalt": {
    "render": [
-    67,
-    65,
-    62
+    70,
+    68,
+    65
    ],
    "target": [
     68,
     65,
     62
    ],
-   "mul": 0.8616
+   "mul": 0.7953
   },
   "track": {
    "render": [
-    151,
-    141,
+    150,
+    140,
     123
    ],
    "target": [
@@ -102,20 +102,20 @@
     140,
     120
    ],
-   "mul": 0.644
+   "mul": 0.6466
   },
   "paint": {
    "render": [
-    119,
-    117,
-    113
+    93,
+    91,
+    88
    ],
    "target": [
     120,
     113,
     102
    ],
-   "mul": 0.3034
+   "mul": 0.4837
   },
   "lawn": {
    "render": [
@@ -128,12 +128,12 @@
     116,
     74
    ],
-   "mul": 0.5728
+   "mul": 0.5716
   },
   "gutter": {
    "render": [
-    141,
-    138,
+    142,
+    139,
     132
    ],
    "target": [
@@ -141,7 +141,7 @@
     139,
     133
    ],
-   "mul": 0.6943
+   "mul": 0.6955
   }
  },
  "how": "a flat band of each ground through the rig (wear 0.25, the one sun, the fill), its median sRGB against his YES street's; the value multiplier on the palette base that meets it"

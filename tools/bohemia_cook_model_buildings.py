@@ -74,6 +74,20 @@ def mats(bpy):
                 glass=('glass_eye', 1), wood=('clay_mustard', 1), ply=('tape_masking', 2), steel=('metal_painted', 2), dark=('rubber', 1),
                 rust=('clay_rust', 1), teal=('clay_teal', 2), red=('clay_rust', 2), gold=('clay_mustard', 2), pale=('clay_bone', 3))
     for k, (role, step) in spec.items(): M[k] = P.mat(bpy, 'bld_' + k, role, step)
+    # THE ROOF IN COURSES: 3-tab shingle strips 0.9 m long in 0.2 m courses up the slope (Brick, object x and the slope's
+    # rise scaled to its run), each strip its own shade; the flat deck's gravel
+    for key, w_, h_, mul in (('roof', 0.9, 0.2, 3.1), ('flat', 0.25, 0.25, 1.0)):
+        nt = M[key].node_tree; b = nt.nodes['Principled BSDF']; c = tuple(b.inputs['Base Color'].default_value)
+        tc = nt.nodes.new('ShaderNodeTexCoord'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sep.inputs[0])
+        mz = nt.nodes.new('ShaderNodeMath'); mz.operation = 'MULTIPLY'; mz.inputs[1].default_value = mul; nt.links.new(sep.outputs['Z' if key == 'roof' else 'Y'], mz.inputs[0])
+        cmb = nt.nodes.new('ShaderNodeCombineXYZ'); nt.links.new(sep.outputs['X'], cmb.inputs['X']); nt.links.new(mz.outputs[0], cmb.inputs['Y'])
+        br = nt.nodes.new('ShaderNodeTexBrick'); br.offset = 0.5; br.inputs['Scale'].default_value = 1.0
+        br.inputs['Brick Width'].default_value = w_; br.inputs['Row Height'].default_value = h_; br.inputs['Mortar Size'].default_value = 0.012 if key == 'roof' else 0.03
+        br.inputs['Color1'].default_value = c; br.inputs['Color2'].default_value = tuple(x * 0.84 for x in c[:3]) + (1,)
+        br.inputs['Mortar'].default_value = tuple(x * 0.55 for x in c[:3]) + (1,); br.inputs['Bias'].default_value = 0.0
+        nt.links.new(cmb.outputs[0], br.inputs['Vector']); nt.links.new(br.outputs['Color'], b.inputs['Base Color'])
+        bump = nt.nodes.new('ShaderNodeBump'); bump.inputs['Strength'].default_value = 0.6; bump.inputs['Distance'].default_value = 0.02
+        nt.links.new(br.outputs['Fac'], bump.inputs['Height']); nt.links.new(bump.outputs['Normal'], b.inputs['Normal'])
     M['amber'] = P.mat(bpy, 'bld_amber', 'sodium', 2, glow=2.2)
     M['tv'] = P.mat(bpy, 'bld_tv', 'glass_eye', 2, glow=0.9)
     M['black'] = P.mat(bpy, 'bld_black', 'glass_eye', 0)

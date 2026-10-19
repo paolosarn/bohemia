@@ -46,24 +46,10 @@ mat, box, cyl, rod, prism, put = P.mat, P.box, P.cyl, P.rod, P.prism, P.put
 MODELS = os.path.join(R, 'reference/models/bohemia')
 
 
-def block_mat(bpy, name, role, step):
-    """8-inch block in courses: the props' mat() with a Brick texture laid over its colour (0.4 x 0.2 m, 1 cm mortar)"""
-    m = mat(bpy, name, role, step); nt = m.node_tree; b = nt.nodes['Principled BSDF']
-    tc = nt.nodes.new('ShaderNodeTexCoord'); br = nt.nodes.new('ShaderNodeTexBrick')
-    br.inputs['Scale'].default_value = 1.0; br.inputs['Brick Width'].default_value = 0.4; br.inputs['Row Height'].default_value = 0.2
-    br.inputs['Mortar Size'].default_value = 0.012; br.offset = 0.5
-    c = b.inputs['Base Color'].default_value
-    br.inputs['Color1'].default_value = tuple(c); br.inputs['Color2'].default_value = tuple(x * 0.9 for x in c[:3]) + (1,)
-    br.inputs['Mortar'].default_value = tuple(x * 0.62 for x in c[:3]) + (1,)
-    sep = nt.nodes.new('ShaderNodeSeparateXYZ'); cmb = nt.nodes.new('ShaderNodeCombineXYZ')   # courses run along x and y, rise in z
-    add = nt.nodes.new('ShaderNodeMath'); add.operation = 'ADD'
-    nt.links.new(tc.outputs['Object'], sep.inputs[0]); nt.links.new(sep.outputs['X'], add.inputs[0]); nt.links.new(sep.outputs['Y'], add.inputs[1])
-    nt.links.new(add.outputs[0], cmb.inputs['X']); nt.links.new(sep.outputs['Z'], cmb.inputs['Y'])
-    nt.links.new(cmb.outputs[0], br.inputs['Vector'])
-    nt.links.new(br.outputs['Color'], b.inputs['Base Color'])
-    bump = nt.nodes.new('ShaderNodeBump'); bump.inputs['Strength'].default_value = 0.5; bump.inputs['Distance'].default_value = 0.01
-    nt.links.new(br.outputs['Fac'], bump.inputs['Height']); nt.links.new(bump.outputs['Normal'], b.inputs['Normal'])
-    return m
+def block_mats(bpy):
+    """8-inch block, two shades (a wall is laid from two pallets), the mortar behind; flat colours, because the rig takes
+    its models as glb and a glb carries no procedural texture (round one of this row rendered a white wall)"""
+    return mat(bpy, 'cmu', 'tape_masking', 2), mat(bpy, 'cmu_b', 'clay_bone', 2), mat(bpy, 'mortar', 'clay_bone', 1)
 
 
 def patrol(bpy, mu):
@@ -106,13 +92,32 @@ def streetlight(bpy, mu):
     rod(bpy, 'wire_out', copper, (0, -0.21, 0.72), (-0.3, -0.48, 0.05), 0.01, verts=5)
 
 
-def _wall(bpy, name, blk, cap, x0, x1, y, h=1.8, t=0.2):
-    box(bpy, name, blk, (x1 - x0, t, h), ((x0 + x1) / 2, y, h / 2), bevel=0.01)
-    box(bpy, name + '_cap', cap, (x1 - x0 + 0.04, t + 0.05, 0.1), ((x0 + x1) / 2, y, h + 0.05), bevel=0.01)
+def _wall(bpy, name, blk, cap, x0, x1, y, h=1.8, t=0.2, axis='x', gap=None, seed=1):
+    """a block wall laid course by course: 0.39 x 0.19 m faces with a centimetre joint, running bond, every block a hair
+    off true (hand-laid), the mortar a core behind the faces, the cap course on top; gap=(a, b) leaves a hole"""
+    a_, b_, mort = blk; rnd = random.Random(seed); L = x1 - x0
+    if axis == 'x': box(bpy, name + '_core', mort, (L - 0.02, t - 0.03, h - 0.02), ((x0 + x1) / 2, y, h / 2))
+    else: box(bpy, name + '_core', mort, (t - 0.03, L - 0.02, h - 0.02), (y, (x0 + x1) / 2, h / 2))
+    for r in range(int(h / 0.2)):
+        off = 0.2 if r % 2 else 0.0; u = x0 - off
+        while u < x1 - 0.01:
+            u0, u1 = max(u, x0), min(u + 0.4, x1); u += 0.4
+            if u1 - u0 < 0.05: continue
+            if gap and u1 > gap[0] and u0 < gap[1] and r * 0.2 + 0.1 > gap[2] - (u0 - gap[0]) * 0: continue
+            m = a_ if rnd.random() < 0.62 else b_
+            cx = (u0 + u1) / 2 + rnd.uniform(-0.004, 0.004); cz = r * 0.2 + 0.1 + rnd.uniform(-0.003, 0.003)
+            sz = (u1 - u0 - 0.012, t, 0.188)
+            if axis == 'x': box(bpy, '%s_b%d' % (name, r), m, sz, (cx, y + rnd.uniform(-0.005, 0.005), cz), rot=(0, 0, rnd.uniform(-0.01, 0.01)), bevel=0.008)
+            else: box(bpy, '%s_b%d' % (name, r), m, (t, sz[0], sz[2]), (y + rnd.uniform(-0.005, 0.005), cx, cz), rot=(0, 0, rnd.uniform(-0.01, 0.01)), bevel=0.008)
+    segs = [(x0, x1)] if not gap else [(x0, gap[0]), (gap[1], x1)]
+    for s0, s1 in segs:
+        if s1 - s0 < 0.1: continue
+        if axis == 'x': box(bpy, name + '_cap', cap, (s1 - s0 + 0.03, t + 0.04, 0.09), ((s0 + s1) / 2, y, h + 0.045), bevel=0.01)
+        else: box(bpy, name + '_cap', cap, (t + 0.04, s1 - s0 + 0.03, 0.09), (y, (s0 + s1) / 2, h + 0.045), bevel=0.01)
 
 
 def wall(bpy, mu):
-    blk = block_mat(bpy, 'cmu', 'tape_masking', 2); cap = mat(bpy, 'cap', 'tape_grey', 2); mark = mat(bpy, 'scratch', 'clay_bone', 3)
+    blk = block_mats(bpy); cap = mat(bpy, 'cap', 'tape_masking', 3); mark = blk[2]
     _wall(bpy, 'wall', blk, cap, -3, 3, 0)
     # THE ODD THING: a tally scratched into the block, groups of five, a long run of them
     for g in range(9):
@@ -122,9 +127,9 @@ def wall(bpy, mu):
 
 
 def wall_corner(bpy, mu):
-    blk = block_mat(bpy, 'cmu', 'tape_masking', 2); cap = mat(bpy, 'cap', 'tape_grey', 2); paint = mat(bpy, 'hand_paint', 'clay_teal', 2)
-    _wall(bpy, 'wall_a', blk, cap, -2, 2, -1.9)
-    box(bpy, 'wall_b', blk, (0.2, 3.8, 1.8), (-1.9, 0.1, 0.9), bevel=0.01); box(bpy, 'wall_b_cap', cap, (0.25, 3.84, 0.1), (-1.9, 0.1, 1.85), bevel=0.01)
+    blk = block_mats(bpy); cap = mat(bpy, 'cap', 'tape_masking', 3); paint = mat(bpy, 'hand_paint', 'clay_teal', 2)
+    _wall(bpy, 'wall_a', blk, cap, -2, 2, -1.9, seed=2)
+    _wall(bpy, 'wall_b', blk, cap, -1.8, 2.0, -1.9, axis='y', seed=3)
     # THE ODD THING: a child's handprint in house paint at waist height (a palm and five fingers)
     box(bpy, 'palm', paint, (0.08, 0.004, 0.09), (0.6, -2.002, 0.92))
     for i, (dx, dz, l) in enumerate(((-0.045, 0.07, 0.05), (-0.018, 0.085, 0.06), (0.012, 0.088, 0.06), (0.04, 0.075, 0.05), (0.06, 0.0, 0.04))):
@@ -132,15 +137,15 @@ def wall_corner(bpy, mu):
 
 
 def wall_broken(bpy, mu):
-    blk = block_mat(bpy, 'cmu', 'tape_masking', 2); cap = mat(bpy, 'cap', 'tape_grey', 2); mat_ = mat(bpy, 'doormat', 'clay_rust', 1)
-    _wall(bpy, 'wall_l', blk, cap, -3, -0.65, 0); _wall(bpy, 'wall_r', blk, cap, 0.65, 3, 0)
+    blk = block_mats(bpy); cap = mat(bpy, 'cap', 'tape_masking', 3); mat_ = blk[2]
+    _wall(bpy, 'wall_l', blk, cap, -3, -0.65, 0, seed=4); _wall(bpy, 'wall_r', blk, cap, 0.65, 3, 0, seed=5)
     rnd = random.Random(11)
     for i in range(14):                                     # the blocks fallen out on the near side, some whole, some broken
         x = rnd.uniform(-0.9, 0.9); y = rnd.uniform(-1.2, -0.25); w = 0.4 if rnd.random() < 0.6 else rnd.uniform(0.15, 0.3)
-        box(bpy, 'fallen_%d' % i, blk, (w, 0.2, 0.2), (x, y, 0.1 + (0.2 if i % 5 == 4 else 0)), rot=(rnd.uniform(-0.2, 0.2), rnd.uniform(-0.2, 0.2), rnd.uniform(0, math.pi)))
+        box(bpy, 'fallen_%d' % i, blk[i % 2], (w, 0.2, 0.2), (x, y, 0.1 + (0.2 if i % 5 == 4 else 0)), rot=(rnd.uniform(-0.2, 0.2), rnd.uniform(-0.2, 0.2), rnd.uniform(0, math.pi)))
     for x0, sgn in ((-0.65, 1), (0.65, -1)):               # the broken ends stepped, a course lower each block in
         for k in range(4):
-            box(bpy, 'stub_%d_%d' % (sgn, k), blk, (0.2, 0.2, 0.2), (x0 + sgn * 0.1, 0, 1.7 - k * 0.42 - 0.1), bevel=0.01)
+            box(bpy, 'stub_%d_%d' % (sgn, k), blk[k % 2], (0.2, 0.2, 0.2), (x0 + sgn * 0.1, 0, 1.7 - k * 0.42 - 0.1), bevel=0.01)
     # THE ODD THING: a doormat laid in the gap, square to the wall
     box(bpy, 'doormat', mat_, (0.75, 0.48, 0.02), (0, -0.05, 0.01))
 

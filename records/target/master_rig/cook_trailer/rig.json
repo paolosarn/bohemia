@@ -1,0 +1,355 @@
+{
+ "engine": "CYCLES",
+ "res": 1076,
+ "ortho_scale": 18.87719298245614,
+ "real_dims_m": [
+  12.25,
+  2.66,
+  4.055
+ ],
+ "scale_from_model": 1.0,
+ "still_frame": 0.0,
+ "still": "frame 0",
+ "ground_screen": [
+  538.0,
+  653.5675086975098
+ ],
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "source_pass": {
+  "wear": 0.6,
+  "materials": [
+   "inside",
+   "mattress",
+   "rust",
+   "tyre",
+   "van_white"
+  ],
+  "wear_by_material": {},
+  "what": [
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+   "crevice grime from the model's own ambient occlusion (0.25 m)",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+   "a 20 cm colour drift across the body (overlay, 0.27)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+  ],
+  "seed": 0,
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+  "dents": {
+   "meshes": 54,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
+ },
+ "proportions": {
+  "real": [
+   12.25,
+   2.66,
+   4.055
+  ],
+  "model": [
+   12.25,
+   2.66,
+   4.055
+  ],
+  "off": {
+   "width": 0.0,
+   "height": 0.0
+  },
+  "tolerance": 0.12,
+  "ok": true
+ },
+ "calibration": {
+  "cube_px": 58,
+  "screen_light_deg": 155.4,
+  "sphere_value_span": 111,
+  "sphere_darkest": 88,
+  "cube_px_expected": 57,
+  "cube_ok": true,
+  "light_off_deg": 0.0,
+  "light_ok": true
+ },
+ "id_table": {
+  "inside": "#ff1919",
+  "mattress": "#195cff",
+  "rust": "#9fff19",
+  "tyre": "#ff19e2",
+  "van_white": "#19ffd8"
+ },
+ "obj_table": {
+  "box": "#99ff6c",
+  "leg_-1": "#ff6cc7",
+  "leg_1": "#6ce9ff",
+  "leg_foot": "#fff86c",
+  "mattress": "#d86cff",
+  "rail": "#6cffb1",
+  "rear_gap": "#ff796c",
+  "rib": "#6ca1ff",
+  "rib.001": "#ccff6c",
+  "rib.002": "#ff6cee",
+  "rib.003": "#6cfff3",
+  "rib.004": "#ffd36c",
+  "rib.005": "#aa6cff",
+  "rib.006": "#6cff6e",
+  "rib.007": "#ff6ca8",
+  "rib.008": "#6cd1ff",
+  "rib.009": "#f2ff6c",
+  "rib.010": "#ef6cff",
+  "rib.011": "#6cffce",
+  "rib.012": "#ffa36c",
+  "rib.013": "#6c76ff",
+  "rib.014": "#afff6c",
+  "rib.015": "#ff6cd7",
+  "rib.016": "#6cf6ff",
+  "rib.017": "#ffeb6c",
+  "rib.018": "#c86cff",
+  "rib.019": "#6cff9c",
+  "rib.020": "#ff6c80",
+  "rib.021": "#6cb6ff",
+  "rib.022": "#dcff6c",
+  "rib.023": "#ff6cfb",
+  "rib.024": "#6cffe6",
+  "rib.025": "#ffc26c",
+  "rib.026": "#946cff",
+  "rib.027": "#8aff6c",
+  "rib.028": "#ff6cbc",
+  "rib.029": "#6ce1ff",
+  "rib.030": "#ffff6c",
+  "rib.031": "#e16cff",
+  "rib.032": "#6cffbd",
+  "rib.033": "#ff8b6c",
+  "rib.034": "#6c93ff",
+  "rib.035": "#c2ff6c",
+  "rib.036": "#ff6ce5",
+  "rib.037": "#6cfffb",
+  "rib.038": "#ffdc6c",
+  "rib.039": "#b66cff",
+  "streak_0": "#6cff82",
+  "streak_1": "#ff6c9b",
+  "streak_2": "#6cc7ff",
+  "tyre_-3_-1": "#eaff6c",
+  "tyre_-3_1": "#f76cff",
+  "tyre_-4_-1": "#6cffd7",
+  "tyre_-4_1": "#ffb06c"
+ },
+ "model": "reference/models/bohemia/trailer.glb",
+ "rig_round": 7,
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "prop",
+ "snap": {
+  "family": "prop",
+  "pull": 0.6,
+  "bins": 20564,
+  "tiles": 784,
+  "how": "toward the nearest of the family's own colours, 32 levels a channel"
+ },
+ "ring": 8.0,
+ "contact_shadow": true,
+ "files": [
+  "records/target/master_rig/cook_trailer/rig_N.png",
+  "records/target/master_rig/cook_trailer/rig_NE.png",
+  "records/target/master_rig/cook_trailer/rig_E.png",
+  "records/target/master_rig/cook_trailer/rig_SE.png",
+  "records/target/master_rig/cook_trailer/rig_S.png",
+  "records/target/master_rig/cook_trailer/rig_SW.png",
+  "records/target/master_rig/cook_trailer/rig_W.png",
+  "records/target/master_rig/cook_trailer/rig_NW.png"
+ ],
+ "crop_box_px": [
+  165,
+  176,
+  915,
+  869
+ ],
+ "shadow_files": [
+  "records/target/master_rig/cook_trailer/shadow_N.png",
+  "records/target/master_rig/cook_trailer/shadow_NE.png",
+  "records/target/master_rig/cook_trailer/shadow_E.png",
+  "records/target/master_rig/cook_trailer/shadow_SE.png",
+  "records/target/master_rig/cook_trailer/shadow_S.png",
+  "records/target/master_rig/cook_trailer/shadow_SW.png",
+  "records/target/master_rig/cook_trailer/shadow_W.png",
+  "records/target/master_rig/cook_trailer/shadow_NW.png"
+ ],
+ "ground_px": [
+  373,
+  478
+ ],
+ "look_px": [
+  373,
+  362
+ ],
+ "colours": 12812,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {},
+ "card": {
+  "family": "prop",
+  "out": 1,
+  "rows": [
+   "OK   long side >= floor 96: 750",
+   "OK   colours >= 2330: 7216",
+   "OK   top 8 carry <= 11%: 4.1",
+   "OK   value span >= 118: 129",
+   "OK   saturation <= 0.81: 0.051",
+   "OK   light: top minus bottom >= -2.5: 28.2",
+   "OK   edge between -35 and +7: -12.7",
+   "OUT  grain <= 2.22 px a run: 2.97"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 1.2%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OK   light from above (180 to 360 degrees, or flat): 289.8"
+  ],
+  "verdict": "1 of 8 out -> to DIRECTION",
+  "file": "records/target/master_rig/cook_trailer/rig_S.png"
+ },
+ "cls": "vehicle",
+ "card_guide": {
+  "cls": "vehicle",
+  "out": 0,
+  "rows": [
+   "OK   long side >= 96 (rule 105, a car): 700",
+   "OK   colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 195863 px): 7216",
+   "OK   top 8 carry <= 11%: 4.1",
+   "OK   value span >= 118: 129",
+   "OK   saturation <= 0.81: 0.051",
+   "OK   light: top minus bottom >= -2.5: 28.2",
+   "OK   edge between -35 and +7: -12.7",
+   "OK   grain <= 3.60 px a run (field 11, a vehicle at true size): 2.97"
+  ],
+  "reread": [
+   "colours by field 5",
+   "grain by field 11"
+  ],
+  "verdict": "0 of 8 out under the style guide",
+  "size_px": [
+   700,
+   328
+  ],
+  "opaque_px": 195863,
+  "colours": 7216
+ },
+ "rig_settings": {
+  "engine": "CYCLES",
+  "device": "CPU",
+  "samples": 128,
+  "denoise": false,
+  "filter_px": 0.01,
+  "view_transform": "Standard",
+  "film_transparent": true,
+  "motion_blur": false,
+  "depth_of_field": false,
+  "ppm": 57.0,
+  "tilt_deg": 45.0,
+  "sun_rot_deg": [
+   40.0,
+   0.0,
+   -35.0
+  ],
+  "sun_angle_deg": 3,
+  "sun_energy": 3.0,
+  "fill_rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "fill_strength": 0.35,
+  "wear": 0.6,
+  "ring": 8.0,
+  "contact_shadow": true,
+  "shadow_alpha_max": 0.42,
+  "alpha_threshold": 127,
+  "keys_per_beat": 3,
+  "bpm": 120,
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
+ },
+ "breaks": [],
+ "guide": {
+  "file": "records/target/BOHEMIA_STYLE_GUIDE.json",
+  "schema": 1
+ },
+ "id_files": [
+  "records/target/master_rig/cook_trailer/rigid_N.png",
+  "records/target/master_rig/cook_trailer/rigid_NE.png",
+  "records/target/master_rig/cook_trailer/rigid_E.png",
+  "records/target/master_rig/cook_trailer/rigid_SE.png",
+  "records/target/master_rig/cook_trailer/rigid_S.png",
+  "records/target/master_rig/cook_trailer/rigid_SW.png",
+  "records/target/master_rig/cook_trailer/rigid_W.png",
+  "records/target/master_rig/cook_trailer/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/master_rig/cook_trailer/rigobj_N.png",
+  "records/target/master_rig/cook_trailer/rigobj_NE.png",
+  "records/target/master_rig/cook_trailer/rigobj_E.png",
+  "records/target/master_rig/cook_trailer/rigobj_SE.png",
+  "records/target/master_rig/cook_trailer/rigobj_S.png",
+  "records/target/master_rig/cook_trailer/rigobj_SW.png",
+  "records/target/master_rig/cook_trailer/rigobj_W.png",
+  "records/target/master_rig/cook_trailer/rigobj_NW.png"
+ ]
+}

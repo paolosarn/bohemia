@@ -72,18 +72,18 @@ ID = {n: i for i, n in enumerate(IDS)}
 # (sRGB, read off records/target/COOK2_ONE_REAL_STREET.webp: road median 64,61,61; dirt 172,157,134), the height and the
 # surface features in metres. 'cal' is the calibration's value multiplier (records the render meeting the target).
 MATS = {
-    'asphalt':  dict(role=('rubber', 2), target=(68, 65, 62), h=0.0, alt=('rubber', 3), alt_amt=0.22, grit=0.16, speck=(45, 0.38),
+    'asphalt':  dict(role=('rubber', 2), target=(68, 65, 62), h=0.0, alt=('rubber', 3), alt_amt=0.32, grit=0.2, speck=(45, 0.45),
                      cracks=dict(cell=0.34, width=0.026, region=0.35, cut=0.46, depth=0.8), long_cracks=dict(cell=3.2, width=0.032),
                      patches=dict(scale=0.22, cut=0.7, mul=0.6), oil=dict(scale=0.9, cut=0.72, mul=0.6), pot=True),
     'paint':    dict(role=('tape_grey', 3), target=(120, 113, 102), h=0.0, alt=('tape_grey', 2), alt_amt=0.2, grit=0.10, speck=(45, 0.14),
-                     wornthrough=dict(scale=2.2, cut=0.30, to=('rubber', 2))),
+                     wornthrough=dict(scale=3.0, cut=0.46, to=('rubber', 2))),
     'gutter':   dict(role=('tape_grey', 2), target=(142, 139, 133), h=0.0, alt=('clay_bone', 1), alt_amt=0.15, grit=0.10, speck=(60, 0.14),
                      joints=dict(pitch=3.0, width=0.016), panel_var=0.06),
     'concrete': dict(role=('tape_grey', 2), target=(166, 162, 154), h=0.15, alt=('clay_bone', 2), alt_amt=0.12, grit=0.08, speck=(70, 0.12),
                      joints=dict(pitch=1.5, width=0.014), panel_var=0.07, cracks=dict(cell=0.9, width=0.008, region=0.35, cut=0.6, depth=0.5)),
-    'caliche':  dict(role=('clay_bone', 2), target=(170, 157, 135), h=0.11, alt=('clay_bone', 1), alt_amt=0.05, grit=0.42, speck=(45, 0.5)),
-    'desert':   dict(role=('clay_bone', 2), target=(174, 159, 134), h=0.04, alt=('tape_masking', 2), alt_amt=0.1, grit=0.4, speck=(40, 0.48)),
-    'rough':    dict(role=('clay_bone', 2), target=(160, 149, 130), h=0.06, alt=('clay_bone', 1), alt_amt=0.1, grit=0.42, speck=(36, 0.5)),
+    'caliche':  dict(role=('clay_bone', 2), target=(170, 157, 135), h=0.11, alt=('clay_bone', 1), alt_amt=0.05, grit=0.62, speck=(45, 0.68)),
+    'desert':   dict(role=('clay_bone', 2), target=(174, 159, 134), h=0.04, alt=('tape_masking', 2), alt_amt=0.1, grit=0.6, speck=(40, 0.66)),
+    'rough':    dict(role=('clay_bone', 2), target=(160, 149, 130), h=0.06, alt=('clay_bone', 1), alt_amt=0.1, grit=0.62, speck=(36, 0.68)),
     'playa':    dict(role=('clay_bone', 3), target=(182, 171, 150), h=-0.22, alt=('clay_bone', 2), alt_amt=0.08, grit=0.2, speck=(60, 0.25),
                      mud=dict(cell=0.32, width=0.016, depth=0.8)),
     'track':    dict(role=('clay_bone', 2), target=(152, 140, 120), h=-0.02, alt=('clay_bone', 1), alt_amt=0.15, grit=0.3, speck=(40, 0.36)),
@@ -482,7 +482,7 @@ def scene(bpy, objs):
     return src
 
 
-def render_block(bid, quick=False):
+def render_block(bid, quick=False, region=None):
     import bpy
     t0 = time.time()
     gid, ground, lum, ship, kit = load_plan(bid)
@@ -501,10 +501,18 @@ def render_block(bid, quick=False):
     sc.cycles.use_adaptive_sampling = True; sc.cycles.adaptive_threshold = 0.02
     sc.cycles.max_bounces = 2; sc.cycles.diffuse_bounces = 1; sc.cycles.glossy_bounces = 0; sc.cycles.transmission_bounces = 0
     os.makedirs(RENDER, exist_ok=True)
-    fn = os.path.join(RENDER, '%s%s.png' % (bid.replace('.', '_'), '_quick' if quick else ''))
+    if region:                                                # a test window of the block, at full pixels (the floor bar's own read)
+        x0, y0, x1, y1 = region; sc.render.use_border = True; sc.render.use_crop_to_border = True
+        sc.render.border_min_x, sc.render.border_max_x = x0 / W, x1 / W; sc.render.border_min_y, sc.render.border_max_y = 1 - y1 / H, 1 - y0 / H
+    fn = os.path.join(RENDER, '%s%s.png' % (bid.replace('.', '_'), '_quick' if quick else ('_region' if region else '')))
     sc.render.filepath = fn; bpy.ops.render.render(write_still=True)
     print('  rendered', bid, round(time.time() - t0), 's', flush=True)
     if quick: return fn
+    if region:
+        x0, y0, x1, y1 = region; r = np.asarray(Image.open(fn).convert('RGB'))
+        full = ship.copy(); full[y0:y0 + r.shape[0], x0:x0 + r.shape[1]] = r
+        o = compose(bid, full, gid, ground, lum, ship, kit)[y0:y1, x0:x1]
+        Image.fromarray(o).save(fn.replace('.png', '_composed.png')); return fn
     out = compose(bid, np.asarray(Image.open(fn).convert('RGB')), gid, ground, lum, ship, kit)
     Image.fromarray(out).save(os.path.join(OUT, 'block_%s.webp' % bid.replace('.', '_')), lossless=True, quality=100, method=4)
     led = os.path.join(OUT, 'blocks.json'); L = json.load(open(led)) if os.path.exists(led) else {}
@@ -572,6 +580,8 @@ if __name__ == '__main__':
         if '--colours-only' not in a: rig_check()
         calibrate_colours(int(a[1]) if len(a) > 1 and a[1].isdigit() else 2)
     else:
-        quick = '--quick' in a; bids = [x for x in a if not x.startswith('--')]
-        for b in bids: render_block(b, quick)
+        quick = '--quick' in a
+        region = [int(v) for v in a[a.index('--region') + 1].split(',')] if '--region' in a else None
+        bids = [x for i, x in enumerate(a) if not x.startswith('--') and not (i and a[i - 1] == '--region')]
+        for b in bids: render_block(b, quick, region)
     sys.stdout.flush(); os._exit(0)
