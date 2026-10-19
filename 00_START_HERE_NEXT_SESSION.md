@@ -282,19 +282,37 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
-CHARACTER (character-one-skin): 10/19 (s) IN FLIGHT -- *** ONE SKIN PER PERSON IS A FILE NOW; THE BODIES ARE NEXT. ***
-THE ROW: [one skin, one person] (rule 120(d), first on the board). MEASURED: all 25 bodies the fight sheets bake (twelve cast,
-thirteen gangs) wear THE PLAYER'S porcelain: famPaintBody hands the renderer the person's face but never his tone, and the
-body's ramp reads the global skinTone. The 64 face rolled its own tone, PORTRAIT picked its fresh faces by eye off that 64,
-and my rig bodies wore one constant (150, 112, 88). Nothing stored the person's skin.
-THE FILE: records/target/character/BOHEMIA_ONE_SKIN.json (tools/bohemia_character_one_skin.py): 28 people, a tone on the
-game's eleven-step ladder each, the flat ramp, ONE rig albedo per tone (body AND head), heritage from PEOPLE's bank (crew) or
-the census mix (gangs): 37 white / 33 Hispanic / 15 Black / 7 Asian / 7 mixed, Las Vegas 40/33/12/7/5.
-FOR PORTRAIT ([the face is the body's face]): THE BODY IS THIS FILE. Do not read today's fight sheet bodies for skin: they
-are all the player's porcelain until my re-bake lands. Your head's skin = people[look].rig (a style palette step). Faces
-already on their tone: YOU, poncho, shorts, Colorful, Blues, Church, Mob, thug, poacher; the other 19 change.
-FOR COOK THREE ([the tiers through the rig]): the thug and the poacher are listed (tan, your bodies' own skin); an enemy
-tier with no line takes a tone from the rig table and gets a line (tell me, or add it in the tool's PEOPLE list).
+CHARACTER (character-one-skin): 10/19 (s) LATEST -- *** EVERY BODY WEARS ITS OWN SKIN NOW, THE SAME AS ITS FACE. ***
+TAB: NOT IN A TAB YET as a card (section 5 of the record: the flat sheet fails the guide's first five, rule 114b). What he
+meets: the DEMO's fight and settlement screen, whose people are the re-baked sheets (live on deploy). The before/after
+sheet: records/target/character/CHARACTER_ONE_SKIN_ONE_PERSON.png. Record: records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md.
+THE ROW: [one skin, one person] (rule 120(d)), STILL CLAIMED: the rig renders are the last piece. MEASURED: all 25 bodies
+the fight sheets bake wore THE PLAYER'S porcelain (famPaintBody handed the renderer the face, never the tone; the body's
+ramp reads skinTone), 0 of 25 matched their 64 face; my rig bodies one constant tan for all 13. SHIPPED 3318fe81 + ba103ee1:
+records/target/character/BOHEMIA_ONE_SKIN.json (28 people, a tone on the game's ladder, the flat ramp, ONE rig albedo per
+tone, heritage from PEOPLE's bank or the census mix: 37/33/15/7/7 against Las Vegas 40/33/12/7/5); the alpha's look tables
+carry `skin`, famSkinOf + famPaintBody make the body wear the face's tone, faceFor honours a ruled skinTone; non-family
+members are no longer the family's children (famFaceKey); fight_people and settlement_people re-baked (26/26, 25/25 on
+their own tone off the pixels); the rig tool's skin_for reads the file, 13 models rebuilt, blues re-rendered, the other
+12 rendering (about 27 min a look on this box).
+FOR PORTRAIT ([the face is the body's face]): THE BODY IS THE FILE, and the flat bodies now wear it. Your head's skin =
+people[look].rig; my tool's build() now dresses any body you build with it in that skin (skin_for), so a head on its own
+body agrees by construction. The gate ONE SKIN, ONE PERSON holds your 9 off faces as a list that only shrinks: longcoat,
+barearms, pack, skirt, widebrim, cape, apron, bedroll, shortcoat (on the rig ladder, cheek x 0.56 of albedo, measured).
+FOR RUN: the demo's own copy of the alpha's famPaintBody is the old one; the next cut takes famSkinOf. Your rig cast sheet
+(tools/bohemia_bake_the_rig_cast.py) re-bakes when my 13 renders land; I will run it unless you say otherwise.
+FOR COOK THREE: thug and poacher are listed tan (your bodies' own skin, PORTRAIT's heads' own); a new tier takes a tone
+from the file's rig table and a line in the tool's PEOPLE list.
+GATES: ONE SKIN, ONE PERSON 15/0 NEW (in the suite, mutation-proven); trade fit, faction outfit, face at the door,
+faction colour, one then heirs, shape frozen, the fall reads, eight facings, zoom identity, derived freshness, inlined
+fresh, family anim/cast red IDENTICALLY on origin/main (run on a base worktree; family gates time out on this box); the
+rebuilt fight plays 76/1 (killed at 600 s, same on both); 17 more face, family and settlement gates green.
+[bb Battle Brothers' roster portrait IS the man's sprite stack, so face and field are one picture; ours draws them in
+different renderers, so the one person is one value in a data file a modder can edit.]
+[analog horror: the skin is the person's, never a filter; the rig's one sun reads a face darker than the flat body,
+measured (x 0.56), not a second skin.]
+NEXT ON MY BOARD: the 12 renders land, RUN's rig cast re-baked, the card (the 13 gangs' 3D bodies in their own skin) in
+VOTE, the row SHIPPED; then [every old asset into the new look] (the roll-call file first). PENDING Paolo: nothing.
 
 CHARACTER (character-barber-skull): 10/18 (r) LATEST -- *** THE BARBER'S FIRST THREE CUTS ARE SCULPTED HAIR ON THE STARRED HEAD. ***
 TAB: VOTE, the card character-the-barber-on-the-skull-10-18 (a page: each cut walking beside the game's flat cut at 1:1
