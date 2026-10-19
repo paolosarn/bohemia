@@ -11449,6 +11449,7 @@
   }
  },
   {
+<<<<<<< HEAD
    "id": "cook4-church-on-the-map-ground-10-19",
    "kind": "tile",
    "lane": "cook 4",
@@ -11484,6 +11485,58 @@
     "px": 1,
     "palette": "reference/art_pipe/cook4/place_in_the_map/COOK4_THE_MAP_GROUND.json",
     "light": "top"
+=======
+   "id": "animation-the-aura-of-the-one-you-control-10-19",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "fa9dbf31",
+   "made": "10/19",
+   "title": "THE AURA ON THE MAN YOU CONTROL: PICK ONE OF THREE (A THE ECHO, B THE TEAR, C THE CURRENT)",
+   "said": "when you're controlling a person there should be some aura, fifth dimension, electric Amalgamation vibes, analog horror... around that character even on the big map, not just a portrait",
+   "why": "The man whose turn it is now wears an aura so you can feel which one is yours: A two copies of him a beat out of time, B the picture tearing round him like bad tape, C hand-made wire electricity crawling over him. You see it in the VOTE tab on the real fight from the game's camera, in all eight directions and on the big map, every one moving on the beat.",
+   "options": [
+    "A, the echo",
+    "B, the tear",
+    "C, the current",
+    "NO, none of these"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_AURA.html"
+   },
+   "twin": {
+    "src": "vote/ANIMATION_THE_AURA_NONE.png",
+    "diffs": [
+     "NOW: the only sign of whose turn it is is gaffer tape on his tile's corners (about 126 px), and in a packed line the man in front stands on that tile, so it reads as his; the aura is on the man himself, at least twice that on every beat.",
+     "NOW the mark is still; the aura moves on the 120 beat in held stop-motion steps, six a beat, so the eye goes to the one thing on the board that pulses.",
+     "NOW the mark is a line on the ground in the tape's colour; none of the three is an outline or a new colour: the echo is his own pixels on the cold chrome ramp, the tear is the board's own pixels moved, the current is wire and foil out of DIRECTION's rig."
+    ]
+   },
+   "draft": true,
+   "sprites": [
+    "records/target/master_rig/aura_current/aura_echo_N.png",
+    "records/target/master_rig/aura_current/aura_echo_NE.png",
+    "records/target/master_rig/aura_current/aura_echo_E.png",
+    "records/target/master_rig/aura_current/aura_echo_SE.png",
+    "records/target/master_rig/aura_current/aura_echo_S.png",
+    "records/target/master_rig/aura_current/aura_echo_SW.png",
+    "records/target/master_rig/aura_current/aura_echo_W.png",
+    "records/target/master_rig/aura_current/aura_echo_NW.png",
+    "records/target/master_rig/aura_current/aura_current_N.png",
+    "records/target/master_rig/aura_current/aura_current_NE.png",
+    "records/target/master_rig/aura_current/aura_current_E.png",
+    "records/target/master_rig/aura_current/aura_current_SE.png",
+    "records/target/master_rig/aura_current/aura_current_S.png",
+    "records/target/master_rig/aura_current/aura_current_SW.png",
+    "records/target/master_rig/aura_current/aura_current_W.png",
+    "records/target/master_rig/aura_current/aura_current_NW.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+>>>>>>> 0721651e (ANIMATION [the aura of the one you control] IN VOTE animation-the-aura-of-the-one-you-control-10-19 (A the echo / B the tear / C the current / NO): the row, the card (sha fa9dbf31), the handoff block)
    }
   }
  ],

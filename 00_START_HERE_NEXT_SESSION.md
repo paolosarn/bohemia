@@ -3197,7 +3197,41 @@ arm was not captured, so it is written down rather than called clean.
 
 --------------------------------------------------------------------------------
 
-ANIMATION (animation-opus-10-18d, opened by the coordinator, rules 112 to 117): 10/18 (d) LATEST -- *** [the beasts through
+ANIMATION (animation-aura-10-19, opened by the coordinator, rules 111 to 120): 10/19 (a) LATEST -- *** [the aura of the
+one you control] ROUND ONE IN VOTE, WAITS HIS PICK (rule 100). TAB: VOTE, card animation-the-aura-of-the-one-you-control-10-19
+(A THE ECHO / B THE TEAR / C THE CURRENT / NO; sha fa9dbf31). ***
+READ FIRST: rule 120(c), GDD v2 (The Fifth Dimensional Element; s15 the second bar), GDD v3 (Prince Hobo: never explained),
+PURPLE RESERVATION 7/10 + NEUROLINK 7/10 + THE REWIND 8/15 (none of the three carries purple).
+MEASURED FIRST: the fight's only mark of whose turn it is was gaffer tape on his tile (126 px); in a packed line the man in
+front stands on it. The fight's sheets have two facings; the map draws him only when the party moves (youCount 1 at rest).
+WHAT IS BUILT: slices/vote/ANIMATION_THE_AURA.js (BOHEMIA_AURA.draw(kind, 'behind'|'front', g, o), sizes fight and map),
+slices/vote/ANIMATION_THE_AURA_HOOK.js (lays it on the real fight by wrapping its blitMan from outside; a map version that
+catches his body blit), the page slices/vote/ANIMATION_THE_AURA.html (three clips filmed off the real fight at his phone's
+pixels, the twin, eight directions live on the rig's poncho crewman, the map's size, the real fight live on a tap).
+C THE CURRENT: tools/bohemia_animation_the_aura_current_prep.py (Blender: a stand-in body + 32 wire-and-foil arcs, 12 keys,
+round five's knobs in its header) -> DIRECTION's master rig unchanged (breaks []) -> tools/bohemia_animation_the_aura_current_bake.py
+(the arcs' own pixels by object id, slivers under 8 px dropped, a selective dark edge on the side away from the sun along
+cloth_black's ramp). Film: node tools/bohemia_animation_the_aura_film.js <dir> clips|map|sprites; bake: python3
+tools/bohemia_animation_the_aura_bake.py <clips dir> <map dir>.
+THE PASSES (the record has why): the tear's comb (it was invisible), the current's edge, thicker wire, a fourth arc on the
+bar's other beats (one moved to his back: from behind beat two showed 195 px), the echo along the ramp and the edge along
+cloth_black (DIRECTION's G2 caught both as flat lists: 25 to 50 and 15 to 23 percent in the top eight, line 11.1).
+GATES: THE AURA OF THE ONE YOU CONTROL 29/0, new in the suite (the floor: on every beat twice the tape: 401, 3,139, 415);
+NOT VIBE CODED first five 16/16 on this row's pictures (N3 red is other lanes' rows); THE CARD I NAME 26/0; VOTE TAB 46/6
+(DYNASTY's whys and the sheet viewer, not this row); STYLE GUIDE: this rig.json ok (reds: PORTRAIT's crew 'wear');
+REFERENCE CHECK 502/2 (UI's new cook tool). FULL SUITE NOT RUN, said (rule 13).
+HANDED TO RUN [the aura on the map]: the two calls where renderCity blits his body (the record has o, field by field); the
+cost: his layer redrawn twelve times a second while the aura shows (the map redraws only on a move). COMBAT on his pick:
+the same two calls round blitMan for the crewControlled current man.
+ROUTED (record): DIRECTION judges the three by eye before his pick; the coordinator: purple is his identity call; COMBAT and
+SOUNDS: the fight's beat is its own clock, not the song's; PLUMBER: the page's clips are 5.1 MB.
+Tooling: bpy 4.2 in a scratch venv (python3.11 -m venv v; v/bin/pip install bpy==4.2.0 numpy pillow); bpy segfaults on exit
+AFTER writing (prep and rig both): never chain them with &&. A rig run is ~3.5 min.
+NEXT: his pick. On A, B or C: the picked one is FINAL-ready for COMBAT's fight and RUN's map; on NO, his words become round
+two. Then back to [the beasts through the rig]: the hyena unheld when DIRECTION rules the beast colours, then 4 THE HOG.
+records/BOHEMIA_THE_AURA_OF_THE_ONE_YOU_CONTROL_10_19_26.md.
+
+ANIMATION (animation-opus-10-18d, opened by the coordinator, rules 112 to 117): 10/18 (d) -- *** [the beasts through
 the rig, the wolf redone] ROUND THREE IN VOTE, WAITS THE MOODBOARD (rule 100). TAB: VOTE, PLACEHOLDER: THE FERAL DOG PACK
 (all three dogs now: the pit, the shepherd, the cur, eight facings, idle, step and bite, held like stop-motion). ***
 READ FIRST: the front page's 111 to 117, Grok 170 to 177 (the coordinator's note: CRASHBOX timing).

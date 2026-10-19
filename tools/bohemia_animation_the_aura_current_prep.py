@@ -86,17 +86,20 @@ CROWN = (0.0, 0.0, 1.69)
 # THE BAR: what each key throws (type, side, front or back of the body). The one (key 0) the biggest; the other beats
 # (3, 6, 9) three arcs with a ground-to-hand; the off-beats one or two small ones. Two keys running never share a shape
 # (nor, from pass 2, a kind of arc: the off-beats were given two small arcs each, and the kinds rotate round the bar).
+# PASS 5 (ANIMATION 10/19): a fourth arc on each of the bar's other three beats (keys 3, 6, 9), on the side the other three
+# leave empty: filmed and gated, the weakest beat in the weakest facing showed 159 px, under twice the tape corners (252);
+# key 3's was a back arc after one more measure: its three were all on his front, so from behind (N) it showed 195 px
 PLAN = {
     0: [('ground_crown', +1, 'front'), ('ground_hand', -1, 'back'), ('shoulder_head', -1, 'front'), ('crown_spark', +1, 'back')],
     1: [('hand_hip', +1, 'front'), ('ground_spark', -1, 'back')],
     2: [('shoulder_head', +1, 'back'), ('crown_spark', -1, 'front')],
-    3: [('ground_hand_cross', +1, 'front'), ('ground_knee', -1, 'front'), ('hand_hip_cross', -1, 'front')],
+    3: [('ground_hand_cross', +1, 'front'), ('ground_knee', -1, 'front'), ('hand_hip_cross', -1, 'front'), ('ground_hip', +1, 'back')],
     4: [('ground_spark', +1, 'front'), ('shoulder_head', -1, 'back')],
     5: [('crown_spark', +1, 'back'), ('hand_hip', -1, 'front')],
-    6: [('ground_hand', -1, 'front'), ('ground_hip', +1, 'back'), ('shoulder_head', +1, 'front')],
+    6: [('ground_hand', -1, 'front'), ('ground_hip', +1, 'back'), ('shoulder_head', +1, 'front'), ('ground_knee', -1, 'back')],
     7: [('hand_hip', -1, 'back'), ('ground_spark', +1, 'front')],
     8: [('crown_spark', -1, 'front'), ('shoulder_head', +1, 'front')],
-    9: [('ground_hand_cross', +1, 'back'), ('ground_knee', -1, 'front'), ('ground_hip', -1, 'front')],
+    9: [('ground_hand_cross', +1, 'back'), ('ground_knee', -1, 'front'), ('ground_hip', -1, 'front'), ('shoulder_head', -1, 'front')],
     10: [('shoulder_head', -1, 'front'), ('hand_hip', +1, 'back')],
     11: [('ground_spark', -1, 'back'), ('ground_spark', +1, 'front')],
 }
