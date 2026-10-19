@@ -11632,7 +11632,59 @@
     "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
     "light": "guide"
    }
-  }
+  },
+ {
+  "id": "cook2-the-fight-floor-10-19",
+  "kind": "tile",
+  "lane": "cook 2",
+  "sha": "b903ade3",
+  "made": "10/19",
+  "title": "CANDIDATE: THE FIGHT FLOOR, MADE FROM THE STREET YOU SAID YES TO",
+  "why": "You said you hate the fight floor, so the camouflage blobs and the orange are gone and every fight now stands on the dirt, the sidewalk slab and the road of the one real street you said yes to, with houses, roads and cover left where they were. You see it here in the VOTE tab, real fights from the game with the floor now beside the new floor; a candidate, not in the game until you say yes.",
+  "show": {
+   "how": "image",
+   "src": "../records/target/COOK2_THE_FIGHT_FLOOR.webp",
+   "first": "../records/target/vote_first/cook2-the-fight-floor-10-19.webp",
+   "firstAt": [0, 350, 1170, 1060]
+  },
+  "question": "Is this a floor you can fight on?",
+  "placeholder_of": "slices/fight_ground block pictures (COMBAT TWO lays them; nothing in the game changes before his vote)",
+  "caption": "PIXEL SIZE the fight's own, one art pixel to one device pixel at the close stop (a house tile 515 x 364, 42.9 px a metre, depth x cos45), his tiles at their own pixel | PALETTE records/target/cook2_fight_floor/COOK2_FIGHT_FLOOR_KIT.json (his soil #2, #4, #21 shade to shade onto the valley's tans, his slab and road as bought) | LIGHT the board's own: every shadow its maker cast, the same darkness, the hue walking cool into shadow (style guide field 4)",
+  "sprites": [
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_ASPHALT_0.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_ASPHALT_1.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_CALICHE_0.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_CALICHE_1.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_CONCRETE_0.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_CONCRETE_1.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_DESERT_0.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_DESERT_1.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_LAWN_0.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_LAWN_1.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_PLAYA_0.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_PLAYA_1.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_ROUGH_0.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_ROUGH_1.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_TRACK_0.png",
+   "records/target/cook2_fight_floor/materials/COOK2_FLOOR_TRACK_1.png"
+  ],
+  "class": "tile",
+  "family": "ground",
+  "look": {
+   "px": 1,
+   "palette": "records/target/cook2_fight_floor/COOK2_FIGHT_FLOOR_KIT.json",
+   "light": "board"
+  },
+  "twin": {
+   "src": "pack:2. Soil and dirt tiles#2",
+   "diffs": [
+    "ONE SOIL, NO BLOBS: the fight laid two soils with the second poured through a big blurred random mask, a camouflage print on every board; now each ground is one of your tiles, laid tile by tile.",
+    "THE VALLEY'S TAN, NOT ORANGE: your soil as bought is orange garden dirt; here it is the same tile taken shade to shade onto the grey tan of Las Vegas caliche, the dirt of the street you said yes to.",
+    "THE SAME SHADOWS: every shadow the board had (a bank of the wash, a house) lands on the new ground at the same darkness."
+   ]
+  },
+  "draft": true
+ }
  ],
  "verdicts": [
   {

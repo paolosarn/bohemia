@@ -91,7 +91,7 @@ blocks.append(('img', row))
 blocks.append(('q', 'ONE QUESTION: is this a floor you can fight on?'))
 blocks.append(('cap', 'PIXEL SIZE the fight\'s own, one art pixel to one device pixel at the close stop (a house tile 515 x 364, 42.9 px a metre, '
                'depth x cos45), his tiles at their own pixel | PALETTE records/target/cook2_fight_floor/COOK2_FIGHT_FLOOR_KIT.json (his soil '
-               '#2, #21, #22 shade to shade onto the valley\'s tans, his slab and road as bought; 0 colours drawn) | LIGHT the board\'s '
+               '#2, #4, #21 shade to shade onto the valley\'s tans, his slab and road as bought; 0 colours drawn) | LIGHT the board\'s '
                'own: every shadow its maker cast, darkened by the same amount, the hue walking cool into shadow (style guide field 4)'))
 
 d0 = ImageDraw.Draw(Image.new('RGB', (10, 10)))
