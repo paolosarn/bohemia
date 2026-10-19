@@ -228,10 +228,11 @@ async function walk(profile, legs) {
     res.lWords = await words(page);
     res.fit = await page.evaluate(READ_FIT);
   });
-  /* ---------- the classic door, switch untouched ---------- */
+  /* ---------- the classic door, the switch set to classic (RUN flipped the alpha to just-the-font at its 10/19 cut) ---------- */
+  const CLASSIC = () => { new MutationObserver((m, o) => { const f = document.getElementById('front'); if (f) { f.setAttribute('data-look', 'classic'); o.disconnect(); } }).observe(document, { childList: true, subtree: true }); };
   let classic = null, cErrs = [];
   {
-    const d = await open({ keepCards: true, beforeTap: async (page) => {
+    const d = await open({ keepCards: true, beforeGoto: async (cdp, page) => { await page.addInitScript(CLASSIC); }, beforeTap: async (page) => {
       await page.waitForTimeout(600);
       classic = await page.evaluate(() => { const lp = document.getElementById('logoplate'), s = lp && getComputedStyle(lp); return { look: document.getElementById('front').getAttribute('data-look'), sheet: !!document.getElementById('bm-jtf-css'), marks: document.querySelectorAll('.jtf-mark').length, jtfTitle: !!document.querySelector('.bm-start.jtf'), plateClip: s ? s.clipPath : '', logobig: getComputedStyle(document.getElementById('logobig')).display }; });
     } });
