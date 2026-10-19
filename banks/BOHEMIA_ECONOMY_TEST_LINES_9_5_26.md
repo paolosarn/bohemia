@@ -5304,3 +5304,50 @@ EEEEEEEEEEEEEEEEEEEEEEEEEE8  the stall keeper, scooping grain into a crewman's o
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth with a
   face, at a stall, a pump, a fire or a stash.
 - Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.
+
+## GGGGGGGGGGGGGGGGGGGGGGGGGG. THE FIRST BULLETS: THE PILE, NOT THE PRICE (round 78)
+# Record: records/BOHEMIA_ECONOMY_DAY_78_THE_FIRST_BULLETS_10_19_26.md
+# Row [the first bullets], under rule 88's hold: a page, no sheet, nothing in the game.
+
+GGGGGGGGGGGGGGGGGGGGGGGGGG1  a crewman at the door, handing each man his own box of rounds                            draft:true
+    "Count them now. Every one you don't fire is one you don't have to buy."
+
+GGGGGGGGGGGGGGGGGGGGGGGGGG2  the stall keeper, sliding a box of rounds across the counter                              draft:true
+    "Loose or by the box, same price a round. I don't charge you extra for being short."
+
+GGGGGGGGGGGGGGGGGGGGGGGGGG3  the man with the car door, to the rifleman behind him before a fight                       draft:true
+    "I hold the door, you shoot past me. Out front on your own, that rifle's a stick."
+
+GGGGGGGGGGGGGGGGGGGGGGGGGG4  a crewman topping off every magazine from the box after a fight                           draft:true
+    "Everybody's full again. The box is lighter than it was this morning."
+
+GGGGGGGGGGGGGGGGGGGGGGGGGG5  an old man by the fire, watching a young shooter empty his gun at nothing               draft:true
+    "That boy just fired a week of beans at a fence."
+
+GGGGGGGGGGGGGGGGGGGGGGGGGG6  a woman going through a fallen man's jacket after the fight                              draft:true
+    "He never got to use these. Now you do."
+
+GGGGGGGGGGGGGGGGGGGGGGGGGG7  a rifleman holding his fire, to the crewman beside him                                     draft:true
+    "Wait for him to stand up. One good one beats six into the dark."
+
+GGGGGGGGGGGGGGGGGGGGGGGGGG8  the stall keeper, to a crew counting its last few rounds                                   draft:true
+    "Las balas no se comen, mijo. But you don't eat without them either."
+
+## HHHHHHHHHHHHHHHHHHHHHHHHHH. WHAT IS NOT HERE, ON PURPOSE (round 78)
+
+- No line names a wiki page, a game, a law, an agency, a country, a percentage, a number of rounds or batteries or a
+  real event. The finding is said as the box at the door, the same price loose or boxed, the front man who lets the
+  rifle shoot, the refill after the fight, the round against the bean, the dead man's pocket, the shot worth waiting
+  for, and the bullet you cannot eat.
+- GGGGGGGGGGGGGGGGGGGGGGGGGG1 carries the pick (the first rounds are handed at the door, and saving one is not buying
+  one); 2 carries the price (no premium for the loose round, Day 77); 3 carries the bench's biggest finding (a gun
+  cannot fire at the man beside it, so the gun needs a front); 4 carries Battle Brothers' refill after the fight from
+  the pile; 5 carries the round priced against a day's food; 6 carries the body search (his bonus); 7 carries the
+  careful shot, and is a CANDIDATE for when the fight pays it (on today's fight holding fire loses, section 4); 8
+  carries the round as a good, never a coin (batteries are the money).
+- No line picks a number; TUNING's table first.
+- No person, town, street or faction is named. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth with a face, at a
+  door, a stall, a fire, a body or a firing line.
+- Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.

@@ -15,7 +15,7 @@
 If the gun is how you win (rule 120(a)), the bullet is a cost from the first fight. What does a fight's ammo cost in the
 first week, and what keeps a careful shooter from going broke in the first hour?
 1. A FIGHT'S ROUNDS ARE SMALL MONEY. Measured on the live fight with guns in the crew's hands (section 4): one gun spends
-   4 to 5 rounds a first-week job, two guns 8 to 9, three 9 to 12. At Day 69's five a battery that is 0.8 to 2.4
+   4 to 5 rounds a first-week job, two guns 8 to 9, three 7 to 12. At Day 69's five a battery that is 0.8 to 2.4
    batteries: 1 to 8 in 100 of the job's pay, a tenth to a quarter of a nine-battery day.
 2. SO THE PRICE CANNOT BREAK HIM. In every cell of the first hour (four kits, two schedules, mean and bad-luck shot
    counts, even zero rounds at the door and every fight lost) the purse never falls under 179 of the door's 240. TUNING's
@@ -30,8 +30,8 @@ first week, and what keeps a careful shooter from going broke in the first hour?
    and a sledge win 93 in 100; pipe, pipe, rifle 87; one pipe and two rifles 69; three rifles 44. A lone wolf with a rifle
    wins 0 of 300. A gun cannot fire at the man beside it (rule 83) and the crew walks into reach. Rule 120(a) is the
    opposite of what the fight does.
-5. THE CAREFUL HAND IS PUNISHED TOO: holding every shot under 50 in 100 saves 37 rounds in the first hour (7 batteries)
-   and loses 25 batteries of pay, because the fights it lets run are lost. Until the fight pays the good shot (rule
+5. THE CAREFUL HAND IS PUNISHED TOO: for three rifles, holding every shot under 50 in 100 saves 37 rounds in the first
+   hour (7 batteries) and loses 25 batteries of pay, because the fights it lets run are lost. Until the fight pays the good shot (rule
    117(c), rule 120(b)), 'careful' costs men, not money.
 
 ## 1. HOW BATTLE BROTHERS PRICES A SHOT
@@ -133,7 +133,7 @@ wants the careful shooter to win has to make the careful shot the one that lands
   day), the ration counter: 9 batteries a day, 3 of it the wage; the door's THIN shelves, 240 batteries; Day 76's pick
   (nine days of food and water in the stash, half the first job on the handshake); the board's jobs 30 / 60 / 90 for one /
   two / three skulls (THIN; FULL x1.5); a job's band sized by party_math.json (two, three and four men at one, two and
-  three skulls for a fresh crew of three; one for a lone man).
+  three skulls for a fresh crew of three; two, the floor, for a lone man).
 
 ## 4. THE BENCH: WHAT A FIRST-WEEK FIGHT SPENDS, PLAYED 10,200 TIMES ON THE LIVE FIGHT
 Instrument: tools/bohemia_economy_first_bullets.js (a research tool, not a gate; nothing the game reads). It plays the live
@@ -161,7 +161,7 @@ in every job cell, TUNING's 5.2; one fight in 300 of the first job never ends on
 | pipe, rifle, rifle | 69 / 42; 8.8 / 3.0 | 31 / 10; 9.3 / 3.8 | 7 / 2; 7.6 / 3.5 |
 | three rifles | 44 / 14; 11.8 / 3.7 | 12 / 3; 10.3 / 3.0 | 1 / 0; 8.5 / 2.8 |
 | shotgun, two rifles | 42 / 9; 10.6 / 3.0 | 8 / 1; 8.4 / 2.6 | 1 / 0; 7.1 / 2.4 |
-| THE LONE WOLF, one brigand | pipe 13 / 13; rifle 0 / 0 (2.0 / 0.4 shots, 28 / 50 hits in 100) | | |
+| THE LONE WOLF, two brigands (party math's floor) | pipe 13 / 13; rifle 0 / 0 (2.0 / 0.4 shots, 28 / 50 hits in 100) | | |
 The careful hand hits 55 to 62 in 100 against AUTO's 35 to 40, and fires a third as often; it loses more because the
 brigands it does not shoot reach the line.
 
@@ -184,13 +184,14 @@ new crew of three: STEADY, five jobs (days 3 and 5 one skull, 7 and 9 two, 11 th
 2 (one skull to day 4, two to day 8, three after). Each job pays its THIN pay times the kit's win share; the first job's
 half on the handshake whatever happens (Day 76). Rounds come out of the pile after each fight (Battle Brothers' refill);
 a short pile is topped up at five a battery. Mean shots, and the bad-luck p90 shots every fight (the worst week a crew
-can have on that kit). Worked by the ledger in the record's own words; the scratch arithmetic reproduces Day 76's burn
-(9 a day, 3 in the seeded days).
+can have on that kit). Worked by tools/bohemia_economy_first_bullets_ledger.py (reads the bench's bank; prints every
+number in this section; Day 76's burn, 9 a day and 3 in the seeded days, is its input).
 
 **5a. WITH ZERO ROUNDS AT THE DOOR (main today, if a shot spent one):** every kit is DRY AT ITS FIRST FIGHT (day 2 or 3).
-The first week's rounds then cost 2.7 (one gun, steady) to 20.4 batteries (three rifles, busy, bad luck), a quarter to
-two fifths of everything the crew pays in cash that week (the wage, 21). The first hour's: 4.6 to 30.8.
-**5b. THE PURSE NEVER BREAKS.** Across all 64 cells the lowest purse in the first hour is 219.9 (three rifles, careful,
+The first week's rounds then cost 2.7 (one gun, steady) to 20.4 batteries (three rifles, busy, bad luck): from a tenth to
+half of all the cash the crew pays that week (the rest is the wage, 21; food and water are in the stash). The first
+hour's: 4.6 to 30.8.
+**5b. THE PURSE NEVER BREAKS.** Across every cell the ledger runs the lowest purse in the first hour is 219.9 (three rifles, careful,
 steady). The worst case on purpose (busy, three rifles, zero rounds, bad luck every fight, every fight lost, only the
 handshake paid) ends the hour on 179.2 of 240.
 **5c. THE PILE DOES. DRY DAY (mean / bad luck) IN THE BUSY FIRST HOUR, and batteries spent topping up:**
@@ -206,7 +207,7 @@ handshake paid) ends the hour on 179.2 of 240.
 In the STEADY hour nobody is dry at 40 a gun or more, in any kit, mean or bad luck.
 **5d. THE BODY SEARCH (six a body, the words already on the screen):** a Battle Brothers-shape crew takes back about 10
 rounds a won one-skull job for the 4.2 it fires; a three-rifle crew on AUTO takes back 5.3 for 11.8. With six a body
-nobody is dry in the busy hour at 40 a gun. The search pays the crew that does not waste, and only that one.
+no kit the ledger ran (one, two and three guns) is dry in the busy hour at 40 a gun. The search pays the crew that does not waste, and only that one.
 **5e. THE CAREFUL HAND, IN MONEY (steady hour, 40 a gun):** three rifles end the hour with 103.8 rounds left against
 AUTO's 67.3 (37 saved, about 7 batteries) and 24.9 batteries of pay against 50.1 (25 lost). One gun: 28.8 left against
 16.9, pay 117.2 against 140.5. On today's fight careful is a loss in every kit.

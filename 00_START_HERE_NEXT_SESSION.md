@@ -1866,6 +1866,44 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-opus-10-19): 10/19 LATEST (v) -- [the first bullets] SHIPPED, THE NEW AGE
+(rule 120(a) guns first; the coordinator's row, first on this board; opened by the coordinator on Opus 5.5 Extra, rules
+112 to 120; research and numbers only, no screen, no data file the game reads, no VOTE sheet, rule 88). Record:
+records/BOHEMIA_ECONOMY_DAY_78_THE_FIRST_BULLETS_10_19_26.md. Instrument: tools/bohemia_economy_first_bullets.js (the live
+fight headless, guns handed through the roster's gear, every shot counted; 34 cells x 300 fights, 225 s on four workers;
+banks/BOHEMIA_ECONOMY_FIRST_BULLETS_10_19_26.json draft:true) and its ledger tools/bohemia_economy_first_bullets_ledger.py
+(Day 76's books, prints every number in section 5).
+THE ANSWER: a fight's rounds are small money (one gun 4 to 5 a first-week job, two 8 to 9, three 7 to 12; at five a
+battery 0.8 to 2.4 batteries, 1 to 8 in 100 of the job, a tenth to a quarter of a 9-battery day; Battle Brothers' one
+crossbowman about 9 crowns, a sixth of its day). The price never breaks a crew in the first hour (lowest purse in any
+cell 219.9 of 240; the worst week on purpose, zero rounds, bad luck, every fight lost, 179.2). The EMPTY PILE does: all
+fifteen origins start with zero rounds and are dry at the first fight. THE PICK (DRAFT, TUNING's): one round a shot on
+every gun (answers TUNING's 10/10 open line; Battle Brothers' shell at two named, +15 rounds in the busy hour for nothing),
+five a battery loose and fifty for ten boxed, 60 ROUNDS A GUN AT THE DOOR (80 easy, 40 hard = Battle Brothers' Medium per
+shooter), refilled from the pile after every fight, six a body searched. At 60 a gun no kit is dry in the first hour on
+the mean and the first week's rounds cost nothing in cash; at 40 a gun the dry days equal Battle Brothers' own for one gun
+(busy 10 / 7) and beat them for two and three: rule 117, measured.
+PROVES US WRONG (COMBAT first): ON TODAY'S FIGHT EVERY GUN YOU ADD LOSES. A fresh crew, one skull: pipe, pipe, sledge
+wins 93 in 100; pipe, pipe, rifle 87; pipe, rifle, rifle 69; three rifles 44 (two skulls: 64, 57, 31, 12); dead per 100
+fights 6.7 to 31.3; a lone wolf with a rifle wins 0 of 300 (a gun cannot fire at the man beside it, rule 83; AUTO's
+rifles hit 35 to 40 in 100). The CAREFUL hand (no shot under 50 in 100) hits 55 to 62 and loses more: three rifles save 37
+rounds in the first hour and lose 25 batteries of pay. Also measured on main: a shot still spends nothing (TUNING 10/10);
+the stall's 'Six rounds' takes a battery and adds none (counts null); the body search says six and posts one; the bar's
+ROUNDS is a dash forever (BohemiaLedger defined nowhere); three round units (five a battery, two a shot on the stash
+screen, six for one at the stall); the pistol is the dagger row; 13 of 15 origins field no gun; one first-job fight in
+300 never ends on AUTO; 60 a gun for twelve guns is over the 300 / 500 carry cap (into [the grid's money]).
+ROUTED: TUNING (section 8's nine rows; the dry-day 117 test; the careful-hand finding beside [the whole grid]; the cap),
+COMBAT ([guns from the first fight], [the fight says what is weak]: the tables 4a and 4b, the pile and the refill, the
+fight that never ends, the pistol; the instrument re-runs on the new fight in one command), RUN TWO (the stall, the body
+search count, the stash screen's two a shot), RUN + UI (the bar's dash; the door's rounds once TUNING holds the number),
+WORLD (a place that makes rounds, this lane's [made here]), MODS (the ammo rows in a data file), WORDS (eight lines).
+Eight bank lines draft:true (section GG x26, 1 of 8 Spanish).
+Lead line for COMBAT (rule 113a): ECONOMY made one research page, a fight bench and its ledger, NOT IN A TAB, COOKING.
+NOW: [the grid's money] re-claimed by this session (the 10/18 claim's session died at the cap with nothing pushed); the
+instrument extends to the grid (company 1 to 14, enemies a few to 40). NEXT OPEN (jump list, rule 74): [made here], [the
+gap that survives], [the pump at home].
+PENDING Paolo: none new.
+
 ECONOMY (economy-opus-10-18-qrg2): 10/18 LATEST (u) -- [the poverty premium] SHIPPED, THE NEW AGE
 (the top OPEN row, the new crew's sack cost; opened by the coordinator on Opus 5.5 Extra, rules 112 to 117; research
 and numbers only, no screen, no code, no data file, no VOTE sheet, rule 88). Record:
