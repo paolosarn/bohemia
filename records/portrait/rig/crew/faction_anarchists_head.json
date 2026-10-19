@@ -1,0 +1,204 @@
+{
+ "person": "FACTION_ANARCHISTS",
+ "model": "records/portrait/rig/crew/faction_anarchists_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/anarchists.glb",
+ "dropped": [
+  "anarchists_hair",
+  "anarchists_hair_fall",
+  "anarchists_hat",
+  "anarchists_hat_brim",
+  "anarchists_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "watch cap",
+ "hair": "fall",
+ "stubble": false,
+ "look": "faction_anarchists",
+ "beard": null,
+ "scar": "brow",
+ "face": {
+  "dials": {
+   "face.len": 38,
+   "face.craniumH": 12,
+   "face.foreheadW": 22,
+   "face.cheekW": 27,
+   "face.jawW": 22,
+   "face.chinW": 9,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 5,
+   "brows.len": 7,
+   "mouth.w": 9,
+   "nose.w": 2
+  },
+  "identity": false,
+  "mouth_half": 0.033
+ },
+ "meshes": {
+  "anarchists_coat": 17818,
+  "anarchists_coat_skirt": 7528,
+  "anarchists_hand_L": 392,
+  "anarchists_hand_R": 392,
+  "anarchists_shoe": 4036,
+  "Cesium_Man": 1247,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_cap": 10108,
+  "portrait_hair": 36168
+ },
+ "materials": {
+  "anarchists_coat": [
+   0.1248,
+   0.0343,
+   0.0976
+  ],
+  "anarchists_coat_skirt": [
+   0.1248,
+   0.0343,
+   0.0976
+  ],
+  "anarchists_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "anarchists_hair": [
+   0.0212,
+   0.0144,
+   0.0116
+  ],
+  "anarchists_hair_fall": [
+   0.0212,
+   0.0144,
+   0.0116
+  ],
+  "anarchists_hat": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "anarchists_hat_brim": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "anarchists_shirt": [
+   0.0116,
+   0.0103,
+   0.0103
+  ],
+  "anarchists_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "anarchists_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "anarchists_skin": [
+   0.8963,
+   0.7231,
+   0.5089
+  ],
+  "anarchists_trousers": [
+   0.0482,
+   0.0212,
+   0.0369
+  ],
+  "portrait_faction_anarchists_buzz": [
+   0.552,
+   0.3813,
+   0.162
+  ],
+  "portrait_faction_anarchists_cap": [
+   0.0762,
+   0.0685,
+   0.0704
+  ],
+  "portrait_faction_anarchists_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_anarchists_lips": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "portrait_faction_anarchists_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_anarchists_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_anarchists_scar": [
+   0.8963,
+   0.7231,
+   0.5089
+  ],
+  "portrait_faction_anarchists_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_anarchists_skin": [
+   0.8963,
+   0.7231,
+   0.5089
+  ],
+  "portrait_faction_anarchists_stubble": [
+   0.7454,
+   0.5089,
+   0.3278
+  ]
+ }
+}

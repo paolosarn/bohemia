@@ -1,0 +1,189 @@
+{
+ "person": "FACTION_HOMELESS",
+ "model": "records/portrait/rig/crew/faction_homeless_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/homeless.glb",
+ "dropped": [
+  "homeless_hair",
+  "homeless_hair_fall",
+  "homeless_hat",
+  "homeless_hat_brim",
+  "homeless_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "fall",
+ "stubble": false,
+ "look": "faction_homeless",
+ "beard": "full",
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 35,
+   "face.craniumH": 9,
+   "face.foreheadW": 24,
+   "face.cheekW": 29,
+   "face.jawW": 24,
+   "face.chinW": 11,
+   "face.browY": 0,
+   "face.eyeY": 1,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 7,
+   "mouth.w": 9,
+   "nose.w": 4
+  },
+  "identity": false,
+  "mouth_half": 0.033
+ },
+ "meshes": {
+  "Cesium_Man": 1238,
+  "homeless_hand_L": 392,
+  "homeless_hand_R": 392,
+  "homeless_mantle": 19238,
+  "homeless_shoe": 3916,
+  "homeless_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 74390,
+  "portrait_beard": 3776
+ },
+ "materials": {
+  "homeless_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "homeless_hair": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "homeless_hair_fall": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "homeless_mantle": [
+   0.305,
+   0.2874,
+   0.2462
+  ],
+  "homeless_shirt": [
+   0.2664,
+   0.2582,
+   0.2384
+  ],
+  "homeless_shoe": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "homeless_shoes": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "homeless_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "homeless_trouser": [
+   0.013,
+   0.0116,
+   0.0116
+  ],
+  "homeless_trousers": [
+   0.013,
+   0.0116,
+   0.0116
+  ],
+  "portrait_faction_homeless_beard": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "portrait_faction_homeless_buzz": [
+   0.552,
+   0.3813,
+   0.162
+  ],
+  "portrait_faction_homeless_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_homeless_lips": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "portrait_faction_homeless_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_homeless_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_homeless_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_homeless_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "portrait_faction_homeless_stubble": [
+   0.3419,
+   0.1812,
+   0.0999
+  ]
+ }
+}

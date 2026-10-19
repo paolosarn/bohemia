@@ -1,0 +1,196 @@
+{
+ "person": "FACTION_BLUES",
+ "model": "records/portrait/rig/crew/faction_blues_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/blues.glb",
+ "dropped": [
+  "blues_hair",
+  "blues_hair_fall",
+  "blues_hat",
+  "blues_hat_brim",
+  "blues_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.0374,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "taper",
+ "stubble": false,
+ "look": "faction_blues",
+ "beard": "moustache",
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 33,
+   "face.craniumH": 10,
+   "face.foreheadW": 27,
+   "face.cheekW": 34,
+   "face.jawW": 31,
+   "face.chinW": 16,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 9,
+   "mouth.w": 11,
+   "nose.w": 3
+  },
+  "identity": false,
+  "mouth_half": 0.0374
+ },
+ "meshes": {
+  "blues_coat": 19050,
+  "blues_coat_skirt": 2464,
+  "blues_hand_L": 392,
+  "blues_hand_R": 392,
+  "blues_mantle": 11634,
+  "blues_shoe": 3916,
+  "blues_trouser": 2568,
+  "Cesium_Man": 1232,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 49572,
+  "portrait_beard": 51
+ },
+ "materials": {
+  "blues_coat": [
+   0.0704,
+   0.1356,
+   0.305
+  ],
+  "blues_coat_skirt": [
+   0.0704,
+   0.1356,
+   0.305
+  ],
+  "blues_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "blues_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "blues_mantle": [
+   0.0612,
+   0.1119,
+   0.2384
+  ],
+  "blues_shirt": [
+   0.0545,
+   0.1022,
+   0.2232
+  ],
+  "blues_shoe": [
+   0.0423,
+   0.0409,
+   0.0452
+  ],
+  "blues_shoes": [
+   0.0423,
+   0.0409,
+   0.0452
+  ],
+  "blues_skin": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "blues_trouser": [
+   0.1046,
+   0.1022,
+   0.107
+  ],
+  "blues_trousers": [
+   0.1046,
+   0.1022,
+   0.107
+  ],
+  "portrait_faction_blues_beard": [
+   0.0844,
+   0.0423,
+   0.0194
+  ],
+  "portrait_faction_blues_buzz": [
+   0.1746,
+   0.0931,
+   0.0423
+  ],
+  "portrait_faction_blues_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_blues_lips": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_blues_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_blues_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_blues_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_blues_skin": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "portrait_faction_blues_stubble": [
+   0.0545,
+   0.0168,
+   0.0116
+  ]
+ }
+}
