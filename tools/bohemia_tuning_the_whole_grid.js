@@ -334,13 +334,16 @@ async function main() {
   }
   const arg = (k, d) => { const i = argv.indexOf(k); return i > 0 ? argv[i + 1] : d; };
   const N = Number(arg('--n', 100)), JOBS = Number(arg('--jobs', 4)), only = arg('--only', null);
+  /* --from-cache: play nothing; write the bank from the cells already in the cache (a run that has to stop early still
+     hands the page what it measured; the page marks the rest NOT PLAYED YET) */
+  const fromCache = argv.includes('--from-cache');
   const strikes = wikiStrikes(Object.keys(BEASTS));
   const sfile = path.join(require('os').tmpdir(), 'bohemia_grid_strikes_' + process.pid + '.json');
   fs.writeFileSync(sfile, JSON.stringify(strikes));
   const CACHE = cellCache(OUT.replace(/\.json$/, '.cells.ndjson'), N);
   const all = cells(only), results = {};
   all.forEach(w => { const v = CACHE.has(key(w), fightsFor(w, N)); if (v) results[key(w)] = v; });
-  const work = all.filter(w => !results[key(w)]);
+  const work = fromCache ? [] : all.filter(w => !results[key(w)]);
   process.stderr.write('resume: ' + (all.length - work.length) + ' of ' + all.length + ' cells already played on this fight (' + CACHE.fp + ')\n');
   let next = 0, running = 0;
   const t0 = Date.now();
@@ -370,13 +373,14 @@ async function main() {
     console.log('\n' + kd.toUpperCase() + ' / ' + sg + ' / ' + t.id + '   won in 100 (the map\'s pick in brackets)');
     console.log('company'.padEnd(9) + cnts.map(c => String(c).padStart(8)).join(''));
     comps.forEach(c => console.log(String(c).padEnd(9) + cnts.map(e => { const r = results[key({ kind: kd, company: c, enemies: e, stage: sg, setting: t.id })];
-      return (e === 'map' ? r.won_in_100 + '(' + r.enemies + ')' : String(r.won_in_100)).padStart(8); }).join('')));
+      return (!r ? '-' : e === 'map' ? r.won_in_100 + '(' + r.enemies + ')' : String(r.won_in_100)).padStart(8); }).join('')));
   })));
   console.log('\n' + all.length + ' cells (' + work.length + ' played this run) x ' + N + ' fights in ' + secs + ' s');
   if (argv.includes('--write')) {
     const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : null;
     const cellsOut = Object.assign({}, prev && prev.cells || {});
-    all.forEach(w => { cellsOut[key(w)] = Object.assign({ kind: w.kind, company: w.company, enemies_asked: w.enemies, stage: w.stage, setting: w.setting }, results[key(w)]); });
+    all.forEach(w => { if (!results[key(w)]) return; cellsOut[key(w)] = Object.assign({ kind: w.kind, company: w.company, enemies_asked: w.enemies, stage: w.stage, setting: w.setting }, results[key(w)]); });
+    const played = all.filter(w => results[key(w)]).length;
     fs.writeFileSync(OUT, JSON.stringify({
       _readme: 'TUNING [the whole grid] 10/18 (rule 117(e): a tuning number is a grid, never one average; rule 38g research only). draft:true. '
         + 'DRAFT: THE GEAR IS NOT IN (CHARACTER\'s roll-call and COMBAT\'s equipment). NOTHING IN THE GAME READS THIS FILE. Every cell is fights of the live '
@@ -384,7 +388,7 @@ async function main() {
         + 'sides, seeded (fight k plays seed 7000+k) so every setting meets the same fights. Beasts: the fight has no beast path; each played beast carries '
         + 'its wiki strike as an in-memory weapon row (strikes below) and loses what LOSES names. Fights a cell: fights_per_cell, half for a cell of 30 or more men on the board, '
         + '40 for the beast roster (each cell carries its own "fights"). Key: kind|company|enemies|stage|setting.',
-      draft: true, schema: 1, fights_per_cell: N,
+      draft: true, schema: 1, fights_per_cell: N, cells_asked: all.length, cells_played: played,
       settings: SETTINGS.map(t => ({ id: t.id, name: t.name, levers: t.L })),
       stages: STAGES, gear: GEAR, companies: COMPANIES, counts: COUNTS,
       strikes: strikes, loses: LOSES, not_played: NOT_PLAYED,

@@ -58,6 +58,8 @@ const md = [];
 md.push('# TUNING [the whole grid]: every fight he will meet, not four (10/18)');
 md.push('');
 md.push('RESEARCH ONLY (rule 38g). DRAFT: THE GEAR IS NOT IN (rule 117(e)). Nothing in the game reads this page or its bank.');
+const PARTIAL = B.cells_asked && B.cells_played < B.cells_asked;
+if (PARTIAL) { md.push(''); md.push('**' + B.cells_played + ' OF ' + B.cells_asked + ' SQUARES PLAYED SO FAR.** The bench is still running (the biggest fights take minutes each); a dash is a fight NOT PLAYED YET, never a guess. It resumes from its cache (banks/BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.cells.ndjson) and this page is re-written when it ends.'); }
 md.push('');
 md.push('## Why');
 md.push('');
@@ -181,6 +183,7 @@ h.push('<style>:root{--bg:#f4efe4;--ink:#1b1711;--line:#8a7d66;--g:#bfd8a8;--a:#
   + 'td.g{background:var(--g)}td.a{background:var(--a)}td.r{background:var(--r)}td.past{background:var(--past);color:#6d6455}td.m{font-weight:bold}'
   + '.key span{display:inline-block;padding:2px 6px;margin-right:4px;border:1px solid var(--line);font-size:12px}.k{font-size:11px;color:#5b5244;overflow-wrap:anywhere}</style></head><body>');
 h.push('<h1>THE WHOLE GRID</h1>');
+if (PARTIAL) h.push('<p><b>' + B.cells_played + ' of ' + B.cells_asked + ' fight sizes played so far.</b> A dash is one the computer has not played yet. This page fills in as it runs.</p>');
 h.push('<p>TUNING, research only. Every fight size: one to fourteen of yours against three to thirty-eight, people and dire wolves, early, middle and late gear. Each square is how many fights in 100 you win. <b>DRAFT: the gear is not in yet.</b></p>');
 h.push('<p class="key"><span style="background:var(--g)">70+ you mostly win</span><span style="background:var(--a)">40 to 69 a coin toss</span><span style="background:var(--r)">under 40 you mostly lose</span><span style="background:var(--past)">grey: more than Battle Brothers ever sends that company</span></p>');
 h.push('<div class="tabs" id="tabs">' + SETS.map((t, i) => '<button data-t="' + t + '"' + (i ? '' : ' class="on"') + '>' + esc(TNAME[t]) + '</button>').join('') + '</div>');
