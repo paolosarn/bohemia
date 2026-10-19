@@ -189,6 +189,8 @@ function write(res, N) {
   P('**UNDER 70 IN 100 AT OUR START WITH THE GUNS (rule 117: a first fight he should mostly win):** the map\'s job: ' + (jobUnder.length ? jobUnder.map(r => r.o.name + ' ' + gunsOr(r.draft, r.today).won_in_100).join('; ') : 'none')
     + '. The street\'s nine: ' + (streetUnder.length ? streetUnder.length + ' of ' + rows.length + ' (' + streetUnder.map(r => r.o.name + ' ' + gunsOr(r.sStartG, r.sStart).won_in_100).join('; ') + ')' : 'none') + '.');
   P('');
+  const stalls = Object.values(res).filter(x => x.stalled_in_100 > 0);
+  if (stalls.length) { P('**FIGHTS THAT NEVER END (a standoff: both sides hold their line and nobody steps in; the bench stops each at 400,000 steps):** ' + stalls.map(x => (ORIG.filter(o => o.id === x.origin)[0] || {}).name + ', ' + (x.fight === 'street' ? 'the street\'s nine' : 'the map\'s job') + ', ' + x.kit + ' kit, ' + x.setting + ': ' + x.stalled_in_100 + ' in 100').join('; ') + '. A player can walk in; AUTO never does. COMBAT (the same standoff the guns page found with the dire wolves).'); P(''); }
   P('**THE PROPOSAL (for RUN and COMBAT):** every hand-over carries a party sized by the map\'s own job count for the company, and the fight\'s fallback is sized the same way (party_math\'s one-skull count for the company in front of it), never the twelve\'s nine. '
     + 'Then the first fight is the map\'s-job table: with the guns and our start, ' + rows.filter(r => gunsOr(r.draft, r.today) && gunsOr(r.draft, r.today).won_in_100 >= 80).length + ' of ' + rows.length + ' origins win 80 or more in 100. Our start\'s levers go into the fight (COMBAT) or the door\'s easiest pick (RUN), so the TODAY column becomes the START column.');
   P('');
