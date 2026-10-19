@@ -78,7 +78,9 @@ def measure_bank():
     from PIL import Image
     fam = {}
     for d in sorted(os.listdir(BANK)):
-        fs = [f for f in glob.glob(os.path.join(BANK, d, '*.png')) if 'CONTACT' not in os.path.basename(f)]
+        # his pieces only: the bank's folders also hold lanes' own cooked pictures (45 COOK4_* in settlement/ on
+        # 10/19), and a ruler that reads them judges a cook by its own work
+        fs = glob.glob(os.path.join(BANK, d, 'pack_*.png'))
         rows = []
         for f in fs:
             im = Image.open(f)

@@ -38,8 +38,8 @@
    "painted_long_min": 77
   },
   "settlement": {
-   "pieces": 352,
-   "painted_long_p10": 93,
+   "pieces": 318,
+   "painted_long_p10": 92,
    "painted_long_p50": 94,
    "painted_long_min": 58
   }
@@ -53,7 +53,7 @@
   "building": {
    "measure": "painted long side",
    "px": 93,
-   "from": "10th percentile of 382 settlement and door pieces"
+   "from": "10th percentile of 348 settlement and door pieces"
   },
   "lamp": {
    "measure": "painted height",

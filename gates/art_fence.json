@@ -1,0 +1,36 @@
+{
+ "_readme": "THE ART FENCE (PLUMBER 10/19/26, VAMILY row [the art fence]; rule 100(f): 'a commit by an art lane touching slices/ or engine/ is red unless the VOTE registry holds his FINAL verdict on that asset's family; the fence reads the lane from the commit's first word'; rule 101(c): 'an art lane's edit to a placeholder file is red'). Read by gates/art_fence_gate.py. The window is every commit after born_after (or, where a shallow clone does not reach it, every commit it holds dated after born_date). moodboard_landed stays null until his pictures are in the bible (rule 108 round thirteen, 10/11: 'no art reaches FINAL before his pictures are in the bible'); the coordinator sets it to {date, record}. A family enters the game only through finals: {card, globs, why}, the card his FINAL in the registry's verdicts (his words, never a lane's). answered: [{sha, why}] clears a red commit once it is reverted or the coordinator rules on it (the why names the revert's sha or the ruling's record); a history gate with no way to answer stays red forever.",
+ "born_after": "ca82b0de",
+ "born_date": "2026-10-19T01:06:31+00:00",
+ "art_lanes": [
+  "COOK FOUR",
+  "COOK THREE",
+  "COOK TWO",
+  "COOK",
+  "DIRECTION",
+  "CHARACTER",
+  "PORTRAIT",
+  "COMBAT TWO",
+  "UI"
+ ],
+ "game": [
+  "slices/**",
+  "engine/**"
+ ],
+ "cook_folders_inside_the_game": [
+  {
+   "glob": "slices/vote/**",
+   "why": "the VOTE tab's own folder: a card's picture and page, where a candidate is shown (rule 100(a): the VOTE registry is a cook folder)"
+  }
+ ],
+ "allowed": [
+  {
+   "lane": "UI",
+   "glob": "slices/bohemia_ui_materials.js",
+   "why": "rule 88 (10/10): UI changes 'the look of the screens in the materials only, no new features'; the look waits behind RUN's switch until the cut (rule 93)"
+  }
+ ],
+ "moodboard_landed": null,
+ "finals": [],
+ "answered": []
+}
