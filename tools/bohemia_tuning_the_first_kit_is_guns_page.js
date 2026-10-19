@@ -143,7 +143,9 @@ P('');
 P('Also on the card (Battle Brothers\' melee, for scale): the Bludgeon (our pipe) lands ' + row('bludgeon').hit['average|thug'][0] + ' in 100 at one tile for a man of melee skill 55 and does ' + row('bludgeon').dmg.none.hp + ' a hit to a bare man, twice a turn: '
   + 'the draft rifle, twice a turn at ' + row('draft_rifle').hit['average|thug'][1] + ' and ' + row('draft_rifle').dmg.none.hp + ', out-hits it from two houses away. That is the whole point of rule 120(a): the gun beats the pipe.');
 P('');
-P('## THE SMALL CELLS: who wins (won in 100, our start; Battle Brothers\' Veteran in brackets)');
+P('## THE SMALL CELLS: who wins (won in 100, our start; the game as it plays today in brackets)');
+P('');
+P('THE BRACKETS: Battle Brothers\' Veteran rules with no rule 117 lever, which is the game as he plays it (the door\'s default SEEN IT). The bench applies no level-up stat gains, as the live fight applies none; Battle Brothers\' own level-ups would lift the few men who start past level one (corrected 10/19: an earlier line of this page called the brackets Battle Brothers\' Veteran outright).');
 P('');
 P('The live fight, AUTO on both sides, ' + B.fights_per_cell + ' seeded fights a cell (fight k plays seed 9000+k in every kit and setting). Early stage (day 1), the brigands dressed by the fight\'s own early tier. The company is the origins\' own men (1 = THE LONE WOLF\'s hedge knight, 3 = A NEW CREW, 6 = the line\'s first six). '
   + 'THE SLOTS: three men = the main man on the line (pipe and car door, the only ring) + a rifle + a pistol (COMBAT\'s row: "a pistol and a rifle at the least"); six = two on the line + two rifles + a pistol + a shotgun; one = a rifle.');

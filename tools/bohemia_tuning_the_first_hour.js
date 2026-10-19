@@ -155,7 +155,7 @@ function write(res, N) {
   P('');
   const nc = rows.filter(r => r.o.id === 'newcrew')[0];
   P('**HIS FIRST FIGHT IS OFTEN NOT THE ONE THE MAP SIZED. IT IS NINE BRIGANDS.** Of the city\'s eight hand-overs into a fight (slices/BOHEMIA_CITY_WORLD.html cityHandOver), four send a party (a job, a raid, taking a place, the road encounter) and four do not: '
-    + 'the man next to him who jumps him, the crew out on the block, the crew he taps, and the door into a building. They carry the city\'s own head count as a ROSTER (streetFightCount, a crew\'s count capped at 8) and no party; the demo\'s nfOpts() reads only the party, so the count is dropped, and the fight\'s bandOf() falls back to ours.first_band: '
+    + 'the man next to him who jumps him, the crew out on the block, the crew he taps, and the door into a building. They carry the city\'s own head count as a ROSTER (2 to 4: SF_MIN 2 and SF_MAX 4 for the man who jumps him, CREW [2, 4] in engine/bohemia_hostiles.js for a crew) and no party; the demo\'s nfOpts() reads only the party, so the count is dropped, and the fight\'s bandOf() falls back to ours.first_band: '
     + FIRST_BAND.length + ' brigands (' + FIRST_BAND.filter(x => x === 'brigand_thug').length + ' thugs and a raider), written for the old twelve. They are on his screen: tap-to-travel on the map moves the marker through stepOnce(), and every step asks streetFightOnStep(). A NEW CREW (the door\'s default, three men) against them, the game as he plays it: wins ' + w(nc.sPlay) + ' in 100. '
     + 'Against the party the map sizes for it (two): ' + w(nc.play) + '. That gap is "so fucking hard".');
   P('');
@@ -163,16 +163,16 @@ function write(res, N) {
   P('');
   P('## THE FIRST FIGHT OF EVERY ORIGIN (measured: won in 100)');
   P('');
-  P('Each origin\'s own men, the early tier\'s brigands. TODAY = the game as he plays it (the door\'s default SEEN IT, Battle Brothers\' Veteran, no rule 117 lever, each man in the kit of his place in the line). BATTLE BROTHERS = the same with its level-ups raising three stats. OUR START = rule 117\'s levers and the Beginner count. GUNS = the draft guns '
+  P('Each origin\'s own men, the early tier\'s brigands. TODAY = the game as he plays it: the door\'s default SEEN IT, Battle Brothers\' Veteran rules, no rule 117 lever, each man in the kit of his place in the line; it is also Battle Brothers\' own first fight (its rules, its count) but for its level-ups, which lift only the men who start past level one (the bench applies none, as the live fight applies none). OUR START = rule 117\'s levers and the Beginner count. GUNS = the draft guns '
     + '(records/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.md) handed by the man: the main man and the best fighters keep the line, the best eyes take the rifle, then the pistol, then the shotgun; the Lone Wolf keeps his blade. AUTO on both sides, seeded.');
   P('');
   P('### The map\'s job (the party our map sizes for that company on day one, one skull; ' + N + ' fights a cell)');
   P('');
-  P('| origin | men | their men (today / our start) | TODAY | BATTLE BROTHERS | OUR START | OUR START WITH GUNS | your men struck down a fight (today / start with guns) | dead in 100 fights (today / start with guns) | the guns\' hands |');
-  P('|---|---|---|---|---|---|---|---|---|---|');
+  P('| origin | men | their men (today / our start) | TODAY (Battle Brothers\' Veteran rules) | OUR START | OUR START WITH GUNS | your men struck down a fight (today / start with guns) | dead in 100 fights (today / start with guns) | the guns\' hands |');
+  P('|---|---|---|---|---|---|---|---|---|');
   rows.forEach(r => {
     const g = gunsOr(r.draft, r.today);
-    P('| ' + r.o.name + ' | ' + r.o.men.length + ' | ' + (r.play ? r.play.enemies : '-') + ' / ' + (r.today ? r.today.enemies : '-') + ' | ' + w(r.play) + ' | ' + w(r.bbT) + ' | ' + w(r.today) + ' | ' + (r.draft ? r.draft.won_in_100 : 'keeps his blade') + ' | '
+    P('| ' + r.o.name + ' | ' + r.o.men.length + ' | ' + (r.play ? r.play.enemies : '-') + ' / ' + (r.today ? r.today.enemies : '-') + ' | ' + w(r.play) + ' | ' + w(r.today) + ' | ' + (r.draft ? r.draft.won_in_100 : 'keeps his blade') + ' | '
       + (r.play ? r.play.your_men_struck_down_per_fight : '-') + ' / ' + (g ? g.your_men_struck_down_per_fight : '-') + ' | ' + (r.play ? r.play.your_men_dead_per_100_fights : '-') + ' / ' + (g ? g.your_men_dead_per_100_fights : '-') + ' | '
       + (r.draft && r.draft.slots ? r.draft.slots.map((s, i) => s === 'line' ? null : r.o.men[i].background.replace(/_/g, ' ') + ' ' + s).filter(Boolean).join(', ') : '-') + ' |');
   });
@@ -191,7 +191,8 @@ function write(res, N) {
   P('');
   const stalls = Object.values(res).filter(x => x.stalled_in_100 > 0);
   if (stalls.length) { P('**FIGHTS THAT NEVER END (a standoff: both sides hold their line and nobody steps in; the bench stops each at 400,000 steps):** ' + stalls.map(x => (ORIG.filter(o => o.id === x.origin)[0] || {}).name + ', ' + (x.fight === 'street' ? 'the street\'s nine' : 'the map\'s job') + ', ' + x.kit + ' kit, ' + x.setting + ': ' + x.stalled_in_100 + ' in 100').join('; ') + '. A player can walk in; AUTO never does. COMBAT (the same standoff the guns page found with the dire wolves).'); P(''); }
-  P('**THE PROPOSAL (for RUN and COMBAT):** every hand-over carries a party sized by the map\'s own job count for the company, and the fight\'s fallback is sized the same way (party_math\'s one-skull count for the company in front of it), never the twelve\'s nine. '
+  P('**THE PROPOSAL (for RUN and COMBAT):** (1) ONE LINE in the demo\'s nfOpts(): a hand-over with a roster and no party becomes a party of the roster\'s length, so the city\'s own 2 to 4 reach the fight (the street then plays like the job table\'s 3 v 2 to 3 v 4, not 3 v 9); '
+    + '(2) the fight\'s own fallback is sized by the company in front of it (party_math\'s one-skull count), never the twelve\'s nine. '
     + 'Then the first fight is the map\'s-job table: with the guns and our start, ' + rows.filter(r => gunsOr(r.draft, r.today) && gunsOr(r.draft, r.today).won_in_100 >= 80).length + ' of ' + rows.length + ' origins win 80 or more in 100. Our start\'s levers go into the fight (COMBAT) or the door\'s easiest pick (RUN), so the TODAY column becomes the START column.');
   P('');
   P('## EVERY OTHER NUMBER HE MEETS IN THE FIRST HOUR');
@@ -201,7 +202,7 @@ function write(res, N) {
   OTH.forEach(x => P('| ' + x.what + ' | ' + x.ours + ' | ' + x.bb + ' | ' + x.mark + ' | ' + x.proposed + ' | ' + x.src + ' |'));
   P('');
   const harderNo = OTH.filter(x => /HARDER, NO WORD/.test(x.mark));
-  P('**HARDER THAN BATTLE BROTHERS WITH NO WORD FROM HIM (rule 117(d): a NO before he sees it): ' + (harderNo.length + 1) + '.** The first fight on the street (above). ' + harderNo.map(x => x.what + ': ' + x.ours + ' against ' + x.bb + '; proposed ' + x.proposed).join('. ') + '.');
+  P('**HARDER THAN BATTLE BROTHERS WITH NO WORD FROM HIM (rule 117(d): a NO before he sees it): ' + (harderNo.length + 1) + '.** The first fight on the street (above). ' + harderNo.map(x => x.what.charAt(0).toUpperCase() + x.what.slice(1) + ': ' + x.ours + ' against ' + x.bb + '; proposed ' + x.proposed).join('. ') + '.');
   P('');
   P('## WHAT CANNOT BE TESTED YET');
   P('');
@@ -243,9 +244,18 @@ function write(res, N) {
   h.push('<h2>A fight the map picks: a few bandits</h2><div class="wrap"><table><tr><th>start</th><th>crew v them</th><th>now</th><th>easier, with guns</th></tr>');
   rows.forEach(r => h.push('<tr><td>' + esc(r.o.name) + '</td><td>' + r.o.men.length + ' v ' + (r.play ? r.play.enemies : '-') + '</td>' + cell(r.play) + cell(r.draft, r.o.men.length === 1 ? 'blade' : '-') + '</tr>'));
   h.push('</table></div>');
-  h.push('<p>The fix: every fight gets sized to your crew, like Battle Brothers does. Then nearly every start wins its first fight 8 or 9 times in 10.</p>');
+  h.push('<p>The fix is one line: the street already counts 2 to 4 of them, and the fight never hears it. Size every fight to your crew, like Battle Brothers does, and nearly every start wins its first fight 8 or 9 times in 10.</p>');
   h.push('<h2>The rest of the first hour</h2><ul>');
-  OTH.filter(x => /HARDER|EASIER/.test(x.mark)).slice(0, 8).forEach(x => h.push('<li><b>' + esc(x.what) + ':</b> ' + esc(x.ours) + ' (Battle Brothers: ' + esc(x.bb.replace(/ \(.*\)$/, '')) + '). ' + esc(x.mark.split(' (')[0].toLowerCase()) + '.</li>'));
+  const PLAIN = [
+    'Starting money: 240 batteries, a bit more than Battle Brothers\' 2,000 crowns. Easier.',
+    'Wages: none. Battle Brothers charges 42 crowns a day for three men. Easier.',
+    'The first gun: none in 14 of 15 starts. Battle Brothers hands you a bow on day one. Harder, and the guns page fixes it.',
+    'A man who goes down dies 1 time in 5. In Battle Brothers it is 2 in 3. Easier.',
+    'A man who lives is out 30 to 40 days. In Battle Brothers he fights on hurt. Harder, but that was your call.',
+    'Your first hire costs up to 225 batteries. Battle Brothers\' own formula says 49. Harder, nobody decided it.',
+    'A new hire is good at one thing. In Battle Brothers he can be good at three. Harder, nobody decided it.'
+  ];
+  PLAIN.forEach(x => h.push('<li>' + esc(x) + '</li>'));
   h.push('</ul>');
   h.push('<p class="k">Every number, its source and the proposal: ' + REC + '. The computer played both sides. draft:true.</p>');
   h.push('</body></html>');
