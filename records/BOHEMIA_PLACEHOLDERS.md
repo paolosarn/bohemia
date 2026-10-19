@@ -161,7 +161,8 @@ Every asset in the game today is a placeholder: made fast, never final, never ed
 - cook-the-far-end-from-his-picks-10-10
 - cook-the-markers-you-can-find-10-10
 
-## COOK 4 (15 placeholder cards)
+## COOK 4 (16 placeholder cards)
+- cook4-the-motel-sign-tower-10-19 (the Strip's motel pylon: two legs of his framed steel, a blank blade and box, nothing lit, the arrow on top pointing away from the motel, reference/art_pipe/cook4/strip/COOK4_THE_MOTEL_SIGN_TOWER.png)
 - cook4-the-wedding-chapel-10-19 (the Strip's wedding chapel: one room of his plaster under the measured tan roof, a bell cote with his cross, his plank doors under a canopy, the blank sign on its pole, two flower boxes in bloom, reference/art_pipe/cook4/strip/COOK4_THE_WEDDING_CHAPEL.png)
 - cook4-the-pawn-shop-10-19 (the Strip's pawn shop: one storey of his plaster under the measured tan roof, four barred display windows, the steel door, the blank fascia box, an empty queue for forty in front, reference/art_pipe/cook4/strip/COOK4_THE_PAWN_SHOP.png)
 - cook4-the-tower-casino-10-19 (the Strip's second casino, its first tower: eight storeys of rooms over a windowless gaming floor under the measured tan roof, the top floor shuttered and whole, reference/art_pipe/cook4/strip/COOK4_THE_TOWER_CASINO.png)
