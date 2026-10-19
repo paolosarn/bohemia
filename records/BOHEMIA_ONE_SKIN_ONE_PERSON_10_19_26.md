@@ -100,3 +100,15 @@ portrait you see in the roster IS that stack, so the face on the screen and the 
 draws them in different renderers, so the one person has to be one value in a data file a modder can edit.]
 [analog horror: the skin is the person's, never a filter; a face lit by the one sun reads darker than the flat body,
 and that drop is the rig's light, measured, not a second skin.]
+
+## 7. A RULER THAT CULLS A BLACK MAN (found on the re-render, FOR DIRECTION and PLUMBER)
+
+The guide's light row (D3 of the NOT VIBE CODED first five: the top half of a sprite must not be darker than the bottom)
+reads skin as light. Measured on the Blues' rig body, the same model, the same render, only the skin changed:
+with the old one tan of all thirteen (150, 112, 88), 8 of 8 facings pass; in the Blue's own skin (deep, skin_deep 2),
+3 of 8 fail as "lit from below" (S 5.1, W 4.2, SW 5.7 values). A dark face and dark arms in the top half of a person read
+as a low light. Rule 114b culls a sheet that fails the first five, so as the row stands it would keep a Black man off
+the VOTE tab for being Black, which is rule 120(d) backwards. The same family of finding as 10/18's "lit from below is a
+colour, not a light" (dark hair over a pale skirt; records/BOHEMIA_CHARACTER_LIT_FROM_BELOW_IS_A_COLOUR_NOT_A_LIGHT_10_18_26.md):
+the light row needs to read light within one surface (a value step across neighbours on the same material, which
+recovers the rig's own sun), never the sprite's halves. Until G3 is fixed, no skin is lightened to pass it.
