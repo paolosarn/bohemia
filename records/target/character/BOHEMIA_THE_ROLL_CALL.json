@@ -1,0 +1,6789 @@
+{
+ "what": "CHARACTER [every old asset into the new look]: THE ROLL CALL. Every hair, hat, eyewear and garment a person can wear, one row each, with the one name, where it stands in the rig's look, and the batch that rebuilds it.",
+ "his_words": "10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget.'",
+ "lane": "character",
+ "date": "10/19/26",
+ "rule": "115(c)",
+ "draft": true,
+ "order": [
+  "hair 1 (his first: strands and clumps, never a mesh)",
+  "hats 1",
+  "eyewear 1",
+  "garments: base",
+  "garments: outer",
+  "garments: legs",
+  "garments: feet",
+  "garments: back",
+  "garments: gear",
+  "garments: neck",
+  "garments: waist",
+  "garments: hands"
+ ],
+ "count": {
+  "eyewear: not yet": 15,
+  "garment: approved, not final": 49,
+  "garment: built, not shown": 29,
+  "garment: not yet": 233,
+  "hair: built, not shown": 2,
+  "hair: dead, never rebuilt": 34,
+  "hair: not yet": 4,
+  "hair: shown, not approved": 6,
+  "hat: built, not shown": 1,
+  "hat: not yet": 15,
+  "hat: shown, not approved": 6
+ },
+ "portrait_unmapped": [],
+ "assets": [
+  {
+   "name": "LOW FADE",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "HIGH FADE",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "FADED CROP",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "SUN CROP",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "DUSK SHAG",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "TEMPLE TAPER",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [
+    "cast_bedroll",
+    "cast_longcoat",
+    "faction_network",
+    "faction_remnants",
+    "faction_trades"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'taper' (on cast_bedroll)",
+    "PORTRAIT head piece 'taper' (on cast_longcoat)",
+    "PORTRAIT head piece 'taper' (on faction_network)",
+    "PORTRAIT head piece 'taper' (on faction_remnants)",
+    "PORTRAIT head piece 'taper' (on faction_trades)",
+    "rig sculpt 'taper' (on faction_network)",
+    "rig sculpt 'taper' (on faction_remnants)",
+    "rig sculpt 'taper' (on faction_trades)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, sculpted on the starred skull",
+    "rig_looks": [
+     "faction_network",
+     "faction_remnants",
+     "faction_trades"
+    ],
+    "card": "character-the-barber-on-the-skull-10-18",
+    "verdict": "up",
+    "said": "",
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
+    "portrait": {
+     "card": "portrait-every-face-from-the-same-model-10-18",
+     "verdict": "up",
+     "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+     "note": "his chain-mail note: 'some hair look like it was like a medieval link mesh armor'"
+    }
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "DESERT CURL",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "ASH SWEEP",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "SALT CROWN",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "RIDGE STRIP",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "BUZZ CUT",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "SHAVED FADE",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "CROP",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "FLATTOP",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "POMPADOUR",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "SLICK BACK",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "SIDE PART",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "BOWL CUT",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "FRINGE",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "SHAG",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [
+    "cast_cape",
+    "faction_colorful"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'shag' (on cast_cape)",
+    "PORTRAIT head piece 'shag' (on faction_colorful)",
+    "rig sculpt 'shag' (on faction_colorful)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_colorful"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
+    "portrait": {
+     "card": "portrait-every-face-from-the-same-model-10-18",
+     "verdict": "up",
+     "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+     "note": "his chain-mail note: 'some hair look like it was like a medieval link mesh armor'"
+    }
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "CHIN BOB",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "SHOULDER LENGTH",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "LONG LOOSE",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "MULLET",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "WOLF CUT",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "MOHAWK",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "LIBERTY SPIKES",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "HAIR AFRO",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "HIGH TOP",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "HAIR LOCS",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "CORNROWS",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "BRAIDED TAIL",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "PONYTAIL",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "TOP KNOT",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "LOW BUN",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "GREY WISPS",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "dead",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "dead, never rebuilt",
+    "why": "GRAVEYARD IS FINAL; A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME"
+   },
+   "batch": null
+  },
+  {
+   "name": "ROPE LOCKS",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "SHORT ROPES",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "DUST WEAVE",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "COIL CROWN",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [
+    "cast_barearms",
+    "cast_shorts",
+    "faction_caravans",
+    "faction_church"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'coil' (on cast_barearms)",
+    "PORTRAIT head piece 'coil' (on cast_shorts)",
+    "PORTRAIT head piece 'coil' (on faction_caravans)",
+    "PORTRAIT head piece 'coil' (on faction_church)",
+    "rig sculpt 'crop' (on faction_caravans)",
+    "rig sculpt 'crop' (on faction_church)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, sculpted on the starred skull",
+    "rig_looks": [
+     "faction_caravans",
+     "faction_church"
+    ],
+    "card": "character-the-barber-on-the-skull-10-18",
+    "verdict": "up",
+    "said": "",
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
+    "portrait": {
+     "card": "portrait-every-face-from-the-same-model-10-18",
+     "verdict": "up",
+     "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+     "note": "his chain-mail note: 'some hair look like it was like a medieval link mesh armor'"
+    }
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "LAYERED FALL",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [
+    "cast_shortcoat",
+    "faction_anarchists",
+    "faction_homeless"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'long' (on cast_shortcoat)",
+    "PORTRAIT head piece 'fall' (on faction_anarchists)",
+    "PORTRAIT head piece 'fall' (on faction_homeless)",
+    "rig sculpt 'fall' (on faction_anarchists)",
+    "rig sculpt 'fall' (on faction_homeless)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, sculpted on the starred skull",
+    "rig_looks": [
+     "faction_anarchists",
+     "faction_homeless"
+    ],
+    "card": "character-the-barber-on-the-skull-10-18",
+    "verdict": "up",
+    "said": "",
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
+    "portrait": {
+     "card": "portrait-every-face-from-the-same-model-10-18",
+     "verdict": "up",
+     "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+     "note": "his chain-mail note: 'some hair look like it was like a medieval link mesh armor'"
+    }
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "CURTAIN CUT",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [
+    "cast_poncho",
+    "cast_skirt"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'long' (on cast_poncho)",
+    "PORTRAIT head piece 'long' (on cast_skirt)"
+   ],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)",
+    "portrait": {
+     "card": "portrait-every-face-from-the-same-model-10-18",
+     "verdict": "up",
+     "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+     "note": "his chain-mail note: 'some hair look like it was like a medieval link mesh armor'"
+    }
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "HEAVY FRINGE",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [
+    "faction_volunteers"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'fringe' (on faction_volunteers)",
+    "rig sculpt 'fringe' (on faction_volunteers)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_volunteers"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
+    "portrait": {
+     "card": "portrait-every-face-from-the-same-model-10-18",
+     "verdict": "up",
+     "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+     "note": "his chain-mail note: 'some hair look like it was like a medieval link mesh armor'"
+    }
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "DRY TAPER",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [
+    "cast_pack",
+    "cast_satchel",
+    "faction_blues",
+    "faction_cartel",
+    "faction_mob",
+    "faction_reds"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'taper' (on cast_pack)",
+    "PORTRAIT head piece 'taper' (on cast_satchel)",
+    "PORTRAIT head piece 'taper' (on faction_blues)",
+    "PORTRAIT head piece 'taper' (on faction_cartel)",
+    "PORTRAIT head piece 'slick' (on faction_mob)",
+    "PORTRAIT head piece 'taper' (on faction_reds)",
+    "rig sculpt 'taper' (on faction_blues)",
+    "rig sculpt 'taper' (on faction_cartel)",
+    "rig sculpt 'slick' (on faction_mob)",
+    "rig sculpt 'taper' (on faction_reds)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_blues",
+     "faction_cartel",
+     "faction_mob",
+     "faction_reds"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
+    "portrait": {
+     "card": "portrait-every-face-from-the-same-model-10-18",
+     "verdict": "up",
+     "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+     "note": "his chain-mail note: 'some hair look like it was like a medieval link mesh armor'"
+    }
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "DEEP TAPER",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "canon",
+   "worn_by": [
+    "cast_apron",
+    "cast_widebrim"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'taper' (on cast_apron)",
+    "PORTRAIT head piece 'taper' (on cast_widebrim)"
+   ],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)",
+    "portrait": {
+     "card": "portrait-every-face-from-the-same-model-10-18",
+     "verdict": "up",
+     "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+     "note": "his chain-mail note: 'some hair look like it was like a medieval link mesh armor'"
+    }
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "RED SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "WHITE TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_volunteers"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_volunteers"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BLACK TANK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_anarchists"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_anarchists"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "GREEN FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SCAVENGER FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_trades"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_trades"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BONE HENLEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "cast_cape"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "PATINA WORK SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SOOT TANK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "cast_barearms",
+    "cast_poncho"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BLUE JEANS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "BLACK CARGOS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "GREY SWEATS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "DUST TROUSERS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_bedroll",
+    "cast_widebrim",
+    "faction_caravans",
+    "faction_cartel",
+    "faction_trades"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_caravans",
+     "faction_cartel",
+     "faction_trades"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "PATCHED WORK PANTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "SOOT CARGOS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_pack"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "WHITE SNEAKERS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "BROWN BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "faction_church"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_church"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "WRAPPED BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "cast_bedroll",
+    "cast_pack"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "SANDWALKERS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "cast_poncho",
+    "cast_widebrim",
+    "faction_caravans"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_caravans"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "WASTELAND DUSTER",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "cast_longcoat"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SOOT TRENCH",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "DRIFTER'S COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "RANGER LONGCOAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "OLIVE DRAB TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_remnants"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_remnants"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "FADED BLACK LONGSLEEVE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "cast_longcoat",
+    "cast_shortcoat",
+    "faction_cartel"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_cartel"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BRICK HENLEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SAGE FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STEEL WORK SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BLACK DENIM",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_longcoat",
+    "cast_shortcoat"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "OLIVE PANTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "KHAKI CARGOS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_barearms"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "SLATE WORK PANTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "RED CLAY BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "GREY SNEAKERS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "OXBLOOD BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "FIELD GREEN COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "DUST BROWN TRENCH",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "STORM GREY LONGCOAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "LEATHER VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "TACTICAL VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "QUILTED VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "RED PLAID FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "FOREST PLAID FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STRIPED TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "cast_shorts",
+    "cast_skirt"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "RUST HENLEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "cast_apron"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "KHAKI BUTTON-UP",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SLATE SHORT-SLEEVE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SAGE STRIPED HENLEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "DUST PLAID SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "cast_bedroll",
+    "cast_widebrim",
+    "faction_caravans"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_caravans"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "ASH HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "COAL HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "OLIVE HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "cast_pack",
+    "cast_satchel"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "CHINESE RICE FARMER HAT",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [
+    "cast_widebrim",
+    "faction_caravans"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'cone hat' (on cast_widebrim)",
+    "PORTRAIT head piece 'cone hat' (on faction_caravans)"
+   ],
+   "plain": "CONE HAT",
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_caravans"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "CHARCOAL WATCH CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [
+    "cast_satchel",
+    "faction_anarchists",
+    "faction_cartel"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'watch cap' (on cast_satchel)",
+    "PORTRAIT head piece 'watch cap' (on faction_anarchists)",
+    "PORTRAIT head piece 'watch cap' (on faction_cartel)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_anarchists",
+     "faction_cartel"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "RUST WATCH CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "OLIVE FIELD CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "STORM KNIT CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [
+    "cast_pack",
+    "faction_remnants"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'knit cap' (on cast_pack)",
+    "PORTRAIT head piece 'knit cap' (on faction_remnants)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_remnants"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "SAND KNIT CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "SLATE WORK CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "DUST SCARF",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "OXBLOOD SCARF",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "BONE DUST MASK",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "OXBLOOD DUST MASK",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "LEATHER GLOVES",
+   "kind": "garment",
+   "slot": "hands",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: hands"
+  },
+  {
+   "name": "SOOT GLOVES",
+   "kind": "garment",
+   "slot": "hands",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: hands"
+  },
+  {
+   "name": "LEATHER BELT",
+   "kind": "garment",
+   "slot": "waist",
+   "old": "canon",
+   "worn_by": [
+    "faction_mob"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_mob"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: waist"
+  },
+  {
+   "name": "WRAPAROUND SHADES",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "CHARCOAL TURTLENECK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BONE TURTLENECK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "CUTOFF DENIM SHORTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_cape"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "OLIVE SHORTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "OXBLOOD SLOUCH BEANIE",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [
+    "cast_shortcoat"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'slouch beanie' (on cast_shortcoat)"
+   ],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "SLATE PLAID FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SAND HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "RUST STRIPED TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "DENIM VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SLATE SNEAKERS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "cast_satchel",
+    "cast_skirt"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "PATINA SCARF",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "CHARCOAL DUST MASK",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "OXBLOOD PLAID FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STEEL PLAID FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "PATINA PLAID FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "RUST HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BRICK HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STEEL HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SAGE HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "OLIVE HENLEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STORM HENLEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SLATE HENLEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BRICK TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SAGE TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "FIELD GREEN TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STORM GREY TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BONE TANK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "OLIVE TANK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "RUST TANK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STEEL STRIPED TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "CHARCOAL STRIPED TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BONE BUTTON-UP",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "FIELD BUTTON-UP",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STORM BUTTON-UP",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "OLIVE TURTLENECK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STORM TURTLENECK",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "FIELD GREEN PANTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "STORM GREY SWEATS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "BONE WORK PANTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "RUST CARGOS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "SAGE TROUSERS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "STEEL BLUE JEANS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "DUST BROWN TROUSERS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "KHAKI SHORTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "CHARCOAL SHORTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_shorts"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "BONE SNEAKERS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "cast_shortcoat"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "OLIVE BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "STEEL SNEAKERS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "DUST BROWN BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "FIELD BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "RUST BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "SAGE FIELD COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SLATE TRENCH",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "BONE DUSTER",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "BRICK LONGCOAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "KHAKI DUSTER",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "STORM VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "OLIVE VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "RUST VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "BONE KNIT CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [
+    "faction_church"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'skull cap' (on faction_church)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_church"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "OLIVE KNIT CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "BRICK WATCH CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "PATINA FIELD CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "DUST WORK CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [
+    "cast_bedroll",
+    "faction_trades"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'work cap' (on cast_bedroll)",
+    "PORTRAIT head piece 'work cap' (on faction_trades)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_trades"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "STORM SLOUCH BEANIE",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "KHAKI SLOUCH BEANIE",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "CHARCOAL SCARF",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "SAGE SCARF",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "BONE SCARF",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "OLIVE DUST MASK",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "RUST DUST MASK",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "DUST GLOVES",
+   "kind": "garment",
+   "slot": "hands",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: hands"
+  },
+  {
+   "name": "OXBLOOD GLOVES",
+   "kind": "garment",
+   "slot": "hands",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: hands"
+  },
+  {
+   "name": "CHARCOAL BELT",
+   "kind": "garment",
+   "slot": "waist",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: waist"
+  },
+  {
+   "name": "GREY WRAPAROUNDS",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "DENIM JACKET",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "FIELD JACKET",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "LEATHER JACKET",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "cast_shortcoat"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "DUST PONCHO",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "OXBLOOD PONCHO",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "cast_poncho"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "TALL MOTO BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "cast_cape",
+    "cast_longcoat"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "RANCH BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "cast_apron",
+    "cast_barearms"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "ROLLED WORK SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "ROLLED FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SCAV KNEEPADS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "SCRAP PAULDRON",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "CHEST RIG",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "RUCK PACK",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "SALVAGE SATCHEL",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "cast_satchel"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "SMITH'S APRON",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "cast_apron"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "TRADES APRON",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "WORK SUSPENDERS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "TATTERED TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_homeless"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_homeless"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "TATTERED FLANNEL",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BEDROLL",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "cast_bedroll"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "WRAP SKIRT",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "SHIN GUARDS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "DESERT SHEMAGH",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "WORN BRACERS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "THIGH HOLSTER",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "TRAILING SCARF",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [
+    "cast_cape"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "WORK COVERALLS",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SPLIT-TAIL DUSTER",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "ROAD CAPE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "cast_cape"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "SHELL BANDOLIER",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "BIB OVERALLS",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "RUBBER GAS MASK",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "SCAV TOOL BELT",
+   "kind": "garment",
+   "slot": "waist",
+   "old": "canon",
+   "worn_by": [
+    "cast_widebrim"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: waist"
+  },
+  {
+   "name": "ANKLE WRAP SKIRT",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_skirt"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "SHOULDER MANTLE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "faction_homeless"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_homeless"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "ELBOW PADS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "FIELD LEG WRAPS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "BLANKET SHOULDER ROLL",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "HIP SASH",
+   "kind": "garment",
+   "slot": "waist",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: waist"
+  },
+  {
+   "name": "OUTLAW BANDANA",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "SCRAP HELM",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "SCRAP QUIVER",
+   "kind": "garment",
+   "slot": "back",
+   "old": "cook",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "MOB PINSTRIPE SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_mob"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_mob"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SIGNAL RED SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_reds"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_reds"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SIGNAL RED BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "VESTMENT GOLD SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_church"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_church"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "VESTMENT GOLD BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "MOSS GREEN SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "TEAL WORK SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_network"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_network"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "COBALT WORK PANTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "TEAL WORK PANTS",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "ROSE BANDANA",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "TEAL STRIPED TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_colorful"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_colorful"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "COBALT DUSTER",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "ROSE KNIT CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [
+    "faction_colorful"
+   ],
+   "aliases": [
+    "PORTRAIT head piece 'knit cap' (on faction_colorful)"
+   ],
+   "new_look": {
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_colorful"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "COBALT KNIT CAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "GOLD WRAP SKIRT",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "GRASS SNEAKERS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "COBALT SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [
+    "faction_blues"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_blues"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "COBALT COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "COBALT BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "ROSE DUSTER",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "CHARCOAL ROAD CAPE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "GRASS DUSTER",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "COBALT SNEAKERS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "CHARCOAL WRAP SKIRT",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "CHARCOAL BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "CHORE COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "BARN COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "OLIVE CHORE COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "STORM CHORE COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "RUST WORK COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "CAR COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SAND CAR COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SAGE CAR COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SLATE CAR COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "WORK JACKET",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "STORM JACKET",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "KHAKI JACKET",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "OXBLOOD JACKET",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SAGE VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "BONE VEST",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "OLIVE CAR COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "BRICK CAR COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SPLIT-TAIL WORK COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "COBALT CHORE COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_blues"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_blues"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "GRASS CAR COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_colorful"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_colorful"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "HOOD-UP ASH HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "HOOD-UP COAL HOODIE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "HOODED DUST PONCHO",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SCRAP CHEST PLATE",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "SAND KNEEPADS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "STEEL PAULDRON",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "SPIKED PAULDRON",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "STEEL SPIKED PAULDRON",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "OLIVE CHEST RIG",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "BRICK SUSPENDERS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [
+    "cast_barearms"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "STEEL SHIN GUARDS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "OXBLOOD BRACERS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "RUST THIGH HOLSTER",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "SOOT TOOL BELT",
+   "kind": "garment",
+   "slot": "waist",
+   "old": "canon",
+   "worn_by": [
+    "faction_trades"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_trades"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: waist"
+  },
+  {
+   "name": "DUST BROWN BANDOLIER",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "SOOT CHEST PLATE",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "KHAKI ELBOW PADS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "OLIVE LEG WRAPS",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "BRICK SHOULDER ROLL",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "OLIVE RUCK PACK",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "OXBLOOD SATCHEL",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "DUST BEDROLL",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "RUST QUIVER",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "STEEL ROAD CAPE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "faction_cartel"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_cartel"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "OLIVE SHOULDER MANTLE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "cast_pack",
+    "faction_caravans"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_caravans"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "COBALT SHOULDER MANTLE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "faction_blues"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_blues"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "COBALT WIDE TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "faction_blues"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_blues"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "COBALT STACK BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "faction_blues"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_blues"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "BRICK SPLIT-TAIL DUSTER",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_reds"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_reds"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "BRICK WIDE TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "faction_reds"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_reds"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "BRICK STACK BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "faction_reds"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_reds"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "GOLD SHOULDER MANTLE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "faction_church"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_church"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "GRASS DROP TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "faction_colorful"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_colorful"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "GRASS BOOTS",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "faction_colorful"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_colorful"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "SAND COCOON COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_caravans"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_caravans"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "LEATHER WRAP COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_anarchists"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_anarchists"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "LEATHER STACK PANT",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "faction_anarchists"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_anarchists"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "LEATHER STACK BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "faction_anarchists"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_anarchists"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "OLIVE WIDE TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "faction_remnants"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_remnants"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "TEAL COCOON COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_network"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_network"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "CHARCOAL SHOULDER MANTLE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [
+    "faction_mob"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_mob"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "CHARCOAL CROP TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "faction_mob"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_mob"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "BONE COCOON COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_volunteers"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_volunteers"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SPLIT-TAIL COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "LEATHER SPLIT-TAIL COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_trades"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_trades"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "STORM PONCHO",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "RUST GORGET",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "SOOT GORGET",
+   "kind": "garment",
+   "slot": "gear",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: gear"
+  },
+  {
+   "name": "LEATHER HALF APRON",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "DUST HALF APRON",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "DENIM SHORTALLS",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "FIELD SHORTALLS",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "DROP RISE TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "BONE DROP TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "WIDE PLEAT TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_apron"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "BONE WIDE TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_satchel"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "STACKED JERSEY PANT",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "faction_homeless",
+    "faction_network",
+    "faction_volunteers"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_homeless",
+     "faction_network",
+     "faction_volunteers"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "SLATE STACK PANT",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "CROPPED WORK TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "cast_poncho"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "built, not shown",
+    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "CROPPED BLACK DENIM",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "STACKED SOLE BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "cast_shorts",
+    "faction_cartel",
+    "faction_mob",
+    "faction_trades"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_cartel",
+     "faction_mob",
+     "faction_trades"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "BONE STACK BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "MID SHAFT BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "COAL MID BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "SLOUCH BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "faction_homeless",
+    "faction_network"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_homeless",
+     "faction_network"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "ASH SLOUCH BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "WIDE SHOULDER TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "BONE SHOULDER SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "LONGLINE JERSEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "ASH LONGLINE TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "SHOULDER LONGLINE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "STACKED MID BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "WRAP COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "ASH WRAP COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "ASYMMETRIC COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "ASH ASYM COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "COCOON COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SLATE COCOON COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "DRAPED COWL",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "ASH COWL",
+   "kind": "garment",
+   "slot": "neck",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: neck"
+  },
+  {
+   "name": "HAND WRAPS",
+   "kind": "garment",
+   "slot": "hands",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: hands"
+  },
+  {
+   "name": "SOOT HAND WRAPS",
+   "kind": "garment",
+   "slot": "hands",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: hands"
+  },
+  {
+   "name": "BONE HEAD WRAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "SOOT HEAD WRAP",
+   "kind": "hat",
+   "slot": "head",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "WIDE WAIST WRAP",
+   "kind": "garment",
+   "slot": "waist",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: waist"
+  },
+  {
+   "name": "LEAD WAIST WRAP",
+   "kind": "garment",
+   "slot": "waist",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: waist"
+  },
+  {
+   "name": "ONE-SHOULDER DRAPE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "BONE SHOULDER DRAPE",
+   "kind": "garment",
+   "slot": "back",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: back"
+  },
+  {
+   "name": "SHIELD VISOR",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "ASH SHIELD",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "FACE WRAP",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "ASH FACE WRAP",
+   "kind": "eyewear",
+   "slot": "face",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "ARC SHOULDER TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "ASH ARC SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "LAYERED JERSEY",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "ASH LAYERED TEE",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "ARC LAYERED SHIRT",
+   "kind": "garment",
+   "slot": "base",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: base"
+  },
+  {
+   "name": "COMMA COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "SLATE COMMA COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "COLUMN PANT-BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "faction_volunteers"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_volunteers"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "COAL COLUMN",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "ASH COLUMN",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "COBALT COCOON COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "BRICK COMMA COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "OLIVE ASYM COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [
+    "faction_remnants"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_remnants"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "GRASS WRAP COAT",
+   "kind": "garment",
+   "slot": "outer",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: outer"
+  },
+  {
+   "name": "GOLD DROP TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [
+    "faction_church"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_church"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "TEAL STACK PANT",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "GOLD STACK BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "TEAL COLUMN",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "COBALT COLUMN",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "OLIVE STACK BOOT",
+   "kind": "garment",
+   "slot": "feet",
+   "old": "canon",
+   "worn_by": [
+    "faction_remnants"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "approved, not final",
+    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "rig_looks": [
+     "faction_remnants"
+    ],
+    "cards": [
+     {
+      "card": "character-the-thirteen-through-the-rig-10-18",
+      "verdict": "up",
+      "said": "Nice direction very good not final"
+     },
+     {
+      "card": "character-the-print-and-the-hands-10-18",
+      "verdict": "up",
+      "said": ""
+     },
+     {
+      "card": "character-the-walk-of-every-look-10-18",
+      "verdict": "up",
+      "said": ""
+     }
+    ],
+    "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
+   },
+   "batch": "garments: feet"
+  },
+  {
+   "name": "BRICK CROP TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "COBALT DROP TROUSER",
+   "kind": "garment",
+   "slot": "legs",
+   "old": "canon",
+   "worn_by": [],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null
+   },
+   "batch": "garments: legs"
+  },
+  {
+   "name": "glasses/shades",
+   "plain": "SHADES",
+   "kind": "eyewear",
+   "slot": "glasses",
+   "old": "paper doll",
+   "worn_by": [
+    "you"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null,
+    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+   },
+   "batch": "eyewear 1"
+  },
+  {
+   "name": "hair/curtain-bob",
+   "plain": "CURTAIN BOB",
+   "kind": "hair",
+   "slot": "hair",
+   "old": "paper doll",
+   "worn_by": [
+    "you"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null,
+    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+   },
+   "batch": "hair 1 (his first: strands and clumps, never a mesh)"
+  },
+  {
+   "name": "hat/durag",
+   "plain": "DURAG",
+   "kind": "hat",
+   "slot": "hat",
+   "old": "paper doll",
+   "worn_by": [
+    "you"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null,
+    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+   },
+   "batch": "hats 1"
+  },
+  {
+   "name": "jacket/japanese-fuzz_hoodDown",
+   "plain": "FUZZ JACKET",
+   "kind": "garment",
+   "slot": "jacket",
+   "old": "paper doll",
+   "worn_by": [
+    "you"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null,
+    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+   },
+   "batch": "garments: jacket"
+  },
+  {
+   "name": "pants/leather-legwarmer",
+   "plain": "LEATHER LEGWARMER PANTS",
+   "kind": "garment",
+   "slot": "pants",
+   "old": "paper doll",
+   "worn_by": [
+    "you"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null,
+    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+   },
+   "batch": "garments: pants"
+  },
+  {
+   "name": "shirt/cowl-hoodie",
+   "plain": "COWL HOODIE",
+   "kind": "garment",
+   "slot": "shirt",
+   "old": "paper doll",
+   "worn_by": [
+    "you"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null,
+    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+   },
+   "batch": "garments: shirt"
+  },
+  {
+   "name": "shoes/balenciaga",
+   "plain": "RUNWAY SNEAKERS",
+   "kind": "garment",
+   "slot": "shoes",
+   "old": "paper doll",
+   "worn_by": [
+    "you"
+   ],
+   "aliases": [],
+   "new_look": {
+    "state": "not yet",
+    "by": null,
+    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+   },
+   "batch": "garments: shoes"
+  }
+ ]
+}
