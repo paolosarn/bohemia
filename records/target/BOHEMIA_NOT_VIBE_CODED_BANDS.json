@@ -22,7 +22,7 @@
      "no_rest": 0.8206
     },
     "D7": {
-     "flat": -0.009
+     "flat": -0.0469
     },
     "D8": {
      "orphans_per_1000": 269.298,
@@ -52,7 +52,7 @@
      "no_rest": 0.834
     },
     "D7": {
-     "flat": -0.01
+     "flat": -0.072
     },
     "D8": {
      "orphans_per_1000": 389.61,
@@ -82,7 +82,7 @@
      "no_rest": 0.7908
     },
     "D7": {
-     "flat": -0.0148
+     "flat": -0.0632
     },
     "D8": {
      "orphans_per_1000": 252.43,
@@ -112,7 +112,7 @@
      "no_rest": 0.6754
     },
     "D7": {
-     "flat": -0.0066
+     "flat": -0.0366
     },
     "D8": {
      "orphans_per_1000": 397.152,
@@ -142,7 +142,7 @@
      "no_rest": 0.767
     },
     "D7": {
-     "flat": -0.015
+     "flat": -0.051
     },
     "D8": {
      "orphans_per_1000": 284.775,
@@ -172,7 +172,7 @@
      "no_rest": 0.858
     },
     "D7": {
-     "flat": -0.0137
+     "flat": -0.0557
     },
     "D8": {
      "orphans_per_1000": 356.41,
@@ -183,13 +183,13 @@
    }
   },
   "settlement": {
-   "pieces": 341,
+   "pieces": 318,
    "band": {
     "D1": {
      "mixed": 0.0
     },
     "D2": {
-     "colours": 5830.0
+     "colours": 5456.1
     },
     "D3": {
      "angle_off": 180.0
@@ -199,27 +199,27 @@
     },
     "D5": {
      "evenness": -0.033,
-     "no_rest": 0.857
+     "no_rest": 0.8573
     },
     "D7": {
-     "flat": -0.012
+     "flat": -0.055
     },
     "D8": {
-     "orphans_per_1000": 336.32,
-     "jaggies_per_100": 4.64,
+     "orphans_per_1000": 341.254,
+     "jaggies_per_100": 4.741,
      "banding": 0.0,
-     "pillow_r": 0.404
+     "pillow_r": 0.4083
     }
    }
   },
   "all": {
-   "pieces": 1938,
+   "pieces": 1915,
    "band": {
     "D1": {
      "mixed": 0.0
     },
     "D2": {
-     "colours": 5590.2
+     "colours": 5525.4
     },
     "D3": {
      "angle_off": 180.0
@@ -232,16 +232,17 @@
      "no_rest": 0.826
     },
     "D7": {
-     "flat": -0.012
+     "flat": -0.055
     },
     "D8": {
-     "orphans_per_1000": 324.663,
-     "jaggies_per_100": 7.11,
+     "orphans_per_1000": 325.058,
+     "jaggies_per_100": 7.132,
      "banding": 0.0,
-     "pillow_r": 0.3883
+     "pillow_r": 0.389
     }
    }
   }
  },
- "pack_files": 1938
+ "pack_files": 1915,
+ "ruler": "56ca49a2eb638b29"
 }

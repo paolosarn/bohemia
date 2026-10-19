@@ -156,6 +156,9 @@ def n2():
        not missing and drift <= 0.02,
        'band built over %s pieces, %d on disk; families missing %s. Run: python3 tools/bohemia_not_vibe_coded.py --bands'
        % (b.get('pack_files'), now, missing))
+    fp = N.ruler_fingerprint()
+    ok('N2 the pack band was built with today\'s ruler (fingerprint %s)' % fp, b.get('ruler') == fp,
+       'built with %s: a check\'s formula changed since. Run: python3 tools/bohemia_not_vibe_coded.py --bands' % b.get('ruler'))
     return b
 
 

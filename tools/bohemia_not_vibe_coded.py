@@ -385,6 +385,59 @@ def components_of_size_one(k, op):
     return op & ~same, pad
 
 
+# D8's two pixel loops, in numpy (PLUMBER 10/19: 10.8 of a big sheet's 13 s were these two loops in Python, and the
+# cull reads 227 sprites; verified equal to the loops on 256 pictures, his pieces, rig renders and the big sheets)
+def d8_orphans(P, Pa, ys, xs):
+    """the AA test of d8's loop, all islands at once: an island is anti-aliasing when, across its left/right or its
+    up/down neighbours (both opaque, spanning more than 30), its colour sits within 15 percent of their middle."""
+    if not len(ys):
+        return 0
+    y = ys + 1; x = xs + 1
+    c = P[y, x].astype(np.int64)
+    aa = np.zeros(len(y), bool)
+    for (dy1, dx1), (dy2, dx2) in (((0, -1), (0, 1)), ((-1, 0), (1, 0))):
+        a1 = P[y + dy1, x + dx1].astype(np.int64); a2 = P[y + dy2, x + dx2].astype(np.int64)
+        both = Pa[y + dy1, x + dx1] & Pa[y + dy2, x + dx2]
+        mid = (a1 + a2) / 2.0
+        span = np.abs(a1 - a2).sum(1)
+        aa |= both & (span > 30) & (np.abs(c - mid).sum(1) <= 0.15 * 3 * 255)
+    return int((~aa).sum())
+
+def d8_banding(k, op):
+    """d8's banding loop, a row at a time: a run of one colour, 3 or more wide, sitting exactly on a run of one
+    other colour in the row below with the same start and end."""
+    H, W = op.shape
+    band = 0
+    idx = np.arange(W)
+    for y in range(H - 1):
+        r0, r1, o0, o1 = k[y], k[y + 1], op[y], op[y + 1]
+        prev_diff0 = np.ones(W, bool); prev_diff0[1:] = (r0[1:] != r0[:-1]) | ~o0[:-1]
+        starts = np.nonzero(o0 & prev_diff0)[0]
+        if not len(starts):
+            continue
+        next_diff0 = np.ones(W, bool); next_diff0[:-1] = ~o0[1:] | (r0[1:] != r0[:-1])
+        ends_all = np.nonzero(o0 & next_diff0)[0]
+        ends = ends_all[np.searchsorted(ends_all, starts)]
+        L = ends - starts + 1
+        m = L >= 3
+        if not m.any():
+            continue
+        s, e, L = starts[m], ends[m], L[m]
+        notop1 = np.concatenate([[0], np.cumsum(~o1)])
+        allop = (notop1[e + 1] - notop1[s]) == 0
+        brk1 = np.ones(W, bool); brk1[1:] = r1[1:] != r1[:-1]
+        rid = np.cumsum(brk1)
+        same = rid[s] == rid[e]
+        diff = r1[s] != r0[s]
+        left1 = (s == 0) | (r1[np.maximum(s - 1, 0)] != r1[s]) | ~o1[np.maximum(s - 1, 0)]
+        right1 = (e + 1 >= W) | (r1[np.minimum(e + 1, W - 1)] != r1[s]) | ~o1[np.minimum(e + 1, W - 1)]
+        left0 = (s == 0) | (r0[np.maximum(s - 1, 0)] != r0[s]) | ~o0[np.maximum(s - 1, 0)]
+        right0 = (e + 1 >= W) | (r0[np.minimum(e + 1, W - 1)] != r0[s]) | ~o0[np.minimum(e + 1, W - 1)]
+        ok = allop & same & diff & left1 & right1 & left0 & right0
+        band += int((2 * L[ok]).sum())
+    return band
+
+
 def d8(rgb, a, T):
     op = a >= 128; n = int(op.sum())
     if n < 50:
@@ -393,18 +446,9 @@ def d8(rgb, a, T):
     iso, pad = components_of_size_one(k, op)
     # not anti-aliasing: an island whose colour lies between its left/right or up/down neighbours is AA
     ys, xs = np.nonzero(iso)
-    orphans = 0
     P = np.zeros((op.shape[0] + 2, op.shape[1] + 2, 3), np.int16); P[1:-1, 1:-1] = rgb
     Pa = np.zeros((op.shape[0] + 2, op.shape[1] + 2), bool); Pa[1:-1, 1:-1] = op
-    for y, x in zip(ys + 1, xs + 1):
-        c = P[y, x]; aa = False
-        for (y1, x1), (y2, x2) in (((y, x - 1), (y, x + 1)), ((y - 1, x), (y + 1, x))):
-            if Pa[y1, x1] and Pa[y2, x2]:
-                mid = (P[y1, x1].astype(int) + P[y2, x2]) / 2.0
-                span = np.abs(P[y1, x1].astype(int) - P[y2, x2]).sum()
-                if span > 30 and np.abs(c - mid).sum() <= 0.15 * 3 * 255:
-                    aa = True
-        orphans += not aa
+    orphans = d8_orphans(P, Pa, ys, xs)
     orph_k = orphans * 1000.0 / n
     # outline mask: opaque with a transparent 4-neighbour
     pz = np.zeros((op.shape[0] + 2, op.shape[1] + 2), bool); pz[1:-1, 1:-1] = op
@@ -439,23 +483,7 @@ def d8(rgb, a, T):
                 run.append(s)
     jag100 = jag * 100.0 / max(ne, 1)
     # banding: two stacked runs of different colours, same start and end, width 3+
-    band = 0
-    for y in range(op.shape[0] - 1):
-        r0, r1 = k[y], k[y + 1]
-        x = 0; W = op.shape[1]
-        while x < W:
-            if not op[y, x]:
-                x += 1; continue
-            x2 = x
-            while x2 + 1 < W and op[y, x2 + 1] and r0[x2 + 1] == r0[x]:
-                x2 += 1
-            if x2 - x + 1 >= 3 and op[y + 1, x:x2 + 1].all() and (r1[x:x2 + 1] == r1[x]).all() and r1[x] != r0[x] \
-                    and (x == 0 or r1[x - 1] != r1[x] or not op[y + 1, x - 1]) \
-                    and (x2 + 1 >= W or r1[x2 + 1] != r1[x] or not op[y + 1, x2 + 1]) \
-                    and (x == 0 or r0[x - 1] != r0[x] or not op[y, x - 1]) \
-                    and (x2 + 1 >= W or r0[x2 + 1] != r0[x] or not op[y, x2 + 1]):
-                band += 2 * (x2 - x + 1)
-            x = x2 + 1
+    band = d8_banding(k, op)
     band_share = band / max(n, 1)
     # pillow: luminance against distance from the edge (4-neighbour chamfer)
     dist = np.where(op, 10 ** 6, 0).astype(np.int64)
@@ -792,13 +820,37 @@ def numbers(rep):
 
 
 def pack_pieces(fam):
+    """his pieces only (pack_*.png): the bank's folders also hold lanes' own cooked pictures (34 COOK4_* in
+    settlement/ on 10/19), and a band that counts them judges a cook by its own work."""
     import glob
-    return sorted(f for f in glob.glob(os.path.join(BANK, fam, '*.png')) if 'CONTACT' not in os.path.basename(f))
+    return sorted(glob.glob(os.path.join(BANK, fam, 'pack_*.png')))
 
 
 def _band_one(arg):
     f, cls = arg
     return numbers(sprite_report(f, cls, 'upper-left', None, thresholds()))
+
+
+RULER_FUNCS = ('d8_orphans', 'd8_banding', 'load', 'lum', 'hsv', 'keys', 'res', 'native_scale', 'd1', 'd2', 'light_vector', 'd3', 'ramps',
+               'quantised', 'd4', 'edge_map', 'gini', 'd5', 'mask_n', 'd6_one', 'd7', 'components_of_size_one', 'd8',
+               'd9_mirror', 'sprite_report', 'numbers', 'thresholds', '_band_one', 'pack_pieces')
+
+
+def ruler_fingerprint():
+    """the hash of every function a band number comes from, docstrings and comments left out: a band built with
+    an older ruler is stale even when the piece count has not moved (10/18: D7 changed to its 1st-99th percentile
+    at 17:21 and the bands kept the old D7 until 10/19, because the freshness check counted pieces only)."""
+    import ast
+    import hashlib
+    tree = ast.parse(open(os.path.abspath(__file__)).read())
+    parts = []
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef) and node.name in RULER_FUNCS:
+            body = node.body[1:] if (node.body and isinstance(node.body[0], ast.Expr) and
+                                     isinstance(getattr(node.body[0], 'value', None), ast.Constant) and
+                                     isinstance(node.body[0].value.value, str)) else node.body
+            parts.append(node.name + ':' + ''.join(ast.dump(b) for b in body))
+    return hashlib.sha1('\n'.join(sorted(parts)).encode()).hexdigest()[:16]
 
 
 def build_bands(families=None, T=None, log=print):
@@ -830,6 +882,7 @@ def build_bands(families=None, T=None, log=print):
                               'band': {d: {k: round(float(np.percentile(x, 90)), 4) for k, x in kv.items()}
                                        for d, kv in allv.items()}}
     out['pack_files'] = sum(len(pack_pieces(f)) for f in fams)
+    out['ruler'] = ruler_fingerprint()
     return out
 
 
