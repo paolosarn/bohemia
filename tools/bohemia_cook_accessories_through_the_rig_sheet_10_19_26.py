@@ -132,12 +132,14 @@ def sheet(fam, title, rows, question):
     H = PAD + sum(hgt(k, v) for k, v in blocks)
     sh = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(sh); y = PAD
     for k, v in blocks:
-        if k == 'img': sh.paste(v, (PAD, y)); y += v.height + PAD; continue
+        if k == 'img':
+            if not getattr(sheet, 'first', None) or sheet.first[0] != fam: sheet.first = (fam, [0, max(0, y - 70), W, v.height + 70])   # the first NOW | NEW pair and its head: the card's first picture
+            sh.paste(v, (PAD, y)); y += v.height + PAD; continue
         col = {'title': (240, 226, 196), 'head': (226, 170, 96), 'text': (226, 222, 214), 'small': (190, 186, 178), 'q': (240, 200, 120), 'cap': (170, 190, 220)}[k]
         for l in wrap(d, v, FONT[k], W - 2 * PAD): d.text((PAD, y), l, font=FONT[k], fill=col); y += int(FONT[k].size * 1.3)
         y += PAD
     out = 'records/target/COOK_ACCESSORIES_%s.webp' % fam
-    sh.save(os.path.join(R, out), quality=84, method=6); print(out, sh.size, os.path.getsize(os.path.join(R, out)))
+    sh.save(os.path.join(R, out), quality=84, method=6); print(out, sh.size, os.path.getsize(os.path.join(R, out)), 'FIRST', *sheet.first[1])
 
 
 if __name__ == '__main__':
