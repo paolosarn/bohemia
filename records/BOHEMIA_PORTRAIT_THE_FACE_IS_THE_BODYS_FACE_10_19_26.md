@@ -169,7 +169,8 @@ masks in records/target/portrait/crew/faction_<gang>/. All thirteen read on THE 
 
 Hair 13 of 13 on their bodies' cut ramps. PARKED out of BOHEMIA_CREW_FACES.json (the list the screens read) for three
 things, each with its owner:
-* THE CARAVANS CONE touches the render's own frame (EYES' frame leg): PORTRAIT's, the cone or the head next round.
+* THE CARAVANS CONE touched the render's own frame (EYES' frame leg; his head sits tilted on his body's still): FIXED the
+  same round, his cone a size smaller (1.38 of the head's width against 1.5); EYES' star tool PASS on him.
 * THREE FACE SHAPES (Cartel, Remnants, Trades) sit outside the star's eye spacing by more than an eighth (EYES' head size
   leg): the dials that make no two gang skulls alike move the eyes; whether the bar holds a dialled face to the star's
   spacing is taste, DIRECTION's.

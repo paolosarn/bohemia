@@ -1669,14 +1669,13 @@ BOHEMIA_THE_SKIN_OF_RECORD.json, body_in_its_own_skin/ (the bodies before the fi
 Record: records/BOHEMIA_PORTRAIT_THE_FACE_IS_THE_BODYS_FACE_10_19_26.md. Sheet: records/target/portrait/
 PORTRAIT_THE_FACE_IS_THE_BODYS_FACE.png. VOTE: portrait-the-face-is-the-bodys-face-10-19, a PLACEHOLDER. TAB: VOTE.
 ROUND 2 RENDERED AND PARKED (3d29bd66): all 13 gang faces on their bodies' own rig skin (within 7.4 dE), hair 13 of 13;
-NOT in the crew list the screens read, three open (records section 8): the Caravans cone touches the render's frame
-(mine), three dialled faces outside the star's eye spacing (DIRECTION's taste), CHARACTER's cheek ruler reads two dialled
+NOT in the crew list the screens read; the Caravans cone fixed (EYES PASS); two open (records section 8): three dialled faces outside the star's eye spacing (DIRECTION's taste), CHARACTER's cheek ruler reads two dialled
 faces a rung light (CHARACTER's). NOT VIBE CODED N3: this card's three black-haired, light-skinned faces fail the guide's
 light row (it reads the hair's value; EYES' face-shading read has all 13 lit from the upper left); the hair stays true,
 DIRECTION has the proposal (records section 7). The voted 10/18 crew card's sprites now point at the pixels he voted on.
 Lead line for DIRECTION (rule 113a): PORTRAIT rebuilt the crew's 13 faces on their bodies' own skin, VOTE tab, COOKING.
 PENDING Paolo: nothing.
-NEXT: the Caravans cone off the frame, then the 13 gangs into the crew list and the card once DIRECTION and CHARACTER answer;
+NEXT: the 13 gangs into the crew list and the card once DIRECTION and CHARACTER answer;
 then the enemy tiers' heads on COOK THREE's new bodies.
 
 PORTRAIT (portrait-vamily-10-18c): 10/18 LATEST (round fifteen, [every face from the same model] round 1; Opus 5.5,
