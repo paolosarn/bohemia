@@ -1,40 +1,41 @@
 {
- "label": "after_t1",
+ "label": "AFTER_T1",
  "seed": 5,
  "throttle": 1,
  "profile": "390x844 @3x, the one driver",
  "speed": 1,
+ "before": null,
  "auto": {
-  "seconds": 90.1,
-  "frames": 3357,
-  "fps": 37.3,
+  "seconds": 90.3,
+  "frames": 2978,
+  "fps": 33,
   "median_ms": 33.3,
-  "p95_ms": 33.4,
-  "p99_ms": 50,
-  "worst_ms": 183.3,
-  "hitches_over_33ms": 509,
-  "dead_longest_ms": 356,
-  "dead_total_s": 19.5,
-  "dead_share": 21.6,
-  "dead_over_250ms": 5,
+  "p95_ms": 49.9,
+  "p99_ms": 50.1,
+  "worst_ms": 166.6,
+  "hitches_over_33ms": 599,
+  "dead_longest_ms": 351,
+  "dead_total_s": 20.6,
+  "dead_share": 22.7,
+  "dead_over_250ms": 6,
   "dead_over_500ms": 0,
   "longest_why": [],
   "ended": false,
-  "rounds": 5
+  "rounds": 4
  },
  "taps": {
   "walk_confirm_to_motion_ms": [
-   63,
-   56,
-   54,
-   62
+   67,
+   59,
+   58,
+   77
   ],
   "end_turn_to_their_first_motion_ms": [
-   97,
-   97
+   84,
+   84
   ],
-  "worst_walk_ms": 63,
-  "worst_end_ms": 97
+  "worst_walk_ms": 77,
+  "worst_end_ms": 84
  },
- "file_md5": "2b1ef19f925fb0aede075155a7936bdf"
+ "file_md5": "da907ce758fa850c51526b64e4f8c1e2"
 }

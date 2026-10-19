@@ -122,7 +122,32 @@ weapon.of now and the pistol is heard as a pistol: THE GUNS HEARD 33/0 (30/3 on 
 
 THE NUMBERS (records/target/combat/BOHEMIA_COMBAT_SMOOTH_*.json; this box renders in software, no GPU, so the frame
 rate is a floor, not his phone; the pauses are the game's own and read the same anywhere):
-SMOOTH_NUMBERS
+The same AUTO fight (seed 5, the suburb, speed 1), 90 seconds each, the before (15bc215f, the fight at the round's start,
+on its own floor) and the after measured on the same box in the same run (--before):
+
+                                         BEFORE     AFTER      (the box at full speed)
+  the board standing still, share         51.1%      22.7%
+  the longest still                       1021 ms    351 ms
+  stills over half a second               53         0
+  stills over a quarter second            62         6
+  rounds played in the 90 seconds         3          4
+  frames a second (software, no GPU)      31         33         (95th percentile frame 50 ms both)
+  his tap confirms a walk -> he moves     65-69 ms   58-77 ms
+  he ends his turn -> their first motion  100 ms     84 ms
+
+                                         BEFORE     AFTER      (the CPU held to a quarter, THE ONE STOPWATCH's phone)
+  the board standing still, share         54.5%      38.1%
+  the longest still                       1181 ms    710 ms
+  stills over half a second               42         10
+  rounds played                           2          3
+  frames a second                         6.1        6.2
+  tap -> he moves                         302-432 ms 285-346 ms
+  end turn -> their first motion          473 ms     582 ms     (one frame at 6 a second is 160 ms: inside a frame)
+
+WHAT THE NUMBERS DO NOT SAY: 60 frames a second. This box draws the canvas in software; the profile of one frame (a
+forced flush, the phone's profile) is 25.8 ms, of which about 19 ms is copying the screen-sized ground and 5 ms the men
+(12 to 14 before, the ImageBitmaps). On his phone the ground copy is the GPU's, so the men are what this round could
+cut, and did; a frame rate on his own phone is a measurement this box cannot make (PLUMBER's stopwatch on a device).
 
 ## 3. [the tear and the floor]
 

@@ -1,38 +1,102 @@
 {
- "label": "before_t1",
+ "label": "BEFORE_T1",
  "seed": 5,
  "throttle": 1,
  "profile": "390x844 @3x, the one driver",
  "speed": 1,
+ "before": "15bc215f",
  "auto": {
-  "seconds": 60.2,
-  "frames": 2047,
-  "fps": 34,
+  "seconds": 90.4,
+  "frames": 2802,
+  "fps": 31,
   "median_ms": 33.3,
-  "p95_ms": 49.9,
+  "p95_ms": 50,
   "p99_ms": 50.1,
-  "worst_ms": 183.3,
-  "hitches_over_33ms": 403,
-  "dead_longest_ms": 1768,
-  "dead_total_s": 31,
-  "dead_share": 51.5,
-  "dead_over_500ms": 35,
+  "worst_ms": 133.4,
+  "hitches_over_33ms": 667,
+  "dead_longest_ms": 1021,
+  "dead_total_s": 46.2,
+  "dead_share": 51.1,
+  "dead_over_250ms": 62,
+  "dead_over_500ms": 53,
+  "longest_why": [
+   {
+    "ms": 562,
+    "next": "glide",
+    "who": "you:LUPE"
+   },
+   {
+    "ms": 498,
+    "next": "note:reload",
+    "who": "you:LUPE"
+   },
+   {
+    "ms": 996,
+    "next": "glide",
+    "who": "them:RAIDER"
+   },
+   {
+    "ms": 603,
+    "next": "glide",
+    "who": "you:MARISOL"
+   },
+   {
+    "ms": 730,
+    "next": "attack:attack",
+    "who": "you:MARISOL"
+   },
+   {
+    "ms": 802,
+    "next": "glide",
+    "who": "you:YOU"
+   },
+   {
+    "ms": 528,
+    "next": "attack:attack",
+    "who": "you:YOU"
+   },
+   {
+    "ms": 491,
+    "next": "note:skill",
+    "who": "you:NENA"
+   },
+   {
+    "ms": 694,
+    "next": "glide",
+    "who": "you:NENA"
+   },
+   {
+    "ms": 699,
+    "next": "attack:attack",
+    "who": "you:NENA"
+   },
+   {
+    "ms": 738,
+    "next": "glide",
+    "who": "you:DESI"
+   },
+   {
+    "ms": 844,
+    "next": "glide",
+    "who": "you:TINA"
+   }
+  ],
   "ended": false,
-  "rounds": 2
+  "rounds": 3
  },
  "taps": {
   "walk_confirm_to_motion_ms": [
+   69,
+   67,
    65,
-   70,
-   56,
-   88
+   67
   ],
   "end_turn_to_their_first_motion_ms": [
-   82,
-   82
+   100,
+   100
   ],
-  "worst_walk_ms": 88,
-  "worst_end_ms": 82
+  "worst_walk_ms": 69,
+  "worst_end_ms": 100
  },
- "file_md5": "661c1aeb8468f23a881013008d907eec"
+ "file_md5": "da907ce758fa850c51526b64e4f8c1e2"
 }
