@@ -11201,7 +11201,23 @@
    "why": "Of 118 faces measured beside their bodies only your own 3 match, because every body is painted your pale skin while each face gets its own, and 10 of your 11 crew men wear another man's face. You see it in the VOTE tab, each face beside its body, and in the game on the crew screen and in every fight.",
    "show": {
     "how": "image",
-    "src": "vote/EYES_EVERY_FACE_BESIDE_ITS_BODY.webp"
+    "src": "vote/EYES_EVERY_FACE_BESIDE_ITS_BODY.webp",
+    "first": "../records/target/vote_first/eyes-every-face-beside-its-body-10-19.webp",
+    "firstAt": [0, 148, 500, 232]
+   },
+   "draft": true
+  },
+  {
+   "id": "run2-his-yeses-in-the-demo-10-19",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "d4c96f9e",
+   "made": "10/19",
+   "title": "WHICH OF YOUR YESES ARE IN THE DEMO: THE LIST AT THE BOTTOM OF THIS TAB",
+   "why": "You could not tell which of your YES votes made it into the game you play, so the bottom of this tab now lists every YES since 10/16 as IN THE DEMO or NOT YET with the chat that has it, worked out by the machine from what the demo really loads (22 of 97 right now). You see it here in the VOTE tab, under the comment box.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_HIS_YESES_IN_THE_DEMO_10_19.webp"
    },
    "draft": true
   },

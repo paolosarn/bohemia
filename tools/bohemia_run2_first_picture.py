@@ -48,6 +48,8 @@ CUTS = {
     'people-the-names-wired-in-10-18': ((30, 150, 755, 325), 'the first hire card and the name it had'),
     # 2814 x 2739: the company screen four ways, upright and on its side; A on its side
     'ui-the-line-on-a-ground-10-18': ((890, 560, 850, 420), 'A, they stand in the camp, on its side'),
+    # 996 x 5686: 118 faces beside their bodies; the first crew man, his body beside the face the screen gives him
+    'eyes-every-face-beside-its-body-10-19': ((0, 148, 500, 232), 'Bookie: his pale body beside a dark face'),
 }
 
 
