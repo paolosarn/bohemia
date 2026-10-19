@@ -1,0 +1,135 @@
+{
+ "frames": "records/target/cook3/rig/marauder",
+ "ruler": "dE76 of the lit tone (L* p80, median a*, b*) of the face skin against the body skin (hands, neck), pooled over the facings, interior ID pixels only; PASS under 10",
+ "facings": [
+  {
+   "facing": "N",
+   "face_px": 29,
+   "body_px": 9,
+   "face_rgb": [
+    124,
+    88,
+    71
+   ],
+   "body_rgb": [
+    126,
+    95,
+    73
+   ]
+  },
+  {
+   "facing": "NE",
+   "face_px": 39,
+   "body_px": 16,
+   "face_rgb": [
+    119,
+    87,
+    68
+   ],
+   "body_rgb": [
+    134,
+    99,
+    79
+   ]
+  },
+  {
+   "facing": "E",
+   "face_px": 67,
+   "body_px": 30,
+   "face_rgb": [
+    111,
+    80,
+    62
+   ],
+   "body_rgb": [
+    139,
+    106,
+    81
+   ]
+  },
+  {
+   "facing": "SE",
+   "face_px": 143,
+   "body_px": 16,
+   "face_rgb": [
+    128,
+    94,
+    76
+   ],
+   "body_rgb": [
+    139,
+    102,
+    79
+   ]
+  },
+  {
+   "facing": "S",
+   "face_px": 240,
+   "body_px": 5,
+   "face_rgb": [
+    147,
+    108,
+    90
+   ]
+  },
+  {
+   "facing": "SW",
+   "face_px": 167,
+   "body_px": 20,
+   "face_rgb": [
+    158,
+    117,
+    98
+   ],
+   "body_rgb": [
+    109,
+    78,
+    63
+   ]
+  },
+  {
+   "facing": "W",
+   "face_px": 51,
+   "body_px": 23,
+   "face_rgb": [
+    151,
+    111,
+    90
+   ],
+   "body_rgb": [
+    142,
+    103,
+    83
+   ]
+  },
+  {
+   "facing": "NW",
+   "face_px": 28,
+   "body_px": 12,
+   "face_rgb": [
+    117,
+    81,
+    66
+   ],
+   "body_rgb": [
+    144,
+    105,
+    82
+   ]
+  }
+ ],
+ "face_px": 764,
+ "body_px": 131,
+ "face_tone": [
+  54.6,
+  12.2,
+  16.3
+ ],
+ "body_tone": [
+  50.0,
+  11.8,
+  17.4
+ ],
+ "dE": 4.7,
+ "verdict": "PASS"
+}
