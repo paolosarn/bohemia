@@ -91,6 +91,9 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   font-size:11px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 4px rgba(0,0,0,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* THE FLIPPED PHONE'S LOOK (rule 88): the tape ends at the last face (it was stretched across the whole glass, a smear
    over the shop fronts); on a wide glass the hint sits in the strip's own empty space beside the faces, never on the men */
+/* THE AIM (rule 120(b)): what the blow does and, when the arm is bad for him, one plain line; it wraps on the receipt */
+#say.aim{white-space:normal;text-align:left;line-height:1.35;max-width:min(92vw,380px)}
+#say.aim b{font-size:13px}
 #say.instrip,html[data-materials] #say.instrip{right:auto;margin:0;transform:translateY(-50%) rotate(-.6deg);white-space:normal;max-width:none;line-height:1.3;max-height:calc(2.6em + 13px);overflow:hidden}
 #drawer{position:fixed;left:10px;right:10px;display:none;z-index:5;color:var(--paper-ink);
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 4px 10px rgba(0,0,0,.6);padding:12px 12px 14px;font-size:11px;transform:rotate(-.4deg)}
@@ -169,7 +172,9 @@ const DATA_FILES = [
   /* WORLD's one ground table and its district list (rule 59: every floor tile is a translation; never a second list of grounds) */
   '../records/target/BOHEMIA_GROUND_EFFECTS.json', '../records/target/BOHEMIA_BOARD_KINDS.json',
   /* a beast's weapon is its bite, copied from the wiki's skill pages, and ANIMATION's baked beasts (COMBAT, the fight holds the grid, rule 117e) */
-  '../records/target/bb/beast_attacks.json', 'fight_beasts/fight_beasts.json'];
+  '../records/target/bb/beast_attacks.json', 'fight_beasts/fight_beasts.json',
+  /* CHARACTER's armour tiers, so the line can name what he wears (rule 120(b): 'your pipe barely dents his plate') */
+  '../records/target/bb/armor_tiers.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
@@ -178,6 +183,7 @@ function loadAll() {
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
       DB.perks = a[9]; DB.perkNames = a[10]; DB.people = a[11]; DB.wlines = a[12];
       DB.groundEffects = a[13]; DB.boardKinds = a[14]; DB.beastAttacks = a[15]; DB.beasts = a[16];
+      DB.armorTiers = a[17];
     });
 }
 function R(path) {
@@ -824,7 +830,9 @@ const FIGHT = (function () {
       let best = null, bd = Infinity;
       for (let yy = 0; yy < S.h; yy++) zone.forEach(function (xx) {
         if (!free(xx, yy)) return;
-        const d = Math.abs(yy - y) * (zone.length + 1) + Math.abs(xx - x);
+        /* his own line first (10/19: with the guns first, nine shooters fill the back line, and a shooter whose slot is a house
+           stepped into the shieldwall's column; now he slides along his own line to the nearest open row) */
+        const d = Math.abs(xx - x) * (S.h + 1) + Math.abs(yy - y);
         if (d < bd) { bd = d; best = { x: xx, y: yy }; }
       });
       for (let xx = zone[zone.length - 1] + back; !best && xx >= 0 && xx < S.w; xx += back) for (let yy = 0; yy < S.h; yy++) if (free(xx, yy)) { best = { x: xx, y: yy }; break; }
@@ -1144,7 +1152,15 @@ const FIGHT = (function () {
     if (!res.hit) return res;
     res.head = forced.head !== undefined ? forced.head : (PK(a, 'head_hunter') && a.headNext) || die() <= headChance(a);
     const w = a.weapon;
-    let base = (forced.base !== undefined ? forced.base : rint(w.damage_min, w.damage_max)) * injMult(a, 'damage_inflicted_pct');
+    const d = hitDamage(a, t, forced.base !== undefined ? forced.base : rint(w.damage_min, w.damage_max), res.head, res.head ? t.armH : t.armB);
+    res.armour = Math.floor(d.armour); res.hp = Math.floor(d.hp);
+    return res;
+  }
+  /* what one blow of base damage does to him, the wiki's way: the armour it takes and the health that gets through (the hit
+     and the preview under his finger read this one function, so the line never says what the blow will not do) */
+  function hitDamage(a, t, raw, head, armour) {
+    const w = a.weapon;
+    let base = raw * injMult(a, 'damage_inflicted_pct');
     const ex = PK(a, 'executioner'); if (ex && t.injuries.length) base *= 1 + ex.damage_bonus_vs_injured_pct / 100;
     const kf = PK(a, 'killing_frenzy'); if (kf && a.frenzy > 0) base *= 1 + kf.damage_bonus_pct / 100;
     const tm = w.class === 'throwing' ? PK(a, 'throwing_mastery') : null;
@@ -1154,16 +1170,25 @@ const FIGHT = (function () {
     const cm = w.class === 'crossbow' ? PK(a, 'crossbow_mastery') : null; if (cm) ignore += cm.crossbow_armor_ignore_bonus_pct / 100;
     const du = PK(a, 'duelist'); if (du && w.hands === 1 && !a.shield && !isRanged(w)) ignore += du.armor_ignore_bonus_pct / 100;
     ignore = Math.min(1, ignore);
-    const armour = res.head ? t.armH : t.armB;
     let armourHit = Math.min(armour, base * w.armor_damage_pct / 100);
     const bf = PK(t, 'battle_forged'); if (bf) armourHit *= 1 - bf.armor_damage_reduction_pct_of_total_armor / 100 * (t.armH + t.armB) / 100;
     let hp = Math.max(0, base * ignore - armour * R('damage.remaining_armor_reduction'));
     if (armour - armourHit <= 0) hp += Math.max(0, base * (1 - ignore) - armourHit);
-    if (res.head && !PK(t, 'steel_brow')) hp *= R('head_and_critical.head_damage_multiplier');
+    if (head && !PK(t, 'steel_brow')) hp *= R('head_and_critical.head_damage_multiplier');
     const ind = t.indomitable ? PK(t, 'indomitable') : null;
     if (ind) { hp *= 1 - ind.damage_reduction_pct / 100; armourHit *= 1 - ind.damage_reduction_pct / 100; }
-    res.armour = Math.floor(armourHit); res.hp = Math.floor(hp);
-    return res;
+    return { armour: armourHit, hp: hp };
+  }
+  /* THE FIGHT SAYS WHAT IS WEAK (rule 120(b), Paolo 10/18: 'the game doesn't explain to you at all that your weapon sucks'):
+     before he commits, what this arm does to this man: the chance, one body blow at the weapon's middle damage (the armour it
+     takes, the health it takes), and how many such blows drop him as he stands, his armour wearing down blow by blow */
+  function preview(a, t) {
+    return wielding(a, t, function () {
+      const w = a.weapon, mid = (w.damage_min + w.damage_max) / (1 + 1), one = hitDamage(a, t, mid, false, t.armB);
+      let hp = t.hp, arm = t.armB, n = 0;
+      while (hp > 0 && n <= t.hpMax) { const b = hitDamage(a, t, mid, false, arm); if (b.hp < 1 && b.armour < 1) { n = Infinity; break; } hp -= Math.floor(b.hp); arm = Math.max(0, arm - Math.floor(b.armour)); n++; }
+      return { chance: hitChance(a, t).chance, armour: Math.floor(one.armour), hp: Math.floor(one.hp), blows: hp > 0 ? Infinity : n, arm: w, club: w === a.club };
+    });
   }
   /* what a result does to the two men: armour, hitpoints, fatigue, injury, morale, death */
   function apply(a, t, r, opt) {
@@ -1609,14 +1634,14 @@ const FIGHT = (function () {
 
   return {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
-    canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, reload: reload, canReload: canReload,
+    canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
     level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { rangeMin: rangeMin, armIn: armIn, pistolShot: pistolShot, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -2048,7 +2073,50 @@ function take() {
   });
 }
 function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
-function say(s) { const e = document.getElementById('say'); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
+function say(s) { const e = document.getElementById('say'); e.classList.remove('aim'); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
+/* ---------------- THE FIGHT SAYS WHAT IS WEAK (rule 120(b), Paolo 10/18: 'the game doesn't explain to you at all that your
+   weapon sucks') ----------------
+   A finger on a man he can hit: the chance and what one blow does (the health, the armour), from the rules' own damage math
+   (FIGHT.preview, the function the hit itself reads); a gun too close to fire says it clubs; when the arm needs
+   ours.weapon_says_weak blows or more to drop him, one plain line says so, in the words of what he wears (CHARACTER's armour
+   tiers), and names the man of his who does it in fewer. After the blow, what it did. Rule 117: few numbers, big and clear.
+   The words are drafts for WORDS. */
+const ARMOUR_WORD = { PADDED: 'padding', LEATHER: 'leather', MAIL: 'mail', PLATE: 'plate' };   /* draft:true */
+function armourWord(t) {
+  if (t.beast) return t.armB > 0 ? 'hide' : null;
+  const T = DB.armorTiers.body_tiers; let w = null;
+  Object.keys(T).forEach(function (k) { if (t.armB >= T[k].durability_range[0]) w = ARMOUR_WORD[k] || k.toLowerCase(); });
+  return w;
+}
+function armName(v, arm) {
+  const own = (arm.of || arm), L = DB.wlines.rows[own.class] || {}, n = (L.name || own.class).toLowerCase();
+  return arm === v.club ? (DB.wlines.rows[(v.weapon.of || v.weapon).class] || {}).name.toLowerCase() + ' butt' : n;
+}
+function aimLines(u, t) {
+  const p = FIGHT.preview(u, t), out = [];
+  out.push('<b>' + p.chance + '%</b> to hit. A hit: <b>-' + p.hp + '</b> health, <b>-' + p.armour + '</b> armour.');
+  if (p.club) out.push('Too close to shoot: he clubs with his ' + armName(u, p.arm) + '.');
+  if (p.blows >= R('ours.weapon_says_weak').blows_at_least) {
+    const aw = armourWord(t), n = isFinite(p.blows) ? p.blows + ' hits to drop him.' : 'It will not drop him.';
+    out.push('Your ' + armName(u, p.arm) + (aw ? ' barely dents his ' + aw + '. ' : ' barely hurts him. ') + n);
+    const best = FIGHT.alive('you').filter(function (f) { return f !== u; }).map(function (f) { return { f: f, p: FIGHT.preview(f, t) }; })
+      .filter(function (q) { return q.p.blows < p.blows; }).sort(function (a, b) { return a.p.blows - b.p.blows; })[0];
+    if (best) out.push(best.f.name + '\'s ' + armName(best.f, best.p.arm) + ': ' + best.p.blows + (best.p.blows === 1 ? ' hit.' : ' hits.'));
+  }
+  return out;
+}
+function aimSay(u, t) {
+  const e = document.getElementById('say'), L = aimLines(u, t);
+  e.innerHTML = L.join('<br>'); e.classList.add('aim'); e.style.display = 'block';
+}
+/* after his blow lands, in the same beat: what it did */
+function resultSay(e) {
+  const t = FIGHT.byId(e.to); if (!t) return;
+  let s = !e.hit ? 'Missed (' + e.chance + '%).' : 'Hit: -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '') + (e.head ? ', in the head' : '') + '.';
+  if (e.hit && !FIGHT.onField(t)) s += ' ' + t.name + ' is down.';
+  else if (e.hit && e.armour && t[e.head ? 'armH' : 'armB'] <= 0) s += ' His ' + (e.head ? 'helmet' : 'armour') + ' is gone.';
+  say(s);
+}
 function startAnim(a) {
   const e = a.e;
   if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step();
@@ -2059,11 +2127,11 @@ function startAnim(a) {
     if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
-    const ranged = FIGHT.isRanged(u.weapon);
+    const ranged = e.shot === undefined ? FIGHT.isRanged(u.weapon) : e.shot;   /* the pistol's club at one is a swing, not a shot */
     /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     (ranged ? SND.shot : SND.swing)();
-    setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); }, beatMs() * 0.45);
+    setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e); }, beatMs() * 0.45);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
     numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : '', e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
@@ -2328,6 +2396,17 @@ function draw(now) {
     Object.keys(reach).forEach(function (k) { k = Number(k); const T = mkTile(k % S.w, Math.floor(k / S.w)); cx.fillRect(T.x0 * MKU, T.y0 * MKU, (T.x1 - T.x0) * MKU, (T.y1 - T.y0) * MKU); });
     cx.globalCompositeOperation = 'source-over';
     mkOutline(reach, S.w, MK.chalk, true);
+    /* WHERE HIS GUN REACHES (rule 120(a): 'rule 83's ranges lit on the tiles'): a gunman's shooting ground from where he stands,
+       two tiles out to his gun's last, every tile he can see, taped off in one unbroken line of gaffer tape (the man's own
+       material: it is his) */
+    if (FIGHT.isGun(u.weapon) && FIGHT.isRanged(u.weapon)) {
+      const gz = {}, w = u.weapon, lo = Math.max(FIGHT._t.rangeMin(w), R('ours.gun_min_range')), hi = w.range_max;
+      for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
+        const d = Math.max(Math.abs(x - u.x), Math.abs(y - u.y));
+        if (d >= lo && d <= hi && FIGHT._t.passable(x, y) && FIGHT._t.sees(u, { x: x, y: y })) gz[y * S.w + x] = true;
+      }
+      mkOutline(gz, S.w, MK.tape, false);
+    }
     /* a man he can hit: RUST corners on his tile (rule 83: a gun's begins at two) */
     S.units.forEach(function (t) { if (FIGHT.canStrike(u, t) && FIGHT.sideSees('you', t)) mkCorners(t.x, t.y, MK.rustLit); });
     if (UI.skillMode) FIGHT.skillTargets(u, UI.skillMode).forEach(function (q) { mkCorners(q.x, q.y, MK.teal); });
@@ -2395,7 +2474,12 @@ function frameFor(v, now) {
   if (a && a.at) {
     const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
     if (a.k === 'step' && a.e.id === v.id) return col('walk@0') + Math.floor(k * 4);
-    if (a.k === 'attack' && a.e.id === v.id) return FIGHT.isRanged(v.weapon) ? C.indexOf('two-hand@0') : col('bat-arc@0.2') + Math.floor(k * 3);
+    /* a shot plays the rig's own fire clip (a pistol's kick in one hand, a long gun's into the shoulder, fight_people's shot_1h
+       and shot); a club at one is the swing */
+    if (a.k === 'attack' && a.e.id === v.id) {
+      const shot = a.e.shot === undefined ? FIGHT.isRanged(v.weapon) : a.e.shot, fc = shot && DB.people.clips[a.e.hands === 1 ? 'shot_1h' : 'shot'];
+      return fc ? C.indexOf(fc.cols[Math.min(fc.cols.length - 1, Math.floor(k * fc.cols.length))]) : shot ? C.indexOf('two-hand@0') : col('bat-arc@0.2') + Math.floor(k * 3);
+    }
     if (a.k === 'attack' && a.e.to === v.id && a.e.hit && k > .45) return col('stagger-hit@0.03') + Math.floor((k - .45) / .55 * 4);
   }
   if (UI.hitUntil && UI.hitUntil[v.id] > now) return col('stagger-hit@0.16');
@@ -2670,7 +2754,7 @@ function drawer(v) {
     + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', v.armH + ' / ' + v.armHMax) + r('Armour, body', v.armB + ' / ' + v.armBMax)
     + r('Fatigue', Math.round(v.fat) + ' / ' + fm) + r('Nerve', v.morale) + r('Melee skill / defence', v.mskill + ' / ' + v.mdef)
     + r('Ranged skill / defence', v.rskill + ' / ' + v.rdef) + r('Initiative', v.initiative) + r('Resolve', v.resolve === null ? '-' : v.resolve)
-    + (v.ammo !== null ? r('Throws left', v.ammo) : '') + (FIGHT.reloadSkill(v.weapon) ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
+    + (v.ammo !== null ? r(v.weapon.mag ? 'Rounds left' : 'Throws left', v.ammo + (v.weapon.mag ? ' / ' + v.weapon.mag : '')) : '') + (FIGHT.reloadSkill(v.weapon) && !v.weapon.mag ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
     + (v.injuries.length ? r('Hurt', v.injuries.map(function (j) { return j.name; }).join(', ')) : '');
   v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.appendChild(iconCanvas(id, 18));
     const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
@@ -2681,18 +2765,22 @@ function drawer(v) {
    its one plain line, and its numbers from weapons.json. A tap anywhere puts it away. */
 const HOLD_MS = 450;
 function weaponCard(v) {
-  const w = v.weapon, d = document.getElementById('drawer'), L = (DB.wlines.rows[w.class] || {}), sk = FIGHT.strikeSkill(w), rl = FIGHT.reloadSkill(w);
+  const w = v.weapon, own = w.of || w, d = document.getElementById('drawer'), L = (DB.wlines.rows[own.class] || {}), sk = FIGHT.strikeSkill(w), rl = FIGHT.reloadSkill(w);
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
   const esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
-  let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(L.name || w.class.toUpperCase()) + ' · ' + esc(v.name) + '</div>'
-    + '<div class="wb" style="font-size:9px;opacity:.75;margin-bottom:4px">Battle Brothers: ' + esc(w.name) + (w.name.toLowerCase() === (L.base || w.class).toLowerCase() ? '' : (/^[aeiou]/i.test(L.base || w.class) ? ', an ' : ', a ') + esc((L.base || w.class).toLowerCase())) + '</div>'
+  let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(L.name || own.class.toUpperCase()) + ' · ' + esc(v.name) + '</div>'
+    + '<div class="wb" style="font-size:9px;opacity:.75;margin-bottom:4px">Battle Brothers: ' + esc(w.name) + (w.name.toLowerCase() === (L.base || own.class).toLowerCase() ? '' : (/^[aeiou]/i.test(L.base || own.class) ? ', an ' : ', a ') + esc((L.base || own.class).toLowerCase()))
+    + (w.rides ? '; it shoots as ' + esc(w.rides) : '') + '</div>'
     + '<div class="wl" style="margin-bottom:6px;font-weight:700">' + esc(L.line || '') + '</div>';
   if (w.damage_min !== null && w.damage_max !== null) h += r('Damage', w.damage_min + ' to ' + w.damage_max);
   if (w.armor_damage_pct !== null) h += r('Against armour', w.armor_damage_pct + '%');
   if (w.armor_ignore_pct) h += r('Straight through armour', w.armor_ignore_pct + '%');
-  h += r('Reach', (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile')) + r('Hands', w.hands === 2 ? 'two' : w.hands === 0 ? 'none, it bites' : 'one');
+  const gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? Math.max(FIGHT._t.rangeMin(w), R('ours.gun_min_range')) : 1;
+  h += r('Reach', gun ? lo + ' to ' + w.range_max + ' tiles' : (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile')) + r('Hands', w.hands === 2 ? 'two' : w.hands === 0 ? 'none, it bites' : 'one');
   if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
-  if (rl) h += r(esc(rl.name), rl.ap + ' AP');
+  if (w.mag) h += r('Rounds', w.mag + ', then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
+  else if (rl) h += r(esc(rl.name), rl.ap + ' AP');
+  if (v.club) h += r('At one tile', 'a club, ' + v.club.damage_min + ' to ' + v.club.damage_max);
   if (v.shield) { const S2 = DB.wlines.rows.shield || {};
     h += '<div class="wt" style="color:#7a3d10;font-weight:700;margin-top:6px">' + esc(S2.name || 'SHIELD') + '</div><div class="wl" style="font-weight:700">' + esc(S2.line || '') + '</div>'
       + r('Melee / ranged defence', '+' + (v.shield.melee_defense || 0) + ' / +' + (v.shield.ranged_defense || 0)); }
@@ -2930,7 +3018,7 @@ function tapAt(px, py) {
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
     if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.'); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
-    UI.pend = { target: who }; say(''); hud(); return;
+    UI.pend = { target: who }; aimSay(u, who); hud(); return;
   }
   if (who) { UI.pend = null; return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);

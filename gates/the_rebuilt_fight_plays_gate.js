@@ -643,7 +643,7 @@ async function weaponCards() {
   await p.waitForTimeout(400);
   const me = await p.evaluate(() => { const u = FIGHT.current(), r = document.getElementById('bstrike').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: u.weapon }; });
   await hold(me.x, me.y, 700);
-  const c1 = await card(), L1 = WL[me.w.class];
+  const c1 = await card(), L1 = WL[(me.w.of || me.w).class];   /* a pistol is carried as its shot; its line is the pistol's own (rule 120(a)) */
   leg(c1.shown && c1.id === me.w.id && c1.text.indexOf(L1.line) >= 0 && c1.text.indexOf(L1.name) >= 0 && c1.text.indexOf(me.w.damage_min + ' to ' + me.w.damage_max) >= 0,
     '*** HOLD A FINGER ON THE STRIKE SQUARE AND HIS WEAPON SAYS WHAT IT DOES ***: its name, its Battle Brothers base, its line, its numbers from weapons.json', c1.text.split('\n').slice(0, 3).join(' | '));
   await p.touchscreen.tap(200, 300); await p.waitForTimeout(300);
@@ -652,7 +652,7 @@ async function weaponCards() {
     return { id: t.id, w: t.weapon, x: innerWidth / 2, y: TOPH + (innerHeight - TOPH - BOTH) / 2 }; });   /* his own tile: the man on it answers first (rule 104a) */
   await p.waitForTimeout(300);
   await hold(e.x, e.y, 700);
-  const c2 = await card(), L2 = WL[e.w.class];
+  const c2 = await card(), L2 = WL[(e.w.of || e.w).class];
   leg(gone && c2.shown && c2.id === e.w.id && c2.text.indexOf(L2.line) >= 0, 'a tap puts it away; a finger held on one of theirs shows his weapon\'s card', (L2.name + ' (' + e.w.name + ')') + (gone ? '' : ', THE FIRST CARD STAYED'));
   leg(d.errs.length === 0, 'the cards threw nothing', d.errs[0] || '');
   await d.close();
@@ -677,7 +677,12 @@ async function enemyParts() {
             reach: tgt ? Math.max(Math.abs(tgt.x - u.x), Math.abs(tgt.y - u.y)) : null }); } }
       return r; }; };
   const run = async (party, pike) => {
-    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,auto:true,cap:4,days:30,party:' + JSON.stringify(party) + '}' });
+    /* four of his with pipes and car doors, so the man watched lives long enough to choose (10/19: four guns shoot a lone thug
+       dead before his first move, rule 120(a) doing its job); the leg is the enemy's brain, not his kit */
+    const pipes = JSON.stringify([['sellsword', 'bludgeon', 'wooden_shield', 'padded_surcoat', 'open_leather_cap'], ['militia', 'bludgeon', 'wooden_shield', 'gambeson', 'hood'],
+      ['brawler', 'two_handed_mallet', null, 'padded_vest', 'leather_headband'], ['retired_soldier', 'bludgeon', 'wooden_shield', 'padded_surcoat', 'aketon_cap']]
+      .map(g => ({ background: g[0], gear: { main: g[1], off: g[2], body: g[3], head: g[4] } })));   /* the four the crew rows fielded before the guns */
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,auto:true,cap:4,days:30,company:' + pipes + ',party:' + JSON.stringify(party) + '}' });
     await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT._t && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 });
     await d.page.evaluate(LOG);
     if (pike) await d.page.evaluate(() => { const r = FIGHT.S.units.find(u => u.kind === 'brigand_raider'); r.weapon = DB.weapons.rows.find(w => w.id === 'pike'); });
@@ -756,6 +761,9 @@ async function turnPace() {
   await p.waitForTimeout(500); await wait(90000);
   const tBack = await p.evaluate(() => performance.now());
   const acts = await p.evaluate(e => window.__acts.filter(a => a.t > e), tEnd), gaps = acts.slice(1).map((a, i) => a.t - acts[i].t);
+  /* a struck man shows his cost only when he is HIT: rounds on until one of theirs lands (10/19: Battle Brothers' Beginner aim,
+     ours.hit_roll_shift, made the seed's first two swings miss, and a miss shows only its chance) */
+  for (let i = 0; i < 4 && !(await p.evaluate(() => window.__nums.some(t => /^-\d+$/.test(t)))); i++) { await p.touchscreen.tap(end[0], end[1]); await p.waitForTimeout(500); await wait(90000); }
   const nums = await p.evaluate(() => window.__nums);
   leg(still, 'his own turn has no timer: three seconds on, it is still his, waiting for his finger');
   leg(acts.length >= 6 && gaps.every(g => g >= 990) && tBack - tEnd >= 6000, '*** A TURN YOU CAN READ *** (VIA GROK: \'the turns are too short\'): every act of theirs holds the board two beats, six men take six seconds or more',
@@ -780,29 +788,38 @@ async function turnPace() {
 /* MELEE ONE TILE, GUNS TWO (rule 83, Paolo 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a gun
    never fires at a man beside the shooter; a gun fires anywhere from two to its range (the fight had read the bow's and
    the crossbow's one range as the only distance they could fire: the RIFLE hit at exactly six, the bow at exactly seven);
-   melee reaches the next tile; the PISTOL rides the dagger, the club at one; a shooter beside a man steps back, then fires */
+   melee reaches the next tile. AMENDED 10/19 (rule 120(a), Paolo 10/18: 'the guns were supposed to be the main way this is
+   gonna be solved'; ours.pistol_shot, ours.gun_club): the PISTOL fires from two to four tiles as Battle Brothers' javelin
+   row, a magazine it reloads; EVERY GUN IS A CLUB AT ONE (his words for the pistol), the bludgeon's row, so a gunman beside
+   a man clubs him and never walks out through the free swing (measured: stepping out lost the guns kit 63 to 88 in 100). The
+   legs ask where a gun FIRES (the shot, not the club) and where it clubs. */
 async function gunsTwo() {
   const open1 = async (party) => { const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,deploy:false,cap:1,auto:true,party:' + JSON.stringify(party) + '}' });
     await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 }); return d; };
   const d = await open1(['brigand_thug']);
   const reach = await d.page.evaluate(() => { window.tick = function () {}; const u = FIGHT.alive('you')[0], t = FIGHT.alive('them')[0], W = DB.weapons.rows, out = {};
-    for (const c of ['crossbow', 'firearm', 'bow', 'throwing', 'dagger', 'mace', 'sword']) { const w = W.find(x => x.class === c); u.weapon = w; u.loaded = true; u.ammo = null; out[c] = [];
-      for (let dd = 1; dd <= 8; dd++) { u.x = 2; u.y = 7; t.x = 2 + dd; t.y = 7; u.ap = u.apTurn; u.fat = 0; if (FIGHT.canStrike(u, t)) out[c].push(dd); } }
-    return { out, range: Object.fromEntries(['crossbow', 'firearm', 'bow'].map(c => [c, W.find(x => x.class === c).range])) }; });
+    const T = FIGHT._t, club = {};
+    for (const c of ['crossbow', 'firearm', 'bow', 'throwing', 'dagger', 'mace', 'sword']) { const w0 = W.find(x => x.class === c), w = T.pistolShot(w0) || w0; u.weapon = w; u.club = T.clubFor(w); u.loaded = true;
+      u.ammo = w.mag || null; out[c] = []; club[c] = [];
+      for (let dd = 1; dd <= 8; dd++) { u.x = 2; u.y = 7; t.x = 2 + dd; t.y = 7; u.ap = u.apTurn; u.fat = 0; if (FIGHT.canStrike(u, t)) (T.armIn(u, t) === u.weapon ? out : club)[c].push(dd); } }
+    return { out, club, range: Object.fromEntries(['crossbow', 'firearm', 'bow'].map(c => [c, W.find(x => x.class === c).range])), pistol: (T.pistolShot(W.find(x => x.class === 'dagger')) || {}).range_max }; });
   reach.err = d.errs[0]; await d.close();
   const d2 = await open1(['brigand_marksman']);
   const back = await d2.page.evaluate(() => { window.tick = function () {}; const S = FIGHT.S, u = FIGHT.alive('you')[0], m = FIGHT.alive('them')[0];
-    m.weapon = DB.weapons.rows.find(w => w.class === 'crossbow'); m.loaded = true; m.ammo = null; u.x = 5; u.y = 7; m.x = 6; m.y = 7; u.hp = u.hpMax = 999;
+    m.weapon = DB.weapons.rows.find(w => w.class === 'crossbow'); m.club = FIGHT._t.clubFor(m.weapon); m.loaded = true; m.ammo = null; u.x = 5; u.y = 7; m.x = 6; m.y = 7; u.hp = u.hpMax = 999;
     let g = 0; while (FIGHT.current() !== m && g++ < 50) { const c = FIGHT.current(); if (c === u) FIGHT.endTurn(c); else FIGHT.aiStep(c); }
     m.ap = m.apTurn; const n0 = S.log.length; for (let i = 0; i < 8 && FIGHT.current() === m; i++) FIGHT.aiStep(m);
-    const L = S.log.slice(n0).filter(e => e.id === m.id); return { stepped: L.some(e => e.t === 'step'), shots: L.filter(e => e.t === 'attack').length, at: Math.max(Math.abs(m.x - u.x), Math.abs(m.y - u.y)) }; });
+    const L = S.log.slice(n0).filter(e => e.id === m.id), hits = L.filter(e => e.t === 'attack');
+    return { stepped: L.some(e => e.t === 'step'), shots: hits.filter(e => e.shot).length, clubs: hits.filter(e => !e.shot && e.arm === m.club.id).length, at: Math.max(Math.abs(m.x - u.x), Math.abs(m.y - u.y)) }; });
   back.err = d2.errs[0]; await d2.close();
   const o = reach.out, upto = (a, lo, hi) => a.length === hi - lo + 1 && a[0] === lo && a[a.length - 1] === hi;
+  const cl = reach.club;
   leg(upto(o.crossbow, 2, reach.range.crossbow) && upto(o.firearm, 2, reach.range.firearm) && !reach.err, '*** GUNS TWO (rule 83) ***: the RIFLE fires from two tiles to its range and the SHOTGUN at its two, never at a man beside the shooter (the rifle hit at exactly six before)',
     'rifle ' + o.crossbow.join(',') + '; shotgun ' + o.firearm.join(','));
-  leg(upto(o.bow, 1, reach.range.bow) && upto(o.throwing, 2, 4), '  the bow fires anywhere inside its reach (it fired at exactly seven), the bottles from the wiki\'s minimum two', 'bow ' + o.bow.join(',') + '; bottles ' + o.throwing.join(','));
-  leg(o.dagger.join() === '1' && o.mace.join() === '1' && o.sword.join() === '1', '  melee reaches the next tile; the PISTOL rides Battle Brothers\' dagger, the club at one, until his guns vote gives it a shot (47b)', 'pistol ' + o.dagger.join(',') + ', pipe ' + o.mace.join(',') + ', blade ' + o.sword.join(','));
-  leg(back.stepped && back.shots > 0 && back.at >= 2 && !back.err, '  a rifleman beside a man steps back before he fires', (back.stepped ? 'stepped back, ' : 'NO STEP, ') + back.shots + ' shot at ' + back.at + ' tiles');
+  leg(upto(o.bow, 1, reach.range.bow) && upto(o.throwing, 2, 4) && !cl.bow.length && !cl.throwing.length, '  the bow fires anywhere inside its reach (it fired at exactly seven), the bottles from the wiki\'s minimum two; neither is a gun, neither clubs', 'bow ' + o.bow.join(',') + '; bottles ' + o.throwing.join(','));
+  leg(upto(o.dagger, 2, reach.pistol) && cl.dagger.join() === '1' && o.mace.join() === '1' && o.sword.join() === '1', '*** THE PISTOL SHOOTS (rule 120(a)) ***: from two tiles to the javelin row\'s four, a club at one; melee reaches the next tile', 'pistol fires ' + o.dagger.join(',') + ', clubs ' + cl.dagger.join(',') + '; pipe ' + o.mace.join(',') + ', blade ' + o.sword.join(','));
+  leg(cl.crossbow.join() === '1' && cl.firearm.join() === '1', '*** EVERY GUN IS A CLUB AT ONE (ours.gun_club) ***: the rifle and the shotgun club the man beside them, and fire at none', 'rifle clubs ' + cl.crossbow.join(',') + '; shotgun clubs ' + cl.firearm.join(','));
+  leg(!back.stepped && back.clubs > 0 && back.shots === 0 && !back.err, '  a rifleman beside a man clubs him where he stands, never walks out through the free swing', (back.stepped ? 'STEPPED, ' : 'stood, ') + back.clubs + ' club, ' + back.shots + ' shot at ' + back.at + ' tiles');
 }
 
 /* ZONE OF CONTROL IS MELEE ONLY (rule 103, Paolo 10/10: 'anyone using a ranged weapon has no zone of control and you can
