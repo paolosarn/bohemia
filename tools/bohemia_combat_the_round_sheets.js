@@ -58,7 +58,7 @@ async function rig() {
   const fo = { seed: 5, speed: 1, kind: 'suburb', auto: true };
   const files = [];
   for (const before of [true, false]) {
-    const d = await fight({ before, fo: fo, clock: true });
+    const d = await fight({ before, oldFloor: before, fo: fo, clock: true });
     for (let i = 0; i < 6 * 24; i++) await d.page.evaluate(() => window.__step(1000 / 24));   /* six seconds in: they have moved */
     const f = path.join(TMP, 'rig_' + (before ? 'before' : 'after') + '.png'); await shot(d.page, f); files.push(f); await d.close();
   }
@@ -94,7 +94,7 @@ async function smooth() {
   const fo = { seed: 9, speed: 1, kind: 'suburb', auto: true };
   const n = 24 * 8, frames = { before: [], after: [] };
   for (const before of [true, false]) {
-    const d = await fight({ before, fo, clock: true });
+    const d = await fight({ before, oldFloor: before, fo, clock: true });
     for (let i = 0; i < 24 * 3; i++) await d.page.evaluate(() => window.__step(1000 / 24));   /* past the open's hold */
     for (let i = 0; i < n; i++) {
       await d.page.evaluate(() => window.__step(1000 / 24));

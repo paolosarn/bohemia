@@ -257,6 +257,9 @@ def materials(arg, test):
     from PIL import Image
     cal = {}
     for g in (GROUNDS if arg.upper() == 'ALL' else [arg]):
+        done = os.path.join(OUT, 'materials', g + '.png')
+        if not test and os.path.exists(done) and os.path.getmtime(done) > os.path.getmtime(os.path.abspath(__file__)) and '--force' not in sys.argv:
+            print('MATERIAL', g, 'kept (rendered after this tool last changed)', flush=True); continue
         tgt = np.array(GROUNDS[g]['target'], float); lin = lambda c: (np.clip(c, 1, 255) / 255.0) ** 2.2
         alb2, meds = None, []
         for it in range(2):   # the dust and the grain do not scale with the albedo, so twice

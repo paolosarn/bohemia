@@ -2205,7 +2205,8 @@ function startAnim(a) {
   }
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
-    if ((e.t === 'dead' || e.t === 'down') && u) u._fallAt = performance.now();   /* the fall plays from here (poseOf) */
+    if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = performance.now();   /* the fall plays from here (poseOf) */
+      if (u.side === 'them' && !u._seen) a.dur = 0; }   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
     if (e.t === 'dead') { SND.fall(true); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
     if (e.t === 'down') { SND.fall(false); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); }
     if (e.t === 'fled') SND.flee();
