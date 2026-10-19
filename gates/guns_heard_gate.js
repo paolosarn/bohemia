@@ -190,6 +190,7 @@ const srv = http.createServer((rq, rs) => {
   const fightShots = g.log.slice(before).map(x => x.name);
   ok('in thirty seconds of the fight at real speed, its guns are heard through the new sounds, yours and theirs', fightShots.filter(n => /^guns_/.test(n)).length >= 4 && fightShots.some(n => /_yours_a/.test(n)) && fightShots.some(n => /_theirs_a/.test(n)), fightShots.join(' ').replace(/\.mp3/g, ''));
   ok('the fight loaded once: no tap reloaded it', fightLoads === 1, fightLoads + ' loads');
+  ok('the fight\'s own bang stands down on this page (never a gun heard twice)', g.heard.fight > 0 && g.heard.old === 0, g.heard.old + ' old shots posted');
   const lay = await F.evaluate(() => { const bs = Array.from(document.querySelectorAll('button')); const W = document.documentElement.clientWidth;
     return { minH: Math.min(...bs.map(b => b.getBoundingClientRect().height)), off: bs.some(b => b.getBoundingClientRect().right > W + 0.5), scroll: document.documentElement.scrollWidth > W, fight: document.getElementById('fight').getBoundingClientRect().height }; });
   ok('every button 44 px tall and on a 390 px screen, no sideways scroll; the fight keeps 200 px of the frame', lay.minH >= 44 && !lay.off && !lay.scroll && lay.fight >= 200, JSON.stringify(lay));

@@ -56,7 +56,7 @@
   'use strict';
   var n=document.getElementById('num'), fr=document.getElementById('fight');
   var GUNS=BOH_GUNS_HEARD.make({ dir:'vote/guns_heard/' });
-  var AC=null, BUS=null, opt='a', gun='shotgun', fightOn=true, NOW=null, heard={ fight:0, buttons:0, b:0 }, opened=performance.now();
+  var AC=null, BUS=null, opt='a', gun='shotgun', fightOn=true, NOW=null, heard={ fight:0, buttons:0, b:0, old:0 }, opened=performance.now();
 
   /* THE ALPHA'S OWN OUTPUT CHAIN (slices/BOHEMIA_ALPHA_0_9.html, MUS.audio: SFXBUS at 1 -> OUT -> a compressor at -14 dB,
      knee 8, 6:1, 2 ms, 120 ms -> the BRICKWALL at -5 dB, 20:1, 1 ms, 80 ms), the same numbers, so A, B and C are heard the
@@ -154,7 +154,11 @@
     GUNS.fire(AC, BUS, g, side, opt, AC.currentTime+0.005);
   };
   /* the fight's other sounds (the hit, the miss, the fall) come by the fight's own postMessage, as in the alpha */
-  window.addEventListener('message', function(m){ var d=m.data; if(!d||d.type!=='BOHEMIA_SFX'||!fightOn||!AC||AC.state!=='running') return; now(d.ev); });
+  /* an attack's 'shot' or 'swing_air' never comes this way: the hook stood it down and plays it above (counted, so a hook
+     that stops standing it down is seen, never heard twice) */
+  window.addEventListener('message', function(m){ var d=m.data; if(!d||d.type!=='BOHEMIA_SFX') return;
+    if(d.ev==='shot'||d.ev==='swing_air'){ heard.old++; return; }
+    if(!fightOn||!AC||AC.state!=='running') return; now(d.ev); });
   function open(){
     if(open.done) return; open.done=true; opened=performance.now();
     fr.src='BOHEMIA_FIGHT.html';

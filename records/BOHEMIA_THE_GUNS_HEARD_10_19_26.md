@@ -73,7 +73,8 @@ THE RELOAD ON THE GRID: the motions laid on 16ths, never stretched or pitched: t
 8th later; the SHOTGUN's shell on the beat, the pump back on the 8th, forward on the next 16th; the RIFLE's bolt up on the
 beat, back a 16th later, forward on the 8th after, down on the next beat.
 
-## MEASURED (gates/guns_heard_gate.js, 32/0)
+## MEASURED (gates/guns_heard_gate.js, 33/0; mutated three ways, red every time: their rifle 2 dB too loud and the fight
+## carrying the file, 30/2; the fight loaded before the buttons' sounds, 31/1; the fight's own bang not stood down, 32/1)
 
 Decoded: nothing over -1.51 dBFS; every take of a voice within 0.11 dB of the others; every shot -87 dB or quieter at two
 beats (no click); A at most 0.15 percent of its energy above 10 kHz; in every A take the canyon claps back a 16th after the
@@ -82,7 +83,8 @@ camcorder); every drop-out dives 8 to 12 dB with its top going 22 to 34 dB, neve
 The page, his way (390 x 844, the VOTE tab's 62vh frame, a 1.6 Mbps phone network, real speed): a gun 161 ms after a tap
 three seconds in; C 46 ms after its tap; a reload 753 ms after its tap; the real fight loaded in 19.9 s, ONCE (no tap
 reloads it); in its first thirty seconds the fight's own guns are heard through the new sounds, yours and theirs, and the
-rifle's reload; every button 44 px on a 390 px screen; nothing throws.
+rifle's reload, and the fight's own bang stands down (never a gun heard twice); every button 44 px on a 390 px screen;
+nothing throws.
 
 ## THE CARD (VOTE, sounds-the-guns-heard-10-19)
 
