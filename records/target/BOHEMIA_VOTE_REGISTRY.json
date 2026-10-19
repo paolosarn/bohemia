@@ -11855,6 +11855,48 @@
     "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
     "light": "top"
    }
+  },
+  {
+   "id": "combat-guns-from-the-first-fight-10-19",
+   "title": "YOUR CREW STARTS WITH GUNS",
+   "why": "Your first fight used to hand you two pipes and a sledge, and the pistol was secretly a knife that never fired; now a new crew starts with two pistols and a rifle, the pistol shoots two to four houses away, every gun clubs a man who gets close, the first week's bands are plain thugs, and a new crew wins its first fight 87 in 100 against three of them (it was 55). You see it in the COMBAT tab and in the demo's first fight.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_GUNS_FROM_THE_FIRST_FIGHT_10_19.jpg"
+   },
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "dcd5db84",
+   "made": "10/19",
+   "draft": true
+  },
+  {
+   "id": "combat-the-fight-says-what-is-weak-10-19",
+   "title": "THE FIGHT TELLS YOU WHEN YOUR WEAPON IS WEAK",
+   "why": "Tap a man once and the fight tells you your chance and what one hit does to his health and his armour, says it plainly when your weapon barely dents him (and which of your men would do better), and after the hit tells you what it did. You see it in the COMBAT tab and the demo's fights, every time you tap a man you can hit.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_FIGHT_SAYS_WHAT_IS_WEAK_10_19.jpg"
+   },
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "dcd5db84",
+   "made": "10/19",
+   "draft": true
+  },
+  {
+   "id": "combat-the-people-a-little-smaller-10-19",
+   "title": "THE PEOPLE A LITTLE SMALLER: 104, 92 OR 84",
+   "why": "You asked for the characters a little smaller, so they are now 92 pixels tall instead of 104 (at the start of a fight a man was almost three houses tall, now about two and a half), and the sheet shows a step smaller still at 84. You see it in the COMBAT tab and the demo's fights, on the same board at all three sizes.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_PEOPLE_A_LITTLE_SMALLER_10_19.jpg"
+   },
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "dcd5db84",
+   "made": "10/19",
+   "draft": true
   }
  ],
  "verdicts": [
