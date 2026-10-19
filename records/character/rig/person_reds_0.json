@@ -1,0 +1,90 @@
+{
+ "look": "PERSON_REDS_0",
+ "shape": "person_reds_0: a person of the Reds, his own skin skin_deep 3",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "SIGNAL RED SHIRT",
+  "outer": "BRICK SPLIT-TAIL DUSTER",
+  "legs": "BRICK WIDE TROUSER",
+  "feet": "BRICK STACK BOOT"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_reds_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.7908,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_reds_0_trouser": 2568,
+  "person_reds_0_shoe": 3916,
+  "person_reds_0_coat": 17338,
+  "person_reds_0_coat_skirt": 8508,
+  "person_reds_0_hair": 17968,
+  "person_reds_0_hand_L": 392,
+  "person_reds_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_0_coat": [
+   0.1301,
+   0.0437,
+   0.0382
+  ],
+  "person_reds_0_coat_skirt": [
+   0.1301,
+   0.0437,
+   0.0382
+  ],
+  "person_reds_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_reds_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_reds_0_shirt": [
+   0.305,
+   0.0296,
+   0.0212
+  ],
+  "person_reds_0_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_reds_0_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_reds_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_reds_0_trouser": [
+   0.0887,
+   0.0319,
+   0.0296
+  ],
+  "person_reds_0_trousers": [
+   0.0887,
+   0.0319,
+   0.0296
+  ]
+ }
+}
