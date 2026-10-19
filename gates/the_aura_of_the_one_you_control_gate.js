@@ -45,9 +45,13 @@ const BANNED = /\bfilter\b|globalCompositeOperation|shadowBlur|shadowColor|globa
 const looksClean = s => !BANNED.test(s);
 ok('5. the module draws with no filter, composite mode, blur, glow, gradient or see-through wash', looksClean(code), (code.match(BANNED) || [])[0]);
 ok('5. MUTATION: a planted glow (shadowBlur) is caught by the same read', !looksClean(code + '\ng.shadowBlur = 8;'));
-for (const f of ['BOHEMIA_FIGHT.html', 'BOHEMIA_DEMO.html', 'BOHEMIA_CITY_WORLD.html', 'BOHEMIA_ALPHA_0_9.html']) {
+/* 7, AMENDED 10/19 by his YES on B (rule 121(f): 'combat only... I'm fucking with the tear'; COMBAT [the tear and the floor]):
+   the fight loads the module and draws THE TEAR only; the demo, the map and the alpha never load it (never on the map) */
+{ const fs_ = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_FIGHT.html'), 'utf8'), kinds = (fs_.match(/BOHEMIA_AURA\.draw\('(\w+)'/g) || []);
+  ok('7. BOHEMIA_FIGHT.html loads the aura and draws the tear and nothing else (his YES on B, combat only)', /ANIMATION_THE_AURA\.js/.test(fs_) && kinds.length > 0 && kinds.every(k => /'tear'/.test(k)), kinds.join(' ')); }
+for (const f of ['BOHEMIA_DEMO.html', 'BOHEMIA_CITY_WORLD.html', 'BOHEMIA_ALPHA_0_9.html']) {
   const p = path.join(ROOT, 'slices', f);
-  ok('7. ' + f + ' does not load the aura before his FINAL (rule 100)', fs.existsSync(p) && !/BOHEMIA_AURA|ANIMATION_THE_AURA/.test(fs.readFileSync(p, 'utf8')));
+  ok('7. ' + f + ' does not load the aura (rule 121(f): combat only, never on the map)', fs.existsSync(p) && !/BOHEMIA_AURA|ANIMATION_THE_AURA/.test(fs.readFileSync(p, 'utf8')));
 }
 
 /* ---- the clips, read by Pillow ---- */

@@ -6,6 +6,8 @@
 <title>The Fight</title>
 <script src="bohemia_ui_materials.js"></script>
 <script src="bohemia_screen_class.js"></script>
+<!-- THE TEAR (ANIMATION's aura B, his YES 10/19, rule 121(f): 'combat only... I'm fucking with the tear'): the man you control -->
+<script src="vote/ANIMATION_THE_AURA.js"></script>
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
      ground up; re-create Battle Brothers combat... too far gone").
@@ -167,7 +169,7 @@ const DATA_FILES = [
   '../records/target/bb/rules.json', '../records/target/bb/ours.json', '../records/target/bb/ai.json',
   '../records/target/bb/enemies.json', '../records/target/bb/weapons.json', '../records/target/bb/armor.json',
   '../records/target/bb/injuries.json', '../records/target/bb/backgrounds.json', 'fight_ground/fight_ground.json',
-  '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json', 'fight_people/fight_people.json',
+  '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json', 'fight_rig/fight_rig.json',
   '../records/target/bb/weapon_lines.json',
   /* WORLD's one ground table and its district list (rule 59: every floor tile is a translation; never a second list of grounds) */
   '../records/target/BOHEMIA_GROUND_EFFECTS.json', '../records/target/BOHEMIA_BOARD_KINDS.json',
@@ -181,7 +183,7 @@ function loadAll() {
     .then(function (a) {
       DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
-      DB.perks = a[9]; DB.perkNames = a[10]; DB.people = a[11]; DB.wlines = a[12];
+      DB.perks = a[9]; DB.perkNames = a[10]; DB.rig = a[11]; DB.wlines = a[12];
       DB.groundEffects = a[13]; DB.boardKinds = a[14]; DB.beastAttacks = a[15]; DB.beasts = a[16];
       DB.armorTiers = a[17];
     });
@@ -1664,11 +1666,14 @@ const NEAR_TILE = 121, BAR_PT = 3;   /* css px a house tile stands at the pinch'
    characters just be a little smaller'): the man is drawn MAN_DEFAULT css px tall on every fought screen (it was 104, the 112
    box's ~100 painted px of rule 21; the ground still zooms, the person still does not, at one size on every surface); a test
    bench or the VOTE sheet may hand another as FIGHT_OPTS.manPx */
-const MAN_DEFAULT = 92;
+/* THE RIG'S MAN (rule 121): 98 css px, the rig's own ruler (98 painted px = a 1.72 m man) at a whole three phone pixels to
+   each of his (rule 114a: one pixel size); his 'a little smaller' (92) lands on the nearest whole pixel, 98, and the VOTE
+   card shows him the two either side */
+const MAN_DEFAULT = 98;
 let MAN_IDLE = MAN_DEFAULT;
 /* BOTH TEAMS ON ONE SCREEN (rule 104a) with THE GROUND MAY ZOOM, THE PERSON MAY NOT (rule 21): the man is drawn MAN_IDLE css px
    tall at every zoom; only the ground scales under him */
-function manH() { return H > W ? MAN_IDLE : Math.min(MAN_IDLE, MAN_ROWS * UI.th * UI.zoom); }   /* upright he is always MAN_IDLE (rule 21); only a glass wider than tall caps him at MAN_ROWS rows */
+function manH() { return rigScale() * DB.rig.ruler.px / DPR; }   /* upright he is always MAN_IDLE (rule 21); only a glass wider than tall caps him at MAN_ROWS rows */
 const MAN_ROWS = 2.8;
 
 function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed; }
@@ -1722,13 +1727,18 @@ function bakeBoard() {
   surround().forEach(function (q) { if (names.indexOf(q.n) < 0) names.push(q.n); });
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
-  /* the people: every look a fighter wears, baked from the character bank (rule 69) */
-  Object.keys(DB.people.looks).forEach(function (k) { all.push('fight_people/' + DB.people.looks[k].file); });
+  /* the people: the rig sheet of every look a man in THIS fight wears (slices/fight_rig, rule 121), and the faces */
+  FIGHT.S.units.forEach(function (v) { if (beastOf(v)) return; const f = 'fight_rig/' + lookOf(v).file; if (all.indexOf(f) < 0) all.push(f); });
+  all.push('fight_rig/' + DB.rig.faces.file);
   /* the beasts: ANIMATION's baked sheets (slices/fight_beasts), the same 112 frame and ground line as the people */
   Object.keys(DB.beasts.beasts).forEach(function (k) { all.push('fight_beasts/' + DB.beasts.beasts[k].file); });
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
   (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
-  return Promise.all(all.map(function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) { UI.imgs[s] = i; return i; }); }))
+  /* a rig sheet is held as an ImageBitmap (decoded once, drawn straight from the GPU's copy; measured 10/19: a man drawn from a
+     canvas cost the frame 14 ms on the phone profile, the source copied every draw) */
+  return Promise.all(all.map(function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) {
+    if (!i || s.indexOf('fight_rig/') !== 0 || typeof createImageBitmap !== 'function') { UI.imgs[s] = i; return i; }
+    return createImageBitmap(i).then(function (b) { b.src = i.src; UI.imgs[s] = b; return b; }, function () { UI.imgs[s] = i; return i; }); }); }))
     .then(function () {
       /* the cut board (rule 79) draws the dealt blocks shifted by its window; the glass shows only the window */
       const ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
@@ -1875,6 +1885,19 @@ function nightAtlas(img) {
     g.restore();
     c.src = img.src;   /* the bank's frames still: the gate traces every man to fight_people */
     UI.darkOf.set(img, c);
+  }
+  return c;
+}
+/* a rig sheet in the night's colour (its day rim is in its pixels and stays dark): built once, then held as an ImageBitmap */
+function nightSheet(img) {
+  UI.darkOf = UI.darkOf || new Map();
+  let c = UI.darkOf.get(img);
+  if (!c) {
+    c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const g = c.getContext('2d'); g.drawImage(img, 0, 0);
+    nightPass(g, c.width, c.height, img, MAN_MOON);
+    c.src = img.src; UI.darkOf.set(img, c);
+    if (typeof createImageBitmap === 'function') createImageBitmap(c).then(function (b) { b.src = img.src; UI.darkOf.set(img, b); }, function () {});
   }
   return c;
 }
@@ -2071,15 +2094,44 @@ const SND = {
 };
 
 /* ---------------- the events become motion, paced on the beat ---------------- */
+/* THE NOTES' LENGTHS (rule 121 [smooth]: 'turns flow without dead pauses'): a note holds the board only as long as it shows
+   something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
+   quarter, a morale word or an injury nothing (they are rings on the man already) */
+const NOTE_BEATS = { dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
 function take() {
   const ev = FIGHT.S.events; FIGHT.S.events = [];
   ev.forEach(function (e) {
-    if (e.t === 'step') UI.anim.push({ k: 'step', e: e, dur: beatMs() / 4 });
+    if (e.t === 'step') {
+      /* one man's steps in a row are ONE walk along his path (it was a hop a tile, a quarter beat each, and between two hops
+         the man was drawn for one frame on the tile he was walking to) */
+      const u = FIGHT.byId(e.id), last = UI.anim[UI.anim.length - 1], end = last && last.path && last.path[last.path.length - 1];
+      if (last && last.k === 'step' && last.e.id === e.id && !last.at && end.x === e.fx && end.y === e.fy) {
+        last.path.push({ x: e.x, y: e.y }); last.e.x = e.x; last.e.y = e.y; last.dur = beatMs() * TILE_BEATS * (last.path.length - 1);
+      } else UI.anim.push({ k: 'step', e: Object.assign({}, e), path: [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }], dur: beatMs() * TILE_BEATS });
+      if (u && !u._at && !walkOf(u)) u._at = { x: e.fx, y: e.fy };   /* he stands where his walk starts until it does */
+    }
     else if (e.t === 'attack') UI.anim.push({ k: 'attack', e: e, dur: beatMs() });
-    else if (e.t === 'dead' || e.t === 'down' || e.t === 'fled' || e.t === 'morale' || e.t === 'injury' || e.t === 'reload' || e.t === 'held' || e.t === 'rally' || e.t === 'nine' || e.t === 'berserk' || e.t === 'skill')
-      UI.anim.push({ k: 'note', e: e, dur: e.t === 'morale' || e.t === 'injury' ? 0 : beatMs() / 2 });
+    else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: beatMs() * NOTE_BEATS[e.t] });
     else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
   });
+}
+/* a walk's tiles as he crosses them: the footfall, and the high ground the moment he stands on it */
+function walkTick(a, now) {
+  const p = walkAt(a, now), u = FIGHT.byId(a.e.id); if (!u) return;
+  const done = Math.min(a.path.length - 1, Math.floor(ease((now - a.at) / a.dur) * (a.path.length - 1) + 1e-6));
+  while ((a.crossed || 0) < done) {
+    const i = a.crossed || 0, q = a.path[i + 1], o = a.path[i]; a.crossed = i + 1; SND.step();
+    /* HE TAKES THE HIGH GROUND (rule 59's height row; rule 117c: a good choice gets a visible and audible win) */
+    if (u.side === 'you' && FIGHT.level(q.x, q.y) > FIGHT.level(o.x, o.y)) { sfx('high_ground'); pop({ x: q.x, y: q.y }, '', '#f0d296', true, u.name + ' takes the high ground.'); }
+  }
+  return p;
+}
+function endAnim(a) {
+  if (a.k === 'step') {
+    const u = FIGHT.byId(a.e.id), end = a.path[a.path.length - 1]; if (!u) return;
+    /* the next walk of his still waiting starts where this one ended; with none, he is where the rules have him */
+    u._at = UI.anim.some(function (b) { return b.k === 'step' && b.e.id === u.id; }) ? { x: end.x, y: end.y } : undefined;
+  }
 }
 function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
 function say(s, wrap) { const e = document.getElementById('say'); e.classList.toggle('aim', !!wrap); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
@@ -2133,18 +2185,16 @@ function resultSay(e) {
 }
 function startAnim(a) {
   const e = a.e;
-  if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step();
-    /* HE TAKES THE HIGH GROUND (rule 59's height row; rule 117c: a good choice gets a visible and audible win): a gold ring
-       at his feet and the line in the feed; the sound is the parent's to play (SOUNDS: 'high_ground'), silent until it exists */
-    if (u.side === 'you' && FIGHT.level(e.x, e.y) > FIGHT.level(e.fx, e.fy)) { sfx('high_ground'); pop({ x: e.x, y: e.y }, '', '#f0d296', true, u.name + ' takes the high ground.'); }
-    const span = [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }];   /* the step's two ends, so the walk itself stays on the glass */
+  if (a.k === 'step') { SND.step();
+    const span = [a.path[0], a.path[a.path.length - 1]];   /* the walk's two ends, so the walk itself stays on the glass */
     if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     const ranged = e.shot === undefined ? FIGHT.isRanged(u.weapon) : e.shot;   /* the pistol's club at one is a swing, not a shot */
     /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
-    (ranged ? SND.shot : SND.swing)();
+    /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
+    setTimeout(ranged ? SND.shot : SND.swing, beatMs() * 0.35);
     setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e); }, beatMs() * 0.45);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
     numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : '', e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
@@ -2154,6 +2204,7 @@ function startAnim(a) {
   }
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
+    if ((e.t === 'dead' || e.t === 'down') && u) u._fallAt = performance.now();   /* the fall plays from here (poseOf) */
     if (e.t === 'dead') { SND.fall(true); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
     if (e.t === 'down') { SND.fall(false); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); }
     if (e.t === 'fled') SND.flee();
@@ -2197,50 +2248,63 @@ function tick(now) {
   /* the skip tap cuts in at once, even mid-step */
   if (UI.skip && !FIGHT.S.over && !FIGHT.S.deploy && FIGHT.current() && !crewControlled(FIGHT.current())) { UI.glide = null; skipTurn(); return; }
   UI.skip = false;
-  /* motion first: nothing new happens while something is still moving */
+  /* motion first: nothing new happens while something is still moving. BACK TO BACK (rule 121 [smooth]): the next motion
+     starts on the exact time the last one ends, in the same frame (there was a frame between every two, and in it the man
+     stood on the tile he was walking to) */
   if (UI.anim.length) {
-    const a = UI.anim[0];
-    if (!a.at) { a.at = now; startAnim(a); UI.beats += a.dur / beatMs(); }
-    if (now - a.at >= a.dur) { const d = UI.anim.shift(); if (d.k === 'step') { const u = FIGHT.byId(d.e.id); u._fx = undefined; } }
-    return;
+    for (let guard = 0; UI.anim.length && guard < 64; guard++) {
+      const a = UI.anim[0];
+      if (!a.at) { a.at = UI.animEnd && now - UI.animEnd < 120 ? UI.animEnd : now; startAnim(a); UI.beats += a.dur / beatMs(); }
+      if (a.k === 'step') walkTick(a, Math.min(now, a.at + a.dur));
+      if (now - a.at < a.dur) break;
+      UI.anim.shift(); UI.animEnd = a.at + a.dur; endAnim(a);
+    }
+    if (UI.anim.length) return;
+    /* the board breathes an eighth of a beat after the last motion, and the next man moves on the next quarter beat (it held
+       two whole beats from the start of every act of theirs, whatever the act: 55% of an AUTO fight stood still, 10/19) */
+    const next = onBeat(UI.animEnd + beatMs() * BREATH_BEATS);
+    if (next > UI.nextAI) { UI.beats += (next - Math.max(UI.nextAI, UI.animEnd)) / beatMs(); UI.nextAI = next; }
   }
   if (FIGHT.S.over) return;
-  if (UI.glide || now < UI.openUntil) return;
+  /* the camera no longer holds the turn: it glides while the men move (rule 121 [smooth]) */
+  if (now < UI.openUntil) return;
   /* YOUR FORMATION: nothing moves before FIGHT (the second votes: nothing is forced, nothing happens in the first second);
      AUTO means he does not want to set it, so it starts on the kept line */
   if (FIGHT.S.deploy) { if (UI.auto) fightNow(); else if (UI.drag) dragPan(); return; }
   /* as they close, they stay on the glass: a new round refits if any man stands off it (rule 104a) */
   if (UI.fitRound !== FIGHT.S.round) { UI.fitRound = FIGHT.S.round; const f = fitBoth();
     /* a man off the glass, or the lines closed enough to come in closer: the camera takes them all again (it tightens as they meet) */
-    if (!UI.pinched && !(gest && gest.moved) && (!allFramed() || f.z > UI.zoom * FIT_CLOSER)) { glideTo(f.cx, f.cy, f.z, beatMs()); return; } }
+    if (!UI.pinched && !(gest && gest.moved) && (!allFramed() || f.z > UI.zoom * FIT_CLOSER)) glideTo(f.cx, f.cy, f.z, beatMs()); }
   const u = FIGHT.current();
   if (!u) return;
   const sayEl = document.getElementById('say');
   if (crewControlled(u)) { if (sayEl.textContent === THEIRS_SAY) say(WALK_SAY); follow(u); return; }
   if (!UI.auto && u.side === 'them' && sayEl.textContent !== THEIRS_SAY) say(THEIRS_SAY);
   if (now < UI.nextAI) return;
-  if (follow(u, true)) return;   /* the mover off the glass: the camera goes to him first, then he acts */
+  follow(u, true);   /* the mover off the glass: the camera goes to him as he acts (it held his act a whole beat first) */
   const before = UI.anim.length;
   FIGHT.aiStep(u);
   take();
-  /* A TURN YOU CAN READ (VIA GROK 10/9: 'the turns are too short'): an act by a man he is not moving (theirs, or his own on
-     AUTO) holds the board for at least two beats, one second at 120; a man who only ends his turn holds half a beat */
+  /* A TURN YOU CAN READ (VIA GROK 10/9: 'the turns are too short') AND NO DEAD PAUSE (rule 121): an act is read by its own
+     motion played whole (a walk half a beat a tile, a shot or a blow a beat, a fall a beat) and the quarter-beat breath
+     after it; a man who only ends his turn passes it on at once (nothing moved, nothing to read: the strip moves on) */
   const acted = UI.anim.slice(before).some(function (a) { return a.k === 'step' || a.k === 'attack' || a.k === 'note'; });
-  const hold = acted ? ACT_BEATS : 1 / (1 + 1);
-  UI.nextAI = now + beatMs() * hold; UI.beats += hold; if (acted) UI.lastAct = now;
+  if (acted) UI.lastAct = now;
 }
-const ACT_BEATS = 2, THEIRS_SAY = 'Their move. Tap the board to skip it.';
+const BREATH_BEATS = .125, THEIRS_SAY = 'Their move. Tap the board to skip it.';
+/* the next quarter beat from the fight's own clock: every act starts on the grid the beat is cut into */
+function onBeat(t) { const h = beatMs() / 4; return UI.t0 + Math.ceil((t - UI.t0) / h - 1e-6) * h; }
 /* a tap on the board while they move: their turn ends at once, everything they do resolved, no animation; on AUTO it runs
    to the end of the round. His own turn never ends without his finger. */
 function skipTurn() {
   UI.skip = false;
   const S = FIGHT.S, r0 = S.round, all = [];
-  UI.anim.forEach(function (a) { if (a.k === 'step') { const v = FIGHT.byId(a.e.id); v._fx = undefined; } }); UI.anim = [];
+  UI.anim.forEach(function (a) { if (a.k === 'step') { const v = FIGHT.byId(a.e.id); if (v) v._at = undefined; } }); UI.anim = [];
   for (let guard = 0; guard < 2000 && !S.over; guard++) {
     const u = FIGHT.current(); if (!u || crewControlled(u) || (UI.auto && S.round !== r0)) break;
     FIGHT.aiStep(u); all.push.apply(all, S.events); S.events = [];
   }
-  all.forEach(function (e) { if ((e.t === 'dead' || e.t === 'down') && FIGHT.byId(e.id)) FIGHT.byId(e.id).seenFall = true; });
+  all.forEach(function (e) { const v = FIGHT.byId(e.id); if ((e.t === 'dead' || e.t === 'down') && v) { v.seenFall = true; v._fallAt = performance.now() - beatMs() * 9; } });
   const over = all.filter(function (e) { return e.t === 'over'; })[0];
   if (over) UI.anim.push({ k: 'over', e: over, dur: beatMs() });
   UI.nextAI = 0; UI.skipped = (UI.skipped || 0) + 1; hud();
@@ -2250,7 +2314,7 @@ function follow(u, every) {
   UI.lastFollow = u.id + ':' + FIGHT.S.round;
   const aim = aimAt(u.x, u.y), at = u.id + ':' + u.x + ':' + u.y;
   /* once per spot: at the board's edge the camera may not be able to frame him whole, and he acts anyway */
-  if (!framed(u.x, u.y) && UI.framedAt !== at) { UI.framedAt = at; if (keepAll(beatMs())) return true; if (UI.zoom > UI.far * 1.05) { glideTo(aim[0], aim[1], UI.zoom, beatMs()); return true; } }
+  if (!framed(u.x, u.y) && UI.framedAt !== at) { UI.framedAt = at; if (keepAll(beatMs() * .75)) return true; if (UI.zoom > UI.far * 1.05) { glideTo(aim[0], aim[1], UI.zoom, beatMs() * .75); return true; } }
   return false;
 }
 /* rule 104a: the camera holds both teams; when a man would leave the glass it takes them all again, never one man alone.
@@ -2441,11 +2505,13 @@ function draw(now) {
   /* the man acting: GAFFER TAPE on his tile's corners (his side's paint for theirs) */
   if (u && !S.over && !S.deploy) mkCorners(dx(u), dy(u), u.side === 'you' ? MK.tape : MK.rustLit);
   mkOff();
-  S.units.filter(function (v) { return (v.dead || v.down) && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
+  /* the fallen lie where they fell, from the moment their fall plays (rule 121: the fall plays whole) */
+  S.units.filter(function (v) { return (v.dead || v.down) && v._fallAt !== undefined && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
   /* the people, back rows first */
   /* THE ENEMY'S LINE IS VISIBLE WHILE HE SETS HIS (rule 110b): FIGHT.shown draws every man of theirs before FIGHT; the man he is
      dragging is drawn last, at his finger */
-  const live = S.units.filter(function (v) { return FIGHT.onField(v) && FIGHT.shown(v) && !(UI.drag && UI.drag.u === v); })
+  /* a man the rules have already felled stands, and takes the blow, until his fall plays */
+  const live = S.units.filter(function (v) { return ((FIGHT.onField(v) && FIGHT.shown(v)) || ((v.dead || v.down) && v._fallAt === undefined && v._seen)) && !(UI.drag && UI.drag.u === v); })
     .sort(function (a, b) { return dy(a) - dy(b); });
   live.forEach(function (v) { drawMan(v, tw, th); });
   if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
@@ -2462,12 +2528,88 @@ function draw(now) {
   });
   mkOff();
 }
-/* the fallen stay where they fell: a body on the ground, no word over it */
-/* THE CHARACTER BANK ON THE BOARD (rule 69): every man is a frame of his own look's atlas, baked from the
-   alpha's 112 rig in his clothes (slices/fight_people); nothing on the field is redrawn by hand */
-function atlasOf(v) { const b = beastOf(v); if (b) return UI.imgs['fight_beasts/' + b.file];
-  const L = DB.people.looks[v.look] || DB.people.looks[Object.keys(DB.people.looks)[0]]; return UI.imgs['fight_people/' + L.file]; }
-function col(name) { return DB.people.cols.indexOf(name); }
+/* ---------------- THE RIG ON THE BOARD (COMBAT [the fight wears the 3D models], rule 121, Paolo 10/19: 'a full
+   implementation of the 3D models, that's top priority'; 'EVERYTHING IS A 3D MODEL NOW... WTF TRYING TO COMBINE THE TWO') ----
+   Every man is his rig model (slices/fight_rig, tools/bohemia_combat_the_fight_wears_the_rig.py): PORTRAIT's bodies of the
+   player, the twelve cast and the thirteen gangs, COOK THREE's thug and poacher with their own heads, posed on the rig's man
+   and rendered by DIRECTION's master rig in EIGHT FACINGS, the walk and the fight's four clips (the gun up, the club, the
+   blow landing, the fall), three keys a beat. A sheet is a row per facing and a column per drawn key; the one-pixel day rim
+   is in the pixels. Nothing on the field is redrawn by hand, and no old sheet stands beside a rig model (121(e)). */
+const DIR8 = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
+/* a grid direction to the facing row: south is down the glass, east is right, the rig's camera faces north */
+function dirOf(ddx, ddy) { return (Math.round(Math.atan2(ddx, ddy) / (Math.PI / 4)) % 8 + 8) % 8; }
+function lookOf(v) { return DB.rig.looks[v.look] || DB.rig.looks[R('ours.people_looks').crew[0]] || DB.rig.looks[Object.keys(DB.rig.looks)[0]]; }
+function clipCol(name, k) { const c = DB.rig.clips[name]; return c[Math.max(0, Math.min(c.length - 1, k))]; }
+/* the sheet a man is drawn from: his look's, in the night's colour where no lamp reaches him (cached per sheet) */
+function sheetOf(v) {
+  const b = beastOf(v);
+  if (b) { const img = UI.imgs['fight_beasts/' + b.file]; return img && (FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y) ? nightAtlas(img) : dayAtlas(img)); }
+  const img = UI.imgs['fight_rig/' + lookOf(v).file]; if (!img) return null;
+  return FIGHT.S.night && !FIGHT._t.litAt(Math.round(dx(v)), Math.round(dy(v))) ? nightSheet(img) : img;
+}
+/* THE ONE NATIVE PIXEL (rule 114a; DIRECTION's ruler: 98 painted px = a 1.72 m man at 57 px a metre): a man is drawn at a
+   WHOLE number of device pixels to the rig's pixel, the one nearest the size asked, so every pixel of the model is the same
+   size on the glass and nothing shimmers as he walks */
+function rigScale() {
+  const want = H > W ? MAN_IDLE : Math.min(MAN_IDLE, MAN_ROWS * UI.th * UI.zoom);
+  return Math.max(1, Math.round(want * DPR / DB.rig.ruler.px));
+}
+/* THE WALK GLIDES (his first votes: 'SLIDE is the walk feel'; the third: 'movement GLIDES'; rule 121 [smooth]): a man's whole
+   path is one move, eased in and out, half a beat a house tile, never a hop per tile; his legs run the rig's six-key walk at
+   six keys a beat (one stride every two tiles) and he faces the way he is going */
+const TILE_BEATS = 0.5;
+function ease(k) { return (1 - Math.cos(Math.PI * Math.max(0, Math.min(1, k)))) / 2; }
+function walkOf(v) { const a = UI.anim[0]; return a && a.k === 'step' && a.e.id === v.id && a.at ? a : null; }
+function walkAt(a, now) {
+  const n = a.path.length - 1, s = ease((now - a.at) / a.dur) * n, i = Math.min(n - 1, Math.floor(s)), f = s - i, p = a.path[i], q = a.path[i + 1];
+  return { x: p.x + (q.x - p.x) * f, y: p.y + (q.y - p.y) * f, seg: i, face: dirOf(q.x - p.x, q.y - p.y) };
+}
+/* where a man is drawn: under the finger while dragged, along his walk, where his walk will start while it waits in the queue */
+function shownAt(v) {
+  if (UI.drag && UI.drag.u === v) return { x: wx(UI.drag.px) / UI.tw - .5, y: wy(UI.drag.py) / UI.th - .9 - DRAG_LIFT };
+  const a = walkOf(v); if (a) return walkAt(a, performance.now());
+  return v._at || v;
+}
+function dx(v) { return shownAt(v).x; }
+function dy(v) { return shownAt(v).y; }
+/* HE TURNS, HE DOES NOT SNAP: a man asked to face another way turns one facing a twelfth of a beat at a time, the rig's
+   turntable played (S to N passes SE, E, NE), the way a held key steps */
+const TURN_BEATS = 1 / 12;
+function turnTo(v, want, now) {
+  if (v._face === undefined) { v._face = want; v._turnAt = now; return; }
+  if (v._face === want || now - (v._turnAt || 0) < beatMs() * TURN_BEATS) return;
+  const d = (want - v._face + 8) % 8; v._face = (v._face + (d <= 4 ? 1 : 7)) % 8; v._turnAt = now;
+}
+/* which key of which clip a man shows now, and which way he faces */
+function poseOf(v, now) {
+  const a = UI.anim[0];
+  if (v._fallAt !== undefined) {   /* the fall, three keys a beat, then the body as it lies */
+    const k = Math.floor((now - v._fallAt) / (beatMs() / DB.rig.keys_per_beat));
+    return { col: clipCol('fall', k), clip: 'fall' };
+  }
+  const w = walkOf(v);
+  if (w) { const p = walkAt(w, now); turnTo(v, p.face, now); v._face = p.face;
+    return { col: clipCol('walk', Math.floor((now - w.at) / (beatMs() / 6)) % 6), clip: 'walk' }; }
+  if (a && a.at && a.k === 'attack') {
+    const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
+    if (a.e.id === v.id) {
+      const t = FIGHT.byId(a.e.to); if (t) turnTo(v, dirOf(t.x - v.x, t.y - v.y), now);
+      const shot = a.e.shot === undefined ? FIGHT.isRanged(v.weapon) : a.e.shot;
+      return { col: clipCol(shot ? 'aim' : 'swing', k < .35 ? 0 : k < .6 ? 1 : 2), clip: shot ? 'aim' : 'swing' };
+    }
+    if (a.e.to === v.id && a.e.hit && k > .45) {
+      const t = FIGHT.byId(a.e.id); if (t) turnTo(v, dirOf(t.x - v.x, t.y - v.y), now);
+      return { col: clipCol('hit', k < .7 ? 0 : 1), clip: 'hit' };
+    }
+  }
+  if (UI.hitUntil && UI.hitUntil[v.id] > now) return { col: clipCol('hit', 1), clip: 'hit' };
+  /* standing: he faces the nearest man of theirs he knows of (a man fleeing faces away) */
+  const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })
+    .sort(function (p, q) { return Math.abs(p.x - v.x) + Math.abs(p.y - v.y) - Math.abs(q.x - v.x) - Math.abs(q.y - v.y); })[0];
+  if (foe && !(UI.drag && UI.drag.u === v)) { const f = dirOf(foe.x - v.x, foe.y - v.y); turnTo(v, v.morale === 'Fleeing' ? (f + 4) % 8 : f, now); }
+  else if (v._face === undefined) v._face = v.side === 'you' ? 2 : 6;
+  return { col: clipCol('stand', 0), clip: 'stand' };
+}
 /* A BEAST ON THE BOARD (COMBAT [the fight holds the grid]): the enemy's sheet from ours.beast_looks, ANIMATION's bake; it stands
    at its true size beside a man (the people's scale: a dire wolf is ~62 px at the ears in the frame a man fills at ~100) */
 function beastOf(v) { return v.beast && DB.beasts.beasts[v.beast] ? DB.beasts.beasts[v.beast] : null; }
@@ -2482,62 +2624,48 @@ function beastFrame(v, now) {
   }
   return at('idle', ((now / (K.idle.beats * 500)) % 1));
 }
-function frameFor(v, now) {
-  const C = DB.people.cols, a = UI.anim[0];
-  if (!FIGHT.onField(v)) return C.indexOf('sleep@0');
-  if (a && a.at) {
-    const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
-    if (a.k === 'step' && a.e.id === v.id) return col('walk@0') + Math.floor(k * 4);
-    /* a shot plays the rig's own fire clip (a pistol's kick in one hand, a long gun's into the shoulder, fight_people's shot_1h
-       and shot); a club at one is the swing */
-    if (a.k === 'attack' && a.e.id === v.id) {
-      const shot = a.e.shot === undefined ? FIGHT.isRanged(v.weapon) : a.e.shot, fc = shot && DB.people.clips[a.e.hands === 1 ? 'shot_1h' : 'shot'];
-      return fc ? C.indexOf(fc.cols[Math.min(fc.cols.length - 1, Math.floor(k * fc.cols.length))]) : shot ? C.indexOf('two-hand@0') : col('bat-arc@0.2') + Math.floor(k * 3);
-    }
-    if (a.k === 'attack' && a.e.to === v.id && a.e.hit && k > .45) return col('stagger-hit@0.03') + Math.floor((k - .45) / .55 * 4);
-  }
-  if (UI.hitUntil && UI.hitUntil[v.id] > now) return col('stagger-hit@0.16');
-  return C.indexOf('idle@0');
-}
-function blitMan(v, X, feet, h, face, now, fallen) {
-  let img = atlasOf(v); if (!img) return;
-  img = FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y) ? nightAtlas(img) : dayAtlas(img);
-  const F = DB.people.frame, bb = DB.people.figure_bbox, k = h / bb[3], size = F * k;
+const BEAST_MAN_PX = 102;   /* ANIMATION's beast sheet is drawn at the scale its man filled (102 px of the 112 frame) */
+/* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
+function blitMan(v, X, feet, now, alpha) {
+  const img = sheetOf(v); if (!img) return;
   const b = beastOf(v);
-  if (b) {
-    const c = fallen ? DB.beasts.cols.indexOf(DB.beasts.clips.dead.cols[0]) : beastFrame(v, now), row = face > 0 ? 0 : 1, BF = DB.beasts.frame, bs = BF * k;
-    UI.clipSeen = UI.clipSeen || {}; const cn = DB.beasts.cols[c].split('@')[0]; UI.clipSeen[cn] = (UI.clipSeen[cn] || 0) + 1;
-    cx.imageSmoothingEnabled = k < 1;
+  if (b) {   /* ANIMATION's beast sheet (two facings) until the rig's beasts land in slices/fight_rig */
+    const h = manH(), k = h / BEAST_MAN_PX, BF = DB.beasts.frame, bs = BF * k, c = v._fallAt !== undefined ? DB.beasts.cols.indexOf(DB.beasts.clips.dead.cols[0]) : beastFrame(v, now);
+    const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })[0], row = foe && foe.x < v.x ? 1 : 0;
+    cx.imageSmoothingEnabled = k < 1; cx.globalAlpha = alpha;
     cx.drawImage(img, c * BF, row * BF, BF, BF, X - bs / 2, feet - (DB.beasts.ground_y + 1) * k, bs, bs);
-    return;
+    cx.globalAlpha = 1; return;
   }
-  const c = fallen ? DB.people.cols.indexOf('sleep@0') : frameFor(v, now), row = face > 0 ? 0 : 1;
-  UI.clipSeen = UI.clipSeen || {}; const cn = DB.people.cols[c].split('@')[0]; UI.clipSeen[cn] = (UI.clipSeen[cn] || 0) + 1;
-  cx.imageSmoothingEnabled = k < 1;
-  cx.drawImage(img, c * F, row * F, F, F, X - size / 2, feet - (bb[1] + bb[3]) * k, size, size);
+  const L = lookOf(v), p = poseOf(v, now), s = rigScale();
+  UI.clipSeen = UI.clipSeen || {}; UI.clipSeen[p.clip] = (UI.clipSeen[p.clip] || 0) + 1;
+  const ox = Math.round(X * DPR) - L.foot[0] * s, oy = Math.round(feet * DPR) - L.foot[1] * s;
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
+  cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
+  cx.restore();
+  /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the
+     map): the picture cannot hold him; ANIMATION's module laid over his blit on the fight's own beat, in its own frame (the
+     112 box its band was tuned on, at his art pixel) */
+  if (v === FIGHT.current() && crewControlled(v) && !FIGHT.S.deploy && !FIGHT.S.over && v._fallAt === undefined && window.BOHEMIA_AURA) {
+    const k = s / DPR, fr = { img: img, sx: p.col * L.w, sy: (v._face || 0) * L.h, sw: L.w, sh: L.h, dx: X - 56 * k, dy: feet - 108 * k, dw: 112 * k, dh: 112 * k };
+    UI.tearAt = now;
+    window.BOHEMIA_AURA.draw('tear', 'front', cx, { k: k, X: X, feet: feet, frame: fr, face: DIR8[v._face || 0], t: now - UI.t0, beat: beatMs(), size: 'fight' });
+  }
 }
+/* the fallen stay where they fell: a body on the ground, no word over it */
 function drawBody(v, tw, th) {
-  const X = sx((v.x + .5) * UI.tw), feet = sy((v.y + .9) * UI.th), h = manH();
-  if (v.dead) { cx.fillStyle = 'rgba(105,18,12,.55)'; cx.beginPath(); cx.ellipse(X, feet - h * .06, h * .3, h * .07, 0, 0, Math.PI * 2); cx.fill(); }
-  blitMan(v, X, feet, h, v.side === 'you' ? 1 : -1, performance.now(), true);
+  const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th), h = manH();
+  if (v.dead && performance.now() - v._fallAt > beatMs()) { cx.fillStyle = 'rgba(105,18,12,.55)'; cx.beginPath(); cx.ellipse(X, feet - h * .06, h * .3, h * .07, 0, 0, Math.PI * 2); cx.fill(); }
+  blitMan(v, X, feet, performance.now(), 1);
 }
-/* where a man is drawn, mid-step included */
 /* the man he is dragging into his line stands under his finger, his feet a little above it so the finger does not cover him */
 const DRAG_LIFT = 0.45;
-function dx(v) { if (UI.drag && UI.drag.u === v) return wx(UI.drag.px) / UI.tw - .5; if (v._fx === undefined || !UI.anim.length) return v.x; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.x; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fx + (a.e.x - a.e.fx) * k; }
-function dy(v) { if (UI.drag && UI.drag.u === v) return wy(UI.drag.py) / UI.th - .9 - DRAG_LIFT; if (v._fx === undefined || !UI.anim.length) return v.y; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.y; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fy + (a.e.y - a.e.fy) * k; }
 function skinOf(v) { return '#8c6a52'; }
 function drawMan(v, tw, th) {
   const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th);
   const lvl = FIGHT.level(v.x, v.y) ? th * .14 : 0;
   const h = manH(), you = v.side === 'you';
   const Y = feet - lvl, now = performance.now();
-  const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })
-    .sort(function (a, b) { return Math.abs(a.x - v.x) + Math.abs(a.y - v.y) - Math.abs(b.x - v.x) - Math.abs(b.y - v.y); })[0];
-  const face = v.morale === 'Fleeing' ? (you ? -1 : 1) : foe ? (foe.x >= v.x ? 1 : -1) : (you ? 1 : -1);
-  /* the ring he stands in: his side's colour, under the bank's figure. NO COLOURED FRINGE (his 10/17 NO, the orange half): the
-     ring was 0.72 of his height across, a figure is 0.41, so a bright gold or orange arc stood out past both his sides like
-     an outline; now it is his feet's width plus a little (RING_W), in the side's colour with the shine taken out */
+  v._seen = true;
   lampShadow(v, X, Y, h);
   /* THE RING IS HIS SHADOW (COMBAT [the marks on the board]; DIRECTION's F3 owner line, verdict 23: 'the gold rings to a thin dark
      contact shadow'; rule 46f: no ovals painted on the board; his 10/17 NO on the coloured outline): the contact shadow laid in
@@ -2552,9 +2680,7 @@ function drawMan(v, tw, th) {
       mkLine(X - a, Y - b + q[1], X + a, Y + b + q[1], q[0], 2); mkLine(X - a, Y + b + q[1], X + a, Y - b + q[1], q[0], 2); });
   }
   mkOff();
-  if (v.morale === 'Fleeing') cx.globalAlpha = .7;
-  blitMan(v, X, Y, h, face, now, false);
-  cx.globalAlpha = 1;
+  blitMan(v, X, Y, now, v.morale === 'Fleeing' ? .7 : 1);
   /* bars over a man only while he acts or is picked (rule 67a), as wide as the man, three points tall */
   if (h > 26 && (FIGHT.current() === v || (UI.pend && UI.pend.target === v) || UI.allBars)) {
     const bw = Math.round(Math.max(18, h * .42)), bx = Math.round(X - bw / 2), by = Math.round(Y - h - 9);   /* on whole pixels: no soft edge */
@@ -2563,12 +2689,13 @@ function drawMan(v, tw, th) {
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
   }
 }
-/* A FACE for the bar and the turn strip: head and shoulders of the same man the board draws */
+/* A FACE for the bar and the turn strip: PORTRAIT's fresh portrait of the same model (rule 115(h): the head modelled on the
+   body's own model, rendered with its own camera; never a crop of the body), one sheet, 128 px a face */
 function drawPortrait(g, v, S) {
   const you = v.side === 'you', unseen = !FIGHT.shown(v);
   g.clearRect(0, 0, S, S);
   g.fillStyle = you ? '#2b2620' : '#2c1714'; g.fillRect(0, 0, S, S);
-  const img = atlasOf(v);
+  const F = DB.rig.faces, fi = F.order.indexOf(lookOf(v) === DB.rig.looks[v.look] ? v.look : F.order[0]), img = UI.imgs['fight_rig/' + F.file];
   if (beastOf(v)) {
     /* a beast has no face in the bank and a crop of its body is never a portrait (rule 115(h)): the turn strip shows the pen's
        wolf head (the Lone Wolf glyph's own shape) in their red */
@@ -2576,10 +2703,9 @@ function drawPortrait(g, v, S) {
     [[5, 4], [9, 9], [15, 9], [19, 4], [19, 13], [12, 21], [5, 13]].forEach(function (p, i) { (i ? g.lineTo : g.moveTo).call(g, p[0] * u, p[1] * u); });
     g.closePath(); g.fill(); g.fillStyle = '#17120d';
     [9.5, 14.5].forEach(function (x) { g.beginPath(); g.arc(x * u, 13 * u, 1.2 * u, 0, Math.PI * 2); g.fill(); });
-  } else if (img) {
-    /* his face, from the bank (renderFace with his key), at one face pixel to whole screen pixels */
-    g.imageSmoothingEnabled = false;
-    g.drawImage(img, DB.people.frame * DB.people.cols.length, 0, DB.people.face.size, DB.people.face.size, 0, 0, S, S);
+  } else if (img && fi >= 0) {
+    g.imageSmoothingEnabled = S < F.size;
+    g.drawImage(img, fi * F.size, 0, F.size, F.size, 0, 0, S, S);
   }
   if (unseen) { g.globalCompositeOperation = 'source-atop'; g.fillStyle = 'rgba(20,16,12,.92)'; g.fillRect(0, 0, S, S); g.globalCompositeOperation = 'source-over'; }
   if (!FIGHT.onField(v)) { g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(0, 0, S, S); }

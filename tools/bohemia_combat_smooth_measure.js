@@ -34,7 +34,8 @@ const ARM = `window.__sm = { f: [], dead: [], d0: 0, busyF: 0, allF: 0, up: 0, l
     const b = busy(U);
     if (M.up && b) { M.lat.push(now - M.up); M.up = 0; }
     if (M.endUp && b && u && !mine) { M.endLat.push(now - M.endUp); M.endUp = 0; }
-    if (S.over || S.deploy || mine || b) { if (M.d0) { M.dead.push(now - M.d0); M.d0 = 0; } if (!S.over && !S.deploy) { M.allF++; if (b) M.busyF++; } return; }
+    /* the open's own hold (rule 104a and the second votes: nothing happens in the first second) is not a pause */
+    if (S.over || S.deploy || mine || b || now < U.openUntil) { if (M.d0) { M.dead.push(now - M.d0); if (now - M.d0 > 400) (M.why = M.why || []).push({ ms: Math.round(now - M.d0), next: U.anim[0] ? U.anim[0].k + ':' + (U.anim[0].e.t || '') : (U.glide ? 'glide' : mine ? 'his turn' : S.over ? 'over' : '?'), who: u ? u.side + ':' + u.name : null }); M.d0 = 0; } if (!S.over && !S.deploy) { M.allF++; if (b) M.busyF++; } return; }
     M.allF++; if (!M.d0) M.d0 = now;
   }
   raf(loop);
@@ -52,12 +53,12 @@ async function autoFight() {
   await p.evaluate(() => { window.__sm.f = []; window.__sm.dead = []; window.__sm.d0 = 0; window.__sm.busyF = 0; window.__sm.allF = 0; });
   const t1 = Date.now();
   while (Date.now() - t1 < SECS * 1000 && !(await p.evaluate(() => FIGHT.S.over))) await p.waitForTimeout(500);
-  const M = await p.evaluate(() => { const M = window.__sm; if (M.d0) M.dead.push(performance.now() - M.d0); return { f: M.f, dead: M.dead, busyF: M.busyF, allF: M.allF, over: FIGHT.S.over, round: FIGHT.S.round }; });
+  const M = await p.evaluate(() => { const M = window.__sm; if (M.d0) M.dead.push(performance.now() - M.d0); return { why: (M.why || []).slice(0, 12), f: M.f, dead: M.dead, busyF: M.busyF, allF: M.allF, over: FIGHT.S.over, round: FIGHT.S.round }; });
   await d.close();
   const f = M.f.slice(3), deadSum = M.dead.reduce((a, b) => a + b, 0), secs = f.reduce((a, b) => a + b, 0) / 1000;
   return { seconds: r1(secs), frames: f.length, fps: r1(f.length / Math.max(.001, secs)), median_ms: r1(q(f, .5)), p95_ms: r1(q(f, .95)), p99_ms: r1(q(f, .99)), worst_ms: r1(Math.max.apply(null, f)),
     hitches_over_33ms: f.filter(x => x > 33.4).length, dead_longest_ms: Math.round(Math.max(0, ...M.dead)), dead_total_s: r1(deadSum / 1000),
-    dead_share: r1(100 * deadSum / 1000 / Math.max(.001, secs)), dead_over_500ms: M.dead.filter(x => x > 500).length, ended: !!M.over, rounds: M.round };
+    dead_share: r1(100 * deadSum / 1000 / Math.max(.001, secs)), dead_over_250ms: M.dead.filter(x => x > 250).length, dead_over_500ms: M.dead.filter(x => x > 500).length, longest_why: M.why, ended: !!M.over, rounds: M.round };
 }
 
 async function tapFight() {

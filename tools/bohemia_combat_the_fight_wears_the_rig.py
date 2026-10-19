@@ -102,7 +102,9 @@ def render(arg):
     src = open(os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py')).read()
     a, b = 'lights.append(light_footprint(', "sc.render.engine = G['engine'];"
     assert src.count(a) == 1 and src.count(b) == 1, 'the master rig changed: re-read it before patching in memory'
-    src = src.replace(a, 'False and lights.append(light_footprint(').replace(b, "sc.render.use_persistent_data = True; " + b)
+    th = int(os.environ.get('BOHEMIA_RIG_THREADS', '0'))   # a worker of `batch` takes its share of the cores
+    src = src.replace(a, 'False and lights.append(light_footprint(').replace(b, "sc.render.use_persistent_data = True; " +
+        ("sc.render.threads_mode = 'FIXED'; sc.render.threads = %d; " % th if th else '') + b)
     for name, kind, srcname in pick(arg):
         glb = os.path.join(ROOT, POSED, name + '.glb')
         out = os.path.join(ROOT, RENDERS, name)
@@ -111,7 +113,22 @@ def render(arg):
         for c, k in CLIPS: argv += ['--clip', '%s:%d' % (c, k)]
         code = ('import sys; sys.argv = %r; __file__ = %r\n' % (argv, os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py'))) + src
         run([sys.executable, '-c', code], os.path.join(out, 'rig.json'))
-        print('RENDERED', name, os.path.relpath(out, ROOT))
+        print('RENDERED', name, os.path.relpath(out, ROOT), flush=True)
+
+
+def batch(n):
+    """every look not yet rendered, shared by n workers of two threads each (the clip holds are plain Python on one core,
+    the renders are small: three workers keep this box's four cores busy where one Cycles at four threads does not)"""
+    todo = [l[0] for l in looks() if not os.path.exists(os.path.join(ROOT, RENDERS, l[0], 'rig.json'))]
+    env = dict(os.environ, BOHEMIA_RIG_THREADS='2')
+    procs = []
+    for w in range(n):
+        mine = todo[w::n]
+        if not mine: continue
+        sh = ' && '.join('%s %s render %s' % (sys.executable, os.path.abspath(__file__), x) for x in mine)
+        procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
+    for p in procs: p.wait()
+    print('BATCH DONE', [l[0] for l in looks() if not os.path.exists(os.path.join(ROOT, RENDERS, l[0], 'rig.json'))], 'still missing')
 
 
 COLS = [('stand', 'Stand', 1), ('walk', 'Anim_0', 6), ('aim', 'Aim', 3), ('swing', 'Swing', 3), ('hit', 'Hit', 2), ('fall', 'Fall', 3)]
@@ -164,6 +181,10 @@ def pack():
                     near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
                     a[near & ~op] = RIM
                     sheet.paste(Image.fromarray(a, 'RGBA'), (col * w, row * h)); col += 1
+        # 256 colours a sheet, no dither (the render's grain is 48,000 colours a man; held to 256 the mean step is one value
+        # of 255 and the sheet is half the bytes: a fight loads only the looks it wears, about ten)
+        a = np.asarray(sheet); q = Image.fromarray(a[..., :3]).quantize(256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
+        sheet = Image.fromarray(np.dstack([np.asarray(q), a[..., 3]]), 'RGBA')
         file = name + '.webp'
         sheet.save(os.path.join(ROOT, OUT, file), 'WEBP', lossless=True, quality=100, method=6)
         index['looks'][name] = dict(file=file, w=w, h=h, foot=[r['ground_px'][0] + 1, r['ground_px'][1] + 1], height_m=r['real_dims_m'][2],
@@ -182,5 +203,6 @@ if __name__ == '__main__':
     cmd = sys.argv[1]
     if cmd == 'bodies': bodies(sys.argv[2] if len(sys.argv) > 2 else 'ALL')
     elif cmd == 'render': render(sys.argv[2] if len(sys.argv) > 2 else 'ALL')
+    elif cmd == 'batch': batch(int(sys.argv[2]) if len(sys.argv) > 2 else 3)
     elif cmd == 'pack': pack()
     else: sys.exit('bodies | render | pack')
