@@ -49,6 +49,7 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 #card{margin:8px 12px;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--plate2)}
 .top{display:flex;gap:10px}
 .face{width:72px;height:72px;flex:0 0 72px;border:1px solid var(--line);border-radius:4px;image-rendering:pixelated;background:#0b0907}
+.rbody{width:72px;height:124px;flex:0 0 72px;border:1px solid var(--line);border-radius:4px;image-rendering:pixelated;background:radial-gradient(ellipse at 50% 92%,rgba(0,0,0,.45) 0 22%,transparent 23%),#0b0907;touch-action:manipulation;cursor:pointer}
 .nm{color:var(--gold);font-weight:700;letter-spacing:1px}
 .sub{color:var(--dim);font-size:11px}
 .pain{margin-top:4px;font-style:italic}
@@ -142,6 +143,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_crew_faces.js"></script>
+<script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: his whole body, the model his face came from -->
 <script src="../engine/bohemia_long_injury.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>
 <script src="bohemia_ui_materials.js"></script>
@@ -213,32 +215,35 @@ function defaultForm(){
     if(/rifle|bow|bottles|shotgun/.test(w) && b < N) S.back[b++] = i; else if(f < N) S.front[f++] = i; else if(b < N) S.back[b++] = i;
   });
 }
-function sheet(look){
-  if(S.sheets[look]) return S.sheets[look];
-  var im = new Image(); im.onload = function(){ draw(); }; im.src = C.sheetSrc(look); return (S.sheets[look] = im);
-}
-/* the body, the fight's own idle frame (SE row, frame 0, the figure's box) */
 /* RUN TWO [portraits on the roster], 10/11 (his YES with a note: 'display the portraits all the time, not the full body;
-   it looks so tiny'): a man on the line is his face (the 64 face on his own sheet, PORTRAIT's placeholder until his FINAL),
-   never the full-body sprite */
+   it looks so tiny'): a man on the line is his face, never the full-body sprite */
 function headCanvas(m){ var c = faceCanvas(m); c.className = 'head'; return c; }
-function bodyCanvas(m, w, h){
-  var c = document.createElement('canvas'); c.width = w*2; c.height = h*2;
+/* HIS WHOLE BODY ON HIS CARD (RUN TWO [the 3D models on your screens], 10/19, rule 121(e): 'BRO EVERYTHING IS A 3D MODEL
+   NOW'): the 3D model his face was rendered from (PORTRAIT's crew rig, engine/bohemia_rig_bodies.js), in his own skin, at
+   one render pixel to one point (three of his phone's pixels, never a fraction); a tap turns him one eighth, all eight
+   turns, the way Battle Brothers shows the man you picked. The pose is the one the model was rendered in, mid-stride. */
+var TURN = {};
+function rigBody(m, i){
+  var R = window.BohemiaRigBodies; if(!R || !R.has(m.look)) return null;
+  var c = document.createElement('canvas'); c.width = 72; c.height = 124; c.className = 'rbody'; c.dataset.body = 'rig'; c.dataset.look = m.look;
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-  var im = sheet(m.look);
-  if(im.complete && im.naturalWidth){ var sc = Math.min(c.width/42, c.height/96); x.drawImage(im, 36, 6, 42, 96, (c.width-42*sc)/2, c.height-96*sc, 42*sc, 96*sc); }
-  return c;
+  function paint(){ var t = R.TURNS[(TURN[i] || 0) % 8]; c.dataset.turn = t;
+    R.image(m.look, t, function(im){ if(!im || c.dataset.turn !== t) return; x.clearRect(0, 0, 72, 124);
+      x.drawImage(im, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight); }); }
+  c.setAttribute('aria-label', 'Turn ' + m.name);
+  c.addEventListener('click', function(){ TURN[i] = ((TURN[i] || 0) + 1) % 8; paint(); });
+  paint(); return c;
 }
 /* RUN TWO [the fresh portraits wired in], 10/18 (rule 115(h) amended; his 'I liked it when it was the portrait, not when
    you zoom in on the creepy model's face... it has to be made fresh portrait'): the face is PORTRAIT's fresh portrait
-   (engine/bohemia_crew_faces.js), never a crop of a body; the sheet's painted 64 only for a look PORTRAIT has not made */
+   (engine/bohemia_crew_faces.js), never a crop of a body. AMENDED 10/19 (rule 121(e)): the sheet's old painted 64 is never
+   drawn beside a 3D model again; a look with no 3D head (none today: all twenty-six have one) is the dim head shape */
 function faceCanvas(m){
   var F = window.BohemiaCrewFaces, fresh = F && F.has(m.look);
-  var c = document.createElement('canvas'); c.width = c.height = fresh ? F.SIZE : 64; c.className = 'face'; c.dataset.face = fresh ? 'fresh' : 'sheet'; c.dataset.look = m.look;
+  var c = document.createElement('canvas'); c.width = c.height = fresh ? F.SIZE : 64; c.className = 'face'; c.dataset.face = fresh ? 'fresh' : 'none'; c.dataset.look = m.look;
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
   if(fresh){ F.draw(x, m.look, F.SIZE); return c; }
-  var im = sheet(m.look);
-  if(im.complete && im.naturalWidth) x.drawImage(im, im.naturalWidth - 64, C.FACE.y, 64, 64, 0, 0, 64, 64);   /* the sheet's right edge is the old painted 64 portrait, not the body */
+  x.fillStyle = '#1a1410'; x.fillRect(0,0,64,64); x.fillStyle = '#3b3026'; x.fillRect(22,12,20,24); x.fillRect(14,40,36,18);
   return c;
 }
 function draw(){
@@ -327,7 +332,7 @@ function stars(n){ return n ? '★'.repeat(n) : ''; }
 function drawCard(){
   var el = document.getElementById('card'); el.textContent = '';
   var m = S.crew[S.sel]; if(!m) return;
-  var top = document.createElement('div'); top.className = 'top'; var fc = faceCanvas(m); top.appendChild(fc);
+  var top = document.createElement('div'); top.className = 'top'; var rb = rigBody(m, S.sel); if(rb) top.appendChild(rb); var fc = faceCanvas(m); top.appendChild(fc);
   var t = document.createElement('div');
   t.innerHTML = '<div class="nm"></div><div class="sub"></div><div class="pain"></div>';
   t.querySelector('.nm').textContent = m.name;

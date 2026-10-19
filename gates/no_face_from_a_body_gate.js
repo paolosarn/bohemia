@@ -16,6 +16,12 @@
              is fed to the same comparator and must be caught (a counter that never bites proves nothing).
      TALK    the mouth says the line: YOU at the lot, a client at the board and the card's man move through at least
              two of PORTRAIT's mouths on the beat and come back to rest when the line ends.
+   AMENDED 10/19 (RUN TWO [the 3D models on your screens], rule 121(e): 'BRO EVERYTHING IS A 3D MODEL NOW... WTF TRYING TO
+   COMBINE THE TWO'): the old painted 64 and a handed portrait are never a face again either; every look the face module
+   knows (YOU, the twelve cast looks and, from this row, the thirteen gangs PORTRAIT rendered) must be PORTRAIT's file pixel
+   for pixel, and the only other face that passes is the dim head. The screens now draw bodies too, from one module
+   (engine/bohemia_rig_bodies.js, whole renders at their own size, the head never cut out): that one file may name body
+   renders, it must never cut a sub-rectangle out of one, and the face module must never read it.
    Run: node gates/no_face_from_a_body_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -29,13 +35,17 @@ ok('the crop bank is gone (slices/rig_faces/) and so is the tool that cut it', !
 const code = [];
 ['slices', 'engine'].forEach(d => fs.readdirSync(path.join(ROOT, d)).filter(f => /\.(html|js)$/.test(f)).forEach(f => code.push(path.join(d, f))));
 const BAD = /['"`][^'"`\n]*(rig_faces\/|character\/rig\/)[^'"`\n]*['"`]/;
-const hits = code.filter(f => BAD.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
-ok('no screen or engine file names the crop bank or a body render as a source (' + code.length + ' files read)', hits.length === 0, hits.slice(0, 3).join(' '));
+const BODIES = 'engine/bohemia_rig_bodies.js';   /* the one body module: whole renders, drawn as bodies */
+const hits = code.filter(f => f !== BODIES && BAD.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
+ok('no screen or engine file names the crop bank or a body render as a source, but the body module (' + code.length + ' files read)', hits.length === 0, hits.slice(0, 3).join(' '));
+const bod = fs.readFileSync(path.join(ROOT, BODIES), 'utf8');
+ok('  the body module never cuts a piece out of a render (no nine-number drawImage) and the face module never reads it',
+   !/drawImage\(([^,()]+,){8}[^,()]+\)/.test(bod) && !/rig_bodies|BohemiaRigBodies/.test(fs.readFileSync(path.join(ROOT, 'engine/bohemia_crew_faces.js'), 'utf8')));
 const mod = fs.readFileSync(path.join(ROOT, 'engine/bohemia_crew_faces.js'), 'utf8');
 const man = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/portrait/crew/BOHEMIA_CREW_FACES.json'), 'utf8'));
-const looks = Object.keys(man.faces);
-const modLooks = (mod.match(/var LOOKS = \[([^\]]+)\]/) || [, ''])[1].match(/'[^']+'/g) || [];
-ok('the face module reads only PORTRAIT\'s hand-off folder, and knows the same thirteen looks', /BASE = '\.\.\/records\/target\/portrait\/crew\/'/.test(mod) && modLooks.length === 13 && looks.length === 13 && modLooks.every(l => looks.indexOf(l.slice(1, -1)) >= 0), modLooks.length + ' in the module, ' + looks.length + ' in the manifest');
+const MOD = require(path.join(ROOT, 'engine/bohemia_crew_faces.js')).BohemiaCrewFaces;
+const looks = MOD.LOOKS.slice();
+ok('the face module reads only PORTRAIT\'s hand-off folder, and knows every look PORTRAIT\'s manifest names (' + looks.length + ' looks)', /BASE = '\.\.\/records\/target\/portrait\/crew\/'/.test(mod) && looks.length >= 26 && Object.keys(man.faces).every(l => looks.indexOf(l) >= 0));
 const miss = [];
 looks.forEach(l => ['rest', 'A', 'E', 'O', 'M'].forEach(k => [64, 128].forEach(n => { const f = 'records/target/portrait/crew/' + l + '/' + k + '_' + n + '.png'; if (!fs.existsSync(path.join(ROOT, f))) miss.push(f); })));
 ok('  every look has its rest face and four mouths at 64 and 128 (' + looks.length * 10 + ' files)', miss.length === 0, miss.slice(0, 2).join(' '));
@@ -73,14 +83,14 @@ const srv = http.createServer((rq, rs) => {
   if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); }
   rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs);
 });
-const THIRTEEN = new Set(looks);
+const FACED = new Set(looks);
 const judge = (label, rows) => {
-  const ours = rows.filter(r => THIRTEEN.has(r.look)), rest = rows.filter(r => !THIRTEEN.has(r.look));
+  const ours = rows.filter(r => FACED.has(r.look)), rest = rows.filter(r => !FACED.has(r.look));
   const good = ours.filter(r => r.k === 'fresh' && /^portrait:/.test(r.from));
-  ok(label + ': every face of the thirteen looks is PORTRAIT\'s fresh portrait, pixel for pixel', ours.length > 0 && good.length === ours.length,
+  ok(label + ': every face of a look PORTRAIT made is PORTRAIT\'s fresh portrait, pixel for pixel', ours.length > 0 && good.length === ours.length,
      good.length + ' of ' + ours.length + (good.length < ours.length ? ', first bad ' + JSON.stringify(ours.find(r => !(r.k === 'fresh' && /^portrait:/.test(r.from)))) : ''));
-  const other = rest.filter(r => !/^(sheet-edge|portrait|none)$/.test(r.from));
-  ok('  and no other face there comes from a body (' + rest.length + ' others: the painted 64, a handed portrait or the dim head)', other.length === 0, other.slice(0, 2).map(r => JSON.stringify(r)).join(' '));
+  const other = rows.filter(r => !(r.k === 'fresh' && /^portrait:/.test(r.from)) && r.from !== 'none');
+  ok('  and no other face there is a body or the old paint (' + rest.length + ' others; only the dim head passes, rule 121e)', other.length === 0, other.slice(0, 2).map(r => JSON.stringify(r)).join(' '));
 };
 const watch = async (p, sel, ms) => p.evaluate(({ sel, ms }) => new Promise(res => {
   const c = document.querySelector(sel); if (!c) return res({ seen: [], said: false, face: null });

@@ -154,6 +154,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="bohemia_board_shelf.js"></script>  <!-- RUN TWO [the board's quests are people]: the board's people from QUESTS' act-one shelf; the phone picks the same -->
 <script src="../engine/bohemia_livingmap.js"></script>  <!-- RUN TWO [the bar names the news]: the map's own dice for every town (traitsFor), so the news is what you find there -->
 <script src="bohemia_bar_news.js"></script>  <!-- RUN TWO [the bar names the news]: the keeper's free one, a true thing from a town near here (ECONOMY day 75) -->
+<script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: every person in the place is a 3D model (rule 121e) -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -800,22 +801,31 @@ function panY(cyPic){
   cyPic = Math.max(half, Math.min(picH() - half, cyPic));
   view.cy = cyPic; view.oy = Math.round(view.H/2 - cyPic*view.s);
 }
-/* THE PEOPLE OF THE PLACE (RUN TWO [the finished pictures in], 10/10): ANIMATION's idle people
-   (slices/settlement_people, the 112 rig in the runway clothes, nine clips on the 120 beat) stand in
-   the painted picture at its own scale (settlement_people.json scale.draw_frame_at): a keeper at each
-   building's door step doing his building's clip, and a crowd by the stall whose size the place's
-   traits set (market day fills it, raided or sick empties it, night thins it). */
-var FOLK = null, FOLK_IM = {};
-fetch('settlement_people/settlement_people.json').then(function(r){ return r.json(); }).then(function(j){ FOLK = j;
-  Object.keys(j.looks).forEach(function(k){ var im = new Image(); im.src = 'settlement_people/' + j.looks[k].file; FOLK_IM[k] = im; }); }).catch(function(){});
+/* THE PEOPLE OF THE PLACE (RUN TWO [the finished pictures in], 10/10; [the 3D models on your screens], 10/19): a keeper
+   at each building's door step and a crowd by the stall whose size the place's traits set (market day fills it, raided
+   or sick empties it, night thins it). EVERY ONE OF THEM IS A 3D MODEL from 10/19 (rule 121(e), his NO: 'BRO EVERYTHING
+   IS A 3D MODEL NOW... WTF TRYING TO COMBINE THE TWO'): CHARACTER's thirteen gangs standing in their own skins, read from
+   CHARACTER's renders through engine/bohemia_rig_bodies.js, the same bodies the map's parties wear, so a Red in a town is
+   the Red on the road; ANIMATION's flat sheets (slices/settlement_people) are not drawn here any more. Each speaks under
+   PORTRAIT's 3D head made for his look (engine/bohemia_crew_faces.js). The only standing pose made is the still, so nobody
+   fakes a clip: a man stands, and now and then turns his head and shoulders one eighth of a turn, on a beat. */
+var GANG_LOOKS = (window.BohemiaRigBodies ? BohemiaRigBodies.GANGS : []).map(function(g){ return 'faction_' + g; });
 var KEEPER_CLIP = {hall:'beckon', board:'look', stall:'trade', bar:'lean', arms:'trade', smith:'trade', armourer:'wait', barber:'smoke', clinic:'wait', lot:'scratch'};
 /* A PERSON IS A DOOR TALL (RUN TWO [a person is a door tall], 10/10, his NO: 'look at the door and look at the
    person; someone should be the size of a door'): the doors in COOK FOUR's pack pictures, measured by eye at 1:1
-   (town_0 224..362, town_1 952..1090, fortress_0 350..480), so a person's figure (figure_bbox height) is drawn that tall */
+   (town_0 224..362, town_1 952..1090, fortress_0 350..480); a bare-headed body (FIG_H sheet px) is drawn that tall,
+   one scale for every gang, so a hat or a crest stands above the door line as it would */
 var DOOR_PX = {camp:134, town:138, fortress:130, home:136};
-function folkFrame(){ var fh = FOLK.figure_bbox[3]; return (DOOR_PX[S.place.tier] || 136) * FOLK.frame / fh; }
+function personH(){ return DOOR_PX[S.place.tier] || 136; }
+function rigScale(){ return personH() / ((window.BohemiaRigBodies && BohemiaRigBodies.FIG_H) || 108); }
 var CROWD_BASE = {camp:2, town:5, fortress:4};
 var CROWD_CLIPS = ['wait','look','smoke','greet','scratch','lean'];
+/* where a man looks, a bar at a time (2 s at 120 BPM): every change is one eighth of a turn, never a spin (A STEP THAT
+   REVERSES MORE THAN 120 DEGREES BETWEEN DRAWN KEYS IS THE TELL); a keeper keeps his face to the street, the crowd may
+   look along it; each man changes on his own beat of the bar, so nobody turns in step */
+var KEEPER_LOOPS = [['S','S','SE','S','S','SW'], ['SE','SE','S','SE','SE','E'], ['SW','SW','S','SW','SW','W']];
+var CROWD_LOOPS = KEEPER_LOOPS.concat([['S','SE','SE','S','SW','SW'], ['E','E','SE','E','NE','E'], ['W','W','SW','W','NW','W']]);
+function turnOf(p, now){ var L = p.loop; return L[Math.floor((now/500 + p.beat)/4) % L.length]; }
 function crowdCount(){
   var n = CROWD_BASE[S.place.tier] || 3, tr = (S.traits||[]).map(function(t){ return t.id; });
   if(tr.indexOf('market_day') >= 0) n += 6;
@@ -825,18 +835,18 @@ function crowdCount(){
   return n;
 }
 function folkList(){
-  if(!FOLK || !VAR) return [];
+  if(!VAR || !GANG_LOOKS.length) return [];
   var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
   if(VAR.folkKey === key) return VAR.folk;
-  var R = rng(seedOf(S.place.name + ':folk')), looks = Object.keys(FOLK.looks), out = [];
-  var cast = looks.filter(function(l){ return FOLK.looks[l].kind === 'cast'; }); if(!cast.length) cast = looks;
+  var R = rng(seedOf(S.place.name + ':folk')), looks = GANG_LOOKS, out = [];
   ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
-    out.push({k:k, keeper:true, look:cast[Math.floor(R()*cast.length)], clip:KEEPER_CLIP[k] || 'wait', face:FOLK.rows[i % 3],
+    var lp = KEEPER_LOOPS[i % KEEPER_LOOPS.length];
+    out.push({k:k, keeper:true, look:looks[Math.floor(R()*looks.length)], clip:KEEPER_CLIP[k] || 'wait', face:lp[0], loop:lp, beat:Math.floor(R()*4),
       x:(b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, y:b[3] - 2, ph:R()}); });
   var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount();
-  for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7;
-    out.push({crowd:true, slot:q, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:FOLK.rows[Math.floor(R()*3)],
-      x:(st[0]+st[2])/2 + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, st[3] + folkFrame()*FOLK.figure_bbox[3]/FOLK.frame*.94 + R()*8), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall */
+  for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7, lq = CROWD_LOOPS[Math.floor(R()*CROWD_LOOPS.length)];
+    out.push({crowd:true, slot:q, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:lq[0], loop:lq, beat:Math.floor(R()*4),
+      x:(st[0]+st[2])/2 + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, st[3] + personH()*.94 + R()*8), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall */
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
 }
@@ -849,15 +859,17 @@ function drawBenches(s){
     cx.drawImage(im, Math.round(view.ox + x*s), Math.round(view.oy + y*s), Math.round(w*s), Math.round(h*s)); });
 }
 function drawPeople(s){
-  var L = folkList(); if(!L.length) return;
-  var F = FOLK.frame, at = folkFrame(), now = performance.now(), d = at*s;
+  var L = folkList(), B = window.BohemiaRigBodies; if(!L.length || !B) return;
+  var k = rigScale(), now = performance.now(), H = personH()*s;
+  var dusk = view.night && ('filter' in cx);   /* lit by the night picture's light, not the render's noon sun */
   L.forEach(function(p){
-    var im = FOLK_IM[p.look], c = FOLK.clips[p.clip] || FOLK.clips.wait; if(!im || !im.complete || !im.naturalWidth) return;
-    var prog = ((now/(c.beats*500)) + p.ph) % 1, col = FOLK.cols.indexOf(c.cols[Math.floor(prog*c.cols.length)]), row = FOLK.rows.indexOf(p.face);
-    if(col < 0 || row < 0) return;
-    var x = view.ox + p.x*s - d/2, y = view.oy + p.y*s - d*(FOLK.figure_bbox[1]+FOLK.figure_bbox[3])/F;
-    cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(view.ox + p.x*s, view.oy + p.y*s, d*.16, d*.05, 0, 0, 7); cx.fill();
-    cx.drawImage(im, col*F, row*F, F, F, Math.round(x), Math.round(y), Math.round(d), Math.round(d));
+    if(!p.pre){ p.pre = 1; p.loop.forEach(function(t){ B.standing(p.look, t); }); }   /* every turn he will look, asked for once */
+    var r = B.standing(p.look, turnOf(p, now)) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one */
+    var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;
+    cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
+    if(dusk) cx.filter = 'brightness(.62) saturate(.8)';
+    cx.drawImage(r.im, Math.round(fx - r.mid*k*s), Math.round(fy - r.foot*k*s), Math.round(w), Math.round(h));
+    if(dusk) cx.filter = 'none';
   });
 }
 
@@ -918,8 +930,8 @@ function tapBox(k){
 }
 /* a person under the finger: his figure, a door tall, standing on his feet point; the nearest the eye wins */
 function personAt(x, y){
-  if(!FOLK || !VAR) return null;
-  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, d = folkFrame(), h = d*FOLK.figure_bbox[3]/FOLK.frame, w = Math.max(d*.22, 22/view.s), best = null;
+  if(!VAR) return null;
+  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, h = personH(), w = Math.max(h*.24, 22/view.s), best = null;
   folkList().forEach(function(p, i){ if(px >= p.x - w && px <= p.x + w && py >= p.y - h && py <= p.y + 4){ if(!best || p.y > best.y) best = p; } });
   return best;
 }
@@ -1062,7 +1074,7 @@ var STAT_SHORT = {hp:'HP', fatigue:'FAT', resolve:'RES', initiative:'INI', melee
 function hireCard(r){
   var c = document.createElement('div'); c.className = 'hire'; c.dataset.id = r.id;
   var f = document.createElement('canvas'); f.width = 64; f.height = 64; f.className = 'face';
-  if(!crewFace(f, r.look)) sheetFace(f.getContext('2d'), r.look);   /* PORTRAIT's fresh portrait, else the sheet's painted 64 (RUN TWO 10/18, rule 115h amended) */
+  if(!crewFace(f, r.look)) sheetFace(f.getContext('2d'), r.look);   /* PORTRAIT's 3D head, else the dim shape (10/19, rule 121e: never the old paint) */
   c.appendChild(f);
   var t = document.createElement('div'); t.className = 'hiret';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + r.backgroundName.toUpperCase(); t.appendChild(nm);
@@ -1122,32 +1134,33 @@ function hireIntoCompany(def){
 
 /* ---------- A MOUTH WITH A FACE ---------- */
 /* RUN TWO [portraits when they talk], 10/11 (his ninth and tenth votes: 'can these people start getting portraits
-   when you click and talk to them'): nobody speaks with a blank head. The game's portrait (PORTRAIT's keeperFaceSrc,
-   handed back as BOHEMIA_SETTLEMENT_FACE) wins; until it comes, the face is the one on the speaker's own body sheet
-   (slices/fight_people, the 64 face at the sheet's right edge, the same look he wears in the picture) */
-function sheetFace(x, look){ flatFace(x, look); }
+   when you click and talk to them'): nobody speaks with a blank head. AMENDED 10/19 ([the 3D models on your screens],
+   rule 121(e): a portrait is a render of the rig's own head, the two never combined): the old painted 64 off a body sheet
+   (slices/fight_people) is never drawn again; every look has PORTRAIT's 3D head, and if its file fails the head is the
+   dim shape, never the old paint */
+function sheetFace(x, look){ dimHead(x); }
 /* RUN TWO [the fresh portraits wired in], 10/18 (rule 115(h) amended; his 'I liked it when it was the portrait, not when
    you zoom in on the creepy model's face... it has to be made fresh portrait'): a look PORTRAIT has made wears its fresh
    portrait (engine/bohemia_crew_faces.js, 128 px, its own camera and light), never a crop of a body; true if it does */
 function crewFace(c, look){
   var F = window.BohemiaCrewFaces; if(!F || !F.has(look)) return false;
   c.width = c.height = F.SIZE; c.dataset.face = 'fresh'; c.dataset.look = look;
-  return F.draw(c.getContext('2d'), look, F.SIZE, function(){ c.dataset.face = 'sheet'; c.width = c.height = 64; flatFace(c.getContext('2d'), look); });
+  return F.draw(c.getContext('2d'), look, F.SIZE, function(){ c.dataset.face = 'none'; c.width = c.height = 64; dimHead(c.getContext('2d')); });
 }
 /* RUN TWO [every speaker has a face], 10/18 (his 'why can't all our characters that are speaking to us have a portrait'):
    a keeper tapped before the street's people are in (lookOf has nobody yet) still speaks under a fresh face, one of the
    cast looks by the place and who he is, never the dim head */
 function stand(who){
   var F = window.BohemiaCrewFaces; if(!F || !who) return null;
-  var cast = F.LOOKS.filter(function(l){ return /^cast_/.test(l); });
+  var cast = GANG_LOOKS.filter(function(l){ return F.has(l); });   /* 10/19: the valley's people, the looks the posts' bodies wear */
   return cast.length ? cast[seedOf(String(S.place.name) + ':' + who) % cast.length] : null;
 }
 /* and when he speaks, the mouth says the line on the beat */
 function mouth(c, line){ if(c && c.dataset.face === 'fresh') BohemiaCrewFaces.talk(c, c.dataset.look, line); return c; }
-function flatFace(x, look){
-  var im = new Image(); im.onload = function(){ x.clearRect(0,0,64,64); x.drawImage(im, im.naturalWidth - 64, 0, 64, 64, 0, 0, 64, 64); };
-  im.onerror = function(){ if(look !== 'you') flatFace(x, 'you'); };
-  im.src = 'fight_people/' + look + '.webp';
+function dimHead(x){
+  x.fillStyle='#1a1410'; x.fillRect(0,0,64,64);
+  x.fillStyle='#3b3026'; x.fillRect(11,7,14,16); x.fillRect(7,26,22,10);
+  x.fillStyle='#120e0a'; x.fillRect(14,13,2,2); x.fillRect(20,13,2,2);
 }
 function lookOf(k){ var L = folkList(), p = L.filter(function(q){ return q.keeper && q.k === k; })[0]; return p ? p.look : null; }
 /* PEOPLE [the names wired in]: this place's keeper, one person: the face the place drew for him and a name from the
@@ -1161,19 +1174,17 @@ function keeperName(k){
 }
 function face(k, who, look){
   var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
-  var kp = KEEPERS[k] || {who:who}, f = S.faces[kp.who];
+  var kp = KEEPERS[k] || {who:who};
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
   look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null) || stand(kp.who);
-  if(look && crewFace(c, look)) post('needFace',{who:kp.who, look:look});   /* PORTRAIT's fresh portrait first: a handed face is the old one (RUN TWO 10/18, rule 115h amended) */
-  else if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,64,64); }; im.src = f; c.dataset.face = 'portrait'; }
-  else if(look){   /* YOU wear your own sheet's face (fight_people/you), never the dim head */ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = 'sheet'; c.dataset.look = look; }
+  /* PORTRAIT's 3D head, always: a face the game hands back (BOHEMIA_SETTLEMENT_FACE, the demo's painted face road) is the
+     old paint and is kept, never drawn (RUN TWO 10/18, rule 115h amended; 10/19, rule 121(e)) */
+  if(look && crewFace(c, look)) post('needFace',{who:kp.who, look:look});
   else {
-    /* no face handed over yet: ask the game for it (the same road the city uses) and
-       hold a dim head shape meanwhile, never a blank box */
-    post('needFace',{who:kp.who});
-    x.fillStyle='#1a1410'; x.fillRect(0,0,64,64);
-    x.fillStyle='#3b3026'; x.fillRect(11,7,14,16); x.fillRect(7,26,22,10);
-    x.fillStyle='#120e0a'; x.fillRect(14,13,2,2); x.fillRect(20,13,2,2);
+    /* no 3D head for him: ask the game for it (the same road the city uses) and
+       hold a dim head shape meanwhile, never a blank box and never the old paint */
+    post('needFace',{who:kp.who, look:look || undefined});
+    dimHead(x);
     c.dataset.face = 'none';
   }
   return c;
@@ -1598,7 +1609,7 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:FOLK ? folkFrame()*FOLK.figure_bbox[3]/FOLK.frame : null, s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

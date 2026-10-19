@@ -18,6 +18,11 @@
   'use strict';
   var LOOKS = ['you', 'cast_longcoat', 'cast_barearms', 'cast_pack', 'cast_skirt', 'cast_widebrim', 'cast_cape',
     'cast_apron', 'cast_poncho', 'cast_bedroll', 'cast_shorts', 'cast_satchel', 'cast_shortcoat'];
+  /* RUN TWO [the 3D models on your screens], 10/19 (rule 121(e): a portrait is a render of the rig's own head, never the
+     old painted 64 beside a 3D body): PORTRAIT's thirteen gang heads (3d29bd66, rendered on CHARACTER's skins and the gangs'
+     own clothes, every key at 64 and 128 on disk) speak for the valley's people; its manifest still lists the crew only */
+  ['anarchists', 'blues', 'caravans', 'cartel', 'church', 'colorful', 'homeless', 'mob', 'network', 'reds', 'remnants',
+    'trades', 'volunteers'].forEach(function (g) { LOOKS.push('faction_' + g); });
   var BASE = '../records/target/portrait/crew/';   /* the screens live in slices/; Pages publishes records/target */
   var SIZE = 128, SOUND_MS = 250;                   /* half a beat at 120 BPM, the alpha's VISEME_MS */
   var READ = false, WAIT = [];

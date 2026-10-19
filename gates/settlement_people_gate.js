@@ -4,6 +4,10 @@
    loads its picture; every building's tap still opens its own sheet; a keeper stands at each
    building's door step, drawn from the people sheets at the picture's scale and moving on the beat;
    the crowd by the stall grows on market day and empties when raided or sick, thins at night.
+   AMENDED 10/19 (RUN TWO [the 3D models on your screens], rule 121(e): 'BRO EVERYTHING IS A 3D MODEL NOW... WTF TRYING TO
+   COMBINE THE TWO'): EVERY PERSON IS A 3D MODEL. The screen never loads ANIMATION's flat sheets again; every keeper and
+   every man in the crowd is one of CHARACTER's thirteen gangs standing, his render fetched from CHARACTER's own folder and
+   in, with PORTRAIT's 3D head for his look; a man turns only one eighth of a turn at a time, and not all on one beat.
    Shots in slices/vote/. Run: node gates/settlement_people_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -21,8 +25,9 @@ const srv = http.createServer((rq, rs) => {
   const { chromium } = require('playwright');
   const b = await chromium.launch();
   const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
-  const p = await ctx.newPage(); const errs = [], missing = [];
+  const p = await ctx.newPage(); const errs = [], missing = [], asked = [];
   p.on('pageerror', e => errs.push(e.message)); p.on('response', r => { if (r.status() >= 400) missing.push(r.url()); });
+  p.on('request', r => asked.push(r.url()));
   await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
   await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
   await p.waitForTimeout(1500);
@@ -49,6 +54,24 @@ const srv = http.createServer((rq, rs) => {
       return diff;
     });
     ok('  the people move on the beat, not a still', moved > 30, moved + ' px changed in 700 ms');
+  }
+  /* EVERY PERSON IS A 3D MODEL (rule 121e) */
+  {
+    const SCREEN = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
+    ok('EVERY PERSON IS A 3D MODEL: the screen never names the old flat people sheets', !/settlement_people\//.test(SCREEN.replace(/\/\*[\s\S]*?\*\//g, '')));
+    ok('  and never asked for one while six places opened', !asked.some(u => /settlement_people\/|fight_people\//.test(u)), asked.filter(u => /settlement_people\/|fight_people\//.test(u)).slice(0, 2).join(' '));
+    const rig = asked.filter(u => /records\/target\/character\/rig\/[a-z]+\/rig_[NSEW]+\.png$/.test(u));
+    ok('  the bodies came from CHARACTER\'s own standing renders', rig.length >= 8, rig.length + ' renders asked for');
+    const who = await p.evaluate(() => BohemiaSettlement.folk().map(q => ({ look: q.look, g: BohemiaRigBodies.gangOf(q.look),
+      body: !!(BohemiaRigBodies.standing(q.look, q.face)), face: BohemiaCrewFaces.has(q.look) })));
+    ok('  every keeper and every man in the crowd is a gang standing in his own render, with a 3D head for his look', who.length > 0 && who.every(q => q.g && q.body && q.face),
+       who.filter(q => !(q.g && q.body && q.face)).slice(0, 3).map(q => JSON.stringify(q)).join(' ') || who.length + ' people');
+    const T = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
+    const turns = await p.evaluate(() => { const L = BohemiaSettlement.folk(), out = []; for (let i = 0; i < L.length; i++) { const r = []; for (let ms = 0; ms <= 24000; ms += 500) r.push(BohemiaSettlement.turnAt(i, 1e6 + ms)); out.push(r); } return out; });
+    let spin = 0, still = 0; const at = new Set();
+    turns.forEach(r => { let changed = false; for (let j = 1; j < r.length; j++) if (r[j] !== r[j - 1]) { changed = true; at.add(j % 4); const d = Math.abs(T.indexOf(r[j]) - T.indexOf(r[j - 1])); if (Math.min(d, 8 - d) > 1) spin++; } if (!changed) still++; });
+    ok('  a man turns one eighth of a turn at a time, never a spin, and every one of them turns in twelve seconds', spin === 0 && still === 0, spin + ' spins, ' + still + ' who never turn, of ' + turns.length);
+    ok('  and they do not all turn on the same beat', at.size >= 2, [...at].join(','));
   }
   ok('the crowd: a town more than a camp, night thinner than day', counts.town > counts.camp && counts.town_night < counts.town, JSON.stringify(counts));
   const tr = {};
