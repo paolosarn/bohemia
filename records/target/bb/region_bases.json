@@ -443,8 +443,12 @@
   {
    "id": "railroad_pass_crew",
    "name": "ROAD CREW AT RAILROAD PASS",
-   "east": 92,
-   "north": -103,
+   "east": 58,
+   "north": -47,
+   "lat": 35.97,
+   "lon": -114.92,
+   "latlon_from": "WORLD RAILROAD PASS",
+   "world_place": "RAILROAD PASS",
    "tier": "camp",
    "kind": "hideout",
    "faction": "brigands",
@@ -453,7 +457,6 @@
    "agenda": "crew",
    "mix": "records/target/bb/factions.json brigands",
    "ground": [
-    "hills",
     "freeway"
    ],
    "real": "Railroad Pass: the gap in the River Mountains that US-93 and US-95 climb between Henderson and Boulder City; the oldest casino in Nevada stands in it",
@@ -462,8 +465,12 @@
   {
    "id": "sloan_quarry_crew",
    "name": "ROAD CREW AT SLOAN QUARRY",
-   "east": -6,
-   "north": -95,
+   "east": -11,
+   "north": -56,
+   "lat": 35.94,
+   "lon": -115.21,
+   "latlon_from": "WORLD SLOAN",
+   "world_place": "SLOAN",
    "tier": "camp",
    "kind": "hideout",
    "faction": "brigands",
@@ -472,17 +479,20 @@
    "agenda": "crew",
    "mix": "records/target/bb/factions.json brigands",
    "ground": [
-    "freeway",
-    "hills"
+    "freeway"
    ],
-   "real": "Sloan: the limestone quarry and cement works beside I-15 south of the city, the petroglyph canyon behind it",
+   "real": "Sloan: the limestone quarry, the lime works and the rail siding beside I-15 south of the city, on the road to Jean",
    "why": "the crew's want is the freeway (factions.json): the second hideout sits on I-15 between the city and Jean"
   },
   {
    "id": "apex_dead",
    "name": "THE DEAD AT APEX LANDFILL",
-   "east": 80,
-   "north": 90,
+   "east": 49,
+   "north": 74,
+   "lat": 36.39,
+   "lon": -114.96,
+   "latlon_from": "WORLD APEX LANDFILL",
+   "world_place": "APEX LANDFILL",
    "tier": "camp",
    "kind": "ruin",
    "faction": "zombies",
@@ -491,8 +501,7 @@
    "agenda": "crew",
    "mix": "records/target/bb/factions.json zombies",
    "ground": [
-    "landfill",
-    "ruin"
+    "landfill"
    ],
    "real": "Apex: the regional landfill north of the city on I-15, the largest in the country by area",
    "why": "factions.json: the dead hold ruin and landfill; the keeper walks what the dump left unfinished. The one wild location past the far line (71 blocks from the nearest town by the gate's measure): it fields the late mix from day one (rules.far_from_civilization_fields_the_late_mix)"
@@ -500,8 +509,12 @@
   {
    "id": "nelson_dead",
    "name": "THE DEAD AT NELSON",
-   "east": 110,
-   "north": -190,
+   "east": 79,
+   "north": -122,
+   "lat": 35.71,
+   "lon": -114.83,
+   "latlon_from": "WORLD NELSON",
+   "world_place": "NELSON",
    "tier": "camp",
    "kind": "ruin",
    "faction": "zombies",
@@ -510,17 +523,21 @@
    "agenda": "crew",
    "mix": "records/target/bb/factions.json zombies",
    "ground": [
-    "ruin",
-    "hills"
+    "trailer_park"
    ],
+   "ground_why": "the dead's own ground is ruin and landfill (factions.json) and WORLD's fifteen kinds carry no ruin: Nelson's ghost camp is painted as the trailer park it became, and no landfill lies within a block of it, so the dead keep the old camp's own block beside the town, the mine's side of Eldorado Canyon",
    "real": "Nelson: the ghost town in Eldorado Canyon and the Techatticup mine, the bloodiest mine in Nevada's history",
    "why": "a ghost town's dead; by the map's own measure it is 46 blocks from Searchlight and Boulder City, inside the far line, so it fields the early mix first (the gate computes the band, I had guessed it far and was wrong)"
   },
   {
    "id": "lost_city_crypt",
    "name": "THE LOST CITY",
-   "east": 150,
-   "north": 150,
+   "east": 179,
+   "north": 106,
+   "lat": 36.50028,
+   "lon": -114.40222,
+   "latlon_from": "en.wikipedia.org/wiki/Pueblo_Grande_de_Nevada (5 miles SE of Overton)",
+   "world_place": "OVERTON",
    "tier": "town",
    "kind": "crypt",
    "faction": "ancient_dead",
@@ -542,17 +559,21 @@
     "note": "the ancient dead are not one of factions.json's four; make-up from enemies.json ids, COMBAT's enemy_tiers owns the real mix"
    },
    "ground": [
-    "ruin",
-    "wash_and_shore"
+    "open_desert"
    ],
-   "real": "the Lost City (Pueblo Grande de Nevada): the Ancestral Puebloan town the lake drowned near Overton; its museum is on the shore",
+   "ground_why": "the ancient dead are not one of factions.json's twelve (gaps), so they have no own ground on file; the pueblo's mounds stood on the terraces of the Muddy River five miles south-east of Overton, open desert on WORLD's land, and the lake drowned most of them",
+   "real": "the Lost City (Pueblo Grande de Nevada): the Ancestral Puebloan villages five miles south-east of Overton along the Muddy River, most of them under Lake Mead since the dam filled it; the museum the CCC built in 1935 stands on a rise a quarter mile south of Overton",
    "why": "school.the_dead_sit_in_crypts: the people who were here before hold their own dead town and go nowhere; a town-sized location because its defenders are many"
   },
   {
    "id": "tule_springs_den",
    "name": "THE DEN AT TULE SPRINGS",
-   "east": -20,
-   "north": 70,
+   "east": -24,
+   "north": 54,
+   "lat": 36.32,
+   "lon": -115.27,
+   "latlon_from": "WORLD TULE SPRINGS",
+   "world_place": "TULE SPRINGS",
    "tier": "camp",
    "kind": "den",
    "faction": "beasts",
@@ -561,17 +582,21 @@
    "agenda": "patrol",
    "mix": "records/target/bb/factions.json beasts",
    "ground": [
-    "open_desert",
-    "wash_and_shore"
+    "golf_and_park"
    ],
-   "real": "Tule Springs: the Ice Age fossil beds at the valley's north edge, dire wolf and mammoth bones in the washes",
+   "ground_why": "the beasts' own ground is wash and shore (factions.json); WORLD paints the fossil beds monument as park, and the upper Las Vegas Wash the bones came out of is two blocks north-east, past the map's one-block reach of a place, so the den keeps the monument's own block",
+   "real": "Tule Springs: the Ice Age fossil beds along the upper Las Vegas Wash at the valley's north edge, a national monument since 2014, dire wolf and mammoth bones in the washes",
    "why": "the beasts law s3: the lab was north of the city at the fossil beds; what broke out dens where it was dug up (laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md)"
   },
   {
    "id": "gypsum_cave_lair",
    "name": "THE LAIR AT GYPSUM CAVE",
-   "east": 70,
-   "north": -20,
+   "east": 58,
+   "north": 19,
+   "lat": 36.2,
+   "lon": -114.92,
+   "latlon_from": "WORLD GYPSUM CAVE",
+   "world_place": "GYPSUM CAVE",
    "tier": "camp",
    "kind": "den",
    "faction": "beasts",
@@ -592,17 +617,21 @@
     "note": "the giant ground sloth of Gypsum Cave is the Unhold's rule in an animal's skin (the beasts law s6: mechanic first, skin second); ids from enemies.json"
    },
    "ground": [
-    "hills",
     "open_desert"
    ],
+   "ground_why": "the beasts' own ground is wash and shore (factions.json) and the nearest wash is fourteen blocks off the cave (the Las Vegas Bay arm); the cave is a dry hole in the hills, open desert on WORLD's land, so the lair stands at the cave",
    "real": "Gypsum Cave: the dry cave in the Frenchman Mountain foothills east of the city where the ground sloth's dung and bones were found in 1930",
    "why": "the beasts law s3 names the cave as the lab's second site; the sloth came back where its bones were"
   },
   {
    "id": "jean_dry_lake_nomads",
    "name": "THE NOMADS ON JEAN DRY LAKE",
-   "east": 10,
-   "north": -140,
+   "east": -22,
+   "north": -100,
+   "lat": 35.7886,
+   "lon": -115.2611,
+   "latlon_from": "en.wikipedia.org/wiki/Jean_Lake (3 miles east of Jean and I-15)",
+   "world_place": "JEAN",
    "tier": "camp",
    "kind": "camp",
    "faction": "nomads",
@@ -627,7 +656,8 @@
    "ground": [
     "open_desert"
    ],
-   "real": "Jean Dry Lake: the playa beside the prison where the desert's people camp between water and water",
+   "ground_why": "the water people's own ground is solar and pumps (factions.json: the wells and the pumps they move between) and none lies within a block of the playa; the camp is the dry lake itself, open desert on WORLD's land, sixteen blocks east of the off-ramp",
+   "real": "Jean Dry Lake: the playa three miles east of Jean and the 15, where rocketeers and land sailors camp on the flat",
    "why": "school.nomads_water_to_water: the people who left the city for the open desert, moving well to well; they raid the road the way the wiki says nomads do"
   },
   {
@@ -635,6 +665,10 @@
    "name": "THE KEEPERS AT CORN CREEK",
    "east": -44,
    "north": 90,
+   "lat": 36.44,
+   "lon": -115.36,
+   "latlon_from": "WORLD CORN CREEK",
+   "world_place": "CORN CREEK",
    "tier": "camp",
    "kind": "camp",
    "faction": "barbarians",
@@ -645,7 +679,6 @@
    "ground": [
     "open_desert"
    ],
-   "world_place": "CORN CREEK",
    "real": "Corn Creek: the springs and the field station of the Desert National Wildlife Refuge, the biggest refuge in the lower 48, set aside in 1936 to keep the desert bighorn herd; the road into the Sheep Range starts here",
    "why": "school.barbarians_in_the_north and school.barbarian_camps_are_locations: Battle Brothers' wildmen roam the north and keep camps a contract sends you to (Drive Away Barbarians: 'Destroy an enemy camp.'); the refuge north of the city was built to keep a herd, so the keepers keep the lab's herd at its springs, the camp on the open desert below them (one block off the springs' park ground), 35 blocks up the wash from the lab at Tule Springs the herd broke out of"
   },
@@ -654,6 +687,10 @@
    "name": "THE RUNNERS AT VALLEY OF FIRE",
    "east": 151,
    "north": 86,
+   "lat": 36.43,
+   "lon": -114.52,
+   "latlon_from": "WORLD VALLEY OF FIRE",
+   "world_place": "VALLEY OF FIRE",
    "tier": "camp",
    "kind": "lot",
    "faction": "goblins",
@@ -664,7 +701,6 @@
    "ground": [
     "lot_and_bigbox"
    ],
-   "world_place": "VALLEY OF FIRE",
    "real": "Valley of Fire: the red sandstone park north of the lake's Overton Arm, slot canyons and one paved road through it, the visitor centre's lots in the middle of it and nobody living for twenty miles",
    "why": "school.goblins_beyond_civilization and school.goblin_camp_is_a_location: Battle Brothers' goblins live past the reach of the towns, in camps a contract sends you to ('Destroy an enemy camp or lair.'), and ambush instead of fighting fair; the runners keep the visitor centre's lot (their own ground, WORLD's lot_and_bigbox block) in the canyons, bikes and quads in, out and gone down the one road"
   }
@@ -724,6 +760,10 @@
    "name": "THE EYE AT LAKE LAS VEGAS",
    "east": 55,
    "north": -9,
+   "lat": 36.102,
+   "lon": -114.93,
+   "latlon_from": "WORLD LAKE LAS VEGAS",
+   "world_place": "LAKE LAS VEGAS",
    "tier": "fortress",
    "kind": "casino",
    "faction": "city_states",
@@ -737,7 +777,7 @@
    "ground": [
     "golf_and_park"
    ],
-   "world_place": "LAKE LAS VEGAS",
+   "ground_why": "the eye's own ground is the casino floor (factions.json) and WORLD's fifteen kinds carry none; the made lake's resorts are golf and park on WORLD's land, so the fortress stands on the place's own block",
    "real": "Lake Las Vegas: a private lake made by damming the Las Vegas Wash behind an earthen dam, three hundred acres of water in the desert, gated resorts and a casino round it, built for the rich",
    "why": "school.city_states_hold_the_water and school.city_states_ruled_by_wealth: Battle Brothers' city states sit where the water is and are ruled by money, not blood, and send regiments to patrol and caravans to trade (school.city_states_patrol_and_trade); the made lake with the gate, the cameras and the casino is the one walled money town in the region nobody in his canon holds. A SETTLEMENT, not a camp in the wild: it is hostile to nobody by default (between() has never heard of it, so its other two parties are caravans), its first party patrols the nearest casino floor or Strip (want guard-the-money). The casino floor is a valley ground only (WORLD's region legend has none), so the seat stands on the resort's own park ground"
   },
@@ -746,6 +786,10 @@
    "name": "THE HOUSE AT THE APEX DEPOT",
    "east": 55,
    "north": 69,
+   "lat": 36.37,
+   "lon": -114.93,
+   "latlon_from": "WORLD APEX",
+   "world_place": "APEX",
    "tier": "fortress",
    "kind": "fort",
    "faction": "noble_houses",
@@ -759,7 +803,6 @@
    "ground": [
     "industrial"
    ],
-   "world_place": "APEX",
    "real": "Apex: the industrial park where I-15 meets US-93 north of the city, the truck yards, the rail spur and the warehouses where the freight turned off before it reached the valley",
    "why": "school.the_flag_says_who and school.houses_send_supply_caravans: Battle Brothers' noble houses hold the fortified settlements and send supply caravans under guard; the house wants the depot (factions.json, VAMILY row [a house you give a fuck about]) and Apex is the depot every truck into the valley passed, so the house's fort is the walled yard on its own industrial ground. A SETTLEMENT, not a camp: its first party patrols the nearest depot ground (want hold-the-depot), the other two are caravans to settlements"
   }
