@@ -179,6 +179,21 @@ async function engine(plain, strikes) {
   return ctx;
 }
 
+/* ---------- A STANDOFF (10/19): a fight in which nobody moves, strikes, reloads, uses a skill, falls or flees for 20 rounds will
+   never end (both sides hold their line; measured: the state stops changing once the breath is back, about seven rounds). It
+   was run to the 400,000-step guard, minutes of CPU each and hours across the grid; it is now stopped there and counted the same:
+   a standoff, neither won nor lost. Any fight with activity plays exactly as before. ---------- */
+const ACTIVE_T = { step: 1, attack: 1, skill: 1, reload: 1, swap: 1, down: 1, dead: 1, fled: 1, injury: 1, rally: 1, nine: 1, berserk: 1 };
+const IDLE_ROUNDS = 20;
+function idleWatch(F) {
+  let seen = 0, lastActive = F.S.round;
+  return function () {
+    const L = F.S.log;
+    for (; seen < L.length; seen++) if (ACTIVE_T[L[seen].t]) lastActive = F.S.round;
+    return F.S.round - lastActive >= IDLE_ROUNDS;
+  };
+}
+
 /* ---------- one cell: N fights ---------- */
 async function cell(C, n, strikes) {
   const ctx = await engine(false, strikes), F = ctx.FIGHT, DB = ctx.DB;
@@ -223,7 +238,8 @@ async function cell(C, n, strikes) {
       if (u.side === 'you' && L.ownNerve !== 1) u.resolve = Math.round(u.resolve * L.ownNerve);
     });
     let g = 0;
-    while (!F.S.over && g < 400000) { const u = F.current(); if (!u) break; F.aiStep(u); g++; }
+    const idle = idleWatch(F);
+    while (!F.S.over && g < 400000) { const u = F.current(); if (!u) break; F.aiStep(u); g++; if (idle()) break; }
     const S = F.S, yours = S.units.filter(u => u.side === 'you'), ids = new Set(yours.map(u => u.id));
     T.fights++; T.men += yours.length; T.enemies += S.units.length - yours.length;
     if (!S.over) T.stalled++; else if (S.result === 'won') T.won++; else T.lost++;
@@ -398,4 +414,4 @@ async function main() {
   }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
-module.exports = { cellCache, fightPrint, fightsFor, engine, cell, felt, companyOf, mapCount, wikiStrikes, BEASTS, LOSES, NOT_PLAYED, STAGES, GEAR, SETTINGS, COMPANIES, COUNTS };
+module.exports = { idleWatch, IDLE_ROUNDS, cellCache, fightPrint, fightsFor, engine, cell, felt, companyOf, mapCount, wikiStrikes, BEASTS, LOSES, NOT_PLAYED, STAGES, GEAR, SETTINGS, COMPANIES, COUNTS };

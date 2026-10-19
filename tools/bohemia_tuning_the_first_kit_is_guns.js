@@ -290,6 +290,7 @@ async function cell(C, n, strikes) {
     const gunmen = F.S.units.filter(u => u.side === 'you' && F.isRanged(u.weapon));
     shotsNow = {}; gunmen.forEach(u => { shotsNow[u.id] = 0; });
     let g = 0, last = null, lastRound = -1;
+    const idle = GRID.idleWatch(F);   /* a standoff stops after 20 idle rounds (the grid's rule) */
     while (!F.S.over && g < 400000) {
       const u = F.current(); if (!u) break;
       if (u !== last || F.S.round !== lastRound) {
@@ -301,6 +302,7 @@ async function cell(C, n, strikes) {
         }
       }
       F.aiStep(u); g++;
+      if (idle()) break;
     }
     gunmen.forEach(u => { T.shotsList.push(shotsNow[u.id] || 0); T.gunmanFights++; });
     const S = F.S, yours = S.units.filter(u => u.side === 'you'), ids = new Set(yours.map(u => u.id));
