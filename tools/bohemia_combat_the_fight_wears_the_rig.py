@@ -185,6 +185,7 @@ COLS = [('stand', 'Stand', 1), ('walk', 'Anim_0', 6), ('aim', 'Aim', 3), ('swing
         ('carry', 'Carry', 1), ('carrywalk', 'CarryWalk', 6)]   # the last two from <look>_carry, laid into the look's own box
 RIM = (16, 11, 6, 230)   # the day rim of the old sheets (rule 73a), one pixel round the silhouette, baked so the page does no pixel work
 FACE_PX = 128
+SHEET_COLOURS = 64
 
 
 def face_of(name, kind, src):
@@ -211,7 +212,8 @@ def pack():
                         'thug and poacher (records/portrait/rig/*_head.glb, COOK THREE\'s tiers with the starred head), posed by '
                         'tools/bohemia_combat_the_fight_poses.py, rendered by DIRECTION\'s master rig (records/target/combat/rig/<look>/rig.json)',
                  render_changes=['the movers\' light pass not rendered (round seven anti-boil, five renders a key)', 'Cycles persistent data',
-                                 'samples %d (--set, a break in each rig.json)' % SAMPLES],
+                                 'samples %d (--set, a break in each rig.json)' % SAMPLES, 'the 2.5 cm dents off (--set dent_m=0)',
+                                 '%d colours a sheet, lossless; the faces lossy at 85' % SHEET_COLOURS],
                  dirs=FIGHT_DIRS, cols=cols, clips=clips, keys_per_beat=3, ruler=dict(px=98, m=1.72), rim=list(RIM), looks={}, faces=None)
     faces, order = [], []
     for name, kind, src in looks():
@@ -242,9 +244,11 @@ def pack():
                     near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
                     a[near & ~op] = RIM
                     sheet.paste(Image.fromarray(a, 'RGBA'), (col * w, row * h)); col += 1
-        # 256 colours a sheet, no dither (the render's grain is 48,000 colours a man; held to 256 the mean step is one value
-        # of 255 and the sheet is half the bytes: a fight loads only the looks it wears, about ten)
-        a = np.asarray(sheet); q = Image.fromarray(a[..., :3]).quantize(256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
+        # 64 colours a sheet, no dither (the render's grain is 48,000 colours a man; a fight loads only the looks it wears, about
+        # ten, and on SOUNDS' card at 1.6 Mbps the 256-colour sheets held the fight's start to 54 s, measured 10/19; at 64 a
+        # sheet is 31% fewer bytes and side by side at three phone pixels to the rig's the two read the same). Lossless: a
+        # lossy sheet put colour into the rim (chroma up to 45 where the fringe leg allows 24, his 10/17 NO)
+        a = np.asarray(sheet); q = Image.fromarray(a[..., :3]).quantize(SHEET_COLOURS, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
         sheet = Image.fromarray(np.dstack([np.asarray(q), a[..., 3]]), 'RGBA')
         file = name + '.webp'
         sheet.save(os.path.join(ROOT, OUT, file), 'WEBP', lossless=True, quality=100, method=6)
@@ -257,7 +261,8 @@ def pack():
         print('PACKED', name, sheet.size, os.path.getsize(os.path.join(ROOT, OUT, file)))
     fs = Image.new('RGBA', (FACE_PX * len(faces), FACE_PX), (0, 0, 0, 0))
     for i, f in enumerate(faces): fs.paste(f, (i * FACE_PX, 0))
-    fs.save(os.path.join(ROOT, OUT, 'faces.webp'), 'WEBP', lossless=True, quality=100, method=6)
+    # the faces are renders shown at 34 points with no rim: lossy at 85 is a fifth of the lossless bytes (325 KB to 68)
+    fs.save(os.path.join(ROOT, OUT, 'faces.webp'), 'WEBP', quality=85, alpha_quality=100, method=6)
     index['faces'] = dict(file='faces.webp', size=FACE_PX, order=order, src='records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)')
     json.dump(index, open(os.path.join(ROOT, OUT, 'fight_rig.json'), 'w'), indent=1)
     print('INDEX', os.path.join(OUT, 'fight_rig.json'), len(order), 'looks')

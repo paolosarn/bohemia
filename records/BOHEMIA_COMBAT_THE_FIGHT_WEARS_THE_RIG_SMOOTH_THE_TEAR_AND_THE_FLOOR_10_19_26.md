@@ -59,9 +59,16 @@ men keep today's size): no size card. The man is 98 points on his phone, the who
 (three phone pixels to the rig's pixel; 92 would be 2.8, every pixel a different width).
 
 THE PACK: one sheet a look (slices/fight_rig/<look>.webp, 8 rows x 25 keys for a man and 18 for a beast, the one-pixel
-dark day rim in its pixels,
-256 colours a sheet), the guns beside it (<look>_guns.webp), PORTRAIT's faces on one sheet (faces.webp, 128 px), the
-index fight_rig.json. A fight loads only the looks its men wear.
+dark day rim in its pixels, 64 colours a sheet, lossless), the guns beside it (<look>_guns.webp), PORTRAIT's faces on one
+sheet (faces.webp, 128 px, lossy at 85), the index fight_rig.json. A fight loads only the looks its men wear.
+
+THE BYTES, MEASURED ON A SLOW LINE (SOUNDS' card, the guns heard, plays the real fight at 1.6 Mbps): with the first pack
+(256 colours, the faces lossless, every sheet awaited) a fight fetched 7.8 MB and started at 54 s against 20 s before;
+its gate heard no shot in its thirty seconds. Three changes: 64 colours a sheet (31% fewer bytes; a lossy sheet would be
+half, but it put colour into the dark rim, chroma 45 where the fringe leg allows 24); the faces lossy (325 KB to 68); and
+the fight waits for its ground only, then gives the men three seconds more (MEN_GRACE): on a fast line they are all in by
+then, on a slow one a man still coming is drawn the frame his sheet lands, and a gun lands in his hands the same way. The
+floor's blocks are the ground's own noise (fewer colours took 573 KB to 548): left as they are.
 
 IN THE FIGHT (slices/BOHEMIA_FIGHT.html): every man and beast is drawn from his rig sheet; the old flat sheets are not
 loaded (rule 121(e)); the row is his facing (eight, toward the man he faces, toward where he walks, toward whom he
@@ -104,6 +111,14 @@ WHAT CHANGED (slices/BOHEMIA_FIGHT.html):
 - HE TURNS: a man turns through the facings between, a twelfth of a beat each, never snaps (section 1).
 - THE MEN ARE IMAGEBITMAPS: the rig sheets are held decoded, a man costs about 5 ms of a frame on the phone profile
   where the flat sheets cost 12 to 14.
+
+WHAT IT BROKE AND WHAT WAS MENDED: SOUNDS' real-shoes page (slices/BOHEMIA_THE_STEP_IN_THE_FIGHT_10_18_26.html) heard
+the fight's steps by hooking startAnim, one step animation a tile; a walk being one move, it heard one footfall a walk and
+never choked a step (FIGHT STEPS: 0 choked). The fight now tells each tile crossed through footfall(man, tile), and the
+page hooks that (a fight from before still works through startAnim): 34/0, 23 choked, 0 overlaps. SOUNDS' guns page
+(slices/BOHEMIA_THE_GUNS_HEARD_10_19_26.html) read the pistol's class where the last round's pistol shot no longer keeps
+it (it shoots as a thrown row, its own class in weapon.of): the card's fight played the pistol as a swing; it reads
+weapon.of now and the pistol is heard as a pistol: THE GUNS HEARD 33/0 (30/3 on this round's first pack: the pistol leg red since the last round, the two thirty-second legs this round's bytes).
 
 THE NUMBERS (records/target/combat/BOHEMIA_COMBAT_SMOOTH_*.json; this box renders in software, no GPU, so the frame
 rate is a floor, not his phone; the pauses are the game's own and read the same anywhere):

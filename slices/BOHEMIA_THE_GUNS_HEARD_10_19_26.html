@@ -143,7 +143,7 @@
      row and the side; the fight's own shot and swing stand down HERE ONLY (this page plays them) */
   var HOOK='(function(){ if (window.__gunsHook) return true; var o = window.startAnim; if (typeof o !== "function" || typeof SND === "undefined") return false;'+
     ' window.startAnim = function (a) { try { if (a && (a.k === "attack" || (a.k === "note" && a.e && a.e.t === "reload"))) { var u = FIGHT.byId(a.e.id);'+
-    ' if (u) parent.__gunsFight({ k: a.k === "attack" ? "attack" : "reload", cls: u.weapon && u.weapon.class, side: u.side, free: !!a.e.free }); } } catch (_e) {} return o.apply(this, arguments); };'+
+    ' if (u) parent.__gunsFight({ k: a.k === "attack" ? "attack" : "reload", cls: u.weapon && ((u.weapon.of && u.weapon.of.class) || u.weapon.class), side: u.side, free: !!a.e.free }); } } catch (_e) {} return o.apply(this, arguments); };'+
     ' SND.shot = function () {}; SND.swing = function () {}; window.__gunsHook = true; return true; })()';
   window.__gunsFight=function(e){
     heard.fight++;
@@ -176,7 +176,8 @@
   window.__guns=function(){ var cw=fr.contentWindow, F=fightOf(cw);
     return { opt:opt, gun:gun, fightOn:fightOn, ac:AC&&AC.state, heard:heard, played:GUNS.count, log:GUNS.log.slice(-32), loaded:Object.keys(GUNS.buf),
       hooked:(function(){ try{ return !!cw.__gunsHook; }catch(_e){ return false; } })(),
-      units:F&&F.S&&F.S.units?F.S.units.map(function(u){ return { side:u.side, cls:u.weapon&&u.weapon.class, name:u.name }; }):null }; };
+      /* COMBAT 10/19: the pistol shoots as a thrown row (ours.pistol_shot); its own class rides in weapon.of */
+      units:F&&F.S&&F.S.units?F.S.units.map(function(u){ return { side:u.side, cls:u.weapon&&((u.weapon.of&&u.weapon.of.class)||u.weapon.class), name:u.name }; }):null }; };
   window.__GUNS=GUNS; window.__setOpt=setOpt; window.__shoot=shoot; window.__reload=reload;
 })();
 </script>

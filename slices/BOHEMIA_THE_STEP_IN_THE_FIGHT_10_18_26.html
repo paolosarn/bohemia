@@ -69,8 +69,11 @@
 
   function fightOf(cw){ try{ return cw && cw.eval('typeof FIGHT!=="undefined"?FIGHT:null'); }catch(_e){ return null; } }
   /* the hook, in the frame: every 'step' the fight starts is also told to this page; the fight's beep stands down here */
-  var HOOK='(function(){ if (window.__soundsStepHook) return true; var o = window.startAnim; if (typeof o !== "function" || typeof SND === "undefined") return false;'+
-           ' window.startAnim = function (a) { if (a && a.k === "step") { try { parent.__fightStep(a.e, FIGHT.S); } catch (_e) {} } return o.apply(this, arguments); };'+
+  /* COMBAT 10/19 ([smooth]: a walk is one move down its whole path): the fight tells each tile crossed through footfall(man, tile);
+     a fight from before it still tells each step as its own animation */
+  var HOOK='(function(){ if (window.__soundsStepHook) return true; var o = window.startAnim, f = window.footfall; if (typeof o !== "function" || typeof SND === "undefined") return false;'+
+           ' if (typeof f === "function") window.footfall = function (u, q) { try { parent.__fightStep({ id: u.id, x: q.x, y: q.y }, FIGHT.S); } catch (_e) {} return f.apply(this, arguments); };'+
+           ' else window.startAnim = function (a) { if (a && a.k === "step") { try { parent.__fightStep(a.e, FIGHT.S); } catch (_e) {} } return o.apply(this, arguments); };'+
            ' SND.step = function () {}; window.__soundsStepHook = true; return true; })()';
   function open(id, extra){
     var opts=Object.assign({}, BOARD[id==='now'?'street':id], extra||{}); opened=performance.now();

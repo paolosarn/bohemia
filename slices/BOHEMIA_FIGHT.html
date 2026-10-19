@@ -1712,6 +1712,7 @@ function load(src) {
   return new Promise(function (ok) { const i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { ok(null); }; i.src = src; });
 }
 /* the ground: COMBAT TWO's blocks and cover baked once into one picture */
+const MEN_GRACE = 3000;
 function bakeBoard() {
   const G = DB.ground, B = FIGHT.S.boardDef, bt = G.block_tiles;
   UI.th = UI.tw * G.tile_px[1] / G.tile_px[0];
@@ -1728,17 +1729,26 @@ function bakeBoard() {
   surround().forEach(function (q) { if (names.indexOf(q.n) < 0) names.push(q.n); });
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
-  /* the people: the rig sheet of every look a man in THIS fight wears (slices/fight_rig, rule 121), and the faces */
-  FIGHT.S.units.forEach(function (v) { const L = lookOf(v), f = 'fight_rig/' + L.file; if (all.indexOf(f) < 0) all.push(f);
-    if (L.guns && v.weapon && FIGHT.isGun(v.weapon) && all.indexOf('fight_rig/' + L.guns) < 0) all.push('fight_rig/' + L.guns); });
-  all.push('fight_rig/' + DB.rig.faces.file);
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
   (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
+  all.push('fight_rig/' + DB.rig.faces.file);
+  /* the people: the rig sheet of every look a man in THIS fight wears (slices/fight_rig, rule 121), and his gun's */
+  const men = [], guns = [];
+  FIGHT.S.units.forEach(function (v) { const L = lookOf(v), f = 'fight_rig/' + L.file; if (men.indexOf(f) < 0) men.push(f);
+    if (L.guns && v.weapon && FIGHT.isGun(v.weapon) && guns.indexOf('fight_rig/' + L.guns) < 0) guns.push('fight_rig/' + L.guns); });
   /* a rig sheet is held as an ImageBitmap (decoded once, drawn straight from the GPU's copy; measured 10/19: a man drawn from a
      canvas cost the frame 14 ms on the phone profile, the source copied every draw) */
-  return Promise.all(all.map(function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) {
+  const one = function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) {
     if (!i || s.indexOf('fight_rig/') !== 0 || typeof createImageBitmap !== 'function') { UI.imgs[s] = i; return i; }
-    return createImageBitmap(i).then(function (b) { b.src = i.src; UI.imgs[s] = b; return b; }, function () { UI.imgs[s] = i; return i; }); }); }))
+    return createImageBitmap(i).then(function (b) { b.src = i.src; UI.imgs[s] = b; return b; }, function () { UI.imgs[s] = i; return i; }); }); };
+  /* THE FIGHT DOES NOT WAIT ON A SLOW LINE (measured 10/19 on SOUNDS' card at 1.6 Mbps: the rig sheets took the fight's start
+     from 20 s to 54 s): the ground first, then the men, then their guns, one after the other so the line serves them in that
+     order; the board waits for its ground, the men get MEN_GRACE ms more, and on a fast line they are all in by then; a sheet
+     still coming draws its man the frame it lands; a gun lands in his hands the same way */
+  let people = null;
+  return Promise.all(all.map(one))
+    .then(function () { people = Promise.all(men.map(one)); people.then(function () { guns.forEach(one); });
+      return Promise.race([people, new Promise(function (r) { setTimeout(r, MEN_GRACE); })]); })
     .then(function () {
       /* the cut board (rule 79) draws the dealt blocks shifted by its window; the glass shows only the window */
       const ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
@@ -2074,11 +2084,14 @@ function take() {
   });
 }
 /* a walk's tiles as he crosses them: the footfall, and the high ground the moment he stands on it */
+/* ONE FOOTFALL A TILE CROSSED: a walk is one move now, so the step is told per tile here (SOUNDS' real shoes hook this:
+   slices/BOHEMIA_THE_STEP_IN_THE_FIGHT_10_18_26.html, the man and the tile his foot lands on) */
+function footfall(u, q) { SND.step(); }
 function walkTick(a, now) {
   const p = walkAt(a, now), u = FIGHT.byId(a.e.id); if (!u) return;
   const done = Math.min(a.path.length - 1, Math.floor(ease((now - a.at) / a.dur) * (a.path.length - 1) + 1e-6));
   while ((a.crossed || 0) < done) {
-    const i = a.crossed || 0, q = a.path[i + 1], o = a.path[i]; a.crossed = i + 1; SND.step();
+    const i = a.crossed || 0, q = a.path[i + 1], o = a.path[i]; a.crossed = i + 1; footfall(u, q);
     /* HE TAKES THE HIGH GROUND (rule 59's height row; rule 117c: a good choice gets a visible and audible win) */
     if (u.side === 'you' && FIGHT.level(q.x, q.y) > FIGHT.level(o.x, o.y)) { sfx('high_ground'); pop({ x: q.x, y: q.y }, '', '#f0d296', true, u.name + ' takes the high ground.'); }
   }

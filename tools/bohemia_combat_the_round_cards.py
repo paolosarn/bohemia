@@ -23,7 +23,7 @@ def cards(sha, rig):
                  'NOW: he walked, swung and fell from the flat sheet\'s nine frames; the rig\'s own walk (six keys) and four new clips (the gun up, the swing, the blow landing, the fall) play on the beat.',
                  'NOW: a gun hung from one hand and swung with his arm as he walked; it is held across him in both hands, still while his legs walk, and up at the shoulder when he shoots.',
                  'NOW: his face in the strip was a painted 64; it is PORTRAIT\'s portrait of the same model, so his hair and skin on the board and in the strip are one.']),
-             sprites=rig, look=dict(px=1, palette='slices/fight_rig/fight_rig.json (256 colours a sheet)', light='upper-left'), draft=True),
+             sprites=rig, look=dict(px=1, palette='slices/fight_rig/fight_rig.json (64 colours a sheet)', light='upper-left'), draft=True),
         dict(id='combat-smooth-10-19', kind='animation', lane='combat', sha=sha, made='10/19',
              title='THE FIGHT, SMOOTH: THE SAME FIGHT BEFORE AND AFTER, EVERY FRAME',
              said="combat is still not smooth, it still sucks, it looks like it's been coded by a fifth grader",
