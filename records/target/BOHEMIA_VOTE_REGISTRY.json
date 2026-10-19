@@ -11760,6 +11760,25 @@
     "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
     "light": "top"
    }
+  },
+  {
+   "id": "run2-the-hire-price-is-the-formula-10-19",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "ce3eee4b",
+   "made": "10/19",
+   "title": "A MAN AT THE HALL NOW COSTS WHAT BATTLE BROTHERS CHARGES, A LITTLE LESS",
+   "why": "You said the game should be easier than Battle Brothers, and the hall was asking up to 225 batteries for a militiaman Battle Brothers sells for 48, so every man now costs Battle Brothers' own price times four fifths (that militiaman tops out at 39), the cook and the scout cost what they say and the tap takes it, and a town's men change every week. You see it here, the same six men before and now, and in the demo when you tap the hall in any town.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_HIRE_PRICE_IS_THE_FORMULA_10_19.webp"
+   },
+   "before_after": {
+    "before": "the Game Guide's observed totals (they include kit and level): a level-one militiaman 25 to 225, a farmhand 12 to 41; the camp staff's button '1 battery a night', the tap free; the same men at a town forever",
+    "after": "Battle Brothers' formula (base 30 to 150 + 1.25 x his kit + the level cost) x 0.8: militia up to 39, farmhand up to 23; the staff's price once, taken; the post the map's week",
+    "scale": "his phone upright, 390 x 844, one screen each"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
