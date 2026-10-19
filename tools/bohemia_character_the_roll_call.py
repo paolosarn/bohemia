@@ -132,7 +132,7 @@ def main():
     import bohemia_character_the_barber_on_the_skull as BARBER
     rig_worn = dict(('faction_' + n.lower(), L['worn']) for n, L in RIG.LOOKS.items() if n != 'Body')
     rig_style = dict(('faction_' + n.lower(), (L.get('hair') or {}).get('style')) for n, L in RIG.LOOKS.items() if n != 'Body')
-    barber = dict((k, v) for k, v in BARBER.CUTS.items())
+    barber = dict((k, BARBER.CUTS[k]) for k in BARBER.ORDER)   # the three the barber's card showed; HAIR 1's eight are not shown until their card
     PP = portrait_pieces()
 
     rows, seen = [], set()
