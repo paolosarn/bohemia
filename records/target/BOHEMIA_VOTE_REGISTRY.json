@@ -11447,7 +11447,45 @@
    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
    "light": "guide"
   }
- }
+ },
+  {
+   "id": "cook4-church-on-the-map-ground-10-19",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "bb27ec45",
+   "made": "10/19",
+   "title": "PLACEHOLDER: CHURCH, THE FIRST TOWN YOU TAP, STANDING ON THE MAP'S OWN GROUND",
+   "why": "The picture Church opens on is cut from what the map has there: the map's tan dirt (your soil tiles, every grain kept, put in the map's light), the map's big road in front running off both sides, your tan houses on one side and the Strip's casino and motel on the other, nothing stopping at an edge. You see it in the VOTE tab beside the map at its closest zoom and the orange picture Church opens on today, a placeholder until you say so.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_PLACE_SITS_IN_THE_MAP.webp",
+    "first": "../records/target/vote_first/cook4-church-on-the-map-ground-10-19.webp",
+    "firstAt": [30, 2475, 2112, 864]
+   },
+   "twin": {
+    "src": "reference/art_pipe/cook4/place_in_the_map/COOK4_PLACE_CHURCH_NEAR.webp",
+    "diffs": [
+     "DIRT: the map round Church is a cool tan (137,121,101 on his glass); the picture it opens on today is his soil as bought, orange, 18.7 off; ours is his same soil tiles balanced to the map's light with the hue of his YES street, 2.2 off, every grain kept (his YES street's bar: 6 of 6, today's picture 1 of 6).",
+     "ROAD: the map runs the arterial past the church's doors; the old picture has a cobble band from nowhere (9.3 off the map's asphalt); ours is the map's road in front, his asphalt 0.8 off, his kerb and walk, his worn double yellow, running off both sides and the bottom.",
+     "NEIGHBOURS AND EDGES: the map has the suburb east of Church and the Strip's resorts west of it; the old picture is a row of slate cottages framed on dirt; ours cuts a garage ranch at the left edge and the casino and motel at the right, the suburb's back row behind its chain link: no slab, no frame."
+    ]
+   },
+   "before_after": {
+    "before": "the pack town Church opens on today: his orange soil as bought, a cobble street, slate-roofed cottages (slices/settlement_ground_packs/town_0.webp)",
+    "after": "Church on the map's own ground: the map's dirt, the arterial in front, the barber in a tan ranch, the church as the clinic, the stall, the posts and the board, the Strip at the right edge",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_pipe/cook4/place_in_the_map/COOK4_TOWN_CHURCH_ON_THE_SUBURB_GRID.webp"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_pipe/cook4/place_in_the_map/COOK4_THE_MAP_GROUND.json",
+    "light": "top"
+   }
+  }
  ],
  "verdicts": [
   {
