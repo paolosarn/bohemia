@@ -257,10 +257,18 @@ function cut(s) {
   /* the armourer's line: 'holds 90 weight 10 (was Patched Mail Shirt)' names the row it was */
   const was = /\(was ([^)]+)\)/.exec(s);
   if (was) return [was[1]];
+  /* a keeper or a job giver: 'WADE KESSLER, AT THE HALL', 'ABUELA TONA, WHO RUNS THE COUNT': a name and a title, two words
+     a stranger searches apart (the whole is put together in code, so it is in no file) */
+  const nt = /^([A-Z][A-Z'.\- ]+), ((?:AT|BEHIND|THE|WHO|IN|FROM|OF)\b[A-Z'.\- ]+)$/.exec(s);
+  if (nt) return [nt[1], nt[2]];
   return s.split(/\s+·\s+|\s*\|\s*|\s*•\s*/).map(x => x.trim()).filter(Boolean).filter(x => !/^LEVEL \d+$/.test(x));
 }
+/* A piece with a digit in it is a READOUT (HP 67, START 6 BATTERIES, 15 to 35, holds 24 weight 10): the number comes from a
+   row and the words around it from a template, so it is not a name a stranger searches; counted apart, never as a name */
+const READOUT = /[0-9]/;
 function looksLikeName(s) {
   if (s.length < 2 || s.length > 48) return false;
+  if (READOUT.test(s)) return false;
   if (NOT_A_NAME.test(s)) return false;
   if (!/[A-Za-zÀ-ÿ]{2}/.test(s)) return false;
   const w = s.split(/\s+/);
@@ -365,11 +373,25 @@ async function analyse(W) {
       names.get(k).seen++;
     }
   }
+  const readouts = new Map();
+  for (const it of W.items) {
+    if (it.via === 'canvas' && (!it.on || (!it.conn && it.cw < 48))) continue;
+    for (const piece of cut(it.t)) { const nm = piece.trim(); if (nm.length >= 2 && nm.length <= 48 && READOUT.test(nm) && /[A-Za-z]{2}/.test(nm)) readouts.set(nm, it.f); }
+  }
   const rows = [];
   await grepAll(Array.from(names.keys()));
   await totalsAll(Array.from(names.keys()));
   for (const r of names.values()) { r.kind = kindOf(r); r.search = judge(r.name, W.loaded); rows.push(r); }
-  return { walk: { ms: W.ms, stages: W.stages.map(s => ({ name: s.name, atMs: s.at - W.t0, how: s.how })), notes: W.notes, items: W.items.length, loaded: W.loaded, errs: W.errs }, rows };
+  /* A MISSED NAME, IN PIECES: the words a stranger tries next, one at a time, and where each one lives */
+  const words = new Set();
+  rows.filter(r => !r.search.found).forEach(r => r.name.split(/\s+/).forEach(w => { w = w.replace(/^[^\p{L}\p{N}@]+|[^\p{L}\p{N}]+$/gu, ''); if (w.length >= 2) words.add(w); }));
+  await grepAll(Array.from(words)); await totalsAll(Array.from(words));
+  rows.filter(r => !r.search.found).forEach(r => {
+    r.pieces = r.name.split(/\s+/).map(w => w.replace(/^[^\p{L}\p{N}@]+|[^\p{L}\p{N}]+$/gu, '')).filter(w => w.length >= 2).map(w => {
+      const j = judge(w, W.loaded); return { word: w, found: j.found, loadedLines: j.lines.loaded, files: j.files.loaded.slice(0, 6) }; });
+  });
+  return { walk: { ms: W.ms, stages: W.stages.map(s => ({ name: s.name, atMs: s.at - W.t0, how: s.how })), notes: W.notes, items: W.items.length, loaded: W.loaded, errs: W.errs },
+    readouts: Array.from(readouts, ([t, f]) => ({ t, f })), rows };
 }
 /* THE KIND, read off the screen that showed the word: its frame, its element path (the page) or the function that drew it
    (the canvas). The row's seven are weapon, armour, building, person, place, perk and keeper; the rest are named too. */
@@ -393,9 +415,9 @@ function kindOf(r) {
   if (/SETTLEMENT/.test(f)) {
     if (/arrivalTag/.test(c) || /span#pname/.test(c)) return /FORTRESS|TOWN|CAMP|MARKET|DAY/.test(n) && !/#pname/.test(c) ? 'place trait' : 'place';
     if (/Object\.sett|settle|drawTag|tag/i.test(c) && r.via === 'canvas') return /^[A-Z][A-Z ,'.]+$/.test(n) ? 'building' : 'building line';
-    if (/div\.nm<div\.say/.test(c)) return 'keeper';
+    if (/div\.nm<div\.say/.test(c)) return /, /.test(w) && w.indexOf(n) === 0 ? 'person' : 'keeper title';
     if (/div\.nm<div\.hiret/.test(c)) return /^[A-Z][a-z]/.test(n) ? 'person' : 'background';
-    if (/i\.cn<div\.cl/.test(c)) return 'person';
+    if (/i\.cn<div\.cl/.test(c)) return /, /.test(w) && w.indexOf(n) !== 0 ? 'giver title' : 'person';
     if (/span<div\.cl/.test(c)) return 'contract';
     if (/button\.slot/.test(c)) return /vest|carrier|armour|helm|helmet|hat|hood|shield|door|jacket/.test(n) ? 'armour' : 'weapon';
     if (/div\.slots/.test(c) && /\(was /.test(w)) return /holds/.test(w) ? 'armour' : 'weapon';
@@ -404,6 +426,7 @@ function kindOf(r) {
     return 'ui';
   }
   if (/ROSTER/.test(f)) {
+    if (/div\.cell<div#(front|back)\.line/.test(c)) return 'person';
     if (/wname|\.nm|\.sub/.test(c)) return /^[A-Z][a-z]/.test(n) || /^[A-Z]+$/.test(n) && /wname|\.nm/.test(c) ? 'person' : 'background';
     if (/wslot|gslot|slot/.test(c)) return /vest|carrier|armour|helm|helmet|hat|hood|shield|door|jacket|coat|cap/.test(n) ? 'armour' : 'weapon';
     if (/\.p\b|perk/.test(c)) return 'perk';
@@ -428,11 +451,18 @@ function report(R) {
 }
 
 /* ---------------------------------------------------------------- --prove: the tag on the glass
-   Every FOUND name whose search lands on exactly ONE line of a loaded game file gets a tag on that line, in a copy served
-   under the file's real URL; one more walk; a tag read back off the glass PROVES the line sets the word. Only a word that
-   sits INSIDE a string (or an HTML text node) is tagged, and never a JSON key: a tag in code would break the page, a tag
-   in a key would break a lookup, and both would measure the breakage, not the word. The tag is ~Q and a number: no
-   letter case to lose (toUpperCase keeps it) and no word a game would key on. */
+   The search lands a stranger on lines; which one SETS the word is proved, not guessed. Every candidate occurrence gets
+   its own tag (~Q and a number) in a copy of its file served under the file's real URL, the walk runs again, and a tag
+   read back off the glass PROVES that occurrence sets the word on the screen. TWO PASSES, one walk each, so a pass that
+   breaks a screen does not take the other's answers with it:
+     A  every name whose search lands on 15 lines or fewer of the loaded game files: every occurrence inside a string
+        (or an HTML text node) is tagged.
+     B  the row's own kinds (weapons, armour, buildings, people, places, perks, titles, origins) with more than 15
+        lines: only occurrences where the WHOLE string is the word in the screen's own letter case ('PISTOL', "THE BAR").
+   Never tagged: a word in code, a JSON key, and a value that names a thing to the code (after id:, key:, class:, job:,
+   weapon:, kind:, type:, slot:), because a tag there breaks a lookup and would measure the breakage, not the word. The
+   tag has no letters to lose to toUpperCase and no word a game would key on. What breaks anyway is reported: the names
+   walk one saw that a pass's walk does not see (tags stripped) are listed with the pass. */
 function inString(line, at) {
   let q = null;
   for (let i = 0; i < at; i++) {
@@ -444,6 +474,7 @@ function inString(line, at) {
 }
 function taggable(file, line, at, len) {
   const q = inString(line, at);
+  if (q && /\b(id|key|class|job|weapon|kind|type|slot)\s*["']?\s*:\s*["'`]?$/i.test(line.slice(Math.max(0, at - 24), at))) return null;
   if (/\.json$/.test(file)) {
     if (q !== '"') return null;
     const rest = line.slice(at + len); const close = rest.indexOf('"');
@@ -454,42 +485,64 @@ function taggable(file, line, at, len) {
     if (before.lastIndexOf('>') > before.lastIndexOf('<') && (after.indexOf('<') >= 0 ? after.indexOf('<') < (after.indexOf('>') < 0 ? 1e9 : after.indexOf('>')) : true)) return 'a text node'; }
   return null;
 }
-function planTags(rows) {
-  const plan = [], byFile = new Map(); let n = 0;
+const FOCUS = /^(weapon|armour|building|weapon row|weapon class|skill|background|place|keeper title|giver title|person|perk|origin)$/;
+const NOT_FOCUS_WORDS = /^(YOU|MAIN|OFF|BODY|HEAD)$/;
+function planTags(rows, loaded, pass) {
+  const L = new Set(loaded), spots = new Map(); let n = 0;
   for (const r of rows) {
-    const s = r.search; if (!s.found || s.lines.loaded !== 1) continue;
-    const c = s.candidates[0]; if (!c) continue;
-    const full = lineOf(c.file, c.line);
-    if (!full) continue;
+    if (!r.search.found) continue;
+    const hits = grep(r.name).filter(h => L.has(h.file) && where(h.file) !== 'NOT THE GAME');
+    const small = hits.length <= 15;
+    if (pass === 'A' && !small) continue;
+    if (pass === 'B' && (small || !FOCUS.test(r.kind) || NOT_FOCUS_WORDS.test(r.name))) continue;
     const re = new RegExp('(?<![\\p{L}\\p{N}_])' + esc(r.name) + '(?![\\p{L}\\p{N}_])', 'giu');
-    let m, spot = null; while ((m = re.exec(full))) { const how = taggable(c.file, full, m.index, m[0].length); if (how) { spot = { at: m.index, len: m[0].length, how }; break; } }
-    if (!spot) { plan.push({ name: r.name, file: c.file, line: c.line, tag: null, why: 'the word sits in code or a key on that line; not tagged' }); continue; }
-    const tag = '~Q' + (++n);
-    plan.push({ name: r.name, file: c.file, line: c.line, tag, how: spot.how });
-    if (!byFile.has(c.file)) byFile.set(c.file, []);
-    byFile.get(c.file).push({ line: c.line, at: spot.at, len: spot.len, tag });
+    for (const h of hits) {
+      const line = lineOf(h.file, h.line); let m; re.lastIndex = 0;
+      while ((m = re.exec(line))) {
+        const how = taggable(h.file, line, m.index, m[0].length); if (!how) continue;
+        if (pass === 'B') { const pre = line[m.index - 1], post = line[m.index + m[0].length];
+          if (m[0] !== r.name || !((pre === post && /["'`]/.test(pre)) || (pre === '>' && post === '<'))) continue; }
+        const k = h.file + ':' + h.line + ':' + m.index;
+        if (!spots.has(k)) spots.set(k, { file: h.file, line: h.line, at: m.index, len: m[0].length, how, tag: '~Q' + (++n), names: [] });
+        if (spots.get(k).names.indexOf(r.name) < 0) spots.get(k).names.push(r.name);
+      }
+    }
   }
-  return { plan, byFile };
+  return Array.from(spots.values());
 }
-async function prove(R) {
-  const { plan, byFile } = planTags(R.rows);
-  const dir = path.join(outDir(), 'prove'); const serve = {};
+const strip = t => String(t).replace(/~Q[0-9]+/gi, '');
+async function provePass(R, pass) {
+  const spots = planTags(R.rows, R.walk.loaded, pass);
+  const dir = path.join(outDir(), 'prove-' + pass); const serve = {}; const byFile = new Map();
+  spots.forEach(s => { if (!byFile.has(s.file)) byFile.set(s.file, []); byFile.get(s.file).push(s); });
   for (const [file, edits] of byFile) {
     const lines = fs.readFileSync(path.join(ROOT, file), 'utf8').split('\n');
     /* right to left on one line, so an earlier column is not shifted by a later tag */
-    edits.sort((a, b) => a.line - b.line || b.at - a.at).forEach(e => { const L = lines[e.line - 1]; lines[e.line - 1] = L.slice(0, e.at + e.len) + e.tag + L.slice(e.at + e.len); });
+    edits.slice().sort((a, b) => a.line - b.line || b.at - a.at).forEach(e => { const T = lines[e.line - 1]; lines[e.line - 1] = T.slice(0, e.at + e.len) + e.tag + T.slice(e.at + e.len); });
     const out = path.join(dir, file); fs.mkdirSync(path.dirname(out), { recursive: true }); fs.writeFileSync(out, lines.join('\n'));
     serve['/' + file] = out;
   }
-  console.error('  [prove] ' + plan.filter(p => p.tag).length + ' tags in ' + byFile.size + ' files; walking again');
+  console.error('  [prove ' + pass + '] ' + spots.length + ' tags in ' + byFile.size + ' files; walking again');
   const W2 = await walk(serve);
   const glass = W2.items.filter(it => it.via !== 'canvas' || it.on).map(it => String(it.t).toUpperCase());
   /* ~Q1 must not be read off ~Q12: the tag ends where the digits end */
-  for (const p of plan) if (p.tag) { const re = new RegExp(esc(p.tag.toUpperCase()) + '(?![0-9])'); p.shown = glass.some(t => re.test(t)); }
-  return { plan, walk: { ms: W2.ms, notes: W2.notes, errs: W2.errs, items: W2.items.length } };
+  spots.forEach(s => { const re = new RegExp(esc(s.tag.toUpperCase()) + '(?![0-9])'); s.shown = glass.some(t => re.test(t)); });
+  /* what the pass broke: names walk one read that this walk does not, the tags taken off */
+  const seen2 = new Set(); W2.items.forEach(it => cut(strip(it.t)).forEach(p => seen2.add(p.replace(/^[\s"'“(\[]+|[\s"'”)\],:;]+$/g, ''))));
+  const lost = R.rows.filter(r => !seen2.has(r.name)).map(r => r.name);
+  console.error('  [prove ' + pass + '] ' + spots.filter(s => s.shown).length + ' of ' + spots.length + ' tags read back off the glass; ' + lost.length + ' names walk one saw are gone');
+  return { pass, tags: spots.length, files: byFile.size, spots, lost, walk: { ms: W2.ms, notes: W2.notes, errs: W2.errs, items: W2.items.length } };
+}
+async function prove(R) {
+  const out = [];
+  for (const pass of ['A', 'B']) out.push(await provePass(R, pass));
+  /* per name: the occurrences proved to set it */
+  R.rows.forEach(r => { r.proved = []; r.tagged = 0;
+    out.forEach(P => P.spots.forEach(s => { if (s.names.indexOf(r.name) < 0) return; r.tagged++; if (s.shown) r.proved.push({ file: s.file, line: s.line, pass: P.pass, how: s.how }); })); });
+  return out.map(P => ({ pass: P.pass, tags: P.tags, files: P.files, shown: P.spots.filter(s => s.shown).length, lost: P.lost, walk: P.walk }));
 }
 
-module.exports = { ARM, walk, cut, looksLikeName, grep, where, judge, analyse, planTags, prove };
+module.exports = { ARM, walk, cut, looksLikeName, grep, grepAll, where, judge, analyse, taggable, planTags, prove };
 
 if (require.main === module) {
   (async function main() {
@@ -498,7 +551,7 @@ if (require.main === module) {
     else { W = await walk({}); fs.writeFileSync(path.join(outDir(), 'walk.json'), JSON.stringify(W)); console.error('  [walk] written ' + path.join(outDir(), 'walk.json')); }
     if (WALK_ONLY) { console.log(JSON.stringify({ ms: W.ms, stages: W.stages.map(s => [s.name, s.at - W.t0, s.how]), notes: W.notes, items: W.items.length, loaded: W.loaded.length, errs: W.errs }, null, 1)); return; }
     const R = await analyse(W);
-    if (PROVE) { R.prove = await prove(R); console.error('  [prove] ' + R.prove.plan.filter(p => p.shown).length + ' of ' + R.prove.plan.filter(p => p.tag).length + ' tags read back off the glass'); }
+    if (PROVE) R.prove = await prove(R);
     fs.writeFileSync(path.join(outDir(), 'names.json'), JSON.stringify(R, null, 1));
     if (JSON_OUT) { console.log(JSON.stringify(R, null, 1)); return; }
     report(R);
