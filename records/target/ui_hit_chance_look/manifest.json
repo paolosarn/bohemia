@@ -1,0 +1,149 @@
+{
+ "sheet": "records/target/ui_hit_chance_look/UI_THE_HIT_CHANCE_LOOK.png",
+ "size": [
+  888,
+  2650
+ ],
+ "cells": [
+  {
+   "cell": "TODAY",
+   "shot": "upright_weak_today",
+   "crop": [
+    0,
+    544,
+    390,
+    844
+   ],
+   "at": [
+    24,
+    98
+   ]
+  },
+  {
+   "cell": "A  ON THE MAN",
+   "shot": "upright_weak_A",
+   "crop": [
+    0,
+    190,
+    390,
+    490
+   ],
+   "at": [
+    444,
+    98
+   ]
+  },
+  {
+   "cell": "B  OUT OF THE BAR",
+   "shot": "upright_weak_B",
+   "crop": [
+    0,
+    544,
+    390,
+    844
+   ],
+   "at": [
+    24,
+    442
+   ]
+  },
+  {
+   "cell": "C  IN THE BAR",
+   "shot": "upright_weak_C",
+   "crop": [
+    0,
+    544,
+    390,
+    844
+   ],
+   "at": [
+    444,
+    442
+   ]
+  },
+  {
+   "cell": "A",
+   "shot": "upright_weak_A_after",
+   "crop": [
+    0,
+    217,
+    390,
+    517
+   ],
+   "at": [
+    24,
+    824
+   ]
+  },
+  {
+   "cell": "B",
+   "shot": "upright_weak_B_after",
+   "crop": [
+    0,
+    544,
+    390,
+    844
+   ],
+   "at": [
+    444,
+    824
+   ]
+  },
+  {
+   "cell": "C",
+   "shot": "upright_weak_C_after",
+   "crop": [
+    0,
+    544,
+    390,
+    844
+   ],
+   "at": [
+    24,
+    1168
+   ]
+  },
+  {
+   "cell": "A RIFLE ON A THUG IN A JACKET, B",
+   "shot": "upright_good_B",
+   "crop": [
+    0,
+    544,
+    390,
+    844
+   ],
+   "at": [
+    444,
+    1168
+   ]
+  },
+  {
+   "cell": "B  OUT OF THE BAR",
+   "shot": "sideways_weak_B",
+   "crop": [
+    0,
+    190,
+    844,
+    390
+   ],
+   "at": [
+    24,
+    1550
+   ]
+  },
+  {
+   "cell": "C  IN THE BAR",
+   "shot": "sideways_weak_C",
+   "crop": [
+    0,
+    190,
+    844,
+    390
+   ],
+   "at": [
+    24,
+    1794
+   ]
+  }
+ ]
+}

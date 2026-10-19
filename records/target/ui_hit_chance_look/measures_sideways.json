@@ -1,0 +1,714 @@
+{
+ "profile": "phone_landscape",
+ "side": "sideways",
+ "cases": {
+  "weak": {
+   "kind": "weak",
+   "u": "c4",
+   "uname": "BOOKIE",
+   "t": "e8",
+   "tname": "RAIDER",
+   "weapon": "PISTOL",
+   "can": true,
+   "parts": [
+    "surrounded"
+   ],
+   "read": {
+    "chance": 32,
+    "armour": {
+     "now": 103,
+     "max": 103,
+     "take": 15
+    },
+    "body": {
+     "now": 75,
+     "max": 75,
+     "take": 0
+    },
+    "weak": true,
+    "line": "Your pistol barely dents his plate."
+   }
+  },
+  "good": {
+   "kind": "good",
+   "u": "c4",
+   "uname": "BOOKIE",
+   "t": "e2",
+   "tname": "THUG",
+   "weapon": "RIFLE",
+   "can": true,
+   "parts": [],
+   "read": {
+    "chance": 31,
+    "armour": {
+     "now": 10,
+     "max": 10,
+     "take": 10
+    },
+    "body": {
+     "now": 55,
+     "max": 55,
+     "take": 29
+    },
+    "weak": false,
+    "line": "Your rifle barely dents his jacket."
+   }
+  }
+ },
+ "shots": [
+  {
+   "name": "sideways_weak_today",
+   "kind": "weak",
+   "mode": null,
+   "after": false,
+   "laid": null
+  },
+  {
+   "name": "sideways_weak_A",
+   "kind": "weak",
+   "mode": "tag",
+   "after": false,
+   "laid": {
+    "box": [
+     301,
+     80,
+     184,
+     78
+    ],
+    "man": [
+     393,
+     164,
+     223
+    ],
+    "bar": [
+     0,
+     314,
+     844,
+     76
+    ],
+    "stats": [
+     74,
+     333,
+     200,
+     41
+    ],
+    "top": 52,
+    "strike": [
+     288,
+     330,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       757,
+       324,
+       77,
+       58
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       288,
+       330,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       694,
+       330,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "32%",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "TO HIT",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-15",
+      "px": 10,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 10,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "Your pistol barely dents his plate.",
+      "px": 10,
+      "font": "BohemiaROM"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "32%TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      308,
+      88,
+      30,
+      16
+     ]
+    },
+    {
+     "k": "TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      308,
+      111,
+      36,
+      8
+     ]
+    },
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      455,
+      91,
+      13,
+      8
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      455,
+      107,
+      5,
+      8
+     ]
+    },
+    {
+     "k": "Your pistol barely dents",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      308,
+      128,
+      168,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "name": "sideways_weak_B",
+   "kind": "weak",
+   "mode": "slip",
+   "after": false,
+   "laid": {
+    "box": [
+     8,
+     235,
+     226,
+     82
+    ],
+    "man": [
+     393,
+     164,
+     223
+    ],
+    "bar": [
+     0,
+     314,
+     844,
+     76
+    ],
+    "stats": [
+     74,
+     333,
+     200,
+     41
+    ],
+    "top": 52,
+    "strike": [
+     288,
+     330,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       757,
+       324,
+       77,
+       58
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       288,
+       330,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       694,
+       330,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "32%",
+      "px": 30,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "TO HIT",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-15",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "Your pistol barely dents his plate.",
+      "px": 10,
+      "font": "BohemiaROM"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "32%TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      246,
+      45,
+      24
+     ]
+    },
+    {
+     "k": "TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      278,
+      36,
+      8
+     ]
+    },
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      183,
+      244,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      183,
+      270,
+      10,
+      16
+     ]
+    },
+    {
+     "k": "Your pistol barely dents",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      16,
+      296,
+      210,
+      8
+     ]
+    }
+   ]
+  },
+  {
+   "name": "sideways_weak_C",
+   "kind": "weak",
+   "mode": "bar",
+   "after": false,
+   "laid": {
+    "box": [
+     74,
+     292,
+     200,
+     82
+    ],
+    "man": [
+     393,
+     164,
+     223
+    ],
+    "bar": [
+     0,
+     314,
+     844,
+     76
+    ],
+    "stats": [
+     74,
+     333,
+     200,
+     41
+    ],
+    "top": 52,
+    "strike": [
+     288,
+     330,
+     96,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       757,
+       324,
+       77,
+       58
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       288,
+       330,
+       96,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       694,
+       330,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "-15",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "Your pistol barely dents his plate.",
+      "px": 10,
+      "font": "BohemiaROM"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      180,
+      298,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      180,
+      322,
+      10,
+      16
+     ]
+    },
+    {
+     "k": "Your pistol barely dents",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      81,
+      346,
+      168,
+      18
+     ]
+    },
+    {
+     "k": "32%",
+     "plain": 12.09,
+     "sun": 5.89,
+     "bg": "27,24,21",
+     "col": "240,210,150",
+     "box": [
+      347,
+      344,
+      30,
+      16
+     ]
+    }
+   ]
+  },
+  {
+   "name": "sideways_good_today",
+   "kind": "good",
+   "mode": null,
+   "after": false,
+   "laid": null
+  },
+  {
+   "name": "sideways_good_B",
+   "kind": "good",
+   "mode": "slip",
+   "after": false,
+   "laid": {
+    "box": [
+     8,
+     252,
+     196,
+     65
+    ],
+    "man": [
+     304,
+     143,
+     202
+    ],
+    "bar": [
+     0,
+     314,
+     844,
+     76
+    ],
+    "stats": [
+     74,
+     338,
+     200,
+     30
+    ],
+    "top": 52,
+    "strike": [
+     288,
+     330,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       757,
+       324,
+       77,
+       58
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       288,
+       330,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "breload",
+      "r": [
+       340,
+       330,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       694,
+       330,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "31%",
+      "px": 30,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "TO HIT",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-10",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "-29",
+      "px": 20,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "31%TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      263,
+      40,
+      24
+     ]
+    },
+    {
+     "k": "TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      295,
+      36,
+      8
+     ]
+    },
+    {
+     "k": "-10",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      166,
+      261,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "-29",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      166,
+      287,
+      30,
+      16
+     ]
+    }
+   ]
+  }
+ ]
+}

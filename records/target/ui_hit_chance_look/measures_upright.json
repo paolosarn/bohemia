@@ -1,0 +1,1890 @@
+{
+ "profile": "phone_portrait",
+ "side": "upright",
+ "cases": {
+  "weak": {
+   "kind": "weak",
+   "u": "c4",
+   "uname": "BOOKIE",
+   "t": "e8",
+   "tname": "RAIDER",
+   "weapon": "PISTOL",
+   "can": true,
+   "parts": [
+    "surrounded"
+   ],
+   "read": {
+    "chance": 32,
+    "armour": {
+     "now": 103,
+     "max": 103,
+     "take": 15
+    },
+    "body": {
+     "now": 75,
+     "max": 75,
+     "take": 0
+    },
+    "weak": true,
+    "line": "Your pistol barely dents his plate."
+   }
+  },
+  "good": {
+   "kind": "good",
+   "u": "c4",
+   "uname": "BOOKIE",
+   "t": "e2",
+   "tname": "THUG",
+   "weapon": "RIFLE",
+   "can": true,
+   "parts": [],
+   "read": {
+    "chance": 31,
+    "armour": {
+     "now": 10,
+     "max": 10,
+     "take": 10
+    },
+    "body": {
+     "now": 55,
+     "max": 55,
+     "take": 29
+    },
+    "weak": false,
+    "line": "Your rifle barely dents his jacket."
+   }
+  }
+ },
+ "shots": [
+  {
+   "name": "upright_weak_today",
+   "kind": "weak",
+   "mode": null,
+   "after": false,
+   "laid": null
+  },
+  {
+   "name": "upright_weak_A",
+   "kind": "weak",
+   "mode": "tag",
+   "after": false,
+   "laid": {
+    "box": [
+     52,
+     230,
+     184,
+     78
+    ],
+    "man": [
+     144,
+     314,
+     418
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "32%",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "TO HIT",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-15",
+      "px": 10,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 10,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "Your pistol barely dents his plate.",
+      "px": 10,
+      "font": "BohemiaROM"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "32%TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      59,
+      238,
+      30,
+      16
+     ]
+    },
+    {
+     "k": "TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      59,
+      261,
+      36,
+      8
+     ]
+    },
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      206,
+      241,
+      13,
+      8
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      206,
+      257,
+      5,
+      8
+     ]
+    },
+    {
+     "k": "Your pistol barely dents",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      59,
+      278,
+      168,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_weak_A_after",
+   "kind": "weak",
+   "mode": "tag",
+   "after": true,
+   "laid": {
+    "box": [
+     52,
+     257,
+     183,
+     51
+    ],
+    "man": [
+     144,
+     314,
+     418
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "HIT",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "IT TOOK",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-15",
+      "px": 10,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 10,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "HITIT TOOK",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      59,
+      265,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "IT TOOK",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      59,
+      288,
+      42,
+      8
+     ]
+    },
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      208,
+      268,
+      13,
+      8
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      208,
+      284,
+      5,
+      8
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_weak_B",
+   "kind": "weak",
+   "mode": "slip",
+   "after": false,
+   "laid": {
+    "box": [
+     8,
+     633,
+     226,
+     82
+    ],
+    "man": [
+     144,
+     314,
+     418
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "32%",
+      "px": 30,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "TO HIT",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-15",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "Your pistol barely dents his plate.",
+      "px": 10,
+      "font": "BohemiaROM"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "32%TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      644,
+      45,
+      24
+     ]
+    },
+    {
+     "k": "TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      676,
+      36,
+      8
+     ]
+    },
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      183,
+      642,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      183,
+      668,
+      10,
+      16
+     ]
+    },
+    {
+     "k": "Your pistol barely dents",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      16,
+      694,
+      210,
+      8
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_weak_B_after",
+   "kind": "weak",
+   "mode": "slip",
+   "after": true,
+   "laid": {
+    "box": [
+     8,
+     650,
+     197,
+     65
+    ],
+    "man": [
+     144,
+     314,
+     418
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "HIT",
+      "px": 30,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "IT TOOK",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-15",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 20,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "HITIT TOOK",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      661,
+      40,
+      24
+     ]
+    },
+    {
+     "k": "IT TOOK",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      693,
+      42,
+      8
+     ]
+    },
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      167,
+      659,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      167,
+      685,
+      10,
+      16
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_weak_C",
+   "kind": "weak",
+   "mode": "bar",
+   "after": false,
+   "laid": {
+    "box": [
+     72,
+     708,
+     226,
+     72
+    ],
+    "man": [
+     144,
+     314,
+     418
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     96,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       96,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "-15",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "Your pistol barely dents his plate.",
+      "px": 10,
+      "font": "BohemiaROM"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      178,
+      714,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      178,
+      738,
+      10,
+      16
+     ]
+    },
+    {
+     "k": "Your pistol barely dents",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      79,
+      762,
+      210,
+      8
+     ]
+    },
+    {
+     "k": "32%",
+     "plain": 12.09,
+     "sun": 5.89,
+     "bg": "27,24,21",
+     "col": "240,210,150",
+     "box": [
+      67,
+      803,
+      30,
+      16
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_weak_C_after",
+   "kind": "weak",
+   "mode": "bar",
+   "after": true,
+   "laid": {
+    "box": [
+     72,
+     722,
+     226,
+     57
+    ],
+    "man": [
+     144,
+     314,
+     418
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     96,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       96,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "-15",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "0",
+      "px": 20,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "-15",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      178,
+      728,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "0",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      178,
+      752,
+      10,
+      16
+     ]
+    },
+    {
+     "k": "HIT",
+     "plain": 12.12,
+     "sun": 5.9,
+     "bg": "26,24,21",
+     "col": "240,210,150",
+     "box": [
+      70,
+      803,
+      27,
+      16
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_good_today",
+   "kind": "good",
+   "mode": null,
+   "after": false,
+   "laid": null
+  },
+  {
+   "name": "upright_good_A",
+   "kind": "good",
+   "mode": "tag",
+   "after": false,
+   "laid": {
+    "box": [
+     4,
+     220,
+     177,
+     51
+    ],
+    "man": [
+     -11,
+     277,
+     381
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "breload",
+      "r": [
+       60,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "31%",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "TO HIT",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-10",
+      "px": 10,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "-29",
+      "px": 10,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "31%TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      11,
+      228,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      11,
+      251,
+      36,
+      8
+     ]
+    },
+    {
+     "k": "-10",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      154,
+      231,
+      13,
+      8
+     ]
+    },
+    {
+     "k": "-29",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      154,
+      247,
+      15,
+      8
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_good_A_after",
+   "kind": "good",
+   "mode": "tag",
+   "after": true,
+   "laid": {
+    "box": [
+     4,
+     220,
+     183,
+     51
+    ],
+    "man": [
+     -11,
+     277,
+     381
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "breload",
+      "r": [
+       60,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "HIT",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "IT TOOK",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-10",
+      "px": 10,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "-29",
+      "px": 10,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "HITIT TOOK",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      11,
+      228,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "IT TOOK",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      11,
+      251,
+      42,
+      8
+     ]
+    },
+    {
+     "k": "-10",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      160,
+      231,
+      13,
+      8
+     ]
+    },
+    {
+     "k": "-29",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      160,
+      247,
+      15,
+      8
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_good_B",
+   "kind": "good",
+   "mode": "slip",
+   "after": false,
+   "laid": {
+    "box": [
+     8,
+     650,
+     196,
+     65
+    ],
+    "man": [
+     -11,
+     277,
+     381
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "breload",
+      "r": [
+       60,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "31%",
+      "px": 30,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "TO HIT",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-10",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "-29",
+      "px": 20,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "31%TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      661,
+      40,
+      24
+     ]
+    },
+    {
+     "k": "TO HIT",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      693,
+      36,
+      8
+     ]
+    },
+    {
+     "k": "-10",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      166,
+      659,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "-29",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      166,
+      685,
+      30,
+      16
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_good_B_after",
+   "kind": "good",
+   "mode": "slip",
+   "after": true,
+   "laid": {
+    "box": [
+     8,
+     650,
+     198,
+     65
+    ],
+    "man": [
+     -11,
+     277,
+     381
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     46,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "breload",
+      "r": [
+       60,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "HIT",
+      "px": 30,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "IT TOOK",
+      "px": 10,
+      "font": "BohemiaROM"
+     },
+     {
+      "t": "-10",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "-29",
+      "px": 20,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "HITIT TOOK",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      661,
+      40,
+      24
+     ]
+    },
+    {
+     "k": "IT TOOK",
+     "plain": 11.89,
+     "sun": 5.61,
+     "bg": "232,224,203",
+     "col": "42,34,26",
+     "box": [
+      16,
+      693,
+      42,
+      8
+     ]
+    },
+    {
+     "k": "-10",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      167,
+      659,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "-29",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      167,
+      685,
+      30,
+      16
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_good_C",
+   "kind": "good",
+   "mode": "bar",
+   "after": false,
+   "laid": {
+    "box": [
+     72,
+     722,
+     226,
+     57
+    ],
+    "man": [
+     -11,
+     277,
+     381
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     96,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       96,
+       46
+      ]
+     },
+     {
+      "id": "breload",
+      "r": [
+       110,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "-10",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "-29",
+      "px": 20,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "-10",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      178,
+      728,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "-29",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      178,
+      752,
+      30,
+      16
+     ]
+    },
+    {
+     "k": "31%",
+     "plain": 12.12,
+     "sun": 5.9,
+     "bg": "26,24,21",
+     "col": "240,210,150",
+     "box": [
+      70,
+      803,
+      27,
+      16
+     ]
+    }
+   ]
+  },
+  {
+   "name": "upright_good_C_after",
+   "kind": "good",
+   "mode": "bar",
+   "after": true,
+   "laid": {
+    "box": [
+     72,
+     722,
+     226,
+     57
+    ],
+    "man": [
+     -11,
+     277,
+     381
+    ],
+    "bar": [
+     0,
+     712,
+     390,
+     132
+    ],
+    "stats": [
+     72,
+     722,
+     226,
+     58
+    ],
+    "top": 58,
+    "strike": [
+     8,
+     789,
+     96,
+     46
+    ],
+    "buttons": [
+     {
+      "id": "bend",
+      "r": [
+       305,
+       721,
+       77,
+       60
+      ]
+     },
+     {
+      "id": "bstrike",
+      "r": [
+       8,
+       789,
+       96,
+       46
+      ]
+     },
+     {
+      "id": "breload",
+      "r": [
+       110,
+       789,
+       46,
+       46
+      ]
+     },
+     {
+      "id": "bwait",
+      "r": [
+       326,
+       789,
+       57,
+       47
+      ]
+     }
+    ],
+    "css": {
+     "radius": "0px",
+     "shadow": "none",
+     "filter": "none",
+     "bgi": "url",
+     "font": "BohemiaCasing, monospace"
+    },
+    "sizes": [
+     {
+      "t": "-10",
+      "px": 20,
+      "font": "BohemiaCasing"
+     },
+     {
+      "t": "-29",
+      "px": 20,
+      "font": "BohemiaCasing"
+     }
+    ]
+   },
+   "words": [
+    {
+     "k": "-10",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      178,
+      728,
+      27,
+      16
+     ]
+    },
+    {
+     "k": "-29",
+     "plain": 9.02,
+     "sun": 4.99,
+     "bg": "232,224,203",
+     "col": "110,20,12",
+     "box": [
+      178,
+      752,
+      30,
+      16
+     ]
+    },
+    {
+     "k": "HIT",
+     "plain": 12.12,
+     "sun": 5.9,
+     "bg": "26,24,21",
+     "col": "240,210,150",
+     "box": [
+      70,
+      803,
+      27,
+      16
+     ]
+    }
+   ]
+  }
+ ]
+}
