@@ -422,7 +422,69 @@ function report(R) {
   for (const r of rows) console.log((r.search.found ? 'FOUND ' : 'MISS  ') + r.stage.padEnd(6) + ' ' + r.kind.padEnd(10) + ' ' + JSON.stringify(r.name) + '  game lines ' + r.search.lines.game + ', loaded ' + r.search.lines.loaded + ', copies ' + r.search.lines.copiesNotLoaded + '  [' + r.frame + ' ' + String(r.ctx).slice(0, 60) + ']');
 }
 
-module.exports = { ARM, walk, cut, looksLikeName, grep, where, judge, analyse };
+/* ---------------------------------------------------------------- --prove: the tag on the glass
+   Every FOUND name whose search lands on exactly ONE line of a loaded game file gets a tag on that line, in a copy served
+   under the file's real URL; one more walk; a tag read back off the glass PROVES the line sets the word. Only a word that
+   sits INSIDE a string (or an HTML text node) is tagged, and never a JSON key: a tag in code would break the page, a tag
+   in a key would break a lookup, and both would measure the breakage, not the word. The tag is ~Q and a number: no
+   letter case to lose (toUpperCase keeps it) and no word a game would key on. */
+function inString(line, at) {
+  let q = null;
+  for (let i = 0; i < at; i++) {
+    const ch = line[i];
+    if (q) { if (ch === '\\') { i++; continue; } if (ch === q) q = null; }
+    else if (ch === '"' || ch === "'" || ch === '`') q = ch;
+  }
+  return q;
+}
+function taggable(file, line, at, len) {
+  const q = inString(line, at);
+  if (/\.json$/.test(file)) {
+    if (q !== '"') return null;
+    const rest = line.slice(at + len); const close = rest.indexOf('"');
+    return close >= 0 && /^\s*:/.test(rest.slice(close + 1)) ? null : 'a json value';
+  }
+  if (q) return 'a string';
+  if (/\.html$/.test(file)) { const before = line.slice(0, at), after = line.slice(at + len);
+    if (before.lastIndexOf('>') > before.lastIndexOf('<') && (after.indexOf('<') >= 0 ? after.indexOf('<') < (after.indexOf('>') < 0 ? 1e9 : after.indexOf('>')) : true)) return 'a text node'; }
+  return null;
+}
+function planTags(rows) {
+  const plan = [], byFile = new Map(); let n = 0;
+  for (const r of rows) {
+    const s = r.search; if (!s.found || s.lines.loaded !== 1) continue;
+    const c = s.candidates[0]; if (!c) continue;
+    const full = fs.readFileSync(path.join(ROOT, c.file), 'utf8').split('\n')[c.line - 1];
+    if (full === undefined) continue;
+    const re = new RegExp('(?<![\\p{L}\\p{N}_])' + esc(r.name) + '(?![\\p{L}\\p{N}_])', 'giu');
+    let m, spot = null; while ((m = re.exec(full))) { const how = taggable(c.file, full, m.index, m[0].length); if (how) { spot = { at: m.index, len: m[0].length, how }; break; } }
+    if (!spot) { plan.push({ name: r.name, file: c.file, line: c.line, tag: null, why: 'the word sits in code or a key on that line; not tagged' }); continue; }
+    const tag = '~Q' + (++n);
+    plan.push({ name: r.name, file: c.file, line: c.line, tag, how: spot.how });
+    if (!byFile.has(c.file)) byFile.set(c.file, []);
+    byFile.get(c.file).push({ line: c.line, at: spot.at, len: spot.len, tag });
+  }
+  return { plan, byFile };
+}
+async function prove(R) {
+  const { plan, byFile } = planTags(R.rows);
+  const dir = path.join(outDir(), 'prove'); const serve = {};
+  for (const [file, edits] of byFile) {
+    const lines = fs.readFileSync(path.join(ROOT, file), 'utf8').split('\n');
+    /* right to left on one line, so an earlier column is not shifted by a later tag */
+    edits.sort((a, b) => a.line - b.line || b.at - a.at).forEach(e => { const L = lines[e.line - 1]; lines[e.line - 1] = L.slice(0, e.at + e.len) + e.tag + L.slice(e.at + e.len); });
+    const out = path.join(dir, file); fs.mkdirSync(path.dirname(out), { recursive: true }); fs.writeFileSync(out, lines.join('\n'));
+    serve['/' + file] = out;
+  }
+  console.error('  [prove] ' + plan.filter(p => p.tag).length + ' tags in ' + byFile.size + ' files; walking again');
+  const W2 = await walk(serve);
+  const glass = W2.items.filter(it => it.via !== 'canvas' || it.on).map(it => String(it.t).toUpperCase());
+  /* ~Q1 must not be read off ~Q12: the tag ends where the digits end */
+  for (const p of plan) if (p.tag) { const re = new RegExp(esc(p.tag.toUpperCase()) + '(?![0-9])'); p.shown = glass.some(t => re.test(t)); }
+  return { plan, walk: { ms: W2.ms, notes: W2.notes, errs: W2.errs, items: W2.items.length } };
+}
+
+module.exports = { ARM, walk, cut, looksLikeName, grep, where, judge, analyse, planTags, prove };
 
 if (require.main === module) {
   (async function main() {
@@ -431,6 +493,7 @@ if (require.main === module) {
     else { W = await walk({}); fs.writeFileSync(path.join(outDir(), 'walk.json'), JSON.stringify(W)); console.error('  [walk] written ' + path.join(outDir(), 'walk.json')); }
     if (WALK_ONLY) { console.log(JSON.stringify({ ms: W.ms, stages: W.stages.map(s => [s.name, s.at - W.t0, s.how]), notes: W.notes, items: W.items.length, loaded: W.loaded.length, errs: W.errs }, null, 1)); return; }
     const R = await analyse(W);
+    if (PROVE) { R.prove = await prove(R); console.error('  [prove] ' + R.prove.plan.filter(p => p.shown).length + ' of ' + R.prove.plan.filter(p => p.tag).length + ' tags read back off the glass'); }
     fs.writeFileSync(path.join(outDir(), 'names.json'), JSON.stringify(R, null, 1));
     if (JSON_OUT) { console.log(JSON.stringify(R, null, 1)); return; }
     report(R);
