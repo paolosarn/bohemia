@@ -17,7 +17,7 @@ const { open } = require('../tools/bohemia_drive_the_demo.js');
 const ROOT = path.resolve(__dirname, '..');
 /* THE MAN'S HEIGHT ON THE GLASS is the page's own MAN_IDLE (10/19, COMBAT [the people a little smaller], his YES on the marks:
    'can the characters just be a little smaller'): the legs read it from the fight, never a typed 104 */
-const IDLE = Number(fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8').match(/MAN_IDLE = (\d+)/)[1]);
+const IDLE = Number(fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8').match(/MAN_DEFAULT = (\d+)/)[1]);
 /* PROOF SHOTS GO TO A SCRATCH FOLDER UNLESS ASKED (PLUMBER 10/9, [proof shots churn]): `--shoot` or BOHEMIA_SHOOT=1 writes the VOTE picture */
 const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));
 const BB = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/rules.json'), 'utf8'));
@@ -447,8 +447,11 @@ async function nightLights() {
     const a = FIGHT.alive('you').filter(u => FIGHT.isRanged(u.weapon))[0], t = FIGHT.alive('them')[0];
     const sk = FIGHT.strikeSkill(a.weapon), was = S.lit, t0 = { x: t.x, y: t.y }; t.x = Math.min(S.w - 1, a.x + 3); t.y = a.y;   /* three tiles apart: inside the crossbow's reach, off the 5% floor (the whole board put them six apart) */
     const at = (la, lt) => { S.lit = S.lit.map(row => row.slice()); S.lit[a.y][a.x] = la; S.lit[t.y][t.x] = lt; const c = FIGHT.hitChance(a, t, sk).chance; S.lit = was; return c; };
+    /* the target stands with a car door's ranged defence, so the night's cut to his defence (both dark) shows against the shooter's
+       alone (lit at dark); 10/19: the pistol is the first shooter now and a thug's 0 rounded the two together */
+    const rd0 = t.rdef; t.rdef = Math.max(t.rdef, 20);
     const LL = at(true, true), DD = at(false, false), DL = at(false, true), LD = at(true, false);
-    S.night = false; const day = FIGHT.hitChance(a, t, sk).chance; S.night = true; t.x = t0.x; t.y = t0.y;
+    S.night = false; const day = FIGHT.hitChance(a, t, sk).chance; S.night = true; t.x = t0.x; t.y = t0.y; t.rdef = rd0;
     const far = { x: t.x, y: t.y }; S.lit = S.lit.map(row => row.slice()); S.lit[far.y][far.x] = true; const vLit = T.vision(a, far); S.lit[far.y][far.x] = false; const vDark = T.vision(a, far); S.lit = was;
     return { live, pools: FIGHT_UI.poolsDrawn, litN, litL: litN ? litL / litN : 0, darkL: darkN ? darkL / darkN : 0, LL, DD, DL, LD, day, vLit, vDark,
       lamps: window.__lamps, darkmen: window.__darkmen, litmen: window.__litmen };
@@ -775,7 +778,8 @@ async function turnPace() {
   /* a struck man shows his cost only when he is HIT, and a miss shows only its chance: his man stands open (no defence, no car
      door, health to spare) so their swings land and he is still standing for the skip below (10/19: Battle Brothers' Beginner
      aim, ours.hit_roll_shift, made the seed's first two swings miss) */
-  await p.evaluate(() => { const y = FIGHT.alive('you')[0]; y.mdef = -100; y.shield = null; y.hp = y.hpMax = 9999; });
+  await p.evaluate(() => { const y = FIGHT.alive('you')[0]; y.mdef = -100; y.shield = null; y.hp = y.hpMax = 9999;
+    y.resolve = null; y.initiative = 0; });   /* and he never breaks, and goes last, so all six of theirs act between his turns */
   await p.touchscreen.tap(end[0], end[1]);
   const tEnd = await p.evaluate(() => performance.now());
   await p.waitForTimeout(500); await wait(90000);

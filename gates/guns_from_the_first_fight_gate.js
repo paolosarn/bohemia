@@ -37,7 +37,7 @@ ORIGINS.forEach(o => {
   const us = F.S.units.filter(u => u.side === 'you'), guns = us.map(gunName);
   if (!guns.some(Boolean)) bare.push(o.id);
   if (us.length >= 2 && !(guns.indexOf('pistol') >= 0 && guns.indexOf('rifle') >= 0)) short.push(o.id + ' (' + guns.join(',') + ')');
-  const r = us.filter(u => gunName(u) === 'rifle'), others = us.filter(u => !gunName(u) || gunName(u) === 'pistol');
+  const r = us.filter(u => gunName(u) === 'rifle'), others = us.filter(u => !u.main && (!gunName(u) || gunName(u) === 'pistol'));   /* YOU keep your own pistol */
   if (r.length && others.some(u => mid(u.kind, 'ranged_skill') > Math.min(...r.map(x => mid(x.kind, 'ranged_skill'))))) eye.push(o.id);
 });
 leg(!bare.length && !short.length, '*** EVERY ORIGIN\'S FIRST FIGHT HAS GUNS IN THE COMPANY\'S HANDS (rule 120(a)) ***: every company the door builds carries a gun, every one of two or more a pistol and a rifle',

@@ -661,7 +661,7 @@
   },
   "source": "VAMILY.md rule 120(a); records/target/bb/backgrounds.json (each background's ranged_skill and melee_skill ranges, the wiki's)",
   "quote": "every origin's first fight has guns in the company's hands, and the gun is the main way a fight is won",
-  "why": "the company's kit (the crew rows' jobs, in order) is dealt to the men the origin built before a fight that hands no gear: the long guns first, each to the man whose background has the best eye (the middle of its wiki ranged_skill range), the melee jobs next to the best arms (melee_skill), the pistols and the bottles to the rest in the line's order. A New Crew's ranged companion takes the rifle, the one-hand and two-hand companions the pistols. Gear the roster hands over (RUN TWO) always wins.",
+  "why": "the company's kit (the crew rows' jobs, in order) is dealt to the men the origin built before a fight that hands no gear (YOU keep the company's first slot, your own pistol and car door: measured 10/19, the best eye made the level-four captain a rifleman, whose perks are all passive, and the auto brain used no perk skill in twelve fights): the long guns first, each to the man whose background has the best eye (the middle of its wiki ranged_skill range), the melee jobs next to the best arms (melee_skill), the pistols and the bottles to the rest in the line's order. A New Crew's ranged companion takes the rifle, the one-hand and two-hand companions the pistols. Gear the roster hands over (RUN TWO) always wins.",
   "tuned": false
  },
  "pistol_shot": {

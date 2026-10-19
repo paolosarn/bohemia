@@ -472,14 +472,15 @@ const FIGHT = (function () {
       armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' });
   }
   /* GUNS FIRST, IN THE RIGHT HANDS (rule 120(a); ours.guns_first_kit): the kit the crew rows carry, in order, is dealt to the men
-     the origin built: the long guns first, each to the best eye left (the middle of his background's wiki ranged_skill range), the
+     the origin built (YOU keep your own slot): the long guns first, each to the best eye left (the middle of his background's wiki ranged_skill range), the
      melee jobs to the best arm left, the pistols and the bottles to the rest in the line's order. A man the roster handed gear keeps it. */
   function bgMid(c, k) {
     const bg = DB.backgrounds.rows.filter(function (r) { return r.id === c.background; })[0], v = bg && bg.stats[k];
     return v ? (v[0] + v[v.length - 1]) / (1 + 1) : 0;
   }
   function dealKit(crew) {
-    const K = R('ours.guns_first_kit'), free = crew.filter(function (c) { return !c.gear; });
+    /* YOU keep the company's first slot, your own pistol and car door (the player as he stands); the rest are dealt */
+    const K = R('ours.guns_first_kit'), free = crew.filter(function (c) { return !c.gear && !c.main; });
     const kits = free.map(function (c) { return c.jobs; });
     const head = function (j) { return j.filter(function (x) { return x !== 'car_door'; })[0]; };
     const statOf = function (j) { return K.by_eye.indexOf(head(j)) >= 0 ? 'ranged_skill' : K.by_arm.indexOf(head(j)) >= 0 ? 'melee_skill' : null; };
@@ -1655,10 +1656,16 @@ const cv = document.getElementById('cv'), cx = cv.getContext('2d');
 const UI = { zoom: 1, cx: 0, cy: 0, far: 1, near: 1, max: 1, sel: null, pend: null, auto: false, speed: 1,
   anim: [], pops: [], beats: 0, beat: 0, t0: 0, started: false, imgs: {}, board: null, tw: 160, th: 113, nextAI: 0, glide: null, idle: 0, drag: null };
 let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
-const MAN_OF_TILE = 0.86, MAN_IDLE = 104, BAR_PT = 3;   /* a man stands most of a house tile tall; at the idle stop that is ~104 px */
+const NEAR_TILE = 121, BAR_PT = 3;   /* css px a house tile stands at the pinch's near stop (the old man's 104 at 0.86 of a tile): the ground's stop, never the man's */
+/* THE PEOPLE A LITTLE SMALLER (COMBAT [the people a little smaller], his YES on the marks on the board, 10/18: 'can the
+   characters just be a little smaller'): the man is drawn MAN_DEFAULT css px tall on every fought screen (it was 104, the 112
+   box's ~100 painted px of rule 21; the ground still zooms, the person still does not, at one size on every surface); a test
+   bench or the VOTE sheet may hand another as FIGHT_OPTS.manPx */
+const MAN_DEFAULT = 92;
+let MAN_IDLE = MAN_DEFAULT;
 /* BOTH TEAMS ON ONE SCREEN (rule 104a) with THE GROUND MAY ZOOM, THE PERSON MAY NOT (rule 21): the man is drawn MAN_IDLE css px
    tall at every zoom; only the ground scales under him */
-function manH() { return H > W ? MAN_IDLE : Math.min(MAN_IDLE, MAN_ROWS * UI.th * UI.zoom); }   /* upright he is always 104 (rule 21); only a glass wider than tall caps him at MAN_ROWS rows */
+function manH() { return H > W ? MAN_IDLE : Math.min(MAN_IDLE, MAN_ROWS * UI.th * UI.zoom); }   /* upright he is always MAN_IDLE (rule 21); only a glass wider than tall caps him at MAN_ROWS rows */
 const MAN_ROWS = 2.8;
 
 function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed; }
@@ -1681,7 +1688,7 @@ function fitStops() {
   const bw = UI.board.width, bh = UI.board.height, ah = H - TOPH - BOTH;
   /* THE MAN READS AS A MAN (rule 66): the idle stop is where he stands about 104 css px tall (21, 34: the 112 box), and
      the person never grows past it (rule 21): a small board that would fit larger stops at 112 */
-  UI.near = MAN_IDLE / (MAN_OF_TILE * UI.th);
+  UI.near = NEAR_TILE / UI.th;   /* the near stop is the ground's: a smaller man stands smaller against the same house */
   /* THE ART AT ITS OWN PIXELS (DIRECTION's FIGHT VERDICT 22): where the man's stop lands within a few percent of one art
      pixel to one device pixel (his 3x phone: 1.003), it snaps to exactly one, so the authored tile is shown, not resampled */
   const art = DB.ground.tile_px[0], dev = UI.tw * UI.near * DPR / art;
@@ -3058,6 +3065,7 @@ function start() {
   if (o.seed !== undefined) SEED = o.seed >>> 0;
   if (o.speed) UI.speed = o.speed;
   if (o.auto) UI.auto = true;
+  MAN_IDLE = o.manPx > 0 ? o.manPx : MAN_DEFAULT;
   FIGHT.setup(o);
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   return bakeBoard().then(function () {
