@@ -29,7 +29,9 @@ first week, and what keeps a careful shooter from going broke in the first hour?
 4. AND THE BIGGER FINDING, FOR COMBAT: ON TODAY'S FIGHT EVERY GUN YOU ADD LOSES. Three men on a one-skull job: two pipes
    and a sledge win 93 in 100; pipe, pipe, rifle 87; one pipe and two rifles 69; three rifles 44. A lone wolf with a rifle
    wins 0 of 300. A gun cannot fire at the man beside it (rule 83) and the crew walks into reach. Rule 120(a) is the
-   opposite of what the fight does.
+   opposite of what the fight does. TUNING's [the first kit is guns], shipped the same hour on its own bench, found the
+   same (three against three: pipes 87, today's gun rows 56) and its draft guns (two shots a turn, the butt at one tile)
+   win 86; a draft gunman fires about 4 shots a routine fight, the same as today's rows here, so the pick holds.
 5. THE CAREFUL HAND IS PUNISHED TOO: for three rifles, holding every shot under 50 in 100 saves 37 rounds in the first
    hour (7 batteries) and loses 25 batteries of pay, because the fights it lets run are lost. Until the fight pays the good shot (rule
    117(c), rule 120(b)), 'careful' costs men, not money.
@@ -178,6 +180,16 @@ quarter). Against the job, ours is dearer at every size, because our jobs pay le
 In the free first week, where food and water are in the stash and the cash day is the wage alone (3), ONE fight of three
 rifles is 0.8 of the day's cash.
 
+**4d. BESIDE TUNING'S DRAFT GUNS (records/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.md, shipped the same hour).** Two
+benches, one finding: TUNING's three against three wins 87 with pipes and 56 with today's gun rows; this bench's three
+against two wins 93 with pipes and 44 with three rifles. TUNING's draft rows (pistol, rifle, shotgun at two shots a turn,
+no reload button, the butt at one tile) win 86 at three against three and 96 at six against six. ITS AMMO PER FIGHT: a
+draft gunman fires about 4 shots in a routine fight (the worst cell's 90th fight 12), 2.9 in a tough one. THIS BENCH, today's
+rows: 4.2 to 5.0 for the one gunman, 3.8 to 4.7 a gunman for two, 2.8 to 3.9 a gunman for three. The same four shots a man a
+fight on either fight, so this page's money (sections 5 and 6) does not move when COMBAT lands the draft. TUNING's LOAD (12
+shots a gunman carried into a fight, refilled after it from the company's stock) is the magazine; this page's 60 a gun is
+the pile behind it, and fills that magazine about fifteen routine fights over.
+
 ## 5. THE MONEY: THE FIRST WEEK AND THE FIRST HOUR, DAY BY DAY
 The first hour is about eleven nights (rule 84's year an act; QUESTS' 1,100 nights in a hundred hours). Two schedules for a
 new crew of three: STEADY, five jobs (days 3 and 5 one skull, 7 and 9 two, 11 three) and BUSY, a fight every day from day
@@ -224,8 +236,9 @@ AUTO's 67.3 (37 saved, about 7 batteries) and 24.9 batteries of pay against 50.1
 3. 60 ROUNDS A GUN IN THE STASH AT THE DOOR (slider: 80 easy, 60 default, 40 hard; Battle Brothers' High and Medium per
    shooter). It is the first week's bullets, beside Day 76's nine days of food and water: the free first week now covers
    the gun. Counter value: 12 batteries a gun, 36 for a crew of three, against the 54 of food and water.
-4. THE PILE REFILLS EVERY GUN AFTER THE FIGHT, NEVER DURING IT (Battle Brothers verbatim). A gun's own load stays the
-   fight's (the rifle's one shot and reload, the shotgun's one, the bottles' five).
+4. THE PILE REFILLS EVERY GUN AFTER THE FIGHT, NEVER DURING IT (Battle Brothers verbatim). A gun comes to the door loaded
+   with TUNING's load (12 a gunman, its [the first kit is guns]) and the 60 a gun sit in the pile behind it; the bar's
+   ROUNDS is the pile.
 5. SIX ROUNDS A BODY SEARCHED (his 9/27 bonus, the words already written; the count today is one).
 **THE 117 CHECK.** Rule 117(a): every felt number starts easier than Battle Brothers', whose default sits at our hard end.
 At the hard end (40 a gun) ours runs dry on Battle Brothers' own days for one gun (busy: 10 / 7 against its Medium's
@@ -233,9 +246,9 @@ At the hard end (40 a gun) ours runs dry on Battle Brothers' own days for one gu
 hour, and the worst bad-luck week first tops up on day 9. The price never breaks the purse at either. EASIER, measured.
 **THE ROW'S TEST, MET:** a careful shooter never goes broke in the first hour (lowest purse 219.9 of 240 with zero rounds
 at the door; 179.2 in the worst week on purpose) and, at 60 a gun, never runs dry in it either.
-**WHAT THE PICK DOES NOT FIX:** section 4. The bill is small because the gun does not win yet. When COMBAT makes the gun
-the way a fight is won (rule 120(a)), the shots a fight will move (fewer fights lost means fewer fights dragged out, more
-won means more shots taken); this page's bench re-runs on the new fight in one command and the 60 is re-checked then.
+**WHAT THE PICK DOES NOT FIX:** section 4. On today's fight the gun does not win. TUNING's draft makes it win and spends
+the same four shots a gunman a fight (4d), so the 60 should hold; this page's bench re-runs on the new fight in one command
+and the 60 is re-checked when COMBAT lands it.
 
 ## 7. WHAT PROVES US WRONG
 1. **RULE 120(a) IS THE OPPOSITE OF THE FIGHT.** Every gun added to a fresh crew lowers the win (93, 87, 69, 44 at one
@@ -252,7 +265,8 @@ won means more shots taken); this page's bench re-runs on the new fight in one c
    pistol: the shop says it spends rounds, the fight makes it the dagger, one tile, spending nothing.
 5. **THE CAP COLLIDES WITH THE BIG END OF THE GRID.** 60 a gun for a twelve-gun company is 720 rounds, over Battle
    Brothers' carry cap (300; 500 on Beginner) that TUNING's tables already hold. Named here, worked in [the grid's money].
-6. **ONE FIGHT IN 300 OF THE FIRST JOB NEVER ENDS ON AUTO** (seeded, reproducible from the instrument).
+6. **ONE FIGHT IN 300 OF THE FIRST JOB NEVER ENDS ON AUTO** (seeded, reproducible from the instrument). TUNING's bench
+   found one in 200 of six pipes against two wolves; two benches, the same hold-the-line deadlock.
 
 ## 8. THE ROWS FOR TUNING'S ONE TABLE (all DRAFT, each with its source)
 | row | value | source |
@@ -262,6 +276,7 @@ won means more shots taken); this page's bench re-runs on the new fight in one c
 | ammo.box | 50 rounds, 10 batteries times the town's buy modifier | bb_all/1244; price_table.json conversion |
 | ammo.start_per_gun | [80, 60, 40] easy / default / hard | section 5c; bb_all/0002 (High 80, Medium 40, one shooter) |
 | ammo.refill_after_fight | true, from the pile | bb_all/0055, 1616, 1617 |
+| ammo.load_per_gunman | 12 (TUNING's, kept: the magazine the pile refills) | records/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.md |
 | ammo.body_search_rounds | 6 a fallen body | the settlement screen's own words; his 9/27 |
 | ammo.carry_cap | [500, 300, 300] (TUNING's, kept) with the collision in section 7.5 | stash_rates.json; TUNING 9/28 draft |
 | check.first_hour_purse_floor | lowest purse in the first hour over 0 in every cell (today 179.2 worst) | section 5b |

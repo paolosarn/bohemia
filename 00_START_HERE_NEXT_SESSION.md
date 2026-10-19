@@ -1892,6 +1892,9 @@ the stall's 'Six rounds' takes a battery and adds none (counts null); the body s
 ROUNDS is a dash forever (BohemiaLedger defined nowhere); three round units (five a battery, two a shot on the stash
 screen, six for one at the stall); the pistol is the dagger row; 13 of 15 origins field no gun; one first-job fight in
 300 never ends on AUTO; 60 a gun for twelve guns is over the 300 / 500 carry cap (into [the grid's money]).
+BESIDE TUNING's [the first kit is guns] (shipped the same hour): the same loss on its bench (3 v 3: pipes 87, today's
+guns 56); its draft guns win 86 and fire about 4 shots a gunman a routine fight, the same as today's rows here (3 to 5),
+so the 60 a gun holds; its 12-shot load is the magazine, the 60 the pile behind it.
 ROUTED: TUNING (section 8's nine rows; the dry-day 117 test; the careful-hand finding beside [the whole grid]; the cap),
 COMBAT ([guns from the first fight], [the fight says what is weak]: the tables 4a and 4b, the pile and the refill, the
 fight that never ends, the pistol; the instrument re-runs on the new fight in one command), RUN TWO (the stall, the body
