@@ -58,7 +58,10 @@ def record():
     one = json.load(open(os.path.join(ROOT, ONE_SKIN)))['people']
     tmp = os.path.join(ROOT, PROOF, '_read.json'); os.makedirs(os.path.dirname(tmp), exist_ok=True)
     tt = os.path.join(ROOT, PROOF, '_tones.json'); json.dump(dict((k, v['tone']) for k, v in one.items()), open(tt, 'w'))
-    subprocess.check_call(['node', os.path.join(ROOT, 'tools/bohemia_portrait_the_face_is_the_bodys_face.js'), tmp, '--bodies', os.path.join(ROOT, PROOF), '--tones', tt], cwd=ROOT)
+    # the proof bodies (PROOF, 10/19) are the BEFORE now: painted the hour before CHARACTER's fix landed, the body as the bake
+    # drew it (the player's porcelain) beside the same body in its own tone; PORTRAIT_PROOF=1 paints them again
+    proof = ['--bodies', os.path.join(ROOT, PROOF)] if os.environ.get('PORTRAIT_PROOF') == '1' else []
+    subprocess.check_call(['node', os.path.join(ROOT, 'tools/bohemia_portrait_the_face_is_the_bodys_face.js'), tmp, '--tones', tt] + proof, cwd=ROOT)
     rd = json.load(open(tmp)); os.remove(tmp); os.remove(tt)
     T = G.skin_tones(); R = G.ladder(T); H = G.hair_ramps()
     man = json.load(open(os.path.join(ROOT, 'slices/fight_people/fight_people.json')))
@@ -218,14 +221,15 @@ def reading(G, one, rec, look, RIG, RR):
             ok, why = G.hair_verdict(hr, tuple(e['hair']['lt'])); out.append(('its hair: %s' % why, ok))
         else: out.append(('its hair: under the hat', None))
     else: out.append(('the new face: not made yet', False))
-    out.append(('the body today: %s%s' % (e['body_today']['skin'], '' if e['body_today']['matches'] else ', BACK to CHARACTER'), e['body_today']['matches']))
-    out.append(('the old 64 face: %s' % e['face_64']['skin'], e['face_64']['matches']))
+    out.append(('the body now: %s%s' % (e['body_today']['skin'], '' if e['body_today']['matches'] else ', BACK to CHARACTER'), e['body_today']['matches']))
+    out.append(('the 64 face now: %s' % e['face_64']['skin'], e['face_64']['matches']))
     return out
 
 
 def sheet(out, looks=None):
-    """the VOTE sheet, one row per person: the body today | the body in its own skin (CHARACTER's change, shown) | the old
-    64 face | the starred face he saw | the starred face rebuilt (rest, talking, a mood) | the gate's reading"""
+    """the VOTE sheet, one row per person: the body before (the proof's 'today', the hour before CHARACTER's fix) | the body
+    now (the game's re-baked sheet) | its 64 face now | the starred face he saw | the starred face rebuilt (rest, talking, a
+    mood) | the gate's reading"""
     from PIL import Image, ImageDraw
     G = gate(); RIG = None
     one = json.load(open(os.path.join(ROOT, ONE_SKIN))); RIG, RR = G.rig_ladder(one)
@@ -236,10 +240,10 @@ def sheet(out, looks=None):
     RW, RH = 1420, 214
     S = Image.new('RGB', (RW, 104 + RH * len(looks) + 30), BG); d = ImageDraw.Draw(S)
     d.text((12, 8), "PORTRAIT: THE FACE IS THE BODY'S FACE (rule 120(d), your 'Black people looking like white people'). Every face beside its own body. A PLACEHOLDER.", fill=INK)
-    d.text((12, 24), "WHAT WAS WRONG: the game painted 25 of 26 bodies in YOUR skin (pale), and every face in its own. The faces I made came out one brown for everybody.", fill=DIM)
-    d.text((12, 38), "NOW: one skin per person (CHARACTER's file, Las Vegas's real mix). Every face here is painted that person's skin and their body's hair. The bodies get the same skin when CHARACTER re-bakes them.", fill=DIM)
+    d.text((12, 24), "WHAT WAS WRONG: the game painted 25 of 26 bodies in YOUR skin (pale), and every face in its own. The 3D faces I made came out one brown for everybody.", fill=DIM)
+    d.text((12, 38), "NOW: one skin per person (CHARACTER's file, Las Vegas's real mix). CHARACTER re-baked every body in it, and every face here is painted that same skin and the body's own hair.", fill=DIM)
     d.text((12, 52), "faces: head 128 px chin to crown, camera tilt 80, one pixel size, block 1 | skin: CHARACTER's rig albedo for the person (body and head the same) | hair: the body's own cut ramp | ONE light: the rig's sun, upper left", fill=DIM)
-    d.text((12, 72), 'columns: BODY TODAY (2x) | BODY IN ITS OWN SKIN (2x, coming) | OLD 64 FACE (2x) | THE FACE YOU SAW | THE NEW FACE (rest, talking, angry; 128, 1:1) | what the checker reads', fill=HEAD)
+    d.text((12, 72), 'columns: THE BODY BEFORE (2x, your skin on everybody) | THE BODY NOW (2x, its own skin) | THE 64 FACE NOW (2x) | THE 3D FACE YOU SAW | THE NEW 3D FACE (rest, talking, angry; 128, 1:1) | what the checker reads', fill=HEAD)
     y = 90
     for look in looks:
         e = rec['people'][look]; o = one['people'][look]
@@ -248,10 +252,11 @@ def sheet(out, looks=None):
         d.text((12, y), '%s  (%s)   %s skin, %s   hair: %s%s' % (name, look.replace('cast_', '').replace('faction_', 'the '), o['tone'], o.get('heritage', ''),
                                                               (h.get('cut') or 'your own').lower(), ', under the %s' % h['gear'].lower() if h.get('gear') else ''), fill=HEAD)
         y0 = y + 16; x = 12
-        for k in ('today', 'own_skin'):
-            f = os.path.join(ROOT, PROOF, '%s_%s.png' % (look, k))
-            if os.path.exists(f):
-                im = Image.open(f).convert('RGBA').crop((20, 0, 92, 88)).resize((144, 176), Image.NEAREST); S.paste(PANEL, (x, y0, x + 144, y0 + 176)); S.paste(im, (x, y0), im)
+        before = os.path.join(ROOT, PROOF, '%s_today.png' % look)   # the bake as it drew him before CHARACTER's fix
+        now = Image.open(os.path.join(ROOT, 'slices/fight_people', man['looks'][look]['file'])).convert('RGBA').crop((0, 0, 112, 112))   # the game's sheet now
+        for im in ([Image.open(before).convert('RGBA')] if os.path.exists(before) else [None]) + [now]:
+            if im is not None:
+                im = im.crop((20, 0, 92, 88)).resize((144, 176), Image.NEAREST); S.paste(PANEL, (x, y0, x + 144, y0 + 176)); S.paste(im, (x, y0), im)
             x += 150
         sh = Image.open(os.path.join(ROOT, 'slices/fight_people', man['looks'][look]['file'])).convert('RGBA')
         t2 = sh.crop(G.face_box(sh)).resize((128, 128), Image.NEAREST); S.paste(PANEL, (x, y0, x + 128, y0 + 128)); S.paste(t2, (x, y0), t2); x += 134

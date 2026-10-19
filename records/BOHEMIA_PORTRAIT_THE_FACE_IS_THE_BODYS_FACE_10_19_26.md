@@ -58,7 +58,7 @@ out, through each head's own MASK (the same head rendered once more with the ski
 green and blue are an albedo of one as this head is lit, so a hat's shade or a fringe is counted). Read back on the
 calibration head: (60, 45, 38) painted, (60, 45, 38) read; (200, 170, 150) painted, (200, 170, 150) read.
 
-ROUND RESULTS: see section 6 (filled in after the renders).
+ROUND RESULTS: section 6.
 
 ## 4. EYES' two hats (row [eyes: brims and visors])
 
@@ -82,15 +82,57 @@ gates/the_face_is_the_bodys_face_gate.py (registered as THE FACE IS THE BODYS FA
 4. It bites: a starred face repainted in the player's porcelain (lit the way each of its pixels is lit) is refused; a copy
    that drifts from CHARACTER's file is refused; a body sheet painted in its own tone passes.
 
-## 6. Results
+## 6. Results (10/19, after CHARACTER's re-bake 3318fe81 + ba103ee1 landed mid-round)
 
-(filled in after the renders)
+THE FACE IS THE BODYS FACE: 133 passed, 0 failed.
+* THE BODIES: 26 of 26 fight body sheets and 25 of 25 street sheets wear the person's own tone (before the re-bake: 1 of 26
+  and 0 of 25, all the player's porcelain); the 64 faces beside them 26 of 26 (before: 4 of 26).
+* THE STARRED FACES, all 13 crew (the paint read through each head's own mask, against CHARACTER's rig albedo):
+
+| look | who | tone | paint read | L* off |
+|---|---|---|---|---|
+| you | YOU | porcelain | (222, 179, 150) | -2.8 |
+| longcoat | Amaury Carrasco | tan | (157, 120, 95) | +0.5 |
+| barearms | Amos Ferris | fair | (208, 175, 145) | +1.6 |
+| pack | Otis Wexler | porcelain | (221, 178, 146) | -3.2 |
+| skirt | Tasha Hargrove | deep | (107, 71, 57) | +1.6 |
+| widebrim | Wendell Lund | pale | (205, 163, 137) | +2.9 |
+| cape | Cyrus Truong | olive | (208, 166, 127) | +2.0 |
+| apron | Wyatt Hatcher | fair | (198, 165, 136) | -2.0 |
+| poncho | Xiomara Delgado | bronze | (172, 121, 94) | +3.0 (reads tan, one rung) |
+| bedroll | Kai Galvan | olive | (212, 171, 133) | +3.8 (reads fair, one rung) |
+| shorts | Hoang Serrano | tan | (167, 130, 103) | +4.3 |
+| satchel | Javier Escobar | brown | (122, 91, 76) | +0.5 |
+| shortcoat | Corinne Emery | chalk | (249, 222, 179) | +0.6 |
+
+  Hair, 13 of 13 on the body's cut ramp (hue within 13 degrees, lightness within 1.52x); the three mutations bite.
+* CHARACTER's own gate (ONE SKIN, ONE PERSON) reads 8 of its 9 PORTRAIT debts healed; they are taken off its frozen
+  list as its S7 asks (15 passed, 0 failed). The widebrim stays on it: its cheek under the cone reads porcelain on that
+  gate's cheek ruler (one rung over pale), while its paint through its mask reads pale, L* +2.9. Two rulers, one rung.
+* EYES' star tool, run as it is with the new window handed in (its screen_square is a copy of the old one): 13 of 13 PASS.
+  The bedroll's pupils 55 and 42 levels under their surround (the star 29 and 28; before 3); its moods move the face
+  730/520/1389 px (the star 143/173/902; before 69/122/605). The widebrim's cone sits whole inside the crew screen's square.
+* STYLE GUIDE 115/0 (the 13 reds at wear 0.45 are gone: the crew is rendered at the guide's 0.6). NOT VIBE CODED 30/1, the
+  one red COOK FOUR's three settlement cards (D5), none of this card's sprites. THE ART FENCE 14/0. THE VOTE TAB 46/6, the
+  same six red on main without this card (DYNASTY's two whys, RUN TWO's full-size tap legs).
+* A NOTE ON EYES' [every face beside its body] (YOU's portrait '2 shades darker than his body'): the rig lights every
+  portrait at about a fifth of its paint (measured, section 3), so a rendered face read straight against a flat sprite
+  always reads darker, YOU's included, unchanged since the star. Read through the mask (this gate's `paint`) the YOU face
+  is porcelain, L* -2.8.
+
+THE VOTE CARD: portrait-the-face-is-the-bodys-face-10-19 (registered, first picture the longcoat row: the body before
+in the player's skin, the body now in tan, the 64 face now, the 3D face he saw, the new one). Sheet:
+records/target/portrait/PORTRAIT_THE_FACE_IS_THE_BODYS_FACE.png.
+
+NOT YET: the thirteen gangs' fresh faces (round 2 of [every face from the same model]; rendering, the same recipe, the
+same file); the enemy tiers' heads (COOK THREE's new tier bodies).
 
 ## ROUTED
-* CHARACTER [one skin, one person]: the one-line engine change (famPaintBody puts the person's tone on for the stroke and
-  takes it off after; the proof bodies show it), the 64 face in the same bake from the same tone, then the re-bakes
-  (COMBAT's tools/bohemia_fight_people_bake.js, ANIMATION's tools/bohemia_settlement_people_bake.js). The gate's body leg
-  goes green as they land. This gate can be CHARACTER's ONE SKIN, ONE PERSON: one ruler, legs added, never a second one.
+* CHARACTER [one skin, one person]: shipped the engine change and both re-bakes in the same hour (3318fe81, ba103ee1);
+  this gate's body legs went green on them. Its own gate ONE SKIN, ONE PERSON holds the engine paths; this one holds the
+  pictures (the paint through a mask, the hair, the street). The widebrim is its one PORTRAIT debt left (section 6).
+* EYES AND EARS: the star tool's screen_square copies the old hand-off window; import
+  tools/bohemia_portrait_the_head_from_the_model.py hand_off_window instead and the widebrim reads whole there too.
 * RUN TWO: nothing to wire. BohemiaCrewFaces reads the manifest at load; the thirteen gangs' faces join it this round, so
   the settlement street's speakers in a gang's colours wear their starred face the moment the files are live.
 * EYES AND EARS [every face beside its body]: the sheet is the measurement; the gate is the standing check.

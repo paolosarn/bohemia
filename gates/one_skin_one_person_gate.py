@@ -55,8 +55,8 @@ K_RIG = 0.56          # PORTRAIT's crew cheeks / their albedo, median of 13 (0.4
 K_HEADS = 0.45        # the two enemy heads' portrait camera (thug 0.455, poacher 0.445 of their albedo), measured 10/19
 SHARE = 0.95          # S4: of a sheet's ladder-coloured pixels, the share that must be the person's own tone
 # S7's frozen debt: PORTRAIT's faces that did not match their body the day the file landed (10/19). It may only shrink.
-PORTRAIT_DEBT = sorted(['cast_longcoat', 'cast_barearms', 'cast_pack', 'cast_skirt', 'cast_widebrim', 'cast_cape',
-                        'cast_apron', 'cast_bedroll', 'cast_shortcoat'])
+# (10/19, PORTRAIT [the face is the body's face]: eight healed by the rebuild on CHARACTER's rig steps, taken off as S7 asks)
+PORTRAIT_DEBT = sorted(['cast_widebrim'])
 
 P = F = 0
 

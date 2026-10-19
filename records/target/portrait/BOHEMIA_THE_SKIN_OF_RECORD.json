@@ -352,14 +352,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "tan",
     "px": 1224,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "onyx",
+    "skin": "tan",
     "px": 651,
-    "matches": false
+    "matches": true
    }
   },
   "cast_barearms": {
@@ -417,14 +417,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "fair",
     "px": 3252,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "onyx",
+    "skin": "fair",
     "px": 541,
-    "matches": false
+    "matches": true
    }
   },
   "cast_pack": {
@@ -487,9 +487,9 @@
     "matches": true
    },
    "face_64": {
-    "skin": "onyx",
+    "skin": "porcelain",
     "px": 524,
-    "matches": false
+    "matches": true
    }
   },
   "cast_skirt": {
@@ -547,14 +547,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "deep",
     "px": 1853,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "bronze",
+    "skin": "deep",
     "px": 691,
-    "matches": false
+    "matches": true
    }
   },
   "cast_widebrim": {
@@ -612,14 +612,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "pale",
     "px": 2061,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "deep",
+    "skin": "pale",
     "px": 600,
-    "matches": false
+    "matches": true
    }
   },
   "cast_cape": {
@@ -677,14 +677,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "olive",
     "px": 1432,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "fair",
+    "skin": "olive",
     "px": 773,
-    "matches": false
+    "matches": true
    }
   },
   "cast_apron": {
@@ -742,14 +742,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "fair",
     "px": 1382,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "olive",
+    "skin": "fair",
     "px": 632,
-    "matches": false
+    "matches": true
    }
   },
   "cast_poncho": {
@@ -807,14 +807,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "bronze",
     "px": 2849,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "olive",
+    "skin": "bronze",
     "px": 518,
-    "matches": false
+    "matches": true
    }
   },
   "cast_bedroll": {
@@ -872,14 +872,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "olive",
     "px": 2407,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "ebony",
+    "skin": "olive",
     "px": 683,
-    "matches": false
+    "matches": true
    }
   },
   "cast_shorts": {
@@ -937,9 +937,9 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "tan",
     "px": 2974,
-    "matches": false
+    "matches": true
    },
    "face_64": {
     "skin": "tan",
@@ -1002,14 +1002,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "brown",
     "px": 1101,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "onyx",
+    "skin": "brown",
     "px": 497,
-    "matches": false
+    "matches": true
    }
   },
   "cast_shortcoat": {
@@ -1067,14 +1067,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "chalk",
     "px": 978,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "ebony",
+    "skin": "chalk",
     "px": 780,
-    "matches": false
+    "matches": true
    }
   },
   "faction_caravans": {
@@ -1132,14 +1132,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "brown",
     "px": 842,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "ebony",
+    "skin": "brown",
     "px": 463,
-    "matches": false
+    "matches": true
    }
   },
   "faction_colorful": {
@@ -1197,14 +1197,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "bronze",
     "px": 896,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "olive",
+    "skin": "bronze",
     "px": 440,
-    "matches": false
+    "matches": true
    }
   },
   "faction_anarchists": {
@@ -1262,14 +1262,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "chalk",
     "px": 883,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "onyx",
+    "skin": "chalk",
     "px": 386,
-    "matches": false
+    "matches": true
    }
   },
   "faction_blues": {
@@ -1327,14 +1327,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "deep",
     "px": 1111,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "onyx",
+    "skin": "deep",
     "px": 452,
-    "matches": false
+    "matches": true
    }
   },
   "faction_homeless": {
@@ -1392,14 +1392,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "fair",
     "px": 1936,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "olive",
+    "skin": "fair",
     "px": 477,
-    "matches": false
+    "matches": true
    }
   },
   "faction_church": {
@@ -1462,9 +1462,9 @@
     "matches": true
    },
    "face_64": {
-    "skin": "fair",
+    "skin": "porcelain",
     "px": 470,
-    "matches": false
+    "matches": true
    }
   },
   "faction_reds": {
@@ -1522,14 +1522,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "olive",
     "px": 1226,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "deep",
+    "skin": "olive",
     "px": 630,
-    "matches": false
+    "matches": true
    }
   },
   "faction_cartel": {
@@ -1587,9 +1587,9 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "tan",
     "px": 1050,
-    "matches": false
+    "matches": true
    },
    "face_64": {
     "skin": "tan",
@@ -1652,9 +1652,9 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "brown",
     "px": 1020,
-    "matches": false
+    "matches": true
    },
    "face_64": {
     "skin": "brown",
@@ -1717,14 +1717,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "pale",
     "px": 1386,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "olive",
+    "skin": "pale",
     "px": 722,
-    "matches": false
+    "matches": true
    }
   },
   "faction_network": {
@@ -1782,14 +1782,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "fair",
     "px": 1153,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "brown",
+    "skin": "fair",
     "px": 577,
-    "matches": false
+    "matches": true
    }
   },
   "faction_volunteers": {
@@ -1847,14 +1847,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "bronze",
     "px": 1021,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "onyx",
+    "skin": "bronze",
     "px": 537,
-    "matches": false
+    "matches": true
    }
   },
   "faction_remnants": {
@@ -1912,14 +1912,14 @@
     ]
    },
    "body_today": {
-    "skin": "porcelain",
+    "skin": "fair",
     "px": 1024,
-    "matches": false
+    "matches": true
    },
    "face_64": {
-    "skin": "deep",
+    "skin": "fair",
     "px": 493,
-    "matches": false
+    "matches": true
    }
   }
  },
@@ -1939,8 +1939,8 @@
  },
  "measured": {
   "people": 26,
-  "bodies_in_their_own_skin": 3,
-  "faces_64_in_their_own_skin": 4,
+  "bodies_in_their_own_skin": 26,
+  "faces_64_in_their_own_skin": 26,
   "tones": {
    "deep": 2,
    "brown": 3,
@@ -1952,6 +1952,6 @@
    "porcelain": 3,
    "chalk": 2
   },
-  "bodies_wear": "porcelain"
+  "bodies_wear": "bronze; brown; chalk; deep; fair; olive; pale; porcelain; tan"
  }
 }

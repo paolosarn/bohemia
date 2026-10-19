@@ -11581,7 +11581,58 @@
    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
    "light": "guide"
   }
- }
+ },
+  {
+   "id": "portrait-the-face-is-the-bodys-face-10-19",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/19",
+   "title": "PLACEHOLDER: EVERY FACE NOW HAS ITS OWN BODY'S SKIN AND HAIR (YOUR 'BLACK PEOPLE LOOKING LIKE WHITE PEOPLE')",
+   "why": "The game painted 25 of 26 bodies in YOUR pale skin while each face had its own, and my 3D faces came out one brown for everybody; now all 13 crew faces are painted their own body's skin and hair (CHARACTER's one skin per person, Las Vegas's real mix). You see it here in the VOTE tab, each body before and now beside its old face, the face you saw and the new one talking; CHARACTER already re-baked every body in its own skin.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/portrait/PORTRAIT_THE_FACE_IS_THE_BODYS_FACE.png",
+    "first": "../records/target/vote_first/portrait-the-face-is-the-bodys-face-10-19.webp",
+    "firstAt": [0, 304, 720, 214]
+   },
+   "twin": {
+    "src": "slices/fight_people/cast_skirt.webp",
+    "diffs": [
+     "THE SKIN: the game's body sheet paints every cast and gang member in the player's own pale skin; ours paints each face the skin of the person it belongs to, the same value their body will wear.",
+     "THE HAIR: the game's 3D faces wore hair colours picked by eye; ours wear the colour the body's own haircut is drawn in (a black taper stays black, a brown shag stays brown).",
+     "THE CHECK: nothing measured a face against its body before; now a checker reads every face's skin and hair off the pixels and refuses one that is off its body's."
+    ]
+   },
+   "draft": true,
+   "placeholder": true,
+   "before_after": {
+    "before": "the body today, the old 64 px face and the 3D face you saw (columns 1, 3, 4)",
+    "after": "the same body in its own skin and the new 3D face, rest, talking and angry (columns 2, 5, 6, 7)",
+    "scale": "2x and 1:1"
+   },
+   "sprites": [
+    "records/target/portrait/rig/crew/you/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_longcoat/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_barearms/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_pack/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_skirt/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_widebrim/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_cape/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_apron/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_poncho/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_bedroll/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_shorts/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_satchel/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_shortcoat/rig_portrait_S.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   }
+  }
  ],
  "verdicts": [
   {
