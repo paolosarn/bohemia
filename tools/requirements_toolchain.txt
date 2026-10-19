@@ -1,0 +1,11 @@
+# THE TOOLCHAIN, AUDIO HALF (PLUMBER 10/19/26, VAMILY row [the toolchain])
+#
+# tools/bohemia_toolchain.py sound and SOUNDS' tools/bohemia_from_a_recording.py need these;
+# a fresh container has none of them. The session hook installs them (tools/bohemia_session_setup.sh);
+# by hand:  python3 -m pip install -r tools/requirements_toolchain.txt
+#
+# Pedalboard is GPL-3.0: a tool we run on our recordings, nothing of it ships in the game.
+scipy
+soundfile
+pedalboard
+pyroomacoustics

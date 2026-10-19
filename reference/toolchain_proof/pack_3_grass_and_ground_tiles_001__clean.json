@@ -1,0 +1,56 @@
+{
+ "made_by": "tools/bohemia_toolchain.py clean",
+ "row": "[the toolchain]",
+ "draft": true,
+ "input": {
+  "path": "reference/art_bank/ground/pack_3_grass_and_ground_tiles_001.png",
+  "sha1": "7e37111852b1"
+ },
+ "palette_lock": {
+  "piece": "reference/art_bank/ground/pack_7_burnt_ground_tiles_000.png",
+  "sha1": "69c1249bd018",
+  "colours": 256
+ },
+ "snap": "fallback (tools/bohemia_toolchain.py snap_fallback, nearest RGB, no dither)",
+ "off_palette_pixels": 0,
+ "opaque_pixels": 7755,
+ "joins": {
+  "ratio": 2.881,
+  "family": "ground",
+  "packs_band": 8.006,
+  "verdict": "JOINS"
+ },
+ "size": [
+  94,
+  96
+ ],
+ "family_cell": 96,
+ "at_or_over_the_cell": true,
+ "tells": {
+  "D1": true,
+  "D2": true,
+  "D3": true,
+  "D4": true,
+  "D5": false,
+  "D7": true,
+  "D8": false
+ },
+ "tells_why": {
+  "D5": "evenness 0.026 past the packs' 0.039; no_rest 0.885 past the packs' 0.834",
+  "D8": "banding 0.001 past the packs' 0"
+ },
+ "tells_of_the_input": {
+  "D1": true,
+  "D2": false,
+  "D3": true,
+  "D4": true,
+  "D5": false,
+  "D7": true,
+  "D8": true
+ },
+ "tells_the_snap_added": [
+  "D8"
+ ],
+ "sheet": "reference/toolchain_proof/pack_3_grass_and_ground_tiles_001__sheet.png",
+ "snapped": "reference/toolchain_proof/pack_3_grass_and_ground_tiles_001__snapped.png"
+}

@@ -1,0 +1,21 @@
+{
+ "_readme": "tools/bohemia_toolchain.py seam_bands: per tile family, his own pack tiles' join ratio (the opaque core laid against itself; 1 is a join as soft as the inside), the 90th percentile is the band. Rebuilt with: python3 tools/bohemia_toolchain.py bands",
+ "percentile": 90,
+ "families": {
+  "ground": {
+   "pieces": 250,
+   "p50": 3.091,
+   "band": 8.006
+  },
+  "road": {
+   "pieces": 217,
+   "p50": 3.723,
+   "band": 7.354
+  },
+  "marking": {
+   "pieces": 53,
+   "p50": 2.804,
+   "band": 7.399
+  }
+ }
+}

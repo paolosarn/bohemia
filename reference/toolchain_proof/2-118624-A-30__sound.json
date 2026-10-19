@@ -1,0 +1,32 @@
+{
+ "made_by": "tools/bohemia_toolchain.py sound",
+ "row": "[the toolchain]",
+ "draft": true,
+ "chain": "tools/bohemia_from_a_recording.py render_oneshot: window, high-pass 120 Hz, tape, low-pass 9 kHz, room, limiter",
+ "source": {
+  "stem": "2-118624-A-30",
+  "category": "Door knock",
+  "source": "Door Open and Close - Close Mic.wav",
+  "author": "E-Audio",
+  "url": "http://www.freesound.org/people/E-Audio/sounds/118624/",
+  "licence": "CC0"
+ },
+ "window": "last",
+ "window_s": [
+  4.87,
+  5.0
+ ],
+ "speed": 1.0,
+ "room": "small",
+ "wet": 0.3,
+ "tape": 1.0,
+ "peak_asked_db": -2.0,
+ "mp3_peak_db": -2.29,
+ "flac": "2-118624-A-30.flac",
+ "mp3": "2-118624-A-30.mp3",
+ "seconds": 0.489,
+ "peak_db": -2.0,
+ "rms_db": -18.52,
+ "first_1ms_db": -54.3,
+ "last_1ms_db": -152.9
+}
