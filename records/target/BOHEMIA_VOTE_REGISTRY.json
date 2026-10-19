@@ -11817,6 +11817,44 @@
     "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
     "light": "top"
    }
+  },
+  {
+   "id": "cook4-the-motel-sign-tower-10-19",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "822ff500",
+   "made": "10/19",
+   "title": "PLACEHOLDER: THE STRIP'S MOTEL SIGN TOWER, OF YOUR STEEL",
+   "why": "The last of the Strip's four: a tall motel sign of your steel, two legs, a blank blade, a blank box for VACANCY and an arrow on top, nothing lit, standing at the end of the motel you saw, and one wrong thing: the arrow points away from the motel, out at the desert. You see it in the VOTE tab at the motel's road end and alone with the man at its foot, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_MOTEL_SIGN_TOWER.webp",
+    "first": "../records/target/vote_first/cook4-the-motel-sign-tower-10-19.webp",
+    "firstAt": [44, 230, 2129, 628]
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "WHAT IT IS: his pack house is a building; this is the family's first thing that is not one: a 10 m pylon of his framed steel and steel plate at the body's 57 px a metre, taller than the two-storey motel it names.",
+     "SURFACE: his house is plaster and roof tiles; the sign is his steel plate laid as a blade, a box and an arrow (its point cut from his plate by a mask), rimmed with his panel's own rim, every face blank: the packs hold no lettering.",
+     "LIGHT AND THE WRONG THING: as his, from above, one sun upper left, nothing glowing (no bulb, no neon); the arrow points away from the motel, out at the desert."
+    ]
+   },
+   "before_after": {
+    "before": "the motel of round 7 with no sign at its road end",
+    "after": "the motel pylon at its road end: legs, blade, VACANCY box, the arrow pointing away",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_pipe/cook4/strip/COOK4_THE_MOTEL_SIGN_TOWER.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
   }
  ],
  "verdicts": [
