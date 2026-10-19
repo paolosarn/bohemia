@@ -14,7 +14,7 @@
 //
 //   node tools/bohemia_economy_first_bullets.js            prints the table
 //   node tools/bohemia_economy_first_bullets.js --write    also writes banks/BOHEMIA_ECONOMY_FIRST_BULLETS_10_19_26.json
-//   --n 300  fights per cell (default 300)
+//   --n 300  fights per cell (default 300); --jobs 4  worker processes
 // Seeded: cell (scenario, kit, hand) fight k plays seed 7800 + 100*scenario + k, so every kit and hand meets the same seeds.
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
@@ -85,7 +85,7 @@ function cell(c, n) {
   const ctx = engine(), F = ctx.FIGHT, DB = ctx.DB;
   const sc = SCENARIOS.find(s => s.id === c.sc), kit = KITS[c.kit], base = OURS.crew.value;
   const wrow = id => DB.weapons.rows.filter(r => r.id === id)[0];
-  const T = { fights: 0, won: 0, rounds: 0, beats: 0, shots: 0, hits: 0, gunAtt: 0, points: 0, enemies: 0, downed: 0, held: 0, perFight: [], wonShots: 0, down: 0, dead: 0 };
+  const T = { fights: 0, won: 0, rounds: 0, beats: 0, shots: 0, hits: 0, gunAtt: 0, points: 0, enemies: 0, downed: 0, held: 0, perFight: [], roundsList: [], wonShots: 0, down: 0, dead: 0, unfinished: 0 };
   let shotsThis = 0, pointsThis = 0;
   ctx.HOOK = {
     shot: function (a) {
@@ -113,7 +113,8 @@ function cell(c, n) {
     while (!F.S.over && g < 40000) { const u = F.current(); if (!u) break; F.aiStep(u); g++; }
     const S = F.S, ids = new Set(S.units.filter(u => u.side === 'you').map(u => u.id));
     const guns = new Set(S.units.filter(u => u.side === 'you' && F.isRanged(u.weapon)).map(u => u.id));
-    T.fights++; T.enemies += S.units.length - ids.size; T.rounds += S.round;
+    T.fights++; T.enemies += S.units.length - ids.size; T.rounds += S.round; T.roundsList.push(S.round);
+    if (!S.over) T.unfinished++;
     if (S.result === 'won') { T.won++; T.wonShots += shotsThis; }
     T.shots += shotsThis; T.points += pointsThis; T.perFight.push(shotsThis);
     let acted = false, open = false;
@@ -132,7 +133,8 @@ function cell(c, n) {
 function felt(T) {
   const f = T.fights, r1 = x => Math.round(x * 10) / 10, r2 = x => Math.round(x * 100) / 100, pct = x => Math.round(100 * x);
   const s = T.perFight.slice().sort((a, b) => a - b), p90 = s[Math.min(s.length - 1, Math.floor(0.9 * s.length))];
-  return { fights: f, won_in_100: pct(T.won / f), rounds_of_the_fight: r1(T.rounds / f), minutes_on_auto: r1(T.beats / f / 120),
+  const rs = T.roundsList.slice().sort((a, b) => a - b);
+  return { fights: f, won_in_100: pct(T.won / f), unfinished: T.unfinished, rounds_median: rs[Math.floor(rs.length / 2)], rounds_of_the_fight: r1(T.rounds / f), minutes_on_auto: r1(T.beats / f / 120),
     enemies: r1(T.enemies / f), shots_per_fight: r1(T.shots / f), shots_p90: p90, shots_per_won_fight: r1(T.wonShots / Math.max(1, T.won)),
     bb_points_per_fight: r1(T.points / f), shots_per_enemy_out: r2(T.shots / Math.max(1, T.downed)), gun_hits_in_100: T.gunAtt ? pct(T.hits / T.gunAtt) : null,
     your_men_down_per_fight: r2(T.down / f), your_men_dead_per_100: r1(100 * T.dead / f) };
@@ -144,12 +146,25 @@ if (process.argv[2] === '--cell') {
   process.exit(0);
 }
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? Number(process.argv[i + 1]) : d; };
-const N = arg('--n', 300), t0 = Date.now(), table = {};
-CELLS.forEach(c => { table[c.sc + '|' + c.kit + '|' + c.hand] = felt(cell(c, N)); process.stderr.write('.'); });
+const N = arg('--n', 300), JOBS = arg('--jobs', 4), t0 = Date.now(), table = {};
+let next = 0, running = 0;
+function pump(done) {
+  while (running < JOBS && next < CELLS.length) {
+    const c = CELLS[next++]; running++;
+    require('child_process').execFile(process.execPath, [__filename, '--cell', c.sc, c.kit, c.hand, String(N)], { maxBuffer: 1 << 24 }, (err, out) => {
+      running--;
+      if (err) { console.error('cell failed', c, err.message); process.exit(1); }
+      table[c.sc + '|' + c.kit + '|' + c.hand] = JSON.parse(out); process.stderr.write('.');
+      if (next >= CELLS.length && running === 0) done(); else pump(done);
+    });
+  }
+}
+pump(finish);
+function finish() {
 process.stderr.write('\n');
-const cols = ['won_in_100', 'rounds_of_the_fight', 'enemies', 'shots_per_fight', 'shots_p90', 'bb_points_per_fight', 'shots_per_enemy_out', 'gun_hits_in_100', 'your_men_down_per_fight', 'your_men_dead_per_100'];
+const cols = ['won_in_100', 'unfinished', 'rounds_median', 'shots_per_fight', 'shots_p90', 'bb_points_per_fight', 'shots_per_enemy_out', 'gun_hits_in_100', 'your_men_down_per_fight', 'your_men_dead_per_100'];
 console.log('cell'.padEnd(26) + cols.map(c => c.split('_').map(w => w[0]).join('').padStart(7)).join(''));
-Object.keys(table).forEach(k => console.log(k.padEnd(26) + cols.map(c => String(table[k][c]).padStart(7)).join('')));
+CELLS.forEach(c => { const k = c.sc + '|' + c.kit + '|' + c.hand; console.log(k.padEnd(26) + cols.map(x => String(table[k][x]).padStart(7)).join('')); });
 console.log(CELLS.length + ' cells x ' + N + ' fights in ' + Math.round((Date.now() - t0) / 1000) + ' s');
 if (process.argv.includes('--write')) {
   fs.writeFileSync(OUT, JSON.stringify({
@@ -158,7 +173,9 @@ if (process.argv.includes('--write')) {
       + 'both sides on AUTO, guns handed through the roster\'s gear, every shot of yours counted. careful = a shooter of yours holds a shot under '
       + CAREFUL + ' in 100. Page: records/BOHEMIA_ECONOMY_DAY_78_THE_FIRST_BULLETS_10_19_26.md',
     draft: true, schema: 1, fights_per_cell: N, careful_holds_under: CAREFUL, bb_points_per_shot: POINTS,
-    kits: KITS, scenarios: SCENARIOS.map(s => Object.assign({ enemies_by_party_math: jobCount(s.men, 1, s.skulls, 1) }, s)), felt: table
+    kits: KITS, scenarios: SCENARIOS.map(s => Object.assign({ enemies_by_party_math: jobCount(s.men, 1, s.skulls, 1) }, s)),
+    felt: CELLS.reduce((o, c) => { const k = c.sc + '|' + c.kit + '|' + c.hand; o[k] = table[k]; return o; }, {})
   }, null, 1) + '\n');
   console.log('wrote ' + path.relative(ROOT, OUT));
+}
 }
