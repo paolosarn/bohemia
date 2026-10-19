@@ -2,7 +2,7 @@
  "_about": "THE HOME BASES AND THE ROAMING PARTIES SCALED TO THE REGION (FACTIONS lane, the 10/16 big swing, rules 109d and 110; Paolo 10/16: 'our map has to be as big as fucking Battle Brothers... I'm choosing Battle Brothers'). RUN's slices/bohemia_region.js made the map a 496 by 496 region around the 96 by 96 valley with twelve real places on it; this file says WHO HOLDS each of the twelve, what each SENDS, and where the region's HOSTILE LOCATIONS are (Battle Brothers' camps, crypts and lairs in the wild), in the exact shape the parties module already takes (a seat: faction, tier, kind, x, y, power), so RUN hands these rows to BohemiaParties.all beside the valley's fourteen seats and the region fills with parties the way the valley did. Every rule is Battle Brothers' and quotes its wiki page; every number that is ours is marked ours and draft and named for TUNING's table. A marker built from this file is ids, classes and numbers, never a sentence (rule 37e). Nothing here is drawn, saved or wired: RUN reads it.",
  "frame": {
   "source": "slices/bohemia_region.js TOWNS and placeTowns",
-  "how": "east and north are blocks past the city's middle, RUN's own frame (x = mid + east, y = mid - north; north is y = 0). RUN's placer pulls a position onto its road when one runs within twelve blocks, else the nearest open ground, never inside the city's box. The twelve places repeat RUN's bearings exactly and the gate refuses a drift between the two files.",
+  "how": "east and north are blocks past the city's middle (x = 48 + east, y = 48 - north; north is y = 0; east is real east). TWO KINDS OF ROW. The twelve places repeat RUN's round-one TOWNS bearings exactly (the fallback RUN draws when WORLD's land does not load) and the gate refuses a drift between the two files; when the land loads RUN draws WORLD's places instead, and each of the twelve names the WORLD place it is (world_place). The wild and settled rows stand on WORLD's land at their real coordinates (rules.a_camp_stands_where_its_real_thing_is). On a seed whose compass mirrors east (e is x0) a row's x is 47 - east, the land's own N - 1 - x (engine/bohemia_region_land.js realX); Math.round(47.5 - east) lands one block off.",
   "city_half": 48,
   "region_half": 248,
   "placer_margin": 8
@@ -256,7 +256,14 @@
   "a_seat_stands_on_real_land": {
    "source": "engine/BOHEMIA_REGION_LAND.json places (WORLD [the region], 10/18) read through engine/bohemia_region_land.js at()",
    "ours": false,
-   "note": "FACTIONS [four seated] 10/18: each of the four new seats is one of WORLD's real places, at its block or the nearest block of its own ground, and the gate reads the ground off WORLD's land; the eight older wild rows were bearings in RUN's round-one frame from before WORLD's land existed and are measured, not yet moved (gaps)"
+   "note": "FACTIONS [four seated] 10/18 seated the four new rows on WORLD's places; FACTIONS [real camps] 10/19 moved the eight older wild rows off RUN's round-one bearings (16 to 68 blocks from the real place each named) onto WORLD's land, and every wild and settled row now carries the real thing's own latitude and longitude (rules.a_camp_stands_where_its_real_thing_is)"
+  },
+  "a_camp_stands_where_its_real_thing_is": {
+   "value": "the real thing's latitude and longitude through WORLD's own projection, then a block within one",
+   "source": "tools/bohemia_world_region.py cell_of (WORLD [the region]: one projection, 384 m a block, origin at the valley's middle) and slices/bohemia_region.js R.placeAt (RUN: a party within one block of a place is at it)",
+   "wiki": "school.camps_in_the_wild",
+   "ours": true,
+   "note": "FACTIONS [real camps] 10/19. A wild or settled row carries lat, lon and where they came from (latlon_from: a WORLD place's own coordinates, or a cited page for a real thing WORLD does not list: the Lost City's pueblo five miles south-east of Overton, Jean Dry Lake three miles east of the 15). It stands within one block of that point projected the way WORLD projects its own places, on a block a party can stand on, outside the valley. A WILD camp never stands on a town's own block (WORLD role base): Battle Brothers' enemy locations spawn in the wild, never inside a settlement; it may stand on a fight place's block, because that place IS the location. A SETTLED location stands on its place's own block: it is the settlement. OWN GROUND FIRST: when any allowed block within one carries the faction's own ground (factions.json), the row stands on it; when none does, the row stands where the real thing is and says why (ground_why). world_place is the nearest WORLD place, measured, so the map can name what a camp is beside. The gate projects every WORLD place the same way first: all thirty-four land within two blocks of where WORLD drew them (WORLD snaps a place to its road)."
   }
  },
  "region_places": [
@@ -265,6 +272,8 @@
    "name": "HENDERSON",
    "east": 62,
    "north": -78,
+   "world_place": null,
+   "world_note": "in_valley",
    "tier": "town",
    "kind": "industrial",
    "holder": "Trades",
@@ -280,6 +289,7 @@
    "name": "BOULDER CITY",
    "east": 122,
    "north": -128,
+   "world_place": "BOULDER CITY",
    "tier": "town",
    "kind": "chapel",
    "holder": "Church",
@@ -295,6 +305,7 @@
    "name": "HOOVER DAM",
    "east": 178,
    "north": -112,
+   "world_place": "HOOVER DAM",
    "tier": "fortress",
    "kind": "substation",
    "holder": "Network",
@@ -310,6 +321,8 @@
    "name": "LAKE MEAD MARINA",
    "east": 150,
    "north": -30,
+   "world_place": "BOULDER BEACH",
+   "world_why": "WORLD's land has no place by this name; Lake Mead Marina floated at Boulder Beach and moved to Hemenway Harbor beside it, and WORLD's BOULDER BEACH is 'the marina, the beach, the boats the lake left on the mud'",
    "tier": "camp",
    "kind": "pumpstation",
    "holder": "Anarchists",
@@ -324,6 +337,7 @@
    "name": "JEAN",
    "east": -14,
    "north": -150,
+   "world_place": "JEAN",
    "tier": "camp",
    "kind": "prison",
    "holder": "Cartel",
@@ -339,6 +353,7 @@
    "name": "PRIMM",
    "east": -30,
    "north": -215,
+   "world_place": "PRIMM",
    "tier": "town",
    "kind": "warehouse",
    "holder": "Caravans",
@@ -354,6 +369,7 @@
    "name": "SEARCHLIGHT",
    "east": 64,
    "north": -228,
+   "world_place": "SEARCHLIGHT",
    "tier": "camp",
    "kind": "mine",
    "holder": "Reds",
@@ -369,6 +385,7 @@
    "name": "INDIAN SPRINGS",
    "east": -150,
    "north": 150,
+   "world_place": "INDIAN SPRINGS",
    "tier": "fortress",
    "kind": "policestation",
    "holder": "Remnants",
@@ -384,6 +401,7 @@
    "name": "MT CHARLESTON LODGE",
    "east": -130,
    "north": 70,
+   "world_place": "MT CHARLESTON LODGE",
    "tier": "camp",
    "kind": "park",
    "holder": "Blues",
@@ -398,6 +416,7 @@
    "name": "PAHRUMP",
    "east": -222,
    "north": 10,
+   "world_place": "PAHRUMP",
    "tier": "town",
    "kind": "resort",
    "holder": "Mob",
@@ -413,6 +432,7 @@
    "name": "MOAPA",
    "east": 118,
    "north": 170,
+   "world_place": "MOAPA",
    "tier": "camp",
    "kind": "medical",
    "holder": "Volunteers",
@@ -428,6 +448,8 @@
    "name": "MESQUITE",
    "east": 212,
    "north": 218,
+   "world_place": null,
+   "world_note": "beyond",
    "tier": "town",
    "kind": "warehouse",
    "holder": "Caravans",
@@ -504,7 +526,7 @@
     "landfill"
    ],
    "real": "Apex: the regional landfill north of the city on I-15, the largest in the country by area",
-   "why": "factions.json: the dead hold ruin and landfill; the keeper walks what the dump left unfinished. The one wild location past the far line (71 blocks from the nearest town by the gate's measure): it fields the late mix from day one (rules.far_from_civilization_fields_the_late_mix)"
+   "why": "factions.json: the dead hold ruin and landfill; the keeper walks what the dump left unfinished, on the landfill's own ground. Its band (early or late) is the gate's measure, never typed: on the real land it sits beside the house's depot and fields the early mix first (rules.far_from_civilization_fields_the_late_mix)"
   },
   {
    "id": "nelson_dead",
@@ -527,7 +549,7 @@
    ],
    "ground_why": "the dead's own ground is ruin and landfill (factions.json) and WORLD's fifteen kinds carry no ruin: Nelson's ghost camp is painted as the trailer park it became, and no landfill lies within a block of it, so the dead keep the old camp's own block beside the town, the mine's side of Eldorado Canyon",
    "real": "Nelson: the ghost town in Eldorado Canyon and the Techatticup mine, the bloodiest mine in Nevada's history",
-   "why": "a ghost town's dead; by the map's own measure it is 46 blocks from Searchlight and Boulder City, inside the far line, so it fields the early mix first (the gate computes the band, I had guessed it far and was wrong)"
+   "why": "a ghost town's dead at the bloodiest mine on the river. Its band is the gate's measure, never typed: on the real land nobody holds Nelson yet and the nearest held town is Searchlight, past far_blocks, so it fields the late mix from the first day until [every town held] seats a holder beside it"
   },
   {
    "id": "lost_city_crypt",
@@ -741,16 +763,17 @@
   "the greenskins' orcs (the heavy) have no Bohemia skin; the beasts law's gate owes the roster count",
   "the City States (the Holy War's other side) are not in the canon graph; since FACTIONS [four seated] 10/18 their skin, the eye in the sky, holds one settled location (Lake Las Vegas) and the valley's casino floor; no southern city holds region ground (Laughlin, the river casino town, is past the region's south rim in WORLD's land, engine/BOHEMIA_REGION_LAND.json beyond)",
   "Colorful, Homeless and Custom hold no region place: their notes say community-based not territorial, the sewer HQ under the city, and the player",
-  "the positions are bearings in RUN's frame; RUN's placer pulls each onto its road or open ground at boot, so the drawn marker can sit up to 24 blocks from the bearing",
+  "the twelve places' east and north are RUN's round-one bearings, the fallback RUN draws only when WORLD's land does not load; RUN's placer pulls each onto its road or open ground, so the drawn marker can sit up to 24 blocks from the bearing. MEASURED 10/19 by FACTIONS [real camps]: the bearings sit 14 to 85 blocks from WORLD's place of the same name (Boulder City 85, Hoover Dam 79, Primm 64, Jean 48), so on the real land a holder follows its place BY NAME (world_place), never by bearing",
   "what a region party is WORTH in a fight is COMBAT's enemy_tiers by tier (rule 75b); this file names units only for the wild locations whose faction is Battle Brothers'",
-  "THE EIGHT OLDER WILD ROWS ARE NOT ON WORLD'S REAL LAND (measured 10/18 by FACTIONS [four seated], the REGION BASES gate prints it every run): they were bearings in RUN's round-one frame, laid before WORLD's land (engine/BOHEMIA_REGION_LAND.json, 384 m a block) existed, so each sits 16 to 68 blocks from the real place it names (Nelson 68, Railroad Pass 56, Jean Dry Lake 48, Sloan and Gypsum Cave 40, Apex and the Lost City 32, Tule Springs 16) and seven of the eight stand on ground their own faction does not hold (the Gypsum Cave lair is in the lake's district, the nomads of Jean Dry Lake on the McCullough Range); the twelve places mirror RUN's TOWNS, which give way to WORLD's places when the land loads. The next row re-aims them (FACTIONS [real camps])",
-  "the block watch and the flock have no seat of their own, on purpose (no_seat): Battle Brothers' militia are the settlement's own people and its cultists are met only in events"
+  "the block watch and the flock have no seat of their own, on purpose (no_seat): Battle Brothers' militia are the settlement's own people and its cultists are met only in events",
+  "WORLD'S LAND DRAWS THIRTY-THREE PLACES and this file names a holder or a seat for twenty-one of them (measured 10/19 by FACTIONS [real camps], the gate prints the list every run): ten of WORLD's twenty-one towns (role base) have no holder (Railroad Pass, Nelson, Sloan, Goodsprings, Sandy Valley, Blue Diamond, Corn Creek, Echo Bay, Glendale, Overton), and Battle Brothers since 1.1 has no settlement without a house (school.every_settlement_has_a_house); the next row holds them (FACTIONS [every town held])",
+  "tiers: RUN's TOWNS call INDIAN SPRINGS a fortress and WORLD's land calls it a town (the drone base beside it, CREECH, is WORLD's fortress); this file keeps RUN's tier (the drift check) and the gate prints every tier the two files disagree on"
  ],
  "routed": {
-  "RUN": "build seat rows from region_places and hostile_locations (faction = holder or faction, tier, kind, x = mid + east, y = mid - north, power = the holder's act power or the location's tier rank) and pass them to BohemiaParties.all beside the valley's seats; hand the same rows to BohemiaHomebases WITH base: the row's id (the ledger keys a region place by its id and seeds its holder from this file itself, FACTIONS [region in the ledger] 10/18; a page that runs the ledger fetches this file and calls BohemiaHomeBases.setRegion(json) once, node reads it on its own) so a fallen location sends nobody; the marker wears its holder's banner (school.the_flag_says_who); a crew that reaches a region place leaves it Raided (bohemia_arrivaltraits); FACTIONS [four seated] 10/18: hand settled_locations in beside hostile_locations (same row shape, wild:false), take BohemiaWants.all for the parties so the block watch turns out where crews go (turnOut), and disband a watch when the crew that gathered it is gone",
-  "WORLD [the region]": "the ground kinds under each row (the fifteen terrains) and the places' own districts",
+  "RUN": "build seat rows from region_places and hostile_locations (faction = holder or faction, tier, kind, x = mid + east, y = mid - north, power = the holder's act power or the location's tier rank) and pass them to BohemiaParties.all beside the valley's seats; hand the same rows to BohemiaHomebases WITH base: the row's id (the ledger keys a region place by its id and seeds its holder from this file itself, FACTIONS [region in the ledger] 10/18; a page that runs the ledger fetches this file and calls BohemiaHomeBases.setRegion(json) once, node reads it on its own) so a fallen location sends nobody; the marker wears its holder's banner (school.the_flag_says_who); a crew that reaches a region place leaves it Raided (bohemia_arrivaltraits); FACTIONS [four seated] 10/18: hand settled_locations in beside hostile_locations (same row shape, wild:false), take BohemiaWants.all for the parties so the block watch turns out where crews go (turnOut), and disband a watch when the crew that gathered it is gone FACTIONS [real camps] 10/19: every wild and settled row now stands on WORLD's land at its real thing's coordinates, x = 48 + east in the real orientation; on a seed whose compass mirrors east, x = 47 - east (the land's own realX, N - 1 - x), never Math.round(47.5 - east), which puts the Sloan crew and the keepers on other ground; when WORLD's land loads, a WORLD place's holder is the region place whose world_place names it (ten of the twelve; Henderson is the valley's own, Mesquite is past the rim)",
+  "WORLD [the region]": "the ground kinds under each row (the fifteen terrains) and the places' own districts; FACTIONS [real camps] 10/19: INDIAN SPRINGS is a fortress in RUN's TOWNS and a town on WORLD's land (CREECH is the fortress), one of the two files is wrong; no other tier disagrees",
   "COOK FOUR": "a picture per region place and per wild location kind (hideout, ruin, crypt, den, nomad camp); the three new seats (the keepers' camp at the springs, the runners' lot in the red rock, the eye's gated lake)",
-  "TUNING": "far_blocks 60, raids_home 3, spread_blocks 24, one rival company at a time; one head-taker party at a time (ours, draft); the keepers (65.5 blocks out) and the runners (84) are past far_blocks 60 and field their LATE make-ups from the first day by this file's own rule: rule 117 (easier than Battle Brothers) says TUNING decides whether that stands",
+  "TUNING": "far_blocks 60, raids_home 3, spread_blocks 24, one rival company at a time; one head-taker party at a time (ours, draft). MEASURED ON THE REAL LAND 10/19 (FACTIONS [real camps], the gate prints it every run): three wild rows are past far_blocks 60 and field their LATE make-ups from the first day by this file's own rule, the dead at Nelson (69 blocks from the nearest held town; Nelson itself is nobody's yet), the keepers at Corn Creek (65) and the runners at Valley of Fire (73); the dump at Apex, 'far' on round one's bearing, is 6 from the house's depot and early. Rule 117 (easier than Battle Brothers) says TUNING decides whether a late make-up on the first day stands",
   "EYES [the map's four numbers]": "settlements 26 beside 17; parties at once 59 beside 'no published count'",
   "COMBAT": "the Unhold's rule for the sloth, the ancient dead and the nomads' real mixes; how many men a block watch turns out with (Battle Brothers: a rich town fields more)"
  },

@@ -165,7 +165,10 @@ ok('the far threshold is ours, draft, named for TUNING, with its wiki line', FAR
 const bands = wild.map(w => ({ id: w.id, d: nearest(w), band: nearest(w) > FAR.far_blocks ? 'late' : 'early' }));
 console.log('  bands: ' + bands.map(b => b.id + ' ' + b.d + ' ' + b.band).join(', '));
 ok('some wild locations are near the towns and some are far (both bands exist on the real map)', bands.some(b => b.band === 'early') && bands.some(b => b.band === 'late'));
-ok('the dump at Apex is far and the quarry crew at Sloan is near (measured, not guessed: Nelson sits 46 blocks from two towns)', (bands.find(b => b.id === 'apex_dead') || {}).band === 'late' && (bands.find(b => b.id === 'sloan_quarry_crew') || {}).band === 'early');
+/* FACTIONS [real camps] 10/19: the dump at Apex was 'far' only because its bearing sat 32 blocks off the landfill; on the
+   real landfill it is near, and the Lost City's pueblo, five miles past Overton, is the far one. Section 5 measures the
+   bands again against the towns WORLD's land really draws. */
+ok('the crypt at the Lost City is far and the quarry crew at Sloan is near (measured on the fallback frame, not guessed)', (bands.find(b => b.id === 'lost_city_crypt') || {}).band === 'late' && (bands.find(b => b.id === 'sloan_quarry_crew') || {}).band === 'early');
 /* every number that is ours says so */
 for (const k of Object.keys(D.rules)) {
   const r = D.rules[k];
@@ -238,9 +241,9 @@ function fourSeated(d) {
   ok('THE FOUR SEATED hold on the real file and WORLD\'s real land', real.length === 0, real.join('; '));
   for (const w of wild.concat(settled)) {
     const x = Math.round(mid + w.east), y = Math.round(mid - w.north), a = RL.at(x, y, REAL), wp = WPL.find(p => p.name === w.world_place);
-    console.log('  on WORLD\'s land: ' + w.id + ' (' + x + ',' + y + ') ' + (a ? a.kind : '?') + (wp ? ', ' + Math.max(Math.abs(wp.x - x), Math.abs(wp.y - y)) + ' from ' + wp.name : ', no world_place yet (gaps: [real camps])'));
+    console.log('  on WORLD\'s land: ' + w.id + ' (' + x + ',' + y + ') ' + (a ? a.kind : '?') + (wp ? ', ' + Math.max(Math.abs(wp.x - x), Math.abs(wp.y - y)) + ' from ' + wp.name : ', no world_place'));
   }
-  ok('the eight older wild rows are named as off WORLD\'s land in the gaps, not hidden', D.gaps.some(g => /NOT ON WORLD'S REAL LAND/.test(g) && /real camps/.test(g)));
+  ok('no gap still says a wild row is off WORLD\'s land (FACTIONS [real camps] moved the eight; section 5 holds them there)', !D.gaps.some(g => /NOT ON WORLD'S REAL LAND/.test(g)));
   /* the planted mistakes: each must turn the check red by its own name */
   const plant = (name, fn) => { const c = JSON.parse(JSON.stringify(D)); fn(c); const b = fourSeated(c); ok('planted ' + name + ' turns it red by name', b.some(x => x.indexOf(name) === 0), b.join('; ') || 'nothing'); };
   const row = (c, id) => (c.hostile_locations || []).concat(c.settled_locations || []).find(w => w.id === id);
@@ -286,6 +289,131 @@ function fourSeated(d) {
     now.filter(p => !p.turned_out).length - was.filter(p => !p.turned_out).length === wild.concat(settled).filter(w => MOVERS.indexOf(w.faction) >= 0).reduce((s, w) => s + reach(w.tier), 0));
   ok('the factions holding region rows are recounted: ' + (D.the_numbers.factions_on_the_region || {}).before + ' before, ' + (D.the_numbers.factions_on_the_region || {}).ours + ' now',
     new Set(noFour.hostile_locations.map(w => w.faction).filter(f => !!fjById[f])).size === (D.the_numbers.factions_on_the_region || {}).before);
+}
+
+/* ---- 5. THE REAL CAMPS (FACTIONS [real camps] 10/19, rule 109, WORLD [the region]): the eight older wild rows were
+   bearings in RUN's round-one frame, 16 to 68 blocks from the real place each named, seven of eight on ground their own
+   faction does not hold. Now every wild and settled row carries the real thing's own latitude and longitude, and stands
+   within one block of it projected the way WORLD projects its own places. The projection is read, never typed: the
+   origin and the metres a block off WORLD's land file, the kilometres a degree off WORLD's own tool, and proved on all
+   of WORLD's places before a single row is judged by it. ---- */
+const LJ = RL.json;
+const KM_LAT = (() => { const t = fs.readFileSync(path.join(ROOT, 'tools/bohemia_world_region.py'), 'utf8').match(/^KM_PER_DEG_LAT = ([\d.]+)/m); return t ? +t[1] : null; })();
+ok('the kilometres a degree are read off WORLD\'s own tool', typeof KM_LAT === 'number' && KM_LAT > 100, KM_LAT);
+const KM_LON = KM_LAT * Math.cos(LJ.origin.lat * Math.PI / 180);
+const project = (lat, lon) => ({ x: LJ.origin.cell[0] + (lon - LJ.origin.lon) * KM_LON * 1000 / LJ.metresPerCell,
+                                 y: LJ.origin.cell[1] - (lat - LJ.origin.lat) * KM_LAT * 1000 / LJ.metresPerCell });
+const cheb = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+const cellOf = (lat, lon) => { const c = project(lat, lon); return { x: Math.round(c.x), y: Math.round(c.y) }; };
+{
+  const dev = WPL.map(p => ({ n: p.name, d: cheb(cellOf(p.lat, p.lon), p) }));
+  const worst = Math.max.apply(null, dev.map(v => v.d));
+  ok('the projection is WORLD\'s: every one of its ' + WPL.length + ' places projects within two blocks of where WORLD drew it (WORLD snaps a place to its road)', WPL.length >= 30 && worst <= 2, dev.filter(v => v.d > 2).map(v => v.n + ' ' + v.d).join());
+  console.log('  the projection on WORLD\'s own places: ' + dev.filter(v => v.d === 0).length + ' on the block, ' + dev.filter(v => v.d === 1).length + ' one off, ' + dev.filter(v => v.d === 2).length + ' two off (snapped to a road)');
+}
+const inBox = (x, y) => x >= 0 && x < RL.N && y >= 0 && y < RL.N;
+const placeOn = (x, y) => WPL.find(p => p.x === x && p.y === y);
+function realCamps(d) {
+  const bad = [];
+  for (const w of (d.hostile_locations || []).concat(d.settled_locations || [])) {
+    const isWild = (d.hostile_locations || []).indexOf(w) >= 0;
+    if (typeof w.lat !== 'number' || typeof w.lon !== 'number' || typeof w.latlon_from !== 'string') { bad.push('NO_REAL_COORDINATES ' + w.id); continue; }
+    if (/^WORLD /.test(w.latlon_from)) {
+      const src = WPL.find(p => p.name === w.latlon_from.slice(6));
+      if (!src || src.lat !== w.lat || src.lon !== w.lon) bad.push('WORLD_LATLON_DRIFT ' + w.id);
+    } else if (!/wikipedia\.org|\.gov|nps\.gov/.test(w.latlon_from)) bad.push('NO_REAL_COORDINATES ' + w.id + ' (a coordinate not WORLD\'s cites its page)');
+    const c = cellOf(w.lat, w.lon), at = { x: Math.round(mid + w.east), y: Math.round(mid - w.north) };
+    if (cheb(c, at) > 1) bad.push('OFF_ITS_REAL_THING ' + w.id + ' ' + cheb(c, at));
+    const a = RL.at(at.x, at.y, REAL);
+    if (!a || a.pass === 3 || inBox(at.x, at.y)) { bad.push('CANNOT_STAND ' + w.id); continue; }
+    if ((w.ground || []).indexOf(a.kind) < 0) bad.push('GROUND_IS_NOT_THE_ROWS ' + w.id + ' ' + a.kind);
+    const onPlace = placeOn(at.x, at.y);
+    if (isWild && onPlace && onPlace.role === 'base') bad.push('A_CAMP_ON_A_TOWN ' + w.id + ' ' + onPlace.name);
+    if (!isWild && !onPlace) bad.push('A_SETTLEMENT_OFF_ITS_PLACE ' + w.id);
+    /* own ground first: the blocks it was allowed to take are the ones within one of the real point */
+    const own = (fjById[w.faction] || {}).ground || [];
+    let couldOwn = false;
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+      const x = c.x + dx, y = c.y + dy, b = RL.at(x, y, REAL), q = placeOn(x, y);
+      if (!b || b.pass === 3 || inBox(x, y)) continue;
+      if (isWild ? (q && q.role === 'base') : !q) continue;
+      if (own.indexOf(b.kind) >= 0) couldOwn = true;
+    }
+    const onOwn = own.indexOf(a.kind) >= 0;
+    if (!onOwn && couldOwn) bad.push('NOT_ITS_OWN_GROUND_WHEN_IT_COULD_BE ' + w.id + ' ' + a.kind);
+    if (!onOwn && !(typeof w.ground_why === 'string' && w.ground_why.length >= 60)) bad.push('OFF_ITS_GROUND_SAYS_WHY ' + w.id + ' ' + a.kind);
+    if (onOwn && w.ground_why != null) bad.push('A_WHY_WITH_NOTHING_TO_EXPLAIN ' + w.id);
+    const best = Math.min.apply(null, WPL.map(p => cheb(p, at))), wp = WPL.find(p => p.name === w.world_place);
+    if (!wp || cheb(wp, at) !== best) bad.push('WORLD_PLACE_IS_NOT_THE_NEAREST ' + w.id + ' ' + w.world_place);
+  }
+  for (const p of d.region_places || []) {
+    const same = WPL.find(q => q.name === p.name);
+    if (same) { if (p.world_place !== same.name) bad.push('THE_NAME_IS_WORLDS ' + p.id); continue; }
+    if (p.world_place === null) {
+      const list = p.world_note === 'in_valley' ? LJ.inValley : p.world_note === 'beyond' ? LJ.beyond : null;
+      if (!list || !list.some(q => q.name === p.name)) bad.push('NOT_WHERE_WORLD_SAYS ' + p.id + ' ' + p.world_note);
+    } else if (!WPL.some(q => q.name === p.world_place) || !(typeof p.world_why === 'string' && p.world_why.length >= 60)) bad.push('A_RENAMED_PLACE_SAYS_WHY ' + p.id);
+  }
+  return bad;
+}
+{
+  const real = realCamps(D);
+  ok('THE REAL CAMPS hold on the real file and WORLD\'s real land (every wild and settled row at its real thing, every one of the twelve named on WORLD\'s land)', real.length === 0, real.join('; '));
+  const was = { railroad_pass_crew: [92, -103], sloan_quarry_crew: [-6, -95], apex_dead: [80, 90], nelson_dead: [110, -190], lost_city_crypt: [150, 150], tule_springs_den: [-20, 70], gypsum_cave_lair: [70, -20], jean_dry_lake_nomads: [10, -140] };
+  for (const id of Object.keys(was)) {
+    const w = wild.find(r => r.id === id); if (!w) { ok(id + ': still a row', false); continue; }
+    const moved = Math.max(Math.abs(w.east - was[id][0]), Math.abs(w.north - was[id][1])), a = RL.at(Math.round(mid + w.east), Math.round(mid - w.north), REAL);
+    ok(id + ': moved off its round-one bearing onto its real thing', moved >= 12, moved);
+    console.log('  real camp: ' + id + ' moved ' + moved + ' blocks onto ' + a.kind + (((fjById[w.faction] || {}).ground || []).indexOf(a.kind) >= 0 ? ' (its own ground)' : ' (ground_why)') + ', ' + w.world_place);
+  }
+  const ownNow = wild.concat(settled).filter(w => { const a = RL.at(Math.round(mid + w.east), Math.round(mid - w.north), REAL); return ((fjById[w.faction] || {}).ground || []).indexOf(a.kind) >= 0; }).length;
+  console.log('  on their own ground now: ' + ownNow + ' of ' + wild.concat(settled).length + ' (the rest say why: the land carries none of theirs within a block of the real thing)');
+  /* the twelve on WORLD's land: how far RUN's fallback bearing sits from the place the land really draws */
+  const off = places.filter(p => p.world_place).map(p => { const q = WPL.find(r => r.name === p.world_place); return { n: p.name, d: cheb(q, { x: Math.round(mid + p.east), y: Math.round(mid - p.north) }), tier: p.tier, wt: q.tier }; });
+  console.log('  the twelve: ' + off.length + ' are WORLD places, RUN\'s fallback bearing sits ' + Math.min.apply(null, off.map(o => o.d)) + ' to ' + Math.max.apply(null, off.map(o => o.d)) + ' blocks off: ' + off.map(o => o.n + ' ' + o.d).join(', '));
+  console.log('  tiers the two files disagree on: ' + (off.filter(o => o.tier !== o.wt).map(o => o.n + ' RUN ' + o.tier + ' WORLD ' + o.wt).join(', ') || 'none'));
+  ok('the twelve: the gap that says a holder follows its place by name carries the measured spread', D.gaps.some(g => /BY NAME/.test(g) && new RegExp('\\b' + Math.max.apply(null, off.map(o => o.d)) + '\\b').test(g)));
+  /* WORLD's towns nobody holds: printed every run, named in the gaps */
+  const heldNames = new Set(places.map(p => p.world_place).filter(Boolean).concat(settled.map(w => w.world_place)));
+  const towns = WPL.filter(p => p.role === 'base' && !inBox(p.x, p.y)), unheld = towns.filter(p => !heldNames.has(p.name));
+  console.log('  WORLD\'s towns (role base): ' + towns.length + ', held ' + (towns.length - unheld.length) + ', nobody\'s: ' + unheld.map(p => p.name).join(', '));
+  ok('every one of WORLD\'s towns nobody holds is named in the gaps (Battle Brothers has no settlement without a house)', unheld.every(p => D.gaps.some(g => /every town held/.test(g) && g.toLowerCase().indexOf(p.name.toLowerCase()) >= 0)), unheld.map(p => p.name).join());
+  /* the far bands again, against the towns the real land draws */
+  const civReal = places.filter(p => p.world_place).map(p => WPL.find(r => r.name === p.world_place)).concat(settled.map(w => ({ x: Math.round(mid + w.east), y: Math.round(mid - w.north) })), seats.map(s => ({ x: s.x, y: s.y })));
+  const bandsReal = wild.map(w => { const at = { x: Math.round(mid + w.east), y: Math.round(mid - w.north) }, dd = Math.min.apply(null, civReal.map(q => cheb(q, at))); return { id: w.id, d: dd, band: dd > FAR.far_blocks ? 'late' : 'early' }; });
+  console.log('  bands on the real land: ' + bandsReal.map(b => b.id + ' ' + b.d + ' ' + b.band).join(', '));
+  const tun = ((D.routed || {}).TUNING || '').toLowerCase();
+  const lateReal = bandsReal.filter(b => b.band === 'late').map(b => ({ b, w: wild.find(r => r.id === b.id) }));
+  ok('the late bands on the real land are the ones the file names for TUNING (place and distance, measured)', lateReal.length > 0 && /real camps/.test(tun)
+    && lateReal.every(o => tun.indexOf(o.w.world_place.toLowerCase()) >= 0 && new RegExp('\\(' + o.b.d + '\\b').test(tun)), lateReal.map(o => o.w.world_place + ' ' + o.b.d).join());
+  /* the mirror: RUN's own placer rounds 47.5 - east, the land mirrors to 47 - east */
+  const C0 = { e: 'x0' };
+  const offByOne = wild.concat(settled).filter(w => { const y = Math.round(mid - w.north), runX = Math.round(mid - w.east), landX = RL.N - 1 - Math.round(mid + w.east), a = RL.at(runX, y, C0), b = RL.at(landX, y, C0); return runX !== landX && (!a || !b || a.kind !== b.kind); });
+  console.log('  on a mirrored seed, Math.round(47.5 - east) puts ' + offByOne.length + ' of ' + wild.concat(settled).length + ' rows on a different ground than the land\'s own mirror (' + offByOne.map(w => w.id).join(', ') + '): the frame says 47 - east');
+  ok('the frame names the mirror the land uses (47 - east), not RUN\'s rounding', /47 - east/.test(D.frame.how) && /realX/.test(D.frame.how));
+  /* the planted mistakes: each must turn the check red by its own name */
+  const plant = (name, fn) => { const c = JSON.parse(JSON.stringify(D)); fn(c); const b = realCamps(c); ok('planted ' + name + ' turns THE REAL CAMPS red by name', b.some(x => x.indexOf(name) === 0), b.join('; ') || 'nothing'); };
+  const row = (c, id) => (c.hostile_locations || []).concat(c.settled_locations || []).find(w => w.id === id);
+  plant('NO_REAL_COORDINATES', c => { delete row(c, 'nelson_dead').lat; });
+  plant('NO_REAL_COORDINATES', c => { row(c, 'jean_dry_lake_nomads').latlon_from = 'a forum post'; });
+  plant('WORLD_LATLON_DRIFT', c => { row(c, 'sloan_quarry_crew').lat += 0.01; });
+  plant('OFF_ITS_REAL_THING', c => { row(c, 'railroad_pass_crew').east += 3; });
+  plant('OFF_ITS_REAL_THING', c => { const w = row(c, 'apex_dead'); w.east = 80; w.north = 90; });
+  plant('A_CAMP_ON_A_TOWN', c => { const w = row(c, 'railroad_pass_crew'); w.east = 105 - 48; w.north = 48 - 95; });
+  plant('A_SETTLEMENT_OFF_ITS_PLACE', c => { row(c, 'lake_las_vegas_eye').east += 1; });
+  plant('NOT_ITS_OWN_GROUND_WHEN_IT_COULD_BE', c => { const w = row(c, 'sloan_quarry_crew'); w.east = 38 - 48; w.north = 48 - 104; w.ground = ['industrial']; w.ground_why = 'a planted reason that is long enough to pass the length test on its own words'; });
+  plant('OFF_ITS_GROUND_SAYS_WHY', c => { delete row(c, 'nelson_dead').ground_why; });
+  plant('A_WHY_WITH_NOTHING_TO_EXPLAIN', c => { row(c, 'apex_dead').ground_why = 'a planted reason on a row that already stands on its own ground'; });
+  plant('GROUND_IS_NOT_THE_ROWS', c => { row(c, 'gypsum_cave_lair').ground = ['hills']; });
+  plant('WORLD_PLACE_IS_NOT_THE_NEAREST', c => { row(c, 'jean_dry_lake_nomads').world_place = 'GOODSPRINGS'; });
+  plant('THE_NAME_IS_WORLDS', c => { c.region_places.find(p => p.id === 'jean').world_place = 'PRIMM'; });
+  plant('NOT_WHERE_WORLD_SAYS', c => { c.region_places.find(p => p.id === 'mesquite').world_note = 'in_valley'; });
+  plant('A_RENAMED_PLACE_SAYS_WHY', c => { delete c.region_places.find(p => p.id === 'lake_mead_marina').world_why; });
+  { const c = JSON.parse(JSON.stringify(D)), w = row(c, 'jean_dry_lake_nomads');
+    let water = null; for (let y = 40; y < 80 && !water; y++) for (let x = 110; x < 160 && !water; x++) { const b = RL.at(x, y, REAL); if (b && b.pass === 3) water = { x, y }; }
+    w.lat = LJ.origin.lat - (water.y - LJ.origin.cell[1]) * LJ.metresPerCell / (KM_LAT * 1000); w.lon = LJ.origin.lon + (water.x - LJ.origin.cell[0]) * LJ.metresPerCell / (KM_LON * 1000);
+    w.east = water.x - 48; w.north = 48 - water.y;
+    const b = realCamps(c); ok('planted CANNOT_STAND (a camp on the lake\'s open water) turns THE REAL CAMPS red by name', b.some(x => x.indexOf('CANNOT_STAND') === 0), b.join('; ')); }
 }
 
 console.log('\n=== REGION BASES GATE: ' + pass + ' passed, ' + fail + ' failed ===');
