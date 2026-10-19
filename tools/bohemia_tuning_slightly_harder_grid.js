@@ -20,13 +20,18 @@ const BANK = path.join(ROOT, 'banks/BOHEMIA_TUNING_SLIGHTLY_HARDER_GRID_10_18_26
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const N = Number(arg('--n', 100)), JOBS = Number(arg('--jobs', 4)), KINDS = arg('--kinds', 'humans,direwolf').split(',');
 const TARGET = 70, SETTING = 'start';
-const bank = fs.existsSync(BANK) ? JSON.parse(fs.readFileSync(BANK, 'utf8')) : { steps: {} };
-const skey = (k, c, s, e) => [k, c, s, e, SETTING, N].join('|');
+let bank = fs.existsSync(BANK) ? JSON.parse(fs.readFileSync(BANK, 'utf8')) : { steps: {} };
+/* the steps are kept only for the fight they were played on (the grid's fingerprint) */
+const FP = GRID.fightPrint();
+if (bank.fp !== FP) bank = { steps: {}, fp: FP };
+/* a step with 30 or more men on the board plays half (the grid's own rule, GRID.fightsFor), so the big companies' lines finish */
+const nFor = (c, e) => GRID.fightsFor({ kind: 'humans', company: c, enemies: e }, N);
+const skey = (k, c, s, e) => [k, c, s, e, SETTING, nFor(c, e)].join('|');
 function save() {
   bank._readme = 'TUNING [slightly harder, measured] on the grid 10/18 (rule 117(e); rule 38g research only). draft:true. DRAFT: THE GEAR IS NOT IN. '
     + 'NOTHING IN THE GAME READS THIS FILE. steps: kind|company|stage|enemies|setting|fights -> won in 100 and the felt numbers, each the live fight played '
     + 'headless by tools/bohemia_tuning_the_whole_grid.js --cell; lines: the 70 line per (kind, company, stage). Written by tools/bohemia_tuning_slightly_harder_grid.js.';
-  bank.draft = true; bank.schema = 1; bank.target_won_in_100 = TARGET; bank.setting = SETTING; bank.fights_per_step = N;
+  bank.draft = true; bank.schema = 1; bank.target_won_in_100 = TARGET; bank.setting = SETTING; bank.fights_per_step = N; bank.fights_rule = 'half for a step of 30 or more men on the board';
   fs.writeFileSync(BANK, JSON.stringify(bank, null, 1) + '\n');
 }
 const sfile = path.join(os.tmpdir(), 'bohemia_harder_strikes_' + process.pid + '.json');
@@ -34,7 +39,7 @@ fs.writeFileSync(sfile, JSON.stringify(GB.strikes));
 function play(k, c, s, e) {
   const K = skey(k, c, s, e);
   if (bank.steps[K]) return Promise.resolve(bank.steps[K]);
-  return new Promise((ok, no) => cp.execFile(process.execPath, [BENCH, '--cell', JSON.stringify({ kind: k, company: c, enemies: e, stage: s, setting: SETTING }), String(N), sfile],
+  return new Promise((ok, no) => cp.execFile(process.execPath, [BENCH, '--cell', JSON.stringify({ kind: k, company: c, enemies: e, stage: s, setting: SETTING }), String(nFor(c, e)), sfile],
     { maxBuffer: 1 << 24 }, (err, out) => { if (err) return no(err); bank.steps[K] = GRID.felt(JSON.parse(out)); save(); ok(bank.steps[K]); }));
 }
 /* the grid's own cells give the first bracket: the largest measured count still at 70 or more, the smallest under it */
