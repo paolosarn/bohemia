@@ -1,0 +1,207 @@
+{
+ "person": "FACTION_CARAVANS",
+ "model": "records/portrait/rig/crew/faction_caravans_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/caravans.glb",
+ "dropped": [
+  "caravans_hair",
+  "caravans_hair_fall",
+  "caravans_hat",
+  "caravans_hat_brim",
+  "caravans_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "cone hat",
+ "hair": "coil",
+ "stubble": false,
+ "look": "faction_caravans",
+ "beard": "full",
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 34,
+   "face.craniumH": 10,
+   "face.foreheadW": 26,
+   "face.cheekW": 34,
+   "face.jawW": 30,
+   "face.chinW": 14,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 7,
+   "mouth.w": 9,
+   "nose.w": 4
+  },
+  "identity": false,
+  "mouth_half": 0.033
+ },
+ "meshes": {
+  "caravans_coat": 17762,
+  "caravans_coat_skirt": 4704,
+  "caravans_hand_L": 392,
+  "caravans_hand_R": 392,
+  "caravans_mantle": 20927,
+  "caravans_shoe": 2508,
+  "caravans_trouser": 2568,
+  "Cesium_Man": 1507,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hat": 960,
+  "portrait_hair": 49572,
+  "portrait_beard": 3776
+ },
+ "materials": {
+  "caravans_coat": [
+   0.1329,
+   0.0976,
+   0.0612
+  ],
+  "caravans_coat_skirt": [
+   0.1329,
+   0.0976,
+   0.0612
+  ],
+  "caravans_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "caravans_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "caravans_hat": [
+   0.2086,
+   0.1559,
+   0.0802
+  ],
+  "caravans_mantle_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "caravans_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "caravans_shoe": [
+   0.1022,
+   0.0865,
+   0.0704
+  ],
+  "caravans_shoes": [
+   0.1022,
+   0.0865,
+   0.0704
+  ],
+  "caravans_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "caravans_trouser": [
+   0.0887,
+   0.063,
+   0.0482
+  ],
+  "caravans_trousers": [
+   0.0887,
+   0.063,
+   0.0482
+  ],
+  "portrait_faction_caravans_beard": [
+   0.0144,
+   0.013,
+   0.011
+  ],
+  "portrait_faction_caravans_buzz": [
+   0.0369,
+   0.0319,
+   0.0262
+  ],
+  "portrait_faction_caravans_hat": [
+   0.1878,
+   0.1248,
+   0.0648
+  ],
+  "portrait_faction_caravans_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_caravans_lips": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "portrait_faction_caravans_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_caravans_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_caravans_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_caravans_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "portrait_faction_caravans_stubble": [
+   0.0723,
+   0.0319,
+   0.0252
+  ]
+ }
+}
