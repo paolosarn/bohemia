@@ -1,0 +1,144 @@
+{
+ "look": "G_dust_plaid_shirt",
+ "shape": "the barber's mannequin in DUST PLAID SHIRT (FLANNEL)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "DUST PLAID SHIRT",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_dust_plaid_shirt.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_dust_plaid_shirt_trouser": 2568,
+  "g_dust_plaid_shirt_shoe": 3916,
+  "g_dust_plaid_shirt_shirt": 43916,
+  "g_dust_plaid_shirt_collar": 1536,
+  "g_dust_plaid_shirt_collar_points": 180,
+  "g_dust_plaid_shirt_placket": 162,
+  "g_dust_plaid_shirt_buttons": 204,
+  "g_dust_plaid_shirt_sleeve_hem": 2048,
+  "g_dust_plaid_shirt_tail": 2016,
+  "g_dust_plaid_shirt_hair": 17968,
+  "g_dust_plaid_shirt_hand_L": 392,
+  "g_dust_plaid_shirt_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_dust_plaid_shirt_buttons": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "g_dust_plaid_shirt_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "g_dust_plaid_shirt_collar_points": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "g_dust_plaid_shirt_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_dust_plaid_shirt_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_dust_plaid_shirt_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_dust_plaid_shirt_placket": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "g_dust_plaid_shirt_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_dust_plaid_shirt_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "g_dust_plaid_shirt_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_dust_plaid_shirt_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_dust_plaid_shirt_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_dust_plaid_shirt_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_dust_plaid_shirt_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_dust_plaid_shirt_sleeve_hem": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "g_dust_plaid_shirt_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_dust_plaid_shirt_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "g_dust_plaid_shirt_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_dust_plaid_shirt_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_dust_plaid_shirt_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

@@ -1,0 +1,143 @@
+{
+ "first": "BONE BUTTON-UP",
+ "firstAt": [
+  12,
+  64,
+  758,
+  209
+ ],
+ "rows": {
+  "BONE BUTTON-UP": [
+   12,
+   64,
+   758,
+   209
+  ],
+  "FIELD BUTTON-UP": [
+   12,
+   279,
+   758,
+   209
+  ],
+  "KHAKI BUTTON-UP": [
+   12,
+   494,
+   758,
+   209
+  ],
+  "MOB PINSTRIPE SHIRT": [
+   12,
+   709,
+   758,
+   209
+  ],
+  "RED SHIRT": [
+   12,
+   924,
+   758,
+   209
+  ],
+  "SLATE SHORT-SLEEVE": [
+   12,
+   1139,
+   757,
+   208
+  ],
+  "STORM BUTTON-UP": [
+   12,
+   1353,
+   758,
+   209
+  ],
+  "VESTMENT GOLD SHIRT": [
+   12,
+   1568,
+   758,
+   209
+  ],
+  "PATINA WORK SHIRT": [
+   12,
+   1783,
+   758,
+   209
+  ],
+  "STEEL WORK SHIRT": [
+   12,
+   1998,
+   758,
+   209
+  ],
+  "DUST PLAID SHIRT": [
+   12,
+   2213,
+   757,
+   208
+  ],
+  "FOREST PLAID FLANNEL": [
+   12,
+   2427,
+   758,
+   209
+  ],
+  "GREEN FLANNEL": [
+   12,
+   2642,
+   758,
+   209
+  ],
+  "OXBLOOD PLAID FLANNEL": [
+   12,
+   2857,
+   758,
+   209
+  ],
+  "PATINA PLAID FLANNEL": [
+   12,
+   3072,
+   758,
+   209
+  ],
+  "RED PLAID FLANNEL": [
+   12,
+   3287,
+   758,
+   209
+  ],
+  "SAGE FLANNEL": [
+   12,
+   3502,
+   758,
+   209
+  ],
+  "SCAVENGER FLANNEL": [
+   12,
+   3717,
+   758,
+   209
+  ],
+  "SLATE PLAID FLANNEL": [
+   12,
+   3932,
+   758,
+   209
+  ],
+  "STEEL PLAID FLANNEL": [
+   12,
+   4147,
+   758,
+   209
+  ],
+  "ROLLED FLANNEL": [
+   12,
+   4362,
+   756,
+   209
+  ],
+  "ROLLED WORK SHIRT": [
+   12,
+   4577,
+   756,
+   209
+  ]
+ }
+}

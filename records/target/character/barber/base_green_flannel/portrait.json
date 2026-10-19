@@ -1,0 +1,33 @@
+{
+ "head_px": 128,
+ "head_m": 0.3953,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.395 m",
+ "ppm": 323.826,
+ "res": 218,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "expressions": [],
+ "files": [
+  "../../../tmp/claude-0/-home-user-bohemia/edcea1a9-8198-50c1-859a-3417ec50ea0c/scratchpad/gbf/base_green_flannel/rig_portrait_S.png",
+  "../../../tmp/claude-0/-home-user-bohemia/edcea1a9-8198-50c1-859a-3417ec50ea0c/scratchpad/gbf/base_green_flannel/rig_portrait_SE.png",
+  "../../../tmp/claude-0/-home-user-bohemia/edcea1a9-8198-50c1-859a-3417ec50ea0c/scratchpad/gbf/base_green_flannel/rig_portrait_SW.png"
+ ],
+ "expression_files": {},
+ "crop_box_px": [
+  49,
+  41,
+  171,
+  218
+ ],
+ "model": "records/character/rig/barber_base_green_flannel.glb",
+ "body_rig": "rig.json",
+ "colours": 17182
+}
