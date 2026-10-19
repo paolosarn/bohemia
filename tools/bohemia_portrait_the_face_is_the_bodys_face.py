@@ -79,7 +79,9 @@ def record():
         ramp = (e.get('hair_ramp') or {}).get('ramp')
         hrgb, hhow = G.sprite_hair(sh, G.head_box(sh), ramp, T)
         rec['people'][look] = dict(kind=e['kind'], id=e['id'], skin=e['skin'], skin_from=e['skin_from'], skin_ramp=dict(lit=list(T[e['skin']][0]), mid=list(T[e['skin']][1]), dark=list(T[e['skin']][2])),
-                                   hair=dict(cut=e.get('worn_hair'), gear=e.get('worn_head'), ramp=hhow, rgb=list(hrgb) if hrgb else None),
+                                   hair=dict(cut=e.get('worn_hair'), gear=e.get('worn_head'), ramp=hhow, rgb=list(hrgb) if hrgb else None,
+                                             lt=list(H[hhow]['lt']) if hhow in H else (list(hrgb) if hrgb else None),
+                                             dk=list(H[hhow]['dk']) if hhow in H else (list(hrgb) if hrgb else None)),
                                    body_today=dict(skin=bn, px=bk, matches=bn == e['skin']), face_64=dict(skin=fn, px=fk, matches=fn == e['skin']))
     n = len(rec['people']); bm = sum(1 for e in rec['people'].values() if e['body_today']['matches']); fm = sum(1 for e in rec['people'].values() if e['face_64']['matches'])
     cnt = {}
@@ -109,9 +111,12 @@ def calibrate(mask_dir, a_dir, b_dir):
     for ch in range(3):
         x0, y0 = lin(pts[0][0][ch]), lin(pts[0][1][ch]); x1, y1 = lin(pts[1][0][ch]), lin(pts[1][1][ch])
         k = (y1 - y0) / (x1 - x0); a.append(round(k, 5)); b.append(round(y0 - k * x0, 5))
+    mG = G.mask_light(mask, 'skin')
     rec = json.load(open(os.path.join(ROOT, RECORD)))
-    rec['rig_transfer'] = dict(a=a, b=b, how='two renders of the cape head through DIRECTION\'s rig (the guide\'s wear, --family none), the skin albedo %s and %s; '
-                               'the face\'s median skin pixel through its green mask came out %s and %s (%d and %d px); linear, per channel: rendered = a * albedo + b'
+    rec['rig_transfer'] = dict(a=a, b=b, mask_skin_G=round(mG, 5), how='two renders of the cape head through DIRECTION\'s rig (the guide\'s wear, --family none), the skin albedo %s and %s; '
+                               'the face\'s median skin pixel through its green mask came out %s and %s (%d and %d px); linear, per channel: rendered = a * albedo + b; '
+                               'mask_skin_G is the same head\'s mask, the green (an albedo of 1) as rendered: a head\'s own mask over this is how much more '
+                               'or less light its skin gets (a hat, a fringe), so the gate reads any head\'s paint through its own light'
                                % (tuple(pts[0][0]), tuple(pts[1][0]), pts[0][1], pts[1][1], pts[0][2], pts[1][2]))
     json.dump(rec, open(os.path.join(ROOT, RECORD), 'w'), indent=1)
     print('transfer a=%s b=%s' % (a, b))
@@ -127,12 +132,40 @@ def albedo_for(target, tr):
     return tuple(out)
 
 
+EXPR = ('A', 'E', 'O', 'M', 'Angry', 'Sad', 'Surprised')
+
+
+def render(group, only=None):
+    """every head of a group rebuilt on its person's skin, on its body built in the same skin, through DIRECTION's rig
+    unedited (the guide's wear), and once more as its mask (skin green, hair blue). Blender's python; bpy exits with a
+    segfault after it has written its files, so a step is judged by its files, never its exit code."""
+    sys.path.insert(0, os.path.join(ROOT, 'tools'))
+    import bohemia_portrait_the_head_from_the_model as HT
+    py = os.path.join(ROOT, 'v/bin/python'); head = os.path.join(ROOT, 'tools/bohemia_portrait_the_head_from_the_model.py')
+    rig = os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py')
+    mask_frames = os.environ.get('PORTRAIT_MASK_FRAMES', os.path.join(ROOT, MASK_FRAMES))
+    rows = HT.group_rows(group)
+    for who, c in rows:
+        if only and who not in only and c['look'] not in only: continue
+        l = who.lower(); os.makedirs(mask_frames, exist_ok=True); log = open(os.path.join(mask_frames, '%s.log' % l), 'w')
+        run = lambda argv, env=None: subprocess.call(argv, cwd=ROOT, stdout=log, stderr=log, env=dict(os.environ, **(env or {})))
+        if group == 'crew': run([py, head, '--crew-body', who])
+        else: run([py, head, '--faction-body', who.split('_', 1)[1]])
+        glb = os.path.join(ROOT, 'records/portrait/rig/crew/%s_head.glb' % l); mglb = os.path.join(mask_frames, '%s_head.glb' % l)
+        run([py, head, who, glb]); run([py, head, who, mglb], env=dict(PORTRAIT_SKIN_MASK='1'))
+        base = [rig, '--real-height', '1.72', '--family', 'none', '--still', 'pass', '--portrait', '128', '--class', 'portrait']
+        ex = [x for e in EXPR for x in ('--expression', e)]
+        run([py, base[0], glb, os.path.join(ROOT, CREW_FRAMES, l)] + base[1:] + ex)
+        run([py, base[0], mglb, os.path.join(mask_frames, l)] + base[1:] + ['--no-id-pass', '--no-calibration'])
+        okf = all(os.path.exists(f) for f in (os.path.join(ROOT, CREW_FRAMES, l, 'rig_portrait_S_Surprised.png'), os.path.join(mask_frames, l, 'rig_portrait_S.png')))
+        print('  rendered', who, 'ok' if okf else 'MISSING FILES'); sys.stdout.flush()
+
+
 def window(im, head_px):
-    """the hand-off square: a window 1.25 x the head's height from the top, centred on the head (crew_faces' own cut)"""
-    side = min(im.width, int(round(head_px * 1.25)))
-    bb = im.split()[3].crop((0, 0, im.width, side)).getbbox() or (0, 0, im.width, side)
-    cx = (bb[0] + bb[2]) // 2; x0 = max(0, min(im.width - side, cx - side // 2))
-    return (x0, 0, x0 + side, side)
+    """the hand-off square, the head tool's own (crew_faces), imported so the mask and the face are one cut"""
+    sys.path.insert(0, os.path.join(ROOT, 'tools'))
+    import bohemia_portrait_the_head_from_the_model as HT
+    return HT.hand_off_window(im, head_px)
 
 
 def masks(looks=None):
@@ -140,9 +173,10 @@ def masks(looks=None):
     from PIL import Image
     man = json.load(open(os.path.join(ROOT, CREW_OUT, 'BOHEMIA_CREW_FACES.json')))
     done = 0
+    mask_frames = os.environ.get('PORTRAIT_MASK_FRAMES', os.path.join(ROOT, MASK_FRAMES))
     for look in (looks or man['faces']):
-        who = man['faces'][look].get('who') or look
-        fr = os.path.join(ROOT, CREW_FRAMES, who); mr = os.path.join(ROOT, MASK_FRAMES, who)
+        who = 'faction_' + look.split('_', 1)[1] if look.startswith('faction_') else look   # the frames are named by who: you, cast_*, faction_*
+        fr = os.path.join(ROOT, CREW_FRAMES, who); mr = os.path.join(mask_frames, who)
         if not os.path.exists(os.path.join(mr, 'rig_portrait_S.png')): print('  no mask render for', look); continue
         pj = json.load(open(os.path.join(fr, 'portrait.json')))
         face = Image.open(os.path.join(ROOT, pj['files'][0])).convert('RGBA'); mk = Image.open(os.path.join(mr, 'rig_portrait_S.png')).convert('RGBA')
@@ -210,4 +244,5 @@ if __name__ == '__main__':
     if a[0] == '--record': record()
     elif a[0] == '--calibrate': calibrate(a[1], a[2], a[3])
     elif a[0] == '--masks': masks(a[1:] or None)
+    elif a[0] == '--render': render(a[1], a[2:] or None)
     elif a[0] == '--sheet': sheet(a[1] if len(a) > 1 else 'records/target/portrait/PORTRAIT_THE_FACE_IS_THE_BODYS_FACE.png')

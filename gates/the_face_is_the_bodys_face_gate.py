@@ -23,13 +23,19 @@ THE TRUTH IS THE PERSON, READ FROM THE ONE PLACE THE GAME KEEPS IT: records/targ
 is chosen). Every leg compares a picture to that record, so a face and a body that both match it match each other.
 
 THE RULER. A painted sprite is read EXACTLY: each skin pixel is one of the 33 ramp colours, and the person is the tone
-most of them belong to. A rendered face is read through its own MASK (the same head rendered once more with the skin
-pure green and the hair pure blue, the hand-off square cut from it the same way), its median skin pixel placed on the
-game's ladder of eleven tones by lightness (CIE L*). PASS = it reads as its own tone or the one beside it on the ladder
-AND its L* is within 8 of its tone's mid. The ladder runs onyx 11, ebony 16, deep 22, brown 33, bronze 42, tan 51,
-olive 54, pale 55, fair 59, porcelain 73, chalk 78: a face one step off is a lighting difference, a porcelain face on
-an onyx person is ten steps and 61 L* off. Hair is the 9/20 gate's own ruler (portrait_matches_body_gate.js): hue
-within 30 degrees unless both are drab (under 15 percent saturation), lightness within 2.2x.
+most of them belong to. A rendered face is read for its PAINT, not its light. The rig lights a portrait dimly (a face's
+middle pixel is about a fifth of its paint, measured), so no rendered face can show a sprite's colours as they are; a
+starred face is painted its person's own LIT step (the skin's colour where the light falls full) and the rig's one sun
+does the shading. The gate takes the light back out: the face's MASK (the same head rendered once more with the skin
+pure green and the hair pure blue, cut into the hand-off square the same way) says how much light this head's skin and
+hair get (its green and its blue are an albedo of one, as rendered); the record's rig_transfer (two known skins through
+the rig on one head, fitted per channel) gives the light's tint and the dust. The paint so read is placed on the game's
+ladder of eleven tones by the lightness of their lit steps (CIE L*). PASS = it reads as its own tone or the one beside it
+AND its L* is within 8 of its tone's lit. The ladder runs onyx 17, ebony 23, deep 29, brown 42, bronze 53, tan 61,
+olive 65, pale 68, fair 72, porcelain 85, chalk 91: one step off is a shadow under a brim, a porcelain face on an onyx
+person is ten steps and 68 L* off. Hair is the 9/20 gate's own ruler (portrait_matches_body_gate.js) on the paint read
+the same way against the body's cut ramp's lit step: hue within 30 degrees unless both are drab (under 15 percent
+saturation), lightness within 2.2x.
 
 THE LEGS
   1. THE RECORD: every person the fight sheets carry is in it, with a real tone and its source, and the record agrees
@@ -115,28 +121,62 @@ def sprite_hair(im, box, ramp, T):
     return (max(cnt, key=cnt.get), 'measured') if cnt else (None, None)
 
 
-def masked(face, mask, which):
-    """the median colour of a rendered face's pixels where its mask is pure skin (green) or pure hair (blue)"""
+def lin(v): v = v / 255.0; return v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
+def srgb(x): x = min(1.0, max(0.0, x)); return int(round(255 * (x * 12.92 if x <= 0.0031308 else 1.055 * x ** (1 / 2.4) - 0.055)))
+
+
+def _picks(face, mask, which):
+    """(face pixel, mask pixel) where the mask is pure skin (green) or pure hair (blue)"""
     if face.size != mask.size: mask = mask.resize(face.size, Image.NEAREST)
     ch = 1 if which == 'skin' else 2
-    px = []
+    out = []
     for f, m in zip(face.getdata(), mask.getdata()):
         if m[3] < 250 or f[3] < 250: continue
         o = [m[0], m[1], m[2]]; k = o[ch]; o[ch] = -1
-        if k > 60 and k > 2.2 * max(o): px.append(f[:3])
+        if k > 60 and k > 2.2 * max(o): out.append((f[:3], m[ch]))
+    return out
+
+
+def _median(v): v = sorted(v); return v[len(v) // 2]
+
+
+def masked(face, mask, which):
+    """the median colour of a rendered face's pixels where its mask is pure skin (green) or pure hair (blue), as rendered"""
+    px = _picks(face, mask, which)
     if not px: return None, 0
-    med = tuple(sorted(c[i] for c in px)[len(px) // 2] for i in range(3))
-    return med, len(px)
+    return tuple(_median([c[i] for c, _ in px]) for i in range(3)), len(px)
 
 
-def reads_as(rgb, T):
-    """the tone a colour reads as: the nearest mid on the ladder by lightness, hue breaking a tie"""
+def mask_light(mask, which):
+    """how much light a head's skin (or hair) gets: the median of its mask's own pure channel, linear (an albedo of 1)"""
+    v = [lin(m) for _, m in _picks(mask, mask, which)]
+    return _median(v) if v else 0.0
+
+
+def paint(face, mask, which, tr):
+    """the PAINT of a rendered face's skin or hair, the rig's light taken out: the face's median (linear, per channel)
+    over this head's own light (its mask) in the light's own tint (the record's rig_transfer), back to sRGB"""
+    px = _picks(face, mask, which)
+    if not px or not tr: return None, len(px)
+    m = _median([lin(k) for _, k in px])
+    med = [_median([lin(c[i]) for c, _ in px]) for i in range(3)]
+    if which == 'skin':
+        s = m / tr['mask_skin_G']
+        out = [(med[i] - tr['b'][i] * s) / (tr['a'][i] * s) for i in range(3)]
+    else:   # the hair's light, its blue: the same sun's tint, the dust's share is the hair's own (small)
+        out = [med[i] / (m * tr['a'][i] / tr['a'][2]) for i in range(3)]
+    return tuple(srgb(x) for x in out), len(px)
+
+
+def reads_as(rgb, T, step=0):
+    """the tone a colour reads as: the nearest on the ladder by lightness (of each tone's lit step, or its mid), hue breaking a tie"""
     L = lab(rgb)
-    return min(T, key=lambda n: (abs(lab(T[n][1])[0] - L[0]), sum((a - b) ** 2 for a, b in zip(lab(T[n][1])[1:], L[1:]))))
+    return min(T, key=lambda n: (abs(lab(T[n][step])[0] - L[0]), sum((a - b) ** 2 for a, b in zip(lab(T[n][step])[1:], L[1:]))))
 
 
-def skin_verdict(rgb, tone, T, R):
-    got = reads_as(rgb, T); dl = lab(rgb)[0] - lab(T[tone][1])[0]
+def skin_verdict(rgb, tone, T, R, step=0):
+    """a face's skin paint against its person's tone: step 0 the lit (a starred face's paint), 1 the mid"""
+    got = reads_as(rgb, T, step); dl = lab(rgb)[0] - lab(T[tone][step])[0]
     ok = abs(R[got] - R[tone]) <= STEP and abs(dl) <= DL
     return ok, 'reads %s, L* %+.1f off %s' % (got, dl, tone)
 
@@ -208,20 +248,21 @@ def leg_faces(g, rec, man, T, R, crew, override=None, quiet=False):
             if not quiet: g.ok('STARRED %s carries its skin mask' % look, False, 'no %s' % os.path.relpath(mp, ROOT))
             continue
         face = (override or {}).get(look) or Image.open(fp).convert('RGBA'); mask = Image.open(mp).convert('RGBA')
-        rgb, n = masked(face, mask, 'skin')
-        if n < MIN_SKIN:
+        tr = rec.get('rig_transfer')
+        rgb, n = paint(face, mask, 'skin', tr)
+        if n < MIN_SKIN or rgb is None:
             bad += 1
-            if not quiet: g.ok('STARRED %s shows enough skin to read' % look, False, '%d px' % n)
+            if not quiet: g.ok('STARRED %s shows enough skin to read' % look, False, '%d px%s' % (n, '' if tr else ', and the record has no rig_transfer'))
             continue
         good, why = skin_verdict(rgb, e['skin'], T, R)
         bad += 0 if good else 1
-        if not quiet: g.ok('STARRED %s reads as its person (%s)' % (look, e['skin']), good, 'skin %s, %s' % (rgb, why))
-        hrgb, hn = masked(face, mask, 'hair')
-        body_hair = tuple(e['hair']['rgb']) if e.get('hair') and e['hair'].get('rgb') else None
-        if hn >= MIN_HAIR and body_hair:
+        if not quiet: g.ok('STARRED %s reads as its person (%s)' % (look, e['skin']), good, 'its skin paint %s, %s' % (rgb, why))
+        hrgb, hn = paint(face, mask, 'hair', tr)
+        body_hair = tuple(e['hair']['lt']) if e.get('hair') and e['hair'].get('lt') else None
+        if hn >= MIN_HAIR and body_hair and hrgb:
             good, why = hair_verdict(hrgb, body_hair)
             bad += 0 if good else 1
-            if not quiet: g.ok('STARRED %s wears its body\'s hair (%s)' % (look, e['hair'].get('ramp')), good, 'hair %s against the body\'s %s, %s' % (hrgb, body_hair, why))
+            if not quiet: g.ok('STARRED %s wears its body\'s hair (%s)' % (look, e['hair'].get('ramp')), good, 'its hair paint %s against the body\'s %s, %s' % (hrgb, body_hair, why))
         elif not quiet: print('  --   STARRED %s hair under the head gear (%d px), not read' % (look, hn))
     return bad
 
@@ -248,11 +289,14 @@ def main():
     if looks:
         l = looks[0]
         face = Image.open(p(os.path.dirname(CREW), l, 'rest_128.png')).convert('RGBA'); mask = Image.open(p(os.path.dirname(CREW), l, 'mask_128.png')).convert('RGBA')
-        pale = T['porcelain'][1]; fake = face.copy(); px = fake.load(); mk = mask.load()
-        for y in range(face.height):
+        tr = rec.get('rig_transfer') or dict(a=[0.2, 0.2, 0.2], b=[0, 0, 0], mask_skin_G=0.2)
+        fake = face.copy(); px = fake.load(); mk = mask.load()
+        for y in range(face.height):   # the player's porcelain painted on, lit the way this very pixel is lit (its mask's green)
             for x in range(face.width):
                 m = mk[x, y]
-                if m[1] > 60 and m[1] > 2.2 * max(m[0], m[2]): px[x, y] = pale + (255,)
+                if m[1] > 60 and m[1] > 2.2 * max(m[0], m[2]):
+                    s = lin(m[1]) / tr['mask_skin_G']
+                    px[x, y] = tuple(srgb(tr['a'][i] * s * lin(T['porcelain'][0][i]) + tr['b'][i] * s) for i in range(3)) + (255,)
         g.ok('a starred face recoloured to the player\'s porcelain is refused', leg_faces(Gate(), rec, man, T, R, dict(faces={l: crew['faces'][l]}), override={l: fake}, quiet=True) > 0,
              '%s (%s)' % (l, rec['people'][l]['skin']))
     recw = json.loads(json.dumps(rec)); k = next(iter(man['looks']))

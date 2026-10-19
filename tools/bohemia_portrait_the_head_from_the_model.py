@@ -255,10 +255,47 @@ for _i, _c in enumerate(MAKER):
                      gear=_c.get('gear_c', HAIR_COLORS[_c['hair_colour']]), iris=('skin_deep', 1), stubble=(_c['skin'][0], max(0, _c['skin'][1] - 1))))
 
 
+# [the face is the body's face] (rule 120(d), his 10/18 'Black people looking like white people'): THE SKIN AND THE HAIR
+# ARE THE PERSON'S, OF RECORD. The crew's and the gangs' colours above were picked by eye off the 64 face and lifted 'two
+# steps', and under the rig's sun all twelve cast faces came out one orange brown. From here a face whose look is in
+# records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json (the factory's skin, read out of the alpha by
+# tools/bohemia_portrait_the_face_is_the_bodys_face.py; the body's own cut ramp for the hair) is PAINTED IN IT: the skin is
+# the person's own ramp's lit step (the skin's colour where the light falls full; the rig's one sun does all the shading,
+# so nothing is lifted or darkened to suit a palette), the lips its mid, the stubble its mid, a scar the lit healed paler;
+# the hair the body's cut ramp's lit step, a beard its mid. The body is built in the same skin (CHARACTER's SKIN, set in
+# memory for the build, its file never written). The gate takes the rig's measured light back out and reads the paint.
+# PORTRAIT_SKIN_MASK=1 renders the same head with the skin pure green and the hair pure blue: the gate's mask.
+SKIN_RECORD = 'records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json'
+MASK = os.environ.get('PORTRAIT_SKIN_MASK') == '1'
+
+
+def _apply_record():
+    path = os.path.join(ROOT, SKIN_RECORD)
+    if not os.path.exists(path): return
+    rec = json.load(open(path))
+    mix = lambda a, b, t: tuple(int(round(x + (y - x) * t)) for x, y in zip(a, b))
+    for P in PEOPLE.values():
+        e = rec['people'].get(P.get('look'))
+        if not e: continue
+        R = dict((k, tuple(v)) for k, v in e['skin_ramp'].items())
+        c = dict(skin=R['lit'], lips=R['mid'], stubble=R['mid'], scar=mix(R['lit'], SCLERA, 0.3))
+        h = e.get('hair') or {}
+        if h.get('lt'): c['hair'] = tuple(h['lt']); c['beard'] = tuple(h.get('rgb') or h['lt'])
+        P['colours'].update(c)
+        P['skin_of_record'] = dict(skin=e['skin'], ramp=R, hair=h)
+        P['palette'] = "the person's own skin of record (%s, the game's SKIN_TONES ramp, painted its lit step) and the body's hair (%s, its lit step)" % (
+            e['skin'], h.get('ramp'))
+
+
+_apply_record()
+
+
 def faction_body(name, outdir):
     """CHARACTER's tool builds the gang's own body from its own LOOKS entry, as he voted it up (nothing added, never written)"""
     sys.path.insert(0, os.path.join(ROOT, 'tools'))
     import bohemia_character_the_thirteen_through_the_rig as CH
+    sk = PEOPLE['FACTION_' + name.upper()]['colours'].get('skin')
+    if sk and len(sk) == 3 and all(isinstance(x, int) for x in sk): CH.SKIN = tuple(sk)   # the person's own skin (rule 120(d))
     CH.build(name, os.path.join(ROOT, outdir))
 
 
@@ -273,6 +310,8 @@ def crew_body(who, outdir):
         spec[k] = v
     spec.setdefault('trousers', dict(colour=(40, 38, 38), wide=0.012)); spec.setdefault('shoes', dict(colour=(40, 36, 34), kind='boot', top=0.2))
     name = 'crew_' + c['look']
+    sk = PEOPLE[who]['colours'].get('skin')
+    if sk and len(sk) == 3 and all(isinstance(x, int) for x in sk): CH.SKIN = tuple(sk)   # the person's own skin (rule 120(d))
     CH.LOOKS[name] = dict(order=99, shape='crew: ' + c['look'], dials=dict(height=0.0, belly=0.0, shoulders=0.0, hips=0.0),
                           worn=c.get('worn', c['look']), hair=dict(style='taper', colour=CH.HAIR_DARK), **spec)
     CH.build(name, os.path.join(ROOT, outdir))
@@ -292,8 +331,13 @@ def colours(P):
         c[k] = tuple(v) if len(v) == 3 and all(isinstance(x, int) for x in v) else palette_step(*v)
     c.setdefault('beard', c['hair'])
     sk = P.get('colours', {}).get('skin')
-    # a seam heals paler: two steps (round 16: one step on a light skin vanished at 128 px)
-    c['scar'] = palette_step(sk[0], min(4, sk[1] + 2)) if sk and len(sk) == 2 else tuple(min(255, x + 40) for x in c['skin'])
+    # a seam heals paler: two steps (round 16: one step on a light skin vanished at 128 px); a skin of record names its own
+    if 'scar' not in P.get('colours', {}):
+        c['scar'] = palette_step(sk[0], min(4, sk[1] + 2)) if sk and len(sk) == 2 else tuple(min(255, x + 40) for x in c['skin'])
+    if os.environ.get('PORTRAIT_SKIN_ALBEDO'):   # a calibration render: one known skin
+        c['skin'] = tuple(int(x) for x in os.environ['PORTRAIT_SKIN_ALBEDO'].split(','))
+    if MASK:   # the gate's mask: the skin pure green, the hair and beard pure blue, all else as it is
+        c['skin'] = (0, 255, 0); c['hair'] = c['beard'] = (0, 0, 255)
     return c
 
 MOUTH_Z = -0.089     # the mouth line, metres from the head's centre
@@ -728,7 +772,10 @@ def build(who, out):
             if math.hypot(f.center.x, f.center.y - 0.006) < cr * 1.03 and base_z + 0.012 < f.center.z < base_z + 0.040: f.material_index = 1
         ha = bpy.data.objects.new('portrait_hat', hat); sc.collection.objects.link(ha); ha.location = C
         objs.append(ha)
-    CAP = {'knit cap': 0.0, 'watch cap': 0.020, 'slouch beanie': 0.0, 'work cap': 0.012, 'skull cap': 0.050}
+    # (10/19, EYES [eyes: brims and visors]: the work cap sat on the brow with its visor tipped down, and the bedroll's eyes
+    # went into a shade the pupil could not be read out of, 3 levels against the star's 29: the cap is worn higher, pushed
+    # back the way the poacher's field hat is, and the visor tips UP, so the one sun reaches the sockets)
+    CAP = {'knit cap': 0.0, 'watch cap': 0.020, 'slouch beanie': 0.0, 'work cap': 0.026, 'skull cap': 0.050}
     def cap_line(y): return 0.080 - 0.085 * sstep(-0.12, 0.14, y) + CAP.get(P['gear'], 0.0)
     if P['gear'] in ('watch cap', 'slouch beanie', 'work cap', 'skull cap'):
         # the crew's caps: the knit cap's method (the skull's own skin lifted above a line), a watch cap rolled higher on the
@@ -755,11 +802,11 @@ def build(who, out):
         sd = co_.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.008; sd.offset = -1
         bpy.ops.object.modifier_apply(modifier='rim')
         objs.append(co_)
-        if k == 'work cap':   # the visor: a flat oval out over the brow, tipped down 10 degrees, the back half inside the crown
+        if k == 'work cap':   # the visor: a flat oval out over the brow, its front edge raised 24 degrees (worn back; -x about X lifts the -y edge), the back half inside the crown
             bm = bmesh.new()
             vz = cap_line(-0.16) + 0.006
             bmesh.ops.create_cone(bm, cap_ends=True, segments=40, radius1=1.0, radius2=1.0, depth=1.0,
-                                  matrix=Matrix.Translation((0.0, -RY * 0.92, vz)) @ Matrix.Rotation(math.radians(-10), 4, 'X') @ Matrix.Diagonal((RX * 0.78, 0.085, 0.007, 1.0)))
+                                  matrix=Matrix.Translation((0.0, -RY * 0.90, vz)) @ Matrix.Rotation(math.radians(-24), 4, 'X') @ Matrix.Diagonal((RX * 0.78, 0.078, 0.007, 1.0)))
             vm = bpy.data.meshes.new('portrait_visor'); bm.to_mesh(vm); bm.free()
             vm.materials.append(cap.materials[0])
             vo = bpy.data.objects.new('portrait_visor', vm); sc.collection.objects.link(vo); vo.location = C
@@ -1040,6 +1087,22 @@ def group_rows(group):
                                           scar=c.get('scar'), worn=c['worn'])) for k, c in FACTION.items()]
 
 
+def hand_off_window(im, head_px):
+    """the square a screen draws: the head and a little collar, not the shoulders (cycle 1: the whole rig frame boxed to 64
+    left the head 38 px in a 64 box, smaller than the drawn face it replaces): a window 1.25 x the head's height from the
+    top, centred on the head. AND IT HOLDS THE HAT (EYES [eyes: brims and visors], 10/18: that window cut 26 px off the
+    widebrim's cone and would cut 15 px of the starred poacher's own brim): it widens until nothing painted above its
+    bottom touches its sides, a pixel to spare each side, so a brim is whole and the face sits a little smaller under it"""
+    side = min(im.width, int(round(head_px * 1.25)))
+    for _ in range(8):
+        bb = im.split()[3].crop((0, 0, im.width, side)).getbbox() or (0, 0, im.width, side)
+        need = min(im.width, im.height, bb[2] - bb[0] + 2)
+        if need <= side: break
+        side = need
+    cx = (bb[0] + bb[2]) // 2; x0 = max(0, min(im.width - side, cx - side // 2))
+    return (x0, 0, x0 + side, side)
+
+
 def crew_faces(group='crew'):
     """THE HAND-OFF TO RUN TWO: every crew face as square files the screens draw as they are (the roster and the settlement
     draw a face into a 64 canvas; a 72 px box on a 3x phone shows 216 device pixels, so a 128 is handed too). The square is
@@ -1072,13 +1135,7 @@ def crew_faces(group='crew'):
         for k in man['keys']:
             if k not in src: continue
             im = Image.open(os.path.join(ROOT, src[k])).convert('RGBA')
-            # the square is the head and a little collar, not the shoulders (cycle 1: the whole rig frame boxed to 64 left the
-            # head 38 px in a 64 box, smaller than the drawn face it replaces): a window 1.25 x the head's height from the top,
-            # centred on the head
-            side = min(im.width, int(round(pj['head_px'] * 1.25)))
-            bb = im.split()[3].crop((0, 0, im.width, side)).getbbox() or (0, 0, im.width, side)
-            cx = (bb[0] + bb[2]) // 2; x0 = max(0, min(im.width - side, cx - side // 2))
-            sq = im.crop((x0, 0, x0 + side, side))
+            sq = im.crop(hand_off_window(im, pj['head_px']))
             for n in (64, 128):
                 p = os.path.join(od, '%s_%d.png' % (k, n)); sq.resize((n, n), Image.BOX).save(p)
             ent['files'][k] = os.path.relpath(os.path.join(od, '%s_{64|128}.png' % k), ROOT)
