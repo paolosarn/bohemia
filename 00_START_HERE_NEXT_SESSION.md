@@ -152,33 +152,36 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-vamily-guns): 10/19 (e) LATEST -- [the first kit is guns] SHIPPED fd2e0f93 (research only, rule 38g; no game code touched;
-the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a). [the whole grid] RESUMED after it.
-READBACK: the starting guns' numbers beside Battle Brothers' first bows and crossbows, each felt number marked easier or not, played on the live fight.
-Done: 3 draft rows, 264 cells x 200 fights, a 30-cell search, the card exact off the fight's own hitChance() and resolveAttack().
-TAB: VOTE, item THE FIRST GUNS (tuning-the-first-guns-10-19, a page, draft:true).
-RECORD: records/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.md. DATA: banks/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.json.
-TOOLS: tools/bohemia_tuning_the_first_kit_is_guns.js (--card, the grid, --search; reuses the whole grid's engine; three splices in memory, each
-anchor asserted once: the row's own per_tile/base_bonus, and the butt's reach and blow), tools/bohemia_tuning_the_first_kit_is_guns_page.js.
-FINDING 1: 14 OF 15 ORIGINS HAVE NO GUN THAT FIRES IN THEIR FIRST FIGHT. The map hands background and level only; the fight dresses a man by his
-place in the line (pipe, pipe, sledge, pipe, pistol=Dagger, sledge); the first gun is the seventh man. The New Crew's third man is Battle
-Brothers' own ranged companion and the line hands him a sledge.
-FINDING 2: GUNS ON TODAY'S ROWS MAKE IT HARDER. 3 v 3 brigands, our start: pipes 87, today's rows 56, Battle Brothers' first bows 55 (6 v 6: 85,
-55, 57). The crossbow's reload (one shot a turn), no ring (rule 103), nothing to do at one tile (rule 83).
-THE DRAFT (for COMBAT): pistol 2-3 +20/-8 30-50; rifle 2-6 +20/-2 35-55; shotgun 2-3 +25/-15 40-75 ignores the line; all 4 AP (two a turn),
-no reload button, the butt at one tile (rule 83: 'or a club at one'). 3 v 3 people 86, 6 v 6 people 96, guns 70 in 100 of the killing.
-Every felt number easier than its row except the pistol's reach past three houses. The rate is the lever (one a turn: 74 and 82).
-AMMO: 12 shots a gunman a fight (no routine cell dry more than 10 in 100), refilled from one stock after the fight (ECONOMY).
-FOR COMBAT [guns from the first fight]: the rows; read per_tile/base_bonus off the row (one line, in the record); the butt; the kit by the man
-(the best eye the rifle in a crew of three, the best fighters on the line at six); the Lone Wolf keeps his blade (pipe 44, rifle 28 v two).
-FOR COMBAT (not a gun): a standoff that NEVER ENDS: 6 pipes v 2 dire wolves, our start, seed 9168 (bench seeding): both sides hold at full
-health for 7,500 rounds; 1 fight in 200 of that cell. FOR PEOPLE + RUN: the origins' first men average ranged 40.6 (melee backgrounds).
-FOR ECONOMY [the first bullets]: 12 a man a fight; Battle Brothers' start kit 20/40/80 points = 1.7/3.3/6.7 gunman-fights. FOR UI (rule
-120(b)): the hit chance falls by the house: pistol 8, rifle 2, shotgun 15.
-GATES: VOTE TAB 46/6, the same 6 with and without my card (DYNASTY's two whys, RUN TWO's picture zoom in flight). Full suite unmeasured.
-IN FLIGHT: [the whole grid] bench (tools/bohemia_tuning_the_whole_grid.js --write, 873 cells x 100) running; then its page tool and VOTE.
-[bb Battle Brothers keeps the bow a support weapon by the reload and the quiver; a gun with no crank and twelve in the bag is the main way.]
-[analog horror: the butt is the sound of an empty gun; the dry click before the swing, named for SOUNDS.]
+TUNING (tuning-vamily-guns): 10/19 (f) LATEST -- [the first kit is guns] SHIPPED fd2e0f93 and [the first hour's numbers] SHIPPED 5ff7e86d;
+[the whole grid] RUNNING (research only, rule 38g; no game code touched; opened by the coordinator, no check-in, this block is the report).
+*** THE ROOT OF 'SO FUCKING HARD' (found this round, for RUN + COMBAT FIRST): four of the city's eight hand-overs into a fight (the man who
+jumps him, the crew on the block, the crew he taps, the door) carry the city's own count (2 to 4) as a ROSTER and no party; the demo's
+nfOpts() reads only d.party, so the fight's bandOf() falls back to ours.first_band, NINE brigands. A NEW CREW (the door's default, 3 men)
+wins 0 in 100 of those at the game as it plays; 90 against the two the map sizes. All 14 small starts: 0 or 1 in 100. Tap-to-travel walks
+the marker through stepOnce(), which asks streetFightOnStep(), so he meets them. THE FIX IS ONE LINE in nfOpts() (a roster with no party
+becomes a party of the roster's length) and a fallback sized by the company, never the twelve's nine. ***
+ALSO: our start's levers (rule 117: the hit-roll shift, the streak help, enemy nerve, breath, the Beginner count) are measured, NOT BUILT; the
+fight reads none of them, so he plays the TODAY column.
+TAB: VOTE, items THE FIRST GUNS (tuning-the-first-guns-10-19) and YOUR FIRST FIGHT (tuning-your-first-fight-10-19), pages, draft:true.
+RECORDS: records/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.md, records/BOHEMIA_TUNING_THE_FIRST_HOUR_10_19_26.md.
+[the first kit is guns]: 14 of 15 origins have no gun that fires in their first fight (the fight dresses by place in the line; the first gun
+is the seventh man; the New Crew's ranged companion gets a sledge). Guns on today's rows make it harder (3 v 3, our start: pipes 87, today's
+rows 56, Battle Brothers' bows 55). THE DRAFT for COMBAT: pistol 2-3, rifle 2-6, shotgun 2-3, all two shots a turn (4 AP), no reload button,
+the butt at one tile (rule 83's 'a club at one'); every felt number easier than its Battle Brothers row but the pistol's reach past 3.
+3 v 3 people 86, 6 v 6 people 96 (pipes 85); the guns 70 in 100 of the killing; the rate is the lever. AMMO: 12 shots a gunman a fight.
+[the first hour's numbers]: with the guns and our start, the map's job is 80+ for 14 of 15 origins (the Lone Wolf 44 with his blade);
+beside Battle Brothers' first hour, 4 harder with no word: the street's nine, no gun, the first hire 225 against 49, one starred stat not three.
+FOR COMBAT: the draft rows (read per_tile/base_bonus off the row), the butt, the kit by the man; standoffs that NEVER END (6 pipes v 2 dire
+wolves seed 9168; 1 in 100 of several small first fights): both sides hold, nobody steps in. FOR RUN: the nfOpts() line. FOR RUN TWO + ECONOMY:
+the hire price (engine/bohemia_pricetable.js, loaded by no screen). FOR ECONOMY [the first bullets]: 12 a man a fight, refilled from one stock.
+[the whole grid] IN FLIGHT: the bench (tools/bohemia_tuning_the_whole_grid.js --n 100 --write) now saves every finished cell to
+banks/BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.cells.ndjson, stamped with the fight's fingerprint; a container restart killed the first run at
+cell 200, so nothing is held in memory any more. A cell of 30+ men plays 50 fights, the beast roster 40. --from-cache writes the bank from
+what is played; the page marks the rest NOT PLAYED YET. NEXT SESSION: run the same command; it resumes. Then the page tool, then
+[slightly harder, measured] (tools/bohemia_tuning_slightly_harder_grid.js, which caches its own steps).
+GATES: VOTE TAB 46/6 before my cards, the same 6 after (DYNASTY's two whys, RUN TWO's picture zoom). Full suite unmeasured.
+[bb Battle Brothers sizes every fight, even an ambush on the road, by the company in front of it; it never sends a band written for twelve at three.]
+[analog horror: nine men stepping out of the dark onto three is the scene; the problem is that it is the first one.]
 [PENDING Paolo]: none.
 
 TUNING (tuning-vamily-opus-measured): 10/18 (d) LATEST -- [easier than Battle Brothers, measured] SHIPPED d4bc2e2c (research only, rule 38g;

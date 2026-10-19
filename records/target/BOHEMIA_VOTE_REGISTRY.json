@@ -12089,6 +12089,20 @@
     "palette": "reference/art_pipe/cook4/place_in_the_map/COOK4_THE_MAP_GROUND_THE_DESERT.json",
     "light": "top"
    }
+  },
+  {
+   "id": "tuning-your-first-fight-10-19",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "5ff7e86d",
+   "made": "10/19",
+   "draft": true,
+   "title": "YOUR FIRST FIGHT",
+   "why": "When a street crew or a door starts the fight, the game sends nine bandits at your three and you win 0 times in 100, because the street's own count of 2 to 4 never reaches the fight. You see it on this page: every start's first fight as it plays now, and with that fixed and the guns.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_THE_FIRST_HOUR_10_19_26.html"
+   }
   }
  ],
  "verdicts": [
