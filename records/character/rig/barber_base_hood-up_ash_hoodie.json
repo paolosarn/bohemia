@@ -28,13 +28,13 @@
   118,
   89
  ],
- "model_top_m": 1.558,
+ "model_top_m": 1.5567,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7534,
+ "real_height_for_rig": 1.752,
  "pieces": {
   "barber_temple_taper_fade": 30841,
   "barber_temple_taper": 162442,
-  "base_hood-up_ash_hoodie_hood": 266338,
+  "base_hood-up_ash_hoodie_hood": 277978,
   "base_hood-up_ash_hoodie_hood_fall": 6144
  }
 }
