@@ -267,7 +267,7 @@ def pieces(G, X):
         g.parent = body.parent; g.matrix_world = M
         return weigh(g)
 
-    def cloth(key, keep, thick, colour, rim=0.005, levels=2, fams=('torso', 'neck', 'upper', 'fore')):
+    def cloth(key, keep, thick, colour, rim=0.005, levels=2, fams=('torso', 'neck', 'upper', 'fore'), shift=None):
         """THIS LANE's lift at the fine level: the man's faces in fams, cut finer, kept by keep(family, point), lifted"""
         g = body.copy(); g.data = body.data.copy(); g.name = '%s_%s' % (tag, key); sc.collection.objects.link(g)
         for md in list(g.modifiers): g.modifiers.remove(md)
@@ -280,7 +280,7 @@ def pieces(G, X):
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
         bm.normal_update()
         for v in bm.verts:
-            p = M @ v.co; n = (R @ v.normal).normalized(); v.co = Mi @ (p + n * thick(p))
+            p = M @ v.co; n = (R @ v.normal).normalized(); v.co = Mi @ (p + n * thick(p) + (shift(p) if shift else V((0, 0, 0))))
         bm.to_mesh(g.data); bm.free()
         if not len(g.data.polygons): bpy.data.objects.remove(g, do_unlink=True); return None
         return finish(g, colour, key, 1, rim)
@@ -391,14 +391,20 @@ def pieces(G, X):
         t = weight
         q = V((abs(p.x), p.y, p.z))
         if sleeves == 'short': t += 0.007 * sstep(0.12, 0.26, q.x) * sstep(1.12, 0.98, p.z)              # a tee's sleeve stands off the arm
-        if G['shoulder'] == 'wide':   # the square pad: the line runs past the arm, then drops
-            t += 0.030 * sstep(0.06, 0.13, q.x) * sstep(0.22, 0.17, q.x) * sstep(0.99, 1.06, p.z)
+        if G['shoulder'] == 'wide':   # the square pad's height (its width is shift_top, below)
+            t += 0.010 * sstep(0.06, 0.13, q.x) * sstep(0.22, 0.17, q.x) * sstep(0.99, 1.06, p.z)
         if G['shoulder'] == 'arc':    # the cocoon dome: one curve neck to elbow, no point
             sp = (q - SH).dot((EL - SH).normalized()) / (EL - SH).length
             t += 0.032 * math.exp(-((sp - 0.15) / 0.42) ** 2) * sstep(0.04, 0.10, q.x) * sstep(0.90, 1.02, p.z)
         return t
+    def shift_top(p):
+        # cycle 2 (looking, WIDE SHOULDER TEE): pushed along the cloth's normal the pad only raised the shoulder; the flat's
+        # line runs PAST the arm and squares off, so the pad is pushed OUT from the shoulder point, 32 mm, and up 10
+        if G['shoulder'] != 'wide': return V((0, 0, 0))
+        q = abs(p.x); w = sstep(0.07, 0.115, q) * sstep(0.98, 1.05, p.z) * (1.0 - sstep(0.20, 0.27, q))
+        return V((math.copysign(0.032 * w, p.x), 0.0, 0.010 * w))
     if not bib:
-        made.append(cloth('shirt', keep_top, thick_top, mid, rim=0.004))
+        made.append(cloth('shirt', keep_top, thick_top, mid, rim=0.004, shift=shift_top))
 
     # 3. THE NECK
     nz = lambda c: neck_z(c) - 0.004
