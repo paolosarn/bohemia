@@ -12,14 +12,14 @@ keeps its pixels while the world zooms), snap alpha to on/off so the edge is a p
 one PNG plus its base64 for the page. Colours are the render's own: nothing is repainted, nothing darkened.
 
   python3 tools/bohemia_run_the_rig_truck_on_the_map_bake.py
-writes slices/vote/RUN_THE_RIG_TRUCK_ON_THE_MAP.png and prints the data URI length.
+writes slices/vote/RUN_THE_TRUCK_TURNED_UP_ON_THE_MAP.png and prints the data URI length.
 """
 import base64, io, os
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(ROOT, 'records/target/master_rig/truck/rig_SW.png')
-OUT = os.path.join(ROOT, 'slices/vote/RUN_THE_RIG_TRUCK_ON_THE_MAP.png')
+SRC = os.path.join(ROOT, 'records/target/direction_the_truck_turned_up/truck/rig_SW.png')   # 10/19: the turned-up truck, his UP on direction-the-truck-turned-up-10-18 (after round five's 'plate toy')
+OUT = os.path.join(ROOT, 'slices/vote/RUN_THE_TRUCK_TURNED_UP_ON_THE_MAP.png')   # 10/19: a new name, so the voted card's own picture stays what he voted on
 W = 54  # device pixels at 3x = 18 points on the glass
 
 
