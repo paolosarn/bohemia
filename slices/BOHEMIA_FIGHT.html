@@ -254,7 +254,7 @@ const FIGHT = (function () {
   const MASTERY = { mace: 'mace_mastery', flail: 'flail_mastery', hammer: 'hammer_mastery', axe: 'axe_mastery', cleaver: 'cleaver_mastery',
     sword: 'sword_mastery', dagger: 'dagger_mastery', polearm: 'polearm_mastery', spear: 'spear_mastery', crossbow: 'crossbow_mastery',
     firearm: 'crossbow_mastery', bow: 'bow_mastery', throwing: 'throwing_mastery' };
-  function mastery(u) { return PK(u, MASTERY[u.weapon.class]); }
+  function mastery(u) { return PK(u, MASTERY[(u.weapon.of || u.weapon).class]); }   /* the pistol's shot keeps its own mastery, PISTOL WORK */
   /* LONE WOLF: nobody of his within its tiles */
   function loneMult(u) {
     const p = PK(u, 'lone_wolf'); if (!p) return 1;
@@ -396,8 +396,9 @@ const FIGHT = (function () {
   function strikeSkill(w) { return w.skills.filter(function (s) { return !/^Reload/.test(s.name); })[0]; }
   function reloadSkill(w) { return w.skills.filter(function (s) { return /^Reload/.test(s.name); })[0] || null; }
   function skillAP(w, s, u) {
-    const dm = u && w.class === 'dagger' ? PK(u, 'dagger_mastery') : null;
-    if (dm && s && /^(Stab|Puncture|Deathblow)/.test(s.name)) return dm.stab_puncture_deathblow_ap_cost;
+    const dm = u && (w.of || w).class === 'dagger' ? PK(u, 'dagger_mastery') : null;
+    /* PISTOL WORK (dagger mastery) is the pistol's: its stab and, now it shoots, its shot at the stab's cost */
+    if (dm && s && (/^(Stab|Puncture|Deathblow)/.test(s.name) || (w.of && !/^Reload/.test(s.name)))) return dm.stab_puncture_deathblow_ap_cost;
     const cm = u && w.class === 'firearm' ? PK(u, 'crossbow_mastery') : null;
     if (cm && s && /^Reload/.test(s.name)) return cm.handgonne_reload_ap_cost;
     if (s && typeof s.ap === 'number') return s.ap;
@@ -830,9 +831,7 @@ const FIGHT = (function () {
       let best = null, bd = Infinity;
       for (let yy = 0; yy < S.h; yy++) zone.forEach(function (xx) {
         if (!free(xx, yy)) return;
-        /* his own line first (10/19: with the guns first, nine shooters fill the back line, and a shooter whose slot is a house
-           stepped into the shieldwall's column; now he slides along his own line to the nearest open row) */
-        const d = Math.abs(xx - x) * (S.h + 1) + Math.abs(yy - y);
+        const d = Math.abs(yy - y) * (zone.length + 1) + Math.abs(xx - x);
         if (d < bd) { bd = d; best = { x: xx, y: yy }; }
       });
       for (let xx = zone[zone.length - 1] + back; !best && xx >= 0 && xx < S.w; xx += back) for (let yy = 0; yy < S.h; yy++) if (free(xx, yy)) { best = { x: xx, y: yy }; break; }
@@ -1163,7 +1162,7 @@ const FIGHT = (function () {
     let base = raw * injMult(a, 'damage_inflicted_pct');
     const ex = PK(a, 'executioner'); if (ex && t.injuries.length) base *= 1 + ex.damage_bonus_vs_injured_pct / 100;
     const kf = PK(a, 'killing_frenzy'); if (kf && a.frenzy > 0) base *= 1 + kf.damage_bonus_pct / 100;
-    const tm = w.class === 'throwing' ? PK(a, 'throwing_mastery') : null;
+    const tm = w.class === 'throwing' && !w.of ? PK(a, 'throwing_mastery') : null;   /* BOTTLE ARM is the bottles', never the pistol's */
     if (tm && dist(a, t) === tm.near_distance_tiles) base *= 1 + tm.damage_bonus_at_2_tiles_pct / 100;
     if (tm && dist(a, t) === tm.far_distance_tiles) base *= 1 + tm.damage_bonus_at_3_tiles_pct / 100;
     let ignore = w.armor_ignore_pct / 100;

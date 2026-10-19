@@ -583,8 +583,14 @@ async function formation() {
   leg(misplaced.length === 0 && !handed.err, '*** THE FIGHT OPENS WITH YOUR MEN WHERE THE ROSTER PUT THEM *** (Battle Brothers: two rows of nine, the front line and the back line): every slot to its tile, a house slot to the nearest open tile',
     misplaced.length ? misplaced.join(' ') : 'all twelve on their slots');
   const dflt = await at('');
-  const meleeX = Math.min.apply(null, dflt.crew.filter(u => !u.ranged).map(u => u.x)), rangedX = Math.max.apply(null, dflt.crew.filter(u => u.ranged).map(u => u.x));
-  leg(rangedX < meleeX, 'without a roster: the shieldwall in front, the shooters behind', 'shooters at column ' + rangedX + ' or behind, the line at ' + meleeX + ' or ahead');
+  /* AMENDED 10/19 (rule 120(a), guns first): nine shooters fill the back line, so a shooter whose back slot is a house takes the
+     nearest open tile, which can be the front column; the shieldwall is still all in front and no shooter stands in front of
+     an open back slot */
+  const slotY = u => Math.round(mid + Number(String(u.slot).split(':')[1]) - (n - 1) / 2);
+  const meleeX = Math.min.apply(null, dflt.crew.filter(u => !u.ranged).map(u => u.x));
+  const forward = dflt.crew.filter(u => u.ranged && u.x === front && !(/^back:/.test(u.slot) && dflt.tiles[back + ',' + slotY(u)] === false));
+  leg(meleeX === front && forward.length === 0, 'without a roster: the shieldwall in front, the shooters behind (a shooter in front only where a house took his back slot)',
+    'the line at ' + meleeX + '; ' + dflt.crew.filter(u => u.ranged && u.x === front).length + ' shooters in front, ' + forward.length + ' of them in front of an open back slot');
   const band = await at(',band:["brigand_thug","brigand_thug","brigand_thug","lower_brigand_marksman","brigand_poacher"]');
   const lineX = Math.min.apply(null, band.them.filter(u => !u.back).map(u => u.x)), backX = Math.min.apply(null, band.them.filter(u => u.back).map(u => u.x));
   leg(backX > lineX, 'the enemy deploys by its ai.json role: the marksman and the poacher behind the thugs', 'thugs at ' + lineX + ', the backline at ' + backX + ' or behind');
@@ -685,6 +691,9 @@ async function enemyParts() {
     const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,auto:true,cap:4,days:30,company:' + pipes + ',party:' + JSON.stringify(party) + '}' });
     await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT._t && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 });
     await d.page.evaluate(LOG);
+    /* the men watched live long enough to choose (10/19: with Battle Brothers' Beginner aim the four pipes dropped the lone thug
+       before his first swing); the leg is their brain, never how long they last */
+    await d.page.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them').forEach(u => { u.hp = u.hpMax = 9999; }));
     if (pike) await d.page.evaluate(() => { const r = FIGHT.S.units.find(u => u.kind === 'brigand_raider'); r.weapon = DB.weapons.rows.find(w => w.id === 'pike'); });
     const t0 = Date.now(); while (Date.now() - t0 < 40000) { if ((await d.page.evaluate(() => window.__dec.length)) >= 12 || await d.page.evaluate(() => FIGHT.S.over)) break; await d.page.waitForTimeout(300); }
     const r = { dec: await d.page.evaluate(() => window.__dec), err: d.errs[0] };
@@ -756,14 +765,15 @@ async function turnPace() {
   await p.waitForTimeout(3000);
   const still = await mine();
   const end = await p.evaluate(() => { const r = document.getElementById('bend').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
+  /* a struck man shows his cost only when he is HIT, and a miss shows only its chance: his man stands open (no defence, no car
+     door, health to spare) so their swings land and he is still standing for the skip below (10/19: Battle Brothers' Beginner
+     aim, ours.hit_roll_shift, made the seed's first two swings miss) */
+  await p.evaluate(() => { const y = FIGHT.alive('you')[0]; y.mdef = -100; y.shield = null; y.hp = y.hpMax = 9999; });
   await p.touchscreen.tap(end[0], end[1]);
   const tEnd = await p.evaluate(() => performance.now());
   await p.waitForTimeout(500); await wait(90000);
   const tBack = await p.evaluate(() => performance.now());
   const acts = await p.evaluate(e => window.__acts.filter(a => a.t > e), tEnd), gaps = acts.slice(1).map((a, i) => a.t - acts[i].t);
-  /* a struck man shows his cost only when he is HIT: rounds on until one of theirs lands (10/19: Battle Brothers' Beginner aim,
-     ours.hit_roll_shift, made the seed's first two swings miss, and a miss shows only its chance) */
-  for (let i = 0; i < 4 && !(await p.evaluate(() => window.__nums.some(t => /^-\d+$/.test(t)))); i++) { await p.touchscreen.tap(end[0], end[1]); await p.waitForTimeout(500); await wait(90000); }
   const nums = await p.evaluate(() => window.__nums);
   leg(still, 'his own turn has no timer: three seconds on, it is still his, waiting for his finger');
   leg(acts.length >= 6 && gaps.every(g => g >= 990) && tBack - tEnd >= 6000, '*** A TURN YOU CAN READ *** (VIA GROK: \'the turns are too short\'): every act of theirs holds the board two beats, six men take six seconds or more',

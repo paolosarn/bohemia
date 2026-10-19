@@ -88,7 +88,9 @@ leg(live.length >= 30 && unread.length === 0, 'every perk marked live is read by
     s = fresh('rifle'); s.t.x = s.fp.x + 2; s.a.loaded = true;
     /* a car between him and his man (the wiki's blocked line), not under the man (that is defence by count now, rule 67) */
     S.cover[s.t.y][s.fp.x + 1] = 'rock_0'; b = hc(s.a, s.t); s.a.perks = ['bullseye']; const bul = hc(s.a, s.t); S.cover[s.t.y][s.fp.x + 1] = null; const open0 = hc(s.a, s.t);
-    say('THREADS THE NEEDLE (bullseye): cover costs half, not three quarters', Math.abs(bul - open0 * 0.5) <= 1 && Math.abs(b - open0 * 0.25) <= 1, 'open ' + open0 + ', cover ' + b + ', cover with it ' + bul);
+    /* the cover penalty multiplies the shot; Battle Brothers' Beginner aim (ours.hit_roll_shift, rule 117) is added after it, on the roll */
+    const sh = T.rollShift(s.a);
+    say('THREADS THE NEEDLE (bullseye): cover costs half, not three quarters', Math.abs((bul - sh) - (open0 - sh) * 0.5) <= 1 && Math.abs((b - sh) - (open0 - sh) * 0.25) <= 1, 'open ' + open0 + ', cover ' + b + ', cover with it ' + bul + ' (the roll shift ' + sh + ' on each)');
     s.a.perks = []; s.t.perks = ['anticipation']; const ant = hc(s.a, s.t);
     const an = num('anticipation'), want = Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + 10 * an.ranged_defense_per_tile_pct_of_base / 100) * 2);
     say('SEES IT COMING (anticipation): the further the shooter, the more defence, at least ' + an.ranged_defense_bonus_min, Math.abs((open0 - ant) - want) <= 1, open0 + ' -> ' + ant);
