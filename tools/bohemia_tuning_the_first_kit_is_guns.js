@@ -38,21 +38,21 @@ const J = f => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
    one press. The class is 'firearm' for all three: a gun, no ring (rule 103), piercing. Ranges keep rule 83 (every gun
    fires from two tiles). */
 const DRAFT = {
-  pistol: { id: 'draft_pistol', name: 'DRAFT Pistol', class: 'firearm', hands: 1, damage_min: 30, damage_max: 45, armor_damage_pct: 50,
+  pistol: { id: 'draft_pistol', name: 'DRAFT Pistol', class: 'firearm', hands: 1, damage_min: 30, damage_max: 50, armor_damage_pct: 50,
     armor_ignore_pct: 45, fatigue: null, durability: 60, value: 300, range: 3, range_min: 2, range_max: 3,
     per_tile: -8, base_bonus: 20, free_tiles: 1, ignores_line_of_fire: false,
     skills: [{ name: 'Shoot Pistol', ap: 4, fatigue: 8, hit_bonus: 20, range: null }], ammo: null,
-    butt: 'wooden_stick', beside: 'short_bow', why: 'two shots a turn like the Short Bow\'s Quick Shot (4 AP), the Quick Shot\'s damage a step tighter (30-45 against 30-50) and a step more of it past the armour (45 against 35), a steeper fall per tile than any bow (a handgun is short), a bigger base so it still starts easier at two and three tiles' },
+    butt: 'wooden_stick', beside: 'short_bow', why: 'two shots a turn like the Short Bow\'s Quick Shot (4 AP), the Short Bow\'s own damage (30-50) with a step more of it past the armour (45 against 35), a steeper fall per tile than any bow (a handgun is short), a bigger base so it still starts easier at two and three tiles' },
   rifle: { id: 'draft_rifle', name: 'DRAFT Rifle', class: 'firearm', hands: 2, damage_min: 35, damage_max: 55, armor_damage_pct: 70,
     armor_ignore_pct: 50, fatigue: null, durability: 60, value: 600, range: 6, range_min: 2, range_max: 6,
     per_tile: -2, base_bonus: 20, free_tiles: 1, ignores_line_of_fire: false,
     skills: [{ name: 'Shoot Rifle', ap: 4, fatigue: 10, hit_bonus: 20, range: null }], ammo: null,
     butt: 'wooden_stick', beside: 'light_crossbow', why: 'the Light Crossbow\'s reach (6) and direct share, a step more damage, the Aimed Shot\'s flat fall (-2 a tile), +20 where the bolt is +15; two shots a turn where the crossbow fires one (4 AP, not 3 then a 4 AP reload: a rifle has no crank)' },
-  shotgun: { id: 'draft_shotgun', name: 'DRAFT Shotgun', class: 'firearm', hands: 2, damage_min: 40, damage_max: 70, armor_damage_pct: 80,
+  shotgun: { id: 'draft_shotgun', name: 'DRAFT Shotgun', class: 'firearm', hands: 2, damage_min: 40, damage_max: 75, armor_damage_pct: 90,
     armor_ignore_pct: 30, fatigue: null, durability: 60, value: 500, range: 3, range_min: 2, range_max: 3,
     per_tile: -15, base_bonus: 25, free_tiles: 1, ignores_line_of_fire: true,
     skills: [{ name: 'Shoot Shotgun', ap: 4, fatigue: 10, hit_bonus: 25, range: null }], ammo: null,
-    butt: 'wooden_stick', beside: 'handgonne', why: 'the Handgonne\'s shape (a big base, a steep fall, the spread ignores the line of fire) with a second tile and two shots a turn (4 AP, not 3 then a 9 AP reload), damage a step under it, less to plate' }
+    butt: 'wooden_stick', beside: 'handgonne', why: 'the Handgonne\'s shape (a big base, a steep fall, the spread ignores the line of fire) with a second tile and two shots a turn (4 AP, not 3 then a 9 AP reload), the low end a step up (40-75 against 35-75), a step more past the armour (30 against 25), still the weakest of the three on plate (the rifle passes 50)' }
 };
 
 /* ---------- THE KITS: who holds what. A slot is a place in the line (ours.crew); the main man keeps the pipe and the car door,
@@ -73,6 +73,8 @@ const KITS = {
     rows: { rifle: 'draft_rifle', pistol: 'draft_pistol', shotgun: 'draft_shotgun' }, butt: true },
   once: { name: 'THE DRAFT GUNS AT THE CROSSBOW\'S PACE: the proposal with the rifle and the shotgun at one shot a turn (5 AP), the butt on (what the rate is worth)',
     rows: { rifle: 'draft_rifle', pistol: 'draft_pistol', shotgun: 'draft_shotgun' }, butt: true, ap: 5 },
+  eye: { name: 'THE DRAFT GUNS BY THE EYE: the proposal, the main man on the line, the rest handed their guns by their background\'s ranged skill (the best eye the first rifle), the worst eyes on the line',
+    rows: { rifle: 'draft_rifle', pistol: 'draft_pistol', shotgun: 'draft_shotgun' }, butt: true, byEye: true },
   nobutt: { name: 'THE DRAFT GUNS WITHOUT THE BUTT: the proposal, but a gun at one tile does nothing (rule 83 as the fight plays it: what the butt is worth)',
     rows: { rifle: 'draft_rifle', pistol: 'draft_pistol', shotgun: 'draft_shotgun' }, butt: false },
   far: { name: 'THE OPENING: the proposal with the first band across the street (the fronts 8 tiles apart, columns 6 and 14, not 5): a search side test',
@@ -80,6 +82,7 @@ const KITS = {
   allguns: { name: 'ALL GUNS, NOBODY ON THE LINE: every man a draft gun, the butt on (a side test: the ring)', rows: { rifle: 'draft_rifle', pistol: 'draft_pistol', shotgun: 'draft_shotgun' }, all: true, butt: true }
 };
 const KIT_ORDER = ['today', 'jobs', 'bb', 'draft', 'once', 'nobutt'];
+const EYE_COMPANIES = [3, 6];
 const SETS = ['bb', 'start'];
 const LOADS = [6, 8, 10, 12, 15, 20];
 const COMPANIES = [1, 3, 6], COUNTS = [2, 3, 6], KINDS = ['humans', 'direwolf'];
@@ -213,7 +216,16 @@ let C_SLOT1 = null;   /* a search knob (--cell only): what the one man holds */
 function kitCompany(n, kit, DB) {
   const base = GRID.companyOf(n, 'early'), crew = DB.ours.crew.value, K = KITS[kit];
   if (!K.rows) return base;
-  const slots = (K.all ? ALL_GUNS : SLOTS)[n];
+  let slots = (K.all ? ALL_GUNS : SLOTS)[n];
+  if (K.byEye && n > 1) {
+    /* the main man (the first) keeps the line; the others, best eye first, take the guns in the order rifle, rifle, pistol, shotgun */
+    const bg = new Map(DB.backgrounds.rows.map(r => [r.id, r])), eye = m => { const s = bg.get(m.background).stats.ranged_skill; return (s[0] + s[s.length - 1]) / 2; };
+    const order = base.map((m, i) => i).slice(1).sort((a, b) => eye(base[b]) - eye(base[a]) || a - b);
+    const guns = slots.slice(1).filter(x => x !== 'line').sort((a, b) => ['rifle', 'pistol', 'shotgun'].indexOf(a) - ['rifle', 'pistol', 'shotgun'].indexOf(b));
+    const out = ['line'].concat(base.slice(1).map(() => 'line'));
+    order.forEach((i, k) => { if (k < guns.length) out[i] = guns[k]; });
+    slots = out;
+  }
   return base.map((m, i) => {
     const place = crew[i % crew.length], s = slots[i];
     if (s === 'line') return m;
@@ -331,6 +343,7 @@ function cells() {
   KINDS.forEach(kd => COMPANIES.forEach(c => COUNTS.forEach(e => KIT_ORDER.forEach(k => SETS.forEach(s =>
     out.push({ kind: kd, company: c, enemies: e, kit: k, setting: s }))))));
   KINDS.forEach(kd => [3, 6].forEach(c => COUNTS.forEach(e => SETS.forEach(s => out.push({ kind: kd, company: c, enemies: e, kit: 'allguns', setting: s })))));
+  KINDS.forEach(kd => EYE_COMPANIES.forEach(c => COUNTS.forEach(e => SETS.forEach(s => out.push({ kind: kd, company: c, enemies: e, kit: 'eye', setting: s })))));
   return out;
 }
 const key = c => [c.kind, c.company, c.enemies, c.kit, c.setting].join('|');
@@ -392,7 +405,8 @@ async function main() {
   const N = Number(arg('--n', 200)), JOBS = Number(arg('--jobs', 4));
   const sfile = path.join(require('os').tmpdir(), 'bohemia_guns_strikes_' + process.pid + '.json');
   fs.writeFileSync(sfile, JSON.stringify(strikes));
-  const work = cells(), results = {};
+  const onlyKit = arg('--only-kit', null);
+  const work = cells().filter(w => !onlyKit || w.kit === onlyKit), results = {};
   let next = 0, running = 0; const t0 = Date.now();
   await new Promise(done => {
     const pump = () => {
@@ -421,7 +435,12 @@ async function main() {
     }));
   }));
   console.log('\n' + work.length + ' cells x ' + N + ' fights in ' + Math.round((Date.now() - t0) / 1000) + ' s');
-  if (argv.includes('--write')) {
+  if (argv.includes('--write') && onlyKit) {
+    const b = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+    Object.assign(b.cells, results); b.kits = KITS;
+    fs.writeFileSync(OUT, JSON.stringify(b, null, 1) + '\n');
+    console.log('merged ' + Object.keys(results).length + ' ' + onlyKit + ' cells into ' + path.relative(ROOT, OUT));
+  } else if (argv.includes('--write')) {
     fs.writeFileSync(OUT, JSON.stringify({
       _readme: 'TUNING [the first kit is guns] 10/19 (rule 120(a), rule 117, rule 38g research only). draft:true. NOTHING IN THE GAME READS THIS FILE. '
         + 'The card is the live fight\'s own hitChance() and resolveAttack() on a flat lit board; the cells are fights of the live fight (slices/BOHEMIA_FIGHT.html, '
@@ -435,4 +454,4 @@ async function main() {
   }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
-module.exports = { DRAFT, KITS, SLOTS, engine, cell, cardRows };
+module.exports = { DRAFT, KITS, SLOTS, engine, cell, cardRows, kitCompany };
