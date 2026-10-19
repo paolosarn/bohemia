@@ -1,0 +1,78 @@
+{
+ "look": "G_bone_tank",
+ "shape": "the barber's mannequin in BONE TANK (TANK)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TANK",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_bone_tank.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_bone_tank_trouser": 2568,
+  "g_bone_tank_shoe": 3916,
+  "g_bone_tank_shirt": 21856,
+  "g_bone_tank_hair": 17968,
+  "g_bone_tank_hand_L": 392,
+  "g_bone_tank_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_bone_tank_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_bone_tank_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_bone_tank_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "g_bone_tank_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_bone_tank_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_bone_tank_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_bone_tank_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_bone_tank_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

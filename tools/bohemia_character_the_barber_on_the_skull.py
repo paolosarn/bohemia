@@ -97,10 +97,12 @@ ORDER = ['TEMPLE TAPER', 'COIL CROWN', 'LAYERED FALL']
 import bohemia_character_hair_one as HAIR_ONE  # noqa: E402
 import bohemia_character_hats_one as HATS_ONE  # noqa: E402   (HATS 1: the 21 canon hats on the same head)
 import bohemia_character_eyewear_one as EYE_ONE  # noqa: E402   (EYEWEAR 1: the 14 face pieces on the same head)
+import bohemia_character_garments_base as BASE_ONE  # noqa: E402   (GARMENTS BASE: the 80 tops, each on its own body)
 CUTS.update(HAIR_ONE.CUTS)
 CUTS.update(HATS_ONE.CUTS)
 CUTS.update(EYE_ONE.CUTS)
-ALL = ORDER + HAIR_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER
+CUTS.update(BASE_ONE.CUTS)
+ALL = ORDER + HAIR_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER
 
 
 def sstep(a, b, t):
@@ -131,9 +133,12 @@ def build(cut):
         r_, i_ = os.environ['BARBER_HAIR'].split(':'); spec['hair'] = (r_, int(i_))
     ZCAP = float(os.environ.get('BARBER_ZCAP', spec['zcap']))
     key = 'BARBER_' + tag.upper()
+    # a garment is worn on its own body (the mannequin in that top, GARMENTS BASE), built first; a cut on the mannequin
+    if cut in BASE_ONE.CUTS: BASE_ONE.body(cut)
+    body_glb = spec.get('body', 'records/character/rig/barberbody.glb'); btag = os.path.basename(body_glb)[:-4]
     # PORTRAIT's head on the bare body: a bare scalp (no hair object), no gear, no stubble; the skin is the body's own
-    PM.PEOPLE[key] = dict(body='records/character/rig/barberbody.glb',
-                          drop=tuple('barberbody_%s' % x for x in ('hair', 'hair_fall', 'hat', 'hat_brim', 'visor')),
+    PM.PEOPLE[key] = dict(body=body_glb,
+                          drop=tuple('%s_%s' % (btag, x) for x in ('hair', 'hair_fall', 'hat', 'hat_brim', 'visor')),
                           cut_z=1.165, centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
                           gear=None, hair='bare', stubble=False, look='barber_' + tag, crew=True,
                           colours=dict(skin=('skin_deep', 3), lips=('skin_deep', 2), hair=spec['hair'], gear=spec['hair'],
@@ -295,8 +300,9 @@ def build(cut):
 
     made = []
     b = spec['bank']
+    cut_ = spec.get('as_cut', cut)   # a garment's head wears one of the three cuts (TEMPLE TAPER) under it
 
-    if cut == 'TEMPLE TAPER':
+    if cut_ == 'TEMPLE TAPER':
         # THE LINE: straight across the brow (front 0.16 of the head down from the crown), the temple corners cut back,
         # down past the temple to the taper line over the ear (side 0.40), lowest at the back
         def line(q):
@@ -327,7 +333,7 @@ def build(cut):
             return out
         made.append(shell('barber_temple_taper', lambda q: q.z > line(q) - 0.002, thick, subdiv=2, rim=0.0012))
 
-    elif cut == 'COIL CROWN':
+    elif cut_ == 'COIL CROWN':
         # THE LINE: the hairline 0.24 down at the brow; the sides down over the ears to the jaw behind them (side 0.72);
         # the nape at the mouth's level
         def line(q):
@@ -350,7 +356,7 @@ def build(cut):
             return out
         made.append(shell('barber_coil_crown', lambda q: q.z > line(q) - 0.004, thick, subdiv=2, rim=0.004))
 
-    elif cut == 'LAYERED FALL':
+    elif cut_ == 'LAYERED FALL':
         def line(q):
             ab = abs(az_of(q)); j = 0.004 * math.sin(8.0 * az_of(q) + 1.1)
             return interp(ab, [(0.0, 0.106), (0.28, 0.096), (0.55, 0.068), (0.85, 0.028), (1.20, -0.050), (1.60, -0.100), (math.pi, -0.120)]) + j
@@ -513,6 +519,8 @@ def build(cut):
         made += HATS_ONE.build(cut, locals())
     elif cut in EYE_ONE.CUTS:
         made += EYE_ONE.build(cut, locals())
+    if cut in BASE_ONE.CUTS:   # a top's pieces that sit on the head and the portrait's neck (a turtleneck's roll, a hood up)
+        made += BASE_ONE.head(cut, locals())
 
     for m in made:
         if isinstance(m, tuple): skin_to(m[1], m[2]); strand_normals(m[1])
@@ -524,7 +532,7 @@ def build(cut):
                               export_morph_normal=False, export_apply=False, use_selection=False)
     model_top = max((o.matrix_world @ v.co).z for o in sc.objects if o.type == 'MESH' for v in o.data.vertices)
     stats = dict(cut=cut, tag=tag, bank=spec['bank'], worn_by=spec['worn_by'], model=os.path.relpath(out, ROOT),
-                 body="records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)", zcap=ZCAP, head="PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+                 body=body_glb + (" (LOOKS Body in the bank's WRAPPED BOOTS)" if btag == 'barberbody' else ' (the mannequin in %s)' % spec.get('garment')), zcap=ZCAP, head="PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
                  bone=PM.HEAD_BONE, hair_palette=list(spec['hair']), hair_rgb=list(hair_rgb), skin_rgb=list(skin_rgb),
                  model_top_m=round(model_top, 4), body_top_m=BODY_TOP, real_height_for_rig=round(1.72 * model_top / BODY_TOP, 4),
                  pieces={(m[1] if isinstance(m, tuple) else m).name: len((m[1] if isinstance(m, tuple) else m).data.vertices) for m in made})
@@ -624,6 +632,7 @@ if __name__ == '__main__':
         barber_body()
         names = (ORDER if sys.argv[2].upper() == 'ALL' else HAIR_ONE.ORDER if sys.argv[2].upper() == 'HAIR1'
                  else HATS_ONE.ORDER if sys.argv[2].upper() == 'HATS1' else EYE_ONE.ORDER if sys.argv[2].upper() == 'EYE1'
+                 else BASE_ONE.ORDER if sys.argv[2].upper() == 'BASE1' else BASE_ONE.pick(sys.argv[2]) if sys.argv[2].upper().startswith('BASE1:')
                  else [n for n in ALL if CUTS[n]['tag'] == sys.argv[2].lower() or n == sys.argv[2].upper()])
         for n in names: build(n)
     elif cmd == 'sheet':
