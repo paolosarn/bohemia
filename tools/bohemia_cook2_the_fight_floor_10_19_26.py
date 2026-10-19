@@ -67,7 +67,8 @@ TILT = 0.7071                                       # the 45 DEGREE ART LAW: dep
 #        decides the tone; #4 sits 5 levels under #2 (#22 sat 53 under and made the ruin's debris field a blob again)
 # playa: his soil #21, the cracked dry earth, onto the pale wash-bed tan (the wash and the shore when dry)
 # track: the desert's two ruts (the scrub's tyre track), the same soil a step darker where the wheels packed it
-# concrete: his cracked slab (the sidewalk family his YES street walks on), frames cut
+# concrete: his cracked slab (the sidewalk family his YES street walks on), frames cut; his four quietest with no paint
+#           and no weeds (#0, #1, #2, #15: 10 to 12 percent crack pixels), DIRECTION's 10/10 note on the repeated star
 # asphalt: his six quietest plain road tiles (the YES street's rest area), frames cut
 GROUNDS = {
     'caliche':  dict(fam=SOIL, ids=[2], tint='#9a8e78', cut=11, cell=(72, 74)),
@@ -75,7 +76,7 @@ GROUNDS = {
     'rough':    dict(fam=SOIL, ids=[4], tint='#958974', cut=11, cell=(72, 72)),
     'playa':    dict(fam=SOIL, ids=[21], tint='#ab9e86', cut=11, cell=(72, 70)),
     'track':    dict(fam=SOIL, ids=[2], tint='#8d7e68', cut=11, cell=(72, 74)),
-    'concrete': dict(fam=S.SIDEWALK, ids=[0, 1, 2, 6, 7, 16], cell=(82, 81)),
+    'concrete': dict(fam=S.SIDEWALK, ids=[0, 1, 2, 15], cell=(82, 81)),
     'asphalt':  dict(fam=S.ROAD, ids=[0, 1, 8, 9, 10, 11], cell=(82, 81)),
     'lawn':     dict(fam='3. Grass and ground tiles', ids=[1, 2, 4], cut=11, cell=(72, 72), sat=0.6),
 }

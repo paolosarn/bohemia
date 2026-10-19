@@ -5,7 +5,7 @@ seed, the same men, as it ships and with the floor re-laid) and lays them old | 
 the close stop at the phone's own pixels, with the twin (his soil as bought and the ground he said YES to). Nothing is
 drawn: crops of those pictures and of his tiles, labelled.
   python3 tools/bohemia_cook2_the_fight_floor_sheet_10_19_26.py <shots dir> <boards>
-  -> records/target/COOK2_THE_FIGHT_FLOOR.webp, records/target/cook2_fight_floor/COOK2_FIGHT_FLOOR_1TO1_<board>.png
+  -> records/target/COOK2_THE_FIGHT_FLOOR.webp
 
 REUSE CHECK (REUSE-FIRST, 7/22): it makes no art; it crops the fight's own photographs, the kit's grounds and his tiles
 (through the stretch-the-pack module) onto one sheet.
@@ -69,12 +69,11 @@ for b in BOARDS:
     # pixels is nearest two thirds, so the new ground fills it and a house or a man still gives the scale
     ch = (np.asarray(oc).astype(int) != np.asarray(nc).astype(int)).any(2)
     best, box = 9, None
-    for y0 in range(OPEN[1], OPEN[3] - 660, 40):
+    for y0 in range(OPEN[1], 1900 - 660, 40):                 # clear of the hint card over the board's foot
         for x0 in range(0, oc.width - mid + 1, 40):
             s = abs(ch[y0:y0 + 660, x0:x0 + mid].mean() - 0.66)
             if s < best: best, box = s, (x0, y0, x0 + mid, y0 + 660)
     oc, nc = oc.crop(box), nc.crop(box)
-    nc.save(os.path.join(KIT, 'COOK2_FIGHT_FLOOR_1TO1_%s.png' % b.upper()))
     blocks.append(('small', 'Close in, at your phone\'s own pixels (one art pixel is one screen pixel): now | new.'))
     blocks.append(('img', pair(oc, nc)))
 # the twin: his soil as bought | his soil in the valley's tan (the YES street's dirt) | his slab | his road, each one tile at 2x
@@ -111,5 +110,5 @@ for k, v in blocks:
         d.text((PAD, y), l, font=font, fill=col); y += int(font.size * 1.3)
     y += PAD
 out = os.path.join(R, 'records/target/COOK2_THE_FIGHT_FLOOR.webp')
-sheet.save(out, quality=88, method=6)
+sheet.save(out, quality=84, method=6)
 print(out, sheet.size, os.path.getsize(out))
