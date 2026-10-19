@@ -68,6 +68,7 @@ md.push('- Battle Brothers moves how hard a fight is through HOW MANY come (reco
 md.push('- THE 70 LINE: for each company (1, 3, 6, 12, 14) and stage (early, middle, late), the most of them you beat 70 or more times in 100, found by halving between two of the grid\'s columns, ' + HB.fights_per_step + ' seeded fights a step (tools/bohemia_tuning_slightly_harder_grid.js on the grid\'s own bench). The noise at 100 fights is about 5 in 100 either way, so a line is "about".');
 md.push('- Beside it: what OUR MAP sends today at the start (party_math\'s job count at Beginner\'s 0.85, capped at 13) and what BATTLE BROTHERS\' MAP sends (the same job count from one skull to three at Veteran, no cap).');
 md.push('- THE PROPOSAL keeps rule 117(a): the map sends the 70 line, never more than Battle Brothers\' three-skull count for that company at that stage.');
+md.push('- **THE LINES ASSUME OUR START\'S LEVERS, AND THE FIGHT DOES NOT READ THEM YET** (found 10/19, records/BOHEMIA_TUNING_THE_FIRST_HOUR_10_19_26.md: no hit-roll shift, streak help, enemy nerve, breath or Beginner count in slices/BOHEMIA_FIGHT.html). At the game as it plays (the grid\'s TODAY column) the same counts are won far less often; the lines hold once COMBAT builds the levers. And the street\'s hand-overs send nine whatever the line says until RUN\'s one line in nfOpts() lands.');
 md.push('');
 md.push('## The 70 line');
 md.push('');
