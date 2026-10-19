@@ -247,6 +247,39 @@ TIERS = {
         weapon=dict(kind='lever', colour=step('clay_rust', 2), metal=step('rubber', 2), r=0.016, back=0.30, grip=0.06, fore=0.62,
                     barrel_r=0.011),
         head_scale=1.2),
+    # THE MARAUDER (round 7, the last tier, the same direction). HOW BATTLE BROTHERS DID IT (rule 41,
+    # records/target/bb/enemies.json brigand_marauder): the band's ARMOURED BRUTE, 'later, brigand parties can sometimes
+    # entirely consist of Marauders': Pillaged Heavy Lamellar, Patchwork Scale or a Rusted Mail Hauberk, a third of the
+    # time with METAL PLATES AND RIVETS on it; a Marauder Helmet with CLOSED mail (the face covered); 55 percent a
+    # TWO-HANDER (a Longaxe, a Two-Handed Mace...). The tier paint file's MARAUDER: plate, 5 lames, SPIKES. The lesson
+    # kept: the heavy one with the big swing, his face shut. Our skin, from the same city: the lamellar is a set of OLD
+    # FOOTBALL SHOULDER PADS gone bone-white (the pale piece, the silhouette's wide shoulders) with BOLTS WELDED ON for
+    # the spikes; the closed helmet is a WELDING MASK flipped up on its hinge (shut, his face is gone; flipped, the face
+    # is the one PORTRAIT made, and the mask stands over his head like a crest), a red stripe down it (the one accent
+    # above the waist, war paint); a WELDER'S LEATHER APRON from the chest to mid-thigh is the plain rest area; the
+    # two-hander is a SLEDGEHAMMER (Battle Brothers' Two-Handed Mallet). His face is skin_mid 2 on the face and hands.
+    'MARAUDER': dict(
+        what='old football shoulder pads gone bone-white with bolts welded on, a welding mask flipped up on its hinge with a red stripe down it, a welder\'s leather apron from the chest to mid-thigh, a black long-sleeve shirt and trousers, boots, a sledgehammer in his right fist; the head is PORTRAIT\'s modelled head, the skin on his hands the face\'s',
+        # cycle 2: cycle 1's smooth bone domes took the rig's grain as fur (two white pom-poms on the shoulders); the shell is
+        # stepped into LAMES now (the tier paint's plate, lames), each band tucked under the one above like a shingle, so
+        # its edges are hard lit lines from every facing, and a size smaller
+        # cycle 3: the lames at 1.3 cm were under a pixel and olive drab read as green fur (and cost the span: 112): the
+        # colour was never it, the SMOOTH DOME was (a round shell under the grain reads as fluff at 1x). Cycle 4: the shell
+        # is FACETED, eight round and six down, flat-shaded, so each latitude band is a ring of hard planes the sun lights
+        # one value at a time: the lames are the facets; bone white again for the light end
+        pads=dict(colour=step('clay_bone', 3), steel=step('tape_grey', 2), dome=(0.165, 0.0, 1.085), r=(0.108, 0.126, 0.076), t=0.016,
+                  facets=(8, 6),
+                  plate_z=(0.975, 1.125), plate_x=0.135, plate_t=0.022, bolt=(0.011, 0.042)),
+        mask=dict(colour=step('cloth_black', 1), glass=step('rubber', 2), stripe=step('blood', 1),   # the glass the boots' rubber: it catches the sky, and the person stays at 8 materials
+                  off=0.045, wrap=1.15,
+                  z=(-0.15, 0.10), hinge=0.035, flip=-100.0, window=(0.30, -0.012, 0.038), stripe_w=0.07, t=0.009),
+        apron=dict(colour=step('clay_rust', 1), z=(1.04, 0.52), bib=0.105, skirt=0.165, waist=0.86, clear=0.026),
+        head='portrait', shirt=True,
+        trousers=step('cloth_black', 1), sleeves=step('cloth_black', 1), boots=step('rubber', 2), skin=step('skin_mid', 2),
+        eyes=step('skin_mid', 0),
+        weapon=dict(kind='sledge', colour=step('clay_rust', 1), metal=step('tape_grey', 2), r=0.017, back=0.12, grip=0.60, fore=0.60,
+                    head=(0.078, 0.078, 0.175)),
+        head_scale=1.2),
 }
 
 # THE HEADS THIS LANE ASKS OF PORTRAIT'S TOOL for a tier PORTRAIT has no row for yet (rule 115h: the face from the same
@@ -263,6 +296,12 @@ HEADS = {
                          kit='the hoodie\'s hood up (COOK THREE\'s, on the body)', palette='steps of the style palette (skin_deep 2, a cloth_black 1 beard)',
                          colours=dict(skin=('skin_deep', 2), lips=('skin_deep', 1), stubble=('cloth_black', 1), hair=('cloth_black', 1),
                                       beard=('cloth_black', 1), iris=('skin_deep', 0))),
+    # the marauder: a buzz and a full black beard under the flipped-up welding mask (the mask is this lane's, on the
+    # body, cut to the skull's numbers); a scar through the brow; skin_mid 2 on the face exactly as on his hands
+    'MARAUDER': dict(base='THUG', drop=(), gear=None, hair='buzz', stubble=False, beard='full', scar='brow',
+                     kit='a welding mask flipped up (COOK THREE\'s, on the body)', palette='steps of the style palette (skin_mid 2, cloth_black 1 beard)',
+                     colours=dict(skin=('skin_mid', 2), lips=('skin_mid', 1), stubble=('cloth_black', 1), hair=('cloth_black', 1),
+                                  beard=('cloth_black', 1), iris=('skin_mid', 0))),
     # the leader: the face you remember, bare-headed (the captain stands at the back): slicked SILVER hair and a silver
     # moustache (cycle 1's black slick took the rig's up-face dust as a grey helmet: pale hair keeps its read), a scar on
     # the cheek; skin_light 2 on the face exactly as on his hands
@@ -886,16 +925,11 @@ def build(tier, out):
         bpy.ops.object.modifier_apply(modifier='rim')
         skin_to(ho_, lambda p: {'Skeleton_neck_joint_2': sstep(1.13, 1.22, p.z), SPINE: 1.0 - sstep(1.13, 1.22, p.z)})
 
-    def vest(K):
-        """THE PLATE CARRIER (Battle Brothers' mail shirt, looted from a police station), built as its own clean pieces
-        (cycle 2: the body's triangles lifted gave it a ragged edge that read as fleece): a FRONT and a BACK PLATE, each a
-        flat slab 3 cm thick with rounded corners standing off the hoodie (a plate is flat, the chest is not, so the sun
-        falls across it as one slab), a CUMMERBUND ring round the waist with its webbing rows pressed in (a 3.2 cm strap
-        every 5 cm = 3 px, the gap a shadow), the same rows across the front plate's lower half, and two STRAPS over the
-        shoulders joining the plates; every vertex takes the bone weights of the nearest torso point of the body (never an
-        arm's), so it rides the chest the way the hoodie under it does"""
+    def torso_kit():
+        """THE TORSO KIT (the vest's, then the marauder's pads and apron): the bone weights of the nearest torso point (never
+        an arm's), the torso's surface ray-cast with the arms left out, and finish() for a built piece: its normals turned
+        away from the body (out), solidified outward, skinned by the nearest torso point"""
         import mathutils.kdtree
-        vm = mat('%s_vest' % tier.lower(), K['colour'], rough=0.95)
         names = {g.index: g.name for g in body.vertex_groups}
         armg = {gidx[b] for b in gidx if b.startswith('Skeleton_arm_joint')}
         tv = [v for v in body.data.vertices if sum(gg.weight for gg in v.groups if gg.group in armg) < 0.3 and (M @ v.co).z < 1.17]
@@ -917,7 +951,7 @@ def build(tier, out):
         def surf(o_, d_):
             hit = bvh.ray_cast(mathutils.Vector(o_), mathutils.Vector(d_).normalized(), 2.0)
             return hit[0]
-        def finish(bm, name, thick, smooth=True, out=None):
+        def finish(bm, name, thick, smooth=True, out=None, material=None, weights=None):
             # the solidify grows along the normals: they are turned to face away from the body (out), so a piece is never
             # thickened into the hoodie under it
             bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
@@ -927,13 +961,26 @@ def build(tier, out):
             o = bpy.data.objects.new(name, me); sc.collection.objects.link(o)
             if smooth:
                 for f in me.polygons: f.use_smooth = True
-            me.materials.append(vm)
+            me.materials.append(material)
             bpy.context.view_layer.objects.active = o
             for oo in sc.objects: oo.select_set(oo is o)
             so = o.modifiers.new('rim', 'SOLIDIFY'); so.thickness = thick; so.offset = 1; so.use_rim = True
             bpy.ops.object.modifier_apply(modifier='rim')
-            skin_to(o, torso_w)
+            skin_to(o, weights or torso_w)
             return o
+        return torso_w, surf, finish
+
+    def vest(K):
+        """THE PLATE CARRIER (Battle Brothers' mail shirt, looted from a police station), built as its own clean pieces
+        (cycle 2: the body's triangles lifted gave it a ragged edge that read as fleece): a FRONT and a BACK PLATE, each a
+        flat slab 3 cm thick with rounded corners standing off the hoodie (a plate is flat, the chest is not, so the sun
+        falls across it as one slab), a CUMMERBUND ring round the waist with its webbing rows pressed in (a 3.2 cm strap
+        every 5 cm = 3 px, the gap a shadow), the same rows across the front plate's lower half, and two STRAPS over the
+        shoulders joining the plates; every vertex takes the bone weights of the nearest torso point of the body (never an
+        arm's), so it rides the chest the way the hoodie under it does"""
+        vm = mat('%s_vest' % tier.lower(), K['colour'], rough=0.95)
+        torso_w, surf, finish0 = torso_kit()
+        finish = lambda bm, name, thick, smooth=True, out=None: finish0(bm, name, thick, smooth=smooth, out=out, material=vm)
         pz0, pz1 = K['plate_z']; hw = K['plate_x']
         under = 0.018 + 0.010 + 0.006   # the hoodie, its hem, a little air
         fr = [surf((x_, -0.6, z_), (0, 1, 0)) for x_ in (-hw, -hw / 2, 0, hw / 2, hw) for z_ in (pz0, (pz0 + pz1) / 2, pz1)]
@@ -1023,7 +1070,118 @@ def build(tier, out):
         lift('%s_kneepads' % tier.lower(), lambda p: K['z'][0] <= p.z <= K['z'][1] and p.y < -0.045 and abs(p.x) < 0.16, lambda p: K['t'], None,
              rim=0.010, subdiv=2, groove=lambda p: 0.004 if abs(p.z - K['ridge_z']) < 0.009 else 0.0, material=km)
 
+    def pads(K):
+        """THE SHOULDER PADS (Battle Brothers' heavy lamellar with metal plates and rivets): a domed shell over each
+        shoulder standing well off it (the wide shoulders are the silhouette's feature), a flat front and back arch
+        joining them over the chest and the shoulder blades, and bolts welded upright along each dome's crown (the tier
+        paint's spikes); the whole set rides the chest bone, as real pads do, while the arms move under them"""
+        torso_w, surf, finish0 = torso_kit()
+        pm = mat('%s_pads' % tier.lower(), K['colour'], rough=0.9); stl = mat('%s_steel' % tier.lower(), K['steel'], rough=0.8)
+        cx_, cy_, cz_ = K['dome']; rx, ry, rz = K['r']
+        spine_w = lambda q: {SPINE: 1.0}
+        for sgn in (-1, 1):
+            bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=K['facets'][0], v_segments=K['facets'][1], radius=1.0)
+            bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.calc_center_median().z < -0.30], context='FACES')
+            bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+            for v in bm.verts: v.co = mathutils.Vector((sgn * cx_ + v.co.x * rx, cy_ + v.co.y * ry, cz_ + v.co.z * rz))
+            finish0(bm, '%s_pad_%s' % (tier.lower(), 'l' if sgn > 0 else 'r'), K['t'], smooth=False, material=pm,
+                    out=lambda c, s_=sgn: c - mathutils.Vector((s_ * cx_, cy_, cz_)), weights=spine_w)
+            parts = []
+            for dx in (-0.045, 0.0, 0.045):   # the bolts, upright on the dome's crown
+                zt = cz_ + rz * max(0.0, 1 - (dx / rx) ** 2) ** 0.5
+                bpy.ops.mesh.primitive_cone_add(vertices=8, radius1=K['bolt'][0], radius2=0.002, depth=K['bolt'][1],
+                                                location=(sgn * cx_ + dx, cy_, zt + K['t'] + K['bolt'][1] / 2 - 0.006))
+                c = bpy.context.active_object; c.data.materials.append(stl); parts.append(c)
+            for o in sc.objects: o.select_set(o in parts)
+            bpy.context.view_layer.objects.active = parts[0]; bpy.ops.object.join(); parts[0].name = '%s_bolts_%s' % (tier.lower(), 'l' if sgn > 0 else 'r')
+            skin_to(parts[0], spine_w)
+        pz0, pz1 = K['plate_z']; hw = K['plate_x']; clear = 0.03
+        fr = [surf((x_, -0.6, z_), (0, 1, 0)) for x_ in (-hw, 0, hw) for z_ in (pz0, pz1)]
+        bk = [surf((x_, 0.6, z_), (0, -1, 0)) for x_ in (-hw, 0, hw) for z_ in (pz0, pz1)]
+        for side, y0 in ((-1, min(q.y for q in fr if q) - clear), (1, max(q.y for q in bk if q) + clear)):
+            bm = bmesh.new(); nx, nz = 24, 16; zc = (pz0 + pz1) / 2; hz = (pz1 - pz0) / 2
+            G = [[None] * (nx + 1) for _ in range(nz + 1)]
+            for j in range(nz + 1):
+                for i in range(nx + 1):
+                    u = -1 + 2 * i / nx; w = -1 + 2 * j / nz
+                    if abs(u) ** 4 + abs(w) ** 4 > 1.0:
+                        s_ = (abs(u) ** 4 + abs(w) ** 4) ** -0.25; u *= s_; w *= s_
+                    G[j][i] = bm.verts.new((u * hw, y0 - side * 0.5 * (u * hw) ** 2, zc + w * hz))
+            for j in range(nz):
+                for i in range(nx):
+                    try: bm.faces.new((G[j][i], G[j][i + 1], G[j + 1][i + 1], G[j + 1][i]))
+                    except ValueError: pass
+            bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5)
+            finish0(bm, '%s_pad_arch_%s' % (tier.lower(), 'front' if side < 0 else 'back'), K['plate_t'], smooth=False, material=pm,
+                    out=lambda c, s_=side: mathutils.Vector((0, s_, 0)), weights=spine_w)
+
+    def welding_mask(K):
+        """THE WELDING MASK FLIPPED UP (Battle Brothers' marauder helmet with closed mail: shut, the face is gone): a shell
+        that would wrap the face from the chin to the brow, built round PORTRAIT's skull (its numbers read, never edited)
+        and turned up about the hinge at the temples, so it stands over his head like a crest; a dark glass window and a
+        red stripe down the middle (war paint, the one accent above the waist); on the head bone"""
+        ph, C, (RX, RY, RZ) = head_frame()
+        mm = mat('%s_mask' % tier.lower(), K['colour'], rough=0.85); gm = mat('%s_glass' % tier.lower(), K['glass'], rough=0.4)
+        rm_ = mat('%s_stripe' % tier.lower(), K['stripe'], rough=0.8)
+        z0, z1 = K['z']; nth, nzz = 44, 26; a = math.radians(K['flip']); yc, zc = C.y, C.z + K['hinge']
+        bm = bmesh.new(); G = []
+        for j in range(nzz + 1):
+            dz = z0 + (z1 - z0) * j / nzz; row = []
+            for i in range(nth + 1):
+                th = -K['wrap'] + 2 * K['wrap'] * i / nth
+                x = (RX + K['off']) * math.sin(th); y = C.y - (RY + K['off']) * math.cos(th); z = C.z + dz
+                y2 = yc + (y - yc) * math.cos(a) - (z - zc) * math.sin(a); z2 = zc + (y - yc) * math.sin(a) + (z - zc) * math.cos(a)
+                row.append((bm.verts.new((x, y2, z2)), th, dz))
+            G.append(row)
+        wth, wz0, wz1 = K['window']
+        for j in range(nzz):
+            for i in range(nth):
+                (v00, th0, dz0), (v01, _, _), (v11, _, dz1), (v10, _, _) = G[j][i], G[j][i + 1], G[j + 1][i + 1], G[j + 1][i]
+                f = bm.faces.new((v00, v01, v11, v10))
+                thm = th0 + K['wrap'] / nth; dzm = (dz0 + dz1) / 2
+                if abs(thm) < K['stripe_w'] and not (wz0 <= dzm <= wz1): f.material_index = 2
+                elif abs(thm) < wth and wz0 <= dzm <= wz1: f.material_index = 1
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+        if sum(f.normal.dot(f.calc_center_median() - mathutils.Vector((0, yc, zc))) for f in bm.faces) < 0: bmesh.ops.reverse_faces(bm, faces=bm.faces)
+        me = bpy.data.meshes.new('%s_mask' % tier.lower()); bm.to_mesh(me); bm.free()
+        o = bpy.data.objects.new(me.name, me); sc.collection.objects.link(o)
+        for m_ in (mm, gm, rm_): me.materials.append(m_)
+        bpy.context.view_layer.objects.active = o
+        for oo in sc.objects: oo.select_set(oo is o)
+        so = o.modifiers.new('rim', 'SOLIDIFY'); so.thickness = K['t']; so.offset = 1; so.use_rim = True
+        bpy.ops.object.modifier_apply(modifier='rim')
+        skin_to(o, lambda q: {'Skeleton_neck_joint_2': 1.0})
+
+    def apron(K):
+        """THE WELDER'S APRON: a sheet of leather from the chest to mid-thigh, a bib at the top widening below the waist,
+        laid on the torso's front where it touches it and hanging straight from the belly down (an apron never follows the
+        gap between the legs), a little round at the sides; the bib rides the torso's nearest point, the hanging half the
+        hips with a share to each thigh so it moves with the stride"""
+        torso_w, surf, finish0 = torso_kit()
+        am_ = mat('%s_apron' % tier.lower(), K['colour'], rough=0.9)
+        zt, zb = K['z']; nz, nx = 30, 22; ys = []; prev = 9.0
+        for j in range(nz + 1):
+            z = zt + (zb - zt) * j / nz
+            hits = [surf((x_, -0.6, z), (0, 1, 0)) for x_ in (-0.12, -0.06, 0.0, 0.06, 0.12)]
+            yy = min([q.y for q in hits if q] or [prev + K['clear']]) - K['clear']
+            prev = min(prev, yy); ys.append(prev)
+        bm = bmesh.new(); G = []
+        for j in range(nz + 1):
+            z = zt + (zb - zt) * j / nz
+            hw = K['bib'] + (K['skirt'] - K['bib']) * sstep(K['waist'] + 0.04, K['waist'] - 0.06, z)
+            G.append([bm.verts.new((-hw + 2 * hw * i / nx, ys[j] + 0.5 * (-hw + 2 * hw * i / nx) ** 2, z)) for i in range(nx + 1)])
+        for j in range(nz):
+            for i in range(nx): bm.faces.new((G[j][i], G[j][i + 1], G[j + 1][i + 1], G[j + 1][i]))
+        def w(q):
+            if q.z >= 0.72: return torso_w(q)
+            t = sstep(0.72, 0.62, q.z)
+            return {'Skeleton_torso_joint_1': 1.0 - 0.4 * t, 'leg_joint_L_1': 0.2 * t, 'leg_joint_R_1': 0.2 * t}
+        finish0(bm, '%s_apron' % tier.lower(), 0.006, material=am_, out=lambda c: mathutils.Vector((0, -1, 0)), weights=w)
+
     SPINE = 'torso_joint_3'   # the chest bone (CesiumMan names it without the Skeleton_ prefix)
+    if 'pads' in T: pads(T['pads'])
+    if 'mask' in T: welding_mask(T['mask'])
+    if 'apron' in T: apron(T['apron'])
     if 'hoodie' in T: hoodie(T['hoodie'])
     if 'hood' in T: hood(T['hood'])
     if 'vest' in T:
@@ -1198,6 +1356,23 @@ def build(tier, out):
             p.data.materials.append(mat('%s_%s' % (tier.lower(), W['kind']), W['colour'], rough=0.8))   # the grip, first
             c.data.materials.append(mat('%s_blade' % tier.lower(), W['blade'], rough=0.8))
             join(c)
+        elif W['kind'] == 'sledge':   # Battle Brothers' Two-Handed Mallet: a long wooden handle (the cylinder above) and a
+            # steel head at its far end, its long side across the handle, on the hand bone
+            out_ = axis.cross(mathutils.Vector((0, 1, 0))).normalized()
+            if out_.x > 0: out_ = -out_
+            flat = out_.cross(axis).normalized()
+            frame = mathutils.Matrix((out_, flat, axis)).transposed().to_quaternion()
+            hx_, hy_, hz_ = W['head']
+            bpy.ops.mesh.primitive_cube_add(size=1.0); c = bpy.context.active_object; c.scale = (hz_, hy_, hx_)
+            c.rotation_mode = 'QUATERNION'; c.rotation_quaternion = frame; c.location = fist + axis * (W['grip'] - hx_ / 2)
+            bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+            bev = c.modifiers.new('bev', 'BEVEL'); bev.width = 0.008; bev.segments = 2
+            bpy.context.view_layer.objects.active = c
+            for o_ in sc.objects: o_.select_set(o_ is c)
+            bpy.ops.object.modifier_apply(modifier='bev')
+            p.data.materials.append(mat('%s_%s' % (tier.lower(), W['kind']), W['colour'], rough=0.9))
+            c.data.materials.append(mat('%s_steel' % tier.lower(), W['metal'], rough=0.8))
+            join(c)
         elif W['kind'] == 'lever':   # rule 120(a), guns first: a lever-action rifle carried by the wrist of its stock,
             # muzzle down: the cylinder above is the wrist in his fist; behind it the butt, ahead the receiver, the lever's
             # loop under it, the long barrel and the magazine tube under the barrel, the fore-end; wood and blued steel
@@ -1303,7 +1478,7 @@ def sheet(tier, frames, out):
         for im, lb in zip(ims, labels):
             S.paste(GROUND, (x, y, x + cw, y + ch)); S.paste(im, (x, y), im); d.text((x, y + ch + 2), lb, fill=(160, 154, 140)); x += cw + 6
     y = 58; d.text((12, y), 'EIGHT FACINGS, STILL (the passing pose)', fill=(200, 190, 120)); strip(row1, y + 14, fac)
-    y += ch + 34; d.text((12, y), 'THE WALK, S then SE, 6 DRAWN KEYS = 2 BEATS AT 120 (%s%s)' % (('the %s swings with the hand: it is on the hand bone' % {'sawnoff': 'sawn-off', 'lever': 'lever-action rifle'}.get(TIERS[tier]['weapon']['kind'], TIERS[tier]['weapon']['kind'])) if TIERS[tier].get('weapon') else 'the %s rides the chest bone across his back; his hands are empty' % TIERS[tier]['slung']['kind'],
+    y += ch + 34; d.text((12, y), 'THE WALK, S then SE, 6 DRAWN KEYS = 2 BEATS AT 120 (%s%s)' % (('the %s swings with the hand: it is on the hand bone' % {'sawnoff': 'sawn-off', 'lever': 'lever-action rifle', 'sledge': 'sledgehammer'}.get(TIERS[tier]['weapon']['kind'], TIERS[tier]['weapon']['kind'])) if TIERS[tier].get('weapon') else 'the %s rides the chest bone across his back; his hands are empty' % TIERS[tier]['slung']['kind'],
                                                                                              '; the shield rides the left forearm bone, the skirt\'s halves the thigh bones' if 'shield' in TIERS[tier] else ''), fill=(200, 190, 120))
     strip(row2, y + 14, ['S k%d' % k for k in range(6)] + ['SE k%d' % k for k in range(6)])
     y += ch + 34
