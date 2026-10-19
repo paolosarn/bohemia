@@ -43,6 +43,50 @@ VOTE cook-fight-props-through-the-rig-10-18. He owns NO shopping cart in 294 pac
 black rubber and bin bags pale from above (third lane to hit it); a per-material dust scale is the fix, the rig is yours.
 Blender: python3.11 venv + bpy==4.2.0 installs in ~1 min; bpy segfaults on exit AFTER writing, harmless.
 Record records/BOHEMIA_COOK_FIGHT_PROPS_THROUGH_THE_RIG_10_18_26.md. NEXT: the next OPEN row on the board (the coordinator writes it).
+DIRECTION (direction-fv24-10-19): 10/19 LATEST -- [fight verdict 24] SHIPPED 852c4cf8 (the round the five-hour cap stopped,
+resumed; rules 112 to 120; the coordinator opened this chat, no check-in, this block is the report).
+READBACK: I read [fight verdict 24] as: his NO on the fight floor measured against his YES on one real street, so COOK TWO's
+new floor is judged by numbers before him; F3 to F5, the still-wrong count, the analog horror line. Done.
+TAB: VOTE, direction-fight-verdict-24-the-floor-bar-10-19 (verdict, draft): the floor he hates beside his YES street at the
+same pixels, the six numbers, the fight as his phone shows it. Record records/BOHEMIA_FIGHT_VERDICT_ROUND_24_THE_FLOOR_BAR_10_19_26.md.
+THE FLOOR BAR (style guide classes.ground.floor_bar, tools/bohemia_direction_floor_bar.py; --self: his YES passes all six, the
+fight's blocks fail 6 of 6): B1 dirt saturation 0.195 vs 0.40-0.61; B2 hue 39.9 vs 28-35.6; B3 camouflage split 7.1 vs
+11.7-38.4; B4 grit 12.7 vs 8.6-17; B5 the road's self-match 0.13 vs 0.32-0.91 (the same asphalt every house, 515 px); B6
+bright orange roofs 0.04 vs up to 78.7 percent. F1 PASS, F2 3 of 5 (strip and ruin just under, dealt by kind, not like for
+like); F3, F4 (the freeway still the old road), F5 (the median a flat strip) FAIL; verdict 22's seven: 3 still wrong (was 4):
+the barrier, the line grown into a grid on every house tile, the paper card; gold rings and soft art FIXED. A man reads nine
+metres tall (ground 12.4 px a metre at the opening camera, men 57); the analog horror line NOT YET on any board.
+FOR COOK TWO [the fight floor he hates]: run `python3 tools/bohemia_direction_floor_bar.py <your kit sheet or board picture>`
+before VOTE; his YES street's own pieces already pass (his soil tile with the frames cut, his cracked road, two variants).
+FOR COMBAT TWO: one lamp a crossing, not one a house; re-lay on the new kit. FOR COOK FOUR: roofs tan (B6), no row of one
+roof past four. FOR COMBAT: the paper card, the grid on the ground, the man-to-ground scale ([the people a little smaller]).
+RULE 120 (c), THE AURA, FIRST READ (not for VOTE; style guide classes.aura.aura_bar, tools/bohemia_direction_aura_bar.py on
+ANIMATION's own film, branch animation-aura-10-19 aa90a430 read only, seed 5; record
+records/BOHEMIA_DIRECTION_THE_AURA_BAR_FIRST_READ_10_19_26.md, sheet records/target/direction_aura_bar/): THE ECHO 5 of 6,
+never an outline, 8 colours, FAILS A6 (its copies land on the men beside him, 7.1 percent; keep them off other men);
+THE TEAR 4 of 6, FAILS A5 (it combs his own face, 60 percent of his head) and A6; DIRECTION's call: turn it inside out,
+the world tears round him and HE holds still. THE CURRENT not drawn yet. Controls: a blue line round him encloses 45x (A1),
+a soft glow adds 13,687 colours (A2). FOR ANIMATION: run the tool on your film before the card.
+RULE 120 (d), THE FACE: PORTRAIT's skin of record and gate are on main (a50d49e0, 5f8b17f0); no sheet yet; judged the
+round it lands (a fresh portrait, never a zoom, rule 115h).
+GATES: STYLE GUIDE 96/13 (= main, PORTRAIT's 13 wear reds); VOTE TAB 41/1 (DYNASTY's two whys, on main). Full suite
+unmeasured (rule 13).
+NEXT: the dust (rig round seven): COOK has now reported the dust bleaching bright paint five times (bin bags, the dozer's
+yellow, the drums' orange, the container's red to pink); the aura's current and PORTRAIT's sheet when they land.
+ART LEAD LINES (rule 113a, from their newest commits):
+- COOK: [the first guns off the rig] the stocks from real side profiles, the wood browner (1dd4a735). COOKING.
+- COOK TWO: [the fight floor he hates] CLAIMED (ec5aafef); THE FLOOR BAR is its target. COOKING.
+- COOK THREE: [the tiers through the rig] CLAIMED, the raider again after his NO on the mail (1a53796c). COOKING.
+- COOK FOUR: [the place sits in the map] CLAIMED (d01d0c26). COOKING.
+- PORTRAIT: [the face is the body's face] part 2, every head in its own skin, the gate reads the paint (5f8b17f0). COOKING.
+- ANIMATION: [the aura of the one you control] WIP on its branch, first read above (aa90a430). COOKING.
+- CHARACTER: [one skin, one person] the file, one skin per person, 28 (22e4c516). COOKING.
+[bb Battle Brothers' ground is one material per terrain with small scattered things on it, never a print; its road never
+shows the same crack twice in a screen. Our bar asks the same, in numbers.]
+[analog horror: a real street at noon is one pale dirt and one grey road, and that plainness is what makes the one wrong
+thing on it land; camouflage sand makes every square of the board shout, so nothing can be wrong.]
+[PENDING Paolo]: none.
+
 DIRECTION (direction-vamily-10-18-opus3): 10/18 LATEST -- [the rig round six] SHIPPED 46737f94 (his YES on rig round five, 'the robot
 finished by hand', opened it; rules 112 to 117; the coordinator opened this chat, no check-in, this block is the report).
 READBACK: I read [the rig round six] as: the robot's idle and walk in eight under the recipe, the hold check measured, the head's hole
