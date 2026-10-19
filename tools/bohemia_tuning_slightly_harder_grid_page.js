@@ -74,7 +74,10 @@ md.push('## The 70 line');
 md.push('');
 md.push('| who | your men | stage | your level | THE 70 LINE (won at it / one more) | OUR MAP SENDS today (won) | BATTLE BROTHERS SENDS | PROPOSED |');
 md.push('|---|---|---|---|---|---|---|---|');
-rows.forEach(r => md.push('| ' + KN(r.kind) + ' | ' + r.company + ' | ' + SN[r.stage] + ' | ' + r.level + ' | ' + (r.line ? r.line + ' (' + r.won_at_line + ' / ' + (r.won_one_more === null ? '-' : r.won_one_more) + ')' : '0: ' + r.note)
+/* the search stops at 60: a line whose 'one more' (60) still wins 70 or more is 'at least 60' */
+const capped = r => r.line >= 59 && r.won_one_more !== null && r.won_one_more >= 70;
+const lineTxt = r => capped(r) ? '60 or more (the search stops at 60)' : String(r.line);
+rows.forEach(r => md.push('| ' + KN(r.kind) + ' | ' + r.company + ' | ' + SN[r.stage] + ' | ' + r.level + ' | ' + (r.line ? lineTxt(r) + ' (' + r.won_at_line + ' / ' + (r.won_one_more === null ? '-' : r.won_one_more) + ')' : '0: ' + r.note)
   + ' | ' + r.map_now + ' (' + r.map_now_won + ')' + ' | ' + r.bb_lo + ' to ' + r.bb_hi + ' | ' + (r.kind === 'humans' ? r.proposed + (r.capped_by_bb ? ' (Battle Brothers\' cap)' : '') : 'no map yet') + ' |'));
 md.push('');
 md.push('## What moved, in the one table');
@@ -96,16 +99,19 @@ h.push('<style>:root{--bg:#f4efe4;--ink:#1b1711;--line:#8a7d66;--g:#bfd8a8;--a:#
   + '.g{background:var(--g)}.a{background:var(--a)}.r{background:var(--r)}.k{font-size:11px;color:#5b5244;overflow-wrap:anywhere}</style></head><body>');
 h.push('<h1>SLIGHTLY HARDER, EVERY SIZE</h1>');
 h.push('<p>TUNING, research only. You said "just slightly harder". So for every size of company, early, middle and late, we found the fight you win about 70 times in 100: how many of them can come. <b>DRAFT: the gear is not in yet.</b></p>');
+h.push('<p>Every "you win" here is played at our easier start, which the fight does not use yet. As the game plays now you win less: the other tab of THE WHOLE GRID shows it.</p>');
 const band = w => w === null || w === undefined ? '' : w >= 75 ? 'g' : w >= 60 ? 'a' : 'r';
+/* one table per gear stage, stacked, so a phone shows all of it (the three side by side ran off the right edge) */
 KINDS.forEach(k => {
-  h.push('<h2>' + KN(k) + (k === 'humans' ? '' : ' <small>(they only bite: the bleeding and the pack\'s tricks are not built yet)</small>') + '</h2><div class="w"><table><tr><th>your men</th>'
-    + STAGES.map(s => '<th colspan="3">' + SN[s] + '</th>').join('') + '</tr><tr><th></th>' + STAGES.map(() => '<th>about 70 in 100</th><th>the game sends now</th><th>Battle Brothers sends</th>').join('') + '</tr>');
-  GB.companies.forEach(c => {
-    h.push('<tr><th>' + c + '</th>' + STAGES.map(s => { const r = rows.filter(x => x.kind === k && x.company === c && x.stage === s)[0];
-      if (!r) return '<td>-</td><td>-</td><td>-</td>';
-      return '<td class="big">' + (r.line || '0') + '</td><td class="' + band(r.map_now_won) + '">' + (k === 'humans' ? r.map_now + ' <small>(you win ' + r.map_now_won + ')</small>' : '-') + '</td><td>' + r.bb_lo + ' to ' + r.bb_hi + '</td>'; }).join('') + '</tr>');
+  h.push('<h2>' + KN(k) + (k === 'humans' ? '' : ' <small>(they only bite: the bleeding and the pack\'s tricks are not built yet; the map sends no pack yet, so "the game sends" is a pack sized like a job)</small>') + '</h2>');
+  STAGES.forEach(s => {
+    h.push('<p><b>' + SN[s] + '</b></p><div class="w"><table><tr><th>your men</th><th>about 70 in 100</th><th>the game sends now</th><th>Battle Brothers sends</th></tr>');
+    GB.companies.forEach(c => {
+      const r = rows.filter(x => x.kind === k && x.company === c && x.stage === s)[0];
+      h.push('<tr><th>' + c + '</th>' + (!r ? '<td>-</td><td>-</td><td>-</td>' : '<td class="big">' + (capped(r) ? '60+' : (r.line || '0')) + '</td><td class="' + band(r.map_now_won) + '">' + r.map_now + ' <small>(you win ' + r.map_now_won + ')</small></td><td>' + r.bb_lo + ' to ' + r.bb_hi + '</td>') + '</tr>');
+    });
+    h.push('</table></div>');
   });
-  h.push('</table></div>');
 });
 h.push('<p>Green: the game sends a fight you win 75 or more in 100 (easier than the line). Amber: 60 to 74 (about right). Red: under 60 (harder than the line).</p>');
 h.push('<p class="k">Every line, how it was found and what moved: records/BOHEMIA_TUNING_SLIGHTLY_HARDER_ON_THE_GRID_10_18_26.md. Our start\'s levers stay as you said YES to them; only the party size moves. draft:true; nothing in the game reads this page.</p>');
