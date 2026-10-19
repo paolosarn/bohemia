@@ -11404,6 +11404,49 @@
    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
    "light": "guide"
   }
+ },
+ {
+  "id": "cook3-the-leader-through-the-rig-10-19",
+  "kind": "outfit",
+  "lane": "cook 3",
+  "sha": "f50fd45f",
+  "made": "10/19",
+  "title": "THE LEADER: A SILVER-HAIRED CAPTAIN IN A LONG BLACK COAT OVER ARMOUR MADE OF LICENCE PLATES, WITH A LEVER-ACTION RIFLE",
+  "why": "The fifth enemy tier, the boss of the band who waits at the back, made the same way as the thug and the marksman you liked: a long black leather coat worn open over a vest of old licence plates riveted in rows, a brass collar plate that marks him as the captain, silver slicked hair, a scar, and a lever-action rifle, with his face's skin matching his hands, measured. You see it in the VOTE tab: eight directions and two walks beside the game's flat leader.",
+  "show": {
+   "how": "image",
+   "src": "../records/target/cook3/COOK3_THE_LEADER_THROUGH_THE_RIG.png"
+  },
+  "twin": {
+   "src": "records/cook3/enemy_tiers_repainted.png",
+   "diffs": [
+    "THE ARMOUR: ours is a vest of real licence plates, bare metal and faded teal, overlapping in rows you can see from every side; the game's leader has grey stripes painted on his chest.",
+    "THE COAT: ours is a long black leather coat whose tails swing when he walks, with a brass plate at his throat for the gold; the game's leader wears a bright gold coat painted flat.",
+    "THE HEAD AND THE GUN: ours has a modelled face with silver hair and a scar and carries a lever-action rifle; the game's leader has a flat face under a grey cap and holds nothing."
+   ]
+  },
+  "draft": true,
+  "before_after": {
+   "before": "the game's own flat leader as last painted (right on the sheet)",
+   "after": "the leader as a model, rendered through the rig: eight facings and the walk (left on the sheet)",
+   "scale": "1:1"
+  },
+  "sprites": [
+   "records/target/cook3/rig/leader/rig_N.png",
+   "records/target/cook3/rig/leader/rig_NE.png",
+   "records/target/cook3/rig/leader/rig_E.png",
+   "records/target/cook3/rig/leader/rig_SE.png",
+   "records/target/cook3/rig/leader/rig_S.png",
+   "records/target/cook3/rig/leader/rig_SW.png",
+   "records/target/cook3/rig/leader/rig_W.png",
+   "records/target/cook3/rig/leader/rig_NW.png"
+  ],
+  "class": "person",
+  "look": {
+   "px": 1,
+   "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+   "light": "guide"
+  }
  }
  ],
  "verdicts": [
