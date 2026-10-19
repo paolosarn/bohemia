@@ -12117,6 +12117,20 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.html"
    }
+  },
+  {
+   "id": "tuning-what-is-in-the-wagon-10-19",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "7ab098f0",
+   "made": "10/19",
+   "draft": true,
+   "title": "WHAT IS IN THE WAGON",
+   "why": "Every Battle Brothers start carries three to nineteen days of food, so the first market is the first errand, and every start of ours carries none because nobody eats yet. You see it on this page, each start's wagon and what it is worth.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_IS_IN_THE_WAGON_10_19_26.html"
+   }
   }
  ],
  "verdicts": [
