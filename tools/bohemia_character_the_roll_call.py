@@ -175,9 +175,14 @@ def main():
                 nl.update(card(HAIR_ONE_CARD)); nl['note'] = SAID
             elif kind == 'garment' and layer == 'base' and any(i.get('id') == BASE_CARD.get(name) for i in reg.get('items', [])):
                 # GARMENTS BASE (10/19): the top modelled on the barber's man; a top a gang already wore keeps his UP on the gangs
-                nl = {'state': 'approved, not final' if on_gangs else 'shown, not approved',
-                      'by': "CHARACTER, modelled on the barber's 3D man (base 1)", 'rig_looks': on_gangs,
-                      'cards': [card(c) for c in (GANG_CARDS if on_gangs else [])] + [card(BASE_CARD[name])]}
+                # 'cards' holds only what the state stands on (R3: approved means every cited card has his UP); the new
+                # card a gang-worn top waits on is 'shown_on' beside them
+                if on_gangs:
+                    nl = {'state': 'approved, not final', 'by': "CHARACTER, modelled on the barber's 3D man (base 1)", 'rig_looks': on_gangs,
+                          'cards': [card(c) for c in GANG_CARDS], 'shown_on': card(BASE_CARD[name])}
+                else:
+                    nl = {'state': 'shown, not approved', 'by': "CHARACTER, modelled on the barber's 3D man (base 1)", 'rig_looks': on_gangs}
+                    nl.update(card(BASE_CARD[name]))
                 nl['note'] = "his 10/18 on the thirteen: 'Nice direction very good not final'" if on_gangs else "the roll call's base batch, shown for his vote"
             elif on_gangs:
                 nl = {'state': 'shown, not approved' if kind in UNAPPROVED_KINDS else 'approved, not final',
