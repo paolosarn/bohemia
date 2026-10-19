@@ -2072,7 +2072,7 @@ function take() {
   });
 }
 function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
-function say(s) { const e = document.getElementById('say'); e.classList.remove('aim'); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
+function say(s, wrap) { const e = document.getElementById('say'); e.classList.toggle('aim', !!wrap); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
 /* ---------------- THE FIGHT SAYS WHAT IS WEAK (rule 120(b), Paolo 10/18: 'the game doesn't explain to you at all that your
    weapon sucks') ----------------
    A finger on a man he can hit: the chance and what one blow does (the health, the armour), from the rules' own damage math
@@ -2104,6 +2104,11 @@ function aimLines(u, t) {
   }
   return out;
 }
+/* out of reach: what his arm reaches, in tiles (a gun from two, rule 83) */
+function reachWords(u) {
+  const w = u.weapon, gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? Math.max(FIGHT._t.rangeMin(w), R('ours.gun_min_range')) : 1;
+  return gun ? ' Your ' + armName(u, w) + ': ' + lo + ' to ' + w.range_max + ' tiles, a club at one.' : FIGHT.isRanged(w) ? ' Your ' + armName(u, w) + ': up to ' + w.range_max + ' tiles.' : ' Your ' + armName(u, w) + ' reaches the next tile.';
+}
 function aimSay(u, t) {
   const e = document.getElementById('say'), L = aimLines(u, t);
   e.innerHTML = L.join('<br>'); e.classList.add('aim'); e.style.display = 'block';
@@ -2114,7 +2119,7 @@ function resultSay(e) {
   let s = !e.hit ? 'Missed (' + e.chance + '%).' : 'Hit: -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '') + (e.head ? ', in the head' : '') + '.';
   if (e.hit && !FIGHT.onField(t)) s += ' ' + t.name + ' is down.';
   else if (e.hit && e.armour && t[e.head ? 'armH' : 'armB'] <= 0) s += ' His ' + (e.head ? 'helmet' : 'armour') + ' is gone.';
-  say(s);
+  say(s, true);
 }
 function startAnim(a) {
   const e = a.e;
@@ -3015,7 +3020,7 @@ function tapAt(px, py) {
      zoomed out to both teams, your own men's bodies cover the tiles behind them, and those tiles must still be walkable) */
   const who = onTile || (body && body.side === 'them' ? body : null);
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
-    if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.'); UI.pend = null; return; }
+    if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.' + reachWords(u), true); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
     UI.pend = { target: who }; aimSay(u, who); hud(); return;
   }

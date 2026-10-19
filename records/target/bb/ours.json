@@ -141,7 +141,7 @@
     "name": "BOOKIE",
     "background": "thief",
     "jobs": [
-     "shotgun"
+     "sledge"
     ],
     "body": "leather_tunic",
     "head": "hood"
@@ -150,7 +150,8 @@
     "name": "OSO",
     "background": "miner",
     "jobs": [
-     "sledge"
+     "pipe",
+     "car_door"
     ],
     "body": "thick_tunic",
     "head": "open_leather_cap"
@@ -159,7 +160,8 @@
     "name": "MARISOL",
     "background": "hunter",
     "jobs": [
-     "rifle"
+     "pipe",
+     "car_door"
     ],
     "body": "leather_tunic",
     "head": "hunter_s_hat"
@@ -168,8 +170,7 @@
     "name": "CHEWY",
     "background": "butcher",
     "jobs": [
-     "pipe",
-     "car_door"
+     "shotgun"
     ],
     "body": "butcher_s_apron",
     "head": "hood"
@@ -178,7 +179,8 @@
     "name": "LUPE",
     "background": "poacher",
     "jobs": [
-     "pistol"
+     "pipe",
+     "car_door"
     ],
     "body": "leather_tunic",
     "head": "hood"
@@ -187,8 +189,7 @@
     "name": "GRIZ",
     "background": "caravan_hand",
     "jobs": [
-     "pipe",
-     "car_door"
+     "rifle"
     ],
     "body": "padded_vest",
     "head": "aketon_cap"
@@ -197,7 +198,7 @@
     "name": "DEUCE",
     "background": "gambler",
     "jobs": [
-     "bottles"
+     "sledge"
     ],
     "body": "leather_tunic",
     "head": "feathered_hat"
@@ -206,7 +207,7 @@
     "name": "NENA",
     "background": "daytaler",
     "jobs": [
-     "shotgun"
+     "bottles"
     ],
     "body": "thick_tunic",
     "head": "straw_hat"
@@ -214,7 +215,7 @@
   ],
   "source": "VAMILY.md rule 63b",
   "quote": "12 on the field in a normal fight, the roster 20",
-  "why": "twelve hires, each a Battle Brothers background (stats rolled in its wiki range) carrying our jobs (rule 63's weapon list) in low-tier wiki armour; the names are drafts. GUNS FIRST (rule 120(a), Paolo 10/18: 'I wanna start off with the guns too... the guns were supposed to be the main way this is gonna be solved'): the kit runs guns first in the company's order, so any company the origin builds holds a pistol and a rifle from its first two men (three men: a pistol, a rifle, a pistol; six: five guns and a sledge; twelve: three pistols, three rifles, two shotguns, bottles, a sledge and two pipes); who carries which is guns_first_kit's (the best eye takes the long gun)",
+  "why": "twelve hires, each a Battle Brothers background (stats rolled in its wiki range) carrying our jobs (rule 63's weapon list) in low-tier wiki armour; the names are drafts. GUNS FIRST (rule 120(a), Paolo 10/18: 'I wanna start off with the guns too... the guns were supposed to be the main way this is gonna be solved'): the kit runs guns first in the company's order, so every company the origin builds holds a pistol and a rifle from its first two men (three men: a pistol, a rifle, a pistol; four: and a rifle; six: four guns, a sledge and a pipe); past the first four the kit builds Battle Brothers' own shape, a shieldwall in front of the guns (twelve: two pistols, three rifles, a shotgun and bottles behind two sledges and three pipes with car doors; measured 10/19: nine shooters behind three melee men could not be screened, 10 in 100 of the shooters' turns ended past the front man and 21 in 100 of the fighting turns alone, against 2 and 15 with this kit); who carries which is guns_first_kit's (the best eye takes the long gun)",
   "guns_first": {
    "source": "VAMILY.md rule 120(a)",
    "record": "records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md",
