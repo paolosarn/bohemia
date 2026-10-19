@@ -19,6 +19,17 @@ const A = process.argv.slice(2);
 const opt = (k, d) => { const i = A.indexOf(k); return i >= 0 ? Number(A[i + 1]) : d; };
 const LABEL = A[0] && !A[0].startsWith('--') ? A[0] : 'now';
 const SEED = opt('--seed', 5), SECS = opt('--secs', 90), THROTTLE = opt('--throttle', 4);
+/* --before <sha>: the fight as it was at that commit, served beside the real slices under another name, on the floor as it
+   shipped (records/target/combat/floor3d/before), so the before is measured on the same box in the same run as the after */
+const BEFORE = A.indexOf('--before') >= 0 ? A[A.indexOf('--before') + 1] : null;
+const FILE = BEFORE ? 'BOHEMIA_FIGHT_BEFORE.html' : 'BOHEMIA_FIGHT.html', SERVE = {};
+if (BEFORE) {
+  const tmp = path.join(require('os').tmpdir(), 'bohemia_smooth_before.html');
+  fs.writeFileSync(tmp, require('child_process').execSync('git show ' + BEFORE + ':slices/BOHEMIA_FIGHT.html', { cwd: ROOT, maxBuffer: 1 << 26 }));
+  SERVE['/slices/BOHEMIA_FIGHT_BEFORE.html'] = tmp;
+  const fb = path.join(ROOT, 'records/target/combat/floor3d/before');
+  if (fs.existsSync(fb)) fs.readdirSync(fb).filter(f => /^block_.*\.webp$/.test(f)).forEach(f => { SERVE['/slices/fight_ground/' + f] = path.join(fb, f); });
+}
 
 /* in the page before its own script: a frame clock and a stillness clock, read off the fight's own state every frame */
 const ARM = `window.__sm = { f: [], dead: [], d0: 0, busyF: 0, allF: 0, up: 0, lat: [], endUp: 0, endLat: [] };
@@ -45,7 +56,7 @@ const q = (a, p) => { const s = a.slice().sort((x, y) => x - y); return s.length
 const r1 = x => Math.round(x * 10) / 10;
 
 async function autoFight() {
-  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, throttle: THROTTLE,
+  const d = await open({ file: FILE, serve: SERVE, bare: true, throttle: THROTTLE,
     arm: ARM + 'window.FIGHT_OPTS={seed:' + SEED + ',speed:1,kind:"suburb",auto:true}' });
   const p = d.page;
   const t0 = Date.now();
@@ -62,7 +73,7 @@ async function autoFight() {
 }
 
 async function tapFight() {
-  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, throttle: THROTTLE,
+  const d = await open({ file: FILE, serve: SERVE, bare: true, throttle: THROTTLE,
     arm: ARM + 'window.FIGHT_OPTS={seed:' + SEED + ',speed:1,kind:"suburb"}' });
   const p = d.page;
   const until = async (fn, ms) => { const t = Date.now(); while (Date.now() - t < ms) { if (await p.evaluate(fn)) return true; await p.waitForTimeout(50); } return false; };
@@ -103,7 +114,7 @@ async function tapFight() {
 (async () => {
   const auto = await autoFight();
   const taps = await tapFight();
-  const out = { label: LABEL, seed: SEED, throttle: THROTTLE, profile: '390x844 @3x, the one driver', speed: 1, auto, taps,
+  const out = { label: LABEL, seed: SEED, throttle: THROTTLE, profile: '390x844 @3x, the one driver', speed: 1, before: BEFORE, auto, taps,
     file_md5: require('crypto').createHash('md5').update(fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'))).digest('hex') };
   const dir = path.join(ROOT, 'records/target/combat'); fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'BOHEMIA_COMBAT_SMOOTH_' + LABEL.toUpperCase() + '.json'), JSON.stringify(out, null, 1) + '\n');
