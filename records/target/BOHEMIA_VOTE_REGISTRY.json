@@ -11113,6 +11113,7 @@
    "draft": true
   },
   {
+<<<<<<< Updated upstream
    "id": "direction-fight-verdict-24-the-floor-bar-10-19",
    "kind": "verdict",
    "lane": "direction",
@@ -11125,6 +11126,24 @@
     "src": "vote/DIRECTION_FIGHT_VERDICT_24_THE_FLOOR_BAR.png"
    },
    "asked": "UP or DOWN",
+=======
+   "id": "run2-a-cards-picture-full-size-10-19",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "d5b1f8e9",
+   "made": "10/19",
+   "title": "TAP ANY PICTURE HERE AND IT OPENS FULL SIZE",
+   "why": "A picture too small to read was getting a NO for the wrong reason, so a card holding a whole sheet now shows you one thing first, and a tap on any picture lays it over your whole screen at full size: drag it, pinch it, tap to close. You see it here in the VOTE tab on every card with a picture, and this card is the before and after on your phone.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_A_CARDS_PICTURE_FULL_SIZE_10_19.webp"
+   },
+   "before_after": {
+    "before": "the card showed the lane's whole sheet at the card's width, a 2720 px sheet of five houses before and after at about 75 points a house, and nothing opened it bigger",
+    "after": "the card shows one house (show.first, cut from the sheet), a tap opens the whole sheet at one image pixel to one point on that house, drag and pinch, a tap closes",
+    "scale": "his phone upright, 390 x 844, one screen each"
+   },
+>>>>>>> Stashed changes
    "draft": true
   }
  ],
