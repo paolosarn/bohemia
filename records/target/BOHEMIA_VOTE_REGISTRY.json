@@ -12025,6 +12025,44 @@
     "palette": "reference/art_pipe/cook4/place_in_the_map/COOK4_THE_MAP_GROUND_THE_STRIP.json",
     "light": "top"
    }
+  },
+  {
+   "id": "cook4-goodsprings-on-the-desert-ground-10-19",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "0a77a761",
+   "made": "10/19",
+   "title": "PLACEHOLDER: GOODSPRINGS, A CAMP OUT IN THE DESERT, STANDING ON THE MAP'S OWN GROUND",
+   "why": "The picture Goodsprings opens on is cut from what the map has out there: the region's desert tan (your soil tiles, every grain kept, in the map's colour), the state road through it running off both sides with its pale shoulder, a dirt track north, a general store, two of your tan houses and tents round one fire, and fish drying 60 km from any water. You see it in the VOTE tab beside the map at its closest zoom and the orange picture a camp opens on today, a placeholder until you say so.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_PLACE_SITS_IN_THE_MAP_THE_DESERT.webp",
+    "first": "../records/target/vote_first/cook4-goodsprings-on-the-desert-ground-10-19.webp",
+    "firstAt": [30, 2475, 2112, 864]
+   },
+   "twin": {
+    "src": "reference/art_pipe/cook4/place_in_the_map/COOK4_PLACE_GOODSPRINGS_NEAR.webp",
+    "diffs": [
+     "DIRT: the map round Goodsprings is the region painter's desert tan (137,119,85 on his glass); the picture a camp opens on today is his soil as bought, orange, 15.2 off; ours is his soil tiles toned to the map by brightness, 0.0 off, every grain kept. The map's own pale and dark diamonds laid as patches read as a camouflage print, so they were left out (measured, in the record).",
+     "ROAD: the map runs NV-161 through the camp and a dirt track north; the old picture has no road; ours is his asphalt at the map's warm dark (0.8 off), his worn double yellow, no kerb, a shoulder of his sand in the map's pale road casing (0.2 off), running off both sides and the bottom, and the track out of the top with two wheel ruts.",
+     "WHAT A CAMP IS: the old picture is tents on a bare orange field; ours is what a trailer-park town left: the corner shop as the general store with its hitching rail and easel, the porch ranch, the plain ranch, two more cut by the frame, a ring of his tents round one fire, his brush in clumps and his stones toward the hills: no slab, no frame."
+    ]
+   },
+   "before_after": {
+    "before": "the pack camp a camp opens on today: his orange soil as bought, tents round a fire, no road (slices/settlement_ground_packs/camp_0.webp)",
+    "after": "Goodsprings on the desert's own ground: the map's desert, the state road and its shoulder, the track north, the store as the stall, the ranches as the barber and the clinic, the tents round the fire",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_pipe/cook4/place_in_the_map/COOK4_CAMP_GOODSPRINGS_ON_THE_DESERT.webp"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_pipe/cook4/place_in_the_map/COOK4_THE_MAP_GROUND_THE_DESERT.json",
+    "light": "top"
+   }
   }
  ],
  "verdicts": [
