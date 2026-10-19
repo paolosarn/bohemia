@@ -137,7 +137,7 @@ VER.forEach(x => {
 });
 P('Against a raider (defence 5) and a dire wolf (defence 10, its hide 30 and 30) every hit chance above is 5 and 10 lower for both columns alike; the full lines are in the bank (card.rows[].hit).');
 P('');
-P(harder.length ? '**HARDER THAN BATTLE BROTHERS, NAMED (rule 117(d): a design page that sets a number harder without his word is a NO):** ' + harder.join('; ') + '. Each is the cost of a shape that is real (a handgun is short, buckshot spreads); none is a felt number at the same distance where Battle Brothers can fire.'
+P(harder.length ? '**HARDER THAN BATTLE BROTHERS, NAMED (rule 117(d): a design page that sets a number harder without his word is a NO):** ' + harder.join('; ') + '. All four are one thing, the handgun\'s real shortness (3 houses, about 40 m); at every distance the pistol can fire, it is easier.'
   : '**No felt number of the three draft guns is harder than its Battle Brothers row.**');
 P('');
 P('Also on the card (Battle Brothers\' melee, for scale): the Bludgeon (our pipe) lands ' + row('bludgeon').hit['average|thug'][0] + ' in 100 at one tile for a man of melee skill 55 and does ' + row('bludgeon').dmg.none.hp + ' a hit to a bare man, twice a turn: '
@@ -167,8 +167,9 @@ KITS.forEach(k => P('| ' + KNAME[k] + ' | ' + RC.map(r => { const x = get(r[0], 
 P('');
 P('A gunman\'s turns that start with a foe beside him (in 100), 3 v 3 people: ' + KITS.filter(k => k !== 'today').map(k => { const x = get('humans', 3, 3, k, 'start'); return KNAME[k] + ' ' + (x ? x.gun_turns_with_a_foe_beside_him_in_100 : '-'); }).join(', ') + '.');
 P('');
-P('By the eye (the rifle to the best shot, the main man on the line): crews of three ' + avg(cellsOf('eye', 'start', (k, c) => c === 3).map(x => x.won_in_100)) + ' against the draft by place ' + avg(cellsOf('draft', 'start', (k, c) => c === 3).map(x => x.won_in_100))
-  + '; crews of six ' + avg(cellsOf('eye', 'start', (k, c) => c === 6).map(x => x.won_in_100)) + ' against ' + avg(cellsOf('draft', 'start', (k, c) => c === 6).map(x => x.won_in_100)) + ' (at six it moves a brawler off the line for a miner: the best eye takes the rifle, the best fighter keeps the line).');
+const we = (k, c, e, kit) => (get(k, c, e, kit, 'start') || {}).won_in_100;
+P('By the eye (the rifle to the best shot, the main man on the line), cell by cell against the draft by place: 3 v 3 people ' + we('humans', 3, 3, 'eye') + ' against ' + we('humans', 3, 3, 'draft') + '; 3 v 2 wolves ' + we('direwolf', 3, 2, 'eye') + ' against ' + we('direwolf', 3, 2, 'draft')
+  + '; 6 v 6 people ' + we('humans', 6, 6, 'eye') + ' against ' + we('humans', 6, 6, 'draft') + '; 6 v 3 wolves ' + we('direwolf', 6, 3, 'eye') + ' against ' + we('direwolf', 6, 3, 'draft') + '. It helps the crews of three (the New Crew\'s ranged companion gets the rifle) and costs at six, where it moves a brawler off the line for a miner: the best eye takes the rifle, the best fighter keeps the line.');
 P('');
 P('Read down, 3 v 3 people and 6 v 6 people: today\'s gun rows ' + w33('jobs') + ' and ' + w66('jobs') + '; the draft at the crossbow\'s pace ' + w33('once') + ' and ' + w66('once') + '; firing twice a turn ' + w33('draft') + ' and ' + w66('draft')
   + '; without the butt ' + w33('nobutt') + ' and ' + w66('nobutt') + '; nobody on the line ' + w33('allguns') + ' and ' + w66('allguns') + '; the pipes ' + w33('today') + ' and ' + w66('today') + '. The rate is the big lever; the butt matters most to the smallest crews and the lone man; the line matters at every size.');
@@ -213,12 +214,13 @@ P('6. THE MEN ARE NOT SHOOTERS: the fifteen origins\' first men average a ranged
 P('');
 P('## ROUTED');
 P('');
-P('- COMBAT [guns from the first fight]: (a) the three draft rows above, with the one-line read of per_tile and base_bonus off the row; (b) THE BUTT: at one tile a gun strikes as a club (one press, Battle Brothers\' bag-and-swap simplified); (c) THE KIT BY THE MAN, not by the seventh place: in every origin of three or more the man with the best eye takes the rifle and the next the pistol (the bench handed them by place: the second man the rifle, the third the pistol, so it UNDER-reads the new crew, whose ranged companion is third), and the first man keeps the pipe and the car door, the only ring; '
+P('- COMBAT [guns from the first fight]: (a) the three draft rows above, with the one-line read of per_tile and base_bonus off the row; (b) THE BUTT: at one tile a gun strikes as a club (one press, Battle Brothers\' bag-and-swap simplified); (c) THE KIT BY THE MAN, not by the seventh place: the first man keeps the pipe and the car door (the only ring); in a crew of three the best eye takes the rifle and the next the pistol (measured above: it lifts the New Crew, whose ranged companion is third); in a crew of six the best fighters keep the line and the best eyes among the rest take the guns; '
   + '(d) the load of ' + pickLoad + ' a gunman a fight, shown under the finger as shots left (rule 120(b)); (e) the Lone Wolf keeps his blade until the fight has a bag.');
 P('- PEOPLE + RUN: the origins\' first men are melee backgrounds (average ranged ' + card.average_ranged_skill + '); a guns-first origin wants at least one man who can shoot (a Hunter, a Poacher, a Witch Hunter) in its first three.');
 P('- ECONOMY [the first bullets]: the load (' + pickLoad + ' a man a fight), the refill after the fight from one stock, Battle Brothers\' start kit 20 / 40 / 80.');
 P('- UI (rule 120(b)): the hit chance under the finger now changes by the house: the draft pistol drops ' + (-D.pistol.per_tile) + ' a house, the rifle ' + (-D.rifle.per_tile) + ', the shotgun ' + (-D.shotgun.per_tile) + '; that is the line that tells him his weapon is wrong for the shot.');
-P('- TUNING (next): [the whole grid] runs with the draft guns as a kit beside the pipes.');
+P('- COMBAT (found on the bench, not a gun): a fight that NEVER ENDS. Six of yours with pipes against two dire wolves, our start, seed 9168: both sides hold their line at full health for 7,500 rounds and nobody steps in (the crew\'s AUTO holds until contact, the wolves never come). 1 fight in 200 of that cell, at Battle Brothers\' Veteran too. A player would move; AUTO and a careful player who waits for the charge never get one.');
+P('- TUNING (next): [the whole grid] (the bench is running on the game as it plays); the draft guns go across it as a kit once COMBAT lands them.');
 P('');
 P('Bank: banks/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.json (draft:true; the card, every cell, the search). Tools: tools/bohemia_tuning_the_first_kit_is_guns.js (the bench), tools/bohemia_tuning_the_first_kit_is_guns_page.js (this page).');
 P('');
@@ -236,7 +238,7 @@ h.push('<style>:root{--bg:#f4efe4;--ink:#1b1711;--line:#8a7d66;--g:#bfd8a8;--a:#
   + 'body{margin:0;padding:16px;background:var(--bg);color:var(--ink);font:15px/1.4 Georgia,serif}h1{font-size:20px;margin:0 0 6px}h2{font-size:16px;margin:18px 0 6px}'
   + 'p,li{max-width:72ch}.guns{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.gun{border:1px solid var(--line);background:#fff;padding:10px}'
   + '.gun b{font-size:16px}.gun .n{font-size:28px;line-height:1}.gun .bb{color:#6d6455;font-size:13px}.wrap{overflow-x:auto}'
-  + 'table{border-collapse:collapse;font-size:13px}th,td{border:1px solid var(--line);padding:4px 6px;text-align:center}th{background:#e8dfcd;font-weight:normal}'
+  + 'table{border-collapse:collapse;font-size:13px}th,td{border:1px solid var(--line);padding:4px 5px;text-align:center}td,tr:first-child th{white-space:nowrap}th{background:#e8dfcd;font-weight:normal}'
   + 'td.g{background:var(--g)}td.a{background:var(--a)}td.r{background:var(--r)}.key span{display:inline-block;padding:2px 6px;margin-right:4px;border:1px solid var(--line);font-size:12px}.k{font-size:11px;color:#5b5244;overflow-wrap:anywhere}</style></head><body>');
 h.push('<h1>THE FIRST GUNS</h1>');
 h.push('<p>TUNING, research only. Three starting guns, each beside the Battle Brothers bow or crossbow it replaces. A tile is a house. <b>DRAFT: nothing in the game uses these yet.</b></p>');
@@ -255,8 +257,10 @@ h.push('<h2>Who wins the first fights (in 100)</h2>');
 h.push('<p class="key"><span style="background:var(--g)">70+ you mostly win</span><span style="background:var(--a)">40 to 69 a coin toss</span><span style="background:var(--r)">under 40 you mostly lose</span></p>');
 const SHOW = ['today', 'jobs', 'bb', 'draft'], SN = { today: 'pipes, today', jobs: 'today\'s gun numbers', bb: 'Battle Brothers\' bows', draft: 'the new guns' };
 KINDS.forEach(k => {
-  h.push('<p><b>Against ' + WHO[k] + '</b></p><div class="wrap"><table><tr><th>your crew</th>' + COMPANIES.map(c => COUNTS.map(e => '<th>' + c + ' v ' + e + '</th>').join('')).join('') + '</tr>');
-  SHOW.forEach(kit => h.push('<tr><th>' + esc(SN[kit]) + '</th>' + COMPANIES.map(c => COUNTS.map(e => { const x = get(k, c, e, kit, 'start'); const w = x ? x.won_in_100 : null; return '<td class="' + band(w) + '">' + (w === null ? '-' : w) + '</td>'; }).join('')).join('') + '</tr>'));
+  /* the phone's columns: the lone man against two (his against three and six are all but zero, on the record), then three and six */
+  const CC = [[1, 2]].concat([3, 6].reduce((a, c) => a.concat(COUNTS.map(e => [c, e])), []));
+  h.push('<p><b>Against ' + WHO[k] + '</b></p><div class="wrap"><table><tr><th>yours v theirs</th>' + CC.map(p => '<th>' + p[0] + 'v' + p[1] + '</th>').join('') + '</tr>');
+  SHOW.forEach(kit => h.push('<tr><th>' + esc(SN[kit]) + '</th>' + CC.map(p => { const x = get(k, p[0], p[1], kit, 'start'); const w = x ? x.won_in_100 : null; return '<td class="' + band(w) + '">' + (w === null ? '-' : w) + '</td>'; }).join('') + '</tr>'));
   h.push('</table></div>');
 });
 h.push('<p>Six of yours against six bandits: pipes win <b>' + w66('today') + '</b>, today\'s gun numbers <b>' + w66('jobs') + '</b>, Battle Brothers\' bows <b>' + w66('bb') + '</b>, the new guns <b>' + w66('draft') + '</b>, and the guns do <b>' + (get('humans', 6, 6, 'draft', 'start') || {}).guns_share_of_the_killing_in_100 + ' in 100</b> of the killing.</p>');

@@ -277,7 +277,7 @@ async function cell(C, n, strikes) {
     }
   };
   for (let k = 0; k < n; k++) {
-    ctx.setSeed(9000 + k);
+    ctx.setSeed((C.seed0 || 9000) + k);
     const party = C.kind === 'humans' ? { faction: 'brigands', count: C.enemies, days: 1, difficulty: L.pick } : Array.from({ length: C.enemies }, () => C.kind);
     F.setup({ auto: true, formation: null, company: company, cap: C.company, party: party, days: 1 });
     F.S.units.forEach(u => {
@@ -303,7 +303,7 @@ async function cell(C, n, strikes) {
     gunmen.forEach(u => { T.shotsList.push(shotsNow[u.id] || 0); T.gunmanFights++; });
     const S = F.S, yours = S.units.filter(u => u.side === 'you'), ids = new Set(yours.map(u => u.id));
     T.fights++; T.men += yours.length; T.enemies += S.units.length - yours.length;
-    if (!S.over) T.stalled++; else if (S.result === 'won') T.won++; else T.lost++;
+    if (!S.over) { T.stalled++; (T.stalledSeeds = T.stalledSeeds || []).push((C.seed0 || 9000) + k); } else if (S.result === 'won') T.won++; else T.lost++;
     T.rounds += S.round;
     let acted = false, open = false, downs = 0;
     const ranY = new Set(), ranT = new Set(), downT = new Set();
