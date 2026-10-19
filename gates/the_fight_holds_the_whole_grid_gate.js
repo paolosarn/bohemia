@@ -102,8 +102,12 @@ leg(packed.every(k => kinds[k] > 0), 'every beast the pack mix can deal was deal
 /* every gearless enemy in the data: armed ones strike, refused ones are refused by name */
 /* the file itself when the fight does not list it (a fight that cannot read a bite cannot arm a beast; the legs below say so) */
 const BA = DB.beastAttacks || J('records/target/bb/beast_attacks.json'), refusedBad = [], silent = [];
+/* the six live long enough to reach a man: the legs ask whether they CAN swing, never how long they last (10/19: the guns shot
+   six screaming skulls of 25 health dead before one reached anyone to explode) */
+const hardy = () => F.S.units.filter(u => u.side === 'them').forEach(u => { u.hp = u.hpMax = 9999; });
 Object.keys(BA.by_enemy).forEach(id => {
   try { ctx.setSeed(7); F.setup({ auto: true, formation: null, party: Array(6).fill(id) }); let k = 0;
+    hardy();
     while (!F.S.over && k < STEP_CAP) { F.aiStep(F.current()); k++; }
     if (!F.S.log.some(ev => ev.t === 'attack' && ev.id[0] === 'e')) silent.push(id);
   } catch (err) { refusedBad.push(id + ': ' + err.message); }
@@ -121,6 +125,7 @@ const MAY_NOT_STRIKE = ['goblin_wolf', 'mortar', 'envoy', 'firstborn'];
 const immune = DB.enemies.rows.filter(r => (r.immune || []).indexOf('Fatigue') >= 0 && !BA.refused[r.id]).map(r => r.id), mute = [];
 immune.forEach(id => {
   try { ctx.setSeed(7); F.setup({ auto: true, formation: null, party: Array(6).fill(id) }); let k = 0;
+    hardy();
     while (!F.S.over && k < STEP_CAP) { F.aiStep(F.current()); k++; }
     if (!F.S.log.some(ev => ev.t === 'attack' && ev.id[0] === 'e')) mute.push(id);
   } catch (err) { mute.push(id + ' (' + err.message.slice(0, 40) + ')'); }

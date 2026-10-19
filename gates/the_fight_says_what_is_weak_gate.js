@@ -72,6 +72,9 @@ leg(fresh.every(b => b < WEAK) && pb >= WEAK, '*** THE LINE IS EARNED ***: no ma
     const p = d.page; try { await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round && performance.now() > FIGHT_UI.openUntil, null, { timeout: 40000 }); return await fn(p, d); } finally { await d.close(); } };
   /* stand the man and the target where the leg wants them, on his turn, the camera on both, then a real finger on the target */
   const aimAt = async (p, who, at, dist) => {
+    /* his turn first: theirs may be mid-move when the page opens (a tap skips it), and a man moved under a playing step goes back */
+    for (let i = 0; i < 80; i++) { const st = await p.evaluate(() => { const u = FIGHT.current(); return !u ? 'none' : u.side === 'you' && !FIGHT_UI.anim.length ? 'mine' : u.side === 'you' ? 'busy' : 'theirs'; });
+      if (st === 'mine') break; if (st === 'theirs') await p.touchscreen.tap(200, 420); await p.waitForTimeout(150); }
     await p.evaluate(q => { window.tick = window.tick; const S = FIGHT.S, u = S.units.filter(v => v.side === 'you' && new Function('v', 'return ' + q.who)(v))[0], t = S.units.filter(v => v.side === 'them')[0];
       S.units.forEach(v => { if (v.side === 'them' && v !== t) v.fled = true; });   /* his own men stay, so the line can name the better one */
       u.x = q.at[0]; u.y = q.at[1]; t.x = q.at[0] + q.dist; t.y = q.at[1]; S.order = [u.id, t.id]; S.idx = 0; u.ap = u.apTurn; u.fat = 0; u.begun = true;
