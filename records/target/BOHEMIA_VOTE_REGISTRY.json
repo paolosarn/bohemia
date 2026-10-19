@@ -11538,7 +11538,50 @@
     "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
     "light": "guide"
    }
+  },
+ {
+  "id": "cook3-the-marauder-through-the-rig-10-19",
+  "kind": "outfit",
+  "lane": "cook 3",
+  "sha": "43d02342",
+  "made": "10/19",
+  "title": "THE MARAUDER: A BEARDED BRUTE WITH A WELDING MASK FLIPPED UP, BIG PALE SHOULDER PADS, A LEATHER APRON AND A SLEDGEHAMMER",
+  "why": "The last enemy tier, the heavy one with the big swing, made the same way as the thug and the marksman you liked: old shoulder pads with bolts welded on (at this size they read as big pale puffed shoulders, said plainly), a welding mask flipped up with a red stripe, a welder's leather apron and a sledgehammer, with his face's skin matching his hands, measured. You see it in the VOTE tab: eight directions and two walks beside the game's flat marauder.",
+  "show": {
+   "how": "image",
+   "src": "../records/target/cook3/COOK3_THE_MARAUDER_THROUGH_THE_RIG.png"
+  },
+  "twin": {
+   "src": "records/cook3/enemy_tiers_repainted.png",
+   "diffs": [
+    "THE ARMOUR: ours is a set of pale shoulder pads with bolts welded on, riding his chest as he walks; the game's marauder has grey stripes and a few spikes painted on.",
+    "THE HEAD: ours has a modelled bearded face with a welding mask flipped up over it like a crest, a red stripe down the mask; the game's marauder has a flat face under a black cap.",
+    "THE WEAPON AND THE CLOTHES: ours swings a sledgehammer and wears a brown leather apron over black; the game's marauder holds nothing and wears olive green."
+   ]
+  },
+  "draft": true,
+  "before_after": {
+   "before": "the game's own flat marauder as last painted (right on the sheet)",
+   "after": "the marauder as a model, rendered through the rig: eight facings and the walk (left on the sheet)",
+   "scale": "1:1"
+  },
+  "sprites": [
+   "records/target/cook3/rig/marauder/rig_N.png",
+   "records/target/cook3/rig/marauder/rig_NE.png",
+   "records/target/cook3/rig/marauder/rig_E.png",
+   "records/target/cook3/rig/marauder/rig_SE.png",
+   "records/target/cook3/rig/marauder/rig_S.png",
+   "records/target/cook3/rig/marauder/rig_SW.png",
+   "records/target/cook3/rig/marauder/rig_W.png",
+   "records/target/cook3/rig/marauder/rig_NW.png"
+  ],
+  "class": "person",
+  "look": {
+   "px": 1,
+   "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+   "light": "guide"
   }
+ }
  ],
  "verdicts": [
   {
