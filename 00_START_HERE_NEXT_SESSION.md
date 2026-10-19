@@ -284,48 +284,45 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
-CHARACTER (character-one-skin): 10/19 (s) LATEST -- *** ONE SKIN PER PERSON, LIVE; THE ROLL CALL; SIX HAIRCUTS AND 21 HATS IN VOTE. ***
-TAB: VOTE, the cards character-hair-one-clumps-not-links-10-19 (six of the barber's cuts on the starred head as clumps,
-short ropes and braids, beside his three and the game's flat cut at 1:1, portraits at 128) and character-hats-one-the-21-hats-10-19
-(all 21 hats, nine shapes modelled once, each in its own colour, 168 of 168 stills through the first five). The skin fix is in the DEMO's
-fight and settlement (the re-baked sheets, live since b82d8d62's deploy). Records: records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md,
-records/BOHEMIA_THE_ROLL_CALL_10_19_26.md, records/BOHEMIA_HAIR_ONE_CLUMPS_NOT_LINKS_10_19_26.md.
-[one skin, one person] (rule 120(d)), CLAIMED until the 13 gang renders land: MEASURED all 25 baked bodies wore the
-player's porcelain (famPaintBody gave the renderer the face, never the tone), 0 of 25 matched their face. SHIPPED:
-records/target/character/BOHEMIA_ONE_SKIN.json (28 people, the game's ladder, ONE rig step per tone, Las Vegas's mix
-37/33/15/7/7); the alpha's look tables carry `skin`, famSkinOf + famPaintBody + faceFor read it; non-family members are no
-longer the family's children; fight_people 26/26 and settlement_people 25/25 on their own tone; the rig tool's skin_for;
-the light end capped at skin_light 3 (skin_light 4 rendered a white mask on the Anarchists). PORTRAIT rebuilt the crew's
-13 faces on it (its 133/0 gate); ONE SKIN, ONE PERSON 15/0, one face owed (widebrim). Rig renders in their own skin, on
-main: Blues, Anarchists (re-render queued for the capped chalk), Cartel, Reds, Trades. Rendering (a detached queue on
-this box): the other eight's stills first, the Anarchists whole, then the eight's walks; then RUN's rig cast sheet
-re-bakes (tools/bohemia_bake_the_rig_cast.py) and the row SHIPS.
-[every old asset into the new look] CLAIMED: round one THE ROLL CALL (records/target/character/BOHEMIA_THE_ROLL_CALL.json,
-394 rows: every GARMENTS entry and the paper doll, one name each, PORTRAIT's and the rig's short names mapped, where each
-stands in the new look with the card and his words; gate THE ROLL CALL 8/0). Round two HAIR 1: the barber's other eight
-cuts built as clumps, locks, ropes and braids (tools/bohemia_character_hair_one.py); six in VOTE (48 of 48 stills pass
-the first five); ROPE LOCKS and HEAVY FRINGE built and HELD (D3 after three cycles). Round three HATS 1 in VOTE (above;
-records/BOHEMIA_HATS_ONE_THE_21_HATS_10_19_26.md). Round four EYEWEAR 1 rendering: the 14 face pieces as six kinds
-(dust mask, wraparounds, gas mask, bandana, visor, face wrap), cloth laid on the face's own radius and bridged over
-the hollows (tools/bohemia_character_eyewear_one.py); its card next.
-FOR DIRECTION AND PLUMBER (the guide's G3 / D3, the light row): it reads SKIN as light. The Blues' rig body, the same
-model and render, passes 8 of 8 in the old tan and fails 3 of 8 "lit from below" in his own deep skin. Rule 114b would
-cull a Black man off the VOTE tab for being Black. Read light within one surface (neighbours on one material recover the
-rig's sun), never the sprite's halves. Record section 7. No skin is lightened to pass it.
-FOR RUN: the demo's own copy of famPaintBody is the old one; the next cut takes famSkinOf. The rig cast re-bake after the
-13 renders is mine unless you say so.
-FOR PORTRAIT: thanks for the rebuild; the gangs' faces take people[faction_<gang>].rig, and my tool's build() dresses the
-body under them in the same step.
-GATES: ONE SKIN, ONE PERSON 15/0; THE ROLL CALL 8/0 (both mine, in the suite, mutation-proven); CHARACTER IN THE VOTE TAB
-9/0; VOTE TAB 46/6 (the same six as main); NOT VIBE CODED 30/1 (N3 lists my new card nowhere; two old rows of mine name no
-sprites and would fail D3 as above if they did). Main went red twice on my pushes for under an hour each (THE ROLL CALL R6
-on 78afebba, a tie in ONE SKIN's rungs on d8680df6), both fixed by me the same hour.
-[bb Battle Brothers' roster portrait IS the man's sprite stack, so face and field are one picture; ours draws them in
-different renderers, so the one person is one value in a data file a modder can edit.]
-[analog horror: clay hair that still looks like clay, pressed with a thumb; the skin is the person's, never a filter.]
-Lead line for DIRECTION (rule 113a): CHARACTER made one skin per person live and six haircuts in clay, VOTE tab, COOKING.
-NEXT: eyewear 1's card; the gang renders land, the rig cast re-baked, [one skin, one person] SHIPPED; then the garments
-slot by slot (base first: 80), the roll call's order.
+CHARACTER (character-one-skin): 10/19 (t) LATEST -- *** BASE 1: THE GAME'S 28 PLAIN TOPS ON THE 3D MAN IN VOTE; ONE SKIN'S WALKS LANDING. ***
+TAB: VOTE, the card character-base-one-the-shirts-10-19 (5 tanks, 12 tees, 4 long sleeves, 7 henleys on the barber's man,
+each beside the game's flat top at 1:1, eight facings, the portrait at 128; 224 of 224 stills pass the first five), with
+hair 1 (six cuts), hats 1 (21) and eyewear 1 (14 face pieces, character-eyewear-one-the-14-face-pieces-10-19) before it.
+Records: records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md, records/BOHEMIA_EYEWEAR_ONE_THE_14_FACE_PIECES_10_19_26.md,
+records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md, records/BOHEMIA_THE_ROLL_CALL_10_19_26.md.
+[one skin, one person] (rule 120(d)), CLAIMED until the walks and the rig cast land: the data file, the alpha, the DEMO's
+fight and settlement sheets and PORTRAIT's 26 faces are live (see (s) in git history). Rig bodies in their own skin on
+main: all 13 gangs' stills; walks re-rendered for Blues, Cartel, Reds, Trades, Caravans, Colorful, Homeless, Church; Mob,
+Network, Volunteers, Remnants rendering (a detached queue, about 30 minutes each), then the Anarchists whole (their first
+re-render was killed by the box's memory at 05:41, measured: a browser took 9 GB), then RUN's rig cast sheet re-bakes
+(tools/bohemia_bake_the_rig_cast.py: it reads the stills AND the walk, so it waits for every walk) and the row SHIPS.
+[every old asset into the new look] CLAIMED: round five BASE 1, the roll call's fourth batch, base first. The 80 tops
+read off the alpha (genTop and genCoverall options; where an old top carries no neck and no print its NAME fills them in,
+word by word), each option modelled once on the barber's man (tools/bohemia_character_garments_base.py, driven by the
+barber's build BASE1 | BASE1:<names>): the top cut finer then lifted, rib bands, plackets and buttons, collars and
+tails, cuffs and rolls, a turtleneck to the jaw, hoods lying and up, the coverall, the bib and its straps, tatters with
+skin through the holes, the runway's wide pad and arc dome, the longline and the layered hems, prints in metres; every
+cloth at SAT 1.4 at the source (measured: the rig's dust took the red's spread from 79 to 57). Three cards: 1 THE SHIRTS
+(28) IN VOTE; 2 THE COLLARS (22) and 3 THE HEAVY ONES AND THE RUNWAY (30) rendering on this box, each to VOTE when done.
+Fourteen test tops looked at first; what changed is in the record (the hood twice, the hood up three times, the tatters,
+the wide pad).
+FOR DIRECTION (the guide's light row, a third case, measured): BIB OVERALLS and DENIM SHORTALLS fail D3 side on (W -4.4,
+-4.5) with the shape right and the colour the flat's: the head is 48 in every top's top quarter; the mannequin's black
+cargos put the bottom half at 54 to 57 (the black tank reads +6.3), denim legs at 71. Any outfit with legs lighter than
+its dark head is 'lit from below' by construction. Held off card 3 (rule 114b), nothing changed to pass. Compare the lit
+and the shadow side of one mass, not the sprite's halves (same as (s)'s skin case and hair 1's black masses).
+FOR RUN: the demo's own famPaintBody still wants famSkinOf at the next cut; the rig cast re-bake is mine (above).
+GATES: THE ROLL CALL 8/0 (a cited card must carry his UP: a gang-worn top keeps its approved gang cards and shows the new
+card as shown_on), ONE SKIN, ONE PERSON, BARBER, THE BARBERS DOOR, HANDOFF, ATTEMPT, CARD FOLD, CHARACTER IN THE VOTE TAB
+green; the suite does not finish on this box (954 gates; 61 in 25 minutes, the browser gates timing out beside three
+renders), so the gates that read this work ran --only; REUSE FIRST, REFERENCE CHECK, PAGES PUBLISH, TWIN GATE, COOK EVERY
+ROUND, THE CARD I NAME (S1, S7) red on clean main too, none naming a file of mine.
+[bb Battle Brothers dresses a man in body armour and a helmet, painted layers per facing; the shirt under them is never
+seen. Ours is the layer the street sees in a city where nobody wears plate, cut and sewn on the man so it turns with him.]
+[analog horror: clay cloth pressed into shape, a collar you could tear, the dust in every fold; nothing glows.]
+Lead line for DIRECTION (rule 113a): CHARACTER put the game's 28 plain tops on the 3D man, VOTE tab, COOKING.
+NEXT: the collars card, then the heavy ones and the runway; the four walks, the Anarchists, the rig cast, [one skin, one
+person] SHIPPED; then the garments' outer slot (74), the roll call's order.
 PENDING Paolo: nothing.
 
 CHARACTER (character-barber-skull): 10/18 (r) LATEST -- *** THE BARBER'S FIRST THREE CUTS ARE SCULPTED HAIR ON THE STARRED HEAD. ***
