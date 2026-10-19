@@ -1,0 +1,49 @@
+{
+ "head_px": 128,
+ "head_m": 0.3871,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.387 m",
+ "ppm": 330.678,
+ "res": 218,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "expressions": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "files": [
+  "records/target/portrait/rig/crew/faction_trades/rig_portrait_S.png",
+  "records/target/portrait/rig/crew/faction_trades/rig_portrait_SE.png",
+  "records/target/portrait/rig/crew/faction_trades/rig_portrait_SW.png"
+ ],
+ "expression_files": {
+  "A": "records/target/portrait/rig/crew/faction_trades/rig_portrait_S_A.png",
+  "E": "records/target/portrait/rig/crew/faction_trades/rig_portrait_S_E.png",
+  "O": "records/target/portrait/rig/crew/faction_trades/rig_portrait_S_O.png",
+  "M": "records/target/portrait/rig/crew/faction_trades/rig_portrait_S_M.png",
+  "Angry": "records/target/portrait/rig/crew/faction_trades/rig_portrait_S_Angry.png",
+  "Sad": "records/target/portrait/rig/crew/faction_trades/rig_portrait_S_Sad.png",
+  "Surprised": "records/target/portrait/rig/crew/faction_trades/rig_portrait_S_Surprised.png"
+ },
+ "crop_box_px": [
+  0,
+  46,
+  209,
+  218
+ ],
+ "model": "records/portrait/rig/crew/faction_trades_head.glb",
+ "body_rig": "rig.json",
+ "colours": 18413
+}

@@ -1,0 +1,204 @@
+{
+ "person": "FACTION_TRADES",
+ "model": "records/portrait/rig/crew/faction_trades_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/trades.glb",
+ "dropped": [
+  "trades_hair",
+  "trades_hair_fall",
+  "trades_hat",
+  "trades_hat_brim",
+  "trades_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.0374,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "work cap",
+ "hair": "taper",
+ "stubble": false,
+ "look": "faction_trades",
+ "beard": "stubble",
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 32,
+   "face.craniumH": 10,
+   "face.foreheadW": 28,
+   "face.cheekW": 35,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 7,
+   "mouth.w": 11,
+   "nose.w": 5
+  },
+  "identity": false,
+  "mouth_half": 0.0374
+ },
+ "meshes": {
+  "Cesium_Man": 1232,
+  "trades_belt": 346,
+  "trades_coat": 18162,
+  "trades_coat_skirt": 4392,
+  "trades_hand_L": 392,
+  "trades_hand_R": 392,
+  "trades_pouch": 96,
+  "trades_pouch.001": 96,
+  "trades_shoe": 3916,
+  "trades_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_cap": 9832,
+  "portrait_visor": 80,
+  "portrait_hair": 12658
+ },
+ "materials": {
+  "portrait_faction_trades_buzz": [
+   0.0369,
+   0.0319,
+   0.0262
+  ],
+  "portrait_faction_trades_cap": [
+   0.1878,
+   0.1248,
+   0.0648
+  ],
+  "portrait_faction_trades_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_trades_lips": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "portrait_faction_trades_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_trades_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_trades_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_trades_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "portrait_faction_trades_stubble": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "trades_belt": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "trades_coat": [
+   0.0908,
+   0.0545,
+   0.0307
+  ],
+  "trades_coat_skirt": [
+   0.0908,
+   0.0545,
+   0.0307
+  ],
+  "trades_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "trades_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "trades_hat": [
+   0.2159,
+   0.1559,
+   0.0802
+  ],
+  "trades_shirt": [
+   0.305,
+   0.0931,
+   0.0212
+  ],
+  "trades_shoe": [
+   0.016,
+   0.0091,
+   0.0086
+  ],
+  "trades_shoes": [
+   0.016,
+   0.0091,
+   0.0086
+  ],
+  "trades_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "trades_trouser": [
+   0.063,
+   0.0409,
+   0.0343
+  ],
+  "trades_trousers": [
+   0.063,
+   0.0409,
+   0.0343
+  ]
+ }
+}
