@@ -27,9 +27,8 @@
   "hair: dead, never rebuilt": 34,
   "hair: not yet": 2,
   "hair: shown, not approved": 10,
-  "hat: built, not shown": 1,
-  "hat: not yet": 15,
-  "hat: shown, not approved": 6
+  "hat: not yet": 1,
+  "hat: shown, not approved": 21
  },
  "portrait_unmapped": [],
  "assets": [
@@ -1751,27 +1750,13 @@
    "plain": "CONE HAT",
    "new_look": {
     "state": "shown, not approved",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [
      "faction_caravans"
     ],
-    "cards": [
-     {
-      "card": "character-the-thirteen-through-the-rig-10-18",
-      "verdict": "up",
-      "said": "Nice direction very good not final"
-     },
-     {
-      "card": "character-the-print-and-the-hands-10-18",
-      "verdict": "up",
-      "said": ""
-     },
-     {
-      "card": "character-the-walk-of-every-look-10-18",
-      "verdict": "up",
-      "said": ""
-     }
-    ],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -1793,28 +1778,14 @@
    ],
    "new_look": {
     "state": "shown, not approved",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [
      "faction_anarchists",
      "faction_cartel"
     ],
-    "cards": [
-     {
-      "card": "character-the-thirteen-through-the-rig-10-18",
-      "verdict": "up",
-      "said": "Nice direction very good not final"
-     },
-     {
-      "card": "character-the-print-and-the-hands-10-18",
-      "verdict": "up",
-      "said": ""
-     },
-     {
-      "card": "character-the-walk-of-every-look-10-18",
-      "verdict": "up",
-      "said": ""
-     }
-    ],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -1827,8 +1798,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -1840,8 +1816,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -1860,27 +1841,13 @@
    ],
    "new_look": {
     "state": "shown, not approved",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [
      "faction_remnants"
     ],
-    "cards": [
-     {
-      "card": "character-the-thirteen-through-the-rig-10-18",
-      "verdict": "up",
-      "said": "Nice direction very good not final"
-     },
-     {
-      "card": "character-the-print-and-the-hands-10-18",
-      "verdict": "up",
-      "said": ""
-     },
-     {
-      "card": "character-the-walk-of-every-look-10-18",
-      "verdict": "up",
-      "said": ""
-     }
-    ],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -1893,8 +1860,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -1906,8 +1878,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -2104,8 +2081,13 @@
     "PORTRAIT head piece 'slouch beanie' (on cast_shortcoat)"
    ],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -2831,27 +2813,13 @@
    ],
    "new_look": {
     "state": "shown, not approved",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [
      "faction_church"
     ],
-    "cards": [
-     {
-      "card": "character-the-thirteen-through-the-rig-10-18",
-      "verdict": "up",
-      "said": "Nice direction very good not final"
-     },
-     {
-      "card": "character-the-print-and-the-hands-10-18",
-      "verdict": "up",
-      "said": ""
-     },
-     {
-      "card": "character-the-walk-of-every-look-10-18",
-      "verdict": "up",
-      "said": ""
-     }
-    ],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -2864,8 +2832,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -2877,8 +2850,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -2890,8 +2868,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -2910,27 +2893,13 @@
    ],
    "new_look": {
     "state": "shown, not approved",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [
      "faction_trades"
     ],
-    "cards": [
-     {
-      "card": "character-the-thirteen-through-the-rig-10-18",
-      "verdict": "up",
-      "said": "Nice direction very good not final"
-     },
-     {
-      "card": "character-the-print-and-the-hands-10-18",
-      "verdict": "up",
-      "said": ""
-     },
-     {
-      "card": "character-the-walk-of-every-look-10-18",
-      "verdict": "up",
-      "said": ""
-     }
-    ],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -2943,8 +2912,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -2956,8 +2930,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -3411,8 +3390,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -3676,8 +3660,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -3978,27 +3967,13 @@
    ],
    "new_look": {
     "state": "shown, not approved",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [
      "faction_colorful"
     ],
-    "cards": [
-     {
-      "card": "character-the-thirteen-through-the-rig-10-18",
-      "verdict": "up",
-      "said": "Nice direction very good not final"
-     },
-     {
-      "card": "character-the-print-and-the-hands-10-18",
-      "verdict": "up",
-      "said": ""
-     },
-     {
-      "card": "character-the-walk-of-every-look-10-18",
-      "verdict": "up",
-      "said": ""
-     }
-    ],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -4011,8 +3986,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -6157,8 +6137,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
@@ -6170,8 +6155,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (hats 1)",
+    "rig_looks": [],
+    "card": "character-hats-one-the-21-hats-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
   },
