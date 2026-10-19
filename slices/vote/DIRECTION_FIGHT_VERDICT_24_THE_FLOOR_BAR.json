@@ -1,0 +1,255 @@
+{
+ "verdict": 24,
+ "date": "10/19/26",
+ "seed": 1,
+ "kinds": [
+  "suburb",
+  "strip",
+  "freeway",
+  "scrub",
+  "ruin"
+ ],
+ "yes": {
+  "ground": {
+   "dirt_cells": 13273,
+   "sat": 0.195,
+   "hue": 39.9,
+   "split": 7.1,
+   "grit": 12.74
+  },
+  "road": {
+   "rows": [
+    863,
+    1490
+   ],
+   "peak": 0.132,
+   "lag": 164
+  },
+  "orange_pct": 0.04,
+  "tests": {
+   "B1": true,
+   "B2": true,
+   "B3": true,
+   "B4": true,
+   "B5": true,
+   "B6": true
+  },
+  "pass": true
+ },
+ "now": {
+  "subs_0": {
+   "ground": {
+    "dirt_cells": 11442,
+    "sat": 0.45,
+    "hue": 34.2,
+    "split": 23.0,
+    "grit": 10.06
+   },
+   "road": {
+    "rows": [
+     773,
+     907
+    ],
+    "peak": 0.69,
+    "lag": 515
+   },
+   "orange_pct": 11.31,
+   "tests": {
+    "B1": false,
+    "B2": false,
+    "B3": false,
+    "B4": false,
+    "B5": false,
+    "B6": false
+   },
+   "pass": false
+  },
+  "corner_0": {
+   "ground": {
+    "dirt_cells": 9256,
+    "sat": 0.442,
+    "hue": 34.4,
+    "split": 22.9,
+    "grit": 10.06
+   },
+   "road": {
+    "rows": [
+     773,
+     1046
+    ],
+    "peak": 0.388,
+    "lag": 1030
+   },
+   "orange_pct": 8.07,
+   "tests": {
+    "B1": false,
+    "B2": false,
+    "B3": false,
+    "B4": false,
+    "B5": false,
+    "B6": false
+   },
+   "pass": false
+  },
+  "strip_0": {
+   "ground": {
+    "dirt_cells": 1543,
+    "sat": 0.402,
+    "hue": 35.6,
+    "split": 38.4,
+    "grit": 8.88
+   },
+   "road": {
+    "rows": [
+     1293,
+     1759
+    ],
+    "peak": 0.324,
+    "lag": 1056
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": false,
+    "B2": false,
+    "B3": false,
+    "B4": false,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "ruin_0": {
+   "ground": {
+    "dirt_cells": 5503,
+    "sat": 0.423,
+    "hue": 34.5,
+    "split": 36.2,
+    "grit": 8.55
+   },
+   "road": {
+    "rows": [
+     773,
+     907
+    ],
+    "peak": 0.69,
+    "lag": 515
+   },
+   "orange_pct": 10.19,
+   "tests": {
+    "B1": false,
+    "B2": false,
+    "B3": false,
+    "B4": false,
+    "B5": false,
+    "B6": false
+   },
+   "pass": false
+  },
+  "scrub_0": {
+   "ground": {
+    "dirt_cells": 3734,
+    "sat": 0.608,
+    "hue": 28.1,
+    "split": 11.7,
+    "grit": 17.01
+   },
+   "road": null,
+   "orange_pct": 78.7,
+   "tests": {
+    "B1": false,
+    "B2": false,
+    "B3": false,
+    "B4": false,
+    "B6": false
+   },
+   "pass": false
+  },
+  "freeway_0": {
+   "ground": {
+    "dirt_cells": 6712,
+    "sat": 0.474,
+    "hue": 33.7,
+    "split": 16.0,
+    "grit": 10.65
+   },
+   "road": {
+    "rows": [
+     963,
+     1182
+    ],
+    "peak": 0.909,
+    "lag": 528
+   },
+   "orange_pct": 24.29,
+   "tests": {
+    "B1": false,
+    "B2": false,
+    "B3": false,
+    "B4": false,
+    "B5": false,
+    "B6": false
+   },
+   "pass": false
+  }
+ },
+ "glass": {
+  "suburb": {
+   "unit": 1.0,
+   "band": 0.0203,
+   "zoom": 0.2892,
+   "errors": 0
+  },
+  "strip": {
+   "unit": 1.0,
+   "band": 0.0188,
+   "zoom": 0.2754,
+   "errors": 0
+  },
+  "freeway": {
+   "unit": 1.0,
+   "band": 0.0212,
+   "zoom": 0.2892,
+   "errors": 0
+  },
+  "scrub": {
+   "unit": 1.0,
+   "band": 0.0307,
+   "zoom": 0.3246,
+   "errors": 0
+  },
+  "ruin": {
+   "unit": 1.0,
+   "band": 0.0198,
+   "zoom": 0.2754,
+   "errors": 0
+  }
+ },
+ "ground_px_per_metre_on_glass": 12.4,
+ "man_px_per_metre": 57,
+ "fails_of_six_blocks": {
+  "B1": 6,
+  "B2": 6,
+  "B3": 6,
+  "B4": 6,
+  "B5": 4,
+  "B6": 5
+ },
+ "F1": true,
+ "F2_at_bar": 3,
+ "still_wrong_of_22": 3,
+ "fixed_of_22": [
+  4,
+  7
+ ],
+ "better_of_22": [
+  2
+ ],
+ "not_seen_of_22": [
+  3
+ ],
+ "F3": false,
+ "F4": false,
+ "F5": false,
+ "analog_horror_line": false,
+ "picture": "slices/vote/DIRECTION_FIGHT_VERDICT_24_THE_FLOOR_BAR.png"
+}
