@@ -11113,7 +11113,6 @@
    "draft": true
   },
   {
-<<<<<<< Updated upstream
    "id": "direction-fight-verdict-24-the-floor-bar-10-19",
    "kind": "verdict",
    "lane": "direction",
@@ -11126,7 +11125,9 @@
     "src": "vote/DIRECTION_FIGHT_VERDICT_24_THE_FLOOR_BAR.png"
    },
    "asked": "UP or DOWN",
-=======
+   "draft": true
+  },
+  {
    "id": "run2-a-cards-picture-full-size-10-19",
    "kind": "ui",
    "lane": "run 2",
@@ -11143,7 +11144,6 @@
     "after": "the card shows one house (show.first, cut from the sheet), a tap opens the whole sheet at one image pixel to one point on that house, drag and pinch, a tap closes",
     "scale": "his phone upright, 390 x 844, one screen each"
    },
->>>>>>> Stashed changes
    "draft": true
   }
  ],
