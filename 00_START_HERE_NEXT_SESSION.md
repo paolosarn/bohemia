@@ -2745,6 +2745,10 @@ after its birth (ca82b0de; a shallow clone reads what it holds dated after it): 
 (COOK, COOK TWO, COOK THREE, COOK FOUR, DIRECTION, CHARACTER, PORTRAIT, COMBAT TWO, UI) touching slices/ or engine/,
 outside slices/vote/ and UI's materials (rule 88), is red unless his FINAL covers every file. An art-lane edit to a file
 records/BOHEMIA_PLACEHOLDERS.md names (372 with the cards' pictures) is red. A red leaves only through `answered`.
+ITS FIRST CATCH, AFTER MY REBASE: CHARACTER [one skin, one person] 9f14edf3 and 3318fe81, 51 files in the game (the alpha
+and the fight_people sheets re-baked so every body wears its person's own skin). I ANSWERED it in the config with rule
+120(d) (his LOCKED 10/18 order, newer than rule 100; a fix of his named defect, not a new look) so the whole fleet's
+suite is not red on his top fix; the coordinator strikes the two lines to make it red if it reads the rules otherwise.
 FOR THE COORDINATOR, TWO SWITCHES ARE YOURS: (1) moodboard_landed in gates/art_fence.json stays null until his pictures
 are in the bible (rule 108 round thirteen); while null, NO FINAL COUNTS. Five cards are FINAL by rule 100(b)'s letter
 (a YES on a FINAL? card, no 'not final' in his words), printed every run: COOK TWO's curb, UI's six supplies, the phone's

@@ -32,5 +32,14 @@
  ],
  "moodboard_landed": null,
  "finals": [],
- "answered": []
+ "answered": [
+  {
+   "sha": "9f14edf3",
+   "why": "ANSWERED BY RULE 120(d) (Paolo 10/18, LOCKED, newer than rule 100): 'a face whose skin does not match its body is a defect'; CHARACTER's row [one skin, one person], first on its board by the coordinator: the body reads the person's one skin, the alpha and the fight_people sheets re-baked in each person's own skin (a fix of his named defect, not a new look). Answered by PLUMBER 10/19 at the fence's first catch; the coordinator strikes this line to make it red."
+  },
+  {
+   "sha": "3318fe81",
+   "why": "ANSWERED BY RULE 120(d) (Paolo 10/18, LOCKED, newer than rule 100): 'a face whose skin does not match its body is a defect'; CHARACTER's row [one skin, one person], first on its board by the coordinator: the body reads the person's one skin, the alpha and the fight_people sheets re-baked in each person's own skin (a fix of his named defect, not a new look). Answered by PLUMBER 10/19 at the fence's first catch; the coordinator strikes this line to make it red."
+  }
+ ]
 }

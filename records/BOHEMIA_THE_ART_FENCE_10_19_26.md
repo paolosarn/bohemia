@@ -41,6 +41,15 @@ cleared, the lane read longest name first: COOK TWO, never COOK; COMBAT is not C
 throwaway worktree: a planted "COOK TWO [the mutant]" board file, A2 red; a planted edit of the cone (a listed
 placeholder), A2 and A3 red; a planted "RUN [the cut, now]" demo change, green.
 
+## ITS FIRST CATCH
+
+Forty commits after the birth, on the rebased tree: CHARACTER [one skin, one person] 9f14edf3 (WIP) and 3318fe81 put 51
+files in the game, the alpha and the 26 fight_people sheets re-baked so every body wears its own person's skin (rule
+120(d)). By rule 100's letter that is an art lane in the game with no FINAL. Rule 120(d) is his LOCKED order of 10/18,
+newer than rule 100: 'a face whose skin does not match its body is a defect a gate refuses'; the coordinator put the
+row first on CHARACTER's board. It is a fix of a defect he named, not a new look, so the config ANSWERS both commits
+with that ruling, in plain sight; the coordinator strikes the two lines to make it red.
+
 ## THE RECORD SINCE RULE 100 (printed every run, not failed)
 
 From 10/10 to the birth, in this clone's 1,018 commits: 28 art-lane commits put files in the game with no FINAL of
