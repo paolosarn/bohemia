@@ -79,7 +79,16 @@ or more of their skin pixels (the exact ladder colours), and 26 of 26 64 faces w
 - The demo file itself (slices/BOHEMIA_DEMO.html) carries a copy of the alpha's code: RUN's next cut takes the fix.
   What he sees in the demo's fight and settlement is the re-baked sheets, which it loads from disk.
 
-## 5. THE GATE
+## 5. WHY THIS ROUND'S FLAT SHEET IS NOT A VOTE CARD
+
+The before-and-after sheet is records/target/character/CHARACTER_ONE_SKIN_ONE_PERSON.png (twin:
+CHARACTER_ONE_SKIN_BEFORE_TWIN.png): NOT IN A TAB. Measured before registering it: the flat bodies it shows fail the
+style guide's first five (D2: 41 to 55 colours against the person floor of 800; Blues D3 lit from below), because
+they are the old flat look the rig replaces (rule 115), and rule 114b culls a sheet that fails the first five. The
+fix is a defect fix in the game he plays (rule 120(d)), not a candidate, so it ships; the card that goes to VOTE is
+the rig bodies in their own skin, when the thirteen renders land (in flight, section 4).
+
+## 6. THE GATE
 
 gates/one_skin_one_person_gate.py (ONE SKIN, ONE PERSON), no browser, 9 s: the file whole (S1), the look tables carry
 it (S2), the body reads it (S3), the flat body and the settlement people off the pixels (S4), the 64 face (S5), the rig
