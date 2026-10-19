@@ -130,11 +130,12 @@ async function aimAndFire(p, file1, file2) {
 }
 
 (async () => {
-  const rows = bench();
+  /* --sheet: the bench as it was written last, the frames fresh */
+  const rows = process.argv.includes('--sheet') ? J('records/target/BOHEMIA_COMBAT_GUNS_FIRST_MEASURED.json').rows : bench();
   const out = {
     _readme: 'COMBAT [guns from the first fight] 10/19 (rule 120(a)): every origin\'s company as the door builds it against its first week\'s band (day 1, brigands, SEEN IT), headless on the fight\'s own rules, AUTO both sides, ' + SEEDS + ' fights a cell. kit old = THE FIGHT BEFORE THIS ROW, whole (its rules and its ours.json at ' + BASE + ': two pipes with car doors and a sledge in front, the pistol a one-tile dagger that never fired, raiders from day 1, Battle Brothers\' Veteran aim); kit guns = the kit as the fight deals it now (ours.crew guns first, ours.guns_first_kit, ours.pistol_shot, ours.gun_club). gunKillPct = of their dead, the share whose last hit from one of yours was a shot. Written by tools/bohemia_combat_guns_from_the_first_fight_10_19_26.js -- do not hand edit. DRAFT: the gear is not coordinated (rule 117(e)); this is not one average of the game\'s difficulty, it is the first week only.',
     version: 'BOHEMIA_COMBAT_GUNS_FIRST_MEASURED_v1', built: '2026-10-19', seeds: SEEDS, rows: rows };
-  fs.writeFileSync(OUT_JSON, JSON.stringify(out, null, 1) + '\n');
+  if (!process.argv.includes('--sheet')) fs.writeFileSync(OUT_JSON, JSON.stringify(out, null, 1) + '\n');
   console.log('  wrote ' + path.relative(ROOT, OUT_JSON));
   rows.forEach(r => console.log('   ' + r.origin.padEnd(8) + ' ' + String(r.men).padStart(2) + ' men vs ' + r.thugs + '  ' + r.kit.padEnd(4) + '  won ' + String(r.winPct).padStart(3) + '%  guns killed ' + String(r.gunKillPct).padStart(3) + '%  shots/fight ' + r.shotsPerFight));
   if (BENCH_ONLY) return;

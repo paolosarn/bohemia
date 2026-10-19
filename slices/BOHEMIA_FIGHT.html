@@ -448,11 +448,14 @@ const FIGHT = (function () {
     const bg = DB.backgrounds.rows.filter(function (r) { return r.id === c.background; })[0];
     const st = bg.stats, roll = function (k) { return rint(st[k][0], st[k][st[k].length - 1]); };
     const rows = R('ours.weapon_rows');
-    const job = c.jobs.filter(function (j) { return j !== 'car_door'; })[0];
+    let job = c.jobs.filter(function (j) { return j !== 'car_door'; })[0];
     /* what he wears on the roster is what he fights with (RUN TWO [equip from the stash]): the company's gear ids win,
        an empty slot is empty, a man with no gear handed keeps his place's kit */
     const G = c.gear || null;
     const w = (G && G.main && weaponRow(G.main)) || weaponRow(rows[job]);
+    /* his job is the weapon in his hand: a man the roster hands a pipe is a pipe man (his perks, his strike square, his card),
+       whatever his place in the crew rows carried (10/19: a handed bludgeon wore the PISTOL square of its row's old kit) */
+    if (G && G.main && w) job = ((DB.wlines.rows[w.class] || {}).job) || w.class;
     const sh = G ? (G.off ? shieldRow(G.off) || null : null) : (c.jobs.indexOf('car_door') >= 0 ? shieldRow(rows.car_door) : null);
     const body = G ? (G.body ? armourRow('body', G.body) : null) : armourRow('body', c.body), head = G ? (G.head ? armourRow('head', G.head) : null) : armourRow('head', c.head);
     const xp = R('parsed.brother_xp');

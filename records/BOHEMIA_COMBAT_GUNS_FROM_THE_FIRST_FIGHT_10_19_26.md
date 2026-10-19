@@ -44,12 +44,36 @@ first band and the tutorial fight are built around shooting. Opened by the coord
   every tile he can see), the shot plays the rig's own fire clips (the pistol's kick in one hand, the long gun's into the
   shoulder, fight_people's shot_1h and shot, baked and never played before), the club at one is a swing and a swing's sound,
   his card reads PISTOL with "it shoots as Bundle of Javelins", reach 2 to 4 tiles, rounds 5 then a reload, a club at one.
-- A displaced man keeps his own line: with nine shooters in the back line, a shooter whose slot is a house slid into the
-  shieldwall's column; now he slides along his own line.
+- PAST THE FIRST FOUR, A SHIELDWALL: the twelve are two pistols, three rifles, a shotgun and bottles behind two sledges and
+  three pipes with car doors (measured: nine shooters behind three melee men could not be screened, 10 in 100 of the
+  shooters' turns ended past the front man; 2 with the wall). YOU keep the first slot, your own pistol and car door (the best
+  eye made the level-four captain a rifleman with only passive perks, and AUTO used no perk skill in twelve fights).
+- A man the roster hands a weapon is that weapon's man (his job, his perks, his strike square): a handed bludgeon wore the
+  pistol square of its place's old kit.
 
 ## Measured after (records/target/BOHEMIA_COMBAT_GUNS_FIRST_MEASURED.json, tools/bohemia_combat_guns_from_the_first_fight_10_19_26.js)
 
-RESULTS_TABLE
+Every origin's company as the door builds it, against its first week's band (day 1, brigands, SEEN IT), 60 fights a cell, AUTO both sides. BEFORE = the fight as it was (rules and ours.json at a1013fe2). Win in 100, before -> now; the share of their dead whose last hit was a shot; shots a fight.
+
+| origin | men | vs 2 | vs 3 | vs 4 | guns killed (vs 3) | shots a fight (vs 3) |
+|---|---|---|---|---|---|---|
+| THE CREW THAT IS LEFT | 3 | 90 -> 97 | 55 -> 87 | 25 -> 68 | 57% | 12 (was 0) |
+| A NEW CREW | 3 | 90 -> 97 | 55 -> 87 | 25 -> 68 | 57% | 12 (was 0) |
+| UP FROM HENDERSON | 3 | 90 -> 97 | 55 -> 87 | 25 -> 68 | 57% | 12 (was 0) |
+| THE WATER TRUCK | 2 | 60 -> 57 | 8 -> 17 | 2 -> 5 | 55% | 6.6 (was 0) |
+| THE BLOCK WATCH | 12 | 100 -> 100 | 100 -> 100 | 100 -> 100 | 61% | 15.4 (was 0) |
+| THE SCAVENGERS | 3 | 78 -> 95 | 58 -> 85 | 25 -> 50 | 69% | 11 (was 0) |
+| THE PROMISE KEEPERS | 2 | 67 -> 75 | 33 -> 37 | 3 -> 5 | 44% | 6.7 (was 0) |
+| THE DESERTERS | 3 | 88 -> 93 | 67 -> 67 | 28 -> 42 | 61% | 11.4 (was 0) |
+| THE RAIDERS | 4 | 98 -> 100 | 88 -> 98 | 70 -> 88 | 64% | 13.7 (was 0) |
+| THE LAB RATS | 3 | 82 -> 95 | 63 -> 75 | 27 -> 45 | 68% | 11.6 (was 0) |
+| THE FAITHFUL | 4 | 95 -> 100 | 78 -> 97 | 62 -> 77 | 69% | 15.2 (was 0) |
+| THE DEBT COLLECTORS | 6 | 100 -> 100 | 98 -> 100 | 92 -> 98 | 63% | 13.4 (was 0) |
+| THE HUNTERS | 3 | 80 -> 93 | 65 -> 68 | 30 -> 30 | 72% | 11.1 (was 0) |
+| THE FIGHT PIT | 3 | 93 -> 98 | 68 -> 87 | 48 -> 45 | 70% | 11.3 (was 0) |
+| THE LONE WOLF | 1 | 15 -> 40 | 0 -> 3 | 0 -> 0 | 52% | 3.1 (was 0) |
+
+Read: the guns win as often or more in 43 of 45 cells; the two where they do not are two fights in 60 (the water truck's 2 against 2, 60 -> 57; the fight pit's 3 against 4, 48 -> 45). The two-man origins (the water truck, the promise keepers) and the lone wolf stay hard past two thugs: Battle Brothers marks them hard origins, and the job math gives a fresh crew of two a band of two at one skull.
 
 ## Not built, said
 - The lone wolf is still hard (VERY HARD by Battle Brothers' own mark): one man in the crew rows' padded surcoat; Battle

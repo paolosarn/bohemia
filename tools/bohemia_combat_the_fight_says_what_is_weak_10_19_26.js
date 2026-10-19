@@ -40,11 +40,11 @@ const say = p => p.evaluate(() => document.getElementById('say').innerText);
 
 (async () => {
   fs.mkdirSync(SCRATCH, { recursive: true });
-  const base = { seed: 5, speed: 1, kind: 'suburb', deploy: false, formation: null };
+  const base = { seed: 5, speed: 1, kind: 'suburb', flat: true, deploy: false, formation: null };   /* open ground: the line is the weapon's, not a car's */
   const frames = [];
   await fightWith(Object.assign({ band: ['brigand_thug'] }, base), async (p) => {
     await aim(p, '!!v.weapon.of', [14, 4], 2);
-    frames.push({ name: 'A PISTOL ON A THUG, TWO HOUSES OFF', say: await say(p), file: path.join(SCRATCH, 'aim_thug.png') });
+    frames.push({ name: 'A PISTOL, TWO HOUSES OFF', say: await say(p), file: path.join(SCRATCH, 'aim_thug.png') });
     await p.screenshot({ path: frames[frames.length - 1].file });
     await aim(p, '!!v.weapon.of', [14, 4], 1);
     frames.push({ name: 'THE PISTOL BESIDE HIM', say: await say(p), file: path.join(SCRATCH, 'aim_close.png') });
@@ -52,16 +52,16 @@ const say = p => p.evaluate(() => document.getElementById('say').innerText);
     const s = await aim(p, '!!v.weapon.of', [14, 4], 2);
     await p.touchscreen.tap(s.x, s.y);
     await p.waitForFunction(() => /^(Hit|Missed)/.test(document.getElementById('say').innerText), null, { timeout: 5000 }).catch(() => {});
-    frames.push({ name: 'THE SECOND TAP: WHAT IT DID', say: await say(p), file: path.join(SCRATCH, 'after.png') });
+    frames.push({ name: 'THE SECOND TAP', say: await say(p), file: path.join(SCRATCH, 'after.png') });
     await p.screenshot({ path: frames[frames.length - 1].file });
   });
   await fightWith(Object.assign({ band: ['brigand_marauder'], days: 65 }, base), async (p) => {
     await aim(p, 'v.job === "pipe"', [14, 4], 1);
-    frames.push({ name: 'A PIPE ON A MARAUDER IN PLATE', say: await say(p), file: path.join(SCRATCH, 'aim_plate.png') });
+    frames.push({ name: 'A PIPE ON A MAN IN PLATE', say: await say(p), file: path.join(SCRATCH, 'aim_plate.png') });
     await p.screenshot({ path: frames[frames.length - 1].file });
   });
   /* the order he reads them in */
-  const order = ['A PISTOL ON A THUG, TWO HOUSES OFF', 'A PIPE ON A MARAUDER IN PLATE', 'THE PISTOL BESIDE HIM', 'THE SECOND TAP: WHAT IT DID'];
+  const order = ['A PISTOL, TWO HOUSES OFF', 'A PIPE ON A MAN IN PLATE', 'THE PISTOL BESIDE HIM', 'THE SECOND TAP'];
   const spec = path.join(SCRATCH, 'sheet.json');
   fs.writeFileSync(spec, JSON.stringify({ frames: order.map(n => frames.filter(f => f.name === n)[0]).filter(Boolean), out: OUT_JPG }));
   execFileSync('python3', [path.join(__dirname, 'bohemia_combat_the_fight_says_what_is_weak_sheet_10_19_26.py'), spec], { stdio: 'inherit' });
