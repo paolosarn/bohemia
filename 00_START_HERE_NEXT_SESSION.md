@@ -688,6 +688,32 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-opus-10-19): 10/19 LATEST (round twenty-eight, [the guns heard], rule 120: guns first) --
+*** REAL GUNS IN THE FIGHT, IN VOTE: NINE REAL GUNS, IN THE STREET ON TAPE, ON THE GRID. ***
+The coordinator: 'the guns now come first: the gun sounds he hears in the first fight, from real recordings, analog horror,
+on the beat.' MEASURED FIRST (a real Chromium render of the engine): five shots in six in the game today come out about
+25 dB under his approved shot.3, nearly silent on a phone; the PISTOL (BB's dagger row) plays a sword's whoosh; a reload is
+silent. THE RECORDINGS: the Free Firearm Sound Library (Still North Media, CC0 1.0), mirrored whole on GitHub
+(buddingmonkey/FreeFirearmsSFXLibrary; GitHub is the only sound host this box reaches): PISTOL a 1911, a Walther PPQ, a .38
+revolver; SHOTGUN a Model 12, a Nova, a Charles Daly pump; RIFLE a Mosin Nagant, a Springfield 1917, a Tikka. Yours = the near
+mic, theirs = the mid mic, each layered with the same gun's far mic (the range's real tail); 66 windows banked as FLAC
+(reference/library/sound_bank/ffsl_cc0/). A: a street canyon as wide as the Strip (42.9 m) claps back every 125 ms, a 16th
+at 120 BPM; a camcorder's automatic gain breathes the street back over one beat; tape; the VHS band after the tape; a drop-out
+in take three; two beats a shot. C: the same real mics, clean. Reloads: the guns' own motions laid on 16ths. tools/
+bohemia_guns_heard.py, engine/bohemia_guns_heard.js (the player), tools/bohemia_guns_heard_now.js (what plays now, measured).
+VOTE sounds-the-guns-heard-10-19 (sha 44fcbcfe): the real fight loaded ONCE, playing itself with six guns against brigands
+with crossbows, PISTOL / SHOTGUN / RIFLE / THEIR SHOT / RELOAD buttons, A / B what plays now (the alpha's own pools through
+the game's engine) / C, all through the alpha's output chain. Measured his way (390 x 844, the 62vh frame, 1.6 Mbps, real
+speed): a gun 161 ms after a tap, the fight in 19.9 s and never reloaded. Gate THE GUNS HEARD 33/0 (new, registered),
+mutated three ways 30/2, 31/1, 32/1. Red and not mine, seen this round: vote tab (DYNASTY's two whys), cook every round
+(UI, COOK, ANIMATION, FACTIONS, WORLD), pages publish (865 MB published, three folders not copied). CUE 7.7 for COMBAT's
+three lines in the fight and RUN's cut; no fight, alpha or demo byte. FOR COMBAT: a bow and a bottle still post a gunshot.
+[his sound, not a revamp]: THE ROSARY ON CHANNEL 3 still waits on EYES AND EARS' line (none on the board at this push);
+the card registers the moment it lands (tools/bohemia_sounds_register_song.py). NEXT OPEN: [the bullet lands] (a miss and a
+vital are silent in the game; hit_more and hurt_more sit 20 to 25 dB under). Record: records/BOHEMIA_THE_GUNS_HEARD_10_19_26.md.
+PENDING Paolo: nothing.
+UNDER UI (rule 113a): SOUNDS made the fight's guns from nine real guns, VOTE tab, COOKING.
+
 SOUNDS (sound-opus-10-18d): 10/18 LATEST (round twenty-six, [the map's song], and his sixteenth votes read) --
 *** HIS VOTES ON THIS SESSION'S WORK: YES ON THE TITLE SONG, NO ON THE FIGHT STEPS ('Was broke'), AND WHAT BROKE IS FOUND. ***
 OVER THE RIDGE: UP, 'Awesome I like it', with a question: does it fit Bohemia, it sounds unlike the rest of our songs,
