@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>REPO MAN, THE MACHINE PARTY</title>
+<!-- SOUNDS lane, 10/19, row [the machine party]. RULE 121(k), PAOLO 10/19: 'Remodel everything 3D grimey Crashbox analog
+     horror machine party vibes. And the music too man.' Rule 119: made with his songs' own machine, never edited.
+
+     THE SONG: his REPO MAN, every note (his row, his engine, his 64-bar form and key moves, the beat arriving late), with
+     a real machine playing along (engine/bohemia_machine_party.js on his engine's own drum calls): a train coupling on
+     every kick, a Soviet electromechanical clock on every hat, four to the bar in his D sections, steel on steel every
+     other bar, a washing machine's motor whining on his G and changing gear with his key moves; A in one concrete hall on
+     a worn tape, C clean. All real recordings, CC0 at the source (slices/vote/songs/machine_party_kit/manifest.json).
+
+     WHAT THIS PAGE IS: the real valley map (slices/BOHEMIA_MAP_CURRENT.html, untouched) from its own camera, the
+     recorded desert under it at the map's level (MAPDESERT's file, his YES), A the machine party, B HIS REPO MAN as the
+     map plays it now, C the machine party clean, all recorded from the alpha's own engine by
+     tools/bohemia_sounds_machine_party_record.js at the same loudness through a phone. EYES AND EARS is paused (rule
+     121a), so the same-game line rule 119(c) asks for was not written; the card says so. His REPO MAN is never touched;
+     on his YES the remake is a CUE row, RUN's (rule 93). Gate: gates/the_machine_party_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{display:flex;flex-direction:column}
+  #map{flex:1 1 auto;min-height:0;width:100%;border:0;background:#0d0b08}
+  #bar{flex:0 0 auto;box-sizing:border-box;padding:10px 16px 12px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.old{background:#b9a77e}
+  .num{font-size:12px;color:#b9a77e;margin-top:8px;min-height:3em}
+</style></head><body>
+<iframe id="map" src="BOHEMIA_MAP_CURRENT.html" title="the valley map"></iframe>
+<div id="bar">
+  <div class="row">
+    <button id="song">A. THE MACHINE PARTY</button>
+    <button id="his" class="old">B. YOUR REPO MAN</button>
+    <button id="clean">C. THE MACHINE, CLEAN</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="num">Tap A, then B. Same song, same engine, same loudness on a phone. A and C add a real machine. The desert is under all three.</div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var AC=null, OUT=null, n=document.getElementById('num'), mode=null, bed=null, bedT=null, clock=null, BUF={}, cur=null, t0=0;
+  var FILE={ song:'vote/songs/repo_man_the_machine_party/song.mp3', clean:'vote/songs/repo_man_the_machine_party/clean.mp3', his:'vote/songs/repo_man_the_machine_party/his_repo_man.mp3' };
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function load(p){ if(BUF[p]) return Promise.resolve(BUF[p]);
+    return fetch(p).then(function(r){ if(!r.ok) throw new Error(p+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[p]=b); }); }
+  /* the desert under the map, the same file, loop and level as the alpha's MAPDESERT */
+  function bedOn(){ if(bed) return; var my=bed=AC.createGain(); my.gain.setValueAtTime(0,AC.currentTime); my.gain.linearRampToValueAtTime(0.45,AC.currentTime+1.5); my.connect(OUT);
+    load('vote/settlement_heard/bed_day.mp3').then(function(b){ var XF=1.0, step=b.duration-XF;
+      (function one(at){ if(bed!==my) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(my);
+        v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF); v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+        s.start(at); bedT=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000)); })(AC.currentTime+0.05); }); }
+  function bedOff(){ if(bedT) clearTimeout(bedT); bedT=null; if(bed){ var x=bed; bed=null; x.gain.cancelScheduledValues(AC.currentTime); x.gain.setValueAtTime(x.gain.value,AC.currentTime); x.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); setTimeout(function(){ try{x.disconnect();}catch(e){} },900); } }
+
+  /* his form, as his engine plays it (MUS.ARR, the first 32 bars), and the key it moves to (MUS.RT on the scale) */
+  var ARR=['A','B','B','A','C','B','D','B'], RT=[0,0,2,0,3,2,0,1], SCALE={ song:[0,2,3,7,8], clean:[0,2,3,7,8], his:[0,2,3,7,8] };
+  var PART={ A:'the core: the bass, the kick, one drifting note on beat one', B:'the tune', C:'the strip: kick and bass only', D:'the tune an octave up' };
+  var MACH={ A:'the coupling on the kick, the clock on the hat', B:'the coupling, the clock, steel every other bar', C:'the motor comes up', D:'the machine stamps four to the bar' };
+  var NOTE=['C','C sharp','D','E flat','E','F','F sharp','G','A flat','A','B flat','B'];
+  var ROOT={ song:7, clean:7, his:7 };   /* all G (root 41): noteHz(semi) = 110 * 2^(semi/12), the bass on root - 55 */
+  function where(){ if(!cur) return; var t=AC.currentTime-t0; if(t<0) return; var b=Math.min(32,Math.floor(Math.max(0,t)/2)+1), si=Math.floor((b-1)/4);
+    var key=NOTE[(ROOT[mode]+SCALE[mode][RT[si]%5])%12];
+    n.textContent=LABEL[mode]+'  Bar '+b+' of 32: '+PART[ARR[si]]+', in '+key+(b<=8?', no drums yet (the beat arrives late)':'')+(mode!=='his'?(b<=8?'; the motor is already running':'; '+MACH[ARR[si]]):'')+'.'; }
+  function songOff(){ if(cur){ var h=cur; cur=null; try{ h.g.gain.cancelScheduledValues(AC.currentTime); h.g.gain.setValueAtTime(h.g.gain.value,AC.currentTime); h.g.gain.linearRampToValueAtTime(0,AC.currentTime+0.15); h.src.stop(AC.currentTime+0.2); }catch(e){} } if(clock){ clearInterval(clock); clock=null; } }
+  var LABEL={ song:'A. Your REPO MAN with a real machine, in a concrete hall, on a worn tape.', his:'B. Your REPO MAN, the first minute, as the map plays it now.',
+              clean:'C. The same machine party, no hall, no tape.' };
+  function mark(id){ ['song','his','clean'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
+  function go(id){
+    ctx(); songOff(); mode=id; mark(id); n.textContent=LABEL[id]; bedOn();
+    load(FILE[id]).then(function(b){ if(mode!==id) return; var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; g.gain.setValueAtTime(0,AC.currentTime); g.gain.linearRampToValueAtTime(1,AC.currentTime+0.03);
+        s.connect(g); g.connect(OUT); t0=AC.currentTime+0.02; s.start(t0); cur={src:s,g:g,buffer:b}; clock=setInterval(where,250);
+        s.onended=function(){ if(cur&&cur.src===s){ cur=null; if(clock){ clearInterval(clock); clock=null; } n.textContent='That was the first minute. Tap it again, or another one.'; } }; })
+      .catch(function(e){ n.textContent='the song did not load: '+e.message; });
+  }
+  ['song','his','clean'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
+  document.getElementById('stop').onclick=function(){ if(!AC) return; songOff(); bedOff(); mode=null; mark(null); n.textContent='Stopped.'; };
+  window.__machineparty=function(){ return { mode:mode, playing:!!cur, file:cur?(mode&&FILE[mode]):null, seconds:cur?+(AC.currentTime-t0).toFixed(2):0, bed:!!bed, loaded:Object.keys(BUF), text:n.textContent }; };
+})();
+</script>
+</body></html>

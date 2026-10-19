@@ -1,0 +1,97 @@
+{
+ "_readme": "THE MACHINE PARTY KIT (SOUNDS 10/19/26, row [the machine party]): real machines cut from CC0 recordings, played by engine/bohemia_machine_party.js on his own engine's drum calls. Made by tools/bohemia_sounds_machine_party.py; --check re-reads every file.",
+ "made": "10/19/26",
+ "lane": "sounds",
+ "draft": true,
+ "sr": 44100,
+ "files": {
+  "press_1": {
+   "stem": "4-165845-B-45",
+   "at": 1.907,
+   "seconds": 0.34,
+   "why": "a coupling slamming between two wagons",
+   "author": "felix.blume",
+   "url": "http://www.freesound.org/people/felix.blume/sounds/165845/",
+   "licence": "CC0",
+   "md5": "be492739a852ae1ba099284eefadb4a2"
+  },
+  "press_2": {
+   "stem": "4-165845-B-45",
+   "at": 3.3584,
+   "seconds": 0.34,
+   "why": "the same coupling, the next slam",
+   "author": "felix.blume",
+   "url": "http://www.freesound.org/people/felix.blume/sounds/165845/",
+   "licence": "CC0",
+   "md5": "b7e6639d81d2172fd812e69f9084fd43"
+  },
+  "relay_1": {
+   "stem": "3-171041-A-38",
+   "at": 0.1567,
+   "seconds": 0.11,
+   "why": "the Yantar clock, a tick",
+   "author": "ST303",
+   "url": "http://www.freesound.org/people/ST303/sounds/171041/",
+   "licence": "CC0",
+   "md5": "838c0410822f2338bc54766da402008e"
+  },
+  "relay_2": {
+   "stem": "3-171041-A-38",
+   "at": 0.5555,
+   "seconds": 0.11,
+   "why": "the Yantar clock, the next tick",
+   "author": "ST303",
+   "url": "http://www.freesound.org/people/ST303/sounds/171041/",
+   "licence": "CC0",
+   "md5": "5b86c6ed8c998c7cf7b5e0e937f0aa6d"
+  },
+  "relay_3": {
+   "stem": "3-171041-A-38",
+   "at": 0.9557,
+   "seconds": 0.11,
+   "why": "the Yantar clock, a heavier tick",
+   "author": "ST303",
+   "url": "http://www.freesound.org/people/ST303/sounds/171041/",
+   "licence": "CC0",
+   "md5": "608bb8ae6eac0c7b3fc977aa09e95cfd"
+  },
+  "clank_1": {
+   "stem": "4-165845-B-45",
+   "at": 3.74,
+   "seconds": 0.3,
+   "why": "steel on steel between two wagons",
+   "author": "felix.blume",
+   "url": "http://www.freesound.org/people/felix.blume/sounds/165845/",
+   "licence": "CC0",
+   "md5": "8644f0ed731dcafa3c0e3708b8b13af0"
+  },
+  "clank_2": {
+   "stem": "4-165845-A-45",
+   "at": 0.0176,
+   "seconds": 0.3,
+   "why": "steel on steel, the other wagon",
+   "author": "felix.blume",
+   "url": "http://www.freesound.org/people/felix.blume/sounds/165845/",
+   "licence": "CC0",
+   "md5": "cdaeda0a656b31cc33a5bf986953a8e4"
+  },
+  "bed": {
+   "stem": "5-207811-A-35",
+   "seconds": 4.189,
+   "why": "a washing machine on its spin cycle, the motor whining at 199.73 Hz, slowed onto G3",
+   "whine_hz": 195.99,
+   "speed": 0.98132,
+   "author": "GJOS",
+   "url": "http://www.freesound.org/people/GJOS/sounds/207811/",
+   "licence": "CC0",
+   "md5": "341ba6e1bcdce934e54fcaa0662015e6"
+  },
+  "hall": {
+   "model": "pyroomacoustics shoebox, 10 x 18 x 7 m, ray traced",
+   "rt60_wanted": 1.3,
+   "rt60_measured": 1.696,
+   "seconds": 2.0,
+   "md5": "6b32ee770eab9b183cb2e792bd563635"
+  }
+ }
+}

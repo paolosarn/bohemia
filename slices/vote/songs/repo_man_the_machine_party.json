@@ -1,0 +1,133 @@
+{
+ "_readme": "THE MACHINE PARTY, ROUND ONE (SOUNDS 10/19/26, row [the machine party], rule 121(k)). REPO MAN remade: HIS row, note for note (the name too: his engine draws the tune from the name's length, so the name is the tune), played by his own engine, with a real machine plugged into it (engine/bohemia_machine_party.js, the kit in slices/vote/songs/machine_party_kit/ from CC0 recordings of real machines). Recorded by tools/bohemia_sounds_machine_party_record.js; gate gates/the_machine_party_gate.js. The alpha does not load it until his YES (a CUE row, RUN's).",
+ "id": "sounds-repo-man-the-machine-party-10-19",
+ "name": "REPO MAN, THE MACHINE PARTY",
+ "remakes": "REPO MAN",
+ "made": "10/19",
+ "lane": "sounds",
+ "draft": true,
+ "row": {
+  "n": "REPO MAN",
+  "acc": "#b83030",
+  "root": 41,
+  "scale": [
+   0,
+   2,
+   3,
+   7,
+   8
+  ],
+  "wave": "sawtooth",
+  "kick": [
+   0,
+   8
+  ],
+  "bass": [
+   0,
+   7,
+   10,
+   12
+  ],
+  "hat": [
+   4,
+   12
+  ],
+  "inst": {
+   "b": "powergrid",
+   "l": "coldpiano"
+  },
+  "am": "deadsat",
+  "kit": {
+   "k": "boom",
+   "h": "tight"
+  },
+  "mel": "call",
+  "swing": 0,
+  "feel": "half",
+  "klay": "melody",
+  "ff": true
+ },
+ "machine": {
+  "press": {
+   "gain": 0.24,
+   "fill": 0.15,
+   "on": "his kick (drumV with the row's kit.k)",
+   "is": "a coupling slamming between two train wagons"
+  },
+  "relay": {
+   "gain": 0.08,
+   "on": "his hat (drumV with the row's kit.h)",
+   "is": "a Soviet electromechanical clock ticking"
+  },
+  "party": {
+   "sections": [
+    "D"
+   ],
+   "steps": [
+    4,
+    12
+   ],
+   "gain": 0.18,
+   "is": "the press on beats two and four in his D sections: four to the bar"
+  },
+  "clank": {
+   "sections": [
+    "B",
+    "D"
+   ],
+   "step": 6,
+   "every": 2,
+   "gain": 0.12,
+   "is": "steel on steel on the and of two, every other bar"
+  },
+  "motor": {
+   "gain": 0.05,
+   "strip": 1.6,
+   "is": "a washing machine's motor whining on G3, changing speed with his key moves; louder in his C sections, where the song strips to kick and bass"
+  },
+  "hall": {
+   "music": 0.12,
+   "machine": 0.35,
+   "is": "one concrete hall, 10 x 18 x 7 m, the machine wetter than the music"
+  },
+  "tape": {
+   "bump_db": 2.5,
+   "drive": 1.6,
+   "wow": 0.0008,
+   "wow_hz": 0.6,
+   "flutter": 0.00025,
+   "flutter_hz": 5.1,
+   "top_hz": 9000,
+   "is": "the from-a-recording tool's tape: a head bump, a soft tanh, wow and flutter, a gentle 2:1, a 9 kHz top"
+  }
+ },
+ "takes": {
+  "A": {
+   "hall": true,
+   "tape": true
+  },
+  "C": {
+   "hall": false,
+   "tape": false
+  }
+ },
+ "card": {
+  "id": "sounds-repo-man-the-machine-party-10-19",
+  "kind": "song",
+  "lane": "sounds",
+  "sha": "",
+  "made": "10/19",
+  "title": "REPO MAN, REMADE AS A MACHINE PARTY",
+  "why": "Your REPO MAN, every note of it, played by the game's own music engine, with a real machine playing along: a train coupling slams on every kick, an old Soviet clock ticks on every hat, a washing machine's motor whines in your key and changes gear when the song does, and in the loud parts the machine stamps four to the bar. All real recordings, in a concrete hall, on a worn tape (A) or clean (C), beside your REPO MAN as the map plays it now (B). EYES AND EARS is paused, so nobody has checked it beside your songs first. You hear it on this page over the real map, and on the map once you say yes.",
+  "options": [
+   "A, the machine party, in the hall on tape",
+   "B, keep REPO MAN as it is",
+   "C, the machine party, clean"
+  ],
+  "show": {
+   "how": "page",
+   "src": "BOHEMIA_REPO_MAN_THE_MACHINE_PARTY_10_19_26.html"
+  },
+  "draft": true
+ }
+}
