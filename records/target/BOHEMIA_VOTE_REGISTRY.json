@@ -11319,6 +11319,46 @@
     "how": "image",
     "src": "vote/PEOPLE_ASK_THE_CROWD_10_19.webp"
    }
+  },
+  {
+   "id": "combat2-the-casino-board-10-19",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "271cc303",
+   "made": "10/19",
+   "title": "CANDIDATE: A FIGHT INSIDE COOK 4'S CASINO, BUILT FROM YOUR PACKS (THE NEW CASINO BOARD)",
+   "why": "The casino board you liked, rebuilt from cook 4's casino and your packs: its own glass doors on the north wall with one pair open on the street, rows of slot machines to hide behind, stone aisles to shoot down and the cashier's cage as high ground behind bars, on bare concrete since your packs have no carpet. You see it here in the VOTE tab, not in the game: tap the board to open the whole sheet, with how the fight reads it for guns and the old board under it.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COMBAT2_THE_CASINO_BOARD_10_19.webp",
+    "first": "../records/target/vote_first/combat2-the-casino-board-10-19.webp",
+    "firstAt": [0, 317, 1170, 826]
+   },
+   "redoOf": "combat2-the-casino-floor-10-9",
+   "said": "Definitely placeholder tiles, but looking good",
+   "before_after": {
+    "before": "the casino board you said yes to: a carpet drawn by code, slot rows drawn as boxes",
+    "after": "the same idea laid from your tiles and cook 4's casino, whole at the phone's width the way the fight opens",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "pack:1. Cracked contrete tiles#0",
+    "diffs": [
+     "FLOOR: your packs sell no carpet, so the floor is the bare concrete of the street you said yes to, the carpet long pulled up; your orange square tile and tan parquet were tried and read too orange.",
+     "MACHINES: your machines come one at a time; here they stand in rows of one model, the way casinos group them, with gaps where batteries were pulled.",
+     "THE CAGE: your bar counter and your iron grate stand together as the cashier's cage, with a column at each end."
+    ]
+   },
+   "sprites": [
+    "reference/art_bank/fight_board/sprites/COMBAT2_THE_CASINO_BOARD_10_19_1TO1.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/fight_board/COMBAT2_THE_CASINO_BOARD_10_19.json",
+    "light": "upper-left"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
