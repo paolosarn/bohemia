@@ -1,0 +1,108 @@
+{
+ "look": "G_slate_henley",
+ "shape": "the barber's mannequin in SLATE HENLEY (HENLEY)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SLATE HENLEY",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_slate_henley.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_slate_henley_trouser": 2568,
+  "g_slate_henley_shoe": 3916,
+  "g_slate_henley_shirt": 67584,
+  "g_slate_henley_collar": 1536,
+  "g_slate_henley_placket": 126,
+  "g_slate_henley_buttons": 102,
+  "g_slate_henley_cuffs": 2048,
+  "g_slate_henley_hem": 1792,
+  "g_slate_henley_hair": 17968,
+  "g_slate_henley_hand_L": 392,
+  "g_slate_henley_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_slate_henley_buttons": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
+  "g_slate_henley_collar": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "g_slate_henley_cuffs": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "g_slate_henley_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_slate_henley_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_slate_henley_hem": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "g_slate_henley_placket": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "g_slate_henley_shirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "g_slate_henley_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_slate_henley_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_slate_henley_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_slate_henley_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_slate_henley_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}
