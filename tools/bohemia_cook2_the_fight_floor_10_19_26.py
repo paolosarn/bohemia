@@ -67,8 +67,9 @@ TILT = 0.7071                                       # the 45 DEGREE ART LAW: dep
 #        decides the tone; #4 sits 5 levels under #2 (#22 sat 53 under and made the ruin's debris field a blob again)
 # playa: his soil #21, the cracked dry earth, onto the pale wash-bed tan (the wash and the shore when dry)
 # track: the desert's two ruts (the scrub's tyre track), the same soil a step darker where the wheels packed it
-# concrete: his cracked slab (the sidewalk family his YES street walks on), frames cut; his four quietest with no paint
-#           and no weeds (#0, #1, #2, #15: 10 to 12 percent crack pixels), DIRECTION's 10/10 note on the repeated star
+# concrete: his cracked slab (the sidewalk family his YES street walks on), frames cut; his two quietest with no paint,
+#           no weeds and no eight-legged star (#0, #2: 10 and 11 percent crack pixels; DIRECTION's 10/10 note on the
+#           repeated star), turned all four ways (a slab and a road have no up, as the street kit lays them)
 # asphalt: his six quietest plain road tiles (the YES street's rest area), frames cut
 GROUNDS = {
     'caliche':  dict(fam=SOIL, ids=[2], tint='#9a8e78', cut=11, cell=(72, 74)),
@@ -76,8 +77,8 @@ GROUNDS = {
     'rough':    dict(fam=SOIL, ids=[4], tint='#958974', cut=11, cell=(72, 72)),
     'playa':    dict(fam=SOIL, ids=[21], tint='#ab9e86', cut=11, cell=(72, 70)),
     'track':    dict(fam=SOIL, ids=[2], tint='#8d7e68', cut=11, cell=(72, 74)),
-    'concrete': dict(fam=S.SIDEWALK, ids=[0, 1, 2, 15], cell=(82, 81)),
-    'asphalt':  dict(fam=S.ROAD, ids=[0, 1, 8, 9, 10, 11], cell=(82, 81)),
+    'concrete': dict(fam=S.SIDEWALK, ids=[0, 2], cell=(82, 81), flip4=True),
+    'asphalt':  dict(fam=S.ROAD, ids=[0, 1, 8, 9, 10, 11], cell=(82, 81), flip4=True),
     'lawn':     dict(fam='3. Grass and ground tiles', ids=[1, 2, 4], cut=11, cell=(72, 72), sat=0.6),
 }
 # THE ANALOG HORROR LINE (rule 20, one calm wrong thing per board, from the world's state): ONE front yard on the suburb
@@ -110,7 +111,7 @@ LEDGER = {}
 # ---- the ground fields ----------------------------------------------------------------------------------------------
 _cache = {}
 def piece(g, i, flip):
-    k = (g, i, flip)
+    k = (g, i, flip)                                          # flip: 0 as bought, 1 left-right, 2 top-bottom, 3 both
     if k not in _cache:
         spec = GROUNDS[g]; a = S.pack(spec['fam'], i)
         if 'tint' in spec: a = S.recolour(a, a[..., 3] > 0, spec['tint'], levels=6, shift_deg=10)
@@ -120,12 +121,14 @@ def piece(g, i, flip):
         c = spec.get('cut')
         a = a[c:-c, c:-c] if c else S.cut_frame(a, spec['fam'])
         a = S.pad(a, *spec['cell'])[..., :3]
-        _cache[k] = a[:, ::-1] if flip else a
+        if flip & 1: a = a[:, ::-1]
+        if flip & 2: a = a[::-1]
+        _cache[k] = a
     return _cache[k]
 
 
 def field(g, w, h, seed):
-    """his tiles laid at his own pixel over the square plan, one per cell, left-right flips only, then the 45 camera
+    """his tiles laid at his own pixel over the square plan, one per cell, left-right flips (slab and road all four ways), then the 45 camera
        (NEAREST rows, the blocks' own tilt): one pixel size, nothing scaled across."""
     spec = GROUNDS[g]; tw, th = spec['cell']; rng = np.random.RandomState(seed)
     ph = int(np.ceil(h / TILT)) + th
@@ -134,7 +137,7 @@ def field(g, w, h, seed):
         off = (tw // 2) * (r // th % 2)                      # rows run like brick: no column for the eye to follow
         for c in range(-off, w + tw, tw):
             i = spec['ids'][rng.randint(len(spec['ids']))]
-            t = piece(g, i, rng.rand() < 0.5)
+            t = piece(g, i, rng.randint(4) if spec.get('flip4') else int(rng.rand() < 0.5))
             x0 = max(0, c); x1 = min(w + tw, c + tw)
             plan[r:r + th, x0:x1] = t[:, x0 - c:x1 - c]
     plan = plan[:ph, :w]
