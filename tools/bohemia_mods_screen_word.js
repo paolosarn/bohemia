@@ -525,12 +525,18 @@ const HYP = [
   { file: 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', block: /var CLASSNAME = \{/, lines: /dur < 40 \?/, value: /'([a-z][a-z ]*)'/g },
   { file: 'slices/bohemia_ui_materials.js', block: /var OBJ_CLASS = \{/, lines: /dur < 40 \?/, value: /'([a-z][a-z ]*)'/g },
 ];
-function planTablesC() {
-  const spots = []; let n = 1000;
-  for (const H of HYP) {
+/* PASS D, THE BUILDINGS: the settlement's B table (a building's name and its short line), its keepers' titles and the
+   BUILD tile; their names sit on 18 to 124 lines, so A could not tag them and C does not name them */
+const HYP_D = [
+  { file: 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', block: /^var B = \{/, lines: /^\s*name:'BUILD'|lbl:'BUILD'|'BUILD'/, value: /(?:name|short|role|lbl):'([^']+)'/g },
+  { file: 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', block: /^var KEEPERS = \{/, value: /(?:name|role):'([^']+)'/g },
+];
+function planTablesC(which) {
+  const spots = []; let n = which === 'D' ? 2000 : 1000;
+  for (const H of (which === 'D' ? HYP_D : HYP)) {
     const all = fs.readFileSync(path.join(ROOT, H.file), 'utf8').split('\n');
     const pick = new Set();
-    all.forEach((l, i) => { if (H.lines.test(l)) pick.add(i); });
+    if (H.lines) all.forEach((l, i) => { if (H.lines.test(l)) pick.add(i); });
     if (H.block) { const b = all.findIndex(l => H.block.test(l)); if (b >= 0) for (let i = b; i < all.length; i++) { pick.add(i); if (/\};\s*$/.test(all[i])) break; } }
     for (const i of Array.from(pick).sort((a, b) => a - b)) {
       const l = all[i]; let m; H.value.lastIndex = 0;
@@ -546,7 +552,7 @@ function planTablesC() {
 }
 const strip = t => String(t).replace(/~Q[0-9]+/gi, '');
 async function provePass(R, pass) {
-  const spots = pass === 'C' ? planTablesC() : planTags(R.rows, R.walk.loaded, pass);
+  const spots = (pass === 'C' || pass === 'D') ? planTablesC(pass) : planTags(R.rows, R.walk.loaded, pass);
   const dir = path.join(outDir(), 'prove-' + pass); const serve = {}; const byFile = new Map();
   spots.forEach(s => { if (!byFile.has(s.file)) byFile.set(s.file, []); byFile.get(s.file).push(s); });
   for (const [file, edits] of byFile) {
@@ -578,11 +584,11 @@ async function prove(R) {
   /* per name: the occurrences proved to set it, on the screen that showed it */
   R.rows.forEach(r => { r.proved = []; r.tagged = 0;
     out.forEach(P => P.spots.forEach(s => {
-      const mine = s.names.indexOf(r.name) >= 0 || (P.pass === 'C' && s.names.some(n => n.toLowerCase() === r.name.toLowerCase() || n.toLowerCase().split(' ').slice(-1)[0] === r.name.toLowerCase()));
+      const mine = s.names.indexOf(r.name) >= 0 || ((P.pass === 'C' || P.pass === 'D') && s.names.some(n => n.toLowerCase() === r.name.toLowerCase() || n.toLowerCase().split(' ').slice(-1)[0] === r.name.toLowerCase()));
       if (!mine) return; r.tagged++;
       if (s.shown && s.frames.indexOf(r.frame) >= 0) r.proved.push({ file: s.file, line: s.line, pass: P.pass, how: s.how, as: s.names[0] }); })); });
   return out.map(P => ({ pass: P.pass, tags: P.tags, files: P.files, shown: P.spots.filter(s => s.shown).length, lost: P.lost, walk: P.walk,
-    spots: P.pass === 'C' ? P.spots.map(s => ({ file: s.file, line: s.line, word: s.names[0], shown: s.shown, frames: s.frames, seenAs: s.seenAs })) : undefined }));
+    spots: (P.pass === 'C' || P.pass === 'D') ? P.spots.map(s => ({ file: s.file, line: s.line, word: s.names[0], shown: s.shown, frames: s.frames, seenAs: s.seenAs })) : undefined }));
 }
 
 module.exports = { ARM, walk, cut, looksLikeName, grep, grepAll, where, judge, analyse, taggable, planTags, planTablesC, prove };
