@@ -310,7 +310,10 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
      with the coordinator's real tags, both sit right after the reds while the cap has room. A tag only demotes: the same
      card tagged yellow waits behind MORE, tagged green it is nowhere. */
   {
-    const today = '10/18';
+    /* the newest day any card carries (UI 10/19: a hard 10/18 fell behind the fourth real untagged card made 10/19 and the
+       leg went red on the calendar, not on the tab) */
+    const today = (() => { let best = '10/18', bn = 0; (reg.items || []).forEach(i => { const m = String((i && i.made) || '').match(/^(\d{1,2})\/(\d{1,2})/);
+      if (m && +m[1] * 100 + +m[2] > bn && +m[1] * 100 + +m[2] < 1231) { bn = +m[1] * 100 + +m[2]; best = m[1] + '/' + m[2]; } }); return best; })();
     const mk = (id, made) => ({ id, kind: 'ui', lane: 'run 2', sha: 'gate', made, title: 'PLANTED BY THE GATE', why: 'Planted. You see it nowhere but this check.', show: { how: 'image', src: 'vote/none.png' } });
     const reg2 = JSON.parse(JSON.stringify(reg));
     reg2.items.unshift(mk('gate-planted-at-the-head', '12/31')); reg2.items.push(mk('gate-planted-appended', today));

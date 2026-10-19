@@ -11160,13 +11160,15 @@
    "id": "ui-the-hit-chance-look-10-19",
    "kind": "ui",
    "lane": "ui",
-   "sha": "955336a9",
+   "sha": "6f432537",
    "made": "10/19",
    "title": "THE FIGHT TELLS YOU YOUR WEAPON IS WEAK",
    "why": "You said the game never tells you your weapon sucks, so when you pick a man his chance to be hit is now big and a slip of receipt paper shows in red how much of his armour and his body this one hit takes, with a red line when it is the wrong tool (Your pistol barely dents his plate). You see it in the fight on your phone, upright and on its side, today next to A (the slip over the man), B (the slip printed out of the bar) and C (inside the bar, the chance on the strike button); pick one, or NO with what is wrong.",
    "show": {
     "how": "image",
-    "src": "../records/target/ui_hit_chance_look/UI_THE_HIT_CHANCE_LOOK.png"
+    "src": "../records/target/ui_hit_chance_look/UI_THE_HIT_CHANCE_LOOK.png",
+    "first": "../records/target/vote_first/ui-the-hit-chance-look-10-19.webp",
+    "firstAt": [24, 442, 390, 300]
    },
    "options": [
     "A",
