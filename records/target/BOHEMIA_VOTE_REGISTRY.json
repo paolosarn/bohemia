@@ -44,12 +44,7 @@
     "how": "image",
     "src": "../records/target/COOK2_THE_CURB_ON_THE_MAP.webp",
     "first": "../records/target/vote_first/cook2-the-curb-on-the-map-10-18.webp",
-    "firstAt": [
-     1228,
-     128,
-     589,
-     1094
-    ]
+    "firstAt": [1228, 128, 589, 1094]
    },
    "question": "Does the street sit lower than the sidewalk now, on the map?",
    "caption": "PIXEL SIZE the map's near stop, one art pixel to one device pixel (a block 256 px; kit levels 256, 128, 64), his tiles at every second pixel | PALETTE records/target/cook2_map_curb/COOK2_MAP_CURB_KIT.json (his road, slab, face and yellow; 0 colours not his) | LIGHT the style guide's one light, screen 155 degrees, from the left",
@@ -10855,12 +10850,7 @@
     "how": "image",
     "src": "../records/target/COMBAT2_THE_DISTRICT_BOARDS_ON_HIS_SCREEN_10_18.webp",
     "first": "../records/target/vote_first/combat2-a-board-from-every-district-10-18.webp",
-    "firstAt": [
-     0,
-     715,
-     1170,
-     990
-    ]
+    "firstAt": [0, 715, 1170, 990]
    },
    "before_after": {
     "before": "each district's block on the map as you see it at its closest zoom, and the map's own plan of it with the board's box",
@@ -10904,12 +10894,7 @@
     "how": "image",
     "src": "../records/target/COOK4_THE_SECOND_PASS.webp",
     "first": "../records/target/vote_first/cook4-the-second-pass-10-18.webp",
-    "firstAt": [
-     1356,
-     159,
-     1306,
-     766
-    ]
+    "firstAt": [1356, 159, 1306, 766]
    },
    "twin": {
     "src": "pack:5. Roof tiles#30",
@@ -10989,12 +10974,7 @@
     "how": "image",
     "src": "vote/EYES_THE_STAR_IS_THE_BAR.webp",
     "first": "../records/target/vote_first/eyes-the-star-is-the-bar-10-18.webp",
-    "firstAt": [
-     0,
-     175,
-     490,
-     265
-    ]
+    "firstAt": [0, 175, 490, 265]
    }
   },
   {
@@ -11040,12 +11020,7 @@
     "how": "image",
     "src": "../records/target/ui_line_on_a_ground/UI_THE_LINE_ON_A_GROUND.png",
     "first": "../records/target/vote_first/ui-the-line-on-a-ground-10-18.webp",
-    "firstAt": [
-     890,
-     560,
-     850,
-     420
-    ]
+    "firstAt": [890, 560, 850, 420]
    },
    "options": [
     "A",
@@ -11088,41 +11063,31 @@
    },
    "draft": true
   },
-  {
-   "id": "cook-the-empty-terrains-cover-10-18",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "3f196828",
-   "made": "10/18",
-   "title": "PLACEHOLDER: A CAR ON ITS ROOF, A BROKEN OVERPASS PIER, A LANE OF DRUMS AND CONES, A FALLEN SIGN, A TRASH HEAP, CRUSHED CAR BALES AND A DEAD BULLDOZER, MADE THE CLAY WAY",
-   "why": "The freeway and the dump were the emptiest fights in the game, almost nothing to hide behind, so seven things now come off the same table as the truck: last round's wreck rolled onto its roof, a freeway pier with its deck snapped off and someone's bed under it, a lane closure nobody took down, the overhead sign come down, the last load of trash nobody pushed in with an armchair on top, crushed cars baled in steps, and the dozer that died with its track thrown. You see it in the VOTE tab beside your own wreck, concrete, drum, chevron board, trash pile and crushed block at the same pixel size in all eight directions, and nothing is final before your moodboard.",
-   "show": {
-    "how": "image",
-    "src": "../records/target/COOK_THE_EMPTY_TERRAINS_COVER.png",
-    "first": "../records/target/vote_first/cook-the-empty-terrains-cover-10-18.webp",
-    "firstAt": [
-     0,
-     78,
-     545,
-     464
-    ]
-   },
-   "twin": {
-    "src": "pack:9. Abandoned cards#0",
-    "diffs": [
-     "METHOD: yours are drawn flat; mine are modelled in 3D from the game's own clay palette and rendered by the one master rig, the way the truck and the last two rounds of props were (rule 115a), the wreck on its roof being last round's wreck itself, rolled over.",
-     "SIZE: true size at 57 px a metre, one ruler with the man: your cone is 96 px tall for a 0.71 m cone and your car 96 px long for a 4.7 m car; mine are 40 and 270, and the pier stands 650 px. Yours are icons; the rig draws each as big as it really is on a house-sized fight tile.",
-     "LOOK: all seven pass the rig's card (0 to 2 of 8 numbers out, never 3). You own no freeway pier, no overhead gantry and no bulldozer in 294 packs, so those twins are your concrete, your chevron board and your nearest machine, a wreck; the dust on the rig still pales anything facing the sky."
-    ]
-   },
-   "draft": true,
-   "before_after": {
-    "before": "your own tiles on each row (the wreck, the concrete, the drum, the cone, the chevron board, the trash pile, the crushed block), one art pixel to one sheet pixel",
-    "after": "the seven props off the master rig beside them on your cracked street tile, one art pixel to one sheet pixel",
-    "scale": "1:1"
-   }
+ {
+  "id": "cook-the-empty-terrains-cover-10-18",
+  "kind": "tile",
+  "lane": "cook",
+  "sha": "3f196828",
+  "made": "10/18",
+  "title": "PLACEHOLDER: A CAR ON ITS ROOF, A BROKEN OVERPASS PIER, A LANE OF DRUMS AND CONES, A FALLEN SIGN, A TRASH HEAP, CRUSHED CAR BALES AND A DEAD BULLDOZER, MADE THE CLAY WAY",
+  "why": "The freeway and the dump were the emptiest fights in the game, almost nothing to hide behind, so seven things now come off the same table as the truck: last round's wreck rolled onto its roof, a freeway pier with its deck snapped off and someone's bed under it, a lane closure nobody took down, the overhead sign come down, the last load of trash nobody pushed in with an armchair on top, crushed cars baled in steps, and the dozer that died with its track thrown. You see it in the VOTE tab beside your own wreck, concrete, drum, chevron board, trash pile and crushed block at the same pixel size in all eight directions, and nothing is final before your moodboard.",
+  "show": {
+   "how": "image",
+   "src": "../records/target/COOK_THE_EMPTY_TERRAINS_COVER.png",
+   "first": "../records/target/vote_first/cook-the-empty-terrains-cover-10-18.webp",
+   "firstAt": [0, 78, 545, 464]
   },
-  {
+  "twin": {
+   "src": "pack:9. Abandoned cards#0",
+   "diffs": [
+    "METHOD: yours are drawn flat; mine are modelled in 3D from the game's own clay palette and rendered by the one master rig, the way the truck and the last two rounds of props were (rule 115a), the wreck on its roof being last round's wreck itself, rolled over.",
+    "SIZE: true size at 57 px a metre, one ruler with the man: your cone is 96 px tall for a 0.71 m cone and your car 96 px long for a 4.7 m car; mine are 40 and 270, and the pier stands 650 px. Yours are icons; the rig draws each as big as it really is on a house-sized fight tile.",
+    "LOOK: all seven pass the rig's card (0 to 2 of 8 numbers out, never 3). You own no freeway pier, no overhead gantry and no bulldozer in 294 packs, so those twins are your concrete, your chevron board and your nearest machine, a wreck; the dust on the rig still pales anything facing the sky."
+   ]
+  },
+  "draft": true
+ },
+ {
    "id": "people-the-names-wired-in-10-18",
    "kind": "line",
    "lane": "people",
@@ -11132,17 +11097,12 @@
    "title": "WHO STANDS AT THE POST: REAL NAMES, LAS VEGAS'S REAL MIX",
    "why": "Every man at the hiring post, every shopkeeper and every stranger now gets a two-word name from Las Vegas's real mix (about a third Hispanic, not over half), a woman's face always gets a woman's name, and you stop losing hired men who shared a name like CHUY. You see it here, twelve real hire cards with the old name under each, and in the demo when you tap the hall in any town.",
    "show": {
-    "how": "image",
-    "src": "vote/PEOPLE_THE_NAMES_WIRED_IN_10_18.png",
-    "first": "../records/target/vote_first/people-the-names-wired-in-10-18.webp",
-    "firstAt": [
-     30,
-     150,
-     755,
-     325
-    ]
-   }
-  },
+     "how": "image",
+     "src": "vote/PEOPLE_THE_NAMES_WIRED_IN_10_18.png",
+     "first": "../records/target/vote_first/people-the-names-wired-in-10-18.webp",
+     "firstAt": [30, 150, 755, 325]
+    }
+ },
   {
    "id": "combat-the-fight-holds-the-grid-10-18",
    "kind": "ui",
@@ -11155,7 +11115,12 @@
     "how": "image",
     "src": "vote/COMBAT_THE_FIGHT_HOLDS_THE_GRID_10_18.jpg"
    },
-   "draft": true
+   "draft": true,
+   "before_after": {
+    "before": "your own tiles on each row (the wreck, the concrete, the drum, the cone, the chevron board, the trash pile, the crushed block), one art pixel to one sheet pixel",
+    "after": "the seven props off the master rig beside them on your cracked street tile, one art pixel to one sheet pixel",
+    "scale": "1:1"
+   }
   },
   {
    "id": "direction-fight-verdict-24-the-floor-bar-10-19",
