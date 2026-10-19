@@ -21,7 +21,7 @@ const get = (k, c, e, s, t) => C[key(k, c, e, s, t)] || null;
 const STAGES = ['early', 'middle', 'late'], SETS = ['start', 'today', 'bb'], COUNTS = [3, 6, 12, 20, 38];
 const SNAME = { early: 'EARLY', middle: 'MIDDLE', late: 'LATE' };
 const TNAME = { start: 'OUR START (rule 117)', today: 'THE GAME TODAY', bb: 'BATTLE BROTHERS (Veteran)' };
-const KNAME = k => k === 'humans' ? 'PEOPLE (brigands)' : (k.replace(/_/g, ' ').toUpperCase() + (k === 'direwolf' ? 'S' : ''));
+const KNAME = k => k === 'humans' ? 'PEOPLE (brigands)' : k === 'direwolf' ? 'DIRE WOLVES' : k.replace(/_/g, ' ').toUpperCase();
 
 /* ---------- what Battle Brothers' map sends this company at this stage ---------- */
 function levelOf(company, stage) {
@@ -101,6 +101,9 @@ md.push('');
 const stalls = Object.values(C).filter(c => c.stalled_in_100 > 0);   /* nobody strikes, falls or flees for 20 rounds */
 if (stalls.length) {
   md.push('## FIGHTS THAT NEVER END (' + stalls.length + ' of ' + Object.keys(C).length + ' squares hold at least one)');
+  md.push('');
+  const rate = {}; Object.values(C).forEach(c => { const r = rate[c.kind] = rate[c.kind] || [0, 0]; r[0] += c.fights; r[1] += Math.round(c.stalled_in_100 * c.fights / 100); });
+  md.push('Per fight they are rare: ' + Object.keys(rate).map(k => KNAME(k).toLowerCase() + ' ' + (Math.round(1000 * rate[k][1] / Math.max(1, rate[k][0])) / 10) + ' in 100 (' + rate[k][1] + ' of ' + rate[k][0] + ')').join(', ') + '. Per square they are everywhere, so a player who waits for the charge will meet one.');
   md.push('');
   md.push('Both sides hold their line and nobody steps in (a man may still dance or buff himself); the bench stops the fight after 20 rounds with no blow and counts it as neither won nor lost. 1 or 2 fights in 100 of these squares: '
     + stalls.slice().sort((a, b) => b.stalled_in_100 - a.stalled_in_100).map(c => KNAME(c.kind).toLowerCase() + ' ' + c.company + ' v ' + c.enemies_asked + ' ' + SNAME[c.stage].toLowerCase() + ' ' + c.setting + ' (' + c.stalled_in_100 + ')').join(', ')
