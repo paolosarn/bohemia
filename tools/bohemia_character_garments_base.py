@@ -227,13 +227,16 @@ def pieces(G, X):
     def bib_covers(c):
         return c.z < 0.725 or (c.y < 0.0 and abs(c.x) < 0.078 and c.z < 1.005)
 
-    hole = lambda c: G['tatter'] and (0.5 + 0.5 * math.sin(41 * c.x + 13 * c.z) * math.cos(29 * c.y - 17 * c.z + 2.1 * c.x)) > 0.955
+    # cycle 2 (looking, TATTERED FLANNEL): pin holes over a body painted in the same plaid did not read; holes 3 to 4 cm across,
+    # and under a torn top the man is skin above the belt, so a hole shows him
+    hole = lambda c: G['tatter'] and (0.5 + 0.5 * math.sin(19 * c.x + 7 * c.z + 0.4) * math.cos(15 * c.y - 11 * c.z + 1.7 * c.x)) > 0.86
 
     def covered(fm, c):
         """the top covers this point of the man"""
         if fm == 'torso':
             if sleeves == 'none' and not coverall and tank_bare(c): return False
             if bib: return bib_covers(c)
+            if G['tatter'] and 0.66 < c.z < 1.06: return False
             return c.z < neck_z(c) + 0.004
         if fm == 'neck': return neck in ('turtle',) or c.z < neck_z(c)
         if fm in ('upper', 'fore'): return arm_s(fm, c) <= sleeve_end
@@ -378,7 +381,7 @@ def pieces(G, X):
         if hole(c) and fm == 'torso' and c.z < 1.06: return False
         if fm in ('upper', 'fore'):
             s = arm_s(fm, c)
-            if G['tatter']: s += 0.05 * math.sin(37 * c.x + 11 * c.z)
+            if G['tatter']: s += 0.10 * (abs(((7 * math.atan2(c.y, c.z - 1.0) + 31 * c.x) % 2.0) - 1.0) - 0.5)   # torn cuffs, in points
             return s <= sleeve_end
         if fm == 'neck': return neck == 'turtle' and c.z < 1.166
         if sleeves == 'none' and not coverall and tank_bare(c): return False
@@ -445,7 +448,7 @@ def pieces(G, X):
     if neck == 'button' and not coverall:   # the shirt's curved tail, longer at the front and the back
         made.append(tube('tail', 0.70, lambda a: 0.588 + 0.036 * abs(math.cos(a)) ** 2, lambda z: weight + 0.008 + 0.004 * sstep(0.66, 0.59, z), mid, thick=0.005))
     elif G['tatter']:
-        rag = lambda a: 0.592 + 0.026 * (0.5 + 0.5 * math.sin(9 * a) * math.cos(4 * a + 1.1))
+        rag = lambda a: 0.565 + 0.055 * abs(((9 * a / math.pi + 0.3 * math.sin(3 * a)) % 2.0) - 1.0)   # torn in points, 5.5 cm deep
         made.append(tube('tail', 0.70, rag, lambda z: weight + 0.008, mid, thick=0.005,
                          ang_ok=lambda a, z: (0.5 + 0.5 * math.sin(13 * a) * math.cos(40 * z + 2 * a)) < 0.93))
     elif sleeves != 'none' and neck in ('crew', 'henley', 'turtle') and not G['cut']:
