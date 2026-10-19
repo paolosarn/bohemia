@@ -56,10 +56,10 @@ def patrol(bpy, mu):
     h = P.import_model(bpy, os.path.join(MODELS, 'wreck.glb'), (0, 0, 0), (0, 0, 0))
     for m in bpy.data.materials:                           # the county's black over the teal: the same body, repainted
         if m.name.startswith('paint_teal'):
-            b = m.node_tree.nodes['Principled BSDF']; b.inputs['Base Color'].default_value = P.lin(P.PAL['rubber']['ramp'][3 if 'low' not in m.name else 2])
+            b = m.node_tree.nodes['Principled BSDF']; b.inputs['Base Color'].default_value = P.lin(P.PAL['rubber']['ramp'][1 if 'low' not in m.name else 2])
     white = mat(bpy, 'county_white', 'clay_bone', 4); red = next(m for m in bpy.data.materials if m.name.startswith('rust') and 'dark' not in m.name)
     for side in (-1, 1):                                    # the white doors
-        box(bpy, 'door_white_%d' % side, white, (1.5, 0.02, 0.42), (-0.15, side * 0.9, 0.62), bevel=0.01)
+        box(bpy, 'door_white_%d' % side, white, (1.7, 0.03, 0.5), (-0.15, side * 0.905, 0.66), bevel=0.01)
     box(bpy, 'lightbar', white, (1.2, 0.3, 0.1), (-0.35, 0, 1.33), bevel=0.02)
     box(bpy, 'lens_red', red, (0.5, 0.31, 0.07), (-0.62, 0, 1.36))
     trim = next(m for m in bpy.data.materials if m.name.startswith('trim'))

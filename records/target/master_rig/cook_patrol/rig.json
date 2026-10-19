@@ -201,7 +201,7 @@
   168,
   118
  ],
- "colours": 7883,
+ "colours": 7253,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -211,19 +211,19 @@
   "out": 1,
   "rows": [
    "OK   long side >= floor 96: 329",
-   "OK   colours >= 2330: 4155",
-   "OK   top 8 carry <= 11%: 3.2",
-   "OK   value span >= 118: 157",
-   "OK   saturation <= 0.81: 0.109",
-   "OK   light: top minus bottom >= -2.5: 18.8",
-   "OK   edge between -35 and +7: -12.5",
-   "OUT  grain <= 2.22 px a run: 2.81"
+   "OK   colours >= 2330: 3831",
+   "OK   top 8 carry <= 11%: 4.6",
+   "OK   value span >= 118: 167",
+   "OK   saturation <= 0.81: 0.129",
+   "OK   light: top minus bottom >= -2.5: 16.5",
+   "OK   edge between -35 and +7: -11.1",
+   "OUT  grain <= 2.22 px a run: 3.07"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 1.8%",
+   "OK   stray pixels at 8 steps <= 14%: 1.7%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 235.1"
+   "OK   light from above (180 to 360 degrees, or flat): 228.9"
   ],
   "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/master_rig/cook_patrol/rig_S.png"
@@ -234,13 +234,13 @@
   "out": 0,
   "rows": [
    "OK   long side >= 96 (rule 105, a car): 287",
-   "OK   colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 30017 px): 4155",
-   "OK   top 8 carry <= 11%: 3.2",
-   "OK   value span >= 118: 157",
-   "OK   saturation <= 0.81: 0.109",
-   "OK   light: top minus bottom >= -2.5: 18.8",
-   "OK   edge between -35 and +7: -12.5",
-   "OK   grain <= 3.60 px a run (field 11, a vehicle at true size): 2.81"
+   "OK   colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 30017 px): 3831",
+   "OK   top 8 carry <= 11%: 4.6",
+   "OK   value span >= 118: 167",
+   "OK   saturation <= 0.81: 0.129",
+   "OK   light: top minus bottom >= -2.5: 16.5",
+   "OK   edge between -35 and +7: -11.1",
+   "OK   grain <= 3.60 px a run (field 11, a vehicle at true size): 3.07"
   ],
   "reread": [
    "colours by field 5",
@@ -252,7 +252,7 @@
    189
   ],
   "opaque_px": 30017,
-  "colours": 4155
+  "colours": 3831
  },
  "rig_settings": {
   "engine": "CYCLES",
