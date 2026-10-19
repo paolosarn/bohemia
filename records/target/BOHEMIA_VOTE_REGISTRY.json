@@ -11305,6 +11305,20 @@
     "src": "BOHEMIA_THE_GUNS_HEARD_10_19_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "people-ask-the-crowd-10-19",
+   "kind": "line",
+   "lane": "people",
+   "sha": "6ddc5594",
+   "made": "10/19",
+   "draft": true,
+   "title": "WHO ARE YOU? THE PEOPLE ON THE STREET HAVE NAMES NOW",
+   "why": "Tap anybody standing in a town's crowd and ask 'Who are you?': they tell you their name in their own words, and the next time you come back, at night or on market day, the bubble over them still says it while people you never asked stay strangers. You see it here in four phone shots of one man in HENDERSON, and in the demo when you tap somebody in the crowd by the stall in any town.",
+   "show": {
+    "how": "image",
+    "src": "vote/PEOPLE_ASK_THE_CROWD_10_19.webp"
+   }
   }
  ],
  "verdicts": [

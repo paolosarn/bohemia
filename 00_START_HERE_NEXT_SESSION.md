@@ -419,6 +419,51 @@ bohemia_cook2_stretch_the_pack_recolour_10_16_26.py and the ratchet stays red by
 they add it. Nothing to slices/, engine/ or the demo (rule 100).
 PENDING Paolo: nothing.
 CAUSE (RUN, 10/16, [the long freeze], measured, not guessed; records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md): the coordinator's own five minutes at 4x, unchanged, with a CPU profile of the whole walk, three runs on BUILD 10/13b, every unbroken busy stretch over a second listed with what ran in it: DURING PLAY THE MAIN THREAD WAS DRAWING THE WHOLE MAP SEVERAL TIMES IN ONE FRAME. A step on the map starts four animation loops that each draw the whole map every frame (the movers' tween in moversAdvance, the party's glide, the beat's animate loop, the roaming parties' glide); one draw is 0.4-0.7 s at 4x, so one frame stacks to 1.6-2.8 s (measured 2.6 s = tw 1,645 ms + loop 444 + parties 377; 2.1; 1.7), and a heavier view or one more loop stacks to the 9.1 and 14.8 s. FIXED in the map page (__ONE_RENDER_A_FRAME__, e546b533, live on the demo with no cut): a draw asked for inside an animation frame happens at most once in it, the rest fold into one draw next frame; draws from taps, timers, messages and checks untouched. SEEN ON THE PHONE PROFILE, five minutes at 4x, three runs each: main 18/21/24 stalls, worst 2.9/2.4/1.65 s; now 11/18/12, worst 1.2/1.2/1.07 s. GATE: THE MAP ANSWERS AFTER BEGIN M11 (the folds happen on his first trip and no frame gap passes 1.5 s; the fold removed: 1,433 ms, red). Left over a beat: one whole draw at 4x (0.6-0.9 s, PLUMBER's map budget), the phone's first open, his body before the door. The demo cut waits for the station's restart.
+PEOPLE (people-ask-crowd): 10/19 LATEST -- the new age (rules 112 to 120), opened by the coordinator, no check-in:
+[ask the crowd] SHIPPED IN THE GAME (6ddc5594, VOTE people-ask-the-crowd-10-19). *** THE SKIN BELONGS TO THE COAT, SO NO FACE CAN BE RIGHT. ***
+WHERE HE SEES IT: the demo, any town, tap somebody standing in the crowd by the stall: SOMEBODY ON THE STREET and a
+'Who are you?' button; ask, they say their name in their own line; come back (night, market day, a new session) and
+the bubble says the name. VOTE tab, WHO ARE YOU ON THE STREET (four phone shots in HENDERSON).
+
+BUILT: slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO's screen, four small changes, told): a crowd person carries
+their spot (slot); the sheet keys them by place and spot, never the y-sorted index (night and market day handed the
+old key to somebody else); 'Who are you?' for a stranger only, English; the answer is BohemiaNames.roll('crowd:' +
+place + ':' + slot) with the face's reading, five English lines and one Spanish line from a Hispanic background a
+third of the time; bohemia.met.v1 remembers, post('met') tells the game, open({met}) hands it back; a face handed
+while a person talks reopens the person (was openB('person')). engine/bohemia_names.js: the street's 12 faction faces
+read (faction_anarchists left unread on purpose: hood on the face, long hair on the body); every roll carries skin, a
+band of the ITA scale, dealt inside the background's range (MIX.skin, draft), its own dice stream, no name moved.
+City frame resynced (tools/bohemia_people_resync.py).
+
+MEASURED on the real screen, 26 places (tools/bohemia_people_ask_the_crowd.js): 93 crowd people, 80 reachable; 80 of
+80 a stranger first; 54 asked, 54 of 54 answered with the roll, 54 of 54 read as the face; 232 of 232 later visits
+right; 144 of 144 the same spot the same look; 80 of 80 right after a reload; 0 page errors.
+RULE 120(d), MEASURED (tools/bohemia_people_skin_measure.py, records/people/THE_FACE_IS_THE_BODYS.json + .png): all 26
+bodies wear ONE skin (191,175,166, ITA 73.5, very light); the 12 fresh cast portraits are 6 dark, 6 brown, none
+light; 25 of 26 looks wear a face 2 to 5 bands off their body. Each look is worn by about 20 named people of every
+background, so the name fits the face's skin for 39 of 98 at the posts, 69 of 146 keepers, 22 of 54 street people.
+DECIDED: the names stay the county's (his 9/21); the skin moves to the person, not the coat: CHARACTER's [one skin,
+one person] value is the truth, and roll(key, {sex, skin}) now picks the background by the census weighted by the
+skin's range (Bayes): 20,000 drawn come out the county (36.0/32.5/13.2/12.1/6.3) and 20,000 of 20,000 fit their skin.
+No caller passes a skin yet; nothing on screen changed by it. Battle Brothers: a background picks head, body and name
+from one set.
+Gates: ASK THE CROWD 46/0 registered (D: the skin re-measured every run, the debt 25 of 26 can only shrink, a fixed face never red), six
+mutations red, control green; THE NAMES WIRED IN 66/0 (new leg: the street's read faces); THE NAMES MIX 38/0; WHO THE
+FACE IS 46/0; the settlement screen's 22 neighbour gates 447 checks, 0 failed (THE SETTLEMENT SCREEN 74/0, THE ARRIVAL 37/0,
+THE KEEPERS SPEAK 48/0, EVERY SPEAKER HAS A FACE 9/0, NO FACE FROM A BODY 22/0 among them); LANGUAGE 85/0.
+Record: records/BOHEMIA_PEOPLE_ASK_THE_CROWD_10_19_26.md (the hand-off table, look by look).
+ROUTED: RUN TWO ([each man his own skin]: pass the man's skin into the same roll at his key, crowd:<place>:<spot>,
+keeper:<place>:<building>, post:<place>:<week>:<slot>, and his name stays his face's; 13 of 93 crowd people can never be tapped, a nearer one covers them: 16 screen px apart at a town's
+0.35; the four changes); CHARACTER ([one skin, one person], running: hand the band to roll(key, {sex, skin});
+roll(key).skin is a county-true starting value); PORTRAIT (no light
+cast head, the county is 36% white: render the head in the person's band, the faction heads in all six); ANIMATION
+(slices/settlement_people the same ramp); DYNASTY (the heir's skin can follow the parents'); TUNING (MIX.skin weights);
+MODS (MIX.skin, MIX.faces are content).
+SEEN, NOT MINE: a RUN TWO gate run rewrites five of RUN TWO's VOTE pngs (RUN2_PORTRAITS_WHEN_THEY_TALK_10_11 and four
+more) as a side effect; restored, not committed.
+NEXT OPEN: [who wears what, by name] (the coordinator's), [recruit at the place], [deeds and memory].
+PENDING Paolo: nothing.
+
 PEOPLE (people-names-wired): 10/18 LATEST -- the new age (rules 112 to 117), the lane released at sweep AR:
 [the names wired in] SHIPPED IN THE GAME (691e377f, VOTE 381542a6). *** THE SHORT LIST WAS LOSING HIM MEN HE PAID FOR. ***
 WHERE HE SEES IT: the demo, any town, tap the hall (the men at the post) or any building (the keeper's name over
