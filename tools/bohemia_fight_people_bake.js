@@ -84,7 +84,10 @@ const CLIPS = {
       }));
       /* his face: the same key the bank uses for anybody who is not the player */
       try {
-        const spec = m ? faceFor('fight:' + L.id, { age: m.age }) : (typeof buildSpec === 'function' ? buildSpec() : faceFor('fight:you', {}));
+        /* ONE SKIN, ONE PERSON (CHARACTER 10/19, rule 120(d)): the 64 face is keyed exactly as famPaintBody keys the
+           face on his body, his ruled skin included, so the two are one roll (records/target/character/BOHEMIA_ONE_SKIN.json) */
+        const _sk = m && typeof famSkinOf === 'function' ? famSkinOf(m) : null;
+        const spec = m ? faceFor('fight:' + L.id, _sk ? { age: m.age, skinTone: _sk } : { age: m.age }) : (typeof buildSpec === 'function' ? buildSpec() : faceFor('fight:you', {}));
         const ramp = m ? faceRampFor(spec) : (typeof portraitRamp === 'function' ? portraitRamp() : faceRampFor(spec));
         const px = renderFace(spec, { ramp: ramp });
         const id = g.createImageData(64, 64); id.data.set(px); g.putImageData(id, F * COLS.length, 0);
