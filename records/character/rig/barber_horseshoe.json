@@ -1,0 +1,38 @@
+{
+ "cut": "HORSESHOE",
+ "tag": "horseshoe",
+ "bank": {
+  "ramp": "H_GRY",
+  "vol": 0,
+  "side": 0.6,
+  "front": 0.0,
+  "shape": "bald crown, a ring"
+ },
+ "worn_by": "Trades, Church, Caravans; the old",
+ "model": "records/character/rig/barber_horseshoe.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "tape_grey",
+  1
+ ],
+ "hair_rgb": [
+  102,
+  99,
+  96
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.53,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7219,
+ "pieces": {
+  "barber_horseshoe_ring": 84714,
+  "h2_horseshoe_thin": 9469
+ }
+}

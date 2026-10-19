@@ -1,0 +1,39 @@
+{
+ "cut": "LONG DROP",
+ "tag": "long_drop",
+ "bank": {
+  "ramp": "H_BRN",
+  "vol": 0,
+  "side": 2.1,
+  "front": 0.26,
+  "shape": "long, centre part"
+ },
+ "worn_by": "Colorful, Anarchists, Caravans, Church",
+ "model": "records/character/rig/barber_long_drop.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  1
+ ],
+ "hair_rgb": [
+  125,
+  77,
+  29
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5401,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7333,
+ "pieces": {
+  "barber_long_drop_cap": 230434,
+  "barber_long_drop_curtain": 29066,
+  "barber_long_drop_front": 6808
+ }
+}
