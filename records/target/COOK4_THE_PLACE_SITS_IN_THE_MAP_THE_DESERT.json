@@ -1,0 +1,215 @@
+{
+ "place": "GOODSPRINGS",
+ "tier": "camp",
+ "kind": "trailer_park",
+ "district": "GOODSPRINGS VALLEY",
+ "block": [
+  109,
+  135
+ ],
+ "land": [
+  "h- h- h- h- .- .3 .3 h- h- h- h-",
+  "h- h- h- h- .- .3 .- h- h- h- .-",
+  ".- .- .- h- h- h3 h- h- h- h- .-",
+  ".- .- .- .- h- h3 h- .- h- h- .-",
+  ".- .- .- .- h- t3 h- .- .- .- .-",
+  ".- h- h- h- t2 t2 t2 h2 h2 h2 .2",
+  ".- .- .- h2 .2 t- .- h- h- h- .2",
+  ".- .2 .2 .2 .- .- .- .- h- h- .-",
+  ".2 .2 .- .- .- .- .- .- .- .- .-",
+  ".2 .- .- .- .- .- .- .- .- .- .-",
+  ".- .- .- .- .- .- .- .- .- .- .-"
+ ],
+ "picture": [
+  4224,
+  1728
+ ],
+ "contrast_kept": 1.0,
+ "the_map_on_the_bar": {
+  "ground": {
+   "dirt_cells": 3246,
+   "sat": 0.374,
+   "hue": 40.0,
+   "split": 13.5,
+   "grit": 0.48
+  },
+  "road": {
+   "rows": [
+    936,
+    980
+   ],
+   "peak": -0.018,
+   "lag": 150
+  },
+  "orange_pct": 0.0,
+  "tests": {
+   "B1": false,
+   "B2": true,
+   "B3": false,
+   "B4": false,
+   "B5": true,
+   "B6": true
+  },
+  "pass": false
+ },
+ "the_land_alone_on_the_bar": {
+  "ground": {
+   "dirt_cells": 6429,
+   "sat": 0.38,
+   "hue": 39.2,
+   "split": 5.9,
+   "grit": 13.78
+  },
+  "road": null,
+  "orange_pct": 0.0,
+  "tests": {
+   "B1": false,
+   "B2": true,
+   "B3": true,
+   "B4": true,
+   "B6": true
+  },
+  "pass": false
+ },
+ "dE": {
+  "dirt": {
+   "before": 15.2,
+   "after": 0.0
+  },
+  "asphalt": {
+   "before": null,
+   "after": 0.8
+  },
+  "shoulder": {
+   "before": null,
+   "after": 0.2
+  }
+ },
+ "edges": {
+  "left": {
+   "dirt_share": 0.8,
+   "dirt_dE_to_map": 0.0,
+   "road_runs_through": true
+  },
+  "right": {
+   "dirt_share": 0.81,
+   "dirt_dE_to_map": 0.0,
+   "road_runs_through": true
+  },
+  "top": {
+   "dirt_share": 0.96,
+   "dirt_dE_to_map": 0.0,
+   "road_runs_through": false
+  },
+  "bottom": {
+   "dirt_share": 0.0,
+   "dirt_dE_to_map": null,
+   "road_runs_through": true
+  },
+  "inside_dirt_dE_to_map": 0.0
+ },
+ "hotspots": {
+  "clinic": [
+   334,
+   621,
+   1250,
+   1025
+  ],
+  "barber": [
+   2764,
+   681,
+   3565,
+   1080
+  ],
+  "stall": [
+   1364,
+   589,
+   2018,
+   1160
+  ],
+  "board": [
+   1992,
+   1115,
+   2067,
+   1208
+  ],
+  "posts": [
+   1320,
+   1224,
+   1598,
+   1296
+  ]
+ },
+ "scatter_laid": 95,
+ "floor_bar_after": {
+  "ground": {
+   "dirt_cells": 4958,
+   "sat": 0.355,
+   "hue": 39.6,
+   "split": 18.4,
+   "grit": 12.69
+  },
+  "road": {
+   "rows": [
+    1454,
+    1580
+   ],
+   "peak": 0.182,
+   "lag": 1312
+  },
+  "orange_pct": 0.09,
+  "tests": {
+   "B1": false,
+   "B2": true,
+   "B3": false,
+   "B4": true,
+   "B5": true,
+   "B6": true
+  },
+  "pass": false
+ },
+ "floor_bar_before": {
+  "ground": {
+   "dirt_cells": 6833,
+   "sat": 0.531,
+   "hue": 26.5,
+   "split": 12.6,
+   "grit": 15.22
+  },
+  "road": null,
+  "orange_pct": 17.95,
+  "tests": {
+   "B1": false,
+   "B2": false,
+   "B3": false,
+   "B4": true,
+   "B6": false
+  },
+  "pass": false
+ },
+ "cell_check_ground_red": 0,
+ "cell_check_whole_picture": [],
+ "first_picture_at": [
+  30,
+  2475,
+  2112,
+  864
+ ],
+ "lay": {
+  "cut_soil": {
+   "joint_rows": 1.21,
+   "joint_cols": 1.15
+  },
+  "seams": [
+   1.0,
+   1.67
+  ]
+ },
+ "x": {
+  "wing": -260,
+  "clinic": 330,
+  "store": 1360,
+  "barber": 2760,
+  "garage": 3404
+ }
+}

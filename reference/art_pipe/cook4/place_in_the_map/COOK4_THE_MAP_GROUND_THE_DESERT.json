@@ -1,0 +1,158 @@
+{
+ "what": "the map's ground as his glass shows it at the near stop round Goodsprings (the region: clusters of the glass, it has no fine grid), and the picture's ground read back",
+ "seen": {
+  "dirt": [
+   137,
+   119,
+   85
+  ],
+  "pale": [
+   167,
+   150,
+   115
+  ],
+  "dark": [
+   92,
+   81,
+   62
+  ],
+  "asphalt": [
+   52,
+   50,
+   47
+  ],
+  "shoulder": [
+   162,
+   153,
+   132
+  ]
+ },
+ "shares_of_the_glass": {
+  "dirt": 0.89,
+  "pale": 0.06,
+  "dark": 0.05,
+  "asphalt": 0.029
+ },
+ "clusters": [
+  {
+   "rgb": [
+    135,
+    118,
+    84
+   ],
+   "share": 0.312
+  },
+  {
+   "rgb": [
+    141,
+    123,
+    87
+   ],
+   "share": 0.256
+  },
+  {
+   "rgb": [
+    130,
+    113,
+    81
+   ],
+   "share": 0.233
+  },
+  {
+   "rgb": [
+    148,
+    129,
+    92
+   ],
+   "share": 0.088
+  },
+  {
+   "rgb": [
+    166,
+    149,
+    115
+   ],
+   "share": 0.06
+  },
+  {
+   "rgb": [
+    91,
+    81,
+    62
+   ],
+   "share": 0.05
+  }
+ ],
+ "laid": {
+  "contrast": 1.0,
+  "pale_and_dark_as_patches": false
+ },
+ "the_map_on_the_bar": {
+  "ground": {
+   "dirt_cells": 3246,
+   "sat": 0.374,
+   "hue": 40.0,
+   "split": 13.5,
+   "grit": 0.48
+  },
+  "road": {
+   "rows": [
+    936,
+    980
+   ],
+   "peak": -0.018,
+   "lag": 150
+  },
+  "orange_pct": 0.0,
+  "tests": {
+   "B1": false,
+   "B2": true,
+   "B3": false,
+   "B4": false,
+   "B5": true,
+   "B6": true
+  },
+  "pass": false
+ },
+ "the_land_alone_on_the_bar": {
+  "ground": {
+   "dirt_cells": 6429,
+   "sat": 0.38,
+   "hue": 39.2,
+   "split": 5.9,
+   "grit": 13.78
+  },
+  "road": null,
+  "orange_pct": 0.0,
+  "tests": {
+   "B1": false,
+   "B2": true,
+   "B3": true,
+   "B4": true,
+   "B6": true
+  },
+  "pass": false
+ },
+ "picture": {
+  "dirt": [
+   137,
+   119,
+   85
+  ],
+  "asphalt": [
+   51,
+   49,
+   47
+  ],
+  "shoulder": [
+   162,
+   153,
+   131
+  ],
+  "worn": [
+   146,
+   127,
+   91
+  ]
+ }
+}

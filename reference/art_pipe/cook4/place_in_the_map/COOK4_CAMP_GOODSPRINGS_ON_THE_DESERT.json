@@ -1,0 +1,62 @@
+{
+ "tier": "camp",
+ "ground": "desert",
+ "place": "GOODSPRINGS",
+ "src": "COOK4_CAMP_GOODSPRINGS_ON_THE_DESERT.webp",
+ "px": [
+  4224,
+  1728
+ ],
+ "px_per_metre": 57.14,
+ "depth": 0.7,
+ "hotspots": {
+  "clinic": {
+   "box": [
+    334,
+    621,
+    1250,
+    1025
+   ],
+   "kind": "clinic"
+  },
+  "barber": {
+   "box": [
+    2764,
+    681,
+    3565,
+    1080
+   ],
+   "kind": "barber"
+  },
+  "stall": {
+   "box": [
+    1364,
+    589,
+    2018,
+    1160
+   ],
+   "kind": "stall"
+  },
+  "board": {
+   "box": [
+    1992,
+    1115,
+    2067,
+    1208
+   ],
+   "kind": "board"
+  },
+  "posts": {
+   "box": [
+    1320,
+    1224,
+    1598,
+    1296
+   ],
+   "kind": "posts"
+  }
+ },
+ "night_src": null,
+ "placeholder": true,
+ "note": "COOK FOUR [the place sits in the map] round 20: the camp picture for a place out in the region on open desert (Goodsprings first). A candidate (rule 100): RUN TWO picks it by the place's ground when he says so; shown at one picture pixel to one device pixel and panned."
+}

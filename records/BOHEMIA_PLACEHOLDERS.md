@@ -161,7 +161,8 @@ Every asset in the game today is a placeholder: made fast, never final, never ed
 - cook-the-far-end-from-his-picks-10-10
 - cook-the-markers-you-can-find-10-10
 
-## COOK 4 (17 placeholder cards)
+## COOK 4 (18 placeholder cards)
+- cook4-goodsprings-on-the-desert-ground-10-19 (Goodsprings, a camp out in the region, on the desert's own ground: his soil toned to the map's desert, the state road with its pale shoulder running out at both sides, the dirt track north, the general store, two tan ranches, tents round one fire, reference/art_pipe/cook4/place_in_the_map/COOK4_CAMP_GOODSPRINGS_ON_THE_DESERT.webp and its hotspots .json)
 - cook4-mob-on-the-strip-ground-10-19 (the Mob, a fortress on the resort block, on the Strip's own ground: his soil toned to the map's grey-tan, the Strip's road in front, a barrier line with the gate open, the tower casino as the keep, the Strip's four between the motel and the gas station, reference/art_pipe/cook4/place_in_the_map/COOK4_FORTRESS_MOB_ON_THE_STRIP.webp and its hotspots .json)
 - cook4-the-motel-sign-tower-10-19 (the Strip's motel pylon: two legs of his framed steel, a blank blade and box, nothing lit, the arrow on top pointing away from the motel, reference/art_pipe/cook4/strip/COOK4_THE_MOTEL_SIGN_TOWER.png)
 - cook4-the-wedding-chapel-10-19 (the Strip's wedding chapel: one room of his plaster under the measured tan roof, a bell cote with his cross, his plank doors under a canopy, the blank sign on its pole, two flower boxes in bloom, reference/art_pipe/cook4/strip/COOK4_THE_WEDDING_CHAPEL.png)

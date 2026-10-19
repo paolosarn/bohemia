@@ -19,6 +19,7 @@
    plan; the picture is laid against both by tools/bohemia_cook4_the_place_sits_in_the_map.py.  No reference game.
 
      node tools/bohemia_cook4_the_place_sits_in_the_map_read.js Church        (about two minutes)
+     node tools/bohemia_cook4_the_place_sits_in_the_map_read.js Goodsprings   (a place out in the region, round three)
    ========================================================================== */
 'use strict';
 const path = require('path');
@@ -38,14 +39,33 @@ const R = 2;                                   /* blocks each way round the plac
     await d.page.waitForTimeout(250);
   }
   await d.page.waitForTimeout(3000);
+  /* round three (10/19): a place out in the region (BOH_REGION.places, WORLD's real land) has no fine grid (cellAt is the
+     valley's); its plan is the region's own land codes round it (R.land.at: kind, road class) and its real district */
+  for (let i = 0; i < 160; i++) {
+    if (await fr.evaluate(() => typeof BOH_REGION === 'undefined' || (BOH_REGION.ready && BOH_REGION.real))) break;
+    await d.page.waitForTimeout(250);
+  }
   const place = await fr.evaluate((name) => {
     const gb = ctBases(); const k = Object.keys(gb).find(n => n.toUpperCase() === name.toUpperCase());
-    if (!k) return { err: 'no place ' + name, have: Object.keys(gb) };
+    if (!k) {
+      const RG = typeof BOH_REGION !== 'undefined' ? BOH_REGION : null;
+      const p = RG && RG.places.find(q => q.name.toUpperCase() === name.toUpperCase());
+      if (!p) return { err: 'no place ' + name, have: Object.keys(gb).concat(RG ? RG.places.map(q => q.name) : []) };
+      const a = RG.land.at(p.x, p.y, RG.compass) || {}, dd = RG.land.districtAt(p.x, p.y, RG.compass) || {};
+      return { name: p.name.replace(/ /g, '_'), x: p.x, y: p.y, tier: p.tier, district: a.kind, region: true, realDistrict: dd.name,
+        what: p.what, km: p.km, FN: FN, seed: om.seed, party: [city.x, city.y] };
+    }
     const b = gb[k]; return { name: k, x: b.x | 0, y: b.y | 0, tier: typeof mapTierOf === 'function' ? mapTierOf(k) : null,
       district: (om.at(b.x | 0, b.y | 0) || {}).district, FN: FN, seed: om.seed, party: [city.x, city.y] };
   }, NAME);
   if (place.err) { console.error(place); process.exit(1); }
-  const plan = await fr.evaluate(([px, py, R]) => {
+  const plan = place.region ? await fr.evaluate(([px, py]) => {
+    const RG = BOH_REGION, RR = 5, land = [];
+    for (let dy = -RR; dy <= RR; dy++) { const row = [];
+      for (let dx = -RR; dx <= RR; dx++) { const a = RG.land.at(px + dx, py + dy, RG.compass); row.push(a ? a.code + (a.road || '-') : '??'); }
+      land.push(row.join(' ')); }
+    return { R: RR, land, what: 'land[dy+R]: the region\'s own code and road class a block (code per engine/BOHEMIA_REGION_LAND.json legend; road 1 freeway, 2 state route, 3 dirt track, - none); north is up' };
+  }, [place.x, place.y]) : await fr.evaluate(([px, py, R]) => {
     const pal = {}, codes = []; let n = 0; const S = (2 * R + 1) * FN, x0 = (px - R) * FN, y0 = (py - R) * FN, grid = new Array(S * S);
     for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
       const c = cellAt(x0 + x, y0 + y);
@@ -82,8 +102,8 @@ const R = 2;                                   /* blocks each way round the plac
     what: 'grid[y*S+x] indexes codes over the (2R+1)^2 blocks round the place at the fine grid; a code is g|s|walk|face|lamp|gArtPool|markPool|artPool; proj: [fx, fy, device x, device y] of the place block\'s fine cells on the near-stop shot',
     camera: cam, shot: path.relative(ROOT, shot), proj }, place, plan);
   fs.writeFileSync(path.join(OUT, 'COOK4_PLACE_' + place.name.toUpperCase() + '.json'), JSON.stringify(res));
-  console.log(place.name, place.tier, place.district, 'block', place.x, place.y, plan.codes.length, 'codes', 'night', cam.night);
-  console.log(plan.blocks.map(b => b.dx + ',' + b.dy + ' ' + b.district).join(' | '));
+  console.log(place.name, place.tier, place.district, 'block', place.x, place.y, plan.codes ? plan.codes.length + ' codes' : 'region', 'night', cam.night);
+  console.log(plan.blocks ? plan.blocks.map(b => b.dx + ',' + b.dy + ' ' + b.district).join(' | ') : plan.land.join('\n'));
   await d.close();
   process.exit(0);
 })().catch(e => { console.error(e); process.exit(1); });
