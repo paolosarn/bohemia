@@ -1,0 +1,85 @@
+{
+ "what": "the map's ground as his glass shows it at the near stop round the Mob, and the picture's ground read back",
+ "plan": {
+  "dirt": [
+   138,
+   132,
+   120
+  ],
+  "asphalt": [
+   51,
+   51,
+   60
+  ],
+  "walk": [
+   138,
+   138,
+   146
+  ],
+  "forecourt": [
+   160,
+   154,
+   138
+  ]
+ },
+ "seen": {
+  "dirt": [
+   142,
+   134,
+   122
+  ],
+  "asphalt": [
+   46,
+   46,
+   54
+  ],
+  "walk": [
+   124,
+   124,
+   131
+  ],
+  "forecourt": [
+   142,
+   134,
+   122
+  ]
+ },
+ "how_read": {
+  "dirt": "drawn 0.2% of the glass",
+  "asphalt": "drawn 6.2% of the glass",
+  "walk": "drawn 1.4% of the glass",
+  "forecourt": "drawn 0.2% of the glass"
+ },
+ "light_gain": [
+  0.968,
+  0.965,
+  1.006
+ ],
+ "dirt_laid": [
+  142,
+  135,
+  122
+ ],
+ "picture": {
+  "dirt": [
+   142,
+   135,
+   122
+  ],
+  "walk": [
+   124,
+   125,
+   131
+  ],
+  "asphalt": [
+   46,
+   45,
+   54
+  ],
+  "forecourt": [
+   141,
+   134,
+   121
+  ]
+ }
+}

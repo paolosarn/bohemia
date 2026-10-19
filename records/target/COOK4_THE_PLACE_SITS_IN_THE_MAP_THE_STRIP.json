@@ -1,0 +1,169 @@
+{
+ "place": "Mob",
+ "tier": "fortress",
+ "district": "resort",
+ "block": [
+  41,
+  29
+ ],
+ "picture": [
+  5280,
+  2880
+ ],
+ "contrast_kept": 0.8,
+ "dE": {
+  "dirt": {
+   "before": 12.0,
+   "after": 0.7
+  },
+  "asphalt": {
+   "before": null,
+   "after": 0.9
+  },
+  "walk": {
+   "before": null,
+   "after": 0.8
+  },
+  "forecourt": {
+   "before": null,
+   "after": 0.7
+  }
+ },
+ "dirt_laid_dE_to_the_map": 0.5,
+ "edges": {
+  "left": {
+   "dirt_share": 0.88,
+   "dirt_dE_to_map": 0.7,
+   "road_runs_through": true
+  },
+  "right": {
+   "dirt_share": 0.8,
+   "dirt_dE_to_map": 0.7,
+   "road_runs_through": true
+  },
+  "top": {
+   "dirt_share": 1.0,
+   "dirt_dE_to_map": 0.7,
+   "road_runs_through": false
+  },
+  "bottom": {
+   "dirt_share": 0.0,
+   "dirt_dE_to_map": null,
+   "road_runs_through": true
+  },
+  "inside_dirt_dE_to_map": 0.7
+ },
+ "hotspots": {
+  "barber": [
+   3096,
+   15,
+   4878,
+   2280
+  ],
+  "stall": [
+   2066,
+   1743,
+   3022,
+   2487
+  ],
+  "clinic": [
+   1059,
+   1739,
+   1992,
+   2383
+  ],
+  "posts": [
+   3756,
+   2472,
+   4220,
+   2526
+  ],
+  "board": [
+   4160,
+   2283,
+   4235,
+   2376
+  ]
+ },
+ "floor_bar_after": {
+  "ground": {
+   "dirt_cells": 19660,
+   "sat": 0.141,
+   "hue": 38.0,
+   "split": 4.6,
+   "grit": 14.72
+  },
+  "road": {
+   "rows": [
+    2604,
+    2732
+   ],
+   "peak": 0.214,
+   "lag": 1558
+  },
+  "orange_pct": 0.08,
+  "tests": {
+   "B1": true,
+   "B2": true,
+   "B3": true,
+   "B4": true,
+   "B5": true,
+   "B6": true
+  },
+  "pass": true
+ },
+ "floor_bar_before": {
+  "ground": {
+   "dirt_cells": 672,
+   "sat": 0.3,
+   "hue": 31.4,
+   "split": 8.7,
+   "grit": 11.37
+  },
+  "road": null,
+  "orange_pct": 0.14,
+  "tests": {
+   "B1": false,
+   "B2": false,
+   "B3": true,
+   "B4": true,
+   "B6": true
+  },
+  "pass": false
+ },
+ "cell_check_ground_red": 0,
+ "cell_check_whole_picture": [
+  [
+   1632,
+   1920,
+   [
+    "D5"
+   ],
+   "evenness 0.037 past the packs' 0.039; no_rest 0.846 past the packs' 0.834"
+  ]
+ ],
+ "first_picture_at": [
+  30,
+  2475,
+  2640,
+  1440
+ ],
+ "lay": {
+  "cut_soil": {
+   "joint_rows": 1.21,
+   "joint_cols": 1.15
+  },
+  "seams": [
+   1.0,
+   1.68
+  ]
+ },
+ "x": {
+  "motel": -1096,
+  "sign": 620,
+  "chapel": 1049,
+  "pawn": 2056,
+  "tower": 3086,
+  "gas": 4932
+ }
+}

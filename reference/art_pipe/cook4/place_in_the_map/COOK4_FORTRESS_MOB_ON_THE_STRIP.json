@@ -1,0 +1,62 @@
+{
+ "tier": "fortress",
+ "ground": "strip",
+ "place": "Mob",
+ "src": "COOK4_FORTRESS_MOB_ON_THE_STRIP.webp",
+ "px": [
+  5280,
+  2880
+ ],
+ "px_per_metre": 57.14,
+ "depth": 0.7,
+ "hotspots": {
+  "barber": {
+   "box": [
+    3096,
+    15,
+    4878,
+    2280
+   ],
+   "kind": "barber"
+  },
+  "stall": {
+   "box": [
+    2066,
+    1743,
+    3022,
+    2487
+   ],
+   "kind": "stall"
+  },
+  "clinic": {
+   "box": [
+    1059,
+    1739,
+    1992,
+    2383
+   ],
+   "kind": "clinic"
+  },
+  "posts": {
+   "box": [
+    3756,
+    2472,
+    4220,
+    2526
+   ],
+   "kind": "posts"
+  },
+  "board": {
+   "box": [
+    4160,
+    2283,
+    4235,
+    2376
+   ],
+   "kind": "board"
+  }
+ },
+ "night_src": null,
+ "placeholder": true,
+ "note": "COOK FOUR [the place sits in the map] round 19: the fortress picture for a place whose block stands on the Strip (the Mob first). A candidate (rule 100): RUN TWO picks it by the place's ground when he says so; shown at one picture pixel to one device pixel and panned."
+}
