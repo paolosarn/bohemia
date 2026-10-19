@@ -1,0 +1,37 @@
+{
+ "cut": "HEAVY FRINGE",
+ "tag": "heavy_fringe",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 1,
+  "side": 0.64,
+  "front": 0.46
+ },
+ "worn_by": "Volunteers",
+ "model": "records/character/rig/barber_heavy_fringe.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.5,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5592,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7548,
+ "pieces": {
+  "barber_heavy_fringe": 218338,
+  "barber_heavy_fringe_edge": 7658
+ }
+}

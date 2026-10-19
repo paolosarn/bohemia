@@ -1,0 +1,38 @@
+{
+ "cut": "SHAG",
+ "tag": "shag",
+ "bank": {
+  "ramp": "H_BRN",
+  "vol": 1,
+  "side": 0.82,
+  "front": 0.3,
+  "flare": 0.1
+ },
+ "worn_by": "Colorful; the cape",
+ "model": "records/character/rig/barber_shag.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.538,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.731,
+ "pieces": {
+  "barber_shag_cap": 210674,
+  "barber_shag_locks": 24846
+ }
+}

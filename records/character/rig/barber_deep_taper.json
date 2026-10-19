@@ -1,0 +1,38 @@
+{
+ "cut": "DEEP TAPER",
+ "tag": "deep_taper",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 1,
+  "side": 0.32,
+  "front": 0.14,
+  "fade": 9
+ },
+ "worn_by": "the wide brim, the apron",
+ "model": "records/character/rig/barber_deep_taper.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5479,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7421,
+ "pieces": {
+  "barber_deep_taper_fade": 35133,
+  "barber_deep_taper": 151802
+ }
+}

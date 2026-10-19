@@ -1,0 +1,38 @@
+{
+ "cut": "SHORT ROPES",
+ "tag": "short_ropes",
+ "bank": {
+  "ramp": "H_BRN",
+  "vol": 0,
+  "side": 0.62,
+  "front": 0.18,
+  "tex": "locs"
+ },
+ "worn_by": "nobody yet (the crowd draws it)",
+ "model": "records/character/rig/barber_short_ropes.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5348,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7273,
+ "pieces": {
+  "barber_short_ropes_scalp": 53110,
+  "barber_short_ropes_ropes": 16162
+ }
+}

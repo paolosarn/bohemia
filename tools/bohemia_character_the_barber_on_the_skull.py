@@ -92,6 +92,11 @@ CUTS = {
                          hair=('clay_mustard', 2), zcap=1.0, worn_by='Anarchists, Homeless'),
 }
 ORDER = ['TEMPLE TAPER', 'COIL CROWN', 'LAYERED FALL']
+# HAIR 1 (the roll call, 10/19): the other eight canon cuts, as strands and clumps, never a mesh (his chain-mail note);
+# their geometry lives in tools/bohemia_character_hair_one.py, the eight branches build() calls; the three above are untouched
+import bohemia_character_hair_one as HAIR_ONE  # noqa: E402
+CUTS.update(HAIR_ONE.CUTS)
+ALL = ORDER + HAIR_ONE.ORDER
 
 
 def sstep(a, b, t):
@@ -498,6 +503,9 @@ def build(cut):
         made.append(('weighted', curtain, fall_w))
         made.append(('weighted', lo, fall_w))
 
+    elif cut in HAIR_ONE.CUTS:
+        made += HAIR_ONE.build(cut, locals())
+
     for m in made:
         if isinstance(m, tuple): skin_to(m[1], m[2]); strand_normals(m[1])
         else: skin_to(m); strand_normals(m)
@@ -606,7 +614,8 @@ if __name__ == '__main__':
     cmd = sys.argv[1]
     if cmd == 'build':
         barber_body()
-        names = ORDER if sys.argv[2].upper() == 'ALL' else [n for n in ORDER if CUTS[n]['tag'] == sys.argv[2].lower() or n == sys.argv[2].upper()]
+        names = (ORDER if sys.argv[2].upper() == 'ALL' else HAIR_ONE.ORDER if sys.argv[2].upper() == 'HAIR1'
+                 else [n for n in ALL if CUTS[n]['tag'] == sys.argv[2].lower() or n == sys.argv[2].upper()])
         for n in names: build(n)
     elif cmd == 'sheet':
         sheet()
