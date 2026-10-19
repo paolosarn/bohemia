@@ -1,0 +1,38 @@
+{
+ "label": "before_t1",
+ "seed": 5,
+ "throttle": 1,
+ "profile": "390x844 @3x, the one driver",
+ "speed": 1,
+ "auto": {
+  "seconds": 60.2,
+  "frames": 2047,
+  "fps": 34,
+  "median_ms": 33.3,
+  "p95_ms": 49.9,
+  "p99_ms": 50.1,
+  "worst_ms": 183.3,
+  "hitches_over_33ms": 403,
+  "dead_longest_ms": 1768,
+  "dead_total_s": 31,
+  "dead_share": 51.5,
+  "dead_over_500ms": 35,
+  "ended": false,
+  "rounds": 2
+ },
+ "taps": {
+  "walk_confirm_to_motion_ms": [
+   65,
+   70,
+   56,
+   88
+  ],
+  "end_turn_to_their_first_motion_ms": [
+   82,
+   82
+  ],
+  "worst_walk_ms": 88,
+  "worst_end_ms": 82
+ },
+ "file_md5": "661c1aeb8468f23a881013008d907eec"
+}

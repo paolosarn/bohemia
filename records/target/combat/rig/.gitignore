@@ -1,0 +1,4 @@
+# COMBAT [the fight wears the 3D models]: the master rig renders of every look (thousands of frames), rebuilt by
+# tools/bohemia_combat_the_fight_wears_the_rig.py render; the fight reads the packed sheets in slices/fight_rig
+*
+!.gitignore
