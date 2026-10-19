@@ -11359,7 +11359,52 @@
     "light": "upper-left"
    },
    "draft": true
+  },
+ {
+  "id": "cook3-the-raider-again-10-19",
+  "kind": "outfit",
+  "lane": "cook 3",
+  "sha": "d8f70541",
+  "made": "10/19",
+  "title": "THE RAIDER AGAIN: A HOODED MAN IN A LOOTED POLICE VEST WITH A SAWN-OFF, NOT CHAIN MAIL",
+  "why": "You said the chain mail raider was insane for this world, so he is remade from the same city as the thug and the marksman you liked: a black hoodie with the hood up, a police plate carrier he looted, a row of red shotgun shells, pale knee pads, a sawn-off shotgun, and a Black man's face whose skin matches his hands, measured. You see it in the VOTE tab: eight directions and two walks beside the game's flat raider.",
+  "show": {
+   "how": "image",
+   "src": "../records/target/cook3/COOK3_THE_RAIDER_AGAIN.png"
+  },
+  "redoOf": "cook3-the-raider-through-the-rig-10-18",
+  "said": "It's kind of funny telling you that we were gonna have like this that's insane",
+  "twin": {
+   "src": "records/cook3/enemy_tiers_repainted.png",
+   "diffs": [
+    "THE ARMOUR: ours is a looted police vest with real plates and webbing that catch the sun from every side; the game's raider has grey stripes painted on his chest.",
+    "THE HEAD: ours wears a hood up over a modelled face with a beard, the same skin as his hands; the game's raider has a flat face and brown hair.",
+    "THE WEAPON: ours carries a sawn-off shotgun and a row of red shells on his chest; the game's raider holds nothing."
+   ]
+  },
+  "draft": true,
+  "before_after": {
+   "before": "the game's own flat raider as last painted (right on the sheet)",
+   "after": "the raider again as a model, rendered through the rig: eight facings and the walk (left on the sheet)",
+   "scale": "1:1"
+  },
+  "sprites": [
+   "records/target/cook3/rig/raider_again/rig_N.png",
+   "records/target/cook3/rig/raider_again/rig_NE.png",
+   "records/target/cook3/rig/raider_again/rig_E.png",
+   "records/target/cook3/rig/raider_again/rig_SE.png",
+   "records/target/cook3/rig/raider_again/rig_S.png",
+   "records/target/cook3/rig/raider_again/rig_SW.png",
+   "records/target/cook3/rig/raider_again/rig_W.png",
+   "records/target/cook3/rig/raider_again/rig_NW.png"
+  ],
+  "class": "person",
+  "look": {
+   "px": 1,
+   "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+   "light": "guide"
   }
+ }
  ],
  "verdicts": [
   {
