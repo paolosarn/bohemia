@@ -1183,6 +1183,148 @@
     addEventListener('resize', function () { JTF_MARKS.forEach(sizeMark); placeTicks(); paintTube(); });
     return true;
   }
+  /* ======================================================================================================
+     THE HIT READ  (UI [the hit chance look], 10/19/26; rule 120(b); COMBAT [the fight says your weapon is weak] builds the
+     numbers and places it, this block is only its look)
+     PAOLO 10/18: 'the combat is still so fucking ass... the game doesn't explain to you at all that your weapon sucks.'
+     (records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md; this round:
+     records/BOHEMIA_THE_HIT_CHANCE_LOOK_10_19_26.md)
+     MEASURED FIRST: the fight showed his chance as a 10 px number in the corner of the STRIKE square, and nothing at all
+     about what the hit does to that man's armour. Battle Brothers shows the chance and its reasons when the cursor rests on
+     a man and keeps the damage in the weapon's own tooltip; ours prints both on one slip of two-colour thermal paper:
+     THE CHANCE big in the casing (30 px, three css pixels a dot), then TWO METERS of ten printed cells, his armour and his
+     body, the cells this hit would take printed in the paper's red, the number beside them; ONE LINE in red only when the
+     weapon is bad for him. After the swing the same slip says what it did (HIT or MISS, the cells gone). Everything else
+     stays off it (rule 117: few numbers, big, one clear thing).
+     THE PAPER is flat thermal stock lit from the top: three values hue-shifted (the lit top yellower, the foot redder),
+     never darkened, a torn foot, the hard one-pixel contact edge drawn into it; no gradient, glow, blur or round corner
+     (rule 114 D10). One css pixel a pixel for the paper, the cells, the marks and the 10 px print; ink #2a221a and the red
+     #6e140c both pass 4.5 to 1 on it plain and under a flat 25% white (the sun, rule 73).
+     COMBAT calls hitRead(read) with ITS numbers (the hit chance in, the dent out: its own resolveAttack at the mean roll)
+     and puts the slip where the sheet's pick says: on the man ('tag'), out of the bar's top edge ('slip') or in the bar
+     ('bar'); hitReadPlace() does the arithmetic. Nothing calls it until COMBAT does, so nothing in the game changes here.
+     ====================================================================================================== */
+  var HIT = { paper: [232, 224, 203], lit: [243, 241, 220], foot: [203, 181, 154], ink: '#2a221a', red: '#6e140c', redCell: [150, 34, 22],
+    hollow: [184, 170, 140], cells: 10 };
+  /* two pixel marks for the meters' labels, 12 x 12, one css pixel a dot: a plate (his armour) and a drop (his body) */
+  var HIT_MARKS = {
+    plate: ['011000000110', '111100001111', '111111111111', '111111111111', '011111111110', '011100001110',
+            '011111111110', '011111111110', '001111111100', '001100001100', '000111111000', '000011110000'],
+    drop:  ['000001100000', '000001100000', '000011110000', '000011110000', '000111111000', '001111111100',
+            '001111111100', '011111111110', '011111111110', '011111111110', '001111111100', '000111111000']
+  };
+  var HIT_CSS = ".bm-hit{position:fixed;z-index:6;box-sizing:border-box;color:" + HIT.ink + ";pointer-events:none;border:0;border-radius:0;"
+    + "box-shadow:none;filter:none;text-shadow:none;background-repeat:no-repeat;image-rendering:pixelated;font-family:'BohemiaROM',monospace;font-size:10px;line-height:10px;"
+    + "padding:7px 8px 12px;display:grid;grid-template-columns:auto auto;column-gap:10px;align-items:center}"
+    + ".bm-hit .bm-hit-ch{font-family:'BohemiaCasing',monospace;font-size:30px;line-height:30px;letter-spacing:0;white-space:nowrap}"
+    + ".bm-hit .bm-hit-ch small{display:block;font-family:'BohemiaROM',monospace;font-size:10px;line-height:10px;margin-top:4px}"
+    + ".bm-hit .bm-hit-m{display:grid;grid-template-columns:12px 79px auto;column-gap:4px;row-gap:6px;align-items:center}"
+    + ".bm-hit .bm-hit-m canvas{display:block}"
+    + ".bm-hit .bm-hit-n{font-family:'BohemiaCasing',monospace;font-size:20px;line-height:20px;color:" + HIT.red + ";white-space:nowrap;min-width:30px}"
+    + ".bm-hit .bm-hit-n.none{color:" + HIT.ink + "}"
+    + ".bm-hit .bm-hit-w{grid-column:1/3;color:" + HIT.red + ";margin-top:7px;white-space:normal;max-width:220px}"
+    + ".bm-hit-tag{padding:6px 7px 11px;column-gap:8px}.bm-hit-tag .bm-hit-ch{font-size:20px;line-height:20px}"
+    + ".bm-hit-tag .bm-hit-n{font-size:10px;line-height:10px;min-width:20px}.bm-hit-tag .bm-hit-m{row-gap:4px}.bm-hit-tag .bm-hit-w{max-width:170px}"
+    + ".bm-hit-inbar{grid-template-columns:auto;padding:4px 7px 9px}.bm-hit-inbar .bm-hit-m{row-gap:4px}.bm-hit-inbar .bm-hit-w{grid-column:1;margin-top:5px;max-width:none}"
+    /* the chance on the STRIKE square itself ('bar' puts the meters in the bar and the number on the button) */
+    + ".bm-hit-sq{width:96px!important}.bm-hit-sq b{font-family:'BohemiaCasing',monospace!important;font-size:20px!important;line-height:20px!important;"
+    +   "right:6px!important;bottom:13px!important;color:#f0d296!important;text-shadow:none!important;font-weight:400!important}";
+  function hitDpr() { return Math.max(1, Math.min(3, Math.round(window.devicePixelRatio || 1))); }
+  function rgb(c) { return 'rgb(' + c.join(',') + ')'; }
+  /* the paper, w x h css pixels drawn at the device's pixels, every paper pixel one css pixel: the lit top row and the foot
+     row hue-shifted off the stock, a torn foot (teeth every 4, 2 deep) and the contact edge under every tooth */
+  function hitPaper(w, h) {
+    var k = hitDpr(), c = canvas(w * k, h * k), g = c.getContext('2d'), P = function (x, y, ww, hh, col) { g.fillStyle = col; g.fillRect(x * k, y * k, ww * k, hh * k); };
+    var s0 = seed; seed = 41;
+    P(0, 0, w, h - 3, rgb(HIT.paper)); P(0, 0, w, 1, rgb(HIT.lit)); P(0, h - 5, w, 1, rgb(HIT.foot));
+    for (var x = 0; x < w; x += 4) { var deep = (x / 4) % 2 ? 0 : 2; P(x, h - 4, 4, 2 - deep + 1, rgb(deep ? HIT.foot : HIT.paper)); P(x, h - 3 - deep + 2, 4, 1, '#0b0806'); }
+    P(w - 1, 1, 1, h - 6, rgb(HIT.foot)); P(0, 1, 1, h - 6, rgb(HIT.lit));
+    for (var i = 0; i < w * h / 40; i++) { var gx = Math.floor(rnd() * (w - 2)) + 1, gy = Math.floor(rnd() * (h - 8)) + 2; P(gx, gy, 1, 1, rgb(HIT.foot.map(function (v, j) { return Math.round((v + HIT.paper[j]) / 2); }))); }
+    seed = s0;
+    return c;
+  }
+  /* a meter: ten printed cells, 7 x 12 with a gap of 1; the cells he keeps in ink, the cells this hit takes in the red,
+     what he has already lost hollow. take is rounded to whole cells, and anything at all shows one */
+  function hitMeter(now, max, take, gone) {
+    var n = HIT.cells, k = hitDpr(), cw = 7, W = n * (cw + 1) - 1, c = canvas(W * k, 12 * k), g = c.getContext('2d');
+    c.style.width = W + 'px'; c.style.height = '12px';
+    var have = max > 0 ? Math.round(n * Math.max(0, now) / max) : 0, t = max > 0 && take > 0 ? Math.max(1, Math.round(n * Math.min(now, take) / max)) : 0;
+    if (now > 0 && have === 0) have = 1;
+    t = Math.min(t, have);
+    for (var i = 0; i < n; i++) {
+      var x = i * (cw + 1), kept = i < have - t, hit = !kept && i < have;
+      g.fillStyle = hit ? (gone ? rgb(HIT.hollow) : rgb(HIT.redCell)) : kept ? HIT.ink : rgb(HIT.hollow);
+      if (kept || (hit && !gone)) { g.fillRect(x * k, 0, cw * k, 12 * k); g.fillStyle = kept ? '#4a3d30' : 'rgb(196,72,52)'; g.fillRect(x * k, 0, cw * k, 1 * k); }
+      else { g.fillRect(x * k, 0, cw * k, k); g.fillRect(x * k, 11 * k, cw * k, k); g.fillRect(x * k, 0, k, 12 * k); g.fillRect((x + cw - 1) * k, 0, k, 12 * k); }
+    }
+    return c;
+  }
+  function hitMark(key, ink) {
+    var k = hitDpr(), c = canvas(12 * k, 12 * k), g = c.getContext('2d'); c.style.width = c.style.height = '12px';
+    g.fillStyle = ink || HIT.ink;
+    HIT_MARKS[key].forEach(function (r, y) { for (var x = 0; x < 12; x++) if (r[x] === '1') g.fillRect(x * k, y * k, k, k); });
+    return c;
+  }
+  /* read: { chance, armour: {now, max, take}, body: {now, max, take}, weak: bool, line: 'Your pipe barely dents his plate.',
+             after: undefined | {hit: bool} }   opts: { mode: 'tag' | 'slip' | 'bar' }  -> the slip, not yet on the page */
+  function hitRead(read, opts) {
+    style('bm-hit-css', HIT_CSS);
+    opts = opts || {};
+    var el = document.createElement('div'); el.className = 'bm-hit bm-hit-' + (opts.mode === 'bar' ? 'inbar' : opts.mode || 'slip');   /* prefixed: the fight's own .bar is a 5 px meter */ el.setAttribute('data-hit-read', opts.mode || 'slip');
+    var after = read.after, missed = after && !after.hit;
+    if (opts.mode !== 'bar') {
+      var ch = document.createElement('div'); ch.className = 'bm-hit-ch';
+      ch.textContent = after ? (after.hit ? 'HIT' : 'MISS') : Math.round(read.chance) + '%';
+      var sm = document.createElement('small'); sm.textContent = after ? (after.hit ? 'IT TOOK' : 'NOTHING') : 'TO HIT'; ch.appendChild(sm);
+      el.appendChild(ch);
+    }
+    var m = document.createElement('div'); m.className = 'bm-hit-m';
+    [['plate', read.armour], ['drop', read.body]].forEach(function (row) {
+      var r = row[1] || { now: 0, max: 0, take: 0 }, take = missed ? 0 : Math.max(0, Math.round(r.take || 0));
+      m.appendChild(hitMark(row[0]));
+      m.appendChild(hitMeter(r.now, r.max, take, !!after));
+      var n = document.createElement('span'); n.className = 'bm-hit-n' + (take ? '' : ' none'); n.textContent = take ? '-' + take : '0'; n.setAttribute('data-k', row[0]);
+      m.appendChild(n);
+    });
+    el.appendChild(m);
+    if (read.weak && read.line && !after) { var w = document.createElement('div'); w.className = 'bm-hit-w'; w.textContent = read.line; el.appendChild(w); }
+    el._paint = function () {
+      var r = el.getBoundingClientRect(), w = Math.round(r.width), h = Math.round(r.height);
+      if (w < 8 || h < 8 || (el._pw === w && el._ph === h)) return;
+      el._pw = w; el._ph = h; el.style.backgroundImage = 'url(' + hitPaper(w, h).toDataURL('image/png') + ')'; el.style.backgroundSize = w + 'px ' + h + 'px';
+    };
+    return el;
+  }
+  /* where the slip goes. ctx: { man: {x, head, feet} for 'tag' (css px on the glass), bar: the bar's rect for 'slip',
+     stats: the bar's readout rect for 'bar', top: the lowest pixel of the top strip }. Whole css pixels, inside the glass. */
+  function hitReadPlace(el, ctx) {
+    var mode = el.getAttribute('data-hit-read'), W = innerWidth, H = innerHeight, top = Math.ceil(ctx.top || 0);
+    if (!el.parentNode) document.body.appendChild(el);
+    if (mode === 'bar' && ctx.stats) {
+      /* the bar's readout: as wide as it, its foot on the readout's foot, taller only upward */
+      var s = ctx.stats; el.style.width = Math.round(s.width) + 'px';
+      var hh = el.getBoundingClientRect().height;
+      el.style.left = Math.round(s.x) + 'px'; el.style.top = Math.round(Math.min(s.y, s.y + s.height - hh)) + 'px';
+    } else {
+      el.style.width = ''; var r = el.getBoundingClientRect(), x, y;
+      if (mode === 'tag' && ctx.man) {
+        x = ctx.man.x - r.width / 2; y = ctx.man.head - r.height - 6;
+        if (y < top + 4) y = ctx.man.feet + 6;
+      } else { var b = ctx.bar; x = (b ? b.x : 0) + 8; y = (b ? b.y : H) - r.height + 3; }
+      var low = ctx.bar ? ctx.bar.y - r.height + 3 : H - r.height;
+      x = Math.max(4, Math.min(W - r.width - 4, x)); y = Math.max(top + 4, Math.min(low, y));
+      el.style.left = Math.round(x) + 'px'; el.style.top = Math.round(y) + 'px';
+    }
+    el._paint();
+    return el.getBoundingClientRect();
+  }
+  /* 'bar': the chance (or HIT / MISS after the swing) on the STRIKE square at 20 px in the casing, the square 96 wide */
+  function hitChanceOnButton(btn, read) {
+    style('bm-hit-css', HIT_CSS);
+    if (!btn) return; btn.classList.add('bm-hit-sq');
+    var b = btn.querySelector('b'); if (!b) { b = document.createElement('b'); btn.appendChild(b); }
+    b.textContent = read.after ? (read.after.hit ? 'HIT' : 'MISS') : Math.round(read.chance) + '%';
+  }
   /* the moment the door is parsed (this file loads in the page's head, long before the end of a six-megabyte page), so
      the door's first frames are already bare; a page that finishes loading with no door stops asking */
   (function wait(n) {
@@ -1197,5 +1339,6 @@
 
   window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
-    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars };
+    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars,
+    hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT };
 })();
