@@ -89,6 +89,12 @@ are held off the card (rule 114b), built and rendered (records/target/character/
 base_denim_shortalls), and the question goes to DIRECTION with the numbers: should the light row compare the lit side
 against the shadow side of the same mass, not the top half against the bottom?
 
+FOR DIRECTION, A BUG IN THE MASTER RIG (found by this batch, worked around, the rig not edited): line 969 names the
+cropped id frames with fn.replace('id_', 'rigid_') on the WHOLE path (line 857 beside it correctly takes the basename), so
+any output folder holding 'id_' breaks the run after the stills: 'plaid_flannel' became 'plarigid_flannel', the save
+raised FileNotFoundError and the portraits and rig.json were never written (DUST PLAID SHIRT, FOREST PLAID FLANNEL,
+measured). This lane renders into a folder with 'id_' written 'id-' and copies the frames to their own name.
+
 ## 4. THE CARDS
 
 Three cards, never one of eighty rows: character-base-one-the-shirts-10-19, character-base-one-the-collars-10-19,
