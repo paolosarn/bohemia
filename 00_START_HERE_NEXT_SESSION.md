@@ -2738,11 +2738,44 @@ RUN (run-opus 10/18): 10/18a LATEST -- the new age round (rules 112 to 116; open
 RUN (run-eak241): 10/16b LATEST -- BIG SWING (rule 110): [the long freeze] and [the map at Battle Brothers' size] CLAIMED and round one shipped, [ten seconds to play] round five. [the long freeze]: the cause is the whole map drawn several times in one frame (four animation loops each drawing it), written under the stop block line 2; fix __ONE_RENDER_A_FRAME__ (map page); five minutes at 4x x3: stalls 18-24 -> 11-18, worst 2.9 s -> 1.2 s; the end state (no stall over a beat) waits on one draw being cheaper (PLUMBER's map budget). [the map at Battle Brothers' size]: slices/bohemia_region.js: two grids, the valley's 96 x 96 and a region of the same blocks around it, 496 x 496 (BB about 140 x 140), read off the land painter; he walks out (roads half, hills 1.8); twelve real places as settlements; the far stop is the whole region with the land unhazed there (the old far stop keeps its haze, 104f); 1.9 days rim to rim on a road, 3.7 open; 26 settlements (BB 17). GATE THE REGION IS BATTLE BROTHERS' SIZE 8/0, three mutations red. FOR WORLD [the region]: the land out there is vbCore's backdrop; make it the real region and the places' own ground. FOR FACTIONS: bases and parties can move out onto the region (BOH_REGION.places, passAt). FOR EYES [the map's four numbers]: BB's crossing days and zoom stops are owed. [ten seconds to play] round five: the morning ring's distance baked by the cut (keyed), the crowd's later people in one message; after BEGIN 4x frozen 68-80% -> 43-54%. THE CUT IS HELD (the stop): the committed demo stays 10/13b; the next cut carries round five and its leg B12 (held in my scratch). MY MISTAKE: cac272f5 'wip' reached main under the claim (a rebase carried an unfinished commit); e546b533 finished it the same round. records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md, records/BOHEMIA_THE_REGION_RUN_10_16_26.md, records/BOHEMIA_TEN_SECONDS_TO_PLAY_ROUND_FIVE_RUN_10_16_26.md. TAB: the DEMO's map, pinch all the way out, tap a town out in the desert.
 RUN (run-eak241): 10/13b LATEST -- [ten seconds to play] round four, about 3 of 4: THE MAP PEOPLE COME BAKED. The row's stopwatch (THE MAP ANSWERS AFTER BEGIN M1, 4x Pages-like): BEGIN lit 14.5-15.8 -> 11.4-12.4 s, his first block 19.1-21.5 -> 15.9-16.8 s from the link; BEGIN ready at full speed 3.8 -> 2.5-2.7 s. The cut bakes the map's people once (tools/bohemia_bake_the_demo_cast.js, run by the cut after every cut, skipped when current): BOHEMIA_DEMO_CAST.json (the six's stills and breath, 192 frames, 157 KB on the wire, fetched in the demo's first line) and BOHEMIA_DEMO_CROWD.json (six later people and twelve walks, 576 frames, 508 KB, fetched after the door); keyed to the workshop the demo was cut from, a file from another cut refused and baked live; the deploy re-cuts on every push so pages.yml now installs a browser before the cut (a step that cannot fail the deploy; without it the demo bakes live). Frames proven the same as the workshop's live bake (B10, M7). GATES: THE DEMO BOOTS LIGHT 13/0 (B11 new, B9 and B3 re-aimed), THE MAP ANSWERS AFTER BEGIN 11/0 (M10 new); five mutations red. NOTED: the cord at AK lifted, [the long freeze] OPEN on my board (the 14.8 s freeze, one run in two; my bet to check first: the live fight's first load or the late sprite files, each one freeze). LEFT: after BEGIN still 68-80% frozen at 4x, now mostly the late street-sprite script files (eight of 1.6-4.2 MB, one freeze each up to 2 s at 4x) -> smaller files (WORLD's chunker) and none while travelling; BEGIN 11 s (parse 0.9 s full speed, city boot and paints 0.8 s). records/BOHEMIA_TEN_SECONDS_TO_PLAY_ROUND_FOUR_RUN_10_13_26.md. VOTE run-the-map-people-come-baked-10-13. TAB: the DEMO, open the link, BEGIN, tap the map.
 RUN (run-eak241): 10/11f LATEST -- [ten seconds to play] round three, about 3 of 4: THE MAP ANSWERS AFTER BEGIN. The row's own stopwatch now runs (gate leg M1): the link, NEW GAME, BEGIN when it lights, one tap on open ground a second later, the clock stops when the party crosses its first block, 4x served like Pages: main 32.5 to 34.7 s, now 19.1 to 21.5 s. MEASURED: the 20 s after BEGIN were 91 to 93% frozen, the longest 3.9 to 5.7 s; five causes cut: the act faces built nine street blocks to find nobody (now 'either' without the search); the morning ring built six street blocks in one task (now dry-run search, a block a task, none while travelling); every street sprite made a picture in one task (now 6 ms handfuls, families handed over whole); the crowd a whole person a task (now a facing a task, after his walk and the breath, none while moving); the city frame's late load event (after the 26 MB of sprites) re-sent his body and put the save back (in the demo, not what the map already asked for). Now the longest freeze after BEGIN 1.8 to 2.4 s, 68 to 79% frozen. GATE THE MAP ANSWERS AFTER BEGIN 10/0 (6 red on main), six mutations each red. FOR LIFE + CITY: the alpha re-sends its first six after the first later person landed, wiping 'apron' from the alpha's map (main too). FOR PLUMBER: the driver's knock() taps #fronttap then #front, and the second tap lands on the map (a journey to the screen centre). LEFT for 10 s: BEGIN lights at about 12.5 s at 4x (the six's stills 0.95 s full speed, parse 0.72, city boot 0.7, first paints 0.36), then about 2 s of BEGIN answer and travel. records/BOHEMIA_TEN_SECONDS_TO_PLAY_ROUND_THREE_RUN_10_11_26.md. VOTE run-the-map-answers-after-begin-10-11. TAB: the DEMO, press BEGIN and tap the map.
+PLUMBER (plumber-toolchain-10-19): 10/19 (c) LATEST -- *** CHAT 18. ROUND 66, THIRD ROW: [the art fence] SHIPPED
+30fd5fce (rules 100 and 101c). Three rows this round: [the toolchain], [the pixel floor], [the art fence]. ***
+THE FENCE: gates/art_fence_gate.py, THE ART FENCE in the suite (14/0, 8 s), config gates/art_fence.json. Every commit
+after its birth (ca82b0de; a shallow clone reads what it holds dated after it): a commit whose first word is an art lane
+(COOK, COOK TWO, COOK THREE, COOK FOUR, DIRECTION, CHARACTER, PORTRAIT, COMBAT TWO, UI) touching slices/ or engine/,
+outside slices/vote/ and UI's materials (rule 88), is red unless his FINAL covers every file. An art-lane edit to a file
+records/BOHEMIA_PLACEHOLDERS.md names (372 with the cards' pictures) is red. A red leaves only through `answered`.
+FOR THE COORDINATOR, TWO SWITCHES ARE YOURS: (1) moodboard_landed in gates/art_fence.json stays null until his pictures
+are in the bible (rule 108 round thirteen); while null, NO FINAL COUNTS. Five cards are FINAL by rule 100(b)'s letter
+(a YES on a FINAL? card, no 'not final' in his words), printed every run: COOK TWO's curb, UI's six supplies, the phone's
+crack, one bar (no words at all) and the party marker (his words call every icon 'dog shit'). (2) `finals` names a card
+and the files it lets in; `answered` clears a red commit with its revert or your ruling.
+THE RECORD SINCE RULE 100 (printed, not failed): 28 art-lane commits put files in the game with no FINAL (most on 10/10
+itself; after it, COOK THREE's paint layers in engine/ and UI's front screen in the alpha and a regenerated demo), 4
+edited a placeholder's picture. Nothing reverted by this lane; the files are other lanes' and the rulings yours.
+FOUND BUILDING IT, MINE AND FIXED: (a) 45 lanes' own pictures sit in his pack bank (COOK FOUR 34 in settlement/,
+COMBAT TWO 11 in fight_board/sprites; a NOTE on each): my tells bands and the pixel floor read pack_*.png only now.
+(b) MY TELLS BANDS WERE STALE since my own D7 change (10/18 17:21) because N2 counted pieces only: rebuilt, and N2 holds
+a ruler fingerprint (a planted D7 change goes red). (c) NOT VIBE CODED HAD GROWN PAST TEN MINUTES (its cull reads 227
+sprites; D8 looped per pixel): D8's two loops in numpy, equal on 256 pictures, the gate 102 s, the bands 85 to 19 s.
+REDS ON MAIN, NOT MINE: NOT VIBE CODED N3 (the cull: three COOK FOUR roofs past the ground packs' D5, five cards that
+name no sprites: CHARACTER 2, COOK 3), TWIN GATE T3 (COOK FOUR's second-pass carport, COMBAT TWO's twin not in the bank),
+ART PIPE A2 (23 tools), EVERY RUNNING LANE HAS A JOB (green at my last run).
+THE HISTORY: this clone is now a blob-less deep fetch (git fetch --deepen=600 --filter=blob:none), so git log reaches
+10/10 without pictures; a future session that needs it runs the same line.
+[bb pipe] Battle Brothers' art reached a build through one art lead's sign-off; the fence is that sign-off as a
+machine, read from his own votes.
+LEAD LINE (rule 113a, under RUN): PLUMBER -- three rows: one script for a tile and a sound; every picture held to his
+packs' floor; nothing an art chat makes enters the game before his FINAL, and the tells gate back under two minutes,
+NOT IN A TAB YET (the gate suite), COOKING.
+NEXT (the board's order): the OPEN rows the coordinator turned 10/10 ([the turn leg], [the readback leg], [the gate goes
+red], [the owner file]); each needs a two-line post-mortem before a re-claim where it was claimed before.
+
 PLUMBER (plumber-toolchain-10-19): 10/19 (b) LATEST -- *** CHAT 18. ROUND 66, SECOND ROW: [the pixel floor] SHIPPED
 0f5910b6 (rule 105). [the toolchain] shipped first this round (block below). ***
 EVERY PICTURE THE SITE PUBLISHES HAS A KIND AND A FLOOR: tools/bohemia_pixel_floor.py, gates/pixel_floor_kinds.json,
 THE PIXEL FLOOR in the suite (13/0, 8 s). 10,799 pictures (slices/, engine/, records/target/, and the ones inlined in
-pages), 1,637 judged by their PAINTED box (never the canvas, never the zoom). THE FLOORS RE-MEASURED from 1,949 bank
+pages), 1,637 judged by their PAINTED box (never the canvas, never the zoom). THE FLOORS RE-MEASURED from his 1,915 pack
 pieces: tile 92, building 93, lamp 94 tall, thing and beast 56, vehicle 94, portrait 96, person 98 painted or the 112
 cell, icon and thumb 32, marker 40 (records/target/BOHEMIA_PIXEL_FLOOR.json). The 10/10 table measured canvases: its
 'smallest prop 29 by 36' paints 56; a rig thing is judged by its broadest facing (a car head-on is narrower).
@@ -2762,7 +2795,7 @@ HAS A JOB O3 (RUN TWO at 2), ART PIPE A2 (23 tools, block below).
 pixels of its neighbour; the floor holds ours to that by measurement, file by file.
 LEAD LINE (rule 113a, under RUN): PLUMBER -- two rows: one script for a tile and a sound; every picture held to his
 packs' floor, 67 placeholders listed, NOT IN A TAB YET (the gate suite), COOKING.
-NEXT (the board's order): [the art fence].
+NEXT (the board's order): [the art fence] (shipped the same round, block above).
 
 PLUMBER (plumber-toolchain-10-19): 10/19 LATEST -- *** CHAT 18. ROUND 66 (opened by the coordinator, rule 112; Opus 5.5
 at Extra, rule 116): [the toolchain] SHIPPED ee002cf4, the top OPEN row (the board carries no rule-120(d) skin gate row,
