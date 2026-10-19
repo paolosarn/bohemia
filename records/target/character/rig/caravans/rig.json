@@ -10,6 +10,10 @@
  "scale_from_model": 1.1045,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
+ "ground_screen": [
+  115.0,
+  166.44535
+ ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
@@ -28,16 +32,31 @@
    "caravans_trouser",
    "caravans_trousers"
   ],
+  "wear_by_material": {
+   "caravans_hair": 0.15,
+   "caravans_skin": 0.25,
+   "caravans_eyes": 0.0
+  },
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1045)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1045)",
+  "dents": {
+   "meshes": 10,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -62,8 +81,20 @@
   "caravans_trouser": "#ecff19",
   "caravans_trousers": "#ce19ff"
  },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "caravans_coat": "#ff6cc7",
+  "caravans_coat_skirt": "#6ce9ff",
+  "caravans_hair": "#fff86c",
+  "caravans_hand_L": "#d86cff",
+  "caravans_hand_R": "#6cffb1",
+  "caravans_hat": "#ff796c",
+  "caravans_mantle": "#6ca1ff",
+  "caravans_shoe": "#ccff6c",
+  "caravans_trouser": "#ff6cee"
+ },
  "model": "records/character/rig/caravans.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -100,7 +131,7 @@
   76,
   54,
   155,
-  183
+  184
  ],
  "shadow_files": [
   "records/target/character/rig/caravans/shadow_N.png",
@@ -114,9 +145,13 @@
  ],
  "ground_px": [
   39,
+  112
+ ],
+ "look_px": [
+  39,
   61
  ],
- "colours": 35811,
+ "colours": 31795,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -131,6 +166,124 @@
    "frames": [
     1.5
    ],
+   "motion_px": {
+    "N": [
+     {
+      "caravans_coat": 0.0,
+      "caravans_coat_skirt": 0.0,
+      "caravans_hair": 0.0,
+      "caravans_hand_L": 0.0,
+      "caravans_hand_R": 0.0,
+      "caravans_hat": 0.0,
+      "caravans_mantle": 0.0,
+      "caravans_shoe": 0.0,
+      "caravans_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "caravans_coat": 0.0,
+      "caravans_coat_skirt": 0.0,
+      "caravans_hair": 0.0,
+      "caravans_hand_L": 0.0,
+      "caravans_hand_R": 0.0,
+      "caravans_hat": 0.0,
+      "caravans_mantle": 0.0,
+      "caravans_shoe": 0.0,
+      "caravans_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "E": [
+     {
+      "caravans_coat": 0.0,
+      "caravans_coat_skirt": 0.0,
+      "caravans_hair": 0.0,
+      "caravans_hand_L": 0.0,
+      "caravans_hand_R": 0.0,
+      "caravans_hat": 0.0,
+      "caravans_mantle": 0.0,
+      "caravans_shoe": 0.0,
+      "caravans_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "caravans_coat": 0.0,
+      "caravans_coat_skirt": 0.0,
+      "caravans_hair": 0.0,
+      "caravans_hand_L": 0.0,
+      "caravans_hand_R": 0.0,
+      "caravans_hat": 0.0,
+      "caravans_mantle": 0.0,
+      "caravans_shoe": 0.0,
+      "caravans_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "S": [
+     {
+      "caravans_coat": 0.0,
+      "caravans_coat_skirt": 0.0,
+      "caravans_hair": 0.0,
+      "caravans_hand_L": 0.0,
+      "caravans_hand_R": 0.0,
+      "caravans_hat": 0.0,
+      "caravans_mantle": 0.0,
+      "caravans_shoe": 0.0,
+      "caravans_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "caravans_coat": 0.0,
+      "caravans_coat_skirt": 0.0,
+      "caravans_hair": 0.0,
+      "caravans_hand_L": 0.0,
+      "caravans_hand_R": 0.0,
+      "caravans_hat": 0.0,
+      "caravans_mantle": 0.0,
+      "caravans_shoe": 0.0,
+      "caravans_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "W": [
+     {
+      "caravans_coat": 0.0,
+      "caravans_coat_skirt": 0.0,
+      "caravans_hair": 0.0,
+      "caravans_hand_L": 0.0,
+      "caravans_hand_R": 0.0,
+      "caravans_hat": 0.0,
+      "caravans_mantle": 0.0,
+      "caravans_shoe": 0.0,
+      "caravans_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "caravans_coat": 0.0,
+      "caravans_coat_skirt": 0.0,
+      "caravans_hair": 0.0,
+      "caravans_hand_L": 0.0,
+      "caravans_hand_R": 0.0,
+      "caravans_hat": 0.0,
+      "caravans_mantle": 0.0,
+      "caravans_shoe": 0.0,
+      "caravans_trouser": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/caravans/rig_Stand_N_k00.png",
     "records/target/character/rig/caravans/rig_Stand_NE_k00.png",
@@ -140,7 +293,8 @@
     "records/target/character/rig/caravans/rig_Stand_SW_k00.png",
     "records/target/character/rig/caravans/rig_Stand_W_k00.png",
     "records/target/character/rig/caravans/rig_Stand_NW_k00.png"
-   ]
+   ],
+   "light_files": []
   },
   "Anim_0": {
    "keys": 6,
@@ -157,6 +311,604 @@
     36.0,
     44.0
    ],
+   "motion_px": {
+    "N": [
+     {
+      "caravans_coat": 7.619,
+      "caravans_coat_skirt": 10.488,
+      "caravans_hair": 4.171,
+      "caravans_hand_L": 7.024,
+      "caravans_hand_R": 8.668,
+      "caravans_hat": 4.778,
+      "caravans_mantle": 8.665,
+      "caravans_shoe": 19.032,
+      "caravans_trouser": 12.397,
+      "Cesium_Man": 18.813
+     },
+     {
+      "caravans_coat": 20.463,
+      "caravans_coat_skirt": 19.943,
+      "caravans_hair": 7.396,
+      "caravans_hand_L": 17.299,
+      "caravans_hand_R": 24.892,
+      "caravans_hat": 9.248,
+      "caravans_mantle": 22.129,
+      "caravans_shoe": 16.721,
+      "caravans_trouser": 21.169,
+      "Cesium_Man": 20.457
+     },
+     {
+      "caravans_coat": 10.759,
+      "caravans_coat_skirt": 13.046,
+      "caravans_hair": 2.41,
+      "caravans_hand_L": 15.017,
+      "caravans_hand_R": 7.098,
+      "caravans_hat": 3.189,
+      "caravans_mantle": 13.587,
+      "caravans_shoe": 18.409,
+      "caravans_trouser": 16.485,
+      "Cesium_Man": 16.724
+     },
+     {
+      "caravans_coat": 12.809,
+      "caravans_coat_skirt": 13.568,
+      "caravans_hair": 4.39,
+      "caravans_hand_L": 14.659,
+      "caravans_hand_R": 13.248,
+      "caravans_hat": 5.315,
+      "caravans_mantle": 14.445,
+      "caravans_shoe": 20.912,
+      "caravans_trouser": 12.99,
+      "Cesium_Man": 20.015
+     },
+     {
+      "caravans_coat": 19.915,
+      "caravans_coat_skirt": 22.521,
+      "caravans_hair": 10.333,
+      "caravans_hand_L": 22.994,
+      "caravans_hand_R": 12.625,
+      "caravans_hat": 12.305,
+      "caravans_mantle": 22.511,
+      "caravans_shoe": 24.266,
+      "caravans_trouser": 24.043,
+      "Cesium_Man": 23.147
+     },
+     {
+      "caravans_coat": 9.748,
+      "caravans_coat_skirt": 15.291,
+      "caravans_hair": 4.375,
+      "caravans_hand_L": 5.206,
+      "caravans_hand_R": 14.494,
+      "caravans_hat": 4.538,
+      "caravans_mantle": 12.361,
+      "caravans_shoe": 12.879,
+      "caravans_trouser": 17.869,
+      "Cesium_Man": 17.525
+     }
+    ],
+    "NE": [
+     {
+      "caravans_coat": 9.371,
+      "caravans_coat_skirt": 10.518,
+      "caravans_hair": 6.349,
+      "caravans_hand_L": 7.439,
+      "caravans_hand_R": 10.972,
+      "caravans_hat": 6.924,
+      "caravans_mantle": 10.536,
+      "caravans_shoe": 19.297,
+      "caravans_trouser": 13.777,
+      "Cesium_Man": 19.08
+     },
+     {
+      "caravans_coat": 21.062,
+      "caravans_coat_skirt": 19.077,
+      "caravans_hair": 7.27,
+      "caravans_hand_L": 18.805,
+      "caravans_hand_R": 26.566,
+      "caravans_hat": 8.795,
+      "caravans_mantle": 23.418,
+      "caravans_shoe": 21.837,
+      "caravans_trouser": 21.41,
+      "Cesium_Man": 22.053
+     },
+     {
+      "caravans_coat": 11.339,
+      "caravans_coat_skirt": 12.557,
+      "caravans_hair": 3.714,
+      "caravans_hand_L": 16.085,
+      "caravans_hand_R": 6.86,
+      "caravans_hat": 4.497,
+      "caravans_mantle": 14.355,
+      "caravans_shoe": 20.603,
+      "caravans_trouser": 15.754,
+      "Cesium_Man": 18.872
+     },
+     {
+      "caravans_coat": 12.234,
+      "caravans_coat_skirt": 14.029,
+      "caravans_hair": 4.325,
+      "caravans_hand_L": 13.525,
+      "caravans_hand_R": 13.423,
+      "caravans_hat": 5.303,
+      "caravans_mantle": 14.029,
+      "caravans_shoe": 21.14,
+      "caravans_trouser": 14.527,
+      "Cesium_Man": 20.459
+     },
+     {
+      "caravans_coat": 20.687,
+      "caravans_coat_skirt": 21.914,
+      "caravans_hair": 8.042,
+      "caravans_hand_L": 24.514,
+      "caravans_hand_R": 14.472,
+      "caravans_hat": 9.416,
+      "caravans_mantle": 23.384,
+      "caravans_shoe": 30.167,
+      "caravans_trouser": 24.042,
+      "Cesium_Man": 29.553
+     },
+     {
+      "caravans_coat": 10.884,
+      "caravans_coat_skirt": 15.108,
+      "caravans_hair": 3.21,
+      "caravans_hand_L": 6.675,
+      "caravans_hand_R": 15.55,
+      "caravans_hat": 3.169,
+      "caravans_mantle": 13.058,
+      "caravans_shoe": 15.948,
+      "caravans_trouser": 17.138,
+      "Cesium_Man": 16.832
+     }
+    ],
+    "E": [
+     {
+      "caravans_coat": 9.513,
+      "caravans_coat_skirt": 9.341,
+      "caravans_hair": 7.126,
+      "caravans_hand_L": 7.555,
+      "caravans_hand_R": 11.479,
+      "caravans_hat": 7.928,
+      "caravans_mantle": 10.642,
+      "caravans_shoe": 18.038,
+      "caravans_trouser": 14.776,
+      "Cesium_Man": 17.819
+     },
+     {
+      "caravans_coat": 23.422,
+      "caravans_coat_skirt": 16.588,
+      "caravans_hair": 6.647,
+      "caravans_hand_L": 20.829,
+      "caravans_hand_R": 30.504,
+      "caravans_hat": 8.644,
+      "caravans_mantle": 26.494,
+      "caravans_shoe": 28.13,
+      "caravans_trouser": 22.014,
+      "Cesium_Man": 27.712
+     },
+     {
+      "caravans_coat": 11.985,
+      "caravans_coat_skirt": 11.549,
+      "caravans_hair": 4.559,
+      "caravans_hand_L": 18.409,
+      "caravans_hand_R": 7.532,
+      "caravans_hat": 5.458,
+      "caravans_mantle": 14.962,
+      "caravans_shoe": 26.431,
+      "caravans_trouser": 18.846,
+      "Cesium_Man": 24.885
+     },
+     {
+      "caravans_coat": 14.983,
+      "caravans_coat_skirt": 13.081,
+      "caravans_hair": 3.826,
+      "caravans_hand_L": 17.24,
+      "caravans_hand_R": 12.998,
+      "caravans_hat": 4.957,
+      "caravans_mantle": 16.765,
+      "caravans_shoe": 20.234,
+      "caravans_trouser": 16.1,
+      "Cesium_Man": 19.426
+     },
+     {
+      "caravans_coat": 19.474,
+      "caravans_coat_skirt": 19.531,
+      "caravans_hair": 6.981,
+      "caravans_hand_L": 23.099,
+      "caravans_hand_R": 15.418,
+      "caravans_hat": 9.122,
+      "caravans_mantle": 20.94,
+      "caravans_shoe": 36.55,
+      "caravans_trouser": 24.979,
+      "Cesium_Man": 36.308
+     },
+     {
+      "caravans_coat": 13.659,
+      "caravans_coat_skirt": 14.324,
+      "caravans_hair": 2.75,
+      "caravans_hand_L": 7.742,
+      "caravans_hand_R": 20.452,
+      "caravans_hat": 2.91,
+      "caravans_mantle": 15.881,
+      "caravans_shoe": 23.226,
+      "caravans_trouser": 17.534,
+      "Cesium_Man": 22.744
+     }
+    ],
+    "SE": [
+     {
+      "caravans_coat": 8.433,
+      "caravans_coat_skirt": 9.236,
+      "caravans_hair": 7.211,
+      "caravans_hand_L": 5.685,
+      "caravans_hand_R": 10.453,
+      "caravans_hat": 8.099,
+      "caravans_mantle": 9.978,
+      "caravans_shoe": 15.332,
+      "caravans_trouser": 12.717,
+      "Cesium_Man": 15.104
+     },
+     {
+      "caravans_coat": 20.764,
+      "caravans_coat_skirt": 17.745,
+      "caravans_hair": 6.779,
+      "caravans_hand_L": 18.962,
+      "caravans_hand_R": 27.278,
+      "caravans_hat": 8.756,
+      "caravans_mantle": 23.151,
+      "caravans_shoe": 27.151,
+      "caravans_trouser": 21.181,
+      "Cesium_Man": 26.495
+     },
+     {
+      "caravans_coat": 11.201,
+      "caravans_coat_skirt": 10.521,
+      "caravans_hair": 4.897,
+      "caravans_hand_L": 16.866,
+      "caravans_hand_R": 7.082,
+      "caravans_hat": 5.782,
+      "caravans_mantle": 12.661,
+      "caravans_shoe": 31.466,
+      "caravans_trouser": 22.004,
+      "Cesium_Man": 29.591
+     },
+     {
+      "caravans_coat": 15.758,
+      "caravans_coat_skirt": 11.593,
+      "caravans_hair": 2.652,
+      "caravans_hand_L": 18.916,
+      "caravans_hand_R": 9.49,
+      "caravans_hat": 3.84,
+      "caravans_mantle": 16.802,
+      "caravans_shoe": 18.246,
+      "caravans_trouser": 14.756,
+      "Cesium_Man": 17.545
+     },
+     {
+      "caravans_coat": 13.42,
+      "caravans_coat_skirt": 15.813,
+      "caravans_hair": 7.939,
+      "caravans_hand_L": 16.536,
+      "caravans_hand_R": 12.655,
+      "caravans_hat": 9.627,
+      "caravans_mantle": 15.251,
+      "caravans_shoe": 33.817,
+      "caravans_trouser": 21.146,
+      "Cesium_Man": 33.463
+     },
+     {
+      "caravans_coat": 14.55,
+      "caravans_coat_skirt": 13.284,
+      "caravans_hair": 3.991,
+      "caravans_hand_L": 7.359,
+      "caravans_hand_R": 21.931,
+      "caravans_hat": 4.277,
+      "caravans_mantle": 16.922,
+      "caravans_shoe": 27.552,
+      "caravans_trouser": 20.315,
+      "Cesium_Man": 26.982
+     }
+    ],
+    "S": [
+     {
+      "caravans_coat": 8.521,
+      "caravans_coat_skirt": 9.427,
+      "caravans_hair": 7.018,
+      "caravans_hand_L": 3.376,
+      "caravans_hand_R": 10.5,
+      "caravans_hat": 7.771,
+      "caravans_mantle": 10.052,
+      "caravans_shoe": 13.128,
+      "caravans_trouser": 11.017,
+      "Cesium_Man": 12.83
+     },
+     {
+      "caravans_coat": 15.94,
+      "caravans_coat_skirt": 16.976,
+      "caravans_hair": 7.347,
+      "caravans_hand_L": 14.326,
+      "caravans_hand_R": 20.891,
+      "caravans_hat": 8.615,
+      "caravans_mantle": 18.756,
+      "caravans_shoe": 26.151,
+      "caravans_trouser": 20.719,
+      "Cesium_Man": 25.818
+     },
+     {
+      "caravans_coat": 9.589,
+      "caravans_coat_skirt": 10.237,
+      "caravans_hair": 4.908,
+      "caravans_hand_L": 14.702,
+      "caravans_hand_R": 5.362,
+      "caravans_hat": 5.784,
+      "caravans_mantle": 12.144,
+      "caravans_shoe": 32.763,
+      "caravans_trouser": 22.975,
+      "Cesium_Man": 30.823
+     },
+     {
+      "caravans_coat": 13.347,
+      "caravans_coat_skirt": 11.629,
+      "caravans_hair": 2.832,
+      "caravans_hand_L": 16.767,
+      "caravans_hand_R": 3.608,
+      "caravans_hat": 3.855,
+      "caravans_mantle": 14.571,
+      "caravans_shoe": 15.359,
+      "caravans_trouser": 12.594,
+      "Cesium_Man": 14.733
+     },
+     {
+      "caravans_coat": 9.735,
+      "caravans_coat_skirt": 14.007,
+      "caravans_hair": 9.688,
+      "caravans_hand_L": 11.356,
+      "caravans_hand_R": 10.782,
+      "caravans_hat": 10.832,
+      "caravans_mantle": 11.309,
+      "caravans_shoe": 29.431,
+      "caravans_trouser": 16.827,
+      "Cesium_Man": 28.975
+     },
+     {
+      "caravans_coat": 13.919,
+      "caravans_coat_skirt": 12.637,
+      "caravans_hair": 5.021,
+      "caravans_hand_L": 7.116,
+      "caravans_hand_R": 20.736,
+      "caravans_hat": 5.385,
+      "caravans_mantle": 16.846,
+      "caravans_shoe": 28.674,
+      "caravans_trouser": 21.176,
+      "Cesium_Man": 28.052
+     }
+    ],
+    "SW": [
+     {
+      "caravans_coat": 9.564,
+      "caravans_coat_skirt": 9.002,
+      "caravans_hair": 5.886,
+      "caravans_hand_L": 5.347,
+      "caravans_hand_R": 11.498,
+      "caravans_hat": 6.431,
+      "caravans_mantle": 10.721,
+      "caravans_shoe": 16.14,
+      "caravans_trouser": 13.47,
+      "Cesium_Man": 15.945
+     },
+     {
+      "caravans_coat": 18.688,
+      "caravans_coat_skirt": 17.618,
+      "caravans_hair": 7.522,
+      "caravans_hand_L": 16.025,
+      "caravans_hand_R": 24.21,
+      "caravans_hat": 8.888,
+      "caravans_mantle": 21.648,
+      "caravans_shoe": 26.641,
+      "caravans_trouser": 21.181,
+      "Cesium_Man": 26.292
+     },
+     {
+      "caravans_coat": 10.17,
+      "caravans_coat_skirt": 10.953,
+      "caravans_hair": 4.552,
+      "caravans_hand_L": 15.699,
+      "caravans_hand_R": 5.281,
+      "caravans_hat": 5.363,
+      "caravans_mantle": 12.332,
+      "caravans_shoe": 31.727,
+      "caravans_trouser": 22.094,
+      "Cesium_Man": 29.813
+     },
+     {
+      "caravans_coat": 12.269,
+      "caravans_coat_skirt": 10.784,
+      "caravans_hair": 3.886,
+      "caravans_hand_L": 15.443,
+      "caravans_hand_R": 7.279,
+      "caravans_hat": 4.792,
+      "caravans_mantle": 13.533,
+      "caravans_shoe": 17.91,
+      "caravans_trouser": 14.545,
+      "Cesium_Man": 17.237
+     },
+     {
+      "caravans_coat": 15.198,
+      "caravans_coat_skirt": 14.793,
+      "caravans_hair": 10.449,
+      "caravans_hand_L": 18.127,
+      "caravans_hand_R": 13.664,
+      "caravans_hat": 12.472,
+      "caravans_mantle": 16.765,
+      "caravans_shoe": 33.597,
+      "caravans_trouser": 20.477,
+      "Cesium_Man": 33.227
+     },
+     {
+      "caravans_coat": 14.277,
+      "caravans_coat_skirt": 12.898,
+      "caravans_hair": 5.502,
+      "caravans_hand_L": 7.708,
+      "caravans_hand_R": 21.391,
+      "caravans_hat": 5.907,
+      "caravans_mantle": 16.984,
+      "caravans_shoe": 27.703,
+      "caravans_trouser": 20.339,
+      "Cesium_Man": 27.125
+     }
+    ],
+    "W": [
+     {
+      "caravans_coat": 9.323,
+      "caravans_coat_skirt": 9.658,
+      "caravans_hair": 3.331,
+      "caravans_hand_L": 7.402,
+      "caravans_hand_R": 10.896,
+      "caravans_hat": 4.004,
+      "caravans_mantle": 10.435,
+      "caravans_shoe": 18.091,
+      "caravans_trouser": 14.702,
+      "Cesium_Man": 17.885
+     },
+     {
+      "caravans_coat": 23.089,
+      "caravans_coat_skirt": 17.097,
+      "caravans_hair": 7.154,
+      "caravans_hand_L": 20.471,
+      "caravans_hand_R": 30.042,
+      "caravans_hat": 9.253,
+      "caravans_mantle": 25.539,
+      "caravans_shoe": 28.431,
+      "caravans_trouser": 22.034,
+      "Cesium_Man": 27.995
+     },
+     {
+      "caravans_coat": 12.022,
+      "caravans_coat_skirt": 12.06,
+      "caravans_hair": 3.636,
+      "caravans_hand_L": 18.166,
+      "caravans_hand_R": 6.977,
+      "caravans_hat": 4.139,
+      "caravans_mantle": 14.477,
+      "caravans_shoe": 27.158,
+      "caravans_trouser": 19.046,
+      "Cesium_Man": 25.49
+     },
+     {
+      "caravans_coat": 14.944,
+      "caravans_coat_skirt": 13.26,
+      "caravans_hair": 4.276,
+      "caravans_hand_L": 17.978,
+      "caravans_hand_R": 11.822,
+      "caravans_hat": 5.085,
+      "caravans_mantle": 16.027,
+      "caravans_shoe": 20.259,
+      "caravans_trouser": 16.124,
+      "Cesium_Man": 19.421
+     },
+     {
+      "caravans_coat": 20.324,
+      "caravans_coat_skirt": 18.524,
+      "caravans_hair": 10.384,
+      "caravans_hand_L": 24.189,
+      "caravans_hand_R": 15.549,
+      "caravans_hat": 12.665,
+      "caravans_mantle": 22.737,
+      "caravans_shoe": 36.619,
+      "caravans_trouser": 24.901,
+      "Cesium_Man": 36.374
+     },
+     {
+      "caravans_coat": 14.442,
+      "caravans_coat_skirt": 13.848,
+      "caravans_hair": 5.526,
+      "caravans_hand_L": 7.187,
+      "caravans_hand_R": 21.72,
+      "caravans_hat": 5.956,
+      "caravans_mantle": 16.211,
+      "caravans_shoe": 23.634,
+      "caravans_trouser": 17.586,
+      "Cesium_Man": 23.143
+     }
+    ],
+    "NW": [
+     {
+      "caravans_coat": 7.555,
+      "caravans_coat_skirt": 10.534,
+      "caravans_hair": 2.133,
+      "caravans_hand_L": 7.554,
+      "caravans_hand_R": 8.571,
+      "caravans_hat": 3.177,
+      "caravans_mantle": 8.666,
+      "caravans_shoe": 19.298,
+      "caravans_trouser": 13.405,
+      "Cesium_Man": 19.08
+     },
+     {
+      "caravans_coat": 22.89,
+      "caravans_coat_skirt": 19.225,
+      "caravans_hair": 7.017,
+      "caravans_hand_L": 19.81,
+      "caravans_hand_R": 29.402,
+      "caravans_hat": 9.161,
+      "caravans_mantle": 25.761,
+      "caravans_shoe": 23.007,
+      "caravans_trouser": 21.427,
+      "Cesium_Man": 24.283
+     },
+     {
+      "caravans_coat": 11.774,
+      "caravans_coat_skirt": 12.864,
+      "caravans_hair": 2.343,
+      "caravans_hand_L": 17.219,
+      "caravans_hand_R": 7.596,
+      "caravans_hat": 2.537,
+      "caravans_mantle": 14.781,
+      "caravans_shoe": 20.119,
+      "caravans_trouser": 15.886,
+      "Cesium_Man": 18.442
+     },
+     {
+      "caravans_coat": 15.693,
+      "caravans_coat_skirt": 14.001,
+      "caravans_hair": 4.358,
+      "caravans_hand_L": 18.542,
+      "caravans_hand_R": 13.473,
+      "caravans_hat": 5.226,
+      "caravans_mantle": 17.24,
+      "caravans_shoe": 21.153,
+      "caravans_trouser": 14.473,
+      "Cesium_Man": 20.436
+     },
+     {
+      "caravans_coat": 20.406,
+      "caravans_coat_skirt": 21.404,
+      "caravans_hair": 10.384,
+      "caravans_hand_L": 24.013,
+      "caravans_hand_R": 14.094,
+      "caravans_hat": 12.672,
+      "caravans_mantle": 23.06,
+      "caravans_shoe": 30.588,
+      "caravans_trouser": 24.03,
+      "Cesium_Man": 29.959
+     },
+     {
+      "caravans_coat": 12.728,
+      "caravans_coat_skirt": 14.812,
+      "caravans_hair": 5.136,
+      "caravans_hand_L": 5.458,
+      "caravans_hand_R": 17.647,
+      "caravans_hat": 5.552,
+      "caravans_mantle": 15.022,
+      "caravans_shoe": 16.194,
+      "caravans_trouser": 17.16,
+      "Cesium_Man": 16.853
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/caravans/rig_Anim_0_N_k00.png",
     "records/target/character/rig/caravans/rig_Anim_0_N_k01.png",
@@ -206,27 +958,28 @@
     "records/target/character/rig/caravans/rig_Anim_0_NW_k03.png",
     "records/target/character/rig/caravans/rig_Anim_0_NW_k04.png",
     "records/target/character/rig/caravans/rig_Anim_0_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   }
  },
  "card": {
   "family": "prop",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 129",
-   "OUT  colours >= 2330: 2265",
+   "OK   long side >= floor 96: 130",
+   "OUT  colours >= 2330: 2251",
    "OK   top 8 carry <= 11%: 1.7",
-   "OUT  value span >= 118: 109",
-   "OK   saturation <= 0.81: 0.24",
-   "OK   light: top minus bottom >= -2.5: 19.1",
-   "OK   edge between -35 and +7: -16.4",
-   "OK   grain <= 2.22 px a run: 1.97"
+   "OUT  value span >= 118: 108",
+   "OK   saturation <= 0.81: 0.22",
+   "OK   light: top minus bottom >= -2.5: 15.8",
+   "OK   edge between -35 and +7: -17.2",
+   "OK   grain <= 2.22 px a run: 1.94"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 3.2%",
+   "OK   stray pixels at 8 steps <= 14%: 2.0%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 260.5"
+   "OK   light from above (180 to 360 degrees, or flat): 258.9"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/caravans/rig_S.png"
@@ -236,14 +989,14 @@
   "cls": "person",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 129",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2738 px): 2265",
+   "OK   long side >= floor 96: 130",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2752 px): 2251",
    "OK   top 8 carry <= 11%: 1.7",
-   "OUT  value span >= 118: 109",
-   "OK   saturation <= 0.81: 0.24",
-   "OK   light: top minus bottom >= -2.5: 19.1",
-   "OK   edge between -35 and +7: -16.4",
-   "OK   grain <= 2.22 px a run: 1.97"
+   "OUT  value span >= 118: 108",
+   "OK   saturation <= 0.81: 0.22",
+   "OK   light: top minus bottom >= -2.5: 15.8",
+   "OK   edge between -35 and +7: -17.2",
+   "OK   grain <= 2.22 px a run: 1.94"
   ],
   "reread": [
    "colours by field 5"
@@ -253,8 +1006,8 @@
    38,
    113
   ],
-  "opaque_px": 2738,
-  "colours": 2265
+  "opaque_px": 2752,
+  "colours": 2251
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -303,7 +1056,32 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "breaks": [],
  "guide": {
@@ -319,5 +1097,71 @@
   "records/target/character/rig/caravans/rigid_SW.png",
   "records/target/character/rig/caravans/rigid_W.png",
   "records/target/character/rig/caravans/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/character/rig/caravans/rigobj_N.png",
+  "records/target/character/rig/caravans/rigobj_NE.png",
+  "records/target/character/rig/caravans/rigobj_E.png",
+  "records/target/character/rig/caravans/rigobj_SE.png",
+  "records/target/character/rig/caravans/rigobj_S.png",
+  "records/target/character/rig/caravans/rigobj_SW.png",
+  "records/target/character/rig/caravans/rigobj_W.png",
+  "records/target/character/rig/caravans/rigobj_NW.png",
+  "records/target/character/rig/caravans/rigobj_Stand_N_k00.png",
+  "records/target/character/rig/caravans/rigobj_Stand_NE_k00.png",
+  "records/target/character/rig/caravans/rigobj_Stand_E_k00.png",
+  "records/target/character/rig/caravans/rigobj_Stand_SE_k00.png",
+  "records/target/character/rig/caravans/rigobj_Stand_S_k00.png",
+  "records/target/character/rig/caravans/rigobj_Stand_SW_k00.png",
+  "records/target/character/rig/caravans/rigobj_Stand_W_k00.png",
+  "records/target/character/rig/caravans/rigobj_Stand_NW_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_N_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_N_k01.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_N_k02.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_N_k03.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_N_k04.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_N_k05.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NE_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NE_k01.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NE_k02.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NE_k03.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NE_k04.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NE_k05.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_E_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_E_k01.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_E_k02.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_E_k03.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_E_k04.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_E_k05.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SE_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SE_k01.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SE_k02.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SE_k03.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SE_k04.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SE_k05.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_S_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_S_k01.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_S_k02.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_S_k03.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_S_k04.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_S_k05.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SW_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SW_k01.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SW_k02.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SW_k03.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SW_k04.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_SW_k05.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_W_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_W_k01.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_W_k02.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_W_k03.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_W_k04.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_W_k05.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NW_k00.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NW_k01.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NW_k02.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NW_k03.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NW_k04.png",
+  "records/target/character/rig/caravans/rigobj_Anim_0_NW_k05.png"
  ]
 }
