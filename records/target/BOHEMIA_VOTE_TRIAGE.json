@@ -1063,8 +1063,8 @@
    "why": "sweep AW 10/18: new and real, his to see first (he said the tab showed nothing new: every card since sweep AP had been left untagged behind the fold)"
   },
   "run2-the-neighbour-takes-the-refugees-10-18": {
-   "tag": "red",
-   "why": "new 10/18, a whole system he can see on the map (raids push refugees to the next town); sweep AX"
+   "tag": "yellow",
+   "why": "unvoted since 10/18; behind his combat asks for the twelve; sweep BB"
   },
   "combat2-a-board-from-every-district-10-18": {
    "tag": "red",
@@ -1099,12 +1099,36 @@
    "why": "his ask (rule 117(e)): a dire wolf pack, and 14 against 40; sweep AZ"
   },
   "cook-the-empty-terrains-cover-10-18": {
-   "tag": "red",
-   "why": "rig-look props he can judge at a glance (the car on its roof, the pier, the drums, the sign); sweep AZ"
+   "tag": "yellow",
+   "why": "props; behind his combat asks (rule 120) for the twelve on his first screen; sweep BB"
   },
   "people-the-names-wired-in-10-18": {
    "tag": "yellow",
    "why": "names at the posts, mostly words (TEXT ITEMS ARE BORING); reaches him through RUN TWO's screens; sweep AZ"
+  },
+  "ui-the-hit-chance-look-10-19": {
+   "tag": "red",
+   "why": "his ask: 'the game doesn't explain that your weapon sucks' (rule 120(b)); sweep BB"
+  },
+  "cook-the-first-guns-off-the-rig-10-19": {
+   "tag": "red",
+   "why": "his ask: guns first (rule 120(a)); sweep BB"
+  },
+  "eyes-every-face-beside-its-body-10-19": {
+   "tag": "red",
+   "why": "his ask: 'Black people looking like white people' (rule 120(d)); 115 of 118 faces BACK; sweep BB"
+  },
+  "direction-fight-verdict-24-the-floor-bar-10-19": {
+   "tag": "red",
+   "why": "the floor he hates beside the street he liked; sweep BB"
+  },
+  "run2-a-cards-picture-full-size-10-19": {
+   "tag": "yellow",
+   "why": "a tab feature he meets on every card anyway; sweep BB"
+  },
+  "run2-his-yeses-in-the-demo-10-19": {
+   "tag": "yellow",
+   "why": "the list is at the foot of the tab itself; sweep BB"
   }
  }
 }
