@@ -54,6 +54,11 @@ const outDir = () => OUT_DIR_ || (OUT_DIR_ = (() => { const i = args.indexOf('--
 /* ---------------------------------------------------------------- the hook, armed in every frame */
 const ARM = `(function(){
   if (window.__SW) return;
+  /* THE DICE ARE SEEDED (10/19): the fight's enemies and their weapons are rolled with Math.random, so a second walk met
+     other men (measured: pass A lost DAGGER, FLAIL and the rest of walk one's enemies). One fixed stream per page, so every
+     walk meets the same people and a missing tag means the line did not set the word, not that the word was not there. */
+  (function(){ var h = 2166136261, p = String(location.pathname); for (var i = 0; i < p.length; i++) { h ^= p.charCodeAt(i); h = Math.imul(h, 16777619); }
+    var st = h >>> 0; Math.random = function(){ st = (st + 0x6D2B79F5) | 0; var t = Math.imul(st ^ (st >>> 15), 1 | st); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; })();
   var seen = {}; window.__SW = { canvas: [], dom: [] };
   var where = function(){ try { return location.pathname.split('/').pop() || '?'; } catch(e){ return '?'; } };
   ['fillText','strokeText'].forEach(function(m){
@@ -510,9 +515,38 @@ function planTags(rows, loaded, pass) {
   }
   return Array.from(spots.values());
 }
+/* PASS C, THE TABLES TRACED BY HAND: the weapon and armour words did not prove in A (too many lines to tag them all) and
+   B broke the screens it meant to measure, so C tags only the places the hand trace named, every display value in them:
+   the fight's weapon names (weapon_lines.json "name"), the three class-to-word tables (the crew screen's engine file, the
+   settlement screen, the item icons), and the armour words, which are written per durability band in three functions. */
+const HYP = [
+  { file: 'records/target/bb/weapon_lines.json', lines: /^\s*"name": "/, value: /"name": "([^"]+)"/g },
+  { file: 'engine/bohemia_roster.js', block: /var CLASSNAME = \{/, lines: /dur < 40 \?/, value: /'([a-z][a-z ]*)'/g },
+  { file: 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', block: /var CLASSNAME = \{/, lines: /dur < 40 \?/, value: /'([a-z][a-z ]*)'/g },
+  { file: 'slices/bohemia_ui_materials.js', block: /var OBJ_CLASS = \{/, lines: /dur < 40 \?/, value: /'([a-z][a-z ]*)'/g },
+];
+function planTablesC() {
+  const spots = []; let n = 1000;
+  for (const H of HYP) {
+    const all = fs.readFileSync(path.join(ROOT, H.file), 'utf8').split('\n');
+    const pick = new Set();
+    all.forEach((l, i) => { if (H.lines.test(l)) pick.add(i); });
+    if (H.block) { const b = all.findIndex(l => H.block.test(l)); if (b >= 0) for (let i = b; i < all.length; i++) { pick.add(i); if (/\};\s*$/.test(all[i])) break; } }
+    for (const i of Array.from(pick).sort((a, b) => a - b)) {
+      const l = all[i]; let m; H.value.lastIndex = 0;
+      while ((m = H.value.exec(l))) {
+        const at = m.index + m[0].indexOf(m[1]);
+        /* a class key on the left of a colon is the code's word, not the screen's: only the value is tagged */
+        if (/\.json$/.test(H.file) || /:\s*'$/.test(l.slice(0, at)) || /[?:]\s*'$/.test(l.slice(0, at)))
+          spots.push({ file: H.file, line: i + 1, at, len: m[1].length, how: 'a table value', tag: '~Q' + (++n), names: [m[1]] });
+      }
+    }
+  }
+  return spots;
+}
 const strip = t => String(t).replace(/~Q[0-9]+/gi, '');
 async function provePass(R, pass) {
-  const spots = planTags(R.rows, R.walk.loaded, pass);
+  const spots = pass === 'C' ? planTablesC() : planTags(R.rows, R.walk.loaded, pass);
   const dir = path.join(outDir(), 'prove-' + pass); const serve = {}; const byFile = new Map();
   spots.forEach(s => { if (!byFile.has(s.file)) byFile.set(s.file, []); byFile.get(s.file).push(s); });
   for (const [file, edits] of byFile) {
@@ -524,25 +558,34 @@ async function provePass(R, pass) {
   }
   console.error('  [prove ' + pass + '] ' + spots.length + ' tags in ' + byFile.size + ' files; walking again');
   const W2 = await walk(serve);
-  const glass = W2.items.filter(it => it.via !== 'canvas' || it.on).map(it => String(it.t).toUpperCase());
-  /* ~Q1 must not be read off ~Q12: the tag ends where the digits end */
-  spots.forEach(s => { const re = new RegExp(esc(s.tag.toUpperCase()) + '(?![0-9])'); s.shown = glass.some(t => re.test(t)); });
+  /* A TAG PROVES A LINE ON THE SCREEN IT SHOWS ON: each tag is read per frame, and a name counts it only when the tag shows
+     in the frame the name was read in (a tag read on the settlement screen proves nothing about the fight's word) */
+  const glass = W2.items.filter(it => it.via !== 'canvas' || it.on).map(it => ({ f: it.f, t: String(it.t).toUpperCase(), raw: String(it.t) }));
+  spots.forEach(s => { const re = new RegExp(esc(s.tag.toUpperCase()) + '(?![0-9])');
+    const hit = glass.filter(g => re.test(g.t)); s.frames = Array.from(new Set(hit.map(g => g.f))); s.shown = hit.length > 0; s.seenAs = hit.slice(0, 3).map(g => g.raw.slice(0, 80)); });
   /* what the pass broke: names walk one read that this walk does not, the tags taken off */
   const seen2 = new Set(); W2.items.forEach(it => cut(strip(it.t)).forEach(p => seen2.add(p.replace(/^[\s"'“(\[]+|[\s"'”)\],:;]+$/g, ''))));
   const lost = R.rows.filter(r => !seen2.has(r.name)).map(r => r.name);
   console.error('  [prove ' + pass + '] ' + spots.filter(s => s.shown).length + ' of ' + spots.length + ' tags read back off the glass; ' + lost.length + ' names walk one saw are gone');
   return { pass, tags: spots.length, files: byFile.size, spots, lost, walk: { ms: W2.ms, notes: W2.notes, errs: W2.errs, items: W2.items.length } };
 }
+/* --passes A,C (the default); B is kept for the record: measured 10/19, it renamed the town (Church~Q17 is no faction, so
+   mapTierOf fell back to camp), the buildings changed and the fight never came up, so its misses measure the breakage */
+const PASSES = (() => { const i = args.indexOf('--passes'); return (i >= 0 ? args[i + 1] : 'A,C').split(',').map(x => x.trim().toUpperCase()).filter(Boolean); })();
 async function prove(R) {
   const out = [];
-  for (const pass of ['A', 'B']) out.push(await provePass(R, pass));
-  /* per name: the occurrences proved to set it */
+  for (const pass of PASSES) out.push(await provePass(R, pass));
+  /* per name: the occurrences proved to set it, on the screen that showed it */
   R.rows.forEach(r => { r.proved = []; r.tagged = 0;
-    out.forEach(P => P.spots.forEach(s => { if (s.names.indexOf(r.name) < 0) return; r.tagged++; if (s.shown) r.proved.push({ file: s.file, line: s.line, pass: P.pass, how: s.how }); })); });
-  return out.map(P => ({ pass: P.pass, tags: P.tags, files: P.files, shown: P.spots.filter(s => s.shown).length, lost: P.lost, walk: P.walk }));
+    out.forEach(P => P.spots.forEach(s => {
+      const mine = s.names.indexOf(r.name) >= 0 || (P.pass === 'C' && s.names.some(n => n.toLowerCase() === r.name.toLowerCase() || n.toLowerCase().split(' ').slice(-1)[0] === r.name.toLowerCase()));
+      if (!mine) return; r.tagged++;
+      if (s.shown && s.frames.indexOf(r.frame) >= 0) r.proved.push({ file: s.file, line: s.line, pass: P.pass, how: s.how, as: s.names[0] }); })); });
+  return out.map(P => ({ pass: P.pass, tags: P.tags, files: P.files, shown: P.spots.filter(s => s.shown).length, lost: P.lost, walk: P.walk,
+    spots: P.pass === 'C' ? P.spots.map(s => ({ file: s.file, line: s.line, word: s.names[0], shown: s.shown, frames: s.frames, seenAs: s.seenAs })) : undefined }));
 }
 
-module.exports = { ARM, walk, cut, looksLikeName, grep, grepAll, where, judge, analyse, taggable, planTags, prove };
+module.exports = { ARM, walk, cut, looksLikeName, grep, grepAll, where, judge, analyse, taggable, planTags, planTablesC, prove };
 
 if (require.main === module) {
   (async function main() {
