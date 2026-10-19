@@ -31,7 +31,7 @@
  "rig_table": {
   "chalk": [
    "skin_light",
-   4
+   3
   ],
   "porcelain": [
    "skin_light",
@@ -497,12 +497,12 @@
    ],
    "rig": [
     "skin_light",
-    4
+    3
    ],
    "rig_rgb": [
-    243,
-    221,
-    189
+    224,
+    189,
+    155
    ]
   },
   "faction_caravans": {
@@ -593,12 +593,12 @@
    ],
    "rig": [
     "skin_light",
-    4
+    3
    ],
    "rig_rgb": [
-    243,
-    221,
-    189
+    224,
+    189,
+    155
    ]
   },
   "faction_blues": {

@@ -35,9 +35,10 @@ PALETTE = os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_PALETTE.json')
 # ladder's absolute values at the light end. What it can keep is the ORDER: the eleven tones go onto the fifteen steps
 # lightest to darkest, hue nearest within a rank (light tones on skin_light's pink, olive and tan on the warmer mid and
 # deep steps). PORTRAIT's own picks land where they already were: its skin_light 3 is porcelain (YOU), skin_mid 2 is
-# bronze, skin_deep 2 is deep, skin_deep 3 is tan.
+# bronze, skin_deep 2 is deep, skin_deep 3 is tan. The light end stops at skin_light 3: the rig's source pass lifts a
+# bright base (wear on a base over 0.55 is not darkened), so skin_light 4 on a body read as a white mask, not a pale man.
 RIG = {
-    'chalk':     ('skin_light', 4),
+    'chalk':     ('skin_light', 3),   # was skin_light 4: on the Anarchists' rig body it rendered a white mask (10/19, measured by eye on rig_S); nothing glows
     'porcelain': ('skin_light', 3),
     'fair':      ('skin_deep', 4),
     'olive':     ('skin_mid', 3),
