@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3998,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.400 m",
- "ppm": 320.194,
+ "head_m": 0.3924,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.392 m",
+ "ppm": 326.235,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -38,12 +38,12 @@
   "Surprised": "records/target/portrait/rig/crew/you/rig_portrait_S_Surprised.png"
  },
  "crop_box_px": [
-  24,
-  46,
+  21,
+  45,
   196,
   218
  ],
  "model": "records/portrait/rig/crew/you_head.glb",
  "body_rig": "rig.json",
- "colours": 24833
+ "colours": 29859
 }

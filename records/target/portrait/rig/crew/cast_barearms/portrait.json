@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3965,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.396 m",
- "ppm": 322.826,
+ "head_m": 0.3896,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.390 m",
+ "ppm": 328.548,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -38,12 +38,12 @@
   "Surprised": "records/target/portrait/rig/crew/cast_barearms/rig_portrait_S_Surprised.png"
  },
  "crop_box_px": [
-  21,
+  20,
   42,
-  194,
+  197,
   218
  ],
  "model": "records/portrait/rig/crew/cast_barearms_head.glb",
  "body_rig": "rig.json",
- "colours": 11093
+ "colours": 19287
 }
