@@ -53,6 +53,28 @@
  "hair": "taper",
  "stubble": false,
  "look": "cast_pack",
+ "beard": null,
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 33,
+   "face.craniumH": 10,
+   "face.foreheadW": 24,
+   "face.cheekW": 30,
+   "face.jawW": 26,
+   "face.chinW": 12,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 7,
+   "mouth.w": 9,
+   "nose.w": 3
+  },
+  "identity": true,
+  "mouth_half": 0.033
+ },
  "meshes": {
   "Cesium_Man": 1232,
   "crew_cast_pack_hand_L": 392,
@@ -65,7 +87,7 @@
   "portrait_head_lids": 1296,
   "portrait_neck": 48,
   "portrait_cap": 11226,
-  "portrait_hair": 2518
+  "portrait_hair": 8358
  },
  "materials": {
   "crew_cast_pack_eyes": [
@@ -99,9 +121,9 @@
    0.016
   ],
   "crew_cast_pack_skin": [
-   0.305,
-   0.162,
-   0.0976
+   0.7454,
+   0.5089,
+   0.3278
   ],
   "crew_cast_pack_trouser": [
    0.0212,
@@ -114,9 +136,9 @@
    0.0194
   ],
   "portrait_cast_pack_buzz": [
-   0.0685,
-   0.0409,
-   0.0232
+   0.1746,
+   0.0931,
+   0.0423
   ],
   "portrait_cast_pack_cap": [
    0.1329,
@@ -129,9 +151,9 @@
    0.0116
   ],
   "portrait_cast_pack_lips": [
-   0.0545,
-   0.0168,
-   0.0116
+   0.5841,
+   0.3231,
+   0.2016
   ],
   "portrait_cast_pack_mouth": [
    0.0252,
@@ -149,14 +171,14 @@
    0.314
   ],
   "portrait_cast_pack_skin": [
-   0.1441,
-   0.0545,
-   0.0296
+   0.7454,
+   0.5089,
+   0.3278
   ],
   "portrait_cast_pack_stubble": [
-   0.0545,
-   0.0168,
-   0.0116
+   0.5841,
+   0.3231,
+   0.2016
   ]
  }
 }

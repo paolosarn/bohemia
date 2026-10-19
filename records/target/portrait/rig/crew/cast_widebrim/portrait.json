@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3802,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.380 m",
- "ppm": 336.709,
+ "head_m": 0.374,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.374 m",
+ "ppm": 342.257,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -39,11 +39,11 @@
  },
  "crop_box_px": [
   0,
-  18,
-  213,
+  16,
+  214,
   218
  ],
  "model": "records/portrait/rig/crew/cast_widebrim_head.glb",
  "body_rig": "rig.json",
- "colours": 18316
+ "colours": 25282
 }
