@@ -152,8 +152,8 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-vamily-guns): 10/19 (f) LATEST -- [the first kit is guns] SHIPPED fd2e0f93 and [the first hour's numbers] SHIPPED 5ff7e86d;
-[the whole grid] RUNNING (research only, rule 38g; no game code touched; opened by the coordinator, no check-in, this block is the report).
+TUNING (tuning-vamily-guns): 10/19 (g) LATEST -- [the first kit is guns] SHIPPED fd2e0f93, [the first hour's numbers] SHIPPED 5ff7e86d,
+[origin food and goods] SHIPPED 7ab098f0; [the whole grid] part two 96a09013 (the people half), RUNNING (research only, rule 38g; no game code touched; opened by the coordinator, no check-in, this block is the report).
 *** THE ROOT OF 'SO FUCKING HARD' (found this round, for RUN + COMBAT FIRST): four of the city's eight hand-overs into a fight (the man who
 jumps him, the crew on the block, the crew he taps, the door) carry the city's own count (2 to 4) as a ROSTER and no party; the demo's
 nfOpts() reads only d.party, so the fight's bandOf() falls back to ours.first_band, NINE brigands. A NEW CREW (the door's default, 3 men)
@@ -174,7 +174,11 @@ beside Battle Brothers' first hour, 4 harder with no word: the street's nine, no
 FOR COMBAT: the draft rows (read per_tile/base_bonus off the row), the butt, the kit by the man; standoffs that NEVER END (6 pipes v 2 dire
 wolves seed 9168; 1 in 100 of several small first fights): both sides hold, nobody steps in. FOR RUN: the nfOpts() line. FOR RUN TWO + ECONOMY:
 the hire price (engine/bohemia_pricetable.js, loaded by no screen). FOR ECONOMY [the first bullets]: 12 a man a fight, refilled from one stock.
-[the whole grid] IN FLIGHT: the bench (tools/bohemia_tuning_the_whole_grid.js --n 100 --write) now saves every finished cell to
+[origin food and goods]: every Battle Brothers start carries 3 to 19 days of food; every start of ours none, and nobody eats (the
+stash engine is loaded only by the stash screen). VOTE: WHAT IS IN THE WAGON.
+[the whole grid] IN FLIGHT: all 270 people squares played and on the page (VOTE THE WHOLE GRID); the dire wolves, the side test and the
+beast roster running. A STANDOFF (20 idle rounds) is now stopped and counted, not run to 400,000 steps (one 1-v-1 cell took six
+minutes). The bench (tools/bohemia_tuning_the_whole_grid.js --n 100 --write) saves every finished cell to
 banks/BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.cells.ndjson, stamped with the fight's fingerprint; a container restart killed the first run at
 cell 200, so nothing is held in memory any more. A cell of 30+ men plays 50 fights, the beast roster 40. --from-cache writes the bank from
 what is played; the page marks the rest NOT PLAYED YET. NEXT SESSION: run the same command; it resumes. Then the page tool, then
