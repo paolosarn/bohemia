@@ -534,16 +534,22 @@ def head(cut, Lb):
                     lambda a, z: 0.011 - rib(a) + 0.009 * sstep(-0.172, -0.158, z) * (1 - sstep(-0.152, -0.146, z)))
         made.append(('weighted', o, neck_w))
     if G['hood_up']:   # the hood over the head, the face open in it, its lip, falling at the nape onto the shoulders
+        # cycle 2 (looking, HOOD-UP ASH HOODIE): a smooth ball with a square face hole read as a diving helmet; the opening
+        # is an oval now, the crown slimmer with the slight point a hood has at the back, a seam down the middle, soft folds
+        def opening(q):   # under 1 inside the face's oval
+            return (abs(az_of(q)) / 1.0) ** 2 + ((q.z + 0.025) / 0.132) ** 2
         def keep(q):
-            ab = abs(az_of(q)); return q.z > -0.15 and not (ab < 0.95 and q.z < 0.104)
+            return q.z > -0.15 and opening(q) > 1.0
         def thick(pos, nor):
             out = []
             for p, n in zip(pos, nor):
-                q = p - C; ab = abs(az_of(q))
-                t = 0.018 + 0.010 * sstep(0.05, 0.17, q.z) + 0.018 * sstep(1.9, 3.0, ab) * sstep(0.12, -0.06, q.z)
-                e = min(abs(q.z - 0.104) if ab < 0.95 else 1.0, abs(ab - 0.95) * 0.15 if q.z < 0.104 else 1.0)
-                t += 0.006 * math.exp(-(e / 0.010) ** 2)
-                out.append(t)
+                q = p - C; az = az_of(q); ab = abs(az)
+                t = 0.015 + 0.006 * sstep(0.05, 0.17, q.z) + 0.016 * sstep(1.9, 3.0, ab) * sstep(0.12, -0.06, q.z)
+                t += 0.010 * sstep(2.3, 3.0, ab) * math.exp(-((q.z - 0.10) / 0.04) ** 2)                     # the point at the back
+                t += 0.0030 * math.exp(-(q.x / 0.0035) ** 2) * sstep(-0.02, 0.05, q.z) * (ab > 0.9)          # the centre seam
+                t += 0.0028 * math.sin(22 * (q.z - 0.30 * az)) * sstep(0.6, 1.6, ab)                          # soft folds to the back
+                o = opening(q); t += 0.006 * math.exp(-((o - 1.0) / 0.10) ** 2)                               # the lip
+                out.append(max(0.008, t))
             return out
         hood = shell('%s_hood' % tag, keep, thick, subdiv=2, rim=0.004)
         hood.data.materials.clear(); hood.data.materials.append(cloth)
