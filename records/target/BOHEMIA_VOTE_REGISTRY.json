@@ -11684,7 +11684,45 @@
    ]
   },
   "draft": true
- }
+ },
+  {
+   "id": "cook4-the-tower-casino-10-19",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "e57d421d",
+   "made": "10/19",
+   "title": "PLACEHOLDER: THE STRIP'S SECOND CASINO, ITS FIRST TOWER, UNDER THE STRAIGHT ROOF IN THE VALLEY'S TANS",
+   "why": "The next building of the Strip after the casino and the church you said yes to: eight floors of hotel rooms over a casino floor with no windows, the way the Strip's first tower went up in 1955, your pieces at the man's size under the tan roof, with one wrong thing: the floors in reach are boarded, the ones above broken, and the top floor is the only whole floor in the valley, every shutter shut. You see it in the VOTE tab beside your pack house, the first casino and the church at the same size, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_TOWER_CASINO.webp",
+    "first": "../records/target/vote_first/cook4-the-tower-casino-10-19.webp",
+    "firstAt": [44, 230, 1806, 2305]
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; the tower wears the same measured shape (1.49 walls tall against one storey) at its own 14 m depth, in the tan of his render wall, a blank sign on its ridge.",
+     "MASSING: his house is one small box with windows; ours is the family's first building over one storey: eight 3 m floors of rooms, 30 m across, two wings of his stone panels with one of his windows a room and the core with none, over a 5 m gaming floor with no window and six glass doors under the marquee.",
+     "LIGHT AND WEAR: as his, from above, one sun from the upper left (each slab edge lit, the core's shadow on the right wing); his boarded windows on the two floors in reach, his broken ones above, his shutters shut on the top floor: the one wrong thing."
+    ]
+   },
+   "before_after": {
+    "before": "no tower in the valley: the family stood one storey high, and the old fight-board casino was cooked art",
+    "after": "the Strip's first tower: eight floors of rooms over the windowless gaming floor, the marquee and its empty reader board, the blank sign on the ridge, the top floor whole",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_pipe/cook4/strip/COOK4_THE_TOWER_CASINO.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
+  }
  ],
  "verdicts": [
   {
