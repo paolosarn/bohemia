@@ -1,0 +1,63 @@
+{
+ "tier": "RAIDER_AGAIN",
+ "what": "an oversized black hoodie to the hip with the hood up, a police-surplus plate carrier in coyote nylon (front and back plates, a cummerbund of webbing rows, shoulder straps), a row of red shotgun shells with brass bases on the chest, black cargo trousers, pale knee pads, boots, a sawn-off double barrel in his right fist; the head is PORTRAIT's modelled head on the same model, the skin on his hands the face's",
+ "model": "records/cook3/rig/raider_again_body.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "meshes": {
+  "Cesium_Man": 3273,
+  "raider_again_hoodie": 22466,
+  "raider_again_hoodie_hem": 2160,
+  "raider_again_hood": 15498,
+  "raider_again_vest_plate_front": 4666,
+  "raider_again_vest_plate_back": 4666,
+  "raider_again_vest_band": 5952,
+  "raider_again_vest_strap_r": 100,
+  "raider_again_vest_strap_l": 100,
+  "raider_again_shells": 240,
+  "raider_again_kneepads": 1668,
+  "raider_again_sawnoff": 76
+ },
+ "head_scale": 1.2,
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "raider_again_boots": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "raider_again_brass": [
+   0.5841,
+   0.2961,
+   0.0382
+  ],
+  "raider_again_cloth": [
+   0.0273,
+   0.0242,
+   0.0252
+  ],
+  "raider_again_eyes": [
+   0.0212,
+   0.006,
+   0.0052
+  ],
+  "raider_again_shell": [
+   0.3663,
+   0.063,
+   0.0497
+  ],
+  "raider_again_skin": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "raider_again_vest": [
+   0.5395,
+   0.3916,
+   0.1878
+  ]
+ }
+}

@@ -1,0 +1,173 @@
+{
+ "person": "RAIDER_AGAIN",
+ "model": "records/cook3/rig/raider_again.glb",
+ "from_body": "records/cook3/rig/raider_again_body.glb",
+ "dropped": [],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "buzz",
+ "stubble": false,
+ "look": null,
+ "beard": "full",
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 33,
+   "face.craniumH": 10,
+   "face.foreheadW": 24,
+   "face.cheekW": 30,
+   "face.jawW": 26,
+   "face.chinW": 12,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 7,
+   "mouth.w": 9,
+   "nose.w": 3
+  },
+  "identity": true,
+  "mouth_half": 0.033
+ },
+ "meshes": {
+  "Cesium_Man": 1214,
+  "raider_again_hood": 15498,
+  "raider_again_hoodie": 22466,
+  "raider_again_hoodie_hem": 2160,
+  "raider_again_kneepads": 1668,
+  "raider_again_sawnoff": 228,
+  "raider_again_shells": 504,
+  "raider_again_vest_band": 5952,
+  "raider_again_vest_plate_back": 4666,
+  "raider_again_vest_plate_front": 4666,
+  "raider_again_vest_strap_l": 300,
+  "raider_again_vest_strap_r": 300,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_beard": 3776
+ },
+ "materials": {
+  "portrait_raider_again_beard": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "portrait_raider_again_buzz": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "portrait_raider_again_iris": [
+   0.0212,
+   0.006,
+   0.0052
+  ],
+  "portrait_raider_again_lips": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_raider_again_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_raider_again_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_raider_again_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_raider_again_skin": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "portrait_raider_again_stubble": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "raider_again_boots": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "raider_again_brass": [
+   0.5841,
+   0.2961,
+   0.0382
+  ],
+  "raider_again_cloth": [
+   0.0273,
+   0.0242,
+   0.0252
+  ],
+  "raider_again_eyes": [
+   0.0212,
+   0.006,
+   0.0052
+  ],
+  "raider_again_shell": [
+   0.3663,
+   0.063,
+   0.0497
+  ],
+  "raider_again_skin": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "raider_again_vest": [
+   0.5395,
+   0.3916,
+   0.1878
+  ]
+ }
+}
