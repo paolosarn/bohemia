@@ -858,18 +858,27 @@ function drawBenches(s){
     var w = im.naturalWidth * 1.4, h = im.naturalHeight * 1.4, x = (b[0]+b[2])/2 + (b[2]-b[0])*.22 - w/2, y = b[3] - h + 6;
     cx.drawImage(im, Math.round(view.ox + x*s), Math.round(view.oy + y*s), Math.round(w*s), Math.round(h*s)); });
 }
+/* lit by the night picture's light, not the render's noon sun: a dimmed copy of each render, made once (a canvas filter
+   per draw took the screen from 42 frames a second to 5 at night, measured 10/19) */
+function duskOf(r){
+  if(r.dusk) return r.dusk;
+  var c = document.createElement('canvas'); c.width = r.im.naturalWidth; c.height = r.im.naturalHeight;
+  var x = c.getContext('2d'); x.drawImage(r.im, 0, 0);
+  try{ var d = x.getImageData(0, 0, c.width, c.height), a = d.data;
+    for(var i = 0; i < a.length; i += 4){ var l = (a[i]*.3 + a[i+1]*.59 + a[i+2]*.11);
+      a[i] = (l + (a[i]-l)*.8)*.62; a[i+1] = (l + (a[i+1]-l)*.8)*.62; a[i+2] = (l + (a[i+2]-l)*.8)*.62; }
+    x.putImageData(d, 0, 0); }catch(e){}
+  return (r.dusk = c);
+}
 function drawPeople(s){
   var L = folkList(), B = window.BohemiaRigBodies; if(!L.length || !B) return;
   var k = rigScale(), now = performance.now(), H = personH()*s;
-  var dusk = view.night && ('filter' in cx);   /* lit by the night picture's light, not the render's noon sun */
   L.forEach(function(p){
     if(!p.pre){ p.pre = 1; p.loop.forEach(function(t){ B.standing(p.look, t); }); }   /* every turn he will look, asked for once */
     var r = B.standing(p.look, turnOf(p, now)) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one */
     var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;
     cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
-    if(dusk) cx.filter = 'brightness(.62) saturate(.8)';
-    cx.drawImage(r.im, Math.round(fx - r.mid*k*s), Math.round(fy - r.foot*k*s), Math.round(w), Math.round(h));
-    if(dusk) cx.filter = 'none';
+    cx.drawImage(view.night ? duskOf(r) : r.im, Math.round(fx - r.mid*k*s), Math.round(fy - r.foot*k*s), Math.round(w), Math.round(h));
   });
 }
 
@@ -931,7 +940,7 @@ function tapBox(k){
 /* a person under the finger: his figure, a door tall, standing on his feet point; the nearest the eye wins */
 function personAt(x, y){
   if(!VAR) return null;
-  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, h = personH(), w = Math.max(h*.24, 22/view.s), best = null;
+  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, h = personH(), w = Math.max(h*.17, 22/view.s), best = null;   /* half a 3D body wide (10/19: the old box took a neighbour's tap) */
   folkList().forEach(function(p, i){ if(px >= p.x - w && px <= p.x + w && py >= p.y - h && py <= p.y + 4){ if(!best || p.y > best.y) best = p; } });
   return best;
 }

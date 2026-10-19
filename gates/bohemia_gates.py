@@ -9390,7 +9390,9 @@ GATES = [
      "screen or engine file names a body render as a source; on his phone's profile with real taps every face of the thirteen "
      "crew looks on the crew screen and the settlement (the lot, the hall, the board) is PORTRAIT's own file pixel for pixel, "
      "every other face is the painted 64, a handed portrait or the dim head; a planted body crop is caught; YOU, a client and "
-     "the card's man talk through PORTRAIT's mouths on the beat and rest", True),
+     "the card's man talk through PORTRAIT's mouths on the beat and rest. AMENDED 10/19 [the 3D models on your screens] (rule "
+     "121e): every look the face module knows (26, the gangs' 3D heads in) is PORTRAIT's file pixel for pixel, only the dim head "
+     "passes besides; the body module may name renders, never cut a piece out of one", True),
     ('ROSTER SCREEN', ['node', 'gates/roster_screen_gate.js'],
      "RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). Drives slices/BOHEMIA_ROSTER_SCREEN.html on his phone's profile (390x844 at 3x) with real drags and taps: the company in two lines of nine from the fi. green at registration, 4 s", True),
     ('RUMOURS TRAVEL', ['node', 'gates/rumours_travel_gate.js'],
@@ -9398,7 +9400,7 @@ GATES = [
     ('SETTINGS IN OUR MATERIALS', ['node', 'gates/settings_in_our_materials_gate.js'],
      'UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). RULE 73 (Paolo 10/4): BRIGHTNESS with the calibration picture, raising the night floor; words 4.5 to 1, and again with a flat 25 percent white added (. green at registration, 25 s', True),
     ('SETTLEMENT PEOPLE (ORPHAN)', ['node', 'gates/settlement_people_gate.js'],
-     "RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). COOK's finished settlement pictures (painted in place over COMBAT TWO's, same names, same boxes) with ANIMATION's idle people standing in them. On his. green at registration, 55 s", True),
+     "RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). COOK's finished settlement pictures (painted in place over COMBAT TWO's, same names, same boxes) with ANIMATION's idle people standing in them. On his. green at registration, 55 s. AMENDED 10/19 [the 3D models on your screens] (rule 121e): EVERY PERSON IS A 3D MODEL, the flat sheets never named or fetched, every keeper and crowd member one of CHARACTER's thirteen gangs standing with a 3D head, a turn one eighth at a time and not all on one beat; 30/0", True),
     ('SETTLEMENT SCREEN', ['node', 'gates/settlement_screen_gate.js'],
      'RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). THE SETTLEMENT SCREEN GATE (RUN 2, row [settlement screen], 10/1/26) Rule 37b (Paolo 9/27): "you see the settlement but you just click the building.". green at registration, 80 s', True),
     ('SETTLEMENT SIDEWAYS', ['node', 'gates/settlement_sideways_gate.js'],
@@ -9465,6 +9467,11 @@ GATES = [
      'CHARACTER gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. The texture set is the clothes this lane owns, cut off the formula into pieces a rigged model wears, wit. green at registration, 0 s', False),
     ('ONE SKIN, ONE PERSON', ['python3', 'gates/one_skin_one_person_gate.py'],
      "CHARACTER gate, 10/19, row [one skin, one person] (rule 120(d); his 10/18: 'the portraits don't even look alike... Black people looking like white people'): one skin per person in records/target/character/BOHEMIA_ONE_SKIN.json, the alpha's look tables carry it, famPaintBody's body reads the face's tone, the fight and settlement sheets and the 64 faces off the pixels, the rig models' skin, PORTRAIT's faces on the rig ladder with a frozen list that only shrinks. green at registration, 15/0, 9 s", False),
+    ('EACH MAN HIS OWN SKIN', ['python3', 'gates/each_man_his_own_skin_gate.py'],
+     "RUN TWO gate, 10/19, row [each man his own skin] (rule 120(d), his 'Black people looking like white people'; rule 121(e)): "
+     "every face beside the 3D body it stands beside on the crew card and in a settlement, read with EYES' own read (ITA band "
+     "equal or next, 12 L* or less), 24 of 26 PASS; the two faces BACK the round it landed (PORTRAIT's, paused) frozen, the list "
+     "only shrinks; a dark face beside a light body is caught. green at registration, 5/0, 6 s", False),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

@@ -1,0 +1,989 @@
+{
+ "tool": "tools/bohemia_run2_each_man_his_own_skin.py",
+ "lane": "run 2",
+ "row": "[each man his own skin]",
+ "rule": "120(d)",
+ "read_with": "tools/bohemia_eyes_every_face_beside_its_body_10_19_26.py",
+ "draft": true,
+ "counts": {
+  "PASS": 24,
+  "BACK": 2
+ },
+ "rows": [
+  {
+   "who": "you",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/you/rig_<turn>.png",
+   "face": "records/target/portrait/crew/you/rest_128.png",
+   "body_skin": {
+    "L": 65.9,
+    "a": 7.8,
+    "b": 14.5,
+    "ita": 47.5,
+    "band": "light",
+    "rgb": "#b89a86"
+   },
+   "body_px": 562,
+   "face_skin": {
+    "L": 65.2,
+    "a": 8.7,
+    "b": 13.1,
+    "ita": 49.4,
+    "band": "light",
+    "rgb": "#b79887"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -0.6,
+     "dITA": 1.9,
+     "bands_apart": 0,
+     "de2000": 1.7,
+     "said": "body light (ITA 48, L 66), face light (ITA 49, L 65): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_longcoat",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_longcoat/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_longcoat/rest_128.png",
+   "body_skin": {
+    "L": 48.8,
+    "a": 8.5,
+    "b": 13.0,
+    "ita": -5.5,
+    "band": "brown",
+    "rgb": "#8a6e5e"
+   },
+   "body_px": 558,
+   "face_skin": {
+    "L": 44.1,
+    "a": 8.8,
+    "b": 11.9,
+    "ita": -26.4,
+    "band": "brown",
+    "rgb": "#7e6355"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -4.7,
+     "dITA": -20.9,
+     "bands_apart": 0,
+     "de2000": 4.6,
+     "said": "body brown (ITA -5, L 49), face brown (ITA -26, L 44): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_barearms",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_barearms/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_barearms/rest_128.png",
+   "body_skin": {
+    "L": 67.6,
+    "a": 4.6,
+    "b": 15.8,
+    "ita": 48.2,
+    "band": "light",
+    "rgb": "#b8a189"
+   },
+   "body_px": 2696,
+   "face_skin": {
+    "L": 56.6,
+    "a": 6.9,
+    "b": 12.0,
+    "ita": 28.9,
+    "band": "intermediate",
+    "rgb": "#9c8373"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -11.0,
+     "dITA": -19.3,
+     "bands_apart": 1,
+     "de2000": 10.4,
+     "said": "body light (ITA 48, L 68), face intermediate (ITA 29, L 57): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_pack",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_pack/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_pack/rest_128.png",
+   "body_skin": {
+    "L": 63.4,
+    "a": 6.9,
+    "b": 13.8,
+    "ita": 44.1,
+    "band": "light",
+    "rgb": "#af9581"
+   },
+   "body_px": 418,
+   "face_skin": {
+    "L": 63.2,
+    "a": 8.8,
+    "b": 13.5,
+    "ita": 44.3,
+    "band": "light",
+    "rgb": "#b19381"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -0.3,
+     "dITA": 0.2,
+     "bands_apart": 0,
+     "de2000": 2.1,
+     "said": "body light (ITA 44, L 63), face light (ITA 44, L 63): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_skirt",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_skirt/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_skirt/rest_128.png",
+   "body_skin": {
+    "L": 35.8,
+    "a": 8.5,
+    "b": 10.5,
+    "ita": -53.6,
+    "band": "dark",
+    "rgb": "#674f44"
+   },
+   "body_px": 1903,
+   "face_skin": {
+    "L": 28.9,
+    "a": 9.6,
+    "b": 9.4,
+    "ita": -66.0,
+    "band": "dark",
+    "rgb": "#573e36"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -7.0,
+     "dITA": -12.4,
+     "bands_apart": 0,
+     "de2000": 5.8,
+     "said": "body dark (ITA -54, L 36), face dark (ITA -66, L 29): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_widebrim",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_widebrim/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_widebrim/rest_128.png",
+   "body_skin": {
+    "L": 60.1,
+    "a": 10.0,
+    "b": 13.6,
+    "ita": 36.5,
+    "band": "intermediate",
+    "rgb": "#ab8a79"
+   },
+   "body_px": 559,
+   "face_skin": {
+    "L": 49.2,
+    "a": 9.0,
+    "b": 11.7,
+    "ita": -3.7,
+    "band": "brown",
+    "rgb": "#8b6f62"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -10.8,
+     "dITA": -40.2,
+     "bands_apart": 2,
+     "de2000": 10.4,
+     "said": "body intermediate (ITA 37, L 60), face brown (ITA -4, L 49): the face is 2 bands darker and 11 L* darker"
+    }
+   ],
+   "verdict": "BACK"
+  },
+  {
+   "who": "cast_cape",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_cape/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_cape/rest_128.png",
+   "body_skin": {
+    "L": 61.3,
+    "a": 8.3,
+    "b": 18.3,
+    "ita": 31.8,
+    "band": "intermediate",
+    "rgb": "#ae8e74"
+   },
+   "body_px": 597,
+   "face_skin": {
+    "L": 54.7,
+    "a": 9.3,
+    "b": 16.6,
+    "ita": 16.0,
+    "band": "tan",
+    "rgb": "#9d7d67"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -6.6,
+     "dITA": -15.8,
+     "bands_apart": 1,
+     "de2000": 6.2,
+     "said": "body intermediate (ITA 32, L 61), face tan (ITA 16, L 55): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_apron",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_apron/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_apron/rest_128.png",
+   "body_skin": {
+    "L": 62.2,
+    "a": 6.2,
+    "b": 13.7,
+    "ita": 41.7,
+    "band": "light",
+    "rgb": "#aa927e"
+   },
+   "body_px": 613,
+   "face_skin": {
+    "L": 58.2,
+    "a": 6.9,
+    "b": 12.2,
+    "ita": 33.8,
+    "band": "intermediate",
+    "rgb": "#a08777"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -4.0,
+     "dITA": -7.8,
+     "bands_apart": 1,
+     "de2000": 3.8,
+     "said": "body light (ITA 42, L 62), face intermediate (ITA 34, L 58): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_poncho",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_poncho/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_poncho/rest_128.png",
+   "body_skin": {
+    "L": 46.4,
+    "a": 11.4,
+    "b": 15.0,
+    "ita": -13.6,
+    "band": "brown",
+    "rgb": "#896655"
+   },
+   "body_px": 418,
+   "face_skin": {
+    "L": 43.4,
+    "a": 12.6,
+    "b": 14.7,
+    "ita": -24.0,
+    "band": "brown",
+    "rgb": "#835e4f"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -2.9,
+     "dITA": -10.4,
+     "bands_apart": 0,
+     "de2000": 3.0,
+     "said": "body brown (ITA -14, L 46), face brown (ITA -24, L 43): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_bedroll",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_bedroll/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_bedroll/rest_128.png",
+   "body_skin": {
+    "L": 61.0,
+    "a": 8.5,
+    "b": 18.3,
+    "ita": 31.0,
+    "band": "intermediate",
+    "rgb": "#ad8d73"
+   },
+   "body_px": 610,
+   "face_skin": {
+    "L": 53.4,
+    "a": 9.1,
+    "b": 16.3,
+    "ita": 11.8,
+    "band": "tan",
+    "rgb": "#997964"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -7.6,
+     "dITA": -19.2,
+     "bands_apart": 1,
+     "de2000": 7.1,
+     "said": "body intermediate (ITA 31, L 61), face tan (ITA 12, L 53): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_shorts",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_shorts/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_shorts/rest_128.png",
+   "body_skin": {
+    "L": 53.0,
+    "a": 7.1,
+    "b": 14.3,
+    "ita": 11.7,
+    "band": "tan",
+    "rgb": "#937966"
+   },
+   "body_px": 1881,
+   "face_skin": {
+    "L": 42.9,
+    "a": 8.8,
+    "b": 11.7,
+    "ita": -31.3,
+    "band": "dark",
+    "rgb": "#7a6052"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -10.1,
+     "dITA": -43.0,
+     "bands_apart": 2,
+     "de2000": 10.4,
+     "said": "body tan (ITA 12, L 53), face dark (ITA -31, L 43): the face is 2 bands darker and 10 L* darker"
+    }
+   ],
+   "verdict": "BACK"
+  },
+  {
+   "who": "cast_satchel",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_satchel/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_satchel/rest_128.png",
+   "body_skin": {
+    "L": 39.3,
+    "a": 8.6,
+    "b": 8.5,
+    "ita": -51.6,
+    "band": "dark",
+    "rgb": "#6f574f"
+   },
+   "body_px": 609,
+   "face_skin": {
+    "L": 37.2,
+    "a": 9.4,
+    "b": 8.1,
+    "ita": -57.8,
+    "band": "dark",
+    "rgb": "#6b524b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -2.1,
+     "dITA": -6.2,
+     "bands_apart": 0,
+     "de2000": 2.0,
+     "said": "body dark (ITA -52, L 39), face dark (ITA -58, L 37): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "cast_shortcoat",
+   "screen": "the crew card",
+   "body_drawn": "records/target/portrait/rig/crew/cast_shortcoat/rig_<turn>.png",
+   "face": "records/target/portrait/crew/cast_shortcoat/rest_128.png",
+   "body_skin": {
+    "L": 66.1,
+    "a": 7.7,
+    "b": 14.5,
+    "ita": 47.9,
+    "band": "light",
+    "rgb": "#b89b87"
+   },
+   "body_px": 558,
+   "face_skin": {
+    "L": 63.7,
+    "a": 8.8,
+    "b": 13.5,
+    "ita": 45.5,
+    "band": "light",
+    "rgb": "#b39483"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -2.3,
+     "dITA": -2.4,
+     "bands_apart": 0,
+     "de2000": 2.5,
+     "said": "body light (ITA 48, L 66), face light (ITA 45, L 64): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_anarchists",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/anarchists/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_anarchists/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 65.8,
+    "a": 7.8,
+    "b": 14.4,
+    "ita": 47.6,
+    "band": "light",
+    "rgb": "#b79a86"
+   },
+   "body_px": 599,
+   "face_skin": {
+    "L": 63.2,
+    "a": 8.5,
+    "b": 13.5,
+    "ita": 44.3,
+    "band": "light",
+    "rgb": "#b19381"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -2.6,
+     "dITA": -3.2,
+     "bands_apart": 0,
+     "de2000": 2.4,
+     "said": "body light (ITA 48, L 66), face light (ITA 44, L 63): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_blues",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/blues/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_blues/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 33.6,
+    "a": 8.4,
+    "b": 9.0,
+    "ita": -61.1,
+    "band": "dark",
+    "rgb": "#614a41"
+   },
+   "body_px": 524,
+   "face_skin": {
+    "L": 29.9,
+    "a": 9.9,
+    "b": 9.5,
+    "ita": -64.7,
+    "band": "dark",
+    "rgb": "#5a4038"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -3.7,
+     "dITA": -3.6,
+     "bands_apart": 0,
+     "de2000": 3.2,
+     "said": "body dark (ITA -61, L 34), face dark (ITA -65, L 30): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_caravans",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/caravans/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_caravans/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 37.1,
+    "a": 7.1,
+    "b": 7.6,
+    "ita": -59.5,
+    "band": "dark",
+    "rgb": "#67534b"
+   },
+   "body_px": 369,
+   "face_skin": {
+    "L": 30.9,
+    "a": 8.3,
+    "b": 7.3,
+    "ita": -69.1,
+    "band": "dark",
+    "rgb": "#59443e"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -6.2,
+     "dITA": -9.6,
+     "bands_apart": 0,
+     "de2000": 5.2,
+     "said": "body dark (ITA -59, L 37), face dark (ITA -69, L 31): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_cartel",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/cartel/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_cartel/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 48.7,
+    "a": 8.2,
+    "b": 13.1,
+    "ita": -5.5,
+    "band": "brown",
+    "rgb": "#896e5e"
+   },
+   "body_px": 619,
+   "face_skin": {
+    "L": 46.2,
+    "a": 8.8,
+    "b": 12.6,
+    "ita": -17.0,
+    "band": "brown",
+    "rgb": "#836859"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -2.6,
+     "dITA": -11.5,
+     "bands_apart": 0,
+     "de2000": 2.6,
+     "said": "body brown (ITA -6, L 49), face brown (ITA -17, L 46): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_church",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/church/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_church/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 63.7,
+    "a": 6.4,
+    "b": 14.1,
+    "ita": 44.3,
+    "band": "light",
+    "rgb": "#af9682"
+   },
+   "body_px": 374,
+   "face_skin": {
+    "L": 64.4,
+    "a": 8.6,
+    "b": 13.8,
+    "ita": 46.3,
+    "band": "light",
+    "rgb": "#b59684"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": 0.7,
+     "dITA": 2.0,
+     "bands_apart": 0,
+     "de2000": 2.5,
+     "said": "body light (ITA 44, L 64), face light (ITA 46, L 64): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_colorful",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/colorful/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_colorful/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 50.3,
+    "a": 12.0,
+    "b": 16.0,
+    "ita": 1.1,
+    "band": "brown",
+    "rgb": "#95705d"
+   },
+   "body_px": 653,
+   "face_skin": {
+    "L": 44.6,
+    "a": 12.6,
+    "b": 15.2,
+    "ita": -19.5,
+    "band": "brown",
+    "rgb": "#866151"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -5.7,
+     "dITA": -20.6,
+     "bands_apart": 0,
+     "de2000": 5.6,
+     "said": "body brown (ITA 1, L 50), face brown (ITA -19, L 45): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_homeless",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/homeless/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_homeless/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 57.6,
+    "a": 5.1,
+    "b": 12.5,
+    "ita": 31.5,
+    "band": "intermediate",
+    "rgb": "#9c8775"
+   },
+   "body_px": 395,
+   "face_skin": {
+    "L": 55.7,
+    "a": 6.9,
+    "b": 11.9,
+    "ita": 25.6,
+    "band": "tan",
+    "rgb": "#998171"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -1.9,
+     "dITA": -5.8,
+     "bands_apart": 1,
+     "de2000": 2.8,
+     "said": "body intermediate (ITA 31, L 58), face tan (ITA 26, L 56): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_mob",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/mob/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_mob/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 56.7,
+    "a": 9.2,
+    "b": 13.3,
+    "ita": 26.9,
+    "band": "tan",
+    "rgb": "#a08272"
+   },
+   "body_px": 588,
+   "face_skin": {
+    "L": 56.5,
+    "a": 10.6,
+    "b": 13.0,
+    "ita": 26.5,
+    "band": "tan",
+    "rgb": "#a28071"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -0.3,
+     "dITA": -0.4,
+     "bands_apart": 0,
+     "de2000": 1.5,
+     "said": "body tan (ITA 27, L 57), face tan (ITA 26, L 56): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_network",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/network/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_network/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 61.1,
+    "a": 5.2,
+    "b": 12.9,
+    "ita": 40.7,
+    "band": "intermediate",
+    "rgb": "#a5907d"
+   },
+   "body_px": 514,
+   "face_skin": {
+    "L": 57.9,
+    "a": 6.8,
+    "b": 12.1,
+    "ita": 33.1,
+    "band": "intermediate",
+    "rgb": "#9f8676"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -3.2,
+     "dITA": -7.6,
+     "bands_apart": 0,
+     "de2000": 3.6,
+     "said": "body intermediate (ITA 41, L 61), face intermediate (ITA 33, L 58): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_reds",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/reds/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_reds/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 60.2,
+    "a": 8.3,
+    "b": 18.1,
+    "ita": 29.6,
+    "band": "intermediate",
+    "rgb": "#ab8b72"
+   },
+   "body_px": 559,
+   "face_skin": {
+    "L": 54.6,
+    "a": 9.2,
+    "b": 16.3,
+    "ita": 15.6,
+    "band": "tan",
+    "rgb": "#9c7c67"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -5.7,
+     "dITA": -14.0,
+     "bands_apart": 1,
+     "de2000": 5.5,
+     "said": "body intermediate (ITA 30, L 60), face tan (ITA 16, L 55): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_remnants",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/remnants/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_remnants/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 60.8,
+    "a": 5.6,
+    "b": 13.3,
+    "ita": 39.0,
+    "band": "intermediate",
+    "rgb": "#a68e7c"
+   },
+   "body_px": 545,
+   "face_skin": {
+    "L": 58.8,
+    "a": 6.8,
+    "b": 12.3,
+    "ita": 35.6,
+    "band": "intermediate",
+    "rgb": "#a28978"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -2.0,
+     "dITA": -3.4,
+     "bands_apart": 0,
+     "de2000": 2.5,
+     "said": "body intermediate (ITA 39, L 61), face intermediate (ITA 36, L 59): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_trades",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/trades/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_trades/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 39.1,
+    "a": 8.8,
+    "b": 8.4,
+    "ita": -52.4,
+    "band": "dark",
+    "rgb": "#6f574f"
+   },
+   "body_px": 565,
+   "face_skin": {
+    "L": 29.3,
+    "a": 8.7,
+    "b": 6.5,
+    "ita": -72.6,
+    "band": "dark",
+    "rgb": "#56403b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -9.8,
+     "dITA": -20.2,
+     "bands_apart": 0,
+     "de2000": 8.1,
+     "said": "body dark (ITA -52, L 39), face dark (ITA -73, L 29): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "who": "faction_volunteers",
+   "screen": "the settlement",
+   "body_drawn": "records/target/character/rig/volunteers/rig_<turn>.png",
+   "face": "records/target/portrait/crew/faction_volunteers/rest_128.png",
+   "one_setup": {
+    "settings_apart": [],
+    "skin_material_in_both": true,
+    "skin_wear_same": true
+   },
+   "body_skin": {
+    "L": 49.3,
+    "a": 12.0,
+    "b": 15.4,
+    "ita": -2.8,
+    "band": "brown",
+    "rgb": "#926d5c"
+   },
+   "body_px": 599,
+   "face_skin": {
+    "L": 43.3,
+    "a": 12.5,
+    "b": 14.8,
+    "ita": -24.4,
+    "band": "brown",
+    "rgb": "#825e4e"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": -6.0,
+     "dITA": -21.7,
+     "bands_apart": 0,
+     "de2000": 5.8,
+     "said": "body brown (ITA -3, L 49), face brown (ITA -24, L 43): the same person"
+    }
+   ],
+   "verdict": "PASS"
+  }
+ ]
+}

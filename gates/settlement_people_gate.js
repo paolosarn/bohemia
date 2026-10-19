@@ -72,6 +72,12 @@ const srv = http.createServer((rq, rs) => {
     turns.forEach(r => { let changed = false; for (let j = 1; j < r.length; j++) if (r[j] !== r[j - 1]) { changed = true; at.add(j % 4); const d = Math.abs(T.indexOf(r[j]) - T.indexOf(r[j - 1])); if (Math.min(d, 8 - d) > 1) spin++; } if (!changed) still++; });
     ok('  a man turns one eighth of a turn at a time, never a spin, and every one of them turns in twelve seconds', spin === 0 && still === 0, spin + ' spins, ' + still + ' who never turn, of ' + turns.length);
     ok('  and they do not all turn on the same beat', at.size >= 2, [...at].join(','));
+    /* the night dims them without costing frames: a canvas filter per person took the screen from 42 to 5 a second (10/19) */
+    const fps = async night => { await p.evaluate(n => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: ['market_day'], night: n }), night);
+      await p.waitForTimeout(1200);
+      return p.evaluate(() => new Promise(r => { let n = 0; const t0 = performance.now(); (function f() { n++; if (performance.now() - t0 < 1500) requestAnimationFrame(f); else r(n / 1.5); })(); })); };
+    const day = await fps(false), dark = await fps(true);
+    ok('  the people at night cost no frames (night at least 70% of day)', dark >= day * 0.7, Math.round(dark) + ' a second at night, ' + Math.round(day) + ' by day');
   }
   ok('the crowd: a town more than a camp, night thinner than day', counts.town > counts.camp && counts.town_night < counts.town, JSON.stringify(counts));
   const tr = {};
