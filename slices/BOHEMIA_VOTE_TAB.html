@@ -671,8 +671,8 @@
         var n = document.createElement('span'); n.className = 'yn';
         n.appendChild(document.createTextNode((r.star ? '★ ' : '') + r.title));
         var w = document.createElement('span'); w.className = 'yw';
-        w.textContent = r.inDemo ? (build ? '  · build ' + build : '') : '  · ' + r.lane + ' has it';
-        n.appendChild(w); l.appendChild(n); box.appendChild(l);
+        if(!r.inDemo){ w.textContent = '  · ' + r.lane + ' has it'; n.appendChild(w); }   /* the build is said once, on top */
+        l.appendChild(n); box.appendChild(l);
       });
       box.hidden = false;
       window.__yesReady = true;

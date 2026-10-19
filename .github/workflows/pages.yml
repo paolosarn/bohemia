@@ -113,6 +113,13 @@ jobs:
       - name: cut the demo from the workshop
         run: node tools/bohemia_cut_the_demo.js
 
+      # RUN TWO [his yeses in the demo], 10/19: the VOTE tab's foot lists every YES since 10/16, IN THE DEMO or NOT YET,
+      # measured against THIS cut (what it loads) from the committed carriers (git's, made by the same tool). No git
+      # needed here; a failure leaves the committed list and never stops a deploy.
+      - name: his yeses against this demo
+        continue-on-error: true
+        run: node tools/bohemia_run2_yes_in_the_demo.js status
+
       - name: assemble the published site
         run: |
           set -e

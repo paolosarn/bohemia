@@ -32,6 +32,7 @@
    Run: node tools/bohemia_run2_yes_in_the_demo.js            (both steps)
         node tools/bohemia_run2_yes_in_the_demo.js status     (the deploy's step, no git)
         node tools/bohemia_run2_yes_in_the_demo.js carriers
+        (status takes --demo <a cut> and --out <file>; the gate uses both)
    ========================================================================== */
 'use strict';
 const fs = require('fs'), path = require('path'), os = require('os'), cp = require('child_process');
@@ -160,6 +161,10 @@ function reach(demoFile) {
     if (txt.length > 40e6) continue;
     /* A NAME IN A COMMENT IS NOT A LOAD (measured: the fight's comment 'Colours: records/target/BOHEMIA_STYLE_PALETTE.json'
        read three of DIRECTION's cards IN THE DEMO). Block comments, HTML comments and line comments go before the scan. */
+    /* ...but an engine file INLINED into a page is a load, and its banner lives in a comment: 'INLINED VERBATIM from
+       engine/x.js' or '==== engine/x.js (... inlined verbatim) ====' */
+    const BANNER = /(?:INLINED VERBATIM from|\/\* ====)\s+(engine\/[A-Za-z0-9_.\-]+\.js)/g; let bn;
+    while ((bn = BANNER.exec(txt))) { const r = resolveRef(bn[1], from); if (r && !files.has(r)) { files.add(r); queue.push(r); } }
     if (/\.(js|html|css)$/.test(rel)) txt = txt.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/<!--[\s\S]*?-->/g, ' ').replace(/(^|[\s;{}(),])\/\/[^\n]*/g, '$1');
     for (const m of txt.match(REF) || []) {
       const base = m.split('/').pop();
@@ -178,7 +183,7 @@ function reach(demoFile) {
   }
   return { files, dirs };
 }
-function status(demoFile) {
+function status(demoFile, outFile) {
   demoFile = demoFile || DEMO;
   const reg = readJSON(REG, { items: [], verdicts: [] });
   const car = readJSON(CARRIERS, { bySha: {} }).bySha || {};
@@ -206,7 +211,7 @@ function status(demoFile) {
     reached: R.files.size,
     rows
   };
-  fs.writeFileSync(OUT, JSON.stringify(doc, null, 1) + '\n');
+  fs.writeFileSync(outFile || OUT, JSON.stringify(doc, null, 1) + '\n');
   const n = rows.filter(r => r.state === 'in').length;
   console.log('status: ' + rows.length + ' yes since 10/16, ' + n + ' in the demo (' + build + '), ' + (rows.length - n) + ' not yet; the demo reaches ' + R.files.size + ' files');
   return doc;
@@ -215,7 +220,8 @@ function status(demoFile) {
 if (require.main === module) {
   const a = process.argv[2] || 'both';
   const di = process.argv.indexOf('--demo'), demo = di > 0 ? path.resolve(process.argv[di + 1]) : null;
+  const oi = process.argv.indexOf('--out'), out = oi > 0 ? path.resolve(process.argv[oi + 1]) : null;
   if (a === 'carriers' || a === 'both') carriers();
-  if (a === 'status' || a === 'both') status(demo);
+  if (a === 'status' || a === 'both') status(demo, out);
 }
-module.exports = { reach, status, gameFile, madeN, SINCE };
+module.exports = { reach, status, changed, folded, gameFile, madeN, SINCE };

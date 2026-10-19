@@ -9314,6 +9314,13 @@ GATES = [
      "the map's own dice for that town that day (a planted lie caught); the ledger's raid told first; live on his phone's "
      "profile the bar's first line each visit is the free one under the keeper's fresh talking face, nothing spent, a round "
      "tells the next town, no 'Marked on your map', the bar still pours with the places file blocked", True),
+    ('HIS YESES IN THE DEMO', ['node', 'gates/his_yeses_in_the_demo_gate.js'],
+     "RUN TWO [his yeses in the demo] (Paolo 10/18 'the demo has not been fixed and updated in a long time'; rule 118). The "
+     "machine never lies: every IN THE DEMO is a file its card's commits changed that the demo's own cut reaches now, re-run on "
+     "this tree with no git; the carriers are git's own (re-read where this clone can); the deploy re-makes the list after its "
+     "cut. On his phone one line per YES since 10/16, IN THE DEMO or NOT YET with the chat; the build read live from the stamp "
+     "file (planted 99/99z); a planted YES IN when the file says so, NOT YET with its lane when not, never IN with the file "
+     "gone; a tapped YES joins the list; under the comment box, nothing above the fold moves; no title typed", True),
     ('THE CREW SCREEN AT FOURTEEN', ['node', 'gates/the_crew_screen_at_fourteen_gate.js'],
      "RUN TWO [the crew screen at fourteen] (his 10/18 'one person... three... six... up to 14 people'; rule 117). On his phone "
      "at 1, 6 and 14 men nothing is wider than the glass (the line stands up), every man a fresh 44 px face with his whole name, "
