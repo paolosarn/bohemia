@@ -1,0 +1,8 @@
+{
+ "_readme": "RUN TWO [the hire price is the formula], 10/19/26 (rule 117, Paolo 10/18: 'I want you to be easier than Battle Brothers'). What a man at the hall costs: Battle Brothers' own hire formula, read from records/target/bb/price_table.json wageAndHire (ECONOMY's: the Game Guide's base range, 1.25 x the kit's value, the level cost 500 x (level - 1)^1.5), the kit priced from the wiki's weapon and armour rows (records/target/bb/weapons.json, armor.json), ten crowns to a battery, floor 1 (GROK_31). This file holds the one lever that is not Battle Brothers': TUNING's rule 117 start. A modder edits 'easier' (1.0 is Battle Brothers' own price).",
+ "easier": 0.8,
+ "easier_source": "TUNING, records/BOHEMIA_TUNING_RULE_117_EVERY_FELT_NUMBER_STARTS_EASIER_THAN_BATTLE_BROTHERS_10_18_26.md section 1 item 3 ('Start: four fifths of the formula') and banks/BOHEMIA_TUNING_RULE_117_EASIER_THAN_BB_10_18_26.json levers hire.price_militia_top (start 40 of 49) and hire.price_farmhand_top (start 23 of 29); the slider runs 0.8 to 1.0",
+ "base_from_his_roll": "a man's place in the base range is his own roll in the Game Guide's observed total range for his background (engine/bohemia_goodbros.js hireMin..hireMax), so a cheap man stays cheap and the same man costs the same every visit",
+ "level": "every man at the post is level 1 today (engine/bohemia_goodbros.js rolls no level), so the level cost is 0; it is in the formula for the day a post rolls a veteran",
+ "draft": true
+}

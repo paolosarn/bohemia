@@ -1066,15 +1066,43 @@ function hireCard(r){
   var st = document.createElement('div'); st.className = 'hstats';
   BohemiaGoodBros.STAT_KEYS.forEach(function(k){ var e = document.createElement('span'); e.textContent = STAT_SHORT[k] + ' ' + r.stats[k] + (k === r.starredStat ? ' ' + '★'.repeat(r.starCount) : ''); if(k === r.starredStat) e.className = 'star'; st.appendChild(e); });
   t.appendChild(st); c.appendChild(t);
-  c.appendChild(act('Hire', r.priceBatteries + ' batt', function(){
-    if(bats() < r.priceBatteries) return openB('hall', r.name + ' wants ' + r.priceBatteries + '. You have ' + bats() + '.');
-    P.debit(S.purse, 'electricity', r.priceBatteries, 'hire:' + r.backgroundId, S.place.name, S.day);
+  var price = hallPrice(r);
+  c.appendChild(act('Hire', price + ' batt', function(){
+    if(bats() < price) return openB('hall', r.name + ' wants ' + price + '. You have ' + bats() + '.');
+    P.debit(S.purse, 'electricity', price, 'hire:' + r.backgroundId, S.place.name, S.day);
     S.taken[r.id] = true;
     var kit = KIT[r.backgroundId] || [], def = {name:r.name.toUpperCase(), background:r.backgroundId, jobs:[], stats:r.stats, stars:(function(o){ o[r.starredStat] = r.starCount; return o; })({}), look:r.look, kit:kit};
     hireIntoCompany(def);
-    post('hireMan', {man:def, price:r.priceBatteries}); shelf(); openB('hall', r.name + ' is yours. ' + (kit.filter(Boolean).length ? 'What they carry is in your bag.' : 'They came with nothing but their hands.'));
-  }, bats() < r.priceBatteries));
+    post('hireMan', {man:def, price:price}); shelf(); openB('hall', r.name + ' is yours. ' + (kit.filter(Boolean).length ? 'What they carry is in your bag.' : 'They came with nothing but their hands.'));
+  }, bats() < price));
   return c;
+}
+/* THE HIRE PRICE IS THE FORMULA (RUN TWO [the hire price is the formula], 10/19, rule 117; TUNING measured the hall asking
+   up to 225 batteries for a level-one militiaman against Battle Brothers' own 49, a NO before he sees it). Battle Brothers'
+   hire formula, every number read, none typed: the base range, 1.25 x the kit and the level cost from ECONOMY's
+   price_table.json (wageAndHire), the kit priced off the wiki's own weapon and armour rows, ten crowns to a battery, floor
+   one; the man's place in the base range is his own roll (goodbros' observed range), so the same man costs the same; and
+   TUNING's rule 117 start (four fifths) from records/target/BOHEMIA_HALL_PRICE.json. Until those files are read, the
+   post's old number stands. */
+var HIREPT = null, HALL = {easier: 1};
+fetch('../records/target/bb/price_table.json').then(function(r){ return r.json(); }).then(function(j){ HIREPT = j && j.wageAndHire || null; if(S.open === 'hall') openB('hall'); }).catch(function(){});
+fetch('../records/target/BOHEMIA_HALL_PRICE.json').then(function(r){ return r.json(); }).then(function(j){ if(j && typeof j.easier === 'number') HALL = j; if(S.open === 'hall') openB('hall'); }).catch(function(){});
+function kitCrowns(bg){
+  var v = 0, rowOf = function(list, id){ return (list || []).filter(function(r){ return r.id === id; })[0]; };
+  (KIT[bg] || []).forEach(function(id){
+    if(!id) return;
+    var w = rowOf(BB.weapons, id); if(w){ v += w.value || 0; return; }
+    ['body','head','shields'].forEach(function(k){ var a = BB.armor && rowOf(BB.armor[k], id); if(a) v += a.value || 0; });
+  });
+  return v;
+}
+function hallPrice(r){
+  var gb = window.BohemiaGoodBros && BohemiaGoodBros.byId(r.backgroundId);
+  if(!HIREPT || !gb || !BB.weapons || !BB.armor) return r.priceBatteries;
+  var f = gb.hireMax > gb.hireMin ? Math.max(0, Math.min(1, (r.priceCrowns - gb.hireMin) / (gb.hireMax - gb.hireMin))) : 0.5;
+  var lo = HIREPT.hiringBaseRange.min, hi = HIREPT.hiringBaseRange.maxApprox;
+  var crowns = lo + f * (hi - lo) + 500 * Math.pow(Math.max(0, (r.level || 1) - 1), 1.5) + HIREPT.equipmentCostMultiplier * kitCrowns(r.backgroundId);
+  return Math.max(1, Math.floor(crowns * HALL.easier / 10));
 }
 /* the company lives with the roster screen: it reads this list on open (and the game can hand it) */
 function hireIntoCompany(def){
@@ -1229,14 +1257,21 @@ function openB(k, line){
     var F = window.BohemiaFollowers, id = F && F.offerFor(S.hired, S.asked);
     if(traitMult().none) id = null;   /* sick: nobody signs on */
     var men = recruitsHere();
-    body.appendChild(speak(k, line || (men.length ? 'These want work. Look them over, it costs nothing to look.' : id ? F.askLine(id) : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
+    /* his line says the price the tap takes (a paymaster's cut included), never the list price */
+    var ask = id ? String(F.askLine(id) || '').replace(/for \d+ batteries/, 'for ' + (F.hirePrice ? F.hirePrice(id, S.hired) : 0) + ' batteries') : '';
+    body.appendChild(speak(k, line || (men.length ? 'These want work. Look them over, it costs nothing to look.' : id ? ask : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
     /* THE POSTS (Battle Brothers' recruits, Grok's 'see the hire'): every man's card before you pay */
     men.forEach(function(r){ acts.appendChild(hireCard(r)); });
     if(id){ var hs = document.createElement('div'); hs.className = 'gridh'; hs.textContent = 'CAMP STAFF'; acts.appendChild(hs); }
     if(id){
-      acts.appendChild(act('Take the '+id+' on', '1 battery a night', function(){
-        S.hired[id] = true; post('hire',{role:id}); heard(F.hireLine(id)); shelf(); openB('hall');
-      }));
+      /* the staff's price is what his line says, once, and the tap charges it (TUNING's screens seed: the button said
+         '1 battery a night', the line '200 batteries, once', the tap charged nothing); a paymaster's cut is in the price */
+      var sp = F.hirePrice ? F.hirePrice(id, S.hired) : 0;
+      acts.appendChild(act('Take the '+id+' on', sp + ' batt, once', function(){
+        if(bats() < sp) return openB('hall', F.cantAffordLine ? F.cantAffordLine(id) + ' ' + sp + ', and you have ' + bats() + '.' : 'You are short.');
+        P.debit(S.purse, 'electricity', sp, 'staff:' + id, S.place.name, S.day);
+        S.hired[id] = true; post('hire',{role:id, price:sp}); heard(F.hireLine(id)); shelf(); openB('hall');
+      }, bats() < sp));
       acts.appendChild(act('Not now', '', function(){ S.asked[id] = true; openB('hall','Bueno. I will be around.'); }));
     }
   }
