@@ -87,7 +87,12 @@ a top half of 68.6. Any outfit whose legs are lighter than its dark head is 'lit
 the light does. The shape is right and the colour is the flat's, so nothing is changed to pass: the two denim overalls
 are held off the card (rule 114b), built and rendered (records/target/character/barber/base_bib_overalls,
 base_denim_shortalls), and the question goes to DIRECTION with the numbers: should the light row compare the lit side
-against the shadow side of the same mass, not the top half against the bottom?
+against the shadow side of the same mass, not the top half against the bottom? The 80's own pass found one more of the
+same: ASH LONGLINE TEE, W -3.0, its quarters 48 / 76 / 70 / 54 (the pale ash hem to mid-thigh puts light in the third
+quarter; the same cut in faded black, LONGLINE JERSEY, reads 48 / 61 / 52 / 54 and passes): held with the two denims.
+
+THE COUNT: cards 1 and 2 pass 400 of 400 stills (224 and 176); card 3 passes 234 of 240, the 6 that fail are the three
+held tops' side views, so its 27 shown tops are 216 of 216: 77 of the 80 in VOTE, 3 held.
 
 FOR DIRECTION, A BUG IN THE MASTER RIG (found by this batch, worked around, the rig not edited): line 969 names the
 cropped id frames with fn.replace('id_', 'rigid_') on the WHOLE path (line 857 beside it correctly takes the basename), so

@@ -1,0 +1,173 @@
+{
+ "first": "BONE TURTLENECK",
+ "firstAt": [
+  12,
+  64,
+  758,
+  209
+ ],
+ "rows": {
+  "BONE TURTLENECK": [
+   12,
+   64,
+   758,
+   209
+  ],
+  "CHARCOAL TURTLENECK": [
+   12,
+   279,
+   758,
+   209
+  ],
+  "OLIVE TURTLENECK": [
+   12,
+   494,
+   758,
+   209
+  ],
+  "STORM TURTLENECK": [
+   12,
+   709,
+   758,
+   209
+  ],
+  "ASH HOODIE": [
+   12,
+   924,
+   759,
+   209
+  ],
+  "BRICK HOODIE": [
+   12,
+   1139,
+   759,
+   209
+  ],
+  "COAL HOODIE": [
+   12,
+   1354,
+   759,
+   209
+  ],
+  "OLIVE HOODIE": [
+   12,
+   1569,
+   759,
+   209
+  ],
+  "RUST HOODIE": [
+   12,
+   1784,
+   759,
+   209
+  ],
+  "SAGE HOODIE": [
+   12,
+   1999,
+   759,
+   209
+  ],
+  "SAND HOODIE": [
+   12,
+   2214,
+   759,
+   209
+  ],
+  "STEEL HOODIE": [
+   12,
+   2429,
+   759,
+   209
+  ],
+  "HOOD-UP ASH HOODIE": [
+   12,
+   2644,
+   766,
+   192
+  ],
+  "HOOD-UP COAL HOODIE": [
+   12,
+   2842,
+   766,
+   192
+  ],
+  "TATTERED FLANNEL": [
+   12,
+   3040,
+   758,
+   209
+  ],
+  "TATTERED TEE": [
+   12,
+   3255,
+   756,
+   208
+  ],
+  "WORK COVERALLS": [
+   12,
+   3469,
+   759,
+   209
+  ],
+  "FIELD SHORTALLS": [
+   12,
+   3684,
+   754,
+   208
+  ],
+  "ARC LAYERED SHIRT": [
+   12,
+   3898,
+   763,
+   201
+  ],
+  "ARC SHOULDER TEE": [
+   12,
+   4105,
+   761,
+   201
+  ],
+  "ASH ARC SHIRT": [
+   12,
+   4312,
+   763,
+   201
+  ],
+  "ASH LAYERED TEE": [
+   12,
+   4519,
+   757,
+   208
+  ],
+  "BONE SHOULDER SHIRT": [
+   12,
+   4733,
+   763,
+   201
+  ],
+  "LAYERED JERSEY": [
+   12,
+   4940,
+   758,
+   209
+  ],
+  "LONGLINE JERSEY": [
+   12,
+   5155,
+   758,
+   209
+  ],
+  "SHOULDER LONGLINE": [
+   12,
+   5370,
+   763,
+   201
+  ],
+  "WIDE SHOULDER TEE": [
+   12,
+   5577,
+   761,
+   201
+  ]
+ }
+}
