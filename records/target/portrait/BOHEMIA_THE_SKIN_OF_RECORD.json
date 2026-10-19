@@ -1039,12 +1039,12 @@
    },
    "rig": [
     "skin_light",
-    4
+    3
    ],
    "rig_rgb": [
-    243,
-    221,
-    189
+    224,
+    189,
+    155
    ],
    "hair": {
     "cut": "LAYERED FALL",
@@ -1234,12 +1234,12 @@
    },
    "rig": [
     "skin_light",
-    4
+    3
    ],
    "rig_rgb": [
-    243,
-    221,
-    189
+    224,
+    189,
+    155
    ],
    "hair": {
     "cut": "LAYERED FALL",
