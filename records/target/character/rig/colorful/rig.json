@@ -10,6 +10,10 @@
  "scale_from_model": 1.0833,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
+ "ground_screen": [
+  105.0,
+  153.5754
+ ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
@@ -29,16 +33,32 @@
    "colorful_trouser",
    "colorful_trousers"
   ],
+  "wear_by_material": {
+   "colorful_skin": 0.25,
+   "colorful_eyes": 0.0,
+   "colorful_hair": 0.15,
+   "colorful_hair_fall": 0.15
+  },
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0833)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0833)",
+  "dents": {
+   "meshes": 11,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -64,8 +84,21 @@
   "colorful_trouser": "#ce19ff",
   "colorful_trousers": "#19ff8b"
  },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "colorful_coat": "#ff6cc7",
+  "colorful_coat_skirt": "#6ce9ff",
+  "colorful_hair": "#fff86c",
+  "colorful_hair_fall": "#d86cff",
+  "colorful_hand_L": "#6cffb1",
+  "colorful_hand_R": "#ff796c",
+  "colorful_hat": "#6ca1ff",
+  "colorful_hat_brim": "#ccff6c",
+  "colorful_shoe": "#ff6cee",
+  "colorful_trouser": "#6cfff3"
+ },
  "model": "records/character/rig/colorful.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -101,7 +134,7 @@
  "crop_box_px": [
   66,
   47,
-  144,
+  145,
   171
  ],
  "shadow_files": [
@@ -116,9 +149,13 @@
  ],
  "ground_px": [
   39,
+  107
+ ],
+ "look_px": [
+  39,
   58
  ],
- "colours": 47743,
+ "colours": 47945,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -133,6 +170,132 @@
    "frames": [
     1.5
    ],
+   "motion_px": {
+    "N": [
+     {
+      "Cesium_Man": 0.0,
+      "colorful_coat": 0.0,
+      "colorful_coat_skirt": 0.0,
+      "colorful_hair": 0.0,
+      "colorful_hair_fall": 0.0,
+      "colorful_hand_L": 0.0,
+      "colorful_hand_R": 0.0,
+      "colorful_hat": 0.0,
+      "colorful_hat_brim": 0.0,
+      "colorful_shoe": 0.0,
+      "colorful_trouser": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "Cesium_Man": 0.0,
+      "colorful_coat": 0.0,
+      "colorful_coat_skirt": 0.0,
+      "colorful_hair": 0.0,
+      "colorful_hair_fall": 0.0,
+      "colorful_hand_L": 0.0,
+      "colorful_hand_R": 0.0,
+      "colorful_hat": 0.0,
+      "colorful_hat_brim": 0.0,
+      "colorful_shoe": 0.0,
+      "colorful_trouser": 0.0
+     }
+    ],
+    "E": [
+     {
+      "Cesium_Man": 0.0,
+      "colorful_coat": 0.0,
+      "colorful_coat_skirt": 0.0,
+      "colorful_hair": 0.0,
+      "colorful_hair_fall": 0.0,
+      "colorful_hand_L": 0.0,
+      "colorful_hand_R": 0.0,
+      "colorful_hat": 0.0,
+      "colorful_hat_brim": 0.0,
+      "colorful_shoe": 0.0,
+      "colorful_trouser": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "Cesium_Man": 0.0,
+      "colorful_coat": 0.0,
+      "colorful_coat_skirt": 0.0,
+      "colorful_hair": 0.0,
+      "colorful_hair_fall": 0.0,
+      "colorful_hand_L": 0.0,
+      "colorful_hand_R": 0.0,
+      "colorful_hat": 0.0,
+      "colorful_hat_brim": 0.0,
+      "colorful_shoe": 0.0,
+      "colorful_trouser": 0.0
+     }
+    ],
+    "S": [
+     {
+      "Cesium_Man": 0.0,
+      "colorful_coat": 0.0,
+      "colorful_coat_skirt": 0.0,
+      "colorful_hair": 0.0,
+      "colorful_hair_fall": 0.0,
+      "colorful_hand_L": 0.0,
+      "colorful_hand_R": 0.0,
+      "colorful_hat": 0.0,
+      "colorful_hat_brim": 0.0,
+      "colorful_shoe": 0.0,
+      "colorful_trouser": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "Cesium_Man": 0.0,
+      "colorful_coat": 0.0,
+      "colorful_coat_skirt": 0.0,
+      "colorful_hair": 0.0,
+      "colorful_hair_fall": 0.0,
+      "colorful_hand_L": 0.0,
+      "colorful_hand_R": 0.0,
+      "colorful_hat": 0.0,
+      "colorful_hat_brim": 0.0,
+      "colorful_shoe": 0.0,
+      "colorful_trouser": 0.0
+     }
+    ],
+    "W": [
+     {
+      "Cesium_Man": 0.0,
+      "colorful_coat": 0.0,
+      "colorful_coat_skirt": 0.0,
+      "colorful_hair": 0.0,
+      "colorful_hair_fall": 0.0,
+      "colorful_hand_L": 0.0,
+      "colorful_hand_R": 0.0,
+      "colorful_hat": 0.0,
+      "colorful_hat_brim": 0.0,
+      "colorful_shoe": 0.0,
+      "colorful_trouser": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "Cesium_Man": 0.0,
+      "colorful_coat": 0.0,
+      "colorful_coat_skirt": 0.0,
+      "colorful_hair": 0.0,
+      "colorful_hair_fall": 0.0,
+      "colorful_hand_L": 0.0,
+      "colorful_hand_R": 0.0,
+      "colorful_hat": 0.0,
+      "colorful_hat_brim": 0.0,
+      "colorful_shoe": 0.0,
+      "colorful_trouser": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/colorful/rig_Stand_N_k00.png",
     "records/target/character/rig/colorful/rig_Stand_NE_k00.png",
@@ -142,7 +305,8 @@
     "records/target/character/rig/colorful/rig_Stand_SW_k00.png",
     "records/target/character/rig/colorful/rig_Stand_W_k00.png",
     "records/target/character/rig/colorful/rig_Stand_NW_k00.png"
-   ]
+   ],
+   "light_files": []
   },
   "Anim_0": {
    "keys": 6,
@@ -159,6 +323,652 @@
     36.0,
     44.0
    ],
+   "motion_px": {
+    "N": [
+     {
+      "Cesium_Man": 18.486,
+      "colorful_coat": 6.948,
+      "colorful_coat_skirt": 10.557,
+      "colorful_hair": 4.124,
+      "colorful_hair_fall": 3.614,
+      "colorful_hand_L": 6.894,
+      "colorful_hand_R": 8.438,
+      "colorful_hat": 4.212,
+      "colorful_hat_brim": 4.116,
+      "colorful_shoe": 18.853,
+      "colorful_trouser": 12.279
+     },
+     {
+      "Cesium_Man": 19.951,
+      "colorful_coat": 19.174,
+      "colorful_coat_skirt": 31.742,
+      "colorful_hair": 7.37,
+      "colorful_hair_fall": 6.873,
+      "colorful_hand_L": 17.017,
+      "colorful_hand_R": 24.411,
+      "colorful_hat": 7.44,
+      "colorful_hat_brim": 7.66,
+      "colorful_shoe": 18.29,
+      "colorful_trouser": 20.952
+     },
+     {
+      "Cesium_Man": 16.881,
+      "colorful_coat": 10.65,
+      "colorful_coat_skirt": 21.008,
+      "colorful_hair": 2.408,
+      "colorful_hair_fall": 2.237,
+      "colorful_hand_L": 14.602,
+      "colorful_hand_R": 6.987,
+      "colorful_hat": 2.438,
+      "colorful_hat_brim": 2.472,
+      "colorful_shoe": 18.83,
+      "colorful_trouser": 16.39
+     },
+     {
+      "Cesium_Man": 19.48,
+      "colorful_coat": 12.58,
+      "colorful_coat_skirt": 12.888,
+      "colorful_hair": 4.353,
+      "colorful_hair_fall": 4.411,
+      "colorful_hand_L": 14.416,
+      "colorful_hand_R": 13.033,
+      "colorful_hat": 4.455,
+      "colorful_hat_brim": 4.574,
+      "colorful_shoe": 20.878,
+      "colorful_trouser": 12.92
+     },
+     {
+      "Cesium_Man": 22.953,
+      "colorful_coat": 19.742,
+      "colorful_coat_skirt": 35.922,
+      "colorful_hair": 10.285,
+      "colorful_hair_fall": 9.253,
+      "colorful_hand_L": 22.622,
+      "colorful_hand_R": 12.417,
+      "colorful_hat": 10.369,
+      "colorful_hat_brim": 10.638,
+      "colorful_shoe": 24.211,
+      "colorful_trouser": 23.815
+     },
+     {
+      "Cesium_Man": 17.305,
+      "colorful_coat": 8.65,
+      "colorful_coat_skirt": 24.502,
+      "colorful_hair": 4.441,
+      "colorful_hair_fall": 4.677,
+      "colorful_hand_L": 5.138,
+      "colorful_hand_R": 14.038,
+      "colorful_hat": 4.275,
+      "colorful_hat_brim": 4.327,
+      "colorful_shoe": 13.335,
+      "colorful_trouser": 17.679
+     }
+    ],
+    "NE": [
+     {
+      "Cesium_Man": 18.734,
+      "colorful_coat": 8.846,
+      "colorful_coat_skirt": 12.498,
+      "colorful_hair": 6.267,
+      "colorful_hair_fall": 5.508,
+      "colorful_hand_L": 7.299,
+      "colorful_hand_R": 10.698,
+      "colorful_hat": 6.303,
+      "colorful_hat_brim": 6.355,
+      "colorful_shoe": 19.112,
+      "colorful_trouser": 13.573
+     },
+     {
+      "Cesium_Man": 21.306,
+      "colorful_coat": 20.342,
+      "colorful_coat_skirt": 31.071,
+      "colorful_hair": 7.223,
+      "colorful_hair_fall": 6.271,
+      "colorful_hand_L": 18.492,
+      "colorful_hand_R": 26.085,
+      "colorful_hat": 7.278,
+      "colorful_hat_brim": 7.454,
+      "colorful_shoe": 21.509,
+      "colorful_trouser": 21.184
+     },
+     {
+      "Cesium_Man": 18.652,
+      "colorful_coat": 11.32,
+      "colorful_coat_skirt": 20.072,
+      "colorful_hair": 3.709,
+      "colorful_hair_fall": 3.615,
+      "colorful_hand_L": 15.863,
+      "colorful_hand_R": 6.752,
+      "colorful_hat": 3.754,
+      "colorful_hat_brim": 3.851,
+      "colorful_shoe": 21.189,
+      "colorful_trouser": 15.659
+     },
+     {
+      "Cesium_Man": 20.055,
+      "colorful_coat": 11.795,
+      "colorful_coat_skirt": 17.122,
+      "colorful_hair": 4.29,
+      "colorful_hair_fall": 4.371,
+      "colorful_hand_L": 13.257,
+      "colorful_hand_R": 13.206,
+      "colorful_hat": 4.404,
+      "colorful_hat_brim": 4.529,
+      "colorful_shoe": 21.142,
+      "colorful_trouser": 14.375
+     },
+     {
+      "Cesium_Man": 29.313,
+      "colorful_coat": 20.675,
+      "colorful_coat_skirt": 35.02,
+      "colorful_hair": 7.962,
+      "colorful_hair_fall": 7.341,
+      "colorful_hand_L": 24.096,
+      "colorful_hand_R": 14.232,
+      "colorful_hat": 8.02,
+      "colorful_hat_brim": 8.188,
+      "colorful_shoe": 29.871,
+      "colorful_trouser": 23.795
+     },
+     {
+      "Cesium_Man": 16.627,
+      "colorful_coat": 9.768,
+      "colorful_coat_skirt": 23.591,
+      "colorful_hair": 3.332,
+      "colorful_hair_fall": 4.045,
+      "colorful_hand_L": 6.556,
+      "colorful_hand_R": 15.06,
+      "colorful_hat": 3.029,
+      "colorful_hat_brim": 3.053,
+      "colorful_shoe": 15.863,
+      "colorful_trouser": 16.973
+     }
+    ],
+    "E": [
+     {
+      "Cesium_Man": 17.588,
+      "colorful_coat": 9.232,
+      "colorful_coat_skirt": 13.931,
+      "colorful_hair": 7.037,
+      "colorful_hair_fall": 6.264,
+      "colorful_hand_L": 7.409,
+      "colorful_hand_R": 11.26,
+      "colorful_hat": 7.069,
+      "colorful_hat_brim": 7.192,
+      "colorful_shoe": 17.821,
+      "colorful_trouser": 14.501
+     },
+     {
+      "Cesium_Man": 27.32,
+      "colorful_coat": 22.978,
+      "colorful_coat_skirt": 27.791,
+      "colorful_hair": 6.579,
+      "colorful_hair_fall": 5.491,
+      "colorful_hand_L": 20.484,
+      "colorful_hand_R": 29.961,
+      "colorful_hat": 6.854,
+      "colorful_hat_brim": 7.105,
+      "colorful_shoe": 27.772,
+      "colorful_trouser": 21.801
+     },
+     {
+      "Cesium_Man": 25.561,
+      "colorful_coat": 12.222,
+      "colorful_coat_skirt": 16.956,
+      "colorful_hair": 4.519,
+      "colorful_hair_fall": 4.558,
+      "colorful_hand_L": 18.096,
+      "colorful_hand_R": 7.418,
+      "colorful_hat": 4.627,
+      "colorful_hat_brim": 4.727,
+      "colorful_shoe": 25.732,
+      "colorful_trouser": 18.786
+     },
+     {
+      "Cesium_Man": 19.727,
+      "colorful_coat": 14.754,
+      "colorful_coat_skirt": 20.443,
+      "colorful_hair": 3.826,
+      "colorful_hair_fall": 3.867,
+      "colorful_hand_L": 16.952,
+      "colorful_hand_R": 12.788,
+      "colorful_hat": 3.964,
+      "colorful_hat_brim": 4.089,
+      "colorful_shoe": 19.946,
+      "colorful_trouser": 15.849
+     },
+     {
+      "Cesium_Man": 35.539,
+      "colorful_coat": 18.832,
+      "colorful_coat_skirt": 30.249,
+      "colorful_hair": 6.977,
+      "colorful_hair_fall": 6.548,
+      "colorful_hand_L": 22.687,
+      "colorful_hand_R": 15.125,
+      "colorful_hat": 7.108,
+      "colorful_hat_brim": 7.447,
+      "colorful_shoe": 36.259,
+      "colorful_trouser": 24.76
+     },
+     {
+      "Cesium_Man": 22.645,
+      "colorful_coat": 13.328,
+      "colorful_coat_skirt": 20.344,
+      "colorful_hair": 2.704,
+      "colorful_hair_fall": 3.705,
+      "colorful_hand_L": 7.584,
+      "colorful_hand_R": 20.104,
+      "colorful_hat": 2.723,
+      "colorful_hat_brim": 2.74,
+      "colorful_shoe": 22.843,
+      "colorful_trouser": 17.527
+     }
+    ],
+    "SE": [
+     {
+      "Cesium_Man": 14.964,
+      "colorful_coat": 8.08,
+      "colorful_coat_skirt": 15.272,
+      "colorful_hair": 7.136,
+      "colorful_hair_fall": 6.383,
+      "colorful_hand_L": 5.572,
+      "colorful_hand_R": 10.247,
+      "colorful_hat": 7.176,
+      "colorful_hat_brim": 7.309,
+      "colorful_shoe": 15.042,
+      "colorful_trouser": 12.608
+     },
+     {
+      "Cesium_Man": 26.02,
+      "colorful_coat": 20.059,
+      "colorful_coat_skirt": 24.525,
+      "colorful_hair": 6.754,
+      "colorful_hair_fall": 5.403,
+      "colorful_hand_L": 18.586,
+      "colorful_hand_R": 26.826,
+      "colorful_hat": 6.993,
+      "colorful_hat_brim": 7.251,
+      "colorful_shoe": 26.945,
+      "colorful_trouser": 20.819
+     },
+     {
+      "Cesium_Man": 30.361,
+      "colorful_coat": 10.937,
+      "colorful_coat_skirt": 11.708,
+      "colorful_hair": 4.831,
+      "colorful_hair_fall": 4.841,
+      "colorful_hand_L": 16.565,
+      "colorful_hand_R": 6.947,
+      "colorful_hat": 4.963,
+      "colorful_hat_brim": 5.056,
+      "colorful_shoe": 30.615,
+      "colorful_trouser": 21.897
+     },
+     {
+      "Cesium_Man": 17.628,
+      "colorful_coat": 15.213,
+      "colorful_coat_skirt": 22.003,
+      "colorful_hair": 2.704,
+      "colorful_hair_fall": 2.943,
+      "colorful_hand_L": 18.574,
+      "colorful_hand_R": 9.335,
+      "colorful_hat": 2.79,
+      "colorful_hat_brim": 2.956,
+      "colorful_shoe": 17.759,
+      "colorful_trouser": 14.624
+     },
+     {
+      "Cesium_Man": 32.87,
+      "colorful_coat": 13.004,
+      "colorful_coat_skirt": 21.845,
+      "colorful_hair": 7.866,
+      "colorful_hair_fall": 6.72,
+      "colorful_hand_L": 16.227,
+      "colorful_hand_R": 12.407,
+      "colorful_hat": 7.976,
+      "colorful_hat_brim": 8.22,
+      "colorful_shoe": 33.512,
+      "colorful_trouser": 20.89
+     },
+     {
+      "Cesium_Man": 26.868,
+      "colorful_coat": 13.843,
+      "colorful_coat_skirt": 14.922,
+      "colorful_hair": 3.931,
+      "colorful_hair_fall": 4.006,
+      "colorful_hand_L": 7.154,
+      "colorful_hand_R": 21.498,
+      "colorful_hat": 3.95,
+      "colorful_hat_brim": 3.982,
+      "colorful_shoe": 27.105,
+      "colorful_trouser": 20.234
+     }
+    ],
+    "S": [
+     {
+      "Cesium_Man": 12.745,
+      "colorful_coat": 8.167,
+      "colorful_coat_skirt": 15.629,
+      "colorful_hair": 6.924,
+      "colorful_hair_fall": 6.162,
+      "colorful_hand_L": 3.299,
+      "colorful_hand_R": 10.293,
+      "colorful_hat": 6.951,
+      "colorful_hat_brim": 7.068,
+      "colorful_shoe": 12.866,
+      "colorful_trouser": 11.012
+     },
+     {
+      "Cesium_Man": 25.584,
+      "colorful_coat": 14.973,
+      "colorful_coat_skirt": 19.894,
+      "colorful_hair": 7.297,
+      "colorful_hair_fall": 4.723,
+      "colorful_hand_L": 13.997,
+      "colorful_hand_R": 20.525,
+      "colorful_hat": 7.356,
+      "colorful_hat_brim": 7.473,
+      "colorful_shoe": 25.762,
+      "colorful_trouser": 20.436
+     },
+     {
+      "Cesium_Man": 31.516,
+      "colorful_coat": 9.182,
+      "colorful_coat_skirt": 8.991,
+      "colorful_hair": 4.843,
+      "colorful_hair_fall": 4.81,
+      "colorful_hand_L": 14.414,
+      "colorful_hand_R": 5.245,
+      "colorful_hat": 4.948,
+      "colorful_hat_brim": 5.036,
+      "colorful_shoe": 31.846,
+      "colorful_trouser": 22.874
+     },
+     {
+      "Cesium_Man": 14.606,
+      "colorful_coat": 12.927,
+      "colorful_coat_skirt": 22.387,
+      "colorful_hair": 3.11,
+      "colorful_hair_fall": 3.155,
+      "colorful_hand_L": 16.452,
+      "colorful_hand_R": 3.536,
+      "colorful_hat": 2.891,
+      "colorful_hat_brim": 3.026,
+      "colorful_shoe": 14.87,
+      "colorful_trouser": 12.571
+     },
+     {
+      "Cesium_Man": 28.451,
+      "colorful_coat": 9.384,
+      "colorful_coat_skirt": 16.396,
+      "colorful_hair": 9.582,
+      "colorful_hair_fall": 6.693,
+      "colorful_hand_L": 11.112,
+      "colorful_hand_R": 10.541,
+      "colorful_hat": 9.688,
+      "colorful_hat_brim": 9.447,
+      "colorful_shoe": 29.319,
+      "colorful_trouser": 16.458
+     },
+     {
+      "Cesium_Man": 27.939,
+      "colorful_coat": 12.989,
+      "colorful_coat_skirt": 11.704,
+      "colorful_hair": 4.947,
+      "colorful_hair_fall": 4.509,
+      "colorful_hand_L": 6.937,
+      "colorful_hand_R": 20.346,
+      "colorful_hat": 4.962,
+      "colorful_hat_brim": 5.004,
+      "colorful_shoe": 28.19,
+      "colorful_trouser": 21.084
+     }
+    ],
+    "SW": [
+     {
+      "Cesium_Man": 15.781,
+      "colorful_coat": 9.285,
+      "colorful_coat_skirt": 15.319,
+      "colorful_hair": 5.811,
+      "colorful_hair_fall": 5.138,
+      "colorful_hand_L": 5.251,
+      "colorful_hand_R": 11.284,
+      "colorful_hat": 5.847,
+      "colorful_hat_brim": 5.886,
+      "colorful_shoe": 15.854,
+      "colorful_trouser": 13.317
+     },
+     {
+      "Cesium_Man": 26.02,
+      "colorful_coat": 17.613,
+      "colorful_coat_skirt": 23.633,
+      "colorful_hair": 7.478,
+      "colorful_hair_fall": 5.905,
+      "colorful_hand_L": 15.709,
+      "colorful_hand_R": 23.784,
+      "colorful_hat": 7.556,
+      "colorful_hat_brim": 7.722,
+      "colorful_shoe": 26.421,
+      "colorful_trouser": 20.82
+     },
+     {
+      "Cesium_Man": 30.563,
+      "colorful_coat": 9.865,
+      "colorful_coat_skirt": 12.33,
+      "colorful_hair": 4.5,
+      "colorful_hair_fall": 4.382,
+      "colorful_hand_L": 15.425,
+      "colorful_hand_R": 5.158,
+      "colorful_hat": 4.534,
+      "colorful_hat_brim": 4.614,
+      "colorful_shoe": 30.852,
+      "colorful_trouser": 22.009
+     },
+     {
+      "Cesium_Man": 17.314,
+      "colorful_coat": 11.871,
+      "colorful_coat_skirt": 21.384,
+      "colorful_hair": 3.886,
+      "colorful_hair_fall": 3.258,
+      "colorful_hand_L": 15.148,
+      "colorful_hand_R": 7.133,
+      "colorful_hat": 3.983,
+      "colorful_hat_brim": 4.108,
+      "colorful_shoe": 17.434,
+      "colorful_trouser": 14.411
+     },
+     {
+      "Cesium_Man": 32.638,
+      "colorful_coat": 14.903,
+      "colorful_coat_skirt": 21.473,
+      "colorful_hair": 10.435,
+      "colorful_hair_fall": 9.052,
+      "colorful_hand_L": 17.799,
+      "colorful_hand_R": 13.396,
+      "colorful_hat": 10.528,
+      "colorful_hat_brim": 10.824,
+      "colorful_shoe": 33.303,
+      "colorful_trouser": 20.205
+     },
+     {
+      "Cesium_Man": 27.015,
+      "colorful_coat": 13.467,
+      "colorful_coat_skirt": 14.498,
+      "colorful_hair": 5.411,
+      "colorful_hair_fall": 4.897,
+      "colorful_hand_L": 7.533,
+      "colorful_hand_R": 21.011,
+      "colorful_hat": 5.431,
+      "colorful_hat_brim": 5.468,
+      "colorful_shoe": 27.255,
+      "colorful_trouser": 20.256
+     }
+    ],
+    "W": [
+     {
+      "Cesium_Man": 17.601,
+      "colorful_coat": 8.754,
+      "colorful_coat_skirt": 13.959,
+      "colorful_hair": 3.306,
+      "colorful_hair_fall": 3.144,
+      "colorful_hand_L": 7.257,
+      "colorful_hand_R": 10.622,
+      "colorful_hat": 3.354,
+      "colorful_hat_brim": 3.37,
+      "colorful_shoe": 17.899,
+      "colorful_trouser": 14.398
+     },
+     {
+      "Cesium_Man": 27.577,
+      "colorful_coat": 22.318,
+      "colorful_coat_skirt": 27.791,
+      "colorful_hair": 7.075,
+      "colorful_hair_fall": 6.83,
+      "colorful_hand_L": 20.137,
+      "colorful_hand_R": 29.543,
+      "colorful_hat": 7.165,
+      "colorful_hat_brim": 7.589,
+      "colorful_shoe": 28.103,
+      "colorful_trouser": 21.816
+     },
+     {
+      "Cesium_Man": 26.156,
+      "colorful_coat": 11.839,
+      "colorful_coat_skirt": 17.427,
+      "colorful_hair": 3.779,
+      "colorful_hair_fall": 3.276,
+      "colorful_hand_L": 17.854,
+      "colorful_hand_R": 6.841,
+      "colorful_hat": 3.481,
+      "colorful_hat_brim": 3.56,
+      "colorful_shoe": 26.404,
+      "colorful_trouser": 19.03
+     },
+     {
+      "Cesium_Man": 19.755,
+      "colorful_coat": 14.448,
+      "colorful_coat_skirt": 20.313,
+      "colorful_hair": 4.219,
+      "colorful_hair_fall": 4.035,
+      "colorful_hand_L": 17.646,
+      "colorful_hand_R": 11.617,
+      "colorful_hat": 4.275,
+      "colorful_hat_brim": 4.406,
+      "colorful_shoe": 19.94,
+      "colorful_trouser": 15.878
+     },
+     {
+      "Cesium_Man": 35.611,
+      "colorful_coat": 20.169,
+      "colorful_coat_skirt": 29.022,
+      "colorful_hair": 10.264,
+      "colorful_hair_fall": 9.524,
+      "colorful_hand_L": 23.764,
+      "colorful_hand_R": 15.251,
+      "colorful_hat": 10.446,
+      "colorful_hat_brim": 10.784,
+      "colorful_shoe": 36.319,
+      "colorful_trouser": 24.673
+     },
+     {
+      "Cesium_Man": 23.052,
+      "colorful_coat": 13.915,
+      "colorful_coat_skirt": 19.998,
+      "colorful_hair": 5.441,
+      "colorful_hair_fall": 5.145,
+      "colorful_hand_L": 7.049,
+      "colorful_hand_R": 21.358,
+      "colorful_hat": 5.474,
+      "colorful_hat_brim": 5.522,
+      "colorful_shoe": 23.257,
+      "colorful_trouser": 17.575
+     }
+    ],
+    "NW": [
+     {
+      "Cesium_Man": 18.738,
+      "colorful_coat": 6.89,
+      "colorful_coat_skirt": 12.136,
+      "colorful_hair": 2.153,
+      "colorful_hair_fall": 2.23,
+      "colorful_hand_L": 7.412,
+      "colorful_hand_R": 8.342,
+      "colorful_hat": 2.27,
+      "colorful_hat_brim": 2.401,
+      "colorful_shoe": 19.114,
+      "colorful_trouser": 13.228
+     },
+     {
+      "Cesium_Man": 23.447,
+      "colorful_coat": 22.315,
+      "colorful_coat_skirt": 30.958,
+      "colorful_hair": 6.899,
+      "colorful_hair_fall": 6.864,
+      "colorful_hand_L": 19.48,
+      "colorful_hand_R": 28.875,
+      "colorful_hat": 7.087,
+      "colorful_hat_brim": 7.418,
+      "colorful_shoe": 22.679,
+      "colorful_trouser": 21.217
+     },
+     {
+      "Cesium_Man": 18.281,
+      "colorful_coat": 11.847,
+      "colorful_coat_skirt": 20.27,
+      "colorful_hair": 2.838,
+      "colorful_hair_fall": 2.54,
+      "colorful_hand_L": 16.953,
+      "colorful_hand_R": 7.48,
+      "colorful_hat": 2.198,
+      "colorful_hat_brim": 2.273,
+      "colorful_shoe": 20.77,
+      "colorful_trouser": 15.798
+     },
+     {
+      "Cesium_Man": 20.017,
+      "colorful_coat": 15.35,
+      "colorful_coat_skirt": 16.31,
+      "colorful_hair": 4.306,
+      "colorful_hair_fall": 4.381,
+      "colorful_hand_L": 18.207,
+      "colorful_hand_R": 13.255,
+      "colorful_hat": 4.413,
+      "colorful_hat_brim": 4.516,
+      "colorful_shoe": 21.148,
+      "colorful_trouser": 14.316
+     },
+     {
+      "Cesium_Man": 29.722,
+      "colorful_coat": 20.339,
+      "colorful_coat_skirt": 34.633,
+      "colorful_hair": 10.264,
+      "colorful_hair_fall": 9.521,
+      "colorful_hand_L": 23.606,
+      "colorful_hand_R": 13.846,
+      "colorful_hat": 10.502,
+      "colorful_hat_brim": 10.82,
+      "colorful_shoe": 30.295,
+      "colorful_trouser": 23.781
+     },
+     {
+      "Cesium_Man": 16.653,
+      "colorful_coat": 11.786,
+      "colorful_coat_skirt": 23.437,
+      "colorful_hair": 5.115,
+      "colorful_hair_fall": 5.079,
+      "colorful_hand_L": 5.373,
+      "colorful_hand_R": 17.31,
+      "colorful_hat": 5.13,
+      "colorful_hat_brim": 5.184,
+      "colorful_shoe": 16.115,
+      "colorful_trouser": 17.01
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/colorful/rig_Anim_0_N_k00.png",
     "records/target/character/rig/colorful/rig_Anim_0_N_k01.png",
@@ -208,55 +1018,56 @@
     "records/target/character/rig/colorful/rig_Anim_0_NW_k03.png",
     "records/target/character/rig/colorful/rig_Anim_0_NW_k04.png",
     "records/target/character/rig/colorful/rig_Anim_0_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   }
  },
  "card": {
   "family": "prop",
-  "out": 2,
+  "out": 1,
   "rows": [
    "OK   long side >= floor 96: 124",
-   "OUT  colours >= 2330: 1838",
-   "OK   top 8 carry <= 11%: 2.1",
-   "OUT  value span >= 118: 114",
-   "OK   saturation <= 0.81: 0.358",
-   "OK   light: top minus bottom >= -2.5: 1.5",
+   "OUT  colours >= 2330: 1860",
+   "OK   top 8 carry <= 11%: 2.4",
+   "OK   value span >= 118: 129",
+   "OK   saturation <= 0.81: 0.304",
+   "OK   light: top minus bottom >= -2.5: 4.8",
    "OK   edge between -35 and +7: -23.7",
    "OK   grain <= 2.22 px a run: 1.56"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 3.1%",
+   "OK   stray pixels at 8 steps <= 14%: 4.4%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 224.7"
+   "OK   light from above (180 to 360 degrees, or flat): 235.7"
   ],
-  "verdict": "2 of 8 out -> to DIRECTION",
+  "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/colorful/rig_S.png"
  },
  "cls": "person",
  "card_guide": {
   "cls": "person",
-  "out": 1,
+  "out": 0,
   "rows": [
    "OK   long side >= floor 96: 124",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2223 px): 1838",
-   "OK   top 8 carry <= 11%: 2.1",
-   "OUT  value span >= 118: 114",
-   "OK   saturation <= 0.81: 0.358",
-   "OK   light: top minus bottom >= -2.5: 1.5",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2230 px): 1860",
+   "OK   top 8 carry <= 11%: 2.4",
+   "OK   value span >= 118: 129",
+   "OK   saturation <= 0.81: 0.304",
+   "OK   light: top minus bottom >= -2.5: 4.8",
    "OK   edge between -35 and +7: -23.7",
    "OK   grain <= 2.22 px a run: 1.56"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "1 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
-   27,
-   106
+   28,
+   107
   ],
-  "opaque_px": 2223,
-  "colours": 1838
+  "opaque_px": 2230,
+  "colours": 1860
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -305,7 +1116,32 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "breaks": [],
  "guide": {
@@ -321,5 +1157,71 @@
   "records/target/character/rig/colorful/rigid_SW.png",
   "records/target/character/rig/colorful/rigid_W.png",
   "records/target/character/rig/colorful/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/character/rig/colorful/rigobj_N.png",
+  "records/target/character/rig/colorful/rigobj_NE.png",
+  "records/target/character/rig/colorful/rigobj_E.png",
+  "records/target/character/rig/colorful/rigobj_SE.png",
+  "records/target/character/rig/colorful/rigobj_S.png",
+  "records/target/character/rig/colorful/rigobj_SW.png",
+  "records/target/character/rig/colorful/rigobj_W.png",
+  "records/target/character/rig/colorful/rigobj_NW.png",
+  "records/target/character/rig/colorful/rigobj_Stand_N_k00.png",
+  "records/target/character/rig/colorful/rigobj_Stand_NE_k00.png",
+  "records/target/character/rig/colorful/rigobj_Stand_E_k00.png",
+  "records/target/character/rig/colorful/rigobj_Stand_SE_k00.png",
+  "records/target/character/rig/colorful/rigobj_Stand_S_k00.png",
+  "records/target/character/rig/colorful/rigobj_Stand_SW_k00.png",
+  "records/target/character/rig/colorful/rigobj_Stand_W_k00.png",
+  "records/target/character/rig/colorful/rigobj_Stand_NW_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_N_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_N_k01.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_N_k02.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_N_k03.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_N_k04.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_N_k05.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NE_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NE_k01.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NE_k02.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NE_k03.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NE_k04.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NE_k05.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_E_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_E_k01.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_E_k02.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_E_k03.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_E_k04.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_E_k05.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SE_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SE_k01.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SE_k02.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SE_k03.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SE_k04.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SE_k05.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_S_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_S_k01.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_S_k02.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_S_k03.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_S_k04.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_S_k05.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SW_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SW_k01.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SW_k02.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SW_k03.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SW_k04.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_SW_k05.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_W_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_W_k01.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_W_k02.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_W_k03.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_W_k04.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_W_k05.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NW_k00.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NW_k01.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NW_k02.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NW_k03.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NW_k04.png",
+  "records/target/character/rig/colorful/rigobj_Anim_0_NW_k05.png"
  ]
 }
