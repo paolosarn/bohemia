@@ -130,6 +130,39 @@ function save(name, dataUrl) {
       face_png: save('flip_' + f.id + '_face', f.face), body_png: f.id === 'act1' && got.map.body ? DIR + '/map_body.png' : null,
       owner: 'DYNASTY / PORTRAIT', note: f.id === 'act1' ? 'act one is him: his map body' : 'no body for this act on any screen' });
   }
+  /* THE ALPHA, CHARACTER tab: YOU (charCv beside portraitCv), and the crowd board, whose bodies are painted with each
+     person's own skin from NPC_FACTORY (the alpha's crowd panel), beside faceFor(id) drawn with its own ramp, the face
+     that person talks with: the one place the game already ties the two to one roll */
+  const a = await ctx.newPage();
+  a.on('pageerror', e => errs.push('alpha: ' + String(e).slice(0, 180)));
+  await a.setViewportSize({ width: 1280, height: 900 });
+  await a.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ALPHA_0_9.html', { waitUntil: 'load' });
+  await a.waitForTimeout(8000);
+  await a.evaluate(() => { const t = document.querySelector('[data-p=char]'); if (t) t.click(); });
+  await a.waitForTimeout(5000);
+  const al = await a.evaluate(() => {
+    const url = c => { try { return c.toDataURL('image/png'); } catch (e) { return null; } };
+    const res = { you: { face: url(document.getElementById('portraitCv')), body: url(document.getElementById('charCv')) }, crowd: [] };
+    const host = document.getElementById('crowdBoard'), st = document.getElementById('crowdStat');
+    const m = /page (\d+)/.exec(st ? st.textContent : ''), page = m ? (+m[1] - 1) : 0;
+    for (let k = 0; host && k < host.children.length; k++) {
+      const id = 'crowd:' + page + ':' + k, sp = faceFor(id), buf = renderFace(sp, { ramp: faceRampFor(sp) });
+      const c = document.createElement('canvas'); c.width = 64; c.height = 64;
+      const x = c.getContext('2d'), d = x.createImageData(64, 64); d.data.set(buf); x.putImageData(d, 0, 0);
+      res.crowd.push({ id, face: url(c), body: url(host.children[k].firstChild) });
+    }
+    return res;
+  });
+  if (al.you.face && al.you.body)
+    pairs.push({ who: 'you', name: 'YOU (alpha)', face: 'the alpha CHARACTER tab portrait (portraitCv)',
+      face_png: save('alpha_you_face', al.you.face), body_png: save('alpha_you_body', al.you.body), owner: 'CHARACTER' });
+  al.crowd.forEach((g, k) => {
+    if (!g.face || !g.body) return;
+    pairs.push({ who: 'alpha:' + g.id, name: 'ALPHA CROWD ' + (k + 1),
+      face: 'the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)',
+      face_png: save('alpha_crowd_' + k + '_face', g.face), body_png: save('alpha_crowd_' + k + '_body', g.body),
+      owner: 'none: the same id picks skin, body and face' });
+  });
   const out = { tool: 'tools/bohemia_eyes_every_face_beside_its_body_10_19_26.js', read: new Date().toISOString(),
     page: 'slices/BOHEMIA_DEMO.html (committed tree), 390 x 844 at 3x, BEGIN tapped', build: stamp,
     asked_street: asked, street_faces_answered: got.street.filter(s => s.face).length,

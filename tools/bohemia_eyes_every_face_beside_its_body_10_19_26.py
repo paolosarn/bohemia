@@ -28,8 +28,10 @@ THE SKIN, AND HOW IT IS READ
   intermediate 28 to 41, tan 10 to 28, brown -30 to 10, dark under -30.
   SKIN PASS: the face's band is the body's band or the next one, AND the lightness differs by 12 L* or less (about the
   step between two neighbouring Monk skin-tone swatches). Anything else is BACK, the numbers printed.
-THE TOP OF THE HEAD: hair, or the hat when the worn list puts one on, read as the median of the top rows of the head;
-  PASS within 20 CIEDE2000. THE HAT: a hat on the body and none on the face (or the other way) is BACK.
+THE TOP OF THE HEAD: hair, or the hat when the worn list puts one on, read as the median of the top rows of the head and
+  printed in CIEDE2000, NOT JUDGED (the read can not tell a hat from hair). THE HAT: on the new portraits, a hat in the
+  worn list and none in PORTRAIT's manifest (or the other way) is BACK. ONE MAN, ONE LOOK: the crew screen and the fight
+  must give a crew man the same look.
 BUILD: a portrait is head only (his 9/27 vote, head gear shown), so the body's build can not be read in it; the read
   names that instead of inventing a number.
 
@@ -318,6 +320,13 @@ def corner_bg(a):
     return [int(v) for v in c[0]]
 
 
+def verdict_of(legs):
+    """PASS when every JUDGED leg passes. The top of the head is printed, not judged: the read can not tell a hat from
+    hair (a capped body beside a rolled face, which never draws a hat, reads 20 to 33 apart on the alpha's own matched
+    crowd), so it is a number for PORTRAIT, never a verdict."""
+    return 'PASS' if all(l['ok'] for l in legs if l.get('judged', True)) else 'BACK'
+
+
 def compare(body, face):
     """The legs of one face against its body."""
     legs = []
@@ -334,7 +343,7 @@ def compare(body, face):
                          db, 'darker' if ft < bt else 'lighter', abs(dL), 'darker' if dL < 0 else 'lighter')))})
     if body.get('top_lab') and face.get('top_lab'):
         d = de2000(body['top_lab'], face['top_lab'])
-        legs.append({'leg': 'top of the head', 'ok': d <= TOP_TOL, 'de2000': round(d, 1),
+        legs.append({'leg': 'top of the head', 'ok': d <= TOP_TOL, 'de2000': round(d, 1), 'judged': False,
                      'said': 'hair or hat %s on the body, %s on the face, %.0f apart' % (
                          lab_to_hex(body['top_lab']), lab_to_hex(face['top_lab']), d)})
     return legs
@@ -357,7 +366,7 @@ def read_files():
                          '%s/%s (x %d, y 0, 64 px)' % (PEOPLE, meta['file'], len(j['cols']) * FRAME),
                          'body_src': '%s/%s frame 0 (idle SE)' % (PEOPLE, meta['file']),
                          'body': strip(body), 'face_read': strip(face1), 'legs': legs,
-                         'verdict': 'PASS' if all(l['ok'] for l in legs) else 'BACK', 'hat_on_body': hat_body,
+                         'verdict': verdict_of(legs), 'hat_on_body': hat_body,
                          'owner': 'COMBAT (rule 69 bake) / CHARACTER [one skin, one person]'})
         if os.path.exists(P('%s/%s/rest_128.png' % (CREW, look))):
             face2 = portrait_read(look)
@@ -375,7 +384,7 @@ def read_files():
                              'face_src': '%s/%s/rest_128.png' % (CREW, look),
                              'body_src': '%s/%s frame 0 (idle SE)' % (PEOPLE, meta['file']),
                              'body': strip(body), 'face_read': strip(face2), 'legs': legs,
-                             'verdict': 'PASS' if all(l['ok'] for l in legs) else 'BACK', 'hat_on_body': hat_body,
+                             'verdict': verdict_of(legs), 'hat_on_body': hat_body,
                              'owner': 'PORTRAIT [the face is the body\'s face] / CHARACTER [one skin, one person]'})
     rows += read_settlement(j)
     rows += read_crew_men(j)
@@ -414,7 +423,7 @@ def read_settlement(j):
         rows.append({'who': 'settle:' + look, 'name': (meta.get('name') or look) + ' in a settlement',
                      'face': 'the settlement\'s talking face (%s)' % kind, 'face_src': src,
                      'body_src': '%s/%s frame 0 (idle S)' % (SETTLE, meta['file']), 'body': strip(b),
-                     'face_read': strip(face), 'legs': legs, 'verdict': 'PASS' if all(l['ok'] for l in legs) else 'BACK',
+                     'face_read': strip(face), 'legs': legs, 'verdict': verdict_of(legs),
                      'owner': 'ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face'})
     return rows
 
@@ -445,7 +454,7 @@ def read_crew_men(j):
                      'face': 'the crew screen\'s face (%s of %s)' % (kind, roster_look), 'face_src': src,
                      'body_src': '%s/%s.webp frame 0 (idle SE): his fight body, %s' % (PEOPLE, fight_look, fight_look),
                      'body': strip(b), 'face_read': strip(face), 'legs': legs,
-                     'verdict': 'PASS' if all(l['ok'] for l in legs) else 'BACK', 'roster_look': roster_look,
+                     'verdict': verdict_of(legs), 'roster_look': roster_look,
                      'fight_look': fight_look,
                      'owner': 'RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)'})
     return rows
@@ -481,7 +490,7 @@ def read_runtime():
         legs = compare(body, face)
         rows.append({'who': e['who'], 'name': e.get('name', e['who']), 'face': e['face'], 'face_src': e['face_png'],
                      'body_src': e['body_png'], 'body': strip(body), 'face_read': strip(face), 'legs': legs,
-                     'verdict': 'PASS' if all(l['ok'] for l in legs) else 'BACK', 'owner': e.get('owner', '')})
+                     'verdict': verdict_of(legs), 'owner': e.get('owner', '')})
     return rows, j
 
 
@@ -510,7 +519,7 @@ def plain(r):
         side = 'darker' if sk['dL'] < 0 else 'lighter'
         bits.append(('%d shades %s' % (n, side)) if n else ('%.0f L %s' % (abs(sk['dL']), side)))
     for l in r['legs'][1:]:
-        if not l['ok']:
+        if not l['ok'] and l.get('judged', True):
             bits.append({'top of the head': 'hair or hat off', 'one man, one look': 'another man\'s face'}.get(
                 l['leg'], 'hat off'))
     return ', '.join(bits)
@@ -519,7 +528,8 @@ def plain(r):
 SECTIONS = (('THE CREW, MAN BY MAN: the face the crew screen shows, beside the body he fights in', 'crew:', 12),
             ('THE STREET: the face in his speech bubble, beside the body the street draws', 'street:', 12),
             ('THE GANGS IN THE FIGHT: the fight\'s own face, beside the fight body', 'faction_', 13),
-            ('YOU', 'you', 4))
+            ('YOU', 'you', 4),
+            ('THE ALPHA\'S CROWD: one roll picks the skin for body and face, and all 12 match', 'alpha:', 4))
 
 
 def cell(im, d, r, x, y, f1, f2):
@@ -564,10 +574,12 @@ def build_sheet(rows, path):
     H = 110 + sum(40 + 232 * ((len(rs) + 1) // 2) for _, rs, _ in plan) + 40
     im = Image.new('RGB', (W, H), (30, 29, 33))
     d = ImageDraw.Draw(im)
-    nb = sum(r['verdict'] == 'BACK' for r in rows)
+    demo = [r for r in rows if not r['who'].startswith('alpha:') and '(alpha)' not in (r.get('name') or '')
+            and r['verdict'] != 'NO BODY']
+    nb = sum(r['verdict'] == 'BACK' for r in demo)
     d.text((14, 10), 'EVERY FACE BESIDE ITS BODY', fill=(240, 236, 220), font=f0)
-    d.text((14, 46), '%d faces read off the pictures: %d PASS, %d BACK.' % (
-        len(rows), sum(r['verdict'] == 'PASS' for r in rows), nb), fill=(255, 170, 160) if nb else (170, 230, 160), font=f1)
+    d.text((14, 46), 'In the demo: %d faces beside their bodies, %d match (all YOU), %d do not.' % (
+        len(demo), sum(r['verdict'] == 'PASS' for r in demo), nb), fill=(255, 170, 160) if nb else (170, 230, 160), font=f1)
     d.text((14, 70), 'Every body is painted the player\'s own skin (porcelain); the faces are rolled, so a dark face sits '
            'on a pale body.', fill=(220, 210, 190), font=f2)
     y = 110
@@ -577,8 +589,10 @@ def build_sheet(rows, path):
         for k, r in enumerate(rs):
             cell(im, d, r, 12 + (k % 2) * 492, y + (k // 2) * 232, f1, f2)
         y += 232 * ((len(rs) + 1) // 2)
-    d.text((14, H - 30), 'Skin read as CIELAB and the ITA skin-tone angle (Chardon 1991; six shades, Del Bino 2006). '
-           'PASS: same or next shade and within 12 lightness.', fill=(150, 148, 140), font=f2)
+    d.text((14, H - 36), 'Skin read off the pixels as CIELAB and the ITA skin-tone angle (Chardon 1991; six shades,',
+           fill=(150, 148, 140), font=f2)
+    d.text((14, H - 18), 'Del Bino 2006). PASS: the same or next shade, within 12 lightness, and the same man.',
+           fill=(150, 148, 140), font=f2)
     os.makedirs(os.path.dirname(P(path)), exist_ok=True)
     im.save(P(path), 'WEBP', lossless=True)
 

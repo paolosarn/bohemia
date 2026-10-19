@@ -11190,6 +11190,20 @@
     "scale": "1:1"
    },
    "draft": true
+  },
+  {
+   "id": "eyes-every-face-beside-its-body-10-19",
+   "kind": "verdict",
+   "lane": "eyes and ears",
+   "sha": "5d7f6de6",
+   "made": "10/19",
+   "title": "YOU WERE RIGHT: EVERY BODY IS PAINTED YOUR SKIN, SO A DARK FACE SITS ON A PALE BODY",
+   "why": "Of 118 faces measured beside their bodies only your own 3 match, because every body is painted your pale skin while each face gets its own, and 10 of your 11 crew men wear another man's face. You see it in the VOTE tab, each face beside its body, and in the game on the crew screen and in every fight.",
+   "show": {
+    "how": "image",
+    "src": "vote/EYES_EVERY_FACE_BESIDE_ITS_BODY.webp"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

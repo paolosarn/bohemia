@@ -8,9 +8,10 @@ EYES reports; PORTRAIT and CHARACTER fix (the row's constraint).
 ## THE ANSWER, IN ONE LINE
 He is right, and it is not one bad portrait: EVERY BODY IN THE DEMO IS PAINTED THE PLAYER'S OWN SKIN. The fight,
 the map's street and the settlement all draw their people from bakes that ran with the player's default palette row
-(porcelain, #bfafa6), while every face is rolled per person. 118 faces read beside the body the game draws for the
-same person: 3 PASS (all YOU), 115 BACK; 103 of the 115 are 3 to 5 skin shades apart (the case he saw: a dark face
-on a pale body), 12 are 2 apart.
+(porcelain, #bfafa6), while every face is rolled per person. 118 faces in the demo read beside the body the game
+draws for the same person: 3 PASS (all YOU), 115 BACK; 103 of the 115 are 3 to 5 skin shades apart (the case he saw:
+a dark face on a pale body), 12 are 2 apart. The alpha's CHARACTER tab: 13 of 13 PASS, because its crowd panel picks
+body and face from one roll: the fix already exists in our own code.
 
 ## WHAT WAS READ (off the pictures, never a manifest)
 | where he meets it | the face | the body | read | PASS | BACK | 3+ shades off |
@@ -25,11 +26,13 @@ on a pale body), 12 are 2 apart.
 | THE PHONE STRIP | act one, two, three faces | act one: his map body; acts two and three: no body anywhere | 1 + 2 | 1 | 0 | 0 |
 (The shade counts are ITA bands. The demo was the committed tree, BUILD 10/18c, at 390 x 844 at 3x, BEGIN tapped, 0 page errors.)
 
-THE ALPHA (CHARACTER tab, read off its canvases): YOU's body and face are the same skin (#bfafa6 both, PASS). The crowd
-board's 12 bodies are painted in 7 different skins, the same seven the street's faces use (#31261f, #41332a, #5e4a3b,
-#76604e, #937357, #9a7b5e, #251c18): THE ALPHA ALREADY PAINTS A BODY IN THE PERSON'S OWN SKIN, there (alpha ~line 20983,
-the crowd panel sets skinTone from NPC_FACTORY before it paints). The 17 family bodies are all porcelain; their faces are
-not a canvas on that tab and were not read this round.
+THE ALPHA (CHARACTER tab, read off its own canvases by the same live tool): YOU's body and face are the same skin
+(#bfafa6 both, PASS). THE CROWD BOARD: its 12 bodies are painted in 7 different skins, and each one's talking face
+(faceFor of the same id, its own ramp) is THE SAME SKIN, 12 of 12, colour for colour (#31261f, #76604e, #41332a,
+#5e4a3b, #937357, #9a7b5e, #251c18, the same seven the street's faces use). THE ALPHA ALREADY DOES IT RIGHT, there:
+alpha ~line 20961, the crowd panel sets skinTone from NPC_FACTORY.npcFrom(id) and G.faceAs from faceFor(id) before it
+paints, so one id picks the skin for the body and the face. The 17 family bodies are all porcelain; their faces are
+not drawn on that tab and were not read.
 
 ## THE CAUSE (three skins for one man)
 1. THE BODIES: tools/bohemia_fight_people_bake.js (COMBAT, rule 69, 10/4) and tools/bohemia_settlement_people_bake.js
@@ -66,7 +69,11 @@ Only MARISOL (apron) and YOU agree. Even after the skins are fixed, these ten wo
   cheeks between the eyes and the mouth; the painted gradient behind the face is dropped row by row.
 - A 3D portrait: the eyes and jaw from the face's own moving shots (THE STAR IS THE BAR's landmarks, imported); the
   skin the median of the LIT HALF of the cheeks.
-- CIEDE2000 (Sharma, Wu and Dalal 2005) for the hair or hat; PASS within 20.
+- CIEDE2000 (Sharma, Wu and Dalal 2005) for the hair or hat, PRINTED, NOT JUDGED: the read can not tell a hat from
+  hair (a capped body beside a rolled face, which never draws a hat, reads 20 to 33 apart on the alpha's own matched
+  crowd), so it is a number in the JSON for PORTRAIT. The new portraits' hat is judged from the worn list against
+  PORTRAIT's manifest: 13 of 13 agree.
+- ONE MAN, ONE LOOK (the crew rows): judged.
 - BUILD is not read: a portrait is head only (his 9/27 vote), so the body's build is not in it. Named, not invented.
 
 ## CONTROLS (--selftest, 11/0)
@@ -96,9 +103,11 @@ None of the three changed a verdict's direction: with the first reads, 38 of 39 
 - Re-read after any fix: python3 tools/bohemia_eyes_every_face_beside_its_body_10_19_26.py (files) and
   node tools/bohemia_eyes_every_face_beside_its_body_10_19_26.js (the live demo) first.
 
-## WHAT THIS ROUND DID NOT READ
-The alpha family cards' faces; the hall's hire cards (no body in the settlement for them); the fight's rig-made
-people if a later cut puts them in (none in BUILD 10/18c's fight sheets).
+## WHAT THIS ROUND DID NOT READ (round two, on this row)
+The alpha's CUTSCENE (openFace), COMBAT (the old duel portraits) and RUN (the run's portrait bakes) tabs, and the
+family cards' faces; the hall's hire cards and the board's clients (no body in the settlement for them); the fight's
+rig-made people if a later cut puts them in (none in BUILD 10/18c's fight sheets). And the re-read after CHARACTER's
+and PORTRAIT's fixes land.
 
 [bb Battle Brothers paints a brother's head, face and hands from one skin pick on one sprite, so this never happens there.]
 [analog horror: a face that is not its body is the uncanny kind nobody chose; the wrong kind of wrong.]

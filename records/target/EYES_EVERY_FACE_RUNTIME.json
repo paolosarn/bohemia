@@ -1,6 +1,6 @@
 {
  "tool": "tools/bohemia_eyes_every_face_beside_its_body_10_19_26.js",
- "read": "2026-10-19T00:43:46.138Z",
+ "read": "2026-10-19T00:50:13.631Z",
  "page": "slices/BOHEMIA_DEMO.html (committed tree), 390 x 844 at 3x, BEGIN tapped",
  "build": "DEMO - BUILD 10/18c - THE STREETS JOIN, THE GANGS WEAR THE RIG",
  "asked_street": 40,
@@ -403,6 +403,110 @@
    "body_png": null,
    "owner": "DYNASTY / PORTRAIT",
    "note": "no body for this act on any screen"
+  },
+  {
+   "who": "you",
+   "name": "YOU (alpha)",
+   "face": "the alpha CHARACTER tab portrait (portraitCv)",
+   "face_png": "records/eyes_faces_runtime/alpha_you_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_you_body.png",
+   "owner": "CHARACTER"
+  },
+  {
+   "who": "alpha:crowd:0:0",
+   "name": "ALPHA CROWD 1",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_0_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_0_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:1",
+   "name": "ALPHA CROWD 2",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_1_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_1_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:2",
+   "name": "ALPHA CROWD 3",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_2_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_2_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:3",
+   "name": "ALPHA CROWD 4",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_3_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_3_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:4",
+   "name": "ALPHA CROWD 5",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_4_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_4_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:5",
+   "name": "ALPHA CROWD 6",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_5_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_5_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:6",
+   "name": "ALPHA CROWD 7",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_6_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_6_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:7",
+   "name": "ALPHA CROWD 8",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_7_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_7_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:8",
+   "name": "ALPHA CROWD 9",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_8_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_8_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:9",
+   "name": "ALPHA CROWD 10",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_9_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_9_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:10",
+   "name": "ALPHA CROWD 11",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_10_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_10_body.png",
+   "owner": "none: the same id picks skin, body and face"
+  },
+  {
+   "who": "alpha:crowd:0:11",
+   "name": "ALPHA CROWD 12",
+   "face": "the alpha CHARACTER tab crowd: its talking face (faceFor, own ramp)",
+   "face_png": "records/eyes_faces_runtime/alpha_crowd_11_face.png",
+   "body_png": "records/eyes_faces_runtime/alpha_crowd_11_body.png",
+   "owner": "none: the same id picks skin, body and face"
   }
  ]
 }
