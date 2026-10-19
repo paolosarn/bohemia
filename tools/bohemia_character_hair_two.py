@@ -49,7 +49,7 @@ CUTS = {
                       worn_by='Trades, Church, Caravans; the old'),
     'COMB OVER': dict(tag='comb_over', bank=dict(ramp='H_BLK', vol=0, side=0.60, front=0.0, shape='bald crown, strands across'), hair=('cloth_black', 1), zcap=1.0,
                       worn_by='Network, Church; the old who still try'),
-    'GREASE BACK': dict(tag='grease_back', bank=dict(ramp='H_BLK', vol=1, side=0.70, front=0.16, shape='combed back'), hair=H_BLK, zcap=0.3,
+    'GREASE BACK': dict(tag='grease_back', bank=dict(ramp='H_BLK', vol=1, side=0.70, front=0.12, shape='combed back'), hair=('cloth_black', 1), zcap=0.3,
                         worn_by='Mob, Cartel, Network'),
     'LONG DROP': dict(tag='long_drop', bank=dict(ramp='H_BRN', vol=0, side=2.10, front=0.26, shape='long, centre part'), hair=('clay_mustard', 1), zcap=1.0,
                       worn_by='Colorful, Anarchists, Caravans, Church'),
@@ -248,31 +248,46 @@ def build(cut, L):
             return 1 if h < 0.45 * (1 - u) else (2 if h < 0.85 * (1 - u) else 3)
         made.append(stubble('thin', thin_zone, thin_band, hair_rgb))
         if over:
-            # nine long strands combed from a low part over the left ear across the bald crown to the right temple, lying
-            # flat with skin between them (a strand 9 mm wide, 2.5 mm thick, 13 to 17 mm apart at the root)
-            bm = bmesh.new(); rng = random.Random(101)
-            for i in range(9):
-                az0 = -1.05 - 0.17 * i; el0 = math.radians(18 + 6 * i - 0.6 * i * i)
-                az1 = 0.70 + 0.10 * i + 0.05 * (rng.random() - 0.5); el1 = math.radians(28 - 1.5 * i + 4 * (rng.random() - 0.5))
-                path = arc(az0, el0, az1, el1, 0.0028, n=28, lift=0.0025)
-                flat_lens(bm, path, 0.0095 + 0.0025 * rng.random(), 0.0026, taper=0.7)
+            # seven long strands combed from a low part over the left ear across the bald crown toward the right side, lying
+            # flat with skin between them: uneven widths, uneven gaps, two that fall short (cycle 1: nine even strands on an
+            # even pitch read as a striped cap, the one-size-on-a-pitch tell his chain-mail note names)
+            bm = bmesh.new(); rng = random.Random(103)
+            gaps = [0.0, 0.21, 0.36, 0.60, 0.74, 0.97, 1.15]
+            for i, g_ in enumerate(gaps):
+                az0 = -1.20 - g_ + 0.04 * (rng.random() - 0.5); el0 = math.radians(16 + 9 * g_ + 3 * rng.random())
+                short = i in (2, 5)
+                az1 = (0.35 + 0.25 * rng.random()) if short else (1.05 + 0.35 * g_ + 0.10 * rng.random())
+                el1 = math.radians((55 if short else 22) + 6 * (rng.random() - 0.5))
+                path = arc(az0, el0, az1, el1, 0.0024, n=28, lift=0.0020)
+                flat_lens(bm, path, 0.0060 + 0.0050 * rng.random(), 0.0022, taper=0.85)
             made.append(piece(bm, 'barber_%s_strands' % tag, subdiv=1))
 
     # ================================================================== GREASE BACK
     elif cut == 'GREASE BACK':
+        # cycle 2: on the natural hairline with an even 4 to 10 mm shell it read as a black helmet with a fringe; a slick
+        # back sits HIGH (the temples receded, the brow bare) and shows the comb: grooves front to back, uneven, deep
+        def line(q):
+            ab = abs(az_of(q)); hi = interp(ab, [(0.0, 0.118), (0.30, 0.114), (0.52, 0.096), (0.64, 0.090), (0.74, 0.040)]) if ab < 0.74 else -1.0
+            return max(grow_line(ab), hi)
         def back_and_down(q, n): return front_to_back(q, n) if q.z > 0.06 else tangent(Vector((0.0, 1.0, -0.25)), n)
-        paint_scalp(lambda q: grows(q))
+        paint_scalp(lambda q: q.z > line(q))
         def thick(pos, nor):
             rel = three(pos, nor, back_and_down, 111)
             out = []
             for p, n, c in zip(pos, nor, rel):
-                q = p - C; above = q.z - grow_line(abs(az_of(q))); ab = abs(az_of(q))
-                t = 0.0035 + 0.0060 * sstep(0.02, 0.15, q.z) + 0.0030 * sstep(1.2, 2.6, ab) * sstep(-0.08, 0.04, q.z)   # flat on top, full at the back
-                t += 0.0045 * sstep(-0.05, -0.13, q.y) * sstep(0.080, 0.125, q.z)   # the brow swept up and back, low (a lift, never a pompadour)
-                t *= 0.40 + 0.60 * sstep(0.0, 0.012, above)
-                out.append(max(0.0010, t + 0.0050 * c - 0.0020))   # long ridges: every clump three times longer than it is wide
+                q = p - C; above = q.z - line(q); ab = abs(az_of(q))
+                t = 0.0035 + 0.0055 * sstep(0.02, 0.15, q.z) + 0.0030 * sstep(1.2, 2.6, ab) * sstep(-0.08, 0.04, q.z)   # flat on top, full at the back
+                t += 0.0040 * sstep(-0.05, -0.13, q.y) * sstep(0.090, 0.130, q.z)   # the brow swept up and back, low (a lift, never a pompadour)
+                t *= 0.15 + 0.85 * sstep(0.0, 0.014, above)
+                # THE COMB: grooves running front to back (on the top across x, on the sides round the head), 9 to 15 mm
+                # apart by a slow wobble, each its own depth along its length, so no two read alike
+                if q.z > 0.07: u = (q.x + 0.006 * math.sin(q.y / 0.035)) / (0.012 + 0.003 * math.sin(q.y / 0.05 + 1.0))
+                else: u = (az_of(q) * 0.16 + 0.5 * q.z) / 0.012
+                dep = 0.0030 * (0.5 + PM.vnoise(round(u), q.y / 0.04, q.z / 0.04, 17))
+                g_ = max(0.0, math.cos(2 * math.pi * u)) ** 4
+                out.append(max(0.0008, t - dep * g_ * sstep(0.0, 0.010, above) + 0.0030 * c - 0.0012))
             return out
-        made.append(shell('barber_%s' % tag, lambda q: grows(q), thick, subdiv=2, rim=0.0020))
+        made.append(shell('barber_%s' % tag, lambda q: q.z > line(q), thick, subdiv=2, rim=0.0010))
         bm = bmesh.new(); rng = random.Random(113)
         for i in range(9):   # the ends flick out at the nape
             az = 2.05 + (2 * math.pi - 4.1) * (i + 0.5) / 9; az = az if az <= math.pi else az - 2 * math.pi

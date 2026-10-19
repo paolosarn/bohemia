@@ -96,15 +96,17 @@ ORDER = ['TEMPLE TAPER', 'COIL CROWN', 'LAYERED FALL']
 # their geometry lives in tools/bohemia_character_hair_one.py, the eight branches build() calls; the three above are untouched
 import bohemia_character_hair_one as HAIR_ONE  # noqa: E402
 import bohemia_character_hair_two as HAIR_TWO  # noqa: E402   (HAIR 2: twelve new cuts, the whole enchilada, 10/19)
+import bohemia_character_faces_one as FACES_ONE  # noqa: E402   (FACES 1: face shapes, facial hair and marks on the same head, 10/19)
 import bohemia_character_hats_one as HATS_ONE  # noqa: E402   (HATS 1: the 21 canon hats on the same head)
 import bohemia_character_eyewear_one as EYE_ONE  # noqa: E402   (EYEWEAR 1: the 14 face pieces on the same head)
 import bohemia_character_garments_base as BASE_ONE  # noqa: E402   (GARMENTS BASE: the 80 tops, each on its own body)
 CUTS.update(HAIR_ONE.CUTS)
 CUTS.update(HAIR_TWO.CUTS)
+CUTS.update(FACES_ONE.CUTS)
 CUTS.update(HATS_ONE.CUTS)
 CUTS.update(EYE_ONE.CUTS)
 CUTS.update(BASE_ONE.CUTS)
-ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER
+ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + FACES_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER
 
 
 def sstep(a, b, t):
@@ -124,6 +126,45 @@ def hsh(i, salt=0):
     return (((i * 2654435761) ^ (salt * 40503)) & 0xffffffff) / 4294967296.0
 
 
+def person_body(spec):
+    """A PERSON's body (RUN TWO [no two people alike], rule 121(i)): his gang's look from this lane's tool (LOOKS[gang],
+    voted up, copied in memory, its file never written) in HIS OWN skin step, built to records/character/rig/<tag>.glb"""
+    import bohemia_character_the_thirteen_through_the_rig as CH
+    import bohemia_portrait_the_head_from_the_model as PM
+    L = json.loads(json.dumps(CH.LOOKS[spec['gang']], default=list))
+    for k_, v_ in CH.LOOKS[spec['gang']].items():
+        if callable(v_): L[k_] = v_
+    L['skin'] = PM.palette_step(*spec['skin']); L['order'] = 200
+    L['shape'] = '%s: a person of the %s, his own skin %s %d' % (spec['tag'], spec['gang'], spec['skin'][0], spec['skin'][1])
+    name = spec['tag'].upper()
+    CH.LOOKS[name] = L
+    if spec['gang'] in getattr(CH, 'PRINTS', {}): CH.PRINTS[name] = CH.PRINTS[spec['gang']]
+    CH.build(name, RIG_DIR)
+    spec['body'] = 'records/character/rig/%s.glb' % name.lower()
+
+
+def people(path):
+    """A ROLL FILE (a JSON list of persons, each {id, gang, skin: [role, i], hair_cut, hair: [role, i], face: {dials},
+    beard, stubble, new_beard, scar, mark, hat, eyewear}) registered as cuts named PERSON <id>: the barber builds each the
+    way it builds a cut. records/target/character/BOHEMIA_THE_BARBERS_BOOK.json says what every name means."""
+    names = []
+    for P in json.load(open(path)):
+        tag = 'person_' + str(P['id']).lower()
+        dark = PM_lum(P['hair']) < 0.12
+        e = dict(P, tag=tag, bank=dict(kind='person', gang=P['gang']), zcap=0.3 if dark else 1.0,
+                 worn_by='%s, rolled' % P['gang'])
+        e['hair'] = tuple(P['hair']); e['skin'] = tuple(P['skin'])
+        CUTS['PERSON ' + str(P['id'])] = e; names.append('PERSON ' + str(P['id']))
+    return names
+
+
+def PM_lum(step):
+    import bohemia_portrait_the_head_from_the_model as PM
+    r, g, b = PM.palette_step(*step) if isinstance(step[0], str) else step
+    f = lambda v: (v / 255.0) / 12.92 if v / 255.0 <= 0.04045 else ((v / 255.0 + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+
+
 def build(cut):
     import bpy, bmesh, mathutils
     from mathutils import Vector, Matrix
@@ -137,14 +178,17 @@ def build(cut):
     key = 'BARBER_' + tag.upper()
     # a garment is worn on its own body (the mannequin in that top, GARMENTS BASE), built first; a cut on the mannequin
     if cut in BASE_ONE.CUTS: BASE_ONE.body(cut)
+    if spec.get('gang'): person_body(spec)   # A PERSON (RUN TWO [no two people alike]): his gang's look in his own skin
     body_glb = spec.get('body', 'records/character/rig/barberbody.glb'); btag = os.path.basename(body_glb)[:-4]
+    sk = tuple(spec.get('skin', ('skin_deep', 3)))   # the barber's mannequin is skin_deep 3; a person wears his own step
     # PORTRAIT's head on the bare body: a bare scalp (no hair object), no gear, no stubble; the skin is the body's own
     PM.PEOPLE[key] = dict(body=body_glb,
                           drop=tuple('%s_%s' % (btag, x) for x in ('hair', 'hair_fall', 'hat', 'hat_brim', 'visor')),
                           cut_z=1.165, centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
-                          gear=None, hair='bare', stubble=False, look='barber_' + tag, crew=True,
-                          colours=dict(skin=('skin_deep', 3), lips=('skin_deep', 2), hair=spec['hair'], gear=spec['hair'],
-                                       iris=('skin_deep', 1), stubble=('skin_deep', 2)))
+                          gear=None, hair='bare', stubble=bool(spec.get('stubble')), look='barber_' + tag, crew=True,
+                          face=spec.get('face'), beard=spec.get('beard'), scar=spec.get('scar'),   # FACES 1: the face maker's dials and PORTRAIT's parts
+                          colours=dict(skin=sk, lips=(sk[0], max(0, sk[1] - 1)), hair=spec['hair'], gear=spec['hair'],
+                                       iris=('skin_deep', 1), stubble=(sk[0], max(0, sk[1] - 1))))
     tmp = os.path.join(RIG_DIR, '_barber_head_%s.glb' % tag)
     PM.build(key, tmp)
     os.remove(tmp); os.remove(tmp.replace('.glb', '.json'))   # PORTRAIT's build writes its stats beside its glb
@@ -302,7 +346,8 @@ def build(cut):
 
     made = []
     b = spec['bank']
-    cut_ = spec.get('as_cut', cut)   # a garment's head wears one of the three cuts (TEMPLE TAPER) under it
+    hc = spec.get('hair_cut')        # A PERSON names his cut; every other entry is its own cut
+    cut_ = hc if hc in ORDER else spec.get('as_cut', cut)   # a garment's head wears one of the three cuts (TEMPLE TAPER) under it
 
     if cut_ == 'TEMPLE TAPER':
         # THE LINE: straight across the brow (front 0.16 of the head down from the crown), the temple corners cut back,
@@ -515,14 +560,18 @@ def build(cut):
         made.append(('weighted', curtain, fall_w))
         made.append(('weighted', lo, fall_w))
 
-    elif cut in HAIR_ONE.CUTS:
-        made += HAIR_ONE.build(cut, locals())
-    elif cut in HAIR_TWO.CUTS:
-        made += HAIR_TWO.build(cut, locals())
+    elif (hc or cut) in HAIR_ONE.CUTS:
+        made += HAIR_ONE.build(hc or cut, locals())
+    elif (hc or cut) in HAIR_TWO.CUTS:
+        made += HAIR_TWO.build(hc or cut, locals())
     elif cut in HATS_ONE.CUTS:
         made += HATS_ONE.build(cut, locals())
     elif cut in EYE_ONE.CUTS:
         made += EYE_ONE.build(cut, locals())
+    if spec.get('hat'): made += HATS_ONE.build(spec['hat'], locals())          # a person's hat over his cut (a short cut only)
+    if spec.get('eyewear'): made += EYE_ONE.build(spec['eyewear'], locals())   # and his face piece
+    if cut in FACES_ONE.CUTS or spec.get('new_beard') or spec.get('mark'):     # FACES 1: the new facial hair and marks, after the cut
+        made += FACES_ONE.build(cut, locals())
     if cut in BASE_ONE.CUTS:   # a top's pieces that sit on the head and the portrait's neck (a turtleneck's roll, a hood up)
         made += BASE_ONE.head(cut, locals())
 
@@ -636,6 +685,8 @@ if __name__ == '__main__':
         barber_body()
         names = (ORDER if sys.argv[2].upper() == 'ALL' else HAIR_ONE.ORDER if sys.argv[2].upper() == 'HAIR1'
                  else HAIR_TWO.ORDER if sys.argv[2].upper() == 'HAIR2'
+                 else FACES_ONE.ORDER if sys.argv[2].upper() == 'FACES1'
+                 else people(sys.argv[2][7:]) if sys.argv[2].upper().startswith('PEOPLE:')
                  else HATS_ONE.ORDER if sys.argv[2].upper() == 'HATS1' else EYE_ONE.ORDER if sys.argv[2].upper() == 'EYE1'
                  else BASE_ONE.ORDER if sys.argv[2].upper() == 'BASE1' else BASE_ONE.pick(sys.argv[2]) if sys.argv[2].upper().startswith('BASE1:')
                  else [n for n in ALL if CUTS[n]['tag'] == sys.argv[2].lower() or n == sys.argv[2].upper()])
