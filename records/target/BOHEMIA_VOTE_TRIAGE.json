@@ -1067,24 +1067,24 @@
    "why": "unvoted since 10/18; behind his combat asks for the twelve; sweep BB"
   },
   "combat2-a-board-from-every-district-10-18": {
-   "tag": "red",
-   "why": "the coordinator named it to him (rule 118); five district boards from the map; sweep AY"
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
   },
   "ui-the-front-screen-just-the-font-10-18": {
    "tag": "red",
-   "why": "his own ask ('I don't want the card behind it, just the crazy font'); the coordinator told him it was coming; sweep AY"
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
   },
   "run2-the-crew-screen-at-fourteen-10-18": {
-   "tag": "red",
-   "why": "his ask, a crew of fourteen on one phone screen; sweep AY"
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
   },
   "cook2-the-curb-on-the-map-10-18": {
-   "tag": "red",
-   "why": "the map's look, his 'the streets look like shit' answered from his own tiles; sweep AY"
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
   },
   "ui-the-line-on-a-ground-10-18": {
-   "tag": "red",
-   "why": "a look he can judge in one glance, the company on a camp at night; sweep AY"
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
   },
   "cook4-the-second-pass-10-18": {
    "tag": "yellow",
@@ -1095,8 +1095,8 @@
    "why": "a check sheet (11 of 13 faces match his star); the faces reach him on RUN TWO's screens; sweep AY"
   },
   "combat-the-fight-holds-the-grid-10-18": {
-   "tag": "red",
-   "why": "his ask (rule 117(e)): a dire wolf pack, and 14 against 40; sweep AZ"
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
   },
   "cook-the-empty-terrains-cover-10-18": {
    "tag": "yellow",
@@ -1108,19 +1108,19 @@
   },
   "ui-the-hit-chance-look-10-19": {
    "tag": "red",
-   "why": "his ask: 'the game doesn't explain that your weapon sucks' (rule 120(b)); sweep BB"
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
   },
   "cook-the-first-guns-off-the-rig-10-19": {
    "tag": "red",
-   "why": "his ask: guns first (rule 120(a)); sweep BB"
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
   },
   "eyes-every-face-beside-its-body-10-19": {
    "tag": "red",
-   "why": "his ask: 'Black people looking like white people' (rule 120(d)); 115 of 118 faces BACK; sweep BB"
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
   },
   "direction-fight-verdict-24-the-floor-bar-10-19": {
-   "tag": "red",
-   "why": "the floor he hates beside the street he liked; sweep BB"
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
   },
   "run2-a-cards-picture-full-size-10-19": {
    "tag": "yellow",
@@ -1129,6 +1129,122 @@
   "run2-his-yeses-in-the-demo-10-19": {
    "tag": "yellow",
    "why": "the list is at the foot of the tab itself; sweep BB"
+  },
+  "world-the-real-corner-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "tuning-the-first-guns-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "sounds-the-guns-heard-10-19": {
+   "tag": "red",
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
+  },
+  "people-ask-the-crowd-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "combat2-the-casino-board-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "cook3-the-raider-again-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "cook3-the-leader-through-the-rig-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "cook4-church-on-the-map-ground-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "animation-the-aura-of-the-one-you-control-10-19": {
+   "tag": "red",
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
+  },
+  "cook3-the-marauder-through-the-rig-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "portrait-the-face-is-the-bodys-face-10-19": {
+   "tag": "red",
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
+  },
+  "cook2-the-fight-floor-10-19": {
+   "tag": "red",
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
+  },
+  "cook4-the-tower-casino-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "cook4-the-pawn-shop-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "run2-the-hire-price-is-the-formula-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "cook4-the-wedding-chapel-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "cook4-the-motel-sign-tower-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "combat-guns-from-the-first-fight-10-19": {
+   "tag": "red",
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
+  },
+  "combat-the-fight-says-what-is-weak-10-19": {
+   "tag": "red",
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
+  },
+  "combat-the-people-a-little-smaller-10-19": {
+   "tag": "red",
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
+  },
+  "character-hair-one-clumps-not-links-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "cook4-mob-on-the-strip-ground-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "cook4-goodsprings-on-the-desert-ground-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "tuning-your-first-fight-10-19": {
+   "tag": "red",
+   "why": "his combat asks first (rule 120, his 'combat is so bad'); sweep BC"
+  },
+  "tuning-the-whole-grid-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "tuning-what-is-in-the-wagon-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "character-hats-one-the-21-hats-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "character-eyewear-one-the-14-face-pieces-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
+  },
+  "tuning-slightly-harder-every-size-10-19": {
+   "tag": "yellow",
+   "why": "behind his combat asks so the twelve on his first screen are the fight, the faces and the aura; sweep BC"
   }
  }
 }
