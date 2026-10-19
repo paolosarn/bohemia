@@ -574,6 +574,12 @@ def build(name, outdir):
                 vg = q.vertex_groups.new(name='Skeleton_torso_joint_1'); vg.add(list(range(len(q.data.vertices))), 1.0, 'REPLACE')
                 am = q.modifiers.new('Armature', 'ARMATURE'); am.object = arm; made.append(q)
 
+    # 7b. AN IMPORTED CALLER'S OWN PIECES (GARMENTS BASE, 10/19): a LOOKS entry added in memory may carry extra(ctx), called
+    # with this build's locals after the body is shaped and painted, returning more pieces (a top's collar, placket, cuffs,
+    # hem, hood, pockets); it may repaint the body's faces. Nothing here changes for the fourteen looks above.
+    if L.get('extra'):
+        made += [o for o in L['extra'](locals()) if o is not None]
+
     # 8. THE HEAD: the haircut, then the hat
     Hh = L['hair']; H = L.get('hat')
     style = Hh['style']

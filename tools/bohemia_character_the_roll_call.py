@@ -48,6 +48,7 @@ BARBER_CARD = 'character-the-barber-on-the-skull-10-18'
 HAIR_ONE_CARD = 'character-hair-one-clumps-not-links-10-19'   # the barber's other eight, as clumps, locks, ropes and braids
 HATS_ONE_CARD = 'character-hats-one-the-21-hats-10-19'   # the 21 hats, seven shapes on the starred head
 EYE_ONE_CARD = 'character-eyewear-one-the-14-face-pieces-10-19'   # the 14 face pieces, six kinds on the starred head
+# GARMENTS BASE: the 80 tops on three cards (THE SHIRTS, THE COLLARS, THE HEAVY ONES AND THE RUNWAY), from the module's PARTS
 PORTRAIT_CARD = 'portrait-every-face-from-the-same-model-10-18'
 # names that are not plain: a brand, a place, a pattern word. The old name stays an alias forever (saves keep it).
 PLAIN = {
@@ -136,6 +137,7 @@ def main():
     rig_worn = dict(('faction_' + n.lower(), L['worn']) for n, L in RIG.LOOKS.items() if n != 'Body')
     rig_style = dict(('faction_' + n.lower(), (L.get('hair') or {}).get('style')) for n, L in RIG.LOOKS.items() if n != 'Body')
     barber = dict((k, BARBER.CUTS[k]) for k in BARBER.ORDER)   # the three the barber's card showed; HAIR 1's eight are not shown until their card
+    BASE_CARD = dict((G['name'], cid) for _, cid, shapes in BARBER.BASE_ONE.PARTS for G in BARBER.BASE_ONE.BANK if G['shape'] in shapes)
     PP = portrait_pieces()
 
     rows, seen = [], set()
@@ -171,6 +173,12 @@ def main():
                 nl = {'state': 'shown, not approved', 'by': 'CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)',
                       'rig_looks': on_gangs}
                 nl.update(card(HAIR_ONE_CARD)); nl['note'] = SAID
+            elif kind == 'garment' and layer == 'base' and any(i.get('id') == BASE_CARD.get(name) for i in reg.get('items', [])):
+                # GARMENTS BASE (10/19): the top modelled on the barber's man; a top a gang already wore keeps his UP on the gangs
+                nl = {'state': 'approved, not final' if on_gangs else 'shown, not approved',
+                      'by': "CHARACTER, modelled on the barber's 3D man (base 1)", 'rig_looks': on_gangs,
+                      'cards': [card(c) for c in (GANG_CARDS if on_gangs else [])] + [card(BASE_CARD[name])]}
+                nl['note'] = "his 10/18 on the thirteen: 'Nice direction very good not final'" if on_gangs else "the roll call's base batch, shown for his vote"
             elif on_gangs:
                 nl = {'state': 'shown, not approved' if kind in UNAPPROVED_KINDS else 'approved, not final',
                       'by': 'CHARACTER, modelled on the thirteen gang bodies', 'rig_looks': on_gangs,
