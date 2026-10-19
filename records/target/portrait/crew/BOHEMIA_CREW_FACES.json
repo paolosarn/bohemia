@@ -32,7 +32,8 @@
     "Angry": "records/target/portrait/crew/you/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/you/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/you/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/you/mask_{64|128}.png"
   },
   "cast_longcoat": {
    "name": null,
@@ -49,7 +50,8 @@
     "Angry": "records/target/portrait/crew/cast_longcoat/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_longcoat/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_longcoat/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_longcoat/mask_{64|128}.png"
   },
   "cast_barearms": {
    "name": null,
@@ -66,7 +68,8 @@
     "Angry": "records/target/portrait/crew/cast_barearms/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_barearms/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_barearms/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_barearms/mask_{64|128}.png"
   },
   "cast_pack": {
    "name": null,
@@ -83,7 +86,8 @@
     "Angry": "records/target/portrait/crew/cast_pack/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_pack/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_pack/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_pack/mask_{64|128}.png"
   },
   "cast_skirt": {
    "name": null,
@@ -100,7 +104,8 @@
     "Angry": "records/target/portrait/crew/cast_skirt/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_skirt/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_skirt/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_skirt/mask_{64|128}.png"
   },
   "cast_widebrim": {
    "name": null,
@@ -117,7 +122,8 @@
     "Angry": "records/target/portrait/crew/cast_widebrim/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_widebrim/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_widebrim/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_widebrim/mask_{64|128}.png"
   },
   "cast_cape": {
    "name": null,
@@ -134,7 +140,8 @@
     "Angry": "records/target/portrait/crew/cast_cape/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_cape/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_cape/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_cape/mask_{64|128}.png"
   },
   "cast_apron": {
    "name": null,
@@ -151,7 +158,8 @@
     "Angry": "records/target/portrait/crew/cast_apron/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_apron/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_apron/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_apron/mask_{64|128}.png"
   },
   "cast_poncho": {
    "name": null,
@@ -168,7 +176,8 @@
     "Angry": "records/target/portrait/crew/cast_poncho/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_poncho/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_poncho/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_poncho/mask_{64|128}.png"
   },
   "cast_bedroll": {
    "name": null,
@@ -185,7 +194,8 @@
     "Angry": "records/target/portrait/crew/cast_bedroll/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_bedroll/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_bedroll/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_bedroll/mask_{64|128}.png"
   },
   "cast_shorts": {
    "name": null,
@@ -202,7 +212,8 @@
     "Angry": "records/target/portrait/crew/cast_shorts/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_shorts/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_shorts/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_shorts/mask_{64|128}.png"
   },
   "cast_satchel": {
    "name": null,
@@ -219,7 +230,8 @@
     "Angry": "records/target/portrait/crew/cast_satchel/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_satchel/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_satchel/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_satchel/mask_{64|128}.png"
   },
   "cast_shortcoat": {
    "name": null,
@@ -236,7 +248,11 @@
     "Angry": "records/target/portrait/crew/cast_shortcoat/Angry_{64|128}.png",
     "Sad": "records/target/portrait/crew/cast_shortcoat/Sad_{64|128}.png",
     "Surprised": "records/target/portrait/crew/cast_shortcoat/Surprised_{64|128}.png"
-   }
+   },
+   "mask": "records/target/portrait/crew/cast_shortcoat/mask_{64|128}.png"
   }
+ },
+ "groups": {
+  "crew": "YOU and the twelve cast looks (round 1, eb12c4a2)"
  }
 }

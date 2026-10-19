@@ -10,10 +10,14 @@
  "scale_from_model": 1.1287,
  "still_frame": 0.0,
  "still": "frame 0",
+ "ground_screen": [
+  120.0,
+  169.01999999999998
+ ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
-  "wear": 0.45,
+  "wear": 0.6,
   "materials": [
    "crew_cast_shortcoat_coat",
    "crew_cast_shortcoat_coat_skirt",
@@ -32,16 +36,30 @@
    "portrait_cast_shortcoat_sclera",
    "portrait_cast_shortcoat_skin"
   ],
+  "wear_by_material": {
+   "crew_cast_shortcoat_skin": 0.25,
+   "portrait_cast_shortcoat_skin": 0.25
+  },
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
-   "a 20 cm colour drift across the body (overlay, 0.20)",
-   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.45 in a patch, 0.18 on clean panel); even grain is a leopard print, measured cycle 4"
+   "a 20 cm colour drift across the body (overlay, 0.27)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1287)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1287)",
+  "dents": {
+   "meshes": 13,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -70,8 +88,23 @@
   "portrait_cast_shortcoat_sclera": "#192dff",
   "portrait_cast_shortcoat_skin": "#70ff19"
  },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "crew_cast_shortcoat_coat": "#ff6cc7",
+  "crew_cast_shortcoat_coat_skirt": "#6ce9ff",
+  "crew_cast_shortcoat_hand_L": "#fff86c",
+  "crew_cast_shortcoat_hand_R": "#d86cff",
+  "crew_cast_shortcoat_shoe": "#6cffb1",
+  "crew_cast_shortcoat_trouser": "#ff796c",
+  "portrait_cap": "#6ca1ff",
+  "portrait_hair": "#ccff6c",
+  "portrait_head": "#ff6cee",
+  "portrait_head_eyes": "#6cfff3",
+  "portrait_head_lids": "#ffd36c",
+  "portrait_neck": "#aa6cff"
+ },
  "model": "records/portrait/rig/crew/cast_shortcoat_head.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -105,8 +138,8 @@
   "records/target/portrait/rig/crew/cast_shortcoat/rig_NW.png"
  ],
  "crop_box_px": [
-  87,
-  65,
+  88,
+  64,
   159,
   186
  ],
@@ -121,60 +154,64 @@
   "records/target/portrait/rig/crew/cast_shortcoat/shadow_NW.png"
  ],
  "ground_px": [
-  33,
-  55
+  32,
+  105
  ],
- "colours": 7498,
+ "look_px": [
+  32,
+  56
+ ],
+ "colours": 8848,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
  "clips": {},
  "card": {
   "family": "prop",
-  "out": 2,
-  "rows": [
-   "OK   long side >= floor 96: 121",
-   "OUT  colours >= 2330: 1275",
-   "OK   top 8 carry <= 11%: 4.7",
-   "OUT  value span >= 118: 81",
-   "OK   saturation <= 0.81: 0.323",
-   "OK   light: top minus bottom >= -2.5: 6.8",
-   "OK   edge between -35 and +7: -13.7",
-   "OK   grain <= 2.22 px a run: 1.99"
-  ],
-  "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.0%",
-   "OK   one pixel size (block 1): 1",
-   "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 267.3"
-  ],
-  "verdict": "2 of 8 out -> to DIRECTION",
-  "file": "records/target/portrait/rig/crew/cast_shortcoat/rig_S.png"
- },
- "cls": "person",
- "card_guide": {
-  "cls": "person",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 121",
-   "OK   colours >= 671 (field 5: the class floor, or 370 per 1,000 of 1814 px): 1275",
-   "OK   top 8 carry <= 11%: 4.7",
-   "OUT  value span >= 118: 81",
-   "OK   saturation <= 0.81: 0.323",
-   "OK   light: top minus bottom >= -2.5: 6.8",
-   "OK   edge between -35 and +7: -13.7",
-   "OK   grain <= 2.22 px a run: 1.99"
+   "OK   long side >= floor 96: 122",
+   "OUT  colours >= 2330: 1379",
+   "OK   top 8 carry <= 11%: 3.7",
+   "OK   value span >= 118: 158",
+   "OK   saturation <= 0.81: 0.229",
+   "OK   light: top minus bottom >= -2.5: 33.7",
+   "OK   edge between -35 and +7: -12.6",
+   "OK   grain <= 2.22 px a run: 1.68"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 3.5%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OK   light from above (180 to 360 degrees, or flat): 265.4"
+  ],
+  "verdict": "1 of 8 out -> to DIRECTION",
+  "file": "records/target/portrait/rig/crew/cast_shortcoat/rig_S.png"
+ },
+ "cls": "portrait",
+ "card_guide": {
+  "cls": "portrait",
+  "out": 0,
+  "rows": [
+   "OK   long side >= floor 96: 122",
+   "OK   colours >= 673 (field 5: the class floor, or 370 per 1,000 of 1819 px): 1379",
+   "OK   top 8 carry <= 11%: 3.7",
+   "OK   value span >= 118: 158",
+   "OK   saturation <= 0.81: 0.229",
+   "OK   light: top minus bottom >= -2.5: 33.7",
+   "OK   edge between -35 and +7: -12.6",
+   "OK   grain <= 2.22 px a run: 1.68"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "1 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
-   34,
-   113
+   35,
+   112
   ],
-  "opaque_px": 1814,
-  "colours": 1275
+  "opaque_px": 1819,
+  "colours": 1379
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -201,7 +238,7 @@
    0.6
   ],
   "fill_strength": 0.35,
-  "wear": 0.45,
+  "wear": 0.6,
   "ring": 8.0,
   "contact_shadow": true,
   "shadow_alpha_max": 0.42,
@@ -223,11 +260,34 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
- "breaks": [
-  "wear"
- ],
+ "breaks": [],
  "guide": {
   "file": "records/target/BOHEMIA_STYLE_GUIDE.json",
   "schema": 1
@@ -241,6 +301,16 @@
   "records/target/portrait/rig/crew/cast_shortcoat/rigid_SW.png",
   "records/target/portrait/rig/crew/cast_shortcoat/rigid_W.png",
   "records/target/portrait/rig/crew/cast_shortcoat/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/portrait/rig/crew/cast_shortcoat/rigobj_N.png",
+  "records/target/portrait/rig/crew/cast_shortcoat/rigobj_NE.png",
+  "records/target/portrait/rig/crew/cast_shortcoat/rigobj_E.png",
+  "records/target/portrait/rig/crew/cast_shortcoat/rigobj_SE.png",
+  "records/target/portrait/rig/crew/cast_shortcoat/rigobj_S.png",
+  "records/target/portrait/rig/crew/cast_shortcoat/rigobj_SW.png",
+  "records/target/portrait/rig/crew/cast_shortcoat/rigobj_W.png",
+  "records/target/portrait/rig/crew/cast_shortcoat/rigobj_NW.png"
  ],
  "portrait": "portrait.json"
 }

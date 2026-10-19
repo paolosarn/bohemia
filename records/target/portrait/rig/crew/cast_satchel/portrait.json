@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3984,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.398 m",
- "ppm": 321.264,
+ "head_m": 0.3919,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.392 m",
+ "ppm": 326.583,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -40,10 +40,10 @@
  "crop_box_px": [
   22,
   45,
-  194,
+  197,
   218
  ],
  "model": "records/portrait/rig/crew/cast_satchel_head.glb",
  "body_rig": "rig.json",
- "colours": 14917
+ "colours": 17851
 }
