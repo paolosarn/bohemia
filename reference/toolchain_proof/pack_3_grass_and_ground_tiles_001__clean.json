@@ -15,9 +15,10 @@
  "off_palette_pixels": 0,
  "opaque_pixels": 7755,
  "joins": {
-  "ratio": 2.881,
-  "family": "ground",
-  "packs_band": 8.006,
+  "ratio": 1.286,
+  "ruler": "pack_3_grass_and_ground_tiles",
+  "packs_band": 1.564,
+  "input_ratio": 1.172,
   "verdict": "JOINS"
  },
  "size": [

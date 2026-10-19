@@ -20,10 +20,10 @@ so a chat on a fresh box runs one line instead of reading five READMEs. Nothing 
 THE TILE LEG (clean). THE SNAP: Aseprite's snap.lua when ASEPRITE_PATH runs (tools/aseprite, built on the
 free runner), else this file's fallback: the pack piece's own colours (Pillow's median cut to 256 when it
 holds more, the same 256 Aseprite takes), every opaque pixel to its nearest entry, no dither, alpha cut at
-half. No colour is typed here; every one comes from his piece. THE JOINS: the picture's opaque core laid
-against itself left to right and top to bottom, the jump across the join over the median jump inside it;
-his own tiles are the ruler (the family's 90th percentile, measured on the bank when the band file is
-missing). THE TELLS: tools/bohemia_not_vibe_coded.py's sprite report, judged by its pack band
+half. No colour is typed here; every one comes from his piece. THE JOINS: the picture laid three by three at its
+opaque core's pitch, the fringe over the neighbour the way his tiles sit, the jump across a join over the
+median jump inside; the ruler is the pack it came from (its 90th percentile; water and grouted floors join
+hard by design, grass soft), else the lock piece's pack, else the family's tile packs. THE TELLS: tools/bohemia_not_vibe_coded.py's sprite report, judged by its pack band
 (band_verdict). THE SHEET: the pack piece left, the snapped picture right, at 1:1, and three by three of it.
 
 THE SOUND LEG (sound). The recording is one of the bank's CC0 clips (reference/library/sound_bank/esc50_cc0,
@@ -255,45 +255,98 @@ def opaque_core(a):
     return None if box is None else a[box[0]:box[1], box[2]:box[3]]
 
 
+def tile_3x3(a, box):
+    """three by three of the picture at its core's pitch, later copies over earlier, the fringe over the
+    neighbour the way his tiles sit on a board."""
+    from PIL import Image
+    t, b, l, r = box
+    cw, ch = r - l, b - t
+    s = Image.fromarray(a, 'RGBA')
+    C = Image.new('RGBA', (2 * cw + a.shape[1], 2 * ch + a.shape[0]), (0, 0, 0, 0))
+    for j in range(3):
+        for i in range(3):
+            C.alpha_composite(s, (i * cw, j * ch))
+    return C
+
+
 def join_ratio(a):
-    """the jump across the join (the core's last column against its first, last row against first) over the
-    median jump between neighbouring columns and rows inside it; 1 is a join as soft as the inside."""
+    """laid three by three at its core's pitch (tile_3x3), the jump across the centre copy's four joins over
+    the median jump between neighbouring columns (rows) inside it; 1 is a join as soft as the inside."""
     import numpy as np
-    c = opaque_core(a)
-    if c is None or min(c.shape[:2]) < 16:
+    box = core_box(a)
+    if box is None:
         return None
-    x = c[..., :3].astype(float)
-    col = np.abs(np.diff(x, axis=1)).mean(axis=(0, 2))
-    row = np.abs(np.diff(x, axis=0)).mean(axis=(1, 2))
-    lr = np.abs(x[:, 0] - x[:, -1]).mean() / (np.median(col) + 1e-9)
-    tb = np.abs(x[0] - x[-1]).mean() / (np.median(row) + 1e-9)
-    return round(float(max(lr, tb)), 3)
+    t, b, l, r = box
+    cw, ch = r - l, b - t
+    if min(cw, ch) < 16:
+        return None
+    C = np.asarray(tile_3x3(a, box))[..., :3].astype(float)
+    x0, x1, y0, y1 = cw + l, 2 * cw + l, ch + t, 2 * ch + t
+    hx = np.abs(np.diff(C[y0:y1, x0 - cw // 2:x1 + cw // 2], axis=1)).mean(axis=(0, 2))
+    jl, jr = cw // 2 - 1, cw // 2 + cw - 1
+    h = max(hx[jl], hx[jr]) / (np.median(hx[jl + 3:jr - 2]) + 1e-9)
+    vy = np.abs(np.diff(C[y0 - ch // 2:y1 + ch // 2, x0:x1], axis=0)).mean(axis=(1, 2))
+    jt, jb = ch // 2 - 1, ch // 2 + ch - 1
+    v = max(vy[jt], vy[jb]) / (np.median(vy[jt + 3:jb - 2]) + 1e-9)
+    return round(float(max(h, v)), 3)
+
+
+def pack_of(path):
+    """the pack a bank piece belongs to (pack_3_grass_and_ground_tiles_001.png -> pack_3_grass_and_ground_tiles),
+    or None for a picture that is not in the art bank."""
+    rel = os.path.relpath(os.path.abspath(path), ART_BANK)
+    if rel.startswith('..') or not os.path.basename(path).startswith('pack_'):
+        return None
+    return os.path.basename(path).rsplit('_', 1)[0]
 
 
 def seam_bands(rebuild=False):
-    """the packs are the ruler: per family, the 90th percentile of his own tiles' join ratio."""
+    """the packs are the ruler, and each pack is its own: water and grouted floors join hard by design, grass
+    joins soft. Per pack, the 90th percentile of its pieces' join ratio; per family (the fallback for a pack
+    with under four pieces), over the packs whose name says tiles."""
     import glob
     import numpy as np
     from PIL import Image
     if os.path.exists(SEAM_BANDS) and not rebuild:
         return json.load(open(SEAM_BANDS))
-    out = {'_readme': 'tools/bohemia_toolchain.py seam_bands: per tile family, his own pack tiles\' join ratio '
-                      '(the opaque core laid against itself; 1 is a join as soft as the inside), the 90th '
-                      'percentile is the band. Rebuilt with: python3 tools/bohemia_toolchain.py bands',
-           'percentile': 90, 'families': {}}
+    out = {'_readme': 'tools/bohemia_toolchain.py seam_bands: his pack tiles laid three by three at their core\'s '
+                      'pitch, the jump across a join over the median jump inside (1 is a join as soft as the '
+                      'inside). band = the 90th percentile, per pack and per family (family: packs named tiles). '
+                      'Rebuilt with: python3 tools/bohemia_toolchain.py bands',
+           'percentile': 90, 'min_pieces': 4, 'packs': {}, 'families': {}}
     for fam in ('ground', 'road', 'marking', 'map_tile', 'fight_board'):
-        vals = []
+        fam_vals = []
+        by = {}
         for f in sorted(glob.glob(os.path.join(ART_BANK, fam, 'pack_*.png'))):
             v = join_ratio(np.asarray(Image.open(f).convert('RGBA')))
-            if v is not None:
-                vals.append(v)
-        if vals:
-            out['families'][fam] = {'pieces': len(vals), 'p50': round(float(np.percentile(vals, 50)), 3),
-                                    'band': round(float(np.percentile(vals, 90)), 3)}
+            if v is None:
+                continue
+            by.setdefault(pack_of(f), []).append(v)
+            if 'tiles' in pack_of(f):
+                fam_vals.append(v)
+        for k, vals in by.items():
+            out['packs'][k] = {'family': fam, 'pieces': len(vals), 'p50': round(float(np.percentile(vals, 50)), 3),
+                               'band': round(float(np.percentile(vals, 90)), 3)}
+        if fam_vals:
+            out['families'][fam] = {'pieces': len(fam_vals), 'p50': round(float(np.percentile(fam_vals, 50)), 3),
+                                    'band': round(float(np.percentile(fam_vals, 90)), 3)}
     os.makedirs(os.path.dirname(SEAM_BANDS), exist_ok=True)
     with open(SEAM_BANDS, 'w') as f:
         json.dump(out, f, indent=1)
     return out
+
+
+def join_ruler(in_path, piece_path, family):
+    """which of his packs judges this picture's joins: the pack it was cut from, else the lock piece's pack,
+    else the family's tiles. Returns (name, band)."""
+    b = seam_bands()
+    for p in (in_path, piece_path):
+        k = pack_of(p)
+        row = b['packs'].get(k) if k else None
+        if row and row['pieces'] >= b['min_pieces']:
+            return k, row['band']
+    row = b['families'].get(family)
+    return ('family ' + family, row['band']) if row else (None, None)
 
 
 def the_sheet(piece_path, snapped_path, out_path):
@@ -304,19 +357,14 @@ def the_sheet(piece_path, snapped_path, out_path):
     p = Image.open(piece_path).convert('RGBA')
     s = Image.open(snapped_path).convert('RGBA')
     box = core_box(np.asarray(s))
-    t, b, l, r = box if box else (0, s.size[1], 0, s.size[0])
-    cw, ch = r - l, b - t
+    grid = tile_3x3(np.asarray(s), box or (0, s.size[1], 0, s.size[0]))
     gap = 8
-    w3, h3 = 2 * cw + s.size[0], 2 * ch + s.size[1]
-    W = p.size[0] + gap + s.size[0] + gap + w3
-    H = max(p.size[1], s.size[1], h3)
+    W = p.size[0] + gap + s.size[0] + gap + grid.size[0]
+    H = max(p.size[1], s.size[1], grid.size[1])
     sheet = Image.new('RGBA', (W, H), (0, 0, 0, 0))
     sheet.paste(p, (0, 0), p)
     sheet.paste(s, (p.size[0] + gap, 0), s)
-    x0 = p.size[0] + gap + s.size[0] + gap
-    for j in range(3):
-        for i in range(3):
-            sheet.alpha_composite(s, (x0 + i * cw, j * ch))
+    sheet.alpha_composite(grid, (p.size[0] + gap + s.size[0] + gap, 0))
     sheet.save(out_path)
 
 
@@ -334,8 +382,7 @@ def clean(in_path, piece_path, out_dir, family='ground', force_fallback=False):
     off, total = off_palette(snapped, palette)
     a = np.asarray(Image.open(snapped).convert('RGBA'))
     jr = join_ratio(a)
-    bands = seam_bands()
-    band = (bands['families'].get(family) or {}).get('band')
+    ruler, band = join_ruler(in_path, piece_path, family)
     import bohemia_not_vibe_coded as N
     cls = 'tile' if family in N.TILE_FAMILIES else 'prop'
     tb = json.load(open(N.BANDS)) if os.path.exists(N.BANDS) else None
@@ -349,7 +396,7 @@ def clean(in_path, piece_path, out_dir, family='ground', force_fallback=False):
         input=dict(path=os.path.relpath(os.path.abspath(in_path), ROOT), sha1=sha(in_path)),
         palette_lock=dict(piece=os.path.relpath(os.path.abspath(piece_path), ROOT), sha1=sha(piece_path), colours=int(len(palette))),
         snap=how, off_palette_pixels=off, opaque_pixels=total,
-        joins=dict(ratio=jr, family=family, packs_band=band,
+        joins=dict(ratio=jr, ruler=ruler, packs_band=band, input_ratio=join_ratio(np.asarray(Image.open(in_path).convert('RGBA'))),
                    verdict=None if jr is None or band is None else ('JOINS' if jr <= band else 'SEAM')),
         size=list(a.shape[1::-1]), family_cell=cell, at_or_over_the_cell=bool(max(a.shape[:2]) >= cell),
         tells={d: v.get('ok') for d, v in verdict.items()},
@@ -416,9 +463,9 @@ def proof(out_dir):
     and a real door shutting in a small room (its last thump, the way SOUNDS cut the clinic's door)."""
     t = clean(PROOF_TILE, PROOF_LOCK, out_dir, 'ground')
     s = sound(PROOF_STEM, out_dir, room='small', wet=0.3, spd=1.0, peak=-2.0, win='last')
-    print('TILE  %s -> %s: snap %s, %d of %d pixels off the lock, joins %s (%s, his tiles\' band %s), tells %s' % (
+    print('TILE  %s -> %s: snap %s, %d of %d pixels off the lock, joins %s (%s, band %s of %s), tells %s' % (
         os.path.basename(PROOF_TILE), t['snapped'], t['snap'].split(' ')[0], t['off_palette_pixels'], t['opaque_pixels'],
-        t['joins']['ratio'], t['joins']['verdict'], t['joins']['packs_band'],
+        t['joins']['ratio'], t['joins']['verdict'], t['joins']['packs_band'], t['joins']['ruler'],
         ', '.join('%s %s' % (d, {True: 'ok', False: 'past', None: '-'}[v]) for d, v in sorted(t['tells'].items()))))
     print('SOUND %s (%s, %s, %s): %.2f s, peak %.2f dB, mp3 peak %.2f dB, first ms %.1f dB, last ms %.1f dB' % (
         PROOF_STEM, s['source']['category'], s['source']['author'], s['source']['licence'], s['seconds'],

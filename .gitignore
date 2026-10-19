@@ -10,3 +10,7 @@ tools/models/
 
 # the headless Aseprite build: built and cached on the free runner (or in a scratch folder), never committed (the EULA; gates/aseprite_pipe_gate.py P1)
 tools/aseprite/bin/
+
+# THE TOOLCHAIN (PLUMBER 10/19/26, row [the toolchain]): keys live in .env and never reach git
+.env
+.env.*

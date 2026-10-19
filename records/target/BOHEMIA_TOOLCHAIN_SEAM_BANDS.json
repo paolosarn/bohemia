@@ -1,21 +1,192 @@
 {
- "_readme": "tools/bohemia_toolchain.py seam_bands: per tile family, his own pack tiles' join ratio (the opaque core laid against itself; 1 is a join as soft as the inside), the 90th percentile is the band. Rebuilt with: python3 tools/bohemia_toolchain.py bands",
+ "_readme": "tools/bohemia_toolchain.py seam_bands: his pack tiles laid three by three at their core's pitch, the jump across a join over the median jump inside (1 is a join as soft as the inside). band = the 90th percentile, per pack and per family (family: packs named tiles). Rebuilt with: python3 tools/bohemia_toolchain.py bands",
  "percentile": 90,
+ "min_pieces": 4,
+ "packs": {
+  "pack_15_dead_trees_and_dry_plants": {
+   "family": "ground",
+   "pieces": 4,
+   "p50": 1.476,
+   "band": 1.766
+  },
+  "pack_16_dead_trees_and_plants": {
+   "family": "ground",
+   "pieces": 27,
+   "p50": 1.289,
+   "band": 2.024
+  },
+  "pack_16_gardens_and_crops": {
+   "family": "ground",
+   "pieces": 7,
+   "p50": 1.139,
+   "band": 1.537
+  },
+  "pack_1_water_tiles": {
+   "family": "ground",
+   "pieces": 32,
+   "p50": 5.989,
+   "band": 18.635
+  },
+  "pack_2_dirt_path_tiles": {
+   "family": "ground",
+   "pieces": 4,
+   "p50": 1.597,
+   "band": 2.107
+  },
+  "pack_3_grass_and_ground_tiles": {
+   "family": "ground",
+   "pieces": 44,
+   "p50": 1.249,
+   "band": 1.564
+  },
+  "pack_4_water_details_and_foam": {
+   "family": "ground",
+   "pieces": 2,
+   "p50": 5.474,
+   "band": 7.184
+  },
+  "pack_7_burnt_ground_tiles": {
+   "family": "ground",
+   "pieces": 8,
+   "p50": 2.017,
+   "band": 3.063
+  },
+  "pack_8_burned_ground_and_fire_marks": {
+   "family": "ground",
+   "pieces": 30,
+   "p50": 0.984,
+   "band": 1.209
+  },
+  "pack_rocks_and_stones": {
+   "family": "ground",
+   "pieces": 43,
+   "p50": 1.554,
+   "band": 2.524
+  },
+  "pack_rocks_and_stones_1": {
+   "family": "ground",
+   "pieces": 2,
+   "p50": 1.599,
+   "band": 1.853
+  },
+  "pack_wooden_and_nature_props": {
+   "family": "ground",
+   "pieces": 47,
+   "p50": 1.396,
+   "band": 2.106
+  },
+  "pack_1_cobblestone_floor_tiles": {
+   "family": "road",
+   "pieces": 2,
+   "p50": 1.142,
+   "band": 1.193
+  },
+  "pack_1_cracked_contrete_tiles": {
+   "family": "road",
+   "pieces": 42,
+   "p50": 4.415,
+   "band": 6.444
+  },
+  "pack_1_cracked_street_tiles": {
+   "family": "road",
+   "pieces": 34,
+   "p50": 4.685,
+   "band": 6.52
+  },
+  "pack_1_floor_tiles": {
+   "family": "road",
+   "pieces": 16,
+   "p50": 2.584,
+   "band": 5.438
+  },
+  "pack_1_floor_tiles_1": {
+   "family": "road",
+   "pieces": 9,
+   "p50": 1.403,
+   "band": 2.243
+  },
+  "pack_1_metal_floor_tiles": {
+   "family": "road",
+   "pieces": 36,
+   "p50": 2.905,
+   "band": 7.707
+  },
+  "pack_2_rusted_metal_floor_tiles": {
+   "family": "road",
+   "pieces": 10,
+   "p50": 2.567,
+   "band": 4.225
+  },
+  "pack_2_soil_and_dirt_tiles": {
+   "family": "road",
+   "pieces": 24,
+   "p50": 2.357,
+   "band": 3.24
+  },
+  "pack_3_stone_paths": {
+   "family": "road",
+   "pieces": 2,
+   "p50": 1.683,
+   "band": 1.79
+  },
+  "pack_floor_tiles": {
+   "family": "road",
+   "pieces": 36,
+   "p50": 5.692,
+   "band": 10.439
+  },
+  "pack_floor_tiles_1": {
+   "family": "road",
+   "pieces": 6,
+   "p50": 8.968,
+   "band": 11.009
+  },
+  "pack_10_zombie_bodies_and_bones": {
+   "family": "marking",
+   "pieces": 14,
+   "p50": 1.23,
+   "band": 1.82
+  },
+  "pack_14_warning_signs": {
+   "family": "marking",
+   "pieces": 14,
+   "p50": 1.873,
+   "band": 4.536
+  },
+  "pack_17_hazard_and_warning_tiles": {
+   "family": "marking",
+   "pieces": 10,
+   "p50": 1.054,
+   "band": 1.939
+  },
+  "pack_6_blood_and_infection_tiles": {
+   "family": "marking",
+   "pieces": 8,
+   "p50": 1.209,
+   "band": 2.022
+  },
+  "pack_blood_and_gore": {
+   "family": "marking",
+   "pieces": 7,
+   "p50": 1.075,
+   "band": 1.62
+  }
+ },
  "families": {
   "ground": {
-   "pieces": 250,
-   "p50": 3.091,
-   "band": 8.006
+   "pieces": 88,
+   "p50": 1.558,
+   "band": 7.711
   },
   "road": {
-   "pieces": 217,
-   "p50": 3.723,
-   "band": 7.354
+   "pieces": 215,
+   "p50": 3.364,
+   "band": 7.796
   },
   "marking": {
-   "pieces": 53,
-   "p50": 2.804,
-   "band": 7.399
+   "pieces": 18,
+   "p50": 1.13,
+   "band": 2.022
   }
  }
 }
