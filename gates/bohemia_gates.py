@@ -9331,6 +9331,12 @@ GATES = [
      "the map's own dice for that town that day (a planted lie caught); the ledger's raid told first; live on his phone's "
      "profile the bar's first line each visit is the free one under the keeper's fresh talking face, nothing spent, a round "
      "tells the next town, no 'Marked on your map', the bar still pours with the places file blocked", True),
+    ('ONE MAN, ONE LOOK', ['node', 'gates/one_man_one_look_gate.js'],
+     "RUN TWO [eyes: one man, one look] (EYES 10/19, rule 120(d); his 'the portraits don't look like the people'). Control: "
+     "the old crew-screen rule disagrees with the fight for 10 of 11 men. On his phone's profile the crew screen and the fight, "
+     "each left to itself, dress all twelve alike and the screen draws each face from that look; the company carries every "
+     "man's look and the fight dresses him in it, in the same order, in a new order (no man moves into another body) and for "
+     "a man hired at the hall in his hall look", True),
     ('HIS YESES IN THE DEMO', ['node', 'gates/his_yeses_in_the_demo_gate.js'],
      "RUN TWO [his yeses in the demo] (Paolo 10/18 'the demo has not been fixed and updated in a long time'; rule 118). The "
      "machine never lies: every IN THE DEMO is a file its card's commits changed that the demo's own cut reaches now, re-run on "

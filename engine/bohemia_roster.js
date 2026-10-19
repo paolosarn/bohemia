@@ -69,6 +69,22 @@
       nums: 'holds ' + a.durability + (a.fatigue != null ? '  weight ' + Math.abs(a.fatigue) : '') };
   }
   /* a man from a crew entry: stats rolled in his background's wiki range, stars on up to three */
+  /* ONE MAN, ONE LOOK (RUN TWO [eyes: one man, one look], 10/19, rule 120(d); EYES measured 10 of 11 crew men wearing
+     another man's face: this file walked fight_people.json's cast order, the fight walks ours.json people_looks.crew, and
+     the two orders differ). A man keeps the look he came with (a saved company, the hall's man); else man i wears the
+     fight's own list at i, the same list the fight reads, so the crew screen, the scavenge sheet, the hall and the fight
+     dress him alike. The company carries the look (company() below) so a death or a new order never moves him. */
+  function lookFor(def, i) {
+    if (def.main) return 'you';
+    var known = function (l) { return !!(l && (!D.people || D.people.looks[l])); };
+    if (known(def.look)) return def.look;
+    var pl = D.ours && D.ours.people_looks, crew = ((pl && (pl.value || pl).crew) || []).filter(function (l) { return l !== 'you'; });
+    var fight = ((pl && (pl.value || pl).crew) || [])[i];
+    if (known(fight) && fight !== 'you') return fight;
+    if (crew.length) return crew[(i - 1 + crew.length * 8) % crew.length];   /* past the list: its own men again, never YOU's body */
+    var looks = D.people ? Object.keys(D.people.looks).filter(function (l) { return /^cast_/.test(l); }) : [];
+    return looks.length ? looks[i % looks.length] : 'you';
+  }
   function manOf(def, i) {
     var bg = bgRow(def.background) || { id: def.background, name: def.background, stats: D.backgrounds.base_stats.stats, daily_wage: 10 };
     var R = rng(seed((def.name || 'man') + ':' + i)), st = {}, stars = {};
@@ -79,11 +95,10 @@
     var jobs = def.jobs || [], main = null, off = null;
     jobs.forEach(function (jb) { var it = itemOf(jb === 'car_door' ? 'shield' : 'weapon', rowsW[jb]); if (!it) return; if (it.kind === 'shield') off = it; else if (!main) main = it; });
     if (off) off.name = jobs.indexOf('car_door') >= 0 ? 'a car door' : off.name;
-    var looks = D.people ? Object.keys(D.people.looks).filter(function (l) { return /^cast_/.test(l); }) : [];
     return { id: 'm' + i, idx: i, name: def.name, main: !!def.main, background: bg.name || bg.id, bgId: bg.id,
       level: 1, xp: 0, points: 0, stats: st, stars: stars, perks: [], wage: Math.max(1, Math.round((bg.daily_wage || 10) / 10)),
       gear: { main: main, off: off, body: itemOf('body', def.body), head: itemOf('head', def.head) },
-      look: def.main ? 'you' : (looks.length ? looks[i % looks.length] : 'you'),
+      look: lookFor(def, i),
       pain: PAIN[bg.id] || PAIN._, draft: true };
   }
   function startingCrew() { return ((D.ours && D.ours.crew && D.ours.crew.value) || []).map(manOf); }
@@ -142,7 +157,7 @@
   function perkName(id) { var r = (D.perkRows || []).filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
   /* what the fight reads: opts.company = [{background, level, perks, marks}] in crew order (marks: the permanent injuries he carries; each adds to his death roll) */
   function company(crew) { return crew.map(function (m) { var g = m.gear || {}, id = function (it) { return it ? it.id : null; };
-    return { name: m.name, background: m.bgId, level: m.level, perks: (m.perks || []).slice(), marks: m.marks || (m.mark ? [m.mark] : []),
+    return { name: m.name, background: m.bgId, level: m.level, look: m.look, perks: (m.perks || []).slice(), marks: m.marks || (m.mark ? [m.mark] : []),
              gear: { main: id(g.main), off: id(g.off), body: id(g.body), head: id(g.head) } }; }); }
   var API = { load: load, xpFor: xpFor, levelOf: levelOf, grant: grant, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     slotFor: slotFor, sheetSrc: sheetSrc, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
