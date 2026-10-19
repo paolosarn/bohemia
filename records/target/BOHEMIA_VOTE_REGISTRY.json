@@ -12103,6 +12103,20 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_THE_FIRST_HOUR_10_19_26.html"
    }
+  },
+  {
+   "id": "tuning-the-whole-grid-10-19",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "96a09013",
+   "made": "10/19",
+   "draft": true,
+   "title": "THE WHOLE GRID",
+   "why": "Every fight size from one of yours to fourteen against three to thirty-eight bandits, early to late gear, each played up to 100 times: as the game plays now, six of yours lose 98 in 100 to the 13 the late map sends. You see it on this page as one coloured grid; the animals are still filling in.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.html"
+   }
   }
  ],
  "verdicts": [
