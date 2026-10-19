@@ -13,12 +13,14 @@ the packs' floor; done means a new or changed one under it is red and the old on
 
 The coordinator's 10/10 table measured CANVASES (the file's width and height). A pack prop's canvas is up to a third
 empty, so the canvas over-states the thing. This measures the PAINTED box (the pixels at least half opaque), on all
-1,949 bank pieces (contact sheets out), and uses the canvas only where the ruling named a canvas.
+1,915 of his pack pieces (pack_*.png; contact sheets out, and the lanes' own pictures that sit in the bank's folders
+out: 34 COOK4_* in settlement/ were counted in the first cut and moved the building band's pool from 348 to 382
+without moving its number), and uses the canvas only where the ruling named a canvas.
 
 | kind | the ruling (10/10) | the floor now, measured | from |
 |---|---|---|---|
 | tile | 96 by 96 | 92, painted long side | 10th percentile of 736 road, ground and marking pieces |
-| building, door, wall | 96 on its long side | 93 | 10th percentile of 382 settlement and door pieces |
+| building, door, wall | 96 on its long side | 93 | 10th percentile of 348 settlement and door pieces |
 | lamp | 96 tall | 94, painted height | 10th percentile of 47 lamps |
 | thing (prop) | the smallest prop, 29 by 36 | 56, painted long side | the smallest of 784 props (29 by 36 was its canvas) |
 | beast | (not named) | 56 | held to the smallest thing |

@@ -54,11 +54,19 @@ the coordinator rules).
 
 - 45 OF THE LANES' OWN PICTURES LIVE IN HIS PACK BANK (34 COOK4_* in reference/art_bank/settlement, 11 in
   fight_board/sprites). Every ruler that reads "the packs" read them too: my pixel floor and my tells bands now read
-  pack_* only. Routed to COOK FOUR and DIRECTION: the bank is his packs; a cook's picture lives in a cook folder.
+  pack_* only. Routed to COOK FOUR (34) and COMBAT TWO (11, fight_board/sprites): the bank is his packs; a cook's picture lives in a cook folder.
 - MY TELLS BANDS WERE STALE SINCE 10/18 17:21 (records/target/BOHEMIA_NOT_VIBE_CODED_BANDS.json): I changed D7 to its
   1st-to-99th percentile (5d508637) and never rebuilt, and N2, my own freshness check, only counted pieces. Rebuilt
   over his 1,915 pieces; D7's band moved in every family (ground -0.010 to -0.072); N2 now also holds a fingerprint of
   every function a band number comes from, so a changed ruler is a red until the bands are rebuilt.
+
+- MY TELLS GATE HAD GROWN PAST TEN MINUTES (NOT VIBE CODED; the suite's whole budget is ten): its cull reads every
+  sprite of every new art card (227 today) and D8's orphan and banding tests looped pixel by pixel in Python, 10.8 of
+  a big sheet's 13.2 s. Both loops are numpy now, verified EQUAL to the loops on 256 pictures (his pieces, the rig
+  renders, the 1,368 px map joins, the church): the big sheet 13.2 to 3.3 s, the gate killed at 600 s to 102 s, the
+  bands 85 to 19 s, the rebuilt bands byte-equal in every family. The fingerprint was proven on a planted D7 change:
+  N2 red, restored, green. The gate's one red is its cull on other lanes' cards (three COOK FOUR roofs past the ground
+  packs' D5, five cards that name no sprites), there before this round.
 
 ## [bb pipe]
 
