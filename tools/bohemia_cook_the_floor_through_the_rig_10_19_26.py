@@ -485,6 +485,10 @@ def scene(bpy, objs):
 # ---- THE HOUSES (row two's ranches, in the fight's suburb blocks) -----------------------------------------------------
 HOUSE_KINDS = ('subs', 'corner', 'culdesac', 'suburb_stem')
 RANCH_W = {'ranch_plain': 11.0, 'ranch_porch': 12.0, 'ranch_wing': 14.3}     # each kind's width over its eaves, m
+# a Las Vegas tract's stucco and roofs, as shades of the palette base (never orange: his 10/17 'more tan'): the pale tan,
+# a sand beige, a light grey, a cream, a sage; roofs tan, grey-brown, darker brown, grey
+WALL_TINTS = [(1.0, 1.0, 1.0), (1.04, 0.98, 0.93), (0.95, 0.97, 1.0), (1.05, 1.02, 0.9), (0.96, 1.0, 0.94)]
+ROOF_TINTS = [(1.0, 1.0, 1.0), (0.9, 0.9, 0.92), (0.82, 0.78, 0.74), (0.92, 0.93, 0.95)]
 
 
 def old_houses(gid):
@@ -517,11 +521,13 @@ def place_houses(bpy, houses, seed):
     rnd = np.random.RandomState(seed); meshes, roots, rects, kinds = [], [], [], []
     for i, (x0, y0, x1, y1) in enumerate(houses):
         w = (x1 - x0) / PPM
-        fits = [k for k, kw in RANCH_W.items() if 0.86 <= w / kw <= 1.12]
+        fits = [k for k, kw in RANCH_W.items() if 0.80 <= w / kw <= 1.15]
         kind = fits[rnd.randint(len(fits))] if fits else 'ranch_plain'
+        if i and kinds and kinds[-1] == kind and len(fits) > 1: kind = [k for k in fits if k != kind][rnd.randint(len(fits) - 1)]   # no two side by side the same
         s_ = w / RANCH_W[kind]
         before = set(bpy.context.scene.objects)
-        BLD.M.clear(); BLD.BUILDERS[kind](bpy, mathutils)
+        BLD.TINT = dict(stucco=WALL_TINTS[rnd.randint(len(WALL_TINTS))], pale=WALL_TINTS[rnd.randint(len(WALL_TINTS))], roof=ROOF_TINTS[rnd.randint(len(ROOF_TINTS))])
+        BLD.M.clear(); BLD.BUILDERS[kind](bpy, mathutils); BLD.TINT = {}
         new = [o for o in bpy.context.scene.objects if o not in before]
         for o in [o for o in new if '_fence' in o.name]: new.remove(o); bpy.data.objects.remove(o, do_unlink=True)
         xc = (x0 + x1) / 2 / PPM; yfront = SIDE * (1 - y1 / H)

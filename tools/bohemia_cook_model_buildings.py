@@ -65,6 +65,7 @@ PPM = float(RIG.G['ppm'])
 FACINGS = ['S', 'SE', 'SW']
 TURNS = ('ranch_plain', 'ranch_garage', 'ranch_carport', 'ranch_wing', 'ranch_porch')   # the map turns a house; the Strip faces its street (S only)
 M = {}
+TINT = {}   # a house's own shade of its stucco and its roof, set by whoever places it (the fight's suburb blocks)
 
 
 def mats(bpy):
@@ -73,7 +74,11 @@ def mats(bpy):
     spec = dict(stucco=('clay_bone', 3), stone=('tape_grey', 2), roof=('tape_masking', 2), flat=('clay_bone', 2), trim=('tape_grey', 1),
                 glass=('glass_eye', 0), wood=('clay_mustard', 1), ply=('tape_masking', 2), steel=('metal_painted', 2), dark=('rubber', 1),
                 rust=('clay_rust', 1), teal=('clay_teal', 2), red=('clay_rust', 2), gold=('clay_mustard', 2), pale=('clay_bone', 3))
-    for k, (role, step) in spec.items(): M[k] = P.mat(bpy, 'bld_' + k, role, step)
+    for k, (role, step) in spec.items():
+        M[k] = P.mat(bpy, 'bld_' + k, role, step)
+        if k in TINT:                                         # one house's own paint and roof (a street is never one colour)
+            b = M[k].node_tree.nodes['Principled BSDF']; c = b.inputs['Base Color'].default_value
+            b.inputs['Base Color'].default_value = (min(1, c[0] * TINT[k][0]), min(1, c[1] * TINT[k][1]), min(1, c[2] * TINT[k][2]), 1)
     # THE ROOF IN COURSES: 3-tab shingle strips 0.9 m long in 0.2 m courses up the slope (Brick, object x and the slope's
     # rise scaled to its run), each strip its own shade; the flat deck's gravel
     for key, w_, h_, mul in (('roof', 0.9, 0.2, 3.1), ('flat', 0.25, 0.25, 1.0)):
