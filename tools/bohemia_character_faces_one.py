@@ -236,7 +236,9 @@ def build(cut, L):
             if i in EAR or q.y > -0.08: return None
             w = PM.g2(q.x, q.z, 0.0, -0.022, 0.026, 0.040) * sstep(-0.10, -0.15, q.y)
             if w < 1e-4: return None
-            return Vector((0.0070 * w * sstep(0.015, -0.035, q.z), -0.0030 * PM.g2(q.x, q.z, 0.0, 0.004, 0.012, 0.010) * sstep(-0.10, -0.15, q.y), 0.0))
+            # cycle 2: 7 mm to the side and a 3 mm kink did not read at 128; 12 mm, a 5 mm bump at the bridge, the tip pushed flat
+            tip = PM.g2(q.x, q.z, 0.0, -0.045, 0.016, 0.014)
+            return Vector((0.0120 * w * sstep(0.015, -0.035, q.z), (-0.0050 * PM.g2(q.x, q.z, 0.0, 0.004, 0.012, 0.010) + 0.0040 * tip) * sstep(-0.10, -0.15, q.y), 0.0))
         move_head(delta)
     elif mark == 'cauliflower_ear':
         ear = [i for i in EAR if (hm @ head.data.vertices[i].co - C).x > 0]
@@ -245,8 +247,13 @@ def build(cut, L):
             if i not in EAR or q.x <= 0: return None
             p = q + C; d = (p - ec); d = d.normalized() if d.length > 1e-6 else Vector((1, 0, 0))
             n = 0.5 + PM.vnoise(q.x / 0.007, q.y / 0.007, q.z / 0.007, 41)
-            return d * (0.0042 * n) + Vector((0.0025, 0.0, 0.0))
+            return d * (0.0070 * n) + Vector((0.0040, 0.0, 0.0))   # cycle 2: 4 mm of lumps did not read at 128
         move_head(delta)
+        # and bruised: the swollen ear's faces a purple-brown step (the skin with clay_rust 1 in it), so it reads from the front
+        bruise = mat('f1_%s_skin_bruise' % tag, tuple(round(0.55 * s_ + 0.45 * r_) for s_, r_ in zip(skin_rgb, step('clay_rust', 1))), 0.9)
+        head.data.materials.append(bruise); bi = len(head.data.materials) - 1
+        for f in head.data.polygons:
+            if f.vertices[0] in EAR and (hm @ f.center - C).x > 0: f.material_index = bi
     elif mark == 'stitched_gash':
         # a fresh cut across the brow, raised and angry, the thread still in it: seven stitches across the seam
         a0, a1 = Vector((-0.050, 0.0, 0.082)), Vector((0.032, 0.0, 0.044))
@@ -280,7 +287,8 @@ def build(cut, L):
         made.append(patch('f1_%s' % tag, reg, lift, [pale, angry], pick=lambda q: 1 if PM.vnoise(q.x / 0.010, q.y / 0.010, q.z / 0.010, 9) > 0.56 else 0))
     elif mark == 'clouded_eye':
         eo = sc.objects['portrait_head_eyes']; em = eo.matrix_world
-        milk = mat('f1_%s_eye_milk' % tag, tuple(round(0.70 * a + 0.30 * b) for a, b in zip(step('clay_bone', 3), step('clay_teal', 3))), 0.6)
+        # cycle 2: bone 3 with teal in it sat at the iris's own value at 128; the milk is bone 4 with grey, near the white
+        milk = mat('f1_%s_eye_milk' % tag, tuple(round(0.70 * a + 0.30 * b) for a, b in zip(step('clay_bone', 4), step('tape_grey', 3))), 0.6)
         eo.data.materials.append(milk); mi = len(eo.data.materials) - 1
         for f in eo.data.polygons:
             if (em @ f.center - C).x > 0 and f.material_index in (1, 2): f.material_index = mi
