@@ -1,0 +1,62 @@
+{
+ "tier": "town",
+ "ground": "suburb",
+ "place": "Church",
+ "src": "COOK4_TOWN_CHURCH_ON_THE_SUBURB_GRID.webp",
+ "px": [
+  4224,
+  1728
+ ],
+ "px_per_metre": 57.14,
+ "depth": 0.7,
+ "hotspots": {
+  "barber": {
+   "box": [
+    644,
+    789,
+    1445,
+    1188
+   ],
+   "kind": "barber"
+  },
+  "clinic": {
+   "box": [
+    1540,
+    311,
+    3529,
+    1342
+   ],
+   "kind": "clinic"
+  },
+  "posts": {
+   "box": [
+    580,
+    1294,
+    862,
+    1366
+   ],
+   "kind": "posts"
+  },
+  "stall": {
+   "box": [
+    1240,
+    1244,
+    1334,
+    1324
+   ],
+   "kind": "stall"
+  },
+  "board": {
+   "box": [
+    1487,
+    1098,
+    1562,
+    1191
+   ],
+   "kind": "board"
+  }
+ },
+ "night_src": null,
+ "placeholder": true,
+ "note": "COOK FOUR [the place sits in the map] round 14: the town picture for a town whose block stands on the suburb grid by the arterial (Church first). A candidate (rule 100): RUN TWO picks it by the place's ground when he says so. At 1:1 on a 3x phone the picture is 73 percent of the glass tall and 3.6 phone-widths wide; the screen pans it."
+}

@@ -19,6 +19,8 @@ REFERENCE CHECK (9/4 compare law; rule 82a: the twin IS his pack):
   study page records/BOHEMIA_COOK4_HOW_THE_PACK_DID_IT_THE_PLACES_10_10_26.md (318 tiles measured).
   structure taken: the front gable, no roof plan; 96 px on the long side; dark outline; light from above.
   what changed: the pack's timber face becomes Las Vegas stucco with a wood door and a broken window.
+
+REUSE CHECK (REUSE-FIRST, 7/22): every piece is his pack tile as bought, read from reference/art_bank (his approved set, 82a) and laid at its own pixels; imports no other cook.  Written into this placeholder's tool 10/19 so the checker reads it; the art it made is not edited (rule 101c).
 """
 import os
 from PIL import Image, ImageDraw, ImageChops, ImageFilter

@@ -41,6 +41,8 @@ REFERENCE CHECK (9/4 compare law; rule 82a: the twin IS his pack):
   3 to 3.4 m shop floor, 2.7 to 3 m flat above, a canvas awning over the glass, a roll-down over the side door).
   structure taken: the body's 57 px a metre; the roof ratios read from his pack; his tiles native; the shadow.
   what changed: the shop joins the family's roof and ground instead of the roof plan the pack never draws.
+
+REUSE CHECK (REUSE-FIRST, 7/22): every piece is his pack tile as bought, read from reference/art_bank (his approved set, 82a) and laid at its own pixels; imports bohemia_cook4_one_house, bohemia_cook4_the_roof_measured, bohemia_cook4_the_straight_roof_family (this lane's own functions, not copied).  Written into this placeholder's tool 10/19 so the checker reads it; the art it made is not edited (rule 101c).
 """
 import os
 from PIL import Image, ImageDraw

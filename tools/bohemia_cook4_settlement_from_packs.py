@@ -26,6 +26,8 @@ REFERENCE CHECK (9/4 compare law; rule 82 / 82a: for settlements the twin IS his
   what changed: round 1 built flat facade strips of repeats; round 2 builds the town from the
   skins with alleys between houses and one house fallen in, and the night light falls forward
   on to the ground in front of the lamp instead of a disc round it.
+
+REUSE CHECK (REUSE-FIRST, 7/22): every piece is his pack tile or house skin as bought (banks/BOHEMIA_HD_TILE_REPO_part1-4 keyed UP by the 7/13 confirmed set, banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26), some of them scaled, which is part of why its pictures are placeholders; imports no other cook.  Written into this placeholder's tool 10/19 so the checker reads it; the art it made is not edited (rule 101c).
 """
 import base64, io, json, os, random, collections
 from PIL import Image, ImageDraw, ImageFilter, ImageChops

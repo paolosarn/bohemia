@@ -1,0 +1,321 @@
+{
+ "place": "Church",
+ "tier": "town",
+ "district": "chapel",
+ "block": [
+  47,
+  50
+ ],
+ "neighbours": [
+  [
+   -2,
+   -2,
+   "resort"
+  ],
+  [
+   -1,
+   -2,
+   "resort"
+  ],
+  [
+   0,
+   -2,
+   "suburb"
+  ],
+  [
+   1,
+   -2,
+   "suburb"
+  ],
+  [
+   2,
+   -2,
+   "arterial"
+  ],
+  [
+   -2,
+   -1,
+   "resort"
+  ],
+  [
+   -1,
+   -1,
+   "resort"
+  ],
+  [
+   0,
+   -1,
+   "arterial"
+  ],
+  [
+   1,
+   -1,
+   "arterial"
+  ],
+  [
+   2,
+   -1,
+   "arterial"
+  ],
+  [
+   -2,
+   0,
+   "resort"
+  ],
+  [
+   -1,
+   0,
+   "resort"
+  ],
+  [
+   0,
+   0,
+   "chapel"
+  ],
+  [
+   1,
+   0,
+   "suburb"
+  ],
+  [
+   2,
+   0,
+   "arterial"
+  ],
+  [
+   -2,
+   1,
+   "resort"
+  ],
+  [
+   -1,
+   1,
+   "resort"
+  ],
+  [
+   0,
+   1,
+   "suburb"
+  ],
+  [
+   1,
+   1,
+   "suburb"
+  ],
+  [
+   2,
+   1,
+   "arterial"
+  ],
+  [
+   -2,
+   2,
+   "resort"
+  ],
+  [
+   -1,
+   2,
+   "resort"
+  ],
+  [
+   0,
+   2,
+   "suburb"
+  ],
+  [
+   1,
+   2,
+   "suburb"
+  ],
+  [
+   2,
+   2,
+   "arterial"
+  ]
+ ],
+ "picture": [
+  4224,
+  1728
+ ],
+ "contrast_kept": 1.0,
+ "dE": {
+  "dirt": {
+   "before": 18.7,
+   "after": 2.2
+  },
+  "asphalt": {
+   "before": 9.3,
+   "after": 0.8
+  },
+  "walk": {
+   "before": null,
+   "after": 0.6
+  },
+  "forecourt": {
+   "before": null,
+   "after": 0.5
+  }
+ },
+ "edges": {
+  "left": {
+   "dirt_share": 0.79,
+   "dirt_dE_to_map": 2.2,
+   "road_runs_through": true
+  },
+  "right": {
+   "dirt_share": 0.67,
+   "dirt_dE_to_map": 2.2,
+   "road_runs_through": true
+  },
+  "top": {
+   "dirt_share": 1.0,
+   "dirt_dE_to_map": 2.2,
+   "road_runs_through": false
+  },
+  "bottom": {
+   "dirt_share": 0.0,
+   "dirt_dE_to_map": null,
+   "road_runs_through": true
+  },
+  "inside_dirt_dE_to_map": 2.2
+ },
+ "hotspots": {
+  "barber": [
+   644,
+   789,
+   1445,
+   1188
+  ],
+  "clinic": [
+   1540,
+   311,
+   3529,
+   1342
+  ],
+  "posts": [
+   580,
+   1294,
+   862,
+   1366
+  ],
+  "stall": [
+   1240,
+   1244,
+   1334,
+   1324
+  ],
+  "board": [
+   1487,
+   1098,
+   1562,
+   1191
+  ]
+ },
+ "floor_bar_after": {
+  "ground": {
+   "dirt_cells": 478,
+   "sat": 0.268,
+   "hue": 37.1,
+   "split": 7.3,
+   "grit": 14.08
+  },
+  "road": {
+   "rows": [
+    1452,
+    1580
+   ],
+   "peak": 0.198,
+   "lag": 902
+  },
+  "orange_pct": 0.1,
+  "tests": {
+   "B1": true,
+   "B2": true,
+   "B3": true,
+   "B4": true,
+   "B5": true,
+   "B6": true
+  },
+  "pass": true
+ },
+ "floor_bar_before": {
+  "ground": {
+   "dirt_cells": 2647,
+   "sat": 0.44,
+   "hue": 30.5,
+   "split": 24.4,
+   "grit": 10.57
+  },
+  "road": {
+   "rows": [
+    516,
+    598
+   ],
+   "peak": 0.212,
+   "lag": 1408
+  },
+  "orange_pct": 2.98,
+  "tests": {
+   "B1": false,
+   "B2": false,
+   "B3": false,
+   "B4": false,
+   "B5": true,
+   "B6": false
+  },
+  "pass": false
+ },
+ "dirt_laid_on_his_bar": [
+  137,
+  124,
+  101
+ ],
+ "dirt_laid_dE_to_the_map": 2.1,
+ "cell_check_red": 0,
+ "cell_check": [],
+ "cell_check_whole_picture": [
+  [
+   4032,
+   864,
+   [
+    "D5"
+   ],
+   "evenness 0.036 past the packs' 0.039; no_rest 0.85 past the packs' 0.834"
+  ],
+  [
+   1248,
+   1248,
+   [
+    "D2"
+   ],
+   "colours 7.26e+03 past the packs' 6.56e+03"
+  ]
+ ],
+ "lay": {
+  "cut_soil": {
+   "joint_rows": 1.21,
+   "joint_cols": 1.15
+  },
+  "cut_soil18": {
+   "joint_rows": 1.2,
+   "joint_cols": 1.45
+  },
+  "cut_sand": {
+   "joint_rows": 1.04,
+   "joint_cols": 1.22
+  },
+  "seams": [
+   1.0,
+   1.69
+  ],
+  "road_band": [
+   1448,
+   1728
+  ],
+  "line_y": 1592,
+  "walk": [
+   1368,
+   1448
+  ]
+ }
+}

@@ -42,6 +42,8 @@ REFERENCE CHECK (9/4 compare law; rule 82a: the twin IS his pack):
   plate height, a two-car garage 6 m).
   structure taken: the body's 57 px a metre; front slopes only; his tiles native.
   what changed: the house is five times the size of house two and a person fits through its door.
+
+REUSE CHECK (REUSE-FIRST, 7/22): every piece is his pack tile as bought, read from reference/art_bank (his approved set, 82a) and laid at its own pixels; imports bohemia_cook4_one_house (this lane's own functions, not copied).  Written into this placeholder's tool 10/19 so the checker reads it; the art it made is not edited (rule 101c).
 """
 import os
 from PIL import Image, ImageDraw

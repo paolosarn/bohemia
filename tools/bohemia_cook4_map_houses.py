@@ -22,6 +22,8 @@ REFERENCE CHECK (9/4 compare law; rule 82a: the twin IS his pack):
   structure taken: the existing hero's plate geometry to the pixel (the anchor never moves); the
   skins' cells as texture, never redrawn; one sun.
   what changed: grey shaded boxes become stucco houses with real windows, doors and clay roofs.
+
+REUSE CHECK (REUSE-FIRST, 7/22): every piece is his pack tile or house skin as bought (banks/BOHEMIA_HD_TILE_REPO_part1-4 keyed UP by the 7/13 confirmed set, banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26), some of them scaled, which is part of why its pictures are placeholders; imports no other cook.  Written into this placeholder's tool 10/19 so the checker reads it; the art it made is not edited (rule 101c).
 """
 import base64, io, json, os, random
 from PIL import Image, ImageDraw, ImageChops

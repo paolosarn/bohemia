@@ -50,6 +50,10 @@ REFERENCE CHECK (9/4 compare law; rule 82a: the twin IS his pack):
   his; the roof shape is the measured one (roof/wall 1.49, eave 14 percent, lean 6 percent).
   what changed: the colour only. Hue 17 / sat .89 (orange) becomes the tan of his render wall; hue 357 /
   sat .04 (blue-grey) becomes the grey-tan of his flagstones.  Nothing else on the five houses moved.
+
+REUSE CHECK (REUSE-FIRST, 7/22): the five houses are the family's own functions
+(tools/bohemia_cook4_the_straight_roof_family.py) and the measured roof (tools/bohemia_cook4_the_roof_measured.py),
+imported, not copied; the tiles are his pack's as bought.  New here: the light-rank recolour and its sheet.
 """
 import os
 import json

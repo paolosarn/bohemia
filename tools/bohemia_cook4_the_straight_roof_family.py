@@ -40,6 +40,8 @@ REFERENCE CHECK (9/4 compare law; rule 82a: the twin IS his pack):
   structure taken: the body's 57 px a metre; the roof ratios read from his pack; his tiles native.
   what changed: five massings where there was one, so a street is never one house copied nine times
   (DIRECTION's 10/10 note), and each sits on a shadow.
+
+REUSE CHECK (REUSE-FIRST, 7/22): every piece is his pack tile as bought, read from reference/art_bank (his approved set, 82a) and laid at its own pixels; imports bohemia_cook4_one_house, bohemia_cook4_the_roof_measured (this lane's own functions, not copied).  Written into this placeholder's tool 10/19 so the checker reads it; the art it made is not edited (rule 101c).
 """
 import os
 from PIL import Image, ImageDraw, ImageFilter

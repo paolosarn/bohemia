@@ -25,6 +25,8 @@ REFERENCE CHECK (9/4 compare law; rule 82a: the twin IS his pack):
   parapet, a roll-down over the storefront, a striped awning).
   structure taken: 57 px a metre; top and face both seen; parts once, surfaces laid.
   what changed: a flat-roofed commercial building, the first that is not a gable.
+
+REUSE CHECK (REUSE-FIRST, 7/22): every piece is his pack tile as bought, read from reference/art_bank (his approved set, 82a) and laid at its own pixels; imports bohemia_cook4_house_true_size, bohemia_cook4_one_house (this lane's own functions, not copied).  Written into this placeholder's tool 10/19 so the checker reads it; the art it made is not edited (rule 101c).
 """
 import os, glob
 from PIL import Image, ImageDraw

@@ -17,6 +17,8 @@ REFERENCE CHECK (9/4 compare law; rule 82a: the twin IS his pack):
   and asset one (COOK4_ONE_HOUSE_THE_PACKS_WAY) which he called good direction.
   structure taken: front gables only; 96 px pieces native; light from above; dark outline.
   what changed: a second gable and a garage, the Vegas ranch's shape; a roll-up door.
+
+REUSE CHECK (REUSE-FIRST, 7/22): every piece is his pack tile as bought, read from reference/art_bank (his approved set, 82a) and laid at its own pixels; imports bohemia_cook4_one_house (this lane's own functions, not copied).  Written into this placeholder's tool 10/19 so the checker reads it; the art it made is not edited (rule 101c).
 """
 import os
 from PIL import Image, ImageDraw

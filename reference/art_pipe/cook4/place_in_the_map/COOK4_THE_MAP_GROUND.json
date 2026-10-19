@@ -1,0 +1,208 @@
+{
+ "what": "the map's ground as his glass shows it at the near stop round Church, and the picture's ground read back",
+ "plan": {
+  "dirt": [
+   138,
+   122,
+   94
+  ],
+  "asphalt": [
+   51,
+   51,
+   60
+  ],
+  "walk": [
+   138,
+   138,
+   146
+  ],
+  "forecourt": [
+   160,
+   154,
+   138
+  ]
+ },
+ "seen": {
+  "dirt": [
+   137,
+   121,
+   101
+  ],
+  "asphalt": [
+   46,
+   46,
+   54
+  ],
+  "walk": [
+   124,
+   124,
+   131
+  ],
+  "forecourt": [
+   155,
+   149,
+   139
+  ]
+ },
+ "light_gain": [
+  0.968,
+  0.965,
+  1.006
+ ],
+ "how_read": {
+  "dirt": "drawn 3.1% of the glass",
+  "asphalt": "drawn 10.4% of the glass",
+  "walk": "drawn 0.5% of the glass",
+  "forecourt": "the plan under the light (not drawn on this glass)"
+ },
+ "most_drawn_on_the_glass": [
+  {
+   "rgb": [
+    46,
+    46,
+    54
+   ],
+   "share": 0.104
+  },
+  {
+   "rgb": [
+    137,
+    121,
+    101
+   ],
+   "share": 0.031
+  },
+  {
+   "rgb": [
+    106,
+    97,
+    82
+   ],
+   "share": 0.027
+  },
+  {
+   "rgb": [
+    50,
+    46,
+    41
+   ],
+   "share": 0.014
+  },
+  {
+   "rgb": [
+    42,
+    41,
+    39
+   ],
+   "share": 0.014
+  },
+  {
+   "rgb": [
+    93,
+    82,
+    64
+   ],
+   "share": 0.012
+  },
+  {
+   "rgb": [
+    142,
+    126,
+    103
+   ],
+   "share": 0.011
+  },
+  {
+   "rgb": [
+    72,
+    71,
+    69
+   ],
+   "share": 0.01
+  },
+  {
+   "rgb": [
+    133,
+    115,
+    86
+   ],
+   "share": 0.01
+  },
+  {
+   "rgb": [
+    47,
+    47,
+    55
+   ],
+   "share": 0.009
+  },
+  {
+   "rgb": [
+    98,
+    85,
+    66
+   ],
+   "share": 0.009
+  },
+  {
+   "rgb": [
+    45,
+    45,
+    53
+   ],
+   "share": 0.008
+  }
+ ],
+ "picture": {
+  "dirt": [
+   137,
+   124,
+   101
+  ],
+  "walk": [
+   124,
+   124,
+   132
+  ],
+  "asphalt": [
+   45,
+   45,
+   54
+  ],
+  "forecourt": [
+   155,
+   149,
+   140
+  ]
+ },
+ "picture_value_ramp": {
+  "dirt": [
+   102,
+   117,
+   125,
+   131,
+   146
+  ],
+  "walk": [
+   73,
+   112,
+   125,
+   134,
+   148
+  ],
+  "asphalt": [
+   28,
+   41,
+   46,
+   50,
+   57
+  ],
+  "forecourt": [
+   91,
+   135,
+   149,
+   160,
+   175
+  ]
+ }
+}
