@@ -284,10 +284,12 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
-CHARACTER (character-one-skin): 10/19 (u) LATEST -- *** ONE SKIN SHIPPED (THE MAP'S PARTIES TOO); 50 OF THE 80 TOPS IN VOTE. ***
+CHARACTER (character-one-skin): 10/19 (v) LATEST -- *** ONE SKIN SHIPPED (THE MAP'S PARTIES TOO); 77 OF THE GAME'S 80 TOPS ON THE 3D MAN IN VOTE. ***
 TAB: VOTE, the cards character-base-one-the-shirts-10-19 (5 tanks, 12 tees, 4 long sleeves, 7 henleys on the barber's man,
 each beside the game's flat top at 1:1, eight facings, the portrait at 128; 224 of 224 stills pass the first five) and
-character-base-one-the-collars-10-19 (8 button shirts, 2 work shirts, 10 flannels, 2 rolled sleeves; 176 of 176), with
+character-base-one-the-collars-10-19 (8 button shirts, 2 work shirts, 10 flannels, 2 rolled sleeves; 176 of 176) and
+character-base-one-the-heavy-and-the-runway-10-19 (turtlenecks, hoodies lying and up, rags, coveralls, shortalls, the
+runway's ten; 27 shown, 216 of 216), with
 hair 1 (six cuts), hats 1 (21) and eyewear 1 (14 face pieces, character-eyewear-one-the-14-face-pieces-10-19) before it.
 Records: records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md, records/BOHEMIA_EYEWEAR_ONE_THE_14_FACE_PIECES_10_19_26.md,
 records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md, records/BOHEMIA_THE_ROLL_CALL_10_19_26.md.
@@ -303,13 +305,15 @@ barber's build BASE1 | BASE1:<names>): the top cut finer then lifted, rib bands,
 tails, cuffs and rolls, a turtleneck to the jaw, hoods lying and up, the coverall, the bib and its straps, tatters with
 skin through the holes, the runway's wide pad and arc dome, the longline and the layered hems, prints in metres; every
 cloth at SAT 1.4 at the source (measured: the rig's dust took the red's spread from 79 to 57). Three cards: 1 THE SHIRTS
-(28) and 2 THE COLLARS (22) IN VOTE; 3 THE HEAVY ONES AND THE RUNWAY (30) rendering on this box, to VOTE when done.
+(28), 2 THE COLLARS (22) and 3 THE HEAVY ONES AND THE RUNWAY (27 of 30) IN VOTE; all 80 rendered (1,040 files on main);
+BIB OVERALLS, DENIM SHORTALLS and ASH LONGLINE TEE built and HELD (the light row, below).
 Fourteen test tops looked at first; what changed is in the record (the hood twice, the hood up three times, the tatters,
 the wide pad).
 FOR DIRECTION (the guide's light row, a third case, measured): BIB OVERALLS and DENIM SHORTALLS fail D3 side on (W -4.4,
 -4.5) with the shape right and the colour the flat's: the head is 48 in every top's top quarter; the mannequin's black
 cargos put the bottom half at 54 to 57 (the black tank reads +6.3), denim legs at 71. Any outfit with legs lighter than
-its dark head is 'lit from below' by construction. Held off card 3 (rule 114b), nothing changed to pass. Compare the lit
+its dark head is 'lit from below' by construction (ASH LONGLINE TEE too: its pale hem, W -3.0). Held off card 3 (rule
+114b), nothing changed to pass. Compare the lit
 and the shadow side of one mass, not the sprite's halves (same as (s)'s skin case and hair 1's black masses).
 FOR DIRECTION, A BUG IN THE MASTER RIG (measured, worked around, the rig not edited): line 969 names the cropped id
 frames with fn.replace('id_', 'rigid_') on the WHOLE path (line 857 beside it takes the basename), so an output folder
@@ -324,8 +328,9 @@ ROUND, THE CARD I NAME (S1, S7) red on clean main too, none naming a file of min
 [bb Battle Brothers dresses a man in body armour and a helmet, painted layers per facing; the shirt under them is never
 seen. Ours is the layer the street sees in a city where nobody wears plate, cut and sewn on the man so it turns with him.]
 [analog horror: clay cloth pressed into shape, a collar you could tear, the dust in every fold; nothing glows.]
-Lead line for DIRECTION (rule 113a): CHARACTER shipped one skin per person to the map and put 50 tops on the 3D man, VOTE tab, COOKING.
-NEXT: the heavy ones and the runway (30, rendering); then the garments' outer slot (74), the roll call's order.
+Lead line for DIRECTION (rule 113a): CHARACTER shipped one skin per person to the map and put 77 of the 80 tops on the 3D man, VOTE tab, COOKING.
+NEXT: the garments' outer slot (74 coats, the roll call's order), on the same barber's man; the rig tool's coat and skirt
+are the start.
 PENDING Paolo: nothing.
 
 CHARACTER (character-barber-skull): 10/18 (r) LATEST -- *** THE BARBER'S FIRST THREE CUTS ARE SCULPTED HAIR ON THE STARRED HEAD. ***

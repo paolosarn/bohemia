@@ -138,6 +138,9 @@ def main():
     rig_style = dict(('faction_' + n.lower(), (L.get('hair') or {}).get('style')) for n, L in RIG.LOOKS.items() if n != 'Body')
     barber = dict((k, BARBER.CUTS[k]) for k in BARBER.ORDER)   # the three the barber's card showed; HAIR 1's eight are not shown until their card
     BASE_CARD = dict((G['name'], cid) for _, cid, shapes in BARBER.BASE_ONE.PARTS for G in BARBER.BASE_ONE.BANK if G['shape'] in shapes)
+    # a base top is shown only when its card carries its pictures; one whose card left it out was held
+    _bs = dict((i.get('id'), ' '.join(i.get('sprites', []))) for i in reg.get('items', []) if i.get('id') in set(BASE_CARD.values()))
+    BASE_HELD = set(G['name'] for G in BARBER.BASE_ONE.BANK if BASE_CARD.get(G['name']) in _bs and '/%s/' % G['tag'] not in _bs[BASE_CARD[G['name']]])
     PP = portrait_pieces()
 
     rows, seen = [], set()
@@ -173,6 +176,10 @@ def main():
                 nl = {'state': 'shown, not approved', 'by': 'CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)',
                       'rig_looks': on_gangs}
                 nl.update(card(HAIR_ONE_CARD)); nl['note'] = SAID
+            elif kind == 'garment' and layer == 'base' and name in BASE_HELD and any(i.get('id') == BASE_CARD.get(name) for i in reg.get('items', [])):
+                # built, rendered and held off its card by the first five (rule 114b); the record says why
+                nl = {'state': 'built, not shown', 'by': "CHARACTER, modelled on the barber's 3D man (base 1)", 'rig_looks': on_gangs,
+                      'held': "off %s by the guide's light row (rule 114b): records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md" % BASE_CARD[name]}
             elif kind == 'garment' and layer == 'base' and any(i.get('id') == BASE_CARD.get(name) for i in reg.get('items', [])):
                 # GARMENTS BASE (10/19): the top modelled on the barber's man; a top a gang already wore keeps his UP on the gangs
                 # 'cards' holds only what the state stands on (R3: approved means every cited card has his UP); the new

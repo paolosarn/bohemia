@@ -1,5 +1,50 @@
 # CHARACTER ARCHIVE (rule 96: the blocks older than the lane's two newest, newest first; moved by tools/bohemia_trail_sweep.js, nothing deleted)
 
+<!-- moved 10/19 by CHARACTER itself (block (v) replaced it; rule 96: nothing deleted) -->
+CHARACTER (character-one-skin): 10/19 (u) LATEST -- *** ONE SKIN SHIPPED (THE MAP'S PARTIES TOO); 50 OF THE 80 TOPS IN VOTE. ***
+TAB: VOTE, the cards character-base-one-the-shirts-10-19 (5 tanks, 12 tees, 4 long sleeves, 7 henleys on the barber's man,
+each beside the game's flat top at 1:1, eight facings, the portrait at 128; 224 of 224 stills pass the first five) and
+character-base-one-the-collars-10-19 (8 button shirts, 2 work shirts, 10 flannels, 2 rolled sleeves; 176 of 176), with
+hair 1 (six cuts), hats 1 (21) and eyewear 1 (14 face pieces, character-eyewear-one-the-14-face-pieces-10-19) before it.
+Records: records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md, records/BOHEMIA_EYEWEAR_ONE_THE_14_FACE_PIECES_10_19_26.md,
+records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md, records/BOHEMIA_THE_ROLL_CALL_10_19_26.md.
+[one skin, one person] (rule 120(d)) SHIPPED 10/19 5e83eb13: one skin per person in the data
+(records/target/character/BOHEMIA_ONE_SKIN.json, 28 people, Las Vegas's mix), read by the alpha's body and face alike,
+the DEMO's fight and settlement sheets re-baked, PORTRAIT's 26 faces on it, all 13 gangs' 3D bodies re-rendered in their
+own skin standing and walking (the Anarchists at the capped chalk), and RUN's rig cast sheet re-baked from them, so the
+MAP's roaming parties wear their own skin and all 13 now walk (it was 4). Gate ONE SKIN, ONE PERSON 15/0.
+[every old asset into the new look] CLAIMED: round five BASE 1, the roll call's fourth batch, base first. The 80 tops
+read off the alpha (genTop and genCoverall options; where an old top carries no neck and no print its NAME fills them in,
+word by word), each option modelled once on the barber's man (tools/bohemia_character_garments_base.py, driven by the
+barber's build BASE1 | BASE1:<names>): the top cut finer then lifted, rib bands, plackets and buttons, collars and
+tails, cuffs and rolls, a turtleneck to the jaw, hoods lying and up, the coverall, the bib and its straps, tatters with
+skin through the holes, the runway's wide pad and arc dome, the longline and the layered hems, prints in metres; every
+cloth at SAT 1.4 at the source (measured: the rig's dust took the red's spread from 79 to 57). Three cards: 1 THE SHIRTS
+(28) and 2 THE COLLARS (22) IN VOTE; 3 THE HEAVY ONES AND THE RUNWAY (30) rendering on this box, to VOTE when done.
+Fourteen test tops looked at first; what changed is in the record (the hood twice, the hood up three times, the tatters,
+the wide pad).
+FOR DIRECTION (the guide's light row, a third case, measured): BIB OVERALLS and DENIM SHORTALLS fail D3 side on (W -4.4,
+-4.5) with the shape right and the colour the flat's: the head is 48 in every top's top quarter; the mannequin's black
+cargos put the bottom half at 54 to 57 (the black tank reads +6.3), denim legs at 71. Any outfit with legs lighter than
+its dark head is 'lit from below' by construction. Held off card 3 (rule 114b), nothing changed to pass. Compare the lit
+and the shadow side of one mass, not the sprite's halves (same as (s)'s skin case and hair 1's black masses).
+FOR DIRECTION, A BUG IN THE MASTER RIG (measured, worked around, the rig not edited): line 969 names the cropped id
+frames with fn.replace('id_', 'rigid_') on the WHOLE path (line 857 beside it takes the basename), so an output folder
+holding 'id_' ('plaid_flannel' -> 'plarigid_flannel') raises FileNotFoundError after the stills and writes no portraits
+and no rig.json. A basename replace fixes it; this lane renders into folders with 'id-' meanwhile.
+FOR RUN: the demo's own famPaintBody still wants famSkinOf at the next cut; the rig cast re-bake is mine (above).
+GATES: THE ROLL CALL 8/0 (a cited card must carry his UP: a gang-worn top keeps its approved gang cards and shows the new
+card as shown_on), ONE SKIN, ONE PERSON, BARBER, THE BARBERS DOOR, HANDOFF, ATTEMPT, CARD FOLD, CHARACTER IN THE VOTE TAB
+green; the suite does not finish on this box (954 gates; 61 in 25 minutes, the browser gates timing out beside three
+renders), so the gates that read this work ran --only; REUSE FIRST, REFERENCE CHECK, PAGES PUBLISH, TWIN GATE, COOK EVERY
+ROUND, THE CARD I NAME (S1, S7) red on clean main too, none naming a file of mine.
+[bb Battle Brothers dresses a man in body armour and a helmet, painted layers per facing; the shirt under them is never
+seen. Ours is the layer the street sees in a city where nobody wears plate, cut and sewn on the man so it turns with him.]
+[analog horror: clay cloth pressed into shape, a collar you could tear, the dust in every fold; nothing glows.]
+Lead line for DIRECTION (rule 113a): CHARACTER shipped one skin per person to the map and put 50 tops on the 3D man, VOTE tab, COOKING.
+NEXT: the heavy ones and the runway (30, rendering); then the garments' outer slot (74), the roll call's order.
+PENDING Paolo: nothing.
+
 <!-- moved 10/19 by CHARACTER itself (block (u) replaced it; rule 96: nothing deleted) -->
 CHARACTER (character-one-skin): 10/19 (t) LATEST -- *** BASE 1: THE GAME'S 28 PLAIN TOPS ON THE 3D MAN IN VOTE; ONE SKIN'S WALKS LANDING. ***
 TAB: VOTE, the cards character-base-one-the-shirts-10-19 (5 tanks, 12 tees, 4 long sleeves, 7 henleys on the barber's man,
