@@ -2468,6 +2468,15 @@ NEXT OPEN (jump list, rule 74): none held; the section's OPEN rows are exhausted
 PENDING Paolo: none new; the shared food/water pile report from several rounds back still
 stands.
 
+UI (ui-opus-h): 10/19 LATEST -- [the top bar] CANDIDATE in VOTE, FIRST on the board (rule 121; his 10/19 'I still don't like the top bar... you could put so much things in the top of the screen... and then during combat it doesn't go away').
+Measured first: the map's bar cut the day off and never said the days the food lasts (0 food = 0 days, the day eats one) or the crew (3 men, cap 12); the gear floats under it as a code box with a system glyph. The map's bar never leaks into the fight (upright, sideways, computer); what stays across the top is the fight's OWN strip (R1, five faces, AUTO; 58 pt upright).
+Laid in the browser only from the materials (nothing in slices/ or engine/): A one row (day+hour, batteries, the food's days on a red receipt chip, a drawn man + count + a health tick a man), B two rows (+ place, CREW 3/12, the stores at his packs' pixels), C the company on top (sun/moon dial, a card a man with a health bar); the gear into the bar as a drawn mark. The fight, all three: the strip gone, round/faces/AUTO ride the bottom bar, board to the glass (sideways 67% -> 80%).
+60 words, worst 8.50 plain / 4.84 in the sun; every press 44 pt; fits 390 (A is 8 pt over on a 320 phone). VOTE ui-the-top-bar-10-19 (A / B / C / NO); sheets records/target/ui_the_top_bar/; record records/BOHEMIA_THE_TOP_BAR_10_19_26.md.
+GATES: THE TOP BAR 10/0 in the suite (six planted defects); vote_tab run on this card (see the commit); full suite unmeasured since this sha (rule 13).
+FOR RUN (note on its row): the picked bar into #menubar via the materials, facts from __bmTopBarFacts()'s game calls, the shell gear onto the slot. FOR COMBAT (note on its row): __bmFightNoTop() is the whole change, #top off, three elements moved into #bot.
+NEXT: rule 121(d): the round ends with the row; every older candidate waits on his pick.
+UNDER UI (rule 113a, one line per lane): WORDS: PAUSED by rule 121, nothing made, no tab: FROZEN. SOUNDS: PAUSED by rule 121 ([the guns heard] claimed 10/19 stops where it is): FROZEN.
+
 UI (ui-opus-g): 10/19 LATEST -- [the hit chance look] (= the coordinator's [the numbers on the target]) CANDIDATE in VOTE: rule 120(b), his 10/18 'the game doesn't explain to you at all that your weapon sucks'.
 READ BACK FIRST: ui-opus-e was cut off by the five-hour cap with no block; its two rows were in VOTE and still said CLAIMED: [the front screen, just the font] (card ui-the-front-screen-just-the-font-10-18, YES / NO, switch OFF until RUN's CUE 6.95) and [the line on a ground] (card ui-the-line-on-a-ground-10-18, A / B / C / NO) now say CANDIDATE with their ids (rule 118b).
 Measured first: the chance was a 10 px number in the STRIKE square's corner; what the hit does was nowhere. His pistol on the raider's plate: 32% for 15 of 103 armour and 0 of 75 body; seven hits to strip, none touch him.

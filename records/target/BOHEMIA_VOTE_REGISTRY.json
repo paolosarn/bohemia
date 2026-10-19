@@ -13346,7 +13346,47 @@
     "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
     "light": "guide"
    }
-  }
+  },
+    {
+     "id": "ui-the-top-bar-10-19",
+     "kind": "ui",
+     "lane": "ui",
+     "sha": "pending",
+     "made": "10/19",
+     "title": "THE TOP BAR: MORE ON THE MAP, GONE IN THE FIGHT",
+     "why": "You said the top bar is weak and that in the fight it never goes away, so on the map it now tells you the day and hour, your batteries, your food and how many days it lasts, and your crew with their health, and in the fight the strip across the top is gone and the round, the turn order and AUTO ride the bottom bar so the board runs to the top of the glass. You see it on the map and in the fight on your phone: the map's top today beside A (one row), B (two rows with all your stores) and C (a card for every man), then the fight today beside the fight with nothing on top; pick one, or NO with what is wrong.",
+     "show": {
+      "how": "image",
+      "src": "../records/target/ui_the_top_bar/UI_THE_TOP_BAR.png",
+      "first": "../records/target/vote_first/ui-the-top-bar-10-19.webp",
+      "firstAt": [
+       422,
+       60,
+       390,
+       209
+      ]
+     },
+     "options": [
+      "A",
+      "B",
+      "C",
+      "NO"
+     ],
+     "twin": {
+      "src": "records/target/ui_one_screen/twin_19_27.png",
+      "diffs": [
+       "THE BOARD: his pack's sign is a dark board holding light paper, lit from above with a hard rim; the bar is the same cut cardboard holding the same receipt, darkened in its own pixels, never by a fade.",
+       "THE GLASS: his pack has no glass; the stores sit on a pane of the phone's cracked glass so the counts read gold on dark beside the paper, the food's days in red when under three.",
+       "THE LETTERS: his pack's are hand-lettered at 5 to 7 pixels; the bar's are the game's casing at 12 to 15 points, so every word passes 4.5 to 1 in the sun."
+      ]
+     },
+     "before_after": {
+      "before": "the map's bar says the hour, the place and six stores at 10 pixels, four of them dashes; the fight keeps a strip of the round, the faces and AUTO across the top of the board",
+      "after": "the day and the hour, batteries, food and the days it lasts, the crew and a tick of health a man; in the fight nothing across the top, the board to the glass",
+      "scale": "1:1"
+     },
+     "draft": true
+    }
  ],
  "verdicts": [
   {

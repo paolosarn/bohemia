@@ -1,0 +1,1065 @@
+{
+ "made": "10/19",
+ "sides": {
+  "portrait": {
+   "facts": {
+    "day": 1,
+    "min": 360,
+    "hour": "06:00",
+    "batteries": 240,
+    "food": 0,
+    "perDay": 1,
+    "daysLeft": 0,
+    "crew": [
+     {
+      "background": "2-HAND",
+      "id": "companion_2hand",
+      "level": 0,
+      "health": 1,
+      "carried": false
+     },
+     {
+      "background": "1-HAND",
+      "id": "companion_1hand",
+      "level": 0,
+      "health": 1,
+      "carried": false
+     },
+     {
+      "background": "RANGED",
+      "id": "companion_ranged",
+      "level": 0,
+      "health": 1,
+      "carried": false
+     }
+    ],
+    "cap": 12,
+    "place": "SUBURB",
+    "six": {
+     "batteries": 240,
+     "food": 0,
+     "meds": null,
+     "rounds": null,
+     "tape": null,
+     "water": null
+    }
+   },
+   "stamp": "DEMO - BUILD 10/18c - THE STREETS JOIN, THE GANGS WEAR THE RIG",
+   "nowBar": 50,
+   "bars": {
+    "A": {
+     "bottom": 66,
+     "share": 0.078,
+     "words": [
+      {
+       "text": "DAY 1",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 12.81,
+       "sun": 6.16,
+       "size": "9px"
+      },
+      {
+       "text": "06:00",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 10.61,
+       "sun": 5.38,
+       "size": "15px"
+      },
+      {
+       "text": "240",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.82,
+       "sun": 6.06,
+       "size": "14px"
+      },
+      {
+       "text": "0 DAYS",
+       "ink": [
+        74,
+        10,
+        5
+       ],
+       "plain": 8.5,
+       "sun": 4.84,
+       "size": "10px"
+      },
+      {
+       "text": "3",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 14.07,
+       "sun": 6.82,
+       "size": "14px"
+      },
+      {
+       "text": "NOTES",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.38,
+       "sun": 4.94,
+       "size": "12px"
+      }
+     ],
+     "presses": [
+      {
+       "f": "gear",
+       "w": 44,
+       "h": 44
+      },
+      {
+       "f": "notes",
+       "w": 48,
+       "h": 44
+      }
+     ],
+     "gear": [
+      284,
+      6,
+      44,
+      44
+     ],
+     "fonts": [
+      "BohemiaCasing"
+     ],
+     "radii": [
+      "0px"
+     ],
+     "said": {
+      "clock": "DAY 1 06:00",
+      "batteries": "240",
+      "food": "0 DAYS",
+      "crew": "3",
+      "notes": "NOTES"
+     },
+     "text": "DAY 1 06:00 | 240 | 0 DAYS | 3 | NOTES"
+    },
+    "B": {
+     "bottom": 116,
+     "share": 0.137,
+     "words": [
+      {
+       "text": "DAY 1",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 12.81,
+       "sun": 6.16,
+       "size": "9px"
+      },
+      {
+       "text": "06:00",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 10.63,
+       "sun": 5.39,
+       "size": "15px"
+      },
+      {
+       "text": "SUBURB",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.37,
+       "sun": 4.93,
+       "size": "12px"
+      },
+      {
+       "text": "CREW 3/12",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.37,
+       "sun": 4.93,
+       "size": "12px"
+      },
+      {
+       "text": "NOTES",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.37,
+       "sun": 4.93,
+       "size": "12px"
+      },
+      {
+       "text": "240",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.73,
+       "sun": 6.0,
+       "size": "14px"
+      },
+      {
+       "text": "0 DAYS",
+       "ink": [
+        74,
+        10,
+        5
+       ],
+       "plain": 8.43,
+       "sun": 4.84,
+       "size": "10px"
+      },
+      {
+       "text": "\u2013",
+       "ink": [
+        221,
+        210,
+        184
+       ],
+       "plain": 12.46,
+       "sun": 6.24,
+       "size": "14px"
+      },
+      {
+       "text": "\u2013",
+       "ink": [
+        221,
+        210,
+        184
+       ],
+       "plain": 11.2,
+       "sun": 5.44,
+       "size": "14px"
+      },
+      {
+       "text": "\u2013",
+       "ink": [
+        221,
+        210,
+        184
+       ],
+       "plain": 12.43,
+       "sun": 6.21,
+       "size": "14px"
+      }
+     ],
+     "presses": [
+      {
+       "f": "place",
+       "w": 59,
+       "h": 44
+      },
+      {
+       "f": "crew",
+       "w": 98,
+       "h": 44
+      },
+      {
+       "f": "gear",
+       "w": 44,
+       "h": 44
+      },
+      {
+       "f": "notes",
+       "w": 48,
+       "h": 44
+      }
+     ],
+     "gear": [
+      284,
+      6,
+      44,
+      44
+     ],
+     "fonts": [
+      "BohemiaCasing"
+     ],
+     "radii": [
+      "0px"
+     ],
+     "said": {
+      "clock": "DAY 1 06:00",
+      "place": "SUBURB",
+      "crew": "CREW 3/12",
+      "notes": "NOTES",
+      "batteries": "240",
+      "food": "0 DAYS"
+     },
+     "text": "DAY 1 06:00 | SUBURB | CREW 3/12 | NOTES | 240 | 0 DAYS"
+    },
+    "C": {
+     "bottom": 119,
+     "share": 0.141,
+     "words": [
+      {
+       "text": "DAY 1",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 12.42,
+       "sun": 6.04,
+       "size": "9px"
+      },
+      {
+       "text": "06:00",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 10.21,
+       "sun": 5.24,
+       "size": "15px"
+      },
+      {
+       "text": "240",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.87,
+       "sun": 6.09,
+       "size": "14px"
+      },
+      {
+       "text": "0 DAYS",
+       "ink": [
+        74,
+        10,
+        5
+       ],
+       "plain": 8.5,
+       "sun": 4.84,
+       "size": "10px"
+      },
+      {
+       "text": "NOTES",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.36,
+       "sun": 4.93,
+       "size": "12px"
+      },
+      {
+       "text": "2-HAND",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 13.34,
+       "sun": 6.18,
+       "size": "9px"
+      },
+      {
+       "text": "NEW",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.83,
+       "sun": 6.07,
+       "size": "10px"
+      },
+      {
+       "text": "1-HAND",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 13.34,
+       "sun": 6.18,
+       "size": "9px"
+      },
+      {
+       "text": "NEW",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.83,
+       "sun": 6.07,
+       "size": "10px"
+      },
+      {
+       "text": "RANGED",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 13.34,
+       "sun": 6.18,
+       "size": "9px"
+      },
+      {
+       "text": "NEW",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.83,
+       "sun": 6.07,
+       "size": "10px"
+      },
+      {
+       "text": "CREW",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 13.63,
+       "sun": 6.37,
+       "size": "9px"
+      },
+      {
+       "text": "3/12",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 13.4,
+       "sun": 6.41,
+       "size": "10px"
+      }
+     ],
+     "presses": [
+      {
+       "f": "gear",
+       "w": 44,
+       "h": 44
+      },
+      {
+       "f": "notes",
+       "w": 48,
+       "h": 44
+      }
+     ],
+     "gear": [
+      284,
+      6,
+      44,
+      44
+     ],
+     "fonts": [
+      "BohemiaCasing"
+     ],
+     "radii": [
+      "0px"
+     ],
+     "said": {
+      "clock": "DAY 1 06:00",
+      "batteries": "240",
+      "food": "0 DAYS",
+      "notes": "NOTES",
+      "crew": "2-HAND NEW 1-HAND NEW RANGED NEW CREW 3/12"
+     },
+     "text": "DAY 1 06:00 | 240 | 0 DAYS | NOTES | 2-HAND NEW 1-HAND NEW RANGED NEW CREW 3/12"
+    }
+   },
+   "fight": {
+    "nowTop": 58,
+    "nowBot": 712,
+    "afterTopShown": false,
+    "afterBot": 664,
+    "edges": {
+     "TOPH": 0,
+     "BOTH": 180,
+     "autoOnBar": true,
+     "orderOnBar": true,
+     "faces": 5
+    },
+    "autoTap": {
+     "was": false,
+     "now": true
+    },
+    "boardNow": 0.775,
+    "boardAfter": 0.787
+   },
+   "sheet": "UI_THE_TOP_BAR.png",
+   "sheetSize": [
+    828,
+    1458
+   ]
+  },
+  "landscape": {
+   "facts": {
+    "day": 1,
+    "min": 360,
+    "hour": "06:00",
+    "batteries": 240,
+    "food": 0,
+    "perDay": 1,
+    "daysLeft": 0,
+    "crew": [
+     {
+      "background": "2-HAND",
+      "id": "companion_2hand",
+      "level": 0,
+      "health": 1,
+      "carried": false
+     },
+     {
+      "background": "1-HAND",
+      "id": "companion_1hand",
+      "level": 0,
+      "health": 1,
+      "carried": false
+     },
+     {
+      "background": "RANGED",
+      "id": "companion_ranged",
+      "level": 0,
+      "health": 1,
+      "carried": false
+     }
+    ],
+    "cap": 12,
+    "place": "SUBURB",
+    "six": {
+     "batteries": 240,
+     "food": 0,
+     "meds": null,
+     "rounds": null,
+     "tape": null,
+     "water": null
+    }
+   },
+   "stamp": "DEMO - BUILD 10/18c - THE STREETS JOIN, THE GANGS WEAR THE RIG",
+   "nowBar": 50,
+   "bars": {
+    "A": {
+     "bottom": 66,
+     "share": 0.169,
+     "words": [
+      {
+       "text": "DAY 1",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 12.81,
+       "sun": 6.16,
+       "size": "9px"
+      },
+      {
+       "text": "06:00",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 10.61,
+       "sun": 5.38,
+       "size": "15px"
+      },
+      {
+       "text": "240",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.69,
+       "sun": 5.99,
+       "size": "14px"
+      },
+      {
+       "text": "0 DAYS",
+       "ink": [
+        74,
+        10,
+        5
+       ],
+       "plain": 8.5,
+       "sun": 4.84,
+       "size": "10px"
+      },
+      {
+       "text": "CREW",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 14.19,
+       "sun": 6.67,
+       "size": "10px"
+      },
+      {
+       "text": "3",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 13.22,
+       "sun": 6.29,
+       "size": "14px"
+      },
+      {
+       "text": "/12",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 14.71,
+       "sun": 7.0,
+       "size": "10px"
+      },
+      {
+       "text": "NOTES",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.38,
+       "sun": 4.94,
+       "size": "12px"
+      }
+     ],
+     "presses": [
+      {
+       "f": "gear",
+       "w": 44,
+       "h": 44
+      },
+      {
+       "f": "notes",
+       "w": 48,
+       "h": 44
+      }
+     ],
+     "gear": [
+      738,
+      6,
+      44,
+      44
+     ],
+     "fonts": [
+      "BohemiaCasing"
+     ],
+     "radii": [
+      "0px"
+     ],
+     "said": {
+      "clock": "DAY 1 06:00",
+      "batteries": "240",
+      "food": "0 DAYS",
+      "crew": "CREW 3/12",
+      "notes": "NOTES"
+     },
+     "text": "DAY 1 06:00 | 240 | 0 DAYS | CREW 3/12 | NOTES"
+    },
+    "B": {
+     "bottom": 66,
+     "share": 0.169,
+     "words": [
+      {
+       "text": "DAY 1",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 12.81,
+       "sun": 6.16,
+       "size": "9px"
+      },
+      {
+       "text": "06:00",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 10.63,
+       "sun": 5.39,
+       "size": "15px"
+      },
+      {
+       "text": "SUBURB",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.37,
+       "sun": 4.93,
+       "size": "12px"
+      },
+      {
+       "text": "240",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.73,
+       "sun": 6.0,
+       "size": "14px"
+      },
+      {
+       "text": "0 DAYS",
+       "ink": [
+        74,
+        10,
+        5
+       ],
+       "plain": 8.43,
+       "sun": 4.84,
+       "size": "10px"
+      },
+      {
+       "text": "\u2013",
+       "ink": [
+        221,
+        210,
+        184
+       ],
+       "plain": 12.46,
+       "sun": 6.24,
+       "size": "14px"
+      },
+      {
+       "text": "\u2013",
+       "ink": [
+        221,
+        210,
+        184
+       ],
+       "plain": 10.72,
+       "sun": 5.27,
+       "size": "14px"
+      },
+      {
+       "text": "\u2013",
+       "ink": [
+        221,
+        210,
+        184
+       ],
+       "plain": 12.63,
+       "sun": 6.33,
+       "size": "14px"
+      },
+      {
+       "text": "CREW 3/12",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.37,
+       "sun": 4.93,
+       "size": "12px"
+      },
+      {
+       "text": "NOTES",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.37,
+       "sun": 4.93,
+       "size": "12px"
+      }
+     ],
+     "presses": [
+      {
+       "f": "place",
+       "w": 59,
+       "h": 44
+      },
+      {
+       "f": "crew",
+       "w": 98,
+       "h": 44
+      },
+      {
+       "f": "gear",
+       "w": 44,
+       "h": 44
+      },
+      {
+       "f": "notes",
+       "w": 48,
+       "h": 44
+      }
+     ],
+     "gear": [
+      738,
+      6,
+      44,
+      44
+     ],
+     "fonts": [
+      "BohemiaCasing"
+     ],
+     "radii": [
+      "0px"
+     ],
+     "said": {
+      "clock": "DAY 1 06:00",
+      "place": "SUBURB",
+      "batteries": "240",
+      "food": "0 DAYS",
+      "crew": "CREW 3/12",
+      "notes": "NOTES"
+     },
+     "text": "DAY 1 06:00 | SUBURB | 240 | 0 DAYS | CREW 3/12 | NOTES"
+    },
+    "C": {
+     "bottom": 69,
+     "share": 0.177,
+     "words": [
+      {
+       "text": "DAY 1",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 12.42,
+       "sun": 6.04,
+       "size": "9px"
+      },
+      {
+       "text": "06:00",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 10.21,
+       "sun": 5.24,
+       "size": "15px"
+      },
+      {
+       "text": "240",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.73,
+       "sun": 6.0,
+       "size": "14px"
+      },
+      {
+       "text": "0 DAYS",
+       "ink": [
+        74,
+        10,
+        5
+       ],
+       "plain": 8.5,
+       "sun": 4.84,
+       "size": "10px"
+      },
+      {
+       "text": "2-HAND",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 13.37,
+       "sun": 6.2,
+       "size": "9px"
+      },
+      {
+       "text": "NEW",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.86,
+       "sun": 6.09,
+       "size": "10px"
+      },
+      {
+       "text": "1-HAND",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 13.34,
+       "sun": 6.18,
+       "size": "9px"
+      },
+      {
+       "text": "NEW",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.83,
+       "sun": 6.07,
+       "size": "10px"
+      },
+      {
+       "text": "RANGED",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 13.34,
+       "sun": 6.18,
+       "size": "9px"
+      },
+      {
+       "text": "NEW",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 12.83,
+       "sun": 6.07,
+       "size": "10px"
+      },
+      {
+       "text": "CREW",
+       "ink": [
+        242,
+        228,
+        198
+       ],
+       "plain": 13.63,
+       "sun": 6.37,
+       "size": "9px"
+      },
+      {
+       "text": "3/12",
+       "ink": [
+        255,
+        217,
+        138
+       ],
+       "plain": 13.4,
+       "sun": 6.41,
+       "size": "10px"
+      },
+      {
+       "text": "NOTES",
+       "ink": [
+        31,
+        23,
+        16
+       ],
+       "plain": 9.36,
+       "sun": 4.93,
+       "size": "12px"
+      }
+     ],
+     "presses": [
+      {
+       "f": "gear",
+       "w": 44,
+       "h": 44
+      },
+      {
+       "f": "notes",
+       "w": 48,
+       "h": 44
+      }
+     ],
+     "gear": [
+      738,
+      7,
+      44,
+      44
+     ],
+     "fonts": [
+      "BohemiaCasing"
+     ],
+     "radii": [
+      "0px"
+     ],
+     "said": {
+      "clock": "DAY 1 06:00",
+      "batteries": "240",
+      "food": "0 DAYS",
+      "crew": "2-HAND NEW 1-HAND NEW RANGED NEW CREW 3/12",
+      "notes": "NOTES"
+     },
+     "text": "DAY 1 06:00 | 240 | 0 DAYS | 2-HAND NEW 1-HAND NEW RANGED NEW CREW 3/12 | NOTES"
+    }
+   },
+   "fight": {
+    "nowTop": 52,
+    "nowBot": 314,
+    "afterTopShown": false,
+    "afterBot": 314,
+    "edges": {
+     "TOPH": 0,
+     "BOTH": 76,
+     "autoOnBar": true,
+     "orderOnBar": true,
+     "faces": 5
+    },
+    "autoTap": {
+     "was": false,
+     "now": true
+    },
+    "boardNow": 0.672,
+    "boardAfter": 0.805
+   },
+   "sheet": "UI_THE_TOP_BAR_SIDEWAYS.png",
+   "sheetSize": [
+    876,
+    1592
+   ]
+  }
+ },
+ "firstAt": [
+  422,
+  60,
+  390,
+  209
+ ]
+}

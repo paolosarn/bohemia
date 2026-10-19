@@ -1,0 +1,997 @@
+{
+ "profile": "phone_portrait",
+ "made": "10/19",
+ "stamp": "DEMO - BUILD 10/18c - THE STREETS JOIN, THE GANGS WEAR THE RIG",
+ "map": {
+  "now": {
+   "bottom": 50,
+   "text": "240 0 \u2013 \u2013 \u2013 \u2013 06:00 SUBURB NOTES"
+  },
+  "A": {
+   "laid": {
+    "variant": "A",
+    "bottom": 66,
+    "height": 66,
+    "side": false
+   },
+   "measure": {
+    "W": 390,
+    "H": 844,
+    "items": [
+     {
+      "f": "clock",
+      "cls": "t clock",
+      "text": "DAY 1 06:00",
+      "box": [
+       8,
+       6,
+       57,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "g",
+      "cls": "g",
+      "text": "240 0 DAYS 3",
+      "box": [
+       71,
+       6,
+       207,
+       44
+      ],
+      "color": "rgb(231, 216, 187)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "batteries",
+      "cls": "s",
+      "text": "240",
+      "box": [
+       78,
+       18,
+       46,
+       20
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "food",
+      "cls": "s",
+      "text": "0 DAYS",
+      "box": [
+       130,
+       18,
+       68,
+       20
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "crew",
+      "cls": "s",
+      "text": "3",
+      "box": [
+       204,
+       18,
+       51,
+       20
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "gear",
+      "cls": "t p gear",
+      "text": "",
+      "box": [
+       284,
+       6,
+       44,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "notes",
+      "cls": "t p n",
+      "text": "NOTES",
+      "box": [
+       334,
+       6,
+       48,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     }
+    ],
+    "fonts": [
+     "BohemiaCasing"
+    ],
+    "words": [
+     {
+      "text": "DAY 1",
+      "box": [
+       17,
+       15,
+       25,
+       9
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "9px"
+     },
+     {
+      "text": "06:00",
+      "box": [
+       17,
+       27,
+       39,
+       15
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "15px"
+     },
+     {
+      "text": "240",
+      "box": [
+       102,
+       18,
+       22,
+       20
+      ],
+      "color": "rgb(255, 217, 138)",
+      "size": "14px"
+     },
+     {
+      "text": "0 DAYS",
+      "box": [
+       154,
+       18,
+       44,
+       20
+      ],
+      "color": "rgb(74, 10, 5)",
+      "size": "10px"
+     },
+     {
+      "text": "3",
+      "box": [
+       228,
+       18,
+       7,
+       20
+      ],
+      "color": "rgb(255, 217, 138)",
+      "size": "14px"
+     },
+     {
+      "text": "NOTES",
+      "box": [
+       334,
+       6,
+       48,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "12px"
+     }
+    ],
+    "gear": {
+     "box": [
+      284,
+      6,
+      44,
+      44
+     ],
+     "radius": "0px",
+     "bgi": "url(\"data:im"
+    }
+   }
+  },
+  "B": {
+   "laid": {
+    "variant": "B",
+    "bottom": 116,
+    "height": 116,
+    "side": false
+   },
+   "measure": {
+    "W": 390,
+    "H": 844,
+    "items": [
+     {
+      "f": "clock",
+      "cls": "t clock",
+      "text": "DAY 1 06:00",
+      "box": [
+       8,
+       6,
+       57,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "place",
+      "cls": "t place",
+      "text": "SUBURB",
+      "box": [
+       71,
+       6,
+       59,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "crew",
+      "cls": "t p",
+      "text": "CREW 3/12",
+      "box": [
+       180,
+       6,
+       98,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "gear",
+      "cls": "t p gear",
+      "text": "",
+      "box": [
+       284,
+       6,
+       44,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "notes",
+      "cls": "t p n",
+      "text": "NOTES",
+      "box": [
+       334,
+       6,
+       48,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "g",
+      "cls": "g",
+      "text": "240 0 DAYS \u2013 \u2013 \u2013",
+      "box": [
+       8,
+       56,
+       374,
+       44
+      ],
+      "color": "rgb(231, 216, 187)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "batteries",
+      "cls": "s",
+      "text": "240",
+      "box": [
+       15,
+       67,
+       48,
+       22
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "food",
+      "cls": "s",
+      "text": "0 DAYS",
+      "box": [
+       69,
+       67,
+       70,
+       22
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "meds",
+      "cls": "s none",
+      "text": "\u2013",
+      "box": [
+       145,
+       67,
+       31,
+       22
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "rounds",
+      "cls": "s none",
+      "text": "\u2013",
+      "box": [
+       182,
+       67,
+       31,
+       22
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "water",
+      "cls": "s none",
+      "text": "\u2013",
+      "box": [
+       219,
+       67,
+       31,
+       22
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     }
+    ],
+    "fonts": [
+     "BohemiaCasing"
+    ],
+    "words": [
+     {
+      "text": "DAY 1",
+      "box": [
+       17,
+       15,
+       25,
+       9
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "9px"
+     },
+     {
+      "text": "06:00",
+      "box": [
+       17,
+       27,
+       39,
+       15
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "15px"
+     },
+     {
+      "text": "SUBURB",
+      "box": [
+       71,
+       6,
+       59,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "12px"
+     },
+     {
+      "text": "CREW 3/12",
+      "box": [
+       180,
+       6,
+       98,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "12px"
+     },
+     {
+      "text": "NOTES",
+      "box": [
+       334,
+       6,
+       48,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "12px"
+     },
+     {
+      "text": "240",
+      "box": [
+       41,
+       68,
+       22,
+       20
+      ],
+      "color": "rgb(255, 217, 138)",
+      "size": "14px"
+     },
+     {
+      "text": "0 DAYS",
+      "box": [
+       95,
+       68,
+       44,
+       20
+      ],
+      "color": "rgb(74, 10, 5)",
+      "size": "10px"
+     },
+     {
+      "text": "\u2013",
+      "box": [
+       171,
+       68,
+       5,
+       20
+      ],
+      "color": "rgb(221, 210, 184)",
+      "size": "14px"
+     },
+     {
+      "text": "\u2013",
+      "box": [
+       208,
+       68,
+       5,
+       20
+      ],
+      "color": "rgb(221, 210, 184)",
+      "size": "14px"
+     },
+     {
+      "text": "\u2013",
+      "box": [
+       245,
+       68,
+       5,
+       20
+      ],
+      "color": "rgb(221, 210, 184)",
+      "size": "14px"
+     }
+    ],
+    "gear": {
+     "box": [
+      284,
+      6,
+      44,
+      44
+     ],
+     "radius": "0px",
+     "bgi": "url(\"data:im"
+    }
+   }
+  },
+  "C": {
+   "laid": {
+    "variant": "C",
+    "bottom": 119,
+    "height": 119,
+    "side": false
+   },
+   "measure": {
+    "W": 390,
+    "H": 844,
+    "items": [
+     {
+      "f": "clock",
+      "cls": "t clock",
+      "text": "DAY 1 06:00",
+      "box": [
+       8,
+       6,
+       88,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "g",
+      "cls": "g",
+      "text": "240 0 DAYS",
+      "box": [
+       102,
+       6,
+       176,
+       44
+      ],
+      "color": "rgb(231, 216, 187)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "batteries",
+      "cls": "s",
+      "text": "240",
+      "box": [
+       109,
+       17,
+       48,
+       22
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "food",
+      "cls": "s",
+      "text": "0 DAYS",
+      "box": [
+       163,
+       17,
+       70,
+       22
+      ],
+      "color": "rgb(255, 217, 138)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "gear",
+      "cls": "t p gear",
+      "text": "",
+      "box": [
+       284,
+       6,
+       44,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "notes",
+      "cls": "t p n",
+      "text": "NOTES",
+      "box": [
+       334,
+       6,
+       48,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "crew",
+      "cls": "co",
+      "text": "2-HAND NEW 1-HAND NEW RANGED NEW CREW 3/12",
+      "box": [
+       8,
+       56,
+       374,
+       47
+      ],
+      "color": "rgb(231, 216, 187)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "man",
+      "cls": "man",
+      "text": "2-HAND NEW",
+      "box": [
+       8,
+       56,
+       109,
+       47
+      ],
+      "color": "rgb(242, 228, 198)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "man",
+      "cls": "man",
+      "text": "1-HAND NEW",
+      "box": [
+       121,
+       56,
+       109,
+       47
+      ],
+      "color": "rgb(242, 228, 198)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "man",
+      "cls": "man",
+      "text": "RANGED NEW",
+      "box": [
+       234,
+       56,
+       109,
+       47
+      ],
+      "color": "rgb(242, 228, 198)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "man more",
+      "cls": "man more",
+      "text": "CREW 3/12",
+      "box": [
+       347,
+       56,
+       35,
+       47
+      ],
+      "color": "rgb(242, 228, 198)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     }
+    ],
+    "fonts": [
+     "BohemiaCasing"
+    ],
+    "words": [
+     {
+      "text": "DAY 1",
+      "box": [
+       48,
+       15,
+       39,
+       9
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "9px"
+     },
+     {
+      "text": "06:00",
+      "box": [
+       48,
+       27,
+       39,
+       15
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "15px"
+     },
+     {
+      "text": "240",
+      "box": [
+       135,
+       18,
+       22,
+       20
+      ],
+      "color": "rgb(255, 217, 138)",
+      "size": "14px"
+     },
+     {
+      "text": "0 DAYS",
+      "box": [
+       189,
+       18,
+       44,
+       20
+      ],
+      "color": "rgb(74, 10, 5)",
+      "size": "10px"
+     },
+     {
+      "text": "NOTES",
+      "box": [
+       334,
+       6,
+       48,
+       44
+      ],
+      "color": "rgb(31, 23, 16)",
+      "size": "12px"
+     },
+     {
+      "text": "2-HAND",
+      "box": [
+       15,
+       61,
+       95,
+       13
+      ],
+      "color": "rgb(242, 228, 198)",
+      "size": "9px"
+     },
+     {
+      "text": "NEW",
+      "box": [
+       15,
+       77,
+       95,
+       14
+      ],
+      "color": "rgb(255, 217, 138)",
+      "size": "10px"
+     },
+     {
+      "text": "1-HAND",
+      "box": [
+       128,
+       61,
+       95,
+       13
+      ],
+      "color": "rgb(242, 228, 198)",
+      "size": "9px"
+     },
+     {
+      "text": "NEW",
+      "box": [
+       128,
+       77,
+       95,
+       14
+      ],
+      "color": "rgb(255, 217, 138)",
+      "size": "10px"
+     },
+     {
+      "text": "RANGED",
+      "box": [
+       241,
+       61,
+       95,
+       13
+      ],
+      "color": "rgb(242, 228, 198)",
+      "size": "9px"
+     },
+     {
+      "text": "NEW",
+      "box": [
+       241,
+       77,
+       95,
+       14
+      ],
+      "color": "rgb(255, 217, 138)",
+      "size": "10px"
+     },
+     {
+      "text": "CREW",
+      "box": [
+       354,
+       65,
+       20,
+       13
+      ],
+      "color": "rgb(242, 228, 198)",
+      "size": "9px"
+     },
+     {
+      "text": "3/12",
+      "box": [
+       354,
+       80,
+       21,
+       14
+      ],
+      "color": "rgb(255, 217, 138)",
+      "size": "10px"
+     }
+    ],
+    "gear": {
+     "box": [
+      284,
+      6,
+      44,
+      44
+     ],
+     "radius": "0px",
+     "bgi": "url(\"data:im"
+    }
+   }
+  }
+ },
+ "fight": {
+  "started": true,
+  "now": {
+   "topBottom": 58,
+   "botTop": 712,
+   "H": 844,
+   "mapBarShown": false,
+   "shellBar": false
+  },
+  "after": {
+   "botTop": 664,
+   "topShown": false,
+   "measure": {
+    "W": 390,
+    "H": 844,
+    "items": [
+     {
+      "f": "round",
+      "cls": "",
+      "text": "R1",
+      "box": [
+       8,
+       670,
+       30,
+       44
+      ],
+      "color": "rgb(42, 34, 26)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     },
+     {
+      "f": "order",
+      "cls": "",
+      "text": "",
+      "box": [
+       44,
+       670,
+       280,
+       44
+      ],
+      "color": "rgb(230, 217, 194)",
+      "font": "BohemiaROM, ui-monospace, monospace",
+      "radius": "0px",
+      "bgi": "none"
+     },
+     {
+      "f": "bauto",
+      "cls": "",
+      "text": "AUTO",
+      "box": [
+       330,
+       670,
+       52,
+       44
+      ],
+      "color": "rgb(42, 34, 26)",
+      "font": "BohemiaCasing",
+      "radius": "0px",
+      "bgi": "url(\"data:image/png;base64,iVB"
+     }
+    ],
+    "fonts": [
+     "BohemiaCasing"
+    ],
+    "words": [
+     {
+      "text": "R1",
+      "box": [
+       8,
+       670,
+       30,
+       44
+      ],
+      "color": "rgb(42, 34, 26)",
+      "size": "12px"
+     },
+     {
+      "text": "AUTO",
+      "box": [
+       330,
+       670,
+       52,
+       44
+      ],
+      "color": "rgb(42, 34, 26)",
+      "size": "10px"
+     }
+    ]
+   },
+   "edges": {
+    "TOPH": 0,
+    "BOTH": 180,
+    "autoOnBar": true,
+    "orderOnBar": true,
+    "faces": 5
+   },
+   "autoTap": {
+    "was": false,
+    "now": true
+   }
+  }
+ },
+ "facts": {
+  "day": 1,
+  "min": 360,
+  "hour": "06:00",
+  "batteries": 240,
+  "food": 0,
+  "perDay": 1,
+  "daysLeft": 0,
+  "crew": [
+   {
+    "background": "2-HAND",
+    "id": "companion_2hand",
+    "level": 0,
+    "health": 1,
+    "carried": false
+   },
+   {
+    "background": "1-HAND",
+    "id": "companion_1hand",
+    "level": 0,
+    "health": 1,
+    "carried": false
+   },
+   {
+    "background": "RANGED",
+    "id": "companion_ranged",
+    "level": 0,
+    "health": 1,
+    "carried": false
+   }
+  ],
+  "cap": 12,
+  "place": "SUBURB",
+  "six": {
+   "batteries": 240,
+   "food": 0,
+   "meds": null,
+   "rounds": null,
+   "tape": null,
+   "water": null
+  }
+ }
+}
