@@ -19,7 +19,7 @@ const BGS = new Map(J('records/target/bb/backgrounds.json').rows.map(r => [r.id,
 const C = B.cells, key = (k, c, e, s, t) => [k, c, e, s, t].join('|');
 const get = (k, c, e, s, t) => C[key(k, c, e, s, t)] || null;
 const STAGES = ['early', 'middle', 'late'], SETS = ['start', 'today', 'bb'], COUNTS = [3, 6, 12, 20, 38];
-const SNAME = { early: 'EARLY', middle: 'MIDDLE', late: 'LATE' };
+const SNAME = { early: 'EARLY', middle: 'MIDDLE', late: 'LATE', endgame: 'ENDGAME' };
 const TNAME = { start: 'OUR START (rule 117)', today: 'THE GAME TODAY', bb: 'BATTLE BROTHERS (Veteran)' };
 const KNAME = k => k === 'humans' ? 'PEOPLE (brigands)' : k === 'direwolf' ? 'DIRE WOLVES' : k.replace(/_/g, ' ').toUpperCase();
 
@@ -42,7 +42,7 @@ const kinds = Array.from(new Set(Object.values(C).map(c => c.kind)));
 const gridKinds = kinds.filter(k => B.companies.every(c => get(k, c, 3, 'early', 'start')));
 const rows = [];
 Object.values(C).forEach(c => {
-  if (c.setting !== 'start' || c.enemies_asked === 'map') return;
+  if (c.setting !== 'start' || c.enemies_asked === 'map' || c.stage === 'endgame') return;   /* the weight is its own section */
   const bb = get(c.kind, c.company, c.enemies_asked, c.stage, 'bb'), td = get(c.kind, c.company, c.enemies_asked, c.stage, 'today');
   const s = bbSends(c.company, c.stage);
   rows.push({ kind: c.kind, company: c.company, enemies: c.enemies_asked, stage: c.stage, start: c.won_in_100, today: td ? td.won_in_100 : null,

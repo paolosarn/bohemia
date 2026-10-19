@@ -2,8 +2,6 @@
 
 RESEARCH ONLY (rule 38g). DRAFT: THE GEAR IS NOT IN (rule 117(e)). Nothing in the game reads this page or its bank.
 
-**376 OF 873 SQUARES PLAYED SO FAR.** The bench is still running (the biggest fights take minutes each); a dash is a fight NOT PLAYED YET, never a guess. It resumes from its cache (banks/BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.cells.ndjson) and this page is re-written when it ends.
-
 ## Why
 
 Paolo 10/18: "how are you even testing these fights... against animals, against different group sizes, one person, three, six, up to 14... a 12 man Lone wolf squad, you can go up to 36 or 40 Enemies... we don't even have all the equipment in the game... what are you even testing?" He was right: last round's 78 in 100 was one average of four fights, all against people, all in the starting kit. Rule 117(e): a tuning number is a grid, never one average. (records/BOHEMIA_PAOLO_WHAT_ARE_YOU_EVEN_TESTING_A_TUNING_NUMBER_IS_A_GRID_10_18_26.md)
@@ -11,6 +9,7 @@ Paolo 10/18: "how are you even testing these fights... against animals, against 
 ## How it was measured
 
 - The LIVE fight (slices/BOHEMIA_FIGHT.html's own rules and exactly the data files its loadAll() reads), headless in node by tools/bohemia_tuning_the_whole_grid.js; both sides on the fight's own AUTO brain; 100 seeded fights a cell (half for a cell of 30 or more men on the board, the beast roster 40; each cell carries its own count in the bank), so every setting meets the same fights. The hooks at neutral replay the unhooked fight event for event (--control, 6 of 6).
+- A STANDOFF: a fight in which nobody strikes, falls or flees for 20 rounds is stopped and counted as a standoff (a man may still dance or buff himself every turn: dire wolves seed 7016, Adrenaline for 2,000 rounds), neither won nor lost (before 10/19 it ran to a 400,000-step guard with the same count; only the time changed, and squares played before then show a standoff's minutes swollen, so the worst list shows the standoff instead).
 - YOUR COMPANY: 1 (THE LONE WOLF's hedge knight, level 4), 3 (A NEW CREW's three), 6, 12 (the twelve) and 14 (the twelve and two more, the 16-cap origins). Each man keeps his place in the line's job.
 - THEIR NUMBER: 3, 6, 12, 20, 38, and THE MAP'S PICK (party_math's job count, capped at 13 today).
 - WHO: people (brigands, dressed by the fight's own tiers) and every beast whose fight is a body and one strike (below).
@@ -35,40 +34,42 @@ Our map sends at most 13 (party_math job.max and roaming.max, both "ours (draft)
 
 | # | who | your men | their men | stage | OUR START | TODAY | BATTLE BROTHERS | your men down, in 100 | dead in 100 fights | minutes on AUTO |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | PEOPLE (brigands) | 6 | 20 | LATE | 5 | 0 | 0 | 97 | 113 | 3.7 |
-| 2 | PEOPLE (brigands) | 12 | 38 | LATE | 10 | 0 | 0 | 95 | 170 | 8 |
-| 3 | PEOPLE (brigands) | 14 | 38 | LATE | 30 | 0 | 0 | 80 | 230 | 9 |
-| 4 | PEOPLE (brigands) | 14 | 20 | EARLY | 48 | 12 | 16 | 69 | 178 | a standoff in 2 of 100 (see below) |
-| 5 | PEOPLE (brigands) | 1 | 3 | LATE | 59 | 9 | 36 | 41 | 0 | 0.8 |
-| 6 | PEOPLE (brigands) | 6 | 12 | MIDDLE | 65 | 15 | 34 | 59 | 67 | a standoff in 1 of 100 (see below) |
-| 7 | PEOPLE (brigands) | 3 | 6 | LATE | 65 | 5 | 44 | 48 | 15 | 1.4 |
-| 8 | PEOPLE (brigands) | 6 | 12 | LATE | 66 | 0 | 24 | 54 | 64 | a standoff in 1 of 100 (see below) |
-| 9 | PEOPLE (brigands) | 3 | 6 | MIDDLE | 67 | 25 | 42 | 51 | 22 | 1 |
-| 10 | PEOPLE (brigands) | 3 | 3 | EARLY | 82 | 67 | 67 | 33 | 10 | 0.4 |
-| 11 | PEOPLE (brigands) | 12 | 20 | MIDDLE | 83 | 16 | 48 | 42 | 86 | 3.6 |
-| 12 | PEOPLE (brigands) | 12 | 12 | EARLY | 85 | 45 | 54 | 45 | 115 | a standoff in 1 of 100 (see below) |
-| 13 | PEOPLE (brigands) | 6 | 6 | EARLY | 89 | 60 | 61 | 37 | 37 | 0.9 |
-| 14 | PEOPLE (brigands) | 12 | 20 | LATE | 96 | 0 | 46 | 31 | 88 | a standoff in 2 of 100 (see below) |
-| 15 | PEOPLE (brigands) | 3 | 3 | MIDDLE | 96 | 75 | 89 | 9 | 4 | 0.5 |
-| 16 | PEOPLE (brigands) | 14 | 20 | MIDDLE | 98 | 30 | 76 | 21 | 38 | a standoff in 2 of 100 (see below) |
-| 17 | PEOPLE (brigands) | 14 | 12 | EARLY | 98 | 78 | 80 | 23 | 51 | 1.9 |
-| 18 | PEOPLE (brigands) | 3 | 3 | LATE | 98 | 71 | 95 | 6 | 4 | 0.7 |
-| 19 | PEOPLE (brigands) | 12 | 12 | MIDDLE | 99 | 76 | 98 | 12 | 28 | 2.3 |
-| 20 | PEOPLE (brigands) | 6 | 6 | MIDDLE | 99 | 85 | 94 | 10 | 15 | 0.9 |
-| 21 | PEOPLE (brigands) | 14 | 20 | LATE | 100 | 4 | 66 | 16 | 40 | 4.3 |
-| 22 | PEOPLE (brigands) | 12 | 12 | LATE | 100 | 44 | 100 | 5 | 6 | 2.2 |
-| 23 | PEOPLE (brigands) | 14 | 12 | MIDDLE | 100 | 95 | 100 | 5 | 20 | 1.8 |
-| 24 | PEOPLE (brigands) | 14 | 12 | LATE | 100 | 78 | 100 | 3 | 4 | 2.6 |
-| 25 | PEOPLE (brigands) | 6 | 6 | LATE | 100 | 54 | 96 | 6 | 8 | 1.1 |
-| 26 | PEOPLE (brigands) | 12 | 6 | EARLY | 100 | 99 | 99 | 10 | 31 | 1 |
-| 27 | PEOPLE (brigands) | 12 | 6 | MIDDLE | 100 | 100 | 100 | 1 | 4 | 0.9 |
-| 28 | PEOPLE (brigands) | 12 | 6 | LATE | 100 | 100 | 100 | 1 | 0 | 1.1 |
-| 29 | PEOPLE (brigands) | 14 | 6 | EARLY | 100 | 100 | 100 | 5 | 16 | 1 |
-| 30 | PEOPLE (brigands) | 14 | 6 | MIDDLE | 100 | 100 | 100 | 1 | 0 | 1.3 |
+| 1 | DIRE WOLVES | 14 | 20 | EARLY | 0 | 0 | 0 | 100 | 258 | 1.9 |
+| 2 | DIRE WOLVES | 12 | 12 | EARLY | 1 | 0 | 0 | 99 | 237 | 1.4 |
+| 3 | DIRE WOLVES | 6 | 6 | EARLY | 1 | 0 | 0 | 99 | 103 | a standoff in 1 of 100 (see below) |
+| 4 | PEOPLE (brigands) | 6 | 20 | LATE | 5 | 0 | 0 | 97 | 113 | 3.7 |
+| 5 | DIRE WOLVES | 14 | 12 | EARLY | 5 | 0 | 0 | 98 | 273 | 1.9 |
+| 6 | DIRE WOLVES | 3 | 6 | MIDDLE | 8 | 0 | 0 | 95 | 30 | 0.8 |
+| 7 | DIRE WOLVES | 3 | 3 | EARLY | 9 | 1 | 1 | 95 | 40 | 0.4 |
+| 8 | PEOPLE (brigands) | 12 | 38 | LATE | 10 | 0 | 0 | 95 | 170 | 8 |
+| 9 | DIRE WOLVES | 6 | 12 | MIDDLE | 19 | 1 | 2 | 87 | 88 | a standoff in 1 of 100 (see below) |
+| 10 | PEOPLE (brigands) | 14 | 38 | LATE | 30 | 0 | 0 | 80 | 230 | 9 |
+| 11 | PEOPLE (brigands) | 14 | 20 | EARLY | 48 | 12 | 16 | 69 | 178 | a standoff in 2 of 100 (see below) |
+| 12 | DIRE WOLVES | 1 | 3 | LATE | 58 | 0 | 17 | 42 | 0 | 2.5 |
+| 13 | PEOPLE (brigands) | 1 | 3 | LATE | 59 | 9 | 36 | 41 | 0 | 0.8 |
+| 14 | PEOPLE (brigands) | 6 | 12 | MIDDLE | 65 | 15 | 34 | 59 | 67 | a standoff in 1 of 100 (see below) |
+| 15 | PEOPLE (brigands) | 3 | 6 | LATE | 65 | 5 | 44 | 48 | 15 | 1.4 |
+| 16 | PEOPLE (brigands) | 6 | 12 | LATE | 66 | 0 | 24 | 54 | 64 | a standoff in 1 of 100 (see below) |
+| 17 | PEOPLE (brigands) | 3 | 6 | MIDDLE | 67 | 25 | 42 | 51 | 22 | 1 |
+| 18 | DIRE WOLVES | 12 | 6 | EARLY | 78 | 23 | 34 | 50 | 117 | a standoff in 1 of 100 (see below) |
+| 19 | PEOPLE (brigands) | 3 | 3 | EARLY | 82 | 67 | 67 | 33 | 10 | 0.4 |
+| 20 | PEOPLE (brigands) | 12 | 20 | MIDDLE | 83 | 16 | 48 | 42 | 86 | 3.6 |
+| 21 | DIRE WOLVES | 12 | 20 | MIDDLE | 84 | 8 | 38 | 28 | 62 | a standoff in 2 of 100 (see below) |
+| 22 | PEOPLE (brigands) | 12 | 12 | EARLY | 85 | 45 | 54 | 45 | 115 | a standoff in 1 of 100 (see below) |
+| 23 | PEOPLE (brigands) | 6 | 6 | EARLY | 89 | 60 | 61 | 37 | 37 | 0.9 |
+| 24 | DIRE WOLVES | 6 | 3 | EARLY | 89 | 48 | 56 | 36 | 41 | a standoff in 1 of 100 (see below) |
+| 25 | DIRE WOLVES | 14 | 6 | EARLY | 92 | 46 | 67 | 30 | 78 | 1.4 |
+| 26 | PEOPLE (brigands) | 12 | 20 | LATE | 96 | 0 | 46 | 31 | 88 | a standoff in 2 of 100 (see below) |
+| 27 | DIRE WOLVES | 14 | 20 | MIDDLE | 96 | 12 | 70 | 10 | 26 | a standoff in 2 of 100 (see below) |
+| 28 | PEOPLE (brigands) | 3 | 3 | MIDDLE | 96 | 75 | 89 | 9 | 4 | 0.5 |
+| 29 | DIRE WOLVES | 12 | 38 | LATE | 98 | 52 | 98 | 0 | 0 | a standoff in 2 of 100 (see below) |
+| 30 | PEOPLE (brigands) | 14 | 20 | MIDDLE | 98 | 30 | 76 | 21 | 38 | a standoff in 2 of 100 (see below) |
 
-## FIGHTS THAT NEVER END (26 of 376 squares hold at least one)
+## FIGHTS THAT NEVER END (165 of 873 squares hold at least one)
 
-Both sides hold their line and nobody steps in; the bench stops the fight at 400,000 steps and counts it as neither won nor lost. 1 or 2 fights in 100 of these squares: people (brigands) 12 v 20 late bb (2), people (brigands) 12 v 20 late start (2), people (brigands) 12 v map early today (2), people (brigands) 12 v map early bb (2), people (brigands) 14 v 20 early start (2), people (brigands) 14 v 20 middle today (2), people (brigands) 14 v 20 middle bb (2), people (brigands) 14 v 20 middle start (2), people (brigands) 6 v 12 middle start (1), people (brigands) 6 v 12 late bb (1), people (brigands) 6 v 12 late start (1), people (brigands) 6 v map middle start (1), people (brigands) 12 v 12 early today (1), people (brigands) 12 v 12 early bb (1), people (brigands) 12 v 12 early start (1), people (brigands) 12 v 12 middle today (1), people (brigands) 12 v 12 late today (1), people (brigands) 12 v map early start (1), people (brigands) 12 v map late today (1), people (brigands) 14 v 12 early today (1), people (brigands) 14 v 12 middle today (1), people (brigands) 14 v 12 late today (1), people (brigands) 14 v map early today (1), people (brigands) 14 v map middle start (1), direwolfs 3 v 12 late bb (1), direwolfs 3 v 12 late start (1). The same standoff the guns page found with the dire wolves (seed 9168) and the first-hour page found in the small first fights. A player can walk in; AUTO never does. COMBAT.
+Per fight they are rare: people (brigands) 0.1 in 100 (28 of 26150), dire wolves 0.3 in 100 (69 of 23850), frenzied direwolf 1.4 in 100 (10 of 720), hyena 0.4 in 100 (3 of 720), frenzied hyena 0.6 in 100 (4 of 720), nachzehrer small 0.6 in 100 (4 of 720), nachzehrer medium 0.3 in 100 (2 of 720), nachzehrer large 0.4 in 100 (3 of 720), webknecht 0.6 in 100 (4 of 720), unhold 0.6 in 100 (4 of 720), bog unhold 0.6 in 100 (4 of 720), frost unhold 0.4 in 100 (3 of 720), armored frost unhold 0.6 in 100 (4 of 720), serpent 0.4 in 100 (3 of 720), ifrit small 0.4 in 100 (3 of 720), ifrit medium 0.6 in 100 (4 of 720), ifrit large 0.4 in 100 (3 of 720), schrat 0.4 in 100 (3 of 720), sapling 0.6 in 100 (4 of 720), wolf 0.7 in 100 (5 of 720). Per square they are everywhere, so a player who waits for the charge will meet one.
+
+Both sides hold their line and nobody steps in (a man may still dance or buff himself); the bench stops the fight after 20 rounds with no blow and counts it as neither won nor lost. 1 or 2 fights in 100 of these squares: frenzied direwolf 6 v 3 early start (3), frenzied direwolf 6 v 3 middle start (3), frenzied direwolf 6 v 3 late start (3), frenzied direwolf 6 v 12 late start (3), frenzied direwolf 12 v 3 early start (3), frenzied direwolf 12 v 3 middle start (3), frenzied direwolf 12 v 3 late start (3), frenzied direwolf 12 v 6 early start (3), frenzied direwolf 12 v 12 middle start (3), frenzied direwolf 12 v 12 late start (3), hyena 6 v 12 late start (3), hyena 12 v 12 middle start (3), hyena 12 v 12 late start (3), frenzied hyena 6 v 12 late start (3), frenzied hyena 12 v 6 early start (3), frenzied hyena 12 v 12 middle start (3), frenzied hyena 12 v 12 late start (3), nachzehrer small 6 v 12 early start (3), nachzehrer small 6 v 12 middle start (3), nachzehrer small 6 v 12 late start (3), nachzehrer small 12 v 12 middle start (3), nachzehrer medium 6 v 12 late start (3), nachzehrer medium 12 v 12 middle start (3), nachzehrer large 6 v 12 late start (3), nachzehrer large 12 v 6 early start (3), nachzehrer large 12 v 12 late start (3), webknecht 6 v 12 early start (3), webknecht 6 v 12 middle start (3), webknecht 6 v 12 late start (3), webknecht 12 v 12 early start (3), unhold 6 v 12 late start (3), unhold 12 v 3 early start (3), unhold 12 v 6 early start (3), unhold 12 v 12 late start (3), bog unhold 6 v 12 late start (3), bog unhold 12 v 3 early start (3), bog unhold 12 v 6 early start (3), bog unhold 12 v 12 late start (3), frost unhold 12 v 3 early start (3), frost unhold 12 v 6 early start (3), frost unhold 12 v 6 middle start (3), armored frost unhold 12 v 3 early start (3), armored frost unhold 12 v 6 early start (3), armored frost unhold 12 v 6 middle start (3), armored frost unhold 12 v 6 late start (3), serpent 6 v 12 middle start (3), serpent 6 v 12 late start (3), serpent 12 v 12 middle start (3), ifrit small 6 v 12 middle start (3), ifrit small 6 v 12 late start (3), ifrit small 12 v 12 middle start (3), ifrit medium 6 v 12 late start (3), ifrit medium 12 v 6 early start (3), ifrit medium 12 v 12 middle start (3), ifrit medium 12 v 12 late start (3), ifrit large 12 v 3 early start (3), ifrit large 12 v 6 early start (3), ifrit large 12 v 6 middle start (3), schrat 12 v 3 early start (3), schrat 12 v 6 early start (3), schrat 12 v 6 middle start (3), sapling 6 v 12 middle start (3), sapling 6 v 12 late start (3), sapling 12 v 12 early start (3), sapling 12 v 12 middle start (3), wolf 6 v 12 early start (3), wolf 6 v 12 middle start (3), wolf 6 v 12 late start (3), wolf 12 v 12 early start (3), wolf 12 v 12 middle start (3), people (brigands) 12 v 20 late bb (2), people (brigands) 12 v 20 late start (2), people (brigands) 12 v map early today (2), people (brigands) 12 v map early bb (2), people (brigands) 14 v 20 early start (2), people (brigands) 14 v 20 middle today (2), people (brigands) 14 v 20 middle bb (2), people (brigands) 14 v 20 middle start (2), dire wolves 6 v 38 late bb (2), dire wolves 6 v 38 late start (2), dire wolves 12 v 20 middle bb (2), dire wolves 12 v 20 middle start (2), dire wolves 12 v 20 late today (2), dire wolves 12 v 20 late bb (2), dire wolves 12 v 38 middle start (2), dire wolves 12 v 38 late today (2), dire wolves 12 v 38 late bb (2), dire wolves 12 v 38 late start (2), dire wolves 14 v 20 middle start (2), dire wolves 14 v 38 middle start (2), people (brigands) 12 v 20 endgame bb (2), people (brigands) 12 v 20 endgame start (2), people (brigands) 6 v 12 middle start (1), people (brigands) 6 v 12 late bb (1), people (brigands) 6 v 12 late start (1), people (brigands) 6 v map middle start (1), people (brigands) 12 v 12 early today (1), people (brigands) 12 v 12 early bb (1), people (brigands) 12 v 12 early start (1), people (brigands) 12 v 12 middle today (1), people (brigands) 12 v 12 late today (1), people (brigands) 12 v map early start (1), people (brigands) 12 v map late today (1), people (brigands) 14 v 12 early today (1), people (brigands) 14 v 12 middle today (1), people (brigands) 14 v 12 late today (1), people (brigands) 14 v map early today (1), people (brigands) 14 v map middle start (1), dire wolves 3 v 12 late bb (1), dire wolves 3 v 12 late start (1), dire wolves 3 v map late bb (1), dire wolves 3 v map late start (1), dire wolves 6 v 3 early today (1), dire wolves 6 v 3 early bb (1), dire wolves 6 v 3 early start (1), dire wolves 6 v 3 middle today (1), dire wolves 6 v 3 middle bb (1), dire wolves 6 v 3 middle start (1), dire wolves 6 v 3 late today (1), dire wolves 6 v 3 late bb (1), dire wolves 6 v 3 late start (1), dire wolves 6 v 6 early today (1), dire wolves 6 v 6 early bb (1), dire wolves 6 v 6 early start (1), dire wolves 6 v 6 middle today (1), dire wolves 6 v 6 middle bb (1), dire wolves 6 v 6 middle start (1), dire wolves 6 v 6 late today (1), dire wolves 6 v 6 late bb (1), dire wolves 6 v 6 late start (1), dire wolves 6 v 12 middle bb (1), dire wolves 6 v 12 middle start (1), dire wolves 6 v 12 late today (1), dire wolves 6 v 12 late bb (1), dire wolves 6 v 12 late start (1), dire wolves 6 v 20 late today (1), dire wolves 6 v 20 late bb (1), dire wolves 6 v map early today (1), dire wolves 6 v map early bb (1), dire wolves 6 v map early start (1), dire wolves 6 v map middle bb (1), dire wolves 6 v map middle start (1), dire wolves 6 v map late today (1), dire wolves 6 v map late bb (1), dire wolves 6 v map late start (1), dire wolves 12 v 6 early today (1), dire wolves 12 v 6 early bb (1), dire wolves 12 v 6 early start (1), dire wolves 12 v 12 middle today (1), dire wolves 12 v 12 middle bb (1), dire wolves 12 v 12 middle start (1), dire wolves 12 v 12 late today (1), dire wolves 12 v 12 late bb (1), dire wolves 12 v map middle today (1), dire wolves 12 v map middle bb (1), dire wolves 12 v map middle start (1), dire wolves 12 v map late today (1), dire wolves 12 v map late bb (1), dire wolves 14 v 6 early today (1), dire wolves 14 v 6 early bb (1), dire wolves 14 v 12 middle today (1), dire wolves 14 v 12 middle bb (1), dire wolves 14 v map middle today (1), dire wolves 14 v map middle bb (1), dire wolves 14 v map middle start (1). The same standoff the guns page found with the dire wolves (seed 9168) and the first-hour page found in the small first fights. A player can walk in; AUTO never does. COMBAT.
 
 ## PEOPLE (brigands): the whole grid, won in 100
 
@@ -108,12 +109,77 @@ Each cell: OUR START / TODAY / BATTLE BROTHERS. "(past BB)": more than Battle Br
 
 Each cell: OUR START / TODAY / BATTLE BROTHERS. "(past BB)": more than Battle Brothers' map sends this company at this stage.
 
+## DIRE WOLVES: the whole grid, won in 100
+
+### EARLY (each man's kit (his place in the line, ours.crew and ours.weapon_rows), day 1, his origin's level)
+
+| your men | vs 3 | vs 6 | vs 12 | vs 20 | vs 38 | THE MAP'S PICK | BATTLE BROTHERS SENDS |
+|---|---|---|---|---|---|---|---|
+| 1 | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 1 (2) / 0 (2) / 0 (2) | 2 to 2 |
+| 3 | 9 / 1 / 1 | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 51 (2) / 23 (2) / 23 (2) | 2 to 4 |
+| 6 | 89 / 48 / 56 | 1 / 0 / 0 | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 16 (5) / 1 (5) / 3 (5) | 5 to 9 |
+| 12 | 100 / 98 / 99 | 78 / 23 / 34 | 1 / 0 / 0 | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 8 (9) / 0 (10) / 0 (10) | 10 to 17 |
+| 14 | 100 / 100 / 100 | 92 / 46 / 67 | 5 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 (past BB) | 20 (10) / 0 (12) / 0 (12) | 12 to 20 |
+
+Each cell: OUR START / TODAY / BATTLE BROTHERS. "(past BB)": more than Battle Brothers' map sends this company at this stage.
+
+### MIDDLE (the town shelf (RUN TWO's market sells the 15th to 75th percentile of rows by value): mail, a better weapon of the same kind, day 30, level 5)
+
+| your men | vs 3 | vs 6 | vs 12 | vs 20 | vs 38 | THE MAP'S PICK | BATTLE BROTHERS SENDS |
+|---|---|---|---|---|---|---|---|
+| 1 | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 10 (2) / 0 (2) / 1 (2) | 2 to 2 |
+| 3 | 98 / 37 / 84 | 8 / 0 / 0 | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 40 (5) / 0 (5) / 4 (5) | 4 to 7 |
+| 6 | 99 / 98 / 99 | 99 / 57 / 90 | 19 / 1 / 2 | 8 / 0 / 1 (past BB) | 0 / 0 / 0 (past BB) | 71 (9) / 0 (11) / 4 (11) | 9 to 14 |
+| 12 | 100 / 100 / 100 | 100 / 100 / 100 | 99 / 47 / 96 | 84 / 8 / 38 | 64 / 0 / 2 (past BB) | 99 (13) / 32 (13) / 90 (13) | 17 to 28 |
+| 14 | 100 / 100 / 100 | 100 / 100 / 100 | 100 / 80 / 99 | 96 / 12 / 70 | 80 / 0 / 28 (past BB) | 99 (13) / 63 (13) / 99 (13) | 20 to 33 |
+
+Each cell: OUR START / TODAY / BATTLE BROTHERS. "(past BB)": more than Battle Brothers' map sends this company at this stage.
+
+### LATE (the city shelf (30th to 100th percentile): 210 body, 210 head (the heaviest a man can carry and still swing: see ENDGAME), the best common weapon of the kind, day 80, level 9)
+
+| your men | vs 3 | vs 6 | vs 12 | vs 20 | vs 38 | THE MAP'S PICK | BATTLE BROTHERS SENDS |
+|---|---|---|---|---|---|---|---|
+| 1 | 58 / 0 / 17 | 5 / 0 / 1 (past BB) | 1 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 0 / 0 / 0 (past BB) | 58 (3) / 0 (3) / 17 (3) | 2 to 3 |
+| 3 | 100 / 98 / 100 | 100 / 17 / 92 | 47 / 0 / 11 (past BB) | 29 / 0 / 3 (past BB) | 26 / 0 / 0 (past BB) | 77 (9) / 1 (10) / 21 (10) | 6 to 10 |
+| 6 | 99 / 99 / 99 | 99 / 99 / 99 | 99 / 31 / 99 | 100 / 4 / 85 | 96 / 2 / 56 (past BB) | 99 (13) / 30 (13) / 99 (13) | 12 to 20 |
+| 12 | 100 / 100 / 100 | 100 / 100 / 100 | 100 / 99 / 99 | 100 / 86 / 98 | 98 / 52 / 98 | 100 (13) / 99 (13) / 99 (13) | 25 to 41 |
+| 14 | 100 / 100 / 100 | 100 / 100 / 100 | 100 / 100 / 100 | 100 / 100 / 100 | 100 / 76 / 100 | 100 (13) / 100 (13) / 100 (13) | 29 to 47 |
+
+Each cell: OUR START / TODAY / BATTLE BROTHERS. "(past BB)": more than Battle Brothers' map sends this company at this stage.
+
 ## THE BEASTS, ONE BY ONE (40 fights a cell, the dire wolves from the grid above; won in 100 at OUR START / TODAY, a dash where only the start was played)
 
 | beast | what it loses on the bench | EARLY 6 vs 3 / 6 / 12 | EARLY 12 vs 3 / 6 / 12 | MIDDLE 6 vs 3 / 6 / 12 | MIDDLE 12 vs 3 / 6 / 12 | LATE 6 vs 3 / 6 / 12 | LATE 12 vs 3 / 6 / 12 |
 |---|---|---|---|---|---|---|---|
-| DIREWOLFS | nothing named | - . - . - | - . - . - | - . - . - | - . - . - | - . - . - | - . - . - |
-| DIREWOLFS | nothing named | - . - . - | - . - . - | - . - . - | - . - . - | - . - . - | - . - . - |
+| FRENZIED DIREWOLF | nothing named | 35/- . 0/- . 0/- | 95/- . 20/- . 0/- | 98/- . 75/- . 0/- | 98/- . 100/- . 88/- | 98/- . 100/- . 98/- | 98/- . 100/- . 98/- |
+| HYENA | the bleed (5 a turn) | 100/- . 15/- . 0/- | 100/- . 100/- . 0/- | 100/- . 100/- . 30/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- |
+| FRENZIED HYENA | the bleed (10 a turn) | 80/- . 0/- . 0/- | 100/- . 53/- . 0/- | 100/- . 88/- . 0/- | 100/- . 100/- . 90/- | 100/- . 100/- . 85/- | 100/- . 100/- . 98/- |
+| NACHZEHRER SMALL | the feast (heals and grows) | 100/- . 100/- . 63/- | 100/- . 100/- . 100/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 100/- |
+| NACHZEHRER MEDIUM | the feast (heals and grows) | 85/- . 0/- . 0/- | 100/- . 75/- . 0/- | 100/- . 95/- . 10/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 100/- |
+| NACHZEHRER LARGE | the feast and Swallow Whole | 3/- . 0/- . 0/- | 65/- . 0/- . 0/- | 95/- . 3/- . 0/- | 100/- . 93/- . 0/- | 100/- . 100/- . 68/- | 100/- . 100/- . 98/- |
+| WEBKNECHT | the web and the poison | 100/- . 100/- . 75/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 100/- | 100/- . 100/- . 98/- | 100/- . 100/- . 100/- |
+| UNHOLD | the knockback, three targets a sweep, Fling Back, the regeneration | 0/- . 0/- . 0/- | 30/- . 0/- . 0/- | 85/- . 0/- . 0/- | 100/- . 73/- . 0/- | 100/- . 90/- . 0/- | 100/- . 100/- . 85/- |
+| BOG UNHOLD | the knockback, three targets a sweep, Fling Back, the regeneration | 0/- . 0/- . 0/- | 28/- . 0/- . 0/- | 85/- . 0/- . 0/- | 100/- . 65/- . 0/- | 100/- . 90/- . 0/- | 100/- . 100/- . 78/- |
+| FROST UNHOLD | the knockback, three targets a sweep, Fling Back | 0/- . 0/- . 0/- | 0/- . 0/- . 0/- | 30/- . 0/- . 0/- | 100/- . 3/- . 0/- | 100/- . 5/- . 0/- | 100/- . 100/- . 3/- |
+| ARMORED FROST UNHOLD | the knockback, three targets a sweep, Fling Back | 0/- . 0/- . 0/- | 0/- . 0/- . 0/- | 0/- . 0/- . 0/- | 85/- . 0/- . 0/- | 100/- . 0/- . 0/- | 100/- . 78/- . 0/- |
+| SERPENT | the drag | 95/- . 5/- . 0/- | 100/- . 60/- . 0/- | 100/- . 100/- . 20/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 100/- |
+| IFRIT SMALL | the merge | 100/- . 25/- . 0/- | 100/- . 98/- . 0/- | 100/- . 100/- . 73/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 100/- |
+| IFRIT MEDIUM | the split into two and the thrown sand | 23/- . 0/- . 0/- | 93/- . 0/- . 0/- | 98/- . 3/- . 0/- | 100/- . 95/- . 0/- | 100/- . 75/- . 0/- | 100/- . 100/- . 70/- |
+| IFRIT LARGE | the split into two and the thrown sand | 0/- . 0/- . 0/- | 8/- . 0/- . 0/- | 18/- . 0/- . 0/- | 100/- . 0/- . 0/- | 83/- . 0/- . 0/- | 100/- . 85/- . 0/- |
+| SCHRAT | the three tiles a swing and the shield it grows | 3/- . 0/- . 0/- | 50/- . 0/- . 0/- | 68/- . 0/- . 0/- | 100/- . 45/- . 0/- | 100/- . 30/- . 0/- | 100/- . 100/- . 3/- |
+| SAPLING | nothing named | 100/- . 78/- . 0/- | 100/- . 100/- . 35/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 100/- |
+| WOLF | nothing named | 100/- . 100/- . 13/- | 100/- . 100/- . 93/- | 100/- . 100/- . 95/- | 100/- . 100/- . 98/- | 100/- . 100/- . 98/- | 100/- . 100/- . 100/- |
+| DIRE WOLVES | nothing named | 89/48 . 1/0 . 0/0 | 100/98 . 78/23 . 1/0 | 99/98 . 99/57 . 19/1 | 100/100 . 100/100 . 99/47 | 99/99 . 99/99 . 99/31 | 100/100 . 100/100 . 100/99 |
+
+## THE WEIGHT: the twelve in 300 armour against the same twelve in 210 (won in 100, OUR START / TODAY / BATTLE BROTHERS)
+
+| their men | LATE (210 body, 210 head) | ENDGAME (300 body, 300 head) |
+|---|---|---|
+| 12 | 100 / 44 / 100 | 100 / 31 / 95 |
+| 20 | 96 / 0 / 46 | 78 / 0 / 22 |
+| 38 | 10 / 0 / 0 | 2 / 0 / 0 |
+
+In the endgame armour a man of ours keeps 8 to 15 of his breath (his fatigue of 87 to 102, less 82 of gear: coat of scales 38, full helm 20, heater shield 14, winged mace 10), so he is spent after one swing. In the fight a level never raises his fatigue (TODAY; the BB setting raises only skill, defence and hitpoints), and Battle Brothers' late company carries this armour on its level-ups and Brawny. So the late column of the grid is the 210 armour a man can carry, and the best armour in the game today makes your men WORSE. COMBAT + PEOPLE.
 
 ## WHAT CANNOT BE TESTED YET, AND WHY
 
