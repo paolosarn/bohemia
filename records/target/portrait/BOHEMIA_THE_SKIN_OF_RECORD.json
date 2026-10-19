@@ -1,0 +1,1371 @@
+{
+ "version": "skin-of-record-10-19",
+ "lane": "portrait",
+ "row": "[the face is the body's face]",
+ "rule": "120(d)",
+ "draft": true,
+ "what": "ONE SKIN PER PERSON, read from the one place the game keeps it; nothing here is chosen. The body and every face of a person read this file (CHARACTER [one skin, one person] owns the body side and may replace a value; every face is rebuilt from what it says).",
+ "skin_from": "NPC_FACTORY.npcFrom('fight:<look>').skinToneName (YOU: the player's own skinTone, the face maker), the id the fight bake keys the person with (tools/bohemia_fight_people_bake.js, famPaintBody / famFaceKey)",
+ "hair_from": "the body's worn cut, drawn in that cut's own ramp (GARMENTS' hair entry): the ramp's mid; YOU: the player's own colour, measured off the body",
+ "tones": {
+  "chalk": {
+   "lit": [
+    236,
+    227,
+    221
+   ],
+   "mid": [
+    204,
+    191,
+    183
+   ],
+   "dark": [
+    166,
+    151,
+    143
+   ],
+   "L": 78.2,
+   "rank": 10
+  },
+  "porcelain": {
+   "lit": [
+    224,
+    211,
+    203
+   ],
+   "mid": [
+    191,
+    175,
+    166
+   ],
+   "dark": [
+    153,
+    137,
+    129
+   ],
+   "L": 72.6,
+   "rank": 9
+  },
+  "pale": {
+   "lit": [
+    188,
+    160,
+    138
+   ],
+   "mid": [
+    153,
+    127,
+    108
+   ],
+   "dark": [
+    112,
+    94,
+    84
+   ],
+   "L": 55.1,
+   "rank": 7
+  },
+  "fair": {
+   "lit": [
+    203,
+    169,
+    140
+   ],
+   "mid": [
+    167,
+    137,
+    113
+   ],
+   "dark": [
+    124,
+    102,
+    87
+   ],
+   "L": 59.3,
+   "rank": 8
+  },
+  "olive": {
+   "lit": [
+    186,
+    151,
+    116
+   ],
+   "mid": [
+    154,
+    123,
+    94
+   ],
+   "dark": [
+    114,
+    94,
+    78
+   ],
+   "L": 53.9,
+   "rank": 6
+  },
+  "tan": {
+   "lit": [
+    179,
+    140,
+    103
+   ],
+   "mid": [
+    147,
+    115,
+    87
+   ],
+   "dark": [
+    109,
+    88,
+    71
+   ],
+   "L": 50.9,
+   "rank": 5
+  },
+  "bronze": {
+   "lit": [
+    156,
+    118,
+    87
+   ],
+   "mid": [
+    118,
+    96,
+    78
+   ],
+   "dark": [
+    90,
+    70,
+    56
+   ],
+   "L": 42.4,
+   "rank": 4
+  },
+  "brown": {
+   "lit": [
+    118,
+    94,
+    78
+   ],
+   "mid": [
+    94,
+    74,
+    59
+   ],
+   "dark": [
+    71,
+    54,
+    44
+   ],
+   "L": 33.1,
+   "rank": 3
+  },
+  "deep": {
+   "lit": [
+    83,
+    66,
+    54
+   ],
+   "mid": [
+    65,
+    51,
+    42
+   ],
+   "dark": [
+    48,
+    38,
+    31
+   ],
+   "L": 22.5,
+   "rank": 2
+  },
+  "ebony": {
+   "lit": [
+    66,
+    51,
+    43
+   ],
+   "mid": [
+    49,
+    38,
+    31
+   ],
+   "dark": [
+    35,
+    26,
+    22
+   ],
+   "L": 16.2,
+   "rank": 1
+  },
+  "onyx": {
+   "lit": [
+    51,
+    40,
+    34
+   ],
+   "mid": [
+    37,
+    28,
+    24
+   ],
+   "dark": [
+    26,
+    19,
+    16
+   ],
+   "L": 11.2,
+   "rank": 0
+  }
+ },
+ "ladder": [
+  "onyx",
+  "ebony",
+  "deep",
+  "brown",
+  "bronze",
+  "tan",
+  "olive",
+  "pale",
+  "fair",
+  "porcelain",
+  "chalk"
+ ],
+ "people": {
+  "you": {
+   "kind": "you",
+   "id": "fight:you",
+   "skin": "porcelain",
+   "skin_from": "skinTone (the player's own, the face maker)",
+   "skin_ramp": {
+    "lit": [
+     224,
+     211,
+     203
+    ],
+    "mid": [
+     191,
+     175,
+     166
+    ],
+    "dark": [
+     153,
+     137,
+     129
+    ]
+   },
+   "hair": {
+    "cut": null,
+    "gear": null,
+    "ramp": "measured",
+    "rgb": [
+     237,
+     232,
+     220
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 921,
+    "matches": true
+   },
+   "face_64": {
+    "skin": "porcelain",
+    "px": 630,
+    "matches": true
+   }
+  },
+  "cast_longcoat": {
+   "kind": "cast",
+   "id": "fight:cast_longcoat",
+   "skin": "onyx",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_longcoat').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     51,
+     40,
+     34
+    ],
+    "mid": [
+     37,
+     28,
+     24
+    ],
+    "dark": [
+     26,
+     19,
+     16
+    ]
+   },
+   "hair": {
+    "cut": "TEMPLE TAPER",
+    "gear": null,
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1224,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "onyx",
+    "px": 651,
+    "matches": true
+   }
+  },
+  "cast_barearms": {
+   "kind": "cast",
+   "id": "fight:cast_barearms",
+   "skin": "onyx",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_barearms').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     51,
+     40,
+     34
+    ],
+    "mid": [
+     37,
+     28,
+     24
+    ],
+    "dark": [
+     26,
+     19,
+     16
+    ]
+   },
+   "hair": {
+    "cut": "COIL CROWN",
+    "gear": null,
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 3252,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "onyx",
+    "px": 541,
+    "matches": true
+   }
+  },
+  "cast_pack": {
+   "kind": "cast",
+   "id": "fight:cast_pack",
+   "skin": "onyx",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_pack').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     51,
+     40,
+     34
+    ],
+    "mid": [
+     37,
+     28,
+     24
+    ],
+    "dark": [
+     26,
+     19,
+     16
+    ]
+   },
+   "hair": {
+    "cut": "DRY TAPER",
+    "gear": "STORM KNIT CAP",
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1145,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "onyx",
+    "px": 524,
+    "matches": true
+   }
+  },
+  "cast_skirt": {
+   "kind": "cast",
+   "id": "fight:cast_skirt",
+   "skin": "bronze",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_skirt').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     156,
+     118,
+     87
+    ],
+    "mid": [
+     118,
+     96,
+     78
+    ],
+    "dark": [
+     90,
+     70,
+     56
+    ]
+   },
+   "hair": {
+    "cut": "CURTAIN CUT",
+    "gear": null,
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1853,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "bronze",
+    "px": 691,
+    "matches": true
+   }
+  },
+  "cast_widebrim": {
+   "kind": "cast",
+   "id": "fight:cast_widebrim",
+   "skin": "deep",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_widebrim').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     83,
+     66,
+     54
+    ],
+    "mid": [
+     65,
+     51,
+     42
+    ],
+    "dark": [
+     48,
+     38,
+     31
+    ]
+   },
+   "hair": {
+    "cut": "DEEP TAPER",
+    "gear": "CHINESE RICE FARMER HAT",
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 2061,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "deep",
+    "px": 600,
+    "matches": true
+   }
+  },
+  "cast_cape": {
+   "kind": "cast",
+   "id": "fight:cast_cape",
+   "skin": "fair",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_cape').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     203,
+     169,
+     140
+    ],
+    "mid": [
+     167,
+     137,
+     113
+    ],
+    "dark": [
+     124,
+     102,
+     87
+    ]
+   },
+   "hair": {
+    "cut": "SHAG",
+    "gear": null,
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1432,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "fair",
+    "px": 773,
+    "matches": true
+   }
+  },
+  "cast_apron": {
+   "kind": "cast",
+   "id": "fight:cast_apron",
+   "skin": "olive",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_apron').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     186,
+     151,
+     116
+    ],
+    "mid": [
+     154,
+     123,
+     94
+    ],
+    "dark": [
+     114,
+     94,
+     78
+    ]
+   },
+   "hair": {
+    "cut": "DEEP TAPER",
+    "gear": null,
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1382,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "olive",
+    "px": 632,
+    "matches": true
+   }
+  },
+  "cast_poncho": {
+   "kind": "cast",
+   "id": "fight:cast_poncho",
+   "skin": "olive",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_poncho').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     186,
+     151,
+     116
+    ],
+    "mid": [
+     154,
+     123,
+     94
+    ],
+    "dark": [
+     114,
+     94,
+     78
+    ]
+   },
+   "hair": {
+    "cut": "CURTAIN CUT",
+    "gear": null,
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 2849,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "olive",
+    "px": 518,
+    "matches": true
+   }
+  },
+  "cast_bedroll": {
+   "kind": "cast",
+   "id": "fight:cast_bedroll",
+   "skin": "ebony",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_bedroll').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     66,
+     51,
+     43
+    ],
+    "mid": [
+     49,
+     38,
+     31
+    ],
+    "dark": [
+     35,
+     26,
+     22
+    ]
+   },
+   "hair": {
+    "cut": "TEMPLE TAPER",
+    "gear": "DUST WORK CAP",
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 2407,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "ebony",
+    "px": 683,
+    "matches": true
+   }
+  },
+  "cast_shorts": {
+   "kind": "cast",
+   "id": "fight:cast_shorts",
+   "skin": "tan",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_shorts').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     179,
+     140,
+     103
+    ],
+    "mid": [
+     147,
+     115,
+     87
+    ],
+    "dark": [
+     109,
+     88,
+     71
+    ]
+   },
+   "hair": {
+    "cut": "COIL CROWN",
+    "gear": null,
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 2974,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "tan",
+    "px": 655,
+    "matches": true
+   }
+  },
+  "cast_satchel": {
+   "kind": "cast",
+   "id": "fight:cast_satchel",
+   "skin": "onyx",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_satchel').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     51,
+     40,
+     34
+    ],
+    "mid": [
+     37,
+     28,
+     24
+    ],
+    "dark": [
+     26,
+     19,
+     16
+    ]
+   },
+   "hair": {
+    "cut": "DRY TAPER",
+    "gear": "CHARCOAL WATCH CAP",
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1101,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "onyx",
+    "px": 497,
+    "matches": true
+   }
+  },
+  "cast_shortcoat": {
+   "kind": "cast",
+   "id": "fight:cast_shortcoat",
+   "skin": "ebony",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_shortcoat').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     66,
+     51,
+     43
+    ],
+    "mid": [
+     49,
+     38,
+     31
+    ],
+    "dark": [
+     35,
+     26,
+     22
+    ]
+   },
+   "hair": {
+    "cut": "LAYERED FALL",
+    "gear": "OXBLOOD SLOUCH BEANIE",
+    "ramp": "H_SND",
+    "rgb": [
+     150,
+     120,
+     80
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 978,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "ebony",
+    "px": 780,
+    "matches": true
+   }
+  },
+  "faction_caravans": {
+   "kind": "faction",
+   "id": "fight:faction_caravans",
+   "skin": "ebony",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_caravans').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     66,
+     51,
+     43
+    ],
+    "mid": [
+     49,
+     38,
+     31
+    ],
+    "dark": [
+     35,
+     26,
+     22
+    ]
+   },
+   "hair": {
+    "cut": "COIL CROWN",
+    "gear": "CHINESE RICE FARMER HAT",
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 842,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "ebony",
+    "px": 463,
+    "matches": true
+   }
+  },
+  "faction_colorful": {
+   "kind": "faction",
+   "id": "fight:faction_colorful",
+   "skin": "olive",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_colorful').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     186,
+     151,
+     116
+    ],
+    "mid": [
+     154,
+     123,
+     94
+    ],
+    "dark": [
+     114,
+     94,
+     78
+    ]
+   },
+   "hair": {
+    "cut": "SHAG",
+    "gear": "ROSE KNIT CAP",
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 896,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "olive",
+    "px": 440,
+    "matches": true
+   }
+  },
+  "faction_anarchists": {
+   "kind": "faction",
+   "id": "fight:faction_anarchists",
+   "skin": "onyx",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_anarchists').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     51,
+     40,
+     34
+    ],
+    "mid": [
+     37,
+     28,
+     24
+    ],
+    "dark": [
+     26,
+     19,
+     16
+    ]
+   },
+   "hair": {
+    "cut": "LAYERED FALL",
+    "gear": "CHARCOAL WATCH CAP",
+    "ramp": "H_SND",
+    "rgb": [
+     150,
+     120,
+     80
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 883,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "onyx",
+    "px": 386,
+    "matches": true
+   }
+  },
+  "faction_blues": {
+   "kind": "faction",
+   "id": "fight:faction_blues",
+   "skin": "onyx",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_blues').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     51,
+     40,
+     34
+    ],
+    "mid": [
+     37,
+     28,
+     24
+    ],
+    "dark": [
+     26,
+     19,
+     16
+    ]
+   },
+   "hair": {
+    "cut": "DRY TAPER",
+    "gear": null,
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1111,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "onyx",
+    "px": 452,
+    "matches": true
+   }
+  },
+  "faction_homeless": {
+   "kind": "faction",
+   "id": "fight:faction_homeless",
+   "skin": "olive",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_homeless').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     186,
+     151,
+     116
+    ],
+    "mid": [
+     154,
+     123,
+     94
+    ],
+    "dark": [
+     114,
+     94,
+     78
+    ]
+   },
+   "hair": {
+    "cut": "LAYERED FALL",
+    "gear": null,
+    "ramp": "H_SND",
+    "rgb": [
+     150,
+     120,
+     80
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1936,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "olive",
+    "px": 477,
+    "matches": true
+   }
+  },
+  "faction_church": {
+   "kind": "faction",
+   "id": "fight:faction_church",
+   "skin": "fair",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_church').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     203,
+     169,
+     140
+    ],
+    "mid": [
+     167,
+     137,
+     113
+    ],
+    "dark": [
+     124,
+     102,
+     87
+    ]
+   },
+   "hair": {
+    "cut": "COIL CROWN",
+    "gear": "BONE KNIT CAP",
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1101,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "fair",
+    "px": 470,
+    "matches": true
+   }
+  },
+  "faction_reds": {
+   "kind": "faction",
+   "id": "fight:faction_reds",
+   "skin": "deep",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_reds').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     83,
+     66,
+     54
+    ],
+    "mid": [
+     65,
+     51,
+     42
+    ],
+    "dark": [
+     48,
+     38,
+     31
+    ]
+   },
+   "hair": {
+    "cut": "DRY TAPER",
+    "gear": null,
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1226,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "deep",
+    "px": 630,
+    "matches": true
+   }
+  },
+  "faction_cartel": {
+   "kind": "faction",
+   "id": "fight:faction_cartel",
+   "skin": "tan",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_cartel').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     179,
+     140,
+     103
+    ],
+    "mid": [
+     147,
+     115,
+     87
+    ],
+    "dark": [
+     109,
+     88,
+     71
+    ]
+   },
+   "hair": {
+    "cut": "DRY TAPER",
+    "gear": "CHARCOAL WATCH CAP",
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1050,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "tan",
+    "px": 448,
+    "matches": true
+   }
+  },
+  "faction_trades": {
+   "kind": "faction",
+   "id": "fight:faction_trades",
+   "skin": "brown",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_trades').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     118,
+     94,
+     78
+    ],
+    "mid": [
+     94,
+     74,
+     59
+    ],
+    "dark": [
+     71,
+     54,
+     44
+    ]
+   },
+   "hair": {
+    "cut": "TEMPLE TAPER",
+    "gear": "DUST WORK CAP",
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1020,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "brown",
+    "px": 566,
+    "matches": true
+   }
+  },
+  "faction_mob": {
+   "kind": "faction",
+   "id": "fight:faction_mob",
+   "skin": "olive",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_mob').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     186,
+     151,
+     116
+    ],
+    "mid": [
+     154,
+     123,
+     94
+    ],
+    "dark": [
+     114,
+     94,
+     78
+    ]
+   },
+   "hair": {
+    "cut": "DRY TAPER",
+    "gear": null,
+    "ramp": "H_BRN",
+    "rgb": [
+     82,
+     58,
+     38
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1386,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "olive",
+    "px": 722,
+    "matches": true
+   }
+  },
+  "faction_network": {
+   "kind": "faction",
+   "id": "fight:faction_network",
+   "skin": "brown",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_network').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     118,
+     94,
+     78
+    ],
+    "mid": [
+     94,
+     74,
+     59
+    ],
+    "dark": [
+     71,
+     54,
+     44
+    ]
+   },
+   "hair": {
+    "cut": "TEMPLE TAPER",
+    "gear": null,
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1153,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "brown",
+    "px": 577,
+    "matches": true
+   }
+  },
+  "faction_volunteers": {
+   "kind": "faction",
+   "id": "fight:faction_volunteers",
+   "skin": "onyx",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_volunteers').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     51,
+     40,
+     34
+    ],
+    "mid": [
+     37,
+     28,
+     24
+    ],
+    "dark": [
+     26,
+     19,
+     16
+    ]
+   },
+   "hair": {
+    "cut": "HEAVY FRINGE",
+    "gear": null,
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1021,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "onyx",
+    "px": 537,
+    "matches": true
+   }
+  },
+  "faction_remnants": {
+   "kind": "faction",
+   "id": "fight:faction_remnants",
+   "skin": "deep",
+   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_remnants').skinToneName",
+   "skin_ramp": {
+    "lit": [
+     83,
+     66,
+     54
+    ],
+    "mid": [
+     65,
+     51,
+     42
+    ],
+    "dark": [
+     48,
+     38,
+     31
+    ]
+   },
+   "hair": {
+    "cut": "TEMPLE TAPER",
+    "gear": "STORM KNIT CAP",
+    "ramp": "H_BLK",
+    "rgb": [
+     32,
+     30,
+     27
+    ]
+   },
+   "body_today": {
+    "skin": "porcelain",
+    "px": 1024,
+    "matches": false
+   },
+   "face_64": {
+    "skin": "deep",
+    "px": 493,
+    "matches": true
+   }
+  }
+ },
+ "measured": {
+  "people": 26,
+  "bodies_in_their_own_skin": 1,
+  "faces_64_in_their_own_skin": 26,
+  "tones": {
+   "onyx": 7,
+   "ebony": 3,
+   "deep": 3,
+   "brown": 2,
+   "bronze": 1,
+   "tan": 2,
+   "olive": 5,
+   "fair": 2,
+   "porcelain": 1
+  },
+  "bodies_wear": "porcelain"
+ }
+}
