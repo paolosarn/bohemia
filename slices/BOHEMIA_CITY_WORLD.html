@@ -45073,11 +45073,11 @@ function mapPartyFace(p){
    3D models on the rig got his YES (character-the-thirteen-through-the-rig-10-18: "Nice direction very good not
    final"), and the map's roaming parties ARE those thirteen gangs, drawn until now from the street's generic cast
    under a coloured flag. So a party wears ITS OWN GANG'S rig model: the Reds walk the map in the Reds' duster, the
-   Church in the Church's robes. One sheet (tools/bohemia_bake_the_rig_cast.py: 296 frames, 366 KB), fetched the
+   Church in the Church's robes. One sheet (tools/bohemia_bake_the_rig_cast.py), fetched the
    first time a party is drawn, never at the door; until it lands, and for any party with no gang, the cast as
    before. Each frame is laid in a 112-wide picture with its feet at 0.93 of the height, the cast's own frame, so
    mapPersonDraw draws it at the cast's size (one art pixel to two phone pixels): the body is the same height as
-   the people beside it. Four gangs walk (CHARACTER walked four); the other nine glide standing, as before. */
+   the people beside it. All thirteen walk (10/19, CHARACTER's walk of every look, his YES: 728 frames, 895 KB). */
 var RIG_CAST = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
 function rigCastLoad(){
   if (RIG_CAST.state) return; RIG_CAST.state = 1;
@@ -45098,6 +45098,7 @@ function rigSetOf(fac){
   var m = RIG_CAST.meta, gi = m.gangs.indexOf(key);
   if (gi < 0) return (RIG_CAST.sets[key] = null);
   var H = 130, walks = m.walks.indexOf(key) >= 0, set = {};
+  while (Math.round(H * 0.93) < m.foot) H++;   /* the tallest hat inside the picture (10/19: all thirteen walk, the feet sit at 124) */
   var cut = function(row, col){
     var c = document.createElement('canvas'); c.width = 112; c.height = H;
     var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
