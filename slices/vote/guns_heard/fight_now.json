@@ -1,0 +1,150 @@
+{
+ "_readme": "WHAT PLAYS NOW: the pools the alpha's playSFX draws from for each event the fight posts, read out of slices/BOHEMIA_ALPHA_0_9.html (APPROVED and SIBLINGS) by tools/bohemia_guns_heard.py. An empty pool is silent in the game (unjudged = silent). The page renders each with engine/bohemia_sfx.js, BOH_SFX.cook(ev, 5)[i], and the alpha's own vary (level +/-10 percent, pitch +/-3 percent).",
+ "pools": {
+  "shot": [
+   [
+    "shot",
+    3
+   ],
+   [
+    "shot_more",
+    0
+   ],
+   [
+    "shot_more",
+    1
+   ],
+   [
+    "shot_more",
+    2
+   ],
+   [
+    "shot_more",
+    3
+   ],
+   [
+    "shot_more",
+    4
+   ]
+  ],
+  "swing_air": [
+   [
+    "swing_air",
+    2
+   ],
+   [
+    "swing_air",
+    3
+   ],
+   [
+    "swing_more",
+    0
+   ],
+   [
+    "swing_more",
+    1
+   ],
+   [
+    "swing_more",
+    2
+   ],
+   [
+    "swing_more",
+    3
+   ],
+   [
+    "swing_more",
+    4
+   ]
+  ],
+  "hit": [
+   [
+    "hit",
+    2
+   ],
+   [
+    "hit",
+    4
+   ],
+   [
+    "hit_more",
+    0
+   ]
+  ],
+  "melee_hit": [
+   [
+    "melee_hit",
+    0
+   ],
+   [
+    "melee_hit",
+    2
+   ],
+   [
+    "melee_hit",
+    3
+   ],
+   [
+    "melee_hit",
+    4
+   ]
+  ],
+  "vital": [],
+  "miss": [],
+  "hurt": [
+   [
+    "hurt",
+    2
+   ],
+   [
+    "hurt_more",
+    0
+   ],
+   [
+    "hurt_more",
+    1
+   ],
+   [
+    "hurt_more",
+    2
+   ],
+   [
+    "hurt_more",
+    3
+   ],
+   [
+    "hurt_more",
+    4
+   ]
+  ],
+  "kill": [
+   [
+    "kill",
+    0
+   ],
+   [
+    "kill",
+    1
+   ],
+   [
+    "kill",
+    2
+   ],
+   [
+    "kill",
+    3
+   ],
+   [
+    "kill",
+    4
+   ]
+  ],
+  "went_down": [
+   [
+    "went_down",
+    4
+   ]
+  ],
+  "high_ground": []
+ }
+}

@@ -1,0 +1,871 @@
+{
+ "_readme": "THE GUNS HEARD (SOUNDS 10/19/26): windows cut from the Free Firearm Sound Library masters by tools/bohemia_guns_heard.py --bank; CC0 1.0. Each id is <track>_<event>_<kind>; the master sheet names the gun and the mic.",
+ "library": {
+  "by": "Still North Media (Ben Jaszczak and team), Kickstarter 2013-14",
+  "licence": "CC0 1.0 Universal",
+  "listing": "https://opengameart.org/content/the-free-firearm-sound-library",
+  "mirror": "https://github.com/buddingmonkey/FreeFirearmsSFXLibrary",
+  "name": "The Free Firearm Sound Library",
+  "original": "http://www.stillnorthmedia.com/firearm-sound-library.html"
+ },
+ "windows": {
+  "A_11_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "1911",
+   "kind": "motion",
+   "master_track": "Master Tracks/1911/A_11.wav",
+   "onset_s": 0.746,
+   "source_rate": 192000,
+   "window_s": [
+    0.726,
+    1.196
+   ]
+  },
+  "A_11_1_motion": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "1911",
+   "kind": "motion",
+   "master_track": "Master Tracks/1911/A_11.wav",
+   "onset_s": 2.576,
+   "source_rate": 192000,
+   "window_s": [
+    2.556,
+    3.026
+   ]
+  },
+  "A_33_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "1911",
+   "kind": "shot",
+   "master_track": "Master Tracks/1911/A_33.wav",
+   "onset_s": 1.336,
+   "source_rate": 192000,
+   "window_s": [
+    1.036,
+    3.336
+   ]
+  },
+  "A_33_1_shot": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "1911",
+   "kind": "shot",
+   "master_track": "Master Tracks/1911/A_33.wav",
+   "onset_s": 5.408,
+   "source_rate": 192000,
+   "window_s": [
+    5.108,
+    7.408
+   ]
+  },
+  "A_39_0_far": {
+   "clipped_source_samples": 12,
+   "event": 0,
+   "gun_folder": "1911",
+   "kind": "far",
+   "master_track": "Master Tracks/1911/A_39.wav",
+   "onset_s": 1.044,
+   "source_rate": 192000,
+   "window_s": [
+    0.744,
+    3.044
+   ]
+  },
+  "A_40_0_far": {
+   "clipped_source_samples": 47,
+   "event": 0,
+   "gun_folder": "1911",
+   "kind": "far",
+   "master_track": "Master Tracks/1911/A_40.wav",
+   "onset_s": 0.984,
+   "source_rate": 192000,
+   "window_s": [
+    0.684,
+    2.984
+   ]
+  },
+  "A_41_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "1911",
+   "kind": "shot",
+   "master_track": "Master Tracks/1911/A_41.wav",
+   "onset_s": 1.144,
+   "source_rate": 192000,
+   "window_s": [
+    0.844,
+    3.144
+   ]
+  },
+  "A_41_2_shot": {
+   "clipped_source_samples": 0,
+   "event": 2,
+   "gun_folder": "1911",
+   "kind": "shot",
+   "master_track": "Master Tracks/1911/A_41.wav",
+   "onset_s": 10.002,
+   "source_rate": 192000,
+   "window_s": [
+    9.702,
+    12.002
+   ]
+  },
+  "A_4_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "1911",
+   "kind": "motion",
+   "master_track": "Master Tracks/1911/A_4.wav",
+   "onset_s": 0.896,
+   "source_rate": 192000,
+   "window_s": [
+    0.876,
+    1.346
+   ]
+  },
+  "A_4_1_motion": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "1911",
+   "kind": "motion",
+   "master_track": "Master Tracks/1911/A_4.wav",
+   "onset_s": 2.952,
+   "source_rate": 192000,
+   "window_s": [
+    2.932,
+    3.402
+   ]
+  },
+  "B_15_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "1917",
+   "kind": "shot",
+   "master_track": "Master Tracks/1917/B_15.wav",
+   "onset_s": 0.556,
+   "source_rate": 192000,
+   "window_s": [
+    0.256,
+    2.556
+   ]
+  },
+  "B_15_1_shot": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "1917",
+   "kind": "shot",
+   "master_track": "Master Tracks/1917/B_15.wav",
+   "onset_s": 9.274,
+   "source_rate": 192000,
+   "window_s": [
+    8.974,
+    11.274
+   ]
+  },
+  "B_21_0_far": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "1917",
+   "kind": "far",
+   "master_track": "Master Tracks/1917/B_21.wav",
+   "onset_s": 1.812,
+   "source_rate": 192000,
+   "window_s": [
+    1.512,
+    3.812
+   ]
+  },
+  "B_22_0_far": {
+   "clipped_source_samples": 10,
+   "event": 0,
+   "gun_folder": "1917",
+   "kind": "far",
+   "master_track": "Master Tracks/1917/B_22.wav",
+   "onset_s": 1.496,
+   "source_rate": 192000,
+   "window_s": [
+    1.196,
+    3.496
+   ]
+  },
+  "B_23_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "1917",
+   "kind": "shot",
+   "master_track": "Master Tracks/1917/B_23.wav",
+   "onset_s": 1.046,
+   "source_rate": 192000,
+   "window_s": [
+    0.746,
+    3.046
+   ]
+  },
+  "B_23_1_shot": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "1917",
+   "kind": "shot",
+   "master_track": "Master Tracks/1917/B_23.wav",
+   "onset_s": 4.638,
+   "source_rate": 192000,
+   "window_s": [
+    4.338,
+    6.638
+   ]
+  },
+  "H_15_0_far": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Charles Daly",
+   "kind": "far",
+   "master_track": "Master Tracks/Charles Daly/H_15.wav",
+   "onset_s": 0.422,
+   "source_rate": 192000,
+   "window_s": [
+    0.122,
+    2.422
+   ]
+  },
+  "H_16_0_shot": {
+   "clipped_source_samples": 15,
+   "event": 0,
+   "gun_folder": "Charles Daly",
+   "kind": "shot",
+   "master_track": "Master Tracks/Charles Daly/H_16.wav",
+   "onset_s": 0.606,
+   "source_rate": 192000,
+   "window_s": [
+    0.306,
+    2.606
+   ]
+  },
+  "H_21_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Charles Daly",
+   "kind": "shot",
+   "master_track": "Master Tracks/Charles Daly/H_21.wav",
+   "onset_s": 0.464,
+   "source_rate": 192000,
+   "window_s": [
+    0.164,
+    2.464
+   ]
+  },
+  "H_3_6_motion": {
+   "clipped_source_samples": 0,
+   "event": 6,
+   "gun_folder": "Charles Daly",
+   "kind": "motion",
+   "master_track": "Master Tracks/Charles Daly/H_3.wav",
+   "onset_s": 7.5,
+   "source_rate": 192000,
+   "window_s": [
+    7.48,
+    7.95
+   ]
+  },
+  "H_4_1_motion": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Charles Daly",
+   "kind": "motion",
+   "master_track": "Master Tracks/Charles Daly/H_4.wav",
+   "onset_s": 5.036,
+   "source_rate": 192000,
+   "window_s": [
+    5.016,
+    5.486
+   ]
+  },
+  "H_5_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Charles Daly",
+   "kind": "motion",
+   "master_track": "Master Tracks/Charles Daly/H_5.wav",
+   "onset_s": 1.194,
+   "source_rate": 192000,
+   "window_s": [
+    1.174,
+    1.644
+   ]
+  },
+  "K_15_0_shot": {
+   "clipped_source_samples": 9,
+   "event": 0,
+   "gun_folder": "Model 12",
+   "kind": "shot",
+   "master_track": "Master Tracks/Model 12/K_15.wav",
+   "onset_s": 0.612,
+   "source_rate": 192000,
+   "window_s": [
+    0.312,
+    2.612
+   ]
+  },
+  "K_16_0_far": {
+   "clipped_source_samples": 3,
+   "event": 0,
+   "gun_folder": "Model 12",
+   "kind": "far",
+   "master_track": "Master Tracks/Model 12/K_16.wav",
+   "onset_s": 0.968,
+   "source_rate": 192000,
+   "window_s": [
+    0.668,
+    2.968
+   ]
+  },
+  "K_17_0_shot": {
+   "clipped_source_samples": 9,
+   "event": 0,
+   "gun_folder": "Model 12",
+   "kind": "shot",
+   "master_track": "Master Tracks/Model 12/K_17.wav",
+   "onset_s": 0.906,
+   "source_rate": 192000,
+   "window_s": [
+    0.606,
+    2.906
+   ]
+  },
+  "K_18_0_far": {
+   "clipped_source_samples": 30,
+   "event": 0,
+   "gun_folder": "Model 12",
+   "kind": "far",
+   "master_track": "Master Tracks/Model 12/K_18.wav",
+   "onset_s": 0.772,
+   "source_rate": 192000,
+   "window_s": [
+    0.472,
+    2.772
+   ]
+  },
+  "K_20_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Model 12",
+   "kind": "shot",
+   "master_track": "Master Tracks/Model 12/K_20.wav",
+   "onset_s": 0.712,
+   "source_rate": 192000,
+   "window_s": [
+    0.412,
+    2.712
+   ]
+  },
+  "K_22_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Model 12",
+   "kind": "shot",
+   "master_track": "Master Tracks/Model 12/K_22.wav",
+   "onset_s": 0.842,
+   "source_rate": 192000,
+   "window_s": [
+    0.542,
+    2.842
+   ]
+  },
+  "K_3_1_motion": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Model 12",
+   "kind": "motion",
+   "master_track": "Master Tracks/Model 12/K_3.wav",
+   "onset_s": 1.6,
+   "source_rate": 192000,
+   "window_s": [
+    1.58,
+    2.05
+   ]
+  },
+  "K_4_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Model 12",
+   "kind": "motion",
+   "master_track": "Master Tracks/Model 12/K_4.wav",
+   "onset_s": 1.38,
+   "source_rate": 192000,
+   "window_s": [
+    1.36,
+    1.83
+   ]
+  },
+  "K_5_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Model 12",
+   "kind": "motion",
+   "master_track": "Master Tracks/Model 12/K_5.wav",
+   "onset_s": 1.1,
+   "source_rate": 192000,
+   "window_s": [
+    1.08,
+    1.55
+   ]
+  },
+  "M_21_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "shot",
+   "master_track": "Master Tracks/Mosin Nagant/M_21.wav",
+   "onset_s": 1.032,
+   "source_rate": 192000,
+   "window_s": [
+    0.732,
+    3.032
+   ]
+  },
+  "M_21_1_shot": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Mosin Nagant",
+   "kind": "shot",
+   "master_track": "Master Tracks/Mosin Nagant/M_21.wav",
+   "onset_s": 8.108,
+   "source_rate": 192000,
+   "window_s": [
+    7.808,
+    10.108
+   ]
+  },
+  "M_23_0_far": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "far",
+   "master_track": "Master Tracks/Mosin Nagant/M_23.wav",
+   "onset_s": 1.004,
+   "source_rate": 192000,
+   "window_s": [
+    0.704,
+    3.004
+   ]
+  },
+  "M_24_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "shot",
+   "master_track": "Master Tracks/Mosin Nagant/M_24.wav",
+   "onset_s": 0.786,
+   "source_rate": 192000,
+   "window_s": [
+    0.486,
+    2.786
+   ]
+  },
+  "M_24_1_shot": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Mosin Nagant",
+   "kind": "shot",
+   "master_track": "Master Tracks/Mosin Nagant/M_24.wav",
+   "onset_s": 9.702,
+   "source_rate": 192000,
+   "window_s": [
+    9.402,
+    11.702
+   ]
+  },
+  "M_25_0_far": {
+   "clipped_source_samples": 1,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "far",
+   "master_track": "Master Tracks/Mosin Nagant/M_25.wav",
+   "onset_s": 1.074,
+   "source_rate": 192000,
+   "window_s": [
+    0.774,
+    3.074
+   ]
+  },
+  "M_2_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "motion",
+   "master_track": "Master Tracks/Mosin Nagant/M_2.wav",
+   "onset_s": 0.674,
+   "source_rate": 192000,
+   "window_s": [
+    0.654,
+    1.124
+   ]
+  },
+  "M_4_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "motion",
+   "master_track": "Master Tracks/Mosin Nagant/M_4.wav",
+   "onset_s": 0.854,
+   "source_rate": 192000,
+   "window_s": [
+    0.834,
+    1.304
+   ]
+  },
+  "M_6_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "motion",
+   "master_track": "Master Tracks/Mosin Nagant/M_6.wav",
+   "onset_s": 0.794,
+   "source_rate": 192000,
+   "window_s": [
+    0.774,
+    1.244
+   ]
+  },
+  "M_7_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "motion",
+   "master_track": "Master Tracks/Mosin Nagant/M_7.wav",
+   "onset_s": 0.706,
+   "source_rate": 192000,
+   "window_s": [
+    0.686,
+    1.156
+   ]
+  },
+  "O_14_0_shot": {
+   "clipped_source_samples": 6,
+   "event": 0,
+   "gun_folder": "Nova",
+   "kind": "shot",
+   "master_track": "Master Tracks/Nova/O_14.wav",
+   "onset_s": 1.228,
+   "source_rate": 192000,
+   "window_s": [
+    0.928,
+    3.228
+   ]
+  },
+  "O_15_0_far": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Nova",
+   "kind": "far",
+   "master_track": "Master Tracks/Nova/O_15.wav",
+   "onset_s": 1.09,
+   "source_rate": 192000,
+   "window_s": [
+    0.79,
+    3.09
+   ]
+  },
+  "O_16_0_shot": {
+   "clipped_source_samples": 26,
+   "event": 0,
+   "gun_folder": "Nova",
+   "kind": "shot",
+   "master_track": "Master Tracks/Nova/O_16.wav",
+   "onset_s": 1.162,
+   "source_rate": 192000,
+   "window_s": [
+    0.862,
+    3.162
+   ]
+  },
+  "O_17_0_far": {
+   "clipped_source_samples": 10,
+   "event": 0,
+   "gun_folder": "Nova",
+   "kind": "far",
+   "master_track": "Master Tracks/Nova/O_17.wav",
+   "onset_s": 0.898,
+   "source_rate": 192000,
+   "window_s": [
+    0.598,
+    2.898
+   ]
+  },
+  "O_19_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Nova",
+   "kind": "shot",
+   "master_track": "Master Tracks/Nova/O_19.wav",
+   "onset_s": 1.202,
+   "source_rate": 192000,
+   "window_s": [
+    0.902,
+    3.202
+   ]
+  },
+  "O_21_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Nova",
+   "kind": "shot",
+   "master_track": "Master Tracks/Nova/O_21.wav",
+   "onset_s": 1.69,
+   "source_rate": 192000,
+   "window_s": [
+    1.39,
+    3.69
+   ]
+  },
+  "O_3_8_motion": {
+   "clipped_source_samples": 0,
+   "event": 8,
+   "gun_folder": "Nova",
+   "kind": "motion",
+   "master_track": "Master Tracks/Nova/O_3.wav",
+   "onset_s": 14.79,
+   "source_rate": 192000,
+   "window_s": [
+    14.77,
+    15.24
+   ]
+  },
+  "O_4_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Nova",
+   "kind": "motion",
+   "master_track": "Master Tracks/Nova/O_4.wav",
+   "onset_s": 0.986,
+   "source_rate": 192000,
+   "window_s": [
+    0.966,
+    1.436
+   ]
+  },
+  "O_5_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Nova",
+   "kind": "motion",
+   "master_track": "Master Tracks/Nova/O_5.wav",
+   "onset_s": 1.054,
+   "source_rate": 192000,
+   "window_s": [
+    1.034,
+    1.504
+   ]
+  },
+  "V_20_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Smith & Wesson 642",
+   "kind": "shot",
+   "master_track": "Master Tracks/Smith & Wesson 642/V_20.wav",
+   "onset_s": 0.764,
+   "source_rate": 192000,
+   "window_s": [
+    0.464,
+    2.764
+   ]
+  },
+  "V_21_0_far": {
+   "clipped_source_samples": 18,
+   "event": 0,
+   "gun_folder": "Smith & Wesson 642",
+   "kind": "far",
+   "master_track": "Master Tracks/Smith & Wesson 642/V_21.wav",
+   "onset_s": 0.824,
+   "source_rate": 192000,
+   "window_s": [
+    0.524,
+    2.824
+   ]
+  },
+  "V_25_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Smith & Wesson 642",
+   "kind": "shot",
+   "master_track": "Master Tracks/Smith & Wesson 642/V_25.wav",
+   "onset_s": 1.22,
+   "source_rate": 192000,
+   "window_s": [
+    0.92,
+    3.22
+   ]
+  },
+  "W_12_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Tikka",
+   "kind": "motion",
+   "master_track": "Master Tracks/Tikka/W_12.wav",
+   "onset_s": 0.534,
+   "source_rate": 192000,
+   "window_s": [
+    0.514,
+    0.984
+   ]
+  },
+  "W_12_1_motion": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Tikka",
+   "kind": "motion",
+   "master_track": "Master Tracks/Tikka/W_12.wav",
+   "onset_s": 2.45,
+   "source_rate": 192000,
+   "window_s": [
+    2.43,
+    2.9
+   ]
+  },
+  "W_22_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Tikka",
+   "kind": "shot",
+   "master_track": "Master Tracks/Tikka/W_22.wav",
+   "onset_s": 0.708,
+   "source_rate": 192000,
+   "window_s": [
+    0.408,
+    2.708
+   ]
+  },
+  "W_23_0_far": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Tikka",
+   "kind": "far",
+   "master_track": "Master Tracks/Tikka/W_23.wav",
+   "onset_s": 0.922,
+   "source_rate": 192000,
+   "window_s": [
+    0.622,
+    2.922
+   ]
+  },
+  "W_27_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Tikka",
+   "kind": "shot",
+   "master_track": "Master Tracks/Tikka/W_27.wav",
+   "onset_s": 0.744,
+   "source_rate": 192000,
+   "window_s": [
+    0.444,
+    2.744
+   ]
+  },
+  "W_9_0_motion": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Tikka",
+   "kind": "motion",
+   "master_track": "Master Tracks/Tikka/W_9.wav",
+   "onset_s": 0.316,
+   "source_rate": 192000,
+   "window_s": [
+    0.296,
+    0.766
+   ]
+  },
+  "W_9_2_motion": {
+   "clipped_source_samples": 0,
+   "event": 2,
+   "gun_folder": "Tikka",
+   "kind": "motion",
+   "master_track": "Master Tracks/Tikka/W_9.wav",
+   "onset_s": 2.082,
+   "source_rate": 192000,
+   "window_s": [
+    2.062,
+    2.532
+   ]
+  },
+  "X_30_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Walther PPQ",
+   "kind": "shot",
+   "master_track": "Master Tracks/Walther PPQ/X_30.wav",
+   "onset_s": 1.38,
+   "source_rate": 192000,
+   "window_s": [
+    1.08,
+    3.38
+   ]
+  },
+  "X_30_1_shot": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Walther PPQ",
+   "kind": "shot",
+   "master_track": "Master Tracks/Walther PPQ/X_30.wav",
+   "onset_s": 5.538,
+   "source_rate": 192000,
+   "window_s": [
+    5.238,
+    7.538
+   ]
+  },
+  "X_31_0_far": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Walther PPQ",
+   "kind": "far",
+   "master_track": "Master Tracks/Walther PPQ/X_31.wav",
+   "onset_s": 1.084,
+   "source_rate": 192000,
+   "window_s": [
+    0.784,
+    3.084
+   ]
+  },
+  "X_33_0_far": {
+   "clipped_source_samples": 14,
+   "event": 0,
+   "gun_folder": "Walther PPQ",
+   "kind": "far",
+   "master_track": "Master Tracks/Walther PPQ/X_33.wav",
+   "onset_s": 0.932,
+   "source_rate": 192000,
+   "window_s": [
+    0.632,
+    2.932
+   ]
+  },
+  "X_39_0_shot": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Walther PPQ",
+   "kind": "shot",
+   "master_track": "Master Tracks/Walther PPQ/X_39.wav",
+   "onset_s": 1.406,
+   "source_rate": 192000,
+   "window_s": [
+    1.106,
+    3.406
+   ]
+  },
+  "X_39_1_shot": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Walther PPQ",
+   "kind": "shot",
+   "master_track": "Master Tracks/Walther PPQ/X_39.wav",
+   "onset_s": 6.444,
+   "source_rate": 192000,
+   "window_s": [
+    6.144,
+    8.444
+   ]
+  }
+ }
+}

@@ -1,0 +1,1893 @@
+{
+ "_readme": "THE GUNS HEARD (SOUNDS 10/19/26, row [the guns heard], rule 120): every file here starts from a real gun in the Free Firearm Sound Library (CC0 1.0) and goes through tools/bohemia_guns_heard.py. guns_<gun>_<yours|theirs>_a.mp3 is the street, the camcorder and the tape; _c.mp3 is the clean recording, same cut, same loudness. reload_<gun>_<a|c>.mp3 is the real motions laid on 16ths. Each sprite: cut k starts at k*slot + lead.",
+ "made": "10/19/26",
+ "lane": "sounds",
+ "draft": true,
+ "library": {
+  "name": "The Free Firearm Sound Library",
+  "by": "Still North Media (Ben Jaszczak and team), Kickstarter 2013-14",
+  "licence": "CC0 1.0 Universal",
+  "mirror": "https://github.com/buddingmonkey/FreeFirearmsSFXLibrary",
+  "original": "http://www.stillnorthmedia.com/firearm-sound-library.html",
+  "listing": "https://opengameart.org/content/the-free-firearm-sound-library"
+ },
+ "bpm": 120,
+ "slot": 1.25,
+ "lead": 0.05,
+ "cut": 1.0,
+ "reload_slot": 1.25,
+ "chain": "cut > street canyon 42.9 m (an echo every 16th, 14 bounces, R 0.55) > camcorder AGC (2 ms / 500 ms / up to +24 dB) > tape (110 Hz bump, tanh 1.8, wow 0.25% at 0.9 Hz, flutter 0.08% at 5.3 Hz) > VHS band 100 Hz to 10 kHz (after the tape, so the saturation harmonics stay inside the band) > [drop-out, take 3] > two beats > limiter -1 dBFS > loudness",
+ "machine": "VHS linear audio, 100 Hz to 10 kHz",
+ "guns": {
+  "pistol": [
+   {
+    "folder": "1911",
+    "letter": "A",
+    "what": "1911 .45 semi automatic"
+   },
+   {
+    "folder": "Walther PPQ",
+    "letter": "X",
+    "what": "Walther PPQ 9mm striker"
+   },
+   {
+    "folder": "Smith & Wesson 642",
+    "letter": "V",
+    "what": "Smith & Wesson 642 .38 revolver"
+   }
+  ],
+  "shotgun": [
+   {
+    "folder": "Model 12",
+    "letter": "K",
+    "what": "Winchester Model 12 pump, 12 gauge"
+   },
+   {
+    "folder": "Nova",
+    "letter": "O",
+    "what": "Benelli Nova pump, 12 gauge"
+   },
+   {
+    "folder": "Charles Daly",
+    "letter": "H",
+    "what": "Charles Daly pump, 12 gauge"
+   }
+  ],
+  "rifle": [
+   {
+    "folder": "Mosin Nagant",
+    "letter": "M",
+    "what": "Mosin Nagant bolt action, 7.62x54"
+   },
+   {
+    "folder": "1917",
+    "letter": "B",
+    "what": "Springfield 1917 bolt action, .30-06"
+   },
+   {
+    "folder": "Tikka",
+    "letter": "W",
+    "what": "Tikka T3 bolt action, .30-06"
+   }
+  ]
+ },
+ "voices": [
+  {
+   "file": "guns_pistol_yours_a.mp3",
+   "gun": "pistol",
+   "perspective": "yours",
+   "version": "a",
+   "peak_db_decoded": -6.14,
+   "loud_100ms_db": -26.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "A_41_0_shot",
+     "far": "A_39_0_far",
+     "gun": "1911",
+     "master": "Master Tracks/1911/A_41.wav",
+     "far_master": "Master Tracks/1911/A_39.wav",
+     "onset_s": 1.144,
+     "seconds": 1.0,
+     "peak_db": -6.76,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00012,
+     "above_20k": 0.0,
+     "first_1ms_db": -89.0,
+     "last_1ms_db": -152.3,
+     "slap_16th_db": 56.2,
+     "slap_8th_db": 22.9,
+     "agc_min_gain_db": 2.0,
+     "agc_gain_one_beat_on_db": 10.6
+    },
+    {
+     "k": 1,
+     "source": "X_39_0_shot",
+     "far": "X_33_0_far",
+     "gun": "Walther PPQ",
+     "master": "Master Tracks/Walther PPQ/X_39.wav",
+     "far_master": "Master Tracks/Walther PPQ/X_33.wav",
+     "onset_s": 1.406,
+     "seconds": 1.0,
+     "peak_db": -6.44,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00019,
+     "above_20k": 2e-06,
+     "first_1ms_db": -85.2,
+     "last_1ms_db": -146.4,
+     "slap_16th_db": 54.1,
+     "slap_8th_db": 24.6,
+     "agc_min_gain_db": 1.9,
+     "agc_gain_one_beat_on_db": 10.5
+    },
+    {
+     "k": 2,
+     "source": "V_25_0_shot",
+     "far": "V_21_0_far",
+     "gun": "Smith & Wesson 642",
+     "master": "Master Tracks/Smith & Wesson 642/V_25.wav",
+     "far_master": "Master Tracks/Smith & Wesson 642/V_21.wav",
+     "onset_s": 1.22,
+     "seconds": 1.0,
+     "peak_db": -6.13,
+     "loud_100ms_db": -26.38,
+     "above_10k": 8e-05,
+     "above_20k": 1e-06,
+     "first_1ms_db": -71.7,
+     "last_1ms_db": -139.6,
+     "slap_16th_db": 52.2,
+     "slap_8th_db": 16.1,
+     "agc_min_gain_db": 7.8,
+     "agc_gain_one_beat_on_db": 16.3,
+     "dropout": {
+      "at": 0.36,
+      "ms": 36.0,
+      "db": -14.0,
+      "top_hz": 3500.0
+     }
+    },
+    {
+     "k": 3,
+     "source": "A_41_2_shot",
+     "far": "A_40_0_far",
+     "gun": "1911",
+     "master": "Master Tracks/1911/A_41.wav",
+     "far_master": "Master Tracks/1911/A_40.wav",
+     "onset_s": 10.002,
+     "seconds": 1.0,
+     "peak_db": -7.08,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00032,
+     "above_20k": 6e-06,
+     "first_1ms_db": -89.0,
+     "last_1ms_db": -133.0,
+     "slap_16th_db": 50.3,
+     "slap_8th_db": 18.9,
+     "agc_min_gain_db": 1.7,
+     "agc_gain_one_beat_on_db": 10.2
+    },
+    {
+     "k": 4,
+     "source": "X_39_1_shot",
+     "far": "X_31_0_far",
+     "gun": "Walther PPQ",
+     "master": "Master Tracks/Walther PPQ/X_39.wav",
+     "far_master": "Master Tracks/Walther PPQ/X_31.wav",
+     "onset_s": 6.444,
+     "seconds": 1.0,
+     "peak_db": -5.78,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00022,
+     "above_20k": 0.0,
+     "first_1ms_db": -87.8,
+     "last_1ms_db": -146.5,
+     "slap_16th_db": 56.3,
+     "slap_8th_db": 23.2,
+     "agc_min_gain_db": 3.6,
+     "agc_gain_one_beat_on_db": 12.2
+    }
+   ]
+  },
+  {
+   "file": "guns_pistol_yours_c.mp3",
+   "gun": "pistol",
+   "perspective": "yours",
+   "version": "c",
+   "peak_db_decoded": -2.89,
+   "loud_100ms_db": -26.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "A_41_0_shot",
+     "far": "A_39_0_far",
+     "gun": "1911",
+     "master": "Master Tracks/1911/A_41.wav",
+     "far_master": "Master Tracks/1911/A_39.wav",
+     "onset_s": 1.144,
+     "seconds": 1.0,
+     "peak_db": -3.66,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00248,
+     "above_20k": 2.6e-05,
+     "first_1ms_db": -113.2,
+     "last_1ms_db": -164.9,
+     "slap_16th_db": 22.6,
+     "slap_8th_db": 7.6
+    },
+    {
+     "k": 1,
+     "source": "X_39_0_shot",
+     "far": "X_33_0_far",
+     "gun": "Walther PPQ",
+     "master": "Master Tracks/Walther PPQ/X_39.wav",
+     "far_master": "Master Tracks/Walther PPQ/X_33.wav",
+     "onset_s": 1.406,
+     "seconds": 1.0,
+     "peak_db": -4.03,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00459,
+     "above_20k": 3.6e-05,
+     "first_1ms_db": -108.9,
+     "last_1ms_db": -172.8,
+     "slap_16th_db": 23.6,
+     "slap_8th_db": 12.1
+    },
+    {
+     "k": 2,
+     "source": "V_25_0_shot",
+     "far": "V_21_0_far",
+     "gun": "Smith & Wesson 642",
+     "master": "Master Tracks/Smith & Wesson 642/V_25.wav",
+     "far_master": "Master Tracks/Smith & Wesson 642/V_21.wav",
+     "onset_s": 1.22,
+     "seconds": 1.0,
+     "peak_db": -2.48,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00177,
+     "above_20k": 3e-05,
+     "first_1ms_db": -87.1,
+     "last_1ms_db": -163.3,
+     "slap_16th_db": 24.6,
+     "slap_8th_db": 8.4
+    },
+    {
+     "k": 3,
+     "source": "A_41_2_shot",
+     "far": "A_40_0_far",
+     "gun": "1911",
+     "master": "Master Tracks/1911/A_41.wav",
+     "far_master": "Master Tracks/1911/A_40.wav",
+     "onset_s": 10.002,
+     "seconds": 1.0,
+     "peak_db": -4.12,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00175,
+     "above_20k": 1.7e-05,
+     "first_1ms_db": -103.0,
+     "last_1ms_db": -157.2,
+     "slap_16th_db": 16.8,
+     "slap_8th_db": 7.7
+    },
+    {
+     "k": 4,
+     "source": "X_39_1_shot",
+     "far": "X_31_0_far",
+     "gun": "Walther PPQ",
+     "master": "Master Tracks/Walther PPQ/X_39.wav",
+     "far_master": "Master Tracks/Walther PPQ/X_31.wav",
+     "onset_s": 6.444,
+     "seconds": 1.0,
+     "peak_db": -5.09,
+     "loud_100ms_db": -26.38,
+     "above_10k": 0.00679,
+     "above_20k": 7.9e-05,
+     "first_1ms_db": -102.6,
+     "last_1ms_db": -169.3,
+     "slap_16th_db": 25.9,
+     "slap_8th_db": 7.1
+    }
+   ]
+  },
+  {
+   "file": "guns_pistol_theirs_a.mp3",
+   "gun": "pistol",
+   "perspective": "theirs",
+   "version": "a",
+   "peak_db_decoded": -9.79,
+   "loud_100ms_db": -31.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "A_33_0_shot",
+     "far": "A_39_0_far",
+     "gun": "1911",
+     "master": "Master Tracks/1911/A_33.wav",
+     "far_master": "Master Tracks/1911/A_39.wav",
+     "onset_s": 1.336,
+     "seconds": 1.0,
+     "peak_db": -12.11,
+     "loud_100ms_db": -31.38,
+     "above_10k": 9e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -86.6,
+     "last_1ms_db": -130.1,
+     "slap_16th_db": 22.9,
+     "slap_8th_db": 16.2,
+     "agc_min_gain_db": 3.4,
+     "agc_gain_one_beat_on_db": 11.8
+    },
+    {
+     "k": 1,
+     "source": "X_30_0_shot",
+     "far": "X_33_0_far",
+     "gun": "Walther PPQ",
+     "master": "Master Tracks/Walther PPQ/X_30.wav",
+     "far_master": "Master Tracks/Walther PPQ/X_33.wav",
+     "onset_s": 1.38,
+     "seconds": 1.0,
+     "peak_db": -11.81,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00019,
+     "above_20k": 0.0,
+     "first_1ms_db": -82.1,
+     "last_1ms_db": -129.6,
+     "slap_16th_db": 20.6,
+     "slap_8th_db": 17.5,
+     "agc_min_gain_db": 0.7,
+     "agc_gain_one_beat_on_db": 9.2
+    },
+    {
+     "k": 2,
+     "source": "V_20_0_shot",
+     "far": "V_21_0_far",
+     "gun": "Smith & Wesson 642",
+     "master": "Master Tracks/Smith & Wesson 642/V_20.wav",
+     "far_master": "Master Tracks/Smith & Wesson 642/V_21.wav",
+     "onset_s": 0.764,
+     "seconds": 1.0,
+     "peak_db": -10.19,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00015,
+     "above_20k": 1e-06,
+     "first_1ms_db": -93.7,
+     "last_1ms_db": -128.5,
+     "slap_16th_db": 22.2,
+     "slap_8th_db": 19.3,
+     "agc_min_gain_db": 2.2,
+     "agc_gain_one_beat_on_db": 10.7,
+     "dropout": {
+      "at": 0.36,
+      "ms": 36.0,
+      "db": -14.0,
+      "top_hz": 3500.0
+     }
+    },
+    {
+     "k": 3,
+     "source": "A_33_1_shot",
+     "far": "A_40_0_far",
+     "gun": "1911",
+     "master": "Master Tracks/1911/A_33.wav",
+     "far_master": "Master Tracks/1911/A_40.wav",
+     "onset_s": 5.408,
+     "seconds": 1.0,
+     "peak_db": -11.63,
+     "loud_100ms_db": -31.38,
+     "above_10k": 8e-05,
+     "above_20k": 1e-06,
+     "first_1ms_db": -84.5,
+     "last_1ms_db": -138.3,
+     "slap_16th_db": 28.6,
+     "slap_8th_db": 20.0,
+     "agc_min_gain_db": -3.0,
+     "agc_gain_one_beat_on_db": 5.5
+    },
+    {
+     "k": 4,
+     "source": "X_30_1_shot",
+     "far": "X_31_0_far",
+     "gun": "Walther PPQ",
+     "master": "Master Tracks/Walther PPQ/X_30.wav",
+     "far_master": "Master Tracks/Walther PPQ/X_31.wav",
+     "onset_s": 5.538,
+     "seconds": 1.0,
+     "peak_db": -9.74,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00029,
+     "above_20k": 1e-06,
+     "first_1ms_db": -83.3,
+     "last_1ms_db": -126.8,
+     "slap_16th_db": 15.0,
+     "slap_8th_db": 14.5,
+     "agc_min_gain_db": 3.5,
+     "agc_gain_one_beat_on_db": 12.0
+    }
+   ]
+  },
+  {
+   "file": "guns_pistol_theirs_c.mp3",
+   "gun": "pistol",
+   "perspective": "theirs",
+   "version": "c",
+   "peak_db_decoded": -9.43,
+   "loud_100ms_db": -31.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "A_33_0_shot",
+     "far": "A_39_0_far",
+     "gun": "1911",
+     "master": "Master Tracks/1911/A_33.wav",
+     "far_master": "Master Tracks/1911/A_39.wav",
+     "onset_s": 1.336,
+     "seconds": 1.0,
+     "peak_db": -9.57,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00182,
+     "above_20k": 1.2e-05,
+     "first_1ms_db": -108.6,
+     "last_1ms_db": -146.7,
+     "slap_16th_db": 7.0,
+     "slap_8th_db": 3.0
+    },
+    {
+     "k": 1,
+     "source": "X_30_0_shot",
+     "far": "X_33_0_far",
+     "gun": "Walther PPQ",
+     "master": "Master Tracks/Walther PPQ/X_30.wav",
+     "far_master": "Master Tracks/Walther PPQ/X_33.wav",
+     "onset_s": 1.38,
+     "seconds": 1.0,
+     "peak_db": -10.27,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00314,
+     "above_20k": 3e-05,
+     "first_1ms_db": -102.3,
+     "last_1ms_db": -143.4,
+     "slap_16th_db": 3.8,
+     "slap_8th_db": 3.4
+    },
+    {
+     "k": 2,
+     "source": "V_20_0_shot",
+     "far": "V_21_0_far",
+     "gun": "Smith & Wesson 642",
+     "master": "Master Tracks/Smith & Wesson 642/V_20.wav",
+     "far_master": "Master Tracks/Smith & Wesson 642/V_21.wav",
+     "onset_s": 0.764,
+     "seconds": 1.0,
+     "peak_db": -9.52,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00116,
+     "above_20k": 1.6e-05,
+     "first_1ms_db": -116.3,
+     "last_1ms_db": -153.1,
+     "slap_16th_db": 4.7,
+     "slap_8th_db": 10.4
+    },
+    {
+     "k": 3,
+     "source": "A_33_1_shot",
+     "far": "A_40_0_far",
+     "gun": "1911",
+     "master": "Master Tracks/1911/A_33.wav",
+     "far_master": "Master Tracks/1911/A_40.wav",
+     "onset_s": 5.408,
+     "seconds": 1.0,
+     "peak_db": -10.94,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00142,
+     "above_20k": 1.2e-05,
+     "first_1ms_db": -111.0,
+     "last_1ms_db": -142.9,
+     "slap_16th_db": 8.3,
+     "slap_8th_db": 7.2
+    },
+    {
+     "k": 4,
+     "source": "X_30_1_shot",
+     "far": "X_31_0_far",
+     "gun": "Walther PPQ",
+     "master": "Master Tracks/Walther PPQ/X_30.wav",
+     "far_master": "Master Tracks/Walther PPQ/X_31.wav",
+     "onset_s": 5.538,
+     "seconds": 1.0,
+     "peak_db": -8.97,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00317,
+     "above_20k": 1.9e-05,
+     "first_1ms_db": -96.6,
+     "last_1ms_db": -144.8,
+     "slap_16th_db": 2.7,
+     "slap_8th_db": 5.7
+    }
+   ]
+  },
+  {
+   "file": "guns_shotgun_yours_a.mp3",
+   "gun": "shotgun",
+   "perspective": "yours",
+   "version": "a",
+   "peak_db_decoded": -3.38,
+   "loud_100ms_db": -23.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "K_20_0_shot",
+     "far": "K_16_0_far",
+     "gun": "Model 12",
+     "master": "Master Tracks/Model 12/K_20.wav",
+     "far_master": "Master Tracks/Model 12/K_16.wav",
+     "onset_s": 0.712,
+     "seconds": 1.0,
+     "peak_db": -3.37,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.00026,
+     "above_20k": 3e-06,
+     "first_1ms_db": -88.0,
+     "last_1ms_db": -133.4,
+     "slap_16th_db": 50.9,
+     "slap_8th_db": 20.3,
+     "agc_min_gain_db": 1.6,
+     "agc_gain_one_beat_on_db": 10.1
+    },
+    {
+     "k": 1,
+     "source": "O_19_0_shot",
+     "far": "O_17_0_far",
+     "gun": "Nova",
+     "master": "Master Tracks/Nova/O_19.wav",
+     "far_master": "Master Tracks/Nova/O_17.wav",
+     "onset_s": 1.202,
+     "seconds": 1.0,
+     "peak_db": -3.84,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.0002,
+     "above_20k": 1e-06,
+     "first_1ms_db": -58.5,
+     "last_1ms_db": -128.2,
+     "slap_16th_db": 48.1,
+     "slap_8th_db": 23.2,
+     "agc_min_gain_db": 2.5,
+     "agc_gain_one_beat_on_db": 11.0
+    },
+    {
+     "k": 2,
+     "source": "H_21_0_shot",
+     "far": "H_15_0_far",
+     "gun": "Charles Daly",
+     "master": "Master Tracks/Charles Daly/H_21.wav",
+     "far_master": "Master Tracks/Charles Daly/H_15.wav",
+     "onset_s": 0.464,
+     "seconds": 1.0,
+     "peak_db": -3.28,
+     "loud_100ms_db": -23.38,
+     "above_10k": 9e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -66.9,
+     "last_1ms_db": -141.9,
+     "slap_16th_db": 50.7,
+     "slap_8th_db": 21.9,
+     "agc_min_gain_db": 2.2,
+     "agc_gain_one_beat_on_db": 10.8,
+     "dropout": {
+      "at": 0.36,
+      "ms": 36.0,
+      "db": -14.0,
+      "top_hz": 3500.0
+     }
+    },
+    {
+     "k": 3,
+     "source": "K_22_0_shot",
+     "far": "K_18_0_far",
+     "gun": "Model 12",
+     "master": "Master Tracks/Model 12/K_22.wav",
+     "far_master": "Master Tracks/Model 12/K_18.wav",
+     "onset_s": 0.842,
+     "seconds": 1.0,
+     "peak_db": -3.26,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.00015,
+     "above_20k": 0.0,
+     "first_1ms_db": -73.7,
+     "last_1ms_db": -131.2,
+     "slap_16th_db": 40.7,
+     "slap_8th_db": 18.5,
+     "agc_min_gain_db": -0.0,
+     "agc_gain_one_beat_on_db": 8.5
+    },
+    {
+     "k": 4,
+     "source": "O_21_0_shot",
+     "far": "O_15_0_far",
+     "gun": "Nova",
+     "master": "Master Tracks/Nova/O_21.wav",
+     "far_master": "Master Tracks/Nova/O_15.wav",
+     "onset_s": 1.69,
+     "seconds": 1.0,
+     "peak_db": -3.28,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.00023,
+     "above_20k": 0.0,
+     "first_1ms_db": -58.7,
+     "last_1ms_db": -145.7,
+     "slap_16th_db": 49.5,
+     "slap_8th_db": 21.1,
+     "agc_min_gain_db": 2.8,
+     "agc_gain_one_beat_on_db": 11.4
+    }
+   ]
+  },
+  {
+   "file": "guns_shotgun_yours_c.mp3",
+   "gun": "shotgun",
+   "perspective": "yours",
+   "version": "c",
+   "peak_db_decoded": -1.51,
+   "loud_100ms_db": -23.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "K_20_0_shot",
+     "far": "K_16_0_far",
+     "gun": "Model 12",
+     "master": "Master Tracks/Model 12/K_20.wav",
+     "far_master": "Master Tracks/Model 12/K_16.wav",
+     "onset_s": 0.712,
+     "seconds": 1.0,
+     "peak_db": -1.56,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.00946,
+     "above_20k": 0.000276,
+     "first_1ms_db": -110.8,
+     "last_1ms_db": -160.2,
+     "slap_16th_db": 14.8,
+     "slap_8th_db": 12.7
+    },
+    {
+     "k": 1,
+     "source": "O_19_0_shot",
+     "far": "O_17_0_far",
+     "gun": "Nova",
+     "master": "Master Tracks/Nova/O_19.wav",
+     "far_master": "Master Tracks/Nova/O_17.wav",
+     "onset_s": 1.202,
+     "seconds": 1.0,
+     "peak_db": -1.0,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.00743,
+     "above_20k": 0.00016,
+     "first_1ms_db": -86.0,
+     "last_1ms_db": -150.6,
+     "slap_16th_db": 14.1,
+     "slap_8th_db": 20.3
+    },
+    {
+     "k": 2,
+     "source": "H_21_0_shot",
+     "far": "H_15_0_far",
+     "gun": "Charles Daly",
+     "master": "Master Tracks/Charles Daly/H_21.wav",
+     "far_master": "Master Tracks/Charles Daly/H_15.wav",
+     "onset_s": 0.464,
+     "seconds": 1.0,
+     "peak_db": -3.01,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.00331,
+     "above_20k": 9.3e-05,
+     "first_1ms_db": -93.7,
+     "last_1ms_db": -159.6,
+     "slap_16th_db": 19.2,
+     "slap_8th_db": 14.0
+    },
+    {
+     "k": 3,
+     "source": "K_22_0_shot",
+     "far": "K_18_0_far",
+     "gun": "Model 12",
+     "master": "Master Tracks/Model 12/K_22.wav",
+     "far_master": "Master Tracks/Model 12/K_18.wav",
+     "onset_s": 0.842,
+     "seconds": 1.0,
+     "peak_db": -4.4,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.00468,
+     "above_20k": 0.000116,
+     "first_1ms_db": -98.5,
+     "last_1ms_db": -149.9,
+     "slap_16th_db": 15.5,
+     "slap_8th_db": 15.3
+    },
+    {
+     "k": 4,
+     "source": "O_21_0_shot",
+     "far": "O_15_0_far",
+     "gun": "Nova",
+     "master": "Master Tracks/Nova/O_21.wav",
+     "far_master": "Master Tracks/Nova/O_15.wav",
+     "onset_s": 1.69,
+     "seconds": 1.0,
+     "peak_db": -2.8,
+     "loud_100ms_db": -23.38,
+     "above_10k": 0.0076,
+     "above_20k": 0.00016,
+     "first_1ms_db": -80.9,
+     "last_1ms_db": -171.9,
+     "slap_16th_db": 14.8,
+     "slap_8th_db": 14.7
+    }
+   ]
+  },
+  {
+   "file": "guns_shotgun_theirs_a.mp3",
+   "gun": "shotgun",
+   "perspective": "theirs",
+   "version": "a",
+   "peak_db_decoded": -6.05,
+   "loud_100ms_db": -28.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "K_17_0_shot",
+     "far": "K_16_0_far",
+     "gun": "Model 12",
+     "master": "Master Tracks/Model 12/K_17.wav",
+     "far_master": "Master Tracks/Model 12/K_16.wav",
+     "onset_s": 0.906,
+     "seconds": 1.0,
+     "peak_db": -7.84,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.00014,
+     "above_20k": 0.0,
+     "first_1ms_db": -82.1,
+     "last_1ms_db": -110.9,
+     "slap_16th_db": 21.7,
+     "slap_8th_db": 19.0,
+     "agc_min_gain_db": 3.1,
+     "agc_gain_one_beat_on_db": 11.6
+    },
+    {
+     "k": 1,
+     "source": "O_14_0_shot",
+     "far": "O_17_0_far",
+     "gun": "Nova",
+     "master": "Master Tracks/Nova/O_14.wav",
+     "far_master": "Master Tracks/Nova/O_17.wav",
+     "onset_s": 1.228,
+     "seconds": 1.0,
+     "peak_db": -8.07,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.00011,
+     "above_20k": 0.0,
+     "first_1ms_db": -58.0,
+     "last_1ms_db": -119.2,
+     "slap_16th_db": 30.2,
+     "slap_8th_db": 20.0,
+     "agc_min_gain_db": 2.5,
+     "agc_gain_one_beat_on_db": 11.0
+    },
+    {
+     "k": 2,
+     "source": "H_16_0_shot",
+     "far": "H_15_0_far",
+     "gun": "Charles Daly",
+     "master": "Master Tracks/Charles Daly/H_16.wav",
+     "far_master": "Master Tracks/Charles Daly/H_15.wav",
+     "onset_s": 0.606,
+     "seconds": 1.0,
+     "peak_db": -6.93,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.0003,
+     "above_20k": 1e-06,
+     "first_1ms_db": -77.7,
+     "last_1ms_db": -116.1,
+     "slap_16th_db": 16.6,
+     "slap_8th_db": 16.4,
+     "agc_min_gain_db": 1.9,
+     "agc_gain_one_beat_on_db": 10.4,
+     "dropout": {
+      "at": 0.36,
+      "ms": 36.0,
+      "db": -14.0,
+      "top_hz": 3500.0
+     }
+    },
+    {
+     "k": 3,
+     "source": "K_15_0_shot",
+     "far": "K_18_0_far",
+     "gun": "Model 12",
+     "master": "Master Tracks/Model 12/K_15.wav",
+     "far_master": "Master Tracks/Model 12/K_18.wav",
+     "onset_s": 0.612,
+     "seconds": 1.0,
+     "peak_db": -7.02,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.00017,
+     "above_20k": 1e-06,
+     "first_1ms_db": -75.0,
+     "last_1ms_db": -129.7,
+     "slap_16th_db": 33.9,
+     "slap_8th_db": 23.2,
+     "agc_min_gain_db": -1.4,
+     "agc_gain_one_beat_on_db": 7.1
+    },
+    {
+     "k": 4,
+     "source": "O_16_0_shot",
+     "far": "O_15_0_far",
+     "gun": "Nova",
+     "master": "Master Tracks/Nova/O_16.wav",
+     "far_master": "Master Tracks/Nova/O_15.wav",
+     "onset_s": 1.162,
+     "seconds": 1.0,
+     "peak_db": -5.96,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.00031,
+     "above_20k": 2e-06,
+     "first_1ms_db": -80.9,
+     "last_1ms_db": -105.4,
+     "slap_16th_db": 24.3,
+     "slap_8th_db": 17.5,
+     "agc_min_gain_db": 1.9,
+     "agc_gain_one_beat_on_db": 10.4
+    }
+   ]
+  },
+  {
+   "file": "guns_shotgun_theirs_c.mp3",
+   "gun": "shotgun",
+   "perspective": "theirs",
+   "version": "c",
+   "peak_db_decoded": -5.55,
+   "loud_100ms_db": -28.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "K_17_0_shot",
+     "far": "K_16_0_far",
+     "gun": "Model 12",
+     "master": "Master Tracks/Model 12/K_17.wav",
+     "far_master": "Master Tracks/Model 12/K_16.wav",
+     "onset_s": 0.906,
+     "seconds": 1.0,
+     "peak_db": -5.45,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.00593,
+     "above_20k": 0.00026,
+     "first_1ms_db": -111.8,
+     "last_1ms_db": -141.0,
+     "slap_16th_db": 5.8,
+     "slap_8th_db": 12.8
+    },
+    {
+     "k": 1,
+     "source": "O_14_0_shot",
+     "far": "O_17_0_far",
+     "gun": "Nova",
+     "master": "Master Tracks/Nova/O_14.wav",
+     "far_master": "Master Tracks/Nova/O_17.wav",
+     "onset_s": 1.228,
+     "seconds": 1.0,
+     "peak_db": -6.57,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.00316,
+     "above_20k": 8.7e-05,
+     "first_1ms_db": -84.3,
+     "last_1ms_db": -133.7,
+     "slap_16th_db": 7.9,
+     "slap_8th_db": 17.1
+    },
+    {
+     "k": 2,
+     "source": "H_16_0_shot",
+     "far": "H_15_0_far",
+     "gun": "Charles Daly",
+     "master": "Master Tracks/Charles Daly/H_16.wav",
+     "far_master": "Master Tracks/Charles Daly/H_15.wav",
+     "onset_s": 0.606,
+     "seconds": 1.0,
+     "peak_db": -7.05,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.004,
+     "above_20k": 8e-05,
+     "first_1ms_db": -88.3,
+     "last_1ms_db": -139.2,
+     "slap_16th_db": 3.6,
+     "slap_8th_db": 8.1
+    },
+    {
+     "k": 3,
+     "source": "K_15_0_shot",
+     "far": "K_18_0_far",
+     "gun": "Model 12",
+     "master": "Master Tracks/Model 12/K_15.wav",
+     "far_master": "Master Tracks/Model 12/K_18.wav",
+     "onset_s": 0.612,
+     "seconds": 1.0,
+     "peak_db": -7.5,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.00283,
+     "above_20k": 6.4e-05,
+     "first_1ms_db": -103.9,
+     "last_1ms_db": -143.2,
+     "slap_16th_db": 9.9,
+     "slap_8th_db": 19.8
+    },
+    {
+     "k": 4,
+     "source": "O_16_0_shot",
+     "far": "O_15_0_far",
+     "gun": "Nova",
+     "master": "Master Tracks/Nova/O_16.wav",
+     "far_master": "Master Tracks/Nova/O_15.wav",
+     "onset_s": 1.162,
+     "seconds": 1.0,
+     "peak_db": -5.82,
+     "loud_100ms_db": -28.38,
+     "above_10k": 0.00415,
+     "above_20k": 8.5e-05,
+     "first_1ms_db": -107.4,
+     "last_1ms_db": -136.6,
+     "slap_16th_db": 7.6,
+     "slap_8th_db": 11.1
+    }
+   ]
+  },
+  {
+   "file": "guns_rifle_yours_a.mp3",
+   "gun": "rifle",
+   "perspective": "yours",
+   "version": "a",
+   "peak_db_decoded": -5.68,
+   "loud_100ms_db": -24.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "M_21_0_shot",
+     "far": "M_23_0_far",
+     "gun": "Mosin Nagant",
+     "master": "Master Tracks/Mosin Nagant/M_21.wav",
+     "far_master": "Master Tracks/Mosin Nagant/M_23.wav",
+     "onset_s": 1.032,
+     "seconds": 1.0,
+     "peak_db": -5.53,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00014,
+     "above_20k": 1e-06,
+     "first_1ms_db": -45.3,
+     "last_1ms_db": -128.8,
+     "slap_16th_db": 19.7,
+     "slap_8th_db": 10.1,
+     "agc_min_gain_db": 4.1,
+     "agc_gain_one_beat_on_db": 12.6
+    },
+    {
+     "k": 1,
+     "source": "B_23_0_shot",
+     "far": "B_22_0_far",
+     "gun": "1917",
+     "master": "Master Tracks/1917/B_23.wav",
+     "far_master": "Master Tracks/1917/B_22.wav",
+     "onset_s": 1.046,
+     "seconds": 1.0,
+     "peak_db": -5.89,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.0001,
+     "above_20k": 0.0,
+     "first_1ms_db": -83.0,
+     "last_1ms_db": -124.8,
+     "slap_16th_db": 38.7,
+     "slap_8th_db": 8.8,
+     "agc_min_gain_db": 3.2,
+     "agc_gain_one_beat_on_db": 11.4
+    },
+    {
+     "k": 2,
+     "source": "W_27_0_shot",
+     "far": "W_23_0_far",
+     "gun": "Tikka",
+     "master": "Master Tracks/Tikka/W_27.wav",
+     "far_master": "Master Tracks/Tikka/W_23.wav",
+     "onset_s": 0.744,
+     "seconds": 1.0,
+     "peak_db": -5.83,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00012,
+     "above_20k": 0.0,
+     "first_1ms_db": -84.3,
+     "last_1ms_db": -142.8,
+     "slap_16th_db": 47.2,
+     "slap_8th_db": 14.6,
+     "agc_min_gain_db": 4.3,
+     "agc_gain_one_beat_on_db": 12.7,
+     "dropout": {
+      "at": 0.36,
+      "ms": 36.0,
+      "db": -14.0,
+      "top_hz": 3500.0
+     }
+    },
+    {
+     "k": 3,
+     "source": "M_21_1_shot",
+     "far": "M_25_0_far",
+     "gun": "Mosin Nagant",
+     "master": "Master Tracks/Mosin Nagant/M_21.wav",
+     "far_master": "Master Tracks/Mosin Nagant/M_25.wav",
+     "onset_s": 8.108,
+     "seconds": 1.0,
+     "peak_db": -7.0,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00106,
+     "above_20k": 8e-06,
+     "first_1ms_db": -61.1,
+     "last_1ms_db": -122.6,
+     "slap_16th_db": 19.0,
+     "slap_8th_db": 2.3,
+     "agc_min_gain_db": -3.0,
+     "agc_gain_one_beat_on_db": 5.0
+    },
+    {
+     "k": 4,
+     "source": "B_23_1_shot",
+     "far": "B_21_0_far",
+     "gun": "1917",
+     "master": "Master Tracks/1917/B_23.wav",
+     "far_master": "Master Tracks/1917/B_21.wav",
+     "onset_s": 4.638,
+     "seconds": 1.0,
+     "peak_db": -5.5,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00013,
+     "above_20k": 0.0,
+     "first_1ms_db": -88.9,
+     "last_1ms_db": -131.1,
+     "slap_16th_db": 42.7,
+     "slap_8th_db": 16.7,
+     "agc_min_gain_db": 4.2,
+     "agc_gain_one_beat_on_db": 12.5
+    }
+   ]
+  },
+  {
+   "file": "guns_rifle_yours_c.mp3",
+   "gun": "rifle",
+   "perspective": "yours",
+   "version": "c",
+   "peak_db_decoded": -2.58,
+   "loud_100ms_db": -24.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "M_21_0_shot",
+     "far": "M_23_0_far",
+     "gun": "Mosin Nagant",
+     "master": "Master Tracks/Mosin Nagant/M_21.wav",
+     "far_master": "Master Tracks/Mosin Nagant/M_23.wav",
+     "onset_s": 1.032,
+     "seconds": 1.0,
+     "peak_db": -3.47,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00501,
+     "above_20k": 9.7e-05,
+     "first_1ms_db": -71.8,
+     "last_1ms_db": -154.7,
+     "slap_16th_db": 7.6,
+     "slap_8th_db": 5.9
+    },
+    {
+     "k": 1,
+     "source": "B_23_0_shot",
+     "far": "B_22_0_far",
+     "gun": "1917",
+     "master": "Master Tracks/1917/B_23.wav",
+     "far_master": "Master Tracks/1917/B_22.wav",
+     "onset_s": 1.046,
+     "seconds": 1.0,
+     "peak_db": -4.0,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00138,
+     "above_20k": 3.6e-05,
+     "first_1ms_db": -105.7,
+     "last_1ms_db": -147.7,
+     "slap_16th_db": 8.5,
+     "slap_8th_db": 3.9
+    },
+    {
+     "k": 2,
+     "source": "W_27_0_shot",
+     "far": "W_23_0_far",
+     "gun": "Tikka",
+     "master": "Master Tracks/Tikka/W_27.wav",
+     "far_master": "Master Tracks/Tikka/W_23.wav",
+     "onset_s": 0.744,
+     "seconds": 1.0,
+     "peak_db": -2.2,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00315,
+     "above_20k": 0.000193,
+     "first_1ms_db": -105.3,
+     "last_1ms_db": -171.7,
+     "slap_16th_db": -1.5,
+     "slap_8th_db": -1.4
+    },
+    {
+     "k": 3,
+     "source": "M_21_1_shot",
+     "far": "M_25_0_far",
+     "gun": "Mosin Nagant",
+     "master": "Master Tracks/Mosin Nagant/M_21.wav",
+     "far_master": "Master Tracks/Mosin Nagant/M_25.wav",
+     "onset_s": 8.108,
+     "seconds": 1.0,
+     "peak_db": -5.45,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00779,
+     "above_20k": 8.4e-05,
+     "first_1ms_db": -88.6,
+     "last_1ms_db": -144.3,
+     "slap_16th_db": 18.4,
+     "slap_8th_db": -0.6
+    },
+    {
+     "k": 4,
+     "source": "B_23_1_shot",
+     "far": "B_21_0_far",
+     "gun": "1917",
+     "master": "Master Tracks/1917/B_23.wav",
+     "far_master": "Master Tracks/1917/B_21.wav",
+     "onset_s": 4.638,
+     "seconds": 1.0,
+     "peak_db": -3.54,
+     "loud_100ms_db": -24.38,
+     "above_10k": 0.00252,
+     "above_20k": 9.9e-05,
+     "first_1ms_db": -111.9,
+     "last_1ms_db": -158.1,
+     "slap_16th_db": 9.0,
+     "slap_8th_db": 3.5
+    }
+   ]
+  },
+  {
+   "file": "guns_rifle_theirs_a.mp3",
+   "gun": "rifle",
+   "perspective": "theirs",
+   "version": "a",
+   "peak_db_decoded": -11.34,
+   "loud_100ms_db": -29.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "M_24_0_shot",
+     "far": "M_23_0_far",
+     "gun": "Mosin Nagant",
+     "master": "Master Tracks/Mosin Nagant/M_24.wav",
+     "far_master": "Master Tracks/Mosin Nagant/M_23.wav",
+     "onset_s": 0.786,
+     "seconds": 1.0,
+     "peak_db": -11.28,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00023,
+     "above_20k": 0.0,
+     "first_1ms_db": -45.2,
+     "last_1ms_db": -130.9,
+     "slap_16th_db": 21.4,
+     "slap_8th_db": 13.5,
+     "agc_min_gain_db": 0.8,
+     "agc_gain_one_beat_on_db": 9.0
+    },
+    {
+     "k": 1,
+     "source": "B_15_0_shot",
+     "far": "B_22_0_far",
+     "gun": "1917",
+     "master": "Master Tracks/1917/B_15.wav",
+     "far_master": "Master Tracks/1917/B_22.wav",
+     "onset_s": 0.556,
+     "seconds": 1.0,
+     "peak_db": -11.52,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.0001,
+     "above_20k": 0.0,
+     "first_1ms_db": -60.0,
+     "last_1ms_db": -130.0,
+     "slap_16th_db": 19.6,
+     "slap_8th_db": 8.9,
+     "agc_min_gain_db": -0.3,
+     "agc_gain_one_beat_on_db": 7.9
+    },
+    {
+     "k": 2,
+     "source": "W_22_0_shot",
+     "far": "W_23_0_far",
+     "gun": "Tikka",
+     "master": "Master Tracks/Tikka/W_22.wav",
+     "far_master": "Master Tracks/Tikka/W_23.wav",
+     "onset_s": 0.708,
+     "seconds": 1.0,
+     "peak_db": -11.37,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00011,
+     "above_20k": 0.0,
+     "first_1ms_db": -57.8,
+     "last_1ms_db": -129.5,
+     "slap_16th_db": 15.7,
+     "slap_8th_db": 15.1,
+     "agc_min_gain_db": 1.3,
+     "agc_gain_one_beat_on_db": 9.6,
+     "dropout": {
+      "at": 0.36,
+      "ms": 36.0,
+      "db": -14.0,
+      "top_hz": 3500.0
+     }
+    },
+    {
+     "k": 3,
+     "source": "M_24_1_shot",
+     "far": "M_25_0_far",
+     "gun": "Mosin Nagant",
+     "master": "Master Tracks/Mosin Nagant/M_24.wav",
+     "far_master": "Master Tracks/Mosin Nagant/M_25.wav",
+     "onset_s": 9.702,
+     "seconds": 1.0,
+     "peak_db": -13.03,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00088,
+     "above_20k": 1e-06,
+     "first_1ms_db": -62.0,
+     "last_1ms_db": -126.6,
+     "slap_16th_db": 18.9,
+     "slap_8th_db": 2.2,
+     "agc_min_gain_db": -8.1,
+     "agc_gain_one_beat_on_db": -0.1
+    },
+    {
+     "k": 4,
+     "source": "B_15_1_shot",
+     "far": "B_21_0_far",
+     "gun": "1917",
+     "master": "Master Tracks/1917/B_15.wav",
+     "far_master": "Master Tracks/1917/B_21.wav",
+     "onset_s": 9.274,
+     "seconds": 1.0,
+     "peak_db": -13.57,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00164,
+     "above_20k": 2.6e-05,
+     "first_1ms_db": -83.8,
+     "last_1ms_db": -148.5,
+     "slap_16th_db": 24.7,
+     "slap_8th_db": 1.3,
+     "agc_min_gain_db": -12.5,
+     "agc_gain_one_beat_on_db": -4.4
+    }
+   ]
+  },
+  {
+   "file": "guns_rifle_theirs_c.mp3",
+   "gun": "rifle",
+   "perspective": "theirs",
+   "version": "c",
+   "peak_db_decoded": -9.84,
+   "loud_100ms_db": -29.38,
+   "cuts": [
+    {
+     "k": 0,
+     "source": "M_24_0_shot",
+     "far": "M_23_0_far",
+     "gun": "Mosin Nagant",
+     "master": "Master Tracks/Mosin Nagant/M_24.wav",
+     "far_master": "Master Tracks/Mosin Nagant/M_23.wav",
+     "onset_s": 0.786,
+     "seconds": 1.0,
+     "peak_db": -9.54,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00407,
+     "above_20k": 3.4e-05,
+     "first_1ms_db": -74.2,
+     "last_1ms_db": -155.0,
+     "slap_16th_db": 7.3,
+     "slap_8th_db": 1.6
+    },
+    {
+     "k": 1,
+     "source": "B_15_0_shot",
+     "far": "B_22_0_far",
+     "gun": "1917",
+     "master": "Master Tracks/1917/B_15.wav",
+     "far_master": "Master Tracks/1917/B_22.wav",
+     "onset_s": 0.556,
+     "seconds": 1.0,
+     "peak_db": -11.06,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.0015,
+     "above_20k": 3.9e-05,
+     "first_1ms_db": -82.1,
+     "last_1ms_db": -152.7,
+     "slap_16th_db": 6.3,
+     "slap_8th_db": 3.5
+    },
+    {
+     "k": 2,
+     "source": "W_22_0_shot",
+     "far": "W_23_0_far",
+     "gun": "Tikka",
+     "master": "Master Tracks/Tikka/W_22.wav",
+     "far_master": "Master Tracks/Tikka/W_23.wav",
+     "onset_s": 0.708,
+     "seconds": 1.0,
+     "peak_db": -10.04,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00316,
+     "above_20k": 0.000195,
+     "first_1ms_db": -83.5,
+     "last_1ms_db": -147.1,
+     "slap_16th_db": 5.1,
+     "slap_8th_db": 2.4
+    },
+    {
+     "k": 3,
+     "source": "M_24_1_shot",
+     "far": "M_25_0_far",
+     "gun": "Mosin Nagant",
+     "master": "Master Tracks/Mosin Nagant/M_24.wav",
+     "far_master": "Master Tracks/Mosin Nagant/M_25.wav",
+     "onset_s": 9.702,
+     "seconds": 1.0,
+     "peak_db": -11.28,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00876,
+     "above_20k": 0.000144,
+     "first_1ms_db": -89.3,
+     "last_1ms_db": -143.7,
+     "slap_16th_db": 18.3,
+     "slap_8th_db": -0.7
+    },
+    {
+     "k": 4,
+     "source": "B_15_1_shot",
+     "far": "B_21_0_far",
+     "gun": "1917",
+     "master": "Master Tracks/1917/B_15.wav",
+     "far_master": "Master Tracks/1917/B_21.wav",
+     "onset_s": 9.274,
+     "seconds": 1.0,
+     "peak_db": -12.31,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00819,
+     "above_20k": 2.5e-05,
+     "first_1ms_db": -100.2,
+     "last_1ms_db": -154.7,
+     "slap_16th_db": 24.0,
+     "slap_8th_db": 0.1
+    }
+   ]
+  }
+ ],
+ "reloads": [
+  {
+   "file": "reload_pistol_a.mp3",
+   "gun": "pistol",
+   "version": "a",
+   "peak_db_decoded": -20.1,
+   "loud_100ms_db": -35.38,
+   "cuts": [
+    {
+     "k": 0,
+     "motions": [
+      {
+       "source": "A_4_0_motion",
+       "master": "Master Tracks/1911/A_4.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "A_11_0_motion",
+       "master": "Master Tracks/1911/A_11.wav",
+       "at_beats": 0.5
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -20.28,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.02481,
+     "above_20k": 4.4e-05,
+     "first_1ms_db": -39.0,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 1,
+     "motions": [
+      {
+       "source": "A_4_1_motion",
+       "master": "Master Tracks/1911/A_4.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "A_11_1_motion",
+       "master": "Master Tracks/1911/A_11.wav",
+       "at_beats": 0.5
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -20.18,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.02692,
+     "above_20k": 4.2e-05,
+     "first_1ms_db": -32.8,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 2,
+     "motions": [
+      {
+       "source": "A_4_0_motion",
+       "master": "Master Tracks/1911/A_4.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "A_11_1_motion",
+       "master": "Master Tracks/1911/A_11.wav",
+       "at_beats": 0.5
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -20.28,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.02664,
+     "above_20k": 3.5e-05,
+     "first_1ms_db": -39.0,
+     "last_1ms_db": -240.0
+    }
+   ]
+  },
+  {
+   "file": "reload_pistol_c.mp3",
+   "gun": "pistol",
+   "version": "c",
+   "peak_db_decoded": -14.11,
+   "loud_100ms_db": -35.38,
+   "cuts": [
+    {
+     "k": 0,
+     "motions": [
+      {
+       "source": "A_4_0_motion",
+       "master": "Master Tracks/1911/A_4.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "A_11_0_motion",
+       "master": "Master Tracks/1911/A_11.wav",
+       "at_beats": 0.5
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -13.14,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.3681,
+     "above_20k": 0.008555,
+     "first_1ms_db": -60.0,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 1,
+     "motions": [
+      {
+       "source": "A_4_1_motion",
+       "master": "Master Tracks/1911/A_4.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "A_11_1_motion",
+       "master": "Master Tracks/1911/A_11.wav",
+       "at_beats": 0.5
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -15.62,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.35732,
+     "above_20k": 0.006879,
+     "first_1ms_db": -56.9,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 2,
+     "motions": [
+      {
+       "source": "A_4_0_motion",
+       "master": "Master Tracks/1911/A_4.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "A_11_1_motion",
+       "master": "Master Tracks/1911/A_11.wav",
+       "at_beats": 0.5
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -15.62,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.38913,
+     "above_20k": 0.006884,
+     "first_1ms_db": -62.5,
+     "last_1ms_db": -240.0
+    }
+   ]
+  },
+  {
+   "file": "reload_shotgun_a.mp3",
+   "gun": "shotgun",
+   "version": "a",
+   "peak_db_decoded": -18.58,
+   "loud_100ms_db": -35.38,
+   "cuts": [
+    {
+     "k": 0,
+     "motions": [
+      {
+       "source": "K_3_1_motion",
+       "master": "Master Tracks/Model 12/K_3.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "K_4_0_motion",
+       "master": "Master Tracks/Model 12/K_4.wav",
+       "at_beats": 0.5
+      },
+      {
+       "source": "K_5_0_motion",
+       "master": "Master Tracks/Model 12/K_5.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -18.85,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.03157,
+     "above_20k": 0.000221,
+     "first_1ms_db": -45.4,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 1,
+     "motions": [
+      {
+       "source": "O_3_8_motion",
+       "master": "Master Tracks/Nova/O_3.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "O_4_0_motion",
+       "master": "Master Tracks/Nova/O_4.wav",
+       "at_beats": 0.5
+      },
+      {
+       "source": "O_5_0_motion",
+       "master": "Master Tracks/Nova/O_5.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -22.43,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.01847,
+     "above_20k": 8.5e-05,
+     "first_1ms_db": -45.1,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 2,
+     "motions": [
+      {
+       "source": "H_3_6_motion",
+       "master": "Master Tracks/Charles Daly/H_3.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "H_4_1_motion",
+       "master": "Master Tracks/Charles Daly/H_4.wav",
+       "at_beats": 0.5
+      },
+      {
+       "source": "H_5_0_motion",
+       "master": "Master Tracks/Charles Daly/H_5.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -24.03,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.02747,
+     "above_20k": 6.2e-05,
+     "first_1ms_db": -24.3,
+     "last_1ms_db": -240.0
+    }
+   ]
+  },
+  {
+   "file": "reload_shotgun_c.mp3",
+   "gun": "shotgun",
+   "version": "c",
+   "peak_db_decoded": -13.07,
+   "loud_100ms_db": -35.38,
+   "cuts": [
+    {
+     "k": 0,
+     "motions": [
+      {
+       "source": "K_3_1_motion",
+       "master": "Master Tracks/Model 12/K_3.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "K_4_0_motion",
+       "master": "Master Tracks/Model 12/K_4.wav",
+       "at_beats": 0.5
+      },
+      {
+       "source": "K_5_0_motion",
+       "master": "Master Tracks/Model 12/K_5.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -13.47,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.18543,
+     "above_20k": 0.002058,
+     "first_1ms_db": -68.2,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 1,
+     "motions": [
+      {
+       "source": "O_3_8_motion",
+       "master": "Master Tracks/Nova/O_3.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "O_4_0_motion",
+       "master": "Master Tracks/Nova/O_4.wav",
+       "at_beats": 0.5
+      },
+      {
+       "source": "O_5_0_motion",
+       "master": "Master Tracks/Nova/O_5.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -17.31,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.18792,
+     "above_20k": 0.001991,
+     "first_1ms_db": -66.3,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 2,
+     "motions": [
+      {
+       "source": "H_3_6_motion",
+       "master": "Master Tracks/Charles Daly/H_3.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "H_4_1_motion",
+       "master": "Master Tracks/Charles Daly/H_4.wav",
+       "at_beats": 0.5
+      },
+      {
+       "source": "H_5_0_motion",
+       "master": "Master Tracks/Charles Daly/H_5.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -14.82,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.30099,
+     "above_20k": 0.002496,
+     "first_1ms_db": -41.6,
+     "last_1ms_db": -240.0
+    }
+   ]
+  },
+  {
+   "file": "reload_rifle_a.mp3",
+   "gun": "rifle",
+   "version": "a",
+   "peak_db_decoded": -21.75,
+   "loud_100ms_db": -35.38,
+   "cuts": [
+    {
+     "k": 0,
+     "motions": [
+      {
+       "source": "M_2_0_motion",
+       "master": "Master Tracks/Mosin Nagant/M_2.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "M_4_0_motion",
+       "master": "Master Tracks/Mosin Nagant/M_4.wav",
+       "at_beats": 0.25
+      },
+      {
+       "source": "M_6_0_motion",
+       "master": "Master Tracks/Mosin Nagant/M_6.wav",
+       "at_beats": 0.75
+      },
+      {
+       "source": "M_7_0_motion",
+       "master": "Master Tracks/Mosin Nagant/M_7.wav",
+       "at_beats": 1.0
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -22.23,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.01835,
+     "above_20k": 0.00012,
+     "first_1ms_db": -47.3,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 1,
+     "motions": [
+      {
+       "source": "W_9_0_motion",
+       "master": "Master Tracks/Tikka/W_9.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "W_12_0_motion",
+       "master": "Master Tracks/Tikka/W_12.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -24.04,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.01023,
+     "above_20k": 3e-05,
+     "first_1ms_db": -61.8,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 2,
+     "motions": [
+      {
+       "source": "W_9_2_motion",
+       "master": "Master Tracks/Tikka/W_9.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "W_12_1_motion",
+       "master": "Master Tracks/Tikka/W_12.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -22.67,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.01055,
+     "above_20k": 5.3e-05,
+     "first_1ms_db": -61.0,
+     "last_1ms_db": -240.0
+    }
+   ]
+  },
+  {
+   "file": "reload_rifle_c.mp3",
+   "gun": "rifle",
+   "version": "c",
+   "peak_db_decoded": -17.03,
+   "loud_100ms_db": -35.38,
+   "cuts": [
+    {
+     "k": 0,
+     "motions": [
+      {
+       "source": "M_2_0_motion",
+       "master": "Master Tracks/Mosin Nagant/M_2.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "M_4_0_motion",
+       "master": "Master Tracks/Mosin Nagant/M_4.wav",
+       "at_beats": 0.25
+      },
+      {
+       "source": "M_6_0_motion",
+       "master": "Master Tracks/Mosin Nagant/M_6.wav",
+       "at_beats": 0.75
+      },
+      {
+       "source": "M_7_0_motion",
+       "master": "Master Tracks/Mosin Nagant/M_7.wav",
+       "at_beats": 1.0
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -19.58,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.1888,
+     "above_20k": 0.003605,
+     "first_1ms_db": -72.5,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 1,
+     "motions": [
+      {
+       "source": "W_9_0_motion",
+       "master": "Master Tracks/Tikka/W_9.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "W_12_0_motion",
+       "master": "Master Tracks/Tikka/W_12.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -16.17,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.05986,
+     "above_20k": 0.000658,
+     "first_1ms_db": -80.7,
+     "last_1ms_db": -240.0
+    },
+    {
+     "k": 2,
+     "motions": [
+      {
+       "source": "W_9_2_motion",
+       "master": "Master Tracks/Tikka/W_9.wav",
+       "at_beats": 0.0
+      },
+      {
+       "source": "W_12_1_motion",
+       "master": "Master Tracks/Tikka/W_12.wav",
+       "at_beats": 0.75
+      }
+     ],
+     "seconds": 1.15,
+     "peak_db": -18.41,
+     "loud_100ms_db": -35.38,
+     "above_10k": 0.09327,
+     "above_20k": 0.000592,
+     "first_1ms_db": -84.0,
+     "last_1ms_db": -240.0
+    }
+   ]
+  }
+ ],
+ "perspective": {
+  "yours": {
+   "r0": 10.0,
+   "db": 0.0
+  },
+  "theirs": {
+   "r0": 30.0,
+   "db": -5.0
+  }
+ },
+ "loudness": {
+  "top_loud_100ms_db": -23.38,
+  "offset_db": {
+   "shotgun": 0.0,
+   "rifle": -1.0,
+   "pistol": -3.0
+  },
+  "reload_db": -12.0
+ }
+}
