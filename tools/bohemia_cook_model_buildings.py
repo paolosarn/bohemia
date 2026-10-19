@@ -63,6 +63,7 @@ import bohemia_direction_master_rig as RIG
 
 PPM = float(RIG.G['ppm'])
 FACINGS = ['S', 'SE', 'SW']
+TURNS = ('ranch_plain', 'ranch_garage', 'ranch_carport', 'ranch_wing', 'ranch_porch')   # the map turns a house; the Strip faces its street (S only)
 M = {}
 
 
@@ -466,12 +467,14 @@ def render(name, samples=None):
     import numpy as np
     from PIL import Image
     t0 = time.time()
+    out = os.path.join(R, 'records/target/master_rig/cook_bld_%s' % name); os.makedirs(out, exist_ok=True)
+    calib = RIG.calibrate(dict(ppm=PPM, tilt=float(RIG.G['tilt_deg']), out=out, sun_rot=list(RIG.G['sun_rot_deg'])))   # the rig proves itself first
+    facings = FACINGS if name in TURNS else ['S']
     objs = build(name)
     dims = P.dims(bpy)
     glb = os.path.join(R, 'reference/models/bohemia/bld_%s.glb' % name)
     for o in bpy.context.scene.objects: o.select_set(True)
     bpy.ops.export_scene.gltf(filepath=glb, export_format='GLB', use_selection=False)
-    out = os.path.join(R, 'records/target/master_rig/cook_bld_%s' % name); os.makedirs(out, exist_ok=True)
     sc = bpy.context.scene
     src = RIG.source_pass(objs, float(RIG.G['wear']), 1.0, 0)
     dent = RIG.dent_pass(objs, 1.0)
@@ -490,20 +493,33 @@ def render(name, samples=None):
     zs = 1.0 / math.cos(math.radians(float(RIG.G['tilt_deg']))); root.scale = (1, 1, zs)
     bpy.ops.mesh.primitive_plane_add(size=400, location=(0, 0, 0)); catcher = bpy.context.active_object; catcher.is_shadow_catcher = True
     L, D, Hh = dims
-    span = math.hypot(L, D) + Hh * zs + 3.0
-    res = int(math.ceil(span * PPM / 2.0)) * 2
-    cd = bpy.data.cameras.new('cam'); cd.type = 'ORTHO'; cd.ortho_scale = res / PPM
+    # THE CANVAS: the union of the three facings' own screen boxes (the rig's square span would give the tower casino a
+    # 4,860 px square of empty sky a facing); every facing on the same canvas, so the rig's one crop box holds
+    t = math.radians(float(RIG.G['tilt_deg']))
+    pts = np.c_[lo[0] - centre.x, lo[1] - centre.y, lo[2]], np.c_[hi[0] - centre.x, hi[1] - centre.y, hi[2]]
+    corners = np.array([[x, y, z] for x in (pts[0][0, 0], pts[1][0, 0]) for y in (pts[0][0, 1], pts[1][0, 1]) for z in (pts[0][0, 2], pts[1][0, 2])])
+    us, vs = [], []
+    for f in facings:
+        a_ = math.radians(180 - 45 * RIG.FACINGS.index(f)); c_, s_ = math.cos(a_), math.sin(a_)
+        x = corners[:, 0] * c_ - corners[:, 1] * s_; y = corners[:, 0] * s_ + corners[:, 1] * c_; z = corners[:, 2] * zs
+        us += list(x); vs += list(y * math.cos(t) + z * math.sin(t))
+    m_ = 1.2
+    u0, u1, v0, v1 = min(us) - m_, max(us) + m_ + 0.5 * Hh, min(vs) - m_, max(vs) + m_   # the sun is south-west and 40 deg off the top: the cast shadow runs out 0.48 H to the right
+    rx, ry = int(math.ceil((u1 - u0) * PPM / 2)) * 2, int(math.ceil((v1 - v0) * PPM / 2)) * 2
+    res = [rx, ry]
+    cd = bpy.data.cameras.new('cam'); cd.type = 'ORTHO'; cd.sensor_fit = 'AUTO'; cd.ortho_scale = max(rx, ry) / PPM
     cam = bpy.data.objects.new('cam', cd); sc.collection.objects.link(cam); sc.camera = cam
-    t = math.radians(float(RIG.G['tilt_deg'])); cam.rotation_euler = (t, 0, 0)
-    look = mathutils.Vector((0, 0, Hh * zs / 2)); dvec = mathutils.Vector((0, math.sin(t), -math.cos(t)))
-    cam.location = look - dvec * 120; cd.clip_end = 600
-    sc.render.resolution_x = sc.render.resolution_y = res
+    cam.rotation_euler = (t, 0, 0)
+    up = mathutils.Vector((0, math.cos(t), math.sin(t))); dvec = mathutils.Vector((0, math.sin(t), -math.cos(t)))
+    look = mathutils.Vector(((u0 + u1) / 2, 0, 0)) + up * ((v0 + v1) / 2)
+    cam.location = look - dvec * 150; cd.clip_end = 700
+    sc.render.resolution_x, sc.render.resolution_y = rx, ry
     A = dict(sun_rot=list(RIG.G['sun_rot_deg']), snap=0.6, ring=float(RIG.G['ring']))
     RIG.light_and_film(sc, A)
     if samples: sc.cycles.samples = samples
     sc.cycles.use_adaptive_sampling = True
     raws, shads = [], []
-    for f in FACINGS:
+    for f in facings:
         root.rotation_euler = (0, 0, math.radians(180 - 45 * RIG.FACINGS.index(f)))
         fn = os.path.join(out, 'full_%s.png' % f); sc.render.filepath = fn; bpy.ops.render.render(write_still=True)
         a = np.asarray(Image.open(fn).convert('RGBA')).copy()
@@ -515,15 +531,16 @@ def render(name, samples=None):
         print('  facing', f, round(time.time() - t0), 's', flush=True)
     pop, bins, ntiles = RIG.population('settlement')
     outs, box = RIG.post(raws, out, A, pop, shadow=False)
-    for f, s in zip(FACINGS, shads):
+    for f, s in zip(facings, shads):
         Image.open(s).crop(tuple(box)).save(os.path.join(out, 'shadow_%s.png' % f))
     rel = lambda p: os.path.relpath(p, R)
-    card = RIG.card(outs[FACINGS.index('S')], 'prop'); gcard = RIG.guide_card(card, outs[FACINGS.index('S')], 'prop')
+    card = RIG.card(outs[0], 'prop'); gcard = RIG.guide_card(card, outs[0], 'prop')
     used = dict(RIG.G); used.update(samples=int(sc.cycles.samples))
     used = {k: v for k, v in used.items() if not k.startswith('_') and k != 'calibration'}
     meta = dict(model=rel(glb), lane='cook', row='[the buildings through the rig]', made='10/19', real_dims_m=dims, ppm=PPM,
-                camera=dict(tilt_deg=float(RIG.G['tilt_deg']), turn_deg=0, ortho=True), z_stretch=round(zs, 4), facings=FACINGS,
-                res=res, crop_box_px=box, files=[rel(o) for o in outs], shadow_files=[rel(os.path.join(out, 'shadow_%s.png' % f)) for f in FACINGS],
+                camera=dict(tilt_deg=float(RIG.G['tilt_deg']), turn_deg=0, ortho=True), z_stretch=round(zs, 4), facings=facings,
+                rig_round=RIG.RIG_ROUND, calibration=calib,
+                res=res, crop_box_px=box, files=[rel(o) for o in outs], shadow_files=[rel(os.path.join(out, 'shadow_%s.png' % f)) for f in facings],
                 shadow='a catcher under the building: its own cast shadow and contact darkness, black at alpha, its own layer',
                 snap=dict(family='settlement', pull=0.6, bins=bins, tiles=ntiles), ring=A['ring'], source_pass=src, dents=dent,
                 occlusion_rays='one a camera sample (tools/bohemia_cook_rig_one_ray.py)', card=card, card_guide=gcard,
@@ -539,5 +556,7 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     smp = int(a[a.index('--samples') + 1]) if '--samples' in a else None
     for n in [x for x in a if x in BUILDERS] or list(BUILDERS):
-        render(n, smp)
+        if '--build-only' in a:
+            import bpy; build(n); print(n, 'DIMS', P.dims(bpy), 'materials', len([m for m in bpy.data.materials if m.users]), 'objects', len(bpy.context.scene.objects), flush=True)
+        else: render(n, smp)
     sys.stdout.flush(); os._exit(0)

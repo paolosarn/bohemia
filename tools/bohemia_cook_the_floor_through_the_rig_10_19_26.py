@@ -65,37 +65,39 @@ PAL = json.load(open(os.path.join(R, 'records/target/BOHEMIA_STYLE_PALETTE.json'
 
 # the plan's grounds (step one's order) and the ones this tool adds from the street kit
 PLAN_GROUNDS = ['caliche', 'desert', 'rough', 'playa', 'concrete', 'asphalt', 'track']
-IDS = PLAN_GROUNDS + ['paint', 'lawn']
+IDS = PLAN_GROUNDS + ['paint', 'lawn', 'gutter']
 ID = {n: i for i, n in enumerate(IDS)}
 
 # THE MATERIALS: a palette role and step for the base (the props modeller's source palette), a target from his YES street
 # (sRGB, read off records/target/COOK2_ONE_REAL_STREET.webp: road median 64,61,61; dirt 172,157,134), the height and the
 # surface features in metres. 'cal' is the calibration's value multiplier (records the render meeting the target).
 MATS = {
-    'asphalt':  dict(role=('rubber', 2), target=(66, 63, 61), h=0.0, alt=('rubber', 1), alt_amt=0.12, grit=0.10, speck=(90, 0.22),
-                     cracks=dict(cell=0.42, width=0.010, region=0.22, cut=0.52, depth=0.6), long_cracks=dict(cell=5.0, width=0.012),
-                     patches=dict(scale=0.18, cut=0.78, mul=0.72), oil=dict(scale=0.9, cut=0.74, mul=0.62)),
-    'paint':    dict(role=('tape_grey', 3), target=(150, 142, 126), h=0.0, alt=('tape_grey', 2), alt_amt=0.2, grit=0.10, speck=(90, 0.12),
-                     wornthrough=dict(scale=6.0, cut=0.42, to=('rubber', 2))),
-    'concrete': dict(role=('tape_grey', 2), target=(156, 149, 134), h=0.15, alt=('clay_bone', 2), alt_amt=0.35, grit=0.07, speck=(70, 0.10),
+    'asphalt':  dict(role=('rubber', 2), target=(68, 65, 62), h=0.0, alt=('rubber', 3), alt_amt=0.22, grit=0.16, speck=(45, 0.38),
+                     cracks=dict(cell=0.34, width=0.026, region=0.35, cut=0.46, depth=0.8), long_cracks=dict(cell=3.2, width=0.032),
+                     patches=dict(scale=0.22, cut=0.7, mul=0.6), oil=dict(scale=0.9, cut=0.72, mul=0.6), pot=True),
+    'paint':    dict(role=('tape_grey', 3), target=(120, 113, 102), h=0.0, alt=('tape_grey', 2), alt_amt=0.2, grit=0.10, speck=(45, 0.14),
+                     wornthrough=dict(scale=2.2, cut=0.30, to=('rubber', 2))),
+    'gutter':   dict(role=('tape_grey', 2), target=(142, 139, 133), h=0.0, alt=('clay_bone', 1), alt_amt=0.15, grit=0.10, speck=(60, 0.14),
+                     joints=dict(pitch=3.0, width=0.016), panel_var=0.06),
+    'concrete': dict(role=('tape_grey', 2), target=(166, 162, 154), h=0.15, alt=('clay_bone', 2), alt_amt=0.12, grit=0.08, speck=(70, 0.12),
                      joints=dict(pitch=1.5, width=0.014), panel_var=0.07, cracks=dict(cell=0.9, width=0.008, region=0.35, cut=0.6, depth=0.5)),
-    'caliche':  dict(role=('clay_bone', 2), target=(170, 157, 135), h=0.11, alt=('clay_bone', 1), alt_amt=0.06, grit=0.12, speck=(55, 0.16)),
-    'desert':   dict(role=('clay_bone', 2), target=(174, 159, 134), h=0.04, alt=('tape_masking', 2), alt_amt=0.18, grit=0.13, speck=(50, 0.18)),
-    'rough':    dict(role=('clay_bone', 2), target=(160, 149, 130), h=0.06, alt=('clay_bone', 1), alt_amt=0.14, grit=0.15, speck=(45, 0.22)),
-    'playa':    dict(role=('clay_bone', 3), target=(182, 171, 150), h=-0.22, alt=('clay_bone', 2), alt_amt=0.10, grit=0.07, speck=(70, 0.08),
+    'caliche':  dict(role=('clay_bone', 2), target=(170, 157, 135), h=0.11, alt=('clay_bone', 1), alt_amt=0.05, grit=0.42, speck=(45, 0.5)),
+    'desert':   dict(role=('clay_bone', 2), target=(174, 159, 134), h=0.04, alt=('tape_masking', 2), alt_amt=0.1, grit=0.4, speck=(40, 0.48)),
+    'rough':    dict(role=('clay_bone', 2), target=(160, 149, 130), h=0.06, alt=('clay_bone', 1), alt_amt=0.1, grit=0.42, speck=(36, 0.5)),
+    'playa':    dict(role=('clay_bone', 3), target=(182, 171, 150), h=-0.22, alt=('clay_bone', 2), alt_amt=0.08, grit=0.2, speck=(60, 0.25),
                      mud=dict(cell=0.32, width=0.016, depth=0.8)),
-    'track':    dict(role=('clay_bone', 2), target=(152, 140, 120), h=-0.02, alt=('clay_bone', 1), alt_amt=0.25, grit=0.08, speck=(60, 0.10)),
+    'track':    dict(role=('clay_bone', 2), target=(152, 140, 120), h=-0.02, alt=('clay_bone', 1), alt_amt=0.15, grit=0.3, speck=(40, 0.36)),
     'lawn':     dict(role=('metal_painted', 2), target=(104, 116, 74), h=0.12, alt=('metal_painted', 1), alt_amt=0.3, grit=0.18, speck=(110, 0.25),
                      green=0.35),
 }
 # THE STONES: what lies on the ground, per ground: (per m2, min m, max m, the stone materials)
 STONES = {
-    'desert':  [(4.0, 0.035, 0.09, 'pebble'), (0.25, 0.10, 0.28, 'rock')],
-    'caliche': [(1.2, 0.03, 0.07, 'pebble')],
-    'rough':   [(3.0, 0.04, 0.10, 'pebble'), (1.4, 0.08, 0.30, 'rubble'), (0.35, 0.06, 0.16, 'brick')],
-    'track':   [(1.0, 0.03, 0.07, 'pebble')],
-    'playa':   [(0.25, 0.03, 0.08, 'pebble')],
-    'gutter':  [(3.5, 0.025, 0.06, 'gravel')],
+    'desert':  [(4.0, 0.05, 0.13, 'pebble'), (0.35, 0.14, 0.34, 'rock')],
+    'caliche': [(1.8, 0.045, 0.11, 'pebble'), (0.06, 0.12, 0.22, 'rock')],
+    'rough':   [(3.0, 0.05, 0.12, 'pebble'), (1.4, 0.08, 0.30, 'rubble'), (0.35, 0.06, 0.16, 'brick')],
+    'track':   [(1.2, 0.04, 0.09, 'pebble')],
+    'playa':   [(0.25, 0.04, 0.09, 'pebble')],
+    'gutter':  [(4.0, 0.03, 0.07, 'gravel')],
 }
 STONE_MATS = {'pebble': ('clay_bone', 1), 'rock': ('clay_bone', 2), 'rubble': ('tape_grey', 2), 'brick': ('clay_rust', 1), 'gravel': ('tape_grey', 1)}
 
@@ -127,7 +129,7 @@ def street_ids(bid, ship):
         elif '_ns' in piece: walk = (xm < 1.5) | (xm > 10.5); near = (xm < 1.75) | (xm > 10.25)
         else: walk = near = np.zeros((364, 515), bool)
         L = kit.astype(np.float32) @ np.array([0.299, 0.587, 0.114], np.float32)
-        paint = ((blur(L, 1.6) > 88) | (L > 150)) & ~near
+        paint = (blur(L, 1.6) > 88) & ~near
         out[y0:y0 + 364, x0:x0 + 515] = np.where(walk, ID['concrete'], np.where(paint, ID['paint'], ID['asphalt']))
     return out
 
@@ -192,7 +194,7 @@ def heights(g, rng):
     """the ground's heights on the grid (g: ids on the grid, rows north to south): the curb is sharp, the dirt is soft"""
     H0 = np.zeros(g.shape, np.float32)
     for n, k in ID.items(): H0[g == k] = MATS[n]['h']
-    sharp = np.isin(g, [ID['asphalt'], ID['paint'], ID['concrete']])
+    sharp = np.isin(g, [ID['asphalt'], ID['paint'], ID['concrete'], ID['gutter']])
     soft = blur(H0, 0.45 / STEP)
     h = np.where(sharp, H0, soft)
     # the desert rolls, the yard is lumpy, the rough is heaped, the wash bed is flat
@@ -212,7 +214,7 @@ def heights(g, rng):
     pots = np.zeros(g.shape, np.float32)
     rr = np.argwhere(road[::8, ::8]) * 8
     if len(rr):
-        for y, x in rr[rng.choice(len(rr), min(len(rr), max(1, int(road.sum() * STEP * STEP / 260))), replace=False)]:
+        for y, x in rr[rng.choice(len(rr), min(len(rr), max(1, int(road.sum() * STEP * STEP / 70))), replace=False)]:
             r = rng.uniform(0.18, 0.5) / STEP; yy, xx = np.ogrid[-int(r) - 1:int(r) + 2, -int(r) - 1:int(r) + 2]
             d = np.sqrt(yy * yy + xx * xx) / r
             w = np.clip(1.0 - d ** 3, 0, 1) * rng.uniform(0.035, 0.07)
@@ -286,7 +288,7 @@ def ground_material(bpy, name):
         base = (base[0] * (1 - spec['green']), base[1] * (1 + spec['green'] * 0.6), base[2] * (1 - spec['green'])); alt = base
     col = T.mix(T.math('MULTIPLY', T.noise(0.7, 3, 0.5, (seed, 0, 0)), spec['alt_amt'] * 2, clamp=True), base, alt)
     # the grit: a value step in metres (two to three pixels), and the speck: single stones of the aggregate, cell colours
-    g1 = T.ramp(T.noise(18.0, 2, 0.6, (seed, 3, 0)), 0.3, 0.7, 1 - spec['grit'], 1 + spec['grit'])
+    g1 = T.ramp(T.noise(30.0, 2, 0.6, (seed, 3, 0)), 0.3, 0.7, 1 - spec['grit'], 1 + spec['grit'])
     vor = T.new('ShaderNodeTexVoronoi', Scale=1.0); T.link(T.coords(spec['speck'][0], (0, seed, 0)), vor.inputs['Vector'])
     sp = T.new('ShaderNodeSeparateColor'); T.link(vor.outputs['Color'], sp.inputs['Color'])
     g2 = T.ramp(sp.outputs['Red'], 0.0, 1.0, 1 - spec['speck'][1], 1 + spec['speck'][1])
@@ -328,13 +330,16 @@ def ground_material(bpy, name):
         mu = spec['mud']; e = T.edges(mu['cell'], mu['width'], 0.25, (seed, 2, 2))
         darken(e, 0.35); height = T.math('SUBTRACT', height, T.math('MULTIPLY', e, mu['depth']))
     if 'wornthrough' in spec:
-        wt = spec['wornthrough']; worn = T.ramp(T.noise(wt['scale'], 4, 0.65, (seed, 5, 5)), wt['cut'], wt['cut'] + 0.1)
+        wt = spec['wornthrough']; worn = T.ramp(T.noise(wt['scale'], 4, 0.65, (seed, 5, 5)), wt['cut'] + 0.1, wt['cut'])   # 1 where the noise is under the cut
         col = T.mix(worn, col, tuple(c * cal_mul().get('asphalt', 1.0) for c in role_lin(*wt['to'])))
     # the gutter: sand blown against the curb (the 'gutter' attribute, 1 at the curb's foot)
-    if name in ('asphalt', 'paint'):
+    if name in ('asphalt', 'paint', 'gutter'):
         at = T.new('ShaderNodeAttribute', _attribute_name='gutter')
         sand = T.math('MULTIPLY', at.outputs['Fac'], T.ramp(T.noise(3.0, 3, 0.6, (seed, 1, 9)), 0.3, 0.6, 0.35, 0.95))
         col = T.mix(sand, col, tuple(c * cal_mul().get('caliche', 1.0) for c in role_lin('clay_bone', 2)))
+    if spec.get('pot'):                                       # the pothole's floor: the road's gravel base, pale and dusty
+        pa = T.new('ShaderNodeAttribute', _attribute_name='pot')
+        col = T.mix(T.math('MULTIPLY', pa.outputs['Fac'], 0.85, clamp=True), col, tuple(c * cal_mul().get('caliche', 1.0) * 0.8 for c in role_lin('clay_bone', 1)))
     if dark is not None: val = T.math('MULTIPLY', val, dark)
     vv = T.new('ShaderNodeCombineColor'); [T.link(val, vv.inputs[i]) for i in range(3)]
     col = T.mix(1.0, col, vv.outputs['Color'], 'MULTIPLY')
@@ -353,7 +358,7 @@ def stone_material(bpy, kind):
     return m
 
 
-def grid_mesh(bpy, g, h, gutter, mats):
+def grid_mesh(bpy, g, h, gutter, mats, pots=None):
     """the ground as one mesh: a vertex every STEP metres (two pixels), x east, y north, the face's material from the plan"""
     ny, nx = g.shape
     xs = np.arange(nx, dtype=np.float32) * STEP - 1.0
@@ -372,6 +377,8 @@ def grid_mesh(bpy, g, h, gutter, mats):
     me.polygons.foreach_set('material_index', fid.ravel().astype(np.int32))
     me.polygons.foreach_set('use_smooth', np.ones(len(q), bool))
     at = me.attributes.new('gutter', 'FLOAT', 'POINT'); at.data.foreach_set('value', gutter.ravel().astype(np.float32))
+    pt = me.attributes.new('pot', 'FLOAT', 'POINT')
+    pt.data.foreach_set('value', (np.clip(pots / 0.03, 0, 1) if pots is not None else np.zeros(g.shape)).ravel().astype(np.float32))
     o = bpy.data.objects.new('ground', me); bpy.context.scene.collection.objects.link(o)
     return o
 
@@ -430,11 +437,18 @@ def to_grid(a, nearest=True):
 def build(bpy, gid_full, seed, quick=False):
     rng = np.random.RandomState(seed)
     g = to_grid(fill_nearest(gid_full))
+    # THE GUTTER PAN: Clark County's curb and gutter is an L, a concrete pan 0.45 m wide at the road's edge under every curb
+    curbside = (g == ID['concrete']).astype(np.float32)
+    near = blur(curbside, 0.18 / STEP) > 0.02
+    pan = near & (g == ID['asphalt'])
+    for _ in range(int(0.45 / STEP)):                         # grow the pan out from the curb, two pixels a step
+        grow = np.zeros_like(pan); grow[1:] |= pan[:-1]; grow[:-1] |= pan[1:]; grow[:, 1:] |= pan[:, :-1]; grow[:, :-1] |= pan[:, 1:]
+        pan |= grow & (g == ID['asphalt'])
+    g[pan] = ID['gutter']
     h, pots = heights(g, rng)
-    curbside = np.isin(g, [ID['concrete']]).astype(np.float32)
-    gutter = np.clip(blur(curbside, 0.35 / STEP) * 2.2, 0, 1) * np.isin(g, [ID['asphalt'], ID['paint']])
+    gutter = np.clip(blur(np.isin(g, [ID['gutter']]).astype(np.float32), 0.25 / STEP) * 2.0, 0, 1) * np.isin(g, [ID['asphalt'], ID['paint'], ID['gutter']])
     mats = {n: ground_material(bpy, n) for n in IDS}
-    o = grid_mesh(bpy, g, h, gutter, mats)
+    o = grid_mesh(bpy, g, h, gutter, mats, pots)
     tpl = ico(bpy); smats = {k: stone_material(bpy, k) for k in STONE_MATS}
     objs = [o] + ([] if quick else scatter(g, h, gutter, rng, tpl, smats, bpy))
     return objs, g
