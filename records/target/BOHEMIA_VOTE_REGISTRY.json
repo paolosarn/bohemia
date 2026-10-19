@@ -11286,6 +11286,25 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.html"
    }
+  },
+  {
+   "id": "sounds-the-guns-heard-10-19",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "184aaf6d",
+   "made": "10/19",
+   "title": "REAL GUNS IN THE FIGHT",
+   "why": "Every gun in the fight was one made-up bang (five shots in six came out almost silent), the pistol made a sword's whoosh and a reload made nothing, so these are nine real guns from a real range, in the street on an old camcorder tape (A) or clean (C). You hear it on this page by tapping a gun or watching the real fight play itself, beside what plays now (B), and in the COMBAT tab once you say yes.",
+   "options": [
+    "A, the real guns, in the street on tape",
+    "B, keep what plays now",
+    "C, the real guns, clean"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_GUNS_HEARD_10_19_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
