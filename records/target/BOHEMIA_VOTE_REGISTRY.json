@@ -11987,7 +11987,45 @@
    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
    "light": "guide"
   }
- }
+ },
+  {
+   "id": "cook4-mob-on-the-strip-ground-10-19",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "30ab9291",
+   "made": "10/19",
+   "title": "PLACEHOLDER: THE MOB'S FORTRESS, STANDING ON THE STRIP'S OWN GROUND",
+   "why": "The picture the Mob opens on is cut from what the map has there: the Strip's grey-tan dirt (your soil tiles, every grain kept, put in the map's light), the Strip's road in front running off both sides, a wall of concrete barriers with the gate open, and the Strip's four you just got, with the tower casino as the keep. You see it in the VOTE tab beside the map at its closest zoom and the concrete picture the Mob opens on today, a placeholder until you say so.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_PLACE_SITS_IN_THE_MAP_THE_STRIP.webp",
+    "first": "../records/target/vote_first/cook4-mob-on-the-strip-ground-10-19.webp",
+    "firstAt": [30, 2475, 2640, 1440]
+   },
+   "twin": {
+    "src": "reference/art_pipe/cook4/place_in_the_map/COOK4_PLACE_MOB_NEAR.webp",
+    "diffs": [
+     "DIRT: the map round the Mob is the resort block's grey-tan (142,134,122 on his glass), greyer than the suburb's; the picture it opens on today is his cracked concrete in its own colour, 12.0 off; ours is his soil tiles toned to the map by brightness, 0.7 off, every grain kept (his YES street's bar: 6 of 6, today's picture 3 of 5).",
+     "ROAD: the map's resort block is edged by streets; the old picture has no road at all; ours is the Strip's road in front, his asphalt 0.9 off the map's, his kerb and walk, his worn double yellow, running off both sides and the bottom.",
+     "WHAT A FORTRESS IS: the old picture is a palisade round a few huts; ours is the Strip built up as the map has it: a line of his concrete barriers with sandbags and wire, the gate open at the tower casino's doors (the keep), the sign tower, the chapel and the pawn shop in front, the motel and the gas station cut by the frame: no slab, no frame."
+    ]
+   },
+   "before_after": {
+    "before": "the pack fortress the Mob opens on today: his cracked concrete as bought and a palisade, no road (slices/settlement_ground_packs/fortress_0.webp)",
+    "after": "the Mob on the Strip's own ground: the map's dirt, the Strip's road, the barrier line and its gate, the tower casino as the keep and barber, the chapel as the clinic, the pawn shop as the stall",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_pipe/cook4/place_in_the_map/COOK4_FORTRESS_MOB_ON_THE_STRIP.webp"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_pipe/cook4/place_in_the_map/COOK4_THE_MAP_GROUND_THE_STRIP.json",
+    "light": "top"
+   }
+  }
  ],
  "verdicts": [
   {
