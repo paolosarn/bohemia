@@ -161,7 +161,8 @@ Every asset in the game today is a placeholder: made fast, never final, never ed
 - cook-the-far-end-from-his-picks-10-10
 - cook-the-markers-you-can-find-10-10
 
-## COOK 4 (14 placeholder cards)
+## COOK 4 (15 placeholder cards)
+- cook4-the-wedding-chapel-10-19 (the Strip's wedding chapel: one room of his plaster under the measured tan roof, a bell cote with his cross, his plank doors under a canopy, the blank sign on its pole, two flower boxes in bloom, reference/art_pipe/cook4/strip/COOK4_THE_WEDDING_CHAPEL.png)
 - cook4-the-pawn-shop-10-19 (the Strip's pawn shop: one storey of his plaster under the measured tan roof, four barred display windows, the steel door, the blank fascia box, an empty queue for forty in front, reference/art_pipe/cook4/strip/COOK4_THE_PAWN_SHOP.png)
 - cook4-the-tower-casino-10-19 (the Strip's second casino, its first tower: eight storeys of rooms over a windowless gaming floor under the measured tan roof, the top floor shuttered and whole, reference/art_pipe/cook4/strip/COOK4_THE_TOWER_CASINO.png)
 - cook4-church-on-the-map-ground-10-19 (Church, the first town you tap, on the map's own ground: his soil balanced to the map's dirt, the arterial in front, the barber, the church as the clinic, the Strip at the right edge, reference/art_pipe/cook4/place_in_the_map/COOK4_TOWN_CHURCH_ON_THE_SUBURB_GRID.webp and its hotspots .json)
