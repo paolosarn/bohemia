@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3992,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.399 m",
- "ppm": 320.637,
+ "head_m": 0.3928,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.393 m",
+ "ppm": 325.829,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -40,10 +40,10 @@
  "crop_box_px": [
   1,
   46,
-  207,
+  206,
   218
  ],
  "model": "records/portrait/rig/crew/cast_bedroll_head.glb",
  "body_rig": "rig.json",
- "colours": 13939
+ "colours": 24251
 }
