@@ -1,0 +1,4198 @@
+{
+ "lane": "combat 2",
+ "row": "[the casino board]",
+ "rule": "52 no two boards the same; 79 the routine fight a middle board; 100 candidates only; 108 nothing drawn; 117 one look; 120 guns first, lines and cover",
+ "ruler": {
+  "px_per_m": 57.14,
+  "house_tile_m": 11.5,
+  "house_tile_px": [
+   656,
+   648
+  ],
+  "board": "middle, 14 x 10 house tiles = 161 x 115 m"
+ },
+ "camera": "the pack's: square ground from above, objects and faces three-quarter; the street wall's inner face is the wall it shows",
+ "opening_frame": "the board whole on an upright phone, 1170 device px wide (rule 104a)",
+ "sources": {
+  "building": "tools/bohemia_cook4_the_casino.py hall() (COOK FOUR), its render, glass leaves, open pair and fire exits",
+  "street_in_the_door": "COOK TWO's sidewalk cell (tools/bohemia_cook2_stretch_the_pack_47_10_13_26.py)",
+  "floor_and_pieces": "banks/BOHEMIA_HD_TILE_REPO_part1-4.txt, his tiles whole at an integer scale"
+ },
+ "holes": [
+  "no carpet in the bank: the bare slab stands where it was pulled up",
+  "no column taller than 3.4 m at x2",
+  "no slot machine's back: every bank faces south, the camera's side",
+  "every pack screen is lit: the fight's dark pass lights only the three on a battery"
+ ],
+ "prop_scales": {
+  "slot": {
+   "scale": 1,
+   "fight": "cover",
+   "why": "a slot machine is 1.9 m tall, 0.7 m wide; his cabinet 96 px = 1.7 m at 1x"
+  },
+  "counter": {
+   "scale": 1,
+   "fight": "cover",
+   "why": "a cashier's counter is 1.1 m; his counter at 1x, his grate behind it to 2.4 m"
+  },
+  "grate": {
+   "scale": 1,
+   "fight": "cover",
+   "why": "teller bars over the counter: his grate 96 x 80 px = 1.7 x 1.4 m at 1x"
+  },
+  "table": {
+   "scale": 1,
+   "fight": "low",
+   "why": "a card table is 0.75 m tall, 1.5 to 2.7 m across; his table 1.7 m at 1x"
+  },
+  "bar": {
+   "scale": 1,
+   "fight": "low",
+   "why": "a bar counter is 1.1 m; his counter with its stools at 1x"
+  },
+  "column": {
+   "scale": 2,
+   "fight": "obstacle",
+   "why": "a casino column is 1 m thick, 5 m tall; his column x2 = 1 m by 3.4 m (no taller one exists)"
+  },
+  "drum": {
+   "scale": 1,
+   "fight": "low",
+   "why": "a drum is 0.9 m; 1x is 1.6 m, no integer under 1"
+  }
+ },
+ "pieces": {
+  "COMBAT2_THE_CASINO_BOARD_10_19": {
+   "src": "COMBAT2_THE_CASINO_BOARD_10_19.webp",
+   "keys": [
+    {
+     "pack": "Streets props and urban",
+     "idx": 47
+    },
+    {
+     "pack": "Machines and tech",
+     "idx": 13
+    },
+    {
+     "pack": "19. Miscellaneous (1)",
+     "idx": 46
+    },
+    {
+     "pack": "Furniture and fixtures",
+     "idx": 7
+    },
+    {
+     "pack": "Tables, chairs and sitting",
+     "idx": 34
+    },
+    {
+     "pack": "Structures and columns",
+     "idx": 1
+    },
+    {
+     "pack": "Furniture and fixtures",
+     "idx": 8
+    },
+    {
+     "pack": "Tables, chairs and sitting",
+     "idx": 37
+    },
+    {
+     "pack": "Tables, chairs and sitting",
+     "idx": 38
+    },
+    {
+     "pack": "Tables, chairs and sitting",
+     "idx": 36
+    },
+    {
+     "pack": "Furniture and fixtures",
+     "idx": 9
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 0
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 1
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 2
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 6
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 7
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 0
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 1
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 2
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 7
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 8
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 9
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 15
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 16
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 17
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 18
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 19
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 20
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 21
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 22
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 24
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 4
+    },
+    {
+     "pack": "Floor tiles (1)",
+     "idx": 1
+    },
+    {
+     "pack": "Floor tiles (1)",
+     "idx": 2
+    },
+    {
+     "pack": "Floor tiles (1)",
+     "idx": 3
+    },
+    {
+     "pack": "Floor tiles (1)",
+     "idx": 4
+    },
+    {
+     "pack": "Floor tiles (1)",
+     "idx": 6
+    },
+    {
+     "pack": "Floor tiles and wall tiles",
+     "idx": 5
+    }
+   ]
+  }
+ },
+ "keys_used": [
+  [
+   "Streets props and urban",
+   47,
+   759,
+   "never judged"
+  ],
+  [
+   "Machines and tech",
+   13,
+   301,
+   "never judged"
+  ],
+  [
+   "19. Miscellaneous (1)",
+   46,
+   19,
+   "never judged"
+  ],
+  [
+   "Furniture and fixtures",
+   7,
+   16,
+   "UP"
+  ],
+  [
+   "Tables, chairs and sitting",
+   34,
+   14,
+   "never judged"
+  ],
+  [
+   "Structures and columns",
+   1,
+   10,
+   "never judged"
+  ],
+  [
+   "Furniture and fixtures",
+   8,
+   8,
+   "UP"
+  ],
+  [
+   "Tables, chairs and sitting",
+   37,
+   6,
+   "never judged"
+  ],
+  [
+   "Tables, chairs and sitting",
+   38,
+   6,
+   "never judged"
+  ],
+  [
+   "Tables, chairs and sitting",
+   36,
+   5,
+   "never judged"
+  ],
+  [
+   "Furniture and fixtures",
+   9,
+   2,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   0,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   1,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   2,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   6,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   7,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   0,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   1,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   2,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   7,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   8,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   9,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   15,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   16,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   17,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   18,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   19,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   20,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   21,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   22,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   24,
+   1,
+   "UP"
+  ],
+  [
+   "8. Burned Ground and fire marks",
+   4,
+   1,
+   "UP"
+  ],
+  [
+   "Floor tiles (1)",
+   1,
+   1,
+   "UP"
+  ],
+  [
+   "Floor tiles (1)",
+   2,
+   1,
+   "UP"
+  ],
+  [
+   "Floor tiles (1)",
+   3,
+   1,
+   "UP"
+  ],
+  [
+   "Floor tiles (1)",
+   4,
+   1,
+   "UP"
+  ],
+  [
+   "Floor tiles (1)",
+   6,
+   1,
+   "UP"
+  ],
+  [
+   "Floor tiles and wall tiles",
+   5,
+   1,
+   "UP"
+  ]
+ ],
+ "board": {
+  "tiles_across": 14,
+  "tiles_down": 10,
+  "px": [
+   9184,
+   6480
+  ],
+  "metres": [
+   161.0,
+   115.0
+  ],
+  "plan": [
+   [
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "cage",
+    "cage",
+    "cage"
+   ],
+   [
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "cage",
+    "cage",
+    "cage"
+   ],
+   [
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle"
+   ],
+   [
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "cleared"
+   ],
+   [
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle"
+   ],
+   [
+    "pit",
+    "pit",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "cleared",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots"
+   ],
+   [
+    "pit",
+    "pit",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "cleared",
+    "slots"
+   ],
+   [
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle",
+    "aisle"
+   ],
+   [
+    "bar",
+    "bar",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots"
+   ],
+   [
+    "lounge",
+    "lounge",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots",
+    "aisle",
+    "slots",
+    "slots",
+    "slots"
+   ]
+  ],
+  "terrain": [
+   [
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "height",
+    "height",
+    "height"
+   ],
+   [
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "height",
+    "height",
+    "height"
+   ],
+   [
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "flat",
+    "flat",
+    "flat"
+   ],
+   [
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "flat"
+   ],
+   [
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat"
+   ],
+   [
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "flat",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough"
+   ],
+   [
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "flat",
+    "rough"
+   ],
+   [
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat",
+    "flat"
+   ],
+   [
+    "flat",
+    "flat",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough"
+   ],
+   [
+    "flat",
+    "flat",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough",
+    "flat",
+    "rough",
+    "rough",
+    "rough"
+   ]
+  ],
+  "cover_by_tile": [
+   [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    "high",
+    "high",
+    "high"
+   ],
+   [
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    null
+   ],
+   [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "low",
+    "low",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    null,
+    "high",
+    null,
+    "high",
+    "high",
+    "high"
+   ],
+   [
+    "low",
+    "low",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    null,
+    "high"
+   ],
+   [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "low",
+    "low",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high"
+   ],
+   [
+    null,
+    null,
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high",
+    null,
+    "high",
+    "high",
+    "high"
+   ]
+  ],
+  "start": {
+   "party": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   "enemy": [
+    [
+     3,
+     11
+    ],
+    [
+     3,
+     12
+    ],
+    [
+     3,
+     13
+    ],
+    [
+     4,
+     11
+    ],
+    [
+     4,
+     12
+    ],
+    [
+     4,
+     13
+    ],
+    [
+     0,
+     11
+    ],
+    [
+     0,
+     12
+    ],
+    [
+     0,
+     13
+    ],
+    [
+     1,
+     11
+    ],
+    [
+     1,
+     12
+    ],
+    [
+     1,
+     13
+    ]
+   ]
+  },
+  "counts": {
+   "standing": 1147,
+   "kinds": {
+    "bar": 12,
+    "column": 10,
+    "counter": 19,
+    "drum": 1,
+    "grate": 19,
+    "slot": 1060,
+    "table": 26
+   },
+   "no_fight_fact": 0,
+   "words": 0,
+   "specks": 0,
+   "lit": 5,
+   "cover_pieces": 193,
+   "spots_at_the_opening_frame": {
+    "spots": 244,
+    "specks": 0,
+    "share": 0.1094
+   },
+   "eye_count_control": {
+    "planted": 12,
+    "counted": 12
+   }
+  },
+  "the_fight_reads": {
+   "new": {
+    "tiles": 140,
+    "cover_within_one_step": 0.929,
+    "covered_tiles": 61,
+    "covered_with_a_shot_out": 0.934,
+    "lanes_across_west_to_east": [
+     0,
+     1,
+     4,
+     7
+    ],
+    "lanes_across_north_to_south": [
+     2,
+     6,
+     10
+    ],
+    "longest_clear_line_tiles": 14,
+    "tiles_the_hill_overlooks": 28,
+    "party_tiles_that_see_the_enemy_start": 8,
+    "lines_start_apart_tiles": 8
+   },
+   "old": {
+    "tiles": 300,
+    "cover_within_one_step": 0.987,
+    "covered_tiles": 106,
+    "covered_with_a_shot_out": 0.991,
+    "lanes_across_west_to_east": [
+     1,
+     2,
+     6,
+     7,
+     11,
+     12
+    ],
+    "lanes_across_north_to_south": [
+     1,
+     4,
+     6,
+     9,
+     11,
+     14,
+     16,
+     19
+    ],
+    "longest_clear_line_tiles": 20,
+    "tiles_the_hill_overlooks": 129,
+    "party_tiles_that_see_the_enemy_start": 20,
+    "lines_start_apart_tiles": 5,
+    "note": "its own 20 x 15 board of 12 m tiles, lines on its start rows [4, 9]; a slot-bank tile is high cover"
+   }
+  },
+  "cover": [
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 5.67,
+    "y_m": 26.76,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     0
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 5.65,
+    "y_m": 30.05,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     0
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 5.67,
+    "y_m": 33.34,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     0
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 17.24,
+    "y_m": 26.76,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     1
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 17.59,
+    "y_m": 30.05,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     1
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 17.61,
+    "y_m": 33.34,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     1
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 39.93,
+    "y_m": 26.76,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.3,
+    "y_m": 30.05,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.41,
+    "y_m": 33.34,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 52.01,
+    "y_m": 26.76,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     2,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.68,
+    "y_m": 30.05,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     2,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.68,
+    "y_m": 33.34,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.3,
+    "y_m": 26.76,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.51,
+    "y_m": 30.05,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 62.86,
+    "y_m": 33.34,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     2,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.91,
+    "y_m": 26.76,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.77,
+    "y_m": 30.05,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.68,
+    "y_m": 33.34,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.96,
+    "y_m": 26.76,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     2,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.58,
+    "y_m": 30.05,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.79,
+    "y_m": 33.34,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.22,
+    "y_m": 26.76,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.22,
+    "y_m": 30.05,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     2,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 108.97,
+    "y_m": 33.34,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     2,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 6.02,
+    "y_m": 38.1,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     3,
+     0
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 5.76,
+    "y_m": 41.39,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     3,
+     0
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 5.81,
+    "y_m": 44.68,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     0
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 16.85,
+    "y_m": 38.1,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     1
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 17.1,
+    "y_m": 41.39,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     1
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 16.89,
+    "y_m": 44.68,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     1
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.35,
+    "y_m": 38.1,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.16,
+    "y_m": 41.39,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.37,
+    "y_m": 44.68,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     3,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.54,
+    "y_m": 38.1,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.41,
+    "y_m": 41.39,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.99,
+    "y_m": 44.68,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 62.98,
+    "y_m": 38.1,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 62.75,
+    "y_m": 41.39,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.3,
+    "y_m": 44.68,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 86.03,
+    "y_m": 38.1,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 86.33,
+    "y_m": 41.39,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.71,
+    "y_m": 44.68,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     3,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.95,
+    "y_m": 38.1,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.6,
+    "y_m": 41.39,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     3,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.6,
+    "y_m": 44.68,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     3,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.01,
+    "y_m": 38.1,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.13,
+    "y_m": 41.39,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 108.73,
+    "y_m": 44.68,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     3,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.41,
+    "y_m": 38.1,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     3,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 131.69,
+    "y_m": 41.39,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     3,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.16,
+    "y_m": 44.68,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     3,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.31,
+    "y_m": 38.1,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     3,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.9,
+    "y_m": 41.39,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     3,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.22,
+    "y_m": 44.68,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     3,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.23,
+    "y_m": 60.78,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     5,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 39.78,
+    "y_m": 64.07,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     5,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 39.76,
+    "y_m": 67.36,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     5,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.99,
+    "y_m": 60.78,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     5,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.38,
+    "y_m": 64.07,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     5,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.7,
+    "y_m": 67.36,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     5,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.0,
+    "y_m": 60.78,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     5,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 62.93,
+    "y_m": 64.07,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     5,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.49,
+    "y_m": 67.36,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     5,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.96,
+    "y_m": 60.78,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     5,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.96,
+    "y_m": 64.07,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     5,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 86.03,
+    "y_m": 67.36,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     5,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.44,
+    "y_m": 60.78,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     5,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.39,
+    "y_m": 64.07,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 4,
+    "model": "amber",
+    "tile": [
+     5,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 108.8,
+    "y_m": 67.36,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     5,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 131.84,
+    "y_m": 60.78,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     5,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.12,
+    "y_m": 64.07,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 4,
+    "model": "amber",
+    "tile": [
+     5,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.07,
+    "y_m": 67.36,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     5,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.25,
+    "y_m": 60.78,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     5,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.87,
+    "y_m": 64.07,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 4,
+    "model": "amber",
+    "tile": [
+     5,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.6,
+    "y_m": 67.36,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     5,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 155.22,
+    "y_m": 60.78,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     5,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 154.65,
+    "y_m": 64.07,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     5,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 155.31,
+    "y_m": 67.36,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     5,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 39.99,
+    "y_m": 72.12,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     6,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.25,
+    "y_m": 75.41,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     6,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.28,
+    "y_m": 78.7,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     6,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.97,
+    "y_m": 72.12,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     6,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.89,
+    "y_m": 75.41,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     6,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 52.03,
+    "y_m": 78.7,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     6,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.05,
+    "y_m": 72.12,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     6,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 62.75,
+    "y_m": 75.41,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     6,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.28,
+    "y_m": 78.7,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     6,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 86.22,
+    "y_m": 72.12,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 86.45,
+    "y_m": 75.41,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 86.36,
+    "y_m": 78.7,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.74,
+    "y_m": 72.12,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.79,
+    "y_m": 75.41,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.28,
+    "y_m": 78.7,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 108.83,
+    "y_m": 72.12,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.43,
+    "y_m": 75.41,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     6,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 108.85,
+    "y_m": 78.7,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.21,
+    "y_m": 72.12,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 131.95,
+    "y_m": 75.41,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 131.7,
+    "y_m": 78.7,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 154.61,
+    "y_m": 72.12,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 154.88,
+    "y_m": 75.41,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 154.8,
+    "y_m": 78.7,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     6,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.32,
+    "y_m": 94.8,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 39.79,
+    "y_m": 98.09,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     8,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.06,
+    "y_m": 101.38,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.26,
+    "y_m": 94.8,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.41,
+    "y_m": 98.09,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.57,
+    "y_m": 101.38,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     8,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.16,
+    "y_m": 94.8,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.19,
+    "y_m": 98.09,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     8,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 62.88,
+    "y_m": 101.38,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 86.22,
+    "y_m": 94.8,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     8,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.91,
+    "y_m": 98.09,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 4,
+    "model": "amber",
+    "tile": [
+     8,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 86.31,
+    "y_m": 101.38,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 4,
+    "model": "amber",
+    "tile": [
+     8,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.65,
+    "y_m": 94.8,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 4,
+    "model": "amber",
+    "tile": [
+     8,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.39,
+    "y_m": 98.09,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     8,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.41,
+    "y_m": 101.38,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     8,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 108.71,
+    "y_m": 94.8,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     8,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 108.94,
+    "y_m": 98.09,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     8,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.46,
+    "y_m": 101.38,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     8,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.04,
+    "y_m": 94.8,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     8,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 131.78,
+    "y_m": 98.09,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     8,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.33,
+    "y_m": 101.38,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.08,
+    "y_m": 94.8,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     8,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.29,
+    "y_m": 98.09,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     8,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.81,
+    "y_m": 101.38,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     8,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 154.56,
+    "y_m": 94.8,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 155.26,
+    "y_m": 98.09,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 155.1,
+    "y_m": 101.38,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     8,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 39.97,
+    "y_m": 106.14,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     9,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.06,
+    "y_m": 109.43,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 40.44,
+    "y_m": 112.72,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     3
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.83,
+    "y_m": 106.14,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.99,
+    "y_m": 109.43,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 51.97,
+    "y_m": 112.72,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     4
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.42,
+    "y_m": 106.14,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.44,
+    "y_m": 109.43,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     9,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 63.44,
+    "y_m": 112.72,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     5
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.91,
+    "y_m": 106.14,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     9,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.99,
+    "y_m": 109.43,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     9,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 85.98,
+    "y_m": 112.72,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 5,
+    "model": "amber",
+    "tile": [
+     9,
+     7
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 98.0,
+    "y_m": 106.14,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     9,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.27,
+    "y_m": 109.43,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     9,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 97.65,
+    "y_m": 112.72,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     9,
+     8
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.04,
+    "y_m": 106.14,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     9,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.11,
+    "y_m": 109.43,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 4,
+    "model": "amber",
+    "tile": [
+     9,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 109.46,
+    "y_m": 112.72,
+    "w_m": 9.87,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "amber",
+    "tile": [
+     9,
+     9
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.14,
+    "y_m": 106.14,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 6,
+    "model": "cyan",
+    "tile": [
+     9,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 131.72,
+    "y_m": 109.43,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     9,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 132.21,
+    "y_m": 112.72,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     11
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.66,
+    "y_m": 106.14,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.15,
+    "y_m": 109.43,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 143.29,
+    "y_m": 112.72,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     12
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 155.0,
+    "y_m": 106.14,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 7,
+    "model": "cyan",
+    "tile": [
+     9,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 154.63,
+    "y_m": 109.43,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     13
+    ]
+   },
+   {
+    "kind": "slot bank",
+    "fact": "cover",
+    "x_m": 154.89,
+    "y_m": 112.72,
+    "w_m": 9.24,
+    "h_m": 1.7,
+    "machines": 8,
+    "model": "cyan",
+    "tile": [
+     9,
+     13
+    ]
+   },
+   {
+    "kind": "counting table",
+    "fact": "low",
+    "x_m": 134.32,
+    "y_m": 16.44,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     1,
+     11
+    ]
+   },
+   {
+    "kind": "counting table",
+    "fact": "low",
+    "x_m": 148.09,
+    "y_m": 16.44,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     1,
+     12
+    ]
+   },
+   {
+    "kind": "the cashier's cage",
+    "fact": "cover",
+    "x_m": 143.15,
+    "y_m": 21.45,
+    "w_m": 31.29,
+    "h_m": 2.4,
+    "counters": 19,
+    "tile": [
+     1,
+     11
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 2.16,
+    "y_m": 61.69,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 6.23,
+    "y_m": 61.76,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 9.69,
+    "y_m": 61.55,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 2.37,
+    "y_m": 66.63,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 6.19,
+    "y_m": 66.77,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 9.39,
+    "y_m": 66.42,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 13.25,
+    "y_m": 61.46,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 16.97,
+    "y_m": 61.71,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 21.01,
+    "y_m": 61.34,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 13.08,
+    "y_m": 66.54,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 17.69,
+    "y_m": 67.03,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 21.03,
+    "y_m": 66.78,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     5,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 1.58,
+    "y_m": 72.56,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 5.97,
+    "y_m": 72.52,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 9.85,
+    "y_m": 72.96,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 2.33,
+    "y_m": 77.9,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 6.02,
+    "y_m": 77.86,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 9.67,
+    "y_m": 77.67,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     0
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 12.92,
+    "y_m": 72.93,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 17.62,
+    "y_m": 73.08,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 20.82,
+    "y_m": 73.14,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 12.94,
+    "y_m": 78.14,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 17.34,
+    "y_m": 78.14,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     1
+    ]
+   },
+   {
+    "kind": "card table",
+    "fact": "low",
+    "x_m": 20.96,
+    "y_m": 78.0,
+    "w_m": 1.56,
+    "h_m": 0.75,
+    "tile": [
+     6,
+     1
+    ]
+   },
+   {
+    "kind": "the bar",
+    "fact": "low",
+    "x_m": 11.46,
+    "y_m": 97.75,
+    "w_m": 19.77,
+    "h_m": 1.1,
+    "tile": [
+     8,
+     0
+    ]
+   },
+   {
+    "kind": "column",
+    "fact": "obstacle",
+    "x_m": 33.84,
+    "y_m": 22.28,
+    "w_m": 1.0,
+    "h_m": 3.4
+   },
+   {
+    "kind": "column",
+    "fact": "obstacle",
+    "x_m": 79.76,
+    "y_m": 22.28,
+    "w_m": 1.0,
+    "h_m": 3.4
+   },
+   {
+    "kind": "column",
+    "fact": "obstacle",
+    "x_m": 33.84,
+    "y_m": 56.3,
+    "w_m": 1.0,
+    "h_m": 3.4
+   },
+   {
+    "kind": "column",
+    "fact": "obstacle",
+    "x_m": 79.76,
+    "y_m": 56.3,
+    "w_m": 1.0,
+    "h_m": 3.4
+   },
+   {
+    "kind": "column",
+    "fact": "obstacle",
+    "x_m": 125.68,
+    "y_m": 56.3,
+    "w_m": 1.0,
+    "h_m": 3.4
+   },
+   {
+    "kind": "column",
+    "fact": "obstacle",
+    "x_m": 33.84,
+    "y_m": 90.32,
+    "w_m": 1.0,
+    "h_m": 3.4
+   },
+   {
+    "kind": "column",
+    "fact": "obstacle",
+    "x_m": 79.76,
+    "y_m": 90.32,
+    "w_m": 1.0,
+    "h_m": 3.4
+   },
+   {
+    "kind": "column",
+    "fact": "obstacle",
+    "x_m": 125.68,
+    "y_m": 90.32,
+    "w_m": 1.0,
+    "h_m": 3.4
+   },
+   {
+    "kind": "fire drum",
+    "fact": "low",
+    "x_m": 143.5,
+    "y_m": 75.07,
+    "w_m": 0.9,
+    "h_m": 0.9,
+    "tile": [
+     6,
+     12
+    ]
+   }
+  ],
+  "lights": [
+   {
+    "kind": "daylight",
+    "why": "the open pair of doors, the street",
+    "x_m": 28.63,
+    "y_m": 4.5,
+    "live": true,
+    "radius_m": 12.0,
+    "circuit": "sun"
+   },
+   {
+    "kind": "fire",
+    "why": "the one drum",
+    "x_m": 143.5,
+    "y_m": 75.07,
+    "live": true,
+    "radius_m": 6.0,
+    "circuit": "fire"
+   },
+   {
+    "kind": "attract loop",
+    "why": "a slot machine on a scavenged battery playing to nobody",
+    "x_m": 66.41,
+    "y_m": 30.05,
+    "live": true,
+    "radius_m": 3.0,
+    "circuit": "battery"
+   },
+   {
+    "kind": "attract loop",
+    "why": "a slot machine on a scavenged battery playing to nobody",
+    "x_m": 97.39,
+    "y_m": 38.1,
+    "live": true,
+    "radius_m": 3.0,
+    "circuit": "battery"
+   },
+   {
+    "kind": "attract loop",
+    "why": "a slot machine on a scavenged battery playing to nobody",
+    "x_m": 51.85,
+    "y_m": 94.8,
+    "live": true,
+    "radius_m": 3.0,
+    "circuit": "battery"
+   }
+  ],
+  "pieces": [
+   {
+    "tile": [
+     2,
+     0
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     2,
+     1
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     2,
+     3
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     2,
+     4
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     2,
+     5
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     2,
+     7
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     2,
+     8
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     2,
+     9
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     0
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     1
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     4
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     5
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     7
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     8
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     9
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     3,
+     11
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     3,
+     12
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     5,
+     3
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     5,
+     4
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     5,
+     5
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     5,
+     7
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     5,
+     9
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     5,
+     11
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     5,
+     12
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     5,
+     13
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     6,
+     3
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     6,
+     4
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     6,
+     5
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     6,
+     7
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     6,
+     8
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     6,
+     9
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     6,
+     11
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     6,
+     13
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     8,
+     3
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     8,
+     4
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     8,
+     5
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     8,
+     7
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     8,
+     8
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     8,
+     9
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     8,
+     11
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     8,
+     12
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     8,
+     13
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     9,
+     3
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     9,
+     4
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     9,
+     5
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     9,
+     7
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     9,
+     8
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     9,
+     9
+    ],
+    "piece": "slot banks",
+    "model": "amber"
+   },
+   {
+    "tile": [
+     9,
+     11
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     9,
+     12
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     9,
+     13
+    ],
+    "piece": "slot banks",
+    "model": "cyan"
+   },
+   {
+    "tile": [
+     1,
+     11
+    ],
+    "piece": "the cashier's cage",
+    "counters": 19
+   }
+  ],
+  "wall": {
+   "door_x": 1636.0,
+   "door_w": 142,
+   "hall_x": 1054,
+   "exits": [
+    2111,
+    2368
+   ]
+  },
+  "colours_per_96px": 4828,
+  "elapsed_s": 18.0
+ }
+}

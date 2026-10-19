@@ -20,3 +20,6 @@ COMBAT2_DISTRICT_DOWNTOWN_10_18.webp
 COMBAT2_DISTRICT_SUBURB_10_18.webp
 COMBAT2_DISTRICT_WASH_10_18.webp
 COMBAT2_DISTRICT_INDUSTRIAL_10_18.webp
+# COMBAT TWO 10/19: the casino board regenerates bit for bit from the seeded tool;
+# python3 tools/bohemia_combat2_the_casino_board_cook_10_19_26.py
+COMBAT2_THE_CASINO_BOARD_10_19.webp
