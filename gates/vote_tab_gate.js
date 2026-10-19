@@ -426,7 +426,11 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
       await touch('touchStart', [[200, 400]]); for (let k = 1; k <= 5; k++) await touch('touchMove', [[200 - k * 20, 400 - k * 30]]); await touch('touchEnd', []);
       await p.waitForTimeout(60);
       const s1 = await fvState();
-      ok('  one finger drags it (100 left, 150 up moves it 100 left, 150 up)', !!s1 && Math.abs((s1.x - s0.x) + 100) < 1 && Math.abs((s1.y - s0.y) + 150) < 1 && s1.open, s1 ? Math.round(s1.x - s0.x) + ', ' + Math.round(s1.y - s0.y) : '');
+      /* as far as the sheet's own edge allows: a sheet narrower than the drag stops at its edge, never shows black (10/19:
+         UI's 828-wide top-bar sheet, tapped a third across, has 81 pt left to give) */
+      const room = (v, d, size, view) => { const lo = Math.min(0, view - size); return Math.max(lo, Math.min(0, v + d)) - v; };
+      const wantD = s0 ? [room(s0.x, -100, s0.nw * s0.s, fv.vw), room(s0.y, -150, s0.nh * s0.s, fv.vh)] : [-100, -150];
+      ok('  one finger drags it (100 left, 150 up moves it 100 left, 150 up, as far as its edge allows)', !!s1 && Math.abs((s1.x - s0.x) - wantD[0]) < 1 && Math.abs((s1.y - s0.y) - wantD[1]) < 1 && s1.open && (wantD[0] !== 0 || wantD[1] !== 0), s1 ? Math.round(s1.x - s0.x) + ', ' + Math.round(s1.y - s0.y) + ' (room ' + wantD.map(Math.round).join(', ') + ')' : '');
       const ix = (200 - s1.x) / s1.s, iy = (400 - s1.y) / s1.s;
       await touch('touchStart', [[150, 400], [250, 400]]); for (let k = 1; k <= 5; k++) await touch('touchMove', [[150 - k * 20, 400], [250 + k * 20, 400]]); await touch('touchEnd', []);
       await p.waitForTimeout(60);

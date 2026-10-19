@@ -123,6 +123,9 @@
     the whole screen at one image pixel to one point, crisp; one finger drags, two pinch, a tap closes. Nothing new on the
     card's face: the picture itself is the door. */
  .stage img{ cursor:zoom-in }
+ /* a picture brought into view lands under the sticky header's foot, never behind it (RUN TWO 10/19: a short picture's
+    top quarter sat under the 67 pt header and a tap on it hit the header) */
+ .stage img, .row{ scroll-margin-top:calc(76px + env(safe-area-inset-top,0px)) }
  #full{ position:fixed; left:0; top:0; right:0; bottom:0; z-index:40; background:#0c0a07; overflow:hidden;
         touch-action:none; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none }
  #full[hidden]{ display:none }
