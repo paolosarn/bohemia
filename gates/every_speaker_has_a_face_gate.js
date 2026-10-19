@@ -9,6 +9,8 @@
        (the thirteen faction_* the street wears) shows the old painted 64 portrait until PORTRAIT makes its head, counted
        and named as WAITING ON PORTRAIT, never a blank or the dim head
      - a keeper tapped before the street's people load still speaks under a fresh face (never the dim head)
+     - ONE KEEPER, ONE LOOK (RUN TWO [the keepers wear the starred faces], 10/19, rule 120(d)): at every post the face
+       that speaks is the look of the body standing there, under a name of his own
      - no '.say' line on the screen without a canvas face beside it, anywhere it was opened
    CONTROL: the classifier calls a dim head and a missing face red.
    Run: node gates/every_speaker_has_a_face_gate.js */
@@ -64,6 +66,7 @@ const moved = r => r.k !== 'fresh' || r.mouths >= 2;
   await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready() && BohemiaSettlement.folk().length > 0, null, { timeout: 30000 });
   await p.waitForTimeout(500);
   const close = async () => { if (await p.evaluate(() => document.getElementById('sheet').classList.contains('on'))) { await p.click('#close'); await p.waitForTimeout(220); } };
+  let posts = 0; const oneBad = [], postsSeen = new Set();
   const waiting = new Set(); let keepers = 0, keepBad = [], crowd = 0, crowdBad = [], fresh = 0, still = [], says = 0, sayNoFace = 0;
   for (const tier of ['camp', 'town', 'fortress']) {
     await p.evaluate(t => BohemiaSettlement.open({ place: { name: 'FACES ' + t.toUpperCase(), tier: t }, traits: [], day: 4 }), tier);
@@ -75,6 +78,10 @@ const moved = r => r.k !== 'fresh' || r.mouths >= 2;
       const r = await p.evaluate(READ);
       says += r.says; sayNoFace += Math.max(0, r.says - r.rows.filter(x => !isBad(x)).length);
       r.rows.forEach(x => { keepers++; if (isBad(x) || x.k !== 'fresh') keepBad.push(tier + ':' + k + ':' + x.k); if (x.k === 'fresh') { fresh++; if (!moved(x)) still.push(tier + ':' + k); } });
+      /* ONE KEEPER, ONE LOOK (RUN TWO [the keepers wear the starred faces], rule 120(d), ONE ID ONE WHOLE PERSON): the face
+         that speaks is the look of the body standing at that post, under a name of his own (PEOPLE's, 'NAME, ROLE'; the board's keeper is THE ELDER, a title by PEOPLE's ruling 07ea9017) */
+      const body = await p.evaluate(k => { const q = BohemiaSettlement.folk().filter(q => q.keeper && q.k === k)[0]; return q ? q.look : null; }, k);
+      if (body) { posts++; const f = r.rows[0]; if (!f || f.look !== body || f.k !== 'fresh' || !(/^[A-Z' .-]+ [A-Z' .-]+, /.test(f.nm) || (k === 'board' && f.nm === 'THE ELDER'))) oneBad.push(tier + ':' + k + ':' + body + '/' + (f ? f.look + ' ' + f.nm : 'none')); else postsSeen.add(k); }
     }
     const n = await p.evaluate(() => BohemiaSettlement.folk().length);
     for (let i = 0; i < n; i++) {
@@ -94,6 +101,8 @@ const moved = r => r.k !== 'fresh' || r.mouths >= 2;
     }
   }
   ok('every keeper, the elder and YOU speak under a FRESH portrait at a camp, a town and a fortress', keepers >= 20 && keepBad.length === 0, keepers + ' speakers' + (keepBad.length ? ', red ' + keepBad.slice(0, 4).join(' ') : ''));
+  ok('ONE KEEPER, ONE LOOK: at every post the face that speaks is the look of the body standing there, fresh, under his own name', posts >= 20 && oneBad.length === 0 && ['bar', 'clinic', 'barber', 'smith'].every(k => postsSeen.has(k)),
+     posts + ' posts (' + [...postsSeen].sort().join(' ') + ')' + (oneBad.length ? ', red ' + oneBad.slice(0, 3).join(' | ') : ''));
   ok('  and every fresh face\'s mouth moves while the line shows (two of PORTRAIT\'s mouths at least)', fresh > 0 && still.length === 0, fresh + ' fresh' + (still.length ? ', still ' + still.slice(0, 4).join(' ') : ''));
   ok('every person in the picture who speaks has a face: fresh, or the painted portrait while PORTRAIT makes the faction head', crowd >= 3 && crowdBad.length === 0, crowd + ' street speakers' + (crowdBad.length ? ', red ' + crowdBad.slice(0, 3).join(' ') : ''));
   console.log('    [waiting on PORTRAIT] faction looks still on the painted 64 when they speak: ' + (waiting.size ? [...waiting].sort().join(', ') : 'none'));
