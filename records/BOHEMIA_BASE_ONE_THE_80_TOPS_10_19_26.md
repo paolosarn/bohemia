@@ -71,7 +71,7 @@ ARC LAYERED SHIRT, LONGLINE JERSEY, WIDE SHOULDER TEE), then the 80 were built:
 | THE COLOUR | the red rendered pink (the dust took its spread 79 -> 57) | every cloth at SAT 1.4 at the source (section 2) |
 | THE NAMES | STEEL WORK SHIRT came out a tee (STEEL holds the letters TEE) | the name is read word by word |
 | THE LYING HOOD | a 40 mm heap read at 1:1 as a pale fur collar (its top takes the dust) | 55 mm, rounder, higher, to the base of the skull |
-| THE HOOD UP | cycle 1 a smooth ball with a square face hole (a diving helmet); cycle 2 the ear came through its side and the back's point read as a knob | cycle 2 an oval opening with a lip, a slimmer crown, a seam, soft folds; cycle 3 18 mm more over each ear, the point softer |
+| THE HOOD UP | cycle 1 a smooth ball with a square face hole (a diving helmet); cycle 2 the ear came through its side and the back's point read as a knob | cycle 2 an oval opening with a lip, a slimmer crown, a seam, soft folds; cycle 3 18 mm more over each ear, the point softer (the ear no longer shows; a small nub stays at the crown where the seam starts: three cycles is the limit, it goes to his vote as it is) |
 | THE TATTERS | pin holes over a body painted in the same plaid, a 2.6 cm ragged hem: nothing read as torn | holes 3 to 4 cm showing his skin, the hem torn in points 5.5 cm deep, the cuffs torn |
 | THE WIDE SHOULDER | pushed along the cloth's normal the pad only raised the shoulder | pushed OUT from the shoulder point 32 mm and up 10, past the arm |
 
