@@ -11779,6 +11779,44 @@
     "scale": "his phone upright, 390 x 844, one screen each"
    },
    "draft": true
+  },
+  {
+   "id": "cook4-the-wedding-chapel-10-19",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "b783d752",
+   "made": "10/19",
+   "title": "PLACEHOLDER: THE STRIP'S WEDDING CHAPEL, UNDER THE STRAIGHT ROOF IN THE VALLEY'S TANS",
+   "why": "The next building of the Strip: a little wedding chapel, one room of your plaster under the tan roof with a bell cote and the church's cross on top, your plank doors under a canopy and a blank sign on a pole, and one wrong thing: your two flower boxes by the doors are in bloom, the only living colour in the valley. You see it in the VOTE tab beside your pack house, the church and the pawn shop at the same size, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_WEDDING_CHAPEL.webp",
+    "first": "../records/target/vote_first/cook4-the-wedding-chapel-10-19.webp",
+    "firstAt": [44, 230, 957, 684]
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; the chapel wears the same measured shape (1.49 walls tall against one storey) in the tan of his render wall, a bell cote of his stone with his louvre and the church's cross on its ridge.",
+     "FRONT: his house has plain windows and one door; ours is a 9 m chapel front with two of his round-topped windows, his plank doors under a transom and a grey-tan canopy on two of his posts, and a blank sign cabinet on one pole bigger than the chapel.",
+     "THE ONE LIVING THING: his house stands on bare ground; ours has his two flower boxes by the doors in bloom, red and gold, the only living colour in the valley: the one wrong thing."
+    ]
+   },
+   "before_after": {
+    "before": "no wedding chapel on the Strip: the church of round 11 is a parish church",
+    "after": "the wedding chapel: one room, the bell cote, the canopy, the sign on its pole, the flowers alive",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_pipe/cook4/strip/COOK4_THE_WEDDING_CHAPEL.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
   }
  ],
  "verdicts": [
