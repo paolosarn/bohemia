@@ -1,0 +1,56 @@
+{
+ "film": "/tmp/claude-0/-home-user-bohemia/1660917b-2c8a-5470-82b4-591a267ae9a0/scratchpad/aura_film",
+ "man": {
+  "id": "c4",
+  "look": "cast_poncho"
+ },
+ "seed": 5,
+ "kinds": {
+  "echo": {
+   "drew": 6,
+   "of": 6,
+   "enclosure": 1.0,
+   "new_colours": 8,
+   "purple_px": 0,
+   "share": 0.0527,
+   "face_worst": 0.097,
+   "neighbours_worst": 0.071,
+   "tests": {
+    "A1": true,
+    "A2": true,
+    "A3": true,
+    "A4": true,
+    "A5": true,
+    "A6": false
+   },
+   "pass": false
+  },
+  "tear": {
+   "drew": 6,
+   "of": 6,
+   "enclosure": 1.28,
+   "new_colours": 26,
+   "purple_px": 0,
+   "share": 0.1349,
+   "face_worst": 0.596,
+   "neighbours_worst": 0.128,
+   "tests": {
+    "A1": true,
+    "A2": true,
+    "A3": true,
+    "A4": true,
+    "A5": false,
+    "A6": false
+   },
+   "pass": false
+  },
+  "current": {
+   "drew": 0,
+   "pass": null,
+   "why": "drew nothing on the fight (its sheet is not there yet)"
+  }
+ },
+ "control_outline_enclosure": 44.95,
+ "control_glow_new_colours": 13687,
+ "control_ok": true
+}

@@ -726,6 +726,42 @@
   "ui": {
    "source": "slices/bohemia_ui_materials.js",
    "rig": false
+  },
+  "aura": {
+   "source": "ANIMATION's [the aura of the one you control] (rule 120(c)); the current's wire and foil through the master rig",
+   "rig": "the current only",
+   "aura_bar": {
+    "_what": "THE AURA BAR (DIRECTION, rule 120(c), 10/19): his words 'some aura, fifth dimension, electric Amalgamation vibes, analog horror... around that character, even on the big map'; his NO on the blue and orange lines round people (10/17); CRASHBOX's 'nothing glows' (rule 115d). A candidate passes all six on ANIMATION's own film of the real fight before VOTE. Measured by tools/bohemia_direction_aura_bar.py; its control (a blue line traced round him) must fail A1.",
+    "changed_level": 12,
+    "head_box": [
+     0.36,
+     0.22,
+     0.64,
+     0.4
+    ],
+    "head_box_why": "the film's crop centres his body at 55 percent of his height above the feet (tools/bohemia_animation_the_aura_film.js); his head sits in this box of the crop, read off seed 5's cast_poncho",
+    "his_column": [
+     0.3,
+     0.7
+    ],
+    "tests": {
+     "A1_enclosure_max": 1.6,
+     "A1_why": "never an outline: a line round a body encloses the body (the control encloses many times its own pixels); an echo, a tear or an arc encloses little",
+     "A2_new_colours_max": 64,
+     "A2_why": "nothing glows: palette steps, dead-channel specks and the pixels a tear carries in from past the crop add tens (seed 5: the echo 8, the tear 26); the tool's own control, a soft cyan glow round him, adds 13,687",
+     "A3_purple_px_max": 0,
+     "A3_why": "PURPLE RESERVATION: the Amalgamation's colour is never spent on the aura",
+     "A4_share": [
+      0.02,
+      0.3
+     ],
+     "A4_why": "it reads at the fight's camera and it never drowns the board",
+     "A5_face_max": 0.1,
+     "A5_why": "the one man you control is the clearest face on the board, never the most broken one",
+     "A6_neighbours_max": 0.06,
+     "A6_why": "nobody stands on anybody (the first votes): the aura stays off the men beside him"
+    }
+   }
   }
  },
  "rig": {
