@@ -93,8 +93,19 @@ md.push('## THE WORST FIGHTS HE WILL MEET (inside what Battle Brothers\' map sen
 md.push('');
 md.push('| # | who | your men | their men | stage | OUR START | TODAY | BATTLE BROTHERS | your men down, in 100 | dead in 100 fights | minutes on AUTO |');
 md.push('|---|---|---|---|---|---|---|---|---|---|---|');
-worst.slice(0, 30).forEach((r, i) => md.push('| ' + (i + 1) + ' | ' + KNAME(r.kind) + ' | ' + r.company + ' | ' + r.enemies + ' | ' + SNAME[r.stage] + ' | ' + r.start + ' | ' + r.today + ' | ' + r.bb + ' | ' + r.down + ' | ' + r.dead + ' | ' + r.minutes + ' |'));
+worst.slice(0, 30).forEach((r, i) => md.push('| ' + (i + 1) + ' | ' + KNAME(r.kind) + ' | ' + r.company + ' | ' + r.enemies + ' | ' + SNAME[r.stage] + ' | ' + r.start + ' | ' + r.today + ' | ' + r.bb + ' | ' + r.down + ' | ' + r.dead + ' | ' + (r.stalled ? 'a standoff in ' + r.stalled + ' of 100 (see below)' : r.minutes) + ' |'));
 md.push('');
+/* THE STANDOFFS: a fight where both sides hold their line and nobody steps in runs to the bench's step limit; it is counted, and
+   it would swell the minutes, so a cell with one shows the standoff, not a minute count */
+const stalls = Object.values(C).filter(c => c.stalled_in_100 > 0);
+if (stalls.length) {
+  md.push('## FIGHTS THAT NEVER END (' + stalls.length + ' of ' + Object.keys(C).length + ' squares hold at least one)');
+  md.push('');
+  md.push('Both sides hold their line and nobody steps in; the bench stops the fight at 400,000 steps and counts it as neither won nor lost. 1 or 2 fights in 100 of these squares: '
+    + stalls.slice().sort((a, b) => b.stalled_in_100 - a.stalled_in_100).map(c => KNAME(c.kind).toLowerCase() + ' ' + c.company + ' v ' + c.enemies_asked + ' ' + SNAME[c.stage].toLowerCase() + ' ' + c.setting + ' (' + c.stalled_in_100 + ')').join(', ')
+    + '. The same standoff the guns page found with the dire wolves (seed 9168) and the first-hour page found in the small first fights. A player can walk in; AUTO never does. COMBAT.');
+  md.push('');
+}
 gridKinds.forEach(k => {
   md.push('## ' + KNAME(k) + ': the whole grid, won in 100');
   md.push('');
