@@ -63,8 +63,8 @@ TILT = 0.7071                                       # the 45 DEGREE ART LAW: dep
 # caliche: his YES street's dirt exactly (soil #2 shade to shade onto the valley's grey-tan, #9a8e78)
 # desert: the same soil a step warmer (the valley's open ground is the yards' caliche; the creosote and rocks the maker
 #         stands on it say desert, not a second print)
-# rough: his soil #22, the fine dark soil full of flecks, onto a darker caliche (rough ground costs more: it reads so;
-#        his #19's grey stones repeat as a polka at one a cell, so not #19)
+# rough: his soil #4, flecked where #2 is plain, onto the same caliche: the recolour keeps HIS luminance, so the tile
+#        decides the tone; #4 sits 5 levels under #2 (#22 sat 53 under and made the ruin's debris field a blob again)
 # playa: his soil #21, the cracked dry earth, onto the pale wash-bed tan (the wash and the shore when dry)
 # track: the desert's two ruts (the scrub's tyre track), the same soil a step darker where the wheels packed it
 # concrete: his cracked slab (the sidewalk family his YES street walks on), frames cut
@@ -72,12 +72,18 @@ TILT = 0.7071                                       # the 45 DEGREE ART LAW: dep
 GROUNDS = {
     'caliche':  dict(fam=SOIL, ids=[2], tint='#9a8e78', cut=11, cell=(72, 74)),
     'desert':   dict(fam=SOIL, ids=[2], tint='#a19077', cut=11, cell=(72, 74)),
-    'rough':    dict(fam=SOIL, ids=[22], tint='#82786a', cut=11, cell=(72, 70)),
+    'rough':    dict(fam=SOIL, ids=[4], tint='#958974', cut=11, cell=(72, 72)),
     'playa':    dict(fam=SOIL, ids=[21], tint='#ab9e86', cut=11, cell=(72, 70)),
     'track':    dict(fam=SOIL, ids=[2], tint='#8d7e68', cut=11, cell=(72, 74)),
     'concrete': dict(fam=S.SIDEWALK, ids=[0, 1, 2, 6, 7, 16], cell=(82, 81)),
     'asphalt':  dict(fam=S.ROAD, ids=[0, 1, 8, 9, 10, 11], cell=(82, 81)),
+    'lawn':     dict(fam='3. Grass and ground tiles', ids=[1, 2, 4], cut=11, cell=(72, 72), sat=0.6),
 }
+# THE ANALOG HORROR LINE (rule 20, one calm wrong thing per board, from the world's state): ONE front yard on the suburb
+# board is a green lawn. The dollar died, the water district is a ruin, every other yard on the street is caliche, and
+# somebody still waters this one. His spring grass, its vibrance down two fifths (his 9/23; nothing glows), inside the yard's own caliche,
+# the house's shadow still on it. corner.1 is on the suburb board once and the freeway board once.
+LAWN = {'corner.1': (540, 1456, 1000, 1722)}
 # the code hue for each ground in the coded run (far from every colour the city uses; 110..255 so a deep shadow
 # never meets the dark ramps)
 CODE = {'caliche': (1, .08, 1), 'desert': (1, 1, .08), 'rough': (1, .08, .08), 'playa': (.08, 1, .08),
@@ -107,6 +113,9 @@ def piece(g, i, flip):
     if k not in _cache:
         spec = GROUNDS[g]; a = S.pack(spec['fam'], i)
         if 'tint' in spec: a = S.recolour(a, a[..., 3] > 0, spec['tint'], levels=6, shift_deg=10)
+        if 'sat' in spec:
+            hsv = S._hsv(a[..., :3].reshape(-1, 3).astype(float) / 255); hsv[:, 1] *= spec['sat']
+            a = a.copy(); a[..., :3] = (S._rgb(hsv) * 255).round().clip(0, 255).astype(np.uint8).reshape(a.shape[:2] + (3,))
         c = spec.get('cut')
         a = a[c:-c, c:-c] if c else S.cut_frame(a, spec['fam'])
         a = S.pad(a, *spec['cell'])[..., :3]
@@ -185,8 +194,8 @@ def code_everything(G):
     """the coded run: every ground dress hands back its code; the code families join the palette so shade() keeps
        a shadow on the ground inside the ground's own family."""
     K, B = G.K, G.B
-    for g in GROUNDS: K.RAMPS['cook2_' + g] = code_ramp(g)
-    top = {g: code_ramp(g)[-1] for g in GROUNDS}
+    for g in CODE: K.RAMPS['cook2_' + g] = code_ramp(g)
+    top = {g: code_ramp(g)[-1] for g in CODE}
     kd0, da0 = G._DRESS0, G._DANY0
     names = {id(t): i for i, t in enumerate(B.DGROUND)}
     kind_now = ['']
@@ -216,7 +225,7 @@ def decode(coded):
     flat = coded.reshape(-1, 3)
     key = (flat[:, 0].astype(np.int64) << 16) | (flat[:, 1].astype(np.int64) << 8) | flat[:, 2]
     gid = np.full(len(key), -1, np.int16); lum = np.zeros(len(key), np.float32)
-    names = list(GROUNDS)
+    names = list(CODE)
     for k, g in enumerate(names):
         ramp = code_ramp(g); topl = 0.299 * ramp[-1][0] + 0.587 * ramp[-1][1] + 0.114 * ramp[-1][2]
         for c in ramp:
@@ -235,15 +244,58 @@ def refloor(bid, orig, coded, seed):
     for k, g in enumerate(names):
         sel = (gid == k) & same
         if not sel.any(): continue
-        mode = np.median(lum[gid == k][lum[gid == k] > np.percentile(lum[gid == k], 60)])   # its maker's unshaded level
+        mode = np.percentile(lum[gid == k], 85)                 # its maker's unshaded level (most ground is unshaded)
         mult = np.clip(lum / max(mode, 1e-3), 0.3, 1.0)
+        if bid.startswith('ruin'):                            # the ruin's soot is a noise field cut at 0.6 (a second
+            mult = np.where(mult < 0.7, np.clip(mult / 0.6, 0.3, 1.0), mult)   # camouflage): lifted; its houses' shadows stay
         f = field(g, w, h, seed + 97 * k)
         lay = shadow(f[sel], mult[sel])
         out[sel] = lay
         counts[g] = dict(px=int(sel.sum()), share=round(float(sel.mean()), 4), shaded=int((mult[sel] < 0.985).sum()))
+    if bid in LAWN:                                           # the one watered yard
+        x0, y0, x1, y1 = LAWN[bid]; box = np.zeros((h, w), bool); box[y0:y1, x0:x1] = True
+        k = names.index('caliche'); sel = box & (gid == k) & same
+        mode = np.percentile(lum[gid == k], 85)
+        mult = np.clip(lum / max(mode, 1e-3), 0.3, 1.0)
+        out[sel] = shadow(field('lawn', w, h, seed + 7)[sel], mult[sel])
+        counts['lawn'] = dict(px=int(sel.sum()), box=LAWN[bid])
     counts['kept_later_rounds'] = int(((gid >= 0) & ~same).sum())
     counts['ground_share'] = round(float(((gid >= 0) & same).mean()), 4)
     return out, counts
+
+
+def measure():
+    """old against new on every block, on the pixels this tool re-laid (where the two differ): THE BLOB (the camouflage's
+       size: the luminance spread left after a 3 m blur, so grain and cracks fall out and only patches the size of the
+       print stay) and THE ORANGE (median saturation). Written into the kit."""
+    from PIL import ImageFilter
+    kit_path = os.path.join(OUT, 'COOK2_FIGHT_FLOOR_KIT.json'); kit = json.load(open(kit_path))
+    rad = int(3.0 * 42.9)
+    tot = dict(old_blob=[], new_blob=[], old_sat=[], new_sat=[], px=0)
+    for b in sorted(kit['blocks']):
+        f = 'block_%s.webp' % b.replace('.', '_')
+        if not os.path.exists(os.path.join(OUT, f)): continue
+        o = np.asarray(Image.open(os.path.join(SHIP, f)).convert('RGB')); n = np.asarray(Image.open(os.path.join(OUT, f)).convert('RGB'))
+        ch = (o != n).any(2)
+        if ch.sum() < 1000: continue
+        row = {}
+        for tag, a in (('old', o), ('new', n)):
+            lum = (a.astype(float) @ np.array([0.299, 0.587, 0.114]))
+            fill = np.where(ch, lum, lum[ch].mean())                 # the rest held at the ground's mean, so a house is not a patch
+            bl = np.asarray(Image.fromarray(fill.round().clip(0, 255).astype(np.uint8), mode='L').filter(ImageFilter.BoxBlur(rad))).astype(float)
+            row[tag + '_blob'] = round(float(bl[ch].std()), 2)
+            hsv = S._hsv(a[ch][::7].astype(float) / 255); row[tag + '_sat'] = round(float(np.median(hsv[:, 1])), 3)
+            tot[tag + '_blob'].append(row[tag + '_blob']); tot[tag + '_sat'].append(row[tag + '_sat'])
+        row['px'] = int(ch.sum()); tot['px'] += row['px']
+        kit['blocks'][b]['measured'] = row
+        print('  measured', b, row)
+    kit['measured'] = dict(how='on the re-laid pixels of every block: BLOB = luminance spread (0-255) after a 3 m box blur '
+                               '(the camouflage patches survive it, grain and cracks do not); SAT = median saturation (0-1)',
+                           blocks=len(tot['old_blob']), px=tot['px'],
+                           old_blob_median=float(np.median(tot['old_blob'])), new_blob_median=float(np.median(tot['new_blob'])),
+                           old_sat_median=float(np.median(tot['old_sat'])), new_sat_median=float(np.median(tot['new_sat'])))
+    json.dump(kit, open(kit_path, 'w'), indent=1)
+    print(kit['measured'])
 
 
 def main(only=None):
@@ -285,4 +337,5 @@ def main(only=None):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:] or None)
+    if sys.argv[1:] == ['--measure']: measure()
+    else: main(sys.argv[1:] or None); measure()

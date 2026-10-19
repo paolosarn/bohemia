@@ -65,8 +65,14 @@ for b in BOARDS:
     o, n = [im.resize((mid, im.height * mid // im.width), Image.LANCZOS) for im in (o, n)]
     blocks.append(('img', pair(tag(o, 'NOW'), tag(n, 'NEW'))))
     oc, nc = shot(b, 'old', 'close'), shot(b, 'new', 'close')
-    cx, cy = oc.width // 2, oc.height // 2 - 120
-    box = (cx - mid // 2, cy - 330, cx - mid // 2 + mid, cy + 330)
+    # the close crop goes where the floor is: the window (inside the board, clear of both bars) whose share of changed
+    # pixels is nearest two thirds, so the new ground fills it and a house or a man still gives the scale
+    ch = (np.asarray(oc).astype(int) != np.asarray(nc).astype(int)).any(2)
+    best, box = 9, None
+    for y0 in range(OPEN[1], OPEN[3] - 660, 40):
+        for x0 in range(0, oc.width - mid + 1, 40):
+            s = abs(ch[y0:y0 + 660, x0:x0 + mid].mean() - 0.66)
+            if s < best: best, box = s, (x0, y0, x0 + mid, y0 + 660)
     oc, nc = oc.crop(box), nc.crop(box)
     nc.save(os.path.join(KIT, 'COOK2_FIGHT_FLOOR_1TO1_%s.png' % b.upper()))
     blocks.append(('small', 'Close in, at your phone\'s own pixels (one art pixel is one screen pixel): now | new.'))
