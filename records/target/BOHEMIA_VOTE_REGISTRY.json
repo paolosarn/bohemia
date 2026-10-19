@@ -11272,7 +11272,21 @@
    "scale": "1:1, the phone's own pixels, the demo's map camera at the far stop"
   },
   "draft": true
- }
+ },
+  {
+   "id": "tuning-the-first-guns-10-19",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "fd2e0f93",
+   "made": "10/19",
+   "draft": true,
+   "title": "THE FIRST GUNS",
+   "why": "A pistol, a rifle and a shotgun that each fire twice a turn and hit more often than the Battle Brothers bow or crossbow they replace, so six of yours beat six bandits 96 times in 100 where pipes win 85. You see it on this page, with why your start never had a gun that fires.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.html"
+   }
+  }
  ],
  "verdicts": [
   {
