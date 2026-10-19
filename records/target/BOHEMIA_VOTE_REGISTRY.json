@@ -38,7 +38,9 @@
    "why": "You said a sidewalk curb sits a little higher than the street, so the map's streets now have one: the sidewalk's lit edge, its little wall and its shadow on the road, from your own tiles, with your yellow line down the middle. You see it in the VOTE tab from the map's own camera, as it ships, with every block put back on its own spot, and with the curb laid; a candidate, nothing final before your moodboard.",
    "show": {
     "how": "image",
-    "src": "../records/target/COOK2_THE_CURB_ON_THE_MAP.webp"
+    "src": "../records/target/COOK2_THE_CURB_ON_THE_MAP.webp",
+    "first": "../records/target/vote_first/cook2-the-curb-on-the-map-10-18.webp",
+    "firstAt": [1228, 128, 589, 1094]
    },
    "question": "Does the street sit lower than the sidewalk now, on the map?",
    "caption": "PIXEL SIZE the map's near stop, one art pixel to one device pixel (a block 256 px; kit levels 256, 128, 64), his tiles at every second pixel | PALETTE records/target/cook2_map_curb/COOK2_MAP_CURB_KIT.json (his road, slab, face and yellow; 0 colours not his) | LIGHT the style guide's one light, screen 155 degrees, from the left",
@@ -10837,7 +10839,9 @@
    "why": "Five fight boards, each cut from a real block of the map (the Strip, downtown, the suburbs, the wash, the warehouses); the floor under them is being redrawn by cook 2 since you said you hate it, so judge where the roads, houses, walls, cars and cover stand, not the ground. You see it here in the VOTE tab, not in the game: each board whole at the size the fight opens on your phone.",
    "show": {
     "how": "image",
-    "src": "../records/target/COMBAT2_THE_DISTRICT_BOARDS_ON_HIS_SCREEN_10_18.webp"
+    "src": "../records/target/COMBAT2_THE_DISTRICT_BOARDS_ON_HIS_SCREEN_10_18.webp",
+    "first": "../records/target/vote_first/combat2-a-board-from-every-district-10-18.webp",
+    "firstAt": [0, 715, 1170, 990]
    },
    "before_after": {
     "before": "each district's block on the map as you see it at its closest zoom, and the map's own plan of it with the board's box",
@@ -10879,7 +10883,9 @@
    "why": "The same five tan houses you said yes to, fixed where they sit on the fight board: every roof is one roof now (no line of ridge caps crossing it every 64 px), the walls stop striping, one sun lights them from the upper left, your yard dirt settles in the roof grooves, and the shadow and the outline match your packs and the style guide. You see it in the VOTE tab, before and after at 1:1 on COMBAT TWO's own board, with the art director's card going from 9 to 11 rows OK a house to 13 of 13.",
    "show": {
     "how": "image",
-    "src": "../records/target/COOK4_THE_SECOND_PASS.webp"
+    "src": "../records/target/COOK4_THE_SECOND_PASS.webp",
+    "first": "../records/target/vote_first/cook4-the-second-pass-10-18.webp",
+    "firstAt": [1356, 159, 1306, 766]
    },
    "twin": {
     "src": "pack:5. Roof tiles#30",
@@ -10957,7 +10963,9 @@
    "why": "The 13 faces on your crew screen, made after your first star, measured beside the poacher on eye size, light, colours, mouth shapes and moods: 11 match or beat it, the bedroll man's eyes vanish under his cap's visor, and the crew screen cuts the widebrim man's cone hat. You see it in the VOTE tab, each face beside the poacher, and the faces themselves on your crew screen in the game.",
    "show": {
     "how": "image",
-    "src": "vote/EYES_THE_STAR_IS_THE_BAR.webp"
+    "src": "vote/EYES_THE_STAR_IS_THE_BAR.webp",
+    "first": "../records/target/vote_first/eyes-the-star-is-the-bar-10-18.webp",
+    "firstAt": [0, 175, 490, 265]
    }
   },
   {
@@ -11001,7 +11009,9 @@
    "why": "Your company screen sat on flat black, so your men now stand on your own dirt tiles re-lit for night under one street lamp that still has power, with the rig's truck, sandbags and tyres parked beside them, and the hall's hire cards sit on your cracked slabs. You see it on the company screen (the CREW button) upright and on its side and in a town's hall, today next to A (they stand in the camp), B (the camp behind their cardboard) and C (the ground only); pick one, or NO with what is wrong.",
    "show": {
     "how": "image",
-    "src": "../records/target/ui_line_on_a_ground/UI_THE_LINE_ON_A_GROUND.png"
+    "src": "../records/target/ui_line_on_a_ground/UI_THE_LINE_ON_A_GROUND.png",
+    "first": "../records/target/vote_first/ui-the-line-on-a-ground-10-18.webp",
+    "firstAt": [890, 560, 850, 420]
    },
    "options": [
     "A",
@@ -11054,7 +11064,9 @@
   "why": "The freeway and the dump were the emptiest fights in the game, almost nothing to hide behind, so seven things now come off the same table as the truck: last round's wreck rolled onto its roof, a freeway pier with its deck snapped off and someone's bed under it, a lane closure nobody took down, the overhead sign come down, the last load of trash nobody pushed in with an armchair on top, crushed cars baled in steps, and the dozer that died with its track thrown. You see it in the VOTE tab beside your own wreck, concrete, drum, chevron board, trash pile and crushed block at the same pixel size in all eight directions, and nothing is final before your moodboard.",
   "show": {
    "how": "image",
-   "src": "../records/target/COOK_THE_EMPTY_TERRAINS_COVER.png"
+   "src": "../records/target/COOK_THE_EMPTY_TERRAINS_COVER.png",
+   "first": "../records/target/vote_first/cook-the-empty-terrains-cover-10-18.webp",
+   "firstAt": [0, 78, 545, 464]
   },
   "twin": {
    "src": "pack:9. Abandoned cards#0",
@@ -11077,8 +11089,10 @@
    "why": "Every man at the hiring post, every shopkeeper and every stranger now gets a two-word name from Las Vegas's real mix (about a third Hispanic, not over half), a woman's face always gets a woman's name, and you stop losing hired men who shared a name like CHUY. You see it here, twelve real hire cards with the old name under each, and in the demo when you tap the hall in any town.",
    "show": {
      "how": "image",
-     "src": "vote/PEOPLE_THE_NAMES_WIRED_IN_10_18.png"
-   }
+     "src": "vote/PEOPLE_THE_NAMES_WIRED_IN_10_18.png",
+     "first": "../records/target/vote_first/people-the-names-wired-in-10-18.webp",
+     "firstAt": [30, 150, 755, 325]
+    }
  },
   {
    "id": "combat-the-fight-holds-the-grid-10-18",

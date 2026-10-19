@@ -372,6 +372,98 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
     document.documentElement.scrollWidth - document.documentElement.clientWidth);
   ok('nothing runs off the side of the screen', wide <= 1, wide + 'px over');
 
+  /* ---- 3b. A CARD'S PICTURE, FULL SIZE (RUN TWO, rule 89: what he cannot see he cannot judge) ----------------
+     COMBAT TWO measured its district card: a 2400 x 7080 sheet put five boards across his phone at about 75 points
+     each, and a picture too small to read gets a NO for the wrong reason. Measured here on 390 x 844 with real touches:
+     a tap on the card's picture lays it over the whole screen at ONE IMAGE PIXEL TO ONE POINT, centred on the spot
+     tapped; one finger drags it, two pinch it around the point between them, a tap closes it and votes nothing; no
+     button is added to the card's face; and the card's FIRST picture is one thing (show.first, cut from its own sheet
+     by tools/bohemia_run2_first_picture.py), never a sheet of many: it fits one screen of his phone at the card's
+     width. Cards made before 10/19 and not on his first screen are left as they were. */
+  {
+    const cdp = await ctx.newCDPSession(p);
+    const touch = (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts.map((q, k) => ({ x: q[0], y: q[1], id: k })) });
+    const fvState = () => p.evaluate(() => window.__voteFull ? window.__voteFull.state() : null);
+    const lookAt = async (id) => {
+      const sel = '.row[data-id="' + id + '"]';
+      if (!(await p.$(sel))) { await p.evaluate(() => { const f = document.getElementById('fold'); if (f && !f.hidden && document.getElementById('more').hidden) f.click(); }); await p.waitForTimeout(80); }
+      await p.evaluate(s => { const b = document.querySelector(s + ' .look'); if (b && b.textContent !== 'HIDE IT') b.click(); }, sel);
+      await p.evaluate(s => { const i = document.querySelector(s + ' .stage img'); if (i) i.scrollIntoView({ block: 'start' }); }, sel);   /* the picture loads lazily, as on his phone */
+      await p.waitForFunction(s => { const i = document.querySelector(s + ' .stage img'); return i && i.complete && i.naturalWidth > 0; }, sel, { timeout: 30000 }).catch(() => {});
+      return p.evaluate(s => { const i = document.querySelector(s + ' .stage img'); if (!i) return null; const r = i.getBoundingClientRect(); return { src: i.getAttribute('src'), w: r.width, h: r.height, nw: i.naturalWidth, nh: i.naturalHeight }; }, sel);
+    };
+    const regItems = reg.items || [];
+    const onFront = rows.slice();
+    const withFirst = onFront.map(id => regItems.find(i => i.id === id)).find(i => i && i.show && i.show.how === 'image' && i.show.first && i.show.firstAt);
+    const plain = onFront.map(id => regItems.find(i => i.id === id)).find(i => i && i.show && i.show.how === 'image' && !i.show.first);
+    if (!withFirst) ok('FULL SIZE: a card on his first screen carries a first picture to measure', false, 'none on the front');
+    else {
+      const sel = '.row[data-id="' + withFirst.id + '"]';
+      const st = await lookAt(withFirst.id);
+      ok('FULL SIZE: a sheet card shows its first picture, one thing, on the card', !!st && st.src === withFirst.show.first, withFirst.id + ': ' + (st && st.src));
+      const sheet = await p.evaluate(s => new Promise(r => { const i = new Image(); i.onload = () => r([i.naturalWidth, i.naturalHeight]); i.onerror = () => r([0, 0]); i.src = s; }), withFirst.show.src);
+      /* tap a third of the way across and a quarter down the shown picture */
+      const at = await p.evaluate(s => { const i = document.querySelector(s + ' .stage img'); i.scrollIntoView({ block: 'start' }); const r = i.getBoundingClientRect();
+        const y = Math.min(r.top + r.height * 0.25, window.innerHeight - 20); return { x: r.left + r.width / 3, y, fx: 1 / 3, fy: (y - r.top) / r.height }; }, sel);
+      await p.touchscreen.tap(at.x, at.y);
+      await p.waitForSelector('#full[data-ready="1"]', { timeout: 30000 }).catch(() => {});
+      const fv = await p.evaluate(() => { const e = document.getElementById('full'); if (!e || e.hidden) return null; const i = e.querySelector('img'), r = i.getBoundingClientRect(), er = e.getBoundingClientRect();
+        return { img: [r.left, r.top, r.width, r.height], nat: [i.naturalWidth, i.naturalHeight], cover: [er.left, er.top, er.width, er.height], vw: innerWidth, vh: innerHeight, src: i.getAttribute('src') }; });
+      ok('  a tap on the picture lays it over the whole screen (390 x 844)', !!fv && fv.cover[0] === 0 && fv.cover[1] === 0 && fv.cover[2] === fv.vw && fv.cover[3] === fv.vh, fv ? fv.cover.map(Math.round).join(' x ') : 'never opened');
+      ok('  it opens the whole sheet at one image pixel to one point (shown width = the sheet\'s own width)', !!fv && fv.src === withFirst.show.src && Math.abs(fv.img[2] - fv.nat[0]) < 0.5 && Math.abs(fv.img[3] - fv.nat[1]) < 0.5 && fv.nat[0] === sheet[0],
+         fv ? Math.round(fv.img[2]) + ' x ' + Math.round(fv.img[3]) + ' pt for a ' + sheet.join(' x ') + ' sheet' : '');
+      /* centred on the tapped pixel, as near as the sheet's own edge allows (it never slides off and shows black) */
+      const fa = withFirst.show.firstAt, tapped = [fa[0] + at.fx * fa[2], fa[1] + at.fy * fa[3]];
+      const edge = (c, view, size) => size <= view ? size / 2 : view / 2 - Math.min(0, Math.max(view - size, view / 2 - c));
+      const want = fv ? [edge(tapped[0], fv.vw, fv.nat[0]), edge(tapped[1], fv.vh, fv.nat[1])] : tapped;
+      const under = fv ? [fv.vw / 2 - fv.img[0], fv.vh / 2 - fv.img[1]] : [0, 0];
+      ok('  on the spot he tapped: the sheet\'s pixel under his thumb is in the middle of the screen, as near as the sheet\'s edge allows', !!fv && Math.abs(under[0] - want[0]) < 2.5 && Math.abs(under[1] - want[1]) < 2.5,
+         'middle shows ' + under.map(Math.round).join(',') + ', tapped ' + tapped.map(Math.round).join(',') + ', edge-held ' + want.map(Math.round).join(','));
+      const s0 = await fvState();
+      await touch('touchStart', [[200, 400]]); for (let k = 1; k <= 5; k++) await touch('touchMove', [[200 - k * 20, 400 - k * 30]]); await touch('touchEnd', []);
+      await p.waitForTimeout(60);
+      const s1 = await fvState();
+      ok('  one finger drags it (100 left, 150 up moves it 100 left, 150 up)', !!s1 && Math.abs((s1.x - s0.x) + 100) < 1 && Math.abs((s1.y - s0.y) + 150) < 1 && s1.open, s1 ? Math.round(s1.x - s0.x) + ', ' + Math.round(s1.y - s0.y) : '');
+      const ix = (200 - s1.x) / s1.s, iy = (400 - s1.y) / s1.s;
+      await touch('touchStart', [[150, 400], [250, 400]]); for (let k = 1; k <= 5; k++) await touch('touchMove', [[150 - k * 20, 400], [250 + k * 20, 400]]); await touch('touchEnd', []);
+      await p.waitForTimeout(60);
+      const s2 = await fvState();
+      const held = s2 ? [(200 - s2.x) / s2.s, (400 - s2.y) / s2.s] : [0, 0];
+      ok('  two fingers pinch it (spread 100 to 300: three times bigger) around the point between them', !!s2 && Math.abs(s2.s / s1.s - 3) < 0.01 && Math.abs(held[0] - ix) < 1 && Math.abs(held[1] - iy) < 1 && s2.open,
+         s2 ? 'x' + (s2.s / s1.s).toFixed(2) + ', the point between moved ' + Math.round(Math.abs(held[0] - ix) + Math.abs(held[1] - iy)) + ' px' : '');
+      await p.touchscreen.tap(195, 300); await p.waitForTimeout(520);
+      const s3 = await fvState();
+      const still = await p.$(sel);
+      ok('  a tap closes it, and the card is still waiting (closing never votes, never re-opens)', !!s3 && !s3.open && !!still, (s3 && s3.open ? 'still open' : 'closed') + ', card ' + (still ? 'there' : 'gone'));
+    }
+    if (plain) {
+      const st = await lookAt(plain.id);
+      await p.evaluate(s => { const i = document.querySelector(s + ' .stage img'); i.scrollIntoView({ block: 'center' }); }, '.row[data-id="' + plain.id + '"]');
+      const c = await p.evaluate(s => { const r = document.querySelector(s + ' .stage img').getBoundingClientRect(); return { x: r.left + r.width / 2, y: Math.max(r.top + 4, Math.min(r.top + r.height / 2, innerHeight - 20)) }; }, '.row[data-id="' + plain.id + '"]');
+      await p.touchscreen.tap(c.x, c.y);
+      await p.waitForSelector('#full[data-ready="1"]', { timeout: 30000 }).catch(() => {});
+      const fv = await p.evaluate(() => { const e = document.getElementById('full'); if (!e || e.hidden) return null; const i = e.querySelector('img'), r = i.getBoundingClientRect(); return { w: r.width, nw: i.naturalWidth, src: i.getAttribute('src') }; });
+      ok('  a card with one picture opens that picture at one image pixel to one point', !!fv && !!st && fv.src === plain.show.src && Math.abs(fv.w - fv.nw) < 0.5, plain.id + (fv ? ': ' + Math.round(fv.w) + ' pt of ' + fv.nw + ' px' : ': never opened'));
+      await p.keyboard.press('Escape'); await p.waitForTimeout(60);
+    }
+    const faces = await p.evaluate(() => Array.from(document.querySelectorAll('.row')).map(r => r.querySelectorAll('button').length));
+    ok('  no new button on any card\'s face (up, star, no, LOOK AT IT: four)', faces.length > 0 && faces.every(n => n === 4), faces.length + ' cards, ' + Array.from(new Set(faces)).join('/') + ' buttons');
+    /* THE FIRST PICTURE IS ONE THING: on his phone it fits one screen at the card's width (a sheet of many runs on for
+       screens, every thing on it a thumbnail). Every image card on his first screen, and every card made from 10/19. */
+    const madeN = i => { const m = String(i.made || '').match(/^(\d{1,2})\/(\d{1,2})/); return m ? (+m[1]) * 100 + (+m[2]) : 0; };
+    const judgedIds = new Set((reg.verdicts || []).map(v => v.id));
+    const bound = regItems.filter(i => i && i.show && i.show.how === 'image' && !judgedIds.has(i.id) && kept(i.id) && (onFront.indexOf(i.id) >= 0 || madeN(i) >= 1019));
+    const tall = [];
+    for (const it of bound) {
+      const st = await lookAt(it.id);
+      if (!st || !st.nw) { tall.push(it.id + ' (no picture)'); continue; }
+      if (st.h > 844) tall.push(it.id + ' ' + Math.round(st.h) + ' pt tall');
+    }
+    ok('  every card\'s first picture is one thing: it fits one screen of his phone (' + bound.length + ' cards: his first screen and every card from 10/19)', bound.length > 0 && tall.length === 0, tall.slice(0, 3).join('; ') || 'all fit');
+    await cdp.detach().catch(() => {});
+    await open(); rows = await live();
+  }
+
   /* ---- 4. SUN IS THE DEFAULT, NIGHT IS THE OPTION -------------------------- */
   const lightFirst = await p.evaluate(() => {
     const c = getComputedStyle(document.body).backgroundColor;
