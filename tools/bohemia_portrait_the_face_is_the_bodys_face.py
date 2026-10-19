@@ -40,6 +40,7 @@ import os, sys, json, subprocess, importlib.util
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RECORD = 'records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json'
+ONE_SKIN = 'records/target/character/BOHEMIA_ONE_SKIN.json'   # CHARACTER [one skin, one person]: THE BODY'S SKIN, the truth
 CREW_OUT = 'records/target/portrait/crew'
 CREW_FRAMES = 'records/target/portrait/rig/crew'
 MASK_FRAMES = 'records/target/portrait/rig/mask'
@@ -54,18 +55,20 @@ def gate():
 def record():
     from PIL import Image
     G = gate()
+    one = json.load(open(os.path.join(ROOT, ONE_SKIN)))['people']
     tmp = os.path.join(ROOT, PROOF, '_read.json'); os.makedirs(os.path.dirname(tmp), exist_ok=True)
-    subprocess.check_call(['node', os.path.join(ROOT, 'tools/bohemia_portrait_the_face_is_the_bodys_face.js'), tmp, '--bodies', os.path.join(ROOT, PROOF)], cwd=ROOT)
-    rd = json.load(open(tmp)); os.remove(tmp)
+    tt = os.path.join(ROOT, PROOF, '_tones.json'); json.dump(dict((k, v['tone']) for k, v in one.items()), open(tt, 'w'))
+    subprocess.check_call(['node', os.path.join(ROOT, 'tools/bohemia_portrait_the_face_is_the_bodys_face.js'), tmp, '--bodies', os.path.join(ROOT, PROOF), '--tones', tt], cwd=ROOT)
+    rd = json.load(open(tmp)); os.remove(tmp); os.remove(tt)
     T = G.skin_tones(); R = G.ladder(T); H = G.hair_ramps()
     man = json.load(open(os.path.join(ROOT, 'slices/fight_people/fight_people.json')))
     old = json.load(open(os.path.join(ROOT, RECORD))) if os.path.exists(os.path.join(ROOT, RECORD)) else {}
-    rec = dict(version='skin-of-record-10-19', lane='portrait', row="[the face is the body's face]", rule='120(d)', draft=True,
-               what='ONE SKIN PER PERSON, read from the one place the game keeps it; nothing here is chosen. The body and every face of '
-                    'a person read this file (CHARACTER [one skin, one person] owns the body side and may replace a value; every face '
-                    'is rebuilt from what it says).',
-               skin_from="NPC_FACTORY.npcFrom('fight:<look>').skinToneName (YOU: the player's own skinTone, the face maker), the id the "
-                         "fight bake keys the person with (tools/bohemia_fight_people_bake.js, famPaintBody / famFaceKey)",
+    rec = dict(version='skin-of-record-10-19b', lane='portrait', row="[the face is the body's face]", rule='120(d)', draft=True,
+               what='WHAT EVERY FACE OF A PERSON IS PAINTED FROM, and what the pictures show today. The skin is CHARACTER\'s file, copied '
+                    'with its source and never chosen here (the gate refuses a copy that drifts from it); the hair is the body\'s own cut; '
+                    'the rig transfer is how the gate reads a rendered face\'s paint.',
+               skin_from="records/target/character/BOHEMIA_ONE_SKIN.json (CHARACTER [one skin, one person], 10/19: one tone per person, "
+                         "Las Vegas's real mix; the head's albedo is its `rig` palette step, the same as the body's)",
                hair_from="the body's worn cut, drawn in that cut's own ramp (GARMENTS' hair entry): the ramp's mid; YOU: the player's own "
                          "colour, measured off the body",
                tones=dict((n, dict(lit=list(T[n][0]), mid=list(T[n][1]), dark=list(T[n][2]), L=round(G.lab(T[n][1])[0], 1), rank=R[n])) for n in T),
@@ -78,11 +81,17 @@ def record():
         bn, bk, _ = G.sprite_tone(sh, G.body_box(sh), T); fn, fk, _ = G.sprite_tone(sh, G.face_box(sh), T)
         ramp = (e.get('hair_ramp') or {}).get('ramp')
         hrgb, hhow = G.sprite_hair(sh, G.head_box(sh), ramp, T)
-        rec['people'][look] = dict(kind=e['kind'], id=e['id'], skin=e['skin'], skin_from=e['skin_from'], skin_ramp=dict(lit=list(T[e['skin']][0]), mid=list(T[e['skin']][1]), dark=list(T[e['skin']][2])),
+        o = one.get(look)
+        if not o: continue
+        tone = o['tone']
+        rec['people'][look] = dict(kind=e['kind'], id=e['id'], skin=tone, who=o.get('who'), heritage=o.get('heritage'),
+                                   skin_from='CHARACTER\'s BOHEMIA_ONE_SKIN.json: ' + str(o.get('source', '')),
+                                   factory_roll=e['skin'], skin_ramp=dict(lit=list(T[tone][0]), mid=list(T[tone][1]), dark=list(T[tone][2])),
+                                   rig=list(o['rig']), rig_rgb=list(o['rig_rgb']),
                                    hair=dict(cut=e.get('worn_hair'), gear=e.get('worn_head'), ramp=hhow, rgb=list(hrgb) if hrgb else None,
                                              lt=list(H[hhow]['lt']) if hhow in H else (list(hrgb) if hrgb else None),
                                              dk=list(H[hhow]['dk']) if hhow in H else (list(hrgb) if hrgb else None)),
-                                   body_today=dict(skin=bn, px=bk, matches=bn == e['skin']), face_64=dict(skin=fn, px=fk, matches=fn == e['skin']))
+                                   body_today=dict(skin=bn, px=bk, matches=bn == tone), face_64=dict(skin=fn, px=fk, matches=fn == tone))
     n = len(rec['people']); bm = sum(1 for e in rec['people'].values() if e['body_today']['matches']); fm = sum(1 for e in rec['people'].values() if e['face_64']['matches'])
     cnt = {}
     for e in rec['people'].values(): cnt[e['skin']] = cnt.get(e['skin'], 0) + 1

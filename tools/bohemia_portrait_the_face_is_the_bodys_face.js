@@ -7,6 +7,8 @@
      SKIN_TONES                             the game's eleven skin ramps (lit, mid, dark), world-graded
      the worn cut's own hair ramp           GARMENTS' hair entry for the look's worn.hair (the ramp the body draws it in)
      skinTone                               the player's own skin (YOU), from the face maker
+   FROM 10/19 THE PERSON'S SKIN IS CHARACTER'S FILE (records/target/character/BOHEMIA_ONE_SKIN.json, [one skin, one person]:
+   one tone per person, Las Vegas's real mix); the factory's roll is read beside it so the record shows what changed.
    The id is the one the fight bake keys a person's face and body with ('fight:' + look id, tools/bohemia_fight_people_bake.js
    via famPaintBody / famFaceKey), so this is the same person the sheets were baked from.
    Out (stdout path): a JSON the python half composes into records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json.
@@ -52,6 +54,10 @@ const { open } = require('./bohemia_drive_the_demo.js');
      and once with that person's own skin put on for the stroke and taken off after, the one change CHARACTER's
      [one skin, one person] makes in the engine. It shows what the body becomes; the game's sheets are not touched. */
   const bi = process.argv.indexOf('--bodies');
+  /* --tones <json>: the person's skin as CHARACTER's file names it (records/target/character/BOHEMIA_ONE_SKIN.json), the
+     body's truth from 10/19; without it the proof paints the factory's roll */
+  const ti = process.argv.indexOf('--tones');
+  const tones = ti > 0 ? JSON.parse(fs.readFileSync(process.argv[ti + 1], 'utf8')) : {};
   if (bi > 0) {
     const dir = process.argv[bi + 1]; fs.mkdirSync(dir, { recursive: true });
     for (const id of Object.keys(out.people)) {
@@ -67,7 +73,7 @@ const { open } = require('./bohemia_drive_the_demo.js');
         let own = null;
         try { if (t) skinTone = t; own = paint(); } finally { skinTone = keep; }
         return [today, own];
-      }, { id: id, tone: out.people[id].skin });
+      }, { id: id, tone: tones[id] || out.people[id].skin });
       fs.writeFileSync(require('path').join(dir, id + '_today.png'), Buffer.from(urls[0].split(',')[1], 'base64'));
       fs.writeFileSync(require('path').join(dir, id + '_own_skin.png'), Buffer.from(urls[1].split(',')[1], 'base64'));
     }

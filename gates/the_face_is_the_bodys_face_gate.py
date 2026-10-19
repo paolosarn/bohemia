@@ -5,47 +5,42 @@ Paolo 10/18, to the coordinator: 'the portraits don't look like the people... Bl
 Rule 120(d): every portrait matches its body's skin tone, hair and build; a face whose skin does not match its body is a
 defect a gate refuses (ONE ID, ONE WHOLE PERSON).
 
-MEASURED BEFORE THIS WAS BUILT (10/19, off the pixels of the 26 sheets the fight and the settlement draw people from,
-slices/fight_people/, every skin pixel mapped exactly onto the game's own eleven SKIN_TONES ramps):
-    the 64 px face of each person      26 of 26 wear the skin the game's skin mechanism gives them
-                                       (NPC_FACTORY.npcFrom('fight:<look>').skinToneName, the 9/20 law's one source)
-    the body of each person            25 of 26 wear PORCELAIN, the player's own skin: famPaintBody swaps the worn
+MEASURED BEFORE THIS WAS BUILT (10/19, off the pixels of the sheets the fight and the settlement draw people from,
+slices/fight_people/ and slices/settlement_people/, every skin pixel mapped exactly onto the game's eleven SKIN_TONES):
+    the body of each person            25 of 26 painted in PORCELAIN, the player's own skin: famPaintBody swaps the worn
                                        list, the dials, the age and the face for the stroke, never the skin, so every
-                                       cast and gang body is painted in the global the player's face maker set.
-                                       Only YOU matches, because YOU is the player.
-    the starred faces (crew screen)    the 13 heads RUN TWO draws were coloured BY EYE from the 64 face, then 'two
-                                       steps lighter', and under the rig's one sun and dust all 12 cast faces came
-                                       out the same orange brown: a fair woman, an olive smith and an onyx man alike.
-So what he saw was real twice over: a Black face over a white body, and one brown face over everybody.
+                                       cast and gang body wears the global the player's face maker set (the street's
+                                       25 the same). Only YOU matches, because YOU is the player.
+    the 64 px face beside it           its own roll (NPC_FACTORY), onyx to fair: a Black face over a white body.
+    the starred faces (crew screen)    coloured BY EYE off that 64 face, 'two steps lighter', and under the rig's one sun
+                                       all twelve cast faces came out one orange brown.
+So what he saw was real twice over.
 
-THE TRUTH IS THE PERSON, READ FROM THE ONE PLACE THE GAME KEEPS IT: records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json
-(tools/bohemia_portrait_the_face_is_the_bodys_face.py --record, which reads the factory out of the alpha; nothing in it
-is chosen). Every leg compares a picture to that record, so a face and a body that both match it match each other.
+THE TRUTH IS THE BODY'S SKIN, AND IT IS A FILE: records/target/character/BOHEMIA_ONE_SKIN.json (CHARACTER [one skin, one
+person], 10/19): one tone per person on the game's ladder, Las Vegas's real mix, its flat ramp for the painted sprites
+and ONE rig albedo (a style palette step) for the body AND the head. records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json
+is PORTRAIT's copy of it beside what each picture shows today, the body's hair, and the rig's measured light.
 
-THE RULER. A painted sprite is read EXACTLY: each skin pixel is one of the 33 ramp colours, and the person is the tone
-most of them belong to. A rendered face is read for its PAINT, not its light. The rig lights a portrait dimly (a face's
-middle pixel is about a fifth of its paint, measured), so no rendered face can show a sprite's colours as they are; a
-starred face is painted its person's own LIT step (the skin's colour where the light falls full) and the rig's one sun
-does the shading. The gate takes the light back out: the face's MASK (the same head rendered once more with the skin
-pure green and the hair pure blue, cut into the hand-off square the same way) says how much light this head's skin and
-hair get (its green and its blue are an albedo of one, as rendered); the record's rig_transfer (two known skins through
-the rig on one head, fitted per channel) gives the light's tint and the dust. The paint so read is placed on the game's
-ladder of eleven tones by the lightness of their lit steps (CIE L*). PASS = it reads as its own tone or the one beside it
-AND its L* is within 8 of its tone's lit. The ladder runs onyx 17, ebony 23, deep 29, brown 42, bronze 53, tan 61,
-olive 65, pale 68, fair 72, porcelain 85, chalk 91: one step off is a shadow under a brim, a porcelain face on an onyx
-person is ten steps and 68 L* off. Hair is the 9/20 gate's own ruler (portrait_matches_body_gate.js) on the paint read
-the same way against the body's cut ramp's lit step: hue within 30 degrees unless both are drab (under 15 percent
-saturation), lightness within 2.2x.
+THE RULER. A painted sprite is read EXACTLY: each skin pixel is one of the 33 ramp colours, and the person is the tone most
+of them belong to. A rendered face is read for its PAINT, not its light: the rig lights a portrait dimly (a face's middle
+pixel is about a fifth of its paint, measured), so the gate takes the light back out. The face's MASK (the same head
+rendered once more with the skin pure green and the hair pure blue, cut into the hand-off square the same way) says how
+much light this head's skin and hair get (its green and its blue are an albedo of one, as rendered); the record's
+rig_transfer (two known skins through the rig on one head, fitted per channel) gives the light's tint and the dust.
+Read back on the calibration head: (60, 45, 38) painted, (60, 45, 38) read. The paint is classed on CHARACTER's own
+rig ladder (the eleven rig albedos, nearest in CIELAB) and PASSES when it is its person's rung or the one beside it AND
+its L* is within 8 of its person's rig albedo. Hair is the 9/20 gate's ruler (portrait_matches_body_gate.js) on the
+paint read the same way against the body's cut ramp's lit step: hue within 30 degrees unless both are drab (under 15
+percent saturation), lightness within 2.2x.
 
 THE LEGS
-  1. THE RECORD: every person the fight sheets carry is in it, with a real tone and its source, and the record agrees
-     with the face the game already ships for that person (their 64 px face).
-  2. THE BODY: every body sheet's skin is its person's record. RED until CHARACTER's [one skin, one person] puts the
-     person's skin on famPaintBody's stroke and the sheets are baked again; the BACK list names each one.
-  3. THE STARRED FACE: every face in the crew hand-off (BOHEMIA_CREW_FACES.json) reads as its person's record, and
-     its hair as its body's hair.
-  4. IT BITES: a starred face recoloured to the player's porcelain fails leg 3; a record that disagrees with the
-     shipped face fails leg 1; a body sheet painted in its own skin passes leg 2.
+  1. THE ONE SKIN names every person the sheets carry, with a real tone and a rig albedo; PORTRAIT's copy agrees with it.
+  2. THE BODY sheets (the fight's, the street's) and THE 64 FACE beside each body wear the person's tone. RED until
+     CHARACTER's re-bake (the engine's stroke painting the person's own tone, body and face); the BACK list names each.
+  3. THE STARRED FACE: every face in the crew hand-off (BOHEMIA_CREW_FACES.json) is painted its person's rig skin, read
+     through its own mask, and wears its body's hair.
+  4. IT BITES: a starred face repainted in the player's porcelain is refused; a copy that drifts from CHARACTER's file is
+     refused; a body sheet painted in its own tone passes.
 
     python3 gates/the_face_is_the_bodys_face_gate.py
 """
@@ -53,14 +48,15 @@ import os, sys, json, re, colorsys
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ONE_SKIN = 'records/target/character/BOHEMIA_ONE_SKIN.json'
 RECORD = 'records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json'
 SHEETS = 'slices/fight_people'
 SETTLE = 'slices/settlement_people'   # the settlement street's people, painted by the same famPaintBody (ANIMATION's bake)
 CREW = 'records/target/portrait/crew/BOHEMIA_CREW_FACES.json'
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
-STEP, DL = 1, 8.0               # the ladder's tolerance: its own tone or the one beside it, and L* within 8
-NEAR, DRAB, LUM = 30.0, 0.15, 2.20   # portrait_matches_body_gate.js's hair ruler, reused
-MIN_SKIN, MIN_HAIR = 200, 40    # pixels a reading needs before it counts
+STEP, DL = 1, 8.0                     # the ladder's tolerance: its own rung or the one beside it, and L* within 8
+NEAR, DRAB, LUM = 30.0, 0.15, 2.20    # portrait_matches_body_gate.js's hair ruler, reused
+MIN_SKIN, MIN_HAIR = 200, 40          # pixels a reading needs before it counts
 
 
 def p(*a): return os.path.join(ROOT, *a)
@@ -72,6 +68,13 @@ def lab(c):
     X = (0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.9505; Y = 0.2126 * r + 0.7152 * g + 0.0722 * b; Z = (0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.089
     h = lambda t: t ** (1 / 3.0) if t > 0.008856 else 7.787 * t + 16 / 116.0
     return (116 * h(Y) - 16, 500 * (h(X) - h(Y)), 200 * (h(Y) - h(Z)))
+
+
+def de(a, b): return sum((x - y) ** 2 for x, y in zip(lab(a), lab(b))) ** 0.5
+
+
+def lin(v): v = v / 255.0; return v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
+def srgb(x): x = min(1.0, max(0.0, x)); return int(round(255 * (x * 12.92 if x <= 0.0031308 else 1.055 * x ** (1 / 2.4) - 0.055)))
 
 
 def skin_tones(src=None):
@@ -93,6 +96,14 @@ def hair_ramps(src=None):
 def ladder(T):
     """the tones in order of lightness (their mid's L*): name -> rank"""
     return dict((n, i) for i, n in enumerate(sorted(T, key=lambda n: lab(T[n][1])[0])))
+
+
+def rig_ladder(one):
+    """CHARACTER's rig ladder: tone -> its rig albedo (one person per tone carries it), and tone -> rung (CHARACTER's order)"""
+    rgb = {}
+    for v in one['people'].values(): rgb.setdefault(v['tone'], tuple(v['rig_rgb']))
+    order = [t for t in one.get('ladder', []) if t in rgb] or sorted(rgb, key=lambda t: -lab(rgb[t])[0])
+    return rgb, dict((t, i) for i, t in enumerate(order))
 
 
 def sprite_tone(im, box, T):
@@ -122,12 +133,8 @@ def sprite_hair(im, box, ramp, T):
     return (max(cnt, key=cnt.get), 'measured') if cnt else (None, None)
 
 
-def lin(v): v = v / 255.0; return v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
-def srgb(x): x = min(1.0, max(0.0, x)); return int(round(255 * (x * 12.92 if x <= 0.0031308 else 1.055 * x ** (1 / 2.4) - 0.055)))
-
-
 def _picks(face, mask, which):
-    """(face pixel, mask pixel) where the mask is pure skin (green) or pure hair (blue)"""
+    """(face pixel, mask value) where the mask is pure skin (green) or pure hair (blue)"""
     if face.size != mask.size: mask = mask.resize(face.size, Image.NEAREST)
     ch = 1 if which == 'skin' else 2
     out = []
@@ -164,22 +171,16 @@ def paint(face, mask, which, tr):
     if which == 'skin':
         s = m / tr['mask_skin_G']
         out = [(med[i] - tr['b'][i] * s) / (tr['a'][i] * s) for i in range(3)]
-    else:   # the hair's light, its blue: the same sun's tint, the dust's share is the hair's own (small)
+    else:   # the hair's light, its blue: the same sun's tint
         out = [med[i] / (m * tr['a'][i] / tr['a'][2]) for i in range(3)]
     return tuple(srgb(x) for x in out), len(px)
 
 
-def reads_as(rgb, T, step=0):
-    """the tone a colour reads as: the nearest on the ladder by lightness (of each tone's lit step, or its mid), hue breaking a tie"""
-    L = lab(rgb)
-    return min(T, key=lambda n: (abs(lab(T[n][step])[0] - L[0]), sum((a - b) ** 2 for a, b in zip(lab(T[n][step])[1:], L[1:]))))
-
-
-def skin_verdict(rgb, tone, T, R, step=0):
-    """a face's skin paint against its person's tone: step 0 the lit (a starred face's paint), 1 the mid"""
-    got = reads_as(rgb, T, step); dl = lab(rgb)[0] - lab(T[tone][step])[0]
-    ok = abs(R[got] - R[tone]) <= STEP and abs(dl) <= DL
-    return ok, 'reads %s, L* %+.1f off %s' % (got, dl, tone)
+def rig_verdict(rgb, tone, RIG, RR):
+    """a starred face's skin paint against its person's rig albedo, on CHARACTER's rig ladder"""
+    got = min(RIG, key=lambda t: de(RIG[t], rgb)); dl = lab(rgb)[0] - lab(RIG[tone])[0]
+    ok = abs(RR[got] - RR[tone]) <= STEP and abs(dl) <= DL
+    return ok, 'reads %s, L* %+.1f off %s %s' % (got, dl, tone, RIG[tone])
 
 
 def hair_verdict(a, b):
@@ -192,7 +193,7 @@ def hair_verdict(a, b):
     return dh <= NEAR and ratio <= LUM, 'hue %.0f deg, lightness %.2fx' % (dh, ratio)
 
 
-def body_box(sheet): return (0, 0, 112 * 4, 112)          # the SE row's first four frames
+def body_box(sheet): return (0, 0, 112 * 4, 112)          # the first row's first four frames
 def face_box(sheet): return (sheet.width - 64, 0, sheet.width, 64)
 def head_box(sheet): return (0, 0, 112, 40)
 
@@ -207,41 +208,40 @@ class Gate:
         return cond
 
 
-def leg_record(g, rec, man, T, quiet=False):
+def leg_one(g, one, rec, man, T, quiet=False):
+    """CHARACTER's file covers every person the sheets carry; PORTRAIT's copy has not drifted from it"""
     bad = 0
-    for look, v in man['looks'].items():
-        e = rec['people'].get(look)
-        if not e or e.get('skin') not in T or not e.get('skin_from'):
-            bad += 1
-            if not quiet: g.ok('the record holds %s with a real tone and its source' % look, False)
-            continue
-        sh = Image.open(p(SHEETS, v['file'])).convert('RGBA')
-        n, k, _ = sprite_tone(sh, face_box(sh), T)
-        good = n == e['skin']
+    for look in man['looks']:
+        o = one['people'].get(look); e = rec['people'].get(look)
+        good = bool(o) and o.get('tone') in T and len(o.get('rig_rgb') or []) == 3 and bool(e) and e.get('skin') == o.get('tone') \
+            and list(e.get('rig_rgb') or []) == list(o.get('rig_rgb') or [])
         bad += 0 if good else 1
-        if not quiet: g.ok('RECORD %s is %s, the face the game ships agrees' % (look, e['skin']), good, 'its 64 px face reads %s (%d px)' % (n, k))
+        if not quiet: g.ok('ONE SKIN %s is %s, PORTRAIT\'s copy agrees' % (look, o and o.get('tone')), good,
+                           '' if good else 'CHARACTER %s / PORTRAIT %s' % (o and o.get('tone'), e and e.get('skin')))
     return bad
 
 
-def leg_body(g, rec, man, T, sheets=None, quiet=False, label='BODY'):
+def leg_body(g, one, man, T, sheets=None, quiet=False, label='BODY', box=body_box, folder=SHEETS):
     back = []
     for look, v in man['looks'].items():
-        e = rec['people'].get(look)
-        if not e: continue
-        sh = (sheets or {}).get(look) or Image.open(p(SHEETS, v['file'])).convert('RGBA')
-        n, k, _ = sprite_tone(sh, body_box(sh), T)
-        if n != e['skin']: back.append((look, n, e['skin']))
-        if not quiet: g.ok('%s %s wears its own skin (%s)' % (label, look, e['skin']), n == e['skin'],
-                           'the body sheet is painted %s (%d px)%s' % (n, k, '' if n == e['skin'] else '  -> BACK to CHARACTER [one skin, one person]'))
+        o = one['people'].get(look)
+        if not o: continue
+        sh = (sheets or {}).get(look) or Image.open(p(folder, v['file'])).convert('RGBA')
+        n, k, _ = sprite_tone(sh, box(sh), T)
+        if n != o['tone']: back.append((look, n, o['tone']))
+        if not quiet: g.ok('%s %s wears its own skin (%s)' % (label, look, o['tone']), n == o['tone'],
+                           'painted %s (%d px)%s' % (n, k, '' if n == o['tone'] else '  -> BACK to CHARACTER [one skin, one person]'))
     return back
 
 
-def leg_faces(g, rec, man, T, R, crew, override=None, quiet=False):
+def leg_faces(g, one, rec, crew, RIG, RR, override=None, quiet=False):
     bad = 0
+    tr = rec.get('rig_transfer')
     for look, f in crew['faces'].items():
-        e = rec['people'].get(look)
-        if not e:
-            if not quiet: g.ok('STARRED %s has a person in the record' % look, False); bad += 1
+        o = one['people'].get(look); e = rec['people'].get(look)
+        if not o or not e:
+            bad += 1
+            if not quiet: g.ok('STARRED %s has a person in CHARACTER\'s file' % look, False)
             continue
         fp = p(os.path.dirname(CREW), look, 'rest_128.png'); mp = p(os.path.dirname(CREW), look, 'mask_128.png')
         if not os.path.exists(mp):
@@ -249,15 +249,14 @@ def leg_faces(g, rec, man, T, R, crew, override=None, quiet=False):
             if not quiet: g.ok('STARRED %s carries its skin mask' % look, False, 'no %s' % os.path.relpath(mp, ROOT))
             continue
         face = (override or {}).get(look) or Image.open(fp).convert('RGBA'); mask = Image.open(mp).convert('RGBA')
-        tr = rec.get('rig_transfer')
         rgb, n = paint(face, mask, 'skin', tr)
         if n < MIN_SKIN or rgb is None:
             bad += 1
             if not quiet: g.ok('STARRED %s shows enough skin to read' % look, False, '%d px%s' % (n, '' if tr else ', and the record has no rig_transfer'))
             continue
-        good, why = skin_verdict(rgb, e['skin'], T, R)
+        good, why = rig_verdict(rgb, o['tone'], RIG, RR)
         bad += 0 if good else 1
-        if not quiet: g.ok('STARRED %s reads as its person (%s)' % (look, e['skin']), good, 'its skin paint %s, %s' % (rgb, why))
+        if not quiet: g.ok('STARRED %s is painted its body\'s skin (%s)' % (look, o['tone']), good, 'its skin paint %s, %s' % (rgb, why))
         hrgb, hn = paint(face, mask, 'hair', tr)
         body_hair = tuple(e['hair']['lt']) if e.get('hair') and e['hair'].get('lt') else None
         if hn >= MIN_HAIR and body_hair and hrgb:
@@ -270,54 +269,57 @@ def leg_faces(g, rec, man, T, R, crew, override=None, quiet=False):
 
 def main():
     g = Gate()
-    for f in (RECORD, os.path.join(SHEETS, 'fight_people.json'), CREW):
+    for f in (ONE_SKIN, RECORD, os.path.join(SHEETS, 'fight_people.json'), CREW):
         if not os.path.exists(p(f)):
             g.ok('%s exists' % f, False); print('THE FACE IS THE BODY\'S FACE: 0 passed, 1 failed'); return 1
-    rec = json.load(open(p(RECORD))); man = json.load(open(p(SHEETS, 'fight_people.json'))); crew = json.load(open(p(CREW)))
-    T = skin_tones(); R = ladder(T)
-    g.ok('the record names the game\'s own eleven tones', set(rec.get('tones', {})) == set(T), '%d tones' % len(T))
+    one = json.load(open(p(ONE_SKIN))); rec = json.load(open(p(RECORD)))
+    man = json.load(open(p(SHEETS, 'fight_people.json'))); crew = json.load(open(p(CREW)))
+    T = skin_tones(); RIG, RR = rig_ladder(one)
+    g.ok('CHARACTER\'s file names the game\'s own tones', set(RIG) <= set(T) and len(RIG) >= 9, '%d tones carried, %d in the game' % (len(RIG), len(T)))
+    g.ok('the record carries the rig\'s measured light', bool(rec.get('rig_transfer', {}).get('mask_skin_G')))
 
-    print('1. THE RECORD (the person, read from the factory) agrees with the face the game ships')
-    leg_record(g, rec, man, T)
-    print('2. THE BODY wears its person\'s skin (the fight\'s sheets, then the settlement street\'s, the same painter)')
-    back = leg_body(g, rec, man, T)
+    print('1. THE ONE SKIN (CHARACTER\'s file) names every person, and PORTRAIT\'s copy agrees')
+    leg_one(g, one, rec, man, T)
+    print('2. THE BODY, AND THE 64 FACE BESIDE IT, wear the person\'s skin (the fight\'s sheets, then the street\'s)')
+    back = leg_body(g, one, man, T)
+    back += [('64 face ' + b[0],) + b[1:] for b in leg_body(g, one, man, T, label='64 FACE', box=face_box)]
     sp = os.path.join(SETTLE, 'settlement_people.json')
     if os.path.exists(p(sp)):
-        sman = json.load(open(p(sp)))
-        back += [('street ' + b[0],) + b[1:] for b in leg_body(g, rec, sman, T, sheets=dict((l, Image.open(p(SETTLE, v['file'])).convert('RGBA')) for l, v in sman['looks'].items()), quiet=False, label='STREET BODY')]
-    print('3. THE STARRED FACE (the crew hand-off) reads as its person')
-    leg_faces(g, rec, man, T, R, crew)
+        back += [('street ' + b[0],) + b[1:] for b in leg_body(g, one, json.load(open(p(sp))), T, label='STREET BODY', folder=SETTLE)]
+    print('3. THE STARRED FACE (the crew hand-off) is painted its body\'s skin and hair')
+    leg_faces(g, one, rec, crew, RIG, RR)
 
     print('4. IT BITES')
-    looks = [l for l in crew['faces'] if l in rec['people'] and rec['people'][l].get('skin') in R and abs(R[rec['people'][l]['skin']] - R['porcelain']) > STEP
-             and os.path.exists(p(os.path.dirname(CREW), l, 'mask_128.png'))]
+    tr = rec.get('rig_transfer') or dict(a=[0.2, 0.2, 0.2], b=[0, 0, 0], mask_skin_G=0.2)
+    looks = [l for l in crew['faces'] if l in one['people'] and one['people'][l]['tone'] in RR and 'porcelain' in RR
+             and abs(RR[one['people'][l]['tone']] - RR['porcelain']) > STEP and os.path.exists(p(os.path.dirname(CREW), l, 'mask_128.png'))]
     if looks:
         l = looks[0]
         face = Image.open(p(os.path.dirname(CREW), l, 'rest_128.png')).convert('RGBA'); mask = Image.open(p(os.path.dirname(CREW), l, 'mask_128.png')).convert('RGBA')
-        tr = rec.get('rig_transfer') or dict(a=[0.2, 0.2, 0.2], b=[0, 0, 0], mask_skin_G=0.2)
         fake = face.copy(); px = fake.load(); mk = mask.load()
-        for y in range(face.height):   # the player's porcelain painted on, lit the way this very pixel is lit (its mask's green)
+        for y in range(face.height):   # the player's porcelain rig skin, lit the way this very pixel is lit (its mask's green)
             for x in range(face.width):
                 m = mk[x, y]
                 if m[1] > 60 and m[1] > 2.2 * max(m[0], m[2]):
                     s = lin(m[1]) / tr['mask_skin_G']
-                    px[x, y] = tuple(srgb(tr['a'][i] * s * lin(T['porcelain'][0][i]) + tr['b'][i] * s) for i in range(3)) + (255,)
-        g.ok('a starred face recoloured to the player\'s porcelain is refused', leg_faces(Gate(), rec, man, T, R, dict(faces={l: crew['faces'][l]}), override={l: fake}, quiet=True) > 0,
-             '%s (%s)' % (l, rec['people'][l]['skin']))
-    recw = json.loads(json.dumps(rec)); k = next(iter(man['looks']))
-    recw['people'][k]['skin'] = 'chalk' if rec['people'][k]['skin'] != 'chalk' else 'onyx'
-    g.ok('a record that disagrees with the shipped face is refused', leg_record(Gate(), recw, dict(looks={k: man['looks'][k]}), T, quiet=True) > 0, k)
-    if back:   # paint one BACK body in its own skin, pixel for pixel, and the body leg passes it
-        l, painted, own = back[0]; sh = Image.open(p(SHEETS, man['looks'][l]['file'])).convert('RGBA')
+                    px[x, y] = tuple(srgb(tr['a'][i] * s * lin(RIG['porcelain'][i]) + tr['b'][i] * s) for i in range(3)) + (255,)
+        g.ok('a starred face repainted in the player\'s porcelain is refused',
+             leg_faces(Gate(), one, rec, dict(faces={l: crew['faces'][l]}), RIG, RR, override={l: fake}, quiet=True) > 0, '%s (%s)' % (l, one['people'][l]['tone']))
+    k = next(iter(man['looks'])); recw = json.loads(json.dumps(rec))
+    recw['people'][k]['skin'] = 'chalk' if one['people'][k]['tone'] != 'chalk' else 'onyx'
+    g.ok('a copy that drifts from CHARACTER\'s file is refused', leg_one(Gate(), one, recw, dict(looks={k: man['looks'][k]}), T, quiet=True) > 0, k)
+    bodies = [b for b in back if not b[0].startswith(('64 face', 'street'))]
+    if bodies:   # paint one BACK body in its own tone, pixel for pixel, and the body leg passes it
+        l, painted, own = bodies[0]; sh = Image.open(p(SHEETS, man['looks'][l]['file'])).convert('RGBA')
         swap = dict(zip(T[painted], T[own])); fixed = sh.copy(); px = fixed.load(); box = body_box(sh)
         for y in range(box[1], box[3]):
             for x in range(box[0], box[2]):
                 c = px[x, y]
                 if c[3] > 200 and c[:3] in swap: px[x, y] = swap[c[:3]] + (c[3],)
-        g.ok('a body sheet painted in its own skin passes', not leg_body(Gate(), rec, dict(looks={l: man['looks'][l]}), T, sheets={l: fixed}, quiet=True), l)
+        g.ok('a body sheet painted in its own tone passes', not leg_body(Gate(), one, dict(looks={l: man['looks'][l]}), T, sheets={l: fixed}, quiet=True), l)
 
     if back:
-        print('\nBACK TO CHARACTER [one skin, one person] (%d body sheets): ' % len(back) + ', '.join('%s %s->%s' % b for b in back))
+        print('\nBACK TO CHARACTER [one skin, one person] (%d pictures): ' % len(back) + ', '.join('%s %s->%s' % b for b in back))
     print('THE FACE IS THE BODY\'S FACE: %d passed, %d failed' % (g.passed, len(g.failed)))
     return 1 if g.failed else 0
 

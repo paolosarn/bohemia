@@ -1,11 +1,11 @@
 {
- "version": "skin-of-record-10-19",
+ "version": "skin-of-record-10-19b",
  "lane": "portrait",
  "row": "[the face is the body's face]",
  "rule": "120(d)",
  "draft": true,
- "what": "ONE SKIN PER PERSON, read from the one place the game keeps it; nothing here is chosen. The body and every face of a person read this file (CHARACTER [one skin, one person] owns the body side and may replace a value; every face is rebuilt from what it says).",
- "skin_from": "NPC_FACTORY.npcFrom('fight:<look>').skinToneName (YOU: the player's own skinTone, the face maker), the id the fight bake keys the person with (tools/bohemia_fight_people_bake.js, famPaintBody / famFaceKey)",
+ "what": "WHAT EVERY FACE OF A PERSON IS PAINTED FROM, and what the pictures show today. The skin is CHARACTER's file, copied with its source and never chosen here (the gate refuses a copy that drifts from it); the hair is the body's own cut; the rig transfer is how the gate reads a rendered face's paint.",
+ "skin_from": "records/target/character/BOHEMIA_ONE_SKIN.json (CHARACTER [one skin, one person], 10/19: one tone per person, Las Vegas's real mix; the head's albedo is its `rig` palette step, the same as the body's)",
  "hair_from": "the body's worn cut, drawn in that cut's own ramp (GARMENTS' hair entry): the ramp's mid; YOU: the player's own colour, measured off the body",
  "tones": {
   "chalk": {
@@ -236,7 +236,10 @@
    "kind": "you",
    "id": "fight:you",
    "skin": "porcelain",
-   "skin_from": "skinTone (the player's own, the face maker)",
+   "who": "YOU",
+   "heritage": "the player",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: his own: the face maker's skin swatch (HE CAN BUILD HIS OWN FACE); porcelain is the game's default (skinTone = SKIN_TONES[1]); a portrait of YOU follows the save, never this line",
+   "factory_roll": "porcelain",
    "skin_ramp": {
     "lit": [
      224,
@@ -254,6 +257,15 @@
      129
     ]
    },
+   "rig": [
+    "skin_light",
+    3
+   ],
+   "rig_rgb": [
+    224,
+    189,
+    155
+   ],
    "hair": {
     "cut": null,
     "gear": null,
@@ -288,25 +300,37 @@
   "cast_longcoat": {
    "kind": "cast",
    "id": "fight:cast_longcoat",
-   "skin": "onyx",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_longcoat').skinToneName",
+   "skin": "tan",
+   "who": "Amaury Carrasco",
+   "heritage": "hispanic",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; a raider out of Hoover Dam, years on the road in the sun",
+   "factory_roll": "onyx",
    "skin_ramp": {
     "lit": [
-     51,
-     40,
-     34
+     179,
+     140,
+     103
     ],
     "mid": [
-     37,
-     28,
-     24
+     147,
+     115,
+     87
     ],
     "dark": [
-     26,
-     19,
-     16
+     109,
+     88,
+     71
     ]
    },
+   "rig": [
+    "skin_deep",
+    3
+   ],
+   "rig_rgb": [
+    158,
+    118,
+    89
+   ],
    "hair": {
     "cut": "TEMPLE TAPER",
     "gear": null,
@@ -335,31 +359,43 @@
    "face_64": {
     "skin": "onyx",
     "px": 651,
-    "matches": true
+    "matches": false
    }
   },
   "cast_barearms": {
    "kind": "cast",
    "id": "fight:cast_barearms",
-   "skin": "onyx",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_barearms').skinToneName",
+   "skin": "fair",
+   "who": "Amos Ferris",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; a block watch from Pahrump, bare arms browned at the forearm",
+   "factory_roll": "onyx",
    "skin_ramp": {
     "lit": [
-     51,
-     40,
-     34
+     203,
+     169,
+     140
     ],
     "mid": [
-     37,
-     28,
-     24
+     167,
+     137,
+     113
     ],
     "dark": [
-     26,
-     19,
-     16
+     124,
+     102,
+     87
     ]
    },
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ],
    "hair": {
     "cut": "COIL CROWN",
     "gear": null,
@@ -388,31 +424,43 @@
    "face_64": {
     "skin": "onyx",
     "px": 541,
-    "matches": true
+    "matches": false
    }
   },
   "cast_pack": {
    "kind": "cast",
    "id": "fight:cast_pack",
-   "skin": "onyx",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_pack').skinToneName",
+   "skin": "porcelain",
+   "who": "Otis Wexler",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; a brawler from THE TUNNELS, where there is no sun",
+   "factory_roll": "onyx",
    "skin_ramp": {
     "lit": [
-     51,
-     40,
-     34
+     224,
+     211,
+     203
     ],
     "mid": [
-     37,
-     28,
-     24
+     191,
+     175,
+     166
     ],
     "dark": [
-     26,
-     19,
-     16
+     153,
+     137,
+     129
     ]
    },
+   "rig": [
+    "skin_light",
+    3
+   ],
+   "rig_rgb": [
+    224,
+    189,
+    155
+   ],
    "hair": {
     "cut": "DRY TAPER",
     "gear": "STORM KNIT CAP",
@@ -436,36 +484,48 @@
    "body_today": {
     "skin": "porcelain",
     "px": 1145,
-    "matches": false
+    "matches": true
    },
    "face_64": {
     "skin": "onyx",
     "px": 524,
-    "matches": true
+    "matches": false
    }
   },
   "cast_skirt": {
    "kind": "cast",
    "id": "fight:cast_skirt",
-   "skin": "bronze",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_skirt').skinToneName",
+   "skin": "deep",
+   "who": "Tasha Hargrove",
+   "heritage": "black",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; a retired soldier from THE YARDS",
+   "factory_roll": "bronze",
    "skin_ramp": {
     "lit": [
-     156,
-     118,
-     87
+     83,
+     66,
+     54
     ],
     "mid": [
-     118,
-     96,
-     78
+     65,
+     51,
+     42
     ],
     "dark": [
-     90,
-     70,
-     56
+     48,
+     38,
+     31
     ]
    },
+   "rig": [
+    "skin_deep",
+    2
+   ],
+   "rig_rgb": [
+    106,
+    66,
+    48
+   ],
    "hair": {
     "cut": "CURTAIN CUT",
     "gear": null,
@@ -494,31 +554,43 @@
    "face_64": {
     "skin": "bronze",
     "px": 691,
-    "matches": true
+    "matches": false
    }
   },
   "cast_widebrim": {
    "kind": "cast",
    "id": "fight:cast_widebrim",
-   "skin": "deep",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_widebrim').skinToneName",
+   "skin": "pale",
+   "who": "Wendell Lund",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; a thief from Jean, under a brim",
+   "factory_roll": "deep",
    "skin_ramp": {
     "lit": [
-     83,
-     66,
-     54
+     188,
+     160,
+     138
     ],
     "mid": [
-     65,
-     51,
-     42
+     153,
+     127,
+     108
     ],
     "dark": [
-     48,
-     38,
-     31
+     112,
+     94,
+     84
     ]
    },
+   "rig": [
+    "skin_light",
+    2
+   ],
+   "rig_rgb": [
+    201,
+    154,
+    124
+   ],
    "hair": {
     "cut": "DEEP TAPER",
     "gear": "CHINESE RICE FARMER HAT",
@@ -547,31 +619,43 @@
    "face_64": {
     "skin": "deep",
     "px": 600,
-    "matches": true
+    "matches": false
    }
   },
   "cast_cape": {
    "kind": "cast",
    "id": "fight:cast_cape",
-   "skin": "fair",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_cape').skinToneName",
+   "skin": "olive",
+   "who": "Cyrus Truong",
+   "heritage": "asian",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; an old Vietnamese miner from Searchlight",
+   "factory_roll": "fair",
    "skin_ramp": {
     "lit": [
-     203,
-     169,
-     140
+     186,
+     151,
+     116
     ],
     "mid": [
-     167,
-     137,
-     113
+     154,
+     123,
+     94
     ],
     "dark": [
-     124,
-     102,
-     87
+     114,
+     94,
+     78
     ]
    },
+   "rig": [
+    "skin_mid",
+    3
+   ],
+   "rig_rgb": [
+    205,
+    160,
+    115
+   ],
    "hair": {
     "cut": "SHAG",
     "gear": null,
@@ -600,31 +684,43 @@
    "face_64": {
     "skin": "fair",
     "px": 773,
-    "matches": true
+    "matches": false
    }
   },
   "cast_apron": {
    "kind": "cast",
    "id": "fight:cast_apron",
-   "skin": "olive",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_apron').skinToneName",
+   "skin": "fair",
+   "who": "Wyatt Hatcher",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; an old desert hunter from Primm",
+   "factory_roll": "olive",
    "skin_ramp": {
     "lit": [
-     186,
-     151,
-     116
+     203,
+     169,
+     140
     ],
     "mid": [
-     154,
-     123,
-     94
+     167,
+     137,
+     113
     ],
     "dark": [
-     114,
-     94,
-     78
+     124,
+     102,
+     87
     ]
    },
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ],
    "hair": {
     "cut": "DEEP TAPER",
     "gear": null,
@@ -653,31 +749,43 @@
    "face_64": {
     "skin": "olive",
     "px": 632,
-    "matches": true
+    "matches": false
    }
   },
   "cast_poncho": {
    "kind": "cast",
    "id": "fight:cast_poncho",
-   "skin": "olive",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_poncho').skinToneName",
+   "skin": "bronze",
+   "who": "Xiomara Delgado",
+   "heritage": "hispanic",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; an old butcher from THE PARK; PORTRAIT's skin_mid 2 already",
+   "factory_roll": "olive",
    "skin_ramp": {
     "lit": [
-     186,
-     151,
-     116
+     156,
+     118,
+     87
     ],
     "mid": [
-     154,
-     123,
-     94
+     118,
+     96,
+     78
     ],
     "dark": [
-     114,
-     94,
-     78
+     90,
+     70,
+     56
     ]
    },
+   "rig": [
+    "skin_mid",
+    2
+   ],
+   "rig_rgb": [
+    168,
+    112,
+    76
+   ],
    "hair": {
     "cut": "CURTAIN CUT",
     "gear": null,
@@ -706,31 +814,43 @@
    "face_64": {
     "skin": "olive",
     "px": 518,
-    "matches": true
+    "matches": false
    }
   },
   "cast_bedroll": {
    "kind": "cast",
    "id": "fight:cast_bedroll",
-   "skin": "ebony",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_bedroll').skinToneName",
+   "skin": "olive",
+   "who": "Kai Galvan",
+   "heritage": "hispanic",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; a poacher from THE CHAPEL",
+   "factory_roll": "ebony",
    "skin_ramp": {
     "lit": [
-     66,
-     51,
-     43
+     186,
+     151,
+     116
     ],
     "mid": [
-     49,
-     38,
-     31
+     154,
+     123,
+     94
     ],
     "dark": [
-     35,
-     26,
-     22
+     114,
+     94,
+     78
     ]
    },
+   "rig": [
+    "skin_mid",
+    3
+   ],
+   "rig_rgb": [
+    205,
+    160,
+    115
+   ],
    "hair": {
     "cut": "TEMPLE TAPER",
     "gear": "DUST WORK CAP",
@@ -759,14 +879,17 @@
    "face_64": {
     "skin": "ebony",
     "px": 683,
-    "matches": true
+    "matches": false
    }
   },
   "cast_shorts": {
    "kind": "cast",
    "id": "fight:cast_shorts",
    "skin": "tan",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_shorts').skinToneName",
+   "who": "Hoang Serrano",
+   "heritage": "mixed",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank (Asian and Hispanic); a caravan hand; PORTRAIT's skin_deep 3 already",
+   "factory_roll": "tan",
    "skin_ramp": {
     "lit": [
      179,
@@ -784,6 +907,15 @@
      71
     ]
    },
+   "rig": [
+    "skin_deep",
+    3
+   ],
+   "rig_rgb": [
+    158,
+    118,
+    89
+   ],
    "hair": {
     "cut": "COIL CROWN",
     "gear": null,
@@ -818,25 +950,37 @@
   "cast_satchel": {
    "kind": "cast",
    "id": "fight:cast_satchel",
-   "skin": "onyx",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_satchel').skinToneName",
+   "skin": "brown",
+   "who": "Javier Escobar",
+   "heritage": "hispanic",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; a gambler from THE DATAFORT",
+   "factory_roll": "onyx",
    "skin_ramp": {
     "lit": [
-     51,
-     40,
-     34
+     118,
+     94,
+     78
     ],
     "mid": [
-     37,
-     28,
-     24
+     94,
+     74,
+     59
     ],
     "dark": [
-     26,
-     19,
-     16
+     71,
+     54,
+     44
     ]
    },
+   "rig": [
+    "skin_light",
+    1
+   ],
+   "rig_rgb": [
+    125,
+    88,
+    74
+   ],
    "hair": {
     "cut": "DRY TAPER",
     "gear": "CHARCOAL WATCH CAP",
@@ -865,31 +1009,43 @@
    "face_64": {
     "skin": "onyx",
     "px": 497,
-    "matches": true
+    "matches": false
    }
   },
   "cast_shortcoat": {
    "kind": "cast",
    "id": "fight:cast_shortcoat",
-   "skin": "ebony",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:cast_shortcoat').skinToneName",
+   "skin": "chalk",
+   "who": "Corinne Emery",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: PEOPLE's bank; a daytaler from THE SHOPS; the rust hair and the palest skin go together",
+   "factory_roll": "ebony",
    "skin_ramp": {
     "lit": [
-     66,
-     51,
-     43
+     236,
+     227,
+     221
     ],
     "mid": [
-     49,
-     38,
-     31
+     204,
+     191,
+     183
     ],
     "dark": [
-     35,
-     26,
-     22
+     166,
+     151,
+     143
     ]
    },
+   "rig": [
+    "skin_light",
+    4
+   ],
+   "rig_rgb": [
+    243,
+    221,
+    189
+   ],
    "hair": {
     "cut": "LAYERED FALL",
     "gear": "OXBLOOD SLOUCH BEANIE",
@@ -918,31 +1074,43 @@
    "face_64": {
     "skin": "ebony",
     "px": 780,
-    "matches": true
+    "matches": false
    }
   },
   "faction_caravans": {
    "kind": "faction",
    "id": "fight:faction_caravans",
-   "skin": "ebony",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_caravans').skinToneName",
+   "skin": "brown",
+   "who": "a Caravans trader",
+   "heritage": "hispanic",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix; the man who has walked every road",
+   "factory_roll": "ebony",
    "skin_ramp": {
     "lit": [
-     66,
-     51,
-     43
+     118,
+     94,
+     78
     ],
     "mid": [
-     49,
-     38,
-     31
+     94,
+     74,
+     59
     ],
     "dark": [
-     35,
-     26,
-     22
+     71,
+     54,
+     44
     ]
    },
+   "rig": [
+    "skin_light",
+    1
+   ],
+   "rig_rgb": [
+    125,
+    88,
+    74
+   ],
    "hair": {
     "cut": "COIL CROWN",
     "gear": "CHINESE RICE FARMER HAT",
@@ -971,31 +1139,43 @@
    "face_64": {
     "skin": "ebony",
     "px": 463,
-    "matches": true
+    "matches": false
    }
   },
   "faction_colorful": {
    "kind": "faction",
    "id": "fight:faction_colorful",
-   "skin": "olive",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_colorful').skinToneName",
+   "skin": "bronze",
+   "who": "a Colorful",
+   "heritage": "mixed",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix; the gang that refuses a single flag; PORTRAIT's skin_mid 2 already",
+   "factory_roll": "olive",
    "skin_ramp": {
     "lit": [
-     186,
-     151,
-     116
+     156,
+     118,
+     87
     ],
     "mid": [
-     154,
-     123,
-     94
+     118,
+     96,
+     78
     ],
     "dark": [
-     114,
-     94,
-     78
+     90,
+     70,
+     56
     ]
    },
+   "rig": [
+    "skin_mid",
+    2
+   ],
+   "rig_rgb": [
+    168,
+    112,
+    76
+   ],
    "hair": {
     "cut": "SHAG",
     "gear": "ROSE KNIT CAP",
@@ -1024,31 +1204,43 @@
    "face_64": {
     "skin": "olive",
     "px": 440,
-    "matches": true
+    "matches": false
    }
   },
   "faction_anarchists": {
    "kind": "faction",
    "id": "fight:faction_anarchists",
-   "skin": "onyx",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_anarchists').skinToneName",
+   "skin": "chalk",
+   "who": "an Anarchist",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix; lanky, a night creature",
+   "factory_roll": "onyx",
    "skin_ramp": {
     "lit": [
-     51,
-     40,
-     34
+     236,
+     227,
+     221
     ],
     "mid": [
-     37,
-     28,
-     24
+     204,
+     191,
+     183
     ],
     "dark": [
-     26,
-     19,
-     16
+     166,
+     151,
+     143
     ]
    },
+   "rig": [
+    "skin_light",
+    4
+   ],
+   "rig_rgb": [
+    243,
+    221,
+    189
+   ],
    "hair": {
     "cut": "LAYERED FALL",
     "gear": "CHARCOAL WATCH CAP",
@@ -1077,31 +1269,43 @@
    "face_64": {
     "skin": "onyx",
     "px": 386,
-    "matches": true
+    "matches": false
    }
   },
   "faction_blues": {
    "kind": "faction",
    "id": "fight:faction_blues",
-   "skin": "onyx",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_blues').skinToneName",
+   "skin": "deep",
+   "who": "a Blue",
+   "heritage": "black",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix; PORTRAIT's skin_deep 2 already",
+   "factory_roll": "onyx",
    "skin_ramp": {
     "lit": [
-     51,
-     40,
-     34
+     83,
+     66,
+     54
     ],
     "mid": [
-     37,
-     28,
-     24
+     65,
+     51,
+     42
     ],
     "dark": [
-     26,
-     19,
-     16
+     48,
+     38,
+     31
     ]
    },
+   "rig": [
+    "skin_deep",
+    2
+   ],
+   "rig_rgb": [
+    106,
+    66,
+    48
+   ],
    "hair": {
     "cut": "DRY TAPER",
     "gear": null,
@@ -1130,31 +1334,43 @@
    "face_64": {
     "skin": "onyx",
     "px": 452,
-    "matches": true
+    "matches": false
    }
   },
   "faction_homeless": {
    "kind": "faction",
    "id": "fight:faction_homeless",
-   "skin": "olive",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_homeless').skinToneName",
+   "skin": "fair",
+   "who": "a Homeless",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix",
+   "factory_roll": "olive",
    "skin_ramp": {
     "lit": [
-     186,
-     151,
-     116
+     203,
+     169,
+     140
     ],
     "mid": [
-     154,
-     123,
-     94
+     167,
+     137,
+     113
     ],
     "dark": [
-     114,
-     94,
-     78
+     124,
+     102,
+     87
     ]
    },
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ],
    "hair": {
     "cut": "LAYERED FALL",
     "gear": null,
@@ -1183,31 +1399,43 @@
    "face_64": {
     "skin": "olive",
     "px": 477,
-    "matches": true
+    "matches": false
    }
   },
   "faction_church": {
    "kind": "faction",
    "id": "fight:faction_church",
-   "skin": "fair",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_church').skinToneName",
+   "skin": "porcelain",
+   "who": "a Churchman",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix; PORTRAIT's skin_light 3 already",
+   "factory_roll": "fair",
    "skin_ramp": {
     "lit": [
-     203,
-     169,
-     140
+     224,
+     211,
+     203
     ],
     "mid": [
-     167,
-     137,
-     113
+     191,
+     175,
+     166
     ],
     "dark": [
-     124,
-     102,
-     87
+     153,
+     137,
+     129
     ]
    },
+   "rig": [
+    "skin_light",
+    3
+   ],
+   "rig_rgb": [
+    224,
+    189,
+    155
+   ],
    "hair": {
     "cut": "COIL CROWN",
     "gear": "BONE KNIT CAP",
@@ -1231,36 +1459,48 @@
    "body_today": {
     "skin": "porcelain",
     "px": 1101,
-    "matches": false
+    "matches": true
    },
    "face_64": {
     "skin": "fair",
     "px": 470,
-    "matches": true
+    "matches": false
    }
   },
   "faction_reds": {
    "kind": "faction",
    "id": "fight:faction_reds",
-   "skin": "deep",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_reds').skinToneName",
+   "skin": "olive",
+   "who": "a Red",
+   "heritage": "hispanic",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix; the money faction",
+   "factory_roll": "deep",
    "skin_ramp": {
     "lit": [
-     83,
-     66,
-     54
+     186,
+     151,
+     116
     ],
     "mid": [
-     65,
-     51,
-     42
+     154,
+     123,
+     94
     ],
     "dark": [
-     48,
-     38,
-     31
+     114,
+     94,
+     78
     ]
    },
+   "rig": [
+    "skin_mid",
+    3
+   ],
+   "rig_rgb": [
+    205,
+    160,
+    115
+   ],
    "hair": {
     "cut": "DRY TAPER",
     "gear": null,
@@ -1289,14 +1529,17 @@
    "face_64": {
     "skin": "deep",
     "px": 630,
-    "matches": true
+    "matches": false
    }
   },
   "faction_cartel": {
    "kind": "faction",
    "id": "fight:faction_cartel",
    "skin": "tan",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_cartel').skinToneName",
+   "who": "a Cartel",
+   "heritage": "hispanic",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix",
+   "factory_roll": "tan",
    "skin_ramp": {
     "lit": [
      179,
@@ -1314,6 +1557,15 @@
      71
     ]
    },
+   "rig": [
+    "skin_deep",
+    3
+   ],
+   "rig_rgb": [
+    158,
+    118,
+    89
+   ],
    "hair": {
     "cut": "DRY TAPER",
     "gear": "CHARCOAL WATCH CAP",
@@ -1349,7 +1601,10 @@
    "kind": "faction",
    "id": "fight:faction_trades",
    "skin": "brown",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_trades').skinToneName",
+   "who": "a Tradesman",
+   "heritage": "black",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix",
+   "factory_roll": "brown",
    "skin_ramp": {
     "lit": [
      118,
@@ -1367,6 +1622,15 @@
      44
     ]
    },
+   "rig": [
+    "skin_light",
+    1
+   ],
+   "rig_rgb": [
+    125,
+    88,
+    74
+   ],
    "hair": {
     "cut": "TEMPLE TAPER",
     "gear": "DUST WORK CAP",
@@ -1401,25 +1665,37 @@
   "faction_mob": {
    "kind": "faction",
    "id": "fight:faction_mob",
-   "skin": "olive",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_mob').skinToneName",
+   "skin": "pale",
+   "who": "a Mob man",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix; PORTRAIT's skin_light 2 already",
+   "factory_roll": "olive",
    "skin_ramp": {
     "lit": [
-     186,
-     151,
-     116
+     188,
+     160,
+     138
     ],
     "mid": [
-     154,
-     123,
-     94
+     153,
+     127,
+     108
     ],
     "dark": [
-     114,
+     112,
      94,
-     78
+     84
     ]
    },
+   "rig": [
+    "skin_light",
+    2
+   ],
+   "rig_rgb": [
+    201,
+    154,
+    124
+   ],
    "hair": {
     "cut": "DRY TAPER",
     "gear": null,
@@ -1448,31 +1724,43 @@
    "face_64": {
     "skin": "olive",
     "px": 722,
-    "matches": true
+    "matches": false
    }
   },
   "faction_network": {
    "kind": "faction",
    "id": "fight:faction_network",
-   "skin": "brown",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_network').skinToneName",
+   "skin": "fair",
+   "who": "a Network",
+   "heritage": "asian",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix",
+   "factory_roll": "brown",
    "skin_ramp": {
     "lit": [
-     118,
-     94,
-     78
+     203,
+     169,
+     140
     ],
     "mid": [
-     94,
-     74,
-     59
+     167,
+     137,
+     113
     ],
     "dark": [
-     71,
-     54,
-     44
+     124,
+     102,
+     87
     ]
    },
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ],
    "hair": {
     "cut": "TEMPLE TAPER",
     "gear": null,
@@ -1501,31 +1789,43 @@
    "face_64": {
     "skin": "brown",
     "px": 577,
-    "matches": true
+    "matches": false
    }
   },
   "faction_volunteers": {
    "kind": "faction",
    "id": "fight:faction_volunteers",
-   "skin": "onyx",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_volunteers').skinToneName",
+   "skin": "bronze",
+   "who": "a Volunteer",
+   "heritage": "hispanic",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix",
+   "factory_roll": "onyx",
    "skin_ramp": {
     "lit": [
-     51,
-     40,
-     34
+     156,
+     118,
+     87
     ],
     "mid": [
-     37,
-     28,
-     24
+     118,
+     96,
+     78
     ],
     "dark": [
-     26,
-     19,
-     16
+     90,
+     70,
+     56
     ]
    },
+   "rig": [
+    "skin_mid",
+    2
+   ],
+   "rig_rgb": [
+    168,
+    112,
+    76
+   ],
    "hair": {
     "cut": "HEAVY FRINGE",
     "gear": null,
@@ -1554,31 +1854,43 @@
    "face_64": {
     "skin": "onyx",
     "px": 537,
-    "matches": true
+    "matches": false
    }
   },
   "faction_remnants": {
    "kind": "faction",
    "id": "fight:faction_remnants",
-   "skin": "deep",
-   "skin_from": "NPC_FACTORY.npcFrom('fight:faction_remnants').skinToneName",
+   "skin": "fair",
+   "who": "a Remnant",
+   "heritage": "white",
+   "skin_from": "CHARACTER's BOHEMIA_ONE_SKIN.json: the census mix; Nellis Gate, the old air base",
+   "factory_roll": "deep",
    "skin_ramp": {
     "lit": [
-     83,
-     66,
-     54
+     203,
+     169,
+     140
     ],
     "mid": [
-     65,
-     51,
-     42
+     167,
+     137,
+     113
     ],
     "dark": [
-     48,
-     38,
-     31
+     124,
+     102,
+     87
     ]
    },
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ],
    "hair": {
     "cut": "TEMPLE TAPER",
     "gear": "STORM KNIT CAP",
@@ -1607,7 +1919,7 @@
    "face_64": {
     "skin": "deep",
     "px": 493,
-    "matches": true
+    "matches": false
    }
   }
  },
@@ -1627,18 +1939,18 @@
  },
  "measured": {
   "people": 26,
-  "bodies_in_their_own_skin": 1,
-  "faces_64_in_their_own_skin": 26,
+  "bodies_in_their_own_skin": 3,
+  "faces_64_in_their_own_skin": 4,
   "tones": {
-   "onyx": 7,
-   "ebony": 3,
-   "deep": 3,
-   "brown": 2,
-   "bronze": 1,
-   "tan": 2,
-   "olive": 5,
-   "fair": 2,
-   "porcelain": 1
+   "deep": 2,
+   "brown": 3,
+   "bronze": 3,
+   "tan": 3,
+   "olive": 3,
+   "pale": 2,
+   "fair": 5,
+   "porcelain": 3,
+   "chalk": 2
   },
   "bodies_wear": "porcelain"
  }

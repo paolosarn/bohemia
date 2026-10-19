@@ -258,12 +258,13 @@ for _i, _c in enumerate(MAKER):
 # [the face is the body's face] (rule 120(d), his 10/18 'Black people looking like white people'): THE SKIN AND THE HAIR
 # ARE THE PERSON'S, OF RECORD. The crew's and the gangs' colours above were picked by eye off the 64 face and lifted 'two
 # steps', and under the rig's sun all twelve cast faces came out one orange brown. From here a face whose look is in
-# records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json (the factory's skin, read out of the alpha by
-# tools/bohemia_portrait_the_face_is_the_bodys_face.py; the body's own cut ramp for the hair) is PAINTED IN IT: the skin is
-# the person's own ramp's lit step (the skin's colour where the light falls full; the rig's one sun does all the shading,
-# so nothing is lifted or darkened to suit a palette), the lips its mid, the stubble its mid, a scar the lit healed paler;
-# the hair the body's cut ramp's lit step, a beard its mid. The body is built in the same skin (CHARACTER's SKIN, set in
-# memory for the build, its file never written). The gate takes the rig's measured light back out and reads the paint.
+# records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json is PAINTED FROM IT: the skin is CHARACTER's one skin for that person
+# (records/target/character/BOHEMIA_ONE_SKIN.json, [one skin, one person], copied into the record with its source): its `rig`
+# style palette step, the SAME albedo CHARACTER's body of that person wears, so a head on its own body cannot disagree;
+# the lips and the stubble a step down the same ramp, a scar two steps up (the old palette logic, unchanged). The hair is
+# the body's own cut ramp's lit step (its colour where the light falls full; the rig's one sun does the shading), a beard
+# its mid. The body is built in the same skin (CHARACTER's SKIN, set in memory for the build, its file never written).
+# The gate takes the rig's measured light back out and reads the paint against the person's rig albedo.
 # PORTRAIT_SKIN_MASK=1 renders the same head with the skin pure green and the hair pure blue: the gate's mask.
 SKIN_RECORD = 'records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json'
 MASK = os.environ.get('PORTRAIT_SKIN_MASK') == '1'
@@ -273,21 +274,26 @@ def _apply_record():
     path = os.path.join(ROOT, SKIN_RECORD)
     if not os.path.exists(path): return
     rec = json.load(open(path))
-    mix = lambda a, b, t: tuple(int(round(x + (y - x) * t)) for x, y in zip(a, b))
     for P in PEOPLE.values():
         e = rec['people'].get(P.get('look'))
         if not e: continue
-        R = dict((k, tuple(v)) for k, v in e['skin_ramp'].items())
-        c = dict(skin=R['lit'], lips=R['mid'], stubble=R['mid'], scar=mix(R['lit'], SCLERA, 0.3))
+        role, i = e['rig']
+        c = dict(skin=(role, i), lips=(role, max(0, i - 1)), stubble=(role, max(0, i - 1)))
+        P['colours'].pop('scar', None)   # colours() heals a scar two steps up the same ramp
         h = e.get('hair') or {}
         if h.get('lt'): c['hair'] = tuple(h['lt']); c['beard'] = tuple(h.get('rgb') or h['lt'])
         P['colours'].update(c)
-        P['skin_of_record'] = dict(skin=e['skin'], ramp=R, hair=h)
-        P['palette'] = "the person's own skin of record (%s, the game's SKIN_TONES ramp, painted its lit step) and the body's hair (%s, its lit step)" % (
-            e['skin'], h.get('ramp'))
+        P['skin_of_record'] = dict(skin=e['skin'], rig=e['rig'], hair=h)
+        P['palette'] = "CHARACTER's one skin for this person (%s, the rig step %s %d, the body's own) and the body's hair (%s, its lit step)" % (
+            e['skin'], role, i, h.get('ramp'))
 
 
 _apply_record()
+
+
+def P_SKIN_OK(sk):
+    """a skin this tool can hand CHARACTER's body: a palette step (role, i) or an RGB"""
+    return (len(sk) == 2 and isinstance(sk[0], str)) or (len(sk) == 3 and all(isinstance(x, int) for x in sk))
 
 
 def faction_body(name, outdir):
@@ -295,7 +301,7 @@ def faction_body(name, outdir):
     sys.path.insert(0, os.path.join(ROOT, 'tools'))
     import bohemia_character_the_thirteen_through_the_rig as CH
     sk = PEOPLE['FACTION_' + name.upper()]['colours'].get('skin')
-    if sk and len(sk) == 3 and all(isinstance(x, int) for x in sk): CH.SKIN = tuple(sk)   # the person's own skin (rule 120(d))
+    if sk and P_SKIN_OK(sk): CH.SKIN = palette_step(*sk) if len(sk) == 2 else tuple(sk)   # the person's own skin, the head's (rule 120(d))
     CH.build(name, os.path.join(ROOT, outdir))
 
 
@@ -311,7 +317,7 @@ def crew_body(who, outdir):
     spec.setdefault('trousers', dict(colour=(40, 38, 38), wide=0.012)); spec.setdefault('shoes', dict(colour=(40, 36, 34), kind='boot', top=0.2))
     name = 'crew_' + c['look']
     sk = PEOPLE[who]['colours'].get('skin')
-    if sk and len(sk) == 3 and all(isinstance(x, int) for x in sk): CH.SKIN = tuple(sk)   # the person's own skin (rule 120(d))
+    if sk and P_SKIN_OK(sk): CH.SKIN = palette_step(*sk) if len(sk) == 2 else tuple(sk)   # the person's own skin, the head's (rule 120(d))
     CH.LOOKS[name] = dict(order=99, shape='crew: ' + c['look'], dials=dict(height=0.0, belly=0.0, shoulders=0.0, hips=0.0),
                           worn=c.get('worn', c['look']), hair=dict(style='taper', colour=CH.HAIR_DARK), **spec)
     CH.build(name, os.path.join(ROOT, outdir))
