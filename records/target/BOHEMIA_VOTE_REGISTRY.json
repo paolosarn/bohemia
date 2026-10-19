@@ -11155,6 +11155,39 @@
     "scale": "his phone upright, 390 x 844, one screen each"
    },
    "draft": true
+  },
+  {
+   "id": "ui-the-hit-chance-look-10-19",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "955336a9",
+   "made": "10/19",
+   "title": "THE FIGHT TELLS YOU YOUR WEAPON IS WEAK",
+   "why": "You said the game never tells you your weapon sucks, so when you pick a man his chance to be hit is now big and a slip of receipt paper shows in red how much of his armour and his body this one hit takes, with a red line when it is the wrong tool (Your pistol barely dents his plate). You see it in the fight on your phone, upright and on its side, today next to A (the slip over the man), B (the slip printed out of the bar) and C (inside the bar, the chance on the strike button); pick one, or NO with what is wrong.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/ui_hit_chance_look/UI_THE_HIT_CHANCE_LOOK.png"
+   },
+   "options": [
+    "A",
+    "B",
+    "C",
+    "NO"
+   ],
+   "twin": {
+    "src": "records/target/ui_hit_chance_look/twin_paper_sign.png",
+    "diffs": [
+     "THE PAPER: his pack's sign is painted wood with snow on it; the slip is the till's thermal paper with a torn foot, the same receipt the fight's bar already prints on.",
+     "THE INK: his pack's menu board writes light on dark; the slip prints dark ink and one red on light paper, because every word has to read in the sun (worst 4.99 to 1).",
+     "THE LETTERS: his pack's are hand-lettered at 5 to 7 pixels; the slip's are the game's own two faces, the chance three times bigger so it is the first thing the eye lands on."
+    ]
+   },
+   "before_after": {
+    "before": "his chance as a 10 px number in the corner of the strike square and nothing about what the hit does: his pistol on a raider in plate reads 32% and looks the same as a good shot",
+    "after": "32% in big letters, his armour as ten cells with the one this hit takes in red (-15) and his body untouched (0), and the line Your pistol barely dents his plate; one beat after the swing the same slip says HIT and what it took",
+    "scale": "1:1"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
