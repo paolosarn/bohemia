@@ -62,7 +62,9 @@ const alpha = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 
    by construction. These legs hold that, not the pin; the [see me] claim is unchanged: the
    person on the map is his, and it is a person, not a disc. */
 ok('A1 the map draws the player from his OWN rig, not a rolled face or a symbol',
-   /__set=PLAYER_CV&&\(PLAYER_CV\[__face\]\|\|PLAYER_CV\.S\)/.test(world) && /spriteAt\(__spr,(24|32)\)/.test(world)   /* a FIXED rung, never TW: 24 drew the 56 body raw; since 10/4 (CAST_PX 112) 32 is the 112 box drawn at half, the same 56 on the glass */);
+   /* RUN 10/19, rule 121(e) ('EVERYTHING IS A 3D MODEL NOW... WTF TRYING TO COMBINE THE TWO'): his 3D body first, his old baked one only before the sheets land */
+   (/__set=PLAYER_CV&&\(PLAYER_CV\[__face\]\|\|PLAYER_CV\.S\)/.test(world) || (/const __src=__rigYou\|\|PLAYER_CV;/.test(world) && /__set=__src&&\(__src\[__face\]\|\|__src\.S\)/.test(world)))
+   && /spriteAt\(__spr,(24|32)\)/.test(world)   /* a FIXED rung, never TW: 24 drew the 56 body raw; since 10/4 (CAST_PX 112) 32 is the 112 box drawn at half, the same 56 on the glass */);
 ok('A2 *** the bridge hands the player his OWN spec and everybody else a rolled one ***',
    /_who==='you'&&typeof buildSpec==='function'\)\?buildSpec\(\):faceFor\(_who\)/.test(alpha));
 { const __i = world.indexOf('__THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF');
@@ -275,9 +277,10 @@ ok('A6 a doused circuit still names its holder (the light went out, the claim di
          + 'marker\'s ' + (me && me.tallest) + '), which is the [white rings] rule -- never quieter than a town -- '
          + 'kept by size and shape instead of by brightness', !!me && me.h >= me.tallest * 1.5);
       ok('B2 *** IT IS A PERSON, NOT A DISC *** -- ' + (me && me.colours) + ' colours inside the box he was drawn in',
-         !!me && me.how === 'rig' && me.colours >= 20);
-      ok('B3 and he is drawn at one pixel-true size (' + (me && me.w + 'x' + me.h) + ', the rig\'s 56 box)',
-         !!me && me.w === 56 && me.h === 56);
+         !!me && (me.how === 'rig' || me.how === 'rig3d') && me.colours >= 20);
+      /* the 3D sheet's box is 112 wide and taller than wide (his hair inside it): drawn at exactly half on both sides */
+      ok('B3 and he is drawn at one pixel-true size (' + (me && me.w + 'x' + me.h) + ', the rig\'s 56 box, half the 3D box\'s height)',
+         !!me && me.w === 56 && (me.h === 56 || (me.how === 'rig3d' && Number.isInteger(me.h * 2))));
 
       /* ---- D. THE PEACH DOTS ANSWER FOR THEMSELVES ---------------------- */
       const lamp = await fr.evaluate(() => {

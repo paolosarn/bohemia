@@ -25,6 +25,8 @@ ok('the party\'s shadows are one fill (__THE_SHADOW_LINE__, mapPartyShadow)', /f
   let f = null; for (let i = 0; i < 60 && !(f = p.frames().find(x => /CITY_WORLD/.test(x.url()))); i++) await p.waitForTimeout(500);
   if (!f) { ok('the map loads inside the alpha', false); await d.browser.close(); return done(); }
   for (let i = 0; i < 160; i++) { const n = await f.evaluate(() => typeof CAST_WALK === 'undefined' ? -1 : Object.keys(CAST_WALK).length).catch(() => -1); if (n >= 12) break; await p.waitForTimeout(500); }
+  /* and the 3D sheets (RUN 10/19, __THE_MAP_IS_ALL_RIG__): his two men are drawn from them, so a sheet landing mid-measure moved a shadow under the count */
+  for (let i = 0; i < 120; i++) { if (await f.evaluate(() => typeof rigAllReady !== 'function' || rigAllReady() || (typeof rigFailed === 'function' && rigFailed())).catch(() => false)) break; await p.waitForTimeout(500); }
   const r = await f.evaluate(() => {
     const out = []; let T = performance.now() + 5000; const real = performance.now; performance.now = () => T;
     const P = MAP_PARTY_AS_ONE, shade0 = P.shade, cv = document.querySelector('canvas'), cx = cv.getContext('2d');

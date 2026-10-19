@@ -81,7 +81,8 @@ const done = () => { console.log('THE MAP HAS ITS PEOPLE: ' + pass + ' passed, '
     const drewAt = () => fr.evaluate(() => { render(); return JSON.parse(JSON.stringify(MAP_DREW)); });
     const z1 = await drewAt();
     say('him: ' + JSON.stringify(z1.you) + ', drawn ' + z1.youCount + ' time(s) this frame');
-    ok('*** HE IS DRAWN AS HIMSELF, HIS OWN BAKED BODY, NOT A SYMBOL ***', !!z1.you && z1.you.how === 'rig');
+    /* rule 121(e), 10/19: 'rig3d' is his 3D body (RUN [the 3D models in the demo]); 'rig' his old baked one, only before the sheets land */
+    ok('*** HE IS DRAWN AS HIMSELF, HIS OWN BODY, NOT A SYMBOL ***', !!z1.you && (z1.you.how === 'rig3d' || z1.you.how === 'rig'));
     ok('and exactly once', z1.youCount === 1);
     const biggest = await fr.evaluate(() => {
       let h = 0;
@@ -150,7 +151,7 @@ const done = () => { console.log('THE MAP HAS ITS PEOPLE: ' + pass + ' passed, '
     await d.page.waitForTimeout(900);
     const w = await fr.evaluate(() => { render(); return MAP_DREW.you; });
     ok('while he travels he is drawn walking, facing the way he goes (' + (w && (w.moving + ' ' + w.face)) + ')',
-       walk && !!w && w.moving === true && w.how === 'rig');
+       walk && !!w && w.moving === true && (w.how === 'rig3d' || w.how === 'rig'));
 
     ok('nothing threw (' + d.errs.length + ')', d.errs.length === 0);
     await d.close();
