@@ -1,0 +1,200 @@
+{
+ "person": "FACTION_REMNANTS",
+ "model": "records/portrait/rig/crew/faction_remnants_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/remnants.glb",
+ "dropped": [
+  "remnants_hair",
+  "remnants_hair_fall",
+  "remnants_hat",
+  "remnants_hat_brim",
+  "remnants_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "knit cap",
+ "hair": "taper",
+ "stubble": false,
+ "look": "faction_remnants",
+ "beard": "stubble",
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 34,
+   "face.craniumH": 10,
+   "face.foreheadW": 28,
+   "face.cheekW": 36,
+   "face.jawW": 33,
+   "face.chinW": 18,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 1,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 10,
+   "mouth.w": 9,
+   "nose.w": 3
+  },
+  "identity": false,
+  "mouth_half": 0.033
+ },
+ "meshes": {
+  "Cesium_Man": 1236,
+  "remnants_coat": 19050,
+  "remnants_coat_skirt": 4596,
+  "remnants_hand_L": 392,
+  "remnants_hand_R": 392,
+  "remnants_shoe": 3916,
+  "remnants_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_cap": 11226,
+  "portrait_hair": 8358
+ },
+ "materials": {
+  "portrait_faction_remnants_buzz": [
+   0.0369,
+   0.0319,
+   0.0262
+  ],
+  "portrait_faction_remnants_cap": [
+   0.1329,
+   0.1248,
+   0.117
+  ],
+  "portrait_faction_remnants_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_remnants_lips": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "portrait_faction_remnants_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_remnants_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_remnants_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_remnants_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "portrait_faction_remnants_stubble": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "remnants_coat": [
+   0.0666,
+   0.0762,
+   0.0369
+  ],
+  "remnants_coat_skirt": [
+   0.0666,
+   0.0762,
+   0.0369
+  ],
+  "remnants_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "remnants_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "remnants_hat": [
+   0.0612,
+   0.0648,
+   0.0762
+  ],
+  "remnants_hat_brim": [
+   0.0612,
+   0.0648,
+   0.0762
+  ],
+  "remnants_shirt": [
+   0.0887,
+   0.0976,
+   0.0452
+  ],
+  "remnants_shoe": [
+   0.0395,
+   0.0395,
+   0.0395
+  ],
+  "remnants_shoes": [
+   0.0395,
+   0.0395,
+   0.0395
+  ],
+  "remnants_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "remnants_trouser": [
+   0.0545,
+   0.0545,
+   0.0578
+  ],
+  "remnants_trousers": [
+   0.0545,
+   0.0545,
+   0.0578
+  ]
+ }
+}

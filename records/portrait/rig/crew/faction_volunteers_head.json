@@ -1,0 +1,184 @@
+{
+ "person": "FACTION_VOLUNTEERS",
+ "model": "records/portrait/rig/crew/faction_volunteers_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/volunteers.glb",
+ "dropped": [
+  "volunteers_hair",
+  "volunteers_hair_fall",
+  "volunteers_hat",
+  "volunteers_hat_brim",
+  "volunteers_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.028600000000000004,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "fringe",
+ "stubble": false,
+ "look": "faction_volunteers",
+ "beard": null,
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 30,
+   "face.craniumH": 11,
+   "face.foreheadW": 24,
+   "face.cheekW": 28,
+   "face.jawW": 22,
+   "face.chinW": 9,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 7,
+   "mouth.w": 7,
+   "nose.w": 3
+  },
+  "identity": false,
+  "mouth_half": 0.0286
+ },
+ "meshes": {
+  "Cesium_Man": 1238,
+  "volunteers_coat": 18314,
+  "volunteers_coat_skirt": 4160,
+  "volunteers_hand_L": 392,
+  "volunteers_hand_R": 392,
+  "volunteers_shoe": 4116,
+  "volunteers_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 67188
+ },
+ "materials": {
+  "portrait_faction_volunteers_buzz": [
+   0.0369,
+   0.0319,
+   0.0262
+  ],
+  "portrait_faction_volunteers_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_volunteers_lips": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "portrait_faction_volunteers_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_volunteers_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_volunteers_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_volunteers_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "portrait_faction_volunteers_stubble": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "volunteers_coat": [
+   0.2664,
+   0.2582,
+   0.2384
+  ],
+  "volunteers_coat_skirt": [
+   0.2664,
+   0.2582,
+   0.2384
+  ],
+  "volunteers_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "volunteers_hair": [
+   0.006,
+   0.0052,
+   0.0044
+  ],
+  "volunteers_shirt": [
+   0.552,
+   0.5271,
+   0.4678
+  ],
+  "volunteers_shoe": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "volunteers_shoes": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "volunteers_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "volunteers_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "volunteers_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

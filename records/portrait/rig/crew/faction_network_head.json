@@ -1,0 +1,184 @@
+{
+ "person": "FACTION_NETWORK",
+ "model": "records/portrait/rig/crew/faction_network_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/network.glb",
+ "dropped": [
+  "network_hair",
+  "network_hair_fall",
+  "network_hat",
+  "network_hat_brim",
+  "network_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.0308,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "taper",
+ "stubble": false,
+ "look": "faction_network",
+ "beard": null,
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 35,
+   "face.craniumH": 11,
+   "face.foreheadW": 25,
+   "face.cheekW": 29,
+   "face.jawW": 25,
+   "face.chinW": 11,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 7,
+   "brows.len": 7,
+   "mouth.w": 8,
+   "nose.w": 3
+  },
+  "identity": false,
+  "mouth_half": 0.0308
+ },
+ "meshes": {
+  "Cesium_Man": 1232,
+  "network_coat": 19050,
+  "network_coat_skirt": 4704,
+  "network_hand_L": 392,
+  "network_hand_R": 392,
+  "network_shoe": 3836,
+  "network_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 49572
+ },
+ "materials": {
+  "network_coat": [
+   0.0931,
+   0.2961,
+   0.2423
+  ],
+  "network_coat_skirt": [
+   0.0931,
+   0.2961,
+   0.2423
+  ],
+  "network_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "network_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "network_shirt": [
+   0.0782,
+   0.1274,
+   0.107
+  ],
+  "network_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "network_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "network_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "network_trouser": [
+   0.063,
+   0.063,
+   0.0648
+  ],
+  "network_trousers": [
+   0.063,
+   0.063,
+   0.0648
+  ],
+  "portrait_faction_network_buzz": [
+   0.0369,
+   0.0319,
+   0.0262
+  ],
+  "portrait_faction_network_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_network_lips": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "portrait_faction_network_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_network_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_network_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_network_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "portrait_faction_network_stubble": [
+   0.3419,
+   0.1812,
+   0.0999
+  ]
+ }
+}

@@ -263,7 +263,7 @@ def sheet(out, looks=None):
         bf = os.path.join(ROOT, BEFORE, look + '.png')
         if os.path.exists(bf):
             im = Image.open(bf).convert('RGBA'); S.paste(PANEL, (x, y0, x + 128, y0 + 128)); S.paste(im, (x, y0), im)
-        else: d.text((x + 8, y0 + 56), 'none before', fill=DIM)
+        else: d.text((x + 8, y0 + 56), 'no 3D face before', fill=DIM)
         x += 140
         for k in ('rest', 'A', 'Angry'):
             f = os.path.join(ROOT, CREW_OUT, look, '%s_128.png' % k)

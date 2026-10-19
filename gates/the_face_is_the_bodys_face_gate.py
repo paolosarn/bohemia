@@ -27,9 +27,9 @@ pixel is about a fifth of its paint, measured), so the gate takes the light back
 rendered once more with the skin pure green and the hair pure blue, cut into the hand-off square the same way) says how
 much light this head's skin and hair get (its green and its blue are an albedo of one, as rendered); the record's
 rig_transfer (two known skins through the rig on one head, fitted per channel) gives the light's tint and the dust.
-Read back on the calibration head: (60, 45, 38) painted, (60, 45, 38) read. The paint is classed on CHARACTER's own
-rig ladder (the eleven rig albedos, nearest in CIELAB) and PASSES when it is its person's rung or the one beside it AND
-its L* is within 8 of its person's rig albedo. Hair is the 9/20 gate's ruler (portrait_matches_body_gate.js) on the
+Read back on the calibration head: (60, 45, 38) painted, (60, 45, 38) read. The paint PASSES when it is within 10 of its
+person's rig albedo (CIELAB) and its L* within 8: CHARACTER's table puts its neighbouring tones 8 to 19 apart, and the
+defect he saw (a porcelain face on a tan or a deep body) is 26 to 47 apart. The nearest rung is printed beside it. Hair is the 9/20 gate's ruler (portrait_matches_body_gate.js) on the
 paint read the same way against the body's cut ramp's lit step: hue within 30 degrees unless both are drab (under 15
 percent saturation), lightness within 2.2x.
 
@@ -40,7 +40,8 @@ THE LEGS
   3. THE STARRED FACE: every face in the crew hand-off (BOHEMIA_CREW_FACES.json) is painted its person's rig skin, read
      through its own mask, and wears its body's hair.
   4. IT BITES: a starred face repainted in the player's porcelain is refused; a copy that drifts from CHARACTER's file is
-     refused; a body sheet painted in its own tone passes.
+     refused; a body repainted in the player's porcelain is refused (and, while a body is BACK, the same body painted in
+     its own tone passes).
 
     python3 gates/the_face_is_the_bodys_face_gate.py
 """
@@ -54,7 +55,8 @@ SHEETS = 'slices/fight_people'
 SETTLE = 'slices/settlement_people'   # the settlement street's people, painted by the same famPaintBody (ANIMATION's bake)
 CREW = 'records/target/portrait/crew/BOHEMIA_CREW_FACES.json'
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
-STEP, DL = 1, 8.0                     # the ladder's tolerance: its own rung or the one beside it, and L* within 8
+STEP, DL = 1, 8.0                     # the sprite ladder's tolerance: its own rung or the one beside it, and L* within 8
+DE_OWN = 10.0                         # a starred face's paint within 10 of its own rig albedo (the table's neighbours sit 8 to 19 apart; the defect he saw, 26 to 47)
 NEAR, DRAB, LUM = 30.0, 0.15, 2.20    # portrait_matches_body_gate.js's hair ruler, reused
 MIN_SKIN, MIN_HAIR = 200, 40          # pixels a reading needs before it counts
 
@@ -177,10 +179,13 @@ def paint(face, mask, which, tr):
 
 
 def rig_verdict(rgb, tone, RIG, RR):
-    """a starred face's skin paint against its person's rig albedo, on CHARACTER's rig ladder"""
-    got = min(RIG, key=lambda t: de(RIG[t], rgb)); dl = lab(rgb)[0] - lab(RIG[tone])[0]
-    ok = abs(RR[got] - RR[tone]) <= STEP and abs(dl) <= DL
-    return ok, 'reads %s, L* %+.1f off %s %s' % (got, dl, tone, RIG[tone])
+    """a starred face's skin paint against its person's rig albedo: within DE_OWN of it (CIELAB) and L* within 8. The
+    nearest rung is printed, never judged on its own: CHARACTER's rig table puts some tones two rungs apart on nearly one
+    colour (pale and olive 8.0 apart, against tan and porcelain 26 and deep and porcelain 47), so a face 1.2 L* off its own
+    olive can sit nearest pale (10/19, the Red's face, a ruler bug caught on the gangs' round)"""
+    got = min(RIG, key=lambda t: de(RIG[t], rgb)); dl = lab(rgb)[0] - lab(RIG[tone])[0]; d = de(rgb, RIG[tone])
+    ok = d <= DE_OWN and abs(dl) <= DL
+    return ok, '%.1f from its own %s %s (L* %+.1f), nearest rung %s' % (d, tone, RIG[tone], dl, got)
 
 
 def hair_verdict(a, b):
@@ -308,6 +313,17 @@ def main():
     k = next(iter(man['looks'])); recw = json.loads(json.dumps(rec))
     recw['people'][k]['skin'] = 'chalk' if one['people'][k]['tone'] != 'chalk' else 'onyx'
     g.ok('a copy that drifts from CHARACTER\'s file is refused', leg_one(Gate(), one, recw, dict(looks={k: man['looks'][k]}), T, quiet=True) > 0, k)
+    # the body leg bites: a body whose person is not porcelain, repainted pixel for pixel in the player's porcelain (the
+    # 10/18 bug, famPaintBody's stroke), is refused
+    l = next((l for l in man['looks'] if l in one['people'] and one['people'][l]['tone'] != 'porcelain'), None)
+    if l:
+        sh = Image.open(p(SHEETS, man['looks'][l]['file'])).convert('RGBA'); own = one['people'][l]['tone']
+        swap = dict(zip(T[own], T['porcelain'])); bug = sh.copy(); px = bug.load(); box = body_box(sh)
+        for y in range(box[1], box[3]):
+            for x in range(box[0], box[2]):
+                c = px[x, y]
+                if c[3] > 200 and c[:3] in swap: px[x, y] = swap[c[:3]] + (c[3],)
+        g.ok('a body repainted in the player\'s porcelain is refused', bool(leg_body(Gate(), one, dict(looks={l: man['looks'][l]}), T, sheets={l: bug}, quiet=True)), '%s (%s)' % (l, own))
     bodies = [b for b in back if not b[0].startswith(('64 face', 'street'))]
     if bodies:   # paint one BACK body in its own tone, pixel for pixel, and the body leg passes it
         l, painted, own = bodies[0]; sh = Image.open(p(SHEETS, man['looks'][l]['file'])).convert('RGBA')
