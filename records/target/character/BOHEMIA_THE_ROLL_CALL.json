@@ -20,7 +20,8 @@
   "garments: hands"
  ],
  "count": {
-  "eyewear: not yet": 15,
+  "eyewear: not yet": 1,
+  "eyewear: shown, not approved": 14,
   "garment: approved, not final": 49,
   "garment: built, not shown": 29,
   "garment: not yet": 233,
@@ -1922,8 +1923,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -1935,8 +1941,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -2010,8 +2021,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -2180,8 +2196,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -2987,8 +3008,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -3000,8 +3026,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -3052,8 +3083,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -3516,8 +3552,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -3647,8 +3688,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -3900,8 +3946,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -6225,8 +6276,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -6238,8 +6294,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -6251,8 +6312,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
@@ -6264,8 +6330,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the starred head (eyewear 1)",
+    "rig_looks": [],
+    "card": "character-eyewear-one-the-14-face-pieces-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
   },
