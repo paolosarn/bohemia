@@ -38,7 +38,7 @@ HATS = [
     ('BRICK WATCH CAP', 'watch', (112, 58, 48)), ('PATINA FIELD CAP', 'field', (80, 110, 96)),
     ('DUST WORK CAP', 'work', (128, 110, 80)), ('STORM SLOUCH BEANIE', 'slouch', (70, 72, 78)),
     ('KHAKI SLOUCH BEANIE', 'slouch', (126, 110, 80)), ('DESERT SHEMAGH', 'shemagh', (128, 110, 80)),
-    ('SCRAP HELM', 'helm', (114, 72, 48)), ('ROSE KNIT CAP', 'knit', (220, 70, 85)),
+    ('SCRAP HELM', 'helm', (74, 46, 32)),   # its ramp's DARK (cycle 1: the rust mid sat on the mannequin's tan at one value and read as a bald head with seams) ('ROSE KNIT CAP', 'knit', (220, 70, 85)),
     ('COBALT KNIT CAP', 'knit', (61, 109, 189)), ('BONE HEAD WRAP', 'wrap', (162, 154, 134)),
     ('SOOT HEAD WRAP', 'wrap', (54, 52, 54)),
 ]
@@ -133,7 +133,7 @@ def build(cut, L):
                 c = sstep(-0.001, 0.004, above) * (1.0 - sstep(cuff - 0.004, cuff, above))
                 t += 0.0045 * c + 0.0012 * math.exp(-((above - cuff) / 0.003) ** 2)              # the fold, and its lip
                 if shape == 'slouch':
-                    t += 0.034 * math.exp(-((ab - math.pi) / 1.0) ** 2) * math.exp(-((q.z - 0.095) / 0.055) ** 2)   # the slumped length
+                    t += 0.052 * math.exp(-((ab - math.pi) / 0.95) ** 2) * math.exp(-((q.z - 0.080) / 0.060) ** 2)   # the slumped length (cycle 1: 34 mm did not read from behind)
                 t -= ribs(q) * (1.0 if above > cuff else 0.6)
                 out.append(max(0.002, t))
             return out
@@ -150,8 +150,13 @@ def build(cut, L):
                     k = round(a / (math.pi / 3)) * (math.pi / 3)                                      # six panels
                     t -= 0.0016 * math.exp(-(((a - k) * max(0.02, math.hypot(q.x, q.y))) / 0.0025) ** 2) * sstep(0.09, 0.12, q.z)
                 else:
-                    t += 0.006 * sstep(0.10, 0.16, q.z)
-                    t = min(t, (0.181 - q.z) / max(0.25, n.z)) if n.z > 0.2 else t                   # the flat top
+                    # a patrol cap: the crown stands up in a column to a flat top (cycle 1: a thickness ramp on the dome
+                    # read as a helmet); out to one radius at every height, then cut off flat at 0.176
+                    rho = math.hypot(q.x, q.y - 0.004); nh = math.hypot(n.x, n.y)
+                    if q.z > 0.085 and nh > 0.25:
+                        t = max(t, (0.112 - rho) / nh)
+                    if n.z > 0.30:
+                        t = min(max(t, (0.176 - q.z) / n.z), (0.176 - q.z) / n.z + 0.004) if q.z > 0.12 else t
                 out.append(max(0.002, t))
             return out
         made.append(dress(shell('%s_crown' % tag, lambda q: q.z > line(q) - 0.002, thick, subdiv=2, rim=0.003)))
@@ -231,11 +236,12 @@ def build(cut, L):
             out = []
             for p, n in zip(pos, nor):
                 q = p - C; a = az_of(q); k = plate(q)
-                t = 0.012 + 0.003 * sstep(0.10, 0.17, q.z) + lift[k]
+                t = 0.015 + 0.003 * sstep(0.10, 0.17, q.z) + lift[k]
+                t += 0.004 * math.exp(-((q.z - line(q) - 0.004) / 0.004) ** 2)                            # a rolled lip at the edge
                 edge = (a + math.pi) / (2 * math.pi) * 6; fe = abs(edge - round(edge)) * (2 * math.pi / 6) * max(0.03, math.hypot(q.x, q.y))
                 g = math.exp(-(fe / 0.0025) ** 2) if q.z <= 0.14 else 0.0
                 g = max(g, math.exp(-((q.z - 0.135) / 0.0025) ** 2))
-                t -= 0.004 * g
+                t -= 0.0065 * g
                 # rivets: sparse, along the seams, a few centimetres apart (never a field of them)
                 if q.z < 0.135 and fe < 0.010:
                     zz = (q.z - 0.02) / 0.032; d = abs(zz - round(zz)) * 0.032

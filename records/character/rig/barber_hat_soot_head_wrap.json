@@ -1,0 +1,37 @@
+{
+ "cut": "HAT SOOT HEAD WRAP",
+ "tag": "hat_soot_head_wrap",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 0,
+  "side": 0.36,
+  "front": 0.16
+ },
+ "worn_by": "the roll call: SOOT HEAD WRAP",
+ "model": "records/character/rig/barber_hat_soot_head_wrap.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.536,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7287,
+ "pieces": {
+  "hat_soot_head_wrap_under": 44398,
+  "hat_soot_head_wrap_bands": 8042
+ }
+}

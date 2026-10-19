@@ -32,7 +32,9 @@ const BODY = { base: 'BLACK TANK', legs: 'BLACK CARGOS', feet: 'WRAPPED BOOTS' }
     const out = [];
     try {
       for (const cut of CUTS) {
-        window.G_WORN = Object.assign({ hair: cut }, BODY); G.bodyVar = { height: 0, belly: 0, shoulders: 0, hips: 0 }; G.age = 'adult';
+        /* HATS 1 (10/19): a cut named HAT:<name> is that hat on the TEMPLE TAPER, the twin of the hat on the starred head */
+        const worn = cut.indexOf('HAT:') === 0 ? { hair: 'TEMPLE TAPER', head: cut.slice(4) } : { hair: cut };
+        window.G_WORN = Object.assign(worn, BODY); G.bodyVar = { height: 0, belly: 0, shoulders: 0, hips: 0 }; G.age = 'adult';
         rebuildFromRig(); try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
         const dirs = {};
         for (const d of DIRS) {
@@ -62,7 +64,7 @@ from PIL import Image
 d = json.load(open(sys.argv[1]))
 n = 0
 for L in d:
-    tag = L['cut'].lower().replace(' ', '_')
+    tag = L['cut'].lower().replace('hat:', 'hat_').replace(' ', '_')
     for f, keys in L['dirs'].items():
         for k, fr in enumerate(keys):
             im = Image.new('RGBA', (fr['W'], fr['H']), (0, 0, 0, 0))
