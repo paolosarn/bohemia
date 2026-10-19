@@ -1627,6 +1627,33 @@ QUESTS (quests-dvybth): 10/10 (d) LATEST -- [ninth shelf] SHIPPED: QR-AP, 20 des
 
 QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
 
+PORTRAIT (portrait-vamily-10-19): 10/19 LATEST (round sixteen, [the face is the body's face] round 1, rule 120(d); Opus 5.5
+at Extra, opened by the coordinator, rule 112, run to the end, no question) -- *** EVERY CREW FACE IS PAINTED ITS BODY'S OWN
+SKIN AND HAIR, AND A GATE READS EVERY FACE BESIDE ITS BODY: 133/0. ***
+MEASURED: 25 of 26 fight bodies and 25 of 25 street bodies were painted in the PLAYER'S porcelain (famPaintBody never put
+the person's skin on the stroke); the 64 face beside each wore its own roll (a Black face on a white body); the starred
+crew faces were coloured by eye and came out one orange brown. THE TRUTH: CHARACTER's records/target/character/
+BOHEMIA_ONE_SKIN.json (Las Vegas's real mix), shipped and re-baked by CHARACTER in the same hour (26/26, 25/25, 26/26 now).
+REBUILT: all 13 starred crew faces on their body's own rig skin (lips and stubble a step down, a scar two up) and the body's
+own cut ramp for hair, on bodies built in the same skin; the rig lights a portrait at about a fifth of its paint (measured
+on two known skins), so the gate reads each face's PAINT through its own mask (the head rendered once more, skin green,
+hair blue): 13 of 13 within 4.3 L* of their rig albedo, hair 13 of 13. Hand-off files and masks: records/target/portrait/
+crew/<look>/ (BohemiaCrewFaces reads them; nothing to wire).
+EYES' TWO HATS SHIPPED: the hand-off square holds a brim (widens above the jaw only); the work cap worn back. EYES' tool with
+the new window: 13 of 13 PASS (the bedroll's pupils 55 and 42 levels against the star's 29 and 28).
+GATES: THE FACE IS THE BODYS FACE 133/0 NEW (registered, three mutations bite); ONE SKIN, ONE PERSON 15/0 (8 PORTRAIT debts
+healed, taken off its list as its S7 asks; the widebrim stays, one rung on its cheek ruler); STYLE GUIDE 115/0; NOT VIBE
+CODED 30/1 (COOK FOUR's cards); ART FENCE 14/0; VOTE TAB 46/6 (the same six red on main without this card). Full suite not run
+(rule 13: the suite is far past ten minutes; the gates that read faces, cards and portraits were run).
+FILES: tools/bohemia_portrait_the_face_is_the_bodys_face.py (+ .js, the alpha read), records/target/portrait/
+BOHEMIA_THE_SKIN_OF_RECORD.json, body_in_its_own_skin/ (the bodies before the fix), face_is_body_before/ (the faces he saw).
+Record: records/BOHEMIA_PORTRAIT_THE_FACE_IS_THE_BODYS_FACE_10_19_26.md. Sheet: records/target/portrait/
+PORTRAIT_THE_FACE_IS_THE_BODYS_FACE.png. VOTE: portrait-the-face-is-the-bodys-face-10-19, a PLACEHOLDER. TAB: VOTE.
+IN FLIGHT: the 13 gangs' fresh faces on CHARACTER's skins (round 2 of [every face from the same model]), rendering now.
+Lead line for DIRECTION (rule 113a): PORTRAIT rebuilt the crew's 13 faces on their bodies' own skin, VOTE tab, COOKING.
+PENDING Paolo: nothing.
+NEXT: the gangs' 13 into the manifest and the card; then the enemy tiers' heads on COOK THREE's new bodies.
+
 PORTRAIT (portrait-vamily-10-18c): 10/18 LATEST (round fifteen, [every face from the same model] round 1; Opus 5.5,
 opened by the coordinator, rule 112, run to the end, no question) -- *** THE STARRED FACE ON THE WHOLE CREW: 13 HEADS, EACH ON
 ITS OWN BODY, ALL TALKING (rule 115h). ***
