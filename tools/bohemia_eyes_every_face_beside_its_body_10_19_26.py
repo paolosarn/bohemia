@@ -377,6 +377,77 @@ def read_files():
                              'body': strip(body), 'face_read': strip(face2), 'legs': legs,
                              'verdict': 'PASS' if all(l['ok'] for l in legs) else 'BACK', 'hat_on_body': hat_body,
                              'owner': 'PORTRAIT [the face is the body\'s face] / CHARACTER [one skin, one person]'})
+    rows += read_settlement(j)
+    rows += read_crew_men(j)
+    return rows
+
+
+SETTLE = 'slices/settlement_people'
+OURS = 'records/target/bb/ours.json'
+
+
+def fresh_or_sheet(look, j):
+    """The face a screen shows for a look: PORTRAIT's fresh portrait when it exists (BohemiaCrewFaces), else the fight
+    sheet's own 64 face (the settlement screen's flatFace, the roster's fallback)."""
+    f = P('%s/%s/rest_128.png' % (CREW, look))
+    if os.path.exists(f):
+        return portrait_read(look), '%s/%s/rest_128.png' % (CREW, look), 'the new portrait'
+    _, sh = body_of(look, j)
+    fa = sheet_face_of(sh, j)
+    return flat_read(fa, bg=True, span=fa.shape[0]), '%s/%s (x %d, y 0, 64 px)' % (
+        PEOPLE, j['looks'][look]['file'], len(j['cols']) * FRAME), 'the fight sheet\'s 64 face'
+
+
+def read_settlement(j):
+    """THE SETTLEMENT: its people stand as slices/settlement_people/<look>.webp (the S idle frame) and a keeper or a man
+    on the street talks with the face fresh_or_sheet() names (BOHEMIA_SETTLEMENT_SCREEN.html face(): crewFace first,
+    then flatFace)."""
+    rows = []
+    sj = json.load(open(P(SETTLE + '/settlement_people.json')))
+    for look, meta in sj['looks'].items():
+        a = np.array(Image.open(P(SETTLE + '/' + meta['file'])).convert('RGBA'))
+        b = flat_read(a[0:FRAME, 0:FRAME].copy())
+        face, src, kind = fresh_or_sheet(look, j)
+        if not b or not face or not face.get('skin_lab'):
+            continue
+        legs = compare(b, face)
+        rows.append({'who': 'settle:' + look, 'name': (meta.get('name') or look) + ' in a settlement',
+                     'face': 'the settlement\'s talking face (%s)' % kind, 'face_src': src,
+                     'body_src': '%s/%s frame 0 (idle S)' % (SETTLE, meta['file']), 'body': strip(b),
+                     'face_read': strip(face), 'legs': legs, 'verdict': 'PASS' if all(l['ok'] for l in legs) else 'BACK',
+                     'owner': 'ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face'})
+    return rows
+
+
+def read_crew_men(j):
+    """THE CREW, MAN BY MAN: the crew screen gives man i the look engine/bohemia_roster.js manOf() picks (fight_people.json's
+    cast_ order, i mod 12) and draws its face; the fight gives the same man ours.json people_looks.crew[i] and draws its
+    body. One man, so one look: a different look is a different person."""
+    rows = []
+    ours = json.load(open(P(OURS)))
+    pl = ours['people_looks'].get('value', ours['people_looks'])['crew']
+    crew = ours['crew'].get('value', ours['crew'])
+    casts = [l for l in j['looks'] if l.startswith('cast_')]
+    for i, c in enumerate(crew):
+        roster_look = 'you' if c.get('main') else casts[i % len(casts)]
+        fight_look = pl[i % len(pl)]
+        b_px, _ = body_of(fight_look, j)
+        b = flat_read(b_px)
+        face, src, kind = fresh_or_sheet(roster_look, j)
+        if not b or not face or not face.get('skin_lab'):
+            continue
+        legs = compare(b, face)
+        legs.append({'leg': 'one man, one look', 'ok': roster_look == fight_look,
+                     'said': 'the crew screen draws %s\'s face, the fight draws %s\'s body' % (
+                         roster_look.replace('cast_', ''), fight_look.replace('cast_', ''))
+                     if roster_look != fight_look else 'the same look on both screens'})
+        rows.append({'who': 'crew:' + c.get('name', str(i)), 'name': c.get('name', str(i)) + ' (crew)',
+                     'face': 'the crew screen\'s face (%s of %s)' % (kind, roster_look), 'face_src': src,
+                     'body_src': '%s/%s.webp frame 0 (idle SE): his fight body, %s' % (PEOPLE, fight_look, fight_look),
+                     'body': strip(b), 'face_read': strip(face), 'legs': legs,
+                     'verdict': 'PASS' if all(l['ok'] for l in legs) else 'BACK', 'roster_look': roster_look,
+                     'fight_look': fight_look,
+                     'owner': 'RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)'})
     return rows
 
 
@@ -398,7 +469,7 @@ def read_runtime():
     for e in j.get('pairs', []):
         fa = np.array(Image.open(P(e['face_png'])).convert('RGBA'))
         ba = np.array(Image.open(P(e['body_png'])).convert('RGBA')) if e.get('body_png') else None
-        face = flat_read(fa, bg=bool(e.get('face_has_bg')), span=fa.shape[0])
+        face = flat_read(fa, bg=bool(e.get('face_has_bg', True)), span=fa.shape[0])
         body = flat_read(ba) if ba is not None else None
         if not face:
             continue
@@ -426,59 +497,88 @@ def swatch(d, x, y, hexc, w=26, h=26):
     d.rectangle([x, y, x + w, y + h], fill=hexc, outline=(0, 0, 0))
 
 
+def plain(r):
+    """The verdict in his words: how many skin shades (ITA bands) the face is off its body."""
+    if r['verdict'] == 'NO BODY':
+        return 'no body on screen'
+    sk = r['legs'][0]
+    if sk['ok'] and r['verdict'] == 'PASS':
+        return 'same person'
+    bits = []
+    if not sk['ok']:
+        n = sk['bands_apart']
+        side = 'darker' if sk['dL'] < 0 else 'lighter'
+        bits.append(('%d shades %s' % (n, side)) if n else ('%.0f L %s' % (abs(sk['dL']), side)))
+    for l in r['legs'][1:]:
+        if not l['ok']:
+            bits.append({'top of the head': 'hair or hat off', 'one man, one look': 'another man\'s face'}.get(
+                l['leg'], 'hat off'))
+    return ', '.join(bits)
+
+
+SECTIONS = (('THE CREW, MAN BY MAN: the face the crew screen shows, beside the body he fights in', 'crew:', 12),
+            ('THE STREET: the face in his speech bubble, beside the body the street draws', 'street:', 12),
+            ('THE GANGS IN THE FIGHT: the fight\'s own face, beside the fight body', 'faction_', 13),
+            ('YOU', 'you', 4))
+
+
+def cell(im, d, r, x, y, f1, f2):
+    """One person: the body at 2x, his face as the screen draws it (64 at 2x, 128 at 1x), the two skins, the verdict."""
+    bad = r['verdict'] == 'BACK'
+    d.rectangle([x, y, x + 480, y + 226], fill=(62, 34, 34) if bad else (38, 52, 38))
+    d.text((x + 8, y + 4), (r.get('name') or r['who'])[:34].upper(), fill=(255, 255, 255), font=f1)
+    if r.get('_body_img') is not None:
+        b = Image.fromarray(r['_body_img']).crop((24, 0, 88, 88)).resize((128, 176), Image.NEAREST)
+        im.paste(b, (x + 6, y + 26), b)
+    if r.get('_face_img') is not None:
+        f = Image.fromarray(r['_face_img'])
+        sc = 2 if f.size[0] <= 64 else 1
+        f = f.resize((f.size[0] * sc, f.size[1] * sc), Image.NEAREST)
+        im.paste(f, (x + 150, y + 26), f)
+    bs = r.get('body', {}).get('skin')
+    fs = r['face_read'].get('skin')
+    if bs:
+        swatch(d, x + 290, y + 30, bs['rgb'], 40, 40)
+        d.text((x + 336, y + 40), 'body', fill=(220, 220, 220), font=f2)
+    if fs:
+        swatch(d, x + 290, y + 80, fs['rgb'], 40, 40)
+        d.text((x + 336, y + 90), 'face', fill=(220, 220, 220), font=f2)
+    col = (150, 230, 140) if r['verdict'] == 'PASS' else (255, 130, 120) if bad else (230, 210, 130)
+    d.text((x + 290, y + 134), r['verdict'], fill=col, font=f1)
+    words = plain(r)
+    for k, part in enumerate(words.split(', ')[:3]):
+        d.text((x + 290, y + 158 + 18 * k), part[:24], fill=col, font=f2)
+
+
 def build_sheet(rows, path):
-    """One line per face: the body at 2x, the face at the size the game draws it (x2 for the 64), the two skins
-    as swatches, the verdict."""
-    f1, f2 = font(15), font(12)
-    RH = 150
-    W = 1100
-    H = 70 + RH * len(rows) + 40
-    im = Image.new('RGB', (W, H), (34, 33, 38))
+    """The card's picture, in sections, two people a line: every crew man, the first twelve street people, the
+    thirteen gangs, and YOU. Every face read is in the JSON; the sheet is what he looks at."""
+    f0, f1, f2 = font(24), font(15), font(13)
+    W = 2 * 480 + 3 * 12
+    plan = []
+    for title, pre, cap in SECTIONS:
+        rs = [r for r in rows if r['who'].startswith(pre) and (pre != 'you' or r['who'] == 'you')]
+        if pre == 'you':
+            rs = [r for r in rs if 'portrait' in r['face'] or 'map' in r['face'] or 'strip' in r['face']]
+        plan.append((title, rs[:cap], len(rs)))
+    H = 110 + sum(40 + 232 * ((len(rs) + 1) // 2) for _, rs, _ in plan) + 40
+    im = Image.new('RGB', (W, H), (30, 29, 33))
     d = ImageDraw.Draw(im)
-    npass = sum(r['verdict'] == 'PASS' for r in rows)
-    nback = sum(r['verdict'] == 'BACK' for r in rows)
-    d.text((14, 10), 'EVERY FACE BESIDE ITS BODY: %d faces read, %d PASS, %d BACK' % (len(rows), npass, nback),
-           fill=(240, 236, 220), font=font(20))
-    d.text((14, 40), 'body (the fight sheet, idle, 2x)  |  face (as the game shows it)  |  body skin vs face skin',
-           fill=(170, 168, 160), font=f2)
-    y = 70
-    for r in rows:
-        d.rectangle([0, y, W, y + RH - 4], fill=(48, 46, 52) if r['verdict'] == 'PASS' else (66, 36, 36))
-        if r.get('body_png_img') is not None:
-            b = Image.fromarray(r['body_png_img']).resize((FRAME * 2 // 2 * 1, FRAME * 2 // 2 * 1), Image.NEAREST)
-        x = 8
-        if r.get('_body_img') is not None:
-            b = Image.fromarray(r['_body_img'])
-            bb = b.crop((24, 0, 88, 72)).resize((128, 144), Image.NEAREST)
-            im.paste(bb, (x, y), bb)
-        x = 150
-        if r.get('_face_img') is not None:
-            f = Image.fromarray(r['_face_img'])
-            sc = 2 if f.size[0] <= 64 else 1
-            f = f.resize((f.size[0] * sc, f.size[1] * sc), Image.NEAREST)
-            im.paste(f, (x, y + (RH - 4 - f.size[1]) // 2), f)
-        x = 300
-        bs = r.get('body', {}).get('skin')
-        fs = r['face_read'].get('skin')
-        if bs:
-            swatch(d, x, y + 14, bs['rgb'], 40, 40)
-            d.text((x, y + 58), 'body', fill=(200, 200, 200), font=f2)
-        if fs:
-            swatch(d, x + 50, y + 14, fs['rgb'], 40, 40)
-            d.text((x + 50, y + 58), 'face', fill=(200, 200, 200), font=f2)
-        col = (150, 230, 140) if r['verdict'] == 'PASS' else (255, 120, 110) if r['verdict'] == 'BACK' else (220, 200, 120)
-        d.text((x + 110, y + 8), '%s  %s' % (r['verdict'], r['name'] if r['name'] else r['who']), fill=col, font=f1)
-        d.text((x + 110, y + 30), r['face'][:70], fill=(200, 196, 186), font=f2)
-        ly = y + 50
-        for l in r['legs'][:4]:
-            d.text((x + 110, ly), ('ok   ' if l['ok'] else 'BACK ') + l['leg'] + ': ' + l['said'][:96],
-                   fill=(190, 230, 180) if l['ok'] else (255, 170, 160), font=f2)
-            ly += 18
-        if r.get('note'):
-            d.text((x + 110, ly), r['note'][:100], fill=(220, 200, 120), font=f2)
-        y += RH
-    d.text((14, H - 30), 'ITA = the dermatologists\' skin-tone angle from CIELAB (Chardon 1991, bands Del Bino 2006). '
-           'PASS: same or next band and within 12 L*.', fill=(150, 148, 140), font=f2)
+    nb = sum(r['verdict'] == 'BACK' for r in rows)
+    d.text((14, 10), 'EVERY FACE BESIDE ITS BODY', fill=(240, 236, 220), font=f0)
+    d.text((14, 46), '%d faces read off the pictures: %d PASS, %d BACK.' % (
+        len(rows), sum(r['verdict'] == 'PASS' for r in rows), nb), fill=(255, 170, 160) if nb else (170, 230, 160), font=f1)
+    d.text((14, 70), 'Every body is painted the player\'s own skin (porcelain); the faces are rolled, so a dark face sits '
+           'on a pale body.', fill=(220, 210, 190), font=f2)
+    y = 110
+    for title, rs, n in plan:
+        d.text((14, y + 8), '%s  (%d of %d)' % (title, len(rs), n), fill=(240, 220, 160), font=f1)
+        y += 40
+        for k, r in enumerate(rs):
+            cell(im, d, r, 12 + (k % 2) * 492, y + (k // 2) * 232, f1, f2)
+        y += 232 * ((len(rs) + 1) // 2)
+    d.text((14, H - 30), 'Skin read as CIELAB and the ITA skin-tone angle (Chardon 1991; six shades, Del Bino 2006). '
+           'PASS: same or next shade and within 12 lightness.', fill=(150, 148, 140), font=f2)
     os.makedirs(os.path.dirname(P(path)), exist_ok=True)
     im.save(P(path), 'WEBP', lossless=True)
 
@@ -487,7 +587,12 @@ def attach_pictures(rows):
     j = people()
     for r in rows:
         try:
-            if r.get('body_src') and r['body_src'].startswith(PEOPLE):
+            if r.get('fight_look'):
+                r['_body_img'] = body_of(r['fight_look'], j)[0]
+            elif r.get('body_src') and r['body_src'].startswith(SETTLE):
+                a = np.array(Image.open(P(r['body_src'].split(' ')[0])).convert('RGBA'))
+                r['_body_img'] = a[0:FRAME, 0:FRAME].copy()
+            elif r.get('body_src') and r['body_src'].startswith(PEOPLE):
                 r['_body_img'] = body_of(r['who'], j)[0]
             elif r.get('body_src'):
                 r['_body_img'] = np.array(Image.open(P(r['body_src'])).convert('RGBA'))
@@ -506,7 +611,10 @@ def main():
     rows += rt
     attach_pictures(rows)
     order = {'BACK': 0, 'NO BODY': 1, 'PASS': 2}
-    rows.sort(key=lambda r: (order.get(r['verdict'], 3), r['who']))
+    worst = {}
+    for r in rows:
+        worst[r['who']] = min(worst.get(r['who'], 3), order.get(r['verdict'], 3))
+    rows.sort(key=lambda r: (worst[r['who']], r['who'], 'fresh' in r['face']))
     build_sheet(rows, SHEET)
     out = {'tool': 'tools/bohemia_eyes_every_face_beside_its_body_10_19_26.py', 'lane': 'eyes and ears',
            'row': '[every face beside its body]', 'rule': '120(d)', 'draft': True,
@@ -558,8 +666,9 @@ def selftest():
     near[m, :3] = np.clip(near[m, :3].astype(int) - 14, 0, 255)
     legs = compare(raw, flat_read(near))
     check('one shade step darker is still the same person', legs[0]['ok'], legs[0]['said'])
-    # the mouth read is not the skin
-    check('the mouth is found on the body', raw['mouth'] is not None, str(raw['mouth']))
+    # the body's window sits on the face: its one colour is the skin of the player's own palette row (porcelain mid)
+    check('the body window reads the skin row the bake painted', raw['skin']['rgb'] == '#bfafa6' if 'skin' in raw else
+          lab_to_hex(raw['skin_lab']) == '#bfafa6', lab_to_hex(raw['skin_lab']))
     # ITA bands from the published table
     check('ITA of L 70 b 15 is light/very light', band(ita(70, 15)) in ('very light', 'light'), band(ita(70, 15)))
     check('ITA of L 30 b 15 is dark', band(ita(30, 15)) == 'dark', '%.1f %s' % (ita(30, 15), band(ita(30, 15))))
