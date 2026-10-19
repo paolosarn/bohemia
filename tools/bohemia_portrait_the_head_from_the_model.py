@@ -1097,15 +1097,17 @@ def hand_off_window(im, head_px):
     """the square a screen draws: the head and a little collar, not the shoulders (cycle 1: the whole rig frame boxed to 64
     left the head 38 px in a 64 box, smaller than the drawn face it replaces): a window 1.25 x the head's height from the
     top, centred on the head. AND IT HOLDS THE HAT (EYES [eyes: brims and visors], 10/18: that window cut 26 px off the
-    widebrim's cone and would cut 15 px of the starred poacher's own brim): it widens until nothing painted above its
-    bottom touches its sides, a pixel to spare each side, so a brim is whole and the face sits a little smaller under it"""
+    widebrim's cone and would cut 15 px of the starred poacher's own brim): it widens until nothing painted above the
+    jaw touches its sides (the head's own height from the top: a brim sits up there, the shoulders below it never widen
+    the square), a pixel to spare each side, so a brim is whole and the face sits a little smaller under it; a bare head
+    keeps the old square exactly"""
     side = min(im.width, int(round(head_px * 1.25)))
-    for _ in range(8):
-        bb = im.split()[3].crop((0, 0, im.width, side)).getbbox() or (0, 0, im.width, side)
-        need = min(im.width, im.height, bb[2] - bb[0] + 2)
-        if need <= side: break
-        side = need
-    cx = (bb[0] + bb[2]) // 2; x0 = max(0, min(im.width - side, cx - side // 2))
+    a = im.split()[3]
+    hb = a.crop((0, 0, im.width, min(im.height, head_px))).getbbox() or (0, 0, im.width, side)
+    side = max(side, min(im.width, im.height, hb[2] - hb[0] + 2))
+    bb = a.crop((0, 0, im.width, side)).getbbox() or (0, 0, im.width, side)
+    cx = (hb[0] + hb[2]) // 2 if hb[2] - hb[0] + 2 > int(round(head_px * 1.25)) else (bb[0] + bb[2]) // 2
+    x0 = max(0, min(im.width - side, cx - side // 2))
     return (x0, 0, x0 + side, side)
 
 

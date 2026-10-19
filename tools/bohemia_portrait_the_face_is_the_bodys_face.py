@@ -199,52 +199,77 @@ def masks(looks=None):
     print('masks', done)
 
 
+BEFORE = 'records/target/portrait/face_is_body_before'   # the crew's starred faces as he saw them (10/18), kept for the card
+
+
+def reading(G, one, rec, look, RIG, RR):
+    """the gate's own reading of one person's starred face: (lines, colours)"""
+    from PIL import Image
+    e = rec['people'][look]; o = one['people'][look]
+    fp = os.path.join(ROOT, CREW_OUT, look, 'rest_128.png'); mp = os.path.join(ROOT, CREW_OUT, look, 'mask_128.png')
+    out = []
+    if os.path.exists(mp) and os.path.exists(fp):
+        face = Image.open(fp).convert('RGBA'); mask = Image.open(mp).convert('RGBA')
+        rgb, n = G.paint(face, mask, 'skin', rec.get('rig_transfer'))
+        ok, why = G.rig_verdict(rgb, o['tone'], RIG, RR) if rgb else (False, 'no skin to read')
+        out.append(('the new face: %s' % why, ok))
+        hr, hn = G.paint(face, mask, 'hair', rec.get('rig_transfer'))
+        if hn >= G.MIN_HAIR and hr and e['hair'].get('lt'):
+            ok, why = G.hair_verdict(hr, tuple(e['hair']['lt'])); out.append(('its hair: %s' % why, ok))
+        else: out.append(('its hair: under the hat', None))
+    else: out.append(('the new face: not made yet', False))
+    out.append(('the body today: %s%s' % (e['body_today']['skin'], '' if e['body_today']['matches'] else ', BACK to CHARACTER'), e['body_today']['matches']))
+    out.append(('the old 64 face: %s' % e['face_64']['skin'], e['face_64']['matches']))
+    return out
+
+
 def sheet(out, looks=None):
-    """one row per person: the body today | the body in its own skin (proof) | the skin swatch | the 64 face | the starred
-    face rebuilt | the reading"""
+    """the VOTE sheet, one row per person: the body today | the body in its own skin (CHARACTER's change, shown) | the old
+    64 face | the starred face he saw | the starred face rebuilt (rest, talking, a mood) | the gate's reading"""
     from PIL import Image, ImageDraw
-    G = gate(); T = G.skin_tones(); R = G.ladder(T)
+    G = gate(); RIG = None
+    one = json.load(open(os.path.join(ROOT, ONE_SKIN))); RIG, RR = G.rig_ladder(one)
     rec = json.load(open(os.path.join(ROOT, RECORD))); crew = json.load(open(os.path.join(ROOT, CREW_OUT, 'BOHEMIA_CREW_FACES.json')))
     man = json.load(open(os.path.join(ROOT, 'slices/fight_people/fight_people.json')))
     looks = looks or [l for l in crew['faces'] if l in rec['people']]
     BG = (22, 21, 20); PANEL = (58, 52, 46); INK = (220, 214, 200); DIM = (160, 154, 140); HEAD = (200, 190, 120); RED = (214, 96, 80); GRN = (130, 190, 110)
-    RW, RH = 1180, 196
-    S = Image.new('RGB', (RW, 92 + RH * len(looks) + 40), BG); d = ImageDraw.Draw(S)
-    d.text((12, 8), "PORTRAIT: THE FACE IS THE BODY'S FACE (rule 120(d), his 'Black people looking like white people'). Every face beside its own body, the skin read off the pixels. A PLACEHOLDER.", fill=INK)
-    d.text((12, 22), "THE BUG: 25 of 26 bodies are painted in the PLAYER'S porcelain skin (the body painter never puts the person's own skin on); the face carried the person. The fix in the engine is CHARACTER's [one skin, one person].", fill=DIM)
-    d.text((12, 36), "faces: head 128 px chin to crown, camera tilt 80, one pixel size | skin: the person's own SKIN_TONES ramp (the game's), the face's median landed on its mid through the rig's measured transfer | hair: the body's own cut ramp | ONE light: the rig's sun", fill=DIM)
-    d.text((12, 52), 'columns: THE BODY TODAY (2x) | THE BODY IN ITS OWN SKIN (2x, the engine change shown, not shipped) | THE PERSON\'S SKIN (lit, mid, dark) | THE 64 FACE TODAY (2x) | THE STARRED FACE REBUILT (128, 1:1) | the reading', fill=HEAD)
-    y = 70
+    RW, RH = 1420, 214
+    S = Image.new('RGB', (RW, 104 + RH * len(looks) + 30), BG); d = ImageDraw.Draw(S)
+    d.text((12, 8), "PORTRAIT: THE FACE IS THE BODY'S FACE (rule 120(d), your 'Black people looking like white people'). Every face beside its own body. A PLACEHOLDER.", fill=INK)
+    d.text((12, 24), "WHAT WAS WRONG: the game painted 25 of 26 bodies in YOUR skin (pale), and every face in its own. The faces I made came out one brown for everybody.", fill=DIM)
+    d.text((12, 38), "NOW: one skin per person (CHARACTER's file, Las Vegas's real mix). Every face here is painted that person's skin and their body's hair. The bodies get the same skin when CHARACTER re-bakes them.", fill=DIM)
+    d.text((12, 52), "faces: head 128 px chin to crown, camera tilt 80, one pixel size, block 1 | skin: CHARACTER's rig albedo for the person (body and head the same) | hair: the body's own cut ramp | ONE light: the rig's sun, upper left", fill=DIM)
+    d.text((12, 72), 'columns: BODY TODAY (2x) | BODY IN ITS OWN SKIN (2x, coming) | OLD 64 FACE (2x) | THE FACE YOU SAW | THE NEW FACE (rest, talking, angry; 128, 1:1) | what the checker reads', fill=HEAD)
+    y = 90
     for look in looks:
-        e = rec['people'][look]
-        d.text((12, y), '%s   skin: %s (from %s)   hair: %s, %s%s' % (look, e['skin'], e['skin_from'].split('(')[0].strip(), e['hair']['cut'] or 'the player\'s', e['hair']['ramp'],
-                                                                  ', under the %s' % e['hair']['gear'].lower() if e['hair'].get('gear') else ''), fill=HEAD)
-        y0 = y + 14; x = 12
+        e = rec['people'][look]; o = one['people'][look]
+        name = (o.get('who') or look).upper()
+        h = e['hair']
+        d.text((12, y), '%s  (%s)   %s skin, %s   hair: %s%s' % (name, look.replace('cast_', '').replace('faction_', 'the '), o['tone'], o.get('heritage', ''),
+                                                              (h.get('cut') or 'your own').lower(), ', under the %s' % h['gear'].lower() if h.get('gear') else ''), fill=HEAD)
+        y0 = y + 16; x = 12
         for k in ('today', 'own_skin'):
             f = os.path.join(ROOT, PROOF, '%s_%s.png' % (look, k))
             if os.path.exists(f):
-                im = Image.open(f).convert('RGBA').crop((20, 0, 92, 84)).resize((144, 168), Image.NEAREST); S.paste(PANEL, (x, y0, x + 144, y0 + 168)); S.paste(im, (x, y0), im)
-            x += 152
-        for i, c in enumerate(e['skin_ramp'][k] for k in ('lit', 'mid', 'dark')):
-            S.paste(tuple(c), (x, y0 + i * 56, x + 48, y0 + i * 56 + 54))
-        x += 56
+                im = Image.open(f).convert('RGBA').crop((20, 0, 92, 88)).resize((144, 176), Image.NEAREST); S.paste(PANEL, (x, y0, x + 144, y0 + 176)); S.paste(im, (x, y0), im)
+            x += 150
         sh = Image.open(os.path.join(ROOT, 'slices/fight_people', man['looks'][look]['file'])).convert('RGBA')
-        t2 = sh.crop(G.face_box(sh)).resize((128, 128), Image.NEAREST); S.paste(PANEL, (x, y0, x + 128, y0 + 128)); S.paste(t2, (x, y0), t2); x += 136
-        fp = os.path.join(ROOT, CREW_OUT, look, 'rest_128.png'); mp = os.path.join(ROOT, CREW_OUT, look, 'mask_128.png')
-        face = Image.open(fp).convert('RGBA'); S.paste(PANEL, (x, y0, x + 128, y0 + 128)); S.paste(face, (x, y0), face); x += 140
-        lines = ['the body today: %s%s' % (e['body_today']['skin'], '' if e['body_today']['matches'] else '  BACK (CHARACTER)')]
-        cols = [GRN if e['body_today']['matches'] else RED]
-        if os.path.exists(mp):
-            rgb, n = G.masked(face, Image.open(mp).convert('RGBA'), 'skin'); ok, why = G.skin_verdict(rgb, e['skin'], T, R)
-            lines.append('the starred face: %s' % why); cols.append(GRN if ok else RED)
-            hr, hn = G.masked(face, Image.open(mp).convert('RGBA'), 'hair')
-            if hn >= G.MIN_HAIR and e['hair'].get('rgb'):
-                ok, why = G.hair_verdict(hr, tuple(e['hair']['rgb'])); lines.append('its hair: %s' % why); cols.append(GRN if ok else RED)
-            else: lines.append('its hair: under the head gear'); cols.append(DIM)
-        lines.append('the 64 face: %s' % e['face_64']['skin']); cols.append(GRN if e['face_64']['matches'] else RED)
-        for i, (ln, c) in enumerate(zip(lines, cols)): d.text((x, y0 + 6 + i * 16), ln, fill=c)
+        t2 = sh.crop(G.face_box(sh)).resize((128, 128), Image.NEAREST); S.paste(PANEL, (x, y0, x + 128, y0 + 128)); S.paste(t2, (x, y0), t2); x += 134
+        bf = os.path.join(ROOT, BEFORE, look + '.png')
+        if os.path.exists(bf):
+            im = Image.open(bf).convert('RGBA'); S.paste(PANEL, (x, y0, x + 128, y0 + 128)); S.paste(im, (x, y0), im)
+        else: d.text((x + 8, y0 + 56), 'none before', fill=DIM)
+        x += 140
+        for k in ('rest', 'A', 'Angry'):
+            f = os.path.join(ROOT, CREW_OUT, look, '%s_128.png' % k)
+            if os.path.exists(f):
+                im = Image.open(f).convert('RGBA'); S.paste(PANEL, (x, y0, x + 128, y0 + 128)); S.paste(im, (x, y0), im)
+            x += 132
+        sw = tuple(o['rig_rgb']); S.paste(sw, (x - 132 * 3, y0 + 134, x - 132 * 3 + 40, y0 + 158)); d.text((x - 132 * 3 + 46, y0 + 140), 'the skin it is painted (%s)' % o['tone'], fill=DIM)
+        for i, (ln, ok) in enumerate(reading(G, one, rec, look, RIG, RR)):
+            d.text((x + 8, y0 + 8 + 16 * i), ln, fill=GRN if ok else (DIM if ok is None else RED))
         y += RH
-    d.text((12, y + 6), 'the reading is the gate\'s own ruler (THE FACE IS THE BODY\'S FACE): a face passes when it reads as its own tone or the one beside it on the game\'s ladder of eleven, L* within 8', fill=DIM)
+    d.text((12, y + 6), "what the checker reads: the new face's paint with the light taken out, on CHARACTER's ladder of skins (its own or the one beside it, and close in lightness), and its hair against the body's", fill=DIM)
     os.makedirs(os.path.dirname(os.path.join(ROOT, out)), exist_ok=True); S.save(os.path.join(ROOT, out)); print('sheet', out, S.size)
 
 
