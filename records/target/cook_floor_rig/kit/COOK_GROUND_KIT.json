@@ -1,0 +1,142 @@
+{
+ "lane": "cook",
+ "row": "[the floor through the rig]",
+ "made": "10/19",
+ "camera": "straight down (RUN lays it in the map's 2:1)",
+ "light": "the rig's one sun and fill",
+ "how": "a 14 m field rendered, its 2 m overrun crossfaded back over its start, both ways",
+ "tiles": {
+  "asphalt": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_ASPHALT.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "asphalt"
+  },
+  "sidewalk": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_SIDEWALK.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "concrete"
+  },
+  "curb": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_CURB.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "east-west",
+   "ground": "curb"
+  },
+  "dirt": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_DIRT.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "caliche"
+  },
+  "sand": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_SAND.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "desert"
+  },
+  "wash": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_WASH.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "playa"
+  },
+  "rough": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_ROUGH.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "rough"
+  },
+  "track": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_TRACK.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "track"
+  },
+  "lot": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_LOT.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "asphalt"
+  },
+  "lawn": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_LAWN.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "lawn"
+  },
+  "roof_shingle": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_ROOF_SHINGLE.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "roof_shingle"
+  },
+  "roof_gravel": {
+   "file": "records/target/cook_floor_rig/kit/COOK_GROUND_ROOF_GRAVEL.webp",
+   "px": [
+    515,
+    515
+   ],
+   "metres": 12.0,
+   "ppm": 42.917,
+   "seamless": "both ways",
+   "ground": "roof_gravel"
+  }
+ }
+}

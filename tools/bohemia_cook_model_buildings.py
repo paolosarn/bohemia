@@ -70,8 +70,8 @@ M = {}
 def mats(bpy):
     """the building set: eight kinds, each a palette step (the props modeller's mat())"""
     if M: return M
-    spec = dict(stucco=('clay_bone', 2), stone=('tape_grey', 2), roof=('tape_masking', 1), flat=('clay_bone', 1), trim=('tape_grey', 1),
-                glass=('glass_eye', 1), wood=('clay_mustard', 1), ply=('tape_masking', 2), steel=('metal_painted', 2), dark=('rubber', 1),
+    spec = dict(stucco=('clay_bone', 3), stone=('tape_grey', 2), roof=('tape_masking', 2), flat=('clay_bone', 2), trim=('tape_grey', 1),
+                glass=('glass_eye', 0), wood=('clay_mustard', 1), ply=('tape_masking', 2), steel=('metal_painted', 2), dark=('rubber', 1),
                 rust=('clay_rust', 1), teal=('clay_teal', 2), red=('clay_rust', 2), gold=('clay_mustard', 2), pale=('clay_bone', 3))
     for k, (role, step) in spec.items(): M[k] = P.mat(bpy, 'bld_' + k, role, step)
     # THE ROOF IN COURSES: 3-tab shingle strips 0.9 m long in 0.2 m courses up the slope (Brick, object x and the slope's
@@ -85,9 +85,43 @@ def mats(bpy):
         br.inputs['Brick Width'].default_value = w_; br.inputs['Row Height'].default_value = h_; br.inputs['Mortar Size'].default_value = 0.012 if key == 'roof' else 0.03
         br.inputs['Color1'].default_value = c; br.inputs['Color2'].default_value = tuple(x * 0.84 for x in c[:3]) + (1,)
         br.inputs['Mortar'].default_value = tuple(x * 0.55 for x in c[:3]) + (1,); br.inputs['Bias'].default_value = 0.0
-        nt.links.new(cmb.outputs[0], br.inputs['Vector']); nt.links.new(br.outputs['Color'], b.inputs['Base Color'])
+        nt.links.new(cmb.outputs[0], br.inputs['Vector'])
+        # every strip its own weathering: a 4 cm mottle and a 1 cm pock over the strip's shade (the card read the flat strips
+        # as 2.45 px runs on the plain ranch, round one)
+        mul = nt.nodes.new('ShaderNodeMixRGB'); mul.blend_type = 'MULTIPLY'; mul.inputs['Fac'].default_value = 1.0
+        prod = None
+        for sc_, lo_, hi_ in ((25.0, 0.8, 1.16), (90.0, 0.86, 1.1)):
+            nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = sc_; nz.inputs['Detail'].default_value = 2.0
+            nt.links.new(tc.outputs['Object'], nz.inputs['Vector'])
+            mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = 0.32; mr.inputs['From Max'].default_value = 0.68
+            mr.inputs['To Min'].default_value = lo_; mr.inputs['To Max'].default_value = hi_; nt.links.new(nz.outputs['Fac'], mr.inputs['Value'])
+            if prod is None: prod = mr.outputs['Result']
+            else:
+                mm = nt.nodes.new('ShaderNodeMath'); mm.operation = 'MULTIPLY'; nt.links.new(prod, mm.inputs[0]); nt.links.new(mr.outputs['Result'], mm.inputs[1]); prod = mm.outputs[0]
+        vv = nt.nodes.new('ShaderNodeCombineColor'); [nt.links.new(prod, vv.inputs[i]) for i in range(3)]
+        nt.links.new(br.outputs['Color'], mul.inputs['Color1']); nt.links.new(vv.outputs['Color'], mul.inputs['Color2'])
+        nt.links.new(mul.outputs['Color'], b.inputs['Base Color'])
         bump = nt.nodes.new('ShaderNodeBump'); bump.inputs['Strength'].default_value = 0.6; bump.inputs['Distance'].default_value = 0.02
         nt.links.new(br.outputs['Fac'], bump.inputs['Height']); nt.links.new(bump.outputs['Normal'], b.inputs['Normal'])
+    # THE GRIME ON THE WALLS: forty years of desert rain splashed up the foot of every wall (dark to 0.45 m, broken), and
+    # water streaks run down from every sill and eave (a noise stretched ten to one in height), in the wall's own colour
+    for key in ('stucco', 'pale', 'stone'):
+        nt = M[key].node_tree; b = nt.nodes['Principled BSDF']; c = tuple(b.inputs['Base Color'].default_value)
+        tc = nt.nodes.new('ShaderNodeTexCoord'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sep.inputs[0])
+        foot = nt.nodes.new('ShaderNodeMapRange'); foot.inputs['From Min'].default_value = 0.45; foot.inputs['From Max'].default_value = 0.0
+        nt.links.new(sep.outputs['Z'], foot.inputs['Value'])
+        nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 6.0; nz.inputs['Detail'].default_value = 4.0; nt.links.new(tc.outputs['Object'], nz.inputs['Vector'])
+        fm = nt.nodes.new('ShaderNodeMath'); fm.operation = 'MULTIPLY'; fm.use_clamp = True; nt.links.new(foot.outputs['Result'], fm.inputs[0])
+        f2 = nt.nodes.new('ShaderNodeMapRange'); f2.inputs['From Min'].default_value = 0.35; f2.inputs['From Max'].default_value = 0.6; nt.links.new(nz.outputs['Fac'], f2.inputs['Value'])
+        nt.links.new(f2.outputs['Result'], fm.inputs[1])
+        mp = nt.nodes.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (14.0, 14.0, 1.4); nt.links.new(tc.outputs['Object'], mp.inputs['Vector'])
+        st = nt.nodes.new('ShaderNodeTexNoise'); st.inputs['Scale'].default_value = 1.0; st.inputs['Detail'].default_value = 3.0; nt.links.new(mp.outputs['Vector'], st.inputs['Vector'])
+        sm = nt.nodes.new('ShaderNodeMapRange'); sm.inputs['From Min'].default_value = 0.56; sm.inputs['From Max'].default_value = 0.72; sm.inputs['To Max'].default_value = 0.45
+        nt.links.new(st.outputs['Fac'], sm.inputs['Value'])
+        tot = nt.nodes.new('ShaderNodeMath'); tot.operation = 'MAXIMUM'; nt.links.new(fm.outputs[0], tot.inputs[0]); nt.links.new(sm.outputs['Result'], tot.inputs[1])
+        mx = nt.nodes.new('ShaderNodeMixRGB'); mx.blend_type = 'MIX'; mx.inputs['Color1'].default_value = c
+        mx.inputs['Color2'].default_value = (c[0] * 0.48, c[1] * 0.43, c[2] * 0.38, 1)
+        nt.links.new(tot.outputs[0], mx.inputs['Fac']); nt.links.new(mx.outputs['Color'], b.inputs['Base Color'])
     M['amber'] = P.mat(bpy, 'bld_amber', 'sodium', 2, glow=2.2)
     M['tv'] = P.mat(bpy, 'bld_tv', 'glass_eye', 2, glow=0.9)
     M['black'] = P.mat(bpy, 'bld_black', 'glass_eye', 0)

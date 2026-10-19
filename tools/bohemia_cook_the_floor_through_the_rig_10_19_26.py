@@ -84,8 +84,8 @@ MATS = {
     'caliche':  dict(role=('clay_bone', 2), target=(170, 157, 135), h=0.11, alt=('clay_bone', 1), alt_amt=0.05, grit=0.62, speck=(45, 0.68)),
     'desert':   dict(role=('clay_bone', 2), target=(174, 159, 134), h=0.04, alt=('tape_masking', 2), alt_amt=0.1, grit=0.6, speck=(40, 0.66)),
     'rough':    dict(role=('clay_bone', 2), target=(160, 149, 130), h=0.06, alt=('clay_bone', 1), alt_amt=0.1, grit=0.62, speck=(36, 0.68)),
-    'playa':    dict(role=('clay_bone', 3), target=(182, 171, 150), h=-0.22, alt=('clay_bone', 2), alt_amt=0.08, grit=0.2, speck=(60, 0.25),
-                     mud=dict(cell=0.32, width=0.016, depth=0.8)),
+    'playa':    dict(role=('clay_bone', 3), target=(176, 165, 145), h=-0.22, alt=('clay_bone', 2), alt_amt=0.08, grit=0.2, speck=(60, 0.25),
+                     mud=dict(cell=0.38, width=0.032, depth=0.9)),
     'track':    dict(role=('clay_bone', 2), target=(152, 140, 120), h=-0.02, alt=('clay_bone', 1), alt_amt=0.15, grit=0.3, speck=(40, 0.36)),
     'lawn':     dict(role=('metal_painted', 2), target=(104, 116, 74), h=0.12, alt=('metal_painted', 1), alt_amt=0.3, grit=0.18, speck=(110, 0.25),
                      green=0.35),
@@ -482,6 +482,58 @@ def scene(bpy, objs):
     return src
 
 
+# ---- THE HOUSES (row two's ranches, in the fight's suburb blocks) -----------------------------------------------------
+HOUSE_KINDS = ('subs', 'corner', 'culdesac', 'suburb_stem')
+RANCH_W = {'ranch_plain': 11.0, 'ranch_porch': 12.0, 'ranch_wing': 14.3}     # each kind's width over its eaves, m
+
+
+def old_houses(gid):
+    """the block's old houses: the not-ground pieces that are whole rectangles 8 to 13 m wide and 6 to 9 m tall on the
+    screen (measured on corner.1, subs.0, culdesac.0, suburb_stem.0: every house is one, fill 0.99 to 1.00; walls, lamps
+    and the cul-de-sac's ring are not)"""
+    m = (gid == 255)[::4, ::4]; lab = np.zeros(m.shape, np.int32); n = 0; out = []
+    Hh, Ww = m.shape
+    for y in range(Hh):
+        for x in range(Ww):
+            if m[y, x] and not lab[y, x]:
+                n += 1; st = [(y, x)]; lab[y, x] = n; ys, xs = [], []
+                while st:
+                    cy, cx = st.pop(); ys.append(cy); xs.append(cx)
+                    for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                        ny, nx = cy + dy, cx + dx
+                        if 0 <= ny < Hh and 0 <= nx < Ww and m[ny, nx] and not lab[ny, nx]: lab[ny, nx] = n; st.append((ny, nx))
+                x0, y0, x1, y1 = min(xs) * 4, min(ys) * 4, (max(xs) + 1) * 4, (max(ys) + 1) * 4
+                w, h = (x1 - x0) / PPM, (y1 - y0) / PPM; fill = len(ys) * 16 / ((x1 - x0) * (y1 - y0))
+                if 8 <= w <= 13 and 6 <= h <= 9 and fill > 0.9: out.append((x0, y0, x1, y1))
+    return out
+
+
+def place_houses(bpy, houses, seed):
+    """a ranch of COOK FOUR's family on each old house's footprint: centred on it, its front wall on the old facade's
+    ground line, the kind the width allows (plain or porch, the L where it is wide), its fence left out (the block has its
+    own); depth x 0.82 so the roof stays inside its own house tile. Returns the meshes and their parents."""
+    import mathutils
+    import bohemia_cook_model_buildings as BLD
+    rnd = np.random.RandomState(seed); meshes, roots, rects, kinds = [], [], [], []
+    for i, (x0, y0, x1, y1) in enumerate(houses):
+        w = (x1 - x0) / PPM
+        fits = [k for k, kw in RANCH_W.items() if 0.86 <= w / kw <= 1.12]
+        kind = fits[rnd.randint(len(fits))] if fits else 'ranch_plain'
+        s_ = w / RANCH_W[kind]
+        before = set(bpy.context.scene.objects)
+        BLD.M.clear(); BLD.BUILDERS[kind](bpy, mathutils)
+        new = [o for o in bpy.context.scene.objects if o not in before]
+        for o in [o for o in new if '_fence' in o.name]: new.remove(o); bpy.data.objects.remove(o, do_unlink=True)
+        xc = (x0 + x1) / 2 / PPM; yfront = SIDE * (1 - y1 / H)
+        root = bpy.data.objects.new('house_%d' % i, None); bpy.context.scene.collection.objects.link(root)
+        for o in new:
+            if o.parent is None: o.parent = root
+        root.location = (xc, yfront + 4.0 * 0.82 * s_, 0.0); root.scale = (s_, 0.82 * s_, s_)
+        meshes += [o for o in new if o.type == 'MESH']; roots.append(root); kinds.append(kind)
+        rects.append((x0, y0, x1, y1))
+    return meshes, roots, rects, kinds
+
+
 def render_block(bid, quick=False, region=None):
     import bpy
     t0 = time.time()
@@ -489,6 +541,15 @@ def render_block(bid, quick=False, region=None):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     objs, g = build(bpy, gid, 1019 + sum(map(ord, bid)), quick)
+    houses = old_houses(gid) if bid.split('.')[0] in HOUSE_KINDS and not quick else []
+    hmesh, hroots, hrects, hkinds = place_houses(bpy, houses, 31 + sum(map(ord, bid))) if houses else ([], [], [], [])
+    if hmesh:                                                 # the houses are buildings: the guide's own wear, 0.6
+        RIG.source_pass(hmesh, float(RIG.G['wear']), 1.0, 0); RIG.dent_pass(hmesh, 1.0)
+        for m in {s.material for o in hmesh for s in o.material_slots if s.material}:
+            for n in m.node_tree.nodes:
+                if n.type in ('AMBIENT_OCCLUSION', 'BEVEL'): n.samples = 1
+        zs = 1.0 / math.cos(math.radians(float(RIG.G['tilt_deg'])))
+        for r in hroots: r.scale = (r.scale[0], r.scale[1], r.scale[2] * zs)
     src = scene(bpy, objs)
     A = dict(sun_rot=list(RIG.G['sun_rot_deg']))
     RIG.light_and_film(sc, A)
@@ -511,22 +572,28 @@ def render_block(bid, quick=False, region=None):
     if region:
         x0, y0, x1, y1 = region; r = np.asarray(Image.open(fn).convert('RGB'))
         full = ship.copy(); full[y0:y0 + r.shape[0], x0:x0 + r.shape[1]] = r
-        o = compose(bid, full, gid, ground, lum, ship, kit)[y0:y1, x0:x1]
+        o = compose(bid, full, gid, ground, lum, ship, kit, hrects)[y0:y1, x0:x1]
         Image.fromarray(o).save(fn.replace('.png', '_composed.png')); return fn
-    out = compose(bid, np.asarray(Image.open(fn).convert('RGB')), gid, ground, lum, ship, kit)
+    out = compose(bid, np.asarray(Image.open(fn).convert('RGB')), gid, ground, lum, ship, kit, hrects)
     Image.fromarray(out).save(os.path.join(OUT, 'block_%s.webp' % bid.replace('.', '_')), lossless=True, quality=100, method=4)
     led = os.path.join(OUT, 'blocks.json'); L = json.load(open(led)) if os.path.exists(led) else {}
     L[bid] = dict(seconds=round(time.time() - t0), ground_share=round(float(ground.mean()), 4), wear=WEAR, samples=int(sc.cycles.samples),
-                  meshes=len(objs), vertices=sum(len(o.data.vertices) for o in objs))
+                  meshes=len(objs), vertices=sum(len(o.data.vertices) for o in objs), houses=[dict(kind=k, old_px=list(map(int, r))) for k, r in zip(hkinds, hrects)])
     json.dump(L, open(led, 'w'), indent=1)
     return fn
 
 
-def compose(bid, rend, gid, ground, lum, ship, kit):
+def compose(bid, rend, gid, ground, lum, ship, kit, hrects=()):
     """the new ground where the plan says ground; the shipped pixels everywhere else (houses, walls, lamps: rows two and
     three); the maker's own house shadows laid on the new ground as darkness, the hue walking cool (COOK TWO's shadow())"""
     import bohemia_cook2_the_fight_floor_10_19_26 as C2
     out = ship.copy()
+    if hrects:                                                # the 3D houses stand in their own light: no old house, no old shadow
+        keep_old = (gid == 255)
+        for x0, y0, x1, y1 in hrects:                          # each new house over its old one, its roof up to 3 m higher
+            keep_old[max(0, y0 - int(3.0 * PPM)):y1 + 6, max(0, x0 - 20):x1 + 20] = False
+        out[~keep_old] = rend[~keep_old]
+        return out
     mult = lum.astype(np.float32) / 255.0
     plan_ground = ground & ~kit                               # the street kit's pixels carry no maker shadow
     m = np.where(plan_ground, np.clip(mult, 0.35, 1.0), 1.0)
@@ -567,6 +634,72 @@ def calibrate_colours(rounds=2):
         print('  calibration round', cal['rounds'], json.dumps(rows), flush=True)
 
 
+# ---- THE KIT FOR THE MAP (RUN): each ground a seamless 12 m tile, straight down, the same materials and the same sun -----
+KIT = ['asphalt', 'sidewalk', 'curb', 'dirt', 'sand', 'wash', 'rough', 'track', 'lot', 'lawn', 'roof_shingle', 'roof_gravel']
+KIT_IDS = dict(asphalt='asphalt', sidewalk='concrete', dirt='caliche', sand='desert', wash='playa', rough='rough', track='track', lawn='lawn', lot='asphalt')
+
+
+def render_kit(names=None):
+    """a 14 m field of each ground (its stones too) under the rig's sun, seen straight down at 42.9 px a metre; the 2 m it
+    runs past the 12 m tile is crossfaded back over its own start, both ways, so the tile lays edge to edge with no seam
+    (the curb strip runs east-west and is seamless along it). Straight down, so RUN lays it in the map's own 2:1."""
+    import bpy, mathutils
+    out_dir = os.path.join(OUT, 'kit'); os.makedirs(out_dir, exist_ok=True)
+    T, O = 12.0, 2.0; n_in = int(round((T + O) / STEP)) + int(round(2 / STEP))
+    led = {}
+    for name in names or KIT:
+        bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene; rng = np.random.RandomState(sum(map(ord, name)))
+        if name.startswith('roof'):
+            import bohemia_cook_model_buildings as BLD
+            BLD.M.clear(); mm = BLD.mats(bpy); m = mm['roof' if name == 'roof_shingle' else 'flat']
+            bpy.ops.mesh.primitive_plane_add(size=T + O + 2, location=(7.0, 53.0, 0.0)); o = bpy.context.active_object; o.data.materials.append(m)
+            if name == 'roof_shingle': o.rotation_euler = (math.radians(18.4), 0, 0)
+            objs = [o]; RIG.source_pass(objs, float(RIG.G['wear']), 1.0, 0); RIG.dent_pass(objs, 1.0)
+        else:
+            g = np.full((n_in, n_in), ID[KIT_IDS.get(name, 'asphalt')], np.uint8)
+            yy = (SIDE + 1.0) - np.arange(n_in) * STEP; xx = np.arange(n_in) * STEP - 1.0
+            if name == 'curb':                                   # the walk to the north, the curb, the gutter pan, the road
+                g[:] = ID['asphalt']; g[yy > 53 + 1.5, :] = ID['concrete']; g[(yy <= 54.5) & (yy > 54.05), :] = ID['gutter']
+            if name == 'lot':                                    # an old lot: stalls 3 m wide, 5.5 m deep, the paint worn
+                for k in range(-1, 6):
+                    sel = (np.abs(xx[None, :] - (k * 3.0 + 1.0)) < 0.06) & (np.abs(yy[:, None] - 53.0) < 2.75); g[sel] = ID['paint']
+            if name == 'track':
+                for x0 in (5.4, 7.2): g[:, np.abs(xx - x0) < 0.25] = ID['track']; g[:, (np.abs(xx - x0) >= 0.25) & (g[0] == ID['track'])] = ID['desert']
+                g[g != ID['track']] = ID['desert']
+            h, pots = heights(g, rng)
+            gutter = np.clip(blur((g == ID['gutter']).astype(np.float32), 0.25 / STEP) * 2.0, 0, 1) * np.isin(g, [ID['asphalt'], ID['gutter']])
+            mats = {n: ground_material(bpy, n) for n in IDS}
+            o = grid_mesh(bpy, g, h, gutter, mats, pots)
+            tpl = ico(bpy); smats = {k: stone_material(bpy, k) for k in STONE_MATS}
+            objs = [o] + scatter(g, h, gutter, rng, tpl, smats, bpy)
+            scene(bpy, objs)
+        RIG.light_and_film(sc, dict(sun_rot=list(RIG.G['sun_rot_deg']))); sc.render.film_transparent = False
+        cd = bpy.data.cameras.new('cam'); cd.type = 'ORTHO'; cd.ortho_scale = T + O
+        cam = bpy.data.objects.new('cam', cd); sc.collection.objects.link(cam); sc.camera = cam
+        cam.location = (0.0 + (T + O) / 2, 60.0 - (T + O) / 2, 60.0); cam.rotation_euler = (0, 0, 0); cd.clip_end = 200
+        res = int(round((T + O) * PPM)); sc.render.resolution_x = sc.render.resolution_y = res
+        sc.cycles.samples = GROUND_SAMPLES; sc.cycles.use_adaptive_sampling = True; sc.cycles.adaptive_threshold = 0.02
+        sc.cycles.max_bounces = 2; sc.cycles.diffuse_bounces = 1; sc.cycles.glossy_bounces = 0; sc.cycles.transmission_bounces = 0
+        fn = os.path.join(RENDER, 'kit_%s.png' % name); os.makedirs(RENDER, exist_ok=True); sc.render.filepath = fn
+        bpy.ops.render.render(write_still=True)
+        a = np.asarray(Image.open(fn).convert('RGB')).astype(np.float32)
+        t, ov = int(round(T * PPM)), res - int(round(T * PPM))
+        w = np.linspace(0, 1, ov, dtype=np.float32)
+        a2 = a[:, :t].copy(); a2[:, :ov] = a[:, t:t + ov] * (1 - w)[None, :, None] + a[:, :ov] * w[None, :, None]
+        if name != 'curb':
+            a3 = a2[:t].copy(); a3[:ov] = a2[t:t + ov] * (1 - w)[:, None, None] + a2[:ov] * w[:, None, None]
+        else: a3 = a2[:t]
+        tile = a3.round().clip(0, 255).astype(np.uint8)
+        dst = os.path.join(out_dir, 'COOK_GROUND_%s.webp' % name.upper()); Image.fromarray(tile).save(dst, lossless=True, quality=100, method=4)
+        led[name] = dict(file=os.path.relpath(dst, R), px=list(tile.shape[:2][::-1]), metres=T, ppm=round(PPM, 3), seamless='east-west' if name == 'curb' else 'both ways',
+                         ground=KIT_IDS.get(name, name))
+        print('  kit', name, tile.shape, flush=True)
+    kp = os.path.join(out_dir, 'COOK_GROUND_KIT.json'); old = json.load(open(kp)) if os.path.exists(kp) else {}
+    old.update(dict(lane='cook', row='[the floor through the rig]', made='10/19', camera='straight down (RUN lays it in the map\'s 2:1)', light='the rig\'s one sun and fill',
+                    how='a 14 m field rendered, its 2 m overrun crossfaded back over its start, both ways', tiles=dict(old.get('tiles', {}), **led)))
+    json.dump(old, open(kp, 'w'), indent=1)
+
+
 def rig_check():
     """the rig's own calibration at this ruler: the 1 m cube 43 px, the light on the screen"""
     A = dict(ppm=PPM, tilt=float(RIG.G['tilt_deg']), out=os.path.join(OUT, 'calibration'), sun_rot=list(RIG.G['sun_rot_deg']))
@@ -576,7 +709,9 @@ def rig_check():
 
 if __name__ == '__main__':
     a = sys.argv[1:]
-    if a and a[0] == 'calibrate':
+    if a and a[0] == 'kit':
+        render_kit(a[1:] or None)
+    elif a and a[0] == 'calibrate':
         if '--colours-only' not in a: rig_check()
         calibrate_colours(int(a[1]) if len(a) > 1 and a[1].isdigit() else 2)
     else:
