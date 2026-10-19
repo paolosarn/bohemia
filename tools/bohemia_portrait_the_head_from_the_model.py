@@ -162,7 +162,7 @@ for _k, _c in CREW.items():
 # own face of that gang (by eye, then the crew's rule: two steps lighter on a deep skin, the rig's sun takes about two);
 # and since these are the first heads with DIALS, no two share a skull: each gets a face shape that says who it is.
 FACTION = {
-    'Caravans':   dict(skin=('skin_deep', 2), hair='coil', hair_c=('tape_grey', 1), gear='cone hat', gear_c=('tape_masking', 1), beard='full',
+    'Caravans':   dict(skin=('skin_deep', 2), hair='coil', hair_c=('tape_grey', 1), gear='cone hat', gear_c=('tape_masking', 1), beard='full', cone=1.38,
                        face={'face.cheekW': 34, 'face.jawW': 30, 'face.foreheadW': 26, 'face.len': 34, 'face.chinW': 14, 'nose.w': 4},
                        worn='COIL CROWN under the CHINESE RICE FARMER HAT; a grey full beard: the trader who has walked every road'),
     'Colorful':   dict(skin=('skin_mid', 2), hair='shag', hair_c=('tape_masking', 0), gear='knit cap', gear_c=('blood', 1),
@@ -213,7 +213,7 @@ for _k, _c in FACTION.items():
     PEOPLE['FACTION_' + _k.upper()] = dict(
         body='%s/%s.glb' % (FACTION_BODIES, _tag), drop=tuple('%s_%s' % (_tag, x) for x in ('hair', 'hair_fall', 'hat', 'hat_brim', 'visor')),
         cut_z=1.165, centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
-        gear=_c['gear'], hair=_c['hair'], stubble=False, beard=_c.get('beard'), scar=_c.get('scar'), face=_c['face'],
+        gear=_c['gear'], hair=_c['hair'], stubble=False, beard=_c.get('beard'), scar=_c.get('scar'), face=_c['face'], cone=_c.get('cone', 1.5),
         look='faction_' + _tag, crew=True, faction=_k, twin='slices/fight_people/faction_%s.webp' % _tag, twin_face=True,
         palette='steps of the style palette (skin %s %d, hair %s %d%s)' % (_c['skin'] + _c['hair_c'] + ((', gear %s %d' % _c['gear_c']) if _c.get('gear') else '',)),
         kit='%s; %s' % (_c['gear'] or 'bare head', CUT_NAME[_c['hair']]),
@@ -823,7 +823,9 @@ def build(who, out):
         # head's width ran off the portrait's frame on both sides; 1.5 keeps the cone and the face in one square)
         bm = bmesh.new()
         top = RZ - 0.030 + 0.065
-        bmesh.ops.create_cone(bm, cap_ends=True, segments=48, radius1=RX * 1.5, radius2=0.012, depth=0.11,
+        # (10/19, EYES' frame leg: the Caravans trader's head sits tilted on his body's still and the 1.5 rim ran 16 px off
+        # the render's left edge; a hat comes in sizes, his is 1.38)
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=48, radius1=RX * P.get('cone', 1.5), radius2=0.012, depth=0.11,
                               matrix=Matrix.Translation((0.0, 0.006, top)))
         bmesh.ops.subdivide_edges(bm, edges=[e for e in bm.edges if abs(e.verts[0].co.z - e.verts[1].co.z) > 0.01], cuts=8)
         for v in bm.verts:

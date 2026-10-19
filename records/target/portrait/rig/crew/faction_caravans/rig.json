@@ -145,7 +145,7 @@
  ],
  "crop_box_px": [
   90,
-  63,
+  64,
   156,
   186
  ],
@@ -161,13 +161,13 @@
  ],
  "ground_px": [
   30,
-  106
+  105
  ],
  "look_px": [
   30,
-  57
+  56
  ],
- "colours": 11346,
+ "colours": 11059,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -176,20 +176,20 @@
   "family": "prop",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 123",
-   "OUT  colours >= 2330: 1959",
-   "OK   top 8 carry <= 11%: 1.8",
-   "OUT  value span >= 118: 113",
-   "OK   saturation <= 0.81: 0.219",
-   "OK   light: top minus bottom >= -2.5: 18.3",
-   "OK   edge between -35 and +7: -16.5",
-   "OK   grain <= 2.22 px a run: 1.85"
+   "OK   long side >= floor 96: 122",
+   "OUT  colours >= 2330: 1913",
+   "OK   top 8 carry <= 11%: 1.9",
+   "OUT  value span >= 118: 109",
+   "OK   saturation <= 0.81: 0.221",
+   "OK   light: top minus bottom >= -2.5: 13.6",
+   "OK   edge between -35 and +7: -16.7",
+   "OK   grain <= 2.22 px a run: 1.81"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 3.0%",
+   "OK   stray pixels at 8 steps <= 14%: 3.3%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 260.4"
+   "OK   light from above (180 to 360 degrees, or flat): 259.4"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/portrait/rig/crew/faction_caravans/rig_S.png"
@@ -199,14 +199,14 @@
   "cls": "portrait",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 123",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2413 px): 1959",
-   "OK   top 8 carry <= 11%: 1.8",
-   "OUT  value span >= 118: 113",
-   "OK   saturation <= 0.81: 0.219",
-   "OK   light: top minus bottom >= -2.5: 18.3",
-   "OK   edge between -35 and +7: -16.5",
-   "OK   grain <= 2.22 px a run: 1.85"
+   "OK   long side >= floor 96: 122",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2357 px): 1913",
+   "OK   top 8 carry <= 11%: 1.9",
+   "OUT  value span >= 118: 109",
+   "OK   saturation <= 0.81: 0.221",
+   "OK   light: top minus bottom >= -2.5: 13.6",
+   "OK   edge between -35 and +7: -16.7",
+   "OK   grain <= 2.22 px a run: 1.81"
   ],
   "reread": [
    "colours by field 5"
@@ -214,10 +214,10 @@
   "verdict": "1 of 8 out under the style guide",
   "size_px": [
    38,
-   114
+   113
   ],
-  "opaque_px": 2413,
-  "colours": 1959
+  "opaque_px": 2357,
+  "colours": 1913
  },
  "rig_settings": {
   "engine": "CYCLES",
