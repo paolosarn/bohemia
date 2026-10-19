@@ -736,7 +736,7 @@
    "loadedLines": 2,
    "repoLines": 36,
    "proved": [
-    "slices/BOHEMIA_CITY_WORLD.html:35243"
+    "slices/BOHEMIA_CITY_WORLD.html:35285"
    ]
   },
   {
@@ -747,7 +747,7 @@
    "loadedLines": 4,
    "repoLines": 44,
    "proved": [
-    "slices/BOHEMIA_CITY_WORLD.html:35234"
+    "slices/BOHEMIA_CITY_WORLD.html:35276"
    ]
   },
   {
@@ -758,7 +758,7 @@
    "loadedLines": 5,
    "repoLines": 53,
    "proved": [
-    "slices/BOHEMIA_CITY_WORLD.html:35230"
+    "slices/BOHEMIA_CITY_WORLD.html:35272"
    ]
   },
   {
@@ -769,7 +769,7 @@
    "loadedLines": 5,
    "repoLines": 59,
    "proved": [
-    "slices/BOHEMIA_CITY_WORLD.html:35226"
+    "slices/BOHEMIA_CITY_WORLD.html:35268"
    ]
   },
   {
@@ -855,7 +855,7 @@
    "loadedLines": 2,
    "repoLines": 34,
    "proved": [
-    "slices/BOHEMIA_CITY_WORLD.html:35247"
+    "slices/BOHEMIA_CITY_WORLD.html:35289"
    ]
   },
   {
@@ -970,7 +970,7 @@
    "loadedLines": 2,
    "repoLines": 16,
    "proved": [
-    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1464"
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1497"
    ]
   },
   {
@@ -1284,7 +1284,7 @@
    "loadedLines": 1,
    "repoLines": 6,
    "proved": [
-    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1260"
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1293"
    ]
   },
   {
@@ -1535,7 +1535,7 @@
    "loadedLines": 1,
    "repoLines": 16,
    "proved": [
-    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1239"
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1272"
    ]
   },
   {
@@ -1603,7 +1603,7 @@
    "loadedLines": 1,
    "repoLines": 23,
    "proved": [
-    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:989"
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1022"
    ]
   },
   {
@@ -1625,7 +1625,7 @@
    "loadedLines": 1,
    "repoLines": 3,
    "proved": [
-    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1316"
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1349"
    ]
   },
   {
@@ -1647,7 +1647,7 @@
    "loadedLines": 1,
    "repoLines": 7,
    "proved": [
-    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:988"
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1021"
    ]
   },
   {
@@ -2043,7 +2043,7 @@
    "loadedLines": 9,
    "repoLines": 33,
    "proved": [
-    "engine/bohemia_roster.js:81"
+    "engine/bohemia_roster.js:97"
    ]
   },
   {
@@ -2138,7 +2138,7 @@
    "loadedLines": 1,
    "repoLines": 5,
    "proved": [
-    "slices/BOHEMIA_FIGHT.html:2600"
+    "slices/BOHEMIA_FIGHT.html:2604"
    ]
   },
   {
@@ -2149,7 +2149,7 @@
    "loadedLines": 1,
    "repoLines": 2,
    "proved": [
-    "slices/BOHEMIA_FIGHT.html:2600"
+    "slices/BOHEMIA_FIGHT.html:2604"
    ]
   },
   {
@@ -2169,7 +2169,7 @@
    "loadedLines": 12,
    "repoLines": 513,
    "proved": [
-    "slices/BOHEMIA_FIGHT.html:2601"
+    "slices/BOHEMIA_FIGHT.html:2605"
    ]
   },
   {
@@ -2189,7 +2189,7 @@
    "loadedLines": 1,
    "repoLines": 1,
    "proved": [
-    "slices/BOHEMIA_FIGHT.html:2601"
+    "slices/BOHEMIA_FIGHT.html:2605"
    ]
   },
   {
@@ -2200,7 +2200,7 @@
    "loadedLines": 1,
    "repoLines": 1,
    "proved": [
-    "slices/BOHEMIA_FIGHT.html:2602"
+    "slices/BOHEMIA_FIGHT.html:2606"
    ]
   },
   {
@@ -2256,7 +2256,7 @@
    "loadedLines": 1,
    "repoLines": 7,
    "proved": [
-    "slices/BOHEMIA_FIGHT.html:2621"
+    "slices/BOHEMIA_FIGHT.html:2625"
    ]
   },
   {
@@ -2267,7 +2267,7 @@
    "loadedLines": 1,
    "repoLines": 3,
    "proved": [
-    "slices/BOHEMIA_FIGHT.html:2622"
+    "slices/BOHEMIA_FIGHT.html:2626"
    ]
   },
   {
@@ -2325,7 +2325,7 @@
    "loadedLines": 1,
    "repoLines": 1,
    "proved": [
-    "slices/BOHEMIA_FIGHT.html:2628"
+    "slices/BOHEMIA_FIGHT.html:2632"
    ]
   },
   {
@@ -2473,5 +2473,6 @@
    "repoLines": 10,
    "proved": []
   }
- ]
+ ],
+ "_lines": "every proved line is today's main, remapped from the measured commit 77f3e5f4 by its exact text"
 }

@@ -85,7 +85,7 @@ Proved by pass C (seeded), read off each screen:
 | screen | what it shows | the line that sets the word (proved) | from the word to the numbers |
 |---|---|---|---|
 | fight, weapon card (hold a man) | PIPE · YOU, SLEDGE · RAUL, AXE · THUG, CAR DOOR | records/target/bb/weapon_lines.json, the class row's "name" (PIPE line 30, SLEDGE 38, CAR DOOR 54, AXE 80) | 1 hop: the card's small print names the Battle Brothers row ("Battle Brothers: Bludgeon, a mace"); search Bludgeon, land on weapons.json |
-| fight, drawer (tap a man) | THUG · LEVEL 1 · MACE (AXE, SPEAR) | the Battle Brothers CLASS, `job: w.class` in slices/BOHEMIA_FIGHT.html line 495, upper-cased (hand trace; a class key is never tagged) | the same man's card says PIPE · THUG: one weapon, two words on one screen (the unseeded walk had DAGGER on the drawer and PISTOL on the card) |
+| fight, drawer (tap a man) | THUG · LEVEL 1 · MACE (AXE, SPEAR) | the Battle Brothers CLASS, `job: w.class` in slices/BOHEMIA_FIGHT.html line 498, upper-cased (hand trace; a class key is never tagged) | the same man's card says PIPE · THUG: one weapon, two words on one screen (the unseeded walk had DAGGER on the drawer and PISTOL on the card) |
 | crew screen | pipe, sledge, rifle, shotgun, bottles, pistol | engine/bohemia_roster.js `CLASSNAME`, line 23 (6 of 6 proved) | 2 hops: ours.json `weapon_rows` (pipe is bludgeon), then weapons.json |
 | town shop shelf | axe, chain, hook, pistol, cleaver | slices/BOHEMIA_SETTLEMENT_SCREEN.html `CLASSNAME`, lines 314 to 316 (5 of 5 proved) | the shelf shows only the LAST word (`fire axe` reads axe, `pole hook` reads hook; line 405); the full name is only in the button's spoken label |
 | the item icons | (a picture) | slices/bohemia_ui_materials.js `OBJ_CLASS`, line 417: 0 of 24 tags reached the glass | it picks the picture, not a word, and must agree with the other three or the icon is wrong |
@@ -97,7 +97,7 @@ very enemy whose card says PIPE. The search for "pipe" returns 102 loaded lines 
 ### Armour: ten words for 184 rows, chosen by durability, in three copies
 
 All 11 armour words were proved to one line each. **The crew screen** takes them from engine/bohemia_roster.js lines 50
-and 52, and line 81 for "a car door" when the man's jobs include car_door. **The town shop** takes them from
+and 52, and line 97 for "a car door" when the man's jobs include car_door. **The town shop** takes them from
 slices/BOHEMIA_SETTLEMENT_SCREEN.html lines 325 to 327, and its shelf again shows only the last word (vest, hat, door).
 **The icons** take them from slices/bohemia_ui_materials.js lines 422 to 424, which drew no word. The three copies are the
 same function: `dur < 40 ? 'a work jacket' : dur < 100 ? 'a padded vest' : dur < 180 ? 'a plate carrier' : 'full riot
@@ -112,9 +112,9 @@ All ten buildings this town has were proved to one line of table B (THE HALL 181
 STALL 184, THE BARBER 185, THE BAR 187, THE SMITH 189, THE ARMOURER 190, SCAVENGE 191, BUILD 622). Two walls:
 
 - **The short line under a building comes from the table for 6 of the town's 10 buildings and from code for the other 4.**
-  `sub(k)` (line 986) replaces THE BOARD's "contracts" with "0 of 2 held", BUILD's "1 battery, 1 day" with "not your
+  `sub(k)` (line 1019) replaces THE BOARD's "contracts" with "0 of 2 held", BUILD's "1 battery, 1 day" with "not your
   ground" here, SCAVENGE's "one thing or nothing" with "picked clean", and THE HALL's "who wants work" with "cook for
-  hire" (line 990, glued to engine/bohemia_followers.js). A stranger who edits those four lines in table B sees nothing
+  hire" (line 1023, glued to engine/bohemia_followers.js). A stranger who edits those four lines in table B sees nothing
   change. Pass D proved it: none of the four tags reached the glass.
 - **The building's name has a second copy in the keeper's title.** THE SMITH is line 189 (the building) AND line 470 (the
   keeper, "AMBROSE HATCHER, THE SMITH"); the same for THE ARMOURER (190 and 471) and THE BARBER (185 and 465). Rename
@@ -125,12 +125,12 @@ STALL 184, THE BARBER 185, THE BAR 187, THE SMITH 189, THE ARMOURER 190, SCAVENG
 - **The crew** (DESI, RAUL, TINA, BOOKIE, OSO, CHEWY, MARISOL, LUPE, GRIZ, DEUCE, NENA): records/target/bb/ours.json,
   11 of 11 proved, one line each. Zero hops, a data file. The best case in the game.
 - **An enemy** (THUG): records/target/bb/enemies.json line 2784, "Brigand Thug", with "Brigand " cut off by the fight
-  (line 495). The search finds it; the file says a longer name than the screen.
+  (line 498). The search finds it; the file says a longer name than the screen.
 - **The job givers** (YESENIA OCHOA, THE WELDER; ABUELA TONA, WHO RUNS THE COUNT): records/target/BOHEMIA_BOARD_SHELF.json,
   proved, zero hops.
 - **The hire post and the keepers** (12 names, 0 found whole): each half is in engine/bohemia_names.js (the county's mix,
-  PEOPLE 10/18), and the pair is rolled per place and building (`keeperName`, settlement line 1091; the hire post, line
-  1007). Hops: the whole name finds nothing; one half finds the pool (1); the pool says nothing about Church, so the
+  PEOPLE 10/18), and the pair is rolled per place and building (`keeperName`, settlement line 1124; the hire post, line
+  1040). Hops: the whole name finds nothing; one half finds the pool (1); the pool says nothing about Church, so the
   settlement's `keeperName` (2) leads back to the roll. **No line names one keeper, so a modder can change the pool and
   never the man.** Battle Brothers works the same way for a hire (a background picks from its own name list), and names no
   keepers at all.
@@ -141,8 +141,8 @@ STALL 184, THE BARBER 185, THE BAR 187, THE SMITH 189, THE ARMOURER 190, SCAVENG
 
 THE WASH, NORTH LAS VEGAS (the town's district line) is one line of the settlement screen, proved. The town's own name is
 not: "Church" on the town bar and "CHURCH" on the map are a FACTION's name, from the baked faction graph inside
-slices/BOHEMIA_CITY_WORLD.html (line 32657, whose own comment says "nothing here may be edited in place"; the source,
-engine/BOHEMIA_faction_graph.json, is not loaded) and the bases at line 75819. Pass B tagged that name once and measured
+slices/BOHEMIA_CITY_WORLD.html (line 32699, whose own comment says "nothing here may be edited in place"; the source,
+engine/BOHEMIA_faction_graph.json, is not loaded) and the bases at line 75861. Pass B tagged that name once and measured
 what a rename does: the town fell from a town to a camp (`mapTierOf` looks the tier up by the name and falls back to
 camp), its buildings changed (GUNS AND PLATE where THE SMITH and THE ARMOURER stood), and the first fight never came up.
 **A stranger who renames Church gets a different town.** Battle Brothers keeps `m.ID` beside `m.Name` for exactly this.
@@ -152,9 +152,9 @@ camp), its buildings changed (GUNS AND PLATE where THE SMITH and THE ARMOURER st
 | on the glass | why the search misses | hops |
 |---|---|---|
 | 12 people (WADE KESSLER, Heather Brennan ...) | each name is two pool words, rolled together per place (above) | 2, and no line names the man |
-| @church, @colorful (the phone's board) | `'@' + place name, lower case, spaces out` (slices/BOHEMIA_CITY_WORLD.html line 35114) | 1: search church, then the handle line |
-| @thenightshift (the feed) | `'@' + the company name, lower case` (the same file, line 43915) | 1: from THE NIGHT SHIFT |
-| cook for hire (THE HALL's short line) | `o + ' for hire'` (settlement line 990), o from engine/bohemia_followers.js | 1 |
+| @church, @colorful (the phone's board) | `'@' + place name, lower case, spaces out` (slices/BOHEMIA_CITY_WORLD.html line 35156) | 1: search church, then the handle line |
+| @thenightshift (the feed) | `'@' + the company name, lower case` (the same file, line 43957) | 1: from THE NIGHT SHIFT |
+| cook for hire (THE HALL's short line) | `o + ' for hire'` (settlement line 1023), o from engine/bohemia_followers.js | 1 |
 
 One more wall, found by the same search: the door's heading YOUR CREW'S NAME is written `YOUR CREW\'S NAME` in the code
 (an escaped apostrophe), so a search for the heading as a player reads it finds nothing in the file that draws it.
@@ -232,7 +232,7 @@ on the screen" with its four tables, and lists the live name pool under names.
 
 ## ROUTED (pages only, rule 38g; the building lanes own their files)
 
-- **COMBAT** (the fight): (1) an enemy's drawer names his weapon by its Battle Brothers class (`job: w.class`, line 495:
+- **COMBAT** (the fight): (1) an enemy's drawer names his weapon by its Battle Brothers class (`job: w.class`, line 498:
   THUG · LEVEL 1 · MACE) while his weapon card names it from weapon_lines.json (PIPE · THUG): two words for one weapon on
   one screen;
   (2) the card's small print ("Battle Brothers: Bludgeon") is the only bridge from the word to the numbers, the one hop
@@ -240,7 +240,7 @@ on the screen" with its four tables, and lists the live name pool under names.
 - **RUN TWO** (the settlement screen and the crew screen): (1) the shop's `CLASSNAME` (line 314) and its armour bands
   (325 to 327) are copies of engine/bohemia_roster.js lines 23 and 50 to 52; one table both screens read would make a
   rename one edit; (2) the shelf shows only the last word of a name (line 405: fire axe reads axe, a car door reads door);
-  (3) `sub(k)` (line 986) overrides four of the town's ten short lines, so table B lies for those four; (4) the keeper's
+  (3) `sub(k)` (line 1019) overrides four of the town's ten short lines, so table B lies for those four; (4) the keeper's
   title repeats the building's name in a second table (KEEPERS 465, 470, 471); (5) the hire post's backgrounds come from
   engine/bohemia_goodbros.js, not backgrounds.json.
 - **UI**: slices/bohemia_ui_materials.js keeps a fourth copy of the class table and the armour bands (lines 417 to 424)
@@ -272,6 +272,9 @@ on the screen" with its four tables, and lists the live name pool under names.
   by band; a town's name is its key; this page). Help, not a rule; it makes no mod.
 
 ## PROOF
+
+Measured on 77f3e5f4; every line number on this page is main at d46908e9, remapped from the measured
+commit by each line's exact text (ten moved by 3 to 42 lines; none changed).
 
 `node tools/bohemia_mods_screen_word.js --prove --passes A,C --bank ...` on 77f3e5f4 plus this round's tool, exit 0: the
 seeded walk 435 strings in 428,486 ms (door: 15 origins swiped, ANOTHER 10 times; town Church at 47,50, two blocks, tier

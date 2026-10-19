@@ -642,6 +642,32 @@ the Mob's four valley cells and RUN's region fortress); TUNING (the +n and the
 base cost). PENDING Paolo: nothing.
 
 
+MODS (mods-opus-10-19): 10/19 LATEST (f) -- *** THE NEW AGE (rules 112 to 120; opened by the coordinator after the five-hour cap, Opus 5.5 at Extra per rule 116, no check-in) SHIPPED
+[the screen's word], resumed from mods-opus-10-18d's claim (its instrument had landed on main; no branch survived). *** Record
+records/BOHEMIA_MODS_EVERY_WORD_YOU_SEE_FINDS_ITS_LINE_10_19_26.md; instrument tools/bohemia_mods_screen_word.js (reads only;
+a walk about 7 min, the search about 80 s, each proof pass one more walk: --prove --passes A,C,D, --from walk.json, --bank);
+draft bank banks/BOHEMIA_MODS_WHERE_EACH_WORD_ON_THE_SCREEN_LIVES_DRAFT_10_19_26.json (draft:true, nothing reads it). A seeded
+walk of the demo's first ten minutes (door, 15 origins, 10 company names, the map, Church's ten buildings held and tapped,
+12 crew rows, the first road fight with every man tapped and held) read 230 names (74 number readouts apart). A whole-word
+search finds a line in a loaded file for 215; a tag on the line, read back off the SAME screen, proves the right line for
+148 (140 one line). PROVES THE DATA LINE'S ORDER UPSIDE DOWN: buildings (called code) are one line each of table B in the
+screen's own file, 0 hops; weapons (called data) take their word from a different table per screen and none is the row with
+the numbers (fight card weapon_lines.json, 1 hop by its small print; crew screen engine/bohemia_roster.js CLASSNAME, 2 hops;
+the shop its own CLASSNAME, last word only; the icons' OBJ_CLASS draws no word), an enemy reads THUG · LEVEL 1 · MACE on tap
+and PIPE · THUG on hold, armour is ten words by durability band in three copies of one function. THE NAME IS THE KEY: an
+unseeded pass B renamed Church once and the town fell to a camp (mapTierOf by name), its buildings changed, the fight never
+came up. Misses: 12 people rolled from engine/bohemia_names.js (no line names a keeper), 2 handles, 1 shop line. Table B lies
+for 4 of the town's 10 short lines (sub(k), line 1019); 3 keeper titles copy the building name. School: Stardew, Battle
+Brothers (a real mod's helmet: m.ID, m.Name and the numbers in one file), Android strings.xml. MEASURED THE WALL IN MY OWN
+INSTRUMENT: one git grep over every name printed megabyte lines and never finished; ripgrep per name with -o does one in
+0.1 s. Data line re-measured (50 kinds: building names, the haircut's two words, what a weapon or armour is called on the
+screen, the live name pool; two kinds became data on their own since 10/17). One MODDING.md bullet (help, no rule).
+Line numbers remapped to main by exact text (ten moved, none changed). Routed COMBAT, RUN TWO, UI, WORLD / FACTIONS, RUN,
+PEOPLE. New OPEN row [the name is the key]; [only the board's looks] is the top OPEN row, [a png in the bundle] and [grok
+sources] stand. Seen on the way, not mine: banklaw_gate.py is red on main without this round's bank (the index would shrink
+105 to 103); PLUMBER's. Rule 88 kept: no VOTE sheet. RUN lead line: MODS COOKING (a page, NOT IN A TAB). PENDING Paolo:
+nothing.
+
 MODS (mods-opus-10-18c): 10/18 LATEST (e) -- *** THE NEW AGE (rules 112 to 117; opened by the coordinator, Opus 5.5 at Extra per rule 116, no check-in) SHIPPED
 [a modder's first hour]. *** Record records/BOHEMIA_MODS_CHANGE_ONE_THING_IN_TEN_MINUTES_10_18_26.md; instrument
 tools/bohemia_mods_ten_minutes.js (reads only; about 4 min live, 3 s with --no-live). THREE STRANGERS (fresh agents in
