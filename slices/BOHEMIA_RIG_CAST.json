@@ -3,13 +3,22 @@
  "src": "records/target/character/rig (CHARACTER, character-the-thirteen-through-the-rig-10-18, his YES)",
  "walks": [
   "anarchists",
+  "blues",
+  "caravans",
   "cartel",
+  "church",
+  "colorful",
+  "homeless",
+  "mob",
+  "network",
   "reds",
-  "trades"
+  "remnants",
+  "trades",
+  "volunteers"
  ],
- "w": 72,
- "h": 131,
- "foot": 121,
+ "w": 76,
+ "h": 134,
+ "foot": 122,
  "cols": 7,
  "gangs": [
   "anarchists",

@@ -43,7 +43,7 @@ def main():
                 if not os.path.exists(p):
                     if i == 0:
                         sys.exit('MISSING ' + os.path.relpath(p, ROOT))
-                    continue   # CHARACTER walked four of the thirteen; the rest stand (their walk cells stay empty)
+                    continue   # a gang CHARACTER has not walked yet stands (its walk cells stay empty); 10/19 all thirteen walk
                 im = Image.open(p).convert('RGBA')
                 ims[p] = im
                 b = im.getbbox()

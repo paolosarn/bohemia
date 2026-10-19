@@ -365,16 +365,19 @@ function ok(claim, cond, detail) {
       window.dispatchEvent(new CustomEvent('bohemia-mapstate',
         { detail: { moving: true, surface: 'road', settlement: false, arriving: null } }));
     } catch (e) { threw = String(e); }
+    /* the live bed is the recorded steps once their file is in (RUN's cut 10/19, CUE 7.1, his YES), TRAVELBED until
+       then: a bed is ON while it holds a surface (the recording's first footfall waits on its fetch, its surface does not) */
+    const bed = () => window.__STEPS ? { name: 'steps', playing: !!window.__STEPS.surface, surface: window.__STEPS.surface }
+      : { name: 'travelbed', playing: !!(window.__TRAVELBED && window.__TRAVELBED.playing), surface: window.__TRAVELBED && window.__TRAVELBED.surface };
     const afterRoad = window.__travelBedEnsureCount || 0;
-    const playingRoad = window.__TRAVELBED && window.__TRAVELBED.playing;
-    const surfaceRoad = window.__TRAVELBED && window.__TRAVELBED.surface;
+    const road = bed(), playingRoad = road.playing, surfaceRoad = road.surface;
     window.dispatchEvent(new CustomEvent('bohemia-mapstate',
       { detail: { moving: true, surface: 'dirt', settlement: false, arriving: null } }));
-    const surfaceDirt = window.__TRAVELBED && window.__TRAVELBED.surface;
+    const surfaceDirt = bed().surface;
     window.dispatchEvent(new CustomEvent('bohemia-mapstate',
       { detail: { moving: false, surface: 'dirt', settlement: true, arriving: null } }));
-    const playingAfterStop = window.__TRAVELBED && window.__TRAVELBED.playing;
-    return { before, afterRoad, playingRoad, surfaceRoad, surfaceDirt, playingAfterStop, threw };
+    const playingAfterStop = bed().playing || !!(window.__TRAVELBED && window.__TRAVELBED.playing);
+    return { before, afterRoad, bed: road.name, playingRoad, surfaceRoad, surfaceDirt, playingAfterStop, threw };
   });
   console.log('  travel bed dispatch: ' + JSON.stringify(tbCheck));
   ok('E12 *** THE ROAD AND DIRT BEDS REALLY START, SWITCH AND STOP WITH THE MAP\'S OWN STATE, ON THE REAL PAGE. *** '
