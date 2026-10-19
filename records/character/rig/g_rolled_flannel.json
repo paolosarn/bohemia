@@ -41,19 +41,19 @@
    0.8
   ],
   "g_rolled_flannel_buttons": [
-   0.2874,
-   0.0802,
-   0.0545
+   0.3864,
+   0.0704,
+   0.0382
   ],
   "g_rolled_flannel_collar": [
-   0.162,
-   0.0423,
-   0.0296
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "g_rolled_flannel_collar_points": [
-   0.162,
-   0.0423,
-   0.0296
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "g_rolled_flannel_collar_print": [
    0.8,
@@ -71,9 +71,9 @@
    0.008
   ],
   "g_rolled_flannel_placket": [
-   0.162,
-   0.0423,
-   0.0296
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "g_rolled_flannel_placket_print": [
    0.8,
@@ -81,14 +81,14 @@
    0.8
   ],
   "g_rolled_flannel_roll": [
-   0.2874,
-   0.0802,
-   0.0545
+   0.3864,
+   0.0704,
+   0.0382
   ],
   "g_rolled_flannel_shirt": [
-   0.162,
-   0.0423,
-   0.0296
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "g_rolled_flannel_shirt_print": [
    0.8,
@@ -116,9 +116,9 @@
    0.0976
   ],
   "g_rolled_flannel_tail": [
-   0.162,
-   0.0423,
-   0.0296
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "g_rolled_flannel_tail_print": [
    0.8,

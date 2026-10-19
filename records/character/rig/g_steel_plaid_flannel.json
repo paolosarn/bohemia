@@ -1,0 +1,139 @@
+{
+ "look": "G_steel_plaid_flannel",
+ "shape": "the barber's mannequin in STEEL PLAID FLANNEL (FLANNEL)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "STEEL PLAID FLANNEL",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_steel_plaid_flannel.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_steel_plaid_flannel_trouser": 2568,
+  "g_steel_plaid_flannel_shoe": 3916,
+  "g_steel_plaid_flannel_shirt": 71204,
+  "g_steel_plaid_flannel_collar": 1536,
+  "g_steel_plaid_flannel_collar_points": 180,
+  "g_steel_plaid_flannel_placket": 162,
+  "g_steel_plaid_flannel_buttons": 204,
+  "g_steel_plaid_flannel_cuffs": 2048,
+  "g_steel_plaid_flannel_tail": 2016,
+  "g_steel_plaid_flannel_hair": 17968,
+  "g_steel_plaid_flannel_hand_L": 392,
+  "g_steel_plaid_flannel_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_steel_plaid_flannel_buttons": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "g_steel_plaid_flannel_collar": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "g_steel_plaid_flannel_collar_points": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "g_steel_plaid_flannel_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_steel_plaid_flannel_cuffs": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "g_steel_plaid_flannel_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_steel_plaid_flannel_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_steel_plaid_flannel_placket": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "g_steel_plaid_flannel_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_steel_plaid_flannel_shirt": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "g_steel_plaid_flannel_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_steel_plaid_flannel_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_steel_plaid_flannel_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_steel_plaid_flannel_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_steel_plaid_flannel_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_steel_plaid_flannel_tail": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "g_steel_plaid_flannel_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_steel_plaid_flannel_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_steel_plaid_flannel_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}
