@@ -284,19 +284,18 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
-CHARACTER (character-one-skin): 10/19 (t) LATEST -- *** BASE 1: THE GAME'S 28 PLAIN TOPS ON THE 3D MAN IN VOTE; ONE SKIN'S WALKS LANDING. ***
+CHARACTER (character-one-skin): 10/19 (u) LATEST -- *** ONE SKIN SHIPPED (THE MAP'S PARTIES TOO); 50 OF THE 80 TOPS IN VOTE. ***
 TAB: VOTE, the cards character-base-one-the-shirts-10-19 (5 tanks, 12 tees, 4 long sleeves, 7 henleys on the barber's man,
 each beside the game's flat top at 1:1, eight facings, the portrait at 128; 224 of 224 stills pass the first five) and
 character-base-one-the-collars-10-19 (8 button shirts, 2 work shirts, 10 flannels, 2 rolled sleeves; 176 of 176), with
 hair 1 (six cuts), hats 1 (21) and eyewear 1 (14 face pieces, character-eyewear-one-the-14-face-pieces-10-19) before it.
 Records: records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md, records/BOHEMIA_EYEWEAR_ONE_THE_14_FACE_PIECES_10_19_26.md,
 records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md, records/BOHEMIA_THE_ROLL_CALL_10_19_26.md.
-[one skin, one person] (rule 120(d)), CLAIMED until the walks and the rig cast land: the data file, the alpha, the DEMO's
-fight and settlement sheets and PORTRAIT's 26 faces are live (see (s) in git history). Rig bodies in their own skin on
-main: all 13 gangs' stills; walks re-rendered for Blues, Cartel, Reds, Trades, Caravans, Colorful, Homeless, Church, Mob,
-Network; Volunteers, Remnants rendering (a detached queue, about 30 minutes each), then the Anarchists whole (their first
-re-render was killed by the box's memory at 05:41, measured: a browser took 9 GB), then RUN's rig cast sheet re-bakes
-(tools/bohemia_bake_the_rig_cast.py: it reads the stills AND the walk, so it waits for every walk) and the row SHIPS.
+[one skin, one person] (rule 120(d)) SHIPPED 10/19 5e83eb13: one skin per person in the data
+(records/target/character/BOHEMIA_ONE_SKIN.json, 28 people, Las Vegas's mix), read by the alpha's body and face alike,
+the DEMO's fight and settlement sheets re-baked, PORTRAIT's 26 faces on it, all 13 gangs' 3D bodies re-rendered in their
+own skin standing and walking (the Anarchists at the capped chalk), and RUN's rig cast sheet re-baked from them, so the
+MAP's roaming parties wear their own skin and all 13 now walk (it was 4). Gate ONE SKIN, ONE PERSON 15/0.
 [every old asset into the new look] CLAIMED: round five BASE 1, the roll call's fourth batch, base first. The 80 tops
 read off the alpha (genTop and genCoverall options; where an old top carries no neck and no print its NAME fills them in,
 word by word), each option modelled once on the barber's man (tools/bohemia_character_garments_base.py, driven by the
@@ -325,9 +324,8 @@ ROUND, THE CARD I NAME (S1, S7) red on clean main too, none naming a file of min
 [bb Battle Brothers dresses a man in body armour and a helmet, painted layers per facing; the shirt under them is never
 seen. Ours is the layer the street sees in a city where nobody wears plate, cut and sewn on the man so it turns with him.]
 [analog horror: clay cloth pressed into shape, a collar you could tear, the dust in every fold; nothing glows.]
-Lead line for DIRECTION (rule 113a): CHARACTER put the game's 28 plain tops on the 3D man, VOTE tab, COOKING.
-NEXT: the heavy ones and the runway; the two walks, the Anarchists, the rig cast, [one skin, one
-person] SHIPPED; then the garments' outer slot (74), the roll call's order.
+Lead line for DIRECTION (rule 113a): CHARACTER shipped one skin per person to the map and put 50 tops on the 3D man, VOTE tab, COOKING.
+NEXT: the heavy ones and the runway (30, rendering); then the garments' outer slot (74), the roll call's order.
 PENDING Paolo: nothing.
 
 CHARACTER (character-barber-skull): 10/18 (r) LATEST -- *** THE BARBER'S FIRST THREE CUTS ARE SCULPTED HAIR ON THE STARRED HEAD. ***
