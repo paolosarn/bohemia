@@ -1,0 +1,38 @@
+{
+ "cut": "BASE RED PLAID FLANNEL",
+ "tag": "base_red_plaid_flannel",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 0,
+  "side": 0.4,
+  "front": 0.16,
+  "fade": 4
+ },
+ "worn_by": "the roll call: RED PLAID FLANNEL",
+ "model": "records/character/rig/barber_base_red_plaid_flannel.glb",
+ "body": "records/character/rig/g_red_plaid_flannel.glb (the mannequin in RED PLAID FLANNEL)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5409,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7342,
+ "pieces": {
+  "barber_temple_taper_fade": 30841,
+  "barber_temple_taper": 162442
+ }
+}
