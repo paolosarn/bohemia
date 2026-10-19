@@ -263,7 +263,7 @@
    "source": "tools/bohemia_world_region.py cell_of (WORLD [the region]: one projection, 384 m a block, origin at the valley's middle) and slices/bohemia_region.js R.placeAt (RUN: a party within one block of a place is at it)",
    "wiki": "school.camps_in_the_wild",
    "ours": true,
-   "note": "FACTIONS [real camps] 10/19. A wild or settled row carries lat, lon and where they came from (latlon_from: a WORLD place's own coordinates, or a cited page for a real thing WORLD does not list: the Lost City's pueblo five miles south-east of Overton, Jean Dry Lake three miles east of the 15). It stands within one block of that point projected the way WORLD projects its own places, on a block a party can stand on, outside the valley. A WILD camp never stands on a town's own block (WORLD role base): Battle Brothers' enemy locations spawn in the wild, never inside a settlement; it may stand on a fight place's block, because that place IS the location. A SETTLED location stands on its place's own block: it is the settlement. OWN GROUND FIRST: when any allowed block within one carries the faction's own ground (factions.json), the row stands on it; when none does, the row stands where the real thing is and says why (ground_why). world_place is the nearest WORLD place, measured, so the map can name what a camp is beside. The gate projects every WORLD place the same way first: all thirty-four land within two blocks of where WORLD drew them (WORLD snaps a place to its road)."
+   "note": "FACTIONS [real camps] 10/19. A wild or settled row carries lat, lon and where they came from (latlon_from: a WORLD place's own coordinates, or a cited page for a real thing WORLD does not list: the Lost City's pueblo five miles south-east of Overton, Jean Dry Lake three miles east of the 15). It stands within one block of that point projected the way WORLD projects its own places, on a block a party can stand on, outside the valley. A WILD camp never stands on a town's own block (WORLD role base): Battle Brothers' enemy locations spawn in the wild, never inside a settlement; it may stand on a fight place's block, because that place IS the location. A SETTLED location stands on its place's own block: it is the settlement. OWN GROUND FIRST: when any allowed block within one carries the faction's own ground (factions.json), the row stands on it; when none does, the row stands where the real thing is and says why (ground_why). A row's ground is its own block's kind first, then any kind within its one-block reach that its faction holds or its want reads (the den at Tule Springs stands on the monument's park and holds the open desert beside it), never a kind that is not there: the wants module reads this list to decide whether a den is already on its ground. world_place is the nearest WORLD place, measured, so the map can name what a camp is beside. The gate projects every WORLD place the same way first: all thirty-four land within two blocks of where WORLD drew them (WORLD snaps a place to its road)."
   }
  },
  "region_places": [
@@ -604,7 +604,8 @@
    "agenda": "patrol",
    "mix": "records/target/bb/factions.json beasts",
    "ground": [
-    "golf_and_park"
+    "golf_and_park",
+    "open_desert"
    ],
    "ground_why": "the beasts' own ground is wash and shore (factions.json); WORLD paints the fossil beds monument as park, and the upper Las Vegas Wash the bones came out of is two blocks north-east, past the map's one-block reach of a place, so the den keeps the monument's own block",
    "real": "Tule Springs: the Ice Age fossil beds along the upper Las Vegas Wash at the valley's north edge, a national monument since 2014, dire wolf and mammoth bones in the washes",

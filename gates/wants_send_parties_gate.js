@@ -119,9 +119,13 @@ ok('the region hands in wild seats whose faction wants something (road crews, th
   ['brigands', 'zombies', 'beasts'].every(f => wanting.some(s => s.faction === f)), wanting.map(s => s.faction).join());
 const byAgenda = (ps, f) => { const o = {}; ps.filter(p => { const s = seatOf(p); return s && s.wild && s.faction === f; }).forEach(p => { o[p.agenda] = (o[p.agenda] || 0) + 1; }); return o; };
 for (const f of ['brigands', 'zombies', 'beasts']) console.log('  ' + f + ': before ' + JSON.stringify(byAgenda(before, f)) + ', after ' + JSON.stringify(byAgenda(after, f)));
-ok('BEFORE (measured): the road crews and the dead sent caravans, because between() never heard of them',
-  (byAgenda(before, 'brigands').caravan || 0) > 0 && (byAgenda(before, 'zombies').caravan || 0) > 0);
-ok('AFTER: the road crews send crews only', JSON.stringify(byAgenda(after, 'brigands')) === JSON.stringify({ crew: byAgenda(before, 'brigands').caravan }));
+/* FACTIONS [real camps] 10/19: on their real ground the Railroad Pass and Sloan crews camp at the valley's edge, so the
+   parties module's catchment hands them a valley border and they PATROL it; the dead still carry. Either way, no crew:
+   between() never heard of them. */
+const sum = o => Object.keys(o).reduce((t, k) => t + o[k], 0);
+ok('BEFORE (measured): the road crews and the dead sent no crew (a caravan, or a patrol on a border their catchment reaches), because between() never heard of them',
+  !byAgenda(before, 'brigands').crew && !byAgenda(before, 'zombies').crew && sum(byAgenda(before, 'brigands')) > 0 && sum(byAgenda(before, 'zombies')) > 0);
+ok('AFTER: the road crews send crews only, as many as they sent before', JSON.stringify(byAgenda(after, 'brigands')) === JSON.stringify({ crew: sum(byAgenda(before, 'brigands')) }));
 ok('AFTER: the dead send crews only', Object.keys(byAgenda(after, 'zombies')).join() === 'crew');
 ok('AFTER: the beasts send patrols only', Object.keys(byAgenda(after, 'beasts')).join() === 'patrol');
 const wantParties = after.filter(p => { const s = seatOf(p); return s && s.wild && wantsOf(s.faction); });
@@ -169,10 +173,12 @@ for (const s of wanting.filter(s => s.faction === 'brigands')) {
 }
 {
   const swapped = JSON.parse(JSON.stringify(WANTS)); swapped.wants['hold-the-freeway'].ground = ['airport'];
-  const s = wanting.filter(s => s.faction === 'brigands')[0];
-  const a = W.sendFor(s, all, { data: DATA, cells }).map(p => p.to.x + ',' + p.to.y).join();
-  const b = W.sendFor(s, all, { data: { factions: FACTIONS, wants: swapped }, cells }).map(p => p.to.x + ',' + p.to.y).join();
-  ok('the data file drives it: the road crew wanting the airport instead goes somewhere else', a !== b, a + ' | ' + b);
+  /* every road crew is asked: the one at Railroad Pass picks the same town for the airport as for the freeway (both
+     lie past the same suburb), the one at Sloan does not; one crew moving proves the file drives the choice */
+  const tried = wanting.filter(s => s.faction === 'brigands').map(s => ({
+    a: W.sendFor(s, all, { data: DATA, cells }).map(p => p.to.x + ',' + p.to.y).join(),
+    b: W.sendFor(s, all, { data: { factions: FACTIONS, wants: swapped }, cells }).map(p => p.to.x + ',' + p.to.y).join() }));
+  ok('the data file drives it: a road crew wanting the airport instead goes somewhere else', tried.some(t => t.a !== t.b), tried.map(t => t.a + ' | ' + t.b).join('; '));
   const noWant = JSON.parse(JSON.stringify(FACTIONS)); noWant.factions.forEach(f => { delete f.want; });
   ok('a faction stripped of its want falls back to the parties module exactly',
     JSON.stringify(W.all(all, { n: m.n, data: { factions: noWant, wants: WANTS }, cells })) === JSON.stringify(before));

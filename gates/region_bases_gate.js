@@ -326,7 +326,13 @@ function realCamps(d) {
     if (cheb(c, at) > 1) bad.push('OFF_ITS_REAL_THING ' + w.id + ' ' + cheb(c, at));
     const a = RL.at(at.x, at.y, REAL);
     if (!a || a.pass === 3 || inBox(at.x, at.y)) { bad.push('CANNOT_STAND ' + w.id); continue; }
-    if ((w.ground || []).indexOf(a.kind) < 0) bad.push('GROUND_IS_NOT_THE_ROWS ' + w.id + ' ' + a.kind);
+    if ((w.ground || [])[0] !== a.kind) bad.push('GROUND_IS_NOT_THE_ROWS ' + w.id + ' ' + a.kind);
+    /* the rest of the list is the reach: a kind within one block, never a kind that is not there (the wants module
+       reads this list to decide whether a den already stands on its ground) */
+    const reach = new Set();
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const b = RL.at(at.x + dx, at.y + dy, REAL); if (b) reach.add(b.kind); }
+    const notThere = (w.ground || []).filter(k => !reach.has(k));
+    if (notThere.length) bad.push('GROUND_NOT_THERE ' + w.id + ' ' + notThere.join('|'));
     const onPlace = placeOn(at.x, at.y);
     if (isWild && onPlace && onPlace.role === 'base') bad.push('A_CAMP_ON_A_TOWN ' + w.id + ' ' + onPlace.name);
     if (!isWild && !onPlace) bad.push('A_SETTLEMENT_OFF_ITS_PLACE ' + w.id);
@@ -405,6 +411,7 @@ function realCamps(d) {
   plant('OFF_ITS_GROUND_SAYS_WHY', c => { delete row(c, 'nelson_dead').ground_why; });
   plant('A_WHY_WITH_NOTHING_TO_EXPLAIN', c => { row(c, 'apex_dead').ground_why = 'a planted reason on a row that already stands on its own ground'; });
   plant('GROUND_IS_NOT_THE_ROWS', c => { row(c, 'gypsum_cave_lair').ground = ['hills']; });
+  plant('GROUND_NOT_THERE', c => { row(c, 'tule_springs_den').ground.push('wash_and_shore'); });
   plant('WORLD_PLACE_IS_NOT_THE_NEAREST', c => { row(c, 'jean_dry_lake_nomads').world_place = 'GOODSPRINGS'; });
   plant('THE_NAME_IS_WORLDS', c => { c.region_places.find(p => p.id === 'jean').world_place = 'PRIMM'; });
   plant('NOT_WHERE_WORLD_SAYS', c => { c.region_places.find(p => p.id === 'mesquite').world_note = 'in_valley'; });
