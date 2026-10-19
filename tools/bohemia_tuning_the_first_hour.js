@@ -66,20 +66,26 @@ async function main() {
   const N = Number(arg('--n', 200)), JOBS = Number(arg('--jobs', 2));
   const sfile = path.join(os.tmpdir(), 'bohemia_first_hour_strikes_' + process.pid + '.json');
   fs.writeFileSync(sfile, JSON.stringify(GRID.wikiStrikes(Object.keys(GRID.BEASTS))));
-  const work = cells(), res = {};
+  /* the resume cache (the grid's): a restart replays only the cells not yet played on this fight and these draft rows */
+  const CACHE = GRID.cellCache(path.join(ROOT, OUT.replace(/\.json$/, '.cells.ndjson')), N, ['tools/bohemia_tuning_the_first_kit_is_guns.js']);
+  const all = cells(), res = {}, kk = w => [w.origin, w.kit, w.setting].join('|');
+  all.forEach(w => { if (CACHE.done[kk(w)]) res[kk(w)] = CACHE.done[kk(w)]; });
+  const work = all.filter(w => !res[kk(w)]);
+  process.stderr.write('resume: ' + (all.length - work.length) + ' of ' + all.length + ' cells already played\n');
   let next = 0, running = 0; const t0 = Date.now();
   await new Promise(done => {
     const pump = () => { while (running < JOBS && next < work.length) { const w = work[next++]; running++;
       cp.execFile(process.execPath, [GUNS, '--cell', JSON.stringify(w.C), String(N), sfile], { maxBuffer: 1 << 26 }, (err, out) => {
         running--; if (err) { console.error('cell failed', w.origin, w.kit, w.setting, err.message); process.exit(1); }
         const T = JSON.parse(out), f = GRID.felt(T);
-        res[[w.origin, w.kit, w.setting].join('|')] = { origin: w.origin, kit: w.kit, setting: w.setting, company: w.C.company, enemies: w.C.enemies, slots: w.C.slots,
+        res[kk(w)] = { origin: w.origin, kit: w.kit, setting: w.setting, company: w.C.company, enemies: w.C.enemies, slots: w.C.slots,
           won_in_100: f.won_in_100, your_men_struck_down_per_fight: f.your_men_struck_down_per_fight, your_men_dead_per_100_fights: f.your_men_dead_per_100_fights,
           whole_company_down_in_100: f.whole_company_down_in_100, minutes_on_auto: f.minutes_on_auto, stalled_in_100: f.stalled_in_100,
           guns_share_of_the_killing_in_100: T.allDmg ? Math.round(100 * T.gunDmg / T.allDmg) : null };
-        process.stderr.write(Object.keys(res).length + '/' + work.length + ' ' + Math.round((Date.now() - t0) / 1000) + 's\n');
+        CACHE.put(kk(w), res[kk(w)]);
+        process.stderr.write(Object.keys(res).length + '/' + all.length + ' ' + Math.round((Date.now() - t0) / 1000) + 's\n');
         if (next >= work.length && running === 0) done(); else pump(); }); } };
-    pump();
+    if (!work.length) done(); else pump();
   });
   fs.unlinkSync(sfile);
   fs.writeFileSync(path.join(ROOT, OUT), JSON.stringify({

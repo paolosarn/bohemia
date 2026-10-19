@@ -263,6 +263,29 @@ function felt(T) {
   };
 }
 
+/* ---------- THE RESUME CACHE (10/19: a container restart killed a 873-cell run at cell 200 and nothing was kept): every finished
+   cell is appended as one line to <bank>.cells.ndjson, stamped with the fight's fingerprint (the fight file and every data file
+   its loadAll() reads) and the fights per cell; a run reuses only lines with the same stamp, so a change to the fight never mixes
+   into old numbers. The file is committed with the bank: the next session resumes where this one stopped. ---------- */
+function fightPrint(extra) {
+  const html = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
+  const list = (html.match(/const DATA_FILES = \[([\s\S]*?)\];/) || [])[1] || '';
+  const files = (list.match(/'[^'\n]+\.json'/g) || []).map(x => x.slice(1, -1));
+  if (files.length < 10) throw new Error('THE FIGHT MOVED: its DATA_FILES list read ' + files.length + ' files');
+  const h = require('crypto').createHash('sha1').update(html);
+  files.forEach(f => h.update(fs.readFileSync(path.join(ROOT, 'slices', f))));
+  /* and what the bench itself reads: the map's party maths and the measured levers */
+  ['records/target/bb/party_math.json', 'banks/BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.json'].concat(extra || []).forEach(f => h.update(fs.readFileSync(path.join(ROOT, f))));
+  return h.digest('hex').slice(0, 12);
+}
+function cellCache(file, n, extra) {
+  const fp = fightPrint(extra), done = {};
+  if (fs.existsSync(file)) fs.readFileSync(file, 'utf8').split('\n').filter(Boolean).forEach(l => {
+    try { const x = JSON.parse(l); if (x.fp === fp && x.n === n) done[x.k] = x.v; } catch (e) { /* a line cut by the kill */ }
+  });
+  return { fp: fp, done: done, put: (k, v) => fs.appendFileSync(file, JSON.stringify({ k: k, fp: fp, n: n, v: v }) + '\n') };
+}
+
 /* ---------- the cells ---------- */
 function cells(only) {
   const out = [];
@@ -306,7 +329,11 @@ async function main() {
   const strikes = wikiStrikes(Object.keys(BEASTS));
   const sfile = path.join(require('os').tmpdir(), 'bohemia_grid_strikes_' + process.pid + '.json');
   fs.writeFileSync(sfile, JSON.stringify(strikes));
-  const work = cells(only), results = {};
+  const CACHE = cellCache(OUT.replace(/\.json$/, '.cells.ndjson'), N);
+  const all = cells(only), results = {};
+  all.forEach(w => { if (CACHE.done[key(w)]) results[key(w)] = CACHE.done[key(w)]; });
+  const work = all.filter(w => !results[key(w)]);
+  process.stderr.write('resume: ' + (all.length - work.length) + ' of ' + all.length + ' cells already played on this fight (' + CACHE.fp + ')\n');
   let next = 0, running = 0;
   const t0 = Date.now();
   await new Promise(done => {
@@ -316,20 +343,20 @@ async function main() {
         cp.execFile(process.execPath, [__filename, '--cell', JSON.stringify(w), String(N), sfile], { maxBuffer: 1 << 24 }, (err, out) => {
           running--;
           if (err) { console.error('cell failed', JSON.stringify(w), err.message); process.exit(1); }
-          results[key(w)] = felt(JSON.parse(out));
+          results[key(w)] = felt(JSON.parse(out)); CACHE.put(key(w), results[key(w)]);
           if ((next % 20) === 0) process.stderr.write(next + '/' + work.length + ' ' + Math.round((Date.now() - t0) / 1000) + 's\n');
           if (next >= work.length && running === 0) done(); else pump();
         });
       }
     };
-    pump();
+    if (!work.length) done(); else pump();
   });
   fs.unlinkSync(sfile);
   const secs = Math.round((Date.now() - t0) / 1000);
   /* the table, one block per kind, stage and setting: rows the company, columns the count */
-  const kinds = Array.from(new Set(work.map(w => w.kind)));
+  const kinds = Array.from(new Set(all.map(w => w.kind)));
   kinds.forEach(kd => Object.keys(STAGES).forEach(sg => SETTINGS.forEach(t => {
-    const rows = work.filter(w => w.kind === kd && w.stage === sg && w.setting === t.id);
+    const rows = all.filter(w => w.kind === kd && w.stage === sg && w.setting === t.id);
     if (!rows.length) return;
     const comps = Array.from(new Set(rows.map(w => w.company))), cnts = Array.from(new Set(rows.map(w => w.enemies)));
     console.log('\n' + kd.toUpperCase() + ' / ' + sg + ' / ' + t.id + '   won in 100 (the map\'s pick in brackets)');
@@ -337,11 +364,11 @@ async function main() {
     comps.forEach(c => console.log(String(c).padEnd(9) + cnts.map(e => { const r = results[key({ kind: kd, company: c, enemies: e, stage: sg, setting: t.id })];
       return (e === 'map' ? r.won_in_100 + '(' + r.enemies + ')' : String(r.won_in_100)).padStart(8); }).join('')));
   })));
-  console.log('\n' + work.length + ' cells x ' + N + ' fights in ' + secs + ' s');
+  console.log('\n' + all.length + ' cells (' + work.length + ' played this run) x ' + N + ' fights in ' + secs + ' s');
   if (argv.includes('--write')) {
     const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : null;
     const cellsOut = Object.assign({}, prev && prev.cells || {});
-    work.forEach(w => { cellsOut[key(w)] = Object.assign({ kind: w.kind, company: w.company, enemies_asked: w.enemies, stage: w.stage, setting: w.setting }, results[key(w)]); });
+    all.forEach(w => { cellsOut[key(w)] = Object.assign({ kind: w.kind, company: w.company, enemies_asked: w.enemies, stage: w.stage, setting: w.setting }, results[key(w)]); });
     fs.writeFileSync(OUT, JSON.stringify({
       _readme: 'TUNING [the whole grid] 10/18 (rule 117(e): a tuning number is a grid, never one average; rule 38g research only). draft:true. '
         + 'DRAFT: THE GEAR IS NOT IN (CHARACTER\'s roll-call and COMBAT\'s equipment). NOTHING IN THE GAME READS THIS FILE. Every cell is fights of the live '
@@ -358,4 +385,4 @@ async function main() {
   }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
-module.exports = { engine, cell, felt, companyOf, mapCount, wikiStrikes, BEASTS, LOSES, NOT_PLAYED, STAGES, GEAR, SETTINGS, COMPANIES, COUNTS };
+module.exports = { cellCache, fightPrint, engine, cell, felt, companyOf, mapCount, wikiStrikes, BEASTS, LOSES, NOT_PLAYED, STAGES, GEAR, SETTINGS, COMPANIES, COUNTS };
