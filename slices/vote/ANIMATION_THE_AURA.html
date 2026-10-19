@@ -1,0 +1,137 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The aura of the man you control</title>
+<!-- ANIMATION [the aura of the one you control], ROUND ONE, 10/19 (rule 120(c); his 10/18: 'when you're controlling a person
+     there should be some aura, fifth dimension, electric Amalgamation vibes, analog horror... around that character, even on
+     the big map, not just a portrait'). THREE CANDIDATES, asked once on the row (rule 25: no vote inside the page); a
+     candidate until he says FINAL (rule 100), nothing in the fight or the map before that.
+     ON THE REAL FIGHT, FROM THE GAME'S CAMERA: the three clips are the real fight (slices/BOHEMIA_FIGHT.html) on his phone
+     profile at the zoom the game chose, filmed slot by slot by tools/bohemia_animation_the_aura_film.js, one art pixel to one
+     phone pixel; the aura is laid on by slices/vote/ANIMATION_THE_AURA_HOOK.js wrapping the fight's blitMan from outside
+     (COMBAT's file untouched). The fight's sheets have two facings (SE, SW), so ALL EIGHT DIRECTIONS (rule 107) are shown on
+     the poncho crewman DIRECTION's master rig rendered for PORTRAIT, the same man whose turn it is in the clips, drawn live
+     here by the same module. THE LIVE FIGHT at the bottom loads the real fight on a tap and lets every candidate be played.
+     Every change lands on a twelfth of a second (six slots a beat at 120): held like stop-motion (rule 115(d), CRASHBOX). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--line:#33313d;--gold:#c79a3f;--dim:#6d6656}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 10px;color:#b3a890;max-width:60ch}
+  .lab{font-size:10px;letter-spacing:2px;color:#7fa06b;margin:16px 0 6px}
+  .row{display:flex;gap:4px;align-items:flex-start;flex-wrap:wrap}
+  .cand{display:flex;flex-direction:column;gap:3px}
+  .name{font-size:10px;letter-spacing:1px;color:var(--gold)}
+  .cap{font-size:9px;line-height:1.4;color:var(--dim);max-width:16ch}
+  img,canvas{display:block;image-rendering:pixelated;background:#2a2219}
+  .eight{margin-bottom:10px}
+  button{font:inherit;font-size:11px;letter-spacing:1px;background:#1d1b22;color:var(--ink);border:0;padding:8px 10px;margin:0 4px 6px 0}
+  button.on{background:#c79a3f;color:#0d0d12}
+  #live{width:100%;height:680px;border:0;display:none;background:#0d0b09}
+</style>
+<h1>THE AURA ON THE MAN YOU CONTROL</h1>
+<p>You said you can't feel which man is yours. Now the man whose turn it is wears an aura. Here are three ways, on the real fight from the game's camera. Each one moves on the beat and holds its poses like stop-motion, and none of them is an outline.</p>
+
+<div class="lab">ON THE REAL FIGHT, FROM THE GAME'S CAMERA</div>
+<div class="row" id="clips"></div>
+<div class="lab">THE SAME MAN WITH NO AURA (HOW IT IS NOW: ONLY THE TAPE ON HIS TILE)</div>
+<div class="row" id="before"></div>
+
+<div class="lab">ALL EIGHT DIRECTIONS (THE SAME MAN, BUILT IN 3D)</div>
+<div id="eights"></div>
+
+<div class="lab" id="maplab" style="display:none">ON THE BIG MAP (YOUR PARTY, THE MAP'S SIZE)</div>
+<div class="row" id="map"></div>
+
+<div class="lab">THE REAL FIGHT, LIVE</div>
+<p>Tap PLAY IT, set your line and press FIGHT. When it is one of your men's turn, he wears the one you pick.</p>
+<div id="pick"><button id="play">PLAY IT</button></div>
+<iframe id="live" title="The real fight with the aura"></iframe>
+
+<script src="ANIMATION_THE_AURA.js"></script>
+<script src="ANIMATION_THE_AURA_CURRENT_TABLE.js"></script>
+<script src="ANIMATION_THE_AURA_EIGHT_TABLE.js"></script>
+<script src="ANIMATION_THE_AURA_HOOK.js"></script>
+<script>
+(function(){
+  var A = window.BOHEMIA_AURA, dpr = window.devicePixelRatio || 1, BEAT = 500, t0 = performance.now();
+  var CAPS = {
+    echo: 'Two copies of him a beat out of step: one ahead in the step he is about to take, one behind where he was. Made from his own pixels.',
+    tear: 'The picture can\'t hold him. The ground round him jitters like a paused tape and a rip rolls up through him every bar.',
+    current: 'Bent wire and foil electricity crawls over him and jumps to the ground, a new spark every third of a beat. Built in 3D like the robot.' };
+  function pic(src, box){ var i = new Image(); i.onload = function(){ i.style.width = (i.naturalWidth / dpr) + 'px'; i.style.height = (i.naturalHeight / dpr) + 'px'; }; i.src = src; box.appendChild(i); return i; }
+  /* the three clips, one art pixel to one phone pixel */
+  A.kinds.forEach(function(k){
+    var c = document.createElement('div'); c.className = 'cand';
+    var n = document.createElement('div'); n.className = 'name'; n.textContent = A.names[k]; c.appendChild(n);
+    pic('ANIMATION_THE_AURA_CLIP_' + k.toUpperCase() + '.webp', c);
+    var p = document.createElement('div'); p.className = 'cap'; p.textContent = CAPS[k]; c.appendChild(p);
+    document.getElementById('clips').appendChild(c);
+  });
+  pic('ANIMATION_THE_AURA_NONE.png', document.getElementById('before'));
+  /* ON THE BIG MAP: the same three round his party on the real map, at the map's size (RUN builds it in on his YES) */
+  (function(){ var probe = new Image(); probe.onload = function(){
+    document.getElementById('maplab').style.display = '';
+    A.kinds.forEach(function(k){ var c = document.createElement('div'); c.className = 'cand';
+      var n = document.createElement('div'); n.className = 'name'; n.textContent = A.names[k]; c.appendChild(n);
+      pic('ANIMATION_THE_AURA_MAP_CLIP_' + k.toUpperCase() + '.webp', c); document.getElementById('map').appendChild(c); });
+    var c = document.createElement('div'); c.className = 'cand'; var n = document.createElement('div'); n.className = 'name'; n.textContent = 'NO AURA'; c.appendChild(n);
+    pic('ANIMATION_THE_AURA_MAP_NONE.png', c); document.getElementById('map').appendChild(c); };
+    probe.src = 'ANIMATION_THE_AURA_MAP_NONE.png'; })();
+
+  /* ALL EIGHT: the rig's crewman, a cell a facing, four across; each cell stands him on the fight's own ground and
+     draws the aura round him with the same module the fight uses */
+  var E = window.AURA_EIGHT, CW = 86, CH = 140, man = new Image(), ground = new Image(), boards = [];
+  if (E) {
+    A.kinds.forEach(function(k){
+      var n = document.createElement('div'); n.className = 'name'; n.textContent = A.names[k]; document.getElementById('eights').appendChild(n);
+      var cv = document.createElement('canvas'); cv.className = 'eight'; cv.width = Math.round(CW * 4 * dpr); cv.height = Math.round(CH * 2 * dpr);
+      cv.style.width = (CW * 4) + 'px'; cv.style.height = (CH * 2) + 'px'; document.getElementById('eights').appendChild(cv);
+      boards.push({ k: k, g: cv.getContext('2d') });
+    });
+    var ready = 0; man.onload = ground.onload = function(){ if (++ready === 2) requestAnimationFrame(tick); };
+    man.src = E.src; ground.src = E.ground;
+  }
+  function tick(){
+    var t = performance.now() - t0, cw = E.cell[0], ch = E.cell[1];
+    boards.forEach(function(b){
+      var g = b.g;
+      g.setTransform(1, 0, 0, 1, 0, 0); g.imageSmoothingEnabled = false;
+      for (var y = 0; y < g.canvas.height; y += ground.height) for (var x = 0; x < g.canvas.width; x += ground.width) g.drawImage(ground, x, y);   /* the ground at its own pixels */
+      E.facings.forEach(function(f, i){
+        var ox = (i % 4) * CW, oy = Math.floor(i / 4) * CH, org = E.origin ? E.origin[f] : E.feet[f];
+        var X = ox + CW / 2, feet = oy + CH - 24, dx = X - org[0], dy = feet - org[1];
+        g.setTransform(dpr, 0, 0, dpr, 0, 0);
+        g.save(); g.beginPath(); g.rect(ox, oy, CW, CH); g.clip();
+        var frame = { img: man, sx: i * cw, sy: 0, sw: cw, sh: ch, dx: dx, dy: dy, dw: cw, dh: ch };
+        var o = { k: 1, X: X, feet: feet, frame: frame, face: f, t: t, beat: BEAT, size: 'fight' };
+        A.draw(b.k, 'behind', g, o);
+        g.imageSmoothingEnabled = false; g.drawImage(man, i * cw, 0, cw, ch, dx, dy, cw, ch);
+        A.draw(b.k, 'front', g, o);
+        g.restore();
+        g.fillStyle = '#6d6656'; g.font = '9px ui-monospace,monospace'; g.fillText(f, ox + 3, oy + 11);
+      });
+    });
+    requestAnimationFrame(tick);
+  }
+
+  /* THE LIVE FIGHT: the real fight in a frame, the aura laid on from here; the picks only change what you see */
+  var kind = 'echo', pick = document.getElementById('pick');
+  document.getElementById('play').addEventListener('click', function(){
+    var fr = document.getElementById('live'); fr.style.display = 'block'; this.style.display = 'none';
+    var opts = { seed: 5, speed: 1, kind: 'suburb' };
+    var iv = setInterval(function(){ try{ var cw = fr.contentWindow; if (cw && /BOHEMIA_FIGHT/.test(cw.location.href) && !cw.FIGHT_OPTS) cw.FIGHT_OPTS = opts; }catch(_e){} }, 4);
+    fr.addEventListener('load', function(){
+      clearInterval(iv);
+      var w = setInterval(function(){ try{ var cw = fr.contentWindow; if (!cw.FIGHT_UI || !cw.FIGHT_UI.board) return; clearInterval(w);
+        window.BOHEMIA_AURA_HOOK(cw, function(){ return kind; }); }catch(_e){} }, 100);
+    });
+    fr.src = '../BOHEMIA_FIGHT.html';
+    A.kinds.concat(['']).forEach(function(k){
+      var b = document.createElement('button'); b.textContent = k ? A.names[k] : 'NO AURA'; if (k === kind) b.className = 'on';
+      b.addEventListener('click', function(){ kind = k; [].forEach.call(pick.querySelectorAll('button'), function(x){ x.className = x === b ? 'on' : ''; }); });
+      pick.appendChild(b);
+    });
+  });
+})();
+</script>

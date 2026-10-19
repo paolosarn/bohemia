@@ -50,7 +50,7 @@
   const SNOW = ['#141313', '#ebeae4'];   /* the runway black (cloth_black's darkest) and tape grey's lightest: dead channel */
   /* his facing on the screen: the rig's camera looks north tilted 45, so north-south is foreshortened by cos 45 */
   const FACE = { N: [0, -0.707], NE: [0.707, -0.5], E: [1, 0], SE: [0.707, 0.5], S: [0, 0.707], SW: [-0.707, 0.5], W: [-1, 0], NW: [-0.707, -0.5] };
-  const SIZE = { fight: { throw: 16, band: 2.3, tearSpan: 4, shiftMax: 8 }, map: { throw: 7, band: 2.0, tearSpan: 2, shiftMax: 3 } };
+  const SIZE = { fight: { throw: 16, band: 2.3, tearSpan: 4, shiftMax: 8 }, map: { throw: 14, band: 2.0, tearSpan: 2, shiftMax: 3 } };
 
   function clock(o) {
     const per = (o.beat || 500) / SLOTS, n = Math.floor(Math.max(0, o.t) / per);
@@ -65,8 +65,10 @@
   function idOf(img) { if (!ids.has(img)) ids.set(img, nextId++); return ids.get(img); }
   function hex(c) { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
   const COLD_RGB = COLD.map(hex);
-  /* his frame re-inked: value only, four cuts on his own value range so a dark coat and a pale one both read, on the even
-     rows (par 0) or the odd (par 1); cached per frame and parity */
+  /* his frame re-inked: value only, laid along the cold ramp between his own darkest and lightest so a dark coat and a
+     pale one both read (his first to ninety-ninth hundredth), on the even rows (par 0) or the odd (par 1); cached per frame and parity. ALONG the ramp, never
+     snapped to its six steps: a snap to a short list is the style guide's own NEVER (field 5, the truck at 58 colours) and
+     the NOT VIBE CODED read caught it (the top eight colours carried 25 to 50 percent, the guide's line 11.1) */
   function ink(f, par) {
     const key = idOf(f.img) + '|' + f.sx + ',' + f.sy + ',' + f.sw + ',' + f.sh + '|' + par;
     if (inked.has(key)) return inked.get(key);
@@ -76,13 +78,14 @@
     for (let i = 0; i < p.length; i += 4) if (p[i + 3] > 127) lum.push(0.299 * p[i] + 0.587 * p[i + 1] + 0.114 * p[i + 2]);
     lum.sort(function (a, b) { return a - b; });
     const q = function (k) { return lum.length ? lum[Math.min(lum.length - 1, Math.floor(lum.length * k))] : 128; };
-    const cut = [q(0.15), q(0.45), q(0.75), q(0.93)];
+    const lo = q(0.01), hi = Math.max(lo + 1, q(0.99));   /* his whole range: a clamped tenth at each end was two flat colours */
     for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
       const i = (y * w + x) * 4;
       if (p[i + 3] <= 127 || (y & 1) !== par) { p[i + 3] = 0; continue; }
       const L = 0.299 * p[i] + 0.587 * p[i + 1] + 0.114 * p[i + 2];
-      const s = 1 + (L > cut[0]) + (L > cut[1]) + (L > cut[2]) + (L > cut[3]);   /* steps 1..5: never the darkest, never black */
-      const C = COLD_RGB[s]; p[i] = C[0]; p[i + 1] = C[1]; p[i + 2] = C[2]; p[i + 3] = 255;
+      const u = 1 + 4 * Math.max(0, Math.min(1, (L - lo) / (hi - lo)));   /* 1..5 on the ramp: never its darkest, never black */
+      const a = Math.min(4, Math.floor(u)), f = u - a, A = COLD_RGB[a], B = COLD_RGB[a + 1];
+      p[i] = Math.round(A[0] + (B[0] - A[0]) * f); p[i + 1] = Math.round(A[1] + (B[1] - A[1]) * f); p[i + 2] = Math.round(A[2] + (B[2] - A[2]) * f); p[i + 3] = 255;
     }
     g.putImageData(d, 0, 0); inked.set(key, c); return c;
   }

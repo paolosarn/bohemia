@@ -36,3 +36,35 @@ window.BOHEMIA_AURA_HOOK = function (win, kindOf, timeOf) {
   win.blitMan = wrapped;
   return true;
 };
+
+/* THE SAME AURA ON THE BIG MAP, THE MAP'S SIZE (rule 120(c): 'even on the big map'; RUN [the aura on the map] takes it from
+   here). The map (slices/BOHEMIA_CITY_WORLD.html, RUN's) draws his body inline, one five-argument drawImage of his rig
+   sprite at half (his 56 on the glass), and writes where it stood into MAP_DREW.you after. So this watches the map's own
+   context: a five-argument blit at half its image's size, standing where he stood a frame ago (three pixels either way,
+   his company walks eight back and fifteen aside), is his body; the aura is drawn round it at size 'map' on the map's
+   own beat (mapArtBeat: performance.now() over the beat). Nothing in the map's file changes; when RUN builds it in, the
+   two draw calls go where his body is drawn and this goes away.
+   BOHEMIA_AURA_MAP_HOOK(win, kindOf, timeOf) */
+window.BOHEMIA_AURA_MAP_HOOK = function (win, kindOf, timeOf) {
+  'use strict';
+  const g = win.eval('g'), AURA = window.BOHEMIA_AURA;
+  if (!g || g.drawImage.__aura) return false;
+  const draw = win.CanvasRenderingContext2D.prototype.drawImage;
+  const beat = function () { return typeof win.BEAT === 'number' ? win.BEAT : 500; };
+  const wrapped = function (img, a, b, c, d) {
+    const kind = kindOf(), you = win.MAP_DREW && win.MAP_DREW.you;
+    if (!kind || arguments.length !== 5 || !you || you.how !== 'rig' || !img || !img.width
+      || Math.abs(c - img.width / 2) > 0.01 || Math.abs(a - (you.x - c / 2)) > 3 || Math.abs(b - (you.y - d * 0.93)) > 3) return draw.apply(g, arguments);
+    const k = c / img.width * (img.width / 112);   /* the map's 112 box at half: an art pixel of the rig is half a css px */
+    const frame = { img: img, sx: 0, sy: 0, sw: img.width, sh: img.height, dx: a, dy: b, dw: c, dh: d };
+    const t = timeOf ? timeOf() : performance.now();
+    const o = { k: k, X: a + c / 2, feet: b + d * 0.93, frame: frame, face: you.face || 'S', t: t, beat: beat(), size: 'map' };
+    win.__auraLast = { X: o.X, feet: o.feet, h: d, k: k, face: o.face, kind: kind };
+    AURA.draw(kind, 'behind', g, o);
+    draw.call(g, img, a, b, c, d);
+    AURA.draw(kind, 'front', g, o);
+  };
+  wrapped.__aura = true;
+  g.drawImage = wrapped;
+  return true;
+};
