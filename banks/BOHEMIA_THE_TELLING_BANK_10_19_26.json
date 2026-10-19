@@ -1,0 +1,392 @@
+{
+  "_about": "QUESTS 10/19, row [the telling bank] WHERE-THIRTY-TELLINGS-A-GAME-COME-FROM, research only (rule 35; rule 88: a page is the ship). The shape of a TELLING GENERATOR for PEOPLE and twenty example tellings written on it. A telling is the night camp's no-choice scene: one face, three lines (a story with a person in it; the thing and the place; what they want you to know), one [SLEEP] button, writes nothing but its own once-key (QR-AV rules 4 and 10, QR-AX section 5). The page that argues every field and number: questbook/research/QR_AY_THE_TELLING_BANK_10_19_26.md. draft:true, tuned:false, NOTHING LIVE READS THIS FILE. Every number a player would feel is TUNING's (rule 38g); the data shape is MODS'; the lines are attempts, WORDS' and Paolo's to change.",
+  "draft": true,
+  "tuned": false,
+  "live": false,
+  "page": "questbook/research/QR_AY_THE_TELLING_BANK_10_19_26.md",
+  "never_before": [
+    "nothing here fires in the first minute (rule 32a) or before an act's 10th night (QR-AX rule 5)",
+    "never on a CAUSED night or the two nights after it (QR-AX rule 11)"
+  ],
+  "generator": {
+    "_about": "The order the generator fills a telling. Each step only narrows. Identity first, then the facts, then the words (Q048.W5).",
+    "fields": {
+      "ground": "tonight's camp block: its kind from engine/BOHEMIA_REGION_LAND.json legend (open_desert, hills, wash_and_shore, freeway, suburb_block, industrial, airport, solar_and_pumps, landfill, golf_and_park, trailer_park, lot_and_bigbox, valley) and the nearest named place within 2 blocks from its places list (34, each with a 'what' line), or none. EXISTS.",
+      "teller": "a living member: name, background id, level (engine/bohemia_roster.js manOf). EXISTS.",
+      "nights_in_company": "nights since the teller joined. OWED (the roster carries xp and level, no join night).",
+      "band": "green (level 3 or lower), seasoned (4 to 8), veteran (9 and up), from the level. EXISTS (level).",
+      "before": "the person before the dollar died, assembled from the trade's four fragment groups (who, person, place before, the moment). OWED: 7 of 77 trades carry one PAIN line in engine/bohemia_roster.js; 70 fall back to 'Does not talk about before. You do not ask.'",
+      "thing": "an item on the body (gear main, off, body, head) read by its own name ('was': Straw Hat, Butcher's Apron), never by the roster's display name ('a rag hood', 'a work jacket'); or a veteran's thing (QR-AU rule 2); or a mark (a permanent injury). EXISTS as ids; the specific look is ASSET NEEDED per telling.",
+      "company": "the company's own record: the first fight's place, the dead (name, how, the night), fights together. PARTLY OWED (the deed ledger exists for the feed; the dead and the first fight as fields are not named).",
+      "foil": "optional: one living member at the fire named in line 1 or 2, never a second face. EXISTS (roster).",
+      "told": "the once-keys spent in this save: '<member>:<band>' and 'retold:<dead member>'. OWED (one list of strings in the save)."
+    },
+    "order": [
+      "1 GROUND: read tonight's block and the nearest named place.",
+      "2 TELLER: eligible = alive, at least the 10th night in the company, has not been the face of any screen in 30 nights, his band's key unspent. Score: +2 if his trade matches the ground (the miner on the quarry, the hunter at the refuge), +1 if he carries a thing with its own name, +1 if a foil whose trade pairs with his is at the fire; ties go to the longest since his last screen.",
+      "3 SOURCE by band: green = WONDER (a ground or a first he has never had); seasoned = BEFORE (the person before the dollar died); veteran = LIFE (once-ever, ties the before to the company); retold = a dead member's own telling, by a living member who rode with him 30 nights.",
+      "4 LINE 1, THE STORY: a past moment with a person in it, named by name or by role (mi papa, my foreman Ramon). Orientation and the complicating action only.",
+      "5 LINE 2, THE THING AND THE PLACE: the witness. The thing on the body and the ground tonight tie the story to now.",
+      "6 LINE 3, WHAT THEY WANT YOU TO KNOW: the point. Never a job, never a price, never an ask, never a place to go.",
+      "7 THE WRONG DETAIL: roll it (see wrong_detail).",
+      "8 THE VOICE: the member's own Spanglish and trade words (THEY SPEAK SPANGLISH); the player never speaks; three lines, each under 20 words.",
+      "9 SPEND the once-key. Write nothing else."
+    ],
+    "bands": {
+      "green": "level 3 or lower; the WONDER expires as he levels (Battle Brothers: 13 of its 104 background events gate on 'level N or lower').",
+      "seasoned": "level 4 to 8; BEFORE (Battle Brothers: a man's small events gate at a median level 4).",
+      "veteran": "level 9 and up; LIFE, once in a life (Battle Brothers: the life stories at level 9 to 11).",
+      "retold": "30 nights or more after a member's death, never within two nights of any death; one retelling per dead member, ever; never by the dead member's heir (Q144.X1)."
+    },
+    "wrong_detail": {
+      "_about": "The analog horror law at the source: an ordinary story with one wrong detail, said plainly, never explained, never remarked on by anyone at the fire, never gore (QR-G line 26).",
+      "share": "at most one telling in five carries one; never two tellings in a row; never more than one per teller in a life; never in a retelling of the same dead member twice.",
+      "kinds": {
+        "COUNT": "a number from the company's own record, off by one (thirteen at the wash when the book has twelve).",
+        "NAME": "a person in a story from before the dollar died carries the name of a member at the fire, at an age that cannot be them.",
+        "COMPANY": "the company's own name inside a story from before the company existed.",
+        "THING": "the thing is wrong in one plain way: warm, wet, newer than it can be.",
+        "DEAD": "a dead member spoken of in the present tense, plainly ('told it to me again last night').",
+        "PLACE": "the teller describes tonight's ground as it was before it fell, as if he saw it last week."
+      }
+    },
+    "once": "A member tells at most one generated telling per band in a life (up to three). An heir is a new life and starts green (QR-AX rule 6). A dead member's telling is retold once. The 27 authored tellings on the shelf are bound to jobs and do not count against a member's three.",
+    "bound_ratio": "Over any act, a telling bound to a job (the shelf's 27) is at most one telling in three, and two bound tellings never fire in a row (the fire is not a job board).",
+    "fragments_size": "Battle Brothers' backstory shape (the developers' own forum post, quoted in the wiki dump's Developer Posts page): four groups of three or four options with %name% (Adventurous Noble: 4, 3, 4, 4). Ours: four groups of four per trade for BEFORE (16), and a coda bank of about 12 per band for line 3. The 12 starting trades: 192 fragments; all 77 trades: about 1,232."
+  },
+  "fragments_example": {
+    "_about": "Two trades written the Battle Brothers way, as the size and the voice PEOPLE's bank aims at. draft:true.",
+    "miner": {
+      "who": ["Eleven years in the gypsum at Blue Diamond", "I drilled limestone at the Sloan quarry", "I ran the night crew at the Apex pits", "My people dug gold out of Eldorado Canyon"],
+      "person": ["my foreman, Ramon", "my dad", "the blaster everybody called Tio", "a kid from Pahrump who never talked"],
+      "place_before": ["the hill the mine ate", "the quarry siding by the 15", "the pit that still vents", "the canyon road to the river"],
+      "moment": ["the week the pay cards stopped working", "the day they locked the gate with us outside it", "the morning the trucks did not come", "the last shift, when nobody blew the whistle"]
+    },
+    "daytaler": {
+      "who": ["Five in the morning in the hardware store lot", "I cleaned rooms on the Strip by the day", "I picked up drywall work off a corner on Lake Mead", "I hung signs for whoever paid that week"],
+      "person": ["Dona Chela with her coffee cart", "a contractor who only ever said 'you, you, not you'", "my cousin Toni", "the security guard who let us use the hose"],
+      "place_before": ["the lot by the cart corral", "the service hall under the casino", "the corner by the check-cashing place", "the billboard yard off the 95"],
+      "moment": ["the week nobody came to the lot", "the day the cards stopped paying", "the night the Strip went dark for good", "the morning the guard did not open the gate"]
+    }
+  },
+  "tellings": [
+    {
+      "id": "TB01", "teller": "OSO", "trade": "miner", "band": "green", "source": "WONDER",
+      "ground": { "kind": "hills", "place": "GASS PEAK", "what": "the towers on the peak north of the city; the whole valley under you" },
+      "thing": { "from": "gear.main", "id": "two_handed_mallet", "ours": "sledge", "look": "the handle wrapped in yellow mine tape (ASSET NEEDED)" },
+      "foil": null,
+      "lines": [
+        "At Blue Diamond, my foreman Ramon made us eat lunch in the dark. Said sun makes you slow.",
+        "Look at it, jefe. The whole valley under this hill, and my hammer up here with it.",
+        "Ramon was wrong. I'm not slow. I just never been this high."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "OSO:green",
+      "bb": "Miner Atop World: mountain terrain, the miner level 3 or LOWER, good mood +2 (the green wonder expires)",
+      "real": "Blue Diamond is a gypsum company town under the hill its mine ate (engine/BOHEMIA_REGION_LAND.json places)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB02", "teller": "MARISOL", "trade": "hunter", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "golf_and_park", "place": "CORN CREEK", "what": "the refuge headquarters; the springs; the road into the Sheep Range" },
+      "thing": { "from": "gear.head", "id": "hunter_s_hat", "ours": "Hunter's Hat (the roster calls it 'a rag hood')", "look": "an old sheep tag pinned to the band (ASSET NEEDED)" },
+      "foil": null,
+      "lines": [
+        "Mi papa drew one sheep tag in thirty years. He walked me out of Corn Creek before sunup.",
+        "That's his tag on my hat. The springs are right there, past the dead trees.",
+        "He never took the old rams. The old ones know where the water is, he said."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "MARISOL:seasoned",
+      "bb": "Forest Lover and Hunt Food: hunter scenes gated on the ground (forest), daytime",
+      "real": "Nevada desert bighorn tags are drawn by lottery; Corn Creek is the Desert National Wildlife Refuge's headquarters at the road into the Sheep Range (search text; recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB03", "teller": "CHEWY", "trade": "butcher", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "suburb_block", "place": null, "what": "an east valley block" },
+      "thing": { "from": "gear.body", "id": "butcher_s_apron", "ours": "Butcher's Apron (the roster calls it 'a work jacket')", "look": "the apron itself" },
+      "foil": "NENA",
+      "lines": [
+        "Nena, you remember my tia's carniceria on Eastern? Saturday line out the door.",
+        "This apron's hers. Still smells like the cooler if you put your face in it. Don't.",
+        "She had her thumb on the scale every Saturday. The other way. Gave them more."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "CHEWY:seasoned",
+      "bb": "Butcher Gives Pointers: one screen at camp, two men, cooldown 50",
+      "real": "neighbourhood carnicerias on the east side; a warm beat in a grim run (Q041.W10)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB04", "teller": "LUPE", "trade": "poacher", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "freeway", "place": "JEAN", "what": "two casinos at an off-ramp, the prison behind them, a dry lake" },
+      "thing": { "from": "gear.main", "id": "light_crossbow", "ours": "rifle", "look": "the rifle" },
+      "foil": "BOOKIE",
+      "lines": [
+        "Bookie thinks he's the only crook here. I did fourteen months in Jean for one bighorn ram.",
+        "Those are the yard lights, past the casinos. This rifle's not that rifle. They kept that one.",
+        "He was old and dying in the wash. I'd do it again. Tell Bookie that."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "LUPE:seasoned",
+      "bb": "Poacher vs Thief: one screen at camp, the two trades as a pair, cooldown 150",
+      "real": "a state prison sits behind the casinos at Jean (engine/BOHEMIA_REGION_LAND.json places; recall [R] for the term)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB05", "teller": "TINA", "trade": "retired_soldier", "band": "veteran", "source": "LIFE",
+      "ground": { "kind": "airport", "place": "CREECH", "what": "the drone base; the hangars; the one place the war was flown from" },
+      "thing": { "from": "gear.off", "id": "wooden_shield", "ours": "car door", "look": "a faded base gate sticker on the door (ASSET NEEDED)" },
+      "foil": null,
+      "lines": [
+        "Twenty years on the gate at Creech. Pilots flew a war all morning, then drove home for dinner.",
+        "That's the gate sticker on my door. The hangars are right over that rise.",
+        "Never fired a shot in uniform. Since the dollar died, I fire every week. That's the order."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "TINA:veteran",
+      "bb": "Retired Soldier Tale (the soldier level 3 or higher, good mood for half the company, cooldown 30) and Aging Swordmaster Preview (the old man's reflection)",
+      "real": "Creech's drone crews fly missions from Nevada and go home after the shift (search text and recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB06", "teller": "GRIZ", "trade": "caravan_hand", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "freeway", "place": "MOAPA", "what": "the river town and the travel plaza on the 15" },
+      "thing": { "from": "gear.body", "id": "padded_vest", "ours": "padded vest", "look": "a fuel card in the chest pocket (ASSET NEEDED)" },
+      "foil": null,
+      "lines": [
+        "I ran lettuce from Yuma to Salt Lake. Big Lou slept while I drove, then the other way round.",
+        "Moapa plaza, right there. Still got the fuel card in this vest. Zero on it since the money died.",
+        "Somebody was always driving. That's what I miss. Somebody always driving."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "GRIZ:seasoned",
+      "bb": "Caravan Hand Cart: the caravan hand's own scene, once (cooldown 99999), level 6",
+      "real": "team drivers split a truck's clock, one sleeps in the cab while the other drives (recall [R]); the 15 is the produce road north",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB07", "teller": "DEUCE", "trade": "gambler", "band": "green", "source": "WONDER",
+      "ground": { "kind": "freeway", "place": "PRIMM", "what": "three casinos and an outlet mall at the state line; the lottery store" },
+      "thing": { "from": "gear.head", "id": "feathered_hat", "ours": "Feathered Hat (the roster calls it 'a rag hood')", "look": "a folded lottery ticket in the band (ASSET NEEDED)" },
+      "foil": null,
+      "lines": [
+        "Day before the dollar died, the lotto line here ran to the freeway. A guy sold me his spot.",
+        "This is the ticket, in my hat. Three hundred million, and it's paper now.",
+        "Guy said hold it for the {COMPANY}, they'll come through. I never heard of you then."
+      ],
+      "button": "[SLEEP]",
+      "wrong": { "kind": "COMPANY", "slot": 3, "said": "the player's company name inside a story from before the company existed; nobody at the fire looks up" },
+      "once_key": "DEUCE:green",
+      "bb": "Gambler vs Other: one screen at camp, two variants, cooldown 25",
+      "real": "Californians queue at the lottery store on the Nevada line for big jackpots (search text and recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB08", "teller": "NENA", "trade": "daytaler", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "lot_and_bigbox", "place": null, "what": "a big-box parking lot, the cart corral still standing" },
+      "thing": { "from": "gear.head", "id": "straw_hat", "ours": "Straw Hat (the roster calls it 'a rag hood')", "look": "the hat" },
+      "foil": "CHEWY",
+      "lines": [
+        "Five a.m., the hardware lot on Lake Mead. Forty of us, and Dona Chela's coffee beat your tia's, Chewy.",
+        "Same kind of lot as this one. Look, the cart corral's still there. This hat's from that lot.",
+        "Trucks never looked at your face. They looked at your hands. Look at my hands, jefe."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "NENA:seasoned",
+      "bb": "Lend Men to Build: the daytaler's one scene, near a town",
+      "real": "day labourers wait in home-improvement store lots before dawn and are picked from the truck (recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB09", "teller": "RAUL", "trade": "brawler", "band": "green", "source": "WONDER",
+      "ground": { "kind": "any", "place": null, "what": "the company's first fight is the wonder: read from the record (the demo's settlement is THE WASH)" },
+      "thing": { "from": "gear.head", "id": "leather_headband", "ours": "Leather Headband (the roster calls it 'a rag hood')", "look": "the headband" },
+      "foil": null,
+      "lines": [
+        "Coach Benny at the gym on Owens made us skip rope till the radio song ended. Every song.",
+        "Same headband. First fight with you at {FIRST_FIGHT}, I was still counting the song in my head.",
+        "Coach said whoever counts first quits first. I'm done counting."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "RAUL:green",
+      "bb": "Brawler vs Brawler and Brawler Teaches: the brawler's scenes, level 3 and up for the teacher",
+      "real": "Las Vegas boxing gyms and their rope work (recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB10", "teller": "DESI", "trade": "militia", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "suburb_block", "place": null, "what": "a block with a yellow house still standing" },
+      "thing": { "from": "gear.off", "id": "wooden_shield", "ours": "car door", "look": "a block number spray-painted on the door (ASSET NEEDED)" },
+      "foil": null,
+      "lines": [
+        "The week the money died, old Mr. Fidel and me walked our block with a list. Insulin, kids.",
+        "That's our block number on my door. Ours looked like that one. The yellow house.",
+        "A block is just people who decided to stay. I stayed till nobody was left to decide."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "DESI:seasoned",
+      "bb": "none of the militia's own on the wiki's list; the shape is Disowned Noble Reminisces (level 5, home)",
+      "real": "neighbours keeping lists of who needs medicine after a disaster (recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB11", "teller": "BOOKIE", "trade": "thief", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "industrial", "place": null, "what": "a row of roll-up doors" },
+      "thing": { "from": "gear.main", "id": "dagger", "ours": "pistol", "look": "the pistol" },
+      "foil": null,
+      "lines": [
+        "Storage place on Boulder Highway. Unit 41, rent four months late. A lady's whole house in one box.",
+        "This pistol came out of that box, with her wedding pictures. I left the pictures.",
+        "I knew her whole life and never saw her face. Still don't know if that's worse."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "BOOKIE:seasoned",
+      "bb": "Mason vs Thief and Poacher vs Thief: one screen at camp, the thief as a pair",
+      "real": "unpaid storage units are cut open and sold after the lien (recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB12", "teller": "OSO", "trade": "miner", "band": "veteran", "source": "LIFE",
+      "ground": { "kind": "lot_and_bigbox", "place": "BLUE DIAMOND", "what": "a gypsum company town under the hill the mine ate" },
+      "thing": { "from": "gear.main", "id": "two_handed_mallet", "ours": "sledge", "look": "the same taped handle" },
+      "foil": null,
+      "lines": [
+        "My grandpa, my dad, then me. Three Osos in that hill, and the hill's half gone.",
+        "Blue Diamond's right there, under what's left. Same hammer my dad gave me.",
+        "When I go, don't put me in the ground. Put me somewhere I can see out."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "OSO:veteran",
+      "note": "a wish, not an ask: it writes nothing; his CAUSED scene may read the spent key OSO:veteran and honour it (the receipt, Q137.W1); no meter (QR-AV rule 11)",
+      "bb": "Miner Fresh Air: the miner level 4 or higher, the open air",
+      "real": "Blue Diamond (engine/BOHEMIA_REGION_LAND.json places)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB13", "teller": "MARISOL", "trade": "hunter", "band": "veteran", "source": "LIFE",
+      "ground": { "kind": "golf_and_park", "place": "TULE SPRINGS", "what": "the fossil beds: mammoth, camel, dire wolf, the lab's own source" },
+      "thing": { "from": "veteran_thing", "id": null, "ours": "a dire wolf tooth on a cord", "look": "ASSET NEEDED (a veteran's thing on the rig body, QR-AU rule 2)" },
+      "foil": null,
+      "lines": [
+        "Mi papa dug here on Saturdays with the volunteers. He found a wolf tooth the size of my thumb.",
+        "The museum let him keep one. This one. The beds are right there, past the fence.",
+        "He said the dire wolves would come back if we kept digging. It's warm. It's always been warm."
+      ],
+      "button": "[SLEEP]",
+      "wrong": { "kind": "THING", "slot": 3, "said": "a fossil tooth tens of thousands of years old is warm; she says it plainly and nobody asks" },
+      "once_key": "MARISOL:veteran",
+      "bb": "the life story at level 9 to 11 (Historian Records Adventures, Aging Swordmaster)",
+      "real": "Tule Springs Fossil Beds hold dire wolf and mammoth; volunteers helped find fossils there (search text and recall [R]); the beasts are lab-made from the valley's own fossils (laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB14", "teller": "NENA", "trade": "daytaler", "band": "retold", "source": "RETOLD from TB10 (DESI)",
+      "ground": { "kind": "suburb_block", "place": null, "what": "any block, 30 nights or more after Desi died" },
+      "thing": { "from": "gear.off", "id": "wooden_shield", "ours": "car door", "look": "Desi's door, the block number on it, now on Nena's arm" },
+      "foil": null,
+      "lines": [
+        "Desi had a block. Nellis and... I forget. She walked it with an old man and a list.",
+        "This was her door. That's her number on it. I never asked what it meant.",
+        "She stayed till there was nobody. That's how she said it. Close enough."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "retold:DESI",
+      "drift": "Bartlett's serial retelling: shorter, the street forgotten, 'insulin and kids' become 'a list', the last line nearly the original. Drift is not the wrong detail.",
+      "bb": "no equivalent: a man's events die with him (the score needs him alive)",
+      "real": "Bartlett 1932: a retold story shortens and turns toward the teller's own words with each link (search text)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB15", "teller": "GRIZ", "trade": "caravan_hand", "band": "retold", "source": "RETOLD from TB09 (RAUL)",
+      "ground": { "kind": "any", "place": null, "what": "any night, 30 nights or more after Raul died" },
+      "thing": { "from": "gear.head", "id": "leather_headband", "ours": "Leather Headband", "look": "Raul's headband on Griz's knee" },
+      "foil": null,
+      "lines": [
+        "Raul's coach made them skip rope till the song was over. Every song on the radio.",
+        "That's his headband. He told it to me again last night, right where you're sitting.",
+        "Whoever counts first quits first. He's not counting. Me neither."
+      ],
+      "button": "[SLEEP]",
+      "wrong": { "kind": "DEAD", "slot": 2, "said": "a man dead 30 nights told the story 'again last night'; said plainly, nobody corrects him" },
+      "once_key": "retold:RAUL",
+      "bb": "no equivalent",
+      "real": "Bartlett 1932 (search text); the receipt for the dead (Q137.W1)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB16", "teller": "CHATO (a hired follower; draft name)", "trade": "fisherman", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "wash_and_shore", "place": "LAS VEGAS BAY", "what": "the drowned marina; the ramp ends in air since the water fell" },
+      "thing": { "from": "veteran_thing", "id": null, "ours": "a boat key on a foam float", "look": "ASSET NEEDED" },
+      "foil": null,
+      "lines": [
+        "I rented boats off this ramp. My boss Gil moved the dock out every spring, chasing the water.",
+        "Ramp's right there. Ends in air now. I still got the key to boat nine.",
+        "The lake didn't leave all at once. A foot a year, and everybody kept moving the dock."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "CHATO:seasoned",
+      "bb": "Fisherman Tells Story: night-time, five written variants (the fifth undercuts itself), good mood for a quarter of the company, cooldown 30",
+      "real": "Lake Mead fell year on year and its marinas moved their docks and closed ramps (recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB17", "teller": "PROFE (a hired follower; draft name)", "trade": "historian", "band": "veteran", "source": "LIFE (the company's own record)",
+      "ground": { "kind": "any", "place": null, "what": "any night" },
+      "thing": { "from": "veteran_thing", "id": null, "ours": "the company book", "look": "ASSET NEEDED" },
+      "foil": null,
+      "lines": [
+        "First page. The night at {FIRST_FIGHT}. Desi with her car door, Raul with his sledge.",
+        "It's all in here, jefe. The ones before me I wrote from what they told me.",
+        "Thirteen of us at the wash that first night. Everybody in this book is somebody."
+      ],
+      "button": "[SLEEP]",
+      "wrong": { "kind": "COUNT", "slot": 3, "said": "the record holds twelve at the first fight; he says thirteen, plainly; nobody counts" },
+      "once_key": "PROFE:veteran",
+      "bb": "Historian Records Adventures: the historian level 9, once (cooldown 99999), good mood for 89 percent of the company: the company's own deeds as the story",
+      "real": "Bartlett: the early pages were written from retellings (search text)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB18", "teller": "CHISPA (a hired follower; draft name)", "trade": "messenger", "band": "green", "source": "WONDER",
+      "ground": { "kind": "lot_and_bigbox", "place": "VALLEY OF FIRE", "what": "the red sandstone; the road through it to the Overton Arm" },
+      "thing": { "from": "gear.body", "id": null, "ours": "whatever he wears", "look": "a courier's bag strap (ASSET NEEDED)" },
+      "foil": null,
+      "lines": [
+        "I rode packages for my tio Memo's courier, thirty runs a day, and never once left the city.",
+        "These rocks, jefe. Somebody carved a man with a spear up there before there was a city.",
+        "All those runs and I never went nowhere. Now look where I am."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "CHISPA:green",
+      "bb": "Miner Atop World's shape (a green man's wonder at a ground he never saw) and Giant Tree in Forest (a ground that stops the company, cooldown 200)",
+      "real": "Valley of Fire's rock art is centuries to a few thousand years old (recall [R])",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB19", "teller": "DEUCE", "trade": "gambler", "band": "seasoned", "source": "BEFORE",
+      "ground": { "kind": "freeway", "place": "RAILROAD PASS", "what": "the oldest casino licence in Nevada at the pass to the lake" },
+      "thing": { "from": "gear.head", "id": "feathered_hat", "ours": "Feathered Hat", "look": "the same hat as TB07" },
+      "foil": "BOOKIE",
+      "lines": [
+        "My grandma dealt blackjack at Railroad Pass forty years. Never let me sit at her table. Not once.",
+        "That's it on the pass, the sign with no lights. This hat was hers, Bookie, don't touch it.",
+        "She said the house wins because it never gets tired. I get tired, jefe."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "DEUCE:seasoned",
+      "bb": "Minstrel Outsmarts Gambler and Gambler vs Other: the gambler as a pair at camp",
+      "real": "Railroad Pass (engine/BOHEMIA_REGION_LAND.json places)",
+      "writes": "the once-key only", "draft": true
+    },
+    {
+      "id": "TB20", "teller": "CHEWY", "trade": "butcher", "band": "green", "source": "WONDER",
+      "ground": { "kind": "golf_and_park", "place": "MT CHARLESTON LODGE", "what": "the lodge at the top of Kyle Canyon; snow in the desert" },
+      "thing": { "from": "gear.body", "id": "butcher_s_apron", "ours": "Butcher's Apron", "look": "snow on the apron" },
+      "foil": null,
+      "lines": [
+        "Thirty-one years in this valley, and my tia always said we'd drive up for the snow. We never did.",
+        "Mira. It's on my apron. It's on everybody.",
+        "Don't tell nobody I cried. It's the cold, that's all."
+      ],
+      "button": "[SLEEP]", "wrong": null, "once_key": "CHEWY:green",
+      "bb": "Miner Atop World's shape: level 3 or lower, a ground he never stood on, good mood",
+      "real": "snow on Mt Charleston above the valley floor (engine/BOHEMIA_REGION_LAND.json places)",
+      "writes": "the once-key only", "draft": true
+    }
+  ],
+  "tally": {
+    "bands": { "green": 5, "seasoned": 9, "veteran": 4, "retold": 2 },
+    "wrong_details": { "count": 4, "of": 20, "kinds": ["COMPANY TB07", "THING TB13", "DEAD TB15", "COUNT TB17"] },
+    "foils": ["TB03 NENA", "TB04 BOOKIE", "TB08 CHEWY", "TB19 BOOKIE"],
+    "starting_crew_with_a_telling": "11 of 11 (DESI, RAUL, TINA, BOOKIE, OSO, MARISOL, CHEWY, LUPE, GRIZ, DEUCE, NENA); YOU never tells (the player does not speak)",
+    "lines_naming_a_job_price_or_ask": 0,
+    "ground_matches_trade": ["TB01", "TB02", "TB04", "TB05", "TB06", "TB07", "TB08", "TB12", "TB13", "TB16", "TB19"]
+  }
+}
