@@ -41,8 +41,12 @@ WHAT LOOKING CHANGED (cycle 1 renders of one hat per shape):
 ## 3. THE CARD
 
 character-hats-one-the-21-hats-10-19, one row per hat grouped by shape: the game's flat hat at 1:1, the model in eight
-facings at 1:1, the head at 128. Every still goes through the guide's first five before the card is written; a hat that
-fails is held off it and named here (rule 114b).
+facings at 1:1, the head at 128. Every still went through the guide's first five (the NOT VIBE CODED gate's own
+checker, class person, light guide): 168 of 168 pass, so no hat is held off the card (rule 114b).
+
+FOUND ON THE WAY (my own slip, fixed before the card): a comment added to the SCRAP HELM line swallowed the ROSE KNIT
+CAP on the same line, and the table read 20 hats; the sheet came up one row short and the roll call never knew. The
+line is split; 21 again.
 
 [bb Battle Brothers' helmets and hats are painted layers, one picture per facing, the helmet a fight piece with numbers;
 ours are clay on the head bone, and which of them a fight counts as armour is COMBAT's and TUNING's.]

@@ -38,7 +38,8 @@ HATS = [
     ('BRICK WATCH CAP', 'watch', (112, 58, 48)), ('PATINA FIELD CAP', 'field', (80, 110, 96)),
     ('DUST WORK CAP', 'work', (128, 110, 80)), ('STORM SLOUCH BEANIE', 'slouch', (70, 72, 78)),
     ('KHAKI SLOUCH BEANIE', 'slouch', (126, 110, 80)), ('DESERT SHEMAGH', 'shemagh', (128, 110, 80)),
-    ('SCRAP HELM', 'helm', (74, 46, 32)),   # its ramp's DARK (cycle 1: the rust mid sat on the mannequin's tan at one value and read as a bald head with seams) ('ROSE KNIT CAP', 'knit', (220, 70, 85)),
+    ('SCRAP HELM', 'helm', (74, 46, 32)),   # its ramp's DARK (cycle 1: the rust mid sat on the mannequin's tan at one value and read as a bald head with seams)
+    ('ROSE KNIT CAP', 'knit', (220, 70, 85)),
     ('COBALT KNIT CAP', 'knit', (61, 109, 189)), ('BONE HEAD WRAP', 'wrap', (162, 154, 134)),
     ('SOOT HEAD WRAP', 'wrap', (54, 52, 54)),
 ]
