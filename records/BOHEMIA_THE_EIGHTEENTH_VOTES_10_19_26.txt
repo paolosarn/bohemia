@@ -1,0 +1,34 @@
+BOHEMIA VOTE -- 10/19 (THE EIGHTEENTH VOTES; only the verdicts the registry did not already carry, 8 of 99 lines)
+
+NO   CANDIDATE: THE FIGHT FLOOR, MADE FROM THE STREET YOU SAID YES TO
+     id    cook2-the-fight-floor-10-19
+     said  looks like shit
+
+YES  THE AURA ON THE MAN YOU CONTROL: PICK ONE OF THREE (A THE ECHO, B THE TEAR, C THE CURRENT)
+     id    animation-the-aura-of-the-one-you-control-10-19
+     said  combat only we need to implement the 3d models im fucking with the tear but you displayed it as it would fuck the whole world map underneath and shit so that was ass asfuckkk
+
+YES  PLACEHOLDER: THE GUNS YOU START WITH, MADE THE CLAY WAY: TWO PISTOLS, TWO SHOTGUNS, TWO RIFLES ON AN ARMOURER'S RACK
+     id    cook-the-first-guns-off-the-rig-10-19
+
+NO   YOU WERE RIGHT: EVERY BODY IS PAINTED YOUR SKIN, SO A DARK FACE SITS ON A PALE BODY
+     id    eyes-every-face-beside-its-body-10-19
+     said  bro the 3d models not in yettt????
+
+YES  THE FRONT SCREEN: JUST YOUR LETTERS, NO CARD
+     id    ui-the-front-screen-just-the-font-10-18
+
+YES  THE FIGHT TELLS YOU YOUR WEAPON IS WEAK
+     id    ui-the-hit-chance-look-10-19
+
+YES  REAL GUNS IN THE FIGHT
+     id    sounds-the-guns-heard-10-19
+
+NO   PLACEHOLDER: EVERY FACE NOW HAS ITS OWN BODY'S SKIN AND HAIR (YOUR 'BLACK PEOPLE LOOKING LIKE WHITE PEOPLE')
+     id    portrait-the-face-is-the-bodys-face-10-19
+     said  BRO EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY8 BIT SHIT YOU COULDNT MAKE FRFR WTF TRYING TO COMBINE THE TWO
+
+ANYTHING ELSE
+REMEMBER BATTLE BROTHERS REVAMP WILL LEAD THE WAY AND WE WILL DO MORE THAN BATTLE BROTHERS DID BUT MY BIGGEST CONCERN RN IS THE UI IS AI DOGSHIT SLOP THAT NEEDS SO MUCH LOVE
+
+COUNT: 8 new, 4 YES, 4 NO. Registry 546 verdicts.

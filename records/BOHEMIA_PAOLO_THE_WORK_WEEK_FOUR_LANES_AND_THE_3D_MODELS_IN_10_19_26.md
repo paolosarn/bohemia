@@ -1,0 +1,7 @@
+# PAOLO 10/19: THE WORK WEEK: FOUR LANES, SAVE MY TOKENS, AND THE 3D MODELS IN THE GAME (LOCKED; rule 121)
+
+## His words, verbatim (16:00 UTC)
+"Okay, bro, so fix the main menu screen on the demo. We have to do a full implementation of the 3D models, so that's top priority. Combat is still not smooth, it still sucks. It looks like it's been coded by a fifth grader. The UI is still ass. I still don't like the top bar at the, the top of the screen. Like, you could put so much things in the more in the top of the screen. And then during combat, like, it doesn't go away. Like, it's all fucked up, bro. Starting my work week, so you can't be using all these credits like that. So dedicate which ones you want to run, but... Yeah, bro. Finish your previous implementations you needed, and then we need this full 3D shit in there now because it's just looking so fucking bad. And then the main map is looking so bad, bro. Like, it's really sad. / MAKE CHANGES TRY TO SAVE MY TOKENS TOO THOUGH MAN"
+
+## The ruling (rule 121)
+FOUR LANES RUN: RUN, COMBAT, UI, RUN TWO. Every other lane is PAUSED until he lifts it. The work is IMPLEMENTATION of what is already made, not new art: the 3D rig models (CHARACTER's fourteen looks, COOK THREE's tiers, the truck, the beasts, COOK's guns, the matched faces) go into the demo everywhere he sees a person. The coordinator checks in every three hours, not every hour, and spends little.
