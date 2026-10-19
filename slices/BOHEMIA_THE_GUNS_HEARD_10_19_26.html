@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE GUNS HEARD</title>
+<!-- SOUNDS lane, 10/19, row [the guns heard] (VAMILY, SOUNDS), rule 120 (Paolo 10/18: 'I wanna start off with the guns
+     too... the guns were supposed to be the main way this is gonna be solved').
+     WHAT PLAYS IN THE GAME NOW: every gun in the fight posts one 'shot', the engine's ash-and-stone recipe; one take in six
+     is his approved shot.3 and the other five render about 25 dB under it (measured, slices/vote/guns_heard/now_measured.json);
+     the PISTOL (Battle Brothers' dagger row) posts a sword's whoosh; a reload makes no sound.
+     WHAT THIS IS: real guns from the Free Firearm Sound Library (CC0), a 1911, a Walther PPQ and a .38 revolver; a Winchester
+     Model 12, a Benelli Nova and a Charles Daly pump; a Mosin Nagant, a Springfield 1917 and a Tikka T3. A: in the street on
+     tape (a canyon as wide as the Strip claps back on every 16th, a camcorder's automatic gain, tape). C: the same two real
+     mics, clean. B: what the game plays now, rendered by the game's own engine with his approved takes.
+     THE PAGE: the real fight (slices/BOHEMIA_FIGHT.html, untouched) from its own camera, loaded ONCE and never reloaded by a
+     tap (the post-mortem of 'Was broke', records/BOHEMIA_THE_STEP_IN_THE_FIGHT_POST_MORTEM_10_18_26.md), playing itself
+     on AUTO with a company of six guns against brigands with crossbows; and buttons that fire a gun at once, so a sound
+     comes in under two seconds of any tap. Everything plays through the alpha's own output chain (its compressor and
+     brickwall, the same numbers). The swap in the game is COMBAT's three lines and RUN's cut on his YES: CUE 7.7 in
+     BUILD_CALLING_SCRIPT.md. Gate: gates/guns_heard_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{display:flex;flex-direction:column}
+  #fight{flex:1 1 auto;min-height:0;width:100%;border:0;background:#0d0b09}
+  #bar{flex:0 0 auto;box-sizing:border-box;padding:8px 16px 10px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px}
+  button{font:inherit;font-size:12px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:6px 4px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  button.opt{background:#b9a77e}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.gun{font-size:13px;font-weight:bold}
+  .num{font-size:12px;color:#b9a77e;min-height:2.9em}
+</style></head><body>
+<iframe id="fight" title="the fight"></iframe>
+<div id="bar">
+  <div class="row">
+    <button id="opt-a" class="opt on">A: STREET, TAPE</button>
+    <button id="opt-b" class="opt">B: WHAT PLAYS NOW</button>
+    <button id="opt-c" class="opt">C: CLEAN</button>
+  </div>
+  <div class="row">
+    <button id="g-pistol" class="gun">PISTOL</button>
+    <button id="g-shotgun" class="gun">SHOTGUN</button>
+    <button id="g-rifle" class="gun">RIFLE</button>
+  </div>
+  <div class="row">
+    <button id="theirs">THEIR SHOT</button>
+    <button id="reload">RELOAD</button>
+    <button id="mute">FIGHT: SOUND ON</button>
+  </div>
+  <div class="num" id="num">Tap a gun. The fight above plays itself with six guns; its shots play the option you pick.</div>
+</div>
+<script src="../engine/bohemia_sfx.js"></script>
+<script src="../engine/bohemia_guns_heard.js"></script>
+<script>
+(function(){
+  'use strict';
+  var n=document.getElementById('num'), fr=document.getElementById('fight');
+  var GUNS=BOH_GUNS_HEARD.make({ dir:'vote/guns_heard/' });
+  var AC=null, BUS=null, opt='a', gun='shotgun', fightOn=true, NOW=null, heard={ fight:0, buttons:0, b:0 }, opened=performance.now();
+
+  /* THE ALPHA'S OWN OUTPUT CHAIN (slices/BOHEMIA_ALPHA_0_9.html, MUS.audio: SFXBUS at 1 -> OUT -> a compressor at -14 dB,
+     knee 8, 6:1, 2 ms, 120 ms -> the BRICKWALL at -5 dB, 20:1, 1 ms, 80 ms), the same numbers, so A, B and C are heard the
+     way the game would play them, squeezed by the same machine */
+  function ctx(){
+    if(!AC){
+      var C=window.AudioContext||window.webkitAudioContext; AC=new C();
+      var OUT=AC.createGain(), cmp=AC.createDynamicsCompressor(), lim=AC.createDynamicsCompressor();
+      cmp.threshold.value=-14; cmp.knee.value=8; cmp.ratio.value=6; cmp.attack.value=0.002; cmp.release.value=0.12;
+      lim.threshold.value=-5; lim.knee.value=0; lim.ratio.value=20; lim.attack.value=0.001; lim.release.value=0.08;
+      BUS=AC.createGain(); BUS.gain.value=1; BUS.connect(OUT); OUT.connect(cmp); cmp.connect(lim); lim.connect(AC.destination);
+      window.__lim=lim;
+      /* THE BUTTONS FIRST, THE FIGHT AFTER (a phone network shares one pipe): YOUR three guns in A and C and their reloads
+         (about 0.8 MB) before the fight's 5 MB, so any button is heard within two seconds; then the fight; then THEIR guns */
+      var g3=['pistol','shotgun','rifle'], ld=function(names){ return Promise.all(names.map(function(x){ return GUNS.load(AC,x); })); };
+      ld(g3.map(function(g){ return GUNS.file('shot',g,'yours','a'); }))
+        .then(function(){ return ld(g3.map(function(g){ return GUNS.file('shot',g,'yours','c'); })); })
+        .then(function(){ return ld(g3.map(function(g){ return GUNS.file('reload',g,null,'a'); }).concat(g3.map(function(g){ return GUNS.file('reload',g,null,'c'); }))); })
+        .catch(function(e){ n.textContent='A gun did not load: '+e.message; })
+        .then(function(){ open(); return ld(g3.map(function(g){ return GUNS.file('shot',g,'theirs','a'); }).concat(g3.map(function(g){ return GUNS.file('shot',g,'theirs','c'); }))); })
+        .catch(function(){});
+    }
+    if(AC.state==='suspended') AC.resume();
+    return AC;
+  }
+  /* the sprites start loading the moment the page opens (a context may decode before any tap; it starts on the first one) */
+  ctx();
+  fetch('vote/guns_heard/fight_now.json').then(function(r){ return r.json(); }).then(function(j){ NOW=j.pools; }).catch(function(){});
+
+  /* WHAT PLAYS NOW: the alpha's playSFX for one event, its own pool (APPROVED + SIBLINGS, read out of the alpha into
+     fight_now.json), never the same take twice, the alpha's vary (level +/-10 percent, pitch +/-3 percent off an
+     instrument), rendered by the game's engine. An empty pool is silent, as in the game. */
+  var lastNow={}, cache={};
+  function vecOf(e,i){ var k=e+'.'+i; if(!cache[k]){ try{ cache[k]=BOH_SFX.cook(e,5)[i]; }catch(_e){ return null; } } return cache[k]; }
+  function vary(v){ var w={},k; for(k in v) w[k]=v[k]; w.gain=Math.max(0.02,Math.min(1,(v.gain||0.3)*(1+(Math.random()*2-1)*0.10)));
+    if(v.synth!=='instrument') w.hz=Math.max(20,Math.min(18000,(v.hz||200)*(1+(Math.random()*2-1)*0.03))); return w; }
+  function now(ev){
+    if(!NOW||!AC) return false; var pool=NOW[ev]||[]; if(!pool.length) return false;
+    var c, guard=0; do{ c=pool[(Math.random()*pool.length)|0]; }while(pool.length>1&&lastNow[ev]===c[0]+'.'+c[1]&&++guard<8);
+    lastNow[ev]=c[0]+'.'+c[1]; var v=vecOf(c[0],c[1]); if(!v) return false;
+    BOH_SFX.render(vary(v), AC, BUS, AC.currentTime+0.005); heard.b++; return true;
+  }
+  /* what the game plays for a man's attack today: a gun or a bow posts 'shot', the PISTOL (the dagger row) and every
+     swing post 'swing_air' (slices/BOHEMIA_FIGHT.html, SND: (ranged ? SND.shot : SND.swing)) */
+  var RANGED=['bow','crossbow','firearm','throwing'];
+  function attackNow(cls){ return now(RANGED.indexOf(cls)>=0?'shot':'swing_air'); }
+
+  var WHAT={ pistol:'PISTOL: a 1911, a Walther PPQ and a .38 revolver.', shotgun:'SHOTGUN: a Winchester Model 12, a Benelli Nova and a Charles Daly pump.', rifle:'RIFLE: a Mosin Nagant, a Springfield 1917 and a Tikka T3.' };
+  var OPT={ a:'In the street on tape: the shot claps back off the block on every 16th note, and the camcorder pulls the street back up over one beat.',
+            b:'What the game plays now: one made-up gunshot for every gun (five times in six the quiet one), a whoosh for the pistol, nothing for a reload.',
+            c:'The same real guns, clean: no street, no camcorder, no tape.' };
+  function shoot(g, side){
+    ctx(); gun=g; heard.buttons++;
+    if(opt==='b'){ attackNow(g==='pistol'?'dagger':'firearm'); n.textContent=OPT.b; return; }
+    var name=GUNS.file('shot', g, side, opt);
+    GUNS.load(AC, name).then(function(){ GUNS.fire(AC, BUS, g, side, opt, AC.currentTime+0.005); }).catch(function(){});
+    n.textContent=(side==='theirs'?'THEIR ':'YOUR ')+WHAT[g]+' '+OPT[opt];
+  }
+  function reload(g){
+    ctx(); heard.buttons++;
+    if(opt==='b'){ n.textContent='What the game plays now for a reload: nothing.'; return; }
+    var name=GUNS.file('reload', g, null, opt);
+    GUNS.load(AC, name).then(function(){ GUNS.reload(AC, BUS, g, opt, AC.currentTime+0.005); }).catch(function(){});
+    n.textContent=g.toUpperCase()+' RELOAD: the real motions of the same guns ('+(g==='pistol'?'mag in, then the slide an 8th later':g==='shotgun'?'a shell in on the beat, the pump back on the 8th, forward on the next 16th':'the bolt: up, back, forward, down, on 16ths')+').';
+  }
+  function setOpt(o){ ctx(); opt=o; ['a','b','c'].forEach(function(k){ document.getElementById('opt-'+k).classList.toggle('on',k===o); }); n.textContent=OPT[o]; }
+  ['a','b','c'].forEach(function(k){ document.getElementById('opt-'+k).onclick=function(){ setOpt(k); }; });
+  ['pistol','shotgun','rifle'].forEach(function(g){ document.getElementById('g-'+g).onclick=function(){ shoot(g,'yours'); }; });
+  document.getElementById('theirs').onclick=function(){ shoot(gun,'theirs'); };
+  document.getElementById('reload').onclick=function(){ reload(gun); };
+  document.getElementById('mute').onclick=function(){ ctx(); fightOn=!fightOn; this.textContent='FIGHT: SOUND '+(fightOn?'ON':'OFF'); };
+
+  /* ---------------- THE FIGHT, LOADED ONCE ---------------- */
+  /* a company of six guns (two of each, the crew's own people and armour; RUN TWO's gear hand-over, gear.main) against
+     four thugs and two marksmen; the seed is one where both marksmen carry crossbows (THEIR RIFLE), found by the gate */
+  var SEED=Number((location.hash.match(/seed=(\d+)/)||[])[1]||19);
+  var MAIN=['handgonne','dagger','crossbow','handgonne','dagger','crossbow'];
+  var ARMOUR=[['padded_surcoat','open_leather_cap'],['gambeson','hood'],['padded_vest','leather_headband'],['padded_surcoat','aketon_cap'],['leather_tunic','hood'],['thick_tunic','open_leather_cap']];
+  var OPTS={ auto:true, seed:SEED, formation:null, cap:6, kind:'suburb',
+             company:MAIN.map(function(w,i){ return { gear:{ main:w, body:ARMOUR[i][0], head:ARMOUR[i][1] } }; }),
+             band:['brigand_thug','brigand_thug','brigand_thug','brigand_thug','brigand_marksman','brigand_marksman'] };
+  function fightOf(cw){ try{ return cw && cw.eval('typeof FIGHT!=="undefined"?FIGHT:null'); }catch(_e){ return null; } }
+  /* the hook, in the frame: every attack and every reload the fight starts is also told to this page, with the weapon's
+     row and the side; the fight's own shot and swing stand down HERE ONLY (this page plays them) */
+  var HOOK='(function(){ if (window.__gunsHook) return true; var o = window.startAnim; if (typeof o !== "function" || typeof SND === "undefined") return false;'+
+    ' window.startAnim = function (a) { try { if (a && (a.k === "attack" || (a.k === "note" && a.e && a.e.t === "reload"))) { var u = FIGHT.byId(a.e.id);'+
+    ' if (u) parent.__gunsFight({ k: a.k === "attack" ? "attack" : "reload", cls: u.weapon && u.weapon.class, side: u.side, free: !!a.e.free }); } } catch (_e) {} return o.apply(this, arguments); };'+
+    ' SND.shot = function () {}; SND.swing = function () {}; window.__gunsHook = true; return true; })()';
+  window.__gunsFight=function(e){
+    heard.fight++;
+    if(!fightOn||!AC||AC.state!=='running') return;
+    var g=GUNS.gunOf(e.cls), side=e.side==='you'?'yours':'theirs';
+    if(e.k==='reload'){ if(opt!=='b'&&g) GUNS.reload(AC, BUS, g, opt, AC.currentTime+0.005); return; }
+    if(opt==='b'||!g){ attackNow(e.cls); return; }   /* a bow, a bottle, a swing: what the game plays, in every option */
+    GUNS.fire(AC, BUS, g, side, opt, AC.currentTime+0.005);
+  };
+  /* the fight's other sounds (the hit, the miss, the fall) come by the fight's own postMessage, as in the alpha */
+  window.addEventListener('message', function(m){ var d=m.data; if(!d||d.type!=='BOHEMIA_SFX'||!fightOn||!AC||AC.state!=='running') return; now(d.ev); });
+  function open(){
+    if(open.done) return; open.done=true; opened=performance.now();
+    fr.src='BOHEMIA_FIGHT.html';
+    var iv=setInterval(function(){ try{ var cw=fr.contentWindow; if(cw&&cw.location&&/BOHEMIA_FIGHT/.test(cw.location.href)&&!cw.FIGHT_OPTS) cw.FIGHT_OPTS=OPTS; }catch(_e){} }, 4);
+    var t=setInterval(function(){ try{
+      var cw=fr.contentWindow, F=fightOf(cw);
+      if(!F||!F.S||!F.S.board){ if(performance.now()-opened>60000){ clearInterval(t); clearInterval(iv); } return; }
+      clearInterval(t); clearInterval(iv); cw.eval(HOOK);
+      /* when the fight ends it starts again IN PLACE (the fight's own start(), never a reload) */
+      setInterval(function(){ try{ if(F.S.over&&!window.__again){ window.__again=true; setTimeout(function(){ var ov=cw.document.getElementById('over'); if(ov) ov.style.display='none'; cw.FIGHT_OPTS=OPTS; cw.start().then(function(){ window.__again=false; }); }, 2000); } }catch(_e){} }, 500);
+    }catch(_e){ clearInterval(t); } }, 50);
+  }
+  setTimeout(open, 6000);   /* the fight opens anyway if a gun file is slow */
+
+  window.__guns=function(){ var cw=fr.contentWindow, F=fightOf(cw);
+    return { opt:opt, gun:gun, fightOn:fightOn, ac:AC&&AC.state, heard:heard, played:GUNS.count, log:GUNS.log.slice(-32), loaded:Object.keys(GUNS.buf),
+      hooked:(function(){ try{ return !!cw.__gunsHook; }catch(_e){ return false; } })(),
+      units:F&&F.S&&F.S.units?F.S.units.map(function(u){ return { side:u.side, cls:u.weapon&&u.weapon.class, name:u.name }; }):null }; };
+  window.__GUNS=GUNS; window.__setOpt=setOpt; window.__shoot=shoot; window.__reload=reload;
+})();
+</script>
+</body></html>
