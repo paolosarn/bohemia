@@ -152,9 +152,12 @@ def build(cut, L):
                 else:
                     # a patrol cap: the crown stands up in a column to a flat top (cycle 1: a thickness ramp on the dome
                     # read as a helmet); out to one radius at every height, then cut off flat at 0.176
-                    rho = math.hypot(q.x, q.y - 0.004); nh = math.hypot(n.x, n.y)
+                    # (cycle 2: one radius of 112 mm round the whole head stood out past the brow like an officer's cap;
+                    # the column now follows the head's own section at the band, 7 mm off it)
+                    rho = math.hypot(q.x, q.y); nh = math.hypot(n.x, n.y)
                     if q.z > 0.085 and nh > 0.25:
-                        t = max(t, (0.112 - rho) / nh)
+                        band = (skull_r(az_of(q), 0.090) or 0.11) + 0.007
+                        t = max(t, min(0.030, (band - rho) / nh))
                     if n.z > 0.30:
                         t = min(max(t, (0.176 - q.z) / n.z), (0.176 - q.z) / n.z + 0.004) if q.z > 0.12 else t
                 out.append(max(0.002, t))

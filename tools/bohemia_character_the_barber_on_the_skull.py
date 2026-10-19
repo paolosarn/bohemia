@@ -96,9 +96,11 @@ ORDER = ['TEMPLE TAPER', 'COIL CROWN', 'LAYERED FALL']
 # their geometry lives in tools/bohemia_character_hair_one.py, the eight branches build() calls; the three above are untouched
 import bohemia_character_hair_one as HAIR_ONE  # noqa: E402
 import bohemia_character_hats_one as HATS_ONE  # noqa: E402   (HATS 1: the 21 canon hats on the same head)
+import bohemia_character_eyewear_one as EYE_ONE  # noqa: E402   (EYEWEAR 1: the 14 face pieces on the same head)
 CUTS.update(HAIR_ONE.CUTS)
 CUTS.update(HATS_ONE.CUTS)
-ALL = ORDER + HAIR_ONE.ORDER + HATS_ONE.ORDER
+CUTS.update(EYE_ONE.CUTS)
+ALL = ORDER + HAIR_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER
 
 
 def sstep(a, b, t):
@@ -509,6 +511,8 @@ def build(cut):
         made += HAIR_ONE.build(cut, locals())
     elif cut in HATS_ONE.CUTS:
         made += HATS_ONE.build(cut, locals())
+    elif cut in EYE_ONE.CUTS:
+        made += EYE_ONE.build(cut, locals())
 
     for m in made:
         if isinstance(m, tuple): skin_to(m[1], m[2]); strand_normals(m[1])
@@ -619,7 +623,7 @@ if __name__ == '__main__':
     if cmd == 'build':
         barber_body()
         names = (ORDER if sys.argv[2].upper() == 'ALL' else HAIR_ONE.ORDER if sys.argv[2].upper() == 'HAIR1'
-                 else HATS_ONE.ORDER if sys.argv[2].upper() == 'HATS1'
+                 else HATS_ONE.ORDER if sys.argv[2].upper() == 'HATS1' else EYE_ONE.ORDER if sys.argv[2].upper() == 'EYE1'
                  else [n for n in ALL if CUTS[n]['tag'] == sys.argv[2].lower() or n == sys.argv[2].upper()])
         for n in names: build(n)
     elif cmd == 'sheet':

@@ -1,0 +1,39 @@
+{
+ "cut": "FACE WRAPAROUND SHADES",
+ "tag": "face_wraparound_shades",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 0,
+  "side": 0.36,
+  "front": 0.16
+ },
+ "worn_by": "the roll call: WRAPAROUND SHADES",
+ "model": "records/character/rig/barber_face_wraparound_shades.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.53,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7219,
+ "pieces": {
+  "face_wraparound_shades_lens": 2066,
+  "face_wraparound_shades_rim": 248,
+  "face_wraparound_shades_arm_l": 88,
+  "face_wraparound_shades_arm_r": 88
+ }
+}
