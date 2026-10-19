@@ -13458,6 +13458,25 @@
      700
     ]
    }
+  },
+  {
+   "id": "sounds-repo-man-the-machine-party-10-19",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "3863c6e0",
+   "made": "10/19",
+   "title": "REPO MAN, REMADE AS A MACHINE PARTY",
+   "why": "Your REPO MAN, every note, played by the game's own music engine with real machines playing along: a train coupling on every kick, an old clock on every hat, and a washing machine's motor humming in your key, in a concrete hall on a worn tape (A) or clean (C), beside your REPO MAN as the map plays it now (B). You hear it on this page over the real map, and on the map once you say yes; EYES AND EARS is paused, so nobody checked it beside your songs first.",
+   "options": [
+    "A, the machine party, in the hall on tape",
+    "B, keep REPO MAN as it is",
+    "C, the machine party, clean"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_REPO_MAN_THE_MACHINE_PARTY_10_19_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

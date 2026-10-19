@@ -12,7 +12,11 @@ the only door into the tab:
 It reads VAMILY.md for EYES' line, which names the song and says both answers, for example
   'EYES 10/18 eyes-xyz: THE ROSARY ON CHANNEL 3 beside REPO MAN and THE MARKER ON THE DOOR: same game YES, analog
    horror YES (the reasons)'
-and refuses unless BOTH say yes and neither says no or not. Then it appends the card to
+and refuses unless BOTH say yes and neither says no or not.
+
+EYES PAUSED (the coordinator 10/19, row [the machine party]: 'EYES is paused: say so on the card instead of waiting'):
+with --eyes-paused the tool registers without EYES' line only when EYES AND EARS' own MODE line on the board reads
+PAUSED and the card's why says, in those words, 'EYES AND EARS is paused'. The day EYES runs again the flag refuses. Then it appends the card to
 records/target/BOHEMIA_VOTE_REGISTRY.json with the sha of the commit that last touched the song's file (rule 118b: the
 card id goes on SOUNDS' row in the same push). It never edits anybody else's card.
 """
@@ -49,6 +53,16 @@ def main():
     song = json.load(open(songf, encoding='utf-8'))
     card = dict(song['card'])
     hit = eyes_line(song['name'], card['id'])
+    if not hit and '--eyes-paused' in sys.argv:
+        board = open(VAM, encoding='utf-8').read()
+        mode = (board.split('\n## EYES AND EARS')[1] if '\n## EYES AND EARS' in board else '').split('\n')[1:2]
+        if not (mode and mode[0].startswith('MODE: PAUSED')):
+            print('NOT REGISTERED: --eyes-paused, but EYES AND EARS is not paused on the board; wait for its line (rule 119c).')
+            return 4
+        if 'EYES AND EARS is paused' not in card.get('why', ''):
+            print('NOT REGISTERED: the card has to say so: its why must carry the words "EYES AND EARS is paused".')
+            return 5
+        hit = ('EYES AND EARS is PAUSED (' + mode[0][:60] + '); the card says so', 'yes', 'yes')
     if not hit:
         print('NOT REGISTERED: no EYES AND EARS line on the board names ' + song['name'] + ' with both answers (rule 119c).')
         return 2

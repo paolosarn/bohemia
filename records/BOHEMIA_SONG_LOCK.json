@@ -80,6 +80,14 @@
       "made": "10/18/26",
       "lane": "sounds",
       "why": "ADDED ON PURPOSE (SOUNDS 10/18, row [his sound, not a revamp], rule 119; Paolo 10/18, his NO on The Long Road: 'both songs not giving analog horror vibes... not like have a whole revamp process where you're like making songs I don't fit aesthetic'): a night song made with HIS SONGS' OWN MACHINE, one row in the shape of his MLOOPS rows, SATELLITE PRAYER's own row with two fields changed (the lead brokenrosary from THE MARKER ON THE DOOR, the five notes from REPO MAN), played by MUS.playStep with his synthV and drumV voices and his SONG_ARR form; no chip engine, no new voice. Pushed into MLOOPS in a page's memory only; MLOOPS, synthV, drumV, SONG_ARR and SONG_ROOT untouched (their hashes above). On his YES it joins the map's night shuffle beside his six, never replacing one (CUE 7.6). Its card waits in the file until EYES AND EARS says same game and analog horror (rule 119c); if the row changes after he hears it, this hash changes in the same commit with a reason."
+    },
+    {
+      "id": "repo-man-the-machine-party",
+      "file": "slices/vote/songs/repo_man_the_machine_party.json",
+      "md5": "ff32acc033b992f269b67f691e16a347",
+      "made": "10/19/26",
+      "lane": "sounds",
+      "why": "ADDED ON PURPOSE (SOUNDS 10/19, row [the machine party], rule 121(k); Paolo 10/19: 'Remodel everything 3D grimey Crashbox analog horror machine party vibes. And the music too man.'): REPO MAN remade, his row note for note (the row in this file is REPO MAN's own, deep equal, so his tune is untouched), with a real machine playing along on his engine's own drum calls (engine/bohemia_machine_party.js; a train coupling, a Soviet clock, a washing machine's motor, a concrete hall, a worn tape; CC0 recordings). His REPO MAN in the alpha is not edited and stays in the shuffle; the remake is a new song beside it. In VOTE as sounds-repo-man-the-machine-party-10-19 beside his REPO MAN; if it changes after he hears it, this hash changes in the same commit with a reason."
     }
   ]
 }

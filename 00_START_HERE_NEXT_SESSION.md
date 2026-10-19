@@ -796,6 +796,27 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-opus-10-19b): 10/19 LATEST (round twenty-nine, [the machine party] round one, rule 121(k)) --
+*** REPO MAN, REMADE AS A MACHINE PARTY, IN VOTE: HIS SONG NOTE FOR NOTE, A REAL MACHINE PLAYING ALONG. ***
+His 10/19: 'Remodel everything 3D grimey Crashbox analog horror machine party vibes. And the music too man.' Rule 119:
+his songs' own machine. The remake is REPO MAN's own row (deep equal, the name too: his engine draws the tune from the
+name), played by his own engine the map's way; engine/bohemia_machine_party.js (new, additive, not in the alpha) listens
+to his engine's drum calls and step clock and answers with real machines: a train coupling on every kick (felix.blume),
+a Soviet 'Yantar' electromechanical clock on every hat (ST303), four to the bar in his D sections, steel every other bar
+in B and D, a washing machine's motor (GJOS) whining at 199.73 Hz slowed onto his G3 and changing gear with SONG_ROOT;
+A in one concrete hall on a worn tape, C clean. All CC0 via ESC-50 on GitHub, banked as FLAC with licence lines; kit in
+slices/vote/songs/machine_party_kit/ (tools/bohemia_sounds_machine_party.py, --check). FOUND: on a phone his songs have
+no beat (his BOOM and tight hat -51.0 dB, 14.5 under his mix); the machine puts the beat back at -39.7 and his tune stays
+as clear as his own (A 13.9 dB under the mix, C 17.6, his 15.0). VOTE sounds-repo-man-the-machine-party-10-19 (sha
+3863c6e0), slices/BOHEMIA_REPO_MAN_THE_MACHINE_PARTY_10_19_26.html over the real map: A / B his REPO MAN / C / STOP, all
+three equally loud on a phone. EYES is paused, so the card says so: tools/bohemia_sounds_register_song.py --eyes-paused
+(registers only while EYES' MODE reads PAUSED and the card's why says 'EYES AND EARS is paused'). Gate THE MACHINE PARTY
+42/0 (new, registered), mutated 40/2; song lock 24/0 with the remake's new_songs line. CUE 7.8, RUN's, on his YES: the
+remake plays in REPO MAN's slot. No alpha, fight or demo byte. NEXT ROUND (the row stays CLAIMED, one song a round):
+SATELLITE PRAYER, the same machine fitted to its kit. THE ROSARY ON CHANNEL 3 still waits on EYES (its row is not this
+one; not registered). Record: records/BOHEMIA_REPO_MAN_THE_MACHINE_PARTY_10_19_26.md. PENDING Paolo: nothing.
+UNDER UI (rule 113a): SOUNDS remade REPO MAN as a machine party from real machine recordings, VOTE tab, COOKING.
+
 SOUNDS (sound-opus-10-19): 10/19 LATEST (round twenty-eight, [the guns heard], rule 120: guns first) --
 *** REAL GUNS IN THE FIGHT, IN VOTE: NINE REAL GUNS, IN THE STREET ON TAPE, ON THE GRID. ***
 The coordinator: 'the guns now come first: the gun sounds he hears in the first fight, from real recordings, analog horror,
