@@ -1,0 +1,190 @@
+{
+ "person": "FACTION_REDS",
+ "model": "records/portrait/rig/crew/faction_reds_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/reds.glb",
+ "dropped": [
+  "reds_hair",
+  "reds_hair_fall",
+  "reds_hat",
+  "reds_hat_brim",
+  "reds_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.0352,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "taper",
+ "stubble": false,
+ "look": "faction_reds",
+ "beard": "goatee",
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 34,
+   "face.craniumH": 10,
+   "face.foreheadW": 24,
+   "face.cheekW": 31,
+   "face.jawW": 28,
+   "face.chinW": 15,
+   "face.browY": -1,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 7,
+   "mouth.w": 10,
+   "nose.w": 3
+  },
+  "identity": false,
+  "mouth_half": 0.0352
+ },
+ "meshes": {
+  "Cesium_Man": 1232,
+  "reds_coat": 17338,
+  "reds_coat_skirt": 8508,
+  "reds_hand_L": 392,
+  "reds_hand_R": 392,
+  "reds_shoe": 3916,
+  "reds_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 49572,
+  "portrait_beard": 332
+ },
+ "materials": {
+  "portrait_faction_reds_beard": [
+   0.0844,
+   0.0423,
+   0.0194
+  ],
+  "portrait_faction_reds_buzz": [
+   0.1746,
+   0.0931,
+   0.0423
+  ],
+  "portrait_faction_reds_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_reds_lips": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "portrait_faction_reds_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_reds_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_reds_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_reds_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "portrait_faction_reds_stubble": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "reds_coat": [
+   0.1301,
+   0.0437,
+   0.0382
+  ],
+  "reds_coat_skirt": [
+   0.1301,
+   0.0437,
+   0.0382
+  ],
+  "reds_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "reds_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "reds_shirt": [
+   0.305,
+   0.0296,
+   0.0212
+  ],
+  "reds_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "reds_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "reds_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "reds_trouser": [
+   0.0887,
+   0.0319,
+   0.0296
+  ],
+  "reds_trousers": [
+   0.0887,
+   0.0319,
+   0.0296
+  ]
+ }
+}

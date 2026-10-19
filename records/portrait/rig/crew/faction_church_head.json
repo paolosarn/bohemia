@@ -1,0 +1,195 @@
+{
+ "person": "FACTION_CHURCH",
+ "model": "records/portrait/rig/crew/faction_church_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/church.glb",
+ "dropped": [
+  "church_hair",
+  "church_hair_fall",
+  "church_hat",
+  "church_hat_brim",
+  "church_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "skull cap",
+ "hair": "coil",
+ "stubble": false,
+ "look": "faction_church",
+ "beard": null,
+ "scar": null,
+ "face": {
+  "dials": {
+   "face.len": 37,
+   "face.craniumH": 13,
+   "face.foreheadW": 27,
+   "face.cheekW": 30,
+   "face.jawW": 24,
+   "face.chinW": 10,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 5,
+   "brows.len": 7,
+   "mouth.w": 9,
+   "nose.w": 3
+  },
+  "identity": false,
+  "mouth_half": 0.033
+ },
+ "meshes": {
+  "Cesium_Man": 1232,
+  "church_hand_L": 392,
+  "church_hand_R": 392,
+  "church_mantle": 17882,
+  "church_shoe": 3716,
+  "church_trouser": 2568,
+  "church_vestment": 5852,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_cap": 8606,
+  "portrait_hair": 16598
+ },
+ "materials": {
+  "church_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "church_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "church_hat": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "church_mantle": [
+   0.5149,
+   0.402,
+   0.1746
+  ],
+  "church_shirt": [
+   0.6172,
+   0.4793,
+   0.1878
+  ],
+  "church_shoe": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "church_shoes": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "church_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "church_trouser": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "church_trousers": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "church_vestment": [
+   0.6172,
+   0.4793,
+   0.1878
+  ],
+  "portrait_faction_church_buzz": [
+   0.0369,
+   0.0319,
+   0.0262
+  ],
+  "portrait_faction_church_cap": [
+   0.6724,
+   0.6038,
+   0.3864
+  ],
+  "portrait_faction_church_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_faction_church_lips": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "portrait_faction_church_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_faction_church_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_faction_church_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_faction_church_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "portrait_faction_church_stubble": [
+   0.5841,
+   0.3231,
+   0.2016
+  ]
+ }
+}
