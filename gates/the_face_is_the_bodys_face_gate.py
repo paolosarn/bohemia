@@ -55,6 +55,7 @@ from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RECORD = 'records/target/portrait/BOHEMIA_THE_SKIN_OF_RECORD.json'
 SHEETS = 'slices/fight_people'
+SETTLE = 'slices/settlement_people'   # the settlement street's people, painted by the same famPaintBody (ANIMATION's bake)
 CREW = 'records/target/portrait/crew/BOHEMIA_CREW_FACES.json'
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 STEP, DL = 1, 8.0               # the ladder's tolerance: its own tone or the one beside it, and L* within 8
@@ -222,7 +223,7 @@ def leg_record(g, rec, man, T, quiet=False):
     return bad
 
 
-def leg_body(g, rec, man, T, sheets=None, quiet=False):
+def leg_body(g, rec, man, T, sheets=None, quiet=False, label='BODY'):
     back = []
     for look, v in man['looks'].items():
         e = rec['people'].get(look)
@@ -230,7 +231,7 @@ def leg_body(g, rec, man, T, sheets=None, quiet=False):
         sh = (sheets or {}).get(look) or Image.open(p(SHEETS, v['file'])).convert('RGBA')
         n, k, _ = sprite_tone(sh, body_box(sh), T)
         if n != e['skin']: back.append((look, n, e['skin']))
-        if not quiet: g.ok('BODY %s wears its own skin (%s)' % (look, e['skin']), n == e['skin'],
+        if not quiet: g.ok('%s %s wears its own skin (%s)' % (label, look, e['skin']), n == e['skin'],
                            'the body sheet is painted %s (%d px)%s' % (n, k, '' if n == e['skin'] else '  -> BACK to CHARACTER [one skin, one person]'))
     return back
 
@@ -278,8 +279,12 @@ def main():
 
     print('1. THE RECORD (the person, read from the factory) agrees with the face the game ships')
     leg_record(g, rec, man, T)
-    print('2. THE BODY wears its person\'s skin')
+    print('2. THE BODY wears its person\'s skin (the fight\'s sheets, then the settlement street\'s, the same painter)')
     back = leg_body(g, rec, man, T)
+    sp = os.path.join(SETTLE, 'settlement_people.json')
+    if os.path.exists(p(sp)):
+        sman = json.load(open(p(sp)))
+        back += [('street ' + b[0],) + b[1:] for b in leg_body(g, rec, sman, T, sheets=dict((l, Image.open(p(SETTLE, v['file'])).convert('RGBA')) for l, v in sman['looks'].items()), quiet=False, label='STREET BODY')]
     print('3. THE STARRED FACE (the crew hand-off) reads as its person')
     leg_faces(g, rec, man, T, R, crew)
 
@@ -312,7 +317,7 @@ def main():
         g.ok('a body sheet painted in its own skin passes', not leg_body(Gate(), rec, dict(looks={l: man['looks'][l]}), T, sheets={l: fixed}, quiet=True), l)
 
     if back:
-        print('\nBACK TO CHARACTER [one skin, one person] (%d bodies): ' % len(back) + ', '.join('%s %s->%s' % b for b in back))
+        print('\nBACK TO CHARACTER [one skin, one person] (%d body sheets): ' % len(back) + ', '.join('%s %s->%s' % b for b in back))
     print('THE FACE IS THE BODY\'S FACE: %d passed, %d failed' % (g.passed, len(g.failed)))
     return 1 if g.failed else 0
 
