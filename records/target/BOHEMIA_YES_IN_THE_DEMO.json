@@ -1,0 +1,882 @@
+{
+ "_readme": "RUN TWO [his yeses in the demo]: every YES since 10/16, IN THE DEMO (a file its commit changed is one the demo reaches) or NOT YET (the chat that has it is the card's lane). Made by tools/bohemia_run2_yes_in_the_demo.js from the registry, the carriers and the demo's own cut; never typed by hand. The deploy re-makes it after it cuts the demo.",
+ "made": "2026-10-19T00:48Z",
+ "stamp": "DEMO - BUILD 10/18c - THE STREETS JOIN, THE GANGS WEAR THE RIG",
+ "build": "10/18c",
+ "reached": 430,
+ "rows": [
+  {
+   "id": "run-the-map-people-come-baked-10-13",
+   "title": "YOUR PARTY MOVES 16 SECONDS AFTER THE LINK, NOT 33",
+   "lane": "RUN",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_DEMO.html"
+  },
+  {
+   "id": "cook-the-whole-bank-10-13",
+   "title": "EVERYTHING YOU OWN, IN ONE SCROLL, FOR THE FIRST TIME",
+   "lane": "COOK",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook2-stretch-the-pack-47-10-13",
+   "title": "CANDIDATE: SIDEWALKS OF ANY SHAPE, EVERY CORNER CONNECTED, FROM YOUR OWN TILES",
+   "lane": "COOK 2",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-straight-roof-10-13",
+   "title": "PLACEHOLDER: THE RANCH WITH STRAIGHT ROOFS, NO TRIANGLES",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat-both-teams-the-map-not-black-10-11",
+   "title": "BOTH TEAMS, AND THE MAP AROUND THEM",
+   "lane": "COMBAT",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_FIGHT.html"
+  },
+  {
+   "id": "ui-the-flip-off-the-face-10-11",
+   "title": "THE SWITCH IS IN THE PHONE'S MENU NOW",
+   "lane": "UI",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "sounds-the-night-has-insects-10-5",
+   "title": "THE NIGHT HAS INSECTS",
+   "lane": "SOUNDS",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "direction-the-face-performs-10-17",
+   "title": "PLACEHOLDER: A FREE ROBOT WALKS IN EIGHT, IDLES ON THE BEAT, AND ITS FACE CHANGES",
+   "lane": "DIRECTION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "direction-the-look-at-the-source-10-17",
+   "title": "PLACEHOLDER: THE RIG'S RENDER STOPS BEING A TOY, BEFORE AND AFTER",
+   "lane": "DIRECTION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat-the-formation-is-kept-10-16",
+   "title": "YOUR LINE IS KEPT FROM FIGHT TO FIGHT",
+   "lane": "COMBAT",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_FIGHT.html"
+  },
+  {
+   "id": "ui-one-screen-10-17",
+   "title": "FINAL? ONE BAR ON THE MAP, THE SETTLEMENT AND THE FIGHT",
+   "lane": "UI",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "sounds-the-settlement-heard-whole-10-17",
+   "title": "THE SETTLEMENT HEARD WHOLE, FROM REAL RECORDINGS",
+   "lane": "SOUNDS",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-corner-shop-straight-roof-10-17",
+   "title": "PLACEHOLDER: THE CORNER SHOP, TWO STOREYS UNDER THE MEASURED STRAIGHT ROOF",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "animation-the-beast-in-eight-10-17",
+   "title": "PLACEHOLDER: THE DIRE WOLF IN EIGHT, IDLE, STEP AND BITE",
+   "lane": "ANIMATION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "eyes-the-maps-four-numbers-10-17",
+   "title": "THE MAP'S FOUR NUMBERS, OURS BESIDE BATTLE BROTHERS': 3 MET, 1 HALF, 1 SHORT, AND THE FAR STOP IS THE MOON",
+   "lane": "EYES AND EARS",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "no game file"
+  },
+  {
+   "id": "eyes-the-eight-red-cards-read-10-17",
+   "title": "EYES READ THE EIGHT RED CARDS: SEVEN YOU CAN SEE OR HEAR, ONE IS ONLY WORDS",
+   "lane": "EYES AND EARS",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "no game file"
+  },
+  {
+   "id": "combat-guns-need-two-tiles-10-16",
+   "title": "GUNS FROM TWO TILES",
+   "lane": "COMBAT",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "records/target/bb/ours.json"
+  },
+  {
+   "id": "ui-the-phones-crack-10-16",
+   "title": "FINAL? THE PHONE'S CRACK, FROM YOUR PACK",
+   "lane": "UI",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run-the-region-10-16",
+   "title": "THE MAP GOES PAST THE CITY: 496 BLOCKS, TWELVE TOWNS",
+   "lane": "RUN",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook-the-two-holes-in-pixels-10-16",
+   "title": "THE TWO HOLES, PROVEN IN PIXELS INSTEAD OF IN PACK NAMES",
+   "lane": "COOK",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "character-is-the-height-range-real-10-16",
+   "title": "THE SHORT-TO-TALL SLIDER NEVER ACTUALLY GOT WIDER",
+   "lane": "CHARACTER",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-straight-roof-family-10-17",
+   "title": "PLACEHOLDER: THE STRAIGHT-ROOF FAMILY, FIVE KINDS OF THE RANCH AT TRUE SIZE",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-roof-measured-10-16",
+   "title": "PLACEHOLDER: THE RANCH'S ROOF, SHAPED BY YOUR PACK HOUSE'S NUMBERS",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook2-stretch-the-pack-recolour-10-16",
+   "title": "CANDIDATE: WHOSE STREET IS IT, YOUR ZEBRA AND BARRICADE IN EACH FACTION'S COLOUR",
+   "lane": "COOK 2",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat-zone-of-control-is-melee-only-10-13",
+   "title": "A GUNMAN HOLDS NO RING",
+   "lane": "COMBAT",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "records/target/bb/ours.json"
+  },
+  {
+   "id": "ui-the-six-at-pack-pixels-10-13",
+   "title": "FINAL? THE SIX SUPPLIES CUT FROM YOUR PACKS, AND A CREW BUTTON",
+   "lane": "UI",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "animation-ragdoll-10-13",
+   "title": "FINAL? THE RAGDOLL",
+   "lane": "ANIMATION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook2-stretch-the-pack-crossing-10-11",
+   "title": "CANDIDATE: A WHOLE STREET CROSSING FROM YOUR OWN TILES, NOTHING DRAWN",
+   "lane": "COOK 2",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook2-one-at-a-time-the-curb-10-11",
+   "title": "FINAL? THE SIDEWALK STANDS UP OFF THE STREET",
+   "lane": "COOK 2",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-motel-10-11",
+   "title": "PLACEHOLDER: THE MOTEL, SIX ROOMS AND THE OFFICE",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-corner-shop-10-11",
+   "title": "PLACEHOLDER: THE CORNER SHOP, TWO STOREYS, ITS FLAT ROOF SEEN FROM ABOVE",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat2-the-casino-floor-10-9",
+   "title": "A FIGHT INSIDE A DEAD CASINO",
+   "lane": "COMBAT 2",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-a-house-a-man-can-live-in-10-11",
+   "title": "PLACEHOLDER: A HOUSE A MAN CAN LIVE IN, ROOF TOP AND FRONT AT 45 DEGREES",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "sounds-the-boards-own-nail-10-5",
+   "title": "THE BOARD'S OWN NAIL",
+   "lane": "SOUNDS",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "no game file"
+  },
+  {
+   "id": "sounds-the-barbers-clippers-10-5",
+   "title": "THE BARBER'S CLIPPERS",
+   "lane": "SOUNDS",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "no game file"
+  },
+  {
+   "id": "cook4-the-family-in-the-valley-tans-10-18",
+   "title": "PLACEHOLDER: THE STRAIGHT-ROOF FAMILY IN THE VALLEY'S TANS, NOTHING BRIGHT",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "animation-ragdoll-hits-10-17",
+   "title": "PLACEHOLDER: THE RAGDOLL'S HITS, A SHOT, A CLUB, A FALL FROM A ROOF",
+   "lane": "ANIMATION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook2-one-real-street-10-18",
+   "title": "CANDIDATE: ONE REAL LAS VEGAS STREET FROM YOUR OWN TILES, THE HOUSES WITH THE TAN ROOFS",
+   "lane": "COOK 2",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook3-the-thug-through-the-rig-10-18",
+   "title": "THE THUG, BUILT AS A 3D MODEL AND TURNED INTO PIXELS LIKE THE ROBOT",
+   "lane": "COOK 3",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run2-who-is-wearing-what-10-18",
+   "title": "WHO IS WEARING WHAT: EVERY MAN'S FOUR SLOTS FILLED, TAP ONE TO SWAP FROM THE BAG",
+   "lane": "RUN 2",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "engine/bohemia_roster.js"
+  },
+  {
+   "id": "sounds-a-desert-not-a-rainforest-10-18",
+   "title": "A DESERT, NOT A RAINFOREST",
+   "lane": "SOUNDS",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_FIGHT.html"
+  },
+  {
+   "id": "direction-the-look-bible-everything-the-same-10-18",
+   "title": "PLACEHOLDER: THE ROBOT, THE TRUCK, A MAN, A BEAST AND A DRUM FROM ONE TABLE",
+   "lane": "DIRECTION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "animation-the-wolf-redone-10-18",
+   "title": "PLACEHOLDER: THE DIRE WOLF REDONE, IDLE, STEP AND BITE IN EIGHT",
+   "lane": "ANIMATION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run2-faces-not-tiny-bodies-10-18",
+   "title": "YOUR COMPANY SHOWS FACES, NOT TINY BODIES",
+   "lane": "RUN 2",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "no game file"
+  },
+  {
+   "id": "ui-no-browser-defaults-10-18",
+   "title": "THE SCREENS LOSE THE PHONE-APP LOOK",
+   "lane": "UI",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook-props-through-the-rig-10-18",
+   "title": "PLACEHOLDER: A LAMP POST, A MACHINE GUN AND A WRECKED CAR, MADE THE CLAY WAY THE TRUCK WAS",
+   "lane": "COOK",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "commit not read"
+  },
+  {
+   "id": "sounds-the-map-hears-the-desert-10-18",
+   "title": "THE MAP SOUNDS LIKE THE DESERT",
+   "lane": "SOUNDS",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_DEMO.html"
+  },
+  {
+   "id": "animation-the-shadow-line-and-the-choppy-fall-10-18",
+   "title": "PLACEHOLDER: NO SHADOW LINE BEHIND YOU, AND A QUICKER, SMOOTHER FALL",
+   "lane": "ANIMATION",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "combat-no-coloured-outline-10-18",
+   "title": "NO BLUE OR ORANGE LINE AROUND YOUR MEN",
+   "lane": "COMBAT",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "records/target/bb/ours.json"
+  },
+  {
+   "id": "character-the-print-and-the-hands-10-18",
+   "title": "THE GANG PRINTS ON THE 3D CLOTHES, AND HANDS WITH A THUMB",
+   "lane": "CHARACTER",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "character-the-thirteen-through-the-rig-10-18",
+   "title": "THE THIRTEEN GANG LOOKS, BUILT AS 3D MODELS LIKE THE ROBOT",
+   "lane": "CHARACTER",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run-the-rig-truck-on-the-map-10-18",
+   "title": "THE RIG'S TRUCK DRIVES THE MAP IN THE DEMO",
+   "lane": "RUN",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "cook3-the-marksman-through-the-rig-10-18",
+   "title": "THE MARKSMAN, A 3D MODEL WITH HIS RIFLE SLUNG OVER HIS SHOULDER",
+   "lane": "COOK 3",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "portrait-the-poachers-face-from-the-same-model-10-18",
+   "title": "PLACEHOLDER: THE POACHER'S FACE, A 3D HEAD UNDER A FIELD HAT ON HIS OWN BODY, THAT TALKS",
+   "lane": "PORTRAIT",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "portrait-the-face-from-the-same-model-10-18",
+   "title": "PLACEHOLDER: THE THUG'S FACE, BUILT AS A 3D HEAD ON HIS OWN BODY, THAT TALKS AND FROWNS",
+   "lane": "PORTRAIT",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "sounds-the-settlement-sounds-real-in-the-game-10-18",
+   "title": "THE SETTLEMENT SOUNDS REAL, IN THE GAME",
+   "lane": "SOUNDS",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "engine/bohemia_settlement_heard.js"
+  },
+  {
+   "id": "ui-the-phones-apps-10-18",
+   "title": "THE PHONE OPENS ON ITS APPS",
+   "lane": "UI",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "tuning-the-numbers-around-the-fight-10-18",
+   "title": "THE NUMBERS AROUND THE FIGHT",
+   "lane": "TUNING",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-warehouse-10-18",
+   "title": "PLACEHOLDER: THE WAREHOUSE UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-gas-station-10-18",
+   "title": "PLACEHOLDER: THE GAS STATION UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-motel-straight-roof-10-18",
+   "title": "PLACEHOLDER: THE MOTEL UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "lane": "COOK 4",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat2-the-five-houses-on-the-board-10-18",
+   "title": "CANDIDATE: THE THREE FIGHT BOARDS AGAIN, NOW WITH ALL FIVE TAN HOUSES",
+   "lane": "COMBAT 2",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "direction-the-hand-finish-10-18",
+   "title": "PLACEHOLDER: HOW MUCH A HAND CHANGES THE ROBOT AFTER THE RENDER",
+   "lane": "DIRECTION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "direction-the-style-guide-do-and-dont-10-18",
+   "title": "PLACEHOLDER: THE STYLE GUIDE, ONE RIGHT AND ONE WRONG FOR EVERY RULE",
+   "lane": "DIRECTION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run2-the-arrival-10-18",
+   "title": "THE ARRIVAL: THE TOWN'S NAME, ITS ELDER'S LINE AND WHAT IT THINKS OF YOU, TWO SECONDS, THEN THE PLACE",
+   "lane": "RUN 2",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_SETTLEMENT_SCREEN.html"
+  },
+  {
+   "id": "direction-the-rig-round-five-10-18",
+   "title": "PLACEHOLDER: THE TRUCK WITHOUT THE FROST, AND THE ROBOT FINISHED BY HAND",
+   "lane": "DIRECTION",
+   "when": "10/17",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "sounds-the-title-is-the-desert-10-18",
+   "title": "THE TITLE IS THE DESERT",
+   "lane": "SOUNDS",
+   "when": "10/17",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_FIGHT.html"
+  },
+  {
+   "id": "eyes-the-new-cut-measured-10-18",
+   "title": "THE NEW DEMO CUT, MEASURED: BETTER ON EVERY WALK NUMBER, AND THE RIG TRUCK COSTS NOTHING",
+   "lane": "EYES AND EARS",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "direction-the-truck-turned-up-10-18",
+   "title": "PLACEHOLDER: THE TRUCK, NOT A PLAY TOY",
+   "lane": "DIRECTION",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "ui-the-phones-front-screen-10-18",
+   "title": "THE PHONE'S FRONT SCREEN, REDONE",
+   "lane": "UI",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "sounds-the-steps-from-a-recording-10-18",
+   "title": "REAL SHOES ON THE MAP",
+   "lane": "SOUNDS",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat-the-fat-map-no-blue-10-18",
+   "title": "THE FAT MAP SIDEWAYS, NO BLUE",
+   "lane": "COMBAT",
+   "when": "10/18",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_FIGHT.html"
+  },
+  {
+   "id": "cook-fight-props-through-the-rig-10-18",
+   "title": "PLACEHOLDER: A CONCRETE BARRIER, A DUMPSTER, A SHOPPING CART AND A PILE OF TYRES FOR THE FIGHT, MADE THE CLAY WAY",
+   "lane": "COOK",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run2-the-starred-faces-10-18",
+   "title": "THE OLD FACES ARE OUT: YOUR CREW AND THE LOT WEAR THE CLAY RIG",
+   "lane": "RUN 2",
+   "when": "10/18",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_ROSTER_SCREEN.html"
+  },
+  {
+   "id": "cook3-the-poachers-body-again-10-18",
+   "title": "THE POACHER'S BODY AGAIN, UNDER THE FACE YOU STARRED",
+   "lane": "COOK 3",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "character-the-walk-of-every-look-10-18",
+   "title": "ALL FOURTEEN 3D LOOKS WALK, IN ALL EIGHT DIRECTIONS",
+   "lane": "CHARACTER",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "tuning-easier-than-battle-brothers-10-18",
+   "title": "EASIER THAN BATTLE BROTHERS",
+   "lane": "TUNING",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "tuning-how-long-a-life-is-10-18",
+   "title": "HOW LONG A LIFE IS",
+   "lane": "TUNING",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-school-10-18",
+   "title": "PLACEHOLDER: THE SCHOOL UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "lane": "COOK 4",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat2-the-board-cut-from-the-map-10-18",
+   "title": "CANDIDATE: THE FIGHT BOARD CUT FROM THE MAP: A STREET, A YARD, A LOT",
+   "lane": "COMBAT 2",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "portrait-every-face-from-the-same-model-10-18",
+   "title": "PLACEHOLDER: YOUR WHOLE CREW GETS THE STARRED FACE, 13 HEADS BUILT ON THEIR OWN BODIES, ALL TALKING",
+   "lane": "PORTRAIT",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "commit not read"
+  },
+  {
+   "id": "cook2-the-street-joins-for-the-map-10-18",
+   "title": "CANDIDATE: THE STREETS JOIN ACROSS DISTRICTS ON THE MAP, FROM YOUR OWN TILES",
+   "lane": "COOK 2",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "cook4-the-church-10-18",
+   "title": "PLACEHOLDER: THE CHURCH UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "lane": "COOK 4",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "animation-the-feral-dog-pack-10-18",
+   "title": "PLACEHOLDER: THE FERAL DOG PACK, ALL THREE, IDLE, STEP AND BITE IN EIGHT, HELD LIKE STOP-MOTION",
+   "lane": "ANIMATION",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "sounds-over-the-ridge-10-18",
+   "title": "A NEW SONG FOR THE TITLE",
+   "lane": "SOUNDS",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run-the-streets-join-10-18",
+   "title": "THE MAP'S STREETS JOIN UP AND THE NEIGHBOURHOODS GO TAN",
+   "lane": "RUN",
+   "when": "10/18",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "run2-the-fresh-portraits-10-18",
+   "title": "FRESH PORTRAITS ON YOUR CREW, NO MORE ZOOM ON THE CLAY MODEL'S FACE",
+   "lane": "RUN 2",
+   "when": "10/18",
+   "star": false,
+   "state": "in",
+   "by": "engine/bohemia_crew_faces.js"
+  },
+  {
+   "id": "run-the-gangs-wear-the-rig-10-18",
+   "title": "THE GANGS ON THE MAP WEAR THEIR 3D MODELS",
+   "lane": "RUN",
+   "when": "10/18",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "tuning-easier-measured-10-18",
+   "title": "EASIER, MEASURED",
+   "lane": "TUNING",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat2-a-board-you-read-in-one-look-10-18",
+   "title": "CANDIDATE: THE SAME THREE FIGHT BOARDS, WITH EVERYTHING THAT DOES NOTHING IN A FIGHT TAKEN OFF",
+   "lane": "COMBAT 2",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "combat-the-marks-on-the-board-10-18",
+   "title": "THE MARKS ON THE FIGHT'S GROUND: CHALK, TAPE AND RUST PAINT",
+   "lane": "COMBAT",
+   "when": "10/18",
+   "star": false,
+   "state": "in",
+   "by": "slices/BOHEMIA_FIGHT.html"
+  },
+  {
+   "id": "cook4-the-casino-10-18",
+   "title": "PLACEHOLDER: THE CASINO UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "lane": "COOK 4",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run2-the-boards-people-10-18",
+   "title": "EVERY TOWN'S BOARD HAS ITS OWN PEOPLE NOW, NOT THE SAME FOUR",
+   "lane": "RUN 2",
+   "when": "10/18",
+   "star": false,
+   "state": "in",
+   "by": "records/target/BOHEMIA_BOARD_SHELF.json"
+  },
+  {
+   "id": "cook-the-block-wars-cover-10-18",
+   "title": "PLACEHOLDER: SANDBAGS, A FENCE AND GATE, A SHIPPING CONTAINER, A PROPANE TANK, A RUBBLE HEAP AND A CART CORRAL FOR THE CITY FIGHT, MADE THE CLAY WAY",
+   "lane": "COOK",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "character-the-barber-on-the-skull-10-18",
+   "title": "THE BARBER'S CUTS ON THE STARRED FACE: A TAPER, COILS AND A LAYERED FALL",
+   "lane": "CHARACTER",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "direction-the-rig-round-six-10-18",
+   "title": "PLACEHOLDER: THE ROBOT MOVES, AND THE FIRST PERSON FROM THE SAME MACHINE",
+   "lane": "DIRECTION",
+   "when": "10/18",
+   "star": false,
+   "state": "not",
+   "by": "nothing the demo loads"
+  },
+  {
+   "id": "run2-the-bar-names-the-news-10-18",
+   "title": "THE BARTENDER TELLS YOU WHAT IS GOING ON IN THE NEXT TOWN, FREE",
+   "lane": "RUN 2",
+   "when": "10/18",
+   "star": false,
+   "state": "in",
+   "by": "records/target/BOHEMIA_BAR_NEWS_PLACES.json"
+  }
+ ]
+}

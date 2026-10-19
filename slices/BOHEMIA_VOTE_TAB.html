@@ -129,6 +129,17 @@
  #full img{ position:absolute; left:0; top:0; transform-origin:0 0; max-width:none; max-height:none; border:0;
             image-rendering:pixelated; pointer-events:none; -webkit-user-drag:none }
  #full img.soft{ image-rendering:auto }
+ /* HIS YESES IN THE DEMO (RUN TWO): under the comment box, one line per YES since 10/16, never above the fold */
+ #yeses{ margin:0 12px 44px; padding:12px; background:var(--card); border:2px solid var(--rule); border-radius:5px }
+ #yeses[hidden]{ display:none }
+ #yeses h2{ margin:0 0 4px; font-size:13px; letter-spacing:1.5px; color:var(--dim); font-weight:700 }
+ #yeses .sum{ margin:0 0 8px; font-size:15px; font-weight:700 }
+ #yeses .yl{ display:flex; gap:8px; align-items:baseline; padding:5px 0; border-top:1px dashed var(--rule); font-size:13px; line-height:1.35 }
+ #yeses .yt{ flex:0 0 auto; font-size:10px; letter-spacing:1px; font-weight:700; padding:2px 5px; border-radius:3px; color:var(--paper) }
+ #yeses .yl.in .yt{ background:var(--cool) }
+ #yeses .yl.not .yt{ background:var(--dim) }
+ #yeses .yn{ flex:1 1 auto; min-width:0; overflow-wrap:anywhere }
+ #yeses .yw{ color:var(--dim); font-size:12px }
  #full .hint{ position:absolute; left:0; right:0; bottom:calc(12px + env(safe-area-inset-bottom,0px)); text-align:center;
               font-size:12px; letter-spacing:1.5px; color:#f2ece1; text-shadow:0 1px 2px #000, 0 0 6px #000; pointer-events:none }
 </style></head><body>
@@ -161,6 +172,7 @@
   </div>
   <div id="saidit"></div>
 </div>
+<div id="yeses" hidden></div>
 </div>
 
 <script>
@@ -179,6 +191,7 @@
   var theirs = {};    /* id -> verdict from the registry */
   var items = [];
   var lastGone = null;
+  var lastReg = null;   /* the registry as read, for the YES list at the foot */
   /* THE SORT (UI [the triage filter], rule 92): records/target/BOHEMIA_VOTE_TRIAGE.json is the coordinator's file. RED
      he sees first; then anything the coordinator has NOT tagged yet, both newest first, together at most the file's cap
      (twelve); YELLOW and whatever is past the cap wait behind one fold that says MORE with its count; GREEN (the lane's
@@ -460,6 +473,7 @@
            : v === 'up' ? 'Yes on ' + (it.title || it.id) + '.'
                       : 'No on ' + (it.title || it.id) + '.');
       tally();
+      if(lastReg) drawYes(lastReg);   /* a YES joins the list at the foot the second he taps */
     }
     up.addEventListener('click', function(){ vote('up'); });
     dn.addEventListener('click', function(){ vote('down'); });
@@ -612,6 +626,59 @@
     }
   }
 
+  /* ---------- HIS YESES IN THE DEMO ----------
+     RUN TWO [his yeses in the demo], Paolo 10/18 ('the demo has not been fixed and updated in a long time'; rule 118: he
+     sees the truth, not anybody's word). Every YES since 10/16 is one line under the comment box: IN THE DEMO with the
+     build stamp the demo is serving right now, or NOT YET with the chat that has it. NOTHING HERE IS TYPED: the YES
+     votes are the registry's (and this phone's, the second he taps), IN or NOT YET is records/target/BOHEMIA_YES_IN_THE_DEMO.json
+     (made by tools/bohemia_run2_yes_in_the_demo.js from each card's commits and what the demo's own cut loads; the deploy
+     re-makes it right after it cuts the demo), and the stamp is the one line the cut writes beside the demo. A YES the
+     machine has not read yet says NOT YET: it never says IN on a guess. */
+  var YES_URL = '../records/target/BOHEMIA_YES_IN_THE_DEMO.json', STAMP_URL = 'BOHEMIA_DEMO_STAMP.txt', YES_SINCE = 1016;
+  function getText(u){ return fetch(u, { cache: 'no-store' }).then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); }).catch(function(){ return null; }); }
+  function plainTitle(t){
+    t = String(t || '').replace(/^(CANDIDATE|PLACEHOLDER|REDO(NE)?|NEW)\b[^:]{0,30}:\s*/i, '');
+    return t.length > 72 ? t.slice(0, 70).replace(/\s+\S*$/, '') + '…' : t;
+  }
+  function drawYes(reg){
+    var box = document.getElementById('yeses'); if(!box) return;
+    Promise.all([getText(YES_URL), getText(STAMP_URL)]).then(function(got){
+      var made = null; try{ made = got[0] ? JSON.parse(got[0]) : null; }catch(e){ made = null; }
+      var state = {}; ((made && made.rows) || []).forEach(function(r){ if(r && r.id) state[r.id] = r; });
+      var stamp = String(got[1] || (made && made.stamp) || '').trim();
+      var build = (stamp.match(/BUILD\s+(\S+)/) || [])[1] || (made && made.build) || '';
+      var cards = {}; ((reg && reg.items) || []).forEach(function(it){ if(it && it.id) cards[it.id] = it; });
+      var seen = {}, rows = [];
+      function add(id, v){
+        if(!v || v.vote !== 'up' || seen[id] || madeOf({ made: v.when }) < YES_SINCE) return;
+        seen[id] = true;
+        var it = cards[id] || {}, m = state[id];
+        rows.push({ id: id, title: plainTitle(it.title || v.title || id), lane: String(it.lane || v.lane || '?').toUpperCase(),
+                    star: !!v.star, inDemo: !!(m && m.state === 'in') });
+      }
+      ((reg && reg.verdicts) || []).forEach(function(v){ if(v) add(v.id, v); });
+      Object.keys(mine).forEach(function(id){ add(id, mine[id]); });   /* a YES on this phone the registry has not caught yet */
+      box.textContent = '';
+      if(!rows.length){ box.hidden = true; return; }
+      var ins = rows.filter(function(r){ return r.inDemo; }), nots = rows.filter(function(r){ return !r.inDemo; });
+      var h = document.createElement('h2'); h.textContent = 'YOUR YESES SINCE 10/16'; box.appendChild(h);
+      var s = document.createElement('p'); s.className = 'sum';
+      s.textContent = ins.length + ' of ' + rows.length + ' are in the demo' + (build ? ' (build ' + build + ').' : '.');
+      box.appendChild(s);
+      ins.concat(nots).forEach(function(r){
+        var l = document.createElement('div'); l.className = 'yl ' + (r.inDemo ? 'in' : 'not'); l.setAttribute('data-id', r.id);
+        var t = document.createElement('span'); t.className = 'yt'; t.textContent = r.inDemo ? 'IN THE DEMO' : 'NOT YET'; l.appendChild(t);
+        var n = document.createElement('span'); n.className = 'yn';
+        n.appendChild(document.createTextNode((r.star ? '★ ' : '') + r.title));
+        var w = document.createElement('span'); w.className = 'yw';
+        w.textContent = r.inDemo ? (build ? '  · build ' + build : '') : '  · ' + r.lane + ' has it';
+        n.appendChild(w); l.appendChild(n); box.appendChild(l);
+      });
+      box.hidden = false;
+      window.__yesReady = true;
+    });
+  }
+
   /* the sort is read beside the list; if it cannot be read the tab shows everything, never nothing */
   var triage = fetch(TRI_URL, { cache: 'no-store' })
     .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
@@ -625,6 +692,7 @@
       ((d && d.verdicts) || []).forEach(function(v){ if(v && v.id) theirs[v.id] = v; });
       draw();
       window.__voteReady = true;
+      lastReg = d; drawYes(d);
     })
     .catch(function(e){ fail(String(e.message || e)); window.__voteReady = true; });
 })();

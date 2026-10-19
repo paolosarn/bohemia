@@ -1,0 +1,1458 @@
+{
+ "_readme": "RUN TWO [his yeses in the demo]: for each VOTE card's commit (its sha), the files it changed that the game could load. Made by tools/bohemia_run2_yes_in_the_demo.js from git, never by hand; a commit's files never change, so rows are kept across runs. missing: shas no history this tool could reach holds (a sha from a branch that never reached main, a rebased one, a typo).",
+ "made": "2026-10-19T00:47Z",
+ "missing": [
+  "0de2a7d8",
+  "10fa31c",
+  "128303d",
+  "19ca5ab",
+  "1acc9ba",
+  "228818a1",
+  "2b9a30a",
+  "2e0904f",
+  "3131d9c0",
+  "35f54d4",
+  "36e447ad",
+  "3e54ff6",
+  "47e7de8",
+  "491c39db",
+  "4feaa9e",
+  "544c044",
+  "5851df0",
+  "617f77c",
+  "62aea60f",
+  "6a7fc7e9",
+  "73bc976f",
+  "831e371f",
+  "83c63880",
+  "8f060a5",
+  "951b5b38",
+  "9c12b4aa",
+  "a9c56cb3",
+  "b1c7340",
+  "b223c17",
+  "c65045c5",
+  "e572fc01",
+  "ec5d7420",
+  "f8eef5f",
+  "f91a6dc3",
+  "ff9a9768"
+ ],
+ "bySha": {
+  "4042841": [
+   "records/target/COOK4_THE_FAMILY_IN_THE_VALLEY_TANS.png",
+   "records/target/COOK4_THE_STRAIGHT_ROOF_FAMILY.png",
+   "records/target/COOK4_THE_ROOF_MEASURED.png",
+   "records/target/COOK4_THE_STRAIGHT_ROOF.png",
+   "records/target/COOK4_A_HOUSE_A_MAN_CAN_LIVE_IN.png"
+  ],
+  "6935013": [
+   "records/target/COOK4_THE_CASINO.png"
+  ],
+  "8267732": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "8372204": [
+   "slices/BOHEMIA_TUNING_THE_TWENTY_FIELDS_10_18_26.html"
+  ],
+  "45442339": [
+   "slices/"
+  ],
+  "56340237": [],
+  "83769842": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_WHAT_THIS_VALLEY_STRIKES_9_24_26.html"
+  ],
+  "e2387a9c": [
+   "records/target/COOK2_THE_CURB_ON_THE_MAP.webp",
+   "records/target/COOK2_THE_JOINS_LAID_TOPDOWN_HALF.webp",
+   "records/target/COOK2_THE_STREET_JOINS_FOR_THE_MAP.webp",
+   "records/target/COOK2_THE_STREET_JOINS_MAP_CAMERA.png",
+   "records/target/cook2_map_curb/",
+   "records/target/cook2_map_curb/shots/.gitignore",
+   "records/target/cook2_map_curb/shots/shots.json",
+   "records/target/cook2_map_joins/COOK2_MAP_JOINS_KIT.json",
+   "records/target/cook2_map_joins/J1_SEAM_SUBURB_TO_WORKS_ARTERIAL.png",
+   "records/target/cook2_map_joins/J2_CELL_LOCAL_RUNS_OUT_INTO_DESERT.png",
+   "records/target/cook2_map_joins/J3A_CELL_ARTERIAL_TURNS_ONTO_THE_RAMP.png",
+   "records/target/cook2_map_joins/J3B_CELL_RAMP_MERGES_GORE.png",
+   "records/target/cook2_map_joins/J4_SEAM_WORKS_TO_DESERT_ARTERIAL.png",
+   "records/target/cook2_map_joins/J5_SEAM_TRACT_WALL_SIDEWALK_ENDS.png"
+  ],
+  "2f04f642": [
+   "records/target/COOK2_THE_JOINS_LAID_TOPDOWN_HALF.webp",
+   "records/target/COOK2_THE_STREET_JOINS_FOR_THE_MAP.webp",
+   "records/target/COOK2_THE_STREET_JOINS_MAP_CAMERA.png",
+   "records/target/cook2_map_joins/COOK2_MAP_JOINS_KIT.json",
+   "records/target/cook2_map_joins/J1_SEAM_SUBURB_TO_WORKS_ARTERIAL.png",
+   "records/target/cook2_map_joins/J2_CELL_LOCAL_RUNS_OUT_INTO_DESERT.png",
+   "records/target/cook2_map_joins/J3A_CELL_ARTERIAL_TURNS_ONTO_THE_RAMP.png",
+   "records/target/cook2_map_joins/J3B_CELL_RAMP_MERGES_GORE.png",
+   "records/target/cook2_map_joins/J4_SEAM_WORKS_TO_DESERT_ARTERIAL.png",
+   "records/target/cook2_map_joins/J5_SEAM_TRACT_WALL_SIDEWALK_ENDS.png"
+  ],
+  "80a793a": [
+   "records/target/BOHEMIA_STYLE_GUIDE.json",
+   "records/target/direction_rig_round_five/DIRECTION_THE_RIG_ROUND_FIVE.png",
+   "records/target/direction_rig_round_five/report.json",
+   "records/target/direction_rig_round_five/drum/",
+   "records/target/direction_rig_round_five/drum_seed2/",
+   "records/target/direction_rig_round_five/robot/",
+   "records/target/direction_rig_round_five/truck/"
+  ],
+  "62b9a06": [
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html"
+  ],
+  "077f30f": [
+   "records/target/BOHEMIA_STYLE_GUIDE.json",
+   "records/target/BOHEMIA_STYLE_PALETTE.json",
+   "records/target/direction_style_guide/.gitignore",
+   "records/target/direction_style_guide/DIRECTION_THE_HAND_FINISH_RAW_AND_FINISHED.png",
+   "records/target/direction_style_guide/DIRECTION_THE_LOOK_BIBLE_EVERYTHING_THE_SAME.png",
+   "records/target/direction_style_guide/DIRECTION_THE_STYLE_GUIDE_DO_AND_DONT.png",
+   "records/target/direction_style_guide/dont_clean_surface/",
+   "records/target/direction_style_guide/dont_light_from_below/",
+   "records/target/direction_style_guide/drum/",
+   "records/target/direction_style_guide/drum_seed2/",
+   "records/target/direction_style_guide/fox/",
+   "records/target/direction_style_guide/man/",
+   "records/target/direction_style_guide/robot/",
+   "records/target/direction_style_guide/truck/"
+  ],
+  "7bbf1c9a": [
+   "slices/",
+   "slices/fonts/BohemiaBody-Regular.ttf",
+   "slices/fonts/BohemiaBody-Regular.woff2",
+   "slices/fonts/BohemiaCasing-Regular.ttf",
+   "slices/fonts/BohemiaCasing-Regular.woff2",
+   "slices/fonts/BohemiaROM-Regular.ttf",
+   "slices/fonts/BohemiaROM-Regular.woff2",
+   "slices/look/"
+  ],
+  "5c596665": [
+   "slices/",
+   "slices/fonts/BohemiaROM-Regular.ttf",
+   "slices/fonts/BohemiaROM-Regular.woff2",
+   "slices/fonts/BohemiaBody-Regular.ttf",
+   "slices/fonts/BohemiaBody-Regular.woff2",
+   "slices/fonts/BohemiaCasing-Regular.ttf",
+   "slices/fonts/BohemiaCasing-Regular.woff2",
+   "slices/look/"
+  ],
+  "69a221db": [
+   "slices/",
+   "slices/fonts/BohemiaBody-Regular.ttf",
+   "slices/fonts/BohemiaBody-Regular.woff2",
+   "slices/fonts/BohemiaROM-Regular.ttf",
+   "slices/fonts/BohemiaROM-Regular.woff2",
+   "slices/fonts/BohemiaCasing-Regular.ttf",
+   "slices/fonts/BohemiaCasing-Regular.woff2",
+   "slices/look/"
+  ],
+  "ae12177f": [
+   "slices/",
+   "slices/fonts/BohemiaBody-Regular.ttf",
+   "slices/fonts/BohemiaBody-Regular.woff2",
+   "slices/fonts/BohemiaCasing-Regular.ttf",
+   "slices/fonts/BohemiaCasing-Regular.woff2",
+   "slices/fonts/BohemiaROM-Regular.ttf",
+   "slices/fonts/BohemiaROM-Regular.woff2",
+   "slices/look/"
+  ],
+  "36912b2f": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_FIVE_WAYS_A_CHOICE_FITS_9_13_26.html"
+  ],
+  "709c309e": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_FIVE_WAYS_FOUR_BUTTONS_FIT_9_13_26.html"
+  ],
+  "9d24205a": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_FIVE_WAYS_ONE_DOOR_9_14_26.html"
+  ],
+  "4d49fe0": [
+   "records/target/cook3/COOK3_THE_POACHERS_BODY_AGAIN.png",
+   "records/target/cook3/rig/poacher_again/"
+  ],
+  "5c5ae7af": [
+   "records/target/COOK_EVERY_PROP_AT_ONE_TO_ONE_9_18_26.png",
+   "records/target/COOK_CAR_AT_ONE_TO_ONE_9_16_26.png",
+   "records/target/COOK_CARFAIL_BARREL_9_15_26.png",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_PROPS.js",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "1a6a6c2": [],
+  "cdacaf1": [],
+  "437034d": [],
+  "ce187ea": [],
+  "1fb0eaec": [],
+  "2d512a9": [],
+  "d7b9b32b": [
+   "slices/"
+  ],
+  "9b690dec": [
+   "engine/bohemia_notice.js",
+   "slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+  ],
+  "534d87a": [
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "b09052a2": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "f33a393": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "748a68fa": [],
+  "440be55": [
+   "engine/bohemia_ask_spoken.js",
+   "slices/BOHEMIA_SOMEBODY_ASKS_YOU_9_21_26.html",
+   "slices/BOHEMIA_ARGUING_THE_PRICE_9_21_26.html"
+  ],
+  "370820aa": [
+   "records/target/DIRECTION_FIGHT_VERDICT_1_THE_FIGHT_9_20_26.png",
+   "records/target/DIRECTION_FIGHT_VERDICT_1_THE_STREET_9_20_26.png",
+   "records/target/combat/FIGHT_VERDICT_ROUND_3_SHEET.png"
+  ],
+  "374c27bc": [
+   "engine/bohemia_notice.js",
+   "engine/bohemia_watch.js",
+   "slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+  ],
+  "370c7a6": [
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "dcd19275": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_THE_STREET_AT_THREE_HOURS_9_21_26.html"
+  ],
+  "c01a41cb": [
+   "engine/bohemia_notice.js",
+   "engine/bohemia_strike.js",
+   "slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+  ],
+  "f4be334": [
+   "engine/bohemia_notice.js",
+   "engine/bohemia_tract.js",
+   "slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+  ],
+  "90d9827": [],
+  "905a05b": [
+   "engine/bohemia_ask_spoken.js",
+   "slices/BOHEMIA_ARGUING_THE_PRICE_9_21_26.html",
+   "slices/BOHEMIA_SOMEBODY_ASKS_YOU_9_21_26.html"
+  ],
+  "4e408b5": [
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "9e236045": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_THE_ONE_WHO_WALKS_WITH_YOU_9_21_26.html"
+  ],
+  "d7488bf": [],
+  "2fbfb1a": [
+   "engine/bohemia_aftermoney.js",
+   "engine/bohemia_notice.js",
+   "slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html"
+  ],
+  "96cc52e": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "63a960eb": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_WHAT_PEOPLE_REPEAT_ABOUT_YOU_9_22_26.html"
+  ],
+  "ceb5f5af": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_THREE_SOUNDS_9_21_26.html"
+  ],
+  "f20cdfc": [
+   "engine/bohemia_aftermoney.js",
+   "engine/bohemia_charge.js"
+  ],
+  "088fb97f": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "cf848a7": [],
+  "5ca10f2": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "e7daaa46": [
+   "engine/bohemia_people.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_NOBODY_STANDS_ON_ANYBODY_9_22_26.html"
+  ],
+  "f8a9029": [],
+  "aaaa06a": [],
+  "5ffae16": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_DOES_A_RUN_SOUND_LIKE_A_RUN_9_24_26.html"
+  ],
+  "9a461b93": [],
+  "7104c0b": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "bdf72021": [
+   "engine/bohemia_standing.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_ONE_STORY_THREE_MOUTHS_9_22_26.html",
+   "slices/BOHEMIA_RUN_CURRENT.html"
+  ],
+  "4153e3f8": [
+   "slices/"
+  ],
+  "f8b3280": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_WHAT_A_FLIP_SOUNDS_LIKE_9_25_26.html"
+  ],
+  "ca56081": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "caaaa26": [],
+  "6dfc0f7b": [
+   "engine/bohemia_standing.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_RUN_CURRENT.html",
+   "slices/BOHEMIA_THE_ONE_WHO_STOOD_THERE_9_23_26.html"
+  ],
+  "5b3896e": [],
+  "29b19862": [
+   "engine/bohemia_landmarks.js",
+   "engine/bohemia_world.js",
+   "records/target/COOK_THE_WELCOME_SIGN_9_12_26.png",
+   "slices/BOHEMIA_RUN_CURRENT.html"
+  ],
+  "0568d31e": [
+   "engine/bohemia_people.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_HER_NAME_AND_HER_FACE_9_24_26.html",
+   "slices/BOHEMIA_RUN_CURRENT.html"
+  ],
+  "f690326": [
+   "records/target/BOHEMIA_THE_LIGHT_IN_THE_ROOM.json",
+   "records/target/BOHEMIA_THE_LIGHT_IN_THE_ROOM_9_21_26.png",
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "b880d80": [
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_THE_SURER_THE_WRONGER_9_24_26.html"
+  ],
+  "648afbe": [
+   "records/target/combat/FIGHT_LOOKS_9_21_A_THE_WALK.jpg",
+   "records/target/combat/FIGHT_LOOKS_9_21_B_THE_FIGHT.jpg",
+   "records/target/combat/FIGHT_LOOKS_9_20_A_THE_WALK.jpg",
+   "records/target/combat/FIGHT_LOOKS_9_20_B_THE_FIGHT.jpg",
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "3907854c": [],
+  "be3a55f8": [],
+  "eeb92ec7": [],
+  "b39d1232": [
+   "slices/"
+  ],
+  "4e1b3d2": [
+   "records/target/BOHEMIA_EIGHT_DIALS_YOU_COULD_NOT_TOUCH_9_22_26.png",
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "052a8346": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_THE_SAND_IS_OUT_9_24_26.html"
+  ],
+  "bd1921d6": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_NOBODY_STOPS_YOU_YET_9_24_26.html"
+  ],
+  "49e98646": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "c137fae": [
+   "engine/bohemia_pockets.js",
+   "engine/bohemia_purse.js",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_RUN_CURRENT.html"
+  ],
+  "b182520e": [
+   "engine/bohemia_turfledger.js"
+  ],
+  "e3ef0e8": [],
+  "1282a90": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "7cecf3d2": [],
+  "70fbe630": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "3df4172": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "84d55114": [],
+  "fdec3fa": [
+   "engine/bohemia_future.js",
+   "engine/bohemia_powergrid.js",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "9507e3f1": [],
+  "a4f94433": [],
+  "0c24c0c": [
+   "engine/bohemia_notice.js",
+   "engine/bohemia_place.js"
+  ],
+  "6e6e6111": [],
+  "830e46dc": [],
+  "8730aa3a": [
+   "engine/bohemia_horror_sounds.js",
+   "engine/bohemia_sfx.js",
+   "records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json",
+   "slices/"
+  ],
+  "74aee15c": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_THE_ONE_WHO_FELL_IN_9_24_26.html"
+  ],
+  "8c917794": [],
+  "59861c44": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "b202b0e7": [
+   "engine/bohemia_chapel.js",
+   "engine/bohemia_landmarks.js",
+   "engine/bohemia_utility.js",
+   "engine/bohemia_district_kit.js",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "871b1203": [
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "5bec0cfc": [
+   "engine/bohemia_horror_sounds.js",
+   "engine/bohemia_sfx.js",
+   "records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json",
+   "slices/"
+  ],
+  "137efe74": [
+   "engine/bohemia_down.js",
+   "engine/bohemia_origins.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_RUN_CURRENT.html",
+   "slices/BOHEMIA_WHO_YOU_WERE_9_27_26.html"
+  ],
+  "c248f61f": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "9001d26c": [],
+  "14029d67": [],
+  "688da60": [
+   "slices/BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html"
+  ],
+  "30766d9e": [],
+  "baa0ed9a": [
+   "slices/BOHEMIA_TUNING_FIVE_POINTS_9_28_26.html"
+  ],
+  "1f3936f": [
+   "slices/BOHEMIA_ONE_GUN_FORTY_TWO_PLACES_9_28_26.html"
+  ],
+  "d8d1d37": [
+   "engine/bohemia_future.js",
+   "engine/bohemia_powergrid.js",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "8b97875b": [],
+  "c90f634": [
+   "engine/bohemia_work.js",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_A_STRANGER_GETS_THE_WORST_WORK_9_28_26.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_RUN_CURRENT.html"
+  ],
+  "d408f23d": [
+   "engine/bohemia_sfx.js",
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "58fd221f": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "37337e48": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "301d5619": [],
+  "d0f98c72": [
+   "slices/BOHEMIA_TUNING_HOW_LONG_THEY_LIVE_9_28_26.html"
+  ],
+  "75ece9f": [
+   "slices/BOHEMIA_TRY_A_MOD_9_28_26.html"
+  ],
+  "820ca7f5": [
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "322edef": [
+   "slices/BOHEMIA_MODS_AT_BOOT_9_28_26.html"
+  ],
+  "0541d8ca": [
+   "records/target/BOHEMIA_THREE_CITIES_9_24.json"
+  ],
+  "11947f53": [
+   "slices/BOHEMIA_TUNING_EVERY_NUMBER_9_28_26.html"
+  ],
+  "37dc1cb3": [],
+  "5441e5f": [],
+  "cc51a6e5": [],
+  "937c6e9f": [
+   "engine/bohemia_horror_sounds.js",
+   "engine/bohemia_sfx.js",
+   "records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json",
+   "slices/"
+  ],
+  "3186b5a0": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "5a99e148": [
+   "engine/bohemia_homebases.js",
+   "engine/bohemia_turfledger.js",
+   "records/target/bb/factions.json",
+   "records/target/bb/region_bases.json",
+   "records/target/bb/wants.json"
+  ],
+  "e1677659": [],
+  "4497f239": [],
+  "8ce7f8c7": [],
+  "b54e84b": [
+   "slices/BOHEMIA_WHAT_MODS_FIX_9_29_26.html"
+  ],
+  "e31e7e64": [
+   "slices/BOHEMIA_TUNING_HOW_LONG_A_FIGHT_TAKES_9_29_26.html"
+  ],
+  "3e9aeddf": [
+   "engine/bohemia_lotbuild.js"
+  ],
+  "60b35edb": [
+   "engine/bohemia_horror_sounds.js",
+   "engine/bohemia_sfx.js",
+   "records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json",
+   "slices/"
+  ],
+  "fddfad0": [
+   "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
+   "engine/bohemia_engine_graphics_7_14_26.js",
+   "engine/bohemia_scavenge.js",
+   "slices/BOHEMIA_RUN_CURRENT.html"
+  ],
+  "bc0169f1": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "ac668ab5": [],
+  "45c2a04b": [
+   "engine/bohemia_homebases.js",
+   "engine/bohemia_turfledger.js",
+   "records/target/bb/factions.json",
+   "records/target/bb/region_bases.json",
+   "records/target/bb/wants.json"
+  ],
+  "9c70fdfe": [],
+  "d524c7c5": [],
+  "3bb100f6": [],
+  "d15dea6f": [],
+  "6f927ce": [
+   "slices/BOHEMIA_A_SIGHTED_PARTY_STOPS_THE_MARCH_9_30_26.html",
+   "slices/BOHEMIA_ONE_HONEST_NUMBER_BESIDE_THE_ARMOUR_10_1_26.html"
+  ],
+  "b2023e8": [
+   "engine/bohemia_boardterrain.js",
+   "records/target/BOHEMIA_BOARD_TERRAINS.json"
+  ],
+  "7e06088e": [
+   "engine/bohemia_horror_sounds.js",
+   "engine/bohemia_sfx.js",
+   "records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json",
+   "slices/"
+  ],
+  "c4763f74": [
+   "engine/bohemia_lotbuild.js"
+  ],
+  "c18923e4": [],
+  "ca4f116": [],
+  "73aad0e8": [
+   "engine/bohemia_homebases.js",
+   "engine/bohemia_turfledger.js",
+   "records/target/bb/factions.json",
+   "records/target/bb/region_bases.json",
+   "records/target/bb/wants.json"
+  ],
+  "dd55efa3": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "e98e8c9": [
+   "slices/BOHEMIA_ONE_HONEST_NUMBER_BESIDE_THE_ARMOUR_10_1_26.html",
+   "slices/BOHEMIA_A_SIGHTED_PARTY_STOPS_THE_MARCH_9_30_26.html"
+  ],
+  "629e9a5": [
+   "slices/BOHEMIA_TUNING_THE_DIFFICULTY_DIALS_10_1_26.html"
+  ],
+  "aef365c3": [
+   "engine/bohemia_lotbuild.js"
+  ],
+  "df825a2": [],
+  "19192e3": [
+   "engine/bohemia_tilekinds.js",
+   "records/target/BOHEMIA_TILE_KINDS.json"
+  ],
+  "e42cb2e0": [
+   "engine/bohemia_horror_sounds.js",
+   "engine/bohemia_sfx.js",
+   "records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json",
+   "slices/"
+  ],
+  "756a2a94": [
+   "engine/bohemia_homebases.js",
+   "engine/bohemia_turfledger.js",
+   "records/target/bb/factions.json",
+   "records/target/bb/region_bases.json",
+   "records/target/bb/wants.json"
+  ],
+  "1ec03902": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "451b9d9": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_DEMO.html"
+  ],
+  "54f6962": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_THE_AMBIENCE_COMES_DOWN_10_4_26.html"
+  ],
+  "a6c18a4": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_FIGHT.html",
+   "slices/BOHEMIA_THE_TURN_CLOSES_10_4_26.html"
+  ],
+  "3aaf22a": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_DEMO.html"
+  ],
+  "4a0d27c": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
+  ],
+  "89f993e": [
+   "records/target/bb/origins.json",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "5d257be": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_THE_TITLE_IS_DETUNED_10_5_26.html"
+  ],
+  "5801eae": [],
+  "696bb51": [
+   "records/target/bb/party_math.json",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_DEMO.html"
+  ],
+  "ea4b8da": [
+   "slices/BOHEMIA_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.html"
+  ],
+  "f7a4987e": [
+   "engine/bohemia_livingmap.js",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "c7491228": [
+   "engine/bohemia_valleyground.js",
+   "records/target/BOHEMIA_VALLEY_GROUNDS.json"
+  ],
+  "337b82c": [
+   "slices/BOHEMIA_TUNING_WHAT_EACH_DIFFICULTY_CHANGES_10_9_26.html"
+  ],
+  "8f4ddd5": [
+   "slices/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.html"
+  ],
+  "15db7f8": [
+   "slices/fight_people/"
+  ],
+  "f77735be": [],
+  "fb5a859": [
+   "slices/BOHEMIA_TUNING_EVERY_NUMBER_THE_FIGHT_FEELS_10_10_26.html"
+  ],
+  "7f4d2ae": [
+   "slices/BOHEMIA_MODS_THE_MODS_FOLDER_10_10_26.html"
+  ],
+  "f6c76270": [],
+  "5fe7031d": [
+   "engine/bohemia_godgear.js",
+   "records/target/BOHEMIA_GOD_GEAR_PLACES.json"
+  ],
+  "d1d0d46": [
+   "slices/BOHEMIA_TUNING_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.html"
+  ],
+  "efbad7b": [
+   "slices/BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.html"
+  ],
+  "f5b94ea": [],
+  "e8a6625e": [],
+  "145f98b2": [
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/settlement/lot/"
+  ],
+  "7d565f9": [],
+  "d5dec1ea": [
+   "engine/bohemia_roads.js",
+   "records/target/BOHEMIA_THE_ROADS.json"
+  ],
+  "c5f6a92": [
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "a3b7ea8": [
+   "slices/BOHEMIA_TUNING_WHEN_THE_AMMO_RUNS_OUT_10_10_26.html"
+  ],
+  "a727ff8": [
+   "slices/BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.html",
+   "slices/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.html",
+   "slices/BOHEMIA_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.html"
+  ],
+  "7dd58935": [
+   "records/target/bb/armor_tiers.json"
+  ],
+  "af0287b2": [],
+  "e648cfd9": [
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html"
+  ],
+  "63a84d02": [
+   "engine/bohemia_groundeffects.js",
+   "records/target/BOHEMIA_GROUND_EFFECTS.json"
+  ],
+  "235e6d9": [
+   "slices/settlement_people/"
+  ],
+  "d3bc299": [
+   "slices/BOHEMIA_TUNING_WHAT_A_RESPEC_COSTS_10_10_26.html"
+  ],
+  "8c31978": [
+   "slices/BOHEMIA_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.html"
+  ],
+  "6a6cd408": [
+   "engine/bohemia_relations.js",
+   "engine/bohemia_hunted.js",
+   "records/target/bb/relations.json",
+   "records/target/bb/hunted.json"
+  ],
+  "b6b540a": [
+   "slices/BOHEMIA_TUNING_HOW_HARD_IS_A_KILLER_10_10_26.html"
+  ],
+  "9cb46e85": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "7bc9c2df": [],
+  "72aa4318": [
+   "records/target/bb/origin_crews_dress.json"
+  ],
+  "9a9402a": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/fight_people/"
+  ],
+  "bf86c941": [
+   "engine/bohemia_boardkinds.js",
+   "records/target/BOHEMIA_BOARD_KINDS.json"
+  ],
+  "54757f6": [
+   "engine/bohemia_keeper_lines.js",
+   "records/target/settlement_rumours.json",
+   "records/target/settlement_traits.json",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_THE_KEEPERS_SPEAK_10_9_26.html"
+  ],
+  "dee5c83": [
+   "slices/BOHEMIA_MODS_A_ROW_ID_IS_A_PROMISE_10_10_26.html"
+  ],
+  "ba33957": [
+   "slices/BOHEMIA_TUNING_EVERY_ROLL_A_MAN_MAKES_10_10_26.html"
+  ],
+  "4b517573": [
+   "engine/bohemia_arrivaltraits.js",
+   "records/target/bb/arrival_traits.json"
+  ],
+  "f917adc3": [],
+  "daefd510": [
+   "engine/bohemia_threeblocks.js",
+   "records/target/BOHEMIA_THREE_BLOCKS.json"
+  ],
+  "414867a": [
+   "engine/bohemia_quadruped.js",
+   "slices/fight_beasts/dire_wolf.webp",
+   "slices/fight_beasts/fight_beasts.json"
+  ],
+  "b1b29a4": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_THE_BARS_GLASS_10_10_26.html",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "slices/BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html"
+  ],
+  "53270ff": [
+   "slices/BOHEMIA_MODS_MODS_TO_COPY_10_10_26.html"
+  ],
+  "1219bfa": [
+   "slices/BOHEMIA_TUNING_WHAT_EACH_DIFFICULTY_CHANGES_10_9_26.html",
+   "slices/BOHEMIA_TUNING_WHEN_A_MAN_WALKS_10_10_26.html"
+  ],
+  "2306ee7c": [
+   "engine/bohemia_hunted.js",
+   "engine/bohemia_relations.js",
+   "records/target/bb/hunted.json",
+   "records/target/bb/relations.json"
+  ],
+  "8a89c64": [
+   "slices/BOHEMIA_MODS_WHEN_THE_DATA_CHANGES_10_10_26.html"
+  ],
+  "976f8e21": [
+   "records/target/DIRECTION_DEMO_VERDICT_TWO_CAPTIONS.json"
+  ],
+  "b2fe5f1b": [
+   "engine/bohemia_livingmap.js",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "9f50f9f": [
+   "engine/bohemia_horror_sounds.js",
+   "engine/bohemia_sfx.js",
+   "records/target/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.json",
+   "slices/"
+  ],
+  "e5834f6b": [
+   "slices/BOHEMIA_TUNING_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.html"
+  ],
+  "8f618d5d": [
+   "engine/bohemia_insides.js",
+   "records/target/BOHEMIA_THE_INSIDES.json"
+  ],
+  "c0c6829": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "e58e6863": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "7381bd4b": [
+   "slices/BOHEMIA_TUNING_HOW_FAR_EACH_WEAPON_REACHES_10_10_26.html"
+  ],
+  "6daf4544": [
+   "slices/BOHEMIA_TUNING_HOW_BIG_THE_BOARD_IS_10_10_26.html"
+  ],
+  "310e6b24": [
+   "slices/BOHEMIA_TUNING_WHAT_EACH_ORIGIN_STARTS_KNOWN_FOR_10_10_26.html"
+  ],
+  "1f49b76e": [],
+  "700e8090": [
+   "slices/BOHEMIA_TUNING_WHAT_A_STARTING_COMPANY_IS_WORTH_10_10_26.html"
+  ],
+  "1ad11c09": [],
+  "438db606": [
+   "engine/bohemia_factions.js",
+   "records/target/bb/factions.json"
+  ],
+  "70b08e05": [
+   "records/target/DIRECTION_TWIN_PLACES_MAP_10_10.webp"
+  ],
+  "f17df35": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "f82aae02": [
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "7d9d4068": [
+   "engine/bohemia_arrivaltraits.js",
+   "engine/bohemia_war.js",
+   "records/target/bb/arrival_traits.json",
+   "records/target/bb/war.json"
+  ],
+  "880be93a": [
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html"
+  ],
+  "3e29dbd": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_SOMETHING_HERE_STILL_WORKS_10_10_26.html"
+  ],
+  "2d614108": [],
+  "c0d85bf": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "6035b9d0": [],
+  "4dfc12e": [],
+  "2ab7dba6": [
+   "engine/bohemia_factions.js",
+   "records/target/bb/factions.json"
+  ],
+  "a198a127": [
+   "records/target/DIRECTION_TWIN_PLACES_MAP_10_10.webp"
+  ],
+  "0e61a30": [
+   "records/target/BOHEMIA_TRAIL.json"
+  ],
+  "2fe7da9": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "c192ad1": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "09b7308": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "fc8bc79e": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "1c119612": [
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "a92613d": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "c3e66aef": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_DEMO_CAST.json",
+   "slices/BOHEMIA_DEMO_CROWD.json"
+  ],
+  "05f1bee0": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "fbe21f23": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_DEMO_CAST.json",
+   "slices/BOHEMIA_DEMO_CROWD.json"
+  ],
+  "ccd65a9": [
+   "records/target/bb/ours.json",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "a22bf3e": [
+   "records/target/bb/ours.json",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "564e1b1": [
+   "records/target/master_rig/DIRECTION_THE_MASTER_RIG_FOX.png",
+   "records/target/master_rig/DIRECTION_THE_MASTER_RIG_MAN.png",
+   "records/target/master_rig/DIRECTION_THE_MASTER_RIG_TRUCK.png",
+   "records/target/master_rig/DIRECTION_THE_MASTER_RIG_ROBOT.png",
+   "records/target/master_rig/fox/",
+   "records/target/master_rig/game_wolf/",
+   "records/target/master_rig/man/",
+   "records/target/master_rig/robot/",
+   "records/target/master_rig/round2_fox/rig_E.png",
+   "records/target/master_rig/round2_fox/rig_N.png",
+   "records/target/master_rig/round2_fox/rig_NE.png",
+   "records/target/master_rig/round2_fox/rig_NW.png",
+   "records/target/master_rig/round2_fox/rig_S.png",
+   "records/target/master_rig/round2_fox/rig_SE.png",
+   "records/target/master_rig/round2_fox/rig_SW.png",
+   "records/target/master_rig/round2_fox/rig_W.png",
+   "records/target/master_rig/round2_man/rig_E.png",
+   "records/target/master_rig/round2_man/rig_N.png",
+   "records/target/master_rig/round2_man/rig_NE.png",
+   "records/target/master_rig/round2_man/rig_NW.png",
+   "records/target/master_rig/round2_man/rig_S.png",
+   "records/target/master_rig/round2_man/rig_SE.png",
+   "records/target/master_rig/round2_man/rig_SW.png",
+   "records/target/master_rig/round2_man/rig_W.png",
+   "records/target/master_rig/round2_truck/rig_E.png",
+   "records/target/master_rig/round2_truck/rig_N.png",
+   "records/target/master_rig/round2_truck/rig_NE.png",
+   "records/target/master_rig/round2_truck/rig_NW.png",
+   "records/target/master_rig/round2_truck/rig_S.png",
+   "records/target/master_rig/round2_truck/rig_SE.png",
+   "records/target/master_rig/round2_truck/rig_SW.png",
+   "records/target/master_rig/round2_truck/rig_W.png",
+   "records/target/master_rig/truck/"
+  ],
+  "6901d34": [
+   "records/target/COOK2_THE_VEGAS_BLOCK.png",
+   "records/target/COOK2_THE_VEGAS_BLOCK_OURS.png"
+  ],
+  "f7e4fd2": [
+   "records/target/COOK_THE_PARTS_GRAMMAR_TWO.png",
+   "records/target/COOK_THE_PARTS_GRAMMAR.png"
+  ],
+  "edd8e1f": [],
+  "7dff032": [
+   "records/target/cook3/COOK3_THE_REDS_LOOP_ON_THE_RIGS_MAN.png"
+  ],
+  "ab73c5c": [
+   "records/target/master_rig/ANIMATION_THE_BEAST_IN_EIGHT.png",
+   "records/target/master_rig/dire_wolf/"
+  ],
+  "1e20bf5": [
+   "records/target/COOK4_THE_CORNER_SHOP_STRAIGHT_ROOF.png",
+   "records/target/COOK4_THE_WAREHOUSE.png",
+   "records/target/COOK4_THE_GAS_STATION.png",
+   "records/target/COOK4_THE_MOTEL_STRAIGHT_ROOF.png",
+   "records/target/COOK4_THE_MOTEL.png",
+   "records/target/COOK4_THE_CORNER_SHOP.png"
+  ],
+  "98500aa": [
+   "records/target/character/CHARACTER_HOW_THE_PACK_DID_IT_CLOTH.png",
+   "records/target/character/CHARACTER_THE_TEXTURE_SET.png"
+  ],
+  "1e77398": [
+   "records/target/COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16.webp",
+   "records/target/COMBAT2_THE_FIVE_HOUSES_ON_THE_BOARD_10_18.webp"
+  ],
+  "a2cbd0c0": [
+   "records/target/COMBAT2_THE_BOARD_CUT_FROM_THE_MAP_10_18.webp"
+  ],
+  "ec6fa09": [
+   "records/target/COMBAT2_THE_FIVE_HOUSES_ON_THE_BOARD_10_18.webp",
+   "records/target/COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16.webp"
+  ],
+  "da85d04": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "5efc414": [
+   "records/target/master_rig/DIRECTION_THE_MASTER_RIG_FOX.png",
+   "records/target/master_rig/DIRECTION_THE_MASTER_RIG_MAN.png",
+   "records/target/master_rig/DIRECTION_THE_MASTER_RIG_ROBOT.png",
+   "records/target/master_rig/DIRECTION_THE_MASTER_RIG_TRUCK.png",
+   "records/target/master_rig/fox/",
+   "records/target/master_rig/game_wolf/",
+   "records/target/master_rig/man/",
+   "records/target/master_rig/robot/",
+   "records/target/master_rig/round2_fox/rig_E.png",
+   "records/target/master_rig/round2_fox/rig_N.png",
+   "records/target/master_rig/round2_fox/rig_NE.png",
+   "records/target/master_rig/round2_fox/rig_NW.png",
+   "records/target/master_rig/round2_fox/rig_S.png",
+   "records/target/master_rig/round2_fox/rig_SE.png",
+   "records/target/master_rig/round2_fox/rig_SW.png",
+   "records/target/master_rig/round2_fox/rig_W.png",
+   "records/target/master_rig/round2_man/rig_E.png",
+   "records/target/master_rig/round2_man/rig_N.png",
+   "records/target/master_rig/round2_man/rig_NE.png",
+   "records/target/master_rig/round2_man/rig_NW.png",
+   "records/target/master_rig/round2_man/rig_S.png",
+   "records/target/master_rig/round2_man/rig_SE.png",
+   "records/target/master_rig/round2_man/rig_SW.png",
+   "records/target/master_rig/round2_man/rig_W.png",
+   "records/target/master_rig/round2_truck/rig_E.png",
+   "records/target/master_rig/round2_truck/rig_N.png",
+   "records/target/master_rig/round2_truck/rig_NE.png",
+   "records/target/master_rig/round2_truck/rig_NW.png",
+   "records/target/master_rig/round2_truck/rig_S.png",
+   "records/target/master_rig/round2_truck/rig_SE.png",
+   "records/target/master_rig/round2_truck/rig_SW.png",
+   "records/target/master_rig/round2_truck/rig_W.png",
+   "records/target/master_rig/truck/"
+  ],
+  "a8a1247": [
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "57a9ec3": [
+   "records/target/COOK4_THE_GAS_STATION.png",
+   "records/target/COOK4_THE_WAREHOUSE.png",
+   "records/target/COOK4_THE_MOTEL_STRAIGHT_ROOF.png",
+   "records/target/COOK4_THE_CORNER_SHOP_STRAIGHT_ROOF.png",
+   "records/target/COOK4_THE_MOTEL.png",
+   "records/target/COOK4_THE_CORNER_SHOP.png"
+  ],
+  "65a0d33": [
+   "records/target/COOK4_THE_WAREHOUSE.png",
+   "records/target/COOK4_THE_GAS_STATION.png",
+   "records/target/COOK4_THE_MOTEL_STRAIGHT_ROOF.png",
+   "records/target/COOK4_THE_CORNER_SHOP_STRAIGHT_ROOF.png",
+   "records/target/COOK4_THE_MOTEL.png",
+   "records/target/COOK4_THE_CORNER_SHOP.png"
+  ],
+  "05dff4a": [
+   "records/target/COOK4_THE_SCHOOL.png"
+  ],
+  "b47f391": [
+   "engine/bohemia_roster.js",
+   "slices/BOHEMIA_ROSTER_SCREEN.html"
+  ],
+  "7e9e31b": [
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_A_DESERT_NOT_A_RAINFOREST_10_18_26.html",
+   "slices/BOHEMIA_FIGHT.html",
+   "slices/BOHEMIA_THE_RECAP_SPEAKS_10_16_26.html",
+   "slices/BOHEMIA_THE_SETTLEMENT_HEARD_WHOLE_10_17_26.html",
+   "slices/BOHEMIA_THE_TITLE_IS_THE_DESERT_10_18_26.html"
+  ],
+  "9cf0d49b": [
+   "slices/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_10_18_26.html",
+   "slices/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_10_18_26.html",
+   "slices/BOHEMIA_TUNING_THE_NUMBERS_AROUND_THE_FIGHT_10_18_26.html"
+  ],
+  "0dffb201": [
+   "slices/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_10_18_26.html",
+   "slices/BOHEMIA_TUNING_THE_NUMBERS_AROUND_THE_FIGHT_10_18_26.html"
+  ],
+  "727ceff": [
+   "slices/BOHEMIA_TUNING_THE_NUMBERS_AROUND_THE_FIGHT_10_18_26.html"
+  ],
+  "021822b": [
+   "records/target/cook3/COOK3_THE_POACHER_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_THUG_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_RAIDER_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_MARKSMAN_THROUGH_THE_RIG.png",
+   "records/target/cook3/rig/marksman/",
+   "records/target/cook3/rig/poacher/",
+   "records/target/cook3/rig/raider/",
+   "records/target/cook3/rig/thug/"
+  ],
+  "c922916": [
+   "records/target/COOK2_ONE_REAL_STREET.webp"
+  ],
+  "64ab6ba": [
+   "records/target/ui_phone_apps/UI_ONE_AT_A_TIME_THE_PHONES_APPS.png",
+   "records/target/ui_phone_apps/UI_THE_PHONES_APPS.json",
+   "records/target/ui_phone_apps/UI_THE_PHONES_APPS_SIDEWAYS.png"
+  ],
+  "666abb3": [
+   "engine/bohemia_settlement_heard.js",
+   "engine/bohemia_horror_sounds.js",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+  ],
+  "fe97919": [
+   "records/target/portrait/PORTRAIT_THE_FACE_FROM_THE_SAME_MODEL.png",
+   "records/target/portrait/PORTRAIT_THE_POACHERS_FACE_FROM_THE_SAME_MODEL.png",
+   "records/target/portrait/rig/poacher/",
+   "records/target/portrait/rig/thug/"
+  ],
+  "e99ecba": [
+   "records/target/portrait/PORTRAIT_THE_FACE_FROM_THE_SAME_MODEL.png",
+   "records/target/portrait/PORTRAIT_THE_POACHERS_FACE_FROM_THE_SAME_MODEL.png",
+   "records/target/portrait/rig/poacher/",
+   "records/target/portrait/rig/thug/"
+  ],
+  "327d93f": [
+   "records/target/cook3/COOK3_THE_MARKSMAN_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_RAIDER_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_POACHER_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_THUG_THROUGH_THE_RIG.png",
+   "records/target/cook3/rig/marksman/",
+   "records/target/cook3/rig/poacher/",
+   "records/target/cook3/rig/raider/",
+   "records/target/cook3/rig/thug/"
+  ],
+  "a084968": [
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/bohemia_region.js"
+  ],
+  "9ebddcc": [
+   "records/target/character/CHARACTER_THE_THIRTEEN_THROUGH_THE_RIG.png",
+   "records/target/character/rig/anarchists/",
+   "records/target/character/rig/blues/",
+   "records/target/character/rig/body/",
+   "records/target/character/rig/caravans/",
+   "records/target/character/rig/cartel/",
+   "records/target/character/rig/church/",
+   "records/target/character/rig/colorful/",
+   "records/target/character/rig/homeless/",
+   "records/target/character/rig/mob/",
+   "records/target/character/rig/network/",
+   "records/target/character/rig/reds/",
+   "records/target/character/rig/remnants/",
+   "records/target/character/rig/trades/",
+   "records/target/character/rig/volunteers/"
+  ],
+  "deed3153": [
+   "records/target/character/CHARACTER_THE_WALK_OF_EVERY_LOOK.png",
+   "records/target/character/rig/blues/",
+   "records/target/character/rig/body/",
+   "records/target/character/rig/caravans/",
+   "records/target/character/rig/church/",
+   "records/target/character/rig/colorful/",
+   "records/target/character/rig/homeless/",
+   "records/target/character/rig/mob/",
+   "records/target/character/rig/network/",
+   "records/target/character/rig/remnants/",
+   "records/target/character/rig/volunteers/",
+   "records/target/character/walk_flat/"
+  ],
+  "1de7437": [
+   "records/target/character/CHARACTER_THE_PRINT_AND_THE_HANDS.png",
+   "records/target/character/rig/anarchists/",
+   "records/target/character/rig/blues/",
+   "records/target/character/rig/body/",
+   "records/target/character/rig/caravans/",
+   "records/target/character/rig/cartel/",
+   "records/target/character/rig/church/",
+   "records/target/character/rig/colorful/",
+   "records/target/character/rig/homeless/",
+   "records/target/character/rig/mob/",
+   "records/target/character/rig/network/",
+   "records/target/character/rig/reds/",
+   "records/target/character/rig/remnants/",
+   "records/target/character/rig/trades/",
+   "records/target/character/rig/volunteers/"
+  ],
+  "6ef9bc1": [
+   "records/target/bb/ours.json",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "1fbcfe3": [
+   "records/target/BOHEMIA_STYLE_GUIDE.json",
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html"
+  ],
+  "23426c8": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_DEMO_CAST.json",
+   "slices/BOHEMIA_DEMO_CROWD.json",
+   "slices/BOHEMIA_THE_MAP_HEARS_THE_DESERT_10_18_26.html"
+  ],
+  "a6863ae": [
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html"
+  ],
+  "b57173f": [],
+  "b4f0eb7": [
+   "records/target/ui_no_defaults/UI_NO_BROWSER_DEFAULTS.json",
+   "records/target/ui_no_defaults/UI_NO_BROWSER_DEFAULTS.png"
+  ],
+  "4c54924": [
+   "records/target/master_rig/ANIMATION_THE_WOLF_REDONE.png",
+   "records/target/master_rig/ANIMATION_THE_FERAL_DOG_CUR.png",
+   "records/target/master_rig/ANIMATION_THE_FERAL_DOG_PIT.png",
+   "records/target/master_rig/dire_wolf_redone/",
+   "records/target/master_rig/feral_dog_cur/",
+   "records/target/master_rig/feral_dog_pit/",
+   "records/target/master_rig/feral_dog_shepherd/"
+  ],
+  "70b30075": [
+   "records/target/master_rig/ANIMATION_THE_FERAL_DOG_CUR.png",
+   "records/target/master_rig/ANIMATION_THE_FERAL_DOG_PIT.png",
+   "records/target/master_rig/ANIMATION_THE_FERAL_DOG_SHEPHERD.png",
+   "records/target/master_rig/ANIMATION_THE_CAVE_HYENA.png",
+   "records/target/master_rig/cave_hyena/",
+   "records/target/master_rig/feral_dog_cur/",
+   "records/target/master_rig/feral_dog_pit/",
+   "records/target/master_rig/feral_dog_shepherd/"
+  ],
+  "90afb0c": [
+   "records/target/cook3/COOK3_THE_RAIDER_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_MARKSMAN_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_POACHER_THROUGH_THE_RIG.png",
+   "records/target/cook3/COOK3_THE_THUG_THROUGH_THE_RIG.png",
+   "records/target/cook3/rig/marksman/",
+   "records/target/cook3/rig/poacher/",
+   "records/target/cook3/rig/raider/",
+   "records/target/cook3/rig/thug/"
+  ],
+  "66923cf": [
+   "engine/bohemia_rig_faces.js",
+   "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/rig_faces/"
+  ],
+  "7c4c1b36": [
+   "records/target/COOK_FIGHT_PROPS_THROUGH_THE_RIG.png",
+   "records/target/master_rig/cook_barrier/",
+   "records/target/master_rig/cook_cart/",
+   "records/target/master_rig/cook_dumpster/",
+   "records/target/master_rig/cook_tyres/"
+  ],
+  "e415b9df": [
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "0aee142": [
+   "engine/bohemia_travel_steps.js",
+   "slices/BOHEMIA_THE_STEPS_FROM_A_RECORDING_10_18_26.html"
+  ],
+  "33cddfa6": [
+   "records/target/ui_phone_lock/UI_ONE_AT_A_TIME_THE_PHONES_FRONT_SCREEN.png",
+   "records/target/ui_phone_lock/UI_THE_PHONES_FRONT_SCREEN.json",
+   "records/target/ui_phone_lock/UI_THE_PHONES_FRONT_SCREEN_SIDEWAYS.png"
+  ],
+  "2c4c148a": [
+   "records/target/BOHEMIA_STYLE_GUIDE.json",
+   "records/target/direction_the_truck_turned_up/DIRECTION_THE_TRUCK_TURNED_UP.png",
+   "records/target/direction_the_truck_turned_up/report.json",
+   "records/target/direction_the_truck_turned_up/robot/",
+   "records/target/direction_the_truck_turned_up/truck/"
+  ],
+  "b1a4ca3": [
+   "records/target/BOHEMIA_EYES_THE_TRUCK_FRAME_COST_10_18_26.json"
+  ],
+  "9e59d37": [
+   "records/target/COOK4_THE_CHURCH.png"
+  ],
+  "e2afb17b": [
+   "engine/bohemia_travel_steps.js",
+   "slices/BOHEMIA_THE_STEP_IN_THE_FIGHT_10_18_26.html"
+  ],
+  "baec964c": [
+   "records/target/COMBAT2_A_BOARD_YOU_READ_IN_ONE_LOOK_10_18.webp"
+  ],
+  "fc0bbbd3": [
+   "engine/bohemia_crew_faces.js",
+   "engine/bohemia_rig_faces.js",
+   "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/rig_faces/"
+  ],
+  "d4bc2e2c": [
+   "slices/BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.html",
+   "slices/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_10_18_26.html"
+  ],
+  "3374c9a": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_DEMO_CAST.json",
+   "slices/BOHEMIA_DEMO_CROWD.json",
+   "slices/BOHEMIA_RIG_CAST.json",
+   "slices/BOHEMIA_RIG_CAST.png",
+   "slices/bohemia_region.js"
+  ],
+  "474f7bb0": [
+   "engine/bohemia_chip_song.js",
+   "slices/BOHEMIA_OVER_THE_RIDGE_10_18_26.html"
+  ],
+  "58a102bf": [
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "0fcfd306": [
+   "records/target/BOHEMIA_FIGHT_GROUND_MEASURED.json",
+   "records/target/bb/ours.json",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "70c84c0e": [
+   "records/target/COOK_THE_BLOCK_WARS_COVER.png",
+   "records/target/master_rig/cook_container/",
+   "records/target/master_rig/cook_corral/",
+   "records/target/master_rig/cook_fence/",
+   "records/target/master_rig/cook_propane/",
+   "records/target/master_rig/cook_rubble/",
+   "records/target/master_rig/cook_sandbags/"
+  ],
+  "61c6e611": [
+   "records/target/BOHEMIA_BOARD_SHELF.json",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/bohemia_board_shelf.js",
+   "slices/bohemia_phone_board.js"
+  ],
+  "c821869ff": [
+   "records/target/EYES_THE_BLIND_PASS.json"
+  ],
+  "cac46f42": [
+   "records/target/character/CHARACTER_THE_BARBER_ON_THE_SKULL.png",
+   "records/target/character/barber/coil_crown/",
+   "records/target/character/barber/layered_fall/",
+   "records/target/character/barber/temple_taper/",
+   "records/target/character/barber_flat/"
+  ],
+  "46737f94": [
+   "records/target/BOHEMIA_STYLE_GUIDE.json",
+   "records/target/direction_rig_round_six/DIRECTION_THE_RIG_ROUND_SIX.png",
+   "records/target/direction_rig_round_six/report.json",
+   "records/target/direction_rig_round_six/mob/",
+   "records/target/direction_rig_round_six/robot/"
+  ],
+  "105c5618": [
+   "records/target/COMBAT2_THE_DISTRICT_BOARDS_ON_HIS_SCREEN_10_18.webp"
+  ],
+  "6b775daf": [
+   "records/target/COOK4_THE_SECOND_PASS.json",
+   "records/target/COOK4_THE_SECOND_PASS.webp"
+  ],
+  "80780b4c": [
+   "records/target/BOHEMIA_BAR_NEWS_PLACES.json",
+   "records/target/settlement_rumours.json",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/bohemia_bar_news.js"
+  ],
+  "c38f2cad": [
+   "records/target/settlement_rumours.json",
+   "records/target/settlement_traits.json",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/bohemia_bar_news.js"
+  ],
+  "4573a45f": [
+   "records/target/EYES_THE_STAR_IS_THE_BAR.json",
+   "records/target/EYES_THE_BLIND_PASS.json"
+  ],
+  "90bd03cc": [
+   "records/target/ui_front_screen/",
+   "slices/bohemia_ui_materials.js",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_DEMO_CAST.json",
+   "slices/BOHEMIA_DEMO_CROWD.json",
+   "slices/BOHEMIA_ALPHA_0_9.html"
+  ],
+  "55fb5333": [
+   "records/target/ui_line_on_a_ground/"
+  ],
+  "e59d34ba": [
+   "slices/BOHEMIA_ROSTER_SCREEN.html"
+  ],
+  "3f196828": [
+   "records/target/COOK_THE_EMPTY_TERRAINS_COVER.png",
+   "records/target/master_rig/cook_bales/",
+   "records/target/master_rig/cook_dozer/",
+   "records/target/master_rig/cook_heap/",
+   "records/target/master_rig/cook_pier/"
+  ],
+  "691e377f": [
+   "engine/bohemia_names.js",
+   "engine/bohemia_people.js",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html"
+  ],
+  "ac9722ee": [
+   "records/target/BOHEMIA_COMBAT_THE_WHOLE_GRID_HOLDS.json",
+   "records/target/bb/beast_attacks.json",
+   "records/target/bb/ours.json",
+   "records/target/bb/weapon_lines.json",
+   "slices/BOHEMIA_FIGHT.html"
+  ],
+  "852c4cf8": [
+   "records/target/BOHEMIA_STYLE_GUIDE.json"
+  ],
+  "d5b1f8e9": []
+ }
+}
