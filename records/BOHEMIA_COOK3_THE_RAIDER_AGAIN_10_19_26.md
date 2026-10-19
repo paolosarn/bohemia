@@ -53,9 +53,22 @@ facings, the face's lit tone (L* 80th percentile, median a*, b*) against the bod
    surface is RAY-CAST with the arms left out. Skin back to skin_deep 2 with the hood open: a dark brown face that reads.
 4. The hood's base lay over the straps in steps (a clearance per angle) that the dust lit as a fur ruff: a running
    maximum then a mean over nine segments lays it as one fold of cloth; the cummerbund 8 mm further off the hoodie.
+   The full render with the walk: card 1 of 8 out, VALUE SPAN 110 against 118 (the up-face dust greys the black, and
+   no pale area was big enough); skin dE 3.5 PASS.
+5. The blacks one step down (cloth_black 1, the hoodie, hood and trousers one material) and the vest and knee pads one
+   step up (tape_masking 3): span 138, 0 of 8 out; skin dE 0.7.
 
-## The card, the gate, the sheet
-(filled from the full render below)
+## The card, the skin, the sheet (the full render, cycle 5)
+The card on the S still, class person: 0 OF 8 OUT: long side 130, colours 1,298 vs 653, top 8 2.8%, value span 128,
+saturation 0.156 (the vibrance down, his 9/23), light top minus bottom 16.1, edge -15.6, grain 1.67. Colours across the
+set 24,953; the passing pose of Anim_0, frame 21. THE FACE IS THE BODY'S FACE: dE 3.6 PASS (face L* 37.4, hands 33.9;
+264 face pixels, 186 hand and neck pixels over the eight facings); records/cook3/rig/raider_again_skin.json.
+records/target/cook3/COOK3_THE_RAIDER_AGAIN.png: eight facings, the S and SE walk (6 keys = 2 beats at 120), beside the
+game's flat raider at 1:1 and 4x, the skin line under the card. 57 px a metre (1.72 m = 98 px), one pixel size, block
+1; palette records/target/BOHEMIA_STYLE_PALETTE.json, every base colour a step of a role; one light, the rig's sun upper
+left. 7 materials on the body (skin, eyes, the black, boots and gun, the nylon, the red hull, the brass); the head's
+own are PORTRAIT's. VOTE: cook3-the-raider-again-10-19 (redoOf cook3-the-raider-through-the-rig-10-18, his words
+quoted on it).
 
 ## Findings
 - FOR PORTRAIT and EYES [every face beside its body]: the rig's ID pass makes the skin match a measurement, not a look:
