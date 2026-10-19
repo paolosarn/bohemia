@@ -1306,7 +1306,8 @@
       var hh = el.getBoundingClientRect().height;
       el.style.left = Math.round(s.x) + 'px'; el.style.top = Math.round(Math.min(s.y, s.y + s.height - hh)) + 'px';
     } else {
-      el.style.width = ''; var r = el.getBoundingClientRect(), x, y;
+      el.style.width = ''; el.style.width = Math.ceil(el.getBoundingClientRect().width) + 'px';   /* whole css pixels, so the paper is never resampled */
+      var r = el.getBoundingClientRect(), x, y;
       if (mode === 'tag' && ctx.man) {
         x = ctx.man.x - r.width / 2; y = ctx.man.head - r.height - 6;
         if (y < top + 4) y = ctx.man.feet + 6;

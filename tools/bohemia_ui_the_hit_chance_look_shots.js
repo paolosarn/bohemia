@@ -11,7 +11,6 @@ const fs = require('fs'), path = require('path'); const ROOT = path.dirname(__di
 const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const [out, profile] = process.argv.slice(2);
 const side = profile === 'phone_landscape' ? 'sideways' : 'upright';
-fs.mkdirSync(out, { recursive: true });
 
 /* the two cases, set on the man whose turn it is; returns the read COMBAT would hand hitRead() */
 const SETUP = (kind) => {
@@ -103,7 +102,8 @@ async function words(page) {
   }, { png, items });
 }
 
-(async () => {
+/* the fight on his phone, out of the chalk, on his first man's turn */
+async function ready(profile) {
   const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:5,speed:1,kind:"suburb"}' });
   const p = d.page; const t0 = Date.now();
   while (Date.now() - t0 < 40000) { if (await p.evaluate(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board)) break; await p.waitForTimeout(200); }
@@ -111,6 +111,13 @@ async function words(page) {
   await p.click('#bend');
   for (let i = 0; i < 80; i++) { const s = await p.evaluate(() => { const u = FIGHT.current(); return u && u.side === 'you' && !FIGHT_UI.anim.length && !FIGHT.S.deploy; }); if (s) break; await p.waitForTimeout(500); }
   await p.evaluate(() => document.fonts.ready);
+  return d;
+}
+module.exports = { SETUP, LAY, words, ready };
+
+if (require.main === module) (async () => {
+  fs.mkdirSync(out, { recursive: true });
+  const d = await ready(profile), p = d.page;
   const res = { profile, side, cases: {}, shots: [] };
   const plan = side === 'upright' ? [['weak', [null, 'tag', 'slip', 'bar'], true], ['good', [null, 'tag', 'slip', 'bar'], true]] : [['weak', [null, 'tag', 'slip', 'bar'], false], ['good', [null, 'slip'], false]];
   for (const [kind, modes, afters] of plan) {
