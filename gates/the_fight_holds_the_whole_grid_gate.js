@@ -157,7 +157,7 @@ if (process.argv.indexOf('--write') >= 0) fs.writeFileSync(path.join(ROOT, 'reco
     const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
     const opts = { seed: 12, kind: 'suburb', deploy: false, night: false, company: company(14, GEAR[0]), cap: 14, party: { faction: 'beasts', count: 40, days: 1 } };
     const arm = 'window.FIGHT_OPTS=' + JSON.stringify(opts) + ';window.__beast=0;window.__err=[];addEventListener("error",function(e){window.__err.push(String(e.message));});'
-      + '(function(){const P=CanvasRenderingContext2D.prototype,di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_beasts")>=0)window.__beast++;return di.apply(this,arguments);};})();';
+      + '(function(){const P=CanvasRenderingContext2D.prototype,di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_rig/beast_")>=0)window.__beast++;return di.apply(this,arguments);};})();';
     const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: arm });
     const p = d.page, errs = [];
     p.on('pageerror', e => errs.push(String(e.message)));
@@ -169,7 +169,7 @@ if (process.argv.indexOf('--write') >= 0) fs.writeFileSync(path.join(ROOT, 'reco
       const g = await p.evaluate(() => { const before = window.__beast; draw(performance.now()); return { you: FIGHT.alive('you').length, them: FIGHT.alive('them').length,
         drawnOneFrame: window.__beast - before, shown: FIGHT.S.units.filter(u => u.beast && FIGHT.onField(u) && FIGHT.shown(u)).length, framed: allFramed(), strip: document.querySelectorAll('#order canvas').length, name: (FIGHT.S.units.find(u => u.beast) || {}).name }; });
       /* the fight's fog (Battle Brothers': a man you cannot see is not drawn): every beast your men can see is drawn, once a frame */
-      leg(g.you === 14 && g.them === 40 && g.shown > 0 && g.drawnOneFrame === g.shown, '*** THE GLASS: all 54 on the board, every beast your men can see drawn from ANIMATION\'s beast sheet in one frame ***', JSON.stringify(g));
+      leg(g.you === 14 && g.them === 40 && g.shown > 0 && g.drawnOneFrame === g.shown, '*** THE GLASS: all 54 on the board, every beast your men can see drawn from its rig model (ANIMATION\'s redone beasts through the master rig, rule 121) in one frame ***', JSON.stringify(g));
       leg(g.framed, 'both teams framed at the open, no swipe (rule 104a), with 54 on the board');
       await p.evaluate(() => { FIGHT_UI.auto = true; FIGHT_UI.speed = 6; });
       await p.waitForTimeout(6000);
