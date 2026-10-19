@@ -88,8 +88,10 @@ const KINDS = [
     probes: [{ code: 'engine/bohemia_encounters.js', table: 'ROSTER' }] },
   { kind: 'what people say', change: 'a faction\'s lines, reactions, the keepers\' lines', lane: 'WORDS / PEOPLE',
     probes: [{ code: 'engine/bohemia_people.js', table: 'LINES' }, { code: 'engine/bohemia_people.js', table: 'REACTIONS' }, { code: 'engine/bohemia_keeper_lines.js' }] },
-  { kind: 'names', change: 'the surname pool and how a name reads', lane: 'PEOPLE',
-    probes: [{ code: 'engine/bohemia_people.js', table: 'SURNAME' }, { code: 'engine/bohemia_people.js', table: 'NAME_READS' }] },
+  /* MODS [the screen's word] 10/19: the walk found every person's name on the glass (the hire post, the keepers) rolled by
+     engine/bohemia_names.js (PEOPLE 10/18), which this kind did not list; the people.js pools stay the stranger's line */
+  { kind: 'names', change: 'the first names and surnames by background (the county\'s mix) a hire, a keeper and a stranger are given; which name lands on which keeper is a dice roll keyed by the place, so no line names one keeper', lane: 'PEOPLE',
+    probes: [{ code: 'engine/bohemia_names.js', table: 'MIX', see: 'edit the engine file; the settlement screen loads it live (the hire post, the keepers: reload it); the map carries a copy, re-cut to see it there' }, { code: 'engine/bohemia_people.js', table: 'SURNAME' }, { code: 'engine/bohemia_people.js', table: 'NAME_READS' }] },
   { kind: 'the asks (what people ask of you)', change: 'who asks, about what, in which words', lane: 'QUESTS / WORDS',
     probes: [{ code: 'engine/bohemia_asking.js', table: 'ASKING' }, { code: 'engine/bohemia_asks.js' }] },
   { kind: 'trade talk', change: 'the exchanges at a counter', lane: 'WORDS',
@@ -132,7 +134,7 @@ const KINDS = [
   { kind: 'building names and who stands in them', change: 'a building\'s name and short line in a town (THE BAR, a round, a rumour), the keeper\'s name and title (MANNY, BEHIND THE BAR)', lane: 'RUN TWO',
     probes: [{ code: 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', table: 'B' }, { code: 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', table: 'KEEPERS' }] },
   { kind: 'a crew member\'s haircut (two words)', change: 'the body\'s cut, one of the named cuts (LAYERED FALL), and the face\'s cut, one of four classes (long, taper, coil, shag); change both or the man wears two haircuts', lane: 'CHARACTER / PORTRAIT',
-    probes: [{ code: 'slices/BOHEMIA_ALPHA_0_9.html', table: 'CITY_CAST_LOOKS' }, { code: 'tools/bohemia_portrait_the_head_from_the_model.py', table: 'CREW' }] },
+    probes: [{ code: 'slices/BOHEMIA_ALPHA_0_9.html', table: 'CITY_CAST_LOOKS', see: 'edit the alpha, then bake the sheets: node tools/bohemia_fight_people_bake.js (about 4 minutes) and tools/bohemia_settlement_people_bake.js; the demo carries a copy of the table, re-cut to see it on the map' }, { code: 'tools/bohemia_portrait_the_head_from_the_model.py', table: 'CREW', see: 'edit the table inside the tool, then render in Blender (not on a stranger\'s machine: the head model is not committed)' }] },
   { kind: 'the roads', change: 'the road kinds and their speed', lane: 'WORLD / RUN',
     probes: [{ code: 'engine/bohemia_roads.js' }, { json: 'records/target/BOHEMIA_THE_ROADS.json' }] },
 ];
@@ -228,7 +230,7 @@ function measure() {
         let tb = p.table ? tables(t, p.table, 0, py) : tables(t, null, 2000, py);
         if (p.table && tb.length > 1) tb = [tb.sort((a, b) => b.chars - a.chars)[0]]; /* one name, several declarations: the real table is the big one */
         if (!tb.length) { places.push({ kind: 'code', file: p.code, table: p.table, noTable: true, bytes: t.length, lines: t.split('\n').length }); continue; }
-        for (const x of tb.slice(0, 6)) places.push({ kind: 'code', file: p.code, table: x.name, chars: x.chars, lines: x.lines, line: x.line, copies: p.code.startsWith('engine/') ? copies(x, p.code) : [], head: x.head });
+        for (const x of tb.slice(0, 6)) places.push({ kind: 'code', file: p.code, table: x.name, chars: x.chars, lines: x.lines, line: x.line, copies: p.code.startsWith('engine/') ? copies(x, p.code) : [], head: x.head, see: p.see });
       } else if (p.baked) {
         const pth = path.join(ROOT, p.baked);
         places.push({ kind: 'baked', file: p.baked, by: p.by, missing: !fs.existsSync(pth), bytes: fs.existsSync(pth) ? fs.statSync(pth).size : 0, bySource: fs.existsSync(path.join(ROOT, p.by)) });
@@ -261,6 +263,7 @@ function how(place) {
     return 'edit the file; a build input, a lane\'s tool reads it';
   }
   if (place.kind === 'code') {
+    if (place.see) return place.see;   /* a measured path (the first-hour page), where the general rule below would be wrong */
     if (place.noTable) return 'no table to edit: the content is built by functions in that file; a lane has to pull it into a table first';
     if (place.file.startsWith('slices/')) return 'edit the table inside the surface itself (it is code, not a file)';
     if (place.file.startsWith('tools/')) return 'edit the table inside the tool, then run the tool (it renders pictures the game shows)';
@@ -276,7 +279,7 @@ function fileCell(p) {
   return '`' + p.file + '` (' + Math.round(p.bytes / 1024) + ' KB, baked)';
 }
 function page(kinds) {
-  const date = '10/17/26';
+  const date = '10/17/26, re-measured 10/19/26';
   const counts = {};
   for (const k of kinds) counts[k.status] = (counts[k.status] || 0) + 1;
   const order = ['DATA', 'DATA, WITH A COPY IN CODE', 'A FILE, NOT READ LIVE', 'A FILE AND CODE', 'IN CODE', 'BUILT BY CODE, NO TABLE', 'BAKED BY A TOOL', 'NOT FOUND'];
@@ -294,6 +297,9 @@ function page(kinds) {
   L.push('**' + kinds.length + ' kinds of content. ' + n('DATA') + ' live in a data file a modder edits and a screen reads straight back; ' + n('DATA, WITH A COPY IN CODE') + ' are in a file but a code copy can drift; ' + (n('A FILE, NOT READ LIVE') + n('A FILE AND CODE')) + ' are in a file no screen reads live (a build input); ' + n('IN CODE') + ' are still tables inside code; ' + n('BUILT BY CODE, NO TABLE') + ' are built by functions with no table at all; ' + n('BAKED BY A TOOL') + ' baked by a tool; ' + n('NOT FOUND') + ' not found by name.**');
   L.push('');
   L.push('A modder today can change **' + (counts['DATA'] || 0) + ' kinds by editing one JSON file and reloading the screen** (the fight, the settlement screen, the map, the demo). The rest of the page says, for every other kind, exactly which file and which table, so nobody has to grep.');
+  L.push('');
+  /* MODS [the screen's word] 10/19: this page sorts by file type; a stranger starts from the word on the screen */
+  L.push('**Start from the word on the screen, not from this table.** Three strangers ([a modder\'s first hour], 10/18) found the bar (code) faster than the pistol (data) every time, because THE BAR on the screen is THE BAR in the file and PISTOL is in no row of the weapons file. For every name a player reads in the demo\'s first ten minutes, the line that sets it and the hops when the search misses: records/BOHEMIA_MODS_EVERY_WORD_YOU_SEE_FINDS_ITS_LINE_10_19_26.md. The two kinds the strangers looked for here and did not find (building names; a crew member\'s haircut, two words) are rows below from 10/19.');
   L.push('');
   L.push('## HOW TO READ THE TABLE');
   L.push('');
