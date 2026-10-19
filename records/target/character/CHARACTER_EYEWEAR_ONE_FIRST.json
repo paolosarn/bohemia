@@ -1,0 +1,94 @@
+{
+ "firstAt": [
+  12,
+  1530,
+  757,
+  195
+ ],
+ "rows": {
+  "BONE DUST MASK": [
+   12,
+   64,
+   753,
+   204
+  ],
+  "CHARCOAL DUST MASK": [
+   12,
+   274,
+   753,
+   204
+  ],
+  "OLIVE DUST MASK": [
+   12,
+   484,
+   753,
+   204
+  ],
+  "OXBLOOD DUST MASK": [
+   12,
+   694,
+   753,
+   204
+  ],
+  "RUST DUST MASK": [
+   12,
+   904,
+   753,
+   204
+  ],
+  "GREY WRAPAROUNDS": [
+   12,
+   1114,
+   753,
+   202
+  ],
+  "WRAPAROUND SHADES": [
+   12,
+   1322,
+   753,
+   202
+  ],
+  "RUBBER GAS MASK": [
+   12,
+   1530,
+   757,
+   195
+  ],
+  "OUTLAW BANDANA": [
+   12,
+   1731,
+   756,
+   201
+  ],
+  "ROSE BANDANA": [
+   12,
+   1938,
+   756,
+   201
+  ],
+  "ASH SHIELD": [
+   12,
+   2145,
+   756,
+   198
+  ],
+  "SHIELD VISOR": [
+   12,
+   2349,
+   756,
+   198
+  ],
+  "ASH FACE WRAP": [
+   12,
+   2553,
+   753,
+   205
+  ],
+  "FACE WRAP": [
+   12,
+   2764,
+   753,
+   205
+  ]
+ }
+}

@@ -160,16 +160,17 @@ def build(cut, L):
         made.append(sheet(-1.0, 1.0, -0.132, 0.052, 40, 30, 0.008, name='face'))
         for sgn in (-1, 1):   # the lenses: a ring and a dark disc at each eye
             az = math.atan2(sgn * 0.047, 0.16)
-            r = (ray_r(az, 0.004) or 0.15) + 0.016
+            # (cycle 1: set off the eye's own radius, the rings sat INSIDE the mask, which bridges the brow and the nose)
+            r = max((ray_r(az + da, 0.004 + dz) or 0.15) for da in (-0.15, 0.0, 0.15) for dz in (-0.03, 0.0, 0.03)) + 0.020
             d = Vector((math.sin(az), -math.cos(az), 0.0)); ctr = C + Vector((0, 0, 0.004)) + d * r
             bm = bmesh.new()
-            res = bmesh.ops.create_cone(bm, cap_ends=True, segments=20, radius1=0.022, radius2=0.021, depth=0.014)
+            res = bmesh.ops.create_cone(bm, cap_ends=True, segments=20, radius1=0.023, radius2=0.021, depth=0.026)
             rot = d.to_track_quat('Z', 'Y')
             for v in res['verts']: v.co = rot @ v.co + ctr
             made.append(finish(bm, '%s_ring_%d' % (tag, sgn), cloth, 0))
             bm = bmesh.new()
             res = bmesh.ops.create_circle(bm, cap_ends=True, segments=20, radius=0.017)
-            for v in res['verts']: v.co = rot @ v.co + ctr + d * 0.006
+            for v in res['verts']: v.co = rot @ v.co + ctr + d * 0.0135
             made.append(finish(bm, '%s_lens_%d' % (tag, sgn), lens_m, 0.002))
         r = (ray_r(0.0, -0.095) or 0.15) + 0.030
         d = Vector((0.0, -1.0, -0.45)).normalized(); ctr = C + Vector((0, -r, -0.100))
