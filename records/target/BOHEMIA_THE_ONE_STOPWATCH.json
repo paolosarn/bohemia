@@ -4,89 +4,89 @@
  "instrument": "tools/bohemia_first_load.js readOnce: a fresh browser, cold cache, no service worker, served like GitHub Pages, nobody touching the glass",
  "throttle": 4,
  "lingerMs": 20000,
- "taken": "2026-10-18T17:45:24.017Z",
+ "taken": "2026-10-19T17:22:57.103Z",
  "demo": {
-  "stamp": "DEMO - BUILD 10/18b - THE RIG TRUCK ON THE MAP",
-  "hash": "7f4b3e66"
+  "stamp": "DEMO - BUILD 10/19b - THE MAP IS ALL 3D",
+  "hash": "623a9063"
  },
  "median": {
-  "titleMs": 1430.3,
-  "doorMs": 10597.8,
-  "bytesBeforeDoor": 3577870,
-  "bytesAfterDoor": 26882094,
-  "filesAfterDoor": 15
+  "titleMs": 1771.1,
+  "doorMs": 13615.7,
+  "bytesBeforeDoor": 3609112,
+  "bytesAfterDoor": 28354098,
+  "filesAfterDoor": 17
  },
  "spread": {
   "titleMs": [
-   1352.2,
-   1514.9
+   1599.5,
+   1840
   ],
   "doorMs": [
-   10344.4,
-   10979.3
+   13156.2,
+   14617.6
   ]
  },
  "readings": [
   {
-   "titleMs": 1514.9,
-   "buttonsMs": 2198.1,
-   "doorMs": 10597.8,
-   "firstPaintMs": 1960,
-   "bytesBeforeDoor": 3577870,
-   "bytesAfterDoor": 26882094,
-   "filesAfterDoor": 15,
-   "bytesAll": 30459964,
+   "titleMs": 1840,
+   "buttonsMs": 2490,
+   "doorMs": 13156.2,
+   "firstPaintMs": 2280,
+   "bytesBeforeDoor": 3609112,
+   "bytesAfterDoor": 28354098,
+   "filesAfterDoor": 17,
+   "bytesAll": 31963210,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1363.1,
-   "buttonsMs": 2046.4,
-   "doorMs": 10979.3,
-   "firstPaintMs": 1828,
-   "bytesBeforeDoor": 3577870,
-   "bytesAfterDoor": 26882094,
-   "filesAfterDoor": 15,
-   "bytesAll": 30459964,
+   "titleMs": 1599.5,
+   "buttonsMs": 2316.2,
+   "doorMs": 13615.7,
+   "firstPaintMs": 2032,
+   "bytesBeforeDoor": 3599060,
+   "bytesAfterDoor": 28354098,
+   "filesAfterDoor": 17,
+   "bytesAll": 31953158,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1444.8,
-   "buttonsMs": 2094.7,
-   "doorMs": 10344.4,
-   "firstPaintMs": 1868,
-   "bytesBeforeDoor": 3577870,
-   "bytesAfterDoor": 26882094,
-   "filesAfterDoor": 15,
-   "bytesAll": 30459964,
+   "titleMs": 1771.1,
+   "buttonsMs": 2404.5,
+   "doorMs": 13604,
+   "firstPaintMs": 2216,
+   "bytesBeforeDoor": 3609112,
+   "bytesAfterDoor": 28354098,
+   "filesAfterDoor": 17,
+   "bytesAll": 31963210,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1352.2,
-   "buttonsMs": 1952.2,
-   "doorMs": 10785.2,
-   "firstPaintMs": 1732,
-   "bytesBeforeDoor": 3577870,
-   "bytesAfterDoor": 26882094,
-   "filesAfterDoor": 15,
-   "bytesAll": 30459964,
+   "titleMs": 1779,
+   "buttonsMs": 2412.3,
+   "doorMs": 14311.8,
+   "firstPaintMs": 2196,
+   "bytesBeforeDoor": 3609112,
+   "bytesAfterDoor": 28354098,
+   "filesAfterDoor": 17,
+   "bytesAll": 31963210,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1430.3,
-   "buttonsMs": 2063.6,
-   "doorMs": 10463.3,
-   "firstPaintMs": 1864,
-   "bytesBeforeDoor": 3577870,
-   "bytesAfterDoor": 26882094,
-   "filesAfterDoor": 15,
-   "bytesAll": 30459964,
+   "titleMs": 1651.3,
+   "buttonsMs": 2401.3,
+   "doorMs": 14617.6,
+   "firstPaintMs": 2200,
+   "bytesBeforeDoor": 3599060,
+   "bytesAfterDoor": 28354098,
+   "filesAfterDoor": 17,
+   "bytesAll": 31953158,
    "twice": 0,
    "errors": 0
   }
  ],
- "line": "THE DEMO (DEMO - BUILD 10/18b - THE RIG TRUCK ON THE MAP, demo 7f4b3e66): title 1.4 s, the door (NEW GAME ready) 10.6 s on the 4x phone profile, median of 5 (10.3 to 11.0); 3.4 MB before the door, 25.6 MB in 15 files in the 20 s after it."
+ "line": "THE DEMO (DEMO - BUILD 10/19b - THE MAP IS ALL 3D, demo 623a9063): title 1.8 s, the door (NEW GAME ready) 13.6 s on the 4x phone profile, median of 5 (13.2 to 14.6); 3.4 MB before the door, 27.0 MB in 17 files in the 20 s after it."
 }

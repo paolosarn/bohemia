@@ -13408,6 +13408,31 @@
     "known": "the crew's 3D bodies were only ever rendered mid-step, so that is how they stand on the card; two crew faces (the wide brim and the shorts) are rendered darker than their bodies, the face chat's to redo when it runs again"
    },
    "draft": true
+  },
+  {
+   "id": "run-the-map-is-all-3d-10-19",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "5b6f7eb4",
+   "made": "10/19",
+   "title": "EVERYBODY ON THE MAP IS A 3D MODEL NOW, YOU INCLUDED",
+   "why": "Everybody on the demo's map was the old flat people except the gangs; now you, your two men, the crowds and the crew on a job are all 3D models, and nobody old stands beside them. You see it on the DEMO's map the moment you press BEGIN; zoom in on yourself.",
+   "before_after": {
+    "before": "the map at BUILD 10/19a from the game's camera on 390 x 844: the old flat people (left)",
+    "after": "the same spot at BUILD 10/19b: every person a 3D model (right)",
+    "scale": "1:1"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_MAP_IS_ALL_3D_10_19.png",
+    "first": "../records/target/vote_first/run-the-map-is-all-3d-10-19.webp",
+    "firstAt": [
+     1058,
+     760,
+     320,
+     280
+    ]
+   }
   }
  ],
  "verdicts": [
