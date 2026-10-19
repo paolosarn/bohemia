@@ -62,7 +62,32 @@ grey (its luminance kept), so the render lands on the flat's colour; a grey stay
 
 ## 3. WHAT LOOKING CHANGED
 
-(filled per cycle below)
+Fourteen tops were built and looked at first, one per hard option (RED SHIRT, BLACK TANK, STRIPED TEE, ROLLED FLANNEL,
+CHARCOAL TURTLENECK, OLIVE HOODIE, HOOD-UP ASH HOODIE, TATTERED FLANNEL, WORK COVERALLS, BIB OVERALLS, DENIM SHORTALLS,
+ARC LAYERED SHIRT, LONGLINE JERSEY, WIDE SHOULDER TEE), then the 80 were built:
+
+| what | cycle 1 | after |
+|---|---|---|
+| THE COLOUR | the red rendered pink (the dust took its spread 79 -> 57) | every cloth at SAT 1.4 at the source (section 2) |
+| THE NAMES | STEEL WORK SHIRT came out a tee (STEEL holds the letters TEE) | the name is read word by word |
+| THE LYING HOOD | a 40 mm heap read at 1:1 as a pale fur collar (its top takes the dust) | 55 mm, rounder, higher, to the base of the skull |
+| THE HOOD UP | cycle 1 a smooth ball with a square face hole (a diving helmet); cycle 2 the ear came through its side and the back's point read as a knob | cycle 2 an oval opening with a lip, a slimmer crown, a seam, soft folds; cycle 3 18 mm more over each ear, the point softer |
+| THE TATTERS | pin holes over a body painted in the same plaid, a 2.6 cm ragged hem: nothing read as torn | holes 3 to 4 cm showing his skin, the hem torn in points 5.5 cm deep, the cuffs torn |
+| THE WIDE SHOULDER | pushed along the cloth's normal the pad only raised the shoulder | pushed OUT from the shoulder point 32 mm and up 10, past the arm |
+
+Read as they are on the first pass: the tank's straps, scoop and armholes; the tee's stripes; the plaid and the shirt's
+tail; the rolled sleeve's roll; the turtleneck's ribbed roll to the jaw; the coveralls; the arc's dome and the layered
+cut's two hems; the longline's one mass over the legs.
+
+THE LIGHT ROW AND LIGHT LEGS (measured; the third time this lane meets D3's bias, routed to DIRECTION): BIB OVERALLS and
+DENIM SHORTALLS fail the guide's light row side on (E -2.8, W -4.4; E -2.7, NW -2.7, W -4.5), with and without the colour
+at the source. The head is the same 48 in every top's top quarter; what moves the row is the LEGS: the mannequin's black
+cargos put the bottom half at 54 to 57 (the black tank reads W +6.3, the red shirt +5.1), the denim legs put it at 71, over
+a top half of 68.6. Any outfit whose legs are lighter than its dark head is 'lit from below' by construction, whatever
+the light does. The shape is right and the colour is the flat's, so nothing is changed to pass: the two denim overalls
+are held off the card (rule 114b), built and rendered (records/target/character/barber/base_bib_overalls,
+base_denim_shortalls), and the question goes to DIRECTION with the numbers: should the light row compare the lit side
+against the shadow side of the same mass, not the top half against the bottom?
 
 ## 4. THE CARDS
 
