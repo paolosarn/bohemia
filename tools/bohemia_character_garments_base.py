@@ -554,7 +554,9 @@ def head(cut, Lb):
             for p, n in zip(pos, nor):
                 q = p - C; az = az_of(q); ab = abs(az)
                 t = 0.015 + 0.006 * sstep(0.05, 0.17, q.z) + 0.016 * sstep(1.9, 3.0, ab) * sstep(0.12, -0.06, q.z)
-                t += 0.010 * sstep(2.3, 3.0, ab) * math.exp(-((q.z - 0.10) / 0.04) ** 2)                     # the point at the back
+                t += 0.006 * sstep(2.2, 3.0, ab) * math.exp(-((q.z - 0.09) / 0.06) ** 2)                     # the point at the back
+                # cycle 3 (looking): the ear came through the side as a pink spot; the hood stands off over each ear
+                t += 0.018 * math.exp(-((ab - 1.62) / 0.40) ** 2) * math.exp(-((q.z + 0.005) / 0.055) ** 2)
                 t += 0.0030 * math.exp(-(q.x / 0.0035) ** 2) * sstep(-0.02, 0.05, q.z) * (ab > 0.9)          # the centre seam
                 t += 0.0028 * math.sin(22 * (q.z - 0.30 * az)) * sstep(0.6, 1.6, ab)                          # soft folds to the back
                 o = opening(q); t += 0.006 * math.exp(-((o - 1.0) / 0.10) ** 2)                               # the lip
