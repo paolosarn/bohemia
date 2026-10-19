@@ -206,7 +206,10 @@ def main():
 
     # S7 the fresh portrait, off the pixels, on the rig ladder
     alb = dict((t, lum(hx(pal[table[t][0]]['ramp'][table[t][1]]))) for t in table)
-    rank = dict((t, i) for i, t in enumerate(sorted(table, key=lambda t: -alb[t])))
+    # two tones on ONE step (chalk and porcelain both skin_light 3 since the light end was capped) are ONE rung: a rung is a
+    # distinct albedo, so a tie never reads as a step (it did for an hour: barearms' fair face read 'chalk', two rungs off)
+    steps = sorted(set(round(v, 4) for v in alb.values()), reverse=True)
+    rank = dict((t, steps.index(round(alb[t], 4))) for t in table)
     faces = []
     try:
         man = json.load(open(os.path.join(CREW, 'BOHEMIA_CREW_FACES.json')))['faces']
