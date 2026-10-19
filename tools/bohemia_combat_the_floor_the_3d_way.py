@@ -58,7 +58,7 @@ GROUNDS = {
     'asphalt':  dict(target=(64, 61, 60), stones=(0.25, 0.015, 0.04), big=(0.0, 0, 0), bump=0.5, aggregate=True),
     'lawn':     dict(target=(94, 107, 50), stones=(0.0, 0, 0), big=(0.0, 0, 0), bump=0.9, tufts=True),
 }
-SAMPLES = 48
+SAMPLES = 32
 
 
 def rig():

@@ -1728,7 +1728,8 @@ function bakeBoard() {
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
   /* the people: the rig sheet of every look a man in THIS fight wears (slices/fight_rig, rule 121), and the faces */
-  FIGHT.S.units.forEach(function (v) { if (beastOf(v) && !rigBeast(v)) return; const f = 'fight_rig/' + lookOf(v).file; if (all.indexOf(f) < 0) all.push(f); });
+  FIGHT.S.units.forEach(function (v) { if (beastOf(v) && !rigBeast(v)) return; const L = lookOf(v), f = 'fight_rig/' + L.file; if (all.indexOf(f) < 0) all.push(f);
+    if (L.guns && v.weapon && FIGHT.isGun(v.weapon) && all.indexOf('fight_rig/' + L.guns) < 0) all.push('fight_rig/' + L.guns); });
   all.push('fight_rig/' + DB.rig.faces.file);
   /* a beast with no rig sheet: ANIMATION's flat sheet (slices/fight_beasts), loaded only then */
   FIGHT.S.units.forEach(function (v) { const b = beastOf(v); if (b && !rigBeast(v) && all.indexOf('fight_beasts/' + b.file) < 0) all.push('fight_beasts/' + b.file); });
@@ -1896,8 +1897,8 @@ function nightSheet(img) {
     c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
     const g = c.getContext('2d'); g.drawImage(img, 0, 0);
     nightPass(g, c.width, c.height, img, MAN_MOON);
-    c.src = img.src; UI.darkOf.set(img, c);
-    if (typeof createImageBitmap === 'function') createImageBitmap(c).then(function (b) { b.src = img.src; UI.darkOf.set(img, b); }, function () {});
+    c.src = img.src; c.night = true; UI.darkOf.set(img, c);
+    if (typeof createImageBitmap === 'function') createImageBitmap(c).then(function (b) { b.src = img.src; b.night = true; UI.darkOf.set(img, b); }, function () {});
   }
   return c;
 }
@@ -2327,10 +2328,13 @@ const FOLLOW_M = 0.18, FRAME_PAD = 6;
 function manBox(x, y) { const tall = manH(), feet = sy((y + .9) * UI.th); return { x: sx((x + .5) * UI.tw), head: feet - tall, feet: feet }; }
 function framed(x, y) { const b = manBox(x, y); return b.x > W * FOLLOW_M && b.x < W * (1 - FOLLOW_M) && b.head > TOPH + FRAME_PAD && b.feet < H - BOTH - FRAME_PAD; }
 function aimAt(x, y) { return [(x + .5) * UI.tw, (y + .9) * UI.th - manH() / UI.zoom / (1 + 1)]; }
-function glideTo(x, y, z, ms) { UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: performance.now(), ms: ms }; }
+/* THE CAMERA EASES (rule 121 [smooth]): a glide eases in and out; a new glide asked while one is still moving keeps moving
+   (it eases OUT only, from the speed it had), so the camera never stops dead and starts again between two of a walk's aims */
+function glideTo(x, y, z, ms) { const g = UI.glide, now = performance.now(), moving = !!(g && now - g.t0 < g.ms);
+  UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: now, ms: ms, out: moving }; }
 function stepGlide(now) {
   const g = UI.glide; if (!g) return;
-  let k = Math.min(1, (now - g.t0) / g.ms); const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+  let k = Math.min(1, (now - g.t0) / g.ms); const e = g.out ? 1 - (1 - k) * (1 - k) : k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
   UI.zoom = g.fz * Math.pow(g.tz / g.fz, e); UI.cx = g.fx + (g.tx - g.fx) * e; UI.cy = g.fy + (g.ty - g.fy) * e;
   clampCam(); if (k >= 1) UI.glide = null;
 }
@@ -2628,6 +2632,13 @@ function beastFrame(v, now) {
   return at('idle', ((now / (K.idle.beats * 500)) % 1));
 }
 const BEAST_MAN_PX = 102;   /* ANIMATION's beast sheet is drawn at the scale its man filled (102 px of the 112 frame) */
+/* his gun's sheet and block, if what he holds is a gun (a pistol, a long gun, a shotgun: DB.rig.guns.by_class) */
+function gunSheet(v, L) {
+  const G = DB.rig.guns; if (!G || !L.guns || !v.weapon || !FIGHT.isGun(v.weapon)) return null;
+  const kind = G.by_class[v.weapon.class], row = G.order.indexOf(kind); if (row < 0) return null;
+  const img = UI.imgs['fight_rig/' + L.guns]; if (!img) return null;
+  return { img: FIGHT.S.night && !FIGHT._t.litAt(Math.round(dx(v)), Math.round(dy(v))) ? nightSheet(img) : img, row: row };
+}
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
 function blitMan(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
@@ -2644,6 +2655,12 @@ function blitMan(v, X, feet, now, alpha) {
   const ox = Math.round(X * DPR) - L.foot[0] * s, oy = Math.round(feet * DPR) - L.foot[1] * s;
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
   cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
+  /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
+     holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; carried while he stands,
+     walks or takes a blow, up at the shoulder when he shoots; never in the swing (the butt is a club then) or the fall */
+  const gs = gunSheet(v, L);
+  if (gs) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
+    if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); }
   cx.restore();
   /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the
      map): the picture cannot hold him; ANIMATION's module laid over his blit on the fight's own beat, in its own frame (the
@@ -3100,7 +3117,7 @@ function deploySay() { return FIGHT.S.formationKept ? KEPT_OPEN_SAY : DEPLOY_SAY
 /* THE SHELL HEARS THE LINE (rule 110b): the alpha and the demo may keep it with the company's save; the fight keeps its own copy */
 function keepLine() { try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_FIGHT_FORMATION', formation: FIGHT.S.formation }, '*'); } catch (_e) {} }
 const WALK_SAY = 'Tap inside the chalk to walk. Tap a marked man to hit.';
-const RING_W = 0.27;   /* the ring's half-width over his height: his feet's width and a little (the side colours are MK's) */
+const RING_W = 0.2;    /* the ring's half-width over his height: his feet's width and a little (0.27 under the flat sheet's chunkier man; the rig's man is 0.3 of his height across) */
 function deployZoom() { return fitBoth().z; }   /* rule 104a: setting the line sees both lines; the man still 112 (rule 21) */
 /* BOTH TEAMS ON ONE SCREEN (rule 104a, his eighth votes: 'I should see the two teams finding each other at the same time
    without touching anything; I don't want to swipe'): the zoom and centre that hold every man of both teams on the glass,

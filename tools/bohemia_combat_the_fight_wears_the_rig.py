@@ -52,7 +52,8 @@ CLIPS = [('Stand', 1), ('Anim_0', 6), ('Aim', 3), ('Swing', 3), ('Hit', 2), ('Fa
 BEASTS = ['dire_wolf_redone', 'cave_hyena', 'feral_dog_shepherd']
 BEAST_CLIPS = [('Walk', 6), ('Bite', 6), ('Hit', 2), ('Fall', 3)]
 FIGHT_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']   # a row per facing; the index is the fight's 8-way angle
-SAMPLES = 64
+SAMPLES = int(os.environ.get('BOHEMIA_RIG_SAMPLES', '24'))   # 24: measured 10/19 against 64 on one look, see pack()'s render_changes
+DENTS = os.environ.get('BOHEMIA_RIG_DENTS', '0') == '1'   # the 2.5 cm dents subdivide every mesh sixteen times: off, see render_changes
 
 
 def looks():
@@ -63,19 +64,26 @@ def looks():
     return out
 
 
-def body_glb(kind, src):
+HEADS = 'records/combat/rig/heads'
+
+
+def body_glb(kind, src, name=None):
+    """THE FACE IS THE BODY'S FACE (rule 120(d), 121(e): 'a portrait is a render of the rig's own head'): a man's model is
+    PORTRAIT's whole person, the body with the starred head modelled on it, the same model his portrait is rendered from
+    (PORTRAIT's build(), records/portrait/rig/crew/<look>_head.glb, rebuilt here into HEADS); his hair, his gear and his skin
+    on the board are the portrait's"""
     if kind == 'beast':
         return os.path.join(ROOT, 'reference/models/bohemia/%s.glb' % src)
     if kind == 'tier':
         return os.path.join(ROOT, 'records/portrait/rig/%s_head.glb' % src)
-    return os.path.join(ROOT, BODIES, src + '.glb')
+    return os.path.join(ROOT, HEADS, name + '_head.glb')
 
 
-def body_height(kind, src):
+def body_height(kind, src, name=None):
+    """the height PORTRAIT's rig gave the same whole person (his hat and hair in it), so the man and his portrait agree"""
     if kind == 'tier':
-        r = json.load(open(os.path.join(ROOT, 'records/target/portrait/rig', src, 'rig.json')))
-        return r['real_dims_m'][2]
-    return json.load(open(os.path.join(ROOT, BODIES, src + '.json')))['real_height_for_rig']
+        return json.load(open(os.path.join(ROOT, 'records/target/portrait/rig', src, 'rig.json')))['real_dims_m'][2]
+    return json.load(open(os.path.join(ROOT, 'records/target/portrait/rig/crew', name, 'rig.json')))['real_dims_m'][2]
 
 
 def pick(arg):
@@ -96,11 +104,13 @@ def run(cmd, out=None):
 def bodies(arg):
     py = sys.executable
     for name, kind, src in pick(arg):
-        glb = body_glb(kind, src)
-        if kind == 'crew':
-            run([py, 'tools/bohemia_portrait_the_head_from_the_model.py', '--crew-body', name.upper()], glb)
-        elif kind == 'faction':
-            run([py, 'tools/bohemia_portrait_the_head_from_the_model.py', '--faction-body', src.capitalize()], glb)
+        glb = body_glb(kind, src, name)
+        if kind in ('crew', 'faction'):   # the body (CHARACTER's builder), then PORTRAIT's head on it: the whole person
+            body = os.path.join(ROOT, BODIES, src + '.glb')
+            if kind == 'crew': run([py, 'tools/bohemia_portrait_the_head_from_the_model.py', '--crew-body', name.upper()], body)
+            else: run([py, 'tools/bohemia_portrait_the_head_from_the_model.py', '--faction-body', src.capitalize()], body)
+            os.makedirs(os.path.join(ROOT, HEADS), exist_ok=True)
+            run([py, 'tools/bohemia_portrait_the_head_from_the_model.py', name.upper(), glb], glb)
         out = os.path.join(ROOT, POSED, name + '.glb')
         run([py, 'tools/bohemia_combat_the_fight_poses.py', glb, out] + (['--beast'] if kind == 'beast' else []), out)
         print('POSED', name, os.path.relpath(out, ROOT))
@@ -117,8 +127,9 @@ def render(arg):
         glb = os.path.join(ROOT, POSED, name + '.glb')
         out = os.path.join(ROOT, RENDERS, name)
         size = (['--real-length', str(json.load(open(os.path.join(ROOT, 'records/target/master_rig', srcname, 'rig.json')))['real_dims_m'][1])]
-                if kind == 'beast' else ['--real-height', str(body_height(kind, srcname))])
+                if kind == 'beast' else ['--real-height', str(body_height(kind, srcname, name))])
         argv = ['bohemia_direction_master_rig.py', glb, out] + size + ['--family', 'none', '--set', 'samples=%d' % SAMPLES, '--no-calibration', '--no-id-pass']
+        if not DENTS: argv += ['--set', 'dent_m=0']
         for c, k in (BEAST_CLIPS if kind == 'beast' else CLIPS): argv += ['--clip', '%s:%d' % (c, k)]
         code = ('import sys; sys.argv = %r; __file__ = %r\n' % (argv, os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py'))) + src
         run([sys.executable, '-c', code], os.path.join(out, 'rig.json'))
@@ -126,10 +137,10 @@ def render(arg):
 
 
 def batch(n):
-    """every look not yet rendered, shared by n workers of two threads each (the clip holds are plain Python on one core,
-    the renders are small: three workers keep this box's four cores busy where one Cycles at four threads does not)"""
+    """every look not yet rendered, shared by n workers (two threads each when more than one); with the dents off a look
+    is forty seconds on this box, so one worker on every core is the default"""
     todo = [l[0] for l in looks() if not os.path.exists(os.path.join(ROOT, RENDERS, l[0], 'rig.json'))]
-    env = dict(os.environ, BOHEMIA_RIG_THREADS='2')
+    env = dict(os.environ, BOHEMIA_RIG_THREADS='2' if n > 1 else '0')
     procs = []
     for w in range(n):
         mine = todo[w::n]

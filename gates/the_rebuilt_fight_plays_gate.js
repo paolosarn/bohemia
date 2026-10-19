@@ -144,20 +144,22 @@ async function fight(F, first) {
     const bars = await ev(() => window.__bars);
     leg(bars > 0 && bars <= 4 * 25, 'bars over a man only while he acts or is picked, three points tall', bars + ' three-point bars drawn in ~25 frames');
   }
-  /* RULE 69: every fighter is the character bank's rig in his own clothes, his face the bank's face */
+  /* RULE 69, AMENDED BY RULE 121 (10/19, COMBAT [the fight wears the 3D models]): every fighter is his RIG MODEL (slices/fight_rig:
+     PORTRAIT's bodies, COOK THREE's tiers, ANIMATION's beasts through DIRECTION's master rig), his face PORTRAIT's fresh
+     portrait of the same model; no man is drawn from the old flat sheets */
   const bank = await ev(() => {
     const units = FIGHT.S.units.filter(v => FIGHT.onField(v) && (v.side === 'you' || FIGHT.sideSees('you', v)));
-    const loaded = FIGHT.S.units.every(v => { const i = atlasOf(v); return i && i.complete && i.naturalWidth > 0 && !!DB.people.looks[v.look]; });
+    const loaded = FIGHT.S.units.every(v => { const L = lookOf(v), i = L && FIGHT_UI.imgs['fight_rig/' + L.file]; return i && i.width > 0 && (!!DB.rig.looks[v.look] || !!rigBeast(v)); });
     window.__bank = 0;
-    return { loaded, visible: units.length, looks: new Set(FIGHT.S.units.map(v => v.look)).size, src: DB.people.source,
-      handDrawn: /coat|part\(/.test(drawMan.toString()) || !/blitMan/.test(drawMan.toString()), faceFromBank: /atlasOf/.test(drawPortrait.toString()) };
+    return { loaded, visible: units.length, looks: new Set(FIGHT.S.units.map(v => v.look)).size, src: DB.rig.source,
+      handDrawn: /coat|part\(/.test(drawMan.toString()) || !/blitMan/.test(drawMan.toString()), faceFromBank: /DB\.rig\.faces/.test(drawPortrait.toString()) };
   });
   await p.waitForTimeout(300);
   const blits = await ev(() => window.__bank);
-  leg(bank.loaded && /famPaintBody/.test(bank.src) && !bank.handDrawn, F.board + ': *** EVERY FIGHTER IS THE CHARACTER BANK\'S RIG IN HIS CLOTHES (rule 69), nothing hand-drawn ***',
+  leg(bank.loaded && /master rig/.test(bank.src) && !bank.handDrawn, F.board + ': *** EVERY FIGHTER IS HIS RIG MODEL (rules 69, 121), nothing hand-drawn, no old flat sheet ***',
     bank.looks + ' looks on the board, from ' + bank.src.split(':')[0]);
   leg(blits >= bank.visible, F.board + ': the board blits the bank\'s frames for every man it shows', blits + ' bank frames in ~18 frames for ' + bank.visible + ' men');
-  leg(bank.faceFromBank, F.board + ': the turn strip and the bar carry his face from the bank (renderFace with his key)');
+  leg(bank.faceFromBank, F.board + ': the turn strip and the bar carry his face: PORTRAIT\'s fresh portrait of the same model (rule 115(h))');
   const man = await ev(() => Math.round(manH()));
   leg(Math.abs(man - IDLE) <= 2 && IDLE >= 80, F.board + ': *** THE MAN READS AS A MAN (rule 66): at the idle stop he stands at his size, the page\'s MAN_IDLE, never under 80 ***', man + ' css px tall, his size ' + IDLE + ' (was 17 before round three)');
   if (F.taps) {
@@ -323,8 +325,8 @@ async function fight(F, first) {
     + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.skill + ' perk skills used, ' + R.c.down + ' fell');
   const words = await ev(() => window.__words);
   const clips = await ev(() => FIGHT_UI.clipSeen || {});
-  leg(['walk', 'stagger-hit', 'sleep'].every(k => clips[k] > 0) && (clips['bat-arc'] > 0 || clips['two-hand'] > 0),
-    F.board + ': the bank\'s clips play: the walk, the hit clip when struck, the swing or the aim, the fallen', Object.keys(clips).join(', '));
+  leg(['walk', 'hit', 'fall'].every(k => clips[k] > 0) && (clips.swing > 0 || clips.aim > 0 || clips.bite > 0),
+    F.board + ': the rig\'s clips play: the walk, the blow landing when struck, the swing or the gun up, the fall', Object.keys(clips).join(', '));
   const noLog = await ev(() => !document.getElementById('feed') && !/ (hits|misses) /.test(document.getElementById('say').textContent));
   leg(noLog, F.board + ': NO COMBAT LOG ON THE SCREEN (rule 67): the bar never prints who hit whom');
   const recap = await ev(() => { const rows = document.querySelectorAll('#over table tr'); return { rows: rows.length - 1, xp: Array.from(rows).slice(1).some(r => /\+[1-9]/.test(r.children[4].textContent)) }; });
@@ -432,7 +434,7 @@ async function table70() {
 async function nightLights() {
   const arm = 'window.__lamps=0;window.__darkmen=0;window.__litmen=0;(function(){const P=CanvasRenderingContext2D.prototype,di=P.drawImage;P.drawImage=function(img){'
     + 'if(img&&img.src&&img.src.indexOf("fight_ground/light_")>=0)window.__lamps++;'
-    + 'if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_people")>=0){if(img instanceof HTMLCanvasElement)window.__darkmen++;else window.__litmen++;}'
+    + 'if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_rig")>=0&&img.src.indexOf("faces")<0){if(img.night)window.__darkmen++;else window.__litmen++;}'
     + 'return di.apply(this,arguments);};})();window.FIGHT_OPTS={seed:31,speed:1,kind:"strip",night:true}';
   const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: arm });
   await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
@@ -927,14 +929,19 @@ async function outlineFatMap() {
       let holes = 0, n = 0;
       for (let y = 0; y < rc.height; y += 3) for (let x = 0; x < rc.width; x += 3) { if (x >= bx0 && x < bx1 && y >= by0 && y < by1) continue; n++; if (a[(y * rc.width + x) * 4 + 3] < 250) holes++; }
       /* the rim: every pixel the rim adds outside his silhouette is dark ink with no colour, at night and by day */
-      const img = atlasOf(S.units.filter(FIGHT.onField)[0]), rim = { n: 0, bad: 0, worst: 0 };
-      [nightAtlas(img), dayAtlas(img)].forEach(c => {
-        const w = Math.min(img.width, 112 * 13), h = img.height, o = document.createElement('canvas'); o.width = w; o.height = h;
-        const og = o.getContext('2d'); og.drawImage(img, 0, 0); const A = og.getImageData(0, 0, w, h).data, B = c.getContext('2d').getImageData(0, 0, w, h).data;
-        for (let i = 3; i < A.length; i += 4) if (A[i] === 0 && B[i] > 0) { rim.n++; const L = .3 * B[i - 3] + .59 * B[i - 2] + .11 * B[i - 1], C = Math.max(B[i - 3], B[i - 2], B[i - 1]) - Math.min(B[i - 3], B[i - 2], B[i - 1]);
+      /* (rule 121: a rig sheet; the rim is in its pixels at DB.rig.rim's alpha, read in the day's sheet and the night's) */
+      const man = S.units.filter(v => FIGHT.onField(v) && !v.beast)[0], LK = lookOf(man), img = U.imgs['fight_rig/' + LK.file], rim = { n: 0, bad: 0, worst: 0 };
+      [nightSheet(img), img].forEach(c => {
+        const w = Math.min(img.width, LK.w * 7), h = img.height, o = document.createElement('canvas'); o.width = w; o.height = h;
+        const og = o.getContext('2d'); og.drawImage(c, 0, 0); const B = og.getImageData(0, 0, w, h).data;
+        for (let i = 3; i < B.length; i += 4) if (B[i] === DB.rig.rim[3]) { rim.n++; const L = .3 * B[i - 3] + .59 * B[i - 2] + .11 * B[i - 1], C = Math.max(B[i - 3], B[i - 2], B[i - 1]) - Math.min(B[i - 3], B[i - 2], B[i - 1]);
           rim.worst = Math.max(rim.worst, L); if (L > 40 || C > 24) rim.bad++; }
       });
-      const fig = DB.people.figure_bbox[2] / DB.people.figure_bbox[3];
+      /* his figure's width over his height, read off his standing still facing the glass (the sheet's S row, its first column) */
+      const fig = (function () { const o = document.createElement('canvas'); o.width = LK.w; o.height = LK.h; const og = o.getContext('2d'); og.drawImage(img, 0, 0, LK.w, LK.h, 0, 0, LK.w, LK.h);
+        const P = og.getImageData(0, 0, LK.w, LK.h).data; let x0 = 1e9, x1 = -1, y0 = 1e9, y1 = -1;
+        for (let y = 0; y < LK.h; y++) for (let x = 0; x < LK.w; x++) if (P[(y * LK.w + x) * 4 + 3] > 0) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+        return (x1 - x0 + 1) / Math.max(1, y1 - y0 + 1); })();
       return { missing, holes: holes / n, rim, ringW: RING_W * 2, fig, all: allFramed(), black: (function () { const c = document.getElementById('cv'), D = c.width / innerWidth, p = c.getContext('2d').getImageData(0, Math.round(TOPH * D), c.width, Math.round((H - TOPH - BOTH) * D)).data;
         let b = 0, m = 0; for (let i = 0; i < p.length; i += 4 * 7) { m++; if (p[i] === 13 && p[i + 1] === 11 && p[i + 2] === 9) b++; } return b / m; })() };
     });
@@ -1144,11 +1151,11 @@ async function struckDown() {
     S.over = true; S.result = 'lost'; showOver('lost'); const sent = homeMessage('lost');
     const recap = document.getElementById('over').innerText;
     /* the day rim: pixels outside his silhouette that the rim fills, and how dark they are */
-    const img = atlasOf(hire), day = dayAtlas(img), w = 112, h = 112;
-    const a = document.createElement('canvas'); a.width = w; a.height = h; const ag = a.getContext('2d'); ag.drawImage(img, 0, 0, w, h, 0, 0, w, h);
-    const b = document.createElement('canvas'); b.width = w; b.height = h; const bg = b.getContext('2d'); bg.drawImage(day, 0, 0, w, h, 0, 0, w, h);
-    const A = ag.getImageData(0, 0, w, h).data, B = bg.getImageData(0, 0, w, h).data; let rim = 0, darkRim = 0;
-    for (let i = 3; i < A.length; i += 4) if (A[i] === 0 && B[i] > 0) { rim++; if (.3 * B[i - 3] + .59 * B[i - 2] + .11 * B[i - 1] < 40) darkRim++; }
+    /* (rule 121: the rig sheet carries its day rim in its pixels, at the rim's own alpha, DB.rig.rim) */
+    const L = lookOf(hire), img = FIGHT_UI.imgs['fight_rig/' + L.file], w = L.w, h = L.h;
+    const b = document.createElement('canvas'); b.width = w; b.height = h; const bg = b.getContext('2d'); bg.drawImage(img, 0, 0, w, h, 0, 0, w, h);
+    const B = bg.getImageData(0, 0, w, h).data; let rim = 0, darkRim = 0;
+    for (let i = 3; i < B.length; i += 4) if (B[i] === DB.rig.rim[3]) { rim++; if (.3 * B[i - 3] + .59 * B[i - 2] + .11 * B[i - 1] < 40) darkRim++; }
     return { dead, mainDead, injured, perm, ids: Object.keys(ids), dMin: Math.min(...days), dMax: Math.max(...days), range: R('ours.struck_down_laid_up_days'),
       marked, hire: { name: hire.name, inj: hire.longInjury && hire.longInjury.name, days: hire.laidUp }, recap, sent: sent && sent.crew && sent.crew.find(c => c.name === hire.name), rim, darkRim };
   });
