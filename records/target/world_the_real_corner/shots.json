@@ -1,0 +1,57 @@
+{
+ "now": {
+  "at": [
+   10,
+   89
+  ],
+  "zoom": 1.6,
+  "corner": null,
+  "names": [
+   "LAKE LAS VEGAS",
+   "BOULDER CITY",
+   "HOOVER DAM",
+   "LAKE MEAD"
+  ],
+  "kinds": {
+   "mountain": 24,
+   "arterial": 33,
+   "freeway": 13,
+   "desert": 64,
+   "suburb": 18,
+   "wash": 1,
+   "water": 72,
+   "town": 9,
+   "intake": 1,
+   "dam": 4,
+   "commercial": 2,
+   "farm": 1
+  }
+ },
+ "real": {
+  "at": [
+   10,
+   89
+  ],
+  "zoom": 1.6,
+  "corner": "SE",
+  "names": [
+   "THE MCCULLOUGH FOOTHILLS",
+   "THE MCCULLOUGH FOOTHILLS",
+   "THE MCCULLOUGH FOOTHILLS",
+   "MACDONALD HIGHLANDS",
+   "THE PITTMAN BASINS"
+  ],
+  "kinds": {
+   "mountain": 85,
+   "arterial": 33,
+   "freeway": 13,
+   "desert": 64,
+   "suburb": 18,
+   "wash": 1,
+   "basin": 16,
+   "gated": 9,
+   "commercial": 2,
+   "farm": 1
+  }
+ }
+}

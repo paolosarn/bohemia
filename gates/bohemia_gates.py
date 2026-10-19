@@ -985,6 +985,15 @@ GATES = [
      'that the region does not carry; a valley piece carrying a real place\'s name beyond the OWED list (today\'s '
      'eight, pinned so they can only be fixed; a fixed one is a note, never a red) on the game\'s seed or twenty; a '
      'piece renamed or removed in the roll without the table knowing.', False),
+    ('THE REAL CORNER', ['node', 'gates/the_real_corner_gate.js'],
+     'ROW [the dam in one place], round two (WORLD 10/19). engine/bohemia_the_real_corner.js is the candidate for his '
+     'vote (card world-the-real-corner-10-19): the corner cluster turned in place into the ground really there (the '
+     'McCullough foothills, MacDonald Highlands, the Pittman basins on the game\'s seed), so the dam, Boulder City and '
+     'the lakes stand once, on the region\'s map. Refuses: a cell of the five pieces left as dam, town, intake or lake; '
+     'a name that is the region\'s own far place; a word without draft:true; a seat-list change or a moved capital on '
+     'the game\'s seed; a moved capital, a dead street or a carried street on any south-border seed of 210 (the side '
+     'edge is a note, [the roll]\'s); a call from the roll, the world, the loop, the city or the demo before his yes; '
+     'an impure plan. Two mutations inside.', False),
     ('THE DISTRICTS JOIN', ['node', 'gates/region_districts_gate.js'],
      'ROW [the districts as data, joined] (WORLD 10/18; Paolo 10/18 \'doesn\'t look like shit\'s connected\'). '
      'engine/BOHEMIA_REGION_LAND.json carries the 26 real districts of the Las Vegas region (basins, ranges, the lake, '
