@@ -1,0 +1,140 @@
+{
+ "frames": "records/target/cook3/rig/leader",
+ "ruler": "dE76 of the lit tone (L* p80, median a*, b*) of the face skin against the body skin (hands, neck), pooled over the facings, interior ID pixels only; PASS under 10",
+ "facings": [
+  {
+   "facing": "N",
+   "face_px": 40,
+   "body_px": 19,
+   "face_rgb": [
+    134,
+    103,
+    89
+   ],
+   "body_rgb": [
+    194,
+    158,
+    139
+   ]
+  },
+  {
+   "facing": "NE",
+   "face_px": 28,
+   "body_px": 17,
+   "face_rgb": [
+    133,
+    102,
+    87
+   ],
+   "body_rgb": [
+    138,
+    110,
+    96
+   ]
+  },
+  {
+   "facing": "E",
+   "face_px": 63,
+   "body_px": 42,
+   "face_rgb": [
+    117,
+    95,
+    82
+   ],
+   "body_rgb": [
+    152,
+    121,
+    105
+   ]
+  },
+  {
+   "facing": "SE",
+   "face_px": 107,
+   "body_px": 28,
+   "face_rgb": [
+    149,
+    119,
+    103
+   ],
+   "body_rgb": [
+    180,
+    142,
+    125
+   ]
+  },
+  {
+   "facing": "S",
+   "face_px": 103,
+   "body_px": 11,
+   "face_rgb": [
+    171,
+    134,
+    117
+   ],
+   "body_rgb": [
+    191,
+    152,
+    131
+   ]
+  },
+  {
+   "facing": "SW",
+   "face_px": 112,
+   "body_px": 16,
+   "face_rgb": [
+    158,
+    124,
+    108
+   ],
+   "body_rgb": [
+    144,
+    114,
+    98
+   ]
+  },
+  {
+   "facing": "W",
+   "face_px": 95,
+   "body_px": 47,
+   "face_rgb": [
+    162,
+    126,
+    108
+   ],
+   "body_rgb": [
+    162,
+    130,
+    113
+   ]
+  },
+  {
+   "facing": "NW",
+   "face_px": 49,
+   "body_px": 40,
+   "face_rgb": [
+    131,
+    106,
+    87
+   ],
+   "body_rgb": [
+    190,
+    154,
+    135
+   ]
+  }
+ ],
+ "face_px": 597,
+ "body_px": 220,
+ "face_tone": [
+  61.3,
+  9.3,
+  13.2
+ ],
+ "body_tone": [
+  66.5,
+  9.9,
+  14.2
+ ],
+ "dE": 5.3,
+ "verdict": "PASS"
+}
