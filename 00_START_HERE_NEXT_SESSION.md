@@ -829,6 +829,39 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-vamily-opus6): 10/19 (g) LATEST -- *** [the dam in one place] ROUND TWO: THE CANDIDATE IS BUILT AND IN
+VOTE, AND IT MOVES NO CAPITAL. The wait on FACTIONS' seats was a premise, measured away (rule 12). ***
+Opened by the coordinator after the five-hour cap (rules 112, 116; Opus 5.5 Extra). No check-in, no question.
+Record: records/BOHEMIA_WORLD_THE_DAM_IN_ONE_PLACE_10_18_26.md, sections 7 to 12. Code on main 6ed37eca.
+Tab: VOTE, card world-the-real-corner-10-19 (registered, unvoted, UNTAGGED: on his first screen only once the
+coordinator tags it, rule 118). On the map itself: NOT IN A TAB YET (nothing calls it before his yes).
+
+1. THE CANDIDATE (engine/bohemia_the_real_corner.js, called by nothing): Lake Mead, the dam and the intake become
+mountain, Boulder City gated, Lake Las Vegas a flood basin, the same 86 cells, in place. The game's seed is the real
+south-east, so the words are real places looked up and placed in the box: THE MCCULLOUGH FOOTHILLS (Black Mountain,
+5,093 ft, 11 blocks south), MACDONALD HIGHLANDS (south Henderson's guard-gated hills, a lot at block 74,86 real),
+THE PITTMAN BASINS (the flood district's basins at Black Mountain's foot). Other corners: plain words, named:false.
+2. NO CAPITAL MOVES: every change keeps the cell's class (the seats pick from buildable road-front lots by position),
+so the seat list is the same 2,734 lots in the same order: 0 of 18 on the game's seed, 0 on all 169 south-border
+seeds of 210. FOUND ON THE WAY: a town is BIG, a gated block is not, so streets that ended at the town stop dead
+(street_connectivity 9/3); punching the whole grid through moved 7 capitals; the kept fix carries a street only
+where it would stop dead, which never happens on the south border. The 41 side-edge seeds (axisFlip): capitals move
+on 35, 12 stubs, stated as a NOTE: [the roll]'s.
+3. THE PICTURE from the demo's map camera, before and after at 1:1 (slices/vote/WORLD_THE_REAL_CORNER_10_19.jpg): the
+in-town lake drawn as rows of pools, the dam's grey wall, Boulder City's red roofs and a painted LAKE MEAD beside the
+city; then foothills, hill houses, a basin, plain desert. The far land's painted lake is left out of the photo at the
+worker's input (my first try blanked the whole far land; caught on the picture).
+4. WHAT A YES ASKS (measured by running the readers' gates with it applied): bb_places 25/1 (the valley's dam power
+site goes; re-point to the region's HOOVER DAM, the Network's), board_terrains 58/1 (town, intake, dam no longer
+made in the valley), RUN's far-land lake painter, the CITY legend, QUESTS' THE DAM boss; every other gate unchanged.
+NEW GATE THE REAL CORNER 16/0 (registered). Run: it, A PLACE IS NAMED ONCE 7/0, THE PIXEL FLOOR 13/0, GATE
+REGISTRY 7/0, SUITE HONESTY 26/0, THE VOTE TAB 51/1 (the red: two DYNASTY cards). Full suite not claimed.
+WEAK: the side-edge seeds; the names for the other three corners are plain words, not looked up.
+NEXT: on his YES, the move (the roll calls it, the pages resync, the readers told); else [the leg onto main] when
+the seats hold still, [the three sizes of place] or [the roll] (dropping axisFlip also fixes this card's 41 seeds).
+WORLD holds 3 OPEN (the dam CLAIMED, waiting on his vote).
+PENDING Paolo: nothing (the card is a vote, not a question).
+
 WORLD (world-vamily-opus5): 10/18 (f) LATEST -- *** [the news down the road, as data] SHIPPED: the region's
 35 places run their own business and each says what happened there. THE COORDINATOR'S FIRST (the freeway's
 gap to Henderson) IS BUILT AND HELD: the fix moves three faction capitals, the player's among them. ***

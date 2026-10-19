@@ -116,3 +116,120 @@ rumour and road points at the same one. Ours points at two dams.
 
 [analog horror line] The sign at the edge of town still says HOOVER DAM 8 MI, and somebody has painted a second arrow
 under it pointing the other way.
+
+---
+
+# ROUND TWO (10/19/26, world, Opus 5.5 Extra, opened by the coordinator after the five-hour cap): THE CANDIDATE, BUILT SO NO CAPITAL MOVES
+
+Code on main 6ed37eca (work in progress 3a49e63b). VOTE card **world-the-real-corner-10-19** (registered, unvoted, waiting
+on the coordinator's tag for his first screen, rule 118). Section 4's premise was measured again (rule 12) and it was a
+premise, not a gate: the move does not have to wait on FACTIONS' seats if it never changes the list the seats are
+picked from.
+
+## 7. THE CANDIDATE: A RELABEL IN PLACE, NOT A RE-ROLL
+
+engine/bohemia_the_real_corner.js, called by nothing. `apply(m)` takes a built overmap and turns the five pieces' cells,
+the same footprint, into the ground that is really in that corner:
+
+| piece (the roll's name) | cells, game's seed | becomes | named (game's seed, real SE) |
+|---|---|---|---|
+| mead (LAKE MEAD) | 56 water | mountain | THE MCCULLOUGH FOOTHILLS |
+| damR (HOOVER DAM) | 4 dam | mountain | THE MCCULLOUGH FOOTHILLS |
+| intake (THE INTAKE) | 1 intake | mountain | THE MCCULLOUGH FOOTHILLS |
+| boulder (BOULDER CITY) | 9 town | gated | MACDONALD HIGHLANDS |
+| lakeLV (LAKE LAS VEGAS) | 16 water | basin | THE PITTMAN BASINS |
+
+86 cells on every one of 210 seeds. All words draft:true.
+
+**Where the names come from (real geography, measured into the box at 384 m a block, real orientation):**
+- The game's seed puts the cluster in the real SOUTH-EAST corner (compass east = x0; the cluster's centre at real 88-94,
+  87-94, about lat 35.97 to 36.00, lon -115.04 to -114.96). Our own region file has open desert, hills and the I-11 to
+  Railroad Pass just outside that corner, the McCullough Range (district H) to the south, and no lake within 12 blocks.
+- MacDonald Highlands: a guard-gated master-planned community at the south end of Henderson (ZIP 89012), 1,200 acres,
+  2,300 to over 3,200 ft, inside the 3,200-acre MacDonald Ranch; a lot in Dragon's Reserve sits at 36.0007 N,
+  115.053 W, which is block 74,86 of the box in real order, about seven blocks from the piece it replaces. The
+  DragonRidge ridge the residents call the Sleeping Dragon.
+- Black Mountain, the McCullough Range's north peak: 35.931 N, 115.043 W, 5,093 ft (Wikipedia and SummitPost agree
+  to the foot): real block 77,106, eleven blocks south of the box. The corner's hills are its foothills.
+- The Pittman basins: the Clark County Regional Flood Control District's Pittman North Detention Basin (2019, the
+  district's 100th, 1,533 acre-feet, collects the McCullough Range's runoff) and the Pittman Horizon Ridge basin at the
+  foot of Black Mountain; the Pittman Wash drains Henderson to the Las Vegas Wash and Lake Mead. The valley's wash
+  already ends where Lake Las Vegas was, so a basin there is the real shape.
+- On the 127 seeds where the roll put the cluster in another corner (SW 86, NE 24, NW 17), the same kinds with plain
+  words (THE RIM HILLS, THE EDGE OF TOWN, A FLOOD BASIN) and named:false: no real name is guessed for a corner whose
+  ground was not looked up.
+
+## 8. WHY NO CAPITAL MOVES (the measurement section 4 was missing)
+
+The seats come from districtsOf(): the buildable ('sand') cells that front a road, in scan order; the spread fallback
+picks by POSITION in that list, so only a change to WHICH cells are in it, or in what order, moves a capital.
+- water, dam and intake were never in it (cat water); mountain and basin are not in it (mount, water). The town was in
+  it (2 of its 9 cells front a road on the game's seed) and gated stays in it (sand, not in NOT_A_TOWN). No road is
+  touched. Same cells, same order; 'town' to 'gated' is a kind no faction's HOMES names.
+- Measured with the loop's own call (placeHomes over every one of the 18 factions): **game's seed, 0 of 18 move,
+  the seat list identical (2,734 lots); every south-border seed of 210 (169), 0 move.**
+- THE TRAP, FOUND AND MEASURED BEFORE IT SHIPPED: a town is BIG (a street may end at it, Paolo 7/18), a gated block is
+  not. The first cut turned the town gated and three of street_connectivity's four seeds went red (a collector street
+  now stopping in fabric at 87,14 / 91,14 / 91,13). Punching the roll's whole grid through the houses, as the GRID
+  RE-ASSERT does to any soft piece, made it green and MOVED 7 CAPITALS on the game's seed (new street cells change
+  which lots front a road). The kept fix carries a street through the houses ONLY where it would otherwise stop dead
+  (carryStreets): on the south border that never happens (0 carried, 0 stubs, 169 seeds); on the 41 side-edge seeds
+  (the roll's axisFlip) it carries streets on 35, moving capitals there, and 12 short stubs remain where the carried
+  street exits onto desert. That is [the roll]'s own finding (the cluster on the side edge is already wrong geography:
+  drop axisFlip and every seed is a south-border seed); the check states it as a NOTE, never hides it.
+
+## 9. WHAT A YES WOULD ASK OF EVERY READER (measured: the round-one gates run with the candidate applied)
+
+A preload wrapping buildOvermap with apply(), each gate run on main and under the candidate:
+
+| gate | main | candidate | what it is |
+|---|---|---|---|
+| bb_places | 26/0 | 25/1 | 'a SITE is a building': the valley's dam power site (4 cells, held by the Mob in that gate's measure) is gone; the Mob's fortress loses its hinterland. FACTIONS/ECONOMY: re-point the dam's power to the region's HOOVER DAM (the Network's) |
+| board_terrains | 59/0 | 58/1 | the table claims town, intake and dam, which the valley no longer makes (COMBAT TWO / WORLD: the region's places still fight on them) |
+| street_connectivity | 12/0 | 12/0 | green once carryStreets landed (9/3 without it) |
+| a_place_is_named_once, materials, ladder_walk, city_tab, cityedit, build_a_lot, homebases, every_cell_has_a_class, every_floor_region_connects, drive_network, the_valley_has_an_edge | same | same | unchanged (pre-existing reds on main stay theirs: city_tab 2, drive_network 2, the_valley_has_an_edge 2) |
+
+Not reached by node gates, named from round one's list: RUN's far-land painter (lays LAKE MEAD past `L.mead`'s corner;
+on a yes it must read the region's lake instead, which is 25 km on, not beside the city), the CITY tab's legend
+(BOULDER CITY, HOOVER DAM, LAKE MEAD INTAKE keyed to kinds), QUESTS' THE DAM boss on the 'dam' district, the Homeless
+seat's 'intake' preference (it does not pick the intake on the game's seed today), the pump service from intake or dam.
+
+## 10. THE PICTURE (rule 32: from the game's camera)
+
+tools/bohemia_world_the_real_corner_shot.js drives the committed demo twice at the far stop (zoom 1.6, camera on the
+dam): NOW as main serves it; THE REAL with the same city file served from the scratch folder with the module inlined and
+applied after the map is built, and the far land's painted lake left out where the page hands it to the painter's
+worker (the painter runs in a worker: the first attempt patched the painter itself, the worker could not see the map,
+and the whole far land came back flat; caught on the picture, fixed at the input). Nothing in slices/ changes for the
+photograph. tools/bohemia_world_the_real_corner_sheet.py lays the two crops side by side at 1:1:
+slices/vote/WORLD_THE_REAL_CORNER_10_19.jpg (1408 x 1180, 352 KB). What it shows: the in-town Lake Mead drawn as rows of
+blue pools, the dam as a grey wall and Boulder City's red roofs, with a painted LAKE MEAD beside the city; then the
+foothills' cones, the hill houses and the grey flood basin, the far land plain desert and hills.
+
+## 11. THE CHECK
+
+gates/the_real_corner_gate.js, THE REAL CORNER (registered), 16/0, 18 s. Refuses: the game's corner not SE or not
+named; a cell of the five pieces left as dam, town, intake or lake water; a name that is a real place the region
+carries outside the box; a word without draft:true; any seat-list change or moved capital on the game's seed; a moved
+capital, a dead street or a carried street on any south-border seed of 210 (side edge: a NOTE with its counts); a call
+from the roll, the world, the loop, the city or the demo before his yes; an impure plan. Two mutations bite (the town
+turned to rock: 7 seats would move; a name set to BOULDER CITY: caught).
+
+Run this round: THE REAL CORNER 16/0, A PLACE IS NAMED ONCE 7/0, THE PIXEL FLOOR 13/0, GATE REGISTRY 7/0, SUITE
+HONESTY 26/0, THE VOTE TAB 51/1 (the red is two DYNASTY cards' missing 'where', not this card). The full suite is
+not claimed (round one measured it does not finish on this box).
+
+## 12. ROUTED
+
+- THE COORDINATOR: card world-the-real-corner-10-19 is in the registry, unvoted, untagged; it is on his first screen only
+  once tagged (rule 118a).
+- On his YES (WORLD, next round): the overmap calls apply() at the end of buildOvermap, the seven inlined pages resynced
+  (ENGINE SYNC), A PLACE IS NAMED ONCE's OWED list drops to three, and NOTEs to every reader in section 9 the same push.
+- [the roll] (WORLD): the 41 side-edge seeds are this candidate's only rough edge and the roll's own defect.
+
+[bb school line] Battle Brothers' world map never draws a settlement near the player's start that is really a day's
+march away: distance is the game. Our dam sat five km from the Strip and forty on the map at once; the candidate keeps
+only the forty.
+
+[analog horror line] The basin at the foot of Black Mountain holds the monsoon for three days, then the water goes,
+and what it carried down off the hills stays on the concrete floor for anybody to find.

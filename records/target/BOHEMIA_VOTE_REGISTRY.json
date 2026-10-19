@@ -11253,6 +11253,25 @@
    "scale": "1:1"
   },
   "draft": true
+ },
+ {
+  "id": "world-the-real-corner-10-19",
+  "kind": "tile",
+  "lane": "world",
+  "sha": "6ed37eca",
+  "made": "10/19",
+  "title": "THE DAM AND BOULDER CITY ARE ON THE MAP TWICE: KEEP ONLY THE REAL ONES?",
+  "why": "The game draws Hoover Dam, Boulder City and Lake Mead twice, once in the corner of town 5 km from the Strip and once on the big map 35 to 41 km out where they really are, and since you laid that corner out, YES swaps it for the real ground there (the hills under Black Mountain, the gated hill houses of south Henderson, a flood basin) with no faction home moving, NO keeps it. You see it here, left the map now and right the real corner, both from the demo's map camera; on the map itself it is NOT IN A TAB YET until you say yes.",
+  "show": {
+   "how": "image",
+   "src": "vote/WORLD_THE_REAL_CORNER_10_19.jpg"
+  },
+  "before_after": {
+   "before": "the corner of town holds Lake Las Vegas, Boulder City, Hoover Dam and Lake Mead (the lake drawn as rows of pools, the dam as a grey wall, the town as red roofs) with a painted LAKE MEAD beside it, while the big map has the real ones 25 to 41 km out",
+   "after": "the same corner as the McCullough foothills, MacDonald Highlands' hill houses and the Pittman flood basin, no lake beside the city; the dam, the town and the lake only on the big map",
+   "scale": "1:1, the phone's own pixels, the demo's map camera at the far stop"
+  },
+  "draft": true
  }
  ],
  "verdicts": [
