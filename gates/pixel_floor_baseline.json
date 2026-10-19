@@ -5,6 +5,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "b617e305fde6ef6f1d161ad59b91793bb3df6748",
    "value": 56
   },
@@ -12,6 +13,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "c3367e940be87f0c82dce733feeeb141b60180da",
    "value": 56
   },
@@ -19,6 +21,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "f31e78f5ab6f701ef60f333cdd8f955d980d00bf",
    "value": 56
   },
@@ -26,6 +29,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "6a84831cf4668e20481d9fdb0b8616189b223d4f",
    "value": 56
   },
@@ -33,6 +37,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "458740f5a864f7b12e37270728a2dd816564e895",
    "value": 56
   },
@@ -40,6 +45,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "8f3883d9c146151f92e0aa3554bddf793a321b9f",
    "value": 56
   },
@@ -47,6 +53,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "f946b6e043984e8d001dbceec6d163f234f0a148",
    "value": 56
   },
@@ -54,6 +61,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "add8e51638a1ed654ac3389c2f9f038266136e23",
    "value": 56
   },
@@ -61,6 +69,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "36e455ee0314a35d947942fb7dac8495353d37ca",
    "value": 56
   },
@@ -68,6 +77,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "0309bac61a2c971dec03970c8527b5833aab7ae5",
    "value": 56
   },
@@ -75,6 +85,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "36e455ee0314a35d947942fb7dac8495353d37ca",
    "value": 56
   },
@@ -82,6 +93,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "45365f4f0351fe1c275ec13072c7d1ad2e5fad57",
    "value": 56
   },
@@ -89,6 +101,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "122495edde5f85365936d9b1d2867f78c72defe9",
    "value": 56
   },
@@ -96,6 +109,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "0c5e130c73b0080cbeb3a6dbc718d1216259c1e5",
    "value": 56
   },
@@ -103,6 +117,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "122495edde5f85365936d9b1d2867f78c72defe9",
    "value": 56
   },
@@ -110,6 +125,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "678a748428d429b91881f060d52efd63a806b9df",
    "value": 56
   },
@@ -117,6 +133,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "24704ebcc4da20f4351f9cee91c23235bb2d59af",
    "value": 56
   },
@@ -124,6 +141,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "f2b93b1dbc90c9d89231584284ebe3cf8d62fa2f",
    "value": 56
   },
@@ -131,6 +149,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "24704ebcc4da20f4351f9cee91c23235bb2d59af",
    "value": 56
   },
@@ -138,6 +157,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "f919943ac446efbef9dab91fb3564f373c253627",
    "value": 56
   },
@@ -145,6 +165,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "35a5c6076ac79205a5f8db04e1a82cbeba74a229",
    "value": 56
   },
@@ -152,6 +173,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "0873531c27e8bd373ea33825971d00d82b1f6764",
    "value": 56
   },
@@ -159,6 +181,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "35a5c6076ac79205a5f8db04e1a82cbeba74a229",
    "value": 56
   },
@@ -166,6 +189,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "a875cece0c7312578696694300aa8f8eb9fd1095",
    "value": 56
   },
@@ -173,6 +197,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "a17c1e3a03480d2819d7cd10534ff622938edeee",
    "value": 56
   },
@@ -180,6 +205,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "7bbd2a295864d1d2bbc7bdf9911f41c995b22a18",
    "value": 56
   },
@@ -187,6 +213,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "a17c1e3a03480d2819d7cd10534ff622938edeee",
    "value": 56
   },
@@ -194,6 +221,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "b7f378b95994274458b5a234397cc8e91cb5e922",
    "value": 56
   },
@@ -201,6 +229,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "2e4dd157cc755c7198316891a6f1e853dcea6491",
    "value": 56
   },
@@ -208,6 +237,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "c9a8cb158dc3c1705f076b94f22afdfab7657f6d",
    "value": 56
   },
@@ -215,6 +245,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "2e4dd157cc755c7198316891a6f1e853dcea6491",
    "value": 56
   },
@@ -222,6 +253,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "54eb1f194b5752bba1367bacadd59b22b39c7d74",
    "value": 56
   },
@@ -229,6 +261,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "dab75557f116992b7d34b7b7e2f34e45e277a014",
    "value": 56
   },
@@ -236,6 +269,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "a2d6980f393723fa701f71519b444ff506b2f74f",
    "value": 56
   },
@@ -243,6 +277,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "dab75557f116992b7d34b7b7e2f34e45e277a014",
    "value": 56
   },
@@ -250,6 +285,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "16ce5b6c7d8eaafb96530800983518b2d61e18ba",
    "value": 56
   },
@@ -257,6 +293,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "559d97bb78591f140fae0e3928a9afcada0baea3",
    "value": 56
   },
@@ -264,6 +301,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "d82a1bed2ff412dab4225144026325e122e3ce5b",
    "value": 56
   },
@@ -271,6 +309,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "559d97bb78591f140fae0e3928a9afcada0baea3",
    "value": 56
   },
@@ -278,6 +317,7 @@
    "floor": 112,
    "kind": "person_cell",
    "lane": "CHARACTER",
+   "measure": "cell, long side",
    "sha": "c5ff38aa27a2c774c759f62fbc7f635bb8559cd5",
    "value": 56
   },
@@ -285,6 +325,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "7cc5065ccf11bae769b3d1a40b3e7992c6714611",
    "value": 44
   },
@@ -292,6 +333,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "c7cd3dc0c7183c316a96a50308181591ff1f6d00",
    "value": 44
   },
@@ -299,6 +341,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "543ce32d98042c78177aeccb0450f9f0c64c8aa3",
    "value": 44
   },
@@ -306,6 +349,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "7a6dbf31e1db28a5ea5d17e5ab9f1274affd4133",
    "value": 44
   },
@@ -313,6 +357,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "ea15acbcab487072d7764200ead7f319ea409507",
    "value": 44
   },
@@ -320,6 +365,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "13680a18b8120facb617c04c80603e9fb36c19ad",
    "value": 44
   },
@@ -327,6 +373,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "b2df70de9cd02aeac9fac39b153b22cadac6f384",
    "value": 44
   },
@@ -334,6 +381,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "4d63db85c591ecde09a5b220520f226c345c8fcc",
    "value": 44
   },
@@ -341,6 +389,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "fcbac6d0845b90dcac6093df9f681f32e006aa26",
    "value": 44
   },
@@ -348,6 +397,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "945509aeb37e09fdf342222e6141242b38d544e2",
    "value": 44
   },
@@ -355,6 +405,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "a1e1f32aaf678ba91275e32865da9fb311f2d3af",
    "value": 44
   },
@@ -362,6 +413,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "208fe48d16213eaa628c464f41a7188d2747a584",
    "value": 44
   },
@@ -369,6 +421,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "a4e3f64bab1517e66d11896b7ac81538e4cd8994",
    "value": 44
   },
@@ -376,6 +429,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "36d7e8347d773fae13a556e658f28b9173e0504e",
    "value": 44
   },
@@ -383,6 +437,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "004e6172408831cb5eb3c9bd575eb08965e31450",
    "value": 44
   },
@@ -390,6 +445,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "ac827d374cfda2f5d788f44344dabeafab4d2e07",
    "value": 44
   },
@@ -397,6 +453,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "b6a236f88627a98bdfed00caf93df092cc3599cf",
    "value": 44
   },
@@ -404,6 +461,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "d45fc90b2cca815f910e267efb716f5bcb4976d1",
    "value": 44
   },
@@ -411,6 +469,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "06a70aa11bb8fd486439d3925320f0a1b37e8bfd",
    "value": 44
   },
@@ -418,6 +477,7 @@
    "floor": 92,
    "kind": "tile",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "c742bcc1154a1cafb9662208c5a4027cd1223775",
    "value": 44
   },
@@ -425,6 +485,7 @@
    "floor": 56,
    "kind": "thing",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "28f4a00af66405fe6191606a1dbc8ebe2224d0d7",
    "value": 54
   },
@@ -432,6 +493,7 @@
    "floor": 56,
    "kind": "thing",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "15c419bc9a02e9eda1dcd3ed5ba61b2cbc855b91",
    "value": 44
   },
@@ -439,6 +501,7 @@
    "floor": 56,
    "kind": "thing",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "b5004981d859887b39616290b2a313fbe54c16a4",
    "value": 24
   },
@@ -446,6 +509,7 @@
    "floor": 56,
    "kind": "thing",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "bb7b269905ce3cad835e773a86d65a8f70179e4a",
    "value": 49
   },
@@ -453,6 +517,7 @@
    "floor": 56,
    "kind": "thing",
    "lane": "COOK TWO",
+   "measure": "painted long side",
    "sha": "19d18f05c787a2ad3edcca34d8fea5ea5ddaf867",
    "value": 34
   },
@@ -460,6 +525,7 @@
    "floor": 93,
    "kind": "building",
    "lane": "COOK FOUR",
+   "measure": "painted long side",
    "sha": "459404556cabb2aefddef6662987f135acef7689",
    "value": 84
   },
@@ -467,6 +533,7 @@
    "floor": 93,
    "kind": "building",
    "lane": "COOK FOUR",
+   "measure": "painted long side",
    "sha": "79db98346867e10d30cd28a4cd01d5a759e540ae",
    "value": 92
   }

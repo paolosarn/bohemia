@@ -28,7 +28,6 @@ packs' painted pixels measured again on every --measure.
                                                        and write it into records/BOHEMIA_PLACEHOLDERS.md
 """
 import base64
-import fnmatch
 import glob
 import hashlib
 import io
@@ -131,9 +130,38 @@ def load_kinds(path=None):
     return json.load(open(path or KINDS))
 
 
+_GLOB = {}
+
+
+def glob_match(path, pattern):
+    """a path glob: * and ? stay inside one folder, ** crosses folders, [..] is a class."""
+    rx = _GLOB.get(pattern)
+    if rx is None:
+        out, i = '', 0
+        while i < len(pattern):
+            c = pattern[i]
+            if pattern.startswith('**', i):
+                out += '.*'
+                i += 2
+                continue
+            if c == '*':
+                out += '[^/]*'
+            elif c == '?':
+                out += '[^/]'
+            elif c == '[':
+                j = pattern.index(']', i)
+                out += pattern[i:j + 1]
+                i = j
+            else:
+                out += re.escape(c)
+            i += 1
+        rx = _GLOB[pattern] = re.compile(out + r'\Z')
+    return rx.match(path) is not None
+
+
 def rig_kind(folder, kinds):
     for r in kinds['rig_kinds']:
-        if fnmatch.fnmatchcase(folder, r['match']):
+        if glob_match(folder, r['match']):
             return r['kind']
     return 'thing'
 
@@ -143,7 +171,7 @@ def classify(path, kinds, root=ROOT, rig_dirs=None):
     d, b = os.path.dirname(path), os.path.basename(path)
     is_rig = (d in rig_dirs) if rig_dirs is not None else os.path.exists(os.path.join(root, d, 'rig.json'))
     if is_rig:
-        if b.startswith('rig_'):
+        if b.startswith(('rig_', 'fin_')):
             if KEY.search(b):
                 return 'key', 'a clip key: judged by its folder\'s stills, the same canvas', {}
             return rig_kind(d, kinds), 'a rig still', {'rig': True}
@@ -154,14 +182,14 @@ def classify(path, kinds, root=ROOT, rig_dirs=None):
         if b.startswith(PASSES):
             return 'pass', 'a render pass beside the rig still', {}
     for r in kinds['rules']:
-        if fnmatch.fnmatchcase(path, r['glob']):
+        if glob_match(path, r['glob']):
             return r['kind'], r['why'], {k: v for k, v in r.items() if k not in ('glob', 'kind', 'why')}
     return None, 'NO KIND: add a rule to gates/pixel_floor_kinds.json', {}
 
 
 def inline_kind(host, context, kinds):
     for r in kinds['inline']:
-        if fnmatch.fnmatchcase(host, r['host']) and (not r.get('context') or r['context'] in context):
+        if glob_match(host, r['host']) and (not r.get('context') or r['context'] in context):
             return r['kind'], r['why']
     return None, 'NO KIND: add an inline rule to gates/pixel_floor_kinds.json'
 
@@ -294,7 +322,7 @@ def lane_of(path, root=ROOT, kinds=None):
     kinds = kinds or load_kinds()
     p = path.split('#')[0]
     for r in kinds.get('owners', []):
-        if fnmatch.fnmatchcase(p, r['glob']):
+        if glob_match(p, r['glob']):
             return r['lane']
     return 'NO OWNER LINE'
 
@@ -326,7 +354,7 @@ def write_baseline(rows, root=ROOT):
                        'is refused, a changed one still under is red, one that is gone or over the floor is dropped by '
                        '--write.',
             'under': {r['path']: {'kind': r['kind'], 'value': r['value'], 'floor': r['floor'], 'sha': r['sha'],
-                                  'lane': r['lane']} for r in under}}
+                                  'measure': r['measure'], 'lane': r['lane']} for r in under}}
     old = json.load(open(BASELINE))['under'] if os.path.exists(BASELINE) else None
     if old is not None:
         grew = [p for p in base['under'] if p not in old or old[p]['sha'] != base['under'][p]['sha']]
