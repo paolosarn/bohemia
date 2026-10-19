@@ -101,6 +101,15 @@ builds it in. The fight's wiring (COMBAT, on his pick): the same two calls round
 - PLUMBER: the page's clips weigh 5.1 MB (the tear's moving ground is 2.0 of it); the published surface was already over
   its cap before this.
 
+## THE MISTAKE, OWNED (and the rule it teaches)
+At d82516cb this lane PUSHED A BROKEN VOTE REGISTRY TO MAIN: a retry loop rebased, hit a conflict in the registry (another
+lane had appended at the same spot), did not stop, staged the conflicted files with their markers, amended and pushed. For
+about four minutes the registry was not JSON, so his VOTE tab could not load its list. Fixed at b7ea1683: main's registry
+from just before (87207267, 703 rows, nobody pushed between) plus this row's one card; every file of the push swept for
+markers (none). Two things followed from it: the card's sha is d82516cb (the amend folded the round's content into that
+commit; 836cab97 named in its message is the WIP before it), and A RETRY LOOP THAT REBASES MUST STOP ON A CONFLICT (the fix
+push's own loop did: 'REBASE CONFLICT, stopping').
+
 ## BLIND SPOTS, SAID
 No real phone: Chromium at his phone's profile. The eight-direction view is the rig's crewman, not the fight's sprite (two
 facings). The map clip is the map's frame with his body redrawn by the same numbers, not the map's own loop (it does not

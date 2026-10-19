@@ -3227,6 +3227,8 @@ ROUTED (record): DIRECTION judges the three by eye before his pick; the coordina
 SOUNDS: the fight's beat is its own clock, not the song's; PLUMBER: the page's clips are 5.1 MB.
 Tooling: bpy 4.2 in a scratch venv (python3.11 -m venv v; v/bin/pip install bpy==4.2.0 numpy pillow); bpy segfaults on exit
 AFTER writing (prep and rig both): never chain them with &&. A rig run is ~3.5 min.
+MISTAKE, OWNED: at d82516cb a retry loop pushed the VOTE registry with rebase-conflict markers (about four minutes, his list
+would not load); fixed at b7ea1683 (main's registry before it + this card). A loop that rebases must STOP on a conflict.
 NEXT: his pick. On A, B or C: the picked one is FINAL-ready for COMBAT's fight and RUN's map; on NO, his words become round
 two. Then back to [the beasts through the rig]: the hyena unheld when DIRECTION rules the beast colours, then 4 THE HOG.
 records/BOHEMIA_THE_AURA_OF_THE_ONE_YOU_CONTROL_10_19_26.md.
