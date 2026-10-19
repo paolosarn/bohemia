@@ -657,7 +657,67 @@
   },
   "ground": {
    "source": "his packs at 1:1",
-   "rig": false
+   "rig": false,
+   "floor_bar": {
+    "_what": "THE FLOOR BAR (DIRECTION [fight verdict 24], 10/19): his NO on the fight floor 10/18 ('I hate the ground. I hate the floor... it's so fucking bad') and his YES on one real street (cook2-one-real-street-10-18) and on the streets joining for the map ('way better nice'), as numbers. A floor kit or a fight-board picture at its own pixels (40 to 60 px a metre) passes all six before it goes to VOTE. Measured by tools/bohemia_direction_floor_bar.py; --self proves his YES passes and the floor he hates fails. Rule 108 stands: passing makes a floor honest, not final.",
+    "twin_yes": "records/target/COOK2_ONE_REAL_STREET.webp",
+    "control_no": "slices/fight_ground/block_*.webp as of 10/19 (the floor he said NO to)",
+    "cell_px": 16,
+    "min_dirt_cells": 20,
+    "dirt_mask": {
+     "hue": [
+      15,
+      60
+     ],
+     "sat": [
+      0.08,
+      0.75
+     ],
+     "val": [
+      0.35,
+      0.95
+     ],
+     "flat_sd_max": 30
+    },
+    "road_mask": {
+     "val_max": 0.4,
+     "sat_max": 0.2,
+     "row_share": 0.6,
+     "min_rows": 40
+    },
+    "repeat_lag_px": [
+     150,
+     1600
+    ],
+    "orange_roof_mask": {
+     "hue": [
+      5,
+      30
+     ],
+     "sat_min": 0.55,
+     "val_min": 0.5
+    },
+    "tests": {
+     "B1_sat_max": 0.28,
+     "B1_why": "the dirt is pale: his YES dirt 0.195, the fight's 0.40 to 0.61 (two to three times too strong)",
+     "B2_hue": [
+      36,
+      50
+     ],
+     "B2_why": "desert dirt, not orange: his YES 39.8 degrees, the fight's 28 to 35.6",
+     "B3_split_max": 9.0,
+     "B3_why": "no camouflage print: his YES dirt's two tones sit 4.4 apart, the fight's 11.7 to 38.4",
+     "B4_grit": [
+      11,
+      15.5
+     ],
+     "B4_why": "grain, stones and ruts, never a smooth fill or a noise: his YES 12.8, the fight's town dirt 8.6 to 10.6, its scrub 17",
+     "B5_repeat_max": 0.35,
+     "B5_why": "the road never repeats: his YES 0.165, the fight's 0.712 at exactly one house (515 px), the same asphalt tile laid every house",
+     "B6_orange_pct_max": 0.5,
+     "B6_why": "his note on the roofs (rule 115b): more tan, never bright medieval orange"
+    }
+   }
   },
   "building": {
    "source": "his packs and house skins until DIRECTION rules from the two research pages (rule 115b)",
