@@ -10,6 +10,10 @@
  "scale_from_model": 1.1418,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
+ "ground_screen": [
+  109.0,
+  159.3652
+ ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
@@ -26,16 +30,31 @@
    "mob_skin",
    "mob_trousers_print"
   ],
+  "wear_by_material": {
+   "mob_skin": 0.25,
+   "mob_eyes": 0.0,
+   "mob_hair": 0.15
+  },
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1418)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1418)",
+  "dents": {
+   "meshes": 8,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -58,8 +77,18 @@
   "mob_skin": "#ff1966",
   "mob_trousers_print": "#19a9ff"
  },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "mob_belt": "#ff6cc7",
+  "mob_cape": "#6ce9ff",
+  "mob_hair": "#fff86c",
+  "mob_hand_L": "#d86cff",
+  "mob_hand_R": "#6cffb1",
+  "mob_mantle": "#ff796c",
+  "mob_shoe": "#6ca1ff"
+ },
  "model": "records/character/rig/mob.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -93,10 +122,10 @@
   "records/target/character/rig/mob/rig_NW.png"
  ],
  "crop_box_px": [
-  67,
+  68,
   48,
   151,
-  177
+  178
  ],
  "shadow_files": [
   "records/target/character/rig/mob/shadow_N.png",
@@ -109,10 +138,14 @@
   "records/target/character/rig/mob/shadow_NW.png"
  ],
  "ground_px": [
-  42,
+  41,
+  111
+ ],
+ "look_px": [
+  41,
   61
  ],
- "colours": 28373,
+ "colours": 29124,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -127,6 +160,108 @@
    "frames": [
     1.5
    ],
+   "motion_px": {
+    "N": [
+     {
+      "Cesium_Man": 0.0,
+      "mob_belt": 0.0,
+      "mob_cape": 0.0,
+      "mob_hair": 0.0,
+      "mob_hand_L": 0.0,
+      "mob_hand_R": 0.0,
+      "mob_mantle": 0.0,
+      "mob_shoe": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "Cesium_Man": 0.0,
+      "mob_belt": 0.0,
+      "mob_cape": 0.0,
+      "mob_hair": 0.0,
+      "mob_hand_L": 0.0,
+      "mob_hand_R": 0.0,
+      "mob_mantle": 0.0,
+      "mob_shoe": 0.0
+     }
+    ],
+    "E": [
+     {
+      "Cesium_Man": 0.0,
+      "mob_belt": 0.0,
+      "mob_cape": 0.0,
+      "mob_hair": 0.0,
+      "mob_hand_L": 0.0,
+      "mob_hand_R": 0.0,
+      "mob_mantle": 0.0,
+      "mob_shoe": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "Cesium_Man": 0.0,
+      "mob_belt": 0.0,
+      "mob_cape": 0.0,
+      "mob_hair": 0.0,
+      "mob_hand_L": 0.0,
+      "mob_hand_R": 0.0,
+      "mob_mantle": 0.0,
+      "mob_shoe": 0.0
+     }
+    ],
+    "S": [
+     {
+      "Cesium_Man": 0.0,
+      "mob_belt": 0.0,
+      "mob_cape": 0.0,
+      "mob_hair": 0.0,
+      "mob_hand_L": 0.0,
+      "mob_hand_R": 0.0,
+      "mob_mantle": 0.0,
+      "mob_shoe": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "Cesium_Man": 0.0,
+      "mob_belt": 0.0,
+      "mob_cape": 0.0,
+      "mob_hair": 0.0,
+      "mob_hand_L": 0.0,
+      "mob_hand_R": 0.0,
+      "mob_mantle": 0.0,
+      "mob_shoe": 0.0
+     }
+    ],
+    "W": [
+     {
+      "Cesium_Man": 0.0,
+      "mob_belt": 0.0,
+      "mob_cape": 0.0,
+      "mob_hair": 0.0,
+      "mob_hand_L": 0.0,
+      "mob_hand_R": 0.0,
+      "mob_mantle": 0.0,
+      "mob_shoe": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "Cesium_Man": 0.0,
+      "mob_belt": 0.0,
+      "mob_cape": 0.0,
+      "mob_hair": 0.0,
+      "mob_hand_L": 0.0,
+      "mob_hand_R": 0.0,
+      "mob_mantle": 0.0,
+      "mob_shoe": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/mob/rig_Stand_N_k00.png",
     "records/target/character/rig/mob/rig_Stand_NE_k00.png",
@@ -136,7 +271,8 @@
     "records/target/character/rig/mob/rig_Stand_SW_k00.png",
     "records/target/character/rig/mob/rig_Stand_W_k00.png",
     "records/target/character/rig/mob/rig_Stand_NW_k00.png"
-   ]
+   ],
+   "light_files": []
   },
   "Anim_0": {
    "keys": 6,
@@ -153,6 +289,508 @@
     36.0,
     44.0
    ],
+   "motion_px": {
+    "N": [
+     {
+      "Cesium_Man": 19.321,
+      "mob_belt": 3.359,
+      "mob_cape": 2.847,
+      "mob_hair": 4.29,
+      "mob_hand_L": 7.237,
+      "mob_hand_R": 8.948,
+      "mob_mantle": 8.693,
+      "mob_shoe": 19.921
+     },
+     {
+      "Cesium_Man": 21.123,
+      "mob_belt": 2.799,
+      "mob_cape": 3.046,
+      "mob_hair": 7.495,
+      "mob_hand_L": 17.658,
+      "mob_hand_R": 25.778,
+      "mob_mantle": 22.305,
+      "mob_shoe": 17.522
+     },
+     {
+      "Cesium_Man": 17.307,
+      "mob_belt": 2.79,
+      "mob_cape": 2.728,
+      "mob_hair": 2.429,
+      "mob_hand_L": 15.268,
+      "mob_hand_R": 7.306,
+      "mob_mantle": 12.547,
+      "mob_shoe": 19.401
+     },
+     {
+      "Cesium_Man": 20.97,
+      "mob_belt": 3.596,
+      "mob_cape": 4.571,
+      "mob_hair": 4.506,
+      "mob_hand_L": 14.991,
+      "mob_hand_R": 13.62,
+      "mob_mantle": 14.004,
+      "mob_shoe": 21.783
+     },
+     {
+      "Cesium_Man": 24.68,
+      "mob_belt": 3.272,
+      "mob_cape": 5.507,
+      "mob_hair": 10.519,
+      "mob_hand_L": 23.548,
+      "mob_hand_R": 13.015,
+      "mob_mantle": 21.434,
+      "mob_shoe": 25.428
+     },
+     {
+      "Cesium_Man": 17.72,
+      "mob_belt": 4.664,
+      "mob_cape": 5.384,
+      "mob_hair": 4.491,
+      "mob_hand_L": 5.315,
+      "mob_hand_R": 14.951,
+      "mob_mantle": 12.024,
+      "mob_shoe": 13.857
+     }
+    ],
+    "NE": [
+     {
+      "Cesium_Man": 19.681,
+      "mob_belt": 3.51,
+      "mob_cape": 3.079,
+      "mob_hair": 6.539,
+      "mob_hand_L": 7.683,
+      "mob_hand_R": 11.311,
+      "mob_mantle": 9.995,
+      "mob_shoe": 20.222
+     },
+     {
+      "Cesium_Man": 22.875,
+      "mob_belt": 2.78,
+      "mob_cape": 2.972,
+      "mob_hair": 7.387,
+      "mob_hand_L": 19.212,
+      "mob_hand_R": 27.449,
+      "mob_mantle": 23.362,
+      "mob_shoe": 22.789
+     },
+     {
+      "Cesium_Man": 20.174,
+      "mob_belt": 2.866,
+      "mob_cape": 3.0,
+      "mob_hair": 3.753,
+      "mob_hand_L": 16.392,
+      "mob_hand_R": 7.056,
+      "mob_mantle": 12.837,
+      "mob_shoe": 21.643
+     },
+     {
+      "Cesium_Man": 21.23,
+      "mob_belt": 3.496,
+      "mob_cape": 5.085,
+      "mob_hair": 4.458,
+      "mob_hand_L": 13.876,
+      "mob_hand_R": 13.796,
+      "mob_mantle": 13.617,
+      "mob_shoe": 21.994
+     },
+     {
+      "Cesium_Man": 30.797,
+      "mob_belt": 3.165,
+      "mob_cape": 5.41,
+      "mob_hair": 8.219,
+      "mob_hand_L": 25.148,
+      "mob_hand_R": 14.886,
+      "mob_mantle": 22.59,
+      "mob_shoe": 31.667
+     },
+     {
+      "Cesium_Man": 17.001,
+      "mob_belt": 4.608,
+      "mob_cape": 5.618,
+      "mob_hair": 3.318,
+      "mob_hand_L": 6.892,
+      "mob_hand_R": 16.003,
+      "mob_mantle": 12.655,
+      "mob_shoe": 16.683
+     }
+    ],
+    "E": [
+     {
+      "Cesium_Man": 18.595,
+      "mob_belt": 3.479,
+      "mob_cape": 3.678,
+      "mob_hair": 7.282,
+      "mob_hand_L": 7.829,
+      "mob_hand_R": 11.856,
+      "mob_mantle": 9.657,
+      "mob_shoe": 18.897
+     },
+     {
+      "Cesium_Man": 28.569,
+      "mob_belt": 2.981,
+      "mob_cape": 2.977,
+      "mob_hair": 6.795,
+      "mob_hand_L": 21.405,
+      "mob_hand_R": 31.397,
+      "mob_mantle": 26.155,
+      "mob_shoe": 29.191
+     },
+     {
+      "Cesium_Man": 26.28,
+      "mob_belt": 3.204,
+      "mob_cape": 3.087,
+      "mob_hair": 4.653,
+      "mob_hand_L": 18.878,
+      "mob_hand_R": 7.723,
+      "mob_mantle": 13.652,
+      "mob_shoe": 28.013
+     },
+     {
+      "Cesium_Man": 20.532,
+      "mob_belt": 3.36,
+      "mob_cape": 5.144,
+      "mob_hair": 3.87,
+      "mob_hand_L": 17.637,
+      "mob_hand_R": 13.359,
+      "mob_mantle": 16.376,
+      "mob_shoe": 21.304
+     },
+     {
+      "Cesium_Man": 37.423,
+      "mob_belt": 3.942,
+      "mob_cape": 5.043,
+      "mob_hair": 7.074,
+      "mob_hand_L": 23.769,
+      "mob_hand_R": 15.856,
+      "mob_mantle": 20.812,
+      "mob_shoe": 38.172
+     },
+     {
+      "Cesium_Man": 24.161,
+      "mob_belt": 4.907,
+      "mob_cape": 5.641,
+      "mob_hair": 2.835,
+      "mob_hand_L": 8.035,
+      "mob_hand_R": 21.054,
+      "mob_mantle": 15.23,
+      "mob_shoe": 24.59
+     }
+    ],
+    "SE": [
+     {
+      "Cesium_Man": 15.901,
+      "mob_belt": 3.351,
+      "mob_cape": 3.854,
+      "mob_hair": 7.375,
+      "mob_hand_L": 5.916,
+      "mob_hand_R": 10.805,
+      "mob_mantle": 8.802,
+      "mob_shoe": 16.082
+     },
+     {
+      "Cesium_Man": 27.679,
+      "mob_belt": 3.294,
+      "mob_cape": 3.046,
+      "mob_hair": 6.916,
+      "mob_hand_L": 19.566,
+      "mob_hand_R": 28.054,
+      "mob_mantle": 22.715,
+      "mob_shoe": 28.155
+     },
+     {
+      "Cesium_Man": 31.232,
+      "mob_belt": 3.508,
+      "mob_cape": 3.123,
+      "mob_hair": 5.021,
+      "mob_hand_L": 17.393,
+      "mob_hand_R": 7.268,
+      "mob_mantle": 12.397,
+      "mob_shoe": 33.276
+     },
+     {
+      "Cesium_Man": 18.283,
+      "mob_belt": 3.262,
+      "mob_cape": 4.85,
+      "mob_hair": 2.67,
+      "mob_hand_L": 19.476,
+      "mob_hand_R": 9.778,
+      "mob_mantle": 16.773,
+      "mob_shoe": 19.128
+     },
+     {
+      "Cesium_Man": 34.356,
+      "mob_belt": 4.548,
+      "mob_cape": 4.205,
+      "mob_hair": 8.024,
+      "mob_hand_L": 17.083,
+      "mob_hand_R": 13.069,
+      "mob_mantle": 14.636,
+      "mob_shoe": 35.379
+     },
+     {
+      "Cesium_Man": 28.67,
+      "mob_belt": 5.31,
+      "mob_cape": 5.4,
+      "mob_hair": 4.099,
+      "mob_hand_L": 7.626,
+      "mob_hand_R": 22.482,
+      "mob_mantle": 16.512,
+      "mob_shoe": 29.186
+     }
+    ],
+    "S": [
+     {
+      "Cesium_Man": 13.578,
+      "mob_belt": 3.215,
+      "mob_cape": 3.732,
+      "mob_hair": 7.188,
+      "mob_hand_L": 3.56,
+      "mob_hand_R": 10.854,
+      "mob_mantle": 8.886,
+      "mob_shoe": 13.708
+     },
+     {
+      "Cesium_Man": 27.196,
+      "mob_belt": 3.414,
+      "mob_cape": 2.739,
+      "mob_hair": 7.469,
+      "mob_hand_L": 14.856,
+      "mob_hand_R": 21.501,
+      "mob_mantle": 18.3,
+      "mob_shoe": 27.574
+     },
+     {
+      "Cesium_Man": 32.46,
+      "mob_belt": 3.592,
+      "mob_cape": 3.06,
+      "mob_hair": 5.029,
+      "mob_hand_L": 15.164,
+      "mob_hand_R": 5.536,
+      "mob_mantle": 10.911,
+      "mob_shoe": 34.593
+     },
+     {
+      "Cesium_Man": 15.212,
+      "mob_belt": 3.268,
+      "mob_cape": 3.97,
+      "mob_hair": 2.876,
+      "mob_hand_L": 17.35,
+      "mob_hand_R": 3.719,
+      "mob_mantle": 13.966,
+      "mob_shoe": 16.147
+     },
+     {
+      "Cesium_Man": 29.966,
+      "mob_belt": 4.752,
+      "mob_cape": 3.193,
+      "mob_hair": 9.875,
+      "mob_hand_L": 11.748,
+      "mob_hand_R": 11.13,
+      "mob_mantle": 10.669,
+      "mob_shoe": 31.056
+     },
+     {
+      "Cesium_Man": 29.821,
+      "mob_belt": 5.479,
+      "mob_cape": 4.984,
+      "mob_hair": 5.167,
+      "mob_hand_L": 7.397,
+      "mob_hand_R": 21.35,
+      "mob_mantle": 16.221,
+      "mob_shoe": 30.335
+     }
+    ],
+    "SW": [
+     {
+      "Cesium_Man": 16.751,
+      "mob_belt": 2.959,
+      "mob_cape": 3.214,
+      "mob_hair": 6.063,
+      "mob_hand_L": 5.533,
+      "mob_hand_R": 11.876,
+      "mob_mantle": 9.732,
+      "mob_shoe": 16.948
+     },
+     {
+      "Cesium_Man": 27.623,
+      "mob_belt": 3.318,
+      "mob_cape": 2.251,
+      "mob_hair": 7.613,
+      "mob_hand_L": 16.538,
+      "mob_hand_R": 24.873,
+      "mob_mantle": 21.294,
+      "mob_shoe": 28.024
+     },
+     {
+      "Cesium_Man": 31.447,
+      "mob_belt": 3.442,
+      "mob_cape": 2.776,
+      "mob_hair": 4.665,
+      "mob_hand_L": 16.189,
+      "mob_hand_R": 5.45,
+      "mob_mantle": 11.353,
+      "mob_shoe": 33.509
+     },
+     {
+      "Cesium_Man": 17.959,
+      "mob_belt": 3.441,
+      "mob_cape": 2.914,
+      "mob_hair": 3.965,
+      "mob_hand_L": 15.992,
+      "mob_hand_R": 7.505,
+      "mob_mantle": 12.867,
+      "mob_shoe": 18.771
+     },
+     {
+      "Cesium_Man": 34.132,
+      "mob_belt": 4.578,
+      "mob_cape": 3.269,
+      "mob_hair": 10.66,
+      "mob_hand_L": 18.64,
+      "mob_hand_R": 14.105,
+      "mob_mantle": 16.393,
+      "mob_shoe": 35.144
+     },
+     {
+      "Cesium_Man": 28.83,
+      "mob_belt": 5.364,
+      "mob_cape": 5.203,
+      "mob_hair": 5.661,
+      "mob_hand_L": 8.0,
+      "mob_hand_R": 21.964,
+      "mob_mantle": 16.472,
+      "mob_shoe": 29.354
+     }
+    ],
+    "W": [
+     {
+      "Cesium_Man": 18.55,
+      "mob_belt": 2.802,
+      "mob_cape": 2.438,
+      "mob_hair": 3.383,
+      "mob_hand_L": 7.678,
+      "mob_hand_R": 11.232,
+      "mob_mantle": 9.974,
+      "mob_shoe": 18.888
+     },
+     {
+      "Cesium_Man": 28.907,
+      "mob_belt": 3.022,
+      "mob_cape": 1.889,
+      "mob_hair": 7.358,
+      "mob_hand_L": 21.086,
+      "mob_hand_R": 30.893,
+      "mob_mantle": 25.065,
+      "mob_shoe": 29.482
+     },
+     {
+      "Cesium_Man": 26.894,
+      "mob_belt": 3.086,
+      "mob_cape": 2.138,
+      "mob_hair": 3.676,
+      "mob_hand_L": 18.648,
+      "mob_hand_R": 7.19,
+      "mob_mantle": 13.405,
+      "mob_shoe": 28.714
+     },
+     {
+      "Cesium_Man": 20.522,
+      "mob_belt": 3.525,
+      "mob_cape": 2.839,
+      "mob_hair": 4.395,
+      "mob_hand_L": 18.533,
+      "mob_hand_R": 12.145,
+      "mob_mantle": 15.938,
+      "mob_shoe": 21.335
+     },
+     {
+      "Cesium_Man": 37.484,
+      "mob_belt": 3.991,
+      "mob_cape": 4.731,
+      "mob_hair": 10.644,
+      "mob_hand_L": 24.847,
+      "mob_hand_R": 15.983,
+      "mob_mantle": 22.111,
+      "mob_shoe": 38.248
+     },
+     {
+      "Cesium_Man": 24.601,
+      "mob_belt": 4.998,
+      "mob_cape": 5.468,
+      "mob_hair": 5.68,
+      "mob_hand_L": 7.449,
+      "mob_hand_R": 22.335,
+      "mob_mantle": 15.792,
+      "mob_shoe": 25.062
+     }
+    ],
+    "NW": [
+     {
+      "Cesium_Man": 19.658,
+      "mob_belt": 3.074,
+      "mob_cape": 2.687,
+      "mob_hair": 2.156,
+      "mob_hand_L": 7.806,
+      "mob_hand_R": 8.848,
+      "mob_mantle": 8.681,
+      "mob_shoe": 20.215
+     },
+     {
+      "Cesium_Man": 25.195,
+      "mob_belt": 2.685,
+      "mob_cape": 2.673,
+      "mob_hair": 7.22,
+      "mob_hand_L": 20.349,
+      "mob_hand_R": 30.37,
+      "mob_mantle": 25.619,
+      "mob_shoe": 24.028
+     },
+     {
+      "Cesium_Man": 19.667,
+      "mob_belt": 2.724,
+      "mob_cape": 2.403,
+      "mob_hair": 2.381,
+      "mob_hand_L": 17.606,
+      "mob_hand_R": 7.789,
+      "mob_mantle": 12.928,
+      "mob_shoe": 21.204
+     },
+     {
+      "Cesium_Man": 21.237,
+      "mob_belt": 3.594,
+      "mob_cape": 3.718,
+      "mob_hair": 4.497,
+      "mob_hand_L": 19.057,
+      "mob_hand_R": 13.843,
+      "mob_mantle": 16.986,
+      "mob_shoe": 22.012
+     },
+     {
+      "Cesium_Man": 31.24,
+      "mob_belt": 3.241,
+      "mob_cape": 5.387,
+      "mob_hair": 10.639,
+      "mob_hand_L": 24.631,
+      "mob_hand_R": 14.513,
+      "mob_mantle": 22.19,
+      "mob_shoe": 32.113
+     },
+     {
+      "Cesium_Man": 17.033,
+      "mob_belt": 4.743,
+      "mob_cape": 5.485,
+      "mob_hair": 5.285,
+      "mob_hand_L": 5.598,
+      "mob_hand_R": 18.27,
+      "mob_mantle": 13.946,
+      "mob_shoe": 16.921
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/mob/rig_Anim_0_N_k00.png",
     "records/target/character/rig/mob/rig_Anim_0_N_k01.png",
@@ -202,55 +840,56 @@
     "records/target/character/rig/mob/rig_Anim_0_NW_k03.png",
     "records/target/character/rig/mob/rig_Anim_0_NW_k04.png",
     "records/target/character/rig/mob/rig_Anim_0_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   }
  },
  "card": {
   "family": "prop",
-  "out": 2,
+  "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 129",
-   "OUT  colours >= 2330: 1808",
-   "OK   top 8 carry <= 11%: 2.8",
-   "OUT  value span >= 118: 101",
-   "OK   saturation <= 0.81: 0.183",
-   "OK   light: top minus bottom >= -2.5: 3.7",
-   "OK   edge between -35 and +7: -18.0",
-   "OK   grain <= 2.22 px a run: 1.6"
+   "OK   long side >= floor 96: 130",
+   "OUT  colours >= 2330: 1787",
+   "OK   top 8 carry <= 11%: 3.4",
+   "OK   value span >= 118: 126",
+   "OK   saturation <= 0.81: 0.182",
+   "OK   light: top minus bottom >= -2.5: 15.9",
+   "OK   edge between -35 and +7: -18.2",
+   "OK   grain <= 2.22 px a run: 1.49"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 3.7%",
+   "OK   stray pixels at 8 steps <= 14%: 5.5%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 236.4"
+   "OK   light from above (180 to 360 degrees, or flat): 258.1"
   ],
-  "verdict": "2 of 8 out -> to DIRECTION",
+  "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/mob/rig_S.png"
  },
  "cls": "person",
  "card_guide": {
   "cls": "person",
-  "out": 1,
+  "out": 0,
   "rows": [
-   "OK   long side >= floor 96: 129",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2287 px): 1808",
-   "OK   top 8 carry <= 11%: 2.8",
-   "OUT  value span >= 118: 101",
-   "OK   saturation <= 0.81: 0.183",
-   "OK   light: top minus bottom >= -2.5: 3.7",
-   "OK   edge between -35 and +7: -18.0",
-   "OK   grain <= 2.22 px a run: 1.6"
+   "OK   long side >= floor 96: 130",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2278 px): 1787",
+   "OK   top 8 carry <= 11%: 3.4",
+   "OK   value span >= 118: 126",
+   "OK   saturation <= 0.81: 0.182",
+   "OK   light: top minus bottom >= -2.5: 15.9",
+   "OK   edge between -35 and +7: -18.2",
+   "OK   grain <= 2.22 px a run: 1.49"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "1 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
    34,
-   112
+   111
   ],
-  "opaque_px": 2287,
-  "colours": 1808
+  "opaque_px": 2278,
+  "colours": 1787
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -299,7 +938,32 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "breaks": [],
  "guide": {
@@ -315,5 +979,71 @@
   "records/target/character/rig/mob/rigid_SW.png",
   "records/target/character/rig/mob/rigid_W.png",
   "records/target/character/rig/mob/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/character/rig/mob/rigobj_N.png",
+  "records/target/character/rig/mob/rigobj_NE.png",
+  "records/target/character/rig/mob/rigobj_E.png",
+  "records/target/character/rig/mob/rigobj_SE.png",
+  "records/target/character/rig/mob/rigobj_S.png",
+  "records/target/character/rig/mob/rigobj_SW.png",
+  "records/target/character/rig/mob/rigobj_W.png",
+  "records/target/character/rig/mob/rigobj_NW.png",
+  "records/target/character/rig/mob/rigobj_Stand_N_k00.png",
+  "records/target/character/rig/mob/rigobj_Stand_NE_k00.png",
+  "records/target/character/rig/mob/rigobj_Stand_E_k00.png",
+  "records/target/character/rig/mob/rigobj_Stand_SE_k00.png",
+  "records/target/character/rig/mob/rigobj_Stand_S_k00.png",
+  "records/target/character/rig/mob/rigobj_Stand_SW_k00.png",
+  "records/target/character/rig/mob/rigobj_Stand_W_k00.png",
+  "records/target/character/rig/mob/rigobj_Stand_NW_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_N_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_N_k01.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_N_k02.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_N_k03.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_N_k04.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_N_k05.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NE_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NE_k01.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NE_k02.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NE_k03.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NE_k04.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NE_k05.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_E_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_E_k01.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_E_k02.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_E_k03.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_E_k04.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_E_k05.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SE_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SE_k01.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SE_k02.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SE_k03.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SE_k04.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SE_k05.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_S_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_S_k01.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_S_k02.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_S_k03.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_S_k04.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_S_k05.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SW_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SW_k01.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SW_k02.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SW_k03.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SW_k04.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_SW_k05.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_W_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_W_k01.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_W_k02.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_W_k03.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_W_k04.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_W_k05.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NW_k00.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NW_k01.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NW_k02.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NW_k03.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NW_k04.png",
+  "records/target/character/rig/mob/rigobj_Anim_0_NW_k05.png"
  ]
 }
