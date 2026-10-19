@@ -284,6 +284,41 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-hair-two): 10/19 (w) LATEST -- *** WAY MORE HAIR AND FACES: 12 NEW CUTS, 12 FACE SHAPES, 7 NEW BEARDS, 5 NEW MARKS ON THE 3D HEAD; THE BARBER'S BOOK AND THE ROLL HANDED TO RUN TWO. ***
+TAB: VOTE, the cards character-hair-two-the-whole-enchilada-10-19 (RAZOR SKULL, HOME CLIPPERS, HORSESHOE, COMB OVER, GREASE
+BACK, LONG DROP, SPRING CURLS, STATIC, HALF SHAVE, BOX BRAIDS, FINGER WAVES, SCORCH; each beside the nearest of the game's
+flat cuts at 1:1, eight facings, the portrait at 128), character-faces-one-twelve-face-shapes-10-19 (the face maker's
+fourteen dials as twelve skulls) and character-faces-one-beards-and-marks-10-19 (CHIN STRAP, MUTTON CHOPS, HORSESHOE
+MOUSTACHE, PENCIL MOUSTACHE, SOUL PATCH, PATCHY BEARD, LONG BEARD; BROKEN NOSE, CAULIFLOWER EAR, STITCHED GASH, CHEEK BURN,
+CLOUDED EYE; with PORTRAIT's FULL BEARD, MOUSTACHE, GOATEE, stubble and three scars on the same man).
+Record: records/BOHEMIA_HAIR_TWO_AND_FACES_ONE_THE_WHOLE_ENCHILADA_10_19_26.md. Opened by the coordinator (rule 112), Opus.
+[way more hair and faces] (rule 121(i)(k), his 10/19 'need way more facial customization, hair options as well'; 'the
+whole enchilada') SHIPPED daf1e2b3, every still through the guide's first five (96, 96, 152 of 152): tools/bohemia_character_hair_two.py (HAIR 1's kit, lifted into kit() unchanged),
+tools/bohemia_character_faces_one.py (face shapes are dial rows; beards and marks cut from the head's own skin, cut finer,
+carrying every shape key: the horseshoe moustache moves 52.6 mm on key A against the head's 57.3), all through
+DIRECTION's rig unedited, standing (--clip Stand:1, like HAIR 1: the first pass forgot it and came out mid-stride).
+The graveyard read first: no crest, no tie, no mullet, no side part, no flat top, no pompadour, no chin bob.
+FOR RUN TWO [no two people alike]: records/target/character/BOHEMIA_THE_BARBERS_BOOK.json is every piece by kind (cuts,
+face shapes with dials, facial hair, marks, 21 hats with the random mix marked, 14 face pieces, hair colours with weights,
+the census skins); `python3 tools/bohemia_character_the_barbers_book.py roll <Gang> <n> <out.json>` rolls n people of a
+gang, no two alike (hair first, hats one in eight and only over a short cut, never the cone hat, a wrap or the shemagh);
+`<venv>/bin/python tools/bohemia_character_the_barber_on_the_skull.py build PEOPLE:<out.json>` builds each on his gang's
+own body in his own skin step; the book's how_to_build names the rig command with the walk clip; RUN's bake packs them.
+Proven on three rolled Reds (records/target/character/CHARACTER_THE_ROLL_PROOF_REDS.png; the roll file beside it). The count:
+21 cuts, 13 faces, 12 facial hair, 9 marks, 8 hair colours, 11 skins = 2,594,592 heads before a hat, a face piece or a top.
+FOR DIRECTION: the rig's wear reads hair, skin and eye by the MATERIAL NAME; a new material without one of those words
+takes the paint's full dust (measured: HAIR 2's first stubble blotched). Every new material here is named for it.
+GATES: THE ROLL CALL 8/0 (R6 was red on main: his UPs on hair 1, hats 1, eyewear 1 and the base cards were not written in;
+re-derived), CHARACTER IN THE VOTE TAB, THE BARBER GATE 13/0, THE HAIR GRAVEYARD 13/0, ONE SKIN ONE PERSON 15/0; NOT VIBE
+CODED's N3 passes this lane's new cards (its red names older cards with no sprites); THE VOTE TAB 48/3, the three are other
+lanes' (dynasty whys, the STAR); the whole suite does not finish on this box (rule 13).
+[bb Battle Brothers' barber picks a hair, a beard and a face from lists of painted layers; ours sculpts each on the one head
+bone, so it turns, walks and talks with the man, and the crowd rolls them so no two match.]
+[analog horror: clay hair that still looks like clay, shaving nicks, a clipper gouge, a burn where nothing grew back, a milky eye.]
+Lead line for DIRECTION (rule 113a): CHARACTER shipped 12 new haircuts, 12 face shapes, 7 beards and 5 marks on the 3D head and the barber's book for RUN TWO, VOTE tab, SHIPPED.
+NEXT: nothing claimed (rule 121(d): the round ends when the row is done).
+PENDING Paolo: nothing.
+
 CHARACTER (character-one-skin): 10/19 (v) LATEST -- *** ONE SKIN SHIPPED (THE MAP'S PARTIES TOO); 77 OF THE GAME'S 80 TOPS ON THE 3D MAN IN VOTE. ***
 TAB: VOTE, the cards character-base-one-the-shirts-10-19 (5 tanks, 12 tees, 4 long sleeves, 7 henleys on the barber's man,
 each beside the game's flat top at 1:1, eight facings, the portrait at 128; 224 of 224 stills pass the first five) and

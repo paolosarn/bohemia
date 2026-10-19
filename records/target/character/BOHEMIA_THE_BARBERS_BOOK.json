@@ -1,0 +1,1290 @@
+{
+ "what": "CHARACTER's barber's book: every piece made on the 3D man, by kind, the names the barber's build takes, for RUN TWO [no two people alike]",
+ "rule": "121(i) and (k); Paolo 10/19: way more facial customization, hair options; the whole enchilada; hair first, hats rare",
+ "lane": "character",
+ "date": "10/19",
+ "draft": true,
+ "how_to_build": "a roll file (python3 tools/bohemia_character_the_barbers_book.py roll <Gang> <n> <out.json>), then <venv>/bin/python tools/bohemia_character_the_barber_on_the_skull.py build PEOPLE:<out.json>, then per person <venv>/bin/python tools/bohemia_direction_master_rig.py records/character/rig/barber_person_<id>.glb records/target/character/barber/person_<id> --real-height <real_height_for_rig> --family none --clip Stand:1 --clip Anim_0:6 --portrait 128, then RUN's bake (tools/bohemia_bake_the_rig_cast.py) over those folders",
+ "recolour": "every render's rig.json carries id_table (the material-ID pass): the hair is the material named barber_<tag>_hair; a crowd that needs more colours than it renders can re-tint those pixels by the id pass instead of re-rendering",
+ "cuts": [
+  {
+   "name": "TEMPLE TAPER",
+   "tag": "temple_taper",
+   "worn_by": "Body, Trades, Network, Remnants",
+   "made_by": "CHARACTER 10/18",
+   "held": false,
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/temple_taper",
+   "card": "character-the-barber-on-the-skull-10-18",
+   "his_vote": "up"
+  },
+  {
+   "name": "COIL CROWN",
+   "tag": "coil_crown",
+   "worn_by": "Caravans, Church",
+   "made_by": "CHARACTER 10/18",
+   "held": false,
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/coil_crown",
+   "card": "character-the-barber-on-the-skull-10-18",
+   "his_vote": "up"
+  },
+  {
+   "name": "LAYERED FALL",
+   "tag": "layered_fall",
+   "worn_by": "Anarchists, Homeless",
+   "made_by": "CHARACTER 10/18",
+   "held": false,
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/layered_fall",
+   "card": "character-the-barber-on-the-skull-10-18",
+   "his_vote": "up"
+  },
+  {
+   "name": "DRY TAPER",
+   "tag": "dry_taper",
+   "worn_by": "Blues, Reds, Cartel, Mob; the pack, the satchel",
+   "made_by": "CHARACTER 10/19 (HAIR 1)",
+   "held": false,
+   "held_why": null,
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/dry_taper",
+   "card": "character-hair-one-clumps-not-links-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "DEEP TAPER",
+   "tag": "deep_taper",
+   "worn_by": "the wide brim, the apron",
+   "made_by": "CHARACTER 10/19 (HAIR 1)",
+   "held": false,
+   "held_why": null,
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/deep_taper",
+   "card": "character-hair-one-clumps-not-links-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "SHAG",
+   "tag": "shag",
+   "worn_by": "Colorful; the cape",
+   "made_by": "CHARACTER 10/19 (HAIR 1)",
+   "held": false,
+   "held_why": null,
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/shag",
+   "card": "character-hair-one-clumps-not-links-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "CURTAIN CUT",
+   "tag": "curtain_cut",
+   "worn_by": "the skirt, the poncho",
+   "made_by": "CHARACTER 10/19 (HAIR 1)",
+   "held": false,
+   "held_why": null,
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/curtain_cut",
+   "card": "character-hair-one-clumps-not-links-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HEAVY FRINGE",
+   "tag": "heavy_fringe",
+   "worn_by": "Volunteers",
+   "made_by": "CHARACTER 10/19 (HAIR 1)",
+   "held": true,
+   "held_why": "D3 on W (3.2 values)",
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/heavy_fringe",
+   "card": "character-hair-one-clumps-not-links-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "ROPE LOCKS",
+   "tag": "rope_locks",
+   "worn_by": "nobody yet (the crowd draws it)",
+   "made_by": "CHARACTER 10/19 (HAIR 1)",
+   "held": true,
+   "held_why": "D3 on 5 of 8 facings (8.6 to 14.4 values)",
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/rope_locks",
+   "card": "character-hair-one-clumps-not-links-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "SHORT ROPES",
+   "tag": "short_ropes",
+   "worn_by": "nobody yet (the crowd draws it)",
+   "made_by": "CHARACTER 10/19 (HAIR 1)",
+   "held": false,
+   "held_why": null,
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/short_ropes",
+   "card": "character-hair-one-clumps-not-links-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "DUST WEAVE",
+   "tag": "dust_weave",
+   "worn_by": "nobody yet (the crowd draws it)",
+   "made_by": "CHARACTER 10/19 (HAIR 1)",
+   "held": false,
+   "held_why": null,
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/dust_weave",
+   "card": "character-hair-one-clumps-not-links-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "RAZOR SKULL",
+   "tag": "razor_skull",
+   "worn_by": "Mob, Remnants, Network; the cooks and the guards",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "cloth_black",
+    0
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/razor_skull",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HOME CLIPPERS",
+   "tag": "home_clippers",
+   "worn_by": "Trades, Homeless, Volunteers; the young",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_mustard",
+    0
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/home_clippers",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HORSESHOE",
+   "tag": "horseshoe",
+   "worn_by": "Trades, Church, Caravans; the old",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "tape_grey",
+    1
+   ],
+   "short": true,
+   "balding": true,
+   "renders": "records/target/character/barber/horseshoe",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "COMB OVER",
+   "tag": "comb_over",
+   "worn_by": "Network, Church; the old who still try",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "cloth_black",
+    1
+   ],
+   "short": false,
+   "balding": true,
+   "renders": "records/target/character/barber/comb_over",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "GREASE BACK",
+   "tag": "grease_back",
+   "worn_by": "Mob, Cartel, Network",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "cloth_black",
+    1
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/grease_back",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "LONG DROP",
+   "tag": "long_drop",
+   "worn_by": "Colorful, Anarchists, Caravans, Church",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_mustard",
+    1
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/long_drop",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "SPRING CURLS",
+   "tag": "spring_curls",
+   "worn_by": "Colorful, Caravans, Reds",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_rust",
+    1
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/spring_curls",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "STATIC",
+   "tag": "static",
+   "worn_by": "Homeless, Anarchists, Volunteers",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "tape_masking",
+    1
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/static",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HALF SHAVE",
+   "tag": "half_shave",
+   "worn_by": "Anarchists, Colorful, Blues",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_bone",
+    2
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/half_shave",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "BOX BRAIDS",
+   "tag": "box_braids",
+   "worn_by": "Reds, Blues, Caravans, Colorful",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_mustard",
+    1
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/box_braids",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FINGER WAVES",
+   "tag": "finger_waves",
+   "worn_by": "Colorful, Cartel, Network; the runway",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "cloth_black",
+    1
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/finger_waves",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "SCORCH",
+   "tag": "scorch",
+   "worn_by": "Remnants, Mob, Trades; anyone the fire caught",
+   "made_by": "CHARACTER 10/19 (HAIR 2)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_mustard",
+    0
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/scorch",
+   "card": "character-hair-two-the-whole-enchilada-10-19",
+   "his_vote": "up"
+  }
+ ],
+ "face_shapes": [
+  {
+   "name": "THE STARRED FACE",
+   "dials": {},
+   "note": "the default: every head today"
+  },
+  {
+   "name": "LONG AND NARROW",
+   "build": "FACE LONG AND NARROW",
+   "dials": {
+    "face.len": 39,
+    "face.cheekW": 27,
+    "face.jawW": 23,
+    "face.chinW": 9,
+    "face.foreheadW": 23,
+    "nose.w": 2,
+    "face.craniumH": 12
+   },
+   "renders": "records/target/character/barber/face_long_and_narrow",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "BROAD AND SQUARE",
+   "build": "FACE BROAD AND SQUARE",
+   "dials": {
+    "face.len": 30,
+    "face.cheekW": 36,
+    "face.jawW": 34,
+    "face.chinW": 18,
+    "face.foreheadW": 28,
+    "brows.len": 10,
+    "mouth.w": 11
+   },
+   "renders": "records/target/character/barber/face_broad_and_square",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "ROUND",
+   "build": "FACE ROUND",
+   "dials": {
+    "face.len": 29,
+    "face.cheekW": 37,
+    "face.jawW": 30,
+    "face.chinW": 13,
+    "face.foreheadW": 27,
+    "face.craniumH": 11,
+    "nose.w": 4
+   },
+   "renders": "records/target/character/barber/face_round",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HEART",
+   "build": "FACE HEART",
+   "dials": {
+    "face.foreheadW": 30,
+    "face.cheekW": 33,
+    "face.jawW": 21,
+    "face.chinW": 8,
+    "eyes.gap": 7,
+    "mouth.w": 7
+   },
+   "renders": "records/target/character/barber/face_heart",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "GAUNT",
+   "build": "FACE GAUNT",
+   "dials": {
+    "face.len": 37,
+    "face.cheekW": 26,
+    "face.jawW": 24,
+    "face.chinW": 12,
+    "face.foreheadW": 22,
+    "face.eyeY": -1,
+    "mouth.w": 7
+   },
+   "renders": "records/target/character/barber/face_gaunt",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HEAVY BROW",
+   "build": "FACE HEAVY BROW",
+   "dials": {
+    "face.browY": 2,
+    "brows.len": 11,
+    "face.eyeY": 1,
+    "face.jawW": 30,
+    "face.chinW": 15,
+    "face.craniumH": 8,
+    "nose.w": 4
+   },
+   "renders": "records/target/character/barber/face_heavy_brow",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HIGH DOME",
+   "build": "FACE HIGH DOME",
+   "dials": {
+    "face.craniumH": 15,
+    "face.len": 31,
+    "face.foreheadW": 28,
+    "face.cheekW": 31
+   },
+   "renders": "records/target/character/barber/face_high_dome",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "WIDE SET",
+   "build": "FACE WIDE SET",
+   "dials": {
+    "eyes.gap": 10,
+    "nose.w": 4,
+    "mouth.w": 12,
+    "face.cheekW": 34,
+    "face.len": 31
+   },
+   "renders": "records/target/character/barber/face_wide_set",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAWK",
+   "build": "FACE HAWK",
+   "dials": {
+    "eyes.gap": 3,
+    "nose.w": 2,
+    "face.noseY": -1,
+    "face.len": 37,
+    "face.chinW": 15,
+    "face.jawW": 24,
+    "face.cheekW": 28
+   },
+   "renders": "records/target/character/barber/face_hawk",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "SMALL FEATURES",
+   "build": "FACE SMALL FEATURES",
+   "dials": {
+    "mouth.w": 6,
+    "nose.w": 2,
+    "eyes.gap": 5,
+    "face.chinW": 9,
+    "face.len": 30,
+    "brows.len": 5
+   },
+   "renders": "records/target/character/barber/face_small_features",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "LANTERN JAW",
+   "build": "FACE LANTERN JAW",
+   "dials": {
+    "face.jawW": 33,
+    "face.chinW": 20,
+    "face.len": 38,
+    "face.cheekW": 34,
+    "face.mouthY": 1
+   },
+   "renders": "records/target/character/barber/face_lantern_jaw",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FLAT AND LOW",
+   "build": "FACE FLAT AND LOW",
+   "dials": {
+    "face.craniumH": 7,
+    "face.browY": 2,
+    "face.len": 34,
+    "nose.w": 5,
+    "face.noseY": 1,
+    "mouth.w": 13,
+    "face.foreheadW": 26
+   },
+   "renders": "records/target/character/barber/face_flat_and_low",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  }
+ ],
+ "face_dials": [
+  {
+   "key": "face.len",
+   "label": "FACE LENGTH",
+   "lo": 28,
+   "hi": 40,
+   "default": 33
+  },
+  {
+   "key": "face.craniumH",
+   "label": "CRANIUM",
+   "lo": 7,
+   "hi": 15,
+   "default": 10
+  },
+  {
+   "key": "face.foreheadW",
+   "label": "FOREHEAD",
+   "lo": 19,
+   "hi": 31,
+   "default": 24
+  },
+  {
+   "key": "face.cheekW",
+   "label": "CHEEKS",
+   "lo": 24,
+   "hi": 38,
+   "default": 30
+  },
+  {
+   "key": "face.jawW",
+   "label": "JAW",
+   "lo": 20,
+   "hi": 34,
+   "default": 26
+  },
+  {
+   "key": "face.chinW",
+   "label": "CHIN",
+   "lo": 7,
+   "hi": 20,
+   "default": 12
+  },
+  {
+   "key": "face.browY",
+   "label": "BROW HEIGHT",
+   "lo": -3,
+   "hi": 3,
+   "default": 0
+  },
+  {
+   "key": "face.eyeY",
+   "label": "EYE HEIGHT",
+   "lo": -3,
+   "hi": 3,
+   "default": 0
+  },
+  {
+   "key": "face.noseY",
+   "label": "NOSE HEIGHT",
+   "lo": -3,
+   "hi": 3,
+   "default": 0
+  },
+  {
+   "key": "face.mouthY",
+   "label": "MOUTH HEIGHT",
+   "lo": -3,
+   "hi": 3,
+   "default": 0
+  },
+  {
+   "key": "eyes.gap",
+   "label": "EYE SPACING",
+   "lo": 3,
+   "hi": 11,
+   "default": 6
+  },
+  {
+   "key": "brows.len",
+   "label": "BROW LENGTH",
+   "lo": 4,
+   "hi": 11,
+   "default": 7
+  },
+  {
+   "key": "mouth.w",
+   "label": "MOUTH WIDTH",
+   "lo": 5,
+   "hi": 15,
+   "default": 9
+  },
+  {
+   "key": "nose.w",
+   "label": "NOSE WIDTH",
+   "lo": 2,
+   "hi": 5,
+   "default": 3
+  }
+ ],
+ "facial_hair": [
+  {
+   "name": "STUBBLE",
+   "build": "BEARD STUBBLE",
+   "portrait_part": null,
+   "new_kind": null,
+   "stubble": true,
+   "made_by": "PORTRAIT (its part, shown on the barber's man)",
+   "renders": "records/target/character/barber/beard_stubble",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "FULL BEARD",
+   "build": "BEARD FULL BEARD",
+   "portrait_part": "full",
+   "new_kind": null,
+   "stubble": false,
+   "made_by": "PORTRAIT (its part, shown on the barber's man)",
+   "renders": "records/target/character/barber/beard_full_beard",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "MOUSTACHE",
+   "build": "BEARD MOUSTACHE",
+   "portrait_part": "moustache",
+   "new_kind": null,
+   "stubble": false,
+   "made_by": "PORTRAIT (its part, shown on the barber's man)",
+   "renders": "records/target/character/barber/beard_moustache",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "GOATEE",
+   "build": "BEARD GOATEE",
+   "portrait_part": "goatee",
+   "new_kind": null,
+   "stubble": false,
+   "made_by": "PORTRAIT (its part, shown on the barber's man)",
+   "renders": "records/target/character/barber/beard_goatee",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "CHIN STRAP",
+   "build": "BEARD CHIN STRAP",
+   "portrait_part": null,
+   "new_kind": "chin_strap",
+   "stubble": false,
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/beard_chin_strap",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "MUTTON CHOPS",
+   "build": "BEARD MUTTON CHOPS",
+   "portrait_part": null,
+   "new_kind": "mutton_chops",
+   "stubble": false,
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/beard_mutton_chops",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "HORSESHOE MOUSTACHE",
+   "build": "BEARD HORSESHOE MOUSTACHE",
+   "portrait_part": null,
+   "new_kind": "horseshoe",
+   "stubble": false,
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/beard_horseshoe_moustache",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "PENCIL MOUSTACHE",
+   "build": "BEARD PENCIL MOUSTACHE",
+   "portrait_part": null,
+   "new_kind": "pencil",
+   "stubble": false,
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/beard_pencil_moustache",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "SOUL PATCH",
+   "build": "BEARD SOUL PATCH",
+   "portrait_part": null,
+   "new_kind": "soul_patch",
+   "stubble": false,
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/beard_soul_patch",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "PATCHY BEARD",
+   "build": "BEARD PATCHY BEARD",
+   "portrait_part": null,
+   "new_kind": "patchy",
+   "stubble": true,
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/beard_patchy_beard",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "LONG BEARD",
+   "build": "BEARD LONG BEARD",
+   "portrait_part": null,
+   "new_kind": "long",
+   "stubble": false,
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/beard_long_beard",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  }
+ ],
+ "marks": [
+  {
+   "name": "BROW SCAR",
+   "build": "MARK BROW SCAR",
+   "portrait_scar": "brow",
+   "new_kind": null,
+   "made_by": "PORTRAIT (its scar, shown on the barber's man)",
+   "renders": "records/target/character/barber/mark_brow_scar",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "CHEEK SCAR",
+   "build": "MARK CHEEK SCAR",
+   "portrait_scar": "cheek",
+   "new_kind": null,
+   "made_by": "PORTRAIT (its scar, shown on the barber's man)",
+   "renders": "records/target/character/barber/mark_cheek_scar",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "LIP SCAR",
+   "build": "MARK LIP SCAR",
+   "portrait_scar": "lip",
+   "new_kind": null,
+   "made_by": "PORTRAIT (its scar, shown on the barber's man)",
+   "renders": "records/target/character/barber/mark_lip_scar",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "BROKEN NOSE",
+   "build": "MARK BROKEN NOSE",
+   "portrait_scar": null,
+   "new_kind": "broken_nose",
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/mark_broken_nose",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "CAULIFLOWER EAR",
+   "build": "MARK CAULIFLOWER EAR",
+   "portrait_scar": null,
+   "new_kind": "cauliflower_ear",
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/mark_cauliflower_ear",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "STITCHED GASH",
+   "build": "MARK STITCHED GASH",
+   "portrait_scar": null,
+   "new_kind": "stitched_gash",
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/mark_stitched_gash",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "CHEEK BURN",
+   "build": "MARK CHEEK BURN",
+   "portrait_scar": null,
+   "new_kind": "cheek_burn",
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/mark_cheek_burn",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  },
+  {
+   "name": "CLOUDED EYE",
+   "build": "MARK CLOUDED EYE",
+   "portrait_scar": null,
+   "new_kind": "clouded_eye",
+   "made_by": "CHARACTER (new, 10/19)",
+   "renders": "records/target/character/barber/mark_clouded_eye",
+   "card": "character-faces-one-beards-and-marks-10-19",
+   "his_vote": null
+  }
+ ],
+ "hats": [
+  {
+   "name": "HAT CHINESE RICE FARMER HAT",
+   "shape": "cone",
+   "in_random_mix": false,
+   "renders": "records/target/character/barber/hat_chinese_rice_farmer_hat",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT CHARCOAL WATCH CAP",
+   "shape": "watch",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_charcoal_watch_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT RUST WATCH CAP",
+   "shape": "watch",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_rust_watch_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT OLIVE FIELD CAP",
+   "shape": "field",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_olive_field_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT STORM KNIT CAP",
+   "shape": "knit",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_storm_knit_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT SAND KNIT CAP",
+   "shape": "knit",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_sand_knit_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT SLATE WORK CAP",
+   "shape": "work",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_slate_work_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT OXBLOOD SLOUCH BEANIE",
+   "shape": "slouch",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_oxblood_slouch_beanie",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT BONE KNIT CAP",
+   "shape": "knit",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_bone_knit_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT OLIVE KNIT CAP",
+   "shape": "knit",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_olive_knit_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT BRICK WATCH CAP",
+   "shape": "watch",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_brick_watch_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT PATINA FIELD CAP",
+   "shape": "field",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_patina_field_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT DUST WORK CAP",
+   "shape": "work",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_dust_work_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT STORM SLOUCH BEANIE",
+   "shape": "slouch",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_storm_slouch_beanie",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT KHAKI SLOUCH BEANIE",
+   "shape": "slouch",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_khaki_slouch_beanie",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT DESERT SHEMAGH",
+   "shape": "shemagh",
+   "in_random_mix": false,
+   "renders": "records/target/character/barber/hat_desert_shemagh",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT SCRAP HELM",
+   "shape": "helm",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_scrap_helm",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT ROSE KNIT CAP",
+   "shape": "knit",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_rose_knit_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT COBALT KNIT CAP",
+   "shape": "knit",
+   "in_random_mix": true,
+   "renders": "records/target/character/barber/hat_cobalt_knit_cap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT BONE HEAD WRAP",
+   "shape": "wrap",
+   "in_random_mix": false,
+   "renders": "records/target/character/barber/hat_bone_head_wrap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "HAT SOOT HEAD WRAP",
+   "shape": "wrap",
+   "in_random_mix": false,
+   "renders": "records/target/character/barber/hat_soot_head_wrap",
+   "card": "character-hats-one-the-21-hats-10-19",
+   "his_vote": "up"
+  }
+ ],
+ "face_pieces": [
+  {
+   "name": "FACE BONE DUST MASK",
+   "renders": "records/target/character/barber/face_bone_dust_mask",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE OXBLOOD DUST MASK",
+   "renders": "records/target/character/barber/face_oxblood_dust_mask",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE WRAPAROUND SHADES",
+   "renders": "records/target/character/barber/face_wraparound_shades",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE CHARCOAL DUST MASK",
+   "renders": "records/target/character/barber/face_charcoal_dust_mask",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE OLIVE DUST MASK",
+   "renders": "records/target/character/barber/face_olive_dust_mask",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE RUST DUST MASK",
+   "renders": "records/target/character/barber/face_rust_dust_mask",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE GREY WRAPAROUNDS",
+   "renders": "records/target/character/barber/face_grey_wraparounds",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE RUBBER GAS MASK",
+   "renders": "records/target/character/barber/face_rubber_gas_mask",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE OUTLAW BANDANA",
+   "renders": "records/target/character/barber/face_outlaw_bandana",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE ROSE BANDANA",
+   "renders": "records/target/character/barber/face_rose_bandana",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE SHIELD VISOR",
+   "renders": "records/target/character/barber/face_shield_visor",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE ASH SHIELD",
+   "renders": "records/target/character/barber/face_ash_shield",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE FACE WRAP",
+   "renders": "records/target/character/barber/face_face_wrap",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "FACE ASH FACE WRAP",
+   "renders": "records/target/character/barber/face_ash_face_wrap",
+   "card": "character-eyewear-one-the-14-face-pieces-10-19",
+   "his_vote": "up"
+  }
+ ],
+ "hair_colours": [
+  {
+   "step": [
+    "cloth_black",
+    0
+   ],
+   "weight": 34,
+   "name": "black"
+  },
+  {
+   "step": [
+    "clay_mustard",
+    0
+   ],
+   "weight": 26,
+   "name": "brown"
+  },
+  {
+   "step": [
+    "clay_mustard",
+    1
+   ],
+   "weight": 9,
+   "name": "light brown"
+  },
+  {
+   "step": [
+    "tape_grey",
+    1
+   ],
+   "weight": 10,
+   "name": "grey"
+  },
+  {
+   "step": [
+    "tape_masking",
+    1
+   ],
+   "weight": 8,
+   "name": "sand"
+  },
+  {
+   "step": [
+    "clay_rust",
+    1
+   ],
+   "weight": 6,
+   "name": "auburn"
+  },
+  {
+   "step": [
+    "clay_bone",
+    2
+   ],
+   "weight": 4,
+   "name": "bleach"
+  },
+  {
+   "step": [
+    "cloth_black",
+    1
+   ],
+   "weight": 3,
+   "name": "dyed black"
+  }
+ ],
+ "skins": {
+  "census": {
+   "hispanic": 33,
+   "white": 36,
+   "black": 13,
+   "asian": 12,
+   "mixed": 6
+  },
+  "tones": {
+   "white": [
+    "chalk",
+    "porcelain",
+    "pale",
+    "fair",
+    "olive"
+   ],
+   "hispanic": [
+    "olive",
+    "tan",
+    "bronze",
+    "brown"
+   ],
+   "black": [
+    "brown",
+    "deep",
+    "ebony",
+    "onyx"
+   ],
+   "asian": [
+    "pale",
+    "fair",
+    "olive",
+    "tan"
+   ],
+   "mixed": [
+    "tan",
+    "bronze",
+    "brown",
+    "olive"
+   ]
+  },
+  "rig_table": {
+   "chalk": [
+    "skin_light",
+    3
+   ],
+   "porcelain": [
+    "skin_light",
+    3
+   ],
+   "fair": [
+    "skin_deep",
+    4
+   ],
+   "olive": [
+    "skin_mid",
+    3
+   ],
+   "pale": [
+    "skin_light",
+    2
+   ],
+   "tan": [
+    "skin_deep",
+    3
+   ],
+   "bronze": [
+    "skin_mid",
+    2
+   ],
+   "brown": [
+    "skin_light",
+    1
+   ],
+   "deep": [
+    "skin_deep",
+    2
+   ],
+   "ebony": [
+    "skin_mid",
+    1
+   ],
+   "onyx": [
+    "skin_light",
+    0
+   ]
+  },
+  "source": "U.S. Census Bureau QuickFacts, Clark County NV (as PEOPLE rounded it); Las Vegas city 2020 (Census Dots)"
+ },
+ "roll": {
+  "facial_hair": 0.45,
+  "mark": 0.2,
+  "hat": 0.12,
+  "hat_only_over": "a short cut",
+  "face_piece": 0.1,
+  "gang_cut_weight": 3,
+  "not_in_random_mix": [
+   "HAT BONE HEAD WRAP",
+   "HAT CHINESE RICE FARMER HAT",
+   "HAT DESERT SHEMAGH",
+   "HAT SOOT HEAD WRAP"
+  ],
+  "grey_with": [
+   "COMB OVER",
+   "HORSESHOE"
+  ]
+ },
+ "count": {
+  "cuts": 21,
+  "face_shapes": 13,
+  "facial_hair": 12,
+  "marks": 9,
+  "hair_colours": 8,
+  "skins": 11,
+  "hats": 21,
+  "face_pieces": 14,
+  "heads": 2594592
+ }
+}

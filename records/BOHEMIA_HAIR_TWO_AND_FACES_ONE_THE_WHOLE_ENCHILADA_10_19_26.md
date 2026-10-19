@@ -102,8 +102,15 @@ in the barber's TEMPLE TAPER (his UP):
 ## 5. WHAT IS NOT DONE, SAID OUT LOUD
 
 - Nothing here is in the demo or the alpha (rule 121(a): RUN TWO runs [no two people alike]; this lane hands over).
-- The person build is proven on three rolled Reds (built and rendered, records/target/character/barber/person_reds_0..2);
-  the crowd itself (twenty per gang, the walk clip, the bake, the map) is RUN TWO's row.
+- The person build is proven on three rolled Reds (records/target/character/BOHEMIA_THE_ROLL_PROOF_REDS.json, built and
+  rendered standing: records/target/character/barber/person_reds_0..2, the picture CHARACTER_THE_ROLL_PROOF_REDS.png):
+  a tan Hispanic man in a COIL CROWN with a FLAT AND LOW face and a PENCIL MOUSTACHE; a chalk-white RAZOR SKULL under a
+  CHARCOAL WATCH CAP with a HEART face and a HORSESHOE MOUSTACHE; a chalk-white TEMPLE TAPER with a ROUND face; each on
+  the Reds' own body in his own skin. The crowd itself (twenty per gang, the walk clip, the bake, the map) is RUN TWO's row.
+- THE COUNT, from the book: 21 cuts (2 held), 13 faces, 12 facial hair (none included), 9 marks (none included), 8 hair
+  colours, 11 skins: 2,594,592 different heads before a hat, a face piece or a top; 21 hats and 14 face pieces on top.
+- THE CARDS: character-hair-two-the-whole-enchilada-10-19, character-faces-one-twelve-face-shapes-10-19,
+  character-faces-one-beards-and-marks-10-19, every still through the guide's first five: 96, 96 and 152 of 152 pass.
 - A beard or mark on a dialled face is placed on the default face's measure (the mouth line, the jaw line) and rides the
   dials' warp after, within a few millimetres; the face shape card and the beards card each show one change at a time.
 
