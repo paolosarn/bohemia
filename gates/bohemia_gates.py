@@ -9216,6 +9216,14 @@ GATES = [
      "within 4.5 points, the names that read Hispanic within 5 of the county's 33.4, every name two words, no "
      "name over 1 percent, and the name reads as the face 1,000 of 1,000; the post's fixed list is gone; the "
      "twelve on the VOTE sheet are today's roll", False),
+    ('ASK THE CROWD', ['node', 'gates/ask_the_crowd_gate.js'],
+     "PEOPLE 10/19, row [ask the crowd]: a person in a place's crowd is SOMEBODY ON THE STREET until you ask (A NAME "
+     "IS EARNED, NEVER GIVEN); ask and they answer from the one roll keyed by the place and their spot, the name "
+     "reading as the face, and the place remembers; the record of the real screen at 26 places (a stranger first, "
+     "the roll in their own line, every later visit and a reload right, the same spot the same look) is today's "
+     "roll. Rule 120(d), Paolo 10/18 'Black people looking like white people': the skin of every body, sheet face and "
+     "fresh portrait is re-measured from the files every run and the looks whose face and body disagree can only "
+     "shrink from 25 of 26", False),
     ('THE PHONES APPS', ['python3', 'gates/the_phones_apps_gate.py'],
      "UI 10/18, row [the phone's apps]: his 10/17 'there's a whole app on the phone too'. The candidate home screen "
      "(feed, jobs, stash, crew, settings, the timeline only after the first crisis) laid in the browser only and read "

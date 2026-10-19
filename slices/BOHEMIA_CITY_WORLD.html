@@ -5438,7 +5438,10 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
 // background, with the real crossover (a Hispanic man named Travis, a
 // surname that married in). Battle Brothers does the same thing in its own
 // scripts: each background picks from its own name list, so where a man is
-// from and what he is called travel together.
+// from and what he is called travel together. From 10/19 a fourth: the person
+// in a place's crowd, once you ask who they are (PEOPLE [ask the crowd]); and
+// every roll carries the person's skin band, so the face and the body can be
+// painted from the same person the name came from (rule 120(d)).
 //
 // THE DESIGN IS banks/BOHEMIA_THE_NAMES_MIX_10_18_26.json (PEOPLE [the names
 // mix], 6bb2be0c) plus the ten Hispanic men's names
@@ -5536,7 +5539,28 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
     faces: {
       you: 'm', cast_longcoat: 'm', cast_barearms: 'm', cast_pack: 'm', cast_skirt: 'f', cast_widebrim: 'm',
       cast_cape: 'm', cast_apron: 'm', cast_poncho: 'f', cast_bedroll: 'm', cast_shorts: 'm', cast_satchel: 'm',
-      cast_shortcoat: 'f'
+      cast_shortcoat: 'f',
+      /* the street's faction looks (PEOPLE [ask the crowd], 10/19): a crowd person wears any of them, so each is read
+         off the face the speaker shows (the sheet's 64 until PORTRAIT's fresh one lands). faction_anarchists stays
+         unread: its face is a hood and its body has long hair, so nothing honest can be read until they agree */
+      faction_caravans: 'm', faction_colorful: 'f', faction_blues: 'm', faction_homeless: 'm', faction_church: 'f',
+      faction_reds: 'f', faction_cartel: 'm', faction_trades: 'm', faction_mob: 'm', faction_network: 'f',
+      faction_volunteers: 'f', faction_remnants: 'm'
+    },
+    /* THE SKIN TRAVELS WITH THE NAME (PEOPLE [ask the crowd], 10/19; rule 120(d), Paolo 10/18: 'the portraits don't
+       even look alike, Black people looking like white people'). Who a person is sets the range their skin falls in,
+       the way Battle Brothers' southern backgrounds draw a man's name, body and head from one southern set (recall,
+       Blazing Deserts). The band is dealt from the person's own key, so it is theirs for ever; PORTRAIT paints the face
+       and CHARACTER the body from it, and a name, a face and a body are one person. The bands are the ITA scale
+       dermatology reads skin by (Chardon 1991; Del Bino and Bernerd 2013), lightest first; the weights are a draft,
+       PORTRAIT's and TUNING's to move. */
+    skinBands: ['very light', 'light', 'intermediate', 'tan', 'brown', 'dark'],
+    skin: {
+      white: { 'very light': 35, light: 45, intermediate: 18, tan: 2 },
+      hispanic: { 'very light': 5, light: 20, intermediate: 35, tan: 30, brown: 10 },
+      black: { intermediate: 5, tan: 15, brown: 45, dark: 35 },
+      asian: { 'very light': 5, light: 25, intermediate: 40, tan: 25, brown: 5 },
+      mixed: { light: 10, intermediate: 25, tan: 25, brown: 25, dark: 15 }
     }
   };
 
@@ -5556,7 +5580,7 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
   }
   /* six streams, salted away from generatedName's 0x9e3779b9 and the quirk's 0x71717 */
   var SALT = { heritage: 0x27d4eb2f, sex: 0x165667b1, gpool: 0x85ebca6b, given: 0xc2b2ae35,
-    spool: 0xd3a2646c, surname: 0xfd7046c5 };
+    spool: 0xd3a2646c, surname: 0xfd7046c5, skin: 0x5bd1e995 };   /* skin last and its own stream: no name moved */
   function unit(h, salt) { return (mix32(h ^ salt) % 100000) / 100000; }
 
   function weighted(table, u) {
@@ -5578,11 +5602,21 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
   function fits(n, want) { var s = MIX.sex[n]; return s === want || s === 'x'; }
 
   /* ROLL A PERSON. key: anything stable (a place and a slot, a city key). opts.sex: the face's reading, when the
-     caller has a face; without one the person is a man or a woman half the time each. Pure. */
+     caller has a face; without one the person is a man or a woman half the time each. opts.skin: the person's skin
+     band when the caller knows it (CHARACTER's [one skin, one person], rule 120(d): the body is the truth); the
+     background is then the census weighted by how often that band falls in each background's range (the county's
+     share times the range's weight, Bayes), so the name always fits the skin and, over a valley whose skins are
+     dealt the county's way, the backgrounds still come out the county's. Pure. */
   function roll(key, opts) {
     opts = opts || {};
     var h = hashOf(key);
-    var heritage = weighted(MIX.heritage, unit(h, SALT.heritage));
+    var band = MIX.skinBands.indexOf(opts.skin) >= 0 ? opts.skin : null, table = MIX.heritage;
+    if (band) {
+      table = {};
+      Object.keys(MIX.heritage).forEach(function (k) { var w = MIX.skin[k][band] || 0; if (w) table[k] = MIX.heritage[k] * w; });
+      if (!Object.keys(table).length) table = MIX.heritage;
+    }
+    var heritage = weighted(table, unit(h, SALT.heritage));
     var sex = sexWord(opts.sex) || (unit(h, SALT.sex) < 0.5 ? 'm' : 'f');
     var gr = MIX.givenRule[heritage], sr = MIX.surnameRule[heritage];
     var gpool = weighted(gr === 'any' ? even(MIX.given) : gr, unit(h, SALT.gpool));
@@ -5596,11 +5630,19 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
     }
     var given = gl[mix32(h ^ SALT.given) % gl.length], surname = sl[mix32(h ^ SALT.surname) % sl.length];
     return { given: given, surname: surname, full: given + ' ' + surname, heritage: heritage,
-      sex: MIX.sex[given] === 'x' ? sex : (MIX.sex[given] || sex), givenPool: gpool, surnamePool: spool, draft: true };
+      sex: MIX.sex[given] === 'x' ? sex : (MIX.sex[given] || sex), givenPool: gpool, surnamePool: spool,
+      skin: band || weighted(MIX.skin[heritage], unit(h, SALT.skin)), draft: true };
   }
 
   /* the face's reading, or null for a face nobody has read */
   function faceReads(look) { return MIX.faces[look] || null; }
+
+  /* could a person of this heritage have a face of this band (the band is in their range): the one test of rule
+     120(d) for a name against a face. A band nobody measured agrees with everybody */
+  function skinAgrees(heritage, band) {
+    var r = MIX.skin[heritage];
+    return !band || !r || r[band] > 0;
+  }
 
   /* does this full name read Hispanic: either word from a Hispanic pool (the 10/18 finding: a name is two words) */
   function readsHispanic(full) {
@@ -5609,7 +5651,7 @@ if(typeof window!=='undefined') window.BohemiaLattice=BOH_LATTICE;
   }
 
   var API = { MIX: MIX, roll: roll, sexOf: sexOf, faceReads: faceReads, readsHispanic: readsHispanic,
-    hashOf: hashOf, mix32: mix32 };
+    skinAgrees: skinAgrees, hashOf: hashOf, mix32: mix32 };
   if (HASREQ) module.exports = API;
   root.BohemiaNames = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

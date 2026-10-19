@@ -1,0 +1,8300 @@
+{
+ "made": "10/19/26",
+ "lane": "people",
+ "row": "[ask the crowd] WHO-ARE-YOU-ON-THE-STREET",
+ "draft": true,
+ "measured": {
+  "places": 26,
+  "crowd_people": 93,
+  "reached": 80,
+  "unreachable": [
+   "THE STRIP (Mob) #1",
+   "THE TRUCK STOP (Caravans) #2",
+   "THE CHAPEL (Church) #3",
+   "DOWNTOWN (Reds) #1",
+   "THE PARK (Blues) #3",
+   "THE BLOCK PARTY (Anarchists) #3",
+   "THE BLOCK PARTY (Anarchists) #1",
+   "HENDERSON #3",
+   "BOULDER CITY #2",
+   "HOOVER DAM #1",
+   "PRIMM #1",
+   "PAHRUMP #3",
+   "MESQUITE #2"
+  ],
+  "stranger_first": 80,
+  "asked": 54,
+  "answered_with_the_roll": 54,
+  "name_reads_as_face_sex": 54,
+  "later_visits": 232,
+  "later_visits_right": 232,
+  "later_same_look": "144 of 144",
+  "new_session": 80,
+  "new_session_right": 80,
+  "different_names": 53,
+  "hispanic_reading": 19,
+  "skin_name_agrees_with_face": "22 of 54",
+  "body_agrees_with_face": "0 of 80",
+  "name_agrees_with_face_skin": {
+   "post": "39 of 98",
+   "keepers": "69 of 146",
+   "crowd_asked": "22 of 54"
+  },
+  "page_errors": 0,
+  "errors": []
+ },
+ "people": [
+  {
+   "place": "THE STRIP (Mob)",
+   "tier": "fortress",
+   "slot": 3,
+   "look": "faction_caravans",
+   "roll": "Danilo Duong",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "DANILO DUONG",
+    "line": "Danilo Duong. Ask for Danilo, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "tier": "fortress",
+   "slot": 1,
+   "look": "cast_shorts",
+   "roll": "Kwame Stovall",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "tan",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "tier": "fortress",
+   "slot": 2,
+   "look": "faction_volunteers",
+   "roll": "Lupe Zamora",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "LUPE ZAMORA",
+    "line": "Lupe Zamora. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "tier": "fortress",
+   "slot": 0,
+   "look": "cast_pack",
+   "roll": "Kyle Whitfield",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "very light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "tier": "fortress",
+   "slot": 0,
+   "look": "cast_widebrim",
+   "roll": "Amaury Sepulveda",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "tan",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "AMAURY SEPULVEDA",
+    "line": "Amaury. Amaury Sepulveda, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "tier": "fortress",
+   "slot": 3,
+   "look": "cast_barearms",
+   "roll": "Amaury Reyes",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "AMAURY REYES",
+    "line": "Amaury. Amaury Reyes, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "tier": "fortress",
+   "slot": 1,
+   "look": "cast_satchel",
+   "roll": "Everett Quinn",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "EVERETT QUINN",
+    "line": "Everett Quinn. Ask for Everett, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "tier": "fortress",
+   "slot": 2,
+   "look": "faction_caravans",
+   "roll": "Jamal Kirkland",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "dark",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "tier": "fortress",
+   "slot": 0,
+   "look": "faction_caravans",
+   "roll": "Hector Aguirre",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "HECTOR AGUIRRE",
+    "line": "Me? Hector Aguirre. Now you know, so don't forget it.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "tier": "fortress",
+   "slot": 1,
+   "look": "faction_trades",
+   "roll": "Cyrus Marchetti",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "CYRUS MARCHETTI",
+    "line": "Name's Cyrus Marchetti. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "tier": "fortress",
+   "slot": 2,
+   "look": "cast_shorts",
+   "roll": "Anh Macaraeg",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "ANH MACARAEG",
+    "line": "Anh. Anh Macaraeg, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "tier": "fortress",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "roll": "Colton Lund",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "very light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "tier": "fortress",
+   "slot": 0,
+   "look": "faction_blues",
+   "roll": "Wade Beaumont",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "WADE BEAUMONT",
+    "line": "Wade Beaumont. Ask for Wade, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "tier": "fortress",
+   "slot": 1,
+   "look": "cast_barearms",
+   "roll": "Sergio Ibarra",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "tan",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "SERGIO IBARRA",
+    "line": "Soy Sergio. Sergio Ibarra, pa' que sepas.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "tier": "fortress",
+   "slot": 3,
+   "look": "cast_bedroll",
+   "roll": "Ambrose Osei",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "tan",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "AMBROSE OSEI",
+    "line": "Name's Ambrose Osei. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "tier": "fortress",
+   "slot": 2,
+   "look": "cast_shortcoat",
+   "roll": "Hazel Blackwood",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "tier": "fortress",
+   "slot": 2,
+   "look": "cast_barearms",
+   "roll": "Rogelio Lozano",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "tier": "fortress",
+   "slot": 0,
+   "look": "faction_trades",
+   "roll": "Casimir Hargrove",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "very light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "CASIMIR HARGROVE",
+    "line": "Casimir. Casimir Hargrove, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "tier": "fortress",
+   "slot": 1,
+   "look": "cast_satchel",
+   "roll": "Malachi Rucker",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "MALACHI RUCKER",
+    "line": "Malachi Rucker. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "tier": "fortress",
+   "slot": 3,
+   "look": "cast_shortcoat",
+   "roll": "Rachel Rucker",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "very light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "tier": "town",
+   "slot": 3,
+   "look": "faction_network",
+   "roll": "Sunny Blackwood",
+   "heritage": "asian",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "tier": "town",
+   "slot": 4,
+   "look": "faction_anarchists",
+   "roll": "Citlali Mireles",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": null,
+   "skin": "tan",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "CITLALI MIRELES",
+    "line": "Citlali Mireles. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "tier": "town",
+   "slot": 2,
+   "look": "cast_shorts",
+   "roll": "Jorge Zamora",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "JORGE ZAMORA",
+    "line": "Soy Jorge. Jorge Zamora, pa' que sepas.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "tier": "town",
+   "slot": 0,
+   "look": "cast_shorts",
+   "roll": "Danilo Manalo",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "DANILO MANALO",
+    "line": "Me? Danilo Manalo. Now you know, so don't forget it.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "tier": "town",
+   "slot": 1,
+   "look": "cast_shorts",
+   "roll": "Harlan Mireles",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "tier": "town",
+   "slot": 1,
+   "look": "cast_barearms",
+   "roll": "Malachi Whitaker",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "tier": "town",
+   "slot": 4,
+   "look": "cast_barearms",
+   "roll": "Kwame Coyle",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "dark",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "KWAME COYLE",
+    "line": "Kwame. Kwame Coyle, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "tier": "town",
+   "slot": 0,
+   "look": "cast_shorts",
+   "roll": "Malachi Kessler",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "MALACHI KESSLER",
+    "line": "Malachi Kessler. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "tier": "town",
+   "slot": 3,
+   "look": "faction_homeless",
+   "roll": "Casimir Hargrove",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "tan",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "CASIMIR HARGROVE",
+    "line": "Casimir Hargrove. Ask for Casimir, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "tier": "town",
+   "slot": 2,
+   "look": "cast_apron",
+   "roll": "Jonah Boone",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "tier": "town",
+   "slot": 3,
+   "look": "cast_bedroll",
+   "roll": "Tyrell Kaminski",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "tier": "town",
+   "slot": 4,
+   "look": "faction_cartel",
+   "roll": "Ezekiel Sutton",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "EZEKIEL SUTTON",
+    "line": "Name's Ezekiel Sutton. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "tier": "town",
+   "slot": 2,
+   "look": "cast_apron",
+   "roll": "Octavio Mercado",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "tan",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "OCTAVIO MERCADO",
+    "line": "Name's Octavio Mercado. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "tier": "town",
+   "slot": 0,
+   "look": "cast_poncho",
+   "roll": "Brooke Salcedo",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "BROOKE SALCEDO",
+    "line": "Brooke Salcedo. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "tier": "town",
+   "slot": 1,
+   "look": "cast_cape",
+   "roll": "Amos Hollis",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "tier": "town",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "roll": "Minh Aguilar",
+   "heritage": "mixed",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "tier": "town",
+   "slot": 1,
+   "look": "cast_skirt",
+   "roll": "Xiomara Salazar",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "brown",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "tier": "town",
+   "slot": 0,
+   "look": "cast_cape",
+   "roll": "Clyde Vue",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "very light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "CLYDE VUE",
+    "line": "Clyde. Clyde Vue, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "tier": "town",
+   "slot": 2,
+   "look": "cast_bedroll",
+   "roll": "Clyde Novak",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "CLYDE NOVAK",
+    "line": "Clyde Novak. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "tier": "town",
+   "slot": 4,
+   "look": "faction_colorful",
+   "roll": "Rosa Rivera",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "tan",
+   "faceBand": "tan",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "tier": "camp",
+   "slot": 1,
+   "look": "cast_bedroll",
+   "roll": "Everett Ashby",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "EVERETT ASHBY",
+    "line": "Everett Ashby. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "tier": "camp",
+   "slot": 0,
+   "look": "cast_pack",
+   "roll": "Sergio Trejo",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "tier": "camp",
+   "slot": 1,
+   "look": "cast_bedroll",
+   "roll": "Wade Rucker",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "very light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "WADE RUCKER",
+    "line": "Name's Wade Rucker. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "tier": "camp",
+   "slot": 0,
+   "look": "faction_church",
+   "roll": "Bonnie Quinn",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "very light",
+   "faceBand": "intermediate",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "tier": "camp",
+   "slot": 0,
+   "look": "cast_shortcoat",
+   "roll": "Amber Fontenot",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "very light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "AMBER FONTENOT",
+    "line": "Amber Fontenot. Ask for Amber, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "tier": "camp",
+   "slot": 1,
+   "look": "cast_shorts",
+   "roll": "Kyle Emery",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "tier": "camp",
+   "slot": 0,
+   "look": "faction_remnants",
+   "roll": "Minh Nakamura",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "MINH NAKAMURA",
+    "line": "Me? Minh Nakamura. Now you know, so don't forget it.",
+    "ask": false
+   }
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "tier": "camp",
+   "slot": 1,
+   "look": "cast_cape",
+   "roll": "Everett Fontenot",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "tier": "camp",
+   "slot": 1,
+   "look": "faction_church",
+   "roll": "Adaeze Blackwood",
+   "heritage": "black",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "dark",
+   "faceBand": "intermediate",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "ADAEZE BLACKWOOD",
+    "line": "Name's Adaeze Blackwood. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "tier": "camp",
+   "slot": 0,
+   "look": "faction_church",
+   "roll": "Perla Salcedo",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "light",
+   "faceBand": "intermediate",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "HENDERSON",
+   "tier": "town",
+   "slot": 3,
+   "look": "cast_bedroll",
+   "roll": "Dante Ferris",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "dark",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "HENDERSON",
+   "tier": "town",
+   "slot": 2,
+   "look": "cast_shorts",
+   "roll": "Kyle Wexler",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "KYLE WEXLER",
+    "line": "Name's Kyle Wexler. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "HENDERSON",
+   "tier": "town",
+   "slot": 1,
+   "look": "cast_barearms",
+   "roll": "Ambrose Rucker",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "AMBROSE RUCKER",
+    "line": "Ambrose. Ambrose Rucker, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "HENDERSON",
+   "tier": "town",
+   "slot": 0,
+   "look": "cast_apron",
+   "roll": "Amos Doyle",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "AMOS DOYLE",
+    "line": "Amos Doyle. Ask for Amos, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "HENDERSON",
+   "tier": "town",
+   "slot": 4,
+   "look": "faction_blues",
+   "roll": "Armando Portillo",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "BOULDER CITY",
+   "tier": "town",
+   "slot": 2,
+   "look": "cast_bedroll",
+   "roll": "Kwame Doyle",
+   "heritage": "mixed",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "BOULDER CITY",
+   "tier": "town",
+   "slot": 1,
+   "look": "faction_reds",
+   "roll": "Marites Duong",
+   "heritage": "mixed",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "brown",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "MARITES DUONG",
+    "line": "Name's Marites Duong. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "BOULDER CITY",
+   "tier": "town",
+   "slot": 0,
+   "look": "cast_barearms",
+   "roll": "Deshawn Renner",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "DESHAWN RENNER",
+    "line": "Deshawn Renner. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "BOULDER CITY",
+   "tier": "town",
+   "slot": 3,
+   "look": "faction_volunteers",
+   "roll": "Lacey Duong",
+   "heritage": "asian",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "LACEY DUONG",
+    "line": "Lacey. Lacey Duong, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "BOULDER CITY",
+   "tier": "town",
+   "slot": 4,
+   "look": "faction_cartel",
+   "roll": "Amaury Vasquez",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "HOOVER DAM",
+   "tier": "fortress",
+   "slot": 3,
+   "look": "cast_pack",
+   "roll": "Clyde Aguilar",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "CLYDE AGUILAR",
+    "line": "Clyde. Clyde Aguilar, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "HOOVER DAM",
+   "tier": "fortress",
+   "slot": 1,
+   "look": "cast_shortcoat",
+   "roll": "Carly Abernathy",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "HOOVER DAM",
+   "tier": "fortress",
+   "slot": 0,
+   "look": "faction_volunteers",
+   "roll": "Thuy Bautista",
+   "heritage": "asian",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "THUY BAUTISTA",
+    "line": "Name's Thuy Bautista. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "HOOVER DAM",
+   "tier": "fortress",
+   "slot": 2,
+   "look": "cast_apron",
+   "roll": "Wyatt Hollis",
+   "heritage": "black",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "dark",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "tier": "camp",
+   "slot": 1,
+   "look": "faction_colorful",
+   "roll": "Marisol Aguirre",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "tan",
+   "faceBand": "tan",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "MARISOL AGUIRRE",
+    "line": "Marisol Aguirre. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "tier": "camp",
+   "slot": 0,
+   "look": "cast_bedroll",
+   "roll": "Efrain Prieto",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "JEAN",
+   "tier": "camp",
+   "slot": 1,
+   "look": "faction_colorful",
+   "roll": "Loretta Marsh",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "intermediate",
+   "faceBand": "tan",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "LORETTA MARSH",
+    "line": "Loretta Marsh. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "JEAN",
+   "tier": "camp",
+   "slot": 0,
+   "look": "faction_colorful",
+   "roll": "Hazel Blackwood",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "very light",
+   "faceBand": "tan",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "PRIMM",
+   "tier": "town",
+   "slot": 4,
+   "look": "faction_caravans",
+   "roll": "Wade Castellanos",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "WADE CASTELLANOS",
+    "line": "Soy Wade. Wade Castellanos, pa' que sepas.",
+    "ask": false
+   }
+  },
+  {
+   "place": "PRIMM",
+   "tier": "town",
+   "slot": 1,
+   "look": "cast_longcoat",
+   "roll": "Jin Marsh",
+   "heritage": "mixed",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "dark",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "PRIMM",
+   "tier": "town",
+   "slot": 3,
+   "look": "cast_shortcoat",
+   "roll": "Opal Odom",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "OPAL ODOM",
+    "line": "Name's Opal Odom. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "PRIMM",
+   "tier": "town",
+   "slot": 2,
+   "look": "faction_cartel",
+   "roll": "Jun Vue",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "JUN VUE",
+    "line": "Me? Jun Vue. Now you know, so don't forget it.",
+    "ask": false
+   }
+  },
+  {
+   "place": "PRIMM",
+   "tier": "town",
+   "slot": 0,
+   "look": "faction_remnants",
+   "roll": "Colton Delgado",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "tier": "camp",
+   "slot": 1,
+   "look": "cast_widebrim",
+   "roll": "Dana Kimura",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "DANA KIMURA",
+    "line": "Dana Kimura. Ask for Dana, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "tier": "camp",
+   "slot": 0,
+   "look": "faction_trades",
+   "roll": "Javier Vasquez",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "tier": "fortress",
+   "slot": 3,
+   "look": "cast_cape",
+   "roll": "Garrett Sandoval",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "tan",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "GARRETT SANDOVAL",
+    "line": "Garrett Sandoval. I'm out here most days, by the stall.",
+    "ask": false
+   }
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "tier": "fortress",
+   "slot": 2,
+   "look": "faction_anarchists",
+   "roll": "Linh Sandoval",
+   "heritage": "mixed",
+   "sex": "f",
+   "faceSex": null,
+   "skin": "dark",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "LINH SANDOVAL",
+    "line": "Linh Sandoval. Ask for Linh, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "tier": "fortress",
+   "slot": 0,
+   "look": "cast_pack",
+   "roll": "Malachi Pike",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "very light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "MALACHI PIKE",
+    "line": "Malachi. Malachi Pike, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "tier": "fortress",
+   "slot": 1,
+   "look": "faction_mob",
+   "roll": "Octavio Serrano",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "tan",
+   "faceBand": "tan",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "tier": "camp",
+   "slot": 0,
+   "look": "cast_pack",
+   "roll": "Milo Marsh",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "MILO MARSH",
+    "line": "Milo Marsh. Ask for Milo, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "tier": "camp",
+   "slot": 1,
+   "look": "faction_church",
+   "roll": "Estella Prieto",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "light",
+   "faceBand": "intermediate",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "PAHRUMP",
+   "tier": "town",
+   "slot": 0,
+   "look": "cast_pack",
+   "roll": "Hector Carrasco",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "brown",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "HECTOR CARRASCO",
+    "line": "Hector Carrasco. Ask for Hector, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "PAHRUMP",
+   "tier": "town",
+   "slot": 3,
+   "look": "faction_volunteers",
+   "roll": "Fern Betancourt",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "PAHRUMP",
+   "tier": "town",
+   "slot": 2,
+   "look": "faction_church",
+   "roll": "Della Kaminski",
+   "heritage": "white",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "intermediate",
+   "faceBand": "intermediate",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "DELLA KAMINSKI",
+    "line": "Della. Della Kaminski, if you're writing it down.",
+    "ask": false
+   }
+  },
+  {
+   "place": "PAHRUMP",
+   "tier": "town",
+   "slot": 4,
+   "look": "faction_trades",
+   "roll": "Dana Nguyen",
+   "heritage": "asian",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "tan",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "DANA NGUYEN",
+    "line": "Dana Nguyen. Ask for Dana, everybody on this street knows me.",
+    "ask": false
+   }
+  },
+  {
+   "place": "PAHRUMP",
+   "tier": "town",
+   "slot": 1,
+   "look": "faction_anarchists",
+   "roll": "Amaury Carrasco",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": null,
+   "skin": "tan",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "MOAPA",
+   "tier": "camp",
+   "slot": 1,
+   "look": "faction_reds",
+   "roll": "Fern Betancourt",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "tan",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "FERN BETANCOURT",
+    "line": "Me? Fern Betancourt. Now you know, so don't forget it.",
+    "ask": false
+   }
+  },
+  {
+   "place": "MOAPA",
+   "tier": "camp",
+   "slot": 0,
+   "look": "cast_bedroll",
+   "roll": "Sunny Brennan",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  },
+  {
+   "place": "MESQUITE",
+   "tier": "town",
+   "slot": 2,
+   "look": "faction_trades",
+   "roll": "Milo Brennan",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "light",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MESQUITE",
+   "tier": "town",
+   "slot": 0,
+   "look": "faction_church",
+   "roll": "Idalia Chavarria",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": "f",
+   "skin": "tan",
+   "faceBand": "intermediate",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "IDALIA CHAVARRIA",
+    "line": "Name's Idalia Chavarria. Been on this corner since the lights went out.",
+    "ask": false
+   }
+  },
+  {
+   "place": "MESQUITE",
+   "tier": "town",
+   "slot": 3,
+   "look": "cast_cape",
+   "roll": "Amaury Mercado",
+   "heritage": "hispanic",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "AMAURY MERCADO",
+    "line": "Me? Amaury Mercado. Now you know, so don't forget it.",
+    "ask": false
+   }
+  },
+  {
+   "place": "MESQUITE",
+   "tier": "town",
+   "slot": 1,
+   "look": "faction_anarchists",
+   "roll": "Reyna Betancourt",
+   "heritage": "hispanic",
+   "sex": "f",
+   "faceSex": null,
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": true,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   },
+   "after": {
+    "nm": "REYNA BETANCOURT",
+    "line": "Me? Reyna Betancourt. Now you know, so don't forget it.",
+    "ask": false
+   }
+  },
+  {
+   "place": "MESQUITE",
+   "tier": "town",
+   "slot": 4,
+   "look": "faction_blues",
+   "roll": "Ezekiel Coyle",
+   "heritage": "white",
+   "sex": "m",
+   "faceSex": "m",
+   "skin": "intermediate",
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "asked": false,
+   "reached": true,
+   "before": {
+    "nm": "SOMEBODY ON THE STREET",
+    "ask": true
+   }
+  }
+ ],
+ "visits": [
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_skirt",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_caravans",
+   "sameLook": true,
+   "asked": true,
+   "reached": false
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_longcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_volunteers",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "LUPE ZAMORA",
+   "ask": false,
+   "expect": "LUPE ZAMORA"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_poncho",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_widebrim",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMAURY SEPULVEDA",
+   "ask": false,
+   "expect": "AMAURY SEPULVEDA"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_satchel",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "EVERETT QUINN",
+   "ask": false,
+   "expect": "EVERETT QUINN"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_pack",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_widebrim",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMAURY SEPULVEDA",
+   "ask": false,
+   "expect": "AMAURY SEPULVEDA"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": true,
+   "reached": false
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_satchel",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "EVERETT QUINN",
+   "ask": false,
+   "expect": "EVERETT QUINN"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_caravans",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_caravans",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "HECTOR AGUIRRE",
+   "ask": false,
+   "expect": "HECTOR AGUIRRE"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "night",
+   "slot": 1,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CYRUS MARCHETTI",
+   "ask": false,
+   "expect": "CYRUS MARCHETTI"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_caravans",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "HECTOR AGUIRRE",
+   "ask": false,
+   "expect": "HECTOR AGUIRRE"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CYRUS MARCHETTI",
+   "ask": false,
+   "expect": "CYRUS MARCHETTI"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_anarchists",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_anarchists",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "ANH MACARAEG",
+   "ask": false,
+   "expect": "ANH MACARAEG"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_anarchists",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_blues",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "WADE BEAUMONT",
+   "ask": false,
+   "expect": "WADE BEAUMONT"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "SERGIO IBARRA",
+   "ask": false,
+   "expect": "SERGIO IBARRA"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_blues",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "WADE BEAUMONT",
+   "ask": false,
+   "expect": "WADE BEAUMONT"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_cape",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "cast_bedroll",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "SERGIO IBARRA",
+   "ask": false,
+   "expect": "SERGIO IBARRA"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMBROSE OSEI",
+   "ask": false,
+   "expect": "AMBROSE OSEI"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_blues",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "cast_pack",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_shortcoat",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CASIMIR HARGROVE",
+   "ask": false,
+   "expect": "CASIMIR HARGROVE"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_satchel",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MALACHI RUCKER",
+   "ask": false,
+   "expect": "MALACHI RUCKER"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_skirt",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CASIMIR HARGROVE",
+   "ask": false,
+   "expect": "CASIMIR HARGROVE"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "cast_bedroll",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_satchel",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MALACHI RUCKER",
+   "ask": false,
+   "expect": "MALACHI RUCKER"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_shortcoat",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "night",
+   "slot": 2,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "JORGE ZAMORA",
+   "ask": false,
+   "expect": "JORGE ZAMORA"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "DANILO MANALO",
+   "ask": false,
+   "expect": "DANILO MANALO"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_network",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_anarchists",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CITLALI MIRELES",
+   "ask": false,
+   "expect": "CITLALI MIRELES"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 10,
+   "look": "cast_barearms",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "JORGE ZAMORA",
+   "ask": false,
+   "expect": "JORGE ZAMORA"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "cast_pack",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "DANILO MANALO",
+   "ask": false,
+   "expect": "DANILO MANALO"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_cape",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_shorts",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_longcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MALACHI KESSLER",
+   "ask": false,
+   "expect": "MALACHI KESSLER"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "night",
+   "slot": 2,
+   "look": "cast_apron",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 10,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_anarchists",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "KWAME COYLE",
+   "ask": false,
+   "expect": "KWAME COYLE"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MALACHI KESSLER",
+   "ask": false,
+   "expect": "MALACHI KESSLER"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_homeless",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CASIMIR HARGROVE",
+   "ask": false,
+   "expect": "CASIMIR HARGROVE"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_apron",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "night",
+   "slot": 2,
+   "look": "cast_apron",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "OCTAVIO MERCADO",
+   "ask": false,
+   "expect": "OCTAVIO MERCADO"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_poncho",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "BROOKE SALCEDO",
+   "ask": false,
+   "expect": "BROOKE SALCEDO"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_cape",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 10,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_cartel",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "EZEKIEL SUTTON",
+   "ask": false,
+   "expect": "EZEKIEL SUTTON"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_apron",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "OCTAVIO MERCADO",
+   "ask": false,
+   "expect": "OCTAVIO MERCADO"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_poncho",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "BROOKE SALCEDO",
+   "ask": false,
+   "expect": "BROOKE SALCEDO"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_apron",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_remnants",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_cape",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_skirt",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_cape",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CLYDE VUE",
+   "ask": false,
+   "expect": "CLYDE VUE"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "night",
+   "slot": 2,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CLYDE NOVAK",
+   "ask": false,
+   "expect": "CLYDE NOVAK"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 8,
+   "look": "cast_cape",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 9,
+   "look": "cast_satchel",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_skirt",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_cape",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CLYDE VUE",
+   "ask": false,
+   "expect": "CLYDE VUE"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 10,
+   "look": "faction_caravans",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CLYDE NOVAK",
+   "ask": false,
+   "expect": "CLYDE NOVAK"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_colorful",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_skirt",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "cast_cape",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_apron",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": true,
+   "reached": false
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_satchel",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": true,
+   "reached": false
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_longcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_shorts",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_network",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_shortcoat",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMBER FONTENOT",
+   "ask": false,
+   "expect": "AMBER FONTENOT"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_longcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_mob",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_shortcoat",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMBER FONTENOT",
+   "ask": false,
+   "expect": "AMBER FONTENOT"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_cape",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_shortcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_remnants",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_remnants",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MINH NAKAMURA",
+   "ask": false,
+   "expect": "MINH NAKAMURA"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_remnants",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MINH NAKAMURA",
+   "ask": false,
+   "expect": "MINH NAKAMURA"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_barearms",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "market day",
+   "slot": 4,
+   "look": "cast_bedroll",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_bedroll",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_network",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_cape",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_longcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "ADAEZE BLACKWOOD",
+   "ask": false,
+   "expect": "ADAEZE BLACKWOOD"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_shorts",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "night",
+   "slot": 2,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "KYLE WEXLER",
+   "ask": false,
+   "expect": "KYLE WEXLER"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMBROSE RUCKER",
+   "ask": false,
+   "expect": "AMBROSE RUCKER"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_apron",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMOS DOYLE",
+   "ask": false,
+   "expect": "AMOS DOYLE"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_shorts",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "KYLE WEXLER",
+   "ask": false,
+   "expect": "KYLE WEXLER"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_caravans",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 10,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMBROSE RUCKER",
+   "ask": false,
+   "expect": "AMBROSE RUCKER"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 8,
+   "look": "cast_shorts",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_apron",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMOS DOYLE",
+   "ask": false,
+   "expect": "AMOS DOYLE"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_anarchists",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HENDERSON",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_blues",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "night",
+   "slot": 2,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "night",
+   "slot": 1,
+   "look": "faction_reds",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MARITES DUONG",
+   "ask": false,
+   "expect": "MARITES DUONG"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "DESHAWN RENNER",
+   "ask": false,
+   "expect": "DESHAWN RENNER"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_satchel",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 10,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_mob",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_reds",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MARITES DUONG",
+   "ask": false,
+   "expect": "MARITES DUONG"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_barearms",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "DESHAWN RENNER",
+   "ask": false,
+   "expect": "DESHAWN RENNER"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_volunteers",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "LACEY DUONG",
+   "ask": false,
+   "expect": "LACEY DUONG"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_cartel",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "BOULDER CITY",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_bedroll",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_shortcoat",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_volunteers",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "THUY BAUTISTA",
+   "ask": false,
+   "expect": "THUY BAUTISTA"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_skirt",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_blues",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "CLYDE AGUILAR",
+   "ask": false,
+   "expect": "CLYDE AGUILAR"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_shortcoat",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_volunteers",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "THUY BAUTISTA",
+   "ask": false,
+   "expect": "THUY BAUTISTA"
+  },
+  {
+   "place": "HOOVER DAM",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_apron",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_remnants",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_skirt",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_cape",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_colorful",
+   "sameLook": true,
+   "asked": true,
+   "reached": false
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_satchel",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "JEAN",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_colorful",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "JEAN",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "JEAN",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_colorful",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "LORETTA MARSH",
+   "ask": false,
+   "expect": "LORETTA MARSH"
+  },
+  {
+   "place": "JEAN",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_mob",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "JEAN",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "JEAN",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_colorful",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "JEAN",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "JEAN",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "JEAN",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "night",
+   "slot": 1,
+   "look": "cast_longcoat",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "PRIMM",
+   "visit": "night",
+   "slot": 2,
+   "look": "faction_cartel",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "JUN VUE",
+   "ask": false,
+   "expect": "JUN VUE"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_remnants",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 8,
+   "look": "cast_skirt",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 9,
+   "look": "cast_bedroll",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_caravans",
+   "sameLook": true,
+   "asked": true,
+   "reached": false
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_longcoat",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_longcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 10,
+   "look": "faction_mob",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_shortcoat",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "OPAL ODOM",
+   "ask": false,
+   "expect": "OPAL ODOM"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_cartel",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "JUN VUE",
+   "ask": false,
+   "expect": "JUN VUE"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_remnants",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PRIMM",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_satchel",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_remnants",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "market day",
+   "slot": 4,
+   "look": "cast_pack",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "market day",
+   "slot": 6,
+   "look": "cast_barearms",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_barearms",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "market day",
+   "slot": 1,
+   "look": "cast_widebrim",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "DANA KIMURA",
+   "ask": false,
+   "expect": "DANA KIMURA"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_trades",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MALACHI PIKE",
+   "ask": false,
+   "expect": "MALACHI PIKE"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "night",
+   "slot": 1,
+   "look": "faction_mob",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 9,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_cape",
+   "sameLook": true,
+   "asked": true,
+   "reached": false
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_blues",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_anarchists",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "LINH SANDOVAL",
+   "ask": false,
+   "expect": "LINH SANDOVAL"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MALACHI PIKE",
+   "ask": false,
+   "expect": "MALACHI PIKE"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 7,
+   "look": "cast_barearms",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_mob",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MILO MARSH",
+   "ask": false,
+   "expect": "MILO MARSH"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_cape",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_remnants",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "MILO MARSH",
+   "ask": false,
+   "expect": "MILO MARSH"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_mob",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_reds",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_remnants",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "HECTOR CARRASCO",
+   "ask": false,
+   "expect": "HECTOR CARRASCO"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "night",
+   "slot": 2,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "DELLA KAMINSKI",
+   "ask": false,
+   "expect": "DELLA KAMINSKI"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "night",
+   "slot": 1,
+   "look": "faction_anarchists",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_pack",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "HECTOR CARRASCO",
+   "ask": false,
+   "expect": "HECTOR CARRASCO"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 10,
+   "look": "faction_church",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_colorful",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 3,
+   "look": "faction_volunteers",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 5,
+   "look": "cast_longcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "DELLA KAMINSKI",
+   "ask": false,
+   "expect": "DELLA KAMINSKI"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "DANA NGUYEN",
+   "ask": false,
+   "expect": "DANA NGUYEN"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_anarchists",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PAHRUMP",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_blues",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MOAPA",
+   "visit": "night",
+   "slot": 0,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MOAPA",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_mob",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MOAPA",
+   "visit": "market day",
+   "slot": 2,
+   "look": "cast_shortcoat",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MOAPA",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_reds",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "FERN BETANCOURT",
+   "ask": false,
+   "expect": "FERN BETANCOURT"
+  },
+  {
+   "place": "MOAPA",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MOAPA",
+   "visit": "market day",
+   "slot": 0,
+   "look": "cast_bedroll",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MOAPA",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_blues",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MOAPA",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_mob",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MOAPA",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_poncho",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "night",
+   "slot": 2,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "night",
+   "slot": 0,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "IDALIA CHAVARRIA",
+   "ask": false,
+   "expect": "IDALIA CHAVARRIA"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "night",
+   "slot": 1,
+   "look": "faction_anarchists",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "REYNA BETANCOURT",
+   "ask": false,
+   "expect": "REYNA BETANCOURT"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 7,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 2,
+   "look": "faction_trades",
+   "sameLook": true,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 9,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 0,
+   "look": "faction_church",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "IDALIA CHAVARRIA",
+   "ask": false,
+   "expect": "IDALIA CHAVARRIA"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 8,
+   "look": "faction_homeless",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 3,
+   "look": "cast_cape",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "AMAURY MERCADO",
+   "ask": false,
+   "expect": "AMAURY MERCADO"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 1,
+   "look": "faction_anarchists",
+   "sameLook": true,
+   "asked": true,
+   "reached": true,
+   "nm": "REYNA BETANCOURT",
+   "ask": false,
+   "expect": "REYNA BETANCOURT"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 5,
+   "look": "faction_cartel",
+   "sameLook": null,
+   "asked": false,
+   "reached": false
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 6,
+   "look": "faction_volunteers",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 4,
+   "look": "faction_blues",
+   "sameLook": true,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MESQUITE",
+   "visit": "market day",
+   "slot": 10,
+   "look": "cast_widebrim",
+   "sameLook": null,
+   "asked": false,
+   "reached": true,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  }
+ ],
+ "reload": [
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 3,
+   "asked": true,
+   "nm": "DANILO DUONG",
+   "ask": false,
+   "expect": "DANILO DUONG"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 2,
+   "asked": true,
+   "nm": "LUPE ZAMORA",
+   "ask": false,
+   "expect": "LUPE ZAMORA"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 0,
+   "asked": true,
+   "nm": "AMAURY SEPULVEDA",
+   "ask": false,
+   "expect": "AMAURY SEPULVEDA"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 3,
+   "asked": true,
+   "nm": "AMAURY REYES",
+   "ask": false,
+   "expect": "AMAURY REYES"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 1,
+   "asked": true,
+   "nm": "EVERETT QUINN",
+   "ask": false,
+   "expect": "EVERETT QUINN"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 2,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 0,
+   "asked": true,
+   "nm": "HECTOR AGUIRRE",
+   "ask": false,
+   "expect": "HECTOR AGUIRRE"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 1,
+   "asked": true,
+   "nm": "CYRUS MARCHETTI",
+   "ask": false,
+   "expect": "CYRUS MARCHETTI"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 2,
+   "asked": true,
+   "nm": "ANH MACARAEG",
+   "ask": false,
+   "expect": "ANH MACARAEG"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 3,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 0,
+   "asked": true,
+   "nm": "WADE BEAUMONT",
+   "ask": false,
+   "expect": "WADE BEAUMONT"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 1,
+   "asked": true,
+   "nm": "SERGIO IBARRA",
+   "ask": false,
+   "expect": "SERGIO IBARRA"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 3,
+   "asked": true,
+   "nm": "AMBROSE OSEI",
+   "ask": false,
+   "expect": "AMBROSE OSEI"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 2,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 0,
+   "asked": true,
+   "nm": "CASIMIR HARGROVE",
+   "ask": false,
+   "expect": "CASIMIR HARGROVE"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 1,
+   "asked": true,
+   "nm": "MALACHI RUCKER",
+   "ask": false,
+   "expect": "MALACHI RUCKER"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 3,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "slot": 4,
+   "asked": true,
+   "nm": "CITLALI MIRELES",
+   "ask": false,
+   "expect": "CITLALI MIRELES"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "slot": 2,
+   "asked": true,
+   "nm": "JORGE ZAMORA",
+   "ask": false,
+   "expect": "JORGE ZAMORA"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "slot": 0,
+   "asked": true,
+   "nm": "DANILO MANALO",
+   "ask": false,
+   "expect": "DANILO MANALO"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "slot": 1,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "slot": 4,
+   "asked": true,
+   "nm": "KWAME COYLE",
+   "ask": false,
+   "expect": "KWAME COYLE"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "slot": 0,
+   "asked": true,
+   "nm": "MALACHI KESSLER",
+   "ask": false,
+   "expect": "MALACHI KESSLER"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "slot": 3,
+   "asked": true,
+   "nm": "CASIMIR HARGROVE",
+   "ask": false,
+   "expect": "CASIMIR HARGROVE"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "slot": 2,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "slot": 4,
+   "asked": true,
+   "nm": "EZEKIEL SUTTON",
+   "ask": false,
+   "expect": "EZEKIEL SUTTON"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "slot": 2,
+   "asked": true,
+   "nm": "OCTAVIO MERCADO",
+   "ask": false,
+   "expect": "OCTAVIO MERCADO"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "slot": 0,
+   "asked": true,
+   "nm": "BROOKE SALCEDO",
+   "ask": false,
+   "expect": "BROOKE SALCEDO"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "slot": 1,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "slot": 0,
+   "asked": true,
+   "nm": "CLYDE VUE",
+   "ask": false,
+   "expect": "CLYDE VUE"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "slot": 2,
+   "asked": true,
+   "nm": "CLYDE NOVAK",
+   "ask": false,
+   "expect": "CLYDE NOVAK"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "slot": 4,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "slot": 1,
+   "asked": true,
+   "nm": "EVERETT ASHBY",
+   "ask": false,
+   "expect": "EVERETT ASHBY"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "slot": 1,
+   "asked": true,
+   "nm": "WADE RUCKER",
+   "ask": false,
+   "expect": "WADE RUCKER"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "slot": 0,
+   "asked": true,
+   "nm": "AMBER FONTENOT",
+   "ask": false,
+   "expect": "AMBER FONTENOT"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "slot": 1,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "slot": 0,
+   "asked": true,
+   "nm": "MINH NAKAMURA",
+   "ask": false,
+   "expect": "MINH NAKAMURA"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "slot": 1,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "slot": 1,
+   "asked": true,
+   "nm": "ADAEZE BLACKWOOD",
+   "ask": false,
+   "expect": "ADAEZE BLACKWOOD"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HENDERSON",
+   "slot": 2,
+   "asked": true,
+   "nm": "KYLE WEXLER",
+   "ask": false,
+   "expect": "KYLE WEXLER"
+  },
+  {
+   "place": "HENDERSON",
+   "slot": 1,
+   "asked": true,
+   "nm": "AMBROSE RUCKER",
+   "ask": false,
+   "expect": "AMBROSE RUCKER"
+  },
+  {
+   "place": "HENDERSON",
+   "slot": 0,
+   "asked": true,
+   "nm": "AMOS DOYLE",
+   "ask": false,
+   "expect": "AMOS DOYLE"
+  },
+  {
+   "place": "HENDERSON",
+   "slot": 4,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "BOULDER CITY",
+   "slot": 1,
+   "asked": true,
+   "nm": "MARITES DUONG",
+   "ask": false,
+   "expect": "MARITES DUONG"
+  },
+  {
+   "place": "BOULDER CITY",
+   "slot": 0,
+   "asked": true,
+   "nm": "DESHAWN RENNER",
+   "ask": false,
+   "expect": "DESHAWN RENNER"
+  },
+  {
+   "place": "BOULDER CITY",
+   "slot": 3,
+   "asked": true,
+   "nm": "LACEY DUONG",
+   "ask": false,
+   "expect": "LACEY DUONG"
+  },
+  {
+   "place": "BOULDER CITY",
+   "slot": 4,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 3,
+   "asked": true,
+   "nm": "CLYDE AGUILAR",
+   "ask": false,
+   "expect": "CLYDE AGUILAR"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 0,
+   "asked": true,
+   "nm": "THUY BAUTISTA",
+   "ask": false,
+   "expect": "THUY BAUTISTA"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 2,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "slot": 1,
+   "asked": true,
+   "nm": "MARISOL AGUIRRE",
+   "ask": false,
+   "expect": "MARISOL AGUIRRE"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "JEAN",
+   "slot": 1,
+   "asked": true,
+   "nm": "LORETTA MARSH",
+   "ask": false,
+   "expect": "LORETTA MARSH"
+  },
+  {
+   "place": "JEAN",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PRIMM",
+   "slot": 4,
+   "asked": true,
+   "nm": "WADE CASTELLANOS",
+   "ask": false,
+   "expect": "WADE CASTELLANOS"
+  },
+  {
+   "place": "PRIMM",
+   "slot": 3,
+   "asked": true,
+   "nm": "OPAL ODOM",
+   "ask": false,
+   "expect": "OPAL ODOM"
+  },
+  {
+   "place": "PRIMM",
+   "slot": 2,
+   "asked": true,
+   "nm": "JUN VUE",
+   "ask": false,
+   "expect": "JUN VUE"
+  },
+  {
+   "place": "PRIMM",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "slot": 1,
+   "asked": true,
+   "nm": "DANA KIMURA",
+   "ask": false,
+   "expect": "DANA KIMURA"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 3,
+   "asked": true,
+   "nm": "GARRETT SANDOVAL",
+   "ask": false,
+   "expect": "GARRETT SANDOVAL"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 2,
+   "asked": true,
+   "nm": "LINH SANDOVAL",
+   "ask": false,
+   "expect": "LINH SANDOVAL"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 0,
+   "asked": true,
+   "nm": "MALACHI PIKE",
+   "ask": false,
+   "expect": "MALACHI PIKE"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 1,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "slot": 0,
+   "asked": true,
+   "nm": "MILO MARSH",
+   "ask": false,
+   "expect": "MILO MARSH"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "slot": 1,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "PAHRUMP",
+   "slot": 0,
+   "asked": true,
+   "nm": "HECTOR CARRASCO",
+   "ask": false,
+   "expect": "HECTOR CARRASCO"
+  },
+  {
+   "place": "PAHRUMP",
+   "slot": 2,
+   "asked": true,
+   "nm": "DELLA KAMINSKI",
+   "ask": false,
+   "expect": "DELLA KAMINSKI"
+  },
+  {
+   "place": "PAHRUMP",
+   "slot": 4,
+   "asked": true,
+   "nm": "DANA NGUYEN",
+   "ask": false,
+   "expect": "DANA NGUYEN"
+  },
+  {
+   "place": "PAHRUMP",
+   "slot": 1,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MOAPA",
+   "slot": 1,
+   "asked": true,
+   "nm": "FERN BETANCOURT",
+   "ask": false,
+   "expect": "FERN BETANCOURT"
+  },
+  {
+   "place": "MOAPA",
+   "slot": 0,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  },
+  {
+   "place": "MESQUITE",
+   "slot": 0,
+   "asked": true,
+   "nm": "IDALIA CHAVARRIA",
+   "ask": false,
+   "expect": "IDALIA CHAVARRIA"
+  },
+  {
+   "place": "MESQUITE",
+   "slot": 3,
+   "asked": true,
+   "nm": "AMAURY MERCADO",
+   "ask": false,
+   "expect": "AMAURY MERCADO"
+  },
+  {
+   "place": "MESQUITE",
+   "slot": 1,
+   "asked": true,
+   "nm": "REYNA BETANCOURT",
+   "ask": false,
+   "expect": "REYNA BETANCOURT"
+  },
+  {
+   "place": "MESQUITE",
+   "slot": 4,
+   "asked": false,
+   "nm": "SOMEBODY ON THE STREET",
+   "ask": true,
+   "expect": "SOMEBODY ON THE STREET"
+  }
+ ],
+ "keepers": [
+  {
+   "place": "THE STRIP (Mob)",
+   "k": "clinic",
+   "look": "cast_skirt",
+   "name": "Socorro Chavarria",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "k": "armourer",
+   "look": "cast_skirt",
+   "name": "Bonnie Vance",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "k": "stall",
+   "look": "cast_widebrim",
+   "name": "Clyde Tolentino",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "k": "barber",
+   "look": "cast_shortcoat",
+   "name": "Linh Macaraeg",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "k": "smith",
+   "look": "cast_barearms",
+   "name": "Jin Nakamura",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "k": "bar",
+   "look": "cast_pack",
+   "name": "Jun Kirkland",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "k": "clinic",
+   "look": "cast_longcoat",
+   "name": "Andre Hargrove",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "k": "armourer",
+   "look": "cast_skirt",
+   "name": "Adaeze Vogel",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "k": "stall",
+   "look": "cast_apron",
+   "name": "Ambrose Stovall",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "k": "barber",
+   "look": "cast_cape",
+   "name": "Hector Bonilla",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "k": "smith",
+   "look": "cast_satchel",
+   "name": "Kyle Doyle",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "k": "bar",
+   "look": "cast_cape",
+   "name": "Hector Portillo",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "k": "clinic",
+   "look": "cast_bedroll",
+   "name": "Jorge Bonilla",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "k": "armourer",
+   "look": "cast_pack",
+   "name": "Shane Grady",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "k": "stall",
+   "look": "cast_poncho",
+   "name": "Loretta Aguilar",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "k": "barber",
+   "look": "cast_longcoat",
+   "name": "Ruben Coyle",
+   "heritage": "mixed",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "k": "smith",
+   "look": "cast_cape",
+   "name": "Colton Marsh",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "k": "bar",
+   "look": "cast_pack",
+   "name": "Wyatt Grady",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "k": "clinic",
+   "look": "cast_longcoat",
+   "name": "Deshawn Rucker",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "k": "armourer",
+   "look": "cast_longcoat",
+   "name": "Kyle Quinn",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "k": "stall",
+   "look": "cast_apron",
+   "name": "Emmett Tillman",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "k": "barber",
+   "look": "cast_longcoat",
+   "name": "Efrain Escobar",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "k": "smith",
+   "look": "cast_shorts",
+   "name": "Jorge Castellanos",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "k": "bar",
+   "look": "cast_apron",
+   "name": "Dante Aguirre",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "k": "clinic",
+   "look": "cast_shortcoat",
+   "name": "Clemencia Peralta",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "k": "armourer",
+   "look": "cast_longcoat",
+   "name": "Andre Ellison",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "k": "stall",
+   "look": "cast_shortcoat",
+   "name": "Latrice Reyes",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "k": "barber",
+   "look": "cast_apron",
+   "name": "Ambrose Grady",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "k": "smith",
+   "look": "cast_longcoat",
+   "name": "Sergio Rivera",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "k": "bar",
+   "look": "cast_apron",
+   "name": "Kyle Renner",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "k": "barber",
+   "look": "cast_shorts",
+   "name": "Javier Ibarra",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "k": "clinic",
+   "look": "cast_poncho",
+   "name": "Mei Dorsey",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "k": "bar",
+   "look": "cast_pack",
+   "name": "Harlan Ashby",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "k": "stall",
+   "look": "cast_shorts",
+   "name": "Wade Delgado",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "k": "smith",
+   "look": "cast_cape",
+   "name": "Tobias Villalobos",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "k": "armourer",
+   "look": "cast_pack",
+   "name": "Wyatt Salazar",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "k": "barber",
+   "look": "cast_cape",
+   "name": "Kyle Coyle",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "k": "clinic",
+   "look": "cast_widebrim",
+   "name": "Milo Abernathy",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "k": "bar",
+   "look": "cast_pack",
+   "name": "Bishop Hargrove",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "k": "stall",
+   "look": "cast_widebrim",
+   "name": "Ruben Aguilar",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "k": "smith",
+   "look": "cast_longcoat",
+   "name": "Abel Chavarria",
+   "heritage": "mixed",
+   "faceBand": "dark"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "k": "armourer",
+   "look": "cast_bedroll",
+   "name": "Terrence Rucker",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "k": "barber",
+   "look": "cast_widebrim",
+   "name": "Jarvis Dorsey",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "k": "clinic",
+   "look": "cast_pack",
+   "name": "Ignacio Wexler",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "k": "bar",
+   "look": "cast_widebrim",
+   "name": "Wade Wexler",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "k": "stall",
+   "look": "cast_widebrim",
+   "name": "Shane Stovall",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "k": "smith",
+   "look": "cast_apron",
+   "name": "Andre Ferris",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "k": "armourer",
+   "look": "cast_widebrim",
+   "name": "Jonah Ashby",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "k": "barber",
+   "look": "cast_shorts",
+   "name": "Bishop Serrano",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "k": "clinic",
+   "look": "cast_apron",
+   "name": "Nolan Bautista",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "k": "bar",
+   "look": "cast_barearms",
+   "name": "Horace Ashby",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "k": "stall",
+   "look": "cast_barearms",
+   "name": "Kwame Odom",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "k": "smith",
+   "look": "cast_barearms",
+   "name": "Wyatt Pike",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "k": "armourer",
+   "look": "cast_bedroll",
+   "name": "Ezekiel Stovall",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "k": "clinic",
+   "look": "cast_shorts",
+   "name": "Kai Larkin",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "k": "barber",
+   "look": "cast_poncho",
+   "name": "Fern Cordova",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "k": "stall",
+   "look": "cast_satchel",
+   "name": "Jonah Truong",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "k": "arms",
+   "look": "cast_barearms",
+   "name": "Malachi Ashby",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "k": "bar",
+   "look": "cast_satchel",
+   "name": "Emmett Salazar",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "k": "clinic",
+   "look": "cast_apron",
+   "name": "Jin Duong",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "k": "bar",
+   "look": "cast_shortcoat",
+   "name": "Loretta Kessler",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "k": "arms",
+   "look": "cast_barearms",
+   "name": "Sergio Sandoval",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "k": "barber",
+   "look": "cast_skirt",
+   "name": "Mei Bautista",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "k": "stall",
+   "look": "cast_satchel",
+   "name": "Sergio Escobar",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "k": "clinic",
+   "look": "cast_shortcoat",
+   "name": "Corinne Pike",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "k": "bar",
+   "look": "cast_apron",
+   "name": "Jun Thao",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "k": "arms",
+   "look": "cast_poncho",
+   "name": "Anahi Dizon",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "k": "barber",
+   "look": "cast_satchel",
+   "name": "Delroy Boone",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "k": "stall",
+   "look": "cast_cape",
+   "name": "Hector Serrano",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "k": "clinic",
+   "look": "cast_poncho",
+   "name": "Hazel Ashby",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "k": "barber",
+   "look": "cast_pack",
+   "name": "Armando Carrasco",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "k": "stall",
+   "look": "cast_widebrim",
+   "name": "Casimir Pike",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "k": "arms",
+   "look": "cast_skirt",
+   "name": "Marites Park",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "k": "bar",
+   "look": "cast_barearms",
+   "name": "Casimir Fontenot",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "k": "clinic",
+   "look": "cast_widebrim",
+   "name": "Dustin Amadi",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "k": "barber",
+   "look": "cast_poncho",
+   "name": "Marisela Betancourt",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "k": "stall",
+   "look": "cast_poncho",
+   "name": "Nadia Emery",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "k": "arms",
+   "look": "cast_satchel",
+   "name": "Kai Sepulveda",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "k": "bar",
+   "look": "cast_widebrim",
+   "name": "Silas Yamada",
+   "heritage": "mixed",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HENDERSON",
+   "k": "barber",
+   "look": "cast_satchel",
+   "name": "Sunny Odom",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HENDERSON",
+   "k": "clinic",
+   "look": "cast_poncho",
+   "name": "Marisol Prieto",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HENDERSON",
+   "k": "bar",
+   "look": "cast_longcoat",
+   "name": "Booker Kirkland",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HENDERSON",
+   "k": "stall",
+   "look": "cast_shorts",
+   "name": "Cody Webb",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HENDERSON",
+   "k": "smith",
+   "look": "cast_skirt",
+   "name": "Renata Quinn",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HENDERSON",
+   "k": "armourer",
+   "look": "cast_shortcoat",
+   "name": "Carly Ferris",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "BOULDER CITY",
+   "k": "barber",
+   "look": "cast_skirt",
+   "name": "Monique Doyle",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "BOULDER CITY",
+   "k": "clinic",
+   "look": "cast_satchel",
+   "name": "Octavio Larkin",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "BOULDER CITY",
+   "k": "bar",
+   "look": "cast_barearms",
+   "name": "Jun Bautista",
+   "heritage": "mixed",
+   "faceBand": "dark"
+  },
+  {
+   "place": "BOULDER CITY",
+   "k": "stall",
+   "look": "cast_cape",
+   "name": "Travis Blackwood",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "BOULDER CITY",
+   "k": "smith",
+   "look": "cast_poncho",
+   "name": "Kai Sandoval",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "BOULDER CITY",
+   "k": "armourer",
+   "look": "cast_pack",
+   "name": "Roman Whitfield",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HOOVER DAM",
+   "k": "clinic",
+   "look": "cast_apron",
+   "name": "Nolan Lund",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HOOVER DAM",
+   "k": "armourer",
+   "look": "cast_longcoat",
+   "name": "Otis Rutledge",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HOOVER DAM",
+   "k": "stall",
+   "look": "cast_poncho",
+   "name": "Fern Kaminski",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HOOVER DAM",
+   "k": "barber",
+   "look": "cast_longcoat",
+   "name": "Travis Vance",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HOOVER DAM",
+   "k": "smith",
+   "look": "cast_cape",
+   "name": "Harlan Gaines",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HOOVER DAM",
+   "k": "bar",
+   "look": "cast_pack",
+   "name": "Garrett Stanton",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "k": "clinic",
+   "look": "cast_pack",
+   "name": "Wendell Chavarria",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "k": "barber",
+   "look": "cast_pack",
+   "name": "Tobias Rutledge",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "k": "stall",
+   "look": "cast_barearms",
+   "name": "Ignacio Cordova",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "k": "arms",
+   "look": "cast_widebrim",
+   "name": "Bishop Marsh",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "k": "bar",
+   "look": "cast_barearms",
+   "name": "Abel Boone",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "JEAN",
+   "k": "clinic",
+   "look": "cast_satchel",
+   "name": "Bishop Hargrove",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "JEAN",
+   "k": "barber",
+   "look": "cast_widebrim",
+   "name": "Nolan Bonilla",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "JEAN",
+   "k": "stall",
+   "look": "cast_skirt",
+   "name": "Lacey Betancourt",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "JEAN",
+   "k": "arms",
+   "look": "cast_pack",
+   "name": "Milo Brennan",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "JEAN",
+   "k": "bar",
+   "look": "cast_poncho",
+   "name": "Heather Whitfield",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PRIMM",
+   "k": "barber",
+   "look": "cast_cape",
+   "name": "Armando Munoz",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PRIMM",
+   "k": "clinic",
+   "look": "cast_satchel",
+   "name": "Wendell Doyle",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PRIMM",
+   "k": "bar",
+   "look": "cast_shorts",
+   "name": "Otis Rivera",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PRIMM",
+   "k": "stall",
+   "look": "cast_longcoat",
+   "name": "Clyde Grady",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PRIMM",
+   "k": "smith",
+   "look": "cast_longcoat",
+   "name": "Hoang Boone",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PRIMM",
+   "k": "armourer",
+   "look": "cast_barearms",
+   "name": "Horace Vogel",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "k": "clinic",
+   "look": "cast_skirt",
+   "name": "Kai Bramble",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "k": "barber",
+   "look": "cast_cape",
+   "name": "Harlan Chu",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "k": "stall",
+   "look": "cast_shortcoat",
+   "name": "Pearl Kessler",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "k": "arms",
+   "look": "cast_shorts",
+   "name": "Jin Pham",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "k": "bar",
+   "look": "cast_bedroll",
+   "name": "Ezekiel Kessler",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "k": "clinic",
+   "look": "cast_shorts",
+   "name": "Sunny Ellison",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "k": "armourer",
+   "look": "cast_satchel",
+   "name": "Jonah Kessler",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "k": "stall",
+   "look": "cast_satchel",
+   "name": "Wade Marsh",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "k": "barber",
+   "look": "cast_bedroll",
+   "name": "Clyde Stanton",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "k": "smith",
+   "look": "cast_pack",
+   "name": "Ezekiel Adeyemi",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "k": "bar",
+   "look": "cast_poncho",
+   "name": "Thuy Sandoval",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "k": "clinic",
+   "look": "cast_satchel",
+   "name": "Wade Doyle",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "k": "bar",
+   "look": "cast_skirt",
+   "name": "Shannon Grady",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "k": "arms",
+   "look": "cast_satchel",
+   "name": "Kai Tillman",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "k": "barber",
+   "look": "cast_skirt",
+   "name": "Dana Grady",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "k": "stall",
+   "look": "cast_skirt",
+   "name": "Dana Boone",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PAHRUMP",
+   "k": "barber",
+   "look": "cast_longcoat",
+   "name": "Terrence Serrano",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PAHRUMP",
+   "k": "clinic",
+   "look": "cast_shorts",
+   "name": "Malachi Salcedo",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PAHRUMP",
+   "k": "bar",
+   "look": "cast_longcoat",
+   "name": "Hector Sandoval",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PAHRUMP",
+   "k": "stall",
+   "look": "cast_apron",
+   "name": "Delroy Novak",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PAHRUMP",
+   "k": "smith",
+   "look": "cast_bedroll",
+   "name": "Wade Dorsey",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PAHRUMP",
+   "k": "armourer",
+   "look": "cast_shorts",
+   "name": "Sunny Betancourt",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MOAPA",
+   "k": "clinic",
+   "look": "cast_bedroll",
+   "name": "Hector Delgado",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MOAPA",
+   "k": "barber",
+   "look": "cast_apron",
+   "name": "Shane Nakamura",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MOAPA",
+   "k": "stall",
+   "look": "cast_pack",
+   "name": "Booker Salcedo",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MOAPA",
+   "k": "arms",
+   "look": "cast_cape",
+   "name": "Kyle Hargrove",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MOAPA",
+   "k": "bar",
+   "look": "cast_apron",
+   "name": "Bishop Marsh",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MESQUITE",
+   "k": "barber",
+   "look": "cast_barearms",
+   "name": "Jarvis Abernathy",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MESQUITE",
+   "k": "clinic",
+   "look": "cast_shorts",
+   "name": "Kwame Rucker",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MESQUITE",
+   "k": "bar",
+   "look": "cast_skirt",
+   "name": "Kai Webb",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MESQUITE",
+   "k": "stall",
+   "look": "cast_pack",
+   "name": "Ruben Pike",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MESQUITE",
+   "k": "smith",
+   "look": "cast_longcoat",
+   "name": "Delroy Lozano",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MESQUITE",
+   "k": "armourer",
+   "look": "cast_shortcoat",
+   "name": "Dana Coyle",
+   "heritage": "white",
+   "faceBand": "brown"
+  }
+ ],
+ "post": [
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 0,
+   "look": "cast_longcoat",
+   "name": "Silas Sutton",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 1,
+   "look": "cast_shortcoat",
+   "name": "Kai Dorsey",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 2,
+   "look": "cast_satchel",
+   "name": "Ruben Arroyo",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 3,
+   "look": "cast_shorts",
+   "name": "Travis Fontenot",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 4,
+   "look": "cast_widebrim",
+   "name": "Delroy Kimura",
+   "heritage": "mixed",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE STRIP (Mob)",
+   "slot": 5,
+   "look": "cast_skirt",
+   "name": "Citlali Munoz",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 0,
+   "look": "cast_shortcoat",
+   "name": "Rachel Sandoval",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 1,
+   "look": "cast_longcoat",
+   "name": "Rashad Portillo",
+   "heritage": "mixed",
+   "faceBand": "dark"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 2,
+   "look": "cast_shorts",
+   "name": "Dante Rucker",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 3,
+   "look": "cast_satchel",
+   "name": "Jarvis Salazar",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 4,
+   "look": "cast_poncho",
+   "name": "Lacey Reyes",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "NELLIS GATE (Remnants)",
+   "slot": 5,
+   "look": "cast_bedroll",
+   "name": "Shane Kessler",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 0,
+   "look": "cast_barearms",
+   "name": "Roman Novak",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 1,
+   "look": "cast_pack",
+   "name": "Everett Whitfield",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 2,
+   "look": "cast_skirt",
+   "name": "Corinne Ashby",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 3,
+   "look": "cast_widebrim",
+   "name": "Jarvis Emery",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 4,
+   "look": "cast_cape",
+   "name": "Malachi Dorsey",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE DATAFORT (Network)",
+   "slot": 5,
+   "look": "cast_apron",
+   "name": "Amaury Serrano",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 0,
+   "look": "cast_apron",
+   "name": "Jonah Webb",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 1,
+   "look": "cast_cape",
+   "name": "Otis Fontenot",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 2,
+   "look": "cast_bedroll",
+   "name": "Ignacio Odom",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 3,
+   "look": "cast_poncho",
+   "name": "Bonnie Ocampo",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 4,
+   "look": "cast_pack",
+   "name": "Wendell Odom",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE YARDS (Cartel)",
+   "slot": 5,
+   "look": "cast_barearms",
+   "name": "Danilo Kessler",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 0,
+   "look": "cast_pack",
+   "name": "Abel Ashby",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 1,
+   "look": "cast_barearms",
+   "name": "Kyle Tillman",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 2,
+   "look": "cast_widebrim",
+   "name": "Cyrus Ellison",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 3,
+   "look": "cast_skirt",
+   "name": "Heather Ellison",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 4,
+   "look": "cast_apron",
+   "name": "Silas Webb",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TRUCK STOP (Caravans)",
+   "slot": 5,
+   "look": "cast_cape",
+   "name": "Cyrus Abernathy",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "slot": 0,
+   "look": "cast_bedroll",
+   "name": "Malachi Sutton",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "slot": 1,
+   "look": "cast_poncho",
+   "name": "Juniper Mayfield",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "slot": 2,
+   "look": "cast_apron",
+   "name": "Malachi Ferris",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CHAPEL (Church)",
+   "slot": 3,
+   "look": "cast_cape",
+   "name": "Armando Zamora",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "slot": 0,
+   "look": "cast_shorts",
+   "name": "Cyrus Vance",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "slot": 1,
+   "look": "cast_satchel",
+   "name": "Colton Grady",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "slot": 2,
+   "look": "cast_shortcoat",
+   "name": "Mei Nakamura",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "DOWNTOWN (Reds)",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "name": "Armando Hargrove",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "slot": 0,
+   "look": "cast_cape",
+   "name": "Wyatt Yamada",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "slot": 1,
+   "look": "cast_apron",
+   "name": "Emmett Marsh",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "slot": 2,
+   "look": "cast_poncho",
+   "name": "Monique Lindquist",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE PARK (Blues)",
+   "slot": 3,
+   "look": "cast_bedroll",
+   "name": "Minh Macaraeg",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "slot": 0,
+   "look": "cast_skirt",
+   "name": "Socorro Portillo",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "slot": 1,
+   "look": "cast_widebrim",
+   "name": "Harlan Pike",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "slot": 2,
+   "look": "cast_barearms",
+   "name": "Octavio Bonilla",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE BLOCK PARTY (Anarchists)",
+   "slot": 3,
+   "look": "cast_pack",
+   "name": "Jonah Vance",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "slot": 0,
+   "look": "cast_apron",
+   "name": "Wyatt Mayfield",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE SHOPS (Trades)",
+   "slot": 1,
+   "look": "cast_cape",
+   "name": "Hector Portillo",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "slot": 0,
+   "look": "cast_poncho",
+   "name": "Dana Renner",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE CLINIC (Volunteers)",
+   "slot": 1,
+   "look": "cast_bedroll",
+   "name": "Kai Lindquist",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "slot": 0,
+   "look": "cast_shorts",
+   "name": "Dana Nakamura",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "THE TUNNELS (Homeless)",
+   "slot": 1,
+   "look": "cast_satchel",
+   "name": "Malachi Boone",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "slot": 0,
+   "look": "cast_widebrim",
+   "name": "Octavio Castellanos",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "THE COLORFUL CAMP",
+   "slot": 1,
+   "look": "cast_skirt",
+   "name": "Bonnie Fontenot",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "slot": 0,
+   "look": "cast_longcoat",
+   "name": "Deshawn Whitfield",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "YOUR OWN CAMP (Custom)",
+   "slot": 1,
+   "look": "cast_shortcoat",
+   "name": "Corinne Emery",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HENDERSON",
+   "slot": 0,
+   "look": "cast_pack",
+   "name": "Octavio Whitaker",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HENDERSON",
+   "slot": 1,
+   "look": "cast_barearms",
+   "name": "Esteban Novak",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HENDERSON",
+   "slot": 2,
+   "look": "cast_widebrim",
+   "name": "Ruben Cisneros",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HENDERSON",
+   "slot": 3,
+   "look": "cast_skirt",
+   "name": "Paloma Rivera",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "BOULDER CITY",
+   "slot": 0,
+   "look": "cast_pack",
+   "name": "Wyatt Prieto",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "BOULDER CITY",
+   "slot": 1,
+   "look": "cast_barearms",
+   "name": "Travis Hollis",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "BOULDER CITY",
+   "slot": 2,
+   "look": "cast_widebrim",
+   "name": "Armando Sandoval",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "BOULDER CITY",
+   "slot": 3,
+   "look": "cast_skirt",
+   "name": "Fern Whitfield",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 0,
+   "look": "cast_shorts",
+   "name": "Ezekiel Kessler",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 1,
+   "look": "cast_satchel",
+   "name": "Dustin Emery",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 2,
+   "look": "cast_shortcoat",
+   "name": "Priya Gaines",
+   "heritage": "mixed",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "name": "Javier Cordova",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 4,
+   "look": "cast_cape",
+   "name": "Clyde Quinn",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "HOOVER DAM",
+   "slot": 5,
+   "look": "cast_apron",
+   "name": "Roman Rutledge",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "slot": 0,
+   "look": "cast_satchel",
+   "name": "Otis Kirkland",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "LAKE MEAD MARINA",
+   "slot": 1,
+   "look": "cast_shorts",
+   "name": "Ezekiel Ashby",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "JEAN",
+   "slot": 0,
+   "look": "cast_longcoat",
+   "name": "Amos Duong",
+   "heritage": "mixed",
+   "faceBand": "dark"
+  },
+  {
+   "place": "JEAN",
+   "slot": 1,
+   "look": "cast_shortcoat",
+   "name": "Linh Dizon",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PRIMM",
+   "slot": 0,
+   "look": "cast_shorts",
+   "name": "Raul Barajas",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PRIMM",
+   "slot": 1,
+   "look": "cast_satchel",
+   "name": "Ambrose Dorsey",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PRIMM",
+   "slot": 2,
+   "look": "cast_shortcoat",
+   "name": "Heather Hollis",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PRIMM",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "name": "Everett Stovall",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "slot": 0,
+   "look": "cast_longcoat",
+   "name": "Jorge Lozano",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "SEARCHLIGHT",
+   "slot": 1,
+   "look": "cast_shortcoat",
+   "name": "Corinne Trejo",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 0,
+   "look": "cast_shorts",
+   "name": "Wyatt Stanton",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 1,
+   "look": "cast_satchel",
+   "name": "Horace Whitaker",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 2,
+   "look": "cast_shortcoat",
+   "name": "Fern Pike",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 3,
+   "look": "cast_longcoat",
+   "name": "Dana Marsh",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 4,
+   "look": "cast_barearms",
+   "name": "Tobias Bramble",
+   "heritage": "white",
+   "faceBand": "dark"
+  },
+  {
+   "place": "INDIAN SPRINGS",
+   "slot": 5,
+   "look": "cast_pack",
+   "name": "Malachi Wexler",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "slot": 0,
+   "look": "cast_shortcoat",
+   "name": "Tasha Brennan",
+   "heritage": "black",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MT CHARLESTON LODGE",
+   "slot": 1,
+   "look": "cast_longcoat",
+   "name": "Javier Delgado",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PAHRUMP",
+   "slot": 0,
+   "look": "cast_shortcoat",
+   "name": "Liza Chu",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PAHRUMP",
+   "slot": 1,
+   "look": "cast_longcoat",
+   "name": "Delroy Vance",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "PAHRUMP",
+   "slot": 2,
+   "look": "cast_shorts",
+   "name": "Kyle Lindquist",
+   "heritage": "white",
+   "faceBand": "brown"
+  },
+  {
+   "place": "PAHRUMP",
+   "slot": 3,
+   "look": "cast_satchel",
+   "name": "Amaury Delgado",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MOAPA",
+   "slot": 0,
+   "look": "cast_bedroll",
+   "name": "Rashad Pike",
+   "heritage": "black",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MOAPA",
+   "slot": 1,
+   "look": "cast_poncho",
+   "name": "Ofelia Galvan",
+   "heritage": "hispanic",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MESQUITE",
+   "slot": 0,
+   "look": "cast_skirt",
+   "name": "Liza Tran",
+   "heritage": "asian",
+   "faceBand": "brown"
+  },
+  {
+   "place": "MESQUITE",
+   "slot": 1,
+   "look": "cast_widebrim",
+   "name": "Roman Tolentino",
+   "heritage": "asian",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MESQUITE",
+   "slot": 2,
+   "look": "cast_barearms",
+   "name": "Armando Munoz",
+   "heritage": "hispanic",
+   "faceBand": "dark"
+  },
+  {
+   "place": "MESQUITE",
+   "slot": 3,
+   "look": "cast_pack",
+   "name": "Kyle Chu",
+   "heritage": "asian",
+   "faceBand": "dark"
+  }
+ ],
+ "by_look": {
+  "cast_longcoat": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 27,
+   "disagree": 13,
+   "heritages": {
+    "white": 5,
+    "mixed": 4,
+    "hispanic": 7,
+    "black": 10,
+    "asian": 1
+   }
+  },
+  "cast_shortcoat": {
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "named": 21,
+   "disagree": 10,
+   "heritages": {
+    "white": 10,
+    "asian": 5,
+    "mixed": 2,
+    "hispanic": 3,
+    "black": 1
+   }
+  },
+  "cast_satchel": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 25,
+   "disagree": 23,
+   "heritages": {
+    "hispanic": 7,
+    "white": 15,
+    "black": 2,
+    "asian": 1
+   }
+  },
+  "cast_shorts": {
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "named": 26,
+   "disagree": 3,
+   "heritages": {
+    "white": 3,
+    "black": 9,
+    "asian": 4,
+    "hispanic": 10
+   }
+  },
+  "cast_widebrim": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 22,
+   "disagree": 19,
+   "heritages": {
+    "mixed": 2,
+    "asian": 4,
+    "white": 9,
+    "hispanic": 6,
+    "black": 1
+   }
+  },
+  "cast_skirt": {
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "named": 21,
+   "disagree": 8,
+   "heritages": {
+    "hispanic": 6,
+    "white": 8,
+    "asian": 2,
+    "black": 3,
+    "mixed": 2
+   }
+  },
+  "cast_poncho": {
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "named": 19,
+   "disagree": 6,
+   "heritages": {
+    "hispanic": 8,
+    "black": 2,
+    "white": 6,
+    "asian": 1,
+    "mixed": 2
+   }
+  },
+  "cast_bedroll": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 17,
+   "disagree": 13,
+   "heritages": {
+    "white": 9,
+    "hispanic": 3,
+    "asian": 1,
+    "black": 4
+   }
+  },
+  "cast_barearms": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 25,
+   "disagree": 18,
+   "heritages": {
+    "white": 8,
+    "asian": 3,
+    "hispanic": 7,
+    "black": 6,
+    "mixed": 1
+   }
+  },
+  "cast_pack": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 28,
+   "disagree": 24,
+   "heritages": {
+    "white": 12,
+    "hispanic": 9,
+    "asian": 3,
+    "black": 4
+   }
+  },
+  "cast_cape": {
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "named": 21,
+   "disagree": 6,
+   "heritages": {
+    "white": 6,
+    "black": 1,
+    "asian": 4,
+    "hispanic": 8,
+    "mixed": 2
+   }
+  },
+  "cast_apron": {
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "named": 22,
+   "disagree": 10,
+   "heritages": {
+    "hispanic": 4,
+    "white": 10,
+    "black": 3,
+    "mixed": 2,
+    "asian": 3
+   }
+  },
+  "faction_caravans": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 3,
+   "disagree": 3,
+   "heritages": {
+    "asian": 1,
+    "hispanic": 2
+   }
+  },
+  "faction_volunteers": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 3,
+   "disagree": 3,
+   "heritages": {
+    "hispanic": 1,
+    "asian": 2
+   }
+  },
+  "faction_trades": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 3,
+   "disagree": 3,
+   "heritages": {
+    "white": 2,
+    "asian": 1
+   }
+  },
+  "faction_blues": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 1,
+   "disagree": 1,
+   "heritages": {
+    "white": 1
+   }
+  },
+  "faction_anarchists": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 3,
+   "disagree": 2,
+   "heritages": {
+    "hispanic": 2,
+    "mixed": 1
+   }
+  },
+  "faction_homeless": {
+   "faceBand": "tan",
+   "bodyBand": "very light",
+   "named": 1,
+   "disagree": 0,
+   "heritages": {
+    "white": 1
+   }
+  },
+  "faction_cartel": {
+   "faceBand": "brown",
+   "bodyBand": "very light",
+   "named": 2,
+   "disagree": 1,
+   "heritages": {
+    "white": 1,
+    "asian": 1
+   }
+  },
+  "faction_remnants": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 1,
+   "disagree": 1,
+   "heritages": {
+    "asian": 1
+   }
+  },
+  "faction_church": {
+   "faceBand": "intermediate",
+   "bodyBand": "very light",
+   "named": 3,
+   "disagree": 0,
+   "heritages": {
+    "black": 1,
+    "white": 1,
+    "hispanic": 1
+   }
+  },
+  "faction_reds": {
+   "faceBand": "dark",
+   "bodyBand": "very light",
+   "named": 2,
+   "disagree": 1,
+   "heritages": {
+    "mixed": 1,
+    "hispanic": 1
+   }
+  },
+  "faction_colorful": {
+   "faceBand": "tan",
+   "bodyBand": "very light",
+   "named": 2,
+   "disagree": 0,
+   "heritages": {
+    "hispanic": 1,
+    "white": 1
+   }
+  }
+ },
+ "sheet": {
+  "place": "HENDERSON",
+  "captions": [
+   "A STRANGER. You tap somebody in the crowd.",
+   "YOU ASK. They tell you, in their own words.",
+   "NEXT TIME, AT NIGHT. Same spot, same person, and the name is theirs.",
+   "NEVER ASKED. A new face on market day is still a stranger."
+  ]
+ }
+}

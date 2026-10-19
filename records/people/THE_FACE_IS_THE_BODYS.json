@@ -1,0 +1,831 @@
+{
+ "made": "10/19/26",
+ "lane": "people",
+ "rule": "120(d)",
+ "draft": true,
+ "method": "ITA = atan((L*-50)/b*) in degrees (Chardon 1991); bands as Del Bino and Bernerd 2013: >55 very light, 41-55 light, 28-41 intermediate, 10-28 tan, -30-10 brown, <-30 dark. Flat sprites: the commonest skin-coloured pixel in the cheek box; a lit render: the median of the brightest third.",
+ "boxes": {
+  "body": [
+   48,
+   19,
+   65,
+   23
+  ],
+  "sheetface": [
+   18,
+   26,
+   46,
+   50
+  ],
+  "portrait": [
+   30,
+   50,
+   98,
+   100
+  ]
+ },
+ "counted": {
+  "looks": 26,
+  "bodies_with_one_skin": "26 of 26",
+  "the_one_body_skin": [
+   191,
+   175,
+   166
+  ],
+  "faces_agree_with_body": "1 of 26",
+  "fresh_portraits_by_band": {
+   "light": 1,
+   "dark": 6,
+   "brown": 6
+  },
+  "sheet_faces_by_band": {
+   "very light": 1,
+   "dark": 15,
+   "brown": 3,
+   "intermediate": 2,
+   "tan": 5
+  }
+ },
+ "looks": {
+  "you": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 41
+   },
+   "sheetface": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 307
+   },
+   "portrait": {
+    "rgb": [
+     202,
+     159,
+     134
+    ],
+    "ita": 44.5,
+    "band": "light",
+    "pixels": 3297
+   },
+   "shown": "portrait",
+   "bands_apart": 1,
+   "face_agrees_with_body": true
+  },
+  "cast_longcoat": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 64
+   },
+   "sheetface": {
+    "rgb": [
+     37,
+     28,
+     24
+    ],
+    "ita": -83.5,
+    "band": "dark",
+    "pixels": 288
+   },
+   "portrait": {
+    "rgb": [
+     104,
+     77,
+     67
+    ],
+    "ita": -54.8,
+    "band": "dark",
+    "pixels": 3162
+   },
+   "shown": "portrait",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "cast_barearms": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 40
+   },
+   "sheetface": {
+    "rgb": [
+     37,
+     28,
+     24
+    ],
+    "ita": -83.5,
+    "band": "dark",
+    "pixels": 254
+   },
+   "portrait": {
+    "rgb": [
+     102,
+     75,
+     63
+    ],
+    "ita": -53.3,
+    "band": "dark",
+    "pixels": 3245
+   },
+   "shown": "portrait",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "cast_pack": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 56
+   },
+   "sheetface": {
+    "rgb": [
+     37,
+     28,
+     24
+    ],
+    "ita": -83.5,
+    "band": "dark",
+    "pixels": 253
+   },
+   "portrait": {
+    "rgb": [
+     103,
+     77,
+     68
+    ],
+    "ita": -57.0,
+    "band": "dark",
+    "pixels": 3218
+   },
+   "shown": "portrait",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "cast_skirt": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 44
+   },
+   "sheetface": {
+    "rgb": [
+     118,
+     96,
+     78
+    ],
+    "ita": -29.1,
+    "band": "brown",
+    "pixels": 315
+   },
+   "portrait": {
+    "rgb": [
+     146,
+     105,
+     83
+    ],
+    "ita": -5.9,
+    "band": "brown",
+    "pixels": 3261
+   },
+   "shown": "portrait",
+   "bands_apart": 4,
+   "face_agrees_with_body": false
+  },
+  "cast_widebrim": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 31
+   },
+   "sheetface": {
+    "rgb": [
+     65,
+     51,
+     42
+    ],
+    "ita": -73.6,
+    "band": "dark",
+    "pixels": 284
+   },
+   "portrait": {
+    "rgb": [
+     81,
+     78,
+     75
+    ],
+    "ita": -82.4,
+    "band": "dark",
+    "pixels": 3131
+   },
+   "shown": "portrait",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "cast_cape": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 56
+   },
+   "sheetface": {
+    "rgb": [
+     167,
+     137,
+     113
+    ],
+    "ita": 28.3,
+    "band": "intermediate",
+    "pixels": 315
+   },
+   "portrait": {
+    "rgb": [
+     147,
+     115,
+     91
+    ],
+    "ita": 3.0,
+    "band": "brown",
+    "pixels": 3327
+   },
+   "shown": "portrait",
+   "bands_apart": 4,
+   "face_agrees_with_body": false
+  },
+  "cast_apron": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 50
+   },
+   "sheetface": {
+    "rgb": [
+     154,
+     123,
+     94
+    ],
+    "ita": 10.7,
+    "band": "tan",
+    "pixels": 297
+   },
+   "portrait": {
+    "rgb": [
+     148,
+     115,
+     87
+    ],
+    "ita": 2.7,
+    "band": "brown",
+    "pixels": 3195
+   },
+   "shown": "portrait",
+   "bands_apart": 4,
+   "face_agrees_with_body": false
+  },
+  "cast_poncho": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 52
+   },
+   "sheetface": {
+    "rgb": [
+     154,
+     123,
+     94
+    ],
+    "ita": 10.7,
+    "band": "tan",
+    "pixels": 294
+   },
+   "portrait": {
+    "rgb": [
+     158,
+     107,
+     79
+    ],
+    "ita": -0.2,
+    "band": "brown",
+    "pixels": 3269
+   },
+   "shown": "portrait",
+   "bands_apart": 4,
+   "face_agrees_with_body": false
+  },
+  "cast_bedroll": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 34
+   },
+   "sheetface": {
+    "rgb": [
+     49,
+     38,
+     31
+    ],
+    "ita": -79.0,
+    "band": "dark",
+    "pixels": 340
+   },
+   "portrait": {
+    "rgb": [
+     50,
+     37,
+     33
+    ],
+    "ita": -81.6,
+    "band": "dark",
+    "pixels": 3189
+   },
+   "shown": "portrait",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "cast_shorts": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 40
+   },
+   "sheetface": {
+    "rgb": [
+     147,
+     115,
+     87
+    ],
+    "ita": 2.4,
+    "band": "brown",
+    "pixels": 272
+   },
+   "portrait": {
+    "rgb": [
+     151,
+     116,
+     92
+    ],
+    "ita": 5.1,
+    "band": "brown",
+    "pixels": 3271
+   },
+   "shown": "portrait",
+   "bands_apart": 4,
+   "face_agrees_with_body": false
+  },
+  "cast_satchel": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 60
+   },
+   "sheetface": {
+    "rgb": [
+     37,
+     28,
+     24
+    ],
+    "ita": -83.5,
+    "band": "dark",
+    "pixels": 303
+   },
+   "portrait": {
+    "rgb": [
+     106,
+     77,
+     65
+    ],
+    "ita": -50.6,
+    "band": "dark",
+    "pixels": 3201
+   },
+   "shown": "portrait",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "cast_shortcoat": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 46
+   },
+   "sheetface": {
+    "rgb": [
+     49,
+     38,
+     31
+    ],
+    "ita": -79.0,
+    "band": "dark",
+    "pixels": 339
+   },
+   "portrait": {
+    "rgb": [
+     150,
+     105,
+     80
+    ],
+    "ita": -4.1,
+    "band": "brown",
+    "pixels": 3360
+   },
+   "shown": "portrait",
+   "bands_apart": 4,
+   "face_agrees_with_body": false
+  },
+  "faction_caravans": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 40
+   },
+   "sheetface": {
+    "rgb": [
+     49,
+     38,
+     31
+    ],
+    "ita": -79.0,
+    "band": "dark",
+    "pixels": 285
+   },
+   "shown": "sheetface",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "faction_colorful": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 20
+   },
+   "sheetface": {
+    "rgb": [
+     154,
+     123,
+     94
+    ],
+    "ita": 10.7,
+    "band": "tan",
+    "pixels": 257
+   },
+   "shown": "sheetface",
+   "bands_apart": 3,
+   "face_agrees_with_body": false
+  },
+  "faction_anarchists": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 56
+   },
+   "sheetface": {
+    "rgb": [
+     37,
+     28,
+     24
+    ],
+    "ita": -83.5,
+    "band": "dark",
+    "pixels": 237
+   },
+   "shown": "sheetface",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "faction_blues": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 42
+   },
+   "sheetface": {
+    "rgb": [
+     37,
+     28,
+     24
+    ],
+    "ita": -83.5,
+    "band": "dark",
+    "pixels": 277
+   },
+   "shown": "sheetface",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "faction_homeless": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 44
+   },
+   "sheetface": {
+    "rgb": [
+     154,
+     123,
+     94
+    ],
+    "ita": 10.7,
+    "band": "tan",
+    "pixels": 291
+   },
+   "shown": "sheetface",
+   "bands_apart": 3,
+   "face_agrees_with_body": false
+  },
+  "faction_church": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 60
+   },
+   "sheetface": {
+    "rgb": [
+     167,
+     137,
+     113
+    ],
+    "ita": 28.3,
+    "band": "intermediate",
+    "pixels": 262
+   },
+   "shown": "sheetface",
+   "bands_apart": 2,
+   "face_agrees_with_body": false
+  },
+  "faction_reds": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 64
+   },
+   "sheetface": {
+    "rgb": [
+     65,
+     51,
+     42
+    ],
+    "ita": -73.6,
+    "band": "dark",
+    "pixels": 306
+   },
+   "shown": "sheetface",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "faction_cartel": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 21
+   },
+   "sheetface": {
+    "rgb": [
+     147,
+     115,
+     87
+    ],
+    "ita": 2.4,
+    "band": "brown",
+    "pixels": 285
+   },
+   "shown": "sheetface",
+   "bands_apart": 4,
+   "face_agrees_with_body": false
+  },
+  "faction_trades": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 34
+   },
+   "sheetface": {
+    "rgb": [
+     94,
+     74,
+     59
+    ],
+    "ita": -54.2,
+    "band": "dark",
+    "pixels": 285
+   },
+   "shown": "sheetface",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "faction_mob": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 60
+   },
+   "sheetface": {
+    "rgb": [
+     154,
+     123,
+     94
+    ],
+    "ita": 10.7,
+    "band": "tan",
+    "pixels": 315
+   },
+   "shown": "sheetface",
+   "bands_apart": 3,
+   "face_agrees_with_body": false
+  },
+  "faction_network": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 64
+   },
+   "sheetface": {
+    "rgb": [
+     94,
+     74,
+     59
+    ],
+    "ita": -54.2,
+    "band": "dark",
+    "pixels": 270
+   },
+   "shown": "sheetface",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "faction_volunteers": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 44
+   },
+   "sheetface": {
+    "rgb": [
+     37,
+     28,
+     24
+    ],
+    "ita": -83.5,
+    "band": "dark",
+    "pixels": 312
+   },
+   "shown": "sheetface",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  },
+  "faction_remnants": {
+   "body": {
+    "rgb": [
+     191,
+     175,
+     166
+    ],
+    "ita": 73.5,
+    "band": "very light",
+    "pixels": 34
+   },
+   "sheetface": {
+    "rgb": [
+     65,
+     51,
+     42
+    ],
+    "ita": -73.6,
+    "band": "dark",
+    "pixels": 330
+   },
+   "shown": "sheetface",
+   "bands_apart": 5,
+   "face_agrees_with_body": false
+  }
+ }
+}

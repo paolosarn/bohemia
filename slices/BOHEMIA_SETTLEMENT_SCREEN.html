@@ -835,7 +835,7 @@ function folkList(){
       x:(b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, y:b[3] - 2, ph:R()}); });
   var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount();
   for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7;
-    out.push({crowd:true, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:FOLK.rows[Math.floor(R()*3)],
+    out.push({crowd:true, slot:q, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:FOLK.rows[Math.floor(R()*3)],
       x:(st[0]+st[2])/2 + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, st[3] + folkFrame()*FOLK.figure_bbox[3]/FOLK.frame*.94 + R()*8), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall */
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
@@ -929,19 +929,52 @@ var STREET_LINES = ["Órale, you're new here. Don't drink from the wash, it'll e
   "You with a crew? Then keep them close. Things walk at night out here.",
   "The stall had meds yesterday. Gone by noon, ni modo.",
   "Mira, if you see a man with a chip behind his ear, walk the other way."];
-function openPerson(p){
+/* WHO ARE YOU (PEOPLE [ask the crowd], 10/19): a person in the crowd is SOMEBODY ON THE STREET until you ask, the people
+   engine's own ruling (A NAME IS EARNED, NEVER GIVEN: nameOf is null for a stranger). Ask, and they answer from the one
+   roll (engine/bohemia_names.js) keyed by this place and their spot in the crowd, the name reading as the face they wear.
+   The spot, not the draw order: night halves the crowd and market day fills it, and the person at a spot keeps the same
+   look through all of it (each spot draws its own six dice), so the same tap is the same person at every visit. The
+   place remembers you asked (bohemia.met.v1, and the game is told), so next time the bubble says the name. Battle
+   Brothers names a place's few leading people and leaves everybody else nameless; here anybody you ask becomes
+   somebody you can come back to. The lines are draft:true; the player asks in English (his first votes). */
+var METKEY = 'bohemia.met.v1';
+function metRec(){ if(!S.met){ try{ S.met = JSON.parse(localStorage.getItem(METKEY) || 'null'); }catch(e){} if(!S.met || typeof S.met !== 'object') S.met = {}; } return S.met; }
+function metSave(){ try{ localStorage.setItem(METKEY, JSON.stringify(S.met)); }catch(e){} }
+function crowdKey(p){ return S.place.name + ':' + p.slot; }
+function crowdRoll(p){ return window.BohemiaNames ? BohemiaNames.roll('crowd:' + crowdKey(p), {sex: BohemiaNames.faceReads(p.look)}) : null; }
+function crowdName(p){ var m = metRec()[crowdKey(p)]; return m ? m.name : null; }
+var SAYS_NAME = ["{full}. I'm out here most days, by the stall.",
+  "Me? {full}. Now you know, so don't forget it.",
+  "{given}. {full}, if you're writing it down.",
+  "{full}. Ask for {given}, everybody on this street knows me.",
+  "Name's {full}. Been on this corner since the lights went out."];
+var SAYS_NAME_ES = "Soy {given}. {full}, pa' que sepas.";   /* only from somebody whose people speak it, a third of the time */
+function saysName(p, n){
+  var R = rng(seedOf('says:' + crowdKey(p))), t = (n.heritage === 'hispanic' && R() < .34) ? SAYS_NAME_ES : SAYS_NAME[Math.floor(R()*SAYS_NAME.length)];
+  return t.replace(/\{full\}/g, n.full).replace(/\{given\}/g, n.given);
+}
+function askCrowd(p){
+  var n = crowdRoll(p); if(!n) return;
+  metRec()[crowdKey(p)] = {name:n.full, look:p.look, day:S.day||0}; metSave();
+  post('met', {who:'settle-crowd:' + crowdKey(p), name:n.full, look:p.look, heritage:n.heritage, skin:n.skin});
+  openPerson(p, saysName(p, n));
+}
+function openPerson(p, said){
   if(p.keeper){ openB(p.k); return; }
-  S.open = 'person'; var i = folkList().indexOf(p);
+  S.open = 'person'; S.person = p;
   var body = document.getElementById('sbody'); body.textContent = '';
-  var R = rng(seedOf(S.place.name + ':said:' + i + ':' + (S.day||0))), r = R() < .35 ? nextRumour() : null;
-  var line = r ? r.says : STREET_LINES[Math.floor(R()*STREET_LINES.length)];
-  var who = 'settle-crowd:' + S.place.name + ':' + i;
+  var r = null, line = said;
+  if(!line){ var R = rng(seedOf(S.place.name + ':said:' + p.slot + ':' + (S.day||0))); r = R() < .35 ? nextRumour() : null;
+    line = r ? r.says : STREET_LINES[Math.floor(R()*STREET_LINES.length)]; }
+  var who = 'settle-crowd:' + crowdKey(p), name = crowdName(p);
   var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, who, p.look), line));
   var sy = document.createElement('div'); sy.className = 'say';
-  var n = document.createElement('div'); n.className = 'nm'; n.textContent = 'SOMEBODY ON THE STREET'; sy.appendChild(n);   /* draft:true */
+  var n = document.createElement('div'); n.className = 'nm'; n.textContent = name ? name.toUpperCase() : 'SOMEBODY ON THE STREET'; sy.appendChild(n);   /* draft:true */
   var pp = document.createElement('p'); pp.textContent = line; sy.appendChild(pp); w.appendChild(sy); body.appendChild(w);
+  if(!name && window.BohemiaNames){ var acts = document.createElement('div'); acts.className = 'acts';
+    acts.appendChild(act('Who are you?', '', function(){ askCrowd(p); })); body.appendChild(acts); }
   document.getElementById('sheet').classList.add('on');
-  post('talk', {who:who, look:p.look, line:line, rumour:r ? r.id : null});
+  post('talk', {who:who, look:p.look, line:line, rumour:r ? r.id : null, name:name});
 }
 function hitAt(x, y){
   if(!VAR) return null;
@@ -1495,6 +1528,7 @@ function open(o){
   }
   if(o.contracts) S.held = o.contracts.slice(0,SLOTS);
   if(o.hired) S.hired = o.hired;
+  if(o.met && typeof o.met === 'object'){ S.met = o.met; metSave(); }   /* PEOPLE [ask the crowd]: the game's save hands who you have asked */
   if(typeof o.crewSize === 'number') S.crewSize = o.crewSize;
   if(o.place){ S.rounds = 0; S.heardIds = {}; S.freeSaid = false; }   /* a new visit, a new night at the bar, a new free one */
   if(Array.isArray(o.bag)) S.stash = o.bag.slice(0, BAG_SLOTS); else if(!S.bagLoaded){ bagLoad(); }
@@ -1525,13 +1559,13 @@ function open(o){
 /* THE CREW BUTTON (RUN TWO [equip from the stash]): the company screen over the place, the stash as its bag; closing it
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
-  BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
+  BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
 window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:FOLK ? folkFrame()*FOLK.figure_bbox[3]/FOLK.frame : null, s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
   if(d.type==='BOHEMIA_SETTLEMENT_OPEN') open(Object.assign({}, d, {arrival: d.arrival !== false}));
-  if(d.type==='BOHEMIA_SETTLEMENT_FACE' && d.who){ S.faces[d.who] = d.src; if(S.open) openB(S.open); }
+  if(d.type==='BOHEMIA_SETTLEMENT_FACE' && d.who){ S.faces[d.who] = d.src; if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); }
 });
 document.getElementById('close').addEventListener('click', hide);
 document.getElementById('leave').addEventListener('click', function(){ post('leave',{}); if(window.BohemiaHeard) BohemiaHeard.left(); heard('You head back out to the map.'); });

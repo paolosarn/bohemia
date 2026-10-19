@@ -91,9 +91,17 @@ var badRead = allGiven.filter(function (n) { return MIX.sex[n] !== FACEBANK.give
 ok('every first name reads as who-the-face-is read it', badRead.length === 0, allGiven.length + ' names; ' + badRead.join(','));
 ok('no reading for a name the pools do not carry', Object.keys(MIX.sex).every(function (n) { return allGiven.indexOf(n) >= 0; }));
 var faceKeys = Object.keys(FACEBANK.faces).filter(function (k) { return k === 'you' || /^cast_/.test(k); });
-ok('every face reads as who-the-face-is read it', same(Object.keys(MIX.faces), faceKeys) &&
+/* 10/19 (PEOPLE [ask the crowd]): the street's faction looks are read too, off the face a crowd person shows; they are
+   not who-the-face-is's thirteen, so they are held to being real street looks read m or f (gates/ask_the_crowd_gate.js
+   holds which one is left unread and why) */
+var STREET = Object.keys(JSON.parse(fs.readFileSync('slices/settlement_people/settlement_people.json', 'utf8')).looks);
+var castRead = Object.keys(MIX.faces).filter(function (k) { return k === 'you' || /^cast_/.test(k); });
+var streetRead = Object.keys(MIX.faces).filter(function (k) { return castRead.indexOf(k) < 0; });
+ok('every face reads as who-the-face-is read it', same(castRead, faceKeys) &&
   faceKeys.every(function (k) { return MIX.faces[k] === FACEBANK.faces[k].reads_as.sex; }),
   faceKeys.filter(function (k) { return /^cast_/.test(k) && MIX.faces[k] === 'f'; }).join(',') + ' read as women');
+ok('every other face read is a street look the crowd wears, read m or f', streetRead.every(function (k) {
+  return /^faction_/.test(k) && STREET.indexOf(k) >= 0 && (MIX.faces[k] === 'm' || MIX.faces[k] === 'f'); }), streetRead.length + ' street looks');
 var engine = fs.readFileSync('engine/bohemia_people.js', 'utf8');
 function arr(name) {
   var m = engine.match(new RegExp('var ' + name + ' = \\[([\\s\\S]*?)\\];'));
