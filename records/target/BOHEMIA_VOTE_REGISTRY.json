@@ -11897,7 +11897,97 @@
    "sha": "0b94a1d5",
    "made": "10/19",
    "draft": true
+  },
+ {
+  "id": "character-hair-one-clumps-not-links-10-19",
+  "kind": "haircut",
+  "lane": "character",
+  "made": "10/19",
+  "sha": "c151db18",
+  "draft": true,
+  "title": "SIX MORE BARBER HAIRCUTS ON THE 3D HEAD, MADE OF CLUMPS, LOCKS AND BRAIDS, NOT CHAIN MAIL",
+  "why": "You said some hair looked like medieval chain mail and that the hair still needs your OK, so six more of the barber's cuts are sculpted on the starred head as clumps, short ropes and braids, next to the three you liked. In the VOTE tab you see it: every cut beside the game's flat cut at real size, turning all eight ways, and at portrait size.",
+  "show": {
+   "how": "image",
+   "src": "../records/target/character/CHARACTER_HAIR_ONE.png",
+   "first": "../records/target/character/CHARACTER_HAIR_ONE_FIRST.png",
+   "firstAt": [
+    12,
+    1682,
+    756,
+    206
+   ]
+  },
+  "twin": {
+   "src": "records/target/character/barber_flat/dust_weave_SE_k01.png",
+   "diffs": [
+    "THE SHORT ROPES: the game's flat SHORT ROPES is a brown shape with a few lighter pixels; ours is a head of separate short ropes, each with two strands twisted round it, from sections of the scalp.",
+    "THE SHORT CUTS: the game's tapers fade by pixel rows and its crowns are one flat colour; ours keep the stubble fade and break the crown into clumps combed one way, big, middle and small, never one size of bump.",
+    "THE BRAIDS: the game's DUST WEAVE is a cap with a pattern painted on; ours is eleven cornrows that run from the brow to the nape and hang as short braids, each a plait you can count at portrait size."
+   ]
+  },
+  "before_after": {
+   "before": "the game's flat body wearing each cut today (GAME, left of every row)",
+   "after": "the same cut sculpted on the 3D head: eight facings at 1:1 and the portrait at 128",
+   "scale": "1:1"
+  },
+  "sprites": [
+   "records/target/character/barber/dry_taper/rig_S.png",
+   "records/target/character/barber/dry_taper/rig_SE.png",
+   "records/target/character/barber/dry_taper/rig_E.png",
+   "records/target/character/barber/dry_taper/rig_NE.png",
+   "records/target/character/barber/dry_taper/rig_N.png",
+   "records/target/character/barber/dry_taper/rig_NW.png",
+   "records/target/character/barber/dry_taper/rig_W.png",
+   "records/target/character/barber/dry_taper/rig_SW.png",
+   "records/target/character/barber/deep_taper/rig_S.png",
+   "records/target/character/barber/deep_taper/rig_SE.png",
+   "records/target/character/barber/deep_taper/rig_E.png",
+   "records/target/character/barber/deep_taper/rig_NE.png",
+   "records/target/character/barber/deep_taper/rig_N.png",
+   "records/target/character/barber/deep_taper/rig_NW.png",
+   "records/target/character/barber/deep_taper/rig_W.png",
+   "records/target/character/barber/deep_taper/rig_SW.png",
+   "records/target/character/barber/shag/rig_S.png",
+   "records/target/character/barber/shag/rig_SE.png",
+   "records/target/character/barber/shag/rig_E.png",
+   "records/target/character/barber/shag/rig_NE.png",
+   "records/target/character/barber/shag/rig_N.png",
+   "records/target/character/barber/shag/rig_NW.png",
+   "records/target/character/barber/shag/rig_W.png",
+   "records/target/character/barber/shag/rig_SW.png",
+   "records/target/character/barber/curtain_cut/rig_S.png",
+   "records/target/character/barber/curtain_cut/rig_SE.png",
+   "records/target/character/barber/curtain_cut/rig_E.png",
+   "records/target/character/barber/curtain_cut/rig_NE.png",
+   "records/target/character/barber/curtain_cut/rig_N.png",
+   "records/target/character/barber/curtain_cut/rig_NW.png",
+   "records/target/character/barber/curtain_cut/rig_W.png",
+   "records/target/character/barber/curtain_cut/rig_SW.png",
+   "records/target/character/barber/short_ropes/rig_S.png",
+   "records/target/character/barber/short_ropes/rig_SE.png",
+   "records/target/character/barber/short_ropes/rig_E.png",
+   "records/target/character/barber/short_ropes/rig_NE.png",
+   "records/target/character/barber/short_ropes/rig_N.png",
+   "records/target/character/barber/short_ropes/rig_NW.png",
+   "records/target/character/barber/short_ropes/rig_W.png",
+   "records/target/character/barber/short_ropes/rig_SW.png",
+   "records/target/character/barber/dust_weave/rig_S.png",
+   "records/target/character/barber/dust_weave/rig_SE.png",
+   "records/target/character/barber/dust_weave/rig_E.png",
+   "records/target/character/barber/dust_weave/rig_NE.png",
+   "records/target/character/barber/dust_weave/rig_N.png",
+   "records/target/character/barber/dust_weave/rig_NW.png",
+   "records/target/character/barber/dust_weave/rig_W.png",
+   "records/target/character/barber/dust_weave/rig_SW.png"
+  ],
+  "class": "person",
+  "look": {
+   "px": 1,
+   "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+   "light": "guide"
   }
+ }
  ],
  "verdicts": [
   {

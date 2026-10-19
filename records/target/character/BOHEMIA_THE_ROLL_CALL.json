@@ -24,10 +24,9 @@
   "garment: approved, not final": 49,
   "garment: built, not shown": 29,
   "garment: not yet": 233,
-  "hair: built, not shown": 2,
   "hair: dead, never rebuilt": 34,
-  "hair: not yet": 4,
-  "hair: shown, not approved": 6,
+  "hair: not yet": 2,
+  "hair: shown, not approved": 10,
   "hat: built, not shown": 1,
   "hat: not yet": 15,
   "hat: shown, not approved": 6
@@ -327,27 +326,13 @@
    ],
    "new_look": {
     "state": "shown, not approved",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
     "rig_looks": [
      "faction_colorful"
     ],
-    "cards": [
-     {
-      "card": "character-the-thirteen-through-the-rig-10-18",
-      "verdict": "up",
-      "said": "Nice direction very good not final"
-     },
-     {
-      "card": "character-the-print-and-the-hands-10-18",
-      "verdict": "up",
-      "said": ""
-     },
-     {
-      "card": "character-the-walk-of-every-look-10-18",
-      "verdict": "up",
-      "said": ""
-     }
-    ],
+    "card": "character-hair-one-clumps-not-links-10-19",
+    "verdict": null,
+    "said": null,
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
     "portrait": {
      "card": "portrait-every-face-from-the-same-model-10-18",
@@ -587,8 +572,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
+    "rig_looks": [],
+    "card": "character-hair-one-clumps-not-links-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hair 1 (his first: strands and clumps, never a mesh)"
   },
@@ -600,8 +590,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
+    "rig_looks": [],
+    "card": "character-hair-one-clumps-not-links-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hair 1 (his first: strands and clumps, never a mesh)"
   },
@@ -695,8 +690,13 @@
     "PORTRAIT head piece 'long' (on cast_skirt)"
    ],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)",
+    "state": "shown, not approved",
+    "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
+    "rig_looks": [],
+    "card": "character-hair-one-clumps-not-links-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
     "portrait": {
      "card": "portrait-every-face-from-the-same-model-10-18",
      "verdict": "up",
@@ -778,30 +778,16 @@
    ],
    "new_look": {
     "state": "shown, not approved",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
     "rig_looks": [
      "faction_blues",
      "faction_cartel",
      "faction_mob",
      "faction_reds"
     ],
-    "cards": [
-     {
-      "card": "character-the-thirteen-through-the-rig-10-18",
-      "verdict": "up",
-      "said": "Nice direction very good not final"
-     },
-     {
-      "card": "character-the-print-and-the-hands-10-18",
-      "verdict": "up",
-      "said": ""
-     },
-     {
-      "card": "character-the-walk-of-every-look-10-18",
-      "verdict": "up",
-      "said": ""
-     }
-    ],
+    "card": "character-hair-one-clumps-not-links-10-19",
+    "verdict": null,
+    "said": null,
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
     "portrait": {
      "card": "portrait-every-face-from-the-same-model-10-18",
@@ -826,8 +812,13 @@
     "PORTRAIT head piece 'taper' (on cast_widebrim)"
    ],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)",
+    "state": "shown, not approved",
+    "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
+    "rig_looks": [],
+    "card": "character-hair-one-clumps-not-links-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
     "portrait": {
      "card": "portrait-every-face-from-the-same-model-10-18",
      "verdict": "up",
