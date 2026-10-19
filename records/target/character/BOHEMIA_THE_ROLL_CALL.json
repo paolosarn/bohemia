@@ -332,8 +332,8 @@
      "faction_colorful"
     ],
     "card": "character-hair-one-clumps-not-links-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
     "portrait": {
      "card": "portrait-every-face-from-the-same-model-10-18",
@@ -577,8 +577,8 @@
     "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
     "rig_looks": [],
     "card": "character-hair-one-clumps-not-links-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hair 1 (his first: strands and clumps, never a mesh)"
@@ -595,8 +595,8 @@
     "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
     "rig_looks": [],
     "card": "character-hair-one-clumps-not-links-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hair 1 (his first: strands and clumps, never a mesh)"
@@ -695,8 +695,8 @@
     "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
     "rig_looks": [],
     "card": "character-hair-one-clumps-not-links-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
     "portrait": {
      "card": "portrait-every-face-from-the-same-model-10-18",
@@ -787,8 +787,8 @@
      "faction_reds"
     ],
     "card": "character-hair-one-clumps-not-links-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
     "portrait": {
      "card": "portrait-every-face-from-the-same-model-10-18",
@@ -817,8 +817,8 @@
     "by": "CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)",
     "rig_looks": [],
     "card": "character-hair-one-clumps-not-links-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'",
     "portrait": {
      "card": "portrait-every-face-from-the-same-model-10-18",
@@ -841,8 +841,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -881,8 +881,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-shirts-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -922,8 +922,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-shirts-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -941,8 +941,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -981,8 +981,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-collars-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -1002,8 +1002,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1020,8 +1020,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1041,8 +1041,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1347,8 +1347,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-shirts-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -1390,8 +1390,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-shirts-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -1409,8 +1409,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1427,8 +1427,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1445,8 +1445,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1637,8 +1637,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1655,8 +1655,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1676,8 +1676,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1696,8 +1696,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1714,8 +1714,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1732,8 +1732,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1750,8 +1750,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1792,8 +1792,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-collars-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -1811,8 +1811,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1829,8 +1829,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1850,8 +1850,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -1877,8 +1877,8 @@
      "faction_caravans"
     ],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -1906,8 +1906,8 @@
      "faction_cartel"
     ],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -1924,8 +1924,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -1942,8 +1942,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -1968,8 +1968,8 @@
      "faction_remnants"
     ],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -1986,8 +1986,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -2004,8 +2004,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -2048,8 +2048,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -2066,8 +2066,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -2146,8 +2146,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -2164,8 +2164,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2182,8 +2182,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2232,8 +2232,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -2250,8 +2250,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2268,8 +2268,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2286,8 +2286,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2346,8 +2346,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -2364,8 +2364,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2382,8 +2382,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2400,8 +2400,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2418,8 +2418,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2436,8 +2436,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2454,8 +2454,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2472,8 +2472,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2490,8 +2490,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2508,8 +2508,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2526,8 +2526,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2544,8 +2544,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2562,8 +2562,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2580,8 +2580,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2598,8 +2598,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2616,8 +2616,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2634,8 +2634,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2652,8 +2652,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2670,8 +2670,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2688,8 +2688,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2706,8 +2706,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2724,8 +2724,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2742,8 +2742,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2760,8 +2760,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -2778,8 +2778,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -3105,8 +3105,8 @@
      "faction_church"
     ],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -3123,8 +3123,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -3141,8 +3141,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -3159,8 +3159,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -3185,8 +3185,8 @@
      "faction_trades"
     ],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -3203,8 +3203,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -3221,8 +3221,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -3278,8 +3278,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -3296,8 +3296,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -3353,8 +3353,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -3472,8 +3472,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -3490,8 +3490,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-collars-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -3638,8 +3638,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-heavy-and-the-runway-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": "Need more way more facial customization hair options as well"
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -3657,8 +3657,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -3716,8 +3716,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -3775,8 +3775,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -3849,8 +3849,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -3985,8 +3985,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -4003,8 +4003,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -4056,8 +4056,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-collars-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -4097,8 +4097,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-shirts-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -4151,8 +4151,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-collars-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -4183,8 +4183,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-shirts-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -4223,8 +4223,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-shirts-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -4268,8 +4268,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -4308,8 +4308,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-shirts-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -4346,8 +4346,8 @@
      "faction_colorful"
     ],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -4364,8 +4364,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -4430,8 +4430,8 @@
     ],
     "shown_on": {
      "card": "character-base-one-the-shirts-10-19",
-     "verdict": null,
-     "said": null
+     "verdict": "up",
+     "said": ""
     },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
@@ -4859,8 +4859,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -4877,8 +4877,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6043,8 +6043,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6329,8 +6329,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6347,8 +6347,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6365,8 +6365,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6398,8 +6398,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6559,8 +6559,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -6577,8 +6577,8 @@
     "by": "CHARACTER, modelled on the starred head (hats 1)",
     "rig_looks": [],
     "card": "character-hats-one-the-21-hats-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "hats 1"
@@ -6647,8 +6647,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -6665,8 +6665,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -6683,8 +6683,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -6701,8 +6701,8 @@
     "by": "CHARACTER, modelled on the starred head (eyewear 1)",
     "rig_looks": [],
     "card": "character-eyewear-one-the-14-face-pieces-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "",
     "note": "his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved'"
    },
    "batch": "eyewear 1"
@@ -6719,8 +6719,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6737,8 +6737,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6755,8 +6755,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6773,8 +6773,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
@@ -6791,8 +6791,8 @@
     "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [],
     "card": "character-base-one-the-heavy-and-the-runway-10-19",
-    "verdict": null,
-    "said": null,
+    "verdict": "up",
+    "said": "Need more way more facial customization hair options as well",
     "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
