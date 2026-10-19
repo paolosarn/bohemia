@@ -236,7 +236,7 @@ WHAT A HUNDRED HOURS HOLDS (about 1,100 nights, rule 84; per act divide by three
 | ASKS (twelve-man company) | 3 | 9 | 21 (8 followers, 12 veterans, 1 member) | 2.3 times: composition picks |
 | VOICES | up to 2 (acts 2, 3) | up to 4 | 7 | 1.8 times |
 | QUARRELS | up to 12 | up to 36 | 3 | the ledger must generate them (QR-M rule 6) |
-| TELLINGS (members and ambitions) | up to about 19 | up to about 57 | 27 (17 members, 10 ambitions) | half: a generator is owed |
+| TELLINGS (members and ambitions) | up to about 19 | up to about 57 | 27 (17 members, 10 ambitions) | half: a generator is owed (QR-AY 10/19: all 27 are bound to a job; the unbound telling's generator and twenty examples are QR-AY) |
 | CAUSED | as they come | as they come | 3 | the rule writes them (QR-M rules 8, 10, 12) |
 
 In minutes of play (an estimate: 100 hours over 1,100 nights is about 5.5 minutes a night, fights and screens included):
@@ -332,7 +332,7 @@ numbers), QR-AQ OPEN 1, QR-AU OPEN 1, QR-AV OPEN 4, QR-AW OPEN 5 (answered).
 4. The Red Cross force size is recall [R]; the case count is search text.
 5. Whether every night is a map night (Battle Brothers stops its clock in towns; ours is assumed to as well). If the
    settlement screen runs the clock, the road nights are fewer and the pace dial should be read per road night.
-6. Who builds the telling generator (PEOPLE, or WORDS when rule 88 lifts).
+6. Who builds the telling generator (PEOPLE, or WORDS when rule 88 lifts). (ANSWERED 10/19 by QR-AY: PEOPLE, on QR-AY's shape: ground, trade, level band, the BEFORE from four fragment groups a trade, a foil, one wrong detail in at most one in five, three bands once each in a life; twenty examples in banks/BOHEMIA_THE_TELLING_BANK_10_19_26.json.)
 
 ---
 

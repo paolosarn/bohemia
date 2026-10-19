@@ -68,7 +68,7 @@ Ju/'hoansi of Botswana and Namibia (only talks with five or more people). Daytim
 (hunting, foraging, trade) and about a third complaints, criticism and gossip, with joking about a sixth; at night, by
 the fire, about 81 percent of the long conversations were stories, many about people not present, and the paper's
 argument is that firelight talk is where trust, reputation and the knowledge of absent people are built [web: the
-abstract, Scientific American, the Namibian, UNCG; the daytime story share was not found and is not used]. A friend at
+abstract, Scientific American, the Namibian, UNCG; the daytime story share was not found and is not used]. (QR-AY 10/19, ScienceDaily's summary through search text: by day 34 percent complaints, criticism and gossip, 31 economic, 16 joking, 6 stories; by the fire about 81 stories, 7 gossip and complaints, 4 economic; 174 conversations of five to fifteen people.) A friend at
 the fire who opens with a price is day talk at night. The library says the same in its own words: the client as a
 vending machine is a face with a fee and no want of its own (`Q236.X3`); a scripted ask that fires "whether or not you
 have ever looked at him" is a card with a face (`Q108.X1`, `Q108.P8`); the sympathetic explanation must arrive BEFORE
@@ -323,7 +323,8 @@ only a fight); QR-AT's correction stuck. Line 12 did not.
 
 1. Wiessner's own table of day and night topics, and the daytime story share, were not reachable from this sandbox; the
    81 percent figure and the daytime thirds come from the abstract and press coverage. A later round with the paper in
-   hand should check the numbers before anyone builds a ratio on them.
+   hand should check the numbers before anyone builds a ratio on them. (PARTLY ANSWERED 10/19 by QR-AY: the daytime
+   shares and the night's 7 and 4 percent, from ScienceDaily's summary; the paper's tables are still unread.)
 2. Whether a TELLING should be skippable. A one-button scene is a short read on a phone; the library has no study of a
    companion's scene that the player can wave off (`Q043.P9` says grace for benched companions, nothing on skipping).
    Draft: the telling is three lines and cannot be stacked with another event, so it is never long enough to skip.

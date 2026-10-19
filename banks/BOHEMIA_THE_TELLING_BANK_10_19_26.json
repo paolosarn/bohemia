@@ -277,7 +277,7 @@
       "foil": null,
       "lines": [
         "Desi had a block. Nellis and... I forget. She walked it with an old man and a list.",
-        "This was her door. That's her number on it. I never asked what it meant.",
+        "Her door. Her number on it. Never asked what it meant.",
         "She stayed till there was nobody. That's how she said it. Close enough."
       ],
       "button": "[SLEEP]", "wrong": null, "once_key": "retold:DESI",
@@ -292,7 +292,7 @@
       "thing": { "from": "gear.head", "id": "leather_headband", "ours": "Leather Headband", "look": "Raul's headband on Griz's knee" },
       "foil": null,
       "lines": [
-        "Raul's coach made them skip rope till the song was over. Every song on the radio.",
+        "Raul's coach made them skip rope till the song ended.",
         "That's his headband. He told it to me again last night, right where you're sitting.",
         "Whoever counts first quits first. He's not counting. Me neither."
       ],
