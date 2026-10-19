@@ -1,0 +1,39 @@
+{
+ "cut": "SCORCH",
+ "tag": "scorch",
+ "bank": {
+  "ramp": "H_BRN",
+  "vol": 0,
+  "side": 0.45,
+  "front": 0.16,
+  "shape": "crop, a burn scar"
+ },
+ "worn_by": "Remnants, Mob, Trades; anyone the fire caught",
+ "model": "records/character/rig/barber_scorch.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5386,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7316,
+ "pieces": {
+  "barber_scorch": 212568,
+  "h2_scorch_edge": 1224,
+  "h2_scorch_scar": 2437
+ }
+}

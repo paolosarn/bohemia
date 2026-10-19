@@ -1,0 +1,38 @@
+{
+ "cut": "GREASE BACK",
+ "tag": "grease_back",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 1,
+  "side": 0.7,
+  "front": 0.12,
+  "shape": "combed back"
+ },
+ "worn_by": "Mob, Cartel, Network",
+ "model": "records/character/rig/barber_grease_back.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5428,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7364,
+ "pieces": {
+  "barber_grease_back": 216826,
+  "barber_grease_back_ends": 2118
+ }
+}

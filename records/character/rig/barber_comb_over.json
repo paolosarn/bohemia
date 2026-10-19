@@ -1,0 +1,39 @@
+{
+ "cut": "COMB OVER",
+ "tag": "comb_over",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 0,
+  "side": 0.6,
+  "front": 0.0,
+  "shape": "bald crown, strands across"
+ },
+ "worn_by": "Network, Church; the old who still try",
+ "model": "records/character/rig/barber_comb_over.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5346,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7271,
+ "pieces": {
+  "barber_comb_over_ring": 84714,
+  "h2_comb_over_thin": 9469,
+  "barber_comb_over_strands": 8274
+ }
+}

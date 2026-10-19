@@ -1,0 +1,33 @@
+{
+ "head_px": 128,
+ "head_m": 0.3964,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.396 m",
+ "ppm": 322.879,
+ "res": 218,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "expressions": [],
+ "files": [
+  "records/target/character/barber/grease_back/rig_portrait_S.png",
+  "records/target/character/barber/grease_back/rig_portrait_SE.png",
+  "records/target/character/barber/grease_back/rig_portrait_SW.png"
+ ],
+ "expression_files": {},
+ "crop_box_px": [
+  24,
+  44,
+  196,
+  218
+ ],
+ "model": "records/character/rig/barber_grease_back.glb",
+ "body_rig": "rig.json",
+ "colours": 11735
+}

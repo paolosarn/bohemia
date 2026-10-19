@@ -1,0 +1,321 @@
+{
+ "engine": "CYCLES",
+ "res": 242,
+ "ortho_scale": 4.245614035087719,
+ "real_dims_m": [
+  0.604,
+  1.016,
+  1.732
+ ],
+ "scale_from_model": 1.1448,
+ "still_frame": 0.0,
+ "still": "frame 0",
+ "ground_screen": [
+  121.0,
+  170.3506
+ ],
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "source_pass": {
+  "wear": 0.6,
+  "materials": [
+   "barber_scorch_hair",
+   "barberbody_shirt",
+   "barberbody_shoe",
+   "barberbody_shoes",
+   "barberbody_skin",
+   "barberbody_trouser",
+   "barberbody_trousers",
+   "h2_scorch_edge_hair_22",
+   "h2_scorch_skin_angry",
+   "h2_scorch_skin_pale",
+   "portrait_barber_scorch_buzz",
+   "portrait_barber_scorch_iris",
+   "portrait_barber_scorch_lips",
+   "portrait_barber_scorch_mouth",
+   "portrait_barber_scorch_pupil",
+   "portrait_barber_scorch_sclera",
+   "portrait_barber_scorch_skin"
+  ],
+  "wear_by_material": {
+   "barber_scorch_hair": 0.15,
+   "barberbody_skin": 0.25,
+   "h2_scorch_edge_hair_22": 0.15,
+   "portrait_barber_scorch_skin": 0.25,
+   "h2_scorch_skin_pale": 0.25,
+   "h2_scorch_skin_angry": 0.25
+  },
+  "what": [
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+   "crevice grime from the model's own ambient occlusion (0.25 m)",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+   "a 20 cm colour drift across the body (overlay, 0.27)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+  ],
+  "seed": 0,
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1448)",
+  "dents": {
+   "meshes": 12,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
+ },
+ "proportions": null,
+ "calibration": {
+  "cube_px": 58,
+  "screen_light_deg": 155.4,
+  "sphere_value_span": 111,
+  "sphere_darkest": 88,
+  "cube_px_expected": 57,
+  "cube_ok": true,
+  "light_off_deg": 0.0,
+  "light_ok": true
+ },
+ "id_table": {
+  "barber_scorch_hair": "#ff1919",
+  "barberbody_shirt": "#195cff",
+  "barberbody_shoe": "#9fff19",
+  "barberbody_shoes": "#ff19e2",
+  "barberbody_skin": "#19ffd8",
+  "barberbody_trouser": "#ff9519",
+  "barberbody_trousers": "#5219ff",
+  "h2_scorch_edge_hair_22": "#23ff19",
+  "h2_scorch_skin_angry": "#ff1966",
+  "h2_scorch_skin_pale": "#19a9ff",
+  "portrait_barber_scorch_buzz": "#ecff19",
+  "portrait_barber_scorch_iris": "#ce19ff",
+  "portrait_barber_scorch_lips": "#19ff8b",
+  "portrait_barber_scorch_mouth": "#ff4819",
+  "portrait_barber_scorch_pupil": "#192dff",
+  "portrait_barber_scorch_sclera": "#70ff19",
+  "portrait_barber_scorch_skin": "#ff19b3"
+ },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "barber_scorch": "#ff6cc7",
+  "barberbody_hand_L": "#6ce9ff",
+  "barberbody_hand_R": "#fff86c",
+  "barberbody_shoe": "#d86cff",
+  "barberbody_trouser": "#6cffb1",
+  "h2_scorch_edge": "#ff796c",
+  "h2_scorch_scar": "#6ca1ff",
+  "portrait_head": "#ccff6c",
+  "portrait_head_eyes": "#ff6cee",
+  "portrait_head_lids": "#6cfff3",
+  "portrait_neck": "#ffd36c"
+ },
+ "model": "records/character/rig/barber_scorch.glb",
+ "rig_round": 7,
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "none",
+ "snap": null,
+ "ring": 8.0,
+ "contact_shadow": true,
+ "files": [
+  "records/target/character/barber/scorch/rig_N.png",
+  "records/target/character/barber/scorch/rig_NE.png",
+  "records/target/character/barber/scorch/rig_E.png",
+  "records/target/character/barber/scorch/rig_SE.png",
+  "records/target/character/barber/scorch/rig_S.png",
+  "records/target/character/barber/scorch/rig_SW.png",
+  "records/target/character/barber/scorch/rig_W.png",
+  "records/target/character/barber/scorch/rig_NW.png"
+ ],
+ "crop_box_px": [
+  88,
+  64,
+  160,
+  188
+ ],
+ "shadow_files": [
+  "records/target/character/barber/scorch/shadow_N.png",
+  "records/target/character/barber/scorch/shadow_NE.png",
+  "records/target/character/barber/scorch/shadow_E.png",
+  "records/target/character/barber/scorch/shadow_SE.png",
+  "records/target/character/barber/scorch/shadow_S.png",
+  "records/target/character/barber/scorch/shadow_SW.png",
+  "records/target/character/barber/scorch/shadow_W.png",
+  "records/target/character/barber/scorch/shadow_NW.png"
+ ],
+ "ground_px": [
+  33,
+  106
+ ],
+ "look_px": [
+  33,
+  57
+ ],
+ "colours": 7034,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {},
+ "card": {
+  "family": "prop",
+  "out": 2,
+  "rows": [
+   "OK   long side >= floor 96: 124",
+   "OUT  colours >= 2330: 1084",
+   "OK   top 8 carry <= 11%: 5.0",
+   "OUT  value span >= 118: 114",
+   "OK   saturation <= 0.81: 0.238",
+   "OK   light: top minus bottom >= -2.5: 21.5",
+   "OK   edge between -35 and +7: -15.2",
+   "OK   grain <= 2.22 px a run: 1.83"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 2.8%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OK   light from above (180 to 360 degrees, or flat): 266.8"
+  ],
+  "verdict": "2 of 8 out -> to DIRECTION",
+  "file": "records/target/character/barber/scorch/rig_S.png"
+ },
+ "cls": "person",
+ "card_guide": {
+  "cls": "person",
+  "out": 1,
+  "rows": [
+   "OK   long side >= floor 96: 124",
+   "OK   colours >= 610 (field 5: the class floor, or 370 per 1,000 of 1650 px): 1084",
+   "OK   top 8 carry <= 11%: 5.0",
+   "OUT  value span >= 118: 114",
+   "OK   saturation <= 0.81: 0.238",
+   "OK   light: top minus bottom >= -2.5: 21.5",
+   "OK   edge between -35 and +7: -15.2",
+   "OK   grain <= 2.22 px a run: 1.83"
+  ],
+  "reread": [
+   "colours by field 5"
+  ],
+  "verdict": "1 of 8 out under the style guide",
+  "size_px": [
+   35,
+   112
+  ],
+  "opaque_px": 1650,
+  "colours": 1084
+ },
+ "rig_settings": {
+  "engine": "CYCLES",
+  "device": "CPU",
+  "samples": 128,
+  "denoise": false,
+  "filter_px": 0.01,
+  "view_transform": "Standard",
+  "film_transparent": true,
+  "motion_blur": false,
+  "depth_of_field": false,
+  "ppm": 57.0,
+  "tilt_deg": 45.0,
+  "sun_rot_deg": [
+   40.0,
+   0.0,
+   -35.0
+  ],
+  "sun_angle_deg": 3,
+  "sun_energy": 3.0,
+  "fill_rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "fill_strength": 0.35,
+  "wear": 0.6,
+  "ring": 8.0,
+  "contact_shadow": true,
+  "shadow_alpha_max": 0.42,
+  "alpha_threshold": 127,
+  "keys_per_beat": 3,
+  "bpm": 120,
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
+ },
+ "breaks": [],
+ "guide": {
+  "file": "records/target/BOHEMIA_STYLE_GUIDE.json",
+  "schema": 1
+ },
+ "id_files": [
+  "records/target/character/barber/scorch/rigid_N.png",
+  "records/target/character/barber/scorch/rigid_NE.png",
+  "records/target/character/barber/scorch/rigid_E.png",
+  "records/target/character/barber/scorch/rigid_SE.png",
+  "records/target/character/barber/scorch/rigid_S.png",
+  "records/target/character/barber/scorch/rigid_SW.png",
+  "records/target/character/barber/scorch/rigid_W.png",
+  "records/target/character/barber/scorch/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/character/barber/scorch/rigobj_N.png",
+  "records/target/character/barber/scorch/rigobj_NE.png",
+  "records/target/character/barber/scorch/rigobj_E.png",
+  "records/target/character/barber/scorch/rigobj_SE.png",
+  "records/target/character/barber/scorch/rigobj_S.png",
+  "records/target/character/barber/scorch/rigobj_SW.png",
+  "records/target/character/barber/scorch/rigobj_W.png",
+  "records/target/character/barber/scorch/rigobj_NW.png"
+ ],
+ "portrait": "portrait.json"
+}
