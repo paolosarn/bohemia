@@ -60,7 +60,9 @@ SOIL = '2. Soil and dirt tiles'
 TILT = 0.7071                                       # the 45 DEGREE ART LAW: depth x cos45 (the blocks' own tilt)
 
 # ---- the grounds: his tiles, one per surface ------------------------------------------------------------------------
-# caliche: his YES street's dirt exactly (soil #2 shade to shade onto the valley's grey-tan, #9a8e78)
+# caliche: his YES street's dirt (soil #2 shade to shade onto the valley's grey-tan, #9a8e78), keeping his tile's own colour
+#          grain (the module's keep_grain): the same picture at every zoom, measured side by side, and the twin gate reads it
+#          AMBER where the plain recolour's 6 per cent of his colours read RED
 # desert: the same soil a step warmer (the valley's open ground is the yards' caliche; the creosote and rocks the maker
 #         stands on it say desert, not a second print)
 # rough: his soil #4, flecked where #2 is plain, onto the same caliche: the recolour keeps HIS luminance, so the tile
@@ -72,14 +74,14 @@ TILT = 0.7071                                       # the 45 DEGREE ART LAW: dep
 #           repeated star), turned all four ways (a slab and a road have no up, as the street kit lays them)
 # asphalt: his six quietest plain road tiles (the YES street's rest area), frames cut
 GROUNDS = {
-    'caliche':  dict(fam=SOIL, ids=[2], tint='#9a8e78', cut=11, cell=(72, 74)),
-    'desert':   dict(fam=SOIL, ids=[2], tint='#a19077', cut=11, cell=(72, 74)),
-    'rough':    dict(fam=SOIL, ids=[4], tint='#958974', cut=11, cell=(72, 72)),
-    'playa':    dict(fam=SOIL, ids=[21], tint='#ab9e86', cut=11, cell=(72, 70)),
-    'track':    dict(fam=SOIL, ids=[2], tint='#8d7e68', cut=11, cell=(72, 74)),
+    'caliche':  dict(fam=SOIL, ids=[2], tint='#9a8e78', cut=11, cell=(72, 74), flip4=True),
+    'desert':   dict(fam=SOIL, ids=[2], tint='#a19077', cut=11, cell=(72, 74), flip4=True),
+    'rough':    dict(fam=SOIL, ids=[4], tint='#958974', cut=11, cell=(72, 72), flip4=True),
+    'playa':    dict(fam=SOIL, ids=[21], tint='#ab9e86', cut=11, cell=(72, 70), flip4=True),
+    'track':    dict(fam=SOIL, ids=[2], tint='#8d7e68', cut=11, cell=(72, 74), flip4=True),
     'concrete': dict(fam=S.SIDEWALK, ids=[0, 2], cell=(82, 81), flip4=True),
     'asphalt':  dict(fam=S.ROAD, ids=[0, 1, 8, 9, 10, 11], cell=(82, 81), flip4=True),
-    'lawn':     dict(fam='3. Grass and ground tiles', ids=[1, 2, 4], cut=11, cell=(72, 72), sat=0.6),
+    'lawn':     dict(fam='3. Grass and ground tiles', ids=[1, 2, 4], cut=11, cell=(72, 72), sat=0.6, flip4=True),
 }
 # THE ANALOG HORROR LINE (rule 20, one calm wrong thing per board, from the world's state): ONE front yard on the suburb
 # board is a green lawn. The dollar died, the water district is a ruin, every other yard on the street is caliche, and
@@ -114,7 +116,8 @@ def piece(g, i, flip):
     k = (g, i, flip)                                          # flip: 0 as bought, 1 left-right, 2 top-bottom, 3 both
     if k not in _cache:
         spec = GROUNDS[g]; a = S.pack(spec['fam'], i)
-        if 'tint' in spec: a = S.recolour(a, a[..., 3] > 0, spec['tint'], levels=6, shift_deg=10)
+        if 'tint' in spec:                                    # his YES recolour, keeping his tile's own colour grain
+            a = S.recolour(a, a[..., 3] > 0, spec['tint'], levels=6, shift_deg=10, keep_grain=True)
         if 'sat' in spec:
             hsv = S._hsv(a[..., :3].reshape(-1, 3).astype(float) / 255); hsv[:, 1] *= spec['sat']
             a = a.copy(); a[..., :3] = (S._rgb(hsv) * 255).round().clip(0, 255).astype(np.uint8).reshape(a.shape[:2] + (3,))
@@ -128,7 +131,8 @@ def piece(g, i, flip):
 
 
 def field(g, w, h, seed):
-    """his tiles laid at his own pixel over the square plan, one per cell, left-right flips (slab and road all four ways), then the 45 camera
+    """his tiles laid at his own pixel over the square plan, one per cell, turned all four ways (a soil, a slab and a
+       road have no up; one tile turned two ways made a mirrored lattice at 1:1), then the 45 camera
        (NEAREST rows, the blocks' own tilt): one pixel size, nothing scaled across."""
     spec = GROUNDS[g]; tw, th = spec['cell']; rng = np.random.RandomState(seed)
     ph = int(np.ceil(h / TILT)) + th

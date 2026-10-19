@@ -131,8 +131,8 @@
    "measured": {
     "old_blob": 5.14,
     "old_sat": 0.433,
-    "new_blob": 0.74,
-    "new_sat": 0.19,
+    "new_blob": 0.7,
+    "new_sat": 0.192,
     "px": 2168356
    }
   },
@@ -156,8 +156,8 @@
    "measured": {
     "old_blob": 4.94,
     "old_sat": 0.433,
-    "new_blob": 10.75,
-    "new_sat": 0.19,
+    "new_blob": 10.6,
+    "new_sat": 0.193,
     "px": 2430710
    }
   },
@@ -172,8 +172,8 @@
    "measured": {
     "old_blob": 4.76,
     "old_sat": 0.433,
-    "new_blob": 0.79,
-    "new_sat": 0.19,
+    "new_blob": 0.72,
+    "new_sat": 0.192,
     "px": 2280240
    }
   },
@@ -198,7 +198,7 @@
    "measured": {
     "old_blob": 24.36,
     "old_sat": 0.417,
-    "new_blob": 28.76,
+    "new_blob": 28.78,
     "new_sat": 0.189,
     "px": 3515626
    }
@@ -256,7 +256,7 @@
     "old_blob": 33.72,
     "old_sat": 0.417,
     "new_blob": 41.36,
-    "new_sat": 0.178,
+    "new_sat": 0.18,
     "px": 4424238
    }
   },
@@ -287,7 +287,7 @@
     "old_blob": 32.86,
     "old_sat": 0.417,
     "new_blob": 40.44,
-    "new_sat": 0.178,
+    "new_sat": 0.181,
     "px": 3540508
    }
   },
@@ -312,8 +312,8 @@
    "measured": {
     "old_blob": 11.29,
     "old_sat": 0.591,
-    "new_blob": 1.36,
-    "new_sat": 0.224,
+    "new_blob": 1.38,
+    "new_sat": 0.225,
     "px": 3828954
    }
   },
@@ -338,8 +338,8 @@
    "measured": {
     "old_blob": 11.24,
     "old_sat": 0.592,
-    "new_blob": 1.32,
-    "new_sat": 0.224,
+    "new_blob": 1.34,
+    "new_sat": 0.225,
     "px": 3807534
    }
   },
@@ -359,8 +359,8 @@
    "measured": {
     "old_blob": 8.97,
     "old_sat": 0.417,
-    "new_blob": 15.1,
-    "new_sat": 0.19,
+    "new_blob": 15.11,
+    "new_sat": 0.192,
     "px": 3742269
    }
   },
@@ -375,8 +375,8 @@
    "measured": {
     "old_blob": 5.06,
     "old_sat": 0.433,
-    "new_blob": 0.46,
-    "new_sat": 0.19,
+    "new_blob": 0.43,
+    "new_sat": 0.192,
     "px": 2146544
    }
   },
@@ -391,8 +391,8 @@
    "measured": {
     "old_blob": 4.24,
     "old_sat": 0.433,
-    "new_blob": 0.47,
-    "new_sat": 0.19,
+    "new_blob": 0.5,
+    "new_sat": 0.192,
     "px": 2146544
    }
   },
@@ -412,8 +412,8 @@
    "measured": {
     "old_blob": 14.27,
     "old_sat": 0.417,
-    "new_blob": 1.38,
-    "new_sat": 0.19,
+    "new_blob": 1.37,
+    "new_sat": 0.193,
     "px": 2595886
    }
   },
@@ -433,8 +433,8 @@
    "measured": {
     "old_blob": 12.61,
     "old_sat": 0.417,
-    "new_blob": 1.52,
-    "new_sat": 0.19,
+    "new_blob": 1.57,
+    "new_sat": 0.192,
     "px": 2581813
    }
   },
@@ -454,8 +454,8 @@
    "measured": {
     "old_blob": 5.7,
     "old_sat": 0.604,
-    "new_blob": 0.36,
-    "new_sat": 0.225,
+    "new_blob": 0.31,
+    "new_sat": 0.227,
     "px": 4546652
    }
   },
@@ -475,8 +475,8 @@
    "measured": {
     "old_blob": 5.47,
     "old_sat": 0.605,
-    "new_blob": 0.31,
-    "new_sat": 0.225,
+    "new_blob": 0.32,
+    "new_sat": 0.227,
     "px": 4563165
    }
   },
@@ -497,7 +497,7 @@
     "old_blob": 5.88,
     "old_sat": 0.601,
     "new_blob": 0.3,
-    "new_sat": 0.225,
+    "new_sat": 0.227,
     "px": 4525619
    }
   },
@@ -517,8 +517,8 @@
    "measured": {
     "old_blob": 5.82,
     "old_sat": 0.603,
-    "new_blob": 0.39,
-    "new_sat": 0.225,
+    "new_blob": 0.33,
+    "new_sat": 0.227,
     "px": 3654691
    }
   },
@@ -538,8 +538,8 @@
    "measured": {
     "old_blob": 5.69,
     "old_sat": 0.605,
-    "new_blob": 0.41,
-    "new_sat": 0.225,
+    "new_blob": 0.33,
+    "new_sat": 0.227,
     "px": 3663132
    }
   },
@@ -559,8 +559,8 @@
    "measured": {
     "old_blob": 4.44,
     "old_sat": 0.575,
-    "new_blob": 1.74,
-    "new_sat": 0.186,
+    "new_blob": 1.73,
+    "new_sat": 0.189,
     "px": 2752330
    }
   },
@@ -580,8 +580,8 @@
    "measured": {
     "old_blob": 4.34,
     "old_sat": 0.575,
-    "new_blob": 1.71,
-    "new_sat": 0.186,
+    "new_blob": 1.67,
+    "new_sat": 0.189,
     "px": 2752330
    }
   },
@@ -606,7 +606,7 @@
    "measured": {
     "old_blob": 17.58,
     "old_sat": 0.167,
-    "new_blob": 19.53,
+    "new_blob": 19.55,
     "new_sat": 0.064,
     "px": 2800302
    }
@@ -632,7 +632,7 @@
    "measured": {
     "old_blob": 16.71,
     "old_sat": 0.167,
-    "new_blob": 19.51,
+    "new_blob": 19.59,
     "new_sat": 0.064,
     "px": 2800303
    }
@@ -649,7 +649,7 @@
     "old_blob": 5.0,
     "old_sat": 0.433,
     "new_blob": 0.98,
-    "new_sat": 0.19,
+    "new_sat": 0.192,
     "px": 2634619
    }
   },
@@ -664,8 +664,8 @@
    "measured": {
     "old_blob": 4.2,
     "old_sat": 0.433,
-    "new_blob": 1.06,
-    "new_sat": 0.19,
+    "new_blob": 1.04,
+    "new_sat": 0.192,
     "px": 2771426
    }
   },
@@ -680,8 +680,8 @@
    "measured": {
     "old_blob": 4.71,
     "old_sat": 0.433,
-    "new_blob": 3.27,
-    "new_sat": 0.19,
+    "new_blob": 3.28,
+    "new_sat": 0.192,
     "px": 2754270
    }
   },
@@ -697,7 +697,7 @@
     "old_blob": 4.24,
     "old_sat": 0.433,
     "new_blob": 2.72,
-    "new_sat": 0.19,
+    "new_sat": 0.192,
     "px": 2498991
    }
   },
@@ -712,8 +712,8 @@
    "measured": {
     "old_blob": 4.54,
     "old_sat": 0.433,
-    "new_blob": 0.95,
-    "new_sat": 0.19,
+    "new_blob": 0.94,
+    "new_sat": 0.192,
     "px": 2219060
    }
   },
@@ -728,8 +728,8 @@
    "measured": {
     "old_blob": 4.49,
     "old_sat": 0.433,
-    "new_blob": 0.85,
-    "new_sat": 0.19,
+    "new_blob": 0.89,
+    "new_sat": 0.192,
     "px": 2194347
    }
   },
@@ -754,8 +754,8 @@
    "measured": {
     "old_blob": 10.58,
     "old_sat": 0.596,
-    "new_blob": 4.92,
-    "new_sat": 0.224,
+    "new_blob": 4.93,
+    "new_sat": 0.225,
     "px": 4569203
    }
   },
@@ -780,8 +780,8 @@
    "measured": {
     "old_blob": 10.1,
     "old_sat": 0.596,
-    "new_blob": 4.91,
-    "new_sat": 0.224,
+    "new_blob": 4.93,
+    "new_sat": 0.225,
     "px": 4569699
    }
   },
@@ -796,8 +796,8 @@
    "measured": {
     "old_blob": 5.0,
     "old_sat": 0.417,
-    "new_blob": 0.59,
-    "new_sat": 0.19,
+    "new_blob": 0.51,
+    "new_sat": 0.192,
     "px": 1537388
    }
   }
@@ -807,8 +807,8 @@
   "blocks": 32,
   "px": 100520761,
   "old_blob_median": 5.695,
-  "new_blob_median": 1.37,
+  "new_blob_median": 1.375,
   "old_sat_median": 0.433,
-  "new_sat_median": 0.19
+  "new_sat_median": 0.192
  }
 }
