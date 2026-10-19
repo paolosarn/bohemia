@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3961,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.396 m",
- "ppm": 323.112,
+ "head_m": 0.3953,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.395 m",
+ "ppm": 323.825,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -22,12 +22,12 @@
  ],
  "expression_files": {},
  "crop_box_px": [
-  23,
-  46,
-  196,
+  48,
+  42,
+  173,
   218
  ],
  "model": "records/character/rig/barber_finger_waves.glb",
  "body_rig": "rig.json",
- "colours": 11242
+ "colours": 12099
 }

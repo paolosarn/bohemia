@@ -33,7 +33,7 @@ after the money died, where a haircut is what you can do with what you have:
 | STATIC | bed head: short tufts standing every way, flattened on the side he sleeps on | tape_masking 1 |
 | HALF SHAVE | one side clippered to dark roots, the rest bleached and swept over the top to the jaw | clay_bone 2 |
 | BOX BRAIDS | braids from parted sections, each a plait of crossing lenses, hanging past the shoulders | clay_mustard 1 |
-| FINGER WAVES | pressed S-waves from a side part, a flat pin curl at each sideburn (the runway's) | cloth_black 0 |
+| FINGER WAVES | pressed S-waves from a side part, a flat pin curl at each sideburn (the runway's) | cloth_black 1 |
 | SCORCH | a short crop with a burn scar over the right ear where nothing grows back, waxy and mottled two ways | clay_mustard 0 |
 
 THE GRAVEYARD, read before a single cut was drawn (A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME, gates/
@@ -51,6 +51,14 @@ WHAT LOOKING CHANGED (measured on the renders, not guessed):
 - GREASE BACK cycle 1: on the natural hairline with an even shell it read as a black helmet with a fringe; now the
   hairline sits high with the temples receded, the comb's grooves run front to back at an uneven pitch and depth, and
   the black is a step lighter so the grooves can show.
+
+- EVERY RENDER, cycle 1: the stills came out mid-stride and the portraits tilted, because the rig picks the standing
+  still (the passing pose of Stand) only when the Stand clip is named; HAIR 1's approved renders were made with it and
+  the first HAIR 2 pass was not. Measured on the rig.json: HAIR 1 'the passing pose of Stand, frame 1.02', HAIR 2 cycle 1
+  'frame 0'. Everything re-rendered with --clip Stand:1, so every cut and face stands the way his YES'd cuts stand.
+- FINGER WAVES, standing: the guide's light row (D3) read the W facing 'lit from below' by 3.7 values at cloth_black 0
+  (black waves over the black tank: HAIR 1's HEAVY FRINGE case); a step up, GREASE BACK's cloth_black 1, passes 8 of 8.
+- THE GUIDE'S FIRST FIVE (the NOT VIBE CODED gate's own checker, class person, light guide): 96 of 96 stills pass.
 
 ## 3. FACES 1: FACE SHAPES, FACIAL HAIR, MARKS
 
@@ -94,7 +102,8 @@ in the barber's TEMPLE TAPER (his UP):
 ## 5. WHAT IS NOT DONE, SAID OUT LOUD
 
 - Nothing here is in the demo or the alpha (rule 121(a): RUN TWO runs [no two people alike]; this lane hands over).
-- The person build is proven to build and render; the crowd itself (the bake, the map) is RUN TWO's row.
+- The person build is proven on three rolled Reds (built and rendered, records/target/character/barber/person_reds_0..2);
+  the crowd itself (twenty per gang, the walk clip, the bake, the map) is RUN TWO's row.
 - A beard or mark on a dialled face is placed on the default face's measure (the mouth line, the jaw line) and rides the
   dials' warp after, within a few millimetres; the face shape card and the beards card each show one change at a time.
 

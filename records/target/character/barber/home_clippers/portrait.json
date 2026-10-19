@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3963,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.396 m",
- "ppm": 323.026,
+ "head_m": 0.3953,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.395 m",
+ "ppm": 323.827,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -22,12 +22,12 @@
  ],
  "expression_files": {},
  "crop_box_px": [
-  24,
-  48,
-  196,
+  50,
+  43,
+  173,
   218
  ],
  "model": "records/character/rig/barber_home_clippers.glb",
  "body_rig": "rig.json",
- "colours": 13199
+ "colours": 13739
 }

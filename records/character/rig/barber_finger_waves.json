@@ -16,12 +16,12 @@
  "bone": "Skeleton_neck_joint_2",
  "hair_palette": [
   "cloth_black",
-  0
+  1
  ],
  "hair_rgb": [
-  20,
-  19,
-  19
+  29,
+  27,
+  27
  ],
  "skin_rgb": [
   158,

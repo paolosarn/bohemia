@@ -1,18 +1,18 @@
 {
  "engine": "CYCLES",
- "res": 242,
- "ortho_scale": 4.245614035087719,
+ "res": 210,
+ "ortho_scale": 3.6842105263157894,
  "real_dims_m": [
-  0.604,
-  1.016,
+  0.483,
+  0.409,
   1.727
  ],
- "scale_from_model": 1.1448,
- "still_frame": 0.0,
- "still": "frame 0",
+ "scale_from_model": 1.1167,
+ "still_frame": 1.021,
+ "still": "the passing pose of Stand, frame 1.02",
  "ground_screen": [
-  121.0,
-  170.22235
+  105.0,
+  154.22235
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
@@ -53,7 +53,7 @@
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1448)",
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1167)",
   "dents": {
    "meshes": 12,
    "dent_m": 0.025,
@@ -141,9 +141,9 @@
  ],
  "crop_box_px": [
   88,
-  65,
-  160,
-  188
+  53,
+  123,
+  167
  ],
  "shadow_files": [
   "records/target/character/barber/comb_over/shadow_N.png",
@@ -156,36 +156,193 @@
   "records/target/character/barber/comb_over/shadow_NW.png"
  ],
  "ground_px": [
-  33,
-  105
+  17,
+  101
  ],
  "look_px": [
-  33,
-  56
+  17,
+  52
  ],
- "colours": 6642,
+ "colours": 6300,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
- "clips": {},
+ "clips": {
+  "Stand": {
+   "keys": 1,
+   "beats": 0.3333333333333333,
+   "frame_range": [
+    1.0,
+    2.0
+   ],
+   "frames": [
+    1.5
+   ],
+   "motion_px": {
+    "N": [
+     {
+      "barber_comb_over_ring": 0.0,
+      "barber_comb_over_strands": 0.0,
+      "barberbody_hand_L": 0.0,
+      "barberbody_hand_R": 0.0,
+      "barberbody_shoe": 0.0,
+      "barberbody_trouser": 0.0,
+      "Cesium_Man": 0.0,
+      "h2_comb_over_thin": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "barber_comb_over_ring": 0.0,
+      "barber_comb_over_strands": 0.0,
+      "barberbody_hand_L": 0.0,
+      "barberbody_hand_R": 0.0,
+      "barberbody_shoe": 0.0,
+      "barberbody_trouser": 0.0,
+      "Cesium_Man": 0.0,
+      "h2_comb_over_thin": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "E": [
+     {
+      "barber_comb_over_ring": 0.0,
+      "barber_comb_over_strands": 0.0,
+      "barberbody_hand_L": 0.0,
+      "barberbody_hand_R": 0.0,
+      "barberbody_shoe": 0.0,
+      "barberbody_trouser": 0.0,
+      "Cesium_Man": 0.0,
+      "h2_comb_over_thin": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "barber_comb_over_ring": 0.0,
+      "barber_comb_over_strands": 0.0,
+      "barberbody_hand_L": 0.0,
+      "barberbody_hand_R": 0.0,
+      "barberbody_shoe": 0.0,
+      "barberbody_trouser": 0.0,
+      "Cesium_Man": 0.0,
+      "h2_comb_over_thin": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "S": [
+     {
+      "barber_comb_over_ring": 0.0,
+      "barber_comb_over_strands": 0.0,
+      "barberbody_hand_L": 0.0,
+      "barberbody_hand_R": 0.0,
+      "barberbody_shoe": 0.0,
+      "barberbody_trouser": 0.0,
+      "Cesium_Man": 0.0,
+      "h2_comb_over_thin": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "barber_comb_over_ring": 0.0,
+      "barber_comb_over_strands": 0.0,
+      "barberbody_hand_L": 0.0,
+      "barberbody_hand_R": 0.0,
+      "barberbody_shoe": 0.0,
+      "barberbody_trouser": 0.0,
+      "Cesium_Man": 0.0,
+      "h2_comb_over_thin": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "W": [
+     {
+      "barber_comb_over_ring": 0.0,
+      "barber_comb_over_strands": 0.0,
+      "barberbody_hand_L": 0.0,
+      "barberbody_hand_R": 0.0,
+      "barberbody_shoe": 0.0,
+      "barberbody_trouser": 0.0,
+      "Cesium_Man": 0.0,
+      "h2_comb_over_thin": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "barber_comb_over_ring": 0.0,
+      "barber_comb_over_strands": 0.0,
+      "barberbody_hand_L": 0.0,
+      "barberbody_hand_R": 0.0,
+      "barberbody_shoe": 0.0,
+      "barberbody_trouser": 0.0,
+      "Cesium_Man": 0.0,
+      "h2_comb_over_thin": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
+   "files": [
+    "records/target/character/barber/comb_over/rig_Stand_N_k00.png",
+    "records/target/character/barber/comb_over/rig_Stand_NE_k00.png",
+    "records/target/character/barber/comb_over/rig_Stand_E_k00.png",
+    "records/target/character/barber/comb_over/rig_Stand_SE_k00.png",
+    "records/target/character/barber/comb_over/rig_Stand_S_k00.png",
+    "records/target/character/barber/comb_over/rig_Stand_SW_k00.png",
+    "records/target/character/barber/comb_over/rig_Stand_W_k00.png",
+    "records/target/character/barber/comb_over/rig_Stand_NW_k00.png"
+   ],
+   "light_files": []
+  }
+ },
  "card": {
   "family": "prop",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 123",
-   "OUT  colours >= 2330: 1069",
-   "OK   top 8 carry <= 11%: 5.8",
+   "OK   long side >= floor 96: 114",
+   "OUT  colours >= 2330: 1153",
+   "OK   top 8 carry <= 11%: 5.3",
    "OK   value span >= 118: 119",
-   "OK   saturation <= 0.81: 0.194",
-   "OK   light: top minus bottom >= -2.5: 32.6",
-   "OK   edge between -35 and +7: -16.1",
-   "OK   grain <= 2.22 px a run: 1.74"
+   "OK   saturation <= 0.81: 0.182",
+   "OK   light: top minus bottom >= -2.5: 26.2",
+   "OK   edge between -35 and +7: -13.4",
+   "OK   grain <= 2.22 px a run: 1.65"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 3.3%",
+   "OK   stray pixels at 8 steps <= 14%: 3.2%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 264.8"
+   "OK   light from above (180 to 360 degrees, or flat): 265.3"
   ],
   "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/barber/comb_over/rig_S.png"
@@ -195,25 +352,25 @@
   "cls": "person",
   "out": 0,
   "rows": [
-   "OK   long side >= floor 96: 123",
-   "OK   colours >= 608 (field 5: the class floor, or 370 per 1,000 of 1642 px): 1069",
-   "OK   top 8 carry <= 11%: 5.8",
+   "OK   long side >= floor 96: 114",
+   "OK   colours >= 665 (field 5: the class floor, or 370 per 1,000 of 1798 px): 1153",
+   "OK   top 8 carry <= 11%: 5.3",
    "OK   value span >= 118: 119",
-   "OK   saturation <= 0.81: 0.194",
-   "OK   light: top minus bottom >= -2.5: 32.6",
-   "OK   edge between -35 and +7: -16.1",
-   "OK   grain <= 2.22 px a run: 1.74"
+   "OK   saturation <= 0.81: 0.182",
+   "OK   light: top minus bottom >= -2.5: 26.2",
+   "OK   edge between -35 and +7: -13.4",
+   "OK   grain <= 2.22 px a run: 1.65"
   ],
   "reread": [
    "colours by field 5"
   ],
   "verdict": "0 of 8 out under the style guide",
   "size_px": [
-   35,
-   112
+   28,
+   109
   ],
-  "opaque_px": 1642,
-  "colours": 1069
+  "opaque_px": 1798,
+  "colours": 1153
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -312,7 +469,15 @@
   "records/target/character/barber/comb_over/rigobj_S.png",
   "records/target/character/barber/comb_over/rigobj_SW.png",
   "records/target/character/barber/comb_over/rigobj_W.png",
-  "records/target/character/barber/comb_over/rigobj_NW.png"
+  "records/target/character/barber/comb_over/rigobj_NW.png",
+  "records/target/character/barber/comb_over/rigobj_Stand_N_k00.png",
+  "records/target/character/barber/comb_over/rigobj_Stand_NE_k00.png",
+  "records/target/character/barber/comb_over/rigobj_Stand_E_k00.png",
+  "records/target/character/barber/comb_over/rigobj_Stand_SE_k00.png",
+  "records/target/character/barber/comb_over/rigobj_Stand_S_k00.png",
+  "records/target/character/barber/comb_over/rigobj_Stand_SW_k00.png",
+  "records/target/character/barber/comb_over/rigobj_Stand_W_k00.png",
+  "records/target/character/barber/comb_over/rigobj_Stand_NW_k00.png"
  ],
  "portrait": "portrait.json"
 }

@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3951,
+ "head_m": 0.3953,
  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.395 m",
- "ppm": 323.947,
+ "ppm": 323.844,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -22,12 +22,12 @@
  ],
  "expression_files": {},
  "crop_box_px": [
-  21,
-  48,
-  208,
+  44,
+  44,
+  179,
   218
  ],
  "model": "records/character/rig/barber_box_braids.glb",
  "body_rig": "rig.json",
- "colours": 17947
+ "colours": 18797
 }

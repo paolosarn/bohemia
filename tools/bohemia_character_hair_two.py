@@ -61,7 +61,8 @@ CUTS = {
                        worn_by='Anarchists, Colorful, Blues'),
     'BOX BRAIDS': dict(tag='box_braids', bank=dict(ramp='H_BRN', vol=0, side=1.90, front=0.20, shape='braids'), hair=('clay_mustard', 1), zcap=1.0,
                        worn_by='Reds, Blues, Caravans, Colorful'),
-    'FINGER WAVES': dict(tag='finger_waves', bank=dict(ramp='H_BLK', vol=0, side=0.70, front=0.30, shape='pressed waves'), hair=H_BLK, zcap=0.3,
+    # cycle 2 (standing, the guide's light row D3 on W: 3.7 values lit from below at cloth_black 0): a step up, GREASE BACK's black
+    'FINGER WAVES': dict(tag='finger_waves', bank=dict(ramp='H_BLK', vol=0, side=0.70, front=0.30, shape='pressed waves'), hair=('cloth_black', 1), zcap=0.3,
                          worn_by='Colorful, Cartel, Network; the runway'),
     'SCORCH': dict(tag='scorch', bank=dict(ramp='H_BRN', vol=0, side=0.45, front=0.16, shape='crop, a burn scar'), hair=('clay_mustard', 0), zcap=1.0,
                    worn_by='Remnants, Mob, Trades; anyone the fire caught'),

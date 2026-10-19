@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3961,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.396 m",
- "ppm": 323.176,
+ "head_m": 0.3953,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.395 m",
+ "ppm": 323.815,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -22,12 +22,12 @@
  ],
  "expression_files": {},
  "crop_box_px": [
-  18,
-  45,
-  214,
+  41,
+  42,
+  182,
   218
  ],
  "model": "records/character/rig/barber_long_drop.glb",
  "body_rig": "rig.json",
- "colours": 16281
+ "colours": 17243
 }

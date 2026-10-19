@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3961,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.396 m",
- "ppm": 323.136,
+ "head_m": 0.3953,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.395 m",
+ "ppm": 323.828,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -22,12 +22,12 @@
  ],
  "expression_files": {},
  "crop_box_px": [
-  16,
-  44,
-  209,
+  41,
+  41,
+  182,
   218
  ],
  "model": "records/character/rig/barber_spring_curls.glb",
  "body_rig": "rig.json",
- "colours": 14967
+ "colours": 15204
 }
