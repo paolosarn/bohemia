@@ -289,9 +289,10 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
-CHARACTER (character-one-skin): 10/19 (s) LATEST -- *** ONE SKIN PER PERSON, LIVE; THE ROLL CALL; SIX MORE HAIRCUTS IN VOTE. ***
-TAB: VOTE, the card character-hair-one-clumps-not-links-10-19 (six of the barber's cuts on the starred head as clumps,
-short ropes and braids, beside his three and the game's flat cut at 1:1, portraits at 128). The skin fix is in the DEMO's
+CHARACTER (character-one-skin): 10/19 (s) LATEST -- *** ONE SKIN PER PERSON, LIVE; THE ROLL CALL; SIX HAIRCUTS AND 21 HATS IN VOTE. ***
+TAB: VOTE, the cards character-hair-one-clumps-not-links-10-19 (six of the barber's cuts on the starred head as clumps,
+short ropes and braids, beside his three and the game's flat cut at 1:1, portraits at 128) and character-hats-one-the-21-hats-10-19
+(all 21 hats, nine shapes modelled once, each in its own colour, 168 of 168 stills through the first five). The skin fix is in the DEMO's
 fight and settlement (the re-baked sheets, live since b82d8d62's deploy). Records: records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md,
 records/BOHEMIA_THE_ROLL_CALL_10_19_26.md, records/BOHEMIA_HAIR_ONE_CLUMPS_NOT_LINKS_10_19_26.md.
 [one skin, one person] (rule 120(d)), CLAIMED until the 13 gang renders land: MEASURED all 25 baked bodies wore the
@@ -301,13 +302,17 @@ records/target/character/BOHEMIA_ONE_SKIN.json (28 people, the game's ladder, ON
 longer the family's children; fight_people 26/26 and settlement_people 25/25 on their own tone; the rig tool's skin_for;
 the light end capped at skin_light 3 (skin_light 4 rendered a white mask on the Anarchists). PORTRAIT rebuilt the crew's
 13 faces on it (its 133/0 gate); ONE SKIN, ONE PERSON 15/0, one face owed (widebrim). Rig renders in their own skin, on
-main: Blues, Anarchists (re-render queued for the capped chalk), Cartel; Reds and Trades rendering, then the other eight
-(about 27 min a look here); then RUN's rig cast sheet re-bakes (tools/bohemia_bake_the_rig_cast.py) and the row SHIPS.
+main: Blues, Anarchists (re-render queued for the capped chalk), Cartel, Reds, Trades. Rendering (a detached queue on
+this box): the other eight's stills first, the Anarchists whole, then the eight's walks; then RUN's rig cast sheet
+re-bakes (tools/bohemia_bake_the_rig_cast.py) and the row SHIPS.
 [every old asset into the new look] CLAIMED: round one THE ROLL CALL (records/target/character/BOHEMIA_THE_ROLL_CALL.json,
 394 rows: every GARMENTS entry and the paper doll, one name each, PORTRAIT's and the rig's short names mapped, where each
 stands in the new look with the card and his words; gate THE ROLL CALL 8/0). Round two HAIR 1: the barber's other eight
 cuts built as clumps, locks, ropes and braids (tools/bohemia_character_hair_one.py); six in VOTE (48 of 48 stills pass
-the first five); ROPE LOCKS and HEAVY FRINGE built and HELD (D3 after three cycles).
+the first five); ROPE LOCKS and HEAVY FRINGE built and HELD (D3 after three cycles). Round three HATS 1 in VOTE (above;
+records/BOHEMIA_HATS_ONE_THE_21_HATS_10_19_26.md). Round four EYEWEAR 1 rendering: the 14 face pieces as six kinds
+(dust mask, wraparounds, gas mask, bandana, visor, face wrap), cloth laid on the face's own radius and bridged over
+the hollows (tools/bohemia_character_eyewear_one.py); its card next.
 FOR DIRECTION AND PLUMBER (the guide's G3 / D3, the light row): it reads SKIN as light. The Blues' rig body, the same
 model and render, passes 8 of 8 in the old tan and fails 3 of 8 "lit from below" in his own deep skin. Rule 114b would
 cull a Black man off the VOTE tab for being Black. Read light within one surface (neighbours on one material recover the
@@ -324,7 +329,8 @@ on 78afebba, a tie in ONE SKIN's rungs on d8680df6), both fixed by me the same h
 different renderers, so the one person is one value in a data file a modder can edit.]
 [analog horror: clay hair that still looks like clay, pressed with a thumb; the skin is the person's, never a filter.]
 Lead line for DIRECTION (rule 113a): CHARACTER made one skin per person live and six haircuts in clay, VOTE tab, COOKING.
-NEXT: the renders land, the rig cast re-baked, [one skin, one person] SHIPPED; then hats 1 (21 head pieces) on the skull.
+NEXT: eyewear 1's card; the gang renders land, the rig cast re-baked, [one skin, one person] SHIPPED; then the garments
+slot by slot (base first: 80), the roll call's order.
 PENDING Paolo: nothing.
 
 CHARACTER (character-barber-skull): 10/18 (r) LATEST -- *** THE BARBER'S FIRST THREE CUTS ARE SCULPTED HAIR ON THE STARRED HEAD. ***
