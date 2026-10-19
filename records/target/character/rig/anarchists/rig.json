@@ -10,6 +10,10 @@
  "scale_from_model": 1.1419,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
+ "ground_screen": [
+  109.0,
+  159.78985
+ ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
@@ -28,16 +32,32 @@
    "anarchists_skin",
    "anarchists_trousers"
   ],
+  "wear_by_material": {
+   "anarchists_hair": 0.15,
+   "anarchists_hair_fall": 0.15,
+   "anarchists_skin": 0.25,
+   "anarchists_eyes": 0.0
+  },
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1419)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1419)",
+  "dents": {
+   "meshes": 10,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -62,8 +82,20 @@
   "anarchists_skin": "#ecff19",
   "anarchists_trousers": "#ce19ff"
  },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "anarchists_coat": "#ff6cc7",
+  "anarchists_coat_skirt": "#6ce9ff",
+  "anarchists_hair": "#fff86c",
+  "anarchists_hair_fall": "#d86cff",
+  "anarchists_hand_L": "#6cffb1",
+  "anarchists_hand_R": "#ff796c",
+  "anarchists_hat": "#6ca1ff",
+  "anarchists_hat_brim": "#ccff6c",
+  "anarchists_shoe": "#ff6cee"
+ },
  "model": "records/character/rig/anarchists.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -97,7 +129,7 @@
   "records/target/character/rig/anarchists/rig_NW.png"
  ],
  "crop_box_px": [
-  67,
+  68,
   47,
   151,
   178
@@ -113,10 +145,14 @@
   "records/target/character/rig/anarchists/shadow_NW.png"
  ],
  "ground_px": [
-  42,
+  41,
+  113
+ ],
+ "look_px": [
+  41,
   62
  ],
- "colours": 31220,
+ "colours": 33284,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -131,6 +167,124 @@
    "frames": [
     1.5
    ],
+   "motion_px": {
+    "N": [
+     {
+      "anarchists_coat": 0.0,
+      "anarchists_coat_skirt": 0.0,
+      "anarchists_hair": 0.0,
+      "anarchists_hair_fall": 0.0,
+      "anarchists_hand_L": 0.0,
+      "anarchists_hand_R": 0.0,
+      "anarchists_hat": 0.0,
+      "anarchists_hat_brim": 0.0,
+      "anarchists_shoe": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "anarchists_coat": 0.0,
+      "anarchists_coat_skirt": 0.0,
+      "anarchists_hair": 0.0,
+      "anarchists_hair_fall": 0.0,
+      "anarchists_hand_L": 0.0,
+      "anarchists_hand_R": 0.0,
+      "anarchists_hat": 0.0,
+      "anarchists_hat_brim": 0.0,
+      "anarchists_shoe": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "E": [
+     {
+      "anarchists_coat": 0.0,
+      "anarchists_coat_skirt": 0.0,
+      "anarchists_hair": 0.0,
+      "anarchists_hair_fall": 0.0,
+      "anarchists_hand_L": 0.0,
+      "anarchists_hand_R": 0.0,
+      "anarchists_hat": 0.0,
+      "anarchists_hat_brim": 0.0,
+      "anarchists_shoe": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "anarchists_coat": 0.0,
+      "anarchists_coat_skirt": 0.0,
+      "anarchists_hair": 0.0,
+      "anarchists_hair_fall": 0.0,
+      "anarchists_hand_L": 0.0,
+      "anarchists_hand_R": 0.0,
+      "anarchists_hat": 0.0,
+      "anarchists_hat_brim": 0.0,
+      "anarchists_shoe": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "S": [
+     {
+      "anarchists_coat": 0.0,
+      "anarchists_coat_skirt": 0.0,
+      "anarchists_hair": 0.0,
+      "anarchists_hair_fall": 0.0,
+      "anarchists_hand_L": 0.0,
+      "anarchists_hand_R": 0.0,
+      "anarchists_hat": 0.0,
+      "anarchists_hat_brim": 0.0,
+      "anarchists_shoe": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "anarchists_coat": 0.0,
+      "anarchists_coat_skirt": 0.0,
+      "anarchists_hair": 0.0,
+      "anarchists_hair_fall": 0.0,
+      "anarchists_hand_L": 0.0,
+      "anarchists_hand_R": 0.0,
+      "anarchists_hat": 0.0,
+      "anarchists_hat_brim": 0.0,
+      "anarchists_shoe": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "W": [
+     {
+      "anarchists_coat": 0.0,
+      "anarchists_coat_skirt": 0.0,
+      "anarchists_hair": 0.0,
+      "anarchists_hair_fall": 0.0,
+      "anarchists_hand_L": 0.0,
+      "anarchists_hand_R": 0.0,
+      "anarchists_hat": 0.0,
+      "anarchists_hat_brim": 0.0,
+      "anarchists_shoe": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "anarchists_coat": 0.0,
+      "anarchists_coat_skirt": 0.0,
+      "anarchists_hair": 0.0,
+      "anarchists_hair_fall": 0.0,
+      "anarchists_hand_L": 0.0,
+      "anarchists_hand_R": 0.0,
+      "anarchists_hat": 0.0,
+      "anarchists_hat_brim": 0.0,
+      "anarchists_shoe": 0.0,
+      "Cesium_Man": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/anarchists/rig_Stand_N_k00.png",
     "records/target/character/rig/anarchists/rig_Stand_NE_k00.png",
@@ -140,7 +294,8 @@
     "records/target/character/rig/anarchists/rig_Stand_SW_k00.png",
     "records/target/character/rig/anarchists/rig_Stand_W_k00.png",
     "records/target/character/rig/anarchists/rig_Stand_NW_k00.png"
-   ]
+   ],
+   "light_files": []
   },
   "Anim_0": {
    "keys": 6,
@@ -157,6 +312,604 @@
     36.0,
     44.0
    ],
+   "motion_px": {
+    "N": [
+     {
+      "anarchists_coat": 7.709,
+      "anarchists_coat_skirt": 10.8,
+      "anarchists_hair": 4.349,
+      "anarchists_hair_fall": 3.789,
+      "anarchists_hand_L": 7.238,
+      "anarchists_hand_R": 8.988,
+      "anarchists_hat": 4.381,
+      "anarchists_hat_brim": 4.375,
+      "anarchists_shoe": 19.91,
+      "Cesium_Man": 19.301
+     },
+     {
+      "anarchists_coat": 20.858,
+      "anarchists_coat_skirt": 28.657,
+      "anarchists_hair": 7.675,
+      "anarchists_hair_fall": 7.3,
+      "anarchists_hand_L": 17.658,
+      "anarchists_hand_R": 25.78,
+      "anarchists_hat": 7.811,
+      "anarchists_hat_brim": 8.074,
+      "anarchists_shoe": 21.271,
+      "Cesium_Man": 21.389
+     },
+     {
+      "anarchists_coat": 11.062,
+      "anarchists_coat_skirt": 18.99,
+      "anarchists_hair": 2.476,
+      "anarchists_hair_fall": 2.346,
+      "anarchists_hand_L": 15.417,
+      "anarchists_hand_R": 7.307,
+      "anarchists_hat": 2.542,
+      "anarchists_hat_brim": 2.633,
+      "anarchists_shoe": 18.831,
+      "Cesium_Man": 17.899
+     },
+     {
+      "anarchists_coat": 13.177,
+      "anarchists_coat_skirt": 13.225,
+      "anarchists_hair": 4.54,
+      "anarchists_hair_fall": 4.662,
+      "anarchists_hand_L": 14.993,
+      "anarchists_hand_R": 13.621,
+      "anarchists_hat": 4.633,
+      "anarchists_hat_brim": 4.737,
+      "anarchists_shoe": 21.767,
+      "Cesium_Man": 21.148
+     },
+     {
+      "anarchists_coat": 20.603,
+      "anarchists_coat_skirt": 32.062,
+      "anarchists_hair": 10.689,
+      "anarchists_hair_fall": 9.792,
+      "anarchists_hand_L": 23.57,
+      "anarchists_hand_R": 13.016,
+      "anarchists_hat": 10.858,
+      "anarchists_hat_brim": 11.139,
+      "anarchists_shoe": 25.33,
+      "Cesium_Man": 24.71
+     },
+     {
+      "anarchists_coat": 9.737,
+      "anarchists_coat_skirt": 22.092,
+      "anarchists_hair": 4.675,
+      "anarchists_hair_fall": 4.898,
+      "anarchists_hand_L": 5.316,
+      "anarchists_hand_R": 15.056,
+      "anarchists_hat": 4.417,
+      "anarchists_hat_brim": 4.455,
+      "anarchists_shoe": 17.453,
+      "Cesium_Man": 17.105
+     }
+    ],
+    "NE": [
+     {
+      "anarchists_coat": 9.632,
+      "anarchists_coat_skirt": 12.085,
+      "anarchists_hair": 6.592,
+      "anarchists_hair_fall": 5.881,
+      "anarchists_hand_L": 7.684,
+      "anarchists_hand_R": 11.36,
+      "anarchists_hat": 6.666,
+      "anarchists_hat_brim": 6.754,
+      "anarchists_shoe": 20.139,
+      "Cesium_Man": 19.66
+     },
+     {
+      "anarchists_coat": 21.616,
+      "anarchists_coat_skirt": 28.021,
+      "anarchists_hair": 7.556,
+      "anarchists_hair_fall": 6.66,
+      "anarchists_hand_L": 19.212,
+      "anarchists_hand_R": 27.45,
+      "anarchists_hat": 7.652,
+      "anarchists_hat_brim": 7.877,
+      "anarchists_shoe": 22.707,
+      "Cesium_Man": 22.321
+     },
+     {
+      "anarchists_coat": 11.75,
+      "anarchists_coat_skirt": 18.34,
+      "anarchists_hair": 3.851,
+      "anarchists_hair_fall": 3.792,
+      "anarchists_hand_L": 16.44,
+      "anarchists_hand_R": 7.057,
+      "anarchists_hat": 3.905,
+      "anarchists_hat_brim": 4.01,
+      "anarchists_shoe": 21.519,
+      "Cesium_Man": 20.566
+     },
+     {
+      "anarchists_coat": 12.307,
+      "anarchists_coat_skirt": 15.818,
+      "anarchists_hair": 4.513,
+      "anarchists_hair_fall": 4.628,
+      "anarchists_hand_L": 13.876,
+      "anarchists_hand_R": 13.796,
+      "anarchists_hat": 4.628,
+      "anarchists_hat_brim": 4.75,
+      "anarchists_shoe": 21.994,
+      "Cesium_Man": 21.349
+     },
+     {
+      "anarchists_coat": 21.502,
+      "anarchists_coat_skirt": 31.178,
+      "anarchists_hair": 8.353,
+      "anarchists_hair_fall": 7.775,
+      "anarchists_hand_L": 25.149,
+      "anarchists_hand_R": 14.887,
+      "anarchists_hat": 8.46,
+      "anarchists_hat_brim": 8.617,
+      "anarchists_shoe": 31.432,
+      "Cesium_Man": 30.822
+     },
+     {
+      "anarchists_coat": 10.983,
+      "anarchists_coat_skirt": 21.282,
+      "anarchists_hair": 3.501,
+      "anarchists_hair_fall": 4.219,
+      "anarchists_hand_L": 6.892,
+      "anarchists_hand_R": 16.137,
+      "anarchists_hat": 3.144,
+      "anarchists_hat_brim": 3.162,
+      "anarchists_shoe": 16.866,
+      "Cesium_Man": 16.409
+     }
+    ],
+    "E": [
+     {
+      "anarchists_coat": 9.739,
+      "anarchists_coat_skirt": 12.62,
+      "anarchists_hair": 7.403,
+      "anarchists_hair_fall": 6.684,
+      "anarchists_hand_L": 7.829,
+      "anarchists_hand_R": 11.856,
+      "anarchists_hat": 7.459,
+      "anarchists_hat_brim": 7.596,
+      "anarchists_shoe": 18.871,
+      "Cesium_Man": 18.485
+     },
+     {
+      "anarchists_coat": 24.205,
+      "anarchists_coat_skirt": 26.007,
+      "anarchists_hair": 6.91,
+      "anarchists_hair_fall": 5.807,
+      "anarchists_hand_L": 21.406,
+      "anarchists_hand_R": 31.44,
+      "anarchists_hat": 7.117,
+      "anarchists_hat_brim": 7.396,
+      "anarchists_shoe": 29.004,
+      "Cesium_Man": 28.717
+     },
+     {
+      "anarchists_coat": 12.514,
+      "anarchists_coat_skirt": 15.685,
+      "anarchists_hair": 4.704,
+      "anarchists_hair_fall": 4.796,
+      "anarchists_hand_L": 18.879,
+      "anarchists_hand_R": 7.724,
+      "anarchists_hat": 4.836,
+      "anarchists_hat_brim": 4.949,
+      "anarchists_shoe": 27.921,
+      "Cesium_Man": 25.47
+     },
+     {
+      "anarchists_coat": 15.471,
+      "anarchists_coat_skirt": 17.923,
+      "anarchists_hair": 3.937,
+      "anarchists_hair_fall": 4.04,
+      "anarchists_hand_L": 17.639,
+      "anarchists_hand_R": 13.36,
+      "anarchists_hat": 4.02,
+      "anarchists_hat_brim": 4.156,
+      "anarchists_shoe": 21.314,
+      "Cesium_Man": 20.585
+     },
+     {
+      "anarchists_coat": 19.814,
+      "anarchists_coat_skirt": 26.863,
+      "anarchists_hair": 7.176,
+      "anarchists_hair_fall": 6.955,
+      "anarchists_hand_L": 23.77,
+      "anarchists_hand_R": 15.872,
+      "anarchists_hat": 7.47,
+      "anarchists_hat_brim": 7.775,
+      "anarchists_shoe": 38.114,
+      "Cesium_Man": 36.863
+     },
+     {
+      "anarchists_coat": 14.134,
+      "anarchists_coat_skirt": 18.481,
+      "anarchists_hair": 2.839,
+      "anarchists_hair_fall": 3.844,
+      "anarchists_hand_L": 8.035,
+      "anarchists_hand_R": 21.056,
+      "anarchists_hat": 2.858,
+      "anarchists_hat_brim": 2.879,
+      "anarchists_shoe": 24.565,
+      "Cesium_Man": 23.963
+     }
+    ],
+    "SE": [
+     {
+      "anarchists_coat": 8.238,
+      "anarchists_coat_skirt": 14.171,
+      "anarchists_hair": 7.492,
+      "anarchists_hair_fall": 6.797,
+      "anarchists_hand_L": 5.916,
+      "anarchists_hand_R": 10.804,
+      "anarchists_hat": 7.563,
+      "anarchists_hat_brim": 7.698,
+      "anarchists_shoe": 16.077,
+      "Cesium_Man": 15.821
+     },
+     {
+      "anarchists_coat": 21.045,
+      "anarchists_coat_skirt": 23.17,
+      "anarchists_hair": 7.019,
+      "anarchists_hair_fall": 5.765,
+      "anarchists_hand_L": 19.577,
+      "anarchists_hand_R": 28.056,
+      "anarchists_hat": 7.302,
+      "anarchists_hat_brim": 7.56,
+      "anarchists_shoe": 28.104,
+      "Cesium_Man": 27.765
+     },
+     {
+      "anarchists_coat": 11.109,
+      "anarchists_coat_skirt": 11.326,
+      "anarchists_hair": 5.071,
+      "anarchists_hair_fall": 5.068,
+      "anarchists_hand_L": 17.394,
+      "anarchists_hand_R": 7.272,
+      "anarchists_hat": 5.156,
+      "anarchists_hat_brim": 5.258,
+      "anarchists_shoe": 33.17,
+      "Cesium_Man": 29.95
+     },
+     {
+      "anarchists_coat": 15.999,
+      "anarchists_coat_skirt": 19.417,
+      "anarchists_hair": 2.799,
+      "anarchists_hair_fall": 3.095,
+      "anarchists_hand_L": 19.478,
+      "anarchists_hand_R": 9.779,
+      "anarchists_hat": 2.84,
+      "anarchists_hat_brim": 3.001,
+      "anarchists_shoe": 19.058,
+      "Cesium_Man": 17.635
+     },
+     {
+      "anarchists_coat": 13.306,
+      "anarchists_coat_skirt": 20.125,
+      "anarchists_hair": 8.294,
+      "anarchists_hair_fall": 7.238,
+      "anarchists_hand_L": 17.084,
+      "anarchists_hand_R": 13.07,
+      "anarchists_hat": 8.403,
+      "anarchists_hat_brim": 8.722,
+      "anarchists_shoe": 35.38,
+      "Cesium_Man": 34.303
+     },
+     {
+      "anarchists_coat": 14.719,
+      "anarchists_coat_skirt": 14.394,
+      "anarchists_hair": 4.139,
+      "anarchists_hair_fall": 4.259,
+      "anarchists_hand_L": 7.657,
+      "anarchists_hand_R": 22.526,
+      "anarchists_hat": 4.159,
+      "anarchists_hat_brim": 4.197,
+      "anarchists_shoe": 29.155,
+      "Cesium_Man": 28.429
+     }
+    ],
+    "S": [
+     {
+      "anarchists_coat": 8.328,
+      "anarchists_coat_skirt": 14.448,
+      "anarchists_hair": 7.291,
+      "anarchists_hair_fall": 6.577,
+      "anarchists_hand_L": 3.561,
+      "anarchists_hand_R": 10.853,
+      "anarchists_hat": 7.348,
+      "anarchists_hat_brim": 7.478,
+      "anarchists_shoe": 13.709,
+      "Cesium_Man": 13.524
+     },
+     {
+      "anarchists_coat": 15.94,
+      "anarchists_coat_skirt": 19.095,
+      "anarchists_hair": 7.633,
+      "anarchists_hair_fall": 5.16,
+      "anarchists_hand_L": 14.857,
+      "anarchists_hand_R": 21.502,
+      "anarchists_hat": 7.744,
+      "anarchists_hat_brim": 7.974,
+      "anarchists_shoe": 27.542,
+      "Cesium_Man": 27.017
+     },
+     {
+      "anarchists_coat": 9.038,
+      "anarchists_coat_skirt": 9.326,
+      "anarchists_hair": 5.084,
+      "anarchists_hair_fall": 5.031,
+      "anarchists_hand_L": 15.179,
+      "anarchists_hand_R": 5.541,
+      "anarchists_hat": 5.127,
+      "anarchists_hat_brim": 5.229,
+      "anarchists_shoe": 34.412,
+      "Cesium_Man": 30.828
+     },
+     {
+      "anarchists_coat": 13.318,
+      "anarchists_coat_skirt": 19.771,
+      "anarchists_hair": 3.265,
+      "anarchists_hair_fall": 3.322,
+      "anarchists_hand_L": 17.351,
+      "anarchists_hand_R": 3.719,
+      "anarchists_hat": 2.945,
+      "anarchists_hat_brim": 3.071,
+      "anarchists_shoe": 15.995,
+      "Cesium_Man": 15.143
+     },
+     {
+      "anarchists_coat": 9.745,
+      "anarchists_coat_skirt": 15.335,
+      "anarchists_hair": 10.067,
+      "anarchists_hair_fall": 7.046,
+      "anarchists_hand_L": 11.753,
+      "anarchists_hand_R": 11.148,
+      "anarchists_hat": 10.179,
+      "anarchists_hat_brim": 10.217,
+      "anarchists_shoe": 30.884,
+      "Cesium_Man": 29.934
+     },
+     {
+      "anarchists_coat": 13.967,
+      "anarchists_coat_skirt": 12.003,
+      "anarchists_hair": 5.2,
+      "anarchists_hair_fall": 4.777,
+      "anarchists_hand_L": 7.405,
+      "anarchists_hand_R": 21.351,
+      "anarchists_hat": 5.224,
+      "anarchists_hat_brim": 5.27,
+      "anarchists_shoe": 30.304,
+      "Cesium_Man": 29.58
+     }
+    ],
+    "SW": [
+     {
+      "anarchists_coat": 9.812,
+      "anarchists_coat_skirt": 14.21,
+      "anarchists_hair": 6.11,
+      "anarchists_hair_fall": 5.486,
+      "anarchists_hand_L": 5.54,
+      "anarchists_hand_R": 11.877,
+      "anarchists_hat": 6.178,
+      "anarchists_hat_brim": 6.254,
+      "anarchists_shoe": 16.94,
+      "Cesium_Man": 16.664
+     },
+     {
+      "anarchists_coat": 18.728,
+      "anarchists_coat_skirt": 22.409,
+      "anarchists_hair": 7.777,
+      "anarchists_hair_fall": 6.237,
+      "anarchists_hand_L": 16.547,
+      "anarchists_hand_R": 24.874,
+      "anarchists_hat": 7.874,
+      "anarchists_hat_brim": 8.122,
+      "anarchists_shoe": 27.981,
+      "Cesium_Man": 27.435
+     },
+     {
+      "anarchists_coat": 9.864,
+      "anarchists_coat_skirt": 11.888,
+      "anarchists_hair": 4.718,
+      "anarchists_hair_fall": 4.574,
+      "anarchists_hand_L": 16.19,
+      "anarchists_hand_R": 5.458,
+      "anarchists_hat": 4.68,
+      "anarchists_hat_brim": 4.777,
+      "anarchists_shoe": 33.403,
+      "Cesium_Man": 30.044
+     },
+     {
+      "anarchists_coat": 12.247,
+      "anarchists_coat_skirt": 19.277,
+      "anarchists_hair": 4.024,
+      "anarchists_hair_fall": 3.436,
+      "anarchists_hand_L": 15.993,
+      "anarchists_hand_R": 7.505,
+      "anarchists_hat": 4.122,
+      "anarchists_hat_brim": 4.256,
+      "anarchists_shoe": 18.703,
+      "Cesium_Man": 17.349
+     },
+     {
+      "anarchists_coat": 15.591,
+      "anarchists_coat_skirt": 19.85,
+      "anarchists_hair": 10.854,
+      "anarchists_hair_fall": 9.562,
+      "anarchists_hand_L": 18.641,
+      "anarchists_hand_R": 14.105,
+      "anarchists_hat": 11.043,
+      "anarchists_hat_brim": 11.333,
+      "anarchists_shoe": 35.15,
+      "Cesium_Man": 34.08
+     },
+     {
+      "anarchists_coat": 14.413,
+      "anarchists_coat_skirt": 13.962,
+      "anarchists_hair": 5.676,
+      "anarchists_hair_fall": 5.127,
+      "anarchists_hand_L": 8.008,
+      "anarchists_hand_R": 21.965,
+      "anarchists_hat": 5.714,
+      "anarchists_hat_brim": 5.756,
+      "anarchists_shoe": 29.321,
+      "Cesium_Man": 28.584
+     }
+    ],
+    "W": [
+     {
+      "anarchists_coat": 9.536,
+      "anarchists_coat_skirt": 12.673,
+      "anarchists_hair": 3.432,
+      "anarchists_hair_fall": 3.305,
+      "anarchists_hand_L": 7.678,
+      "anarchists_hand_R": 11.282,
+      "anarchists_hat": 3.471,
+      "anarchists_hat_brim": 3.525,
+      "anarchists_shoe": 18.896,
+      "Cesium_Man": 18.508
+     },
+     {
+      "anarchists_coat": 23.231,
+      "anarchists_coat_skirt": 25.965,
+      "anarchists_hair": 7.466,
+      "anarchists_hair_fall": 7.246,
+      "anarchists_hand_L": 21.068,
+      "anarchists_hand_R": 30.895,
+      "anarchists_hat": 7.681,
+      "anarchists_hat_brim": 8.012,
+      "anarchists_shoe": 29.275,
+      "Cesium_Man": 29.049
+     },
+     {
+      "anarchists_coat": 12.184,
+      "anarchists_coat_skirt": 15.769,
+      "anarchists_hair": 4.009,
+      "anarchists_hair_fall": 3.606,
+      "anarchists_hand_L": 18.653,
+      "anarchists_hand_R": 7.19,
+      "anarchists_hat": 3.5,
+      "anarchists_hat_brim": 3.598,
+      "anarchists_shoe": 28.619,
+      "Cesium_Man": 25.795
+     },
+     {
+      "anarchists_coat": 15.204,
+      "anarchists_coat_skirt": 17.871,
+      "anarchists_hair": 4.444,
+      "anarchists_hair_fall": 4.27,
+      "anarchists_hand_L": 18.534,
+      "anarchists_hand_R": 12.146,
+      "anarchists_hat": 4.52,
+      "anarchists_hat_brim": 4.639,
+      "anarchists_shoe": 21.334,
+      "Cesium_Man": 20.566
+     },
+     {
+      "anarchists_coat": 21.043,
+      "anarchists_coat_skirt": 25.738,
+      "anarchists_hair": 10.771,
+      "anarchists_hair_fall": 10.082,
+      "anarchists_hand_L": 24.849,
+      "anarchists_hand_R": 16.003,
+      "anarchists_hat": 10.933,
+      "anarchists_hat_brim": 11.254,
+      "anarchists_shoe": 38.175,
+      "Cesium_Man": 36.933
+     },
+     {
+      "anarchists_coat": 14.584,
+      "anarchists_coat_skirt": 18.158,
+      "anarchists_hair": 5.714,
+      "anarchists_hair_fall": 5.393,
+      "anarchists_hand_L": 7.45,
+      "anarchists_hand_R": 22.337,
+      "anarchists_hat": 5.743,
+      "anarchists_hat_brim": 5.792,
+      "anarchists_shoe": 25.033,
+      "Cesium_Man": 24.387
+     }
+    ],
+    "NW": [
+     {
+      "anarchists_coat": 7.639,
+      "anarchists_coat_skirt": 11.878,
+      "anarchists_hair": 2.199,
+      "anarchists_hair_fall": 2.466,
+      "anarchists_hand_L": 7.807,
+      "anarchists_hand_R": 8.889,
+      "anarchists_hat": 2.299,
+      "anarchists_hat_brim": 2.454,
+      "anarchists_shoe": 20.152,
+      "Cesium_Man": 19.638
+     },
+     {
+      "anarchists_coat": 23.669,
+      "anarchists_coat_skirt": 27.924,
+      "anarchists_hair": 7.35,
+      "anarchists_hair_fall": 7.297,
+      "anarchists_hand_L": 20.35,
+      "anarchists_hand_R": 30.372,
+      "anarchists_hat": 7.478,
+      "anarchists_hat_brim": 7.805,
+      "anarchists_shoe": 23.929,
+      "Cesium_Man": 24.553
+     },
+     {
+      "anarchists_coat": 12.3,
+      "anarchists_coat_skirt": 18.376,
+      "anarchists_hair": 2.971,
+      "anarchists_hair_fall": 2.918,
+      "anarchists_hand_L": 17.607,
+      "anarchists_hand_R": 7.789,
+      "anarchists_hat": 2.055,
+      "anarchists_hat_brim": 2.172,
+      "anarchists_shoe": 21.022,
+      "Cesium_Man": 20.083
+     },
+     {
+      "anarchists_coat": 16.137,
+      "anarchists_coat_skirt": 15.392,
+      "anarchists_hair": 4.541,
+      "anarchists_hair_fall": 4.649,
+      "anarchists_hand_L": 19.058,
+      "anarchists_hand_R": 13.844,
+      "anarchists_hat": 4.653,
+      "anarchists_hat_brim": 4.766,
+      "anarchists_shoe": 22.009,
+      "Cesium_Man": 21.368
+     },
+     {
+      "anarchists_coat": 21.125,
+      "anarchists_coat_skirt": 30.797,
+      "anarchists_hair": 10.772,
+      "anarchists_hair_fall": 10.08,
+      "anarchists_hand_L": 24.632,
+      "anarchists_hand_R": 14.521,
+      "anarchists_hat": 10.987,
+      "anarchists_hat_brim": 11.3,
+      "anarchists_shoe": 31.859,
+      "Cesium_Man": 31.27
+     },
+     {
+      "anarchists_coat": 12.939,
+      "anarchists_coat_skirt": 21.155,
+      "anarchists_hair": 5.376,
+      "anarchists_hair_fall": 5.334,
+      "anarchists_hand_L": 5.598,
+      "anarchists_hand_R": 18.266,
+      "anarchists_hat": 5.358,
+      "anarchists_hat_brim": 5.416,
+      "anarchists_shoe": 16.892,
+      "Cesium_Man": 16.425
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/anarchists/rig_Anim_0_N_k00.png",
     "records/target/character/rig/anarchists/rig_Anim_0_N_k01.png",
@@ -206,55 +959,56 @@
     "records/target/character/rig/anarchists/rig_Anim_0_NW_k03.png",
     "records/target/character/rig/anarchists/rig_Anim_0_NW_k04.png",
     "records/target/character/rig/anarchists/rig_Anim_0_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   }
  },
  "card": {
   "family": "prop",
-  "out": 3,
+  "out": 1,
   "rows": [
    "OK   long side >= floor 96: 131",
-   "OUT  colours >= 2330: 1922",
-   "OK   top 8 carry <= 11%: 1.9",
-   "OUT  value span >= 118: 87",
-   "OK   saturation <= 0.81: 0.318",
-   "OUT  light: top minus bottom >= -2.5: -5.6",
-   "OK   edge between -35 and +7: -13.8",
-   "OK   grain <= 2.22 px a run: 1.82"
+   "OUT  colours >= 2330: 1926",
+   "OK   top 8 carry <= 11%: 2.9",
+   "OK   value span >= 118: 173",
+   "OK   saturation <= 0.81: 0.25",
+   "OK   light: top minus bottom >= -2.5: 22.1",
+   "OK   edge between -35 and +7: -12.6",
+   "OK   grain <= 2.22 px a run: 1.77"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.8%",
+   "OK   stray pixels at 8 steps <= 14%: 4.0%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OUT  light from above (180 to 360 degrees, or flat): 134.5"
+   "OK   light from above (180 to 360 degrees, or flat): 262.2"
   ],
-  "verdict": "3 of 8 out -> BACK before VOTE",
+  "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/anarchists/rig_S.png"
  },
  "cls": "person",
  "card_guide": {
   "cls": "person",
-  "out": 2,
+  "out": 0,
   "rows": [
    "OK   long side >= floor 96: 131",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2425 px): 1922",
-   "OK   top 8 carry <= 11%: 1.9",
-   "OUT  value span >= 118: 87",
-   "OK   saturation <= 0.81: 0.318",
-   "OUT  light: top minus bottom >= -2.5: -5.6",
-   "OK   edge between -35 and +7: -13.8",
-   "OK   grain <= 2.22 px a run: 1.82"
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2430 px): 1926",
+   "OK   top 8 carry <= 11%: 2.9",
+   "OK   value span >= 118: 173",
+   "OK   saturation <= 0.81: 0.25",
+   "OK   light: top minus bottom >= -2.5: 22.1",
+   "OK   edge between -35 and +7: -12.6",
+   "OK   grain <= 2.22 px a run: 1.77"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "2 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
-   28,
-   113
+   29,
+   114
   ],
-  "opaque_px": 2425,
-  "colours": 1922
+  "opaque_px": 2430,
+  "colours": 1926
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -303,7 +1057,32 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "breaks": [],
  "guide": {
@@ -319,5 +1098,71 @@
   "records/target/character/rig/anarchists/rigid_SW.png",
   "records/target/character/rig/anarchists/rigid_W.png",
   "records/target/character/rig/anarchists/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/character/rig/anarchists/rigobj_N.png",
+  "records/target/character/rig/anarchists/rigobj_NE.png",
+  "records/target/character/rig/anarchists/rigobj_E.png",
+  "records/target/character/rig/anarchists/rigobj_SE.png",
+  "records/target/character/rig/anarchists/rigobj_S.png",
+  "records/target/character/rig/anarchists/rigobj_SW.png",
+  "records/target/character/rig/anarchists/rigobj_W.png",
+  "records/target/character/rig/anarchists/rigobj_NW.png",
+  "records/target/character/rig/anarchists/rigobj_Stand_N_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Stand_NE_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Stand_E_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Stand_SE_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Stand_S_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Stand_SW_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Stand_W_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Stand_NW_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_N_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_N_k01.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_N_k02.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_N_k03.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_N_k04.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_N_k05.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NE_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NE_k01.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NE_k02.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NE_k03.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NE_k04.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NE_k05.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_E_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_E_k01.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_E_k02.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_E_k03.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_E_k04.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_E_k05.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SE_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SE_k01.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SE_k02.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SE_k03.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SE_k04.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SE_k05.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_S_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_S_k01.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_S_k02.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_S_k03.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_S_k04.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_S_k05.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SW_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SW_k01.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SW_k02.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SW_k03.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SW_k04.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_SW_k05.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_W_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_W_k01.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_W_k02.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_W_k03.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_W_k04.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_W_k05.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NW_k00.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NW_k01.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NW_k02.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NW_k03.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NW_k04.png",
+  "records/target/character/rig/anarchists/rigobj_Anim_0_NW_k05.png"
  ]
 }
