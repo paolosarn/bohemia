@@ -1,0 +1,96 @@
+{
+ "look": "G_longline_jersey",
+ "shape": "the barber's mannequin in LONGLINE JERSEY (THE RUNWAY CUTS)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "LONGLINE JERSEY",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_longline_jersey.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_longline_jersey_trouser": 2568,
+  "g_longline_jersey_shoe": 3916,
+  "g_longline_jersey_shirt": 67584,
+  "g_longline_jersey_collar": 1536,
+  "g_longline_jersey_cuffs": 2048,
+  "g_longline_jersey_longline": 4256,
+  "g_longline_jersey_hair": 17968,
+  "g_longline_jersey_hand_L": 392,
+  "g_longline_jersey_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_longline_jersey_collar": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "g_longline_jersey_cuffs": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "g_longline_jersey_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_longline_jersey_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_longline_jersey_longline": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "g_longline_jersey_shirt": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "g_longline_jersey_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_longline_jersey_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_longline_jersey_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_longline_jersey_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_longline_jersey_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

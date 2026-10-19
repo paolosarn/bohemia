@@ -1,0 +1,107 @@
+{
+ "look": "G_bib_overalls",
+ "shape": "the barber's mannequin in BIB OVERALLS (BIB OVERALLS)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BIB OVERALLS",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_bib_overalls.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_bib_overalls_trouser": 2568,
+  "g_bib_overalls_shoe": 3916,
+  "g_bib_overalls_belt": 1792,
+  "g_bib_overalls_bib": 12440,
+  "g_bib_overalls_straps": 364,
+  "g_bib_overalls_buttons": 68,
+  "g_bib_overalls_pocket": 90,
+  "g_bib_overalls_hair": 17968,
+  "g_bib_overalls_hand_L": 392,
+  "g_bib_overalls_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_bib_overalls_belt": [
+   0.0176,
+   0.0319,
+   0.0823
+  ],
+  "g_bib_overalls_bib": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "g_bib_overalls_buttons": [
+   0.1248,
+   0.2122,
+   0.4233
+  ],
+  "g_bib_overalls_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_bib_overalls_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_bib_overalls_pocket": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "g_bib_overalls_shirt": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "g_bib_overalls_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_bib_overalls_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_bib_overalls_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_bib_overalls_straps": [
+   0.0176,
+   0.0319,
+   0.0823
+  ],
+  "g_bib_overalls_trouser": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "g_bib_overalls_trousers": [
+   0.0423,
+   0.0802,
+   0.1946
+  ]
+ }
+}

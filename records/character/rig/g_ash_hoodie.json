@@ -1,0 +1,114 @@
+{
+ "look": "G_ash_hoodie",
+ "shape": "the barber's mannequin in ASH HOODIE (HOODIE)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "ASH HOODIE",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/g_ash_hoodie.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "g_ash_hoodie_trouser": 2568,
+  "g_ash_hoodie_shoe": 3916,
+  "g_ash_hoodie_shirt": 69088,
+  "g_ash_hoodie_collar": 1536,
+  "g_ash_hoodie_hood": 14452,
+  "g_ash_hoodie_drawstrings": 100,
+  "g_ash_hoodie_pocket": 182,
+  "g_ash_hoodie_waistband": 1792,
+  "g_ash_hoodie_cuffs": 2048,
+  "g_ash_hoodie_hair": 17968,
+  "g_ash_hoodie_hand_L": 392,
+  "g_ash_hoodie_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "g_ash_hoodie_collar": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "g_ash_hoodie_cuffs": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "g_ash_hoodie_drawstrings": [
+   0.1248,
+   0.1384,
+   0.1651
+  ],
+  "g_ash_hoodie_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "g_ash_hoodie_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "g_ash_hoodie_hood": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "g_ash_hoodie_pocket": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "g_ash_hoodie_shirt": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "g_ash_hoodie_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_ash_hoodie_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "g_ash_hoodie_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "g_ash_hoodie_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_ash_hoodie_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "g_ash_hoodie_waistband": [
+   0.0595,
+   0.0648,
+   0.0802
+  ]
+ }
+}
