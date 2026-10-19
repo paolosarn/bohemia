@@ -419,9 +419,11 @@ def pieces(G, X):
     if neck == 'hood':
         made.append(band('collar', [neck_ring(nz, weight + 0.003)], 0.020, 0.010, mid))
         if not G['hood_up']:   # the hood lies in a heap on the upper back
-            def keep_h(fm, c): return fm in ('torso', 'neck') and c.y > -0.005 and abs(c.x) < 0.105 and 1.00 < c.z < 1.17
+            # cycle 2 (looking, OLIVE HOODIE): a 40 mm heap read at 1:1 as a pale fur collar (its top takes the rig's dust);
+            # 55 mm, rounder and higher, it rises to the base of the skull as a folded hood does
+            def keep_h(fm, c): return fm in ('torso', 'neck') and c.y > -0.005 and abs(c.x) < 0.115 and 0.99 < c.z < 1.175
             def thick_h(p):
-                return weight + 0.006 + 0.040 * math.exp(-((p.x / 0.075) ** 2)) * math.exp(-(((p.z - 1.10) / 0.06) ** 2))
+                return weight + 0.006 + 0.055 * math.exp(-((p.x / 0.085) ** 2)) * math.exp(-(((p.z - 1.115) / 0.065) ** 2))
             made.append(cloth('hood', keep_h, thick_h, mid, rim=0.006, fams=('torso', 'neck')))
         cords = [[front(sx * 0.024, 1.116), front(sx * 0.026, 1.07), front(sx * 0.027, 1.035)] for sx in (1, -1)]
         made.append(strip('drawstrings', cords, 0.0065, weight + 0.006, lt, across=3, rim=0.003))
