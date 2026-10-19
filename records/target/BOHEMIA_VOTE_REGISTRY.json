@@ -13483,7 +13483,7 @@
   "kind": "haircut",
   "lane": "character",
   "made": "10/19",
-  "sha": "f8f6c2ab",
+  "sha": "aeb71c29",
   "draft": true,
   "title": "TWELVE NEW HAIRCUTS ON THE 3D HEAD: SHAVED, HOME CLIPPERS, BALDING, COMB OVER, SLICKED BACK, LONG, CURLS, BED HEAD, HALF SHAVE, BRAIDS, FINGER WAVES, A BURN",
   "why": "You said the clay people need way more hair options, so here are twelve new haircuts on the 3D head, built the clumps-and-locks way you said yes to, grimy, a few the way people cut their own hair after the money died. In the VOTE tab you see it: every cut turning all eight ways at real size and at portrait size, next to the closest cut the game has today.",
@@ -13491,12 +13491,10 @@
    "how": "image",
    "src": "../records/target/character/CHARACTER_HAIR_TWO.png",
    "first": "../records/target/character/CHARACTER_HAIR_TWO_FIRST.png",
-   "firstAt": [
-    12,
-    1008,
-    1075,
-    147
-   ]
+   "firstAt": [12,
+    1316,
+    901,
+    186]
   },
   "twin": {
    "src": "records/target/character/barber_flat/coil_crown_SE_k01.png",
