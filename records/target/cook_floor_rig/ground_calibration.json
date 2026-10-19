@@ -1,0 +1,134 @@
+{
+ "mul": {
+  "caliche": 0.8595,
+  "desert": 0.8642,
+  "rough": 0.7747,
+  "playa": 0.8685,
+  "concrete": 0.7552,
+  "asphalt": 0.1684,
+  "track": 0.6986,
+  "paint": 1.4272,
+  "lawn": 0.6125
+ },
+ "rounds": 3,
+ "last": {
+  "caliche": {
+   "render": [
+    170,
+    159,
+    138
+   ],
+   "target": [
+    170,
+    157,
+    135
+   ],
+   "mul": 0.8595
+  },
+  "desert": {
+   "render": [
+    173,
+    161,
+    138
+   ],
+   "target": [
+    174,
+    159,
+    134
+   ],
+   "mul": 0.8642
+  },
+  "rough": {
+   "render": [
+    161,
+    150,
+    131
+   ],
+   "target": [
+    160,
+    149,
+    130
+   ],
+   "mul": 0.7747
+  },
+  "playa": {
+   "render": [
+    181,
+    172,
+    149
+   ],
+   "target": [
+    182,
+    171,
+    150
+   ],
+   "mul": 0.8685
+  },
+  "concrete": {
+   "render": [
+    155,
+    150,
+    139
+   ],
+   "target": [
+    156,
+    149,
+    134
+   ],
+   "mul": 0.7552
+  },
+  "asphalt": {
+   "render": [
+    85,
+    81,
+    76
+   ],
+   "target": [
+    66,
+    63,
+    61
+   ],
+   "mul": 0.1684
+  },
+  "track": {
+   "render": [
+    152,
+    142,
+    124
+   ],
+   "target": [
+    152,
+    140,
+    120
+   ],
+   "mul": 0.6986
+  },
+  "paint": {
+   "render": [
+    141,
+    139,
+    133
+   ],
+   "target": [
+    150,
+    142,
+    126
+   ],
+   "mul": 1.4272
+  },
+  "lawn": {
+   "render": [
+    106,
+    116,
+    95
+   ],
+   "target": [
+    104,
+    116,
+    74
+   ],
+   "mul": 0.6125
+  }
+ },
+ "how": "a flat band of each ground through the rig (wear 0.25, the one sun, the fill), its median sRGB against his YES street's; the value multiplier on the palette base that meets it"
+}
