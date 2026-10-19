@@ -1,0 +1,33 @@
+{
+ "head_px": 406,
+ "head_m": 0.89,
+ "head_how": "--head-m 0.89 (no head mesh named; the top of the body)",
+ "ppm": 456.18,
+ "res": 692,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "expressions": [],
+ "files": [
+  "records/target/master_rig/cook_gun_rack/rig_portrait_S.png",
+  "records/target/master_rig/cook_gun_rack/rig_portrait_SE.png",
+  "records/target/master_rig/cook_gun_rack/rig_portrait_SW.png"
+ ],
+ "expression_files": {},
+ "crop_box_px": [
+  5,
+  79,
+  678,
+  692
+ ],
+ "model": "reference/models/bohemia/gun_rack.glb",
+ "body_rig": "rig.json",
+ "colours": 7150
+}

@@ -23,8 +23,8 @@ SHOTGUN, the RIFLE. Two options each, the kind a valley pawn shop had on the wal
              thing: the forend wired to the barrel where its band went.
   rack       THE ARMOURER'S RACK all six hang on: two 2x4 posts on their feet, a top and a bottom rail, two slats with
              dowel pegs, a pistol board; each gun is last-built's own glb, imported untouched (the corral's way) and
-             seated on its pegs by its real lowest point. The odd thing: a third pair of pistol pegs empty, a blank
-             tag tied to one (the gun that went with somebody).
+             seated on pegs cut to its own underside, the pistols on dowels off a front rail. The odd thing: a third
+             pair of pistol dowels empty, a blank tag tied to one (the gun that went with somebody).
 
 Why a rack (measured, not guessed): a pistol at the fight's true 57 px a metre is 12 px long and a long gun lying down
 is a 60 x 6 px stick (last round's first try, 5 of 8 out); no hand-held gun alone can pass the prop floor (29 x 36,
@@ -316,10 +316,12 @@ def rack(bpy, mathutils):
         box(bpy, 'slat_%d' % (s + 1), pn, (0.040, 0.019, H - 0.25), (s * SL, 0.030, 0.20 + (H - 0.25) / 2), bevel=0.002)
     box(bpy, 'top_rail', pn, (2 * X + 0.12, 0.089, 0.038), (0, 0.065, H - 0.019), bevel=0.003)
     box(bpy, 'bottom_rail', pn, (2 * X + 0.04, 0.089, 0.038), (0, 0.065, 0.20), bevel=0.003)
-    box(bpy, 'pistol_board', pn, (2 * X - 0.02, 0.019, 0.170), (0, 0.030, 0.385), bevel=0.003)
+    box(bpy, 'pistol_rail', pn, (2 * X - 0.02, 0.040, 0.030), (0, -0.032, 0.215), bevel=0.003)   # the pistols stand on dowels off a front rail: open air behind them (the board behind them read as mud)
     pegs, placed = [], {}
     def peg(name, x, top):
         z = top - 0.0085; cyl(bpy, name, pn, 0.0085, 0.080, (x, -0.020, z), rot=(math.pi / 2, 0, 0), verts=10); pegs.append((round(x, 4), round(z, 4)))
+    def dowel(name, x, top):
+        cyl(bpy, name, pn, 0.0075, top - 0.230, (x, -0.032, (top + 0.230) / 2), verts=10); pegs.append((round(x, 4), round(top, 4)))
     def world(h, skip=('sling', 'buckle', 'lanyard')):
         bpy.context.view_layer.update(); out = []
         for o in h.children_recursive:
@@ -339,18 +341,18 @@ def rack(bpy, mathutils):
                 if ob in mine and not ob.name.split('.')[0].startswith(skip): hits.append(loc.z); break
                 o = mu.Vector((x, y, loc.z + 0.0005))
         return max(hits)
-    def hang(name, bore_z, centre_x, peg_xs):
+    def hang(name, bore_z, centre_x, peg_xs, stand=peg):
         h = import_model(bpy, os.path.join(ROOT, 'reference/models/bohemia/gun_%s.glb' % name), (0, -0.032, bore_z + GRIP[name][1]), (0, 0, 0))
         vs = world(h); h.location.x += centre_x - (min(v.x for v in vs) + max(v.x for v in vs)) / 2
-        for px in peg_xs: peg('peg_%s_%d' % (name, int(px * 1000)), px, underside(h, px))
+        for px in peg_xs: stand('peg_%s_%d' % (name, int(px * 1000)), px, underside(h, px))
         placed[name] = h
     for name, bz in (('rifle_a', 1.250), ('rifle_b', 1.030), ('shotgun_b', 0.820), ('shotgun_a', 0.620)): hang(name, bz, 0.0, (-SL, SL))
-    for name, x in (('pistol_a', -0.40), ('pistol_b', -0.05)): hang(name, 0.460, x, (x - 0.045, x + 0.045))
-    # THE ONE ASYMMETRIC THING: a third pair of pistol pegs empty, a blank tag tied to its left peg on a string
-    for dx in (-0.045, 0.045): peg('peg_empty_%d' % int(dx * 1000), 0.33 + dx, 0.420)
+    for name, x in (('pistol_a', -0.155), ('pistol_b', 0.150)): hang(name, 0.460, x, (x - 0.045, x + 0.045), stand=dowel)   # between the slats: open air behind
+    # THE ONE ASYMMETRIC THING: a third pair of pistol dowels empty, a blank tag tied to its left one on a string
+    for dx in (-0.045, 0.045): dowel('peg_empty_%d' % int(dx * 1000), 0.46 + dx, 0.420)
     tp = bpy.data.materials.get('tape') or mat(bpy, 'tape', 'tape_grey', 2)   # made late: an import clears a material nobody uses yet
-    rod(bpy, 'tag_string', tp, (0.285, -0.050, 0.411), (0.292, -0.056, 0.360), 0.0015, verts=6)
-    box(bpy, 'tag', tp, (0.034, 0.002, 0.052), (0.294, -0.057, 0.332), rot=(0, math.radians(-8), 0))
+    rod(bpy, 'tag_string', tp, (0.415, -0.040, 0.414), (0.422, -0.046, 0.362), 0.0015, verts=6)
+    box(bpy, 'tag', tp, (0.034, 0.002, 0.052), (0.424, -0.047, 0.334), rot=(0, math.radians(-8), 0))
     boxes = {}
     for name, h in placed.items():
         vs = world(h, skip=())

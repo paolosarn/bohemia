@@ -109,11 +109,12 @@ def main():
     blocks.append(("AT THE FIGHT'S OWN SIZE: 57 px a metre, the size a gun is in a man's hand", '', [fight]))
 
     probe = ImageDraw.Draw(Image.new('RGBA', (1, 1)))
-    W = max(sum(p.width + 18 for _, p in row) for _, _, rows in blocks for row in rows) + 24
+    cw = lambda p: max(p.width, 120)   # a caption never narrower than 120 px, so it is read whole, never cut
+    W = max(sum(cw(p) + 18 for _, p in row) for _, _, rows in blocks for row in rows) + 24
     hs = []
     for title, line, rows in blocks:
         n = len(wrap(probe, line, f2, W - 24)) if line else 0
-        hs.append(30 + n * 13 + sum(34 + max(p.height for _, p in row) for row in rows) + 16)
+        hs.append(30 + n * 13 + sum(18 + 11 * max(len(wrap(probe, c, f2, cw(p))) for c, p in row) + max(p.height for _, p in row) for row in rows) + 16)
     intro = ['COOK [the first guns off the rig] 10/19: THE GUNS HE STARTS WITH, MODELLED AT THE SOURCE, THROUGH THE MASTER RIG (rule 120a: guns first; rule 115a: the robot\'s and the truck\'s way; rule 47b: the guns are his pick, A or B a line)',
              'Pixel size: the guns at %.0f px a metre from the rig\'s close camera (the pistol beside his own pistol), the rack\'s eight facings and the last row at the fight\'s 57 px a metre; every picture at 1:1, nothing resampled, one pixel size each. Palette: records/target/BOHEMIA_STYLE_PALETTE.json (the gunmetal, the worn steel, the wood, the tape, the pine: five materials). Light: the rig\'s one sun, upper left, above. Zero breaks of the rig.' % por['ppm']]
     ih = 14 + sum(len(wrap(probe, t, f3 if i == 0 else f2, W - 24)) * (16 if i == 0 else 13) for i, t in enumerate(intro)) + 10
@@ -127,10 +128,11 @@ def main():
         dr.text((12, y + 8), title, font=f1, fill=INK); yy = y + 30
         for t in (wrap(dr, line, f2, W - 24) if line else []): dr.text((12, yy), t, font=f2, fill=DIM); yy += 13
         for row in rows:
-            yy += 22; x, ph = 12, max(p.height for _, p in row)
-            for cap, p in row:
-                for j, c in enumerate(wrap(dr, cap, f2, max(p.width, 90))[:2]): dr.text((x, yy - 20 + j * 11), c, font=f2, fill=INK)
-                sheet.alpha_composite(p, (x, yy + ph - p.height)); x += p.width + 18
+            caps = [wrap(dr, cap, f2, cw(p)) for cap, p in row]; yy += 6 + 11 * max(len(c) for c in caps)
+            x, ph = 12, max(p.height for _, p in row)
+            for (cap, p), lines in zip(row, caps):
+                for j, c in enumerate(lines): dr.text((x, yy - 11 * len(lines) - 2 + j * 11), c, font=f2, fill=INK)
+                sheet.alpha_composite(p, (x, yy + ph - p.height)); x += cw(p) + 18
             yy += ph + 12
         y += h
     sheet.save(os.path.join(ROOT, OUT), optimize=True)
