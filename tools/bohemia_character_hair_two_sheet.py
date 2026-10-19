@@ -62,8 +62,10 @@ def row(kind, name, spec):
     tw = trim(tw) if tw else Image.new('RGBA', (8, 8))
     st = [trim(s) for s in (load(os.path.join(d, 'rig_%s.png' % f)) for f in FAC) if s is not None]
     po = [p for p in (load(os.path.join(d, 'rig_portrait_%s.png' % f)) for f in ('S', 'SE')) if p is not None]
+    po = [p.resize((128, int(128 * p.height / p.width)), Image.LANCZOS) if p.width != 128 else p for p in po]   # the portrait's 128 (HAIR 1's sheet)
+    if kind != 'hair2' and tw.width > 128: tw = tw.resize((128, int(128 * tw.height / tw.width)), Image.LANCZOS)
     h = max([tw.height] + [s.height for s in st] + [p.height for p in po]) + 26
-    w = 190 + tw.width + 16 + sum(s.width + 4 for s in st) + 16 + sum(p.width + 6 for p in po) + 8
+    w = 190 + max(tw.width, 150) + 16 + sum(s.width + 4 for s in st) + 16 + sum(p.width + 6 for p in po) + 8
     im = Image.new('RGBA', (w, h), BG + (255,)); dr = ImageDraw.Draw(im)
     label = spec.get('label', name)
     dr.text((6, 6), label, fill=INK)
@@ -75,7 +77,10 @@ def row(kind, name, spec):
     else:
         dr.text((6, 34), ('worn: ' + spec.get('worn_by', ''))[:30], fill=DIM)
     x = 190
-    im.alpha_composite(tw, (x, h - tw.height - 4)); dr.text((x, 4), twin_label, fill=DIM); x += max(tw.width, 60) + 16
+    im.alpha_composite(tw, (x, h - tw.height - 4))
+    words = twin_label.split(' ('); dr.text((x, 4), words[0], fill=DIM)
+    if len(words) > 1: dr.text((x, 16), '(' + words[1], fill=DIM)
+    x += max(tw.width, 150) + 16
     dr.text((x, 4), 'THE MODEL, 8 facings, 1:1', fill=DIM)
     for s in st:
         im.alpha_composite(s, (x, h - s.height - 4)); x += s.width + 4
