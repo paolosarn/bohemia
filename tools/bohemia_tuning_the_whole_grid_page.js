@@ -140,8 +140,8 @@ if (get('humans', 12, 20, 'endgame', 'start')) {
 }
 md.push('## WHAT CANNOT BE TESTED YET, AND WHY');
 md.push('');
-md.push('1. THE FIGHT HAS NO ANIMAL. No live code builds a beast: the fight dresses an enemy from a weapon on its row, and no beast row carries one (enemies.json gives them skills, not weapons), so a beast party stops the setup. '
-  + 'Every beast cell here is the bench handing the beast its strike read off its own wiki skill page (' + Object.keys(B.strikes).length + ' pages) as a weapon row in memory; the fight\'s own hit, armour, morale and injury rules play it. What each one loses is in the table above. COMBAT owns the real beast.');
+md.push('1. THE BEASTS ARE A BODY AND ONE BITE. Since COMBAT [the fight holds the grid] (ac9722ee) the live fight builds a beast from records/target/bb/beast_attacks.json, read off the same wiki skill pages; the bench hands each beast that same strike as a weapon row in memory (' + Object.keys(B.strikes).length + ' pages), which the fight takes first, so the numbers are the live fight\'s. '
+  + 'What is NOT built (COMBAT\'s own list): bleeding, stagger, knockback, the schrat\'s and the unhold\'s three-tile swings, Grow Shield, the pack\'s own brain (they fight as a line), the beasts\' fear of guns. What each one loses is in the table above.');
 md.push('2. BEASTS WHOSE SPECIAL IS THE FIGHT, NOT PLAYED: ' + Object.keys(B.not_played).map(k => k.replace(/_/g, ' ') + ' (' + B.not_played[k] + ')').join('; ') + '.');
 md.push('3. THE GEAR IS NOT IN. The middle and late rows are mine, from the market\'s own rows (RUN TWO\'s shelves sell every weapons.json and armor.json row by value band); CHARACTER\'s roll-call and COMBAT\'s equipment have not coordinated what a man can own. '
   + 'The shotgun\'s kind (firearm) has one row in the data, the handgonne, so a shotgun never gets better. Named and famed pieces are left out. The LONE WOLF fights in the kit of the line\'s first place (a padded surcoat and a pipe); Battle Brothers starts him with "great equipment".');
@@ -151,7 +151,7 @@ md.push('6. PAST 13 THE GAME CANNOT MAKE THE FIGHT. The 20 and 38 columns are fi
 md.push('');
 md.push('## ROUTED');
 md.push('');
-md.push('- COMBAT: (a) a beast path in the fight (the strike on the beast\'s row; the bench\'s ' + Object.keys(B.strikes).length + ' wiki strikes are the numbers to start from, in the bank); (b) party_math\'s cap of 13 against Battle Brothers\' plethora (the twelve at level 9 on a three-skull job make ' + bbSends(12, 'late').hi + '); (c) a tier mix for a second faction.');
+md.push('- COMBAT: (a) the beasts\' specials (the table\'s LOSES column is the list, worst cell first); (b) party_math\'s cap of 13 against Battle Brothers\' plethora (the twelve at level 9 on a three-skull job make ' + bbSends(12, 'late').hi + '); (c) a tier mix for a second faction.');
 md.push('- CHARACTER + COMBAT: the gear roll-call; until it lands every number here is DRAFT.');
 md.push('- COMBAT + PEOPLE: the weight (above): a level raises no fatigue in the fight, so the 300 armour leaves a man one swing.');
 md.push('- RUN + RUN TWO: the lone wolf\'s starting kit (Battle Brothers\' "great equipment").');
@@ -189,7 +189,7 @@ h.push('<h2>The worst fights you will meet</h2><ol>');
 worst.slice(0, 6).forEach(r => h.push('<li><b>' + r.company + ' of yours against ' + r.enemies + ' ' + (r.kind === 'humans' ? 'people' : KNAME(r.kind).toLowerCase()) + ', ' + SNAME[r.stage].toLowerCase() + ':</b> you win ' + r.start + ' in 100 on our start, ' + r.today + ' today, ' + r.bb + ' in Battle Brothers.</li>'));
 h.push('</ol>');
 h.push('<h2>What we cannot test yet</h2><ul>');
-h.push('<li><b>The fight has no animals.</b> These wolves are a stand-in: each one gets its bite from the Battle Brothers wiki. ' + Object.keys(B.not_played).length + ' kinds whose trick is the whole fight (the sleep, the charm, the giant worm) are left out.</li>');
+h.push('<li><b>The animals only bite.</b> Each one bites with its Battle Brothers numbers; the bleeding, the knockback and the pack\'s tricks are not built yet. ' + Object.keys(B.not_played).length + ' kinds whose trick is the whole fight (the sleep, the charm, the giant worm) are left out.</li>');
 h.push('<li><b>The gear is not in.</b> Middle and late gear here is picked from what the market can sell. The shotgun has only one model, so it never gets better.</li>');
 h.push('<li><b>Only bandits come in tiers.</b> No other gang can be dressed for the day yet.</li>');
 h.push('<li><b>The game never sends more than 13.</b> The 20 and 38 columns are fights only Battle Brothers makes today.</li>');

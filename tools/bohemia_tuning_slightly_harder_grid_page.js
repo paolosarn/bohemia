@@ -97,7 +97,7 @@ h.push('<h1>SLIGHTLY HARDER, EVERY SIZE</h1>');
 h.push('<p>TUNING, research only. You said "just slightly harder". So for every size of company, early, middle and late, we found the fight you win about 70 times in 100: how many of them can come. <b>DRAFT: the gear is not in yet.</b></p>');
 const band = w => w === null || w === undefined ? '' : w >= 75 ? 'g' : w >= 60 ? 'a' : 'r';
 KINDS.forEach(k => {
-  h.push('<h2>' + KN(k) + (k === 'humans' ? '' : ' <small>(a stand-in: the fight has no animals yet)</small>') + '</h2><div class="w"><table><tr><th>your men</th>'
+  h.push('<h2>' + KN(k) + (k === 'humans' ? '' : ' <small>(they only bite: the bleeding and the pack\'s tricks are not built yet)</small>') + '</h2><div class="w"><table><tr><th>your men</th>'
     + STAGES.map(s => '<th colspan="3">' + SN[s] + '</th>').join('') + '</tr><tr><th></th>' + STAGES.map(() => '<th>about 70 in 100</th><th>the game sends now</th><th>Battle Brothers sends</th>').join('') + '</tr>');
   GB.companies.forEach(c => {
     h.push('<tr><th>' + c + '</th>' + STAGES.map(s => { const r = rows.filter(x => x.kind === k && x.company === c && x.stage === s)[0];

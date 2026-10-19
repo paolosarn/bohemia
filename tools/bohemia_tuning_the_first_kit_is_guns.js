@@ -213,10 +213,11 @@ function cardRows(ctx) {
 
 /* ---------- THE BENCH: one cell ---------- */
 let C_SLOT1 = null;   /* a search knob (--cell only): what the one man holds */
+let C_MEN = null, C_SLOTS = null;   /* an origin's own men and their slots (tools/bohemia_tuning_the_first_hour.js) */
 function kitCompany(n, kit, DB) {
-  const base = GRID.companyOf(n, 'early'), crew = DB.ours.crew.value, K = KITS[kit];
+  const base = C_MEN || GRID.companyOf(n, 'early'), crew = DB.ours.crew.value, K = KITS[kit];
   if (!K.rows) return base;
-  let slots = (K.all ? ALL_GUNS : SLOTS)[n];
+  let slots = C_SLOTS || (K.all ? ALL_GUNS : SLOTS)[n];
   if (K.byEye && n > 1) {
     /* the main man (the first) keeps the line; the others, best eye first, take the guns in the order rifle, rifle, pistol, shotgun */
     const bg = new Map(DB.backgrounds.rows.map(r => [r.id, r])), eye = m => { const s = bg.get(m.background).stats.ranged_skill; return (s[0] + s[s.length - 1]) / 2; };
@@ -238,7 +239,7 @@ async function cell(C, n, strikes) {
   const L = Object.assign({}, GRID.SETTINGS[0].L, GRID.SETTINGS.filter(s => s.id === C.setting)[0].L);
   DB.rules.experience.global_modifier.value = L.xp;
   const ph = DB.ours.enemy_tiers.value.phases; ph[1].from_day = L.tiers[0]; ph[2].from_day = L.tiers[1];
-  C_SLOT1 = C.slot1 || null;
+  C_SLOT1 = C.slot1 || null; C_MEN = C.men || null; C_SLOTS = C.slots || null;
   const company = kitCompany(C.company, C.kit, DB), K = KITS[C.kit];
   /* a search knob (--cell only): scale the draft rows' damage and add to their base, in this memory copy */
   if (K.ap) DB.weapons.rows.filter(r => r.id === 'draft_rifle' || r.id === 'draft_shotgun').forEach(r => { r.skills[0].ap = K.ap; });
