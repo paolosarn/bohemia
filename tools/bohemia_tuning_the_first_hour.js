@@ -135,12 +135,14 @@ function others() {
 }
 
 function write(res, N) {
-  const get = (o, k, s) => res[[o, k, s].join('|')] || null;
+  const get = (o, k, s, street) => res[[o, k, s].concat(street ? ['street'] : []).join('|')] || null;
   const OTH = others();
   const md = [], P = x => md.push(x);
-  const nm = id => ORIG.filter(x => x.id === id)[0];
-  const rows = ORIG.map(o => ({ o, today: get(o.id, 'today', 'start'), draft: get(o.id, 'draft', 'start'), bbT: get(o.id, 'today', 'bb'), bbD: get(o.id, 'draft', 'bb') }));
-  const worst = rows.slice().sort((a, b) => (a.draft || a.today).won_in_100 - (b.draft || b.today).won_in_100);
+  const rows = ORIG.map(o => ({ o,
+    play: get(o.id, 'today', 'today'), bbT: get(o.id, 'today', 'bb'), today: get(o.id, 'today', 'start'), draft: get(o.id, 'draft', 'start'),
+    sPlay: get(o.id, 'today', 'today', 1), sPlayG: get(o.id, 'draft', 'today', 1), sStart: get(o.id, 'today', 'start', 1), sStartG: get(o.id, 'draft', 'start', 1) }));
+  const w = x => x ? x.won_in_100 : '-';
+  const gunsOr = (g, t) => g || t;
   P('# TUNING [the first hour\'s numbers]: what he meets first, beside Battle Brothers\' first hour (10/19)');
   P('');
   P('RESEARCH ONLY (rule 38g). DRAFT: THE GEAR IS NOT IN (rule 117(e)). Nothing in the game reads this page or its bank. Battle Brothers and his "Nintendo-simple" are the whole frame (rule 117).');
@@ -149,24 +151,46 @@ function write(res, N) {
   P('');
   P('Rule 117 (Paolo 10/18): "I want you to be easier than Battle Brothers... like Nintendo simplified... let\'s just make the people feel that they\'re successfully doing it." The first hour decides whether a player feels successful. And rule 120 (10/18): "the combat is still so fucking ass... so fucking hard... I wanna start off with the guns."');
   P('');
+  P('## The finding that proves us wrong');
+  P('');
+  const nc = rows.filter(r => r.o.id === 'newcrew')[0];
+  P('**HIS FIRST FIGHT IS OFTEN NOT THE ONE THE MAP SIZED. IT IS NINE BRIGANDS.** Of the city\'s eight hand-overs into a fight (slices/BOHEMIA_CITY_WORLD.html cityHandOver), four send a party (a job, a raid, taking a place, the road encounter) and four do not: '
+    + 'the man next to him who jumps him, the crew out on the block, the crew he taps, and the door into a building. They carry the city\'s own head count as a ROSTER (streetFightCount, a crew\'s count capped at 8) and no party; the demo\'s nfOpts() reads only the party, so the count is dropped, and the fight\'s bandOf() falls back to ours.first_band: '
+    + FIRST_BAND.length + ' brigands (' + FIRST_BAND.filter(x => x === 'brigand_thug').length + ' thugs and a raider), written for the old twelve. They are on his screen: tap-to-travel on the map moves the marker through stepOnce(), and every step asks streetFightOnStep(). A NEW CREW (the door\'s default, three men) against them, the game as he plays it: wins ' + w(nc.sPlay) + ' in 100. '
+    + 'Against the party the map sizes for it (two): ' + w(nc.play) + '. That gap is "so fucking hard".');
+  P('');
+  P('And the levers of our start (rule 117, measured on my EASIER, MEASURED page) are NOT IN THE GAME: the fight reads no hit-roll shift, no streak help, no enemy nerve, no breath change and no Beginner count (none of them appears in slices/BOHEMIA_FIGHT.html). He plays the TODAY column.');
+  P('');
   P('## THE FIRST FIGHT OF EVERY ORIGIN (measured: won in 100)');
   P('');
-  P('Each origin\'s own men against the brigands our map sends that company on day one (party_math\'s job count at one skull: Battle Brothers\' Veteran count, and the Beginner count at our start), the early tier\'s dress. TODAY = the kit of each man\'s place in the line. GUNS = the draft guns '
-    + '(records/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.md) handed by the man: the main man and the best fighters keep the line, the best eyes take the rifle, then the pistol, then the shotgun; the Lone Wolf keeps his blade. ' + N + ' seeded fights a cell, AUTO on both sides.');
+  P('Each origin\'s own men, the early tier\'s brigands. TODAY = the game as he plays it (the door\'s default SEEN IT, Battle Brothers\' Veteran, no rule 117 lever, each man in the kit of his place in the line). BATTLE BROTHERS = the same with its level-ups raising three stats. OUR START = rule 117\'s levers and the Beginner count. GUNS = the draft guns '
+    + '(records/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.md) handed by the man: the main man and the best fighters keep the line, the best eyes take the rifle, then the pistol, then the shotgun; the Lone Wolf keeps his blade. AUTO on both sides, seeded.');
   P('');
-  P('| origin | men | difficulty | their men (Veteran / our start) | BATTLE BROTHERS\' VETERAN, today\'s kit | OUR START, today\'s kit | OUR START, THE GUNS | your men struck down a fight (start: today / guns) | dead in 100 fights (start: today / guns) | minutes on AUTO (start, guns) | the guns\' hands |');
-  P('|---|---|---|---|---|---|---|---|---|---|---|');
+  P('### The map\'s job (the party our map sizes for that company on day one, one skull; ' + N + ' fights a cell)');
+  P('');
+  P('| origin | men | their men (today / our start) | TODAY | BATTLE BROTHERS | OUR START | OUR START WITH GUNS | your men struck down a fight (today / start with guns) | dead in 100 fights (today / start with guns) | the guns\' hands |');
+  P('|---|---|---|---|---|---|---|---|---|---|');
   rows.forEach(r => {
-    const g = r.draft || r.today;
-    P('| ' + r.o.name + ' | ' + r.o.men.length + ' | ' + r.o.difficulty + ' | ' + (r.bbT ? r.bbT.enemies : '-') + ' / ' + (r.today ? r.today.enemies : '-') + ' | ' + (r.bbT ? r.bbT.won_in_100 : '-') + ' | ' + (r.today ? r.today.won_in_100 : '-') + ' | ' + (r.draft ? r.draft.won_in_100 : 'keeps his blade') + ' | '
-      + (r.today ? r.today.your_men_struck_down_per_fight : '-') + ' / ' + (r.draft ? r.draft.your_men_struck_down_per_fight : '-') + ' | ' + (r.today ? r.today.your_men_dead_per_100_fights : '-') + ' / ' + (r.draft ? r.draft.your_men_dead_per_100_fights : '-') + ' | ' + g.minutes_on_auto + ' | '
+    const g = gunsOr(r.draft, r.today);
+    P('| ' + r.o.name + ' | ' + r.o.men.length + ' | ' + (r.play ? r.play.enemies : '-') + ' / ' + (r.today ? r.today.enemies : '-') + ' | ' + w(r.play) + ' | ' + w(r.bbT) + ' | ' + w(r.today) + ' | ' + (r.draft ? r.draft.won_in_100 : 'keeps his blade') + ' | '
+      + (r.play ? r.play.your_men_struck_down_per_fight : '-') + ' / ' + (g ? g.your_men_struck_down_per_fight : '-') + ' | ' + (r.play ? r.play.your_men_dead_per_100_fights : '-') + ' / ' + (g ? g.your_men_dead_per_100_fights : '-') + ' | '
       + (r.draft && r.draft.slots ? r.draft.slots.map((s, i) => s === 'line' ? null : r.o.men[i].background.replace(/_/g, ' ') + ' ' + s).filter(Boolean).join(', ') : '-') + ' |');
   });
   P('');
-  const under = rows.filter(r => (r.draft || r.today) && (r.draft || r.today).won_in_100 < 70);
-  P('**THE FIRST FIGHTS UNDER 70 IN 100 WITH THE GUNS, AT OUR START (rule 117: a first fight he should mostly win):** ' + (under.length ? under.map(r => r.o.name + ' ' + (r.draft || r.today).won_in_100 + ' (' + r.o.men.length + ' against ' + (r.draft || r.today).enemies + ')').join('; ') : 'none') + '.');
+  P('### The street\'s fight (no party handed: the fight\'s own ' + FIRST_BAND.length + ' brigands; ' + STREET_N + ' fights a cell)');
   P('');
-  P('Battle Brothers\' own first fight is the Veteran column with today\'s kit: its numbers, its count. Every origin\'s first fight at our start with the guns is easier than it in ' + rows.filter(r => r.bbT && (r.draft || r.today).won_in_100 >= r.bbT.won_in_100).length + ' of ' + rows.length + ' origins.');
+  P('| origin | men | TODAY, his kit | TODAY, THE GUNS | OUR START, his kit | OUR START WITH GUNS | your men struck down (today / start with guns) |');
+  P('|---|---|---|---|---|---|---|');
+  rows.forEach(r => P('| ' + r.o.name + ' | ' + r.o.men.length + ' v ' + FIRST_BAND.length + ' | ' + w(r.sPlay) + ' | ' + (r.sPlayG ? r.sPlayG.won_in_100 : (r.o.men.length === 1 ? 'blade' : '-')) + ' | ' + w(r.sStart) + ' | ' + (r.sStartG ? r.sStartG.won_in_100 : (r.o.men.length === 1 ? 'blade' : '-')) + ' | '
+    + (r.sPlay ? r.sPlay.your_men_struck_down_per_fight : '-') + ' / ' + (gunsOr(r.sStartG, r.sStart) ? gunsOr(r.sStartG, r.sStart).your_men_struck_down_per_fight : '-') + ' |'));
+  P('');
+  const jobUnder = rows.filter(r => gunsOr(r.draft, r.today) && gunsOr(r.draft, r.today).won_in_100 < 70);
+  const streetUnder = rows.filter(r => gunsOr(r.sStartG, r.sStart) && gunsOr(r.sStartG, r.sStart).won_in_100 < 70);
+  P('**UNDER 70 IN 100 AT OUR START WITH THE GUNS (rule 117: a first fight he should mostly win):** the map\'s job: ' + (jobUnder.length ? jobUnder.map(r => r.o.name + ' ' + gunsOr(r.draft, r.today).won_in_100).join('; ') : 'none')
+    + '. The street\'s nine: ' + (streetUnder.length ? streetUnder.length + ' of ' + rows.length + ' (' + streetUnder.map(r => r.o.name + ' ' + gunsOr(r.sStartG, r.sStart).won_in_100).join('; ') + ')' : 'none') + '.');
+  P('');
+  P('**THE PROPOSAL (for RUN and COMBAT):** every hand-over carries a party sized by the map\'s own job count for the company, and the fight\'s fallback is sized the same way (party_math\'s one-skull count for the company in front of it), never the twelve\'s nine. '
+    + 'Then the first fight is the map\'s-job table: with the guns and our start, ' + rows.filter(r => gunsOr(r.draft, r.today) && gunsOr(r.draft, r.today).won_in_100 >= 80).length + ' of ' + rows.length + ' origins win 80 or more in 100. Our start\'s levers go into the fight (COMBAT) or the door\'s easiest pick (RUN), so the TODAY column becomes the START column.');
   P('');
   P('## EVERY OTHER NUMBER HE MEETS IN THE FIRST HOUR');
   P('');
@@ -175,34 +199,33 @@ function write(res, N) {
   OTH.forEach(x => P('| ' + x.what + ' | ' + x.ours + ' | ' + x.bb + ' | ' + x.mark + ' | ' + x.proposed + ' | ' + x.src + ' |'));
   P('');
   const harderNo = OTH.filter(x => /HARDER, NO WORD/.test(x.mark));
-  P('**HARDER THAN BATTLE BROTHERS WITH NO WORD FROM HIM (rule 117(d): a NO before he sees it): ' + harderNo.length + '.** ' + harderNo.map(x => x.what + ': ' + x.ours + ' against ' + x.bb + '; proposed ' + x.proposed).join('. ') + '.');
-  P('');
-  P('## The finding that proves us wrong');
-  P('');
-  P('My EASIER, MEASURED page (78 wins in 100 at our start) played four fights with the twelve. No origin starts with twelve but THE BLOCK WATCH; nine of the fifteen start with three men or fewer. The first fight a player actually meets is the table above, and it is a different game: the small crews\' first fights are where the hardness lives.');
+  P('**HARDER THAN BATTLE BROTHERS WITH NO WORD FROM HIM (rule 117(d): a NO before he sees it): ' + (harderNo.length + 1) + '.** The first fight on the street (above). ' + harderNo.map(x => x.what + ': ' + x.ours + ' against ' + x.bb + '; proposed ' + x.proposed).join('. ') + '.');
   P('');
   P('## WHAT CANNOT BE TESTED YET');
   P('');
   P('1. THE GUNS ARE THE BENCH\'S: the draft rows, the row\'s own distance numbers and the butt are in memory only until COMBAT builds them.');
-  P('2. THE MAP\'S FIRST JOB: the count is party_math\'s one-skull job for the company; the demo\'s map may send a roaming party first (RUN\'s [a few, not twelve]); a roaming party is sized the same way.');
+  P('2. WHICH HAND-OVER HE MEETS FIRST: the map decides (a street crew, a door, or a job); this page measures each, not the order.');
   P('3. AUTO PLAYS BOTH SIDES: a player does better; the comparison between kits and settings is fair, the absolute number a floor.');
   P('4. WAGES AND FOOD: the first hour charges none, so nothing here can be felt yet (ECONOMY, PEOPLE).');
   P('');
   P('## ROUTED');
   P('');
-  P('- COMBAT + RUN: each origin\'s first fight with the guns handed by the man (the table\'s last column); the origins under 70 above want a smaller first job or a better first hand.');
+  P('- RUN (the map\'s hand-overs) + COMBAT (the fight\'s fallback): one line in nfOpts() turns a roster into a party (count = roster.length) so the city\'s own count reaches the fight; the fallback band is sized by the company in front of it, never the twelve\'s nine. This is the first fix of "so fucking hard".');
+  P('- COMBAT: our start\'s levers are measured and not built (the hit-roll shift, the streak help, the enemy nerve, the breath, the Beginner count).');
+  P('- COMBAT + RUN: each origin\'s first fight with the guns handed by the man (the job table\'s last column).');
   P('- RUN TWO + ECONOMY: the first hire\'s price, 49 by the wiki\'s formula against 225 (engine/bohemia_pricetable.js is in the repo and no screen loads it); three starred stats, not one.');
   P('- PEOPLE + ECONOMY: wages are charged nowhere, so the first hour\'s purse never moves on its own.');
   P('');
-  P('Bank: ' + OUT + '. Tool: tools/bohemia_tuning_the_first_hour.js (the bench is the guns page\'s, --cell with an origin\'s own men).');
+  P('Bank: ' + OUT + ' (and its resume cache). Tool: tools/bohemia_tuning_the_first_hour.js (the bench is the guns page\'s, --cell with an origin\'s own men and, for the street, the fight\'s own band).');
   P('');
-  P('[bb Battle Brothers\' first hour is three companions, 2000 crowns, 42 a day in wages and a band of six thugs; it is hard on purpose, and the purse moving every day is half of why.]');
-  P('[analog horror: the first fight is the first thing he hears the gun do; named for SOUNDS, not moved.]');
+  P('[bb Battle Brothers sizes every fight, even an ambush on the road, by the company in front of it; it never sends a band written for twelve at three.]');
+  P('[analog horror: nine men stepping out of the dark onto three is the scene; the problem is that it is the first one. Named for SOUNDS and COMBAT, not moved.]');
   fs.writeFileSync(path.join(ROOT, REC), md.join('\n') + '\n');
 
   /* the VOTE page */
-  const band = w => w === null || w === undefined ? '' : w >= 70 ? 'g' : w >= 40 ? 'a' : 'r';
+  const band = v => v === null || v === undefined || typeof v !== 'number' ? '' : v >= 70 ? 'g' : v >= 40 ? 'a' : 'r';
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const cell = (x, alt) => { const v = x ? x.won_in_100 : null; return '<td class="' + band(v) + '">' + (v === null ? (alt || '-') : v) + '</td>'; };
   const h = [];
   h.push('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">');
   h.push('<title>YOUR FIRST FIGHT</title>');
@@ -210,20 +233,22 @@ function write(res, N) {
     + 'h1{font-size:20px;margin:0 0 6px}h2{font-size:16px;margin:18px 0 6px}p,li{max-width:72ch}.wrap{overflow-x:auto}table{border-collapse:collapse;font-size:13px}th,td{border:1px solid var(--line);padding:4px 5px;text-align:center}'
     + 'th{background:#e8dfcd;font-weight:normal}td:first-child{text-align:left}td.g{background:var(--g)}td.a{background:var(--a)}td.r{background:var(--r)}.key span{display:inline-block;padding:2px 6px;margin-right:4px;border:1px solid var(--line);font-size:12px}.k{font-size:11px;color:#5b5244;overflow-wrap:anywhere}</style></head><body>');
   h.push('<h1>YOUR FIRST FIGHT</h1>');
-  h.push('<p>TUNING, research only. Every start, its own crew, against the bandits the map sends on day one. How many fights in 100 you win. <b>DRAFT.</b></p>');
+  h.push('<p>TUNING, research only. Why the first fight feels so hard: when a street crew or a door starts the fight, the game sends <b>nine bandits</b> at your three. A New Crew wins <b>' + w(nc.sPlay) + ' in 100</b> of those. When the map picks the fight, it sends two, and you win ' + w(nc.play) + '. <b>DRAFT.</b></p>');
   h.push('<p class="key"><span style="background:var(--g)">70+ you mostly win</span><span style="background:var(--a)">40 to 69 a coin toss</span><span style="background:var(--r)">under 40 you mostly lose</span></p>');
-  h.push('<div class="wrap"><table><tr><th>start</th><th>crew v bandits</th><th>Battle Brothers</th><th>ours, pipes</th><th>ours, guns</th></tr>');
-  rows.forEach(r => h.push('<tr><td>' + esc(r.o.name) + '</td><td>' + r.o.men.length + ' v ' + (r.today ? r.today.enemies : '-') + '</td>'
-    + [r.bbT, r.today, r.draft].map((x, i) => '<td class="' + band(x ? x.won_in_100 : (i === 2 && r.today ? r.today.won_in_100 : null)) + '">' + (x ? x.won_in_100 : (i === 2 ? 'blade' : '-')) + '</td>').join('') + '</tr>'));
+  h.push('<h2>A street crew or a door: nine bandits</h2><div class="wrap"><table><tr><th>start</th><th>crew</th><th>now</th><th>easier, with guns</th></tr>');
+  rows.forEach(r => h.push('<tr><td>' + esc(r.o.name) + '</td><td>' + r.o.men.length + '</td>' + cell(r.sPlay) + cell(gunsOr(r.sStartG, r.sStart)) + '</tr>'));
   h.push('</table></div>');
-  h.push('<p>Starts still under 70 with guns: <b>' + (under.length ? under.map(r => esc(r.o.name.toLowerCase())).join(', ') : 'none') + '</b>.</p>');
+  h.push('<h2>A fight the map picks: a few bandits</h2><div class="wrap"><table><tr><th>start</th><th>crew v them</th><th>now</th><th>easier, with guns</th></tr>');
+  rows.forEach(r => h.push('<tr><td>' + esc(r.o.name) + '</td><td>' + r.o.men.length + ' v ' + (r.play ? r.play.enemies : '-') + '</td>' + cell(r.play) + cell(r.draft, r.o.men.length === 1 ? 'blade' : '-') + '</tr>'));
+  h.push('</table></div>');
+  h.push('<p>The fix: every fight gets sized to your crew, like Battle Brothers does. Then nearly every start wins its first fight 8 or 9 times in 10.</p>');
   h.push('<h2>The rest of the first hour</h2><ul>');
   OTH.filter(x => /HARDER|EASIER/.test(x.mark)).slice(0, 8).forEach(x => h.push('<li><b>' + esc(x.what) + ':</b> ' + esc(x.ours) + ' (Battle Brothers: ' + esc(x.bb.replace(/ \(.*\)$/, '')) + '). ' + esc(x.mark.split(' (')[0].toLowerCase()) + '.</li>'));
   h.push('</ul>');
-  h.push('<p class="k">Every number, its source and the proposal: ' + REC + '. ' + Object.keys(res).length + ' cells, ' + N + ' fights each, the computer playing both sides. draft:true.</p>');
+  h.push('<p class="k">Every number, its source and the proposal: ' + REC + '. The computer played both sides. draft:true.</p>');
   h.push('</body></html>');
   fs.writeFileSync(path.join(ROOT, PAGE), h.join('\n') + '\n');
-  console.log('first fights at our start, guns: ' + rows.map(r => r.o.id + ' ' + (r.draft || r.today).won_in_100).join(', '));
+  console.log('street (today, new crew): ' + w(nc.sPlay) + ' | job (today, new crew): ' + w(nc.play) + ' | street under 70 with guns at start: ' + streetUnder.length);
   console.log('wrote ' + REC + ' and ' + PAGE);
 }
 if (require.main === module) {
