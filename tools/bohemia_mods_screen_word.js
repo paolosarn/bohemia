@@ -288,40 +288,45 @@ const GREP = new Map(), TOTAL = new Map();
 const GAME_DIRS = ['slices', 'engine', 'records/target'];
 const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const wordRe = w => new RegExp('(?<![\\p{L}\\p{N}_])' + esc(w) + '(?![\\p{L}\\p{N}_])', 'iu');
-function grepAll(words) {
+/* MEASURED 10/19: ONE git grep -f over the three game folders printed every matching line WHOLE, and the cut alpha and
+   the demo carry lines megabytes long (inlined data and pictures), so 294 names never finished (killed after ten
+   minutes, no output). ripgrep, one name at a time with -o (the matched words only, never the line), does one name in
+   about 0.1 s; the context a candidate shows is then read from the file itself, 120 characters each side. ripgrep reads
+   .gitignore, so the search covers what a clone has, which is what a stranger searches. */
+const RG = (args) => new Promise(res => require('child_process').execFile('rg', args, { cwd: ROOT, maxBuffer: 1 << 28 }, (err, so) => res(String(so || ''))));
+const LINES = new Map();
+function lineOf(file, n) {
+  if (!LINES.has(file)) { try { LINES.set(file, fs.readFileSync(path.join(ROOT, file), 'utf8').split('\n')); } catch (e) { LINES.set(file, []); } }
+  return LINES.get(file)[n - 1] || '';
+}
+async function pool(todo, fn, width) { let i = 0; const lane = async () => { while (i < todo.length) await fn(todo[i++]); }; await Promise.all(Array.from({ length: width }, lane)); }
+async function grepAll(words) {
   const todo = words.filter(w => !GREP.has(w));
-  if (!todo.length) return;
-  const pf = path.join(os.tmpdir(), 'mods-word-patterns-' + process.pid + '.txt');
-  fs.writeFileSync(pf, todo.join('\n') + '\n');
-  let out = '';
-  try { out = execFileSync('git', ['-C', ROOT, 'grep', '-n', '-I', '-F', '-w', '-i', '-f', pf, '--'].concat(GAME_DIRS), { encoding: 'utf8', maxBuffer: 1 << 30 }); } catch (e) { out = (e.stdout || '').toString(); }
-  fs.unlinkSync(pf);
-  const res = todo.map(w => ({ w, lw: w.toLowerCase(), re: wordRe(w), hits: [] }));
-  for (const l of out.split('\n')) {
-    if (!l) continue; const m = /^([^:]+):(\d+):(.*)$/.exec(l); if (!m) continue;
-    const low = m[3].toLowerCase();
-    for (const r of res) { if (low.indexOf(r.lw) < 0) continue; const at = m[3].search(r.re); if (at < 0) continue;
-      r.hits.push({ file: m[1], line: +m[2], text: m[3].length > 400 ? m[3].slice(Math.max(0, at - 120), at + 200) : m[3] }); }
-  }
-  res.forEach(r => GREP.set(r.w, r.hits));
+  await pool(todo, async (w) => {
+    const out = await RG(['-o', '-n', '-F', '-w', '-i', '--no-heading', '--with-filename', '-e', w, '--'].concat(GAME_DIRS));
+    const by = new Map();
+    for (const l of out.split('\n')) {
+      const m = /^(.+?):(\d+):(.*)$/.exec(l); if (!m) continue;
+      const k = m[1] + ':' + m[2];
+      if (!by.has(k)) by.set(k, { file: m[1], line: +m[2], exact: false });
+      if (m[3] === w) by.get(k).exact = true;
+    }
+    const hits = Array.from(by.values());
+    hits.forEach(h => { if (where(h.file) === 'NOT THE GAME') return;
+      const L = lineOf(h.file, h.line); const at = Math.max(0, L.search(wordRe(w)));
+      h.text = L.length > 400 ? L.slice(Math.max(0, at - 120), at + w.length + 120) : L; });
+    GREP.set(w, hits);
+  }, 8);
 }
 async function totalsAll(words) {
-  const { execFile } = require('child_process');
   const todo = words.filter(w => !TOTAL.has(w));
-  let i = 0;
-  const one = () => new Promise(res => {
-    if (i >= todo.length) return res(false);
-    const w = todo[i++];
-    execFile('git', ['-C', ROOT, 'grep', '-c', '-I', '-F', '-w', '-i', '-e', w], { maxBuffer: 1 << 26 }, (err, so) => {
-      const files = String(so || '').split('\n').filter(Boolean).map(l => { const k = l.lastIndexOf(':'); return { file: l.slice(0, k), n: +l.slice(k + 1) }; });
-      TOTAL.set(w, { lines: files.reduce((a, b) => a + b.n, 0), files: files.length, notGameLines: files.filter(f => where(f.file) === 'NOT THE GAME').reduce((a, b) => a + b.n, 0) });
-      res(true);
-    });
-  });
-  const lane = async () => { while (await one()); };
-  await Promise.all(Array.from({ length: 8 }, lane));
+  await pool(todo, async (w) => {
+    const so = await RG(['-c', '-F', '-w', '-i', '--with-filename', '-e', w, '--', '.']);   /* a path, or ripgrep reads its stdin */
+    const files = so.split('\n').filter(Boolean).map(l => { const k = l.lastIndexOf(':'); return { file: l.slice(0, k).replace(/^\.\//, ''), n: +l.slice(k + 1) }; });
+    TOTAL.set(w, { lines: files.reduce((a, b) => a + b.n, 0), files: files.length, notGameLines: files.filter(f => where(f.file) === 'NOT THE GAME').reduce((a, b) => a + b.n, 0) });
+  }, 8);
 }
-function grep(word) { grepAll([word]); return GREP.get(word); }
+function grep(word) { return GREP.get(word) || []; }
 /* ---------------------------------------------------------------- the reading of the search */
 function lettersOf(s) { return String(s).toLowerCase(); }
 function judge(name, loaded) {
@@ -330,7 +335,7 @@ function judge(name, loaded) {
   const by = {}; hits.forEach(h => { const w = where(h.file); by[w] = (by[w] || 0) + 1; });
   const game = hits.filter(h => where(h.file) !== 'NOT THE GAME');
   const inLoaded = game.filter(h => L.has(h.file));
-  const exact = inLoaded.filter(h => h.text.indexOf(name) >= 0);
+  const exact = inLoaded.filter(h => h.exact);
   const files = Array.from(new Set(game.map(h => h.file)));
   const loadedFiles = Array.from(new Set(inLoaded.map(h => h.file)));
   const copies = game.filter(h => !L.has(h.file));
@@ -340,7 +345,7 @@ function judge(name, loaded) {
     lines: { all: tot ? tot.lines : null, notTheGame: tot ? tot.notGameLines : null, game: game.length, loaded: inLoaded.length, copiesNotLoaded: copies.length },
     files: { game: files.length, loaded: loadedFiles },
     by,
-    candidates: inLoaded.slice(0, 12).map(h => ({ file: h.file, line: h.line, text: h.text.trim().slice(0, 160) })),
+    candidates: inLoaded.slice(0, 12).map(h => ({ file: h.file, line: h.line, exact: h.exact, text: h.text.trim().slice(0, 240) })),
     firstCopies: copies.slice(0, 4).map(h => ({ file: h.file, line: h.line }))
   };
 }
@@ -361,7 +366,7 @@ async function analyse(W) {
     }
   }
   const rows = [];
-  grepAll(Array.from(names.keys()));
+  await grepAll(Array.from(names.keys()));
   await totalsAll(Array.from(names.keys()));
   for (const r of names.values()) { r.kind = kindOf(r); r.search = judge(r.name, W.loaded); rows.push(r); }
   return { walk: { ms: W.ms, stages: W.stages.map(s => ({ name: s.name, atMs: s.at - W.t0, how: s.how })), notes: W.notes, items: W.items.length, loaded: W.loaded, errs: W.errs }, rows };
@@ -454,8 +459,8 @@ function planTags(rows) {
   for (const r of rows) {
     const s = r.search; if (!s.found || s.lines.loaded !== 1) continue;
     const c = s.candidates[0]; if (!c) continue;
-    const full = fs.readFileSync(path.join(ROOT, c.file), 'utf8').split('\n')[c.line - 1];
-    if (full === undefined) continue;
+    const full = lineOf(c.file, c.line);
+    if (!full) continue;
     const re = new RegExp('(?<![\\p{L}\\p{N}_])' + esc(r.name) + '(?![\\p{L}\\p{N}_])', 'giu');
     let m, spot = null; while ((m = re.exec(full))) { const how = taggable(c.file, full, m.index, m[0].length); if (how) { spot = { at: m.index, len: m[0].length, how }; break; } }
     if (!spot) { plan.push({ name: r.name, file: c.file, line: c.line, tag: null, why: 'the word sits in code or a key on that line; not tagged' }); continue; }
