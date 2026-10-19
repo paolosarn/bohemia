@@ -1,0 +1,44 @@
+{
+ "what": "RUN [the 3D models in the demo] 10/19: everybody on the map who is not a gang, rendered on the rig, one row per look and turn",
+ "src": {
+  "body": "records/target/character/rig/body",
+  "coil_crown": "records/target/character/barber/coil_crown",
+  "temple_taper": "records/target/character/barber/temple_taper",
+  "layered_fall": "records/target/character/barber/layered_fall",
+  "thug": "records/target/cook3/rig/thug",
+  "marksman": "records/target/cook3/rig/marksman",
+  "poacher": "records/target/cook3/rig/poacher_again"
+ },
+ "walks": [
+  "body",
+  "coil_crown",
+  "temple_taper",
+  "layered_fall",
+  "thug",
+  "marksman",
+  "poacher"
+ ],
+ "w": 98,
+ "h": 143,
+ "foot": 135,
+ "cols": 7,
+ "gangs": [
+  "body",
+  "coil_crown",
+  "temple_taper",
+  "layered_fall",
+  "thug",
+  "marksman",
+  "poacher"
+ ],
+ "dirs": [
+  "S",
+  "SE",
+  "E",
+  "NE",
+  "N",
+  "NW",
+  "W",
+  "SW"
+ ]
+}

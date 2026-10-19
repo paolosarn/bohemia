@@ -14,7 +14,19 @@ at the render's own pixels (nothing resampled: one native pixel size, rule 114a)
     slices/BOHEMIA_RIG_CAST.png   the sheet: a row per gang and turn, columns = still, walk k00..k05
     slices/BOHEMIA_RIG_CAST.json  {w, h, foot, gangs, dirs, cols, src}
 The map fetches it after the door, only when a party is first drawn; until it lands a party keeps the cast.
-    python3 tools/bohemia_bake_the_rig_cast.py
+
+AND THE PEOPLE (RUN [the 3D models in the demo], rule 121(b) and (e), 10/19: 'we have to do a full
+implementation of the 3D models, that's top priority'; 'EVERYTHING IS A 3D MODEL NOW... WTF TRYING TO COMBINE
+THE TWO'). Every other person on the map was the street's old flat cast: him, his two men, the crowds at the
+places and the crews on a job. A second sheet, the same way, of the 3D people he voted up that are not a gang:
+    body          HIM: CHARACTER's 3D twin of the game's own flat body (character-the-walk-of-every-look-10-18, BODY)
+    coil_crown, temple_taper, layered_fall   the barber's 3D man with three of his cuts (character-the-barber-on-the-skull-10-18):
+                  his two men, and the plain people in a crowd
+    thug, marksman, poacher   COOK THREE's tiers on the rig (cook3-the-thug-through-the-rig-10-18, cook3-the-marksman-through-
+                  the-rig-10-18, cook3-the-poachers-body-again-10-18): the crew on a job, a party with no gang
+All render at the same 57 px a metre (each rig.json's res over ortho_scale), so they stand at one size beside the gangs.
+    slices/BOHEMIA_RIG_PEOPLE.png / .json   (the same index, 'gangs' naming the looks)
+    python3 tools/bohemia_bake_the_rig_cast.py            # both sheets (the gangs' is byte-identical run to run)
 """
 import json, os, sys
 from PIL import Image
@@ -27,15 +39,37 @@ GANGS = ['anarchists', 'blues', 'caravans', 'cartel', 'church', 'colorful', 'hom
          'mob', 'network', 'reds', 'remnants', 'trades', 'volunteers']
 DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 WALK = 6
+T = 'records/target/'
+PEOPLE = {'body': T + 'character/rig/body', 'coil_crown': T + 'character/barber/coil_crown',
+          'temple_taper': T + 'character/barber/temple_taper', 'layered_fall': T + 'character/barber/layered_fall',
+          'thug': T + 'cook3/rig/thug', 'marksman': T + 'cook3/rig/marksman', 'poacher': T + 'cook3/rig/poacher_again'}
+SETS = {
+    'gangs': dict(looks=GANGS, src=lambda g: os.path.join(SRC, g), png=OUT_PNG, json=OUT_JSON,
+                  what='RUN [the demo wears the rig] 10/18: the thirteen gangs rendered on the rig, one row per gang and turn',
+                  frm='records/target/character/rig (CHARACTER, character-the-thirteen-through-the-rig-10-18, his YES)'),
+    'people': dict(looks=list(PEOPLE), src=lambda g: os.path.join(ROOT, PEOPLE[g]),
+                   png=os.path.join(ROOT, 'slices/BOHEMIA_RIG_PEOPLE.png'), json=os.path.join(ROOT, 'slices/BOHEMIA_RIG_PEOPLE.json'),
+                   what='RUN [the 3D models in the demo] 10/19: everybody on the map who is not a gang, rendered on the rig, one row per look and turn',
+                   frm=dict((g, PEOPLE[g]) for g in PEOPLE)),
+}
+SET = SETS['gangs']
 
 
 def frames(g, d):
-    out = [os.path.join(SRC, g, 'rig_%s.png' % d)]
-    out += [os.path.join(SRC, g, 'rig_Anim_0_%s_k%02d.png' % (d, k)) for k in range(WALK)]
+    base = SET['src'](g)
+    out = [os.path.join(base, 'rig_%s.png' % d)]
+    out += [os.path.join(base, 'rig_Anim_0_%s_k%02d.png' % (d, k)) for k in range(WALK)]
     return out
 
 
 def main():
+    global SET, GANGS
+    for name in SETS:
+        SET = SETS[name]; GANGS = SET['looks']
+        bake()
+
+
+def bake():
     ims, box = {}, None
     for g in GANGS:
         for d in DIRS:
@@ -58,7 +92,7 @@ def main():
         st = [ims[frames(g, d)[0]] for d in DIRS]
         gfoot[g] = max(im.getbbox()[3] for im in st)
         for p, im in ims.items():
-            if os.path.basename(os.path.dirname(p)) != g:
+            if os.path.dirname(p) != SET['src'](g):
                 continue
             bb = im.getbbox()
             if not bb:
@@ -79,16 +113,15 @@ def main():
                 sheet.alpha_composite(im, (c * w + w // 2 - im.size[0] // 2, row * h + foot - gfoot[g]))
     # 123,000 colours raw (1.7 MB); held to 256 with no dither it is about 370 KB and looks the same at 2x
     # (checked side by side), and a phone fetches a fifth of it
-    sheet.quantize(256, method=Image.FASTOCTREE, dither=Image.NONE).save(OUT_PNG, optimize=True)
-    meta = {'what': 'RUN [the demo wears the rig] 10/18: the thirteen gangs rendered on the rig, one row per gang and turn',
-            'src': 'records/target/character/rig (CHARACTER, character-the-thirteen-through-the-rig-10-18, his YES)',
+    sheet.quantize(256, method=Image.FASTOCTREE, dither=Image.NONE).save(SET['png'], optimize=True)
+    meta = {'what': SET['what'], 'src': SET['frm'],
             'walks': [g for g in GANGS if all(os.path.exists(p) for d in DIRS for p in frames(g, d))],
             'w': w, 'h': h, 'foot': foot, 'cols': cols, 'gangs': GANGS, 'dirs': DIRS}
-    with open(OUT_JSON, 'w') as f:
+    with open(SET['json'], 'w') as f:
         json.dump(meta, f, indent=1)
         f.write('\n')
-    print('%d frames, cell %dx%d, feet at %d, sheet %dx%d, %d KB' % (
-        len(ims), w, h, foot, sheet.size[0], sheet.size[1], os.path.getsize(OUT_PNG) // 1024))
+    print('%s: %d frames, cell %dx%d, feet at %d, sheet %dx%d, %d KB' % (
+        os.path.basename(SET['png']), len(ims), w, h, foot, sheet.size[0], sheet.size[1], os.path.getsize(SET['png']) // 1024))
 
 
 if __name__ == '__main__':

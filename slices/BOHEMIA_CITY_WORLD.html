@@ -44178,11 +44178,12 @@ function loopJobsDraw(ox, oy){
     var j = LOOP.held[i], p = iso(j.target.x, j.target.y, ox, oy);
     if(p.sx < -40 || p.sx > CVW + 40 || p.sy < -60 || p.sy > CVH + 60) continue;
     var fy = p.sy + TH / 2 + 2, bt = mapArtBeat();
-    if(mapCastOf(0)){
+    var OFF = !!window.__RIG_CAST_OFF;   /* __THE_MAP_IS_ALL_RIG__: the crew on the job is COOK THREE's thug, marksman and poacher */
+    if(mapPeopleOf('job', OFF ? 0 : i)){
       var kp = MAP_PEOPLE_K;
-      mapPersonDraw(mapCastOf(i * 5 + 3), 'S', bt, p.sx - 7 * kp, fy - 2 * kp);
-      mapPersonDraw(mapCastOf(i * 5 + 7), 'SW', bt + 1, p.sx + 7 * kp, fy - kp);
-      var L = mapPersonDraw(mapCastOf(i * 5 + 11), 'SE', bt + 2, p.sx, fy + 2 * kp);
+      mapPersonDraw(mapPeopleOf('job', OFF ? i * 5 + 3 : i), 'S', bt, p.sx - 7 * kp, fy - 2 * kp);
+      mapPersonDraw(mapPeopleOf('job', OFF ? i * 5 + 7 : i + 1), 'SW', bt + 1, p.sx + 7 * kp, fy - kp);
+      var L = mapPersonDraw(mapPeopleOf('job', OFF ? i * 5 + 11 : i + 2), 'SE', bt + 2, p.sx, fy + 2 * kp);
       mapFlagDraw(p.sx - 14 * kp, fy, (L ? L.h : 30 * kp) + 10 * kp, '#c4553f', bt, true);
     }
     /* a SHORT plate right over the crew's heads: the long name ran under him (photographed);
@@ -45050,14 +45051,15 @@ function mapFlagDraw(px, footY, tall, col, beat, moving){
   g.fillStyle = 'rgba(0,0,0,0.28)';
   g.fillRect(mapSnap(px + 1.34 + fw * (k ? 0.45 : 0.62)), mapSnap(top), 1.34, fh);
 }
-/* CROWD: three of the cast, close together, each facing a little differently */
+/* CROWD: three people, close together, each facing a little differently (__THE_MAP_IS_ALL_RIG__: the three cuts) */
 function mapCrowdDraw(sx, footY, a, b, beat){
   var h0 = mapHash(a, b);
-  if (!mapCastOf(0)) return false;
+  if (rigWaiting()) return true;   /* nobody until the 3D people are in */
+  if (!mapPeopleOf('crowd', 0)) return false;
   var spots = [[-8, -3, 'SE'], [8, -2, 'SW'], [0, 2, (h0 & 1) ? 'S' : 'SW']];
   for (var i = 0; i < spots.length; i++) {
     if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.crowdPeople++;
-    mapPersonDraw(mapCastOf(h0 + i * 5), spots[i][2], beat + i + (h0 & 3), sx + spots[i][0] * MAP_PEOPLE_K, footY + spots[i][1] * MAP_PEOPLE_K);
+    mapPersonDraw(mapPeopleOf('crowd', h0 + i), spots[i][2], beat + i + (h0 & 3), sx + spots[i][0] * MAP_PEOPLE_K, footY + spots[i][1] * MAP_PEOPLE_K);
   }
   return true;
 }
@@ -45079,30 +45081,28 @@ function mapPartyFace(p){
    mapPersonDraw draws it at the cast's size (one art pixel to two phone pixels): the body is the same height as
    the people beside it. All thirteen walk (10/19, CHARACTER's walk of every look, his YES: 728 frames, 895 KB). */
 var RIG_CAST = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
-function rigCastLoad(){
-  if (RIG_CAST.state) return; RIG_CAST.state = 1;
+function rigSheetLoad(S, name){
+  if (S.state) return; S.state = 1;
   try {
-    fetch('BOHEMIA_RIG_CAST.json').then(function(r){ return r.json(); }).then(function(m){
+    fetch(name + '.json').then(function(r){ return r.json(); }).then(function(m){
       var im = new Image();
-      im.onload = function(){ RIG_CAST.meta = m; RIG_CAST.img = im; RIG_CAST.state = 2; };
-      im.onerror = function(){ RIG_CAST.state = 3; };
-      im.src = 'BOHEMIA_RIG_CAST.png';
-    }).catch(function(){ RIG_CAST.state = 3; });
-  } catch (_e) { RIG_CAST.state = 3; }
+      im.onload = function(){ S.meta = m; S.img = im; S.state = 2; try { render(); } catch (_e) {} };
+      im.onerror = function(){ S.state = 3; };
+      im.src = name + '.png';
+    }).catch(function(){ S.state = 3; });
+  } catch (_e) { S.state = 3; }
 }
-function rigSetOf(fac){
-  if (!fac || window.__RIG_CAST_OFF) return null;   /* the switch is for the before-and-after picture only */
-  if (RIG_CAST.state !== 2) { rigCastLoad(); return null; }
-  var key = String(fac).toLowerCase();
-  if (RIG_CAST.sets[key] !== undefined) return RIG_CAST.sets[key];
-  var m = RIG_CAST.meta, gi = m.gangs.indexOf(key);
-  if (gi < 0) return (RIG_CAST.sets[key] = null);
+function rigCastLoad(){ rigSheetLoad(RIG_CAST, 'BOHEMIA_RIG_CAST'); }
+function rigSheetSet(S, key){
+  if (S.sets[key] !== undefined) return S.sets[key];
+  var m = S.meta, gi = m.gangs.indexOf(key);
+  if (gi < 0) return (S.sets[key] = null);
   var H = 130, walks = m.walks.indexOf(key) >= 0, set = {};
-  while (Math.round(H * 0.93) < m.foot) H++;   /* the tallest hat inside the picture (10/19: all thirteen walk, the feet sit at 124) */
+  while (Math.round(H * 0.93) < m.foot) H++;   /* the tallest hat inside the picture (10/19: all thirteen walk, the feet sit at 124; the people's at 135) */
   var cut = function(row, col){
     var c = document.createElement('canvas'); c.width = 112; c.height = H;
     var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-    x.drawImage(RIG_CAST.img, col * m.w, row * m.h, m.w, m.h, 56 - m.w / 2, Math.round(H * 0.93) - m.foot, m.w, m.h);
+    x.drawImage(S.img, col * m.w, row * m.h, m.w, m.h, 56 - m.w / 2, Math.round(H * 0.93) - m.foot, m.w, m.h);
     return c;
   };
   for (var di = 0; di < m.dirs.length; di++) {
@@ -45110,10 +45110,52 @@ function rigSetOf(fac){
     if (walks) { f.walk = []; for (var k = 1; k < m.cols; k++) f.walk.push(cut(row, k)); }
     set[m.dirs[di]] = f;
   }
-  return (RIG_CAST.sets[key] = set);
+  return (S.sets[key] = set);
+}
+function rigSetOf(fac){
+  if (!fac || window.__RIG_CAST_OFF) return null;   /* the switch is for the before-and-after picture only */
+  if (!rigAllReady()) return null;
+  return rigSheetSet(RIG_CAST, String(fac).toLowerCase());
+}
+/* ==== __THE_MAP_IS_ALL_RIG__ (RUN [the 3D models in the demo], rule 121(b) and (e), 10/19) ====
+   PAOLO 10/19: 'we have to do a full implementation of the 3D models, that's top priority... it's just looking so
+   fucking bad'; and on a card that put a painted face beside a 3D body: 'EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY
+   8 BIT SHIT... WTF TRYING TO COMBINE THE TWO'. Only the gangs' parties wore the rig; HIM, his two men, the crowds at
+   the places and the crews on a job were the street's old flat cast. Now every person the map draws is a 3D model
+   from one of two sheets (tools/bohemia_bake_the_rig_cast.py): the gangs' (BOHEMIA_RIG_CAST) and the people's
+   (BOHEMIA_RIG_PEOPLE: CHARACTER's 3D twin of his own body, the barber's 3D man in three cuts, COOK THREE's thug,
+   marksman and poacher, every one a card he voted up). Who wears what:
+     HIM            body (his own flat body's 3D twin)          HIS TWO MEN    coil_crown, temple_taper
+     A CROWD        the three cuts                               A GATE CROWD   the place's own gang, between the cuts
+     A JOB / A PARTY WITH NO GANG   thug, marksman, poacher      A GANG'S PARTY its gang (as before)
+   NEVER THE TWO TOGETHER: both sheets come in before anybody is drawn from either; until then the map draws nobody
+   (him: his old body, alone, for the second it takes), and COOK's flat marks come back only if a sheet FAILED.
+   __RIG_CAST_OFF puts the old cast back everywhere, for the before-and-after picture only. */
+var RIG_PEOPLE = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
+var RIG_POOLS = { crowd: ['layered_fall', 'coil_crown', 'temple_taper'], job: ['thug', 'marksman', 'poacher'],
+                  company: ['coil_crown', 'temple_taper'], you: ['body'] };
+function rigAllReady(){
+  rigCastLoad(); rigSheetLoad(RIG_PEOPLE, 'BOHEMIA_RIG_PEOPLE');
+  return RIG_CAST.state === 2 && RIG_PEOPLE.state === 2;
+}
+function rigWaiting(){   /* a sheet is still on its way: draw nobody rather than the old cast or COOK's flat marks */
+  if (window.__RIG_CAST_OFF) return false;
+  rigAllReady();
+  return RIG_CAST.state < 2 || RIG_PEOPLE.state < 2;
+}
+function rigFailed(){ return RIG_CAST.state === 3 || RIG_PEOPLE.state === 3; }
+/* one of a pool, by a number; the old cast only when the switch asks for the before picture */
+function mapPeopleOf(pool, i){
+  if (window.__RIG_CAST_OFF) return mapCastOf(i);
+  if (!rigAllReady()) return null;
+  var L = RIG_POOLS[pool] || RIG_POOLS.crowd, key = L[((i % L.length) + L.length) % L.length];
+  var set = rigSheetSet(RIG_PEOPLE, key);
+  if (set && MAP_DREW && MAP_DREW.art) MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 1;
+  return set;
 }
 function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
-  if (!mapCastOf(0)) return false;
+  if (rigWaiting()) return true;   /* __THE_MAP_IS_ALL_RIG__: nobody until the 3D people are in */
+  if (!mapPeopleOf('job', 0)) return false;
   var fac = p && p.from && p.from.faction;
   var rig = null; try { rig = rigSetOf(fac); } catch (_e) { rig = null; }
   if (rig) {   /* __THE_GANGS_WEAR_THE_RIG__ */
@@ -45128,9 +45170,10 @@ function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
   var base = mapHash(String(fac || '').length * 31 + idx, idx * 7 + 3);
   var face = mapPartyFace(p);
   var kp = MAP_PEOPLE_K;
+  /* a party with no gang of its own: COOK THREE's men on the rig (__THE_MAP_IS_ALL_RIG__) */
   /* the second man is half a stride out of step with the leader: two men never walk as one */
-  mapPersonDraw(mapCastOf(base + 1), face, beat + 1, sx + 7 * kp, footY - 2 * kp, walkPh == null ? null : walkPh + 0.5);
-  var lead = mapPersonDraw(mapCastOf(base), face, beat, sx - 3 * kp, footY + kp, walkPh);
+  mapPersonDraw(mapPeopleOf('job', base + 1), face, beat + 1, sx + 7 * kp, footY - 2 * kp, walkPh == null ? null : walkPh + 0.5);
+  var lead = mapPersonDraw(mapPeopleOf('job', base), face, beat, sx - 3 * kp, footY + kp, walkPh);
   mapFlagDraw(sx - 11 * kp, footY + kp, (lead ? lead.h : 30 * kp) + 8 * kp, mapFactionColour(fac), beat, true);
   if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.partyPeople += 2;
   return true;
@@ -45193,7 +45236,7 @@ function mapPartyShadow(gx, gy){
     var K = Math.max(0.75, MAP_PEOPLE_K), P = MAP_PARTY_AS_ONE;
     var cw = 112 * (56 / 112) * MAP_PERSON_K * MAP_PEOPLE_K;   /* a companion's drawn width (mapPersonDraw's w for the 112 box) */
     var sh = [{ x: gx, y: gy, rx: 56 * P.feet }];                /* his drawn width is the 112 box at half */
-    [0, 1].forEach(function(k){ if (!mapCastOf(7 + k * 3)) return; var sp = mapCompanySpot(k, dx, dy, K); sh.push({ x: gx + sp[0], y: gy + sp[1], rx: cw * P.feet }); });
+    [0, 1].forEach(function(k){ if (!mapPeopleOf('company', window.__RIG_CAST_OFF ? 7 + k * 3 : k)) return; var sp = mapCompanySpot(k, dx, dy, K); sh.push({ x: gx + sp[0], y: gy + sp[1], rx: cw * P.feet }); });
     g.fillStyle = P.shade; g.beginPath();
     sh.forEach(function(e){ e.ry = e.rx * P.flat; g.moveTo(e.x + e.rx, e.y); g.ellipse(e.x, e.y, e.rx, e.ry, 0, 0, Math.PI * 2); });
     g.fill('nonzero');   /* one fill: where two meet it is the same shade, never darker */
@@ -45216,7 +45259,7 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
        behind his body on every cross-screen walk, and pushing it clear put it AHEAD of him (both measured 10/11). */
     var spot = function(k){ return mapCompanySpot(k, dx, dy, K); };
     [[-1, 0.25], [1, 0.5]].forEach(function(o, k){
-      var m = mapCastOf(7 + k * 3); if (!m) return;
+      var m = mapPeopleOf('company', window.__RIG_CAST_OFF ? 7 + k * 3 : k); if (!m) return;   /* his two men: the barber's 3D man in two cuts (__THE_MAP_IS_ALL_RIG__) */
       if (ONE && pass) { var sp = spot(k); if ((pass === 'front') !== (sp[1] > 0)) return;
         MAP_SHADOW_DONE = true; try { mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + sp[0], gy + sp[1], moving && st != null ? st + o[1] : null); } finally { MAP_SHADOW_DONE = false; }
         MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + sp[0]), Math.round(gy + sp[1]), f]);
@@ -46256,7 +46299,8 @@ function lookRender(){
   }
   /* HIM, at his own size: the 112 box (rule 21), feet on the middle of his block */
   var you = null;
-  try { var set = PLAYER_CV && (PLAYER_CV.S || PLAYER_CV[Object.keys(PLAYER_CV)[0]]), spr = set && set.idle;
+  try { var YOU = (!window.__RIG_CAST_OFF && mapPeopleOf('you', 0)) || PLAYER_CV;   /* __THE_MAP_IS_ALL_RIG__: his 3D body here too */
+    var set = YOU && (YOU.S || YOU[Object.keys(YOU)[0]]), spr = set && set.idle;
     if (spr) { var b = spriteAt(spr, 32), bw = 112, bh = b.height * (112 / b.width), fx = W / 2 + dxp, fy = H / 2 + dyp;
       g.fillStyle = 'rgba(10,8,6,0.45)'; g.beginPath(); g.ellipse(fx, fy, bw * 0.2, bw * 0.06, 0, 0, 7); g.fill();
       g.imageSmoothingEnabled = false; g.drawImage(b, Math.round(fx - bw / 2), Math.round(fy - bh * 0.93), bw, bh); you = { w: bw, h: bh }; } } catch (_e) {}
@@ -47001,13 +47045,15 @@ function renderCity(){
            place, each on its own beat, so a market day reads from across the map. */
         try {
           var __gc = livingMapCrowd(__n, __tier);
-          if (__gc && __gc.count > 0 && mapCastOf(0)) {
+          if (__gc && __gc.count > 0 && mapPeopleOf('crowd', 0)) {
             var __gh = mapHash(String(__n).length * 17, (__b.x | 0) * 31 + (__b.y | 0));
             var __gsp = 6 * MAP_PEOPLE_K, __faces = ['S', 'SE', 'SW'];
+            var __gang = rigSetOf(__n);   /* __THE_MAP_IS_ALL_RIG__: the place's own people wear its gang, between plain folk */
             for (var __gi = 0; __gi < __gc.count; __gi++) {
               var __gx = __p.sx + (__gi - (__gc.count - 1) / 2) * __gsp;
               var __gy = __cy + 6 + (5 + (__gi % 2) * 3) * MAP_PEOPLE_K;
-              mapPersonDraw(mapCastOf(__gh + __gi * 7), __faces[(__gh + __gi) % 3], mapArtBeat() + __gi, __gx, __gy);
+              var __who = window.__RIG_CAST_OFF ? mapCastOf(__gh + __gi * 7) : ((__gang && (__gi % 2 === 0)) ? __gang : mapPeopleOf('crowd', __gh + __gi));
+              mapPersonDraw(__who, __faces[(__gh + __gi) % 3], mapArtBeat() + __gi, __gx, __gy);
             }
             try { MAP_DREW.gateCrowd = MAP_DREW.gateCrowd || {}; MAP_DREW.gateCrowd[__n] = { count: __gc.count, market: __gc.market, traits: __gc.traits }; } catch (_e5) {}
           }
@@ -47162,7 +47208,11 @@ function renderCity(){
     let __body=null, __how='cook';
     try{
       const __face=mapFaceNow();
-      const __set=PLAYER_CV&&(PLAYER_CV[__face]||PLAYER_CV.S);
+      /* __THE_MAP_IS_ALL_RIG__ (rule 121(e)): HIM as CHARACTER's 3D twin of his own body, the moment the sheets are in;
+         his old baked body only for the second before (nobody else is drawn then) or if a sheet failed */
+      const __rigYou=window.__RIG_CAST_OFF?null:mapPeopleOf('you',0);
+      const __src=__rigYou||PLAYER_CV;
+      const __set=__src&&(__src[__face]||__src.S);
       let __spr=__set&&__set.idle;
       /* __THE_PARTIES_WALK__: his stride is his glide's (two steps a cycle), so his feet keep pace with the
          ground at every speed; it was a 125 ms wall clock that ran the same whether he crossed a block a
@@ -47170,7 +47220,7 @@ function renderCity(){
       const __st=strideOf({u:__G.u,n:CITY_GLIDE.n});
       if(__set&&__moving&&__set.walk&&__set.walk.length)
         __spr=__set.walk[Math.floor((__st==null?0:__st)*__set.walk.length)%__set.walk.length];
-      if(__spr){ __body=spriteAt(__spr,32); __how='rig'; }   /* the 112 box, drawn at half: his 56 on the glass at the rig's own pixels */
+      if(__spr){ __body=spriteAt(__spr,32); __how=__rigYou?'rig3d':'rig'; }   /* the 112 box, drawn at half: his 56 on the glass at the rig's own pixels */
     }catch(_e){ __body=null; }
     /* __THE_PARTIES_WALK__ (rule 65: the party marker is three real dressed people): TWO OF HIS COMPANY walk
        behind him, a step back along the way he faces and one to each side, out of step with him and with
