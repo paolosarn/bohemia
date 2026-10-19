@@ -112,8 +112,8 @@ THE FACE IS THE BODYS FACE: 133 passed, 0 failed.
 * EYES' star tool, run as it is with the new window handed in (its screen_square is a copy of the old one): 13 of 13 PASS.
   The bedroll's pupils 55 and 42 levels under their surround (the star 29 and 28; before 3); its moods move the face
   730/520/1389 px (the star 143/173/902; before 69/122/605). The widebrim's cone sits whole inside the crew screen's square.
-* STYLE GUIDE 115/0 (the 13 reds at wear 0.45 are gone: the crew is rendered at the guide's 0.6). NOT VIBE CODED 30/1, the
-  one red COOK FOUR's three settlement cards (D5), none of this card's sprites. THE ART FENCE 14/0. THE VOTE TAB 46/6, the
+* STYLE GUIDE 115/0 (the 13 reds at wear 0.45 are gone: the crew is rendered at the guide's 0.6). NOT VIBE CODED 30/1:
+  N3 lists this card's three black-haired, light-skinned faces on D3 (section 7) beside other lanes' cards. THE ART FENCE 14/0. THE VOTE TAB 46/6, the
   same six red on main without this card (DYNASTY's two whys, RUN TWO's full-size tap legs).
 * A NOTE ON EYES' [every face beside its body] (YOU's portrait '2 shades darker than his body'): the rig lights every
   portrait at about a fifth of its paint (measured, section 3), so a rendered face read straight against a flat sprite
@@ -127,10 +127,30 @@ records/target/portrait/PORTRAIT_THE_FACE_IS_THE_BODYS_FACE.png.
 NOT YET: the thirteen gangs' fresh faces (round 2 of [every face from the same model]; rendering, the same recipe, the
 same file); the enemy tiers' heads (COOK THREE's new tier bodies).
 
+## 7. The one red: the guide's light row reads black hair as light from below
+
+NOT VIBE CODED N3 runs the guide's card_row (the opaque top half of a sprite at least as bright as its bottom, -2.5) on
+the card's sprites, which are the squares the sheet shows (rest, talking, angry for each face). Ten of the thirteen pass.
+Three send back, all of them CHARACTER's light skins under their bodies' own black hair (H_BLK):
+
+| face | skin | hair | top minus bottom (rest / A / Angry) |
+|---|---|---|---|
+| Amos Ferris (barearms) | fair | coil crown, black | -19.5 / -16.2 / -19.6 |
+| Wyatt Hatcher (apron) | fair | deep taper, black | -9.3 / -5.1 / -8.3 |
+| Hoang Serrano (shorts) | tan | coil crown, black | -6.2 / -3.5 / -6.3 |
+
+The row is reading the hair's value, not the light: EYES' face-shading read puts every crew face at 109 to 148 degrees,
+upper left. Simulated through each head's own mask (the hair repainted at its own light), passing the row needs the hair
+painted 110 to 150, grey, which is rule 120(d) broken to satisfy a proxy. PORTRAIT holds the hair true and routed the
+ruler to DIRECTION with a proposal (the light row over the skin only through the mask, or with hair and head gear masked
+out). The 10/18 crew card (voted UP) had its sprites pointed at this round's re-renders by the shared paths; they now point
+at the pixels he voted on, kept at records/target/portrait/voted_10_18/ (from the commit he saw), so its row is clean.
+
 ## ROUTED
 * CHARACTER [one skin, one person]: shipped the engine change and both re-bakes in the same hour (3318fe81, ba103ee1);
   this gate's body legs went green on them. Its own gate ONE SKIN, ONE PERSON holds the engine paths; this one holds the
   pictures (the paint through a mask, the hair, the street). The widebrim is its one PORTRAIT debt left (section 6).
+* DIRECTION: the light row on the portrait class (section 7), a NOTE on its board.
 * EYES AND EARS: the star tool's screen_square copies the old hand-off window; import
   tools/bohemia_portrait_the_head_from_the_model.py hand_off_window instead and the widebrim reads whole there too.
 * RUN TWO: nothing to wire. BohemiaCrewFaces reads the manifest at load; the thirteen gangs' faces join it this round, so
