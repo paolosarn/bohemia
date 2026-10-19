@@ -11722,6 +11722,44 @@
     "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
     "light": "top"
    }
+  },
+  {
+   "id": "cook4-the-pawn-shop-10-19",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "72d81e56",
+   "made": "10/19",
+   "title": "PLACEHOLDER: THE STRIP'S PAWN SHOP, UNDER THE STRAIGHT ROOF IN THE VALLEY'S TANS",
+   "why": "The next building of the Strip: the pawn shop, the valley's bank now that batteries are the money, one storey of your plaster with your barred windows, your steel door and a blank sign box under the tan roof, and one wrong thing: a queue of your fence rails for forty people in front of the door, and nobody in it. You see it in the VOTE tab beside your pack house, the tower casino and the corner shop at the same size, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_PAWN_SHOP.webp",
+    "first": "../records/target/vote_first/cook4-the-pawn-shop-10-19.webp",
+    "firstAt": [44, 230, 980, 784]
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; the pawn shop wears the same measured shape (1.49 walls tall against one storey) in the tan of his render wall, a rooftop unit of his on it.",
+     "FRONT: his house has plain windows and a wooden door; ours is a 14 m storefront with four of his barred windows as the display glass, his steel door under a steel transom, and a 7 m fascia box of his framed steel with no name on it.",
+     "THE GROUND IN FRONT: his house stands alone; ours has his post-and-rail laid as a bank's switchback, three rows 2.2 m apart: the queue for forty people, empty, the one wrong thing."
+    ]
+   },
+   "before_after": {
+    "before": "no pawn shop in the valley: the Strip had the casino, the church and the tower",
+    "after": "the pawn shop: barred glass, steel door, the blank fascia box, the empty switchback in front",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_pipe/cook4/strip/COOK4_THE_PAWN_SHOP.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
   }
  ],
  "verdicts": [
