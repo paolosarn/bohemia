@@ -1,0 +1,120 @@
+{
+ "frames": "records/target/cook3/rig/raider_again",
+ "ruler": "dE76 of the lit tone (L* p80, median a*, b*) of the face skin against the body skin (hands, neck), pooled over the facings, interior ID pixels only; PASS under 10",
+ "facings": [
+  {
+   "facing": "N",
+   "face_px": 0,
+   "body_px": 11,
+   "body_rgb": [
+    105,
+    77,
+    67
+   ]
+  },
+  {
+   "facing": "NE",
+   "face_px": 0,
+   "body_px": 16,
+   "body_rgb": [
+    77,
+    55,
+    47
+   ]
+  },
+  {
+   "facing": "E",
+   "face_px": 0,
+   "body_px": 38,
+   "body_rgb": [
+    84,
+    57,
+    49
+   ]
+  },
+  {
+   "facing": "SE",
+   "face_px": 38,
+   "body_px": 22,
+   "face_rgb": [
+    60,
+    42,
+    37
+   ],
+   "body_rgb": [
+    103,
+    71,
+    62
+   ]
+  },
+  {
+   "facing": "S",
+   "face_px": 108,
+   "body_px": 12,
+   "face_rgb": [
+    95,
+    67,
+    59
+   ],
+   "body_rgb": [
+    100,
+    73,
+    62
+   ]
+  },
+  {
+   "facing": "SW",
+   "face_px": 98,
+   "body_px": 13,
+   "face_rgb": [
+    105,
+    76,
+    66
+   ],
+   "body_rgb": [
+    78,
+    54,
+    45
+   ]
+  },
+  {
+   "facing": "W",
+   "face_px": 20,
+   "body_px": 44,
+   "face_rgb": [
+    104,
+    74,
+    65
+   ],
+   "body_rgb": [
+    80,
+    55,
+    46
+   ]
+  },
+  {
+   "facing": "NW",
+   "face_px": 0,
+   "body_px": 30,
+   "body_rgb": [
+    99,
+    69,
+    59
+   ]
+  }
+ ],
+ "face_px": 264,
+ "body_px": 186,
+ "face_tone": [
+  37.4,
+  10.7,
+  9.9
+ ],
+ "body_tone": [
+  33.9,
+  10.3,
+  10.0
+ ],
+ "dE": 3.5,
+ "verdict": "PASS"
+}

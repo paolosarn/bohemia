@@ -198,26 +198,54 @@ TIERS = {
     # skin_deep 2 on his hands AND on PORTRAIT's head on the same model (HEADS below), measured off the pixels (--skin).
     'RAIDER_AGAIN': dict(
         what='an oversized black hoodie to the hip with the hood up, a police-surplus plate carrier in coyote nylon (front and back plates, a cummerbund of webbing rows, shoulder straps), a row of red shotgun shells with brass bases on the chest, black cargo trousers, pale knee pads, boots, a sawn-off double barrel in his right fist; the head is PORTRAIT\'s modelled head on the same model, the skin on his hands the face\'s',
-        hoodie=dict(colour=step('cloth_black', 2), z_bot=0.62, z_top=1.17, sleeve_x=0.465, t=0.018, skirt_top=0.70, hem_z=0.555,
+        # cycle 5 (the card's value span 110 against 118 on the full render: the up-face dust greyed the black and nothing
+        # pale was big enough): the blacks one step down (cloth_black 1), the vest and pads one step up (tape_masking 3)
+        hoodie=dict(colour=step('cloth_black', 1), z_bot=0.62, z_top=1.17, sleeve_x=0.465, t=0.018, skirt_top=0.70, hem_z=0.555,
                     flare=1.07, rib_m=0.045, rib_d=0.007, cuff_m=0.05, swing=0.35),
         # cycle 2: cycle 1's hood (a 3.2 cm gap, a 3.5 cm point up, the opening 13 cm tall) rendered as a grey egg twice the
         # face with the face a dark slot at its foot; now it sits on the skull, falls back instead of up, has a centre seam
         # (a hood is two panels, not a shell) and is open from the hairline to under the chin, worn a little pushed back
-        hood=dict(colour=step('cloth_black', 2), gap=0.017, open=(0.118, 0.152, -0.018), throat=(0.118, 0.122, 0.020),
+        hood=dict(colour=step('cloth_black', 1), gap=0.017, open=(0.118, 0.152, -0.018), throat=(0.118, 0.122, 0.020),
                   aventail=(1.115, 0.125, 0.125, 0.015), clear=0.062, point=(0.030, 0.0), seam=(0.005, 0.009)),   # clear: over the vest's straps
         # cycle 3: the vest as its own pieces (cycle 2's lifted triangles had a ragged edge and read as a fleece bib)
-        vest=dict(colour=step('tape_masking', 2), plate_z=(0.885, 1.105), plate_x=0.130, plate_t=0.03, band_z=(0.855, 0.965),
+        vest=dict(colour=step('tape_masking', 3), plate_z=(0.885, 1.105), plate_x=0.130, plate_t=0.03, band_z=(0.855, 0.965),
                   strap_x=0.085, strap_w=0.05, web_z=(0.858, 0.985), web_m=0.05, web_h=0.032, web_d=0.006),
         shells=dict(hull=step('blood', 1), brass=step('clay_mustard', 2), n=6, z=1.035, x=(-0.128, -0.032), r=0.0115, h=0.064, base=0.016),
-        kneepads=dict(colour=step('tape_masking', 2), z=(0.292, 0.418), t=0.022, ridge_z=0.352),
+        kneepads=dict(colour=step('tape_masking', 3), z=(0.292, 0.418), t=0.022, ridge_z=0.352),
         head='portrait',
         # cycle 2 tried skin_deep 3 (cycle 1's skin_deep 2 was a dark slot under a closed hood): with the hood open the
         # face rendered at (150, 120, 98), a light brown, not the Black man this is; cycle 3 is back on skin_deep 2 with the
         # hood open, on the face AND the hands, the same step, one person (measured off the ID pass: --skin)
-        trousers=step('cloth_black', 2), sleeves=step('cloth_black', 2), boots=step('rubber', 2), skin=step('skin_deep', 2),
+        trousers=step('cloth_black', 1), sleeves=step('cloth_black', 1), boots=step('rubber', 2), skin=step('skin_deep', 2),
         eyes=step('skin_deep', 0),
         weapon=dict(kind='sawnoff', colour=step('rubber', 2), r=0.016, back=0.12, grip=0.07, fore=0.40,
                     barrel_r=0.0105, barrel_gap=0.0118),
+        head_scale=1.2),
+    # THE LEADER (round 6, the same direction as the thug, the marksman and the raider again). HOW BATTLE BROTHERS DID
+    # IT (rule 41, records/target/bb/enemies.json brigand_leader): the band's elite and its CAPTAIN (the Captain perk:
+    # the men near him hold), the heaviest armour of the band (a Reinforced Mail Hauberk, Footman's Armor, LIGHT SCALE
+    # or Leather Scale Armor), a kettle hat, a big weapon, a unique name; 'the Leader spawns in the very back and usually
+    # does not hurry to enter battle'. The lesson kept: the one you remember, standing at the back, the heaviest. Our
+    # skin, from the same city: the SCALE ARMOUR is a cuirass of LICENCE PLATES cut and riveted in overlapping rows (a
+    # dead state's plates are free metal), shown in the front of a LONG BLACK LEATHER COAT worn open (TRENCHCOATS ARE FOR
+    # BADASSES, 8/27: 'killers... cowboy shit'; the captain is the band's killer, the coat the rest area); the captain's
+    # mark is a BRASS GORGET at the throat (an officer's badge of rank, and the faction's gold the raider shares); no
+    # helmet, so the face is the one you remember (PORTRAIT's head: slicked hair, a moustache, a cheek scar); and guns
+    # first (rule 120(a)): a LEVER-ACTION RIFLE carried in his right hand, muzzle down.
+    'LEADER': dict(
+        what='a long black leather coat to mid-calf worn open with a high collar, its tails on the thigh bones; under it a cuirass of licence plates cut and riveted in overlapping rows; a brass gorget at the throat, the captain\'s mark; black trousers, boots; a lever-action rifle in his right hand; the head is PORTRAIT\'s modelled head (slicked hair, a moustache, a cheek scar), the skin on his hands the face\'s',
+        coat=dict(colour=step('cloth_black', 1), z_top=1.17, sleeve_x=0.465, t=0.022, open_from_z=1.13, open_w=0.03, open_rate=0.30,
+                  skirt_top=0.70, hem_z=0.17, vent_z=0.50, flare_x=1.22, flare_y=1.55, swing=0.9, collar=(1.11, 1.20, 0.032)),
+        # cycle 2: cycle 1's 5.2 cm rows of 8.5 cm plates in one grey read as a knit at 1x (and mail is his NO): the plates
+        # are licence-plate size now (7 cm rows, 13 cm plates, deeper edges) in two colours, a patchwork of bare aluminium and
+        # the old faded teal, one plate in three, so they read as scrap plates riveted on
+        scales=dict(colour=step('tape_grey', 2), second=step('clay_teal', 3), z=(0.66, 1.13), x=0.19, t=0.014, row_m=0.07, row_d=0.011, plate_m=0.13, edge_d=0.008),
+        gorget=dict(colour=step('clay_mustard', 2), z=(1.085, 1.16), t=0.04, x=0.11),
+        head='portrait',
+        trousers=step('cloth_black', 1), sleeves=step('cloth_black', 1), boots=step('rubber', 2), skin=step('skin_light', 2),   # one black with the coat: a material freed for the teal plates
+        eyes=step('skin_light', 0),
+        weapon=dict(kind='lever', colour=step('clay_rust', 2), metal=step('rubber', 2), r=0.016, back=0.30, grip=0.06, fore=0.62,
+                    barrel_r=0.011),
         head_scale=1.2),
 }
 
@@ -235,6 +263,13 @@ HEADS = {
                          kit='the hoodie\'s hood up (COOK THREE\'s, on the body)', palette='steps of the style palette (skin_deep 2, a cloth_black 1 beard)',
                          colours=dict(skin=('skin_deep', 2), lips=('skin_deep', 1), stubble=('cloth_black', 1), hair=('cloth_black', 1),
                                       beard=('cloth_black', 1), iris=('skin_deep', 0))),
+    # the leader: the face you remember, bare-headed (the captain stands at the back): slicked SILVER hair and a silver
+    # moustache (cycle 1's black slick took the rig's up-face dust as a grey helmet: pale hair keeps its read), a scar on
+    # the cheek; skin_light 2 on the face exactly as on his hands
+    'LEADER': dict(base='THUG', drop=(), gear=None, hair='slick', stubble=False, beard='moustache', scar='cheek',
+                   kit='bare-headed; the coat\'s high collar and the brass gorget are COOK THREE\'s, on the body', palette='steps of the style palette (skin_light 2, tape_grey 3 hair)',
+                   colours=dict(skin=('skin_light', 2), lips=('skin_light', 1), stubble=('tape_grey', 3), hair=('tape_grey', 3),
+                                beard=('tape_grey', 3), iris=('skin_light', 0))),
 }
 
 
@@ -359,7 +394,7 @@ def build(tier, out):
         panel skinned to its own thigh bone more and more toward the hem: the tails swing with the legs"""
         cm = mat('%s_coat' % tier.lower(), K['colour'], rough=0.9)
         def half_open(z):   # the front opening's half-width at a height: shut at the chest, a widening V below it
-            return 0.0 if z >= K['open_from_z'] else 0.014 + (K['open_from_z'] - z) * 0.10
+            return 0.0 if z >= K['open_from_z'] else K.get('open_w', 0.014) + (K['open_from_z'] - z) * K.get('open_rate', 0.10)
         def upper(p):
             if not (0.60 <= p.z <= K['z_top'] and abs(p.x) < K['sleeve_x']): return False
             return not (p.y < -0.02 and abs(p.x) < half_open(p.z))
@@ -995,6 +1030,30 @@ def build(tier, out):
         yf_ = vest(T['vest'])
         if 'shells' in T: shells(T['shells'], yf_)
     if 'kneepads' in T: kneepads(T['kneepads'])
+    if 'scales' in T:
+        # THE LICENCE-PLATE CUIRASS (Battle Brothers' Light Scale Armor): the torso lifted, never the arms, and the plates
+        # pressed in as geometry: rows that hang like shingles (each row tucked under the lip of the one above, a row every
+        # 5.2 cm = 3 px) and, along each row, a plate's edge every 8.5 cm, offset half a plate on alternate rows (riveted
+        # scale's brick), so a plate reads as a plate from every facing, not as a pattern
+        SCL = T['scales']
+        def plates(p):
+            u = (SCL['z'][1] - p.z) / SCL['row_m']; f_ = u - math.floor(u)
+            d = SCL['row_d'] * (1.0 - f_) ** 2
+            ang = math.atan2(p.y - 0.005, p.x) * 0.16 / SCL['plate_m'] + 0.5 * (math.floor(u) % 2)
+            if abs(ang - round(ang)) < 0.06: d += SCL['edge_d']
+            return d
+        sg = lift('%s_scales' % tier.lower(), lambda p: SCL['z'][0] <= p.z <= SCL['z'][1] and abs(p.x) < SCL['x'] and not (abs(p.x) > 0.17 and p.z > 0.80),
+                  lambda p: SCL['t'], SCL['colour'], rim=0.008, subdiv=3, groove=plates)
+        if SCL.get('second'):   # one plate in three the old faded teal, chosen per plate (row, column), never per pixel
+            sg.data.materials.append(mat('%s_plates_teal' % tier.lower(), SCL['second'], rough=0.9))
+            for f in sg.data.polygons:
+                c = M @ f.center; u = math.floor((SCL['z'][1] - c.z) / SCL['row_m'])
+                col_ = math.floor(math.atan2(c.y - 0.005, c.x) * 0.16 / SCL['plate_m'] + 0.5 * (u % 2))
+                if (u * 7 + col_ * 3) % 3 == 0: f.material_index = 1
+    if 'gorget' in T:
+        # THE GORGET: a brass crescent at the throat over the cuirass's top, the captain's mark (an officer's badge of rank)
+        GG = T['gorget']
+        lift('%s_gorget' % tier.lower(), lambda p: GG['z'][0] <= p.z <= GG['z'][1] and abs(p.x) < GG['x'] and p.y < 0.03, lambda p: GG['t'], GG['colour'], rim=0.006, subdiv=2)
     if 'mail' in T: hauberk(T['mail'])
     if 'coif' in T: coif(T['coif'], T['mail'])
     if 'helmet' in T: helmet(T['helmet'], T['coif'], T['mail'])
@@ -1139,6 +1198,29 @@ def build(tier, out):
             p.data.materials.append(mat('%s_%s' % (tier.lower(), W['kind']), W['colour'], rough=0.8))   # the grip, first
             c.data.materials.append(mat('%s_blade' % tier.lower(), W['blade'], rough=0.8))
             join(c)
+        elif W['kind'] == 'lever':   # rule 120(a), guns first: a lever-action rifle carried by the wrist of its stock,
+            # muzzle down: the cylinder above is the wrist in his fist; behind it the butt, ahead the receiver, the lever's
+            # loop under it, the long barrel and the magazine tube under the barrel, the fore-end; wood and blued steel
+            out_ = axis.cross(mathutils.Vector((0, 1, 0))).normalized()
+            if out_.x > 0: out_ = -out_
+            flat = out_.cross(axis).normalized()
+            frame = mathutils.Matrix((out_, flat, axis)).transposed().to_quaternion()
+            def box(sx, sy, sz, t_, off=0.0):
+                bpy.ops.mesh.primitive_cube_add(size=1.0); c = bpy.context.active_object; c.scale = (sx, sy, sz)
+                c.rotation_mode = 'QUATERNION'; c.rotation_quaternion = frame; c.location = fist + axis * t_ + out_ * off
+                bpy.ops.object.transform_apply(location=True, rotation=True, scale=True); return c
+            wood = mat('%s_wood' % tier.lower(), W['colour'], rough=0.8); steel = mat('%s_%s' % (tier.lower(), W['kind']), W['metal'], rough=0.7)
+            p.data.materials.append(wood)
+            b1 = box(0.045, 0.036, 0.20, -W['back'] + 0.10, off=-0.012)                   # the butt, deeper than the wrist
+            r1 = box(0.040, 0.030, 0.13, W['grip'] + 0.06); r1.data.materials.append(steel)  # the receiver
+            lv = box(0.018, 0.012, 0.10, W['grip'] + 0.02, off=0.04); lv.data.materials.append(steel)   # the lever's loop, under
+            fe = box(0.030, 0.030, 0.18, W['grip'] + 0.23); fe.data.materials.append(wood)     # the fore-end
+            for o_ in (b1, r1, lv, fe): join(o_)
+            for r_, off_ in ((W['barrel_r'], 0.0), (W['barrel_r'] * 0.8, 0.022)):           # the barrel, the magazine tube under it
+                bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=r_, depth=W['fore'] - W['grip'] - 0.12)
+                c = bpy.context.active_object; c.rotation_mode = 'QUATERNION'; c.rotation_quaternion = rot
+                c.location = fist + axis * ((W['grip'] + 0.12 + W['fore']) / 2) + out_ * off_
+                bpy.ops.object.transform_apply(location=True, rotation=True, scale=True); c.data.materials.append(steel); join(c)
         elif W['kind'] == 'sawnoff':   # rule 120(a), guns first: a double barrel cut down, the cylinder above is the stock's
             # stub and wrist in his fist; ahead of it the receiver, then the two barrels side by side, cut short, and a
             # fore-end under them; black synthetic furniture and blued steel, one material (the boots' rubber)
@@ -1210,7 +1292,7 @@ def sheet(tier, frames, out):
     row2 = [Image.open(os.path.join(frames, 'rig_Anim_0_%s_k%02d.png' % (f, k))) for f in ('S', 'SE') for k in range(6)]
     tw = twin(tier); s1 = row1[4]; cw, ch = s1.size
     Wd = max(12 * (cw + 6), 8 * (cw + 6), 900) + 24
-    H = 70 + (ch + 30) * 2 + 30 + 4 * max(ch, tw.height) + 120
+    H = 70 + (ch + 30) * 2 + 30 + 4 * max(ch, tw.height) + 140
     S = Image.new('RGB', (Wd, H), BG); d = ImageDraw.Draw(S)
     d.text((12, 8), 'COOK THREE: THE %s, MODELLED AND RENDERED THROUGH THE RIG (rule 115c), 1:1. A CANDIDATE: nothing is final before the moodboard.' % tier.replace('_', ' '), fill=(220, 214, 200))
     d.text((12, 24), '57 px a metre (1.72 m = 98 px), one pixel size, block 1 | palette: records/target/BOHEMIA_STYLE_PALETTE.json, every base colour a step of a role | ONE light: the rig\'s sun, upper left, above', fill=(160, 154, 140))
@@ -1221,7 +1303,7 @@ def sheet(tier, frames, out):
         for im, lb in zip(ims, labels):
             S.paste(GROUND, (x, y, x + cw, y + ch)); S.paste(im, (x, y), im); d.text((x, y + ch + 2), lb, fill=(160, 154, 140)); x += cw + 6
     y = 58; d.text((12, y), 'EIGHT FACINGS, STILL (the passing pose)', fill=(200, 190, 120)); strip(row1, y + 14, fac)
-    y += ch + 34; d.text((12, y), 'THE WALK, S then SE, 6 DRAWN KEYS = 2 BEATS AT 120 (%s%s)' % (('the %s swings with the hand: it is on the hand bone' % TIERS[tier]['weapon']['kind']) if TIERS[tier].get('weapon') else 'the %s rides the chest bone across his back; his hands are empty' % TIERS[tier]['slung']['kind'],
+    y += ch + 34; d.text((12, y), 'THE WALK, S then SE, 6 DRAWN KEYS = 2 BEATS AT 120 (%s%s)' % (('the %s swings with the hand: it is on the hand bone' % {'sawnoff': 'sawn-off', 'lever': 'lever-action rifle'}.get(TIERS[tier]['weapon']['kind'], TIERS[tier]['weapon']['kind'])) if TIERS[tier].get('weapon') else 'the %s rides the chest bone across his back; his hands are empty' % TIERS[tier]['slung']['kind'],
                                                                                              '; the shield rides the left forearm bone, the skirt\'s halves the thigh bones' if 'shield' in TIERS[tier] else ''), fill=(200, 190, 120))
     strip(row2, y + 14, ['S k%d' % k for k in range(6)] + ['SE k%d' % k for k in range(6)])
     y += ch + 34
@@ -1236,10 +1318,83 @@ def sheet(tier, frames, out):
     d.text((12, y), 'the card on the S still, under the style guide (class %s): %s' % (c.get('cls', c.get('family')), c['verdict']), fill=(200, 190, 120))
     for i, r in enumerate(c['rows']): d.text((12 + (i % 2) * 560, y + 16 + 14 * (i // 2)), r, fill=(150, 144, 132))
     d.text((12, y + 78), 'colours across the set %d; model %s; rendered %s' % (rig['colours'], rig['model'], rig['still']), fill=(120, 116, 108))
+    if rig.get('id_table') and any(k.startswith('portrait_') for k in rig['id_table']):   # rule 120(d), off the ID pass
+        sk = skin(frames)
+        if sk.get('dE') is not None:
+            d.text((12, y + 94), 'THE FACE IS THE BODY\'S FACE (rule 120(d)): face skin against hand skin, lit tone pooled over the eight facings: dE %.1f (face L* %.1f, hands L* %.1f; one skin step apart measures about 18) %s'
+                   % (sk['dE'], sk['face_tone'][0], sk['body_tone'][0], sk['verdict']), fill=(200, 190, 120))
     os.makedirs(os.path.dirname(out), exist_ok=True); S.save(out); print('sheet', out)
 
 
+def _lab(rgb):
+    """sRGB 0..255 to CIE L*a*b* (D65)"""
+    c = [(v / 255.0) / 12.92 if v / 255.0 <= 0.04045 else ((v / 255.0 + 0.055) / 1.055) ** 2.4 for v in rgb]
+    X = (0.4124 * c[0] + 0.3576 * c[1] + 0.1805 * c[2]) / 0.95047
+    Y = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+    Z = (0.0193 * c[0] + 0.1192 * c[1] + 0.9505 * c[2]) / 1.08883
+    f = lambda t: t ** (1 / 3) if t > 0.008856 else 7.787 * t + 16 / 116
+    return (116 * f(Y) - 16, 500 * (f(X) - f(Y)), 200 * (f(Y) - f(Z)))
+
+
+SKIN_DE = 10.0
+# THE RULER, measured on four renders before it was set (10/19): a single facing is confounded by the light (the same step
+# measured 21.5 apart on the starred poacher's N, his face in shade and his hand in the sun), so the verdict pools every
+# facing and compares the LIT TONE: the 80th percentile of L* (the skin in the sun) and the median a*, b* (its hue).
+# Pooled, the same step on face and hands measures 0.8 (the raider again, skin_deep 2), 0.9 (cycle 2, skin_deep 3), 2.1
+# (the mail raider, skin_light 2) and 5.2 (the starred poacher, skin_deep 3); a skin_deep 3 face on a skin_deep 2 body
+# measures 18.6, a skin_light 2 face on it 27.7. One step of a skin ramp apart is about 18; the line sits at 10.
+
+
+def skin(frames):
+    """THE FACE IS THE BODY'S FACE (rule 120(d), his 'Black people looking like white people'), measured off the pixels:
+    the rig's material-ID pass (rigid_<facing>.png, rig.json id_table) says which rendered pixel is the FACE's skin
+    (PORTRAIT's head material, portrait_*_skin) and which is the BODY's (the hands and the neck, <tier>_skin); only
+    pixels whose four neighbours carry the same ID are read (no edge blends). Pooled over the eight facings, the face's
+    lit tone against the body's (SKIN_DE above says why pooled and why lit); the facings are listed for the record."""
+    from PIL import Image
+    import numpy as np
+    rig = json.load(open(os.path.join(frames, 'rig.json')))
+    ids = rig['id_table']
+    face = [h for k, h in ids.items() if k.startswith('portrait_') and k.endswith('_skin')]
+    bodyk = [h for k, h in ids.items() if not k.startswith('portrait_') and k.endswith('_skin')]
+    # the table's hex is the emission's LINEAR value; the PNG is sRGB-encoded (#23ff19 is written as 104, 255, 89)
+    enc = lambda v: 255.0 * (12.92 * v if v <= 0.0031308 else 1.055 * v ** (1 / 2.4) - 0.055)
+    hexrgb = lambda h: np.array([enc(int(h[i:i + 2], 16) / 255.0) for i in (1, 3, 5)])
+    rows = []; F = []; B = []
+    for f in ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']:
+        idp = os.path.join(frames, 'rigid_%s.png' % f)
+        if not os.path.exists(idp): continue
+        a = np.asarray(Image.open(idp).convert('RGB')).astype(int)
+        col = np.asarray(Image.open(os.path.join(frames, 'rig_%s.png' % f)).convert('RGBA')).astype(int)
+        def mask(hs):
+            m = np.zeros(a.shape[:2], bool)
+            for h in hs: m |= np.abs(a - hexrgb(h)).sum(2) < 12
+            inner = m.copy(); inner[1:, :] &= m[:-1, :]; inner[:-1, :] &= m[1:, :]; inner[:, 1:] &= m[:, :-1]; inner[:, :-1] &= m[:, 1:]
+            return inner & (col[..., 3] > 200)
+        mf, mb = mask(face), mask(bodyk)
+        F += col[..., :3][mf].tolist(); B += col[..., :3][mb].tolist()
+        r = dict(facing=f, face_px=int(mf.sum()), body_px=int(mb.sum()))
+        if mf.sum() >= 6: r['face_rgb'] = [int(x) for x in np.median(col[..., :3][mf], axis=0)]
+        if mb.sum() >= 6: r['body_rgb'] = [int(x) for x in np.median(col[..., :3][mb], axis=0)]
+        rows.append(r)
+    def tone(px):
+        L = np.array([_lab(c) for c in px]); return [float(np.percentile(L[:, 0], 80)), float(np.median(L[:, 1])), float(np.median(L[:, 2]))]
+    out = dict(frames=os.path.relpath(frames, ROOT), ruler='dE76 of the lit tone (L* p80, median a*, b*) of the face skin against the body skin (hands, neck), pooled over the facings, interior ID pixels only; PASS under %g' % SKIN_DE,
+               facings=rows, face_px=len(F), body_px=len(B))
+    if len(F) < 30 or len(B) < 30:
+        out['verdict'] = 'UNREAD'; return out
+    tf, tb = tone(F), tone(B)
+    out.update(face_tone=[round(x, 1) for x in tf], body_tone=[round(x, 1) for x in tb],
+               dE=round(math.sqrt(sum((x - y) ** 2 for x, y in zip(tf, tb))), 1))
+    out['verdict'] = 'PASS' if out['dE'] < SKIN_DE else 'BACK'
+    return out
+
+
 if __name__ == '__main__':
+    if sys.argv[1] == '--skin':
+        r = skin(os.path.abspath(sys.argv[2])); print(json.dumps(r, indent=1))
+        if len(sys.argv) > 3: json.dump(r, open(sys.argv[3], 'w'), indent=1)
+        sys.exit(0 if r['verdict'] == 'PASS' else 1)
     if sys.argv[1] == '--sheet':
         sheet(sys.argv[2].upper(), sys.argv[3], sys.argv[4])
     elif sys.argv[1] == '--whole':

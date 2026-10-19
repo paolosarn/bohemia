@@ -1,0 +1,179 @@
+{
+ "person": "LEADER",
+ "model": "records/cook3/rig/leader.glb",
+ "from_body": "records/cook3/rig/leader_body.glb",
+ "dropped": [],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "slick",
+ "stubble": false,
+ "look": null,
+ "beard": "moustache",
+ "scar": "cheek",
+ "face": {
+  "dials": {
+   "face.len": 33,
+   "face.craniumH": 10,
+   "face.foreheadW": 24,
+   "face.cheekW": 30,
+   "face.jawW": 26,
+   "face.chinW": 12,
+   "face.browY": 0,
+   "face.eyeY": 0,
+   "face.noseY": 0,
+   "face.mouthY": 0,
+   "eyes.gap": 6,
+   "brows.len": 7,
+   "mouth.w": 9,
+   "nose.w": 3
+  },
+  "identity": true,
+  "mouth_half": 0.033
+ },
+ "meshes": {
+  "Cesium_Man": 1214,
+  "leader_coat": 20670,
+  "leader_coat_skirt": 1102,
+  "leader_collar": 2236,
+  "leader_gorget": 2862,
+  "leader_lever": 276,
+  "leader_scales": 35551,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 48892,
+  "portrait_beard": 49
+ },
+ "materials": {
+  "leader_boots": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "leader_cloth": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "leader_eyes": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "leader_gorget": [
+   0.5841,
+   0.2961,
+   0.0382
+  ],
+  "leader_plates_teal": [
+   0.2086,
+   0.3712,
+   0.3185
+  ],
+  "leader_scales": [
+   0.3712,
+   0.3663,
+   0.3278
+  ],
+  "leader_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "leader_wood": [
+   0.3231,
+   0.0782,
+   0.0252
+  ],
+  "portrait_leader_beard": [
+   0.5906,
+   0.5841,
+   0.5333
+  ],
+  "portrait_leader_buzz": [
+   0.5906,
+   0.5841,
+   0.5333
+  ],
+  "portrait_leader_iris": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "portrait_leader_lips": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "portrait_leader_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_leader_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_leader_scar": [
+   0.8963,
+   0.7231,
+   0.5089
+  ],
+  "portrait_leader_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_leader_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "portrait_leader_stubble": [
+   0.5906,
+   0.5841,
+   0.5333
+  ]
+ }
+}

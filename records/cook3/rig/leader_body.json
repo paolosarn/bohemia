@@ -1,0 +1,63 @@
+{
+ "tier": "LEADER",
+ "what": "a long black leather coat to mid-calf worn open with a high collar, its tails on the thigh bones; under it a cuirass of licence plates cut and riveted in overlapping rows; a brass gorget at the throat, the captain's mark; black trousers, boots; a lever-action rifle in his right hand; the head is PORTRAIT's modelled head (slicked hair, a moustache, a cheek scar), the skin on his hands the face's",
+ "model": "records/cook3/rig/leader_body.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "meshes": {
+  "Cesium_Man": 3273,
+  "leader_scales": 32962,
+  "leader_gorget": 2862,
+  "leader_coat": 20670,
+  "leader_collar": 2162,
+  "leader_coat_skirt": 1102,
+  "leader_lever": 92
+ },
+ "head_scale": 1.2,
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "leader_boots": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "leader_cloth": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "leader_eyes": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "leader_gorget": [
+   0.5841,
+   0.2961,
+   0.0382
+  ],
+  "leader_plates_teal": [
+   0.2086,
+   0.3712,
+   0.3185
+  ],
+  "leader_scales": [
+   0.3712,
+   0.3663,
+   0.3278
+  ],
+  "leader_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "leader_wood": [
+   0.3231,
+   0.0782,
+   0.0252
+  ]
+ }
+}
