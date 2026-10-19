@@ -69,6 +69,23 @@ def man_keys():
     return dict(Aim=[aim, kick, aim], Swing=[wind, blow, follow], Hit=[rock, rock2], Fall=[buckle, tip, still])
 
 
+ARMS = ('Skeleton_arm_joint_L__4_', 'Skeleton_arm_joint_R')   # the two upper arms: each carries its forearm and hand
+
+
+def carry_ops():
+    """THE GUN IS HELD, NEVER SWUNG (Paolo 10/19 on COOK THREE's leader: 'I don't like how the weapons just swing with the hand
+    like some dumbass shit'; the coordinator's ruling: a gun is held and aimed, a two-hander gripped in both hands, never
+    swinging loose with the arm). THE LOW READY: the right hand on the grip at the belly, ahead of the hip; the left hand
+    under the fore-end a hand's span further forward and a little lower (measured on the apron man: the wrists 17 cm apart,
+    the line 30 degrees across him and 6 down), so a long gun points ahead of him, and a pistol sits in both hands at the
+    belly. The same two arms over the stand and over every key of the walk (Carry, CarryWalk): the legs walk, the gun does
+    not move with them."""
+    LU, LF = 'Skeleton_arm_joint_L__4_', 'Skeleton_arm_joint_L__3_'
+    RU, RF = 'Skeleton_arm_joint_R', 'Skeleton_arm_joint_R__2_'
+    return [(RU, L, -6), (RU, F, -8), (RF, L, -84), (RF, U, 34),
+            (LU, L, -42), (LU, U, -24), (LF, L, -26), (LF, U, -24)]
+
+
 def beast_keys(lo, hi):
     """a beast's Hit and Fall, the whole animal in the WORLD's axes (a four-legged model's bones come in its own units and
     turns): its long axis is Y (the head toward -Y, the glTF front), its side X, up Z. Hit: the front comes up off the
@@ -125,6 +142,30 @@ def main():
     bpy.context.view_layer.update()
     need_stand = not any(x.name.startswith('Stand') for x in acts) and not beast
     base = {pb.name: pb.matrix_basis.copy() for pb in arm.pose.bones}
+    arms = set()
+    if not beast:
+        def down(b):
+            arms.add(b.name)
+            for c in b.children: down(c)
+        for nm in ARMS: down(arm.data.bones[nm])
+    if need_stand:
+        # THE ARMS AT REST: the walk's passing pose has them mid-swing (measured on COOK THREE's thug: one wrist 33 cm ahead of
+        # him, the other 28 behind), and every clip is laid on the still's arms; so each arm bone is its walk's mean over the
+        # whole cycle (24 samples, the quaternions summed on one hemisphere): the swing's middle, the arm hanging
+        wact = [x for x in acts if x.name.startswith('Anim_0')] or acts
+        ad.action = wact[0]; w0, w1 = wact[0].frame_range; acc = {}
+        for i in range(24):
+            fr = w0 + (w1 - w0) * (i + 0.5) / 24
+            sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr)); bpy.context.view_layer.update()
+            for nm in arms:
+                q = arm.pose.bones[nm].matrix_basis.to_quaternion(); t = arm.pose.bones[nm].matrix_basis.to_translation()
+                if nm in acc:
+                    if acc[nm][0].dot(q) < 0: q = -q
+                    acc[nm][0] += q; acc[nm][1] += t
+                else: acc[nm] = [q.copy(), t.copy()]
+        for nm, (q, t) in acc.items():
+            q.normalize(); base[nm] = mathutils.Matrix.Translation(t / 24) @ q.to_matrix().to_4x4()
+        ad.action = base_act[0]; sc.frame_set(int(still), subframe=still - int(still)); bpy.context.view_layer.update()
     order = []
     def walk(b):
         order.append(b.name)
@@ -132,8 +173,8 @@ def main():
     for b in arm.data.bones:
         if b.parent is None: walk(b)
 
-    def pose(ops):
-        for pb in arm.pose.bones: pb.matrix_basis = base[pb.name].copy()
+    def pose(ops, under=None):
+        for pb in arm.pose.bones: pb.matrix_basis = (under or base)[pb.name].copy()
         bpy.context.view_layer.update()
         for op in sorted(ops, key=lambda o: order.index(o[0]) if o[0] in order else -1):
             if op[0] == 'WROOT':   # the whole model about a line in the world's axes, carried into the armature's own space
@@ -164,13 +205,27 @@ def main():
     else:
         clips = man_keys()
         if need_stand: clips = dict([('Stand', [[]])] + list(clips.items()))
+    unders = {}
+    if not beast:
+        # THE CARRY: the stand's arms (the still's) with the gun held in both, over the still and over each of the walk's six
+        # drawn keys (read where the master rig samples Anim_0), so only the arms differ from the clips he already has
+        wact = [x for x in acts if x.name.startswith('Anim_0')][0]
+        w0, w1 = wact.frame_range; ad.action = wact; under = []
+        for k in range(6):
+            fr = w0 + (w1 - w0) * (k + 0.5) / 6
+            sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr)); bpy.context.view_layer.update()
+            under.append({pb.name: (base[pb.name] if pb.name in arms else pb.matrix_basis).copy() for pb in arm.pose.bones})
+        ad.action = base_act[0]; sc.frame_set(int(still), subframe=still - int(still)); bpy.context.view_layer.update()
+        clips['Carry'] = [carry_ops()]
+        clips['CarryWalk'] = [carry_ops()] * 6; unders['CarryWalk'] = under
     made = []
     for name, keys in clips.items():
         act = bpy.data.actions.new(name)
         ad.action = act
         n = len(keys)
-        for fr, ops in [(0, keys[0])] + [(2 * k + 1, keys[k]) for k in range(n)] + [(2 * n, keys[-1])]:
-            pose(ops)
+        un = unders.get(name)
+        for fr, ops, u in [(0, keys[0], un and un[0])] + [(2 * k + 1, keys[k], un and un[k]) for k in range(n)] + [(2 * n, keys[-1], un and un[-1])]:
+            pose(ops, u)
             for pb in arm.pose.bones:
                 for ch in ('location', 'rotation_quaternion', 'scale'): pb.keyframe_insert(ch, frame=fr)
         t = ad.nla_tracks.new(); t.name = name; t.strips.new(name, 0, act); t.mute = True

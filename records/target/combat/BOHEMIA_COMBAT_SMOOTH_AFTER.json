@@ -1,0 +1,100 @@
+{
+ "label": "after",
+ "seed": 5,
+ "throttle": 4,
+ "profile": "390x844 @3x, the one driver",
+ "speed": 1,
+ "auto": {
+  "seconds": 90,
+  "frames": 616,
+  "fps": 6.8,
+  "median_ms": 133.4,
+  "p95_ms": 200,
+  "p99_ms": 266.6,
+  "worst_ms": 450,
+  "hitches_over_33ms": 615,
+  "dead_longest_ms": 672,
+  "dead_total_s": 33.7,
+  "dead_share": 37.4,
+  "dead_over_250ms": 84,
+  "dead_over_500ms": 10,
+  "longest_why": [
+   {
+    "ms": 643,
+    "next": "glide",
+    "who": "you:LUPE"
+   },
+   {
+    "ms": 510,
+    "next": "attack:attack",
+    "who": "you:MARISOL"
+   },
+   {
+    "ms": 436,
+    "next": "glide",
+    "who": "you:DESI"
+   },
+   {
+    "ms": 571,
+    "next": "glide",
+    "who": "you:TINA"
+   },
+   {
+    "ms": 536,
+    "next": "glide",
+    "who": "them:THUG"
+   },
+   {
+    "ms": 424,
+    "next": "step:step",
+    "who": "you:GRIZ"
+   },
+   {
+    "ms": 474,
+    "next": "attack:attack",
+    "who": "you:DEUCE"
+   },
+   {
+    "ms": 408,
+    "next": "attack:attack",
+    "who": "you:BOOKIE"
+   },
+   {
+    "ms": 464,
+    "next": "step:step",
+    "who": "them:RAIDER"
+   },
+   {
+    "ms": 563,
+    "next": "note:reload",
+    "who": "you:MARISOL"
+   },
+   {
+    "ms": 622,
+    "next": "attack:attack",
+    "who": "you:NENA"
+   },
+   {
+    "ms": 437,
+    "next": "attack:attack",
+    "who": "them:THUG"
+   }
+  ],
+  "ended": false,
+  "rounds": 3
+ },
+ "taps": {
+  "walk_confirm_to_motion_ms": [
+   281,
+   318,
+   323,
+   330
+  ],
+  "end_turn_to_their_first_motion_ms": [
+   500
+  ],
+  "worst_walk_ms": 330,
+  "worst_end_ms": 500
+ },
+ "file_md5": "2b1ef19f925fb0aede075155a7936bdf"
+}

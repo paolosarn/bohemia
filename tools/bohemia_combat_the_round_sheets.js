@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /* COMBAT, rule 121 round (10/19): THE PICTURES FOR HIS THREE CARDS, from the REAL fight on his phone's profile (the one driver,
    390 x 844 at 3x), the game's own camera, never a mock-up.
-     rig    [the fight wears the 3D models]: the fight's opening frame before (the flat sheets) | after (the rig models), then
-            the three sizes he picks from (two, three and four phone pixels to the rig's pixel: 65, 98 and 131 points)
+     rig    [the fight wears the 3D models]: the fight six seconds in, before (the flat sheets) | after (the rig models), then
+            one man from the sheets the fight draws at two phone pixels to the rig's: the rifle held in both hands standing
+            in eight facings and walking, the gun up and its kick, the blow, the fall (his NO on more sizes: the size stays)
      smooth [smooth]: the same AUTO fight before | after on one clock, an animated picture at 24 a second (the page's own
             clock driven a frame at a time, so the picture is every frame the game drew, not what a slow box managed)
      floor  [the tear and the floor]: the floor before | the floor rendered the 3D way, his man's turn, the tear on him,
@@ -62,30 +63,40 @@ async function rig() {
     for (let i = 0; i < 6 * 24; i++) await d.page.evaluate(() => window.__step(1000 / 24));   /* six seconds in: they have moved */
     const f = path.join(TMP, 'rig_' + (before ? 'before' : 'after') + '.png'); await shot(d.page, f); files.push(f); await d.close();
   }
-  for (const px of [65, 98, 131]) {
-    const d = await fight({ before: false, fo: Object.assign({}, fo, { manPx: px }), clock: true });
-    for (let i = 0; i < 6 * 24; i++) await d.page.evaluate(() => window.__step(1000 / 24));
-    const f = path.join(TMP, 'rig_size_' + px + '.png'); await shot(d.page, f); files.push(f); await d.close();
-  }
   py(`
 import sys, json
-from PIL import Image, ImageDraw
+import numpy as np
+from PIL import Image
 f = sys.argv[1:]
 ims = [Image.open(x).convert('RGB') for x in f]
 W, H = ims[0].size
-# the first row: before | after at half size side by side (the phone's width: 1170); the second: the three sizes, a third each
+# the first row: before | after at half size side by side (the phone's width: 1170, his phone at 1:1 halved)
 half = [im.resize((W // 2, H // 2), Image.LANCZOS) for im in ims[:2]]
-third = [im.crop((0, int(H * .18), W, int(H * .62))).resize((W // 3, int(H * .44) // 3), Image.LANCZOS) for im in ims[2:]]
-man = Image.open('slices/fight_rig/you.webp' if __import__('os').path.exists('slices/fight_rig/you.webp') else 'slices/fight_rig/cast_apron.webp').convert('RGBA')
-mw = W; mh = int(man.size[1] * mw / man.size[0])
-bg = Image.new('RGBA', man.size, (120, 112, 96, 255)); bg.alpha_composite(man); man = bg.convert('RGB').resize((mw, mh), Image.NEAREST)
-sheet = Image.new('RGB', (W, H // 2 + third[0].size[1] + mh), (20, 16, 12))
-sheet.paste(half[0], (0, 0)); sheet.paste(half[1], (W // 2, 0))
-y = H // 2
-for i, t in enumerate(third): sheet.paste(t, (i * (W // 3), y))
-sheet.paste(man, (0, y + third[0].size[1]))
+# the second: ONE MAN FROM THE SHEETS THE FIGHT DRAWS: the rifle in both hands
+# standing in all eight facings, then walking (six keys, the gun still), the gun up and its kick, the blow, the fall
+idx = json.load(open('slices/fight_rig/fight_rig.json')); L = idx['looks']['cast_apron']; w, h = L['w'], L['h']
+body = Image.open('slices/fight_rig/' + L['file']).convert('RGBA'); guns = Image.open('slices/fight_rig/' + L['guns']).convert('RGBA')
+G = idx['guns']; gr = G['order'].index('rifle'); dirs = idx['dirs']; C = idx['clips']
+def cell(col, d, gcol=None):
+    c = Image.new('RGBA', (w, h), (0, 0, 0, 0)); c.alpha_composite(body.crop((col * w, d * h, col * w + w, d * h + h)))
+    if gcol is not None: c.alpha_composite(guns.crop((gcol * w, (gr * 8 + d) * h, gcol * w + w, (gr * 8 + d) * h + h)))
+    return c
+cells = [cell(C['carry'][0], d, G['clips']['carry'][0]) for d in range(8)]
+E = dirs.index('SE')
+cells += [cell(C['carrywalk'][k], E, G['clips']['carrywalk'][k]) for k in range(6)]
+cells += [cell(C['aim'][k], E, G['clips']['aim'][k]) for k in range(3)]
+cells += [cell(C['hit'][k], E, G['clips']['hit'][k]) for k in range(2)] + [cell(C['fall'][k], E) for k in range(3)]
+# two phone pixels to a rig pixel (two thirds of his size on the board, so five fit across his phone), each cell cut to
+# 116 rig pixels round his feet
+s = 2; cw = 116; fx = L['foot'][0]; per = W // (cw * s)
+cells = [c.crop((fx - cw // 2, 0, fx + cw // 2, h)) for c in cells]
+strip = Image.new('RGBA', (cw * per, h * ((len(cells) + per - 1) // per)), (120, 112, 96, 255))
+for i, c in enumerate(cells): strip.alpha_composite(c, ((i % per) * cw, (i // per) * h))
+strip = strip.convert('RGB').resize((strip.size[0] * s, strip.size[1] * s), Image.NEAREST)
+sheet = Image.new('RGB', (W, H // 2 + strip.size[1]), (20, 16, 12))
+sheet.paste(half[0], (0, 0)); sheet.paste(half[1], (W // 2, 0)); sheet.paste(strip, (0, H // 2))
 sheet.save('records/target/combat/COMBAT_THE_FIGHT_WEARS_THE_RIG_10_19.webp', 'WEBP', quality=88, method=6)
-print(json.dumps(dict(size=sheet.size, first=[W // 2, 0, W // 2, H // 2], sizes_at=y, man_at=y + third[0].size[1])))
+print(json.dumps(dict(size=sheet.size, first=[W // 2, 0, W // 2, H // 2], man_at=H // 2, cells=len(cells))))
 `, files).split('\n').forEach(l => l && console.log('  rig sheet', l));
 }
 

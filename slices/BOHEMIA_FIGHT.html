@@ -2225,22 +2225,23 @@ function tick(now) {
     if (next > UI.nextAI) { UI.beats += (next - Math.max(UI.nextAI, UI.animEnd)) / beatMs(); UI.nextAI = next; }
   }
   if (FIGHT.S.over) return;
-  /* the camera no longer holds the turn: it glides while the men move (rule 121 [smooth]) */
-  if (now < UI.openUntil) return;
+  /* the camera holds the turn only when a man stands off the glass (rule 104a: you see every act); else it glides while the
+     men move (rule 121 [smooth]: it held every turn for every glide) */
+  if (now < UI.openUntil || (UI.glide && UI.glide.hold)) return;
   /* YOUR FORMATION: nothing moves before FIGHT (the second votes: nothing is forced, nothing happens in the first second);
      AUTO means he does not want to set it, so it starts on the kept line */
   if (FIGHT.S.deploy) { if (UI.auto) fightNow(); else if (UI.drag) dragPan(); return; }
   /* as they close, they stay on the glass: a new round refits if any man stands off it (rule 104a) */
   if (UI.fitRound !== FIGHT.S.round) { UI.fitRound = FIGHT.S.round; const f = fitBoth();
     /* a man off the glass, or the lines closed enough to come in closer: the camera takes them all again (it tightens as they meet) */
-    if (!UI.pinched && !(gest && gest.moved) && (!allFramed() || f.z > UI.zoom * FIT_CLOSER)) glideTo(f.cx, f.cy, f.z, beatMs()); }
+    if (!UI.pinched && !(gest && gest.moved) && (!allFramed() || f.z > UI.zoom * FIT_CLOSER)) glideTo(f.cx, f.cy, f.z, beatMs(), !allFramed()); }
   const u = FIGHT.current();
   if (!u) return;
   const sayEl = document.getElementById('say');
   if (crewControlled(u)) { if (sayEl.textContent === THEIRS_SAY) say(WALK_SAY); follow(u); return; }
   if (!UI.auto && u.side === 'them' && sayEl.textContent !== THEIRS_SAY) say(THEIRS_SAY);
   if (now < UI.nextAI) return;
-  follow(u, true);   /* the mover off the glass: the camera goes to him as he acts (it held his act a whole beat first) */
+  if (follow(u, true)) return;   /* the mover off the glass: the camera goes to him first (three quarters of a beat), then he acts */
   const before = UI.anim.length;
   FIGHT.aiStep(u);
   take();
@@ -2273,12 +2274,12 @@ function follow(u, every) {
   UI.lastFollow = u.id + ':' + FIGHT.S.round;
   const aim = aimAt(u.x, u.y), at = u.id + ':' + u.x + ':' + u.y;
   /* once per spot: at the board's edge the camera may not be able to frame him whole, and he acts anyway */
-  if (!framed(u.x, u.y) && UI.framedAt !== at) { UI.framedAt = at; if (keepAll(beatMs() * .75)) return true; if (UI.zoom > UI.far * 1.05) { glideTo(aim[0], aim[1], UI.zoom, beatMs() * .75); return true; } }
+  if (!framed(u.x, u.y) && UI.framedAt !== at) { UI.framedAt = at; if (keepAll(beatMs() * .75, undefined, true)) return true; if (UI.zoom > UI.far * 1.05) { glideTo(aim[0], aim[1], UI.zoom, beatMs() * .75, true); return true; } }
   return false;
 }
 /* rule 104a: the camera holds both teams; when a man would leave the glass it takes them all again, never one man alone.
    A finger that pinched (or a wheel) takes the camera, and then it follows the man as before */
-function keepAll(ms, more) { if (UI.pinched) return false; const f = fitBoth(more); glideTo(f.cx, f.cy, f.z, ms); return true; }
+function keepAll(ms, more, hold) { if (UI.pinched) return false; const f = fitBoth(more); glideTo(f.cx, f.cy, f.z, ms, hold); return true; }
 /* THE HEAD UNDER THE STRIP (rule 88): a man is on the glass only when his whole box, head to feet, stands between the turn
    strip and the bar (the old test read his tile's middle, 40 pt in, and let the camera stop with his head under the strip
    or his feet under the bar); the camera aims at his box's middle, and walks with him when his step would leave the glass */
@@ -2288,13 +2289,13 @@ function framed(x, y) { const b = manBox(x, y); return b.x > W * FOLLOW_M && b.x
 function aimAt(x, y) { return [(x + .5) * UI.tw, (y + .9) * UI.th - manH() / UI.zoom / (1 + 1)]; }
 /* THE CAMERA EASES (rule 121 [smooth]): a glide eases in and out; a new glide asked while one is still moving keeps moving
    (it eases OUT only, from the speed it had), so the camera never stops dead and starts again between two of a walk's aims */
-function glideTo(x, y, z, ms) { const g = UI.glide, now = performance.now(), moving = !!(g && now - g.t0 < g.ms);
-  UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: now, ms: ms, out: moving }; }
+function glideTo(x, y, z, ms, hold) { const g = UI.glide, now = performance.now(), moving = !!(g && now - g.t0 < g.ms);
+  UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: now, ms: ms, out: moving, hold: !!hold }; }
 function stepGlide(now) {
   const g = UI.glide; if (!g) return;
   let k = Math.min(1, (now - g.t0) / g.ms); const e = g.out ? 1 - (1 - k) * (1 - k) : k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
   UI.zoom = g.fz * Math.pow(g.tz / g.fz, e); UI.cx = g.fx + (g.tx - g.fx) * e; UI.cy = g.fy + (g.ty - g.fy) * e;
-  clampCam(); if (k >= 1) UI.glide = null;
+  clampCam(); if (k >= 1) { UI.glide = null; UI.glideEnd = now; }
 }
 
 /* ---------------- the marks on the board ----------------
@@ -2513,8 +2514,14 @@ function sheetOf(v) {
    WHOLE number of device pixels to the rig's pixel, the one nearest the size asked, so every pixel of the model is the same
    size on the glass and nothing shimmers as he walks */
 function rigScale() {
-  const want = H > W ? MAN_IDLE : Math.min(MAN_IDLE, MAN_ROWS * UI.th * UI.zoom);
-  return Math.max(1, Math.round(want * DPR / DB.rig.ruler.px));
+  /* upright he is MAN_IDLE, the nearest whole size; a glass wider than tall caps him at MAN_ROWS rows, and a cap is a ceiling:
+     the whole size under it (rounding up stood his head off the glass on the flipped phone, measured 10/19) */
+  const cap = H > W ? Infinity : MAN_ROWS * UI.th * UI.zoom, px = DB.rig.ruler.px;
+  if (cap >= MAN_IDLE) return Math.max(1, Math.round(MAN_IDLE * DPR / px));
+  /* the whole size under the cap, unless that is under half of him (on his phone the sizes are 33, 65 and 98: 33 is a
+     speck), and then the cap itself, the one place a rig pixel is not a whole number of device pixels (the flipped phone) */
+  const f = Math.floor(cap * DPR / px);
+  return f * px / DPR >= MAN_IDLE / 2 ? f : cap * DPR / px;
 }
 /* THE WALK GLIDES (his first votes: 'SLIDE is the walk feel'; the third: 'movement GLIDES'; rule 121 [smooth]): a man's whole
    path is one move, eased in and out, half a beat a house tile, never a hop per tile; his legs run the rig's six-key walk at
@@ -2579,22 +2586,30 @@ function beastOf(v) { return v.beast ? rigBeast(v) : null; }
 /* his gun's sheet and block, if what he holds is a gun (a pistol, a long gun, a shotgun: DB.rig.guns.by_class) */
 function gunSheet(v, L) {
   const G = DB.rig.guns; if (!G || !L.guns || !v.weapon || !FIGHT.isGun(v.weapon)) return null;
-  const kind = G.by_class[v.weapon.class], row = G.order.indexOf(kind); if (row < 0) return null;
+  const kind = G.by_class[(v.weapon.of && v.weapon.of.class) || v.weapon.class], row = G.order.indexOf(kind); if (row < 0) return null;   /* a pistol rides a thrown row: its own class names it */
   const img = UI.imgs['fight_rig/' + L.guns]; if (!img) return null;
   return { img: FIGHT.S.night && !FIGHT._t.litAt(Math.round(dx(v)), Math.round(dy(v))) ? nightSheet(img) : img, row: row };
 }
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
 function blitMan(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
-  const L = lookOf(v), p = poseOf(v, now), s = rigScale();
+  const L = lookOf(v), s = rigScale(), gs = gunSheet(v, L);
+  let p = poseOf(v, now);
   UI.clipSeen = UI.clipSeen || {}; UI.clipSeen[p.clip] = (UI.clipSeen[p.clip] || 0) + 1;
+  /* THE GUN IS HELD, NEVER SWUNG (Paolo 10/19: 'I don't like how the weapons just swing with the hand like some dumbass
+     shit'): a man with a gun stands and walks in the carry, the gun across him in both hands at the low ready, his legs
+     walking under it (the poses tool's Carry and CarryWalk, the same keys as the walk) */
+  if (gs && (p.clip === 'stand' || p.clip === 'walk') && DB.rig.clips.carry) {
+    const c = p.clip === 'stand' ? 'carry' : 'carrywalk';
+    p = { col: clipCol(c, DB.rig.clips[p.clip].indexOf(p.col), null), clip: c }; UI.clipSeen[c] = (UI.clipSeen[c] || 0) + 1;
+  }
   const ox = Math.round(X * DPR) - L.foot[0] * s, oy = Math.round(feet * DPR) - L.foot[1] * s;
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
   cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
-     holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; carried while he stands,
-     walks or takes a blow, up at the shoulder when he shoots; never in the swing (the butt is a club then) or the fall */
-  const gs = gunSheet(v, L);
+     holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across
+     him while he stands and walks, up at the shoulder when he shoots, in his right hand when a blow rocks him, in his fist
+     when he clubs with it at one tile (ours.gun_club); only in the fall is it gone */
   if (gs) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
     if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); }
   cx.restore();

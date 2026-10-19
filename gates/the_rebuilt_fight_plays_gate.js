@@ -30,7 +30,7 @@ const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
 const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed: 9, taps: false }];
 /* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar); a bar is three CSS
    points tall, counted only in CSS space (the marks on the board are laid in device pixels, a cell three tall on his phone) */
-const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_people")>=0)window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3&&this.getTransform().a===(window.devicePixelRatio||1))window.__bars++;return fr.apply(this,arguments);};})();';
+const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_rig/")>=0&&!/faces|_guns/.test(img.src))window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3&&this.getTransform().a===(window.devicePixelRatio||1))window.__bars++;return fr.apply(this,arguments);};})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
 /* THE MARKS ON THE BOARD, read in the page (COMBAT [the marks on the board]): one frame with the marks, one with only the ground
    (to count the ground's own grid strokes out), one with AUTO on (his reach, the rings and the walk gone, the people kept) */
@@ -759,17 +759,20 @@ async function boardFits() {
   leg(three.w === 20 && three.h === 15 && end.w === 20 && end.h === 15 && !three.err && !end.err, 'three parties at once, or the endgame, keep the full 20 by 15 (\'12 versus 60\')', three.w + 'x' + three.h + ', ' + end.w + 'x' + end.h);
 }
 
-/* A TURN YOU CAN READ (VIA GROK 10/9: 'Paolo said the turns are too short'): one of yours against six thugs on a flat
-   board at the true beat; his own turn waits for his finger; each of their acts holds the board two beats (one second at
-   120), so six men take six seconds or more; the struck man shows his chance and his loss as numbers; a tap on the board
-   skips the rest of their turn. */
+/* A TURN YOU CAN READ (VIA GROK 10/9: 'Paolo said the turns are too short'), AMENDED BY HIS 10/19 (rule 121 [smooth]:
+   'combat is still not smooth... it looks like it's been coded by a fifth grader'; newest date wins): one of yours against
+   six thugs on a flat board at the true beat; his own turn waits for his finger; each of their acts PLAYS WHOLE (the next
+   never starts before the last one's motion has ended) and the board never stands still between two of them longer than
+   the eighth-beat breath and the wait for the next quarter beat (it held two whole beats from the start of every act, so
+   55% of an AUTO fight stood still, measured 10/19); the struck man shows his chance and his loss as numbers; a tap on the
+   board skips the rest of their turn. */
 async function turnPace() {
   const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:1,kind:"strip",flat:true,deploy:false,cap:1,party:["brigand_thug","brigand_thug","brigand_thug","brigand_thug","brigand_thug","brigand_thug"]}' });
   const p = d.page;
   await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
   await p.evaluate(() => { window.__acts = []; window.__nums = []; const o = FIGHT.aiStep;
     FIGHT.aiStep = function (u) { const n = FIGHT.S.events.length; const r = o(u);
-      if (u.side === 'them' && FIGHT.S.events.slice(n).some(e => e.t === 'step' || e.t === 'attack')) window.__acts.push({ t: performance.now(), id: u.id }); return r; };
+      if (u.side === 'them' && FIGHT.S.events.slice(n).some(e => e.t === 'step' || e.t === 'attack')) window.__acts.push({ t: performance.now(), id: u.id, prevEnd: Math.max(FIGHT_UI.animEnd || 0, FIGHT_UI.glideEnd || 0), busy: FIGHT_UI.anim.filter(a => a.at).length }); return r; };   /* the camera gliding to the next man is motion, not a still board */
     new MutationObserver(() => window.__nums.push(document.getElementById('num').textContent)).observe(document.getElementById('num'), { childList: true, characterData: true, subtree: true }); });
   const mine = () => p.evaluate(() => { const u = FIGHT.current(); return !!u && u.side === 'you' && !FIGHT_UI.anim.length && !FIGHT_UI.glide && performance.now() > FIGHT_UI.openUntil; });
   const wait = async (ms) => { const t = Date.now(); while (!(await mine()) && Date.now() - t < ms) await p.waitForTimeout(80); return mine(); };
@@ -789,8 +792,10 @@ async function turnPace() {
   const acts = await p.evaluate(e => window.__acts.filter(a => a.t > e), tEnd), gaps = acts.slice(1).map((a, i) => a.t - acts[i].t);
   const nums = await p.evaluate(() => window.__nums);
   leg(still, 'his own turn has no timer: three seconds on, it is still his, waiting for his finger');
-  leg(acts.length >= 6 && gaps.every(g => g >= 990) && tBack - tEnd >= 6000, '*** A TURN YOU CAN READ *** (VIA GROK: \'the turns are too short\'): every act of theirs holds the board two beats, six men take six seconds or more',
-    acts.length + ' acts in ' + ((tBack - tEnd) / 1000).toFixed(1) + ' s, the shortest gap ' + Math.round(Math.min(...gaps)) + ' ms');
+  const beat = await p.evaluate(() => beatMs()), stills = acts.slice(1).map(a => a.t - a.prevEnd);
+  leg(acts.length >= 6 && acts.every(a => a.busy === 0) && gaps.every(g => g >= beat * 0.6) && stills.every(x => x >= 0 && x <= beat * 0.375 + 60),
+    '*** A TURN YOU CAN READ, AND NO DEAD PAUSE *** (VIA GROK 10/9, amended by his 10/19 \'not smooth\'): every act of theirs plays whole before the next, and the board stands still at most an eighth of a beat and the wait for the next quarter beat between two',
+    acts.length + ' acts in ' + ((tBack - tEnd) / 1000).toFixed(1) + ' s, the shortest from act to act ' + Math.round(Math.min(...gaps)) + ' ms, the longest still ' + Math.round(Math.max(...stills)) + ' ms (at most ' + Math.round(beat * 0.375 + 60) + ')');
   leg(nums.some(t => /^\d+%$/.test(t)) && nums.some(t => /^-\d+$/.test(t)) && !nums.some(t => /[a-z]/i.test(t)), 'the struck man shows the number: his chance to be hit, then what it cost him, numbers only (no word on the ground, rule 46f)', nums.slice(0, 6).join(' '));
   await p.touchscreen.tap(end[0], end[1]);
   await p.waitForTimeout(1200);

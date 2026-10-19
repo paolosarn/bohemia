@@ -116,7 +116,12 @@ def bodies(arg):
         print('POSED', name, os.path.relpath(out, ROOT))
 
 
-def render(arg):
+CARRY = [('Stand', 1), ('Carry', 1), ('CarryWalk', 6)]   # THE GUN IS HELD, NEVER SWUNG (Paolo 10/19): the poses tool's two-handed carry; Stand first so the master rig reads the same still, box and frame as the look's own render
+
+
+def render(arg, clips=None, suffix=''):
+    """clips/suffix: the carry alone into <look>_carry (the stills come with it, so its box is read against the look's own box
+    when packed: the same model, still and camera, so the same frame; only the crop differs)"""
     src = open(os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py')).read()
     a, b = 'lights.append(light_footprint(', "sc.render.engine = G['engine'];"
     assert src.count(a) == 1 and src.count(b) == 1, 'the master rig changed: re-read it before patching in memory'
@@ -124,16 +129,41 @@ def render(arg):
     src = src.replace(a, 'False and lights.append(light_footprint(').replace(b, "sc.render.use_persistent_data = True; " +
         ("sc.render.threads_mode = 'FIXED'; sc.render.threads = %d; " % th if th else '') + b)
     for name, kind, srcname in pick(arg):
+        if clips and kind == 'beast': continue
         glb = os.path.join(ROOT, POSED, name + '.glb')
-        out = os.path.join(ROOT, RENDERS, name)
+        out = os.path.join(ROOT, RENDERS, name + suffix)
         size = (['--real-length', str(json.load(open(os.path.join(ROOT, 'records/target/master_rig', srcname, 'rig.json')))['real_dims_m'][1])]
                 if kind == 'beast' else ['--real-height', str(body_height(kind, srcname, name))])
         argv = ['bohemia_direction_master_rig.py', glb, out] + size + ['--family', 'none', '--set', 'samples=%d' % SAMPLES, '--no-calibration', '--no-id-pass']
         if not DENTS: argv += ['--set', 'dent_m=0']
-        for c, k in (BEAST_CLIPS if kind == 'beast' else CLIPS): argv += ['--clip', '%s:%d' % (c, k)]
+        for c, k in (clips or (BEAST_CLIPS if kind == 'beast' else CLIPS)): argv += ['--clip', '%s:%d' % (c, k)]
         code = ('import sys; sys.argv = %r; __file__ = %r\n' % (argv, os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py'))) + src
         run([sys.executable, '-c', code], os.path.join(out, 'rig.json'))
         print('RENDERED', name, os.path.relpath(out, ROOT), flush=True)
+
+
+def repose(arg):
+    """the fight's clips laid again on each man's built model (records/combat/rig/heads, the tiers' PORTRAIT heads): the poses
+    tool only, PORTRAIT's builders are not run again"""
+    for name, kind, src in pick(arg):
+        if kind == 'beast': continue
+        out = os.path.join(ROOT, POSED, name + '.glb')
+        run([sys.executable, 'tools/bohemia_combat_the_fight_poses.py', body_glb(kind, src, name), out], out)
+        print('POSED', name, flush=True)
+
+
+def carry_batch(n):
+    """the carry for every man, shared by n workers"""
+    todo = [l[0] for l in looks() if l[1] != 'beast' and not os.path.exists(os.path.join(ROOT, RENDERS, l[0] + '_carry', 'rig.json'))]
+    env = dict(os.environ, BOHEMIA_RIG_THREADS='2' if n > 1 else '0')
+    procs = []
+    for w in range(n):
+        mine = todo[w::n]
+        if not mine: continue
+        sh = ' && '.join('%s %s carry %s' % (sys.executable, os.path.abspath(__file__), x) for x in mine)
+        procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
+    for p in procs: p.wait()
+    print('CARRY DONE', [l[0] for l in looks() if l[1] != 'beast' and not os.path.exists(os.path.join(ROOT, RENDERS, l[0] + '_carry', 'rig.json'))], 'still missing')
 
 
 def batch(n):
@@ -151,7 +181,8 @@ def batch(n):
     print('BATCH DONE', [l[0] for l in looks() if not os.path.exists(os.path.join(ROOT, RENDERS, l[0], 'rig.json'))], 'still missing')
 
 
-COLS = [('stand', 'Stand', 1), ('walk', 'Anim_0', 6), ('aim', 'Aim', 3), ('swing', 'Swing', 3), ('hit', 'Hit', 2), ('fall', 'Fall', 3)]
+COLS = [('stand', 'Stand', 1), ('walk', 'Anim_0', 6), ('aim', 'Aim', 3), ('swing', 'Swing', 3), ('hit', 'Hit', 2), ('fall', 'Fall', 3),
+        ('carry', 'Carry', 1), ('carrywalk', 'CarryWalk', 6)]   # the last two from <look>_carry, laid into the look's own box
 RIM = (16, 11, 6, 230)   # the day rim of the old sheets (rule 73a), one pixel round the silhouette, baked so the page does no pixel work
 FACE_PX = 128
 
@@ -188,14 +219,23 @@ def pack():
         if not os.path.exists(os.path.join(d, 'rig.json')): continue
         r = json.load(open(os.path.join(d, 'rig.json')))
         x0, y0, x1, y1 = r['crop_box_px']; w, h = x1 - x0 + 2, y1 - y0 + 2
-        sheet = Image.new('RGBA', (w * len(cols), h * len(FIGHT_DIRS)), (0, 0, 0, 0))
+        sheet = Image.new('RGBA', (w * (18 if kind == 'beast' else len(cols)), h * len(FIGHT_DIRS)), (0, 0, 0, 0))
         cols_here = [('stand', None, 1), ('walk', 'Walk', 6), ('bite', 'Bite', 6), ('hit', 'Hit', 2), ('fall', 'Fall', 3)] if kind == 'beast' else COLS
+        dc = d + '_carry'
+        if kind != 'beast':   # the carry's frame is the look's frame (same model, still and camera): only the crop moves
+            rc = json.load(open(os.path.join(dc, 'rig.json'))); assert rc['res'] == r['res'] and rc['ground_screen'] == r['ground_screen'], name
+            cx0, cy0, cx1, cy1 = rc['crop_box_px']
         for row, f in enumerate(FIGHT_DIRS):
             col = 0
             for n, c, ks in cols_here:
                 for k in range(ks):
-                    fn = os.path.join(d, 'rig_%s_%s_k%02d.png' % (c, f, k)) if c else os.path.join(d, 'rig_%s.png' % f)
+                    fn = os.path.join(dc if c in ('Carry', 'CarryWalk') else d, 'rig_%s_%s_k%02d.png' % (c, f, k)) if c else os.path.join(d, 'rig_%s.png' % f)
                     a = np.asarray(Image.open(fn).convert('RGBA')).copy()
+                    if c in ('Carry', 'CarryWalk'):
+                        full = np.zeros((r['res'], r['res'], 4), np.uint8); full[cy0:cy1, cx0:cx1] = a
+                        lost = int((full[..., 3] > 0).sum()) - int((full[y0:y1, x0:x1, 3] > 0).sum())
+                        if lost: print('  the carry outside the box', name, f, k, lost, 'px')
+                        a = full[y0:y1, x0:x1].copy()
                     a = np.pad(a, ((1, 1), (1, 1), (0, 0)))
                     op = a[..., 3] > 0
                     near = np.zeros_like(op)
@@ -228,5 +268,8 @@ if __name__ == '__main__':
     if cmd == 'bodies': bodies(sys.argv[2] if len(sys.argv) > 2 else 'ALL')
     elif cmd == 'render': render(sys.argv[2] if len(sys.argv) > 2 else 'ALL')
     elif cmd == 'batch': batch(int(sys.argv[2]) if len(sys.argv) > 2 else 3)
+    elif cmd == 'repose': repose(sys.argv[2] if len(sys.argv) > 2 else 'ALL')
+    elif cmd == 'carry': render(sys.argv[2], CARRY, '_carry')
+    elif cmd == 'carry_batch': carry_batch(int(sys.argv[2]) if len(sys.argv) > 2 else 2)
     elif cmd == 'pack': pack()
     else: sys.exit('bodies | render | pack')

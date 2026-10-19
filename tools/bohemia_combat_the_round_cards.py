@@ -13,15 +13,15 @@ REG = os.path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json')
 def cards(sha, rig):
     return [
         dict(id='combat-the-fight-wears-the-3d-models-10-19', kind='animation', lane='combat', sha=sha, made='10/19',
-             title='THE FIGHT IN THE 3D MODELS: EVERY MAN, EVERY ENEMY AND EVERY BEAST, EIGHT WAYS, WITH THEIR GUNS IN HAND. PICK HIS SIZE',
-             said="we have to do a full implementation of the 3D models, that's top priority... BRO EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY 8 BIT SHIT",
-             why='Every fighter is now his clay model from the rig, his own face from the same model in the strip, turning eight ways, walking, raising his gun, swinging, taking the blow and falling, the old flat people gone from the fight; pick his size on the board (A smaller, B as it is now, C bigger). You see it here in the VOTE tab from the fight\'s own camera, and in the COMBAT tab and the demo\'s fights it is already live at B.',
-             options=['A, smaller (65)', 'B, as it is (98)', 'C, bigger (131)', 'NO, not this'],
+             title='THE FIGHT IN THE 3D MODELS: EVERY MAN, EVERY ENEMY AND EVERY BEAST, EIGHT WAYS, THE GUN HELD IN BOTH HANDS',
+             said="we have to do a full implementation of the 3D models, that's top priority... BRO EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY 8 BIT SHIT / I dont like how the weapons just swing with the hand like some dumbass shit",
+             why='Every fighter is now his clay model from the rig, with his own face from the same model in the strip at the bottom. He turns through eight ways, walks, raises his gun and fires, swings, takes the blow and falls. The old flat people are gone from the fight. A man with a gun holds it in both hands while he stands and walks (his legs walk, the gun stays still) and brings it up to shoot; it never swings loose with his arm. The wolves, hyenas and dogs are the 3D beasts. The men stay the size they are. You see it here in the VOTE tab from the fight\'s own camera, and it is live in the COMBAT tab and the demo\'s fights.',
              show=dict(how='image', src='../records/target/combat/COMBAT_THE_FIGHT_WEARS_THE_RIG_10_19.webp'),
-             before_after=dict(before='the old flat people, two facings, painted faces', after='the rig models, eight facings, the clips on the beat, the portrait from the same model', scale='the phone at 1:1, halved side by side'),
+             before_after=dict(before='the old flat people, two facings, painted faces', after='the rig models, eight facings, the clips on the beat, the gun in both hands, the portrait from the same model', scale='the phone at 1:1, halved side by side; the man below at two phone pixels to the rig\'s'),
              twin=dict(src='slices/fight_people/cast_apron.webp', diffs=[
                  'NOW: the man was painted flat and had two facings (south-east and south-west); every man is his clay model now, turning through all eight.',
                  'NOW: he walked, swung and fell from the flat sheet\'s nine frames; the rig\'s own walk (six keys) and four new clips (the gun up, the swing, the blow landing, the fall) play on the beat.',
+                 'NOW: a gun hung from one hand and swung with his arm as he walked; it is held across him in both hands, still while his legs walk, and up at the shoulder when he shoots.',
                  'NOW: his face in the strip was a painted 64; it is PORTRAIT\'s portrait of the same model, so his hair and skin on the board and in the strip are one.']),
              sprites=rig, look=dict(px=1, palette='slices/fight_rig/fight_rig.json (256 colours a sheet)', light='upper-left'), draft=True),
         dict(id='combat-smooth-10-19', kind='animation', lane='combat', sha=sha, made='10/19',

@@ -1,0 +1,46 @@
+{
+ "label": "probe",
+ "seed": 5,
+ "throttle": 1,
+ "profile": "390x844 @3x, the one driver",
+ "speed": 1,
+ "auto": {
+  "seconds": 45.3,
+  "frames": 1733,
+  "fps": 38.2,
+  "median_ms": 16.8,
+  "p95_ms": 33.4,
+  "p99_ms": 50.1,
+  "worst_ms": 433.3,
+  "hitches_over_33ms": 231,
+  "dead_longest_ms": 515,
+  "dead_total_s": 10.6,
+  "dead_share": 23.5,
+  "dead_over_250ms": 6,
+  "dead_over_500ms": 1,
+  "longest_why": [
+   {
+    "ms": 515,
+    "next": "note:skill",
+    "who": "you:NENA"
+   }
+  ],
+  "ended": false,
+  "rounds": 3
+ },
+ "taps": {
+  "walk_confirm_to_motion_ms": [
+   51,
+   47,
+   52,
+   53
+  ],
+  "end_turn_to_their_first_motion_ms": [
+   86,
+   86
+  ],
+  "worst_walk_ms": 53,
+  "worst_end_ms": 86
+ },
+ "file_md5": "157e71eaf351f98f29a00321549c199a"
+}

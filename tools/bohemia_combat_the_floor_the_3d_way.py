@@ -43,8 +43,12 @@ import json, math, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'records/target/combat/floor3d')
-P = 60.0                     # the period: one block, five house tiles of 12 m
-W_PX, H_PX = 2575, 1820      # the fight's block picture (fight_ground.json: tile 515 x 364, five a block)
+# THE PERIOD IS ONE HOUSE TILE (12 m, the fight's 515 x 364): measured 10/19, a block of one 60 m patch is 3.5 MB of
+# lossless WebP (the rendered ground repeats nowhere) against 0.15 MB for the same ground repeating every house tile, and
+# the old blocks' 0.7 MB; a fight loads a dozen blocks on a phone. The patch tiles exactly, so a block is its house tiles
+# laid edge to edge with no seam, the same tile the board's grid draws.
+P = 12.0
+W_PX, H_PX = 515, 364
 PPM = W_PX / P               # 42.9 px a metre across; depth x cos45
 # what the eight grounds are, as things (the colours are COOK TWO's valley tans, his YES; the render is calibrated so the
 # lit ground's median lands on the tan of his tile there: COOK TWO's materials' means, measured 10/19)
@@ -231,8 +235,8 @@ def render_one(g, test=False, albedo=None):
     import bpy
     MR = rig()
     spec = GROUNDS[g]
-    period = 12.0 if test else P
-    w, h = (515, 364) if test else (W_PX, H_PX)
+    period = P
+    w, h = W_PX, H_PX
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     A = dict(sun_rot=list(MR.G['sun_rot_deg']))
@@ -258,19 +262,19 @@ def materials(arg, test):
     cal = {}
     for g in (GROUNDS if arg.upper() == 'ALL' else [arg]):
         done = os.path.join(OUT, 'materials', g + '.png')
-        if not test and os.path.exists(done) and os.path.getmtime(done) > os.path.getmtime(os.path.abspath(__file__)) and '--force' not in sys.argv:
-            print('MATERIAL', g, 'kept (rendered after this tool last changed)', flush=True); continue
+        if not test and os.path.exists(done) and '--force' not in sys.argv:
+            print('MATERIAL', g, 'kept (already rendered; --force renders it again)', flush=True); continue
         tgt = np.array(GROUNDS[g]['target'], float); lin = lambda c: (np.clip(c, 1, 255) / 255.0) ** 2.2
         alb2, meds = None, []
         for it in range(2):   # the dust and the grain do not scale with the albedo, so twice
             fn, alb = render_one(g, test=True, albedo=alb2)
-            med = np.median(np.asarray(Image.open(fn).convert('RGB')).reshape(-1, 3).astype(float), 0); meds.append([round(x, 1) for x in med])
+            med = np.median(np.asarray(Image.open(fn).convert('RGB')).reshape(-1, 3).astype(float), 0); meds.append([round(float(x), 1) for x in med])
             alb2 = [float(min(1.0, x * y)) for x, y in zip(alb, lin(tgt) / lin(med))]
-        cal[g] = dict(test_medians=meds, target=list(tgt), albedo=[round(x, 4) for x in alb2])
+        cal[g] = dict(test_medians=meds, target=[float(x) for x in tgt], albedo=[round(float(x), 4) for x in alb2])
         if test: fn, _ = render_one(g, test=True, albedo=alb2); continue
         fn, _ = render_one(g, test=False, albedo=alb2)
         b = np.asarray(Image.open(fn).convert('RGB')).reshape(-1, 3).astype(float)
-        cal[g]['median'] = [round(x, 1) for x in np.median(b, 0)]
+        cal[g]['median'] = [round(float(x), 1) for x in np.median(b, 0)]
         print('MATERIAL', g, cal[g], flush=True)
     p = os.path.join(OUT, 'materials', 'calibration%s.json' % ('_test' if test else ''))
     old = json.load(open(p)) if os.path.exists(p) else {}
@@ -303,13 +307,24 @@ def lay(only):
 
 def ship():
     """the re-laid blocks into the fight (COMBAT TWO's folder, its file names unchanged), the casino's interior and the
-    futures left as they are"""
-    import shutil
-    n = 0
+    futures left as they are. THE BYTES (measured 10/19): the rendered ground has thousands of colours a block, and the 32
+    blocks came to 36 MB against the old 9 (a fight loads a dozen); so the RE-LAID pixels only (the ground) are held to 96
+    colours of their own, no dither (the mean step under a third of one value of 255), every other pixel (the houses, the
+    street kit, the cover) left exactly as it was, lossless"""
+    import numpy as np
+    from PIL import Image
+    n, tot = 0, 0
     for f in sorted(os.listdir(OUT)):
-        if f.startswith('block_') and f.endswith('.webp'):
-            shutil.copyfile(os.path.join(OUT, f), os.path.join(ROOT, 'slices/fight_ground', f)); n += 1
-    print('SHIPPED', n, 'blocks into slices/fight_ground')
+        if not (f.startswith('block_') and f.endswith('.webp')): continue
+        new = np.asarray(Image.open(os.path.join(OUT, f)).convert('RGB')).copy()
+        old = np.asarray(Image.open(os.path.join(OUT, 'before', f)).convert('RGB'))
+        ch = (new != old).any(2)
+        if ch.any():
+            q = Image.fromarray(new[ch].reshape(-1, 1, 3)).quantize(96, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+            new[ch] = np.asarray(q.convert('RGB')).reshape(-1, 3)
+        dst = os.path.join(ROOT, 'slices/fight_ground', f)
+        Image.fromarray(new).save(dst, 'WEBP', lossless=True, quality=100, method=6); n += 1; tot += os.path.getsize(dst)
+    print('SHIPPED', n, 'blocks into slices/fight_ground,', round(tot / 1e6, 1), 'MB')
 
 
 if __name__ == '__main__':

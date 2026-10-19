@@ -1,0 +1,661 @@
+{
+ "version": "fight-rig-10-19",
+ "lane": "combat",
+ "row": "[the fight wears the 3D models]",
+ "rule": "121, 115",
+ "source": "the rig models: PORTRAIT's bodies of the 26 (records/portrait/rig/crew/bodies, CHARACTER's builder), PORTRAIT's thug and poacher (records/portrait/rig/*_head.glb, COOK THREE's tiers with the starred head), posed by tools/bohemia_combat_the_fight_poses.py, rendered by DIRECTION's master rig (records/target/combat/rig/<look>/rig.json)",
+ "render_changes": [
+  "the movers' light pass not rendered (round seven anti-boil, five renders a key)",
+  "Cycles persistent data",
+  "samples 24 (--set, a break in each rig.json)"
+ ],
+ "dirs": [
+  "S",
+  "SE",
+  "E",
+  "NE",
+  "N",
+  "NW",
+  "W",
+  "SW"
+ ],
+ "cols": [
+  "stand",
+  "walk@0",
+  "walk@1",
+  "walk@2",
+  "walk@3",
+  "walk@4",
+  "walk@5",
+  "aim@0",
+  "aim@1",
+  "aim@2",
+  "swing@0",
+  "swing@1",
+  "swing@2",
+  "hit@0",
+  "hit@1",
+  "fall@0",
+  "fall@1",
+  "fall@2"
+ ],
+ "clips": {
+  "stand": [
+   0
+  ],
+  "walk": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "aim": [
+   7,
+   8,
+   9
+  ],
+  "swing": [
+   10,
+   11,
+   12
+  ],
+  "hit": [
+   13,
+   14
+  ],
+  "fall": [
+   15,
+   16,
+   17
+  ]
+ },
+ "keys_per_beat": 3,
+ "ruler": {
+  "px": 98,
+  "m": 1.72
+ },
+ "rim": [
+  16,
+  11,
+  6,
+  230
+ ],
+ "looks": {
+  "you": {
+   "file": "you.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/you/rig.json",
+   "guns": "you_guns.webp"
+  },
+  "cast_longcoat": {
+   "file": "cast_longcoat.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_longcoat/rig.json",
+   "guns": "cast_longcoat_guns.webp"
+  },
+  "cast_barearms": {
+   "file": "cast_barearms.webp",
+   "w": 143,
+   "h": 160,
+   "foot": [
+    66,
+    109
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_barearms/rig.json",
+   "guns": "cast_barearms_guns.webp"
+  },
+  "cast_widebrim": {
+   "file": "cast_widebrim.webp",
+   "w": 138,
+   "h": 165,
+   "foot": [
+    67,
+    109
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_widebrim/rig.json",
+   "guns": "cast_widebrim_guns.webp"
+  },
+  "cast_poncho": {
+   "file": "cast_poncho.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_poncho/rig.json",
+   "guns": "cast_poncho_guns.webp"
+  },
+  "cast_shortcoat": {
+   "file": "cast_shortcoat.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    109
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_shortcoat/rig.json",
+   "guns": "cast_shortcoat_guns.webp"
+  },
+  "cast_apron": {
+   "file": "cast_apron.webp",
+   "w": 145,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_apron/rig.json",
+   "guns": "cast_apron_guns.webp"
+  },
+  "cast_cape": {
+   "file": "cast_cape.webp",
+   "w": 143,
+   "h": 160,
+   "foot": [
+    66,
+    109
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_cape/rig.json",
+   "guns": "cast_cape_guns.webp"
+  },
+  "cast_pack": {
+   "file": "cast_pack.webp",
+   "w": 133,
+   "h": 160,
+   "foot": [
+    66,
+    109
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_pack/rig.json",
+   "guns": "cast_pack_guns.webp"
+  },
+  "cast_satchel": {
+   "file": "cast_satchel.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_satchel/rig.json",
+   "guns": "cast_satchel_guns.webp"
+  },
+  "cast_skirt": {
+   "file": "cast_skirt.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_skirt/rig.json",
+   "guns": "cast_skirt_guns.webp"
+  },
+  "cast_shorts": {
+   "file": "cast_shorts.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_shorts/rig.json",
+   "guns": "cast_shorts_guns.webp"
+  },
+  "cast_bedroll": {
+   "file": "cast_bedroll.webp",
+   "w": 146,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.72,
+   "kind": "crew",
+   "rig": "records/target/combat/rig/cast_bedroll/rig.json",
+   "guns": "cast_bedroll_guns.webp"
+  },
+  "faction_anarchists": {
+   "file": "faction_anarchists.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_anarchists/rig.json",
+   "guns": "faction_anarchists_guns.webp"
+  },
+  "faction_blues": {
+   "file": "faction_blues.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_blues/rig.json",
+   "guns": "faction_blues_guns.webp"
+  },
+  "faction_caravans": {
+   "file": "faction_caravans.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_caravans/rig.json",
+   "guns": "faction_caravans_guns.webp"
+  },
+  "faction_cartel": {
+   "file": "faction_cartel.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_cartel/rig.json",
+   "guns": "faction_cartel_guns.webp"
+  },
+  "faction_church": {
+   "file": "faction_church.webp",
+   "w": 135,
+   "h": 160,
+   "foot": [
+    67,
+    109
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_church/rig.json",
+   "guns": "faction_church_guns.webp"
+  },
+  "faction_colorful": {
+   "file": "faction_colorful.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_colorful/rig.json",
+   "guns": "faction_colorful_guns.webp"
+  },
+  "faction_homeless": {
+   "file": "faction_homeless.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_homeless/rig.json",
+   "guns": "faction_homeless_guns.webp"
+  },
+  "faction_mob": {
+   "file": "faction_mob.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_mob/rig.json",
+   "guns": "faction_mob_guns.webp"
+  },
+  "faction_network": {
+   "file": "faction_network.webp",
+   "w": 150,
+   "h": 165,
+   "foot": [
+    69,
+    112
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_network/rig.json",
+   "guns": "faction_network_guns.webp"
+  },
+  "faction_reds": {
+   "file": "faction_reds.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_reds/rig.json",
+   "guns": "faction_reds_guns.webp"
+  },
+  "faction_remnants": {
+   "file": "faction_remnants.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_remnants/rig.json",
+   "guns": "faction_remnants_guns.webp"
+  },
+  "faction_trades": {
+   "file": "faction_trades.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_trades/rig.json",
+   "guns": "faction_trades_guns.webp"
+  },
+  "faction_volunteers": {
+   "file": "faction_volunteers.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "faction",
+   "rig": "records/target/combat/rig/faction_volunteers/rig.json",
+   "guns": "faction_volunteers_guns.webp"
+  },
+  "tier_thug": {
+   "file": "tier_thug.webp",
+   "w": 146,
+   "h": 169,
+   "foot": [
+    73,
+    117
+   ],
+   "height_m": 1.72,
+   "kind": "tier",
+   "rig": "records/target/combat/rig/tier_thug/rig.json",
+   "guns": "tier_thug_guns.webp"
+  },
+  "tier_poacher": {
+   "file": "tier_poacher.webp",
+   "w": 148,
+   "h": 172,
+   "foot": [
+    74,
+    119
+   ],
+   "height_m": 1.72,
+   "kind": "tier",
+   "rig": "records/target/combat/rig/tier_poacher/rig.json",
+   "guns": "tier_poacher_guns.webp"
+  },
+  "beast_dire_wolf": {
+   "file": "beast_dire_wolf.webp",
+   "w": 107,
+   "h": 116,
+   "foot": [
+    51,
+    83
+   ],
+   "height_m": 0.835,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_dire_wolf/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   }
+  },
+  "beast_cave_hyena": {
+   "file": "beast_cave_hyena.webp",
+   "w": 106,
+   "h": 125,
+   "foot": [
+    53,
+    91
+   ],
+   "height_m": 0.971,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_cave_hyena/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   }
+  },
+  "beast_feral_dog_shepherd": {
+   "file": "beast_feral_dog_shepherd.webp",
+   "w": 89,
+   "h": 101,
+   "foot": [
+    43,
+    73
+   ],
+   "height_m": 0.728,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_feral_dog_shepherd/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   }
+  }
+ },
+ "faces": {
+  "file": "faces.webp",
+  "size": 128,
+  "order": [
+   "you",
+   "cast_longcoat",
+   "cast_barearms",
+   "cast_widebrim",
+   "cast_poncho",
+   "cast_shortcoat",
+   "cast_apron",
+   "cast_cape",
+   "cast_pack",
+   "cast_satchel",
+   "cast_skirt",
+   "cast_shorts",
+   "cast_bedroll",
+   "faction_anarchists",
+   "faction_blues",
+   "faction_caravans",
+   "faction_cartel",
+   "faction_church",
+   "faction_colorful",
+   "faction_homeless",
+   "faction_mob",
+   "faction_network",
+   "faction_reds",
+   "faction_remnants",
+   "faction_trades",
+   "faction_volunteers",
+   "tier_thug",
+   "tier_poacher"
+  ],
+  "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)"
+ },
+ "guns": {
+  "order": [
+   "pistol",
+   "rifle",
+   "shotgun"
+  ],
+  "cols": [
+   "Stand@0",
+   "Anim_0@0",
+   "Anim_0@1",
+   "Anim_0@2",
+   "Anim_0@3",
+   "Anim_0@4",
+   "Anim_0@5",
+   "Aim@0",
+   "Aim@1",
+   "Aim@2",
+   "Hit@0",
+   "Hit@1"
+  ],
+  "clips": {
+   "stand": [
+    0
+   ],
+   "walk": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "aim": [
+    7,
+    8,
+    9
+   ],
+   "hit": [
+    10,
+    11
+   ]
+  },
+  "by_class": {
+   "dagger": "pistol",
+   "crossbow": "rifle",
+   "firearm": "shotgun"
+  },
+  "src": "COOK's guns (reference/models/bohemia/gun_*_a.glb) rendered in each look's hands with his body as a holdout, tools/bohemia_combat_the_guns_in_their_hands.py"
+ }
+}

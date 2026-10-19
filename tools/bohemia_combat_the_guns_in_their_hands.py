@@ -12,9 +12,11 @@ and a column per key of the four clips a gun is held in (his stand, the walk, th
     <venv>/bin/python tools/bohemia_combat_the_guns_in_their_hands.py render [LOOK|ALL]
     python3 tools/bohemia_combat_the_guns_in_their_hands.py pack
         -> slices/fight_rig/<look>_guns.webp, and 'guns' in slices/fight_rig/fight_rig.json
-HOW HE HOLDS IT (read off his hands, per frame): the long gun and the shotgun with the grip in the right hand and the barrel
-through the left (the gun up, both hands); carried at the low ready otherwise (the grip in the right hand, the muzzle down
-and forward); the pistol in both hands when it is up (the modern stance), in the right hand pointing down otherwise.
+HOW HE HOLDS IT (read off his hands, per frame): ALWAYS IN BOTH HANDS (Paolo 10/19: never swinging loose with the arm). The
+long gun and the shotgun with the grip in the right hand and the fore-end through the left: up at the shoulder when he
+shoots, across him at the low ready when he stands and walks (the carry); the pistol in both hands, out at the eye when
+he shoots, at the belly muzzle down otherwise. The blow that rocks him (Hit) has it in the right hand, and the club at one
+tile (Swing, ours.gun_club) brings it down in his fist along his forearm.
 REUSE CHECK: COOK's guns, PORTRAIT's bodies posed by tools/bohemia_combat_the_fight_poses.py, DIRECTION's master rig's
 bounds, clip_actions, light_and_film and source_pass imported and called as they are; nothing drawn.
 REFERENCE CHECK (the 9/4 standing duty): the compare law, the twin is COOK's gun as the VOTE tab shows it
@@ -25,7 +27,11 @@ import json, math, os, subprocess, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RENDERS = 'records/target/combat/rig'
 GUNS = {'pistol': 'gun_pistol_a', 'rifle': 'gun_rifle_a', 'shotgun': 'gun_shotgun_a'}
-CLIPS = [('Stand', 1), ('Anim_0', 6), ('Aim', 3), ('Hit', 2)]
+# THE GUN IS HELD, NEVER SWUNG (Paolo 10/19, 'I don't like how the weapons just swing with the hand like some dumbass shit'):
+# a man with a gun stands and walks in the carry (the poses tool's Carry and CarryWalk: the gun in both hands at the low
+# ready, the legs walking under it), so his gun is rendered on those clips, never on the arm-swinging Stand and walk
+# and the swing: every gun is a club at one tile (ours.gun_club), so the gun stays in his hands through the blow, never gone
+CLIPS = [('Carry', 1), ('CarryWalk', 6), ('Aim', 3), ('Hit', 2), ('Swing', 3)]
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 FIGHT_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 RIM = (16, 11, 6, 230)
@@ -91,6 +97,17 @@ def render(look):
                 bar = (lw - rw) if gun != 'pistol' else fwd
                 if bar.length < 1e-4 or bar.normalized().dot(fwd) < 0.2: bar = fwd
                 bar = mathutils.Vector((bar.x, bar.y, bar.z * 0.15))   # level at the shoulder: the hands give the line across, the eye keeps it flat
+            elif clip in ('Carry', 'CarryWalk'):
+                # the low ready in both hands: a long gun's grip in the right hand and its fore-end through the left, so it
+                # lies across him muzzle forward; a pistol in both hands at the belly, the muzzle forward and down
+                if gun == 'pistol': grip = (rw + lw) / 2; bar = fwd * 0.8 - up * 0.6
+                else:
+                    grip = rw; bar = lw - rw
+                    if bar.length < 1e-4 or bar.normalized().dot(fwd) < 0.2: bar = fwd - up * 0.2
+            elif clip == 'Swing':
+                # THE CLUB (ours.gun_club): the gun in his fist along his forearm, brought down as the blow
+                grip = rw; bar = rw - re
+                if bar.length < 1e-4: bar = fwd
             else:
                 grip = rw
                 fore = (rw - re); fore = fore.normalized() if fore.length > 1e-4 else -up
@@ -103,7 +120,9 @@ def render(look):
             # its grip and its line are read off his stretched hands, so it sits where his hands are on the sprite
             g.matrix_world = M
         files = []
+        only = [c for c in os.environ.get('BOHEMIA_GUN_CLIPS', '').split(',') if c]   # e.g. Carry,CarryWalk: the rest kept as rendered
         for name, keys in CLIPS:
+            if only and name not in only: continue
             a0, a1 = MR.clip_actions(sc, name)
             frames = [a0 + (a1 - a0) * (i + 0.5) / keys for i in range(keys)]   # the master rig's own keys (Stand: its one, mid-clip)
             for fi, f in enumerate(FACINGS):
@@ -121,7 +140,7 @@ def run_render(arg):
     for l in (looks if arg.upper() == 'ALL' else [arg]):
         for i in range(3):   # bpy 4.2 dies at exit now and then on this box, after the frames are written
             subprocess.call([sys.executable, os.path.abspath(__file__), '_one', l], cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            if os.path.exists(os.path.join(ROOT, RENDERS, l, 'guns', 'shotgun_Hit_NW_k01.png')): break
+            if os.path.exists(os.path.join(ROOT, RENDERS, l, 'guns', 'shotgun_CarryWalk_NW_k05.png')): break
         print('RENDERED GUNS', l, flush=True)
 
 
@@ -135,7 +154,7 @@ def pack():
     cols = [(c, k) for c, n in CLIPS for k in range(n)]
     for look in sorted(idx['looks']):
         d = os.path.join(ROOT, RENDERS, look)
-        if idx['looks'][look].get('kind') == 'beast' or not os.path.exists(os.path.join(d, 'guns', 'shotgun_Hit_NW_k01.png')): continue
+        if idx['looks'][look].get('kind') == 'beast' or not os.path.exists(os.path.join(d, 'guns', 'shotgun_Swing_NW_k02.png')): continue
         rj = json.load(open(os.path.join(d, 'rig.json'))); x0, y0, x1, y1 = rj['crop_box_px']; w, h = x1 - x0 + 2, y1 - y0 + 2
         sheet = Image.new('RGBA', (w * len(cols), h * len(FIGHT_DIRS) * len(GUNS)), (0, 0, 0, 0))
         for gi, gun in enumerate(GUNS):
@@ -152,7 +171,7 @@ def pack():
         sheet.save(os.path.join(ROOT, 'slices/fight_rig', f), 'WEBP', lossless=True, quality=100, method=6)
         idx['looks'][look]['guns'] = f
         print('PACKED GUNS', look, sheet.size, os.path.getsize(os.path.join(ROOT, 'slices/fight_rig', f)))
-    idx['guns'] = dict(order=list(GUNS), cols=['%s@%d' % (c, k) for c, k in cols], clips=dict(stand=[0], walk=list(range(1, 7)), aim=[7, 8, 9], hit=[10, 11]),
+    idx['guns'] = dict(order=list(GUNS), cols=['%s@%d' % (c, k) for c, k in cols], clips=dict(carry=[0], carrywalk=list(range(1, 7)), aim=[7, 8, 9], hit=[10, 11], swing=[12, 13, 14]),
                        by_class=dict(dagger='pistol', crossbow='rifle', firearm='shotgun'),
                        src='COOK\'s guns (reference/models/bohemia/gun_*_a.glb) rendered in each look\'s hands with his body as a holdout, '
                            'tools/bohemia_combat_the_guns_in_their_hands.py')
