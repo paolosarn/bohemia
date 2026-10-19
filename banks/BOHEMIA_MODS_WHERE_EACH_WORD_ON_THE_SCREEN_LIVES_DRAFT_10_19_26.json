@@ -1,0 +1,2477 @@
+{
+ "_about": "MODS [the screen's word] (research only, rule 38g): every name a player reads in the demo's first ten minutes, the screen that showed it, how many lines a whole-word search returns, and the line a tag proved sets it (a tag on the line, read back off the same screen). Written by tools/bohemia_mods_screen_word.js --bank; the page is records/BOHEMIA_MODS_EVERY_WORD_YOU_SEE_FINDS_ITS_LINE_10_19_26.md. Nothing in the game reads this file.",
+ "draft": true,
+ "walk": {
+  "ms": 428486,
+  "notes": [
+   "door: 15 origin cards swiped; ANOTHER pressed 10 times (all ten names, back to the first)",
+   "town: {\"name\":\"Church\",\"x\":47,\"y\":50,\"tier\":\"town\",\"blocksAway\":2,\"from\":[48,48]}",
+   "town buildings: hall, board, stall, bar, smith, armourer, barber, clinic, lot, build",
+   "crew screen: 12 men, each row tapped",
+   "fight: {\"district\":\"suburb\",\"party\":{\"count\":3,\"word\":\"A FEW\",\"days\":1,\"difficulty\":1,\"faction\":\"brigands\",\"strength\":30,\"kind\":\"roaming\"},\"at\":[48,48]}",
+   "fight: 6 men, each tapped (drawer) and held (weaponCard)"
+  ],
+  "names": 230,
+  "readouts": 74
+ },
+ "passes": [
+  {
+   "pass": "A",
+   "tags": 291,
+   "files": 25,
+   "shown": 127,
+   "namesGone": 13
+  },
+  {
+   "pass": "C",
+   "tags": 88,
+   "files": 4,
+   "shown": 26,
+   "namesGone": 5
+  },
+  {
+   "pass": "D",
+   "tags": 35,
+   "files": 1,
+   "shown": 25,
+   "namesGone": 7
+  }
+ ],
+ "rows": [
+  {
+   "name": "BOHEMIA",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 412,
+   "repoLines": 11625,
+   "proved": []
+  },
+  {
+   "name": "CLARK COUNTY POWER AUTHORITY",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 15,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:1550"
+   ]
+  },
+  {
+   "name": "THE FIGHTS",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 7,
+   "repoLines": 102,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13487"
+   ]
+  },
+  {
+   "name": "NEW HERE",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 30,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13436"
+   ]
+  },
+  {
+   "name": "crews one smaller",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 2,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13436"
+   ]
+  },
+  {
+   "name": "SEEN IT",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 10,
+   "repoLines": 139,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13437"
+   ]
+  },
+  {
+   "name": "as they come",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 11,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13437"
+   ]
+  },
+  {
+   "name": "OUTLIVED IT",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 15,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13438"
+   ]
+  },
+  {
+   "name": "crews one bigger",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 2,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13438"
+   ]
+  },
+  {
+   "name": "THE SHELVES",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 19,
+   "repoLines": 107,
+   "proved": []
+  },
+  {
+   "name": "FULL SHELVES",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 49,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13439"
+   ]
+  },
+  {
+   "name": "THIN SHELVES",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 8,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13440"
+   ]
+  },
+  {
+   "name": "as it is",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 18,
+   "repoLines": 208,
+   "proved": []
+  },
+  {
+   "name": "BARE SHELVES",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 7,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13441"
+   ]
+  },
+  {
+   "name": "WHO YOU WERE",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 7,
+   "repoLines": 104,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13491"
+   ]
+  },
+  {
+   "name": "SWIPE",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 7,
+   "repoLines": 49,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13491"
+   ]
+  },
+  {
+   "name": "EASY",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 43,
+   "repoLines": 1229,
+   "proved": []
+  },
+  {
+   "name": "THE CREW THAT IS LEFT",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 9,
+   "proved": [
+    "records/target/bb/origins.json:24"
+   ]
+  },
+  {
+   "name": "A NEW CREW",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 39,
+   "proved": [
+    "records/target/bb/origins.json:64"
+   ]
+  },
+  {
+   "name": "UP FROM HENDERSON",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 5,
+   "proved": [
+    "records/target/bb/origins.json:104"
+   ]
+  },
+  {
+   "name": "YOUR CREW'S NAME",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 3,
+   "proved": [],
+   "pieces": [
+    "YOUR engine/bohemia_purse.js engine/bohemia_powerbuild.js",
+    "CREW'S engine/bohemia_homebases.js slices/BOHEMIA_FIGHT.html",
+    "NAME engine/bohemia_century.js engine/bohemia_powerbuild.js"
+   ]
+  },
+  {
+   "name": "THE NIGHT SHIFT",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 7,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13469"
+   ]
+  },
+  {
+   "name": "ANOTHER",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 217,
+   "repoLines": 4540,
+   "proved": []
+  },
+  {
+   "name": "ONE MOMENT",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 20,
+   "repoLines": 227,
+   "proved": []
+  },
+  {
+   "name": "NOTES",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 585,
+   "repoLines": 4188,
+   "proved": []
+  },
+  {
+   "name": "POST-ECONOMIC APOCALYPSE - LAS VEGAS",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 22,
+   "proved": [
+    "slices/bohemia_ui_materials.js:317"
+   ]
+  },
+  {
+   "name": "READING THE VALLEY",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 27,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13305"
+   ]
+  },
+  {
+   "name": "COUNTING WHAT STILL STANDS",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 19,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13306"
+   ]
+  },
+  {
+   "name": "NO OPERATOR ON DUTY",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 3,
+   "repoLines": 41,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13344"
+   ]
+  },
+  {
+   "name": "WAIT",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 158,
+   "repoLines": 2140,
+   "proved": []
+  },
+  {
+   "name": "WINDING THE CLOCK",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 22,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13319"
+   ]
+  },
+  {
+   "name": "CHECKING STREETS FOR LIGHT",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 17,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13324"
+   ]
+  },
+  {
+   "name": "PUTTING PEOPLE ON IT",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 14,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13333"
+   ]
+  },
+  {
+   "name": "BEGIN",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 82,
+   "repoLines": 1104,
+   "proved": []
+  },
+  {
+   "name": "THE WATER TRUCK",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 14,
+   "proved": [
+    "records/target/bb/origins.json:144"
+   ]
+  },
+  {
+   "name": "THE BLOCK WATCH",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 74,
+   "proved": [
+    "records/target/bb/origins.json:181"
+   ]
+  },
+  {
+   "name": "NORMAL",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 124,
+   "repoLines": 1314,
+   "proved": []
+  },
+  {
+   "name": "THE SCAVENGERS",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 5,
+   "repoLines": 46,
+   "proved": [
+    "records/target/bb/origins.json:259"
+   ]
+  },
+  {
+   "name": "THE PROMISE KEEPERS",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 8,
+   "proved": [
+    "records/target/bb/origins.json:299"
+   ]
+  },
+  {
+   "name": "THE DESERTERS",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 18,
+   "proved": [
+    "records/target/bb/origins.json:336"
+   ]
+  },
+  {
+   "name": "THE RAIDERS",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 4,
+   "repoLines": 60,
+   "proved": [
+    "records/target/bb/origins.json:377"
+   ]
+  },
+  {
+   "name": "THE LAB RATS",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 6,
+   "proved": [
+    "records/target/bb/origins.json:421"
+   ]
+  },
+  {
+   "name": "THE FAITHFUL",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 40,
+   "proved": [
+    "records/target/bb/origins.json:461"
+   ]
+  },
+  {
+   "name": "HARD",
+   "kind": "setting",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 255,
+   "repoLines": 5826,
+   "proved": []
+  },
+  {
+   "name": "THE DEBT COLLECTORS",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 12,
+   "proved": [
+    "records/target/bb/origins.json:505"
+   ]
+  },
+  {
+   "name": "THE HUNTERS",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 27,
+   "proved": [
+    "records/target/bb/origins.json:557"
+   ]
+  },
+  {
+   "name": "THE FIGHT PIT",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 8,
+   "proved": [
+    "records/target/bb/origins.json:597"
+   ]
+  },
+  {
+   "name": "THE LONE WOLF",
+   "kind": "origin",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 6,
+   "repoLines": 56,
+   "proved": [
+    "records/target/bb/origins.json:638"
+   ]
+  },
+  {
+   "name": "JUST YOU",
+   "kind": "ui",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 6,
+   "repoLines": 29,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13480",
+    "records/target/bb/origins.json:639"
+   ]
+  },
+  {
+   "name": "LOW BATTERY",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 3,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13469"
+   ]
+  },
+  {
+   "name": "DEAD AIR",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 4,
+   "repoLines": 62,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13469"
+   ]
+  },
+  {
+   "name": "THE LAST CREW",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 3,
+   "repoLines": 19,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13469"
+   ]
+  },
+  {
+   "name": "NO SIGNAL",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 3,
+   "repoLines": 66,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13469"
+   ]
+  },
+  {
+   "name": "THE GRID",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 139,
+   "repoLines": 1734,
+   "proved": []
+  },
+  {
+   "name": "BLACKOUT",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 3,
+   "repoLines": 136,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13469"
+   ]
+  },
+  {
+   "name": "THE METER READERS",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 2,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13469"
+   ]
+  },
+  {
+   "name": "STATIC",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 63,
+   "repoLines": 820,
+   "proved": []
+  },
+  {
+   "name": "THE LATE CREW",
+   "kind": "company name",
+   "screen": "BOHEMIA_DEMO",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 2,
+   "proved": [
+    "slices/BOHEMIA_DEMO.html:13469"
+   ]
+  },
+  {
+   "name": "CHURCH",
+   "kind": "place",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 97,
+   "repoLines": 1992,
+   "proved": []
+  },
+  {
+   "name": "CUSTOM",
+   "kind": "place",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 38,
+   "repoLines": 553,
+   "proved": []
+  },
+  {
+   "name": "PHONE",
+   "kind": "ui",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 561,
+   "repoLines": 9591,
+   "proved": []
+  },
+  {
+   "name": "SLEEP",
+   "kind": "ui",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 134,
+   "repoLines": 2437,
+   "proved": []
+  },
+  {
+   "name": "◆ STANDING",
+   "kind": "ui",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 31,
+   "proved": [
+    "slices/BOHEMIA_CITY_WORLD.html:542"
+   ]
+  },
+  {
+   "name": "Cyrus",
+   "kind": "person",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 6,
+   "repoLines": 20,
+   "proved": []
+  },
+  {
+   "name": "NOW",
+   "kind": "ui",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 1317,
+   "repoLines": 27498,
+   "proved": []
+  },
+  {
+   "name": "TALK",
+   "kind": "ui",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 177,
+   "repoLines": 3793,
+   "proved": []
+  },
+  {
+   "name": "@waterline",
+   "kind": "handle",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 36,
+   "proved": [
+    "slices/BOHEMIA_CITY_WORLD.html:35243"
+   ]
+  },
+  {
+   "name": "@thecircuit",
+   "kind": "handle",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 4,
+   "repoLines": 44,
+   "proved": [
+    "slices/BOHEMIA_CITY_WORLD.html:35234"
+   ]
+  },
+  {
+   "name": "@nightcount",
+   "kind": "handle",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 5,
+   "repoLines": 53,
+   "proved": [
+    "slices/BOHEMIA_CITY_WORLD.html:35230"
+   ]
+  },
+  {
+   "name": "@thevalley",
+   "kind": "handle",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 5,
+   "repoLines": 59,
+   "proved": [
+    "slices/BOHEMIA_CITY_WORLD.html:35226"
+   ]
+  },
+  {
+   "name": "SUBURB",
+   "kind": "district",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 246,
+   "repoLines": 3993,
+   "proved": []
+  },
+  {
+   "name": "@church",
+   "kind": "handle",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 11,
+   "proved": [],
+   "pieces": [
+    "@church (none)"
+   ]
+  },
+  {
+   "name": "Ride shotgun to the salt camp",
+   "kind": "contract",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 4,
+   "proved": [
+    "records/target/BOHEMIA_BOARD_SHELF.json:803"
+   ]
+  },
+  {
+   "name": "JUST POSTED",
+   "kind": "ui",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 4,
+   "proved": [
+    "slices/bohemia_phone_board.js:41"
+   ]
+  },
+  {
+   "name": "@colorful",
+   "kind": "handle",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 1,
+   "proved": [],
+   "pieces": [
+    "@colorful (none)"
+   ]
+  },
+  {
+   "name": "Bring medicine down from the lodge",
+   "kind": "contract",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 2,
+   "proved": [
+    "records/target/BOHEMIA_BOARD_SHELF.json:715"
+   ]
+  },
+  {
+   "name": "II",
+   "kind": "ui",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 36,
+   "repoLines": 261,
+   "proved": []
+  },
+  {
+   "name": "@marisol_v",
+   "kind": "handle",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 34,
+   "proved": [
+    "slices/BOHEMIA_CITY_WORLD.html:35247"
+   ]
+  },
+  {
+   "name": "@thenightshift",
+   "kind": "handle",
+   "screen": "BOHEMIA_CITY_WORLD",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "@thenightshift (none)"
+   ]
+  },
+  {
+   "name": "A TOWN",
+   "kind": "place trait",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 65,
+   "repoLines": 782,
+   "proved": []
+  },
+  {
+   "name": "MARKET DAY",
+   "kind": "place trait",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 28,
+   "repoLines": 196,
+   "proved": []
+  },
+  {
+   "name": "THE HALL",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 20,
+   "repoLines": 889,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:181"
+   ]
+  },
+  {
+   "name": "cook for hire",
+   "kind": "building line",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "cook engine/bohemia_purse.js engine/bohemia_lotbuild.js",
+    "for engine/bohemia_century.js engine/bohemia_purse.js",
+    "hire engine/bohemia_names.js engine/bohemia_goodbros.js"
+   ]
+  },
+  {
+   "name": "THE WASH, NORTH LAS VEGAS",
+   "kind": "place",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 61,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:579"
+   ]
+  },
+  {
+   "name": "CREW",
+   "kind": "ui",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 556,
+   "repoLines": 4813,
+   "proved": []
+  },
+  {
+   "name": "LEAVE",
+   "kind": "ui",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 179,
+   "repoLines": 2890,
+   "proved": []
+  },
+  {
+   "name": "Church",
+   "kind": "place",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 97,
+   "repoLines": 1992,
+   "proved": []
+  },
+  {
+   "name": "THE ELDER",
+   "kind": "keeper title",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 12,
+   "repoLines": 565,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:463"
+   ]
+  },
+  {
+   "name": "WHAT THEY THINK OF YOU",
+   "kind": "ui",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 16,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1464"
+   ]
+  },
+  {
+   "name": "NEUTRAL",
+   "kind": "standing",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 71,
+   "repoLines": 1118,
+   "proved": []
+  },
+  {
+   "name": "WADE KESSLER",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 1,
+   "proved": [],
+   "pieces": [
+    "WADE engine/bohemia_names.js records/target/BOHEMIA_GROUND_EFFECTS.json",
+    "KESSLER engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "AT THE HALL",
+   "kind": "keeper title",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 68,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:462"
+   ]
+  },
+  {
+   "name": "Heather Brennan",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "Heather engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "Brennan engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "FARMHAND",
+   "kind": "background",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 10,
+   "repoLines": 124,
+   "proved": [
+    "engine/bohemia_goodbros.js:56"
+   ]
+  },
+  {
+   "name": "Hire",
+   "kind": "ui",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 55,
+   "repoLines": 937,
+   "proved": []
+  },
+  {
+   "name": "Hector Zamora",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "Hector engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "Zamora engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "MESSENGER",
+   "kind": "background",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 6,
+   "repoLines": 85,
+   "proved": [
+    "engine/bohemia_goodbros.js:58"
+   ]
+  },
+  {
+   "name": "Jin Truong",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "Jin engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "Truong engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "BUTCHER",
+   "kind": "background",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 37,
+   "repoLines": 189,
+   "proved": []
+  },
+  {
+   "name": "THE BOARD",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 116,
+   "repoLines": 3648,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:182"
+   ]
+  },
+  {
+   "name": "YESENIA OCHOA",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 3,
+   "proved": [
+    "records/target/BOHEMIA_BOARD_SHELF.json:813"
+   ]
+  },
+  {
+   "name": "THE WELDER",
+   "kind": "giver title",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 3,
+   "repoLines": 72,
+   "proved": [
+    "records/target/BOHEMIA_BOARD_SHELF.json:814"
+   ]
+  },
+  {
+   "name": "ABUELA TONA",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 3,
+   "proved": [
+    "records/target/BOHEMIA_BOARD_SHELF.json:270"
+   ]
+  },
+  {
+   "name": "WHO RUNS THE COUNT",
+   "kind": "giver title",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 3,
+   "proved": [
+    "records/target/BOHEMIA_BOARD_SHELF.json:271"
+   ]
+  },
+  {
+   "name": "THE STALL",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 34,
+   "repoLines": 448,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:184"
+   ]
+  },
+  {
+   "name": "buy, sell",
+   "kind": "building line",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 12,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:184"
+   ]
+  },
+  {
+   "name": "JARVIS BAUTISTA",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "JARVIS engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "BAUTISTA engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "AT THE STALL",
+   "kind": "keeper title",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 41,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:464"
+   ]
+  },
+  {
+   "name": "A ration of food",
+   "kind": "ware",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 5,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:573"
+   ]
+  },
+  {
+   "name": "Water, four litres",
+   "kind": "ware",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 3,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:574"
+   ]
+  },
+  {
+   "name": "A dose of meds",
+   "kind": "ware",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 7,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:575"
+   ]
+  },
+  {
+   "name": "Six rounds",
+   "kind": "ware",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 74,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:576"
+   ]
+  },
+  {
+   "name": "THE BAR",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 124,
+   "repoLines": 1825,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:187"
+   ]
+  },
+  {
+   "name": "a round, a rumour",
+   "kind": "building line",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 3,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:187"
+   ]
+  },
+  {
+   "name": "CYRUS GAINES",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "CYRUS engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "GAINES engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "BEHIND THE BAR",
+   "kind": "keeper title",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 11,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:466"
+   ]
+  },
+  {
+   "name": "Buy the crew a round",
+   "kind": "ui",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 6,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1260"
+   ]
+  },
+  {
+   "name": "THE SMITH",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 7,
+   "repoLines": 160,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:189",
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:470"
+   ]
+  },
+  {
+   "name": "weapons",
+   "kind": "building line",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 133,
+   "repoLines": 1323,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:189"
+   ]
+  },
+  {
+   "name": "AMBROSE HATCHER",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "AMBROSE engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "HATCHER engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "THEIR SHELF",
+   "kind": "ui",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 12,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:416"
+   ]
+  },
+  {
+   "name": "axe",
+   "kind": "weapon",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 145,
+   "repoLines": 294,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:315"
+   ]
+  },
+  {
+   "name": "chain",
+   "kind": "weapon",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 131,
+   "repoLines": 4760,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:315"
+   ]
+  },
+  {
+   "name": "hook",
+   "kind": "weapon",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 70,
+   "repoLines": 1222,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:316"
+   ]
+  },
+  {
+   "name": "pistol",
+   "kind": "weapon",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 51,
+   "repoLines": 1061,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:314"
+   ]
+  },
+  {
+   "name": "cleaver",
+   "kind": "weapon",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 120,
+   "repoLines": 182,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:315"
+   ]
+  },
+  {
+   "name": "THE ARMOURER",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 4,
+   "repoLines": 70,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:190",
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:471"
+   ]
+  },
+  {
+   "name": "armour",
+   "kind": "building line",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 52,
+   "repoLines": 1005,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:190"
+   ]
+  },
+  {
+   "name": "DUSTIN TILLMAN",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "DUSTIN engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "TILLMAN engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "carrier",
+   "kind": "armour",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 31,
+   "repoLines": 429,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:327"
+   ]
+  },
+  {
+   "name": "vest",
+   "kind": "armour",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 34,
+   "repoLines": 294,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:327"
+   ]
+  },
+  {
+   "name": "hat",
+   "kind": "armour",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 431,
+   "repoLines": 1868,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:325"
+   ]
+  },
+  {
+   "name": "helmet",
+   "kind": "armour",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 282,
+   "repoLines": 489,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:325"
+   ]
+  },
+  {
+   "name": "hood",
+   "kind": "armour",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 101,
+   "repoLines": 597,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:325"
+   ]
+  },
+  {
+   "name": "shield",
+   "kind": "armour",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 484,
+   "repoLines": 987,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:326"
+   ]
+  },
+  {
+   "name": "door",
+   "kind": "armour",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 888,
+   "repoLines": 15397,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:326"
+   ]
+  },
+  {
+   "name": "THE BARBER",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 18,
+   "repoLines": 362,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:185",
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:465"
+   ]
+  },
+  {
+   "name": "HECTOR QUINTERO",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "HECTOR engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "QUINTERO engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "Sit in the chair",
+   "kind": "ui",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 16,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1239"
+   ]
+  },
+  {
+   "name": "THE CLINIC",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 21,
+   "repoLines": 495,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:183"
+   ]
+  },
+  {
+   "name": "heals faster",
+   "kind": "building line",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 12,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:183"
+   ]
+  },
+  {
+   "name": "DELLA WHITFIELD",
+   "kind": "person",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": false,
+   "loadedLines": 0,
+   "repoLines": 0,
+   "proved": [],
+   "pieces": [
+    "DELLA engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html",
+    "WHITFIELD engine/bohemia_names.js slices/BOHEMIA_CITY_WORLD.html"
+   ]
+  },
+  {
+   "name": "THE DOC",
+   "kind": "keeper title",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 47,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:467"
+   ]
+  },
+  {
+   "name": "SCAVENGE",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 33,
+   "repoLines": 494,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:191"
+   ]
+  },
+  {
+   "name": "picked clean",
+   "kind": "building line",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 23,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:989"
+   ]
+  },
+  {
+   "name": "YOU",
+   "kind": "keeper title",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 4391,
+   "repoLines": 71805,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:472"
+   ]
+  },
+  {
+   "name": "Search the lot",
+   "kind": "ui",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 3,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:1316"
+   ]
+  },
+  {
+   "name": "BUILD",
+   "kind": "building",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 504,
+   "repoLines": 11801,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:622"
+   ]
+  },
+  {
+   "name": "not your ground",
+   "kind": "building line",
+   "screen": "BOHEMIA_SETTLEMENT_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 7,
+   "proved": [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html:988"
+   ]
+  },
+  {
+   "name": "YOUR COMPANY",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 12,
+   "repoLines": 130,
+   "proved": [
+    "slices/BOHEMIA_ROSTER_SCREEN.html:127",
+    "slices/BOHEMIA_ROSTER_SCREEN.html:245"
+   ]
+  },
+  {
+   "name": "DONE",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 356,
+   "repoLines": 6371,
+   "proved": []
+  },
+  {
+   "name": "FRONT",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 815,
+   "repoLines": 10026,
+   "proved": []
+  },
+  {
+   "name": "BACK",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1706,
+   "repoLines": 21460,
+   "proved": []
+  },
+  {
+   "name": "YOUR BAG",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 10,
+   "repoLines": 38,
+   "proved": [
+    "slices/BOHEMIA_ROSTER_SCREEN.html:138",
+    "slices/BOHEMIA_ROSTER_SCREEN.html:380"
+   ]
+  },
+  {
+   "name": "SORT THE BAG",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 3,
+   "proved": [
+    "slices/BOHEMIA_ROSTER_SCREEN.html:139"
+   ]
+  },
+  {
+   "name": "DESI",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 14,
+   "proved": [
+    "records/target/bb/ours.json:113"
+   ]
+  },
+  {
+   "name": "RAUL",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 5,
+   "repoLines": 25,
+   "proved": [
+    "records/target/bb/ours.json:123"
+   ]
+  },
+  {
+   "name": "TINA",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 7,
+   "proved": [
+    "records/target/bb/ours.json:132"
+   ]
+  },
+  {
+   "name": "BOOKIE",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 13,
+   "proved": [
+    "records/target/bb/ours.json:142"
+   ]
+  },
+  {
+   "name": "OSO",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 3,
+   "repoLines": 14,
+   "proved": [
+    "records/target/bb/ours.json:151"
+   ]
+  },
+  {
+   "name": "CHEWY",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 7,
+   "proved": [
+    "records/target/bb/ours.json:169"
+   ]
+  },
+  {
+   "name": "MARISOL",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 11,
+   "repoLines": 99,
+   "proved": [
+    "records/target/bb/ours.json:160"
+   ]
+  },
+  {
+   "name": "LUPE",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 12,
+   "repoLines": 107,
+   "proved": [
+    "records/target/bb/ours.json:179"
+   ]
+  },
+  {
+   "name": "GRIZ",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 13,
+   "proved": [
+    "records/target/bb/ours.json:188"
+   ]
+  },
+  {
+   "name": "DEUCE",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 6,
+   "proved": [
+    "records/target/bb/ours.json:198"
+   ]
+  },
+  {
+   "name": "NENA",
+   "kind": "person",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 30,
+   "proved": [
+    "records/target/bb/ours.json:207"
+   ]
+  },
+  {
+   "name": "MAIN",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 206,
+   "repoLines": 8561,
+   "proved": []
+  },
+  {
+   "name": "pipe",
+   "kind": "weapon",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 102,
+   "repoLines": 1659,
+   "proved": [
+    "engine/bohemia_roster.js:23"
+   ]
+  },
+  {
+   "name": "OFF",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1501,
+   "repoLines": 19464,
+   "proved": []
+  },
+  {
+   "name": "BODY",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1821,
+   "repoLines": 24920,
+   "proved": []
+  },
+  {
+   "name": "HEAD",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1110,
+   "repoLines": 12943,
+   "proved": []
+  },
+  {
+   "name": "sledge",
+   "kind": "weapon",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 23,
+   "repoLines": 83,
+   "proved": [
+    "engine/bohemia_roster.js:23"
+   ]
+  },
+  {
+   "name": "jacket",
+   "kind": "armour",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 58,
+   "repoLines": 670,
+   "proved": [
+    "engine/bohemia_roster.js:52"
+   ]
+  },
+  {
+   "name": "rifle",
+   "kind": "weapon",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 39,
+   "repoLines": 903,
+   "proved": [
+    "engine/bohemia_roster.js:23"
+   ]
+  },
+  {
+   "name": "bottles",
+   "kind": "weapon",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 24,
+   "repoLines": 302,
+   "proved": [
+    "engine/bohemia_roster.js:23"
+   ]
+  },
+  {
+   "name": "shotgun",
+   "kind": "weapon",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 23,
+   "repoLines": 475,
+   "proved": [
+    "engine/bohemia_roster.js:23"
+   ]
+  },
+  {
+   "name": "HITPOINTS",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 73,
+   "repoLines": 227,
+   "proved": []
+  },
+  {
+   "name": "FATIGUE",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 2008,
+   "repoLines": 3116,
+   "proved": []
+  },
+  {
+   "name": "RESOLVE",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 500,
+   "repoLines": 2442,
+   "proved": []
+  },
+  {
+   "name": "INITIATIVE",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 425,
+   "repoLines": 734,
+   "proved": []
+  },
+  {
+   "name": "MELEE SKILL",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 52,
+   "repoLines": 210,
+   "proved": []
+  },
+  {
+   "name": "RANGED SKILL",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 46,
+   "repoLines": 151,
+   "proved": []
+  },
+  {
+   "name": "MELEE DEF",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 1,
+   "proved": [
+    "engine/bohemia_roster.js:21"
+   ]
+  },
+  {
+   "name": "RANGED DEF",
+   "kind": "ui",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 1,
+   "proved": [
+    "engine/bohemia_roster.js:21"
+   ]
+  },
+  {
+   "name": "MAIN HAND",
+   "kind": "weapon",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 12,
+   "proved": [
+    "slices/BOHEMIA_ROSTER_SCREEN.html:270",
+    "slices/BOHEMIA_ROSTER_SCREEN.html:349"
+   ]
+  },
+  {
+   "name": "OFF HAND",
+   "kind": "weapon",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 2,
+   "repoLines": 5,
+   "proved": [
+    "slices/BOHEMIA_ROSTER_SCREEN.html:270",
+    "slices/BOHEMIA_ROSTER_SCREEN.html:349"
+   ]
+  },
+  {
+   "name": "a car door",
+   "kind": "armour",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 9,
+   "repoLines": 33,
+   "proved": [
+    "engine/bohemia_roster.js:81"
+   ]
+  },
+  {
+   "name": "a padded vest",
+   "kind": "armour",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 5,
+   "repoLines": 8,
+   "proved": [
+    "engine/bohemia_roster.js:52",
+    "engine/bohemia_roster.js:52"
+   ]
+  },
+  {
+   "name": "a hard hat",
+   "kind": "armour",
+   "screen": "BOHEMIA_ROSTER_SCREEN",
+   "found": true,
+   "loadedLines": 4,
+   "repoLines": 11,
+   "proved": [
+    "engine/bohemia_roster.js:50",
+    "engine/bohemia_roster.js:50"
+   ]
+  },
+  {
+   "name": "AUTO",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 295,
+   "repoLines": 2229,
+   "proved": []
+  },
+  {
+   "name": "END TURN",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 6,
+   "repoLines": 48,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:145"
+   ]
+  },
+  {
+   "name": "LOADING THE GROUND",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 1,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:155"
+   ]
+  },
+  {
+   "name": "FIGHT",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 750,
+   "repoLines": 18570,
+   "proved": []
+  },
+  {
+   "name": "PIPE",
+   "kind": "weapon",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 102,
+   "repoLines": 1659,
+   "proved": [
+    "records/target/bb/weapon_lines.json:30"
+   ]
+  },
+  {
+   "name": "Health",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 45,
+   "repoLines": 1217,
+   "proved": []
+  },
+  {
+   "name": "Armour, head",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 5,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:2600"
+   ]
+  },
+  {
+   "name": "Armour, body",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 2,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:2600"
+   ]
+  },
+  {
+   "name": "Fatigue",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 2008,
+   "repoLines": 3116,
+   "proved": []
+  },
+  {
+   "name": "Nerve",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 12,
+   "repoLines": 513,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:2601"
+   ]
+  },
+  {
+   "name": "Steady",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 27,
+   "repoLines": 401,
+   "proved": []
+  },
+  {
+   "name": "Melee skill / defence",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 1,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:2601"
+   ]
+  },
+  {
+   "name": "Ranged skill / defence",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 1,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:2602"
+   ]
+  },
+  {
+   "name": "Initiative",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 425,
+   "repoLines": 734,
+   "proved": []
+  },
+  {
+   "name": "Resolve",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 500,
+   "repoLines": 2442,
+   "proved": []
+  },
+  {
+   "name": "Bludgeon",
+   "kind": "weapon row",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 31,
+   "repoLines": 53,
+   "proved": []
+  },
+  {
+   "name": "mace",
+   "kind": "weapon class",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 181,
+   "repoLines": 306,
+   "proved": []
+  },
+  {
+   "name": "Damage",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 621,
+   "repoLines": 3497,
+   "proved": []
+  },
+  {
+   "name": "Against armour",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 7,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:2621"
+   ]
+  },
+  {
+   "name": "Straight through armour",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 3,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:2622"
+   ]
+  },
+  {
+   "name": "Reach",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 474,
+   "repoLines": 6662,
+   "proved": []
+  },
+  {
+   "name": "Hands",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 549,
+   "repoLines": 4502,
+   "proved": []
+  },
+  {
+   "name": "one",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 7706,
+   "repoLines": 122938,
+   "proved": []
+  },
+  {
+   "name": "Bash",
+   "kind": "skill",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 33,
+   "repoLines": 80,
+   "proved": []
+  },
+  {
+   "name": "CAR DOOR",
+   "kind": "weapon",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 20,
+   "repoLines": 73,
+   "proved": [
+    "records/target/bb/weapon_lines.json:54"
+   ]
+  },
+  {
+   "name": "Melee / ranged defence",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 1,
+   "repoLines": 1,
+   "proved": [
+    "slices/BOHEMIA_FIGHT.html:2628"
+   ]
+  },
+  {
+   "name": "SLEDGE",
+   "kind": "weapon",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 23,
+   "repoLines": 83,
+   "proved": [
+    "records/target/bb/weapon_lines.json:38"
+   ]
+  },
+  {
+   "name": "Two-Handed Mallet",
+   "kind": "weapon row",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 10,
+   "repoLines": 12,
+   "proved": [
+    "records/target/bb/weapons.json:4578"
+   ]
+  },
+  {
+   "name": "hammer",
+   "kind": "weapon class",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 83,
+   "repoLines": 402,
+   "proved": []
+  },
+  {
+   "name": "two",
+   "kind": "ui",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 2842,
+   "repoLines": 46533,
+   "proved": []
+  },
+  {
+   "name": "Smite",
+   "kind": "skill",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 8,
+   "repoLines": 11,
+   "proved": [
+    "records/target/bb/weapons.json:4593"
+   ]
+  },
+  {
+   "name": "THUG",
+   "kind": "person",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 6,
+   "repoLines": 427,
+   "proved": [
+    "records/target/bb/enemies.json:2784"
+   ]
+  },
+  {
+   "name": "AXE",
+   "kind": "weapon",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 145,
+   "repoLines": 294,
+   "proved": [
+    "records/target/bb/weapon_lines.json:80"
+   ]
+  },
+  {
+   "name": "Woodcutter's Axe",
+   "kind": "weapon row",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 17,
+   "repoLines": 21,
+   "proved": []
+  },
+  {
+   "name": "Split Man",
+   "kind": "skill",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 17,
+   "repoLines": 30,
+   "proved": []
+  },
+  {
+   "name": "SPEAR",
+   "kind": "weapon",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 141,
+   "repoLines": 421,
+   "proved": []
+  },
+  {
+   "name": "Militia Spear",
+   "kind": "weapon row",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 21,
+   "repoLines": 30,
+   "proved": []
+  },
+  {
+   "name": "spear",
+   "kind": "weapon class",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 141,
+   "repoLines": 421,
+   "proved": []
+  },
+  {
+   "name": "Thrust",
+   "kind": "skill",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 20,
+   "repoLines": 57,
+   "proved": []
+  },
+  {
+   "name": "MACE",
+   "kind": "weapon",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 181,
+   "repoLines": 306,
+   "proved": []
+  },
+  {
+   "name": "Goedendag",
+   "kind": "weapon row",
+   "screen": "BOHEMIA_FIGHT",
+   "found": true,
+   "loadedLines": 8,
+   "repoLines": 10,
+   "proved": []
+  }
+ ]
+}

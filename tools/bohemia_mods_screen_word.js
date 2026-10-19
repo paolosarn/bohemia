@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* MODS [the screen's word] -- EVERY WORD YOU SEE FINDS ITS LINE (reads only; RESEARCH ONLY, rule 38g).
 
-     node tools/bohemia_mods_screen_word.js [--json] [--walk-only] [--from FILE] [--prove]
+     node tools/bohemia_mods_screen_word.js [--json] [--walk-only] [--from FILE] [--prove] [--passes A,C,D] [--bank FILE]
 
    The row (from [a modder's first hour], 10/18: 'easy is the word on the screen finding its line, not the file
    type'): for every NAME a player reads in the demo's first ten minutes (weapons, armour, buildings, people, places,
@@ -433,6 +433,7 @@ function kindOf(r) {
   if (/ROSTER/.test(f)) {
     if (/div\.cell<div#(front|back)\.line/.test(c)) return 'person';
     if (/wname|\.nm|\.sub/.test(c)) return /^[A-Z][a-z]/.test(n) || /^[A-Z]+$/.test(n) && /wname|\.nm/.test(c) ? 'person' : 'background';
+    if (/^em<button\.wslot/.test(c)) return 'ui';   /* MAIN, OFF, BODY, HEAD: the slot's label, not what is in it */
     if (/wslot|gslot|slot/.test(c)) return /vest|carrier|armour|helm|helmet|hat|hood|shield|door|jacket|coat|cap/.test(n) ? 'armour' : 'weapon';
     if (/\.p\b|perk/.test(c)) return 'perk';
     return 'ui';
@@ -591,7 +592,23 @@ async function prove(R) {
     spots: (P.pass === 'C' || P.pass === 'D') ? P.spots.map(s => ({ file: s.file, line: s.line, word: s.names[0], shown: s.shown, frames: s.frames, seenAs: s.seenAs })) : undefined }));
 }
 
-module.exports = { ARM, walk, cut, looksLikeName, grep, grepAll, where, judge, analyse, taggable, planTags, planTablesC, prove };
+/* --bank FILE: the draft index a stranger would want (Stardew's Strings folder, Battle Brothers' one file per thing): every
+   name on the glass, the screen that showed it, and the line the tag proved. draft:true; nothing in the game reads it. */
+function bankOf(R) {
+  const rel = f => f;
+  return {
+    _about: 'MODS [the screen\'s word] (research only, rule 38g): every name a player reads in the demo\'s first ten minutes, the screen that showed it, how many lines a whole-word search returns, and the line a tag proved sets it (a tag on the line, read back off the same screen). Written by tools/bohemia_mods_screen_word.js --bank; the page is records/BOHEMIA_MODS_EVERY_WORD_YOU_SEE_FINDS_ITS_LINE_10_19_26.md. Nothing in the game reads this file.',
+    draft: true,
+    walk: { ms: R.walk.ms, notes: R.walk.notes, names: R.rows.length, readouts: (R.readouts || []).length },
+    passes: (R.prove || []).map(P => ({ pass: P.pass, tags: P.tags, files: P.files, shown: P.shown, namesGone: (P.lost || []).length })),
+    rows: R.rows.map(r => ({ name: r.name, kind: r.kind, screen: String(r.frame).replace(/\.html$/, ''), found: r.search.found,
+      loadedLines: r.search.lines.loaded, repoLines: r.search.lines.all,
+      proved: (r.proved || []).map(x => rel(x.file) + ':' + x.line),
+      pieces: r.pieces ? r.pieces.map(p => p.word + (p.found ? ' ' + p.files.slice(0, 2).join(' ') : ' (none)')) : undefined }))
+  };
+}
+
+module.exports = { ARM, walk, cut, looksLikeName, grep, grepAll, where, judge, analyse, taggable, planTags, planTablesC, prove, bankOf };
 
 if (require.main === module) {
   (async function main() {
@@ -601,6 +618,7 @@ if (require.main === module) {
     if (WALK_ONLY) { console.log(JSON.stringify({ ms: W.ms, stages: W.stages.map(s => [s.name, s.at - W.t0, s.how]), notes: W.notes, items: W.items.length, loaded: W.loaded.length, errs: W.errs }, null, 1)); return; }
     const R = await analyse(W);
     if (PROVE) R.prove = await prove(R);
+    { const i = args.indexOf('--bank'); if (i >= 0) { fs.writeFileSync(args[i + 1], JSON.stringify(bankOf(R), null, 1) + '\n'); console.error('  [bank] written ' + args[i + 1]); } }
     fs.writeFileSync(path.join(outDir(), 'names.json'), JSON.stringify(R, null, 1));
     if (JSON_OUT) { console.log(JSON.stringify(R, null, 1)); return; }
     report(R);
