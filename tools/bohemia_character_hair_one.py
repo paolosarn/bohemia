@@ -83,15 +83,14 @@ def hsh(i, salt=0):
     return (((i * 2654435761) ^ (salt * 40503)) & 0xffffffff) / 4294967296.0
 
 
-def build(cut, L):
-    """the cut's pieces, built into the barber's live scene; returns the barber's `made` items"""
+def kit(L, stretch=(1.6, 1.2)):
+    """THE KIT every cut is built from (the skull measured by rays, the body to rest on, darts, CLUMPS, three sizes, the
+    combs, drape, frame, lens, rope, ellipsoid, piece, hang_w, nape), as one dict, so HAIR 2 builds from the same hands;
+    stretch is how long a clump is along the comb (1.6 to 2.8 times its size, HAIR 1's; a slicked cut asks for longer)"""
     bpy, bmesh = L['bpy'], L['bmesh']
     Vector, BVHTree, KDTree, PM = L['Vector'], L['BVHTree'], L['KDTree'], L['PM']
     C, sc, az_of = L['C'], L['sc'], L['az_of']
-    skull_bm, finish, shell, paint_scalp, fade_skin, hair_mat = L['skull_bm'], L['finish'], L['shell'], L['paint_scalp'], L['fade_skin'], L['hair_mat']
-    spec = CUTS[cut]; tag = spec['tag']; B = spec['bank']
-    made = []
-
+    skull_bm, finish, hair_mat = L['skull_bm'], L['finish'], L['hair_mat']
     # ---- the kit: the skull measured by rays from its own axis, the body to rest on --------------------------------
     bm_s = skull_bm(); bvh_head = BVHTree.FromBMesh(bm_s); bm_s.free()
     body = next(o for o in sc.objects if o.type == 'MESH' and o.name.startswith('Cesium_Man'))
@@ -134,7 +133,7 @@ def build(cut, L):
         kd = KDTree(len(sd))
         for i, s_ in enumerate(sd): kd.insert(s_, i)
         kd.balance()
-        at = [(r * (1.6 + 1.2 * hsh(i, salt + 1)), r * (0.55 + 0.35 * hsh(i, salt + 2)), 0.55 + 0.45 * hsh(i, salt + 3)) for i in range(len(sd))]
+        at = [(r * (stretch[0] + stretch[1] * hsh(i, salt + 1)), r * (0.55 + 0.35 * hsh(i, salt + 2)), 0.55 + 0.45 * hsh(i, salt + 3)) for i in range(len(sd))]
         out = []
         for p, n in zip(pts, nor):
             a = along(p - C, n); b_ = 0.0
@@ -272,6 +271,23 @@ def build(cut, L):
 
     def nape(ab):   # where the hair grows to, low on the sides and the back (the skull's own hairline)
         return interp(ab, [(0.64, 0.010), (1.2, -0.035), (1.9, -0.070), (math.pi, -0.085)])
+
+    return dict((k, v) for k, v in locals().items() if k != 'L')
+
+
+def build(cut, L):
+    """the cut's pieces, built into the barber's live scene; returns the barber's `made` items"""
+    bpy, bmesh = L['bpy'], L['bmesh']
+    Vector, BVHTree, KDTree, PM = L['Vector'], L['BVHTree'], L['KDTree'], L['PM']
+    C, sc, az_of = L['C'], L['sc'], L['az_of']
+    skull_bm, finish, shell, paint_scalp, fade_skin, hair_mat = L['skull_bm'], L['finish'], L['shell'], L['paint_scalp'], L['fade_skin'], L['hair_mat']
+    spec = CUTS[cut]; tag = spec['tag']; B = spec['bank']
+    made = []
+
+    k = kit(L)
+    bvh_head, bvh_body, skull_r, tangent, darts, clumps, three, K = (k[n] for n in ('bvh_head', 'bvh_body', 'skull_r', 'tangent', 'darts', 'clumps', 'three', 'K'))
+    from_crown, front_to_back, down, drape, frame, lens, rope, ellipsoid, piece, hang_w, nape = (k[n] for n in (
+        'from_crown', 'front_to_back', 'down', 'drape', 'frame', 'lens', 'rope', 'ellipsoid', 'piece', 'hang_w', 'nape'))
 
     # ================================================================== THE TAPERS
     if cut in ('DRY TAPER', 'DEEP TAPER'):

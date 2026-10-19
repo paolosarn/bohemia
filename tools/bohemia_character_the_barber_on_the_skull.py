@@ -95,14 +95,16 @@ ORDER = ['TEMPLE TAPER', 'COIL CROWN', 'LAYERED FALL']
 # HAIR 1 (the roll call, 10/19): the other eight canon cuts, as strands and clumps, never a mesh (his chain-mail note);
 # their geometry lives in tools/bohemia_character_hair_one.py, the eight branches build() calls; the three above are untouched
 import bohemia_character_hair_one as HAIR_ONE  # noqa: E402
+import bohemia_character_hair_two as HAIR_TWO  # noqa: E402   (HAIR 2: twelve new cuts, the whole enchilada, 10/19)
 import bohemia_character_hats_one as HATS_ONE  # noqa: E402   (HATS 1: the 21 canon hats on the same head)
 import bohemia_character_eyewear_one as EYE_ONE  # noqa: E402   (EYEWEAR 1: the 14 face pieces on the same head)
 import bohemia_character_garments_base as BASE_ONE  # noqa: E402   (GARMENTS BASE: the 80 tops, each on its own body)
 CUTS.update(HAIR_ONE.CUTS)
+CUTS.update(HAIR_TWO.CUTS)
 CUTS.update(HATS_ONE.CUTS)
 CUTS.update(EYE_ONE.CUTS)
 CUTS.update(BASE_ONE.CUTS)
-ALL = ORDER + HAIR_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER
+ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER
 
 
 def sstep(a, b, t):
@@ -515,6 +517,8 @@ def build(cut):
 
     elif cut in HAIR_ONE.CUTS:
         made += HAIR_ONE.build(cut, locals())
+    elif cut in HAIR_TWO.CUTS:
+        made += HAIR_TWO.build(cut, locals())
     elif cut in HATS_ONE.CUTS:
         made += HATS_ONE.build(cut, locals())
     elif cut in EYE_ONE.CUTS:
@@ -631,6 +635,7 @@ if __name__ == '__main__':
     if cmd == 'build':
         barber_body()
         names = (ORDER if sys.argv[2].upper() == 'ALL' else HAIR_ONE.ORDER if sys.argv[2].upper() == 'HAIR1'
+                 else HAIR_TWO.ORDER if sys.argv[2].upper() == 'HAIR2'
                  else HATS_ONE.ORDER if sys.argv[2].upper() == 'HATS1' else EYE_ONE.ORDER if sys.argv[2].upper() == 'EYE1'
                  else BASE_ONE.ORDER if sys.argv[2].upper() == 'BASE1' else BASE_ONE.pick(sys.argv[2]) if sys.argv[2].upper().startswith('BASE1:')
                  else [n for n in ALL if CUTS[n]['tag'] == sys.argv[2].lower() or n == sys.argv[2].upper()])
