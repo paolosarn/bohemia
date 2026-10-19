@@ -124,8 +124,7 @@ THE VOTE CARD: portrait-the-face-is-the-bodys-face-10-19 (registered, first pict
 in the player's skin, the body now in tan, the 64 face now, the 3D face he saw, the new one). Sheet:
 records/target/portrait/PORTRAIT_THE_FACE_IS_THE_BODYS_FACE.png.
 
-NOT YET: the thirteen gangs' fresh faces (round 2 of [every face from the same model]; rendering, the same recipe, the
-same file); the enemy tiers' heads (COOK THREE's new tier bodies).
+NOT YET: the enemy tiers' heads (COOK THREE's new tier bodies). The gangs: section 8.
 
 ## 7. The one red: the guide's light row reads black hair as light from below
 
@@ -146,11 +145,47 @@ ruler to DIRECTION with a proposal (the light row over the skin only through the
 out). The 10/18 crew card (voted UP) had its sprites pointed at this round's re-renders by the shared paths; they now point
 at the pixels he voted on, kept at records/target/portrait/voted_10_18/ (from the commit he saw), so its row is clean.
 
+## 8. Round 2: the thirteen gangs' fresh faces, rendered and parked
+
+The same recipe on CHARACTER's thirteen gang bodies (its own build in the person's skin), each head with its face
+dials (no two share a skull) and its mask: records/target/portrait/rig/crew/faction_<gang>/ and the hand-off squares and
+masks in records/target/portrait/crew/faction_<gang>/. All thirteen read on THE FACE IS THE BODYS FACE's ruler:
+
+| gang | tone | paint | from its own rig skin |
+|---|---|---|---|
+| Caravans | brown | (131, 97, 85) | 3.3 L* |
+| Colorful | bronze | (176, 126, 96) | 7.3 dE, the furthest |
+| Anarchists | chalk | (246, 220, 177) | -0.2 L* |
+| Blues | deep | (103, 70, 54) | +0.8 L* |
+| Homeless | fair | (202, 170, 139) | -0.3 L* |
+| Church | porcelain | (222, 179, 145) | -2.9 L* |
+| Reds | olive | (202, 156, 120) | 4.8 dE |
+| Cartel | tan | (156, 121, 95) | +0.7 L* |
+| Trades | brown | (133, 98, 85) | +3.8 L* |
+| Mob | pale | (201, 159, 130) | +1.4 L* |
+| Network | fair | (199, 165, 134) | -2.0 L* |
+| Volunteers | bronze | (175, 125, 96) | 7.4 dE |
+| Remnants | fair | (202, 172, 140) | +0.2 L* |
+
+Hair 13 of 13 on their bodies' cut ramps. PARKED out of BOHEMIA_CREW_FACES.json (the list the screens read) for three
+things, each with its owner:
+* THE CARAVANS CONE touches the render's own frame (EYES' frame leg): PORTRAIT's, the cone or the head next round.
+* THREE FACE SHAPES (Cartel, Remnants, Trades) sit outside the star's eye spacing by more than an eighth (EYES' head size
+  leg): the dials that make no two gang skulls alike move the eyes; whether the bar holds a dialled face to the star's
+  spacing is taste, DIRECTION's.
+* CHARACTER's ONE SKIN, ONE PERSON reads two of them (Colorful, Homeless) a rung light: its cheek ruler carries one light
+  factor measured on the crew's thirteen (0.44 to 0.67 of the albedo); the Colorful's dialled cheek catches 0.72. Through
+  the head's own mask (this gate) both read their own skin. Routed to CHARACTER: read the cheek's light off the mask.
+THE FIX IN THIS GATE, found on the gangs: the nearest rung was the verdict, and CHARACTER's table puts pale and olive two
+rungs apart on nearly one colour (8.0 apart), so the Red's face 1.2 L* off its own olive read 'pale'. A face now passes
+within 10 of its own rig albedo and L* within 8; the table's neighbours sit 8 to 19 apart, the defect he saw 26 to 47.
+
 ## ROUTED
 * CHARACTER [one skin, one person]: shipped the engine change and both re-bakes in the same hour (3318fe81, ba103ee1);
   this gate's body legs went green on them. Its own gate ONE SKIN, ONE PERSON holds the engine paths; this one holds the
   pictures (the paint through a mask, the hair, the street). The widebrim is its one PORTRAIT debt left (section 6).
-* DIRECTION: the light row on the portrait class (section 7), a NOTE on its board.
+* DIRECTION: the light row on the portrait class (section 7), and the head-size bar on a dialled face (section 8), NOTEs on its board.
+* CHARACTER: its S7 cheek ruler's one light factor misreads dialled faces (section 8).
 * EYES AND EARS: the star tool's screen_square copies the old hand-off window; import
   tools/bohemia_portrait_the_head_from_the_model.py hand_off_window instead and the widebrim reads whole there too.
 * RUN TWO: nothing to wire. BohemiaCrewFaces reads the manifest at load; the thirteen gangs' faces join it this round, so
