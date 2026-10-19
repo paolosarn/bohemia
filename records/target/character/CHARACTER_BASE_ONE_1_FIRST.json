@@ -1,0 +1,179 @@
+{
+ "first": "BLACK TANK",
+ "firstAt": [
+  12,
+  64,
+  754,
+  208
+ ],
+ "rows": {
+  "BLACK TANK": [
+   12,
+   64,
+   754,
+   208
+  ],
+  "BONE TANK": [
+   12,
+   278,
+   754,
+   208
+  ],
+  "OLIVE TANK": [
+   12,
+   492,
+   754,
+   208
+  ],
+  "RUST TANK": [
+   12,
+   706,
+   754,
+   208
+  ],
+  "SOOT TANK": [
+   12,
+   920,
+   754,
+   208
+  ],
+  "BRICK TEE": [
+   12,
+   1134,
+   757,
+   208
+  ],
+  "CHARCOAL STRIPED TEE": [
+   12,
+   1348,
+   757,
+   208
+  ],
+  "FIELD GREEN TEE": [
+   12,
+   1562,
+   757,
+   208
+  ],
+  "OLIVE DRAB TEE": [
+   12,
+   1776,
+   757,
+   208
+  ],
+  "RUST STRIPED TEE": [
+   12,
+   1990,
+   757,
+   208
+  ],
+  "SAGE TEE": [
+   12,
+   2204,
+   757,
+   208
+  ],
+  "STEEL STRIPED TEE": [
+   12,
+   2418,
+   757,
+   208
+  ],
+  "STORM GREY TEE": [
+   12,
+   2632,
+   757,
+   208
+  ],
+  "STRIPED TEE": [
+   12,
+   2846,
+   757,
+   208
+  ],
+  "TEAL STRIPED TEE": [
+   12,
+   3060,
+   757,
+   208
+  ],
+  "TEAL WORK SHIRT": [
+   12,
+   3274,
+   757,
+   208
+  ],
+  "WHITE TEE": [
+   12,
+   3488,
+   757,
+   208
+  ],
+  "COBALT SHIRT": [
+   12,
+   3702,
+   758,
+   209
+  ],
+  "FADED BLACK LONGSLEEVE": [
+   12,
+   3917,
+   758,
+   209
+  ],
+  "MOSS GREEN SHIRT": [
+   12,
+   4132,
+   758,
+   209
+  ],
+  "SIGNAL RED SHIRT": [
+   12,
+   4347,
+   758,
+   209
+  ],
+  "BONE HENLEY": [
+   12,
+   4562,
+   758,
+   209
+  ],
+  "BRICK HENLEY": [
+   12,
+   4777,
+   758,
+   209
+  ],
+  "OLIVE HENLEY": [
+   12,
+   4992,
+   758,
+   209
+  ],
+  "RUST HENLEY": [
+   12,
+   5207,
+   758,
+   209
+  ],
+  "SAGE STRIPED HENLEY": [
+   12,
+   5422,
+   758,
+   209
+  ],
+  "SLATE HENLEY": [
+   12,
+   5637,
+   758,
+   209
+  ],
+  "STORM HENLEY": [
+   12,
+   5852,
+   758,
+   209
+  ]
+ }
+}
