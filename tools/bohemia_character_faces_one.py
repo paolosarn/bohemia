@@ -77,7 +77,9 @@ def _slug(n): return n.lower().replace(' ', '_')
 
 CUTS = {}
 for _i, (_n, _f) in enumerate(SHAPES):
-    CUTS['FACE ' + _n] = dict(tag='face_' + _slug(_n), bank=dict(ramp='face', kind='face shape', face=_f), hair=HAIRS[_i % len(HAIRS)], zcap=0.3,
+    _h = HAIRS[_i % len(HAIRS)]
+    if _n == 'HIGH DOME': _h = ('cloth_black', 1)   # cycle 2: at cloth_black 0 the guide's light row read W lit from below by 2.9 (HAIR 2's FINGER WAVES case)
+    CUTS['FACE ' + _n] = dict(tag='face_' + _slug(_n), bank=dict(ramp='face', kind='face shape', face=_f), hair=_h, zcap=0.3,
                               as_cut='TEMPLE TAPER', face=_f, group='shape', label=_n, worn_by='anyone: a face is rolled per person')
 for _n, _p, _k, _s, _c in BEARDS:
     CUTS['BEARD ' + _n] = dict(tag='beard_' + _slug(_n), bank=dict(ramp='beard', kind='facial hair', part=_p or _k), hair=_c, zcap=0.3,

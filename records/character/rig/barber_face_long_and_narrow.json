@@ -1,0 +1,44 @@
+{
+ "cut": "FACE LONG AND NARROW",
+ "tag": "face_long_and_narrow",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_long_and_narrow.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5525,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7473,
+ "pieces": {
+  "barber_temple_taper_fade": 26609,
+  "barber_temple_taper": 164946
+ }
+}

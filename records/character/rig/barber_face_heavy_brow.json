@@ -1,0 +1,44 @@
+{
+ "cut": "FACE HEAVY BROW",
+ "tag": "face_heavy_brow",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "face.browY": 2,
+   "brows.len": 11,
+   "face.eyeY": 1,
+   "face.jawW": 30,
+   "face.chinW": 15,
+   "face.craniumH": 8,
+   "nose.w": 4
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_heavy_brow.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_bone",
+  2
+ ],
+ "hair_rgb": [
+  184,
+  168,
+  134
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5293,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7211,
+ "pieces": {
+  "barber_temple_taper_fade": 31945,
+  "barber_temple_taper": 159050
+ }
+}

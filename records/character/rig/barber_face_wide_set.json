@@ -1,0 +1,42 @@
+{
+ "cut": "FACE WIDE SET",
+ "tag": "face_wide_set",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_wide_set.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5409,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7342,
+ "pieces": {
+  "barber_temple_taper_fade": 32381,
+  "barber_temple_taper": 162506
+ }
+}

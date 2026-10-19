@@ -1,0 +1,82 @@
+{
+ "firstAt": [
+  12,
+  2264,
+  892,
+  211
+ ],
+ "rows": {
+  "FACE LONG AND NARROW": [
+   12,
+   64,
+   889,
+   245
+  ],
+  "FACE BROAD AND SQUARE": [
+   12,
+   315,
+   892,
+   203
+  ],
+  "FACE ROUND": [
+   12,
+   524,
+   894,
+   203
+  ],
+  "FACE HEART": [
+   12,
+   733,
+   892,
+   203
+  ],
+  "FACE GAUNT": [
+   12,
+   942,
+   890,
+   235
+  ],
+  "FACE HEAVY BROW": [
+   12,
+   1183,
+   889,
+   204
+  ],
+  "FACE HIGH DOME": [
+   12,
+   1393,
+   892,
+   211
+  ],
+  "FACE WIDE SET": [
+   12,
+   1610,
+   892,
+   203
+  ],
+  "FACE HAWK": [
+   12,
+   1819,
+   890,
+   230
+  ],
+  "FACE SMALL FEATURES": [
+   12,
+   2055,
+   890,
+   203
+  ],
+  "FACE LANTERN JAW": [
+   12,
+   2264,
+   892,
+   211
+  ],
+  "FACE FLAT AND LOW": [
+   12,
+   2481,
+   889,
+   204
+  ]
+ }
+}

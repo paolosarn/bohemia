@@ -1,0 +1,41 @@
+{
+ "cut": "FACE HIGH DOME",
+ "tag": "face_high_dome",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_high_dome.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.57,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7669,
+ "pieces": {
+  "barber_temple_taper_fade": 30317,
+  "barber_temple_taper": 169098
+ }
+}

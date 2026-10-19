@@ -1,0 +1,42 @@
+{
+ "cut": "FACE LANTERN JAW",
+ "tag": "face_lantern_jaw",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "face.jawW": 33,
+   "face.chinW": 20,
+   "face.len": 38,
+   "face.cheekW": 34,
+   "face.mouthY": 1
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_lantern_jaw.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_rust",
+  1
+ ],
+ "hair_rgb": [
+  95,
+  38,
+  23
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5409,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7342,
+ "pieces": {
+  "barber_temple_taper_fade": 28709,
+  "barber_temple_taper": 162506
+ }
+}

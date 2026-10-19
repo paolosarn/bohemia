@@ -1,0 +1,44 @@
+{
+ "cut": "FACE FLAT AND LOW",
+ "tag": "face_flat_and_low",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_flat_and_low.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_bone",
+  2
+ ],
+ "hair_rgb": [
+  184,
+  168,
+  134
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5233,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7144,
+ "pieces": {
+  "barber_temple_taper_fade": 31825,
+  "barber_temple_taper": 157986
+ }
+}
