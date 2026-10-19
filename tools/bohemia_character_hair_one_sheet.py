@@ -76,20 +76,22 @@ def row(name, tag, base):
 def main():
     base = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'records/target/character/barber')
     rows = [row(n, t, os.path.join(ROOT, 'records/target/character/barber')) for n, t in OLD]
-    rows += [row(n, H1.CUTS[n]['tag'], base) for n in H1.ORDER]
+    rows += [row(n, H1.CUTS[n]['tag'], base) for n in H1.CARD_ORDER]   # the two HELD cuts stay off the card (rule 114b)
     W = max(r.width for r in rows) + 24
     H = 70 + sum(r.height + 6 for r in rows)
     out = Image.new('RGBA', (W, H), BG + (255,)); dr = ImageDraw.Draw(out)
-    dr.text((12, 8), 'CHARACTER: HAIR 1, THE BARBER\'S ELEVEN CUTS ON THE STARRED HEAD. The eight new ones are clumps, locks, ropes and braids, never a mesh.', fill=INK)
+    dr.text((12, 8), 'CHARACTER: HAIR 1, THE BARBER\'S CUTS ON THE STARRED HEAD. The six new ones are clumps, locks, ropes and braids, never a mesh.', fill=INK)
     dr.text((12, 24), 'Each row: the game\'s flat cut today (1:1), the model in eight facings (1:1), the same head at the portrait\'s 128. Draft: nothing is final.', fill=DIM)
     dr.text((12, 40), '57 px a metre, one pixel size | palette: the style palette (records/target/BOHEMIA_STYLE_PALETTE.json) | light: the rig\'s one sun, upper left', fill=DIM)
-    y = 64
+    y = 64; at = []
     for r in rows:
-        out.alpha_composite(r, (12, y)); y += r.height + 6
+        out.alpha_composite(r, (12, y)); at.append([12, y, r.width, r.height]); y += r.height + 6
     out.convert('RGB').save(OUT, optimize=True)
-    # the first picture: the rope locks' row, the cut furthest from anything the game draws today
-    i = 3 + H1.ORDER.index('ROPE LOCKS')
+    # the first picture: the dust weave's row, the cut furthest from anything the game draws today
+    i = 3 + H1.CARD_ORDER.index('DUST WEAVE')
     rows[i].convert('RGB').save(FIRST, optimize=True)
+    import json
+    json.dump({'firstAt': at[i], 'rows': dict(zip([n for n, _ in OLD] + H1.CARD_ORDER, at))}, open(FIRST.replace('.png', '.json'), 'w'), indent=1)
     print('wrote %s %dx%d and its first picture %s' % (os.path.relpath(OUT, ROOT), W, H, os.path.relpath(FIRST, ROOT)))
 
 

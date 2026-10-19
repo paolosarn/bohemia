@@ -44,9 +44,12 @@ CUTS = {
                  worn_by='Colorful; the cape'),
     'CURTAIN CUT': dict(tag='curtain_cut', bank=dict(ramp='H_BRN', vol=0, side=0.78, front=0.42), hair=H_BRN, zcap=1.0,
                         worn_by='the skirt, the poncho'),
-    'HEAVY FRINGE': dict(tag='heavy_fringe', bank=dict(ramp='H_BLK', vol=1, side=0.64, front=0.46), hair=H_BLK, zcap=0.5,
+    # cycle 2 (the guide's light row, D3): the two biggest black masses read lit from below on 2 and 6 of their 8 facings
+    # (the top half 3 to 20 values under the bottom); a step off near-black, the flat cut's own mid (32, 30, 27), and the
+    # crown lit by the sun (no strand normals: cycle 3 with them capped at 0.5 still read 5 to 12 values under)
+    'HEAVY FRINGE': dict(tag='heavy_fringe', bank=dict(ramp='H_BLK', vol=1, side=0.64, front=0.46), hair=('cloth_black', 1), zcap=1.0,
                          worn_by='Volunteers'),
-    'ROPE LOCKS': dict(tag='rope_locks', bank=dict(ramp='H_BLK', vol=1, side=1.50, front=0.20, tex='locs'), hair=H_BLK, zcap=0.3,
+    'ROPE LOCKS': dict(tag='rope_locks', bank=dict(ramp='H_BLK', vol=1, side=1.50, front=0.20, tex='locs'), hair=('cloth_black', 1), zcap=1.0,
                        worn_by='nobody yet (the crowd draws it)'),
     'SHORT ROPES': dict(tag='short_ropes', bank=dict(ramp='H_BRN', vol=0, side=0.62, front=0.18, tex='locs'), hair=H_BRN, zcap=1.0,
                         worn_by='nobody yet (the crowd draws it)'),
@@ -54,6 +57,14 @@ CUTS = {
                        worn_by='nobody yet (the crowd draws it)'),
 }
 ORDER = ['DRY TAPER', 'DEEP TAPER', 'SHAG', 'CURTAIN CUT', 'HEAVY FRINGE', 'ROPE LOCKS', 'SHORT ROPES', 'DUST WEAVE']
+# HELD OFF THE CARD (10/19, rule 114b: a sheet that fails the guide's first five never reaches the tab). The two biggest
+# black masses read 'lit from below' on the guide's light row (D3) on the barber's mannequin: ROPE LOCKS on 5 of 8 facings
+# (the top half 8.6 to 14.4 values under the bottom: black ropes over the upper back), HEAVY FRINGE on 1 (W, 3.2), after
+# three cycles (near-black lifted a step, strand normals capped then off). The bare mannequin already reads W -4.1 on this
+# row (the barber's measure), so the row sits near its own threshold under any dark head. A fourth version is the tell
+# (STOP PRODUCING): they stay built and named, routed to DIRECTION, and ride a card when the row and the head agree.
+HELD = {'ROPE LOCKS': 'D3 on 5 of 8 facings (8.6 to 14.4 values)', 'HEAVY FRINGE': 'D3 on W (3.2 values)'}
+CARD_ORDER = [n for n in ORDER if n not in HELD]
 
 
 def sstep(a, b, t):

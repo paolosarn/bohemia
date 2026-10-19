@@ -45,6 +45,7 @@ SAID = "his 10/18: 'we still have to get the hair approved and the hats approved
 GANG_CARDS = ['character-the-thirteen-through-the-rig-10-18', 'character-the-print-and-the-hands-10-18',
               'character-the-walk-of-every-look-10-18']
 BARBER_CARD = 'character-the-barber-on-the-skull-10-18'
+HAIR_ONE_CARD = 'character-hair-one-clumps-not-links-10-19'   # the barber's other eight, as clumps, locks, ropes and braids
 PORTRAIT_CARD = 'portrait-every-face-from-the-same-model-10-18'
 # names that are not plain: a brand, a place, a pattern word. The old name stays an alias forever (saves keep it).
 PLAIN = {
@@ -158,6 +159,10 @@ def main():
             if kind == 'hair' and name in barber:
                 nl = {'state': 'shown, not approved', 'by': 'CHARACTER, sculpted on the starred skull', 'rig_looks': on_gangs}
                 nl.update(card(BARBER_CARD)); nl['note'] = SAID
+            elif kind == 'hair' and name in BARBER.HAIR_ONE.CARD_ORDER and any(i.get('id') == HAIR_ONE_CARD for i in reg.get('items', [])):
+                nl = {'state': 'shown, not approved', 'by': 'CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)',
+                      'rig_looks': on_gangs}
+                nl.update(card(HAIR_ONE_CARD)); nl['note'] = SAID
             elif on_gangs:
                 nl = {'state': 'shown, not approved' if kind in UNAPPROVED_KINDS else 'approved, not final',
                       'by': 'CHARACTER, modelled on the thirteen gang bodies', 'rig_looks': on_gangs,

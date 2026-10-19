@@ -10,26 +10,26 @@
  "worn_by": "Volunteers",
  "model": "records/character/rig/barber_heavy_fringe.glb",
  "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
- "zcap": 0.5,
+ "zcap": 1.0,
  "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
  "bone": "Skeleton_neck_joint_2",
  "hair_palette": [
   "cloth_black",
-  0
+  1
  ],
  "hair_rgb": [
-  20,
-  19,
-  19
+  29,
+  27,
+  27
  ],
  "skin_rgb": [
   158,
   118,
   89
  ],
- "model_top_m": 1.5592,
+ "model_top_m": 1.5602,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7548,
+ "real_height_for_rig": 1.7559,
  "pieces": {
   "barber_heavy_fringe": 218338,
   "barber_heavy_fringe_edge": 7658

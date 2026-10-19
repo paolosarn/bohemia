@@ -43,9 +43,26 @@ THE COLOURS: H_BLK is cloth_black 0 (the barber's: about 0.6 of the flat cut's m
 H_BRN was tape_masking 0 and sat on the mannequin's tan skin at one value, so it is clay_mustard 0, the warm step at the
 same 0.6 of its flat mid (82, 58, 38).
 
-## 3. WHAT THE CARD ASKS
+## 3. TWO HELD OFF THE CARD, MEASURED (rule 114b)
 
-One card, character-hair-one-clumps-not-links-10-19: the barber's eleven cuts on the starred head, each row the game's
+Every still went through the guide's first five (the NOT VIBE CODED gate's own checker, class person, light guide).
+48 of 48 stills of the six on the card pass. The two biggest black masses do not, on D3, the guide's light row ("lit from
+below": the top half of the sprite darker than the bottom):
+
+| cut | cycle 1 (cloth_black 0, normals capped 0.3/0.5) | cycle 2 (a step lighter, capped 0.5) | cycle 3 (cloth_black 1, the crown lit) |
+|---|---|---|---|
+| ROPE LOCKS | 6 of 8 out, 2.8 to 19.6 values | 5 of 8, 4.7 to 12.0 | 5 of 8, 8.6 to 14.4 |
+| HEAVY FRINGE | 2 of 8, 6.8 and 9.4 | 2 of 8, 4.7 and 7.3 | 1 of 8, 3.2 |
+
+Black ropes down the upper back put the dark mass in the top half by construction; the bare mannequin already reads W -4.1
+on this row (the barber's measure, 10/18), so the row sits at its own threshold under any dark head. Three cycles is the
+limit (a fourth version is the tell): both stay built (records/target/character/barber/rope_locks, heavy_fringe), held
+off the card, and routed to DIRECTION: does the light row read a dark hair mass over a dark body as a low light? The
+barber's mannequin in a lighter shirt would answer it the cheap way.
+
+## 4. WHAT THE CARD ASKS
+
+One card, character-hair-one-clumps-not-links-10-19: nine of the barber's cuts on the starred head (his three, the six), each row the game's
 flat cut today at 1:1, the model's eight facings at 1:1, and the head at the portrait's 128. The question is the METHOD
 (does this read as hair, not chain mail) and the cuts one by one; a cut he votes down goes back, never into the game
 (rule 108 stands for assets). The walk in eight for each cut renders when its card passes (the first three already walk).

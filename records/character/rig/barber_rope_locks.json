@@ -11,17 +11,17 @@
  "worn_by": "nobody yet (the crowd draws it)",
  "model": "records/character/rig/barber_rope_locks.glb",
  "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
- "zcap": 0.3,
+ "zcap": 1.0,
  "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
  "bone": "Skeleton_neck_joint_2",
  "hair_palette": [
   "cloth_black",
-  0
+  1
  ],
  "hair_rgb": [
-  20,
-  19,
-  19
+  29,
+  27,
+  27
  ],
  "skin_rgb": [
   158,
