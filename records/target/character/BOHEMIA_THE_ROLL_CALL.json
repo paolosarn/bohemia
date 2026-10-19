@@ -24,8 +24,8 @@
   "eyewear: shown, not approved": 14,
   "garment: approved, not final": 49,
   "garment: built, not shown": 25,
-  "garment: not yet": 217,
-  "garment: shown, not approved": 20,
+  "garment: not yet": 199,
+  "garment: shown, not approved": 38,
   "hair: dead, never rebuilt": 34,
   "hair: not yet": 2,
   "hair: shown, not approved": 10,
@@ -837,8 +837,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -932,8 +937,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -948,7 +958,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [
      "faction_trades"
     ],
@@ -969,6 +979,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-base-one-the-collars-10-19",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: base"
@@ -1001,8 +1016,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -1403,8 +1423,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -1416,8 +1441,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -1603,8 +1633,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -1616,8 +1651,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -1670,8 +1710,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -1683,8 +1728,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -1719,7 +1769,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [
      "faction_caravans"
     ],
@@ -1740,6 +1790,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-base-one-the-collars-10-19",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: base"
@@ -2166,8 +2221,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -2270,8 +2330,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -2283,8 +2348,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -2296,8 +2366,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -2577,8 +2652,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -2590,8 +2670,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -2603,8 +2688,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -3318,8 +3408,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -3331,8 +3426,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
+    "rig_looks": [],
+    "card": "character-base-one-the-collars-10-19",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's base batch, shown for his vote"
    },
    "batch": "garments: base"
   },
@@ -3856,7 +3956,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [
      "faction_mob"
     ],
@@ -3877,6 +3977,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-base-one-the-collars-10-19",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: base"
@@ -3946,7 +4051,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (base 1)",
     "rig_looks": [
      "faction_church"
     ],
@@ -3967,6 +4072,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-base-one-the-collars-10-19",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: base"

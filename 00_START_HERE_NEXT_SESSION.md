@@ -285,15 +285,16 @@ main's registry was not JSON and the tab's list could not load; I rebuilt it the
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
 CHARACTER (character-one-skin): 10/19 (t) LATEST -- *** BASE 1: THE GAME'S 28 PLAIN TOPS ON THE 3D MAN IN VOTE; ONE SKIN'S WALKS LANDING. ***
-TAB: VOTE, the card character-base-one-the-shirts-10-19 (5 tanks, 12 tees, 4 long sleeves, 7 henleys on the barber's man,
-each beside the game's flat top at 1:1, eight facings, the portrait at 128; 224 of 224 stills pass the first five), with
+TAB: VOTE, the cards character-base-one-the-shirts-10-19 (5 tanks, 12 tees, 4 long sleeves, 7 henleys on the barber's man,
+each beside the game's flat top at 1:1, eight facings, the portrait at 128; 224 of 224 stills pass the first five) and
+character-base-one-the-collars-10-19 (8 button shirts, 2 work shirts, 10 flannels, 2 rolled sleeves; 176 of 176), with
 hair 1 (six cuts), hats 1 (21) and eyewear 1 (14 face pieces, character-eyewear-one-the-14-face-pieces-10-19) before it.
 Records: records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md, records/BOHEMIA_EYEWEAR_ONE_THE_14_FACE_PIECES_10_19_26.md,
 records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md, records/BOHEMIA_THE_ROLL_CALL_10_19_26.md.
 [one skin, one person] (rule 120(d)), CLAIMED until the walks and the rig cast land: the data file, the alpha, the DEMO's
 fight and settlement sheets and PORTRAIT's 26 faces are live (see (s) in git history). Rig bodies in their own skin on
-main: all 13 gangs' stills; walks re-rendered for Blues, Cartel, Reds, Trades, Caravans, Colorful, Homeless, Church; Mob,
-Network, Volunteers, Remnants rendering (a detached queue, about 30 minutes each), then the Anarchists whole (their first
+main: all 13 gangs' stills; walks re-rendered for Blues, Cartel, Reds, Trades, Caravans, Colorful, Homeless, Church, Mob,
+Network; Volunteers, Remnants rendering (a detached queue, about 30 minutes each), then the Anarchists whole (their first
 re-render was killed by the box's memory at 05:41, measured: a browser took 9 GB), then RUN's rig cast sheet re-bakes
 (tools/bohemia_bake_the_rig_cast.py: it reads the stills AND the walk, so it waits for every walk) and the row SHIPS.
 [every old asset into the new look] CLAIMED: round five BASE 1, the roll call's fourth batch, base first. The 80 tops
@@ -303,7 +304,7 @@ barber's build BASE1 | BASE1:<names>): the top cut finer then lifted, rib bands,
 tails, cuffs and rolls, a turtleneck to the jaw, hoods lying and up, the coverall, the bib and its straps, tatters with
 skin through the holes, the runway's wide pad and arc dome, the longline and the layered hems, prints in metres; every
 cloth at SAT 1.4 at the source (measured: the rig's dust took the red's spread from 79 to 57). Three cards: 1 THE SHIRTS
-(28) IN VOTE; 2 THE COLLARS (22) and 3 THE HEAVY ONES AND THE RUNWAY (30) rendering on this box, each to VOTE when done.
+(28) and 2 THE COLLARS (22) IN VOTE; 3 THE HEAVY ONES AND THE RUNWAY (30) rendering on this box, to VOTE when done.
 Fourteen test tops looked at first; what changed is in the record (the hood twice, the hood up three times, the tatters,
 the wide pad).
 FOR DIRECTION (the guide's light row, a third case, measured): BIB OVERALLS and DENIM SHORTALLS fail D3 side on (W -4.4,
@@ -311,6 +312,10 @@ FOR DIRECTION (the guide's light row, a third case, measured): BIB OVERALLS and 
 cargos put the bottom half at 54 to 57 (the black tank reads +6.3), denim legs at 71. Any outfit with legs lighter than
 its dark head is 'lit from below' by construction. Held off card 3 (rule 114b), nothing changed to pass. Compare the lit
 and the shadow side of one mass, not the sprite's halves (same as (s)'s skin case and hair 1's black masses).
+FOR DIRECTION, A BUG IN THE MASTER RIG (measured, worked around, the rig not edited): line 969 names the cropped id
+frames with fn.replace('id_', 'rigid_') on the WHOLE path (line 857 beside it takes the basename), so an output folder
+holding 'id_' ('plaid_flannel' -> 'plarigid_flannel') raises FileNotFoundError after the stills and writes no portraits
+and no rig.json. A basename replace fixes it; this lane renders into folders with 'id-' meanwhile.
 FOR RUN: the demo's own famPaintBody still wants famSkinOf at the next cut; the rig cast re-bake is mine (above).
 GATES: THE ROLL CALL 8/0 (a cited card must carry his UP: a gang-worn top keeps its approved gang cards and shows the new
 card as shown_on), ONE SKIN, ONE PERSON, BARBER, THE BARBERS DOOR, HANDOFF, ATTEMPT, CARD FOLD, CHARACTER IN THE VOTE TAB
@@ -321,7 +326,7 @@ ROUND, THE CARD I NAME (S1, S7) red on clean main too, none naming a file of min
 seen. Ours is the layer the street sees in a city where nobody wears plate, cut and sewn on the man so it turns with him.]
 [analog horror: clay cloth pressed into shape, a collar you could tear, the dust in every fold; nothing glows.]
 Lead line for DIRECTION (rule 113a): CHARACTER put the game's 28 plain tops on the 3D man, VOTE tab, COOKING.
-NEXT: the collars card, then the heavy ones and the runway; the four walks, the Anarchists, the rig cast, [one skin, one
+NEXT: the heavy ones and the runway; the two walks, the Anarchists, the rig cast, [one skin, one
 person] SHIPPED; then the garments' outer slot (74), the roll call's order.
 PENDING Paolo: nothing.
 
