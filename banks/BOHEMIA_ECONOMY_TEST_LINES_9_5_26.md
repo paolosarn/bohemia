@@ -5351,3 +5351,47 @@ GGGGGGGGGGGGGGGGGGGGGGGGGG8  the stall keeper, to a crew counting its last few r
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth with a face, at a
   door, a stall, a fire, a body or a firing line.
 - Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.
+
+## IIIIIIIIIIIIIIIIIIIIIIIIII. THE GRID'S MONEY: THE JOB DOES NOT KNOW HOW MANY OF YOU THERE ARE (round 79)
+# Record: records/BOHEMIA_ECONOMY_DAY_79_THE_GRIDS_MONEY_10_19_26.md
+# Row [the grid's money], under rule 88's hold: a page, no sheet, nothing in the game.
+
+IIIIIIIIIIIIIIIIIIIIIIIIII1  the company's clerk, counting bowls at the fire of a big company                          draft:true
+    "Twelve mouths, one job. The job doesn't know how many of us there are."
+
+IIIIIIIIIIIIIIIIIIIIIIIIII2  the man who posts the jobs, to a captain who brought his whole company                     draft:true
+    "I pay for the job, not for the crowd you walked in with."
+
+IIIIIIIIIIIIIIIIIIIIIIIIII3  an old captain, to a young one whose crew keeps growing                                    draft:true
+    "Nobody pays a stranger for his size. Once they know your name, the same job pays double."
+
+IIIIIIIIIIIIIIIIIIIIIIIIII4  a woman changing a laid-up man's bandage                                                 draft:true
+    "He'll eat for a month and fight for none of it. Feed him anyway."
+
+IIIIIIIIIIIIIIIIIIIIIIIIII5  a crewman after a won fight, walking past the cots                                         draft:true
+    "We won. Count the cots first, then tell me we won."
+
+IIIIIIIIIIIIIIIIIIIIIIIIII6  the man who posts the jobs, sliding a bounty sheet across                                  draft:true
+    "This one pays by the man you put down. Bring me the count."
+
+IIIIIIIIIIIIIIIIIIIIIIIIII7  a crewman of a crew of three, at a small fire                                              draft:true
+    "Three of us, one pot. That's the whole reason we eat."
+
+IIIIIIIIIIIIIIIIIIIIIIIIII8  the company's clerk, closing his book                                                      draft:true
+    "Más gente, más bocas, mijo. The pay didn't grow when we did."
+
+## JJJJJJJJJJJJJJJJJJJJJJJJJJ. WHAT IS NOT HERE, ON PURPOSE (round 79)
+
+- No line names a wiki page, a game, a law, an agency, a country, a percentage, a number of batteries, men or days, or
+  a real event. The finding is said as one job for many mouths, the job priced for the work and not the crowd, the
+  name that doubles the pay, the man laid up who eats and cannot fight, the cots after a win, the bounty by the man, the
+  small crew that eats, and the pay that did not grow with the company.
+- IIIIIIIIIIIIIIIIIIIIIIIIII1 and 2 carry the board paying by the skull and never by the size; 3 carries Battle Brothers'
+  renown (the pick, A); 4 and 5 carry the laid-up month (the biggest bill on the grid); 6 carries the per-head line (C);
+  7 carries the only cells that hold today; 8 carries the burn growing by every man. None is a ruling, a pick or a felt
+  number; TUNING's table first.
+- No person, town, street or faction is named. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth with a face, at a
+  fire, a board, a cot or a book.
+- Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.

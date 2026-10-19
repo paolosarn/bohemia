@@ -1984,6 +1984,38 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-opus-10-19): 10/19 LATEST (w) -- [the grid's money] SHIPPED, THE NEW AGE
+(rule 117(e): a number is a grid; the 10/18 claim's session died at the cap with nothing pushed, resumed by this session;
+research and numbers only, no screen, no data file the game reads, no VOTE sheet, rule 88). Record:
+records/BOHEMIA_ECONOMY_DAY_79_THE_GRIDS_MONEY_10_19_26.md. Bench: tools/bohemia_economy_first_bullets.js --grid (TUNING's
+companies 1, 3, 6, 12, 14 against the map's jobs at 1 to 3 skulls and against 3, 6, 12, 20, 38; 40 cells x 100 fights,
+346 s; banks/BOHEMIA_ECONOMY_THE_GRIDS_MONEY_10_19_26.json draft:true; early stage only). Ledger:
+tools/bohemia_economy_the_grids_money_ledger.py.
+THE ANSWER: on today's board only one man and three men can live on jobs: at a job every two days 7 of 40 cells hold; every
+company of six or more loses on every job in every cell, even the bands it beats every time (worst: 14 v 38 -170 a job,
+14 v 20 -158, 12 v 20 -144). The board pays 30 / 60 / 90 by the skull and nothing else; the map sizes the band by the
+company; the burn grows by every man (9, 22, 41, 50 a day for 3, 6, 12, 14). Battle Brothers pays the job's type x the
+skulls x RENOWN (1.35 to 2.7) and renown never touches the enemy: our board is its cheapest job at its lowest renown; on the
+same fights with its books it holds to six. The pay that holds the twelve is 207 to 282 a won routine job (Battle
+Brothers' type-1,000 medium at renown about 2,000). THE PICK (DRAFT): its type and clout plus its per-head line; the real
+record's muster (pay by the man) named. The bullet is the smallest line (0 to 4 a fight); medicine and the dead are the
+cash; THE LAID-UP MONTH is the biggest bill: one man struck down costs about four one-skull jobs of keep, and the map's
+own one-skull job strikes down 5.8 of twelve.
+ROUTED: TUNING (section 8's rows; the broke cells beside [the whole grid]; the struck-down rate as the biggest money lever;
+the clout floor under rule 117(a)), COMBAT (half of twelve struck down on a routine job; the lone wolf; six fights in 4,000
+that never end), RUN TWO (no type, no clout, no head on the board; the unwired per-head sample; no screen shows a laid-up
+man's keep), WORLD (nothing on the board over 13; the big bands pay loot only), PEOPLE + RUN (the Block Watch starts with
+under three days of burn), DYNASTY (clout is a name an heir inherits, when rule 88 lifts), WORDS (eight lines, section II),
+MODS (the contract rows in contract_terms.json).
+Lead line for COMBAT (rule 113a): ECONOMY made a second research page, a grid bench and its ledger, NOT IN A TAB, COOKING.
+GATES (rule 13, by name, this round's two ships): ECONOMY 13/0, ATTEMPT 15/0, LANGUAGE 85/0, DIALOGUE CATALOGUE 63/0,
+HANDOFF 10/0, TOOLS RUN 8/0; OPEN ROW 8/1 (O3: RUN TWO has 2 OPEN rows, red on main before this diff; ECONOMY 3),
+CANON ROT 11/2 (C2 8 of 6, C3 76 of 62, new rot in four other lanes' records, none of this lane's) and BANKS-USED 24/2
+(the house skins), all red on main before this diff. Full suite not run (PLUMBER: about 20,000 s for 922 gates).
+NEXT OPEN (jump list, rule 74): [made here] (now the top: the town that makes rounds sells them low; Day 78's routing),
+[the gap that survives], [the pump at home].
+PENDING Paolo: none new.
+
 ECONOMY (economy-opus-10-19): 10/19 LATEST (v) -- [the first bullets] SHIPPED, THE NEW AGE
 (rule 120(a) guns first; the coordinator's row, first on this board; opened by the coordinator on Opus 5.5 Extra, rules
 112 to 120; research and numbers only, no screen, no data file the game reads, no VOTE sheet, rule 88). Record:
