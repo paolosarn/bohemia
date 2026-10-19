@@ -12,6 +12,7 @@
        number for that man, never over Battle Brothers' own price, and Hire takes exactly that from the stash
      - the lever is read, not typed: the data file planted at 1.0 makes every price Battle Brothers' own
      - the camp staff: the button, the line and the tap agree (the price once, debited)
+     - the post is the map's week (found on the way: it read S.day, which nothing sets, so a town's men never changed)
    Run: node gates/the_hire_price_is_the_formula_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -85,6 +86,11 @@ const srv = http.createServer((rq, rs) => {
   }
   ok('ON HIS PHONE: every man\'s button at a camp, a town and a fortress over eight weeks is the formula\'s number for that man', seen >= 60 && off.length === 0, seen + ' men' + (off.length ? ', off ' + off.slice(0, 3).join('; ') : ''));
   ok('  and none asks more than Battle Brothers\' own price (the old number did for ' + oldOver + ' of them)', over.length === 0, over.slice(0, 3).join('; ') || 'none over');
+
+  /* the post is the map's week (it read S.day, which stays 0: one week forever, the same men at a town every visit) */
+  const wk = async d => (await hall(s.p, 'THE SAME TOWN', 'town', d, 500)).map(c => c.backgroundId + c.priceCrowns).join(',');
+  const w0 = await wk(4), w0b = await wk(6), w1 = await wk(11), w5 = await wk(39);
+  ok('the post changes with the map\'s week: the same men all week, new men the next', w0 === w0b && w0 !== w1 && w1 !== w5, 'day 4 = day 6, day 11 and day 39 new');
 
   /* Hire takes exactly the shown price */
   const cards = await hall(s.p, 'PAY HERE', 'town', 11, 200);

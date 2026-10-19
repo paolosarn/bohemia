@@ -9333,6 +9333,13 @@ GATES = [
      "the map's own dice for that town that day (a planted lie caught); the ledger's raid told first; live on his phone's "
      "profile the bar's first line each visit is the free one under the keeper's fresh talking face, nothing spent, a round "
      "tells the next town, no 'Marked on your map', the bar still pours with the places file blocked", True),
+    ('THE HIRE PRICE IS THE FORMULA', ['node', 'gates/the_hire_price_is_the_formula_gate.js'],
+     "RUN TWO [the hire price is the formula] (rule 117; TUNING: a level-one militiaman up to 225 batteries against the "
+     "formula's 49). Control: the old post's number goes past Battle Brothers' formula; the oracle in the gate from the data "
+     "alone (base range, 1.25 x the kit off the wiki's rows, the level cost, ten to one, TUNING's start from the hall's data "
+     "file); on his phone at a camp, a town and a fortress over eight weeks every button is the oracle's number and none is "
+     "over Battle Brothers'; Hire takes exactly that; the post is the map's week; the camp staff's button, line and tap agree "
+     "with a paymaster's cut; the lever planted at 1.0 makes every price Battle Brothers' own", True),
     ('ONE MAN, ONE LOOK', ['node', 'gates/one_man_one_look_gate.js'],
      "RUN TWO [eyes: one man, one look] (EYES 10/19, rule 120(d); his 'the portraits don't look like the people'). Control: "
      "the old crew-screen rule disagrees with the fight for 10 of 11 men. On his phone's profile the crew screen and the fight, "

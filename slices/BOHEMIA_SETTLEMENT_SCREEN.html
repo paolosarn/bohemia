@@ -1045,7 +1045,10 @@ function recruitsHere(){
   var tm = traitMult();
   if(!window.BohemiaGoodBros || tm.none) return [];
   var n = Math.max(0, Math.round((POST_COUNT[S.place.tier] || 4) * tm.men));   /* the cards move the men by a share: a fair +25%, a raid -50%, a cough -25% */
-  var key = S.place.name + ':' + Math.floor((S.day||0)/7), pk = key + ':' + n;   /* a raid halves the men (the wiki's Raided card) */
+  /* the week is the map's day (open({day}) keeps it as S.mapDay, buildDay() reads it; the post read S.day, which stays 0,
+     so it sat in week 0 forever and a town's men never changed: RUN TWO 10/19, found pricing the hall) */
+  var day = buildDay();
+  var key = S.place.name + ':' + Math.floor(day/7), pk = key + ':' + n;   /* a raid halves the men (the wiki's Raided card) */
   if(S.postKey !== pk){
     S.postKey = pk; S.taken = {};
     var six = BohemiaGoodBros.sixAtThePost(key), more = n > 6 ? BohemiaGoodBros.sixAtThePost(key + ':more') : [];
