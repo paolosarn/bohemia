@@ -282,37 +282,43 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
-CHARACTER (character-one-skin): 10/19 (s) LATEST -- *** EVERY BODY WEARS ITS OWN SKIN NOW, THE SAME AS ITS FACE. ***
-TAB: NOT IN A TAB YET as a card (section 5 of the record: the flat sheet fails the guide's first five, rule 114b). What he
-meets: the DEMO's fight and settlement screen, whose people are the re-baked sheets (live on deploy). The before/after
-sheet: records/target/character/CHARACTER_ONE_SKIN_ONE_PERSON.png. Record: records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md.
-THE ROW: [one skin, one person] (rule 120(d)), STILL CLAIMED: the rig renders are the last piece. MEASURED: all 25 bodies
-the fight sheets bake wore THE PLAYER'S porcelain (famPaintBody handed the renderer the face, never the tone; the body's
-ramp reads skinTone), 0 of 25 matched their 64 face; my rig bodies one constant tan for all 13. SHIPPED 3318fe81 + ba103ee1:
-records/target/character/BOHEMIA_ONE_SKIN.json (28 people, a tone on the game's ladder, the flat ramp, ONE rig albedo per
-tone, heritage from PEOPLE's bank or the census mix: 37/33/15/7/7 against Las Vegas 40/33/12/7/5); the alpha's look tables
-carry `skin`, famSkinOf + famPaintBody make the body wear the face's tone, faceFor honours a ruled skinTone; non-family
-members are no longer the family's children (famFaceKey); fight_people and settlement_people re-baked (26/26, 25/25 on
-their own tone off the pixels); the rig tool's skin_for reads the file, 13 models rebuilt, blues re-rendered, the other
-12 rendering (about 27 min a look on this box).
-FOR PORTRAIT ([the face is the body's face]): THE BODY IS THE FILE, and the flat bodies now wear it. Your head's skin =
-people[look].rig; my tool's build() now dresses any body you build with it in that skin (skin_for), so a head on its own
-body agrees by construction. The gate ONE SKIN, ONE PERSON holds your 9 off faces as a list that only shrinks: longcoat,
-barearms, pack, skirt, widebrim, cape, apron, bedroll, shortcoat (on the rig ladder, cheek x 0.56 of albedo, measured).
-FOR RUN: the demo's own copy of the alpha's famPaintBody is the old one; the next cut takes famSkinOf. Your rig cast sheet
-(tools/bohemia_bake_the_rig_cast.py) re-bakes when my 13 renders land; I will run it unless you say otherwise.
-FOR COOK THREE: thug and poacher are listed tan (your bodies' own skin, PORTRAIT's heads' own); a new tier takes a tone
-from the file's rig table and a line in the tool's PEOPLE list.
-GATES: ONE SKIN, ONE PERSON 15/0 NEW (in the suite, mutation-proven); trade fit, faction outfit, face at the door,
-faction colour, one then heirs, shape frozen, the fall reads, eight facings, zoom identity, derived freshness, inlined
-fresh, family anim/cast red IDENTICALLY on origin/main (run on a base worktree; family gates time out on this box); the
-rebuilt fight plays 76/1 (killed at 600 s, same on both); 17 more face, family and settlement gates green.
+CHARACTER (character-one-skin): 10/19 (s) LATEST -- *** ONE SKIN PER PERSON, LIVE; THE ROLL CALL; SIX MORE HAIRCUTS IN VOTE. ***
+TAB: VOTE, the card character-hair-one-clumps-not-links-10-19 (six of the barber's cuts on the starred head as clumps,
+short ropes and braids, beside his three and the game's flat cut at 1:1, portraits at 128). The skin fix is in the DEMO's
+fight and settlement (the re-baked sheets, live since b82d8d62's deploy). Records: records/BOHEMIA_ONE_SKIN_ONE_PERSON_10_19_26.md,
+records/BOHEMIA_THE_ROLL_CALL_10_19_26.md, records/BOHEMIA_HAIR_ONE_CLUMPS_NOT_LINKS_10_19_26.md.
+[one skin, one person] (rule 120(d)), CLAIMED until the 13 gang renders land: MEASURED all 25 baked bodies wore the
+player's porcelain (famPaintBody gave the renderer the face, never the tone), 0 of 25 matched their face. SHIPPED:
+records/target/character/BOHEMIA_ONE_SKIN.json (28 people, the game's ladder, ONE rig step per tone, Las Vegas's mix
+37/33/15/7/7); the alpha's look tables carry `skin`, famSkinOf + famPaintBody + faceFor read it; non-family members are no
+longer the family's children; fight_people 26/26 and settlement_people 25/25 on their own tone; the rig tool's skin_for;
+the light end capped at skin_light 3 (skin_light 4 rendered a white mask on the Anarchists). PORTRAIT rebuilt the crew's
+13 faces on it (its 133/0 gate); ONE SKIN, ONE PERSON 15/0, one face owed (widebrim). Rig renders in their own skin, on
+main: Blues, Anarchists (re-render queued for the capped chalk), Cartel; Reds and Trades rendering, then the other eight
+(about 27 min a look here); then RUN's rig cast sheet re-bakes (tools/bohemia_bake_the_rig_cast.py) and the row SHIPS.
+[every old asset into the new look] CLAIMED: round one THE ROLL CALL (records/target/character/BOHEMIA_THE_ROLL_CALL.json,
+394 rows: every GARMENTS entry and the paper doll, one name each, PORTRAIT's and the rig's short names mapped, where each
+stands in the new look with the card and his words; gate THE ROLL CALL 8/0). Round two HAIR 1: the barber's other eight
+cuts built as clumps, locks, ropes and braids (tools/bohemia_character_hair_one.py); six in VOTE (48 of 48 stills pass
+the first five); ROPE LOCKS and HEAVY FRINGE built and HELD (D3 after three cycles).
+FOR DIRECTION AND PLUMBER (the guide's G3 / D3, the light row): it reads SKIN as light. The Blues' rig body, the same
+model and render, passes 8 of 8 in the old tan and fails 3 of 8 "lit from below" in his own deep skin. Rule 114b would
+cull a Black man off the VOTE tab for being Black. Read light within one surface (neighbours on one material recover the
+rig's sun), never the sprite's halves. Record section 7. No skin is lightened to pass it.
+FOR RUN: the demo's own copy of famPaintBody is the old one; the next cut takes famSkinOf. The rig cast re-bake after the
+13 renders is mine unless you say so.
+FOR PORTRAIT: thanks for the rebuild; the gangs' faces take people[faction_<gang>].rig, and my tool's build() dresses the
+body under them in the same step.
+GATES: ONE SKIN, ONE PERSON 15/0; THE ROLL CALL 8/0 (both mine, in the suite, mutation-proven); CHARACTER IN THE VOTE TAB
+9/0; VOTE TAB 46/6 (the same six as main); NOT VIBE CODED 30/1 (N3 lists my new card nowhere; two old rows of mine name no
+sprites and would fail D3 as above if they did). Main went red twice on my pushes for under an hour each (THE ROLL CALL R6
+on 78afebba, a tie in ONE SKIN's rungs on d8680df6), both fixed by me the same hour.
 [bb Battle Brothers' roster portrait IS the man's sprite stack, so face and field are one picture; ours draws them in
 different renderers, so the one person is one value in a data file a modder can edit.]
-[analog horror: the skin is the person's, never a filter; the rig's one sun reads a face darker than the flat body,
-measured (x 0.56), not a second skin.]
-NEXT ON MY BOARD: the 12 renders land, RUN's rig cast re-baked, the card (the 13 gangs' 3D bodies in their own skin) in
-VOTE, the row SHIPPED; then [every old asset into the new look] (the roll-call file first). PENDING Paolo: nothing.
+[analog horror: clay hair that still looks like clay, pressed with a thumb; the skin is the person's, never a filter.]
+Lead line for DIRECTION (rule 113a): CHARACTER made one skin per person live and six haircuts in clay, VOTE tab, COOKING.
+NEXT: the renders land, the rig cast re-baked, [one skin, one person] SHIPPED; then hats 1 (21 head pieces) on the skull.
+PENDING Paolo: nothing.
 
 CHARACTER (character-barber-skull): 10/18 (r) LATEST -- *** THE BARBER'S FIRST THREE CUTS ARE SCULPTED HAIR ON THE STARRED HEAD. ***
 TAB: VOTE, the card character-the-barber-on-the-skull-10-18 (a page: each cut walking beside the game's flat cut at 1:1
