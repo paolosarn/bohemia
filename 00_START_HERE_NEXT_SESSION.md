@@ -1673,6 +1673,8 @@ NOT in the crew list the screens read; the Caravans cone fixed (EYES PASS); two 
 faces a rung light (CHARACTER's). NOT VIBE CODED N3: this card's three black-haired, light-skinned faces fail the guide's
 light row (it reads the hair's value; EYES' face-shading read has all 13 lit from the upper left); the hair stays true,
 DIRECTION has the proposal (records section 7). The voted 10/18 crew card's sprites now point at the pixels he voted on.
+WHEN CHARACTER'S FILE CHANGES: run --record, then re-render the faces of that tone (chalk moved to skin_light 3 late this round;
+the gate caught the drift; Corinne Emery and the Anarchist rebuilt, 134/0).
 Lead line for DIRECTION (rule 113a): PORTRAIT rebuilt the crew's 13 faces on their bodies' own skin, VOTE tab, COOKING.
 PENDING Paolo: nothing.
 NEXT: the 13 gangs into the crew list and the card once DIRECTION and CHARACTER answer;

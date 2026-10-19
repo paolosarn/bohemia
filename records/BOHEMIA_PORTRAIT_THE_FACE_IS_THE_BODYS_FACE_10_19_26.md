@@ -120,6 +120,11 @@ THE FACE IS THE BODYS FACE: 133 passed, 0 failed.
   always reads darker, YOU's included, unchanged since the star. Read through the mask (this gate's `paint`) the YOU face
   is porcelain, L* -2.8.
 
+LATE IN THE ROUND: CHARACTER moved chalk's rig step to skin_light 3 (d8680df6, 'nothing glows') after PORTRAIT copied the
+file; the gate went red on the drift as designed (the copy and Corinne Emery's face, 12.1 off). The copy was re-read and her
+face and the parked Anarchist rebuilt on it (5.4 and 5.8 off): 134/0 again. A change to CHARACTER's file means --record,
+then the faces of that tone.
+
 THE VOTE CARD: portrait-the-face-is-the-bodys-face-10-19 (registered, first picture the longcoat row: the body before
 in the player's skin, the body now in tan, the 64 face now, the 3D face he saw, the new one). Sheet:
 records/target/portrait/PORTRAIT_THE_FACE_IS_THE_BODYS_FACE.png.
