@@ -3199,7 +3199,7 @@ arm was not captured, so it is written down rather than called clean.
 
 ANIMATION (animation-aura-10-19, opened by the coordinator, rules 111 to 120): 10/19 (a) LATEST -- *** [the aura of the
 one you control] ROUND ONE IN VOTE, WAITS HIS PICK (rule 100). TAB: VOTE, card animation-the-aura-of-the-one-you-control-10-19
-(A THE ECHO / B THE TEAR / C THE CURRENT / NO; sha fa9dbf31). ***
+(A THE ECHO / B THE TEAR / C THE CURRENT / NO; sha d82516cb). ***
 READ FIRST: rule 120(c), GDD v2 (The Fifth Dimensional Element; s15 the second bar), GDD v3 (Prince Hobo: never explained),
 PURPLE RESERVATION 7/10 + NEUROLINK 7/10 + THE REWIND 8/15 (none of the three carries purple).
 MEASURED FIRST: the fight's only mark of whose turn it is was gaffer tape on his tile (126 px); in a packed line the man in

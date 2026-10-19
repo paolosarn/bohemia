@@ -11449,7 +11449,6 @@
   }
  },
   {
-<<<<<<< HEAD
    "id": "cook4-church-on-the-map-ground-10-19",
    "kind": "tile",
    "lane": "cook 4",
@@ -11485,11 +11484,13 @@
     "px": 1,
     "palette": "reference/art_pipe/cook4/place_in_the_map/COOK4_THE_MAP_GROUND.json",
     "light": "top"
-=======
+   }
+  },
+  {
    "id": "animation-the-aura-of-the-one-you-control-10-19",
    "kind": "animation",
    "lane": "animation",
-   "sha": "fa9dbf31",
+   "sha": "d82516cb",
    "made": "10/19",
    "title": "THE AURA ON THE MAN YOU CONTROL: PICK ONE OF THREE (A THE ECHO, B THE TEAR, C THE CURRENT)",
    "said": "when you're controlling a person there should be some aura, fifth dimension, electric Amalgamation vibes, analog horror... around that character even on the big map, not just a portrait",
@@ -11536,7 +11537,6 @@
     "px": 1,
     "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
     "light": "guide"
->>>>>>> 0721651e (ANIMATION [the aura of the one you control] IN VOTE animation-the-aura-of-the-one-you-control-10-19 (A the echo / B the tear / C the current / NO): the row, the card (sha fa9dbf31), the handoff block)
    }
   }
  ],
