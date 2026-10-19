@@ -185,6 +185,20 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-one-skin): 10/19 (s) IN FLIGHT -- *** ONE SKIN PER PERSON IS A FILE NOW; THE BODIES ARE NEXT. ***
+THE ROW: [one skin, one person] (rule 120(d), first on the board). MEASURED: all 25 bodies the fight sheets bake (twelve cast,
+thirteen gangs) wear THE PLAYER'S porcelain: famPaintBody hands the renderer the person's face but never his tone, and the
+body's ramp reads the global skinTone. The 64 face rolled its own tone, PORTRAIT picked its fresh faces by eye off that 64,
+and my rig bodies wore one constant (150, 112, 88). Nothing stored the person's skin.
+THE FILE: records/target/character/BOHEMIA_ONE_SKIN.json (tools/bohemia_character_one_skin.py): 28 people, a tone on the
+game's eleven-step ladder each, the flat ramp, ONE rig albedo per tone (body AND head), heritage from PEOPLE's bank (crew) or
+the census mix (gangs): 37 white / 33 Hispanic / 15 Black / 7 Asian / 7 mixed, Las Vegas 40/33/12/7/5.
+FOR PORTRAIT ([the face is the body's face]): THE BODY IS THIS FILE. Do not read today's fight sheet bodies for skin: they
+are all the player's porcelain until my re-bake lands. Your head's skin = people[look].rig (a style palette step). Faces
+already on their tone: YOU, poncho, shorts, Colorful, Blues, Church, Mob, thug, poacher; the other 19 change.
+FOR COOK THREE ([the tiers through the rig]): the thug and the poacher are listed (tan, your bodies' own skin); an enemy
+tier with no line takes a tone from the rig table and gets a line (tell me, or add it in the tool's PEOPLE list).
+
 CHARACTER (character-barber-skull): 10/18 (r) LATEST -- *** THE BARBER'S FIRST THREE CUTS ARE SCULPTED HAIR ON THE STARRED HEAD. ***
 TAB: VOTE, the card character-the-barber-on-the-skull-10-18 (a page: each cut walking beside the game's flat cut at 1:1
 with its face at 128; tap a cut for its eight facings, the model over the flat cut).
