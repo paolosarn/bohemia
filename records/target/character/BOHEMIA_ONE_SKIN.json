@@ -1,0 +1,989 @@
+{
+ "what": "CHARACTER [one skin, one person] (rule 120(d)): ONE skin per person. The body and every face of that person read THIS value; nothing rolls a second one.",
+ "his_words": "10/18: 'the portraits don't even look alike... Black people looking like white people.'",
+ "lane": "character",
+ "date": "10/19/26",
+ "rule": "120(d)",
+ "draft": true,
+ "how_to_read": {
+  "flat": "the flat renderer (the alpha's famPaintBody, the fight sheets, the 64 faces): draw SKIN_TONES[tone], which is `flat` [light, mid, dark]",
+  "rig": "a rig-made model (CHARACTER's bodies, PORTRAIT's heads, COOK THREE's tiers): the skin albedo is the style palette step `rig` (its RGB as rig_rgb), on the body AND the head, so a head on its own body cannot disagree",
+  "match": "a face matches its body when both name the same tone; measured off the pixels, the gate (ONE SKIN, ONE PERSON) classes each picture on its own renderer's ladder and refuses a face more than one rung off its body",
+  "nobody_listed": "everybody not listed (the crowd, the family) has ONE roll: NPC_FACTORY's skinToneName for a citizen, faceFor's kin-blended _tone for the family; the body and the face read that same roll (famPaintBody, 10/19)"
+ },
+ "mix": {
+  "target_census": {
+   "hispanic": 33,
+   "white": 36,
+   "black": 13,
+   "asian": 12,
+   "mixed": 6
+  },
+  "source": "U.S. Census Bureau QuickFacts, Clark County NV (as PEOPLE rounded it); Las Vegas city 2020 (Census Dots)",
+  "these_people": {
+   "asian": "2 of 27 (7%)",
+   "black": "4 of 27 (15%)",
+   "hispanic": "9 of 27 (33%)",
+   "mixed": "2 of 27 (7%)",
+   "white": "10 of 27 (37%)"
+  }
+ },
+ "rig_table": {
+  "chalk": [
+   "skin_light",
+   4
+  ],
+  "porcelain": [
+   "skin_light",
+   3
+  ],
+  "fair": [
+   "skin_deep",
+   4
+  ],
+  "olive": [
+   "skin_mid",
+   3
+  ],
+  "pale": [
+   "skin_light",
+   2
+  ],
+  "tan": [
+   "skin_deep",
+   3
+  ],
+  "bronze": [
+   "skin_mid",
+   2
+  ],
+  "brown": [
+   "skin_light",
+   1
+  ],
+  "deep": [
+   "skin_deep",
+   2
+  ],
+  "ebony": [
+   "skin_mid",
+   1
+  ],
+  "onyx": [
+   "skin_light",
+   0
+  ]
+ },
+ "ladder": [
+  "chalk",
+  "porcelain",
+  "pale",
+  "fair",
+  "olive",
+  "tan",
+  "bronze",
+  "brown",
+  "deep",
+  "ebony",
+  "onyx"
+ ],
+ "people_bank": "banks/BOHEMIA_WHO_THE_FACE_IS_10_18_26.json (PEOPLE [a name for every starred face], draft)",
+ "people": {
+  "you": {
+   "tone": "porcelain",
+   "heritage": "the player",
+   "who": "YOU",
+   "source": "his own: the face maker's skin swatch (HE CAN BUILD HIS OWN FACE); porcelain is the game's default (skinTone = SKIN_TONES[1]); a portrait of YOU follows the save, never this line",
+   "flat": [
+    [
+     224,
+     211,
+     203
+    ],
+    [
+     191,
+     175,
+     166
+    ],
+    [
+     153,
+     137,
+     129
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    3
+   ],
+   "rig_rgb": [
+    224,
+    189,
+    155
+   ]
+  },
+  "cast_longcoat": {
+   "tone": "tan",
+   "heritage": "hispanic",
+   "who": "Amaury Carrasco",
+   "source": "PEOPLE's bank; a raider out of Hoover Dam, years on the road in the sun",
+   "flat": [
+    [
+     179,
+     140,
+     103
+    ],
+    [
+     147,
+     115,
+     87
+    ],
+    [
+     109,
+     88,
+     71
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    3
+   ],
+   "rig_rgb": [
+    158,
+    118,
+    89
+   ]
+  },
+  "cast_barearms": {
+   "tone": "fair",
+   "heritage": "white",
+   "who": "Amos Ferris",
+   "source": "PEOPLE's bank; a block watch from Pahrump, bare arms browned at the forearm",
+   "flat": [
+    [
+     203,
+     169,
+     140
+    ],
+    [
+     167,
+     137,
+     113
+    ],
+    [
+     124,
+     102,
+     87
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ]
+  },
+  "cast_pack": {
+   "tone": "porcelain",
+   "heritage": "white",
+   "who": "Otis Wexler",
+   "source": "PEOPLE's bank; a brawler from THE TUNNELS, where there is no sun",
+   "flat": [
+    [
+     224,
+     211,
+     203
+    ],
+    [
+     191,
+     175,
+     166
+    ],
+    [
+     153,
+     137,
+     129
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    3
+   ],
+   "rig_rgb": [
+    224,
+    189,
+    155
+   ]
+  },
+  "cast_skirt": {
+   "tone": "deep",
+   "heritage": "black",
+   "who": "Tasha Hargrove",
+   "source": "PEOPLE's bank; a retired soldier from THE YARDS",
+   "flat": [
+    [
+     83,
+     66,
+     54
+    ],
+    [
+     65,
+     51,
+     42
+    ],
+    [
+     48,
+     38,
+     31
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    2
+   ],
+   "rig_rgb": [
+    106,
+    66,
+    48
+   ]
+  },
+  "cast_widebrim": {
+   "tone": "pale",
+   "heritage": "white",
+   "who": "Wendell Lund",
+   "source": "PEOPLE's bank; a thief from Jean, under a brim",
+   "flat": [
+    [
+     188,
+     160,
+     138
+    ],
+    [
+     153,
+     127,
+     108
+    ],
+    [
+     112,
+     94,
+     84
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    2
+   ],
+   "rig_rgb": [
+    201,
+    154,
+    124
+   ]
+  },
+  "cast_cape": {
+   "tone": "olive",
+   "heritage": "asian",
+   "who": "Cyrus Truong",
+   "source": "PEOPLE's bank; an old Vietnamese miner from Searchlight",
+   "flat": [
+    [
+     186,
+     151,
+     116
+    ],
+    [
+     154,
+     123,
+     94
+    ],
+    [
+     114,
+     94,
+     78
+    ]
+   ],
+   "rig": [
+    "skin_mid",
+    3
+   ],
+   "rig_rgb": [
+    205,
+    160,
+    115
+   ]
+  },
+  "cast_apron": {
+   "tone": "fair",
+   "heritage": "white",
+   "who": "Wyatt Hatcher",
+   "source": "PEOPLE's bank; an old desert hunter from Primm",
+   "flat": [
+    [
+     203,
+     169,
+     140
+    ],
+    [
+     167,
+     137,
+     113
+    ],
+    [
+     124,
+     102,
+     87
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ]
+  },
+  "cast_poncho": {
+   "tone": "bronze",
+   "heritage": "hispanic",
+   "who": "Xiomara Delgado",
+   "source": "PEOPLE's bank; an old butcher from THE PARK; PORTRAIT's skin_mid 2 already",
+   "flat": [
+    [
+     156,
+     118,
+     87
+    ],
+    [
+     118,
+     96,
+     78
+    ],
+    [
+     90,
+     70,
+     56
+    ]
+   ],
+   "rig": [
+    "skin_mid",
+    2
+   ],
+   "rig_rgb": [
+    168,
+    112,
+    76
+   ]
+  },
+  "cast_bedroll": {
+   "tone": "olive",
+   "heritage": "hispanic",
+   "who": "Kai Galvan",
+   "source": "PEOPLE's bank; a poacher from THE CHAPEL",
+   "flat": [
+    [
+     186,
+     151,
+     116
+    ],
+    [
+     154,
+     123,
+     94
+    ],
+    [
+     114,
+     94,
+     78
+    ]
+   ],
+   "rig": [
+    "skin_mid",
+    3
+   ],
+   "rig_rgb": [
+    205,
+    160,
+    115
+   ]
+  },
+  "cast_shorts": {
+   "tone": "tan",
+   "heritage": "mixed",
+   "who": "Hoang Serrano",
+   "source": "PEOPLE's bank (Asian and Hispanic); a caravan hand; PORTRAIT's skin_deep 3 already",
+   "flat": [
+    [
+     179,
+     140,
+     103
+    ],
+    [
+     147,
+     115,
+     87
+    ],
+    [
+     109,
+     88,
+     71
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    3
+   ],
+   "rig_rgb": [
+    158,
+    118,
+    89
+   ]
+  },
+  "cast_satchel": {
+   "tone": "brown",
+   "heritage": "hispanic",
+   "who": "Javier Escobar",
+   "source": "PEOPLE's bank; a gambler from THE DATAFORT",
+   "flat": [
+    [
+     118,
+     94,
+     78
+    ],
+    [
+     94,
+     74,
+     59
+    ],
+    [
+     71,
+     54,
+     44
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    1
+   ],
+   "rig_rgb": [
+    125,
+    88,
+    74
+   ]
+  },
+  "cast_shortcoat": {
+   "tone": "chalk",
+   "heritage": "white",
+   "who": "Corinne Emery",
+   "source": "PEOPLE's bank; a daytaler from THE SHOPS; the rust hair and the palest skin go together",
+   "flat": [
+    [
+     236,
+     227,
+     221
+    ],
+    [
+     204,
+     191,
+     183
+    ],
+    [
+     166,
+     151,
+     143
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    4
+   ],
+   "rig_rgb": [
+    243,
+    221,
+    189
+   ]
+  },
+  "faction_caravans": {
+   "tone": "brown",
+   "heritage": "hispanic",
+   "who": "a Caravans trader",
+   "source": "the census mix; the man who has walked every road",
+   "flat": [
+    [
+     118,
+     94,
+     78
+    ],
+    [
+     94,
+     74,
+     59
+    ],
+    [
+     71,
+     54,
+     44
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    1
+   ],
+   "rig_rgb": [
+    125,
+    88,
+    74
+   ]
+  },
+  "faction_colorful": {
+   "tone": "bronze",
+   "heritage": "mixed",
+   "who": "a Colorful",
+   "source": "the census mix; the gang that refuses a single flag; PORTRAIT's skin_mid 2 already",
+   "flat": [
+    [
+     156,
+     118,
+     87
+    ],
+    [
+     118,
+     96,
+     78
+    ],
+    [
+     90,
+     70,
+     56
+    ]
+   ],
+   "rig": [
+    "skin_mid",
+    2
+   ],
+   "rig_rgb": [
+    168,
+    112,
+    76
+   ]
+  },
+  "faction_anarchists": {
+   "tone": "chalk",
+   "heritage": "white",
+   "who": "an Anarchist",
+   "source": "the census mix; lanky, a night creature",
+   "flat": [
+    [
+     236,
+     227,
+     221
+    ],
+    [
+     204,
+     191,
+     183
+    ],
+    [
+     166,
+     151,
+     143
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    4
+   ],
+   "rig_rgb": [
+    243,
+    221,
+    189
+   ]
+  },
+  "faction_blues": {
+   "tone": "deep",
+   "heritage": "black",
+   "who": "a Blue",
+   "source": "the census mix; PORTRAIT's skin_deep 2 already",
+   "flat": [
+    [
+     83,
+     66,
+     54
+    ],
+    [
+     65,
+     51,
+     42
+    ],
+    [
+     48,
+     38,
+     31
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    2
+   ],
+   "rig_rgb": [
+    106,
+    66,
+    48
+   ]
+  },
+  "faction_homeless": {
+   "tone": "fair",
+   "heritage": "white",
+   "who": "a Homeless",
+   "source": "the census mix",
+   "flat": [
+    [
+     203,
+     169,
+     140
+    ],
+    [
+     167,
+     137,
+     113
+    ],
+    [
+     124,
+     102,
+     87
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ]
+  },
+  "faction_church": {
+   "tone": "porcelain",
+   "heritage": "white",
+   "who": "a Churchman",
+   "source": "the census mix; PORTRAIT's skin_light 3 already",
+   "flat": [
+    [
+     224,
+     211,
+     203
+    ],
+    [
+     191,
+     175,
+     166
+    ],
+    [
+     153,
+     137,
+     129
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    3
+   ],
+   "rig_rgb": [
+    224,
+    189,
+    155
+   ]
+  },
+  "faction_reds": {
+   "tone": "olive",
+   "heritage": "hispanic",
+   "who": "a Red",
+   "source": "the census mix; the money faction",
+   "flat": [
+    [
+     186,
+     151,
+     116
+    ],
+    [
+     154,
+     123,
+     94
+    ],
+    [
+     114,
+     94,
+     78
+    ]
+   ],
+   "rig": [
+    "skin_mid",
+    3
+   ],
+   "rig_rgb": [
+    205,
+    160,
+    115
+   ]
+  },
+  "faction_cartel": {
+   "tone": "tan",
+   "heritage": "hispanic",
+   "who": "a Cartel",
+   "source": "the census mix",
+   "flat": [
+    [
+     179,
+     140,
+     103
+    ],
+    [
+     147,
+     115,
+     87
+    ],
+    [
+     109,
+     88,
+     71
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    3
+   ],
+   "rig_rgb": [
+    158,
+    118,
+    89
+   ]
+  },
+  "faction_trades": {
+   "tone": "brown",
+   "heritage": "black",
+   "who": "a Tradesman",
+   "source": "the census mix",
+   "flat": [
+    [
+     118,
+     94,
+     78
+    ],
+    [
+     94,
+     74,
+     59
+    ],
+    [
+     71,
+     54,
+     44
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    1
+   ],
+   "rig_rgb": [
+    125,
+    88,
+    74
+   ]
+  },
+  "faction_mob": {
+   "tone": "pale",
+   "heritage": "white",
+   "who": "a Mob man",
+   "source": "the census mix; PORTRAIT's skin_light 2 already",
+   "flat": [
+    [
+     188,
+     160,
+     138
+    ],
+    [
+     153,
+     127,
+     108
+    ],
+    [
+     112,
+     94,
+     84
+    ]
+   ],
+   "rig": [
+    "skin_light",
+    2
+   ],
+   "rig_rgb": [
+    201,
+    154,
+    124
+   ]
+  },
+  "faction_network": {
+   "tone": "fair",
+   "heritage": "asian",
+   "who": "a Network",
+   "source": "the census mix",
+   "flat": [
+    [
+     203,
+     169,
+     140
+    ],
+    [
+     167,
+     137,
+     113
+    ],
+    [
+     124,
+     102,
+     87
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ]
+  },
+  "faction_volunteers": {
+   "tone": "bronze",
+   "heritage": "hispanic",
+   "who": "a Volunteer",
+   "source": "the census mix",
+   "flat": [
+    [
+     156,
+     118,
+     87
+    ],
+    [
+     118,
+     96,
+     78
+    ],
+    [
+     90,
+     70,
+     56
+    ]
+   ],
+   "rig": [
+    "skin_mid",
+    2
+   ],
+   "rig_rgb": [
+    168,
+    112,
+    76
+   ]
+  },
+  "faction_remnants": {
+   "tone": "fair",
+   "heritage": "white",
+   "who": "a Remnant",
+   "source": "the census mix; Nellis Gate, the old air base",
+   "flat": [
+    [
+     203,
+     169,
+     140
+    ],
+    [
+     167,
+     137,
+     113
+    ],
+    [
+     124,
+     102,
+     87
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    4
+   ],
+   "rig_rgb": [
+    203,
+    171,
+    138
+   ]
+  },
+  "thug": {
+   "tone": "tan",
+   "heritage": "hispanic",
+   "who": "Rogelio Kessler",
+   "source": "PEOPLE's bank; COOK THREE's thug body and PORTRAIT's head both wear (150, 112, 88), skin_deep 3's neighbour",
+   "flat": [
+    [
+     179,
+     140,
+     103
+    ],
+    [
+     147,
+     115,
+     87
+    ],
+    [
+     109,
+     88,
+     71
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    3
+   ],
+   "rig_rgb": [
+    158,
+    118,
+    89
+   ]
+  },
+  "poacher": {
+   "tone": "tan",
+   "heritage": "black",
+   "who": "Odell Kaminski",
+   "source": "PEOPLE's bank; HIS FIRST STAR: the starred head wears skin_deep 3, and this line keeps it",
+   "flat": [
+    [
+     179,
+     140,
+     103
+    ],
+    [
+     147,
+     115,
+     87
+    ],
+    [
+     109,
+     88,
+     71
+    ]
+   ],
+   "rig": [
+    "skin_deep",
+    3
+   ],
+   "rig_rgb": [
+    158,
+    118,
+    89
+   ]
+  }
+ }
+}
