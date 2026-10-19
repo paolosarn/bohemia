@@ -279,12 +279,18 @@ function fightPrint(extra) {
   return h.digest('hex').slice(0, 12);
 }
 function cellCache(file, n, extra) {
-  const fp = fightPrint(extra), done = {};
+  const fp = fightPrint(extra), best = {};
   if (fs.existsSync(file)) fs.readFileSync(file, 'utf8').split('\n').filter(Boolean).forEach(l => {
-    try { const x = JSON.parse(l); if (x.fp === fp && x.n === n) done[x.k] = x.v; } catch (e) { /* a line cut by the kill */ }
+    try { const x = JSON.parse(l); if (x.fp === fp && (!best[x.k] || x.n > best[x.k].n)) best[x.k] = { n: x.n, v: x.v }; } catch (e) { /* a line cut by the kill */ }
   });
-  return { fp: fp, done: done, put: (k, v) => fs.appendFileSync(file, JSON.stringify({ k: k, fp: fp, n: n, v: v }) + '\n') };
+  /* a cell played with at least as many fights as asked is a cell played */
+  const has = (k, want) => best[k] && best[k].n >= (want || n) ? best[k].v : null;
+  const done = {}; Object.keys(best).forEach(k => { if (best[k].n >= n) done[k] = best[k].v; });
+  return { fp: fp, done: done, has: has, put: (k, v, nn) => fs.appendFileSync(file, JSON.stringify({ k: k, fp: fp, n: nn || n, v: v }) + '\n') };
 }
+/* HOW MANY FIGHTS A CELL (10/19): a cell with 30 or more men on the board plays half (one 12-against-12 cell took seven minutes
+   at 100; 50 fights still put a cell in its band, 70 / 40, to within about seven); the beast roster plays 40 (its page says so) */
+function fightsFor(w, N) { return w.kind !== 'humans' && w.kind !== 'direwolf' ? Math.min(N, 40) : (w.company + (w.enemies === 'map' ? 13 : w.enemies) >= 30 ? Math.ceil(N / 2) : N); }
 
 /* ---------- the cells ---------- */
 function cells(only) {
@@ -331,7 +337,7 @@ async function main() {
   fs.writeFileSync(sfile, JSON.stringify(strikes));
   const CACHE = cellCache(OUT.replace(/\.json$/, '.cells.ndjson'), N);
   const all = cells(only), results = {};
-  all.forEach(w => { if (CACHE.done[key(w)]) results[key(w)] = CACHE.done[key(w)]; });
+  all.forEach(w => { const v = CACHE.has(key(w), fightsFor(w, N)); if (v) results[key(w)] = v; });
   const work = all.filter(w => !results[key(w)]);
   process.stderr.write('resume: ' + (all.length - work.length) + ' of ' + all.length + ' cells already played on this fight (' + CACHE.fp + ')\n');
   let next = 0, running = 0;
@@ -340,10 +346,10 @@ async function main() {
     const pump = () => {
       while (running < JOBS && next < work.length) {
         const w = work[next++]; running++;
-        cp.execFile(process.execPath, [__filename, '--cell', JSON.stringify(w), String(N), sfile], { maxBuffer: 1 << 24 }, (err, out) => {
+        cp.execFile(process.execPath, [__filename, '--cell', JSON.stringify(w), String(fightsFor(w, N)), sfile], { maxBuffer: 1 << 24 }, (err, out) => {
           running--;
           if (err) { console.error('cell failed', JSON.stringify(w), err.message); process.exit(1); }
-          results[key(w)] = felt(JSON.parse(out)); CACHE.put(key(w), results[key(w)]);
+          results[key(w)] = felt(JSON.parse(out)); CACHE.put(key(w), results[key(w)], fightsFor(w, N));
           if ((next % 20) === 0) process.stderr.write(next + '/' + work.length + ' ' + Math.round((Date.now() - t0) / 1000) + 's\n');
           if (next >= work.length && running === 0) done(); else pump();
         });
@@ -374,7 +380,8 @@ async function main() {
         + 'DRAFT: THE GEAR IS NOT IN (CHARACTER\'s roll-call and COMBAT\'s equipment). NOTHING IN THE GAME READS THIS FILE. Every cell is fights of the live '
         + 'fight\'s own rules and its own data files (slices/BOHEMIA_FIGHT.html, played headless by tools/bohemia_tuning_the_whole_grid.js), AUTO on both '
         + 'sides, seeded (fight k plays seed 7000+k) so every setting meets the same fights. Beasts: the fight has no beast path; each played beast carries '
-        + 'its wiki strike as an in-memory weapon row (strikes below) and loses what LOSES names. Key: kind|company|enemies|stage|setting.',
+        + 'its wiki strike as an in-memory weapon row (strikes below) and loses what LOSES names. Fights a cell: fights_per_cell, half for a cell of 30 or more men on the board, '
+        + '40 for the beast roster (each cell carries its own "fights"). Key: kind|company|enemies|stage|setting.',
       draft: true, schema: 1, fights_per_cell: N,
       settings: SETTINGS.map(t => ({ id: t.id, name: t.name, levers: t.L })),
       stages: STAGES, gear: GEAR, companies: COMPANIES, counts: COUNTS,
@@ -385,4 +392,4 @@ async function main() {
   }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
-module.exports = { cellCache, fightPrint, engine, cell, felt, companyOf, mapCount, wikiStrikes, BEASTS, LOSES, NOT_PLAYED, STAGES, GEAR, SETTINGS, COMPANIES, COUNTS };
+module.exports = { cellCache, fightPrint, fightsFor, engine, cell, felt, companyOf, mapCount, wikiStrikes, BEASTS, LOSES, NOT_PLAYED, STAGES, GEAR, SETTINGS, COMPANIES, COUNTS };
