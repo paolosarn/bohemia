@@ -10,6 +10,10 @@
  "scale_from_model": 1.1586,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
+ "ground_screen": [
+  109.0,
+  160.03779999999998
+ ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
@@ -26,16 +30,31 @@
    "reds_trouser",
    "reds_trousers"
   ],
+  "wear_by_material": {
+   "reds_skin": 0.25,
+   "reds_eyes": 0.0,
+   "reds_hair": 0.15
+  },
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1586)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1586)",
+  "dents": {
+   "meshes": 8,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -58,8 +77,18 @@
   "reds_trouser": "#ff1966",
   "reds_trousers": "#19a9ff"
  },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "reds_coat": "#ff6cc7",
+  "reds_coat_skirt": "#6ce9ff",
+  "reds_hair": "#fff86c",
+  "reds_hand_L": "#d86cff",
+  "reds_hand_R": "#6cffb1",
+  "reds_shoe": "#ff796c",
+  "reds_trouser": "#6ca1ff"
+ },
  "model": "records/character/rig/reds.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -93,10 +122,10 @@
   "records/target/character/rig/reds/rig_NW.png"
  ],
  "crop_box_px": [
-  66,
-  48,
+  65,
+  47,
   152,
-  179
+  180
  ],
  "shadow_files": [
   "records/target/character/rig/reds/shadow_N.png",
@@ -109,10 +138,14 @@
   "records/target/character/rig/reds/shadow_NW.png"
  ],
  "ground_px": [
-  43,
-  61
+  44,
+  113
  ],
- "colours": 30426,
+ "look_px": [
+  44,
+  62
+ ],
+ "colours": 31080,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -127,6 +160,108 @@
    "frames": [
     1.5
    ],
+   "motion_px": {
+    "N": [
+     {
+      "Cesium_Man": 0.0,
+      "reds_coat": 0.0,
+      "reds_coat_skirt": 0.0,
+      "reds_hair": 0.0,
+      "reds_hand_L": 0.0,
+      "reds_hand_R": 0.0,
+      "reds_shoe": 0.0,
+      "reds_trouser": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "Cesium_Man": 0.0,
+      "reds_coat": 0.0,
+      "reds_coat_skirt": 0.0,
+      "reds_hair": 0.0,
+      "reds_hand_L": 0.0,
+      "reds_hand_R": 0.0,
+      "reds_shoe": 0.0,
+      "reds_trouser": 0.0
+     }
+    ],
+    "E": [
+     {
+      "Cesium_Man": 0.0,
+      "reds_coat": 0.0,
+      "reds_coat_skirt": 0.0,
+      "reds_hair": 0.0,
+      "reds_hand_L": 0.0,
+      "reds_hand_R": 0.0,
+      "reds_shoe": 0.0,
+      "reds_trouser": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "Cesium_Man": 0.0,
+      "reds_coat": 0.0,
+      "reds_coat_skirt": 0.0,
+      "reds_hair": 0.0,
+      "reds_hand_L": 0.0,
+      "reds_hand_R": 0.0,
+      "reds_shoe": 0.0,
+      "reds_trouser": 0.0
+     }
+    ],
+    "S": [
+     {
+      "Cesium_Man": 0.0,
+      "reds_coat": 0.0,
+      "reds_coat_skirt": 0.0,
+      "reds_hair": 0.0,
+      "reds_hand_L": 0.0,
+      "reds_hand_R": 0.0,
+      "reds_shoe": 0.0,
+      "reds_trouser": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "Cesium_Man": 0.0,
+      "reds_coat": 0.0,
+      "reds_coat_skirt": 0.0,
+      "reds_hair": 0.0,
+      "reds_hand_L": 0.0,
+      "reds_hand_R": 0.0,
+      "reds_shoe": 0.0,
+      "reds_trouser": 0.0
+     }
+    ],
+    "W": [
+     {
+      "Cesium_Man": 0.0,
+      "reds_coat": 0.0,
+      "reds_coat_skirt": 0.0,
+      "reds_hair": 0.0,
+      "reds_hand_L": 0.0,
+      "reds_hand_R": 0.0,
+      "reds_shoe": 0.0,
+      "reds_trouser": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "Cesium_Man": 0.0,
+      "reds_coat": 0.0,
+      "reds_coat_skirt": 0.0,
+      "reds_hair": 0.0,
+      "reds_hand_L": 0.0,
+      "reds_hand_R": 0.0,
+      "reds_shoe": 0.0,
+      "reds_trouser": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/reds/rig_Stand_N_k00.png",
     "records/target/character/rig/reds/rig_Stand_NE_k00.png",
@@ -136,7 +271,8 @@
     "records/target/character/rig/reds/rig_Stand_SW_k00.png",
     "records/target/character/rig/reds/rig_Stand_W_k00.png",
     "records/target/character/rig/reds/rig_Stand_NW_k00.png"
-   ]
+   ],
+   "light_files": []
   },
   "Anim_0": {
    "keys": 6,
@@ -153,6 +289,508 @@
     36.0,
     44.0
    ],
+   "motion_px": {
+    "N": [
+     {
+      "Cesium_Man": 19.539,
+      "reds_coat": 7.885,
+      "reds_coat_skirt": 12.565,
+      "reds_hair": 4.342,
+      "reds_hand_L": 7.327,
+      "reds_hand_R": 9.12,
+      "reds_shoe": 20.183,
+      "reds_trouser": 13.243
+     },
+     {
+      "Cesium_Man": 21.398,
+      "reds_coat": 21.205,
+      "reds_coat_skirt": 37.871,
+      "reds_hair": 7.558,
+      "reds_hand_L": 17.779,
+      "reds_hand_R": 26.181,
+      "reds_shoe": 19.592,
+      "reds_trouser": 22.434
+     },
+     {
+      "Cesium_Man": 16.687,
+      "reds_coat": 11.024,
+      "reds_coat_skirt": 25.008,
+      "reds_hair": 2.422,
+      "reds_hand_L": 15.509,
+      "reds_hand_R": 7.409,
+      "reds_shoe": 19.2,
+      "reds_trouser": 17.532
+     },
+     {
+      "Cesium_Man": 20.98,
+      "reds_coat": 13.484,
+      "reds_coat_skirt": 14.264,
+      "reds_hair": 4.577,
+      "reds_hand_L": 15.119,
+      "reds_hand_R": 13.812,
+      "reds_shoe": 21.886,
+      "reds_trouser": 13.679
+     },
+     {
+      "Cesium_Man": 24.047,
+      "reds_coat": 21.114,
+      "reds_coat_skirt": 42.476,
+      "reds_hair": 10.62,
+      "reds_hand_L": 23.794,
+      "reds_hand_R": 13.201,
+      "reds_shoe": 25.86,
+      "reds_trouser": 25.467
+     },
+     {
+      "Cesium_Man": 17.533,
+      "reds_coat": 9.881,
+      "reds_coat_skirt": 28.889,
+      "reds_hair": 4.56,
+      "reds_hand_L": 5.35,
+      "reds_hand_R": 15.303,
+      "reds_shoe": 13.751,
+      "reds_trouser": 18.93
+     }
+    ],
+    "NE": [
+     {
+      "Cesium_Man": 19.812,
+      "reds_coat": 9.685,
+      "reds_coat_skirt": 14.069,
+      "reds_hair": 6.627,
+      "reds_hand_L": 7.791,
+      "reds_hand_R": 11.519,
+      "reds_shoe": 20.466,
+      "reds_trouser": 14.596
+     },
+     {
+      "Cesium_Man": 23.114,
+      "reds_coat": 21.93,
+      "reds_coat_skirt": 37.494,
+      "reds_hair": 7.454,
+      "reds_hand_L": 19.354,
+      "reds_hand_R": 27.856,
+      "reds_shoe": 23.042,
+      "reds_trouser": 22.759
+     },
+     {
+      "Cesium_Man": 19.55,
+      "reds_coat": 11.784,
+      "reds_coat_skirt": 23.999,
+      "reds_hair": 3.807,
+      "reds_hand_L": 16.562,
+      "reds_hand_R": 7.155,
+      "reds_shoe": 21.701,
+      "reds_trouser": 16.751
+     },
+     {
+      "Cesium_Man": 21.384,
+      "reds_coat": 12.801,
+      "reds_coat_skirt": 19.838,
+      "reds_hair": 4.531,
+      "reds_hand_L": 14.003,
+      "reds_hand_R": 13.982,
+      "reds_shoe": 22.087,
+      "reds_trouser": 15.183
+     },
+     {
+      "Cesium_Man": 30.33,
+      "reds_coat": 21.969,
+      "reds_coat_skirt": 41.493,
+      "reds_hair": 8.304,
+      "reds_hand_L": 25.402,
+      "reds_hand_R": 15.108,
+      "reds_shoe": 31.929,
+      "reds_trouser": 25.703
+     },
+     {
+      "Cesium_Man": 16.847,
+      "reds_coat": 11.108,
+      "reds_coat_skirt": 27.814,
+      "reds_hair": 3.375,
+      "reds_hand_L": 6.991,
+      "reds_hand_R": 16.366,
+      "reds_shoe": 16.6,
+      "reds_trouser": 18.174
+     }
+    ],
+    "E": [
+     {
+      "Cesium_Man": 18.723,
+      "reds_coat": 9.841,
+      "reds_coat_skirt": 16.979,
+      "reds_hair": 7.4,
+      "reds_hand_L": 7.962,
+      "reds_hand_R": 12.011,
+      "reds_shoe": 19.056,
+      "reds_trouser": 15.615
+     },
+     {
+      "Cesium_Man": 28.472,
+      "reds_coat": 24.345,
+      "reds_coat_skirt": 34.643,
+      "reds_hair": 6.857,
+      "reds_hand_L": 21.648,
+      "reds_hand_R": 31.882,
+      "reds_shoe": 29.447,
+      "reds_trouser": 23.454
+     },
+     {
+      "Cesium_Man": 27.272,
+      "reds_coat": 12.74,
+      "reds_coat_skirt": 20.571,
+      "reds_hair": 4.687,
+      "reds_hand_L": 19.05,
+      "reds_hand_R": 7.832,
+      "reds_shoe": 27.712,
+      "reds_trouser": 20.217
+     },
+     {
+      "Cesium_Man": 20.933,
+      "reds_coat": 15.75,
+      "reds_coat_skirt": 24.392,
+      "reds_hair": 3.899,
+      "reds_hand_L": 17.79,
+      "reds_hand_R": 13.54,
+      "reds_shoe": 21.413,
+      "reds_trouser": 16.892
+     },
+     {
+      "Cesium_Man": 37.579,
+      "reds_coat": 20.145,
+      "reds_coat_skirt": 35.931,
+      "reds_hair": 7.123,
+      "reds_hand_L": 24.037,
+      "reds_hand_R": 16.043,
+      "reds_shoe": 38.741,
+      "reds_trouser": 26.666
+     },
+     {
+      "Cesium_Man": 24.081,
+      "reds_coat": 14.075,
+      "reds_coat_skirt": 23.881,
+      "reds_hair": 2.873,
+      "reds_hand_L": 8.159,
+      "reds_hand_R": 21.363,
+      "reds_shoe": 24.286,
+      "reds_trouser": 18.972
+     }
+    ],
+    "SE": [
+     {
+      "Cesium_Man": 15.954,
+      "reds_coat": 8.359,
+      "reds_coat_skirt": 19.418,
+      "reds_hair": 7.5,
+      "reds_hand_L": 6.031,
+      "reds_hand_R": 10.946,
+      "reds_shoe": 16.011,
+      "reds_trouser": 13.606
+     },
+     {
+      "Cesium_Man": 27.69,
+      "reds_coat": 21.428,
+      "reds_coat_skirt": 30.91,
+      "reds_hair": 6.987,
+      "reds_hand_L": 19.843,
+      "reds_hand_R": 28.468,
+      "reds_shoe": 28.462,
+      "reds_trouser": 22.435
+     },
+     {
+      "Cesium_Man": 32.433,
+      "reds_coat": 11.111,
+      "reds_coat_skirt": 14.214,
+      "reds_hair": 5.075,
+      "reds_hand_L": 17.589,
+      "reds_hand_R": 7.35,
+      "reds_shoe": 32.971,
+      "reds_trouser": 23.543
+     },
+     {
+      "Cesium_Man": 18.857,
+      "reds_coat": 16.263,
+      "reds_coat_skirt": 27.292,
+      "reds_hair": 2.692,
+      "reds_hand_L": 19.695,
+      "reds_hand_R": 9.916,
+      "reds_shoe": 19.076,
+      "reds_trouser": 15.7
+     },
+     {
+      "Cesium_Man": 34.713,
+      "reds_coat": 13.461,
+      "reds_coat_skirt": 27.459,
+      "reds_hair": 8.193,
+      "reds_hand_L": 17.316,
+      "reds_hand_R": 13.239,
+      "reds_shoe": 35.872,
+      "reds_trouser": 22.501
+     },
+     {
+      "Cesium_Man": 28.562,
+      "reds_coat": 14.772,
+      "reds_coat_skirt": 17.07,
+      "reds_hair": 4.17,
+      "reds_hand_L": 7.795,
+      "reds_hand_R": 22.738,
+      "reds_shoe": 28.816,
+      "reds_trouser": 21.924
+     }
+    ],
+    "S": [
+     {
+      "Cesium_Man": 13.645,
+      "reds_coat": 8.447,
+      "reds_coat_skirt": 19.919,
+      "reds_hair": 7.288,
+      "reds_hand_L": 3.654,
+      "reds_hand_R": 10.996,
+      "reds_shoe": 13.652,
+      "reds_trouser": 11.905
+     },
+     {
+      "Cesium_Man": 27.208,
+      "reds_coat": 16.115,
+      "reds_coat_skirt": 25.306,
+      "reds_hair": 7.536,
+      "reds_hand_L": 15.154,
+      "reds_hand_R": 21.732,
+      "reds_shoe": 27.468,
+      "reds_trouser": 22.042
+     },
+     {
+      "Cesium_Man": 33.723,
+      "reds_coat": 9.154,
+      "reds_coat_skirt": 10.07,
+      "reds_hair": 5.096,
+      "reds_hand_L": 15.37,
+      "reds_hand_R": 5.6,
+      "reds_shoe": 34.291,
+      "reds_trouser": 24.597
+     },
+     {
+      "Cesium_Man": 15.745,
+      "reds_coat": 13.396,
+      "reds_coat_skirt": 27.812,
+      "reds_hair": 2.955,
+      "reds_hand_L": 17.601,
+      "reds_hand_R": 3.76,
+      "reds_shoe": 15.966,
+      "reds_trouser": 13.539
+     },
+     {
+      "Cesium_Man": 30.004,
+      "reds_coat": 9.91,
+      "reds_coat_skirt": 21.014,
+      "reds_hair": 9.929,
+      "reds_hand_L": 11.919,
+      "reds_hand_R": 11.28,
+      "reds_shoe": 31.44,
+      "reds_trouser": 17.871
+     },
+     {
+      "Cesium_Man": 29.727,
+      "reds_coat": 13.996,
+      "reds_coat_skirt": 12.749,
+      "reds_hair": 5.236,
+      "reds_hand_L": 7.56,
+      "reds_hand_R": 21.578,
+      "reds_shoe": 29.956,
+      "reds_trouser": 22.849
+     }
+    ],
+    "SW": [
+     {
+      "Cesium_Man": 16.804,
+      "reds_coat": 9.911,
+      "reds_coat_skirt": 19.468,
+      "reds_hair": 6.147,
+      "reds_hand_L": 5.626,
+      "reds_hand_R": 12.039,
+      "reds_shoe": 16.894,
+      "reds_trouser": 14.363
+     },
+     {
+      "Cesium_Man": 27.691,
+      "reds_coat": 18.93,
+      "reds_coat_skirt": 29.853,
+      "reds_hair": 7.675,
+      "reds_hand_L": 16.772,
+      "reds_hand_R": 25.147,
+      "reds_shoe": 27.948,
+      "reds_trouser": 22.435
+     },
+     {
+      "Cesium_Man": 32.673,
+      "reds_coat": 9.816,
+      "reds_coat_skirt": 13.829,
+      "reds_hair": 4.717,
+      "reds_hand_L": 16.39,
+      "reds_hand_R": 5.508,
+      "reds_shoe": 33.228,
+      "reds_trouser": 23.673
+     },
+     {
+      "Cesium_Man": 18.516,
+      "reds_coat": 12.309,
+      "reds_coat_skirt": 26.615,
+      "reds_hair": 3.992,
+      "reds_hand_L": 16.229,
+      "reds_hand_R": 7.587,
+      "reds_shoe": 18.726,
+      "reds_trouser": 15.47
+     },
+     {
+      "Cesium_Man": 34.459,
+      "reds_coat": 15.853,
+      "reds_coat_skirt": 27.029,
+      "reds_hair": 10.789,
+      "reds_hand_L": 18.842,
+      "reds_hand_R": 14.281,
+      "reds_shoe": 35.653,
+      "reds_trouser": 21.757
+     },
+     {
+      "Cesium_Man": 28.715,
+      "reds_coat": 14.397,
+      "reds_coat_skirt": 16.57,
+      "reds_hair": 5.726,
+      "reds_hand_L": 8.129,
+      "reds_hand_R": 22.183,
+      "reds_shoe": 28.974,
+      "reds_trouser": 21.951
+     }
+    ],
+    "W": [
+     {
+      "Cesium_Man": 18.765,
+      "reds_coat": 9.638,
+      "reds_coat_skirt": 16.882,
+      "reds_hair": 3.429,
+      "reds_hand_L": 7.807,
+      "reds_hand_R": 11.44,
+      "reds_shoe": 19.188,
+      "reds_trouser": 15.497
+     },
+     {
+      "Cesium_Man": 28.822,
+      "reds_coat": 23.843,
+      "reds_coat_skirt": 34.652,
+      "reds_hair": 7.445,
+      "reds_hand_L": 21.328,
+      "reds_hand_R": 31.339,
+      "reds_shoe": 29.785,
+      "reds_trouser": 23.452
+     },
+     {
+      "Cesium_Man": 27.957,
+      "reds_coat": 12.443,
+      "reds_coat_skirt": 20.638,
+      "reds_hair": 3.753,
+      "reds_hand_L": 18.872,
+      "reds_hand_R": 7.267,
+      "reds_shoe": 28.442,
+      "reds_trouser": 20.499
+     },
+     {
+      "Cesium_Man": 20.975,
+      "reds_coat": 15.452,
+      "reds_coat_skirt": 24.12,
+      "reds_hair": 4.458,
+      "reds_hand_L": 18.762,
+      "reds_hand_R": 12.273,
+      "reds_shoe": 21.407,
+      "reds_trouser": 16.963
+     },
+     {
+      "Cesium_Man": 37.655,
+      "reds_coat": 21.395,
+      "reds_coat_skirt": 34.516,
+      "reds_hair": 10.76,
+      "reds_hand_L": 25.11,
+      "reds_hand_R": 16.173,
+      "reds_shoe": 38.807,
+      "reds_trouser": 26.572
+     },
+     {
+      "Cesium_Man": 24.494,
+      "reds_coat": 14.6,
+      "reds_coat_skirt": 23.491,
+      "reds_hair": 5.746,
+      "reds_hand_L": 7.56,
+      "reds_hand_R": 22.634,
+      "reds_shoe": 24.726,
+      "reds_trouser": 19.029
+     }
+    ],
+    "NW": [
+     {
+      "Cesium_Man": 19.812,
+      "reds_coat": 7.821,
+      "reds_coat_skirt": 13.664,
+      "reds_hair": 2.185,
+      "reds_hand_L": 7.92,
+      "reds_hand_R": 9.019,
+      "reds_shoe": 20.467,
+      "reds_trouser": 14.239
+     },
+     {
+      "Cesium_Man": 25.454,
+      "reds_coat": 23.888,
+      "reds_coat_skirt": 37.373,
+      "reds_hair": 7.32,
+      "reds_hand_L": 20.566,
+      "reds_hand_R": 30.818,
+      "reds_shoe": 24.279,
+      "reds_trouser": 22.77
+     },
+     {
+      "Cesium_Man": 18.984,
+      "reds_coat": 12.43,
+      "reds_coat_skirt": 24.16,
+      "reds_hair": 2.448,
+      "reds_hand_L": 17.754,
+      "reds_hand_R": 7.89,
+      "reds_shoe": 21.244,
+      "reds_trouser": 16.898
+     },
+     {
+      "Cesium_Man": 21.368,
+      "reds_coat": 16.39,
+      "reds_coat_skirt": 18.75,
+      "reds_hair": 4.569,
+      "reds_hand_L": 19.259,
+      "reds_hand_R": 14.023,
+      "reds_shoe": 22.1,
+      "reds_trouser": 15.114
+     },
+     {
+      "Cesium_Man": 30.751,
+      "reds_coat": 21.658,
+      "reds_coat_skirt": 41.073,
+      "reds_hair": 10.753,
+      "reds_hand_L": 24.879,
+      "reds_hand_R": 14.718,
+      "reds_shoe": 32.383,
+      "reds_trouser": 25.675
+     },
+     {
+      "Cesium_Man": 16.891,
+      "reds_coat": 13.055,
+      "reds_coat_skirt": 27.647,
+      "reds_hair": 5.349,
+      "reds_hand_L": 5.65,
+      "reds_hand_R": 18.545,
+      "reds_shoe": 16.877,
+      "reds_trouser": 18.214
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/reds/rig_Anim_0_N_k00.png",
     "records/target/character/rig/reds/rig_Anim_0_N_k01.png",
@@ -202,55 +840,56 @@
     "records/target/character/rig/reds/rig_Anim_0_NW_k03.png",
     "records/target/character/rig/reds/rig_Anim_0_NW_k04.png",
     "records/target/character/rig/reds/rig_Anim_0_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   }
  },
  "card": {
   "family": "prop",
-  "out": 2,
+  "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 131",
-   "OUT  colours >= 2330: 1868",
-   "OK   top 8 carry <= 11%: 3.6",
-   "OUT  value span >= 118: 88",
-   "OK   saturation <= 0.81: 0.369",
-   "OK   light: top minus bottom >= -2.5: 6.3",
-   "OK   edge between -35 and +7: -21.3",
-   "OK   grain <= 2.22 px a run: 1.85"
+   "OK   long side >= floor 96: 133",
+   "OUT  colours >= 2330: 1878",
+   "OK   top 8 carry <= 11%: 3.9",
+   "OK   value span >= 118: 125",
+   "OK   saturation <= 0.81: 0.343",
+   "OK   light: top minus bottom >= -2.5: 17.5",
+   "OK   edge between -35 and +7: -20.6",
+   "OK   grain <= 2.22 px a run: 1.82"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.8%",
+   "OK   stray pixels at 8 steps <= 14%: 3.5%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 246.6"
+   "OK   light from above (180 to 360 degrees, or flat): 259.1"
   ],
-  "verdict": "2 of 8 out -> to DIRECTION",
+  "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/reds/rig_S.png"
  },
  "cls": "person",
  "card_guide": {
   "cls": "person",
-  "out": 1,
+  "out": 0,
   "rows": [
-   "OK   long side >= floor 96: 131",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2431 px): 1868",
-   "OK   top 8 carry <= 11%: 3.6",
-   "OUT  value span >= 118: 88",
-   "OK   saturation <= 0.81: 0.369",
-   "OK   light: top minus bottom >= -2.5: 6.3",
-   "OK   edge between -35 and +7: -21.3",
-   "OK   grain <= 2.22 px a run: 1.85"
+   "OK   long side >= floor 96: 133",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2428 px): 1878",
+   "OK   top 8 carry <= 11%: 3.9",
+   "OK   value span >= 118: 125",
+   "OK   saturation <= 0.81: 0.343",
+   "OK   light: top minus bottom >= -2.5: 17.5",
+   "OK   edge between -35 and +7: -20.6",
+   "OK   grain <= 2.22 px a run: 1.82"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "1 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
-   29,
+   30,
    113
   ],
-  "opaque_px": 2431,
-  "colours": 1868
+  "opaque_px": 2428,
+  "colours": 1878
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -299,7 +938,32 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "breaks": [],
  "guide": {
@@ -315,5 +979,71 @@
   "records/target/character/rig/reds/rigid_SW.png",
   "records/target/character/rig/reds/rigid_W.png",
   "records/target/character/rig/reds/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/character/rig/reds/rigobj_N.png",
+  "records/target/character/rig/reds/rigobj_NE.png",
+  "records/target/character/rig/reds/rigobj_E.png",
+  "records/target/character/rig/reds/rigobj_SE.png",
+  "records/target/character/rig/reds/rigobj_S.png",
+  "records/target/character/rig/reds/rigobj_SW.png",
+  "records/target/character/rig/reds/rigobj_W.png",
+  "records/target/character/rig/reds/rigobj_NW.png",
+  "records/target/character/rig/reds/rigobj_Stand_N_k00.png",
+  "records/target/character/rig/reds/rigobj_Stand_NE_k00.png",
+  "records/target/character/rig/reds/rigobj_Stand_E_k00.png",
+  "records/target/character/rig/reds/rigobj_Stand_SE_k00.png",
+  "records/target/character/rig/reds/rigobj_Stand_S_k00.png",
+  "records/target/character/rig/reds/rigobj_Stand_SW_k00.png",
+  "records/target/character/rig/reds/rigobj_Stand_W_k00.png",
+  "records/target/character/rig/reds/rigobj_Stand_NW_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_N_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_N_k01.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_N_k02.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_N_k03.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_N_k04.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_N_k05.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NE_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NE_k01.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NE_k02.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NE_k03.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NE_k04.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NE_k05.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_E_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_E_k01.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_E_k02.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_E_k03.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_E_k04.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_E_k05.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SE_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SE_k01.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SE_k02.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SE_k03.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SE_k04.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SE_k05.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_S_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_S_k01.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_S_k02.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_S_k03.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_S_k04.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_S_k05.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SW_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SW_k01.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SW_k02.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SW_k03.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SW_k04.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_SW_k05.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_W_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_W_k01.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_W_k02.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_W_k03.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_W_k04.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_W_k05.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NW_k00.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NW_k01.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NW_k02.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NW_k03.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NW_k04.png",
+  "records/target/character/rig/reds/rigobj_Anim_0_NW_k05.png"
  ]
 }
