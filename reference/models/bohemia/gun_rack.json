@@ -1,74 +1,74 @@
 {
- "what": "each gun's world box on the rack in metres (x right, y away from the S camera, z up), before the rig's scale; the sheet projects it through the portrait camera",
+ "what": "each gun's world box on the rack in metres (x right, y away from the S camera, z up), before the rig's scale; the sheet projects it through the rig's cameras; rack_box is the whole model's, whose ground centre the rig puts at the origin",
  "guns": {
   "rifle_a": {
    "lo": [
-    -0.5481,
+    -0.545,
     -0.0912,
     1.072
    ],
    "hi": [
-    0.5481,
+    0.545,
     -0.011,
     1.2686
    ]
   },
   "rifle_b": {
    "lo": [
-    -0.4935,
+    -0.4915,
     -0.0636,
-    0.9021
+    0.901
    ],
    "hi": [
-    0.4935,
+    0.4915,
     -0.0058,
     1.0602
    ]
   },
   "shotgun_b": {
    "lo": [
-    -0.513,
-    -0.059,
-    0.6787
+    -0.505,
+    -0.062,
+    0.678
    ],
    "hi": [
-    0.513,
+    0.505,
     -0.009,
     0.838
    ]
   },
   "shotgun_a": {
    "lo": [
-    -0.3274,
+    -0.3228,
     -0.055,
-    0.5112
+    0.515
    ],
    "hi": [
-    0.3274,
+    0.3228,
     -0.009,
     0.6474
    ]
   },
   "pistol_a": {
    "lo": [
-    -0.5218,
+    -0.516,
     -0.05,
-    0.3317
+    0.3322
    ],
    "hi": [
-    -0.2782,
+    -0.284,
     -0.014,
     0.4865
    ]
   },
   "pistol_b": {
    "lo": [
-    -0.155,
+    -0.16,
     -0.0505,
     0.2892
    ],
    "hi": [
-    0.055,
+    0.06,
     -0.0135,
     0.4806
    ]
@@ -77,15 +77,15 @@
  "pegs": [
   [
    -0.3,
-   1.1358
+   1.1549
   ],
   [
    0.3,
-   1.1975
+   1.207
   ],
   [
    -0.3,
-   0.9137
+   0.9434
   ],
   [
    0.3,
@@ -93,7 +93,7 @@
   ],
   [
    -0.3,
-   0.6971
+   0.7214
   ],
   [
    0.3,
@@ -101,7 +101,7 @@
   ],
   [
    -0.3,
-   0.5036
+   0.5092
   ],
   [
    0.3,
@@ -131,5 +131,17 @@
    0.375,
    0.4115
   ]
- ]
+ ],
+ "rack_box": {
+  "lo": [
+   -0.74,
+   -0.185,
+   0.0
+  ],
+  "hi": [
+   0.74,
+   0.315,
+   1.36
+  ]
+ }
 }

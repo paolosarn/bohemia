@@ -62,14 +62,14 @@ from bohemia_cook_model_props import ROOT, mat, put, cyl, box, rod, cut, import_
 
 GUNS = ['pistol_a', 'pistol_b', 'shotgun_a', 'shotgun_b', 'rifle_a', 'rifle_b']
 # where the firing hand holds each gun, in its build frame (the bore on z = 0): the glb's origin, the hand bone's point
-GRIP = dict(pistol_a=(-0.0925, -0.0706), pistol_b=(-0.048, -0.064), shotgun_a=(-0.142, -0.026), shotgun_b=(-0.160, -0.030),
+GRIP = dict(pistol_a=(-0.0815, -0.0706), pistol_b=(-0.048, -0.064), shotgun_a=(-0.142, -0.026), shotgun_b=(-0.160, -0.030),
             rifle_a=(-0.175, -0.058), rifle_b=(-0.150, -0.025))
 
 
 def mats(bpy):
     """the same five names in every gun, so the rack's import makes them one"""
     return dict(blued=mat(bpy, 'gunmetal', 'rubber', 2), steel=mat(bpy, 'steel_worn', 'tape_grey', 1),
-                wood=mat(bpy, 'wood', 'clay_rust', 2), tape=mat(bpy, 'tape', 'tape_grey', 2), pine=mat(bpy, 'pine', 'tape_masking', 1))
+                wood=mat(bpy, 'wood', 'clay_mustard', 1), tape=mat(bpy, 'tape', 'tape_grey', 2), pine=mat(bpy, 'pine', 'tape_masking', 1))
 
 
 def tilted(bpy, name, m, size, top, deg, bevel=0.0):
@@ -94,6 +94,38 @@ def xcone(bpy, name, m, r0, r1, x0, x1, verts=16):
 def ring(bpy, name, m, r, w, x, y=0.0, z=0.0):
     """a band round the bore axis: tape, wire, a hose clamp"""
     return xcyl(bpy, name, m, r, x - w / 2, x + w / 2, y, z, verts=18)
+
+
+def slab(bpy, name, m, prof, w, bevel=0.006):
+    """a side profile (x, z) pulled across the gun's thickness w and rounded at its edges: a stock is a shape, not a
+    box (the first render: five rectangles read as a toy's blocks)"""
+    me = bpy.data.meshes.new(name); n = len(prof)
+    vs = [(x, -w / 2, z) for x, z in prof] + [(x, w / 2, z) for x, z in prof]
+    fs = [tuple(range(n)), tuple(range(n, 2 * n))[::-1]] + [(i, n + i, n + (i + 1) % n, (i + 1) % n) for i in range(n)]
+    me.from_pydata(vs, [], fs); me.update(); me.validate()
+    o = bpy.data.objects.new(name, me); bpy.context.collection.objects.link(o)
+    bpy.context.view_layer.objects.active = o; o.select_set(True)
+    bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT'); bpy.ops.mesh.normals_make_consistent(inside=False)
+    bpy.ops.mesh.quads_convert_to_tris(); bpy.ops.object.mode_set(mode='OBJECT')
+    if bevel:
+        md = o.modifiers.new('bevel', 'BEVEL'); md.width = bevel; md.segments = 2; md.limit_method = 'ANGLE'
+        bpy.ops.object.modifier_apply(modifier='bevel')
+    o.data.materials.append(m); bpy.ops.object.shade_smooth()
+    return o
+
+
+def span_at(prof, x):
+    """the profile's bottom and top at x (where a band of tape or a clamp goes round it)"""
+    zs = []
+    for (x0, z0), (x1, z1) in zip(prof, prof[1:] + prof[:1]):
+        if (x0 - x) * (x1 - x) <= 0 and x0 != x1: zs.append(z0 + (z1 - z0) * (x - x0) / (x1 - x0))
+    return min(zs), max(zs)
+
+
+def band(bpy, name, m, prof, x, w, thick, deg=0.0):
+    """a band of tape or a hose clamp round a stock, sized to the stock where it sits"""
+    lo, hi = span_at(prof, x)
+    return box(bpy, name, m, (thick, w + 0.006, hi - lo + 0.006), (x, 0, (lo + hi) / 2), rot=(0, math.radians(deg), 0), bevel=0.002)
 
 
 def guard(bpy, m, back, bottom_x, front, r=0.0028, deep=0.022):
@@ -128,27 +160,27 @@ def pistol_a(bpy, mathutils):
     xcyl(bpy, 'muzzle', bl, 0.0062, 0.112, 0.116, verts=12)
     box(bpy, 'dust_cover', bl, (0.130, 0.021, 0.014), (0.032, 0, -0.016), bevel=0.002)
     box(bpy, 'frame', bl, (0.064, 0.025, 0.017), (-0.068, 0, -0.016), bevel=0.002)
-    tilted(bpy, 'grip_frame', bl, (0.034, 0.027, 0.102), (-0.077, 0, -0.022), 18, bevel=0.003)
-    for s in (-1, 1): tilted(bpy, 'grip_panel_%d' % (s + 1), wd, (0.029, 0.005, 0.082), (-0.0765, s * 0.0155, -0.031), 18, bevel=0.0018)
-    tilted(bpy, 'mag_base', st, (0.036, 0.026, 0.006), (-0.1090, 0, -0.1175), 18, bevel=0.0015)
-    box(bpy, 'beavertail', bl, (0.024, 0.021, 0.009), (-0.110, 0, -0.012), rot=(0, math.radians(-12), 0), bevel=0.003)
+    tilted(bpy, 'grip_frame', bl, (0.034, 0.027, 0.100), (-0.066, 0, -0.022), 18, bevel=0.003)
+    for s in (-1, 1): tilted(bpy, 'grip_panel_%d' % (s + 1), wd, (0.029, 0.005, 0.080), (-0.0655, s * 0.0155, -0.031), 18, bevel=0.0018)
+    tilted(bpy, 'mag_base', st, (0.036, 0.026, 0.006), (-0.0975, 0, -0.1170), 18, bevel=0.0015)
+    box(bpy, 'beavertail', bl, (0.016, 0.021, 0.009), (-0.102, 0, -0.012), rot=(0, math.radians(-12), 0), bevel=0.003)
     box(bpy, 'hammer', bl, (0.011, 0.009, 0.017), (-0.104, 0, 0.016), rot=(0, math.radians(-28), 0), bevel=0.002)
     guard(bpy, bl, (-0.060, -0.024), (-0.058, -0.019), (-0.016, -0.023))
     box(bpy, 'trigger', st, (0.006, 0.007, 0.015), (-0.046, 0, -0.031), bevel=0.0015)
     box(bpy, 'front_sight', bl, (0.006, 0.004, 0.006), (0.104, 0, 0.0235))
     box(bpy, 'rear_sight', bl, (0.009, 0.016, 0.006), (-0.091, 0, 0.0235))
     # THE ONE ASYMMETRIC THING: grey tape wound twice round the grip where a panel split
-    for i, d in enumerate((0.030, 0.058)): tilted(bpy, 'tape_%d' % i, tp, (0.040, 0.035, 0.011), (-0.077 - 0.309 * d, 0, -0.022 - 0.951 * d), 18, bevel=0.002)
+    for i, d in enumerate((0.030, 0.058)): tilted(bpy, 'tape_%d' % i, tp, (0.040, 0.035, 0.011), (-0.066 - 0.309 * d, 0, -0.022 - 0.951 * d), 18, bevel=0.002)
     to_grip(bpy, GRIP['pistol_a'])
 
 
 def pistol_b(bpy, mathutils):
     M = mats(bpy); bl, st, wd, tp = M['blued'], M['steel'], M['wood'], M['tape']
-    xcyl(bpy, 'barrel', st, 0.0085, 0.028, 0.130)
-    box(bpy, 'rib', st, (0.100, 0.007, 0.006), (0.080, 0, 0.0095), bevel=0.0015)
-    xcyl(bpy, 'shroud', st, 0.0055, 0.030, 0.108, z=-0.0125, verts=12)
-    box(bpy, 'front_sight', st, (0.011, 0.003, 0.009), (0.121, 0, 0.0145), rot=(0, math.radians(-12), 0))
-    xcyl(bpy, 'muzzle', bl, 0.0045, 0.128, 0.132, verts=10)
+    xcyl(bpy, 'barrel', st, 0.0085, 0.028, 0.140)
+    box(bpy, 'rib', st, (0.110, 0.007, 0.006), (0.085, 0, 0.0095), bevel=0.0015)
+    xcyl(bpy, 'shroud', st, 0.0055, 0.030, 0.118, z=-0.0125, verts=12)
+    box(bpy, 'front_sight', st, (0.011, 0.003, 0.009), (0.131, 0, 0.0145), rot=(0, math.radians(-12), 0))
+    xcyl(bpy, 'muzzle', bl, 0.0045, 0.138, 0.142, verts=10)
     cyl_o = xcyl(bpy, 'cylinder', st, 0.0185, -0.013, 0.027, z=-0.013, verts=24)
     for k in range(6):   # the flutes between the chambers
         a = math.radians(30 + 60 * k)
@@ -182,10 +214,11 @@ def shotgun_a(bpy, mathutils):
     for s in (-1, 1): box(bpy, 'hammer_%d' % (s + 1), bl, (0.010, 0.007, 0.022), (-0.083, s * 0.012, 0.016), rot=(0, math.radians(-30), 0), bevel=0.0015)
     for i, x in enumerate((-0.050, -0.035)): box(bpy, 'trigger_%d' % i, bl, (0.006, 0.005, 0.016), (x, 0, -0.042), bevel=0.0012)
     guard(bpy, bl, (-0.080, -0.033), (-0.072, -0.018), (-0.010, -0.033))
-    box(bpy, 'wrist', wd, (0.115, 0.034, 0.038), (-0.142, 0, -0.026), rot=(0, math.radians(-12), 0), bevel=0.008)
-    box(bpy, 'butt', wd, (0.130, 0.040, 0.082), (-0.250, 0, -0.058), rot=(0, math.radians(-10), 0), bevel=0.010)
-    box(bpy, 'cut_end', pn, (0.004, 0.038, 0.078), (-0.316, 0, -0.070), rot=(0, math.radians(-10), 0))   # the saw's face, raw
-    for i, x in enumerate((-0.122, -0.150)): box(bpy, 'tape_%d' % i, tp, (0.013, 0.039, 0.043), (x, 0, -0.024 + (x + 0.122) * 0.21), rot=(0, math.radians(-12), 0), bevel=0.003)
+    stock = [(-0.088, 0.012), (-0.150, 0.002), (-0.205, -0.010), (-0.312, -0.024), (-0.312, -0.106), (-0.250, -0.094),
+             (-0.180, -0.072), (-0.128, -0.050), (-0.088, -0.034)]
+    slab(bpy, 'stock', wd, stock, 0.036)
+    box(bpy, 'cut_end', pn, (0.004, 0.037, 0.080), (-0.3135, 0, -0.065))   # the saw's face, raw
+    for i, x in enumerate((-0.124, -0.152)): band(bpy, 'tape_%d' % i, tp, stock, x, 0.036, 0.013)
     to_grip(bpy, GRIP['shotgun_a'])
 
 
@@ -205,12 +238,13 @@ def shotgun_b(bpy, mathutils):
     box(bpy, 'trigger_plate', bl, (0.110, 0.030, 0.018), (-0.040, 0, -0.041), bevel=0.003)
     guard(bpy, bl, (-0.072, -0.050), (-0.066, -0.026), (-0.020, -0.050))
     box(bpy, 'trigger', st, (0.006, 0.006, 0.016), (-0.044, 0, -0.058), bevel=0.0012)
-    box(bpy, 'wrist', wd, (0.125, 0.036, 0.044), (-0.160, 0, -0.030), rot=(0, math.radians(-10), 0), bevel=0.009)
-    box(bpy, 'butt', wd, (0.230, 0.042, 0.108), (-0.318, 0, -0.068), rot=(0, math.radians(-6), 0), bevel=0.012)
-    box(bpy, 'pad', bl, (0.020, 0.044, 0.122), (-0.440, 0, -0.080), rot=(0, math.radians(-6), 0), bevel=0.004)
+    stock = [(-0.100, 0.017), (-0.200, 0.002), (-0.420, -0.022), (-0.420, -0.140), (-0.300, -0.112), (-0.205, -0.080),
+             (-0.178, -0.088), (-0.150, -0.070), (-0.120, -0.046), (-0.100, -0.040)]
+    slab(bpy, 'stock', wd, stock, 0.040, bevel=0.008)
+    box(bpy, 'pad', bl, (0.020, 0.042, 0.122), (-0.430, 0, -0.081), bevel=0.004)
     # THE ONE ASYMMETRIC THING: the wrist cracked through and held with two hose clamps
-    for i, x in enumerate((-0.140, -0.178)): box(bpy, 'clamp_%d' % i, st, (0.009, 0.040, 0.049), (x, 0, -0.026 + (x + 0.160) * 0.18), rot=(0, math.radians(-10), 0), bevel=0.002)
-    box(bpy, 'clamp_screw', st, (0.010, 0.010, 0.008), (-0.140, -0.022, -0.020))
+    for i, x in enumerate((-0.138, -0.176)): band(bpy, 'clamp_%d' % i, st, stock, x, 0.040, 0.009)
+    lo, hi = span_at(stock, -0.138); box(bpy, 'clamp_screw', st, (0.010, 0.010, 0.008), (-0.138, -0.025, (lo + hi) / 2 + 0.008))
     to_grip(bpy, GRIP['shotgun_b'])
 
 
@@ -225,13 +259,12 @@ def rifle_a(bpy, mathutils):
     xcone(bpy, 'barrel', bl, 0.0145, 0.0088, 0.080, 0.610)
     box(bpy, 'front_sight', bl, (0.014, 0.004, 0.010), (0.598, 0, 0.0125), rot=(0, math.radians(-10), 0))
     box(bpy, 'rear_sight', bl, (0.012, 0.010, 0.007), (0.300, 0, 0.0145))
-    box(bpy, 'forend', wd, (0.420, 0.040, 0.034), (0.170, 0, -0.027), bevel=0.011)
-    box(bpy, 'action_wood', wd, (0.240, 0.042, 0.040), (-0.030, 0, -0.025), bevel=0.008)
-    tilted(bpy, 'grip', wd, (0.048, 0.036, 0.074), (-0.158, 0, -0.030), 20, bevel=0.010)
-    box(bpy, 'wrist', wd, (0.170, 0.036, 0.046), (-0.215, 0, -0.026), rot=(0, math.radians(-6), 0), bevel=0.010)
-    box(bpy, 'butt', wd, (0.235, 0.040, 0.118), (-0.345, 0, -0.058), rot=(0, math.radians(-6), 0), bevel=0.013)
-    box(bpy, 'pad', bl, (0.020, 0.042, 0.128), (-0.470, 0, -0.068), rot=(0, math.radians(-6), 0), bevel=0.004)
-    box(bpy, 'floorplate', st, (0.090, 0.030, 0.004), (-0.040, 0, -0.046))
+    stock = [(0.385, -0.010), (0.080, -0.009), (-0.130, -0.011), (-0.165, -0.004), (-0.240, -0.008), (-0.460, -0.030),
+             (-0.460, -0.150), (-0.330, -0.112), (-0.232, -0.084), (-0.214, -0.118), (-0.178, -0.122), (-0.160, -0.084),
+             (-0.150, -0.050), (-0.020, -0.048), (0.200, -0.040), (0.380, -0.034), (0.392, -0.022)]
+    slab(bpy, 'stock', wd, stock, 0.040, bevel=0.009)
+    box(bpy, 'pad', bl, (0.020, 0.042, 0.124), (-0.470, 0, -0.090), bevel=0.004)
+    box(bpy, 'floorplate', st, (0.090, 0.030, 0.004), (-0.040, 0, -0.049))
     guard(bpy, st, (-0.140, -0.044), (-0.134, -0.074), (-0.070, -0.044))
     box(bpy, 'trigger', st, (0.006, 0.006, 0.016), (-0.108, 0, -0.054), bevel=0.0012)
     for x, z in ((0.300, -0.048), (-0.360, -0.120)):
@@ -241,7 +274,7 @@ def rifle_a(bpy, mathutils):
     pts = [(a[0] + (b[0] - a[0]) * i / n, -0.006, a[1] + (b[1] - a[1]) * i / n - sag * math.sin(math.pi * i / n)) for i in range(n + 1)]
     for i in range(n):
         (x0, y0, z0), (x1, y1, z1) = pts[i], pts[i + 1]
-        box(bpy, 'sling_%d' % i, tp, (math.hypot(x1 - x0, z1 - z0) + 0.002, 0.0025, 0.036), ((x0 + x1) / 2, y0, (z0 + z1) / 2),
+        box(bpy, 'sling_%d' % i, bl, (math.hypot(x1 - x0, z1 - z0) + 0.002, 0.0025, 0.036), ((x0 + x1) / 2, y0, (z0 + z1) / 2),
             rot=(0, -math.atan2(z1 - z0, x1 - x0), 0))
     box(bpy, 'buckle', st, (0.032, 0.006, 0.048), (pts[7][0], -0.0095, pts[7][2]), rot=(0, -math.atan2(pts[8][2] - pts[6][2], pts[8][0] - pts[6][0]), 0), bevel=0.002)
     to_grip(bpy, GRIP['rifle_a'])
@@ -257,14 +290,14 @@ def rifle_b(bpy, mathutils):
     box(bpy, 'front_band', st, (0.012, 0.026, 0.044), (0.522, 0, -0.011), bevel=0.002)
     box(bpy, 'front_sight', bl, (0.010, 0.004, 0.010), (0.540, 0, 0.0135))
     box(bpy, 'rear_sight', bl, (0.010, 0.012, 0.007), (0.200, 0, 0.0130))
-    box(bpy, 'forend', wd, (0.220, 0.034, 0.032), (0.175, 0, -0.020), bevel=0.008)
+    slab(bpy, 'forend', wd, [(0.064, -0.004), (0.282, -0.004), (0.290, -0.012), (0.284, -0.034), (0.064, -0.036)], 0.034)
     rod(bpy, 'lever_front', bl, (-0.032, 0, -0.034), (-0.052, 0, -0.080), 0.0046)
     rod(bpy, 'lever_bottom', bl, (-0.052, 0, -0.080), (-0.134, 0, -0.074), 0.0046)
     rod(bpy, 'lever_back', bl, (-0.134, 0, -0.074), (-0.112, 0, -0.050), 0.0046)
     box(bpy, 'trigger', st, (0.006, 0.006, 0.015), (-0.072, 0, -0.044), bevel=0.0012)
-    box(bpy, 'wrist', wd, (0.120, 0.034, 0.040), (-0.150, 0, -0.025), rot=(0, math.radians(-8), 0), bevel=0.009)
-    box(bpy, 'butt', wd, (0.240, 0.040, 0.112), (-0.305, 0, -0.058), rot=(0, math.radians(-6), 0), bevel=0.012)
-    box(bpy, 'butt_plate', st, (0.008, 0.042, 0.120), (-0.427, 0, -0.068), rot=(0, math.radians(-6), 0), bevel=0.002)
+    slab(bpy, 'stock', wd, [(-0.100, 0.015), (-0.200, -0.002), (-0.425, -0.020), (-0.425, -0.128), (-0.300, -0.098),
+                             (-0.165, -0.052), (-0.100, -0.036)], 0.036, bevel=0.008)
+    box(bpy, 'butt_plate', st, (0.008, 0.040, 0.110), (-0.429, 0, -0.074), bevel=0.002)
     # THE ONE ASYMMETRIC THING: the forend wired to the barrel where its band went, three turns and a twisted tail
     for i in range(3): ring(bpy, 'wire_%d' % i, st, 0.0262, 0.0022, 0.255 + 0.006 * i, z=-0.012)
     rod(bpy, 'wire_tail', st, (0.261, -0.026, -0.030), (0.268, -0.030, -0.046), 0.0016, verts=6)
@@ -274,7 +307,7 @@ def rifle_b(bpy, mathutils):
 def rack(bpy, mathutils):
     """the armourer's rack, with the six guns imported whole from their own glbs; each peg is cut to the height of its
     gun's own underside, the way a rack is built to what it holds"""
-    pn, tp = mat(bpy, 'pine', 'tape_masking', 1), mat(bpy, 'tape', 'tape_grey', 2)
+    pn = mat(bpy, 'pine', 'tape_masking', 1)
     H, X, SL = 1.36, 0.68, 0.30
     for s in (-1, 1):
         box(bpy, 'post_%d' % (s + 1), pn, (0.038, 0.089, H), (s * X, 0.065, H / 2), bevel=0.003)
@@ -315,14 +348,17 @@ def rack(bpy, mathutils):
     for name, x in (('pistol_a', -0.40), ('pistol_b', -0.05)): hang(name, 0.460, x, (x - 0.045, x + 0.045))
     # THE ONE ASYMMETRIC THING: a third pair of pistol pegs empty, a blank tag tied to its left peg on a string
     for dx in (-0.045, 0.045): peg('peg_empty_%d' % int(dx * 1000), 0.33 + dx, 0.420)
+    tp = bpy.data.materials.get('tape') or mat(bpy, 'tape', 'tape_grey', 2)   # made late: an import clears a material nobody uses yet
     rod(bpy, 'tag_string', tp, (0.285, -0.050, 0.411), (0.292, -0.056, 0.360), 0.0015, verts=6)
     box(bpy, 'tag', tp, (0.034, 0.002, 0.052), (0.294, -0.057, 0.332), rot=(0, math.radians(-8), 0))
     boxes = {}
     for name, h in placed.items():
         vs = world(h, skip=())
         boxes[name] = dict(lo=[round(min(getattr(v, a) for v in vs), 4) for a in 'xyz'], hi=[round(max(getattr(v, a) for v in vs), 4) for a in 'xyz'])
-    json.dump(dict(what="each gun's world box on the rack in metres (x right, y away from the S camera, z up), before the rig's scale; the sheet projects it through the portrait camera",
-                   guns=boxes, pegs=pegs), open(os.path.join(ROOT, 'reference/models/bohemia/gun_rack.json'), 'w'), indent=1)
+    every = [v for o in bpy.context.scene.objects if o.type == 'MESH' for v in [o.matrix_world @ w.co for w in o.data.vertices]]
+    rack_box = dict(lo=[round(min(getattr(v, a) for v in every), 4) for a in 'xyz'], hi=[round(max(getattr(v, a) for v in every), 4) for a in 'xyz'])
+    json.dump(dict(what="each gun's world box on the rack in metres (x right, y away from the S camera, z up), before the rig's scale; the sheet projects it through the rig's cameras; rack_box is the whole model's, whose ground centre the rig puts at the origin",
+                   guns=boxes, pegs=pegs, rack_box=rack_box), open(os.path.join(ROOT, 'reference/models/bohemia/gun_rack.json'), 'w'), indent=1)
 
 
 BUILDERS = dict(pistol_a=pistol_a, pistol_b=pistol_b, shotgun_a=shotgun_a, shotgun_b=shotgun_b, rifle_a=rifle_a, rifle_b=rifle_b, rack=rack)
