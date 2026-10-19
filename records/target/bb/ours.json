@@ -103,7 +103,7 @@
     "main": true,
     "background": "sellsword",
     "jobs": [
-     "pipe",
+     "pistol",
      "car_door"
     ],
     "body": "padded_surcoat",
@@ -113,8 +113,7 @@
     "name": "DESI",
     "background": "militia",
     "jobs": [
-     "pipe",
-     "car_door"
+     "rifle"
     ],
     "body": "gambeson",
     "head": "hood"
@@ -123,7 +122,8 @@
     "name": "RAUL",
     "background": "brawler",
     "jobs": [
-     "sledge"
+     "pistol",
+     "car_door"
     ],
     "body": "padded_vest",
     "head": "leather_headband"
@@ -132,8 +132,7 @@
     "name": "TINA",
     "background": "retired_soldier",
     "jobs": [
-     "pipe",
-     "car_door"
+     "rifle"
     ],
     "body": "padded_surcoat",
     "head": "aketon_cap"
@@ -142,7 +141,7 @@
     "name": "BOOKIE",
     "background": "thief",
     "jobs": [
-     "pistol"
+     "shotgun"
     ],
     "body": "leather_tunic",
     "head": "hood"
@@ -179,7 +178,7 @@
     "name": "LUPE",
     "background": "poacher",
     "jobs": [
-     "rifle"
+     "pistol"
     ],
     "body": "leather_tunic",
     "head": "hood"
@@ -215,7 +214,12 @@
   ],
   "source": "VAMILY.md rule 63b",
   "quote": "12 on the field in a normal fight, the roster 20",
-  "why": "twelve hires, each a Battle Brothers background (stats rolled in its wiki range) carrying our jobs (rule 63's weapon list) in low-tier wiki armour; the names are drafts"
+  "why": "twelve hires, each a Battle Brothers background (stats rolled in its wiki range) carrying our jobs (rule 63's weapon list) in low-tier wiki armour; the names are drafts. GUNS FIRST (rule 120(a), Paolo 10/18: 'I wanna start off with the guns too... the guns were supposed to be the main way this is gonna be solved'): the kit runs guns first in the company's order, so any company the origin builds holds a pistol and a rifle from its first two men (three men: a pistol, a rifle, a pistol; six: five guns and a sledge; twelve: three pistols, three rifles, two shotguns, bottles, a sledge and two pipes); who carries which is guns_first_kit's (the best eye takes the long gun)",
+  "guns_first": {
+   "source": "VAMILY.md rule 120(a)",
+   "record": "records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md",
+   "quote": "every origin's first fight has guns in the company's hands, and the gun is the main way a fight is won (rule 83 stands: guns two tiles and more, melee one); the starting kit, the first band and the tutorial fight are built around shooting"
+  }
  },
  "first_band": {
   "value": [
@@ -269,7 +273,7 @@
     "adrenaline",
     "dodge",
     "rotation",
-    "dagger_mastery",
+    "throwing_mastery",
     "footwork",
     "battle_forged",
     "duelist"
@@ -304,7 +308,7 @@
   },
   "source": "CORE_WIKITEXT.md # PAGE Perks",
   "quote": "With each new character level reached by your mercenary he will gain 1 Perk point... To unlock the second perk row, you need to spend one perk point.",
-  "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them; round two puts the seven skills a perk unlocks into the orders where a job would take them (the captain's ON ME, the sledge's COME AT ME and CATCH YOUR BREATH, the pistol's FIRST OUT THE DOOR and SWAP OUT, SIDESTEP for the quick ones)"
+  "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them; round two puts the seven skills a perk unlocks into the orders where a job would take them (the captain's ON ME, the sledge's COME AT ME and CATCH YOUR BREATH, the pistol's FIRST OUT THE DOOR and SWAP OUT, SIDESTEP for the quick ones) (10/19, rule 120: the pistol shoots as the throwing class now, so its mastery is the throwing mastery: more damage at two and three tiles)"
  },
  "board_mix": {
   "value": {
@@ -457,8 +461,12 @@
   "value": {
    "phases": [
     {
-     "name": "early",
+     "name": "first",
      "from_day": 1
+    },
+    {
+     "name": "early",
+     "from_day": 8
     },
     {
      "name": "middle",
@@ -481,6 +489,9 @@
    "leaders_max": 1,
    "mix": {
     "brigands": {
+     "first": {
+      "brigand_thug": 1
+     },
      "early": {
       "brigand_thug": 8,
       "lower_brigand_raider": 2
@@ -501,6 +512,10 @@
      }
     },
     "beasts": {
+     "first": {
+      "direwolf": 4,
+      "hyena": 2
+     },
      "early": {
       "direwolf": 4,
       "hyena": 2
@@ -519,7 +534,13 @@
   },
   "source": "bb_all/0299_Brigands.txt (the tactics), bb_all/0290_Brigand Leader.txt, bb_all/0293_Brigand Marauder.txt, bb_all/0297_Brigand Raider.txt, bb_all/0294_Brigand Marksman.txt (Bullseye after day 20); reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md",
   "quote": "In the early game Brigand groups usually consist of Thugs and sometimes Raiders. Later, Raiders become more common, ranged attackers appear and their numbers increase, and armored Marauders can spawn. In the late game you will usually see a Brigand Leader and other elite enemies among them. / Brigand Leaders start appearing in the middle game. Late game brigand groups usually have a Leader. It's rare to see simultaneously more than one. / Melee skill is 65 before day 40, 70 after. / (GROK_60) Combat difficulty, set at the start, raises both the count and the tier. Higher tier means more leaders and fewer thugs. Day scaling for those stops at day 100. A few is 2 to 3. Some is 4 to 6. / (Brigand Marksman) Ranged defense is 10 before day 40, 15 after.",
-  "why": "COMBAT [the enemy math] (Paolo 10/5, rule 75b: 'the beginning is a lot different from the end'). The map hands the party (RUN [a few, not twelve]: the count, the days, the difficulty); the fight dresses it by tier. The phase boundaries are the wiki's own day gates (perks after day 20, the raider's skill after day 40, the marauder's best armour after day 60) and Grok's day 100 where roaming scaling stops; each combat difficulty above Veteran moves the tier as if the party were 20 days later (Beginner and Veteran the same); a party of 'some' (4) or more in the late phase brings its one leader. The mix weights are ours from the tactics paragraph; TUNING owns every one. A skill or a defence the wiki gives as a range (65-70, 10-15) is the before-and-after of skill_day, never a roll. THE BEASTS (COMBAT [the fight holds the grid], rule 117(e), 10/18): the pack's make-up is FACTIONS' draft for the lab-made beasts (records/target/bb/factions.json, faction beasts: early four dire wolves to two hyenas, late three dire wolves, two frenzied, one schrat); the middle phase keeps the early pack until a source says when the frenzied ones join; TUNING owns every weight."
+  "why": "COMBAT [the enemy math] (Paolo 10/5, rule 75b: 'the beginning is a lot different from the end'). The map hands the party (RUN [a few, not twelve]: the count, the days, the difficulty); the fight dresses it by tier. The phase boundaries are the wiki's own day gates (perks after day 20, the raider's skill after day 40, the marauder's best armour after day 60) and Grok's day 100 where roaming scaling stops; each combat difficulty above Veteran moves the tier as if the party were 20 days later (Beginner and Veteran the same); a party of 'some' (4) or more in the late phase brings its one leader. The mix weights are ours from the tactics paragraph; TUNING owns every one. A skill or a defence the wiki gives as a range (65-70, 10-15) is the before-and-after of skill_day, never a roll. THE BEASTS (COMBAT [the fight holds the grid], rule 117(e), 10/18): the pack's make-up is FACTIONS' draft for the lab-made beasts (records/target/bb/factions.json, faction beasts: early four dire wolves to two hyenas, late three dire wolves, two frenzied, one schrat); the middle phase keeps the early pack until a source says when the frenzied ones join; TUNING owns every weight.",
+  "first_week": {
+   "source": "VAMILY.md rule 120(a) (Paolo 10/18); bb_all/0299_Brigands.txt",
+   "record": "records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md",
+   "quote": "the starting kit, the first band and the tutorial fight are built around shooting / In the early game Brigand groups usually consist of Thugs and sometimes Raiders",
+   "why": "THE FIRST BAND IS BUILT TO BE SHOT AT: the company's first week (days 1 to 7) meets thugs alone, the wiki's early band before its 'sometimes Raiders'; the lesser raider (75 health, 55 to 110 body armour) joins from day 8. Measured 10/19 before it: a fresh crew of three met two raiders in one band of three and lost every time, whatever it carried. The beasts' first week is their early pack. TUNING owns the day."
+  }
  },
  "captain_aura": {
   "value": {
@@ -573,7 +594,7 @@
   "value": 2,
   "source": "VAMILY.md rule 83 (Paolo 10/10) and records/BOHEMIA_PAOLO_THE_SEVENTH_VOTES_ALL_THE_ART_LOOKS_NOTHING_LIKE_THE_ASSETS_WE_DOWNLOADED_10_10_26.md",
   "quote": "melee weapons work on one tile away, all guns 2+ minimum",
-  "why": "a gun that fires (ours.gun_classes that are ranged: the SHOTGUN, the RIFLE) never fires at a man beside the shooter; the PISTOL rides Battle Brothers' dagger, a one-tile row, so it is the club at one until his guns vote gives it a shot (rule 47b)",
+  "why": "a gun that fires (ours.gun_classes that are ranged: the SHOTGUN, the RIFLE, and from 10/19 the PISTOL's shot, ours.pistol_shot) never fires at a man beside the shooter; the pistol is the club at one (rule 83: 'the pistol is a two-tile gun, or a club at one'); its shot came with rule 120, the guns vote rule 47b waited for",
   "tuned": false
  },
  "ground_rows": {
@@ -624,6 +645,66 @@
   "source": "slices/fight_beasts/fight_beasts.json (ANIMATION, rules 42 and 69: the dire wolf, the one beast sheet baked) and laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md",
   "quote": "every beast is a de-extinct animal that broke out of its lab when the dollar died",
   "why": "COMBAT [the fight holds the grid] (rule 117(e)): which baked beast sheet an enemy wears on the board. The dire wolf is its own; the other four-legged hunters (the hyena, the wolf, the war dog) wear the dire wolf's sheet as a STAND-IN until ANIMATION bakes each, said on every card that shows one. An enemy not listed is drawn from the band's people looks (the schrat, the unhold and the rest have no sheet yet: a stand-in man, named in the record).",
+  "tuned": false
+ },
+ "guns_first_kit": {
+  "value": {
+   "by_eye": [
+    "rifle",
+    "shotgun"
+   ],
+   "by_arm": [
+    "sledge",
+    "pipe"
+   ]
+  },
+  "source": "VAMILY.md rule 120(a); records/target/bb/backgrounds.json (each background's ranged_skill and melee_skill ranges, the wiki's)",
+  "quote": "every origin's first fight has guns in the company's hands, and the gun is the main way a fight is won",
+  "why": "the company's kit (the crew rows' jobs, in order) is dealt to the men the origin built before a fight that hands no gear: the long guns first, each to the man whose background has the best eye (the middle of its wiki ranged_skill range), the melee jobs next to the best arms (melee_skill), the pistols and the bottles to the rest in the line's order. A New Crew's ranged companion takes the rifle, the one-hand and two-hand companions the pistols. Gear the roster hands over (RUN TWO) always wins.",
+  "tuned": false
+ },
+ "pistol_shot": {
+  "value": {
+   "class": "dagger",
+   "by_row": {
+    "knife": "bundle_of_crude_javelins",
+    "dagger": "bundle_of_javelins",
+    "notched_blade": "bundle_of_javelins",
+    "rondel_dagger": "bundle_of_heavy_javelins",
+    "qatal_dagger": "bundle_of_heavy_javelins",
+    "estoc": "bundle_of_heavy_javelins"
+   },
+   "reload": {
+    "rides": "light_crossbow",
+    "skill": "Reload"
+   }
+  },
+  "source": "VAMILY.md rule 83 (Paolo 10/10) and rule 120(a) (Paolo 10/18); records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md",
+  "quote": "melee weapons work on one tile away, all guns 2+ minimum / the pistol is a two-tile gun, or a club at one / I wanna start off with the guns too... the guns were supposed to be the main way this is gonna be solved",
+  "why": "our PISTOL is Battle Brothers' dagger (weapon_lines.json, the market's CLASSNAME), a one-tile row, so it never fired: rule 83's two-tile floor shut its only strike out of every shot. Rule 120 is the guns vote rule 47b waited for. A pistol now SHOOTS from two tiles as Battle Brothers' own one-handed missile, the throwing class (range 2 to 4, Throw Javelin's 4 AP and 15 fatigue, +20 to hit and -10 a tile past two, its uses as the rounds it carries), each pistol riding the javelin row of its own price rank (the knife the crude javelins, the dagger and the notched blade the javelins, the rondel, the qatal and the estoc the heavy ones); at ONE tile it is the club its own row always was (Stab, Puncture). The shot's damage, armour and rounds are the javelin row's; its weight, price and name stay the pistol's. An enemy picks a pistol last (the wiki's early bands carry no shooters). THE ROUNDS ARE A MAGAZINE (10/19, measured: with five uses for the whole fight the company fired eleven shots a fight whatever the gap, and shooting could never be the main way it is won): the ridden row's uses are the rounds in the gun, and an empty pistol reloads them all with Battle Brothers' crossbow Reload (the light crossbow's row: 4 AP, its fatigue), only when it is empty (rule 117(b): one clear next thing). The rounds the company carries between fights are ECONOMY's [the first bullets].",
+  "tuned": false
+ },
+ "hit_roll_shift": {
+  "value": {
+   "by_difficulty": [
+    5,
+    5,
+    0,
+    -5
+   ]
+  },
+  "source": "VAMILY.md rule 117(a) (Paolo 10/18); banks/BOHEMIA_TUNING_RULE_117_EASIER_THAN_BB_10_18_26.json combat.hit_roll_shift; records/BOHEMIA_TUNING_THE_DIFFICULTY_STEPS_EXACTLY_10_9_26.md s2 (the wiki, Game Mechanics: Difficulty levels)",
+  "quote": "Beginner: your hit roll 5 points better (roll minus 5), enemy hit roll 5 points worse (roll plus 5) / I want you to be easier than Battle Brothers",
+  "why": "points on your men's hit chance and off theirs, by the door's fights pick (party_math.json difficulty_by_pick: NEW HERE 0, SEEN IT 1, OUTLIVED IT 2; 3 has no door pick): NEW HERE and SEEN IT, the door's default, play at Battle Brothers' Beginner (rule 117(a): their default sits at our hard end, the sliders go up from ours); OUTLIVED IT is their Veteran, our hard end; the fourth step past it. It is inside the number on the tile (TUNING: SHOWN inside the hit number), never hidden.",
+  "tuned": false
+ },
+ "gun_club": {
+  "value": {
+   "row": "bludgeon"
+  },
+  "source": "VAMILY.md rule 83 (Paolo 10/10) and rule 120(a) (Paolo 10/18); records/target/bb/ours.json weapon_rows (a pipe is their mace: the bludgeon)",
+  "quote": "melee weapons work on one tile away, all guns 2+ minimum / the pistol is a two-tile gun, or a club at one / the guns were supposed to be the main way this is gonna be solved",
+  "why": "a gun never fires at a man beside the shooter (rule 83), so a gunman a thug reaches was helpless: measured 10/19, the auto brain walked him out of the thug's reach and he ate the free swing, and the guns kit lost to the pipes kit 63 to 88 in 100 on three thugs. Every gun (ours.gun_classes and the pistol's shot) is a CLUB AT ONE, his own words for the pistol: at one tile it strikes as the plainest row of Battle Brothers' club class, the bludgeon (the pipe's own row, Bash 4 AP), and a gunman with his club does not step out of a man's reach. Both sides: an enemy's crossbow is a rifle too. It holds no ring (rule 103: a gun in his hands holds none).",
   "tuned": false
  }
 }

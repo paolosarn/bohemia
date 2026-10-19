@@ -364,7 +364,28 @@ const FIGHT = (function () {
   function armourRow(part, id) { return DB.armor[part].filter(function (r) { return r.id === id; })[0]; }
   function isRanged(w) { return RANGED.indexOf(w.class) >= 0; }
   /* ZONE OF CONTROL IS MELEE ONLY (rule 103): our PISTOL, SHOTGUN and RIFLE are guns whatever Battle Brothers' row they ride on */
-  function isGun(w) { return R('ours.gun_classes').indexOf(w.class) >= 0; }
+  function isGun(w) { return !!w.gun || R('ours.gun_classes').indexOf(w.class) >= 0; }
+  /* THE PISTOL SHOOTS (rule 120(a), Paolo 10/18: 'the guns were supposed to be the main way this is gonna be solved'; rule 83: 'the
+     pistol is a two-tile gun, or a club at one'): a pistol (Battle Brothers' dagger, the class ours.pistol_shot names) is carried as
+     its SHOT, the javelin row of its own price rank (two to four tiles, its uses its rounds), and its own row is the club at one.
+     The shot keeps the pistol's name, id, weight and price; damage, armour and rounds are the ridden row's. */
+  function pistolShot(w) {
+    const P = R('ours.pistol_shot');
+    if (!w || w.class !== P.class || !P.by_row[w.id]) return null;
+    const r = weaponRow(P.by_row[w.id]), rl = weaponRow(P.reload.rides).skills.filter(function (k) { return k.name === P.reload.skill; })[0];
+    /* the ridden row's uses are the rounds IN THE GUN, a magazine an empty pistol reloads whole (ours.pistol_shot.reload) */
+    const mag = Number(String(r.ammo).match(/\d+/)[0]);
+    return Object.assign({}, r, { id: w.id, name: w.name, value: w.value, fatigue: w.fatigue, durability: w.durability, gun: true, of: w, rides: r.name, mag: mag,
+      skills: r.skills.concat([rl]) });
+  }
+  /* A CLUB AT ONE (rule 83, ours.gun_club): every gun strikes a man beside the shooter as the bludgeon, the pipe's own row */
+  function clubFor(w) { return isGun(w) && isRanged(w) ? weaponRow(R('ours.gun_club').row) : null; }
+  /* the arm he uses on a man: the club when the man is beside him, else what he carries */
+  function armIn(a, t) { return a.club && a.weapon !== a.club && dist(a, t) === 1 ? a.club : a.weapon; }
+  function wielding(a, t, fn) {
+    const k = a.weapon; a.weapon = armIn(a, t);
+    try { return fn(); } finally { a.weapon = k; }
+  }
   function holdsRing(f) { return !(f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)); }
   function strikeSkill(w) { return w.skills.filter(function (s) { return !/^Reload/.test(s.name); })[0]; }
   function reloadSkill(w) { return w.skills.filter(function (s) { return /^Reload/.test(s.name); })[0] || null; }
@@ -410,6 +431,8 @@ const FIGHT = (function () {
     const fm = PK(u, 'fortified_mind'); if (fm && u.resolve !== null) u.resolve = Math.round(u.resolve * (1 + fm.resolve_increase_pct / 100));
     u.hpMax = u.hp; u.armHMax = u.armH; u.armBMax = u.armB;
     u.missStack = 0; u.headNext = false; u.frenzy = 0; u.reachStacks = 0; u.overwhelmed = 0; u.nineUsed = false; u.nineUp = false; u.berserkUsed = false;
+    const ps = pistolShot(u.weapon); if (ps) u.weapon = ps;
+    u.club = clubFor(u.weapon);
     const ammo = u.weapon.ammo ? String(u.weapon.ammo).match(/\d+/) : null;
     u.ammo = ammo ? Number(ammo[0]) : null;
     S.units.push(u); return u;
@@ -440,6 +463,30 @@ const FIGHT = (function () {
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head,
       armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' });
+  }
+  /* GUNS FIRST, IN THE RIGHT HANDS (rule 120(a); ours.guns_first_kit): the kit the crew rows carry, in order, is dealt to the men
+     the origin built: the long guns first, each to the best eye left (the middle of his background's wiki ranged_skill range), the
+     melee jobs to the best arm left, the pistols and the bottles to the rest in the line's order. A man the roster handed gear keeps it. */
+  function bgMid(c, k) {
+    const bg = DB.backgrounds.rows.filter(function (r) { return r.id === c.background; })[0], v = bg && bg.stats[k];
+    return v ? (v[0] + v[v.length - 1]) / (1 + 1) : 0;
+  }
+  function dealKit(crew) {
+    const K = R('ours.guns_first_kit'), free = crew.filter(function (c) { return !c.gear; });
+    const kits = free.map(function (c) { return c.jobs; });
+    const head = function (j) { return j.filter(function (x) { return x !== 'car_door'; })[0]; };
+    const statOf = function (j) { return K.by_eye.indexOf(head(j)) >= 0 ? 'ranged_skill' : K.by_arm.indexOf(head(j)) >= 0 ? 'melee_skill' : null; };
+    const order = kits.map(function (j, i) { return i; }).sort(function (a, b) {
+      const rank = function (i) { const s = statOf(kits[i]); return s === 'ranged_skill' ? 0 : s ? 1 : 1 + 1; };
+      return rank(a) - rank(b) || a - b;
+    });
+    const dealt = new Map();
+    order.forEach(function (i) {
+      const s = statOf(kits[i]), pool = free.filter(function (c) { return !dealt.has(c); });
+      const who = s ? pool.slice().sort(function (a, b) { return bgMid(b, s) - bgMid(a, s); })[0] : pool[0];
+      dealt.set(who, kits[i]);
+    });
+    free.forEach(function (c) { c.jobs = dealt.get(c); });
   }
   /* a skill or a defence the wiki gives as a range is its before-and-after of the day (ours.enemy_tiers.skill_day) */
   function dayStat(v) {
@@ -488,7 +535,9 @@ const FIGHT = (function () {
     const kind = DB.ai.kinds[id] ? R('ai.kinds.' + id) : 'line';
     const wantRanged = kind === 'backline';
     let w = null;
-    gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && isRanged(x) === wantRanged && x.class !== 'throwing') w = x; });
+    /* a pistol is picked last: the wiki's early bands carry no shooters, and its knife is a gun in our hands (ours.pistol_shot) */
+    gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && isRanged(x) === wantRanged && x.class !== 'throwing' && !pistolShot(x)) w = x; });
+    if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && !pistolShot(x)) w = x; });
     if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x)) w = x; });
     if (!w) w = naturalOf(id);
     if (!w) throw new Error('the fight cannot arm ' + id + ': ' + (DB.beastAttacks.refused[id] || 'no weapon in its gear and no attack page'));
@@ -638,7 +687,8 @@ const FIGHT = (function () {
           if (m.look) t.look = m.look;   /* ONE MAN, ONE LOOK (RUN TWO, 10/19): the look he carries, read in crewUnit */
           if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; return t; })
       : base);
-    const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length)));
+    const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
+    dealKit(crew);
     const crewUnits = crew.map(crewUnit);
     const band = bandOf(opts);
     const bandUnits = band.map(enemyUnit);
@@ -1002,7 +1052,11 @@ const FIGHT = (function () {
     const floor = isGun(w) ? R('ours.gun_min_range') : 1;   /* rule 83: a gun never fires at a man beside the shooter */
     return d >= Math.max(rangeMin(w), floor) && d <= rangeMax(w.range) + up && sees(a, t);
   }
-  function hitChance(a, t, skill) {
+  function hitChance(a, t, skill) { return wielding(a, t, function () { return chanceWith(a, t, skill && a.weapon.skills.indexOf(skill) >= 0 ? skill : strikeSkill(a.weapon)); }); }
+  /* BATTLE BROTHERS' BEGINNER IS OUR DEFAULT (rule 117(a); ours.hit_roll_shift): points on his men's chance, off theirs, by the
+     door's fights pick; inside the number on the tile */
+  function rollShift(a) { const v = R('ours.hit_roll_shift').by_difficulty, k = v[Math.max(0, Math.min(v.length - 1, S.difficulty || 0))]; return a.side === 'you' ? k : -k; }
+  function chanceWith(a, t, skill) {
     const w = a.weapon, parts = [];
     let ch;
     if (!isRanged(w)) {
@@ -1046,6 +1100,7 @@ const FIGHT = (function () {
     const la = level(a.x, a.y), lt = level(t.x, t.y);
     if (la > lt) { ch += R('hit_chance.height.higher_attacker_bonus'); parts.push('above'); }
     if (la < lt && !isRanged(w)) { ch += R('hit_chance.height.lower_attacker_penalty'); parts.push('below'); }
+    ch += rollShift(a);
     const cap = R('hit_chance.cap');
     return { chance: Math.round(Math.max(cap.min, Math.min(cap.max, ch))), parts: parts };
   }
@@ -1074,6 +1129,7 @@ const FIGHT = (function () {
   }
   function headChance(a) { return R('head_and_critical.base_head_chance_pct') + (a.weapon.head_hit_chance || 0); }
   function damageType(w) {
+    if (w.of) return damageType(w.of);
     if (['mace', 'hammer', 'flail'].indexOf(w.class) >= 0) return 'blunt';
     if (['dagger', 'spear', 'crossbow', 'bow', 'firearm', 'polearm'].indexOf(w.class) >= 0) return 'piercing';
     return 'cutting';
@@ -1113,7 +1169,8 @@ const FIGHT = (function () {
   function apply(a, t, r, opt) {
     opt = opt || {};
     if (!isRanged(a.weapon)) S.contact = true;
-    emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts });
+    emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts,
+      shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands });   /* the arm that struck: the pistol's shot or its club at one */
     if (PK(a, 'overwhelm') && S.order.indexOf(t.id) > S.idx) t.overwhelmed++;   /* he has not acted yet this round */
     if (!r.hit) {
       a.missStack++;
@@ -1241,31 +1298,38 @@ const FIGHT = (function () {
   /* ---------------- STRIKING ---------------- */
   function canStrike(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return false;
-    const s = strikeSkill(a.weapon);
-    if (a.ap < skillAP(a.weapon, s, a)) return false;
-    if (a.fat + skillFat(a, s) > fatMax(a)) return false;
-    if (reloadSkill(a.weapon) && !a.loaded) return false;
-    if (a.ammo !== null && a.ammo <= 0) return false;
-    return inRange(a, t);
+    return wielding(a, t, function () {
+      const s = strikeSkill(a.weapon);
+      if (a.ap < skillAP(a.weapon, s, a)) return false;
+      if (a.fat + skillFat(a, s) > fatMax(a)) return false;
+      if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return false;
+      if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return false;   /* the rounds are the shot's; the club at one spends none */
+      return inRange(a, t);
+    });
   }
   function strike(a, t, forced) {
     if (S.over || current() !== a || !canStrike(a, t)) return null;
-    const s = strikeSkill(a.weapon);
-    a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
-    if (reloadSkill(a.weapon)) a.loaded = false;
-    if (a.ammo !== null) a.ammo--;
-    S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
-    const r = resolveAttack(a, t, s, forced);
-    apply(a, t, r);
+    const r = wielding(a, t, function () {
+      const s = strikeSkill(a.weapon);
+      a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
+      if (reloadSkill(a.weapon) && !a.weapon.mag) a.loaded = false;
+      if (a.weapon.ammo && a.ammo !== null) a.ammo--;
+      S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
+      const q = resolveAttack(a, t, s, forced);
+      apply(a, t, q);
+      return q;
+    });
     afterAction(a); return r;
   }
+  /* a magazine reloads only when it is empty (rule 117(b): one clear next thing) */
   function canReload(a) {
     const s = reloadSkill(a.weapon);
-    return !!s && !a.loaded && a.ap >= skillAP(a.weapon, s, a) && a.fat + skillFat(a, s) <= fatMax(a);
+    return !!s && (a.weapon.mag ? a.ammo <= 0 : !a.loaded) && a.ap >= skillAP(a.weapon, s, a) && a.fat + skillFat(a, s) <= fatMax(a);
   }
   function reload(a) {
     if (S.over || current() !== a || !canReload(a)) return false;
     const s = reloadSkill(a.weapon); a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s); a.loaded = true;
+    if (a.weapon.mag) a.ammo = a.weapon.mag;
     emit({ t: 'reload', id: a.id }); afterAction(a); return true;
   }
   /* ---------------- THE SEVEN SKILLS A PERK UNLOCKS (rule 48) ----------------
@@ -1369,9 +1433,11 @@ const FIGHT = (function () {
     return R('ai.archetypes.' + (DB.ai.archetypes[u.arche] ? u.arche : 'line'));
   }
   function expected(a, t) {
-    const hc = hitChance(a, t, strikeSkill(a.weapon)).chance;
-    const mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1);
-    return hc * mean / Math.max(1, t.hp + t.armB);
+    return wielding(a, t, function () {
+      const hc = hitChance(a, t, strikeSkill(a.weapon)).chance;
+      const mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1);
+      return hc * mean / Math.max(1, t.hp + t.armB);
+    });
   }
   /* the start of a turn: rally the breaking, rest when too winded to swing (Recover takes the whole turn) */
   function aiFirst(u) {
@@ -1464,12 +1530,12 @@ const FIGHT = (function () {
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
-    if (ranged && adj.length && A.step_out_of_melee && canUse(u, 'footwork')) {
+    if (ranged && !u.club && adj.length && A.step_out_of_melee && canUse(u, 'footwork')) {
       /* sidestep out of reach without the free swing */
       const out = skillTargets(u, 'footwork').filter(function (q) { return !zocOn(u, q.x, q.y).length; })[0];
       if (out && useSkill(u, 'footwork', out)) return true;
     }
-    if (ranged && adj.length && A.step_out_of_melee && !u.steppedOut) {
+    if (ranged && !u.club && adj.length && A.step_out_of_melee && !u.steppedOut) {
       u.steppedOut = true;
       const f = reach(u); let best = null, bs = -Infinity;
       Object.keys(f.best).forEach(function (k) {
