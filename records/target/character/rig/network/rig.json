@@ -10,6 +10,10 @@
  "scale_from_model": 1.1586,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
+ "ground_screen": [
+  111.0,
+  162.03779999999998
+ ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
@@ -26,16 +30,31 @@
    "network_trouser",
    "network_trousers"
   ],
+  "wear_by_material": {
+   "network_skin": 0.25,
+   "network_eyes": 0.0,
+   "network_hair": 0.15
+  },
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1586)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1586)",
+  "dents": {
+   "meshes": 8,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -58,8 +77,18 @@
   "network_trouser": "#ff1966",
   "network_trousers": "#19a9ff"
  },
+ "obj_table": {
+  "Cesium_Man": "#99ff6c",
+  "network_coat": "#ff6cc7",
+  "network_coat_skirt": "#6ce9ff",
+  "network_hair": "#fff86c",
+  "network_hand_L": "#d86cff",
+  "network_hand_R": "#6cffb1",
+  "network_shoe": "#ff796c",
+  "network_trouser": "#6ca1ff"
+ },
  "model": "records/character/rig/network.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -93,10 +122,10 @@
   "records/target/character/rig/network/rig_NW.png"
  ],
  "crop_box_px": [
-  66,
-  51,
+  65,
+  50,
   156,
-  182
+  183
  ],
  "shadow_files": [
   "records/target/character/rig/network/shadow_N.png",
@@ -109,10 +138,14 @@
   "records/target/character/rig/network/shadow_NW.png"
  ],
  "ground_px": [
-  45,
-  60
+  46,
+  112
  ],
- "colours": 46138,
+ "look_px": [
+  46,
+  61
+ ],
+ "colours": 46815,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -127,6 +160,108 @@
    "frames": [
     1.5
    ],
+   "motion_px": {
+    "N": [
+     {
+      "Cesium_Man": 0.0,
+      "network_coat": 0.0,
+      "network_coat_skirt": 0.0,
+      "network_hair": 0.0,
+      "network_hand_L": 0.0,
+      "network_hand_R": 0.0,
+      "network_shoe": 0.0,
+      "network_trouser": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "Cesium_Man": 0.0,
+      "network_coat": 0.0,
+      "network_coat_skirt": 0.0,
+      "network_hair": 0.0,
+      "network_hand_L": 0.0,
+      "network_hand_R": 0.0,
+      "network_shoe": 0.0,
+      "network_trouser": 0.0
+     }
+    ],
+    "E": [
+     {
+      "Cesium_Man": 0.0,
+      "network_coat": 0.0,
+      "network_coat_skirt": 0.0,
+      "network_hair": 0.0,
+      "network_hand_L": 0.0,
+      "network_hand_R": 0.0,
+      "network_shoe": 0.0,
+      "network_trouser": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "Cesium_Man": 0.0,
+      "network_coat": 0.0,
+      "network_coat_skirt": 0.0,
+      "network_hair": 0.0,
+      "network_hand_L": 0.0,
+      "network_hand_R": 0.0,
+      "network_shoe": 0.0,
+      "network_trouser": 0.0
+     }
+    ],
+    "S": [
+     {
+      "Cesium_Man": 0.0,
+      "network_coat": 0.0,
+      "network_coat_skirt": 0.0,
+      "network_hair": 0.0,
+      "network_hand_L": 0.0,
+      "network_hand_R": 0.0,
+      "network_shoe": 0.0,
+      "network_trouser": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "Cesium_Man": 0.0,
+      "network_coat": 0.0,
+      "network_coat_skirt": 0.0,
+      "network_hair": 0.0,
+      "network_hand_L": 0.0,
+      "network_hand_R": 0.0,
+      "network_shoe": 0.0,
+      "network_trouser": 0.0
+     }
+    ],
+    "W": [
+     {
+      "Cesium_Man": 0.0,
+      "network_coat": 0.0,
+      "network_coat_skirt": 0.0,
+      "network_hair": 0.0,
+      "network_hand_L": 0.0,
+      "network_hand_R": 0.0,
+      "network_shoe": 0.0,
+      "network_trouser": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "Cesium_Man": 0.0,
+      "network_coat": 0.0,
+      "network_coat_skirt": 0.0,
+      "network_hair": 0.0,
+      "network_hand_L": 0.0,
+      "network_hand_R": 0.0,
+      "network_shoe": 0.0,
+      "network_trouser": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/network/rig_Stand_N_k00.png",
     "records/target/character/rig/network/rig_Stand_NE_k00.png",
@@ -136,7 +271,8 @@
     "records/target/character/rig/network/rig_Stand_SW_k00.png",
     "records/target/character/rig/network/rig_Stand_W_k00.png",
     "records/target/character/rig/network/rig_Stand_NW_k00.png"
-   ]
+   ],
+   "light_files": []
   },
   "Anim_0": {
    "keys": 6,
@@ -153,6 +289,508 @@
     36.0,
     44.0
    ],
+   "motion_px": {
+    "N": [
+     {
+      "Cesium_Man": 19.539,
+      "network_coat": 8.073,
+      "network_coat_skirt": 11.616,
+      "network_hair": 4.342,
+      "network_hand_L": 7.327,
+      "network_hand_R": 9.12,
+      "network_shoe": 20.079,
+      "network_trouser": 13.195
+     },
+     {
+      "Cesium_Man": 21.398,
+      "network_coat": 21.515,
+      "network_coat_skirt": 21.204,
+      "network_hair": 7.558,
+      "network_hand_L": 17.779,
+      "network_hand_R": 26.181,
+      "network_shoe": 18.447,
+      "network_trouser": 22.375
+     },
+     {
+      "Cesium_Man": 16.687,
+      "network_coat": 11.79,
+      "network_coat_skirt": 13.388,
+      "network_hair": 2.422,
+      "network_hand_L": 15.509,
+      "network_hand_R": 7.409,
+      "network_shoe": 19.698,
+      "network_trouser": 17.471
+     },
+     {
+      "Cesium_Man": 20.98,
+      "network_coat": 13.672,
+      "network_coat_skirt": 15.42,
+      "network_hair": 4.577,
+      "network_hand_L": 15.119,
+      "network_hand_R": 13.812,
+      "network_shoe": 21.861,
+      "network_trouser": 13.627
+     },
+     {
+      "Cesium_Man": 24.047,
+      "network_coat": 21.371,
+      "network_coat_skirt": 23.697,
+      "network_hair": 10.62,
+      "network_hand_L": 23.794,
+      "network_hand_R": 13.201,
+      "network_shoe": 25.637,
+      "network_trouser": 25.394
+     },
+     {
+      "Cesium_Man": 17.533,
+      "network_coat": 10.369,
+      "network_coat_skirt": 15.878,
+      "network_hair": 4.56,
+      "network_hand_L": 5.35,
+      "network_hand_R": 15.303,
+      "network_shoe": 14.941,
+      "network_trouser": 18.869
+     }
+    ],
+    "NE": [
+     {
+      "Cesium_Man": 19.812,
+      "network_coat": 10.004,
+      "network_coat_skirt": 11.509,
+      "network_hair": 6.627,
+      "network_hand_L": 7.791,
+      "network_hand_R": 11.519,
+      "network_shoe": 20.433,
+      "network_trouser": 14.57
+     },
+     {
+      "Cesium_Man": 23.114,
+      "network_coat": 22.121,
+      "network_coat_skirt": 20.281,
+      "network_hair": 7.454,
+      "network_hand_L": 19.354,
+      "network_hand_R": 27.856,
+      "network_shoe": 23.136,
+      "network_trouser": 22.694
+     },
+     {
+      "Cesium_Man": 19.55,
+      "network_coat": 12.439,
+      "network_coat_skirt": 12.98,
+      "network_hair": 3.807,
+      "network_hand_L": 16.562,
+      "network_hand_R": 7.155,
+      "network_shoe": 21.817,
+      "network_trouser": 16.694
+     },
+     {
+      "Cesium_Man": 21.384,
+      "network_coat": 12.766,
+      "network_coat_skirt": 15.592,
+      "network_hair": 4.531,
+      "network_hand_L": 14.003,
+      "network_hand_R": 13.982,
+      "network_shoe": 22.172,
+      "network_trouser": 15.15
+     },
+     {
+      "Cesium_Man": 30.33,
+      "network_coat": 22.461,
+      "network_coat_skirt": 23.141,
+      "network_hair": 8.304,
+      "network_hand_L": 25.402,
+      "network_hand_R": 15.108,
+      "network_shoe": 31.846,
+      "network_trouser": 25.613
+     },
+     {
+      "Cesium_Man": 16.847,
+      "network_coat": 11.548,
+      "network_coat_skirt": 15.811,
+      "network_hair": 3.375,
+      "network_hand_L": 6.991,
+      "network_hand_R": 16.366,
+      "network_shoe": 16.791,
+      "network_trouser": 18.115
+     }
+    ],
+    "E": [
+     {
+      "Cesium_Man": 18.723,
+      "network_coat": 10.071,
+      "network_coat_skirt": 10.072,
+      "network_hair": 7.4,
+      "network_hand_L": 7.962,
+      "network_hand_R": 12.011,
+      "network_shoe": 19.084,
+      "network_trouser": 15.603
+     },
+     {
+      "Cesium_Man": 28.472,
+      "network_coat": 24.81,
+      "network_coat_skirt": 17.573,
+      "network_hair": 6.857,
+      "network_hand_L": 21.648,
+      "network_hand_R": 31.882,
+      "network_shoe": 29.548,
+      "network_trouser": 23.381
+     },
+     {
+      "Cesium_Man": 27.272,
+      "network_coat": 13.518,
+      "network_coat_skirt": 12.333,
+      "network_hair": 4.687,
+      "network_hand_L": 19.05,
+      "network_hand_R": 7.832,
+      "network_shoe": 28.501,
+      "network_trouser": 20.108
+     },
+     {
+      "Cesium_Man": 20.933,
+      "network_coat": 16.044,
+      "network_coat_skirt": 14.085,
+      "network_hair": 3.899,
+      "network_hand_L": 17.79,
+      "network_hand_R": 13.54,
+      "network_shoe": 21.514,
+      "network_trouser": 16.878
+     },
+     {
+      "Cesium_Man": 37.579,
+      "network_coat": 20.582,
+      "network_coat_skirt": 20.903,
+      "network_hair": 7.123,
+      "network_hand_L": 24.037,
+      "network_hand_R": 16.043,
+      "network_shoe": 38.543,
+      "network_trouser": 26.566
+     },
+     {
+      "Cesium_Man": 24.081,
+      "network_coat": 14.804,
+      "network_coat_skirt": 15.275,
+      "network_hair": 2.873,
+      "network_hand_L": 8.159,
+      "network_hand_R": 21.363,
+      "network_shoe": 24.806,
+      "network_trouser": 18.863
+     }
+    ],
+    "SE": [
+     {
+      "Cesium_Man": 15.954,
+      "network_coat": 8.882,
+      "network_coat_skirt": 9.583,
+      "network_hair": 7.5,
+      "network_hand_L": 6.031,
+      "network_hand_R": 10.946,
+      "network_shoe": 16.258,
+      "network_trouser": 13.559
+     },
+     {
+      "Cesium_Man": 27.69,
+      "network_coat": 21.563,
+      "network_coat_skirt": 17.434,
+      "network_hair": 6.987,
+      "network_hand_L": 19.843,
+      "network_hand_R": 28.468,
+      "network_shoe": 28.37,
+      "network_trouser": 22.408
+     },
+     {
+      "Cesium_Man": 32.433,
+      "network_coat": 11.995,
+      "network_coat_skirt": 11.819,
+      "network_hair": 5.075,
+      "network_hand_L": 17.589,
+      "network_hand_R": 7.35,
+      "network_shoe": 33.949,
+      "network_trouser": 23.429
+     },
+     {
+      "Cesium_Man": 18.857,
+      "network_coat": 16.593,
+      "network_coat_skirt": 11.25,
+      "network_hair": 2.692,
+      "network_hand_L": 19.695,
+      "network_hand_R": 9.916,
+      "network_shoe": 19.5,
+      "network_trouser": 15.646
+     },
+     {
+      "Cesium_Man": 34.713,
+      "network_coat": 14.21,
+      "network_coat_skirt": 17.874,
+      "network_hair": 8.193,
+      "network_hand_L": 17.316,
+      "network_hand_R": 13.239,
+      "network_shoe": 35.622,
+      "network_trouser": 22.439
+     },
+     {
+      "Cesium_Man": 28.562,
+      "network_coat": 15.091,
+      "network_coat_skirt": 14.709,
+      "network_hair": 4.17,
+      "network_hand_L": 7.795,
+      "network_hand_R": 22.738,
+      "network_shoe": 29.439,
+      "network_trouser": 21.816
+     }
+    ],
+    "S": [
+     {
+      "Cesium_Man": 13.645,
+      "network_coat": 8.975,
+      "network_coat_skirt": 9.806,
+      "network_hair": 7.288,
+      "network_hand_L": 3.654,
+      "network_hand_R": 10.996,
+      "network_shoe": 13.836,
+      "network_trouser": 11.838
+     },
+     {
+      "Cesium_Man": 27.208,
+      "network_coat": 16.616,
+      "network_coat_skirt": 17.495,
+      "network_hair": 7.536,
+      "network_hand_L": 15.154,
+      "network_hand_R": 21.732,
+      "network_shoe": 27.857,
+      "network_trouser": 21.995
+     },
+     {
+      "Cesium_Man": 33.723,
+      "network_coat": 10.24,
+      "network_coat_skirt": 11.798,
+      "network_hair": 5.096,
+      "network_hand_L": 15.37,
+      "network_hand_R": 5.6,
+      "network_shoe": 35.352,
+      "network_trouser": 24.475
+     },
+     {
+      "Cesium_Man": 15.745,
+      "network_coat": 14.032,
+      "network_coat_skirt": 11.288,
+      "network_hair": 2.955,
+      "network_hand_L": 17.601,
+      "network_hand_R": 3.76,
+      "network_shoe": 16.455,
+      "network_trouser": 13.462
+     },
+     {
+      "Cesium_Man": 30.004,
+      "network_coat": 10.164,
+      "network_coat_skirt": 15.907,
+      "network_hair": 9.929,
+      "network_hand_L": 11.919,
+      "network_hand_R": 11.28,
+      "network_shoe": 31.392,
+      "network_trouser": 17.851
+     },
+     {
+      "Cesium_Man": 29.727,
+      "network_coat": 14.557,
+      "network_coat_skirt": 14.304,
+      "network_hair": 5.236,
+      "network_hand_L": 7.56,
+      "network_hand_R": 21.578,
+      "network_shoe": 30.588,
+      "network_trouser": 22.739
+     }
+    ],
+    "SW": [
+     {
+      "Cesium_Man": 16.804,
+      "network_coat": 10.137,
+      "network_coat_skirt": 9.256,
+      "network_hair": 6.147,
+      "network_hand_L": 5.626,
+      "network_hand_R": 12.039,
+      "network_shoe": 17.142,
+      "network_trouser": 14.324
+     },
+     {
+      "Cesium_Man": 27.691,
+      "network_coat": 19.468,
+      "network_coat_skirt": 17.516,
+      "network_hair": 7.675,
+      "network_hand_L": 16.772,
+      "network_hand_R": 25.147,
+      "network_shoe": 28.326,
+      "network_trouser": 22.408
+     },
+     {
+      "Cesium_Man": 32.673,
+      "network_coat": 10.917,
+      "network_coat_skirt": 12.287,
+      "network_hair": 4.717,
+      "network_hand_L": 16.39,
+      "network_hand_R": 5.508,
+      "network_shoe": 34.246,
+      "network_trouser": 23.551
+     },
+     {
+      "Cesium_Man": 18.516,
+      "network_coat": 12.899,
+      "network_coat_skirt": 10.408,
+      "network_hair": 3.992,
+      "network_hand_L": 16.229,
+      "network_hand_R": 7.587,
+      "network_shoe": 19.134,
+      "network_trouser": 15.417
+     },
+     {
+      "Cesium_Man": 34.459,
+      "network_coat": 16.249,
+      "network_coat_skirt": 16.852,
+      "network_hair": 10.789,
+      "network_hand_L": 18.842,
+      "network_hand_R": 14.281,
+      "network_shoe": 35.427,
+      "network_trouser": 21.705
+     },
+     {
+      "Cesium_Man": 28.715,
+      "network_coat": 14.914,
+      "network_coat_skirt": 14.274,
+      "network_hair": 5.726,
+      "network_hand_L": 8.129,
+      "network_hand_R": 22.183,
+      "network_shoe": 29.605,
+      "network_trouser": 21.844
+     }
+    ],
+    "W": [
+     {
+      "Cesium_Man": 18.765,
+      "network_coat": 9.916,
+      "network_coat_skirt": 10.425,
+      "network_hair": 3.429,
+      "network_hand_L": 7.807,
+      "network_hand_R": 11.44,
+      "network_shoe": 19.198,
+      "network_trouser": 15.494
+     },
+     {
+      "Cesium_Man": 28.822,
+      "network_coat": 23.81,
+      "network_coat_skirt": 17.948,
+      "network_hair": 7.445,
+      "network_hand_L": 21.328,
+      "network_hand_R": 31.339,
+      "network_shoe": 29.863,
+      "network_trouser": 23.382
+     },
+     {
+      "Cesium_Man": 27.957,
+      "network_coat": 13.168,
+      "network_coat_skirt": 12.939,
+      "network_hair": 3.753,
+      "network_hand_L": 18.872,
+      "network_hand_R": 7.267,
+      "network_shoe": 29.332,
+      "network_trouser": 20.374
+     },
+     {
+      "Cesium_Man": 20.975,
+      "network_coat": 15.763,
+      "network_coat_skirt": 14.254,
+      "network_hair": 4.458,
+      "network_hand_L": 18.762,
+      "network_hand_R": 12.273,
+      "network_shoe": 21.537,
+      "network_trouser": 16.944
+     },
+     {
+      "Cesium_Man": 37.655,
+      "network_coat": 21.949,
+      "network_coat_skirt": 19.806,
+      "network_hair": 10.76,
+      "network_hand_L": 25.11,
+      "network_hand_R": 16.173,
+      "network_shoe": 38.604,
+      "network_trouser": 26.475
+     },
+     {
+      "Cesium_Man": 24.494,
+      "network_coat": 15.098,
+      "network_coat_skirt": 14.718,
+      "network_hair": 5.746,
+      "network_hand_L": 7.56,
+      "network_hand_R": 22.634,
+      "network_shoe": 25.278,
+      "network_trouser": 18.921
+     }
+    ],
+    "NW": [
+     {
+      "Cesium_Man": 19.812,
+      "network_coat": 8.026,
+      "network_coat_skirt": 11.572,
+      "network_hair": 2.185,
+      "network_hand_L": 7.92,
+      "network_hand_R": 9.019,
+      "network_shoe": 20.415,
+      "network_trouser": 14.205
+     },
+     {
+      "Cesium_Man": 25.454,
+      "network_coat": 24.196,
+      "network_coat_skirt": 20.464,
+      "network_hair": 7.32,
+      "network_hand_L": 20.566,
+      "network_hand_R": 30.818,
+      "network_shoe": 24.375,
+      "network_trouser": 22.701
+     },
+     {
+      "Cesium_Man": 18.984,
+      "network_coat": 12.917,
+      "network_coat_skirt": 13.372,
+      "network_hair": 2.448,
+      "network_hand_L": 17.754,
+      "network_hand_R": 7.89,
+      "network_shoe": 21.409,
+      "network_trouser": 16.839
+     },
+     {
+      "Cesium_Man": 21.368,
+      "network_coat": 16.738,
+      "network_coat_skirt": 15.596,
+      "network_hair": 4.569,
+      "network_hand_L": 19.259,
+      "network_hand_R": 14.023,
+      "network_shoe": 22.17,
+      "network_trouser": 15.084
+     },
+     {
+      "Cesium_Man": 30.751,
+      "network_coat": 22.077,
+      "network_coat_skirt": 22.556,
+      "network_hair": 10.753,
+      "network_hand_L": 24.879,
+      "network_hand_R": 14.718,
+      "network_shoe": 32.288,
+      "network_trouser": 25.587
+     },
+     {
+      "Cesium_Man": 16.891,
+      "network_coat": 13.657,
+      "network_coat_skirt": 15.449,
+      "network_hair": 5.349,
+      "network_hand_L": 5.65,
+      "network_hand_R": 18.545,
+      "network_shoe": 17.048,
+      "network_trouser": 18.155
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/character/rig/network/rig_Anim_0_N_k00.png",
     "records/target/character/rig/network/rig_Anim_0_N_k01.png",
@@ -202,55 +840,56 @@
     "records/target/character/rig/network/rig_Anim_0_NW_k03.png",
     "records/target/character/rig/network/rig_Anim_0_NW_k04.png",
     "records/target/character/rig/network/rig_Anim_0_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   }
  },
  "card": {
   "family": "prop",
-  "out": 3,
+  "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 131",
-   "OUT  colours >= 2330: 2090",
-   "OK   top 8 carry <= 11%: 2.3",
-   "OUT  value span >= 118: 108",
-   "OK   saturation <= 0.81: 0.299",
-   "OUT  light: top minus bottom >= -2.5: -12.4",
-   "OK   edge between -35 and +7: -20.0",
-   "OK   grain <= 2.22 px a run: 1.8"
+   "OK   long side >= floor 96: 133",
+   "OUT  colours >= 2330: 2065",
+   "OK   top 8 carry <= 11%: 3.1",
+   "OK   value span >= 118: 123",
+   "OK   saturation <= 0.81: 0.249",
+   "OK   light: top minus bottom >= -2.5: 0.1",
+   "OK   edge between -35 and +7: -20.6",
+   "OK   grain <= 2.22 px a run: 1.79"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.8%",
+   "OK   stray pixels at 8 steps <= 14%: 4.0%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OUT  light from above (180 to 360 degrees, or flat): 116.4"
+   "OK   light from above (180 to 360 degrees, or flat): 222.6"
   ],
-  "verdict": "3 of 8 out -> BACK before VOTE",
+  "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/rig/network/rig_S.png"
  },
  "cls": "person",
  "card_guide": {
   "cls": "person",
-  "out": 2,
+  "out": 0,
   "rows": [
-   "OK   long side >= floor 96: 131",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2465 px): 2090",
-   "OK   top 8 carry <= 11%: 2.3",
-   "OUT  value span >= 118: 108",
-   "OK   saturation <= 0.81: 0.299",
-   "OUT  light: top minus bottom >= -2.5: -12.4",
-   "OK   edge between -35 and +7: -20.0",
-   "OK   grain <= 2.22 px a run: 1.8"
+   "OK   long side >= floor 96: 133",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2447 px): 2065",
+   "OK   top 8 carry <= 11%: 3.1",
+   "OK   value span >= 118: 123",
+   "OK   saturation <= 0.81: 0.249",
+   "OK   light: top minus bottom >= -2.5: 0.1",
+   "OK   edge between -35 and +7: -20.6",
+   "OK   grain <= 2.22 px a run: 1.79"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "2 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
-   30,
-   112
+   31,
+   113
   ],
-  "opaque_px": 2465,
-  "colours": 2090
+  "opaque_px": 2447,
+  "colours": 2065
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -299,7 +938,32 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "breaks": [],
  "guide": {
@@ -315,5 +979,71 @@
   "records/target/character/rig/network/rigid_SW.png",
   "records/target/character/rig/network/rigid_W.png",
   "records/target/character/rig/network/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/character/rig/network/rigobj_N.png",
+  "records/target/character/rig/network/rigobj_NE.png",
+  "records/target/character/rig/network/rigobj_E.png",
+  "records/target/character/rig/network/rigobj_SE.png",
+  "records/target/character/rig/network/rigobj_S.png",
+  "records/target/character/rig/network/rigobj_SW.png",
+  "records/target/character/rig/network/rigobj_W.png",
+  "records/target/character/rig/network/rigobj_NW.png",
+  "records/target/character/rig/network/rigobj_Stand_N_k00.png",
+  "records/target/character/rig/network/rigobj_Stand_NE_k00.png",
+  "records/target/character/rig/network/rigobj_Stand_E_k00.png",
+  "records/target/character/rig/network/rigobj_Stand_SE_k00.png",
+  "records/target/character/rig/network/rigobj_Stand_S_k00.png",
+  "records/target/character/rig/network/rigobj_Stand_SW_k00.png",
+  "records/target/character/rig/network/rigobj_Stand_W_k00.png",
+  "records/target/character/rig/network/rigobj_Stand_NW_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_N_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_N_k01.png",
+  "records/target/character/rig/network/rigobj_Anim_0_N_k02.png",
+  "records/target/character/rig/network/rigobj_Anim_0_N_k03.png",
+  "records/target/character/rig/network/rigobj_Anim_0_N_k04.png",
+  "records/target/character/rig/network/rigobj_Anim_0_N_k05.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NE_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NE_k01.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NE_k02.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NE_k03.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NE_k04.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NE_k05.png",
+  "records/target/character/rig/network/rigobj_Anim_0_E_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_E_k01.png",
+  "records/target/character/rig/network/rigobj_Anim_0_E_k02.png",
+  "records/target/character/rig/network/rigobj_Anim_0_E_k03.png",
+  "records/target/character/rig/network/rigobj_Anim_0_E_k04.png",
+  "records/target/character/rig/network/rigobj_Anim_0_E_k05.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SE_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SE_k01.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SE_k02.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SE_k03.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SE_k04.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SE_k05.png",
+  "records/target/character/rig/network/rigobj_Anim_0_S_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_S_k01.png",
+  "records/target/character/rig/network/rigobj_Anim_0_S_k02.png",
+  "records/target/character/rig/network/rigobj_Anim_0_S_k03.png",
+  "records/target/character/rig/network/rigobj_Anim_0_S_k04.png",
+  "records/target/character/rig/network/rigobj_Anim_0_S_k05.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SW_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SW_k01.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SW_k02.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SW_k03.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SW_k04.png",
+  "records/target/character/rig/network/rigobj_Anim_0_SW_k05.png",
+  "records/target/character/rig/network/rigobj_Anim_0_W_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_W_k01.png",
+  "records/target/character/rig/network/rigobj_Anim_0_W_k02.png",
+  "records/target/character/rig/network/rigobj_Anim_0_W_k03.png",
+  "records/target/character/rig/network/rigobj_Anim_0_W_k04.png",
+  "records/target/character/rig/network/rigobj_Anim_0_W_k05.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NW_k00.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NW_k01.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NW_k02.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NW_k03.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NW_k04.png",
+  "records/target/character/rig/network/rigobj_Anim_0_NW_k05.png"
  ]
 }
