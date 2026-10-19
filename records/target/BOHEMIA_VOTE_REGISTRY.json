@@ -13433,6 +13433,26 @@
      280
     ]
    }
+  },
+  {
+   "id": "run-the-map-he-opens-is-painted-10-19",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "c2dc8953",
+   "made": "10/19",
+   "title": "THE MAP YOU OPEN ON IS THE PAINTED CITY: ONE FREEWAY, STREETS THAT JOIN, NO GLOWING BEADS",
+   "why": "The map you open on was every block's picture shrunk into one speckle with a string of glowing beads over every big street; now it is the painted city you liked at the far end, drawn twice as fine, with the freeway one band, and the beads only light up at night. You see it on the DEMO's map the moment you press BEGIN; pinch in close and the blocks' own art comes back.",
+   "before_after": {
+    "before": "the map at BUILD 10/19b from the game's camera on 390 x 844 (left)",
+    "after": "the same spot at BUILD 10/19c (right)",
+    "scale": "1:1"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_MAP_HE_OPENS_IS_PAINTED_10_19.webp",
+    "first": "../records/target/vote_first/run-the-map-he-opens-is-painted-10-19.webp",
+    "firstAt": [848, 600, 760, 700]
+   }
   }
  ],
  "verdicts": [
