@@ -69,12 +69,17 @@ def man_keys():
     return dict(Aim=[aim, kick, aim], Swing=[wind, blow, follow], Hit=[rock, rock2], Fall=[buckle, tip, still])
 
 
-def beast_keys(arm):
-    """a beast's Hit and Fall: the whole animal rocked away from the blow, then laid on its side"""
-    root = arm.pose.bones[0].name
-    for pb in arm.pose.bones:
-        if pb.parent is None: root = pb.name; break
-    return root
+def beast_keys(lo, hi):
+    """a beast's Hit and Fall, the whole animal in the WORLD's axes (a four-legged model's bones come in its own units and
+    turns): its long axis is Y (the head toward -Y, the glTF front), its side X, up Z. Hit: the front comes up off the
+    ground about the hind feet (two keys, the second smaller). Fall: it rolls onto its side about its right flank's foot
+    line (25, 65, 90 degrees) and slides so the body lies over the tile it stood on."""
+    w, L, h = hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]
+    cx, cy = (lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2
+    hind = (cx, hi[1], lo[2]); side = (hi[0], cy, lo[2])
+    def fall(deg, k): return [('WROOT', side, (0, 1, 0), deg, (-(w / 2 + h / 2) * k, 0, -0.06 * h * (1 - k)))]
+    return dict(Hit=[[('WROOT', hind, (1, 0, 0), -16, (0, 0.04 * L, 0))], [('WROOT', hind, (1, 0, 0), -6, (0, 0.02 * L, 0))]],
+                Fall=[fall(25, 0.2), fall(65, 0.65), fall(90, 1.0)])
 
 
 def main():
@@ -131,7 +136,12 @@ def main():
         for pb in arm.pose.bones: pb.matrix_basis = base[pb.name].copy()
         bpy.context.view_layer.update()
         for op in sorted(ops, key=lambda o: order.index(o[0]) if o[0] in order else -1):
-            if op[0] == 'ROOT':
+            if op[0] == 'WROOT':   # the whole model about a line in the world's axes, carried into the armature's own space
+                _, piv, ax, deg, move = op
+                pb = arm.pose.bones[order[0]]; A = arm.matrix_world; P = mathutils.Vector(piv)
+                Rw = mathutils.Matrix.Translation(P + mathutils.Vector(move)) @ mathutils.Matrix.Rotation(math.radians(deg), 4, mathutils.Vector(ax)) @ mathutils.Matrix.Translation(-P)
+                pb.matrix = A.inverted() @ Rw @ A @ pb.matrix
+            elif op[0] == 'ROOT':
                 _, piv, ax, deg, move = op
                 pb = arm.pose.bones[order[0]]
                 M = pb.matrix.copy(); P = mathutils.Vector(piv)
@@ -146,12 +156,11 @@ def main():
             bpy.context.view_layer.update()
 
     if beast:
-        root = beast_keys(arm)
-        hip = arm.pose.bones[root].matrix.translation.copy()
-        # a beast's own space: read its long axis off its bones (the head is the far end from the tail)
-        side = mathutils.Vector((0, 0, 1))
-        keys = dict(Hit=[[('ROOT', tuple(hip), tuple(side), -10, (0, 0, 0))], [('ROOT', tuple(hip), tuple(side), -5, (0, 0, 0))], [('ROOT', tuple(hip), tuple(side), -1, (0, 0, 0))]])
-        clips = keys
+        dg = bpy.context.evaluated_depsgraph_get(); pts = []
+        for o in [o for o in sc.objects if o.type == 'MESH']:
+            e = o.evaluated_get(dg); me = e.to_mesh(); pts += [o.matrix_world @ v.co for v in me.vertices]; e.to_mesh_clear()
+        lo = [min(p[i] for p in pts) for i in range(3)]; hi = [max(p[i] for p in pts) for i in range(3)]
+        clips = beast_keys(lo, hi)
     else:
         clips = man_keys()
         if need_stand: clips = dict([('Stand', [[]])] + list(clips.items()))

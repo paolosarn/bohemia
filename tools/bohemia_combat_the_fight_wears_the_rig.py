@@ -40,12 +40,17 @@ POSED = 'records/combat/rig'
 RENDERS = 'records/target/combat/rig'
 OUT = 'slices/fight_rig'
 CREW = ['you', 'cast_longcoat', 'cast_barearms', 'cast_widebrim', 'cast_poncho', 'cast_shortcoat', 'cast_apron', 'cast_cape', 'cast_pack',
-        'cast_satchel', 'cast_skirt', 'cast_shorts']
+        'cast_satchel', 'cast_skirt', 'cast_shorts', 'cast_bedroll']   # the bedroll: the roster can hand any cast look (engine/bohemia_roster.js lookFor)
 GANGS = ['anarchists', 'blues', 'caravans', 'cartel', 'church', 'colorful', 'homeless', 'mob', 'network', 'reds', 'remnants', 'trades', 'volunteers']
 # COOK THREE's tiers that carry PORTRAIT's starred head on their own body (records/portrait/rig/<tier>_head.glb): the face and
 # the body one model. The raider, marauder, leader and marksman have no head yet; their bands keep the gangs' rig models.
 TIERS = ['thug', 'poacher']
 CLIPS = [('Stand', 1), ('Anim_0', 6), ('Aim', 3), ('Swing', 3), ('Hit', 2), ('Fall', 3)]
+# THE BEASTS ON THE RIG (ANIMATION's redone dire wolf, the cave hyena, the feral shepherd, rendered by the master rig with
+# their own Walk and Bite; the Hit and the Fall laid on by the poses tool): the dire wolf for the wolves, the hyena for the
+# hyenas, the shepherd for the war dogs
+BEASTS = ['dire_wolf_redone', 'cave_hyena', 'feral_dog_shepherd']
+BEAST_CLIPS = [('Walk', 6), ('Bite', 6), ('Hit', 2), ('Fall', 3)]
 FIGHT_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']   # a row per facing; the index is the fight's 8-way angle
 SAMPLES = 64
 
@@ -54,10 +59,13 @@ def looks():
     """every look the fight dresses a man in, by the fight's own name (ours.people_looks), and where its body comes from"""
     out = [(c, 'crew', 'crew_' + c) for c in CREW] + [('faction_' + g, 'faction', g) for g in GANGS]
     out += [('tier_' + t, 'tier', t) for t in TIERS]
+    out += [('beast_' + b.replace('_redone', ''), 'beast', b) for b in BEASTS]
     return out
 
 
 def body_glb(kind, src):
+    if kind == 'beast':
+        return os.path.join(ROOT, 'reference/models/bohemia/%s.glb' % src)
     if kind == 'tier':
         return os.path.join(ROOT, 'records/portrait/rig/%s_head.glb' % src)
     return os.path.join(ROOT, BODIES, src + '.glb')
@@ -94,7 +102,7 @@ def bodies(arg):
         elif kind == 'faction':
             run([py, 'tools/bohemia_portrait_the_head_from_the_model.py', '--faction-body', src.capitalize()], glb)
         out = os.path.join(ROOT, POSED, name + '.glb')
-        run([py, 'tools/bohemia_combat_the_fight_poses.py', glb, out], out)
+        run([py, 'tools/bohemia_combat_the_fight_poses.py', glb, out] + (['--beast'] if kind == 'beast' else []), out)
         print('POSED', name, os.path.relpath(out, ROOT))
 
 
@@ -108,9 +116,10 @@ def render(arg):
     for name, kind, srcname in pick(arg):
         glb = os.path.join(ROOT, POSED, name + '.glb')
         out = os.path.join(ROOT, RENDERS, name)
-        argv = ['bohemia_direction_master_rig.py', glb, out, '--real-height', str(body_height(kind, srcname)), '--family', 'none',
-                '--set', 'samples=%d' % SAMPLES, '--no-calibration', '--no-id-pass']
-        for c, k in CLIPS: argv += ['--clip', '%s:%d' % (c, k)]
+        size = (['--real-length', str(json.load(open(os.path.join(ROOT, 'records/target/master_rig', srcname, 'rig.json')))['real_dims_m'][1])]
+                if kind == 'beast' else ['--real-height', str(body_height(kind, srcname))])
+        argv = ['bohemia_direction_master_rig.py', glb, out] + size + ['--family', 'none', '--set', 'samples=%d' % SAMPLES, '--no-calibration', '--no-id-pass']
+        for c, k in (BEAST_CLIPS if kind == 'beast' else CLIPS): argv += ['--clip', '%s:%d' % (c, k)]
         code = ('import sys; sys.argv = %r; __file__ = %r\n' % (argv, os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py'))) + src
         run([sys.executable, '-c', code], os.path.join(out, 'rig.json'))
         print('RENDERED', name, os.path.relpath(out, ROOT), flush=True)
@@ -169,11 +178,12 @@ def pack():
         r = json.load(open(os.path.join(d, 'rig.json')))
         x0, y0, x1, y1 = r['crop_box_px']; w, h = x1 - x0 + 2, y1 - y0 + 2
         sheet = Image.new('RGBA', (w * len(cols), h * len(FIGHT_DIRS)), (0, 0, 0, 0))
+        cols_here = [('stand', None, 1), ('walk', 'Walk', 6), ('bite', 'Bite', 6), ('hit', 'Hit', 2), ('fall', 'Fall', 3)] if kind == 'beast' else COLS
         for row, f in enumerate(FIGHT_DIRS):
             col = 0
-            for n, c, ks in COLS:
+            for n, c, ks in cols_here:
                 for k in range(ks):
-                    fn = os.path.join(d, 'rig_%s_%s_k%02d.png' % (c, f, k))
+                    fn = os.path.join(d, 'rig_%s_%s_k%02d.png' % (c, f, k)) if c else os.path.join(d, 'rig_%s.png' % f)
                     a = np.asarray(Image.open(fn).convert('RGBA')).copy()
                     a = np.pad(a, ((1, 1), (1, 1), (0, 0)))
                     op = a[..., 3] > 0
@@ -189,7 +199,10 @@ def pack():
         sheet.save(os.path.join(ROOT, OUT, file), 'WEBP', lossless=True, quality=100, method=6)
         index['looks'][name] = dict(file=file, w=w, h=h, foot=[r['ground_px'][0] + 1, r['ground_px'][1] + 1], height_m=r['real_dims_m'][2],
                                     kind=kind, rig=os.path.relpath(os.path.join(d, 'rig.json'), ROOT))
-        faces.append(face_of(name, kind, src)); order.append(name)
+        if kind == 'beast':   # a beast's own columns: its still, its walk, its bite (six keys), the blow, the fall
+            index['looks'][name]['clips'] = dict(stand=[0], walk=list(range(1, 7)), bite=list(range(7, 13)), hit=[13, 14], fall=[15, 16, 17])
+        else:
+            faces.append(face_of(name, kind, src)); order.append(name)
         print('PACKED', name, sheet.size, os.path.getsize(os.path.join(ROOT, OUT, file)))
     fs = Image.new('RGBA', (FACE_PX * len(faces), FACE_PX), (0, 0, 0, 0))
     for i, f in enumerate(faces): fs.paste(f, (i * FACE_PX, 0))

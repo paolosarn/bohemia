@@ -1728,10 +1728,10 @@ function bakeBoard() {
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
   /* the people: the rig sheet of every look a man in THIS fight wears (slices/fight_rig, rule 121), and the faces */
-  FIGHT.S.units.forEach(function (v) { if (beastOf(v)) return; const f = 'fight_rig/' + lookOf(v).file; if (all.indexOf(f) < 0) all.push(f); });
+  FIGHT.S.units.forEach(function (v) { if (beastOf(v) && !rigBeast(v)) return; const f = 'fight_rig/' + lookOf(v).file; if (all.indexOf(f) < 0) all.push(f); });
   all.push('fight_rig/' + DB.rig.faces.file);
-  /* the beasts: ANIMATION's baked sheets (slices/fight_beasts), the same 112 frame and ground line as the people */
-  Object.keys(DB.beasts.beasts).forEach(function (k) { all.push('fight_beasts/' + DB.beasts.beasts[k].file); });
+  /* a beast with no rig sheet: ANIMATION's flat sheet (slices/fight_beasts), loaded only then */
+  FIGHT.S.units.forEach(function (v) { const b = beastOf(v); if (b && !rigBeast(v) && all.indexOf('fight_beasts/' + b.file) < 0) all.push('fight_beasts/' + b.file); });
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
   (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
   /* a rig sheet is held as an ImageBitmap (decoded once, drawn straight from the GPU's copy; measured 10/19: a man drawn from a
@@ -2538,11 +2538,13 @@ function draw(now) {
 const DIR8 = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
 /* a grid direction to the facing row: south is down the glass, east is right, the rig's camera faces north */
 function dirOf(ddx, ddy) { return (Math.round(Math.atan2(ddx, ddy) / (Math.PI / 4)) % 8 + 8) % 8; }
-function lookOf(v) { return DB.rig.looks[v.look] || DB.rig.looks[R('ours.people_looks').crew[0]] || DB.rig.looks[Object.keys(DB.rig.looks)[0]]; }
-function clipCol(name, k) { const c = DB.rig.clips[name]; return c[Math.max(0, Math.min(c.length - 1, k))]; }
+/* a beast wears its rig model (ours.beast_rig_looks: the redone dire wolf, the cave hyena, the feral shepherd); a man his look */
+function rigBeast(v) { const m = v.beast && DB.ours.beast_rig_looks ? DB.ours.beast_rig_looks.value[v.kind] : null; return m && DB.rig.looks[m] ? DB.rig.looks[m] : null; }
+function lookOf(v) { return rigBeast(v) || DB.rig.looks[v.look] || DB.rig.looks[R('ours.people_looks').crew[0]] || DB.rig.looks[Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k].kind !== 'beast'; })[0]]; }
+function clipCol(name, k, L) { const c = (L && L.clips || DB.rig.clips)[name]; return c[Math.max(0, Math.min(c.length - 1, k))]; }
 /* the sheet a man is drawn from: his look's, in the night's colour where no lamp reaches him (cached per sheet) */
 function sheetOf(v) {
-  const b = beastOf(v);
+  const b = !rigBeast(v) && beastOf(v);
   if (b) { const img = UI.imgs['fight_beasts/' + b.file]; return img && (FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y) ? nightAtlas(img) : dayAtlas(img)); }
   const img = UI.imgs['fight_rig/' + lookOf(v).file]; if (!img) return null;
   return FIGHT.S.night && !FIGHT._t.litAt(Math.round(dx(v)), Math.round(dy(v))) ? nightSheet(img) : img;
@@ -2582,33 +2584,34 @@ function turnTo(v, want, now) {
 }
 /* which key of which clip a man shows now, and which way he faces */
 function poseOf(v, now) {
-  const a = UI.anim[0];
+  const a = UI.anim[0], L = lookOf(v);
   if (v._fallAt !== undefined) {   /* the fall, three keys a beat, then the body as it lies */
     const k = Math.floor((now - v._fallAt) / (beatMs() / DB.rig.keys_per_beat));
-    return { col: clipCol('fall', k), clip: 'fall' };
+    return { col: clipCol('fall', k, L), clip: 'fall' };
   }
   const w = walkOf(v);
   if (w) { const p = walkAt(w, now); turnTo(v, p.face, now); v._face = p.face;
-    return { col: clipCol('walk', Math.floor((now - w.at) / (beatMs() / 6)) % 6), clip: 'walk' }; }
+    return { col: clipCol('walk', Math.floor((now - w.at) / (beatMs() / 6)) % 6, L), clip: 'walk' }; }
   if (a && a.at && a.k === 'attack') {
     const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
     if (a.e.id === v.id) {
       const t = FIGHT.byId(a.e.to); if (t) turnTo(v, dirOf(t.x - v.x, t.y - v.y), now);
+      if (L.clips && L.clips.bite) return { col: clipCol('bite', Math.floor(k * L.clips.bite.length), L), clip: 'bite' };   /* a beast's bite, its six keys over the beat */
       const shot = a.e.shot === undefined ? FIGHT.isRanged(v.weapon) : a.e.shot;
-      return { col: clipCol(shot ? 'aim' : 'swing', k < .35 ? 0 : k < .6 ? 1 : 2), clip: shot ? 'aim' : 'swing' };
+      return { col: clipCol(shot ? 'aim' : 'swing', k < .35 ? 0 : k < .6 ? 1 : 2, L), clip: shot ? 'aim' : 'swing' };
     }
     if (a.e.to === v.id && a.e.hit && k > .45) {
       const t = FIGHT.byId(a.e.id); if (t) turnTo(v, dirOf(t.x - v.x, t.y - v.y), now);
-      return { col: clipCol('hit', k < .7 ? 0 : 1), clip: 'hit' };
+      return { col: clipCol('hit', k < .7 ? 0 : 1, L), clip: 'hit' };
     }
   }
-  if (UI.hitUntil && UI.hitUntil[v.id] > now) return { col: clipCol('hit', 1), clip: 'hit' };
+  if (UI.hitUntil && UI.hitUntil[v.id] > now) return { col: clipCol('hit', 1, L), clip: 'hit' };
   /* standing: he faces the nearest man of theirs he knows of (a man fleeing faces away) */
   const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })
     .sort(function (p, q) { return Math.abs(p.x - v.x) + Math.abs(p.y - v.y) - Math.abs(q.x - v.x) - Math.abs(q.y - v.y); })[0];
   if (foe && !(UI.drag && UI.drag.u === v)) { const f = dirOf(foe.x - v.x, foe.y - v.y); turnTo(v, v.morale === 'Fleeing' ? (f + 4) % 8 : f, now); }
   else if (v._face === undefined) v._face = v.side === 'you' ? 2 : 6;
-  return { col: clipCol('stand', 0), clip: 'stand' };
+  return { col: clipCol('stand', 0, L), clip: 'stand' };
 }
 /* A BEAST ON THE BOARD (COMBAT [the fight holds the grid]): the enemy's sheet from ours.beast_looks, ANIMATION's bake; it stands
    at its true size beside a man (the people's scale: a dire wolf is ~62 px at the ears in the frame a man fills at ~100) */
@@ -2628,8 +2631,8 @@ const BEAST_MAN_PX = 102;   /* ANIMATION's beast sheet is drawn at the scale its
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
 function blitMan(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
-  const b = beastOf(v);
-  if (b) {   /* ANIMATION's beast sheet (two facings) until the rig's beasts land in slices/fight_rig */
+  const b = !rigBeast(v) && beastOf(v);
+  if (b) {   /* ANIMATION's flat beast sheet (two facings): only if a rig sheet is missing (121(e): never beside one) */
     const h = manH(), k = h / BEAST_MAN_PX, BF = DB.beasts.frame, bs = BF * k, c = v._fallAt !== undefined ? DB.beasts.cols.indexOf(DB.beasts.clips.dead.cols[0]) : beastFrame(v, now);
     const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })[0], row = foe && foe.x < v.x ? 1 : 0;
     cx.imageSmoothingEnabled = k < 1; cx.globalAlpha = alpha;

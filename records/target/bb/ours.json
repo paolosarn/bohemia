@@ -392,6 +392,7 @@
    ],
    "band": {
     "brigand_thug": [
+     "tier_thug",
      "faction_homeless",
      "faction_anarchists",
      "faction_reds",
@@ -427,6 +428,7 @@
      "faction_colorful"
     ],
     "brigand_poacher": [
+     "tier_poacher",
      "faction_volunteers",
      "faction_caravans"
     ]
@@ -434,7 +436,7 @@
   },
   "source": "records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md",
   "quote": "I wanna see all my character art that we've worked so hard on doing good work live in the game please even if it's new combat",
-  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft)"
+  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft) (10/19, COMBAT [the fight wears the 3D models], rule 121: the thug and the poacher bands lead with COOK THREE's own thug and poacher, modelled with PORTRAIT's head on their own body; the rest of each band wears the gangs' rig models)"
  },
  "formation_depth_lines": {
   "value": 2,
@@ -716,5 +718,21 @@
   "quote": "the game doesn't explain to you at all that your weapon sucks / before a shot or a swing, under the finger, the hit chance and what it does to that target's armour, and one plain line when the weapon is bad for it ('your pipe barely dents his plate'); after it, what it did",
   "why": "the one plain line comes up when the arm in his hand needs this many body blows or more to drop the man he aims at, his armour wearing down blow by blow (the fight's own damage math at the weapon's middle damage, FIGHT.preview). Measured 10/19 over the company's six arms: a fresh crew drops a day-one thug in 2 to 4 blows (no line: the first fight is not a lecture), a pistol needs 5 for a lesser raider, everything but the sledge 8 to 21 for a leader or a marauder in plate. When a man of his drops that one in fewer, the line names him. TUNING owns the number.",
   "tuned": false
+ },
+ "beast_rig_looks": {
+  "value": {
+   "direwolf": "beast_dire_wolf",
+   "frenzied_direwolf": "beast_dire_wolf",
+   "wolf": "beast_dire_wolf",
+   "goblin_wolf": "beast_dire_wolf",
+   "hyena": "beast_cave_hyena",
+   "frenzied_hyena": "beast_cave_hyena",
+   "wardog": "beast_feral_dog_shepherd",
+   "armored_wardog": "beast_feral_dog_shepherd",
+   "warhound": "beast_feral_dog_shepherd"
+  },
+  "source": "slices/fight_rig/fight_rig.json (COMBAT [the fight wears the 3D models], tools/bohemia_combat_the_fight_wears_the_rig.py): ANIMATION's redone dire wolf, cave hyena and feral shepherd through DIRECTION's master rig",
+  "quote": "BRO EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY 8 BIT SHIT... WTF TRYING TO COMBINE THE TWO",
+  "why": "rule 121(e): no old sheet beside a rig model; which rig beast an enemy wears on the board: the wolves the redone dire wolf (his NO on the grey one was answered by it), the hyenas the cave hyena, the war dogs the feral shepherd; beast_looks stays as the flat sheet a fight falls back on if a rig sheet is missing"
  }
 }

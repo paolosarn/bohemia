@@ -1,0 +1,7 @@
+# COMBAT [the tear and the floor]: the rendered ground patches, the re-laid blocks and the floor as it shipped before
+# (tens of MB), rebuilt by tools/bohemia_combat_the_floor_the_3d_way.py; the calibration is kept
+*
+!.gitignore
+!materials/
+materials/*
+!materials/calibration.json
