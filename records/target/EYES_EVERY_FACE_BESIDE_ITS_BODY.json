@@ -1,0 +1,8410 @@
+{
+ "tool": "tools/bohemia_eyes_every_face_beside_its_body_10_19_26.py",
+ "lane": "eyes and ears",
+ "row": "[every face beside its body]",
+ "rule": "120(d)",
+ "draft": true,
+ "counts": {
+  "PASS": 3,
+  "BACK": 115,
+  "NO BODY": 2
+ },
+ "faces_read": 120,
+ "runtime_read": "2026-10-19T00:43:46.138Z",
+ "rows": [
+  {
+   "who": "cast_apron",
+   "name": "apron",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_apron.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_apron.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (95 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#686870"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 29.5,
+     "said": "hair or hat #100f0d on the body, #686870 on the face, 29 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_apron",
+   "name": "apron",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_apron/rest_128.png",
+   "body_src": "slices/fight_people/cast_apron.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (95 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.5,
+    "skin_px": 2403,
+    "eyes": [
+     [
+      69.0,
+      48.0
+     ],
+     [
+      62.0,
+      75.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2403 px",
+    "skin": {
+     "L": 44.2,
+     "a": 10.0,
+     "b": 15.6,
+     "ita": -20.2,
+     "band": "brown",
+     "rgb": "#81624f"
+    },
+    "top": "#76726b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -28.3,
+     "dITA": -93.7,
+     "bands_apart": 4,
+     "de2000": 26.5,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -20, L 44): the face is 4 bands darker and 28 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 32.6,
+     "said": "hair or hat #100f0d on the body, #76726b on the face, 33 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_barearms",
+   "name": "barearms",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_barearms.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_barearms.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (63 of 105 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     47.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#201e1b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 4.5,
+     "said": "hair or hat #100f0d on the body, #201e1b on the face, 5 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_barearms",
+   "name": "barearms",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_barearms/rest_128.png",
+   "body_src": "slices/fight_people/cast_barearms.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (63 of 105 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.3,
+    "skin_px": 2634,
+    "eyes": [
+     [
+      72.0,
+      49.0
+     ],
+     [
+      66.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2634 px",
+    "skin": {
+     "L": 26.0,
+     "a": 10.3,
+     "b": 10.6,
+     "ita": -66.1,
+     "band": "dark",
+     "rgb": "#52372e"
+    },
+    "top": "#433f3a"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -46.6,
+     "dITA": -139.6,
+     "bands_apart": 5,
+     "de2000": 46.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -66, L 26): the face is 5 bands darker and 47 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 15.2,
+     "said": "hair or hat #100f0d on the body, #433f3a on the face, 15 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_bedroll",
+   "name": "bedroll",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_bedroll.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_bedroll.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 70 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.5,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 16.2,
+     "a": 3.9,
+     "b": 6.6,
+     "ita": -79.0,
+     "band": "dark",
+     "rgb": "#31261f"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -56.4,
+     "dITA": -152.4,
+     "bands_apart": 5,
+     "de2000": 52.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -79, L 16): the face is 5 bands darker and 56 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 18.7,
+     "said": "hair or hat #806e50 on the body, #523a26 on the face, 19 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_bedroll",
+   "name": "bedroll",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_bedroll/rest_128.png",
+   "body_src": "slices/fight_people/cast_bedroll.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 70 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 12.1,
+    "skin_px": 3495,
+    "eyes": [
+     [
+      73.0,
+      47.0
+     ],
+     [
+      61.0,
+      75.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 3495 px",
+    "skin": {
+     "L": 14.4,
+     "a": 9.3,
+     "b": 8.3,
+     "ita": -76.9,
+     "band": "dark",
+     "rgb": "#341f19"
+    },
+    "top": "#877762"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -58.1,
+     "dITA": -150.4,
+     "bands_apart": 5,
+     "de2000": 54.1,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -77, L 14): the face is 5 bands darker and 58 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 4.9,
+     "said": "hair or hat #806e50 on the body, #877762 on the face, 5 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_cape",
+   "name": "cape",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_cape.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_cape.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (81 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#707074"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 28.3,
+     "said": "hair or hat #2e2016 on the body, #707074 on the face, 28 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_cape",
+   "name": "cape",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_cape/rest_128.png",
+   "body_src": "slices/fight_people/cast_cape.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (81 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.5,
+    "skin_px": 2427,
+    "eyes": [
+     [
+      71.0,
+      47.0
+     ],
+     [
+      63.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2427 px",
+    "skin": {
+     "L": 43.4,
+     "a": 9.9,
+     "b": 15.2,
+     "ita": -23.6,
+     "band": "brown",
+     "rgb": "#7f604e"
+    },
+    "top": "#a19e94"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.2,
+     "dITA": -97.1,
+     "bands_apart": 4,
+     "de2000": 27.4,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -24, L 43): the face is 4 bands darker and 29 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 45.7,
+     "said": "hair or hat #2e2016 on the body, #a19e94 on the face, 46 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_longcoat",
+   "name": "longcoat",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_longcoat.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_longcoat.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (88 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 19.8,
+     "said": "hair or hat #100f0d on the body, #523a26 on the face, 20 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_longcoat",
+   "name": "longcoat",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_longcoat/rest_128.png",
+   "body_src": "slices/fight_people/cast_longcoat.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (88 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.3,
+    "skin_px": 2445,
+    "eyes": [
+     [
+      69.0,
+      47.0
+     ],
+     [
+      63.0,
+      73.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2445 px",
+    "skin": {
+     "L": 27.2,
+     "a": 10.3,
+     "b": 10.8,
+     "ita": -64.6,
+     "band": "dark",
+     "rgb": "#553a30"
+    },
+    "top": "#47433f"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -45.3,
+     "dITA": -138.1,
+     "bands_apart": 5,
+     "de2000": 45.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -65, L 27): the face is 5 bands darker and 45 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 16.3,
+     "said": "hair or hat #100f0d on the body, #47433f on the face, 16 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_pack",
+   "name": "pack",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_pack.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_pack.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 17.0,
+     "said": "hair or hat #46484e on the body, #523a26 on the face, 17 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_pack",
+   "name": "pack",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_pack/rest_128.png",
+   "body_src": "slices/fight_people/cast_pack.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.0,
+    "skin_px": 2560,
+    "eyes": [
+     [
+      71.0,
+      47.0
+     ],
+     [
+      64.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2560 px",
+    "skin": {
+     "L": 27.1,
+     "a": 10.4,
+     "b": 10.8,
+     "ita": -64.7,
+     "band": "dark",
+     "rgb": "#543a30"
+    },
+    "top": "#79746d"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -45.5,
+     "dITA": -138.2,
+     "bands_apart": 5,
+     "de2000": 45.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -65, L 27): the face is 5 bands darker and 45 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 17.9,
+     "said": "hair or hat #46484e on the body, #79746d on the face, 18 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_poncho",
+   "name": "poncho",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_poncho.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_poncho.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (92 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     47.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#707074"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 28.3,
+     "said": "hair or hat #2e2016 on the body, #707074 on the face, 28 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_poncho",
+   "name": "poncho",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_poncho/rest_128.png",
+   "body_src": "slices/fight_people/cast_poncho.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (92 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.0,
+    "skin_px": 2058,
+    "eyes": [
+     [
+      69.0,
+      44.0
+     ],
+     [
+      62.0,
+      71.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2058 px",
+    "skin": {
+     "L": 42.5,
+     "a": 14.5,
+     "b": 19.8,
+     "ita": -20.7,
+     "band": "brown",
+     "rgb": "#855b44"
+    },
+    "top": "#a2a095"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -30.0,
+     "dITA": -94.2,
+     "bands_apart": 4,
+     "de2000": 29.4,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -21, L 43): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 46.2,
+     "said": "hair or hat #2e2016 on the body, #a2a095 on the face, 46 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_satchel",
+   "name": "satchel",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_satchel.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_satchel.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     47.0,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#682c1e"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 21.1,
+     "said": "hair or hat #363436 on the body, #682c1e on the face, 21 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_satchel",
+   "name": "satchel",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_satchel/rest_128.png",
+   "body_src": "slices/fight_people/cast_satchel.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 15.1,
+    "skin_px": 2738,
+    "eyes": [
+     [
+      70.0,
+      51.0
+     ],
+     [
+      63.0,
+      78.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2738 px",
+    "skin": {
+     "L": 27.6,
+     "a": 10.8,
+     "b": 11.3,
+     "ita": -63.3,
+     "band": "dark",
+     "rgb": "#563b30"
+    },
+    "top": "#4e4946"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -45.0,
+     "dITA": -136.8,
+     "bands_apart": 5,
+     "de2000": 45.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -63, L 28): the face is 5 bands darker and 45 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 7.8,
+     "said": "hair or hat #363436 on the body, #4e4946 on the face, 8 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_shortcoat",
+   "name": "shortcoat",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_shortcoat.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_shortcoat.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#5c302a"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.5,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 16.2,
+     "a": 3.9,
+     "b": 6.6,
+     "ita": -79.0,
+     "band": "dark",
+     "rgb": "#31261f"
+    },
+    "top": "#9e501c"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -56.4,
+     "dITA": -152.4,
+     "bands_apart": 5,
+     "de2000": 52.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -79, L 16): the face is 5 bands darker and 56 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 20.4,
+     "said": "hair or hat #5c302a on the body, #9e501c on the face, 20 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_shortcoat",
+   "name": "shortcoat",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_shortcoat/rest_128.png",
+   "body_src": "slices/fight_people/cast_shortcoat.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#5c302a"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 24.6,
+    "skin_px": 2288,
+    "eyes": [
+     [
+      74.0,
+      50.0
+     ],
+     [
+      67.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2288 px",
+    "skin": {
+     "L": 40.3,
+     "a": 14.3,
+     "b": 19.5,
+     "ita": -26.6,
+     "band": "brown",
+     "rgb": "#7f5540"
+    },
+    "top": "#5f3f35"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -32.3,
+     "dITA": -100.1,
+     "bands_apart": 4,
+     "de2000": 31.7,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -27, L 40): the face is 4 bands darker and 32 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 5.7,
+     "said": "hair or hat #5c302a on the body, #5f3f35 on the face, 6 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_shorts",
+   "name": "shorts",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_shorts.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_shorts.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (63 of 105 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 50.9,
+     "a": 8.6,
+     "b": 20.3,
+     "ita": 2.4,
+     "band": "brown",
+     "rgb": "#937357"
+    },
+    "top": "#967850"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -21.7,
+     "dITA": -71.1,
+     "bands_apart": 4,
+     "de2000": 20.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA 2, L 51): the face is 4 bands darker and 22 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 39.9,
+     "said": "hair or hat #100f0d on the body, #967850 on the face, 40 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_shorts",
+   "name": "shorts",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_shorts/rest_128.png",
+   "body_src": "slices/fight_people/cast_shorts.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (63 of 105 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.2,
+    "skin_px": 2448,
+    "eyes": [
+     [
+      72.0,
+      49.0
+     ],
+     [
+      65.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2448 px",
+    "skin": {
+     "L": 42.8,
+     "a": 9.9,
+     "b": 15.4,
+     "ita": -25.1,
+     "band": "brown",
+     "rgb": "#7d5f4c"
+    },
+    "top": "#b59e76"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.8,
+     "dITA": -98.6,
+     "bands_apart": 4,
+     "de2000": 28.0,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -25, L 43): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 53.2,
+     "said": "hair or hat #100f0d on the body, #b59e76 on the face, 53 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_skirt",
+   "name": "skirt",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_skirt.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_skirt.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (92 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     11,
+     28
+    ],
+    "window": [
+     19,
+     28,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.5,
+     32.0
+    ],
+    "head_rows": [
+     5,
+     63
+    ],
+    "skin": {
+     "L": 42.4,
+     "a": 6.0,
+     "b": 13.6,
+     "ita": -29.1,
+     "band": "brown",
+     "rgb": "#76604e"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -30.1,
+     "dITA": -102.6,
+     "bands_apart": 4,
+     "de2000": 27.9,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -29, L 42): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 10.2,
+     "said": "hair or hat #2e2016 on the body, #523a26 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_skirt",
+   "name": "skirt",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_skirt/rest_128.png",
+   "body_src": "slices/fight_people/cast_skirt.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (92 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     11,
+     28
+    ],
+    "window": [
+     19,
+     28,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 27.3,
+    "skin_px": 2465,
+    "eyes": [
+     [
+      68.0,
+      47.0
+     ],
+     [
+      61.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2465 px",
+    "skin": {
+     "L": 43.2,
+     "a": 14.3,
+     "b": 19.4,
+     "ita": -19.3,
+     "band": "brown",
+     "rgb": "#865d47"
+    },
+    "top": "#84745f"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.3,
+     "dITA": -92.8,
+     "bands_apart": 4,
+     "de2000": 28.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -19, L 43): the face is 4 bands darker and 29 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 28.8,
+     "said": "hair or hat #2e2016 on the body, #84745f on the face, 29 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_widebrim",
+   "name": "widebrim",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/cast_widebrim.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/cast_widebrim.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (59 of 79 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#7e6e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     44.5,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#babac2"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 30.3,
+     "said": "hair or hat #7e6e50 on the body, #babac2 on the face, 30 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "cast_widebrim",
+   "name": "widebrim",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/cast_widebrim/rest_128.png",
+   "body_src": "slices/fight_people/cast_widebrim.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (59 of 79 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#7e6e50"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.3,
+    "skin_px": 2654,
+    "eyes": [
+     [
+      91.0,
+      62.0
+     ],
+     [
+      85.0,
+      89.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2654 px",
+    "skin": {
+     "L": 21.6,
+     "a": 9.3,
+     "b": 10.4,
+     "ita": -69.9,
+     "band": "dark",
+     "rgb": "#462e25"
+    },
+    "top": "#bfaa82"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.9,
+     "dITA": -143.4,
+     "bands_apart": 5,
+     "de2000": 50.0,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -70, L 22): the face is 5 bands darker and 51 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 20.9,
+     "said": "hair or hat #7e6e50 on the body, #bfaa82 on the face, 21 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "crew:BOOKIE",
+   "name": "BOOKIE (crew)",
+   "face": "the crew screen's face (the new portrait of cast_widebrim)",
+   "face_src": "records/target/portrait/crew/cast_widebrim/rest_128.png",
+   "body_src": "slices/fight_people/cast_poncho.webp frame 0 (idle SE): his fight body, cast_poncho",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (92 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.3,
+    "skin_px": 2654,
+    "eyes": [
+     [
+      91.0,
+      62.0
+     ],
+     [
+      85.0,
+      89.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2654 px",
+    "skin": {
+     "L": 21.6,
+     "a": 9.3,
+     "b": 10.4,
+     "ita": -69.9,
+     "band": "dark",
+     "rgb": "#462e25"
+    },
+    "top": "#bfaa82"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.9,
+     "dITA": -143.4,
+     "bands_apart": 5,
+     "de2000": 50.0,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -70, L 22): the face is 5 bands darker and 51 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 52.5,
+     "said": "hair or hat #2e2016 on the body, #bfaa82 on the face, 52 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws widebrim's face, the fight draws poncho's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_widebrim",
+   "fight_look": "cast_poncho",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:CHEWY",
+   "name": "CHEWY (crew)",
+   "face": "the crew screen's face (the new portrait of cast_poncho)",
+   "face_src": "records/target/portrait/crew/cast_poncho/rest_128.png",
+   "body_src": "slices/fight_people/cast_cape.webp frame 0 (idle SE): his fight body, cast_cape",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (81 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.0,
+    "skin_px": 2058,
+    "eyes": [
+     [
+      69.0,
+      44.0
+     ],
+     [
+      62.0,
+      71.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2058 px",
+    "skin": {
+     "L": 42.5,
+     "a": 14.5,
+     "b": 19.8,
+     "ita": -20.7,
+     "band": "brown",
+     "rgb": "#855b44"
+    },
+    "top": "#a2a095"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -30.0,
+     "dITA": -94.2,
+     "bands_apart": 4,
+     "de2000": 29.4,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -21, L 43): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 46.2,
+     "said": "hair or hat #2e2016 on the body, #a2a095 on the face, 46 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws poncho's face, the fight draws cape's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_poncho",
+   "fight_look": "cast_cape",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:DESI",
+   "name": "DESI (crew)",
+   "face": "the crew screen's face (the new portrait of cast_barearms)",
+   "face_src": "records/target/portrait/crew/cast_barearms/rest_128.png",
+   "body_src": "slices/fight_people/cast_longcoat.webp frame 0 (idle SE): his fight body, cast_longcoat",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (88 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.3,
+    "skin_px": 2634,
+    "eyes": [
+     [
+      72.0,
+      49.0
+     ],
+     [
+      66.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2634 px",
+    "skin": {
+     "L": 26.0,
+     "a": 10.3,
+     "b": 10.6,
+     "ita": -66.1,
+     "band": "dark",
+     "rgb": "#52372e"
+    },
+    "top": "#433f3a"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -46.6,
+     "dITA": -139.6,
+     "bands_apart": 5,
+     "de2000": 46.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -66, L 26): the face is 5 bands darker and 47 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 15.2,
+     "said": "hair or hat #100f0d on the body, #433f3a on the face, 15 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws barearms's face, the fight draws longcoat's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_barearms",
+   "fight_look": "cast_longcoat",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:DEUCE",
+   "name": "DEUCE (crew)",
+   "face": "the crew screen's face (the new portrait of cast_satchel)",
+   "face_src": "records/target/portrait/crew/cast_satchel/rest_128.png",
+   "body_src": "slices/fight_people/cast_skirt.webp frame 0 (idle SE): his fight body, cast_skirt",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (92 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     11,
+     28
+    ],
+    "window": [
+     19,
+     28,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 15.1,
+    "skin_px": 2738,
+    "eyes": [
+     [
+      70.0,
+      51.0
+     ],
+     [
+      63.0,
+      78.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2738 px",
+    "skin": {
+     "L": 27.6,
+     "a": 10.8,
+     "b": 11.3,
+     "ita": -63.3,
+     "band": "dark",
+     "rgb": "#563b30"
+    },
+    "top": "#4e4946"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -45.0,
+     "dITA": -136.8,
+     "bands_apart": 5,
+     "de2000": 45.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -63, L 28): the face is 5 bands darker and 45 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 14.2,
+     "said": "hair or hat #2e2016 on the body, #4e4946 on the face, 14 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws satchel's face, the fight draws skirt's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_satchel",
+   "fight_look": "cast_skirt",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:GRIZ",
+   "name": "GRIZ (crew)",
+   "face": "the crew screen's face (the new portrait of cast_shorts)",
+   "face_src": "records/target/portrait/crew/cast_shorts/rest_128.png",
+   "body_src": "slices/fight_people/cast_satchel.webp frame 0 (idle SE): his fight body, cast_satchel",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.2,
+    "skin_px": 2448,
+    "eyes": [
+     [
+      72.0,
+      49.0
+     ],
+     [
+      65.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2448 px",
+    "skin": {
+     "L": 42.8,
+     "a": 9.9,
+     "b": 15.4,
+     "ita": -25.1,
+     "band": "brown",
+     "rgb": "#7d5f4c"
+    },
+    "top": "#b59e76"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.8,
+     "dITA": -98.6,
+     "bands_apart": 4,
+     "de2000": 28.0,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -25, L 43): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 44.7,
+     "said": "hair or hat #363436 on the body, #b59e76 on the face, 45 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws shorts's face, the fight draws satchel's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_shorts",
+   "fight_look": "cast_satchel",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:LUPE",
+   "name": "LUPE (crew)",
+   "face": "the crew screen's face (the new portrait of cast_bedroll)",
+   "face_src": "records/target/portrait/crew/cast_bedroll/rest_128.png",
+   "body_src": "slices/fight_people/cast_pack.webp frame 0 (idle SE): his fight body, cast_pack",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 12.1,
+    "skin_px": 3495,
+    "eyes": [
+     [
+      73.0,
+      47.0
+     ],
+     [
+      61.0,
+      75.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 3495 px",
+    "skin": {
+     "L": 14.4,
+     "a": 9.3,
+     "b": 8.3,
+     "ita": -76.9,
+     "band": "dark",
+     "rgb": "#341f19"
+    },
+    "top": "#877762"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -58.1,
+     "dITA": -150.4,
+     "bands_apart": 5,
+     "de2000": 54.1,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -77, L 14): the face is 5 bands darker and 58 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 23.1,
+     "said": "hair or hat #46484e on the body, #877762 on the face, 23 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws bedroll's face, the fight draws pack's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_bedroll",
+   "fight_look": "cast_pack",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:MARISOL",
+   "name": "MARISOL (crew)",
+   "face": "the crew screen's face (the new portrait of cast_apron)",
+   "face_src": "records/target/portrait/crew/cast_apron/rest_128.png",
+   "body_src": "slices/fight_people/cast_apron.webp frame 0 (idle SE): his fight body, cast_apron",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (95 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.5,
+    "skin_px": 2403,
+    "eyes": [
+     [
+      69.0,
+      48.0
+     ],
+     [
+      62.0,
+      75.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2403 px",
+    "skin": {
+     "L": 44.2,
+     "a": 10.0,
+     "b": 15.6,
+     "ita": -20.2,
+     "band": "brown",
+     "rgb": "#81624f"
+    },
+    "top": "#76726b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -28.3,
+     "dITA": -93.7,
+     "bands_apart": 4,
+     "de2000": 26.5,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -20, L 44): the face is 4 bands darker and 28 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 32.6,
+     "said": "hair or hat #100f0d on the body, #76726b on the face, 33 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": true,
+     "said": "the same look on both screens"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_apron",
+   "fight_look": "cast_apron",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:NENA",
+   "name": "NENA (crew)",
+   "face": "the crew screen's face (the new portrait of cast_shortcoat)",
+   "face_src": "records/target/portrait/crew/cast_shortcoat/rest_128.png",
+   "body_src": "slices/fight_people/cast_shorts.webp frame 0 (idle SE): his fight body, cast_shorts",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (63 of 105 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 24.6,
+    "skin_px": 2288,
+    "eyes": [
+     [
+      74.0,
+      50.0
+     ],
+     [
+      67.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2288 px",
+    "skin": {
+     "L": 40.3,
+     "a": 14.3,
+     "b": 19.5,
+     "ita": -26.6,
+     "band": "brown",
+     "rgb": "#7f5540"
+    },
+    "top": "#5f3f35"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -32.3,
+     "dITA": -100.1,
+     "bands_apart": 4,
+     "de2000": 31.7,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -27, L 40): the face is 4 bands darker and 32 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 22.5,
+     "said": "hair or hat #100f0d on the body, #5f3f35 on the face, 22 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws shortcoat's face, the fight draws shorts's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_shortcoat",
+   "fight_look": "cast_shorts",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:OSO",
+   "name": "OSO (crew)",
+   "face": "the crew screen's face (the new portrait of cast_cape)",
+   "face_src": "records/target/portrait/crew/cast_cape/rest_128.png",
+   "body_src": "slices/fight_people/cast_shortcoat.webp frame 0 (idle SE): his fight body, cast_shortcoat",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#5c302a"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.5,
+    "skin_px": 2427,
+    "eyes": [
+     [
+      71.0,
+      47.0
+     ],
+     [
+      63.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2427 px",
+    "skin": {
+     "L": 43.4,
+     "a": 9.9,
+     "b": 15.2,
+     "ita": -23.6,
+     "band": "brown",
+     "rgb": "#7f604e"
+    },
+    "top": "#a19e94"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.2,
+     "dITA": -97.1,
+     "bands_apart": 4,
+     "de2000": 27.4,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -24, L 43): the face is 4 bands darker and 29 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 42.6,
+     "said": "hair or hat #5c302a on the body, #a19e94 on the face, 43 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws cape's face, the fight draws shortcoat's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_cape",
+   "fight_look": "cast_shortcoat",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:RAUL",
+   "name": "RAUL (crew)",
+   "face": "the crew screen's face (the new portrait of cast_pack)",
+   "face_src": "records/target/portrait/crew/cast_pack/rest_128.png",
+   "body_src": "slices/fight_people/cast_barearms.webp frame 0 (idle SE): his fight body, cast_barearms",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (63 of 105 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.0,
+    "skin_px": 2560,
+    "eyes": [
+     [
+      71.0,
+      47.0
+     ],
+     [
+      64.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2560 px",
+    "skin": {
+     "L": 27.1,
+     "a": 10.4,
+     "b": 10.8,
+     "ita": -64.7,
+     "band": "dark",
+     "rgb": "#543a30"
+    },
+    "top": "#79746d"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -45.5,
+     "dITA": -138.2,
+     "bands_apart": 5,
+     "de2000": 45.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -65, L 27): the face is 5 bands darker and 45 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 33.5,
+     "said": "hair or hat #100f0d on the body, #79746d on the face, 33 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws pack's face, the fight draws barearms's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_pack",
+   "fight_look": "cast_barearms",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:TINA",
+   "name": "TINA (crew)",
+   "face": "the crew screen's face (the new portrait of cast_skirt)",
+   "face_src": "records/target/portrait/crew/cast_skirt/rest_128.png",
+   "body_src": "slices/fight_people/cast_widebrim.webp frame 0 (idle SE): his fight body, cast_widebrim",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (59 of 79 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#7e6e50"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 27.3,
+    "skin_px": 2465,
+    "eyes": [
+     [
+      68.0,
+      47.0
+     ],
+     [
+      61.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2465 px",
+    "skin": {
+     "L": 43.2,
+     "a": 14.3,
+     "b": 19.4,
+     "ita": -19.3,
+     "band": "brown",
+     "rgb": "#865d47"
+    },
+    "top": "#84745f"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.3,
+     "dITA": -92.8,
+     "bands_apart": 4,
+     "de2000": 28.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -19, L 43): the face is 4 bands darker and 29 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 4.4,
+     "said": "hair or hat #7e6e50 on the body, #84745f on the face, 4 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": false,
+     "said": "the crew screen draws skirt's face, the fight draws widebrim's body"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "cast_skirt",
+   "fight_look": "cast_widebrim",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "crew:YOU",
+   "name": "YOU (crew)",
+   "face": "the crew screen's face (the new portrait of you)",
+   "face_src": "records/target/portrait/crew/you/rest_128.png",
+   "body_src": "slices/fight_people/you.webp frame 0 (idle SE): his fight body, you",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (78 of 100 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.5
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#ede8dc"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 37.8,
+    "skin_px": 2163,
+    "eyes": [
+     [
+      69.0,
+      47.0
+     ],
+     [
+      63.0,
+      75.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2163 px",
+    "skin": {
+     "L": 58.6,
+     "a": 9.2,
+     "b": 15.7,
+     "ita": 28.6,
+     "band": "intermediate",
+     "rgb": "#a78772"
+    },
+    "top": "#ded8b6"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -14.0,
+     "dITA": -44.9,
+     "bands_apart": 2,
+     "de2000": 13.4,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 29, L 59): the face is 2 bands darker and 14 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 8.5,
+     "said": "hair or hat #ede8dc on the body, #ded8b6 on the face, 9 apart"
+    },
+    {
+     "leg": "one man, one look",
+     "ok": true,
+     "said": "the same look on both screens"
+    }
+   ],
+   "verdict": "BACK",
+   "roster_look": "you",
+   "fight_look": "you",
+   "owner": "RUN TWO (engine/bohemia_roster.js manOf picks the look) / COMBAT (people_looks.crew)"
+  },
+  {
+   "who": "faction_anarchists",
+   "name": "Anarchists",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_anarchists.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_anarchists.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#000000"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.5,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#1a1c28"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 10.0,
+     "said": "hair or hat #000000 on the body, #1a1c28 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_blues",
+   "name": "Blues",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_blues.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_blues.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (81 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 12.3,
+     "said": "hair or hat #2e2016 on the body, #0c0c10 on the face, 12 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_caravans",
+   "name": "Caravans",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_caravans.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_caravans.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (38 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#000000"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 16.2,
+     "a": 3.9,
+     "b": 6.6,
+     "ita": -79.0,
+     "band": "dark",
+     "rgb": "#31261f"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -56.4,
+     "dITA": -152.4,
+     "bands_apart": 5,
+     "de2000": 52.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -79, L 16): the face is 5 bands darker and 56 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 2.9,
+     "said": "hair or hat #000000 on the body, #0c0c10 on the face, 3 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_cartel",
+   "name": "Cartel",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_cartel.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_cartel.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 68 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 50.9,
+     "a": 8.6,
+     "b": 20.3,
+     "ita": 2.4,
+     "band": "brown",
+     "rgb": "#937357"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -21.7,
+     "dITA": -71.1,
+     "bands_apart": 4,
+     "de2000": 20.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA 2, L 51): the face is 4 bands darker and 22 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 14.4,
+     "said": "hair or hat #363436 on the body, #523a26 on the face, 14 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_church",
+   "name": "Church",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_church.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_church.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (32 of 47 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     2,
+     19
+    ],
+    "window": [
+     10,
+     19,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#000000"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#967850"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 42.4,
+     "said": "hair or hat #000000 on the body, #967850 on the face, 42 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_colorful",
+   "name": "Colorful",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_colorful.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_colorful.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 68 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#dc4655"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     47.5,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 45.6,
+     "said": "hair or hat #dc4655 on the body, #0c0c10 on the face, 46 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_homeless",
+   "name": "Homeless",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_homeless.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_homeless.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (81 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#604a28"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 26.8,
+     "said": "hair or hat #604a28 on the body, #0c0c10 on the face, 27 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_mob",
+   "name": "Mob",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_mob.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_mob.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (81 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     44.0,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 10.2,
+     "said": "hair or hat #2e2016 on the body, #523a26 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_network",
+   "name": "Network",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_network.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_network.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (88 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 33.1,
+     "a": 6.1,
+     "b": 12.2,
+     "ita": -54.2,
+     "band": "dark",
+     "rgb": "#5e4a3b"
+    },
+    "top": "#1a1c28"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -39.4,
+     "dITA": -127.7,
+     "bands_apart": 5,
+     "de2000": 38.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -54, L 33): the face is 5 bands darker and 39 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 9.6,
+     "said": "hair or hat #100f0d on the body, #1a1c28 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_reds",
+   "name": "Reds",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_reds.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_reds.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (81 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     4,
+     21
+    ],
+    "window": [
+     12,
+     21,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.5,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#967850"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 32.6,
+     "said": "hair or hat #2e2016 on the body, #967850 on the face, 33 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_remnants",
+   "name": "Remnants",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_remnants.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_remnants.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 70 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 18.3,
+     "said": "hair or hat #46484e on the body, #0c0c10 on the face, 18 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_trades",
+   "name": "Trades",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_trades.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_trades.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 70 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     5,
+     63
+    ],
+    "skin": {
+     "L": 33.1,
+     "a": 6.1,
+     "b": 12.2,
+     "ita": -54.2,
+     "band": "dark",
+     "rgb": "#5e4a3b"
+    },
+    "top": "#babac2"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -39.4,
+     "dITA": -127.7,
+     "bands_apart": 5,
+     "de2000": 38.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -54, L 33): the face is 5 bands darker and 39 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 30.2,
+     "said": "hair or hat #806e50 on the body, #babac2 on the face, 30 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": true,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "faction_volunteers",
+   "name": "Volunteers",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/faction_volunteers.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/faction_volunteers.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (81 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 3.1,
+     "said": "hair or hat #100f0d on the body, #0c0c10 on the face, 3 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "settle:cast_apron",
+   "name": "apron in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_apron/rest_128.png",
+   "body_src": "slices/settlement_people/cast_apron.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (84 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.5,
+    "skin_px": 2403,
+    "eyes": [
+     [
+      69.0,
+      48.0
+     ],
+     [
+      62.0,
+      75.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2403 px",
+    "skin": {
+     "L": 44.2,
+     "a": 10.0,
+     "b": 15.6,
+     "ita": -20.2,
+     "band": "brown",
+     "rgb": "#81624f"
+    },
+    "top": "#76726b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -28.3,
+     "dITA": -93.7,
+     "bands_apart": 4,
+     "de2000": 26.5,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -20, L 44): the face is 4 bands darker and 28 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 32.6,
+     "said": "hair or hat #100f0d on the body, #76726b on the face, 33 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_barearms",
+   "name": "barearms in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_barearms/rest_128.png",
+   "body_src": "slices/settlement_people/cast_barearms.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 107 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.3,
+    "skin_px": 2634,
+    "eyes": [
+     [
+      72.0,
+      49.0
+     ],
+     [
+      66.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2634 px",
+    "skin": {
+     "L": 26.0,
+     "a": 10.3,
+     "b": 10.6,
+     "ita": -66.1,
+     "band": "dark",
+     "rgb": "#52372e"
+    },
+    "top": "#433f3a"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -46.6,
+     "dITA": -139.6,
+     "bands_apart": 5,
+     "de2000": 46.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -66, L 26): the face is 5 bands darker and 47 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 15.2,
+     "said": "hair or hat #100f0d on the body, #433f3a on the face, 15 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_bedroll",
+   "name": "bedroll in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_bedroll/rest_128.png",
+   "body_src": "slices/settlement_people/cast_bedroll.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (46 of 70 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 12.1,
+    "skin_px": 3495,
+    "eyes": [
+     [
+      73.0,
+      47.0
+     ],
+     [
+      61.0,
+      75.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 3495 px",
+    "skin": {
+     "L": 14.4,
+     "a": 9.3,
+     "b": 8.3,
+     "ita": -76.9,
+     "band": "dark",
+     "rgb": "#341f19"
+    },
+    "top": "#877762"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -58.1,
+     "dITA": -150.4,
+     "bands_apart": 5,
+     "de2000": 54.1,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -77, L 14): the face is 5 bands darker and 58 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 4.9,
+     "said": "hair or hat #806e50 on the body, #877762 on the face, 5 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_cape",
+   "name": "cape in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_cape/rest_128.png",
+   "body_src": "slices/settlement_people/cast_cape.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (73 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.5,
+    "skin_px": 2427,
+    "eyes": [
+     [
+      71.0,
+      47.0
+     ],
+     [
+      63.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2427 px",
+    "skin": {
+     "L": 43.4,
+     "a": 9.9,
+     "b": 15.2,
+     "ita": -23.6,
+     "band": "brown",
+     "rgb": "#7f604e"
+    },
+    "top": "#a19e94"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.2,
+     "dITA": -97.1,
+     "bands_apart": 4,
+     "de2000": 27.4,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -24, L 43): the face is 4 bands darker and 29 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 45.7,
+     "said": "hair or hat #2e2016 on the body, #a19e94 on the face, 46 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_longcoat",
+   "name": "longcoat in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_longcoat/rest_128.png",
+   "body_src": "slices/settlement_people/cast_longcoat.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (78 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.3,
+    "skin_px": 2445,
+    "eyes": [
+     [
+      69.0,
+      47.0
+     ],
+     [
+      63.0,
+      73.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2445 px",
+    "skin": {
+     "L": 27.2,
+     "a": 10.3,
+     "b": 10.8,
+     "ita": -64.6,
+     "band": "dark",
+     "rgb": "#553a30"
+    },
+    "top": "#47433f"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -45.3,
+     "dITA": -138.1,
+     "bands_apart": 5,
+     "de2000": 45.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -65, L 27): the face is 5 bands darker and 45 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 16.3,
+     "said": "hair or hat #100f0d on the body, #47433f on the face, 16 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_pack",
+   "name": "pack in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_pack/rest_128.png",
+   "body_src": "slices/settlement_people/cast_pack.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (46 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.0,
+    "skin_px": 2560,
+    "eyes": [
+     [
+      71.0,
+      47.0
+     ],
+     [
+      64.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2560 px",
+    "skin": {
+     "L": 27.1,
+     "a": 10.4,
+     "b": 10.8,
+     "ita": -64.7,
+     "band": "dark",
+     "rgb": "#543a30"
+    },
+    "top": "#79746d"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -45.5,
+     "dITA": -138.2,
+     "bands_apart": 5,
+     "de2000": 45.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -65, L 27): the face is 5 bands darker and 45 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 17.9,
+     "said": "hair or hat #46484e on the body, #79746d on the face, 18 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_poncho",
+   "name": "poncho in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_poncho/rest_128.png",
+   "body_src": "slices/settlement_people/cast_poncho.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (80 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.0,
+    "skin_px": 2058,
+    "eyes": [
+     [
+      69.0,
+      44.0
+     ],
+     [
+      62.0,
+      71.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2058 px",
+    "skin": {
+     "L": 42.5,
+     "a": 14.5,
+     "b": 19.8,
+     "ita": -20.7,
+     "band": "brown",
+     "rgb": "#855b44"
+    },
+    "top": "#a2a095"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -30.0,
+     "dITA": -94.2,
+     "bands_apart": 4,
+     "de2000": 29.4,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -21, L 43): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 46.2,
+     "said": "hair or hat #2e2016 on the body, #a2a095 on the face, 46 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_satchel",
+   "name": "satchel in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_satchel/rest_128.png",
+   "body_src": "slices/settlement_people/cast_satchel.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (46 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 15.1,
+    "skin_px": 2738,
+    "eyes": [
+     [
+      70.0,
+      51.0
+     ],
+     [
+      63.0,
+      78.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2738 px",
+    "skin": {
+     "L": 27.6,
+     "a": 10.8,
+     "b": 11.3,
+     "ita": -63.3,
+     "band": "dark",
+     "rgb": "#563b30"
+    },
+    "top": "#4e4946"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -45.0,
+     "dITA": -136.8,
+     "bands_apart": 5,
+     "de2000": 45.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -63, L 28): the face is 5 bands darker and 45 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 7.8,
+     "said": "hair or hat #363436 on the body, #4e4946 on the face, 8 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_shortcoat",
+   "name": "shortcoat in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_shortcoat/rest_128.png",
+   "body_src": "slices/settlement_people/cast_shortcoat.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (47 of 70 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#5c302a"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 24.6,
+    "skin_px": 2288,
+    "eyes": [
+     [
+      74.0,
+      50.0
+     ],
+     [
+      67.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2288 px",
+    "skin": {
+     "L": 40.3,
+     "a": 14.3,
+     "b": 19.5,
+     "ita": -26.6,
+     "band": "brown",
+     "rgb": "#7f5540"
+    },
+    "top": "#5f3f35"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -32.3,
+     "dITA": -100.1,
+     "bands_apart": 4,
+     "de2000": 31.7,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -27, L 40): the face is 4 bands darker and 32 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 5.7,
+     "said": "hair or hat #5c302a on the body, #5f3f35 on the face, 6 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_shorts",
+   "name": "shorts in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_shorts/rest_128.png",
+   "body_src": "slices/settlement_people/cast_shorts.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (53 of 107 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 26.2,
+    "skin_px": 2448,
+    "eyes": [
+     [
+      72.0,
+      49.0
+     ],
+     [
+      65.0,
+      76.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2448 px",
+    "skin": {
+     "L": 42.8,
+     "a": 9.9,
+     "b": 15.4,
+     "ita": -25.1,
+     "band": "brown",
+     "rgb": "#7d5f4c"
+    },
+    "top": "#b59e76"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.8,
+     "dITA": -98.6,
+     "bands_apart": 4,
+     "de2000": 28.0,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -25, L 43): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 53.2,
+     "said": "hair or hat #100f0d on the body, #b59e76 on the face, 53 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_skirt",
+   "name": "skirt in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_skirt/rest_128.png",
+   "body_src": "slices/settlement_people/cast_skirt.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (80 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     11,
+     28
+    ],
+    "window": [
+     19,
+     28,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 27.3,
+    "skin_px": 2465,
+    "eyes": [
+     [
+      68.0,
+      47.0
+     ],
+     [
+      61.0,
+      74.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2465 px",
+    "skin": {
+     "L": 43.2,
+     "a": 14.3,
+     "b": 19.4,
+     "ita": -19.3,
+     "band": "brown",
+     "rgb": "#865d47"
+    },
+    "top": "#84745f"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -29.3,
+     "dITA": -92.8,
+     "bands_apart": 4,
+     "de2000": 28.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -19, L 43): the face is 4 bands darker and 29 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 28.8,
+     "said": "hair or hat #2e2016 on the body, #84745f on the face, 29 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:cast_widebrim",
+   "name": "widebrim in a settlement",
+   "face": "the settlement's talking face (the new portrait)",
+   "face_src": "records/target/portrait/crew/cast_widebrim/rest_128.png",
+   "body_src": "slices/settlement_people/cast_widebrim.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (51 of 79 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#a08e6c"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 14.3,
+    "skin_px": 2654,
+    "eyes": [
+     [
+      91.0,
+      62.0
+     ],
+     [
+      85.0,
+      89.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2654 px",
+    "skin": {
+     "L": 21.6,
+     "a": 9.3,
+     "b": 10.4,
+     "ita": -69.9,
+     "band": "dark",
+     "rgb": "#462e25"
+    },
+    "top": "#bfaa82"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.9,
+     "dITA": -143.4,
+     "bands_apart": 5,
+     "de2000": 50.0,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -70, L 22): the face is 5 bands darker and 51 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 8.9,
+     "said": "hair or hat #a08e6c on the body, #bfaa82 on the face, 9 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_anarchists",
+   "name": "Anarchists in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_anarchists.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_anarchists.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (47 of 66 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.5,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#1a1c28"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 9.9,
+     "said": "hair or hat #363436 on the body, #1a1c28 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_blues",
+   "name": "Blues in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_blues.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_blues.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (71 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 12.3,
+     "said": "hair or hat #2e2016 on the body, #0c0c10 on the face, 12 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_caravans",
+   "name": "Caravans in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_caravans.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_caravans.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (31 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#a08e6c"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 16.2,
+     "a": 3.9,
+     "b": 6.6,
+     "ita": -79.0,
+     "band": "dark",
+     "rgb": "#31261f"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -56.4,
+     "dITA": -152.4,
+     "bands_apart": 5,
+     "de2000": 52.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -79, L 16): the face is 5 bands darker and 56 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 47.3,
+     "said": "hair or hat #a08e6c on the body, #0c0c10 on the face, 47 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_cartel",
+   "name": "Cartel in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_cartel.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_cartel.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (46 of 68 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 50.9,
+     "a": 8.6,
+     "b": 20.3,
+     "ita": 2.4,
+     "band": "brown",
+     "rgb": "#937357"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -21.7,
+     "dITA": -71.1,
+     "bands_apart": 4,
+     "de2000": 20.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA 2, L 51): the face is 4 bands darker and 22 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 14.4,
+     "said": "hair or hat #363436 on the body, #523a26 on the face, 14 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_church",
+   "name": "Church in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_church.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_church.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (23 of 43 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     2,
+     19
+    ],
+    "window": [
+     10,
+     19,
+     55.5
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#000000"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#967850"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 42.4,
+     "said": "hair or hat #000000 on the body, #967850 on the face, 42 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_colorful",
+   "name": "Colorful in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_colorful.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_colorful.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (46 of 68 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#dc4655"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     47.5,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 45.6,
+     "said": "hair or hat #dc4655 on the body, #0c0c10 on the face, 46 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_homeless",
+   "name": "Homeless in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_homeless.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_homeless.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (71 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#604a28"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 26.8,
+     "said": "hair or hat #604a28 on the body, #0c0c10 on the face, 27 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_mob",
+   "name": "Mob in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_mob.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_mob.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (71 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     44.0,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 10.2,
+     "said": "hair or hat #2e2016 on the body, #523a26 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_network",
+   "name": "Network in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_network.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_network.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (78 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 33.1,
+     "a": 6.1,
+     "b": 12.2,
+     "ita": -54.2,
+     "band": "dark",
+     "rgb": "#5e4a3b"
+    },
+    "top": "#1a1c28"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -39.4,
+     "dITA": -127.7,
+     "bands_apart": 5,
+     "de2000": 38.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -54, L 33): the face is 5 bands darker and 39 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 9.6,
+     "said": "hair or hat #100f0d on the body, #1a1c28 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_reds",
+   "name": "Reds in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_reds.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_reds.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (71 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     4,
+     21
+    ],
+    "window": [
+     12,
+     21,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.5,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#967850"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 32.6,
+     "said": "hair or hat #2e2016 on the body, #967850 on the face, 33 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_remnants",
+   "name": "Remnants in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_remnants.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_remnants.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (46 of 70 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 18.3,
+     "said": "hair or hat #46484e on the body, #0c0c10 on the face, 18 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_trades",
+   "name": "Trades in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_trades.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_trades.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (46 of 70 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     5,
+     63
+    ],
+    "skin": {
+     "L": 33.1,
+     "a": 6.1,
+     "b": 12.2,
+     "ita": -54.2,
+     "band": "dark",
+     "rgb": "#5e4a3b"
+    },
+    "top": "#babac2"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -39.4,
+     "dITA": -127.7,
+     "bands_apart": 5,
+     "de2000": 38.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -54, L 33): the face is 5 bands darker and 39 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 30.2,
+     "said": "hair or hat #806e50 on the body, #babac2 on the face, 30 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "settle:faction_volunteers",
+   "name": "Volunteers in a settlement",
+   "face": "the settlement's talking face (the fight sheet's 64 face)",
+   "face_src": "slices/fight_people/faction_volunteers.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/settlement_people/faction_volunteers.webp frame 0 (idle S)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (71 of 109 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 3.1,
+     "said": "hair or hat #100f0d on the body, #0c0c10 on the face, 3 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "ANIMATION (the settlement bake) / CHARACTER [one skin, one person]; PORTRAIT for the face"
+  },
+  {
+   "who": "street:18:17:0",
+   "name": "street 18:17:0",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_20_face.png",
+   "body_src": "records/eyes_faces_runtime/street_20_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (58 of 79 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#5c302a"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 50.9,
+     "a": 8.6,
+     "b": 20.3,
+     "ita": 2.4,
+     "band": "brown",
+     "rgb": "#937357"
+    },
+    "top": "#6ea434"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -21.7,
+     "dITA": -71.1,
+     "bands_apart": 4,
+     "de2000": 20.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA 2, L 51): the face is 4 bands darker and 22 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 54.0,
+     "said": "hair or hat #5c302a on the body, #6ea434 on the face, 54 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:1",
+   "name": "street 18:17:1",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_21_face.png",
+   "body_src": "records/eyes_faces_runtime/street_21_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (60 of 88 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#a08e6c"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 31.6,
+     "said": "hair or hat #a08e6c on the body, #523a26 on the face, 32 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:10",
+   "name": "street 18:17:10",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_30_face.png",
+   "body_src": "records/eyes_faces_runtime/street_30_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (76 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     41.0,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 10.2,
+     "said": "hair or hat #2e2016 on the body, #523a26 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:11",
+   "name": "street 18:17:11",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_31_face.png",
+   "body_src": "records/eyes_faces_runtime/street_31_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (60 of 88 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#a08e6c"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.0,
+     32.0
+    ],
+    "head_rows": [
+     5,
+     63
+    ],
+    "skin": {
+     "L": 16.2,
+     "a": 3.9,
+     "b": 6.6,
+     "ita": -79.0,
+     "band": "dark",
+     "rgb": "#31261f"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -56.4,
+     "dITA": -152.4,
+     "bands_apart": 5,
+     "de2000": 52.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -79, L 16): the face is 5 bands darker and 56 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 47.3,
+     "said": "hair or hat #a08e6c on the body, #0c0c10 on the face, 47 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:12",
+   "name": "street 18:17:12",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_32_face.png",
+   "body_src": "records/eyes_faces_runtime/street_32_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (82 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     4,
+     21
+    ],
+    "window": [
+     12,
+     21,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.5,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 33.1,
+     "a": 6.1,
+     "b": 12.2,
+     "ita": -54.2,
+     "band": "dark",
+     "rgb": "#5e4a3b"
+    },
+    "top": "#201e1b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -39.4,
+     "dITA": -127.7,
+     "bands_apart": 5,
+     "de2000": 38.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -54, L 33): the face is 5 bands darker and 39 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 7.9,
+     "said": "hair or hat #2e2016 on the body, #201e1b on the face, 8 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:13",
+   "name": "street 18:17:13",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_33_face.png",
+   "body_src": "records/eyes_faces_runtime/street_33_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.5,
+     32.0
+    ],
+    "head_rows": [
+     6,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 12.0,
+     "said": "hair or hat #363436 on the body, #0c0c10 on the face, 12 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:14",
+   "name": "street 18:17:14",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_34_face.png",
+   "body_src": "records/eyes_faces_runtime/street_34_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.0,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 14.4,
+     "said": "hair or hat #363436 on the body, #523a26 on the face, 14 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:15",
+   "name": "street 18:17:15",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_35_face.png",
+   "body_src": "records/eyes_faces_runtime/street_35_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#201e1b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 30.0,
+     "said": "hair or hat #806e50 on the body, #201e1b on the face, 30 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:16",
+   "name": "street 18:17:16",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_36_face.png",
+   "body_src": "records/eyes_faces_runtime/street_36_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (62 of 108 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     31.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 16.2,
+     "a": 3.9,
+     "b": 6.6,
+     "ita": -79.0,
+     "band": "dark",
+     "rgb": "#31261f"
+    },
+    "top": "#682c1e"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -56.4,
+     "dITA": -152.4,
+     "bands_apart": 5,
+     "de2000": 52.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -79, L 16): the face is 5 bands darker and 56 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 25.8,
+     "said": "hair or hat #100f0d on the body, #682c1e on the face, 26 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:17",
+   "name": "street 18:17:17",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_37_face.png",
+   "body_src": "records/eyes_faces_runtime/street_37_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#7c3a22"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 21.2,
+     "said": "hair or hat #806e50 on the body, #7c3a22 on the face, 21 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:18",
+   "name": "street 18:17:18",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_38_face.png",
+   "body_src": "records/eyes_faces_runtime/street_38_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (82 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 10.2,
+     "said": "hair or hat #2e2016 on the body, #523a26 on the face, 10 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:19",
+   "name": "street 18:17:19",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_39_face.png",
+   "body_src": "records/eyes_faces_runtime/street_39_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (82 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     4,
+     21
+    ],
+    "window": [
+     12,
+     21,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     50.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#686870"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 26.3,
+     "said": "hair or hat #2e2016 on the body, #686870 on the face, 26 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:2",
+   "name": "street 18:17:2",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_22_face.png",
+   "body_src": "records/eyes_faces_runtime/street_22_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (76 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     41.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#201e1b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 7.9,
+     "said": "hair or hat #2e2016 on the body, #201e1b on the face, 8 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:3",
+   "name": "street 18:17:3",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_23_face.png",
+   "body_src": "records/eyes_faces_runtime/street_23_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (62 of 108 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     47.0,
+     32.0
+    ],
+    "head_rows": [
+     5,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 3.1,
+     "said": "hair or hat #100f0d on the body, #0c0c10 on the face, 3 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:4",
+   "name": "street 18:17:4",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_24_face.png",
+   "body_src": "records/eyes_faces_runtime/street_24_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#1a1c28"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 35.4,
+     "said": "hair or hat #806e50 on the body, #1a1c28 on the face, 35 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:5",
+   "name": "street 18:17:5",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_25_face.png",
+   "body_src": "records/eyes_faces_runtime/street_25_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (58 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#5c302a"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     44.5,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 16.2,
+     "a": 3.9,
+     "b": 6.6,
+     "ita": -79.0,
+     "band": "dark",
+     "rgb": "#31261f"
+    },
+    "top": "#686870"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -56.4,
+     "dITA": -152.4,
+     "bands_apart": 5,
+     "de2000": 52.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -79, L 16): the face is 5 bands darker and 56 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 24.2,
+     "said": "hair or hat #5c302a on the body, #686870 on the face, 24 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:6",
+   "name": "street 18:17:6",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_26_face.png",
+   "body_src": "records/eyes_faces_runtime/street_26_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     40.0,
+     32.0
+    ],
+    "head_rows": [
+     0,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#1a1c28"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 35.4,
+     "said": "hair or hat #806e50 on the body, #1a1c28 on the face, 35 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:7",
+   "name": "street 18:17:7",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_27_face.png",
+   "body_src": "records/eyes_faces_runtime/street_27_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (76 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     12,
+     29
+    ],
+    "window": [
+     20,
+     29,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     44.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#967850"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 32.6,
+     "said": "hair or hat #2e2016 on the body, #967850 on the face, 33 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:8",
+   "name": "street 18:17:8",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_28_face.png",
+   "body_src": "records/eyes_faces_runtime/street_28_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (62 of 88 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     11,
+     28
+    ],
+    "window": [
+     19,
+     28,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#7e6e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 16.2,
+     "a": 3.9,
+     "b": 6.6,
+     "ita": -79.0,
+     "band": "dark",
+     "rgb": "#31261f"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -56.4,
+     "dITA": -152.4,
+     "bands_apart": 5,
+     "de2000": 52.9,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -79, L 16): the face is 5 bands darker and 56 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 35.6,
+     "said": "hair or hat #7e6e50 on the body, #0c0c10 on the face, 36 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:18:17:9",
+   "name": "street 18:17:9",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_29_face.png",
+   "body_src": "records/eyes_faces_runtime/street_29_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     4,
+     21
+    ],
+    "window": [
+     12,
+     21,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 42.4,
+     "a": 6.0,
+     "b": 13.6,
+     "ita": -29.1,
+     "band": "brown",
+     "rgb": "#76604e"
+    },
+    "top": "#201e1b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -30.1,
+     "dITA": -102.6,
+     "bands_apart": 4,
+     "de2000": 27.9,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -29, L 42): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 7.9,
+     "said": "hair or hat #363436 on the body, #201e1b on the face, 8 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:0",
+   "name": "street 20:20:0",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_0_face.png",
+   "body_src": "records/eyes_faces_runtime/street_0_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     44.0,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 33.1,
+     "a": 6.1,
+     "b": 12.2,
+     "ita": -54.2,
+     "band": "dark",
+     "rgb": "#5e4a3b"
+    },
+    "top": "#201e1b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -39.4,
+     "dITA": -127.7,
+     "bands_apart": 5,
+     "de2000": 38.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -54, L 33): the face is 5 bands darker and 39 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 14.7,
+     "said": "hair or hat #46484e on the body, #201e1b on the face, 15 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:1",
+   "name": "street 20:20:1",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_1_face.png",
+   "body_src": "records/eyes_faces_runtime/street_1_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (58 of 79 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#5c302a"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 42.4,
+     "a": 6.0,
+     "b": 13.6,
+     "ita": -29.1,
+     "band": "brown",
+     "rgb": "#76604e"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -30.1,
+     "dITA": -102.6,
+     "bands_apart": 4,
+     "de2000": 27.9,
+     "said": "body very light (ITA 73, L 73), face brown (ITA -29, L 42): the face is 4 bands darker and 30 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 23.3,
+     "said": "hair or hat #5c302a on the body, #0c0c10 on the face, 23 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:10",
+   "name": "street 20:20:10",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_10_face.png",
+   "body_src": "records/eyes_faces_runtime/street_10_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.5,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 33.1,
+     "a": 6.1,
+     "b": 12.2,
+     "ita": -54.2,
+     "band": "dark",
+     "rgb": "#5e4a3b"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -39.4,
+     "dITA": -127.7,
+     "bands_apart": 5,
+     "de2000": 38.8,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -54, L 33): the face is 5 bands darker and 39 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 18.7,
+     "said": "hair or hat #806e50 on the body, #523a26 on the face, 19 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:11",
+   "name": "street 20:20:11",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_11_face.png",
+   "body_src": "records/eyes_faces_runtime/street_11_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (82 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     4,
+     21
+    ],
+    "window": [
+     12,
+     21,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.5,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 12.3,
+     "said": "hair or hat #2e2016 on the body, #0c0c10 on the face, 12 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:12",
+   "name": "street 20:20:12",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_12_face.png",
+   "body_src": "records/eyes_faces_runtime/street_12_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     39.0,
+     32.0
+    ],
+    "head_rows": [
+     0,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 35.8,
+     "said": "hair or hat #806e50 on the body, #0c0c10 on the face, 36 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:13",
+   "name": "street 20:20:13",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_13_face.png",
+   "body_src": "records/eyes_faces_runtime/street_13_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#363436"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 50.9,
+     "a": 8.6,
+     "b": 20.3,
+     "ita": 2.4,
+     "band": "brown",
+     "rgb": "#937357"
+    },
+    "top": "#682c1e"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -21.7,
+     "dITA": -71.1,
+     "bands_apart": 4,
+     "de2000": 20.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA 2, L 51): the face is 4 bands darker and 22 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 21.1,
+     "said": "hair or hat #363436 on the body, #682c1e on the face, 21 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:14",
+   "name": "street 20:20:14",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_14_face.png",
+   "body_src": "records/eyes_faces_runtime/street_14_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     41.0,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 35.8,
+     "said": "hair or hat #806e50 on the body, #0c0c10 on the face, 36 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:15",
+   "name": "street 20:20:15",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_15_face.png",
+   "body_src": "records/eyes_faces_runtime/street_15_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     41.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#523a26"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -13.3,
+     "dITA": -45.2,
+     "bands_apart": 2,
+     "de2000": 13.0,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 28, L 59): the face is 2 bands darker and 13 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 17.0,
+     "said": "hair or hat #46484e on the body, #523a26 on the face, 17 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:16",
+   "name": "street 20:20:16",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_16_face.png",
+   "body_src": "records/eyes_faces_runtime/street_16_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (82 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     4,
+     21
+    ],
+    "window": [
+     12,
+     21,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     46.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#201e1b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 7.9,
+     "said": "hair or hat #2e2016 on the body, #201e1b on the face, 8 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:17",
+   "name": "street 20:20:17",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_17_face.png",
+   "body_src": "records/eyes_faces_runtime/street_17_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (76 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     12,
+     29
+    ],
+    "window": [
+     20,
+     29,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#686870"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.4,
+     "dITA": -157.0,
+     "bands_apart": 5,
+     "de2000": 55.5,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -83, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 26.3,
+     "said": "hair or hat #2e2016 on the body, #686870 on the face, 26 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:18",
+   "name": "street 20:20:18",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_18_face.png",
+   "body_src": "records/eyes_faces_runtime/street_18_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     40.0,
+     32.0
+    ],
+    "head_rows": [
+     1,
+     63
+    ],
+    "skin": {
+     "L": 50.9,
+     "a": 8.6,
+     "b": 20.3,
+     "ita": 2.4,
+     "band": "brown",
+     "rgb": "#937357"
+    },
+    "top": "#626836"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -21.7,
+     "dITA": -71.1,
+     "bands_apart": 4,
+     "de2000": 20.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA 2, L 51): the face is 4 bands darker and 22 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 12.8,
+     "said": "hair or hat #806e50 on the body, #626836 on the face, 13 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:19",
+   "name": "street 20:20:19",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_19_face.png",
+   "body_src": "records/eyes_faces_runtime/street_19_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (76 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     10,
+     27
+    ],
+    "window": [
+     18,
+     27,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     44.5,
+     32.0
+    ],
+    "head_rows": [
+     5,
+     63
+    ],
+    "skin": {
+     "L": 55.1,
+     "a": 7.0,
+     "b": 14.1,
+     "ita": 19.9,
+     "band": "tan",
+     "rgb": "#997f6c"
+    },
+    "top": "#46423e"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -17.4,
+     "dITA": -53.5,
+     "bands_apart": 3,
+     "de2000": 15.5,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 20, L 55): the face is 3 bands darker and 17 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 12.2,
+     "said": "hair or hat #2e2016 on the body, #46423e on the face, 12 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:2",
+   "name": "street 20:20:2",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_2_face.png",
+   "body_src": "records/eyes_faces_runtime/street_2_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (82 of 110 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     6,
+     23
+    ],
+    "window": [
+     14,
+     23,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#2e2016"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     41.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 50.9,
+     "a": 8.6,
+     "b": 20.3,
+     "ita": 2.4,
+     "band": "brown",
+     "rgb": "#937357"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -21.7,
+     "dITA": -71.1,
+     "bands_apart": 4,
+     "de2000": 20.6,
+     "said": "body very light (ITA 73, L 73), face brown (ITA 2, L 51): the face is 4 bands darker and 22 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 12.3,
+     "said": "hair or hat #2e2016 on the body, #0c0c10 on the face, 12 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:3",
+   "name": "street 20:20:3",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_3_face.png",
+   "body_src": "records/eyes_faces_runtime/street_3_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (60 of 88 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#a08e6c"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     49.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 53.9,
+     "a": 7.9,
+     "b": 20.4,
+     "ita": 10.7,
+     "band": "tan",
+     "rgb": "#9a7b5e"
+    },
+    "top": "#babac2"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -18.7,
+     "dITA": -62.8,
+     "bands_apart": 3,
+     "de2000": 18.0,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 11, L 54): the face is 3 bands darker and 19 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 22.4,
+     "said": "hair or hat #a08e6c on the body, #babac2 on the face, 22 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:4",
+   "name": "street 20:20:4",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_4_face.png",
+   "body_src": "records/eyes_faces_runtime/street_4_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (60 of 88 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#a08e6c"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 47.3,
+     "said": "hair or hat #a08e6c on the body, #0c0c10 on the face, 47 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:5",
+   "name": "street 20:20:5",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_5_face.png",
+   "body_src": "records/eyes_faces_runtime/street_5_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#806e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     42.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#682c1e"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 25.1,
+     "said": "hair or hat #806e50 on the body, #682c1e on the face, 25 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:6",
+   "name": "street 20:20:6",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_6_face.png",
+   "body_src": "records/eyes_faces_runtime/street_6_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (62 of 108 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     7,
+     24
+    ],
+    "window": [
+     15,
+     24,
+     55.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     44.5,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 55.1,
+     "a": 7.0,
+     "b": 14.1,
+     "ita": 19.9,
+     "band": "tan",
+     "rgb": "#997f6c"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -17.4,
+     "dITA": -53.5,
+     "bands_apart": 3,
+     "de2000": 15.5,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 20, L 55): the face is 3 bands darker and 17 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 3.1,
+     "said": "hair or hat #100f0d on the body, #0c0c10 on the face, 3 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:7",
+   "name": "street 20:20:7",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_7_face.png",
+   "body_src": "records/eyes_faces_runtime/street_7_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (57 of 77 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     57.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#46484e"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.5,
+     32.0
+    ],
+    "head_rows": [
+     2,
+     63
+    ],
+    "skin": {
+     "L": 55.1,
+     "a": 7.0,
+     "b": 14.1,
+     "ita": 19.9,
+     "band": "tan",
+     "rgb": "#997f6c"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -17.4,
+     "dITA": -53.5,
+     "bands_apart": 3,
+     "de2000": 15.5,
+     "said": "body very light (ITA 73, L 73), face tan (ITA 20, L 55): the face is 3 bands darker and 17 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 18.3,
+     "said": "hair or hat #46484e on the body, #0c0c10 on the face, 18 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:8",
+   "name": "street 20:20:8",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_8_face.png",
+   "body_src": "records/eyes_faces_runtime/street_8_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (62 of 108 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     5,
+     22
+    ],
+    "window": [
+     13,
+     22,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#100f0d"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     40.0,
+     32.0
+    ],
+    "head_rows": [
+     3,
+     63
+    ],
+    "skin": {
+     "L": 22.5,
+     "a": 4.7,
+     "b": 8.1,
+     "ita": -73.6,
+     "band": "dark",
+     "rgb": "#41332a"
+    },
+    "top": "#c4b284"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -50.0,
+     "dITA": -147.1,
+     "bands_apart": 5,
+     "de2000": 49.2,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -74, L 23): the face is 5 bands darker and 50 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 61.3,
+     "said": "hair or hat #100f0d on the body, #c4b284 on the face, 61 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "street:20:20:9",
+   "name": "street 20:20:9",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_src": "records/eyes_faces_runtime/street_9_face.png",
+   "body_src": "records/eyes_faces_runtime/street_9_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (62 of 88 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     11,
+     28
+    ],
+    "window": [
+     19,
+     28,
+     56.0
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#7e6e50"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.0,
+     32.0
+    ],
+    "head_rows": [
+     5,
+     63
+    ],
+    "skin": {
+     "L": 11.5,
+     "a": 1.6,
+     "b": -4.1,
+     "ita": -89.3,
+     "band": "dark",
+     "rgb": "#1e1e24"
+    },
+    "top": "#201e1b"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -61.1,
+     "dITA": -162.7,
+     "bands_apart": 5,
+     "de2000": 56.1,
+     "said": "body very light (ITA 73, L 73), face dark (ITA -89, L 11): the face is 5 bands darker and 61 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": false,
+     "de2000": 29.7,
+     "said": "hair or hat #7e6e50 on the body, #201e1b on the face, 30 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)"
+  },
+  {
+   "who": "you",
+   "name": "YOU",
+   "face": "the fight sheet's own 64 face",
+   "face_src": "slices/fight_people/you.webp (x 3808, y 0, 64 px)",
+   "body_src": "slices/fight_people/you.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (78 of 100 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.5
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#ede8dc"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#d8d0c0"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": 0.0,
+     "dITA": 0.0,
+     "bands_apart": 0,
+     "de2000": 0.0,
+     "said": "body very light (ITA 73, L 73), face very light (ITA 73, L 73): the same person"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 5.7,
+     "said": "hair or hat #ede8dc on the body, #d8d0c0 on the face, 6 apart"
+    }
+   ],
+   "verdict": "PASS",
+   "hat_on_body": false,
+   "owner": "COMBAT (rule 69 bake) / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "you",
+   "name": "YOU",
+   "face": "the map pad's face (#modeFace)",
+   "face_src": "records/eyes_faces_runtime/map_face.png",
+   "body_src": "records/eyes_faces_runtime/map_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (66 of 100 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.5
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#ede8dc"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#d8d0c0"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": 0.0,
+     "dITA": 0.0,
+     "bands_apart": 0,
+     "de2000": 0.0,
+     "said": "body very light (ITA 73, L 73), face very light (ITA 73, L 73): the same person"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 5.7,
+     "said": "hair or hat #ede8dc on the body, #d8d0c0 on the face, 6 apart"
+    }
+   ],
+   "verdict": "PASS",
+   "owner": "RUN (the map) / CHARACTER"
+  },
+  {
+   "who": "you",
+   "name": "ACT1",
+   "face": "the phone strip's act1 face",
+   "face_src": "records/eyes_faces_runtime/flip_act1_face.png",
+   "body_src": "records/eyes_faces_runtime/map_body.png",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (66 of 100 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     8,
+     25
+    ],
+    "window": [
+     16,
+     25,
+     56.5
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#ede8dc"
+   },
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#d8d0c0"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": true,
+     "dL": 0.0,
+     "dITA": 0.0,
+     "bands_apart": 0,
+     "de2000": 0.0,
+     "said": "body very light (ITA 73, L 73), face very light (ITA 73, L 73): the same person"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 5.7,
+     "said": "hair or hat #ede8dc on the body, #d8d0c0 on the face, 6 apart"
+    }
+   ],
+   "verdict": "PASS",
+   "owner": "DYNASTY / PORTRAIT"
+  },
+  {
+   "who": "you",
+   "name": "YOU",
+   "face": "PORTRAIT's fresh portrait (crew and scavenge screens)",
+   "face_src": "records/target/portrait/crew/you/rest_128.png",
+   "body_src": "slices/fight_people/you.webp frame 0 (idle SE)",
+   "body": {
+    "how": "cheeks: the face window under the top of the head (78 of 100 px the one colour)",
+    "mouth": null,
+    "head_rows": [
+     9,
+     26
+    ],
+    "window": [
+     17,
+     26,
+     57.5
+    ],
+    "skin": {
+     "L": 72.6,
+     "a": 4.2,
+     "b": 6.7,
+     "ita": 73.5,
+     "band": "very light",
+     "rgb": "#bfafa6"
+    },
+    "top": "#ede8dc"
+   },
+   "face_read": {
+    "problems": [],
+    "skin_all_L": 37.8,
+    "skin_px": 2163,
+    "eyes": [
+     [
+      69.0,
+      47.0
+     ],
+     [
+      63.0,
+      75.0
+     ]
+    ],
+    "how": "the cheeks under the eyes (the star tool's landmarks); 2163 px",
+    "skin": {
+     "L": 58.6,
+     "a": 9.2,
+     "b": 15.7,
+     "ita": 28.6,
+     "band": "intermediate",
+     "rgb": "#a78772"
+    },
+    "top": "#ded8b6"
+   },
+   "legs": [
+    {
+     "leg": "skin",
+     "ok": false,
+     "dL": -14.0,
+     "dITA": -44.9,
+     "bands_apart": 2,
+     "de2000": 13.4,
+     "said": "body very light (ITA 73, L 73), face intermediate (ITA 29, L 59): the face is 2 bands darker and 14 L* darker"
+    },
+    {
+     "leg": "top of the head",
+     "ok": true,
+     "de2000": 8.5,
+     "said": "hair or hat #ede8dc on the body, #ded8b6 on the face, 9 apart"
+    }
+   ],
+   "verdict": "BACK",
+   "hat_on_body": false,
+   "owner": "PORTRAIT [the face is the body's face] / CHARACTER [one skin, one person]"
+  },
+  {
+   "who": "act2",
+   "name": "ACT2",
+   "face": "the phone strip's act2 face",
+   "face_src": "records/eyes_faces_runtime/flip_act2_face.png",
+   "body_src": null,
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     45.0,
+     32.0
+    ],
+    "head_rows": [
+     4,
+     63
+    ],
+    "skin": {
+     "L": 59.3,
+     "a": 7.8,
+     "b": 17.2,
+     "ita": 28.3,
+     "band": "intermediate",
+     "rgb": "#a78971"
+    },
+    "top": "#d8d0c0"
+   },
+   "legs": [],
+   "verdict": "NO BODY",
+   "note": "no body for this act on any screen",
+   "owner": "DYNASTY / PORTRAIT"
+  },
+  {
+   "who": "act3",
+   "name": "ACT3",
+   "face": "the phone strip's act3 face",
+   "face_src": "records/eyes_faces_runtime/flip_act3_face.png",
+   "body_src": null,
+   "face_read": {
+    "how": "cheeks between the eyes and the mouth",
+    "mouth": [
+     43.5,
+     32.0
+    ],
+    "head_rows": [
+     5,
+     63
+    ],
+    "skin": {
+     "L": 11.2,
+     "a": 3.6,
+     "b": 4.4,
+     "ita": -83.5,
+     "band": "dark",
+     "rgb": "#251c18"
+    },
+    "top": "#0c0c10"
+   },
+   "legs": [],
+   "verdict": "NO BODY",
+   "note": "no body for this act on any screen",
+   "owner": "DYNASTY / PORTRAIT"
+  }
+ ]
+}

@@ -1,0 +1,408 @@
+{
+ "tool": "tools/bohemia_eyes_every_face_beside_its_body_10_19_26.js",
+ "read": "2026-10-19T00:43:46.138Z",
+ "page": "slices/BOHEMIA_DEMO.html (committed tree), 390 x 844 at 3x, BEGIN tapped",
+ "build": "DEMO - BUILD 10/18c - THE STREETS JOIN, THE GANGS WEAR THE RIG",
+ "asked_street": 40,
+ "street_faces_answered": 40,
+ "street_without_face": 0,
+ "page_errors": [],
+ "pairs": [
+  {
+   "who": "you",
+   "name": "YOU",
+   "face": "the map pad's face (#modeFace)",
+   "face_png": "records/eyes_faces_runtime/map_face.png",
+   "body_png": "records/eyes_faces_runtime/map_body.png",
+   "owner": "RUN (the map) / CHARACTER",
+   "note": "the body: PLAYER_CV.S, what the map draws for him"
+  },
+  {
+   "who": "street:20:20:0",
+   "name": "street 20:20:0",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_0_face.png",
+   "body_png": "records/eyes_faces_runtime/street_0_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 2"
+  },
+  {
+   "who": "street:20:20:1",
+   "name": "street 20:20:1",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_1_face.png",
+   "body_png": "records/eyes_faces_runtime/street_1_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 11"
+  },
+  {
+   "who": "street:20:20:2",
+   "name": "street 20:20:2",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_2_face.png",
+   "body_png": "records/eyes_faces_runtime/street_2_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 5"
+  },
+  {
+   "who": "street:20:20:3",
+   "name": "street 20:20:3",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_3_face.png",
+   "body_png": "records/eyes_faces_runtime/street_3_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 4"
+  },
+  {
+   "who": "street:20:20:4",
+   "name": "street 20:20:4",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_4_face.png",
+   "body_png": "records/eyes_faces_runtime/street_4_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 4"
+  },
+  {
+   "who": "street:20:20:5",
+   "name": "street 20:20:5",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_5_face.png",
+   "body_png": "records/eyes_faces_runtime/street_5_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:20:20:6",
+   "name": "street 20:20:6",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_6_face.png",
+   "body_png": "records/eyes_faces_runtime/street_6_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 1"
+  },
+  {
+   "who": "street:20:20:7",
+   "name": "street 20:20:7",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_7_face.png",
+   "body_png": "records/eyes_faces_runtime/street_7_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 2"
+  },
+  {
+   "who": "street:20:20:8",
+   "name": "street 20:20:8",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_8_face.png",
+   "body_png": "records/eyes_faces_runtime/street_8_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 9"
+  },
+  {
+   "who": "street:20:20:9",
+   "name": "street 20:20:9",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_9_face.png",
+   "body_png": "records/eyes_faces_runtime/street_9_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 4"
+  },
+  {
+   "who": "street:20:20:10",
+   "name": "street 20:20:10",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_10_face.png",
+   "body_png": "records/eyes_faces_runtime/street_10_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:20:20:11",
+   "name": "street 20:20:11",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_11_face.png",
+   "body_png": "records/eyes_faces_runtime/street_11_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 5"
+  },
+  {
+   "who": "street:20:20:12",
+   "name": "street 20:20:12",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_12_face.png",
+   "body_png": "records/eyes_faces_runtime/street_12_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:20:20:13",
+   "name": "street 20:20:13",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_13_face.png",
+   "body_png": "records/eyes_faces_runtime/street_13_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 10"
+  },
+  {
+   "who": "street:20:20:14",
+   "name": "street 20:20:14",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_14_face.png",
+   "body_png": "records/eyes_faces_runtime/street_14_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:20:20:15",
+   "name": "street 20:20:15",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_15_face.png",
+   "body_png": "records/eyes_faces_runtime/street_15_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 2"
+  },
+  {
+   "who": "street:20:20:16",
+   "name": "street 20:20:16",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_16_face.png",
+   "body_png": "records/eyes_faces_runtime/street_16_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 5"
+  },
+  {
+   "who": "street:20:20:17",
+   "name": "street 20:20:17",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_17_face.png",
+   "body_png": "records/eyes_faces_runtime/street_17_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 3"
+  },
+  {
+   "who": "street:20:20:18",
+   "name": "street 20:20:18",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_18_face.png",
+   "body_png": "records/eyes_faces_runtime/street_18_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:20:20:19",
+   "name": "street 20:20:19",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_19_face.png",
+   "body_png": "records/eyes_faces_runtime/street_19_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 3"
+  },
+  {
+   "who": "street:18:17:0",
+   "name": "street 18:17:0",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_20_face.png",
+   "body_png": "records/eyes_faces_runtime/street_20_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 11"
+  },
+  {
+   "who": "street:18:17:1",
+   "name": "street 18:17:1",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_21_face.png",
+   "body_png": "records/eyes_faces_runtime/street_21_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 4"
+  },
+  {
+   "who": "street:18:17:2",
+   "name": "street 18:17:2",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_22_face.png",
+   "body_png": "records/eyes_faces_runtime/street_22_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 7"
+  },
+  {
+   "who": "street:18:17:3",
+   "name": "street 18:17:3",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_23_face.png",
+   "body_png": "records/eyes_faces_runtime/street_23_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 1"
+  },
+  {
+   "who": "street:18:17:4",
+   "name": "street 18:17:4",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_24_face.png",
+   "body_png": "records/eyes_faces_runtime/street_24_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:18:17:5",
+   "name": "street 18:17:5",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_25_face.png",
+   "body_png": "records/eyes_faces_runtime/street_25_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 11"
+  },
+  {
+   "who": "street:18:17:6",
+   "name": "street 18:17:6",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_26_face.png",
+   "body_png": "records/eyes_faces_runtime/street_26_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:18:17:7",
+   "name": "street 18:17:7",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_27_face.png",
+   "body_png": "records/eyes_faces_runtime/street_27_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 3"
+  },
+  {
+   "who": "street:18:17:8",
+   "name": "street 18:17:8",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_28_face.png",
+   "body_png": "records/eyes_faces_runtime/street_28_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 4"
+  },
+  {
+   "who": "street:18:17:9",
+   "name": "street 18:17:9",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_29_face.png",
+   "body_png": "records/eyes_faces_runtime/street_29_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 10"
+  },
+  {
+   "who": "street:18:17:10",
+   "name": "street 18:17:10",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_30_face.png",
+   "body_png": "records/eyes_faces_runtime/street_30_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 7"
+  },
+  {
+   "who": "street:18:17:11",
+   "name": "street 18:17:11",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_31_face.png",
+   "body_png": "records/eyes_faces_runtime/street_31_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 4"
+  },
+  {
+   "who": "street:18:17:12",
+   "name": "street 18:17:12",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_32_face.png",
+   "body_png": "records/eyes_faces_runtime/street_32_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 5"
+  },
+  {
+   "who": "street:18:17:13",
+   "name": "street 18:17:13",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_33_face.png",
+   "body_png": "records/eyes_faces_runtime/street_33_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 10"
+  },
+  {
+   "who": "street:18:17:14",
+   "name": "street 18:17:14",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_34_face.png",
+   "body_png": "records/eyes_faces_runtime/street_34_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 10"
+  },
+  {
+   "who": "street:18:17:15",
+   "name": "street 18:17:15",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_35_face.png",
+   "body_png": "records/eyes_faces_runtime/street_35_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:18:17:16",
+   "name": "street 18:17:16",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_36_face.png",
+   "body_png": "records/eyes_faces_runtime/street_36_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 9"
+  },
+  {
+   "who": "street:18:17:17",
+   "name": "street 18:17:17",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_37_face.png",
+   "body_png": "records/eyes_faces_runtime/street_37_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 8"
+  },
+  {
+   "who": "street:18:17:18",
+   "name": "street 18:17:18",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_38_face.png",
+   "body_png": "records/eyes_faces_runtime/street_38_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 5"
+  },
+  {
+   "who": "street:18:17:19",
+   "name": "street 18:17:19",
+   "face": "the street bubble's face (faceFor, ctFaceAsk)",
+   "face_png": "records/eyes_faces_runtime/street_39_face.png",
+   "body_png": "records/eyes_faces_runtime/street_39_body.png",
+   "owner": "CHARACTER [one skin, one person] (the city cast bake)",
+   "body_set": "cast fit 5"
+  },
+  {
+   "who": "you",
+   "name": "ACT1",
+   "face": "the phone strip's act1 face",
+   "face_png": "records/eyes_faces_runtime/flip_act1_face.png",
+   "body_png": "records/eyes_faces_runtime/map_body.png",
+   "owner": "DYNASTY / PORTRAIT",
+   "note": "act one is him: his map body"
+  },
+  {
+   "who": "act2",
+   "name": "ACT2",
+   "face": "the phone strip's act2 face",
+   "face_png": "records/eyes_faces_runtime/flip_act2_face.png",
+   "body_png": null,
+   "owner": "DYNASTY / PORTRAIT",
+   "note": "no body for this act on any screen"
+  },
+  {
+   "who": "act3",
+   "name": "ACT3",
+   "face": "the phone strip's act3 face",
+   "face_png": "records/eyes_faces_runtime/flip_act3_face.png",
+   "body_png": null,
+   "owner": "DYNASTY / PORTRAIT",
+   "note": "no body for this act on any screen"
+  }
+ ]
+}

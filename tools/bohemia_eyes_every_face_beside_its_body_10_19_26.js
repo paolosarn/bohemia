@@ -10,7 +10,7 @@
  *                  answered by the demo shell exactly as in play.
  *   THE FLIP STRIP the faces of acts one to three on the phone strip (ctFaceAsk('act1' .. 'act3')); acts two and three
  *                  have no body on screen, and the read says so.
- * Each picture is written as a small PNG under records/target/eyes_faces/ and listed in
+ * Each picture is written as a small PNG under records/eyes_faces_runtime/ (not published) and listed in
  * records/target/EYES_EVERY_FACE_RUNTIME.json; tools/bohemia_eyes_every_face_beside_its_body_10_19_26.py reads them
  * with the same skin read as every other face.
  *
@@ -29,7 +29,7 @@ function pw() {
 
 const ROOT = path.resolve(__dirname, '..'), PORT = 8881;
 const MAX = parseInt(process.argv[2] || '40', 10);
-const DIR = 'records/target/eyes_faces';
+const DIR = 'records/eyes_faces_runtime';   /* not a published folder: evidence for the read, never served */
 const OUT = 'records/target/EYES_EVERY_FACE_RUNTIME.json';
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json',
   '.webp': 'image/webp', '.mp3': 'audio/mpeg', '.css': 'text/css', '.txt': 'text/plain' };
