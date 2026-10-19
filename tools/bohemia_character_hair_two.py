@@ -416,7 +416,8 @@ def build(cut, L):
                 out.append(max(0.0012, t + 0.0035 * c - 0.0012))
             return out
         made.append(shell('barber_%s_cap' % tag, lambda q: q.z > line(q) - 0.003, thick, subdiv=2, rim=0.0015))
-        roots = darts(scalp_points(lambda q: q.z > line(q) + 0.012), 0.020, 143)
+        # cycle 2: 18 to 38 mm tufts 20 mm apart read at 1:1 as a fuzzy cap, not bed head; fewer, longer, wider, wilder
+        roots = darts(scalp_points(lambda q: q.z > line(q) + 0.012), 0.027, 143)
         bm = bmesh.new(); rng = random.Random(149)
         for R in roots:
             q = R - C; n = (R - C).normalized()
@@ -424,8 +425,9 @@ def build(cut, L):
             t1 = tangent(Vector((rng.random() - 0.5, rng.random() - 0.5, rng.random() - 0.5)), n)
             lie = tangent(Vector((0.3, 0.7, 0.8)), n)
             dirv = (n * (0.75 - 0.55 * flat) + t1 * (0.70 - 0.3 * flat) + lie * (1.2 * flat)).normalized()
-            L_ = (0.018 + 0.020 * rng.random()) * (1.0 - 0.35 * flat) * (0.75 if q.y < -0.06 else 1.0)
-            lens(bm, tuft_path(R, dirv, L_, tangent(Vector((0, 0, -1)), dirv) * 0.25), 0.011 + 0.006 * rng.random(), 0.0045)
+            L_ = (0.030 + 0.028 * rng.random()) * (1.0 - 0.35 * flat) * (0.70 if q.y < -0.06 else 1.0)
+            bend = (tangent(Vector((0, 0, -1)), dirv) * 0.30 + t1 * (0.35 * (rng.random() - 0.5)))
+            lens(bm, tuft_path(R, dirv, L_, bend), 0.016 + 0.008 * rng.random(), 0.0060)
         made.append(piece(bm, 'barber_%s_tufts' % tag, subdiv=1))
 
     # ================================================================== HALF SHAVE

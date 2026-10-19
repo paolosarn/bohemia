@@ -1,0 +1,38 @@
+{
+ "cut": "BOX BRAIDS",
+ "tag": "box_braids",
+ "bank": {
+  "ramp": "H_BRN",
+  "vol": 0,
+  "side": 1.9,
+  "front": 0.2,
+  "shape": "braids"
+ },
+ "worn_by": "Reds, Blues, Caravans, Colorful",
+ "model": "records/character/rig/barber_box_braids.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  1
+ ],
+ "hair_rgb": [
+  125,
+  77,
+  29
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5335,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7258,
+ "pieces": {
+  "barber_box_braids_scalp": 52694,
+  "barber_box_braids_braids": 87820
+ }
+}

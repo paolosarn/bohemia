@@ -1,0 +1,39 @@
+{
+ "cut": "HALF SHAVE",
+ "tag": "half_shave",
+ "bank": {
+  "ramp": "H_BLE",
+  "vol": 1,
+  "side": 1.0,
+  "front": 0.22,
+  "shape": "one side shaved"
+ },
+ "worn_by": "Anarchists, Colorful, Blues",
+ "model": "records/character/rig/barber_half_shave.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_bone",
+  2
+ ],
+ "hair_rgb": [
+  184,
+  168,
+  134
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5535,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7483,
+ "pieces": {
+  "h2_half_shave_roots": 36313,
+  "barber_half_shave_cap": 147066,
+  "barber_half_shave_sweep": 20486
+ }
+}
