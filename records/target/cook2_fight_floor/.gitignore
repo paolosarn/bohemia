@@ -1,0 +1,6 @@
+# COOK TWO 10/19 [the fight floor he hates]: the 32 re-floored block pictures (about 55 MB) and the phone shots regenerate
+# bit for bit from the seeded tools; the kit JSON, the materials, the 1:1 crops and the sheet are committed.
+#   python3 tools/bohemia_cook2_the_fight_floor_10_19_26.py   (the blocks, about 8 minutes)
+#   node tools/bohemia_cook2_the_fight_floor_shot_10_19_26.js  (the shots and the sheet)
+block_*.webp
+shots/
