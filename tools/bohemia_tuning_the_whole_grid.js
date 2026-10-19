@@ -179,11 +179,11 @@ async function engine(plain, strikes) {
   return ctx;
 }
 
-/* ---------- A STANDOFF (10/19): a fight in which nobody moves, strikes, reloads, uses a skill, falls or flees for 20 rounds will
-   never end (both sides hold their line; measured: the state stops changing once the breath is back, about seven rounds). It
-   was run to the 400,000-step guard, minutes of CPU each and hours across the grid; it is now stopped there and counted the same:
-   a standoff, neither won nor lost. Any fight with activity plays exactly as before. ---------- */
-const ACTIVE_T = { step: 1, attack: 1, skill: 1, reload: 1, swap: 1, down: 1, dead: 1, fled: 1, injury: 1, rally: 1, nine: 1, berserk: 1 };
+/* ---------- A STANDOFF (10/19): a fight in which nobody strikes, falls or flees for 20 rounds will never end (both sides hold
+   their line; a man may still dance or cast a buff on himself every turn: measured, dire wolves seed 7016, BOOKIE cast Adrenaline
+   for 2,000 rounds at full health). It was run to the 400,000-step guard, minutes of CPU each and hours across the grid; it is now
+   stopped and counted the same: a standoff, neither won nor lost. Any fight with fighting in it plays exactly as before. ---------- */
+const ACTIVE_T = { attack: 1, down: 1, dead: 1, fled: 1, injury: 1, nine: 1, berserk: 1 };
 const IDLE_ROUNDS = 20;
 function idleWatch(F) {
   let seen = 0, lastActive = F.S.round;

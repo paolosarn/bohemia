@@ -71,6 +71,7 @@ md.push('## How it was measured');
 md.push('');
 md.push('- The LIVE fight (slices/BOHEMIA_FIGHT.html\'s own rules and exactly the data files its loadAll() reads), headless in node by tools/bohemia_tuning_the_whole_grid.js; both sides on the fight\'s own AUTO brain; '
   + B.fights_per_cell + ' seeded fights a cell (half for a cell of 30 or more men on the board, the beast roster 40; each cell carries its own count in the bank), so every setting meets the same fights. The hooks at neutral replay the unhooked fight event for event (--control, 6 of 6).');
+md.push('- A STANDOFF: a fight in which nobody moves, strikes, reloads, uses a skill, falls or flees for 20 rounds is stopped and counted as a standoff, neither won nor lost (before 10/19 it ran to a 400,000-step guard with the same count; only the time changed, and squares played before then show a standoff\'s minutes swollen, so the worst list shows the standoff instead).');
 md.push('- YOUR COMPANY: 1 (THE LONE WOLF\'s hedge knight, level 4), 3 (A NEW CREW\'s three), 6, 12 (the twelve) and 14 (the twelve and two more, the 16-cap origins). Each man keeps his place in the line\'s job.');
 md.push('- THEIR NUMBER: 3, 6, 12, 20, 38, and THE MAP\'S PICK (party_math\'s job count, capped at 13 today).');
 md.push('- WHO: people (brigands, dressed by the fight\'s own tiers) and every beast whose fight is a body and one strike (below).');
