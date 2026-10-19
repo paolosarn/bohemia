@@ -279,7 +279,8 @@ async function cell(C, n, strikes) {
   };
   for (let k = 0; k < n; k++) {
     ctx.setSeed((C.seed0 || 9000) + k);
-    const party = C.kind === 'humans' ? { faction: 'brigands', count: C.enemies, days: 1, difficulty: L.pick } : Array.from({ length: C.enemies }, () => C.kind);
+    /* C.band: a named band (the fight's own fallback, ours.first_band, when the map hands no party) */
+    const party = C.band ? C.band.slice() : C.kind === 'humans' ? { faction: 'brigands', count: C.enemies, days: 1, difficulty: L.pick } : Array.from({ length: C.enemies }, () => C.kind);
     F.setup({ auto: true, formation: null, company: company, cap: C.company, party: party, days: 1 });
     F.S.units.forEach(u => {
       if (u.resolve === null || u.resolve === undefined) return;
@@ -455,4 +456,4 @@ async function main() {
   }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
-module.exports = { DRAFT, KITS, SLOTS, engine, cell, cardRows, kitCompany };
+module.exports = { DRAFT, KITS, SLOTS, SPLICES, engine, cell, cardRows, kitCompany };

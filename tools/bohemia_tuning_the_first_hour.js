@@ -29,6 +29,12 @@ const ORIG = J('records/target/bb/origins.json').origins;
 const BG = new Map(J('records/target/bb/backgrounds.json').rows.map(r => [r.id, r]));
 const mid = (bg, k) => { const s = BG.get(bg).stats[k]; return (s[0] + s[s.length - 1]) / 2; };
 const SETS = ['bb', 'start'], KITS = ['today', 'draft'];
+/* THE STREET'S FIGHT (found 10/19): four of the city's eight hand-overs (a crew out on the block, a crew he taps, the door into
+   a building) send a roster and NO party (slices/BOHEMIA_CITY_WORLD.html cityHandOver ... roster, street, why), and the demo's
+   nfOpts() reads only d.party, so the fight falls back to its own band, ours.first_band: nine brigands. Played at the game as he
+   plays it (TODAY) and at our start, 100 fights a cell. */
+const FIRST_BAND = J('records/target/bb/ours.json').first_band.value;
+const STREET_SETS = ['today', 'start'], STREET_N = 100;
 
 /* ---------- the guns, handed by the man (the guns page's routing) ---------- */
 const CYCLE = ['rifle', 'pistol', 'line', 'rifle', 'shotgun', 'line'];
@@ -55,7 +61,13 @@ function cells() {
     SETS.forEach(s => KITS.forEach(k => {
       if (k === 'draft' && n === 1) return;
       const count = GRID.mapCount(n, lv, 1, LEV(s).pick);
-      out.push({ origin: o.id, name: o.name, d: o.d, kit: k, setting: s, C: { kind: 'humans', company: n, enemies: count, kit: k, setting: s, men: men, slots: k === 'draft' ? slotsFor(men) : null } });
+      out.push({ origin: o.id, name: o.name, d: o.d, kit: k, setting: s, fight: 'job', C: { kind: 'humans', company: n, enemies: count, kit: k, setting: s, men: men, slots: k === 'draft' ? slotsFor(men) : null } });
+    }));
+    /* the game as he plays it, the map's job, today's kit */
+    out.push({ origin: o.id, name: o.name, d: o.d, kit: 'today', setting: 'today', fight: 'job', C: { kind: 'humans', company: n, enemies: GRID.mapCount(n, lv, 1, LEV('today').pick), kit: 'today', setting: 'today', men: men, slots: null } });
+    STREET_SETS.forEach(s => KITS.forEach(k => {
+      if (k === 'draft' && n === 1) return;
+      out.push({ origin: o.id, name: o.name, d: o.d, kit: k, setting: s, fight: 'street', C: { kind: 'humans', company: n, enemies: FIRST_BAND.length, band: FIRST_BAND, kit: k, setting: s, men: men, slots: k === 'draft' ? slotsFor(men) : null } });
     }));
   });
   return out;
@@ -66,23 +78,24 @@ async function main() {
   const N = Number(arg('--n', 200)), JOBS = Number(arg('--jobs', 2));
   const sfile = path.join(os.tmpdir(), 'bohemia_first_hour_strikes_' + process.pid + '.json');
   fs.writeFileSync(sfile, JSON.stringify(GRID.wikiStrikes(Object.keys(GRID.BEASTS))));
-  /* the resume cache (the grid's): a restart replays only the cells not yet played on this fight and these draft rows */
-  const CACHE = GRID.cellCache(path.join(ROOT, OUT.replace(/\.json$/, '.cells.ndjson')), N, ['tools/bohemia_tuning_the_first_kit_is_guns.js']);
-  const all = cells(), res = {}, kk = w => [w.origin, w.kit, w.setting].join('|');
-  all.forEach(w => { if (CACHE.done[kk(w)]) res[kk(w)] = CACHE.done[kk(w)]; });
+  /* the resume cache (the grid's): a restart replays only the cells not yet played on this fight, these draft rows and splices */
+  const CACHE = GRID.cellCache(path.join(ROOT, OUT.replace(/\.json$/, '.cells.ndjson')), N, [{ text: JSON.stringify(require(GUNS).DRAFT) + JSON.stringify(require(GUNS).SPLICES) }]);
+  const all = cells(), res = {}, kk = w => [w.origin, w.kit, w.setting].concat(w.fight === 'street' ? ['street'] : []).join('|');
+  const nOf = w => w.fight === 'street' ? Math.min(N, STREET_N) : N;
+  all.forEach(w => { const v = CACHE.has(kk(w), nOf(w)); if (v) res[kk(w)] = v; });
   const work = all.filter(w => !res[kk(w)]);
   process.stderr.write('resume: ' + (all.length - work.length) + ' of ' + all.length + ' cells already played\n');
   let next = 0, running = 0; const t0 = Date.now();
   await new Promise(done => {
     const pump = () => { while (running < JOBS && next < work.length) { const w = work[next++]; running++;
-      cp.execFile(process.execPath, [GUNS, '--cell', JSON.stringify(w.C), String(N), sfile], { maxBuffer: 1 << 26 }, (err, out) => {
+      cp.execFile(process.execPath, [GUNS, '--cell', JSON.stringify(w.C), String(nOf(w)), sfile], { maxBuffer: 1 << 26 }, (err, out) => {
         running--; if (err) { console.error('cell failed', w.origin, w.kit, w.setting, err.message); process.exit(1); }
         const T = JSON.parse(out), f = GRID.felt(T);
-        res[kk(w)] = { origin: w.origin, kit: w.kit, setting: w.setting, company: w.C.company, enemies: w.C.enemies, slots: w.C.slots,
+        res[kk(w)] = { origin: w.origin, kit: w.kit, setting: w.setting, fight: w.fight, fights: nOf(w), company: w.C.company, enemies: w.C.enemies, slots: w.C.slots,
           won_in_100: f.won_in_100, your_men_struck_down_per_fight: f.your_men_struck_down_per_fight, your_men_dead_per_100_fights: f.your_men_dead_per_100_fights,
           whole_company_down_in_100: f.whole_company_down_in_100, minutes_on_auto: f.minutes_on_auto, stalled_in_100: f.stalled_in_100,
           guns_share_of_the_killing_in_100: T.allDmg ? Math.round(100 * T.gunDmg / T.allDmg) : null };
-        CACHE.put(kk(w), res[kk(w)]);
+        CACHE.put(kk(w), res[kk(w)], nOf(w));
         process.stderr.write(Object.keys(res).length + '/' + all.length + ' ' + Math.round((Date.now() - t0) / 1000) + 's\n');
         if (next >= work.length && running === 0) done(); else pump(); }); } };
     if (!work.length) done(); else pump();

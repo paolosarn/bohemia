@@ -275,7 +275,9 @@ function fightPrint(extra) {
   const h = require('crypto').createHash('sha1').update(html);
   files.forEach(f => h.update(fs.readFileSync(path.join(ROOT, 'slices', f))));
   /* and what the bench itself reads: the map's party maths and the measured levers */
-  ['records/target/bb/party_math.json', 'banks/BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.json'].concat(extra || []).forEach(f => h.update(fs.readFileSync(path.join(ROOT, f))));
+  /* extra: a file path, or { text } for what a caller's own bench adds (the draft gun rows and their splices) */
+  ['records/target/bb/party_math.json', 'banks/BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.json'].concat(extra || [])
+    .forEach(f => h.update(typeof f === 'string' ? fs.readFileSync(path.join(ROOT, f)) : String(f.text)));
   return h.digest('hex').slice(0, 12);
 }
 function cellCache(file, n, extra) {

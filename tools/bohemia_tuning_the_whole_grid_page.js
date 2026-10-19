@@ -68,7 +68,7 @@ md.push('');
 md.push('## How it was measured');
 md.push('');
 md.push('- The LIVE fight (slices/BOHEMIA_FIGHT.html\'s own rules and exactly the data files its loadAll() reads), headless in node by tools/bohemia_tuning_the_whole_grid.js; both sides on the fight\'s own AUTO brain; '
-  + B.fights_per_cell + ' seeded fights a cell (the roster beasts 40), so every setting meets the same fights. The hooks at neutral replay the unhooked fight event for event (--control, 6 of 6).');
+  + B.fights_per_cell + ' seeded fights a cell (half for a cell of 30 or more men on the board, the beast roster 40; each cell carries its own count in the bank), so every setting meets the same fights. The hooks at neutral replay the unhooked fight event for event (--control, 6 of 6).');
 md.push('- YOUR COMPANY: 1 (THE LONE WOLF\'s hedge knight, level 4), 3 (A NEW CREW\'s three), 6, 12 (the twelve) and 14 (the twelve and two more, the 16-cap origins). Each man keeps his place in the line\'s job.');
 md.push('- THEIR NUMBER: 3, 6, 12, 20, 38, and THE MAP\'S PICK (party_math\'s job count, capped at 13 today).');
 md.push('- WHO: people (brigands, dressed by the fight\'s own tiers) and every beast whose fight is a body and one strike (below).');
@@ -116,7 +116,7 @@ gridKinds.forEach(k => {
 /* the roster: every played beast */
 const roster = kinds.filter(k => gridKinds.indexOf(k) < 0);
 if (roster.length) {
-  md.push('## THE BEASTS, ONE BY ONE (40 fights a cell, the dire wolves 60; won in 100 at OUR START / TODAY, a dash where only the start was played)');
+  md.push('## THE BEASTS, ONE BY ONE (40 fights a cell, the dire wolves from the grid above; won in 100 at OUR START / TODAY, a dash where only the start was played)');
   md.push('');
   md.push('| beast | what it loses on the bench | ' + STAGES.map(s => [6, 12].map(c => SNAME[s] + ' ' + c + ' vs 3 / 6 / 12').join(' | ')).join(' | ') + ' |');
   md.push('|---|---|' + STAGES.map(() => '---|---').join('|') + '|');
@@ -195,7 +195,7 @@ h.push('<li><b>Only bandits come in tiers.</b> No other gang can be dressed for 
 h.push('<li><b>The game never sends more than 13.</b> The 20 and 38 columns are fights only Battle Brothers makes today.</li>');
 h.push('<li>The computer played both sides. You will do better than these numbers.</li>');
 h.push('</ul>');
-h.push('<p class="k">Every square, the 14 beast bites, Battle Brothers beside each square and the method: records/BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.md. ' + Object.keys(C).length + ' squares, ' + B.fights_per_cell + ' fights each. draft:true; nothing in the game reads this page.</p>');
+h.push('<p class="k">Every square, the 14 beast bites, Battle Brothers beside each square and the method: records/BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.md. ' + Object.keys(C).length + ' squares, ' + B.fights_per_cell + ' fights each (half for the biggest, 40 for the beast roster). draft:true; nothing in the game reads this page.</p>');
 h.push('<script>');
 h.push('var D=' + JSON.stringify(DATA) + ',HI=' + JSON.stringify(HI) + ',CO=' + JSON.stringify(B.companies) + ',CT=' + JSON.stringify(COUNTS) + ',ST=' + JSON.stringify(STAGES) + ';');
 h.push('var KN=' + JSON.stringify(Object.fromEntries(gridKinds.map(k => [k, k === 'humans' ? 'PEOPLE' : 'DIRE WOLVES']))) + ',SN={early:"EARLY",middle:"MIDDLE",late:"LATE"};');
