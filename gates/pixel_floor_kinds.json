@@ -1,0 +1,429 @@
+{
+ "_readme": "THE PIXEL FLOOR'S KINDS (PLUMBER 10/19/26, row [the pixel floor], rule 105). Every picture the site publishes (slices/, engine/, records/target/) gets ONE kind from the first rule whose glob matches its path (fnmatch: * crosses folders). A picture with no rule is red in THE PIXEL FLOOR: add a line here with its kind and why. Judged kinds have a floor in records/target/BOHEMIA_PIXEL_FLOOR.json (re-measured from his packs by tools/bohemia_pixel_floor.py --measure); the rest say where their things are judged. A folder holding rig.json is read first and apart (rig_ stills are the asset, else raw_, judged by the folder's BROADEST facing: a thing seen head-on is narrower than its long side; clip keys (_kNN) share their stills' canvas; shadow_, raw_, rigid, rigobj_, id_, obj_, calibration, riglight, normal_, mat_, mask_ are render passes; any other file falls to the rules), its kind from rig_kinds.",
+ "rig_kinds": [
+  {
+   "match": "*/character/*",
+   "kind": "person"
+  },
+  {
+   "match": "*/cook3/rig/*",
+   "kind": "person"
+  },
+  {
+   "match": "*/portrait/rig/*",
+   "kind": "person"
+  },
+  {
+   "match": "*/man",
+   "kind": "person"
+  },
+  {
+   "match": "*/mob",
+   "kind": "person"
+  },
+  {
+   "match": "*robot*",
+   "kind": "person"
+  },
+  {
+   "match": "*fox*",
+   "kind": "beast"
+  },
+  {
+   "match": "*wolf*",
+   "kind": "beast"
+  },
+  {
+   "match": "*dog*",
+   "kind": "beast"
+  },
+  {
+   "match": "*hyena*",
+   "kind": "beast"
+  },
+  {
+   "match": "*truck*",
+   "kind": "vehicle"
+  },
+  {
+   "match": "*dozer*",
+   "kind": "vehicle"
+  },
+  {
+   "match": "*wreck*",
+   "kind": "vehicle"
+  },
+  {
+   "match": "*lamp*",
+   "kind": "lamp"
+  },
+  {
+   "match": "*dont_*",
+   "kind": "person"
+  },
+  {
+   "match": "*",
+   "kind": "thing"
+  }
+ ],
+ "rules": [
+  {
+   "glob": "slices/vote/*",
+   "kind": "sheet",
+   "why": "a VOTE card's picture: candidates beside their twin; each thing is judged where it is made"
+  },
+  {
+   "glob": "slices/look/*",
+   "kind": "proof",
+   "why": "a gate's proof shot of the real screen"
+  },
+  {
+   "glob": "slices/eyes/*",
+   "kind": "proof",
+   "why": "EYES' screenshots of the real screen"
+  },
+  {
+   "glob": "slices/icons/*",
+   "kind": "os_icon",
+   "why": "the phone's home-screen icon (180, 192, 512); the phone sizes it"
+  },
+  {
+   "glob": "slices/start/*",
+   "kind": "screen",
+   "why": "the front screen's whole picture"
+  },
+  {
+   "glob": "slices/market_icons/*",
+   "kind": "icon",
+   "why": "the market's item icons"
+  },
+  {
+   "glob": "slices/settlement/lot/tank.png",
+   "kind": "thing",
+   "why": "a water tank on the lot"
+  },
+  {
+   "glob": "slices/settlement/lot/pump.png",
+   "kind": "thing",
+   "why": "a pump on the lot"
+  },
+  {
+   "glob": "slices/settlement/lot/*",
+   "kind": "building",
+   "why": "the eight built things of a base's lot (lot.json)"
+  },
+  {
+   "glob": "slices/cook4_map_houses/*",
+   "kind": "building",
+   "why": "the settlement houses on the map"
+  },
+  {
+   "glob": "slices/fight_people/*",
+   "kind": "sheet_cell",
+   "why": "the fight's people, one 112 cell per frame (fight_people.json frame)",
+   "cell_kind": "person"
+  },
+  {
+   "glob": "slices/settlement_people/*",
+   "kind": "sheet_cell",
+   "why": "the settlement's people, one 112 cell per frame",
+   "cell_kind": "person"
+  },
+  {
+   "glob": "slices/fight_beasts/*",
+   "kind": "sheet_cell",
+   "why": "the fight's beasts, one 112 cell per frame",
+   "cell_kind": "beast"
+  },
+  {
+   "glob": "slices/fight_ground/kit_cover/*",
+   "kind": "thing",
+   "why": "the cover props a fight board lays"
+  },
+  {
+   "glob": "slices/fight_ground/kit_street/*",
+   "kind": "composite",
+   "why": "a kit piece laid from his pack tiles at 1:1 (COOK TWO's manifest names them); the tiles are his"
+  },
+  {
+   "glob": "slices/fight_ground/block_*",
+   "kind": "composite",
+   "why": "a whole fight board laid from the kit"
+  },
+  {
+   "glob": "slices/fight_ground/cover_*",
+   "kind": "thing",
+   "why": "a cover prop on the board"
+  },
+  {
+   "glob": "slices/fight_ground/light_lamp_*",
+   "kind": "lamp",
+   "why": "a street lamp on the board"
+  },
+  {
+   "glob": "slices/fight_ground/light_oil_drum*",
+   "kind": "thing",
+   "why": "a burning drum, a thing that lights"
+  },
+  {
+   "glob": "slices/fight_ground/light_*glow*",
+   "kind": "effect",
+   "why": "a light's glow laid over the thing that casts it (the slot bank is cover_slot_bank, judged as a thing)"
+  },
+  {
+   "glob": "slices/fight_ground/*",
+   "kind": "tile",
+   "why": "a road, corner or ground piece of the board"
+  },
+  {
+   "glob": "slices/settlement_ground/*",
+   "kind": "composite",
+   "why": "a settlement screen laid from pack tiles"
+  },
+  {
+   "glob": "slices/settlement_ground_packs/*",
+   "kind": "composite",
+   "why": "a settlement screen laid from pack tiles"
+  },
+  {
+   "glob": "slices/*",
+   "kind": "screen",
+   "why": "a whole-screen picture or a dated proof at the root of slices/"
+  },
+  {
+   "glob": "records/target/*[A-Z][A-Z][A-Z]*_*",
+   "kind": "sheet",
+   "why": "a lane-named sheet (DIRECTION_, PORTRAIT_, ANIMATION_, COOK3_...): a card's picture; its things are judged where they are made"
+  },
+  {
+   "glob": "records/target/portrait/crew/*_64.png",
+   "kind": "thumb",
+   "why": "the 64 face beside the 128 HD face (EVERY CHARACTER FACE COMES WITH A THUMB, 8/28): an icon-sized face"
+  },
+  {
+   "glob": "records/target/portrait/crew/*",
+   "kind": "portrait",
+   "why": "the HD face, one per mouth and mood"
+  },
+  {
+   "glob": "records/target/portrait/*_*.png",
+   "kind": "portrait",
+   "why": "a faction or cast head at 112"
+  },
+  {
+   "glob": "records/target/char/*",
+   "kind": "person_cell",
+   "why": "the old flat walk and idle frames"
+  },
+  {
+   "glob": "records/target/floor/*",
+   "kind": "tile",
+   "why": "the old interior floor tiles (carpet, slab, wood, lino)"
+  },
+  {
+   "glob": "records/target/character/*",
+   "kind": "person_cell",
+   "why": "a 112 render of a person (the barber's cuts, the gangs)"
+  },
+  {
+   "glob": "records/target/master_rig/game_wolf/*",
+   "kind": "beast",
+   "why": "the wolf the game drew before the rig, kept beside its rig twin"
+  },
+  {
+   "glob": "records/target/master_rig/round2_*/*",
+   "kind": "sheet",
+   "why": "the rig's round two comparison pictures"
+  },
+  {
+   "glob": "records/target/cook2_map_curb/*",
+   "kind": "tile",
+   "why": "the curb on the map, COOK TWO"
+  },
+  {
+   "glob": "records/target/cook2_map_joins/*",
+   "kind": "tile",
+   "why": "the map's road joins, COOK TWO"
+  },
+  {
+   "glob": "records/target/taste/*",
+   "kind": "sheet",
+   "why": "DIRECTION's and PORTRAIT's taste studies, not assets"
+  },
+  {
+   "glob": "records/target/tileforms/*",
+   "kind": "sheet",
+   "why": "the tile-form judge sheets"
+  },
+  {
+   "glob": "records/target/logos/*",
+   "kind": "screen",
+   "why": "the title's logo candidates"
+  },
+  {
+   "glob": "records/target/loop_proof/*",
+   "kind": "proof",
+   "why": "the loop seam proof"
+  },
+  {
+   "glob": "records/target/ui_*",
+   "kind": "proof",
+   "why": "UI's screenshots and before/after shots"
+  },
+  {
+   "glob": "records/target/combat/*",
+   "kind": "proof",
+   "why": "COMBAT's fight screenshots"
+  },
+  {
+   "glob": "records/target/graveyard/*",
+   "kind": "proof",
+   "why": "a dead thing's last picture"
+  },
+  {
+   "glob": "records/target/vote_first/*",
+   "kind": "sheet",
+   "why": "a card's first picture"
+  },
+  {
+   "glob": "records/target/twin_cards/*",
+   "kind": "sheet",
+   "why": "a twin card"
+  },
+  {
+   "glob": "records/target/*",
+   "kind": "sheet",
+   "why": "a card or proof picture at the root of records/target"
+  },
+  {
+   "glob": "engine/*",
+   "kind": "thing",
+   "why": "a picture an engine module loads"
+  }
+ ],
+ "inline": [
+  {
+   "host": "slices/vote/*",
+   "kind": "sheet",
+   "why": "a VOTE card's page: candidates beside their twin; each thing is judged where it is made"
+  },
+  {
+   "host": "slices/BOHEMIA_CITY_WORLD.html",
+   "context": "__RIG_TRUCK",
+   "kind": "marker",
+   "why": "the party marker on the map: the rig truck (rule 115g)"
+  },
+  {
+   "host": "slices/BOHEMIA_CITY_TILES_*.js",
+   "kind": "tile",
+   "why": "the city's tile pictures"
+  },
+  {
+   "host": "slices/BOHEMIA_*_CURRENT.html",
+   "kind": "sheet",
+   "why": "a tab's record page: what it shows lives in the game's own files"
+  },
+  {
+   "host": "slices/BOHEMIA_*_[0-9]*_26.html",
+   "kind": "sheet",
+   "why": "a dated judge or proof page"
+  },
+  {
+   "host": "slices/BOHEMIA_V12_BAKE_PROOF_*",
+   "kind": "sheet",
+   "why": "a dated bake proof"
+  },
+  {
+   "host": "slices/BOHEMIA_LOOP.html",
+   "kind": "sheet",
+   "why": "the loop judge page"
+  }
+ ],
+ "owners": [
+  {
+   "glob": "records/target/char/*",
+   "lane": "CHARACTER",
+   "why": "made by the retired ART lane 7/26 (73306c94, the target screens' baked body); the body is CHARACTER's (rule 115c)"
+  },
+  {
+   "glob": "records/target/floor/*",
+   "lane": "COOK TWO",
+   "why": "the interior floors, 8/26 (d5cafc21); every floor tile is COOK TWO's ground (rule 87)"
+  },
+  {
+   "glob": "slices/fight_ground/kit_*",
+   "lane": "COOK TWO",
+   "why": "COOK TWO owns the kit pixels (09f84d93)"
+  },
+  {
+   "glob": "slices/fight_ground/*",
+   "lane": "COMBAT TWO",
+   "why": "the boards and their pieces"
+  },
+  {
+   "glob": "slices/settlement/lot/*",
+   "lane": "COOK FOUR",
+   "why": "made by LIFE+CITY 10/9 (145f98b2, held by rule 88); the settlement's pictures are COOK FOUR's"
+  },
+  {
+   "glob": "slices/settlement*",
+   "lane": "COOK FOUR",
+   "why": "the settlement's pictures"
+  },
+  {
+   "glob": "slices/cook4_*",
+   "lane": "COOK FOUR",
+   "why": "its folder"
+  },
+  {
+   "glob": "slices/market_icons/*",
+   "lane": "UI",
+   "why": "the market's icons"
+  },
+  {
+   "glob": "slices/fight_people/*",
+   "lane": "COMBAT",
+   "why": "fight_people.json lane"
+  },
+  {
+   "glob": "slices/fight_beasts/*",
+   "lane": "ANIMATION",
+   "why": "fight_beasts.json lane"
+  },
+  {
+   "glob": "records/target/master_rig/cook_*",
+   "lane": "COOK",
+   "why": "the props off the master rig"
+  },
+  {
+   "glob": "records/target/master_rig/*",
+   "lane": "DIRECTION",
+   "why": "the master rig"
+  },
+  {
+   "glob": "records/target/character/*",
+   "lane": "CHARACTER",
+   "why": "its folder"
+  },
+  {
+   "glob": "records/target/portrait/*",
+   "lane": "PORTRAIT",
+   "why": "its folder"
+  },
+  {
+   "glob": "records/target/cook3/*",
+   "lane": "COOK THREE",
+   "why": "its folder"
+  },
+  {
+   "glob": "records/target/cook2_*",
+   "lane": "COOK TWO",
+   "why": "its folder"
+  },
+  {
+   "glob": "records/target/direction_*",
+   "lane": "DIRECTION",
+   "why": "its folder"
+  }
+ ]
+}

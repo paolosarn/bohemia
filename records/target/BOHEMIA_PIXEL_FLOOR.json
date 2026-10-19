@@ -1,0 +1,114 @@
+{
+ "_readme": "THE PIXEL FLOOR (rule 105), re-measured from his packs by tools/bohemia_pixel_floor.py --measure; painted = the box of pixels at least half opaque. Read by gates/pixel_floor_gate.py.",
+ "bank": {
+  "door": {
+   "pieces": 30,
+   "painted_long_p10": 94,
+   "painted_long_p50": 95,
+   "painted_long_min": 94
+  },
+  "ground": {
+   "pieces": 391,
+   "painted_long_p10": 88,
+   "painted_long_p50": 94,
+   "painted_long_min": 66
+  },
+  "lamp": {
+   "pieces": 47,
+   "painted_long_p10": 94,
+   "painted_long_p50": 94,
+   "painted_long_min": 89
+  },
+  "marking": {
+   "pieces": 67,
+   "painted_long_p10": 94,
+   "painted_long_p50": 94,
+   "painted_long_min": 92
+  },
+  "prop": {
+   "pieces": 784,
+   "painted_long_p10": 92,
+   "painted_long_p50": 94,
+   "painted_long_min": 56
+  },
+  "road": {
+   "pieces": 278,
+   "painted_long_p10": 94,
+   "painted_long_p50": 94,
+   "painted_long_min": 77
+  },
+  "settlement": {
+   "pieces": 352,
+   "painted_long_p10": 93,
+   "painted_long_p50": 94,
+   "painted_long_min": 58
+  }
+ },
+ "floors": {
+  "tile": {
+   "measure": "painted long side",
+   "px": 92,
+   "from": "10th percentile of 736 road, ground and marking pieces"
+  },
+  "building": {
+   "measure": "painted long side",
+   "px": 93,
+   "from": "10th percentile of 382 settlement and door pieces"
+  },
+  "lamp": {
+   "measure": "painted height",
+   "px": 94,
+   "from": "10th percentile of 47 lamps"
+  },
+  "thing": {
+   "measure": "painted long side",
+   "px": 56,
+   "from": "the smallest of 784 props he bought"
+  },
+  "vehicle": {
+   "measure": "painted long side",
+   "px": 94,
+   "from": "the median of 784 props (a car or a crate)"
+  },
+  "portrait": {
+   "measure": "canvas, both sides",
+   "px": 96,
+   "from": "the median canvas of 736 pack tiles"
+  },
+  "person": {
+   "measure": "rig still: painted height",
+   "px": 98,
+   "from": "ruling: the 112 box, about 100 painted; records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md 98 px = 1.72 m"
+  },
+  "person_cell": {
+   "measure": "cell, long side",
+   "px": 112,
+   "from": "ruling: the 112 box"
+  },
+  "icon": {
+   "measure": "painted long side",
+   "px": 32,
+   "from": "ruling: the smallest prop canvas, 29 by 36, rounded up"
+  },
+  "marker": {
+   "measure": "painted long side",
+   "px": 40,
+   "from": "ruling: the smallest ground canvas, 40 by 38"
+  },
+  "beast": {
+   "measure": "painted long side",
+   "px": 56,
+   "from": "the smallest of 784 props he bought (a beast is held to the smallest thing)"
+  },
+  "thumb": {
+   "measure": "painted long side",
+   "px": 32,
+   "from": "ruling: the smallest prop canvas, 29 by 36, rounded up (a face's thumb is icon-sized, law 8/28)"
+  },
+  "sheet_cell": {
+   "measure": "cell, long side",
+   "px": 112,
+   "from": "ruling: the 112 box"
+  }
+ }
+}

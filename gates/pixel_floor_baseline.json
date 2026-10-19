@@ -1,0 +1,474 @@
+{
+ "_readme": "THE PIXEL FLOOR's baseline (gates/pixel_floor_gate.py): every published picture under its kind's floor when the gate landed, by path, with its bytes' hash. It only shrinks: a new entry is refused, a changed one still under is red, one that is gone or over the floor is dropped by --write.",
+ "under": {
+  "records/target/char/idle_E.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "b617e305fde6ef6f1d161ad59b91793bb3df6748",
+   "value": 56
+  },
+  "records/target/char/idle_N.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "c3367e940be87f0c82dce733feeeb141b60180da",
+   "value": 56
+  },
+  "records/target/char/idle_NE.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "f31e78f5ab6f701ef60f333cdd8f955d980d00bf",
+   "value": 56
+  },
+  "records/target/char/idle_NW.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "6a84831cf4668e20481d9fdb0b8616189b223d4f",
+   "value": 56
+  },
+  "records/target/char/idle_S.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "458740f5a864f7b12e37270728a2dd816564e895",
+   "value": 56
+  },
+  "records/target/char/idle_SE.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "8f3883d9c146151f92e0aa3554bddf793a321b9f",
+   "value": 56
+  },
+  "records/target/char/idle_SW.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "f946b6e043984e8d001dbceec6d163f234f0a148",
+   "value": 56
+  },
+  "records/target/char/idle_W.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "add8e51638a1ed654ac3389c2f9f038266136e23",
+   "value": 56
+  },
+  "records/target/char/walk_E_0.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "36e455ee0314a35d947942fb7dac8495353d37ca",
+   "value": 56
+  },
+  "records/target/char/walk_E_1.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "0309bac61a2c971dec03970c8527b5833aab7ae5",
+   "value": 56
+  },
+  "records/target/char/walk_E_2.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "36e455ee0314a35d947942fb7dac8495353d37ca",
+   "value": 56
+  },
+  "records/target/char/walk_E_3.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "45365f4f0351fe1c275ec13072c7d1ad2e5fad57",
+   "value": 56
+  },
+  "records/target/char/walk_NE_0.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "122495edde5f85365936d9b1d2867f78c72defe9",
+   "value": 56
+  },
+  "records/target/char/walk_NE_1.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "0c5e130c73b0080cbeb3a6dbc718d1216259c1e5",
+   "value": 56
+  },
+  "records/target/char/walk_NE_2.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "122495edde5f85365936d9b1d2867f78c72defe9",
+   "value": 56
+  },
+  "records/target/char/walk_NE_3.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "678a748428d429b91881f060d52efd63a806b9df",
+   "value": 56
+  },
+  "records/target/char/walk_NW_0.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "24704ebcc4da20f4351f9cee91c23235bb2d59af",
+   "value": 56
+  },
+  "records/target/char/walk_NW_1.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "f2b93b1dbc90c9d89231584284ebe3cf8d62fa2f",
+   "value": 56
+  },
+  "records/target/char/walk_NW_2.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "24704ebcc4da20f4351f9cee91c23235bb2d59af",
+   "value": 56
+  },
+  "records/target/char/walk_NW_3.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "f919943ac446efbef9dab91fb3564f373c253627",
+   "value": 56
+  },
+  "records/target/char/walk_N_0.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "35a5c6076ac79205a5f8db04e1a82cbeba74a229",
+   "value": 56
+  },
+  "records/target/char/walk_N_1.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "0873531c27e8bd373ea33825971d00d82b1f6764",
+   "value": 56
+  },
+  "records/target/char/walk_N_2.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "35a5c6076ac79205a5f8db04e1a82cbeba74a229",
+   "value": 56
+  },
+  "records/target/char/walk_N_3.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "a875cece0c7312578696694300aa8f8eb9fd1095",
+   "value": 56
+  },
+  "records/target/char/walk_SE_0.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "a17c1e3a03480d2819d7cd10534ff622938edeee",
+   "value": 56
+  },
+  "records/target/char/walk_SE_1.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "7bbd2a295864d1d2bbc7bdf9911f41c995b22a18",
+   "value": 56
+  },
+  "records/target/char/walk_SE_2.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "a17c1e3a03480d2819d7cd10534ff622938edeee",
+   "value": 56
+  },
+  "records/target/char/walk_SE_3.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "b7f378b95994274458b5a234397cc8e91cb5e922",
+   "value": 56
+  },
+  "records/target/char/walk_SW_0.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "2e4dd157cc755c7198316891a6f1e853dcea6491",
+   "value": 56
+  },
+  "records/target/char/walk_SW_1.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "c9a8cb158dc3c1705f076b94f22afdfab7657f6d",
+   "value": 56
+  },
+  "records/target/char/walk_SW_2.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "2e4dd157cc755c7198316891a6f1e853dcea6491",
+   "value": 56
+  },
+  "records/target/char/walk_SW_3.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "54eb1f194b5752bba1367bacadd59b22b39c7d74",
+   "value": 56
+  },
+  "records/target/char/walk_S_0.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "dab75557f116992b7d34b7b7e2f34e45e277a014",
+   "value": 56
+  },
+  "records/target/char/walk_S_1.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "a2d6980f393723fa701f71519b444ff506b2f74f",
+   "value": 56
+  },
+  "records/target/char/walk_S_2.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "dab75557f116992b7d34b7b7e2f34e45e277a014",
+   "value": 56
+  },
+  "records/target/char/walk_S_3.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "16ce5b6c7d8eaafb96530800983518b2d61e18ba",
+   "value": 56
+  },
+  "records/target/char/walk_W_0.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "559d97bb78591f140fae0e3928a9afcada0baea3",
+   "value": 56
+  },
+  "records/target/char/walk_W_1.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "d82a1bed2ff412dab4225144026325e122e3ce5b",
+   "value": 56
+  },
+  "records/target/char/walk_W_2.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "559d97bb78591f140fae0e3928a9afcada0baea3",
+   "value": 56
+  },
+  "records/target/char/walk_W_3.png": {
+   "floor": 112,
+   "kind": "person_cell",
+   "lane": "CHARACTER",
+   "sha": "c5ff38aa27a2c774c759f62fbc7f635bb8559cd5",
+   "value": 56
+  },
+  "records/target/floor/carpet_0.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "7cc5065ccf11bae769b3d1a40b3e7992c6714611",
+   "value": 44
+  },
+  "records/target/floor/carpet_1.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "c7cd3dc0c7183c316a96a50308181591ff1f6d00",
+   "value": 44
+  },
+  "records/target/floor/carpet_2.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "543ce32d98042c78177aeccb0450f9f0c64c8aa3",
+   "value": 44
+  },
+  "records/target/floor/carpet_3.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "7a6dbf31e1db28a5ea5d17e5ab9f1274affd4133",
+   "value": 44
+  },
+  "records/target/floor/carpet_4.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "ea15acbcab487072d7764200ead7f319ea409507",
+   "value": 44
+  },
+  "records/target/floor/carpet_5.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "13680a18b8120facb617c04c80603e9fb36c19ad",
+   "value": 44
+  },
+  "records/target/floor/lino_0.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "b2df70de9cd02aeac9fac39b153b22cadac6f384",
+   "value": 44
+  },
+  "records/target/floor/lino_1.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "4d63db85c591ecde09a5b220520f226c345c8fcc",
+   "value": 44
+  },
+  "records/target/floor/lino_2.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "fcbac6d0845b90dcac6093df9f681f32e006aa26",
+   "value": 44
+  },
+  "records/target/floor/lino_3.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "945509aeb37e09fdf342222e6141242b38d544e2",
+   "value": 44
+  },
+  "records/target/floor/slab_0.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "a1e1f32aaf678ba91275e32865da9fb311f2d3af",
+   "value": 44
+  },
+  "records/target/floor/slab_1.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "208fe48d16213eaa628c464f41a7188d2747a584",
+   "value": 44
+  },
+  "records/target/floor/slab_2.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "a4e3f64bab1517e66d11896b7ac81538e4cd8994",
+   "value": 44
+  },
+  "records/target/floor/slab_3.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "36d7e8347d773fae13a556e658f28b9173e0504e",
+   "value": 44
+  },
+  "records/target/floor/slab_4.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "004e6172408831cb5eb3c9bd575eb08965e31450",
+   "value": 44
+  },
+  "records/target/floor/wood_0.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "ac827d374cfda2f5d788f44344dabeafab4d2e07",
+   "value": 44
+  },
+  "records/target/floor/wood_1.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "b6a236f88627a98bdfed00caf93df092cc3599cf",
+   "value": 44
+  },
+  "records/target/floor/wood_2.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "d45fc90b2cca815f910e267efb716f5bcb4976d1",
+   "value": 44
+  },
+  "records/target/floor/wood_3.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "06a70aa11bb8fd486439d3925320f0a1b37e8bfd",
+   "value": 44
+  },
+  "records/target/floor/wood_4.png": {
+   "floor": 92,
+   "kind": "tile",
+   "lane": "COOK TWO",
+   "sha": "c742bcc1154a1cafb9662208c5a4027cd1223775",
+   "value": 44
+  },
+  "slices/fight_ground/kit_cover/cover_barrel.webp": {
+   "floor": 56,
+   "kind": "thing",
+   "lane": "COOK TWO",
+   "sha": "28f4a00af66405fe6191606a1dbc8ebe2224d0d7",
+   "value": 54
+  },
+  "slices/fight_ground/kit_cover/cover_bin.webp": {
+   "floor": 56,
+   "kind": "thing",
+   "lane": "COOK TWO",
+   "sha": "15c419bc9a02e9eda1dcd3ed5ba61b2cbc855b91",
+   "value": 44
+  },
+  "slices/fight_ground/kit_cover/cover_cone.webp": {
+   "floor": 56,
+   "kind": "thing",
+   "lane": "COOK TWO",
+   "sha": "b5004981d859887b39616290b2a313fbe54c16a4",
+   "value": 24
+  },
+  "slices/fight_ground/kit_cover/cover_pallet.webp": {
+   "floor": 56,
+   "kind": "thing",
+   "lane": "COOK TWO",
+   "sha": "bb7b269905ce3cad835e773a86d65a8f70179e4a",
+   "value": 49
+  },
+  "slices/fight_ground/kit_cover/cover_tyre.webp": {
+   "floor": 56,
+   "kind": "thing",
+   "lane": "COOK TWO",
+   "sha": "19d18f05c787a2ad3edcca34d8fea5ea5ddaf867",
+   "value": 34
+  },
+  "slices/settlement/lot/shed.png": {
+   "floor": 93,
+   "kind": "building",
+   "lane": "COOK FOUR",
+   "sha": "459404556cabb2aefddef6662987f135acef7689",
+   "value": 84
+  },
+  "slices/settlement/lot/stall.png": {
+   "floor": 93,
+   "kind": "building",
+   "lane": "COOK FOUR",
+   "sha": "79db98346867e10d30cd28a4cd01d5a759e540ae",
+   "value": 92
+  }
+ }
+}
