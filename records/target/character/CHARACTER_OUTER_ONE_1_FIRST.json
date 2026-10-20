@@ -1,0 +1,107 @@
+{
+ "first": "DUST BROWN TRENCH",
+ "firstAt": [
+  12,
+  64,
+  761,
+  204
+ ],
+ "rows": {
+  "DUST BROWN TRENCH": [
+   12,
+   64,
+   761,
+   204
+  ],
+  "SLATE TRENCH": [
+   12,
+   274,
+   761,
+   204
+  ],
+  "SOOT TRENCH": [
+   12,
+   484,
+   761,
+   204
+  ],
+  "KHAKI DUSTER": [
+   12,
+   694,
+   775,
+   199
+  ],
+  "WASTELAND DUSTER": [
+   12,
+   899,
+   775,
+   199
+  ],
+  "BRICK LONGCOAT": [
+   12,
+   1104,
+   762,
+   204
+  ],
+  "COBALT COAT": [
+   12,
+   1314,
+   761,
+   204
+  ],
+  "DRIFTER'S COAT": [
+   12,
+   1524,
+   761,
+   204
+  ],
+  "FIELD GREEN COAT": [
+   12,
+   1734,
+   761,
+   204
+  ],
+  "RANGER LONGCOAT": [
+   12,
+   1944,
+   761,
+   206
+  ],
+  "SAGE FIELD COAT": [
+   12,
+   2156,
+   761,
+   204
+  ],
+  "STORM GREY LONGCOAT": [
+   12,
+   2366,
+   761,
+   206
+  ],
+  "BRICK SPLIT-TAIL DUSTER": [
+   12,
+   2578,
+   759,
+   207
+  ],
+  "LEATHER SPLIT-TAIL COAT": [
+   12,
+   2791,
+   759,
+   206
+  ],
+  "SPLIT-TAIL COAT": [
+   12,
+   3003,
+   761,
+   204
+  ],
+  "SPLIT-TAIL DUSTER": [
+   12,
+   3213,
+   759,
+   207
+  ]
+ }
+}

@@ -1,0 +1,114 @@
+{
+ "look": "O_split-tail_duster",
+ "shape": "the barber's mannequin in SPLIT-TAIL DUSTER (SPLIT TAIL)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BLACK TANK",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS",
+  "outer": "SPLIT-TAIL DUSTER"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/o_split-tail_duster.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "o_split-tail_duster_trouser": 2568,
+  "o_split-tail_duster_shoe": 3916,
+  "o_split-tail_duster_coat": 73272,
+  "o_split-tail_duster_coat_skirt": 8694,
+  "o_split-tail_duster_collar": 1536,
+  "o_split-tail_duster_lapels": 396,
+  "o_split-tail_duster_pockets": 252,
+  "o_split-tail_duster_pocket_flaps": 252,
+  "o_split-tail_duster_hair": 17968,
+  "o_split-tail_duster_hand_L": 392,
+  "o_split-tail_duster_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "o_split-tail_duster_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "o_split-tail_duster_coat_skirt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "o_split-tail_duster_collar": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "o_split-tail_duster_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "o_split-tail_duster_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "o_split-tail_duster_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "o_split-tail_duster_pocket_flaps": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "o_split-tail_duster_pockets": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "o_split-tail_duster_shirt": [
+   0.0116,
+   0.0103,
+   0.0103
+  ],
+  "o_split-tail_duster_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "o_split-tail_duster_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "o_split-tail_duster_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "o_split-tail_duster_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "o_split-tail_duster_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}
