@@ -97,11 +97,19 @@ SHAPES = ['TRENCH', 'DUSTER', 'LONGCOAT', 'SPLIT TAIL', 'CAR COAT', 'CHORE COAT'
           'WRAP COAT', 'ASYMMETRIC COAT', 'PONCHO', 'HOODED PONCHO', 'APRON', 'HALF APRON']
 BANK = read_bank()
 BY = {G['name']: G for G in BANK}
+# THE MANNEQUIN'S HAIR FOR THE COATS (measured, 10/20): the guide's light row compares the sprite's top half with its bottom
+# half, and on the barber's mannequin PORTRAIT's starred head is 35 to 38 per cent of the top half; in its black taper
+# (value 30 from behind) every long coat read 'lit from below' on the back and side facings, by 7 to 31 values, while the
+# coat alone, the head left out, is as bright above as below or brighter (BONE DUSTER N: 112.8 over 115.2; RANGER
+# LONGCOAT N: 76.5 over 73.5; SOOT TRENCH N: 63.7 over 58.0). His own YES'd Volunteers (a bone cocoon coat under a dark
+# head) fails the same row on 8 of 8. The card is about the coat, so the mannequin wears the taper in sand (tape_masking 1,
+# HAIR 2's STATIC); the coats are not changed. A coat that still fails is held off its card (rule 114b) and routed.
+COAT_HAIR = ('tape_masking', 1)
 CUTS = {}
 for _G in BANK:
     CUTS['OUTER ' + _G['name']] = dict(tag=_G['tag'], garment=_G['name'], body='records/character/rig/o_%s.glb' % _G['tag'][6:],
                                        as_cut='TEMPLE TAPER', bank=dict(ramp='H_BLK', vol=0, side=0.40, front=0.16, fade=4),
-                                       hair=('cloth_black', 0), zcap=0.3, worn_by='the roll call: ' + _G['name'])
+                                       hair=COAT_HAIR, zcap=1.0, worn_by='the roll call: ' + _G['name'])
 ORDER = ['OUTER ' + G['name'] for G in sorted(BANK, key=lambda G: (SHAPES.index(G['shape']), G['name']))]
 PARTS = [('THE LONG COATS', 'character-outer-one-the-long-coats-10-20', ['TRENCH', 'DUSTER', 'LONGCOAT', 'SPLIT TAIL']),
          ('THE SHORT ONES', 'character-outer-one-the-short-ones-10-20', ['CAR COAT', 'CHORE COAT', 'JACKET', 'VEST']),
