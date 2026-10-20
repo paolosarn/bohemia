@@ -35,6 +35,8 @@ import bohemia_character_hair_two as H2  # noqa: E402
 import bohemia_character_faces_one as F1  # noqa: E402
 import bohemia_character_hats_one as HATS  # noqa: E402
 import bohemia_character_eyewear_one as EYE  # noqa: E402
+import bohemia_character_garments_base as TOPS  # noqa: E402
+import bohemia_character_garments_outer as COATS  # noqa: E402
 
 BOOK = os.path.join(ROOT, 'records/target/character/BOHEMIA_THE_BARBERS_BOOK.json')
 REG = os.path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json')
@@ -74,6 +76,18 @@ def verdicts():
     for v in reg.get('verdicts', []):
         if v and v.get('id'): out[v['id']] = v.get('v') or v.get('verdict') or v.get('vote')
     return out
+
+
+def garment_card(MOD, G):
+    """a top's or a coat's card, his vote on it, and whether the card left it out (held by the guide's first five)"""
+    cid = next((c for _, c, shapes in MOD.PARTS if G['shape'] in shapes), None)
+    try:
+        reg = json.load(open(REG))
+    except Exception:
+        reg = {}
+    it = next((i for i in reg.get('items', []) if i.get('id') == cid), None)
+    held = bool(it) and ('/%s/' % G['tag']) not in ' '.join(it.get('sprites', []))
+    return dict(card=cid, his_vote=verdicts().get(cid), held=held)
 
 
 def cuts():
@@ -122,6 +136,10 @@ def book():
         hats=[dict(name=n, shape=HATS.CUTS[n]['shape'], in_random_mix=n not in NOT_RANDOM_HATS, renders=rend(HATS.CUTS[n]['tag']), **card(n))
               for n in HATS.ORDER],
         face_pieces=[dict(name=n, renders=rend(EYE.CUTS[n]['tag']), **card(n)) for n in EYE.ORDER],
+        # the clothes (BASE 1's 80 tops, OUTER 1's 74 coats, 10/20): each on its own body (the barber's mannequin in it), its
+        # card, and held when its card left it out (the guide's light row); a person's clothes are his gang's look today
+        tops=[dict(name=G['name'], build='BASE ' + G['name'], shape=G['shape'], renders=rend(G['tag']), **garment_card(TOPS, G)) for G in TOPS.BANK],
+        coats=[dict(name=G['name'], build='OUTER ' + G['name'], shape=G['shape'], renders=rend(G['tag']), **garment_card(COATS, G)) for G in COATS.BANK],
         hair_colours=[dict(step=list(s), weight=w, name=nm) for s, w, nm in HAIR_COLOURS],
         skins=dict(census=sk['mix']['target_census'], tones=HERITAGE_TONES, rig_table=sk['rig_table'], source=sk['mix']['source']),
         roll=dict(facial_hair=0.45, mark=0.20, hat=0.12, hat_only_over='a short cut', face_piece=0.10, gang_cut_weight=3,
@@ -129,7 +147,8 @@ def book():
     )
     n_cuts = sum(1 for c in B['cuts'] if not c['held'])
     B['count'] = dict(cuts=n_cuts, face_shapes=len(B['face_shapes']), facial_hair=len(B['facial_hair']) + 1, marks=len(B['marks']) + 1,
-                      hair_colours=len(HAIR_COLOURS), skins=len(sk['rig_table']), hats=len(B['hats']), face_pieces=len(B['face_pieces']))
+                      hair_colours=len(HAIR_COLOURS), skins=len(sk['rig_table']), hats=len(B['hats']), face_pieces=len(B['face_pieces']),
+                      tops=sum(1 for t in B['tops'] if not t['held']), coats=sum(1 for t in B['coats'] if not t['held']))
     c = B['count']
     B['count']['heads'] = c['cuts'] * c['face_shapes'] * c['facial_hair'] * c['marks'] * c['hair_colours'] * c['skins']
     json.dump(B, open(BOOK, 'w'), indent=1)

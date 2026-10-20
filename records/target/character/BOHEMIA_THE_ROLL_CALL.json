@@ -23,9 +23,9 @@
   "eyewear: not yet": 1,
   "eyewear: shown, not approved": 14,
   "garment: approved, not final": 49,
-  "garment: built, not shown": 29,
-  "garment: not yet": 127,
-  "garment: shown, not approved": 106,
+  "garment: built, not shown": 27,
+  "garment: not yet": 110,
+  "garment: shown, not approved": 125,
   "hair: dead, never rebuilt": 34,
   "hair: not yet": 2,
   "hair: shown, not approved": 10,
@@ -3515,8 +3515,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -3530,8 +3535,13 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -3680,8 +3690,13 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -3693,8 +3708,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -5114,8 +5134,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -5817,7 +5842,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
     "rig_looks": [
      "faction_caravans"
     ],
@@ -5838,6 +5863,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: outer"
@@ -5853,7 +5883,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
     "rig_looks": [
      "faction_anarchists"
     ],
@@ -5874,6 +5904,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: outer"
@@ -5997,7 +6032,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
     "rig_looks": [
      "faction_network"
     ],
@@ -6018,6 +6053,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: outer"
@@ -6105,7 +6145,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
     "rig_looks": [
      "faction_volunteers"
     ],
@@ -6126,6 +6166,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: outer"
@@ -6197,8 +6242,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -6236,8 +6286,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -6249,8 +6304,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -6663,8 +6723,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -6676,8 +6741,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -6689,8 +6759,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -6702,8 +6777,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -6715,8 +6795,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -6728,8 +6813,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -7043,8 +7133,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -7056,8 +7151,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -7131,8 +7231,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -7144,8 +7249,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },
@@ -7160,7 +7270,7 @@
    "aliases": [],
    "new_look": {
     "state": "approved, not final",
-    "by": "CHARACTER, modelled on the thirteen gang bodies",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
     "rig_looks": [
      "faction_remnants"
     ],
@@ -7181,6 +7291,11 @@
       "said": ""
      }
     ],
+    "shown_on": {
+     "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+     "verdict": null,
+     "said": null
+    },
     "note": "his 10/18 on the thirteen: 'Nice direction very good not final'"
    },
    "batch": "garments: outer"
@@ -7193,8 +7308,13 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "shown, not approved",
+    "by": "CHARACTER, modelled on the barber's 3D man (outer 1)",
+    "rig_looks": [],
+    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+    "verdict": null,
+    "said": null,
+    "note": "the roll call's outer batch, shown for his vote"
    },
    "batch": "garments: outer"
   },

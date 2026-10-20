@@ -652,7 +652,7 @@
    "made_by": "PORTRAIT (its part, shown on the barber's man)",
    "renders": "records/target/character/barber/beard_stubble",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "FULL BEARD",
@@ -663,7 +663,7 @@
    "made_by": "PORTRAIT (its part, shown on the barber's man)",
    "renders": "records/target/character/barber/beard_full_beard",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "MOUSTACHE",
@@ -674,7 +674,7 @@
    "made_by": "PORTRAIT (its part, shown on the barber's man)",
    "renders": "records/target/character/barber/beard_moustache",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "GOATEE",
@@ -685,7 +685,7 @@
    "made_by": "PORTRAIT (its part, shown on the barber's man)",
    "renders": "records/target/character/barber/beard_goatee",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "CHIN STRAP",
@@ -696,7 +696,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/beard_chin_strap",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "MUTTON CHOPS",
@@ -707,7 +707,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/beard_mutton_chops",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "HORSESHOE MOUSTACHE",
@@ -718,7 +718,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/beard_horseshoe_moustache",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "PENCIL MOUSTACHE",
@@ -729,7 +729,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/beard_pencil_moustache",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "SOUL PATCH",
@@ -740,7 +740,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/beard_soul_patch",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "PATCHY BEARD",
@@ -751,7 +751,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/beard_patchy_beard",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "LONG BEARD",
@@ -762,7 +762,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/beard_long_beard",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   }
  ],
  "marks": [
@@ -774,7 +774,7 @@
    "made_by": "PORTRAIT (its scar, shown on the barber's man)",
    "renders": "records/target/character/barber/mark_brow_scar",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "CHEEK SCAR",
@@ -784,7 +784,7 @@
    "made_by": "PORTRAIT (its scar, shown on the barber's man)",
    "renders": "records/target/character/barber/mark_cheek_scar",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "LIP SCAR",
@@ -794,7 +794,7 @@
    "made_by": "PORTRAIT (its scar, shown on the barber's man)",
    "renders": "records/target/character/barber/mark_lip_scar",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "BROKEN NOSE",
@@ -804,7 +804,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/mark_broken_nose",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "CAULIFLOWER EAR",
@@ -814,7 +814,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/mark_cauliflower_ear",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "STITCHED GASH",
@@ -824,7 +824,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/mark_stitched_gash",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "CHEEK BURN",
@@ -834,7 +834,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/mark_cheek_burn",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   },
   {
    "name": "CLOUDED EYE",
@@ -844,7 +844,7 @@
    "made_by": "CHARACTER (new, 10/19)",
    "renders": "records/target/character/barber/mark_clouded_eye",
    "card": "character-faces-one-beards-and-marks-10-19",
-   "his_vote": null
+   "his_vote": "up"
   }
  ],
  "hats": [
@@ -1103,6 +1103,1396 @@
    "his_vote": "up"
   }
  ],
+ "tops": [
+  {
+   "name": "RED SHIRT",
+   "build": "BASE RED SHIRT",
+   "shape": "BUTTON SHIRT",
+   "renders": "records/target/character/barber/base_red_shirt",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "WHITE TEE",
+   "build": "BASE WHITE TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_white_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BLACK TANK",
+   "build": "BASE BLACK TANK",
+   "shape": "TANK",
+   "renders": "records/target/character/barber/base_black_tank",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "GREEN FLANNEL",
+   "build": "BASE GREEN FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_green_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SCAVENGER FLANNEL",
+   "build": "BASE SCAVENGER FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_scavenger_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BONE HENLEY",
+   "build": "BASE BONE HENLEY",
+   "shape": "HENLEY",
+   "renders": "records/target/character/barber/base_bone_henley",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "PATINA WORK SHIRT",
+   "build": "BASE PATINA WORK SHIRT",
+   "shape": "WORK SHIRT",
+   "renders": "records/target/character/barber/base_patina_work_shirt",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SOOT TANK",
+   "build": "BASE SOOT TANK",
+   "shape": "TANK",
+   "renders": "records/target/character/barber/base_soot_tank",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "OLIVE DRAB TEE",
+   "build": "BASE OLIVE DRAB TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_olive_drab_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "FADED BLACK LONGSLEEVE",
+   "build": "BASE FADED BLACK LONGSLEEVE",
+   "shape": "LONGSLEEVE",
+   "renders": "records/target/character/barber/base_faded_black_longsleeve",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BRICK HENLEY",
+   "build": "BASE BRICK HENLEY",
+   "shape": "HENLEY",
+   "renders": "records/target/character/barber/base_brick_henley",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SAGE FLANNEL",
+   "build": "BASE SAGE FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_sage_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STEEL WORK SHIRT",
+   "build": "BASE STEEL WORK SHIRT",
+   "shape": "WORK SHIRT",
+   "renders": "records/target/character/barber/base_steel_work_shirt",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "RED PLAID FLANNEL",
+   "build": "BASE RED PLAID FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_red_plaid_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "FOREST PLAID FLANNEL",
+   "build": "BASE FOREST PLAID FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_forest_plaid_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STRIPED TEE",
+   "build": "BASE STRIPED TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_striped_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "RUST HENLEY",
+   "build": "BASE RUST HENLEY",
+   "shape": "HENLEY",
+   "renders": "records/target/character/barber/base_rust_henley",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "KHAKI BUTTON-UP",
+   "build": "BASE KHAKI BUTTON-UP",
+   "shape": "BUTTON SHIRT",
+   "renders": "records/target/character/barber/base_khaki_button-up",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SLATE SHORT-SLEEVE",
+   "build": "BASE SLATE SHORT-SLEEVE",
+   "shape": "BUTTON SHIRT",
+   "renders": "records/target/character/barber/base_slate_short-sleeve",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SAGE STRIPED HENLEY",
+   "build": "BASE SAGE STRIPED HENLEY",
+   "shape": "HENLEY",
+   "renders": "records/target/character/barber/base_sage_striped_henley",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "DUST PLAID SHIRT",
+   "build": "BASE DUST PLAID SHIRT",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_dust_plaid_shirt",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "ASH HOODIE",
+   "build": "BASE ASH HOODIE",
+   "shape": "HOODIE",
+   "renders": "records/target/character/barber/base_ash_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "COAL HOODIE",
+   "build": "BASE COAL HOODIE",
+   "shape": "HOODIE",
+   "renders": "records/target/character/barber/base_coal_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "OLIVE HOODIE",
+   "build": "BASE OLIVE HOODIE",
+   "shape": "HOODIE",
+   "renders": "records/target/character/barber/base_olive_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "CHARCOAL TURTLENECK",
+   "build": "BASE CHARCOAL TURTLENECK",
+   "shape": "TURTLENECK",
+   "renders": "records/target/character/barber/base_charcoal_turtleneck",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BONE TURTLENECK",
+   "build": "BASE BONE TURTLENECK",
+   "shape": "TURTLENECK",
+   "renders": "records/target/character/barber/base_bone_turtleneck",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SLATE PLAID FLANNEL",
+   "build": "BASE SLATE PLAID FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_slate_plaid_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SAND HOODIE",
+   "build": "BASE SAND HOODIE",
+   "shape": "HOODIE",
+   "renders": "records/target/character/barber/base_sand_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "RUST STRIPED TEE",
+   "build": "BASE RUST STRIPED TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_rust_striped_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "OXBLOOD PLAID FLANNEL",
+   "build": "BASE OXBLOOD PLAID FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_oxblood_plaid_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STEEL PLAID FLANNEL",
+   "build": "BASE STEEL PLAID FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_steel_plaid_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "PATINA PLAID FLANNEL",
+   "build": "BASE PATINA PLAID FLANNEL",
+   "shape": "FLANNEL",
+   "renders": "records/target/character/barber/base_patina_plaid_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "RUST HOODIE",
+   "build": "BASE RUST HOODIE",
+   "shape": "HOODIE",
+   "renders": "records/target/character/barber/base_rust_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BRICK HOODIE",
+   "build": "BASE BRICK HOODIE",
+   "shape": "HOODIE",
+   "renders": "records/target/character/barber/base_brick_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STEEL HOODIE",
+   "build": "BASE STEEL HOODIE",
+   "shape": "HOODIE",
+   "renders": "records/target/character/barber/base_steel_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SAGE HOODIE",
+   "build": "BASE SAGE HOODIE",
+   "shape": "HOODIE",
+   "renders": "records/target/character/barber/base_sage_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "OLIVE HENLEY",
+   "build": "BASE OLIVE HENLEY",
+   "shape": "HENLEY",
+   "renders": "records/target/character/barber/base_olive_henley",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STORM HENLEY",
+   "build": "BASE STORM HENLEY",
+   "shape": "HENLEY",
+   "renders": "records/target/character/barber/base_storm_henley",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SLATE HENLEY",
+   "build": "BASE SLATE HENLEY",
+   "shape": "HENLEY",
+   "renders": "records/target/character/barber/base_slate_henley",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BRICK TEE",
+   "build": "BASE BRICK TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_brick_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SAGE TEE",
+   "build": "BASE SAGE TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_sage_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "FIELD GREEN TEE",
+   "build": "BASE FIELD GREEN TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_field_green_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STORM GREY TEE",
+   "build": "BASE STORM GREY TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_storm_grey_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BONE TANK",
+   "build": "BASE BONE TANK",
+   "shape": "TANK",
+   "renders": "records/target/character/barber/base_bone_tank",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "OLIVE TANK",
+   "build": "BASE OLIVE TANK",
+   "shape": "TANK",
+   "renders": "records/target/character/barber/base_olive_tank",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "RUST TANK",
+   "build": "BASE RUST TANK",
+   "shape": "TANK",
+   "renders": "records/target/character/barber/base_rust_tank",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STEEL STRIPED TEE",
+   "build": "BASE STEEL STRIPED TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_steel_striped_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "CHARCOAL STRIPED TEE",
+   "build": "BASE CHARCOAL STRIPED TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_charcoal_striped_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BONE BUTTON-UP",
+   "build": "BASE BONE BUTTON-UP",
+   "shape": "BUTTON SHIRT",
+   "renders": "records/target/character/barber/base_bone_button-up",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "FIELD BUTTON-UP",
+   "build": "BASE FIELD BUTTON-UP",
+   "shape": "BUTTON SHIRT",
+   "renders": "records/target/character/barber/base_field_button-up",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STORM BUTTON-UP",
+   "build": "BASE STORM BUTTON-UP",
+   "shape": "BUTTON SHIRT",
+   "renders": "records/target/character/barber/base_storm_button-up",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "OLIVE TURTLENECK",
+   "build": "BASE OLIVE TURTLENECK",
+   "shape": "TURTLENECK",
+   "renders": "records/target/character/barber/base_olive_turtleneck",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "STORM TURTLENECK",
+   "build": "BASE STORM TURTLENECK",
+   "shape": "TURTLENECK",
+   "renders": "records/target/character/barber/base_storm_turtleneck",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "ROLLED WORK SHIRT",
+   "build": "BASE ROLLED WORK SHIRT",
+   "shape": "ROLLED SLEEVE",
+   "renders": "records/target/character/barber/base_rolled_work_shirt",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "ROLLED FLANNEL",
+   "build": "BASE ROLLED FLANNEL",
+   "shape": "ROLLED SLEEVE",
+   "renders": "records/target/character/barber/base_rolled_flannel",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "TATTERED TEE",
+   "build": "BASE TATTERED TEE",
+   "shape": "TATTERED",
+   "renders": "records/target/character/barber/base_tattered_tee",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "TATTERED FLANNEL",
+   "build": "BASE TATTERED FLANNEL",
+   "shape": "TATTERED",
+   "renders": "records/target/character/barber/base_tattered_flannel",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "WORK COVERALLS",
+   "build": "BASE WORK COVERALLS",
+   "shape": "COVERALLS",
+   "renders": "records/target/character/barber/base_work_coveralls",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BIB OVERALLS",
+   "build": "BASE BIB OVERALLS",
+   "shape": "BIB OVERALLS",
+   "renders": "records/target/character/barber/base_bib_overalls",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": true
+  },
+  {
+   "name": "MOB PINSTRIPE SHIRT",
+   "build": "BASE MOB PINSTRIPE SHIRT",
+   "shape": "BUTTON SHIRT",
+   "renders": "records/target/character/barber/base_mob_pinstripe_shirt",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "SIGNAL RED SHIRT",
+   "build": "BASE SIGNAL RED SHIRT",
+   "shape": "LONGSLEEVE",
+   "renders": "records/target/character/barber/base_signal_red_shirt",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "VESTMENT GOLD SHIRT",
+   "build": "BASE VESTMENT GOLD SHIRT",
+   "shape": "BUTTON SHIRT",
+   "renders": "records/target/character/barber/base_vestment_gold_shirt",
+   "card": "character-base-one-the-collars-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "MOSS GREEN SHIRT",
+   "build": "BASE MOSS GREEN SHIRT",
+   "shape": "LONGSLEEVE",
+   "renders": "records/target/character/barber/base_moss_green_shirt",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "TEAL WORK SHIRT",
+   "build": "BASE TEAL WORK SHIRT",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_teal_work_shirt",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "TEAL STRIPED TEE",
+   "build": "BASE TEAL STRIPED TEE",
+   "shape": "TEE",
+   "renders": "records/target/character/barber/base_teal_striped_tee",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "COBALT SHIRT",
+   "build": "BASE COBALT SHIRT",
+   "shape": "LONGSLEEVE",
+   "renders": "records/target/character/barber/base_cobalt_shirt",
+   "card": "character-base-one-the-shirts-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "HOOD-UP ASH HOODIE",
+   "build": "BASE HOOD-UP ASH HOODIE",
+   "shape": "HOOD UP",
+   "renders": "records/target/character/barber/base_hood-up_ash_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "HOOD-UP COAL HOODIE",
+   "build": "BASE HOOD-UP COAL HOODIE",
+   "shape": "HOOD UP",
+   "renders": "records/target/character/barber/base_hood-up_coal_hoodie",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "DENIM SHORTALLS",
+   "build": "BASE DENIM SHORTALLS",
+   "shape": "SHORTALLS",
+   "renders": "records/target/character/barber/base_denim_shortalls",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": true
+  },
+  {
+   "name": "FIELD SHORTALLS",
+   "build": "BASE FIELD SHORTALLS",
+   "shape": "SHORTALLS",
+   "renders": "records/target/character/barber/base_field_shortalls",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "WIDE SHOULDER TEE",
+   "build": "BASE WIDE SHOULDER TEE",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_wide_shoulder_tee",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "BONE SHOULDER SHIRT",
+   "build": "BASE BONE SHOULDER SHIRT",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_bone_shoulder_shirt",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "LONGLINE JERSEY",
+   "build": "BASE LONGLINE JERSEY",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_longline_jersey",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "ASH LONGLINE TEE",
+   "build": "BASE ASH LONGLINE TEE",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_ash_longline_tee",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": true
+  },
+  {
+   "name": "SHOULDER LONGLINE",
+   "build": "BASE SHOULDER LONGLINE",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_shoulder_longline",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "ARC SHOULDER TEE",
+   "build": "BASE ARC SHOULDER TEE",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_arc_shoulder_tee",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "ASH ARC SHIRT",
+   "build": "BASE ASH ARC SHIRT",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_ash_arc_shirt",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "LAYERED JERSEY",
+   "build": "BASE LAYERED JERSEY",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_layered_jersey",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "ASH LAYERED TEE",
+   "build": "BASE ASH LAYERED TEE",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_ash_layered_tee",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  },
+  {
+   "name": "ARC LAYERED SHIRT",
+   "build": "BASE ARC LAYERED SHIRT",
+   "shape": "THE RUNWAY CUTS",
+   "renders": "records/target/character/barber/base_arc_layered_shirt",
+   "card": "character-base-one-the-heavy-and-the-runway-10-19",
+   "his_vote": "up",
+   "held": false
+  }
+ ],
+ "coats": [
+  {
+   "name": "WASTELAND DUSTER",
+   "build": "OUTER WASTELAND DUSTER",
+   "shape": "DUSTER",
+   "renders": "records/target/character/barber/outer_wasteland_duster",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SOOT TRENCH",
+   "build": "OUTER SOOT TRENCH",
+   "shape": "TRENCH",
+   "renders": "records/target/character/barber/outer_soot_trench",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "DRIFTER'S COAT",
+   "build": "OUTER DRIFTER'S COAT",
+   "shape": "LONGCOAT",
+   "renders": "records/target/character/barber/outer_drifters_coat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "RANGER LONGCOAT",
+   "build": "OUTER RANGER LONGCOAT",
+   "shape": "LONGCOAT",
+   "renders": "records/target/character/barber/outer_ranger_longcoat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "FIELD GREEN COAT",
+   "build": "OUTER FIELD GREEN COAT",
+   "shape": "LONGCOAT",
+   "renders": "records/target/character/barber/outer_field_green_coat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "DUST BROWN TRENCH",
+   "build": "OUTER DUST BROWN TRENCH",
+   "shape": "TRENCH",
+   "renders": "records/target/character/barber/outer_dust_brown_trench",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "STORM GREY LONGCOAT",
+   "build": "OUTER STORM GREY LONGCOAT",
+   "shape": "LONGCOAT",
+   "renders": "records/target/character/barber/outer_storm_grey_longcoat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "LEATHER VEST",
+   "build": "OUTER LEATHER VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_leather_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "TACTICAL VEST",
+   "build": "OUTER TACTICAL VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_tactical_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "QUILTED VEST",
+   "build": "OUTER QUILTED VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_quilted_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "DENIM VEST",
+   "build": "OUTER DENIM VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_denim_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SAGE FIELD COAT",
+   "build": "OUTER SAGE FIELD COAT",
+   "shape": "LONGCOAT",
+   "renders": "records/target/character/barber/outer_sage_field_coat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SLATE TRENCH",
+   "build": "OUTER SLATE TRENCH",
+   "shape": "TRENCH",
+   "renders": "records/target/character/barber/outer_slate_trench",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "BONE DUSTER",
+   "build": "OUTER BONE DUSTER",
+   "shape": "DUSTER",
+   "renders": "records/target/character/barber/outer_bone_duster",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": true
+  },
+  {
+   "name": "BRICK LONGCOAT",
+   "build": "OUTER BRICK LONGCOAT",
+   "shape": "LONGCOAT",
+   "renders": "records/target/character/barber/outer_brick_longcoat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "KHAKI DUSTER",
+   "build": "OUTER KHAKI DUSTER",
+   "shape": "DUSTER",
+   "renders": "records/target/character/barber/outer_khaki_duster",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "STORM VEST",
+   "build": "OUTER STORM VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_storm_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "OLIVE VEST",
+   "build": "OUTER OLIVE VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_olive_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "RUST VEST",
+   "build": "OUTER RUST VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_rust_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "DENIM JACKET",
+   "build": "OUTER DENIM JACKET",
+   "shape": "JACKET",
+   "renders": "records/target/character/barber/outer_denim_jacket",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "FIELD JACKET",
+   "build": "OUTER FIELD JACKET",
+   "shape": "JACKET",
+   "renders": "records/target/character/barber/outer_field_jacket",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "LEATHER JACKET",
+   "build": "OUTER LEATHER JACKET",
+   "shape": "JACKET",
+   "renders": "records/target/character/barber/outer_leather_jacket",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "DUST PONCHO",
+   "build": "OUTER DUST PONCHO",
+   "shape": "PONCHO",
+   "renders": "records/target/character/barber/outer_dust_poncho",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "OXBLOOD PONCHO",
+   "build": "OUTER OXBLOOD PONCHO",
+   "shape": "PONCHO",
+   "renders": "records/target/character/barber/outer_oxblood_poncho",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SMITH'S APRON",
+   "build": "OUTER SMITH'S APRON",
+   "shape": "APRON",
+   "renders": "records/target/character/barber/outer_smiths_apron",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "TRADES APRON",
+   "build": "OUTER TRADES APRON",
+   "shape": "APRON",
+   "renders": "records/target/character/barber/outer_trades_apron",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SPLIT-TAIL DUSTER",
+   "build": "OUTER SPLIT-TAIL DUSTER",
+   "shape": "SPLIT TAIL",
+   "renders": "records/target/character/barber/outer_split-tail_duster",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "COBALT DUSTER",
+   "build": "OUTER COBALT DUSTER",
+   "shape": "DUSTER",
+   "renders": "records/target/character/barber/outer_cobalt_duster",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": true
+  },
+  {
+   "name": "COBALT COAT",
+   "build": "OUTER COBALT COAT",
+   "shape": "LONGCOAT",
+   "renders": "records/target/character/barber/outer_cobalt_coat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "ROSE DUSTER",
+   "build": "OUTER ROSE DUSTER",
+   "shape": "DUSTER",
+   "renders": "records/target/character/barber/outer_rose_duster",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": true
+  },
+  {
+   "name": "GRASS DUSTER",
+   "build": "OUTER GRASS DUSTER",
+   "shape": "DUSTER",
+   "renders": "records/target/character/barber/outer_grass_duster",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": true
+  },
+  {
+   "name": "CHORE COAT",
+   "build": "OUTER CHORE COAT",
+   "shape": "CHORE COAT",
+   "renders": "records/target/character/barber/outer_chore_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "BARN COAT",
+   "build": "OUTER BARN COAT",
+   "shape": "CHORE COAT",
+   "renders": "records/target/character/barber/outer_barn_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "OLIVE CHORE COAT",
+   "build": "OUTER OLIVE CHORE COAT",
+   "shape": "CHORE COAT",
+   "renders": "records/target/character/barber/outer_olive_chore_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "STORM CHORE COAT",
+   "build": "OUTER STORM CHORE COAT",
+   "shape": "CHORE COAT",
+   "renders": "records/target/character/barber/outer_storm_chore_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "RUST WORK COAT",
+   "build": "OUTER RUST WORK COAT",
+   "shape": "CHORE COAT",
+   "renders": "records/target/character/barber/outer_rust_work_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "CAR COAT",
+   "build": "OUTER CAR COAT",
+   "shape": "CAR COAT",
+   "renders": "records/target/character/barber/outer_car_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SAND CAR COAT",
+   "build": "OUTER SAND CAR COAT",
+   "shape": "CAR COAT",
+   "renders": "records/target/character/barber/outer_sand_car_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SAGE CAR COAT",
+   "build": "OUTER SAGE CAR COAT",
+   "shape": "CAR COAT",
+   "renders": "records/target/character/barber/outer_sage_car_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SLATE CAR COAT",
+   "build": "OUTER SLATE CAR COAT",
+   "shape": "CAR COAT",
+   "renders": "records/target/character/barber/outer_slate_car_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "WORK JACKET",
+   "build": "OUTER WORK JACKET",
+   "shape": "JACKET",
+   "renders": "records/target/character/barber/outer_work_jacket",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "STORM JACKET",
+   "build": "OUTER STORM JACKET",
+   "shape": "JACKET",
+   "renders": "records/target/character/barber/outer_storm_jacket",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "KHAKI JACKET",
+   "build": "OUTER KHAKI JACKET",
+   "shape": "JACKET",
+   "renders": "records/target/character/barber/outer_khaki_jacket",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "OXBLOOD JACKET",
+   "build": "OUTER OXBLOOD JACKET",
+   "shape": "JACKET",
+   "renders": "records/target/character/barber/outer_oxblood_jacket",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SAGE VEST",
+   "build": "OUTER SAGE VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_sage_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "BONE VEST",
+   "build": "OUTER BONE VEST",
+   "shape": "VEST",
+   "renders": "records/target/character/barber/outer_bone_vest",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "OLIVE CAR COAT",
+   "build": "OUTER OLIVE CAR COAT",
+   "shape": "CAR COAT",
+   "renders": "records/target/character/barber/outer_olive_car_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "BRICK CAR COAT",
+   "build": "OUTER BRICK CAR COAT",
+   "shape": "CAR COAT",
+   "renders": "records/target/character/barber/outer_brick_car_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SPLIT-TAIL WORK COAT",
+   "build": "OUTER SPLIT-TAIL WORK COAT",
+   "shape": "CHORE COAT",
+   "renders": "records/target/character/barber/outer_split-tail_work_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "COBALT CHORE COAT",
+   "build": "OUTER COBALT CHORE COAT",
+   "shape": "CHORE COAT",
+   "renders": "records/target/character/barber/outer_cobalt_chore_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "GRASS CAR COAT",
+   "build": "OUTER GRASS CAR COAT",
+   "shape": "CAR COAT",
+   "renders": "records/target/character/barber/outer_grass_car_coat",
+   "card": "character-outer-one-the-short-ones-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "HOODED DUST PONCHO",
+   "build": "OUTER HOODED DUST PONCHO",
+   "shape": "HOODED PONCHO",
+   "renders": "records/target/character/barber/outer_hooded_dust_poncho",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "BRICK SPLIT-TAIL DUSTER",
+   "build": "OUTER BRICK SPLIT-TAIL DUSTER",
+   "shape": "SPLIT TAIL",
+   "renders": "records/target/character/barber/outer_brick_split-tail_duster",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SAND COCOON COAT",
+   "build": "OUTER SAND COCOON COAT",
+   "shape": "COCOON COAT",
+   "renders": "records/target/character/barber/outer_sand_cocoon_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "LEATHER WRAP COAT",
+   "build": "OUTER LEATHER WRAP COAT",
+   "shape": "WRAP COAT",
+   "renders": "records/target/character/barber/outer_leather_wrap_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "TEAL COCOON COAT",
+   "build": "OUTER TEAL COCOON COAT",
+   "shape": "COCOON COAT",
+   "renders": "records/target/character/barber/outer_teal_cocoon_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "BONE COCOON COAT",
+   "build": "OUTER BONE COCOON COAT",
+   "shape": "COCOON COAT",
+   "renders": "records/target/character/barber/outer_bone_cocoon_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SPLIT-TAIL COAT",
+   "build": "OUTER SPLIT-TAIL COAT",
+   "shape": "SPLIT TAIL",
+   "renders": "records/target/character/barber/outer_split-tail_coat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "LEATHER SPLIT-TAIL COAT",
+   "build": "OUTER LEATHER SPLIT-TAIL COAT",
+   "shape": "SPLIT TAIL",
+   "renders": "records/target/character/barber/outer_leather_split-tail_coat",
+   "card": "character-outer-one-the-long-coats-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "STORM PONCHO",
+   "build": "OUTER STORM PONCHO",
+   "shape": "PONCHO",
+   "renders": "records/target/character/barber/outer_storm_poncho",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "LEATHER HALF APRON",
+   "build": "OUTER LEATHER HALF APRON",
+   "shape": "HALF APRON",
+   "renders": "records/target/character/barber/outer_leather_half_apron",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "DUST HALF APRON",
+   "build": "OUTER DUST HALF APRON",
+   "shape": "HALF APRON",
+   "renders": "records/target/character/barber/outer_dust_half_apron",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "WRAP COAT",
+   "build": "OUTER WRAP COAT",
+   "shape": "WRAP COAT",
+   "renders": "records/target/character/barber/outer_wrap_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "ASH WRAP COAT",
+   "build": "OUTER ASH WRAP COAT",
+   "shape": "WRAP COAT",
+   "renders": "records/target/character/barber/outer_ash_wrap_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "ASYMMETRIC COAT",
+   "build": "OUTER ASYMMETRIC COAT",
+   "shape": "ASYMMETRIC COAT",
+   "renders": "records/target/character/barber/outer_asymmetric_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "ASH ASYM COAT",
+   "build": "OUTER ASH ASYM COAT",
+   "shape": "ASYMMETRIC COAT",
+   "renders": "records/target/character/barber/outer_ash_asym_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "COCOON COAT",
+   "build": "OUTER COCOON COAT",
+   "shape": "COCOON COAT",
+   "renders": "records/target/character/barber/outer_cocoon_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SLATE COCOON COAT",
+   "build": "OUTER SLATE COCOON COAT",
+   "shape": "COCOON COAT",
+   "renders": "records/target/character/barber/outer_slate_cocoon_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "COMMA COAT",
+   "build": "OUTER COMMA COAT",
+   "shape": "COMMA COAT",
+   "renders": "records/target/character/barber/outer_comma_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "SLATE COMMA COAT",
+   "build": "OUTER SLATE COMMA COAT",
+   "shape": "COMMA COAT",
+   "renders": "records/target/character/barber/outer_slate_comma_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "COBALT COCOON COAT",
+   "build": "OUTER COBALT COCOON COAT",
+   "shape": "COCOON COAT",
+   "renders": "records/target/character/barber/outer_cobalt_cocoon_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "BRICK COMMA COAT",
+   "build": "OUTER BRICK COMMA COAT",
+   "shape": "COMMA COAT",
+   "renders": "records/target/character/barber/outer_brick_comma_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "OLIVE ASYM COAT",
+   "build": "OUTER OLIVE ASYM COAT",
+   "shape": "ASYMMETRIC COAT",
+   "renders": "records/target/character/barber/outer_olive_asym_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  },
+  {
+   "name": "GRASS WRAP COAT",
+   "build": "OUTER GRASS WRAP COAT",
+   "shape": "WRAP COAT",
+   "renders": "records/target/character/barber/outer_grass_wrap_coat",
+   "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
+   "his_vote": null,
+   "held": false
+  }
+ ],
  "hair_colours": [
   {
    "step": [
@@ -1285,6 +2675,8 @@
   "skins": 11,
   "hats": 21,
   "face_pieces": 14,
+  "tops": 77,
+  "coats": 70,
   "heads": 2594592
  }
 }

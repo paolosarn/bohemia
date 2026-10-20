@@ -67,7 +67,23 @@ WHAT LOOKING CHANGED:
 
 ## 3. THE CARDS
 
-[filled when the renders land]
+Three cards, every still through the guide's first five (the NOT VIBE CODED gate's own checker, class person, light
+guide), 70 of 74 coats shown (560 stills pass), 4 held:
+
+| card | coats | shown | held |
+|---|---|---|---|
+| character-outer-one-the-long-coats-10-20 | 20 | 16 | BONE DUSTER, COBALT DUSTER, GRASS DUSTER, ROSE DUSTER (the light row on the side and back facings, 2.6 to 9.5 values: a light duster under the head, section 2) |
+| character-outer-one-the-short-ones-10-20 | 30 | 30 | none |
+| character-outer-one-the-runway-and-the-work-clothes-10-20 | 24 | 24 | none |
+
+Every coat a gang already wears (COBALT CHORE COAT, GRASS CAR COAT, BRICK SPLIT-TAIL DUSTER, the three cocoons, LEATHER
+WRAP COAT, LEATHER SPLIT-TAIL COAT, OLIVE ASYM COAT) keeps his UP on the thirteen and shows on its new card beside them
+(the roll call's R3). The roll call now reads OUTER 1's cards the way it reads BASE 1's (tools/bohemia_character_the_roll_call.py).
+
+WHAT IS NOT DONE, SAID OUT LOUD: the four held dusters wait on the light row (DIRECTION, PLUMBER); the walk in eight of
+each coat renders when its card passes (--clip Anim_0:6), as HAIR 1's and BASE 1's did; nothing here is in the demo
+(rule 121(a): RUN TWO's [no two people alike] and RUN wire it; the barber's book lists every piece by its build name).
+NEXT on the roll call: garments: legs (45), then feet (40), back (18), gear (28), neck (9), waist (7), hands (6).
 
 [bb Battle Brothers dresses a man in body armour over a gambeson, painted layers per facing; its coats are armour. Ours
 are the street's: what a city wears after the money died, cut and hung on the man so it turns, walks and parts with him.]
