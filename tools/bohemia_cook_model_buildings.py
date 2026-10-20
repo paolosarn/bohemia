@@ -382,14 +382,19 @@ def motel(bpy, mu):
 
 def motel_sign(bpy, mu):
     mm = mats(bpy)
-    for x in (-1.1, 1.1): B(bpy, 'ms_leg', mm['steel'], x - 0.17, x + 0.17, -0.17, 0.17, 0, 9.0, bevel=0.03)
+    for x in (-1.1, 1.1): B(bpy, 'ms_leg', mm['dark'], x - 0.17, x + 0.17, -0.17, 0.17, 0, 9.0, bevel=0.03)
     B(bpy, 'ms_blade', mm['teal'], -1.0, 1.0, -0.2, 0.2, 4.0, 9.0, bevel=0.05)
     B(bpy, 'ms_bladeface', mm['pale'], -0.85, 0.85, -0.23, -0.2, 4.3, 8.7)
-    for i in range(6): B(bpy, 'ms_letter%d' % i, mm['red'], -0.35, 0.35, -0.25, -0.23, 4.6 + i * 0.7, 5.1 + i * 0.7)
+    for i in range(6): B(bpy, 'ms_letter%d' % i, mm['rust'], -0.35, 0.35, -0.25, -0.23, 4.6 + i * 0.7, 5.1 + i * 0.7)
     for i in range(12): P.cyl(bpy, 'ms_bulb', mm['trim'], 0.06, 0.06, (-0.9 + (i % 2) * 1.8, -0.25, 4.3 + (i // 2) * 0.8), rot=(math.pi / 2, 0, 0), verts=8)
     # the arrow on top points AWAY from the motel (the motel is to the east on every lot), out at the desert: west
-    P.prism(bpy, 'ms_arrow', mm['red'], [(-0.15, 9.2), (0.15, 9.2), (0.15, 10.1), (-0.15, 10.1)], -2.2, 2.4)
-    P.prism(bpy, 'ms_arrowhead', mm['red'], [(-0.15, 8.9), (0.15, 8.9), (0.15, 10.4), (-0.15, 10.4)], -3.1, -2.2)
+    # the arrow, an arrow: a 5.5 m shaft and its head cut as one outline in the camera's plane, in mustard, studded with bulbs
+    outline = [(2.4, 9.25), (-2.0, 9.25), (-2.0, 8.95), (-3.1, 9.65), (-2.0, 10.35), (-2.0, 10.05), (2.4, 10.05)]
+    me = bpy.data.meshes.new('ms_arrow'); n = len(outline)
+    vs = [(x, -0.15, z) for x, z in outline] + [(x, 0.15, z) for x, z in outline]
+    fs = [tuple(range(n)), tuple(range(2 * n - 1, n - 1, -1))] + [(i, n + i, n + (i + 1) % n, (i + 1) % n) for i in range(n)]
+    me.from_pydata(vs, [], fs); me.update(); o = bpy.data.objects.new('ms_arrow', me); bpy.context.collection.objects.link(o); o.data.materials.append(mm['gold'])
+    for i in range(9): P.cyl(bpy, 'ms_abulb', mm['pale'], 0.07, 0.06, (2.2 - i * 0.55, -0.17, 9.65), rot=(math.pi / 2, 0, 0), verts=8)
     B(bpy, 'ms_vac', mm['pale'], -1.2, 1.2, -0.3, -0.1, 3.0, 3.8, bevel=0.03)
     B(bpy, 'ms_vactext', mm['dark'], -1.0, 1.0, -0.32, -0.3, 3.25, 3.55)
 

@@ -484,7 +484,9 @@ def scene(bpy, objs):
 
 # ---- THE HOUSES (row two's ranches, in the fight's suburb blocks) -----------------------------------------------------
 HOUSE_KINDS = ('subs', 'corner', 'culdesac', 'suburb_stem')
-RANCH_W = {'ranch_plain': 11.0, 'ranch_porch': 12.0, 'ranch_wing': 14.3}     # each kind's width over its eaves, m
+RANCH_W = {'ranch_plain': 11.0, 'ranch_porch': 12.0}     # each kind's width over its eaves, m (the L ranch is off its own centre
+# and runs 3 m forward of its front: on a lot whose front is the sidewalk it stood on the walk, measured on suburb_stem.0)
+RANCH_FRONT = {'ranch_porch': 2.3}                         # how far a kind stands forward of its front wall (the porch's deck)
 # a Las Vegas tract's stucco and roofs, as shades of the palette base (never orange: his 10/17 'more tan'): the pale tan,
 # a sand beige, a light grey, a cream, a sage; roofs tan, grey-brown, darker brown, grey
 WALL_TINTS = [(1.0, 1.0, 1.0), (1.04, 0.98, 0.93), (0.95, 0.97, 1.0), (1.05, 1.02, 0.9), (0.96, 1.0, 0.94)]
@@ -534,7 +536,7 @@ def place_houses(bpy, houses, seed):
         root = bpy.data.objects.new('house_%d' % i, None); bpy.context.scene.collection.objects.link(root)
         for o in new:
             if o.parent is None: o.parent = root
-        root.location = (xc, yfront + 4.0 * 0.82 * s_, 0.0); root.scale = (s_, 0.82 * s_, s_)
+        root.location = (xc, yfront + (4.0 + RANCH_FRONT.get(kind, 0.0)) * 0.82 * s_, 0.0); root.scale = (s_, 0.82 * s_, s_)   # its front-most thing on the old facade's line
         meshes += [o for o in new if o.type == 'MESH']; roots.append(root); kinds.append(kind)
         rects.append((x0, y0, x1, y1))
     return meshes, roots, rects, kinds
