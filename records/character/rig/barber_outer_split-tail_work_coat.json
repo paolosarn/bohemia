@@ -1,0 +1,38 @@
+{
+ "cut": "OUTER SPLIT-TAIL WORK COAT",
+ "tag": "outer_split-tail_work_coat",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 0,
+  "side": 0.4,
+  "front": 0.16,
+  "fade": 4
+ },
+ "worn_by": "the roll call: SPLIT-TAIL WORK COAT",
+ "model": "records/character/rig/barber_outer_split-tail_work_coat.glb",
+ "body": "records/character/rig/o_split-tail_work_coat.glb (the mannequin in SPLIT-TAIL WORK COAT)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "tape_masking",
+  1
+ ],
+ "hair_rgb": [
+  120,
+  99,
+  72
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5409,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7342,
+ "pieces": {
+  "barber_temple_taper_fade": 30841,
+  "barber_temple_taper": 162442
+ }
+}

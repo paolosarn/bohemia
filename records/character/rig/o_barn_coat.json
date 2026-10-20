@@ -1,0 +1,120 @@
+{
+ "look": "O_barn_coat",
+ "shape": "the barber's mannequin in BARN COAT (CHORE COAT)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BLACK TANK",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS",
+  "outer": "BARN COAT"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/o_barn_coat.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "o_barn_coat_trouser": 2568,
+  "o_barn_coat_shoe": 3916,
+  "o_barn_coat_coat": 73272,
+  "o_barn_coat_coat_skirt": 3990,
+  "o_barn_coat_collar": 1536,
+  "o_barn_coat_lapels": 396,
+  "o_barn_coat_cuffs": 2048,
+  "o_barn_coat_pockets": 252,
+  "o_barn_coat_pocket_flaps": 252,
+  "o_barn_coat_hair": 17968,
+  "o_barn_coat_hand_L": 392,
+  "o_barn_coat_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "o_barn_coat_coat": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "o_barn_coat_coat_skirt": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "o_barn_coat_collar": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "o_barn_coat_cuffs": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "o_barn_coat_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "o_barn_coat_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "o_barn_coat_lapels": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "o_barn_coat_pocket_flaps": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "o_barn_coat_pockets": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "o_barn_coat_shirt": [
+   0.0116,
+   0.0103,
+   0.0103
+  ],
+  "o_barn_coat_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "o_barn_coat_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "o_barn_coat_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "o_barn_coat_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "o_barn_coat_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}
