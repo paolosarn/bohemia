@@ -1,0 +1,102 @@
+{
+ "look": "O_slate_cocoon_coat",
+ "shape": "the barber's mannequin in SLATE COCOON COAT (COCOON COAT)",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BLACK TANK",
+  "legs": "BLACK CARGOS",
+  "feet": "WRAPPED BOOTS",
+  "outer": "SLATE COCOON COAT"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/o_slate_cocoon_coat.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "o_slate_cocoon_coat_trouser": 2568,
+  "o_slate_cocoon_coat_shoe": 3916,
+  "o_slate_cocoon_coat_coat": 73272,
+  "o_slate_cocoon_coat_coat_skirt": 4142,
+  "o_slate_cocoon_coat_collar": 1536,
+  "o_slate_cocoon_coat_lapels": 396,
+  "o_slate_cocoon_coat_hair": 17968,
+  "o_slate_cocoon_coat_hand_L": 392,
+  "o_slate_cocoon_coat_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "o_slate_cocoon_coat_coat": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "o_slate_cocoon_coat_coat_skirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "o_slate_cocoon_coat_collar": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "o_slate_cocoon_coat_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "o_slate_cocoon_coat_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "o_slate_cocoon_coat_lapels": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "o_slate_cocoon_coat_shirt": [
+   0.0116,
+   0.0103,
+   0.0103
+  ],
+  "o_slate_cocoon_coat_shoe": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "o_slate_cocoon_coat_shoes": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "o_slate_cocoon_coat_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "o_slate_cocoon_coat_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "o_slate_cocoon_coat_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

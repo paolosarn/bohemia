@@ -1,0 +1,155 @@
+{
+ "first": "BONE COCOON COAT",
+ "firstAt": [
+  12,
+  64,
+  773,
+  194
+ ],
+ "rows": {
+  "BONE COCOON COAT": [
+   12,
+   64,
+   773,
+   194
+  ],
+  "COBALT COCOON COAT": [
+   12,
+   264,
+   773,
+   194
+  ],
+  "COCOON COAT": [
+   12,
+   464,
+   773,
+   194
+  ],
+  "SAND COCOON COAT": [
+   12,
+   664,
+   773,
+   194
+  ],
+  "SLATE COCOON COAT": [
+   12,
+   864,
+   773,
+   194
+  ],
+  "TEAL COCOON COAT": [
+   12,
+   1064,
+   773,
+   194
+  ],
+  "BRICK COMMA COAT": [
+   12,
+   1264,
+   773,
+   194
+  ],
+  "COMMA COAT": [
+   12,
+   1464,
+   773,
+   194
+  ],
+  "SLATE COMMA COAT": [
+   12,
+   1664,
+   772,
+   194
+  ],
+  "ASH WRAP COAT": [
+   12,
+   1864,
+   760,
+   202
+  ],
+  "GRASS WRAP COAT": [
+   12,
+   2072,
+   760,
+   202
+  ],
+  "LEATHER WRAP COAT": [
+   12,
+   2280,
+   756,
+   203
+  ],
+  "WRAP COAT": [
+   12,
+   2489,
+   760,
+   202
+  ],
+  "ASH ASYM COAT": [
+   12,
+   2697,
+   759,
+   209
+  ],
+  "ASYMMETRIC COAT": [
+   12,
+   2912,
+   759,
+   204
+  ],
+  "OLIVE ASYM COAT": [
+   12,
+   3122,
+   759,
+   204
+  ],
+  "DUST PONCHO": [
+   12,
+   3332,
+   853,
+   166
+  ],
+  "OXBLOOD PONCHO": [
+   12,
+   3504,
+   853,
+   166
+  ],
+  "STORM PONCHO": [
+   12,
+   3676,
+   853,
+   166
+  ],
+  "HOODED DUST PONCHO": [
+   12,
+   3848,
+   855,
+   174
+  ],
+  "SMITH'S APRON": [
+   12,
+   4028,
+   753,
+   206
+  ],
+  "TRADES APRON": [
+   12,
+   4240,
+   754,
+   208
+  ],
+  "DUST HALF APRON": [
+   12,
+   4454,
+   754,
+   208
+  ],
+  "LEATHER HALF APRON": [
+   12,
+   4668,
+   753,
+   208
+  ]
+ }
+}
