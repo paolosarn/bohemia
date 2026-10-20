@@ -141,6 +141,12 @@ def main():
     # a base top is shown only when its card carries its pictures; one whose card left it out was held
     _bs = dict((i.get('id'), ' '.join(i.get('sprites', []))) for i in reg.get('items', []) if i.get('id') in set(BASE_CARD.values()))
     BASE_HELD = set(G['name'] for G in BARBER.BASE_ONE.BANK if BASE_CARD.get(G['name']) in _bs and '/%s/' % G['tag'] not in _bs[BASE_CARD[G['name']]])
+    # OUTER 1 (10/20): the coats, the same way (a coat shown only when its card carries its pictures, held when its card left it out)
+    OUTER_CARD = dict((G['name'], cid) for _, cid, shapes in BARBER.OUTER_ONE.PARTS for G in BARBER.OUTER_ONE.BANK if G['shape'] in shapes)
+    _os = dict((i.get('id'), ' '.join(i.get('sprites', []))) for i in reg.get('items', []) if i.get('id') in set(OUTER_CARD.values()))
+    OUTER_HELD = set(G['name'] for G in BARBER.OUTER_ONE.BANK if OUTER_CARD.get(G['name']) in _os and '/%s/' % G['tag'] not in _os[OUTER_CARD[G['name']]])
+    BASE_CARD = dict(BASE_CARD, **OUTER_CARD); BASE_HELD = BASE_HELD | OUTER_HELD
+    HELD_RECORD = {'base': 'records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md', 'outer': 'records/BOHEMIA_OUTER_ONE_THE_74_COATS_10_20_26.md'}
     PP = portrait_pieces()
 
     rows, seen = [], set()
@@ -176,21 +182,21 @@ def main():
                 nl = {'state': 'shown, not approved', 'by': 'CHARACTER, sculpted on the starred skull as clumps, locks, ropes or braids (hair 1)',
                       'rig_looks': on_gangs}
                 nl.update(card(HAIR_ONE_CARD)); nl['note'] = SAID
-            elif kind == 'garment' and layer == 'base' and name in BASE_HELD and any(i.get('id') == BASE_CARD.get(name) for i in reg.get('items', [])):
+            elif kind == 'garment' and layer in ('base', 'outer') and name in BASE_HELD and any(i.get('id') == BASE_CARD.get(name) for i in reg.get('items', [])):
                 # built, rendered and held off its card by the first five (rule 114b); the record says why
-                nl = {'state': 'built, not shown', 'by': "CHARACTER, modelled on the barber's 3D man (base 1)", 'rig_looks': on_gangs,
-                      'held': "off %s by the guide's light row (rule 114b): records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md" % BASE_CARD[name]}
-            elif kind == 'garment' and layer == 'base' and any(i.get('id') == BASE_CARD.get(name) for i in reg.get('items', [])):
+                nl = {'state': 'built, not shown', 'by': "CHARACTER, modelled on the barber's 3D man (%s 1)" % layer, 'rig_looks': on_gangs,
+                      'held': "off %s by the guide's light row (rule 114b): %s" % (BASE_CARD[name], HELD_RECORD[layer])}
+            elif kind == 'garment' and layer in ('base', 'outer') and any(i.get('id') == BASE_CARD.get(name) for i in reg.get('items', [])):
                 # GARMENTS BASE (10/19): the top modelled on the barber's man; a top a gang already wore keeps his UP on the gangs
                 # 'cards' holds only what the state stands on (R3: approved means every cited card has his UP); the new
                 # card a gang-worn top waits on is 'shown_on' beside them
                 if on_gangs:
-                    nl = {'state': 'approved, not final', 'by': "CHARACTER, modelled on the barber's 3D man (base 1)", 'rig_looks': on_gangs,
+                    nl = {'state': 'approved, not final', 'by': "CHARACTER, modelled on the barber's 3D man (%s 1)" % layer, 'rig_looks': on_gangs,
                           'cards': [card(c) for c in GANG_CARDS], 'shown_on': card(BASE_CARD[name])}
                 else:
-                    nl = {'state': 'shown, not approved', 'by': "CHARACTER, modelled on the barber's 3D man (base 1)", 'rig_looks': on_gangs}
+                    nl = {'state': 'shown, not approved', 'by': "CHARACTER, modelled on the barber's 3D man (%s 1)" % layer, 'rig_looks': on_gangs}
                     nl.update(card(BASE_CARD[name]))
-                nl['note'] = "his 10/18 on the thirteen: 'Nice direction very good not final'" if on_gangs else "the roll call's base batch, shown for his vote"
+                nl['note'] = "his 10/18 on the thirteen: 'Nice direction very good not final'" if on_gangs else "the roll call's %s batch, shown for his vote" % layer
             elif on_gangs:
                 nl = {'state': 'shown, not approved' if kind in UNAPPROVED_KINDS else 'approved, not final',
                       'by': 'CHARACTER, modelled on the thirteen gang bodies', 'rig_looks': on_gangs,
