@@ -125,10 +125,11 @@ def main():
              "  w.appendChild(row('music','MUSIC'));\n  w.appendChild(row('amb','AMBIENCE'));   /* __THE_SLIDERS__ 10/20 */\n",
              "row('amb','AMBIENCE')", 'the MUSIC tab knob')
 
-    # 6. every bed, the hum and the radio onto the ambience bus (each line is its own anchor, with the comment above it)
+    # 6. every bed, the hum and the radio onto the ambience bus (each line is its own anchor, with the comment above it).
+    #    NOT the heartbeat before the song (PULSE): it is the 120 BPM clock that hands the beat to the song, at its
+    #    own measured level under a footstep (gates/beat_first_gate.py), not a bed; it stays on the effects bus.
     AMB = "(window.__ambBus&&window.__ambBus())||"
     for what, old in [
-        ('the heartbeat', "           tab handler stopping the studio on the way into the game. */\n        this.bus.connect(sfxBus() || MUS.OUT"),
         ('the room', "           because the studio did. Same reasoning as the heartbeat above. */\n        this.bus.connect(sfxBus() || MUS.OUT"),
         ('the air and the radio', "             to the MUSIC master, because MUS.stop() ducks it to zero. */\n          this.bus.connect(sfxBus()||MUS.OUT"),
         ('the map desert', "      var out=sfxBus()||MUS.OUT||MUS.MAST||AC.destination, id=this.BED;"),

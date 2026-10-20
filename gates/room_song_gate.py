@@ -31,6 +31,14 @@ than for a duration -- a fixed wait is not an event.
 
 A MENTION IS NOT A USE: nothing below greps the alpha for a word. Every claim is
 a value the running game returned.
+
+RE-AIMED 10/20 (SOUNDS, rule 122, PAOLO: 'if I hear any other song ever again I'm shutting this whole shit
+down'; 'and ALL OF THE OVERWORLD NIGHT TRACKS TOO'). The row this gate guards (an unplaced song heard
+indoors, every unburied song heard somewhere) is overruled by his newer word: only his OVERWORLD NIGHT
+category plays. While the song fence stands (window.SONGFENCE, read from the running game), the room legs
+flip to their 10/20 meaning: the room reaches NO unplaced song, the pool is empty, the music does NOT change
+indoors and stays his, and the street never has to take it back. The census still counts; NOWHERE is now
+the silent shelf, by his word. gates/one_song_only_gate.js is the gate for the fence itself.
 """
 import json
 import os
@@ -106,6 +114,7 @@ const pw = pwmod();
     });
 
     /* ---- THE POOL IS A RULE, NOT A LIST --------------------------------- */
+    out.fenced = await sh(() => !!window.SONGFENCE);
     out.pool = await sh(() => {
       if (typeof INTERIORMUS === 'undefined') return null;
       const cs = INTERIORMUS.candidates();
@@ -177,6 +186,7 @@ const pw = pwmod();
         if (typeof INTERIORMUS!=='undefined' && INTERIORMUS.on) return Date.now()-t; }
       return null; });
     out.insideSong = await song();
+    out.insideHis = await sh(() => !!(window.SONGFENCE && SONGFENCE.ok()));
     out.insideUntagged = out.insideSong ? await p.evaluate(n =>
       (MUS.catsOf(n+'#1')||[]).length===0 && !CITYMUS.OVERWORLD.has(n), out.insideSong) : null;
     out.cityStoodDown = await sh(() => !CITYMUS.on);
@@ -274,8 +284,13 @@ def main():
        'bucket it might have lost to another pool' % rc.get('menu', 0),
        rc.get('menu', 0) > 0)
     ok('combat can reach songs (%d)' % rc.get('combat', 0), rc.get('combat', 0) > 0)
-    ok('THE ROOM can reach songs (%d) -- this is the number that was zero, and '
-       'it is the whole row' % rc.get('room', 0), rc.get('room', 0) > 0)
+    F = bool(d.get('fenced'))   # rule 122: the song fence stands
+    if F:
+        ok('RULE 122: THE ROOM REACHES NO UNPLACED SONG (%d): only his OVERWORLD NIGHT plays'
+           % rc.get('room', 0), rc.get('room', 0) == 0)
+    else:
+        ok('THE ROOM can reach songs (%d) -- this is the number that was zero, and '
+           'it is the whole row' % rc.get('room', 0), rc.get('room', 0) > 0)
     ok('and a song is allowed to be in more than one place: %d are (%s). Nothing '
        'here requires that, it records it, so the next reader of this census knows '
        'the buckets below are FIRST MATCH and not membership'
@@ -283,19 +298,31 @@ def main():
        isinstance(c.get('both'), list))
     ok('a song he BURIED is still buried and nothing gave it a home (%d)'
        % c.get('buried', 0), c.get('buried', 0) > 0)
-    ok('EVERY SONG HE HAS NOT BURIED CAN BE HEARD SOMEWHERE: %d unreachable '
-       '(%s)' % (len(nowhere), ', '.join(nowhere[:6]) or 'none'), not nowhere)
-    ok('and the four players account for the whole shelf with nothing left over '
-       '(%d + %d + %d + %d + %d buried = %d)'
-       % (c.get('street', 0), c.get('menu', 0), c.get('room', 0),
-          c.get('combat', 0), c.get('buried', 0), c.get('songs', 0)),
-       (c.get('street', 0) + c.get('menu', 0) + c.get('room', 0)
-        + c.get('combat', 0) + c.get('buried', 0)) == c.get('songs', 0))
+    if F:
+        ok('RULE 122: every song outside his set is silent by his word (%d silent), and the census '
+           'accounts for the whole shelf (%d + %d + %d + %d + %d buried + %d silent = %d)'
+           % (len(nowhere), c.get('street', 0), c.get('menu', 0), c.get('room', 0), c.get('combat', 0),
+              c.get('buried', 0), len(nowhere), c.get('songs', 0)),
+           (c.get('street', 0) + c.get('menu', 0) + c.get('room', 0) + c.get('combat', 0)
+            + c.get('buried', 0) + len(nowhere)) == c.get('songs', 0))
+    else:
+        ok('EVERY SONG HE HAS NOT BURIED CAN BE HEARD SOMEWHERE: %d unreachable '
+           '(%s)' % (len(nowhere), ', '.join(nowhere[:6]) or 'none'), not nowhere)
+        ok('and the four players account for the whole shelf with nothing left over '
+           '(%d + %d + %d + %d + %d buried = %d)'
+           % (c.get('street', 0), c.get('menu', 0), c.get('room', 0),
+              c.get('combat', 0), c.get('buried', 0), c.get('songs', 0)),
+           (c.get('street', 0) + c.get('menu', 0) + c.get('room', 0)
+            + c.get('combat', 0) + c.get('buried', 0)) == c.get('songs', 0))
 
     # ---- THE POOL IS A RULE, NOT A LIST -----------------------------------
     pool = d.get('pool') or {}
-    ok('the room pool is not empty (%s songs)' % pool.get('n'),
-       (pool.get('n') or 0) > 0)
+    if F:
+        ok('RULE 122: the room pool is EMPTY (%s songs): indoors keeps his song' % pool.get('n'),
+           (pool.get('n') or 0) == 0)
+    else:
+        ok('the room pool is not empty (%s songs)' % pool.get('n'),
+           (pool.get('n') or 0) > 0)
     ok('and NOTHING HE PLACED IS IN IT -- a tagged song belongs where he put it '
        '(%s tagged found)' % pool.get('tagged'), pool.get('tagged') == 0)
     ok('GRAVEYARD IS FINAL: nothing he buried is in it (%s found)'
@@ -324,22 +351,30 @@ def main():
 
     # ---- THE SWITCH --------------------------------------------------------
     sw = d.get('switchedMs')
-    ok('THE MUSIC CHANGED WHEN HE WENT INSIDE (after %s ms)' % sw, sw is not None)
-    ok('and it landed on a phrase, not instantly: 16s at 120 BPM is one phrase '
-       'and it took %s ms' % sw, sw is not None and sw >= 15000)
-    ok('the song he heard indoors is one nobody had placed (%s)'
-       % d.get('insideSong'), d.get('insideUntagged'))
-    ok('the street shuffle stood down and did not fight for the transport',
-       d.get('cityStoodDown'))
+    if F:
+        ok('RULE 122: THE MUSIC DID NOT CHANGE WHEN HE WENT INSIDE (no room song took it: %s)' % sw, sw is None)
+        ok('and the song he heard indoors is his (%s)' % d.get('insideSong'), d.get('insideHis'))
+    else:
+        ok('THE MUSIC CHANGED WHEN HE WENT INSIDE (after %s ms)' % sw, sw is not None)
+        ok('and it landed on a phrase, not instantly: 16s at 120 BPM is one phrase '
+           'and it took %s ms' % sw, sw is not None and sw >= 15000)
+        ok('the song he heard indoors is one nobody had placed (%s)'
+           % d.get('insideSong'), d.get('insideUntagged'))
+        ok('the street shuffle stood down and did not fight for the transport',
+           d.get('cityStoodDown'))
     ok('and the music never stopped: standing down is not silence',
        d.get('playingInside'))
 
     # ---- AND BACK OUT ------------------------------------------------------
     ok('he walked back out through the city\'s own exit', d.get('cityOutside'))
     bk = d.get('backMs')
-    ok('THE STREETS TOOK THE MUSIC BACK (after %s ms)' % bk, bk is not None)
-    ok('and that landed on a phrase too (%s ms)' % bk,
-       bk is not None and bk >= 15000)
+    if F:
+        ok('RULE 122: outside again the music plays on and it is his (%s)' % d.get('backSong'),
+           d.get('playingEnd') and d.get('backIsCreeper'))
+    else:
+        ok('THE STREETS TOOK THE MUSIC BACK (after %s ms)' % bk, bk is not None)
+        ok('and that landed on a phrase too (%s ms)' % bk,
+           bk is not None and bk >= 15000)
     ok('and what plays outdoors is a creeper again (%s)' % d.get('backSong'),
        d.get('backIsCreeper'))
     ok('the music is still playing at the end', d.get('playingEnd'))

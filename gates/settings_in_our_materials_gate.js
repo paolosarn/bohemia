@@ -9,12 +9,13 @@
      - before BEGIN, BohemiaSettings.open({atStart:true}) shows the card OVER the front door (a finger at
        its centre reaches it), with SAVE and QUIT hidden and the way out reading BACK; closing it leaves
        the door as it was
-     - in the game, the gear opens the card with ALL, MUSIC, SOUNDS, MUTE, TEXT, BRIGHT rows
+     - in the game, the gear opens the card with ALL, MUSIC, AMBIENCE, EFFECTS, MUTE, TEXT, BRIGHT rows (10/20: SOUNDS is
+       EFFECTS beside AMBIENCE, rule 122c)
      - every control is a thumb (44 x 44 or more)
      - the card is drawn from the materials (cardboard, receipt, glass pictures), its words are the game's
        CASING face (loaded), labels and buttons read from the left, buttons cast no soft shadow
      - every label passes 4.5 to 1 on the card, and again in the sun
-     - MUSIC and SOUNDS move the mix's own knobs (getMix) and light their steps
+     - MUSIC, AMBIENCE and EFFECTS are sliders on the mix's own knobs (getMix), saved (10/20, rule 122c)
      - BRIGHT keeps its step, publishes BOH_BRIGHTNESS, TELLS THE CITY FRAME, and the calibration picture's
        man comes up out of the street with it; step 0 is the game as drawn (lift 0)
      - no page error
@@ -68,7 +69,7 @@ async function beforeBegin(page) {
     return { labs, ctrls, btns, bg: cs.backgroundImage, casing, labFam: getComputedStyle(lab).fontFamily.split(',')[0].replace(/["']/g, ''), labCol: getComputedStyle(lab).color,
       labBox: [lr.x, lr.y, lr.width, lr.height], open: document.getElementById('setwrap').classList.contains('on'), mix: window.getMix ? window.getMix() : null };
   });
-  ok('IN THE GAME THE GEAR OPENS THE CARD WITH ALL, MUSIC, SOUNDS, MUTE, TEXT, BRIGHT', a.open && ['ALL', 'MUSIC', 'SOUNDS', 'MUTE', 'TEXT', 'BRIGHT'].every(k => a.labs.indexOf(k) >= 0), a.labs.join(' '));
+  ok('IN THE GAME THE GEAR OPENS THE CARD WITH ALL, MUSIC, AMBIENCE, EFFECTS, MUTE, TEXT, BRIGHT', a.open && ['ALL', 'MUSIC', 'AMBIENCE', 'EFFECTS', 'MUTE', 'TEXT', 'BRIGHT'].every(k => a.labs.indexOf(k) >= 0), a.labs.join(' '));
   const small = a.ctrls.filter(c => c.w < 44 || c.h < 44);
   ok('EVERY CONTROL IS A THUMB (44 x 44 or more)', a.ctrls.length >= 20 && small.length === 0, a.ctrls.length + ' controls, small: ' + small.map(c => c.t + ' ' + Math.round(c.w) + 'x' + Math.round(c.h)).join(', '));
   ok('THE CARD IS DRAWN FROM THE MATERIALS (a cardboard picture, not a flat fill)', /url\("?data:image/.test(a.bg), a.bg.slice(0, 40));
@@ -92,12 +93,19 @@ async function beforeBegin(page) {
   }, { png, box: a.labBox, col: a.labCol });
   ok('A LABEL ON THE CARDBOARD PASSES 4.5 TO 1, AND AGAIN IN THE SUN', cr.plain >= 4.5 && cr.sun >= 4.5, JSON.stringify(cr));
 
-  /* MUSIC and SOUNDS: the mix's own knobs */
+  /* MUSIC, AMBIENCE and EFFECTS: the mix's own knobs. RE-AIMED 10/20 (SOUNDS, rule 122c: 'anything volume wise, I
+     should be seeing a slider for it in the settings'): they are sliders now, so a tap lands a quarter, a half, three
+     quarters along the track and the knob reads what the slider says, saved */
+  const slide = async (id, f) => { const b = await p.evaluate(({ id, f }) => { const r = document.querySelector('#' + id + ' input[type=range]').getBoundingClientRect(); return [r.x + r.width * f, r.y + r.height / 2]; }, { id, f });
+    await p.touchscreen.tap(b[0], b[1]); await p.waitForTimeout(300); };
+  await slide('setmusic', 0.25); await slide('setamb', 0.5); await slide('setsfx', 0.75);
+  const m = await p.evaluate(() => ({ mix: getMix(), vals: ['setmusic', 'setamb', 'setsfx'].map(id => +document.querySelector('#' + id + ' input').value), saved: JSON.parse(localStorage.getItem('bohemia_mix') || '{}') }));
+  const near = (a, b) => Math.abs(a - b) < 0.12;
+  ok('MUSIC, AMBIENCE AND EFFECTS ARE SLIDERS THAT MOVE THE MIX\'S OWN KNOBS, and are saved',
+    near(m.mix.music, 0.25) && near(m.mix.amb, 0.5) && near(m.mix.sfx, 0.75) && m.vals[0] === Math.round(m.mix.music * 100) && m.vals[1] === Math.round(m.mix.amb * 100)
+      && m.vals[2] === Math.round(m.mix.sfx * 100) && m.saved.music === m.mix.music && m.saved.amb === m.mix.amb && m.saved.sfx === m.mix.sfx, JSON.stringify(m));
   const tapIn = async (id, k) => { const b = await p.evaluate(({ id, k }) => { const v = document.querySelectorAll('#' + id + ' .vb')[k].getBoundingClientRect(); return [v.x + v.width / 2, v.y + v.height / 2]; }, { id, k });
     await p.touchscreen.tap(b[0], b[1]); await p.waitForTimeout(300); };
-  await tapIn('setmusic', 1); await tapIn('setsfx', 2);
-  const m = await p.evaluate(() => ({ mix: getMix(), mlit: document.querySelectorAll('#setmusic .vb.lit').length, slit: document.querySelectorAll('#setsfx .vb.lit').length, saved: localStorage.getItem('bohemia_mix') }));
-  ok('MUSIC AND SOUNDS MOVE THE MIX\'S OWN KNOBS and light their steps', m.mix.music === 0.25 && m.mix.sfx === 0.5 && m.mlit === 2 && m.slit === 3, JSON.stringify(m));
 
   /* BRIGHT */
   const before = await p.evaluate(() => { const d = document.querySelector('#setcalib canvas').getContext('2d').getImageData(48, 20, 1, 1).data; return { fig: d[0] + d[1] + d[2], pub: window.BOH_BRIGHTNESS }; });

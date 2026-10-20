@@ -122,7 +122,9 @@ const MIN = 44;
      panel.ctrls.length >= 8 && panel.small.length === 0);
   const words = panel.text.toUpperCase();
   ok('and the row\'s four things are all on it: volume, mute, save, quit',
-     /SOUND/.test(words) && /MUTE/.test(words) && /SAVE/.test(words) && /QUIT/.test(words));
+     /* 10/20 (SOUNDS, rule 122c): the volume is the ALL row and the MUSIC, AMBIENCE and EFFECTS sliders now; the
+        word SOUNDS left the card with the old five-step row */
+     /SOUND|MUSIC|AMBIENCE|EFFECTS/.test(words) && /MUTE/.test(words) && /SAVE/.test(words) && /QUIT/.test(words));
 
   /* THE BUS IS THE CLAIM. */
   const audio = await p.evaluate(() => {

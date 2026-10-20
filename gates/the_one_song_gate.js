@@ -18,7 +18,9 @@
         transport, any other frame's audio making more than a note-run, any media element)
      S2 on the map and in the settlement screen the street owns the music
      S3 *** THE FIGHT TAKES THE MUSIC *** within two seconds of the door: the fight's director
-        on, the street's off, a faction song (never the scratch patch)
+        on, the street's off, a faction song (never the scratch patch). RE-AIMED 10/20 (SOUNDS, rule 122: 'if I
+        hear any other song ever again'): with the song fence in, the fight's song is one of HIS (the MUSIC tab's
+        OVERWORLD NIGHT category, SONGFENCE.ok()), the night song it walked in on; a faction song is the defect
      S4 the fight's song is picked once (one name through the whole fight)
      S5 *** HOME IS NEVER SILENT ***: the music plays at every sample after he is home
      S6 the street takes it back on a phrase: not before one phrase of the fight's song, and
@@ -61,6 +63,7 @@ const ARM = `(function(){
     const s = await d.page.evaluate(() => { const g = (f) => { try { return f(); } catch (_e) { return null; } };
       return { mus: g(() => !!MUS.playing), city: g(() => !!CITYMUS.on), fight: g(() => !!FIGHTMUS.on), cur: g(() => MUS.cur), nf: MFACTIONS.length,
         song: g(() => MUS.cur < MFACTIONS.length ? MFACTIONS[MUS.cur].n : MLOOPS[MUS.cur - MFACTIONS.length].n),
+        his: g(() => window.SONGFENCE ? SONGFENCE.ok() : null),
         overworld: g(() => MUS.cur >= MFACTIONS.length && CITYMUS.candidates().some(c => c.fi === MUS.cur)) }; });
     /* the other frames: a context starting more than eight notes in two seconds is making music, not a hit */
     s.others = 0; s.media = 0;
@@ -88,7 +91,7 @@ const ARM = `(function(){
     /* the fight, through the one door; the moment the music changes hands is timed inside the page, on a 20 ms watch */
     await d.page.evaluate(() => { window.__took = { door: 0, took: 0 }; const t = setInterval(() => { const W = window.__took, now = performance.now();
       if (!W.door && document.getElementById('fightFrame')) W.door = now;
-      if (W.door && !W.took && FIGHTMUS.on && !CITYMUS.on && MUS.playing && MUS.cur > 0 && MUS.cur < MFACTIONS.length) { W.took = now; clearInterval(t); }
+      if (W.door && !W.took && FIGHTMUS.on && !CITYMUS.on && MUS.playing && (window.SONGFENCE ? SONGFENCE.ok() : (MUS.cur > 0 && MUS.cur < MFACTIONS.length))) { W.took = now; clearInterval(t); }
       if (W.door && now - W.door > 10000) clearInterval(t); }, 20); });
     await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 }); });
     for (let i = 0; i < 40; i++) { if (await d.page.evaluate(() => !!document.getElementById('fightFrame'))) break; await d.page.waitForTimeout(100); }
@@ -106,10 +109,11 @@ const ARM = `(function(){
     ok('S2 on the map and in the settlement screen the street owns the music (' + calm.filter(s => s.mus && s.city && !s.fight).length + ' of ' + calm.length + ' samples; ' + samples.filter(s => s.where === 'settlement').length + ' in the settlement)',
       calm.length > 0 && samples.some(s => s.where === 'settlement') && calm.every(s => s.mus && s.city && !s.fight));
     const fights = samples.filter(s => s.where === 'fight');
-    const W = await d.page.evaluate(() => window.__took), took = fights.find(s => s.fight && !s.city && s.mus && s.cur > 0 && s.cur < s.nf);
+    const fightSong = s => s.his === null ? (s.cur > 0 && s.cur < s.nf) : s.his === true;   /* rule 122: his set, once the fence is in */
+    const W = await d.page.evaluate(() => window.__took), took = fights.find(s => s.fight && !s.city && s.mus && fightSong(s));
     const ms = W.door && W.took ? Math.round(W.took - W.door) : null;
-    ok('*** S3 THE FIGHT TAKES THE MUSIC *** (' + (ms !== null ? ms + ' ms after the door, ' + (took ? took.song : '?') : 'never: ' + JSON.stringify(fights[0] && { song: fights[0].song, city: fights[0].city, fight: fights[0].fight })) + '; held in ' + fights.filter(s => s.fight && !s.city && s.mus && s.cur > 0 && s.cur < s.nf).length + ' of ' + fights.length + ' fight samples)',
-      ms !== null && ms <= 2000 && !!took && fights.every(s => s.fight && !s.city && s.mus && s.cur > 0 && s.cur < s.nf));
+    ok('*** S3 THE FIGHT TAKES THE MUSIC *** (' + (ms !== null ? ms + ' ms after the door, ' + (took ? took.song : '?') : 'never: ' + JSON.stringify(fights[0] && { song: fights[0].song, city: fights[0].city, fight: fights[0].fight })) + '; held in ' + fights.filter(s => s.fight && !s.city && s.mus && fightSong(s)).length + ' of ' + fights.length + ' fight samples)',
+      ms !== null && ms <= 2000 && !!took && fights.every(s => s.fight && !s.city && s.mus && fightSong(s)));
     const names = [...new Set(fights.filter(s => took && s.t >= took.t).map(s => s.song))];
     ok('S4 the fight\'s song is picked once (' + names.join(', ') + ')', names.length === 1);
     const home = samples.filter(s => s.where === 'home');

@@ -21756,6 +21756,7 @@ drawLogoBig();requestAnimationFrame(loop);
   var M=MUS.MAST; MUS.MAST=mp;                                           /* his voices into the hall and the tape */
   try{ return _ps.apply(MUS, arguments); } finally { MUS.MAST=M; }
  };
+ F.net=MUS.playStep;                      /* what MUS.playStep is while the fence stands; F._ps is his engine's own */
 
  /* ---- REPO MAN, THE MACHINE PARTY -----------------------------------------------------------------------------
     engine/bohemia_machine_party.js listens to his own engine's kick and hat and a real machine answers (the kit:
@@ -23905,7 +23906,7 @@ drawLogoBig();requestAnimationFrame(loop);
         /* the effects bus, so his slider reaches it. NEVER MUS.MAST as a first
            choice: MUS.stop() ducks that to zero, and this has to survive the
            tab handler stopping the studio on the way into the game. */
-        this.bus.connect((window.__ambBus&&window.__ambBus())||sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
+        this.bus.connect(sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
         var s = AC.createBufferSource();
         s.buffer = this.buf; s.loop = true;
         s.connect(this.bus);

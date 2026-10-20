@@ -1852,17 +1852,28 @@ def main():
     # THE POOL MUST ACTUALLY CHANGE. A phase string that moves while the pool
     # does not would pass every check above and change nothing he can hear.
     pd, pn = set(ph['Day'].get('pool') or []), set(ph['Night'].get('pool') or [])
-    chk(pd and pn and pd != pn,
-        'the DAY and NIGHT pools are identical (%d songs), so the clock moves a '
-        'label and nothing else' % len(pd))
-    # AND THE SONG HE ACTUALLY LIKES HAS TO BE REACHABLE.
-    chk('THE MARKER ON THE DOOR' in pd,
-        'THE MARKER ON THE DOOR is still not in the daytime pool. He tagged it '
-        'OVERWORLD DAY and called it one of his favourite songs; if it cannot '
-        'play, his ruling did not reach the game.')
-    chk('THE MARKER ON THE DOOR' not in pn,
-        'a song he tagged OVERWORLD DAY is in the NIGHT pool, so the categories '
-        'are not being honoured at all')
+    # RE-AIMED 10/20 (SOUNDS, rule 122, PAOLO: 'if I hear any other song ever again I'm shutting this whole
+    # shit down'; 'and ALL OF THE OVERWORLD NIGHT TRACKS TOO'): while the song fence stands the street plays
+    # his OVERWORLD NIGHT category at every hour, so DAY and NIGHT are the SAME pool and THE MARKER ON THE
+    # DOOR (OVERWORLD DAY) is silent by his newer word. The clock still turns (the phase checks above).
+    fenced = '<!-- __ONE_SONG_ONLY__' in open(ALPHA, encoding='utf8').read()
+    if fenced:
+        chk(pd and pd == pn,
+            'rule 122: the street\'s DAY pool is not his OVERWORLD NIGHT set (%d by day, %d by night)' % (len(pd), len(pn)))
+        chk('THE MARKER ON THE DOOR' not in pd,
+            'rule 122: THE MARKER ON THE DOOR (OVERWORLD DAY) can still play by day')
+    else:
+        chk(pd and pn and pd != pn,
+            'the DAY and NIGHT pools are identical (%d songs), so the clock moves a '
+            'label and nothing else' % len(pd))
+        # AND THE SONG HE ACTUALLY LIKES HAS TO BE REACHABLE.
+        chk('THE MARKER ON THE DOOR' in pd,
+            'THE MARKER ON THE DOOR is still not in the daytime pool. He tagged it '
+            'OVERWORLD DAY and called it one of his favourite songs; if it cannot '
+            'play, his ruling did not reach the game.')
+        chk('THE MARKER ON THE DOOR' not in pn,
+            'a song he tagged OVERWORLD DAY is in the NIGHT pool, so the categories '
+            'are not being honoured at all')
 
     # ---- VOICE LIMITING (8/4) ------------------------------------------
     vs = d.get('voiceStats') or {}

@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"faa7bb88d9d22a1b",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"7c6566a697175fda",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -21770,6 +21770,7 @@ drawLogoBig();requestAnimationFrame(loop);
   var M=MUS.MAST; MUS.MAST=mp;                                           /* his voices into the hall and the tape */
   try{ return _ps.apply(MUS, arguments); } finally { MUS.MAST=M; }
  };
+ F.net=MUS.playStep;                      /* what MUS.playStep is while the fence stands; F._ps is his engine's own */
 
  /* ---- REPO MAN, THE MACHINE PARTY -----------------------------------------------------------------------------
     engine/bohemia_machine_party.js listens to his own engine's kick and hat and a real machine answers (the kit:
@@ -23919,7 +23920,7 @@ drawLogoBig();requestAnimationFrame(loop);
         /* the effects bus, so his slider reaches it. NEVER MUS.MAST as a first
            choice: MUS.stop() ducks that to zero, and this has to survive the
            tab handler stopping the studio on the way into the game. */
-        this.bus.connect((window.__ambBus&&window.__ambBus())||sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
+        this.bus.connect(sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
         var s = AC.createBufferSource();
         s.buffer = this.buf; s.loop = true;
         s.connect(this.bus);

@@ -179,7 +179,7 @@ const ARM = `(function(){ var C = AudioNode.prototype.connect; window.__conn = [
     });
     ok('O9 THE AMBIENCE STARTS FAR DOWN: a fresh phone\'s AMBIENCE is 0.4 and its bus at ' + (amb.gain || 0).toFixed(3) + ' (-20 dB)',
       amb.amb === 0.4 && amb.gain !== null && Math.abs(amb.gain - Math.pow(0.4, 2.5)) < 0.002, JSON.stringify(amb));
-    ok('O9 the beds go into the ambience bus (' + amb.feeds + ' sources so far: the heartbeat, the room, the title wind, the desert)', amb.feeds >= 2, JSON.stringify(amb));
+    ok('O9 the beds go into the ambience bus (' + amb.feeds + ' sources so far: the room, the title wind, the desert; the radio and the air when they speak)', amb.feeds >= 2, JSON.stringify(amb));
 
     /* O10 the sliders */
     await P.evaluate(() => BohemiaSettings.open());

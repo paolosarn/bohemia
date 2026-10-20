@@ -126,6 +126,7 @@
   var M=MUS.MAST; MUS.MAST=mp;                                           /* his voices into the hall and the tape */
   try{ return _ps.apply(MUS, arguments); } finally { MUS.MAST=M; }
  };
+ F.net=MUS.playStep;                      /* what MUS.playStep is while the fence stands; F._ps is his engine's own */
 
  /* ---- REPO MAN, THE MACHINE PARTY -----------------------------------------------------------------------------
     engine/bohemia_machine_party.js listens to his own engine's kick and hat and a real machine answers (the kit:
