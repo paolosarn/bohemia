@@ -15,3 +15,6 @@
 
 ## Amended the same hour
 His words: "And ALL OF THE OVERWORLD NIGHT TRACKS TOO". The allowed set is REPO MAN THE MACHINE PARTY plus every song in his OVERWORLD NIGHT category (CAT_DEFAULTS: CAMPFIRE CONFESSION, THE VAULT, THE CHOIR THAT STAYED, THE ORGAN IN THE DROWNED CHAPEL and the old overworld six moved to NIGHT on 7/19). Everything else silent.
+
+## 'It's in the music tab!!!'
+The list is the MUSIC tab's OVERWORLD NIGHT category, read at play time (his saved tags, CAT_DEFAULTS behind them). Today's baked nine: CAMPFIRE CONFESSION, GHOST IN THE GRID, REPO MAN, SATELLITE PRAYER, SLOW BLEED, SLOW CREEP, THE ORGAN IN THE DROWNED CHAPEL, THE PIT BOSS IS GONE, THE VAULT. THE CHOIR THAT STAYED is not in it; the coordinator named it from an old note by mistake.
