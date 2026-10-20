@@ -159,9 +159,12 @@ const ARM = `(function(){ var C = AudioNode.prototype.connect; window.__conn = [
       if (!MUS.playing) MUS.start();
       const i = MUS.lib().findIndex(f => f.n === 'REPO MAN'); MUS._audit = false; MUS.cur = i; MUS.curSlot = 1;
       const t0 = Date.now(); while (Date.now() - t0 < 20000 && SONGFENCE.machine.state !== 'ready') await new Promise(r => setTimeout(r, 250));
+      /* the log starts over on every attach, so it is read once the machine is on, and a restart counts from zero */
+      const t1 = Date.now(); while (Date.now() - t1 < 5000 && !(window.MACHINEPARTY && MACHINEPARTY.on)) await new Promise(r => setTimeout(r, 100));
       const log0 = window.MACHINEPARTY ? MACHINEPARTY.log.length : 0;
       await new Promise(r => setTimeout(r, 4000));
-      const on = { state: SONGFENCE.machine.state, err: SONGFENCE.machine.err, on: !!(window.MACHINEPARTY && MACHINEPARTY.on), moved: window.MACHINEPARTY ? MACHINEPARTY.log.length - log0 : 0, now: SONGFENCE.now() };
+      const n1 = window.MACHINEPARTY ? MACHINEPARTY.log.length : 0;
+      const on = { state: SONGFENCE.machine.state, err: SONGFENCE.machine.err, on: !!(window.MACHINEPARTY && MACHINEPARTY.on), moved: n1 >= log0 ? n1 - log0 : n1, now: SONGFENCE.now() };
       const j = MUS.lib().findIndex(f => f.n !== 'REPO MAN' && SONGFENCE.allowed(MUS.lib().indexOf(f), 1)); MUS.cur = j;
       await new Promise(r => setTimeout(r, 1500));
       const off = { on: !!(window.MACHINEPARTY && MACHINEPARTY.on), ps: MUS.playStep !== SONGFENCE._ps && !(window.MACHINEPARTY && MACHINEPARTY._ps), now: SONGFENCE.now() };
