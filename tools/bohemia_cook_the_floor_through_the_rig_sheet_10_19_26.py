@@ -54,8 +54,9 @@ blocks = [('title', 'THE FIGHT FLOOR, MODELLED IN 3D LIKE THE ROBOT AND THE TRUC
           ('text', 'You said no to the fight floor twice. Now the ground is built in 3D and lit by the same lamp and camera as the '
                    'robot, the truck and the people: a real curb 15 cm tall, sidewalk slabs that heave, cracked asphalt with '
                    'potholes and sand in the gutter, and real stones lying on the dirt. These are real fights from the game on '
-                   'your phone, the same board and men. LEFT is now, RIGHT is the 3D floor. The houses and cover are still the '
-                   'old ones; they are next.')]
+                   'your phone, the same board and men. LEFT is now, RIGHT is the 3D floor. On the suburb blocks the orange '
+                   'houses are gone and 3D ranch houses stand in their place, in the same light. The cover the fight draws on top '
+                   '(the shed, the cars, the walls) is still the old pictures here; their 3D versions are on the accessories cards.')]
 mid = (W - PAD) // 2
 for b in BOARDS:
     if not os.path.exists(os.path.join(SH, '%s_old_open.png' % b)): continue

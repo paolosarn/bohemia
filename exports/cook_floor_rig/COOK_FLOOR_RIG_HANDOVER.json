@@ -1,0 +1,314 @@
+{
+ "lane": "cook",
+ "row": "[the floor through the rig]",
+ "made": "10/19",
+ "for_lane": "COMBAT",
+ "how": "the 3D floor for each block at the shipped picture's own size (2575 x 1820, 42.9 px a metre, the 45 camera): swap fight_ground.json blocks[id].src for these files (copy them over slices/fight_ground/block_<id>.webp) after his vote; lossy webp at 90 (a 3D render is 3 to 4 MB lossless); the lossless masters regenerate from tools/bohemia_cook_the_floor_through_the_rig_10_19_26.py",
+ "blocks": {
+  "corner.0": {
+   "file": "exports/cook_floor_rig/block_corner_0.webp",
+   "kb": 1442,
+   "houses": 6,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "corner.1": {
+   "file": "exports/cook_floor_rig/block_corner_1.webp",
+   "kb": 1431,
+   "houses": 4,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "corner.2": {
+   "file": "exports/cook_floor_rig/block_corner_2.webp",
+   "kb": 1442,
+   "houses": 5,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "culdesac.0": {
+   "file": "exports/cook_floor_rig/block_culdesac_0.webp",
+   "kb": 1523,
+   "houses": 6,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B6": true
+   }
+  },
+  "culdesac.1": {
+   "file": "exports/cook_floor_rig/block_culdesac_1.webp",
+   "kb": 1512,
+   "houses": 6,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B6": true
+   }
+  },
+  "lots.0": {
+   "file": "exports/cook_floor_rig/block_lots_0.webp",
+   "kb": 1427,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "main.0": {
+   "file": "exports/cook_floor_rig/block_main_0.webp",
+   "kb": 1325,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": false
+   }
+  },
+  "main.1": {
+   "file": "exports/cook_floor_rig/block_main_1.webp",
+   "kb": 1321,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": false
+   }
+  },
+  "ruin.0": {
+   "file": "exports/cook_floor_rig/block_ruin_0.webp",
+   "kb": 1342,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": false
+   }
+  },
+  "ruin.1": {
+   "file": "exports/cook_floor_rig/block_ruin_1.webp",
+   "kb": 1388,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": false
+   }
+  },
+  "scrub.0": {
+   "file": "exports/cook_floor_rig/block_scrub_0.webp",
+   "kb": 1971,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B6": true
+   }
+  },
+  "scrub.1": {
+   "file": "exports/cook_floor_rig/block_scrub_1.webp",
+   "kb": 1914,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B6": true
+   }
+  },
+  "scrub.2": {
+   "file": "exports/cook_floor_rig/block_scrub_2.webp",
+   "kb": 1977,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B6": true
+   }
+  },
+  "strip.0": {
+   "file": "exports/cook_floor_rig/block_strip_0.webp",
+   "kb": 882,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "strip.1": {
+   "file": "exports/cook_floor_rig/block_strip_1.webp",
+   "kb": 815,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "subs.0": {
+   "file": "exports/cook_floor_rig/block_subs_0.webp",
+   "kb": 1549,
+   "houses": 8,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "subs.1": {
+   "file": "exports/cook_floor_rig/block_subs_1.webp",
+   "kb": 1546,
+   "houses": 7,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "subs.2": {
+   "file": "exports/cook_floor_rig/block_subs_2.webp",
+   "kb": 1548,
+   "houses": 7,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "subs.3": {
+   "file": "exports/cook_floor_rig/block_subs_3.webp",
+   "kb": 1548,
+   "houses": 9,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "suburb_stem.0": {
+   "file": "exports/cook_floor_rig/block_suburb_stem_0.webp",
+   "kb": 1508,
+   "houses": 8,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "suburb_stem.1": {
+   "file": "exports/cook_floor_rig/block_suburb_stem_1.webp",
+   "kb": 1493,
+   "houses": 8,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  },
+  "wash.0": {
+   "file": "exports/cook_floor_rig/block_wash_0.webp",
+   "kb": 1785,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B6": true
+   }
+  },
+  "wash.1": {
+   "file": "exports/cook_floor_rig/block_wash_1.webp",
+   "kb": 1781,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B6": true
+   }
+  },
+  "works.0": {
+   "file": "exports/cook_floor_rig/block_works_0.webp",
+   "kb": 951,
+   "houses": 0,
+   "floor_bar": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   }
+  }
+ }
+}

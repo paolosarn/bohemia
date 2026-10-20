@@ -1,0 +1,1532 @@
+{
+ "corner.1": {
+  "seconds": 317,
+  "ground_share": 0.8787,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1827109,
+  "houses": [
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     52,
+     440,
+     496,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     1596,
+     440,
+     2024,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     2060,
+     1092,
+     2564,
+     1456
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     564,
+     1128,
+     980,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 10400,
+    "sat": 0.198,
+    "hue": 38.6,
+    "split": 8.9,
+    "grit": 12.31
+   },
+   "road": {
+    "rows": [
+     802,
+     1020
+    ],
+    "peak": 0.286,
+    "lag": 1030
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": true
+  },
+  "handover": "exports/cook_floor_rig/block_corner_1.webp",
+  "handover_kb": 1431
+ },
+ "scrub.0": {
+  "seconds": 322,
+  "ground_share": 0.9702,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1969801,
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 14026,
+    "sat": 0.205,
+    "hue": 38.5,
+    "split": 4.7,
+    "grit": 13.55
+   },
+   "road": null,
+   "orange_pct": 0.02,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B6": true
+   },
+   "pass": true
+  },
+  "handover": "exports/cook_floor_rig/block_scrub_0.webp",
+  "handover_kb": 1971
+ },
+ "scrub.1": {
+  "seconds": 361,
+  "ground_share": 0.9737,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1969801,
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 14345,
+    "sat": 0.205,
+    "hue": 38.5,
+    "split": 4.8,
+    "grit": 13.57
+   },
+   "road": null,
+   "orange_pct": 0.02,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B6": true
+   },
+   "pass": true
+  },
+  "handover": "exports/cook_floor_rig/block_scrub_1.webp",
+  "handover_kb": 1914
+ },
+ "scrub.2": {
+  "seconds": 429,
+  "ground_share": 0.9657,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1969813,
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 13563,
+    "sat": 0.205,
+    "hue": 38.5,
+    "split": 4.8,
+    "grit": 13.56
+   },
+   "road": null,
+   "orange_pct": 0.02,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B6": true
+   },
+   "pass": true
+  },
+  "handover": "exports/cook_floor_rig/block_scrub_2.webp",
+  "handover_kb": 1977
+ },
+ "wash.0": {
+  "seconds": 223,
+  "ground_share": 0.975,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1947901,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 15573,
+    "sat": 0.202,
+    "hue": 39.5,
+    "split": 9.3,
+    "grit": 13.44
+   },
+   "road": null,
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_wash_0.webp",
+  "handover_kb": 1785
+ },
+ "subs.0": {
+  "seconds": 317,
+  "ground_share": 0.7622,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1841677,
+  "houses": [
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     552,
+     440,
+     1000,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1064,
+     440,
+     1496,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     1576,
+     440,
+     1996,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     2108,
+     440,
+     2556,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     1548,
+     1092,
+     2060,
+     1456
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     44,
+     1128,
+     480,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     556,
+     1128,
+     980,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1048,
+     1128,
+     1500,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 12543,
+    "sat": 0.201,
+    "hue": 38.5,
+    "split": 11.8,
+    "grit": 12.24
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.099,
+    "lag": 516
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_subs_0.webp",
+  "handover_kb": 1549
+ },
+ "subs.1": {
+  "seconds": 295,
+  "ground_share": 0.7914,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1841677,
+  "houses": [
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     12,
+     364,
+     516,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1084,
+     440,
+     1496,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     1576,
+     440,
+     2016,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     28,
+     1128,
+     456,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     580,
+     1128,
+     996,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1072,
+     1128,
+     1516,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     1584,
+     1128,
+     2016,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 12878,
+    "sat": 0.202,
+    "hue": 38.5,
+    "split": 10.5,
+    "grit": 12.26
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.098,
+    "lag": 516
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_subs_1.webp",
+  "handover_kb": 1546
+ },
+ "subs.2": {
+  "seconds": 285,
+  "ground_share": 0.7877,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1841677,
+  "houses": [
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     516,
+     364,
+     1032,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1088,
+     440,
+     1520,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2112,
+     440,
+     2532,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     28,
+     1128,
+     480,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     540,
+     1128,
+     976,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1612,
+     1128,
+     2032,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2100,
+     1128,
+     2552,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 12932,
+    "sat": 0.201,
+    "hue": 38.5,
+    "split": 11.2,
+    "grit": 12.28
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.101,
+    "lag": 1546
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_subs_2.webp",
+  "handover_kb": 1548
+ },
+ "subs.3": {
+  "seconds": 313,
+  "ground_share": 0.7332,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1841677,
+  "houses": [
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1032,
+     364,
+     1548,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     40,
+     440,
+     464,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     532,
+     440,
+     984,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     1596,
+     440,
+     2024,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     48,
+     1128,
+     464,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     540,
+     1128,
+     984,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1092,
+     1128,
+     1524,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     1604,
+     1128,
+     2020,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     2096,
+     1128,
+     2540,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 12339,
+    "sat": 0.203,
+    "hue": 38.3,
+    "split": 12.6,
+    "grit": 12.27
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.094,
+    "lag": 258
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_subs_3.webp",
+  "handover_kb": 1548
+ },
+ "corner.0": {
+  "seconds": 306,
+  "ground_share": 0.8227,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1828741,
+  "houses": [
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     52,
+     440,
+     472,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     544,
+     440,
+     992,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1568,
+     440,
+     2008,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2124,
+     440,
+     2548,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     2060,
+     1092,
+     2564,
+     1456
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     552,
+     1128,
+     1008,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 10471,
+    "sat": 0.201,
+    "hue": 38.5,
+    "split": 12.1,
+    "grit": 12.26
+   },
+   "road": {
+    "rows": [
+     802,
+     1020
+    ],
+    "peak": 0.28,
+    "lag": 1030
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_corner_0.webp",
+  "handover_kb": 1442
+ },
+ "corner.2": {
+  "seconds": 340,
+  "ground_share": 0.8466,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1828741,
+  "houses": [
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     12,
+     364,
+     516,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     568,
+     440,
+     1016,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2108,
+     440,
+     2544,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     560,
+     1128,
+     984,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2080,
+     1128,
+     2532,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 10605,
+    "sat": 0.199,
+    "hue": 38.5,
+    "split": 10.0,
+    "grit": 12.29
+   },
+   "road": {
+    "rows": [
+     802,
+     1020
+    ],
+    "peak": 0.285,
+    "lag": 1030
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_corner_2.webp",
+  "handover_kb": 1442
+ },
+ "culdesac.0": {
+  "seconds": 303,
+  "ground_share": 0.8302,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1837549,
+  "houses": [
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     576,
+     76,
+     1008,
+     364
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     1604,
+     76,
+     2020,
+     364
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     48,
+     440,
+     464,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2096,
+     440,
+     2540,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     24,
+     1128,
+     468,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2092,
+     1128,
+     2524,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 11852,
+    "sat": 0.201,
+    "hue": 38.6,
+    "split": 10.4,
+    "grit": 12.32
+   },
+   "road": null,
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_culdesac_0.webp",
+  "handover_kb": 1523
+ },
+ "culdesac.1": {
+  "seconds": 309,
+  "ground_share": 0.8277,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1837549,
+  "houses": [
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     536,
+     76,
+     988,
+     364
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1604,
+     76,
+     2044,
+     364
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     48,
+     440,
+     484,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     2116,
+     440,
+     2540,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     44,
+     1128,
+     468,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     2092,
+     1128,
+     2548,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 11970,
+    "sat": 0.202,
+    "hue": 38.5,
+    "split": 10.4,
+    "grit": 12.3
+   },
+   "road": null,
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_culdesac_1.webp",
+  "handover_kb": 1512
+ },
+ "suburb_stem.0": {
+  "seconds": 730,
+  "ground_share": 0.7535,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1835113,
+  "houses": [
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     516,
+     364,
+     1032,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     40,
+     440,
+     464,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1592,
+     440,
+     2004,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2120,
+     440,
+     2548,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1548,
+     1092,
+     2060,
+     1456
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     16,
+     1128,
+     468,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1080,
+     1128,
+     1508,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     2120,
+     1128,
+     2532,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 11263,
+    "sat": 0.203,
+    "hue": 38.4,
+    "split": 12.8,
+    "grit": 12.25
+   },
+   "road": {
+    "rows": [
+     802,
+     1020
+    ],
+    "peak": 0.282,
+    "lag": 1030
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_suburb_stem_0.webp",
+  "handover_kb": 1508
+ },
+ "wash.1": {
+  "seconds": 221,
+  "ground_share": 0.9751,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1947889,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 15481,
+    "sat": 0.202,
+    "hue": 39.5,
+    "split": 9.3,
+    "grit": 13.43
+   },
+   "road": null,
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_wash_1.webp",
+  "handover_kb": 1781
+ },
+ "suburb_stem.1": {
+  "seconds": 593,
+  "ground_share": 0.7482,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1835113,
+  "houses": [
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     516,
+     364,
+     1032,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     40,
+     440,
+     484,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1592,
+     440,
+     2024,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2080,
+     440,
+     2528,
+     728
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1548,
+     1092,
+     2060,
+     1456
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     36,
+     1128,
+     468,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_plain",
+    "old_px": [
+     1080,
+     1128,
+     1528,
+     1448
+    ]
+   },
+   {
+    "kind": "ranch_porch",
+    "old_px": [
+     2120,
+     1128,
+     2556,
+     1448
+    ]
+   }
+  ],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 11213,
+    "sat": 0.202,
+    "hue": 38.4,
+    "split": 13.6,
+    "grit": 12.25
+   },
+   "road": {
+    "rows": [
+     802,
+     1020
+    ],
+    "peak": 0.283,
+    "lag": 1030
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_suburb_stem_1.webp",
+  "handover_kb": 1493
+ },
+ "lots.0": {
+  "seconds": 540,
+  "ground_share": 0.9985,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1823761,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 9919,
+    "sat": 0.195,
+    "hue": 38.8,
+    "split": 3.3,
+    "grit": 12.38
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.099,
+    "lag": 516
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": true
+  },
+  "handover": "exports/cook_floor_rig/block_lots_0.webp",
+  "handover_kb": 1427
+ },
+ "ruin.0": {
+  "seconds": 497,
+  "ground_share": 0.7538,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 7,
+  "vertices": 1875601,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 5443,
+    "sat": 0.236,
+    "hue": 37.5,
+    "split": 23.7,
+    "grit": 12.52
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.098,
+    "lag": 516
+   },
+   "orange_pct": 4.39,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": false
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_ruin_0.webp",
+  "handover_kb": 1342
+ },
+ "ruin.1": {
+  "seconds": 437,
+  "ground_share": 0.7508,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 7,
+  "vertices": 1873633,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 6369,
+    "sat": 0.233,
+    "hue": 37.6,
+    "split": 24.2,
+    "grit": 12.5
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.099,
+    "lag": 516
+   },
+   "orange_pct": 4.5,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": false
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_ruin_1.webp",
+  "handover_kb": 1388
+ },
+ "main.0": {
+  "seconds": 488,
+  "ground_share": 0.658,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1841677,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 11010,
+    "sat": 0.258,
+    "hue": 37.0,
+    "split": 21.9,
+    "grit": 12.3
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.1,
+    "lag": 516
+   },
+   "orange_pct": 6.73,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": false
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_main_0.webp",
+  "handover_kb": 1325
+ },
+ "main.1": {
+  "seconds": 493,
+  "ground_share": 0.658,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1841677,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 10968,
+    "sat": 0.259,
+    "hue": 36.9,
+    "split": 22.6,
+    "grit": 12.31
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.099,
+    "lag": 516
+   },
+   "orange_pct": 6.74,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": false
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_main_1.webp",
+  "handover_kb": 1321
+ },
+ "strip.0": {
+  "seconds": 493,
+  "ground_share": 0.7975,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1798633,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 2458,
+    "sat": 0.239,
+    "hue": 37.9,
+    "split": 33.8,
+    "grit": 11.9
+   },
+   "road": {
+    "rows": [
+     1293,
+     1757
+    ],
+    "peak": 0.298,
+    "lag": 695
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_strip_0.webp",
+  "handover_kb": 882
+ },
+ "strip.1": {
+  "seconds": 408,
+  "ground_share": 0.7975,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1798633,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 2429,
+    "sat": 0.24,
+    "hue": 37.9,
+    "split": 30.4,
+    "grit": 11.98
+   },
+   "road": {
+    "rows": [
+     1293,
+     1757
+    ],
+    "peak": 0.299,
+    "lag": 695
+   },
+   "orange_pct": 0.0,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_strip_1.webp",
+  "handover_kb": 815
+ },
+ "works.0": {
+  "seconds": 263,
+  "ground_share": 0.528,
+  "wear": 0.25,
+  "samples": 32,
+  "meshes": 4,
+  "vertices": 1841677,
+  "houses": [],
+  "floor_bar": {
+   "ground": {
+    "dirt_cells": 9812,
+    "sat": 0.261,
+    "hue": 37.4,
+    "split": 27.5,
+    "grit": 11.84
+   },
+   "road": {
+    "rows": [
+     804,
+     1018
+    ],
+    "peak": 0.093,
+    "lag": 258
+   },
+   "orange_pct": 0.09,
+   "tests": {
+    "B1": true,
+    "B2": true,
+    "B3": false,
+    "B4": true,
+    "B5": true,
+    "B6": true
+   },
+   "pass": false
+  },
+  "handover": "exports/cook_floor_rig/block_works_0.webp",
+  "handover_kb": 951
+ }
+}
