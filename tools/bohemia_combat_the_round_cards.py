@@ -15,8 +15,10 @@ def cards(sha, rig):
         dict(id='combat-the-fight-wears-the-3d-models-10-19', kind='animation', lane='combat', sha=sha, made='10/19',
              title='THE FIGHT IN THE 3D MODELS: EVERY MAN, EVERY ENEMY AND EVERY BEAST, EIGHT WAYS, THE GUN HELD IN BOTH HANDS',
              said="we have to do a full implementation of the 3D models, that's top priority... BRO EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY 8 BIT SHIT / I dont like how the weapons just swing with the hand like some dumbass shit",
-             why='Every fighter is now his clay model from the rig, with his own face from the same model in the strip at the bottom. He turns through eight ways, walks, raises his gun and fires, swings, takes the blow and falls. The old flat people are gone from the fight. A man with a gun holds it in both hands while he stands and walks (his legs walk, the gun stays still) and brings it up to shoot; it never swings loose with his arm. The wolves, hyenas and dogs are the 3D beasts. The men stay the size they are. You see it here in the VOTE tab from the fight\'s own camera, and it is live in the COMBAT tab and the demo\'s fights.',
-             show=dict(how='image', src='../records/target/combat/COMBAT_THE_FIGHT_WEARS_THE_RIG_10_19.webp'),
+             why='Every fighter is now his clay model in eight directions, walking, shooting, swinging, hit and falling, with his face in the strip from the same model, and a man with a gun holds it in both hands, still while his legs walk, never swinging loose with his arm. You see it here in the VOTE tab from the fight\'s own camera, and it is live at today\'s size in the COMBAT tab and the demo\'s fights.',
+             show=dict(how='image', src='../records/target/combat/COMBAT_THE_FIGHT_WEARS_THE_RIG_10_19.webp',
+                       # the first picture (RUN TWO's cut, tools/bohemia_run2_first_picture.py --rect 585 0 585 1266): the after
+                       first='../records/target/vote_first/combat-the-fight-wears-the-3d-models-10-19.webp', firstAt=[585, 0, 585, 1266]),
              before_after=dict(before='the old flat people, two facings, painted faces', after='the rig models, eight facings, the clips on the beat, the gun in both hands, the portrait from the same model', scale='the phone at 1:1, halved side by side; the man below at two phone pixels to the rig\'s'),
              twin=dict(src='slices/fight_people/cast_apron.webp', diffs=[
                  'NOW: the man was painted flat and had two facings (south-east and south-west); every man is his clay model now, turning through all eight.',
@@ -44,17 +46,25 @@ def cards(sha, rig):
 
 
 def main():
+    """appended as text before the items' closing bracket, so no other lane's object is reformatted (a json.dump of the whole
+    registry rewrote 276 lines of CHARACTER's card, measured 10/19); a card already there is replaced in place, its own lines"""
     sha = sys.argv[1]
-    reg = json.load(open(REG))
+    text = open(REG).read()
+    reg = json.loads(text)
     rig = sorted('slices/fight_rig/' + f for f in os.listdir(os.path.join(ROOT, 'slices/fight_rig')) if f.endswith('.webp') and not f.endswith('_guns.webp') and f != 'faces.webp')
     have = {it.get('id') for it in reg['items']}
+    add = []
     for c in cards(sha, rig):
+        block = '\n'.join(' ' + l for l in json.dumps(c, indent=1, ensure_ascii=False).split('\n'))
         if c['id'] in have:
-            for it in reg['items']:
-                if it.get('id') == c['id']: it.update(c)
-        else: reg['items'].append(c)
-    json.dump(reg, open(REG, 'w'), indent=1, ensure_ascii=False)
-    open(REG, 'a').write('\n')
+            i = text.index('\n  "id": "%s"' % c['id']); a = text.rindex('\n {', 0, i); b = text.index('\n }', i) + 3
+            text = text[:a + 1] + block + text[b:]
+        else: add.append(block)
+    if add:
+        k = text.index('\n ],\n "verdicts"')
+        text = text[:k] + ',\n' + ',\n'.join(add) + text[k:]
+    json.loads(text)
+    open(REG, 'w').write(text)
     print('registered', [c['id'] for c in cards(sha, rig)])
 
 
