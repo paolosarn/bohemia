@@ -8,8 +8,9 @@
   "fight_floor": {
    "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
    "total": 35,
-   "flat": 33,
+   "flat": 32,
    "in_3d": [
+    "corner.0",
     "subs.0",
     "subs.3"
    ]
@@ -17,13 +18,55 @@
   "fight_cover": {
    "where": "the fight, slices/fight_ground/cover_*.webp (cars, walls, shed, trailer, barrier, dumpster, fence, pump, steps, dock, slot bank, table, pillar, outcrop, rocks, rubble)",
    "total": 51,
-   "flat": 42,
+   "flat": 0,
    "in_3d": [
     "car_drive",
     "car_kerb",
     "car_lane",
+    "dock",
     "dumpster",
+    "fence",
+    "jersey",
+    "outcrop",
+    "pillar",
+    "pump",
+    "rock_0",
+    "rock_1",
+    "rock_10",
+    "rock_11",
+    "rock_12",
+    "rock_13",
+    "rock_14",
+    "rock_15",
+    "rock_16",
+    "rock_17",
+    "rock_18",
+    "rock_19",
+    "rock_2",
+    "rock_20",
+    "rock_3",
+    "rock_4",
+    "rock_5",
+    "rock_6",
+    "rock_7",
+    "rock_8",
+    "rock_9",
+    "rubble_0",
+    "rubble_1",
+    "rubble_10",
+    "rubble_11",
+    "rubble_2",
+    "rubble_3",
+    "rubble_4",
+    "rubble_5",
+    "rubble_6",
+    "rubble_7",
+    "rubble_8",
+    "rubble_9",
     "shed",
+    "slot_bank",
+    "steps",
+    "table",
     "trailer",
     "wall",
     "wall_broken",
@@ -51,8 +94,13 @@
   "fight_lights": {
    "where": "the fight, slices/fight_ground/light_*.webp (two lamp posts, the oil drum, the slot glow)",
    "total": 4,
-   "flat": 4,
-   "in_3d": []
+   "flat": 0,
+   "in_3d": [
+    "light_lamp_house_side",
+    "light_lamp_your_side",
+    "light_oil_drum",
+    "light_slot_glow"
+   ]
   },
   "item_icons": {
    "where": "the settlement's market and the crew screen, slices/market_icons/*.png (2 buildings, 4 supplies, 12 weapons)",
@@ -81,7 +129,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 250,
+ "total_flat": 203,
  "log": [
   {
    "at": "10/20 start",
@@ -107,6 +155,28 @@
    "map_districts": 69,
    "fight_floor_futures": 70,
    "fight_lights": 4,
+   "item_icons": 18
+  },
+  {
+   "at": "10/20 all the cover and the lights",
+   "total_flat": 205,
+   "fight_floor": 33,
+   "fight_cover": 0,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 1,
+   "item_icons": 18
+  },
+  {
+   "at": "10/20 corner.0, the slot glow",
+   "total_flat": 203,
+   "fight_floor": 32,
+   "fight_cover": 0,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
    "item_icons": 18
   }
  ]

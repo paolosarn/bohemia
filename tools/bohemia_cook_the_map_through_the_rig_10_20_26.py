@@ -42,6 +42,9 @@ BANK = os.path.join(R, 'banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt')
 CELL_M = 96.0                     # a district cell is 96 m a side (the factory's own comment)
 ZC = 0.8165                       # iso3d's height against a true 30-degree orthographic camera
 SAMPLES = 24
+WEAR = 0.3                        # the guide's 0.6 dusts every flat top, and a district picture is mostly flat tops: at 0.6 the
+                                  # mountain's plate went from his brown to a pale grey (measured 10/20), the whole valley would shift; the
+                                  # floor tool's ground runs 0.25 for the same reason
 
 
 def srgb_lin(c):
@@ -166,7 +169,7 @@ def render(d, sc):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     s_ = bpy.context.scene
     objs, k = build(bpy, sc)
-    RIG.source_pass(objs, float(RIG.G['wear']), 1.0, sum(map(ord, d)) % 7)
+    RIG.source_pass(objs, WEAR, 1.0, sum(map(ord, d)) % 7)
     RIG.dent_pass(objs, 1.0)
     NF.ZS = ZC                                                 # the grime reads heights through this camera's squash
     NF.LEDGER.clear(); NF.LEDGER.update(fires=[], seed=sum(map(ord, d)) % 97, bid=d)

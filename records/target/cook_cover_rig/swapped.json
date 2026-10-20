@@ -2,6 +2,7 @@
  "rock_0": {
   "piece": "rock_0",
   "file": "slices/fight_ground/cover_rock_0.webp",
+  "sha1": "d6cf32ee4639611d2d718508aa67fc236deeb0e0",
   "size": [
    117,
    111
@@ -29,6 +30,7 @@
  "rock_1": {
   "piece": "rock_1",
   "file": "slices/fight_ground/cover_rock_1.webp",
+  "sha1": "b735fce9228a683390c9770220091d968b37b7de",
   "size": [
    85,
    113
@@ -42,6 +44,7 @@
  "rock_2": {
   "piece": "rock_2",
   "file": "slices/fight_ground/cover_rock_2.webp",
+  "sha1": "160e2c1b5dc22fe82fdc58aa9f0bb49f2bc6b8d9",
   "size": [
    90,
    103
@@ -55,6 +58,7 @@
  "rock_3": {
   "piece": "rock_3",
   "file": "slices/fight_ground/cover_rock_3.webp",
+  "sha1": "934c255eb3d1e83d7e8f8d7a81cf58bf5d752663",
   "size": [
    117,
    105
@@ -68,6 +72,7 @@
  "outcrop": {
   "piece": "outcrop",
   "file": "slices/fight_ground/cover_outcrop.webp",
+  "sha1": "61d1d5ddd2c9436bdc3cd53c833f48dcca795819",
   "size": [
    285,
    103
@@ -81,6 +86,7 @@
  "rubble_0": {
   "piece": "rubble_0",
   "file": "slices/fight_ground/cover_rubble_0.webp",
+  "sha1": "493772129339270c8bcb2fb8e8c635b2510c09cb",
   "size": [
    117,
    87
@@ -94,6 +100,7 @@
  "rubble_1": {
   "piece": "rubble_1",
   "file": "slices/fight_ground/cover_rubble_1.webp",
+  "sha1": "aba77d433de7b2ba388c9649d63b7f7f11d5562b",
   "size": [
    117,
    92
@@ -219,6 +226,7 @@
  "fence": {
   "piece": "fence",
   "file": "slices/fight_ground/cover_fence.webp",
+  "sha1": "1b6f369fd53767553db1a62115e7a3e41cbc1fba",
   "size": [
    261,
    62
@@ -232,6 +240,7 @@
  "jersey": {
   "piece": "jersey",
   "file": "slices/fight_ground/cover_jersey.webp",
+  "sha1": "56ed74cd8012b6a68607432fedd86e22627a3e0a",
   "size": [
    275,
    60
@@ -245,6 +254,7 @@
  "pump": {
   "piece": "pump",
   "file": "slices/fight_ground/cover_pump.webp",
+  "sha1": "b6c094bb30564b8198058b774f3be93d0dd9de36",
   "size": [
    69,
    90
@@ -258,6 +268,7 @@
  "steps": {
   "piece": "steps",
   "file": "slices/fight_ground/cover_steps.webp",
+  "sha1": "8617b01f18030fb544dc7e69544262013d26ab94",
   "size": [
    198,
    85
@@ -271,6 +282,7 @@
  "dock": {
   "piece": "dock",
   "file": "slices/fight_ground/cover_dock.webp",
+  "sha1": "5ebf0a7c1ca4c6243c2dbe4ab351c48209b1d62c",
   "size": [
    455,
    145
@@ -284,6 +296,7 @@
  "slot_bank": {
   "piece": "slot_bank",
   "file": "slices/fight_ground/cover_slot_bank.webp",
+  "sha1": "035f7f5955fd4a42fadca114ce652dfc5b8f4fac",
   "size": [
    283,
    119
@@ -297,6 +310,7 @@
  "table": {
   "piece": "table",
   "file": "slices/fight_ground/cover_table.webp",
+  "sha1": "3e7bd9a8e475cc4e4343a25b3dfccff5bd81500f",
   "size": [
    129,
    88
@@ -310,6 +324,7 @@
  "pillar": {
   "piece": "pillar",
   "file": "slices/fight_ground/cover_pillar.webp",
+  "sha1": "127cdc62f81f30fad00e32f17e19f86cf4f17c94",
   "size": [
    77,
    163
@@ -323,6 +338,7 @@
  "light_lamp_house_side": {
   "piece": "light_lamp_house_side",
   "file": "slices/fight_ground/light_lamp_house_side.webp",
+  "sha1": "96d3b4d89211853efef8fd6c84cf21f56d6004be",
   "size": [
    57,
    140
@@ -336,6 +352,7 @@
  "light_lamp_your_side": {
   "piece": "light_lamp_your_side",
   "file": "slices/fight_ground/light_lamp_your_side.webp",
+  "sha1": "2fb884c1ca1880d7cbcfa6efd9109ad601ef0b72",
   "size": [
    57,
    140
@@ -349,6 +366,7 @@
  "light_oil_drum": {
   "piece": "light_oil_drum",
   "file": "slices/fight_ground/light_oil_drum.webp",
+  "sha1": "82936c4a2f43d0203c8452b5057173b7d06904dd",
   "size": [
    37,
    74
@@ -362,6 +380,7 @@
  "rock_4": {
   "piece": "rock_4",
   "file": "slices/fight_ground/cover_rock_4.webp",
+  "sha1": "3f21d504503fc063998fe0276aa34f1fbd34be02",
   "size": [
    117,
    92
@@ -375,6 +394,7 @@
  "rock_5": {
   "piece": "rock_5",
   "file": "slices/fight_ground/cover_rock_5.webp",
+  "sha1": "76b88fc3d7808bee680936e540ae6ffea7887b05",
   "size": [
    106,
    113
@@ -388,6 +408,7 @@
  "rock_6": {
   "piece": "rock_6",
   "file": "slices/fight_ground/cover_rock_6.webp",
+  "sha1": "eba69b6ab2fff59b09e6652adb7e64c2ef9b6c3c",
   "size": [
    93,
    110
@@ -401,6 +422,7 @@
  "rock_7": {
   "piece": "rock_7",
   "file": "slices/fight_ground/cover_rock_7.webp",
+  "sha1": "797da9e429dae5343fc6f82d834c1118b44906ac",
   "size": [
    89,
    77
@@ -414,6 +436,7 @@
  "rock_8": {
   "piece": "rock_8",
   "file": "slices/fight_ground/cover_rock_8.webp",
+  "sha1": "f7c9c0933e070bffb941d499aa74313ace00cc45",
   "size": [
    117,
    83
@@ -427,6 +450,7 @@
  "rock_9": {
   "piece": "rock_9",
   "file": "slices/fight_ground/cover_rock_9.webp",
+  "sha1": "4f0b171bce689ec8f2eabc1aa7e85f0d9a2fe055",
   "size": [
    117,
    92
@@ -440,6 +464,7 @@
  "rock_10": {
   "piece": "rock_10",
   "file": "slices/fight_ground/cover_rock_10.webp",
+  "sha1": "dcd7425402aca1d990fce575ff3d88139a01880b",
   "size": [
    115,
    90
@@ -453,6 +478,7 @@
  "rock_11": {
   "piece": "rock_11",
   "file": "slices/fight_ground/cover_rock_11.webp",
+  "sha1": "58dc64ddd77b61632299327378daeec6aec280df",
   "size": [
    117,
    88
@@ -466,6 +492,7 @@
  "rock_12": {
   "piece": "rock_12",
   "file": "slices/fight_ground/cover_rock_12.webp",
+  "sha1": "455d10b597ca28c62a028a67575cb18d1733be22",
   "size": [
    117,
    99
@@ -479,6 +506,7 @@
  "rock_13": {
   "piece": "rock_13",
   "file": "slices/fight_ground/cover_rock_13.webp",
+  "sha1": "7d5142f807c5b2fbbabd8001b9712836dfb89283",
   "size": [
    117,
    92
@@ -492,6 +520,7 @@
  "rock_14": {
   "piece": "rock_14",
   "file": "slices/fight_ground/cover_rock_14.webp",
+  "sha1": "c0d718bda5d4bec8820789d744fc9447c1d870b0",
   "size": [
    117,
    104
@@ -505,6 +534,7 @@
  "rock_15": {
   "piece": "rock_15",
   "file": "slices/fight_ground/cover_rock_15.webp",
+  "sha1": "c5753c8ce1a03163f437d27981e50dc55d4810b2",
   "size": [
    117,
    96
@@ -518,6 +548,7 @@
  "rock_16": {
   "piece": "rock_16",
   "file": "slices/fight_ground/cover_rock_16.webp",
+  "sha1": "22d25acb22ea52be1d8351e660576378841c187a",
   "size": [
    117,
    102
@@ -531,6 +562,7 @@
  "rock_17": {
   "piece": "rock_17",
   "file": "slices/fight_ground/cover_rock_17.webp",
+  "sha1": "b47b21ba562f8ed3302e49539ab94582778398fc",
   "size": [
    116,
    93
@@ -544,6 +576,7 @@
  "rock_18": {
   "piece": "rock_18",
   "file": "slices/fight_ground/cover_rock_18.webp",
+  "sha1": "d537cb897218553a229b1b9f77792ce2f02d1ef7",
   "size": [
    97,
    82
@@ -557,6 +590,7 @@
  "rock_19": {
   "piece": "rock_19",
   "file": "slices/fight_ground/cover_rock_19.webp",
+  "sha1": "fc441cdb8a6b621931f1fa4c016309d23266e904",
   "size": [
    108,
    81
@@ -570,6 +604,7 @@
  "rock_20": {
   "piece": "rock_20",
   "file": "slices/fight_ground/cover_rock_20.webp",
+  "sha1": "7944072435085dd15f0ecf806bf930661491bae8",
   "size": [
    100,
    113
@@ -583,6 +618,7 @@
  "rubble_2": {
   "piece": "rubble_2",
   "file": "slices/fight_ground/cover_rubble_2.webp",
+  "sha1": "f05783474454db4953701d0d879de587a8e02881",
   "size": [
    117,
    91
@@ -596,6 +632,7 @@
  "rubble_3": {
   "piece": "rubble_3",
   "file": "slices/fight_ground/cover_rubble_3.webp",
+  "sha1": "55d29d5b15d1dddbb1cd9bb1afcb63272225a7aa",
   "size": [
    117,
    93
@@ -609,6 +646,7 @@
  "rubble_4": {
   "piece": "rubble_4",
   "file": "slices/fight_ground/cover_rubble_4.webp",
+  "sha1": "bb1a23a8ba5b4a30fb46efe0151da7ad64f714ab",
   "size": [
    117,
    94
@@ -622,6 +660,7 @@
  "rubble_5": {
   "piece": "rubble_5",
   "file": "slices/fight_ground/cover_rubble_5.webp",
+  "sha1": "56170121b99e16c7d5d44a7051acc4ad51c9695d",
   "size": [
    117,
    86
@@ -635,6 +674,7 @@
  "rubble_6": {
   "piece": "rubble_6",
   "file": "slices/fight_ground/cover_rubble_6.webp",
+  "sha1": "d5614702610c81492eba9552a3c7d6816067e240",
   "size": [
    117,
    91
@@ -648,6 +688,7 @@
  "rubble_7": {
   "piece": "rubble_7",
   "file": "slices/fight_ground/cover_rubble_7.webp",
+  "sha1": "98996219e38b4152747af9295c0848c3b1f576ec",
   "size": [
    117,
    89
@@ -661,6 +702,7 @@
  "rubble_8": {
   "piece": "rubble_8",
   "file": "slices/fight_ground/cover_rubble_8.webp",
+  "sha1": "2b476dc49096df07427cde1e91130547283b6218",
   "size": [
    117,
    93
@@ -674,6 +716,7 @@
  "rubble_9": {
   "piece": "rubble_9",
   "file": "slices/fight_ground/cover_rubble_9.webp",
+  "sha1": "bc06786cdd992be3618b235adca330cbbfb65ae1",
   "size": [
    117,
    87
@@ -687,6 +730,7 @@
  "rubble_10": {
   "piece": "rubble_10",
   "file": "slices/fight_ground/cover_rubble_10.webp",
+  "sha1": "959232422da50cadd0b0fb2cb16e29447f9db7d7",
   "size": [
    117,
    87
@@ -696,5 +740,33 @@
   "clipped": 0.0,
   "model": "reference/models/bohemia/cover_rubble_10.glb",
   "rig": "records/target/cook_cover_rig/rubble_10/rig.json"
+ },
+ "rubble_11": {
+  "piece": "rubble_11",
+  "file": "slices/fight_ground/cover_rubble_11.webp",
+  "sha1": "fab1d92d38d9c010248cae6d4032ebed36b25da2",
+  "size": [
+   117,
+   91
+  ],
+  "facing": "NE",
+  "iou_with_old": 0.421,
+  "clipped": 0.001,
+  "model": "reference/models/bohemia/cover_rubble_11.glb",
+  "rig": "records/target/cook_cover_rig/rubble_11/rig.json"
+ },
+ "light_slot_glow": {
+  "piece": "light_slot_glow",
+  "file": "slices/fight_ground/light_slot_glow.webp",
+  "sha1": "eba2968be00d199ac10eb72f210bbec65e02c1c9",
+  "size": [
+   26,
+   15
+  ],
+  "facing": "S",
+  "iou_with_old": 0.857,
+  "clipped": 0.236,
+  "model": "reference/models/bohemia/cover_light_slot_glow.glb",
+  "rig": "records/target/cook_cover_rig/light_slot_glow/rig.json"
  }
 }

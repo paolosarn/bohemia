@@ -187,8 +187,19 @@ class Place:
     def model(s, glb, x, y_front, width=None, rot=0.0, scale=None):
         bpy = s.bpy
         before = set(bpy.context.scene.objects)
-        bpy.ops.import_scene.gltf(filepath=os.path.join(MODELS, glb))
+        if glb.startswith('bld_'):
+            # a building is BUILT by the modeller, never imported: its glb lost the shingle courses, the stucco's grime and
+            # its colour on export (glTF carries no procedural node tree: the first town came out white, 10/20)
+            import mathutils
+            import bohemia_cook_model_buildings as BLD
+            tints = ([(1.0, 1.0, 1.0), (1.04, 0.98, 0.93), (0.95, 0.97, 1.0), (1.05, 1.02, 0.9)], [(1.0, 1.0, 1.0), (0.9, 0.9, 0.92), (0.82, 0.78, 0.74)])
+            BLD.TINT = dict(stucco=s.rnd.choice(tints[0]), pale=s.rnd.choice(tints[0]), roof=s.rnd.choice(tints[1]))
+            BLD.M.clear(); BLD.BUILDERS[glb[4:-4]](bpy, mathutils); BLD.TINT = {}
+        else:
+            bpy.ops.import_scene.gltf(filepath=os.path.join(MODELS, glb))
         new = [o for o in bpy.context.scene.objects if o not in before]
+        for o in [o for o in new if '_fence' in o.name]:          # a ranch's own fence: the place has its own edges
+            new.remove(o); bpy.data.objects.remove(o, do_unlink=True)
         for o in list(new):
             if o.type == 'MESH' and o.name.startswith('Icosphere') and o.parent is None and len(o.data.vertices) == 42:
                 new.remove(o); bpy.data.objects.remove(o, do_unlink=True)
@@ -255,8 +266,9 @@ def layout(tier, var, hot, pl, rnd):
         pl.model('wreck.glb', X0 + 14 + var * 8, 31.0, None, math.radians(90 + rnd.uniform(-15, 15)), 1.0)
         pl.model('wreck.glb', X0 + 38 - var * 5, 29.6, None, math.radians(-80), 1.0)
         pl.drum_fire(mid('stall') + 3.0, f['stall'][2] + 0.3)
-        for k, x in enumerate((X0 + 3, X0 + 16, X0 + 33, X0 + 45)):
-            pl.model(['bld_ranch_plain.glb', 'bld_ranch_porch.glb', 'bld_ranch_garage.glb', 'bld_ranch_plain.glb'][(k + var) % 4], x + 3, 12.6, 10.5 if k != 2 else 14.0)
+        for k, x in enumerate((X0 + 3, X0 + 33, X0 + 45)):           # the lot where the board stands is empty: its house is gone
+            pl.model(['bld_ranch_plain.glb', 'bld_ranch_garage.glb', 'bld_ranch_porch.glb'][(k + var) % 3], x + 3, 12.6, 10.5 if k != 1 else 14.0)
+        pl.model('rubble.glb', X0 + 15.5, 13.0, None, 0.3, 1.0)                    # what is left of it
         pl.model('dumpster.glb', X0 + 30, 24.6, None, 0.2, 1.0)
         pl.built(crates, X0 + 26, 24.2, None, 0.0, 1.0, 3)
     elif tier == 'camp':
@@ -340,7 +352,7 @@ def render(p):
     os.makedirs(os.path.join(OUT, 'render'), exist_ok=True)
     day = os.path.join(OUT, 'render', p['name'] + '.png'); sc.render.filepath = day; bpy.ops.render.render(write_still=True)
     night = None
-    if p['night']:
+    if p['night'] and not os.environ.get('COOK_DAY_ONLY'):
         # NIGHT: the same place under a moon, every lamp and fire lit (the old picture's count of lights)
         sun.data.energy *= 0.16; sun.data.color = (0.62, 0.72, 1.0)
         bg = sc.world.node_tree.nodes['Background']; c = bg.inputs[0].default_value; bg.inputs[0].default_value = (c[0] * 0.5, c[1] * 0.6, c[2] * 1.0, 1); bg.inputs[1].default_value *= 0.3

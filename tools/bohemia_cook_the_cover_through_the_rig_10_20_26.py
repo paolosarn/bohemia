@@ -60,8 +60,9 @@ PIECES = {
     'dock': ('proc', None, 14), 'slot_bank': ('proc', None, 15), 'table': ('proc', None, 16), 'pillar': ('proc', None, 17),
     'outcrop': ('proc', None, 18),
     'light_lamp_house_side': ('lamp.glb', None, 19), 'light_lamp_your_side': ('lamp.glb', None, 20), 'light_oil_drum': ('proc', None, 21),
+    'light_slot_glow': ('proc', None, 22),
 }
-FACE_FORCE = {'car_drive': ['W']}                    # the patrol car shows its light bar, nose to the road or tail
+FACE_FORCE = {'car_drive': ['W'], 'light_slot_glow': ['S']}                    # the patrol car shows its light bar, nose to the road or tail
 for i in range(21): PIECES['rock_%d' % i] = ('proc', None, 30 + i)
 for i in range(12): PIECES['rubble_%d' % i] = ('proc', None, 60 + i)
 
@@ -234,6 +235,12 @@ def build_proc(piece, bpy, mathutils, P):
             P.chunk(bpy, 'fallen_%d' % k, grey, (0.25, 0.2, 0.15), (rnd.uniform(-1.2, 1.2), -1.15 - rnd.uniform(0, 0.4), 0.07), (0, 0, rnd.uniform(0, 6)), rnd)
         steel = P.mat(bpy, 'rebar', 'rubber', 1)
         for k in range(3): P.rod(bpy, 'rebar_%d' % k, steel, (0.75 - k * 0.1, -0.92, 0.2), (0.82 - k * 0.12, -0.95, 1.0), 0.016, 6)
+        return
+    if piece == 'light_slot_glow':
+        # a slot machine's screen still lit in the dark casino: the bezel, the glass, one band of it dead
+        P.box(bpy, 'bezel', P.mat(bpy, 'bezel', 'cloth_black', 2), (0.62, 0.08, 0.36), (0, 0, 0.18), bevel=0.01)
+        P.box(bpy, 'screen', P.mat(bpy, 'screen_lit', 'clay_teal', 3, glow=1.6), (0.52, 0.02, 0.26), (0, -0.045, 0.18))
+        P.box(bpy, 'dead_band', P.mat(bpy, 'screen_dead', 'glass_eye', 0), (0.52, 0.022, 0.04), (0, -0.047, 0.11))
         return
     if piece == 'light_oil_drum':
         P.import_model(bpy, os.path.join(MODELS, 'oil_drum.glb'), (0, 0, 0), (0, 0, 0))
