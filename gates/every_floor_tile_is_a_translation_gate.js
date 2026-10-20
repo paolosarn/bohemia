@@ -152,7 +152,9 @@ leg(!!M && M.grounds.length === GE.grounds.length && M.grounds.every(g => g.shar
       return ts[0] ? { x: ts[0].x, y: ts[0].y, ux: u.x, uy: u.y, id: u.id } : null; }, row);
     const tap = async t => { await p.evaluate(q => { FIGHT_UI.glide = null; FIGHT_UI.cx = ((q.x + q.ux) / 2 + .5) * FIGHT_UI.tw; FIGHT_UI.cy = ((q.y + q.uy) / 2 + .5) * FIGHT_UI.th; }, t);
       await p.waitForTimeout(150); const s = await p.evaluate(q => ({ x: sx((q.x + .5) * FIGHT_UI.tw), y: sy((q.y + .5) * FIGHT_UI.th) }), t);
-      await p.touchscreen.tap(s.x, s.y); await p.waitForTimeout(300); return p.evaluate(() => document.getElementById('say').textContent); };
+      await p.touchscreen.tap(s.x, s.y); await p.waitForTimeout(300);
+      /* the line under the board says what the ground does; the walk and its AP are the tag on the tile and the big button (COMBAT [one tap to see, one tap to do]) */
+      return p.evaluate(() => { const k = document.getElementById('pick'); return document.getElementById('say').textContent + (k && k.style.display !== 'none' ? ' | ' + k.innerText.replace(/\s+/g, ' ').trim() : ''); }); };
     const says = { rough: OURS.ground_rows.value.rough.say, height: OURS.ground_rows.value.height.say };
     let rough = null, flat = null, up = null;
     for (let seed = 1; seed <= 30 && !(rough && flat); seed++) {
@@ -160,8 +162,8 @@ leg(!!M && M.grounds.length === GE.grounds.length && M.grounds.every(g => g.shar
       const t = await find('rough'); if (t && !rough) rough = await tap(t);
       const f = await find('flat'); if (f && !flat) flat = await tap(f);
     }
-    leg(!!rough && rough.indexOf(says.rough + ' Walk there') === 0, 'a finger on rough ground: the line says so before the AP (rule 59, in play)', rough);
-    leg(!!flat && /^Walk there/.test(flat), 'a finger on flat ground: no ground words, one clear next thing (rule 117b)', flat);
+    leg(!!rough && rough.indexOf(says.rough) === 0 && /\| WALK \d+ AP/.test(rough), 'a finger on rough ground: the line says so, and the tag on the tile says WALK and its AP (rule 59, in play)', rough);
+    leg(!!flat && /^ ?\| WALK \d+ AP/.test(flat), 'a finger on flat ground: no ground words, one clear next thing, WALK and its AP on the tile (rule 117b)', flat);
     for (let seed = 1; seed <= 40 && !up; seed++) {
       await startOn({ seed, kind: 'suburb', speed: 3, formation: null, night: false }); if (!await fightOn()) continue;
       const t = await find('height'); if (!t) continue;

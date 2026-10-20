@@ -27,9 +27,10 @@
       pose he is about to take, one behind where he was; his own pixels re-inked in the cold chrome-and-glass ramp, on every
       other row like a broadcast ghost. On every beat they snap out of him and fall back in three held steps; the bar's first
       beat throws them furthest. Drawn BEHIND him, so his body is never covered.
-   B. THE TEAR (analog horror): the picture cannot hold him. In a house-wide band round him the rows of the board slip
-      sideways like a tape losing tracking: a tear rolls up through him once a bar with dead-channel specks on it, and on
-      every beat the band kicks two pixels. Only the world's own pixels move; the edges of the band are ragged, never a box.
+   B. THE TEAR (analog horror): the picture cannot hold him. SECOND PASS 10/20 (COMBAT, his 'Not final'): one jagged rip
+      runs down the picture through him, over his head to under his feet; the far side, him with it, is knocked sideways and
+      through the split there is the dead channel's black and snow; it opens on every beat and finds a new line each beat;
+      the torn side keeps the paused tape's comb and a tear that rolls up through him once a bar. Never a ring or a box.
    C. THE CURRENT (electric): bent wire and crumpled foil arcs crawl over him and jump to the ground, a new set every key
       (three a beat), the biggest on the bar's first beat; modelled in Blender and rendered by DIRECTION's master rig in all
       eight facings (tools/bohemia_animation_the_aura_current_prep.py), the arcs behind his body hidden by a body.
@@ -104,44 +105,58 @@
     });
   }
 
-  /* ---------- B. THE TEAR ---------- */
+  /* ---------- B. THE TEAR, SECOND PASS (COMBAT [the floor, not final], 10/20; his YES on B with 'Not final looks like dog
+     shit', and the row: 'the tear reads as a real fifth-dimension tear around your man, not a glow'). A glow is a light; a
+     tear is a cut. ONE RIP runs down the picture through him, from over his head to under his feet, slanting, jagged, never
+     a curve, an oval or a ring: the picture on its far side is knocked sideways and a pixel down, the man torn with it, and
+     through the split there is nothing, the dead channel's black with its snow, the world's torn lip a pixel of the glass's
+     glint. The split opens on every beat, widest on the bar's one, and narrows through the beat but never shuts; the rip
+     finds a new line on every beat and holds it between (stop-motion, six slots a beat). The torn side keeps the first
+     pass's paused-tape comb and the band that rolls up through him once a bar, and its far edge is ragged. Only the world's
+     own pixels move; the void and the lip are the palette's. (The first pass, a band of slipping rows the width of a house,
+     is in git: 10/19 c40ec268.) ---------- */
+  const OPEN = [6, 5, 4, 4, 3, 3];   /* the split's width in his art pixels, slot by slot through a beat */
   let off = null;
   function tear(layer, g, o) {
     if (layer !== 'front' || !o.frame) return;
     const c = clock(o), Z = SIZE[o.size || 'fight'], m = g.getTransform(), S = m.a;   /* device px per css px */
     const u = Math.max(1, Math.round(o.k * S));                                        /* one art pixel of his, on the glass */
-    const fw = o.frame.dw * 0.42, top = o.frame.dy + o.frame.dh * 0.02, bot = o.feet + 4 * o.k;   /* his figure's box, the feet's shadow in */
+    const fw = o.frame.dw * 0.42, top = o.frame.dy + o.frame.dh * 0.02 - 3 * o.k, bot = o.feet + 5 * o.k;   /* his figure, a little over and under */
     const half = fw * Z.band / 2;
     const bx = Math.round((o.X - half) * S + m.e), by = Math.round(top * S + m.f), bw = Math.round(2 * half * S), bh = Math.round((bot - top) * S);
-    if (bw < 4 || bh < 4) return;
+    if (bw < 8 || bh < 8) return;
     if (!off) off = document.createElement('canvas');
     if (off.width < bw || off.height < bh) { off.width = Math.max(off.width, bw); off.height = Math.max(off.height, bh); }
     const og = off.getContext('2d'); og.imageSmoothingEnabled = false;
     og.clearRect(0, 0, bw, bh); og.drawImage(g.canvas, bx, by, bw, bh, 0, 0, bw, bh);
     g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.imageSmoothingEnabled = false;
-    const rows = Math.floor(bh / u), lineAt = rows - 1 - Math.floor(((c.n % (SLOTS * 4)) / (SLOTS * 4)) * (rows + 2 * Z.tearSpan)) + Z.tearSpan;
-    const kick = c.slot === 0 ? (c.beat === 0 ? 3 : 2) : 0;   /* the band jumps on every beat, furthest on the one */
-    const drag = (c.beat % 2 ? -1 : 1);                         /* below the tear the picture drags a pixel, the other way each beat */
-    /* THE COMB (a paused tape): the two fields of the picture sit a pixel apart, every other row, the field that leads
-       swapping each slot; it is what makes the band read as a broken signal on every slot, not only when the tear passes */
+    const cols = Math.floor(bw / u), rows = Math.floor(bh / u), mid = cols / 2, body = fw * S / u;
+    const bt = c.n - c.slot;                                         /* the rip's line holds a whole beat */
+    const open = OPEN[c.slot] + (c.beat === 0 && c.slot < 2 ? 1 : 0);   /* widest on the bar's one */
+    /* where it enters over his head and leaves under his feet: a slant through his body, a new one every beat, and which side
+       is torn away turns over every beat */
+    const x0 = mid + (rnd(bt + 21, 1) - 0.5) * body * 0.9, x1 = mid + (rnd(bt + 23, 2) - 0.5) * body * 0.9, away = (c.beat + c.bar) % 2 ? 1 : -1;
+    const drop = c.slot < 2 ? 1 : 0, lineAt = rows - 1 - Math.floor(((c.n % (SLOTS * 4)) / (SLOTS * 4)) * (rows + 2 * Z.tearSpan)) + Z.tearSpan;
     const comb = c.slot % 2 ? 1 : -1;
     for (let r = 0; r < rows; r++) {
-      const d = r - lineAt, inTear = Math.abs(d) <= Z.tearSpan;
-      let sh = kick + ((r & 1) ? comb : 0);
-      if (inTear) sh += Math.round((rnd(c.n, r) * 2 - 1) * Z.shiftMax);
-      else if (d > 0) sh += drag;
-      if (!sh) continue;
-      /* ragged sides, held a beat: the band is never a box */
-      const grp = Math.floor(r / 3), bt = c.n - c.slot;
-      const L = Math.round(rnd(bt + 7, grp) * 0.28 * bw / u) * u, R = bw - Math.round(rnd(bt + 11, grp) * 0.28 * bw / u) * u;
-      if (R - L < 2 * u) continue;
-      g.drawImage(off, L, r * u, R - L, u, bx + L + sh * u, by + r * u, R - L, u);
-      if (inTear) for (let s = 0; s < 3; s++) {   /* dead-channel specks along the tear, an art pixel each */
-        const q = rnd(c.n * 31 + s, r * 17);
-        if (q < 0.55) continue;
-        g.fillStyle = SNOW[(q * 1000 | 0) & 1];
-        g.fillRect(bx + L + Math.floor(rnd(c.n + s, r) * (R - L) / u) * u, by + r * u, u, u);
+      const t = (r + 0.5) / rows, grp = Math.floor(r / 2);             /* the cut steps every two rows: jagged, never a curve */
+      const seam = Math.round(x0 + (x1 - x0) * t + (rnd(bt + 3, grp) * 2 - 1) * 1.8);
+      const gap = Math.max(1, Math.round(open * (0.5 + 0.5 * Math.sin(Math.PI * t))));
+      /* the torn side: from the seam out to a ragged edge, knocked away by the split, a pixel down on the beat */
+      const span = Math.round(body * (0.55 + 0.45 * rnd(bt + 11, grp)));
+      let sh = gap + ((r & 1) ? comb : 0);
+      if (Math.abs(r - lineAt) <= Z.tearSpan) sh += Math.round(rnd(c.n, r) * Z.shiftMax);
+      const sr = Math.max(0, r - drop);
+      if (away > 0) { const a0 = seam, a1 = Math.min(cols, seam + span); if (a1 - a0 > sh) g.drawImage(off, a0 * u, sr * u, (a1 - a0 - sh) * u, u, bx + (a0 + sh) * u, by + r * u, (a1 - a0 - sh) * u, u); }
+      else { const a1 = seam, a0 = Math.max(0, seam - span); if (a1 - a0 > sh) g.drawImage(off, (a0 + sh) * u, sr * u, (a1 - a0 - sh) * u, u, bx + a0 * u, by + r * u, (a1 - a0 - sh) * u, u); }
+      /* the split: the dead channel through it, and the world's torn lip on the side that stayed */
+      const g0 = away > 0 ? seam : seam - gap;
+      for (let x = g0; x < g0 + gap; x++) {
+        const q = rnd(c.n * 13 + x, r);
+        g.fillStyle = q > 0.86 ? SNOW[1] : q > 0.72 ? COLD[1] : SNOW[0];
+        g.fillRect(bx + x * u, by + r * u, u, u);
       }
+      if (rnd(bt + 9, r) > 0.35) { g.fillStyle = COLD[5]; g.fillRect(bx + (away > 0 ? g0 - 1 : g0 + gap) * u, by + r * u, u, u); }
     }
     g.restore();
   }

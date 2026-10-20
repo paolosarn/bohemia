@@ -116,6 +116,36 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #say .rds i{display:block;width:4px;height:10px;border-radius:2px 2px 0 0;background:#7a3d10;box-shadow:inset 0 -3px 0 rgba(0,0,0,.28)}
 #say .rds i.out{background:transparent;box-shadow:inset 0 0 0 1px rgba(42,34,26,.45)}
 #say b.dry{color:#a3261a}
+/* ONE TAP TO SEE, ONE TAP TO DO (COMBAT [one tap to see, one tap to do]; his 10/19 'better for the touch'): the first tap
+   shows the whole result where the finger is, a receipt tag on the board (SHOOT 72% over the man, WALK 4 AP over the tile),
+   and the one big button bottom right names what it will do now (WALK, SHOOT, HIT, THROW, or END TURN), ringed in amber when
+   it does more than end the turn; the second tap on the same spot, or the button, does it */
+#bend.go{outline:2px solid #e0a044;outline-offset:1px}
+html[data-materials] #bend.walk::before{background-image:var(--mark-walk)}
+html[data-materials] #bend.shoot::before,html[data-materials] #bend.throw::before{background-image:var(--mark-shoot)}
+html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
+#bend .sub{display:block;font-size:10px;word-spacing:normal;margin-top:3px;opacity:.85}
+#pick{position:fixed;display:none;z-index:3;padding:3px 7px 4px;pointer-events:none;font-family:var(--face-casing,ui-monospace,monospace);
+  font-size:13px;letter-spacing:.5px;line-height:1.15;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/100% 100%;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.8));transform:rotate(-1.5deg);white-space:nowrap;text-align:center}
+#pick i{display:block;font-style:normal;font-size:10px;color:#a3261a}
+/* THE FIRST FIGHT TEACHES (COMBAT [the first fight teaches]): one veteran of the company says it, his own face beside his
+   words, on receipt paper at the top of the board under the strip; it covers no man's middle and takes no tap */
+#vet{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:8px;max-width:min(calc(100vw - 16px),420px);
+  padding:6px 10px 8px 6px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.8));transform:rotate(.5deg)}
+#vet canvas{flex:0 0 auto;width:44px;height:44px;border-radius:2px;background:#0d0b09}
+#vet b{display:block;font-family:var(--face-casing,ui-monospace,monospace);font-weight:400;font-size:11px;letter-spacing:.5px;color:#5c2410}
+#vet span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:12px;line-height:1.3;min-height:1.3em}
+/* THE TURN ENDS ITSELF (COMBAT [the turn ends itself], rule 125): Battle Brothers' numbers on his bar (the AP and the wind
+   left, as numbers beside the pips), and when he can afford nothing, OUT OF ACTION POINTS over his bars for a beat and a
+   half, the same VCR warning as the empty gun, before the turn passes by itself */
+#apn{flex:0 0 auto;font-family:var(--face-casing,ui-monospace,monospace);font-size:9px;letter-spacing:.3px;color:#efe3cc;white-space:nowrap;text-shadow:0 1px 0 #000}
+#apn.low{color:#ff8a6a}
+#outap{position:fixed;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:5;pointer-events:none;line-height:1.1;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0 1px,rgba(0,0,0,0) 1px 3px),rgba(8,6,4,.92);border:1px solid #c4553f;
+  font-family:var(--face-casing,ui-monospace,monospace);font-size:13px;letter-spacing:1px;color:#f2ead8;text-align:center;
+  text-shadow:-1px 0 rgba(224,64,46,.9),1px 0 rgba(80,200,230,.65);animation:rlBlink var(--beat,500ms) steps(1,end) infinite}
+#outap small{display:block;font-size:10px;letter-spacing:.5px;margin-top:2px}
 #bwait{flex:0 0 auto;width:56px;height:46px;font:inherit;font-weight:700;font-size:11px;color:var(--paper-ink);border:0;
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55);transform:rotate(1deg)}
 #bend:disabled,#bwait:disabled{opacity:.45}
@@ -176,7 +206,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
   <div id="row1">
     <div id="card"><canvas id="face" width="144" height="144"></canvas><div id="cnm">-</div></div>
     <div id="stats"><div class="bar"><i id="bhp"></i></div><div class="bar"><i id="barm"></i></div><div class="bar"><i id="bfat"></i></div>
-      <div id="apicons"><div id="ap"></div><div id="picons"></div></div></div>
+      <div id="apicons"><div id="ap"></div><span id="apn"></span><div id="picons"></div></div></div>
     <button id="bend">END TURN</button>
   </div>
   <div id="row2">
@@ -184,8 +214,11 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
     <button id="bwait">WAIT</button>
   </div>
 </div>
+<div id="outap"></div>
 <div id="drawer"></div>
 <div id="num"></div>
+<div id="pick"></div>
+<div id="vet"><canvas id="vetface" width="132" height="132"></canvas><div><b id="vetname"></b><span id="vetline"></span></div></div>
 <div id="over"><div class="box"><h2 id="oh"></h2><div id="ob"></div><button id="oagain">AGAIN</button></div></div>
 <div id="load">LOADING THE GROUND</div>
 
@@ -1411,6 +1444,27 @@ const FIGHT = (function () {
   function dryAt(a, t) {
     return emptyGun(a) && onField(a) && onField(t) && a.side !== t.side && a.morale !== 'Fleeing' && inRange(a, t);
   }
+  /* THE TURN ENDS ITSELF (rule 125, Paolo 10/20: 'even Battle Brothers has the auto end system: if you only have one movement
+     left and you can't even move a tile'): is there anything left he can afford, a tile, a blow, a reload or a skill, by the
+     same tests the buttons and the lit tiles use (his own tile is always in his reach) */
+  function canAct(a) {
+    if (!onField(a) || a.morale === 'Fleeing') return false;
+    if (Object.keys(reach(a, null, true).best).length > 1) return true;
+    if (S.units.some(function (t) { return canStrike(a, t) && sideSees(a.side, t); })) return true;
+    if (canReload(a)) return true;
+    return ACTIVE.some(function (id) { return a.perks.indexOf(id) >= 0 && canUse(a, id); });
+  }
+  /* why, in Battle Brothers' numbers: the AP and the wind he has left and what the cheapest tile beside him costs (none: he
+     is boxed in) */
+  function spentWhy(a) {
+    let step = null;
+    DIRS.forEach(function (d) {
+      const x = a.x + d[0], y = a.y + d[1];
+      if (!inBoard(x, y) || !passable(x, y) || unitAt(x, y)) return;
+      const c = stepCost(a, a.x, a.y, x, y); if (step === null || c < step) step = c;
+    });
+    return { ap: a.ap, apTurn: a.apTurn, fat: Math.round(a.fat), fatMax: fatMax(a), step: step };
+  }
   /* ---------------- THE SEVEN SKILLS A PERK UNLOCKS (rule 48) ----------------
      Each costs what its wiki row says in AP and fatigue, and does what its row says. */
   const ACTIVE = ['adrenaline', 'recover', 'rotation', 'rally_the_troops', 'taunt', 'footwork', 'indomitable'];
@@ -1689,7 +1743,7 @@ const FIGHT = (function () {
   return {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
-    emptyGun: emptyGun, rounds: rounds, dryAt: dryAt,
+    emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
     level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
@@ -2236,13 +2290,58 @@ function roundsLine(u, t) {
   if (r.left === 1) return h + '<b class="dry">Last round.</b>';
   return h + r.left + ' left.';
 }
+/* ---------------- THE FIRST FIGHT TEACHES (COMBAT [the first fight teaches]; the plan's part D, his 10/19 'better for people
+   that understand') ----------------
+   No tutorial, no card, nothing pops up (a quest is people; text comes from a mouth with a portrait): one veteran of the
+   company, the most fights in him and never YOU, says three short lines at the moments they matter: the first aim, the first
+   time cover matters (a man he aims at in cover, or a cover tile he picks), the first empty gun. Each once, ever (kept on the
+   phone), never in the first second, one at a time; his line types in on the beat while his face moves, holds, and goes.
+   With nobody beside YOU there is no veteran, and the lesson waits for a fight with one. The words are drafts for WORDS
+   (draft:true): the lesson in English, one word of flavour from the lexicon (LANGUAGE NEVER GATES REQUIRED INFORMATION). */
+const TEACH = {   /* draft:true */
+  aim: 'Mira. One tap shows your odds. Tap him again to shoot.',
+  cover: 'Cuidado. Cover makes a man hard to hit. You too.',
+  reload: 'Oye, that click means empty. Hit RELOAD before you aim.'
+};
+const TEACH_KEY = 'bohemia.fight.taught', TEACH_QUIET_MS = 1000, TEACH_HOLD_BEATS = 8, TYPE_PER_BEAT = 24;
+function taughtNow() {
+  if (UI.taughtMem) return UI.taughtMem;
+  let T = {}; try { T = JSON.parse(localStorage.getItem(TEACH_KEY) || '{}') || {}; } catch (_e) {}
+  return (UI.taughtMem = T);
+}
+function veteran() {
+  return FIGHT.S.units.filter(function (v) { return v.side === 'you' && !v.main && !v.beast && FIGHT.onField(v); })
+    .sort(function (a, b) { return (b.level || 1) - (a.level || 1) || (b.xp || 0) - (a.xp || 0); })[0] || null;
+}
+function teach(k) {
+  const o = window.FIGHT_OPTS || {};
+  if (o.teach === false || UI.auto || UI.vet || !TEACH[k] || FIGHT.S.over) return false;
+  if (performance.now() - UI.t0 < Math.max(TEACH_QUIET_MS, UI.openUntil - UI.t0)) return false;   /* never in the first second */
+  const T = taughtNow(); if (T[k]) return false;
+  const v = veteran(); if (!v) return false;
+  T[k] = 1; try { localStorage.setItem(TEACH_KEY, JSON.stringify(T)); } catch (_e) {}
+  UI.vet = { k: k, who: v.id, line: TEACH[k], t: performance.now() };
+  drawPortrait(document.getElementById('vetface').getContext('2d'), v, document.getElementById('vetface').width);
+  document.getElementById('vetname').textContent = v.name; document.getElementById('vetline').textContent = '';
+  const el = document.getElementById('vet'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
+  feed(v.name + ': ' + TEACH[k]); return true;
+}
+function tickVet(now) {
+  const V = UI.vet; if (!V) return;
+  const beat = beatMs(), slot = Math.floor((now - V.t) / (beat / 6)), n = Math.min(V.line.length, slot * TYPE_PER_BEAT / 6);
+  const ln = document.getElementById('vetline'); if (ln.textContent.length !== n) ln.textContent = V.line.slice(0, n);
+  const typing = n < V.line.length;
+  document.getElementById('vetface').style.transform = typing && slot % 2 ? 'translateY(-2px)' : '';   /* his mouth works on the slots */
+  if (!typing && !V.done) V.done = now;
+  if ((V.done && now - V.done > beat * TEACH_HOLD_BEATS) || FIGHT.S.over) { document.getElementById('vet').style.display = 'none'; UI.vet = null; }
+}
 /* A TAP THAT WOULD FIRE EMPTY (rule 124(a): 'a tap that would fire an empty gun never fails silently'): the gun's dry click,
    one line, and the big RELOAD kicks so the finger knows where to go; the mark over him glitches hard for the beat */
 function dryTap(u) {
   sfx('dry_fire'); UI.dryAt = performance.now();
   const s = FIGHT.reloadSkill(u.weapon), can = FIGHT.canReload(u);
   say('Click. Empty. ' + (can ? 'RELOAD, ' + FIGHT._t.skillAP(u.weapon, s, u) + ' AP.' : 'Reload next turn.'), true);
-  pokeReload();
+  pokeReload(); teach('reload');
 }
 function pokeReload() {
   const b = document.getElementById('breload'); b.classList.remove('poke'); void b.offsetWidth; b.classList.add('poke');
@@ -2273,7 +2372,7 @@ function startAnim(a) {
     setTimeout(ranged ? SND.shot : SND.swing, beatMs() * 0.35);
     setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e); }, beatMs() * 0.45);
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
-    if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); }, beatMs() * 0.8);
+    if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, beatMs() * 0.8);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
     numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : '', e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
@@ -2323,6 +2422,37 @@ function pop(u, text, col, big, line) {
 /* the fight's words are kept, never shown on the screen (rule 67: no combat log); the recap is where they land */
 function feed(text, col) { UI.feedLines = (UI.feedLines || []).concat([{ text: text, col: col || '#c8bda8' }]).slice(-50); }
 
+/* ---------------- THE TURN ENDS ITSELF (COMBAT [the turn ends itself], rule 125, Paolo 10/20: 'even Battle Brothers has the
+   auto end system: if you only have one movement left and you can't even move a tile... you gotta do that a lot better,
+   right now') ----------------
+   The moment the man you control can afford nothing (FIGHT.canAct: a tile, a blow, a reload, a skill, the buttons' own
+   tests), OUT OF ACTION POINTS goes over his bars, the line says why in Battle Brothers' numbers (the AP left and what a step
+   costs, or that he is boxed in), and a beat and a half later his turn passes by itself. Never while anything is affordable; WAIT and
+   END TURN stay. */
+const SPENT_BEATS = 1.5;
+/* a step costs AP only (the walk spends no fatigue), so with the AP for a step and no tile, every way out is shut */
+function spentLine(w) {
+  if (w.step !== null && w.ap < w.step) return w.ap + ' AP left, a step costs ' + w.step + '. Turn over.';
+  return 'Boxed in: nowhere to step, nothing to hit. Turn over.';
+}
+function hideSpent() { UI.spent = null; document.getElementById('outap').style.display = 'none'; }
+function showSpent(w) {
+  const el = document.getElementById('outap'), st = document.getElementById('stats').getBoundingClientRect();
+  el.innerHTML = (w.step === null || w.ap >= w.step ? 'NOWHERE TO GO' : 'OUT OF ACTION POINTS') + '<small>' + w.ap + '/' + w.apTurn + ' AP' + (w.step !== null ? ' · A STEP ' + w.step : '') + '</small>';
+  el.style.left = Math.round(st.left - 4) + 'px'; el.style.top = Math.round(st.top - 3) + 'px';
+  el.style.width = Math.round(st.width + 8) + 'px'; el.style.height = Math.round(st.height + 6) + 'px';
+  el.style.setProperty('--beat', beatMs() + 'ms'); el.style.display = 'flex';
+  say(spentLine(w));
+}
+function spentCheck(u, now) {
+  if (UI.skillMode || FIGHT.S.deploy || FIGHT.S.over || UI.auto) { if (UI.spent) hideSpent(); return false; }
+  const key = u.id + ':' + u.ap + ':' + Math.round(u.fat) + ':' + u.x + ',' + u.y + ':' + FIGHT.S.round + ':' + FIGHT.S.idx + ':' + u.ammo + ':' + u.loaded;
+  if (UI.spentKey !== key) { UI.spentKey = key; UI.spentNow = !FIGHT.canAct(u); }
+  if (!UI.spentNow) { if (UI.spent) hideSpent(); return false; }
+  if (!UI.spent || UI.spent.id !== u.id) { UI.spent = { id: u.id, at: now, why: FIGHT.spentWhy(u) }; UI.pend = null; showSpent(UI.spent.why); hud(); }
+  if (now - UI.spent.at < beatMs() * SPENT_BEATS) return true;   /* the beat that shows why: nothing else moves */
+  hideSpent(); FIGHT.endTurn(u); take(); hud(); return true;
+}
 /* ---------------- the director: whose turn, what happens next ---------------- */
 function crewControlled(u) { return u && u.side === 'you' && !UI.auto && u.morale !== 'Fleeing'; }
 function tick(now) {
@@ -2364,8 +2494,10 @@ function tick(now) {
   if (crewControlled(u)) {
     /* HIS TURN WITH AN EMPTY GUN (rule 124): the click as it comes to him, and the line says the one thing to do first */
     const tk = u.id + ':' + FIGHT.S.round + ':' + FIGHT.S.idx;
-    if (UI.turnKey !== tk) { UI.turnKey = tk; if (FIGHT.emptyGun(u)) { sfx('dry_fire'); UI.dryAt = now; say(FIGHT.canReload(u) ? u.name + '\'s gun is empty. RELOAD.' : u.name + '\'s gun is empty.'); } }
-    if (sayEl.textContent === THEIRS_SAY) say(WALK_SAY); follow(u); return; }
+    if (UI.turnKey !== tk) { UI.turnKey = tk; if (FIGHT.emptyGun(u)) { sfx('dry_fire'); UI.dryAt = now; teach('reload'); say(FIGHT.canReload(u) ? u.name + '\'s gun is empty. RELOAD.' : u.name + '\'s gun is empty.'); } }
+    if (sayEl.textContent === THEIRS_SAY) say(UI.tapped ? '' : WALK_SAY);
+    if (!UI.anim.length && spentCheck(u, now)) return;
+    follow(u); return; }
   if (!UI.auto && u.side === 'them' && sayEl.textContent !== THEIRS_SAY) say(THEIRS_SAY);
   if (now < UI.nextAI) return;
   if (follow(u, true)) return;   /* the mover off the glass: the camera goes to him first (three quarters of a beat), then he acts */
@@ -2792,6 +2924,15 @@ function drawMan(v, tw, th) {
     cx.fillStyle = 'rgba(0,0,0,.65)'; cx.fillRect(bx - 1, by - 1, bw + 2, BAR_PT * 2 + 3);
     cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), BAR_PT);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
+    /* WHAT THE BLOW TAKES, ON HIS BARS (one tap to see): the part of his armour and of his health one hit takes, blinking on
+       the beat, before the second tap */
+    const pv = UI.pend && UI.pend.target === v && UI.pend.pv;
+    if (pv && crewControlled(FIGHT.current())) {
+      const lit = ((now - UI.t0) % beatMs() + beatMs()) % beatMs() / beatMs() < BLINK_ON, am = Math.max(1, v.armBMax + v.armHMax), ar = v.armB + v.armH;
+      const ta = Math.min(ar, pv.armour), th2 = Math.min(Math.max(0, v.hp), pv.hp), seg = function (from, len, y) { const a = Math.round(bx + from), b = Math.round(bx + from + len); if (b > a) cx.fillRect(a, y, b - a, BAR_PT); };
+      cx.fillStyle = lit ? '#f2ead8' : '#5c5040';
+      seg(bw * (ar - ta) / am, bw * ta / am, by); seg(bw * (v.hp - th2) / v.hpMax, bw * th2 / v.hpMax, by + BAR_PT + 1);
+    }
   }
 }
 /* THE ROUNDS OVER HIM (COMBAT [the reload is loud], rule 124): the man you control carries his gun's rounds as bullets on a
@@ -2988,6 +3129,10 @@ function hud() {
   if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(iconCanvas(id, 16)); }); }
   const ap = document.getElementById('ap'); ap.textContent = '';
   for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); }
+  /* Battle Brothers' numbers (rule 125(b)): the AP and the wind left, where he already looks for them */
+  const apn = document.getElementById('apn'), apt = show.ap + '/' + show.apTurn + ' AP ' + Math.round(show.fat) + '/' + fm + ' FAT';
+  if (apn.textContent !== apt) apn.textContent = apt;
+  apn.classList.toggle('low', show === u && crewControlled(u) && !!UI.spent);
   if (UI.drawer) drawer(show);
   const mine = crewControlled(u) && !UI.anim.length && !S.over;
   /* the skill row: STRIKE with his weapon, RELOAD, then the skills his perks unlock, each a 46-point square */
@@ -3027,12 +3172,63 @@ function hud() {
   if (window.innerWidth !== W || window.innerHeight !== H) resize();   /* a phone's viewport can settle a frame late: re-measure, never keep a stale stop */
   else if (hudEdges() && UI.board) fitStops();
   const say = document.getElementById('say'); placeSay(say); say.style.display = say.textContent ? 'block' : 'none';
-  const dep = FIGHT.S.deploy && !UI.auto, be = document.getElementById('bend');
-  const label = dep ? 'FIGHT' : 'END TURN', tn = Array.from(be.childNodes).filter(function (n) { return n.nodeType === 3; })[0];
+  const dep = FIGHT.S.deploy && !UI.auto, be = document.getElementById('bend'), act = !dep && mine ? nextAct(u) : null;
+  const label = dep ? 'FIGHT' : act ? act.label : 'END TURN', tn = Array.from(be.childNodes).filter(function (n) { return n.nodeType === 3; })[0];
   if (tn && tn.textContent !== label) tn.textContent = label;
+  /* the big button names what it will do (one tap to see, one tap to do) */
+  let sub = be.querySelector('.sub'); if (!sub) { sub = document.createElement('span'); sub.className = 'sub'; be.appendChild(sub); }
+  const subT = act ? act.sub : ''; if (sub.textContent !== subT) sub.textContent = subT;
+  ['go', 'walk', 'shoot', 'hit', 'throw'].forEach(function (k) { be.classList.toggle(k, !!act && (k === 'go' || k === act.k)); });
   document.getElementById('bwait').disabled = dep || !mine || u.waited;
   be.disabled = dep ? false : !mine;
   document.getElementById('bauto').classList.toggle('on', UI.auto);
+}
+/* ONE TAP TO SEE, ONE TAP TO DO (COMBAT [one tap to see, one tap to do]; the plan's part C, his 10/19 'better for the touch'):
+   what the big button will do now, from what the first tap picked: SHOOT (a gun), THROW (the bottles), HIT (a club, a blade,
+   the gun's butt at one tile), WALK (a tile), with the chance or the AP under the word; nothing picked, END TURN */
+function nextAct(u) {
+  const p = UI.pend; if (!p || !u) return null;
+  if (p.target) {
+    if (!FIGHT.canStrike(u, p.target)) return null;
+    const pv = p.pv || FIGHT.preview(u, p.target);
+    const k = pv.club || !FIGHT.isRanged(u.weapon) ? 'hit' : FIGHT.isGun(u.weapon) ? 'shoot' : 'throw';
+    return { k: k, label: k.toUpperCase(), sub: pv.chance + '%' };
+  }
+  if (p.tile && p.path) return { k: 'walk', label: 'WALK', sub: p.cost + ' AP' };
+  return null;
+}
+/* THE RESULT WHERE THE FINGER IS: a receipt tag on the board over the man he picked (over his bars, which show what the
+   blow takes) or over the tile he picked; the free swings a walk draws under it in red */
+function placePick() {
+  const el = document.getElementById('pick'), u = FIGHT.current(), p = UI.pend;
+  const act = p && crewControlled(u) && !UI.anim.length && !FIGHT.S.over && !FIGHT.S.deploy ? nextAct(u) : null;
+  if (!act) { if (el.style.display !== 'none') el.style.display = 'none'; return; }
+  let X, top;
+  if (p.target) { const v = p.target; X = sx((dx(v) + .5) * UI.tw); top = sy((dy(v) + .9) * UI.th) - manH() - 14; }
+  else { X = sx((p.tile.x + .5) * UI.tw); top = sy((p.tile.y + .9) * UI.th) - manH() * .45; }
+  const html = act.label + ' ' + act.sub + (p.swings ? '<i>' + p.swings + ' free swing' + (p.swings > 1 ? 's' : '') + '</i>' : '');
+  if (el.dataset.h !== html) { el.dataset.h = html; el.innerHTML = html; }
+  el.style.display = 'block';
+  const w = el.offsetWidth, h = el.offsetHeight;
+  el.style.left = Math.round(Math.max(4, Math.min(W - w - 4, X - w / 2))) + 'px';
+  el.style.top = Math.round(Math.max(TOPH + 4, Math.min(H - BOTH - h - 4, top - h))) + 'px';
+}
+/* the big button's marks, in the materials' own grammar (twelve cells of three, the paper's ink): a boot's two prints, the
+   sight, the blow's cross */
+const ACT_MARKS = {
+  walk: ['000000000000', '001100000000', '011110000000', '011110000000', '011110001100', '001100011110', '000000011110', '001100011110',
+    '001100001100', '000000000000', '000000001100', '000000001100'],
+  shoot: ['000001100000', '000001100000', '000111111000', '001000000100', '010000000010', '110001100011', '110001100011', '010000000010',
+    '001000000100', '000111111000', '000001100000', '000001100000'],
+  hit: ['110000000011', '111000000111', '011100001110', '001110011100', '000111111000', '000011110000', '000011110000', '000111111000',
+    '001110011100', '011100001110', '111000000111', '110000000011'] };
+function actMarks() {
+  const be = document.getElementById('bend');
+  Object.keys(ACT_MARKS).forEach(function (k) {
+    const c = document.createElement('canvas'); c.width = c.height = 36; const g = c.getContext('2d'); g.fillStyle = '#2a221a';
+    ACT_MARKS[k].forEach(function (r, y) { for (let x = 0; x < 12; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
+    be.style.setProperty('--mark-' + k, 'url(' + c.toDataURL('image/png') + ')');
+  });
 }
 /* the hint's place: above the bar on the phone held upright; on a wide glass in the strip beside the faces when the strip
    has room for it (two lines of the receipt), else above the bar as before */
@@ -3315,31 +3511,47 @@ function tapAt(px, py) {
   }).sort(function (a, b) { return b.y - a.y; })[0], onTile = S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
   /* the man ON the tile first; a body over an empty tile answers only if it is theirs (aim), never one of yours (rule 104a:
      zoomed out to both teams, your own men's bodies cover the tiles behind them, and those tiles must still be walkable) */
-  const who = onTile || (body && body.side === 'them' ? body : null);
+  let who = onTile || (body && body.side === 'them' ? body : null);
+  UI.tapped = true;   /* his first tap: the open's how-to line has done its job and does not come back */
+  /* NO BODY COVERS A TILE HE NEEDS (one tap to see, one tap to do): a body of theirs drawn over an empty tile his arm cannot
+     reach from here gives the finger to the tile under it, when he can walk there */
+  if (who && !onTile && !FIGHT.canStrike(u, who) && !FIGHT.dryAt(u, who) && FIGHT.pathTo(u, p.x, p.y, FIGHT.reach(u, null, true))) who = null;
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
     if (FIGHT.dryAt(u, who)) { UI.pend = null; dryTap(u); hud(); return; }   /* rule 124: never a silent refusal, never 'out of reach' */
     if (!FIGHT.canStrike(u, who)) { const rr = FIGHT.rounds(u), spent = rr && rr.left <= 0 && !FIGHT.reloadSkill(u.weapon);
       say(spent ? 'No ' + armName(u, u.weapon) + ' left.' : who.name + ' is out of reach.' + reachWords(u), true); if (spent) sfx('ui_deny'); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
-    UI.pend = { target: who }; aimSay(u, who); hud(); return;
+    UI.pend = { target: who, pv: FIGHT.preview(u, who) }; aimSay(u, who);
+    /* the first fight teaches (COMBAT [the first fight teaches]): the first aim; the first man in cover */
+    if (!teach('aim') && (FIGHT.hitChance(u, who).parts.indexOf('cover') >= 0 || S.cover[who.y][who.x])) teach('cover');
+    hud(); return;
   }
   if (who) { UI.pend = null; return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
   if (!path) { UI.pend = null; say('Too far for the AP left.'); return; }
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; FIGHT.moveTo(u, p.x, p.y, true); take(); return; }
-  UI.pend = { tile: p, path: path };
   /* the price of walking past: every tile left inside a man's reach is a free swing */
   let swings = 0, at = { x: u.x, y: u.y };
   path.forEach(function (q) { swings += FIGHT.zocOn(u, at.x, at.y).length; at = q; });
-  /* what standing there does, first (rule 59; rule 117b: only where the ground changes something) */
+  UI.pend = { tile: p, path: path, cost: f.best[f.key(p.x, p.y)], swings: swings };
+  /* what standing there does (rule 59; rule 117b: only where the ground changes something) and what the walk costs in swings;
+     the AP and 'tap again' are no longer sentences: the tag on the tile and the big button say WALK and its AP */
   const gs = FIGHT.groundSay(p.x, p.y);
-  say((gs ? gs + ' ' : '') + 'Walk there, ' + f.best[f.key(p.x, p.y)] + ' AP' + (swings ? ': ' + swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '. Tap again.'));
+  say((gs || '') + (swings ? (gs ? ' ' : '') + swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : ''));
+  if (S.cover[p.y][p.x]) teach('cover');
+  hud();
 }
 document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target; UI.pend = null; FIGHT.strike(u, t); take(); } };
 document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.wait(u); take(); } };
 document.getElementById('bend').onclick = function () { audio();
   if (FIGHT.S.deploy) { fightNow(); return; }
-  const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.endTurn(u); take(); } };
+  /* the big button does what it names (one tap to see, one tap to do): the walk or the blow picked, else the end of the turn */
+  const u = FIGHT.current(); if (!crewControlled(u)) return;
+  const p = UI.pend, act = nextAct(u); UI.pend = null; UI.skillMode = null;
+  if (act && p.target) FIGHT.strike(u, p.target);
+  else if (act && p.tile) FIGHT.moveTo(u, p.tile.x, p.tile.y, true);
+  else FIGHT.endTurn(u);
+  take(); hud(); };
 document.getElementById('breload').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; if (FIGHT.reload(u)) say(''); take(); } };
 document.getElementById('bauto').onclick = function () { audio(); UI.auto = !UI.auto; UI.pend = null; UI.skillMode = null; };
 document.getElementById('oagain').onclick = function () { document.getElementById('over').style.display = 'none'; start(); };
@@ -3349,7 +3561,7 @@ let hudN = 0;
 /* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
 function frame(now) {
   requestAnimationFrame(frame);
-  try { tick(now); draw(now); placeTag(); if (++hudN % 6 === 0) hud(); }
+  try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); if (++hudN % 6 === 0) hud(); }
   catch (e) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
 }
 function start() {
@@ -3360,6 +3572,8 @@ function start() {
   MAN_IDLE = o.manPx > 0 ? o.manPx : MAN_DEFAULT;
   FIGHT.setup(o);
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
+  UI.vet = null; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
+  UI.spentKey = null; hideSpent();
   return bakeBoard().then(function () {
     resize();
     /* THE OPEN (rule 104a, amending 79's 'on your line, a pinch shows the rest'): both teams on the glass, the man at 112.
@@ -3376,6 +3590,7 @@ function start() {
 }
 window.addEventListener('resize', resize);
 try { BohemiaMaterials.apply(); } catch (_e) {}
+actMarks();
 try { BohemiaScreen.watch(function () { resize(); }); } catch (_e) {}
 loadAll().then(function () { resize(); return start(); }).then(function () { requestAnimationFrame(frame); })
   .catch(function (e) { document.getElementById('load').textContent = 'THE GROUND DID NOT LOAD: ' + e.message; });
