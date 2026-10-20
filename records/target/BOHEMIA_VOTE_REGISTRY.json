@@ -14314,7 +14314,12 @@
     "how": "image",
     "src": "../records/target/COOK_THE_RANCHES_THROUGH_THE_RIG.webp",
     "first": "../records/target/vote_first/cook-the-ranches-through-the-rig-10-19.webp",
-    "firstAt": [0, 371, 1170, 536]
+    "firstAt": [
+     0,
+     371,
+     1170,
+     536
+    ]
    },
    "question": "Are these the houses? (YES, or NO and what is wrong)",
    "placeholder_of": "COOK FOUR's ranch pictures on the map's near stop and in the settlement: RUN wires them after his vote",
@@ -14348,7 +14353,12 @@
     "how": "image",
     "src": "../records/target/COOK_THE_STRIP_AND_TOWN_THROUGH_THE_RIG.webp",
     "first": "../records/target/vote_first/cook-the-strip-and-town-through-the-rig-10-19.webp",
-    "firstAt": [0, 349, 1170, 437]
+    "firstAt": [
+     0,
+     349,
+     1170,
+     437
+    ]
    },
    "question": "Is this the town? (YES, or NO and which one)",
    "placeholder_of": "COOK FOUR's Strip and town pictures on the map and in the settlement: RUN wires them after his vote",
@@ -14366,6 +14376,40 @@
      "METHOD: COOK FOUR's are cut from your pack tiles flat; mine are modelled in 3D and rendered through the master rig's own pieces, like the truck.",
      "SIZE: the same metres COOK FOUR measured, at the men's 57 px a metre (the tower casino is 34 m to its sign).",
      "LOOK: each passes the rig's card under the style guide or says so on the sheet; the roofs in your tans."
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "cook-the-floor-through-the-rig-10-19",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "b27d5105",
+   "made": "10/19",
+   "title": "CANDIDATE: THE FIGHT FLOOR BUILT IN 3D LIKE THE ROBOT AND THE TRUCK, WITH THE SUBURB'S HOUSES IN 3D ON IT",
+   "why": "You said no to the fight floor twice, so the ground is now modelled in 3D and lit by the same lamp and camera as the robot and the truck: real curbs and gutters, cracked asphalt with potholes, heaved sidewalk slabs, stones on the dirt, and on the suburb boards the old orange houses are gone, 3D ranch houses in their place. You see it in the VOTE tab, real fights from the game with the floor now beside the 3D floor.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_THE_FLOOR_THROUGH_THE_RIG.webp",
+    "first": "../records/target/vote_first/cook-the-floor-through-the-rig-10-19.webp",
+    "firstAt": [0, 500, 1170, 1030]
+   },
+   "question": "Is this the floor? (YES, or NO and what is wrong)",
+   "placeholder_of": "slices/fight_ground block pictures (COMBAT lays them; nothing in the game changes before his vote)",
+   "caption": "PIXEL SIZE the fight's own: a house tile 515 x 364, 42.9 px a metre, the rig's 45 degree camera (heights x 1.414), one art pixel to one device pixel at the close stop | PALETTE records/target/BOHEMIA_STYLE_PALETTE.json, each ground calibrated to his YES street (records/target/cook_floor_rig/ground_calibration.json) | LIGHT the rig's one sun, upper left, 155 deg on the screen",
+   "class": "tile",
+   "family": "ground",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "rig"
+   },
+   "twin": {
+    "src": "records/target/COOK2_ONE_REAL_STREET.webp",
+    "diffs": [
+     "METHOD: the street you said yes to is his tiles laid flat; this ground is geometry (a 4.7 cm grid of real heights, the stones as their own meshes) with the rig's own wear, lit by the rig's one sun and seen by its camera, so the curb has a lit lip and a shadow side and the houses cast real shadows on it.",
+     "SIZE: the fight's own 42.9 px a metre, a block 2,575 x 1,820, so COMBAT swaps the picture and nothing else moves; the curb is 15 cm, the gutter pan 45 cm, the walk 1.5 m, as Clark County builds them.",
+     "LOOK: DIRECTION's floor bar, the numbers of your yes street, passes on the open desert (all of it) and on the town blocks 5 of 6 (the two-tone test reads 10 to 13 against 9: the tan roofs and the pale walks sit beside the dirt); the orange is gone (0.0 percent)."
     ]
    },
    "draft": true
