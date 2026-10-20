@@ -1,0 +1,84 @@
+{
+ "engine": "CYCLES",
+ "res": 328,
+ "ortho_scale": 7.642718446601942,
+ "real_dims_m": [
+  4.7,
+  1.778,
+  1.425
+ ],
+ "scale_from_model": 0.9707,
+ "still_frame": 0.0,
+ "still": "frame 0",
+ "ground_screen": [
+  164.0,
+  194.56936568665367
+ ],
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "source_pass": {
+  "wear": 0.6,
+  "materials": [
+   "glass_gone",
+   "paint_teal",
+   "paint_teal_low",
+   "rust",
+   "rust_dark",
+   "trim",
+   "tyre"
+  ],
+  "wear_by_material": {},
+  "what": [
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+   "crevice grime from the model's own ambient occlusion (0.25 m)",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+   "a 20 cm colour drift across the body (overlay, 0.27)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+  ],
+  "seed": 2,
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 0.9707)",
+  "dents": {
+   "meshes": 37,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
+ },
+ "proportions": null,
+ "calibration": null,
+ "id_table": null,
+ "id_files_raw": [],
+ "obj_table": null,
+ "obj_files_raw": [],
+ "model": "reference/models/bohemia/wreck.glb",
+ "ppm": 42.916666666666664,
+ "files": [
+  "records/target/cook_cover_rig/car_kerb/rig_N.png",
+  "records/target/cook_cover_rig/car_kerb/rig_NE.png",
+  "records/target/cook_cover_rig/car_kerb/rig_E.png",
+  "records/target/cook_cover_rig/car_kerb/rig_SE.png",
+  "records/target/cook_cover_rig/car_kerb/rig_S.png",
+  "records/target/cook_cover_rig/car_kerb/rig_SW.png",
+  "records/target/cook_cover_rig/car_kerb/rig_W.png",
+  "records/target/cook_cover_rig/car_kerb/rig_NW.png"
+ ],
+ "crop_box_px": [
+  38,
+  83,
+  295,
+  268
+ ],
+ "grime": {
+  "materials": 7,
+  "occlusion_m": 1.6,
+  "tint": [
+   0.3,
+   0.255,
+   0.2
+  ],
+  "fires": []
+ }
+}

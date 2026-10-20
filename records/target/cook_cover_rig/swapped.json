@@ -1,0 +1,304 @@
+{
+ "rock_0": {
+  "piece": "rock_0",
+  "file": "slices/fight_ground/cover_rock_0.webp",
+  "sha1": "d6cf32ee4639611d2d718508aa67fc236deeb0e0",
+  "size": [
+   117,
+   111
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.502,
+  "clipped": 0.004,
+  "model": "reference/models/bohemia/cover_rock_0.glb",
+  "rig": "records/target/cook_cover_rig/rock_0/rig.json"
+ },
+ "car_lane": {
+  "piece": "car_lane",
+  "file": "slices/fight_ground/cover_car_lane.webp",
+  "sha1": "91f3ccb447a6273ece33ecad4a438368f2a74d4a",
+  "size": [
+   218,
+   114
+  ],
+  "facing": "N",
+  "iou_with_old": 0.802,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/wreck.glb",
+  "rig": "records/target/cook_cover_rig/car_lane/rig.json"
+ },
+ "rock_1": {
+  "piece": "rock_1",
+  "file": "slices/fight_ground/cover_rock_1.webp",
+  "sha1": "e1baf955076f3185fa261b55ab32fd85b9b27e38",
+  "size": [
+   85,
+   113
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.537,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rock_1.glb",
+  "rig": "records/target/cook_cover_rig/rock_1/rig.json"
+ },
+ "rock_2": {
+  "piece": "rock_2",
+  "file": "slices/fight_ground/cover_rock_2.webp",
+  "sha1": "8cabd56cd923529fc761c62d0516e15960fc480c",
+  "size": [
+   90,
+   103
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.558,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rock_2.glb",
+  "rig": "records/target/cook_cover_rig/rock_2/rig.json"
+ },
+ "rock_3": {
+  "piece": "rock_3",
+  "file": "slices/fight_ground/cover_rock_3.webp",
+  "sha1": "934c255eb3d1e83d7e8f8d7a81cf58bf5d752663",
+  "size": [
+   117,
+   105
+  ],
+  "facing": "NE",
+  "iou_with_old": 0.587,
+  "clipped": 0.001,
+  "model": "reference/models/bohemia/cover_rock_3.glb",
+  "rig": "records/target/cook_cover_rig/rock_3/rig.json"
+ },
+ "outcrop": {
+  "piece": "outcrop",
+  "file": "slices/fight_ground/cover_outcrop.webp",
+  "sha1": "61d1d5ddd2c9436bdc3cd53c833f48dcca795819",
+  "size": [
+   285,
+   103
+  ],
+  "facing": "N",
+  "iou_with_old": 0.557,
+  "clipped": 0.008,
+  "model": "reference/models/bohemia/cover_outcrop.glb",
+  "rig": "records/target/cook_cover_rig/outcrop/rig.json"
+ },
+ "rubble_0": {
+  "piece": "rubble_0",
+  "file": "slices/fight_ground/cover_rubble_0.webp",
+  "sha1": "a0f3ab9ea45ea35a5c18d9d52498ee4b68302765",
+  "size": [
+   117,
+   87
+  ],
+  "facing": "W",
+  "iou_with_old": 0.402,
+  "clipped": 0.13,
+  "model": "reference/models/bohemia/cover_rubble_0.glb",
+  "rig": "records/target/cook_cover_rig/rubble_0/rig.json"
+ },
+ "rubble_1": {
+  "piece": "rubble_1",
+  "file": "slices/fight_ground/cover_rubble_1.webp",
+  "sha1": "aba77d433de7b2ba388c9649d63b7f7f11d5562b",
+  "size": [
+   117,
+   92
+  ],
+  "facing": "N",
+  "iou_with_old": 0.423,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rubble_1.glb",
+  "rig": "records/target/cook_cover_rig/rubble_1/rig.json"
+ },
+ "car_kerb": {
+  "piece": "car_kerb",
+  "file": "slices/fight_ground/cover_car_kerb.webp",
+  "sha1": "3a66a2d4733a125abb7670a4e5be181359168760",
+  "size": [
+   218,
+   111
+  ],
+  "facing": "S",
+  "iou_with_old": 0.362,
+  "clipped": 0.07,
+  "model": "reference/models/bohemia/wreck.glb",
+  "rig": "records/target/cook_cover_rig/car_kerb/rig.json"
+ },
+ "car_drive": {
+  "piece": "car_drive",
+  "file": "slices/fight_ground/cover_car_drive.webp",
+  "sha1": "bb1750d7434e714e8518740dc480171c5235ef27",
+  "size": [
+   118,
+   185
+  ],
+  "facing": "W",
+  "iou_with_old": 0.498,
+  "clipped": 0.001,
+  "model": "reference/models/bohemia/patrol.glb",
+  "rig": "records/target/cook_cover_rig/car_drive/rig.json"
+ },
+ "wall": {
+  "piece": "wall",
+  "file": "slices/fight_ground/cover_wall.webp",
+  "sha1": "173975415289128935398a04c717bc6b5b7ead94",
+  "size": [
+   283,
+   77
+  ],
+  "facing": "N",
+  "iou_with_old": 0.907,
+  "clipped": 0.115,
+  "model": "reference/models/bohemia/wall.glb",
+  "rig": "records/target/cook_cover_rig/wall/rig.json"
+ },
+ "wall_corner": {
+  "piece": "wall_corner",
+  "file": "slices/fight_ground/cover_wall_corner.webp",
+  "sha1": "4dcb01651a858cc9459903a0f413e306334faf54",
+  "size": [
+   206,
+   206
+  ],
+  "facing": "S",
+  "iou_with_old": 0.695,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/wall_corner.glb",
+  "rig": "records/target/cook_cover_rig/wall_corner/rig.json"
+ },
+ "wall_broken": {
+  "piece": "wall_broken",
+  "file": "slices/fight_ground/cover_wall_broken.webp",
+  "sha1": "30522f1123e4ee1d39cc75317a1bd9e5dcf57b84",
+  "size": [
+   283,
+   112
+  ],
+  "facing": "N",
+  "iou_with_old": 0.568,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/wall_broken.glb",
+  "rig": "records/target/cook_cover_rig/wall_broken/rig.json"
+ },
+ "shed": {
+  "piece": "shed",
+  "file": "slices/fight_ground/cover_shed.webp",
+  "sha1": "33170f81d494b183a58231d078c981fe96f2f360",
+  "size": [
+   163,
+   173
+  ],
+  "facing": "SE",
+  "iou_with_old": 0.666,
+  "clipped": 0.014,
+  "model": "reference/models/bohemia/shed.glb",
+  "rig": "records/target/cook_cover_rig/shed/rig.json"
+ },
+ "trailer": {
+  "piece": "trailer",
+  "file": "slices/fight_ground/cover_trailer.webp",
+  "sha1": "f1f5c2aa99b670a49a675bf653a94fcc973a551b",
+  "size": [
+   541,
+   218
+  ],
+  "facing": "S",
+  "iou_with_old": 0.807,
+  "clipped": 0.279,
+  "model": "reference/models/bohemia/trailer.glb",
+  "rig": "records/target/cook_cover_rig/trailer/rig.json"
+ },
+ "dumpster": {
+  "piece": "dumpster",
+  "file": "slices/fight_ground/cover_dumpster.webp",
+  "sha1": "7e852263ddf7694cc4fcd7deeb52a3bce80171c8",
+  "size": [
+   112,
+   102
+  ],
+  "facing": "SE",
+  "iou_with_old": 0.641,
+  "clipped": 0.023,
+  "model": "reference/models/bohemia/dumpster.glb",
+  "rig": "records/target/cook_cover_rig/dumpster/rig.json"
+ },
+ "fence": {
+  "piece": "fence",
+  "file": "slices/fight_ground/cover_fence.webp",
+  "size": [
+   261,
+   62
+  ],
+  "facing": "N",
+  "iou_with_old": 0.076,
+  "clipped": 0.404,
+  "model": "reference/models/bohemia/fence.glb",
+  "rig": "records/target/cook_cover_rig/fence/rig.json"
+ },
+ "jersey": {
+  "piece": "jersey",
+  "file": "slices/fight_ground/cover_jersey.webp",
+  "size": [
+   275,
+   60
+  ],
+  "facing": "S",
+  "iou_with_old": 0.663,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_jersey.glb",
+  "rig": "records/target/cook_cover_rig/jersey/rig.json"
+ },
+ "pump": {
+  "piece": "pump",
+  "file": "slices/fight_ground/cover_pump.webp",
+  "size": [
+   69,
+   90
+  ],
+  "facing": "S",
+  "iou_with_old": 0.506,
+  "clipped": 0.113,
+  "model": "reference/models/bohemia/cover_pump.glb",
+  "rig": "records/target/cook_cover_rig/pump/rig.json"
+ },
+ "steps": {
+  "piece": "steps",
+  "file": "slices/fight_ground/cover_steps.webp",
+  "size": [
+   198,
+   85
+  ],
+  "facing": "S",
+  "iou_with_old": 0.609,
+  "clipped": 0.008,
+  "model": "reference/models/bohemia/cover_steps.glb",
+  "rig": "records/target/cook_cover_rig/steps/rig.json"
+ },
+ "dock": {
+  "piece": "dock",
+  "file": "slices/fight_ground/cover_dock.webp",
+  "size": [
+   455,
+   145
+  ],
+  "facing": "N",
+  "iou_with_old": 0.856,
+  "clipped": 0.002,
+  "model": "reference/models/bohemia/cover_dock.glb",
+  "rig": "records/target/cook_cover_rig/dock/rig.json"
+ },
+ "slot_bank": {
+  "piece": "slot_bank",
+  "file": "slices/fight_ground/cover_slot_bank.webp",
+  "size": [
+   283,
+   119
+  ],
+  "facing": "S",
+  "iou_with_old": 0.356,
+  "clipped": 0.001,
+  "model": "reference/models/bohemia/cover_slot_bank.glb",
+  "rig": "records/target/cook_cover_rig/slot_bank/rig.json"
+ }
+}

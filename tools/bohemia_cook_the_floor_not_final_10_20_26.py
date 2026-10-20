@@ -23,7 +23,7 @@ WHAT IT ADDS to last round's floor (tools/bohemia_cook_the_floor_through_the_rig
   * ANALOG HORROR (rule 20): one house per block has its bags still neatly tied and its yard swept. Nobody is there.
 
   <venv>/bin/python tools/bohemia_cook_the_floor_not_final_10_20_26.py <block> ...      (about 4 min a block)
-  <venv>/bin/python tools/bohemia_cook_the_floor_not_final_10_20_26.py --swap <block> ...  (into slices/fight_ground, lossy 90)
+  <venv>/bin/python tools/bohemia_cook_the_floor_not_final_10_20_26.py --swap <block> ...  (into slices/fight_ground, lossy 76)
   The plans first: python3 tools/bohemia_cook_the_floor_through_the_rig_plan_10_19_26.py (about 3 min).
   The originals the plan reads (the pre-swap blocks and the board json) are kept in records/target/cook_floor_not_final/orig
   (regenerated from git by --orig <sha>).
@@ -227,24 +227,31 @@ def litter(bpy, g, h, houses, seed):
     windy = F.blur((edge | hedge).astype(np.float32), 0.35 / STEP) > 0.012
     gutter = np.isin(g, [ID['gutter']])
     objs = []
-    bags, bags_open, paper, card, cloth, weeds, mattress, couch, ash, char, deadlawn, paths, bins = ([] for _ in range(13))
+    bags, bags_open, paper, card, cloth, weeds, mattress, couch, ash, char, deadlawn, paths, bins, tracks = ([] for _ in range(14))
     tidy = rng.randint(len(houses)) if len(houses) else -1
     burnt = (tidy + 1 + rng.randint(max(1, len(houses) - 1))) % len(houses) if len(houses) > 1 else -1
     fires = []
     for i, (xa, xb, yfront) in enumerate(fronts):
         xc = (xa + xb) / 2
-        # the walk in front of the house: the first walk cell south of the front, then the road's edge beyond it
-        r, c = cell(xc, yfront - 0.6); rr = r
-        while rr < ny - 1 and not concrete[rr, c]: rr += 1
-        walk_r = rr
-        while rr < ny - 1 and not road[rr, c]: rr += 1
-        if rr >= ny - 1 or (rr - r) * STEP > 16: continue
-        # 1. THE WORN PATH from the door to the walk: compacted, darker, a man's width
+        # 4. THE BURNED HOUSE: its front was a fire; the soot climbs its wall and lies on its yard
+        if i == burnt:
+            fires.append((xc + rng.uniform(-1.5, 1.5), yfront + 0.6, 3.2))
+        # the street this house is on: the nearer of the road south of its front and the road north of its back
+        best = None
+        for step, (x0_, y0_) in ((1, (xc, yfront - 0.6)), (-1, (xc, yfront + 9.8))):
+            r, c = cell(x0_, y0_); rr = r
+            while 0 < rr < ny - 1 and not concrete[rr, c] and not road[rr, c]: rr += step
+            walk_r = rr
+            while 0 < rr < ny - 1 and not road[rr, c]: rr += step
+            if 0 < rr < ny - 1 and abs(rr - r) * STEP <= 16 and (best is None or abs(rr - r) < best[0]): best = (abs(rr - r), step, r, c, walk_r, rr)
+        if best is None: continue
+        _, step, r, c, walk_r, rr = best
+        # 1. THE WORN PATH from the door to the walk: compacted, darker, a man's width (only where the door faces the street)
         y_w = at(walk_r, c)[1]
-        if yfront - y_w > 0.8:
+        if step == 1 and yfront - y_w > 0.8:
             paths.append((xc + rng.uniform(-1.5, 1.5), (yfront + y_w) / 2, at(r, c)[2] - 0.004, rng.uniform(0.7, 1.0), yfront - y_w + 0.4, 0.012, rng.uniform(-0.08, 0.08), 0.0))
         # 2. THE DEAD LAWN: straw and bare patches across the front yard
-        if i != tidy and yfront - y_w > 1.6:
+        if i != tidy and step == 1 and yfront - y_w > 1.6:
             for _ in range(rng.randint(6, 16)):
                 px, py = rng.uniform(xa, xb), rng.uniform(y_w + 0.4, yfront - 0.3)
                 if not dirt[cell(px, py)]: continue
@@ -252,21 +259,45 @@ def litter(bpy, g, h, houses, seed):
                 deadlawn.append((px, py, at(*cell(px, py))[2] - 0.01, s_, s_ * rng.uniform(0.6, 1.0), 0.035, rng.uniform(0, 6.3), 0.0))
         # 3. THE BAGS at the curb, out for a pickup that never came
         if rng.rand() < 0.85 or i == tidy:
-            x, y, z = at(rr - int(0.55 / STEP), c)
+            x, y, z = at(rr - step * int(0.55 / STEP), c)
             n = 3 if i == tidy else rng.randint(4, 10)
             for k in range(n):
                 s_ = 0.6 if i == tidy else rng.uniform(0.5, 0.78)
-                px, py = x + (k - n / 2) * 0.45 + rng.uniform(-0.2, 0.2), y + rng.uniform(-0.2, 0.5)
+                px, py = x + (k - n / 2) * 0.45 + rng.uniform(-0.2, 0.2), y + step * rng.uniform(-0.2, 0.5)
                 torn = i != tidy and rng.rand() < 0.35
                 (bags_open if torn else bags).append((px, py, z - 0.03, s_ * 1.15, s_, s_ * (0.5 if torn else 0.8), rng.uniform(0, 6.3), 0.0))
                 if torn:                                           # what spilled out of it, along the gutter
                     for _ in range(rng.randint(5, 12)):
-                        paper.append((px + rng.normal(0, 0.9), py + rng.normal(-0.4, 0.5), z + 0.005, rng.uniform(0.08, 0.32), rng.uniform(0.06, 0.24), 0.012, rng.uniform(0, 6.3), 0.0))
+                        paper.append((px + rng.normal(0, 0.9), py + rng.normal(-0.4 * step, 0.5), z + 0.005, rng.uniform(0.08, 0.32), rng.uniform(0.06, 0.24), 0.012, rng.uniform(0, 6.3), 0.0))
             if i != tidy and rng.rand() < 0.5:                     # a wheelie bin knocked over in the gutter
-                bins.append((x + rng.uniform(-2, 2), y - 0.6, z, 0.62, 1.05, 0.62, rng.uniform(-0.4, 0.4) + math.pi / 2 * rng.randint(2), 0.0))
-        # 4. THE BURNED HOUSE: its front was a fire; the soot climbs its wall and lies on its yard and walk
-        if i == burnt:
-            fires.append((xc + rng.uniform(-1.5, 1.5), yfront + 0.6, 3.2))
+                bins.append((x + rng.uniform(-2, 2), y - 0.6 * step, z, 0.62, 1.05, 0.62, rng.uniform(-0.4, 0.4) + math.pi / 2 * rng.randint(2), 0.0))
+    # 4b. DESIRE LINES across the open dirt (where people walked for years, the short way) and one set of tyre tracks
+    open_dirt = np.argwhere(dirt & ~windy)
+    def strip(lst, pts, width, z_off=-0.004):
+        for (x0_, y0_), (x1_, y1_) in zip(pts[:-1], pts[1:]):
+            L_ = math.hypot(x1_ - x0_, y1_ - y0_)
+            if L_ < 1e-3: continue
+            r_, c_ = cell((x0_ + x1_) / 2, (y0_ + y1_) / 2)
+            if under[r_, c_] or road[r_, c_]: continue
+            lst.append(((x0_ + x1_) / 2, (y0_ + y1_) / 2, float(h[r_, c_]) + z_off, L_ + width * 0.6, width, 0.004, math.atan2(y1_ - y0_, x1_ - x0_), 0.0))
+    if len(open_dirt) > 2000:
+        for _ in range(0):                                      # desire lines as strips read as planks (measured 10/20): none
+            r0, c0 = open_dirt[rng.randint(len(open_dirt))]; x, y, _z = at(r0, c0)
+            a_ = rng.uniform(0, 6.3); pts = [(x, y)]
+            for k in range(rng.randint(8, 20)):
+                a_ += rng.normal(0, 0.18); x += math.cos(a_) * 1.5; y += math.sin(a_) * 1.5
+                if not (0 < x < SIDE and 0 < y < SIDE): break
+                pts.append((x, y))
+            strip(paths, pts, rng.uniform(0.55, 0.85))
+        if rng.rand() < 0.8:
+            r0, c0 = open_dirt[rng.randint(len(open_dirt))]; x, y, _z = at(r0, c0)
+            a_ = rng.uniform(0, 6.3); A_, B_ = [], []
+            for k in range(28):
+                a_ += rng.normal(0, 0.05); x += math.cos(a_) * 1.4; y += math.sin(a_) * 1.4
+                if not (-2 < x < SIDE + 2 and -2 < y < SIDE + 2): break
+                nx_, ny_ = -math.sin(a_) * 0.8, math.cos(a_) * 0.8
+                A_.append((x + nx_, y + ny_)); B_.append((x - nx_, y - ny_))
+            strip(tracks, A_, 0.3, -0.006); strip(tracks, B_, 0.3, -0.006)
     # 5. THE BIG THINGS dragged out: a mattress, a couch, on a yard or the walk
     yard = np.argwhere(dirt & ~windy) if (dirt & ~windy).any() else np.argwhere(dirt)
     walk = np.argwhere(concrete)
@@ -320,7 +351,7 @@ def litter(bpy, g, h, houses, seed):
              couch=material(bpy, 'couch', ['clay_teal', 'clay_rust', 'metal_painted'][rng.randint(3)], 1),
              ash=material(bpy, 'ash', 'tape_grey', 1), char=material(bpy, 'char', 'cloth_black', 1), stone=material(bpy, 'stone', 'clay_bone', 1),
              deadlawn=material(bpy, 'deadlawn', 'tape_masking', 3, 0.9), deadlawn_b=material(bpy, 'deadlawn_b', 'clay_bone', 1, 1.1),
-             path=material(bpy, 'path', 'clay_bone', 2, 0.78), bin=material(bpy, 'bin', ['metal_painted', 'clay_teal', 'tape_grey'][rng.randint(3)], 1))
+             path=material(bpy, 'path', 'clay_bone', 3, 0.86), track=material(bpy, 'track', 'clay_bone', 1, 1.05), bin=material(bpy, 'bin', ['metal_painted', 'clay_teal', 'tape_grey'][rng.randint(3)], 1))
     half = len(deadlawn) // 2
     for nm, tpl, items, mat, jit in (('junk_bags', lump, bags, 'bag', 0.35), ('junk_bags_open', lump, bags_open, 'bag_open', 0.5),
                                      ('junk_paper', box, paper, 'paper', 0), ('junk_card', box, card, 'card', 0.2),
@@ -330,7 +361,7 @@ def litter(bpy, g, h, houses, seed):
                                      ('junk_ash', lump, ash, 'ash', 0.3), ('junk_fire_stones', lump, [c_[1:] for c_ in char if c_[0] == 'stone'], 'stone', 0.3),
                                      ('junk_fire_sticks', box, [c_[1:] for c_ in char if c_[0] == 'stick'], 'char', 0.2),
                                      ('junk_deadlawn', lump, deadlawn[:half], 'deadlawn', 0.5), ('junk_deadlawn_b', lump, deadlawn[half:], 'deadlawn_b', 0.5),
-                                     ('junk_paths', box, paths, 'path', 0.0), ('junk_bins', box, bins, 'bin', 0.05)):
+                                     ('junk_paths', box, paths, 'path', 0.0), ('junk_tracks', box, tracks, 'track', 0.0), ('junk_bins', box, bins, 'bin', 0.05)):
         objs.append(instances(bpy, nm, tpl, items, M[mat], jit, rng))
     # 9. A SHOPPING CART on its side, COOK's own, imported untouched (one block in two)
     if len(walk) and rng.rand() < 0.5:
@@ -351,7 +382,7 @@ def litter(bpy, g, h, houses, seed):
             print('  cart skipped:', e, flush=True)
     counts = dict(bags=len(bags) + len(bags_open), paper=len(paper), card=len(card), cloth=len(cloth), weeds=len(weeds),
                   mattresses=len(mattress), couches=len(couch) // 4, fires=len(fires), dead_lawn=len(deadlawn), paths=len(paths),
-                  bins=len(bins), tidy_house=int(tidy), burnt_house=int(burnt))
+                  bins=len(bins), tracks=len(tracks), tidy_house=int(tidy), burnt_house=int(burnt))
     return [o for o in objs if o], fires, counts
 
 
@@ -420,7 +451,11 @@ def swap(bid):
     dst = os.path.join(SHIP, man['blocks'][bid]['src'])
     a = Image.open(src).convert('RGB'); b = Image.open(dst)
     assert a.size == b.size == (F.W, F.H), (a.size, b.size)
-    a.save(dst, quality=90, method=6)
+    a.save(dst, quality=76, method=6)          # 90 was 1.5 MB a block, 2.6x the old: a board is a dozen of them on a phone
+    import hashlib
+    led = os.path.join(OUT, 'swapped.json'); L = json.load(open(led)) if os.path.exists(led) else {}
+    L[bid] = dict(file=os.path.relpath(dst, R), sha1=hashlib.sha1(open(dst, 'rb').read()).hexdigest(), master=os.path.relpath(src, R))
+    json.dump(L, open(led, 'w'), indent=1)
     print('  swapped', bid, '->', os.path.relpath(dst, R), os.path.getsize(dst) // 1024, 'KB', flush=True)
 
 

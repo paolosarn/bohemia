@@ -1,0 +1,12 @@
+{
+ "subs.3": {
+  "file": "slices/fight_ground/block_subs_3.webp",
+  "sha1": "94b940354749ed274c3bec6ac042069c865bd062",
+  "master": "records/target/cook_floor_not_final/block_subs_3.webp"
+ },
+ "subs.0": {
+  "file": "slices/fight_ground/block_subs_0.webp",
+  "sha1": "db22310daaaa640369690e59d5564df5879d6a14",
+  "master": "records/target/cook_floor_not_final/block_subs_0.webp"
+ }
+}

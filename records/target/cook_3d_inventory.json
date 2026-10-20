@@ -5,13 +5,68 @@
  "rule": "a family's count is the pictures the game still draws flat; it goes down only when a rig-rendered picture has replaced the file in the game (same file, same size, same anchor)",
  "order": "biggest on his screen first",
  "families": {
-  "fight_floor": {"where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day", "total": 35, "flat": 35, "in_3d": []},
-  "fight_cover": {"where": "the fight, slices/fight_ground/cover_*.webp (cars, walls, shed, trailer, barrier, dumpster, fence, pump, steps, dock, slot bank, table, pillar, outcrop, rocks, rubble)", "total": 51, "flat": 51, "in_3d": []},
-  "settlement_backdrops": {"where": "the settlement screen, slices/settlement_ground_packs/*.webp and slices/settlement_ground/home_0*.webp (day and night)", "total": 14, "flat": 14, "in_3d": []},
-  "map_districts": {"where": "the map (BOHEMIA_CITY_WORLD.html), HERO_SRC in slices/BOHEMIA_CITY_TILES_01..09.js: every district picture the valley is laid from, the mountain the biggest", "total": 69, "flat": 69, "in_3d": []},
-  "fight_floor_futures": {"where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp", "total": 70, "flat": 70, "in_3d": []},
-  "fight_lights": {"where": "the fight, slices/fight_ground/light_*.webp (two lamp posts, the oil drum, the slot glow)", "total": 4, "flat": 4, "in_3d": []},
-  "item_icons": {"where": "the settlement's market and the crew screen, slices/market_icons/*.png (2 buildings, 4 supplies, 12 weapons)", "total": 18, "flat": 18, "in_3d": []}
+  "fight_floor": {
+   "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
+   "total": 35,
+   "flat": 33,
+   "in_3d": [
+    "subs.0",
+    "subs.3"
+   ]
+  },
+  "fight_cover": {
+   "where": "the fight, slices/fight_ground/cover_*.webp (cars, walls, shed, trailer, barrier, dumpster, fence, pump, steps, dock, slot bank, table, pillar, outcrop, rocks, rubble)",
+   "total": 51,
+   "flat": 35,
+   "in_3d": [
+    "car_drive",
+    "car_kerb",
+    "car_lane",
+    "dumpster",
+    "outcrop",
+    "rock_0",
+    "rock_1",
+    "rock_2",
+    "rock_3",
+    "rubble_0",
+    "rubble_1",
+    "shed",
+    "trailer",
+    "wall",
+    "wall_broken",
+    "wall_corner"
+   ]
+  },
+  "settlement_backdrops": {
+   "where": "the settlement screen, slices/settlement_ground_packs/*.webp and slices/settlement_ground/home_0*.webp (day and night)",
+   "total": 14,
+   "flat": 14,
+   "in_3d": []
+  },
+  "map_districts": {
+   "where": "the map (BOHEMIA_CITY_WORLD.html), HERO_SRC in slices/BOHEMIA_CITY_TILES_01..09.js: every district picture the valley is laid from, the mountain the biggest",
+   "total": 69,
+   "flat": 69,
+   "in_3d": []
+  },
+  "fight_floor_futures": {
+   "where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp",
+   "total": 70,
+   "flat": 70,
+   "in_3d": []
+  },
+  "fight_lights": {
+   "where": "the fight, slices/fight_ground/light_*.webp (two lamp posts, the oil drum, the slot glow)",
+   "total": 4,
+   "flat": 4,
+   "in_3d": []
+  },
+  "item_icons": {
+   "where": "the settlement's market and the crew screen, slices/market_icons/*.png (2 buildings, 4 supplies, 12 weapons)",
+   "total": 18,
+   "flat": 18,
+   "in_3d": []
+  }
  },
  "already_3d": {
   "fight_people_and_beasts": "slices/fight_rig/ (60 sheets: the player, the cast, the thirteen gangs, two tiers, three beasts), COMBAT c40ec268",
@@ -21,13 +76,34 @@
  },
  "not_drawn": {
   "why": "measured at 0 px on every screen: the walk is dead (9/28) and these banks only fed it, or a newer folder replaced them",
-  "TP_TILES": 8674, "SA_TILES": 96, "SIG_TILES": 88, "PROP_B64": 105, "IN_DOOR_B64": 10,
+  "TP_TILES": 8674,
+  "SA_TILES": 96,
+  "SIG_TILES": 88,
+  "PROP_B64": 105,
+  "IN_DOOR_B64": 10,
   "slices/settlement_ground (town, camp, fortress; replaced by settlement_ground_packs)": 12,
-  "slices/fight_ground/kit_cover": 16, "slices/fight_ground/kit_street (baked into the blocks)": 22,
-  "slices/cook4_map_houses": 3, "slices/fight_beasts": 1, "slices/settlement_people": 25
+  "slices/fight_ground/kit_cover": 16,
+  "slices/fight_ground/kit_street (baked into the blocks)": 22,
+  "slices/cook4_map_houses": 3,
+  "slices/fight_beasts": 1,
+  "slices/settlement_people": 25
  },
- "total_flat": 261,
+ "total_flat": 243,
  "log": [
-  {"at": "10/20 start", "total_flat": 261}
+  {
+   "at": "10/20 start",
+   "total_flat": 261
+  },
+  {
+   "at": "10/20 the suburb's first two blocks grimier, the first sixteen cover pieces",
+   "total_flat": 243,
+   "fight_floor": 33,
+   "fight_cover": 35,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 4,
+   "item_icons": 18
+  }
  ]
 }
