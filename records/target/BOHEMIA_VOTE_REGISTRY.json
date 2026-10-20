@@ -14392,7 +14392,12 @@
     "how": "image",
     "src": "../records/target/COOK_THE_FLOOR_THROUGH_THE_RIG.webp",
     "first": "../records/target/vote_first/cook-the-floor-through-the-rig-10-19.webp",
-    "firstAt": [0, 500, 1170, 1030]
+    "firstAt": [
+     0,
+     500,
+     1170,
+     1030
+    ]
    },
    "question": "Is this the floor? (YES, or NO and what is wrong)",
    "placeholder_of": "slices/fight_ground block pictures (COMBAT lays them; nothing in the game changes before his vote)",
@@ -18525,6 +18530,48 @@
    "said": "",
    "when": "10/19",
    "at": "2026-10-19"
+  },
+  {
+   "id": "combat-the-tear-and-the-floor-10-19",
+   "vote": "up",
+   "said": "Not final looks like dog shit",
+   "when": "10/19",
+   "at": "2026-10-20"
+  },
+  {
+   "id": "combat-smooth-10-19",
+   "vote": "up",
+   "said": "",
+   "when": "10/19",
+   "at": "2026-10-20"
+  },
+  {
+   "id": "combat-the-fight-wears-the-3d-models-10-19",
+   "vote": "up",
+   "said": "",
+   "when": "10/19",
+   "at": "2026-10-20"
+  },
+  {
+   "id": "cook-the-strip-and-town-through-the-rig-10-19",
+   "vote": "up",
+   "said": "",
+   "when": "10/19",
+   "at": "2026-10-20"
+  },
+  {
+   "id": "cook-the-floor-through-the-rig-10-19",
+   "vote": "up",
+   "said": "Not final",
+   "when": "10/19",
+   "at": "2026-10-20"
+  },
+  {
+   "id": "cook-the-ranches-through-the-rig-10-19",
+   "vote": "up",
+   "said": "",
+   "when": "10/19",
+   "at": "2026-10-20"
   }
  ]
 }
