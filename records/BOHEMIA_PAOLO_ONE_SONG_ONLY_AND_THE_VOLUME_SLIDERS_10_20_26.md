@@ -12,3 +12,6 @@
 - 'anything volume wise, I should see a slider for it in the settings': the settings card carries a slider for music, ambience and effects at least, each saved.
 
 ## The ruling (rule 122)
+
+## Amended the same hour
+His words: "And ALL OF THE OVERWORLD NIGHT TRACKS TOO". The allowed set is REPO MAN THE MACHINE PARTY plus every song in his OVERWORLD NIGHT category (CAT_DEFAULTS: CAMPFIRE CONFESSION, THE VAULT, THE CHOIR THAT STAYED, THE ORGAN IN THE DROWNED CHAPEL and the old overworld six moved to NIGHT on 7/19). Everything else silent.
