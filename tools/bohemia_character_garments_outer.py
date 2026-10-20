@@ -246,22 +246,55 @@ def pieces(G, X):
         def keepc(fm, c): return (fm in ('torso', 'upper') and c.z > 0.935) and not (c.y < cy_f and abs(c.x) < ohw * 0.7)
         made.append(cloth('capelet', keepc, lambda p: weight + 0.020 + 0.022 * sstep(1.08, 0.94, p.z), mid, rim=0.006, fams=('torso', 'upper')))
 
-    # 6. THE PONCHO: one blanket hung from the shoulders over the arms to the hip, a neck hole, the hem fringed, two bands
+    # 6. THE PONCHO: one blanket hung from the shoulders over the arms to the hip, a neck hole, the hem fringed, two bands.
+    # Cycle 2 (looking, DUST PONCHO): cut as the skirt's tube, its section took in the hanging arms and the hang rule never
+    # let it narrow, so it read as a cake 1 m across. It is cut here to its own pattern: a ring at the neck hole, out over the
+    # shoulders to just past the arms, then falling straight (a square of cloth, fuller at the corners), rigid on the chest.
     if poncho:
-        def pw(z, a):
-            t = sstep(0.90, 1.02, z); return {'torso_joint_3': t, 'Skeleton_torso_joint_2': 1 - t}
-        hem_p = lambda a: 0.60 + 0.012 * math.sin(17 * a) + 0.035 * (0.5 + 0.5 * math.cos(2 * a))   # longer at the sides: a square of cloth
-        g = tube('poncho', 1.10, hem_p, lambda z: 0.022 + 0.020 * sstep(1.08, 0.80, z), mid,
-                 fams=('torso', 'upper', 'fore', 'neck'), thick=0.012, wfn=pw)
+        bm = bmesh.new(); segs = 64
+        s_sh = section(1.02, ('torso', 'upper')); sh = s_sh['rx'] + 0.035
+        cyc = section(1.00, ('torso',))['cy']
+        # cycle 3 (looking): a level hem and a 10 cm shoulder read as a box; the game's poncho hangs to a point in front, so
+        # the hem falls to a point front and back (a diamond of cloth), and the shoulder slopes from the neck to past the arm
+        hem_p = lambda a: 0.640 + 0.010 * math.sin(17 * a) - 0.120 * abs(math.sin(a)) ** 2.5
+        zs = [1.125 - 0.012 * i for i in range(70)]
+        rows = []
+        for z in zs:
+            row = []
+            for i in range(segs):
+                a = 2 * math.pi * i / segs; hz = hem_p(a); zz = max(z, hz)
+                sec = section(max(zz, 0.70), ('torso',)) or s_sh
+                t = sstep(1.115, 0.930, zz) ** 0.7               # 0 at the neck hole, 1 once over the shoulders: a slope, not a ledge
+                X_ = 0.078 + (sh - 0.078) * t + 0.035 * sstep(1.0, 0.62, zz)
+                F_ = 0.078 + (max(sec['front'], 0.11) + 0.040 - 0.078) * t
+                B_ = 0.078 + (max(sec['back'], 0.10) + 0.040 - 0.078) * t
+                ca, sa = math.cos(a), math.sin(a)
+                ex = 2.0 / 3.0                                     # a superellipse: a square of cloth, fuller at the corners
+                xx = X_ * math.copysign(abs(ca) ** ex, ca); yy = (B_ if sa > 0 else F_) * math.copysign(abs(sa) ** ex, sa)
+                row.append(bm.verts.new(V((xx, cyc + yy, zz))))
+            rows.append(row)
+        for j in range(len(rows) - 1):
+            for i in range(segs):
+                bm.faces.new((rows[j][i], rows[j][(i + 1) % segs], rows[j + 1][(i + 1) % segs], rows[j + 1][i]))
+        bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-5)
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.calc_area() < 1e-9], context='FACES')
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+        for v in bm.verts: v.co = Mi @ v.co
+        me = X['bpy'].data.meshes.new('%s_poncho' % tag); bm.to_mesh(me); bm.free()
+        g = X['bpy'].data.objects.new('%s_poncho' % tag, me); sc.collection.objects.link(g)
+        g.parent = body.parent; g.matrix_world = M
+        arm_ = X['arm']; full = lambda bn: next(b.name for b in arm_.data.bones if b.name.endswith(bn) or b.name == bn)
+        vg_up = g.vertex_groups.new(name=full('torso_joint_3')); vg_lo = g.vertex_groups.new(name=full('Skeleton_torso_joint_2'))
+        for v in me.vertices:
+            t = sstep(0.80, 1.00, (M @ v.co).z); vg_up.add([v.index], t, 'REPLACE'); vg_lo.add([v.index], 1.0 - t, 'REPLACE')
+        g = X['finish'](g, mid, 'poncho', 1, 0.012)
+        # the woven bands: two stripes of the ramp's light, painted on the blanket's own faces above the hem
+        g.data.materials.append(mat('poncho_band', lt)); bi = len(g.data.materials) - 1
+        for f in g.data.polygons:
+            z = (M @ f.center).z
+            if 0.665 < z < 0.690 or 0.710 < z < 0.722: f.material_index = bi
         made.append(g)
-        made.append(band('poncho_neck', [neck_ring(lambda c: 1.120, 0.020)], 0.026, 0.012, dk))
-        # the woven bands: two rings of the ramp's light round the blanket above the hem (a separate band of cloth on it)
-        for zz in (0.70, 0.73):
-            ring = []
-            for i in range(64):
-                a = 2 * math.pi * i / 64; s_ = section(zz, ('torso', 'upper', 'fore')) or section(zz, ('torso',))
-                ring.append((V(((s_['rx'] + 0.050) * math.cos(a), s_['cy'] + ((s_['back'] if math.sin(a) > 0 else s_['front']) + 0.050) * math.sin(a), zz)), V((math.cos(a), math.sin(a), 0))))
-            made.append(band('poncho_band_%d' % int(zz * 100), [ring], 0.014, 0.004, lt))
+        made.append(band('poncho_neck', [neck_ring(lambda c: 1.118, 0.016)], 0.024, 0.012, dk))
 
     # 7. THE APRON: a panel down the front on a strap round the neck and ties at the waist (a smith's is heavy leather, riveted)
     if apron:
