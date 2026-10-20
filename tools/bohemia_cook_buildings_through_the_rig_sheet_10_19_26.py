@@ -98,13 +98,15 @@ def sheet(rows, title, intro, question, out):
         if k == 'img': return v.height + PAD
         return len(wrap(d0, v, FONT[k], W - 2 * PAD)) * int(FONT[k].size * 1.3) + PAD
     H = PAD + sum(hgt(k, v) for k, v in blocks)
-    sh = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(sh); y = PAD
+    sh = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(sh); y = PAD; first = None
     for k, v in blocks:
-        if k == 'img': sh.paste(v, (PAD, y)); y += v.height + PAD; continue
+        if k == 'img':
+            if first is None: first = [0, max(0, y - 70), W, v.height + 70]      # the first NOW | NEW pair: the card's first picture
+            sh.paste(v, (PAD, y)); y += v.height + PAD; continue
         col = {'title': (240, 226, 196), 'head': (226, 170, 96), 'text': (226, 222, 214), 'small': (190, 186, 178), 'q': (240, 200, 120), 'cap': (170, 190, 220)}[k]
         for l in wrap(d, v, FONT[k], W - 2 * PAD): d.text((PAD, y), l, font=FONT[k], fill=col); y += int(FONT[k].size * 1.3)
         y += PAD
-    sh.save(os.path.join(R, out), quality=84, method=6); print(out, sh.size, os.path.getsize(os.path.join(R, out)))
+    sh.save(os.path.join(R, out), quality=84, method=6); print(out, sh.size, os.path.getsize(os.path.join(R, out)), 'FIRST', *first)
 
 
 if __name__ == '__main__':
