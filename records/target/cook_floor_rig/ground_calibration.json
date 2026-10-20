@@ -3,7 +3,7 @@
   "caliche": 0.879,
   "desert": 0.8887,
   "rough": 0.7715,
-  "playa": 0.7818,
+  "playa": 0.7419,
   "concrete": 0.9929,
   "asphalt": 0.7953,
   "track": 0.6466,
@@ -146,6 +146,7 @@
  },
  "how": "a flat band of each ground through the rig (wear 0.25, the one sun, the fill), its median sRGB against his YES street's; the value multiplier on the palette base that meets it",
  "notes": [
-  "playa target 182,171,150 -> 176,165,145 (wash.0 read 9.2 on B3 against 9: the wash bed a shade too pale beside the desert); its multiplier scaled by the linear ratio, 0.926"
+  "playa target 182,171,150 -> 176,165,145 (wash.0 read 9.2 on B3 against 9: the wash bed a shade too pale beside the desert); its multiplier scaled by the linear ratio, 0.926",
+  "playa target -> 171,160,140 (the wash bed measured 163.7 against the desert 158.8 on wash.0, B3 9.2): multiplier x 0.949"
  ]
 }

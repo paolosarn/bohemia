@@ -84,7 +84,7 @@ MATS = {
     'caliche':  dict(role=('clay_bone', 2), target=(170, 157, 135), h=0.11, alt=('clay_bone', 1), alt_amt=0.05, grit=0.62, speck=(45, 0.68)),
     'desert':   dict(role=('clay_bone', 2), target=(174, 159, 134), h=0.04, alt=('tape_masking', 2), alt_amt=0.1, grit=0.6, speck=(40, 0.66)),
     'rough':    dict(role=('clay_bone', 2), target=(160, 149, 130), h=0.06, alt=('clay_bone', 1), alt_amt=0.1, grit=0.62, speck=(36, 0.68)),
-    'playa':    dict(role=('clay_bone', 3), target=(176, 165, 145), h=-0.22, alt=('clay_bone', 2), alt_amt=0.08, grit=0.2, speck=(60, 0.25),
+    'playa':    dict(role=('clay_bone', 3), target=(171, 160, 140), h=-0.22, alt=('clay_bone', 2), alt_amt=0.08, grit=0.2, speck=(60, 0.25),
                      mud=dict(cell=0.38, width=0.032, depth=0.9)),
     'track':    dict(role=('clay_bone', 2), target=(152, 140, 120), h=-0.02, alt=('clay_bone', 1), alt_amt=0.15, grit=0.3, speck=(40, 0.36)),
     'lawn':     dict(role=('metal_painted', 2), target=(104, 116, 74), h=0.12, alt=('metal_painted', 1), alt_amt=0.3, grit=0.18, speck=(110, 0.25),
