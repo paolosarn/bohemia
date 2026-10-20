@@ -1,0 +1,933 @@
+{
+ "what": "CHARACTER [every old asset into the new look], GARMENTS OUTER: the 74 canon coats, the options read off the alpha",
+ "shapes": {
+  "TRENCH": [
+   "SOOT TRENCH",
+   "DUST BROWN TRENCH",
+   "SLATE TRENCH"
+  ],
+  "DUSTER": [
+   "WASTELAND DUSTER",
+   "BONE DUSTER",
+   "KHAKI DUSTER",
+   "COBALT DUSTER",
+   "ROSE DUSTER",
+   "GRASS DUSTER"
+  ],
+  "LONGCOAT": [
+   "DRIFTER'S COAT",
+   "RANGER LONGCOAT",
+   "FIELD GREEN COAT",
+   "STORM GREY LONGCOAT",
+   "SAGE FIELD COAT",
+   "BRICK LONGCOAT",
+   "COBALT COAT"
+  ],
+  "SPLIT TAIL": [
+   "SPLIT-TAIL DUSTER",
+   "BRICK SPLIT-TAIL DUSTER",
+   "SPLIT-TAIL COAT",
+   "LEATHER SPLIT-TAIL COAT"
+  ],
+  "CAR COAT": [
+   "CAR COAT",
+   "SAND CAR COAT",
+   "SAGE CAR COAT",
+   "SLATE CAR COAT",
+   "OLIVE CAR COAT",
+   "BRICK CAR COAT",
+   "GRASS CAR COAT"
+  ],
+  "CHORE COAT": [
+   "CHORE COAT",
+   "BARN COAT",
+   "OLIVE CHORE COAT",
+   "STORM CHORE COAT",
+   "RUST WORK COAT",
+   "SPLIT-TAIL WORK COAT",
+   "COBALT CHORE COAT"
+  ],
+  "JACKET": [
+   "DENIM JACKET",
+   "FIELD JACKET",
+   "LEATHER JACKET",
+   "WORK JACKET",
+   "STORM JACKET",
+   "KHAKI JACKET",
+   "OXBLOOD JACKET"
+  ],
+  "VEST": [
+   "LEATHER VEST",
+   "TACTICAL VEST",
+   "QUILTED VEST",
+   "DENIM VEST",
+   "STORM VEST",
+   "OLIVE VEST",
+   "RUST VEST",
+   "SAGE VEST",
+   "BONE VEST"
+  ],
+  "COCOON COAT": [
+   "SAND COCOON COAT",
+   "TEAL COCOON COAT",
+   "BONE COCOON COAT",
+   "COCOON COAT",
+   "SLATE COCOON COAT",
+   "COBALT COCOON COAT"
+  ],
+  "COMMA COAT": [
+   "COMMA COAT",
+   "SLATE COMMA COAT",
+   "BRICK COMMA COAT"
+  ],
+  "WRAP COAT": [
+   "LEATHER WRAP COAT",
+   "WRAP COAT",
+   "ASH WRAP COAT",
+   "GRASS WRAP COAT"
+  ],
+  "ASYMMETRIC COAT": [
+   "ASYMMETRIC COAT",
+   "ASH ASYM COAT",
+   "OLIVE ASYM COAT"
+  ],
+  "PONCHO": [
+   "DUST PONCHO",
+   "OXBLOOD PONCHO",
+   "STORM PONCHO"
+  ],
+  "HOODED PONCHO": [
+   "HOODED DUST PONCHO"
+  ],
+  "APRON": [
+   "SMITH'S APRON",
+   "TRADES APRON"
+  ],
+  "HALF APRON": [
+   "LEATHER HALF APRON",
+   "DUST HALF APRON"
+  ]
+ },
+ "coats": [
+  {
+   "name": "WASTELAND DUSTER",
+   "tag": "outer_wasteland_duster",
+   "fn": "genCoat",
+   "ramp": "DUSTSAND",
+   "shape": "DUSTER",
+   "len": 0.88,
+   "hem_z": 0.158,
+   "options": []
+  },
+  {
+   "name": "SOOT TRENCH",
+   "tag": "outer_soot_trench",
+   "fn": "genCoat",
+   "ramp": "ASHGREY",
+   "shape": "TRENCH",
+   "len": 0.9,
+   "hem_z": 0.147,
+   "options": []
+  },
+  {
+   "name": "DRIFTER'S COAT",
+   "tag": "outer_drifters_coat",
+   "fn": "genCoat",
+   "ramp": "OXBLOOD",
+   "shape": "LONGCOAT",
+   "len": 0.82,
+   "hem_z": 0.193,
+   "options": []
+  },
+  {
+   "name": "RANGER LONGCOAT",
+   "tag": "outer_ranger_longcoat",
+   "fn": "genCoat",
+   "ramp": "COPPEROX",
+   "shape": "LONGCOAT",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": []
+  },
+  {
+   "name": "FIELD GREEN COAT",
+   "tag": "outer_field_green_coat",
+   "fn": "genCoat",
+   "ramp": "FIELDGRN",
+   "shape": "LONGCOAT",
+   "len": 0.8,
+   "hem_z": 0.204,
+   "options": []
+  },
+  {
+   "name": "DUST BROWN TRENCH",
+   "tag": "outer_dust_brown_trench",
+   "fn": "genCoat",
+   "ramp": "DUSTBRN",
+   "shape": "TRENCH",
+   "len": 0.9,
+   "hem_z": 0.147,
+   "options": []
+  },
+  {
+   "name": "STORM GREY LONGCOAT",
+   "tag": "outer_storm_grey_longcoat",
+   "fn": "genCoat",
+   "ramp": "STORMGRY",
+   "shape": "LONGCOAT",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": []
+  },
+  {
+   "name": "LEATHER VEST",
+   "tag": "outer_leather_vest",
+   "fn": "genCoat",
+   "ramp": "LEATHERV",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "TACTICAL VEST",
+   "tag": "outer_tactical_vest",
+   "fn": "genCoat",
+   "ramp": "TACV",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "QUILTED VEST",
+   "tag": "outer_quilted_vest",
+   "fn": "genCoat",
+   "ramp": "QUILTV",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "DENIM VEST",
+   "tag": "outer_denim_vest",
+   "fn": "genCoat",
+   "ramp": "DENIM",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "SAGE FIELD COAT",
+   "tag": "outer_sage_field_coat",
+   "fn": "genCoat",
+   "ramp": "SAGE",
+   "shape": "LONGCOAT",
+   "len": 0.8,
+   "hem_z": 0.204,
+   "options": []
+  },
+  {
+   "name": "SLATE TRENCH",
+   "tag": "outer_slate_trench",
+   "fn": "genCoat",
+   "ramp": "SLATEW",
+   "shape": "TRENCH",
+   "len": 0.9,
+   "hem_z": 0.147,
+   "options": []
+  },
+  {
+   "name": "BONE DUSTER",
+   "tag": "outer_bone_duster",
+   "fn": "genCoat",
+   "ramp": "BONECLO",
+   "shape": "DUSTER",
+   "len": 0.88,
+   "hem_z": 0.158,
+   "options": []
+  },
+  {
+   "name": "BRICK LONGCOAT",
+   "tag": "outer_brick_longcoat",
+   "fn": "genCoat",
+   "ramp": "BRICK",
+   "shape": "LONGCOAT",
+   "len": 0.84,
+   "hem_z": 0.181,
+   "options": []
+  },
+  {
+   "name": "KHAKI DUSTER",
+   "tag": "outer_khaki_duster",
+   "fn": "genCoat",
+   "ramp": "KHAKI",
+   "shape": "DUSTER",
+   "len": 0.88,
+   "hem_z": 0.158,
+   "options": []
+  },
+  {
+   "name": "STORM VEST",
+   "tag": "outer_storm_vest",
+   "fn": "genCoat",
+   "ramp": "STORMGRY",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "OLIVE VEST",
+   "tag": "outer_olive_vest",
+   "fn": "genCoat",
+   "ramp": "OLIVEDRAB",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "RUST VEST",
+   "tag": "outer_rust_vest",
+   "fn": "genCoat",
+   "ramp": "RUSTIRON",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "DENIM JACKET",
+   "tag": "outer_denim_jacket",
+   "fn": "genCoat",
+   "ramp": "DENIM",
+   "shape": "JACKET",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "jacket"
+   ]
+  },
+  {
+   "name": "FIELD JACKET",
+   "tag": "outer_field_jacket",
+   "fn": "genCoat",
+   "ramp": "FIELDGRN",
+   "shape": "JACKET",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "jacket"
+   ]
+  },
+  {
+   "name": "LEATHER JACKET",
+   "tag": "outer_leather_jacket",
+   "fn": "genCoat",
+   "ramp": "LEATHERV",
+   "shape": "JACKET",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "jacket"
+   ]
+  },
+  {
+   "name": "DUST PONCHO",
+   "tag": "outer_dust_poncho",
+   "fn": "genPoncho",
+   "ramp": "DUSTSAND",
+   "shape": "PONCHO",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": []
+  },
+  {
+   "name": "OXBLOOD PONCHO",
+   "tag": "outer_oxblood_poncho",
+   "fn": "genPoncho",
+   "ramp": "OXBLOOD",
+   "shape": "PONCHO",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": []
+  },
+  {
+   "name": "SMITH'S APRON",
+   "tag": "outer_smiths_apron",
+   "fn": "genApron",
+   "ramp": "LEATHERV",
+   "shape": "APRON",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": []
+  },
+  {
+   "name": "TRADES APRON",
+   "tag": "outer_trades_apron",
+   "fn": "genApron",
+   "ramp": "CHARCLOTH",
+   "shape": "APRON",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": []
+  },
+  {
+   "name": "SPLIT-TAIL DUSTER",
+   "tag": "outer_split-tail_duster",
+   "fn": "genCoat",
+   "ramp": "LEATHERV",
+   "shape": "SPLIT TAIL",
+   "len": 1.0,
+   "hem_z": 0.09,
+   "options": [
+    "split"
+   ]
+  },
+  {
+   "name": "COBALT DUSTER",
+   "tag": "outer_cobalt_duster",
+   "fn": "genCoat",
+   "ramp": "COBALT",
+   "shape": "DUSTER",
+   "len": 0.88,
+   "hem_z": 0.158,
+   "options": []
+  },
+  {
+   "name": "COBALT COAT",
+   "tag": "outer_cobalt_coat",
+   "fn": "genCoat",
+   "ramp": "COBALT",
+   "shape": "LONGCOAT",
+   "len": 0.82,
+   "hem_z": 0.193,
+   "options": []
+  },
+  {
+   "name": "ROSE DUSTER",
+   "tag": "outer_rose_duster",
+   "fn": "genCoat",
+   "ramp": "ROSEBRT",
+   "shape": "DUSTER",
+   "len": 0.88,
+   "hem_z": 0.158,
+   "options": []
+  },
+  {
+   "name": "GRASS DUSTER",
+   "tag": "outer_grass_duster",
+   "fn": "genCoat",
+   "ramp": "GRASSGRN",
+   "shape": "DUSTER",
+   "len": 0.88,
+   "hem_z": 0.158,
+   "options": []
+  },
+  {
+   "name": "CHORE COAT",
+   "tag": "outer_chore_coat",
+   "fn": "genCoat",
+   "ramp": "DUSTBRN",
+   "shape": "CHORE COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": []
+  },
+  {
+   "name": "BARN COAT",
+   "tag": "outer_barn_coat",
+   "fn": "genCoat",
+   "ramp": "KHAKI",
+   "shape": "CHORE COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": []
+  },
+  {
+   "name": "OLIVE CHORE COAT",
+   "tag": "outer_olive_chore_coat",
+   "fn": "genCoat",
+   "ramp": "OLIVEPANT",
+   "shape": "CHORE COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": []
+  },
+  {
+   "name": "STORM CHORE COAT",
+   "tag": "outer_storm_chore_coat",
+   "fn": "genCoat",
+   "ramp": "STORMGRY",
+   "shape": "CHORE COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": []
+  },
+  {
+   "name": "RUST WORK COAT",
+   "tag": "outer_rust_work_coat",
+   "fn": "genCoat",
+   "ramp": "RUSTIRON",
+   "shape": "CHORE COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": []
+  },
+  {
+   "name": "CAR COAT",
+   "tag": "outer_car_coat",
+   "fn": "genCoat",
+   "ramp": "CHARCLOTH",
+   "shape": "CAR COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": []
+  },
+  {
+   "name": "SAND CAR COAT",
+   "tag": "outer_sand_car_coat",
+   "fn": "genCoat",
+   "ramp": "BONECLO",
+   "shape": "CAR COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": []
+  },
+  {
+   "name": "SAGE CAR COAT",
+   "tag": "outer_sage_car_coat",
+   "fn": "genCoat",
+   "ramp": "SAGE",
+   "shape": "CAR COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": []
+  },
+  {
+   "name": "SLATE CAR COAT",
+   "tag": "outer_slate_car_coat",
+   "fn": "genCoat",
+   "ramp": "SLATEW",
+   "shape": "CAR COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": []
+  },
+  {
+   "name": "WORK JACKET",
+   "tag": "outer_work_jacket",
+   "fn": "genCoat",
+   "ramp": "DUSTBRN",
+   "shape": "JACKET",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "jacket"
+   ]
+  },
+  {
+   "name": "STORM JACKET",
+   "tag": "outer_storm_jacket",
+   "fn": "genCoat",
+   "ramp": "STORMGRY",
+   "shape": "JACKET",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "jacket"
+   ]
+  },
+  {
+   "name": "KHAKI JACKET",
+   "tag": "outer_khaki_jacket",
+   "fn": "genCoat",
+   "ramp": "KHAKI",
+   "shape": "JACKET",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "jacket"
+   ]
+  },
+  {
+   "name": "OXBLOOD JACKET",
+   "tag": "outer_oxblood_jacket",
+   "fn": "genCoat",
+   "ramp": "OXBLOOD",
+   "shape": "JACKET",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "jacket"
+   ]
+  },
+  {
+   "name": "SAGE VEST",
+   "tag": "outer_sage_vest",
+   "fn": "genCoat",
+   "ramp": "SAGE",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "BONE VEST",
+   "tag": "outer_bone_vest",
+   "fn": "genCoat",
+   "ramp": "BONECLO",
+   "shape": "VEST",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "vest"
+   ]
+  },
+  {
+   "name": "OLIVE CAR COAT",
+   "tag": "outer_olive_car_coat",
+   "fn": "genCoat",
+   "ramp": "OLIVEDRAB",
+   "shape": "CAR COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": []
+  },
+  {
+   "name": "BRICK CAR COAT",
+   "tag": "outer_brick_car_coat",
+   "fn": "genCoat",
+   "ramp": "BRICK",
+   "shape": "CAR COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": []
+  },
+  {
+   "name": "SPLIT-TAIL WORK COAT",
+   "tag": "outer_split-tail_work_coat",
+   "fn": "genCoat",
+   "ramp": "LEATHERV",
+   "shape": "CHORE COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": []
+  },
+  {
+   "name": "COBALT CHORE COAT",
+   "tag": "outer_cobalt_chore_coat",
+   "fn": "genCoat",
+   "ramp": "COBALT",
+   "shape": "CHORE COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": []
+  },
+  {
+   "name": "GRASS CAR COAT",
+   "tag": "outer_grass_car_coat",
+   "fn": "genCoat",
+   "ramp": "GRASSGRN",
+   "shape": "CAR COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": []
+  },
+  {
+   "name": "HOODED DUST PONCHO",
+   "tag": "outer_hooded_dust_poncho",
+   "fn": "genPoncho",
+   "ramp": "DUSTSAND",
+   "shape": "HOODED PONCHO",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "hood"
+   ]
+  },
+  {
+   "name": "BRICK SPLIT-TAIL DUSTER",
+   "tag": "outer_brick_split-tail_duster",
+   "fn": "genCoat",
+   "ramp": "BRICK",
+   "shape": "SPLIT TAIL",
+   "len": 1.0,
+   "hem_z": 0.09,
+   "options": [
+    "split"
+   ]
+  },
+  {
+   "name": "SAND COCOON COAT",
+   "tag": "outer_sand_cocoon_coat",
+   "fn": "genCoat",
+   "ramp": "DUSTSAND",
+   "shape": "COCOON COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "cocoon"
+   ]
+  },
+  {
+   "name": "LEATHER WRAP COAT",
+   "tag": "outer_leather_wrap_coat",
+   "fn": "genCoat",
+   "ramp": "LEATHERV",
+   "shape": "WRAP COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "wrap"
+   ]
+  },
+  {
+   "name": "TEAL COCOON COAT",
+   "tag": "outer_teal_cocoon_coat",
+   "fn": "genCoat",
+   "ramp": "TEALBRT",
+   "shape": "COCOON COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "cocoon"
+   ]
+  },
+  {
+   "name": "BONE COCOON COAT",
+   "tag": "outer_bone_cocoon_coat",
+   "fn": "genCoat",
+   "ramp": "BONECLO",
+   "shape": "COCOON COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "cocoon"
+   ]
+  },
+  {
+   "name": "SPLIT-TAIL COAT",
+   "tag": "outer_split-tail_coat",
+   "fn": "genCoat",
+   "ramp": "CHARCLOTH",
+   "shape": "SPLIT TAIL",
+   "len": 0.62,
+   "hem_z": 0.307,
+   "options": [
+    "split"
+   ]
+  },
+  {
+   "name": "LEATHER SPLIT-TAIL COAT",
+   "tag": "outer_leather_split-tail_coat",
+   "fn": "genCoat",
+   "ramp": "LEATHERV",
+   "shape": "SPLIT TAIL",
+   "len": 0.62,
+   "hem_z": 0.307,
+   "options": [
+    "split"
+   ]
+  },
+  {
+   "name": "STORM PONCHO",
+   "tag": "outer_storm_poncho",
+   "fn": "genPoncho",
+   "ramp": "STORMGRY",
+   "shape": "PONCHO",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": []
+  },
+  {
+   "name": "LEATHER HALF APRON",
+   "tag": "outer_leather_half_apron",
+   "fn": "genApron",
+   "ramp": "LEATHERV",
+   "shape": "HALF APRON",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "bibless"
+   ]
+  },
+  {
+   "name": "DUST HALF APRON",
+   "tag": "outer_dust_half_apron",
+   "fn": "genApron",
+   "ramp": "DUSTSAND",
+   "shape": "HALF APRON",
+   "len": 0.86,
+   "hem_z": 0.17,
+   "options": [
+    "bibless"
+   ]
+  },
+  {
+   "name": "WRAP COAT",
+   "tag": "outer_wrap_coat",
+   "fn": "genCoat",
+   "ramp": "CHARCLOTH",
+   "shape": "WRAP COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "wrap"
+   ]
+  },
+  {
+   "name": "ASH WRAP COAT",
+   "tag": "outer_ash_wrap_coat",
+   "fn": "genCoat",
+   "ramp": "ASHGREY",
+   "shape": "WRAP COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "wrap"
+   ]
+  },
+  {
+   "name": "ASYMMETRIC COAT",
+   "tag": "outer_asymmetric_coat",
+   "fn": "genCoat",
+   "ramp": "FADEDBLK",
+   "shape": "ASYMMETRIC COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "asym"
+   ]
+  },
+  {
+   "name": "ASH ASYM COAT",
+   "tag": "outer_ash_asym_coat",
+   "fn": "genCoat",
+   "ramp": "ASHGREY",
+   "shape": "ASYMMETRIC COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": [
+    "asym"
+   ]
+  },
+  {
+   "name": "COCOON COAT",
+   "tag": "outer_cocoon_coat",
+   "fn": "genCoat",
+   "ramp": "STORMGRY",
+   "shape": "COCOON COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "cocoon"
+   ]
+  },
+  {
+   "name": "SLATE COCOON COAT",
+   "tag": "outer_slate_cocoon_coat",
+   "fn": "genCoat",
+   "ramp": "SLATEW",
+   "shape": "COCOON COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": [
+    "cocoon"
+   ]
+  },
+  {
+   "name": "COMMA COAT",
+   "tag": "outer_comma_coat",
+   "fn": "genCoat",
+   "ramp": "CHARCLOTH",
+   "shape": "COMMA COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "cocoon",
+    "comma"
+   ]
+  },
+  {
+   "name": "SLATE COMMA COAT",
+   "tag": "outer_slate_comma_coat",
+   "fn": "genCoat",
+   "ramp": "SLATEW",
+   "shape": "COMMA COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "comma"
+   ]
+  },
+  {
+   "name": "COBALT COCOON COAT",
+   "tag": "outer_cobalt_cocoon_coat",
+   "fn": "genCoat",
+   "ramp": "COBALT",
+   "shape": "COCOON COAT",
+   "len": 0.34,
+   "hem_z": 0.466,
+   "options": [
+    "cocoon"
+   ]
+  },
+  {
+   "name": "BRICK COMMA COAT",
+   "tag": "outer_brick_comma_coat",
+   "fn": "genCoat",
+   "ramp": "BRICK",
+   "shape": "COMMA COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "cocoon",
+    "comma"
+   ]
+  },
+  {
+   "name": "OLIVE ASYM COAT",
+   "tag": "outer_olive_asym_coat",
+   "fn": "genCoat",
+   "ramp": "OLIVEDRAB",
+   "shape": "ASYMMETRIC COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "asym"
+   ]
+  },
+  {
+   "name": "GRASS WRAP COAT",
+   "tag": "outer_grass_wrap_coat",
+   "fn": "genCoat",
+   "ramp": "GRASSGRN",
+   "shape": "WRAP COAT",
+   "len": 0.56,
+   "hem_z": 0.341,
+   "options": [
+    "wrap"
+   ]
+  }
+ ]
+}

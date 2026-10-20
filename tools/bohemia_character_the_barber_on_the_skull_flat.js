@@ -35,7 +35,8 @@ const BODY = { base: 'BLACK TANK', legs: 'BLACK CARGOS', feet: 'WRAPPED BOOTS' }
         /* HATS 1 (10/19): a cut named HAT:<name> is that hat on the TEMPLE TAPER, the twin of the hat on the starred head */
         const worn = cut.indexOf('HAT:') === 0 ? { hair: 'TEMPLE TAPER', head: cut.slice(4) }
           : cut.indexOf('FACE:') === 0 ? { hair: 'TEMPLE TAPER', face: cut.slice(5) }   /* EYEWEAR 1: FACE:<name> */
-          : cut.indexOf('BASE:') === 0 ? { hair: 'TEMPLE TAPER', base: cut.slice(5) } : { hair: cut };   /* GARMENTS BASE: the top in place of the tank */
+          : cut.indexOf('BASE:') === 0 ? { hair: 'TEMPLE TAPER', base: cut.slice(5) }   /* GARMENTS BASE: the top in place of the tank */
+          : cut.indexOf('OUTER:') === 0 ? { hair: 'TEMPLE TAPER', outer: cut.slice(6) } : { hair: cut };   /* GARMENTS OUTER: the coat over the tank */
         window.G_WORN = Object.assign({}, BODY, worn); G.bodyVar = { height: 0, belly: 0, shoulders: 0, hips: 0 }; G.age = 'adult';
         rebuildFromRig(); try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
         const dirs = {};
@@ -66,7 +67,7 @@ from PIL import Image
 d = json.load(open(sys.argv[1]))
 n = 0
 for L in d:
-    tag = L['cut'].lower().replace('hat:', 'hat_').replace('face:', 'face_').replace('base:', 'base_').replace(' ', '_')
+    tag = L['cut'].lower().replace('hat:', 'hat_').replace('face:', 'face_').replace('base:', 'base_').replace('outer:', 'outer_').replace("'", '').replace(' ', '_')
     for f, keys in L['dirs'].items():
         for k, fr in enumerate(keys):
             im = Image.new('RGBA', (fr['W'], fr['H']), (0, 0, 0, 0))

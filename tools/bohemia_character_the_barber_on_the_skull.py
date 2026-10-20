@@ -100,13 +100,15 @@ import bohemia_character_faces_one as FACES_ONE  # noqa: E402   (FACES 1: face s
 import bohemia_character_hats_one as HATS_ONE  # noqa: E402   (HATS 1: the 21 canon hats on the same head)
 import bohemia_character_eyewear_one as EYE_ONE  # noqa: E402   (EYEWEAR 1: the 14 face pieces on the same head)
 import bohemia_character_garments_base as BASE_ONE  # noqa: E402   (GARMENTS BASE: the 80 tops, each on its own body)
+import bohemia_character_garments_outer as OUTER_ONE  # noqa: E402   (GARMENTS OUTER: the 74 coats, each on its own body, 10/20)
 CUTS.update(HAIR_ONE.CUTS)
 CUTS.update(HAIR_TWO.CUTS)
 CUTS.update(FACES_ONE.CUTS)
 CUTS.update(HATS_ONE.CUTS)
 CUTS.update(EYE_ONE.CUTS)
 CUTS.update(BASE_ONE.CUTS)
-ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + FACES_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER
+CUTS.update(OUTER_ONE.CUTS)
+ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + FACES_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER + OUTER_ONE.ORDER
 
 
 def sstep(a, b, t):
@@ -178,6 +180,7 @@ def build(cut):
     key = 'BARBER_' + tag.upper()
     # a garment is worn on its own body (the mannequin in that top, GARMENTS BASE), built first; a cut on the mannequin
     if cut in BASE_ONE.CUTS: BASE_ONE.body(cut)
+    if cut in OUTER_ONE.CUTS: OUTER_ONE.body(cut)
     if spec.get('gang'): person_body(spec)   # A PERSON (RUN TWO [no two people alike]): his gang's look in his own skin
     body_glb = spec.get('body', 'records/character/rig/barberbody.glb'); btag = os.path.basename(body_glb)[:-4]
     sk = tuple(spec.get('skin', ('skin_deep', 3)))   # the barber's mannequin is skin_deep 3; a person wears his own step
@@ -574,6 +577,9 @@ def build(cut):
         made += FACES_ONE.build(cut, locals())
     if cut in BASE_ONE.CUTS:   # a top's pieces that sit on the head and the portrait's neck (a turtleneck's roll, a hood up)
         made += BASE_ONE.head(cut, locals())
+    if cut in OUTER_ONE.CUTS and OUTER_ONE.BY[spec['garment']]['hood']:   # a hooded poncho's hood up over the head (BASE 1's hood)
+        _G = OUTER_ONE.BY[spec['garment']]
+        made += BASE_ONE.head(cut, locals(), G=dict(neck='hood', hood_up=True, mid=_G['mid']))
 
     for m in made:
         if isinstance(m, tuple): skin_to(m[1], m[2]); strand_normals(m[1])
@@ -689,6 +695,7 @@ if __name__ == '__main__':
                  else people(sys.argv[2][7:]) if sys.argv[2].upper().startswith('PEOPLE:')
                  else HATS_ONE.ORDER if sys.argv[2].upper() == 'HATS1' else EYE_ONE.ORDER if sys.argv[2].upper() == 'EYE1'
                  else BASE_ONE.ORDER if sys.argv[2].upper() == 'BASE1' else BASE_ONE.pick(sys.argv[2]) if sys.argv[2].upper().startswith('BASE1:')
+                 else OUTER_ONE.ORDER if sys.argv[2].upper() == 'OUTER1' else OUTER_ONE.pick(sys.argv[2]) if sys.argv[2].upper().startswith('OUTER1:')
                  else [n for n in ALL if CUTS[n]['tag'] == sys.argv[2].lower() or n == sys.argv[2].upper()])
         for n in names: build(n)
     elif cmd == 'sheet':

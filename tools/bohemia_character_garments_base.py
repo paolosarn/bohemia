@@ -182,17 +182,15 @@ def body(cut):
     CH.build(name, RIG_DIR)
 
 
-def pieces(G, X):
-    """the top on the man (called inside THIS LANE's build with its locals): repaint the body, return the pieces"""
+def kit(X):
+    """THE TOOLKIT every garment is cut with (the man's surface and weights, cloth at the fine level, strips, rings,
+    bands, buttons, the arm's and neck's rings), as one dict, so OUTER 1 cuts its coats with the same hands; nothing
+    here depends on the top"""
     bpy, bmesh, V = X['bpy'], X['bmesh'], X['V']
     from mathutils.bvhtree import BVHTree
     from mathutils.kdtree import KDTree
     body, arm, M, Mi, R, P = X['body'], X['arm'], X['M'], X['Mi'], X['R'], X['P']
     fam_v, ffam, finish, tube, sc, tag = X['fam_v'], X['ffam'], X['finish'], X['tube'], X['sc'], X['tag']
-    mid, dk, lt = G['mid'], G['dk'], G['lt']
-    coverall, bib = G['fn'] == 'genCoverall', G['bib']
-    sleeves = 'long' if coverall and not bib else ('none' if bib else G['sleeves'])
-    neck = 'button' if coverall and not bib else G['neck']
     bvh = BVHTree.FromPolygons([V(p) for p in P], [list(f.vertices) for f in body.data.polygons])
     kd = KDTree(len(P))
     for i, p in enumerate(P): kd.insert(p, i)
@@ -203,6 +201,7 @@ def pieces(G, X):
     SH, EL, WR = (Aw @ B[b].head_local for b in ('Skeleton_arm_joint_L__4_', 'Skeleton_arm_joint_L__3_', 'Skeleton_arm_joint_L__2_'))
     cy_n = -0.02   # the neck's axis, front to back (the neck spans y -0.10 .. 0.045 with the jaw's underside)
 
+
     def arm_s(fm, c):
         """0 at the shoulder, 1 at the elbow, 2 at the wrist (the left arm's joints, mirrored)"""
         q = V((abs(c.x), c.y, c.z))
@@ -211,44 +210,6 @@ def pieces(G, X):
         else: return -1.0
         d = b - a; return k + max(0.0, min(1.0, (q - a).dot(d) / d.length_squared))
 
-    sleeve_end = {'none': -1.0, 'short': 0.52, 'rolled': 1.45, 'long': 1.93}[sleeves]
-
-    def neck_z(c):
-        """the neckline's height round the neck: front (-y) to back"""
-        a = math.atan2(c.x, -(c.y - cy_n)); f = 0.5 + 0.5 * math.cos(a)   # 1 at the front, 0 at the back
-        return {'crew': 1.135 - 0.018 * f, 'henley': 1.135 - 0.018 * f, 'button': 1.150 - 0.030 * f, 'turtle': 1.160,
-                'hood': 1.140 - 0.024 * f}[neck]
-
-    def tank_bare(c):
-        if c.z > 1.025: return not (0.036 < abs(c.x) < 0.082)                                          # the straps
-        if c.y < -0.02 and abs(c.x) < 0.050 and c.z > 0.985: return True                               # the scoop
-        return abs(c.x) > 0.088 and c.z > 0.95                                                         # the armholes
-
-    def bib_covers(c):
-        return c.z < 0.725 or (c.y < 0.0 and abs(c.x) < 0.078 and c.z < 1.005)
-
-    # cycle 2 (looking, TATTERED FLANNEL): pin holes over a body painted in the same plaid did not read; holes 3 to 4 cm across,
-    # and under a torn top the man is skin above the belt, so a hole shows him
-    hole = lambda c: G['tatter'] and (0.5 + 0.5 * math.sin(19 * c.x + 7 * c.z + 0.4) * math.cos(15 * c.y - 11 * c.z + 1.7 * c.x)) > 0.86
-
-    def covered(fm, c):
-        """the top covers this point of the man"""
-        if fm == 'torso':
-            if sleeves == 'none' and not coverall and tank_bare(c): return False
-            if bib: return bib_covers(c)
-            if G['tatter'] and 0.66 < c.z < 1.06: return False
-            return c.z < neck_z(c) + 0.004
-        if fm == 'neck': return neck in ('turtle',) or c.z < neck_z(c)
-        if fm in ('upper', 'fore'): return arm_s(fm, c) <= sleeve_end
-        return False
-
-    # 1. THE MAN'S OWN SURFACE REPAINTED: the shirt where the top covers him, skin where it does not
-    for f in body.data.polygons:
-        fm = ffam(f); c = M @ f.center
-        if fm in ('torso', 'neck', 'upper', 'fore'): f.material_index = 1 if covered(fm, c) else 0
-    body.data.update()
-
-    made = []
 
     def weigh(o):
         """every vertex takes the weights of the man's nearest vertex"""
@@ -374,6 +335,55 @@ def pieces(G, X):
             for v in res['verts']: v.co = loc + n * (lift_ + r * 0.3) + V((v.co.x, v.co.y, v.co.z * 0.6))
         return finish(new_obj(bm, key), colour, key, 0, 0)
 
+    return dict((k, v) for k, v in locals().items() if k != 'X')
+
+
+def pieces(G, X):
+    """the top on the man (called inside THIS LANE's build with its locals): repaint the body, return the pieces"""
+    K_ = kit(X)
+    (bpy, bmesh, V, BVHTree, KDTree, body, arm, M, Mi, R, P, fam_v, ffam, finish, tube, sc, tag, bvh, kd, gname, vw, B, Aw, SH, EL, WR, cy_n, arm_s, weigh, new_obj, cloth, surf, front, strip, ring_pts, band, arm_ring, neck_ring, waist_ring, buttons) = (K_[n] for n in ('bpy', 'bmesh', 'V', 'BVHTree', 'KDTree', 'body', 'arm', 'M', 'Mi', 'R', 'P', 'fam_v', 'ffam', 'finish', 'tube', 'sc', 'tag', 'bvh', 'kd', 'gname', 'vw', 'B', 'Aw', 'SH', 'EL', 'WR', 'cy_n', 'arm_s', 'weigh', 'new_obj', 'cloth', 'surf', 'front', 'strip', 'ring_pts', 'band', 'arm_ring', 'neck_ring', 'waist_ring', 'buttons'))
+    mid, dk, lt = G['mid'], G['dk'], G['lt']
+    coverall, bib = G['fn'] == 'genCoverall', G['bib']
+    sleeves = 'long' if coverall and not bib else ('none' if bib else G['sleeves'])
+    neck = 'button' if coverall and not bib else G['neck']
+    sleeve_end = {'none': -1.0, 'short': 0.52, 'rolled': 1.45, 'long': 1.93}[sleeves]
+    def neck_z(c):
+        """the neckline's height round the neck: front (-y) to back"""
+        a = math.atan2(c.x, -(c.y - cy_n)); f = 0.5 + 0.5 * math.cos(a)   # 1 at the front, 0 at the back
+        return {'crew': 1.135 - 0.018 * f, 'henley': 1.135 - 0.018 * f, 'button': 1.150 - 0.030 * f, 'turtle': 1.160,
+                'hood': 1.140 - 0.024 * f}[neck]
+
+    def tank_bare(c):
+        if c.z > 1.025: return not (0.036 < abs(c.x) < 0.082)                                          # the straps
+        if c.y < -0.02 and abs(c.x) < 0.050 and c.z > 0.985: return True                               # the scoop
+        return abs(c.x) > 0.088 and c.z > 0.95                                                         # the armholes
+
+    def bib_covers(c):
+        return c.z < 0.725 or (c.y < 0.0 and abs(c.x) < 0.078 and c.z < 1.005)
+
+    # cycle 2 (looking, TATTERED FLANNEL): pin holes over a body painted in the same plaid did not read; holes 3 to 4 cm across,
+    # and under a torn top the man is skin above the belt, so a hole shows him
+    hole = lambda c: G['tatter'] and (0.5 + 0.5 * math.sin(19 * c.x + 7 * c.z + 0.4) * math.cos(15 * c.y - 11 * c.z + 1.7 * c.x)) > 0.86
+
+    def covered(fm, c):
+        """the top covers this point of the man"""
+        if fm == 'torso':
+            if sleeves == 'none' and not coverall and tank_bare(c): return False
+            if bib: return bib_covers(c)
+            if G['tatter'] and 0.66 < c.z < 1.06: return False
+            return c.z < neck_z(c) + 0.004
+        if fm == 'neck': return neck in ('turtle',) or c.z < neck_z(c)
+        if fm in ('upper', 'fore'): return arm_s(fm, c) <= sleeve_end
+        return False
+
+    # 1. THE MAN'S OWN SURFACE REPAINTED: the shirt where the top covers him, skin where it does not
+    for f in body.data.polygons:
+        fm = ffam(f); c = M @ f.center
+        if fm in ('torso', 'neck', 'upper', 'fore'): f.material_index = 1 if covered(fm, c) else 0
+    body.data.update()
+
+    made = []
+
     # 2. THE BODY OF THE TOP, cut finer and lifted by the cloth's weight
     weight = 0.011 if neck == 'hood' else 0.009 if coverall else 0.005 if sleeves == 'none' else 0.007
     def keep_top(fm, c):
@@ -490,15 +500,15 @@ def pieces(G, X):
     return made
 
 
-def head(cut, Lb):
+def head(cut, Lb, G=None):
     """the pieces of a top that sit with the head (inside the barber's build, with its locals): a turtleneck's tube up the
-    portrait's neck, a hood up over the head"""
-    G = BY[CUTS[cut]['garment']]
+    portrait's neck, a hood up over the head (OUTER 1's hooded poncho passes its own G: neck, hood_up and its mid)"""
+    G = G or BY[CUTS[cut]['garment']]
     if G['neck'] != 'turtle' and not G['hood_up']:
         return []
     bpy, bmesh, Vector, BVHTree, PM = Lb['bpy'], Lb['bmesh'], Lb['Vector'], Lb['BVHTree'], Lb['PM']
     C, sc, az_of, finish, shell, mat = Lb['C'], Lb['sc'], Lb['az_of'], Lb['finish'], Lb['shell'], Lb['mat']
-    tag = CUTS[cut]['tag']
+    tag = (CUTS.get(cut) or Lb['spec'])['tag']
     cloth = mat('%s_cloth' % tag, src(G['mid']), 0.95)
     tris, verts = [], []
     for o in [o for o in sc.objects if o.type == 'MESH' and (o.name == 'portrait_neck' or o.name.startswith('Cesium_Man'))]:
