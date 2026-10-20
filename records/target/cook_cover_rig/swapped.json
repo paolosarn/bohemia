@@ -2,7 +2,6 @@
  "rock_0": {
   "piece": "rock_0",
   "file": "slices/fight_ground/cover_rock_0.webp",
-  "sha1": "d6cf32ee4639611d2d718508aa67fc236deeb0e0",
   "size": [
    117,
    111
@@ -30,13 +29,12 @@
  "rock_1": {
   "piece": "rock_1",
   "file": "slices/fight_ground/cover_rock_1.webp",
-  "sha1": "e1baf955076f3185fa261b55ab32fd85b9b27e38",
   "size": [
    85,
    113
   ],
   "facing": "NW",
-  "iou_with_old": 0.537,
+  "iou_with_old": 0.492,
   "clipped": 0.0,
   "model": "reference/models/bohemia/cover_rock_1.glb",
   "rig": "records/target/cook_cover_rig/rock_1/rig.json"
@@ -44,21 +42,19 @@
  "rock_2": {
   "piece": "rock_2",
   "file": "slices/fight_ground/cover_rock_2.webp",
-  "sha1": "8cabd56cd923529fc761c62d0516e15960fc480c",
   "size": [
    90,
    103
   ],
-  "facing": "NW",
-  "iou_with_old": 0.558,
-  "clipped": 0.0,
+  "facing": "SW",
+  "iou_with_old": 0.559,
+  "clipped": 0.002,
   "model": "reference/models/bohemia/cover_rock_2.glb",
   "rig": "records/target/cook_cover_rig/rock_2/rig.json"
  },
  "rock_3": {
   "piece": "rock_3",
   "file": "slices/fight_ground/cover_rock_3.webp",
-  "sha1": "934c255eb3d1e83d7e8f8d7a81cf58bf5d752663",
   "size": [
    117,
    105
@@ -72,7 +68,6 @@
  "outcrop": {
   "piece": "outcrop",
   "file": "slices/fight_ground/cover_outcrop.webp",
-  "sha1": "61d1d5ddd2c9436bdc3cd53c833f48dcca795819",
   "size": [
    285,
    103
@@ -86,21 +81,19 @@
  "rubble_0": {
   "piece": "rubble_0",
   "file": "slices/fight_ground/cover_rubble_0.webp",
-  "sha1": "a0f3ab9ea45ea35a5c18d9d52498ee4b68302765",
   "size": [
    117,
    87
   ],
-  "facing": "W",
-  "iou_with_old": 0.402,
-  "clipped": 0.13,
+  "facing": "N",
+  "iou_with_old": 0.417,
+  "clipped": 0.029,
   "model": "reference/models/bohemia/cover_rubble_0.glb",
   "rig": "records/target/cook_cover_rig/rubble_0/rig.json"
  },
  "rubble_1": {
   "piece": "rubble_1",
   "file": "slices/fight_ground/cover_rubble_1.webp",
-  "sha1": "aba77d433de7b2ba388c9649d63b7f7f11d5562b",
   "size": [
    117,
    92
@@ -300,5 +293,408 @@
   "clipped": 0.001,
   "model": "reference/models/bohemia/cover_slot_bank.glb",
   "rig": "records/target/cook_cover_rig/slot_bank/rig.json"
+ },
+ "table": {
+  "piece": "table",
+  "file": "slices/fight_ground/cover_table.webp",
+  "size": [
+   129,
+   88
+  ],
+  "facing": "N",
+  "iou_with_old": 0.703,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_table.glb",
+  "rig": "records/target/cook_cover_rig/table/rig.json"
+ },
+ "pillar": {
+  "piece": "pillar",
+  "file": "slices/fight_ground/cover_pillar.webp",
+  "size": [
+   77,
+   163
+  ],
+  "facing": "E",
+  "iou_with_old": 0.767,
+  "clipped": 0.371,
+  "model": "reference/models/bohemia/cover_pillar.glb",
+  "rig": "records/target/cook_cover_rig/pillar/rig.json"
+ },
+ "light_lamp_house_side": {
+  "piece": "light_lamp_house_side",
+  "file": "slices/fight_ground/light_lamp_house_side.webp",
+  "size": [
+   57,
+   140
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.116,
+  "clipped": 0.055,
+  "model": "reference/models/bohemia/lamp.glb",
+  "rig": "records/target/cook_cover_rig/light_lamp_house_side/rig.json"
+ },
+ "light_lamp_your_side": {
+  "piece": "light_lamp_your_side",
+  "file": "slices/fight_ground/light_lamp_your_side.webp",
+  "size": [
+   57,
+   140
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.116,
+  "clipped": 0.055,
+  "model": "reference/models/bohemia/lamp.glb",
+  "rig": "records/target/cook_cover_rig/light_lamp_your_side/rig.json"
+ },
+ "light_oil_drum": {
+  "piece": "light_oil_drum",
+  "file": "slices/fight_ground/light_oil_drum.webp",
+  "size": [
+   37,
+   74
+  ],
+  "facing": "W",
+  "iou_with_old": 0.479,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_light_oil_drum.glb",
+  "rig": "records/target/cook_cover_rig/light_oil_drum/rig.json"
+ },
+ "rock_4": {
+  "piece": "rock_4",
+  "file": "slices/fight_ground/cover_rock_4.webp",
+  "size": [
+   117,
+   92
+  ],
+  "facing": "SW",
+  "iou_with_old": 0.496,
+  "clipped": 0.019,
+  "model": "reference/models/bohemia/cover_rock_4.glb",
+  "rig": "records/target/cook_cover_rig/rock_4/rig.json"
+ },
+ "rock_5": {
+  "piece": "rock_5",
+  "file": "slices/fight_ground/cover_rock_5.webp",
+  "size": [
+   106,
+   113
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.412,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rock_5.glb",
+  "rig": "records/target/cook_cover_rig/rock_5/rig.json"
+ },
+ "rock_6": {
+  "piece": "rock_6",
+  "file": "slices/fight_ground/cover_rock_6.webp",
+  "size": [
+   93,
+   110
+  ],
+  "facing": "NE",
+  "iou_with_old": 0.522,
+  "clipped": 0.014,
+  "model": "reference/models/bohemia/cover_rock_6.glb",
+  "rig": "records/target/cook_cover_rig/rock_6/rig.json"
+ },
+ "rock_7": {
+  "piece": "rock_7",
+  "file": "slices/fight_ground/cover_rock_7.webp",
+  "size": [
+   89,
+   77
+  ],
+  "facing": "SE",
+  "iou_with_old": 0.493,
+  "clipped": 0.283,
+  "model": "reference/models/bohemia/cover_rock_7.glb",
+  "rig": "records/target/cook_cover_rig/rock_7/rig.json"
+ },
+ "rock_8": {
+  "piece": "rock_8",
+  "file": "slices/fight_ground/cover_rock_8.webp",
+  "size": [
+   117,
+   83
+  ],
+  "facing": "W",
+  "iou_with_old": 0.53,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rock_8.glb",
+  "rig": "records/target/cook_cover_rig/rock_8/rig.json"
+ },
+ "rock_9": {
+  "piece": "rock_9",
+  "file": "slices/fight_ground/cover_rock_9.webp",
+  "size": [
+   117,
+   92
+  ],
+  "facing": "N",
+  "iou_with_old": 0.445,
+  "clipped": 0.002,
+  "model": "reference/models/bohemia/cover_rock_9.glb",
+  "rig": "records/target/cook_cover_rig/rock_9/rig.json"
+ },
+ "rock_10": {
+  "piece": "rock_10",
+  "file": "slices/fight_ground/cover_rock_10.webp",
+  "size": [
+   115,
+   90
+  ],
+  "facing": "E",
+  "iou_with_old": 0.56,
+  "clipped": 0.045,
+  "model": "reference/models/bohemia/cover_rock_10.glb",
+  "rig": "records/target/cook_cover_rig/rock_10/rig.json"
+ },
+ "rock_11": {
+  "piece": "rock_11",
+  "file": "slices/fight_ground/cover_rock_11.webp",
+  "size": [
+   117,
+   88
+  ],
+  "facing": "N",
+  "iou_with_old": 0.57,
+  "clipped": 0.012,
+  "model": "reference/models/bohemia/cover_rock_11.glb",
+  "rig": "records/target/cook_cover_rig/rock_11/rig.json"
+ },
+ "rock_12": {
+  "piece": "rock_12",
+  "file": "slices/fight_ground/cover_rock_12.webp",
+  "size": [
+   117,
+   99
+  ],
+  "facing": "W",
+  "iou_with_old": 0.429,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rock_12.glb",
+  "rig": "records/target/cook_cover_rig/rock_12/rig.json"
+ },
+ "rock_13": {
+  "piece": "rock_13",
+  "file": "slices/fight_ground/cover_rock_13.webp",
+  "size": [
+   117,
+   92
+  ],
+  "facing": "N",
+  "iou_with_old": 0.425,
+  "clipped": 0.045,
+  "model": "reference/models/bohemia/cover_rock_13.glb",
+  "rig": "records/target/cook_cover_rig/rock_13/rig.json"
+ },
+ "rock_14": {
+  "piece": "rock_14",
+  "file": "slices/fight_ground/cover_rock_14.webp",
+  "size": [
+   117,
+   104
+  ],
+  "facing": "N",
+  "iou_with_old": 0.485,
+  "clipped": 0.006,
+  "model": "reference/models/bohemia/cover_rock_14.glb",
+  "rig": "records/target/cook_cover_rig/rock_14/rig.json"
+ },
+ "rock_15": {
+  "piece": "rock_15",
+  "file": "slices/fight_ground/cover_rock_15.webp",
+  "size": [
+   117,
+   96
+  ],
+  "facing": "S",
+  "iou_with_old": 0.469,
+  "clipped": 0.002,
+  "model": "reference/models/bohemia/cover_rock_15.glb",
+  "rig": "records/target/cook_cover_rig/rock_15/rig.json"
+ },
+ "rock_16": {
+  "piece": "rock_16",
+  "file": "slices/fight_ground/cover_rock_16.webp",
+  "size": [
+   117,
+   102
+  ],
+  "facing": "SW",
+  "iou_with_old": 0.514,
+  "clipped": 0.001,
+  "model": "reference/models/bohemia/cover_rock_16.glb",
+  "rig": "records/target/cook_cover_rig/rock_16/rig.json"
+ },
+ "rock_17": {
+  "piece": "rock_17",
+  "file": "slices/fight_ground/cover_rock_17.webp",
+  "size": [
+   116,
+   93
+  ],
+  "facing": "S",
+  "iou_with_old": 0.543,
+  "clipped": 0.002,
+  "model": "reference/models/bohemia/cover_rock_17.glb",
+  "rig": "records/target/cook_cover_rig/rock_17/rig.json"
+ },
+ "rock_18": {
+  "piece": "rock_18",
+  "file": "slices/fight_ground/cover_rock_18.webp",
+  "size": [
+   97,
+   82
+  ],
+  "facing": "SE",
+  "iou_with_old": 0.407,
+  "clipped": 0.032,
+  "model": "reference/models/bohemia/cover_rock_18.glb",
+  "rig": "records/target/cook_cover_rig/rock_18/rig.json"
+ },
+ "rock_19": {
+  "piece": "rock_19",
+  "file": "slices/fight_ground/cover_rock_19.webp",
+  "size": [
+   108,
+   81
+  ],
+  "facing": "S",
+  "iou_with_old": 0.48,
+  "clipped": 0.018,
+  "model": "reference/models/bohemia/cover_rock_19.glb",
+  "rig": "records/target/cook_cover_rig/rock_19/rig.json"
+ },
+ "rock_20": {
+  "piece": "rock_20",
+  "file": "slices/fight_ground/cover_rock_20.webp",
+  "size": [
+   100,
+   113
+  ],
+  "facing": "E",
+  "iou_with_old": 0.429,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rock_20.glb",
+  "rig": "records/target/cook_cover_rig/rock_20/rig.json"
+ },
+ "rubble_2": {
+  "piece": "rubble_2",
+  "file": "slices/fight_ground/cover_rubble_2.webp",
+  "size": [
+   117,
+   91
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.396,
+  "clipped": 0.123,
+  "model": "reference/models/bohemia/cover_rubble_2.glb",
+  "rig": "records/target/cook_cover_rig/rubble_2/rig.json"
+ },
+ "rubble_3": {
+  "piece": "rubble_3",
+  "file": "slices/fight_ground/cover_rubble_3.webp",
+  "size": [
+   117,
+   93
+  ],
+  "facing": "N",
+  "iou_with_old": 0.427,
+  "clipped": 0.003,
+  "model": "reference/models/bohemia/cover_rubble_3.glb",
+  "rig": "records/target/cook_cover_rig/rubble_3/rig.json"
+ },
+ "rubble_4": {
+  "piece": "rubble_4",
+  "file": "slices/fight_ground/cover_rubble_4.webp",
+  "size": [
+   117,
+   94
+  ],
+  "facing": "E",
+  "iou_with_old": 0.415,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rubble_4.glb",
+  "rig": "records/target/cook_cover_rig/rubble_4/rig.json"
+ },
+ "rubble_5": {
+  "piece": "rubble_5",
+  "file": "slices/fight_ground/cover_rubble_5.webp",
+  "size": [
+   117,
+   86
+  ],
+  "facing": "N",
+  "iou_with_old": 0.436,
+  "clipped": 0.017,
+  "model": "reference/models/bohemia/cover_rubble_5.glb",
+  "rig": "records/target/cook_cover_rig/rubble_5/rig.json"
+ },
+ "rubble_6": {
+  "piece": "rubble_6",
+  "file": "slices/fight_ground/cover_rubble_6.webp",
+  "size": [
+   117,
+   91
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.375,
+  "clipped": 0.002,
+  "model": "reference/models/bohemia/cover_rubble_6.glb",
+  "rig": "records/target/cook_cover_rig/rubble_6/rig.json"
+ },
+ "rubble_7": {
+  "piece": "rubble_7",
+  "file": "slices/fight_ground/cover_rubble_7.webp",
+  "size": [
+   117,
+   89
+  ],
+  "facing": "SW",
+  "iou_with_old": 0.42,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rubble_7.glb",
+  "rig": "records/target/cook_cover_rig/rubble_7/rig.json"
+ },
+ "rubble_8": {
+  "piece": "rubble_8",
+  "file": "slices/fight_ground/cover_rubble_8.webp",
+  "size": [
+   117,
+   93
+  ],
+  "facing": "N",
+  "iou_with_old": 0.328,
+  "clipped": 0.056,
+  "model": "reference/models/bohemia/cover_rubble_8.glb",
+  "rig": "records/target/cook_cover_rig/rubble_8/rig.json"
+ },
+ "rubble_9": {
+  "piece": "rubble_9",
+  "file": "slices/fight_ground/cover_rubble_9.webp",
+  "size": [
+   117,
+   87
+  ],
+  "facing": "NW",
+  "iou_with_old": 0.451,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rubble_9.glb",
+  "rig": "records/target/cook_cover_rig/rubble_9/rig.json"
+ },
+ "rubble_10": {
+  "piece": "rubble_10",
+  "file": "slices/fight_ground/cover_rubble_10.webp",
+  "size": [
+   117,
+   87
+  ],
+  "facing": "N",
+  "iou_with_old": 0.47,
+  "clipped": 0.0,
+  "model": "reference/models/bohemia/cover_rubble_10.glb",
+  "rig": "records/target/cook_cover_rig/rubble_10/rig.json"
  }
 }

@@ -1,18 +1,18 @@
 {
  "engine": "CYCLES",
- "res": 176,
- "ortho_scale": 4.100970873786408,
+ "res": 190,
+ "ortho_scale": 4.427184466019417,
  "real_dims_m": [
-  1.748,
-  1.29,
-  0.921
+  1.937,
+  1.567,
+  0.919
  ],
- "scale_from_model": 0.9998,
+ "scale_from_model": 1.0001,
  "still_frame": 0.0,
  "still": "frame 0",
  "ground_screen": [
-  88.0,
-  107.75649097213916
+  95.0,
+  114.7254935569966
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
@@ -34,7 +34,7 @@
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 31,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 0.9998)",
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0001)",
   "dents": {
    "meshes": 17,
    "dent_m": 0.025,
@@ -62,10 +62,10 @@
   "records/target/cook_cover_rig/rock_1/rig_NW.png"
  ],
  "crop_box_px": [
-  51,
-  54,
-  126,
-  138
+  52,
+  58,
+  139,
+  149
  ],
  "grime": {
   "materials": 3,

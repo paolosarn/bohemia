@@ -327,6 +327,18 @@ def litter(bpy, g, h, houses, seed):
     for k in range(int(area * 0.03)):                            # boxes, some still boxes, most crushed
         r, c = wind_cells[rng.randint(len(wind_cells))]; x, y, z = at(r, c); s_ = rng.uniform(0.3, 0.6)
         card.append((x, y, z, s_, s_ * rng.uniform(0.7, 1.2), s_ * rng.choice([0.25, 0.4, 0.8]), rng.uniform(0, 6.3), rng.uniform(-0.2, 0.2)))
+    # 6b. THE LOT'S OWN JUNK: thin across all open dirt, what blew out of the corners (a can, a board, a rag)
+    open_c = np.argwhere(dirt & ~windy)
+    oarea = len(open_c) * STEP * STEP
+    for lst, dens, lo, hi, thick in ((paper, 0.03, 0.08, 0.3, 0.01), (card, 0.008, 0.3, 0.9, 0.03), (cloth, 0.004, 0.3, 0.8, 0.025)):
+        n = int(oarea * dens)
+        for r, c in (open_c[rng.randint(0, len(open_c), n)] if len(open_c) and n else []):
+            x, y, z = at(r, c)
+            lst.append((x, y, z + 0.004, rng.uniform(lo, hi), rng.uniform(lo, hi) * 0.7, thick, rng.uniform(0, 6.3), rng.uniform(-0.15, 0.15)))
+    # tumbleweed: dry Russian thistle, blown loose and stopped, a few a block
+    for _ in range(int(oarea * 0.006)):
+        r, c = open_c[rng.randint(len(open_c))]; x, y, z = at(r, c); s_ = rng.uniform(0.45, 0.9)
+        weeds.append((x, y, z - 0.02, s_, s_ * rng.uniform(0.85, 1.1), s_ * rng.uniform(0.75, 0.95), rng.uniform(0, 6.3), 0.0))
     # 7. DEAD WEEDS against every edge and in the walk's joints
     weed_cells = np.argwhere((windy & dirt) | (concrete & (rng.rand(*g.shape) < 0.002)))
     n = int(len(weed_cells) * STEP * STEP * 1.2)
@@ -416,6 +428,26 @@ def laf(sc, A):
     return _laf(sc, A)
 
 
+_load_plan = F.load_plan
+
+
+def load_plan(bid):
+    """on the lots blocks the old house slabs (flat grey, whole rectangles) are concrete ground, so the rig builds them
+    with the rest of the ground instead of keeping the old picture's pixels"""
+    gid, ground, lum, ship, kit = _load_plan(bid)
+    if bid.split('.')[0] == 'lots':
+        a = ship.astype(np.int16); sat = a.max(2) - a.min(2); lumv = a.mean(2)
+        slab = (gid == 255) & (sat < 22) & (lumv > 80) & (lumv < 170)
+        from PIL import Image as _I
+        sm = np.asarray(_I.fromarray((slab * 255).astype(np.uint8)).resize((F.W // 8, F.H // 8), _I.BOX)) > 200
+        sm = np.asarray(_I.fromarray((sm * 255).astype(np.uint8)).resize((F.W, F.H), _I.NEAREST)) > 0
+        slab = slab | (sm & (gid == 255) & (sat < 30))
+        gid = gid.copy(); gid[slab] = F.ID['concrete']; ground = ground | slab
+        LEDGER['slab_px'] = int(slab.sum())
+    return gid, ground, lum, ship, kit
+
+
+F.load_plan = load_plan
 F.build = build
 RIG.light_and_film = laf
 
