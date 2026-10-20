@@ -15,6 +15,11 @@
      out the moment the frame is hidden (the map's LEAVE hides it, it is never unloaded) or LEAVE is pressed;
    - at night every building sound is at the screen's own NIGHT_TRIM (0.5), passed in by the caller;
    - the player's sound volume from SETTINGS (localStorage bohemia_sfxvol, the alpha's one knob) scales it all.
+   - 10/20 (SOUNDS, rule 122: 'the background ambience... has to go way down; anything volume wise, I should be
+     seeing a slider for it in the settings'): this screen has its own audio, so the settings card never reached it.
+     Now the bed, the murmur and the far things go through AMBIENCE (bohemia_mix.amb, far down by default, the
+     card's AMBIENCE slider) and the building sounds through EFFECTS (bohemia_sfxvol, as before), both under ALL and
+     MUTE (BOH_SETTINGS), and a move of any slider in the card is heard here at once (the storage event).
    The recordings are the 10/17 files in slices/vote/settlement_heard/ (CC0 Freesound clips through ESC-50,
    tools/bohemia_from_a_recording.py, every author and licence in manifest.json), referenced where they are,
    never copied (pages size). Gate: gates/settlement_heard_gate.js. */
@@ -25,14 +30,28 @@
   var TAPS = { hall:'hall_who_wants_work', board:'board_nail', stall:'stall_can', barber:'barber_clippers', train:'yard_drill',
                arms:'arms_counter', smith:'smith_saw', armourer:'armourer_rivets', lot:'lot_scavenge', build:'build_hammer_and_saw' };
   var FAR = { day:['far_horn','far_helicopter','far_crow','far_rooster'], night:['far_siren','far_helicopter'] };
-  var AC = null, MASTER = null, BUF = {}, LOAD = {}, unlocked = false, isNight = false, shown = true;
+  var AC = null, MASTER = null, AMBG = null, OUT = null, BUF = {}, LOAD = {}, unlocked = false, isNight = false, shown = true;
   var log = (window.__heardLog = []);
 
   function vol(){ try{ var v = parseFloat(localStorage.getItem('bohemia_sfxvol')); if(v >= 0 && v <= 1) return v; }catch(e){} return 1; }
+  /* the shell's own taper (p^2.5) and defaults: AMBIENCE 0.4, ALL four steps of five, not muted */
+  function taper(p){ p = Math.max(0, Math.min(1, +p || 0)); return p <= 0 ? 0 : Math.pow(p, 2.5); }
+  function ambVol(){ try{ var m = JSON.parse(localStorage.getItem('bohemia_mix') || 'null'); if(m && typeof m.amb === 'number') return taper(m.amb); }catch(e){} return taper(0.4); }
+  function allVol(){ try{ var d = JSON.parse(localStorage.getItem('BOH_SETTINGS') || 'null'); if(d){ if(d.muted) return 0; if(typeof d.vol === 'number') return Math.max(0, Math.min(5, d.vol)) / 5; } }catch(e){} return 0.8; }
+  function levels(){
+    if(!AC) return;
+    var t = AC.currentTime;
+    [[MASTER, vol()], [AMBG, ambVol()], [OUT, allVol()]].forEach(function(p){
+      try{ p[0].gain.cancelScheduledValues(t); p[0].gain.setValueAtTime(p[0].gain.value, t); p[0].gain.linearRampToValueAtTime(p[1], t + 0.05); }catch(e){ p[0].gain.value = p[1]; }
+    });
+  }
+  window.addEventListener('storage', function(e){ if(!e || /^(bohemia_mix|bohemia_sfxvol|BOH_SETTINGS)$/.test(e.key || '')) levels(); });
   function ac(){
     if(!AC){
       var C = window.AudioContext || window.webkitAudioContext; if(!C) return null;
-      AC = new C(); MASTER = AC.createGain(); MASTER.gain.value = vol(); MASTER.connect(AC.destination);
+      AC = new C(); OUT = AC.createGain(); OUT.gain.value = allVol(); OUT.connect(AC.destination);
+      MASTER = AC.createGain(); MASTER.gain.value = vol(); MASTER.connect(OUT);
+      AMBG = AC.createGain(); AMBG.gain.value = ambVol(); AMBG.connect(OUT);
     }
     if(AC.state === 'suspended') try{ AC.resume(); }catch(e){}
     return AC;
@@ -45,13 +64,13 @@
       .then(function(b){ BUF[id] = b; return b; })
       .catch(function(e){ delete LOAD[id]; log.push({id:id, err:String(e)}); throw e; }));
   }
-  function play(id, mul){
+  function play(id, mul, amb){
     if(!ac()) return Promise.resolve(null);
     var m = (mul == null ? 1 : mul);
     log.push({id:id, mul:m, t:AC.currentTime});
     return load(id).then(function(b){
       var s = AC.createBufferSource(); s.buffer = b;
-      var g = AC.createGain(); g.gain.value = m; s.connect(g); g.connect(MASTER); s.start();
+      var g = AC.createGain(); g.gain.value = m; s.connect(g); g.connect(amb ? AMBG : MASTER); s.start();
       return s;
     }).catch(function(){ return null; });
   }
@@ -64,7 +83,7 @@
     load(id).then(function(b){
       if(self.id !== id) return;
       self.g = AC.createGain(); self.g.gain.setValueAtTime(0, AC.currentTime);
-      self.g.gain.linearRampToValueAtTime(level, AC.currentTime + 1.2); self.g.connect(MASTER);
+      self.g.gain.linearRampToValueAtTime(level, AC.currentTime + 1.2); self.g.connect(AMBG);   /* the bed and the murmur are AMBIENCE (10/20) */
       var XF = 1.0, step = b.duration - XF;
       (function one(at){
         if(self.id !== id) return;
@@ -89,7 +108,7 @@
     farTimer = setTimeout(function(){
       if(!BED.id) return;
       var pool = isNight ? FAR.night : FAR.day;
-      play(pool[Math.floor(Math.random() * pool.length)], 1);
+      play(pool[Math.floor(Math.random() * pool.length)], 1, true);   /* a far thing is AMBIENCE (10/20) */
       farNext();
     }, 20000 + Math.random() * 30000);
   }
@@ -140,6 +159,7 @@
 
   window.BohemiaHeard = { opened:opened, closed:closed, handles:handles, event:event, night:night, left:left,
     taps:function(){ var o = {}; for(var k in TAPS) o[k] = TAPS[k]; return o; },
-    state:function(){ return { unlocked:unlocked, shown:shown, night:isNight, bed:BED.id, murmur:MURMUR.id, open:openK, vol:vol() }; },
+    state:function(){ return { unlocked:unlocked, shown:shown, night:isNight, bed:BED.id, murmur:MURMUR.id, open:openK, vol:vol(), amb:ambVol(), all:allVol(),
+      live:AC ? { fx:MASTER.gain.value, amb:AMBG.gain.value, all:OUT.gain.value } : null }; },
     dir:DIR, bedLevel:BED_LEVEL };
 })();

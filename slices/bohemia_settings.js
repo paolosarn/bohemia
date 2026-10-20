@@ -20,11 +20,15 @@
    left, steps as cracked glass that lights amber, buttons as receipt tags read from the left, a hard
    one-pixel contact edge instead of a soft shadow. Every control 44 points. The board is darkened a third
    under the words: on the bare cardboard a label read 8.8:1 indoors and 4.4:1 in the sun test (rule 73).
+   10/20 (SOUNDS, rule 122: 'anything volume wise, I should be seeing a slider for it in the settings'): MUSIC,
+   AMBIENCE and EFFECTS are SLIDERS now, dragged, not five steps: each moves the mix's own knob live as the finger
+   moves (setMusicVolume, setAmbienceVolume, setEffectsVolume) and is saved in bohemia_mix when it is let go.
+   The track is the card's cracked glass, the filled part lights amber, the handle is a 44-point receipt tag.
    NOT HERE: a narrator switch. There is no narrator in the game yet (SOUNDS builds it); a switch that
    moves nothing is a fake control, so it waits for the voice. */
 (function () {
   'use strict';
-  var KEY = 'boh.brightness', STEPS = 5, LEVELS = [0, 0.25, 0.5, 0.75, 1];
+  var KEY = 'boh.brightness', STEPS = 5;
   function el(id) { return document.getElementById(id); }
   function ls() { try { return window.localStorage; } catch (e) { return null; } }
 
@@ -65,25 +69,40 @@
     var r = document.createElement('div'); r.className = 'setrow';
     var l = document.createElement('span'); l.className = 'setlab'; l.textContent = label; r.appendChild(l); r.appendChild(node); return r;
   }
-  function nearest(v) { var best = 0; for (var i = 1; i < LEVELS.length; i++) if (Math.abs(LEVELS[i] - v) < Math.abs(LEVELS[best] - v)) best = i; return best; }
+  /* THE SLIDERS (SOUNDS 10/20, rule 122). One range input per knob; the filled part is drawn by --p. */
+  function slider(id, key, setter) {
+    var host = document.createElement('div'); host.id = id; host.className = 'setslide';
+    var i = document.createElement('input'); i.type = 'range'; i.min = '0'; i.max = '100'; i.step = '1';
+    i.setAttribute('aria-label', id.replace('set', '') + ' volume');
+    var n = document.createElement('span'); n.className = 'setnum';
+    var show = function () { i.style.setProperty('--p', i.value + '%'); n.textContent = i.value; };
+    i.addEventListener('input', function () { show(); var f = window[setter]; if (f) f((+i.value) / 100); });
+    host.appendChild(i); host.appendChild(n);
+    host.__key = key; host.__show = show;
+    return host;
+  }
   function paint() {
     var mix = null; try { mix = window.getMix ? window.getMix() : null; } catch (e) {}
     var set = function (id, lit) { var h = el(id); if (!h) return; for (var k = 0; k < h.children.length; k++) h.children[k].classList.toggle('lit', k <= lit && lit >= 0); };
-    if (mix) { set('setmusic', mix.music > 0 ? nearest(mix.music) : -1); set('setsfx', mix.sfx > 0 ? nearest(mix.sfx) : -1); }
+    if (mix) ['setmusic', 'setamb', 'setsfx'].forEach(function (id) {
+      var h = el(id), i = h && h.querySelector('input'); if (!i || typeof mix[h.__key] !== 'number') return;
+      if (document.activeElement !== i) i.value = String(Math.round(mix[h.__key] * 100)); h.__show();
+    });
     set('setbright', step());
     var cv = document.querySelector('#setcalib canvas'); if (cv) calib(cv, step());
   }
   function rows() {
     var card = el('setcard'); if (!card || el('setbright')) return !!card;
     var anchor = el('settext') ? el('settext').parentNode : null;
-    var mus = row('MUSIC', bars('setmusic', 5, function (k) { if (window.setMusicVolume) window.setMusicVolume(LEVELS[k]); }));
-    var sfx = row('SOUNDS', bars('setsfx', 5, function (k) { if (window.setEffectsVolume) window.setEffectsVolume(LEVELS[k]); }));
+    var mus = row('MUSIC', slider('setmusic', 'music', 'setMusicVolume'));
+    var amb = row('AMBIENCE', slider('setamb', 'amb', 'setAmbienceVolume'));
+    var sfx = row('EFFECTS', slider('setsfx', 'sfx', 'setEffectsVolume'));
     var bri = row('BRIGHT', bars('setbright', STEPS, function (k) { try { ls().setItem(KEY, String(k)); } catch (e) {} publish(); }));
     var cal = document.createElement('div'); cal.id = 'setcalib';
     cal.innerHTML = '<canvas width="96" height="48"></canvas><span>SLIDE UNTIL YOU<br>CAN JUST SEE HIM</span>';
     var vol = el('setvol') ? el('setvol').parentNode : null;
-    if (vol && vol.nextSibling) { card.insertBefore(mus, vol.nextSibling); card.insertBefore(sfx, mus.nextSibling); }
-    else { card.appendChild(mus); card.appendChild(sfx); }
+    if (vol && vol.nextSibling) { card.insertBefore(mus, vol.nextSibling); card.insertBefore(amb, mus.nextSibling); card.insertBefore(sfx, amb.nextSibling); }
+    else { card.appendChild(mus); card.appendChild(amb); card.appendChild(sfx); }
     if (anchor && anchor.nextSibling) { card.insertBefore(bri, anchor.nextSibling); card.insertBefore(cal, bri.nextSibling); }
     else { card.appendChild(bri); card.appendChild(cal); }
     var lab = vol && vol.querySelector('.setlab'); if (lab && lab.textContent === 'SOUND') lab.textContent = 'ALL';
@@ -108,7 +127,7 @@
       + 'html body #setcard .seth{display:inline-block;margin:0 0 14px;padding:5px 10px 7px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:14px;letter-spacing:2px;'
       +   'color:#2a221a;background:#e2dac6 var(--set-rec) center/100% 100%;transform:rotate(-1deg);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}'
       + 'html body #setcard .setrow{gap:10px;margin-bottom:8px}'
-      + 'html body #setcard .setlab{flex:0 0 62px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:12px;letter-spacing:1.4px;color:#f0e2c4;text-align:left;text-shadow:0 1px 0 #000}'
+      + 'html body #setcard .setlab{flex:0 0 80px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:12px;letter-spacing:1.4px;color:#f0e2c4;text-align:left;text-shadow:0 1px 0 #000}'
       + 'html body #setcard .setbars{gap:4px}'
       + 'html body #setcard .setbars .vb{min-height:44px;border-radius:2px;border:1px solid #0d0a07;background:#15110d var(--set-glass) center/cover;'
       +   'box-shadow:inset 0 1px 0 rgba(255,255,255,.10)}'
@@ -117,7 +136,18 @@
       +   'font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:12px;letter-spacing:1.2px;color:#2a221a;background:#e2dac6 var(--set-rec) center/100% 100%;'
       +   'box-shadow:none;filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}'
       + 'html body #setcard .setbtn.wide{margin-top:8px;width:100%}'
-      + '#setcalib{display:flex;align-items:center;gap:10px;margin:-2px 0 10px 72px}'
+      /* the sliders: the track is the cracked glass, the part under the finger's side lights amber, the handle is a receipt tag */
+      + 'html body #setcard .setslide{flex:1;display:flex;align-items:center;gap:8px;min-height:44px}'
+      + 'html body #setcard .setslide input{flex:1;min-width:0;height:44px;margin:0;-webkit-appearance:none;appearance:none;background:transparent;touch-action:pan-y}'
+      + 'html body #setcard .setslide input::-webkit-slider-runnable-track{height:16px;border:1px solid #0d0a07;border-radius:2px;'
+      +   'background:linear-gradient(90deg,#e8b85e,#a8752c) 0 0/var(--p,50%) 100% no-repeat,#15110d var(--set-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,255,255,.10)}'
+      + 'html body #setcard .setslide input::-moz-range-track{height:16px;border:1px solid #0d0a07;border-radius:2px;background:#15110d var(--set-glass) center/cover}'
+      + 'html body #setcard .setslide input::-moz-range-progress{height:16px;background:linear-gradient(90deg,#e8b85e,#a8752c)}'
+      + 'html body #setcard .setslide input::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:40px;margin-top:-13px;border:0;border-radius:0;'
+      +   'background:#e2dac6 var(--set-rec) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}'
+      + 'html body #setcard .setslide input::-moz-range-thumb{width:26px;height:40px;border:0;border-radius:0;background:#e2dac6 var(--set-rec) center/100% 100%}'
+      + 'html body #setcard .setnum{flex:0 0 26px;text-align:right;font-family:"BohemiaROM",ui-monospace,monospace;font-size:11px;color:#f0e2c4;text-shadow:0 1px 0 #000}'
+      + '#setcalib{display:flex;align-items:center;gap:10px;margin:-2px 0 10px 90px}'
       + '#setcalib canvas{width:96px;height:48px;image-rendering:pixelated;border:1px solid #0d0a07}'
       + '#setcalib span{font-family:"BohemiaROM",ui-monospace,monospace;font-size:10px;letter-spacing:.6px;color:#e6d8bd;line-height:1.4;text-shadow:0 1px 0 #000}'
       /* opened from the start screen (before BEGIN): above the door, nothing to save or quit */

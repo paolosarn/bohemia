@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"2ae742e0e2bafb5c",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"faa7bb88d9d22a1b",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1568,7 +1568,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/19c - THE MAP IS PAINTED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/20a - ONE SONG ONLY</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -14109,7 +14109,7 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
      COMBAT'S LOOP PLAYS ONLY WHILE THE COMBAT TAB IS THE VISIBLE ONE. */
   { const cf=document.getElementById('combatFrame');
     const _combatOwnsIt=(t.dataset.p==='combat');
-    if(cf&&cf.contentWindow)try{cf.contentWindow.postMessage({bohemiaMusicMute:!_combatOwnsIt},'*');}catch(e){} }
+    if(cf&&cf.contentWindow)try{cf.contentWindow.postMessage({bohemiaMusicMute:(window.SONGFENCE?true:!_combatOwnsIt)},'*');}catch(e){} }   /* __ONE_SONG_ONLY__ 10/20: its loop is faction songs */
   if(t.dataset.p==='combat')setTimeout(musicPushToCombat,400);   /* THE LIVE LINK: the studio speaks directly into combat */
   }));
 
@@ -18267,7 +18267,7 @@ const CITYMUS={on:false,watch:null,
       if(g&&lvl!=null){ g.gain.cancelScheduledValues(t0);
         g.gain.setValueAtTime(g.gain.value,t0);
         g.gain.linearRampToValueAtTime(lvl,t0+0.25); } }catch(e){} },
-  startShuffle(){ this.on=true; try{MUS.build();}catch(e){} this.play();   /* build() first: song2/V load, same as the studio tab (7/6 fix) */
+  startShuffle(){ this.on=true; try{MUS.build();}catch(e){} if(!(window.SONGFENCE&&SONGFENCE.keep()))this.play();   /* __ONE_SONG_ONLY__ 10/20: a night song already playing is kept */   /* build() first: song2/V load, same as the studio tab (7/6 fix) */
     if(this.watch)clearInterval(this.watch);
     this.watch=setInterval(()=>{ if(!CITYMUS.on)return;
       /* __THE_STREET_BREATHES__ -- THE REST, HANDLED BEFORE ANYTHING ELSE.
@@ -20770,8 +20770,11 @@ function buildUI(){
         FIGHTMUS.songLatched=true;
       }
       /* NEVER THE SCRATCH PATCH (8/19). See FIGHTMUS.realFaction. */
-      MUS.cur=(window.FIGHTMUS?FIGHTMUS.realFaction(ev.data.bohemiaFactionPicked)
+      var _fi=(window.FIGHTMUS?FIGHTMUS.realFaction(ev.data.bohemiaFactionPicked)
                               :ev.data.bohemiaFactionPicked);
+      /* __ONE_SONG_ONLY__ (SOUNDS 10/20, rule 122): a faction song is outside his set, so the fight keeps
+         the night song it walked in on (or takes one from the set); a faction he tags OVERWORLD NIGHT plays. */
+      if(window.SONGFENCE&&!SONGFENCE.allowed(_fi,MUS.curSlot||1)) SONGFENCE.fight(); else MUS.cur=_fi;
       MUS.userPicked=true; MUS._audit=false;   /* ONE TRUTH: combat's pick IS the studio's pick -- but combat picking must NOT freeze its own pool rotation (7/19) */
       document.querySelectorAll('.mus-play').forEach(b=>b.textContent='PLAY'); return; }
     if(ev&&ev.data&&combatMsgIn(ev.data))return;   /* COMBAT BRIDGE route */
@@ -21636,6 +21639,188 @@ drawLogoBig();requestAnimationFrame(loop);
 
 
 
+
+<!-- __ONE_SONG_ONLY__ (SOUNDS 10/20, rule 122) -->
+<script>
+/* ============================================================================
+   __ONE_SONG_ONLY__ (SOUNDS 10/20/26, row [one song only], rule 122)
+
+   PAOLO 10/20, LOCKED: 'all the music sucks except for the new one you just made, the overworld night track, so I
+   shouldn't be hearing anything other than that ever; if I hear any other song ever again I'm shutting this whole
+   shit down'. The same hour: 'And ALL OF THE OVERWORLD NIGHT TRACKS TOO'. Then: 'It's in the music tab!!!'.
+
+   THE SET IS READ AT PLAY TIME, NEVER TYPED HERE. A song may sound only if the MUSIC tab's OVERWORLD NIGHT category
+   holds it: MUS.cats, his saved tags first and CAT_DEFAULTS behind them (nine songs on 10/20). Tag a song there and
+   it plays; untag it and it goes silent. REPO MAN is in that category and plays as THE MACHINE PARTY (his YES,
+   10/19, sounds-repo-man-the-machine-party-10-19, take A: the concrete hall and the worn tape), at the loudness
+   his REPO MAN has now (the recorder's own trim, -9.21 dB). Every other song stays on disk and is never heard.
+
+   ONE FENCE, FOUR DOORS AND A NET. The street (CITYMUS), the opening (MENUMUS), the room (INTERIORMUS) and the
+   fight (the faction pick) choose only from the set. Then MUS.playStep, the one place a note of any song goes into
+   the graph, refuses a song outside it: the game swaps to a song inside it; a song he taps in the MUSIC tab that is
+   outside it stays silent (an audition he asked for must not turn into a different song). An offline render (a
+   recorder making VOTE material, rule 122(d)) never reaches a speaker and is not fenced.
+   The gate is gates/one_song_only_gate.js; the patch that puts this in the alpha is
+   tools/bohemia_sounds_one_song_only_patch.py.
+   ========================================================================== */
+(function(){
+ 'use strict';
+ if(window.SONGFENCE) return;
+ var CAT='OVERWORLD NIGHT';
+ var F={ cat:CAT, log:[], refused:0, silenced:0, notes:0 };
+
+ function lib(){ try{ return MUS.lib(); }catch(e){ return []; } }
+ function nf(){ try{ return MFACTIONS.length; }catch(e){ return 0; } }
+ function nameOf(fi){ var f=lib()[fi]; return f ? f.n : null; }
+ /* HIS TAGS, AS THE MUSIC TAB SEES THEM. MUS.cats once the engine is built; before that the same two sources it
+    builds from (his save, then CAT_DEFAULTS), read without building anything. The legacy 'OVERWORLD' tag is
+    'OVERWORLD NIGHT' (his 7/19 words, MUS.bakeCats). */
+ function catsOf(key){
+  var c=null;
+  try{
+   if(MUS.cats) c=MUS.cats[key];
+   else{
+    var d=JSON.parse(localStorage.getItem('bohemia_music')||'null');
+    c=d&&d.cats&&d.cats[key];
+    if(!c && typeof CAT_DEFAULTS!=='undefined') c=CAT_DEFAULTS[key];
+   }
+  }catch(e){}
+  return c||[];
+ }
+ function live(){
+  try{ var ac=MUS.AC; if(!ac) return true;
+   if(window.OfflineAudioContext && ac instanceof window.OfflineAudioContext) return false;
+   return !/Offline/.test((ac.constructor&&ac.constructor.name)||'');
+  }catch(e){ return true; }
+ }
+ function note(what, from, to){
+  F.log.push([what, from, to, Date.now()]); if(F.log.length>40) F.log.shift();
+ }
+
+ F.allowed=function(fi, slot){
+  var n=nameOf(fi); if(!n) return false;
+  var c=catsOf(n+'#'+(slot||1));
+  return c.indexOf(CAT)>=0 || c.indexOf('OVERWORLD')>=0;
+ };
+ /* every song he has in the category, faction songs included if he ever tags one */
+ F.pool=function(){
+  var L=lib(), out=[], k=nf();
+  for(var i=0;i<L.length;i++){
+   if(F.allowed(i,1)) out.push({fi:i, slot:1});
+   if(i<k && F.allowed(i,2)) out.push({fi:i, slot:2});
+  }
+  return out;
+ };
+ F.names=function(){ return F.pool().map(function(c){ return nameOf(c.fi)+(c.slot===2?' (SONG 2)':''); }); };
+ /* the street's own draw: never the same song twice in a row when there is another, canon 8x, unjudged 4x */
+ F.pick=function(){
+  var cs=F.pool(); if(!cs.length) return null;
+  if(cs.length>1){ var fresh=cs.filter(function(c){ return !(c.fi===MUS.cur && c.slot===(MUS.curSlot||1)); }); if(fresh.length) cs=fresh; }
+  var w=cs.map(function(c){ var v=MUS.V&&MUS.V[nameOf(c.fi)+'#'+c.slot]; return v===2?8:(v===0?1:4); });
+  var t=w.reduce(function(a,b){ return a+b; },0), r=Math.random()*t;
+  for(var i=0;i<cs.length;i++){ r-=w[i]; if(r<=0) return cs[i]; }
+  return cs[0];
+ };
+ F.ok=function(){ return F.allowed(MUS.cur, MUS.curSlot||1); };
+ F.now=function(){ return nameOf(MUS.cur); };
+ /* put a song from the set on the transport, in place; false when the set is empty (then the music is silent) */
+ F.fix=function(why){
+  if(F.ok()) return true;
+  var from=nameOf(MUS.cur), c=F.pick();
+  if(!c) return false;
+  MUS.cur=c.fi; MUS.curSlot=c.slot; F.refused++;
+  note(why, from, nameOf(c.fi));
+  return true;
+ };
+ /* THE STREET TAKING THE MUSIC BACK KEEPS THE SONG THAT IS PLAYING when it is one of his. Before 10/20 the opening
+    played a menu song and the fight a faction song, so the street always had to change song on the way back; now
+    all three play from the same set, and changing a night song for another night song after sixteen seconds is a
+    cut nobody asked for. The street's own 64-bar turn still changes it. */
+ F.keep=function(){
+  try{
+   if(!MUS.playing || !F.ok()) return false;
+   var fr=document.getElementById('cityFrame');
+   if(fr&&fr.contentWindow) fr.contentWindow.postMessage({bohemiaCityMusicState:{on:true, now:F.now()}},'*');
+   note('kept', F.now(), F.now());
+   return true;
+  }catch(e){ return false; }
+ };
+ /* A FIGHT USED TO TAKE A FACTION SONG. Now it keeps the night song it walked in on, or takes one from the set. */
+ F.fight=function(){ if(MUS.playing && F.ok()){ note('fight kept', F.now(), F.now()); return; } F.fix('fight'); };
+
+ /* ---- THE DOORS ---------------------------------------------------------------------------------------------- */
+ try{ CITYMUS.candidates=function(){ return F.pool(); }; }catch(e){}      /* day, dusk and dawn play the night set */
+ try{ MENUMUS.candidates=function(){ return F.pool().filter(function(c){ return c.fi>=nf(); }); }; }catch(e){}   /* the opening plays a night song */
+ try{ var _ic=INTERIORMUS.candidates;
+      INTERIORMUS.candidates=function(){ return _ic.call(INTERIORMUS).filter(function(c){ return F.allowed(c.fi,c.slot); }); };
+ }catch(e){}                                                              /* untagged songs are never his set: indoors keeps the street's song */
+
+ /* ---- THE NET: every note of every song passes here ---------------------------------------------------------- */
+ var _ps=MUS.playStep;
+ F._ps=_ps;
+ MUS.playStep=function(s, t, sc){
+  if(live() && !F.ok()){
+   /* he tapped a song outside his set in the MUSIC tab: it stays silent rather than becoming another song */
+   if(MUS._audit && MUS.userPicked){ F.silenced++; if(F.silenced%64===1) note('studio silent', F.now(), null); return; }
+   if(!F.fix('net')){ F.silenced++; return; }                            /* the set is empty: silence, never a song */
+  }
+  F.notes++;
+  var mp=live() ? MP.step() : null;
+  if(!mp) return _ps.apply(MUS, arguments);
+  var M=MUS.MAST; MUS.MAST=mp;                                           /* his voices into the hall and the tape */
+  try{ return _ps.apply(MUS, arguments); } finally { MUS.MAST=M; }
+ };
+
+ /* ---- REPO MAN, THE MACHINE PARTY -----------------------------------------------------------------------------
+    engine/bohemia_machine_party.js listens to his own engine's kick and hat and a real machine answers (the kit:
+    slices/vote/songs/machine_party_kit/, real recordings). Loaded once the music is running, never before the door.
+    While REPO MAN is on the transport the machine is attached and his voices go through the take-A chain into the
+    music master; on any other song it is detached and drumV and MUS.playStep are back exactly. */
+ var SPEC={
+  press:{gain:0.24, fill:0.15}, relay:{gain:0.08},
+  party:{sections:['D'], steps:[4,12], gain:0.18},
+  clank:{sections:['B','D'], step:6, every:2, gain:0.12},
+  motor:{gain:0.05, strip:1.6},
+  hall:{music:0.12, machine:0.35},
+  tape:{bump_db:2.5, drive:1.6, wow:0.0008, wow_hz:0.6, flutter:0.00025, flutter_hz:5.1, top_hz:9000}
+ };
+ var TRIM_DB=-9.21;                       /* the recorder's measured trim for take A against his REPO MAN */
+ var MP={ song:'REPO MAN', state:'idle', ac:null, chain:null, err:null, attached:0, spec:SPEC };
+ MP.isRepo=function(){ return MUS.curSlot!==2 && nameOf(MUS.cur)===MP.song; };
+ function kit(){
+  var ac=MUS.AC;
+  window.MACHINEPARTY.load(ac, 'vote/songs/machine_party_kit/')
+   .then(function(){ MP.ac=ac; MP.chain=null; MP.state='ready'; })
+   .catch(function(e){ MP.state='failed'; MP.err=String(e&&e.message||e); });
+ }
+ MP.load=function(){
+  if(window.MACHINEPARTY){ try{ kit(); }catch(e){ MP.state='failed'; MP.err=String(e&&e.message||e); } return; }
+  var s=document.createElement('script'); s.src='../engine/bohemia_machine_party.js'; s.async=true;
+  s.onload=function(){ try{ kit(); }catch(e){ MP.state='failed'; MP.err=String(e&&e.message||e); } };
+  s.onerror=function(){ MP.state='failed'; MP.err='engine did not load'; };
+  document.head.appendChild(s);
+ };
+ /* called on every live step: the node his voices go into for this step, or null. The first call only arms the
+    load, four seconds on, so nothing is fetched before the door and nothing lands inside the opening's first beat. */
+ MP.step=function(){
+  var X=window.MACHINEPARTY;
+  if(MP.state==='idle'){ MP.state='waiting'; setTimeout(MP.load, 4000); return null; }
+  if(MP.state!=='ready' || !X) return null;
+  if(!MP.isRepo()){ if(X.on) X.detach(); return null; }
+  if(MP.ac!==MUS.AC){ if(X.on) X.detach(); MP.chain=null; MP.state='waiting'; setTimeout(MP.load, 0); return null; }  /* a rebuilt context */
+  if(!MP.chain){
+   var ac=MUS.AC, trim=ac.createGain(); trim.gain.value=Math.pow(10, TRIM_DB/20); trim.connect(MUS.MAST);
+   MP.chain=X.chain(ac, trim, {hall:SPEC.hall, tape:SPEC.tape}); MP.chain.trim=trim;
+  }
+  if(!X.on){ X.attach(SPEC, {music:MP.chain.input, machine:MP.chain.machine}); MP.attached++; }
+  return MP.chain.input;
+ };
+ F.machine=MP;
+
+ window.SONGFENCE=F;
+})();
+</script>
+<!-- /__ONE_SONG_ONLY__ -->
 
 <!-- BOHEMIA RUN BEAT BRIDGE (7/29/26) -->
 <script>
@@ -22845,8 +23030,8 @@ drawLogoBig();requestAnimationFrame(loop);
  /* DEFAULTS IN CODE, NOT ONLY IN A COOKIE. Same rule his verdicts live under:
     a cleared phone falls back to a mix somebody chose on purpose, never to
     whatever a fresh object happens to be. */
- var MIX_DEFAULTS={master:1, music:0.75, sfx:1};
- var MIX={master:MIX_DEFAULTS.master, music:MIX_DEFAULTS.music, sfx:MIX_DEFAULTS.sfx};
+ var MIX_DEFAULTS={master:1, music:0.75, sfx:1, amb:0.4};   /* __THE_SLIDERS__ 10/20 (rule 122b): the ambience starts far down, 0.4 is -20 dB */
+ var MIX={master:MIX_DEFAULTS.master, music:MIX_DEFAULTS.music, sfx:MIX_DEFAULTS.sfx, amb:MIX_DEFAULTS.amb};
  try{ var d=JSON.parse(localStorage.getItem('bohemia_mix')||'null');
    if(d){ for(var k in MIX) if(typeof d[k]==='number') MIX[k]=Math.max(0,Math.min(1,d[k])); }
  }catch(e){}
@@ -22868,12 +23053,30 @@ drawLogoBig();requestAnimationFrame(loop);
      stops working. */
   try{ if(window.setSFXVolume) window.setSFXVolume(taper(MIX.sfx));
        else if(window.__SFXBUS) window.__SFXBUS.gain.value=taper(MIX.sfx); }catch(e){}
+  try{ if(AMBBUS) AMBBUS.gain.value=taper(MIX.amb); }catch(e){}
  }
+ /* __THE_SLIDERS__ (SOUNDS 10/20, rule 122: 'the background ambience, the radio, has to go way down; anything
+    volume wise, I should be seeing a slider for it in the settings'). THE AMBIENCE BUS: the beds, the room's hum,
+    the valley's radio, the map's desert, the title's wind and the heartbeat before the song meet here and nowhere
+    else, then the output bus, beside the effects and never through them, so the EFFECTS slider moves a shot and
+    the AMBIENCE slider moves the bed. Built on first use in the live context; an offline render gets none. */
+ var AMBBUS=null;
+ window.__ambBus=function(){
+  try{
+   if(typeof MUS==='undefined' || !MUS.AC) return null;
+   if(window.OfflineAudioContext && MUS.AC instanceof window.OfflineAudioContext) return null;
+   if(AMBBUS && AMBBUS.context===MUS.AC) return AMBBUS;
+   AMBBUS=MUS.AC.createGain(); AMBBUS.gain.value=taper(MIX.amb);
+   AMBBUS.connect(MUS.OUT||MUS.AC.destination); window.__AMBBUS=AMBBUS;
+   return AMBBUS;
+  }catch(e){ return null; }
+ };
  window.__applyMix=apply;
- window.getMix=function(){ return {master:MIX.master, music:MIX.music, sfx:MIX.sfx}; };
+ window.getMix=function(){ return {master:MIX.master, music:MIX.music, sfx:MIX.sfx, amb:MIX.amb}; };
  window.setMasterVolume=function(v){ MIX.master=Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.master; };
  window.setMusicVolume =function(v){ MIX.music =Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.music; };
  window.setEffectsVolume=function(v){ MIX.sfx  =Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.sfx; };
+ window.setAmbienceVolume=function(v){ MIX.amb=Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.amb; };
  /* THE RE-APPLY TICK ONLY FIRES WHEN THE NODES ARE NEW, and that distinction
     cost a gate failure the first time this shipped. The audio context can be
     built long after this code runs and it can be REBUILT, so the knobs cannot
@@ -23048,6 +23251,7 @@ drawLogoBig();requestAnimationFrame(loop);
   w.appendChild(h);
   w.appendChild(row('master','MASTER'));
   w.appendChild(row('music','MUSIC'));
+  w.appendChild(row('amb','AMBIENCE'));   /* __THE_SLIDERS__ 10/20 */
   /* letting go of the EFFECTS slider plays one of his approved taps, so the
      level he just chose is a thing he HEARS instead of a number he reads */
   w.appendChild(row('sfx','EFFECTS',function(){
@@ -23715,7 +23919,7 @@ drawLogoBig();requestAnimationFrame(loop);
         /* the effects bus, so his slider reaches it. NEVER MUS.MAST as a first
            choice: MUS.stop() ducks that to zero, and this has to survive the
            tab handler stopping the studio on the way into the game. */
-        this.bus.connect(sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
+        this.bus.connect((window.__ambBus&&window.__ambBus())||sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
         var s = AC.createBufferSource();
         s.buffer = this.buf; s.loop = true;
         s.connect(this.bus);
@@ -23910,7 +24114,7 @@ drawLogoBig();requestAnimationFrame(loop);
         /* the effects bus, so his one slider reaches it, and NEVER MUS.MAST as a
            first choice: MUS.stop() ducks that to zero, and a room does not stop
            because the studio did. Same reasoning as the heartbeat above. */
-        this.bus.connect(sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
+        this.bus.connect((window.__ambBus&&window.__ambBus())||sfxBus() || MUS.OUT || MUS.MAST || AC.destination);
 
         /* *** THIS BLOCK WAS SILENTLY REVERTED ONCE, WITHIN AN HOUR OF LANDING, BY ANOTHER
            LANE RESOLVING A REBASE CONFLICT IN THIS FILE (PEOPLE bd1921d6, 9/24). Nothing was
@@ -25131,7 +25335,7 @@ drawLogoBig();requestAnimationFrame(loop);
           this.bus.gain.value = 0.4;
           /* MUS.OUT before MUS.MAST: nothing that is not music may fall back
              to the MUSIC master, because MUS.stop() ducks it to zero. */
-          this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
+          this.bus.connect((window.__ambBus&&window.__ambBus())||sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
         }
         /* A CROSSING IS THE AIR, NOT AN EVENT (8/20). pick() can hand back a
            gust, a generator, a lit sign or a dog, which is right for an idle
@@ -25248,7 +25452,7 @@ drawLogoBig();requestAnimationFrame(loop);
     start:function(){
       var self=this; if(this.id) return;
       if(typeof MUS==='undefined') return; try{ MUS.audio(); }catch(e){} var AC=MUS.AC; if(!AC) return;
-      var out=sfxBus()||MUS.OUT||MUS.MAST||AC.destination, id=this.BED;
+      var out=(window.__ambBus&&window.__ambBus())||sfxBus()||MUS.OUT||MUS.MAST||AC.destination, id=this.BED;
       this.id=id; this.log.push({on:id, night:!!(this.last && this.last.night), t:Date.now()});
       this.load(AC,id).then(function(b){
         if(self.id!==id || self.g) return;
@@ -25314,7 +25518,7 @@ drawLogoBig();requestAnimationFrame(loop);
     start:function(){
       var self=this; if(this.on) return;
       if(typeof MUS==='undefined') return; try{ MUS.audio(); }catch(e){} var AC=MUS.AC; if(!AC) return;
-      var out=sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
+      var out=(window.__ambBus&&window.__ambBus())||sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
       this.on=true; this.log.push({on:1, t:Date.now()});
       this.load(AC).then(function(b){
         if(!self.on || self.g) return;
