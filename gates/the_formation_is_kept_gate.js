@@ -68,6 +68,11 @@ async function main() {
   await p.waitForTimeout(400);
   const before = await p.screenshot(Object.assign({ path: proofShot(path.join(ROOT, 'slices/vote/COMBAT_FORMATION_KEPT_BEFORE_10_16.jpg')) }, SHOT));
   /* ---- 2. the drags: one man to the top corner of the line, one to the bottom corner ---- */
+  /* the camera on his two columns first: a finger that drops within DRAG_EDGE of the glass's side pans the board under it by
+     design (dragPan), so a drop the leg aims at the very edge lands a tile off (measured 10/20: the friend at 6,5 stood 41 px
+     from the left edge on this board, the drag panned 93 world px and the trade never happened) */
+  await ev(() => { const z = FIGHT._t.zoneCols(); FIGHT_UI.glide = null; FIGHT_UI.cx = ((Math.min.apply(null, z) + Math.max.apply(null, z)) / 2 + .5) * FIGHT_UI.tw; });
+  await p.waitForTimeout(200);
   const plan = await ev(() => { const S = FIGHT.S, z = FIGHT._t.zoneCols(), you = FIGHT.alive('you').filter(u => !u.main);
     const u = you[1] || you[0], u2 = you.filter(v => v !== u).slice(-1)[0], mate = you.filter(v => v !== u && v !== u2)[0];
     const free = (x, y) => y >= 0 && y < S.h && FIGHT._t.passable(x, y) && !S.units.some(v => FIGHT.onField(v) && v.x === x && v.y === y);
