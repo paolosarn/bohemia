@@ -831,6 +831,31 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sounds-one-song): 10/20 LATEST (round thirty, [one song only], rule 122) --
+*** ONLY HIS SONGS PLAY NOW: THE OVERWORLD NIGHT CATEGORY, REPO MAN AS THE MACHINE PARTY; THE AMBIENCE DOWN; THREE SLIDERS. ***
+His 10/20: 'if I hear any other song ever again I'm shutting this whole shit down'; 'and ALL OF THE OVERWORLD NIGHT
+TRACKS TOO'; 'It's in the music tab!!!'; 'the background ambience, the radio, has to go way down... a slider for it'.
+THE FENCE (tools/bohemia_sounds_one_song_only_block.js, inlined by tools/bohemia_sounds_one_song_only_patch.py,
+idempotent): the set is read at play time from the MUSIC tab's OVERWORLD NIGHT category (his saved tags, CAT_DEFAULTS
+behind; nine on 10/20); CITYMUS (every time of day), MENUMUS and INTERIORMUS choose only from it; the fight's faction
+pick goes through SONGFENCE.fight() (the fight keeps the night song it walked in on); the street taking the music
+back keeps a night song already playing; MUS.playStep refuses any other song (the game swaps, a MUSIC-tab tap outside
+the set stays silent; offline renders pass, rule 122(d)); the old fight's own loop is always muted. REPO MAN plays as
+THE MACHINE PARTY, live (engine/bohemia_machine_party.js + the kit, loaded 4 s after the music starts, take A, the
+recorder's -9.21 dB trim: measured live -25.7 dB RMS against his REPO MAN's -25.5). THE AMBIENCE: one bus
+(window.__ambBus) beside the effects bus, the mix's new amb knob at 0.4 by default (-20 dB): the room's
+hum, the air beds and the valley's radio (AMB.bus), the map's desert, the title's wind (NOT the heartbeat before the
+song: it is the 120 BPM clock, it stays on the effects bus); the settlement screen's own
+audio (engine/bohemia_settlement_heard.js) now follows AMBIENCE (bed, murmur, far things), EFFECTS (taps), ALL and
+MUTE, at once through the storage event. THE SLIDERS: slices/bohemia_settings.js, MUSIC / AMBIENCE / EFFECTS as range
+inputs (44-point receipt-tag handle on the cracked-glass track, live while dragged, saved in bohemia_mix); the MUSIC
+tab's knob panel got AMBIENCE too. DEMO CUT BUILD 10/20a - ONE SONG ONLY. Gate ONE SONG ONLY 16/0 on the demo
+(O7: the same sweep unfenced hears 133 outside songs). GATES RE-AIMED to rule 122: THE ONE SONG 8/0 (S3: the fight's song is his, not a faction's), ROOM SONG (the room keeps his song, its pool empty, the silent shelf counted: 29/1, the one red is the file door below), SFX WIRED 1050/6 (the DAY pool is the NIGHT set, THE MARKER ON THE DOOR silent by day; its six reds are main's seven less a flake), SETTINGS IN OUR MATERIALS 15/0 (the sliders, AMBIENCE and EFFECTS), SETTINGS (the volume word), THE MACHINE PARTY 42/0 (the fence's net is his step's wrapper). PRE-EXISTING REDS
+(red on main 9fabdaffe before this change, measured side by side): beat first 14/3, city where 23/2, combat sound, demo sound 10/3, every sound reachable 19/4, fight music 46/5, lit block hums 19/1, one engine (a click timeout), off the beat heard, settings' QUIT leg 17/1, sfx wired 1050/7, beat survives a phone, pages publish (1082 MB against 260); and the file-door ones: fight start heard, street breathes 16/9 and room song's 'the opening handed over' open slices/BOHEMIA_ALPHA_0_9.html from disk and click #front, which since the start screen (RUN 10/4) stops at NEW GAME, so the music never starts: PLUMBER's to re-aim, not this row's. map heard went red once under four parallel boots (2.5 s to decode) and is 17/0 alone. Record:
+records/BOHEMIA_ONE_SONG_ONLY_SOUNDS_10_20_26.md. NEXT: nothing in this row; [the machine party] stays stopped by the
+row's constraint until he names another song. PENDING Paolo: nothing.
+UNDER UI (rule 113a): SOUNDS fenced the music to his OVERWORLD NIGHT songs and put three volume sliders in SETTINGS, the demo, SHIPPED.
+
 SOUNDS (sound-opus-10-19b): 10/19 LATEST (round twenty-nine, [the machine party] round one, rule 121(k)) --
 *** REPO MAN, REMADE AS A MACHINE PARTY, IN VOTE: HIS SONG NOTE FOR NOTE, A REAL MACHINE PLAYING ALONG. ***
 His 10/19: 'Remodel everything 3D grimey Crashbox analog horror machine party vibes. And the music too man.' Rule 119:

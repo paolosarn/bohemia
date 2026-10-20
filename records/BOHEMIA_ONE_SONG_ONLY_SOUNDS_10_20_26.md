@@ -50,6 +50,19 @@ idempotent; the demo is cut from the alpha):
 - What is not fenced, on purpose: the stings (two to four notes over the song when you win, lose, get paid, finish a
   job: effects, not songs) and the VOTE tab's song pages (rule 122(d): a new song is made only to VOTE).
 
-## Gates the change moved
-See the handoff block (SOUNDS, 10/20) for the run of the 31 gates that read music, the mix, the settings and the demo,
-and which legs were re-aimed at rule 122.
+## Gates the change moved (31 gates that read the music, the mix, the settings and the demo, run on this tree and on untouched main 9fabdaffe side by side)
+- RE-AIMED to rule 122 (they held the old shape his 10/20 word overrules): THE ONE SONG 8/0 (S3: the fight's song is
+  his, not a faction's), ROOM SONG 29/1 (the room keeps his song, its pool is empty, the silent shelf is counted),
+  SFX WIRED 1050/6 (the DAY pool is the NIGHT set; THE MARKER ON THE DOOR, OVERWORLD DAY, is silent by day), SETTINGS IN
+  OUR MATERIALS 15/0 (the sliders, AMBIENCE and EFFECTS), SETTINGS 17/1 (the volume word), THE MACHINE PARTY 42/0 (the
+  fence's net wraps his step). Each re-aim keeps the old leg for a tree without the fence.
+- THE HEARTBEAT BEFORE THE SONG stays on the effects bus: it is the 120 BPM clock, measured at its own level under a
+  footstep (beat_first_gate); on the ambience bus it fell under the meter's floor. Beat first is 14/3 on both trees.
+- RED ON MAIN BEFORE THIS CHANGE, THE SAME LEGS: beat first, city where, combat sound, demo sound, every sound reachable,
+  fight music, lit block hums, one engine, off the beat heard, settings' QUIT leg, sfx wired, beat survives a phone,
+  pages publish (1082 MB against a 260 MB cap); and three that open the alpha from disk and click #front, which since the
+  start screen (RUN 10/4) stops at NEW GAME so the music never starts (fight start heard, street breathes, room song's
+  'the opening handed over'). Not this row's; PLUMBER's to re-aim.
+- MAP HEARD went red once under four parallel boots (the desert takes longer than its 2.5 s to decode) and is 17/0 alone.
+- GREEN AND UNMOVED: menu music, mix, music reach, music, named lead, settlement heard, sound card, travel steps, bed is
+  the place, citymus rotation, demo build (the committed demo is exactly the cut).
