@@ -284,6 +284,35 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-hair-two): 10/20 (x) LATEST -- *** THE GAME'S 74 COATS ON THE 3D MAN: 70 IN VOTE ON THREE CARDS, 4 HELD; THE LIGHT ROW READS THE HEAD. ***
+TAB: VOTE, the cards character-outer-one-the-long-coats-10-20 (16 trenches, dusters, longcoats, split tails),
+character-outer-one-the-short-ones-10-20 (30 car coats, chore coats, jackets, vests) and
+character-outer-one-the-runway-and-the-work-clothes-10-20 (24 cocoon, comma, wrap and slanted coats, ponchos, aprons); each coat
+beside the game's flat coat at 1:1, eight facings standing, the portrait at 128.
+Record: records/BOHEMIA_OUTER_ONE_THE_74_COATS_10_20_26.md. Opened by the coordinator (rule 112), VAMILY, Opus.
+[every old asset into the new look] (CLAIMED 10/18, rule 121(l) 'all the 2D assets made into 3D assets now') round six,
+the roll call's fifth batch OUTER: tools/bohemia_character_garments_outer.py reads the 74 off genCoat, genPoncho and genApron
+and genCoat's own rules (the open front, the tall collar, lapels, the A-line skirt, the vent, vest, jacket, wrap, asym,
+cocoon, comma) into 16 shapes, each modelled once with BASE 1's toolkit (lifted into kit(): the tops build the same, vertex
+for vertex) and this lane's coat skirt; the name decides the cut (a TRENCH belted and buttoned, a DUSTER open under a
+capelet, FIELD/CHORE/WORK pockets, TACTICAL pouches, QUILTED channels, LEATHER a zip); the poncho cut to its own pattern
+(cycle 3); the hooded poncho wears BASE 1's hood. The flat twin takes OUTER:<name> (all 74 rendered).
+FOR DIRECTION AND PLUMBER (measured, the finding): the guide's light row (G3, top half of the sprite against the bottom)
+failed all 15 first long coats by 7 to 31 values; the coat alone is lit from above (BONE DUSTER N 112.8 over 115.2, RANGER
+LONGCOAT N 76.5 over 73.5); the starred head in black hair is 35 to 38 per cent of the top half. His YES'd Volunteers (bone
+cocoon) fails the same row 8 of 8. The coat cards put the mannequin's taper in sand (the coats unchanged): 70 of 74 pass;
+BONE, COBALT, GRASS and ROSE DUSTER still fail (2.6 to 9.5) and are held, not changed. Compare one material's lit and
+shadow side (the rig's id pass), not the sprite's halves.
+FOR RUN TWO [no two people alike]: the barber's book now lists the 80 tops and the 74 coats too (build name, card, held).
+GATES: CHARACTER IN THE VOTE TAB 9/0, THE ROLL CALL 8/0 (now reads OUTER 1's cards), THE BARBER GATE, HANDOFF; every still
+of the three cards through the guide's first five (560 of 560); the full suite does not finish on this box (rule 13).
+[bb Battle Brothers' coats are armour layers painted per facing; ours are the street's coats, cut and hung on the man so
+they part over each leg when he walks.]
+[analog horror: wool and leather in clay, a duster's hem worn ragged, a poncho's woven bands sun-bleached, dust in every fold.]
+Lead line for DIRECTION (rule 113a): CHARACTER put 70 of the game's 74 coats on the 3D man in VOTE (3 cards), 4 held by the light row, SHIPPED this round.
+NEXT: the roll call's garments: legs (45), then feet, back, gear, neck, waist, hands, on the same mannequin.
+PENDING Paolo: nothing.
+
 CHARACTER (character-hair-two): 10/19 (w) LATEST -- *** WAY MORE HAIR AND FACES: 12 NEW CUTS, 12 FACE SHAPES, 7 NEW BEARDS, 5 NEW MARKS ON THE 3D HEAD; THE BARBER'S BOOK AND THE ROLL HANDED TO RUN TWO. ***
 TAB: VOTE, the cards character-hair-two-the-whole-enchilada-10-19 (RAZOR SKULL, HOME CLIPPERS, HORSESHOE, COMB OVER, GREASE
 BACK, LONG DROP, SPRING CURLS, STATIC, HALF SHAVE, BOX BRAIDS, FINGER WAVES, SCORCH; each beside the nearest of the game's
