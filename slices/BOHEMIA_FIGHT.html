@@ -86,6 +86,36 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .sq:disabled{opacity:.32}
 .sq.on{outline:2px solid #8fb8e0}
 .sq.hot{outline:2px solid #e0604a}
+/* THE EMPTY GUN SHOUTS (COMBAT [the reload is loud], rule 124, Paolo 10/20: 'if I need to reload it needs to be very apparent
+   on the screen... super clear'): the moment the man you control has an empty gun, the strike square gives its place to ONE BIG
+   RELOAD, a VCR's warning on the cracked glass, never a game-show banner: the ROM's white letters with the tape's red and blue
+   ghosts a pixel either side, scanlines over the glass, a red rim; it BLINKS on the beat (on for most of it, then dim: an
+   on-screen display steps, it does not breathe), a bright tracking band rolls down it once a beat, and a tap that would have
+   fired empty kicks it. --beat is the fight's beat and --ph its phase, set by hud(), so the blink lands on the music's beat. */
+#breload.big{width:132px;display:flex;align-items:center;gap:6px;padding:0 8px 0 7px;overflow:hidden;opacity:1;
+  border:1px solid #c4553f;outline:1px solid rgba(0,0,0,.7);outline-offset:0;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.36) 0 1px,rgba(0,0,0,0) 1px 3px),var(--mat-glass,#151210) center/cover;
+  animation:rlBlink var(--beat,500ms) steps(1,end) var(--ph,0ms) infinite}
+#breload.big canvas{position:static;flex:0 0 auto}
+#breload.big .rl{flex:1;text-align:left;font-family:var(--face-casing,ui-monospace,monospace);font-size:16px;letter-spacing:1px;line-height:1;
+  color:#f2ead8;text-shadow:-1px 0 rgba(224,64,46,.9),1px 0 rgba(80,200,230,.65),0 1px 0 #000}
+#breload.big b{right:5px;bottom:3px;font-size:9px;color:#f2ead8;letter-spacing:.5px}
+#breload.big::after{content:'';position:absolute;left:0;right:0;top:0;height:4px;pointer-events:none;
+  background:linear-gradient(rgba(255,255,255,0),rgba(242,234,216,.28),rgba(255,255,255,0));
+  animation:rlRoll var(--beat,500ms) linear var(--ph,0ms) infinite}
+#breload.big:disabled{opacity:.72;animation:none;border-color:#7a2a1c}
+#breload.big:disabled .rl{font-size:12px;color:#c8bda8}
+#breload.poke,#breload.big.poke{animation:rlPoke var(--beat,500ms) steps(6,end) 1}
+@keyframes rlBlink{0%{filter:none}62%{filter:brightness(.5) saturate(.6)}}
+@keyframes rlRoll{0%{transform:translateY(-6px)}100%{transform:translateY(48px)}}
+@keyframes rlPoke{0%{transform:translateY(-7px) scale(1.14);filter:brightness(1.8);outline:3px solid #f2ead8}
+  35%{transform:translateX(3px) skewX(-8deg)}70%{transform:translateX(-2px)}100%{transform:none}}
+#breload.last{outline:2px solid #e0a044;opacity:.8}
+/* the rounds while he aims (rule 124): his gun's bullets on the receipt, a spent one an empty case */
+#say .rds{display:inline-flex;gap:2px;vertical-align:-1px;margin-right:5px}
+#say .rds i{display:block;width:4px;height:10px;border-radius:2px 2px 0 0;background:#7a3d10;box-shadow:inset 0 -3px 0 rgba(0,0,0,.28)}
+#say .rds i.out{background:transparent;box-shadow:inset 0 0 0 1px rgba(42,34,26,.45)}
+#say b.dry{color:#a3261a}
 #bwait{flex:0 0 auto;width:56px;height:46px;font:inherit;font-weight:700;font-size:11px;color:var(--paper-ink);border:0;
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55);transform:rotate(1deg)}
 #bend:disabled,#bwait:disabled{opacity:.45}
@@ -444,7 +474,7 @@ const FIGHT = (function () {
     const ps = pistolShot(u.weapon); if (ps) u.weapon = ps;
     u.club = clubFor(u.weapon);
     const ammo = u.weapon.ammo ? String(u.weapon.ammo).match(/\d+/) : null;
-    u.ammo = ammo ? Number(ammo[0]) : null;
+    u.ammo = ammo ? Number(ammo[0]) : null; u.ammoMax = u.ammo;
     S.units.push(u); return u;
   }
   function crewUnit(c, i) {
@@ -1363,6 +1393,24 @@ const FIGHT = (function () {
     if (a.weapon.mag) a.ammo = a.weapon.mag;
     emit({ t: 'reload', id: a.id }); afterAction(a); return true;
   }
+  /* THE EMPTY GUN (rule 124, Paolo 10/20: 'if I need to reload it needs to be very apparent on the screen... super clear'):
+     a gun that reloads is empty when its magazine is out (the pistol) or its one round is spent (the rifle, the shotgun) */
+  function emptyGun(a) {
+    const s = reloadSkill(a.weapon);
+    return !!s && (a.weapon.mag ? a.ammo !== null && a.ammo <= 0 : !a.loaded);
+  }
+  /* the rounds in his hand and what it holds: a magazine's count, a one-shot gun's one, a bundle's throws left */
+  function rounds(a) {
+    const w = a.weapon;
+    if (w.mag) return { left: Math.max(0, a.ammo), of: w.mag };
+    if (reloadSkill(w)) return { left: a.loaded ? 1 : 0, of: 1 };
+    if (w.ammo && a.ammo !== null) return { left: Math.max(0, a.ammo), of: a.ammoMax };
+    return null;
+  }
+  /* a man his gun would shoot if it were loaded (its own reach, never the club's one tile): the tap that would fire empty */
+  function dryAt(a, t) {
+    return emptyGun(a) && onField(a) && onField(t) && a.side !== t.side && a.morale !== 'Fleeing' && inRange(a, t);
+  }
   /* ---------------- THE SEVEN SKILLS A PERK UNLOCKS (rule 48) ----------------
      Each costs what its wiki row says in AP and fatigue, and does what its row says. */
   const ACTIVE = ['adrenaline', 'recover', 'rotation', 'rally_the_troops', 'taunt', 'footwork', 'indomitable'];
@@ -1641,6 +1689,7 @@ const FIGHT = (function () {
   return {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
+    emptyGun: emptyGun, rounds: rounds, dryAt: dryAt,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
     level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
@@ -2070,7 +2119,8 @@ function noise(d, v, f) {
    the wiring that was missing. One postMessage to the parent, which already renders every
    approved sound through its one engine (the mix, the space, the ambience trim, the voice
    limiter) -- reusing that is the whole reason this is not a second sound system. */
-function sfx(ev) { try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev }, '*'); } catch (_e) {} }
+function sfx(ev) { (UI.heard = UI.heard || []).push(ev); if (UI.heard.length > 40) UI.heard.shift();   /* what the fight asked to be heard, for the gates */
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev }, '*'); } catch (_e) {} }
 const SND = {
   step: function () { tone(70, 0.05, 0.05, 'triangle'); },
   swing: function () { sfx('swing_air'); },
@@ -2171,8 +2221,32 @@ function reachWords(u) {
   return gun ? ' Your ' + armName(u, w) + ': ' + lo + ' to ' + w.range_max + ' tiles, a club at one.' : FIGHT.isRanged(w) ? ' Your ' + armName(u, w) + ': up to ' + w.range_max + ' tiles.' : ' Your ' + armName(u, w) + ' reaches the next tile.';
 }
 function aimSay(u, t) {
-  const e = document.getElementById('say'), L = aimLines(u, t);
+  const e = document.getElementById('say'), L = aimLines(u, t), rl = roundsLine(u, t);
+  if (rl) L.splice(1, 0, rl);
   e.innerHTML = L.join('<br>'); e.classList.add('aim'); e.style.display = 'block';
+}
+/* THE ROUNDS WHERE HE LOOKS WHILE HE AIMS (rule 124): under the chance, his gun's bullets, a spent one an empty case, and the
+   count; the last one in red; a one-shot gun says it needs a reload after. Not for the club at one: that spends none. */
+function roundsLine(u, t) {
+  const r = FIGHT.rounds(u); if (!r || FIGHT.preview(u, t).club) return '';
+  let h = '<span class="rds">';
+  for (let i = 0; i < Math.min(r.of, RD_MAX); i++) h += '<i' + (i < r.left ? '' : ' class="out"') + '></i>';
+  h += '</span>';
+  if (r.of === 1) return h + 'One shot, then reload.';
+  if (r.left === 1) return h + '<b class="dry">Last round.</b>';
+  return h + r.left + ' left.';
+}
+/* A TAP THAT WOULD FIRE EMPTY (rule 124(a): 'a tap that would fire an empty gun never fails silently'): the gun's dry click,
+   one line, and the big RELOAD kicks so the finger knows where to go; the mark over him glitches hard for the beat */
+function dryTap(u) {
+  sfx('dry_fire'); UI.dryAt = performance.now();
+  const s = FIGHT.reloadSkill(u.weapon), can = FIGHT.canReload(u);
+  say('Click. Empty. ' + (can ? 'RELOAD, ' + FIGHT._t.skillAP(u.weapon, s, u) + ' AP.' : 'Reload next turn.'), true);
+  pokeReload();
+}
+function pokeReload() {
+  const b = document.getElementById('breload'); b.classList.remove('poke'); void b.offsetWidth; b.classList.add('poke');
+  clearTimeout(UI.pokeT); UI.pokeT = setTimeout(function () { b.classList.remove('poke'); }, beatMs());
 }
 /* after his blow lands, in the same beat: what it did */
 function resultSay(e) {
@@ -2180,6 +2254,9 @@ function resultSay(e) {
   let s = !e.hit ? 'Missed (' + e.chance + '%).' : 'Hit: -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '') + (e.head ? ', in the head' : '') + '.';
   if (e.hit && !FIGHT.onField(t)) s += ' ' + t.name + ' is down.';
   else if (e.hit && e.armour && t[e.head ? 'armH' : 'armB'] <= 0) s += ' His ' + (e.head ? 'helmet' : 'armour') + ' is gone.';
+  /* that was his last round: the line says so in the same beat (rule 124) */
+  const a = FIGHT.byId(e.id), shot = a && (e.shot === undefined ? FIGHT.isRanged(a.weapon) : e.shot);
+  if (shot && FIGHT.emptyGun(a)) s += ' Empty: RELOAD.';
   say(s, true);
 }
 function startAnim(a) {
@@ -2195,6 +2272,8 @@ function startAnim(a) {
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
     setTimeout(ranged ? SND.shot : SND.swing, beatMs() * 0.35);
     setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e); }, beatMs() * 0.45);
+    /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
+    if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); }, beatMs() * 0.8);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
     numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : '', e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
@@ -2211,6 +2290,9 @@ function startAnim(a) {
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
 
+    /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
+    if (e.t === 'reload' && u) { sfx('mag_home'); pop(u, '', '#f0d296', false, u.name + ' reloads.');
+      if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + r.left + ' rounds.' : '.')); } }
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'nine') pop(u, perkName('nine_lives'), '#f0d296', true);
     if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
@@ -2279,7 +2361,11 @@ function tick(now) {
   const u = FIGHT.current();
   if (!u) return;
   const sayEl = document.getElementById('say');
-  if (crewControlled(u)) { if (sayEl.textContent === THEIRS_SAY) say(WALK_SAY); follow(u); return; }
+  if (crewControlled(u)) {
+    /* HIS TURN WITH AN EMPTY GUN (rule 124): the click as it comes to him, and the line says the one thing to do first */
+    const tk = u.id + ':' + FIGHT.S.round + ':' + FIGHT.S.idx;
+    if (UI.turnKey !== tk) { UI.turnKey = tk; if (FIGHT.emptyGun(u)) { sfx('dry_fire'); UI.dryAt = now; say(FIGHT.canReload(u) ? u.name + '\'s gun is empty. RELOAD.' : u.name + '\'s gun is empty.'); } }
+    if (sayEl.textContent === THEIRS_SAY) say(WALK_SAY); follow(u); return; }
   if (!UI.auto && u.side === 'them' && sayEl.textContent !== THEIRS_SAY) say(THEIRS_SAY);
   if (now < UI.nextAI) return;
   if (follow(u, true)) return;   /* the mover off the glass: the camera goes to him first (three quarters of a beat), then he acts */
@@ -2481,7 +2567,7 @@ function draw(now) {
     /* WHERE HIS GUN REACHES (rule 120(a): 'rule 83's ranges lit on the tiles'): a gunman's shooting ground from where he stands,
        two tiles out to his gun's last, every tile he can see, taped off in one unbroken line of gaffer tape (the man's own
        material: it is his) */
-    if (FIGHT.isGun(u.weapon) && FIGHT.isRanged(u.weapon)) {
+    if (FIGHT.isGun(u.weapon) && FIGHT.isRanged(u.weapon) && !FIGHT.emptyGun(u)) {   /* an empty gun reaches nobody (rule 124) */
       const gz = {}, w = u.weapon, lo = Math.max(FIGHT._t.rangeMin(w), R('ours.gun_min_range')), hi = w.range_max;
       for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
         const d = Math.max(Math.abs(x - u.x), Math.abs(y - u.y));
@@ -2519,6 +2605,11 @@ function draw(now) {
     .sort(function (a, b) { return dy(a) - dy(b); });
   live.forEach(function (v) { drawMan(v, tw, th); });
   if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
+  /* his rounds over the man you control, drawn after every man so nobody standing in front covers them (rule 124) */
+  if (u && crewControlled(u) && !S.deploy && !S.over && FIGHT.onField(u) && manH() > 26) {
+    const Y = sy((dy(u) + .9) * UI.th) - (FIGHT.level(u.x, u.y) ? th * .14 : 0);
+    roundsMark(u, sx((dx(u) + .5) * UI.tw), Math.round(Y - manH() - 9), now);
+  }
   /* what a blow did, as light on the man, never as words on the ground (rule 46f): the words are in the bar */
   UI.pops = UI.pops.filter(function (p) { return now - p.t < beatMs() * 2; });
   /* the ripple steps on the beat's keys (three a beat, the rig's keys_per_beat), a pixel rim, never a smooth swell */
@@ -2703,6 +2794,36 @@ function drawMan(v, tw, th) {
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
   }
 }
+/* THE ROUNDS OVER HIM (COMBAT [the reload is loud], rule 124): the man you control carries his gun's rounds as bullets on a
+   black plate over his bars, brass for a full one, an empty case for a spent one, the last one amber and blinking. EMPTY, the
+   plate doubles in size, every case is hollow and red, the rim blinks on the beat like a VCR's warning, and on each beat's
+   first step (and for a beat after a dry click) the tape slips: a red and a blue ghost a cell either side. Cells, never a word
+   on the ground (rule 46f); the eye's first stop on the board. */
+const PIP_W = 3, PIP_H = 8, PIP_GAP = 2, DRY_K = 2, BLINK_ON = .62, SLIP = .14;
+function pipCells(x, y0, pw, ph, col, hollow) {
+  mkCell(x + 1, y0, Math.max(1, pw - 2), 1, col);   /* the nose */
+  if (!hollow) { mkCell(x, y0 + 1, pw, ph - 1, col); return; }
+  mkCell(x, y0 + 1, 1, ph - 1, col); mkCell(x + pw - 1, y0 + 1, 1, ph - 1, col); mkCell(x, y0 + ph - 1, pw, 1, col);
+}
+function roundsMark(v, X, top, now) {
+  const r = FIGHT.rounds(v); if (!r || !r.of) return;
+  const dry = FIGHT.emptyGun(v), last = !dry && r.of > 1 && r.left === 1, k = dry ? DRY_K : 1;
+  const n = Math.min(r.of, RD_MAX), pw = PIP_W * k, ph = PIP_H * k, gap = PIP_GAP * k, pad = 2 * k;
+  const beat = beatMs(), f = ((now - UI.t0) % beat + beat) % beat / beat, kicked = UI.dryAt && now - UI.dryAt < beat;
+  const on = f < BLINK_ON, slip = dry && (f < SLIP || kicked);
+  mkOn();
+  const w = n * pw + (n - 1) * gap, x0 = mc(X) - Math.floor(w / 2), y1 = mc(top) - 3, y0 = y1 - ph;
+  const cell = MKU / DPR; UI.mark = { x: (x0 - pad - 1) * cell, y: (y0 - pad - 1) * cell, w: (w + (pad + 1) * 2) * cell, h: (ph + (pad + 1) * 2) * cell, dry: dry, t: now };   /* where it is, for the gates */
+  mkCell(x0 - pad - 1, y0 - pad - 1, w + (pad + 1) * 2, ph + (pad + 1) * 2, dry ? (on || kicked ? '#e0402e' : '#4a140e') : 'rgba(0,0,0,.55)');
+  mkCell(x0 - pad, y0 - pad, w + pad * 2, ph + pad * 2, 'rgba(8,6,4,.9)');
+  if (dry) for (let yy = y0 - pad + 1; yy < y0 + ph + pad; yy += 3) mkCell(x0 - pad, yy, w + pad * 2, 1, 'rgba(255,255,255,.05)');   /* the scanlines */
+  for (let i = 0; i < n; i++) {
+    const x = x0 + i * (pw + gap), full = !dry && i < r.left;
+    if (slip) { pipCells(x - 1, y0, pw, ph, 'rgba(224,64,46,.75)', true); pipCells(x + 1, y0, pw, ph, 'rgba(80,200,230,.6)', true); }
+    pipCells(x, y0, pw, ph, dry ? (on || kicked ? '#ff6a4e' : '#8a2e20') : full ? (last && !on ? '#7a5a26' : last ? '#ffc04a' : '#e0b062') : '#5c5040', !full);
+  }
+  mkOff();
+}
 /* A FACE for the bar and the turn strip: PORTRAIT's fresh portrait of the same model (rule 115(h): the head modelled on the
    body's own model, rendered with its own camera; never a crop of the body), one sheet, 128 px a face */
 function drawPortrait(g, v, S) {
@@ -2829,6 +2950,23 @@ function iconCanvas(id, css) {
   c.width = c.height = Math.round(css * d); c.style.width = c.style.height = css + 'px';
   perkIcon(c.getContext('2d'), id, c.width); c.dataset.perk = id; c.className = 'picon'; return c;
 }
+/* HIS GUN'S ROUNDS AS BULLETS (rule 124): one bullet a round it holds, a full one in brass, a spent one an empty case; on the
+   big RELOAD every case is hollow in the warning's red. Whole device pixels, a nose on each. */
+const RD_MAX = 6;
+function roundsCanvas(r, col, css, hollowAll) {
+  const c = document.createElement('canvas'), d = Math.max(1, Math.round(Math.min(window.devicePixelRatio || 1, 3)));
+  c.width = c.height = css * d; c.style.width = c.style.height = css + 'px';
+  const g = c.getContext('2d'), n = Math.max(1, Math.min(r.of, RD_MAX)), gap = 2, bw = Math.max(3, Math.min(6, Math.floor((css - 6 - (n - 1) * gap) / n)));
+  const bh = Math.round(css * .6), x0 = Math.floor((css - (n * bw + (n - 1) * gap)) / 2), y0 = Math.floor((css - bh) / 2);
+  for (let i = 0; i < n; i++) {
+    const x = x0 + i * (bw + gap), full = !hollowAll && i < r.left;
+    g.fillStyle = full ? col : hollowAll ? col : 'rgba(156,140,116,.55)';
+    g.fillRect((x + 1) * d, y0 * d, (bw - 2) * d, d);   /* the nose */
+    if (full) g.fillRect(x * d, (y0 + 1) * d, bw * d, (bh - 1) * d);
+    else { g.fillRect(x * d, (y0 + 1) * d, d, (bh - 1) * d); g.fillRect((x + bw - 1) * d, (y0 + 1) * d, d, (bh - 1) * d); g.fillRect(x * d, (y0 + bh - 1) * d, bw * d, d); }
+  }
+  return c;
+}
 
 /* ---------------- the HUD ---------------- */
 function hud() {
@@ -2857,18 +2995,26 @@ function hud() {
   const sk = document.getElementById('skills');
   const want = mine ? FIGHT.ACTIVE.filter(function (id) { return u.perks.indexOf(id) >= 0; }) : [];
   const chance = tgt ? FIGHT.hitChance(u, tgt, FIGHT.strikeSkill(u.weapon)).chance : null;
-  const key = (u ? u.id + u.job : '') + '|' + chance + '|' + (mine && FIGHT.canReload(u)) + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',');
+  /* THE EMPTY GUN SHOUTS (rule 124): his gun empty, RELOAD takes the strike square's place, one big button on the beat (the
+     strike stays beside it only for the club at one tile); one round left, the reload square says so in amber */
+  const dry = mine && FIGHT.emptyGun(u), canR = mine && FIGHT.canReload(u), rd = u && FIGHT.rounds(u);
+  const lastRd = mine && !dry && rd && rd.of > 1 && rd.left === 1;
+  const key = (u ? u.id + u.job : '') + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',');
   if (sk.dataset.key !== key) {
     sk.dataset.key = key;
     const bs = document.getElementById('bstrike'), br = document.getElementById('breload');
-    sk.textContent = ''; sk.appendChild(bs); sk.appendChild(br);
-    bs.textContent = ''; bs.disabled = !tgt; bs.className = 'sq' + (tgt ? ' hot' : ''); bs.title = 'STRIKE';
+    sk.textContent = ''; if (dry) { sk.appendChild(br); sk.appendChild(bs); } else { sk.appendChild(bs); sk.appendChild(br); }
+    bs.textContent = ''; bs.disabled = !tgt; bs.className = 'sq' + (tgt ? ' hot' : ''); bs.title = 'STRIKE'; bs.style.display = dry && !tgt ? 'none' : '';
     if (u) bs.appendChild(iconCanvas(JOB_ICON[u.job] || 'mace_mastery', 30));
     const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : ''; bs.appendChild(bt);
-    br.textContent = ''; br.disabled = !(mine && FIGHT.canReload(u)); br.style.display = u && FIGHT.reloadSkill(u.weapon) ? '' : 'none'; br.title = 'RELOAD';
-    const rc = document.createElement('canvas'), dd = Math.min(window.devicePixelRatio || 1, 3); rc.width = rc.height = Math.round(30 * dd); rc.style.width = rc.style.height = '30px';
-    const rg = rc.getContext('2d'); rg.fillStyle = '#e0b062'; [0, 1, 2].forEach(function (i) { rg.fillRect((6 + i * 7) * dd, 8 * dd, 4 * dd, 14 * dd); rg.fillStyle = i ? '#e0b062' : '#c4553f'; });
-    br.appendChild(rc);
+    br.textContent = ''; br.disabled = !canR; br.style.display = u && FIGHT.reloadSkill(u.weapon) ? '' : 'none'; br.title = 'RELOAD';
+    br.className = 'sq' + (dry ? ' big' : '') + (lastRd ? ' last' : '') + (br.classList.contains('poke') ? ' poke' : '');
+    br.style.setProperty('--beat', beatMs() + 'ms'); br.style.setProperty('--ph', -Math.round((performance.now() - UI.t0) % beatMs()) + 'ms');
+    br.appendChild(roundsCanvas(rd || { left: 0, of: 1 }, dry ? '#ff5a40' : lastRd ? '#f0b04a' : '#e0b062', dry ? 26 : 30, dry));
+    if (dry) {
+      const rl = document.createElement('span'); rl.className = 'rl'; rl.textContent = canR ? 'RELOAD' : 'RELOAD NEXT TURN'; br.appendChild(rl);
+      if (canR) { const ap = document.createElement('b'); ap.textContent = FIGHT._t.skillAP(u.weapon, FIGHT.reloadSkill(u.weapon), u) + ' AP'; br.appendChild(ap); }
+    }
     want.forEach(function (id) {
       const b = document.createElement('button'), n = FIGHT._t.PK(u, id);
       b.className = 'sq' + (UI.skillMode === id ? ' on' : ''); b.appendChild(iconCanvas(id, 30));
@@ -2949,12 +3095,13 @@ function manAt(px, py) {
     return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
   }).sort(function (a, b) { return b.y - a.y; })[0] || null;   /* the man on the tile first (rule 104a), then a body */
 }
-(function () {
-  const bs = document.getElementById('bstrike'); let t = null;
+/* a finger held on the strike square, or on the big RELOAD that took its place (rule 124), shows his weapon's card */
+['bstrike', 'breload'].forEach(function (id) {
+  const bs = document.getElementById(id); let t = null;
   bs.addEventListener('pointerdown', function () { UI.heldCard = false; clearTimeout(t); t = setTimeout(function () { const u = FIGHT.current(); if (u && u.side === 'you') { UI.heldCard = true; weaponCard(u); } }, HOLD_MS); });
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (k) { bs.addEventListener(k, function () { clearTimeout(t); }); });
   bs.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-})();
+});
 document.getElementById('card').onclick = function () { UI.drawer = !UI.drawer; if (!UI.drawer) document.getElementById('drawer').style.display = 'none'; else hud(); };
 document.getElementById('drawer').onclick = function () { UI.drawer = false; UI.wcard = null; this.style.display = 'none'; };
 /* our draft name for a Battle Brothers perk (records/target/bb/perk_translation.json) */
@@ -3170,7 +3317,9 @@ function tapAt(px, py) {
      zoomed out to both teams, your own men's bodies cover the tiles behind them, and those tiles must still be walkable) */
   const who = onTile || (body && body.side === 'them' ? body : null);
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
-    if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.' + reachWords(u), true); UI.pend = null; return; }
+    if (FIGHT.dryAt(u, who)) { UI.pend = null; dryTap(u); hud(); return; }   /* rule 124: never a silent refusal, never 'out of reach' */
+    if (!FIGHT.canStrike(u, who)) { const rr = FIGHT.rounds(u), spent = rr && rr.left <= 0 && !FIGHT.reloadSkill(u.weapon);
+      say(spent ? 'No ' + armName(u, u.weapon) + ' left.' : who.name + ' is out of reach.' + reachWords(u), true); if (spent) sfx('ui_deny'); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
     UI.pend = { target: who }; aimSay(u, who); hud(); return;
   }
@@ -3191,7 +3340,7 @@ document.getElementById('bwait').onclick = function () { audio(); const u = FIGH
 document.getElementById('bend').onclick = function () { audio();
   if (FIGHT.S.deploy) { fightNow(); return; }
   const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.endTurn(u); take(); } };
-document.getElementById('breload').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { FIGHT.reload(u); take(); } };
+document.getElementById('breload').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; if (FIGHT.reload(u)) say(''); take(); } };
 document.getElementById('bauto').onclick = function () { audio(); UI.auto = !UI.auto; UI.pend = null; UI.skillMode = null; };
 document.getElementById('oagain').onclick = function () { document.getElementById('over').style.display = 'none'; start(); };
 
