@@ -34,10 +34,10 @@
   1028
  ],
  "crop_box_px": [
-  70,
-  353,
-  802,
-  952
+  68,
+  352,
+  1060,
+  992
  ],
  "files": [
   "records/target/master_rig/cook_bld_chapel/rig_S.png"
@@ -214,5 +214,6 @@
  "guide_class_note": "the guide's building class says rig:false until DIRECTION rules (115b); rule 121(j), Paolo 10/19, newer, moves it to the rig",
  "twin": "records/target/COOK4_THE_WEDDING_CHAPEL.webp",
  "seconds": 150,
- "colours": 14954
+ "colours": 14954,
+ "shadow_whole": true
 }

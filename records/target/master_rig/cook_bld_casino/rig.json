@@ -34,10 +34,10 @@
   1578
  ],
  "crop_box_px": [
-  69,
-  401,
-  1620,
-  1457
+  44,
+  399,
+  1955,
+  1578
  ],
  "files": [
   "records/target/master_rig/cook_bld_casino/rig_S.png"
@@ -210,5 +210,6 @@
  "guide_class_note": "the guide's building class says rig:false until DIRECTION rules (115b); rule 121(j), Paolo 10/19, newer, moves it to the rig",
  "twin": "records/target/COOK4_THE_CASINO.png",
  "seconds": 682,
- "colours": 13549
+ "colours": 13549,
+ "shadow_whole": true
 }

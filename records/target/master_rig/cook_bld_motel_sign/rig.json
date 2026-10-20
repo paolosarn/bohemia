@@ -34,10 +34,10 @@
   750
  ],
  "crop_box_px": [
-  70,
-  73,
-  383,
-  674
+  68,
+  71,
+  748,
+  709
  ],
  "files": [
   "records/target/master_rig/cook_bld_motel_sign/rig_S.png"
@@ -209,5 +209,6 @@
  "guide_class_note": "the guide's building class says rig:false until DIRECTION rules (115b); rule 121(j), Paolo 10/19, newer, moves it to the rig",
  "twin": "records/target/COOK4_THE_MOTEL_SIGN_TOWER.webp",
  "seconds": 80,
- "colours": 9156
+ "colours": 9156,
+ "shadow_whole": true
 }

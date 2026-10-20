@@ -518,6 +518,25 @@ def build(name):
     return [o for o in bpy.context.scene.objects if o.type == 'MESH']
 
 
+def recrop(out, facings, box):
+    """the rig's post crops to the body; a building's cast shadow runs past it (0.48 H to the right): every facing's body
+    is padded out to the union of the bodies and their shadows, the shadow cut to the same box, so RUN lays both whole"""
+    import numpy as np
+    from PIL import Image
+    x0, y0, x1, y1 = box
+    for f in facings:
+        a = np.asarray(Image.open(os.path.join(out, 'castraw_%s.png' % f)))[..., 3]
+        ys, xs = np.nonzero(a > 8)
+        if len(xs): x0, y0, x1, y1 = min(x0, xs.min()), min(y0, ys.min()), max(x1, xs.max() + 1), max(y1, ys.max() + 1)
+    u = (int(x0), int(y0), int(x1), int(y1))
+    for f in facings:
+        body = Image.open(os.path.join(out, 'rig_%s.png' % f)).convert('RGBA')
+        if body.size != (u[2] - u[0], u[3] - u[1]):
+            pad = Image.new('RGBA', (u[2] - u[0], u[3] - u[1])); pad.paste(body, (box[0] - u[0], box[1] - u[1])); pad.save(os.path.join(out, 'rig_%s.png' % f))
+        Image.open(os.path.join(out, 'castraw_%s.png' % f)).crop(u).save(os.path.join(out, 'shadow_%s.png' % f))
+    return list(u)
+
+
 def render(name, samples=None):
     """the rig's pieces on a building: the source pass, the dents, one sun and the fill, the 45 camera at 57 px a metre,
     S, SE and SW; the cast shadow from a catcher as its own layer; the snap toward his settlement family and the ring"""
@@ -589,8 +608,7 @@ def render(name, samples=None):
         print('  facing', f, round(time.time() - t0), 's', flush=True)
     pop, bins, ntiles = RIG.population('settlement')
     outs, box = RIG.post(raws, out, A, pop, shadow=False)
-    for f, s in zip(facings, shads):
-        Image.open(s).crop(tuple(box)).save(os.path.join(out, 'shadow_%s.png' % f))
+    box = recrop(out, facings, box)
     rel = lambda p: os.path.relpath(p, R)
     card = RIG.card(outs[0], 'prop'); gcard = RIG.guide_card(card, outs[0], 'prop')
     used = dict(RIG.G); used.update(samples=int(sc.cycles.samples))
@@ -604,7 +622,7 @@ def render(name, samples=None):
                 occlusion_rays='one a camera sample (tools/bohemia_cook_rig_one_ray.py)', card=card, card_guide=gcard,
                 rig_settings=used, breaks=sorted(k for k in used if k not in RIG.GUIDE['rig'] or not RIG.same(used[k], RIG.GUIDE['rig'][k])),
                 guide_class_note='the guide\'s building class says rig:false until DIRECTION rules (115b); rule 121(j), Paolo 10/19, newer, moves it to the rig',
-                twin=TWINS[name], seconds=round(time.time() - t0), colours=RIG.colours(outs))
+                twin=TWINS[name], seconds=round(time.time() - t0), colours=RIG.colours(outs), shadow_whole=True)
     json.dump(meta, open(os.path.join(out, 'rig.json'), 'w'), indent=1)
     print(name, 'dims', dims, 'res', res, 'box', box, 'card', json.dumps(gcard)[:300], round(time.time() - t0), 's', flush=True)
     return meta
@@ -614,6 +632,11 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     smp = int(a[a.index('--samples') + 1]) if '--samples' in a else None
     for n in [x for x in a if x in BUILDERS] or list(BUILDERS):
+        if '--recrop' in a:                                    # the shadow-whole crop on a building already through the rig
+            d = os.path.join(R, 'records/target/master_rig/cook_bld_%s' % n); m = json.load(open(os.path.join(d, 'rig.json')))
+            if m.get('shadow_whole'): continue
+            m['crop_box_px'] = recrop(d, m['facings'], m['crop_box_px']); m['shadow_whole'] = True
+            json.dump(m, open(os.path.join(d, 'rig.json'), 'w'), indent=1); print(n, 'recropped', m['crop_box_px']); continue
         if '--build-only' in a:
             import bpy; build(n); print(n, 'DIMS', P.dims(bpy), 'materials', len([m for m in bpy.data.materials if m.users]), 'objects', len(bpy.context.scene.objects), flush=True)
         else: render(n, smp)

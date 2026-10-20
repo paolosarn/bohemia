@@ -36,10 +36,10 @@
   1206
  ],
  "crop_box_px": [
-  71,
-  208,
-  1161,
-  1133
+  64,
+  206,
+  1224,
+  1135
  ],
  "files": [
   "records/target/master_rig/cook_bld_ranch_carport/rig_S.png",
@@ -219,5 +219,6 @@
  "guide_class_note": "the guide's building class says rig:false until DIRECTION rules (115b); rule 121(j), Paolo 10/19, newer, moves it to the rig",
  "twin": "records/target/COOK4_THE_FAMILY_IN_THE_VALLEY_TANS.png",
  "seconds": 1091,
- "colours": 17422
+ "colours": 17422,
+ "shadow_whole": true
 }

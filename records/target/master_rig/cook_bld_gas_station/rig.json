@@ -34,10 +34,10 @@
   890
  ],
  "crop_box_px": [
-  70,
-  151,
-  1670,
-  807
+  0,
+  149,
+  1746,
+  890
  ],
  "files": [
   "records/target/master_rig/cook_bld_gas_station/rig_S.png"
@@ -214,5 +214,6 @@
  "guide_class_note": "the guide's building class says rig:false until DIRECTION rules (115b); rule 121(j), Paolo 10/19, newer, moves it to the rig",
  "twin": "records/target/COOK4_THE_GAS_STATION.png",
  "seconds": 243,
- "colours": 14080
+ "colours": 14080,
+ "shadow_whole": true
 }
