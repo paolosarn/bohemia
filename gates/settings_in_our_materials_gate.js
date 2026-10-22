@@ -55,7 +55,10 @@ async function beforeBegin(page) {
   await p.waitForTimeout(2500);
   /* the city frame listens for the brightness, before anything is pressed */
   await d.fr.evaluate(() => { window.__gotB = null; window.addEventListener('message', e => { if (e.data && e.data.type === 'BOHEMIA_BRIGHTNESS') window.__gotB = e.data; }); });
-  const g = await p.evaluate(() => { const b = document.getElementById('gearbtn').getBoundingClientRect(); return [b.x + b.width / 2, b.y + b.height / 2]; });
+  let g = await p.evaluate(() => { const b = document.getElementById('gearbtn').getBoundingClientRect(); return b.width > 0 ? [b.x + b.width / 2, b.y + b.height / 2] : null; });
+  /* UI 10/22 [the top bar, the days once]: on the map the gear rides the bar (it presses the shell's own); tap that one */
+  if (!g) g = await d.fr.evaluate(() => { const e = document.querySelector('#bmtb .gear'); if (!e) return null; const b = e.getBoundingClientRect(), f = window.frameElement.getBoundingClientRect();
+    return [f.left + b.x + b.width / 2, f.top + b.y + b.height / 2]; });
   await p.touchscreen.tap(g[0], g[1]); await p.waitForTimeout(700);
   const a = await p.evaluate(() => {
     const card = document.getElementById('setcard');

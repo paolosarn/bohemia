@@ -1081,11 +1081,13 @@ async function flippedLook() {
       const faces = Array.from(document.querySelectorAll('#order canvas')).map(c => c.getBoundingClientRect().right), tall = MAN_IDLE * FIGHT_UI.zoom / FIGHT_UI.near;
       const over = FIGHT.S.units.filter(FIGHT.onField).filter(u => { const x = sx((u.x + .5) * FIGHT_UI.tw), y = sy((u.y + .9) * FIGHT_UI.th);
         return x + tall / 4 > e.left && x - tall / 4 < e.right && y > e.top && y - tall < e.bottom && y > TOPH && y - tall < H - BOTH; }).length;
-      return { over, inStrip: document.getElementById('say').classList.contains('instrip'), sayBottom: e.bottom, top: TOPH, tape: o.right - Math.max(...faces) }; });
+      return { over, inStrip: document.getElementById('say').classList.contains('instrip'), sayBottom: e.bottom, sayTop: e.top, floor: H - BOTH, top: TOPH, tape: o.right - Math.max(...faces) }; });
     r.profile = profile; r.err = d.errs[0]; rows.push(r); await d.close();
   }
   const wide = rows.filter(r => r.profile !== 'phone_portrait');
-  leg(wide.every(r => r.inStrip && r.sayBottom <= r.top + 2 && r.over === 0 && !r.err),
+  /* UI 10/22 [the top bar, the days once] (his 10/19: 'during combat it doesn't go away'): the strip left the top and rides the
+     bottom bar's top edge, so 'in the strip' is above the board's top OR inside the bar under the board, never on the board */
+  leg(wide.every(r => r.inStrip && (r.sayBottom <= r.top + 2 || r.sayTop >= r.floor - 2) && r.over === 0 && !r.err),
     '*** THE FLIPPED PHONE\'S LOOK (rule 88) ***: on a wide glass the hint sits in the strip beside the faces and never on a man',
     wide.map(r => r.profile + ' ' + (r.inStrip ? 'in the strip' : 'on the board') + ', ' + r.over + ' men under it').join('; '));
   leg(rows.every(r => r.tape <= 8), '  the strip\'s tape ends at its last face on every screen (it was stretched over the whole glass)',

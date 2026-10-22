@@ -41,7 +41,7 @@ async function measure(profile) {
   const read = () => fr.evaluate(({ ox, oy }) => {
     const R = e => { if (!e) return null; const s = getComputedStyle(e), r = e.getBoundingClientRect(); if (s.display === 'none' || s.visibility === 'hidden' || !r.width) return null; return { x: ox + r.x, y: oy + r.y, w: r.width, h: r.height }; };
     const scr = R(document.getElementById('cityfeedscreen'));
-    return { bar: R(document.getElementById('menubar')), notes: R(document.getElementById('notebtn')), pad: R(document.getElementById('speedpad')),
+    return { bargear: R(document.querySelector('#bmtb .gear')), bar: R(document.getElementById('menubar')), notes: R(document.getElementById('notebtn')), pad: R(document.getElementById('speedpad')),
       phone: R(document.getElementById('cityfeed')), glass: scr,
       reads: [...document.querySelectorAll('#barread .rd')].map(R).filter(Boolean), speeds: [...document.querySelectorAll('#speedpad .sp')].map(e => Object.assign(R(e) || {}, { t: e.textContent.trim() })),
       faces: [...document.querySelectorAll('#actflip .af')].map(R).filter(Boolean) };
@@ -54,6 +54,9 @@ async function measure(profile) {
   await fr.evaluate(() => { try { BohemiaActs.resetAll(); } catch (e) {} });
   const errs = (d.errs || []).slice();
   await d.close();
+  /* UI 10/22 [the top bar, the days once]: the gear rides the map's bar now (the shell's floating one steps aside while it
+     can be pressed), so the gear this gate holds is the bar's; inside the bar it is not a piece covering the bar */
+  if (!shell.gear && m.bargear) { shell.gear = m.bargear; shell.gearInBar = true; }
   return Object.assign(shell, m, { three: m3, errs });
 }
 
@@ -70,7 +73,7 @@ async function measure(profile) {
     ok('EVERY PIECE OF THE HUD IS ON THE GLASS, WHOLE', missing.length === 0 && Object.values(parts).every(on) && M.reads.every(on) && M.speeds.every(on) && M.three.faces.every(on),
        missing.length ? 'missing ' + missing.join(' ') : Object.keys(parts).map(k => k + ' ' + box(parts[k])).join(' | '));
     const big = { gear: M.gear, bar: M.bar, speedpad: M.pad, phone: M.phone }, ks = Object.keys(big), clash = [];
-    for (let i = 0; i < ks.length; i++) for (let j = i + 1; j < ks.length; j++) if (big[ks[i]] && big[ks[j]] && hit(big[ks[i]], big[ks[j]])) clash.push(ks[i] + ' on ' + ks[j]);
+    for (let i = 0; i < ks.length; i++) for (let j = i + 1; j < ks.length; j++) if (big[ks[i]] && big[ks[j]] && hit(big[ks[i]], big[ks[j]]) && !(M.gearInBar && ks[i] === 'gear' && ks[j] === 'bar')) clash.push(ks[i] + ' on ' + ks[j]);
     ok('  no two pieces cover each other', clash.length === 0, clash.join(', '));
     const pressed = [['gear', M.gear], ['NOTES', M.notes], ['phone', M.phone]].concat(M.speeds.map(s => [s.t, s]), M.faces.map((f, i) => ['face ' + i, f]));
     const small = pressed.filter(([, r]) => !r || r.w < 44 || r.h < 44);

@@ -38,9 +38,14 @@ ui-the-six-in-the-bar-10-1). Changed from the card:
 ## The fight: nothing across the top
 
 The strip across the top goes. Its three things ride the bottom bar's top edge, MOVED, never cloned: the round on a receipt
-tag, the turn order's faces at 34 points, AUTO on a receipt tag (a tap still flips the fight's AUTO). The fight's own
-hudEdges() reads TOPH 0 by itself, so the board runs to the top of the glass. Measured: upright TOPH 0, BOTH 180 of 844;
-on its side TOPH 0, BOTH 76 of 390; 5 faces in the row; AUTO false -> true -> false.
+tag, the turn order's faces at 34 points, AUTO in the fight's own tag (a tap still flips the fight's AUTO). The fight's own
+hudEdges() reads TOPH 0 by itself, so the board runs to the top of the glass. Measured upright: TOPH 0, BOTH 180 of 844
+(was 58 across the top plus about 128 under: the board gains the strip and loses nothing); 5 faces in the row; AUTO
+false -> true -> false.
+
+On its side, a tablet and a computer the turn row takes ITS OWN LINE along the bar's top edge. Found by the hit read's own
+gate: in one row the turn row (284 points) left STRIKE 46 points, and the hit read widens STRIKE to 96, so its '29%' was
+squeezed onto the cardboard (1.11 to 1). Its own line keeps the skills their whole width.
 
 ## Where it lives
 

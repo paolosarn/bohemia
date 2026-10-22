@@ -73,6 +73,14 @@ const MIN = 44;
              w: Math.round(r.width), h: Math.round(r.height),
              l: Math.round(r.left), t: Math.round(r.top),
              r: Math.round(r.right), b: Math.round(r.bottom) }; });
+  /* UI 10/22 [the top bar, the days once]: on the map the gear rides the bar (the shell's floating one steps aside while
+     the bar's can be pressed, and the bar's presses the shell's own); the gear on the glass is that one */
+  if (gear && !gear.shown) {
+    const cf = p.frames().find(f => /CITY_WORLD/.test(f.url()));
+    const bg = cf ? await cf.evaluate(() => { const g = document.querySelector('#bmtb .gear'); if (!g) return null; const r = g.getBoundingClientRect(), fe = window.frameElement.getBoundingClientRect();
+      return { shown: getComputedStyle(g).display !== 'none' && r.width > 0, w: Math.round(r.width), h: Math.round(r.height), l: Math.round(r.left + fe.left), t: Math.round(r.top + fe.top), r: Math.round(r.right + fe.left), b: Math.round(r.bottom + fe.top) }; }) : null;
+    if (bg) Object.assign(gear, bg);
+  }
   ok('and it IS there once the game is up', !!gear && gear.shown);
   ok('and it clears the thumb at ' + (gear ? gear.w+'x'+gear.h : '?'),
      !!gear && gear.w >= MIN && gear.h >= MIN);

@@ -783,8 +783,17 @@
     + 'html body #bmturnrow #round{transform:none;box-shadow:0 1px 0 #000;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:normal;letter-spacing:.8px;font-size:12px;padding:0 9px;height:44px;line-height:44px;box-sizing:border-box;background:#e2dac6 var(--bm-receipt) center/100% 100%}'
     + 'html body #bmturnrow #order{flex:1 1 auto;height:44px;padding:0 4px;background:transparent}'
     + 'html body #bmturnrow #order canvas{width:34px!important;height:34px!important;border-radius:0;box-shadow:0 0 0 1px #0d0a07}'
-    + 'html body #bmturnrow #bauto{transform:none;box-shadow:0 1px 0 #000;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:normal;letter-spacing:.8px;width:auto;min-width:52px;height:44px;padding:4px 9px;margin:0;box-sizing:border-box;background:#e2dac6 var(--bm-receipt) center/100% 100%}'
-    + 'html[data-screen=phone_landscape] #bmturnrow,html[data-screen=tablet] #bmturnrow,html[data-screen=computer] #bmturnrow{order:0;margin:0;flex:0 1 auto;min-width:0}';
+    /* AUTO keeps the fight's own tag (paper with a hard one-pixel edge, its printed mark, read from the left); it only stands straight */
+    + 'html body #bmturnrow #bauto{transform:none;margin:0;min-height:44px}'
+    /* on its side, a tablet, a computer: the one-row bar keeps its whole width for the skills (the hit read widens STRIKE to
+       96), so the turn row takes its own line along the bar's top edge, still nothing over the board */
+    + 'html[data-screen=phone_landscape] #bot,html[data-screen=tablet] #bot,html[data-screen=computer] #bot{flex-wrap:wrap;row-gap:4px}'
+    + 'html[data-screen=phone_landscape] #bmturnrow,html[data-screen=tablet] #bmturnrow,html[data-screen=computer] #bmturnrow{order:0;margin:0;flex:0 0 100%;min-width:0}'
+    /* and the line's free middle is where the fight's hint goes on a wide glass (its placeSay() reads the room between the
+       faces and AUTO): the faces keep their own width, AUTO the far end, the hint drawn over the bar's cardboard */
+    + 'html[data-screen=phone_landscape] #bmturnrow #order,html[data-screen=tablet] #bmturnrow #order,html[data-screen=computer] #bmturnrow #order{flex:0 1 auto}'
+    + 'html[data-screen=phone_landscape] #bmturnrow #bauto,html[data-screen=tablet] #bmturnrow #bauto,html[data-screen=computer] #bmturnrow #bauto{margin-left:auto}'
+    + 'html body #say.instrip{z-index:5}';
   function fightNoTop() {
     var top = document.getElementById('top'), bot = document.getElementById('bot');
     if (!top || !bot || !document.getElementById('bauto') || !document.getElementById('order')) return false;

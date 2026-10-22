@@ -69,7 +69,9 @@ const done = (d) => {
 
   /* ---- 1-5. IT READS AS A CONTROL, MEASURED AGAINST ITS NEIGHBOURS ---- */
   const bar = await d.fr.evaluate(() => {
-    const R = document.getElementById('barright');
+    /* UI 10/22 [the top bar, the days once]: the map's bar is the materials file's #bmtb and NOTES was MOVED into its top
+       row (handler kept), the last thing at the right-hand end; the old right end is hidden under it */
+    const R = document.querySelector('#bmtb .r1') || document.getElementById('barright');
     if (!R) return { noBar: true };
     const kids = Array.from(R.children).map(el => {
       const r = el.getBoundingClientRect(), st = getComputedStyle(el);

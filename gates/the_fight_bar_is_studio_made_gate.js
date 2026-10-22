@@ -60,7 +60,7 @@ const done = () => { console.log('\nTHE FIGHT\'S BAR IS STUDIO MADE: ' + pass + 
       fams: { bend: fam('bend'), bwait: fam('bwait'), bauto: fam('bauto'), round: fam('round'), cnm: fam('cnm'), say: fam('say'), body: getComputedStyle(document.body).fontFamily.split(',')[0].replace(/["']/g, '').trim() },
       tags, say: { shown: ss.display !== 'none', cut: say.scrollWidth > say.clientWidth + 1 || ss.textOverflow === 'ellipsis', l: Math.round(sr.left), r: Math.round(sr.right), vw: innerWidth, text: say.textContent.trim(), sh: ss.boxShadow },
       edge: (getComputedStyle(document.getElementById('bot')).backgroundImage.match(/url\(/g) || []).length,
-      jump: +jump.toFixed(2), small: taps.filter(r => r.width < 44 || r.height < 44).length, bar: Math.round(document.getElementById('bot').getBoundingClientRect().height)
+      jump: +jump.toFixed(2), small: taps.filter(r => r.width < 44 || r.height < 44).length, bar: Math.round(document.getElementById('bot').getBoundingClientRect().height), turnrow: (() => { const t = document.getElementById('bmturnrow'); if (!t) return 0; const r = t.getBoundingClientRect(), cs = getComputedStyle(t); return Math.round(r.height + parseFloat(cs.marginTop) + parseFloat(cs.marginBottom)); })()
     };
   });
   ok('THE GAME\'S OWN FACES ARE LOADED (casing and ROM)', a.loaded.casing && a.loaded.rom, JSON.stringify(a.loaded));
@@ -74,7 +74,9 @@ const done = () => { console.log('\nTHE FIGHT\'S BAR IS STUDIO MADE: ' + pass + 
   ok('THE HINT IS NEVER CUT OFF, AND STAYS ON THE GLASS', a.say.shown && !a.say.cut && a.say.l >= 0 && a.say.r <= a.say.vw, '"' + a.say.text + '" ' + a.say.l + '..' + a.say.r + ' of ' + a.say.vw);
   ok('THE CARDBOARD SHOWS ITS CUT EDGE along the top of the bar', a.edge >= 2, a.edge + ' layers');
   ok('THE RECEIPT IS BLANK BEHIND THE WORDS (no printed rows to read as strike-throughs)', a.jump < 4, 'largest row jump ' + a.jump + ' of 255');
-  ok('every tapped thing is still at least 44 points, the bar still about 120', a.small === 0 && a.bar >= 100 && a.bar <= 150, a.small + ' small, bar ' + a.bar);
+  /* UI 10/22 [the top bar, the days once]: in the fight nothing is across the top; the round, the turn order and AUTO ride
+     the bar's top edge (#bmturnrow), so the bar is its own 120 plus that row, and the strip over the board is gone */
+  ok('every tapped thing is still at least 44 points, the bar still about 120 (plus the turn row when it rides the bar)', a.small === 0 && a.bar >= 100 && a.bar <= 150 + (a.turnrow || 0), a.small + ' small, bar ' + a.bar + (a.turnrow ? ' with the turn row ' + a.turnrow : ''));
 
   /* THE FINISH NEVER MOVES THE BOARD: the fight fits its board to the bar's height, so the skin must
      leave that height exactly as COMBAT set it (a 6 pt taller bar pushed the scrub board 408 wide on
