@@ -625,6 +625,177 @@
     }
     style('bm-mapbar', MAPBAR_CSS); return true;
   }
+  /* ======================================================================================================
+     THE TOP BAR, THE DAYS ONCE  (UI [the top bar, the days once], 10/22/26; rules 121(g) and 123: built into the
+     game, no card). His NO on the three bars (10/19): 'How many times ur gonna show how many days?'. Every one said
+     DAY 1 on its tag and '0 DAYS' beside the food, and the hour twice (the tag and the phone's own clock). The pick
+     is B (his 10/19 'you could put so much things in the top of the screen', and his vote A on the six in one row)
+     with every fact printed ONCE on the glass:
+     - THE DAY once, on the left tag, beside a drawn sun or moon riding its arc by the hour (Battle Brothers' day
+       dial). The hour's digits are the phone's clock only, which the city's bar already keeps in step.
+     - THE FOOD a count, never days: the day eats one (BohemiaPurse 'day:ate'), so the count IS the days and the
+       word is not printed a second time; on a red-inked receipt chip under three.
+     - THE CREW: the drawn man, how many of the cap, a tick of health a man. A readout (the crew button is RUN TWO's).
+     - THE STORES: batteries, food, meds, rounds, water on one pane of glass (tape stays dead, his eleventh votes);
+       a store the game does not count is a dash, never an invented zero. Then where you are.
+     - THE GEAR and NOTES at the right end. NOTES is the city's own button MOVED, its handler kept; the gear is a tag
+       that presses the shell's own gear, and the shell's floating copy steps aside while this one is on the glass.
+     Upright two rows (the reads under the presses); on its side one row. IN THE FIGHT THE TOP GOES (his 10/19:
+     'during combat it doesn't go away'): the round, the turn order and AUTO ride the bottom bar's top edge, moved,
+     never cloned, and the board runs to the top of the glass (the fight's hudEdges() reads TOPH 0 by itself).
+     No gradient, glow, blur or soft shadow (rule 114 D10): the light is in the pixels.
+     ====================================================================================================== */
+  var TB = { built: false, man: '', gear: '' };
+  function tbDark(c, a) { var d = document.createElement('canvas'); d.width = c.width; d.height = c.height; var g = d.getContext('2d');
+    g.drawImage(c, 0, 0); g.fillStyle = 'rgba(12,8,4,' + a + ')'; g.fillRect(0, 0, d.width, d.height); return d; }
+  function tbDots(P, S, ink) { var cv = document.createElement('canvas'); cv.width = P[0].length * S; cv.height = P.length * S; var g = cv.getContext('2d');
+    for (var y = 0; y < P.length; y++) for (var x = 0; x < P[y].length; x++) { var k = P[y][x]; if (ink[k]) { g.fillStyle = ink[k]; g.fillRect(x * S, y * S, S, S); } }
+    return cv.toDataURL('image/png'); }
+  /* the man (the crew) and the gear, 10 dots at 2 px, in the receipt's ink, lit top-left */
+  var TB_MAN = ['...aa.....', '..aaaa....', '..aabb....', '...bb.....', '.aaabbb...', 'a.abbb.b..', 'a.abbb.b..', '..b..b....', '..b..b....', '.bb..bb...'];
+  var TB_GEAR = ['....aa....', '..a.aa.b..', '.aaaabbbb.', '..aa..bb..', 'aaa....bbb', 'aab....bbb', '..ab..bb..', '.abbbbbbb.', '..b.bb.b..', '....bb....'];
+  /* the sun or the moon of the hour on its arc over a horizon, 18 x 11 dots at 2 px: the sun climbs from 06:00 and
+     sets at 19:00, the moon crosses the night; whole above the horizon at either end, a hard ink ring so it reads on paper */
+  function tbDial(min) {
+    var h = (((min || 0) / 60) % 24 + 24) % 24, sun = h >= 6 && h < 19, t = sun ? (h - 6) / 13 : ((h - 19 + 24) % 24) / 11,
+      NX = 18, NY = 11, S = 2, cx = 8.5, cy = 7.2, rx = 6, ry = 4.6, a = Math.PI * (1 - t), bx = cx + rx * Math.cos(a), by = cy - ry * Math.sin(a);
+    var cv = document.createElement('canvas'); cv.width = NX * S; cv.height = NY * S; var g = cv.getContext('2d');
+    for (var y = 0; y < NY; y++) for (var x = 0; x < NX; x++) {
+      var dx = x - bx, dy = y - by, d = Math.sqrt(dx * dx + dy * dy), ex = (x - cx) / rx, ey = (y - cy) / ry,
+        arc = Math.abs(Math.sqrt(ex * ex + ey * ey) - 1) * ry, c = null;
+      if (y === NY - 1) c = '#3a2e20';
+      else if (d < 2.3) {
+        var bite = !sun && Math.sqrt((dx - 1.3) * (dx - 1.3) + (dy + 0.9) * (dy + 0.9)) < 1.7;
+        c = bite ? '#1f1710' : (sun ? (dx + dy < -0.8 ? '#ffe7a6' : '#e8a43e') : (dx + dy < -0.8 ? '#f6f0dc' : '#b9b2a0'));
+      } else if (d < 3.2) c = '#1f1710';
+      else if (y <= cy && arc < 0.5 && (x + y) % 2 === 0) c = '#8a7658';
+      if (c) { g.fillStyle = c; g.fillRect(x * S, y * S, S, S); }
+    }
+    return cv.toDataURL('image/png');
+  }
+  /* every fact asked of the game, nothing kept here; null where the game knows nothing (the 10/19 lay's reads) */
+  function tbFacts() {
+    var f = { day: null, min: null, batteries: null, food: null, perDay: 1, crew: null, cap: null, place: null, six: {} };
+    try { f.day = T.day | 0; f.min = T.min | 0; } catch (_e) {}
+    try { var pb = purseBalances(); if (typeof pb.electricity === 'number') f.batteries = pb.electricity; if (typeof pb.resources === 'number') f.food = pb.resources; } catch (_e) {}
+    try { var t = om.at(city.x, city.y); f.place = (t && t.district) ? String(t.district).toUpperCase() : null; } catch (_e) {}
+    try { var R = window.__BAR_READ; if (R && R.six) f.six = R.six; } catch (_e) {}
+    try { var p = window.parent.BOH_START && window.parent.BOH_START.picks(); if (p && p.company) {
+      f.cap = p.cap || null;
+      f.crew = p.company.map(function (m) { return (typeof m.hp === 'number' && typeof m.hpMax === 'number' && m.hpMax > 0) ? m.hp / m.hpMax : 1; }); } } catch (_e) {}
+    return f;
+  }
+  var TOPBAR_CSS = ''
+    + 'html body #menubar.bmtb>:not(#bmtb){display:none!important}'
+    + 'html body #menubar.bmtb{display:block!important;height:auto!important;min-height:0!important;padding:0!important;'
+    +   'background:var(--bm-cardedge-up) bottom left/252px 10px repeat-x,#2a2016 var(--bm-cardboard-dk) 0 0/256px 100%!important;box-shadow:0 1px 0 #000!important}'
+    + '#bmtb{display:flex;flex-direction:column;gap:5px;box-sizing:border-box;padding:max(6px,env(safe-area-inset-top)) 8px 13px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
+    + '#bmtb .r{display:flex;align-items:center;gap:6px;min-width:0}'
+    + '#bmtb .sp{flex:1 1 auto}'
+    /* printed things are receipt tags in ink; pressed things are the same tag, 44 points */
+    + '#bmtb .t,html body #menubar #bmtb #notebtn{display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;min-height:44px;padding:0 9px;color:#1f1710;'
+    +   'background:#e2dac6 var(--bm-receipt) center/100% 100%;border:0;border-radius:0;box-shadow:0 1px 0 #000;letter-spacing:.8px;line-height:1;white-space:nowrap;margin:0;flex:0 0 auto}'
+    + '#bmtb .t img{display:block;image-rendering:pixelated}'
+    + '#bmtb .t.day b{font-weight:normal;font-size:15px;letter-spacing:1px}'
+    + '#bmtb .t.crew b{font-weight:normal;font-size:14px} #bmtb .t.crew em{font-style:normal;font-size:10px}'
+    + '#bmtb .t.gear{width:44px;padding:0;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}'
+    + 'html body #menubar #bmtb #notebtn{cursor:pointer;min-width:44px;justify-content:center;font-size:12px}'
+    + 'html body #menubar #bmtb #noteplate{display:inline;padding:0!important;font-family:inherit;font-size:12px;letter-spacing:.8px;color:#1f1710!important;background:none!important;filter:none!important;box-shadow:none!important}'
+    + 'html body #menubar #bmtb #notebtn.on{background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c,0 1px 0 #000}'
+    + '#bmtb .ticks{display:inline-flex;gap:2px;align-items:flex-end;height:14px}'
+    + '#bmtb .ticks i{display:block;position:relative;width:4px;height:14px;background:#b9ad92;box-shadow:inset 0 -1px 0 #6e6250}'
+    + '#bmtb .ticks i b{position:absolute;left:0;bottom:0;display:block;width:4px;background:#2f6b2a}'
+    + '#bmtb .ticks i.hurt b{background:#9a5a12} #bmtb .ticks i.bad b{background:#8a1a0c}'
+    /* what you have and where, on one pane of glass darkened in its own pixels */
+    + '#bmtb .g{display:flex;align-items:center;gap:10px;box-sizing:border-box;min-height:32px;padding:0 8px;background:#16130f var(--bm-glass-dk) center/cover;'
+    +   'box-shadow:inset 0 1px 0 rgba(255,236,200,.18),0 1px 0 #000;border:1px solid #0d0a07;border-radius:0;flex:1 1 auto;min-width:0}'
+    + '#bmtb .s{display:inline-flex;align-items:center;gap:4px;color:#ffd98a;font-size:14px;white-space:nowrap;flex:0 0 auto}'
+    + '#bmtb .s img{display:block;width:20px;height:20px;image-rendering:pixelated}'
+    + '#bmtb .s b{font-weight:normal} #bmtb .s.none b{color:#ddd2b8} #bmtb .s.none img{opacity:.6}'
+    + '#bmtb .s b.low{color:#4a0a05;padding:3px 5px;background:#e2dac6 var(--bm-receipt) center/100% 100%;box-shadow:0 1px 0 #000}'
+    + '#bmtb .where{flex:0 1 auto;min-width:0;margin-left:auto;overflow:hidden;white-space:nowrap;font-size:11px;letter-spacing:1px;color:#f2e4c6}'
+    /* a phone under 360 points keeps every fact and drops only the cap's '/12' */
+    + '@media (max-width:359px){#bmtb .t.crew em{display:none} #bmtb .g{gap:7px}}'
+    /* on its side: one row, the reads between the day and the crew */
+    + '@media (orientation:landscape) and (max-height:500px){#bmtb{flex-direction:row;align-items:center;gap:6px;padding:max(4px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) 12px max(8px,env(safe-area-inset-left))}'
+    +   '#bmtb .r{display:contents} #bmtb .r1 .day{order:1} #bmtb .g{order:2;min-height:44px} #bmtb .r1 .crew{order:3} #bmtb .r1 .sp{display:none} #bmtb .r1 .x{order:4}'
+    +   '#bmtb .r1 .gear{order:5} html body #menubar #bmtb #notebtn{order:6}}'
+    /* the shell's own floating gear steps aside while the bar's gear is on the glass (set from the city frame) */
+    + '';
+  var TB_SHELL_CSS = 'html.bm-gear-in-bar #gearbtn{display:none!important}';
+  var TB_STORES = ['batteries', 'food', 'meds', 'rounds', 'water'];
+  function tbPaint() {
+    var root = document.getElementById('bmtb'); if (!root) return;
+    var f = tbFacts();
+    var day = '<img alt="" width="36" height="22" style="width:36px;height:22px" src="' + tbDial(f.min) + '"><b>DAY ' + (f.day == null ? '–' : f.day) + '</b>';
+    var crew = '<img alt="CREW" width="20" height="20" style="width:20px;height:20px" src="' + TB.man + '">';
+    if (f.crew) {
+      crew += '<b>' + f.crew.length + (f.cap ? '<em>/' + f.cap + '</em>' : '') + '</b><span class="ticks">';
+      f.crew.forEach(function (hp) { var px = Math.max(2, Math.round(14 * hp)); crew += '<i class="' + (hp >= 0.66 ? '' : (hp >= 0.33 ? 'hurt' : 'bad')) + '"><b style="height:' + px + 'px"></b></i>'; });
+      crew += '</span>';
+    } else crew += '<b>–</b>';
+    var g = TB_STORES.map(function (k) {
+      var n = k === 'batteries' ? f.batteries : (k === 'food' ? f.food : (f.six ? f.six[k] : null)), has = typeof n === 'number';
+      var low = k === 'food' && has && Math.floor(n / f.perDay) < 3;
+      return '<span class="s' + (has ? '' : ' none') + '" data-f="' + k + '"><img alt="' + k.toUpperCase() + '" src="' + supplyIcon(k) + '"><b' + (low ? ' class="low"' : '') + '>' + (has ? n : '–') + '</b></span>';
+    }).join('') + (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
+    var parts = { day: day, crew: crew, g: g };
+    Object.keys(parts).forEach(function (k) { var e = root.querySelector('[data-tb=' + k + ']'); if (e && e.__was !== parts[k]) { e.innerHTML = parts[k]; e.__was = parts[k]; } });
+    /* the shell's floating gear steps aside only while this one can be pressed (a screen over the map hides the bar) */
+    try {
+      var gb = root.querySelector('.gear'), r = gb.getBoundingClientRect(), hit = r.width > 0 && document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      var on = !!(hit && gb.contains(hit)), P = window.parent && window.parent !== window ? window.parent.document : null;
+      if (P) { if (!P.getElementById('bm-tb-shell')) { var st = P.createElement('style'); st.id = 'bm-tb-shell'; st.textContent = TB_SHELL_CSS; P.head.appendChild(st); }
+        P.documentElement.classList.toggle('bm-gear-in-bar', on); }
+    } catch (_e) {}
+  }
+  function topBar() {
+    var bar = document.getElementById('menubar'); if (!bar || !document.getElementById('barread')) return false;
+    if (document.getElementById('bmtb')) return true;
+    dressMapBar();
+    var R = document.documentElement.style;
+    if (!R.getPropertyValue('--bm-cardboard-dk')) { R.setProperty('--bm-cardboard-dk', 'url(' + tbDark(cardboard(), 0.5).toDataURL('image/png') + ')');
+      R.setProperty('--bm-glass-dk', 'url(' + tbDark(glass(), 0.45).toDataURL('image/png') + ')'); }
+    TB.man = tbDots(TB_MAN, 2, { a: '#3a2e20', b: '#1f1710' }); TB.gear = tbDots(TB_GEAR, 2, { a: '#3a2e20', b: '#1f1710' });
+    style('bm-topbar', TOPBAR_CSS);
+    var root = document.createElement('div'); root.id = 'bmtb';
+    var r1 = document.createElement('div'); r1.className = 'r r1';
+    r1.innerHTML = '<span class="t day" data-tb="day" data-f="day"></span><span class="t crew" data-tb="crew" data-f="crew"></span><span class="sp"></span>'
+      + '<span class="t gear" role="button" tabindex="0" aria-label="settings" data-f="gear"><img alt="" width="20" height="20" style="width:20px;height:20px" src="' + TB.gear + '"></span>';
+    /* what the right end already carried and still shows (NOTES on the demo; the workshop's chips too), moved, never cloned */
+    var right = document.getElementById('barright');
+    if (right) [].slice.call(right.children).forEach(function (n) { if (n.offsetWidth > 0) { if (n.id !== 'notebtn') n.classList.add('x'); r1.appendChild(n); } });
+    var r2 = document.createElement('div'); r2.className = 'r r2';
+    r2.innerHTML = '<div class="g" data-tb="g"></div>';
+    root.appendChild(r1); root.appendChild(r2);
+    bar.classList.add('bmtb'); bar.appendChild(root);
+    r1.querySelector('.gear').addEventListener('click', function (e) { e.stopPropagation();
+      try { var sg = window.parent.document.getElementById('gearbtn'); if (sg) sg.click(); } catch (_e) {} });
+    tbPaint(); TB.built = true;
+    try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
+    setInterval(function () { try { tbPaint(); } catch (_e) {} }, 500);
+    return true;
+  }
+  /* the fight: the strip across the top goes, its three things ride the bottom bar's top edge */
+  var FIGHT_NOTOP_CSS = ''
+    + 'html body #top{display:none!important}'
+    + '#bmturnrow{display:flex;align-items:center;gap:6px;height:44px;margin:-4px 0 8px;flex:0 0 auto}'
+    + 'html body #bmturnrow #round{transform:none;box-shadow:0 1px 0 #000;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:normal;letter-spacing:.8px;font-size:12px;padding:0 9px;height:44px;line-height:44px;box-sizing:border-box;background:#e2dac6 var(--bm-receipt) center/100% 100%}'
+    + 'html body #bmturnrow #order{flex:1 1 auto;height:44px;padding:0 4px;background:transparent}'
+    + 'html body #bmturnrow #order canvas{width:34px!important;height:34px!important;border-radius:0;box-shadow:0 0 0 1px #0d0a07}'
+    + 'html body #bmturnrow #bauto{transform:none;box-shadow:0 1px 0 #000;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:normal;letter-spacing:.8px;width:auto;min-width:52px;height:44px;padding:4px 9px;margin:0;box-sizing:border-box;background:#e2dac6 var(--bm-receipt) center/100% 100%}'
+    + 'html[data-screen=phone_landscape] #bmturnrow,html[data-screen=tablet] #bmturnrow,html[data-screen=computer] #bmturnrow{order:0;margin:0;flex:0 1 auto;min-width:0}';
+  function fightNoTop() {
+    var top = document.getElementById('top'), bot = document.getElementById('bot');
+    if (!top || !bot || !document.getElementById('bauto') || !document.getElementById('order')) return false;
+    if (document.getElementById('bmturnrow')) return true;
+    rootVars(); style('bm-fight-notop', FIGHT_NOTOP_CSS);
+    var row = document.createElement('div'); row.id = 'bmturnrow';
+    ['round', 'order', 'bauto'].forEach(function (id) { var e = document.getElementById(id); if (e) row.appendChild(e); });
+    bot.insertBefore(row, bot.firstChild);
+    try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
+    return true;
+  }
   /* THE PHONE'S LOOK (UI [the phone's look], rule 67a, 10/9): the cracked iPhone on the map in the bar's hand.
      The object is his (9/23 a cracked iPhone, 9/27 one crack, his A) and stays: the rail, the chips, the island,
      the one fracture, no tape. What changes is what it shares with the bar: the game's faces (CASING stamps the
@@ -1335,11 +1506,13 @@
   })(0);
   function dressAll() { dressFrontDoor(); frontJustTheFont(); dressSettlement(); if (document.getElementById('sbody')) { iconTheMarket(); dressPosts(); } dressMapBar(); dressPhone(); dressRoster();
     /* the bar and the pad are built after load by the city's own modules: try again until they exist */
-    if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); } }
+    if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); }
+    /* the top bar, the days once, on the map; the strip off the top in the fight (both pages build their bars after load) */
+    if (!topBar() && !fightNoTop()) { var n = 0, it = setInterval(function () { if (topBar() || fightNoTop() || ++n > 120) clearInterval(it); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
   window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
-    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars,
+    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars,
     hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT };
 })();
