@@ -91,6 +91,9 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 .wslot.full{border-style:solid;background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
 .wslot.pick{outline:2px solid var(--gold);outline-offset:-1px}
 .wslot em{font-style:normal;color:var(--dim);font-size:7px;letter-spacing:.5px}
+.wslot b.arm,.gslot b.arm{display:block;font-weight:700;color:var(--gold);font-size:8px;letter-spacing:.3px;line-height:1.15;white-space:nowrap}
+.wslot b.arm.rd,.gslot b.arm.rd{color:var(--ink);font-weight:400}
+.gslot b.arm{font-size:9px;white-space:normal}
 .wslot span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wslot img.pk{width:auto;height:20px;max-width:90%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
 .wslot .bm-icon,.wslot canvas{width:22px;height:22px;image-rendering:pixelated}
@@ -276,6 +279,16 @@ var SLOT_NAME = {main:'MAIN HAND', off:'OFF HAND', body:'BODY', head:'HEAD'};
 var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'w_rifle', firearm:'w_shotgun', throwing:'w_bottles', throwable_item:'w_bottles',
   sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole'};
 function shortName(it){ return it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; }
+/* EACH MAN'S GUN AND ITS REACH (RUN TWO [the guns on the crew screen], 10/22; rule 120(a), rule 83, rule 117 one look): what
+   his arm does in the fight, read the fight's way (BohemiaRoster.armOf): the reach in tiles and the rounds it holds going in.
+   Short: '2-4' over '5 RDS' in his row; long: 'REACH 2 TO 4 TILES, A CLUB AT 1' and '5 ROUNDS, THEN RELOAD' on his card */
+function armLine(it, long){
+  var a = C.armOf && C.armOf(it); if(!a) return null;
+  var reach = a.lo === a.hi ? a.hi + (a.hi === 1 ? ' TILE' : ' TILES') : a.lo + (long ? ' TO ' : '-') + a.hi + ' TILES';
+  var shots = a.rounds ? a.rounds + (a.gun ? (a.rounds === 1 ? (long ? ' ROUND' : ' RD') : (long ? ' ROUNDS' : ' RDS')) : (long ? ' THROWS' : ' LEFT')) : null;   /* a bundle of bottles is thrown, not loaded */
+  if(!long) return {reach: reach, rounds: shots};
+  return {reach: 'REACH ' + reach + (a.club ? ', A CLUB AT 1' : ''), rounds: shots ? shots + (a.gun ? ', THEN RELOAD' : '') : null};
+}
 function itemPic(it, px){
   var f = it.kind === 'weapon' && PACK_ICON[it.cls];
   if(f){ var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
@@ -296,7 +309,9 @@ function drawWear(){
       var it = m.gear[s], d = document.createElement('button'); d.className = 'wslot' + (it ? ' full' : '') + (S.pick && S.pick.man === i && S.pick.slot === s ? ' pick' : '');
       d.dataset.wslot = s; d.dataset.man = i; d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[s] + ': ' + (it ? it.name : 'empty'));
       var lab = document.createElement('em'); lab.textContent = SLOT_NAME[s].replace(' HAND',''); d.appendChild(lab);
-      if(it){ d.appendChild(itemPic(it, 22)); var n = document.createElement('span'); n.textContent = shortName(it); d.appendChild(n); }
+      if(it){ d.appendChild(itemPic(it, 22)); var n = document.createElement('span'); n.textContent = shortName(it); d.appendChild(n);
+        var al = s === 'main' && armLine(it); if(al){ var ar = document.createElement('b'); ar.className = 'arm'; ar.dataset.reach = al.reach; ar.textContent = al.reach; d.appendChild(ar);
+          if(al.rounds){ var rd = document.createElement('b'); rd.className = 'arm rd'; rd.textContent = al.rounds; d.appendChild(rd); } } }
       else { var e = document.createElement('span'); e.textContent = '—'; e.style.color = 'var(--dim)'; d.appendChild(e); }
       d.addEventListener('click', function(){ if(S.dragged) return; togglePick(i, s); });
       r.appendChild(d);
@@ -354,7 +369,9 @@ function drawCard(){
   [['main','MAIN HAND'],['off','OFF HAND'],['body','BODY'],['head','HEAD']].forEach(function(p){
     var it = m.gear[p[0]], d = document.createElement('div'); d.className = 'gslot' + (it ? ' full' : ''); d.dataset.drop = 'gear:' + p[0]; d.dataset.slot = p[0];
     var lab = document.createElement('i'); lab.textContent = p[1]; d.appendChild(lab);
-    if(it){ var nm = document.createElement('div'); nm.textContent = it.name; d.appendChild(nm); var n2 = document.createElement('i'); n2.textContent = it.nums; d.appendChild(n2); d.dataset.drag = 'gear:' + p[0]; }
+    if(it){ var nm = document.createElement('div'); nm.textContent = it.name; d.appendChild(nm); var al = p[0] === 'main' && armLine(it, true);
+      var n2 = document.createElement('i'); n2.textContent = al ? String(it.nums).replace(/\s+reach \d+/, '') : it.nums; d.appendChild(n2); d.dataset.drag = 'gear:' + p[0];   /* the reach is his arm's in the fight, below; the row's own number would contradict it */ if(al){ var ar = document.createElement('b'); ar.className = 'arm'; ar.textContent = al.reach; d.appendChild(ar);
+        if(al.rounds){ var rd = document.createElement('b'); rd.className = 'arm rd'; rd.textContent = al.rounds; d.appendChild(rd); } } }
     else { var e = document.createElement('div'); e.textContent = '—'; d.appendChild(e); }
     d.addEventListener('click', function(){ if(S.dragged) return; if(m.gear[p[0]]) unequip(p[0]); });
     g.appendChild(d);

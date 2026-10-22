@@ -159,7 +159,27 @@
   function company(crew) { return crew.map(function (m) { var g = m.gear || {}, id = function (it) { return it ? it.id : null; };
     return { name: m.name, background: m.bgId, level: m.level, look: m.look, perks: (m.perks || []).slice(), marks: m.marks || (m.mark ? [m.mark] : []),
              gear: { main: id(g.main), off: id(g.off), body: id(g.body), head: id(g.head) } }; }); }
-  var API = { load: load, xpFor: xpFor, levelOf: levelOf, grant: grant, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
+  /* WHAT HIS ARM DOES IN A FIGHT (RUN TWO [the guns on the crew screen], 10/22; rule 120(a): the company starts with guns; rule
+     83: 'melee weapons work on one tile away, all guns 2+ minimum... the pistol is a two-tile gun, or a club at one'): read the
+     way the fight reads a weapon (slices/BOHEMIA_FIGHT.html pistolShot, rangeMin, rounds; ours.gun_classes, ours.pistol_shot,
+     ours.gun_min_range), never a second table. {lo, hi} in tiles, club: true when a gun strikes a man beside him as the pipe,
+     rounds: what the gun holds going in (the fight loads every gun full; a one-shot gun's one), null for an arm with none */
+  function armOf(it) {
+    if (!it || it.kind !== 'weapon' || !D.weapons || !D.ours) return null;
+    var rows = D.weapons.rows || [], row = function (id) { for (var i = 0; i < rows.length; i++) if (rows[i].id === id) return rows[i]; return null; };
+    var w = row(it.id); if (!w) return null;
+    var O = function (k) { return D.ours[k] && D.ours[k].value; };
+    var num = function (v) { var m = String(v == null ? '' : v).match(/\d+/g); return m ? Math.max.apply(null, m.map(Number)) : 1; };
+    var lowOf = function (r) { return r.range_min != null && r.range_max != null && num(r.range_min) < num(r.range_max) ? num(r.range_min) : 1; };
+    var P = O('pistol_shot'), shot = P && w['class'] === P['class'] && P.by_row[w.id] ? row(P.by_row[w.id]) : null;
+    var ranged = ['bow', 'crossbow', 'firearm', 'throwing'];
+    var r = shot || w, isRanged = ranged.indexOf(r['class']) >= 0, gun = !!shot || (O('gun_classes') || []).indexOf(w['class']) >= 0;
+    if (!isRanged) return { lo: 1, hi: num(w.range_max || 1), club: false, rounds: null, gun: false };
+    var floor = gun ? (O('gun_min_range') || 2) : 1, lo = Math.max(lowOf(r), floor), hi = num(r.range_max);
+    var mag = r.ammo ? num(r.ammo) : null, reload = (r.skills || []).some(function (k) { return /^Reload/.test(k.name); });
+    return { lo: lo, hi: Math.max(lo, hi), club: gun, rounds: shot ? mag : reload ? 1 : mag, gun: gun };
+  }
+  var API = { load: load, armOf: armOf, xpFor: xpFor, levelOf: levelOf, grant: grant, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     slotFor: slotFor, sheetSrc: sheetSrc, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);
