@@ -37,9 +37,9 @@ ODD = ('shore', 'landfill', 'casino')
 KEEP = {}
 
 # THE CARPET: a ground kind of the floor tool's own spec (red-brown, its tile seams, its stains and spills)
-F.MATS['carpet'] = dict(role=('clay_rust', 0), target=(96, 52, 40), h=0.0, alt=('clay_rust', 1), alt_amt=0.18, grit=0.1, speck=(160, 0.18),
+F.MATS['carpet'] = dict(role=('clay_rust', 1), target=(120, 60, 44), h=0.0, alt=('clay_rust', 0), alt_amt=0.25, grit=0.1, speck=(160, 0.18),
                         joints=dict(pitch=0.61, width=0.004), panel_var=0.07,
-                        patches=dict(scale=0.45, cut=0.74, mul=0.55), oil=dict(scale=0.6, cut=0.7, mul=0.62))
+                        patches=dict(scale=0.45, cut=0.66, mul=0.45), oil=dict(scale=0.6, cut=0.62, mul=0.5))
 if 'carpet' not in F.IDS:
     F.IDS.append('carpet'); F.ID['carpet'] = len(F.IDS) - 1
 _gm = F.ground_material
@@ -51,10 +51,10 @@ def ground_material(bpy, name):
     nt = m.node_tree; b = nt.nodes['Principled BSDF']
     src = b.inputs['Base Color'].links[0].from_socket                       # the floor tool's colour, then the gold lattice
     tc = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping')
-    mp.inputs['Rotation'].default_value = (0, 0, math.radians(45)); mp.inputs['Scale'].default_value = (2.4, 2.4, 2.4)
+    mp.inputs['Rotation'].default_value = (0, 0, math.radians(45)); mp.inputs['Scale'].default_value = (1.6, 1.6, 1.6)
     nt.links.new(tc.outputs['Object'], mp.inputs['Vector'])
     br = nt.nodes.new('ShaderNodeTexBrick'); br.offset = 0.0; br.inputs['Brick Width'].default_value = 1.0; br.inputs['Row Height'].default_value = 1.0
-    br.inputs['Mortar Size'].default_value = 0.035; br.inputs['Scale'].default_value = 1.0
+    br.inputs['Mortar Size'].default_value = 0.06; br.inputs['Scale'].default_value = 1.0
     br.inputs['Color1'].default_value = (1, 1, 1, 1); br.inputs['Color2'].default_value = (0.9, 0.9, 0.9, 1)
     gold = tuple(F.role_lin('clay_mustard', 1)) + (1,); br.inputs['Mortar'].default_value = gold
     nt.links.new(mp.outputs['Vector'], br.inputs['Vector'])
@@ -82,18 +82,24 @@ def load_plan(bid):
     no = gid == 255
     a = ship.astype(np.int16); L = T.lum(ship)
     if kind == 'shore':
-        water = no & (a[..., 2] > a[..., 0] + 6)
-        deep = water & (L < 80)
+        # the old lake is a diagonal wave pattern: read on a metre, never per pixel (per pixel it left a checkerboard of
+        # dry ground in the water and the junk blew onto it)
+        bl = F.blur((a[..., 2] - a[..., 0]).astype(np.float32), 0.6 * F.PPM)
+        water = no & (bl > 4); water = ndimage.binary_opening(ndimage.binary_closing(water, iterations=8), iterations=4)
+        deep = water & (F.blur(L.astype(np.float32), 0.6 * F.PPM) < 85)
         gid[water] = F.ID['playa']; gid[no & ~water] = F.ID['desert']
         KEEP['water'] = water; KEEP['deep'] = deep
     elif kind == 'landfill':
         lab, n = ndimage.label(no); pieces = []
+        berm = np.zeros_like(no)
         for i, sl in enumerate(ndimage.find_objects(lab)):
             m = lab[sl] == i + 1
             if m.sum() < 60: continue
+            if (sl[1].stop - sl[1].start) > 2.6 * F.PPM or (sl[0].stop - sl[0].start) > 2.6 * F.PPM:   # a cell's dirt berm, not a thing
+                berm[sl] |= m; continue
             c = np.median(a[sl][m], axis=0); y0, y1, x0, x1 = sl[0].start, sl[0].stop, sl[1].start, sl[1].stop
             pieces.append(dict(x=(x0 + x1) / 2 / F.PPM, y=F.SIDE * (1 - y1 / F.H), w=(x1 - x0) / F.PPM, hs=(y1 - y0) / F.PPM, rgb=[int(v) for v in c]))
-        gid[no] = F.ID['rough']; KEEP['pieces'] = pieces
+        gid[no] = F.ID['rough']; gid[berm] = F.ID['track']; KEEP['pieces'] = pieces
     elif kind == 'casino':
         gid[:] = F.ID['carpet']
     lum_[no] = 255                                                           # the maker had no shading for what was not ground
@@ -131,7 +137,7 @@ def build(bpy, gid_full, seed, quick=False):
     ico = F.ico(bpy); lump = (ico[0] * 0.5 + np.array([0, 0, 0.5], np.float32), ico[1]); box = (NF.CUBE_V, NF.CUBE_F)
     add = []
     if kind == 'shore':
-        deep = NF.material(bpy, 'water_deep', 'cloth_black', 1, 0.8); shelf = NF.material(bpy, 'water_shelf', 'clay_teal', 0, 0.75)
+        deep = NF.material(bpy, 'water_deep', 'clay_teal', 0, 0.5); shelf = NF.material(bpy, 'water_shelf', 'clay_teal', 2, 0.85)
         scum = NF.material(bpy, 'scum', 'clay_bone', 2, 0.9); bag = NF.material(bpy, 'float_bag', 'rubber', 2)
         r1 = water_mesh(bpy, KEEP['deep'], -0.05, 'water_deep', deep); r2 = water_mesh(bpy, KEEP['water'] & ~KEEP['deep'], -0.06, 'water_shelf', shelf)
         add += [r[0] for r in (r1, r2) if r]
@@ -167,7 +173,7 @@ def build(bpy, gid_full, seed, quick=False):
         chip = [NF.material(bpy, 'chip_%d' % i, r_, s_) for i, (r_, s_) in enumerate((('clay_rust', 2), ('clay_teal', 2), ('clay_bone', 3), ('cloth_black', 1)))]
         paper = NF.material(bpy, 'cas_paper', 'clay_bone', 3); cup = NF.material(bpy, 'cas_cup', 'clay_bone', 2)
         chips = [[] for _ in chip]; papers = []; cups = []
-        for _ in range(rng.randint(140, 220)):
+        for _ in range(rng.randint(500, 700)):
             x, y = rng.uniform(1, F.SIDE - 1), rng.uniform(1, F.SIDE - 1)
             if rng.rand() < 0.55:                                            # a spill of chips nobody came back for
                 for _k in range(rng.randint(1, 6)):
