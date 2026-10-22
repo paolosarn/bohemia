@@ -19,6 +19,7 @@ REUSE CHECK (REUSE-FIRST): the props modeller's helpers (mat, box, cyl, rod, chu
 TASTE CHECK: the rig is the look (rule 115); a thing is what its name says.
 """
 import os, sys, json, math, hashlib, subprocess
+import numpy as np
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
 SHIP = os.path.join(R, 'slices/market_icons')
@@ -27,6 +28,7 @@ MODELS = os.path.join(R, 'reference/models/bohemia')
 VENV = '/home/user/v/bin/python'
 BASE_SHA = 'c12f16127eb6424f5007babc0f0e6851daf51698'
 GUNS = {'w_pistol': 'gun_pistol_a.glb', 'w_rifle': 'gun_rifle_a.glb', 'w_shotgun': 'gun_shotgun_a.glb'}
+UP = 3                                   # 10/22: the render is three times the icon, cut down with a real filter
 DIAG = {'b_smith': 0, 'b_armourer': 0, 's_food': 0, 's_meds': 0, 's_rounds': 0, 's_water': 0, 'w_pistol': 0, 'w_rifle': 0, 'w_shotgun': 0}   # these stand as they are; the rest lean 45
 
 
@@ -44,8 +46,10 @@ def build(name, bpy, P):
     if name in GUNS:
         P.import_model(bpy, os.path.join(MODELS, GUNS[name]), (0, 0, 0), (0, 0, 0)); return
     if name == 'w_axe':
-        P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.02, 8)
-        P.box(bpy, 'head', steel, (0.2, 0.04, 0.11), (0.06, 0, 0.84)); P.box(bpy, 'edge', P.mat(bpy, 'edge', 'tape_grey', 3), (0.02, 0.03, 0.15), (0.16, 0, 0.84))
+        # 10/22: an icon's axe: the head at twice its real size so it reads at 96 px (the first cut was a stick)
+        P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.026, 8)
+        P.box(bpy, 'head', steel, (0.3, 0.07, 0.16), (0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'edge', P.mat(bpy, 'edge', 'chrome', 3), (0.04, 0.05, 0.26), (0.23, 0, 0.8), bevel=0.006)
+        P.box(bpy, 'poll', steel, (0.08, 0.08, 0.12), (-0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'wrap', dark, (0.07, 0.07, 0.16), (0, 0, 0.1))
     elif name == 'w_sledge':
         P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.022, 8)
         P.box(bpy, 'head', steel, (0.26, 0.09, 0.09), (0, 0, 0.9), bevel=0.01)
@@ -75,30 +79,54 @@ def build(name, bpy, P):
         P.cyl(bpy, 'body', glass, 0.04, 0.2, (0, 0, 0.1), verts=12); P.cyl(bpy, 'neck', glass, 0.014, 0.08, (0, 0, 0.24), verts=8)
         P.box(bpy, 'rag', P.mat(bpy, 'rag', 'clay_bone', 3), (0.03, 0.02, 0.09), (0.012, 0, 0.31), (0, 0.4, 0))
     elif name == 's_food':
-        tin = P.mat(bpy, 'tin', 'tape_grey', 2); lab = P.mat(bpy, 'label', 'clay_rust', 2)
-        P.cyl(bpy, 'can', tin, 0.042, 0.11, (0, 0, 0.055), verts=16); P.cyl(bpy, 'label', lab, 0.0425, 0.07, (0, 0, 0.055), verts=16)
+        # 10/22: two cans, one stood and one rolled over, rims and a ring pull, so it reads as tins at 96 px
+        tin = P.mat(bpy, 'tin', 'chrome', 2); lab = P.mat(bpy, 'label', 'clay_rust', 2); lab2 = P.mat(bpy, 'label_band', 'clay_mustard', 2)
+        for k, (loc, rot) in enumerate((((0, 0, 0.055), (0, 0, 0)), ((0.07, 0.05, 0.043), (math.radians(90), 0, math.radians(30))))):
+            P.cyl(bpy, 'can_%d' % k, tin, 0.042, 0.11, loc, rot, verts=20); P.cyl(bpy, 'label_%d' % k, lab, 0.0428, 0.07, loc, rot, verts=20)
+            P.cyl(bpy, 'band_%d' % k, lab2, 0.0431, 0.016, loc, rot, verts=20)
+        for z in (0.002, 0.108): P.cyl(bpy, 'rim_%d' % int(z * 1000), tin, 0.0445, 0.006, (0, 0, z), verts=20)
+        P.box(bpy, 'pull', P.mat(bpy, 'pull', 'tape_grey', 3), (0.03, 0.012, 0.003), (0.012, 0, 0.112))
     elif name == 's_meds':
         bag = P.mat(bpy, 'bag', 'clay_bone', 1); cross = P.mat(bpy, 'cross', 'blood', 1)
         P.box(bpy, 'case', bag, (0.3, 0.12, 0.2), (0, 0, 0.1), bevel=0.02)
         P.box(bpy, 'cross_h', cross, (0.09, 0.004, 0.03), (0, -0.061, 0.11)); P.box(bpy, 'cross_v', cross, (0.03, 0.004, 0.09), (0, -0.061, 0.11))
         P.rod(bpy, 'handle', dark, (-0.06, 0, 0.2), (0.06, 0, 0.2), 0.01, 6)
     elif name == 's_rounds':
-        brass = P.mat(bpy, 'brass', 'clay_mustard', 2)
-        P.box(bpy, 'box', P.mat(bpy, 'ammo_can', 'metal_painted', 1), (0.12, 0.06, 0.05), (0, 0, 0.025), bevel=0.004)
-        for k in range(5): P.cyl(bpy, 'round_%d' % k, brass, 0.0055, 0.06, (-0.04 + k * 0.02, 0, 0.08), verts=8)
+        # 10/22: the rounds are the thing: five rifle cartridges on a stripper clip, standing, copper tips, at 2x their
+        # real girth against the clip so the brass reads at 96 px (the first cut's five rods read as a comb)
+        brass = P.mat(bpy, 'brass', 'clay_mustard', 1); tip = P.mat(bpy, 'tip', 'clay_rust', 1)
+        P.box(bpy, 'clip', P.mat(bpy, 'clip', 'tape_grey', 1), (0.08, 0.03, 0.012), (0, 0, 0.006), bevel=0.002)
+        for k in range(3):
+            x = -0.025 + k * 0.025
+            P.cyl(bpy, 'case_%d' % k, brass, 0.011, 0.07, (x, 0, 0.047), verts=14)
+            P.cyl(bpy, 'neck_%d' % k, brass, 0.007, 0.012, (x, 0, 0.088), verts=12)
+            bpy.ops.mesh.primitive_cone_add(vertices=12, radius1=0.0068, depth=0.03, location=(x, 0, 0.108)); P.put(bpy, bpy.context.active_object, 'tip_%d' % k, tip)
     elif name == 's_water':
         jug = P.mat(bpy, 'jug', 'clay_teal', 3)
         P.box(bpy, 'jug', jug, (0.15, 0.15, 0.26), (0, 0, 0.13), bevel=0.03); P.cyl(bpy, 'cap', P.mat(bpy, 'cap', 'tape_grey', 3), 0.02, 0.03, (0.04, 0, 0.275), verts=10)
         P.box(bpy, 'handle', jug, (0.025, 0.05, 0.08), (-0.05, 0, 0.27))
     elif name == 'b_smith':
-        P.cyl(bpy, 'stump', wood, 0.22, 0.5, (0, 0, 0.25), verts=12)
-        P.box(bpy, 'anvil', P.mat(bpy, 'anvil', 'rubber', 2), (0.5, 0.14, 0.12), (0, 0, 0.62), bevel=0.01); P.box(bpy, 'waist', P.mat(bpy, 'anvil_b', 'rubber', 2), (0.16, 0.12, 0.1), (0, 0, 0.53))
-        bpy.ops.mesh.primitive_cone_add(vertices=8, radius1=0.06, depth=0.2, location=(-0.33, 0, 0.62), rotation=(0, math.radians(-90), 0)); P.put(bpy, bpy.context.active_object, 'horn', P.mat(bpy, 'horn', 'rubber', 2), smooth=False)
-        P.rod(bpy, 'hammer', wood, (0.1, -0.05, 0.69), (0.35, -0.1, 0.72), 0.012, 6); P.box(bpy, 'hammer_head', steel, (0.04, 0.04, 0.09), (0.1, -0.05, 0.69))
+        # 10/22: the anvil is the thing: big on a short stump, its horn and heel and a hammer across its face
+        iron = P.mat(bpy, 'anvil', 'metal_painted', 3)
+        P.cyl(bpy, 'stump', wood, 0.2, 0.2, (0, 0, 0.18), verts=14)
+        P.box(bpy, 'foot', iron, (0.34, 0.24, 0.07), (0, 0, 0.315), bevel=0.012); P.box(bpy, 'waist', iron, (0.2, 0.15, 0.1), (0, 0, 0.4))
+        P.box(bpy, 'face', iron, (0.5, 0.17, 0.11), (0, 0, 0.5), bevel=0.012); P.box(bpy, 'heel', iron, (0.1, 0.13, 0.05), (0.27, 0, 0.53), bevel=0.008)
+        bpy.ops.mesh.primitive_cone_add(vertices=12, radius1=0.075, depth=0.24, location=(-0.36, 0, 0.51), rotation=(0, math.radians(-90), 0)); P.put(bpy, bpy.context.active_object, 'horn', iron)
+        P.rod(bpy, 'hammer', wood, (0.05, -0.04, 0.58), (0.36, -0.16, 0.6), 0.014, 8); P.box(bpy, 'hammer_head', steel, (0.05, 0.05, 0.11), (0.05, -0.04, 0.59), bevel=0.006)
     elif name == 'b_armourer':
-        P.box(bpy, 'bench', wood, (0.9, 0.4, 0.06), (0, 0, 0.8)); [P.box(bpy, 'leg_%d' % i, wood, (0.06, 0.06, 0.78), (x, 0, 0.39)) for i, x in enumerate((-0.4, 0.4))]
-        P.box(bpy, 'vise', P.mat(bpy, 'vise', 'clay_teal', 1), (0.18, 0.12, 0.12), (0.25, 0, 0.89), bevel=0.01); P.rod(bpy, 'vise_bar', steel, (0.25, -0.12, 0.88), (0.25, -0.2, 0.88), 0.008, 6)
-        P.box(bpy, 'plate', P.mat(bpy, 'plate', 'tape_grey', 1), (0.3, 0.02, 0.36), (-0.15, 0.1, 1.0), (math.radians(-12), 0, 0.1), bevel=0.01)
+        # 10/22: a low bench so the tools are the icon, not the legs
+        P.box(bpy, 'bench', wood, (0.9, 0.4, 0.06), (0, 0, 0.8)); [P.box(bpy, 'leg_%d' % i, wood, (0.08, 0.08, 0.2), (x, 0, 0.69)) for i, x in enumerate((-0.4, 0.4))]
+        # 10/22: the vise big and teal, a riveted plate stood against the wall board, a helmet on the bench
+        vm = P.mat(bpy, 'vise', 'clay_teal', 1)
+        P.box(bpy, 'vise', vm, (0.24, 0.16, 0.14), (0.24, -0.04, 0.9), bevel=0.012); P.box(bpy, 'jaw', vm, (0.06, 0.16, 0.2), (0.38, -0.04, 0.93), bevel=0.01)
+        P.rod(bpy, 'vise_bar', steel, (0.43, -0.2, 0.92), (0.43, 0.12, 0.92), 0.012, 8)
+        P.box(bpy, 'board', wood, (0.9, 0.04, 0.5), (0, 0.2, 1.08))
+        P.box(bpy, 'plate', P.mat(bpy, 'plate', 'tape_grey', 1), (0.32, 0.03, 0.4), (-0.2, 0.15, 1.04), (math.radians(-8), 0, 0.08), bevel=0.015)
+        for i in range(4): P.cyl(bpy, 'rivet_%d' % i, steel, 0.012, 0.01, (-0.32 + (i % 2) * 0.24, 0.13, 0.9 + (i // 2) * 0.3), (math.radians(90), 0, 0), verts=8)
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=16, ring_count=8, radius=0.19, location=(-0.08, -0.06, 0.83)); h = bpy.context.active_object
+        for v in h.data.vertices:
+            if v.co.z < 0: v.co.z = 0
+        P.put(bpy, h, 'helmet', P.mat(bpy, 'helmet', 'metal_painted', 2))
     else:
         raise KeyError(name)
 
@@ -127,29 +155,47 @@ def rig(name):
     from PIL import Image
     import bohemia_cook_the_floor_not_final_10_20_26 as NF
     RIG = NF.RIG
+    RIG.G['samples'] = 40                     # 10/22: an icon is cut down 3x from the render: 40 denoised samples, not the guide's 128
     glb = os.path.join(OUT, 'models', name + '.glb'); d = json.load(open(glb[:-4] + '.json'))
     old = Image.open(os.path.join(OUT, 'orig', name + '.png'))
-    span_px = max(old.size) * 0.94
+    # 10/22: rendered at THREE times the icon (the first cut rendered at the icon's own size and read blurry and small), the
+    # wear at 0.3 and the snap at 0.35 (at the guide's 0.6 and 0.6 every icon came out the same dusty grey: the vibe went
+    # down, rule 123(d)); three facings posted, the cut keeps the one that fills the old frame best
+    span_px = max(old.size) * 0.94 * UP
     L = max(d[0], d[1]); Hh = d[2]
     ppm = span_px / max(L, Hh * 1.05)
     out = os.path.join(OUT, name); os.makedirs(out, exist_ok=True)
-    sys.argv = ['rig', glb, out, '--ppm', repr(ppm), '--no-calibration', '--no-id-pass', '--real-length', repr(L), '--no-shadow']
+    sys.argv = ['rig', glb, out, '--ppm', repr(ppm), '--no-calibration', '--no-id-pass', '--real-length', repr(L), '--no-shadow', '--wear', '0.3', '--snap', '0.35']
     A = RIG.args()
     NF.LEDGER.clear(); NF.LEDGER.update(fires=[], seed=sum(map(ord, name)) % 97, bid=name)
     meta, stills, clips, portrait = RIG.render(A)
     pop, bins, ntiles = RIG.population(A['fam'])
-    outs, box = RIG.post([stills[RIG.FACINGS.index('S')]], out, A, pop, shadow=False)
+    outs, box = RIG.post([stills[RIG.FACINGS.index(f)] for f in ('S', 'SE', 'SW')], out, A, pop, shadow=False, one_box=False)
     json.dump(dict(model=os.path.relpath(glb, R), ppm=ppm, files=[os.path.relpath(o, R) for o in outs], box=box), open(os.path.join(out, 'rig.json'), 'w'), indent=1)
     print('  rig', name, outs[0], flush=True)
 
 
 def cut(name):
     from PIL import Image
+    from PIL import ImageFilter
     old = Image.open(os.path.join(OUT, 'orig', name + '.png')).convert('RGBA'); W, H = old.size
-    new = Image.open(os.path.join(OUT, name, 'rig_S.png')).convert('RGBA')
-    bb = new.getbbox(); new = new.crop(bb)
-    k = min((W - 2) / new.width, (H - 2) / new.height, 1.0)
-    if k < 1.0: new = new.resize((max(1, round(new.width * k)), max(1, round(new.height * k))), Image.NEAREST)
+    best = None
+    for f in ('S', 'SE', 'SW'):                                # the facing that fills the old frame most (S wins a tie)
+        p = os.path.join(OUT, name, 'rig_%s.png' % f)
+        if not os.path.exists(p): continue
+        im = Image.open(p).convert('RGBA'); im = im.crop(im.getbbox())
+        k = min((W - 4) / im.width, (H - 4) / im.height)
+        area = im.width * im.height * k * k * (float((np.asarray(im)[..., 3] > 0).mean()))
+        if best is None or area > best[0] * 1.08: best = (area, im, k, f)
+    _a, new, k, face = best
+    new = new.resize((max(1, round(new.width * k)), max(1, round(new.height * k))), Image.LANCZOS)   # down from 3x: premultiplied
+    a = np.asarray(new).astype(np.float32)
+    rgb = Image.fromarray(a[..., :3].clip(0, 255).astype(np.uint8)).filter(ImageFilter.UnsharpMask(radius=1.2, percent=70, threshold=2))
+    a[..., :3] = np.asarray(rgb).astype(np.float32); op = a[..., 3] > 110; a[..., 3] = np.where(op, 255, 0)
+    # THE EDGE: one pixel of near-black outside the silhouette, the way every icon on the market shelf reads at 96 px
+    pd = np.pad(op, 1); grow = pd[:-2, 1:-1] | pd[2:, 1:-1] | pd[1:-1, :-2] | pd[1:-1, 2:]
+    edge = grow & ~op; a[edge] = (22, 19, 17, 235)
+    new = Image.fromarray(a.round().clip(0, 255).astype(np.uint8), 'RGBA')
     out = Image.new('RGBA', (W, H)); out.alpha_composite(new, ((W - new.width) // 2, (H - new.height) // 2))
     dst = os.path.join(SHIP, name + '.png'); out.save(dst, optimize=True)
     led = os.path.join(OUT, 'swapped.json'); L_ = json.load(open(led)) if os.path.exists(led) else {}

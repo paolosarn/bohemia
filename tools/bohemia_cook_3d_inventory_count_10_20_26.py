@@ -3,7 +3,8 @@
 Rule 123: 'the count going down in records/ is your proof'. A family's flat count is read here, never typed: a picture
 counts as 3D only while the file the game draws still has the hash this lane's converter recorded when it swapped it in
 (records/target/cook_floor_not_final/swapped.json, records/target/cook_cover_rig/swapped.json,
-records/target/cook_settlement_rig/swapped.json), or, for the map, while the bank's hero carries the rig's mark and the
+records/target/cook_settlement_rig/swapped.json, and from 10/22 records/target/cook_icons_rig/swapped.json and
+records/target/cook_floor_futures/swapped.json), or, for the map, while the bank's hero carries the rig's mark and the
 map copy the wire made from it. Writes the counts and a log line into records/target/cook_3d_inventory.json.
 
   python3 tools/bohemia_cook_3d_inventory_count_10_20_26.py [--note "what landed"]
@@ -42,6 +43,12 @@ def main(note=None):
     st = ledger('records/target/cook_settlement_rig/swapped.json')
     sd = sorted(k for k, v in st.items() if sha(v['file']) == v.get('sha1'))
     F['settlement_backdrops'].update(in_3d=sd, flat=F['settlement_backdrops']['total'] - len(sd))
+    ic = ledger('records/target/cook_icons_rig/swapped.json')            # 10/22: the icons and the futures, the same rule
+    idone = sorted(k for k, v in ic.items() if sha(v['file']) == v.get('sha1'))
+    F['item_icons'].update(in_3d=idone, flat=F['item_icons']['total'] - len(idone))
+    fu = ledger('records/target/cook_floor_futures/swapped.json')
+    fdone = sorted(k for k, v in fu.items() if sha(v['file']) == v.get('sha1'))
+    F['fight_floor_futures'].update(in_3d=fdone, flat=F['fight_floor_futures']['total'] - len(fdone))
     try:
         bank = json.load(open(os.path.join(R, 'banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt')))
         frm = {}
