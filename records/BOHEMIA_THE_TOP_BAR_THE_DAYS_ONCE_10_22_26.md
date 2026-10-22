@@ -38,7 +38,7 @@ ui-the-six-in-the-bar-10-1). Changed from the card:
 ## The fight: nothing across the top
 
 The strip across the top goes. Its three things ride the bottom bar's top edge, MOVED, never cloned: the round on a receipt
-tag, the turn order's faces at 34 points, AUTO in the fight's own tag (a tap still flips the fight's AUTO). The fight's own
+tag, the turn order's faces at 36 points, AUTO in the fight's own tag (a tap still flips the fight's AUTO). The fight's own
 hudEdges() reads TOPH 0 by itself, so the board runs to the top of the glass. Measured upright: TOPH 0, BOTH 180 of 844
 (was 58 across the top plus about 128 under: the board gains the strip and loses nothing); 5 faces in the row; AUTO
 false -> true -> false.

@@ -131,7 +131,9 @@ async function fight(F, first) {
         .concat(Array.from(document.querySelectorAll('#skills .sq')).filter(b => b.style.display !== 'none').map(box));
       const faces = Array.from(document.querySelectorAll('#order canvas')).map(c => Math.round(c.getBoundingClientRect().width));
       const css = el => getComputedStyle(el).backgroundImage;
-      window.__bars = 0; return { taps, faces, bar: document.getElementById('bot').getBoundingClientRect().height,
+      /* UI 10/22 [the top bar, the days once]: the round, the faces and AUTO left the top and ride the bar's top edge in
+         #bmturnrow; the bar's own height is measured without that row (the strip over the board is gone) */
+      window.__bars = 0; return { taps, faces, bar: document.getElementById('bot').getBoundingClientRect().height - (() => { const t = document.getElementById('bmturnrow'); if (!t) return 0; const q = t.getBoundingClientRect(), c = getComputedStyle(t), g = parseFloat(getComputedStyle(t.parentNode).rowGap) || 0; return q.height + parseFloat(c.marginTop) + parseFloat(c.marginBottom) + (c.flexBasis === '100%' ? g : 0); })(),
         mats: [css(document.getElementById('bot')), css(document.getElementById('bend')), css(document.querySelector('#skills .sq'))].every(b => /url\("?data:image/.test(b)),
         font: getComputedStyle(document.body).fontFamily };
     });
@@ -500,7 +502,7 @@ async function screens() {
       const b = r('bot'), t = r('top'), cls = document.documentElement.dataset.screen;
       const inside = [b, t].concat(taps).every(q => q.left >= -1 && q.right <= innerWidth + 1 && q.top >= -1 && q.bottom <= innerHeight + 1);
       return { cls, W: innerWidth, H: innerHeight, glass: Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight), minTap: Math.round(Math.min.apply(null, taps.map(q => Math.min(q.width, q.height)))),
-        oneRow: b.height <= 90 && Math.abs(r('bend').top - r('skills').top) < 30, barW: Math.round(b.width), centred: Math.abs(b.left - (innerWidth - b.right)) <= 2,
+        oneRow: b.height - (() => { const t = document.getElementById('bmturnrow'); if (!t) return 0; const q = t.getBoundingClientRect(), c = getComputedStyle(t), g = parseFloat(getComputedStyle(t.parentNode).rowGap) || 0; return q.height + parseFloat(c.marginTop) + parseFloat(c.marginBottom) + (c.flexBasis === '100%' ? g : 0); })() <= 90 && Math.abs(r('bend').top - r('skills').top) < 30,   /* UI 10/22: the turn row's own line along the bar's top edge is not a second row of the bar */ barW: Math.round(b.width), centred: Math.abs(b.left - (innerWidth - b.right)) <= 2,
         fits: FIGHT_UI.far <= FIGHT_UI.near, inside,
         man: Math.round(manH()), all: allFramed() };
     });

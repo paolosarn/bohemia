@@ -793,7 +793,7 @@
     + '#bmturnrow{display:flex;align-items:center;gap:6px;height:44px;margin:-4px 0 8px;flex:0 0 auto}'
     + 'html body #bmturnrow #round{transform:none;box-shadow:0 1px 0 #000;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:normal;letter-spacing:.8px;font-size:12px;padding:0 9px;height:44px;line-height:44px;box-sizing:border-box;background:#e2dac6 var(--bm-receipt) center/100% 100%}'
     + 'html body #bmturnrow #order{flex:1 1 auto;height:44px;padding:0 4px;background:transparent}'
-    + 'html body #bmturnrow #order canvas{width:34px!important;height:34px!important;border-radius:0;box-shadow:0 0 0 1px #0d0a07}'
+    + 'html body #bmturnrow #order canvas{width:36px!important;height:36px!important;border-radius:0;box-shadow:0 0 0 1px #0d0a07}'
     /* AUTO keeps the fight's own tag (paper with a hard one-pixel edge, its printed mark, read from the left); it only stands straight */
     + 'html body #bmturnrow #bauto{transform:none;margin:0;min-height:44px}'
     /* on its side, a tablet, a computer: the one-row bar keeps its whole width for the skills (the hit read widens STRIKE to
