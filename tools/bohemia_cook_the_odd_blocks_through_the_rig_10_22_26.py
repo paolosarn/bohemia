@@ -37,7 +37,7 @@ ODD = ('shore', 'landfill', 'casino')
 KEEP = {}
 
 # THE CARPET: a ground kind of the floor tool's own spec (red-brown, its tile seams, its stains and spills)
-F.MATS['carpet'] = dict(role=('clay_rust', 1), target=(120, 60, 44), h=0.0, alt=('clay_rust', 0), alt_amt=0.25, grit=0.1, speck=(160, 0.18),
+F.MATS['carpet'] = dict(role=('clay_rust', 2), target=(150, 72, 48), h=0.0, alt=('clay_rust', 1), alt_amt=0.25, grit=0.1, speck=(160, 0.18),
                         joints=dict(pitch=0.61, width=0.004), panel_var=0.07,
                         patches=dict(scale=0.45, cut=0.66, mul=0.45), oil=dict(scale=0.6, cut=0.62, mul=0.5))
 if 'carpet' not in F.IDS:
@@ -111,7 +111,7 @@ F.load_plan = load_plan
 _build = F.build
 
 
-def water_mesh(bpy, mask, z, name, mat, cell=0.25):
+def water_mesh(bpy, mask, z, name, mat, cell=0.1):
     n = int(F.SIDE / cell)
     ys = ((np.arange(n) + 0.5) * cell / F.SIDE * F.H).astype(int); xs = ((np.arange(n) + 0.5) * cell * F.PPM).astype(int)
     m = mask[np.clip(ys, 0, F.H - 1)][:, np.clip(xs, 0, F.W - 1)]
