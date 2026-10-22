@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/w_cleaver.glb",
+ "ppm": 859.4285714285713,
+ "files": [
+  "records/target/cook_icons_rig/w_cleaver/rig_S.png",
+  "records/target/cook_icons_rig/w_cleaver/rig_SE.png",
+  "records/target/cook_icons_rig/w_cleaver/rig_SW.png"
+ ],
+ "box": null
+}

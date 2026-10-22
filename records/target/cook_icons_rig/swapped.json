@@ -1,0 +1,82 @@
+{
+ "b_armourer": {
+  "file": "slices/market_icons/b_armourer.png",
+  "sha1": "f6381aa40608bcbfb94e86889f3bab38afe0bef0",
+  "size": [
+   96,
+   77
+  ]
+ },
+ "b_smith": {
+  "file": "slices/market_icons/b_smith.png",
+  "sha1": "0143d1f51c2816c0b1136e389dfa375e2008d99a",
+  "size": [
+   96,
+   80
+  ]
+ },
+ "s_food": {
+  "file": "slices/market_icons/s_food.png",
+  "sha1": "a62b42c1fc3b9a2223cebf771ded60d0f9b14997",
+  "size": [
+   85,
+   96
+  ]
+ },
+ "s_meds": {
+  "file": "slices/market_icons/s_meds.png",
+  "sha1": "04a1a6809f2340f93c0b85440cfd78d1772b4cac",
+  "size": [
+   96,
+   94
+  ]
+ },
+ "s_rounds": {
+  "file": "slices/market_icons/s_rounds.png",
+  "sha1": "cda05d6d55710f82adf13677884d677f0cdb3452",
+  "size": [
+   50,
+   96
+  ]
+ },
+ "s_water": {
+  "file": "slices/market_icons/s_water.png",
+  "sha1": "0f3dfe12a6119b626fac9a0a8c953f7aeb98b545",
+  "size": [
+   40,
+   96
+  ]
+ },
+ "w_cleaver": {
+  "file": "slices/market_icons/w_cleaver.png",
+  "sha1": "9fdb8d1036728c32a8c440bbb9b2fa200146f97b",
+  "size": [
+   38,
+   96
+  ]
+ },
+ "w_machete": {
+  "file": "slices/market_icons/w_machete.png",
+  "sha1": "71c9a2f18c8a16ac5c282215f20c79a5eaadb88a",
+  "size": [
+   73,
+   96
+  ]
+ },
+ "w_pipe": {
+  "file": "slices/market_icons/w_pipe.png",
+  "sha1": "142c8e4a52d5cac82b115946ff0c9a317dadec4d",
+  "size": [
+   75,
+   96
+  ]
+ },
+ "w_pistol": {
+  "file": "slices/market_icons/w_pistol.png",
+  "sha1": "0f92b9d5b4dea519b89c2c2d209abc3fafb4c31f",
+  "size": [
+   96,
+   78
+  ]
+ }
+}

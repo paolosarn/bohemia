@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/w_pistol.glb",
+ "ppm": 1166.8965517241377,
+ "files": [
+  "records/target/cook_icons_rig/w_pistol/rig_S.png",
+  "records/target/cook_icons_rig/w_pistol/rig_SE.png",
+  "records/target/cook_icons_rig/w_pistol/rig_SW.png"
+ ],
+ "box": null
+}

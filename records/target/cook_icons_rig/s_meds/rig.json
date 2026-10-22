@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/s_meds.glb",
+ "ppm": 902.4,
+ "files": [
+  "records/target/cook_icons_rig/s_meds/rig_S.png",
+  "records/target/cook_icons_rig/s_meds/rig_SE.png",
+  "records/target/cook_icons_rig/s_meds/rig_SW.png"
+ ],
+ "box": null
+}

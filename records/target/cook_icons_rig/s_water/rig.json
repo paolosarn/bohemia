@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/s_water.glb",
+ "ppm": 831.7050691244239,
+ "files": [
+  "records/target/cook_icons_rig/s_water/rig_S.png",
+  "records/target/cook_icons_rig/s_water/rig_SE.png",
+  "records/target/cook_icons_rig/s_water/rig_SW.png"
+ ],
+ "box": null
+}

@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/w_sledge.glb",
+ "ppm": 272.8344671201814,
+ "files": [
+  "records/target/cook_icons_rig/w_sledge/rig_S.png",
+  "records/target/cook_icons_rig/w_sledge/rig_SE.png",
+  "records/target/cook_icons_rig/w_sledge/rig_SW.png"
+ ],
+ "box": null
+}

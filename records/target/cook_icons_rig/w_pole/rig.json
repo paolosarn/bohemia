@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/w_pole.glb",
+ "ppm": 203.81705251270466,
+ "files": [
+  "records/target/cook_icons_rig/w_pole/rig_S.png",
+  "records/target/cook_icons_rig/w_pole/rig_SE.png",
+  "records/target/cook_icons_rig/w_pole/rig_SW.png"
+ ],
+ "box": null
+}

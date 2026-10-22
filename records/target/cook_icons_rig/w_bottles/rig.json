@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/w_bottles.glb",
+ "ppm": 722.2088835534213,
+ "files": [
+  "records/target/cook_icons_rig/w_bottles/rig_S.png",
+  "records/target/cook_icons_rig/w_bottles/rig_SE.png",
+  "records/target/cook_icons_rig/w_bottles/rig_SW.png"
+ ],
+ "box": null
+}

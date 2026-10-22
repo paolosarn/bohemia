@@ -48,7 +48,7 @@ def build(name, bpy, P):
     if name == 'w_axe':
         # 10/22: an icon's axe: the head at twice its real size so it reads at 96 px (the first cut was a stick)
         P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.026, 8)
-        P.box(bpy, 'head', steel, (0.3, 0.07, 0.16), (0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'edge', P.mat(bpy, 'edge', 'chrome', 3), (0.04, 0.05, 0.26), (0.23, 0, 0.8), bevel=0.006)
+        P.box(bpy, 'head', steel, (0.3, 0.07, 0.16), (0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'edge', P.mat(bpy, 'edge', 'chrome', 2), (0.04, 0.05, 0.26), (0.23, 0, 0.8), bevel=0.006)
         P.box(bpy, 'poll', steel, (0.08, 0.08, 0.12), (-0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'wrap', dark, (0.07, 0.07, 0.16), (0, 0, 0.1))
     elif name == 'w_sledge':
         P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.022, 8)

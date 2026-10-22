@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/b_smith.glb",
+ "ppm": 318.86925795053,
+ "files": [
+  "records/target/cook_icons_rig/b_smith/rig_S.png",
+  "records/target/cook_icons_rig/b_smith/rig_SE.png",
+  "records/target/cook_icons_rig/b_smith/rig_SW.png"
+ ],
+ "box": null
+}

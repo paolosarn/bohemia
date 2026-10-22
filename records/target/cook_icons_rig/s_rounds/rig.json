@@ -1,0 +1,10 @@
+{
+ "model": "records/target/cook_icons_rig/models/s_rounds.glb",
+ "ppm": 2096.1672473867593,
+ "files": [
+  "records/target/cook_icons_rig/s_rounds/rig_S.png",
+  "records/target/cook_icons_rig/s_rounds/rig_SE.png",
+  "records/target/cook_icons_rig/s_rounds/rig_SW.png"
+ ],
+ "box": null
+}
