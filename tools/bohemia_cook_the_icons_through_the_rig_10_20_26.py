@@ -29,7 +29,7 @@ VENV = '/home/user/v/bin/python'
 BASE_SHA = 'c12f16127eb6424f5007babc0f0e6851daf51698'
 GUNS = {'w_pistol': 'gun_pistol_a.glb', 'w_rifle': 'gun_rifle_a.glb', 'w_shotgun': 'gun_shotgun_a.glb'}
 UP = 3                                   # 10/22: the render is three times the icon, cut down with a real filter
-DIAG = {'b_smith': 0, 'b_armourer': 0, 's_food': 0, 's_meds': 0, 's_rounds': 0, 's_water': 0, 'w_pistol': 0, 'w_rifle': 0, 'w_shotgun': 0}   # these stand as they are; the rest lean 45
+DIAG = {'w_bottles': 0, 'b_smith': 0, 'b_armourer': 0, 's_food': 0, 's_meds': 0, 's_rounds': 0, 's_water': 0, 'w_pistol': 0, 'w_rifle': 0, 'w_shotgun': 0}   # these stand as they are; the rest lean 45
 
 
 def build(name, bpy, P):
@@ -42,7 +42,7 @@ def build(name, bpy, P):
     Q.rod = lambda bpy_, n, m, a, b, r, v=8: rod0(bpy_, n, m, a, b, r * 1.9, v)
     P = Q
     rnd = random.Random(sum(map(ord, name)))
-    wood, steel, rust, dark = P.mat(bpy, 'wood', 'clay_bone', 1), P.mat(bpy, 'steel', 'tape_grey', 2), P.mat(bpy, 'rust', 'clay_rust', 1), P.mat(bpy, 'grip', 'rubber', 1)
+    wood, steel, rust, dark = P.mat(bpy, 'wood', 'clay_mustard', 1), P.mat(bpy, 'steel', 'tape_grey', 2), P.mat(bpy, 'rust', 'clay_rust', 1), P.mat(bpy, 'grip', 'rubber', 1)
     if name in GUNS:
         P.import_model(bpy, os.path.join(MODELS, GUNS[name]), (0, 0, 0), (0, 0, 0)); return
     if name == 'w_axe':
@@ -51,8 +51,8 @@ def build(name, bpy, P):
         P.box(bpy, 'head', steel, (0.3, 0.07, 0.16), (0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'edge', P.mat(bpy, 'edge', 'chrome', 2), (0.04, 0.05, 0.26), (0.23, 0, 0.8), bevel=0.006)
         P.box(bpy, 'poll', steel, (0.08, 0.08, 0.12), (-0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'wrap', dark, (0.07, 0.07, 0.16), (0, 0, 0.1))
     elif name == 'w_sledge':
-        P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.022, 8)
-        P.box(bpy, 'head', steel, (0.26, 0.09, 0.09), (0, 0, 0.9), bevel=0.01)
+        P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.03, 8)
+        P.box(bpy, 'head', steel, (0.34, 0.14, 0.14), (0, 0, 0.9), bevel=0.012); P.box(bpy, 'grip', dark, (0.07, 0.07, 0.2), (0, 0, 0.12))
     elif name == 'w_machete':
         P.box(bpy, 'grip', dark, (0.03, 0.025, 0.14), (0, 0, 0.07), bevel=0.006)
         P.box(bpy, 'blade', steel, (0.05, 0.004, 0.45), (0.005, 0, 0.37)); P.box(bpy, 'rust_patch', rust, (0.035, 0.006, 0.08), (0.01, 0, 0.3))
@@ -75,9 +75,11 @@ def build(name, bpy, P):
         for k in range(9):                                     # a chain wound round the barrel
             P.cyl(bpy, 'link_%d' % k, steel, 0.038, 0.012, (0, 0, 0.45 + k * 0.04), (0, rnd.uniform(-0.3, 0.3), k * 0.7), verts=8, smooth=False)
     elif name == 'w_bottles':
-        glass = P.mat(bpy, 'bottle', 'clay_mustard', 1)
-        P.cyl(bpy, 'body', glass, 0.04, 0.2, (0, 0, 0.1), verts=12); P.cyl(bpy, 'neck', glass, 0.014, 0.08, (0, 0, 0.24), verts=8)
-        P.box(bpy, 'rag', P.mat(bpy, 'rag', 'clay_bone', 3), (0.03, 0.02, 0.09), (0.012, 0, 0.31), (0, 0.4, 0))
+        glass = P.mat(bpy, 'bottle', 'clay_mustard', 2); fuel = P.mat(bpy, 'fuel', 'clay_rust', 2)
+        P.cyl(bpy, 'body', glass, 0.055, 0.2, (0, 0, 0.1), verts=16); P.cyl(bpy, 'fuel', fuel, 0.056, 0.11, (0, 0, 0.06), verts=16)
+        P.cyl(bpy, 'shoulder', glass, 0.035, 0.04, (0, 0, 0.215), verts=12); P.cyl(bpy, 'neck', glass, 0.017, 0.08, (0, 0, 0.27), verts=10)
+        P.box(bpy, 'rag', P.mat(bpy, 'rag', 'clay_bone', 3), (0.05, 0.03, 0.13), (0.015, 0, 0.36), (0, 0.4, 0), bevel=0.01)
+        P.box(bpy, 'rag_tail', P.mat(bpy, 'rag_b', 'clay_bone', 2), (0.035, 0.025, 0.08), (0.05, 0, 0.3), (0, 1.0, 0))
     elif name == 's_food':
         # 10/22: two cans, one stood and one rolled over, rims and a ring pull, so it reads as tins at 96 px
         tin = P.mat(bpy, 'tin', 'chrome', 2); lab = P.mat(bpy, 'label', 'clay_rust', 2); lab2 = P.mat(bpy, 'label_band', 'clay_mustard', 2)
@@ -142,6 +144,11 @@ def model(name):
     root = bpy.data.objects.new('lean', None); bpy.context.scene.collection.objects.link(root)
     for o in list(bpy.context.scene.objects):
         if o.parent is None and o is not root: o.parent = root
+    # 10/22: AN ICON'S PROPORTIONS: a long thin thing (a spear, a pole, a rifle) is fattened across its length up to 2.2x,
+    # the way every inventory icon draws it (at true girth a 1.8 m spear is a two-pixel line in a 96 px frame)
+    bpy.context.view_layer.update(); d0 = P.dims(bpy); ax = int(np.argmax(d0)); mid = sorted(d0)[1]
+    fat = float(np.clip(d0[ax] / max(mid, 1e-3) / 5.0, 1.0, 2.2))
+    root.scale = tuple(1.0 if i == ax else fat for i in range(3))
     root.rotation_euler = (0, lean, 0)
     bpy.context.view_layer.update()
     d = P.dims(bpy)

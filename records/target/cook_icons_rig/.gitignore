@@ -3,3 +3,4 @@ orig/
 raw_*.png
 models/*.glb
 rig_*.png
+models/
