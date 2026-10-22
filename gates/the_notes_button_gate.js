@@ -87,7 +87,9 @@ const done = () => { console.log('\nTHE NOTES BUTTON: ' + pass + ' ok, ' + fail 
        has to be is THE SAME SIZE AS THE CONTROLS BESIDE IT -- no louder, and no
        quieter. That is what this leg asks now. */
     const mine = inks.find(x => x.id === 'noteplate') || inks.find(x => x.id === 'notebtn');
-    const chips = inks.filter(x => x.id === 'savebtn' || x.id === 'musbtn');
+    /* UI 10/22 [the top bar, the days once]: on the map's new bar NOTES sits beside the day's and the crew's receipt tags
+       (MUSIC and SAVE are not on the demo's glass), so those are the controls beside it */
+    const chips = document.getElementById('bmtb') ? inks.filter(x => /^t (day|crew)$/.test(x.id)) : inks.filter(x => x.id === 'savebtn' || x.id === 'musbtn');
     return { w: Math.round(r.width), h: Math.round(r.height),
              at: [Math.round(r.x + r.width / 2), Math.round(r.y + r.height / 2)],
              reaches: !!(hit && (hit === b || b.contains(hit))),

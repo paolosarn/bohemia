@@ -694,7 +694,7 @@
     + '#bmtb .sp{flex:1 1 auto}'
     /* printed things are receipt tags in ink; pressed things are the same tag, 44 points */
     + '#bmtb .t,html body #menubar #bmtb #notebtn{display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;min-height:44px;padding:0 9px;color:#1f1710;'
-    +   'background:#e2dac6 var(--bm-receipt) center/100% 100%;border:0;border-radius:0;box-shadow:0 1px 0 #000;letter-spacing:.8px;line-height:1;white-space:nowrap;margin:0;flex:0 0 auto}'
+    +   'background:#e2dac6 var(--bm-receipt) center/100% 100%;border:0;border-radius:0;box-shadow:0 1px 0 #000;font-size:12px;letter-spacing:.8px;line-height:1;white-space:nowrap;margin:0;flex:0 0 auto}'
     + '#bmtb .t img{display:block;image-rendering:pixelated}'
     + '#bmtb .t.day b{font-weight:normal;font-size:15px;letter-spacing:1px}'
     + '#bmtb .t.crew b{font-weight:normal;font-size:14px} #bmtb .t.crew em{font-style:normal;font-size:10px}'
@@ -716,8 +716,8 @@
     + '#bmtb .where{flex:0 1 auto;min-width:0;margin-left:auto;overflow:hidden;white-space:nowrap;font-size:11px;letter-spacing:1px;color:#f2e4c6}'
     /* a phone under 360 points keeps every fact and drops only the cap's '/12' */
     + '@media (max-width:359px){#bmtb .t.crew em{display:none} #bmtb .g{gap:7px}}'
-    /* on its side: one row, the reads between the day and the crew */
-    + '@media (orientation:landscape) and (max-height:500px){#bmtb{flex-direction:row;align-items:center;gap:6px;padding:max(4px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) 12px max(8px,env(safe-area-inset-left))}'
+    /* on its side, and on any screen 700 wide (a tablet, a computer): one row, the reads between the day and the crew */
+    + '@media (orientation:landscape) and (max-height:500px),(min-width:700px){#bmtb{flex-direction:row;align-items:center;gap:6px;padding:max(4px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) 12px max(8px,env(safe-area-inset-left))}'
     +   '#bmtb .r{display:contents} #bmtb .r1 .day{order:1} #bmtb .g{order:2;min-height:44px} #bmtb .r1 .crew{order:3} #bmtb .r1 .sp{display:none} #bmtb .r1 .x{order:4}'
     +   '#bmtb .r1 .gear{order:5} html body #menubar #bmtb #notebtn{order:6}}'
     /* the shell's own floating gear steps aside while the bar's gear is on the glass (set from the city frame) */

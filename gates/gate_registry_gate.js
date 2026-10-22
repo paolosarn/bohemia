@@ -75,6 +75,8 @@ const TOLD_DEAD = {
   'one_mode_gate.js':              { lane: 'COMBAT', why: 'its red leg taps a crew on the walked street to start a fight; the walk died 9/28' },
   'the_person_is_112_gate.js':     { lane: 'COMBAT', why: 'reads the person on the walked street at the 112 box; the walk died 9/28 and the street draws no person (null)' },
   'you_can_start_it_gate.js':      { lane: 'COMBAT', why: 'starts a fight by walking the street to a crew (9/15); the walk died 9/28, fights start on the map' },
+  'the_bar_says_three_things_gate.js': { lane: 'UI', why: "holds the hour on the map's bar; his NO 10/19 ('how many times you gonna show how many days') put every fact on the glass once, the hour on the phone; THE DAYS ONCE holds the bar (UI 10/22)" },
+  'the_top_bar_gate.py':           { lane: 'UI', why: "holds the three candidate bars he said NO to (ui-the-top-bar-10-19); THE DAYS ONCE holds the bar in the game (UI 10/22)" },
 };
 
 let pass = 0, fail = 0;

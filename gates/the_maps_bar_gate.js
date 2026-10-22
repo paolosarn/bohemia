@@ -29,24 +29,27 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
   await d.page.waitForTimeout(3500);
   const a = await d.fr.evaluate(() => {
     const bg = el => el ? getComputedStyle(el).backgroundImage : '';
-    const six = Array.from(document.querySelectorAll('#barread .sx')).map(s => { const im = s.querySelector('img'), r = im ? im.getBoundingClientRect() : null;
-      return { k: s.dataset.s, img: !!im, src: im ? im.src.slice(-40) : '', w: r ? Math.round(r.width) : 0, nat: im ? im.naturalWidth : 0, drawn: !!(im && window.BohemiaMaterials && im.src === BohemiaMaterials.supplyIcon(s.dataset.s)) }; });
-    const hour = document.querySelector('#barread .rd[data-k="hour"]'), sixP = document.querySelector('#barread .rd.six'), note = document.getElementById('noteplate');
+    /* UI 10/22 [the top bar, the days once]: on the demo's map the bar is the materials file's #bmtb (B with every fact once:
+       the day on receipt, the stores on glass at 20 points, tape left off as dead, NOTES moved in); the old strip is hidden */
+    const NEW = !!document.getElementById('bmtb');
+    const six = Array.from(document.querySelectorAll(NEW ? '#bmtb .s[data-f]' : '#barread .sx')).map(s => { const im = s.querySelector('img'), r = im ? im.getBoundingClientRect() : null;
+      return { k: NEW ? s.dataset.f : s.dataset.s, img: !!im, src: im ? im.src.slice(-40) : '', w: r ? Math.round(r.width) : 0, nat: im ? im.naturalWidth : 0, drawn: !!(im && window.BohemiaMaterials && im.src === BohemiaMaterials.supplyIcon(NEW ? s.dataset.f : s.dataset.s)) }; });
+    const hour = document.querySelector(NEW ? '#bmtb [data-f=day]' : '#barread .rd[data-k="hour"]'), sixP = document.querySelector(NEW ? '#bmtb .g' : '#barread .rd.six'), note = document.getElementById(NEW ? 'notebtn' : 'noteplate');
     const pad = document.getElementById('speedpad'), plates = pad ? Array.from(pad.querySelectorAll('.sp')) : [];
     const box = el => { const r = el.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
-    return { six, mats: { bar: /url\(/.test(bg(document.getElementById('menubar'))), hour: /url\(/.test(bg(hour)), note: /url\(/.test(bg(note)), six: /url\(/.test(bg(sixP)),
+    return { NEW, six, mats: { bar: /url\(/.test(bg(document.getElementById('menubar'))), hour: /url\(/.test(bg(hour)), note: /url\(/.test(bg(note)), six: /url\(/.test(bg(sixP)),
         pad: /url\(/.test(bg(pad)), plates: plates.every(p => /url\(/.test(bg(p)) || p.classList.contains('now')), lit: plates.filter(p => p.classList.contains('now')).every(p => /gradient/.test(bg(p))) },
       radius: pad ? parseFloat(getComputedStyle(pad).borderTopLeftRadius) : null, thumbs: plates.map(p => [Math.round(p.getBoundingClientRect().width), Math.round(p.getBoundingClientRect().height)]),
-      words: [ { k: 'the hour on receipt', box: box(hour), col: getComputedStyle(hour).color, side: 'right' },
+      words: [ { k: NEW ? 'the day on receipt' : 'the hour on receipt', box: box(hour), col: getComputedStyle(hour).color, side: 'right' },
                { k: 'NOTES on receipt', box: box(note), col: getComputedStyle(note).color, side: 'right' },
                { k: 'a count on glass', box: box(sixP), col: getComputedStyle(sixP.querySelector('b')).color, side: 'right' } ]
         .concat(plates.filter(p => !p.classList.contains('now')).slice(0, 1).map(p => ({ k: 'a speed on glass', box: box(p), col: getComputedStyle(p).color, side: 'edge' })))
         .concat(plates.filter(p => p.classList.contains('now')).map(p => ({ k: 'the lit speed', box: box(p), col: getComputedStyle(p).color, side: 'edge' }))),
       off: (() => { const r = window.frameElement ? window.frameElement.getBoundingClientRect() : { x: 0, y: 0 }; return [r.x, r.y]; })() };
   });
-  ok('THE SIX ARE DRAWN OBJECTS FROM THE MATERIALS FILE, in rule 47a\'s order', a.six.map(s => s.k).join(' ') === 'batteries food meds rounds tape water' && a.six.every(s => s.img && s.drawn && s.nat === 30),
+  ok('THE SIX ARE DRAWN OBJECTS FROM THE MATERIALS FILE, in rule 47a\'s order', a.six.map(s => s.k).join(' ') === (a.NEW ? 'batteries food meds rounds water' : 'batteries food meds rounds tape water') && a.six.every(s => s.img && s.drawn && s.nat === 30),
      a.six.map(s => s.k + (s.drawn ? '' : ' NOT DRAWN')).join(' '));
-  ok('  six different pictures, 10 points each so the bar still fits', new Set(a.six.map(s => s.src)).size === 6 && a.six.every(s => s.w === 10), a.six.map(s => s.w).join(' '));
+  ok('  different pictures, 10 points each on the old strip, 20 (a whole 2x) on the bar with the days once', new Set(a.six.map(s => s.src)).size === a.six.length && a.six.every(s => s.w === (a.NEW ? 20 : 10)), a.six.map(s => s.w).join(' '));
   ok('THE BAR IS CUT CARDBOARD; THE HOUR, THE PLACE AND NOTES ARE RECEIPT; THE SIX ARE ON GLASS', a.mats.bar && a.mats.hour && a.mats.note && a.mats.six, JSON.stringify(a.mats));
   ok('THE SPEED PAD IS GLASS ON A CARD, the current speed lit amber, square corners', a.mats.pad && a.mats.plates && a.mats.lit && a.radius <= 2, 'radius ' + a.radius);
   ok('  every plate still a thumb', a.thumbs.length === 5 && a.thumbs.every(t => t[0] >= 44 && t[1] >= 44), JSON.stringify(a.thumbs));

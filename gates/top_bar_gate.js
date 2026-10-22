@@ -88,7 +88,10 @@ const ready = async (p, ms) => { const t0 = Date.now();
     }
     return {
       bar: box(bar), stage: box(stage), wrapW,
-      chips: right ? [...right.children].map(n => n.id).filter(Boolean) : [],
+      /* UI 10/22 [the top bar, the days once]: the map's bar is the materials file's #bmtb, which MOVED NOTES out of
+         #barright and carries the gear; a press there is still a menu button in the bar */
+      chips: (right ? [...right.children].map(n => n.id).filter(Boolean) : [])
+        .concat([...document.querySelectorAll('#bmtb #notebtn, #bmtb [role=button]')].map(n => n.id || ('bmtb-' + (n.dataset.f || 'press')))),
       money: (g('barmoney') || {}).textContent || '',
       moneyReads: (window.BOHEMIA_BAR && window.BOHEMIA_BAR.money) ? window.BOHEMIA_BAR.money() : 'no module',
       clockIn: !!(bar && g('hclock') && bar.contains(g('hclock'))),
