@@ -395,7 +395,18 @@
     + 'html body #sheet .slot.full{background:linear-gradient(rgba(12,8,4,.25),rgba(12,8,4,.25)),#3a2c1e var(--bm-cardboard) 0 0/256px 100%}'
     + 'html body #sheet .slot span{font-family:"BohemiaROM",ui-monospace,monospace;font-size:9px;color:#f0e2c4;text-shadow:0 1px 0 #000}'
     + 'html body #sheet .slot em{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;color:#f0c46a;text-shadow:0 1px 0 #000}'
-    + 'html body #sheet .gridh{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.4px;color:#e8d8b8}';
+    + 'html body #sheet .gridh{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.4px;color:#e8d8b8}'
+    /* THE SCREENS PAST THE PHONE (UI [the screens past the phone], 10/22): from 700 wide the building's sheet is a window, not
+       the phone's drawer stretched to the glass (a stall's price rows ran 1,416 points on a computer): at most 1,040 wide and
+       centred, the one you are talking to on the left, what he sells (the rows, the shelf, the bag) on the right, the slots a
+       thumb's size and no bigger */
+    + '@media (min-width:700px){'
+    +   'html body #sheet{left:50%;right:auto;width:min(1040px,calc(100vw - 24px));margin-left:calc(min(1040px, 100vw - 24px) / -2)}'
+    +   'html body #sbody:has(> .who){display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);grid-auto-flow:row dense;grid-auto-rows:min-content;column-gap:16px;align-items:start;padding-right:48px}'   /* the close X keeps its own gutter at the top right */
+    +   'html body #sbody:has(> .who) > *{grid-column:2;min-width:0}'
+    +   'html body #sbody:has(> .who) > .who{grid-column:1;grid-row:1 / span 12}'
+    +   'html body #sbody:has(> .who) > .acts{margin-top:0}'
+    +   'html body #sheet .grid{grid-template-columns:repeat(auto-fill,minmax(56px,72px))}}';
   function dressSettlement() {
     if (!document.getElementById('sbody')) return false;
     rootVars(); style('bm-settle', SETTLE_CSS);
@@ -952,7 +963,15 @@
     + 'html[data-bm-roster] #done:active,html[data-bm-roster] .plist button:active{filter:none;transform:translateY(1px)}'
     /* the drawn stars, wherever a star was typed */
     + '.bmstar{display:inline-block;width:10px;height:10px;background:var(--bm-mark-star) center/10px 10px no-repeat;image-rendering:pixelated;vertical-align:-1px}'
-    + 'html[data-bm-roster] .stats .bmstar,#sheet .hstats .bmstar{background-image:var(--bm-mark-star-ink)}';
+    + 'html[data-bm-roster] .stats .bmstar,#sheet .hstats .bmstar{background-image:var(--bm-mark-star-ink)}'
+    /* THE SCREENS PAST THE PHONE (UI [the screens past the phone], rule 62's four classes, 10/22): from 700 wide (a phone on
+       its side, a tablet) up to where the screen's own laptop rule takes over at 1100, the company screen stops being the
+       phone's column stretched: Battle Brothers' way, the line and who wears what on the left, his page and the bag beside
+       it on the right, held in view while the left scrolls */
+    + '@media (min-width:700px) and (max-width:1099px){'
+    +   'html[data-bm-roster] #cols{display:grid;grid-template-columns:minmax(0,1fr) 320px;column-gap:12px;align-items:start}'
+    +   'html[data-bm-roster] #right{position:sticky;top:64px}'
+    +   'html[data-bm-roster] #bag{grid-template-columns:repeat(5,minmax(44px,56px));justify-content:start}}';
   /* the hire cards at the settlement's hall (RUN TWO's .hire): the same card as a man's page */
   var HIRE_CSS = ''
     + 'html body #sheet .hire{position:relative;border:0;border-radius:2px;padding:12px 8px 8px;margin-top:12px;background:' + CARD_BG + ';box-shadow:inset 0 1px 0 rgba(255,220,170,.22),inset 0 -2px 0 rgba(0,0,0,.45),0 2px 0 #000}'
