@@ -4,3 +4,4 @@ render/
 block_*.webp
 !swapped.json
 shots/
+blocks.json
