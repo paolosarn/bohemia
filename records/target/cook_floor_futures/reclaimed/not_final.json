@@ -530,5 +530,36 @@
   },
   "file": "records/target/cook_floor_futures/reclaimed/block_wash_0.webp",
   "future": null
+ },
+ "wash.1": {
+  "seconds": 763,
+  "junk": {
+   "bags": 0,
+   "paper": 188,
+   "card": 47,
+   "cloth": 21,
+   "weeds": 205,
+   "mattresses": 3,
+   "couches": 2,
+   "fires": 1,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 36,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 17,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_wash_1.webp",
+  "future": null
  }
 }

@@ -93,5 +93,10 @@
   "file": "slices/fight_ground/block_wash_0_reclaimed.webp",
   "sha1": "f2bb76abd1d0af7435ddea52fafabdb426c21dc3",
   "master": "records/target/cook_floor_futures/reclaimed/block_wash_0.webp"
+ },
+ "wash.1.reclaimed": {
+  "file": "slices/fight_ground/block_wash_1_reclaimed.webp",
+  "sha1": "42a45d069f383d0c282afff95fbbebfc8797dda2",
+  "master": "records/target/cook_floor_futures/reclaimed/block_wash_1.webp"
  }
 }
