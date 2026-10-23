@@ -38,9 +38,12 @@ ODD = ('shore', 'landfill', 'casino')
 KEEP = {}
 
 # THE CARPET: a ground kind of the floor tool's own spec (red-brown, its tile seams, its stains and spills)
-F.MATS['carpet'] = dict(role=('clay_rust', 2), target=(150, 72, 48), h=0.0, alt=('clay_rust', 1), alt_amt=0.25, grit=0.1, speck=(160, 0.18),
-                        joints=dict(pitch=0.61, width=0.004), panel_var=0.07,
-                        patches=dict(scale=0.45, cut=0.66, mul=0.45), oil=dict(scale=0.6, cut=0.62, mul=0.5))
+# 10/23: the first casino floor came out a pale pink with big dark blotches (his 'camouflage' NO): the rig's dust whitened
+# the red and the patches were a two-tone field; now a deeper red, a twentieth of the dust, the stains few and soft
+F.MATS['carpet'] = dict(role=('clay_rust', 1), target=(128, 52, 36), h=0.0, alt=('clay_rust', 0), alt_amt=0.15, grit=0.08, speck=(160, 0.12),
+                        joints=dict(pitch=0.61, width=0.003), panel_var=0.05,
+                        patches=dict(scale=0.35, cut=0.74, mul=0.78), oil=dict(scale=0.5, cut=0.7, mul=0.72))
+F.ROAD_WEAR = dict(F.ROAD_WEAR, carpet=0.05)
 if 'carpet' not in F.IDS:
     F.IDS.append('carpet'); F.ID['carpet'] = len(F.IDS) - 1
 _gm = F.ground_material
@@ -52,18 +55,18 @@ def ground_material(bpy, name):
     nt = m.node_tree; b = nt.nodes['Principled BSDF']
     src = b.inputs['Base Color'].links[0].from_socket                       # the floor tool's colour, then the gold lattice
     tc = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping')
-    mp.inputs['Rotation'].default_value = (0, 0, math.radians(45)); mp.inputs['Scale'].default_value = (1.6, 1.6, 1.6)
+    mp.inputs['Rotation'].default_value = (0, 0, math.radians(45)); mp.inputs['Scale'].default_value = (1.25, 1.25, 1.25)
     nt.links.new(tc.outputs['Object'], mp.inputs['Vector'])
     br = nt.nodes.new('ShaderNodeTexBrick'); br.offset = 0.0; br.inputs['Brick Width'].default_value = 1.0; br.inputs['Row Height'].default_value = 1.0
-    br.inputs['Mortar Size'].default_value = 0.06; br.inputs['Scale'].default_value = 1.0
+    br.inputs['Mortar Size'].default_value = 0.05; br.inputs['Scale'].default_value = 1.0
     br.inputs['Color1'].default_value = (1, 1, 1, 1); br.inputs['Color2'].default_value = (0.9, 0.9, 0.9, 1)
-    gold = tuple(F.role_lin('clay_mustard', 1)) + (1,); br.inputs['Mortar'].default_value = gold
+    gold = tuple(F.role_lin('clay_mustard', 2)) + (1,); br.inputs['Mortar'].default_value = gold
     nt.links.new(mp.outputs['Vector'], br.inputs['Vector'])
     mo = nt.nodes.new('ShaderNodeMixRGB'); mo.blend_type = 'MIX'
     nt.links.new(br.outputs['Fac'], mo.inputs['Fac']); nt.links.new(src, mo.inputs['Color1']); mo.inputs['Color2'].default_value = gold
     worn = nt.nodes.new('ShaderNodeTexNoise'); worn.inputs['Scale'].default_value = 0.18; nt.links.new(tc.outputs['Object'], worn.inputs['Vector'])
     wr = nt.nodes.new('ShaderNodeMapRange'); wr.inputs['From Min'].default_value = 0.55; wr.inputs['From Max'].default_value = 0.7
-    wr.inputs['To Min'].default_value = 0.85; wr.inputs['To Max'].default_value = 0.35; nt.links.new(worn.outputs['Fac'], wr.inputs['Value'])
+    wr.inputs['To Min'].default_value = 0.5; wr.inputs['To Max'].default_value = 0.15; nt.links.new(worn.outputs['Fac'], wr.inputs['Value'])   # 10/23: the lattice a faded gold, not a grid
     fade = nt.nodes.new('ShaderNodeMath'); fade.operation = 'MULTIPLY'; nt.links.new(wr.outputs['Result'], fade.inputs[0]); nt.links.new(br.outputs['Fac'], fade.inputs[1])
     nt.links.new(fade.outputs[0], mo.inputs['Fac'])                          # the lattice worn off where people walked
     nt.links.new(mo.outputs['Color'], b.inputs['Base Color'])
@@ -239,8 +242,8 @@ def build(bpy, gid_full, seed, quick=False):
         for _ in range(rng.randint(500, 700)):
             x, y = rng.uniform(1, F.SIDE - 1), rng.uniform(1, F.SIDE - 1)
             if rng.rand() < 0.55:                                            # a spill of chips nobody came back for
-                for _k in range(rng.randint(1, 6)):
-                    chips[rng.randint(len(chip))].append((x + rng.normal(0, 0.12), y + rng.normal(0, 0.12), 0.0, 0.04, 0.04, 0.006, 0.0, rng.uniform(-0.2, 0.2)))
+                for _k in range(rng.randint(3, 14)):                     # 10/23: at 4 cm a chip was under a pixel: 6 cm, in piles
+                    chips[rng.randint(len(chip))].append((x + rng.normal(0, 0.2), y + rng.normal(0, 0.2), 0.0, 0.065, 0.065, 0.01, 0.0, rng.uniform(-0.2, 0.2)))
             elif rng.rand() < 0.6: papers.append((x, y, 0.0, rng.uniform(0.08, 0.22), rng.uniform(0.1, 0.3), 0.004, rng.uniform(0, 6.3), 0.0))
             else: cups.append((x, y, 0.0, 0.08, 0.08, 0.11, 0.0, math.radians(90) if rng.rand() < 0.7 else 0.0))
         add += [NF.instances(bpy, 'cas_chips_%d' % i, box, c_, chip[i]) for i, c_ in enumerate(chips)]
