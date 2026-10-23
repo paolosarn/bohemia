@@ -1615,7 +1615,8 @@
     ['well_full', 1, ['#sheet .slot.full'], ''],
     /* THE CREW SCREEN: board, a man's plate is tin, the line's empty places and the bag are pockets */
     ['board_plain', 1, ['html[data-bm-roster] #bar', 'html[data-bm-roster] #card'], ''],
-    ['tin', 0.75, ['html[data-bm-roster] #done', 'html[data-bm-roster] .plist button'], KIT_SHADOW + KIT_INK],
+    ['tin', 0.75, ['html[data-bm-roster] #done'], KIT_SHADOW + KIT_INK],
+    ['receipt', 1, ['html[data-bm-roster] .plist button'], ''],   /* the perks are printed tags, a whole line of words each */
     ['tin_amber', 0.75, ['html[data-bm-roster] .pick'], KIT_SHADOW],
     ['tray', 1, ['html[data-bm-roster] .cell'], ''],
     ['well', 1, ['html[data-bm-roster] .gslot', 'html[data-bm-roster] #bag .slot'], ''],
@@ -1644,7 +1645,7 @@
   ];
   /* the press: the slab goes down into its shadow (the individual translate composes with any rotate the rule set) */
   var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#menubar #bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
-    'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', 'html[data-bm-roster] .plist button', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn'];
+    'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn'];
   function kitCSS() {
     var pre = 'html[data-kit] body ', out = [];
     var tape = 'url(' + KIT_BASE + 'tape/tape.png)', rec = 'url(' + KIT_BASE + 'receipt/c.png)', card = 'url(' + KIT_BASE + 'board_plain/c.png)', gl = 'url(' + KIT_BASE + 'glass/c.png)';

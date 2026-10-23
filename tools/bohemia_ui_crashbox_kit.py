@@ -74,7 +74,7 @@ PIECES = {
     'tin_dark':    dict(kind='plate', paint=(0.22, 0.22, 0.17), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True, dust=0.25),
     'tin_amber':   dict(kind='plate', paint=(0.97, 0.82, 0.44), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True),
     'board':       dict(kind='board', paint=(0.25, 0.185, 0.12), P=192, ins=[14, 6, 6, 6], T=4.7, r=1.5, flutes=True),
-    'board_plain': dict(kind='board', paint=(0.235, 0.175, 0.115), P=192, ins=[6, 6, 6, 6], T=4.7, r=1.5, flutes=False),
+    'board_plain': dict(kind='board', paint=(0.205, 0.152, 0.10), P=192, ins=[6, 6, 6, 6], T=4.7, r=1.5, flutes=False),
     'receipt':     dict(kind='paper', paint=(0.95, 0.92, 0.84), P=96, ins=[6, 6, 6, 6], T=2.4, r=0.6),
     'glass':       dict(kind='glass', paint=(0.10, 0.10, 0.10), P=128, ins=[8, 8, 8, 8], T=3.6, r=3.0, crack_cells=3),
     'well':        dict(kind='well', paint=(0.20, 0.20, 0.16), floor='glass', P=48, ins=[11, 6, 7, 12], T=4.7, r=3.0, crack_cells=2),

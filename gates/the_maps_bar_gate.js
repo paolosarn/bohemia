@@ -66,7 +66,7 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
     const sc = im.width / innerWidth, LUM = (r, gg, b) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(gg) + 0.0722 * f(b); };
     const CR = (x, y) => (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05), SUN = q => q.map(v => v + (255 - v) * 0.25);
     return words.map(w => { const [x, y, ww, hh] = w.box, X = x + off[0], Y = y + off[1];
-      const bx = w.side === 'text' ? [X + ww + 2, Y + 2, 3, Math.max(2, hh - 4)] : w.side === 'right' ? [X + ww - 5, Y + 3, 3, hh - 6] : [X + 3, Y + 3, 4, hh - 6];
+      const bx = w.side === 'text' ? [X + ww + 1, Y + 2, 2, Math.max(2, hh - 4)] :   /* the days once's own read: the ground the word sits on, not the slab's slope beyond it */ w.side === 'right' ? [X + ww - 5, Y + 3, 3, hh - 6] : [X + 3, Y + 3, 4, hh - 6];
       const d = g.getImageData(Math.round(bx[0] * sc), Math.round(bx[1] * sc), Math.max(1, Math.round(bx[2] * sc)), Math.max(1, Math.round(bx[3] * sc))).data, S = [];
       for (let i = 0; i < d.length; i += 4) S.push([d[i], d[i + 1], d[i + 2]]); S.sort((p, q) => LUM(...p) - LUM(...q));
       const t = w.col.match(/\d+/g).slice(0, 3).map(Number), tl = LUM(...t), bg = S[Math.floor(S.length * (tl > 0.3 ? 0.8 : 0.2))];
