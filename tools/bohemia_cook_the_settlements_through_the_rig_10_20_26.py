@@ -19,6 +19,7 @@ in slices/settlement_ground/) has its building or thing seated in its box, the f
 taps and its lit-under-the-finger land on what they name.
 
   <venv>/bin/python tools/bohemia_cook_the_settlements_through_the_rig_10_20_26.py [town_0 camp_1 ...]   (about 6 min a place)
+  COOK_NIGHT_ONLY=1 ... (10/23: the night again over a day already rendered)
 
 REFERENCE CHECK (the 9/4 standing duty): the old pictures' hotspots are the twins (where each thing stands); real places:
 an east-valley Las Vegas commercial strip (a pawn shop, a wedding chapel turned to other use, a motel), a Mojave squat
@@ -350,17 +351,20 @@ def render(p):
             for n in m.node_tree.nodes:
                 if n.type in ('AMBIENT_OCCLUSION', 'BEVEL'): n.samples = 1
     os.makedirs(os.path.join(OUT, 'render'), exist_ok=True)
-    day = os.path.join(OUT, 'render', p['name'] + '.png'); sc.render.filepath = day; bpy.ops.render.render(write_still=True)
+    day = os.path.join(OUT, 'render', p['name'] + '.png'); sc.render.filepath = day
+    if not (os.environ.get('COOK_NIGHT_ONLY') and os.path.exists(day)): bpy.ops.render.render(write_still=True)
     night = None
     if p['night'] and not os.environ.get('COOK_DAY_ONLY'):
         # NIGHT: the same place under a moon, every lamp and fire lit (the old picture's count of lights)
-        sun.data.energy *= 0.16; sun.data.color = (0.62, 0.72, 1.0)
-        bg = sc.world.node_tree.nodes['Background']; c = bg.inputs[0].default_value; bg.inputs[0].default_value = (c[0] * 0.5, c[1] * 0.6, c[2] * 1.0, 1); bg.inputs[1].default_value *= 0.3
+        # 10/23: the first night read as a grey dusk (the moon at 0.16 of the sun, the sky at 0.3): his old nights are near
+        # black with warm pools under the lamps, so the moon is 0.045 and blue, the sky 0.08, the lamps and fires brighter
+        sun.data.energy *= 0.045; sun.data.color = (0.55, 0.66, 1.0)
+        bg = sc.world.node_tree.nodes['Background']; c = bg.inputs[0].default_value; bg.inputs[0].default_value = (c[0] * 0.45, c[1] * 0.55, c[2] * 1.0, 1); bg.inputs[1].default_value *= 0.08
         for (x, y, h) in pl.lamps:
-            L_ = bpy.data.lights.new('lamp', 'POINT'); L_.energy = 900; L_.color = (1.0, 0.66, 0.32); L_.shadow_soft_size = 0.3
+            L_ = bpy.data.lights.new('lamp', 'POINT'); L_.energy = 1600; L_.color = (1.0, 0.62, 0.28); L_.shadow_soft_size = 0.3
             o = bpy.data.objects.new('lamp_light', L_); sc.collection.objects.link(o); o.location = (x, y, h * zs)
         for (x, y, r) in pl.fires:
-            L_ = bpy.data.lights.new('fire', 'POINT'); L_.energy = 520; L_.color = (1.0, 0.5, 0.18); L_.shadow_soft_size = 0.4
+            L_ = bpy.data.lights.new('fire', 'POINT'); L_.energy = 900; L_.color = (1.0, 0.5, 0.18); L_.shadow_soft_size = 0.4
             o = bpy.data.objects.new('fire_light', L_); sc.collection.objects.link(o); o.location = (x, y, 1.6 * zs)
         night = os.path.join(OUT, 'render', p['name'] + '_night.png'); sc.render.filepath = night; bpy.ops.render.render(write_still=True)
     json.dump(dict(name=p['name'], lamps=pl.lamps, fires=pl.fires, junk=NF.LEDGER.get('junk'), seed=seed), open(os.path.join(OUT, 'render', p['name'] + '.json'), 'w'))

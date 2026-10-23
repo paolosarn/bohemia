@@ -1,0 +1,12 @@
+{
+ "slices/settlement_ground_packs/town_0.webp": {
+  "file": "slices/settlement_ground_packs/town_0.webp",
+  "sha1": "78e2411632db7f598c6d3d43bea150cab355c85a",
+  "render": "records/target/cook_settlement_rig/render/town_0.png"
+ },
+ "slices/settlement_ground_packs/town_0_night.webp": {
+  "file": "slices/settlement_ground_packs/town_0_night.webp",
+  "sha1": "0c5573c460ee600fdb6f5bb029a8df38eed57855",
+  "render": "records/target/cook_settlement_rig/render/town_0_night.png"
+ }
+}
