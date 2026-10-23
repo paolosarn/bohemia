@@ -56,7 +56,11 @@ const done = () => { console.log('\nTHE FLIP OFF THE FACE: ' + pass + ' ok, ' + 
   ok('AFTER THE CRISIS: THE PHONE\'S FACE STILL CARRIES NO FAMILY CARD', (await faceCards()) === 0, (await faceCards()) + ' cards on the face');
   await tapAt(list);
   const ent = await fr.evaluate(() => { const b = document.getElementById('bmtimes'); if (!b || !b.offsetParent) return null; const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
-    return { n: document.querySelectorAll('#bmtimes').length, t: b.textContent, x: r.x, y: r.y, w: r.width, h: r.height, bg: cs.backgroundImage, fam: cs.fontFamily.split(',')[0].replace(/["']/g, ''), align: cs.textAlign, ink: cs.color }; });
+    /* UI 10/23 [the UI the Crashbox way]: the entry is a tin slab lit from the left, so its words are read against the ground
+       just right of the words themselves (the text's own box), not against the slab's shaded right bevel */
+    const tw = document.createTreeWalker(b, NodeFilter.SHOW_TEXT); let n, best = null; while ((n = tw.nextNode())) if (n.textContent.trim() && (!best || n.textContent.trim().length > best.textContent.trim().length)) best = n;
+    const rg = document.createRange(); if (best) rg.selectNodeContents(best); const tr = best ? rg.getBoundingClientRect() : r;
+    return { n: document.querySelectorAll('#bmtimes').length, t: b.textContent, x: r.x, y: r.y, w: r.width, h: r.height, tx: tr.x, ty: tr.y, tw: tr.width, th: tr.height, bg: cs.backgroundImage, fam: cs.fontFamily.split(',')[0].replace(/["']/g, ''), align: cs.textAlign, ink: cs.color }; });
   ok('THE OPENED PHONE CARRIES ONE ENTRY, SWITCH TIMELINE: a receipt, stamped, read from the left, 44 points',
      !!ent && ent.n === 1 && /SWITCH TIMELINE/.test(ent.t) && /url\(/.test(ent.bg) && ent.fam === 'BohemiaCasing' && ent.align === 'left' && ent.h >= 44 && ent.w >= 44,
      ent ? ent.t + ' ' + Math.round(ent.w) + 'x' + Math.round(ent.h) + ' ' + ent.fam + ' ' + ent.align : 'no entry');
@@ -71,7 +75,7 @@ const done = () => { console.log('\nTHE FLIP OFF THE FACE: ' + pass + ' ok, ' + 
       const S = []; for (let i = 0; i < d.length; i += 4) S.push([d[i], d[i + 1], d[i + 2]]); S.sort((p, q) => LUM(...p) - LUM(...q));
       const bg = S[Math.floor(S.length * 0.25)], t = ink.match(/\d+/g).slice(0, 3).map(Number);
       return { plain: +CR(LUM(...t), LUM(...bg)).toFixed(2), sun: +CR(LUM(...SUN(t)), LUM(...SUN(bg))).toFixed(2) };
-    }, { png, box: [fb.x + ent.x + ent.w - 7, fb.y + ent.y + 10, 4, ent.h - 20], ink: ent.ink });
+    }, { png, box: [fb.x + ent.tx + ent.tw + 2, fb.y + ent.ty + 2, 4, Math.max(2, ent.th - 4)], ink: ent.ink });
     ok('  its words pass 4.5 to 1 plain and in the sun', cr.plain >= 4.5 && cr.sun >= 4.5, cr.plain + '/' + cr.sun);
     await tapAt(ent);
     const cards = (await R('#bmtimespanel .af')).filter(r => r.vis);

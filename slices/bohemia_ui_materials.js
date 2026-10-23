@@ -1539,7 +1539,148 @@
     if (!topBar() && !fightNoTop()) { var n = 0, it = setInterval(function () { if (topBar() || fightNoTop() || ++n > 120) clearInterval(it); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
-  window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
+  /* ======================================================================================================
+     THE KIT  (UI [the UI the Crashbox way], 10/23/26; rule 130(b), Paolo 10/23: 'the UI kind of still sucks, it
+     doesn't look as elevated as the Crashbox style that we're going for'; 121(g): his biggest concern; the 9/20 rule:
+     ALL THE UI LOOKS 3-D, built with light and form, delivered as pixels)
+     The four materials above are drawn in canvas code (gradients and sprinkled dots): the one flat thing left on top
+     of 3D people and 3D ground. tools/bohemia_ui_crashbox_kit.py now MODELS each material in Blender at its real
+     thickness and renders it under the world's one sun the rig's way: bone-painted tin with rivets and a stamped
+     panel (what you press), the same tin in olive (what is not picked) and amber (what is), corrugated board with the
+     flutes showing (the bars and sheets), thermal paper (what the game prints), cracked glass on a bevel, a pocket
+     pressed into a tin tray (a slot), packing tape. Each render is cut into nine pictures at slices/ui_kit/<piece>/
+     (four corners, four edges, the middle); the middle and the edges are exactly one period of every mask, so they
+     repeat at any size without a seam. kit(piece, scale) lays the nine as nine background layers (corners on top,
+     then edges, the middle under), the box's own radius rounding the corners, so a button of any size is a slab of
+     tin and a sheet of any size is a sheet of board. NOTHING HERE CHANGES A BOX'S SIZE: only its background, its
+     corner, its shadow (one hard shadow down and to the right, from the same sun) and its press.
+     KIT_CSS dresses every panel, button, bar and slot the player touches, on every screen this file is on; and the
+     material variables are pointed at the rendered pictures, so anything not named still wears a rendered surface.
+     ====================================================================================================== */
+  var KIT = { /* slices/ui_kit/kit.json, the numbers the cut wrote (ins = top, right, bottom with the lip, left, in points) */
+    tin: { ins: [12, 12, 14, 12], P: 64, r: 5 }, tin_dark: { ins: [12, 12, 14, 12], P: 64, r: 5 }, tin_amber: { ins: [12, 12, 14, 12], P: 64, r: 5 },
+    board: { ins: [14, 6, 8, 6], P: 192, r: 1.5 }, board_plain: { ins: [6, 6, 8, 6], P: 192, r: 1.5 }, receipt: { ins: [6, 6, 7, 6], P: 96, r: 0.6 },
+    glass: { ins: [8, 8, 10, 8], P: 128, r: 3 }, well: { ins: [11, 6, 9, 12], P: 48, r: 3 }, tray: { ins: [11, 6, 9, 12], P: 128, r: 3 },
+    well_full: { ins: [11, 6, 9, 12], P: 48, r: 3 } };
+  var KIT_BASE = (function () {   /* absolute, from this file's own address, so a page in any folder or frame finds the kit */
+    try { var s = document.currentScript && document.currentScript.src; if (s) return s.replace(/[^\/]*$/, '') + 'ui_kit/'; } catch (e) {}
+    try { return new URL('ui_kit/', document.baseURI).href; } catch (e) {}
+    return 'ui_kit/';
+  })();
+  function kit(name, s, vary) {
+    var k = KIT[name]; s = s || 1;
+    var px = function (v) { return (Math.round(v * s * 100) / 100) + 'px'; };
+    var t = px(k.ins[0]), r = px(k.ins[1]), b = px(k.ins[2]), l = px(k.ins[3]), P = px(k.P), u = KIT_BASE + name + '/';
+    var L = [['tl', '0 0', l + ' ' + t, 'no-repeat'], ['tr', '100% 0', r + ' ' + t, 'no-repeat'], ['bl', '0 100%', l + ' ' + b, 'no-repeat'],
+      ['br', '100% 100%', r + ' ' + b, 'no-repeat'], ['t', l + ' 0', P + ' ' + t, 'repeat-x'], ['b', l + ' 100%', P + ' ' + b, 'repeat-x'],
+      ['l', '0 ' + t, l + ' ' + P, 'repeat-y'], ['r', '100% ' + t, r + ' ' + P, 'repeat-y'], ['c', l + ' ' + t, P + ' ' + P, 'repeat']];
+    if (vary) {   /* only the middle moves: a pocket's floor meets its walls and the wall's shadow, which hide the join */
+      L[8][1] = 'calc(' + l + ' - ' + px(k.P * vary[0]) + ') calc(' + t + ' - ' + px(k.P * vary[1]) + ')';
+      return 'background-position:' + L.map(function (x) { return x[1]; }).join(',') + '!important;';
+    }
+    var col = function (i) { return L.map(function (x) { return x[i]; }).join(','); };
+    return 'background-image:' + L.map(function (x) { return 'url(' + u + x[0] + '.png)'; }).join(',') + '!important;'
+      + 'background-position:' + col(1) + '!important;background-size:' + col(2) + '!important;background-repeat:' + col(3) + '!important;'
+      + 'background-color:transparent!important;background-origin:border-box!important;background-clip:border-box!important;'
+      + 'background-attachment:scroll!important;background-blend-mode:normal!important;border-color:transparent!important;'
+      + 'border-radius:' + px(k.r) + '!important;box-shadow:none!important;';
+  }
+  var KIT_SHADOW = 'filter:drop-shadow(2px 1px 0 rgba(10,6,3,.6))!important;';   /* the sun is up and to the left: a hard shadow down and right */
+  var KIT_INK = 'color:#1f1710!important;text-shadow:none!important;', KIT_LIGHT = 'color:#f2e4c6!important;text-shadow:0 1px 0 #000!important;';
+  var KIT_FACE = 'font-family:"BohemiaCasing",ui-sans-serif,sans-serif!important;font-weight:400!important;letter-spacing:.8px!important;';
+  /* [piece, scale, selectors, what else]: every selector sits under html[data-kit] body, so it outranks the rule it dresses */
+  var KIT_RULES = [
+    /* THE FIGHT: the bar is board, what you press is tin, the skills sit in pockets, what it says is printed */
+    ['board', 0.75, ['#bot'], 'background-color:#2a2016!important'],
+    ['tin', 0.75, ['#bend', '#bwait', '#bauto', '#round', '#bmturnrow #round'], KIT_SHADOW + KIT_INK],
+    ['tin_amber', 0.75, ['#bauto.on'], KIT_SHADOW + KIT_INK + 'outline:0!important'],
+    ['well', 1, ['#bot .sq:not(.big)'], ''],
+    ['tray', 1, ['#order'], ''],
+    ['receipt', 1, ['#say', '#drawer', '#over .box'], ''],
+    /* THE MAP: the bar is board, its tags tin, what you carry in a tray, the speed pad olive with the one you run at in amber */
+    ['board_plain', 1, ['#menubar.bmtb', '#speedpad', '#bmtimespanel'], ''],
+    ['tin', 0.75, ['#bmtb .t', '#menubar #bmtb #notebtn', '#bmtimes'], KIT_SHADOW],
+    ['tin_amber', 0.75, ['#menubar #bmtb #notebtn.on'], KIT_SHADOW],
+    ['tray', 0.85, ['#bmtb .g'], ''],
+    ['receipt', 0.5, ['#bmtb .s b.low'], ''],
+    ['tin_dark', 0.6, ['#speedpad .sp'], KIT_SHADOW + KIT_LIGHT],
+    ['tin_amber', 0.6, ['#speedpad .sp.now'], KIT_SHADOW + 'color:#120c06!important;text-shadow:none!important;'],
+    /* THE SETTLEMENT: its header and its sheet are board, CREW and LEAVE tin, what he sells printed, the slots pockets */
+    ['board_plain', 1, ['html[data-bm-settle] #bar', '#sheet'], ''],
+    ['tin', 0.75, ['html[data-bm-settle] #crew', 'html[data-bm-settle] #leave'], KIT_SHADOW + KIT_INK + KIT_FACE],
+    ['board_plain', 0, ['html[data-bm-settle] #pname', 'html[data-bm-settle] #bat'], ''],
+    ['tin', 0.55, ['#sheet #close'], KIT_SHADOW + KIT_INK],
+    ['receipt', 1, ['#sheet .act'], ''],
+    ['well', 1, ['#sheet .slot'], ''],
+    ['well_full', 1, ['#sheet .slot.full'], ''],
+    /* THE CREW SCREEN: board, a man's plate is tin, the line's empty places and the bag are pockets */
+    ['board_plain', 1, ['html[data-bm-roster] #bar', 'html[data-bm-roster] #card'], ''],
+    ['tin', 0.75, ['html[data-bm-roster] #done'], KIT_SHADOW + KIT_INK],
+    ['receipt', 1, ['html[data-bm-roster] .plist button'], ''],   /* the perks are printed tags, a whole line of words each */
+    ['tin_amber', 0.75, ['html[data-bm-roster] .pick'], KIT_SHADOW],
+    ['tray', 1, ['html[data-bm-roster] .cell'], ''],
+    ['well', 1, ['html[data-bm-roster] .gslot', 'html[data-bm-roster] #bag .slot'], ''],
+    ['well_full', 1, ['html[data-bm-roster] .gslot.full', 'html[data-bm-roster] #bag .slot.full'], ''],
+    ['tin', 0.6, ['html[data-bm-roster] .cell.full'], ''],
+    ['receipt', 1, ['html[data-bm-roster] .stats', 'html[data-bm-roster] #ghost'], ''],
+    ['receipt', 0.5, ['html[data-bm-roster] .cell b'], ''],
+    /* THE START SCREEN AND THE FRONT DOOR, ONLY WHEN THEY ARE NOT HIS: the front screen he loved (rule 127(b), 130(b): 'the
+       front screen's font he loved stays'; the door's just-the-font look, #front[data-look=just-the-font] and .bm-start.jtf)
+       is left exactly as it is; any other start screen's three things stay three things (board, paper, glass), made real */
+    ['board_plain', 1, ['.bm-start:not(.jtf) .b.card'], ''],
+    ['receipt', 1, ['.bm-start:not(.jtf) .b.rec', '#front:not([data-look="just-the-font"]) #newco .strip', '#front:not([data-look="just-the-font"]) #newco .name'], ''],
+    ['glass', 1, ['.bm-start:not(.jtf) .b.pane'], ''],
+    ['glass', 0.75, ['#front:not([data-look="just-the-font"]) #newco .name button'], ''],
+    ['tin_dark', 0.75, ['#front:not([data-look="just-the-font"]) #newco .row button'], KIT_LIGHT],
+    ['tin_amber', 0.75, ['#front:not([data-look="just-the-font"]) #newco .row button.on'], 'color:#120c06!important;text-shadow:none!important;'],
+    /* THE SETTINGS: a sheet of board, the title printed, the buttons tin, the bars olive lit amber */
+    ['board_plain', 1, ['#setcard'], ''],
+    ['receipt', 1, ['#setcard .seth'], ''],
+    ['tin', 0.75, ['#setcard .setbtn'], KIT_SHADOW + KIT_INK],
+    ['tin_dark', 0.6, ['#setcard .setbars .vb'], ''],
+    ['tin_amber', 0.6, ['#setcard .setbars .vb.lit'], ''],
+    /* a browser drops a whole rule over one pseudo-element it does not know, so each engine's handle is its own rule */
+    ['tin', 0.5, ['#setcard .setslide input::-webkit-slider-thumb'], ''],
+    ['tin', 0.5, ['#setcard .setslide input::-moz-range-thumb'], '']
+  ];
+  /* the press: the slab goes down into its shadow (the individual translate composes with any rotate the rule set) */
+  var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#menubar #bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
+    'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn'];
+  function kitCSS() {
+    var pre = 'html[data-kit] body ', out = [];
+    var tape = 'url(' + KIT_BASE + 'tape/tape.png)', rec = 'url(' + KIT_BASE + 'receipt/c.png)', card = 'url(' + KIT_BASE + 'board_plain/c.png)', gl = 'url(' + KIT_BASE + 'glass/c.png)';
+    out.push('html[data-kit]{--mat-tape:' + tape + '!important;--bm-tape:' + tape + '!important;--set-tape:' + tape + '!important;'
+      + '--mat-receipt:' + rec + '!important;--bm-receipt:' + rec + '!important;--set-rec:' + rec + '!important;'
+      + '--mat-cardboard:' + card + '!important;--bm-cardboard:' + card + '!important;--bm-cardboard-dk:' + card + '!important;--set-card:' + card + '!important;'
+      + '--mat-glass:' + gl + '!important;--bm-glass:' + gl + '!important;--bm-glass-dk:' + gl + '!important;--set-glass:' + gl + '!important}');
+    KIT_RULES.forEach(function (rl) {
+      var sel = rl[2].map(function (x) { return x.indexOf('html[') === 0 ? x.replace(/^html(\[[^\]]+\])/, 'html[data-kit]$1 body') : pre + x; }).join(',');
+      if (!rl[1]) { out.push(sel + '{' + KIT_FACE + '}'); return; }
+      out.push(sel + '{' + kit(rl[0], rl[1]) + (rl[3] || '') + '}');
+      /* a grid of pockets: every slot's floor is cut from another part of the same glass */
+      if (/^well/.test(rl[0])) [[3, 1, [0.37, 0.61]], [3, 2, [0.71, 0.23]], [5, 3, [0.13, 0.47]], [7, 4, [0.55, 0.83]]].forEach(function (v) {
+        out.push(rl[2].map(function (x) { return (x.indexOf('html[') === 0 ? x.replace(/^html(\[[^\]]+\])/, 'html[data-kit]$1 body') : pre + x) + ':nth-child(' + v[0] + 'n+' + v[1] + ')'; }).join(',')
+          + '{' + kit(rl[0], rl[1], v[2]) + '}');
+      });
+    });
+    out.push(KIT_PRESS.map(function (x) { return (x.indexOf('html[') === 0 ? x.replace(/^html(\[[^\]]+\])/, 'html[data-kit]$1 body') : pre + x) + ':active'; }).join(',')
+      + '{translate:1px 1px;filter:none!important}');
+    return out.join('\n');
+  }
+  function dressKit() {
+    var root = document.documentElement;
+    if (document.getElementById('sbody') && !root.hasAttribute('data-bm-settle')) root.setAttribute('data-bm-settle', '');
+    if (!document.getElementById('bm-kit')) {
+      var st = document.createElement('style'); st.id = 'bm-kit'; st.textContent = kitCSS();
+      (document.head || root).appendChild(st);
+    }
+    root.setAttribute('data-kit', '1');
+    return true;
+  }
+  dressKit();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressKit);
+
+  window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
     itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars,
     hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT };

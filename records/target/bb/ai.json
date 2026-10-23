@@ -50,6 +50,11 @@
    "value": "leader",
    "source": "bb_all/0290_Brigand Leader.txt",
    "quote": "The Leader spawns in the very back and usually does not hurry to enter battle."
+  },
+  "geist": {
+   "value": "screamer",
+   "source": "bb_all/0831_Geist.txt",
+   "quote": "Geists sometimes accompany zombies. They usually try to stay behind them, screaming at your squad from a few tiles of distance. If your resolve if very high, they give up and instead fight in melee, using their touch."
   }
  },
  "archetypes": {
@@ -166,6 +171,16 @@
    "quote": "The Leader spawns in the very back and usually does not hurry to enter battle.",
    "also": "bb_all/0343_Captain.txt: 'Captain is an aura that increases the Resolve of other allies by +15% (range of 5 tiles)' (ours.captain_aura)",
    "how": "before the lines meet he does not move; after, he never steps ahead of his own front man, so his aura stays over his line"
+  },
+  "screamer": {
+   "value": {
+    "advance": true,
+    "screams": true,
+    "stays_out_of_reach": true
+   },
+   "source": "bb_all/0831_Geist.txt",
+   "quote": "They usually try to stay behind them, screaming at your squad from a few tiles of distance. If your resolve if very high, they give up and instead fight in melee, using their touch.",
+   "why": "COMBAT [ghosts and apparitions] 10/23 (rule 134): the scream from inside its reach, the touch when nobody in reach can still break"
   }
  },
  "hunt": {

@@ -134,7 +134,9 @@ async function fight(F, first) {
       /* UI 10/22 [the top bar, the days once]: the round, the faces and AUTO left the top and ride the bar's top edge in
          #bmturnrow; the bar's own height is measured without that row (the strip over the board is gone) */
       window.__bars = 0; return { taps, faces, bar: document.getElementById('bot').getBoundingClientRect().height - (() => { const t = document.getElementById('bmturnrow'); if (!t) return 0; const q = t.getBoundingClientRect(), c = getComputedStyle(t), g = parseFloat(getComputedStyle(t.parentNode).rowGap) || 0; return q.height + parseFloat(c.marginTop) + parseFloat(c.marginBottom) + (c.flexBasis === '100%' ? g : 0); })(),
-        mats: [css(document.getElementById('bot')), css(document.getElementById('bend')), css(document.querySelector('#skills .sq'))].every(b => /url\("?data:image/.test(b)),
+        /* UI 10/23 [the UI the Crashbox way]: the materials are now the kit, rendered through the rig (slices/ui_kit/); a canvas
+           picture or a rendered one both count, a flat box never does */
+        mats: [css(document.getElementById('bot')), css(document.getElementById('bend')), css(document.querySelector('#skills .sq'))].every(b => /url\("?(data:image|[^)]*ui_kit\/)/.test(b)),
         font: getComputedStyle(document.body).fontFamily };
     });
     const small = ui.taps.filter(t => t.w < 44 || t.h < 44);

@@ -50,14 +50,31 @@ def roof_hits(bpy, objs, x0, x1, y0, y1, step):
     for x in np.arange(x0, x1, step):
         for y in np.arange(y0, y1, step):
             ok, loc, nrm, _i, ob, _m = bpy.context.scene.ray_cast(dg, mathutils.Vector((x, y, 40.0)), mathutils.Vector((0, 0, -1)))
-            if ok and ob is not None and ob.name in names and loc.z > 1.5: out.append((x, y, loc.z, nrm))
+            if ok and ob is not None and ob.name in names and loc.z > 1.5 and not any(k in ob.name for k in ('chim', 'flue', 'cool')):
+                out.append((x, y, loc.z, nrm))                         # 10/23: never on a chimney, a flue or a cooler
     return out
+
+
+GRID = {}
+
+
+def on_dirt(x, y):
+    """10/23: is this point on open ground (the plan's grid, kept by build below)"""
+    g = GRID.get('g')
+    if g is None: return True
+    c = int(round((x + 1.0) / F.STEP)); r = int(round(((F.SIDE + 1.0) - y) / F.STEP))
+    if not (0 <= r < g.shape[0] and 0 <= c < g.shape[1]): return False
+    return int(g[r, c]) in [F.ID[k] for k in ('caliche', 'desert', 'rough', 'lawn', 'track') if k in F.ID]
 
 
 def grow(bpy, meshes, roots, rects, kinds, seed):
     """RECLAIMED: the solar on the roofs and the beds in the yards"""
     rng = np.random.RandomState(seed + 5)
-    panel = NF.material(bpy, 'solar', 'cloth_black', 1); frame = NF.material(bpy, 'solar_frame', 'tape_grey', 3)
+    # 10/23: the panels are glass on a dark cell, not paint: on the first render they took the houses' 0.6 wear with the
+    # roofs and came out pale grey squares. So they leave the houses' source pass (place_houses below keeps them out of
+    # the meshes it hands back; the grime still crosses them), a blue-black cell with a little of the sky in its glass
+    panel = NF.srgb_mat(bpy, 'solar', (24, 30, 40), 'cloth_black'); frame = NF.material(bpy, 'solar_frame', 'tape_grey', 3)
+    pb = panel.node_tree.nodes['Principled BSDF']; pb.inputs['Roughness'].default_value = 0.55; pb.inputs['Specular IOR Level'].default_value = 0.3   # (0.32 put the sun as a white dot in every panel)
     plank = NF.material(bpy, 'bed', 'clay_mustard', 1); soil = NF.material(bpy, 'soil', 'clay_rust', 0, 0.7); leaf = NF.material(bpy, 'leaf', 'clay_teal', 1, 0.9)
     pv, fr, beds, earth, green = [], [], [], [], []
     for (x0, y0, x1, y1), root in zip(rects, roots):
@@ -72,6 +89,10 @@ def grow(bpy, meshes, roots, rects, kinds, seed):
         for k in range(rng.randint(1, 3)):                                  # the beds out front, on the yard
             bx = rng.uniform(xa + 1.5, xb - 1.5); by = yfront - rng.uniform(1.8, 3.0)
             w, d = rng.uniform(1.8, 2.6), rng.uniform(0.9, 1.2)
+            # 10/23: only on open ground (a shallow front yard put them in the gutter): else the back yard, else none
+            if not all(on_dirt(bx + dx, by + dy) for dx in (-w / 2, w / 2) for dy in (-d / 2, d / 2)):
+                by = yfront + rng.uniform(11.0, 12.5)
+                if not all(on_dirt(bx + dx, by + dy) for dx in (-w / 2, w / 2) for dy in (-d / 2, d / 2)): continue
             for (dx, dy, sx, sy) in ((0, -d / 2, w, 0.06), (0, d / 2, w, 0.06), (-w / 2, 0, 0.06, d), (w / 2, 0, 0.06, d)):
                 beds.append((bx + dx, by + dy, 0.0, sx, sy, 0.32, 0.0, 0.0))
             earth.append((bx, by, 0.0, w - 0.08, d - 0.08, 0.28, 0.0, 0.0))
@@ -128,7 +149,7 @@ def place_houses(bpy, houses, seed):
         add, what = (grow if STATE['s'] == 'reclaimed' else fall)(bpy, meshes, roots, rects, kinds, seed)
         holder = bpy.data.objects.new('future', None); bpy.context.scene.collection.objects.link(holder)
         for o in add: o.parent = holder                                      # the root's height squash reaches them too
-        meshes = meshes + add; roots = roots + [holder]
+        meshes = meshes + [o for o in add if not o.name.startswith('fut_solar')]; roots = roots + [holder]   # 10/23: the glass keeps its own look
         NF.LEDGER['future'] = what
     return meshes, roots, rects, kinds
 
@@ -138,6 +159,7 @@ _nf_build = NF.build
 
 def build(bpy, gid_full, seed, quick=False):
     objs, g = _nf_build(bpy, gid_full, seed, quick)
+    GRID['g'] = g
     if quick or not STATE['s']: return objs, g
     rng = np.random.RandomState(seed + 31)
     if STATE['s'] == 'reclaimed':                                           # hauled off, and no fire has been lit

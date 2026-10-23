@@ -16,7 +16,7 @@
  },
  "lots.0": {
   "file": "slices/fight_ground/block_lots_0.webp",
-  "sha1": "f90f5fbd2df8a747bcae5573c9e3cddd3f21d7fa",
+  "sha1": "89cb7973eb0730f4df2b594d4c313ca5330e9d09",
   "master": "records/target/cook_floor_not_final/block_lots_0.webp"
  },
  "corner.1": {
@@ -63,5 +63,20 @@
   "file": "slices/fight_ground/block_wash_1.webp",
   "sha1": "010f14edcd11f2e2767368446d5e2cc7e374eb96",
   "master": "records/target/cook_floor_not_final/block_wash_1.webp"
+ },
+ "wash.0": {
+  "file": "slices/fight_ground/block_wash_0.webp",
+  "sha1": "72a23e91f5155077c3ef6b070eb850934ef17bc5",
+  "master": "records/target/cook_floor_not_final/block_wash_0.webp"
+ },
+ "works.0": {
+  "file": "slices/fight_ground/block_works_0.webp",
+  "sha1": "29d13027861143e7846e5b07ed9e955b132062dc",
+  "master": "records/target/cook_floor_not_final/block_works_0.webp"
+ },
+ "corner.2": {
+  "file": "slices/fight_ground/block_corner_2.webp",
+  "sha1": "28896a984a7cca298005b5d752eaeb8ba12c1559",
+  "master": "records/target/cook_floor_not_final/block_corner_2.webp"
  }
 }

@@ -293,8 +293,10 @@ def layout(tier, var, hot, pl, rnd):
         pl.built(stall, mid('stall'), f['stall'][2], wid('stall'), 0.0, 1.0, 7.0)
         pl.built(board, mid('board'), f['board'][2], wid('board'))
         pl.built(posts, mid('posts'), f['posts'][2], None, 0.0, 1.0, wid('posts'))
-        grab(pl.bpy, palisade, pl.bpy, pl.P, pl.rnd, X0 - 2, X0 + 50, 46.6)
-        pl.model('container.glb', X0 + 4, 41.6, None, 0.0, 1.0); pl.model('container.glb', X0 + 44, 41.4, None, 0.05, 1.0)
+        # 10/23: the palisade was at 46.6 m, 1.4 m from the picture's far edge, so only its foot showed (a dark strip);
+        # at 43.6 its whole height reads across the top the way the old picture's stakes did, the containers in front
+        grab(pl.bpy, palisade, pl.bpy, pl.P, pl.rnd, X0 - 2, X0 + 50, 43.6)
+        pl.model('container.glb', X0 + 4, 40.8, None, 0.0, 1.0); pl.model('container.glb', X0 + 44, 40.6, None, 0.05, 1.0)
         for (x, y) in ((X0 + 20, 29.0), (X0 + 36, 22.0), (X0 + 15, 16.5), (X0 + 44, 16.0), (X0 + 27, 17.0)):
             pl.drum_fire(x, y)
         pl.model('sandbags.glb', X0 + 20, 36.0, None, 0.0, 1.0); pl.model('sandbags.glb', X0 + 23, 36.2, None, 0.1, 1.0)

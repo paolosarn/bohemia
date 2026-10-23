@@ -1,0 +1,40 @@
+{
+  "_about": "COMBAT [weapon shapes] 10/23 (rules 33i and 46d, Paolo 9/24: 'in Battle Brothers some weapons hit multiple tiles at the same time, six or three; a machine gun is comparable to a greatsword or a battle axe'). Every Battle Brothers weapon skill that strikes more than one tile, as a shape on our square board. The fight reads this file (DB.shapes); gates/weapon_shapes_gate.js re-derives every shape and checks each row's quote against records/target/bb/weapons.json. A modder edits a row here and the fight sweeps that way.",
+  "_rule": {
+    "hex_to_square": "Battle Brothers fights on hexes (six around a man); we fight on squares (eight around a man, Chebyshev distance, the zone of control's own ring). A shape keeps its MEANING, not its hex count: a straight line stays a straight line, 'counterclockwise' walks our ring the same way from the man struck, 'all around' is our whole ring, and the cone is the same 60 degree wedge behind the man struck.",
+    "counterclockwise": "as he sees it on the glass: from the man struck, around the striker, the way a clock's hands do not go",
+    "foe_only": "Battle Brothers' skill pages say 'targets' and never whose. Rule 117 (Paolo 10/18: 'easier than Battle Brothers... like Nintendo simplified'): a sweep strikes only the other side; a friend in the shape is passed over, and the lit tiles show him so.",
+    "slope": "the fight types no number (THE FIGHT READS ONLY SOURCED NUMBERS), so the cone carries its wedge as a slope: a tile behind the man shot is inside when its distance off the line of fire is at most its distance along it times wedge_half_slope, the tangent of half the wedge (tan 30 = 0.5774); the gate checks the two agree.",
+    "each_rolls": "every man in the shape is a blow of its own: his own hit chance with the skill's own modifier, his own armour, his own damage roll (Battle Brothers resolves each target as its own attack)."
+  },
+  "rows": [
+    { "skill": "Split", "kind": "line", "count": 2,
+      "bb_says": "Hits 2 targets in a straight line",
+      "ours": "the man struck and the man straight behind him, along the line from the striker",
+      "page": "Split (30 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1848_Split (30 fatigue).txt" },
+    { "skill": "Swing", "kind": "arc", "count": 3,
+      "bb_says": "Hits up to 3 targets counterclockwise",
+      "ours": "the man struck and the next two tiles of the striker's ring, counterclockwise",
+      "page": "Swing (30 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1908_Swing (30 fatigue).txt" },
+    { "skill": "Shatter", "kind": "arc", "count": 3,
+      "bb_says": "Hits up to 3 targets counterclockwise",
+      "ours": "the man struck and the next two tiles of the striker's ring, counterclockwise",
+      "page": "Shatter (30 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1772_Shatter (30 fatigue).txt" },
+    { "skill": "Reap", "kind": "arc", "count": 3,
+      "bb_says": "Hits up to 3 targets counterclockwise",
+      "ours": "the man struck and the next two tiles of the ring he stands on (a polearm reaches the second ring), counterclockwise",
+      "page": "Reap (30 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1647_Reap (30 fatigue).txt" },
+    { "skill": "Round Swing", "kind": "ring", "count": 8, "bb_count": 6,
+      "bb_says": "Hits up to 6 targets",
+      "ours": "every tile around the striker: Battle Brothers' six around a hex are our eight around a square",
+      "page": "Round Swing (35 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1713_Round Swing (35 fatigue).txt" },
+    { "skill": "Thresh", "kind": "ring", "count": 8, "bb_count": 6,
+      "bb_says": "Hits up to 6 targets",
+      "ours": "every tile around the striker: Battle Brothers' six around a hex are our eight around a square",
+      "page": "Thresh (35 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1988_Thresh (35 fatigue).txt" },
+    { "skill": "Fire Handgonne", "kind": "cone", "count": 5, "bb_count": 6, "wedge_degrees": 60, "wedge_half_slope": 0.5774, "ranks_behind": 2,
+      "bb_says": "can hit 5 tiles behind the target",
+      "ours": "the man shot and the tiles behind him inside the 60 degree wedge Battle Brothers' cone fills (two ranks deep, widening): on hexes that wedge holds five behind, on squares four, the same on every heading. The SHOTGUN's blast (weapon_lines: firearm = SHOTGUN).",
+      "page": "Fire Handgonne (5 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt" }
+  ]
+}
