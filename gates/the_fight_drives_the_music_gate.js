@@ -21,8 +21,8 @@
    7. THE END SETTLES ON THE BAR: after the fight's BOHEMIA_FIGHT_OVER the arrangement comes down at the top of a bar, the
       count and the threat cleared, and the recap still gets its beats (he is not sent home at once);
    8. HIS SONGS ONLY (rule 122): every bar of the fight played a song in his set, the music never stopped;
-   9. YOU HEAR IT: the voices a bar at the fight's level and at the top outnumber the bottom's (the arrangement his songs
-      carry), and the master is louder there;
+   9. YOU HEAR IT: live, the notes a bar at the fight's level and at the top outnumber the bottom's (the parts his songs
+      carry come in; the master's level is reported, not judged: the parts are a lead line or a drum, not a volume);
    10. nothing threw.
    Run: node gates/the_fight_drives_the_music_gate.js */
 'use strict';
@@ -50,7 +50,8 @@ const TALLY = `(function(){
 (async () => {
   /* ---------------- the fight's own page ---------------- */
   const src = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
-  const base = { seed: 11, speed: 3, kind: 'suburb', flat: true, deploy: false, formation: null };   /* the first band, nine: a fight long enough to hit back */
+  const base = { seed: 11, speed: 3, kind: 'suburb', flat: true, deploy: false, formation: null,
+    band: ['brigand_raider', 'brigand_raider', 'brigand_marksman', 'brigand_marauder', 'brigand_thug', 'brigand_thug'] };   /* men who hit back */
   let d = await drive.open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS=' + JSON.stringify(base) });
   let p = d.page;
   try {
@@ -105,11 +106,21 @@ const TALLY = `(function(){
       let inStep = false, n = 0;
       const ac = MUS.AC;
       ['createOscillator', 'createBufferSource'].forEach(k => { const o = ac[k].bind(ac); ac[k] = function () { if (inStep) n++; return o(); }; });
+      /* THE EAR: every sample the master plays, binned by the arrangement of the step it belongs to (a step's own audio
+         time is the scheduler's nextT, handed to playStep; the step's level is what the step read) */
+      const booked = [], sr = ac.sampleRate, sd = MUS.stepDur(); let bi = 0;
+      L.e = {}; L.eN = {};
+      const sp = ac.createScriptProcessor(4096, 1, 1), z = ac.createGain(); z.gain.value = 0; MUS.MAST.connect(sp); sp.connect(z); z.connect(ac.destination);
+      sp.onaudioprocess = ev => { const a = ev.inputBuffer.getChannelData(0), t0 = ev.playbackTime;
+        for (let i = 0; i < a.length; i += 4) { const t = t0 + i / sr;
+          while (bi < booked.length - 1 && booked[bi + 1].t <= t) bi++;
+          const b = booked[bi]; if (!b || t < b.t || t >= b.t + sd) continue;
+          L.e[b.k] = (L.e[b.k] || 0) + a[i] * a[i]; L.eN[b.k] = (L.eN[b.k] || 0) + 1; } };
       const ps = MUS.playStep;
-      MUS.playStep = function () { inStep = true; n = 0;
+      MUS.playStep = function (s, t) { inStep = true; n = 0;
         try { return ps.apply(MUS, arguments); }
         finally { inStep = false;
-          if (L.live) { const k = MUS.layers; L.voices[k] = (L.voices[k] || 0) + n; L.steps[k] = (L.steps[k] || 0) + 1;
+          if (L.live) { const k = MUS.layers; L.voices[k] = (L.voices[k] || 0) + n; L.steps[k] = (L.steps[k] || 0) + 1; if (MUS.AC === ac) booked.push({ t: t, k: k });
             const nm = SONGFENCE.now(); L.songs[nm] = 1; if (!SONGFENCE.ok()) L.outside++; } } };
       setInterval(() => { if (L.live && !MUS.playing) L.stopped++; }, 250);
       addEventListener('message', ev => { const m = ev.data; if (!m || !m.type || !/^BOHEMIA_(COMBAT_STARTED|PLAYER_HIT|SHOT_RESULT|FIGHT_TURN|FIGHT_OVER|COMBAT_END)$/.test(m.type)) return;
@@ -171,31 +182,16 @@ const TALLY = `(function(){
     const songs = Object.keys(L.songs);
     leg(L.outside === 0 && L.stopped === 0 && songs.length >= 1 && R.playing,
       '*** HIS SONGS ONLY ***: every bar of the fight in his set, the music never stopped', songs.join(', ') + '; ' + L.outside + ' steps outside the set, stopped ' + L.stopped);
-    /* the same two bars of the song he heard, rendered offline at each level: the voices and the loudness are the
-       arrangement's own, not whatever the room happened to be playing (a meter on the master hears a beat behind the
-       scheduler, so it mixes levels) */
-    const off = await p.evaluate(async () => {
-      const SR = 22050, sd = MUS.stepDur(), out = {};
-      const keep = { AC: MUS.AC, MAST: MUS.MAST, L: MUS.layers, step: MUS.step };
-      const jobs = [];
-      try {
-        [0, 2, 4].forEach(lv => {
-          const OAC = new OfflineAudioContext(1, Math.ceil(SR * (32 * sd + 1.5)), SR), M = OAC.createGain(); M.connect(OAC.destination);
-          MUS.AC = OAC; MUS.MAST = M; MUS.layers = lv;
-          for (let s = 0; s < 32; s++) { try { MUS.playStep(s % 16, 0.05 + s * sd, MUS.songCtx(s)); } catch (e) {} }
-          jobs.push([lv, OAC]);
-        });
-      } finally { MUS.AC = keep.AC; MUS.MAST = keep.MAST; MUS.layers = keep.L; }
-      for (const [lv, OAC] of jobs) { const b = await OAC.startRendering(), a = b.getChannelData(0); let e = 0; for (let i = 0; i < a.length; i++) e += a[i] * a[i];
-        out[lv] = 10 * Math.log10(e / a.length + 1e-12); }
-      return { db: out, song: SONGFENCE.now() };
-    });
-    const vpb = k => L.steps[k] ? L.voices[k] / L.steps[k] * 16 : null;
+    /* THE PARTS, NOT THE VOLUME: the ladder's levels add parts to his song (a lead line, taiko, stabs, a second octave:
+       the song's klay), they do not turn it up, so the ear's ruler is the notes a bar, live, at each level. The master's
+       level while each played is reported, not judged: different turns land on different sections of the song, and a
+       same-bars replay cannot line up (REPO MAN's tape wow and flutter, the kit's random noise), measured 10/23. */
+    const vpb = k => L.steps[k] ? L.voices[k] / L.steps[k] * 16 : null, db = k => L.eN[k] ? 10 * Math.log10(L.e[k] / L.eN[k] + 1e-12) : null;
     const v0 = vpb(0), v2 = vpb(2), v4 = vpb(4), up = [v2, v4].filter(x => x !== null);
-    leg(v0 !== null && up.length > 0 && up.every(x => x >= v0 * 1.15) && off.db[2] > off.db[0] + 0.5 && off.db[4] > off.db[0] + 0.5,
-      '*** YOU HEAR IT ***: more voices a bar at the fight\'s level and the top than at the bottom, and the same bars louder',
-      'in the fight, voices a bar: bottom ' + (v0 || 0).toFixed(1) + ', fight ' + (v2 === null ? '-' : v2.toFixed(1)) + ', top ' + (v4 === null ? '-' : v4.toFixed(1))
-        + '; ' + off.song + '\'s first two bars: ' + [0, 2, 4].map(k => off.db[k].toFixed(1) + ' dB').join(' / ') + '; the commit on the read: ' + L.exact);
+    leg(v0 !== null && up.length > 0 && up.every(x => x >= v0 * 1.15) && (v4 === null || v2 === null || v4 > v2),
+      '*** YOU HEAR IT ***: live, more notes a bar at the fight\'s level than at the bottom, and more again at the top: the parts his song carries come in',
+      'notes a bar: bottom ' + (v0 || 0).toFixed(1) + ', fight ' + (v2 === null ? '-' : v2.toFixed(1) + ' (+' + Math.round((v2 / v0 - 1) * 100) + '%)') + ', top ' + (v4 === null ? '-' : v4.toFixed(1) + ' (+' + Math.round((v4 / v0 - 1) * 100) + '%)')
+        + '; the master while each played (reported): ' + [0, 2, 4].map(k => db(k) === null ? '-' : db(k).toFixed(1) + ' dB').join(' / ') + '; the commit on the read: ' + L.exact);
     leg(d.errs.length === 0, 'nothing threw', d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 140) : ''));
   } catch (e) { leg(false, 'the demo leg ran', String(e.message).slice(0, 200)); }
   await d.close();

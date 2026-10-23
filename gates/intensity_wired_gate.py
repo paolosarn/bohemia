@@ -168,7 +168,11 @@ def main():
 
     # ---- THE SIDE-EFFECT TRAP, checked in the source, permanently ---------
     alpha = open(os.path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), encoding='utf8').read()
-    i = alpha.find('__INTENSITY_WATCHER__')
+    # THE WATCHER'S OWN HEADER, not the first MENTION of its name (COMBAT 10/23): KILLMUS's comment names it first, and
+    # COMBAT's block beside KILLMUS (rule 126(e)) pushed the watcher's code past a 4000-character window read from there.
+    i = alpha.find('/* ===== __INTENSITY_WATCHER__')
+    if i < 0:
+        i = alpha.find('__INTENSITY_WATCHER__')
     raw = alpha[i:i + 4000] if i >= 0 else ''
     # STRIP THE COMMENTS BEFORE SEARCHING FOR CODE. The first run of this check
     # went red on the watcher's own comment -- the one explaining why __CT.open()
