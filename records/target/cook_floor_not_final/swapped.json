@@ -153,5 +153,10 @@
   "file": "slices/fight_ground/block_freeway_0.webp",
   "sha1": "12d0e3ca4adcda724a0ec8b9ea9fcce0fa2f078c",
   "master": "records/target/cook_floor_not_final/block_freeway_0.webp"
+ },
+ "freewayo.0": {
+  "file": "slices/fight_ground/block_freewayo_0.webp",
+  "sha1": "ab990f58aca426d092873080b27581f8077a2256",
+  "master": "records/target/cook_floor_not_final/block_freewayo_0.webp"
  }
 }
