@@ -1195,5 +1195,41 @@
    ]
   },
   "file": "records/target/cook_floor_not_final/block_scrubroad_0.webp"
+ },
+ "scrubroad.1": {
+  "seconds": 843,
+  "junk": {
+   "bags": 0,
+   "paper": 431,
+   "card": 108,
+   "cloth": 45,
+   "weeds": 379,
+   "mattresses": 3,
+   "couches": 2,
+   "fires": 1,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 34,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 35,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     16.94,
+     45.85,
+     1.0
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_not_final/block_scrubroad_1.webp"
  }
 }

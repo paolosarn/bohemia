@@ -133,5 +133,10 @@
   "file": "slices/fight_ground/block_scrubroad_0.webp",
   "sha1": "65d5dc1677031771e3791c2e22eff11a3d2957d7",
   "master": "records/target/cook_floor_not_final/block_scrubroad_0.webp"
+ },
+ "scrubroad.1": {
+  "file": "slices/fight_ground/block_scrubroad_1.webp",
+  "sha1": "ee3696d5eb6b54e8502d5d31ade6d2ce0b9a3dd4",
+  "master": "records/target/cook_floor_not_final/block_scrubroad_1.webp"
  }
 }
