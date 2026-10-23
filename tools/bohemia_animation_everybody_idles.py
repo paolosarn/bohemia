@@ -506,6 +506,201 @@ def fight(arg, workers=1):
     for p in procs: p.wait()
 
 
+# ------------------------------------------------------------------------------------------------ the valley's people
+# THE ROLLED PEOPLE (RUN TWO [no two people alike], 10/23): every keeper, every man in a town's crowd and every man in a
+# gang's party on the map is one of 152 people rolled from CHARACTER's pieces. Each is built by RUN TWO's own build (its
+# tool run, never edited; the model kept for the work clips), the bare idles laid on that model as it is (the street's
+# still is its own Stand, so nothing else is posed under them), and rendered on the master rig at the street's settings
+# (the same samples, real height and camera: his Stand here is the still the settlement draws, checked in `people_pack`).
+# An order that covers every gang and the places' own people a man at a time, so a part-run still reaches every screen.
+PEOPLE_ROLL = 'records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json'
+PEOPLE_STILLS = 'records/target/character/barber'   # the stills the screens draw (RUN TWO's renders)
+PEOPLE_MODELS = 'records/character/rig'
+
+
+def people_list():
+    R = json.load(open(os.path.join(ROOT, PEOPLE_ROLL))); groups = {}
+    for p in R: groups.setdefault(p['gang'], []).append(p['id'])
+    order = []
+    for k in range(max(len(v) for v in groups.values())):
+        for g in sorted(groups):
+            if k < len(groups[g]): order.append(groups[g][k])
+    return order
+
+
+def person_done(tag):
+    return os.path.exists(os.path.join(ROOT, RENDERS, tag, 'made.txt'))
+
+
+def person_one(pid):
+    tag = 'person_' + pid.lower(); py = sys.executable
+    if person_done(tag): return
+    glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
+    kept = open(gj).read() if os.path.exists(gj) else None   # RUN TWO's committed record of his build: his real height stays its own
+    if not os.path.exists(glb) or kept is None:
+        run([py, 'tools/bohemia_run2_no_two_people_alike.py', 'build-one', pid], glb)
+        if kept is not None:
+            with open(gj, 'w') as f: f.write(kept)
+    body = os.path.join(ROOT, PEOPLE_MODELS, tag + '.glb')
+    if os.path.exists(body): os.remove(body)   # the mannequin under him: the build's own scrap (RUN TWO deletes it too)
+    posed = os.path.join(ROOT, POSED, tag + '.glb')
+    run([py, os.path.abspath(__file__), 'pose_sets', glb, posed, 'bare'], posed)
+    h = json.load(open(glb.replace('.glb', '.json')))['real_height_for_rig']
+    out = os.path.join(ROOT, RENDERS, tag)
+    render_model(posed, out, h, [('Stand', 1), ('IdleBare', len(source()['sets']['bare']['poses']))])
+    os.remove(posed)
+    for f in os.listdir(out):   # the master rig's raw frames and shadows: nothing here reads them
+        if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
+    stamp = 'unknown'
+    try:
+        import re
+        stamp = re.search(r"^STAMP = '([^']+)'", open(os.path.join(ROOT, 'tools/bohemia_run2_no_two_people_alike.py')).read(), re.M).group(1)
+    except Exception: pass
+    with open(os.path.join(out, 'made.txt'), 'w') as f: f.write(stamp + '\n')
+    print('IDLES person', pid, flush=True)
+
+
+PEOPLE_MATCH = dict(alpha=0.98, rgb=4)   # his Stand here against the still the screens draw: the same build, so nearly exact
+
+
+def people_pack():
+    """every rolled person with his renders in: slices/rig_idles/<tag>_bare.webp and <tag>.json (the settlement and the crew
+    card), and his map cells on one sheet per map sheet of RUN TWO's (slices/rig_idles/map_<sheet>.webp, map_people.json),
+    added to the index beside the cast and the gangs; a man whose Stand does not match the still the screens draw keeps
+    his still. Cells here sit in his render's full frame (dx, dy from its top left), and `feet` is where his still stands in
+    that frame, facing by facing: the still's own middle column and the row under its lowest painted pixel, the two numbers
+    the settlement draws the still by (BohemiaRigBodies.standing), so an idle lands where the still stood."""
+    import numpy as np
+    from PIL import Image
+    D = source(); G = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')))['rig']
+    thr = int(G['alpha_threshold'])
+    bare = list(D['sets']['bare']['poses']); mposes = list(D['sets']['map']['poses'])
+    ip = os.path.join(ROOT, OUT, 'rig_idles.json'); index = json.load(open(ip))
+    MX = json.load(open(os.path.join(ROOT, 'slices/rig_mix/index.json')))
+    sheet_of = {l: n for n, ls in MX['sheets'].items() for l in ls}
+    mix_meta, mix_pal = {}, {}
+    for fn in os.listdir(os.path.join(ROOT, OUT)):   # this step's own last output goes first; the cast's and the gangs' stay
+        if fn.startswith('person_') or fn.startswith('map_'): os.remove(os.path.join(ROOT, OUT, fn))
+    for k in [k for k in index['looks'] if k.startswith('person_')]: del index['looks'][k]
+
+    def full(fn, r):
+        a = np.asarray(Image.open(fn).convert('RGBA')).copy()
+        if a.shape[0] != r['res'] or a.shape[1] != r['res']:
+            z = np.zeros((r['res'], r['res'], 4), np.uint8); x0, y0, x1, y1 = r['crop_box_px']; z[y0:y1, x0:x1] = a; a = z
+        return a
+
+    def cut(a):
+        op = a[..., 3] > thr; a = a.copy(); a[..., 3] = np.where(op, 255, 0); a[~op] = 0
+        ys, xs = np.nonzero(op)
+        if not len(xs): return None
+        y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+        return a[y0:y1, x0:x1].copy(), int(x0), int(y0)
+
+    def to_pal(a, P):
+        u, inv = np.unique(a[..., :3].reshape(-1, 3), axis=0, return_inverse=True)
+        dd = ((u.astype(np.int32)[:, None, :] - P[None, :, :]) ** 2).sum(2)
+        out = a.copy(); out[..., :3] = P[dd.argmin(1)][inv.reshape(-1)].reshape(a.shape[:2] + (3,)).astype(np.uint8)
+        out[a[..., 3] == 0] = 0
+        return out
+
+    def atlas(items, width):
+        order = sorted(range(len(items)), key=lambda i: -items[i][0].shape[0]); x = y = sh = 0; rects = [None] * len(items)
+        for i in order:
+            h, w = items[i][0].shape[:2]
+            if x + w > width: x = 0; y += sh; sh = 0
+            rects[i] = [x, y, w, h, int(items[i][1]), int(items[i][2])]; x += w; sh = max(sh, h)
+        im = Image.new('RGBA', (width, y + sh), (0, 0, 0, 0))
+        for i, (a, _, _) in enumerate(items): im.paste(Image.fromarray(a, 'RGBA'), (rects[i][0], rects[i][1]))
+        return im, rects
+
+    maps = {}   # map sheet -> [(cut, dx, dy)], {tag: poses}
+    n_ok = 0
+    for tag in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
+        d = os.path.join(ROOT, RENDERS, tag); rec = os.path.join(ROOT, PEOPLE_STILLS, tag)
+        if not tag.startswith('person_') or not person_done(tag) or not os.path.exists(os.path.join(rec, 'rig.json')): continue
+        rj = json.load(open(os.path.join(d, 'rig.json'))); mine = json.load(open(os.path.join(rec, 'rig.json')))
+        if rj['res'] != mine['res']: print('NO MATCH frame, keeps his still:', tag); continue
+        # THE MATCH, all eight facings
+        worst = (1.0, 0.0)
+        for f in FIGHT_DIRS:
+            A = full(os.path.join(d, 'rig_%s.png' % f), rj).astype(np.int32); B = full(os.path.join(rec, 'rig_%s.png' % f), mine).astype(np.int32)
+            oa, ob = A[..., 3] > 127, B[..., 3] > 127; ag = (oa & ob).sum() / max(1, (oa | ob).sum())
+            st = float(np.abs(A[..., :3] - B[..., :3])[oa & ob].mean()) if (oa & ob).any() else 255.0
+            worst = (min(worst[0], ag), max(worst[1], st))
+        if worst[0] < PEOPLE_MATCH['alpha'] or worst[1] > PEOPLE_MATCH['rgb']:
+            print('NO MATCH, keeps his still:', tag, round(worst[0], 3), round(worst[1], 1)); continue
+        # where his still stands, facing by facing, in the full frame
+        cb = mine['crop_box_px']; feet = []; stills = []
+        for f in FIGHT_DIRS:
+            im = Image.open(os.path.join(rec, 'rig_%s.png' % f)).convert('RGBA'); stills.append(im)
+            al = np.asarray(im)[..., 3]; rows = np.nonzero((al > 24).any(1))[0]
+            feet.append([round(cb[0] + im.size[0] / 2, 1), int(cb[1] + (rows.max() + 1 if len(rows) else im.size[1]))])
+        cuts = {}
+        for pi, p in enumerate(bare):
+            for row, f in enumerate(FIGHT_DIRS):
+                c = cut(full(os.path.join(d, 'rig_IdleBare_%s_k%02d.png' % (f, pi)), rj))
+                if c is not None: cuts[(p, row)] = c
+        # his 64 colours (the fight sheet's count), read off his own idles by median cut
+        mosaic = np.concatenate([c[0].reshape(-1, 4) for c in cuts.values()])
+        mosaic = mosaic[mosaic[:, 3] > 0][:, :3]
+        q = Image.fromarray(mosaic.reshape(1, -1, 3).astype(np.uint8), 'RGB').quantize(64, method=Image.Quantize.MEDIANCUT)
+        P = np.array(q.getpalette()[:3 * 64], np.int32).reshape(-1, 3)
+        imgs, cells = [], {}
+        for (p, row), (a, x0, y0) in cuts.items():
+            cells.setdefault(p, [None] * 8)[row] = len(imgs); imgs.append((to_pal(a, P), x0, y0))
+        body, rects = atlas(imgs, 2048); fn = tag + '_bare.webp'
+        body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+        entry = dict(person=True, foot=feet[0], feet=feet, match=[round(worst[0], 3), round(worst[1], 1)],
+                     sheets=dict(bare=dict(file=fn, cells=rects, size=list(body.size))), poses=dict(bare={p: cells.get(p, [None] * 8) for p in bare}))
+        json.dump(entry, open(os.path.join(ROOT, OUT, tag + '.json'), 'w'), separators=(',', ':'))
+        index['looks'][tag] = dict(json=tag + '.json')
+        n_ok += 1
+        # THE MAP: his ten on his map sheet's frame (RUN's bake: the picture's middle on the cell's middle, the lowest
+        # painted standing row over his eight stills on the cell's foot), in that sheet's own colours
+        n = sheet_of.get(tag)
+        if not n: continue
+        if n not in mix_meta:
+            mix_meta[n] = json.load(open(os.path.join(ROOT, 'slices/rig_mix', n + '.json')))
+            pa = np.asarray(Image.open(os.path.join(ROOT, 'slices/rig_mix', n + '.png')).convert('RGBA'))
+            mix_pal[n] = np.array(sorted(set(map(tuple, pa[pa[..., 3] > 0][:, :3].tolist()))), np.int32)
+        m = mix_meta[n]
+        gfoot = max(im.getbbox()[3] for im in stills); iw = stills[0].size[0]
+        fx0 = cb[0] - (m['w'] // 2 - iw // 2); fy0 = cb[1] - (m['foot'] - gfoot)
+        L = maps.setdefault(n, ([], {}))
+        mp = {}
+        for p in mposes:
+            for row in range(8):
+                c = cuts.get((p, row))
+                if c is None: continue
+                mp.setdefault(p, [None] * 8)[row] = len(L[0]); L[0].append((to_pal(c[0], mix_pal[n]), c[1] - fx0, c[2] - fy0))
+        L[1][tag] = mp
+    mj = dict(what='ANIMATION [everybody idles]: the map\'s rolled people (RUN TWO\'s sheets in slices/rig_mix), ten idles each, '
+                   'a sheet per map sheet; a cell [x, y, w, h, dx, dy] sits from that map sheet\'s cell origin', files={}, looks={})
+    for n, (items, looks) in sorted(maps.items()):
+        im, rects = atlas(items, 2048); fn = 'map_%s.webp' % n
+        im.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+        mj['files'][fn] = rects
+        for tag, poses in looks.items(): mj['looks'][tag] = dict(mix=n, file=fn, poses=poses)
+        print('PACKED map', n, im.size, os.path.getsize(os.path.join(ROOT, OUT, fn)), len(looks), 'people', flush=True)
+    json.dump(mj, open(os.path.join(ROOT, OUT, 'map_people.json'), 'w'), separators=(',', ':'))
+    index['map_people'] = dict(json='map_people.json')
+    json.dump(index, open(ip, 'w'), separators=(',', ':'))
+    print('PACKED people', n_ok, 'with idles;', len(mj['looks']), 'on the map', flush=True)
+
+
+def people(arg='ALL', workers=4):
+    todo = [p for p in people_list() if (arg.upper() == 'ALL' or p == arg) and not person_done('person_' + p.lower())]
+    env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // max(1, workers))),
+               BOHEMIA_BPY=os.environ.get('BOHEMIA_BPY') or sys.executable)
+    procs = []
+    for w in range(max(1, workers)):
+        mine = todo[w::max(1, workers)]
+        if not mine: continue
+        sh = ' ; '.join('%s %s person_one %s' % (sys.executable, os.path.abspath(__file__), x) for x in mine)
+        procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
+    for p in procs: p.wait()
+
+
 # ------------------------------------------------------------------------------------------------ preview (bpy)
 def preview(glb, out, set_name='bare', facings='S,SE,E,N'):
     """a quick look at every pose of a set at four facings (Cycles 8 samples, 3x), to judge the bone turns before the real
@@ -661,6 +856,9 @@ if __name__ == '__main__':
     elif cmd == 'map_one': map_one(a[0])
     elif cmd == 'maps': maps(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 1)
     elif cmd == 'beasts': beasts(a[0] if a else 'ALL')
+    elif cmd == 'person_one': person_one(a[0])
+    elif cmd == 'people_pack': people_pack()
+    elif cmd == 'people': people(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 4)
     elif cmd == 'preview': preview(*a)
     elif cmd == 'pack': pack()
     elif cmd == 'packmap':   # the map's sheet alone, into the index as it stands

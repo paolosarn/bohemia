@@ -45485,17 +45485,21 @@ function mapHash(a, b){ var h = (a * 73856093) ^ (b * 19349663); h = (h ^ (h >>>
 var MAP_IDLE_CV = {};
 function mapIdleFrame(set, face, beat, still){
   var B = window.BohemiaIdles; if (!B || !B.ready() || !still) return null;
-  var M = B.map(); if (!M) return null;
-  if (set.__look === undefined) { set.__look = null;
-    [RIG_CAST, RIG_PEOPLE].forEach(function(S){ for (var k in S.sets) if (S.sets[k] === set) set.__look = k; }); }
-  var L = set.__look && M.looks[set.__look]; if (!L) return null;
+  if (set.__look === undefined) { set.__look = null; set.__mix = null;
+    [RIG_CAST, RIG_PEOPLE].forEach(function(S){ for (var k in S.sets) if (S.sets[k] === set) set.__look = k; });
+    /* a rolled person (RUN TWO's sheets, __NO_TWO_ALIKE__): his idles sit on his own map sheet's frame */
+    if (!set.__look) for (var n in RIG_MIX.sheets) { var X = RIG_MIX.sheets[n]; for (var k2 in X.sets) if (X.sets[k2] === set) { set.__look = k2; set.__mix = n; } } }
+  if (!set.__look) return null;
+  var M = set.__mix ? B.mapPeople() : B.map(); if (!M) return null;
+  var L = M.looks[set.__look]; if (!L) return null;
   var di = B.DIRS.indexOf(face); if (di < 0) return null;
   var a = B.at('map:' + set.__look + ':' + (beat - mapArtBeat()), performance.now(), { set: 'map' }); if (!a) return null;
   var ci = L.poses[a.pose] && L.poses[a.pose][di]; if (ci === null || ci === undefined) return null;
-  var img = B.image(M.file); if (!img) return null;
+  var img = B.image(L.file || M.file); if (!img) return null;
   var key = set.__look + '|' + a.pose + '|' + di + '|' + still.height, c = MAP_IDLE_CV[key];
   if (!c) {
-    var m = (L.sheet === 'people' ? RIG_PEOPLE : RIG_CAST).meta, q = M.cells[ci], H = still.height;
+    var m = set.__mix ? RIG_MIX.sheets[set.__mix].meta : (L.sheet === 'people' ? RIG_PEOPLE : RIG_CAST).meta;
+    var q = (L.file && M.files ? M.files[L.file] : M.cells)[ci], H = still.height;
     c = MAP_IDLE_CV[key] = document.createElement('canvas'); c.width = still.width; c.height = H;
     var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
     x.drawImage(img, q[0], q[1], q[2], q[3], 56 - m.w / 2 + q[4], Math.round(H * 0.93) - m.foot + q[5], q[2], q[3]);

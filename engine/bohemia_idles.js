@@ -7,7 +7,8 @@
    way the fight renders him (tools/bohemia_animation_everybody_idles.py, the source records/target/animation/
    BOHEMIA_EVERYBODY_IDLES.json); slices/rig_idles/<look>_guns.webp, the three guns in his hands on the gun-held poses.
    Each cell is cut to what is drawn; [x, y, w, h, dx, dy] puts it back where it stood in the fight sheet's cell, so his feet
-   are where they were (foot = the fight sheet's foot).
+   are where they were (foot = the fight sheet's foot). A rolled person of the valley (RUN TWO's 152) has no fight cell: his
+   cells sit in his render's full frame, and feet[f] is where his still stands in that frame, facing by facing.
 
    THE PLAY: time is cut into SLOTS of two bars (24 keys, three a beat at 120). A slot is one slow breath with the weight on
    one leg (the next breath on the other; slow, short or a sigh, his roll), or one of his idles; every slot starts and ends standing square, so any follows
@@ -27,6 +28,8 @@
      BohemiaIdles.frame(look, seed, now, f, o)   at() and cell() in one: the cell to draw now, or null
      BohemiaIdles.image(file)                 one of the sheets once it is in (null and it starts loading)
      BohemiaIdles.map()                       the map's own models, their cells and poses, once in (null and it starts loading)
+     BohemiaIdles.mapPeople()                 the same for the map's rolled people (RUN TWO's sheets in slices/rig_mix): a look's
+                                              mix (the map sheet he stands on), file and poses; files[file] its cells
      BohemiaIdles.meta()                      the index: the timelines, the sets, the idles, which looks have pictures
      BohemiaIdles.DIRS                        S SE E NE N NW W SW */
 (function (root) {
@@ -61,6 +64,7 @@
   function look_(look) { var L = ready() && META.looks[look]; return L ? data(L.json) : null; }
   function has(look) { return !!look_(look); }
   function map() { return ready() && META.map ? data(META.map.json) : null; }
+  function mapPeople() { return ready() && META.map_people ? data(META.map_people.json) : null; }
   /* a small integer hash: the same person, the same numbers, on every screen */
   function hash(a, b) {
     var h = 2166136261 >>> 0, s = String(a) + '|' + (b === undefined ? '' : b);
@@ -117,7 +121,7 @@
     var i = col[((f | 0) % 8 + 8) % 8]; if (i === null || i === undefined) return null;
     var img = sheet(Sh.file); if (!img) return null;   /* a set a sheet: only what this screen plays is loaded */
     var c = Sh.cells[i];
-    return { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5], foot: L.foot };
+    return { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5], foot: (L.feet && L.feet[((f | 0) % 8 + 8) % 8]) || L.foot };
   }
   function gun(look, g, pose, f) {
     if (!has(look)) return null;
@@ -136,7 +140,7 @@
     c.kind = a.kind; c.pose = a.pose; return c;
   }
   root.BohemiaIdles = { load: load, ready: ready, has: has, at: at, cell: cell, gun: gun, frame: frame, hash: hash, DIRS: DIRS,
-    image: sheet, map: map,
+    image: sheet, map: map, mapPeople: mapPeople,
     meta: function () { return META; } };
   if (typeof module !== 'undefined') module.exports = root.BohemiaIdles;
 })(typeof window !== 'undefined' ? window : this);

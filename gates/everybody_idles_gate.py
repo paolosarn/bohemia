@@ -15,6 +15,11 @@ twenty poses that are one picture):
      every colour he walked in).
   F  THE FEET STAY PUT: in every man's every pose and facing his soles are on his stand's ground line (two pixels).
   M  THE MAP: every map look it carries matched the picture the map already draws (silhouette and colour).
+  R  THE ROLLED PEOPLE (RUN TWO's 152, the settlement's keepers and crowd, the map's parties and crowds): every one packed
+     matched the still the screens draw (silhouette 0.98, colour step 4: the same build), has every bare pose in all eight
+     facings in 64 colours or fewer, stands with his soles where his still's are in every facing (two pixels), and on the
+     map stands where his still is on RUN TWO's own map sheet (soles two pixels, crown six). How many of the 152 have
+     theirs is printed; on the real settlement, everybody whose look has idles is idling.
   X  THE PLAYER (engine/bohemia_idles.js under node, the shipped file): twelve people over a minute never hold one
      picture four seconds, change at least ten times, no two in step (any two share under half their keys), the slot he
      began to stand in is a breath, every idle of every set is played by somebody in ten minutes.
@@ -93,12 +98,13 @@ for k in list(I['looks']): I['looks'][k] = json.load(open(os.path.join(RI, I['lo
 if I.get('map'): I['map'] = json.load(open(os.path.join(RI, I['map']['json'])))
 F = json.load(open(FR))
 men = [k for k, v in F['looks'].items() if v.get('kind') != 'beast']
+PEOPLE = [k for k, v in I['looks'].items() if v.get('person')]   # RUN TWO's rolled people (no fight cell of their own)
 beasts = [k for k, v in F['looks'].items() if v.get('kind') == 'beast']
 miss = [k for k in men + beasts if k not in I['looks']]
 ok('P1 every man and every beast the fight dresses has his idles (%d men, %d beasts)' % (len(men), len(beasts)), not miss, 'missing: ' + ', '.join(miss))
 holes = []
 for k, L in I['looks'].items():
-    sets = ('beast',) if F['looks'].get(k, {}).get('kind') == 'beast' else ('bare', 'carry')
+    sets = ('beast',) if F['looks'].get(k, {}).get('kind') == 'beast' else ('bare',) if L.get('person') else ('bare', 'carry')
     for s in sets:
         for p in D['sets'][s]['poses']:
             col = L['poses'].get(s, {}).get(p)
@@ -143,7 +149,7 @@ def chess_faults(I, looks):
     for k in looks:
         L = I['looks'][k]
         if 'bare' not in L['poses']: continue
-        for s in ('bare', 'carry'):
+        for s in [x for x in ('bare', 'carry') if x in L['poses']]:
             rise = top(L, s, 'R_out', 0) - top(L, s, 'R_in', 0)
             if rise < 1: out.append('%s %s: breathing in lifts him %d px' % (k, s, rise))
             C = placed(L, s, 'C', 0)
@@ -164,13 +170,17 @@ for s in ('bare', 'carry'):
 ok('C2 MUTATION: a man whose every idle is his still is caught', len(chess_faults(mut, [k0])) > 5)
 pal_bad = []
 for k, L in I['looks'].items():
+    if L.get('person'):   # no fight sheet: his own 64 (the fight sheet's count)
+        a = sheet(L['sheets']['bare']['file']); n = len(set(map(tuple, a[a[..., 3] > 0][:, :3].tolist())))
+        if n > 64: pal_bad.append('%s %d colours' % (k, n))
+        continue
     fs = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', F['looks'][k]['file'])).convert('RGBA'))
     have = set(map(tuple, fs[fs[..., 3] > 0][:, :3].tolist()))
     mine = set()
     for Sh in L['sheets'].values(): a = sheet(Sh['file']); mine |= set(map(tuple, a[a[..., 3] > 0][:, :3].tolist()))
     extra = mine - have
     if extra: pal_bad.append('%s +%d colours' % (k, len(extra)))
-ok('C3 every idle wears his own fight sheet\'s colours, not one more', not pal_bad, pal_bad[:4])
+ok('C3 every idle wears his own fight sheet\'s colours, not one more (a rolled person: 64 of his own at most)', not pal_bad, pal_bad[:4])
 
 # ---------------------------------------------------------------------------------------------------- F the feet
 def soles(L, s, p, f):
@@ -191,7 +201,7 @@ def feet_faults(I, looks):
         L = I['looks'][k]
         for f in range(8):
             C = soles(L, 'bare', 'C', f); band = max(C.values()) - 8
-            for s in ('bare', 'carry'):
+            for s in [x for x in ('bare', 'carry') if x in L['poses']]:
                 for p in D['sets'][s]['poses']:
                     P = soles(L, s, p, f)
                     shared = [x for x in C if C[x] >= band and P.get(x, -1) >= band]
@@ -202,7 +212,7 @@ def feet_faults(I, looks):
     return out
 
 
-feet_bad = feet_faults(I, [k for k in men if k in I['looks']])
+feet_bad = feet_faults(I, [k for k in men if k in I['looks']] + PEOPLE)
 held = ['%s (%s)' % (k, ', '.join(I['looks'][k]['held'])) for k in men if k in I['looks'] and I['looks'][k].get('held')]
 if held: print('  note F1 holds a weapon in his fist, so its swing below the soles is allowed up to 60 percent of the columns: ' + '; '.join(held))
 ok('F1 his soles stay on his ground line in every pose and facing (two pixels): nobody floats, sinks or skates', not feet_bad, '; '.join(feet_bad[:5]))
@@ -242,6 +252,52 @@ if Mp:
     mm = json.loads(json.dumps(Mp)); l0 = list(mm['looks'])[0]
     for i in mm['looks'][l0]['poses']['C']: mm['cells'][i][5] -= 24
     ok('M4 MUTATION: a map idle laid 24 px high (the cut-off head of 10/23) is caught', any(l0 in x for x in map_faults(mm)))
+
+# ---------------------------------------------------------------------------------------------------- R the rolled people
+ROLL = json.load(open(os.path.join(ROOT, 'records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json')))
+print('  note R0 %d of the %d rolled people have their idles (the rest stand as their still until theirs are rendered)' % (len(PEOPLE), len(ROLL)))
+if PEOPLE:
+    bad = [k for k in PEOPLE if I['looks'][k]['match'][0] < 0.98 or I['looks'][k]['match'][1] > 4]
+    ok('R1 every rolled person packed is the man the screens draw (his Stand against his still: silhouette 0.98, colour step 4)', not bad, bad[:4])
+    def still_feet_faults(I, looks):
+        """standing square, his soles are where his still's are, facing by facing (the row under his lowest painted pixel)"""
+        out = []
+        for k in looks:
+            L = I['looks'][k]
+            for f in range(8):
+                a, c = cell(L, 'bare', 'C', f); ys = np.nonzero(a[..., 3] > 0)[0]
+                if abs(c[5] + ys.max() + 1 - L['feet'][f][1]) > 2: out.append('%s %s: soles %+d against his still' % (k, I['dirs'][f], c[5] + ys.max() + 1 - L['feet'][f][1]))
+        return out
+    sf = still_feet_faults(I, PEOPLE)
+    ok('R2 standing square, every rolled man\'s soles are on his still\'s soles, every facing (two pixels)', not sf, '; '.join(sf[:4]))
+    ms = json.loads(json.dumps(I)); kp = PEOPLE[0]
+    for i in ms['looks'][kp]['poses']['bare']['C']: ms['looks'][kp]['sheets']['bare']['cells'][i][5] += 5
+    ok('R3 MUTATION: a rolled man laid five pixels low is caught', any(kp in x for x in still_feet_faults(ms, [kp])))
+    MPp = json.load(open(os.path.join(RI, I['map_people']['json']))) if I.get('map_people') else None
+    MX = {}
+    def mix_faults(MPp):
+        """on the map: in RUN TWO's own map sheet's cut (the same rigSheetSet), his idle standing square is where his still is"""
+        out = []
+        for look, v in MPp['looks'].items():
+            n = v['mix']
+            if n not in MX: MX[n] = (json.load(open(os.path.join(ROOT, 'slices/rig_mix', n + '.json'))), np.asarray(Image.open(os.path.join(ROOT, 'slices/rig_mix', n + '.png')).convert('RGBA')))
+            m, sh = MX[n]; H = 130
+            while round(H * 0.93) < m['foot']: H += 1
+            atlas = SHEETS.get(v['file']) if v['file'] in SHEETS else sheet(v['file'])
+            for f in range(8):
+                row = m['gangs'].index(look) * len(m['dirs']) + f; st = sh[row * m['h']:(row + 1) * m['h'], :m['w']]
+                ys = np.nonzero(st[..., 3] > 0)[0]; top_, bot = ys.min(), ys.max()
+                q = MPp['files'][v['file']][v['poses']['C'][f]]; c = atlas[q[1]:q[1] + q[3], q[0]:q[0] + q[2]]; yc = np.nonzero(c[..., 3] > 0)[0]
+                if abs(q[5] + yc.max() - bot) > 2 or abs(q[5] + yc.min() - top_) > 6:
+                    out.append('%s %s: soles %+d, crown %+d against his map still' % (look, I['dirs'][f], q[5] + yc.max() - bot, q[5] + yc.min() - top_))
+        return out
+    ok('R4 the map carries the rolled people who have idles', bool(MPp and MPp['looks']), 'no map_people block')
+    if MPp and MPp['looks']:
+        mx = mix_faults(MPp)
+        ok('R5 standing on the map, every rolled man\'s idle is where his still is on RUN TWO\'s own map sheet (soles two pixels, crown six), every facing', not mx, '; '.join(mx[:4]))
+        mm2 = json.loads(json.dumps(MPp)); l1 = list(mm2['looks'])[0]; v1 = mm2['looks'][l1]
+        for i in v1['poses']['C']: mm2['files'][v1['file']][i][5] -= 24
+        ok('R6 MUTATION: a rolled man laid 24 px high on the map is caught', any(l1 in x for x in mix_faults(mm2)))
 
 # ---------------------------------------------------------------------------------------------------- X the player
 PLAYER = r'''
@@ -335,4 +391,49 @@ const { open } = require(process.argv[2]);
     kinds = sorted(k[5:] for k in (R.get('seen') or {}) if k.startswith('idle:'))
     ok('W2 on the real fight, standing men play three kinds of idle or more in twelve seconds, no page error', len(kinds) >= 3 and not R.get('errs') and not R.get('err'),
        'kinds %s, errors %s' % (kinds, (R.get('errs') or [R.get('err')])[:2]))
+    # W3 THE REAL SETTLEMENT (RUN TWO's screen, his phone's profile): places are opened until one deals a keeper or a man in
+    # the crowd whose look has idles; every such man is idling there, over eight seconds he shows two kinds or more, and the
+    # screen throws nothing
+    drv3 = r'''
+const fs = require('fs'), path = require('path'), http = require('http'), ROOT = process.argv[2];
+const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp' };
+const srv = http.createServer((rq, rs) => {
+  const f = path.join(ROOT, decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, ''));
+  if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); }
+  rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs);
+});
+(async () => {
+  await new Promise(r => srv.listen(0, '127.0.0.1', r));
+  const { chromium } = require('playwright'), b = await chromium.launch();
+  const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
+  const p = await ctx.newPage(), errs = []; p.on('pageerror', e => errs.push(String(e)));
+  await p.goto('http://127.0.0.1:' + srv.address().port + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
+  await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready() && window.BohemiaIdles && BohemiaIdles.ready(), null, { timeout: 60000 });
+  let found = null;
+  for (let i = 0; i < 300 && !found; i++) {
+    await p.evaluate(nm => BohemiaSettlement.open({ place: { tier: 'town', name: nm }, traits: [], night: false }), 'Idle ' + i);
+    const h = await p.evaluate(() => BohemiaSettlement.folk().map((x, j) => ({ j: j, look: x.look })).filter(x => BohemiaIdles.meta().looks[x.look]));
+    if (h.length) found = h;
+  }
+  const kinds = {};
+  if (found) for (let t = 0; t < 8; t++) { await p.waitForTimeout(1000);
+    const r = await p.evaluate(js => js.map(j => BohemiaSettlement.folk()[j].idle || null), found.map(x => x.j));
+    r.forEach((k, i) => { (kinds[found[i].look] = kinds[found[i].look] || {}); if (k) kinds[found[i].look][k] = 1; }); }
+  console.log(JSON.stringify({ found: found, kinds: kinds, errs: errs }));
+  await b.close(); srv.close(); process.exit(0);
+})().catch(e => { console.log(JSON.stringify({ err: String(e) })); process.exit(0); });
+'''
+    if PEOPLE:
+        js3 = os.path.join(ROOT, 'gates', '.everybody_idles_settle.js'); open(js3, 'w').write(drv3)
+        try:
+            r3 = subprocess.run(['node', js3, ROOT], capture_output=True, text=True, timeout=400, cwd=ROOT)
+        finally:
+            os.remove(js3)
+        l3 = [l for l in r3.stdout.splitlines() if l.startswith('{')]
+        R3 = json.loads(l3[-1]) if l3 else {'err': r3.stdout[-300:] + r3.stderr[-300:]}
+        K = R3.get('kinds') or {}
+        lazy = [k for k in K if len(K[k]) < 2]
+        ok('W3 on the real settlement, every keeper and man in the crowd whose look has idles is idling (two kinds or more in eight seconds), no page error',
+           R3.get('found') and not lazy and not R3.get('errs') and not R3.get('err'),
+           'found %s, kinds %s, errors %s' % (bool(R3.get('found')), {k: sorted(v) for k, v in K.items()}, (R3.get('errs') or [R3.get('err')])[:2]))
 done()
