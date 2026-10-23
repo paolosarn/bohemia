@@ -43,7 +43,13 @@
    "coat": "SLATE COCOON COAT",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "FIELD BUTTON-UP",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "SLATE COCOON COAT"
+   }
   },
   {
    "look": "person_town_37",
@@ -57,7 +63,13 @@
    "coat": "STORM VEST",
    "heritage": "mixed",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "CHARCOAL STRIPED TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "STORM VEST"
+   }
   },
   {
    "look": "person_town_38",
@@ -71,7 +83,12 @@
    "coat": null,
    "heritage": "asian",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "FIELD SHORTALLS",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_39",
@@ -85,7 +102,12 @@
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "GREEN FLANNEL",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_40",
@@ -99,7 +121,12 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "BRICK TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_41",
@@ -113,7 +140,13 @@
    "coat": "SOOT TRENCH",
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "FOREST PLAID FLANNEL",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "SOOT TRENCH"
+   }
   },
   {
    "look": "person_town_42",
@@ -127,7 +160,13 @@
    "coat": "WORK JACKET",
    "heritage": "asian",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SLATE PLAID FLANNEL",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "WORK JACKET"
+   }
   },
   {
    "look": "person_town_43",
@@ -141,7 +180,13 @@
    "coat": "ASH WRAP COAT",
    "heritage": "white",
    "skin": "intermediate",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SHOULDER LONGLINE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "ASH WRAP COAT"
+   }
   },
   {
    "look": "person_town_44",
@@ -155,7 +200,13 @@
    "coat": "BARN COAT",
    "heritage": "asian",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SAND HOODIE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "BARN COAT"
+   }
   },
   {
    "look": "person_town_45",
@@ -169,7 +220,13 @@
    "coat": "BONE VEST",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "WHITE TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "BONE VEST"
+   }
   },
   {
    "look": "person_town_46",
@@ -183,7 +240,13 @@
    "coat": "TACTICAL VEST",
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SAGE TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "TACTICAL VEST"
+   }
   },
   {
    "look": "person_town_47",
@@ -197,7 +260,13 @@
    "coat": "LEATHER VEST",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "TATTERED FLANNEL",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "LEATHER VEST"
+   }
   }
  ]
 }

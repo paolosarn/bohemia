@@ -48,7 +48,13 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "OLIVE TANK",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
   },
   {
    "look": "person_colorful_1",
@@ -62,7 +68,14 @@
    "coat": "TACTICAL VEST",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "FIELD GREEN TEE",
+    "outer": "TACTICAL VEST",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
   },
   {
    "look": "person_colorful_2",
@@ -76,7 +89,13 @@
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "TEAL STRIPED TEE",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
   },
   {
    "look": "person_colorful_3",
@@ -90,7 +109,13 @@
    "coat": null,
    "heritage": "asian",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "WORK COVERALLS",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
   },
   {
    "look": "person_colorful_4",
@@ -104,7 +129,14 @@
    "coat": "GRASS WRAP COAT",
    "heritage": "asian",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "FIELD SHORTALLS",
+    "outer": "GRASS WRAP COAT",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
   },
   {
    "look": "person_colorful_5",
@@ -118,7 +150,14 @@
    "coat": "OLIVE VEST",
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "PATINA WORK SHIRT",
+    "outer": "OLIVE VEST",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
   },
   {
    "look": "person_colorful_6",
@@ -132,7 +171,13 @@
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "MOSS GREEN SHIRT",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
   },
   {
    "look": "person_colorful_7",
@@ -146,7 +191,13 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "OLIVE HENLEY",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
   }
  ]
 }

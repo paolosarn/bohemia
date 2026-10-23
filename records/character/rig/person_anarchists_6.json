@@ -6,14 +6,36 @@
   "base": "ASH ARC SHIRT",
   "outer": "SOOT TRENCH",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "LEATHER STACK PANT",
-  "feet": "LEATHER STACK BOOT"
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "BONE STACK BOOT",
+  "waist": "WIDE WAIST WRAP",
+  "outfit": [
+   "ASH ARC SHIRT and SOOT TRENCH read as one, and no colour of either cut reads apart",
+   "SOOT TRENCH worn open to the neck",
+   "the sleeve ends short of the cuff under it"
+  ]
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "TRENCH",
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.046,
+   "collar_z": 1.1,
+   "fo_add": 0.25,
+   "sleeve_to": 1.7
+  }
  },
  "model": "records/character/rig/person_anarchists_6.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,18 +45,29 @@
  "real_height_for_rig": 1.7821,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_anarchists_6_shoe": 4036,
+  "person_anarchists_6_shoe": 3836,
   "person_anarchists_6_shirt": 67536,
   "person_anarchists_6_collar": 1536,
   "person_anarchists_6_cuffs": 2048,
   "person_anarchists_6_hem": 1792,
-  "person_anarchists_6_coat": 73184,
-  "person_anarchists_6_coat_skirt": 8938,
-  "person_anarchists_6_collar.001": 1536,
+  "person_anarchists_6_coat": 65358,
+  "person_anarchists_6_coat_skirt": 8610,
+  "person_anarchists_6_collar.001": 1170,
   "person_anarchists_6_lapels": 396,
   "person_anarchists_6_cuffs.001": 2048,
   "person_anarchists_6_belt": 1792,
   "person_anarchists_6_buttons": 204,
+  "person_anarchists_6_trouser": 35674,
+  "person_anarchists_6_turn_up": 2048,
+  "person_anarchists_6_turn_up_edge": 2048,
+  "person_anarchists_6_sole_1": 242,
+  "person_anarchists_6_midsole_1": 242,
+  "person_anarchists_6_sole_0": 242,
+  "person_anarchists_6_midsole_0": 242,
+  "person_anarchists_6_boot_collar": 2048,
+  "person_anarchists_6_boot_collar_line": 2048,
+  "person_anarchists_6_wide_waist_wrap": 1792,
+  "person_anarchists_6_wide_waist_wrap_edge": 1792,
   "person_anarchists_6_hair": 30198,
   "person_anarchists_6_hair_fall": 2646,
   "person_anarchists_6_hat": 3444,
@@ -52,6 +85,16 @@
    0.0232,
    0.0232,
    0.0262
+  ],
+  "person_anarchists_6_boot_collar": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_anarchists_6_boot_collar_line": [
+   0.2122,
+   0.1746,
+   0.1046
   ],
   "person_anarchists_6_buttons": [
    0.0232,
@@ -113,30 +156,75 @@
    0.0232,
    0.0262
   ],
+  "person_anarchists_6_midsole_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_anarchists_6_midsole_1": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_anarchists_6_shirt": [
    0.0612,
    0.0612,
    0.0704
   ],
   "person_anarchists_6_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_anarchists_6_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_anarchists_6_skin": [
    0.5972,
    0.4072,
    0.2542
   ],
+  "person_anarchists_6_sole_0": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_anarchists_6_sole_1": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_anarchists_6_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
   "person_anarchists_6_trousers": [
-   0.0482,
-   0.0212,
-   0.0369
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_6_turn_up": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_anarchists_6_turn_up_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_anarchists_6_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_6_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
   ]
  }
 }

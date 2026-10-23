@@ -9484,6 +9484,12 @@ GATES = [
      "CHARACTER made, no two alike, the pieces in play counted; every one rendered on the rig with his own talking head; on 36 town "
      "screens nobody twice; on the demo's map at three zooms nobody on the glass twice (95 of 95 at the default). green at "
      "registration, 15/0, about 4 min", True),
+    ('THE SETTLEMENT IS BUSY', ['node', 'gates/the_settlement_is_busy_gate.js'],
+     "RUN TWO gate, 10/23, row [the settlement is busy] (rule 131, his 10/23: 'characters you can't even interact with walking "
+     "around the settlement, doing important things; but everyone that needs to get clicked on stands still, always'): every "
+     "tier has rolled people walking its lanes on their own walk sheets (more on market day, fewer at night, one when raided), "
+     "nobody on the screen twice, each stops at the ends of his round, two on a lane never walk as one, a tap never opens one, "
+     "the keepers and the crowd stand still over 12 s. green at registration, 10/0, about 1 min", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

@@ -45,10 +45,18 @@
    "beard": "FULL BEARD",
    "mark": null,
    "top": "STEEL PLAID FLANNEL",
-   "coat": "DENIM VEST",
+   "coat": "BONE VEST",
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "STEEL PLAID FLANNEL",
+    "outer": "BONE VEST",
+    "back": "COBALT SHOULDER MANTLE",
+    "feet": "ASH COLUMN",
+    "waist": "CHARCOAL BELT",
+    "neck": "BONE SCARF"
+   }
   },
   {
    "look": "person_blues_1",
@@ -58,11 +66,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "ROLLED WORK SHIRT",
+   "top": "BONE TANK",
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BONE TANK",
+    "back": "COBALT SHOULDER MANTLE",
+    "feet": "COBALT COLUMN",
+    "neck": "DRAPED COWL",
+    "mid": "ROLLED WORK SHIRT"
+   }
   },
   {
    "look": "person_blues_2",
@@ -72,11 +87,18 @@
    "face": null,
    "beard": "CHIN STRAP",
    "mark": "CAULIFLOWER EAR",
-   "top": "STEEL HOODIE",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "WHITE TEE",
+    "back": "SALVAGE SATCHEL",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "COBALT STACK BOOT",
+    "mid": "STEEL HOODIE"
+   }
   },
   {
    "look": "person_blues_3",
@@ -86,11 +108,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "STEEL WORK SHIRT",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "WHITE TEE",
+    "back": "COBALT SHOULDER MANTLE",
+    "legs": "CUTOFF DENIM SHORTS",
+    "feet": "TALL MOTO BOOTS",
+    "mid": "STEEL WORK SHIRT"
+   }
   },
   {
    "look": "person_blues_4",
@@ -100,11 +129,19 @@
    "face": "FACE GREY WRAPAROUNDS",
    "beard": null,
    "mark": null,
-   "top": "COBALT SHIRT",
+   "top": "MOSS GREEN SHIRT",
    "coat": "DENIM VEST",
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "MOSS GREEN SHIRT",
+    "outer": "DENIM VEST",
+    "back": "COBALT SHOULDER MANTLE",
+    "legs": "COBALT DROP TROUSER",
+    "feet": "GREY SNEAKERS",
+    "gear": "RUST GORGET"
+   }
   },
   {
    "look": "person_blues_5",
@@ -114,11 +151,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "STEEL STRIPED TEE",
+   "top": "CHARCOAL STRIPED TEE",
    "coat": "DENIM VEST",
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "CHARCOAL STRIPED TEE",
+    "outer": "DENIM VEST",
+    "back": "OXBLOOD SATCHEL",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "COBALT SNEAKERS"
+   }
   },
   {
    "look": "person_blues_6",
@@ -132,7 +176,13 @@
    "coat": null,
    "heritage": "asian",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "TATTERED FLANNEL",
+    "back": "COBALT SHOULDER MANTLE",
+    "legs": "COBALT WIDE TROUSER",
+    "feet": "COBALT STACK BOOT"
+   }
   },
   {
    "look": "person_blues_7",
@@ -146,7 +196,13 @@
    "coat": null,
    "heritage": "asian",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "STEEL PLAID FLANNEL",
+    "back": "COBALT SHOULDER MANTLE",
+    "legs": "COBALT WIDE TROUSER",
+    "feet": "COBALT STACK BOOT"
+   }
   }
  ]
 }

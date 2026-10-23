@@ -48,7 +48,15 @@
    "coat": "DUST PONCHO",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BRICK HOODIE",
+    "outer": "DUST PONCHO",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
   },
   {
    "look": "person_trades_1",
@@ -62,7 +70,15 @@
    "coat": "LEATHER JACKET",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "RUST HOODIE",
+    "outer": "LEATHER JACKET",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
   },
   {
    "look": "person_trades_2",
@@ -76,7 +92,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "RED SHIRT",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
   },
   {
    "look": "person_trades_3",
@@ -90,7 +113,15 @@
    "coat": "LEATHER HALF APRON",
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SIGNAL RED SHIRT",
+    "outer": "LEATHER HALF APRON",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
   },
   {
    "look": "person_trades_4",
@@ -104,7 +135,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SAND HOODIE",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
   },
   {
    "look": "person_trades_5",
@@ -118,7 +156,14 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BRICK HENLEY",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
   },
   {
    "look": "person_trades_6",
@@ -132,7 +177,14 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "RUST HENLEY",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
   },
   {
    "look": "person_trades_7",
@@ -146,7 +198,15 @@
    "coat": "SMITH'S APRON",
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "DUST PLAID SHIRT",
+    "outer": "SMITH'S APRON",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
   }
  ]
 }

@@ -842,11 +842,15 @@ function crowdCount(){
    inside his gang's colours) and each keeper's door and each crowd spot takes its own card: nobody on the screen is anybody
    else, a spot keeps its man at night and on market day, and every town is its own people */
 function dealt(){
-  var n = ORDER.length + (CROWD_BASE.town || 5) + 7, B = window.BohemiaRigBodies;   /* every door and the fullest crowd (market day) */
+  var n = ORDER.length + (CROWD_BASE.town || 5) + 7 + 24, B = window.BohemiaRigBodies;   /* every door, the fullest crowd (market day), and the people busy on the paths (a cast keeps its first cards whatever n is) */
   if(!B || !B.cast) return GANG_LOOKS.slice(0, n);
   if(VAR.hand && VAR.hand.length >= n && VAR.handOf === S.place.name) return VAR.hand;
   VAR.handOf = S.place.name; return (VAR.hand = B.cast(n, S.place.name + ':people'));
 }
+/* where the crowd stands when the stall's front is not open ground (10/23: in COOK's 3D towns the block south-east of the
+   stall comes up to y 556 to 680, so a crowd under the stall stood on its roof; NOBODY WALKS ON A WALL OR A ROOF): the open
+   sand west of the stall, read by eye off the picture */
+var CROWD_AT = {'town_0.webp': {x:905, y:742}, 'town_1.webp': {x:905, y:742}};
 function folkList(){
   if(!VAR || !GANG_LOOKS.length) return [];
   var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
@@ -856,12 +860,71 @@ function folkList(){
     var lp = KEEPER_LOOPS[i % KEEPER_LOOPS.length]; R();   /* the die the gang look took: everybody keeps his spot */
     out.push({k:k, keeper:true, look:hand[i], clip:KEEPER_CLIP[k] || 'wait', face:lp[0], loop:lp, beat:Math.floor(R()*4),
       x:(b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, y:b[3] - 2, ph:R()}); });
-  var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount();
+  var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount(), at = CROWD_AT[VAR.src];
   for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7, lq = CROWD_LOOPS[Math.floor(R()*CROWD_LOOPS.length)];
     R(); out.push({crowd:true, slot:q, look:hand[ORDER.length + q], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:lq[0], loop:lq, beat:Math.floor(R()*4),
-      x:(st[0]+st[2])/2 + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, st[3] + personH()*.94 + R()*8), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall */
+      x:(at ? at.x : (st[0]+st[2])/2) + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, (at ? at.y + R()*8 : st[3] + personH()*.94 + R()*8) + (q % 2) * 24), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall; every other one a step nearer, so a crowd is a knot of people, not a line (rule 130: never a chess row) */
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
+}
+/* THE SETTLEMENT IS BUSY (RUN TWO [the settlement is busy], 10/23, rule 131, Paolo 10/23: 'in the settlement you don't have
+   to make every character matter; I would like to see characters you can't even interact with walking around the
+   settlement, doing something, doing important things; but everyone that needs to get clicked on stands still, always').
+   Background people walk the place's paths: each a rolled person from the place's own hand, after the keepers and the
+   crowd (so still nobody twice on the screen), walking his lane on his own sheet (slices/rig_walk) at the walk's own pace
+   (one stride of six keys every two beats, 120 BPM), stopping at each end of his round for a few beats facing the buildings, the
+   way a man stops at a door to do a job, then walking back. Nobody can tap one: personAt() reads the keepers and the
+   crowd only, so the people who matter stand still on their spot, always, and the moving ones read apart at a glance.
+   The lanes are read by eye off each picture (picture px): feet on y, between x0 and x1, clear of every building, car
+   and stall. ANIMATION's work clips (hauling, sweeping, carrying) take the stops' place when they land (rule 130(a)). */
+var BUSY_BASE = {camp:2, town:4, fortress:4, home:2};
+var BUSY_LANES = {
+  town: [{y:606, x0:40, x1:2020, face:'S'}, {y:388, x0:700, x1:1540, face:'N'}],
+  camp: [{y:832, x0:80, x1:1650, face:'N'}, {y:566, x0:450, x1:1080, face:'N'}],
+  fortress: [{y:562, x0:1080, x1:1900, face:'N'}, {y:1002, x0:480, x1:1300, face:'S'}],
+  home: [{y:628, x0:40, x1:1200, face:'N'}, {y:628, x0:1380, x1:2020, face:'N'}]
+};
+/* a picture whose layout differs from its tier's first (COOK's second town: its lower block's roof comes up to y 556 east of
+   x 1240, and two cars stand on the north walk) */
+var BUSY_LANES_BY_PIC = {'town_1.webp': [{y:606, x0:40, x1:1180, face:'S'}, {y:388, x0:1010, x1:1350, face:'N'}, {y:388, x0:40, x1:860, face:'N'}]};
+function busyLanes(){ return (VAR && BUSY_LANES_BY_PIC[VAR.src]) || BUSY_LANES[S.place.tier] || BUSY_LANES.town; }
+var WALK_PX_PER_STRIDE = 74, STRIDE_MS = 1000;   /* one stride (the walk's six keys, two beats at 120 BPM) on the rig's man is about 1.3 m at the render's 57 px a metre */
+function busyCount(){
+  var n = BUSY_BASE[S.place.tier] || 2, tr = (S.traits||[]).map(function(t){ return t.id; });
+  if(tr.indexOf('market_day') >= 0) n += 2;
+  if(tr.indexOf('raided') >= 0 || tr.indexOf('sickness') >= 0) n = Math.min(n, 1);
+  if(view.night) n = Math.ceil(n/2);
+  return n;
+}
+function busyList(){
+  var B = window.BohemiaRigBodies; if(!VAR || !B || !B.canWalk) return [];
+  var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
+  if(VAR.busyKey === key) return VAR.busy;
+  var lanes = busyLanes(), hand = dealt(), folk = folkList(), R = rng(seedOf(S.place.name + ':busy')), out = [], onLane = {};
+  var pool = hand.slice(ORDER.length + (CROWD_BASE.town || 5) + 7).filter(function(l){ return B.canWalk(l); }), n = busyCount();
+  /* a stop is never on somebody's spot: a man working at a door does not stand on its keeper */
+  var clear = function(x, y){ return folk.every(function(p){ return Math.abs(p.x - x) > 70 || Math.abs(p.y - y) > personH()*.6; }); };
+  /* a lane's round: its two stops (where a man works), the same for everybody on it, so men on one lane keep their
+     distance for ever: their rounds are one length, spread around it, and they only ever pass going opposite ways */
+  var rounds = lanes.map(function(ln){ var span = ln.x1 - ln.x0, a = ln.x0 + R()*span*.25, b = ln.x1 - R()*span*.25, y = ln.y;
+    for(var t = 0; t < 8 && !clear(a, y); t++) a += 40;
+    for(var t2 = 0; t2 < 8 && !clear(b, y); t2++) b -= 40;
+    if(b - a < 320) { a = Math.max(ln.x0, (a + b)/2 - 160); b = Math.min(ln.x1, a + 320); }
+    return {a:a, b:b, stop:(3 + Math.floor(R()*4)) * 500}; });
+  for(var i = 0; i < n && i < pool.length; i++){
+    var li = i % lanes.length, ln = lanes[li], rd = rounds[li], j = onLane[li] = (onLane[li] || 0) + 1;
+    out.push({busy:true, slot:i, look:pool[i], y:ln.y + (j - 1) * 6 - 6, a:rd.a, b:rd.b, face:ln.face, stop:rd.stop, lane:li, j:j - 1, ph:R()});
+  }
+  out.forEach(function(w){ var m = onLane[w.lane]; if(m > 1) w.ph = (w.j + .1) / m; });
+  VAR.busyKey = key; VAR.busy = out; return out;
+}
+/* where a busy man is at a time: out along his lane, his stop, back, his stop, round again */
+function busyAt(w, now){
+  var v = WALK_PX_PER_STRIDE * rigScale() / STRIDE_MS, D = (w.b - w.a) / v, T = 2*D + 2*w.stop, t = ((now + w.ph*T) % T + T) % T;
+  if(t < D) return {x:w.a + v*t, turn:'E', walking:t};
+  if(t < D + w.stop) return {x:w.b, turn:w.face, working:t - D};
+  if(t < 2*D + w.stop){ var u = t - D - w.stop; return {x:w.b - v*u, turn:'W', walking:u}; }
+  return {x:w.a, turn:w.face, working:t - 2*D - w.stop};
 }
 var BENCH_IM = {};
 ['smith','armourer'].forEach(function(k){ var im = new Image(); im.src = 'market_icons/b_' + k + '.png'; BENCH_IM[k] = im; });
@@ -885,14 +948,28 @@ function duskOf(r){
 }
 function drawPeople(s){
   var L = folkList(), B = window.BohemiaRigBodies; if(!L.length || !B) return;
-  var k = rigScale(), now = performance.now(), H = personH()*s;
+  var k = rigScale(), now = performance.now(), H = personH()*s, items = [];
   L.forEach(function(p){
     if(!p.pre){ p.pre = 1; p.loop.forEach(function(t){ B.standing(p.look, t); }); }   /* every turn he will look, asked for once */
     var r = B.standing(p.look, turnOf(p, now)) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one */
-    var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;
-    cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
-    cx.drawImage(view.night ? duskOf(r) : r.im, Math.round(fx - r.mid*k*s), Math.round(fy - r.foot*k*s), Math.round(w), Math.round(h));
+    items.push({y:p.y, draw:function(){
+      var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;
+      cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
+      cx.drawImage(view.night ? duskOf(r) : r.im, Math.round(fx - r.mid*k*s), Math.round(fy - r.foot*k*s), Math.round(w), Math.round(h)); }});
   });
+  /* THE SETTLEMENT IS BUSY: the walkers, in depth with everybody else; one not in yet is not drawn (never a stand-in look) */
+  if(B.walk && !view.noBusy) busyList().forEach(function(w){
+    var e = B.walk(w.look); if(!e) return;
+    var at = busyAt(w, now), m = e.meta, row = Math.max(0, m.dirs.indexOf(at.turn)),
+        col = at.walking != null ? m.walk[Math.floor(at.walking / (STRIDE_MS / m.walk.length)) % m.walk.length]
+            : (m.work && m.work.length) ? m.work[Math.floor(at.working / (500 / 3)) % m.work.length] : m.still;   /* a work clip at the stop when ANIMATION's are on his sheet ('work' columns, three keys a beat) */
+    w.x = at.x;
+    items.push({y:w.y, draw:function(){
+      var fx = view.ox + at.x*s, fy = view.oy + w.y*s, img = view.night ? (e.dusk || (e.dusk = duskOf({im:e.im}))) : e.im;
+      cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
+      cx.drawImage(img, col*m.w, row*m.h, m.w, m.h, Math.round(fx - m.mid*k*s), Math.round(fy - m.foot*k*s), Math.round(m.w*k*s), Math.round(m.h*k*s)); }});
+  });
+  items.sort(function(a, b){ return a.y - b.y; }).forEach(function(it){ it.draw(); });
 }
 
 function draw(){
@@ -1656,7 +1733,7 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

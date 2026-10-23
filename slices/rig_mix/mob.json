@@ -48,7 +48,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "CHARCOAL STRIPED TEE",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "LEATHER BELT"
+   }
   },
   {
    "look": "person_mob_1",
@@ -62,7 +69,14 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SAGE HOODIE",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "LEATHER BELT"
+   }
   },
   {
    "look": "person_mob_2",
@@ -73,10 +87,17 @@
    "beard": null,
    "mark": "BROW SCAR",
    "top": "LONGLINE JERSEY",
-   "coat": "LEATHER VEST",
+   "coat": "QUILTED VEST",
    "heritage": "asian",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "LONGLINE JERSEY",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "feet": "COLUMN PANT-BOOT",
+    "waist": "LEATHER BELT",
+    "outer": "QUILTED VEST"
+   }
   },
   {
    "look": "person_mob_3",
@@ -90,7 +111,14 @@
    "coat": null,
    "heritage": "black",
    "skin": "brown",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SAND HOODIE",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "LEATHER BELT"
+   }
   },
   {
    "look": "person_mob_4",
@@ -104,7 +132,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "RUST HENLEY",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "LEATHER BELT"
+   }
   },
   {
    "look": "person_mob_5",
@@ -118,7 +153,14 @@
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SAGE FLANNEL",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "LEATHER BELT"
+   }
   },
   {
    "look": "person_mob_6",
@@ -132,7 +174,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "ASH HOODIE",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "LEATHER BELT"
+   }
   },
   {
    "look": "person_mob_7",
@@ -146,7 +195,15 @@
    "coat": "RUST VEST",
    "heritage": "asian",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "BLACK TANK",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "LEATHER BELT",
+    "outer": "RUST VEST"
+   }
   }
  ]
 }

@@ -32,12 +32,12 @@
   "M": "records/target/character/barber/person_anarchists_6/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  38,
+  37,
   39,
-  180,
+  181,
   218
  ],
  "model": "records/character/rig/barber_person_anarchists_6.glb",
  "body_rig": "rig.json",
- "colours": 29302
+ "colours": 30013
 }

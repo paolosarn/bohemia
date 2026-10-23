@@ -48,7 +48,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "ROLLED FLANNEL",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
   },
   {
    "look": "person_caravans_1",
@@ -62,7 +69,14 @@
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RUST TANK",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
   },
   {
    "look": "person_caravans_2",
@@ -76,7 +90,14 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BRICK TEE",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
   },
   {
    "look": "person_caravans_3",
@@ -90,7 +111,15 @@
    "coat": "QUILTED VEST",
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SCAVENGER FLANNEL",
+    "outer": "QUILTED VEST",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
   },
   {
    "look": "person_caravans_4",
@@ -104,7 +133,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BRICK HOODIE",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
   },
   {
    "look": "person_caravans_5",
@@ -118,7 +154,15 @@
    "coat": "LEATHER VEST",
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "RUST HENLEY",
+    "outer": "LEATHER VEST",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
   },
   {
    "look": "person_caravans_6",
@@ -132,7 +176,15 @@
    "coat": "RUST VEST",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "DUST PLAID SHIRT",
+    "outer": "RUST VEST",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
   },
   {
    "look": "person_caravans_7",
@@ -146,7 +198,14 @@
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RUST STRIPED TEE",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
   }
  ]
 }

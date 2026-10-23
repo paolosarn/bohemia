@@ -48,7 +48,13 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SAGE STRIPED HENLEY",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_homeless_1",
@@ -62,7 +68,13 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "TATTERED TEE",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_homeless_2",
@@ -76,7 +88,13 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SAGE TEE",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_homeless_3",
@@ -90,7 +108,14 @@
    "coat": "SAGE VEST",
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "STRIPED TEE",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT",
+    "outer": "SAGE VEST"
+   }
   },
   {
    "look": "person_homeless_4",
@@ -104,7 +129,13 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BONE BUTTON-UP",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_homeless_5",
@@ -118,7 +149,13 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BONE HENLEY",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_homeless_6",
@@ -132,7 +169,13 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SLATE SHORT-SLEEVE",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_homeless_7",
@@ -146,7 +189,14 @@
    "coat": "BONE VEST",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BONE TANK",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT",
+    "outer": "BONE VEST"
+   }
   }
  ]
 }

@@ -5,14 +5,32 @@
   "hair": "LAYERED FALL",
   "base": "BLACK TANK",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "LEATHER STACK PANT",
-  "feet": "LEATHER STACK BOOT"
+  "legs": "STORM GREY SWEATS",
+  "feet": "CHARCOAL BOOTS",
+  "back": "ONE-SHOULDER DRAPE",
+  "outfit": [
+   "an open DUST PLAID SHIRT over the BLACK TANK"
+  ],
+  "mid": "DUST PLAID SHIRT"
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.01,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_anarchists_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,8 +40,25 @@
  "real_height_for_rig": 1.7821,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_anarchists_0_shoe": 4036,
+  "person_anarchists_0_shoe": 3716,
   "person_anarchists_0_shirt": 21164,
+  "person_anarchists_0_trouser": 43706,
+  "person_anarchists_0_cuff": 2048,
+  "person_anarchists_0_sole_1": 242,
+  "person_anarchists_0_midsole_1": 242,
+  "person_anarchists_0_sole_0": 242,
+  "person_anarchists_0_midsole_0": 242,
+  "person_anarchists_0_boot_collar": 2048,
+  "person_anarchists_0_boot_collar_line": 2048,
+  "person_anarchists_0_eyelets_1": 120,
+  "person_anarchists_0_eyelets_0": 120,
+  "person_anarchists_0_one-shoulder_drape": 25340,
+  "person_anarchists_0_mid_shirt": 38892,
+  "person_anarchists_0_mid_collar": 1536,
+  "person_anarchists_0_mid_collar_points": 180,
+  "person_anarchists_0_mid_front_edge": 396,
+  "person_anarchists_0_mid_sleeve_hem": 2048,
+  "person_anarchists_0_mid_tail": 1818,
   "person_anarchists_0_hair": 30198,
   "person_anarchists_0_hair_fall": 2646,
   "person_anarchists_0_hat": 3444,
@@ -36,6 +71,31 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_anarchists_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_anarchists_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_anarchists_0_cuff": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_0_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_anarchists_0_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_anarchists_0_eyes": [
    0.0212,
@@ -62,30 +122,110 @@
    0.0343,
    0.0369
   ],
+  "person_anarchists_0_mid_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_0_mid_collar_points": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_0_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_0_mid_front_edge": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_0_mid_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_0_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_0_mid_sleeve_hem": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_0_mid_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_0_mid_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_0_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_anarchists_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_anarchists_0_one-shoulder_drape": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
   "person_anarchists_0_shirt": [
    0.0232,
    0.0232,
    0.0356
   ],
   "person_anarchists_0_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_anarchists_0_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_anarchists_0_skin": [
    0.0723,
    0.0319,
    0.0252
   ],
+  "person_anarchists_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_anarchists_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_anarchists_0_trouser": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
   "person_anarchists_0_trousers": [
-   0.0482,
-   0.0212,
-   0.0369
+   0.0595,
+   0.0648,
+   0.0802
   ]
  }
 }

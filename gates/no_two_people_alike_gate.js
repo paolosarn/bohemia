@@ -84,7 +84,7 @@ const srv = http.createServer((rq, rs) => {
     await p.evaluate(o => BohemiaSettlement.open({ place: { tier: o.tier, name: o.name }, traits: o.tr, night: o.night }), { tier, name, night: t[0], tr: t[1] });
     await p.waitForTimeout(120);
     const L = await p.evaluate(() => BohemiaSettlement.folk().map(x => ({ look: x.look, face: window.BohemiaCrewFaces ? BohemiaCrewFaces.src(x.look, 'A', 128) : null })));
-    const looks = L.map(x => x.look);
+    const looks = L.map(x => x.look).concat(await p.evaluate(() => BohemiaSettlement.busy ? BohemiaSettlement.busy().map(w => w.look) : []));   /* and the people busy on the paths (rule 131) */
     towns.push(looks.length);
     if (new Set(looks).size !== looks.length) twice.push(tier + ' ' + name + (t[0] ? ' night' : '') + (t[1][0] ? ' market' : ''));
     L.forEach(x => { if (!/^person_/.test(x.look)) unrolled.push(x.look); if (!x.face || x.face.indexOf('/' + x.look + '/face/') < 0) faceless.push(x.look); });

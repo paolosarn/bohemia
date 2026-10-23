@@ -31,7 +31,9 @@
      BohemiaRigBodies.person(look)                who he is (gang, cut, hat, face piece, beard, mark, top, coat, skin), or null
      BohemiaRigBodies.cast(n, seed, gangs)        n looks, NO TWO ALIKE, dealt from the people of those gangs (all of them when
                                                   none named), the same n for the same seed; a gang look only when the mix is
-                                                  not loaded */
+                                                  not loaded
+     BohemiaRigBodies.canWalk(look) / walk(look)  a rolled walker and his walk sheet {im, meta: w h foot mid cols dirs walk still}
+                                                  once in (slices/rig_walk), else null and it starts loading */
 (function (root) {
   'use strict';
   var TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
@@ -104,6 +106,22 @@
     });
     return null;
   }
+  /* THE SETTLEMENT IS BUSY (RUN TWO, 10/23, rule 131): a walker's own sheet (slices/rig_walk/<look>.png, his still and the six
+     keys of his walk in eight turns, his own 256 colours); walk(look) is {im, meta} once in, else null and it starts loading */
+  var WBASE = 'rig_walk/', WALK = {};
+  function canWalk(look) { var p = person(look); return !!(p && !p.stands); }
+  function walk(look) {
+    if (!canWalk(look)) return null;
+    var e = WALK[look];
+    if (e) return e.im ? e : null;
+    WALK[look] = e = {};
+    var b = root.BOHEMIA_RIG_WALK_BASE || WBASE;
+    if (typeof fetch === 'undefined') return null;
+    fetch(b + look + '.json').then(function (r) { return r.json(); }).then(function (m) {
+      load(b + look + '.png', function (im) { if (im) { e.meta = m; e.im = im; } });
+    }).catch(function () {});
+    return null;
+  }
   root.BohemiaRigBodies = { TURNS: TURNS, GANGS: GANGS, LOOKS: LOOKS, FIG_H: FIG_H, has: has, src: src, image: image,
-    gangOf: gangOf, standing: standing, people: people, person: person, cast: cast };
+    gangOf: gangOf, standing: standing, people: people, person: person, cast: cast, canWalk: canWalk, walk: walk };
 })(typeof window !== 'undefined' ? window : this);

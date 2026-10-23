@@ -48,7 +48,13 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "WORK COVERALLS",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
   },
   {
    "look": "person_remnants_1",
@@ -62,7 +68,13 @@
    "coat": null,
    "heritage": "mixed",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "OLIVE TANK",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
   },
   {
    "look": "person_remnants_2",
@@ -76,7 +88,13 @@
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "MOSS GREEN SHIRT",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
   },
   {
    "look": "person_remnants_3",
@@ -90,7 +108,13 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "OLIVE DRAB TEE",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
   },
   {
    "look": "person_remnants_4",
@@ -104,7 +128,14 @@
    "coat": "OLIVE CAR COAT",
    "heritage": "white",
    "skin": "intermediate",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "OLIVE HOODIE",
+    "outer": "OLIVE CAR COAT",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
   },
   {
    "look": "person_remnants_5",
@@ -118,7 +149,14 @@
    "coat": "OLIVE VEST",
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "FIELD SHORTALLS",
+    "outer": "OLIVE VEST",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
   },
   {
    "look": "person_remnants_6",
@@ -132,7 +170,14 @@
    "coat": "GRASS WRAP COAT",
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "OLIVE HENLEY",
+    "outer": "GRASS WRAP COAT",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
   },
   {
    "look": "person_remnants_7",
@@ -146,7 +191,14 @@
    "coat": "GRASS CAR COAT",
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "OLIVE HENLEY",
+    "outer": "GRASS CAR COAT",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
   }
  ]
 }

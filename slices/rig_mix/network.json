@@ -48,7 +48,13 @@
    "coat": "TEAL COCOON COAT",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "TEAL WORK SHIRT",
+    "outer": "TEAL COCOON COAT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_network_1",
@@ -62,7 +68,13 @@
    "coat": "RANGER LONGCOAT",
    "heritage": "black",
    "skin": "brown",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "PATINA WORK SHIRT",
+    "outer": "RANGER LONGCOAT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_network_2",
@@ -76,7 +88,13 @@
    "coat": "RANGER LONGCOAT",
    "heritage": "mixed",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "TEAL STRIPED TEE",
+    "outer": "RANGER LONGCOAT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_network_3",
@@ -90,7 +108,13 @@
    "coat": "TEAL COCOON COAT",
    "heritage": "white",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "PATINA PLAID FLANNEL",
+    "outer": "TEAL COCOON COAT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_network_4",
@@ -104,7 +128,13 @@
    "coat": "TEAL COCOON COAT",
    "heritage": "black",
    "skin": "brown",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "PATINA WORK SHIRT",
+    "outer": "TEAL COCOON COAT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_network_5",
@@ -118,7 +148,13 @@
    "coat": "RANGER LONGCOAT",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "TEAL WORK SHIRT",
+    "outer": "RANGER LONGCOAT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_network_6",
@@ -132,7 +168,12 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "PATINA PLAID FLANNEL",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   },
   {
    "look": "person_network_7",
@@ -146,7 +187,12 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "TEAL STRIPED TEE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
   }
  ]
 }

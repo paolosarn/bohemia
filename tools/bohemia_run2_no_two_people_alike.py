@@ -248,6 +248,7 @@ def make(pid):
     t1 = time.time()
     if run([py, '-c', render_code(glb, out, h, stand_only=standing_only(pid))], os.path.join(out, 'rig.json')):
         faces(out); prune(out); stow(tag)
+        with open(os.path.join(out, 'made.txt'), 'w') as f: f.write(STAMP + '\n')
         for f in (glb, os.path.join(ROOT, 'records/character/rig/%s.glb' % tag)):   # 25 MB a person, rebuilt from the roll on demand
             if os.path.exists(f): os.remove(f)
         print('MADE %s build %.0fs render %.0fs' % (pid, t1 - t0, time.time() - t1), flush=True)
@@ -286,7 +287,10 @@ def fight_list():
 
 
 def fight_todo():
-    return [p['id'] for p in fight_list() if not os.path.exists(os.path.join(ROOT, FIGHT_RENDERS, 'person_' + p['id'].lower(), 'rig.json'))]
+    def done(pid):
+        try: return open(os.path.join(ROOT, FIGHT_RENDERS, 'person_' + pid.lower(), 'made.txt')).read().strip() == STAMP
+        except OSError: return False
+    return [p['id'] for p in fight_list() if not done(p['id'])]
 
 
 def fight_make(pid):
@@ -307,6 +311,7 @@ def fight_make(pid):
             if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
         for f in (glb, posed, os.path.join(ROOT, 'records/character/rig/%s.glb' % tag)):
             if os.path.exists(f): os.remove(f)
+        with open(os.path.join(out, 'made.txt'), 'w') as f: f.write(STAMP + '\n')
         print('FOUGHT %s build+pose %.0fs render %.0fs' % (pid, t1 - t0, time.time() - t1), flush=True)
 
 
@@ -399,9 +404,49 @@ def standing_only(pid):
     return pid.startswith('town_') and pid not in [p['id'] for p in fight_list()]
 
 
+STAMP = 'layers-10-23'   # CHARACTER [the clothes look real] (rule 129): the outfit's layers, his trousers, shoes and gear off his id
+
+
+def made(tag):
+    d = os.path.join(ROOT, OUT, tag)
+    try: return os.path.exists(os.path.join(d, 'face', 'M_128.png')) and open(os.path.join(d, 'made.txt')).read().strip() == STAMP
+    except OSError: return False
+
+
+def walk_sheets():
+    """THE SETTLEMENT IS BUSY (rule 131): a walker's own sheet for the town screen, slices/rig_walk/<look>.png/.json, a row
+    per turn (S SE E NE N NW W SW), his still then the six keys of his walk, every cell his own box with his ground pixel at
+    one spot, held to 256 colours of HIS OWN (one man's palette: a tan face stays tan, unlike a sheet shared by thirteen)"""
+    from PIL import Image
+    od = os.path.join(ROOT, 'slices/rig_walk'); os.makedirs(od, exist_ok=True)
+    dirs = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']; n = 0
+    for p in json.load(open(ROLL)):
+        tag = 'person_' + p['id'].lower(); d = frames_of(tag)
+        if standing_only(p['id']) or not os.path.exists(os.path.join(d, 'rig_Anim_0_S_k05.png')): continue
+        gx, gy = json.load(open(os.path.join(ROOT, OUT, tag, 'rig.json')))['ground_px']
+        F = [[Image.open(os.path.join(d, 'rig_%s.png' % t)).convert('RGBA')] +
+             [Image.open(os.path.join(d, 'rig_Anim_0_%s_k%02d.png' % (t, k))).convert('RGBA') for k in range(6)] for t in dirs]
+        bb = [im.getbbox() for row in F for im in row if im.getbbox()]
+        half = max(max(gx - b[0], b[2] - gx) for b in bb) + 1
+        top, bot = min(b[1] for b in bb), max(b[3] for b in bb)
+        w, h, foot = 2 * half, bot - top + 1, gy - top
+        sheet = Image.new('RGBA', (w * 7, h * 8), (0, 0, 0, 0))
+        for r, row in enumerate(F):
+            for c, im in enumerate(row): sheet.alpha_composite(im, (c * w + half - gx, r * h - top))
+        sheet.quantize(256, method=Image.FASTOCTREE, dither=Image.NONE).save(os.path.join(od, tag + '.png'), optimize=True)
+        with open(os.path.join(od, tag + '.json'), 'w') as f:
+            json.dump(dict(w=w, h=h, foot=foot, mid=half, cols=7, dirs=dirs, walk=[1, 2, 3, 4, 5, 6], still=0, look=tag), f); f.write('\n')
+        n += 1
+    print('walk sheets', n, '->', os.path.relpath(od, ROOT))
+
+
 def todo():
-    return [p['id'] for p in json.load(open(ROLL))
-            if not os.path.exists(os.path.join(ROOT, OUT, 'person_' + p['id'].lower(), 'face', 'M_128.png'))]
+    return [p['id'] for p in json.load(open(ROLL)) if not made('person_' + p['id'].lower())]
+
+
+def rendered():
+    """everybody with a finished render, whatever round made it (the index and the sheets read these)"""
+    return [p['id'] for p in json.load(open(ROLL)) if os.path.exists(os.path.join(ROOT, OUT, 'person_' + p['id'].lower(), 'face', 'M_128.png'))]
 
 
 def wipe():
@@ -432,18 +477,26 @@ BAND = {'porcelain': 'very light', 'chalk': 'very light', 'pale': 'very light', 
 
 
 def who(p):
-    """one person as the screens read him: his look, his gang ('town' for a person of the place), every piece he wears,
-    and what his face reads as for his name (a beard or stubble reads as a man; a clean face is not read)"""
-    return dict(look='person_' + p['id'].lower(), gang=p['gang'].lower() if p['gang'] != TOWN else 'town',
-                cut=p['hair_cut'], hat=p.get('hat'), face=p.get('eyewear'), beard=p.get('facial_hair'), mark=p.get('mark_name'),
-                top=p.get('top'), coat=p.get('coat'), heritage=p['heritage'], skin=BAND.get(p['tone']),
-                sex='m' if (p.get('facial_hair') or p.get('stubble')) else None)
+    """one person as the screens read him: his look, his gang ('town' for a person of the place), every piece he wears
+    (read off his build when it is made: CHARACTER's outfit may wear his top or coat in another colour of the same cut, and
+    adds his trousers, shoes and gear), and what his face reads as for his name (a beard or stubble reads as a man)"""
+    q = dict(look='person_' + p['id'].lower(), gang=p['gang'].lower() if p['gang'] != TOWN else 'town',
+             cut=p['hair_cut'], hat=p.get('hat'), face=p.get('eyewear'), beard=p.get('facial_hair'), mark=p.get('mark_name'),
+             top=p.get('top'), coat=p.get('coat'), heritage=p['heritage'], skin=BAND.get(p['tone']),
+             sex='m' if (p.get('facial_hair') or p.get('stubble')) else None)
+    bj = os.path.join(ROOT, 'records/character/rig/person_%s.json' % p['id'].lower())
+    if os.path.exists(bj):
+        w = json.load(open(bj)).get('worn') or {}
+        q['top'] = w.get('base', q['top']); q['coat'] = w.get('outer', q['coat'])
+        q['wears'] = {k: v for k, v in w.items() if k not in ('hair', 'outfit') and v}
+    return q
 
 
 def index():
     """engine/bohemia_people_mix.js: everyone rendered, read by engine/bohemia_rig_bodies.js (the body) and
     engine/bohemia_crew_faces.js (the talking face) before any screen draws a man"""
-    people = [who(p) for p in json.load(open(ROLL)) if p['id'] not in todo()]
+    have = set(rendered())
+    people = [who(p) for p in json.load(open(ROLL)) if p['id'] in have]
     fought = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))['looks']
     for q in people:
         if q['look'] in fought: q['fight'] = True   # his sheet is on the fight's board: the hall may hire him
@@ -471,8 +524,8 @@ def bake():
     own rigSheetSet() cuts it as it is, and a map fetches a gang's sheet only when that gang is first drawn (one sheet of
     116 people would be 126,000 px tall, past what a phone decodes)"""
     import bohemia_bake_the_rig_cast as BK
-    done = set(todo())
-    people = [who(p) for p in json.load(open(ROLL)) if p['id'] not in done]
+    have = set(rendered())
+    people = [who(p) for p in json.load(open(ROLL)) if p['id'] in have]
     by = {}
     for q in people: by.setdefault(q['gang'], []).append(q)
     od = os.path.join(ROOT, 'slices/rig_mix'); os.makedirs(od, exist_ok=True)
@@ -510,6 +563,7 @@ if __name__ == '__main__':
     elif cmd == 'worker': worker(int(sys.argv[2]), int(sys.argv[3]))
     elif cmd == 'bake': bake()
     elif cmd == 'index': index()
+    elif cmd == 'walk-sheets': walk_sheets()
     elif cmd == 'stow':
         for q in json.load(open(ROLL)): stow('person_' + q['id'].lower())
     elif cmd == 'fight-make': fight_make(sys.argv[2])

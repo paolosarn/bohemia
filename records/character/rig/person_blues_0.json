@@ -1,19 +1,39 @@
 {
  "look": "PERSON_BLUES_0",
- "shape": "person_blues_0: a person of the Blues, his own skin skin_light 3, STEEL PLAID FLANNEL under DENIM VEST",
+ "shape": "person_blues_0: a person of the Blues, his own skin skin_light 3, STEEL PLAID FLANNEL under BONE VEST",
  "worn": {
   "hair": "DRY TAPER",
   "base": "STEEL PLAID FLANNEL",
-  "outer": "DENIM VEST",
+  "outer": "BONE VEST",
   "back": "COBALT SHOULDER MANTLE",
-  "legs": "COBALT WIDE TROUSER",
-  "feet": "COBALT STACK BOOT"
+  "feet": "ASH COLUMN",
+  "waist": "CHARCOAL BELT",
+  "neck": "BONE SCARF",
+  "outfit": [
+   "STEEL PLAID FLANNEL read as one with DENIM VEST (88 and 78 of 255) and no colour of that top reads apart: the same coat in BONE VEST (154)",
+   "BONE VEST worn open to the neck",
+   "the flannel's hem below the vest"
+  ]
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_blues_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,20 +43,25 @@
  "real_height_for_rig": 1.7002,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_blues_0_trouser": 2568,
-  "person_blues_0_shoe": 3916,
-  "person_blues_0_mantle": 11634,
+  "person_blues_0_shoe": 3148,
+  "person_blues_0_mantle": 10634,
   "person_blues_0_shirt": 71276,
   "person_blues_0_collar": 1536,
   "person_blues_0_collar_points": 180,
   "person_blues_0_placket": 162,
   "person_blues_0_buttons": 204,
   "person_blues_0_cuffs": 2048,
-  "person_blues_0_tail": 2016,
-  "person_blues_0_coat": 22194,
+  "person_blues_0_tail": 2912,
+  "person_blues_0_coat": 21594,
   "person_blues_0_lapels": 396,
-  "person_blues_0_chest_pockets": 252,
-  "person_blues_0_chest_flaps": 252,
+  "person_blues_0_column": 74570,
+  "person_blues_0_column_sole_1": 242,
+  "person_blues_0_column_sole_0": 242,
+  "person_blues_0_charcoal_belt": 1792,
+  "person_blues_0_charcoal_belt_buckle": 34,
+  "person_blues_0_bone_scarf": 3072,
+  "person_blues_0_bone_scarf_tail": 162,
+  "person_blues_0_bone_scarf_fringe": 54,
   "person_blues_0_hair": 17968,
   "person_blues_0_hand_L": 392,
   "person_blues_0_hand_R": 392
@@ -47,25 +72,40 @@
    0.8,
    0.8
   ],
+  "person_blues_0_bone_scarf": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_blues_0_bone_scarf_fringe": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_blues_0_bone_scarf_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
   "person_blues_0_buttons": [
    0.1329,
    0.2051,
    0.305
   ],
-  "person_blues_0_chest_flaps": [
-   0.0176,
-   0.0319,
+  "person_blues_0_charcoal_belt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_blues_0_charcoal_belt_buckle": [
+   0.0823,
+   0.0762,
    0.0823
   ],
-  "person_blues_0_chest_pockets": [
-   0.0423,
-   0.0802,
-   0.1946
-  ],
   "person_blues_0_coat": [
-   0.0423,
-   0.0802,
-   0.1946
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_blues_0_collar": [
    0.063,
@@ -81,6 +121,21 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_blues_0_column": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_blues_0_column_sole_0": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_blues_0_column_sole_1": [
+   0.0232,
+   0.0232,
+   0.0252
   ],
   "person_blues_0_cuffs": [
    0.063,
@@ -98,9 +153,9 @@
    0.008
   ],
   "person_blues_0_lapels": [
-   0.0176,
-   0.0319,
-   0.0823
+   0.2122,
+   0.1746,
+   0.1046
   ],
   "person_blues_0_mantle": [
    0.0612,
@@ -133,14 +188,14 @@
    0.8
   ],
   "person_blues_0_shoe": [
-   0.0423,
-   0.0409,
-   0.0452
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_blues_0_shoes": [
-   0.0423,
-   0.0409,
-   0.0452
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_blues_0_skin": [
    0.7454,
@@ -157,15 +212,10 @@
    0.8,
    0.8
   ],
-  "person_blues_0_trouser": [
-   0.1046,
-   0.1022,
-   0.107
-  ],
   "person_blues_0_trousers": [
-   0.1046,
-   0.1022,
-   0.107
+   0.0612,
+   0.0612,
+   0.0704
   ]
  }
 }

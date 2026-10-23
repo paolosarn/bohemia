@@ -48,7 +48,14 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RUST STRIPED TEE",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS"
+   }
   },
   {
    "look": "person_church_1",
@@ -62,7 +69,14 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SAND HOODIE",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS"
+   }
   },
   {
    "look": "person_church_2",
@@ -76,7 +90,15 @@
    "coat": "LEATHER VEST",
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "KHAKI BUTTON-UP",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS",
+    "outer": "LEATHER VEST"
+   }
   },
   {
    "look": "person_church_3",
@@ -90,7 +112,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "RUST TANK",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS"
+   }
   },
   {
    "look": "person_church_4",
@@ -104,7 +133,14 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "VESTMENT GOLD SHIRT",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS"
+   }
   },
   {
    "look": "person_church_5",
@@ -118,7 +154,14 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RUST HOODIE",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS"
+   }
   },
   {
    "look": "person_church_6",
@@ -132,7 +175,14 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "MOB PINSTRIPE SHIRT",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS"
+   }
   },
   {
    "look": "person_church_7",
@@ -146,7 +196,14 @@
    "coat": null,
    "heritage": "mixed",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "DUST PLAID SHIRT",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS"
+   }
   }
  ]
 }

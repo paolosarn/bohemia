@@ -48,7 +48,14 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "LONGLINE JERSEY",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT"
+   }
   },
   {
    "look": "person_cartel_1",
@@ -62,7 +69,14 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "STORM GREY TEE",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT"
+   }
   },
   {
    "look": "person_cartel_2",
@@ -76,7 +90,14 @@
    "coat": null,
    "heritage": "mixed",
    "skin": "intermediate",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "ASH HOODIE",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT"
+   }
   },
   {
    "look": "person_cartel_3",
@@ -90,7 +111,14 @@
    "coat": null,
    "heritage": "asian",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "WIDE SHOULDER TEE",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT"
+   }
   },
   {
    "look": "person_cartel_4",
@@ -104,7 +132,15 @@
    "coat": "SAGE VEST",
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SAGE FLANNEL",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "outer": "SAGE VEST"
+   }
   },
   {
    "look": "person_cartel_5",
@@ -118,7 +154,14 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SAGE TEE",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT"
+   }
   },
   {
    "look": "person_cartel_6",
@@ -132,7 +175,15 @@
    "coat": "STORM VEST",
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SHOULDER LONGLINE",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "outer": "STORM VEST"
+   }
   },
   {
    "look": "person_cartel_7",
@@ -146,7 +197,15 @@
    "coat": "STORM VEST",
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SLATE PLAID FLANNEL",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "outer": "STORM VEST"
+   }
   }
  ]
 }

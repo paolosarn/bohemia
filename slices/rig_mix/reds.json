@@ -48,7 +48,13 @@
    "coat": "RUST VEST",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SIGNAL RED SHIRT",
+    "outer": "RUST VEST",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
   },
   {
    "look": "person_reds_1",
@@ -62,7 +68,13 @@
    "coat": "LEATHER HALF APRON",
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "BRICK TEE",
+    "outer": "LEATHER HALF APRON",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
   },
   {
    "look": "person_reds_2",
@@ -76,7 +88,12 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RUST TANK",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
   },
   {
    "look": "person_reds_3",
@@ -90,7 +107,13 @@
    "coat": "LEATHER VEST",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "OXBLOOD PLAID FLANNEL",
+    "outer": "LEATHER VEST",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
   },
   {
    "look": "person_reds_4",
@@ -104,7 +127,13 @@
    "coat": "DRIFTER'S COAT",
    "heritage": "asian",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RUST STRIPED TEE",
+    "outer": "DRIFTER'S COAT",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
   },
   {
    "look": "person_reds_5",
@@ -118,7 +147,12 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "BRICK HENLEY",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
   },
   {
    "look": "person_reds_6",
@@ -132,7 +166,13 @@
    "coat": "OXBLOOD PONCHO",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "ROLLED FLANNEL",
+    "outer": "OXBLOOD PONCHO",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
   },
   {
    "look": "person_reds_7",
@@ -146,7 +186,13 @@
    "coat": "BRICK CAR COAT",
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SCAVENGER FLANNEL",
+    "outer": "BRICK CAR COAT",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
   }
  ]
 }

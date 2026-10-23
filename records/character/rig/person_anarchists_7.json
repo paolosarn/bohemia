@@ -1,18 +1,37 @@
 {
  "look": "PERSON_ANARCHISTS_7",
- "shape": "person_anarchists_7: a person of the Anarchists, his own skin skin_mid 3, STORM BUTTON-UP",
+ "shape": "person_anarchists_7: a person of the Anarchists, his own skin skin_mid 3, WHITE TEE",
  "worn": {
   "hair": "LAYERED FALL",
-  "base": "STORM BUTTON-UP",
+  "base": "WHITE TEE",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "LEATHER STACK PANT",
-  "feet": "LEATHER STACK BOOT"
+  "legs": "CROPPED BLACK DENIM",
+  "feet": "MID SHAFT BOOT",
+  "waist": "LEAD WAIST WRAP",
+  "gear": "OLIVE CHEST RIG",
+  "outfit": [
+   "his STORM BUTTON-UP worn open over a WHITE TEE"
+  ],
+  "mid": "STORM BUTTON-UP"
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_anarchists_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,14 +41,35 @@
  "real_height_for_rig": 1.7821,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_anarchists_7_shoe": 4036,
-  "person_anarchists_7_shirt": 71212,
+  "person_anarchists_7_shoe": 3916,
+  "person_anarchists_7_shirt": 40088,
   "person_anarchists_7_collar": 1536,
-  "person_anarchists_7_collar_points": 180,
-  "person_anarchists_7_placket": 162,
-  "person_anarchists_7_buttons": 204,
-  "person_anarchists_7_cuffs": 2048,
-  "person_anarchists_7_tail": 2016,
+  "person_anarchists_7_hem": 1792,
+  "person_anarchists_7_trouser": 35674,
+  "person_anarchists_7_turn_up": 2048,
+  "person_anarchists_7_turn_up_edge": 2048,
+  "person_anarchists_7_fly": 70,
+  "person_anarchists_7_front_pockets": 100,
+  "person_anarchists_7_seat_pockets": 252,
+  "person_anarchists_7_seat_seams": 252,
+  "person_anarchists_7_sole_1": 242,
+  "person_anarchists_7_midsole_1": 242,
+  "person_anarchists_7_sole_0": 242,
+  "person_anarchists_7_midsole_0": 242,
+  "person_anarchists_7_boot_collar": 2048,
+  "person_anarchists_7_boot_collar_line": 2048,
+  "person_anarchists_7_lead_waist_wrap": 1792,
+  "person_anarchists_7_lead_waist_wrap_edge": 1792,
+  "person_anarchists_7_olive_chest_rig": 3750,
+  "person_anarchists_7_olive_chest_rig_pouches": 378,
+  "person_anarchists_7_olive_chest_rig_radio": 98,
+  "person_anarchists_7_olive_chest_rig_x": 196,
+  "person_anarchists_7_mid_shirt": 66340,
+  "person_anarchists_7_mid_collar": 1536,
+  "person_anarchists_7_mid_collar_points": 180,
+  "person_anarchists_7_mid_front_edge": 396,
+  "person_anarchists_7_mid_cuffs": 2048,
+  "person_anarchists_7_mid_tail": 1818,
   "person_anarchists_7_hair": 30198,
   "person_anarchists_7_hair_fall": 2646,
   "person_anarchists_7_hat": 3444,
@@ -43,30 +83,35 @@
    0.8,
    0.8
   ],
-  "person_anarchists_7_buttons": [
-   0.1248,
-   0.1384,
-   0.1651
+  "person_anarchists_7_boot_collar": [
+   0.0545,
+   0.0545,
+   0.0742
+  ],
+  "person_anarchists_7_boot_collar_line": [
+   0.007,
+   0.007,
+   0.0097
   ],
   "person_anarchists_7_collar": [
-   0.0595,
-   0.0648,
-   0.0802
-  ],
-  "person_anarchists_7_collar_points": [
-   0.0595,
-   0.0648,
-   0.0802
-  ],
-  "person_anarchists_7_cuffs": [
-   0.0595,
-   0.0648,
-   0.0802
+   0.6654,
+   0.6308,
+   0.5583
   ],
   "person_anarchists_7_eyes": [
    0.0212,
    0.0103,
    0.008
+  ],
+  "person_anarchists_7_fly": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_anarchists_7_front_pockets": [
+   0.0097,
+   0.0116,
+   0.0176
   ],
   "person_anarchists_7_hair": [
    0.0212,
@@ -88,40 +133,140 @@
    0.0343,
    0.0369
   ],
-  "person_anarchists_7_placket": [
+  "person_anarchists_7_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_anarchists_7_lead_waist_wrap": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_anarchists_7_lead_waist_wrap_edge": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_anarchists_7_mid_collar": [
    0.0595,
    0.0648,
    0.0802
+  ],
+  "person_anarchists_7_mid_collar_points": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_mid_cuffs": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_mid_front_edge": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_mid_shirt": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_mid_tail": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_midsole_0": [
+   0.007,
+   0.007,
+   0.0097
+  ],
+  "person_anarchists_7_midsole_1": [
+   0.007,
+   0.007,
+   0.0097
+  ],
+  "person_anarchists_7_olive_chest_rig": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_anarchists_7_olive_chest_rig_pouches": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_anarchists_7_olive_chest_rig_radio": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_anarchists_7_olive_chest_rig_x": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_anarchists_7_seat_pockets": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_anarchists_7_seat_seams": [
+   0.0529,
+   0.0578,
+   0.0844
   ],
   "person_anarchists_7_shirt": [
-   0.0595,
-   0.0648,
-   0.0802
+   0.6654,
+   0.6308,
+   0.5583
   ],
   "person_anarchists_7_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0212,
+   0.0212,
+   0.0296
   ],
   "person_anarchists_7_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0212,
+   0.0212,
+   0.0296
   ],
   "person_anarchists_7_skin": [
    0.6105,
    0.3515,
    0.1714
   ],
-  "person_anarchists_7_tail": [
-   0.0595,
-   0.0648,
-   0.0802
+  "person_anarchists_7_sole_0": [
+   0.0052,
+   0.0052,
+   0.006
+  ],
+  "person_anarchists_7_sole_1": [
+   0.0052,
+   0.0052,
+   0.006
+  ],
+  "person_anarchists_7_trouser": [
+   0.0242,
+   0.0273,
+   0.0409
   ],
   "person_anarchists_7_trousers": [
-   0.0482,
-   0.0212,
-   0.0369
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_anarchists_7_turn_up": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_anarchists_7_turn_up_edge": [
+   0.0097,
+   0.0116,
+   0.0176
   ]
  }
 }

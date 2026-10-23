@@ -43,7 +43,13 @@
    "coat": "KHAKI DUSTER",
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "TEAL WORK SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "KHAKI DUSTER"
+   }
   },
   {
    "look": "person_town_25",
@@ -57,7 +63,12 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BONE TANK",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_26",
@@ -71,7 +82,13 @@
    "coat": "BRICK COMMA COAT",
    "heritage": "black",
    "skin": "brown",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "COBALT SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "BRICK COMMA COAT"
+   }
   },
   {
    "look": "person_town_27",
@@ -85,7 +102,13 @@
    "coat": "LEATHER SPLIT-TAIL COAT",
    "heritage": "mixed",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "STEEL STRIPED TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "LEATHER SPLIT-TAIL COAT"
+   }
   },
   {
    "look": "person_town_28",
@@ -99,7 +122,13 @@
    "coat": "GRASS CAR COAT",
    "heritage": "asian",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "PATINA PLAID FLANNEL",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "GRASS CAR COAT"
+   }
   },
   {
    "look": "person_town_29",
@@ -113,7 +142,12 @@
    "coat": null,
    "heritage": "white",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SAGE STRIPED HENLEY",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_30",
@@ -127,7 +161,13 @@
    "coat": "BRICK CAR COAT",
    "heritage": "mixed",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RUST HOODIE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "BRICK CAR COAT"
+   }
   },
   {
    "look": "person_town_31",
@@ -141,7 +181,12 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "STORM HENLEY",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_32",
@@ -155,7 +200,13 @@
    "coat": "STORM JACKET",
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "WIDE SHOULDER TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "STORM JACKET"
+   }
   },
   {
    "look": "person_town_33",
@@ -169,7 +220,13 @@
    "coat": "BRICK LONGCOAT",
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "SIGNAL RED SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "BRICK LONGCOAT"
+   }
   },
   {
    "look": "person_town_34",
@@ -183,7 +240,12 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "OLIVE DRAB TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_35",
@@ -197,7 +259,13 @@
    "coat": "COBALT COCOON COAT",
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "MOB PINSTRIPE SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "COBALT COCOON COAT"
+   }
   }
  ]
 }

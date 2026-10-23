@@ -6,14 +6,38 @@
   "base": "LAYERED JERSEY",
   "outer": "ASH ASYM COAT",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "LEATHER STACK PANT",
-  "feet": "LEATHER STACK BOOT"
+  "legs": "STORM GREY SWEATS",
+  "feet": "LEATHER STACK BOOT",
+  "waist": "CHARCOAL BELT",
+  "neck": "ASH COWL",
+  "gear": "WORK SUSPENDERS",
+  "outfit": [
+   "LAYERED JERSEY and ASH ASYM COAT read as one, and no colour of either cut reads apart",
+   "ASH ASYM COAT worn open to the neck",
+   "the sleeve ends short of the cuff under it"
+  ]
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "ASYMMETRIC COAT",
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.044,
+   "collar_z": 1.1,
+   "fo_add": 0.25,
+   "sleeve_to": 1.7
+  }
  },
  "model": "records/character/rig/person_anarchists_5.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,16 +47,30 @@
  "real_height_for_rig": 1.7821,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_anarchists_5_shoe": 4036,
+  "person_anarchists_5_shoe": 3836,
   "person_anarchists_5_shirt": 67536,
   "person_anarchists_5_collar": 1536,
   "person_anarchists_5_cuffs": 2048,
   "person_anarchists_5_under": 3808,
   "person_anarchists_5_over": 2464,
-  "person_anarchists_5_coat": 73184,
-  "person_anarchists_5_coat_skirt": 3990,
-  "person_anarchists_5_collar.001": 1536,
+  "person_anarchists_5_coat": 65552,
+  "person_anarchists_5_coat_skirt": 3838,
+  "person_anarchists_5_collar.001": 1170,
   "person_anarchists_5_lapels": 396,
+  "person_anarchists_5_trouser": 43706,
+  "person_anarchists_5_cuff": 2048,
+  "person_anarchists_5_sole_1": 242,
+  "person_anarchists_5_midsole_1": 242,
+  "person_anarchists_5_sole_0": 242,
+  "person_anarchists_5_midsole_0": 242,
+  "person_anarchists_5_boot_collar": 2048,
+  "person_anarchists_5_boot_collar_line": 2048,
+  "person_anarchists_5_charcoal_belt": 1792,
+  "person_anarchists_5_charcoal_belt_buckle": 34,
+  "person_anarchists_5_ash_cowl": 30002,
+  "person_anarchists_5_work_suspenders": 308,
+  "person_anarchists_5_work_suspenders_spine": 70,
+  "person_anarchists_5_work_suspenders_buttons": 68,
   "person_anarchists_5_hair": 30198,
   "person_anarchists_5_hair_fall": 2646,
   "person_anarchists_5_hat": 3444,
@@ -45,6 +83,31 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_anarchists_5_ash_cowl": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_anarchists_5_boot_collar": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_anarchists_5_boot_collar_line": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_anarchists_5_charcoal_belt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_5_charcoal_belt_buckle": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
   "person_anarchists_5_coat": [
    0.0612,
@@ -60,6 +123,11 @@
    0.0296,
    0.0296,
    0.0356
+  ],
+  "person_anarchists_5_cuff": [
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_anarchists_5_cuffs": [
    0.0296,
@@ -96,6 +164,16 @@
    0.0232,
    0.0262
   ],
+  "person_anarchists_5_midsole_0": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_anarchists_5_midsole_1": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
   "person_anarchists_5_over": [
    0.0296,
    0.0296,
@@ -107,29 +185,59 @@
    0.0356
   ],
   "person_anarchists_5_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_anarchists_5_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_anarchists_5_skin": [
    0.6105,
    0.3515,
    0.1714
   ],
+  "person_anarchists_5_sole_0": [
+   0.0452,
+   0.0232,
+   0.0116
+  ],
+  "person_anarchists_5_sole_1": [
+   0.0452,
+   0.0232,
+   0.0116
+  ],
+  "person_anarchists_5_trouser": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
   "person_anarchists_5_trousers": [
-   0.0482,
-   0.0212,
-   0.0369
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_anarchists_5_under": [
    0.0116,
    0.0116,
    0.0137
+  ],
+  "person_anarchists_5_work_suspenders": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_5_work_suspenders_buttons": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_anarchists_5_work_suspenders_spine": [
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

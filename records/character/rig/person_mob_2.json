@@ -1,20 +1,36 @@
 {
  "look": "PERSON_MOB_2",
- "shape": "person_mob_2: a person of the Mob, his own skin skin_deep 3, LONGLINE JERSEY under LEATHER VEST",
+ "shape": "person_mob_2: a person of the Mob, his own skin skin_deep 3, LONGLINE JERSEY under QUILTED VEST",
  "worn": {
   "hair": "DRY TAPER",
   "base": "LONGLINE JERSEY",
   "back": "CHARCOAL SHOULDER MANTLE",
-  "legs": "CHARCOAL CROP TROUSER",
-  "feet": "STACKED SOLE BOOT",
+  "feet": "COLUMN PANT-BOOT",
   "waist": "LEATHER BELT",
-  "outer": "LEATHER VEST"
+  "outer": "QUILTED VEST",
+  "outfit": [
+   "LONGLINE JERSEY read as one with LEATHER VEST (48 and 69 of 255) and no colour of that top reads apart: the same coat in QUILTED VEST (118)",
+   "QUILTED VEST worn open to the neck"
+  ]
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "VEST"
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_mob_2.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,17 +40,19 @@
  "real_height_for_rig": 1.7672,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_mob_2_shoe": 3516,
-  "person_mob_2_mantle": 16650,
+  "person_mob_2_shoe": 3148,
+  "person_mob_2_mantle": 10414,
   "person_mob_2_cape": 5002,
   "person_mob_2_belt": 346,
   "person_mob_2_shirt": 67536,
   "person_mob_2_collar": 1536,
   "person_mob_2_cuffs": 2048,
   "person_mob_2_longline": 4256,
-  "person_mob_2_coat": 22870,
+  "person_mob_2_coat": 22326,
   "person_mob_2_lapels": 396,
-  "person_mob_2_zip": 324,
+  "person_mob_2_column": 74570,
+  "person_mob_2_column_sole_1": 242,
+  "person_mob_2_column_sole_0": 242,
   "person_mob_2_hair": 17968,
   "person_mob_2_hand_L": 392,
   "person_mob_2_hand_R": 392
@@ -56,14 +74,29 @@
    0.0319
   ],
   "person_mob_2_coat": [
-   0.1301,
-   0.0513,
-   0.016
+   0.2307,
+   0.1812,
+   0.0953
   ],
   "person_mob_2_collar": [
    0.0296,
    0.0296,
    0.0356
+  ],
+  "person_mob_2_column": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_2_column_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_mob_2_column_sole_1": [
+   0.007,
+   0.006,
+   0.007
   ],
   "person_mob_2_cuffs": [
    0.0296,
@@ -81,9 +114,9 @@
    0.0091
   ],
   "person_mob_2_lapels": [
-   0.0545,
-   0.0222,
-   0.0075
+   0.1144,
+   0.0887,
+   0.0437
   ],
   "person_mob_2_longline": [
    0.0296,
@@ -101,14 +134,14 @@
    0.0356
   ],
   "person_mob_2_shoe": [
-   0.016,
-   0.0097,
-   0.0091
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_mob_2_shoes": [
-   0.016,
-   0.0097,
-   0.0091
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_mob_2_skin": [
    0.3419,
@@ -116,14 +149,9 @@
    0.0999
   ],
   "person_mob_2_trousers": [
+   0.0382,
    0.0343,
-   0.0232,
-   0.0212
-  ],
-  "person_mob_2_zip": [
-   0.0545,
-   0.0222,
-   0.0075
+   0.0382
   ]
  }
 }

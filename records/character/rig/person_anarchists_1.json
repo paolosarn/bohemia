@@ -5,14 +5,32 @@
   "hair": "LAYERED FALL",
   "base": "ARC SHOULDER TEE",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "LEATHER STACK PANT",
-  "feet": "LEATHER STACK BOOT"
+  "legs": "SOOT CARGOS",
+  "feet": "SLOUCH BOOT",
+  "waist": "CHARCOAL BELT",
+  "outfit": [
+   "an open DUST PLAID SHIRT over the ARC SHOULDER TEE"
+  ],
+  "mid": "DUST PLAID SHIRT"
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_anarchists_1.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,11 +40,27 @@
  "real_height_for_rig": 1.7821,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_anarchists_1_shoe": 4036,
+  "person_anarchists_1_shoe": 4316,
   "person_anarchists_1_shirt": 40088,
   "person_anarchists_1_collar": 1536,
-  "person_anarchists_1_sleeve_hem": 2048,
   "person_anarchists_1_hem": 1792,
+  "person_anarchists_1_trouser": 43706,
+  "person_anarchists_1_rolled_hem": 2048,
+  "person_anarchists_1_cargo_pockets": 252,
+  "person_anarchists_1_cargo_flaps": 108,
+  "person_anarchists_1_sole_1": 242,
+  "person_anarchists_1_midsole_1": 242,
+  "person_anarchists_1_sole_0": 242,
+  "person_anarchists_1_midsole_0": 242,
+  "person_anarchists_1_slouch": 16884,
+  "person_anarchists_1_charcoal_belt": 1792,
+  "person_anarchists_1_charcoal_belt_buckle": 34,
+  "person_anarchists_1_mid_shirt": 38892,
+  "person_anarchists_1_mid_collar": 1536,
+  "person_anarchists_1_mid_collar_points": 180,
+  "person_anarchists_1_mid_front_edge": 396,
+  "person_anarchists_1_mid_sleeve_hem": 2048,
+  "person_anarchists_1_mid_tail": 1818,
   "person_anarchists_1_hair": 30198,
   "person_anarchists_1_hair_fall": 2646,
   "person_anarchists_1_hat": 3444,
@@ -39,6 +73,26 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_anarchists_1_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_anarchists_1_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_1_charcoal_belt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_1_charcoal_belt_buckle": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
   "person_anarchists_1_collar": [
    0.0382,
@@ -75,35 +129,115 @@
    0.0343,
    0.0382
   ],
+  "person_anarchists_1_mid_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_1_mid_collar_points": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_1_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_1_mid_front_edge": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_1_mid_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_1_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_1_mid_sleeve_hem": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_1_mid_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_1_mid_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_anarchists_1_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_1_midsole_0": [
+   0.013,
+   0.013,
+   0.0168
+  ],
+  "person_anarchists_1_midsole_1": [
+   0.013,
+   0.013,
+   0.0168
+  ],
+  "person_anarchists_1_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
   "person_anarchists_1_shirt": [
    0.0382,
    0.0343,
    0.0382
   ],
   "person_anarchists_1_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0343,
+   0.0343,
+   0.0452
   ],
   "person_anarchists_1_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0343,
+   0.0343,
+   0.0452
   ],
   "person_anarchists_1_skin": [
    0.7454,
    0.5089,
    0.3278
   ],
-  "person_anarchists_1_sleeve_hem": [
+  "person_anarchists_1_slouch": [
+   0.0343,
+   0.0343,
+   0.0452
+  ],
+  "person_anarchists_1_sole_0": [
+   0.013,
+   0.013,
+   0.016
+  ],
+  "person_anarchists_1_sole_1": [
+   0.013,
+   0.013,
+   0.016
+  ],
+  "person_anarchists_1_trouser": [
    0.0382,
    0.0343,
    0.0382
   ],
   "person_anarchists_1_trousers": [
-   0.0482,
-   0.0212,
-   0.0369
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

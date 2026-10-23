@@ -56,7 +56,13 @@
    "coat": "DUST BROWN TRENCH",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BONE HENLEY",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "DUST BROWN TRENCH"
+   }
   },
   {
    "look": "person_town_1",
@@ -70,7 +76,12 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "OLIVE HENLEY",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_2",
@@ -84,7 +95,13 @@
    "coat": "SAGE CAR COAT",
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "DUST PLAID SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "SAGE CAR COAT"
+   }
   },
   {
    "look": "person_town_3",
@@ -98,7 +115,13 @@
    "coat": "OLIVE CAR COAT",
    "heritage": "asian",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "ARC LAYERED SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "OLIVE CAR COAT"
+   }
   },
   {
    "look": "person_town_4",
@@ -112,7 +135,13 @@
    "coat": "STORM CHORE COAT",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "ASH ARC SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "STORM CHORE COAT"
+   }
   },
   {
    "look": "person_town_5",
@@ -126,7 +155,12 @@
    "coat": null,
    "heritage": "white",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "SLATE SHORT-SLEEVE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_6",
@@ -140,7 +174,13 @@
    "coat": "FIELD GREEN COAT",
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "COAL HOODIE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "FIELD GREEN COAT"
+   }
   },
   {
    "look": "person_town_7",
@@ -154,7 +194,12 @@
    "coat": null,
    "heritage": "black",
    "skin": "brown",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "VESTMENT GOLD SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_8",
@@ -168,7 +213,13 @@
    "coat": "OLIVE VEST",
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "WORK COVERALLS",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "OLIVE VEST"
+   }
   },
   {
    "look": "person_town_9",
@@ -182,7 +233,13 @@
    "coat": "SPLIT-TAIL WORK COAT",
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "ROLLED WORK SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "SPLIT-TAIL WORK COAT"
+   }
   },
   {
    "look": "person_town_10",
@@ -196,7 +253,13 @@
    "coat": "OLIVE ASYM COAT",
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RED SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "OLIVE ASYM COAT"
+   }
   },
   {
    "look": "person_town_11",
@@ -210,7 +273,12 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "BLACK TANK",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   }
  ]
 }

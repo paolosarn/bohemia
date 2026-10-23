@@ -6,14 +6,30 @@
   "base": "WIDE SHOULDER TEE",
   "outer": "COMMA COAT",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "LEATHER STACK PANT",
-  "feet": "LEATHER STACK BOOT"
+  "legs": "BLACK DENIM",
+  "feet": "STEEL SNEAKERS",
+  "waist": "SOOT TOOL BELT",
+  "neck": "DRAPED COWL",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "WIDE SHOULDER TEE and COMMA COAT read as one, and no colour of either cut reads apart"
+  ]
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "COMMA COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039
+  }
  },
  "model": "records/character/rig/person_anarchists_4.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,15 +39,38 @@
  "real_height_for_rig": 1.7821,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_anarchists_4_shoe": 4036,
+  "person_anarchists_4_shoe": 3500,
   "person_anarchists_4_shirt": 40088,
   "person_anarchists_4_collar": 1536,
-  "person_anarchists_4_sleeve_hem": 2048,
   "person_anarchists_4_hem": 1792,
   "person_anarchists_4_coat": 73184,
   "person_anarchists_4_coat_skirt": 7630,
   "person_anarchists_4_collar.001": 1536,
   "person_anarchists_4_lapels": 396,
+  "person_anarchists_4_trouser": 43706,
+  "person_anarchists_4_rolled_hem": 2048,
+  "person_anarchists_4_fly": 70,
+  "person_anarchists_4_front_pockets": 100,
+  "person_anarchists_4_seat_pockets": 252,
+  "person_anarchists_4_seat_seams": 252,
+  "person_anarchists_4_sole_1": 242,
+  "person_anarchists_4_midsole_1": 242,
+  "person_anarchists_4_sole_0": 242,
+  "person_anarchists_4_midsole_0": 242,
+  "person_anarchists_4_tongue_1": 98,
+  "person_anarchists_4_laces_1": 200,
+  "person_anarchists_4_heel_1": 90,
+  "person_anarchists_4_tongue_0": 98,
+  "person_anarchists_4_laces_0": 200,
+  "person_anarchists_4_heel_0": 90,
+  "person_anarchists_4_soot_tool_belt": 1792,
+  "person_anarchists_4_soot_tool_belt_pouch_1": 26,
+  "person_anarchists_4_soot_tool_belt_pouch_0": 26,
+  "person_anarchists_4_soot_tool_belt_buckle": 34,
+  "person_anarchists_4_draped_cowl": 30002,
+  "person_anarchists_4_leather_gloves_L": 392,
+  "person_anarchists_4_leather_gloves_R": 392,
+  "person_anarchists_4_leather_gloves_cuff": 2048,
   "person_anarchists_4_hair": 30198,
   "person_anarchists_4_hair_fall": 2646,
   "person_anarchists_4_hat": 3444,
@@ -60,10 +99,25 @@
    0.0343,
    0.0382
   ],
+  "person_anarchists_4_draped_cowl": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
   "person_anarchists_4_eyes": [
    0.0212,
    0.0103,
    0.008
+  ],
+  "person_anarchists_4_fly": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_anarchists_4_front_pockets": [
+   0.0097,
+   0.0116,
+   0.0176
   ],
   "person_anarchists_4_hair": [
    0.0212,
@@ -85,15 +139,70 @@
    0.0343,
    0.0369
   ],
+  "person_anarchists_4_heel_0": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
+  "person_anarchists_4_heel_1": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
   "person_anarchists_4_hem": [
    0.0382,
    0.0343,
    0.0382
   ],
+  "person_anarchists_4_laces_0": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_anarchists_4_laces_1": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
   "person_anarchists_4_lapels": [
    0.0152,
    0.013,
    0.0152
+  ],
+  "person_anarchists_4_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_anarchists_4_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_anarchists_4_midsole_0": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_anarchists_4_midsole_1": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_anarchists_4_rolled_hem": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_anarchists_4_seat_pockets": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_anarchists_4_seat_seams": [
+   0.0529,
+   0.0578,
+   0.0844
   ],
   "person_anarchists_4_shirt": [
    0.0382,
@@ -101,29 +210,69 @@
    0.0382
   ],
   "person_anarchists_4_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.063,
+   0.1046,
+   0.1651
   ],
   "person_anarchists_4_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.063,
+   0.1046,
+   0.1651
   ],
   "person_anarchists_4_skin": [
    0.2051,
    0.0976,
    0.0685
   ],
-  "person_anarchists_4_sleeve_hem": [
+  "person_anarchists_4_sole_0": [
+   0.0296,
+   0.0423,
+   0.0612
+  ],
+  "person_anarchists_4_sole_1": [
+   0.0296,
+   0.0423,
+   0.0612
+  ],
+  "person_anarchists_4_soot_tool_belt": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_anarchists_4_soot_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_anarchists_4_soot_tool_belt_pouch_0": [
    0.0382,
    0.0343,
    0.0382
   ],
+  "person_anarchists_4_soot_tool_belt_pouch_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_4_tongue_0": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_anarchists_4_tongue_1": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_anarchists_4_trouser": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
   "person_anarchists_4_trousers": [
-   0.0482,
-   0.0212,
-   0.0369
+   0.0242,
+   0.0273,
+   0.0409
   ]
  }
 }

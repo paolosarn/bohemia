@@ -43,7 +43,13 @@
    "coat": "CAR COAT",
    "heritage": "asian",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "STRIPED TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "CAR COAT"
+   }
   },
   {
    "look": "person_town_13",
@@ -57,7 +63,13 @@
    "coat": "KHAKI JACKET",
    "heritage": "asian",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "ROLLED FLANNEL",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "KHAKI JACKET"
+   }
   },
   {
    "look": "person_town_14",
@@ -71,7 +83,12 @@
    "coat": null,
    "heritage": "black",
    "skin": "brown",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "LONGLINE JERSEY",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_15",
@@ -85,7 +102,13 @@
    "coat": "RANGER LONGCOAT",
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "RED PLAID FLANNEL",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "RANGER LONGCOAT"
+   }
   },
   {
    "look": "person_town_16",
@@ -99,7 +122,12 @@
    "coat": null,
    "heritage": "asian",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "LAYERED JERSEY",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_17",
@@ -113,7 +141,12 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "ARC SHOULDER TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_18",
@@ -127,7 +160,13 @@
    "coat": "OXBLOOD PONCHO",
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "STEEL PLAID FLANNEL",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "OXBLOOD PONCHO"
+   }
   },
   {
    "look": "person_town_19",
@@ -141,7 +180,13 @@
    "coat": "LEATHER WRAP COAT",
    "heritage": "mixed",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "FADED BLACK LONGSLEEVE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "LEATHER WRAP COAT"
+   }
   },
   {
    "look": "person_town_20",
@@ -155,7 +200,12 @@
    "coat": null,
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "STORM BUTTON-UP",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_21",
@@ -169,7 +219,12 @@
    "coat": null,
    "heritage": "asian",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "TEAL STRIPED TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_22",
@@ -183,7 +238,12 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "TATTERED TEE",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS"
+   }
   },
   {
    "look": "person_town_23",
@@ -197,7 +257,13 @@
    "coat": "GRASS WRAP COAT",
    "heritage": "white",
    "skin": "light",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "STEEL WORK SHIRT",
+    "legs": "BLACK CARGOS",
+    "feet": "WHITE SNEAKERS",
+    "outer": "GRASS WRAP COAT"
+   }
   }
  ]
 }

@@ -12,7 +12,7 @@
   "person_anarchists_7"
  ],
  "w": 70,
- "h": 127,
+ "h": 128,
  "foot": 119,
  "cols": 7,
  "gangs": [
@@ -48,7 +48,15 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "BLACK TANK",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "STORM GREY SWEATS",
+    "feet": "CHARCOAL BOOTS",
+    "back": "ONE-SHOULDER DRAPE",
+    "mid": "DUST PLAID SHIRT"
+   }
   },
   {
    "look": "person_anarchists_1",
@@ -62,7 +70,15 @@
    "coat": null,
    "heritage": "white",
    "skin": "very light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "ARC SHOULDER TEE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "SOOT CARGOS",
+    "feet": "SLOUCH BOOT",
+    "waist": "CHARCOAL BELT",
+    "mid": "DUST PLAID SHIRT"
+   }
   },
   {
    "look": "person_anarchists_2",
@@ -76,7 +92,13 @@
    "coat": null,
    "heritage": "black",
    "skin": "dark",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "STORM GREY TEE",
+    "head": "CHARCOAL WATCH CAP",
+    "feet": "COAL COLUMN",
+    "mid": "PATINA PLAID FLANNEL"
+   }
   },
   {
    "look": "person_anarchists_3",
@@ -90,7 +112,16 @@
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "FADED BLACK LONGSLEEVE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "STEEL BLUE JEANS",
+    "feet": "WRAPPED BOOTS",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "neck": "ASH COWL",
+    "mid": "KHAKI BUTTON-UP"
+   }
   },
   {
    "look": "person_anarchists_4",
@@ -104,7 +135,17 @@
    "coat": "COMMA COAT",
    "heritage": "hispanic",
    "skin": "brown",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "WIDE SHOULDER TEE",
+    "outer": "COMMA COAT",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "BLACK DENIM",
+    "feet": "STEEL SNEAKERS",
+    "waist": "SOOT TOOL BELT",
+    "neck": "DRAPED COWL",
+    "hands": "LEATHER GLOVES"
+   }
   },
   {
    "look": "person_anarchists_5",
@@ -118,7 +159,17 @@
    "coat": "ASH ASYM COAT",
    "heritage": "white",
    "skin": "intermediate",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "LAYERED JERSEY",
+    "outer": "ASH ASYM COAT",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "STORM GREY SWEATS",
+    "feet": "LEATHER STACK BOOT",
+    "waist": "CHARCOAL BELT",
+    "neck": "ASH COWL",
+    "gear": "WORK SUSPENDERS"
+   }
   },
   {
    "look": "person_anarchists_6",
@@ -132,7 +183,15 @@
    "coat": "SOOT TRENCH",
    "heritage": "white",
    "skin": "light",
-   "sex": null
+   "sex": null,
+   "wears": {
+    "base": "ASH ARC SHIRT",
+    "outer": "SOOT TRENCH",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "BONE STACK BOOT",
+    "waist": "WIDE WAIST WRAP"
+   }
   },
   {
    "look": "person_anarchists_7",
@@ -142,11 +201,20 @@
    "face": null,
    "beard": "GOATEE",
    "mark": null,
-   "top": "STORM BUTTON-UP",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "hispanic",
    "skin": "intermediate",
-   "sex": "m"
+   "sex": "m",
+   "wears": {
+    "base": "WHITE TEE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "CROPPED BLACK DENIM",
+    "feet": "MID SHAFT BOOT",
+    "waist": "LEAD WAIST WRAP",
+    "gear": "OLIVE CHEST RIG",
+    "mid": "STORM BUTTON-UP"
+   }
   }
  ]
 }
