@@ -1862,5 +1862,62 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_landfill_1.webp",
   "future": null
+ },
+ "freeway.0": {
+  "seconds": 779,
+  "junk": {
+   "bags": 0,
+   "paper": 252,
+   "card": 63,
+   "cloth": 26,
+   "weeds": 123,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 1,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 20,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 35,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     54.5,
+     14.44,
+     1.0
+    ],
+    [
+     50.6,
+     49.82,
+     3.22
+    ],
+    [
+     30.05,
+     16.99,
+     2.93
+    ],
+    [
+     52.72,
+     55.36,
+     3.39
+    ],
+    [
+     26.09,
+     33.62,
+     3.58
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_freeway_0.webp",
+  "future": null
  }
 }
