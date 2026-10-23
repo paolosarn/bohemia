@@ -1537,5 +1537,77 @@
    "rafters": 0,
    "rubble": 121
   }
+ },
+ "suburb_stem.1": {
+  "seconds": 863,
+  "junk": {
+   "bags": 34,
+   "paper": 444,
+   "card": 90,
+   "cloth": 37,
+   "weeds": 264,
+   "mattresses": 3,
+   "couches": 2,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 1,
+   "tracks": 4,
+   "tidy_house": 2,
+   "burnt_house": 5
+  },
+  "grime": {
+   "materials": 111,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     6.57,
+     12.86,
+     3.2
+    ],
+    [
+     57.81,
+     5.59,
+     1.0
+    ],
+    [
+     45.26,
+     9.01,
+     3.96
+    ],
+    [
+     45.64,
+     45.72,
+     2.91
+    ],
+    [
+     15.88,
+     50.85,
+     2.74
+    ],
+    [
+     35.52,
+     14.6,
+     3.23
+    ],
+    [
+     21.29,
+     34.92,
+     2.69
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_suburb_stem_1.webp",
+  "future": {
+   "holes": 2778,
+   "char": 892,
+   "rafters": 0,
+   "rubble": 116
+  }
  }
 }
