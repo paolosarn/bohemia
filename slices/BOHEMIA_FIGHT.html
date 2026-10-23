@@ -270,6 +270,12 @@ function rng() {
   t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 }
+/* a place's own seed (COMBAT [the map hands the board]): the same map cell on the same ground deals the same board (FNV-1a) */
+function seedOf(text) {
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
 </script>
 
 <script id="fight-rules">
@@ -736,6 +742,41 @@ const FIGHT = (function () {
       }
     });
   }
+  /* the share of the board's tiles that carry cover (a dead car, a wall, a shed, a boulder): WORLD's 'cover' on the kits */
+  function coverShare() { let n = 0; for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.cover[y][x]) n++; return n / (S.w * S.h); }
+  /* THE GROUND'S OWN COVER: above its envelope, whole tiles of cover come off in the dice's order (the field only opens); below
+     it, the board's own pieces that do not block a step (or the valley's boulders where it has none) go on open tiles, each
+     where that piece sits inside its own tile, until it is inside (or every open tile carries one) */
+  function fitCover(ground) {
+    const P = DB.groundEffects.measured.panels.filter(function (r) { return r.ground === ground; })[0]; if (!P) return null;
+    const lo = P.kitEnvelope[0], hi = P.kitEnvelope[1], B = S.boardDef, G = DB.ground, tm = G.tile_metres, n = S.w * S.h;
+    const tileOf = function (c) { return { x: Math.floor(c.x_m / tm), y: Math.floor(c.y_m / tm) }; };
+    const was = coverShare();
+    if (was > hi) {
+      const on = {}; B.cover.forEach(function (c) { const t = tileOf(c); if (inBoard(t.x, t.y)) on[t.y * S.w + t.x] = true; });
+      const keys = shuffled(Object.keys(on)); let left = Object.keys(on).length;
+      const off = {};
+      keys.forEach(function (k) { if (left / n > hi) { off[k] = true; left--; } });
+      B.cover = B.cover.filter(function (c) { const t = tileOf(c); return !off[t.y * S.w + t.x]; });
+    } else if (was < lo) {
+      const steps = function (c) { const d = G.cover[c.piece] || G.cover_extra[c.piece] || {}; return !d.blocks_move; };
+      /* the place's own pieces: those lying on the blocks of the kind it leads with (the mountain's boulders, never the landfill's cars) */
+      const bt = G.block_tiles, lead = B.lead || (B.kinds || [])[0];
+      const own = function (c) { const t = tileOf(c), r = B.blocks[Math.floor(t.y / bt)], nm = r && r[Math.floor(t.x / bt)]; return !!nm && kindOf(nm) === lead; };
+      let pal = B.cover.filter(function (c) { return steps(c) && own(c); });
+      if (!pal.length) pal = B.cover.filter(steps);
+      if (!pal.length) pal = Object.keys(G.cover_extra).map(function (k) { return { piece: k, x_m: tm / (1 + 1 + 1), y_m: tm / (1 + 1 + 1) }; });
+      const open = []; for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (passable(x, y) && !S.cover[y][x] && rowAt(x, y) !== 'obstacles') open.push({ x: x, y: y });
+      let have = Math.round(was * n);
+      shuffled(open).forEach(function (t) {
+        if (have / n >= lo) return;
+        const c = pal[Math.floor(rng() * pal.length)], ox = c.x_m - Math.floor(c.x_m / tm) * tm, oy = c.y_m - Math.floor(c.y_m / tm) * tm;
+        B.cover.push({ piece: c.piece, x_m: t.x * tm + ox, y_m: t.y * tm + oy, added: true }); have++;
+      });
+    }
+    applyBoard(B);
+    return { ground: ground, envelope: [lo, hi], was: was, now: coverShare() };
+  }
   /* one field: some tile of your start row walks to some tile of theirs */
   function connected() {
     const cols = S.cols || R('ours.start_cols'), seen = {}, q = [];
@@ -755,14 +796,28 @@ const FIGHT = (function () {
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
     S.flat = !!opts.flat;   /* a test board: the deal's blocks drawn, every tile open flat ground, no cover, no lamps */
     S.power = opts.power !== false;   /* rule 73: the lamps burn only where the block has power; the map hands it over */
+    /* THE MAP HANDS THE BOARD (COMBAT [the map hands the board], rule 46a, Paolo 9/29: 'no two combat boards are the same'):
+       the map cell's district names the ground and the board kind in WORLD's own list (records/target/BOHEMIA_BOARD_KINDS.json,
+       rule 59: never a second list); the cell seeds the deal, so a place deals its own board every time it is fought and two
+       grounds never deal the same one; then the cover is fitted into that ground's measured envelope (WORLD's
+       records/target/BOHEMIA_GROUND_EFFECTS.json: what the district kits really draw, the open desert 1.5%, the mountain's
+       boulders 95.8%). The fight's own dice go back to their own seed after the deal. */
+    S.ground = groundOf(opts);
+    const fromMap = S.ground.from === 'district', cellRow = fromMap ? DB.boardKinds.districts.filter(function (r) { return r.district === opts.district; })[0] : null;
+    const ask = cellRow && cellRow.boardKind ? Object.assign({}, opts, { kind: cellRow.boardKind }) : opts;
+    /* the cell as the map's door hands it: {x, y}, a road's {gx, gy}, or [x, y] */
+    const cl = opts.cell, cx = cl ? (cl.x !== undefined ? cl.x : cl.gx !== undefined ? cl.gx : cl[0]) : undefined, cy = cl ? (cl.y !== undefined ? cl.y : cl.gy !== undefined ? cl.gy : cl[1]) : undefined;
+    const dice = SEED, seeded = fromMap && cx !== undefined && cy !== undefined && opts.seed === undefined;
+    if (seeded) SEED = seedOf(cx + ',' + cy + ':' + S.ground.ground);
     if (opts.board && G.boards[opts.board]) {
       const B = G.boards[opts.board];
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
     } else {
-      for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(opts)); if (connected()) break; }
+      for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(ask)); if (connected()) break; }
+      if (fromMap && !opts.flat) S.boardDef.groundFit = fitCover(S.ground.ground);
     }
+    if (seeded) SEED = dice;
     const dealt = S.boardDef;
-    S.ground = groundOf(opts);
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
