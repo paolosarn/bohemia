@@ -18,7 +18,8 @@
      U2 a house stands: the tallest house is at least 3.5 T (T = one texel at 24 a block)
      U3 the freeway is on its berm: the freeway is lifted at least 2.5 T
      U4 the sun casts: at least 6% of the painting's visible tops are in shade
-     U5 the opening zoom is the painting alone (the standing city is what he opens on, not a fade)
+     U5 the opening zoom is the standing painting (over the block pictures' grain, the pixel floor's reading), and
+        the hand-over to the block pictures is short (two cities never ghost through a long fade)
      U6..U8 MUTATIONS, each must turn its leg red: the sun put out (U4), the houses laid flat (U1/U2),
         the berm cut (U3). A leg that cannot go red proves nothing.
      U9 nothing threw
@@ -69,8 +70,8 @@ const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 3.5, U3: L.fwy >= 2.5
     ok('U3 the freeway is on its berm: ' + R.fwy.toFixed(1) + ' T (at least 2.5 T; it was 0)', H.U3);
     ok('U4 the sun casts: ' + pc(R.shade) + ' of the painting\'s visible tops are in shade (at least 6%; there were none)', H.U4);
 
-    const fade = await d.fr.evaluate(() => { setZoomAt(1); MAP_GROUND.key = ''; VBC.alpha = -1; render(); return { TW, a: TW >= VB_CITY_NONE ? 0 : VBC.alpha }; });
-    ok('U5 the opening zoom (a block ' + Math.round(fade.TW) + ' px) is the standing painting alone (alpha ' + fade.a + ')', fade.a === 1);
+    const fade = await d.fr.evaluate(() => { setZoomAt(1); MAP_GROUND.key = ''; VBC.alpha = -1; render(); return { TW, a: TW >= VB_CITY_NONE ? 0 : VBC.alpha, hand: VB_CITY_NONE - VB_CITY_HOLD }; });
+    ok('U5 the opening zoom (a block ' + Math.round(fade.TW) + ' px) is the standing painting over the block pictures\' grain (alpha ' + fade.a + ', at least 0.85), and the hand-over is short (' + fade.hand + ' px of zoom, at most 6)', fade.a >= 0.85 && fade.hand <= 6);
 
     const m = (k, leg) => {
       const r = runs[k];

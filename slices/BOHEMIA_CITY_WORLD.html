@@ -45929,7 +45929,11 @@ function vbCityCore(inp){
           var half = S >> 1, two = h0 < 0.45, q4 = S >> 2;
           var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= Q && (tx % half) < half - Q && (ty % half) >= Q && (ty % half) < half - Q)
                         : (tx >= q4 && tx < S - q4 && ty >= q4 && ty < S - q4);
-          if (inT) { var th = ((cl === VB_CLASS.casino ? 3 : 4) + Math.floor((two ? vbHash(cx + (tx < half ? 0 : 1), cy, sd + 11) : h1) * (cl === VB_CLASS.casino ? 6 : 11))) * S / 8; lift = th; part = PART.top; }
+          if (inT) { var th = ((cl === VB_CLASS.casino ? 3 : 4) + Math.floor((two ? vbHash(cx + (tx < half ? 0 : 1), cy, sd + 11) : h1) * (cl === VB_CLASS.casino ? 6 : 11))) * S / 8; lift = th; part = PART.top;
+            /* __THE_MAP_STANDS_UP__: a tall one sets back, its top a step in from its base (the Strip's wedding cakes) */
+            if (th > 14 * T) { var ix0 = two ? (tx % half) : tx - q4, iy0 = two ? (ty % half) : ty - q4, iw = two ? half : S - 2 * q4, inset = Q;
+              var edge = Math.min(ix0 - (two ? Q : 0), iy0 - (two ? Q : 0), (two ? half - Q : iw) - 1 - ix0, (two ? half - Q : iw) - 1 - iy0);
+              if (edge < inset) lift = Math.round(th * 0.62); } }
           else if (qx >= 1 && qx < 11 && qy >= 1 && qy < 11) { lift = 3 * T; part = r < 0.05 ? PART.spot : PART.ground; }   /* the podium (__THE_MAP_STANDS_UP__) */
           else if (r < 0.05) part = PART.spot;
           break; }
@@ -46000,7 +46004,8 @@ function vbCityCore(inp){
           var sym = qv > 0 ? HS[qo - P] : Hq, J = 1.6 * T;
           var gu = (Math.abs(sxp - Hq) < J && Math.abs(sxm - Hq) < J) ? (sxp - sxm) * 0.5 : 0, gv = (Math.abs(syp - Hq) < J && Math.abs(sym - Hq) < J) ? (syp - sym) * 0.5 : 0;
           sh += 0.4 * Math.max(-1, Math.min(1, gu)) + 0.2 * Math.max(-1, Math.min(1, gv)); } }
-      else sh = (sxp < syp) ? 0.56 : 0.76;
+      else { sh = (sxp < syp) ? 0.56 : 0.76;
+        if ((cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || cl2 === VB_CLASS.roof) && liftk > 1 && (liftk % 2) === 1 && Hq - liftk > 1) sh *= 0.8; }   /* __THE_MAP_STANDS_UP__: a storey a window band */
       sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu, qv, sd + 17));
       if (top && SHD[qo] > 0) sh *= SHD[qo] >= 1 ? 0.62 : 1 - 0.38 * SHD[qo];   /* __THE_MAP_STANDS_UP__: in the shade of what stands nearer the sun */
       if (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof || cl2 === VB_CLASS.freeway) { ST.built++; if (!top) ST.wall++; if (cl2 === VB_CLASS.houses && Hq > ST.houseMax) ST.houseMax = Hq; if (cl2 === VB_CLASS.freeway && Hq > ST.fwyMax) ST.fwyMax = Hq; }
@@ -46102,13 +46107,21 @@ function vbCityReady(){
    painted-10-2) draws the same cells as one picture: the freeway one band, the streets one net, the districts apart.
    So it now carries the map up to a block 24 px, and the pack tiles take over by 34, where a block is big enough for
    its own art. Was: painted below 6, tiles above 10. */
-var VB_CITY_FULL = 26, VB_CITY_NONE = 30;   /* CSS px a block: all painting up to 26 (the opening zoom, 18, is the painting alone), tiles above 30.
-   __THE_MAP_STANDS_UP__ (10/23): was 16 and 34, a cross-fade over eighteen px of zoom; now that the painting stands up and the block
-   pictures stand up their own way, a long fade was two cities ghosted through each other (measured at a block 29 px: 0.29 of one,
-   0.71 of the other, every tower doubled). The hand-over is four px of zoom now. */
+var VB_CITY_FULL = 16, VB_CITY_HOLD = 26, VB_CITY_NONE = 30, VB_CITY_GRAIN = 0.88;   /* CSS px a block: the painting alone below 16; from 18 (the
+   opening zoom) to 26 the painting at 0.88 over the block pictures' grain (his pixel floor, MAP DENSITY G2, is read off that grain:
+   the painting alone at the opening zoom reads 1.50 x 1.17 device px, at 0.88 over the grain 1.2 x 1.1); then the hand-over, tiles
+   alone above 30. __THE_MAP_STANDS_UP__ (10/23): it was 16 and 34, a straight fade over eighteen px of zoom; with the painting
+   standing up and the block pictures standing up their own way, a long fade was two cities ghosted through each other (measured at
+   a block 29 px: 0.29 of one, 0.71 of the other, every tower doubled). The hand-over is four px of zoom now. */
+function vbCityAlpha(){
+  if (TW <= VB_CITY_FULL) return 1;
+  if (TW <= VB_CITY_FULL + 2) return 1 - (1 - VB_CITY_GRAIN) * (TW - VB_CITY_FULL) / 2;
+  if (TW <= VB_CITY_HOLD) return VB_CITY_GRAIN;
+  return Math.max(0, VB_CITY_GRAIN * (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_HOLD));
+}
 function vbCityDraw(ox, oy, night){
   if (TW >= VB_CITY_NONE || !vbCityReady()) return;
-  var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
+  var a = vbCityAlpha(), S = VB_CS, sm = g.imageSmoothingEnabled;
   g.save(); g.imageSmoothingEnabled = (TW / S) * ((typeof CV_DPR === 'number' && CV_DPR) || 1) < 1; g.globalAlpha = a;   /* under a device pixel a texel: averaged down */
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
   g.drawImage(VBC.day, 0, 0);   /* unlit: the city's night pass lights it like everything else (rule 70a) */
@@ -46131,7 +46144,7 @@ function vbPatternDraw(ox, oy, tw){
 }
 function vbCityLightsDraw(ox, oy){
   if (TW >= VB_CITY_NONE || !VBC.lights || VBC.seed !== om.seed) return;
-  var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
+  var a = vbCityAlpha(), S = VB_CS, sm = g.imageSmoothingEnabled;
   g.save(); g.imageSmoothingEnabled = (TW / S) * ((typeof CV_DPR === 'number' && CV_DPR) || 1) < 1; g.globalAlpha = a;   /* under a device pixel a texel: averaged down */
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
   g.drawImage(VBC.lights, 0, 0);

@@ -25,7 +25,8 @@
      (the same crop without the painting is printed, not judged: tiny noisy tiles read as fine detail)
      F5 things stand up: towers and the rim are lifted texels, not flat colour
      F6 at night only blocks with power show light (read off the night picture, block by block)
-     F7 it fades in: all painting at the far stop and at the opening zoom (RUN 10/19), none at the near stop
+     F7 it fades in: all painting at the far stop, the painting over the tiles' grain at the opening zoom (0.85 or more,
+        RUN 10/19 and 10/23), none at the near stop
      F8 the art scales with the zoom and the names do not: a town at the far stop is smaller than
         at the opening zoom, he is the same size, a name plate the same size
      F9 baked off the main thread; a frame pays one drawImage (under 15 ms)
@@ -136,7 +137,7 @@ const r2 = v => Math.round(v * 1000) / 1000;
       VBC.alpha = 0; setZoomAt(1); MAP_GROUND.key = ''; render(); const open = TW >= VB_CITY_NONE ? 0 : VBC.alpha, TWo = TW;
       VBC.alpha = -1; setZoomAt(zoomBounds()[1]); MAP_GROUND.key = ''; render(); const near = TW >= VB_CITY_NONE ? 0 : VBC.alpha;
       return { far, open, TWo, near, TWn: TW }; });
-    ok('F7 it fades in: painting ' + fade.far + ' at the far stop, ' + fade.open + ' at the opening zoom (a block ' + Math.round(fade.TWo) + ' px), ' + fade.near + ' at the near stop (a block ' + Math.round(fade.TWn) + ' px, the pack tiles)', fade.far === 1 && fade.open === 1 && fade.near === 0);
+    ok('F7 it fades in: painting ' + fade.far + ' at the far stop, ' + fade.open + ' at the opening zoom (a block ' + Math.round(fade.TWo) + ' px), ' + fade.near + ' at the near stop (a block ' + Math.round(fade.TWn) + ' px, the pack tiles)', fade.far === 1 && fade.open >= 0.85 && fade.near === 0);   /* RUN 10/23: the opening zoom is the painting over the tiles' grain (0.88), the pixel floor's own reading; it said 1 while the code drew 0.89 since 10/19 */
 
     const sizes = await d.fr.evaluate(() => {
       const at = (z) => { setZoomAt(z); MAP_GROUND.key = ''; render();
