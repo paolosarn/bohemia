@@ -213,5 +213,10 @@
   "file": "slices/fight_ground/block_landfill_0_reclaimed.webp",
   "sha1": "8b74c51e106ca3ef5c76d1fdfa834d20f11e4170",
   "master": "records/target/cook_floor_futures/reclaimed/block_landfill_0.webp"
+ },
+ "landfill.1.reclaimed": {
+  "file": "slices/fight_ground/block_landfill_1_reclaimed.webp",
+  "sha1": "cf8af1ec3f274055d8cae2c97038ee0eaecbf843",
+  "master": "records/target/cook_floor_futures/reclaimed/block_landfill_1.webp"
  }
 }
