@@ -431,6 +431,7 @@ def build(bpy, gid_full, seed, quick=False):
 # 2.4 m, three strands); the rest (the freeway's patches, the wash's bank line) is the nearest ground.
 OPEN_KINDS = ('scrub', 'wash', 'scrubroad', 'freeway', 'freewayo', 'lots')
 OPEN_KEEP = {}
+KEEP_ROAD = {}
 
 
 def open_plan(bid, gid, ship):
@@ -447,9 +448,10 @@ def open_plan(bid, gid, ship):
         w = float(np.clip((x1 - x0) / F.PPM, 0.5, 2.6)); d = float(np.clip((y1 - y0) / (F.PPM * 0.7071), 0.4, 2.0))
         bushes.append(((x0 + x1) / 2 / F.PPM, F.SIDE * (1 - (y0 + y1) / 2 / F.H), w, d))
     wire = no & ~green & (lumv < 85) & (sat < 16)
+    if KEEP_ROAD.get('road') is not None: wire &= ~KEEP_ROAD['road']   # 10/23: a patch on a freeway lane is not a fence
     lab, n = ndimage.label(ndimage.binary_closing(wire, iterations=3))
     fences = []
-    for i, sl in enumerate(ndimage.find_objects(lab) if bid.split('.')[0] in ('scrub', 'scrubroad', 'wash') else []):
+    for i, sl in enumerate(ndimage.find_objects(lab) if bid.split('.')[0] in ('scrub', 'scrubroad', 'wash', 'freeway', 'freewayo') else []):
         hh, ww = sl[0].stop - sl[0].start, sl[1].stop - sl[1].start
         if ww >= 40 and ww >= 4 * hh:                          # a run of wire across the picture (east-west, as the maker draws it)
             fences.append((sl[1].start / F.PPM, sl[1].stop / F.PPM, F.SIDE * (1 - sl[0].stop / F.H)))
@@ -532,6 +534,25 @@ def load_plan(bid):
         slab = slab | (sm & (gid == 255) & (sat < 30))
         gid = gid.copy(); gid[slab] = F.ID['concrete']; ground = ground | slab
         LEDGER['slab_px'] = int(slab.sum())
+    KEEP_ROAD.clear()
+    if bid.split('.')[0] in ('freeway', 'freewayo'):
+        # 10/23: the freeway is not from the street kit, and the maker's lane paint and median decode as asphalt or as
+        # nothing: the first render came back a blank strip of tarmac. Read off the old picture: what is bright or tan on
+        # the carriageway is paint (the lane lines, the edge lines, the median strip), a mid grey band at its edge the
+        # concrete shoulder; the dark not-ground on it (the patches) is asphalt
+        a = ship.astype(np.int16); L_ = a.mean(2); sat = a.max(2) - a.min(2)
+        from scipy import ndimage
+        lum = lum.copy(); lum[gid == 255] = 255                         # the maker had no shade for what it did not call ground
+        asph = gid == F.ID['asphalt']
+        road = ndimage.binary_fill_holes(ndimage.binary_closing(np.pad(asph, 48, mode='edge'), iterations=40))[48:-48, 48:-48]   # the patches are holes in it
+        gid = gid.copy()
+        pm = road & (L_ >= 105) & ((a[..., 0] - a[..., 2]) > 14)
+        pm = ndimage.binary_dilation(pm, iterations=2) & road            # at the ground's 2 px a vertex a 4 px line was a groove
+        gid[road & (gid == 255)] = F.ID['asphalt']                       # the patches: asphalt again (the render puts its own wear)
+        gid[pm] = F.ID['paint']
+        gid[~road & (gid == 255) & (L_ >= 100) & (sat < 30)] = F.ID['concrete']   # the shoulder's concrete band
+        LEDGER['road_px'] = int(road.sum())
+        KEEP_ROAD['road'] = road
     if bid.split('.')[0] in OPEN_KINDS:                       # 10/23: the plan is the truth on the open blocks (OPEN_KINDS above)
         open_plan(bid, gid, ship)
         lum = lum.copy(); lum[gid == 255] = 255
