@@ -216,6 +216,32 @@ ok('M1 the map carries idles for its own models', bool(Mp and Mp['looks']), 'no 
 if Mp:
     bad = [k for k, v in Mp['looks'].items() if v['match'][0] < 0.9 or v['match'][1] > 28]
     ok('M2 every map look matched the picture the map already draws (silhouette 0.9, colour step 28)', not bad, bad)
+    MS = {}
+    def map_faults(Mp):
+        """THE MAP'S FRAME: standing square, his idle is laid in the map's own cut (rigSheetSet: the cell's middle on the 112
+        frame's middle, its foot at 0.93 of the frame) exactly where his still is: the soles on the still's soles (two
+        pixels), the crown at the still's crown (six: a hat, a breath), every facing (his head was once cut off, 10/23)"""
+        out = []
+        atlas = np.asarray(Image.open(os.path.join(RI, Mp['file'])).convert('RGBA'))
+        for look, v in Mp['looks'].items():
+            fn = 'BOHEMIA_RIG_PEOPLE' if v['sheet'] == 'people' else 'BOHEMIA_RIG_CAST'
+            if fn not in MS: MS[fn] = (json.load(open(os.path.join(ROOT, 'slices', fn + '.json'))), np.asarray(Image.open(os.path.join(ROOT, 'slices', fn + '.png')).convert('RGBA')))
+            m, sh = MS[fn]; H = 130
+            while round(H * 0.93) < m['foot']: H += 1
+            for f in range(8):
+                row = m['gangs'].index(look) * 8 + f; st = sh[row * m['h']:(row + 1) * m['h'], :m['w']]
+                ys = np.nonzero(st[..., 3] > 0)[0]; top, bot = ys.min() + round(H * 0.93) - m['foot'], ys.max() + round(H * 0.93) - m['foot']
+                q = Mp['cells'][v['poses']['C'][f]]; c = atlas[q[1]:q[1] + q[3], q[0]:q[0] + q[2]]; yc = np.nonzero(c[..., 3] > 0)[0]
+                y0 = round(H * 0.93) - m['foot'] + q[5]
+                if y0 + yc.min() < 0: out.append('%s %s: his crown is %d px above the map\'s frame' % (look, I['dirs'][f], -(y0 + yc.min())))
+                if abs(y0 + yc.max() - bot) > 2 or abs(y0 + yc.min() - top) > 6:
+                    out.append('%s %s: soles %+d, crown %+d against his still' % (look, I['dirs'][f], y0 + yc.max() - bot, y0 + yc.min() - top))
+        return out
+    mf_ = map_faults(Mp)
+    ok('M3 standing on the map, every idle is where his still is in the map\'s own frame (soles two pixels, crown six), every facing', not mf_, '; '.join(mf_[:4]))
+    mm = json.loads(json.dumps(Mp)); l0 = list(mm['looks'])[0]
+    for i in mm['looks'][l0]['poses']['C']: mm['cells'][i][5] -= 24
+    ok('M4 MUTATION: a map idle laid 24 px high (the cut-off head of 10/23) is caught', any(l0 in x for x in map_faults(mm)))
 
 # ---------------------------------------------------------------------------------------------------- X the player
 PLAYER = r'''

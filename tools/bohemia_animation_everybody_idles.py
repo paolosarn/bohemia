@@ -399,12 +399,14 @@ def pack_map(index):
         step = float(np.abs(A[..., :3] - B[..., :3])[oa & ob].mean()) if (oa & ob).any() else 255
         if agree < MATCH['alpha'] or step > MATCH['rgb']:
             print('NO MATCH, keeps his still:', name, round(agree, 3), round(step, 1)); continue
-        # where the map's cell puts his ground point: RUN's bake lays each picture's middle on the cell's middle and the
-        # look's lowest painted standing row on the cell's foot
+        # where the map's cell sits in the full frame both renders share (the same model, still and camera: checked above):
+        # RUN's bake lays each picture's middle on the cell's middle and the look's lowest painted standing row on the
+        # cell's foot, so a crop pixel (px, py) lands at (w/2 - iw/2 + px, foot - gfoot + py). Never the old render's
+        # ground_px: before the master rig's round seven it was the look point, not the feet (CHARACTER's body, 50 px
+        # off: his head went above the map's frame and was cut, seen on the real map 10/23)
         st = [Image.open(os.path.join(ROOT, rec, 'rig_%s.png' % f)) for f in FIGHT_DIRS]
         gfoot = max(im.getbbox()[3] for im in st); iw = st[0].size[0]
-        gx = m['w'] // 2 - iw // 2 + mine['ground_px'][0]; gy = m['foot'] - gfoot + mine['ground_px'][1]
-        fx0 = rj['crop_box_px'][0] + rj['ground_px'][0] - gx; fy0 = rj['crop_box_px'][1] + rj['ground_px'][1] - gy
+        fx0 = mine['crop_box_px'][0] - (m['w'] // 2 - iw // 2); fy0 = mine['crop_box_px'][1] - (m['foot'] - gfoot)
         cells = {}
         for pi, p in enumerate(poses):
             for row, f in enumerate(FIGHT_DIRS):
@@ -661,4 +663,7 @@ if __name__ == '__main__':
     elif cmd == 'beasts': beasts(a[0] if a else 'ALL')
     elif cmd == 'preview': preview(*a)
     elif cmd == 'pack': pack()
+    elif cmd == 'packmap':   # the map's sheet alone, into the index as it stands
+        ix = json.load(open(os.path.join(ROOT, OUT, 'rig_idles.json'))); pack_map(ix)
+        json.dump(ix, open(os.path.join(ROOT, OUT, 'rig_idles.json'), 'w'), separators=(',', ':'))
     else: sys.exit('pose | fight [LOOK|ALL] [workers] | preview <glb> <png> [bare|carry] | pack')
