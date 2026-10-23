@@ -106,7 +106,7 @@
   "map_districts": {
    "where": "the map (BOHEMIA_CITY_WORLD.html), HERO_SRC in slices/BOHEMIA_CITY_TILES_01..09.js: every district picture the valley is laid from, the mountain the biggest",
    "total": 69,
-   "flat": 9,
+   "flat": 0,
    "in_3d": [
     "apartment",
     "arsenal",
@@ -118,11 +118,13 @@
     "boneyard",
     "campus",
     "casino",
+    "cemetery",
     "chapel",
     "cityhall",
     "commercial",
     "convention",
     "courthouse",
+    "dam",
     "datafort",
     "desert",
     "downtown",
@@ -134,6 +136,7 @@
     "fueldepot",
     "golf",
     "granary",
+    "gypsum",
     "industrial",
     "intake",
     "interchange",
@@ -147,11 +150,13 @@
     "park",
     "policestation",
     "prison",
+    "pumpstation",
     "quarry",
     "radio",
     "rail",
     "railyard",
     "reclaim",
+    "reservoir",
     "resort",
     "school",
     "solar",
@@ -167,7 +172,11 @@
     "town",
     "trailer",
     "truckstop",
-    "warehouse"
+    "warehouse",
+    "wash",
+    "water",
+    "waterpark",
+    "watertreat"
    ]
   },
   "fight_floor_futures": {
@@ -233,7 +242,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 102,
+ "total_flat": 93,
  "log": [
   {
    "at": "10/20 start",
@@ -521,6 +530,17 @@
    "fight_cover": 0,
    "settlement_backdrops": 2,
    "map_districts": 9,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the map's last nine (the water districts) and three re-done: all 69 districts in 3D",
+   "total_flat": 93,
+   "fight_floor": 21,
+   "fight_cover": 0,
+   "settlement_backdrops": 2,
+   "map_districts": 0,
    "fight_floor_futures": 70,
    "fight_lights": 0,
    "item_icons": 0
