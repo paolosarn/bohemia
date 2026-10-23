@@ -45835,7 +45835,19 @@ var VB_CCOL = { yard: '#76694d', yard2: '#6a5f46', roofA: '#8a6650', roofB: '#9c
   asphalt: '#3b3834', line: '#7d725c', conc: '#5c5852', edge: '#47433d', neon: '#c9a456', roof: '#8a8882', hvac: '#64625c',
   tower: '#9a9c98', towerTop: '#c4c6c0', gold: '#b89a5c', green: '#5f6a45', tree: '#3f4a30', water: '#2f4a5e', shore: '#4e6d7a',
   floor: '#8f7d59', brush: '#5f5440', pebble: '#b09c74', solar: '#36424e', solarRow: '#56677a', field: '#4c4842', mark: '#857a62',
-  rail: '#4a4038', tie: '#6b5a48', dam: '#a8aaa8', lit: '#e3b866', lamp: '#f0d488', neonN: '#e8708a' };
+  rail: '#4a4038', tie: '#6b5a48', dam: '#a8aaa8', lit: '#e3b866', lamp: '#f0d488', neonN: '#e8708a',
+  /* __THE_DISTRICTS_READ_APART__ (10/23): the families' own roofs and grounds, tan and dust, never bright (his 'more tan') */
+  lawn: '#525a3c', pool: '#3f4f45', poolDry: '#8f897c', wallG: '#8d8270', roofE: '#a8896a', roofE2: '#98765e', gravel: '#7b7467', trailer: '#9a978d', trailer2: '#82807a',
+  slab: '#857b6f', court: '#605b52', park: '#3e3c38', stripe: '#6b665b', shop: '#8a857a', rust: '#7c5c45', dirt: '#6d6250' };
+/* a block's family inside its class: the houses (suburb 0, estate, gated, trailer, apartment) and the works (civic 0, shop, works) */
+var VB_SUB = { estate: 1, gated: 2, trailer: 3, apartment: 4, shop: 1, works: 2 };
+function vbSubOf(d){
+  d = String(d || '');
+  if (d === 'estate') return VB_SUB.estate; if (d === 'gated') return VB_SUB.gated; if (d === 'trailer') return VB_SUB.trailer; if (d === 'apartment') return VB_SUB.apartment;
+  if (/^(commercial|mall|convention|swapmeet|terminal)$/.test(d)) return VB_SUB.shop;
+  if (/^(industrial|warehouse|storage|fueldepot|granary|robofactory|reclaim|substation|pumpstation|watertreat|battery|arsenal)$/.test(d)) return VB_SUB.works;
+  return 0;
+}
 function vbCityCore(inp){
   var t0 = performance.now();
   var N = inp.N, S = inp.S, PAD = inp.PAD, D = N + 2 * PAD, P = D * S, sd = ((inp.seed | 0) ^ 0x7c1d) >>> 0;
@@ -45876,7 +45888,8 @@ function vbCityCore(inp){
         bN = cl === VB_CLASS.freeway && !FWY(clsAt(cx, cy - 1)), bS = cl === VB_CLASS.freeway && !FWY(clsAt(cx, cy + 1));
     var knot = cl === VB_CLASS.freeway && !bW && !bE && !bN && !bS;   /* freeway on all four sides: a knot, the flyover */
     /* a works block is one, two or three boxes (__THE_MAP_STANDS_UP__) */
-    var nBox = h1 < 0.45 ? 1 : h1 < 0.8 ? 2 : 3, boxAlongX = h0 < 0.5;
+    var nBox = h1 < 0.45 ? 1 : h1 < 0.8 ? 2 : 3, boxAlongX = h0 < 0.5, sb = inp.sub ? inp.sub[cy * N + cx] : 0;
+    if (sb === VB_SUB.shop) nBox = Math.min(nBox, 2);
     for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
       var qx = (tx / Q) | 0, qy = (ty / Q) | 0;
       var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u, v, sd + 5), rq = Q === 1 ? r : vbHash(((cx + PAD) * 12 + qx), ((cy + PAD) * 12 + qy), sd + 5);
@@ -45894,26 +45907,47 @@ function vbCityCore(inp){
           }
           break; }
         case VB_CLASS.rail: part = ((horiz ? qx : qy) % 2 === 0) ? PART.line : PART.ground; lift = T; break;
-        case VB_CLASS.houses: {
+        case VB_CLASS.houses: if (sb === VB_SUB.trailer) {
+          /* __THE_DISTRICTS_READ_APART__ (10/23): a trailer park is rows of long low boxes on gravel, a lane between rows */
+          var ra = boxAlongX ? qy : qx, rb = boxAlongX ? qx : qy;
+          if (ra % 3 === 1 && rb >= 1 && rb < 11 && (rb % 5) < 4) { lift = burned && r < 0.5 ? 0.5 * T : 1.6 * T; part = burned && r < 0.5 ? PART.burn : (vbHash(cx * 7 + ra, cy * 7 + (rb / 5 | 0), sd + 43) < 0.5 ? PART.roofL : PART.roof); }
+          else if (r < 0.05) part = PART.spot;
+          break;
+        } else if (sb === VB_SUB.apartment) {
+          /* __THE_DISTRICTS_READ_APART__: an apartment block is two slabs, three or four storeys, a court and a lot between */
+          var sa = boxAlongX ? qy : qx, sb2 = boxAlongX ? qx : qy;
+          if ((sa >= 1 && sa < 4 || sa >= 8 && sa < 11) && sb2 >= 1 && sb2 < 11) {
+            var edgeS = (sa === 1 || sa === 3 || sa === 8 || sa === 10 || sb2 === 1 || sb2 === 10);
+            lift = burned ? (r < 0.35 ? T : 3 * T) : (h1 < 0.5 ? 6 : 8) * T + (edgeS ? 0.6 * T : 0);
+            part = burned ? (r < 0.35 ? PART.hole : PART.burn) : (r < 0.06 ? PART.spot : PART.roof);
+            if (!burned && part === PART.spot) lift += T;
+          } else if (sa >= 5 && sa < 7 && sb2 >= 2 && sb2 < 10) part = (sb2 % 2 === 0 && (boxAlongX ? ty : tx) % Q === 0) ? PART.line : PART.edge;   /* the lot between, striped */
+          else if (r < 0.1) part = PART.spot;
+          break;
+        } else {
           /* __THE_MAP_STANDS_UP__: a block is four big lots (two by two, 6 q) or nine small ones (4 q), by its own roll; each
              lot one house, longer one way, set back in its yard by the lot's roll, a wall under a gable whose ridge runs the
              long way, one in seven two storeys. The yard between is wider than a wall is tall, so a yard still shows behind it. */
-          var LQ = h0 < 0.6 ? 6 : 4, lgx = (qx / LQ) | 0, lgy = (qy / LQ) | 0, lx = qx - lgx * LQ, ly = qy - lgy * LQ;
+          var big = sb === VB_SUB.estate || sb === VB_SUB.gated, LQ = big || h0 < 0.6 ? 6 : 4, lgx = (qx / LQ) | 0, lgy = (qy / LQ) | 0, lx = qx - lgx * LQ, ly = qy - lgy * LQ;
           var hh = vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 9), hl = vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 29);
-          var longX = hl < 0.5, wq = LQ === 6 ? (longX ? 4 : 3) : (longX ? 3 : 2), dq2 = LQ === 6 ? (longX ? 3 : 4) : (longX ? 2 : 3);
+          var longX = hl < 0.5, wq = big ? (longX ? 5 : 4) : LQ === 6 ? (longX ? 4 : 3) : (longX ? 3 : 2), dq2 = big ? (longX ? 4 : 5) : LQ === 6 ? (longX ? 3 : 4) : (longX ? 2 : 3);   /* an estate's house is a mansion */
           var ox = Math.floor(vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 37) * (LQ - wq)), oy = Math.floor(vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 41) * (LQ - dq2));
           if (lx >= ox && lx < ox + wq && ly >= oy && ly < oy + dq2) {
             var hx = (lgx * LQ + ox) * Q, hy = (lgy * LQ + oy) * Q, fx2 = (tx - hx + 0.5) / (wq * Q), fy2 = (ty - hy + 0.5) / (dq2 * Q);
-            var dr = Math.abs((longX ? fy2 : fx2) - 0.5) * 2, wall = (hl > 0.86 ? 4 : 2) * T;
+            var dr = Math.abs((longX ? fy2 : fx2) - 0.5) * 2, wall = (big ? 3 : hl > 0.86 ? 4 : 2) * T;
             lift = burned && hh < 0.7 ? (r < 0.3 ? 0.5 * T : 1.5 * T) : wall + 1.6 * T * (1 - dr);
             part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : (hh < 0.5 ? PART.roofL : PART.roof);
             if (part !== PART.hole && part !== PART.burn && dr < 0.34 && Math.abs((longX ? fx2 : fy2) - 0.5) < 0.18) part = PART.window;   /* the chimney by day, the lit window at night */
           }
+          else if (big && ((lx === (ox === 0 ? LQ - 1 : 0)) && ly >= 1 && ly < 3)) part = vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 47) < 0.2 ? PART.row : PART.line;   /* an estate's pool, most of them dry */
+          else if (sb === VB_SUB.gated && (tx === 0 || ty === 0 || tx === S - 1 || ty === S - 1)) { lift = 1.2 * T; part = PART.edge; }   /* the gated block's wall */
           else if (r < 0.06) part = PART.spot;
           break; }
         case VB_CLASS.roof: {
           /* __THE_MAP_STANDS_UP__: one to three boxes on the block, an alley between, each its own height, a parapet, plant on the roof */
-          if (qx >= 1 && qx < 11 && qy >= 1 && qy < 11) {
+          var lotSide = sb === VB_SUB.shop && ((boxAlongX ? qy : qx) >= 6);   /* __THE_DISTRICTS_READ_APART__: a shop block's front half is its parking lot */
+          if (lotSide) { if ((boxAlongX ? qx : qy) >= 1 && (boxAlongX ? qx : qy) < 11 && (boxAlongX ? qy : qx) >= 7 && (boxAlongX ? qy : qx) < 11) part = ((boxAlongX ? qx : qy) % 2 === 0 && (boxAlongX ? ty : tx) % Q === 0) ? PART.line : PART.edge; }
+          else if (qx >= 1 && qx < 11 && qy >= 1 && qy < 11) {
             var ax = boxAlongX ? qx : qy, bi = nBox === 1 ? 0 : Math.min(nBox - 1, Math.floor((ax - 1) * nBox / 10)), b0 = 1 + Math.ceil(bi * 10 / nBox), b1 = 1 + Math.ceil((bi + 1) * 10 / nBox) - 1;
             var gap = nBox > 1 && ((ax === b1 && bi < nBox - 1));
             if (!gap) {
@@ -45950,7 +45984,7 @@ function vbCityCore(inp){
         case VB_CLASS.dam: lift = 2 * Q; part = PART.top; break;
         default: if (r < 0.1) part = PART.spot;
       }
-      HS[o] = lift; COLI[o] = idx(cl, part) + (burned ? 16 * 32 : 0);
+      HS[o] = lift; COLI[o] = idx(cl, part) + (burned ? 16 * 32 : 0) + sb * 1024;   /* __THE_DISTRICTS_READ_APART__: the sub-kind rides above the burn bit */
     }
   }
   /* __THE_MAP_STANDS_UP__: THE SUN CASTS. One sweep down the sun's line (it comes from -u and a little -v, the land's north-
@@ -45964,8 +45998,25 @@ function vbCityCore(inp){
   }
   SHH = null;
   function base(ci){
+    var sb = ci >> 10; ci &= 1023;
     var burned = ci >= 16 * 32; if (burned) ci -= 16 * 32;
     var cl = ci >> 4, part = ci & 15;
+    /* __THE_DISTRICTS_READ_APART__ (10/23): each family its own roofs and its own ground */
+    if (cl === VB_CLASS.houses && sb) {
+      if (part === PART.burn) return C.burn; if (part === PART.hole) return C.ash; if (part === PART.spot) return C.brush;
+      if (sb === VB_SUB.trailer) return part === PART.roofL ? C.trailer : part === PART.roof ? C.trailer2 : C.gravel;
+      if (sb === VB_SUB.apartment) return part === PART.roof ? C.slab : part === PART.line ? C.stripe : part === PART.edge ? C.park : C.court;
+      if (part === PART.row) return C.pool; if (part === PART.line) return C.poolDry; if (part === PART.edge) return C.wallG;
+      if (part === PART.roofL) return C.roofE; if (part === PART.roof) return C.roofE2; if (part === PART.window) return C.roofC;   /* an estate's pale tile, never the suburb's */
+      return C.lawn;
+    }
+    if (cl === VB_CLASS.roof && sb) {
+      if (part === PART.burn) return C.burn; if (part === PART.hole) return C.ash;
+      if (part === PART.line) return C.stripe; if (part === PART.edge) return C.park;
+      if (part === PART.roof || part === PART.window) return sb === VB_SUB.shop ? C.shop : C.rust;
+      if (part === PART.spot) return C.hvac;
+      return sb === VB_SUB.works ? C.dirt : C.park;
+    }
     switch (cl) {
       case VB_CLASS.road: return part === PART.line ? C.line : part === PART.lampspot ? C.edge : C.asphalt;
       case VB_CLASS.freeway: return part === PART.line ? C.line : part === PART.edge ? C.edge : C.conc;
@@ -45996,7 +46047,7 @@ function vbCityCore(inp){
       while (head < tail - 1 && dq[head] - HS[(dq[head] - dg) * P + dq[head]] > uu) head++;
       var qu = dq[head], qv = qu - dg, qo = qv * P + qu, ci = COLI[qo];
       if (ci < 0) continue;
-      var Hq = HS[qo], liftk = qu - uu, top = (Hq - liftk) < 1, sh, b = base(ci), cl2 = (ci % (16 * 32)) >> 4, part2 = ci & 15;
+      var Hq = HS[qo], liftk = qu - uu, top = (Hq - liftk) < 1, sh, b = base(ci), cl2 = (ci % (16 * 32)) >> 4, part2 = ci & 15;   /* (ci & 1023 holds the class: 1024 is a multiple of 512) */
       var sxp = qu + 1 < P ? HS[qo + 1] : Hq, sxm = qu > 0 ? HS[qo - 1] : Hq, syp = qv + 1 < P ? HS[qo + P] : Hq;
       if (top) { var sl = (sxp - sxm) * 0.5; sh = 1 + (cl2 === VB_CLASS.mountain ? 0.42 * Math.max(-1, Math.min(1, sl * 0.9)) - 0.12 * Math.max(-1, Math.min(1, (syp - Hq) * 0.5)) : 0);
         if (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) { if (part2 === PART.top) b = cl2 === VB_CLASS.casino ? C.gold : C.towerTop; }
@@ -46008,7 +46059,7 @@ function vbCityCore(inp){
         if ((cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || cl2 === VB_CLASS.roof) && liftk > 1 && (liftk % 2) === 1 && Hq - liftk > 1) sh *= 0.8; }   /* __THE_MAP_STANDS_UP__: a storey a window band */
       sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu, qv, sd + 17));
       if (top && SHD[qo] > 0) sh *= SHD[qo] >= 1 ? 0.62 : 1 - 0.38 * SHD[qo];   /* __THE_MAP_STANDS_UP__: in the shade of what stands nearer the sun */
-      if (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof || cl2 === VB_CLASS.freeway) { ST.built++; if (!top) ST.wall++; if (cl2 === VB_CLASS.houses && Hq > ST.houseMax) ST.houseMax = Hq; if (cl2 === VB_CLASS.freeway && Hq > ST.fwyMax) ST.fwyMax = Hq; }
+      if (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof || cl2 === VB_CLASS.freeway) { ST.built++; if (!top) ST.wall++; if (cl2 === VB_CLASS.houses && (ci >> 10) < VB_SUB.trailer && Hq > ST.houseMax) ST.houseMax = Hq;   /* a house, not a trailer or a slab */ if (cl2 === VB_CLASS.freeway && Hq > ST.fwyMax) ST.fwyMax = Hq; }
       if (top) { ST.top++; if (SHD[qo] > 0) ST.shade++; }
       var o8 = (vv * P + uu) * 4;
       for (var z = 0; z < 3; z++) { day[o8 + z] = b[z] * sh; night[o8 + z] = b[z] * sh * NM[z]; }
@@ -46062,7 +46113,7 @@ function vbWorker(){
       var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore, vbCityCore, vbView].map(String).join('\n')
         + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
         + '\nvar VB_FRONT=' + VB_FRONT + ';'
-        + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';\nvar VB_LAST=null;'
+        + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';\nvar VB_SUB=' + JSON.stringify(VB_SUB) + ';\nvar VB_LAST=null;'
         + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'view\'){ var v=vbView(e.data); postMessage(v, v.px?[v.px.buffer]:[]); return; }'
         + ' if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer]); return; }'
         + ' var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
@@ -46075,10 +46126,10 @@ function vbWorker(){
 var VBC = { key: null, busy: false, day: null, night: null, seed: null, checked: 0, asks: 0, ms: 0, draws: 0 };
 window.VBC = VBC;
 function vbCityInput(){
-  var N = om.n, cls = new Uint8Array(N * N), live = new Uint8Array(N * N), h = 0;
-  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) { var t = om.at(x, y); cls[y * N + x] = vbClassOf(t && t.district);
+  var N = om.n, cls = new Uint8Array(N * N), live = new Uint8Array(N * N), sub = new Uint8Array(N * N), h = 0;
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) { var t = om.at(x, y); cls[y * N + x] = vbClassOf(t && t.district); sub[y * N + x] = vbSubOf(t && t.district);
     var lv = 0; try { lv = POWER && POWER.at(x, y).live ? 1 : 0; } catch (_e) {} live[y * N + x] = lv; h = (Math.imul(h, 31) + lv * (x * 131 + y + 1)) | 0; }
-  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, key: om.seed + ':' + h };
+  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, key: om.seed + ':' + h };
 }
 function vbCityLand(r){
   VBC.busy = false;

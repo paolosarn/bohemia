@@ -22,6 +22,8 @@
         the hand-over to the block pictures is short (two cities never ghost through a long fade)
      U6..U8 MUTATIONS, each must turn its leg red: the sun put out (U4), the houses laid flat (U1/U2),
         the berm cut (U3). A leg that cannot go red proves nothing.
+     D1 the districts read apart on the painting (RUN [the districts connect on the map]): six families' mean colours,
+        the closest two at least 10 apart in RGB; D2 the mutation (no families handed over) turns it red
      U9 nothing threw
    node gates/the_map_stands_up_gate.js
    ========================================================================== */
@@ -82,6 +84,29 @@ const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 3.5, U3: L.fwy >= 2.5
     const ms = m('sun', 6); if (ms) ok('U6 mutation, the sun put out: U4 goes red (' + pc(legs(runs.sun).shade) + ' in shade)', !ms.U4);
     const mf = m('flat', 7); if (mf) ok('U7 mutation, the houses laid flat: U2 goes red (' + legs(runs.flat).house.toFixed(1) + ' T)', !mf.U2);
     const mb = m('berm', 8); if (mb) ok('U8 mutation, the berm cut: U3 goes red (' + legs(runs.berm).fwy.toFixed(1) + ' T)', !mb.U3);
+    /* D1 (RUN [the districts connect on the map], 10/23, his 'the districts are looking like shit'): the families read apart.
+       Each family's blocks averaged off the painting itself (day picture, the texels of its own blocks); the closest two of the
+       six families must sit at least DMIN apart in RGB. The mutation hands the painter no families (every house a suburb,
+       every works block civic): the same leg must go red. */
+    const fam = await d.fr.evaluate(() => {
+      const FAM = { suburb: /^(suburb|town)$/, trailer: /^trailer$/, apartment: /^apartment$/, estate: /^(estate|gated)$/, shop: /^(commercial|mall|convention)$/, works: /^(industrial|warehouse|storage)$/ };
+      const read = (inp) => { const r = vbCityCore(inp), P = r.P, S = r.S, PAD = r.PAD, N = inp.N, acc = {};
+        for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const dd = om.at(x, y).district; let f = null; for (const k in FAM) if (FAM[k].test(dd)) f = k; if (!f) continue;
+          const a = acc[f] || (acc[f] = [0, 0, 0, 0]);
+          for (let v = (y + PAD) * S; v < (y + PAD + 1) * S; v += 2) for (let u = (x + PAD) * S; u < (x + PAD + 1) * S; u += 2) { const o = (v * P + u) * 4; a[0] += r.day[o]; a[1] += r.day[o + 1]; a[2] += r.day[o + 2]; a[3]++; } }
+        const m = {}; for (const k in acc) m[k] = acc[k].slice(0, 3).map(v => v / acc[k][3]);
+        let lo = 1e9, pair = ''; const ks = Object.keys(m);
+        for (let i = 0; i < ks.length; i++) for (let j = i + 1; j < ks.length; j++) { const q = Math.hypot(m[ks[i]][0] - m[ks[j]][0], m[ks[i]][1] - m[ks[j]][1], m[ks[i]][2] - m[ks[j]][2]); if (q < lo) { lo = q; pair = ks[i] + '/' + ks[j]; } }
+        return { lo, pair, fams: ks.length, m: Object.fromEntries(Object.entries(m).map(([k, v]) => [k, v.map(Math.round)])) }; };
+      /* the rim laid down for this reading: the estates and the gated blocks are the foothills' (x 83 to 93, y 2 to 10; x 4),
+         and the ranges in front of them own their texels in the picture, so the reading would be the mountain's colour */
+      const inp0 = vbCityInput(), inp = Object.assign({}, inp0, { cls: inp0.cls.map(c => c === VB_CLASS.mountain ? VB_CLASS.land : c) }), real = read(inp);
+      const flat = Object.assign({}, inp, { sub: new Uint8Array(inp.sub.length) });
+      return { real, flat: read(flat) };
+    });
+    const DMIN = 10; console.log('  family means ' + JSON.stringify(fam.real.m));
+    ok('D1 the districts read apart: ' + fam.real.fams + ' families on the painting, the closest two (' + fam.real.pair + ') ' + fam.real.lo.toFixed(1) + ' apart in RGB (at least ' + DMIN + ')', fam.real.fams >= 5 && fam.real.lo >= DMIN);
+    ok('D2 mutation, no families handed to the painter: D1 goes red (closest ' + fam.flat.pair + ' ' + fam.flat.lo.toFixed(1) + ')', fam.flat.lo < DMIN);
     ok('U9 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
     ok('the gate ran without throwing [' + String(e.message).slice(0, 160) + ']', false);
