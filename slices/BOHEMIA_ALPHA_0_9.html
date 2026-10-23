@@ -1554,7 +1554,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/23a - THE MAP STANDS UP</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/23b - THE FIGHT DRIVES THE MUSIC</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -18986,6 +18986,63 @@ window.KILLMUS=KILLMUS;
    second copy of the state -- under the name that describes what it does since
    kills stopped being the only thing that drives it. */
 window.INTENSITY=KILLMUS;
+/* ===== __THE_FIGHT_DRIVES_THE_MUSIC__ (COMBAT 10/23, row [the fight drives the music], rule 126) =====
+   PAOLO 10/23: 'the combat should feel a lot better; we have a whole intensity system with the music, wtf bro'; the same
+   hour: 'when it's the enemies' turn have it at the low intensity, I want to hear it's my turn time'.
+   THIS BLOCK IS COMBAT'S, FOR THIS ALONE (rule 126(e)); the patch is tools/bohemia_combat_the_fight_drives_the_music_patch.py
+   and the gate gates/the_fight_drives_the_music_gate.js. The rebuilt fight posts BOHEMIA_COMBAT_STARTED, BOHEMIA_PLAYER_HIT
+   and BOHEMIA_SHOT_RESULT 'killshot' (combatMsgIn hears them, as it always has) and BOHEMIA_FIGHT_TURN {side}, heard here.
+   THEIR TURN IS THE BOTTOM OF THE LADDER (level 1, the calm arrangement, whatever the kills and the threat say); his turn
+   is the fight's level again. THE TURN LANDS ON THE NEXT BEAT, not the next bar (126(e): 'on the beat'): one act of theirs
+   is one to three beats and a bar is four, so a drop held for the bar would mostly never land and he would never hear
+   'my turn'. A kill, the threat and the end keep the bar (126(b)): the quantum is the beat only for a change a turn made.
+   THE CHANGE IS NEVER MISSED. KILLMUS's watcher looked at MUS.step every 60 ms for a step that is a bar's first, and a
+   step lasts 125 ms, so a busy thread stepped right past the bar and the lift waited for the next one: MEASURED in the
+   demo, the fight's first lift 2.2 s after the board while the fight built. The scheduler reads MUS.layers once for every
+   step it books (playStep's `sk`), with MUS.step the step being booked, so the pending change is committed AT THAT READ, on
+   the first step that is a boundary: exact on a stalled phone, no polling, MUS.playStep and the engine untouched. A plain
+   write to MUS.layers (the MUSIC tab's KILL LAYERS, a reset) is a write, as before, and drops anything pending.
+   THE END SETTLES ON THE BAR, from the fight's own BOHEMIA_FIGHT_OVER (it never sends BOHEMIA_COMBAT_END: that is the
+   frozen fight's settle, and its handler takes him home at once, before the recap's beats). A fight frame that goes
+   without one settles too. Only the rebuilt fight's own frame (NF.frame) is heard. */
+(function(){
+  var K = KILLMUS, lvl = K.level, rs = K.reset, arm0 = K.arm, P = null;
+  var MINE = { BOHEMIA_COMBAT_STARTED: 1, BOHEMIA_PLAYER_HIT: 1, BOHEMIA_SHOT_RESULT: 1, BOHEMIA_FIGHT_TURN: 1, BOHEMIA_FIGHT_OVER: 1 };
+  K.theirTurn = false; K.nf = null; K.turns = 0; K.settles = 0; K.quant = 16; K.exact = false;
+  K.level = function(){ return this.theirTurn ? 1 : lvl.call(this); };
+  K.reset = function(){ this.theirTurn = false; this.quant = 16; P = null; return rs.apply(this, arguments); };
+  /* MUS is declared further down this script, so the commit-on-read goes in once the script has run */
+  function exact(){
+    if(K.exact) return true;
+    var m; try{ m = MUS; }catch(e){ return false; }
+    var d = m && Object.getOwnPropertyDescriptor(m, 'layers');
+    if(!d || !('value' in d)) return false;   /* somebody else holds the property: the old watcher, as before */
+    var cur = d.value;
+    Object.defineProperty(m, 'layers', { configurable: true, enumerable: true,
+      get: function(){ if(P && (!m.playing || m.step % P.q === 0)){ cur = P.want; P = null; } return cur; },
+      set: function(x){ cur = x; P = null; } });
+    return (K.exact = true);
+  }
+  (function tryExact(){ if(!exact()) setTimeout(tryExact, 250); })();
+  /* a turn's change asks for the beat (4 steps), anything else the bar (16); one already pending on the beat keeps it */
+  K.arm = function(){
+    if(!exact()){ this.quant = 16; return arm0.call(this); }
+    P = { want: this.want, q: P ? Math.min(P.q, this.quant) : this.quant }; this.quant = 16;
+  };
+  K.pending = function(){ return P ? { want: P.want, q: P.q } : null; };
+  K.turn = function(side){ this.theirTurn = side === 'them'; this.turns++; this.quant = 4; this.apply(); };
+  K.settle = function(){ this.kills = 0; this.threat = false; this.theirTurn = false; this.nf = null; this.settles++; this.apply(); };
+  function fightWin(){ try{ return (window.NF && NF.frame && NF.frame.contentWindow) || null; }catch(e){ return null; } }
+  window.addEventListener('message', function(ev){
+    var d = ev && ev.data; if(!d || !MINE[d.type]) return;
+    var w = fightWin(); if(!w || ev.source !== w) return;
+    if(d.type === 'BOHEMIA_FIGHT_OVER'){ K.settle(); return; }
+    if(K.nf !== w){ K.nf = w; K.kills = 0; K.theirTurn = false; }   /* a fresh fight counts its own kills */
+    if(d.type === 'BOHEMIA_FIGHT_TURN') K.turn(d.side);
+  });
+  setInterval(function(){ if(K.nf && !fightWin()) K.settle(); }, 1000);
+})();
+/* ===== /__THE_FIGHT_DRIVES_THE_MUSIC__ ===== */
 /* ===== __INTENSITY_WATCHER__ (8/27) -- THE OTHER TWO TRIGGERS ==============
    Paolo 8/26, LOCKED: "...an enemy trying to hurt you or SOMEONE IS TALKING TO
    YOU is lvl 2 then you either kill 2 enemies or THERESA WHOLE BUNCH OF PEOPLE
