@@ -166,7 +166,35 @@ def render_code(glb, out, h):
     argv = ['bohemia_direction_master_rig.py', glb, out, '--real-height', str(h), '--family', 'none',
             '--set', 'samples=%d' % SAMPLES, '--set', 'dent_m=0', '--no-calibration', '--no-id-pass',
             '--clip', 'Stand:1', '--clip', 'Anim_0:6', '--portrait', '128']
+    for e in MOUTH: argv += ['--expression', e]   # the face talks: PORTRAIT's head keeps its four speak-along mouths
     return ('import sys; sys.argv = %r; __file__ = %r\n' % (argv, os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py'))) + src
+
+
+MOUTH = ('A', 'E', 'O', 'M')
+FACE_KEYS = ('rest',) + MOUTH
+
+
+def faces(out):
+    """HIS FACE IS HIS BODY'S FACE (ONE ID, ONE WHOLE PERSON; rule 120(d)): the portrait the master rig rendered of this very
+    model's head, rest and the four mouths, squared the way PORTRAIT squares the crew's (its hand_off_window, imported) and
+    box-resampled to the 64 and the 128 the screens draw: <person>/face/<key>_<64|128>.png, the names
+    engine/bohemia_crew_faces.js reads"""
+    from PIL import Image
+    import bohemia_portrait_the_head_from_the_model as PM
+    pj = json.load(open(os.path.join(out, 'portrait.json')))
+    src = dict(rest=pj['files'][0], **pj['expression_files'])
+    od = os.path.join(out, 'face'); os.makedirs(od, exist_ok=True)
+    for k in FACE_KEYS:
+        im = Image.open(os.path.join(ROOT, src[k])).convert('RGBA')
+        sq = im.crop(PM.hand_off_window(im, pj['head_px']))
+        for n in (64, 128): sq.resize((n, n), Image.BOX).save(os.path.join(od, '%s_%d.png' % (k, n)))
+
+
+def prune(out):
+    """what the screens and the bake read stays (the eight stills, the walk, the three portraits, the faces, the two
+    jsons); the rig's raw frames, its shadows and the Stand clip (the stills again) go: 1.2 MB a person"""
+    for f in os.listdir(out):
+        if f.startswith(('raw_', 'shadow_', 'rig_Stand_')): os.remove(os.path.join(out, f))
 
 
 def run(cmd, out):
@@ -190,6 +218,7 @@ def make(pid):
     h = json.load(open(glb.replace('.glb', '.json')))['real_height_for_rig']
     t1 = time.time()
     if run([py, '-c', render_code(glb, out, h)], os.path.join(out, 'rig.json')):
+        faces(out); prune(out)
         for f in (glb, os.path.join(ROOT, 'records/character/rig/%s.glb' % tag)):   # 25 MB a person, rebuilt from the roll on demand
             if os.path.exists(f): os.remove(f)
         print('MADE %s build %.0fs render %.0fs' % (pid, t1 - t0, time.time() - t1), flush=True)
@@ -197,7 +226,7 @@ def make(pid):
 
 def todo():
     return [p['id'] for p in json.load(open(ROLL))
-            if not os.path.exists(os.path.join(ROOT, OUT, 'person_' + p['id'].lower(), 'rig_portrait_SW.png'))]
+            if not os.path.exists(os.path.join(ROOT, OUT, 'person_' + p['id'].lower(), 'face', 'M_128.png'))]
 
 
 def batch(n=2):
