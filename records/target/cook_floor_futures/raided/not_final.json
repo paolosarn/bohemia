@@ -1398,5 +1398,77 @@
    "rafters": 0,
    "rubble": 83
   }
+ },
+ "culdesac.1": {
+  "seconds": 784,
+  "junk": {
+   "bags": 0,
+   "paper": 418,
+   "card": 103,
+   "cloth": 42,
+   "weeds": 358,
+   "mattresses": 1,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 4,
+   "tidy_house": 1,
+   "burnt_house": 5
+  },
+  "grime": {
+   "materials": 89,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     55.27,
+     12.86,
+     3.2
+    ],
+    [
+     50.03,
+     59.88,
+     1.0
+    ],
+    [
+     17.23,
+     6.02,
+     3.82
+    ],
+    [
+     15.77,
+     7.39,
+     3.3
+    ],
+    [
+     42.9,
+     55.46,
+     2.27
+    ],
+    [
+     52.89,
+     50.46,
+     2.84
+    ],
+    [
+     17.66,
+     15.29,
+     2.53
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_culdesac_1.webp",
+  "future": {
+   "holes": 967,
+   "char": 388,
+   "rafters": 0,
+   "rubble": 97
+  }
  }
 }

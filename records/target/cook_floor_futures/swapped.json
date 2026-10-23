@@ -268,5 +268,10 @@
   "file": "slices/fight_ground/block_culdesac_0_raided.webp",
   "sha1": "42bf2b473079e9fe1afc88e0d1f4877428f1bea6",
   "master": "records/target/cook_floor_futures/raided/block_culdesac_0.webp"
+ },
+ "culdesac.1.raided": {
+  "file": "slices/fight_ground/block_culdesac_1_raided.webp",
+  "sha1": "00f1d22f0cad18e549188ad7bce7ee39a8addd23",
+  "master": "records/target/cook_floor_futures/raided/block_culdesac_1.webp"
  }
 }
