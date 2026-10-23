@@ -152,6 +152,34 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-quicker-funner): 10/23 LATEST -- [quicker and funner for normies] SHIPPED c1fd56cf (rule 133(e), research only, no card,
+no game code touched; the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
+RECORD: records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md. BANK (the walk, draft:true):
+banks/BOHEMIA_TUNING_QUICKER_AND_FUNNER_THE_WALK_10_23_26.json. Measured on DEMO 10/20a by real touches; RUN cut 10/23a mid-round and
+the code behind every finding was re-read on it, unchanged.
+*** THE FINDING: THE FIGHT IS NOT THE SLOW PART, THE MAP AND THE TOWN ARE. AUTO won both of a stranger's first fights in 28.6 s
+(6 rounds, 3 v 3) and 23.3 s (4 rounds, 3 v 2). Before the first town: 0 of 2 phone jobs react to a touch; the word CHURCH sat on a
+moving patrol and walked the crew into a fight in 3.9 s with no word and no flee; the map comes back on PAUSE after every fight and a
+tap on a place then moves nothing for 15 s; 4 wrong taps and 1 unplanned fight. The town: no words; 12 aimed taps found 6 of 8 places
+and never the hiring post. CREW shows YOUR COMPANY 12 / 20 to a crew of 3. Nothing charged 06:00 to 11:10: the hardcore half is at zero. ***
+THE TEN, RANKED: 1 every fight sized to the crew (RUN nfOpts + COMBAT fallback; TUNING 10/19's one line still not in); 2 the first tap
+goes somewhere (RUN + UI: the phone lights the town, a tap always goes, resume after a fight); 3 look before you fight (RUN + UI +
+TUNING: count and skulls against your crew, second tap attacks); 4 the easy end is the default (RUN + WORDS: NEW HERE + FULL SHELVES,
+46 to 78 in 100); 5 one bill in days (ECONOMY + RUN + UI: nightly cost, DAYS LEFT, a man walks at zero); 6 a win is a moment (UI +
+COMBAT + SOUNDS: 3 s count-up, the day's tally at nightfall); 7 the town shows its doors (RUN TWO + COOK FOUR + WORDS: lit doors,
+picture signs, the line of men is the hiring post); 8 one voice teaches the first hour (WORDS + UI + COMBAT: 8 lines, once each, never
+in the first 60 s); 9 hire what you see (RUN TWO + PEOPLE + ECONOMY: 3 stars, 49 not 225, the crew screen reads the company); 10 the
+fight by hand, quicker (COMBAT: AUTO glows at 80+, their turns at double speed, take back a step, save every turn).
+NOT MEASURED: a fight by hand (COMBAT owes it); nightfall's reckoning; a real phone.
+GATES: HANDOFF 10/0, ATTEMPT 15/0, REPLY CONTRACT 22/0. Two reds that are red on origin/main before this commit and are not
+this lane's, named: THE ONE STOPWATCH W2 (RUN's 10/23a cut did not re-run node tools/bohemia_one_stopwatch.js 5) and BANK LAW (the
+index would shrink 105 to 103 rulings; this round's bank carries no law field). Full suite not run: docs and a bank only.
+NEXT: [the aim he sees] is the top OPEN row.
+[bb Battle Brothers sizes a job by the company but never below about eight men; a crew of three meets jobs built for eight, and that
+floor is why its first ten days lose new players.]
+[analog horror: a lit door in a dark town, and a crew that walks off one face a night when the batteries run out.]
+[PENDING Paolo]: none.
+
 TUNING (tuning-vamily-guns): 10/19 (h) LATEST -- FIVE ROWS SHIPPED (research only, rule 38g; no game code touched; opened by the
 coordinator, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a):
 [the first kit is guns] fd2e0f93, [the first hour's numbers] 5ff7e86d, [origin food and goods] 7ab098f0, [the whole grid] a15b1d20,

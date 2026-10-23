@@ -29,6 +29,11 @@ of the time, else a long injury, and the main character never dies (rules 36, 37
   done by script (the same route a finger sets); both are marked in the bank. The load numbers are the one
   stopwatch's (title 1.6 s, NEW GAME ready 12.6 s on the 4x phone profile, RUN 10/19); the only load number
   this round adds is BEGIN to a map that takes a finger: 0.5 s here, 2.5 s at 4x.
+- RUN cut DEMO - BUILD 10/23a - THE MAP STANDS UP while this round ran (the map's painting: the towers
+  stand up, the districts read apart). Re-checked on 10/23a by reading the code: the door's defaults
+  (line 13506), nfOpts (12422-12430), the street's roster with no party, the PAUSE after a fight
+  (travelInterrupt), the settlement screen, the crew door and the fight are unchanged, so every finding
+  below stands on the cut he plays.
 
 ## THE FINDING THAT PROVES US WRONG
 
