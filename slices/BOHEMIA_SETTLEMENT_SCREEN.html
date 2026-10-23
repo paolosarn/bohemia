@@ -971,18 +971,18 @@ var IDLE_BY_CLIP = { look:['look','roll','strap','scratch'], lean:['lean','smoke
   scratch:['scratch','stretch','look','roll'], beckon:['look','roll','strap','scratch'], trade:['look','roll','strap','scratch'],
   wait:null, greet:['look','roll','stretch','strap'] };
 var IDLE_DUSK = {};
-function idlePerson(p, now, k, s, H, fx, fy){
-  var I = window.BohemiaIdles; if(!I || !I.has(p.look)) return false;
+function idlePerson(p, now, k, s, H){   /* his idle picture as a draw, laid in depth with everybody else; null: his still */
+  var I = window.BohemiaIdles; if(!I || !I.has(p.look)) return null;
   var f = Math.max(0, I.DIRS.indexOf(turnOf(p, now)));
-  var q = I.frame(p.look, 'settle:' + S.place.name + ':' + (p.keeper ? p.k : 'c' + p.slot), now, f, { set: 'bare', idles: IDLE_BY_CLIP[p.clip] || null });
-  if(!q) return false;
-  var img = q.img;
-  if(view.night){ var d = IDLE_DUSK[img.src]; if(!d) d = IDLE_DUSK[img.src] = duskOf({ im: img }); img = d; }
-  cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
-  var z = k*s;
-  cx.drawImage(img, q.x, q.y, q.w, q.h, Math.round(fx - (q.foot[0] - q.dx)*z), Math.round(fy - (q.foot[1] - q.dy)*z), Math.round(q.w*z), Math.round(q.h*z));
+  var q = I.frame(p.look, 'settle:' + S.place.name + ':' + (p.keeper ? p.k : p.post ? 'p' + p.rid : 'c' + p.slot), now, f, { set: 'bare', idles: IDLE_BY_CLIP[p.clip] || null });
+  if(!q) return null;
   p.idle = q.kind;
-  return true;
+  return function(){
+    var img = q.img, fx = view.ox + p.x*s, fy = view.oy + p.y*s, z = k*s;
+    if(view.night){ var d = IDLE_DUSK[img.src]; if(!d) d = IDLE_DUSK[img.src] = duskOf({ im: img }); img = d; }
+    cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
+    cx.drawImage(img, q.x, q.y, q.w, q.h, Math.round(fx - (q.foot[0] - q.dx)*z), Math.round(fy - (q.foot[1] - q.dy)*z), Math.round(q.w*z), Math.round(q.h*z));
+  };
 }
 /* ==== end __EVERYBODY_IDLES__ ==== */
 function drawPeople(s){
@@ -990,8 +990,7 @@ function drawPeople(s){
   var k = rigScale(), now = performance.now(), H = personH()*s, items = [];
   L.forEach(function(p){
     if(!p.pre){ p.pre = 1; p.loop.forEach(function(t){ B.standing(p.look, t); }); }   /* every turn he will look, asked for once */
-    var fx0 = view.ox + p.x*s, fy0 = view.oy + p.y*s;
-    if(idlePerson(p, now, k, s, H, fx0, fy0)) return;   /* __EVERYBODY_IDLES__: he breathes and idles at his post (ANIMATION) */
+    var idl = idlePerson(p, now, k, s, H); if(idl){ items.push({y:p.y, draw:idl}); return; }   /* __EVERYBODY_IDLES__: he breathes and idles at his post (ANIMATION) */
     var r = B.standing(p.look, turnOf(p, now)) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one */
     items.push({y:p.y, draw:function(){
       var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;
