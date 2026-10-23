@@ -18,3 +18,9 @@ CHARACTER's round since 01:24 put 45 trousers, 40 shoes and 68 bags, capes, pads
 ## WHERE IT GOES
 
 CHARACTER, first on its board: [the clothes look real]. No card (rule 127): he meets it in the game; CHARACTER's own check is the garment beside a real photograph of the same thing at 1:1, the way rule 82 always asked.
+
+## CORRECTED THE SAME HOUR
+
+HIS WORDS: "Also, I didn't mean to say leather. I just meant to say layers so don't worry about leather."
+
+'Leather' was a slip. The ask is LAYERS. Each garment still reads as its own cloth, with no special push on leather. CHARACTER was restarted with layers first.
