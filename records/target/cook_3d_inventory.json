@@ -82,10 +82,12 @@
   "settlement_backdrops": {
    "where": "the settlement screen, slices/settlement_ground_packs/*.webp and slices/settlement_ground/home_0*.webp (day and night)",
    "total": 14,
-   "flat": 12,
+   "flat": 10,
    "in_3d": [
     "slices/settlement_ground_packs/town_0.webp",
-    "slices/settlement_ground_packs/town_0_night.webp"
+    "slices/settlement_ground_packs/town_0_night.webp",
+    "slices/settlement_ground_packs/town_1.webp",
+    "slices/settlement_ground_packs/town_1_night.webp"
    ]
   },
   "map_districts": {
@@ -173,7 +175,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 162,
+ "total_flat": 160,
  "log": [
   {
    "at": "10/20 start",
@@ -339,6 +341,17 @@
    "fight_floor": 26,
    "fight_cover": 0,
    "settlement_backdrops": 12,
+   "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the settlement's second town (day and night)",
+   "total_flat": 160,
+   "fight_floor": 26,
+   "fight_cover": 0,
+   "settlement_backdrops": 10,
    "map_districts": 54,
    "fight_floor_futures": 70,
    "fight_lights": 0,
