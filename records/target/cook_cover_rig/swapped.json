@@ -86,28 +86,28 @@
  "rubble_0": {
   "piece": "rubble_0",
   "file": "slices/fight_ground/cover_rubble_0.webp",
-  "sha1": "493772129339270c8bcb2fb8e8c635b2510c09cb",
+  "sha1": "18c7d67e0a8c2a1662ccc6d0aa00aeb93963f9bb",
   "size": [
    117,
    87
   ],
-  "facing": "N",
-  "iou_with_old": 0.417,
-  "clipped": 0.029,
+  "facing": "NE",
+  "iou_with_old": 0.486,
+  "clipped": 0.05,
   "model": "reference/models/bohemia/cover_rubble_0.glb",
   "rig": "records/target/cook_cover_rig/rubble_0/rig.json"
  },
  "rubble_1": {
   "piece": "rubble_1",
   "file": "slices/fight_ground/cover_rubble_1.webp",
-  "sha1": "aba77d433de7b2ba388c9649d63b7f7f11d5562b",
+  "sha1": "7ab2d678179f1ddb307b2a25d45f47c768274d1f",
   "size": [
    117,
    92
   ],
-  "facing": "N",
-  "iou_with_old": 0.423,
-  "clipped": 0.0,
+  "facing": "NW",
+  "iou_with_old": 0.38,
+  "clipped": 0.046,
   "model": "reference/models/bohemia/cover_rubble_1.glb",
   "rig": "records/target/cook_cover_rig/rubble_1/rig.json"
  },
@@ -618,140 +618,140 @@
  "rubble_2": {
   "piece": "rubble_2",
   "file": "slices/fight_ground/cover_rubble_2.webp",
-  "sha1": "f05783474454db4953701d0d879de587a8e02881",
+  "sha1": "a2c35c33b83d52d403a25b4f594356421cd708d2",
   "size": [
    117,
    91
   ],
-  "facing": "NW",
-  "iou_with_old": 0.396,
-  "clipped": 0.123,
+  "facing": "N",
+  "iou_with_old": 0.478,
+  "clipped": 0.001,
   "model": "reference/models/bohemia/cover_rubble_2.glb",
   "rig": "records/target/cook_cover_rig/rubble_2/rig.json"
  },
  "rubble_3": {
   "piece": "rubble_3",
   "file": "slices/fight_ground/cover_rubble_3.webp",
-  "sha1": "55d29d5b15d1dddbb1cd9bb1afcb63272225a7aa",
+  "sha1": "98febcc589aa1f49d9df6d4352fd85f70789410d",
   "size": [
    117,
    93
   ],
   "facing": "N",
-  "iou_with_old": 0.427,
-  "clipped": 0.003,
+  "iou_with_old": 0.463,
+  "clipped": 0.049,
   "model": "reference/models/bohemia/cover_rubble_3.glb",
   "rig": "records/target/cook_cover_rig/rubble_3/rig.json"
  },
  "rubble_4": {
   "piece": "rubble_4",
   "file": "slices/fight_ground/cover_rubble_4.webp",
-  "sha1": "bb1a23a8ba5b4a30fb46efe0151da7ad64f714ab",
+  "sha1": "a558edf8fcf89f4741f3b6c29ae020da30d24caf",
   "size": [
    117,
    94
   ],
-  "facing": "E",
-  "iou_with_old": 0.415,
-  "clipped": 0.0,
+  "facing": "S",
+  "iou_with_old": 0.4,
+  "clipped": 0.016,
   "model": "reference/models/bohemia/cover_rubble_4.glb",
   "rig": "records/target/cook_cover_rig/rubble_4/rig.json"
  },
  "rubble_5": {
   "piece": "rubble_5",
   "file": "slices/fight_ground/cover_rubble_5.webp",
-  "sha1": "56170121b99e16c7d5d44a7051acc4ad51c9695d",
+  "sha1": "a9f9ceb930010e737f968bc4b445ff6ce59e1055",
   "size": [
    117,
    86
   ],
-  "facing": "N",
-  "iou_with_old": 0.436,
-  "clipped": 0.017,
+  "facing": "S",
+  "iou_with_old": 0.404,
+  "clipped": 0.069,
   "model": "reference/models/bohemia/cover_rubble_5.glb",
   "rig": "records/target/cook_cover_rig/rubble_5/rig.json"
  },
  "rubble_6": {
   "piece": "rubble_6",
   "file": "slices/fight_ground/cover_rubble_6.webp",
-  "sha1": "d5614702610c81492eba9552a3c7d6816067e240",
+  "sha1": "fc0b68a50a446ca0be11401f93fd529dc88308c4",
   "size": [
    117,
    91
   ],
-  "facing": "NW",
-  "iou_with_old": 0.375,
-  "clipped": 0.002,
+  "facing": "SE",
+  "iou_with_old": 0.451,
+  "clipped": 0.011,
   "model": "reference/models/bohemia/cover_rubble_6.glb",
   "rig": "records/target/cook_cover_rig/rubble_6/rig.json"
  },
  "rubble_7": {
   "piece": "rubble_7",
   "file": "slices/fight_ground/cover_rubble_7.webp",
-  "sha1": "98996219e38b4152747af9295c0848c3b1f576ec",
+  "sha1": "97edb18dda707f5b6736ffdbbb800682d7e9c08a",
   "size": [
    117,
    89
   ],
-  "facing": "SW",
-  "iou_with_old": 0.42,
-  "clipped": 0.0,
+  "facing": "SE",
+  "iou_with_old": 0.436,
+  "clipped": 0.01,
   "model": "reference/models/bohemia/cover_rubble_7.glb",
   "rig": "records/target/cook_cover_rig/rubble_7/rig.json"
  },
  "rubble_8": {
   "piece": "rubble_8",
   "file": "slices/fight_ground/cover_rubble_8.webp",
-  "sha1": "2b476dc49096df07427cde1e91130547283b6218",
+  "sha1": "d2ef459578a394239222369ec060c78e5b3deeb3",
   "size": [
    117,
    93
   ],
-  "facing": "N",
-  "iou_with_old": 0.328,
-  "clipped": 0.056,
+  "facing": "NW",
+  "iou_with_old": 0.412,
+  "clipped": 0.066,
   "model": "reference/models/bohemia/cover_rubble_8.glb",
   "rig": "records/target/cook_cover_rig/rubble_8/rig.json"
  },
  "rubble_9": {
   "piece": "rubble_9",
   "file": "slices/fight_ground/cover_rubble_9.webp",
-  "sha1": "bc06786cdd992be3618b235adca330cbbfb65ae1",
+  "sha1": "f23de2a88b106a4279dbfcd52063867222fcd348",
   "size": [
    117,
    87
   ],
-  "facing": "NW",
-  "iou_with_old": 0.451,
-  "clipped": 0.0,
+  "facing": "S",
+  "iou_with_old": 0.437,
+  "clipped": 0.039,
   "model": "reference/models/bohemia/cover_rubble_9.glb",
   "rig": "records/target/cook_cover_rig/rubble_9/rig.json"
  },
  "rubble_10": {
   "piece": "rubble_10",
   "file": "slices/fight_ground/cover_rubble_10.webp",
-  "sha1": "959232422da50cadd0b0fb2cb16e29447f9db7d7",
+  "sha1": "3a925d15a7c214a414c8932492cabe3bf1c5f50e",
   "size": [
    117,
    87
   ],
   "facing": "N",
-  "iou_with_old": 0.47,
-  "clipped": 0.0,
+  "iou_with_old": 0.493,
+  "clipped": 0.008,
   "model": "reference/models/bohemia/cover_rubble_10.glb",
   "rig": "records/target/cook_cover_rig/rubble_10/rig.json"
  },
  "rubble_11": {
   "piece": "rubble_11",
   "file": "slices/fight_ground/cover_rubble_11.webp",
-  "sha1": "fab1d92d38d9c010248cae6d4032ebed36b25da2",
+  "sha1": "7fc1bfbf5742bb1d0035c34153f64d18f29470ba",
   "size": [
    117,
    91
   ],
-  "facing": "NE",
-  "iou_with_old": 0.421,
-  "clipped": 0.001,
+  "facing": "N",
+  "iou_with_old": 0.471,
+  "clipped": 0.008,
   "model": "reference/models/bohemia/cover_rubble_11.glb",
   "rig": "records/target/cook_cover_rig/rubble_11/rig.json"
  },

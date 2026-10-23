@@ -20,7 +20,7 @@
   "fight_cover": {
    "where": "the fight, slices/fight_ground/cover_*.webp (cars, walls, shed, trailer, barrier, dumpster, fence, pump, steps, dock, slot bank, table, pillar, outcrop, rocks, rubble)",
    "total": 51,
-   "flat": 1,
+   "flat": 0,
    "in_3d": [
     "car_drive",
     "car_kerb",
@@ -56,6 +56,7 @@
     "rubble_0",
     "rubble_1",
     "rubble_10",
+    "rubble_11",
     "rubble_2",
     "rubble_3",
     "rubble_4",
@@ -149,7 +150,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 184,
+ "total_flat": 183,
  "log": [
   {
    "at": "10/20 start",
@@ -226,6 +227,17 @@
    "total_flat": 184,
    "fight_floor": 30,
    "fight_cover": 1,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 rubble_11, the last cover piece, and all twelve rubble heaps given a body (a mound of fines, the lumps through it: they hovered over their shadows)",
+   "total_flat": 183,
+   "fight_floor": 30,
+   "fight_cover": 0,
    "settlement_backdrops": 14,
    "map_districts": 69,
    "fight_floor_futures": 70,

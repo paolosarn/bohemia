@@ -141,23 +141,34 @@ def build_rocks(bpy, mathutils, P, seed, outcrop=False):
 
 
 def build_rubble(bpy, mathutils, P, seed):
-    """a block wall's or a house front's fall, 2.6 m across, 1.3 m at its top: lumps, block halves, brick, rebar"""
+    """a block wall's or a house front's fall, 2.6 m across, about 1 m at its top (10/23: lower, on its core): lumps, block halves, brick, rebar"""
     import random
     rnd = random.Random(seed)
     conc, block, brick, steel, wood = (P.mat(bpy, 'concrete', 'tape_grey', 1), P.mat(bpy, 'cmu', 'tape_masking', 1), P.mat(bpy, 'brick', 'clay_rust', 1),
                                        P.mat(bpy, 'rebar', 'rubber', 1), P.mat(bpy, 'plank', 'clay_bone', 1))
-    n = rnd.randint(16, 26)
+    n = rnd.randint(30, 42)
+    # 10/23: THE HEAP HAS A BODY. The lumps were stacked to a 0.85 m top over nothing, so at the fight's camera every pile
+    # hovered over its own shadow with daylight under it. A fall is mostly fines and broken block: a low mound of fines
+    # (a flattened, knocked-about sphere, its underside cut at grade: the rig seats a model on its lowest point) in the
+    # dust colour of the concrete it came from, and the lumps through the whole of it, from the ground up to the top.
+    fines = P.mat(bpy, 'fines', 'clay_bone', 1)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=3, radius=1.0, location=(0, 0, 0)); mo = bpy.context.active_object
+    for v in mo.data.vertices:
+        c = v.co; j = 1.0 + 0.16 * math.sin(c.x * 5.1 + seed) * math.cos(c.y * 4.3 - seed) + rnd.uniform(-0.06, 0.06)
+        v.co = (c.x * 1.05 * j, c.y * 0.68 * j, max(0.0, c.z * 0.4 * j))
+    P.put(bpy, mo, 'mound', fines, smooth=False)
     for i in range(n):
         a = rnd.uniform(0, 6.3); d = abs(rnd.gauss(0, 0.55)); x, y = math.cos(a) * d * 1.1, math.sin(a) * d * 0.7
         top = max(0.0, 1.0 - d / 1.3)
-        s = rnd.uniform(0.25, 0.62) * (0.65 + top * 0.6)
+        s = rnd.uniform(0.22, 0.55) * (0.65 + top * 0.6)
         mm = rnd.choice([conc, conc, block, brick]) if i % 5 else block
         sz = (s * 0.5, s * 0.25, s * 0.25) if mm is brick else ((0.4, 0.2, 0.2) if mm is block and rnd.random() < 0.5 else (s, s * rnd.uniform(0.6, 1.0), s * rnd.uniform(0.4, 0.8)))
-        P.chunk(bpy, 'lump_%d' % i, mm, sz, (x, y, top * 0.85 + sz[2] / 2), (rnd.uniform(-0.5, 0.5), rnd.uniform(-0.5, 0.5), rnd.uniform(0, 6.3)), rnd)
-    P.chunk(bpy, 'slab', conc, (0.95, 0.65, 0.12), (rnd.uniform(-0.3, 0.3), 0.1, 0.75), (rnd.uniform(-0.4, 0.4), rnd.uniform(-0.3, 0.3), rnd.uniform(0, 6.3)), rnd, (0.2, 0.2, 0.02))
+        z = top * 0.5 * rnd.uniform(0.35, 1.0)                 # anywhere from the mound's skin to the top, never over air
+        P.chunk(bpy, 'lump_%d' % i, mm, sz, (x, y, z + sz[2] * 0.3), (rnd.uniform(-0.5, 0.5), rnd.uniform(-0.5, 0.5), rnd.uniform(0, 6.3)), rnd)
+    P.chunk(bpy, 'slab', conc, (0.95, 0.65, 0.12), (rnd.uniform(-0.3, 0.3), 0.1, 0.55), (rnd.uniform(-0.4, 0.4), rnd.uniform(-0.3, 0.3), rnd.uniform(0, 6.3)), rnd, (0.2, 0.2, 0.02))
     for k in range(rnd.randint(2, 5)):
         x, y = rnd.uniform(-0.6, 0.6), rnd.uniform(-0.3, 0.3); a = rnd.uniform(0, 6.3); L = rnd.uniform(0.6, 1.3)
-        P.rod(bpy, 'rebar_%d' % k, steel, (x, y, 0.6), (x + math.cos(a) * L * 0.6, y + math.sin(a) * L * 0.4, 0.6 + L * rnd.uniform(0.2, 0.8)), 0.014, 6)
+        P.rod(bpy, 'rebar_%d' % k, steel, (x, y, 0.45), (x + math.cos(a) * L * 0.6, y + math.sin(a) * L * 0.4, 0.45 + L * rnd.uniform(0.15, 0.5)), 0.014, 6)
     if rnd.random() < 0.6:
         P.box(bpy, 'plank', wood, (1.6, 0.18, 0.04), (rnd.uniform(-0.4, 0.4), -0.3, 0.55), (rnd.uniform(-0.3, 0.3), rnd.uniform(-0.4, 0.4), rnd.uniform(0, 6.3)))
     odd = seed % 4                                             # the one odd thing in each: what the wall fell on
