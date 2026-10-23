@@ -158,5 +158,10 @@
   "file": "slices/fight_ground/block_freewayo_0.webp",
   "sha1": "ab990f58aca426d092873080b27581f8077a2256",
   "master": "records/target/cook_floor_not_final/block_freewayo_0.webp"
+ },
+ "casino.0": {
+  "file": "slices/fight_ground/block_casino_0.webp",
+  "sha1": "8f50beb591be16b2169f86111244f01722d624b4",
+  "master": "records/target/cook_floor_not_final/block_casino_0.webp"
  }
 }
