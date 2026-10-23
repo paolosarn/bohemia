@@ -47,7 +47,7 @@ SRC = os.path.join(ROOT, 'records/target/animation/BOHEMIA_EVERYBODY_IDLES.json'
 POSED = 'records/animation/idles'                 # the posed models (regenerated, .gitignore)
 RENDERS = 'records/target/animation/idles'        # the master rig's renders (regenerated, .gitignore)
 OUT = 'slices/rig_idles'
-CLIP = {'bare': 'IdleBare', 'carry': 'IdleCarry'}
+CLIP = {'bare': 'IdleBare', 'carry': 'IdleCarry', 'beast': 'IdleBeast', 'map': 'IdleMap'}
 FIGHT_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 F, U, L = (1, 0, 0), (0, -1, 0), (0, 0, 1)
 AX = {'F': F, 'U': U, 'L': L}
@@ -64,7 +64,7 @@ def pose_list(D, set_name):
 
 
 # ------------------------------------------------------------------------------------------------ pose (bpy)
-def pose(src, out):
+def pose(src, out, sets=('bare', 'carry')):
     import bpy, mathutils
     D = source(); B = D['bones']
     sys.path.insert(0, os.path.join(ROOT, 'tools'))
@@ -183,7 +183,7 @@ def pose(src, out):
 
     carry = [list(o) for o in CP.carry_ops()]   # (bone, axis vector, deg): COMBAT's low ready
     made = []
-    for set_name in ('bare', 'carry'):
+    for set_name in sets:
         poses = pose_list(D, set_name)
         under = carry if D['sets'][set_name]['base'] == 'carry' else []
         name = CLIP[set_name]
@@ -212,6 +212,214 @@ def pose(src, out):
     bpy.ops.export_scene.gltf(filepath=os.path.abspath(out), export_format='GLB', export_skins=True, export_animations=True, export_apply=False,
                               use_selection=False, export_animation_mode='NLA_TRACKS', export_force_sampling=True)
     print('POSED', out, made)
+
+
+# ------------------------------------------------------------------------------------------------ the beasts (bpy)
+def pose_beast(src, out):
+    """THE BEASTS GET THEIRS (the row: sniff, pant, shake): the beast set laid on a four-legged model (the fox's skeleton every
+    beast is built on) as IdleBeast, on the still the master rig reads it by (the passing pose of its Walk, its stand cell),
+    so the beast that stops walking stands where it stood. Spine, neck, head and tail only: the feet never move."""
+    import bpy, mathutils
+    D = source(); B = D['beast_bones']; AXB = {k: tuple(v) for k, v in D['beast_axes'].items() if k in 'FUL'}
+    sys.path.insert(0, os.path.join(ROOT, 'tools'))
+    import bohemia_direction_master_rig as MR
+    MR.bpy = bpy
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    sc = bpy.context.scene
+    bpy.ops.import_scene.gltf(filepath=os.path.abspath(src))
+    for o in list(sc.objects):
+        if o.type == 'MESH' and o.name.startswith('Icosphere') and o.parent is None and len(o.data.vertices) == 42:
+            bpy.data.objects.remove(o, do_unlink=True)
+    objs = [o for o in sc.objects if o.type == 'MESH']
+    arm = [o for o in sc.objects if o.type == 'ARMATURE'][0]
+    ad = arm.animation_data or arm.animation_data_create()
+    for x in list(bpy.data.actions):
+        if not any(s.action == x for t in ad.nla_tracks for s in t.strips):
+            nm = x.name.split('_root')[0].split('_Armature')[0]
+            t = ad.nla_tracks.new(); t.name = nm; t.strips.new(nm, int(x.frame_range[0]), x); t.mute = True
+    f0, f1 = MR.clip_actions(sc, 'Walk'); still = MR.passing_frame(sc, objs, f0, f1)   # the master rig's own still
+    sc.frame_set(int(math.floor(still)), subframe=still - math.floor(still)); bpy.context.view_layer.update()
+    PB = arm.pose.bones
+    base = {pb.name: pb.matrix_basis.copy() for pb in PB}
+    order = []
+    def walk(b):
+        order.append(b.name)
+        for c in b.children: walk(c)
+    for b in arm.data.bones:
+        if b.parent is None: walk(b)
+    def apply(ops):
+        for pb in PB: pb.matrix_basis = base[pb.name].copy()
+        bpy.context.view_layer.update()
+        for b, ax, deg in sorted(ops, key=lambda o: order.index(B[o[0]])):
+            pb = PB[B[b]]; P = pb.matrix.translation.copy()
+            R = mathutils.Matrix.Rotation(math.radians(deg), 4, mathutils.Vector(AXB[ax]))
+            pb.matrix = mathutils.Matrix.Translation(P) @ R @ mathutils.Matrix.Translation(-P) @ pb.matrix
+            bpy.context.view_layer.update()
+    poses = pose_list(D, 'beast'); n = len(poses)
+    for o in sc.objects:   # nothing else plays while the pose is keyed
+        if o.animation_data: o.animation_data.action = None
+    act = bpy.data.actions.new('IdleBeast'); ad.action = act
+    for fr, (pname, ops) in [(0, poses[0])] + [(2 * k + 1, poses[k]) for k in range(n)] + [(2 * n, poses[-1])]:
+        apply(ops)
+        for pb in PB:
+            for ch in ('location', 'rotation_quaternion', 'scale'): pb.keyframe_insert(ch, frame=fr)
+    t = ad.nla_tracks.new(); t.name = 'IdleBeast'; t.strips.new('IdleBeast', 0, act); t.mute = True
+    ad.action = None
+    for pb in PB: pb.matrix_basis = base[pb.name].copy()
+    bpy.ops.export_scene.gltf(filepath=os.path.abspath(out), export_format='GLB', export_skins=True, export_animations=True, export_apply=False,
+                              use_selection=False, export_animation_mode='NLA_TRACKS', export_force_sampling=True)
+    print('POSED', out, [('IdleBeast', n)])
+
+
+def beasts(arg='ALL'):
+    CF = combat(); py = sys.executable; n = len(source()['sets']['beast']['poses'])
+    for name, kind, src in CF.pick(arg):
+        if kind != 'beast': continue
+        posed = os.path.join(ROOT, CF.POSED, name + '.glb')
+        if not os.path.exists(posed): run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], posed)
+        glb = os.path.join(ROOT, POSED, name + '.glb')
+        run([py, os.path.abspath(__file__), 'pose_beast', posed, glb], glb)
+        CF.POSED, CF.RENDERS = POSED, RENDERS
+        CF.BEAST_CLIPS = [('Walk', 6), ('IdleBeast', n)]   # Walk first: the master rig's still and box are the beast's own
+        CF.render(name)
+        print('IDLES', name, flush=True)
+
+
+# ------------------------------------------------------------------------------------------------ the map's people
+# THE MAP DRAWS ITS OWN MODELS (RUN's two sheets, tools/bohemia_bake_the_rig_cast.py): CHARACTER's thirteen gangs for a gang's
+# party, and his body, the barber's three cuts and COOK THREE's three tiers for him, his two men, a crowd and a job. Each is
+# rebuilt by its own lane's builder (run, never edited), posed with the map's ten, and rendered the fight's fast way; a model
+# whose rebuilt still does not match the picture the map already draws keeps its still (MATCH below: the builder moved on).
+MAP_GANGS = ['anarchists', 'blues', 'caravans', 'cartel', 'church', 'colorful', 'homeless', 'mob', 'network', 'reds', 'remnants', 'trades', 'volunteers']
+MAP_PEOPLE = {'body': 'records/target/character/rig/body', 'coil_crown': 'records/target/character/barber/coil_crown',
+              'temple_taper': 'records/target/character/barber/temple_taper', 'layered_fall': 'records/target/character/barber/layered_fall',
+              'thug': 'records/target/cook3/rig/thug', 'marksman': 'records/target/cook3/rig/marksman', 'poacher': 'records/target/cook3/rig/poacher_again'}
+MATCH = dict(alpha=0.9, rgb=28)   # the rebuilt still against the map's: silhouette agreement and mean colour step where both are painted
+
+
+def map_models():
+    out = [(g, 'gangs', 'records/target/character/rig/' + g) for g in MAP_GANGS]
+    return out + [(k, 'people', v) for k, v in MAP_PEOPLE.items()]
+
+
+def map_build(name, rec):
+    """the map model's own source, by its own lane's builder"""
+    rj = json.load(open(os.path.join(ROOT, rec, 'rig.json'))); glb = os.path.join(ROOT, rj['model']); py = sys.executable
+    if os.path.exists(glb): return glb, rj
+    base = os.path.basename(glb)[:-4]
+    if rec.startswith('records/target/character/rig/'):
+        run([py, 'tools/bohemia_character_the_thirteen_through_the_rig.py', 'build', name.capitalize(), 'records/character/rig'], glb)
+    elif base.startswith('barber_'):
+        run([py, 'tools/bohemia_character_the_barber_on_the_skull.py', 'build', base[len('barber_'):]], glb)
+    elif base == 'poacher_again':
+        body = os.path.join(ROOT, 'records/cook3/rig/poacher_again_body.glb')
+        run([py, 'tools/bohemia_cook3_the_tiers_through_the_rig.py', 'POACHER', body], body)
+        run([py, 'tools/bohemia_cook3_the_tiers_through_the_rig.py', '--whole', 'POACHER', body, glb], glb)
+    else:
+        run([py, 'tools/bohemia_cook3_the_tiers_through_the_rig.py', base.upper(), glb], glb)
+    return glb, rj
+
+
+def render_model(glb, out, real_h, clips):
+    """DIRECTION's master rig run the way COMBAT runs it for the fight (its two in-memory changes: the movers' light pass off,
+    Cycles keeps its scene), samples and dents as COMBAT's"""
+    CF = combat()
+    src = open(os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py')).read()
+    a, b = 'lights.append(light_footprint(', "sc.render.engine = G['engine'];"
+    assert src.count(a) == 1 and src.count(b) == 1, 'the master rig changed: re-read it before patching in memory'
+    th = int(os.environ.get('BOHEMIA_RIG_THREADS', '0'))
+    src = src.replace(a, 'False and lights.append(light_footprint(').replace(b, "sc.render.use_persistent_data = True; " +
+        ("sc.render.threads_mode = 'FIXED'; sc.render.threads = %d; " % th if th else '') + b)
+    argv = ['bohemia_direction_master_rig.py', glb, out, '--real-height', str(real_h), '--family', 'none', '--set', 'samples=%d' % CF.SAMPLES,
+            '--no-calibration', '--no-id-pass', '--set', 'dent_m=0']
+    for c, k in clips: argv += ['--clip', '%s:%d' % (c, k)]
+    code = ('import sys; sys.argv = %r; __file__ = %r\n' % (argv, os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py'))) + src
+    run([sys.executable, '-c', code], os.path.join(out, 'rig.json'))
+
+
+def map_one(name):
+    rec = dict((m[0], m[2]) for m in map_models())[name]
+    glb, rj = map_build(name, rec); py = sys.executable
+    stood = os.path.join(ROOT, POSED, 'map_%s_stand.glb' % name)
+    run([py, 'tools/bohemia_combat_the_fight_poses.py', glb, stood], stood)   # COMBAT's poses: a Stand for a model that has none
+    posed = os.path.join(ROOT, POSED, 'map_%s.glb' % name)
+    run([py, os.path.abspath(__file__), 'pose_sets', stood, posed, 'map'], posed)
+    out = os.path.join(ROOT, RENDERS, 'map_' + name)
+    render_model(posed, out, rj['real_dims_m'][2], [('Stand', 1), ('IdleMap', len(source()['sets']['map']['poses']))])
+    print('IDLES map', name, flush=True)
+
+
+def maps(arg='ALL', workers=1):
+    todo = [m[0] for m in map_models() if (arg.upper() == 'ALL' or m[0] == arg) and not os.path.exists(os.path.join(ROOT, RENDERS, 'map_' + m[0], 'rig.json'))]
+    env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // max(1, workers))))
+    procs = []
+    for w in range(max(1, workers)):
+        mine = todo[w::max(1, workers)]
+        if not mine: continue
+        sh = ' ; '.join('%s %s map_one %s' % (sys.executable, os.path.abspath(__file__), x) for x in mine)
+        procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
+    for p in procs: p.wait()
+
+
+def pack_map(index):
+    """the map's idles on one sheet, cells placed against RUN's sheet cell: the map lays a cell's middle on the 112 frame's
+    middle and its ground line at 0.93 of it (rigSheetSet's cut), so a cell here says where it sits from that cell's origin"""
+    import numpy as np
+    from PIL import Image
+    D = source(); G = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')))['rig']
+    poses = list(D['sets']['map']['poses']); imgs, out = [], {}
+    pal = {}
+    for which, f in (('gangs', 'BOHEMIA_RIG_CAST'), ('people', 'BOHEMIA_RIG_PEOPLE')):
+        m = json.load(open(os.path.join(ROOT, 'slices', f + '.json')))
+        p_ = np.asarray(Image.open(os.path.join(ROOT, 'slices', f + '.png')).convert('RGB')).reshape(-1, 3)
+        pal[which] = (m, np.array(sorted(set(map(tuple, p_.tolist())))[:256], np.int32))
+    def to_pal(a, P):
+        rgb = a[..., :3].reshape(-1, 3).astype(np.int32); o = np.empty_like(rgb)
+        for i in range(0, len(rgb), 65536):
+            c = rgb[i:i + 65536]; dd = ((c[:, None, :] - P[None, :, :]) ** 2).sum(2); o[i:i + 65536] = P[dd.argmin(1)]
+        a[..., :3] = o.reshape(a.shape[:2] + (3,)).astype(np.uint8); return a
+    for name, which, rec in map_models():
+        d = os.path.join(ROOT, RENDERS, 'map_' + name)
+        if not os.path.exists(os.path.join(d, 'rig.json')): continue
+        rj = json.load(open(os.path.join(d, 'rig.json'))); mine = json.load(open(os.path.join(ROOT, rec, 'rig.json')))
+        m, P = pal[which]
+        # THE MATCH: his rebuilt still beside the still the map draws, facing S, in the full frame
+        def fullf(fn, r):
+            a = np.asarray(Image.open(fn).convert('RGBA')).astype(np.int32)
+            z = np.zeros((r['res'], r['res'], 4), np.int32); x0, y0, x1, y1 = r['crop_box_px']; z[y0:y1, x0:x1] = a; return z
+        A = fullf(os.path.join(d, 'rig_S.png'), rj); B = fullf(os.path.join(ROOT, rec, 'rig_S.png'), mine)
+        if A.shape != B.shape: print('MISMATCH frame', name); continue
+        oa, ob = A[..., 3] > 127, B[..., 3] > 127; agree = (oa & ob).sum() / max(1, (oa | ob).sum())
+        step = float(np.abs(A[..., :3] - B[..., :3])[oa & ob].mean()) if (oa & ob).any() else 255
+        if agree < MATCH['alpha'] or step > MATCH['rgb']:
+            print('NO MATCH, keeps his still:', name, round(agree, 3), round(step, 1)); continue
+        # where the map's cell puts his ground point: RUN's bake lays each picture's middle on the cell's middle and the
+        # look's lowest painted standing row on the cell's foot
+        st = [Image.open(os.path.join(ROOT, rec, 'rig_%s.png' % f)) for f in FIGHT_DIRS]
+        gfoot = max(im.getbbox()[3] for im in st); iw = st[0].size[0]
+        gx = m['w'] // 2 - iw // 2 + mine['ground_px'][0]; gy = m['foot'] - gfoot + mine['ground_px'][1]
+        fx0 = rj['crop_box_px'][0] + rj['ground_px'][0] - gx; fy0 = rj['crop_box_px'][1] + rj['ground_px'][1] - gy
+        cells = {}
+        for pi, p in enumerate(poses):
+            for row, f in enumerate(FIGHT_DIRS):
+                a = fullf(os.path.join(d, 'rig_IdleMap_%s_k%02d.png' % (f, pi)), rj).astype(np.uint8)
+                op = a[..., 3] > int(G['alpha_threshold']); a[..., 3] = np.where(op, 255, 0); a[~op] = 0
+                ys, xs = np.nonzero(op)
+                if not len(xs): continue
+                y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+                cells.setdefault(p, [None] * 8)[row] = len(imgs); imgs.append((to_pal(a[y0:y1, x0:x1].copy(), P), x0 - fx0, y0 - fy0))
+        out[name] = dict(sheet=which, poses=cells, match=[round(agree, 3), round(step, 1)])
+    if not imgs: return
+    order = sorted(range(len(imgs)), key=lambda i: -imgs[i][0].shape[0]); x = y = sh = 0; rects = [None] * len(imgs); W = 2048
+    for i in order:
+        h, w = imgs[i][0].shape[:2]
+        if x + w > W: x = 0; y += sh; sh = 0
+        rects[i] = [x, y, w, h, int(imgs[i][1]), int(imgs[i][2])]; x += w; sh = max(sh, h)
+    im = Image.new('RGBA', (W, y + sh), (0, 0, 0, 0))
+    for i, (a, _, _) in enumerate(imgs): im.paste(Image.fromarray(a, 'RGBA'), (rects[i][0], rects[i][1]))
+    im.save(os.path.join(ROOT, OUT, 'map.webp'), 'WEBP', lossless=True, quality=100, method=6)
+    index['map'] = dict(file='map.webp', cells=rects, looks=out, sets=dict(gangs='BOHEMIA_RIG_CAST', people='BOHEMIA_RIG_PEOPLE'))
+    print('PACKED map', im.size, os.path.getsize(os.path.join(ROOT, OUT, 'map.webp')), len(out), 'looks', flush=True)
 
 
 # ------------------------------------------------------------------------------------------------ the fight's men
@@ -303,8 +511,9 @@ def preview(glb, out, set_name='bare', facings='S,SE,E,N'):
         if o.type == 'MESH' and o.name.startswith('Icosphere') and o.parent is None and len(o.data.vertices) == 42: bpy.data.objects.remove(o, do_unlink=True)
     objs = [o for o in sc.objects if o.type == 'MESH']
     root = bpy.data.objects.new('turntable', None); sc.collection.objects.link(root)
-    MR.clip_actions(sc, 'Stand'); sc.frame_set(1); lo, hi = MR.bounds(sc, objs)
-    centre = mathutils.Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)); k = 1.72 / (hi.z - lo.z)
+    beast = set_name == 'beast'
+    MR.clip_actions(sc, 'Walk' if beast else 'Stand'); sc.frame_set(1); lo, hi = MR.bounds(sc, objs)
+    centre = mathutils.Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)); k = (1.7 / max(hi.x - lo.x, hi.y - lo.y)) if beast else 1.72 / (hi.z - lo.z)
     for o in list(sc.objects):
         if o.parent is None and o is not root: o.parent = root; o.location -= centre
     root.scale = (k, k, k * 1.414)
@@ -336,11 +545,12 @@ def pack():
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
     RIM = tuple(FR['rim'])
     os.makedirs(os.path.join(ROOT, OUT), exist_ok=True)
-    sets = {s: [p for p in D['sets'][s]['poses']] for s in ('bare', 'carry')}
+    sets = {s: [p for p in D['sets'][s]['poses']] for s in ('bare', 'carry', 'beast')}
     index = dict(version='rig-idles-10-23', lane='animation', row='[everybody idles]', rule='130(a), 128',
                  source='records/target/animation/BOHEMIA_EVERYBODY_IDLES.json (the poses and the timelines), laid on COMBAT\'s posed '
                         'men by tools/bohemia_animation_everybody_idles.py, rendered by DIRECTION\'s master rig the way COMBAT renders the fight',
                  dirs=FIGHT_DIRS, keys_per_beat=3, sets=sets, timelines={k: v for k, v in D['timelines'].items() if k != 'why'},
+                 breathe={k: v for k, v in D['breathe'].items() if k != 'why'},
                  idles=D['idles'], guns=['pistol', 'rifle', 'shotgun'], cell='[x, y, w, h, dx, dy]: the cell on the sheet and where its top left '
                  'sits from the look\'s fight-sheet cell origin (so his feet are where they were: the fight sheet\'s foot)', looks={})
     for look in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
@@ -348,6 +558,8 @@ def pack():
         if look not in FR['looks'] or not os.path.exists(os.path.join(d, 'rig.json')): continue
         rj = json.load(open(os.path.join(d, 'rig.json')))
         fl = FR['looks'][look]
+        if fl.get('kind') != 'beast' and not os.path.exists(os.path.join(d, 'guns', 'shotgun_IdleCarry_SW_k%02d.png' % (len(sets['carry']) - 1))):
+            print('SKIP', look, 'his guns are not rendered yet'); continue
         # the look's own fight cell is the frame of reference: the same model, still and camera (Stand first), so the same
         # full frame; his feet are the one point both know (the fight sheet's foot, this render's ground pixel)
         cx0, cy0, cx1, cy1 = rj['crop_box_px']
@@ -375,7 +587,9 @@ def pack():
             near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
             a[near & ~op] = RIM
             return a, x0, y0
+        mine = ('beast',) if fl.get('kind') == 'beast' else ('bare', 'carry')
         for s, poses in sets.items():
+            if s not in mine: continue
             clip = CLIP[s]
             for pi, p in enumerate(poses):
                 for row, f in enumerate(FIGHT_DIRS):
@@ -404,13 +618,14 @@ def pack():
         body, rects = atlas(imgs, 2048)
         body.save(os.path.join(ROOT, OUT, look + '.webp'), 'WEBP', lossless=True, quality=100, method=6)
         entry = dict(file=look + '.webp', fight=fl['file'], foot=fl['foot'], cells=rects,
-                     poses={s: {p: cells[s][p] for p in sets[s]} for s in sets})
+                     poses={s: {p: cells[s][p] for p in sets[s]} for s in sets if s in cells})
         if gimgs:
             gim, grects = atlas(gimgs, 1024)
             gim.save(os.path.join(ROOT, OUT, look + '_guns.webp'), 'WEBP', lossless=True, quality=100, method=6)
             entry['guns'] = dict(file=look + '_guns.webp', cells=grects, poses=gcells)
         index['looks'][look] = entry
         print('PACKED', look, body.size, os.path.getsize(os.path.join(ROOT, OUT, look + '.webp')), 'guns', gimgs and gim.size, flush=True)
+    pack_map(index)
     json.dump(index, open(os.path.join(ROOT, OUT, 'rig_idles.json'), 'w'), separators=(',', ':'))
     print('INDEX', os.path.join(OUT, 'rig_idles.json'), len(index['looks']), 'looks')
 
@@ -422,6 +637,11 @@ if __name__ == '__main__':
     elif cmd == 'fight_one': fight_one(a[0])
     elif cmd == 'fight': fight(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 1)
     elif cmd == 'guns': guns(a[0])
+    elif cmd == 'pose_beast': pose_beast(a[0], a[1])
+    elif cmd == 'pose_sets': pose(a[0], a[1], tuple(a[2].split(',')))
+    elif cmd == 'map_one': map_one(a[0])
+    elif cmd == 'maps': maps(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 1)
+    elif cmd == 'beasts': beasts(a[0] if a else 'ALL')
     elif cmd == 'preview': preview(*a)
     elif cmd == 'pack': pack()
     else: sys.exit('pose | fight [LOOK|ALL] [workers] | preview <glb> <png> [bare|carry] | pack')

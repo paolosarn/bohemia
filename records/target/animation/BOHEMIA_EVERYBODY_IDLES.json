@@ -963,6 +963,253 @@
     "U",
     10
    ]
+  ],
+  "b_in": [
+   [
+    "SP2",
+    "L",
+    -4
+   ],
+   [
+    "NK",
+    "L",
+    -2
+   ],
+   [
+    "HD",
+    "L",
+    3
+   ],
+   [
+    "T1",
+    "U",
+    6
+   ]
+  ],
+  "b_out": [
+   [
+    "SP2",
+    "L",
+    3
+   ],
+   [
+    "HD",
+    "L",
+    -1
+   ],
+   [
+    "T1",
+    "U",
+    -6
+   ]
+  ],
+  "sniff_h": [
+   [
+    "NK",
+    "L",
+    22
+   ],
+   [
+    "HD",
+    "L",
+    18
+   ]
+  ],
+  "sniff_a": [
+   [
+    "SP2",
+    "L",
+    6
+   ],
+   [
+    "NK",
+    "L",
+    40
+   ],
+   [
+    "HD",
+    "L",
+    30
+   ],
+   [
+    "HD",
+    "U",
+    10
+   ],
+   [
+    "T1",
+    "L",
+    10
+   ]
+  ],
+  "sniff_b": [
+   [
+    "SP2",
+    "L",
+    6
+   ],
+   [
+    "NK",
+    "L",
+    38
+   ],
+   [
+    "HD",
+    "L",
+    36
+   ],
+   [
+    "HD",
+    "U",
+    -10
+   ],
+   [
+    "T1",
+    "L",
+    10
+   ]
+  ],
+  "pant_a": [
+   [
+    "SP2",
+    "L",
+    -5
+   ],
+   [
+    "NK",
+    "L",
+    6
+   ],
+   [
+    "HD",
+    "L",
+    -8
+   ],
+   [
+    "T1",
+    "L",
+    -6
+   ]
+  ],
+  "pant_b": [
+   [
+    "SP2",
+    "L",
+    4
+   ],
+   [
+    "NK",
+    "L",
+    9
+   ],
+   [
+    "HD",
+    "L",
+    -2
+   ],
+   [
+    "T1",
+    "L",
+    -6
+   ]
+  ],
+  "shake_l": [
+   [
+    "SP1",
+    "F",
+    12
+   ],
+   [
+    "SP2",
+    "F",
+    16
+   ],
+   [
+    "NK",
+    "U",
+    20
+   ],
+   [
+    "HD",
+    "U",
+    16
+   ],
+   [
+    "T1",
+    "U",
+    -28
+   ]
+  ],
+  "shake_r": [
+   [
+    "SP1",
+    "F",
+    -12
+   ],
+   [
+    "SP2",
+    "F",
+    -16
+   ],
+   [
+    "NK",
+    "U",
+    -20
+   ],
+   [
+    "HD",
+    "U",
+    -16
+   ],
+   [
+    "T1",
+    "U",
+    28
+   ]
+  ],
+  "blook_l": [
+   [
+    "NK",
+    "U",
+    26
+   ],
+   [
+    "HD",
+    "U",
+    22
+   ],
+   [
+    "HD",
+    "L",
+    -6
+   ],
+   [
+    "T1",
+    "U",
+    -10
+   ]
+  ],
+  "blook_r": [
+   [
+    "NK",
+    "U",
+    -26
+   ],
+   [
+    "HD",
+    "U",
+    -22
+   ],
+   [
+    "HD",
+    "L",
+    -6
+   ],
+   [
+    "T1",
+    "U",
+    10
+   ]
   ]
  },
  "props": {
@@ -973,14 +1220,20 @@
     "smoke_mouth",
     "smoke_exhale"
    ],
-   "what": "a hand-rolled cigarette, 7 cm, paper grey-white, a dull ember at the far end"
+   "what": "a hand-rolled cigarette, 7 cm, paper grey-white, a dull ember at the far end",
+   "sets": [
+    "bare"
+   ]
   },
   "smoke": {
    "bone": "H",
    "show": [
     "smoke_exhale"
    ],
-   "what": "the breath he lets out, three grey puffs in front of his face"
+   "what": "the breath he lets out, three grey puffs in front of his face",
+   "sets": [
+    "bare"
+   ]
   }
  },
  "sets": {
@@ -1177,10 +1430,96 @@
      "grip_tug"
     ]
    }
+  },
+  "beast": {
+   "base": "walk_still",
+   "bones": "beast_bones",
+   "axes": "beast_axes",
+   "poses": {
+    "C": [],
+    "b_in": [
+     "b_in"
+    ],
+    "b_out": [
+     "b_out"
+    ],
+    "sniff_h": [
+     "sniff_h"
+    ],
+    "sniff_a": [
+     "sniff_a"
+    ],
+    "sniff_b": [
+     "sniff_b"
+    ],
+    "pant_a": [
+     "pant_a"
+    ],
+    "pant_b": [
+     "pant_b"
+    ],
+    "shake_l": [
+     "shake_l"
+    ],
+    "shake_r": [
+     "shake_r"
+    ],
+    "blook_l": [
+     "blook_l"
+    ],
+    "blook_r": [
+     "blook_r"
+    ]
+   }
+  },
+  "map": {
+   "base": "stand",
+   "why": "the map draws a man a third the fight's size, one picture a beat: ten poses carry it (his breath on each leg, a look each way, a scratch, a smoke)",
+   "poses": {
+    "C": [
+     "centre"
+    ],
+    "R_out": [
+     "stanceR",
+     "out"
+    ],
+    "R_in": [
+     "stanceR",
+     "in"
+    ],
+    "L_out": [
+     "stanceL",
+     "out"
+    ],
+    "L_in": [
+     "stanceL",
+     "in"
+    ],
+    "lookL": [
+     "centre",
+     "lookL"
+    ],
+    "lookR": [
+     "centre",
+     "lookR"
+    ],
+    "scratch_a": [
+     "centre",
+     "scratch_a"
+    ],
+    "smoke_mouth": [
+     "centre",
+     "smoke_mouth"
+    ],
+    "smoke_exhale": [
+     "centre",
+     "smoke_exhale"
+    ]
+   }
   }
  },
  "timelines": {
-  "why": "keys, three a beat at 120; a pose is HELD (Crashbox stop-motion, rule 115(d)), never blended; every slot is two bars (24 keys) and starts and ends standing square (C), so any slot follows any other. The breath is one slow breath a slot (fifteen a minute), the weight on the right leg one slot and the left the next. An idle takes a slot.",
+  "why": "keys, three a beat at 120; a pose is HELD (Crashbox stop-motion, rule 115(d)), never blended; every slot is two bars (24 keys) and starts and ends standing square (C), so any slot follows any other. The breath is one slow breath a slot (fifteen a minute), the weight on the right leg one slot and the left the next. An idle takes a slot. A shake goes through standing square between its sides, never side to side in one key (AN ENVELOPE RAMPS SLOWER THAN THE GRID).",
   "breatheR": [
    [
     "R_out",
@@ -1490,6 +1829,238 @@
     "C",
     12
    ]
+  ],
+  "bbreathe": [
+   [
+    "b_out",
+    6
+   ],
+   [
+    "C",
+    2
+   ],
+   [
+    "b_in",
+    6
+   ],
+   [
+    "C",
+    2
+   ],
+   [
+    "b_out",
+    5
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "sniff": [
+   [
+    "sniff_h",
+    2
+   ],
+   [
+    "sniff_a",
+    4
+   ],
+   [
+    "sniff_b",
+    3
+   ],
+   [
+    "sniff_a",
+    3
+   ],
+   [
+    "sniff_b",
+    4
+   ],
+   [
+    "sniff_h",
+    2
+   ],
+   [
+    "C",
+    6
+   ]
+  ],
+  "pant": [
+   [
+    "pant_a",
+    2
+   ],
+   [
+    "pant_b",
+    2
+   ],
+   [
+    "pant_a",
+    2
+   ],
+   [
+    "pant_b",
+    2
+   ],
+   [
+    "pant_a",
+    2
+   ],
+   [
+    "pant_b",
+    2
+   ],
+   [
+    "pant_a",
+    2
+   ],
+   [
+    "pant_b",
+    2
+   ],
+   [
+    "pant_a",
+    2
+   ],
+   [
+    "pant_b",
+    2
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "shake": [
+   [
+    "shake_l",
+    2
+   ],
+   [
+    "C",
+    1
+   ],
+   [
+    "shake_r",
+    2
+   ],
+   [
+    "C",
+    1
+   ],
+   [
+    "shake_l",
+    2
+   ],
+   [
+    "C",
+    1
+   ],
+   [
+    "shake_r",
+    2
+   ],
+   [
+    "C",
+    13
+   ]
+  ],
+  "blook": [
+   [
+    "blook_l",
+    6
+   ],
+   [
+    "C",
+    2
+   ],
+   [
+    "blook_r",
+    6
+   ],
+   [
+    "C",
+    10
+   ]
+  ],
+  "mbreatheR": [
+   [
+    "R_out",
+    8
+   ],
+   [
+    "R_in",
+    10
+   ],
+   [
+    "R_out",
+    3
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "mbreatheL": [
+   [
+    "L_out",
+    8
+   ],
+   [
+    "L_in",
+    10
+   ],
+   [
+    "L_out",
+    3
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "mlook": [
+   [
+    "lookL",
+    9
+   ],
+   [
+    "C",
+    3
+   ],
+   [
+    "lookR",
+    9
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "mscratch": [
+   [
+    "scratch_a",
+    12
+   ],
+   [
+    "C",
+    12
+   ]
+  ],
+  "msmoke": [
+   [
+    "smoke_mouth",
+    6
+   ],
+   [
+    "smoke_exhale",
+    9
+   ],
+   [
+    "C",
+    9
+   ]
   ]
  },
  "idles": {
@@ -1507,6 +2078,64 @@
    "roll",
    "check",
    "grip"
+  ],
+  "beast": [
+   "sniff",
+   "pant",
+   "shake",
+   "blook"
+  ],
+  "map": [
+   "mlook",
+   "mscratch",
+   "msmoke"
+  ]
+ },
+ "beast_bones": {
+  "HIP": "b_Hip_01",
+  "SP1": "b_Spine01_02",
+  "SP2": "b_Spine02_03",
+  "NK": "b_Neck_04",
+  "HD": "b_Head_05",
+  "T1": "b_Tail01_012",
+  "T2": "b_Tail02_013",
+  "T3": "b_Tail03_014"
+ },
+ "beast_axes": {
+  "why": "the beasts' skeleton (the fox every beast is built on) faces -Y with Z up and its left at +X: about L +deg puts the nose down and lifts the tail, about U +deg turns toward its left, about F rolls it",
+  "F": [
+   0,
+   -1,
+   0
+  ],
+  "U": [
+   0,
+   0,
+   1
+  ],
+  "L": [
+   1,
+   0,
+   0
+  ]
+ },
+ "breathe": {
+  "why": "the two breaths a set alternates, slot by slot: a man shifts his weight, a beast does not",
+  "bare": [
+   "breatheR",
+   "breatheL"
+  ],
+  "carry": [
+   "breatheR",
+   "breatheL"
+  ],
+  "beast": [
+   "bbreathe",
+   "bbreathe"
+  ],
+  "map": [
+   "mbreatheR",
+   "mbreatheL"
   ]
  }
 }

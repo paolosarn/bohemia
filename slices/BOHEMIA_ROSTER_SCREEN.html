@@ -148,6 +148,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: a hired man is one of the valley's rolled people, his own body and face -->
 <script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: his whole body, the model his face came from -->
+<script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): the man on his card breathes and idles -->
 <script src="../engine/bohemia_long_injury.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>
 <script src="bohemia_ui_materials.js"></script>
@@ -236,8 +237,34 @@ function rigBody(m, i){
       x.drawImage(im, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight); }); }
   c.setAttribute('aria-label', 'Turn ' + m.name);
   c.addEventListener('click', function(){ TURN[i] = ((TURN[i] || 0) + 1) % 8; paint(); });
-  paint(); return c;
+  paint(); idleCard(c, m, i); return c;
 }
+/* ==== __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... it's looking
+   like a chess man'). ANIMATION's block, RUN TWO's file: the man on his card stands there ALIVE: he breathes, puts his
+   weight on one leg then the other, and does his own idles (looks around, rolls his shoulders, scratches, smokes, shifts
+   the strap, leans), on his own offset (engine/bohemia_idles.js), the same model in his own skin as the fight renders him
+   (slices/rig_idles), his feet where they stood; a tap still turns him. Until his pictures are in, the still above. ==== */
+var IDLE_CARD = { cards: [], on: false, idles: ['look', 'roll', 'scratch', 'smoke', 'strap', 'lean'] };
+function idleCard(c, m, i){
+  var B = window.BohemiaIdles; if(!B) return;
+  IDLE_CARD.cards = IDLE_CARD.cards.filter(function(e){ return e.c.isConnected; });
+  IDLE_CARD.cards.push({ c: c, look: m.look, seed: 'crew:' + (m.name || i), shown: '' });
+  if(IDLE_CARD.on) return; IDLE_CARD.on = true; B.load();
+  (function tick(){
+    var now = performance.now();
+    IDLE_CARD.cards.forEach(function(e){
+      if(!e.c.isConnected) return;
+      var f = Math.max(0, B.DIRS.indexOf(e.c.dataset.turn || 'S'));
+      var q = B.frame(e.look, e.seed, now, f, { set: 'bare', idles: IDLE_CARD.idles }); if(!q) return;
+      var key = q.pose + f; if(key === e.shown) return; e.shown = key;   /* a held key is drawn once */
+      var x = e.c.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, e.c.width, e.c.height);
+      x.drawImage(q.img, q.x, q.y, q.w, q.h, Math.round(e.c.width / 2 - (q.foot[0] - q.dx)), Math.round(e.c.height - 5 - (q.foot[1] - q.dy)), q.w, q.h);
+      e.c.dataset.idle = q.kind;
+    });
+    requestAnimationFrame(tick);
+  })();
+}
+/* ==== end __EVERYBODY_IDLES__ ==== */
 /* RUN TWO [the fresh portraits wired in], 10/18 (rule 115(h) amended; his 'I liked it when it was the portrait, not when
    you zoom in on the creepy model's face... it has to be made fresh portrait'): the face is PORTRAIT's fresh portrait
    (engine/bohemia_crew_faces.js), never a crop of a body. AMENDED 10/19 (rule 121(e)): the sheet's old painted 64 is never

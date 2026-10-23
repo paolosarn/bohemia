@@ -157,6 +157,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="bohemia_bar_news.js"></script>  <!-- RUN TWO [the bar names the news]: the keeper's free one, a true thing from a town near here (ECONOMY day 75) -->
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: the valley's 116 rolled people, every piece CHARACTER made -->
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: every person in the place is a 3D model (rule 121e) -->
+<script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): every keeper and every man in the crowd breathes and idles at his spot -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -959,11 +960,38 @@ function duskOf(r){
     x.putImageData(d, 0, 0); }catch(e){}
   return (r.dusk = c);
 }
+/* ==== __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... it's looking
+   like a chess man'; rule 131(b): the people you can tap stay on their spot, always, and idle in place). ANIMATION's block,
+   RUN TWO's file: every keeper and every man in the crowd stands at his spot ALIVE: he breathes, puts his weight on one leg
+   then the other, and does his own idles, each on his own offset so no two move in step (engine/bohemia_idles.js); a
+   keeper's trade leans his choice (the barber smokes, the bar leans, the lot scratches). The pictures are his gang's 3D man
+   rendered the fight's way (slices/rig_idles), the same model PORTRAIT made his talking head from, at the same metres; he
+   keeps his beat-by-beat turn. Until his pictures are in, the still, exactly as before. ==== */
+var IDLE_BY_CLIP = { look:['look','roll','strap','scratch'], lean:['lean','smoke','look'], smoke:['smoke','lean','look'],
+  scratch:['scratch','stretch','look','roll'], beckon:['look','roll','strap','scratch'], trade:['look','roll','strap','scratch'],
+  wait:null, greet:['look','roll','stretch','strap'] };
+var IDLE_DUSK = {};
+function idlePerson(p, now, k, s, H, fx, fy){
+  var I = window.BohemiaIdles; if(!I || !I.has(p.look)) return false;
+  var f = Math.max(0, I.DIRS.indexOf(turnOf(p, now)));
+  var q = I.frame(p.look, 'settle:' + S.place.name + ':' + (p.keeper ? p.k : 'c' + p.slot), now, f, { set: 'bare', idles: IDLE_BY_CLIP[p.clip] || null });
+  if(!q) return false;
+  var img = q.img;
+  if(view.night){ var d = IDLE_DUSK[img.src]; if(!d) d = IDLE_DUSK[img.src] = duskOf({ im: img }); img = d; }
+  cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
+  var z = k*s;
+  cx.drawImage(img, q.x, q.y, q.w, q.h, Math.round(fx - (q.foot[0] - q.dx)*z), Math.round(fy - (q.foot[1] - q.dy)*z), Math.round(q.w*z), Math.round(q.h*z));
+  p.idle = q.kind;
+  return true;
+}
+/* ==== end __EVERYBODY_IDLES__ ==== */
 function drawPeople(s){
   var L = folkList(), B = window.BohemiaRigBodies; if(!L.length || !B) return;
   var k = rigScale(), now = performance.now(), H = personH()*s, items = [];
   L.forEach(function(p){
     if(!p.pre){ p.pre = 1; p.loop.forEach(function(t){ B.standing(p.look, t); }); }   /* every turn he will look, asked for once */
+    var fx0 = view.ox + p.x*s, fy0 = view.oy + p.y*s;
+    if(idlePerson(p, now, k, s, H, fx0, fy0)) return;   /* __EVERYBODY_IDLES__: he breathes and idles at his post (ANIMATION) */
     var r = B.standing(p.look, turnOf(p, now)) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one */
     items.push({y:p.y, draw:function(){
       var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;

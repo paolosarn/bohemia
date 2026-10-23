@@ -8,6 +8,8 @@
 <script src="bohemia_screen_class.js"></script>
 <!-- THE TEAR (ANIMATION's aura B, his YES 10/19, rule 121(f): 'combat only... I'm fucking with the tear'): the man you control -->
 <script src="vote/ANIMATION_THE_AURA.js"></script>
+<!-- __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... looking like a chess man'): a waiting man breathes and idles -->
+<script src="../engine/bohemia_idles.js"></script>
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
      ground up; re-create Battle Brothers combat... too far gone").
@@ -3118,6 +3120,35 @@ function gunSheet(v, L) {
   const x = Math.round(dx(v)), y = Math.round(dy(v));
   return { img: FIGHT.S.night && !FIGHT._t.litAt(x, y) ? nightSheet(img, moonOf(x, y)) : img, row: row };
 }
+/* ==== __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'we need a lot of idle animations; right now
+   everyone's standing still, making my brain fry; it's looking like a chess man'). ANIMATION's block, COMBAT's file: a man
+   standing (or holding his gun at the low ready) between his turns breathes, puts his weight on one leg then the other, and
+   now and then does one of his own idles (looks around, rolls his shoulders, checks his gun, shifts his grip; bare-handed:
+   scratches, smokes, shifts the strap; a beast sniffs, pants, shakes, looks about), each on his own offset so no two move
+   in step (engine/bohemia_idles.js). The
+   pictures are the same model, camera, sun and colours as his stand and carry cells (slices/rig_idles, rendered the fight's
+   way), and his gun is rendered in his hands on every idle. Until his pictures are in, his still, exactly as before. ==== */
+const IDLE_FIGHT_BARE = ['look', 'roll', 'scratch', 'strap', 'smoke'];
+function idleDraw(v, p, L, gs, ox, oy, s, now) {
+  const B = window.BohemiaIdles;
+  if (p.clip !== 'stand' && p.clip !== 'carry') { v._idleSince = undefined; return false; }
+  if (!B) return false;
+  if (L._key === undefined) L._key = Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k] === L; })[0] || null;
+  const look = L._key; if (!look || !B.has(look)) return false;   /* the look he is drawn in (a beast's rig look too) */
+  if (v._idleSince === undefined) v._idleSince = now;
+  const set = L.kind === 'beast' ? 'beast' : p.clip === 'carry' ? 'carry' : 'bare', f = v._face || 0;
+  const c = B.frame(look, 'fight:' + v.id, now, f, { set: set, beatMs: beatMs(), since: v._idleSince, idles: set === 'bare' ? IDLE_FIGHT_BARE : null });
+  if (!c) return false;
+  let g = null;
+  if (gs) { g = B.gun(look, DB.rig.guns.order[gs.row], c.pose, f); if (!g) return false; }   /* never a man without his gun: the still until it is in */
+  const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
+  const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
+  cx.drawImage(im(c.img), c.x, c.y, c.w, c.h, ox + c.dx * s, oy + c.dy * s, c.w * s, c.h * s);
+  if (g) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);
+  UI.clipSeen['idle:' + c.kind] = (UI.clipSeen['idle:' + c.kind] || 0) + 1;
+  return true;
+}
+/* ==== end __EVERYBODY_IDLES__ ==== */
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
 function blitMan(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
@@ -3134,12 +3165,13 @@ function blitMan(v, X, feet, now, alpha) {
   const ox = Math.round(X * DPR) - L.foot[0] * s, oy = Math.round(feet * DPR) - L.foot[1] * s;
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
   if (v.ghost) { ghostBlit(v, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, now, alpha); cx.restore(); return; }
-  cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
+  const idled = idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
+  if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
      holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across
      him while he stands and walks, up at the shoulder when he shoots, in his right hand when a blow rocks him, in his fist
      when he clubs with it at one tile (ours.gun_club); only in the fall is it gone */
-  if (gs) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
+  if (gs && !idled) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
     if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); }
   cx.restore();
   /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the
