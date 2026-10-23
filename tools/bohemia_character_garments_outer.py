@@ -226,7 +226,12 @@ def pieces(G, X, layer=None):
             if S in ('COCOON COAT', 'COMMA COAT'):   # widest at the hip, narrowing to the hem: the A-line turned over
                 return weight + 0.040 - 0.032 * sstep(0.70, hem, z)
             return weight + 0.010 + flare * sstep(0.68, hem, z)
-        made.append(tube('coat_skirt', 0.72, hem_a, off, mid, ang_ok=ok, thick=0.012))
+        sk = tube('coat_skirt', 0.72, hem_a, off, mid, ang_ok=ok, thick=0.012)
+        # THE DRAPE (CHARACTER [the clothes look real], 10/23): a pixel is 1.75 cm at the game's size, so a coat reads as
+        # cloth by its folds or not at all; the skirt falls in folds about 11 cm apart that start at the hip and deepen to
+        # the hem (a stiff cocoon's shallower), so its side and its hem read as hanging cloth, not a clay tube
+        drape(sk, cy_f, 0.70, hem, 0.006 if S in ('COCOON COAT', 'COMMA COAT') else 0.012, V, M, Mi, n=11, seed=len(G['name']))
+        made.append(sk)
 
     # 3. THE COLLAR AND THE LAPELS
     if not (vest or poncho or apron) and layer.get('collar', True):
@@ -343,6 +348,21 @@ def pieces(G, X, layer=None):
             made.append(band('apron_strap', [neck_ring(lambda c: 1.105, 0.012)], 0.016, 0.005, dk))
             if heavy: made.append(buttons('rivets', [front(sx * 0.072, z) for sx in (-1, 1) for z in (1.04, 0.71)], lt, r=0.0045, lift_=0.028))
     return made
+
+
+def drape(o, cy, z0, hem, depth, V, M, Mi, n=13, seed=0):
+    """folds hung on a hanging piece after it is built: each vertex pushed out or in round the body's axis by a wave in
+    its angle, the waves a little uneven (no two folds alike) and drifting as they fall, nothing at z0, depth at the hem"""
+    ph = [0.7 * math.sin(1.7 * k + seed) for k in range(3)]
+    for v in o.data.vertices:
+        p = M @ v.co; a = math.atan2(p.y - cy, p.x)
+        t = sstep(z0, hem, p.z)
+        if t <= 0: continue
+        w = math.cos(n * a + ph[0] + 2.0 * (z0 - p.z)) + 0.35 * math.cos((n + 4) * a + ph[1]) + 0.2 * math.sin(5 * a + ph[2])
+        d = depth * t * w / 1.55
+        v.co = Mi @ (p + V((math.cos(a), math.sin(a), 0.0)) * d)
+    o.data.update()
+    return o
 
 
 def record():
