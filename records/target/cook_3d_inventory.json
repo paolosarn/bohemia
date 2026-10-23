@@ -8,7 +8,7 @@
   "fight_floor": {
    "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
    "total": 35,
-   "flat": 22,
+   "flat": 21,
    "in_3d": [
     "corner.0",
     "corner.1",
@@ -22,6 +22,7 @@
     "subs.1",
     "subs.2",
     "subs.3",
+    "wash.0",
     "wash.1"
    ]
   },
@@ -86,7 +87,7 @@
   "settlement_backdrops": {
    "where": "the settlement screen, slices/settlement_ground_packs/*.webp and slices/settlement_ground/home_0*.webp (day and night)",
    "total": 14,
-   "flat": 4,
+   "flat": 2,
    "in_3d": [
     "slices/settlement_ground/home_0.webp",
     "slices/settlement_ground/home_0_night.webp",
@@ -94,6 +95,8 @@
     "slices/settlement_ground_packs/camp_0_night.webp",
     "slices/settlement_ground_packs/camp_1.webp",
     "slices/settlement_ground_packs/camp_1_night.webp",
+    "slices/settlement_ground_packs/fortress_0.webp",
+    "slices/settlement_ground_packs/fortress_0_night.webp",
     "slices/settlement_ground_packs/town_0.webp",
     "slices/settlement_ground_packs/town_0_night.webp",
     "slices/settlement_ground_packs/town_1.webp",
@@ -230,7 +233,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 105,
+ "total_flat": 102,
  "log": [
   {
    "at": "10/20 start",
@@ -506,6 +509,17 @@
    "fight_floor": 22,
    "fight_cover": 0,
    "settlement_backdrops": 4,
+   "map_districts": 9,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 wash.0 and the fortress (day and night)",
+   "total_flat": 102,
+   "fight_floor": 21,
+   "fight_cover": 0,
+   "settlement_backdrops": 2,
    "map_districts": 9,
    "fight_floor_futures": 70,
    "fight_lights": 0,
