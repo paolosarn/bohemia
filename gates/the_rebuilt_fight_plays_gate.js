@@ -663,7 +663,9 @@ async function weaponCards() {
   await p.waitForTimeout(400);
   const me = await p.evaluate(() => { const u = FIGHT.current(), r = document.getElementById('bstrike').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: u.weapon }; });
   await hold(me.x, me.y, 700);
-  const c1 = await card(), L1 = WL[(me.w.of || me.w).class];   /* a pistol is carried as its shot; its line is the pistol's own (rule 120(a)) */
+  /* a pistol is carried as its shot; its line is the pistol's own (rule 120(a)); a two-handed sword that swings is the machine gun
+     and reads its own line (COMBAT [weapon shapes]): the line is the one the fight names */
+  const c1 = await card(), L1 = WL[await p.evaluate(w => FIGHT.lineKey(w), me.w)];
   leg(c1.shown && c1.id === me.w.id && c1.text.indexOf(L1.line) >= 0 && c1.text.indexOf(L1.name) >= 0 && c1.text.indexOf(me.w.damage_min + ' to ' + me.w.damage_max) >= 0,
     '*** HOLD A FINGER ON THE STRIKE SQUARE AND HIS WEAPON SAYS WHAT IT DOES ***: its name, its Battle Brothers base, its line, its numbers from weapons.json', c1.text.split('\n').slice(0, 3).join(' | '));
   await p.touchscreen.tap(200, 300); await p.waitForTimeout(300);
@@ -672,7 +674,7 @@ async function weaponCards() {
     return { id: t.id, w: t.weapon, x: innerWidth / 2, y: TOPH + (innerHeight - TOPH - BOTH) / 2 }; });   /* his own tile: the man on it answers first (rule 104a) */
   await p.waitForTimeout(300);
   await hold(e.x, e.y, 700);
-  const c2 = await card(), L2 = WL[(e.w.of || e.w).class];
+  const c2 = await card(), L2 = WL[await p.evaluate(w => FIGHT.lineKey(w), e.w)];
   leg(gone && c2.shown && c2.id === e.w.id && c2.text.indexOf(L2.line) >= 0, 'a tap puts it away; a finger held on one of theirs shows his weapon\'s card', (L2.name + ' (' + e.w.name + ')') + (gone ? '' : ', THE FIRST CARD STAYED'));
   leg(d.errs.length === 0, 'the cards threw nothing', d.errs[0] || '');
   await d.close();

@@ -268,6 +268,14 @@ function R(path) {
 }
 /* a seeded die, so a fight can be played twice the same way */
 let SEED = (Date.now() >>> 0);
+/* THE MAP HANDS THE BOARD (COMBAT [the map hands the board]): the cell he stood on and its district, as a seed for the deal (FNV-1a
+   over 'x,y,district'): the same street deals the same board, two cells never the same */
+function cellSeed(cell, district) {
+  const k = (cell.x | 0) + ',' + (cell.y | 0) + ',' + String(district || '');
+  let h = 2166136261;
+  for (let i = 0; i < k.length; i++) { h ^= k.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
 function rng() {
   SEED = (SEED + 0x6D2B79F5) >>> 0; let t = SEED;
   t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
@@ -674,6 +682,22 @@ const FIGHT = (function () {
     S.lib = lib; return lib;
   }
   function kindOf(name) { return name.split('.')[0]; }
+  /* the most of any block of a kind that is ground nobody crosses (its terrain's obstacles; cover pieces come off, these do not) */
+  function walledIn(lib, k) {
+    let most = 0;
+    Object.keys(lib).forEach(function (n) {
+      if (kindOf(n) !== k) return;
+      const t = lib[n].terrain; let o = 0, all = 0;
+      t.forEach(function (r) { r.forEach(function (c) { all++; if (rowOf(c) === 'obstacles') o++; }); });
+      most = Math.max(most, o / Math.max(1, all));
+    });
+    return most;
+  }
+  /* the top of the cell's ground's measured envelope (WORLD's ground table), or null */
+  function groundTop(ground) {
+    const p = ((DB.groundEffects.measured || {}).panels || []).filter(function (r) { return r.ground === ground; })[0];
+    return p ? p.kitEnvelope[p.kitEnvelope.length - 1] : null;
+  }
   function shuffled(a) { return a.map(function (x) { return { x: x, k: rng() }; }).sort(function (p, q) { return p.k - q.k; }).map(function (o) { return o.x; }); }
   function dealOnce(opts) {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
@@ -687,9 +711,15 @@ const FIGHT = (function () {
       const tot = fams.reduce(function (t, f) { return t + mix.weights[f]; }, 0);
       let r = rng() * tot; fam = fams.filter(function (f) { r -= mix.weights[f]; return r < 0; })[0] || fams[0];
     }
-    const have = mix.families[fam].filter(function (k) { return Object.keys(lib).some(function (n) { return kindOf(n) === k; }); });
+    let have = mix.families[fam].filter(function (k) { return Object.keys(lib).some(function (n) { return kindOf(n) === k; }); });
     /* the kind the loop asks for leads; a name with aliases ('suburb') leads with one of its blocks */
     const leads = opts.kind ? shuffled(((mix.aliases || {})[opts.kind] || [opts.kind]).filter(function (k) { return have.indexOf(k) >= 0; })) : [];
+    /* THE MAP HANDS THE BOARD: on a ground the map measured open (the desert's 1.5%), the kinds mixed in beside the lead are only
+       those whose blocks are no more walled-in than that ground at its most (a shore's water is not the desert's) */
+    if (opts.groundTop !== undefined && opts.groundTop !== null) {
+      const open = have.filter(function (k) { return k === leads[0] || walledIn(lib, k) <= opts.groundTop; });
+      if (open.length) have = open;
+    }
     let kinds = shuffled(have).filter(function (k) { return k !== leads[0]; });
     if (leads.length) kinds.unshift(leads[0]);
     kinds = kinds.slice(0, rint(mix.kinds_per_board[0], mix.kinds_per_board[1]));
@@ -743,6 +773,34 @@ const FIGHT = (function () {
       }
     });
   }
+  /* THE MAP HANDS THE BOARD (COMBAT [the map hands the board], rule 46a; Paolo 9/29: 'no two combat boards are the same', the board
+     cut from the map cell's terrain): the share of the board a body cannot cross or can hide behind, against WORLD's measured
+     envelope for the cell's ground (records/target/BOHEMIA_GROUND_EFFECTS.json, measured on the district kits as they are drawn:
+     the open desert 1.5%, the freeway 14.5 to 17.9%, the suburb 26.5 to 45.2%). Over the envelope, the dealt cover pieces come
+     off one at a time, the cell's own dice choosing which, never one that would cut the two lines apart, until it is inside;
+     under it or already inside, the board stays as dealt (nothing is drawn or added here). The deal keeps what it did. */
+  function blockedShare() {
+    let b = 0;
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (!passable(x, y) || S.coverCount[y][x]) b++;
+    return b / (S.w * S.h);
+  }
+  function fitGround(B, ground) {
+    const p = ((DB.groundEffects.measured || {}).panels || []).filter(function (r) { return r.ground === ground; })[0];
+    const fit = { ground: ground, envelope: p ? p.kitEnvelope : null, before: blockedShare(), taken: 0 };
+    if (p) {
+      const hi = groundTop(ground);
+      let kept = (B.cover || []).slice();
+      shuffled(kept.slice()).forEach(function (c) {
+        if (blockedShare() <= hi) return;
+        const less = kept.filter(function (k) { return k !== c; });
+        applyBoard(Object.assign({}, B, { cover: less }));
+        if (connected()) { kept = less; fit.taken++; } else applyBoard(Object.assign({}, B, { cover: kept }));
+      });
+      applyBoard(Object.assign({}, B, { cover: kept }));
+    }
+    fit.after = blockedShare(); S.boardDef.groundFit = fit;
+    return fit;
+  }
   /* one field: some tile of your start row walks to some tile of theirs */
   function connected() {
     const cols = S.cols || R('ours.start_cols'), seen = {}, q = [];
@@ -766,7 +824,13 @@ const FIGHT = (function () {
       const B = G.boards[opts.board];
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
     } else {
-      for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(opts)); if (connected()) break; }
+      /* the cell the map hands deals the board on its own dice (the same street, the same board); the fight's dice are put back
+         after, so the same street never plays the same fight */
+      const fightDice = SEED; if (opts.cell) SEED = cellSeed(opts.cell, opts.district);
+      const ask = opts.cell && opts.district ? Object.assign({}, opts, { groundTop: groundTop(groundOf(opts).ground) }) : opts;
+      for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(ask)); if (connected()) break; }
+      if (opts.cell && opts.district) fitGround(S.boardDef, groundOf(opts).ground);
+      if (opts.cell) SEED = fightDice;
     }
     const dealt = S.boardDef;
     S.ground = groundOf(opts);
@@ -1879,7 +1943,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { rangeMin: rangeMin, armIn: armIn, pistolShot: pistolShot, machineGun: machineGun, bestAttack: bestAttack, worthOf: worthOf, ringOf: ringOf, arcOf: arcOf, masteryBonus: masteryBonus, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { blockedShare: blockedShare, fitGround: fitGround, rangeMin: rangeMin, armIn: armIn, pistolShot: pistolShot, machineGun: machineGun, bestAttack: bestAttack, worthOf: worthOf, ringOf: ringOf, arcOf: arcOf, masteryBonus: masteryBonus, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();

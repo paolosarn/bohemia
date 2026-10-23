@@ -12412,6 +12412,10 @@ function nfOpts(d){
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
   /* __A_FEW_NOT_TWELVE__ (rule 75b): the party the map sized, to COMBAT's enemy math (it dresses it by tier) */
   try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands' }; }catch(_e){}
+  /* __THE_MAP_HANDS_THE_BOARD__ (COMBAT [the map hands the board], rule 46a, Paolo 9/29: 'no two combat boards are the same'): the
+     district and the cell he stood on, so the board stands on that place's ground (WORLD's measured cover) and the deal is seeded
+     by the cell: the same street deals the same board, two cells never the same */
+  try{ if(d && d.district) o.district = String(d.district); if(d && d.at && isFinite(d.at.gx) && isFinite(d.at.gy)) o.cell = { x: d.at.gx | 0, y: d.at.gy | 0 }; }catch(_e){}
   return o;
 }
 function nfOpen(d){
