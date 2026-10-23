@@ -44253,7 +44253,9 @@ window.addEventListener('message', function(ev){
      CONTINUE posted the picks again and paid the start batteries onto the restored purse. The purse's own
      ledger is what survives a save: a 'start:' credit already in it means this crew was paid. */
   try{ var _pe = purseGet().entries || []; for(var _i = 0; _i < _pe.length; _i++) if(_pe[_i].ref && String(_pe[_i].ref).indexOf('start:') === 0) return; }catch(_e){}
+  try{ localStorage.removeItem(CREW_WALKED_KEY); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: a new crew; nobody has walked from it */
   try{ if(p.start > 0) BohemiaPurse.credit(purseGet(), 'electricity', p.start | 0, 'the crew starts: ' + p.originName, 'start:' + p.origin, loopDay()); }catch(_e){}
+  try{ billPublish(); }catch(_e){}
   try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@' + String(p.name || 'thecrew').toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: p.originName + '. ' + p.start + ' batteries between us. ' + p.combatName + ', ' + p.econName + '.', kind: 'mine', draft: true }); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
 });
@@ -44313,6 +44315,87 @@ function crewCount(){
   var n = co ? co.length : 3;                           /* no picks yet: Battle Brothers' own three */
   return Math.max(1, n + crewHired() - crewWalked().length);   /* the main character never walks */
 }
+/* ==== __ONE_BILL_IN_DAYS__ (RUN 10/23, [the first hour, quicker], TUNING's change 5, rule 133(b)) ====================
+   PAOLO 10/23: 'also kind of hardcore vibes if you're fucking around too much.' MEASURED (TUNING's walk and this lane's):
+   06:00 to 22:00 charged nothing for the crew; nightfall took one battery of rent; and THE CLOCK THEN STOPPED AT 22:00 FOR
+   GOOD (the old one-day demo's end, below), so a crew could stand still forever and fucking around cost nothing.
+   NOW ONE NIGHTLY BILL: the crew's food and water as one number, the men x records/target/bb/nightly_bill.json's
+   per_man_per_night (2: a ration and four litres at the counter, ECONOMY Day 69/74), paid at nightfall out of the
+   batteries, and shown as DAYS LEFT beside the battery count (how many more nightfalls at tonight's bill if nothing else
+   comes in: ECONOMY Day 74's definition). A NIGHT HE CANNOT COVER, ONE MAN WALKS, the newest hire first, then the company
+   from the back, and he says why with his own face (rule 19c); the main character never walks (rule 37). Never a game
+   over. The stall's food, meds and rounds stay for whoever wants them. */
+var BILL = { per_man: 2, red_at: 2, walks: 1, loaded: false, last: null };
+try{ fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(j){
+  if(j && j.per_man_per_night && j.per_man_per_night.value > 0) BILL.per_man = +j.per_man_per_night.value;
+  if(j && j.red_at_days && j.red_at_days.value >= 0) BILL.red_at = +j.red_at_days.value;
+  if(j && j.walks_when_short && j.walks_when_short.value >= 0) BILL.walks = +j.walks_when_short.value;
+  BILL.loaded = true; billPublish(); }).catch(function(){}); }catch(_e){}
+var CREW_DEFS = null;   /* ours.json's crew: the names and looks the crew screen and the fight give the company, in order */
+try{ fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); }).then(function(j){
+  CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] }; }).catch(function(){}); }catch(_e){}
+function billPerNight(){ return crewCount() * BILL.per_man; }
+function billDaysLeft(){ var p = billPerNight(); return p > 0 ? Math.floor(loopBats() / p) : null; }
+function billPublish(){
+  try{ window.__BILL = { perMan: BILL.per_man, crew: crewCount(), perNight: billPerNight(), daysLeft: billDaysLeft(), red: billDaysLeft() != null && billDaysLeft() <= BILL.red_at, last: BILL.last, loaded: BILL.loaded }; }catch(_e){}
+  return window.__BILL;
+}
+/* who walks: the newest hire first (he owes you least), then the company from the back; never YOU */
+function crewWhoWalks(){
+  var w = crewWalked(), hired = []; try{ hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []; }catch(_e){}
+  var hiredGone = w.filter(function(x){ return x.hired; }).length, coGone = w.filter(function(x){ return !x.hired; }).length;
+  var hLeft = hired.length - hiredGone;
+  if(hLeft > 0){ var d = hired[hLeft - 1] || {}; return { name: String(d.name || 'THE NEW MAN'), look: d.look || null, hired: true }; }
+  var co = (LOOP.start && LOOP.start.company) || [], left = co.length - coGone;
+  if(left <= 1) return null;                              /* only he is left, and he never walks */
+  var i = left - 1, men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [];
+  var nm = (men[i] && men[i].name) || ('MAN ' + i); if(i >= men.length && men.length) nm = (men[i % men.length].name || 'MAN') + ' II';
+  return { name: String(nm), look: looks[i] || null, i: i };
+}
+function crewBillNight(){
+  var crew = crewCount(), due = crew * BILL.per_man, have = loopBats(), paid = Math.min(due, Math.max(0, have)), walked = null;
+  if(paid > 0){ try{ BohemiaPurse.debit(purseGet(), 'electricity', paid, 'the crew ate: ' + crew + (crew === 1 ? ' man' : ' men') + ', food and water', 'bill:' + loopDay(), loopDay()); }catch(_e){} }
+  if(have < due && BILL.walks > 0){
+    walked = crewWhoWalks();
+    if(walked){ var w = crewWalked(); walked.day = loopDay(); w.push(walked); try{ localStorage.setItem(CREW_WALKED_KEY, JSON.stringify(w)); }catch(_e){}
+      try{ billSpeaks(walked); }catch(_e){} }
+  }
+  BILL.last = { day: loopDay(), crew: crew, due: due, paid: paid, short: due - paid, walked: walked ? walked.name : null };
+  window.__BILL_NIGHTS = (window.__BILL_NIGHTS | 0) + 1;
+  try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(walked ? (walked.name + ' walked: no batteries for food.') : ('The crew ate: ' + paid + ' batteries.'), 'bill'); }catch(_e){}   /* draft:true */
+  try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thecrew', txt: walked ? (walked.name + ' is gone. Sin baterías no hay comida.') : ('Ate tonight. ' + paid + ' batteries. ' + billDaysLeft() + ' days left like this.'), kind: 'mine', draft: true }); }catch(_e){}
+  billPublish();
+  try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
+  return BILL.last;
+}
+/* HE SAYS WHY, WITH HIS FACE (rule 19c: text from a mouth with a portrait). His fresh portrait (PORTRAIT's, through
+   engine/bohemia_crew_faces.js, the crew screen's own) says the line on the beat, at the foot of the map, above the pad,
+   for eight beats; a tap lets it go. Nothing stops the march and nothing waits on it. No face to draw, no words on the map:
+   the line is on the phone either way. */
+var BILL_FACES_ASKED = false;
+function billSpeaks(who){
+  var line = 'Sin baterías no hay comida, jefe. I’m gone.';   /* draft:true, WORDS' to overwrite */
+  var show = function(){
+    var F = window.BohemiaCrewFaces; if(!F || !who.look || !F.has(who.look)) return;
+    var el = document.getElementById('billtalk');
+    if(!el){ el = document.createElement('div'); el.id = 'billtalk';
+      el.setAttribute('style', 'position:fixed;left:12px;right:12px;bottom:118px;z-index:40;display:flex;gap:10px;align-items:center;padding:8px 10px;background:rgba(14,11,8,0.92);border:1px solid #5a4a32;color:#e8dcc0;font:12px ui-monospace,monospace;pointer-events:auto');
+      el.addEventListener('click', function(){ el.style.display = 'none'; });
+      document.body.appendChild(el); }
+    el.innerHTML = '';
+    var c = document.createElement('canvas'); c.width = c.height = F.SIZE || 128; c.style.cssText = 'width:56px;height:56px;image-rendering:pixelated;flex:none';
+    var tx = document.createElement('div'); tx.innerHTML = '<b style="color:#ffd27a">' + esc(who.name) + '</b><br>' + esc(line);
+    el.appendChild(c); el.appendChild(tx); el.style.display = 'flex';
+    try{ F.talk(c, who.look, line); }catch(_e){ try{ F.draw(c.getContext('2d'), who.look, F.SIZE || 128); }catch(_e2){} }
+    window.__BILL_SPOKE = { name: who.name, look: who.look, line: line, at: performance.now() };
+    clearTimeout(billSpeaks.t); billSpeaks.t = setTimeout(function(){ el.style.display = 'none'; }, 8 * 500);
+  };
+  if(window.BohemiaCrewFaces) return show();
+  if(BILL_FACES_ASKED) return;
+  BILL_FACES_ASKED = true;
+  try{ var sc = document.createElement('script'); sc.src = '../engine/bohemia_crew_faces.js'; sc.onload = function(){ try{ BohemiaCrewFaces.ready(show); }catch(_e){ show(); } }; document.head.appendChild(sc); }catch(_e){}
+}
+/* ==== /__ONE_BILL_IN_DAYS__ ==== */
 window.partyMath = partyMath;
 function loopJobCrew(base){ var p = LOOP.start; return Math.max(1, (base | 0) + (p ? (p.crew | 0) : 0)); }
 /* NEWS OF THE LOOP GOES TO THE PHONE (rule 61b: nothing sits over the map; the phone shows the
@@ -64825,7 +64908,13 @@ window.addEventListener('message', function(ev){
    sleep. So the demo ends when day one is slept through, and the workshop never
    ends at all. */
 var CT_DEMO_DAYS = 1;
-function ctDemoOver(day){ return CT_IS_DEMO && (day|0) >= CT_DEMO_DAYS; }
+/* *** SUPERSEDED BY RULE 72, NEWEST DATE WINS (RUN 10/23, [the first hour, quicker]). *** The 8/4 'one good day' cut was
+   the cold open's demo (cold open, the vista, one day, sleep); the cold open is cut (rule 33h) and rule 72 (10/4) says the
+   demo's stop is 'a short contract chain that closes... and the map left open to keep playing' (RUN [demo end]). MEASURED
+   on BUILD 10/23b: at the first nightfall this sent the demo to its ending card, the card is refused (rule 19a), and the
+   map's clock stood at 22:00 for good: day two never came, no night was ever billed again, a crew could idle forever.
+   The day turns in the demo now; the stop is [demo end]'s to build. CT_DEMO_DAYS stays for that row to read. */
+function ctDemoOver(day){ return false; }
 
 /* ==== __CITY_FEEDBACK__ : THE BLACK BOX AND THE CARD (row 0f) ================
    MEASURED BEFORE THIS WAS WRITTEN, on the real demo build: a session that
@@ -65759,6 +65848,9 @@ function onNightfall(){
      failure state here, it is a refusal the ledger records -- what it COSTS you is
      BB-OBLIGATION-BURN's row, not this one. */
   try{ upkeepPost('day:ate', (DAYOPEN&&DAYOPEN.title)||'the day'); }catch(_e){}
+  /* __ONE_BILL_IN_DAYS__ (RUN 10/23): AND THE CREW EATS, IN BATTERIES: the one nightly bill, before the lights and the
+     rent, because the people who depend on you eat before anybody's landlord is paid */
+  try{ crewBillNight(); }catch(_e){}
   /* __WHAT_TODAY_COST__ -- THE NIGHT EATS POWER. One drain per lit circuit you
      HOLD, at nightfall, in the order the night takes them. */
   try{ nightPower(); }catch(_e){}
@@ -86482,11 +86574,16 @@ window.BOHEMIA_BAR = (function(){
       var mk = (window.BohemiaMaterials && BohemiaMaterials.supplyIcon)
         ? '<img alt="" aria-hidden="true" width="10" height="10" style="width:10px;height:10px;image-rendering:pixelated" src="'+BohemiaMaterials.supplyIcon(k)+'">'
         : '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="'+SIX[i][1]+'" fill-rule="evenodd"/>'+(SIX[i][2]?'<path d="'+SIX[i][2]+'"/>':'')+'</svg>';
-      h+='<span class="sx'+(has?'':' none')+'" data-s="'+k+'">'+mk+'<b>'+(has?n:'\u2013')+'</b></span>';
+      /* __ONE_BILL_IN_DAYS__ (RUN 10/23, TUNING's change 5): DAYS LEFT beside the battery count, red when few. UI owns
+         how the bar looks ([the bar's two numbers]); this is the number, in the battery's own cell */
+      var dl = '';
+      try{ if(k==='batteries' && window.__BILL && window.__BILL.daysLeft!=null) dl = '<i class="dl'+(window.__BILL.red?' red':'')+'" data-k="days" style="font-style:normal;margin-left:3px;opacity:.8;'+(window.__BILL.red?'color:#ff6a5a;opacity:1':'')+'">\u00b7'+window.__BILL.daysLeft+'D</i>'; }catch(_e){}
+      h+='<span class="sx'+(has?'':' none')+'" data-s="'+k+'">'+mk+'<b>'+(has?n:'\u2013')+'</b>'+dl+'</span>';
     }
     return h+'</span>';
   }
   function paintRead(){
+    try{ if(typeof billPublish==='function') billPublish(); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: the days move with the purse */
     var RD=document.getElementById('barread'), bar=document.getElementById('menubar');
     if(!RD||!bar) return;
     var onMap=false; try{ onMap=(typeof MODE!=='undefined' && MODE==='city'); }catch(_e){}

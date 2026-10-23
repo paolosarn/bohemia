@@ -211,6 +211,13 @@ const OUT = arg('--out', null);
       try { advance(20); } catch (e) { r.err2 = String(e); }
       await new Promise(res => setTimeout(res, 600));
       r.after = bats(); r.paid = r.before - r.after; r.bill = window.__BILL || null; r.night = DAY.min;
+      r.dayAfter = DAY.day; r.minAfter = DAY.min; r.dayTurned = DAY.day > 1;
+      /* a second night with the purse down to 3 (scripted): can the crew eat, and if not, who walks */
+      try { const have = bats(); if (have > 3) BohemiaPurse.debit(purseGet(), 'electricity', have - 3, 'walk: scripted', null, loopDay());
+        const need2 = ((DAY.NIGHT_MIN | 0) - 10) - (DAY.min | 0); if (need2 > 0) advance(need2); advance(20); } catch (e) { r.err3 = String(e); }
+      await new Promise(res => setTimeout(res, 2500));
+      r.night2 = { bats: bats(), bill: window.__BILL || null, spoke: window.__BILL_SPOKE || null, walked: JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]'), day: DAY.day,
+        talkShown: !!(document.getElementById('billtalk') && document.getElementById('billtalk').style.display !== 'none') };
       return r; });
     say('W9_nightfall', w9);
     W.errors = d.errs.slice(0, 5);
