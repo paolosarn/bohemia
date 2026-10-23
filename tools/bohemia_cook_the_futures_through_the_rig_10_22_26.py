@@ -213,6 +213,16 @@ def build(bpy, gid_full, seed, quick=False):
 
 
 F.place_houses = place_houses
+_char_hole = T.char_hole
+
+
+def char_hole(*a, **k):
+    """10/23: a reclaimed ruin has its roof mended (the first reclaimed ruin kept the old burnt holes under its panels)"""
+    if STATE['s'] == 'reclaimed': return None
+    return _char_hole(*a, **k)
+
+
+T.char_hole = char_hole
 NF.build = build; F.build = build
 
 
