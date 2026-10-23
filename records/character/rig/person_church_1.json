@@ -1,19 +1,40 @@
 {
  "look": "PERSON_CHURCH_1",
- "shape": "person_church_1: a person of the Church, his own skin skin_light 0, SAND HOODIE",
+ "shape": "person_church_1: a person of the Church, his own skin skin_light 0, WHITE TEE",
  "worn": {
   "hair": "COIL CROWN",
-  "base": "SAND HOODIE",
+  "base": "WHITE TEE",
   "back": "GOLD SHOULDER MANTLE",
   "head": "BONE KNIT CAP",
-  "legs": "GOLD DROP TROUSER",
-  "feet": "BROWN BOOTS"
+  "legs": "CHARCOAL WRAP SKIRT",
+  "feet": "DUST BROWN BOOTS",
+  "waist": "LEATHER BELT",
+  "neck": "TRAILING SCARF",
+  "gear": "SCRAP PAULDRON",
+  "outfit": [
+   "his SAND HOODIE over a longer WHITE TEE, its hem under the band"
+  ],
+  "mid": "SAND HOODIE"
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "hem_drop": 0.06,
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": false,
+   "ohw": 0.0
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_church_1.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,16 +44,35 @@
  "real_height_for_rig": 1.807,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_church_1_trouser": 2568,
   "person_church_1_shoe": 3716,
-  "person_church_1_mantle": 17882,
-  "person_church_1_shirt": 69000,
+  "person_church_1_mantle": 10758,
+  "person_church_1_shirt": 40088,
   "person_church_1_collar": 1536,
-  "person_church_1_hood": 14388,
-  "person_church_1_drawstrings": 100,
-  "person_church_1_pocket": 182,
-  "person_church_1_waistband": 1792,
-  "person_church_1_cuffs": 2048,
+  "person_church_1_tail": 2464,
+  "person_church_1_skirt": 8736,
+  "person_church_1_skirt_tie": 1792,
+  "person_church_1_sole_1": 242,
+  "person_church_1_midsole_1": 242,
+  "person_church_1_sole_0": 242,
+  "person_church_1_midsole_0": 242,
+  "person_church_1_boot_collar": 2048,
+  "person_church_1_boot_collar_line": 2048,
+  "person_church_1_eyelets_1": 120,
+  "person_church_1_eyelets_0": 120,
+  "person_church_1_leather_belt": 1792,
+  "person_church_1_leather_belt_buckle": 34,
+  "person_church_1_trailing_scarf": 3072,
+  "person_church_1_trailing_scarf_tail": 162,
+  "person_church_1_trailing_scarf_fringe": 54,
+  "person_church_1_scrap_pauldron": 8066,
+  "person_church_1_scrap_pauldron_strap": 1792,
+  "person_church_1_mid_shirt": 69000,
+  "person_church_1_mid_collar": 1536,
+  "person_church_1_mid_hood": 14388,
+  "person_church_1_mid_drawstrings": 100,
+  "person_church_1_mid_pocket": 182,
+  "person_church_1_mid_waistband": 1792,
+  "person_church_1_mid_cuffs": 2048,
   "person_church_1_hair": 17968,
   "person_church_1_hat": 1518,
   "person_church_1_hand_L": 392,
@@ -44,20 +84,30 @@
    0.8,
    0.8
   ],
+  "person_church_1_boot_collar": [
+   0.2664,
+   0.1413,
+   0.0529
+  ],
+  "person_church_1_boot_collar_line": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
   "person_church_1_collar": [
-   0.2423,
-   0.1529,
-   0.0561
+   0.6654,
+   0.6308,
+   0.5583
   ],
-  "person_church_1_cuffs": [
-   0.2423,
-   0.1529,
-   0.0561
+  "person_church_1_eyelets_0": [
+   0.0595,
+   0.0307,
+   0.013
   ],
-  "person_church_1_drawstrings": [
-   0.4072,
-   0.2831,
-   0.1221
+  "person_church_1_eyelets_1": [
+   0.0595,
+   0.0307,
+   0.013
   ],
   "person_church_1_eyes": [
    0.0212,
@@ -74,55 +124,155 @@
    0.3231,
    0.2384
   ],
-  "person_church_1_hood": [
+  "person_church_1_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_church_1_leather_belt_buckle": [
    0.2423,
-   0.1529,
-   0.0561
+   0.1022,
+   0.0331
   ],
   "person_church_1_mantle": [
    0.5149,
    0.402,
    0.1746
   ],
-  "person_church_1_pocket": [
+  "person_church_1_mid_collar": [
    0.2423,
    0.1529,
    0.0561
+  ],
+  "person_church_1_mid_cuffs": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_1_mid_drawstrings": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_church_1_mid_hood": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_1_mid_pocket": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_1_mid_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_1_mid_waistband": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_1_midsole_0": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_church_1_midsole_1": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_church_1_scrap_pauldron": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_church_1_scrap_pauldron_rim": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_church_1_scrap_pauldron_strap": [
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_church_1_shirt": [
-   0.2423,
-   0.1529,
-   0.0561
+   0.6654,
+   0.6308,
+   0.5583
   ],
   "person_church_1_shoe": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_church_1_shoes": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_church_1_skin": [
    0.0723,
    0.0319,
    0.0252
   ],
-  "person_church_1_trouser": [
-   0.5149,
-   0.4678,
-   0.3712
+  "person_church_1_skirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_church_1_skirt_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_church_1_skirt_fold": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_church_1_skirt_tie": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_church_1_sole_0": [
+   0.0513,
+   0.0319,
+   0.0176
+  ],
+  "person_church_1_sole_1": [
+   0.0513,
+   0.0319,
+   0.0176
+  ],
+  "person_church_1_tail": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_church_1_trailing_scarf": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_church_1_trailing_scarf_fringe": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_church_1_trailing_scarf_tail": [
+   0.1441,
+   0.0252,
+   0.0176
   ],
   "person_church_1_trousers": [
-   0.5149,
-   0.4678,
-   0.3712
-  ],
-  "person_church_1_waistband": [
-   0.2423,
-   0.1529,
-   0.0561
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

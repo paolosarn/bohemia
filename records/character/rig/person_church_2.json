@@ -6,15 +6,36 @@
   "base": "KHAKI BUTTON-UP",
   "back": "GOLD SHOULDER MANTLE",
   "head": "BONE KNIT CAP",
-  "legs": "GOLD DROP TROUSER",
-  "feet": "BROWN BOOTS",
-  "outer": "LEATHER VEST"
+  "legs": "BRICK CROP TROUSER",
+  "feet": "RUST BOOTS",
+  "outer": "LEATHER VEST",
+  "waist": "LEATHER BELT",
+  "neck": "OXBLOOD SCARF",
+  "gear": "WORN BRACERS",
+  "outfit": [
+   "LEATHER VEST worn open to the neck",
+   "the button shirt's hem below the vest"
+  ]
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_church_2.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,19 +45,38 @@
  "real_height_for_rig": 1.807,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_church_2_trouser": 2568,
   "person_church_2_shoe": 3716,
-  "person_church_2_mantle": 17882,
+  "person_church_2_mantle": 10758,
   "person_church_2_shirt": 71212,
   "person_church_2_collar": 1536,
   "person_church_2_collar_points": 180,
   "person_church_2_placket": 162,
   "person_church_2_buttons": 204,
   "person_church_2_cuffs": 2048,
-  "person_church_2_tail": 2016,
-  "person_church_2_coat": 22934,
+  "person_church_2_tail": 2912,
+  "person_church_2_coat": 22402,
   "person_church_2_lapels": 396,
   "person_church_2_zip": 324,
+  "person_church_2_trouser": 35674,
+  "person_church_2_turn_up": 2048,
+  "person_church_2_turn_up_edge": 2048,
+  "person_church_2_sole_1": 242,
+  "person_church_2_midsole_1": 242,
+  "person_church_2_sole_0": 242,
+  "person_church_2_midsole_0": 242,
+  "person_church_2_boot_collar": 2048,
+  "person_church_2_boot_collar_line": 2048,
+  "person_church_2_eyelets_1": 120,
+  "person_church_2_eyelets_0": 120,
+  "person_church_2_leather_belt": 1792,
+  "person_church_2_leather_belt_buckle": 34,
+  "person_church_2_oxblood_scarf": 3072,
+  "person_church_2_oxblood_scarf_tail": 162,
+  "person_church_2_oxblood_scarf_fringe": 54,
+  "person_church_2_worn_bracers": 8916,
+  "person_church_2_worn_bracers_lace": 2048,
+  "person_church_2_worn_bracers_lace.001": 2048,
+  "person_church_2_worn_bracers_lace.002": 2048,
   "person_church_2_hair": 17968,
   "person_church_2_hat": 1518,
   "person_church_2_hand_L": 392,
@@ -47,6 +87,16 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_church_2_boot_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_church_2_boot_collar_line": [
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_church_2_buttons": [
    0.3864,
@@ -73,6 +123,16 @@
    0.1559,
    0.0578
   ],
+  "person_church_2_eyelets_0": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_church_2_eyelets_1": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
   "person_church_2_eyes": [
    0.0212,
    0.0103,
@@ -93,10 +153,45 @@
    0.0222,
    0.0075
   ],
+  "person_church_2_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_church_2_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
   "person_church_2_mantle": [
    0.5149,
    0.402,
    0.1746
+  ],
+  "person_church_2_midsole_0": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_church_2_midsole_1": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_church_2_oxblood_scarf": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_church_2_oxblood_scarf_fringe": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_church_2_oxblood_scarf_tail": [
+   0.1441,
+   0.0252,
+   0.0176
   ],
   "person_church_2_placket": [
    0.2307,
@@ -109,19 +204,29 @@
    0.0578
   ],
   "person_church_2_shoe": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_church_2_shoes": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_church_2_skin": [
    0.5972,
    0.4072,
    0.2542
+  ],
+  "person_church_2_sole_0": [
+   0.0685,
+   0.0273,
+   0.0144
+  ],
+  "person_church_2_sole_1": [
+   0.0685,
+   0.0273,
+   0.0144
   ],
   "person_church_2_tail": [
    0.2307,
@@ -129,14 +234,34 @@
    0.0578
   ],
   "person_church_2_trouser": [
-   0.5149,
-   0.4678,
-   0.3712
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_church_2_trousers": [
-   0.5149,
-   0.4678,
-   0.3712
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_church_2_turn_up": [
+   0.3185,
+   0.0762,
+   0.0497
+  ],
+  "person_church_2_turn_up_edge": [
+   0.0931,
+   0.0168,
+   0.011
+  ],
+  "person_church_2_worn_bracers": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_church_2_worn_bracers_lace": [
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_church_2_zip": [
    0.0545,

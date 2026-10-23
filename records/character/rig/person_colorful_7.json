@@ -5,14 +5,34 @@
   "hair": "SHAG",
   "base": "OLIVE HENLEY",
   "head": "ROSE KNIT CAP",
-  "legs": "GRASS DROP TROUSER",
-  "feet": "GRASS BOOTS"
+  "feet": "COAL COLUMN",
+  "waist": "CHARCOAL BELT",
+  "hands": "DUST GLOVES",
+  "outfit": [
+   "an open PATINA PLAID FLANNEL over the OLIVE HENLEY",
+   "its sleeves rolled"
+  ],
+  "mid": "PATINA PLAID FLANNEL"
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05,
+   "sleeves": "rolled"
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_colorful_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,14 +42,27 @@
  "real_height_for_rig": 1.7044,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_colorful_7_trouser": 2568,
-  "person_colorful_7_shoe": 3916,
+  "person_colorful_7_shoe": 3148,
   "person_colorful_7_shirt": 67512,
   "person_colorful_7_collar": 1536,
   "person_colorful_7_placket": 126,
   "person_colorful_7_buttons": 102,
   "person_colorful_7_cuffs": 2048,
   "person_colorful_7_hem": 1792,
+  "person_colorful_7_column": 74570,
+  "person_colorful_7_column_sole_1": 242,
+  "person_colorful_7_column_sole_0": 242,
+  "person_colorful_7_charcoal_belt": 1792,
+  "person_colorful_7_charcoal_belt_buckle": 34,
+  "person_colorful_7_dust_gloves_L": 392,
+  "person_colorful_7_dust_gloves_R": 392,
+  "person_colorful_7_dust_gloves_cuff": 2048,
+  "person_colorful_7_mid_shirt": 57180,
+  "person_colorful_7_mid_collar": 1536,
+  "person_colorful_7_mid_collar_points": 180,
+  "person_colorful_7_mid_front_edge": 396,
+  "person_colorful_7_mid_roll": 2048,
+  "person_colorful_7_mid_tail": 1818,
   "person_colorful_7_hair": 30198,
   "person_colorful_7_hair_fall": 2254,
   "person_colorful_7_hat": 4548,
@@ -48,15 +81,50 @@
    0.1683,
    0.0545
   ],
+  "person_colorful_7_charcoal_belt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_colorful_7_charcoal_belt_buckle": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
   "person_colorful_7_collar": [
    0.0666,
    0.0823,
    0.0262
   ],
+  "person_colorful_7_column": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_colorful_7_column_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_colorful_7_column_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
   "person_colorful_7_cuffs": [
    0.0666,
    0.0823,
    0.0262
+  ],
+  "person_colorful_7_dust_gloves": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_colorful_7_dust_gloves_cuff": [
+   0.1046,
+   0.063,
+   0.0222
   ],
   "person_colorful_7_eyes": [
    0.0212,
@@ -88,6 +156,51 @@
    0.0823,
    0.0262
   ],
+  "person_colorful_7_mid_collar": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_7_mid_collar_points": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_7_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_7_mid_front_edge": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_7_mid_roll": [
+   0.1329,
+   0.3005,
+   0.2016
+  ],
+  "person_colorful_7_mid_shirt": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_7_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_7_mid_tail": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_7_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
   "person_colorful_7_placket": [
    0.0666,
    0.0823,
@@ -99,29 +212,24 @@
    0.0262
   ],
   "person_colorful_7_shoe": [
-   0.2159,
-   0.1981,
-   0.162
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_colorful_7_shoes": [
-   0.2159,
-   0.1981,
-   0.162
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_colorful_7_skin": [
    0.7454,
    0.5089,
    0.3278
   ],
-  "person_colorful_7_trouser": [
-   0.1559,
-   0.1413,
-   0.107
-  ],
   "person_colorful_7_trousers": [
-   0.1559,
-   0.1413,
-   0.107
+   0.0296,
+   0.0296,
+   0.0356
   ]
  }
 }

@@ -4,16 +4,34 @@
  "worn": {
   "hair": "COIL CROWN",
   "base": "BRICK HOODIE",
-  "back": "OLIVE SHOULDER MANTLE",
+  "back": "OXBLOOD SATCHEL",
   "head": "CHINESE RICE FARMER HAT",
-  "legs": "DUST TROUSERS",
-  "feet": "SANDWALKERS"
+  "legs": "SOOT CARGOS",
+  "feet": "COAL MID BOOT",
+  "outfit": [
+   "an open KHAKI BUTTON-UP over his BRICK HOODIE, the hood out over its collar"
+  ],
+  "mid": "KHAKI BUTTON-UP"
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "hood_over": 0.028,
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.016,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_caravans_4.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,16 +41,34 @@
  "real_height_for_rig": 1.8051,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_caravans_4_trouser": 2568,
-  "person_caravans_4_shoe": 2508,
-  "person_caravans_4_mantle": 17626,
+  "person_caravans_4_shoe": 3916,
+  "person_caravans_4_mantle": 10842,
   "person_caravans_4_shirt": 68920,
   "person_caravans_4_collar": 1536,
-  "person_caravans_4_hood": 13916,
+  "person_caravans_4_hood": 14480,
   "person_caravans_4_drawstrings": 100,
   "person_caravans_4_pocket": 182,
   "person_caravans_4_waistband": 1792,
   "person_caravans_4_cuffs": 2048,
+  "person_caravans_4_trouser": 43706,
+  "person_caravans_4_rolled_hem": 2048,
+  "person_caravans_4_cargo_pockets": 252,
+  "person_caravans_4_cargo_flaps": 108,
+  "person_caravans_4_sole_1": 242,
+  "person_caravans_4_midsole_1": 242,
+  "person_caravans_4_sole_0": 242,
+  "person_caravans_4_midsole_0": 242,
+  "person_caravans_4_boot_collar": 2048,
+  "person_caravans_4_boot_collar_line": 2048,
+  "person_caravans_4_oxblood_satchel_bag": 98,
+  "person_caravans_4_oxblood_satchel_flap": 26,
+  "person_caravans_4_oxblood_satchel_strap": 1792,
+  "person_caravans_4_mid_shirt": 66956,
+  "person_caravans_4_mid_collar": 1536,
+  "person_caravans_4_mid_collar_points": 180,
+  "person_caravans_4_mid_front_edge": 396,
+  "person_caravans_4_mid_cuffs": 2048,
+  "person_caravans_4_mid_tail": 1818,
   "person_caravans_4_hair": 17968,
   "person_caravans_4_hat": 128,
   "person_caravans_4_hand_L": 392,
@@ -43,6 +79,26 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_caravans_4_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_caravans_4_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_caravans_4_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_caravans_4_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_4_collar": [
    0.2195,
@@ -55,9 +111,9 @@
    0.0212
   ],
   "person_caravans_4_drawstrings": [
-   0.3864,
-   0.0704,
-   0.0382
+   0.3185,
+   0.0762,
+   0.0497
   ],
   "person_caravans_4_eyes": [
    0.0212,
@@ -84,10 +140,70 @@
    0.0762,
    0.0423
   ],
+  "person_caravans_4_mid_collar": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_caravans_4_mid_collar_points": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_caravans_4_mid_cuffs": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_caravans_4_mid_front_edge": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_caravans_4_mid_shirt": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_caravans_4_mid_tail": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_caravans_4_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_caravans_4_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_caravans_4_oxblood_satchel_bag": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_caravans_4_oxblood_satchel_flap": [
+   0.2789,
+   0.0578,
+   0.0369
+  ],
+  "person_caravans_4_oxblood_satchel_strap": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
   "person_caravans_4_pocket": [
    0.2195,
    0.0369,
    0.0212
+  ],
+  "person_caravans_4_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
   "person_caravans_4_shirt": [
    0.2195,
@@ -95,29 +211,39 @@
    0.0212
   ],
   "person_caravans_4_shoe": [
-   0.1022,
-   0.0865,
-   0.0704
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_4_shoes": [
-   0.1022,
-   0.0865,
-   0.0704
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_4_skin": [
    0.2051,
    0.0976,
    0.0685
   ],
+  "person_caravans_4_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_caravans_4_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_caravans_4_trouser": [
-   0.0887,
-   0.063,
-   0.0482
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_4_trousers": [
-   0.0887,
-   0.063,
-   0.0482
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_4_waistband": [
    0.2195,

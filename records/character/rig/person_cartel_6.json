@@ -1,20 +1,38 @@
 {
  "look": "PERSON_CARTEL_6",
- "shape": "person_cartel_6: a person of the Cartel, his own skin skin_light 3, SHOULDER LONGLINE under STORM VEST",
+ "shape": "person_cartel_6: a person of the Cartel, his own skin skin_light 3, SHOULDER LONGLINE under BONE VEST",
  "worn": {
   "hair": "DRY TAPER",
   "base": "SHOULDER LONGLINE",
   "back": "STEEL ROAD CAPE",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "DUST TROUSERS",
-  "feet": "STACKED SOLE BOOT",
-  "outer": "STORM VEST"
+  "legs": "STEEL BLUE JEANS",
+  "feet": "COAL MID BOOT",
+  "outer": "BONE VEST",
+  "waist": "WIDE WAIST WRAP",
+  "outfit": [
+   "SHOULDER LONGLINE read as one with STORM VEST (72 and 72 of 255) and no colour of that top reads apart: the same coat in BONE VEST (154)",
+   "BONE VEST worn open to the neck"
+  ]
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "VEST"
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_cartel_6.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,15 +42,28 @@
  "real_height_for_rig": 1.6852,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_cartel_6_trouser": 2568,
   "person_cartel_6_shoe": 3916,
   "person_cartel_6_cape": 4674,
   "person_cartel_6_shirt": 67512,
   "person_cartel_6_collar": 1536,
   "person_cartel_6_cuffs": 2048,
   "person_cartel_6_longline": 4256,
-  "person_cartel_6_coat": 22450,
+  "person_cartel_6_coat": 21902,
   "person_cartel_6_lapels": 396,
+  "person_cartel_6_trouser": 43706,
+  "person_cartel_6_rolled_hem": 2048,
+  "person_cartel_6_fly": 70,
+  "person_cartel_6_front_pockets": 100,
+  "person_cartel_6_seat_pockets": 252,
+  "person_cartel_6_seat_seams": 252,
+  "person_cartel_6_sole_1": 242,
+  "person_cartel_6_midsole_1": 242,
+  "person_cartel_6_sole_0": 242,
+  "person_cartel_6_midsole_0": 242,
+  "person_cartel_6_boot_collar": 2048,
+  "person_cartel_6_boot_collar_line": 2048,
+  "person_cartel_6_wide_waist_wrap": 1792,
+  "person_cartel_6_wide_waist_wrap_edge": 1792,
   "person_cartel_6_hair": 17968,
   "person_cartel_6_hat": 3444,
   "person_cartel_6_hat_brim": 2106,
@@ -45,15 +76,25 @@
    0.8,
    0.8
   ],
+  "person_cartel_6_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_cartel_6_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_cartel_6_cape": [
    0.0545,
    0.0529,
    0.0578
   ],
   "person_cartel_6_coat": [
-   0.0595,
-   0.0648,
-   0.0802
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_cartel_6_collar": [
    0.0595,
@@ -69,6 +110,16 @@
    0.0212,
    0.0103,
    0.008
+  ],
+  "person_cartel_6_fly": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
+  "person_cartel_6_front_pockets": [
+   0.0262,
+   0.0437,
+   0.0704
   ],
   "person_cartel_6_hair": [
    0.0194,
@@ -86,14 +137,39 @@
    0.0369
   ],
   "person_cartel_6_lapels": [
-   0.0242,
-   0.0273,
-   0.0343
+   0.2122,
+   0.1746,
+   0.1046
   ],
   "person_cartel_6_longline": [
    0.0595,
    0.0648,
    0.0802
+  ],
+  "person_cartel_6_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_cartel_6_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_cartel_6_rolled_hem": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_cartel_6_seat_pockets": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_cartel_6_seat_seams": [
+   0.1329,
+   0.2051,
+   0.305
   ],
   "person_cartel_6_shirt": [
    0.0595,
@@ -101,29 +177,49 @@
    0.0802
   ],
   "person_cartel_6_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_cartel_6_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_cartel_6_skin": [
    0.7454,
    0.5089,
    0.3278
   ],
+  "person_cartel_6_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_cartel_6_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_cartel_6_trouser": [
-   0.0595,
-   0.0595,
-   0.063
+   0.063,
+   0.1046,
+   0.1651
   ],
   "person_cartel_6_trousers": [
-   0.0595,
-   0.0595,
-   0.063
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_cartel_6_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_cartel_6_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
   ]
  }
 }

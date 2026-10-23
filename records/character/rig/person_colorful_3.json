@@ -6,13 +6,19 @@
   "base": "WORK COVERALLS",
   "head": "ROSE KNIT CAP",
   "legs": "GRASS DROP TROUSER",
-  "feet": "GRASS BOOTS"
+  "feet": "SLATE SNEAKERS",
+  "outfit": []
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_colorful_3.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,7 +29,7 @@
  "meshes": {
   "Cesium_Man": 3273,
   "person_colorful_3_trouser": 2568,
-  "person_colorful_3_shoe": 3916,
+  "person_colorful_3_shoe": 3500,
   "person_colorful_3_shirt": 71252,
   "person_colorful_3_collar": 1536,
   "person_colorful_3_collar_points": 180,
@@ -32,6 +38,16 @@
   "person_colorful_3_pocket": 180,
   "person_colorful_3_flap": 108,
   "person_colorful_3_belt": 1792,
+  "person_colorful_3_sole_1": 242,
+  "person_colorful_3_midsole_1": 242,
+  "person_colorful_3_sole_0": 242,
+  "person_colorful_3_midsole_0": 242,
+  "person_colorful_3_tongue_1": 98,
+  "person_colorful_3_laces_1": 200,
+  "person_colorful_3_heel_1": 90,
+  "person_colorful_3_tongue_0": 98,
+  "person_colorful_3_laces_0": 200,
+  "person_colorful_3_heel_0": 90,
   "person_colorful_3_hair": 30198,
   "person_colorful_3_hair_fall": 2254,
   "person_colorful_3_hat": 4548,
@@ -95,6 +111,36 @@
    0.0612,
    0.0887
   ],
+  "person_colorful_3_heel_0": [
+   0.0319,
+   0.0423,
+   0.0595
+  ],
+  "person_colorful_3_heel_1": [
+   0.0319,
+   0.0423,
+   0.0595
+  ],
+  "person_colorful_3_laces_0": [
+   0.1714,
+   0.2195,
+   0.2831
+  ],
+  "person_colorful_3_laces_1": [
+   0.1714,
+   0.2195,
+   0.2831
+  ],
+  "person_colorful_3_midsole_0": [
+   0.1714,
+   0.2195,
+   0.2831
+  ],
+  "person_colorful_3_midsole_1": [
+   0.1714,
+   0.2195,
+   0.2831
+  ],
   "person_colorful_3_placket": [
    0.0185,
    0.0242,
@@ -111,19 +157,39 @@
    0.0232
   ],
   "person_colorful_3_shoe": [
-   0.2159,
-   0.1981,
-   0.162
+   0.0823,
+   0.107,
+   0.1441
   ],
   "person_colorful_3_shoes": [
-   0.2159,
-   0.1981,
-   0.162
+   0.0823,
+   0.107,
+   0.1441
   ],
   "person_colorful_3_skin": [
    0.3419,
    0.1812,
    0.0999
+  ],
+  "person_colorful_3_sole_0": [
+   0.016,
+   0.0176,
+   0.0212
+  ],
+  "person_colorful_3_sole_1": [
+   0.016,
+   0.0176,
+   0.0212
+  ],
+  "person_colorful_3_tongue_0": [
+   0.0823,
+   0.107,
+   0.1441
+  ],
+  "person_colorful_3_tongue_1": [
+   0.0823,
+   0.107,
+   0.1441
   ],
   "person_colorful_3_trouser": [
    0.0437,

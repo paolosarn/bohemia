@@ -1,19 +1,38 @@
 {
  "look": "PERSON_MOB_0",
- "shape": "person_mob_0: a person of the Mob, his own skin skin_mid 3, CHARCOAL STRIPED TEE",
+ "shape": "person_mob_0: a person of the Mob, his own skin skin_mid 3, SLATE HENLEY",
  "worn": {
   "hair": "DRY TAPER",
-  "base": "CHARCOAL STRIPED TEE",
+  "base": "SLATE HENLEY",
   "back": "CHARCOAL SHOULDER MANTLE",
-  "legs": "CHARCOAL CROP TROUSER",
-  "feet": "STACKED SOLE BOOT",
-  "waist": "LEATHER BELT"
+  "legs": "SLATE WORK PANTS",
+  "feet": "RED CLAY BOOTS",
+  "waist": "LEATHER BELT",
+  "neck": "DUST SCARF",
+  "outfit": [
+   "his CHARCOAL STRIPED TEE over a SLATE HENLEY, its sleeves and hem out from under"
+  ],
+  "mid": "CHARCOAL STRIPED TEE"
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "hem_drop": 0.04,
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": false,
+   "ohw": 0.0
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_mob_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,14 +42,35 @@
  "real_height_for_rig": 1.7672,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_mob_0_shoe": 3516,
-  "person_mob_0_mantle": 16650,
+  "person_mob_0_shoe": 3716,
+  "person_mob_0_mantle": 10414,
   "person_mob_0_cape": 5002,
   "person_mob_0_belt": 346,
-  "person_mob_0_shirt": 40088,
+  "person_mob_0_shirt": 67536,
   "person_mob_0_collar": 1536,
-  "person_mob_0_sleeve_hem": 2048,
-  "person_mob_0_hem": 1792,
+  "person_mob_0_placket": 126,
+  "person_mob_0_buttons": 102,
+  "person_mob_0_cuffs": 2048,
+  "person_mob_0_tail": 2016,
+  "person_mob_0_trouser": 43706,
+  "person_mob_0_rolled_hem": 2048,
+  "person_mob_0_double_knee": 252,
+  "person_mob_0_hammer_loop": 50,
+  "person_mob_0_sole_1": 242,
+  "person_mob_0_midsole_1": 242,
+  "person_mob_0_sole_0": 242,
+  "person_mob_0_midsole_0": 242,
+  "person_mob_0_boot_collar": 2048,
+  "person_mob_0_boot_collar_line": 2048,
+  "person_mob_0_eyelets_1": 120,
+  "person_mob_0_eyelets_0": 120,
+  "person_mob_0_dust_scarf": 3072,
+  "person_mob_0_dust_scarf_tail": 162,
+  "person_mob_0_dust_scarf_fringe": 54,
+  "person_mob_0_mid_shirt": 40088,
+  "person_mob_0_mid_collar": 1536,
+  "person_mob_0_mid_sleeve_hem": 2048,
+  "person_mob_0_mid_hem": 1792,
   "person_mob_0_hair": 17968,
   "person_mob_0_hand_L": 392,
   "person_mob_0_hand_R": 392
@@ -46,20 +86,65 @@
    0.0212,
    0.013
   ],
+  "person_mob_0_boot_collar": [
+   0.3763,
+   0.1413,
+   0.0704
+  ],
+  "person_mob_0_boot_collar_line": [
+   0.1195,
+   0.0307,
+   0.0152
+  ],
+  "person_mob_0_buttons": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
   "person_mob_0_cape": [
    0.0319,
    0.0296,
    0.0319
   ],
   "person_mob_0_collar": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.0612,
+   0.0762,
+   0.0999
   ],
-  "person_mob_0_collar_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_mob_0_cuffs": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_mob_0_double_knee": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_mob_0_dust_scarf": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_mob_0_dust_scarf_fringe": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_mob_0_dust_scarf_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_mob_0_eyelets_0": [
+   0.1195,
+   0.0307,
+   0.0152
+  ],
+  "person_mob_0_eyelets_1": [
+   0.1195,
+   0.0307,
+   0.0152
   ],
   "person_mob_0_eyes": [
    0.0212,
@@ -71,60 +156,115 @@
    0.0103,
    0.0091
   ],
-  "person_mob_0_hem": [
-   0.0382,
-   0.0343,
-   0.0382
+  "person_mob_0_hammer_loop": [
+   0.0262,
+   0.0319,
+   0.0437
   ],
   "person_mob_0_mantle": [
    0.0319,
    0.0296,
    0.0319
   ],
-  "person_mob_0_shirt": [
+  "person_mob_0_mid_collar": [
    0.0382,
    0.0343,
    0.0382
   ],
-  "person_mob_0_shirt_print": [
+  "person_mob_0_mid_collar_print": [
    0.8,
    0.8,
    0.8
   ],
-  "person_mob_0_shirt_print.001": [
+  "person_mob_0_mid_hem": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_0_mid_shirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_0_mid_shirt_print": [
    0.8,
    0.8,
    0.8
+  ],
+  "person_mob_0_mid_sleeve_hem": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_0_mid_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_0_midsole_0": [
+   0.1195,
+   0.0307,
+   0.0152
+  ],
+  "person_mob_0_midsole_1": [
+   0.1195,
+   0.0307,
+   0.0152
+  ],
+  "person_mob_0_placket": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_mob_0_rolled_hem": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
+  "person_mob_0_shirt": [
+   0.0612,
+   0.0762,
+   0.0999
   ],
   "person_mob_0_shoe": [
-   0.016,
-   0.0097,
-   0.0091
+   0.2542,
+   0.0704,
+   0.0296
   ],
   "person_mob_0_shoes": [
-   0.016,
-   0.0097,
-   0.0091
+   0.2542,
+   0.0704,
+   0.0296
   ],
   "person_mob_0_skin": [
    0.6105,
    0.3515,
    0.1714
   ],
-  "person_mob_0_sleeve_hem": [
-   0.0382,
-   0.0343,
-   0.0382
+  "person_mob_0_sole_0": [
+   0.0273,
+   0.013,
+   0.008
   ],
-  "person_mob_0_sleeve_hem_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_mob_0_sole_1": [
+   0.0273,
+   0.013,
+   0.008
+  ],
+  "person_mob_0_tail": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_mob_0_trouser": [
+   0.0612,
+   0.0762,
+   0.0999
   ],
   "person_mob_0_trousers": [
-   0.0343,
-   0.0232,
-   0.0212
+   0.0612,
+   0.0762,
+   0.0999
   ]
  }
 }

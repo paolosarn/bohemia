@@ -1,19 +1,39 @@
 {
  "look": "PERSON_COLORFUL_1",
- "shape": "person_colorful_1: a person of the Colorful, his own skin skin_deep 3, FIELD GREEN TEE under TACTICAL VEST",
+ "shape": "person_colorful_1: a person of the Colorful, his own skin skin_deep 3, WHITE TEE under TACTICAL VEST",
  "worn": {
   "hair": "SHAG",
-  "base": "FIELD GREEN TEE",
+  "base": "WHITE TEE",
   "outer": "TACTICAL VEST",
   "head": "ROSE KNIT CAP",
-  "legs": "GRASS DROP TROUSER",
-  "feet": "GRASS BOOTS"
+  "legs": "CROPPED BLACK DENIM",
+  "feet": "STEEL SNEAKERS",
+  "waist": "SOOT TOOL BELT",
+  "outfit": [
+   "FIELD GREEN TEE read as one with TACTICAL VEST (76 and 63 of 255): the same cut in WHITE TEE (208)",
+   "TACTICAL VEST worn open to the neck",
+   "the tee's hem below the vest"
+  ]
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_colorful_1.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,15 +43,35 @@
  "real_height_for_rig": 1.7044,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_colorful_1_trouser": 2568,
-  "person_colorful_1_shoe": 3916,
+  "person_colorful_1_shoe": 3500,
   "person_colorful_1_shirt": 39960,
   "person_colorful_1_collar": 1536,
   "person_colorful_1_sleeve_hem": 2048,
-  "person_colorful_1_hem": 1792,
-  "person_colorful_1_coat": 22450,
+  "person_colorful_1_tail": 2016,
+  "person_colorful_1_coat": 21902,
   "person_colorful_1_lapels": 396,
   "person_colorful_1_pouches": 504,
+  "person_colorful_1_trouser": 35674,
+  "person_colorful_1_turn_up": 2048,
+  "person_colorful_1_turn_up_edge": 2048,
+  "person_colorful_1_fly": 70,
+  "person_colorful_1_front_pockets": 100,
+  "person_colorful_1_seat_pockets": 252,
+  "person_colorful_1_seat_seams": 252,
+  "person_colorful_1_sole_1": 242,
+  "person_colorful_1_midsole_1": 242,
+  "person_colorful_1_sole_0": 242,
+  "person_colorful_1_midsole_0": 242,
+  "person_colorful_1_tongue_1": 98,
+  "person_colorful_1_laces_1": 200,
+  "person_colorful_1_heel_1": 90,
+  "person_colorful_1_tongue_0": 98,
+  "person_colorful_1_laces_0": 200,
+  "person_colorful_1_heel_0": 90,
+  "person_colorful_1_soot_tool_belt": 1792,
+  "person_colorful_1_soot_tool_belt_pouch_1": 26,
+  "person_colorful_1_soot_tool_belt_pouch_0": 26,
+  "person_colorful_1_soot_tool_belt_buckle": 34,
   "person_colorful_1_hair": 30198,
   "person_colorful_1_hair_fall": 2254,
   "person_colorful_1_hat": 4548,
@@ -51,14 +91,24 @@
    0.0232
   ],
   "person_colorful_1_collar": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.6654,
+   0.6308,
+   0.5583
   ],
   "person_colorful_1_eyes": [
    0.0212,
    0.0103,
    0.008
+  ],
+  "person_colorful_1_fly": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_colorful_1_front_pockets": [
+   0.0097,
+   0.0116,
+   0.0176
   ],
   "person_colorful_1_hair": [
    0.0612,
@@ -80,35 +130,70 @@
    0.0612,
    0.0887
   ],
-  "person_colorful_1_hem": [
+  "person_colorful_1_heel_0": [
+   0.0262,
    0.0437,
-   0.0887,
-   0.0331
+   0.0704
+  ],
+  "person_colorful_1_heel_1": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
+  "person_colorful_1_laces_0": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_colorful_1_laces_1": [
+   0.1329,
+   0.2051,
+   0.305
   ],
   "person_colorful_1_lapels": [
    0.0185,
    0.0242,
    0.0123
   ],
+  "person_colorful_1_midsole_0": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_colorful_1_midsole_1": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
   "person_colorful_1_pouches": [
    0.0185,
    0.0242,
    0.0123
   ],
+  "person_colorful_1_seat_pockets": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_colorful_1_seat_seams": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
   "person_colorful_1_shirt": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.6654,
+   0.6308,
+   0.5583
   ],
   "person_colorful_1_shoe": [
-   0.2159,
-   0.1981,
-   0.162
+   0.063,
+   0.1046,
+   0.1651
   ],
   "person_colorful_1_shoes": [
-   0.2159,
-   0.1981,
-   0.162
+   0.063,
+   0.1046,
+   0.1651
   ],
   "person_colorful_1_skin": [
    0.3419,
@@ -116,19 +201,74 @@
    0.0999
   ],
   "person_colorful_1_sleeve_hem": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_colorful_1_sole_0": [
+   0.0296,
+   0.0423,
+   0.0612
+  ],
+  "person_colorful_1_sole_1": [
+   0.0296,
+   0.0423,
+   0.0612
+  ],
+  "person_colorful_1_soot_tool_belt": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_colorful_1_soot_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_colorful_1_soot_tool_belt_pouch_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_colorful_1_soot_tool_belt_pouch_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_colorful_1_tail": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_colorful_1_tongue_0": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_colorful_1_tongue_1": [
+   0.063,
+   0.1046,
+   0.1651
   ],
   "person_colorful_1_trouser": [
-   0.1559,
-   0.1413,
-   0.107
+   0.0242,
+   0.0273,
+   0.0409
   ],
   "person_colorful_1_trousers": [
-   0.1559,
-   0.1413,
-   0.107
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_colorful_1_turn_up": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_colorful_1_turn_up_edge": [
+   0.0097,
+   0.0116,
+   0.0176
   ]
  }
 }

@@ -6,14 +6,21 @@
   "base": "RUST TANK",
   "back": "GOLD SHOULDER MANTLE",
   "head": "BONE KNIT CAP",
-  "legs": "GOLD DROP TROUSER",
-  "feet": "BROWN BOOTS"
+  "legs": "WIDE PLEAT TROUSER",
+  "feet": "STACKED SOLE BOOT",
+  "gear": "SAND KNEEPADS",
+  "outfit": []
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_church_3.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,10 +30,20 @@
  "real_height_for_rig": 1.807,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_church_3_trouser": 2568,
-  "person_church_3_shoe": 3716,
-  "person_church_3_mantle": 17882,
+  "person_church_3_shoe": 3836,
+  "person_church_3_mantle": 10758,
   "person_church_3_shirt": 21152,
+  "person_church_3_trouser": 43706,
+  "person_church_3_sole_1": 242,
+  "person_church_3_midsole_1": 242,
+  "person_church_3_sole_0": 242,
+  "person_church_3_midsole_0": 242,
+  "person_church_3_boot_collar": 2048,
+  "person_church_3_boot_collar_line": 2048,
+  "person_church_3_sand_kneepads_1": 3078,
+  "person_church_3_sand_kneepads_0": 3078,
+  "person_church_3_sand_kneepads_strap_-6": 2048,
+  "person_church_3_sand_kneepads_strap_6": 2048,
   "person_church_3_hair": 17968,
   "person_church_3_hat": 1518,
   "person_church_3_hand_L": 392,
@@ -37,6 +54,16 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_church_3_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_church_3_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_church_3_eyes": [
    0.0212,
@@ -58,35 +85,75 @@
    0.402,
    0.1746
   ],
+  "person_church_3_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_church_3_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_church_3_sand_kneepads_0": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_3_sand_kneepads_1": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_3_sand_kneepads_strap_-6": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_church_3_sand_kneepads_strap_6": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
   "person_church_3_shirt": [
-   0.2159,
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
   ],
   "person_church_3_shoe": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_church_3_shoes": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_church_3_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
+  "person_church_3_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_church_3_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_church_3_trouser": [
-   0.5149,
-   0.4678,
-   0.3712
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_church_3_trousers": [
-   0.5149,
-   0.4678,
-   0.3712
+   0.0595,
+   0.0648,
+   0.0802
   ]
  }
 }

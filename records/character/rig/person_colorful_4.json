@@ -7,13 +7,27 @@
   "outer": "GRASS WRAP COAT",
   "head": "ROSE KNIT CAP",
   "legs": "GRASS DROP TROUSER",
-  "feet": "GRASS BOOTS"
+  "feet": "STACKED MID BOOT",
+  "waist": "WIDE WAIST WRAP",
+  "back": "SALVAGE SATCHEL",
+  "gear": "SOOT GORGET",
+  "outfit": []
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "WRAP COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.005
+  }
  },
  "model": "records/character/rig/person_colorful_4.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,7 +38,7 @@
  "meshes": {
   "Cesium_Man": 3273,
   "person_colorful_4_trouser": 1368,
-  "person_colorful_4_shoe": 3916,
+  "person_colorful_4_shoe": 4036,
   "person_colorful_4_belt": 1792,
   "person_colorful_4_bib": 12472,
   "person_colorful_4_straps": 364,
@@ -36,6 +50,19 @@
   "person_colorful_4_belt.001": 1792,
   "person_colorful_4_wrap_edge": 198,
   "person_colorful_4_knot": 68,
+  "person_colorful_4_sole_1": 242,
+  "person_colorful_4_midsole_1": 242,
+  "person_colorful_4_sole_0": 242,
+  "person_colorful_4_midsole_0": 242,
+  "person_colorful_4_boot_collar": 2048,
+  "person_colorful_4_boot_collar_line": 2048,
+  "person_colorful_4_wide_waist_wrap": 1792,
+  "person_colorful_4_wide_waist_wrap_edge": 1792,
+  "person_colorful_4_salvage_satchel_bag": 98,
+  "person_colorful_4_salvage_satchel_flap": 26,
+  "person_colorful_4_salvage_satchel_strap": 1792,
+  "person_colorful_4_soot_gorget": 1536,
+  "person_colorful_4_soot_gorget_rim": 1536,
   "person_colorful_4_hair": 30198,
   "person_colorful_4_hair_fall": 2254,
   "person_colorful_4_hat": 4548,
@@ -59,25 +86,35 @@
    0.0561,
    0.0232
   ],
+  "person_colorful_4_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_colorful_4_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_colorful_4_buttons": [
    0.0908,
    0.1095,
    0.0452
   ],
   "person_colorful_4_coat": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_colorful_4_coat_skirt": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_colorful_4_collar": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_colorful_4_eyes": [
    0.0212,
@@ -105,14 +142,39 @@
    0.0887
   ],
   "person_colorful_4_knot": [
-   0.0513,
+   0.0545,
    0.1878,
-   0.011
+   0.013
+  ],
+  "person_colorful_4_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_colorful_4_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_colorful_4_pocket": [
    0.0437,
    0.0561,
    0.0232
+  ],
+  "person_colorful_4_salvage_satchel_bag": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_colorful_4_salvage_satchel_flap": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_colorful_4_salvage_satchel_strap": [
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_colorful_4_shirt": [
    0.0437,
@@ -120,19 +182,39 @@
    0.0232
   ],
   "person_colorful_4_shoe": [
-   0.2159,
-   0.1981,
-   0.162
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_colorful_4_shoes": [
-   0.2159,
-   0.1981,
-   0.162
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_colorful_4_skin": [
    0.3419,
    0.1812,
    0.0999
+  ],
+  "person_colorful_4_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_colorful_4_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_colorful_4_soot_gorget": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_colorful_4_soot_gorget_rim": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
   "person_colorful_4_straps": [
    0.0185,
@@ -149,10 +231,20 @@
    0.0561,
    0.0232
   ],
+  "person_colorful_4_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_colorful_4_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_colorful_4_wrap_edge": [
-   0.0513,
+   0.0545,
    0.1878,
-   0.011
+   0.013
   ]
  }
 }

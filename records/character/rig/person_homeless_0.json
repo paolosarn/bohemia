@@ -5,14 +5,20 @@
   "hair": "LAYERED FALL",
   "base": "SAGE STRIPED HENLEY",
   "back": "SHOULDER MANTLE",
-  "legs": "STACKED JERSEY PANT",
-  "feet": "SLOUCH BOOT"
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "BONE STACK BOOT",
+  "outfit": []
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_homeless_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,15 +28,23 @@
  "real_height_for_rig": 1.6851,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_homeless_0_trouser": 2568,
-  "person_homeless_0_shoe": 3916,
-  "person_homeless_0_mantle": 19230,
+  "person_homeless_0_shoe": 3836,
+  "person_homeless_0_mantle": 11574,
   "person_homeless_0_shirt": 67512,
   "person_homeless_0_collar": 1536,
   "person_homeless_0_placket": 126,
   "person_homeless_0_buttons": 102,
   "person_homeless_0_cuffs": 2048,
   "person_homeless_0_hem": 1792,
+  "person_homeless_0_trouser": 43706,
+  "person_homeless_0_rolled_hem": 2048,
+  "person_homeless_0_crease": 180,
+  "person_homeless_0_sole_1": 242,
+  "person_homeless_0_midsole_1": 242,
+  "person_homeless_0_sole_0": 242,
+  "person_homeless_0_midsole_0": 242,
+  "person_homeless_0_boot_collar": 2048,
+  "person_homeless_0_boot_collar_line": 2048,
   "person_homeless_0_hair": 30198,
   "person_homeless_0_hair_fall": 2646,
   "person_homeless_0_hand_L": 392,
@@ -41,6 +55,16 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_homeless_0_boot_collar": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_homeless_0_boot_collar_line": [
+   0.2122,
+   0.1746,
+   0.1046
   ],
   "person_homeless_0_buttons": [
    0.1878,
@@ -56,6 +80,11 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_homeless_0_crease": [
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_homeless_0_cuffs": [
    0.0931,
@@ -87,6 +116,16 @@
    0.2874,
    0.2462
   ],
+  "person_homeless_0_midsole_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_homeless_0_midsole_1": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_homeless_0_placket": [
    0.0931,
    0.1441,
@@ -96,6 +135,11 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_homeless_0_rolled_hem": [
+   0.2664,
+   0.1413,
+   0.0529
   ],
   "person_homeless_0_shirt": [
    0.0931,
@@ -113,29 +157,39 @@
    0.8
   ],
   "person_homeless_0_shoe": [
-   0.0482,
-   0.0369,
-   0.0252
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_homeless_0_shoes": [
-   0.0482,
-   0.0369,
-   0.0252
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_homeless_0_skin": [
    0.7454,
    0.5089,
    0.3278
   ],
+  "person_homeless_0_sole_0": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_homeless_0_sole_1": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
   "person_homeless_0_trouser": [
-   0.013,
-   0.0116,
-   0.0116
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_homeless_0_trousers": [
-   0.013,
-   0.0116,
-   0.0116
+   0.1413,
+   0.0742,
+   0.0273
   ]
  }
 }

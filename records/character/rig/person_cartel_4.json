@@ -1,20 +1,38 @@
 {
  "look": "PERSON_CARTEL_4",
- "shape": "person_cartel_4: a person of the Cartel, his own skin skin_deep 4, SAGE FLANNEL under SAGE VEST",
+ "shape": "person_cartel_4: a person of the Cartel, his own skin skin_deep 4, RED PLAID FLANNEL under SAGE VEST",
  "worn": {
   "hair": "DRY TAPER",
-  "base": "SAGE FLANNEL",
+  "base": "RED PLAID FLANNEL",
   "back": "STEEL ROAD CAPE",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "DUST TROUSERS",
-  "feet": "STACKED SOLE BOOT",
-  "outer": "SAGE VEST"
+  "feet": "COLUMN PANT-BOOT",
+  "outer": "SAGE VEST",
+  "outfit": [
+   "SAGE FLANNEL read as one with SAGE VEST (99 and 99 of 255): the same cut in RED PLAID FLANNEL (68)",
+   "SAGE VEST worn open to the neck",
+   "the flannel's hem below the vest"
+  ]
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_cartel_4.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,8 +42,7 @@
  "real_height_for_rig": 1.6852,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_cartel_4_trouser": 2568,
-  "person_cartel_4_shoe": 3916,
+  "person_cartel_4_shoe": 3148,
   "person_cartel_4_cape": 4674,
   "person_cartel_4_shirt": 71252,
   "person_cartel_4_collar": 1536,
@@ -33,9 +50,12 @@
   "person_cartel_4_placket": 162,
   "person_cartel_4_buttons": 204,
   "person_cartel_4_cuffs": 2048,
-  "person_cartel_4_tail": 2016,
-  "person_cartel_4_coat": 22450,
+  "person_cartel_4_tail": 2912,
+  "person_cartel_4_coat": 21902,
   "person_cartel_4_lapels": 396,
+  "person_cartel_4_column": 74570,
+  "person_cartel_4_column_sole_1": 242,
+  "person_cartel_4_column_sole_0": 242,
   "person_cartel_4_hair": 17968,
   "person_cartel_4_hat": 3444,
   "person_cartel_4_hat_brim": 2106,
@@ -49,9 +69,9 @@
    0.8
   ],
   "person_cartel_4_buttons": [
-   0.1878,
-   0.2623,
-   0.162
+   0.3185,
+   0.0762,
+   0.0497
   ],
   "person_cartel_4_cape": [
    0.0545,
@@ -64,24 +84,39 @@
    0.0823
   ],
   "person_cartel_4_collar": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_cartel_4_collar_points": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_cartel_4_collar_print": [
    0.8,
    0.8,
    0.8
   ],
+  "person_cartel_4_column": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_cartel_4_column_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_cartel_4_column_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_cartel_4_cuffs": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_cartel_4_eyes": [
    0.0212,
@@ -109,9 +144,9 @@
    0.0343
   ],
   "person_cartel_4_placket": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_cartel_4_placket_print": [
    0.8,
@@ -119,9 +154,9 @@
    0.8
   ],
   "person_cartel_4_shirt": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_cartel_4_shirt_print": [
    0.8,
@@ -134,14 +169,14 @@
    0.8
   ],
   "person_cartel_4_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_cartel_4_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_cartel_4_skin": [
    0.5972,
@@ -149,24 +184,19 @@
    0.2542
   ],
   "person_cartel_4_tail": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_cartel_4_tail_print": [
    0.8,
    0.8,
    0.8
   ],
-  "person_cartel_4_trouser": [
-   0.0595,
-   0.0595,
-   0.063
-  ],
   "person_cartel_4_trousers": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

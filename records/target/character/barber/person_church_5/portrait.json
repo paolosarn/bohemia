@@ -2,7 +2,7 @@
  "head_px": 128,
  "head_m": 0.3782,
  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.378 m",
- "ppm": 338.453,
+ "ppm": 338.446,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -34,10 +34,10 @@
  "crop_box_px": [
   22,
   21,
-  195,
+  194,
   218
  ],
  "model": "records/character/rig/barber_person_church_5.glb",
  "body_rig": "rig.json",
- "colours": 31785
+ "colours": 32700
 }

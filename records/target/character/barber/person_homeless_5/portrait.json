@@ -34,10 +34,10 @@
  "crop_box_px": [
   40,
   37,
-  176,
+  178,
   218
  ],
  "model": "records/character/rig/barber_person_homeless_5.glb",
  "body_rig": "rig.json",
- "colours": 31281
+ "colours": 31604
 }

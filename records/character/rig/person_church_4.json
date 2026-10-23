@@ -1,19 +1,36 @@
 {
  "look": "PERSON_CHURCH_4",
- "shape": "person_church_4: a person of the Church, his own skin skin_mid 3, VESTMENT GOLD SHIRT",
+ "shape": "person_church_4: a person of the Church, his own skin skin_mid 3, BLACK TANK",
  "worn": {
   "hair": "COIL CROWN",
-  "base": "VESTMENT GOLD SHIRT",
+  "base": "BLACK TANK",
   "back": "GOLD SHOULDER MANTLE",
   "head": "BONE KNIT CAP",
-  "legs": "GOLD DROP TROUSER",
-  "feet": "BROWN BOOTS"
+  "feet": "ASH COLUMN",
+  "waist": "SCAV TOOL BELT",
+  "outfit": [
+   "his VESTMENT GOLD SHIRT worn open over a BLACK TANK"
+  ],
+  "mid": "VESTMENT GOLD SHIRT"
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.01,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_church_4.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,16 +40,22 @@
  "real_height_for_rig": 1.807,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_church_4_trouser": 2568,
-  "person_church_4_shoe": 3716,
-  "person_church_4_mantle": 17882,
-  "person_church_4_shirt": 71212,
-  "person_church_4_collar": 1536,
-  "person_church_4_collar_points": 180,
-  "person_church_4_placket": 162,
-  "person_church_4_buttons": 204,
-  "person_church_4_cuffs": 2048,
-  "person_church_4_tail": 2016,
+  "person_church_4_shoe": 3148,
+  "person_church_4_mantle": 10758,
+  "person_church_4_shirt": 21152,
+  "person_church_4_column": 74570,
+  "person_church_4_column_sole_1": 242,
+  "person_church_4_column_sole_0": 242,
+  "person_church_4_scav_tool_belt": 1792,
+  "person_church_4_scav_tool_belt_pouch_1": 26,
+  "person_church_4_scav_tool_belt_pouch_0": 26,
+  "person_church_4_scav_tool_belt_buckle": 34,
+  "person_church_4_mid_shirt": 66420,
+  "person_church_4_mid_collar": 1536,
+  "person_church_4_mid_collar_points": 180,
+  "person_church_4_mid_front_edge": 396,
+  "person_church_4_mid_cuffs": 2048,
+  "person_church_4_mid_tail": 1818,
   "person_church_4_hair": 17968,
   "person_church_4_hat": 1518,
   "person_church_4_hand_L": 392,
@@ -44,25 +67,20 @@
    0.8,
    0.8
   ],
-  "person_church_4_buttons": [
-   0.5149,
-   0.2623,
-   0.0044
+  "person_church_4_column": [
+   0.0612,
+   0.0612,
+   0.0704
   ],
-  "person_church_4_collar": [
-   1.0,
-   0.6795,
-   0.0242
+  "person_church_4_column_sole_0": [
+   0.0232,
+   0.0232,
+   0.0252
   ],
-  "person_church_4_collar_points": [
-   1.0,
-   0.6795,
-   0.0242
-  ],
-  "person_church_4_cuffs": [
-   1.0,
-   0.6795,
-   0.0242
+  "person_church_4_column_sole_1": [
+   0.0232,
+   0.0232,
+   0.0252
   ],
   "person_church_4_eyes": [
    0.0212,
@@ -84,45 +102,80 @@
    0.402,
    0.1746
   ],
-  "person_church_4_placket": [
-   1.0,
+  "person_church_4_mid_collar": [
+   0.8469,
    0.6795,
-   0.0242
+   0.2918
+  ],
+  "person_church_4_mid_collar_points": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_church_4_mid_cuffs": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_church_4_mid_front_edge": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_church_4_mid_shirt": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_church_4_mid_tail": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_church_4_scav_tool_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_church_4_scav_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_church_4_scav_tool_belt_pouch_0": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_church_4_scav_tool_belt_pouch_1": [
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_church_4_shirt": [
-   1.0,
-   0.6795,
-   0.0242
+   0.0232,
+   0.0232,
+   0.0356
   ],
   "person_church_4_shoe": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_church_4_shoes": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_church_4_skin": [
    0.6105,
    0.3515,
    0.1714
   ],
-  "person_church_4_tail": [
-   1.0,
-   0.6795,
-   0.0242
-  ],
-  "person_church_4_trouser": [
-   0.5149,
-   0.4678,
-   0.3712
-  ],
   "person_church_4_trousers": [
-   0.5149,
-   0.4678,
-   0.3712
+   0.0612,
+   0.0612,
+   0.0704
   ]
  }
 }

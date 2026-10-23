@@ -1,19 +1,36 @@
 {
  "look": "PERSON_CHURCH_7",
- "shape": "person_church_7: a person of the Church, his own skin skin_mid 2, DUST PLAID SHIRT",
+ "shape": "person_church_7: a person of the Church, his own skin skin_mid 2, BLACK TANK",
  "worn": {
   "hair": "COIL CROWN",
-  "base": "DUST PLAID SHIRT",
+  "base": "BLACK TANK",
   "back": "GOLD SHOULDER MANTLE",
   "head": "BONE KNIT CAP",
-  "legs": "GOLD DROP TROUSER",
-  "feet": "BROWN BOOTS"
+  "feet": "COLUMN PANT-BOOT",
+  "gear": "DUST BROWN BANDOLIER",
+  "outfit": [
+   "his DUST PLAID SHIRT worn open over a BLACK TANK"
+  ],
+  "mid": "DUST PLAID SHIRT"
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.01,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_church_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,16 +40,21 @@
  "real_height_for_rig": 1.807,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_church_7_trouser": 2568,
-  "person_church_7_shoe": 3716,
-  "person_church_7_mantle": 17882,
-  "person_church_7_shirt": 43764,
-  "person_church_7_collar": 1536,
-  "person_church_7_collar_points": 180,
-  "person_church_7_placket": 162,
-  "person_church_7_buttons": 204,
-  "person_church_7_sleeve_hem": 2048,
-  "person_church_7_tail": 2016,
+  "person_church_7_shoe": 3148,
+  "person_church_7_mantle": 10758,
+  "person_church_7_shirt": 21152,
+  "person_church_7_column": 74570,
+  "person_church_7_column_sole_1": 242,
+  "person_church_7_column_sole_0": 242,
+  "person_church_7_dust_brown_bandolier": 1792,
+  "person_church_7_dust_brown_bandolier_shells": 374,
+  "person_church_7_dust_brown_bandolier_pouch": 26,
+  "person_church_7_mid_shirt": 38972,
+  "person_church_7_mid_collar": 1536,
+  "person_church_7_mid_collar_points": 180,
+  "person_church_7_mid_front_edge": 396,
+  "person_church_7_mid_sleeve_hem": 2048,
+  "person_church_7_mid_tail": 1818,
   "person_church_7_hair": 17968,
   "person_church_7_hat": 1518,
   "person_church_7_hand_L": 392,
@@ -44,25 +66,35 @@
    0.8,
    0.8
   ],
-  "person_church_7_buttons": [
-   0.4072,
-   0.2831,
-   0.1221
+  "person_church_7_column": [
+   0.0382,
+   0.0343,
+   0.0382
   ],
-  "person_church_7_collar": [
-   0.2423,
-   0.1529,
-   0.0561
+  "person_church_7_column_sole_0": [
+   0.007,
+   0.006,
+   0.007
   ],
-  "person_church_7_collar_points": [
-   0.2423,
-   0.1529,
-   0.0561
+  "person_church_7_column_sole_1": [
+   0.007,
+   0.006,
+   0.007
   ],
-  "person_church_7_collar_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_church_7_dust_brown_bandolier": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_church_7_dust_brown_bandolier_pouch": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_church_7_dust_brown_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
   ],
   "person_church_7_eyes": [
    0.0212,
@@ -84,75 +116,80 @@
    0.402,
    0.1746
   ],
-  "person_church_7_placket": [
+  "person_church_7_mid_collar": [
    0.2423,
    0.1529,
    0.0561
   ],
-  "person_church_7_placket_print": [
+  "person_church_7_mid_collar_points": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_7_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_church_7_mid_front_edge": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_7_mid_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_7_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_church_7_mid_sleeve_hem": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_7_mid_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_church_7_mid_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_church_7_mid_tail_print": [
    0.8,
    0.8,
    0.8
   ],
   "person_church_7_shirt": [
-   0.2423,
-   0.1529,
-   0.0561
-  ],
-  "person_church_7_shirt_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_church_7_shirt_print.001": [
-   0.8,
-   0.8,
-   0.8
+   0.0232,
+   0.0232,
+   0.0356
   ],
   "person_church_7_shoe": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_church_7_shoes": [
-   0.0529,
-   0.0307,
-   0.0262
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_church_7_skin": [
    0.3916,
    0.162,
    0.0723
   ],
-  "person_church_7_sleeve_hem": [
-   0.2423,
-   0.1529,
-   0.0561
-  ],
-  "person_church_7_sleeve_hem_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_church_7_tail": [
-   0.2423,
-   0.1529,
-   0.0561
-  ],
-  "person_church_7_tail_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_church_7_trouser": [
-   0.5149,
-   0.4678,
-   0.3712
-  ],
   "person_church_7_trousers": [
-   0.5149,
-   0.4678,
-   0.3712
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

@@ -6,13 +6,32 @@
   "base": "OLIVE TANK",
   "head": "ROSE KNIT CAP",
   "legs": "GRASS DROP TROUSER",
-  "feet": "GRASS BOOTS"
+  "feet": "OLIVE BOOTS",
+  "outfit": [
+   "an open PATINA PLAID FLANNEL over the OLIVE TANK",
+   "its sleeves rolled"
+  ],
+  "mid": "PATINA PLAID FLANNEL"
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.01,
+   "open": true,
+   "ohw": 0.05,
+   "sleeves": "rolled"
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_colorful_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,9 +41,25 @@
  "real_height_for_rig": 1.7044,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_colorful_0_trouser": 2568,
-  "person_colorful_0_shoe": 3916,
+  "person_colorful_0_shoe": 3716,
   "person_colorful_0_shirt": 21064,
+  "person_colorful_0_trouser": 43706,
+  "person_colorful_0_drop_yoke": 5600,
+  "person_colorful_0_ankle": 2048,
+  "person_colorful_0_sole_1": 242,
+  "person_colorful_0_midsole_1": 242,
+  "person_colorful_0_sole_0": 242,
+  "person_colorful_0_midsole_0": 242,
+  "person_colorful_0_boot_collar": 2048,
+  "person_colorful_0_boot_collar_line": 2048,
+  "person_colorful_0_eyelets_1": 120,
+  "person_colorful_0_eyelets_0": 120,
+  "person_colorful_0_mid_shirt": 57180,
+  "person_colorful_0_mid_collar": 1536,
+  "person_colorful_0_mid_collar_points": 180,
+  "person_colorful_0_mid_front_edge": 396,
+  "person_colorful_0_mid_roll": 2048,
+  "person_colorful_0_mid_tail": 1818,
   "person_colorful_0_hair": 30198,
   "person_colorful_0_hair_fall": 2254,
   "person_colorful_0_hat": 4548,
@@ -37,6 +72,36 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_colorful_0_ankle": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
+  "person_colorful_0_boot_collar": [
+   0.1329,
+   0.1683,
+   0.0545
+  ],
+  "person_colorful_0_boot_collar_line": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_colorful_0_drop_yoke": [
+   0.2016,
+   0.4508,
+   0.0999
+  ],
+  "person_colorful_0_eyelets_0": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_colorful_0_eyelets_1": [
+   0.0262,
+   0.0331,
+   0.0116
   ],
   "person_colorful_0_eyes": [
    0.0212,
@@ -63,35 +128,105 @@
    0.0612,
    0.0887
   ],
+  "person_colorful_0_mid_collar": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_0_mid_collar_points": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_0_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_0_mid_front_edge": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_0_mid_roll": [
+   0.1329,
+   0.3005,
+   0.2016
+  ],
+  "person_colorful_0_mid_shirt": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_0_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_0_mid_tail": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_0_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_0_midsole_0": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_colorful_0_midsole_1": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
   "person_colorful_0_shirt": [
    0.0666,
    0.0823,
    0.0262
   ],
   "person_colorful_0_shoe": [
-   0.2159,
-   0.1981,
-   0.162
+   0.0666,
+   0.0823,
+   0.0262
   ],
   "person_colorful_0_shoes": [
-   0.2159,
-   0.1981,
-   0.162
+   0.0666,
+   0.0823,
+   0.0262
   ],
   "person_colorful_0_skin": [
    0.3916,
    0.162,
    0.0723
   ],
+  "person_colorful_0_sole_0": [
+   0.0273,
+   0.0319,
+   0.016
+  ],
+  "person_colorful_0_sole_1": [
+   0.0273,
+   0.0319,
+   0.016
+  ],
   "person_colorful_0_trouser": [
-   0.1559,
-   0.1413,
-   0.107
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_colorful_0_trousers": [
-   0.1559,
-   0.1413,
-   0.107
+   0.2016,
+   0.4508,
+   0.0999
+  ],
+  "person_colorful_0_yoke_drape": [
+   0.0545,
+   0.1878,
+   0.013
   ]
  }
 }

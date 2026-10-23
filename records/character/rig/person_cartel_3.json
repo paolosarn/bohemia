@@ -6,14 +6,31 @@
   "base": "WIDE SHOULDER TEE",
   "back": "STEEL ROAD CAPE",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "DUST TROUSERS",
-  "feet": "STACKED SOLE BOOT"
+  "feet": "COLUMN PANT-BOOT",
+  "waist": "WIDE WAIST WRAP",
+  "outfit": [
+   "an open SAGE FLANNEL over the WIDE SHOULDER TEE"
+  ],
+  "mid": "SAGE FLANNEL"
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_cartel_3.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,13 +40,22 @@
  "real_height_for_rig": 1.6852,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_cartel_3_trouser": 2568,
-  "person_cartel_3_shoe": 3916,
+  "person_cartel_3_shoe": 3148,
   "person_cartel_3_cape": 4674,
   "person_cartel_3_shirt": 39960,
   "person_cartel_3_collar": 1536,
-  "person_cartel_3_sleeve_hem": 2048,
   "person_cartel_3_hem": 1792,
+  "person_cartel_3_column": 74570,
+  "person_cartel_3_column_sole_1": 242,
+  "person_cartel_3_column_sole_0": 242,
+  "person_cartel_3_wide_waist_wrap": 1792,
+  "person_cartel_3_wide_waist_wrap_edge": 1792,
+  "person_cartel_3_mid_shirt": 66572,
+  "person_cartel_3_mid_collar": 1536,
+  "person_cartel_3_mid_collar_points": 180,
+  "person_cartel_3_mid_front_edge": 396,
+  "person_cartel_3_mid_cuffs": 2048,
+  "person_cartel_3_mid_tail": 1818,
   "person_cartel_3_hair": 17968,
   "person_cartel_3_hat": 3444,
   "person_cartel_3_hat_brim": 2106,
@@ -51,6 +77,21 @@
    0.0382,
    0.0343,
    0.0382
+  ],
+  "person_cartel_3_column": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_cartel_3_column_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_cartel_3_column_sole_1": [
+   0.007,
+   0.006,
+   0.007
   ],
   "person_cartel_3_eyes": [
    0.0212,
@@ -77,40 +118,85 @@
    0.0343,
    0.0382
   ],
+  "person_cartel_3_mid_collar": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_3_mid_collar_points": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_3_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_3_mid_cuffs": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_3_mid_front_edge": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_3_mid_shirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_3_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_3_mid_tail": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_3_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
   "person_cartel_3_shirt": [
    0.0382,
    0.0343,
    0.0382
   ],
   "person_cartel_3_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_cartel_3_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_cartel_3_skin": [
    0.5841,
    0.3231,
    0.2016
   ],
-  "person_cartel_3_sleeve_hem": [
+  "person_cartel_3_trousers": [
    0.0382,
    0.0343,
    0.0382
   ],
-  "person_cartel_3_trouser": [
-   0.0595,
-   0.0595,
-   0.063
+  "person_cartel_3_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
   ],
-  "person_cartel_3_trousers": [
-   0.0595,
-   0.0595,
-   0.063
+  "person_cartel_3_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
   ]
  }
 }

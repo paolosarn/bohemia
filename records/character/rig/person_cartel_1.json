@@ -4,16 +4,33 @@
  "worn": {
   "hair": "DRY TAPER",
   "base": "STORM GREY TEE",
-  "back": "STEEL ROAD CAPE",
+  "back": "SALVAGE SATCHEL",
   "head": "CHARCOAL WATCH CAP",
-  "legs": "DUST TROUSERS",
-  "feet": "STACKED SOLE BOOT"
+  "legs": "SLATE STACK PANT",
+  "feet": "SLOUCH BOOT",
+  "outfit": [
+   "an open SAGE FLANNEL over the STORM GREY TEE"
+  ],
+  "mid": "SAGE FLANNEL"
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_cartel_1.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,13 +40,26 @@
  "real_height_for_rig": 1.6852,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_cartel_1_trouser": 2568,
-  "person_cartel_1_shoe": 3916,
+  "person_cartel_1_shoe": 4316,
   "person_cartel_1_cape": 4674,
   "person_cartel_1_shirt": 39960,
   "person_cartel_1_collar": 1536,
-  "person_cartel_1_sleeve_hem": 2048,
   "person_cartel_1_hem": 1792,
+  "person_cartel_1_trouser": 43706,
+  "person_cartel_1_sole_1": 242,
+  "person_cartel_1_midsole_1": 242,
+  "person_cartel_1_sole_0": 242,
+  "person_cartel_1_midsole_0": 242,
+  "person_cartel_1_slouch": 16884,
+  "person_cartel_1_salvage_satchel_bag": 98,
+  "person_cartel_1_salvage_satchel_flap": 26,
+  "person_cartel_1_salvage_satchel_strap": 1792,
+  "person_cartel_1_mid_shirt": 66572,
+  "person_cartel_1_mid_collar": 1536,
+  "person_cartel_1_mid_collar_points": 180,
+  "person_cartel_1_mid_front_edge": 396,
+  "person_cartel_1_mid_cuffs": 2048,
+  "person_cartel_1_mid_tail": 1818,
   "person_cartel_1_hair": 17968,
   "person_cartel_1_hat": 3444,
   "person_cartel_1_hat_brim": 2106,
@@ -77,40 +107,125 @@
    0.0648,
    0.0802
   ],
+  "person_cartel_1_mid_collar": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_1_mid_collar_points": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_1_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_1_mid_cuffs": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_1_mid_front_edge": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_1_mid_shirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_1_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_1_mid_tail": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_1_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_1_midsole_0": [
+   0.013,
+   0.013,
+   0.0168
+  ],
+  "person_cartel_1_midsole_1": [
+   0.013,
+   0.013,
+   0.0168
+  ],
+  "person_cartel_1_salvage_satchel_bag": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_cartel_1_salvage_satchel_flap": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_cartel_1_salvage_satchel_strap": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
   "person_cartel_1_shirt": [
    0.0595,
    0.0648,
    0.0802
   ],
   "person_cartel_1_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0343,
+   0.0343,
+   0.0452
   ],
   "person_cartel_1_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0343,
+   0.0343,
+   0.0452
   ],
   "person_cartel_1_skin": [
    0.1441,
    0.0545,
    0.0296
   ],
-  "person_cartel_1_sleeve_hem": [
-   0.0595,
-   0.0648,
-   0.0802
+  "person_cartel_1_slouch": [
+   0.0343,
+   0.0343,
+   0.0452
+  ],
+  "person_cartel_1_sole_0": [
+   0.013,
+   0.013,
+   0.016
+  ],
+  "person_cartel_1_sole_1": [
+   0.013,
+   0.013,
+   0.016
   ],
   "person_cartel_1_trouser": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cartel_1_trouser_folds": [
+   0.0262,
+   0.0319,
+   0.0437
   ],
   "person_cartel_1_trousers": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0612,
+   0.0762,
+   0.0999
   ]
  }
 }

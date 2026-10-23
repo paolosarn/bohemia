@@ -2,7 +2,7 @@
  "head_px": 128,
  "head_m": 0.3781,
  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.378 m",
- "ppm": 338.558,
+ "ppm": 338.554,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -32,12 +32,12 @@
   "M": "records/target/character/barber/person_homeless_6/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  35,
+  36,
   42,
-  181,
+  182,
   218
  ],
  "model": "records/character/rig/barber_person_homeless_6.glb",
  "body_rig": "rig.json",
- "colours": 31297
+ "colours": 32223
 }

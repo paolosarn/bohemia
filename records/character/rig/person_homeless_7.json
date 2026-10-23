@@ -1,19 +1,39 @@
 {
  "look": "PERSON_HOMELESS_7",
- "shape": "person_homeless_7: a person of the Homeless, his own skin skin_mid 2, BONE TANK under BONE VEST",
+ "shape": "person_homeless_7: a person of the Homeless, his own skin skin_mid 2, SOOT TANK under BONE VEST",
  "worn": {
   "hair": "LAYERED FALL",
-  "base": "BONE TANK",
+  "base": "SOOT TANK",
   "back": "SHOULDER MANTLE",
-  "legs": "STACKED JERSEY PANT",
-  "feet": "SLOUCH BOOT",
-  "outer": "BONE VEST"
+  "legs": "SAGE TROUSERS",
+  "feet": "SLATE SNEAKERS",
+  "outer": "BONE VEST",
+  "neck": "CHARCOAL SCARF",
+  "outfit": [
+   "BONE TANK read as one with BONE VEST (154 and 154 of 255): the same cut in SOOT TANK (52)",
+   "BONE VEST worn open to the neck",
+   "the tank's hem below the vest"
+  ]
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0028,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_homeless_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,12 +43,28 @@
  "real_height_for_rig": 1.6851,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_homeless_7_trouser": 2568,
-  "person_homeless_7_shoe": 3916,
-  "person_homeless_7_mantle": 19230,
+  "person_homeless_7_shoe": 3500,
+  "person_homeless_7_mantle": 11574,
   "person_homeless_7_shirt": 21064,
-  "person_homeless_7_coat": 22450,
+  "person_homeless_7_tail": 2016,
+  "person_homeless_7_coat": 21902,
   "person_homeless_7_lapels": 396,
+  "person_homeless_7_trouser": 43706,
+  "person_homeless_7_rolled_hem": 2048,
+  "person_homeless_7_crease": 180,
+  "person_homeless_7_sole_1": 242,
+  "person_homeless_7_midsole_1": 242,
+  "person_homeless_7_sole_0": 242,
+  "person_homeless_7_midsole_0": 242,
+  "person_homeless_7_tongue_1": 98,
+  "person_homeless_7_laces_1": 200,
+  "person_homeless_7_heel_1": 90,
+  "person_homeless_7_tongue_0": 98,
+  "person_homeless_7_laces_0": 200,
+  "person_homeless_7_heel_0": 90,
+  "person_homeless_7_charcoal_scarf": 3072,
+  "person_homeless_7_charcoal_scarf_tail": 162,
+  "person_homeless_7_charcoal_scarf_fringe": 54,
   "person_homeless_7_hair": 30198,
   "person_homeless_7_hair_fall": 2646,
   "person_homeless_7_hand_L": 392,
@@ -40,10 +76,30 @@
    0.8,
    0.8
   ],
+  "person_homeless_7_charcoal_scarf": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_homeless_7_charcoal_scarf_fringe": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_homeless_7_charcoal_scarf_tail": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
   "person_homeless_7_coat": [
    0.3763,
    0.3231,
    0.2086
+  ],
+  "person_homeless_7_crease": [
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_homeless_7_eyes": [
    0.0212,
@@ -60,6 +116,26 @@
    0.1878,
    0.0802
   ],
+  "person_homeless_7_heel_0": [
+   0.0319,
+   0.0423,
+   0.0595
+  ],
+  "person_homeless_7_heel_1": [
+   0.0319,
+   0.0423,
+   0.0595
+  ],
+  "person_homeless_7_laces_0": [
+   0.1714,
+   0.2195,
+   0.2831
+  ],
+  "person_homeless_7_laces_1": [
+   0.1714,
+   0.2195,
+   0.2831
+  ],
   "person_homeless_7_lapels": [
    0.2122,
    0.1746,
@@ -70,35 +146,75 @@
    0.2874,
    0.2462
   ],
+  "person_homeless_7_midsole_0": [
+   0.1714,
+   0.2195,
+   0.2831
+  ],
+  "person_homeless_7_midsole_1": [
+   0.1714,
+   0.2195,
+   0.2831
+  ],
+  "person_homeless_7_rolled_hem": [
+   0.1878,
+   0.2623,
+   0.162
+  ],
   "person_homeless_7_shirt": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_homeless_7_shoe": [
-   0.0482,
-   0.0369,
-   0.0252
+   0.0823,
+   0.107,
+   0.1441
   ],
   "person_homeless_7_shoes": [
-   0.0482,
-   0.0369,
-   0.0252
+   0.0823,
+   0.107,
+   0.1441
   ],
   "person_homeless_7_skin": [
    0.3916,
    0.162,
    0.0723
   ],
+  "person_homeless_7_sole_0": [
+   0.016,
+   0.0176,
+   0.0212
+  ],
+  "person_homeless_7_sole_1": [
+   0.016,
+   0.0176,
+   0.0212
+  ],
+  "person_homeless_7_tail": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_homeless_7_tongue_0": [
+   0.0823,
+   0.107,
+   0.1441
+  ],
+  "person_homeless_7_tongue_1": [
+   0.0823,
+   0.107,
+   0.1441
+  ],
   "person_homeless_7_trouser": [
-   0.013,
-   0.0116,
-   0.0116
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_homeless_7_trousers": [
-   0.013,
-   0.0116,
-   0.0116
+   0.0931,
+   0.1441,
+   0.0823
   ]
  }
 }
