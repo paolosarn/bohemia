@@ -12,3 +12,9 @@
 4. He named it himself; it sits with the analog horror direction and nothing else is taken from it.
 
 VAMILY rule 132.
+
+## AMENDED THE SAME HOUR
+
+HIS WORDS: "2 interactions"
+
+Two falls into the Backrooms in each act, not one.
