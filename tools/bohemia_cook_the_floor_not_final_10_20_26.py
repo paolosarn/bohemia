@@ -545,6 +545,7 @@ def load_plan(bid):
         lum = lum.copy(); lum[gid == 255] = 255                         # the maker had no shade for what it did not call ground
         asph = gid == F.ID['asphalt']
         road = ndimage.binary_fill_holes(ndimage.binary_closing(np.pad(asph, 48, mode='edge'), iterations=40))[48:-48, 48:-48]   # the patches are holes in it
+        road &= ~ndimage.binary_dilation(kit, iterations=3)                  # the overpass is the street kit's own road: left as it is
         gid = gid.copy()
         pm = road & (L_ >= 105) & ((a[..., 0] - a[..., 2]) > 14)
         pm = ndimage.binary_dilation(pm, iterations=2) & road            # at the ground's 2 px a vertex a 4 px line was a groove
