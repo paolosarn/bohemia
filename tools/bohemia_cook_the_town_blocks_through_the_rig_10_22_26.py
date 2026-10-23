@@ -242,6 +242,40 @@ def facade(bpy, BLD, P, n, b, rnd, mm):
             win(j, x, 2.2, h - 1.9, h - 0.9); j += 1
 
 
+def is_church(b):
+    """10/23: the main street's church (main.0, main.1: a gable front and a bell tower, the picture taller than it is wide)
+    was read as a plain house and came out a ranch with no tower"""
+    x0, y0, x1, y1 = b['box']
+    return b['kind'] == 'building' and b.get('arch') == 'house' and (y1 - y0) > 1.3 * (x1 - x0)
+
+
+def church(bpy, BLD, b, i, root, rnd, mm):
+    """the old church on its own footprint: the nave's gable to the street (the ridge runs north, so the front is the
+    triangle the old picture drew), a door and an arched window in it, the bell tower at its east side with its louvre,
+    its cross and its door, a stone footing; the nave is built along x and turned a quarter onto the street"""
+    import mathutils
+    x0, x1, yf = b['x0'], b['x1'], b['yf']; L = float(min(b['D'], 14.0)); n = 'church%d' % i
+    nw = (x1 - x0) * 0.68; tx0, tx1 = x0 + nw + 0.3, x1 - 0.2; wall = mm['stucco']
+    before = set(bpy.context.scene.objects)
+    BLD.B(bpy, n + '_nave', wall, -L / 2, L / 2, -nw / 2, nw / 2, 0, 5.4, bevel=0.04)
+    BLD.ridge_roof(bpy, n + '_roof', -L / 2, L / 2, -nw / 2, nw / 2, 5.4, pitch=35, gable=wall)
+    nave = bpy.data.objects.new(n + '_turn', None); bpy.context.scene.collection.objects.link(nave)
+    for o in [o for o in bpy.context.scene.objects if o not in before and o is not nave]:
+        if o.parent is None: o.parent = nave
+    nave.location = (x0 + nw / 2, yf + L / 2, 0.0); nave.rotation_euler = (0, 0, math.radians(90)); nave.parent = root
+    BLD.B(bpy, n + '_footing', mm['stone'], x0 - 0.05, x0 + nw + 0.05, yf - 0.05, yf + L + 0.05, 0, 0.25)
+    BLD.B(bpy, n + '_tower', mm['stone'], tx0, tx1, yf - 0.6, yf + 2.6, 0, 11.5, bevel=0.04)
+    BLD.ridge_roof(bpy, n + '_tcap', tx0, tx1, yf - 0.6, yf + 2.6, 11.5, pitch=45, oh=0.3, gable=mm['stone'])
+    BLD.opening(bpy, n + '_door', 'door', x0 + nw / 2, 1.7, 0, 2.7, yf, 'boarded' if rnd.rand() < 0.5 else None)
+    BLD.opening(bpy, n + '_rose', 'arched', x0 + nw / 2, 1.1, 3.3, 4.8, yf)
+    BLD.opening(bpy, n + '_louvre', 'arched', (tx0 + tx1) / 2, 1.0, 8.7, 10.1, yf - 0.6, 'shutter')
+    BLD.opening(bpy, n + '_tdoor', 'door', (tx0 + tx1) / 2, 1.0, 0, 2.3, yf - 0.6)
+    cx = (tx0 + tx1) / 2
+    BLD.B(bpy, n + '_cross', mm['pale'], cx - 0.06, cx + 0.06, yf - 0.68, yf - 0.62, 6.6, 7.6)
+    BLD.B(bpy, n + '_crossbar', mm['pale'], cx - 0.3, cx + 0.3, yf - 0.68, yf - 0.62, 7.15, 7.27)
+    for o in [o for o in bpy.context.scene.objects if o not in before and o.parent is None and o is not nave]: o.parent = root
+
+
 def build_town(bpy, blds, seed):
     import mathutils
     import bohemia_cook_model_buildings as BLD
@@ -261,6 +295,8 @@ def build_town(bpy, blds, seed):
             for o in new:
                 if o.parent is None: o.parent = root
             root.location = ((b['x0'] + b['x1']) / 2 - (lo + hi) / 2 * s_, SIDE * (1 - b['y1'] / H) + 4.0 * s_, 0.0); root.scale = (s_, s_, s_)
+        elif is_church(b):
+            church(bpy, BLD, b, i, root, rnd, mm)
         else:
             x0, x1, yf, h = b['x0'], b['x1'], b['yf'], b['h']; yb = yf + b['D']; n = 'town%d' % i
             wall = mm['stucco'] if rnd.rand() < 0.6 else mm['pale']
@@ -278,7 +314,7 @@ def build_town(bpy, blds, seed):
             for o in new:
                 if o.parent is None: o.parent = root
         meshes += [o for o in bpy.context.scene.objects if o not in before and o.type == 'MESH' and not o.name.endswith('_hole')]   # the hole stays black
-        roots.append(root); kinds.append(b['kind'] if b['kind'] == 'canopy' else b['roof']); rects.append(tuple(b['box']))
+        roots.append(root); kinds.append(b['kind'] if b['kind'] == 'canopy' else ('church' if is_church(b) else b['roof'])); rects.append(tuple(b['box']))
         BLD.TINT = {}
     return meshes, roots, rects, kinds
 
@@ -334,8 +370,10 @@ if __name__ == '__main__':
                       '%s h %.1f D %.1f %s %d doors%s' % (b['arch'], b['h'], b['D'], b['roof'], len(b['openings']), ' hole' if b['hole'] else '')))
         json.dump(L_, open(LEDGER, 'w'), indent=1)
     else:
-        for bid in a:
-            NF.render(bid)
+        region = [int(v) for v in a[a.index('--region') + 1].split(',')] if '--region' in a else None   # 10/23: a test window
+        for bid in [x for i, x in enumerate(a) if not x.startswith('--') and not (i and a[i - 1] == '--region')]:
+            NF.render(bid, region)
+            if region: continue
             L_ = json.load(open(LEDGER)) if os.path.exists(LEDGER) else {}
             L_[bid] = TOWN_BLDS.get(bid); json.dump(L_, open(LEDGER, 'w'), indent=1)
     sys.stdout.flush(); os._exit(0)

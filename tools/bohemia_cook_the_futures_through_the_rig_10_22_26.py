@@ -57,7 +57,11 @@ def roof_hits(bpy, objs, x0, x1, y0, y1, step):
 def grow(bpy, meshes, roots, rects, kinds, seed):
     """RECLAIMED: the solar on the roofs and the beds in the yards"""
     rng = np.random.RandomState(seed + 5)
-    panel = NF.material(bpy, 'solar', 'cloth_black', 1); frame = NF.material(bpy, 'solar_frame', 'tape_grey', 3)
+    # 10/23: the panels are glass on a dark cell, not paint: on the first render they took the houses' 0.6 wear with the
+    # roofs and came out pale grey squares. So they leave the houses' source pass (place_houses below keeps them out of
+    # the meshes it hands back; the grime still crosses them), a blue-black cell with a little of the sky in its glass
+    panel = NF.srgb_mat(bpy, 'solar', (24, 30, 40), 'cloth_black'); frame = NF.material(bpy, 'solar_frame', 'tape_grey', 3)
+    pb = panel.node_tree.nodes['Principled BSDF']; pb.inputs['Roughness'].default_value = 0.32; pb.inputs['Specular IOR Level'].default_value = 0.45
     plank = NF.material(bpy, 'bed', 'clay_mustard', 1); soil = NF.material(bpy, 'soil', 'clay_rust', 0, 0.7); leaf = NF.material(bpy, 'leaf', 'clay_teal', 1, 0.9)
     pv, fr, beds, earth, green = [], [], [], [], []
     for (x0, y0, x1, y1), root in zip(rects, roots):
@@ -128,7 +132,7 @@ def place_houses(bpy, houses, seed):
         add, what = (grow if STATE['s'] == 'reclaimed' else fall)(bpy, meshes, roots, rects, kinds, seed)
         holder = bpy.data.objects.new('future', None); bpy.context.scene.collection.objects.link(holder)
         for o in add: o.parent = holder                                      # the root's height squash reaches them too
-        meshes = meshes + add; roots = roots + [holder]
+        meshes = meshes + [o for o in add if not o.name.startswith('fut_solar')]; roots = roots + [holder]   # 10/23: the glass keeps its own look
         NF.LEDGER['future'] = what
     return meshes, roots, rects, kinds
 
