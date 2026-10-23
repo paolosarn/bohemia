@@ -93,23 +93,43 @@
   "map_districts": {
    "where": "the map (BOHEMIA_CITY_WORLD.html), HERO_SRC in slices/BOHEMIA_CITY_TILES_01..09.js: every district picture the valley is laid from, the mountain the biggest",
    "total": 69,
-   "flat": 54,
+   "flat": 34,
    "in_3d": [
     "apartment",
     "arterial",
+    "battery",
+    "campus",
+    "cityhall",
     "commercial",
+    "courthouse",
     "desert",
+    "downtown",
     "farm",
+    "firestation",
     "fort",
     "freeway",
+    "industrial",
+    "interchange",
+    "library",
+    "mall",
     "mountain",
+    "park",
+    "policestation",
     "rail",
     "resort",
+    "school",
     "solar",
+    "speedway",
+    "stadium",
+    "storage",
     "strip",
     "suburb",
+    "swapmeet",
+    "terminal",
     "town",
-    "trailer"
+    "trailer",
+    "truckstop",
+    "warehouse"
    ]
   },
   "fight_floor_futures": {
@@ -175,7 +195,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 160,
+ "total_flat": 140,
  "log": [
   {
    "at": "10/20 start",
@@ -353,6 +373,17 @@
    "fight_cover": 0,
    "settlement_backdrops": 10,
    "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the map's next twenty districts through the rig",
+   "total_flat": 140,
+   "fight_floor": 26,
+   "fight_cover": 0,
+   "settlement_backdrops": 10,
+   "map_districts": 34,
    "fight_floor_futures": 70,
    "fight_lights": 0,
    "item_icons": 0
