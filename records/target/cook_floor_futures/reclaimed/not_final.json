@@ -1,6 +1,6 @@
 {
  "subs.2": {
-  "seconds": 819,
+  "seconds": 1088,
   "junk": {
    "bags": 23,
    "paper": 360,
@@ -30,7 +30,7 @@
   "file": "records/target/cook_floor_futures/reclaimed/block_subs_2.webp",
   "future": {
    "panels": 176,
-   "beds": 8
+   "beds": 9
   }
  },
  "subs.1": {

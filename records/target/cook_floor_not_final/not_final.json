@@ -423,7 +423,7 @@
   "file": "records/target/cook_floor_not_final/block_scrub_0.webp"
  },
  "landfill.0": {
-  "seconds": 815,
+  "seconds": 940,
   "junk": {
    "bags": 0,
    "paper": 807,
@@ -441,7 +441,7 @@
    "burnt_house": -1
   },
   "grime": {
-   "materials": 30,
+   "materials": 32,
    "occlusion_m": 1.6,
    "tint": [
     0.3,
