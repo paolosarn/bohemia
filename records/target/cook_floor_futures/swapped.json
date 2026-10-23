@@ -198,5 +198,10 @@
   "file": "slices/fight_ground/block_suburb_stem_1_reclaimed.webp",
   "sha1": "5500128ae89d3331b8b602f304d09431b95a2998",
   "master": "records/target/cook_floor_futures/reclaimed/block_suburb_stem_1.webp"
+ },
+ "scrubroad.0.reclaimed": {
+  "file": "slices/fight_ground/block_scrubroad_0_reclaimed.webp",
+  "sha1": "b3ef4d663ab5b4a5fe8bdcefd91000b13b316c25",
+  "master": "records/target/cook_floor_futures/reclaimed/block_scrubroad_0.webp"
  }
 }
