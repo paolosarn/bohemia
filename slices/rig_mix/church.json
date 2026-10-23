@@ -11,7 +11,7 @@
   "person_church_6",
   "person_church_7"
  ],
- "w": 70,
+ "w": 68,
  "h": 130,
  "foot": 122,
  "cols": 7,
@@ -44,17 +44,20 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "RUST STRIPED TEE",
+   "top": "FADED BLACK LONGSLEEVE",
    "coat": null,
    "heritage": "black",
    "skin": "dark",
    "sex": null,
    "wears": {
-    "base": "RUST STRIPED TEE",
+    "base": "FADED BLACK LONGSLEEVE",
     "back": "GOLD SHOULDER MANTLE",
     "head": "BONE KNIT CAP",
-    "legs": "GOLD DROP TROUSER",
-    "feet": "BROWN BOOTS"
+    "legs": "WIDE PLEAT TROUSER",
+    "feet": "LEATHER STACK BOOT",
+    "neck": "DRAPED COWL",
+    "hands": "LEATHER GLOVES",
+    "mid": "RUST STRIPED TEE"
    }
   },
   {
@@ -65,17 +68,21 @@
    "face": null,
    "beard": null,
    "mark": "CHEEK SCAR",
-   "top": "SAND HOODIE",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "black",
    "skin": "dark",
    "sex": null,
    "wears": {
-    "base": "SAND HOODIE",
+    "base": "WHITE TEE",
     "back": "GOLD SHOULDER MANTLE",
     "head": "BONE KNIT CAP",
-    "legs": "GOLD DROP TROUSER",
-    "feet": "BROWN BOOTS"
+    "legs": "CHARCOAL WRAP SKIRT",
+    "feet": "DUST BROWN BOOTS",
+    "waist": "LEATHER BELT",
+    "neck": "TRAILING SCARF",
+    "gear": "SCRAP PAULDRON",
+    "mid": "SAND HOODIE"
    }
   },
   {
@@ -95,9 +102,12 @@
     "base": "KHAKI BUTTON-UP",
     "back": "GOLD SHOULDER MANTLE",
     "head": "BONE KNIT CAP",
-    "legs": "GOLD DROP TROUSER",
-    "feet": "BROWN BOOTS",
-    "outer": "LEATHER VEST"
+    "legs": "BRICK CROP TROUSER",
+    "feet": "RUST BOOTS",
+    "outer": "LEATHER VEST",
+    "waist": "LEATHER BELT",
+    "neck": "OXBLOOD SCARF",
+    "gear": "WORN BRACERS"
    }
   },
   {
@@ -117,8 +127,9 @@
     "base": "RUST TANK",
     "back": "GOLD SHOULDER MANTLE",
     "head": "BONE KNIT CAP",
-    "legs": "GOLD DROP TROUSER",
-    "feet": "BROWN BOOTS"
+    "legs": "WIDE PLEAT TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "gear": "SAND KNEEPADS"
    }
   },
   {
@@ -129,17 +140,18 @@
    "face": "FACE OUTLAW BANDANA",
    "beard": null,
    "mark": null,
-   "top": "VESTMENT GOLD SHIRT",
+   "top": "BLACK TANK",
    "coat": null,
    "heritage": "hispanic",
    "skin": "intermediate",
    "sex": null,
    "wears": {
-    "base": "VESTMENT GOLD SHIRT",
+    "base": "BLACK TANK",
     "back": "GOLD SHOULDER MANTLE",
     "head": "BONE KNIT CAP",
-    "legs": "GOLD DROP TROUSER",
-    "feet": "BROWN BOOTS"
+    "feet": "ASH COLUMN",
+    "waist": "SCAV TOOL BELT",
+    "mid": "VESTMENT GOLD SHIRT"
    }
   },
   {
@@ -150,17 +162,19 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "RUST HOODIE",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "white",
    "skin": "very light",
    "sex": null,
    "wears": {
-    "base": "RUST HOODIE",
-    "back": "GOLD SHOULDER MANTLE",
+    "base": "WHITE TEE",
+    "back": "SALVAGE SATCHEL",
     "head": "BONE KNIT CAP",
-    "legs": "GOLD DROP TROUSER",
-    "feet": "BROWN BOOTS"
+    "legs": "RUST CARGOS",
+    "feet": "RUST BOOTS",
+    "neck": "BONE SCARF",
+    "mid": "RUST HOODIE"
    }
   },
   {
@@ -171,17 +185,19 @@
    "face": null,
    "beard": "FULL BEARD",
    "mark": null,
-   "top": "MOB PINSTRIPE SHIRT",
+   "top": "BLACK TANK",
    "coat": null,
    "heritage": "white",
    "skin": "very light",
    "sex": "m",
    "wears": {
-    "base": "MOB PINSTRIPE SHIRT",
+    "base": "BLACK TANK",
     "back": "GOLD SHOULDER MANTLE",
     "head": "BONE KNIT CAP",
-    "legs": "GOLD DROP TROUSER",
-    "feet": "BROWN BOOTS"
+    "legs": "BONE WIDE TROUSER",
+    "feet": "BRICK STACK BOOT",
+    "gear": "RUST GORGET",
+    "mid": "MOB PINSTRIPE SHIRT"
    }
   },
   {
@@ -192,17 +208,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "DUST PLAID SHIRT",
+   "top": "BLACK TANK",
    "coat": null,
    "heritage": "mixed",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "DUST PLAID SHIRT",
+    "base": "BLACK TANK",
     "back": "GOLD SHOULDER MANTLE",
     "head": "BONE KNIT CAP",
-    "legs": "GOLD DROP TROUSER",
-    "feet": "BROWN BOOTS"
+    "feet": "COLUMN PANT-BOOT",
+    "gear": "DUST BROWN BANDOLIER",
+    "mid": "DUST PLAID SHIRT"
    }
   }
  ]

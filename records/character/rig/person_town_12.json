@@ -4,15 +4,33 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "STRIPED TEE",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "CAR COAT"
+  "legs": "KHAKI CARGOS",
+  "feet": "BONE SNEAKERS",
+  "outer": "CAR COAT",
+  "back": "CHARCOAL ROAD CAPE",
+  "outfit": [
+   "CAR COAT worn open to the neck"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "CAR COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.048,
+   "collar_z": 1.11,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_town_12.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,19 +40,32 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_12_trouser": 2568,
-  "person_town_12_shoe": 3148,
+  "person_town_12_shoe": 3500,
+  "person_town_12_cape": 4674,
   "person_town_12_shirt": 40296,
   "person_town_12_collar": 1536,
-  "person_town_12_sleeve_hem": 2048,
   "person_town_12_hem": 1792,
-  "person_town_12_coat": 73272,
-  "person_town_12_coat_skirt": 5670,
-  "person_town_12_collar.001": 1536,
+  "person_town_12_coat": 71778,
+  "person_town_12_coat_skirt": 5454,
+  "person_town_12_collar.001": 1170,
   "person_town_12_lapels": 396,
   "person_town_12_cuffs": 2048,
   "person_town_12_pockets": 252,
   "person_town_12_pocket_flaps": 252,
+  "person_town_12_trouser": 43706,
+  "person_town_12_rolled_hem": 2048,
+  "person_town_12_cargo_pockets": 252,
+  "person_town_12_cargo_flaps": 108,
+  "person_town_12_sole_1": 242,
+  "person_town_12_midsole_1": 242,
+  "person_town_12_sole_0": 242,
+  "person_town_12_midsole_0": 242,
+  "person_town_12_tongue_1": 98,
+  "person_town_12_laces_1": 200,
+  "person_town_12_heel_1": 90,
+  "person_town_12_tongue_0": 98,
+  "person_town_12_laces_0": 200,
+  "person_town_12_heel_0": 90,
   "person_town_12_hair": 17968,
   "person_town_12_hand_L": 392,
   "person_town_12_hand_R": 392
@@ -44,6 +75,21 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_town_12_cape": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_12_cargo_flaps": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_town_12_cargo_pockets": [
+   0.2307,
+   0.1559,
+   0.0578
   ],
   "person_town_12_coat": [
    0.0382,
@@ -80,15 +126,45 @@
    0.0116,
    0.008
   ],
+  "person_town_12_heel_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_town_12_heel_1": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_town_12_hem": [
    0.3763,
    0.3231,
    0.2086
   ],
+  "person_town_12_laces_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_town_12_laces_1": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_town_12_lapels": [
    0.0152,
    0.013,
    0.0152
+  ],
+  "person_town_12_midsole_0": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_town_12_midsole_1": [
+   0.5776,
+   0.5271,
+   0.3712
   ],
   "person_town_12_pocket_flaps": [
    0.0152,
@@ -99,6 +175,11 @@
    0.0382,
    0.0343,
    0.0382
+  ],
+  "person_town_12_rolled_hem": [
+   0.3864,
+   0.2664,
+   0.1119
   ],
   "person_town_12_shirt": [
    0.3763,
@@ -116,39 +197,49 @@
    0.8
   ],
   "person_town_12_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_12_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_12_skin": [
    0.5972,
    0.4072,
    0.2542
   ],
-  "person_town_12_sleeve_hem": [
+  "person_town_12_sole_0": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_town_12_sole_1": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_town_12_tongue_0": [
    0.3763,
    0.3231,
    0.2086
   ],
-  "person_town_12_sleeve_hem_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_town_12_tongue_1": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_12_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.2307,
+   0.1559,
+   0.0578
   ],
   "person_town_12_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.2307,
+   0.1559,
+   0.0578
   ]
  }
 }

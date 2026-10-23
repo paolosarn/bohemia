@@ -12,7 +12,7 @@
   "person_cartel_7"
  ],
  "w": 68,
- "h": 127,
+ "h": 128,
  "foot": 119,
  "cols": 7,
  "gangs": [
@@ -53,8 +53,9 @@
     "base": "LONGLINE JERSEY",
     "back": "STEEL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT"
+    "legs": "BLACK DENIM",
+    "feet": "SLOUCH BOOT",
+    "mid": "SAGE FLANNEL"
    }
   },
   {
@@ -72,10 +73,11 @@
    "sex": null,
    "wears": {
     "base": "STORM GREY TEE",
-    "back": "STEEL ROAD CAPE",
+    "back": "SALVAGE SATCHEL",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT"
+    "legs": "SLATE STACK PANT",
+    "feet": "SLOUCH BOOT",
+    "mid": "SAGE FLANNEL"
    }
   },
   {
@@ -86,17 +88,19 @@
    "face": "FACE RUST DUST MASK",
    "beard": "MOUSTACHE",
    "mark": null,
-   "top": "ASH HOODIE",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "mixed",
    "skin": "intermediate",
    "sex": "m",
    "wears": {
-    "base": "ASH HOODIE",
+    "base": "WHITE TEE",
     "back": "STEEL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT"
+    "legs": "CROPPED BLACK DENIM",
+    "feet": "TALL MOTO BOOTS",
+    "waist": "WIDE WAIST WRAP",
+    "mid": "ASH HOODIE"
    }
   },
   {
@@ -116,8 +120,9 @@
     "base": "WIDE SHOULDER TEE",
     "back": "STEEL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT"
+    "feet": "COLUMN PANT-BOOT",
+    "waist": "WIDE WAIST WRAP",
+    "mid": "SAGE FLANNEL"
    }
   },
   {
@@ -128,17 +133,16 @@
    "face": null,
    "beard": "CHIN STRAP",
    "mark": "CHEEK BURN",
-   "top": "SAGE FLANNEL",
+   "top": "RED PLAID FLANNEL",
    "coat": "SAGE VEST",
    "heritage": "white",
    "skin": "light",
    "sex": "m",
    "wears": {
-    "base": "SAGE FLANNEL",
+    "base": "RED PLAID FLANNEL",
     "back": "STEEL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
+    "feet": "COLUMN PANT-BOOT",
     "outer": "SAGE VEST"
    }
   },
@@ -159,8 +163,9 @@
     "base": "SAGE TEE",
     "back": "STEEL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT"
+    "legs": "CHARCOAL SHORTS",
+    "feet": "STACKED MID BOOT",
+    "mid": "OXBLOOD PLAID FLANNEL"
    }
   },
   {
@@ -172,7 +177,7 @@
    "beard": null,
    "mark": null,
    "top": "SHOULDER LONGLINE",
-   "coat": "STORM VEST",
+   "coat": "BONE VEST",
    "heritage": "white",
    "skin": "very light",
    "sex": null,
@@ -180,9 +185,10 @@
     "base": "SHOULDER LONGLINE",
     "back": "STEEL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
-    "outer": "STORM VEST"
+    "legs": "STEEL BLUE JEANS",
+    "feet": "COAL MID BOOT",
+    "outer": "BONE VEST",
+    "waist": "WIDE WAIST WRAP"
    }
   },
   {
@@ -193,17 +199,17 @@
    "face": "FACE ROSE BANDANA",
    "beard": null,
    "mark": null,
-   "top": "SLATE PLAID FLANNEL",
+   "top": "SAGE FLANNEL",
    "coat": "STORM VEST",
    "heritage": "hispanic",
    "skin": "brown",
    "sex": null,
    "wears": {
-    "base": "SLATE PLAID FLANNEL",
+    "base": "SAGE FLANNEL",
     "back": "STEEL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
+    "legs": "BONE DROP TROUSER",
+    "feet": "BONE STACK BOOT",
     "outer": "STORM VEST"
    }
   }

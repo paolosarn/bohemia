@@ -44,17 +44,19 @@
    "face": null,
    "beard": null,
    "mark": "STITCHED GASH",
-   "top": "ROLLED FLANNEL",
+   "top": "STRIPED TEE",
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "ROLLED FLANNEL",
+    "base": "STRIPED TEE",
     "back": "OLIVE SHOULDER MANTLE",
     "head": "CHINESE RICE FARMER HAT",
-    "legs": "DUST TROUSERS",
-    "feet": "SANDWALKERS"
+    "legs": "GREY SWEATS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "WIDE WAIST WRAP",
+    "mid": "ROLLED FLANNEL"
    }
   },
   {
@@ -74,8 +76,9 @@
     "base": "RUST TANK",
     "back": "OLIVE SHOULDER MANTLE",
     "head": "CHINESE RICE FARMER HAT",
-    "legs": "DUST TROUSERS",
-    "feet": "SANDWALKERS"
+    "legs": "BLACK CARGOS",
+    "feet": "RUST BOOTS",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -95,8 +98,10 @@
     "base": "BRICK TEE",
     "back": "OLIVE SHOULDER MANTLE",
     "head": "CHINESE RICE FARMER HAT",
-    "legs": "DUST TROUSERS",
-    "feet": "SANDWALKERS"
+    "legs": "STEEL BLUE JEANS",
+    "feet": "BROWN BOOTS",
+    "gear": "DUST BROWN BANDOLIER",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -117,8 +122,8 @@
     "outer": "QUILTED VEST",
     "back": "OLIVE SHOULDER MANTLE",
     "head": "CHINESE RICE FARMER HAT",
-    "legs": "DUST TROUSERS",
-    "feet": "SANDWALKERS"
+    "legs": "DUST BROWN TROUSERS",
+    "feet": "BROWN BOOTS"
    }
   },
   {
@@ -136,10 +141,11 @@
    "sex": null,
    "wears": {
     "base": "BRICK HOODIE",
-    "back": "OLIVE SHOULDER MANTLE",
+    "back": "OXBLOOD SATCHEL",
     "head": "CHINESE RICE FARMER HAT",
-    "legs": "DUST TROUSERS",
-    "feet": "SANDWALKERS"
+    "legs": "SOOT CARGOS",
+    "feet": "COAL MID BOOT",
+    "mid": "KHAKI BUTTON-UP"
    }
   },
   {
@@ -150,18 +156,19 @@
    "face": null,
    "beard": "SOUL PATCH",
    "mark": null,
-   "top": "RUST HENLEY",
+   "top": "BONE HENLEY",
    "coat": "LEATHER VEST",
    "heritage": "white",
    "skin": "light",
    "sex": "m",
    "wears": {
-    "base": "RUST HENLEY",
+    "base": "BONE HENLEY",
     "outer": "LEATHER VEST",
     "back": "OLIVE SHOULDER MANTLE",
     "head": "CHINESE RICE FARMER HAT",
-    "legs": "DUST TROUSERS",
-    "feet": "SANDWALKERS"
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "BONE STACK BOOT",
+    "waist": "SOOT TOOL BELT"
    }
   },
   {
@@ -180,10 +187,10 @@
    "wears": {
     "base": "DUST PLAID SHIRT",
     "outer": "RUST VEST",
-    "back": "OLIVE SHOULDER MANTLE",
+    "back": "OXBLOOD SATCHEL",
     "head": "CHINESE RICE FARMER HAT",
-    "legs": "DUST TROUSERS",
-    "feet": "SANDWALKERS"
+    "legs": "GREY SWEATS",
+    "feet": "RANCH BOOTS"
    }
   },
   {
@@ -194,17 +201,19 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "RUST STRIPED TEE",
+   "top": "BONE HENLEY",
    "coat": null,
    "heritage": "white",
    "skin": "light",
    "sex": null,
    "wears": {
-    "base": "RUST STRIPED TEE",
+    "base": "BONE HENLEY",
     "back": "OLIVE SHOULDER MANTLE",
     "head": "CHINESE RICE FARMER HAT",
-    "legs": "DUST TROUSERS",
-    "feet": "SANDWALKERS"
+    "legs": "CHARCOAL SHORTS",
+    "feet": "COAL MID BOOT",
+    "neck": "DRAPED COWL",
+    "mid": "RUST STRIPED TEE"
    }
   }
  ]

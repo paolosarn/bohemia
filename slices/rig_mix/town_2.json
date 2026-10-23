@@ -46,9 +46,10 @@
    "sex": "m",
    "wears": {
     "base": "STRIPED TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "CAR COAT"
+    "legs": "KHAKI CARGOS",
+    "feet": "BONE SNEAKERS",
+    "outer": "CAR COAT",
+    "back": "CHARCOAL ROAD CAPE"
    }
   },
   {
@@ -66,9 +67,10 @@
    "sex": null,
    "wears": {
     "base": "ROLLED FLANNEL",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "KHAKI JACKET"
+    "legs": "BLACK DENIM",
+    "feet": "FIELD BOOTS",
+    "outer": "KHAKI JACKET",
+    "waist": "WIDE WAIST WRAP"
    }
   },
   {
@@ -86,8 +88,10 @@
    "sex": "m",
    "wears": {
     "base": "LONGLINE JERSEY",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "legs": "BONE WIDE TROUSER",
+    "feet": "RANCH BOOTS",
+    "neck": "CHARCOAL SCARF",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -105,9 +109,10 @@
    "sex": null,
    "wears": {
     "base": "RED PLAID FLANNEL",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "RANGER LONGCOAT"
+    "legs": "SLATE WORK PANTS",
+    "feet": "TALL MOTO BOOTS",
+    "outer": "RANGER LONGCOAT",
+    "hands": "DUST GLOVES"
    }
   },
   {
@@ -125,8 +130,8 @@
    "sex": "m",
    "wears": {
     "base": "LAYERED JERSEY",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "legs": "WIDE PLEAT TROUSER",
+    "feet": "STACKED SOLE BOOT"
    }
   },
   {
@@ -144,8 +149,9 @@
    "sex": "m",
    "wears": {
     "base": "ARC SHOULDER TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "feet": "ASH COLUMN",
+    "waist": "WIDE WAIST WRAP",
+    "hands": "HAND WRAPS"
    }
   },
   {
@@ -163,8 +169,7 @@
    "sex": "m",
    "wears": {
     "base": "STEEL PLAID FLANNEL",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
+    "feet": "COAL COLUMN",
     "outer": "OXBLOOD PONCHO"
    }
   },
@@ -176,16 +181,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "FADED BLACK LONGSLEEVE",
+   "top": "MOSS GREEN SHIRT",
    "coat": "LEATHER WRAP COAT",
    "heritage": "mixed",
    "skin": "intermediate",
    "sex": null,
    "wears": {
-    "base": "FADED BLACK LONGSLEEVE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "LEATHER WRAP COAT"
+    "base": "MOSS GREEN SHIRT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "STACKED MID BOOT",
+    "outer": "LEATHER WRAP COAT",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "hands": "HAND WRAPS"
    }
   },
   {
@@ -196,15 +203,16 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "STORM BUTTON-UP",
+   "top": "STRIPED TEE",
    "coat": null,
    "heritage": "white",
    "skin": "light",
    "sex": null,
    "wears": {
-    "base": "STORM BUTTON-UP",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "base": "STRIPED TEE",
+    "legs": "SAGE TROUSERS",
+    "feet": "WHITE SNEAKERS",
+    "mid": "STORM BUTTON-UP"
    }
   },
   {
@@ -222,8 +230,11 @@
    "sex": null,
    "wears": {
     "base": "TEAL STRIPED TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "legs": "CHARCOAL SHORTS",
+    "feet": "BONE SNEAKERS",
+    "waist": "LEATHER BELT",
+    "back": "SHOULDER MANTLE",
+    "mid": "OXBLOOD PLAID FLANNEL"
    }
   },
   {
@@ -241,8 +252,10 @@
    "sex": "m",
    "wears": {
     "base": "TATTERED TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "legs": "CHARCOAL SHORTS",
+    "feet": "TALL MOTO BOOTS",
+    "waist": "LEAD WAIST WRAP",
+    "mid": "RED PLAID FLANNEL"
    }
   },
   {
@@ -260,9 +273,11 @@
    "sex": "m",
    "wears": {
     "base": "STEEL WORK SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "GRASS WRAP COAT"
+    "legs": "BONE WORK PANTS",
+    "feet": "TALL MOTO BOOTS",
+    "outer": "GRASS WRAP COAT",
+    "waist": "SOOT TOOL BELT",
+    "back": "CHARCOAL SHOULDER MANTLE"
    }
   }
  ]

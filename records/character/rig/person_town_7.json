@@ -1,17 +1,35 @@
 {
  "look": "PERSON_TOWN_7",
- "shape": "person_town_7: a person of the Body, his own skin skin_light 1, VESTMENT GOLD SHIRT",
+ "shape": "person_town_7: a person of the Body, his own skin skin_light 1, BLACK TANK",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "VESTMENT GOLD SHIRT",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS"
+  "base": "BLACK TANK",
+  "feet": "COAL COLUMN",
+  "outfit": [
+   "his VESTMENT GOLD SHIRT worn open over a BLACK TANK",
+   "its sleeves rolled"
+  ],
+  "mid": "VESTMENT GOLD SHIRT"
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.01,
+   "open": true,
+   "ohw": 0.05,
+   "sleeves": "rolled"
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_town_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,15 +39,17 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_7_trouser": 2568,
   "person_town_7_shoe": 3148,
-  "person_town_7_shirt": 71204,
-  "person_town_7_collar": 1536,
-  "person_town_7_collar_points": 180,
-  "person_town_7_placket": 162,
-  "person_town_7_buttons": 204,
-  "person_town_7_cuffs": 2048,
-  "person_town_7_tail": 2016,
+  "person_town_7_shirt": 21856,
+  "person_town_7_column": 74570,
+  "person_town_7_column_sole_1": 242,
+  "person_town_7_column_sole_0": 242,
+  "person_town_7_mid_shirt": 56916,
+  "person_town_7_mid_collar": 1536,
+  "person_town_7_mid_collar_points": 180,
+  "person_town_7_mid_front_edge": 396,
+  "person_town_7_mid_roll": 2048,
+  "person_town_7_mid_tail": 1818,
   "person_town_7_hair": 17968,
   "person_town_7_hand_L": 392,
   "person_town_7_hand_R": 392
@@ -40,25 +60,20 @@
    0.8,
    0.8
   ],
-  "person_town_7_buttons": [
-   0.5149,
-   0.2623,
-   0.0044
+  "person_town_7_column": [
+   0.0296,
+   0.0296,
+   0.0356
   ],
-  "person_town_7_collar": [
-   1.0,
-   0.6795,
-   0.0242
+  "person_town_7_column_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
   ],
-  "person_town_7_collar_points": [
-   1.0,
-   0.6795,
-   0.0242
-  ],
-  "person_town_7_cuffs": [
-   1.0,
-   0.6795,
-   0.0242
+  "person_town_7_column_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
   ],
   "person_town_7_eyes": [
    0.0212,
@@ -70,45 +85,60 @@
    0.0116,
    0.008
   ],
-  "person_town_7_placket": [
-   1.0,
+  "person_town_7_mid_collar": [
+   0.8469,
    0.6795,
-   0.0242
+   0.2918
+  ],
+  "person_town_7_mid_collar_points": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_town_7_mid_front_edge": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_town_7_mid_roll": [
+   0.9911,
+   0.855,
+   0.3712
+  ],
+  "person_town_7_mid_shirt": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_town_7_mid_tail": [
+   0.8469,
+   0.6795,
+   0.2918
   ],
   "person_town_7_shirt": [
-   1.0,
-   0.6795,
-   0.0242
+   0.0232,
+   0.0232,
+   0.0356
   ],
   "person_town_7_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_7_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_7_skin": [
    0.2051,
    0.0976,
    0.0685
   ],
-  "person_town_7_tail": [
-   1.0,
-   0.6795,
-   0.0242
-  ],
-  "person_town_7_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
-  ],
   "person_town_7_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0296,
+   0.0296,
+   0.0356
   ]
  }
 }

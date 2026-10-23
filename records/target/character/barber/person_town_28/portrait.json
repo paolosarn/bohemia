@@ -33,11 +33,11 @@
  },
  "crop_box_px": [
   39,
-  44,
+  43,
   178,
   218
  ],
  "model": "records/character/rig/barber_person_town_28.glb",
  "body_rig": "rig.json",
- "colours": 24240
+ "colours": 24376
 }

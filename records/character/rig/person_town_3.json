@@ -1,18 +1,39 @@
 {
  "look": "PERSON_TOWN_3",
- "shape": "person_town_3: a person of the Body, his own skin skin_light 2, ARC LAYERED SHIRT under OLIVE CAR COAT",
+ "shape": "person_town_3: a person of the Body, his own skin skin_light 2, ARC LAYERED SHIRT under SAGE CAR COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "ARC LAYERED SHIRT",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "OLIVE CAR COAT"
+  "legs": "DROP RISE TROUSER",
+  "feet": "COAL MID BOOT",
+  "outer": "SAGE CAR COAT",
+  "outfit": [
+   "ARC LAYERED SHIRT read as one with OLIVE CAR COAT (52 and 76 of 255) and no colour of that top reads apart: the same coat in SAGE CAR COAT (99)",
+   "SAGE CAR COAT worn open to the neck",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "CAR COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.048,
+   "collar_z": 1.11,
+   "fo_add": 0.25,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_town_3.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,20 +43,28 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_3_trouser": 2568,
-  "person_town_3_shoe": 3148,
+  "person_town_3_shoe": 3916,
   "person_town_3_shirt": 67584,
   "person_town_3_collar": 1536,
   "person_town_3_cuffs": 2048,
   "person_town_3_under": 3808,
   "person_town_3_over": 2464,
-  "person_town_3_coat": 73272,
-  "person_town_3_coat_skirt": 5670,
-  "person_town_3_collar.001": 1536,
+  "person_town_3_coat": 62138,
+  "person_town_3_coat_skirt": 5454,
+  "person_town_3_collar.001": 1170,
   "person_town_3_lapels": 396,
-  "person_town_3_cuffs.001": 2048,
+  "person_town_3_pushed": 2048,
   "person_town_3_pockets": 252,
   "person_town_3_pocket_flaps": 252,
+  "person_town_3_trouser": 43706,
+  "person_town_3_drop_yoke": 5600,
+  "person_town_3_ankle": 2048,
+  "person_town_3_sole_1": 242,
+  "person_town_3_midsole_1": 242,
+  "person_town_3_sole_0": 242,
+  "person_town_3_midsole_0": 242,
+  "person_town_3_boot_collar": 2048,
+  "person_town_3_boot_collar_line": 2048,
   "person_town_3_hair": 17968,
   "person_town_3_hand_L": 392,
   "person_town_3_hand_R": 392
@@ -46,15 +75,30 @@
    0.8,
    0.8
   ],
-  "person_town_3_coat": [
-   0.0666,
+  "person_town_3_ankle": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_3_boot_collar": [
    0.0823,
-   0.0262
+   0.0762,
+   0.0823
+  ],
+  "person_town_3_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_3_coat": [
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_3_coat_skirt": [
-   0.0666,
-   0.0823,
-   0.0262
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_3_collar": [
    0.0382,
@@ -62,6 +106,11 @@
    0.0382
   ],
   "person_town_3_cuffs": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_3_drop_yoke": [
    0.0382,
    0.0343,
    0.0382
@@ -77,9 +126,19 @@
    0.008
   ],
   "person_town_3_lapels": [
-   0.0262,
-   0.0331,
-   0.0116
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_town_3_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_3_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_town_3_over": [
    0.0382,
@@ -87,14 +146,19 @@
    0.0382
   ],
   "person_town_3_pocket_flaps": [
-   0.0262,
-   0.0331,
-   0.0116
+   0.0382,
+   0.063,
+   0.0343
   ],
   "person_town_3_pockets": [
-   0.0666,
-   0.0823,
-   0.0262
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_town_3_pushed": [
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_3_shirt": [
    0.0382,
@@ -102,31 +166,46 @@
    0.0382
   ],
   "person_town_3_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_3_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_3_skin": [
    0.5841,
    0.3231,
    0.2016
   ],
+  "person_town_3_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_town_3_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_town_3_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_3_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_3_under": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_3_yoke_drape": [
    0.0152,
    0.013,
    0.0152

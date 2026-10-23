@@ -1,18 +1,45 @@
 {
  "look": "PERSON_TOWN_41",
- "shape": "person_town_41: a person of the Body, his own skin skin_light 1, FOREST PLAID FLANNEL under SOOT TRENCH",
+ "shape": "person_town_41: a person of the Body, his own skin skin_light 1, SAGE FLANNEL under SOOT TRENCH",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "FOREST PLAID FLANNEL",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "SOOT TRENCH"
+  "base": "SAGE FLANNEL",
+  "legs": "GREY SWEATS",
+  "feet": "ASH SLOUCH BOOT",
+  "outer": "SOOT TRENCH",
+  "waist": "SOOT TOOL BELT",
+  "hands": "SOOT GLOVES",
+  "outfit": [
+   "FOREST PLAID FLANNEL read as one with SOOT TRENCH (76 and 70 of 255): the same cut in SAGE FLANNEL (99)",
+   "SOOT TRENCH worn open to the neck",
+   "the shirt's collar out over the lapels",
+   "the sleeve ends short of the cuff under it"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "TRENCH",
+   "collar_out": 0.0199,
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.046,
+   "collar_z": 1.1,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.1,
+   "sleeve_to": 1.7
+  }
  },
  "model": "records/character/rig/person_town_41.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,8 +49,7 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_41_trouser": 2568,
-  "person_town_41_shoe": 3148,
+  "person_town_41_shoe": 4316,
   "person_town_41_shirt": 71204,
   "person_town_41_collar": 1536,
   "person_town_41_collar_points": 180,
@@ -31,13 +57,26 @@
   "person_town_41_buttons": 204,
   "person_town_41_cuffs": 2048,
   "person_town_41_tail": 2016,
-  "person_town_41_coat": 73272,
-  "person_town_41_coat_skirt": 8938,
-  "person_town_41_collar.001": 1536,
+  "person_town_41_coat": 61186,
+  "person_town_41_coat_skirt": 8610,
   "person_town_41_lapels": 396,
   "person_town_41_cuffs.001": 2048,
   "person_town_41_belt": 1792,
   "person_town_41_buttons.001": 204,
+  "person_town_41_trouser": 43706,
+  "person_town_41_cuff": 2048,
+  "person_town_41_sole_1": 242,
+  "person_town_41_midsole_1": 242,
+  "person_town_41_sole_0": 242,
+  "person_town_41_midsole_0": 242,
+  "person_town_41_slouch": 16884,
+  "person_town_41_soot_tool_belt": 1792,
+  "person_town_41_soot_tool_belt_pouch_1": 26,
+  "person_town_41_soot_tool_belt_pouch_0": 26,
+  "person_town_41_soot_tool_belt_buckle": 34,
+  "person_town_41_soot_gloves_L": 392,
+  "person_town_41_soot_gloves_R": 392,
+  "person_town_41_soot_gloves_cuff": 2048,
   "person_town_41_hair": 17968,
   "person_town_41_hand_L": 392,
   "person_town_41_hand_R": 392
@@ -54,9 +93,9 @@
    0.0262
   ],
   "person_town_41_buttons": [
-   0.0908,
-   0.1845,
-   0.0685
+   0.1878,
+   0.2623,
+   0.162
   ],
   "person_town_41_coat": [
    0.0612,
@@ -69,24 +108,29 @@
    0.0704
   ],
   "person_town_41_collar": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_41_collar_points": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_41_collar_print": [
    0.8,
    0.8,
    0.8
   ],
+  "person_town_41_cuff": [
+   0.1878,
+   0.1878,
+   0.2384
+  ],
   "person_town_41_cuffs": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_41_eyes": [
    0.0212,
@@ -103,10 +147,20 @@
    0.0232,
    0.0262
   ],
+  "person_town_41_midsole_0": [
+   0.0232,
+   0.0232,
+   0.0262
+  ],
+  "person_town_41_midsole_1": [
+   0.0232,
+   0.0232,
+   0.0262
+  ],
   "person_town_41_placket": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_41_placket_print": [
    0.8,
@@ -114,9 +168,9 @@
    0.8
   ],
   "person_town_41_shirt": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_41_shirt_print": [
    0.8,
@@ -129,24 +183,69 @@
    0.8
   ],
   "person_town_41_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_41_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_41_skin": [
    0.2051,
    0.0976,
    0.0685
   ],
+  "person_town_41_slouch": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_town_41_sole_0": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_town_41_sole_1": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_town_41_soot_gloves": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_41_soot_gloves_cuff": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_41_soot_tool_belt": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_41_soot_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_town_41_soot_tool_belt_pouch_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_41_soot_tool_belt_pouch_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
   "person_town_41_tail": [
-   0.0437,
-   0.0887,
-   0.0331
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_town_41_tail_print": [
    0.8,
@@ -154,14 +253,14 @@
    0.8
   ],
   "person_town_41_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.1878,
+   0.1878,
+   0.2384
   ],
   "person_town_41_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.1878,
+   0.1878,
+   0.2384
   ]
  }
 }

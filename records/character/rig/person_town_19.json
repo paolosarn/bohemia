@@ -1,18 +1,36 @@
 {
  "look": "PERSON_TOWN_19",
- "shape": "person_town_19: a person of the Body, his own skin skin_mid 3, FADED BLACK LONGSLEEVE under LEATHER WRAP COAT",
+ "shape": "person_town_19: a person of the Body, his own skin skin_mid 3, MOSS GREEN SHIRT under LEATHER WRAP COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "FADED BLACK LONGSLEEVE",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "LEATHER WRAP COAT"
+  "base": "MOSS GREEN SHIRT",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "STACKED MID BOOT",
+  "outer": "LEATHER WRAP COAT",
+  "back": "CHARCOAL SHOULDER MANTLE",
+  "hands": "HAND WRAPS",
+  "outfit": [
+   "FADED BLACK LONGSLEEVE read as one with LEATHER WRAP COAT (48 and 69 of 255): the same cut in MOSS GREEN SHIRT (160)",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "WRAP COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_town_19.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,18 +40,31 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_19_trouser": 2568,
-  "person_town_19_shoe": 3148,
+  "person_town_19_shoe": 4036,
+  "person_town_19_mantle": 10226,
   "person_town_19_shirt": 67584,
   "person_town_19_collar": 1536,
   "person_town_19_cuffs": 2048,
   "person_town_19_hem": 1792,
-  "person_town_19_coat": 76012,
+  "person_town_19_coat": 66372,
   "person_town_19_coat_skirt": 6048,
   "person_town_19_collar.001": 1536,
+  "person_town_19_pushed": 2048,
   "person_town_19_belt": 1792,
   "person_town_19_wrap_edge": 198,
   "person_town_19_knot": 68,
+  "person_town_19_trouser": 43706,
+  "person_town_19_sole_1": 242,
+  "person_town_19_midsole_1": 242,
+  "person_town_19_sole_0": 242,
+  "person_town_19_midsole_0": 242,
+  "person_town_19_boot_collar": 2048,
+  "person_town_19_boot_collar_line": 2048,
+  "person_town_19_hand_wraps_L": 392,
+  "person_town_19_hand_wraps_R": 392,
+  "person_town_19_hand_wraps_wrap_0": 2048,
+  "person_town_19_hand_wraps_wrap_1": 2048,
+  "person_town_19_hand_wraps_wrap_2": 2048,
   "person_town_19_hair": 17968,
   "person_town_19_hand_L": 392,
   "person_town_19_hand_R": 392
@@ -49,6 +80,16 @@
    0.0222,
    0.0075
   ],
+  "person_town_19_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_town_19_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_town_19_coat": [
    0.1301,
    0.0513,
@@ -60,14 +101,14 @@
    0.016
   ],
   "person_town_19_collar": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_town_19_cuffs": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_town_19_eyes": [
    0.0212,
@@ -79,45 +120,100 @@
    0.0116,
    0.008
   ],
+  "person_town_19_hand_wraps": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_19_hand_wraps_wrap_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_town_19_hand_wraps_wrap_1": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_town_19_hand_wraps_wrap_2": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_town_19_hem": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_town_19_knot": [
    0.0545,
    0.0222,
    0.0075
   ],
+  "person_town_19_mantle": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_19_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_19_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_19_pushed": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
   "person_town_19_shirt": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_town_19_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_19_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_19_skin": [
    0.6105,
    0.3515,
    0.1714
   ],
+  "person_town_19_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_town_19_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_town_19_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_19_trouser_folds": [
+   0.0116,
+   0.0116,
+   0.0137
   ],
   "person_town_19_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_19_wrap_edge": [
    0.0545,

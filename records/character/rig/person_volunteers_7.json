@@ -5,14 +5,30 @@
   "hair": "HEAVY FRINGE",
   "base": "SLATE SHORT-SLEEVE",
   "outer": "SLATE COMMA COAT",
-  "legs": "STACKED JERSEY PANT",
-  "feet": "COLUMN PANT-BOOT"
+  "legs": "LEATHER STACK PANT",
+  "feet": "COAL MID BOOT",
+  "outfit": [
+   "SLATE SHORT-SLEEVE and SLATE COMMA COAT read as one, and no colour of either cut reads apart",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "COMMA COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_volunteers_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,19 +38,25 @@
  "real_height_for_rig": 1.6872,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_volunteers_7_trouser": 2568,
-  "person_volunteers_7_shoe": 4116,
+  "person_volunteers_7_shoe": 3916,
   "person_volunteers_7_shirt": 43700,
   "person_volunteers_7_collar": 1536,
   "person_volunteers_7_collar_points": 180,
   "person_volunteers_7_placket": 162,
   "person_volunteers_7_buttons": 204,
-  "person_volunteers_7_sleeve_hem": 2048,
   "person_volunteers_7_tail": 2016,
-  "person_volunteers_7_coat": 73288,
+  "person_volunteers_7_coat": 63632,
   "person_volunteers_7_coat_skirt": 7630,
   "person_volunteers_7_collar.001": 1536,
   "person_volunteers_7_lapels": 396,
+  "person_volunteers_7_pushed": 2048,
+  "person_volunteers_7_trouser": 43706,
+  "person_volunteers_7_sole_1": 242,
+  "person_volunteers_7_midsole_1": 242,
+  "person_volunteers_7_sole_0": 242,
+  "person_volunteers_7_midsole_0": 242,
+  "person_volunteers_7_boot_collar": 2048,
+  "person_volunteers_7_boot_collar_line": 2048,
   "person_volunteers_7_hair": 21846,
   "person_volunteers_7_hand_L": 392,
   "person_volunteers_7_hand_R": 392
@@ -44,6 +66,16 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_volunteers_7_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_volunteers_7_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_volunteers_7_buttons": [
    0.1248,
@@ -85,7 +117,22 @@
    0.0319,
    0.0437
   ],
+  "person_volunteers_7_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_volunteers_7_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_volunteers_7_placket": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_7_pushed": [
    0.0612,
    0.0762,
    0.0999
@@ -96,24 +143,29 @@
    0.0999
   ],
   "person_volunteers_7_shoe": [
-   0.0513,
    0.0382,
-   0.0296
+   0.0343,
+   0.0382
   ],
   "person_volunteers_7_shoes": [
-   0.0513,
    0.0382,
-   0.0296
+   0.0343,
+   0.0382
   ],
   "person_volunteers_7_skin": [
    0.2051,
    0.0976,
    0.0685
   ],
-  "person_volunteers_7_sleeve_hem": [
-   0.0612,
-   0.0762,
-   0.0999
+  "person_volunteers_7_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_volunteers_7_sole_1": [
+   0.007,
+   0.006,
+   0.007
   ],
   "person_volunteers_7_tail": [
    0.0612,
@@ -121,14 +173,19 @@
    0.0999
   ],
   "person_volunteers_7_trouser": [
-   0.0595,
-   0.0595,
-   0.063
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_volunteers_7_trouser_folds": [
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_volunteers_7_trousers": [
-   0.0595,
-   0.0595,
-   0.063
+   0.1301,
+   0.0513,
+   0.016
   ]
  }
 }

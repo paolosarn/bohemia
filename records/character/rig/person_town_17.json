@@ -4,14 +4,21 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "ARC SHOULDER TEE",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS"
+  "feet": "ASH COLUMN",
+  "waist": "WIDE WAIST WRAP",
+  "hands": "HAND WRAPS",
+  "outfit": []
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_town_17.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,12 +28,21 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_17_trouser": 2568,
   "person_town_17_shoe": 3148,
   "person_town_17_shirt": 40296,
   "person_town_17_collar": 1536,
   "person_town_17_sleeve_hem": 2048,
   "person_town_17_hem": 1792,
+  "person_town_17_column": 74570,
+  "person_town_17_column_sole_1": 242,
+  "person_town_17_column_sole_0": 242,
+  "person_town_17_wide_waist_wrap": 1792,
+  "person_town_17_wide_waist_wrap_edge": 1792,
+  "person_town_17_hand_wraps_L": 392,
+  "person_town_17_hand_wraps_R": 392,
+  "person_town_17_hand_wraps_wrap_0": 2048,
+  "person_town_17_hand_wraps_wrap_1": 2048,
+  "person_town_17_hand_wraps_wrap_2": 2048,
   "person_town_17_hair": 17968,
   "person_town_17_hand_L": 392,
   "person_town_17_hand_R": 392
@@ -42,6 +58,21 @@
    0.0343,
    0.0382
   ],
+  "person_town_17_column": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_town_17_column_sole_0": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_town_17_column_sole_1": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
   "person_town_17_eyes": [
    0.0212,
    0.0103,
@@ -51,6 +82,26 @@
    0.0194,
    0.0116,
    0.008
+  ],
+  "person_town_17_hand_wraps": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_17_hand_wraps_wrap_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_town_17_hand_wraps_wrap_1": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_town_17_hand_wraps_wrap_2": [
+   0.2122,
+   0.1746,
+   0.1046
   ],
   "person_town_17_hem": [
    0.0382,
@@ -63,14 +114,14 @@
    0.0382
   ],
   "person_town_17_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_17_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_17_skin": [
    0.3916,
@@ -82,15 +133,20 @@
    0.0343,
    0.0382
   ],
-  "person_town_17_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
-  ],
   "person_town_17_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_town_17_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_17_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
   ]
  }
 }

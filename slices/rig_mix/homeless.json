@@ -52,8 +52,8 @@
    "wears": {
     "base": "SAGE STRIPED HENLEY",
     "back": "SHOULDER MANTLE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "DUST BROWN TROUSERS",
+    "feet": "BONE STACK BOOT"
    }
   },
   {
@@ -72,8 +72,10 @@
    "wears": {
     "base": "TATTERED TEE",
     "back": "SHOULDER MANTLE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "BONE DROP TROUSER",
+    "feet": "SLOUCH BOOT",
+    "hands": "DUST GLOVES",
+    "mid": "SLATE SHORT-SLEEVE"
    }
   },
   {
@@ -92,8 +94,10 @@
    "wears": {
     "base": "SAGE TEE",
     "back": "SHOULDER MANTLE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "SAGE TROUSERS",
+    "feet": "RUST BOOTS",
+    "waist": "SCAV TOOL BELT",
+    "mid": "BONE BUTTON-UP"
    }
   },
   {
@@ -112,9 +116,11 @@
    "wears": {
     "base": "STRIPED TEE",
     "back": "SHOULDER MANTLE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT",
-    "outer": "SAGE VEST"
+    "legs": "SLATE STACK PANT",
+    "feet": "WRAPPED BOOTS",
+    "outer": "SAGE VEST",
+    "waist": "LEATHER BELT",
+    "gear": "SCAV KNEEPADS"
    }
   },
   {
@@ -125,16 +131,17 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "BONE BUTTON-UP",
+   "top": "CHARCOAL STRIPED TEE",
    "coat": null,
    "heritage": "black",
    "skin": "dark",
    "sex": null,
    "wears": {
-    "base": "BONE BUTTON-UP",
+    "base": "CHARCOAL STRIPED TEE",
     "back": "SHOULDER MANTLE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "SLOUCH BOOT",
+    "mid": "BONE BUTTON-UP"
    }
   },
   {
@@ -153,8 +160,9 @@
    "wears": {
     "base": "BONE HENLEY",
     "back": "SHOULDER MANTLE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "BONE STACK BOOT",
+    "mid": "SAGE FLANNEL"
    }
   },
   {
@@ -165,16 +173,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "SLATE SHORT-SLEEVE",
+   "top": "BONE TANK",
    "coat": null,
    "heritage": "white",
    "skin": "very light",
    "sex": null,
    "wears": {
-    "base": "SLATE SHORT-SLEEVE",
+    "base": "BONE TANK",
     "back": "SHOULDER MANTLE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "KHAKI SHORTS",
+    "feet": "STACKED MID BOOT",
+    "waist": "LEATHER BELT",
+    "mid": "SLATE SHORT-SLEEVE"
    }
   },
   {
@@ -185,17 +195,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "BONE TANK",
+   "top": "SOOT TANK",
    "coat": "BONE VEST",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "BONE TANK",
+    "base": "SOOT TANK",
     "back": "SHOULDER MANTLE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT",
-    "outer": "BONE VEST"
+    "legs": "SAGE TROUSERS",
+    "feet": "SLATE SNEAKERS",
+    "outer": "BONE VEST",
+    "neck": "CHARCOAL SCARF"
    }
   }
  ]

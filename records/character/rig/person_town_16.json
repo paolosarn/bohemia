@@ -4,14 +4,20 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "LAYERED JERSEY",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS"
+  "legs": "WIDE PLEAT TROUSER",
+  "feet": "STACKED SOLE BOOT",
+  "outfit": []
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_town_16.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,13 +27,19 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_16_trouser": 2568,
-  "person_town_16_shoe": 3148,
+  "person_town_16_shoe": 3836,
   "person_town_16_shirt": 67584,
   "person_town_16_collar": 1536,
   "person_town_16_cuffs": 2048,
   "person_town_16_under": 3808,
   "person_town_16_over": 2464,
+  "person_town_16_trouser": 43706,
+  "person_town_16_sole_1": 242,
+  "person_town_16_midsole_1": 242,
+  "person_town_16_sole_0": 242,
+  "person_town_16_midsole_0": 242,
+  "person_town_16_boot_collar": 2048,
+  "person_town_16_boot_collar_line": 2048,
   "person_town_16_hair": 17968,
   "person_town_16_hand_L": 392,
   "person_town_16_hand_R": 392
@@ -37,6 +49,16 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_town_16_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_town_16_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_town_16_collar": [
    0.0296,
@@ -58,6 +80,16 @@
    0.0116,
    0.008
   ],
+  "person_town_16_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_16_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_town_16_over": [
    0.0296,
    0.0296,
@@ -69,29 +101,39 @@
    0.0356
   ],
   "person_town_16_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_16_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_16_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
+  "person_town_16_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_town_16_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_town_16_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_town_16_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_town_16_under": [
    0.0116,

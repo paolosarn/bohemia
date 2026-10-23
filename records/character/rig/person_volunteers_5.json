@@ -4,14 +4,32 @@
  "worn": {
   "hair": "HEAVY FRINGE",
   "base": "SLATE HENLEY",
-  "legs": "STACKED JERSEY PANT",
-  "feet": "COLUMN PANT-BOOT"
+  "legs": "CROPPED WORK TROUSER",
+  "feet": "BRICK STACK BOOT",
+  "neck": "DRAPED COWL",
+  "outfit": [
+   "an open BONE BUTTON-UP over the SLATE HENLEY"
+  ],
+  "mid": "BONE BUTTON-UP"
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_volunteers_5.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,14 +39,29 @@
  "real_height_for_rig": 1.6872,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_volunteers_5_trouser": 2568,
-  "person_volunteers_5_shoe": 4116,
+  "person_volunteers_5_shoe": 3836,
   "person_volunteers_5_shirt": 67512,
   "person_volunteers_5_collar": 1536,
   "person_volunteers_5_placket": 126,
   "person_volunteers_5_buttons": 102,
   "person_volunteers_5_cuffs": 2048,
   "person_volunteers_5_hem": 1792,
+  "person_volunteers_5_trouser": 35674,
+  "person_volunteers_5_turn_up": 2048,
+  "person_volunteers_5_turn_up_edge": 2048,
+  "person_volunteers_5_sole_1": 242,
+  "person_volunteers_5_midsole_1": 242,
+  "person_volunteers_5_sole_0": 242,
+  "person_volunteers_5_midsole_0": 242,
+  "person_volunteers_5_boot_collar": 2048,
+  "person_volunteers_5_boot_collar_line": 2048,
+  "person_volunteers_5_draped_cowl": 29758,
+  "person_volunteers_5_mid_shirt": 66572,
+  "person_volunteers_5_mid_collar": 1536,
+  "person_volunteers_5_mid_collar_points": 180,
+  "person_volunteers_5_mid_front_edge": 396,
+  "person_volunteers_5_mid_cuffs": 2048,
+  "person_volunteers_5_mid_tail": 1818,
   "person_volunteers_5_hair": 21846,
   "person_volunteers_5_hand_L": 392,
   "person_volunteers_5_hand_R": 392
@@ -38,6 +71,16 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_volunteers_5_boot_collar": [
+   0.3185,
+   0.0762,
+   0.0497
+  ],
+  "person_volunteers_5_boot_collar_line": [
+   0.0931,
+   0.0168,
+   0.011
   ],
   "person_volunteers_5_buttons": [
    0.1248,
@@ -54,6 +97,11 @@
    0.0762,
    0.0999
   ],
+  "person_volunteers_5_draped_cowl": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
   "person_volunteers_5_eyes": [
    0.0212,
    0.0103,
@@ -69,6 +117,46 @@
    0.0762,
    0.0999
   ],
+  "person_volunteers_5_mid_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_5_mid_collar_points": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_5_mid_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_5_mid_front_edge": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_5_mid_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_5_mid_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_5_midsole_0": [
+   0.0931,
+   0.0168,
+   0.011
+  ],
+  "person_volunteers_5_midsole_1": [
+   0.0931,
+   0.0168,
+   0.011
+  ],
   "person_volunteers_5_placket": [
    0.0612,
    0.0762,
@@ -80,29 +168,49 @@
    0.0999
   ],
   "person_volunteers_5_shoe": [
-   0.0513,
-   0.0382,
-   0.0296
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_volunteers_5_shoes": [
-   0.0513,
-   0.0382,
-   0.0296
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_volunteers_5_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
+  "person_volunteers_5_sole_0": [
+   0.0685,
+   0.0194,
+   0.0144
+  ],
+  "person_volunteers_5_sole_1": [
+   0.0685,
+   0.0194,
+   0.0144
+  ],
   "person_volunteers_5_trouser": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0319,
+   0.0437,
+   0.0232
   ],
   "person_volunteers_5_trousers": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_volunteers_5_turn_up": [
+   0.0823,
+   0.0999,
+   0.0561
+  ],
+  "person_volunteers_5_turn_up_edge": [
+   0.011,
+   0.0152,
+   0.0091
   ]
  }
 }

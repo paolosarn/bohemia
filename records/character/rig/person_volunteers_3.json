@@ -1,18 +1,34 @@
 {
  "look": "PERSON_VOLUNTEERS_3",
- "shape": "person_volunteers_3: a person of the Volunteers, his own skin skin_light 3, BONE SHOULDER SHIRT under BONE COCOON COAT",
+ "shape": "person_volunteers_3: a person of the Volunteers, his own skin skin_light 3, BONE SHOULDER SHIRT under COCOON COAT",
  "worn": {
   "hair": "HEAVY FRINGE",
   "base": "BONE SHOULDER SHIRT",
-  "outer": "BONE COCOON COAT",
-  "legs": "STACKED JERSEY PANT",
-  "feet": "COLUMN PANT-BOOT"
+  "outer": "COCOON COAT",
+  "legs": "SOOT CARGOS",
+  "feet": "SANDWALKERS",
+  "waist": "SOOT TOOL BELT",
+  "back": "CHARCOAL ROAD CAPE",
+  "neck": "PATINA SCARF",
+  "outfit": [
+   "BONE SHOULDER SHIRT read as one with BONE COCOON COAT (154 and 154 of 255) and no colour of that top reads apart: the same coat in COCOON COAT (72)"
+  ]
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "COCOON COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039
+  }
  },
  "model": "records/character/rig/person_volunteers_3.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,8 +38,8 @@
  "real_height_for_rig": 1.6872,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_volunteers_3_trouser": 2568,
-  "person_volunteers_3_shoe": 4116,
+  "person_volunteers_3_shoe": 2508,
+  "person_volunteers_3_cape": 4674,
   "person_volunteers_3_shirt": 67512,
   "person_volunteers_3_collar": 1536,
   "person_volunteers_3_cuffs": 2048,
@@ -32,6 +48,24 @@
   "person_volunteers_3_coat_skirt": 5886,
   "person_volunteers_3_collar.001": 1536,
   "person_volunteers_3_lapels": 396,
+  "person_volunteers_3_trouser": 43706,
+  "person_volunteers_3_rolled_hem": 2048,
+  "person_volunteers_3_cargo_pockets": 252,
+  "person_volunteers_3_cargo_flaps": 108,
+  "person_volunteers_3_sole_1": 242,
+  "person_volunteers_3_sole_0": 242,
+  "person_volunteers_3_strap_1_0": 90,
+  "person_volunteers_3_strap_1_1": 90,
+  "person_volunteers_3_strap_0_0": 90,
+  "person_volunteers_3_strap_0_1": 90,
+  "person_volunteers_3_ankle_strap": 2048,
+  "person_volunteers_3_soot_tool_belt": 1792,
+  "person_volunteers_3_soot_tool_belt_pouch_1": 26,
+  "person_volunteers_3_soot_tool_belt_pouch_0": 26,
+  "person_volunteers_3_soot_tool_belt_buckle": 34,
+  "person_volunteers_3_patina_scarf": 3072,
+  "person_volunteers_3_patina_scarf_tail": 162,
+  "person_volunteers_3_patina_scarf_fringe": 54,
   "person_volunteers_3_hair": 21846,
   "person_volunteers_3_hand_L": 392,
   "person_volunteers_3_hand_R": 392
@@ -42,15 +76,35 @@
    0.8,
    0.8
   ],
+  "person_volunteers_3_ankle_strap": [
+   0.1356,
+   0.0704,
+   0.0203
+  ],
+  "person_volunteers_3_cape": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_volunteers_3_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_volunteers_3_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
   "person_volunteers_3_coat": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_volunteers_3_coat_skirt": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_volunteers_3_collar": [
    0.3763,
@@ -78,9 +132,29 @@
    0.2086
   ],
   "person_volunteers_3_lapels": [
-   0.2122,
-   0.1746,
-   0.1046
+   0.0242,
+   0.0273,
+   0.0343
+  ],
+  "person_volunteers_3_patina_scarf": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_volunteers_3_patina_scarf_fringe": [
+   0.0242,
+   0.0685,
+   0.0452
+  ],
+  "person_volunteers_3_patina_scarf_tail": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_volunteers_3_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
   "person_volunteers_3_shirt": [
    0.3763,
@@ -88,29 +162,79 @@
    0.2086
   ],
   "person_volunteers_3_shoe": [
-   0.0513,
-   0.0382,
-   0.0296
+   0.2918,
+   0.159,
+   0.0423
   ],
   "person_volunteers_3_shoes": [
-   0.0513,
-   0.0382,
-   0.0296
+   0.2918,
+   0.159,
+   0.0423
   ],
   "person_volunteers_3_skin": [
    0.7454,
    0.5089,
    0.3278
   ],
+  "person_volunteers_3_sole_0": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_volunteers_3_sole_1": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_volunteers_3_soot_tool_belt": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_volunteers_3_soot_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_volunteers_3_soot_tool_belt_pouch_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_volunteers_3_soot_tool_belt_pouch_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_volunteers_3_strap_0_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_volunteers_3_strap_0_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_volunteers_3_strap_1_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_volunteers_3_strap_1_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
   "person_volunteers_3_trouser": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_volunteers_3_trousers": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

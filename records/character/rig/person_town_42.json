@@ -1,18 +1,47 @@
 {
  "look": "PERSON_TOWN_42",
- "shape": "person_town_42: a person of the Body, his own skin skin_deep 3, SLATE PLAID FLANNEL under WORK JACKET",
+ "shape": "person_town_42: a person of the Body, his own skin skin_deep 3, SLATE PLAID FLANNEL under KHAKI JACKET",
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "SLATE PLAID FLANNEL",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "WORK JACKET"
+  "legs": "STORM GREY SWEATS",
+  "feet": "STACKED MID BOOT",
+  "outer": "KHAKI JACKET",
+  "waist": "CHARCOAL BELT",
+  "gear": "SPIKED PAULDRON",
+  "outfit": [
+   "SLATE PLAID FLANNEL read as one with WORK JACKET (77 and 80 of 255) and no colour of that top reads apart: the same coat in KHAKI JACKET (111)",
+   "KHAKI JACKET worn open to the neck",
+   "the shirt's collar out over the lapels",
+   "the flannel's hem below the jacket",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "collar_out": 0.0199,
+   "hem_drop": 0.05,
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.1,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_town_42.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,22 +51,33 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_42_trouser": 2568,
-  "person_town_42_shoe": 3148,
+  "person_town_42_shoe": 4036,
   "person_town_42_shirt": 71204,
   "person_town_42_collar": 1536,
   "person_town_42_collar_points": 180,
   "person_town_42_placket": 162,
   "person_town_42_buttons": 204,
   "person_town_42_cuffs": 2048,
-  "person_town_42_tail": 2016,
-  "person_town_42_coat": 68114,
-  "person_town_42_collar.001": 1536,
+  "person_town_42_tail": 2912,
+  "person_town_42_coat": 53030,
   "person_town_42_lapels": 396,
   "person_town_42_waistband": 1792,
-  "person_town_42_cuffs.001": 2048,
-  "person_town_42_pockets": 252,
-  "person_town_42_pocket_flaps": 252,
+  "person_town_42_pushed": 2048,
+  "person_town_42_trouser": 43706,
+  "person_town_42_cuff": 2048,
+  "person_town_42_sole_1": 242,
+  "person_town_42_midsole_1": 242,
+  "person_town_42_sole_0": 242,
+  "person_town_42_midsole_0": 242,
+  "person_town_42_boot_collar": 2048,
+  "person_town_42_boot_collar_line": 2048,
+  "person_town_42_charcoal_belt": 1792,
+  "person_town_42_charcoal_belt_buckle": 34,
+  "person_town_42_spiked_pauldron": 7782,
+  "person_town_42_spiked_pauldron_strap": 1792,
+  "person_town_42_spiked_pauldron_spike_0": 16,
+  "person_town_42_spiked_pauldron_spike_1": 16,
+  "person_town_42_spiked_pauldron_spike_2": 16,
   "person_town_42_hair": 17968,
   "person_town_42_hand_L": 392,
   "person_town_42_hand_R": 392
@@ -48,15 +88,35 @@
    0.8,
    0.8
   ],
+  "person_town_42_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_town_42_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_town_42_buttons": [
    0.1248,
    0.1559,
    0.2016
   ],
+  "person_town_42_charcoal_belt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_42_charcoal_belt_buckle": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
   "person_town_42_coat": [
-   0.1413,
-   0.0742,
-   0.0273
+   0.2307,
+   0.1559,
+   0.0578
   ],
   "person_town_42_collar": [
    0.0612,
@@ -72,6 +132,11 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_town_42_cuff": [
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_town_42_cuffs": [
    0.0612,
@@ -89,9 +154,19 @@
    0.008
   ],
   "person_town_42_lapels": [
-   0.0595,
-   0.0307,
-   0.013
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_town_42_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_42_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_town_42_placket": [
    0.0612,
@@ -103,15 +178,10 @@
    0.8,
    0.8
   ],
-  "person_town_42_pocket_flaps": [
-   0.0595,
-   0.0307,
-   0.013
-  ],
-  "person_town_42_pockets": [
-   0.1413,
-   0.0742,
-   0.0273
+  "person_town_42_pushed": [
+   0.2307,
+   0.1559,
+   0.0578
   ],
   "person_town_42_shirt": [
    0.0612,
@@ -129,19 +199,59 @@
    0.8
   ],
   "person_town_42_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_42_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_42_skin": [
    0.3419,
    0.1812,
    0.0999
+  ],
+  "person_town_42_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_town_42_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_town_42_spiked_pauldron": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_town_42_spiked_pauldron_rim": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_town_42_spiked_pauldron_spike_0": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_town_42_spiked_pauldron_spike_1": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_town_42_spiked_pauldron_spike_2": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_town_42_spiked_pauldron_strap": [
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_town_42_tail": [
    0.0612,
@@ -154,19 +264,19 @@
    0.8
   ],
   "person_town_42_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_town_42_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_town_42_waistband": [
-   0.0595,
-   0.0307,
-   0.013
+   0.1022,
+   0.0685,
+   0.0242
   ]
  }
 }

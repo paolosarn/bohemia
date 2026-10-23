@@ -44,16 +44,16 @@
    "face": null,
    "beard": "PENCIL MOUSTACHE",
    "mark": null,
-   "top": "SIGNAL RED SHIRT",
+   "top": "MOSS GREEN SHIRT",
    "coat": "RUST VEST",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "SIGNAL RED SHIRT",
+    "base": "MOSS GREEN SHIRT",
     "outer": "RUST VEST",
-    "legs": "BRICK WIDE TROUSER",
-    "feet": "BRICK STACK BOOT"
+    "legs": "CUTOFF DENIM SHORTS",
+    "feet": "TALL MOTO BOOTS"
    }
   },
   {
@@ -64,16 +64,16 @@
    "face": null,
    "beard": "HORSESHOE MOUSTACHE",
    "mark": null,
-   "top": "BRICK TEE",
+   "top": "STRIPED TEE",
    "coat": "LEATHER HALF APRON",
    "heritage": "white",
    "skin": "very light",
    "sex": "m",
    "wears": {
-    "base": "BRICK TEE",
+    "base": "STRIPED TEE",
     "outer": "LEATHER HALF APRON",
-    "legs": "BRICK WIDE TROUSER",
-    "feet": "BRICK STACK BOOT"
+    "legs": "BRICK CROP TROUSER",
+    "feet": "LEATHER STACK BOOT"
    }
   },
   {
@@ -91,8 +91,10 @@
    "sex": null,
    "wears": {
     "base": "RUST TANK",
-    "legs": "BRICK WIDE TROUSER",
-    "feet": "BRICK STACK BOOT"
+    "legs": "CROPPED BLACK DENIM",
+    "feet": "TALL MOTO BOOTS",
+    "hands": "OXBLOOD GLOVES",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -103,16 +105,18 @@
    "face": null,
    "beard": "CHIN STRAP",
    "mark": null,
-   "top": "OXBLOOD PLAID FLANNEL",
+   "top": "SAGE FLANNEL",
    "coat": "LEATHER VEST",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "OXBLOOD PLAID FLANNEL",
+    "base": "SAGE FLANNEL",
     "outer": "LEATHER VEST",
-    "legs": "BRICK WIDE TROUSER",
-    "feet": "BRICK STACK BOOT"
+    "legs": "RUST CARGOS",
+    "feet": "MID SHAFT BOOT",
+    "neck": "ASH COWL",
+    "gear": "SPIKED PAULDRON"
    }
   },
   {
@@ -123,16 +127,16 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "RUST STRIPED TEE",
+   "top": "STRIPED TEE",
    "coat": "DRIFTER'S COAT",
    "heritage": "asian",
    "skin": "intermediate",
    "sex": null,
    "wears": {
-    "base": "RUST STRIPED TEE",
+    "base": "STRIPED TEE",
     "outer": "DRIFTER'S COAT",
-    "legs": "BRICK WIDE TROUSER",
-    "feet": "BRICK STACK BOOT"
+    "legs": "STORM GREY SWEATS",
+    "feet": "SIGNAL RED BOOTS"
    }
   },
   {
@@ -150,8 +154,10 @@
    "sex": "m",
    "wears": {
     "base": "BRICK HENLEY",
-    "legs": "BRICK WIDE TROUSER",
-    "feet": "BRICK STACK BOOT"
+    "feet": "COLUMN PANT-BOOT",
+    "waist": "LEATHER BELT",
+    "hands": "OXBLOOD GLOVES",
+    "mid": "PATINA PLAID FLANNEL"
    }
   },
   {
@@ -170,8 +176,10 @@
    "wears": {
     "base": "ROLLED FLANNEL",
     "outer": "OXBLOOD PONCHO",
-    "legs": "BRICK WIDE TROUSER",
-    "feet": "BRICK STACK BOOT"
+    "legs": "SLATE WORK PANTS",
+    "feet": "BONE STACK BOOT",
+    "waist": "SOOT TOOL BELT",
+    "back": "CHARCOAL ROAD CAPE"
    }
   },
   {
@@ -182,16 +190,18 @@
    "face": null,
    "beard": "MOUSTACHE",
    "mark": "STITCHED GASH",
-   "top": "SCAVENGER FLANNEL",
+   "top": "SAGE FLANNEL",
    "coat": "BRICK CAR COAT",
    "heritage": "black",
    "skin": "dark",
    "sex": "m",
    "wears": {
-    "base": "SCAVENGER FLANNEL",
+    "base": "SAGE FLANNEL",
     "outer": "BRICK CAR COAT",
-    "legs": "BRICK WIDE TROUSER",
-    "feet": "BRICK STACK BOOT"
+    "legs": "DROP RISE TROUSER",
+    "feet": "RED CLAY BOOTS",
+    "waist": "SCAV TOOL BELT",
+    "back": "OXBLOOD SATCHEL"
    }
   }
  ]

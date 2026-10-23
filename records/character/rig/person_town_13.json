@@ -4,15 +4,30 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "ROLLED FLANNEL",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "KHAKI JACKET"
+  "legs": "BLACK DENIM",
+  "feet": "FIELD BOOTS",
+  "outer": "KHAKI JACKET",
+  "waist": "WIDE WAIST WRAP",
+  "outfit": [
+   "the rolled sleeve's hem below the jacket"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "hem_drop": 0.05,
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039
+  }
  },
  "model": "records/character/rig/person_town_13.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,20 +37,34 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_13_trouser": 2568,
-  "person_town_13_shoe": 3148,
+  "person_town_13_shoe": 3716,
   "person_town_13_shirt": 61868,
   "person_town_13_collar": 1536,
   "person_town_13_collar_points": 180,
   "person_town_13_placket": 162,
   "person_town_13_buttons": 204,
-  "person_town_13_roll": 2048,
-  "person_town_13_tail": 2016,
+  "person_town_13_tail": 2912,
   "person_town_13_coat": 68114,
   "person_town_13_collar.001": 1536,
   "person_town_13_lapels": 396,
   "person_town_13_waistband": 1792,
   "person_town_13_cuffs": 2048,
+  "person_town_13_trouser": 43706,
+  "person_town_13_rolled_hem": 2048,
+  "person_town_13_fly": 70,
+  "person_town_13_front_pockets": 100,
+  "person_town_13_seat_pockets": 252,
+  "person_town_13_seat_seams": 252,
+  "person_town_13_sole_1": 242,
+  "person_town_13_midsole_1": 242,
+  "person_town_13_sole_0": 242,
+  "person_town_13_midsole_0": 242,
+  "person_town_13_boot_collar": 2048,
+  "person_town_13_boot_collar_line": 2048,
+  "person_town_13_eyelets_1": 120,
+  "person_town_13_eyelets_0": 120,
+  "person_town_13_wide_waist_wrap": 1792,
+  "person_town_13_wide_waist_wrap_edge": 1792,
   "person_town_13_hair": 17968,
   "person_town_13_hand_L": 392,
   "person_town_13_hand_R": 392
@@ -46,10 +75,20 @@
    0.8,
    0.8
   ],
+  "person_town_13_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_town_13_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
   "person_town_13_buttons": [
-   0.3864,
-   0.0704,
-   0.0382
+   0.3185,
+   0.0762,
+   0.0497
   ],
   "person_town_13_coat": [
    0.2307,
@@ -76,10 +115,30 @@
    0.0685,
    0.0242
   ],
+  "person_town_13_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_13_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
   "person_town_13_eyes": [
    0.0212,
    0.0103,
    0.008
+  ],
+  "person_town_13_fly": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_town_13_front_pockets": [
+   0.0097,
+   0.0116,
+   0.0176
   ],
   "person_town_13_hair": [
    0.0194,
@@ -91,6 +150,16 @@
    0.0685,
    0.0242
   ],
+  "person_town_13_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_13_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
   "person_town_13_placket": [
    0.2195,
    0.0369,
@@ -101,10 +170,20 @@
    0.8,
    0.8
   ],
-  "person_town_13_roll": [
-   0.3864,
-   0.0704,
-   0.0382
+  "person_town_13_rolled_hem": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_town_13_seat_pockets": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_town_13_seat_seams": [
+   0.0529,
+   0.0578,
+   0.0844
   ],
   "person_town_13_shirt": [
    0.2195,
@@ -122,19 +201,29 @@
    0.8
   ],
   "person_town_13_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0437,
+   0.0887,
+   0.0331
   ],
   "person_town_13_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0437,
+   0.0887,
+   0.0331
   ],
   "person_town_13_skin": [
    0.5972,
    0.4072,
    0.2542
+  ],
+  "person_town_13_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_town_13_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
   ],
   "person_town_13_tail": [
    0.2195,
@@ -147,19 +236,29 @@
    0.8
   ],
   "person_town_13_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0242,
+   0.0273,
+   0.0409
   ],
   "person_town_13_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0242,
+   0.0273,
+   0.0409
   ],
   "person_town_13_waistband": [
    0.1022,
    0.0685,
    0.0242
+  ],
+  "person_town_13_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_13_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
   ]
  }
 }

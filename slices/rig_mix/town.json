@@ -59,9 +59,11 @@
    "sex": null,
    "wears": {
     "base": "BONE HENLEY",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "DUST BROWN TRENCH"
+    "legs": "SLATE STACK PANT",
+    "feet": "BONE STACK BOOT",
+    "outer": "DUST BROWN TRENCH",
+    "back": "SHOULDER MANTLE",
+    "neck": "BONE SCARF"
    }
   },
   {
@@ -79,8 +81,11 @@
    "sex": "m",
    "wears": {
     "base": "OLIVE HENLEY",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "legs": "CHARCOAL SHORTS",
+    "feet": "SLOUCH BOOT",
+    "back": "GOLD SHOULDER MANTLE",
+    "neck": "SAGE SCARF",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -92,15 +97,15 @@
    "beard": "CHIN STRAP",
    "mark": null,
    "top": "DUST PLAID SHIRT",
-   "coat": "SAGE CAR COAT",
+   "coat": "SLATE CAR COAT",
    "heritage": "white",
    "skin": "light",
    "sex": "m",
    "wears": {
     "base": "DUST PLAID SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "SAGE CAR COAT"
+    "legs": "STACKED JERSEY PANT",
+    "feet": "STACKED MID BOOT",
+    "outer": "SLATE CAR COAT"
    }
   },
   {
@@ -112,15 +117,15 @@
    "beard": "PENCIL MOUSTACHE",
    "mark": "CHEEK BURN",
    "top": "ARC LAYERED SHIRT",
-   "coat": "OLIVE CAR COAT",
+   "coat": "SAGE CAR COAT",
    "heritage": "asian",
    "skin": "very light",
    "sex": "m",
    "wears": {
     "base": "ARC LAYERED SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "OLIVE CAR COAT"
+    "legs": "DROP RISE TROUSER",
+    "feet": "COAL MID BOOT",
+    "outer": "SAGE CAR COAT"
    }
   },
   {
@@ -132,15 +137,15 @@
    "beard": null,
    "mark": null,
    "top": "ASH ARC SHIRT",
-   "coat": "STORM CHORE COAT",
+   "coat": "BARN COAT",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
     "base": "ASH ARC SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "STORM CHORE COAT"
+    "feet": "COAL COLUMN",
+    "outer": "BARN COAT",
+    "waist": "LEAD WAIST WRAP"
    }
   },
   {
@@ -158,8 +163,8 @@
    "sex": null,
    "wears": {
     "base": "SLATE SHORT-SLEEVE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "feet": "ASH COLUMN",
+    "back": "BONE SHOULDER DRAPE"
    }
   },
   {
@@ -171,15 +176,15 @@
    "beard": "FULL BEARD",
    "mark": null,
    "top": "COAL HOODIE",
-   "coat": "FIELD GREEN COAT",
+   "coat": "SAGE FIELD COAT",
    "heritage": "hispanic",
    "skin": "intermediate",
    "sex": "m",
    "wears": {
     "base": "COAL HOODIE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "FIELD GREEN COAT"
+    "legs": "DUST BROWN TROUSERS",
+    "feet": "TALL MOTO BOOTS",
+    "outer": "SAGE FIELD COAT"
    }
   },
   {
@@ -190,15 +195,15 @@
    "face": null,
    "beard": null,
    "mark": "BROKEN NOSE",
-   "top": "VESTMENT GOLD SHIRT",
+   "top": "BLACK TANK",
    "coat": null,
    "heritage": "black",
    "skin": "brown",
    "sex": null,
    "wears": {
-    "base": "VESTMENT GOLD SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "base": "BLACK TANK",
+    "feet": "COAL COLUMN",
+    "mid": "VESTMENT GOLD SHIRT"
    }
   },
   {
@@ -210,15 +215,14 @@
    "beard": "CHIN STRAP",
    "mark": null,
    "top": "WORK COVERALLS",
-   "coat": "OLIVE VEST",
+   "coat": "BONE VEST",
    "heritage": "white",
    "skin": "light",
    "sex": "m",
    "wears": {
     "base": "WORK COVERALLS",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "OLIVE VEST"
+    "feet": "ASH COLUMN",
+    "outer": "BONE VEST"
    }
   },
   {
@@ -236,9 +240,9 @@
    "sex": "m",
    "wears": {
     "base": "ROLLED WORK SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "SPLIT-TAIL WORK COAT"
+    "feet": "ASH COLUMN",
+    "outer": "SPLIT-TAIL WORK COAT",
+    "gear": "FIELD LEG WRAPS"
    }
   },
   {
@@ -249,16 +253,17 @@
    "face": null,
    "beard": null,
    "mark": "LIP SCAR",
-   "top": "RED SHIRT",
+   "top": "BONE BUTTON-UP",
    "coat": "OLIVE ASYM COAT",
    "heritage": "hispanic",
    "skin": "brown",
    "sex": null,
    "wears": {
-    "base": "RED SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "OLIVE ASYM COAT"
+    "base": "BONE BUTTON-UP",
+    "legs": "SLATE WORK PANTS",
+    "feet": "SANDWALKERS",
+    "outer": "OLIVE ASYM COAT",
+    "back": "ONE-SHOULDER DRAPE"
    }
   },
   {
@@ -269,15 +274,19 @@
    "face": null,
    "beard": "LONG BEARD",
    "mark": null,
-   "top": "BLACK TANK",
+   "top": "SAGE STRIPED HENLEY",
    "coat": null,
    "heritage": "white",
    "skin": "very light",
    "sex": "m",
    "wears": {
-    "base": "BLACK TANK",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "base": "SAGE STRIPED HENLEY",
+    "legs": "BLACK DENIM",
+    "feet": "BONE STACK BOOT",
+    "waist": "CHARCOAL BELT",
+    "neck": "CHARCOAL SCARF",
+    "gear": "SHELL BANDOLIER",
+    "mid": "BLACK TANK"
    }
   }
  ]

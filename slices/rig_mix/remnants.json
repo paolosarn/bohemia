@@ -12,8 +12,8 @@
   "person_remnants_7"
  ],
  "w": 70,
- "h": 127,
- "foot": 118,
+ "h": 129,
+ "foot": 119,
  "cols": 7,
  "gangs": [
   "person_remnants_0",
@@ -53,7 +53,8 @@
     "base": "WORK COVERALLS",
     "head": "STORM KNIT CAP",
     "legs": "OLIVE WIDE TROUSER",
-    "feet": "OLIVE STACK BOOT"
+    "feet": "OLIVE STACK BOOT",
+    "neck": "BONE SCARF"
    }
   },
   {
@@ -72,8 +73,11 @@
    "wears": {
     "base": "OLIVE TANK",
     "head": "STORM KNIT CAP",
-    "legs": "OLIVE WIDE TROUSER",
-    "feet": "OLIVE STACK BOOT"
+    "legs": "OLIVE PANTS",
+    "feet": "COAL MID BOOT",
+    "waist": "CHARCOAL BELT",
+    "hands": "DUST GLOVES",
+    "mid": "PATINA PLAID FLANNEL"
    }
   },
   {
@@ -92,8 +96,9 @@
    "wears": {
     "base": "MOSS GREEN SHIRT",
     "head": "STORM KNIT CAP",
-    "legs": "OLIVE WIDE TROUSER",
-    "feet": "OLIVE STACK BOOT"
+    "feet": "COAL COLUMN",
+    "gear": "SOOT CHEST PLATE",
+    "mid": "RED PLAID FLANNEL"
    }
   },
   {
@@ -112,8 +117,10 @@
    "wears": {
     "base": "OLIVE DRAB TEE",
     "head": "STORM KNIT CAP",
-    "legs": "OLIVE WIDE TROUSER",
-    "feet": "OLIVE STACK BOOT"
+    "legs": "OLIVE PANTS",
+    "feet": "GRASS SNEAKERS",
+    "back": "RUCK PACK",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -124,17 +131,19 @@
    "face": null,
    "beard": "FULL BEARD",
    "mark": null,
-   "top": "OLIVE HOODIE",
+   "top": "SAND HOODIE",
    "coat": "OLIVE CAR COAT",
    "heritage": "white",
    "skin": "intermediate",
    "sex": "m",
    "wears": {
-    "base": "OLIVE HOODIE",
+    "base": "SAND HOODIE",
     "outer": "OLIVE CAR COAT",
     "head": "STORM KNIT CAP",
-    "legs": "OLIVE WIDE TROUSER",
-    "feet": "OLIVE STACK BOOT"
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS",
+    "waist": "SCAV TOOL BELT",
+    "neck": "DRAPED COWL"
    }
   },
   {
@@ -146,16 +155,17 @@
    "beard": "STUBBLE",
    "mark": "STITCHED GASH",
    "top": "FIELD SHORTALLS",
-   "coat": "OLIVE VEST",
+   "coat": "BONE VEST",
    "heritage": "hispanic",
    "skin": "brown",
    "sex": "m",
    "wears": {
     "base": "FIELD SHORTALLS",
-    "outer": "OLIVE VEST",
+    "outer": "BONE VEST",
     "head": "STORM KNIT CAP",
     "legs": "OLIVE WIDE TROUSER",
-    "feet": "OLIVE STACK BOOT"
+    "feet": "GRASS BOOTS",
+    "waist": "SOOT TOOL BELT"
    }
   },
   {
@@ -175,8 +185,8 @@
     "base": "OLIVE HENLEY",
     "outer": "GRASS WRAP COAT",
     "head": "STORM KNIT CAP",
-    "legs": "OLIVE WIDE TROUSER",
-    "feet": "OLIVE STACK BOOT"
+    "legs": "OLIVE SHORTS",
+    "feet": "SLOUCH BOOT"
    }
   },
   {
@@ -196,8 +206,10 @@
     "base": "OLIVE HENLEY",
     "outer": "GRASS CAR COAT",
     "head": "STORM KNIT CAP",
-    "legs": "OLIVE WIDE TROUSER",
-    "feet": "OLIVE STACK BOOT"
+    "legs": "WIDE PLEAT TROUSER",
+    "feet": "TALL MOTO BOOTS",
+    "waist": "LEAD WAIST WRAP",
+    "back": "ONE-SHOULDER DRAPE"
    }
   }
  ]

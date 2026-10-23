@@ -11,7 +11,7 @@
   "person_network_6",
   "person_network_7"
  ],
- "w": 68,
+ "w": 70,
  "h": 127,
  "foot": 118,
  "cols": 7,
@@ -44,16 +44,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "TEAL WORK SHIRT",
+   "top": "STORM GREY TEE",
    "coat": "TEAL COCOON COAT",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "TEAL WORK SHIRT",
+    "base": "STORM GREY TEE",
     "outer": "TEAL COCOON COAT",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "SOOT CARGOS",
+    "feet": "CHARCOAL BOOTS",
+    "neck": "DRAPED COWL",
+    "gear": "ELBOW PADS"
    }
   },
   {
@@ -72,8 +74,9 @@
    "wears": {
     "base": "PATINA WORK SHIRT",
     "outer": "RANGER LONGCOAT",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "BLACK DENIM",
+    "feet": "TALL MOTO BOOTS",
+    "gear": "THIGH HOLSTER"
    }
   },
   {
@@ -92,8 +95,9 @@
    "wears": {
     "base": "TEAL STRIPED TEE",
     "outer": "RANGER LONGCOAT",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "CHARCOAL SHORTS",
+    "feet": "SLOUCH BOOT",
+    "waist": "CHARCOAL BELT"
    }
   },
   {
@@ -112,8 +116,10 @@
    "wears": {
     "base": "PATINA PLAID FLANNEL",
     "outer": "TEAL COCOON COAT",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "KHAKI SHORTS",
+    "feet": "SLATE SNEAKERS",
+    "gear": "SOOT CHEST PLATE",
+    "hands": "SOOT HAND WRAPS"
    }
   },
   {
@@ -132,8 +138,8 @@
    "wears": {
     "base": "PATINA WORK SHIRT",
     "outer": "TEAL COCOON COAT",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "WIDE PLEAT TROUSER",
+    "feet": "ASH SLOUCH BOOT"
    }
   },
   {
@@ -152,8 +158,9 @@
    "wears": {
     "base": "TEAL WORK SHIRT",
     "outer": "RANGER LONGCOAT",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "TEAL STACK PANT",
+    "feet": "STACKED MID BOOT",
+    "hands": "SOOT GLOVES"
    }
   },
   {
@@ -164,15 +171,16 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "PATINA PLAID FLANNEL",
+   "top": "BLACK TANK",
    "coat": null,
    "heritage": "white",
    "skin": "very light",
    "sex": null,
    "wears": {
-    "base": "PATINA PLAID FLANNEL",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "base": "BLACK TANK",
+    "feet": "ASH COLUMN",
+    "neck": "CHARCOAL SCARF",
+    "mid": "PATINA PLAID FLANNEL"
    }
   },
   {
@@ -190,8 +198,10 @@
    "sex": null,
    "wears": {
     "base": "TEAL STRIPED TEE",
-    "legs": "STACKED JERSEY PANT",
-    "feet": "SLOUCH BOOT"
+    "legs": "CROPPED WORK TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "back": "CHARCOAL ROAD CAPE",
+    "mid": "PATINA WORK SHIRT"
    }
   }
  ]

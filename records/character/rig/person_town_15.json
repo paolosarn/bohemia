@@ -4,15 +4,40 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "RED PLAID FLANNEL",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "RANGER LONGCOAT"
+  "legs": "SLATE WORK PANTS",
+  "feet": "TALL MOTO BOOTS",
+  "outer": "RANGER LONGCOAT",
+  "hands": "DUST GLOVES",
+  "outfit": [
+   "RANGER LONGCOAT worn open to the neck",
+   "the shirt's collar out over the lapels",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "LONGCOAT",
+   "collar_out": 0.0199,
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.046,
+   "collar_z": 1.1,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.1,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_town_15.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,8 +47,7 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_15_trouser": 2568,
-  "person_town_15_shoe": 3148,
+  "person_town_15_shoe": 4484,
   "person_town_15_shirt": 71204,
   "person_town_15_collar": 1536,
   "person_town_15_collar_points": 180,
@@ -31,12 +55,26 @@
   "person_town_15_buttons": 204,
   "person_town_15_cuffs": 2048,
   "person_town_15_tail": 2016,
-  "person_town_15_coat": 73272,
-  "person_town_15_coat_skirt": 8190,
-  "person_town_15_collar.001": 1536,
+  "person_town_15_coat": 58218,
+  "person_town_15_coat_skirt": 7878,
   "person_town_15_lapels": 396,
+  "person_town_15_pushed": 2048,
   "person_town_15_pockets": 252,
   "person_town_15_pocket_flaps": 252,
+  "person_town_15_trouser": 43706,
+  "person_town_15_rolled_hem": 2048,
+  "person_town_15_double_knee": 252,
+  "person_town_15_hammer_loop": 50,
+  "person_town_15_sole_1": 242,
+  "person_town_15_midsole_1": 242,
+  "person_town_15_sole_0": 242,
+  "person_town_15_midsole_0": 242,
+  "person_town_15_boot_collar": 2048,
+  "person_town_15_boot_collar_line": 2048,
+  "person_town_15_boot_strap": 2048,
+  "person_town_15_dust_gloves_L": 392,
+  "person_town_15_dust_gloves_R": 392,
+  "person_town_15_dust_gloves_cuff": 2048,
   "person_town_15_hair": 17968,
   "person_town_15_hand_L": 392,
   "person_town_15_hand_R": 392
@@ -47,10 +85,25 @@
    0.8,
    0.8
   ],
+  "person_town_15_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_town_15_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_town_15_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
   "person_town_15_buttons": [
-   0.3864,
-   0.0704,
-   0.0382
+   0.3185,
+   0.0762,
+   0.0497
   ],
   "person_town_15_coat": [
    0.063,
@@ -82,6 +135,21 @@
    0.0369,
    0.0212
   ],
+  "person_town_15_double_knee": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_town_15_dust_gloves": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_15_dust_gloves_cuff": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
   "person_town_15_eyes": [
    0.0212,
    0.0103,
@@ -92,10 +160,25 @@
    0.0116,
    0.008
   ],
+  "person_town_15_hammer_loop": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
   "person_town_15_lapels": [
    0.0242,
    0.0685,
    0.0452
+  ],
+  "person_town_15_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_town_15_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
   ],
   "person_town_15_placket": [
    0.2195,
@@ -117,6 +200,16 @@
    0.1651,
    0.1095
   ],
+  "person_town_15_pushed": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_town_15_rolled_hem": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
   "person_town_15_shirt": [
    0.2195,
    0.0369,
@@ -133,19 +226,29 @@
    0.8
   ],
   "person_town_15_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_15_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_15_skin": [
    0.7454,
    0.5089,
    0.3278
+  ],
+  "person_town_15_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_town_15_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
   ],
   "person_town_15_tail": [
    0.2195,
@@ -158,14 +261,14 @@
    0.8
   ],
   "person_town_15_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0612,
+   0.0762,
+   0.0999
   ],
   "person_town_15_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0612,
+   0.0762,
+   0.0999
   ]
  }
 }

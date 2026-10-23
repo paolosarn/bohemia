@@ -1,18 +1,34 @@
 {
  "look": "PERSON_TOWN_8",
- "shape": "person_town_8: a person of the Body, his own skin skin_deep 4, WORK COVERALLS under OLIVE VEST",
+ "shape": "person_town_8: a person of the Body, his own skin skin_deep 4, WORK COVERALLS under BONE VEST",
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "WORK COVERALLS",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "OLIVE VEST"
+  "feet": "ASH COLUMN",
+  "outer": "BONE VEST",
+  "outfit": [
+   "WORK COVERALLS read as one with OLIVE VEST (63 and 76 of 255) and no colour of that top reads apart: the same coat in BONE VEST (154)",
+   "BONE VEST worn open to the neck"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "VEST"
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.005,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_town_8.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,7 +38,6 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_8_trouser": 2568,
   "person_town_8_shoe": 3148,
   "person_town_8_shirt": 71204,
   "person_town_8_collar": 1536,
@@ -32,8 +47,11 @@
   "person_town_8_pocket": 180,
   "person_town_8_flap": 108,
   "person_town_8_belt": 1792,
-  "person_town_8_coat": 23806,
+  "person_town_8_coat": 23258,
   "person_town_8_lapels": 396,
+  "person_town_8_column": 74570,
+  "person_town_8_column_sole_1": 242,
+  "person_town_8_column_sole_0": 242,
   "person_town_8_hair": 17968,
   "person_town_8_hand_L": 392,
   "person_town_8_hand_R": 392
@@ -50,9 +68,9 @@
    0.0123
   ],
   "person_town_8_coat": [
-   0.0666,
-   0.0823,
-   0.0262
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_8_collar": [
    0.0437,
@@ -63,6 +81,21 @@
    0.0437,
    0.0561,
    0.0232
+  ],
+  "person_town_8_column": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_town_8_column_sole_0": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_town_8_column_sole_1": [
+   0.0232,
+   0.0232,
+   0.0252
   ],
   "person_town_8_cuffs": [
    0.0185,
@@ -85,9 +118,9 @@
    0.008
   ],
   "person_town_8_lapels": [
-   0.0262,
-   0.0331,
-   0.0116
+   0.2122,
+   0.1746,
+   0.1046
   ],
   "person_town_8_placket": [
    0.0185,
@@ -105,29 +138,24 @@
    0.0232
   ],
   "person_town_8_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_8_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_8_skin": [
    0.5972,
    0.4072,
    0.2542
   ],
-  "person_town_8_trouser": [
-   0.0437,
-   0.0561,
-   0.0232
-  ],
   "person_town_8_trousers": [
-   0.0437,
-   0.0561,
-   0.0232
+   0.0612,
+   0.0612,
+   0.0704
   ]
  }
 }

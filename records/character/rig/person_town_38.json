@@ -5,13 +5,20 @@
   "hair": "TEMPLE TAPER",
   "base": "FIELD SHORTALLS",
   "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS"
+  "feet": "WRAPPED BOOTS",
+  "waist": "LEAD WAIST WRAP",
+  "outfit": []
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_town_38.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,12 +29,22 @@
  "meshes": {
   "Cesium_Man": 3273,
   "person_town_38_trouser": 1368,
-  "person_town_38_shoe": 3148,
+  "person_town_38_shoe": 3716,
   "person_town_38_belt": 1792,
   "person_town_38_bib": 12440,
   "person_town_38_straps": 364,
   "person_town_38_buttons": 68,
   "person_town_38_pocket": 90,
+  "person_town_38_sole_1": 242,
+  "person_town_38_midsole_1": 242,
+  "person_town_38_sole_0": 242,
+  "person_town_38_midsole_0": 242,
+  "person_town_38_boot_collar": 2048,
+  "person_town_38_boot_collar_line": 2048,
+  "person_town_38_eyelets_1": 120,
+  "person_town_38_eyelets_0": 120,
+  "person_town_38_lead_waist_wrap": 1792,
+  "person_town_38_lead_waist_wrap_edge": 1792,
   "person_town_38_hair": 17968,
   "person_town_38_hand_L": 392,
   "person_town_38_hand_R": 392
@@ -48,10 +65,30 @@
    0.0561,
    0.0232
   ],
+  "person_town_38_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_town_38_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_town_38_buttons": [
    0.0908,
    0.1095,
    0.0452
+  ],
+  "person_town_38_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_38_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_town_38_eyes": [
    0.0212,
@@ -62,6 +99,26 @@
    0.0194,
    0.0116,
    0.008
+  ],
+  "person_town_38_lead_waist_wrap": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_town_38_lead_waist_wrap_edge": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_town_38_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_38_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_town_38_pocket": [
    0.0437,
@@ -74,19 +131,29 @@
    0.0232
   ],
   "person_town_38_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_38_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_38_skin": [
    0.3419,
    0.1812,
    0.0999
+  ],
+  "person_town_38_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_town_38_sole_1": [
+   0.007,
+   0.006,
+   0.007
   ],
   "person_town_38_straps": [
    0.0185,

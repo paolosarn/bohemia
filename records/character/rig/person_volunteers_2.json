@@ -1,17 +1,36 @@
 {
  "look": "PERSON_VOLUNTEERS_2",
- "shape": "person_volunteers_2: a person of the Volunteers, his own skin skin_deep 4, SAGE TEE",
+ "shape": "person_volunteers_2: a person of the Volunteers, his own skin skin_deep 4, BONE HENLEY",
  "worn": {
   "hair": "HEAVY FRINGE",
-  "base": "SAGE TEE",
-  "legs": "STACKED JERSEY PANT",
-  "feet": "COLUMN PANT-BOOT"
+  "base": "BONE HENLEY",
+  "legs": "SLATE STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "waist": "SCAV TOOL BELT",
+  "outfit": [
+   "his SAGE TEE over a BONE HENLEY, its sleeves and hem out from under"
+  ],
+  "mid": "SAGE TEE"
  },
  "dials": {
   "height": -0.6,
   "belly": -0.3,
   "shoulders": -0.4,
   "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "hem_drop": 0.04,
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": false,
+   "ohw": 0.0
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_volunteers_2.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,12 +40,29 @@
  "real_height_for_rig": 1.6872,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_volunteers_2_trouser": 2568,
-  "person_volunteers_2_shoe": 4116,
-  "person_volunteers_2_shirt": 39960,
+  "person_volunteers_2_shoe": 4484,
+  "person_volunteers_2_shirt": 67512,
   "person_volunteers_2_collar": 1536,
-  "person_volunteers_2_sleeve_hem": 2048,
-  "person_volunteers_2_hem": 1792,
+  "person_volunteers_2_placket": 126,
+  "person_volunteers_2_buttons": 102,
+  "person_volunteers_2_cuffs": 2048,
+  "person_volunteers_2_tail": 2016,
+  "person_volunteers_2_trouser": 43706,
+  "person_volunteers_2_sole_1": 242,
+  "person_volunteers_2_midsole_1": 242,
+  "person_volunteers_2_sole_0": 242,
+  "person_volunteers_2_midsole_0": 242,
+  "person_volunteers_2_boot_collar": 2048,
+  "person_volunteers_2_boot_collar_line": 2048,
+  "person_volunteers_2_boot_strap": 2048,
+  "person_volunteers_2_scav_tool_belt": 1792,
+  "person_volunteers_2_scav_tool_belt_pouch_1": 26,
+  "person_volunteers_2_scav_tool_belt_pouch_0": 26,
+  "person_volunteers_2_scav_tool_belt_buckle": 34,
+  "person_volunteers_2_mid_shirt": 39960,
+  "person_volunteers_2_mid_collar": 1536,
+  "person_volunteers_2_mid_sleeve_hem": 2048,
+  "person_volunteers_2_mid_hem": 1792,
   "person_volunteers_2_hair": 21846,
   "person_volunteers_2_hand_L": 392,
   "person_volunteers_2_hand_R": 392
@@ -37,10 +73,35 @@
    0.8,
    0.8
   ],
+  "person_volunteers_2_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_volunteers_2_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_volunteers_2_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_volunteers_2_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
   "person_volunteers_2_collar": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_2_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_volunteers_2_eyes": [
    0.0212,
@@ -52,45 +113,110 @@
    0.0052,
    0.0044
   ],
-  "person_volunteers_2_hem": [
+  "person_volunteers_2_mid_collar": [
    0.0931,
    0.1441,
    0.0823
+  ],
+  "person_volunteers_2_mid_hem": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_2_mid_shirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_2_mid_sleeve_hem": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_2_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_volunteers_2_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_volunteers_2_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_2_scav_tool_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_volunteers_2_scav_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_volunteers_2_scav_tool_belt_pouch_0": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_volunteers_2_scav_tool_belt_pouch_1": [
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_volunteers_2_shirt": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_volunteers_2_shoe": [
-   0.0513,
-   0.0382,
-   0.0296
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_volunteers_2_shoes": [
-   0.0513,
-   0.0382,
-   0.0296
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_volunteers_2_skin": [
    0.5972,
    0.4072,
    0.2542
   ],
-  "person_volunteers_2_sleeve_hem": [
-   0.0931,
-   0.1441,
-   0.0823
+  "person_volunteers_2_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_volunteers_2_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_volunteers_2_tail": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_volunteers_2_trouser": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_2_trouser_folds": [
+   0.0262,
+   0.0319,
+   0.0437
   ],
   "person_volunteers_2_trousers": [
-   0.0595,
-   0.0595,
-   0.063
+   0.0612,
+   0.0762,
+   0.0999
   ]
  }
 }

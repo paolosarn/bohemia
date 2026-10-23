@@ -39,16 +39,17 @@
    "face": null,
    "beard": null,
    "mark": "STITCHED GASH",
-   "top": "FIELD BUTTON-UP",
+   "top": "BONE BUTTON-UP",
    "coat": "SLATE COCOON COAT",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "FIELD BUTTON-UP",
-    "legs": "BLACK CARGOS",
+    "base": "BONE BUTTON-UP",
+    "legs": "STACKED JERSEY PANT",
     "feet": "WHITE SNEAKERS",
-    "outer": "SLATE COCOON COAT"
+    "outer": "SLATE COCOON COAT",
+    "back": "BONE SHOULDER DRAPE"
    }
   },
   {
@@ -59,16 +60,17 @@
    "face": "FACE OXBLOOD DUST MASK",
    "beard": null,
    "mark": null,
-   "top": "CHARCOAL STRIPED TEE",
+   "top": "WHITE TEE",
    "coat": "STORM VEST",
    "heritage": "mixed",
    "skin": "intermediate",
    "sex": null,
    "wears": {
-    "base": "CHARCOAL STRIPED TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "STORM VEST"
+    "base": "WHITE TEE",
+    "legs": "STEEL BLUE JEANS",
+    "feet": "FIELD BOOTS",
+    "outer": "STORM VEST",
+    "gear": "SOOT CHEST PLATE"
    }
   },
   {
@@ -87,7 +89,8 @@
    "wears": {
     "base": "FIELD SHORTALLS",
     "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "feet": "WRAPPED BOOTS",
+    "waist": "LEAD WAIST WRAP"
    }
   },
   {
@@ -98,15 +101,16 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "GREEN FLANNEL",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "white",
    "skin": "light",
    "sex": null,
    "wears": {
-    "base": "GREEN FLANNEL",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "base": "WHITE TEE",
+    "legs": "KHAKI SHORTS",
+    "feet": "STACKED MID BOOT",
+    "mid": "GREEN FLANNEL"
    }
   },
   {
@@ -117,15 +121,16 @@
    "face": null,
    "beard": "MUTTON CHOPS",
    "mark": "BROW SCAR",
-   "top": "BRICK TEE",
+   "top": "BONE HENLEY",
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "BRICK TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "base": "BONE HENLEY",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "CHARCOAL BOOTS",
+    "mid": "BRICK TEE"
    }
   },
   {
@@ -136,16 +141,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "FOREST PLAID FLANNEL",
+   "top": "SAGE FLANNEL",
    "coat": "SOOT TRENCH",
    "heritage": "hispanic",
    "skin": "brown",
    "sex": null,
    "wears": {
-    "base": "FOREST PLAID FLANNEL",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "SOOT TRENCH"
+    "base": "SAGE FLANNEL",
+    "legs": "GREY SWEATS",
+    "feet": "ASH SLOUCH BOOT",
+    "outer": "SOOT TRENCH",
+    "waist": "SOOT TOOL BELT",
+    "hands": "SOOT GLOVES"
    }
   },
   {
@@ -157,15 +164,17 @@
    "beard": null,
    "mark": null,
    "top": "SLATE PLAID FLANNEL",
-   "coat": "WORK JACKET",
+   "coat": "KHAKI JACKET",
    "heritage": "asian",
    "skin": "tan",
    "sex": null,
    "wears": {
     "base": "SLATE PLAID FLANNEL",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "WORK JACKET"
+    "legs": "STORM GREY SWEATS",
+    "feet": "STACKED MID BOOT",
+    "outer": "KHAKI JACKET",
+    "waist": "CHARCOAL BELT",
+    "gear": "SPIKED PAULDRON"
    }
   },
   {
@@ -177,15 +186,15 @@
    "beard": "PATCHY BEARD",
    "mark": null,
    "top": "SHOULDER LONGLINE",
-   "coat": "ASH WRAP COAT",
+   "coat": "GRASS WRAP COAT",
    "heritage": "white",
    "skin": "intermediate",
    "sex": "m",
    "wears": {
     "base": "SHOULDER LONGLINE",
-    "legs": "BLACK CARGOS",
+    "legs": "CROPPED BLACK DENIM",
     "feet": "WHITE SNEAKERS",
-    "outer": "ASH WRAP COAT"
+    "outer": "GRASS WRAP COAT"
    }
   },
   {
@@ -196,16 +205,17 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "SAND HOODIE",
+   "top": "COAL HOODIE",
    "coat": "BARN COAT",
    "heritage": "asian",
    "skin": "very light",
    "sex": null,
    "wears": {
-    "base": "SAND HOODIE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "BARN COAT"
+    "base": "COAL HOODIE",
+    "legs": "CHARCOAL SHORTS",
+    "feet": "TALL MOTO BOOTS",
+    "outer": "BARN COAT",
+    "waist": "WIDE WAIST WRAP"
    }
   },
   {
@@ -223,9 +233,11 @@
    "sex": null,
    "wears": {
     "base": "WHITE TEE",
-    "legs": "BLACK CARGOS",
+    "legs": "CHARCOAL CROP TROUSER",
     "feet": "WHITE SNEAKERS",
-    "outer": "BONE VEST"
+    "outer": "BONE VEST",
+    "waist": "SOOT TOOL BELT",
+    "back": "SHOULDER MANTLE"
    }
   },
   {
@@ -236,16 +248,17 @@
    "face": "FACE ASH FACE WRAP",
    "beard": "PENCIL MOUSTACHE",
    "mark": null,
-   "top": "SAGE TEE",
+   "top": "STRIPED TEE",
    "coat": "TACTICAL VEST",
    "heritage": "white",
    "skin": "very light",
    "sex": "m",
    "wears": {
-    "base": "SAGE TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "TACTICAL VEST"
+    "base": "STRIPED TEE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "BONE STACK BOOT",
+    "outer": "TACTICAL VEST",
+    "waist": "CHARCOAL BELT"
    }
   },
   {
@@ -263,9 +276,9 @@
    "sex": null,
    "wears": {
     "base": "TATTERED FLANNEL",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "LEATHER VEST"
+    "feet": "COLUMN PANT-BOOT",
+    "outer": "LEATHER VEST",
+    "waist": "CHARCOAL BELT"
    }
   }
  ]

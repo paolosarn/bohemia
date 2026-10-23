@@ -1,18 +1,31 @@
 {
  "look": "PERSON_TOWN_27",
- "shape": "person_town_27: a person of the Body, his own skin skin_deep 3, STEEL STRIPED TEE under LEATHER SPLIT-TAIL COAT",
+ "shape": "person_town_27: a person of the Body, his own skin skin_deep 3, STRIPED TEE under LEATHER SPLIT-TAIL COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "STEEL STRIPED TEE",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "LEATHER SPLIT-TAIL COAT"
+  "base": "STRIPED TEE",
+  "feet": "ASH COLUMN",
+  "outer": "LEATHER SPLIT-TAIL COAT",
+  "waist": "WIDE WAIST WRAP",
+  "outfit": [
+   "STEEL STRIPED TEE read as one with LEATHER SPLIT-TAIL COAT (88 and 69 of 255): the same cut in STRIPED TEE (154)"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "SPLIT TAIL",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039
+  }
  },
  "model": "records/character/rig/person_town_27.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,11 +35,9 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_27_trouser": 2568,
   "person_town_27_shoe": 3148,
   "person_town_27_shirt": 40296,
   "person_town_27_collar": 1536,
-  "person_town_27_sleeve_hem": 2048,
   "person_town_27_hem": 1792,
   "person_town_27_coat": 73272,
   "person_town_27_coat_skirt": 5850,
@@ -34,6 +45,11 @@
   "person_town_27_lapels": 396,
   "person_town_27_pockets": 252,
   "person_town_27_pocket_flaps": 252,
+  "person_town_27_column": 74570,
+  "person_town_27_column_sole_1": 242,
+  "person_town_27_column_sole_0": 242,
+  "person_town_27_wide_waist_wrap": 1792,
+  "person_town_27_wide_waist_wrap_edge": 1792,
   "person_town_27_hair": 17968,
   "person_town_27_hand_L": 392,
   "person_town_27_hand_R": 392
@@ -55,14 +71,29 @@
    0.016
   ],
   "person_town_27_collar": [
-   0.063,
-   0.1046,
-   0.1651
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_27_collar_print": [
    0.8,
    0.8,
    0.8
+  ],
+  "person_town_27_column": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_town_27_column_sole_0": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_town_27_column_sole_1": [
+   0.0232,
+   0.0232,
+   0.0252
   ],
   "person_town_27_eyes": [
    0.0212,
@@ -75,9 +106,9 @@
    0.008
   ],
   "person_town_27_hem": [
-   0.063,
-   0.1046,
-   0.1651
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_27_lapels": [
    0.0545,
@@ -95,9 +126,9 @@
    0.016
   ],
   "person_town_27_shirt": [
-   0.063,
-   0.1046,
-   0.1651
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_27_shirt_print": [
    0.8,
@@ -110,39 +141,34 @@
    0.8
   ],
   "person_town_27_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_27_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_27_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
-  "person_town_27_sleeve_hem": [
-   0.063,
-   0.1046,
-   0.1651
-  ],
-  "person_town_27_sleeve_hem_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_town_27_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
-  ],
   "person_town_27_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_town_27_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_27_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
   ]
  }
 }

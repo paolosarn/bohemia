@@ -12,7 +12,7 @@
   "person_mob_7"
  ],
  "w": 68,
- "h": 127,
+ "h": 128,
  "foot": 119,
  "cols": 7,
  "gangs": [
@@ -44,17 +44,19 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "CHARCOAL STRIPED TEE",
+   "top": "SLATE HENLEY",
    "coat": null,
    "heritage": "hispanic",
    "skin": "intermediate",
    "sex": null,
    "wears": {
-    "base": "CHARCOAL STRIPED TEE",
+    "base": "SLATE HENLEY",
     "back": "CHARCOAL SHOULDER MANTLE",
-    "legs": "CHARCOAL CROP TROUSER",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "LEATHER BELT"
+    "legs": "SLATE WORK PANTS",
+    "feet": "RED CLAY BOOTS",
+    "waist": "LEATHER BELT",
+    "neck": "DUST SCARF",
+    "mid": "CHARCOAL STRIPED TEE"
    }
   },
   {
@@ -73,9 +75,10 @@
    "wears": {
     "base": "SAGE HOODIE",
     "back": "CHARCOAL SHOULDER MANTLE",
-    "legs": "CHARCOAL CROP TROUSER",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "LEATHER BELT"
+    "legs": "BONE DROP TROUSER",
+    "feet": "BRICK STACK BOOT",
+    "waist": "LEATHER BELT",
+    "mid": "MOB PINSTRIPE SHIRT"
    }
   },
   {
@@ -115,9 +118,10 @@
    "wears": {
     "base": "SAND HOODIE",
     "back": "CHARCOAL SHOULDER MANTLE",
-    "legs": "CHARCOAL CROP TROUSER",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "LEATHER BELT"
+    "legs": "KHAKI CARGOS",
+    "feet": "DUST BROWN BOOTS",
+    "waist": "LEATHER BELT",
+    "mid": "SLATE PLAID FLANNEL"
    }
   },
   {
@@ -135,10 +139,12 @@
    "sex": "m",
    "wears": {
     "base": "RUST HENLEY",
-    "back": "CHARCOAL SHOULDER MANTLE",
-    "legs": "CHARCOAL CROP TROUSER",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "LEATHER BELT"
+    "back": "OXBLOOD SATCHEL",
+    "legs": "DROP RISE TROUSER",
+    "feet": "ASH SLOUCH BOOT",
+    "waist": "LEATHER BELT",
+    "gear": "STEEL SPIKED PAULDRON",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -149,17 +155,18 @@
    "face": null,
    "beard": "GOATEE",
    "mark": "BROKEN NOSE",
-   "top": "SAGE FLANNEL",
+   "top": "BONE TANK",
    "coat": null,
    "heritage": "white",
    "skin": "light",
    "sex": "m",
    "wears": {
-    "base": "SAGE FLANNEL",
+    "base": "BONE TANK",
     "back": "CHARCOAL SHOULDER MANTLE",
-    "legs": "CHARCOAL CROP TROUSER",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "LEATHER BELT"
+    "legs": "RUST CARGOS",
+    "feet": "MID SHAFT BOOT",
+    "waist": "LEATHER BELT",
+    "mid": "SAGE FLANNEL"
    }
   },
   {
@@ -170,17 +177,17 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "ASH HOODIE",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "ASH HOODIE",
+    "base": "WHITE TEE",
     "back": "CHARCOAL SHOULDER MANTLE",
-    "legs": "CHARCOAL CROP TROUSER",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "LEATHER BELT"
+    "feet": "COAL COLUMN",
+    "waist": "LEATHER BELT",
+    "mid": "ASH HOODIE"
    }
   },
   {
@@ -191,18 +198,19 @@
    "face": null,
    "beard": "GOATEE",
    "mark": null,
-   "top": "BLACK TANK",
+   "top": "BONE TANK",
    "coat": "RUST VEST",
    "heritage": "asian",
    "skin": "very light",
    "sex": "m",
    "wears": {
-    "base": "BLACK TANK",
-    "back": "CHARCOAL SHOULDER MANTLE",
-    "legs": "CHARCOAL CROP TROUSER",
-    "feet": "STACKED SOLE BOOT",
+    "base": "BONE TANK",
+    "back": "SALVAGE SATCHEL",
+    "legs": "RUST CARGOS",
+    "feet": "ASH SLOUCH BOOT",
     "waist": "LEATHER BELT",
-    "outer": "RUST VEST"
+    "outer": "RUST VEST",
+    "hands": "SOOT GLOVES"
    }
   }
  ]

@@ -172,16 +172,17 @@
    "face": null,
    "beard": "MOUSTACHE",
    "mark": null,
-   "top": "TATTERED FLANNEL",
+   "top": "WHITE TEE",
    "coat": null,
    "heritage": "asian",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "TATTERED FLANNEL",
-    "back": "COBALT SHOULDER MANTLE",
-    "legs": "COBALT WIDE TROUSER",
-    "feet": "COBALT STACK BOOT"
+    "base": "WHITE TEE",
+    "back": "OXBLOOD SATCHEL",
+    "legs": "STEEL BLUE JEANS",
+    "feet": "COAL MID BOOT",
+    "mid": "TATTERED FLANNEL"
    }
   },
   {
@@ -200,8 +201,8 @@
    "wears": {
     "base": "STEEL PLAID FLANNEL",
     "back": "COBALT SHOULDER MANTLE",
-    "legs": "COBALT WIDE TROUSER",
-    "feet": "COBALT STACK BOOT"
+    "legs": "SLATE STACK PANT",
+    "feet": "WRAPPED BOOTS"
    }
   }
  ]

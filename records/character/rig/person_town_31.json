@@ -4,14 +4,32 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "STORM HENLEY",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS"
+  "legs": "STEEL BLUE JEANS",
+  "feet": "MID SHAFT BOOT",
+  "back": "ONE-SHOULDER DRAPE",
+  "outfit": [
+   "an open DUST PLAID SHIRT over the STORM HENLEY"
+  ],
+  "mid": "DUST PLAID SHIRT"
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_town_31.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,14 +39,32 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_31_trouser": 2568,
-  "person_town_31_shoe": 3148,
+  "person_town_31_shoe": 3916,
   "person_town_31_shirt": 67584,
   "person_town_31_collar": 1536,
   "person_town_31_placket": 126,
   "person_town_31_buttons": 102,
   "person_town_31_cuffs": 2048,
   "person_town_31_hem": 1792,
+  "person_town_31_trouser": 43706,
+  "person_town_31_rolled_hem": 2048,
+  "person_town_31_fly": 70,
+  "person_town_31_front_pockets": 100,
+  "person_town_31_seat_pockets": 252,
+  "person_town_31_seat_seams": 252,
+  "person_town_31_sole_1": 242,
+  "person_town_31_midsole_1": 242,
+  "person_town_31_sole_0": 242,
+  "person_town_31_midsole_0": 242,
+  "person_town_31_boot_collar": 2048,
+  "person_town_31_boot_collar_line": 2048,
+  "person_town_31_one-shoulder_drape": 24748,
+  "person_town_31_mid_shirt": 38964,
+  "person_town_31_mid_collar": 1536,
+  "person_town_31_mid_collar_points": 180,
+  "person_town_31_mid_front_edge": 396,
+  "person_town_31_mid_sleeve_hem": 2048,
+  "person_town_31_mid_tail": 1818,
   "person_town_31_hair": 17968,
   "person_town_31_hand_L": 392,
   "person_town_31_hand_R": 392
@@ -38,6 +74,16 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_town_31_boot_collar": [
+   0.0545,
+   0.0545,
+   0.0742
+  ],
+  "person_town_31_boot_collar_line": [
+   0.007,
+   0.007,
+   0.0097
   ],
   "person_town_31_buttons": [
    0.1248,
@@ -59,6 +105,16 @@
    0.0103,
    0.008
   ],
+  "person_town_31_fly": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
+  "person_town_31_front_pockets": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
   "person_town_31_hair": [
    0.0194,
    0.0116,
@@ -69,10 +125,90 @@
    0.0648,
    0.0802
   ],
+  "person_town_31_mid_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_31_mid_collar_points": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_31_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_31_mid_front_edge": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_31_mid_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_31_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_31_mid_sleeve_hem": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_31_mid_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_31_mid_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_31_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_31_midsole_0": [
+   0.007,
+   0.007,
+   0.0097
+  ],
+  "person_town_31_midsole_1": [
+   0.007,
+   0.007,
+   0.0097
+  ],
+  "person_town_31_one-shoulder_drape": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
   "person_town_31_placket": [
    0.0595,
    0.0648,
    0.0802
+  ],
+  "person_town_31_rolled_hem": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_town_31_seat_pockets": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_31_seat_seams": [
+   0.1329,
+   0.2051,
+   0.305
   ],
   "person_town_31_shirt": [
    0.0595,
@@ -80,29 +216,39 @@
    0.0802
   ],
   "person_town_31_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0212,
+   0.0212,
+   0.0296
   ],
   "person_town_31_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0212,
+   0.0212,
+   0.0296
   ],
   "person_town_31_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
+  "person_town_31_sole_0": [
+   0.0052,
+   0.0052,
+   0.006
+  ],
+  "person_town_31_sole_1": [
+   0.0052,
+   0.0052,
+   0.006
+  ],
   "person_town_31_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.063,
+   0.1046,
+   0.1651
   ],
   "person_town_31_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.063,
+   0.1046,
+   0.1651
   ]
  }
 }

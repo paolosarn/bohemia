@@ -11,9 +11,9 @@
   "person_colorful_6",
   "person_colorful_7"
  ],
- "w": 68,
- "h": 127,
- "foot": 119,
+ "w": 70,
+ "h": 129,
+ "foot": 121,
  "cols": 7,
  "gangs": [
   "person_colorful_0",
@@ -53,7 +53,8 @@
     "base": "OLIVE TANK",
     "head": "ROSE KNIT CAP",
     "legs": "GRASS DROP TROUSER",
-    "feet": "GRASS BOOTS"
+    "feet": "OLIVE BOOTS",
+    "mid": "PATINA PLAID FLANNEL"
    }
   },
   {
@@ -64,17 +65,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "FIELD GREEN TEE",
+   "top": "WHITE TEE",
    "coat": "TACTICAL VEST",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "FIELD GREEN TEE",
+    "base": "WHITE TEE",
     "outer": "TACTICAL VEST",
     "head": "ROSE KNIT CAP",
-    "legs": "GRASS DROP TROUSER",
-    "feet": "GRASS BOOTS"
+    "legs": "CROPPED BLACK DENIM",
+    "feet": "STEEL SNEAKERS",
+    "waist": "SOOT TOOL BELT"
    }
   },
   {
@@ -93,8 +95,11 @@
    "wears": {
     "base": "TEAL STRIPED TEE",
     "head": "ROSE KNIT CAP",
-    "legs": "GRASS DROP TROUSER",
-    "feet": "GRASS BOOTS"
+    "legs": "WIDE PLEAT TROUSER",
+    "feet": "GRASS SNEAKERS",
+    "back": "RUCK PACK",
+    "gear": "WORK SUSPENDERS",
+    "mid": "FOREST PLAID FLANNEL"
    }
   },
   {
@@ -114,7 +119,7 @@
     "base": "WORK COVERALLS",
     "head": "ROSE KNIT CAP",
     "legs": "GRASS DROP TROUSER",
-    "feet": "GRASS BOOTS"
+    "feet": "SLATE SNEAKERS"
    }
   },
   {
@@ -135,7 +140,10 @@
     "outer": "GRASS WRAP COAT",
     "head": "ROSE KNIT CAP",
     "legs": "GRASS DROP TROUSER",
-    "feet": "GRASS BOOTS"
+    "feet": "STACKED MID BOOT",
+    "waist": "WIDE WAIST WRAP",
+    "back": "SALVAGE SATCHEL",
+    "gear": "SOOT GORGET"
    }
   },
   {
@@ -147,16 +155,17 @@
    "beard": "PENCIL MOUSTACHE",
    "mark": "CHEEK BURN",
    "top": "PATINA WORK SHIRT",
-   "coat": "OLIVE VEST",
+   "coat": "BONE VEST",
    "heritage": "white",
    "skin": "very light",
    "sex": "m",
    "wears": {
     "base": "PATINA WORK SHIRT",
-    "outer": "OLIVE VEST",
+    "outer": "BONE VEST",
     "head": "ROSE KNIT CAP",
-    "legs": "GRASS DROP TROUSER",
-    "feet": "GRASS BOOTS"
+    "legs": "CHARCOAL SHORTS",
+    "feet": "WRAPPED BOOTS",
+    "hands": "LEATHER GLOVES"
    }
   },
   {
@@ -175,8 +184,11 @@
    "wears": {
     "base": "MOSS GREEN SHIRT",
     "head": "ROSE KNIT CAP",
-    "legs": "GRASS DROP TROUSER",
-    "feet": "GRASS BOOTS"
+    "legs": "GREY SWEATS",
+    "feet": "RANCH BOOTS",
+    "neck": "DRAPED COWL",
+    "hands": "SOOT GLOVES",
+    "mid": "FIELD BUTTON-UP"
    }
   },
   {
@@ -195,8 +207,10 @@
    "wears": {
     "base": "OLIVE HENLEY",
     "head": "ROSE KNIT CAP",
-    "legs": "GRASS DROP TROUSER",
-    "feet": "GRASS BOOTS"
+    "feet": "COAL COLUMN",
+    "waist": "CHARCOAL BELT",
+    "hands": "DUST GLOVES",
+    "mid": "PATINA PLAID FLANNEL"
    }
   }
  ]

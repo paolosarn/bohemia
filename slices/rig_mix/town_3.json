@@ -46,8 +46,8 @@
    "sex": "m",
    "wears": {
     "base": "TEAL WORK SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "TALL MOTO BOOTS",
     "outer": "KHAKI DUSTER"
    }
   },
@@ -66,8 +66,10 @@
    "sex": null,
    "wears": {
     "base": "BONE TANK",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT",
+    "back": "ONE-SHOULDER DRAPE",
+    "mid": "RED PLAID FLANNEL"
    }
   },
   {
@@ -85,9 +87,10 @@
    "sex": "m",
    "wears": {
     "base": "COBALT SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "BRICK COMMA COAT"
+    "legs": "BONE DROP TROUSER",
+    "feet": "SLOUCH BOOT",
+    "outer": "BRICK COMMA COAT",
+    "waist": "CHARCOAL BELT"
    }
   },
   {
@@ -98,16 +101,16 @@
    "face": null,
    "beard": "PENCIL MOUSTACHE",
    "mark": null,
-   "top": "STEEL STRIPED TEE",
+   "top": "STRIPED TEE",
    "coat": "LEATHER SPLIT-TAIL COAT",
    "heritage": "mixed",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "STEEL STRIPED TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "LEATHER SPLIT-TAIL COAT"
+    "base": "STRIPED TEE",
+    "feet": "ASH COLUMN",
+    "outer": "LEATHER SPLIT-TAIL COAT",
+    "waist": "WIDE WAIST WRAP"
    }
   },
   {
@@ -125,9 +128,11 @@
    "sex": "m",
    "wears": {
     "base": "PATINA PLAID FLANNEL",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "GRASS CAR COAT"
+    "legs": "SOOT CARGOS",
+    "feet": "SLOUCH BOOT",
+    "outer": "GRASS CAR COAT",
+    "waist": "LEAD WAIST WRAP",
+    "gear": "SCAV KNEEPADS"
    }
   },
   {
@@ -145,8 +150,11 @@
    "sex": null,
    "wears": {
     "base": "SAGE STRIPED HENLEY",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "legs": "STACKED JERSEY PANT",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT",
+    "back": "BONE SHOULDER DRAPE",
+    "mid": "RED PLAID FLANNEL"
    }
   },
   {
@@ -157,15 +165,14 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "RUST HOODIE",
+   "top": "SAND HOODIE",
    "coat": "BRICK CAR COAT",
    "heritage": "mixed",
    "skin": "intermediate",
    "sex": null,
    "wears": {
-    "base": "RUST HOODIE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
+    "base": "SAND HOODIE",
+    "feet": "COLUMN PANT-BOOT",
     "outer": "BRICK CAR COAT"
    }
   },
@@ -184,8 +191,10 @@
    "sex": "m",
    "wears": {
     "base": "STORM HENLEY",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "legs": "STEEL BLUE JEANS",
+    "feet": "MID SHAFT BOOT",
+    "back": "ONE-SHOULDER DRAPE",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -197,15 +206,15 @@
    "beard": null,
    "mark": null,
    "top": "WIDE SHOULDER TEE",
-   "coat": "STORM JACKET",
+   "coat": "KHAKI JACKET",
    "heritage": "black",
    "skin": "dark",
    "sex": null,
    "wears": {
     "base": "WIDE SHOULDER TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "STORM JACKET"
+    "legs": "STACKED JERSEY PANT",
+    "feet": "BONE STACK BOOT",
+    "outer": "KHAKI JACKET"
    }
   },
   {
@@ -216,16 +225,17 @@
    "face": null,
    "beard": "STUBBLE",
    "mark": null,
-   "top": "SIGNAL RED SHIRT",
+   "top": "COBALT SHIRT",
    "coat": "BRICK LONGCOAT",
    "heritage": "black",
    "skin": "dark",
    "sex": "m",
    "wears": {
-    "base": "SIGNAL RED SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
-    "outer": "BRICK LONGCOAT"
+    "base": "COBALT SHIRT",
+    "legs": "BLACK DENIM",
+    "feet": "WRAPPED BOOTS",
+    "outer": "BRICK LONGCOAT",
+    "waist": "LEAD WAIST WRAP"
    }
   },
   {
@@ -236,15 +246,19 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "OLIVE DRAB TEE",
+   "top": "BONE HENLEY",
    "coat": null,
    "heritage": "black",
    "skin": "dark",
    "sex": null,
    "wears": {
-    "base": "OLIVE DRAB TEE",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS"
+    "base": "BONE HENLEY",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "FIELD BOOTS",
+    "waist": "SCAV TOOL BELT",
+    "back": "DUST BEDROLL",
+    "neck": "BONE SCARF",
+    "mid": "OLIVE DRAB TEE"
    }
   },
   {
@@ -262,8 +276,8 @@
    "sex": "m",
    "wears": {
     "base": "MOB PINSTRIPE SHIRT",
-    "legs": "BLACK CARGOS",
-    "feet": "WHITE SNEAKERS",
+    "legs": "LEATHER STACK PANT",
+    "feet": "WRAPPED BOOTS",
     "outer": "COBALT COCOON COAT"
    }
   }

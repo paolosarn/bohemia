@@ -53,9 +53,10 @@
     "base": "BRICK HOODIE",
     "outer": "DUST PONCHO",
     "head": "DUST WORK CAP",
-    "legs": "DUST TROUSERS",
+    "legs": "GOLD DROP TROUSER",
     "feet": "STACKED SOLE BOOT",
-    "waist": "SOOT TOOL BELT"
+    "waist": "SOOT TOOL BELT",
+    "hands": "OXBLOOD GLOVES"
    }
   },
   {
@@ -66,17 +67,17 @@
    "face": null,
    "beard": "HORSESHOE MOUSTACHE",
    "mark": null,
-   "top": "RUST HOODIE",
+   "top": "SAND HOODIE",
    "coat": "LEATHER JACKET",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "RUST HOODIE",
+    "base": "SAND HOODIE",
     "outer": "LEATHER JACKET",
     "head": "DUST WORK CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
+    "legs": "SLATE STACK PANT",
+    "feet": "STACKED MID BOOT",
     "waist": "SOOT TOOL BELT"
    }
   },
@@ -88,17 +89,19 @@
    "face": null,
    "beard": "SOUL PATCH",
    "mark": null,
-   "top": "RED SHIRT",
+   "top": "STRIPED TEE",
    "coat": null,
    "heritage": "hispanic",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "RED SHIRT",
+    "base": "STRIPED TEE",
     "head": "DUST WORK CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "SOOT TOOL BELT"
+    "legs": "LEATHER STACK PANT",
+    "feet": "SANDWALKERS",
+    "waist": "SOOT TOOL BELT",
+    "gear": "SCRAP CHEST PLATE",
+    "mid": "RED SHIRT"
    }
   },
   {
@@ -109,18 +112,19 @@
    "face": null,
    "beard": "GOATEE",
    "mark": null,
-   "top": "SIGNAL RED SHIRT",
+   "top": "MOSS GREEN SHIRT",
    "coat": "LEATHER HALF APRON",
    "heritage": "black",
    "skin": "dark",
    "sex": "m",
    "wears": {
-    "base": "SIGNAL RED SHIRT",
+    "base": "MOSS GREEN SHIRT",
     "outer": "LEATHER HALF APRON",
     "head": "DUST WORK CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "SOOT TOOL BELT"
+    "legs": "KHAKI SHORTS",
+    "feet": "RUST BOOTS",
+    "waist": "SOOT TOOL BELT",
+    "gear": "SHELL BANDOLIER"
    }
   },
   {
@@ -139,9 +143,11 @@
    "wears": {
     "base": "SAND HOODIE",
     "head": "DUST WORK CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "SOOT TOOL BELT"
+    "legs": "SOOT CARGOS",
+    "feet": "CHARCOAL BOOTS",
+    "waist": "SOOT TOOL BELT",
+    "gear": "KHAKI ELBOW PADS",
+    "mid": "OXBLOOD PLAID FLANNEL"
    }
   },
   {
@@ -160,9 +166,10 @@
    "wears": {
     "base": "BRICK HENLEY",
     "head": "DUST WORK CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "SOOT TOOL BELT"
+    "legs": "PATCHED WORK PANTS",
+    "feet": "GOLD STACK BOOT",
+    "waist": "SOOT TOOL BELT",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -181,9 +188,10 @@
    "wears": {
     "base": "RUST HENLEY",
     "head": "DUST WORK CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
-    "waist": "SOOT TOOL BELT"
+    "legs": "DUST BROWN TROUSERS",
+    "feet": "DUST BROWN BOOTS",
+    "waist": "SOOT TOOL BELT",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -203,8 +211,8 @@
     "base": "DUST PLAID SHIRT",
     "outer": "SMITH'S APRON",
     "head": "DUST WORK CAP",
-    "legs": "DUST TROUSERS",
-    "feet": "STACKED SOLE BOOT",
+    "legs": "RUST CARGOS",
+    "feet": "BRICK STACK BOOT",
     "waist": "SOOT TOOL BELT"
    }
   }

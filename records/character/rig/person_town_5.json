@@ -4,14 +4,20 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "SLATE SHORT-SLEEVE",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS"
+  "feet": "ASH COLUMN",
+  "back": "BONE SHOULDER DRAPE",
+  "outfit": []
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_town_5.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,7 +27,6 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_5_trouser": 2568,
   "person_town_5_shoe": 3148,
   "person_town_5_shirt": 43916,
   "person_town_5_collar": 1536,
@@ -30,6 +35,10 @@
   "person_town_5_buttons": 204,
   "person_town_5_sleeve_hem": 2048,
   "person_town_5_tail": 2016,
+  "person_town_5_column": 74570,
+  "person_town_5_column_sole_1": 242,
+  "person_town_5_column_sole_0": 242,
+  "person_town_5_bone_shoulder_drape": 24748,
   "person_town_5_hair": 17968,
   "person_town_5_hand_L": 392,
   "person_town_5_hand_R": 392
@@ -39,6 +48,11 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_town_5_bone_shoulder_drape": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_5_buttons": [
    0.1248,
@@ -54,6 +68,21 @@
    0.0612,
    0.0762,
    0.0999
+  ],
+  "person_town_5_column": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_town_5_column_sole_0": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_town_5_column_sole_1": [
+   0.0232,
+   0.0232,
+   0.0252
   ],
   "person_town_5_eyes": [
    0.0212,
@@ -76,14 +105,14 @@
    0.0999
   ],
   "person_town_5_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_5_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_town_5_skin": [
    0.6105,
@@ -100,15 +129,10 @@
    0.0762,
    0.0999
   ],
-  "person_town_5_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
-  ],
   "person_town_5_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0612,
+   0.0612,
+   0.0704
   ]
  }
 }

@@ -1,18 +1,35 @@
 {
  "look": "PERSON_TOWN_10",
- "shape": "person_town_10: a person of the Body, his own skin skin_light 1, RED SHIRT under OLIVE ASYM COAT",
+ "shape": "person_town_10: a person of the Body, his own skin skin_light 1, BONE BUTTON-UP under OLIVE ASYM COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "RED SHIRT",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS",
-  "outer": "OLIVE ASYM COAT"
+  "base": "BONE BUTTON-UP",
+  "legs": "SLATE WORK PANTS",
+  "feet": "SANDWALKERS",
+  "outer": "OLIVE ASYM COAT",
+  "back": "ONE-SHOULDER DRAPE",
+  "outfit": [
+   "RED SHIRT read as one with OLIVE ASYM COAT (78 and 76 of 255): the same cut in BONE BUTTON-UP (154)",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "ASYMMETRIC COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_town_10.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,8 +39,7 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_10_trouser": 2568,
-  "person_town_10_shoe": 3148,
+  "person_town_10_shoe": 2508,
   "person_town_10_shirt": 71204,
   "person_town_10_collar": 1536,
   "person_town_10_collar_points": 180,
@@ -31,10 +47,23 @@
   "person_town_10_buttons": 204,
   "person_town_10_cuffs": 2048,
   "person_town_10_tail": 2016,
-  "person_town_10_coat": 73272,
+  "person_town_10_coat": 63632,
   "person_town_10_coat_skirt": 5670,
   "person_town_10_collar.001": 1536,
   "person_town_10_lapels": 396,
+  "person_town_10_pushed": 2048,
+  "person_town_10_trouser": 43706,
+  "person_town_10_rolled_hem": 2048,
+  "person_town_10_double_knee": 252,
+  "person_town_10_hammer_loop": 50,
+  "person_town_10_sole_1": 242,
+  "person_town_10_sole_0": 242,
+  "person_town_10_strap_1_0": 90,
+  "person_town_10_strap_1_1": 90,
+  "person_town_10_strap_0_0": 90,
+  "person_town_10_strap_0_1": 90,
+  "person_town_10_ankle_strap": 2048,
+  "person_town_10_one-shoulder_drape": 24748,
   "person_town_10_hair": 17968,
   "person_town_10_hand_L": 392,
   "person_town_10_hand_R": 392
@@ -45,10 +74,15 @@
    0.8,
    0.8
   ],
+  "person_town_10_ankle_strap": [
+   0.1356,
+   0.0704,
+   0.0203
+  ],
   "person_town_10_buttons": [
-   0.7305,
-   0.0802,
-   0.0545
+   0.2122,
+   0.1746,
+   0.1046
   ],
   "person_town_10_coat": [
    0.0666,
@@ -61,19 +95,24 @@
    0.0262
   ],
   "person_town_10_collar": [
-   0.4508,
-   0.0356,
-   0.0252
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_10_collar_points": [
-   0.4508,
-   0.0356,
-   0.0252
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_10_cuffs": [
-   0.4508,
-   0.0356,
-   0.0252
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_10_double_knee": [
+   0.0612,
+   0.0762,
+   0.0999
   ],
   "person_town_10_eyes": [
    0.0212,
@@ -85,50 +124,100 @@
    0.0116,
    0.008
   ],
+  "person_town_10_hammer_loop": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
   "person_town_10_lapels": [
    0.0262,
    0.0331,
    0.0116
   ],
+  "person_town_10_one-shoulder_drape": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
   "person_town_10_placket": [
-   0.4508,
-   0.0356,
-   0.0252
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_10_pushed": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_town_10_rolled_hem": [
+   0.1248,
+   0.1559,
+   0.2016
   ],
   "person_town_10_shirt": [
-   0.4508,
-   0.0356,
-   0.0252
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_10_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.2918,
+   0.159,
+   0.0423
   ],
   "person_town_10_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.2918,
+   0.159,
+   0.0423
   ],
   "person_town_10_skin": [
    0.2051,
    0.0976,
    0.0685
   ],
+  "person_town_10_sole_0": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_town_10_sole_1": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_town_10_strap_0_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_town_10_strap_0_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_town_10_strap_1_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_town_10_strap_1_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
   "person_town_10_tail": [
-   0.4508,
-   0.0356,
-   0.0252
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_10_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0612,
+   0.0762,
+   0.0999
   ],
   "person_town_10_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0612,
+   0.0762,
+   0.0999
   ]
  }
 }

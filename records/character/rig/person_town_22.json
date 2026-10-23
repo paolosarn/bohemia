@@ -4,14 +4,34 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "TATTERED TEE",
-  "legs": "BLACK CARGOS",
-  "feet": "WHITE SNEAKERS"
+  "legs": "CHARCOAL SHORTS",
+  "feet": "TALL MOTO BOOTS",
+  "waist": "LEAD WAIST WRAP",
+  "outfit": [
+   "an open RED PLAID FLANNEL over the TATTERED TEE",
+   "its sleeves rolled"
+  ],
+  "mid": "RED PLAID FLANNEL"
  },
  "dials": {
   "height": 0.0,
   "belly": 0.0,
   "shoulders": 0.0,
   "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05,
+   "sleeves": "rolled"
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_town_22.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,12 +41,27 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_22_trouser": 2568,
-  "person_town_22_shoe": 3148,
+  "person_town_22_shoe": 4484,
   "person_town_22_shirt": 38664,
   "person_town_22_collar": 1536,
-  "person_town_22_sleeve_hem": 2048,
   "person_town_22_tail": 2414,
+  "person_town_22_trouser": 21202,
+  "person_town_22_shorts_hem": 2048,
+  "person_town_22_sole_1": 242,
+  "person_town_22_midsole_1": 242,
+  "person_town_22_sole_0": 242,
+  "person_town_22_midsole_0": 242,
+  "person_town_22_boot_collar": 2048,
+  "person_town_22_boot_collar_line": 2048,
+  "person_town_22_boot_strap": 2048,
+  "person_town_22_lead_waist_wrap": 1792,
+  "person_town_22_lead_waist_wrap_edge": 1792,
+  "person_town_22_mid_shirt": 56916,
+  "person_town_22_mid_collar": 1536,
+  "person_town_22_mid_collar_points": 180,
+  "person_town_22_mid_front_edge": 396,
+  "person_town_22_mid_roll": 2048,
+  "person_town_22_mid_tail": 1818,
   "person_town_22_hair": 17968,
   "person_town_22_hand_L": 392,
   "person_town_22_hand_R": 392
@@ -36,6 +71,21 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_town_22_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_town_22_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_town_22_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
   ],
   "person_town_22_collar": [
    0.3763,
@@ -52,30 +102,105 @@
    0.0116,
    0.008
   ],
+  "person_town_22_lead_waist_wrap": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_town_22_lead_waist_wrap_edge": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_town_22_mid_collar": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_22_mid_collar_points": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_22_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_22_mid_front_edge": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_22_mid_roll": [
+   0.3185,
+   0.0762,
+   0.0497
+  ],
+  "person_town_22_mid_shirt": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_22_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_22_mid_tail": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_22_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_22_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_town_22_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
   "person_town_22_shirt": [
    0.3763,
    0.3231,
    0.2086
   ],
   "person_town_22_shoe": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_22_shoes": [
-   0.491,
-   0.4678,
-   0.4125
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_22_shorts_hem": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_town_22_skin": [
    0.6105,
    0.3515,
    0.1714
   ],
-  "person_town_22_sleeve_hem": [
-   0.3763,
-   0.3231,
-   0.2086
+  "person_town_22_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_town_22_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
   ],
   "person_town_22_tail": [
    0.3763,
@@ -83,14 +208,14 @@
    0.2086
   ],
   "person_town_22_trouser": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_22_trousers": [
-   0.0212,
-   0.0194,
-   0.0194
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }
