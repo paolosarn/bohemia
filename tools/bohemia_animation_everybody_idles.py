@@ -856,12 +856,26 @@ def work_sheets():
         gx, gy = rr['crop_box_px'][0] + rr['ground_px'][0], rr['crop_box_px'][1] + rr['ground_px'][1]   # his ground pixel, in the full frame
         cb_r = rr['crop_box_px'][:2]
         cb_w = (gx - rw['ground_px'][0], gy - rw['ground_px'][1])   # the work's crop laid so its ground pixel is his (a frame two pixels wider shifts)
+        # THE MATCH (as the idles'): his work render's still against RUN TWO's, every facing; a man built again a different
+        # colour keeps RUN TWO's own sheet (his walk without work), never two men on one lane
+        import numpy as np
+        worst = (1.0, 0.0)
+        for t in dirs:
+            A = Image.open(os.path.join(wd, 'rig_%s.png' % t)).convert('RGBA'); B = Image.open(os.path.join(src, 'rig_%s.png' % t)).convert('RGBA')
+            Z = Image.new('RGBA', (rr['res'] + 64, rr['res'] + 64)); Y = Z.copy()
+            Z.alpha_composite(A, (32 + cb_w[0], 32 + cb_w[1])); Y.alpha_composite(B, (32 + cb_r[0], 32 + cb_r[1]))
+            a_, b_ = np.asarray(Z).astype(int), np.asarray(Y).astype(int); oa, ob = a_[..., 3] > 127, b_[..., 3] > 127
+            ag = (oa & ob).sum() / max(1, (oa | ob).sum()); st = float(np.abs(a_[..., :3] - b_[..., :3])[oa & ob].mean()) if (oa & ob).any() else 255.0
+            worst = (min(worst[0], ag), max(worst[1], st))
+        plain = worst[0] < PEOPLE_MATCH['alpha'] or worst[1] > PEOPLE_MATCH['rgb']
+        if plain: print('NO MATCH, his work waits (RUN TWO\'s own sheet stands):', tag, round(worst[0], 3), round(worst[1], 1))
         rows = []
         for t in dirs:
             row = [(Image.open(os.path.join(src, 'rig_%s.png' % t)).convert('RGBA'), cb_r)]
             row += [(Image.open(os.path.join(src, 'rig_Anim_0_%s_k%02d.png' % (t, k))).convert('RGBA'), cb_r) for k in range(6)]
-            row += [(Image.open(os.path.join(wd, 'rig_WorkWalk_%s_k%02d.png' % (t, k))).convert('RGBA'), cb_w) for k in range(6)]
-            row += [(Image.open(os.path.join(wd, 'rig_Work_%s_k%02d.png' % (t, k))).convert('RGBA'), cb_w) for k in range(len(names))]
+            if not plain:
+                row += [(Image.open(os.path.join(wd, 'rig_WorkWalk_%s_k%02d.png' % (t, k))).convert('RGBA'), cb_w) for k in range(6)]
+                row += [(Image.open(os.path.join(wd, 'rig_Work_%s_k%02d.png' % (t, k))).convert('RGBA'), cb_w) for k in range(len(names))]
             rows.append(row)
         bb = [(cb[0] + b[0], cb[1] + b[1], cb[0] + b[2], cb[1] + b[3]) for row in rows for im, cb in row for b in [im.getbbox()] if b]
         half = max(max(gx - b[0], b[2] - gx) for b in bb) + 1
@@ -872,6 +886,10 @@ def work_sheets():
         for r, row in enumerate(rows):
             for c, (im, cb) in enumerate(row): sheet.alpha_composite(im, (c * w + half - gx + cb[0], r * h - top + cb[1]))
         sheet.quantize(256, method=Image.FASTOCTREE, dither=Image.NONE).save(os.path.join(od, tag + '.png'), optimize=True)
+        if plain:   # RUN TWO's walk_sheets() layout and json, as its own tool writes them
+            with open(os.path.join(od, tag + '.json'), 'w') as f:
+                json.dump(dict(w=w, h=h, foot=foot, mid=half, cols=7, dirs=dirs, walk=[1, 2, 3, 4, 5, 6], still=0, look=tag), f); f.write('\n')
+            continue
         first = 13
         loop = [first + names.index(p) for p, keys in J['timeline'] for _ in range(keys)]
         with open(os.path.join(od, tag + '.json'), 'w') as f:
