@@ -554,6 +554,8 @@ def pack():
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
     RIM = tuple(FR['rim'])
     os.makedirs(os.path.join(ROOT, OUT), exist_ok=True)
+    for fn in os.listdir(os.path.join(ROOT, OUT)):   # everything here is made by this step: last pack's files go first
+        if fn.endswith(('.webp', '.json')): os.remove(os.path.join(ROOT, OUT, fn))
     sets = {s: [p for p in D['sets'][s]['poses']] for s in ('bare', 'carry', 'beast')}
     index = dict(version='rig-idles-10-23', lane='animation', row='[everybody idles]', rule='130(a), 128',
                  source='records/target/animation/BOHEMIA_EVERYBODY_IDLES.json (the poses and the timelines), laid on COMBAT\'s posed '

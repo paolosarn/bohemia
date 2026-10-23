@@ -2064,8 +2064,20 @@
   ],
   "breatheR2": [
    [
+    "R_mid",
+    2
+   ],
+   [
+    "R_in",
+    4
+   ],
+   [
+    "R_mid",
+    2
+   ],
+   [
     "R_out",
-    7
+    4
    ],
    [
     "R_mid",
@@ -2073,15 +2085,11 @@
    ],
    [
     "R_in",
-    5
-   ],
-   [
-    "R_mid",
-    1
+    4
    ],
    [
     "R_out",
-    6
+    3
    ],
    [
     "C",
@@ -2091,11 +2099,11 @@
   "breatheR3": [
    [
     "R_out",
-    3
+    8
    ],
    [
     "R_mid",
-    3
+    1
    ],
    [
     "R_in",
@@ -2103,11 +2111,11 @@
    ],
    [
     "R_mid",
-    2
+    1
    ],
    [
     "R_out",
-    4
+    2
    ],
    [
     "C",
@@ -2116,8 +2124,20 @@
   ],
   "breatheL2": [
    [
+    "L_mid",
+    2
+   ],
+   [
+    "L_in",
+    4
+   ],
+   [
+    "L_mid",
+    2
+   ],
+   [
     "L_out",
-    7
+    4
    ],
    [
     "L_mid",
@@ -2125,15 +2145,11 @@
    ],
    [
     "L_in",
-    5
-   ],
-   [
-    "L_mid",
-    1
+    4
    ],
    [
     "L_out",
-    6
+    3
    ],
    [
     "C",
@@ -2143,11 +2159,11 @@
   "breatheL3": [
    [
     "L_out",
-    3
+    8
    ],
    [
     "L_mid",
-    3
+    1
    ],
    [
     "L_in",
@@ -2155,11 +2171,11 @@
    ],
    [
     "L_mid",
-    2
+    1
    ],
    [
     "L_out",
-    4
+    2
    ],
    [
     "C",
@@ -2243,6 +2259,58 @@
     "C",
     3
    ]
+  ],
+  "breatheR4": [
+   [
+    "R_in",
+    3
+   ],
+   [
+    "R_mid",
+    2
+   ],
+   [
+    "R_out",
+    9
+   ],
+   [
+    "R_mid",
+    2
+   ],
+   [
+    "R_in",
+    5
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "breatheL4": [
+   [
+    "L_in",
+    3
+   ],
+   [
+    "L_mid",
+    2
+   ],
+   [
+    "L_out",
+    9
+   ],
+   [
+    "L_mid",
+    2
+   ],
+   [
+    "L_in",
+    5
+   ],
+   [
+    "C",
+    3
+   ]
   ]
  },
  "idles": {
@@ -2302,29 +2370,33 @@
   ]
  },
  "breathe": {
-  "why": "each slot a man breathes on one leg and the next slot on the other (a beast does not shift); which breath of the set (slow, short, a deep sigh) is his roll for that slot, so two men who stand on the same beat still breathe apart",
+  "why": "each slot a man breathes on one leg and the next slot on the other (a beast does not shift); which breath (slow, two short, a long sigh, one that starts already breathing in) is his roll for that slot, so two men who stand on the same beat still breathe apart",
   "bare": [
    [
     "breatheR",
     "breatheR2",
-    "breatheR3"
+    "breatheR3",
+    "breatheR4"
    ],
    [
     "breatheL",
     "breatheL2",
-    "breatheL3"
+    "breatheL3",
+    "breatheL4"
    ]
   ],
   "carry": [
    [
     "breatheR",
     "breatheR2",
-    "breatheR3"
+    "breatheR3",
+    "breatheR4"
    ],
    [
     "breatheL",
     "breatheL2",
-    "breatheL3"
+    "breatheL3",
+    "breatheL4"
    ]
   ],
   "beast": [
