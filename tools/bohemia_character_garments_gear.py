@@ -187,6 +187,15 @@ def pieces(GS, X, over=0.0):
     arm_ring, neck_ring, waist_ring, buttons, arm_s, front = K_['arm_ring'], K_['neck_ring'], K_['waist_ring'], K_['buttons'], K_['arm_s'], K_['front']
     bvh = K_['bvh']; bmesh = X['bmesh']; mathutils = X['mathutils']; sc = X['sc']; arm = X['arm']; mat = X['mat']; tag = X['tag']
     section = X['section']
+    # THE OUTFIT (CHARACTER [the clothes look real], 10/23): a belt crosses a CLOSED long coat, cinched over it (the
+    # runway's belted coat, and a worker's tool belt over his chore coat); under an open coat or no coat it stays on the
+    # trousers, where the open front shows it. The trench and the wrap coat wear their own belts, so a rolled one stays under.
+    import bohemia_character_garments_outer as OUTER
+    Lx = X.get('L') or {}; Lo = (Lx.get('layers') or {}).get('outer') or {}
+    Gc_ = OUTER.BY.get((Lx.get('worn') or {}).get('outer'))
+    cinch = bool(Gc_) and Gc_['shape'] in ('LONGCOAT', 'SPLIT TAIL', 'CAR COAT', 'CHORE COAT', 'COCOON COAT', 'COMMA COAT',
+                                           'ASYMMETRIC COAT') and not Lo.get('open')
+    wf = (OUTER.waist_off(Gc_, float(Lo.get('lift', 0.0))) + 0.004) if cinch else over * 0.3
     made = []
     full = lambda bn: next(b.name for b in arm.data.bones if b.name.endswith(bn) or b.name == bn)
 
@@ -408,15 +417,15 @@ def pieces(GS, X, over=0.0):
             made.append(cloth(key, keep_w, thick_w, mid, rim=0.007, fams=('torso', 'neck', 'upper')))
         # ---- THE WAIST ----
         elif k == 'belt':
-            made.append(band(key, [waist_ring(0.655, over * 0.3 + 0.010)], 0.034, 0.010, mid))
-            made.append(buttons(key + '_buckle', [front(0.0, 0.655)], lt, r=0.014, lift_=over * 0.3 + 0.014))
+            made.append(band(key, [waist_ring(0.655, wf + 0.010)], 0.034, 0.010, mid))
+            made.append(buttons(key + '_buckle', [front(0.0, 0.655)], lt, r=0.014, lift_=wf + 0.014))
         elif k == 'toolbelt':
-            made.append(band(key, [waist_ring(0.650, over * 0.3 + 0.012)], 0.048, 0.012, dk))
+            made.append(band(key, [waist_ring(0.650, wf + 0.012)], 0.048, 0.012, dk))
             for sx in (1, -1):
                 s_ = section(0.62, ('torso',))
-                bm = bmesh.new(); box(bm, V((sx * (s_['rx'] + 0.020 + over * 0.3), s_['cy'] - 0.02, 0.600)), V((0.024, 0, 0)), V((0, 0.044, 0)), V((0, 0, 0.060)))
+                bm = bmesh.new(); box(bm, V((sx * (s_['rx'] + 0.020 + wf), s_['cy'] - 0.02, 0.600)), V((0.024, 0, 0)), V((0, 0.044, 0)), V((0, 0, 0.060)))
                 made.append(solid('%s_pouch_%d' % (key, sx > 0), bm, mid, 'Skeleton_torso_joint_1', 1))
-            made.append(buttons(key + '_buckle', [front(0.0, 0.650)], (150, 140, 120), r=0.015, lift_=over * 0.3 + 0.016))
+            made.append(buttons(key + '_buckle', [front(0.0, 0.650)], (150, 140, 120), r=0.015, lift_=wf + 0.016))
         elif k == 'sash':   # wrapped at the hip, knotted on his left, the tail hanging and swaying
             made.append(band(key, [waist_ring(0.650, over * 0.3 + 0.012)], 0.060, 0.012, mid, groove=lambda a: 0.003 * max(0.0, math.sin(9 * a)) ** 2))
             kx = section(0.65, ('torso',))['rx'] + over * 0.3 + 0.010

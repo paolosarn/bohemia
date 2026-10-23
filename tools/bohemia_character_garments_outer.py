@@ -350,6 +350,14 @@ def pieces(G, X, layer=None):
     return made
 
 
+def waist_off(G, lift=0.0, z=0.655):
+    """how far off the man the coat's outside stands at the waist (its pieces' own numbers): where a belt over it goes"""
+    w = set(G['words']); S = G['shape']
+    wc = (0.016 if ('QUILTED' in w or S in ('COCOON COAT', 'COMMA COAT')) else 0.010 if 'LEATHER' in w else 0.013) + lift
+    if S in ('COCOON COAT', 'COMMA COAT'): return wc + 0.040 - 0.032 * sstep(0.70, hem_z(G), z)
+    return wc + 0.010 + 0.035 * sstep(0.68, hem_z(G), z)
+
+
 def drape(o, cy, z0, hem, depth, V, M, Mi, n=13, seed=0):
     """folds hung on a hanging piece after it is built: each vertex pushed out or in round the body's axis by a wave in
     its angle, the waves a little uneven (no two folds alike) and drifting as they fall, nothing at z0, depth at the hem"""
