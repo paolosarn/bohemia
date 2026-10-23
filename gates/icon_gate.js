@@ -89,7 +89,7 @@ const OWED = ['airport', 'airbase'];
    the IDAT is inflated and the raw scanlines sampled. */
 function pixels(b64) {
   const buf = Buffer.from(b64, 'base64');
-  let off = 8, w = 0, h = 0, bitDepth = 0, colorType = 0;
+  let off = 8, w = 0, h = 0, bitDepth = 0, colorType = 0, plte = null, trns = null;
   const idat = [];
   while (off < buf.length) {
     const len = buf.readUInt32BE(off);
@@ -98,10 +98,17 @@ function pixels(b64) {
       w = buf.readUInt32BE(off + 8); h = buf.readUInt32BE(off + 12);
       bitDepth = buf[off + 16]; colorType = buf[off + 17];
     } else if (type === 'IDAT') idat.push(buf.slice(off + 8, off + 8 + len));
+    else if (type === 'PLTE') plte = buf.slice(off + 8, off + 8 + len);
+    else if (type === 'tRNS') trns = buf.slice(off + 8, off + 8 + len);
     else if (type === 'IEND') break;
     off += 12 + len;
   }
-  const chan = colorType === 6 ? 4 : (colorType === 2 ? 3 : 0);
+  /* AN INDEXED PNG IS A PNG (COOK 10/23). The district bank's rig masters are 255-colour indexed PNGs (truecolour, the
+     bank would pass the 100 MB GitHub refuses; tools/bohemia_cook_master_to_palette.py). The reader only knew RGB and
+     RGBA, so every indexed icon read as null and failed "real art". Colour type 3 is read through its own PLTE and tRNS
+     into RGBA below and measured by the same test, unchanged. */
+  const pal = colorType === 3 && bitDepth === 8 && plte;
+  const chan = colorType === 6 ? 4 : (colorType === 2 ? 3 : (pal ? 1 : 0));
   if (!chan || bitDepth !== 8) return null;
   const raw = zlib.inflateSync(Buffer.concat(idat));
   /* UNDO THE PNG ROW FILTERS. The first pass read the filtered bytes directly, which
@@ -134,6 +141,13 @@ function pixels(b64) {
   let opaque = 0;
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
     const p = y * stride + x * chan;
+    if (pal) {
+      const i = out[p], al = trns && i < trns.length ? trns[i] : 255;
+      if (al < 24) continue;
+      opaque++;
+      cols.add((plte[3 * i] << 16) | (plte[3 * i + 1] << 8) | plte[3 * i + 2]);
+      continue;
+    }
     if (chan === 4 && out[p + 3] < 24) continue;
     opaque++;
     cols.add((out[p] << 16) | (out[p + 1] << 8) | out[p + 2]);
