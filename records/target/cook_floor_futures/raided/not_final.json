@@ -1,6 +1,6 @@
 {
  "subs.2": {
-  "seconds": 1040,
+  "seconds": 1065,
   "junk": {
    "bags": 23,
    "paper": 360,
@@ -18,7 +18,7 @@
    "burnt_house": 1
   },
   "grime": {
-   "materials": 103,
+   "materials": 106,
    "occlusion_m": 1.6,
    "tint": [
     0.3,
@@ -70,8 +70,10 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_subs_2.webp",
   "future": {
-   "holes": 186,
-   "rubble": 110
+   "holes": 607,
+   "char": 448,
+   "rafters": 0,
+   "rubble": 100
   }
  },
  "subs.1": {
