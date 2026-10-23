@@ -90,6 +90,22 @@ on that field. Gate leg M3 (every map idle where its still is, soles 2 px, crown
 - THE MAP: 17 of 20 matched (silhouette 0.956 and up, colour step under 9 on the gangs); the job crew's three (the thug,
   the poacher: their rebuilt still is a new frame; the marksman: silhouette 0.61, his builder moved on) keep their stills.
 
+## SHIP ONE (10/23, session two): ON MAIN, AND WHO IT REACHES TODAY
+Rebased over about ninety commits (seven lanes). Two of them changed who stands on the screens: RUN TWO [no two people
+alike] put 152 rolled people (each his own cut, face, skin, top and coat; all 152 rebuilt in CHARACTER's layers) in every
+settlement's keepers and crowd and in the map's gang parties and crowds, and RUN TWO [the settlement is busy] made the
+settlement draw its people in depth order. Measured on the real settlement after the rebase: 0 of 13 people idled at
+Searchlight, 0 of 9 at Nelson, because every one of them is a rolled man and the idles were made for the cast and the
+thirteen gang looks. So this first ship reaches: THE FIGHT (all 28 men and 3 beasts it dresses: the fight has no rolled
+man yet), THE CREW CARD (the company), THE MAP (him at rest). The settlement's block now draws an idle in depth with the
+walkers (it drew first and a walker could pass behind a man he should be in front of), and the men at the post each keep
+their own offset (they shared one seed). The map bug of the record above (his head cut off) is the fix in 0f869a70; leg
+M3 holds it.
+THE ROLLED PEOPLE ARE NEXT, IN FLIGHT: each of the 152 built by RUN TWO's own build (run, never edited), the bare idles laid
+on that model, rendered on the master rig at the street's own settings. Measured on person_blues_0: his Stand render
+against the still the settlement draws, silhouette 1.000 and colour step 0.2 in all four facings checked: the same man.
+Cost on this box: build 68 s, pose 17 s, render 240 pictures 3 min 51 s (11 CPU minutes).
+
 ## [bb idles] HOW BATTLE BROTHERS DID IT
 Battle Brothers spends its pictures on the HIT; a man between turns is essentially still, and on the map there is no
 body at all (reference/library/battle_brothers/10_UI_AND_FEEL.md; records/BOHEMIA_BB_SCHOOL_WHERE_A_BODY_SPENDS_ITS_PICTURES_9_27_26.md).
