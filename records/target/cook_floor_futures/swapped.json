@@ -153,5 +153,10 @@
   "file": "slices/fight_ground/block_scrub_0_raided.webp",
   "sha1": "a3eedf09dc2657af4a8c45e3be3adef002f09b91",
   "master": "records/target/cook_floor_futures/raided/block_scrub_0.webp"
+ },
+ "scrub.1.raided": {
+  "file": "slices/fight_ground/block_scrub_1_raided.webp",
+  "sha1": "e5728e0f256eb9b7616fc5528da45e36ad086408",
+  "master": "records/target/cook_floor_futures/raided/block_scrub_1.webp"
  }
 }
