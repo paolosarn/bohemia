@@ -248,5 +248,10 @@
   "file": "slices/fight_ground/block_casino_1_reclaimed.webp",
   "sha1": "4cbfdd6342c2b0a8ee6c260fe688104d0d2b14d1",
   "master": "records/target/cook_floor_futures/reclaimed/block_casino_1.webp"
+ },
+ "casino.2.reclaimed": {
+  "file": "slices/fight_ground/block_casino_2_reclaimed.webp",
+  "sha1": "b372e4c57b9a414c071b7e4f8f00d68ffce9d052",
+  "master": "records/target/cook_floor_futures/reclaimed/block_casino_2.webp"
  }
 }
