@@ -73,5 +73,10 @@
   "file": "slices/fight_ground/block_works_0.webp",
   "sha1": "29d13027861143e7846e5b07ed9e955b132062dc",
   "master": "records/target/cook_floor_not_final/block_works_0.webp"
+ },
+ "corner.2": {
+  "file": "slices/fight_ground/block_corner_2.webp",
+  "sha1": "28896a984a7cca298005b5d752eaeb8ba12c1559",
+  "master": "records/target/cook_floor_not_final/block_corner_2.webp"
  }
 }

@@ -8,10 +8,11 @@
   "fight_floor": {
    "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
    "total": 35,
-   "flat": 20,
+   "flat": 19,
    "in_3d": [
     "corner.0",
     "corner.1",
+    "corner.2",
     "lots.0",
     "ruin.0",
     "ruin.1",
@@ -245,7 +246,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 90,
+ "total_flat": 89,
  "log": [
   {
    "at": "10/20 start",
@@ -563,6 +564,17 @@
    "at": "10/23 the second fortress (day and night): every settlement backdrop in 3D",
    "total_flat": 90,
    "fight_floor": 20,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 corner.2 into the fight",
+   "total_flat": 89,
+   "fight_floor": 19,
    "fight_cover": 0,
    "settlement_backdrops": 0,
    "map_districts": 0,
