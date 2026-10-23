@@ -708,5 +708,77 @@
    "rafters": 0,
    "rubble": 130
   }
+ },
+ "strip.0": {
+  "seconds": 1475,
+  "junk": {
+   "bags": 14,
+   "paper": 437,
+   "card": 100,
+   "cloth": 40,
+   "weeds": 251,
+   "mattresses": 1,
+   "couches": 2,
+   "fires": 3,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 2,
+   "tracks": 12,
+   "tidy_house": 2,
+   "burnt_house": 1
+  },
+  "grime": {
+   "materials": 68,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     16.61,
+     48.6,
+     3.2
+    ],
+    [
+     29.66,
+     60.11,
+     1.0
+    ],
+    [
+     -0.21,
+     14.58,
+     1.0
+    ],
+    [
+     49.06,
+     12.48,
+     3.24
+    ],
+    [
+     35.25,
+     41.83,
+     2.96
+    ],
+    [
+     12.29,
+     17.45,
+     3.58
+    ],
+    [
+     54.74,
+     53.06,
+     2.59
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_strip_0.webp",
+  "future": {
+   "holes": 741,
+   "char": 267,
+   "rafters": 0,
+   "rubble": 43
+  }
  }
 }
