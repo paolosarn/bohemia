@@ -48,5 +48,10 @@
   "file": "slices/fight_ground/block_ruin_1.webp",
   "sha1": "5c81aec420c4d156917f1a7f5f5af184dbfbb69c",
   "master": "records/target/cook_floor_not_final/block_ruin_1.webp"
+ },
+ "strip.0": {
+  "file": "slices/fight_ground/block_strip_0.webp",
+  "sha1": "51419011acc1a9c014e20571fdd7a64644adc8f0",
+  "master": "records/target/cook_floor_not_final/block_strip_0.webp"
  }
 }
