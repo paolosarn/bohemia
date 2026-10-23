@@ -88,5 +88,10 @@
   "file": "slices/fight_ground/block_scrub_1_reclaimed.webp",
   "sha1": "3291666ebcc629914794e2aed89b4ebb860eca43",
   "master": "records/target/cook_floor_futures/reclaimed/block_scrub_1.webp"
+ },
+ "wash.0.reclaimed": {
+  "file": "slices/fight_ground/block_wash_0_reclaimed.webp",
+  "sha1": "f2bb76abd1d0af7435ddea52fafabdb426c21dc3",
+  "master": "records/target/cook_floor_futures/reclaimed/block_wash_0.webp"
  }
 }
