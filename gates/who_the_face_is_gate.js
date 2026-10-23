@@ -194,7 +194,10 @@ head('G  the measured post (the faces live; the names as they were, the old list
    finding is kept as history; leg G2 below is the post today */
 var post = fs.readFileSync('slices/BOHEMIA_SETTLEMENT_SCREEN.html', 'utf8');
 var sm = post.match(/function seedOf\(str\)\{([^\n]*?)\}\n/);
-var lm = post.match(/r\.look = 'cast_' \+ \[([^\]]*)\]\[seedOf\(key \+ ':look:' \+ i\) % 12\]/);
+/* 10/23 (RUN TWO [no two people alike]): the post deals the valley's rolled men the fight can draw (recruitLooks), each
+   named by hireName after his own face; the twelve cast faces below are its fallback until the mix is in, the same list
+   and the same die, so these legs still read the faces the post can show */
+var lm = post.match(/var CAST12 = \[([^\]]*)\];/) && /'cast_' \+ CAST12\[seedOf\(key \+ ':look:' \+ i\) % 12\]/.test(post) ? post.match(/var CAST12 = \[([^\]]*)\];/) : null;
 var nm = /r\.name = hireName\(key, i, r\.look\)/.test(post);
 ok('the post rolls the face as it did, and names the man after his face', !!(sm && lm && nm));
 if (sm && lm && nm) {

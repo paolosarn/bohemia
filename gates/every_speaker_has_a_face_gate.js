@@ -144,7 +144,7 @@ const moved = r => r.k !== 'fresh' || r.mouths >= 2;
       const pt = await L.evaluate(i => { const q = BohemiaSettlement.folk()[i], s0 = BohemiaSettlement.scale(); BohemiaSettlement.where(q.keeper ? q.k : 'stall');
         const v = BohemiaSettlement._view(), r = document.getElementById('scene').getBoundingClientRect();
         return { x: r.left + v.ox + q.x * v.s, y: r.top + v.oy + (q.y - s0.person * 0.45) * v.s, keeper: !!q.keeper, look: q.look }; }, i);
-      if (pt.keeper || !/^faction_/.test(pt.look)) continue;
+      if (pt.keeper || !/^(faction|person)_/.test(pt.look)) continue;   /* 10/23 [no two people alike]: the street wears the rolled people, each with his own head */
       await L.waitForTimeout(120); await L.mouse.click(pt.x, pt.y); await L.waitForTimeout(150);
       if (await L.evaluate(() => BohemiaSettlement.state.open !== 'person')) continue;
       const r = await L.evaluate(READ);
@@ -152,7 +152,7 @@ const moved = r => r.k !== 'fresh' || r.mouths >= 2;
     }
   }
   landed = false;
-  ok('WHEN PORTRAIT LANDS: with the manifest naming the faction heads, every street speaker in a faction look talks under the fresh face, no code changed', named === FACTION_LOOKS.length && FACTION_LOOKS.length === 13 && lit.size >= 3 && notLit.length === 0,
+  ok('WHEN PORTRAIT LANDS: with the manifest naming the faction heads, every street speaker (a faction look, or since 10/23 a rolled person) talks under the fresh face, no code changed', named === FACTION_LOOKS.length && FACTION_LOOKS.length === 13 && lit.size >= 3 && notLit.length === 0,
      named + ' of ' + FACTION_LOOKS.length + ' named, ' + lit.size + ' looks heard fresh' + (notLit.length ? ', still old ' + notLit.slice(0, 3).join(' ') : ''));
   ok('no page errors', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();

@@ -77,8 +77,8 @@ ok('the bubble is SOMEBODY ON THE STREET until asked, the name after', !!openSrc
   /n\.textContent = name \? name\.toUpperCase\(\) : 'SOMEBODY ON THE STREET'/.test(openSrc) && /name = crowdName\(p\)/.test(openSrc));
 ok('\'Who are you?\' only for a stranger, and it asks', !!openSrc && /if\(!name && window\.BohemiaNames\)/.test(openSrc) &&
   /act\('Who are you\?', '', function\(\)\{ askCrowd\(p\); \}\)/.test(openSrc));
-ok('the answer is the one roll at the crowd key with the face\'s reading', !!rollSrc &&
-  /BohemiaNames\.roll\('crowd:' \+ crowdKey\(p\), \{sex: BohemiaNames\.faceReads\(p\.look\)\}\)/.test(rollSrc) && !!askSrc && /crowdRoll\(p\)/.test(askSrc));
+ok('the answer is the one roll at the crowd key with the face\'s reading (10/23: a rolled person\'s beard and skin band read too)', !!rollSrc &&
+  /BohemiaNames\.roll\('crowd:' \+ crowdKey\(p\), \{sex: BohemiaNames\.faceReads\(p\.look\)( \|\| \(P && P\.sex\), skin: P \? P\.skin : undefined)?\}\)/.test(rollSrc) && !!askSrc && /crowdRoll\(p\)/.test(askSrc));
 ok('the place remembers, under its own key, and the game is told', /var METKEY = 'bohemia\.met\.v1'/.test(SCREEN) && !!askSrc &&
   /metRec\(\)\[crowdKey\(p\)\] = \{name:n\.full/.test(askSrc) && /metSave\(\)/.test(askSrc) && /post\('met', \{who:'settle-crowd:' \+ crowdKey\(p\), name:n\.full/.test(askSrc) &&
   !!nameSrc && /metRec\(\)\[crowdKey\(p\)\]/.test(nameSrc));
