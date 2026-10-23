@@ -98,8 +98,12 @@ are named its own); the mantle hid every layer (the capelet).
 * Each garment reading as its own cloth beyond colour and shape (knit, denim, canvas, wool): at 57 px a metre one pixel
   is 1.75 cm, so ribbing and stitching vanish; what is left is relief over 2 cm (folds, bunching, patches) and wear.
   Next on this row.
-* The shoes in a gang's saturated colour (SIGNAL RED BOOTS, GRASS BOOTS, COBALT STACK BOOT, LEGS 1) render hot pink,
-  neon green and lilac after the rig's dust: seen, not this row's.
+* DONE LATER THE SAME ROUND: the shoes in a gang's saturated colour (SIGNAL RED BOOTS, GRASS BOOTS, COBALT STACK BOOT)
+  rendered hot pink, neon green and lilac after the rig's dust. Measured: the bank's eight loud ramps (signal red, gold,
+  grass, teal, cobalt, rose) come out of the source push at 145 to 228 of chroma, every other cloth at 92 or under. His
+  9/23 note ('the bright colours not so bright, vibrance turned down a little') is the ruling: GARMENTS BASE's src() now
+  pulls a cloth back toward its own grey to 90 of chroma (the rust family's level), brightness kept so the outfit's value
+  contrast holds; 37 of 307 garments move. The red boot reads worn dusty red; the green and teal coats sit with the street.
 
 [bb Battle Brothers stacks a man's gear as a body armour and a helmet slot, each drawn whole over the last; ours are
 cut on the man and worn the way people wear them, open, pushed up and untucked, so the layer under shows at 112 px.]

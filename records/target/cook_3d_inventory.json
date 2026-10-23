@@ -8,7 +8,7 @@
   "fight_floor": {
    "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
    "total": 35,
-   "flat": 24,
+   "flat": 23,
    "in_3d": [
     "corner.0",
     "corner.1",
@@ -17,6 +17,7 @@
     "ruin.1",
     "scrub.0",
     "strip.0",
+    "strip.1",
     "subs.0",
     "subs.1",
     "subs.2",
@@ -203,7 +204,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 132,
+ "total_flat": 131,
  "log": [
   {
    "at": "10/20 start",
@@ -444,6 +445,17 @@
    "at": "10/23 the second camp (day and night)",
    "total_flat": 132,
    "fight_floor": 24,
+   "fight_cover": 0,
+   "settlement_backdrops": 4,
+   "map_districts": 34,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 strip.1 into the fight",
+   "total_flat": 131,
+   "fight_floor": 23,
    "fight_cover": 0,
    "settlement_backdrops": 4,
    "map_districts": 34,

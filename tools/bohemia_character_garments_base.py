@@ -140,11 +140,22 @@ def lum(c):
 SAT = 1.4   # measured on the first top (RED SHIRT, S): the rig's dust and wear took the red's spread from 79 to 57 values
 
 
+CHROMA = 90    # [the clothes look real] 10/23, and his 9/23 'the bright colours not so bright, vibrance turned down a little'
+
+
 def src(c):
     """the cloth at the source, so the render lands on the flat's colour: the ramp's step pushed SAT times as far from its
-    own grey (the rig's source pass desaturates every cloth toward its pale warm dust)"""
+    own grey (the rig's source pass desaturates every cloth toward its pale warm dust). THE LOUD EIGHT (10/23, measured: the
+    bank's signal red, gold, grass, teal, cobalt and rose ramps pushed to 145 to 228 of chroma, every other cloth at 92 or
+    under but the red shirt's 134; a signal red boot came out (241, 39, 29) and the rig's pale dust on its top turned it hot
+    pink) are pulled back toward their own grey to CHROMA, the rust family's level, the brightness kept (so the outfit's
+    value contrast holds), and a dyed cloth reads dyed and worn, not neon. 37 of the 307 garments move; looked at on three
+    people: at 120 the green trousers and the teal coat still read as toys, at 90 they sit with the rest of the street"""
     g = lum(c)
-    return tuple(int(max(0, min(255, round(g + (v - g) * SAT)))) for v in c)
+    out = [g + (v - g) * SAT for v in c]
+    ch = max(out) - min(out)
+    if ch > CHROMA: out = [g + (v - g) * CHROMA / ch for v in out]
+    return tuple(int(max(0, min(255, round(v)))) for v in out)
 
 
 def at_source(G):
