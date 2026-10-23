@@ -86,7 +86,11 @@ def load_plan(bid):
         # the old lake is a diagonal wave pattern: read on a metre, never per pixel (per pixel it left a checkerboard of
         # dry ground in the water and the junk blew onto it)
         bl = F.blur((a[..., 2] - a[..., 0]).astype(np.float32), 0.6 * F.PPM)
-        water = no & (bl > 4); water = ndimage.binary_opening(ndimage.binary_closing(water, iterations=8), iterations=4)
+        water = no & (bl > 4)
+        # 10/23: padded by its own edge first: the closing and opening ate 8 px of water at the picture's border, so a pale
+        # frame of shore ran round every lake
+        P_ = 24; wp = np.pad(water, P_, mode='edge')
+        water = ndimage.binary_opening(ndimage.binary_closing(wp, iterations=8), iterations=4)[P_:-P_, P_:-P_]
         deep = water & (F.blur(L.astype(np.float32), 0.6 * F.PPM) < 85)
         gid[water] = F.ID['playa']; gid[no & ~water] = F.ID['desert']
         KEEP['water'] = water; KEEP['deep'] = deep
@@ -112,6 +116,26 @@ F.load_plan = load_plan
 _build = F.build
 
 
+def water_mat(bpy, name, rgb):
+    m = NF.srgb_mat(bpy, name, rgb, 'clay_teal'); nt = m.node_tree; b = nt.nodes['Principled BSDF']
+    b.inputs['Roughness'].default_value = 0.12; b.inputs['Specular IOR Level'].default_value = 0.5
+    tc = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (0.9, 2.2, 0.9)
+    nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 1.0; nz.inputs['Detail'].default_value = 3.0
+    bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.12; bp.inputs['Distance'].default_value = 0.05
+    nt.links.new(tc.outputs['Object'], mp.inputs['Vector']); nt.links.new(mp.outputs['Vector'], nz.inputs['Vector'])
+    nt.links.new(nz.outputs['Fac'], bp.inputs['Height']); nt.links.new(bp.outputs['Normal'], b.inputs['Normal'])
+    # murk: slow patches of lighter, greener water and a sheen that streaks along the wind
+    src = b.inputs['Base Color'].default_value[:]
+    mk = nt.nodes.new('ShaderNodeTexNoise'); mk.inputs['Scale'].default_value = 0.12; mk.inputs['Detail'].default_value = 4.0
+    nt.links.new(tc.outputs['Object'], mk.inputs['Vector'])
+    rp = nt.nodes.new('ShaderNodeMapRange'); rp.inputs['From Min'].default_value = 0.35; rp.inputs['From Max'].default_value = 0.7
+    nt.links.new(mk.outputs['Fac'], rp.inputs['Value'])
+    mx = nt.nodes.new('ShaderNodeMixRGB'); mx.blend_type = 'MIX'; nt.links.new(rp.outputs['Result'], mx.inputs['Fac'])
+    mx.inputs['Color1'].default_value = src; mx.inputs['Color2'].default_value = tuple(min(1.0, c * 1.9) for c in src[:3]) + (1,)
+    nt.links.new(mx.outputs['Color'], b.inputs['Base Color'])
+    return m
+
+
 def water_mesh(bpy, mask, z, name, mat, cell=0.1):
     n = int(F.SIDE / cell)
     ys = ((np.arange(n) + 0.5) * cell / F.SIDE * F.H).astype(int); xs = ((np.arange(n) + 0.5) * cell * F.PPM).astype(int)
@@ -122,7 +146,11 @@ def water_mesh(bpy, mask, z, name, mat, cell=0.1):
         q = []
         for (di, dj) in ((1, 0), (1, 1), (0, 1), (0, 0)):
             ii, jj = i + di, j + dj
-            if vid[ii, jj] < 0: vid[ii, jj] = len(verts); verts.append((jj * cell, F.SIDE - ii * cell, z))
+            if vid[ii, jj] < 0:
+                # 10/23: a cell on the picture's edge runs 1.5 m past it (the first lake left a pale frame of shore
+                # round the water, the ground the camera sees past the block's 60 m)
+                X = -1.5 if jj == 0 else (F.SIDE + 1.5 if jj == n else jj * cell); Y = F.SIDE + 1.5 if ii == 0 else (-1.5 if ii == n else F.SIDE - ii * cell)
+                vid[ii, jj] = len(verts); verts.append((X, Y, z))
             q.append(int(vid[ii, jj]))
         faces.append(q)
     me = bpy.data.meshes.new(name); me.from_pydata(verts, [], faces); me.update(); me.materials.append(mat)
@@ -138,22 +166,24 @@ def build(bpy, gid_full, seed, quick=False):
     ico = F.ico(bpy); lump = (ico[0] * 0.5 + np.array([0, 0, 0.5], np.float32), ico[1]); box = (NF.CUBE_V, NF.CUBE_F)
     add = []
     if kind == 'shore':
-        deep = NF.material(bpy, 'water_deep', 'clay_teal', 0, 0.5); shelf = NF.material(bpy, 'water_shelf', 'clay_teal', 2, 0.85)
+        # 10/23: the first lake was a flat near-black and a flat teal (it read as a hole in the world): still water is a
+        # surface, dark green-brown where it is deep, a murky teal on the shelf, with the sky in it and a slow ripple
+        deep = water_mat(bpy, 'water_deep', (34, 44, 38)); shelf = water_mat(bpy, 'water_shelf', (70, 86, 74))
         scum = NF.material(bpy, 'scum', 'clay_bone', 2, 0.9); bag = NF.material(bpy, 'float_bag', 'rubber', 2)
-        r1 = water_mesh(bpy, KEEP['deep'], -0.05, 'water_deep', deep); r2 = water_mesh(bpy, KEEP['water'] & ~KEEP['deep'], -0.06, 'water_shelf', shelf)
+        r1 = water_mesh(bpy, KEEP['deep'], 0.05, 'water_deep', deep); r2 = water_mesh(bpy, KEEP['water'] & ~KEEP['deep'], 0.04, 'water_shelf', shelf)   # 10/23: above the bed's rim
         add += [r[0] for r in (r1, r2) if r]
         wm = KEEP['water']; e = np.zeros_like(wm); e[1:] |= wm[1:] != wm[:-1]; e[:-1] |= wm[1:] != wm[:-1]
         ys, xs = np.nonzero(e[::6, ::6]); scums, floats = [], []
         for y, x in zip(ys, xs):
             if rng.rand() < 0.5: continue
             X, Y = x * 6 / F.PPM, F.SIDE * (1 - y * 6 / F.H); s_ = rng.uniform(0.15, 0.5)
-            scums.append((X + rng.normal(0, 0.15), Y + rng.normal(0, 0.15), -0.06, s_, s_ * rng.uniform(0.4, 1.0), 0.012, rng.uniform(0, 6.3), 0.0))
+            scums.append((X + rng.normal(0, 0.15), Y + rng.normal(0, 0.15), 0.045, s_, s_ * rng.uniform(0.4, 1.0), 0.012, rng.uniform(0, 6.3), 0.0))
         wy, wx = np.nonzero(KEEP['deep'][::40, ::40])
         for k in rng.choice(len(wy), min(len(wy), 6), replace=False) if len(wy) else []:
-            floats.append((wx[k] * 40 / F.PPM, F.SIDE * (1 - wy[k] * 40 / F.H), -0.12, 0.45, 0.35, 0.22, rng.uniform(0, 6.3), 0.0))
+            floats.append((wx[k] * 40 / F.PPM, F.SIDE * (1 - wy[k] * 40 / F.H), -0.04, 0.45, 0.35, 0.22, rng.uniform(0, 6.3), 0.0))
         add += [NF.instances(bpy, 'shore_scum', box, scums, scum), NF.instances(bpy, 'shore_float', lump, floats, bag, 0.4, rng)]
         if len(wy):                                                          # one tyre afloat, half under
-            k = rng.randint(len(wy)); bpy.ops.mesh.primitive_torus_add(major_radius=0.33, minor_radius=0.11, location=(wx[k] * 40 / F.PPM + 1.5, F.SIDE * (1 - wy[k] * 40 / F.H), -0.07))
+            k = rng.randint(len(wy)); bpy.ops.mesh.primitive_torus_add(major_radius=0.33, minor_radius=0.11, location=(wx[k] * 40 / F.PPM + 1.5, F.SIDE * (1 - wy[k] * 40 / F.H), 0.02))
             t = bpy.context.active_object; t.data.materials.append(NF.material(bpy, 'tyre', 'rubber', 1)); add.append(t)
     elif kind == 'landfill':
         mats = dict(bag=NF.material(bpy, 'lf_bag', 'rubber', 2), rust=NF.material(bpy, 'lf_rust', 'clay_rust', 1), card=NF.material(bpy, 'lf_card', 'tape_masking', 2),
