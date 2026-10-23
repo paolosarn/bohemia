@@ -80,11 +80,13 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
     const m = await fr.evaluate(() => ({ start: LOOP.start, bats: loopBats() }));
     ok('*** D5 BEGIN CARRIES THE PICKS TO THE MAP *** (' + (m.start && m.start.originName) + ', ' + m.bats + ' batteries)',
       !!m.start && m.start.origin === 'truck' && m.start.combat === 'out' && m.bats === p.start);
-    /* D6: a job taken now carries them: base pay 1 -> (1 + 1) x 1.5 = 3; crew 2 + 1 = 3; the fight's package 2 */
+    /* D6: a job taken now carries them: base pay 1 -> (1 + 1) x 1.5 = 3; the crew is the party math's for this company and the
+       fight's tier (RE-AIMED 10/23 by RUN: '2 + 1 = 3' was the pre-10/5 formula; [a few, not twelve] sizes it); the fight's package 2 */
     const j = await fr.evaluate(() => {
       const bs = ctBases() || {}; let t = null; for (const n in bs) { t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; break; }
       LOOP.open = t; loopTakeContract({ id: 'ct-gate', title: 'a gate job', pay: 1 }); LOOP.open = null;
       const job = LOOP.held[LOOP.held.length - 1] || null;
+      if (job) job.math = partyMath('job', { skulls: job.skulls || 1 }).count;   /* RE-AIMED 10/23 (RUN): the crew is the party math's since 10/5 ([a few, not twelve]) */
       let sent = null; const real = window.parent.postMessage.bind(window.parent);
       return { job };
     });
@@ -98,7 +100,7 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
       }), j.job);
     }
     ok('*** D6 EVERY JOB CARRIES THE PICKS *** (pay ' + (j.job && j.job.pay) + ', crew ' + (j.job && j.job.crew) + ', the fight\'s difficulty ' + pkg + ')',
-      !!j.job && j.job.pay === 3 && j.job.crew >= 3 && pkg === 2);
+      !!j.job && j.job.pay === 3 && j.job.crew >= 2 && j.job.crew === j.job.math && pkg === 2);
     ok('nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
     ok('the gate ran without throwing [' + String(e.message).slice(0, 160) + ']', false);

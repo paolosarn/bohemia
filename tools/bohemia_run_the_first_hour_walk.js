@@ -36,7 +36,7 @@ const arg = (k, dflt) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1
 const FILE = arg('--file', 'BOHEMIA_DEMO.html');
 const OUT = arg('--out', null);
 
-(async () => {
+async function walk(FILE, OUT) {
   const W = { file: FILE, when: new Date().toISOString(), box: 'Playwright Chromium, phone 390x844 touch, full CPU', steps: [] };
   const say = (k, v) => { W[k] = v; console.log('  ' + k + ': ' + JSON.stringify(v)); };
   const d = await drive.open({ file: FILE, keepCards: true });
@@ -197,10 +197,43 @@ const OUT = arg('--out', null);
 
     /* ---- W8 THE FIGHT'S SIZE ---- */
     say('W8_fight_size', {
-      streetHandOver: await page.evaluate(() => { const o = nfOpts({ roster: [{ arch: 'human' }, { arch: 'human' }, { arch: 'human' }, { arch: 'bot' }, { arch: 'human' }, { arch: 'human' }], district: 'suburb', world: {} }); return { party: o.party ? o.party.count : null, company: o.company ? o.company.length : null, note: 'a roster of 6 and no party, on day one' }; }),
+      streetHandOver: await page.evaluate(() => { const ro = [{ arch: 'human' }, { arch: 'human' }, { arch: 'human' }, { arch: 'bot' }, { arch: 'human' }, { arch: 'human' }];
+        const o = nfOpts({ roster: ro, district: 'suburb', world: { day: 1 }, firstDay: true, crewCount: 3 }), o2 = nfOpts({ roster: ro, district: 'suburb', world: { day: 2 }, firstDay: false, crewCount: 3 });
+        return { dayOne: o.party ? o.party.count : null, dayTwo: o2.party ? o2.party.count : null, company: o.company ? o.company.length : null, note: 'a roster of 6 and no party (the street hands over like this), as the map stamps it' }; }),
       threeSkullJobDayOne: await fr.evaluate(() => { const p = partyMath('job', { skulls: 3 }); return { count: p.count, company: ((LOOP.start || {}).company || []).length, day: loopDay() }; }),
       roamingDayOne: await fr.evaluate(() => partyMath('roaming', { x: city.x + 20, y: city.y }).count)
     });
+
+    /* ---- W10 A PARTY COMING FOR HIM (by script: a forced road event, the sixty-second guard set behind him) ---- */
+    try {
+      if (await shellFight()) await clearFight();
+      const h0 = await fr.evaluate(() => { try { if (TRAVEL) travelStop(); } catch (_e) {} HUNT = null; HUNT_T0 = performance.now() - 61000;
+        huntSpawn({ id: 'bounty_squad', name: 'Bounty squad', seq: 7, kind: 'forced' }); render();
+        return HUNT ? { at: HUNT.at.slice(), count: HUNT.count, blocks: huntDist(), drawn: (MAP_DREW && MAP_DREW.hunt) | 0, flee: (MAP_DREW && MAP_DREW.fleeRoad) | 0, plate: (MAP_DREW && MAP_DREW.partyPlate) | 0, looks: window.__PARTY_PLATE } : null; });
+      const w10 = { spawned: h0 };
+      if (h0) {
+        /* he takes the lit road away (a finger on its last block) */
+        const fl = await fr.evaluate(() => HUNT_FLEE ? HUNT_FLEE[HUNT_FLEE.length - 1] : null);
+        if (fl) await touchCell(fl[0], fl[1]);
+        w10.fleeTap = await fr.evaluate(() => ({ tap: window.__MAP_TAP || null, to: TRAVEL ? TRAVEL.to : null, me: [city.x, city.y], hunt: HUNT ? HUNT.at : null, flee: HUNT_FLEE }));
+        await page.waitForTimeout(4500);
+        w10.afterFleeing = await fr.evaluate(() => ({ hunt: !!HUNT, blocks: HUNT ? huntDist() : null, steps: HUNT ? HUNT.steps : null }));
+        w10.fight = await shellFight();
+        if (w10.fight) await clearFight();
+        /* and walks into them: a finger on them twice (look, then go) */
+        const into = await fr.evaluate(() => { if (!HUNT) { HUNT_T0 = performance.now() - 61000; huntSpawn({ id: 'toll_crew', name: 'Toll crew', seq: 3, kind: 'forced' }); render(); }
+          if (!HUNT || !HUNT.box) return null; return { sx: HUNT.box.x + HUNT.box.w / 2, sy: HUNT.box.y + HUNT.box.h * 0.6 }; });
+        if (into) { await touchCv(into.sx, into.sy); await page.waitForTimeout(600); const t1 = await fr.evaluate(() => window.__MAP_TAP || null); await touchCv(into.sx, into.sy);
+          await page.waitForTimeout(400);
+          /* a finger that could not reach them (under the phone, past the edge): the same two taps, by script, marked */
+          const chasing = await fr.evaluate(() => !!PARTY_CHASE); if (!chasing && !(await shellFight())) { w10.intoByScript = true; await fr.evaluate(() => { if (HUNT) { PARTY_SEL = null; partyTap({ id: HUNT.id, hunt: true }); partyTap({ id: HUNT.id, hunt: true }); } }); }
+          w10.intoTaps = [t1, await fr.evaluate(() => ({ tap: window.__MAP_TAP || null, chase: PARTY_CHASE, to: TRAVEL ? TRAVEL.to : null, speed: TRAVEL_SPEED }))];
+          const s0 = Date.now(); let caught = false; while (Date.now() - s0 < 20000) { await page.waitForTimeout(400); if (await shellFight()) { caught = true; break; } }
+          w10.walkedIntoThem = { caught, handover: await fr.evaluate(() => window.__LAST_HANDOVER || null) };
+          if (caught) await clearFight(); }
+      }
+      say('W10_hunters', w10);
+    } catch (e) { say('W10_hunters', { crash: String(e).slice(0, 200) }); }
 
     /* ---- W9 NIGHTFALL (by script: the clock moved to 21:50, then ten minutes walked past 22:00) ---- */
     const w9 = await fr.evaluate(async () => {
@@ -224,4 +257,7 @@ const OUT = arg('--out', null);
   } catch (e) { W.crash = String(e && e.stack || e).slice(0, 600); console.log('  CRASH ' + W.crash); }
   await d.close();
   if (OUT) { fs.writeFileSync(OUT, JSON.stringify(W, null, 1)); console.log('  wrote ' + OUT); }
-})();
+  return W;
+}
+module.exports = { walk };
+if (require.main === module) walk(FILE, OUT);

@@ -1,0 +1,425 @@
+{
+ "draft": true,
+ "what": "RUN [the first hour, quicker] 10/23: the same stranger's walk (tools/bohemia_run_the_first_hour_walk.js) on the demo before (BUILD 10/23b, the map as committed) and after (BUILD 10/23c). Record: records/BOHEMIA_RUN_THE_FIRST_HOUR_QUICKER_10_23_26.md",
+ "before": {
+  "file": "BOHEMIA_DEMO.html",
+  "when": "2026-10-23T04:11:43.790Z",
+  "box": "Playwright Chromium, phone 390x844 touch, full CPU",
+  "steps": [],
+  "W1_door": {
+   "combat": "seen",
+   "econ": "thin",
+   "origin": "newcrew",
+   "start": 240,
+   "company": 3,
+   "bats": 240
+  },
+  "stamp": "DEMO - BUILD 10/23b - THE FIGHT DRIVES THE MUSIC",
+  "W2_phone": {
+   "job": {
+    "place": "Church",
+    "id": "qd-a02",
+    "who": "@church \u00b7 2 BLOCKS W"
+   },
+   "tapped": true,
+   "mapAnswered": false,
+   "roadDrawn": 0,
+   "townLit": 0,
+   "deadTaps": 1,
+   "before": "{\"r\":0,\"l\":0}"
+  },
+  "W3_to_the_town": {
+   "town": "Church",
+   "townBlocks": 2,
+   "taps": [
+    {
+     "n": 1,
+     "what": "the name",
+     "moved": true,
+     "fight": true,
+     "opened": false,
+     "s": 10.3,
+     "fightSize": {
+      "ours": 3,
+      "theirs": 3
+     },
+     "speedAfterFight": 0
+    },
+    {
+     "n": 2,
+     "what": "the name",
+     "moved": false,
+     "fight": false,
+     "opened": false,
+     "s": 46.2
+    },
+    {
+     "n": 3,
+     "what": "1x",
+     "moved": true,
+     "fight": false,
+     "opened": false,
+     "s": 51.3
+    },
+    {
+     "n": 4,
+     "what": "the name",
+     "moved": false,
+     "fight": false,
+     "opened": false,
+     "s": 55
+    },
+    {
+     "n": 5,
+     "what": "the name",
+     "moved": false,
+     "fight": false,
+     "opened": false,
+     "s": 58.7
+    },
+    {
+     "n": 6,
+     "what": "the name",
+     "moved": false,
+     "fight": false,
+     "opened": false,
+     "s": 62.4
+    }
+   ],
+   "opened": false,
+   "wrongTaps": 7,
+   "unplannedFights": 1,
+   "toTownS": 62.4
+  },
+  "W4_first_job": {
+   "took": null
+  },
+  "W7_party": {
+   "party": {
+    "id": "Church:caravan:35,56",
+    "sx": 96,
+    "sy": 418,
+    "blocks": 11
+   },
+   "fight": false,
+   "travelled": true,
+   "plate": null,
+   "numbersShown": 0
+  },
+  "W8_fight_size": {
+   "streetHandOver": {
+    "party": null,
+    "company": 3,
+    "note": "a roster of 6 and no party, on day one"
+   },
+   "threeSkullJobDayOne": {
+    "count": 4,
+    "company": 3,
+    "day": 1
+   },
+   "roamingDayOne": 3
+  },
+  "W9_nightfall": {
+   "scripted": "advance() to 21:50, then one 20-minute advance across 22:00",
+   "at": 1310,
+   "before": 240,
+   "daysLeftBefore": null,
+   "after": 236,
+   "paid": 4,
+   "bill": null,
+   "night": 1320
+  },
+  "errors": []
+ },
+ "after": {
+  "file": "BOHEMIA_DEMO.html",
+  "when": "2026-10-23T06:12:01.559Z",
+  "box": "Playwright Chromium, phone 390x844 touch, full CPU",
+  "steps": [],
+  "W1_door": {
+   "combat": "new",
+   "econ": "full",
+   "origin": "newcrew",
+   "start": 290,
+   "company": 3,
+   "bats": 290
+  },
+  "stamp": "DEMO - BUILD 10/23c - THE FIRST HOUR, QUICKER",
+  "W2_phone": {
+   "job": {
+    "place": "Church",
+    "id": "qd-a02",
+    "who": "@church \u00b7 2 BLOCKS W"
+   },
+   "tapped": true,
+   "mapAnswered": true,
+   "roadDrawn": 2,
+   "townLit": 1,
+   "deadTaps": 0,
+   "before": "{\"r\":0,\"l\":0}"
+  },
+  "W3_to_the_town": {
+   "town": "Church",
+   "townBlocks": 2,
+   "taps": [
+    {
+     "n": 1,
+     "what": "the name",
+     "moved": false,
+     "fight": false,
+     "opened": true,
+     "s": 4.8
+    }
+   ],
+   "opened": true,
+   "wrongTaps": 0,
+   "unplannedFights": 0,
+   "toTownS": 4.8
+  },
+  "W5_after_fight": {
+   "speedPad": 1,
+   "paid": 45,
+   "tapWent": true,
+   "handover": {
+    "why": "contract:qd-a02",
+    "label": "Ride shotgun to the salt camp",
+    "n": 2,
+    "party": 2,
+    "at": 142977.2000000002
+   }
+  },
+  "W4_first_job": {
+   "took": "Ride shotgun to the salt camp",
+   "job": {
+    "id": "qd-a02",
+    "x": 54,
+    "y": 43,
+    "pay": 45,
+    "skulls": 1
+   },
+   "extraTapsToGo": 0,
+   "fightAtS": 17.7,
+   "fightWasTheJob": true,
+   "handover": {
+    "why": "contract:qd-a02",
+    "label": "Ride shotgun to the salt camp",
+    "n": 2,
+    "party": 2,
+    "at": 142977.2000000002
+   },
+   "fightSize": {
+    "ours": 3,
+    "theirs": 2
+   }
+  },
+  "W6_phone_after_pay": {
+   "finishedJobStillListed": false,
+   "shown": [
+    "Church:qd-s04",
+    "Colorful:qd-ar06"
+   ]
+  },
+  "W7_party": {
+   "party": {
+    "id": "Church:patrol:39,42",
+    "sx": 159,
+    "sy": 287.5,
+    "blocks": 11
+   },
+   "fight": false,
+   "travelled": false,
+   "plate": {
+    "count": 3,
+    "skulls": 2,
+    "going": "ON THE BORDER",
+    "numbers": 2
+   },
+   "numbersShown": 2
+  },
+  "W8_fight_size": {
+   "streetHandOver": {
+    "dayOne": 4,
+    "dayTwo": 6,
+    "company": 3,
+    "note": "a roster of 6 and no party (the street hands over like this), as the map stamps it"
+   },
+   "threeSkullJobDayOne": {
+    "count": 3,
+    "company": 3,
+    "day": 1
+   },
+   "roamingDayOne": 2
+  },
+  "W10_hunters": {
+   "spawned": {
+    "at": [
+     54,
+     44
+    ],
+    "count": 3,
+    "blocks": 5,
+    "drawn": 1,
+    "flee": 5,
+    "plate": 2,
+    "looks": {
+     "id": "hunt:1",
+     "count": 3,
+     "skulls": 2,
+     "going": "COMING FOR YOU",
+     "hunt": true
+    }
+   },
+   "fleeTap": {
+    "tap": {
+     "sx": 177,
+     "sy": 413,
+     "what": "ground",
+     "name": null,
+     "towns": 10,
+     "parties": 14
+    },
+    "to": [
+     53,
+     54
+    ],
+    "me": [
+     50,
+     49
+    ],
+    "hunt": [
+     54,
+     44
+    ],
+    "flee": [
+     [
+      51,
+      50
+     ],
+     [
+      52,
+      51
+     ],
+     [
+      52,
+      52
+     ],
+     [
+      52,
+      53
+     ],
+     [
+      53,
+      54
+     ]
+    ]
+   },
+   "afterFleeing": {
+    "hunt": true,
+    "blocks": 8,
+    "steps": 5
+   },
+   "fight": false,
+   "intoByScript": true,
+   "intoTaps": [
+    {
+     "sx": 177,
+     "sy": 413,
+     "what": "ground",
+     "name": null,
+     "towns": 10,
+     "parties": 14
+    },
+    {
+     "tap": {
+      "sx": 177,
+      "sy": 413,
+      "what": "ground",
+      "name": null,
+      "towns": 10,
+      "parties": 14
+     },
+     "chase": "hunt:1",
+     "to": [
+      52,
+      46
+     ],
+     "speed": 1
+    }
+   ],
+   "walkedIntoThem": {
+    "caught": true,
+    "handover": {
+     "why": "road:bounty_squad:caught",
+     "label": "Bounty squad",
+     "n": 3,
+     "party": 3,
+     "at": 167339
+    }
+   }
+  },
+  "W9_nightfall": {
+   "scripted": "advance() to 21:50, then one 20-minute advance across 22:00",
+   "at": 1310,
+   "before": 335,
+   "daysLeftBefore": 55,
+   "after": 322,
+   "paid": 13,
+   "bill": {
+    "perMan": 2,
+    "crew": 3,
+    "perNight": 6,
+    "daysLeft": 53,
+    "red": false,
+    "last": {
+     "day": 1,
+     "crew": 3,
+     "due": 6,
+     "paid": 6,
+     "short": 0,
+     "walked": null
+    },
+    "loaded": true
+   },
+   "night": 360,
+   "dayAfter": 2,
+   "minAfter": 360,
+   "dayTurned": true,
+   "night2": {
+    "bats": 0,
+    "bill": {
+     "perMan": 2,
+     "crew": 2,
+     "perNight": 4,
+     "daysLeft": 0,
+     "red": true,
+     "last": {
+      "day": 2,
+      "crew": 3,
+      "due": 6,
+      "paid": 3,
+      "short": 3,
+      "walked": "RAUL"
+     },
+     "loaded": true
+    },
+    "spoke": {
+     "name": "RAUL",
+     "look": "cast_barearms",
+     "line": "Sin bater\u00edas no hay comida, jefe. I\u2019m gone.",
+     "at": 180586.09999999963
+    },
+    "walked": [
+     {
+      "name": "RAUL",
+      "look": "cast_barearms",
+      "i": 2,
+      "day": 2
+     }
+    ],
+    "day": 3,
+    "talkShown": true
+   }
+  },
+  "errors": []
+ }
+}

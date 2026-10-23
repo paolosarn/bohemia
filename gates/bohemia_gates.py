@@ -2759,6 +2759,16 @@ GATES = [
      'the number applied; BEGIN carries the picks to the map (the start batteries once: it paid three times '
      'until this gate); every job carries the pay, the crew and the fight\'s difficulty. Mutations: BEGIN '
      'without the picks; a pick leaking to BEGIN; jobs ignoring the picks.', True),
+    ('THE FIRST HOUR, QUICKER', ['node', 'gates/the_first_hour_quicker_gate.js'],
+     'VAMILY [the first hour, quicker], rule 133 (PAOLO 10/23: "like Battle Brothers but quicker and funner for normies, '
+     'also kind of hardcore vibes if you\'re fucking around too much"); TUNING\'s changes 1 to 5. One stranger, real '
+     'touches, the committed demo (tools/bohemia_run_the_first_hour_walk.js): the door plays the easy end; the phone\'s '
+     'job draws its road and lights its town; the town\'s name opens the town in one touch with no fight he did not ask '
+     'for (BUILD 10/23b: seven wrong taps and never the town); one fight per job; the pad comes back from a fight at his '
+     'speed; a finished job leaves the phone; a party\'s first tap is a look (how many, skulls); a roster is a party of '
+     'its length and day one holds the company plus one; a forced road party stands in sight with the road away lit, '
+     'falls behind on it, and walking into it is the fight; nightfall takes the crew\'s bill, the day turns, and a night '
+     'he cannot cover one man walks and says why with his face.', True),
     ('THE LOOP PLAYS ON THE MAP', ['node', 'gates/the_loop_plays_on_the_map_gate.js'],
      'VAMILY [fold the loop], rules 52 and 58, release line 2 (PAOLO 10/1: "I want the demo"). RUN TWO\'s '
      'loop (one file, a placeholder map and fight) and its settlement screen folded onto the REAL map and '

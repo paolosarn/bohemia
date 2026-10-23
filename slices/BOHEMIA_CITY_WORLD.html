@@ -43991,7 +43991,13 @@ function mapTapWhich(sx, sy){
   for(i = MAP_TOWN_HIT.length - 1; i >= 0; i--){ t = MAP_TOWN_HIT[i]; if(mapIn(t.plate, sx, sy, 4)) return { what: 'town', t: t, name: t.name }; }
   if(HUNT && ((HUNT.box && mapIn(HUNT.box, sx, sy, 6)) || (HUNT.plateBox && mapIn(HUNT.plateBox, sx, sy, 4)))) return { what: 'party', h: { id: HUNT.id, hunt: true }, name: HUNT.name };
   for(i = MAP_PARTY_HIT.length - 1; i >= 0; i--){ var h = MAP_PARTY_HIT[i]; if(mapIn(h.box, sx, sy, 4) || mapIn(h.plateBox, sx, sy, 4)) return { what: 'party', h: h, name: h.id }; }
-  for(i = MAP_TOWN_HIT.length - 1; i >= 0; i--){ t = MAP_TOWN_HIT[i]; if(mapIn(t.bld, sx, sy, 2)) return { what: 'town', t: t, name: t.name }; }
+  /* the building's picture is wider than its blocks: it takes the tap only when the block under the finger is within two
+     of the town (its tall art over the blocks behind it), never the open road beside it (measured: the lit road away from a
+     hunter, three blocks out, opened the town) */
+  var cell = null; try{ cell = CBcellAt(sx, sy); }catch(_e){}
+  for(i = MAP_TOWN_HIT.length - 1; i >= 0; i--){ t = MAP_TOWN_HIT[i]; if(!mapIn(t.bld, sx, sy, 2)) continue;
+    if(cell && Math.max(Math.abs(cell[0] - t.x), Math.abs(cell[1] - t.y)) > 2) continue;
+    return { what: 'town', t: t, name: t.name }; }
   return null;
 }
 function townTap(t){
@@ -44025,8 +44031,8 @@ function phoneRouteDraw(ox, oy){
     var q = iso(p[i][0], p[i][1], ox, oy);
     if(q.sx < -40 || q.sx > CVW + 40 || q.sy < -40 || q.sy > CVH + 40) continue;
     var on = ((i + beat) % 3) === 0;   /* the dots walk toward the town on the beat */
-    g.globalAlpha = on ? 0.95 : 0.6; g.fillStyle = '#f0b44c';
-    var rr = Math.max(1.5, TW * (on ? 0.1 : 0.075));
+    g.globalAlpha = on ? 1 : 0.75; g.fillStyle = '#f0b44c';
+    var rr = Math.max(on ? 3 : 2.2, TW * (on ? 0.16 : 0.12));
     g.beginPath(); g.ellipse(q.sx, q.sy + TH * 0.4, rr, rr * 0.55, 0, 0, 7); g.fill();
   }
   g.restore();
@@ -44083,15 +44089,18 @@ function huntSpawn(got){
     var a = (seq * 7 + i * 11) % 40, side = Math.floor(a / 10), k = a % 10, r = HUNT_SIGHT;
     var x = city.x + (side === 0 ? -r + k : side === 1 ? r : side === 2 ? r - k : -r), y = city.y + (side === 0 ? -r : side === 1 ? -r + k : side === 2 ? r : r - k);
     if(!cityWalkable(x, y)) continue;
+    try{ if(loopTownAt(x, y, 2)) continue; }catch(_e){}   /* never on a town's gate: a crew coming for you is out on the road */
     /* off the road ahead: the farther from where he is going, the better (he sees them coming from the side or behind) */
     var s = to ? Math.max(Math.abs(x - to[0]), Math.abs(y - to[1])) : 0;
+    /* and ON THE GLASS: never under the phone or past the edge, or he cannot see them coming */
+    if(!mapOnGlass(x, y)) s -= 100;
     if(s > bs){ bs = s; best = [x, y]; }
   }
   if(!best) return true;
   var n = 3; try{ n = partyMath('roaming', { x: best[0], y: best[1] }).count; }catch(_e){}
   if(P && P.n === 1 && !P.lo) n = Math.min(n, 2);                         /* a lone man is one or two, never a crowd */
   HUNT = { id: 'hunt:' + (++HUNT_N), ev: got, name: String((got && got.name) || 'A crew'), arch: (P && P.arch) || 'human', count: n, at: best, steps: 0, made: performance.now() };
-  PARTY_SEL = HUNT.id;
+  /* their plate is up from the first second (they are coming); his first tap on them is still a look, the second goes */
   window.__PARTY_PLATE = { id: HUNT.id, count: n, skulls: partySkulls(n), going: 'COMING FOR YOU', hunt: true };
   window.__HUNTS = (window.__HUNTS | 0) + 1;
   huntFleeRoad();
@@ -44099,19 +44108,33 @@ function huntSpawn(got){
   try{ render(); }catch(_e){}
   return true;
 }
-/* the road away: four blocks he can stand on, the way that leaves them farthest behind, a road preferred (his speed) */
+/* the road away: the block within five of him, reachable by steps he could press, that leaves them farthest behind (a
+   road preferred: his speed); the lit dots are the way there. MEASURED: the first cut lit a straight four-block line in the
+   best of eight directions, and on a grid with walls that line let them close a block while he fled it. */
 function huntFleeRoad(){
   HUNT_FLEE = null; if(!HUNT) return;
-  var best = null, bs = -1e9;
-  for(var d = 0; d < DIRS.length; d++){
-    var path = [], x = city.x, y = city.y, ok = true, paved = 0;
-    for(var s = 0; s < 4; s++){ x += DIRS[d][0]; y += DIRS[d][1]; if(!cityWalkable(x, y)){ ok = false; break; } path.push([x, y]);
-      try{ var t = om.at(x, y); if(t && CITY_PAVED[t.district]) paved++; }catch(_e){} }
-    if(!ok || !path.length) continue;
-    var sc = Math.max(Math.abs(x - HUNT.at[0]), Math.abs(y - HUNT.at[1])) * 2 + paved;
-    if(sc > bs){ bs = sc; best = path; }
+  var n = 0; try{ n = om.n | 0; }catch(_e){ return; }
+  var K = function(x, y){ return y * n + x; }, from = {}, depth = {}, q = [[city.x, city.y]], head = 0, best = null, bs = -1e9;
+  depth[K(city.x, city.y)] = 0;
+  while(head < q.length){
+    var c = q[head++], dc = depth[K(c[0], c[1])];
+    if(dc > 0){
+      var paved = 0; try{ var t = om.at(c[0], c[1]); if(t && CITY_PAVED[t.district]) paved = 1; }catch(_e){}
+      var sc = Math.max(Math.abs(c[0] - HUNT.at[0]), Math.abs(c[1] - HUNT.at[1])) * 2 + paved - dc * 0.25;
+      if(sc > bs){ bs = sc; best = c; }
+    }
+    if(dc >= 5) continue;
+    for(var d = 0; d < DIRS.length; d++){
+      var nx = c[0] + DIRS[d][0], ny = c[1] + DIRS[d][1];
+      if(nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+      var k = K(nx, ny); if(depth[k] != null || !cityWalkable(nx, ny)) continue;
+      depth[k] = dc + 1; from[k] = c; q.push([nx, ny]);
+    }
   }
-  HUNT_FLEE = best;
+  if(!best) return;
+  var path = [best], cur = best;
+  while(from[K(cur[0], cur[1])] && !(from[K(cur[0], cur[1])][0] === city.x && from[K(cur[0], cur[1])][1] === city.y)){ cur = from[K(cur[0], cur[1])]; path.unshift(cur); }
+  HUNT_FLEE = path;
 }
 function huntDist(){ return HUNT ? Math.max(Math.abs(HUNT.at[0] - city.x), Math.abs(HUNT.at[1] - city.y)) : 99; }
 /* one of his steps: they close in (a road is his), the chase re-aims, and contact is the fight */
@@ -44180,8 +44203,8 @@ function huntDraw(ox, oy){
   if(HUNT_FLEE){
     g.save();
     for(var i = 0; i < HUNT_FLEE.length; i++){
-      var f = iso(HUNT_FLEE[i][0], HUNT_FLEE[i][1], ox, oy); g.globalAlpha = 0.9 - i * 0.15; g.fillStyle = '#9fe08a';
-      var rr = Math.max(1.5, TW * 0.09); g.beginPath(); g.ellipse(f.sx, f.sy + TH * 0.4, rr, rr * 0.55, 0, 0, 7); g.fill(); }
+      var f = iso(HUNT_FLEE[i][0], HUNT_FLEE[i][1], ox, oy); g.globalAlpha = Math.max(0.45, 1 - i * 0.12); g.fillStyle = '#9fe08a';
+      var rr = Math.max(2.6, TW * 0.14); g.beginPath(); g.ellipse(f.sx, f.sy + TH * 0.4, rr, rr * 0.55, 0, 0, 7); g.fill(); }
     g.restore();
     try{ MAP_DREW.fleeRoad = HUNT_FLEE.length; }catch(_e){}
   }
@@ -44449,9 +44472,29 @@ function loopOpenTown(t){
 function loopClose(){ if(LOOP.frame) LOOP.frame.style.display = 'none'; LOOP.open = null; try{ render(); }catch(_e){} }
 /* where a contract's crew waits: a block he can stand on, six to ten out from the town,
    in a direction the contract's own id picks, with a road to it */
+/* RUN 10/23 ([the first hour, quicker]): IS THIS BLOCK ON THE GLASS, where a finger can reach it: inside the map's own
+   margins and not under the phone. MEASURED: THE LOOP's second job landed up and to the right of the town, under the phone,
+   and no touch could reach it (THE LOOP PLAYS ON THE MAP L8, red on main since the phone grew). */
+function mapOnGlass(x, y){
+  try{ var sp = __CITY.isoAt(x, y), cv0 = document.getElementById('cv').getBoundingClientRect(), ph = document.getElementById('cityfeed');
+    var pr = (ph && ph.classList.contains('on')) ? ph.getBoundingClientRect() : null, gx = cv0.left + sp.sx, gy = cv0.top + sp.sy;
+    if(sp.sx < 24 || sp.sx > CVW - 24 || sp.sy < 60 || sp.sy > CVH - 150) return false;
+    if(pr && gx > pr.left - 20 && gx < pr.right + 20 && gy > pr.top - 30 && gy < pr.bottom + 10) return false;
+    return true; }catch(_e){ return true; }
+}
 function loopTarget(town, id){
   var h = 0; for(var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
   h = (h + LOOP.done * 7 + LOOP.held.length * 13) >>> 0;
+  /* first where he can see and touch it; only if nowhere is, anywhere the old way */
+  for(var k0 = 0; k0 < 8; k0++){
+    var d0 = (h + k0) % 8, E = DIRS[d0];
+    for(var r0 = 6 + (h % 3); r0 <= 10; r0++){
+      var x0 = town.x + E[0] * r0, y0 = town.y + E[1] * r0;
+      if(x0 < 1 || y0 < 1 || x0 >= om.n - 1 || y0 >= om.n - 1) continue;
+      if(!cityWalkable(x0, y0) || loopTownAt(x0, y0, 1) || !mapOnGlass(x0, y0)) continue;
+      if(cityRoute(city.x, city.y, x0, y0)) return { x: x0, y: y0 };
+    }
+  }
   for(var k = 0; k < 8; k++){
     var di = (h + k) % 8, D = DIRS[di];
     for(var r = 6 + (h % 3); r <= 10; r++){
@@ -47709,6 +47752,7 @@ function renderCity(){
              a label that never lands is worse than one slightly close. */
           for(var __try=0; __try<5 && !__free(__lx, __ly, __w+6, 11); __try++)
             __ly += 12;
+          if (__lit) { var __lx0 = __lx; __lx = Math.max(2, Math.min(CVW - __w - 8, __lx)); __p = { sx: __p.sx + (__lx - __lx0), sy: __p.sy }; }   /* the lit name reads whole at the glass's edge */
           __boxes.push({ x:__lx, y:__ly, w:__w+6, h:11, t:__t });   /* the name rides with its box: a tap on it is the town's */
           try { MAP_TOWN_HIT[MAP_TOWN_HIT.length - 1].plate = { x: __lx, y: __ly, w: __w + 6, h: 11 }; } catch (_e) {}
           /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the plate is PAINTED LATER, after the
@@ -66620,7 +66664,10 @@ DAY.on('wake',function(){ try{ homeWake(); }catch(_e){}
      buries both. The wake is the empty moment in the loop.
      ONCE EVER, and it remembers: VISTA_SEEN is the same flag the walk-onto-it
      path sets, so seeing it either way spends it. */
-  try{ if(DAY.day===2 && !VISTA_SEEN && window.__VISTA) VISTA_ARMED=true; }catch(_e){}
+  /* RUN 10/23 ([the first hour, quicker]): NOT ON THE MAP. Day two never came in the demo until this round (the one-day end,
+     ctDemoOver); now that it does, this opened the overlook over the map by itself, 'TAP ANYWHERE TO GO BACK', a forced
+     stop (the second votes: nothing is forced; rule 133: quicker). The map's own pinch is the valley view (rule 50). */
+  try{ if(DAY.day===2 && !VISTA_SEEN && window.__VISTA && !(typeof MODE!=='undefined' && MODE==='city')) VISTA_ARMED=true; }catch(_e){}
 });
 /* __THE_VALLEY_IS_A_PLACE__ -- ARMED ON THE WAKE, PLAYED AFTER HE TAPS GET UP.
    *** I SHOT THIS AND LOOKED AT IT, and the first cut was wrong in exactly the
@@ -86574,16 +86621,12 @@ window.BOHEMIA_BAR = (function(){
       var mk = (window.BohemiaMaterials && BohemiaMaterials.supplyIcon)
         ? '<img alt="" aria-hidden="true" width="10" height="10" style="width:10px;height:10px;image-rendering:pixelated" src="'+BohemiaMaterials.supplyIcon(k)+'">'
         : '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="'+SIX[i][1]+'" fill-rule="evenodd"/>'+(SIX[i][2]?'<path d="'+SIX[i][2]+'"/>':'')+'</svg>';
-      /* __ONE_BILL_IN_DAYS__ (RUN 10/23, TUNING's change 5): DAYS LEFT beside the battery count, red when few. UI owns
-         how the bar looks ([the bar's two numbers]); this is the number, in the battery's own cell */
-      var dl = '';
-      try{ if(k==='batteries' && window.__BILL && window.__BILL.daysLeft!=null) dl = '<i class="dl'+(window.__BILL.red?' red':'')+'" data-k="days" style="font-style:normal;margin-left:3px;opacity:.8;'+(window.__BILL.red?'color:#ff6a5a;opacity:1':'')+'">\u00b7'+window.__BILL.daysLeft+'D</i>'; }catch(_e){}
-      h+='<span class="sx'+(has?'':' none')+'" data-s="'+k+'">'+mk+'<b>'+(has?n:'\u2013')+'</b>'+dl+'</span>';
+      h+='<span class="sx'+(has?'':' none')+'" data-s="'+k+'">'+mk+'<b>'+(has?n:'\u2013')+'</b></span>';
     }
     return h+'</span>';
   }
   function paintRead(){
-    try{ if(typeof billPublish==='function') billPublish(); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: the days move with the purse */
+    try{ if(typeof billPublish==='function') billPublish(); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: window.__BILL.daysLeft moves with the purse, for UI's bar (the second of its two numbers) */
     var RD=document.getElementById('barread'), bar=document.getElementById('menubar');
     if(!RD||!bar) return;
     var onMap=false; try{ onMap=(typeof MODE!=='undefined' && MODE==='city'); }catch(_e){}
