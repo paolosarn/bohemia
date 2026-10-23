@@ -1087,7 +1087,8 @@ function recruitLooks(key, n){
   var M = window.BOHEMIA_PEOPLE_MIX, out = [];
   var ready = M ? M.people.filter(function(p){ return p.fight; }) : [];
   if(!ready.length){ for(var i = 0; i < n; i++) out.push('cast_' + CAST12[seedOf(key + ':look:' + i) % 12]); return out; }
-  var mine = {}; try{ ((window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || []).forEach(function(m){ if(m && m.look) mine[m.look] = 1; }); }catch(e){}
+  var mine = {}; try{ ((window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || []).concat(JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'))
+    .forEach(function(m){ if(m && m.look) mine[m.look] = 1; }); }catch(e){}   /* your company and the men hired since it was saved */
   var deal = function(L){ return L.map(function(p){ return {l:p.look, k:seedOf(key + ':' + p.look)}; }).sort(function(a, b){ return a.k - b.k; }).map(function(x){ return x.l; }); };
   var pool = deal(ready.filter(function(p){ return p.gang === 'town'; })).concat(deal(ready.filter(function(p){ return p.gang !== 'town'; })))
     .filter(function(l){ return !mine[l]; });

@@ -158,7 +158,7 @@ def build_one(pid):
     os.remove(one)
 
 
-def render_code(glb, out, h, clips=None):
+def render_code(glb, out, h, clips=None, stand_only=False):
     """DIRECTION's master rig, patched in memory the way COMBAT renders the fight; clips: the fight's poses instead of the
     street's stand and walk and the portrait"""
     src = open(os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py')).read()
@@ -172,7 +172,7 @@ def render_code(glb, out, h, clips=None):
     if clips:
         for c, k in clips: argv += ['--clip', '%s:%d' % (c, k)]
     else:
-        argv += ['--clip', 'Stand:1', '--clip', 'Anim_0:6', '--portrait', '128']
+        argv += ['--clip', 'Stand:1'] + ([] if stand_only else ['--clip', 'Anim_0:6']) + ['--portrait', '128']
         for e in MOUTH: argv += ['--expression', e]   # the face talks: PORTRAIT's head keeps its four speak-along mouths
     return ('import sys; sys.argv = %r; __file__ = %r\n' % (argv, os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py'))) + src
 
@@ -224,7 +224,7 @@ def make(pid):
         if not run([py, os.path.abspath(__file__), 'build-one', pid], glb): return
     h = json.load(open(glb.replace('.glb', '.json')))['real_height_for_rig']
     t1 = time.time()
-    if run([py, '-c', render_code(glb, out, h)], os.path.join(out, 'rig.json')):
+    if run([py, '-c', render_code(glb, out, h, stand_only=standing_only(pid))], os.path.join(out, 'rig.json')):
         faces(out); prune(out)
         for f in (glb, os.path.join(ROOT, 'records/character/rig/%s.glb' % tag)):   # 25 MB a person, rebuilt from the roll on demand
             if os.path.exists(f): os.remove(f)
@@ -370,6 +370,12 @@ def fight_pack():
     print('fight people', len(made), {k: len(v) for k, v in by.items()})
 
 
+def standing_only(pid):
+    """a person of the place past the hall's twelve only ever stands (a keeper, a man in a crowd): no walk is rendered for
+    him, the map's sheet leaves his walk cells empty and its 'walks' list leaves him out"""
+    return pid.startswith('town_') and pid not in [p['id'] for p in fight_list()]
+
+
 def todo():
     return [p['id'] for p in json.load(open(ROLL))
             if not os.path.exists(os.path.join(ROOT, OUT, 'person_' + p['id'].lower(), 'face', 'M_128.png'))]
@@ -410,6 +416,7 @@ def index():
     fought = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))['looks']
     for q in people:
         if q['look'] in fought: q['fight'] = True   # his sheet is on the fight's board: the hall may hire him
+        if standing_only(q['look'][len('person_'):]): q['stands'] = True   # he only ever stands: no walk made
     by = {}
     for q in people: by.setdefault(q['gang'], []).append(q['look'])
     J = lambda v: json.dumps(v, ensure_ascii=False, separators=(',', ':'))

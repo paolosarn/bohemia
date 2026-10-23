@@ -5,7 +5,7 @@
    THE ROW: every person on every screen rolls his own mix of cut, hair colour, face, skin, beard, mark, hat, face piece,
    top and coat inside his gang's colours, from everything CHARACTER built on the 3D man, and no two people on one screen
    are the same. This gate MEASURES it where he meets it:
-     THE ROLL     116 people, no two alike by every piece; the pieces in play counted (cuts, tops, coats, hats, face
+     THE ROLL     152 people (8 a gang and 48 of the places' own), no two alike by every piece; the pieces in play counted (cuts, tops, coats, hats, face
                   pieces, beards, marks); no cone hat and no odd wrap on a head (the nineteenth votes)
      THE RENDERS  every rolled person stands in eight turns, walks in eight, and talks under his own head (rest and the four
                   mouths); every gang and the place's people have their map sheet
@@ -32,7 +32,7 @@ const TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
 {
   const key = p => JSON.stringify([p.hair_cut, p.hair, p.face_name, p.face, p.skin, p.facial_hair, p.mark_name, p.hat, p.eyewear, p.top, p.coat]);
   const keys = ROLL.map(key);
-  ok('THE ROLL: 116 people, no two alike by every piece', ROLL.length >= 116 && new Set(keys).size === keys.length, new Set(keys).size + ' different of ' + ROLL.length);
+  ok('THE ROLL: 152 people, no two alike by every piece', ROLL.length >= 152 && new Set(keys).size === keys.length, new Set(keys).size + ' different of ' + ROLL.length);
   const n = f => new Set(ROLL.map(f).filter(Boolean)).size;
   const c = { cuts: n(p => p.hair_cut), hair: n(p => JSON.stringify(p.hair)), faces: n(p => p.face_name), skins: n(p => p.tone), tops: n(p => p.top), coats: n(p => p.coat),
     hats: n(p => p.hat), face_pieces: n(p => p.eyewear), beards: n(p => p.facial_hair), marks: n(p => p.mark_name) };
@@ -50,13 +50,18 @@ const TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
   MIX.people.forEach(q => {
     const d = path.join(BARBER, q.look);
     TURNS.forEach(t => { if (!fs.existsSync(path.join(d, 'rig_' + t + '.png'))) miss.push(q.look + ' stand ' + t);
-      for (let k = 0; k < 6; k++) if (!fs.existsSync(path.join(d, 'rig_Anim_0_' + t + '_k0' + k + '.png'))) miss.push(q.look + ' walk ' + t + k); });
+      if (!q.stands) for (let k = 0; k < 6; k++) if (!fs.existsSync(path.join(d, 'rig_Anim_0_' + t + '_k0' + k + '.png'))) miss.push(q.look + ' walk ' + t + k); });
     ['rest', 'A', 'E', 'O', 'M'].forEach(k => [64, 128].forEach(s => { if (!fs.existsSync(path.join(d, 'face', k + '_' + s + '.png'))) miss.push(q.look + ' face ' + k + s); }));
   });
-  ok('THE RENDERS: every rolled person in the game is on the rig, standing and walking in eight turns, talking under his own head', MIX.people.length >= 116 && !miss.length, MIX.people.length + ' people' + (miss.length ? ', missing ' + miss.slice(0, 3).join('; ') : ''));
-  const sheets = Object.keys(MIX.by_gang).map(g => { const j = path.join(ROOT, 'slices/rig_mix', g + '.json'); return fs.existsSync(j) ? [g, JSON.parse(fs.readFileSync(j, 'utf8'))] : [g, null]; });
-  ok('  every gang and the place\'s people have their map sheet, every one of them on it', sheets.every(([g, m]) => m && MIX.by_gang[g].every(l => m.gangs.indexOf(l) >= 0) && m.walks.length === m.gangs.length),
-    sheets.map(([g, m]) => g + ' ' + (m ? m.gangs.length : 'NONE')).join(', '));
+  ok('THE RENDERS: every rolled person in the game is on the rig, standing in eight turns (walking too, but for the places\' people who only stand), talking under his own head', MIX.people.length >= 152 && !miss.length, MIX.people.length + ' people' + (miss.length ? ', missing ' + miss.slice(0, 3).join('; ') : ''));
+  const IX = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/rig_mix/index.json'), 'utf8'));
+  const onSheet = {}, walks = {};
+  Object.keys(IX.sheets).forEach(n => { const m = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/rig_mix', n + '.json'), 'utf8'));
+    m.gangs.forEach(l => { onSheet[l] = n; }); m.walks.forEach(l => { walks[l] = 1; }); });
+  const off = MIX.people.filter(q => !onSheet[q.look] || (!q.stands && !walks[q.look]));
+  const tall = Object.keys(IX.sheets).filter(n => IX.sheets[n].length > 12);
+  ok('  every gang and the places\' people are on the map\'s sheets (twelve a sheet at most), every walker walking', off.length === 0 && tall.length === 0 && Object.keys(MIX.by_gang).every(g => IX.pools[g]),
+    Object.keys(IX.pools).map(g => g + ' ' + IX.pools[g].length).join(', ') + (off.length ? '; off: ' + off.slice(0, 3).map(q => q.look).join(' ') : ''));
 }
 
 const srv = http.createServer((rq, rs) => {
@@ -101,13 +106,13 @@ const srv = http.createServer((rq, rs) => {
     const M = window.BOHEMIA_PEOPLE_MIX, fight = {}; (M ? M.people : []).forEach(p => { if (p.fight) fight[p.look] = 1; });
     return R.map(r => ({ look: r.look, fight: !!fight[r.look], name: r.name })); });
   ok('THE HALL: the men at the post are rolled people who stand on the fight\'s board too, no two alike', hall.length > 0 && hall.every(r => r.fight) && new Set(hall.map(r => r.look)).size === hall.length, hall.map(r => r.look).join(' '));
-  await p.evaluate(looks => { localStorage.setItem('bohemia.company.v1', JSON.stringify(looks.map((l, i) => ({ name: 'MAN ' + i, background: 'farmhand', level: 1, look: l, gear: {} })))); }, hall.map(r => r.look));
+  await p.evaluate(looks => { localStorage.setItem('bohemia.hired.v1', JSON.stringify(looks.map((l, i) => ({ name: 'MAN ' + i, background: 'farmhand', look: l, jobs: [] })))); }, hall.map(r => r.look));
   const hall2 = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'fortress', name: 'NELLIS GATE' }, traits: [], night: false, day: 7 });
     return BohemiaSettlement.recruits().map(r => r.look); });
   const mine = hall.map(r => r.look);
   ok('  a man already in your company is never at the post again', hall2.every(l => mine.indexOf(l) < 0), hall2.filter(l => mine.indexOf(l) >= 0).join(' ') || hall2.length + ' new faces');
   const r = await ctx.newPage(); watch(r);
-  await r.addInitScript(l => { localStorage.setItem('bohemia.company.v1', JSON.stringify(l)); }, mine.map((l, i) => ({ name: 'MAN ' + i, background: 'farmhand', level: 1, look: l, gear: {} })));
+  await r.addInitScript(l => { localStorage.setItem('bohemia.hired.v1', JSON.stringify(l)); }, mine.map((l, i) => ({ name: 'MAN ' + i, background: 'farmhand', look: l, jobs: [] })));
   await r.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html', { waitUntil: 'load' });
   await r.waitForTimeout(2500);
   const cards = await r.evaluate(() => [...document.querySelectorAll('canvas.face')].map(c => ({ look: c.dataset.look, face: c.dataset.face })));
@@ -135,6 +140,27 @@ const srv = http.createServer((rq, rs) => {
   ok('every file loads', missing.length === 0, missing.slice(0, 3).join(' '));
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();
+
+  /* ---- THE MAP: the demo's own map, the parties out on the road, at three zooms; every person drawn on the glass counted
+     by who he is (the set his pixels come from) ---- */
+  const D = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+  const d = await D.open({});
+  await d.fr.evaluate(() => { for (let k = 0; k < 12; k++) partiesAdvance(30); render(); });
+  await d.page.waitForTimeout(6000);
+  for (const z of [null, 1.4, 2.4]) {
+    const r = await d.fr.evaluate(z => {
+      if (z) { CZOOM = z; TW = TW0 * CZOOM; TH = TH0 * CZOOM; }
+      render(); render();
+      const seen = [], o = window.mapPersonDraw;
+      window.mapPersonDraw = function (set, face, beat, sx, footY) { if (set && sx > -20 && sx < CVW + 20 && footY > -20 && footY < CVH + 60) seen.push(set); return o.apply(this, arguments); };
+      try { render(); } finally { window.mapPersonDraw = o; }
+      const ids = new Map(); seen.forEach(x => { ids.set(x, (ids.get(x) || 0) + 1); });
+      const sheets = Object.keys(RIG_MIX.sheets).filter(n => RIG_MIX.sheets[n].state === 2).length;
+      return { zoom: Math.round(CZOOM * 100) / 100, drawn: seen.length, different: ids.size, most: Math.max(0, ...ids.values()), sheets };
+    }, z);
+    ok('THE MAP at zoom ' + r.zoom + ': nobody on the glass twice', r.drawn > 0 && r.different === r.drawn, r.different + ' different of ' + r.drawn + ' drawn, the most-drawn man ' + r.most + 'x, ' + r.sheets + ' people sheets in');
+  }
+  await d.close();
   console.log('\nNO TWO PEOPLE ALIKE GATE: ' + pass + ' ok, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(1); });

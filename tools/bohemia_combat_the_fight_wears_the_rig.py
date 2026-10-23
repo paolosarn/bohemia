@@ -216,6 +216,11 @@ def pack():
                                  '%d colours a sheet, lossless; the faces lossy at 85' % SHEET_COLOURS],
                  dirs=FIGHT_DIRS, cols=cols, clips=clips, keys_per_beat=3, ruler=dict(px=98, m=1.72), rim=list(RIM), looks={}, faces=None)
     faces, order = [], []
+    # RUN TWO [no two people alike] (10/23, rule 121(i)): the valley's rolled people are packed into this index by
+    # tools/bohemia_run2_no_two_people_alike.py fight-pack (kind 'person', each in his gang's cell with his gang's guns);
+    # a pack here keeps them as they are, and their faces after the looks' own
+    old = os.path.join(ROOT, OUT, 'fight_rig.json')
+    people = {k: v for k, v in (json.load(open(old))['looks'].items() if os.path.exists(old) else []) if v.get('kind') == 'person'}
     for name, kind, src in looks():
         d = os.path.join(ROOT, RENDERS, name)
         if not os.path.exists(os.path.join(d, 'rig.json')): continue
@@ -259,6 +264,10 @@ def pack():
         else:
             faces.append(face_of(name, kind, src)); order.append(name)
         print('PACKED', name, sheet.size, os.path.getsize(os.path.join(ROOT, OUT, file)))
+    for name, v in people.items():
+        fp = os.path.join(ROOT, 'records/target/character/barber', name, 'face', 'rest_128.png')
+        if os.path.exists(os.path.join(ROOT, OUT, v['file'])) and os.path.exists(fp):
+            index['looks'][name] = v; faces.append(Image.open(fp).convert('RGBA').resize((FACE_PX, FACE_PX), Image.BOX)); order.append(name)
     fs = Image.new('RGBA', (FACE_PX * len(faces), FACE_PX), (0, 0, 0, 0))
     for i, f in enumerate(faces): fs.paste(f, (i * FACE_PX, 0))
     # the faces are renders shown at 34 points with no rim: lossy at 85 is a fifth of the lossless bytes (325 KB to 68)
