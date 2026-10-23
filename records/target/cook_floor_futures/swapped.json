@@ -233,5 +233,10 @@
   "file": "slices/fight_ground/block_shore_0_reclaimed.webp",
   "sha1": "5a99386c48c8c17dce3d789b7fb51a1a510d3e8c",
   "master": "records/target/cook_floor_futures/reclaimed/block_shore_0.webp"
+ },
+ "shore.1.reclaimed": {
+  "file": "slices/fight_ground/block_shore_1_reclaimed.webp",
+  "sha1": "aa3e21e84d970004455850c215b4e8aa4dc3115a",
+  "master": "records/target/cook_floor_futures/reclaimed/block_shore_1.webp"
  }
 }
