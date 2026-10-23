@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>BOHEMIA MAP</title>
-<!-- engine-md5:engine/bohemia_district_kit.js:a0c05dd3970c0bb78aaf4e91f5ce9ad7 -->
+<!-- engine-md5:engine/bohemia_district_kit.js:125ad9e6ab66cc591732eb9dfdbbae4c -->
 <!-- engine-md5:engine/bohemia_suburb.js:bd5cee7826161546778809a232882065 -->
 <!-- engine-md5:engine/bohemia_commercial.js:742c9adf76df9cbd50ab0bc798d5be3b -->
 <!-- engine-md5:engine/bohemia_industrial.js:4ad82e35be86eee279e852ba27dd7bab -->
@@ -25,7 +25,7 @@
 <!-- engine-md5:engine/bohemia_landfill.js:4cdf5b23f7ea7f93cf0106b92dc21b7d -->
 <!-- engine-md5:engine/bohemia_railyard.js:344a2fe73064eb958c82f9c5629a3158 -->
 <!-- engine-md5:engine/bohemia_substation.js:8f84e217a71e36c22f80257350c35b77 -->
-<!-- engine-md5:engine/bohemia_chapel.js:ef0730d226036c219cd16535ee2e6cff -->
+<!-- engine-md5:engine/bohemia_chapel.js:8a477efe8974341a5f6ece2050f76e10 -->
 <!-- engine-md5:engine/bohemia_courthouse.js:4df8d3d672db3eb5ee210ee64f28f4c4 -->
 <!-- engine-md5:engine/bohemia_jail.js:e4a6060b3e71308e65b546aeb72bdf1b -->
 <!-- engine-md5:engine/bohemia_farm.js:ef3872b1e7ebd047922ae03a639d4a75 -->
@@ -60,7 +60,7 @@
 <!-- engine-md5:engine/bohemia_floorplan.js:ac7ee01dfbd100634ca9f5a58da97a2f -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_utility.js:3fdce9b86773223a5526e620954d4f37 -->
+<!-- engine-md5:engine/bohemia_utility.js:bc902a35960a5189f2fbf272a8da79c0 -->
 <!-- engine-md5:engine/bohemia_rooms.js:22bc9a94d23596d77c83183ea1f50ae0 -->
 <!-- engine-md5:engine/bohemia_world.js:a30bfa9b77f1ba5a8c37134a50141404 -->
 <!-- engine-md5:engine/bohemia_valleymap.js:36a0564d30ad03bd11f7a383d301adc4 -->
@@ -580,6 +580,22 @@
   var KIND_LAYER={
     ground:{layer:'ground',solid:false}, drive:{layer:'ground',solid:false}, walk:{layer:'ground',solid:false},
     marking:{layer:'ground',solid:false}, 'turf-dead':{layer:'ground',solid:false}, 'water-dead':{layer:'ground',solid:false},
+    /* WATER WAS THE ONE KIND THIS TABLE HAD NEVER HEARD OF (9/27, LIFE+CITY, rule 34b).
+       Measured across every registered district: 72 districts, 1,171 legend entries, 19
+       kinds in use, and EXACTLY ONE of them was missing from this table -- `water`, on the
+       dam's reservoir, the dam's tailrace and the fort's creek. An unknown kind falls to
+       the {ground, not solid} default at the top of tileLayer, silently, so on a generated
+       dam block 5,329 cells of reservoir and on the fort 534 cells of creek resolved to
+       ORDINARY WALKABLE FLOOR: a third of the dam block is water you can stand on.
+       Adding it here is PROVABLY INERT -- these values are byte-identical to the fallback
+       those three were already getting -- and that is the point. The fix is not this line,
+       it is that the kind is now KNOWN, so every_cell_has_a_class_gate.js can refuse the
+       next one instead of the table quietly swallowing it. WHAT the three cells are is
+       declared on the entries themselves, because a void is DECLARED, NEVER DERIVED (8/20,
+       four comment-paragraphs below). Shallow water -- a leak, seepage, a trickle, a
+       drained pool -- is genuinely floor and stays floor; that is 20 of the 25 water cells
+       in the valley and every one of them was already right. */
+    water:{layer:'ground',solid:false},
     court:{layer:'ground',solid:false}, play:{layer:'ground',solid:false},
     building:{layer:'structure',solid:true}, structure:{layer:'structure',solid:true}, fence:{layer:'structure',solid:true},
     panel:{layer:'structure',solid:true}, 'tree-dead':{layer:'prop',solid:true}, prop:{layer:'prop',solid:true},
@@ -5714,7 +5730,28 @@
       G.rect(x-1,y-1,x+1,y+1,23); set(x,y,3); }               // the tree in its granite bed
     for(x=10;x<=118;x++){ if(get(x,8)===4)set(x,8,13); if(get(x,36)===4)set(x,36,13); }
     for(y=8;y<=36;y++){ if(get(10,y)===4)set(10,y,13); if(get(118,y)===4)set(118,y,13); }
-    for(x=60;x<=68;x++) if(get(x,36)===13) set(x,36,4);                  // the gap you walk in through
+    /* THE GATE INTO THE COURT, AND WHY THE OLD GAP WAS NEVER ONE (9/28, LIFE+CITY, rule 34b).
+       The line that used to sit here cut 'the gap you walk in through' at x60-68 of the south
+       wall. But the NAVE runs x52-76 from the apse straight down through the court, so those
+       cells were already church (code 2) and the line did nothing: the court was walled on
+       every side, split in two by the nave, and 2,296 cells of it -- the memorial court and the
+       orchard -- could be seen and never entered. On every seed this is the CHURCH'S HOME BASE
+       (rule 37e: fourteen home bases you can raid), so that was fight ground with no way onto it.
+       The intent was always written down: NOTES.circulation says 'the churchyard walk rings the
+       building to the transept door and the memorial court gate', and code 18's own act-1 line
+       is 'the gate into a memorial court'. So each HALF gets that gate, three wide, in its south
+       wall at the point nearest the nave where there is open ground outside to step onto --
+       found, not hard-coded, so a change to the building cannot quietly land it on stone again. */
+    [[51,11,-1],[77,117,1]].forEach(function(h){
+      for(var gxx=h[0]; gxx!==h[1]; gxx+=h[2]){
+        var ok=true;
+        for(var k=-1;k<=1;k++){
+          var wall=get(gxx+k,36), out=get(gxx+k,37), inn=get(gxx+k,35);
+          if(wall!==13 || !(out===14||out===12||out===7||out===4) || !(inn===4||inn===23)) { ok=false; break; }
+        }
+        if(ok){ for(k=-1;k<=1;k++) set(gxx+k,36,18); return; }
+      }
+    });
 
     /* THE WALK IS AN APRON, NOT A FIELD. Painting the whole churchyard "sidewalk" made one
        code 35.5% of the plot, which is the MONOBLOCK failure. A walk is the band that hugs
@@ -16380,7 +16417,15 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
               hard enough to trust". That is a floor that gives way, which is a hole with a
               lid on it, and it was modelled as a solid wall. */
            6:['crusted pond centre','structure','the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust',{'void':true}],
-           7:['pond berm','structure','the earth berm holding one pond off the next'],
+           /* A BERM IS WHAT THE ROAD SITS ON, NOT A WALL (9/28, LIFE+CITY, rule 34b). It was
+              solid by its KIND DEFAULT, never by anybody's choice, and this same legend says
+              otherwise twice: code 1 is 'the service road along the berm tops' and code 4 is
+              'the graded top of a berm between two ponds'. A body walks along a berm, which is
+              the whole point of one. As a wall it sealed 2,658 cells of this district, 24% of
+              its floor, pond by pond. structure + solid:false is the kit's own word for a low
+              earthwork you step up onto (the 8/20 void note names it), and it is NOT a void:
+              that is declared, and this is ground you can trust, unlike the crust at code 6. */
+           7:['pond berm','structure','the earth berm holding one pond off the next',{solid:false}],
            8:['pond water','water-dead','what is in the pond now — still, green, and not moving anywhere'],
            9:['pole light','prop','a plant light, head dark, standing over water that no longer moves anywhere'],
            10:['weir box / blower','prop','an outlet weir box on a pond corner, a blower on its pad'],
