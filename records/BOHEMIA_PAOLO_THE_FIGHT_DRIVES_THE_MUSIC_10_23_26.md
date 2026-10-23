@@ -19,3 +19,9 @@
 ## WHERE IT GOES
 
 COMBAT, first on its board: [the fight drives the music]. The fight file posts the four messages the shell already reads; no change to the music engine is needed. No card: he hears it in his next fight.
+
+## AMENDED THE SAME HOUR: THE TURN IS HEARD
+
+HIS WORDS: "Yeah and when its the enemies turn have it at the low intensity i want to hear its my turn time shit"
+
+On the enemy's turn the song drops to its lowest arrangement; on his turn it comes back up to the fight's level, on the beat, so he hears it is his turn without looking. The fight posts BOHEMIA_FIGHT_TURN {side}; one small marked block beside KILLMUS in the demo file takes it (COMBAT does both halves this round; RUN keeps the rest of the demo file).
