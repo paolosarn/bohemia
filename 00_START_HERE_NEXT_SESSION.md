@@ -335,8 +335,9 @@ the same cut: read base, mid and outer from records/target/character/BOHEMIA_THE
 tools/bohemia_character_the_outfit.py) for who(p), so the sheets name what he wears. Your NO_TOP and NO_COAT can stay.
 FOR ANIMATION: the layers ride the man's own weights (the open fronts, the hood heap, the mid top, the folds); idles on the
 same rig need nothing from you.
-SEEN, NOT DONE: the gang-coloured boots (SIGNAL RED, GRASS, COBALT) render hot pink, neon green and lilac under the rig's
-dust; cloth beyond colour and drape (sleeve bunching, knit against denim) is next on this row.
+THE LOUD EIGHT: the bank's signal red, gold, grass, teal, cobalt and rose cloths came out at 145 to 228 of chroma (a red
+boot hot pink under the dust); his 9/23 'vibrance turned down a little': every cloth capped at 90 at the source, brightness
+kept (37 of 307 move). SEEN, NOT DONE: cloth beyond colour and drape (sleeve bunching, knit against denim), next on this row.
 GATES: THE ROLL CALL 8/0, ONE SKIN ONE PERSON 15/0, THE BARBER GATE 13/0, THE BARBER'S DOOR 8/0, THE HAIR GRAVEYARD 13/0,
 CHARACTER IN THE VOTE TAB 9/0, TOOLS RUN 8/0; REFERENCE CHECK and REUSE-FIRST red on other lanes' files only.
 [bb Battle Brothers draws body armour and helmet whole, slot over slot; ours are worn the way people wear them, open,
