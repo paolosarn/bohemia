@@ -168,8 +168,40 @@ def build(bpy, gid_full, seed, quick=False):
             elif Lp > 150: items['white'].append((p['x'], p['y'] + d / 2, 0.0, w, d, hh, rz, 0.0))
             elif r_ > b_ + 25: items['card'].append((p['x'], p['y'] + d / 2, 0.0, w, d, hh, rz, rng.uniform(-0.15, 0.15)))
             else: items['grey'].append((p['x'], p['y'] + d / 2, 0.0, w, d, hh, rz, 0.0))
+        # 10/23: THE CELLS ARE FULL. The first cut made each old piece one thing and read as a few boxes on a swept lot (the
+        # maker's black discs, its tyres, came out as pebble-sized lumps). A working cell of the Apex landfill is a field of
+        # split bags, cardboard and scrap in a crust of dirt: the old black discs are TYRES (a real torus, flat or stacked
+        # two and three), and the cells' rough ground is filled with bags, boxes and scrap at about one a square metre,
+        # with a dead fridge or washer on its side, a mattress and a pallet here and there
+        bpy.ops.mesh.primitive_torus_add(major_segments=16, minor_segments=8, major_radius=0.3, minor_radius=0.12)
+        tt = bpy.context.active_object; tv = np.array([v.co[:] for v in tt.data.vertices], np.float32); tv[:, 2] += 0.12
+        tf = np.array([list(p_.vertices) for p_ in tt.data.polygons], np.int32); bpy.data.objects.remove(tt, do_unlink=True)
+        tyres = []
+        for (x, y, z0, w, d, hh, rz, tl) in lumps:                          # the maker's black discs
+            for k in range(1 if rng.rand() < 0.65 else rng.randint(2, 4)):
+                s_ = float(np.clip(w / 0.84, 0.75, 1.25))
+                tyres.append((x + rng.normal(0, 0.05), y - d / 2 + rng.normal(0, 0.05), -0.04 + k * 0.23 * s_, s_, s_, s_, rng.uniform(0, 6.3), rng.uniform(-0.12, 0.12) if k == 0 else 0.0))
+        rough = np.argwhere(g == F.ID['rough']); fill = {k: [] for k in ('bag', 'white', 'card', 'grey', 'rust')}
+        area = len(rough) * F.STEP * F.STEP
+        for r_, c_ in rough[rng.randint(0, len(rough), int(area * 1.1))] if len(rough) else []:
+            x, y = c_ * F.STEP - 1.0 + rng.uniform(0, F.STEP), (F.SIDE + 1.0) - r_ * F.STEP - rng.uniform(0, F.STEP)
+            u = rng.rand(); s_ = rng.uniform(0.35, 0.8)
+            if u < 0.55: fill['bag'].append((x, y, -0.06, s_ * 1.15, s_, s_ * rng.uniform(0.45, 0.7), rng.uniform(0, 6.3), 0.0))
+            elif u < 0.68: fill['white'].append((x, y, -0.05, s_, s_ * 0.9, s_ * 0.55, rng.uniform(0, 6.3), 0.0))
+            elif u < 0.84: fill['card'].append((x, y, -0.02, s_, s_ * rng.uniform(0.6, 1.0), s_ * rng.choice([0.2, 0.5, 0.8]), rng.uniform(0, 6.3), rng.uniform(-0.3, 0.3)))
+            elif u < 0.95: fill['grey'].append((x, y, -0.02, s_ * 1.4, s_ * 0.3, s_ * 0.25, rng.uniform(0, 6.3), rng.uniform(-0.4, 0.4)))
+            else: tyres.append((x, y, -0.04, 1.0, 1.0, 1.0, rng.uniform(0, 6.3), rng.uniform(-0.2, 0.2)))
+        for _ in range(int(area / 90)):                                     # the big things: a fridge or a washer, a mattress, a pallet
+            if not len(rough): break
+            r_, c_ = rough[rng.randint(len(rough))]; x, y = c_ * F.STEP - 1.0, (F.SIDE + 1.0) - r_ * F.STEP; u = rng.rand()
+            if u < 0.45: items['white'].append((x, y, 0.0, 0.75, 1.7, 0.7, rng.uniform(0, 6.3), 0.0))                  # on its back
+            elif u < 0.75: items['white'].append((x, y, 0.0, 1.9, 1.35, 0.2, rng.uniform(0, 6.3), rng.uniform(-0.1, 0.1)))   # a mattress
+            else: items['card'].append((x, y, 0.0, 1.2, 1.0, 0.14, rng.uniform(0, 6.3), 0.0))                              # a pallet
         for k, it in items.items(): add.append(NF.instances(bpy, 'lf_' + k, box, it, mats[k], 0.12, rng))
-        add.append(NF.instances(bpy, 'lf_bags', lump, lumps, mats['bag'], 0.4, rng))
+        add.append(NF.instances(bpy, 'lf_tyres', (tv, tf), tyres, NF.material(bpy, 'lf_tyre', 'rubber', 1), 0.03, rng))
+        for k, it in fill.items():
+            add.append(NF.instances(bpy, 'lf_fill_' + k, lump if k in ('bag', 'white') else box, it, mats[k], 0.45 if k in ('bag', 'white') else 0.2, rng))
+        NF.LEDGER['landfill'] = dict(tyres=len(tyres), fill=sum(len(v) for v in fill.values()), pieces=len(KEEP['pieces']))
     elif kind == 'casino':
         chip = [NF.material(bpy, 'chip_%d' % i, r_, s_) for i, (r_, s_) in enumerate((('clay_rust', 2), ('clay_teal', 2), ('clay_bone', 3), ('cloth_black', 1)))]
         paper = NF.material(bpy, 'cas_paper', 'clay_bone', 3); cup = NF.material(bpy, 'cas_cup', 'clay_bone', 2)
@@ -203,5 +235,6 @@ if __name__ == '__main__':
     if a and a[0] in ('reclaimed', 'raided'):                              # 10/23: the odd blocks' futures, the futures tool's render
         for b in a[1:]: FU.render(a[0], b)
     else:
-        for b in a: NF.render(b)
+        region = [int(v) for v in a[a.index('--region') + 1].split(',')] if '--region' in a else None   # 10/23: a test window
+        for b in [x for i, x in enumerate(a) if not x.startswith('--') and not (i and a[i - 1] == '--region')]: NF.render(b, region)
     sys.stdout.flush(); os._exit(0)
