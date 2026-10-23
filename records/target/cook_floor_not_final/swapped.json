@@ -18,5 +18,10 @@
   "file": "slices/fight_ground/block_lots_0.webp",
   "sha1": "f90f5fbd2df8a747bcae5573c9e3cddd3f21d7fa",
   "master": "records/target/cook_floor_not_final/block_lots_0.webp"
+ },
+ "corner.1": {
+  "file": "slices/fight_ground/block_corner_1.webp",
+  "sha1": "db5d4be60179a45fd0e6769ee31a688a2ead7214",
+  "master": "records/target/cook_floor_not_final/block_corner_1.webp"
  }
 }
