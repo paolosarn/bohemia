@@ -5,6 +5,8 @@ package-lock.json
 .bohemia_gates.lock
 v/
 records/character/rig/*.glb
+# ANIMATION 10/23: the one-man roll RUN TWO's build-one writes and deletes (a batch building people leaves one mid-build)
+records/character/rig/_roll_*.json
 # the LOOK ruler's DINOv2 export: built and cached on the free runner, never committed (gates/twin_gate.py L0)
 tools/models/
 
