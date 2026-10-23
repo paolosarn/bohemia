@@ -205,7 +205,7 @@
   "fight_floor_futures": {
    "where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp",
    "total": 70,
-   "flat": 8,
+   "flat": 7,
    "in_3d": [
     "casino.0.reclaimed",
     "casino.1.reclaimed",
@@ -222,6 +222,7 @@
     "culdesac.1.reclaimed",
     "freeway.0.raided",
     "freeway.0.reclaimed",
+    "freewayo.0.raided",
     "freewayo.0.reclaimed",
     "landfill.0.raided",
     "landfill.0.reclaimed",
@@ -328,7 +329,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 8,
+ "total_flat": 7,
  "log": [
   {
    "at": "10/20 start",
@@ -1552,6 +1553,17 @@
    "settlement_backdrops": 0,
    "map_districts": 0,
    "fight_floor_futures": 8,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 freewayo.0 raided",
+   "total_flat": 7,
+   "fight_floor": 0,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 7,
    "fight_lights": 0,
    "item_icons": 0
   }
