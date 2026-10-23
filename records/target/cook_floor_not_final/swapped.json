@@ -93,5 +93,10 @@
   "file": "slices/fight_ground/block_main_0.webp",
   "sha1": "a808845e2e6984c0c4af215c5f499f4f78b1f96d",
   "master": "records/target/cook_floor_not_final/block_main_0.webp"
+ },
+ "main.1": {
+  "file": "slices/fight_ground/block_main_1.webp",
+  "sha1": "792475f45adb17fecb0a191c3dd575ea18273ef7",
+  "master": "records/target/cook_floor_not_final/block_main_1.webp"
  }
 }
