@@ -8,7 +8,7 @@
   "fight_floor": {
    "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
    "total": 35,
-   "flat": 21,
+   "flat": 20,
    "in_3d": [
     "corner.0",
     "corner.1",
@@ -23,7 +23,8 @@
     "subs.2",
     "subs.3",
     "wash.0",
-    "wash.1"
+    "wash.1",
+    "works.0"
    ]
   },
   "fight_cover": {
@@ -242,7 +243,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 93,
+ "total_flat": 92,
  "log": [
   {
    "at": "10/20 start",
@@ -538,6 +539,17 @@
    "at": "10/23 the map's last nine (the water districts) and three re-done: all 69 districts in 3D",
    "total_flat": 93,
    "fight_floor": 21,
+   "fight_cover": 0,
+   "settlement_backdrops": 2,
+   "map_districts": 0,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 works.0 into the fight",
+   "total_flat": 92,
+   "fight_floor": 20,
    "fight_cover": 0,
    "settlement_backdrops": 2,
    "map_districts": 0,

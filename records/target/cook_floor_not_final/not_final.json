@@ -672,5 +672,51 @@
    ]
   },
   "file": "records/target/cook_floor_not_final/block_wash_0.webp"
+ },
+ "works.0": {
+  "seconds": 1107,
+  "junk": {
+   "bags": 38,
+   "paper": 445,
+   "card": 86,
+   "cloth": 35,
+   "weeds": 256,
+   "mattresses": 2,
+   "couches": 2,
+   "fires": 3,
+   "dead_lawn": 0,
+   "paths": 3,
+   "bins": 3,
+   "tracks": 22,
+   "tidy_house": 3,
+   "burnt_house": 2
+  },
+  "grime": {
+   "materials": 90,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     56.48,
+     37.79,
+     3.2
+    ],
+    [
+     45.7,
+     21.9,
+     1.0
+    ],
+    [
+     -0.39,
+     60.49,
+     1.0
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_not_final/block_works_0.webp"
  }
 }
