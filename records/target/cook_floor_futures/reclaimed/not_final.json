@@ -369,5 +369,39 @@
    "panels": 265,
    "beds": 5
   }
+ },
+ "works.0": {
+  "seconds": 1283,
+  "junk": {
+   "bags": 38,
+   "paper": 445,
+   "card": 86,
+   "cloth": 35,
+   "weeds": 256,
+   "mattresses": 2,
+   "couches": 2,
+   "fires": 3,
+   "dead_lawn": 0,
+   "paths": 3,
+   "bins": 3,
+   "tracks": 22,
+   "tidy_house": 3,
+   "burnt_house": 2
+  },
+  "grime": {
+   "materials": 83,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_works_0.webp",
+  "future": {
+   "panels": 572,
+   "beds": 14
+  }
  }
 }

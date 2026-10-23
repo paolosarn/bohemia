@@ -68,5 +68,10 @@
   "file": "slices/fight_ground/block_subs_2_raided.webp",
   "sha1": "1f28878c3c8cae52031c83bb837b76166a50a6e6",
   "master": "records/target/cook_floor_futures/raided/block_subs_2.webp"
+ },
+ "works.0.reclaimed": {
+  "file": "slices/fight_ground/block_works_0_reclaimed.webp",
+  "sha1": "4324c34d9a0a8f034255ca20fe23d8a924973c15",
+  "master": "records/target/cook_floor_futures/reclaimed/block_works_0.webp"
  }
 }
