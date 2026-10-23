@@ -289,6 +289,7 @@ def fight_make(pid):
 
 
 def fight_batch(n=2):
+    wipe()
     left = fight_todo(); print('%d to put on the board, %d workers' % (len(left), n), flush=True)
     env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, os.cpu_count() // n)))
     procs = [subprocess.Popen([sys.executable, os.path.abspath(__file__), 'fight-worker', str(w), str(n)], cwd=ROOT, env=env) for w in range(n)]
@@ -381,7 +382,15 @@ def todo():
             if not os.path.exists(os.path.join(ROOT, OUT, 'person_' + p['id'].lower(), 'face', 'M_128.png'))]
 
 
+def wipe():
+    """a batch starts alone: a model left by a run that was stopped mid-export is not trusted, it is built again"""
+    for d in ('records/character/rig', 'records/combat/rig'):
+        for f in os.listdir(os.path.join(ROOT, d)):
+            if 'person_' in f and f.endswith('.glb'): os.remove(os.path.join(ROOT, d, f))
+
+
 def batch(n=2):
+    wipe()
     left = todo(); print('%d to make, %d workers' % (len(left), n), flush=True)
     if n <= 1:
         for pid in left: make(pid)
