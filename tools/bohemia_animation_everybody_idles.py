@@ -886,9 +886,7 @@ def people_pack():
     MX = json.load(open(os.path.join(ROOT, 'slices/rig_mix/index.json')))
     sheet_of = {l: n for n, ls in MX['sheets'].items() for l in ls}
     mix_meta, mix_pal = {}, {}
-    for fn in os.listdir(os.path.join(ROOT, OUT)):   # this step's own last output goes first; the cast's and the gangs' stay
-        if fn.startswith('person_') or fn.startswith('map_'): os.remove(os.path.join(ROOT, OUT, fn))
-    for k in [k for k in index['looks'] if k.startswith('person_')]: del index['looks'][k]
+    dirty = set()   # the map sheets a newly packed man stands on: only those are drawn again
 
     def full(fn, r):
         a = np.asarray(Image.open(fn).convert('RGBA')).copy()
@@ -910,13 +908,17 @@ def people_pack():
         out[a[..., 3] == 0] = 0
         return out
 
-    def atlas(items, width):
+    def layout(items, width):
         order = sorted(range(len(items)), key=lambda i: -items[i][0].shape[0]); x = y = sh = 0; rects = [None] * len(items)
         for i in order:
             h, w = items[i][0].shape[:2]
             if x + w > width: x = 0; y += sh; sh = 0
             rects[i] = [x, y, w, h, int(items[i][1]), int(items[i][2])]; x += w; sh = max(sh, h)
-        im = Image.new('RGBA', (width, y + sh), (0, 0, 0, 0))
+        return rects
+
+    def atlas(items, width):
+        rects = layout(items, width)
+        im = Image.new('RGBA', (width, max(r[1] + r[3] for r in rects) if rects else 1), (0, 0, 0, 0))
         for i, (a, _, _) in enumerate(items): im.paste(Image.fromarray(a, 'RGBA'), (rects[i][0], rects[i][1]))
         return im, rects
 
@@ -925,6 +927,16 @@ def people_pack():
     for tag in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
         d = os.path.join(ROOT, RENDERS, tag); rec = os.path.join(ROOT, PEOPLE_STILLS, tag)
         if not tag.startswith('person_') or not person_done(tag) or not os.path.exists(os.path.join(rec, 'rig.json')): continue
+        mine_j, cache = os.path.join(ROOT, OUT, tag + '.json'), os.path.join(d, 'map_cells.npz')
+        if os.path.exists(mine_j) and os.path.exists(cache) and os.path.getmtime(mine_j) >= os.path.getmtime(os.path.join(d, 'made.txt')):
+            index['looks'][tag] = dict(json=tag + '.json'); n_ok += 1   # packed already: his sheet stands, his map cells from the cache
+            z = np.load(cache, allow_pickle=True); n = str(z['sheet'])
+            if n:
+                L = maps.setdefault(n, ([], {})); mp = {}
+                for (p, row, x, y), a in zip(z['keys'].tolist(), z['cells']):
+                    mp.setdefault(p, [None] * 8)[int(row)] = len(L[0]); L[0].append((a, int(x), int(y)))
+                L[1][tag] = mp
+            continue
         rj = json.load(open(os.path.join(d, 'rig.json'))); mine = json.load(open(os.path.join(rec, 'rig.json')))
         if rj['res'] != mine['res']: print('NO MATCH frame, keeps his still:', tag); continue
         # THE MATCH, all eight facings
@@ -965,7 +977,8 @@ def people_pack():
         # THE MAP: his ten on his map sheet's frame (RUN's bake: the picture's middle on the cell's middle, the lowest
         # painted standing row over his eight stills on the cell's foot), in that sheet's own colours
         n = sheet_of.get(tag)
-        if not n: continue
+        if not n:
+            np.savez(os.path.join(d, 'map_cells.npz'), sheet=np.array(''), keys=np.zeros((0, 4)), cells=np.array([], dtype=object)); continue
         if n not in mix_meta:
             mix_meta[n] = json.load(open(os.path.join(ROOT, 'slices/rig_mix', n + '.json')))
             pa = np.asarray(Image.open(os.path.join(ROOT, 'slices/rig_mix', n + '.png')).convert('RGBA'))
@@ -973,19 +986,28 @@ def people_pack():
         m = mix_meta[n]
         gfoot = max(im.getbbox()[3] for im in stills); iw = stills[0].size[0]
         fx0 = cb[0] - (m['w'] // 2 - iw // 2); fy0 = cb[1] - (m['foot'] - gfoot)
-        L = maps.setdefault(n, ([], {}))
-        mp = {}
+        L = maps.setdefault(n, ([], {})); dirty.add(n)
+        mp = {}; keys, cl = [], []
         for p in mposes:
             for row in range(8):
                 c = cuts.get((p, row))
                 if c is None: continue
-                mp.setdefault(p, [None] * 8)[row] = len(L[0]); L[0].append((to_pal(c[0], mix_pal[n]), c[1] - fx0, c[2] - fy0))
+                a_ = to_pal(c[0], mix_pal[n]); x_, y_ = c[1] - fx0, c[2] - fy0
+                mp.setdefault(p, [None] * 8)[row] = len(L[0]); L[0].append((a_, x_, y_))
+                keys.append((p, row, x_, y_)); cl.append(a_)
         L[1][tag] = mp
+        ca = np.empty(len(cl), dtype=object)
+        for i_, a_ in enumerate(cl): ca[i_] = a_
+        np.savez(os.path.join(d, 'map_cells.npz'), sheet=np.array(n), keys=np.array(keys, dtype=object), cells=ca)
     mj = dict(what='ANIMATION [everybody idles]: the map\'s rolled people (RUN TWO\'s sheets in slices/rig_mix), ten idles each, '
                    'a sheet per map sheet; a cell [x, y, w, h, dx, dy] sits from that map sheet\'s cell origin', files={}, looks={})
     for n, (items, looks) in sorted(maps.items()):
-        im, rects = atlas(items, 2048); fn = 'map_%s.webp' % n
-        im.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+        fn = 'map_%s.webp' % n
+        if n in dirty or not os.path.exists(os.path.join(ROOT, OUT, fn)):
+            im, rects = atlas(items, 2048)
+            im.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+        else:   # the same men in the same order: the same layout, the sheet on disk stands
+            rects = layout(items, 2048); im = Image.open(os.path.join(ROOT, OUT, fn))
         mj['files'][fn] = rects
         for tag, poses in looks.items(): mj['looks'][tag] = dict(mix=n, file=fn, poses=poses)
         print('PACKED map', n, im.size, os.path.getsize(os.path.join(ROOT, OUT, fn)), len(looks), 'people', flush=True)
