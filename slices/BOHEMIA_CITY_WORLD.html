@@ -45149,18 +45149,46 @@ function rigFailed(){ return RIG_CAST.state === 3 || RIG_PEOPLE.state === 3; }
    CUSTOMIZATIONS, IT'S INSANE'. A gang's party was two copies of its one look and a crowd was three cuts. The valley's
    people are now rolled one by one from every piece CHARACTER made (tools/bohemia_run2_no_two_people_alike.py: his own cut,
    hair, face, skin, beard, mark, hat, face piece, top and coat inside his gang's colours), one sheet a gang in slices/rig_mix
-   (the same index as BOHEMIA_RIG_CAST, cut by rigSheetSet as it is), fetched the first time that gang is drawn: a party's
-   two men are two of its gang, a crowd is the place's own people (rig_mix/town), each by his own number. Until a gang's
-   sheet is in, the gang's one rig look stands in for it (a rig model either way, never the old cast). */
-var RIG_MIX = {};
-function rigMixSet(gang, i){
-  if (window.__RIG_CAST_OFF || !gang) return null;
-  gang = String(gang).toLowerCase();
-  var S = RIG_MIX[gang] || (RIG_MIX[gang] = { state: 0, meta: null, img: null, sets: {}, drew: 0 });
-  rigSheetLoad(S, 'rig_mix/' + gang);
-  if (S.state !== 2 || !S.meta.gangs || !S.meta.gangs.length) return null;
-  var L = S.meta.gangs, set = rigSheetSet(S, L[((i % L.length) + L.length) % L.length]);
-  if (set) S.drew++;
+   (the same index as BOHEMIA_RIG_CAST, twelve a sheet, cut by rigSheetSet as it is; rig_mix/index.json names them), fetched
+   the first time that gang is drawn: a party's two men are two of its gang, a crowd is the places' own people (48 of them,
+   rig_mix/town*). Until a gang's sheet is in, the gang's one rig look stands in for it (a rig model either way, never the
+   old cast). */
+var RIG_MIX = { index: null, state: 0, sheets: {}, seats: {}, now: null, last: {} };
+function rigMixIndex(){
+  if (RIG_MIX.state) return RIG_MIX.state === 2;
+  RIG_MIX.state = 1;
+  try { fetch('rig_mix/index.json').then(function(r){ return r.json(); }).then(function(j){ RIG_MIX.index = j; RIG_MIX.state = 2; try { render(); } catch (_e) {} })
+    .catch(function(){ RIG_MIX.state = 3; }); } catch (_e) { RIG_MIX.state = 3; }
+  return false;
+}
+/* THE SEAT KEEPER: a person on the screen (a crowd's spot, a party's man: his key) keeps the man he had while nobody else
+   on this frame has him; a new face takes the first man of his pool nobody on this frame or the last one wore, from his own
+   number; so a screen draws as many different people as the pool holds, and a man does not change face while you look */
+function rigMixFor(group, key, i, peek){
+  if (window.__RIG_CAST_OFF || !group || !rigMixIndex()) return null;
+  group = String(group).toLowerCase();
+  var names = RIG_MIX.index.pools[group]; if (!names || !names.length) return null;
+  if (!RIG_MIX.now || RIG_MIX.now.d !== MAP_DREW) { RIG_MIX.last = RIG_MIX.now ? RIG_MIX.now.used : {}; RIG_MIX.now = { d: MAP_DREW, used: {} }; }
+  var L = [], at = {};
+  names.forEach(function(n){
+    var S = RIG_MIX.sheets[n] || (RIG_MIX.sheets[n] = { state: 0, meta: null, img: null, sets: {}, drew: 0 });
+    rigSheetLoad(S, 'rig_mix/' + n);
+    if (S.state === 2) S.meta.gangs.forEach(function(l){ L.push(l); at[l] = S; });
+  });
+  if (!L.length) return null;
+  if (peek) return rigSheetSet(at[L[0]], L[0]);   /* 'is anybody in yet': a question, not a person on the screen */
+  var used = RIG_MIX.now.used, seat = RIG_MIX.seats[key];
+  if (!seat || used[seat] || !at[seat]) {
+    seat = null;
+    var k0 = ((i % L.length) + L.length) % L.length;
+    for (var pass = 0; pass < 2 && !seat; pass++)
+      for (var t = 0; t < L.length; t++) { var c = L[(k0 + t) % L.length]; if (!used[c] && (pass || !RIG_MIX.last[c])) { seat = c; break; } }
+    seat = seat || L[k0];
+    RIG_MIX.seats[key] = seat;
+  }
+  used[seat] = 1;
+  var set = rigSheetSet(at[seat], seat);
+  if (set) at[seat].drew++;
   return set;
 }
 function rigMixNum(p, idx){
@@ -45172,7 +45200,7 @@ function rigMixNum(p, idx){
 function mapPeopleOf(pool, i){
   if (window.__RIG_CAST_OFF) return mapCastOf(i);
   if (!rigAllReady()) return null;
-  if (pool === 'crowd') { var mx = rigMixSet('town', i); if (mx) { if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 1; return mx; } }
+  if (pool === 'crowd') { var mx = rigMixFor('town', 'crowd:' + i, i, i === 0); if (mx) { if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 1; return mx; } }
   var L = RIG_POOLS[pool] || RIG_POOLS.crowd, key = L[((i % L.length) + L.length) % L.length];
   var set = rigSheetSet(RIG_PEOPLE, key);
   if (set && MAP_DREW && MAP_DREW.art) MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 1;
@@ -45187,8 +45215,8 @@ function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
     var kq = MAP_PEOPLE_K, fq = mapPartyFace(p);
     /* __NO_TWO_ALIKE__: the party's two men are two of the gang, never one man twice */
     var pn = rigMixNum(p, idx);   /* his number is the party's own, so a party keeps its two men as the list reorders */
-    mapPersonDraw(rigMixSet(fac, pn * 2 + 1) || rig, fq, beat + 1, sx + 7 * kq, footY - 2 * kq, walkPh == null ? null : walkPh + 0.5);
-    var lq = mapPersonDraw(rigMixSet(fac, pn * 2) || rig, fq, beat, sx - 3 * kq, footY + kq, walkPh);
+    mapPersonDraw(rigMixFor(fac, 'party:' + pn + ':1', pn * 2 + 1) || rig, fq, beat + 1, sx + 7 * kq, footY - 2 * kq, walkPh == null ? null : walkPh + 0.5);
+    var lq = mapPersonDraw(rigMixFor(fac, 'party:' + pn + ':0', pn * 2) || rig, fq, beat, sx - 3 * kq, footY + kq, walkPh);
     mapFlagDraw(sx - 11 * kq, footY + kq, (lq ? lq.h : 30 * kq) + 8 * kq, mapFactionColour(fac), beat, true);
     if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.partyPeople += 2; MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 2; }
     RIG_CAST.drew += 2;
@@ -47093,7 +47121,7 @@ function renderCity(){
             for (var __gi = 0; __gi < __gc.count; __gi++) {
               var __gx = __p.sx + (__gi - (__gc.count - 1) / 2) * __gsp;
               var __gy = __cy + 6 + (5 + (__gi % 2) * 3) * MAP_PEOPLE_K;
-              var __who = window.__RIG_CAST_OFF ? mapCastOf(__gh + __gi * 7) : ((__gang && (__gi % 2 === 0)) ? (rigMixSet(__n, __gh + __gi) || __gang) : mapPeopleOf('crowd', __gh + __gi));   /* __NO_TWO_ALIKE__ */
+              var __who = window.__RIG_CAST_OFF ? mapCastOf(__gh + __gi * 7) : ((__gang && (__gi % 2 === 0)) ? (rigMixFor(__n, 'gate:' + __gh + ':' + __gi, __gh + __gi) || __gang) : mapPeopleOf('crowd', __gh + __gi));   /* __NO_TWO_ALIKE__ */
               mapPersonDraw(__who, __faces[(__gh + __gi) % 3], mapArtBeat() + __gi, __gx, __gy);
             }
             try { MAP_DREW.gateCrowd = MAP_DREW.gateCrowd || {}; MAP_DREW.gateCrowd[__n] = { count: __gc.count, market: __gc.market, traits: __gc.traits }; } catch (_e5) {}

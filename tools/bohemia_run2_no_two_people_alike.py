@@ -26,7 +26,8 @@ THE METHOD, NOTHING DRAWN NEW (rule 121(b), implementation only):
            slices/rig_mix/<gang>.png / .json, the same index as the gangs' sheet, plus who each person is (the map).
   index    engine/bohemia_people_mix.js, who everybody is, for the towns, the crew screen and the faces.
 Run:
-    python3 tools/bohemia_run2_no_two_people_alike.py roll [per_gang 8] [town 12]
+    python3 tools/bohemia_run2_no_two_people_alike.py roll [per_gang 8] [town 48]   (10/23: 48 of the places' own people, the
+        map's crowds put sixty-odd people on one screen; the first 116 are the same people whatever the count, measured)
     python3 tools/bohemia_run2_no_two_people_alike.py batch [workers 2]      (build + render every person not yet rendered)
     python3 tools/bohemia_run2_no_two_people_alike.py bake
     python3 tools/bohemia_run2_no_two_people_alike.py index
@@ -82,7 +83,7 @@ def wardrobe(gang):
     return [g['name'] for g in tops], [g['name'] for g in coats], p_coat
 
 
-def roll(per_gang=8, town=12):
+def roll(per_gang=8, town=48):
     import bohemia_character_the_barbers_book as BB
     B = json.load(open(BB.BOOK))
     people, seen = [], set()
@@ -406,6 +407,9 @@ def index():
     """engine/bohemia_people_mix.js: everyone rendered, read by engine/bohemia_rig_bodies.js (the body) and
     engine/bohemia_crew_faces.js (the talking face) before any screen draws a man"""
     people = [who(p) for p in json.load(open(ROLL)) if p['id'] not in todo()]
+    fought = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))['looks']
+    for q in people:
+        if q['look'] in fought: q['fight'] = True   # his sheet is on the fight's board: the hall may hire him
     by = {}
     for q in people: by.setdefault(q['gang'], []).append(q['look'])
     J = lambda v: json.dumps(v, ensure_ascii=False, separators=(',', ':'))
@@ -434,7 +438,14 @@ def bake():
     by = {}
     for q in people: by.setdefault(q['gang'], []).append(q)
     od = os.path.join(ROOT, 'slices/rig_mix'); os.makedirs(od, exist_ok=True)
-    for g, qs in by.items():
+    sheets, pools = {}, {}
+    for g, qs in by.items():   # twelve people a sheet at most (96 rows, 13,000 px: the gangs' own sheet is 14,144 and his phone reads it)
+        for c in range(0, len(qs), 12):
+            name = g if not c else '%s_%d' % (g, c // 12 + 1)
+            sheets[name] = qs[c:c + 12]; pools.setdefault(g, []).append(name)
+    for f in os.listdir(od):
+        if f.endswith(('.png', '.json')) and f[:-5 if f.endswith('.json') else -4] not in sheets and f != 'index.json': os.remove(os.path.join(od, f))
+    for g, qs in sheets.items():
         looks = [q['look'] for q in qs]
         BK.SET = dict(looks=looks, src=lambda l: os.path.join(ROOT, OUT, l),
                       png=os.path.join(od, g + '.png'), json=os.path.join(od, g + '.json'),
@@ -446,7 +457,10 @@ def bake():
         meta['people'] = qs
         with open(BK.SET['json'], 'w') as f:
             json.dump(meta, f, indent=1); f.write('\n')
-    print('people', len(people), {k: len(v) for k, v in by.items()})
+    with open(os.path.join(od, 'index.json'), 'w') as f:
+        json.dump(dict(what="RUN TWO [no two people alike]: the map's people, a sheet of twelve at most, read by the map's seat keeper",
+                       pools=pools, sheets={k: [q['look'] for q in v] for k, v in sheets.items()}), f, indent=1); f.write('\n')
+    print('people', len(people), {k: len(v) for k, v in by.items()}, 'sheets', len(sheets))
 
 
 if __name__ == '__main__':

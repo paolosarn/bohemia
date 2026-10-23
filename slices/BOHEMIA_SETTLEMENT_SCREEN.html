@@ -1075,7 +1075,24 @@ var POST_COUNT = {camp:2, town:4, fortress:6};
    two words, keyed by his slot at this post, and the name reads as the face he wears. draft:true */
 function hireName(key, i, look){
   if(!window.BohemiaNames) return 'A STRANGER';
-  return BohemiaNames.roll('post:' + key + ':' + i, {sex: BohemiaNames.faceReads(look)}).full;
+  var P = window.BohemiaRigBodies && BohemiaRigBodies.person && BohemiaRigBodies.person(look);   /* a rolled man's name reads as his face */
+  return BohemiaNames.roll('post:' + key + ':' + i, {sex: BohemiaNames.faceReads(look) || (P && P.sex), skin: P ? P.skin : undefined}).full;
+}
+/* NO TWO PEOPLE ALIKE (RUN TWO, 10/23, rule 121(i)): the men at the post are the valley's rolled people who stand on the
+   fight's board too (people_mix 'fight': his own sheet in slices/fight_rig, so the man you hire is the man who fights),
+   the place's own people first, dealt by the week, never one who is already in your company, never two alike at one post;
+   until the mix is loaded, the twelve cast looks as before */
+var CAST12 = ['longcoat','barearms','pack','skirt','widebrim','cape','apron','poncho','bedroll','shorts','satchel','shortcoat'];
+function recruitLooks(key, n){
+  var M = window.BOHEMIA_PEOPLE_MIX, out = [];
+  var ready = M ? M.people.filter(function(p){ return p.fight; }) : [];
+  if(!ready.length){ for(var i = 0; i < n; i++) out.push('cast_' + CAST12[seedOf(key + ':look:' + i) % 12]); return out; }
+  var mine = {}; try{ ((window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || []).forEach(function(m){ if(m && m.look) mine[m.look] = 1; }); }catch(e){}
+  var deal = function(L){ return L.map(function(p){ return {l:p.look, k:seedOf(key + ':' + p.look)}; }).sort(function(a, b){ return a.k - b.k; }).map(function(x){ return x.l; }); };
+  var pool = deal(ready.filter(function(p){ return p.gang === 'town'; })).concat(deal(ready.filter(function(p){ return p.gang !== 'town'; })))
+    .filter(function(l){ return !mine[l]; });
+  for(var q = 0; q < n; q++) out.push(pool.length ? pool[q % pool.length] : 'cast_' + CAST12[seedOf(key + ':look:' + q) % 12]);
+  return out;
 }
 var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['butcher_s_cleaver','leather_wraps'], brawler:[null,'sackcloth'],
            thief:['knife','leather_tunic'], militia:['militia_spear','padded_surcoat']};
@@ -1090,8 +1107,9 @@ function recruitsHere(){
   if(S.postKey !== pk){
     S.postKey = pk; S.taken = {};
     var six = BohemiaGoodBros.sixAtThePost(key), more = n > 6 ? BohemiaGoodBros.sixAtThePost(key + ':more') : [];
+    var looks = recruitLooks(key, n);
     S.recruits = six.concat(more).slice(0, n).map(function(r, i){
-      r.id = 'rc' + i; r.look = 'cast_' + ['longcoat','barearms','pack','skirt','widebrim','cape','apron','poncho','bedroll','shorts','satchel','shortcoat'][seedOf(key + ':look:' + i) % 12]; r.name = hireName(key, i, r.look);
+      r.id = 'rc' + i; r.look = looks[i]; r.name = hireName(key, i, r.look);
       return r; });
   }
   return (S.recruits||[]).filter(function(r){ return !S.taken[r.id]; });
@@ -1635,7 +1653,7 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

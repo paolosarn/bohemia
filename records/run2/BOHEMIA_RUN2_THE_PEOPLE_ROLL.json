@@ -3106,5 +3106,989 @@
   "facial_hair": "LONG BEARD",
   "new_beard": "long",
   "top": "BLACK TANK"
+ },
+ {
+  "id": "town_12",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "BOX BRAIDS",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "facial_hair": "PATCHY BEARD",
+  "new_beard": "patchy",
+  "stubble": true,
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "top": "STRIPED TEE",
+  "coat": "CAR COAT"
+ },
+ {
+  "id": "town_13",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "mark_name": "STITCHED GASH",
+  "mark": "stitched_gash",
+  "top": "ROLLED FLANNEL",
+  "coat": "KHAKI JACKET"
+ },
+ {
+  "id": "town_14",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "facial_hair": "MOUSTACHE",
+  "beard": "moustache",
+  "hat": "HAT BRICK WATCH CAP",
+  "top": "LONGLINE JERSEY"
+ },
+ {
+  "id": "town_15",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "DUST WEAVE",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "mark_name": "BROKEN NOSE",
+  "mark": "broken_nose",
+  "top": "RED PLAID FLANNEL",
+  "coat": "RANGER LONGCOAT"
+ },
+ {
+  "id": "town_16",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "STATIC",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "facial_hair": "PATCHY BEARD",
+  "new_beard": "patchy",
+  "stubble": true,
+  "mark_name": "CLOUDED EYE",
+  "mark": "clouded_eye",
+  "top": "LAYERED JERSEY"
+ },
+ {
+  "id": "town_17",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "SHAG",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "facial_hair": "MUTTON CHOPS",
+  "new_beard": "mutton_chops",
+  "top": "ARC SHOULDER TEE"
+ },
+ {
+  "id": "town_18",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "SCORCH",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "top": "STEEL PLAID FLANNEL",
+  "coat": "OXBLOOD PONCHO"
+ },
+ {
+  "id": "town_19",
+  "gang": "Body",
+  "heritage": "mixed",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "FINGER WAVES",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "LEATHER WRAP COAT"
+ },
+ {
+  "id": "town_20",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.jawW": 33,
+   "face.chinW": 20,
+   "face.len": 38,
+   "face.cheekW": 34,
+   "face.mouthY": 1
+  },
+  "face_name": "LANTERN JAW",
+  "top": "STORM BUTTON-UP"
+ },
+ {
+  "id": "town_21",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "HORSESHOE",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "eyes.gap": 3,
+   "nose.w": 2,
+   "face.noseY": -1,
+   "face.len": 37,
+   "face.chinW": 15,
+   "face.jawW": 24,
+   "face.cheekW": 28
+  },
+  "face_name": "HAWK",
+  "top": "TEAL STRIPED TEE"
+ },
+ {
+  "id": "town_22",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "DUST WEAVE",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "top": "TATTERED TEE"
+ },
+ {
+  "id": "town_23",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "facial_hair": "CHIN STRAP",
+  "new_beard": "chin_strap",
+  "mark_name": "LIP SCAR",
+  "scar": "lip",
+  "top": "STEEL WORK SHIRT",
+  "coat": "GRASS WRAP COAT"
+ },
+ {
+  "id": "town_24",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "SHAG",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "facial_hair": "HORSESHOE MOUSTACHE",
+  "new_beard": "horseshoe",
+  "top": "TEAL WORK SHIRT",
+  "coat": "KHAKI DUSTER"
+ },
+ {
+  "id": "town_25",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "deep",
+  "skin": [
+   "skin_deep",
+   2
+  ],
+  "hair_cut": "SHORT ROPES",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "eyewear": "FACE OLIVE DUST MASK",
+  "top": "BONE TANK"
+ },
+ {
+  "id": "town_26",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "FINGER WAVES",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "facial_hair": "GOATEE",
+  "beard": "goatee",
+  "top": "COBALT SHIRT",
+  "coat": "BRICK COMMA COAT"
+ },
+ {
+  "id": "town_27",
+  "gang": "Body",
+  "heritage": "mixed",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "facial_hair": "PENCIL MOUSTACHE",
+  "new_beard": "pencil",
+  "top": "STEEL STRIPED TEE",
+  "coat": "LEATHER SPLIT-TAIL COAT"
+ },
+ {
+  "id": "town_28",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "HORSESHOE",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "facial_hair": "LONG BEARD",
+  "new_beard": "long",
+  "top": "PATINA PLAID FLANNEL",
+  "coat": "GRASS CAR COAT"
+ },
+ {
+  "id": "town_29",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "mark_name": "CLOUDED EYE",
+  "mark": "clouded_eye",
+  "top": "SAGE STRIPED HENLEY"
+ },
+ {
+  "id": "town_30",
+  "gang": "Body",
+  "heritage": "mixed",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "SHAG",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "top": "RUST HOODIE",
+  "coat": "BRICK CAR COAT"
+ },
+ {
+  "id": "town_31",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "FINGER WAVES",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.browY": 2,
+   "brows.len": 11,
+   "face.eyeY": 1,
+   "face.jawW": 30,
+   "face.chinW": 15,
+   "face.craniumH": 8,
+   "nose.w": 4
+  },
+  "face_name": "HEAVY BROW",
+  "facial_hair": "PENCIL MOUSTACHE",
+  "new_beard": "pencil",
+  "top": "STORM HENLEY"
+ },
+ {
+  "id": "town_32",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "deep",
+  "skin": [
+   "skin_deep",
+   2
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "top": "WIDE SHOULDER TEE",
+  "coat": "STORM JACKET"
+ },
+ {
+  "id": "town_33",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "ebony",
+  "skin": [
+   "skin_mid",
+   1
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "top": "SIGNAL RED SHIRT",
+  "coat": "BRICK LONGCOAT"
+ },
+ {
+  "id": "town_34",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "onyx",
+  "skin": [
+   "skin_light",
+   0
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "top": "OLIVE DRAB TEE"
+ },
+ {
+  "id": "town_35",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "eyes.gap": 3,
+   "nose.w": 2,
+   "face.noseY": -1,
+   "face.len": 37,
+   "face.chinW": 15,
+   "face.jawW": 24,
+   "face.cheekW": 28
+  },
+  "face_name": "HAWK",
+  "facial_hair": "MOUSTACHE",
+  "beard": "moustache",
+  "top": "MOB PINSTRIPE SHIRT",
+  "coat": "COBALT COCOON COAT"
+ },
+ {
+  "id": "town_36",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "SPRING CURLS",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "mark_name": "STITCHED GASH",
+  "mark": "stitched_gash",
+  "top": "FIELD BUTTON-UP",
+  "coat": "SLATE COCOON COAT"
+ },
+ {
+  "id": "town_37",
+  "gang": "Body",
+  "heritage": "mixed",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "CURTAIN CUT",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "eyewear": "FACE OXBLOOD DUST MASK",
+  "top": "CHARCOAL STRIPED TEE",
+  "coat": "STORM VEST"
+ },
+ {
+  "id": "town_38",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "FINGER WAVES",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "facial_hair": "HORSESHOE MOUSTACHE",
+  "new_beard": "horseshoe",
+  "top": "FIELD SHORTALLS"
+ },
+ {
+  "id": "town_39",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "CURTAIN CUT",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.jawW": 33,
+   "face.chinW": 20,
+   "face.len": 38,
+   "face.cheekW": 34,
+   "face.mouthY": 1
+  },
+  "face_name": "LANTERN JAW",
+  "top": "GREEN FLANNEL"
+ },
+ {
+  "id": "town_40",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "STATIC",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "facial_hair": "MUTTON CHOPS",
+  "new_beard": "mutton_chops",
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "top": "BRICK TEE"
+ },
+ {
+  "id": "town_41",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "LONG DROP",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "top": "FOREST PLAID FLANNEL",
+  "coat": "SOOT TRENCH"
+ },
+ {
+  "id": "town_42",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "CURTAIN CUT",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "top": "SLATE PLAID FLANNEL",
+  "coat": "WORK JACKET"
+ },
+ {
+  "id": "town_43",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "SCORCH",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "facial_hair": "PATCHY BEARD",
+  "new_beard": "patchy",
+  "stubble": true,
+  "top": "SHOULDER LONGLINE",
+  "coat": "ASH WRAP COAT"
+ },
+ {
+  "id": "town_44",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "pale",
+  "skin": [
+   "skin_light",
+   2
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "top": "SAND HOODIE",
+  "coat": "BARN COAT"
+ },
+ {
+  "id": "town_45",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "eyes.gap": 3,
+   "nose.w": 2,
+   "face.noseY": -1,
+   "face.len": 37,
+   "face.chinW": 15,
+   "face.jawW": 24,
+   "face.cheekW": 28
+  },
+  "face_name": "HAWK",
+  "top": "WHITE TEE",
+  "coat": "BONE VEST"
+ },
+ {
+  "id": "town_46",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "facial_hair": "PENCIL MOUSTACHE",
+  "new_beard": "pencil",
+  "eyewear": "FACE ASH FACE WRAP",
+  "top": "SAGE TEE",
+  "coat": "TACTICAL VEST"
+ },
+ {
+  "id": "town_47",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "CURTAIN CUT",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "top": "TATTERED FLANNEL",
+  "coat": "LEATHER VEST"
  }
 ]

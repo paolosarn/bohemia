@@ -12,7 +12,7 @@
        so a Red in a town is the Red on the road. Read from CHARACTER's own files, not RUN's sheet: the sheet is held to
        256 colours for the whole valley and a tan face comes out grey at a door's height (measured, cartel, 10/19).
      BohemiaRigBodies.TURNS                       S SE E NE N NW W SW, the order a tap turns a man through
-     BohemiaRigBodies.has(look)                   PORTRAIT rendered this look's body
+     BohemiaRigBodies.has(look)                   PORTRAIT rendered this look's body, or he is a rolled person
      BohemiaRigBodies.src(look, turn)             its file, or null
      BohemiaRigBodies.image(look, turn, cb)       cb(img) once loaded, cb(null) if it fails
      BohemiaRigBodies.gangOf(look)                'reds' for faction_reds or a rolled Red, 'town' for a person of the place, null
@@ -43,10 +43,12 @@
   var BASE = '../records/target/portrait/rig/crew/';   /* the screens live in slices/; Pages publishes records/target */
   var GBASE = '../records/target/character/rig/';
   var FIG_H = 108;
-  function has(look) { return LOOKS.indexOf(look) >= 0; }
+  function has(look) { return LOOKS.indexOf(look) >= 0 || !!person(look); }
   function src(look, turn) {
     if (!has(look)) return null;
-    return (root.BOHEMIA_RIG_BODIES_BASE || BASE) + look + '/rig_' + (TURNS.indexOf(turn) >= 0 ? turn : 'S') + '.png';
+    var t = TURNS.indexOf(turn) >= 0 ? turn : 'S';
+    if (LOOKS.indexOf(look) < 0) return (root.BOHEMIA_PEOPLE_BASE || PBASE) + look + '/rig_' + t + '.png';   /* a rolled person: his own still */
+    return (root.BOHEMIA_RIG_BODIES_BASE || BASE) + look + '/rig_' + t + '.png';
   }
   var cache = {};
   function load(u, cb) {
