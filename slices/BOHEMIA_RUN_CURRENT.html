@@ -10815,7 +10815,28 @@ root.BQRuntime=API;
       G.rect(x-1,y-1,x+1,y+1,23); set(x,y,3); }               // the tree in its granite bed
     for(x=10;x<=118;x++){ if(get(x,8)===4)set(x,8,13); if(get(x,36)===4)set(x,36,13); }
     for(y=8;y<=36;y++){ if(get(10,y)===4)set(10,y,13); if(get(118,y)===4)set(118,y,13); }
-    for(x=60;x<=68;x++) if(get(x,36)===13) set(x,36,4);                  // the gap you walk in through
+    /* THE GATE INTO THE COURT, AND WHY THE OLD GAP WAS NEVER ONE (9/28, LIFE+CITY, rule 34b).
+       The line that used to sit here cut 'the gap you walk in through' at x60-68 of the south
+       wall. But the NAVE runs x52-76 from the apse straight down through the court, so those
+       cells were already church (code 2) and the line did nothing: the court was walled on
+       every side, split in two by the nave, and 2,296 cells of it -- the memorial court and the
+       orchard -- could be seen and never entered. On every seed this is the CHURCH'S HOME BASE
+       (rule 37e: fourteen home bases you can raid), so that was fight ground with no way onto it.
+       The intent was always written down: NOTES.circulation says 'the churchyard walk rings the
+       building to the transept door and the memorial court gate', and code 18's own act-1 line
+       is 'the gate into a memorial court'. So each HALF gets that gate, three wide, in its south
+       wall at the point nearest the nave where there is open ground outside to step onto --
+       found, not hard-coded, so a change to the building cannot quietly land it on stone again. */
+    [[51,11,-1],[77,117,1]].forEach(function(h){
+      for(var gxx=h[0]; gxx!==h[1]; gxx+=h[2]){
+        var ok=true;
+        for(var k=-1;k<=1;k++){
+          var wall=get(gxx+k,36), out=get(gxx+k,37), inn=get(gxx+k,35);
+          if(wall!==13 || !(out===14||out===12||out===7||out===4) || !(inn===4||inn===23)) { ok=false; break; }
+        }
+        if(ok){ for(k=-1;k<=1;k++) set(gxx+k,36,18); return; }
+      }
+    });
 
     /* THE WALK IS AN APRON, NOT A FIELD. Painting the whole churchyard "sidewalk" made one
        code 35.5% of the plot, which is the MONOBLOCK failure. A walk is the band that hugs
@@ -19777,10 +19798,27 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   function readsAs(name) {
     if (!name) return 'either';
     var given = String(name).trim().split(/\s+/)[0];
-    return NAME_READS[given] || 'either';
+    if (NAME_READS[given]) return NAME_READS[given];
+    var N = names(), s = N ? N.sexOf(given) : null;   /* the names the mix added since 9/21 */
+    return s === 'f' ? 'she' : s === 'm' ? 'he' : 'either';
   }
 
-  function generatedName(key) {
+  /* __THE_NAMES_WIRED_IN__ (10/18, PEOPLE [the names wired in]). THE TWO WORDS ARE ONE PERSON NOW.
+     Measured before this: the first name and the surname came from two independent draws over the two
+     lists above, so 56.0% of the valley's names read Hispanic against a county that is 33.4% Hispanic
+     (records/BOHEMIA_PEOPLE_THE_NAMES_MIX_10_18_26.md). A stranger's name now comes from the one roll the
+     hire post and the keepers use too (engine/bohemia_names.js: who first from the census, then the name
+     by who). GIVEN and SURNAME above stay as the record of the names he voted UP; every one of them is in
+     the roller's pools. sex (optional, 'he'/'she'/'m'/'f') makes the name agree with a body already drawn.
+     Where the roller is not loaded the old draw answers, so no frame goes nameless. */
+  function names() {
+    if (root.BohemiaNames) return root.BohemiaNames;
+    if (HASREQ) { try { return require('./bohemia_names.js'); } catch (e) { return null; } }
+    return null;
+  }
+  function generatedName(key, sex) {
+    var N = names();
+    if (N) return N.roll(key, { sex: sex }).full;
     var h = 0;
     for (var i = 0; i < key.length; i++) h = (Math.imul(h, 31) + key.charCodeAt(i)) >>> 0;
     var a = mix32(h), b = mix32(h ^ 0x9e3779b9);
@@ -19935,8 +19973,29 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
        a water-plant worker in the roster and opening a card that said something
        else.
        A person's key is the identity module's own answer to "who is this",
-       exactly as nameOf refuses to answer without one. No key, no answer. */
+       exactly as nameOf refuses to answer without one. No key, no answer.
+
+       *** AND THE SAME BUG CAME BACK, 9/29, THROUGH A THIRD OBJECT. *** UI's
+       new companion page reads the CITY POPULATION MODULE'S OWN RAW RECORD
+       (bohemia_population.js personFields: id, nx, ny, archetype, nightOut...)
+       straight off the roster, which carries `id` and never `key` -- it is not
+       the walked city's wrapped roster object either, it is one layer further
+       back. Handing THAT to this function returned null, not a wrong answer,
+       so the bug above never fired twice -- but a companion with a real
+       background showing none is still the same "which object did you ask"
+       failure one hop earlier. THE FIX IS NOT THE OLD FALLBACK: the old one
+       hashed the BARE id, which is what caused the original two-answers bug.
+       This hashes the SAME PREFIXED KEY the real wrapper would have built
+       ('P:city:' + id, this file's own documented convention, matching every
+       other place in the city that turns a population record into a person),
+       so a raw record and its properly wrapped twin now hash identically and
+       answer identically -- proven in the gate, not just claimed. Household
+       agents ('H<n>-<n>' ids, a different id shape needing a blockSeed no
+       lone object carries) are still refused rather than guessed at. */
     var key = person && person.key;
+    if (!key && person && person.id != null && !/^H\d+-\d+$/.test(String(person.id))) {
+      key = 'P:city:' + person.id;
+    }
     if (!key) return null;
     var h = 0, s = String(key);
     for (var i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) >>> 0;

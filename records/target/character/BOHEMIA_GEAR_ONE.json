@@ -1,0 +1,679 @@
+{
+ "what": "CHARACTER [every old asset into the new look], GEAR 1: the 68 canon bags, capes, pads, plates, holsters, scarves, belts and gloves, read off the alpha",
+ "kinds": {
+  "backpack": [
+   "RUCK PACK",
+   "OLIVE RUCK PACK"
+  ],
+  "satchel": [
+   "SALVAGE SATCHEL",
+   "OXBLOOD SATCHEL"
+  ],
+  "bedroll": [
+   "BEDROLL",
+   "DUST BEDROLL"
+  ],
+  "quiver": [
+   "SCRAP QUIVER",
+   "RUST QUIVER"
+  ],
+  "cape": [
+   "ROAD CAPE",
+   "CHARCOAL ROAD CAPE",
+   "STEEL ROAD CAPE"
+  ],
+  "mantle": [
+   "SHOULDER MANTLE",
+   "OLIVE SHOULDER MANTLE",
+   "COBALT SHOULDER MANTLE",
+   "GOLD SHOULDER MANTLE",
+   "CHARCOAL SHOULDER MANTLE"
+  ],
+  "drape": [
+   "ONE-SHOULDER DRAPE",
+   "BONE SHOULDER DRAPE"
+  ],
+  "kneepads": [
+   "SCAV KNEEPADS",
+   "SAND KNEEPADS"
+  ],
+  "shinguards": [
+   "SHIN GUARDS",
+   "STEEL SHIN GUARDS"
+  ],
+  "elbowpads": [
+   "ELBOW PADS",
+   "KHAKI ELBOW PADS"
+  ],
+  "bracers": [
+   "WORN BRACERS",
+   "OXBLOOD BRACERS"
+  ],
+  "legwraps": [
+   "FIELD LEG WRAPS",
+   "OLIVE LEG WRAPS"
+  ],
+  "pauldron": [
+   "SCRAP PAULDRON",
+   "STEEL PAULDRON"
+  ],
+  "spiked": [
+   "SPIKED PAULDRON",
+   "STEEL SPIKED PAULDRON"
+  ],
+  "chestrig": [
+   "CHEST RIG",
+   "OLIVE CHEST RIG"
+  ],
+  "chestplate": [
+   "SCRAP CHEST PLATE",
+   "SOOT CHEST PLATE"
+  ],
+  "gorget": [
+   "RUST GORGET",
+   "SOOT GORGET"
+  ],
+  "suspenders": [
+   "WORK SUSPENDERS",
+   "BRICK SUSPENDERS"
+  ],
+  "holster": [
+   "THIGH HOLSTER",
+   "RUST THIGH HOLSTER"
+  ],
+  "bandolier": [
+   "SHELL BANDOLIER",
+   "DUST BROWN BANDOLIER"
+  ],
+  "shoulderroll": [
+   "BLANKET SHOULDER ROLL",
+   "BRICK SHOULDER ROLL"
+  ],
+  "scarf": [
+   "DUST SCARF",
+   "OXBLOOD SCARF",
+   "PATINA SCARF",
+   "CHARCOAL SCARF",
+   "SAGE SCARF",
+   "BONE SCARF"
+  ],
+  "trailing scarf": [
+   "TRAILING SCARF"
+  ],
+  "cowl": [
+   "DRAPED COWL",
+   "ASH COWL"
+  ],
+  "belt": [
+   "LEATHER BELT",
+   "CHARCOAL BELT"
+  ],
+  "toolbelt": [
+   "SCAV TOOL BELT",
+   "SOOT TOOL BELT"
+  ],
+  "sash": [
+   "HIP SASH"
+  ],
+  "wrapbelt": [
+   "WIDE WAIST WRAP",
+   "LEAD WAIST WRAP"
+  ],
+  "gloves": [
+   "LEATHER GLOVES",
+   "SOOT GLOVES",
+   "DUST GLOVES",
+   "OXBLOOD GLOVES"
+  ],
+  "handwrap": [
+   "HAND WRAPS",
+   "SOOT HAND WRAPS"
+  ]
+ },
+ "pieces": [
+  {
+   "name": "DUST SCARF",
+   "slot": "neck",
+   "tag": "kit_dust_scarf",
+   "fn": "genAcc",
+   "ramp": "DUSTSAND",
+   "kind": "scarf"
+  },
+  {
+   "name": "OXBLOOD SCARF",
+   "slot": "neck",
+   "tag": "kit_oxblood_scarf",
+   "fn": "genAcc",
+   "ramp": "OXBLOOD",
+   "kind": "scarf"
+  },
+  {
+   "name": "LEATHER GLOVES",
+   "slot": "hands",
+   "tag": "kit_leather_gloves",
+   "fn": "genAcc",
+   "ramp": "LEATHERV",
+   "kind": "gloves"
+  },
+  {
+   "name": "SOOT GLOVES",
+   "slot": "hands",
+   "tag": "kit_soot_gloves",
+   "fn": "genAcc",
+   "ramp": "CHARCLOTH",
+   "kind": "gloves"
+  },
+  {
+   "name": "LEATHER BELT",
+   "slot": "waist",
+   "tag": "kit_leather_belt",
+   "fn": "genAcc",
+   "ramp": "LEATHERV",
+   "kind": "belt"
+  },
+  {
+   "name": "PATINA SCARF",
+   "slot": "neck",
+   "tag": "kit_patina_scarf",
+   "fn": "genAcc",
+   "ramp": "COPPEROX",
+   "kind": "scarf"
+  },
+  {
+   "name": "CHARCOAL SCARF",
+   "slot": "neck",
+   "tag": "kit_charcoal_scarf",
+   "fn": "genAcc",
+   "ramp": "CHARCLOTH",
+   "kind": "scarf"
+  },
+  {
+   "name": "SAGE SCARF",
+   "slot": "neck",
+   "tag": "kit_sage_scarf",
+   "fn": "genAcc",
+   "ramp": "SAGE",
+   "kind": "scarf"
+  },
+  {
+   "name": "BONE SCARF",
+   "slot": "neck",
+   "tag": "kit_bone_scarf",
+   "fn": "genAcc",
+   "ramp": "BONECLO",
+   "kind": "scarf"
+  },
+  {
+   "name": "DUST GLOVES",
+   "slot": "hands",
+   "tag": "kit_dust_gloves",
+   "fn": "genAcc",
+   "ramp": "DUSTSAND",
+   "kind": "gloves"
+  },
+  {
+   "name": "OXBLOOD GLOVES",
+   "slot": "hands",
+   "tag": "kit_oxblood_gloves",
+   "fn": "genAcc",
+   "ramp": "OXBLOOD",
+   "kind": "gloves"
+  },
+  {
+   "name": "CHARCOAL BELT",
+   "slot": "waist",
+   "tag": "kit_charcoal_belt",
+   "fn": "genAcc",
+   "ramp": "CHARCLOTH",
+   "kind": "belt"
+  },
+  {
+   "name": "SCAV KNEEPADS",
+   "slot": "gear",
+   "tag": "kit_scav_kneepads",
+   "fn": "genGear",
+   "ramp": "CHARCLOTH",
+   "kind": "kneepads"
+  },
+  {
+   "name": "SCRAP PAULDRON",
+   "slot": "gear",
+   "tag": "kit_scrap_pauldron",
+   "fn": "genGear",
+   "ramp": "RUSTIRON",
+   "kind": "pauldron"
+  },
+  {
+   "name": "CHEST RIG",
+   "slot": "gear",
+   "tag": "kit_chest_rig",
+   "fn": "genGear",
+   "ramp": "TACV",
+   "kind": "chestrig"
+  },
+  {
+   "name": "RUCK PACK",
+   "slot": "back",
+   "tag": "kit_ruck_pack",
+   "fn": "genBag",
+   "ramp": "DUSTBRN",
+   "kind": "backpack"
+  },
+  {
+   "name": "SALVAGE SATCHEL",
+   "slot": "back",
+   "tag": "kit_salvage_satchel",
+   "fn": "genBag",
+   "ramp": "LEATHERV",
+   "kind": "satchel"
+  },
+  {
+   "name": "WORK SUSPENDERS",
+   "slot": "gear",
+   "tag": "kit_work_suspenders",
+   "fn": "genGear",
+   "ramp": "CHARCLOTH",
+   "kind": "suspenders"
+  },
+  {
+   "name": "BEDROLL",
+   "slot": "back",
+   "tag": "kit_bedroll",
+   "fn": "genBag",
+   "ramp": "QUILTV",
+   "kind": "bedroll"
+  },
+  {
+   "name": "SHIN GUARDS",
+   "slot": "gear",
+   "tag": "kit_shin_guards",
+   "fn": "genGear",
+   "ramp": "RUSTIRON",
+   "kind": "shinguards"
+  },
+  {
+   "name": "WORN BRACERS",
+   "slot": "gear",
+   "tag": "kit_worn_bracers",
+   "fn": "genGear",
+   "ramp": "LEATHERV",
+   "kind": "bracers"
+  },
+  {
+   "name": "THIGH HOLSTER",
+   "slot": "gear",
+   "tag": "kit_thigh_holster",
+   "fn": "genGear",
+   "ramp": "CHARCLOTH",
+   "kind": "holster"
+  },
+  {
+   "name": "TRAILING SCARF",
+   "slot": "neck",
+   "tag": "kit_trailing_scarf",
+   "fn": "genAcc",
+   "ramp": "OXBLOOD",
+   "kind": "trailing scarf"
+  },
+  {
+   "name": "ROAD CAPE",
+   "slot": "back",
+   "tag": "kit_road_cape",
+   "fn": "genCape",
+   "ramp": "OXBLOOD",
+   "kind": "cape"
+  },
+  {
+   "name": "SHELL BANDOLIER",
+   "slot": "gear",
+   "tag": "kit_shell_bandolier",
+   "fn": "genGear",
+   "ramp": "LEATHERV",
+   "kind": "bandolier"
+  },
+  {
+   "name": "SCAV TOOL BELT",
+   "slot": "waist",
+   "tag": "kit_scav_tool_belt",
+   "fn": "genGear",
+   "ramp": "LEATHERV",
+   "kind": "toolbelt"
+  },
+  {
+   "name": "SHOULDER MANTLE",
+   "slot": "back",
+   "tag": "kit_shoulder_mantle",
+   "fn": "genCape",
+   "ramp": "TACV",
+   "kind": "mantle"
+  },
+  {
+   "name": "ELBOW PADS",
+   "slot": "gear",
+   "tag": "kit_elbow_pads",
+   "fn": "genGear",
+   "ramp": "LEATHERV",
+   "kind": "elbowpads"
+  },
+  {
+   "name": "FIELD LEG WRAPS",
+   "slot": "gear",
+   "tag": "kit_field_leg_wraps",
+   "fn": "genGear",
+   "ramp": "DUSTSAND",
+   "kind": "legwraps"
+  },
+  {
+   "name": "BLANKET SHOULDER ROLL",
+   "slot": "gear",
+   "tag": "kit_blanket_shoulder_roll",
+   "fn": "genGear",
+   "ramp": "OXBLOOD",
+   "kind": "shoulderroll"
+  },
+  {
+   "name": "HIP SASH",
+   "slot": "waist",
+   "tag": "kit_hip_sash",
+   "fn": "genAcc",
+   "ramp": "OXBLOOD",
+   "kind": "sash"
+  },
+  {
+   "name": "SCRAP QUIVER",
+   "slot": "back",
+   "tag": "kit_scrap_quiver",
+   "fn": "genBag",
+   "ramp": "LEATHERV",
+   "kind": "quiver"
+  },
+  {
+   "name": "CHARCOAL ROAD CAPE",
+   "slot": "back",
+   "tag": "kit_charcoal_road_cape",
+   "fn": "genCape",
+   "ramp": "CHARCLOTH",
+   "kind": "cape"
+  },
+  {
+   "name": "SCRAP CHEST PLATE",
+   "slot": "gear",
+   "tag": "kit_scrap_chest_plate",
+   "fn": "genGear",
+   "ramp": "RUSTIRON",
+   "kind": "chestplate"
+  },
+  {
+   "name": "SAND KNEEPADS",
+   "slot": "gear",
+   "tag": "kit_sand_kneepads",
+   "fn": "genGear",
+   "ramp": "DUSTSAND",
+   "kind": "kneepads"
+  },
+  {
+   "name": "STEEL PAULDRON",
+   "slot": "gear",
+   "tag": "kit_steel_pauldron",
+   "fn": "genGear",
+   "ramp": "STEELB",
+   "kind": "pauldron"
+  },
+  {
+   "name": "SPIKED PAULDRON",
+   "slot": "gear",
+   "tag": "kit_spiked_pauldron",
+   "fn": "genGear",
+   "ramp": "RUSTIRON",
+   "kind": "spiked"
+  },
+  {
+   "name": "STEEL SPIKED PAULDRON",
+   "slot": "gear",
+   "tag": "kit_steel_spiked_pauldron",
+   "fn": "genGear",
+   "ramp": "STEELB",
+   "kind": "spiked"
+  },
+  {
+   "name": "OLIVE CHEST RIG",
+   "slot": "gear",
+   "tag": "kit_olive_chest_rig",
+   "fn": "genGear",
+   "ramp": "OLIVEDRAB",
+   "kind": "chestrig"
+  },
+  {
+   "name": "BRICK SUSPENDERS",
+   "slot": "gear",
+   "tag": "kit_brick_suspenders",
+   "fn": "genGear",
+   "ramp": "BRICK",
+   "kind": "suspenders"
+  },
+  {
+   "name": "STEEL SHIN GUARDS",
+   "slot": "gear",
+   "tag": "kit_steel_shin_guards",
+   "fn": "genGear",
+   "ramp": "STEELB",
+   "kind": "shinguards"
+  },
+  {
+   "name": "OXBLOOD BRACERS",
+   "slot": "gear",
+   "tag": "kit_oxblood_bracers",
+   "fn": "genGear",
+   "ramp": "OXBLOOD",
+   "kind": "bracers"
+  },
+  {
+   "name": "RUST THIGH HOLSTER",
+   "slot": "gear",
+   "tag": "kit_rust_thigh_holster",
+   "fn": "genGear",
+   "ramp": "RUSTIRON",
+   "kind": "holster"
+  },
+  {
+   "name": "SOOT TOOL BELT",
+   "slot": "waist",
+   "tag": "kit_soot_tool_belt",
+   "fn": "genGear",
+   "ramp": "CHARCLOTH",
+   "kind": "toolbelt"
+  },
+  {
+   "name": "DUST BROWN BANDOLIER",
+   "slot": "gear",
+   "tag": "kit_dust_brown_bandolier",
+   "fn": "genGear",
+   "ramp": "DUSTBRN",
+   "kind": "bandolier"
+  },
+  {
+   "name": "SOOT CHEST PLATE",
+   "slot": "gear",
+   "tag": "kit_soot_chest_plate",
+   "fn": "genGear",
+   "ramp": "CHARCLOTH",
+   "kind": "chestplate"
+  },
+  {
+   "name": "KHAKI ELBOW PADS",
+   "slot": "gear",
+   "tag": "kit_khaki_elbow_pads",
+   "fn": "genGear",
+   "ramp": "KHAKI",
+   "kind": "elbowpads"
+  },
+  {
+   "name": "OLIVE LEG WRAPS",
+   "slot": "gear",
+   "tag": "kit_olive_leg_wraps",
+   "fn": "genGear",
+   "ramp": "OLIVEDRAB",
+   "kind": "legwraps"
+  },
+  {
+   "name": "BRICK SHOULDER ROLL",
+   "slot": "gear",
+   "tag": "kit_brick_shoulder_roll",
+   "fn": "genGear",
+   "ramp": "BRICK",
+   "kind": "shoulderroll"
+  },
+  {
+   "name": "OLIVE RUCK PACK",
+   "slot": "back",
+   "tag": "kit_olive_ruck_pack",
+   "fn": "genBag",
+   "ramp": "OLIVEDRAB",
+   "kind": "backpack"
+  },
+  {
+   "name": "OXBLOOD SATCHEL",
+   "slot": "back",
+   "tag": "kit_oxblood_satchel",
+   "fn": "genBag",
+   "ramp": "OXBLOOD",
+   "kind": "satchel"
+  },
+  {
+   "name": "DUST BEDROLL",
+   "slot": "back",
+   "tag": "kit_dust_bedroll",
+   "fn": "genBag",
+   "ramp": "DUSTSAND",
+   "kind": "bedroll"
+  },
+  {
+   "name": "RUST QUIVER",
+   "slot": "back",
+   "tag": "kit_rust_quiver",
+   "fn": "genBag",
+   "ramp": "RUSTIRON",
+   "kind": "quiver"
+  },
+  {
+   "name": "STEEL ROAD CAPE",
+   "slot": "back",
+   "tag": "kit_steel_road_cape",
+   "fn": "genCape",
+   "ramp": "STEELB",
+   "kind": "cape"
+  },
+  {
+   "name": "OLIVE SHOULDER MANTLE",
+   "slot": "back",
+   "tag": "kit_olive_shoulder_mantle",
+   "fn": "genCape",
+   "ramp": "OLIVEDRAB",
+   "kind": "mantle"
+  },
+  {
+   "name": "COBALT SHOULDER MANTLE",
+   "slot": "back",
+   "tag": "kit_cobalt_shoulder_mantle",
+   "fn": "genCape",
+   "ramp": "COBALT",
+   "kind": "mantle"
+  },
+  {
+   "name": "GOLD SHOULDER MANTLE",
+   "slot": "back",
+   "tag": "kit_gold_shoulder_mantle",
+   "fn": "genCape",
+   "ramp": "GOLDLEAF",
+   "kind": "mantle"
+  },
+  {
+   "name": "CHARCOAL SHOULDER MANTLE",
+   "slot": "back",
+   "tag": "kit_charcoal_shoulder_mantle",
+   "fn": "genCape",
+   "ramp": "CHARCLOTH",
+   "kind": "mantle"
+  },
+  {
+   "name": "RUST GORGET",
+   "slot": "gear",
+   "tag": "kit_rust_gorget",
+   "fn": "genGear",
+   "ramp": "RUSTIRON",
+   "kind": "gorget"
+  },
+  {
+   "name": "SOOT GORGET",
+   "slot": "gear",
+   "tag": "kit_soot_gorget",
+   "fn": "genGear",
+   "ramp": "CHARCLOTH",
+   "kind": "gorget"
+  },
+  {
+   "name": "DRAPED COWL",
+   "slot": "neck",
+   "tag": "kit_draped_cowl",
+   "fn": "genAcc",
+   "ramp": "CHARCLOTH",
+   "kind": "cowl"
+  },
+  {
+   "name": "ASH COWL",
+   "slot": "neck",
+   "tag": "kit_ash_cowl",
+   "fn": "genAcc",
+   "ramp": "ASHGREY",
+   "kind": "cowl"
+  },
+  {
+   "name": "HAND WRAPS",
+   "slot": "hands",
+   "tag": "kit_hand_wraps",
+   "fn": "genAcc",
+   "ramp": "BONECLO",
+   "kind": "handwrap"
+  },
+  {
+   "name": "SOOT HAND WRAPS",
+   "slot": "hands",
+   "tag": "kit_soot_hand_wraps",
+   "fn": "genAcc",
+   "ramp": "CHARCLOTH",
+   "kind": "handwrap"
+  },
+  {
+   "name": "WIDE WAIST WRAP",
+   "slot": "waist",
+   "tag": "kit_wide_waist_wrap",
+   "fn": "genAcc",
+   "ramp": "CHARCLOTH",
+   "kind": "wrapbelt"
+  },
+  {
+   "name": "LEAD WAIST WRAP",
+   "slot": "waist",
+   "tag": "kit_lead_waist_wrap",
+   "fn": "genAcc",
+   "ramp": "SLATEW",
+   "kind": "wrapbelt"
+  },
+  {
+   "name": "ONE-SHOULDER DRAPE",
+   "slot": "back",
+   "tag": "kit_one-shoulder_drape",
+   "fn": "genCape",
+   "ramp": "ASHGREY",
+   "kind": "drape"
+  },
+  {
+   "name": "BONE SHOULDER DRAPE",
+   "slot": "back",
+   "tag": "kit_bone_shoulder_drape",
+   "fn": "genCape",
+   "ramp": "BONECLO",
+   "kind": "drape"
+  }
+ ]
+}

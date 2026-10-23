@@ -148,6 +148,8 @@ def main():
     BASE_CARD = dict(BASE_CARD, **OUTER_CARD); BASE_HELD = BASE_HELD | OUTER_HELD
     HELD_RECORD = {'base': 'records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md', 'outer': 'records/BOHEMIA_OUTER_ONE_THE_74_COATS_10_20_26.md'}
     PP = portrait_pieces()
+    RULE_123 = dict(legs=BARBER.LEGS_ONE, feet=BARBER.LEGS_ONE, back=BARBER.GEAR_ONE, gear=BARBER.GEAR_ONE, neck=BARBER.GEAR_ONE,
+                    waist=BARBER.GEAR_ONE, hands=BARBER.GEAR_ONE)
 
     rows, seen = [], set()
 
@@ -205,6 +207,14 @@ def main():
                     nl['note'] = SAID
                 else:
                     nl['note'] = "his 10/18 on the thirteen: 'Nice direction very good not final'"
+            elif kind == 'garment' and layer in RULE_123 and name in RULE_123[layer].BY:
+                # LEGS AND FEET 1 and GEAR 1 (10/23, rule 123: no card): modelled on the 3D man and rolled into every person by
+                # the barber's book; he meets them in the crowd and corrects what he hates
+                M_ = RULE_123[layer]
+                nl = {'state': 'in the people, no card' if name not in M_.HELD else 'built, held',
+                      'by': "CHARACTER, modelled on the 3D man (%s), rolled into RUN TWO's people" % ('LEGS AND FEET 1' if M_ is BARBER.LEGS_ONE else M_.LABEL),
+                      'rule': "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"}
+                if name in M_.HELD: nl['held'] = M_.HELD[name]
             elif worn_by:
                 nl = {'state': 'built, not shown', 'by': "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"}
             else:
@@ -220,9 +230,14 @@ def main():
         if slot in ('body', 'facial'):
             continue
         kind = {'hair': 'hair', 'hat': 'hat', 'glasses': 'eyewear'}.get(slot, 'garment')
+        nl = {'state': 'not yet', 'by': None, 'note': "the player's first look (YOU's portrait wears his platinum long cut, not this)"}
+        if PLAIN.get(key) in BARBER.FIRST.BY:   # THE FIRST LOOK (10/23, rule 123: no card): in 3D, the player's own, never rolled
+            nl = {'state': "in 3D, the player's own", 'by': "CHARACTER, the paper doll on the 3D man (THE FIRST LOOK; build FIRST)",
+                  'note': BARBER.FIRST.HELD[PLAIN[key]]}
+        elif PLAIN.get(key) in BARBER.FIRST.HIS_OWN:
+            nl['note'] = BARBER.FIRST.HIS_OWN[PLAIN[key]]
         rows.append({'name': key, 'plain': PLAIN.get(key), 'kind': kind, 'slot': slot, 'old': 'paper doll', 'worn_by': ['you'],
-                     'aliases': [], 'new_look': {'state': 'not yet', 'by': None, 'note': "the player's first look (YOU's portrait wears his platinum long cut, not this)"},
-                     'batch': BATCH.get(kind, 'garments: %s' % slot)})
+                     'aliases': [], 'new_look': nl, 'batch': BATCH.get(kind, 'garments: %s' % slot)})
     # aliases: PORTRAIT's head pieces and the rig's sculpt styles, mapped by the look's own worn list
     by = dict((r['name'], r) for r in rows)
     portrait_unmapped = []

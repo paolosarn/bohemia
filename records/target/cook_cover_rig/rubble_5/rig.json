@@ -1,18 +1,18 @@
 {
  "engine": "CYCLES",
- "res": 240,
- "ortho_scale": 5.592233009708738,
+ "res": 238,
+ "ortho_scale": 5.545631067961166,
  "real_dims_m": [
-  2.114,
-  1.853,
-  1.522
+  2.792,
+  2.073,
+  1.038
  ],
- "scale_from_model": 1.0001,
+ "scale_from_model": 1.0,
  "still_frame": 0.0,
  "still": "frame 0",
  "ground_screen": [
-  120.0,
-  152.65838522852974
+  119.0,
+  141.27179329916868
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
@@ -23,6 +23,7 @@
    "bucket",
    "cmu",
    "concrete",
+   "fines",
    "plank",
    "rebar"
   ],
@@ -37,9 +38,9 @@
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 65,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0001)",
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
   "dents": {
-   "meshes": 27,
+   "meshes": 45,
    "dent_m": 0.025,
    "dent_per_m": 2.0,
    "subdiv": 2,
@@ -65,13 +66,13 @@
   "records/target/cook_cover_rig/rubble_5/rig_NW.png"
  ],
  "crop_box_px": [
-  62,
-  60,
-  179,
-  188
+  49,
+  73,
+  189,
+  191
  ],
  "grime": {
-  "materials": 6,
+  "materials": 7,
   "occlusion_m": 1.6,
   "tint": [
    0.3,

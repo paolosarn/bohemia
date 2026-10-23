@@ -1,0 +1,52 @@
+{
+ "slices/settlement_ground_packs/town_0.webp": {
+  "file": "slices/settlement_ground_packs/town_0.webp",
+  "sha1": "78e2411632db7f598c6d3d43bea150cab355c85a",
+  "render": "records/target/cook_settlement_rig/render/town_0.png"
+ },
+ "slices/settlement_ground_packs/town_0_night.webp": {
+  "file": "slices/settlement_ground_packs/town_0_night.webp",
+  "sha1": "0c5573c460ee600fdb6f5bb029a8df38eed57855",
+  "render": "records/target/cook_settlement_rig/render/town_0_night.png"
+ },
+ "slices/settlement_ground_packs/town_1.webp": {
+  "file": "slices/settlement_ground_packs/town_1.webp",
+  "sha1": "f4cf6f776544daf76143b50a30551d9f60896c18",
+  "render": "records/target/cook_settlement_rig/render/town_1.png"
+ },
+ "slices/settlement_ground_packs/town_1_night.webp": {
+  "file": "slices/settlement_ground_packs/town_1_night.webp",
+  "sha1": "ab510a5c9d3e6fa31d5eddfdea25e1441690e230",
+  "render": "records/target/cook_settlement_rig/render/town_1_night.png"
+ },
+ "slices/settlement_ground/home_0.webp": {
+  "file": "slices/settlement_ground/home_0.webp",
+  "sha1": "ebb1f7cbb8faea286c49f596a8e2cbccb577476f",
+  "render": "records/target/cook_settlement_rig/render/home_0.png"
+ },
+ "slices/settlement_ground/home_0_night.webp": {
+  "file": "slices/settlement_ground/home_0_night.webp",
+  "sha1": "b0ff11192981d700d3bbe311f532653a0804ac77",
+  "render": "records/target/cook_settlement_rig/render/home_0_night.png"
+ },
+ "slices/settlement_ground_packs/camp_0.webp": {
+  "file": "slices/settlement_ground_packs/camp_0.webp",
+  "sha1": "6320b084dc2c6f6d2bffe4b7f5a562d01bc92a03",
+  "render": "records/target/cook_settlement_rig/render/camp_0.png"
+ },
+ "slices/settlement_ground_packs/camp_0_night.webp": {
+  "file": "slices/settlement_ground_packs/camp_0_night.webp",
+  "sha1": "e837775a75179a13d7f8a64a4357e2e137fb4e92",
+  "render": "records/target/cook_settlement_rig/render/camp_0_night.png"
+ },
+ "slices/settlement_ground_packs/camp_1.webp": {
+  "file": "slices/settlement_ground_packs/camp_1.webp",
+  "sha1": "4ca6a322e17ed8f496e559331164f4f75e2fb75a",
+  "render": "records/target/cook_settlement_rig/render/camp_1.png"
+ },
+ "slices/settlement_ground_packs/camp_1_night.webp": {
+  "file": "slices/settlement_ground_packs/camp_1_night.webp",
+  "sha1": "6c5010ad9674d75fd4365be637599a4ce2c8a320",
+  "render": "records/target/cook_settlement_rig/render/camp_1_night.png"
+ }
+}

@@ -8,18 +8,25 @@
   "fight_floor": {
    "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
    "total": 35,
-   "flat": 31,
+   "flat": 24,
    "in_3d": [
     "corner.0",
+    "corner.1",
     "lots.0",
+    "ruin.0",
+    "ruin.1",
+    "scrub.0",
+    "strip.0",
     "subs.0",
+    "subs.1",
+    "subs.2",
     "subs.3"
    ]
   },
   "fight_cover": {
    "where": "the fight, slices/fight_ground/cover_*.webp (cars, walls, shed, trailer, barrier, dumpster, fence, pump, steps, dock, slot bank, table, pillar, outcrop, rocks, rubble)",
    "total": 51,
-   "flat": 1,
+   "flat": 0,
    "in_3d": [
     "car_drive",
     "car_kerb",
@@ -55,6 +62,7 @@
     "rubble_0",
     "rubble_1",
     "rubble_10",
+    "rubble_11",
     "rubble_2",
     "rubble_3",
     "rubble_4",
@@ -76,14 +84,61 @@
   "settlement_backdrops": {
    "where": "the settlement screen, slices/settlement_ground_packs/*.webp and slices/settlement_ground/home_0*.webp (day and night)",
    "total": 14,
-   "flat": 14,
-   "in_3d": []
+   "flat": 4,
+   "in_3d": [
+    "slices/settlement_ground/home_0.webp",
+    "slices/settlement_ground/home_0_night.webp",
+    "slices/settlement_ground_packs/camp_0.webp",
+    "slices/settlement_ground_packs/camp_0_night.webp",
+    "slices/settlement_ground_packs/camp_1.webp",
+    "slices/settlement_ground_packs/camp_1_night.webp",
+    "slices/settlement_ground_packs/town_0.webp",
+    "slices/settlement_ground_packs/town_0_night.webp",
+    "slices/settlement_ground_packs/town_1.webp",
+    "slices/settlement_ground_packs/town_1_night.webp"
+   ]
   },
   "map_districts": {
    "where": "the map (BOHEMIA_CITY_WORLD.html), HERO_SRC in slices/BOHEMIA_CITY_TILES_01..09.js: every district picture the valley is laid from, the mountain the biggest",
    "total": 69,
-   "flat": 69,
-   "in_3d": []
+   "flat": 34,
+   "in_3d": [
+    "apartment",
+    "arterial",
+    "battery",
+    "campus",
+    "cityhall",
+    "commercial",
+    "courthouse",
+    "desert",
+    "downtown",
+    "farm",
+    "firestation",
+    "fort",
+    "freeway",
+    "industrial",
+    "interchange",
+    "library",
+    "mall",
+    "mountain",
+    "park",
+    "policestation",
+    "rail",
+    "resort",
+    "school",
+    "solar",
+    "speedway",
+    "stadium",
+    "storage",
+    "strip",
+    "suburb",
+    "swapmeet",
+    "terminal",
+    "town",
+    "trailer",
+    "truckstop",
+    "warehouse"
+   ]
   },
   "fight_floor_futures": {
    "where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp",
@@ -105,7 +160,7 @@
   "item_icons": {
    "where": "the settlement's market and the crew screen, slices/market_icons/*.png (2 buildings, 4 supplies, 12 weapons)",
    "total": 18,
-   "flat": 8,
+   "flat": 0,
    "in_3d": [
     "b_armourer",
     "b_smith",
@@ -113,10 +168,18 @@
     "s_meds",
     "s_rounds",
     "s_water",
+    "w_axe",
+    "w_bottles",
+    "w_chain",
     "w_cleaver",
     "w_machete",
     "w_pipe",
-    "w_pistol"
+    "w_pistol",
+    "w_pole",
+    "w_rifle",
+    "w_shotgun",
+    "w_sledge",
+    "w_spear"
    ]
   }
  },
@@ -140,7 +203,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 193,
+ "total_flat": 132,
  "log": [
   {
    "at": "10/20 start",
@@ -200,6 +263,193 @@
    "fight_floor_futures": 70,
    "fight_lights": 0,
    "item_icons": 8
+  },
+  {
+   "at": "10/23 the eight long weapons' icons as icons (turned hafts, heads at 1.5 to 1.7x with a ground edge, the flail's chain and ball, the Molotov's rag; the guns at 1.6x girth)",
+   "total_flat": 185,
+   "fight_floor": 31,
+   "fight_cover": 1,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 corner.1 (the first board's crossroads) into the fight",
+   "total_flat": 184,
+   "fight_floor": 30,
+   "fight_cover": 1,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 rubble_11, the last cover piece, and all twelve rubble heaps given a body (a mound of fines, the lumps through it: they hovered over their shadows)",
+   "total_flat": 183,
+   "fight_floor": 30,
+   "fight_cover": 0,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 subs.2 into the fight",
+   "total_flat": 182,
+   "fight_floor": 29,
+   "fight_cover": 0,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 subs.1 into the fight",
+   "total_flat": 181,
+   "fight_floor": 28,
+   "fight_cover": 0,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the map's first fifteen districts through the rig (the mountain first)",
+   "total_flat": 165,
+   "fight_floor": 28,
+   "fight_cover": 0,
+   "settlement_backdrops": 13,
+   "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the district bank's rig masters as indexed PNGs (the bank 56.9 MB -> 28.3 MB)",
+   "total_flat": 165,
+   "fight_floor": 28,
+   "fight_cover": 0,
+   "settlement_backdrops": 13,
+   "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the settlement screen's town (day and night) through the rig",
+   "total_flat": 164,
+   "fight_floor": 28,
+   "fight_cover": 0,
+   "settlement_backdrops": 12,
+   "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 ruin.0 into the fight",
+   "total_flat": 163,
+   "fight_floor": 27,
+   "fight_cover": 0,
+   "settlement_backdrops": 12,
+   "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 scrub.0 into the fight (the open fix's first block)",
+   "total_flat": 162,
+   "fight_floor": 26,
+   "fight_cover": 0,
+   "settlement_backdrops": 12,
+   "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the settlement's second town (day and night)",
+   "total_flat": 160,
+   "fight_floor": 26,
+   "fight_cover": 0,
+   "settlement_backdrops": 10,
+   "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the map's next twenty districts through the rig",
+   "total_flat": 140,
+   "fight_floor": 26,
+   "fight_cover": 0,
+   "settlement_backdrops": 10,
+   "map_districts": 34,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the home block (day and night)",
+   "total_flat": 138,
+   "fight_floor": 26,
+   "fight_cover": 0,
+   "settlement_backdrops": 8,
+   "map_districts": 34,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 ruin.1 into the fight",
+   "total_flat": 137,
+   "fight_floor": 25,
+   "fight_cover": 0,
+   "settlement_backdrops": 8,
+   "map_districts": 34,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the camp (day and night)",
+   "total_flat": 135,
+   "fight_floor": 25,
+   "fight_cover": 0,
+   "settlement_backdrops": 6,
+   "map_districts": 34,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 strip.0 into the fight",
+   "total_flat": 132,
+   "fight_floor": 24,
+   "fight_cover": 0,
+   "settlement_backdrops": 4,
+   "map_districts": 34,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the second camp (day and night)",
+   "total_flat": 132,
+   "fight_floor": 24,
+   "fight_cover": 0,
+   "settlement_backdrops": 4,
+   "map_districts": 34,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
   }
  ]
 }

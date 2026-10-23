@@ -29,7 +29,71 @@ VENV = '/home/user/v/bin/python'
 BASE_SHA = 'c12f16127eb6424f5007babc0f0e6851daf51698'
 GUNS = {'w_pistol': 'gun_pistol_a.glb', 'w_rifle': 'gun_rifle_a.glb', 'w_shotgun': 'gun_shotgun_a.glb'}
 UP = 3                                   # 10/22: the render is three times the icon, cut down with a real filter
-DIAG = {'w_bottles': 0, 'b_smith': 0, 'b_armourer': 0, 's_food': 0, 's_meds': 0, 's_rounds': 0, 's_water': 0, 'w_pistol': 0, 'w_rifle': 0, 'w_shotgun': 0}   # these stand as they are; the rest lean 45
+DIAG = {'w_bottles': 0, 'b_smith': 0, 'b_armourer': 0, 's_food': 0, 's_meds': 0, 's_rounds': 0, 's_water': 0, 'w_pistol': 0, 'w_rifle': 0, 'w_shotgun': 0,
+        # 10/23: the long weapons are drawn as icons (their heads and hafts at icon proportions, see LONG) and lean to their
+        # old frame's own diagonal (atan of its width over its height); the flail is drawn in the plane, its chain hanging
+        'w_axe': 0, 'w_sledge': 0, 'w_spear': 37, 'w_pole': 33, 'w_chain': 0}
+# 10/23: THE LONG WEAPONS AS ICONS. 10/22's cut fattened the whole of a long thing across its length (up to 2.2x) and every
+# one came out a log: a spear, a pole and a flail read as the same brown cylinder at 96 px. An inventory icon is not a
+# thing at its girth: it is a TAPERED haft at about 1.5x, a HEAD at 1.5 to 1.7x its real size with a bright ground edge
+# against a dark body, and a silhouette that says what it is (the axe's wedge, the flail's chain and ball, the Molotov's
+# rag). So these are built that way here and the global fatten is kept for the guns only (1.6x their girth).
+LONG = ('w_axe', 'w_sledge', 'w_spear', 'w_pole', 'w_chain', 'w_bottles')
+GUN_GIRTH = 1.6
+
+
+def mesh(bpy, name, verts, faces, m, smooth=True):
+    me = bpy.data.meshes.new(name); me.from_pydata([tuple(map(float, v)) for v in verts], [], faces); me.update(calc_edges=True)
+    o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o); me.materials.append(m)
+    if smooth:
+        for p in me.polygons: p.use_smooth = True
+    return o
+
+
+def lathe(bpy, name, m, prof, n=18, smooth=True):
+    """a turned thing: prof is (radius, z) from the bottom up, revolved about z; a radius of 0 closes the end"""
+    verts, faces, rings = [], [], []
+    for r, z in prof:
+        if r <= 0: rings.append([len(verts)]); verts.append((0, 0, z)); continue
+        rings.append(list(range(len(verts), len(verts) + n)))
+        verts += [(r * math.cos(2 * math.pi * k / n), r * math.sin(2 * math.pi * k / n), z) for k in range(n)]
+    for a, b in zip(rings[:-1], rings[1:]):
+        if len(a) == 1 and len(b) == 1: continue
+        if len(a) == 1: faces += [(a[0], b[(k + 1) % n], b[k]) for k in range(n)]
+        elif len(b) == 1: faces += [(a[(k + 1) % n], b[0], a[k]) for k in range(n)]
+        else: faces += [(a[k], a[(k + 1) % n], b[(k + 1) % n], b[k]) for k in range(n)]
+    return mesh(bpy, name, verts, faces, m, smooth)
+
+
+def loft(bpy, name, m, secs, axis='z'):
+    """a flat steel thing (a blade, a wedge, a head) from cross-sections: each is (s, a0, a1, t0, t1): at s along the axis
+    it spans a0..a1 across, t0 thick (each way) at the a0 side and t1 at the a1 side; y is always the depth"""
+    verts, faces = [], []
+    for s, a0, a1, t0, t1 in secs:
+        q = ((a0, -t0), (a1, -t1), (a1, t1), (a0, t0))
+        verts += [((a, d, s) if axis == 'z' else (s, d, a)) for a, d in q]
+    for i in range(len(secs) - 1):
+        o = 4 * i
+        faces += [(o + k, o + (k + 1) % 4, o + 4 + (k + 1) % 4, o + 4 + k) for k in range(4)]
+    faces += [(3, 2, 1, 0), (4 * (len(secs) - 1), 4 * (len(secs) - 1) + 1, 4 * (len(secs) - 1) + 2, 4 * (len(secs) - 1) + 3)]
+    o = mesh(bpy, name, verts, faces, m, smooth=False)
+    if axis == 'x':                                            # the axis swap mirrors the winding: put the normals out again
+        for p in o.data.polygons: p.flip()
+    return o
+
+
+def link(bpy, name, m, at, along, turn, major=0.03, minor=0.009):
+    """one chain link at a point, its long side along a direction, turned a quarter about it every other link"""
+    import mathutils
+    bpy.ops.mesh.primitive_torus_add(major_segments=14, minor_segments=6, major_radius=major, minor_radius=minor, location=at)
+    o = bpy.context.active_object; o.name = name; o.data.materials.append(m)
+    t = mathutils.Vector(along).normalized(); up = mathutils.Vector((0, 1, 0)) if abs(t.y) < 0.9 else mathutils.Vector((1, 0, 0))
+    n1 = t.cross(up).normalized(); n2 = t.cross(n1).normalized()
+    nz = n2 if turn else n1; ny = nz.cross(t).normalized()
+    M = mathutils.Matrix((t * 1.45, ny, nz)).transposed()     # the torus's x stretched along the chain: an oval link
+    o.matrix_world = mathutils.Matrix.Translation(mathutils.Vector(at)) @ M.to_4x4()
+    for p in o.data.polygons: p.use_smooth = True
+    return o
 
 
 def build(name, bpy, P):
@@ -45,14 +109,63 @@ def build(name, bpy, P):
     wood, steel, rust, dark = P.mat(bpy, 'wood', 'clay_mustard', 1), P.mat(bpy, 'steel', 'tape_grey', 2), P.mat(bpy, 'rust', 'clay_rust', 1), P.mat(bpy, 'grip', 'rubber', 1)
     if name in GUNS:
         P.import_model(bpy, os.path.join(MODELS, GUNS[name]), (0, 0, 0), (0, 0, 0)); return
+    # 10/23: THE LONG WEAPONS AS ICONS (LONG above): turned hafts, heads 1.5 to 1.7x, a bright ground edge on a dark body
+    iron = P.mat(bpy, 'iron', 'metal_painted', 1); edge = P.mat(bpy, 'edge', 'chrome', 1); haft = P.mat(bpy, 'haft', 'clay_mustard', 1)
+    tape = P.mat(bpy, 'tape', 'rubber', 2)
     if name == 'w_axe':
-        # 10/22: an icon's axe: the head at twice its real size so it reads at 96 px (the first cut was a stick)
-        P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.026, 8)
-        P.box(bpy, 'head', steel, (0.3, 0.07, 0.16), (0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'edge', P.mat(bpy, 'edge', 'chrome', 2), (0.04, 0.05, 0.26), (0.23, 0, 0.8), bevel=0.006)
-        P.box(bpy, 'poll', steel, (0.08, 0.08, 0.12), (-0.08, 0, 0.8), bevel=0.01); P.box(bpy, 'wrap', dark, (0.07, 0.07, 0.16), (0, 0, 0.1))
+        lathe(bpy, 'haft', haft, [(0, 0), (0.042, 0), (0.046, 0.025), (0.033, 0.07), (0.028, 0.45), (0.031, 0.72), (0.036, 0.84), (0.036, 0.95), (0, 0.955)])
+        lathe(bpy, 'wrap', tape, [(0, 0.08), (0.035, 0.08), (0.035, 0.24), (0, 0.24)], n=14)
+        # the head: the poll, the eye round the haft, the cheek flaring to a bearded bit, then the ground edge
+        loft(bpy, 'head', iron, [(-0.1, 0.79, 0.9, 0.05, 0.05), (-0.05, 0.775, 0.915, 0.056, 0.056), (0.05, 0.78, 0.91, 0.052, 0.052),
+                                 (0.2, 0.69, 0.94, 0.018, 0.018), (0.25, 0.66, 0.95, 0.01, 0.01)], axis='x')
+        loft(bpy, 'bit', edge, [(0.25, 0.66, 0.95, 0.01, 0.01), (0.3, 0.63, 0.965, 0.003, 0.003)], axis='x')
     elif name == 'w_sledge':
-        P.rod(bpy, 'haft', wood, (0, 0, 0), (0, 0, 0.9), 0.03, 8)
-        P.box(bpy, 'head', steel, (0.34, 0.14, 0.14), (0, 0, 0.9), bevel=0.012); P.box(bpy, 'grip', dark, (0.07, 0.07, 0.2), (0, 0, 0.12))
+        lathe(bpy, 'haft', haft, [(0, 0), (0.04, 0), (0.044, 0.03), (0.034, 0.08), (0.03, 0.5), (0.034, 0.8), (0.038, 0.93), (0, 0.935)])
+        lathe(bpy, 'grip', tape, [(0, 0.06), (0.042, 0.06), (0.042, 0.3), (0, 0.3)], n=14)
+        P.box(bpy, 'head', iron, (0.36, 0.17, 0.17), (0, 0, 0.88), bevel=0.025)
+        for s in (-1, 1): P.box(bpy, 'face_%d' % s, edge, (0.025, 0.15, 0.15), (s * 0.185, 0, 0.88), bevel=0.012)
+        P.box(bpy, 'wedge', P.mat(bpy, 'wedge', 'clay_rust', 1), (0.05, 0.05, 0.04), (0, 0, 0.975))
+    elif name == 'w_spear':
+        # a sign post's pipe sharpened into a leaf of spring steel, lashed with wire, a rag tied under it
+        lathe(bpy, 'shaft', haft, [(0, 0), (0.032, 0), (0.034, 0.03), (0.03, 0.8), (0.033, 1.42), (0, 1.43)], n=12)
+        lathe(bpy, 'grip', tape, [(0, 0.55), (0.037, 0.55), (0.037, 0.8), (0, 0.8)], n=12)
+        loft(bpy, 'blade', iron, [(1.3, -0.03, 0.03, 0.022, 0.022), (1.45, -0.075, 0.075, 0.018, 0.018), (1.62, -0.06, 0.06, 0.012, 0.012), (1.82, -0.004, 0.004, 0.004, 0.004)])
+        loft(bpy, 'edge_l', edge, [(1.45, -0.088, -0.07, 0.003, 0.016), (1.62, -0.07, -0.055, 0.003, 0.011), (1.82, -0.006, 0.0, 0.002, 0.004)])
+        loft(bpy, 'edge_r', edge, [(1.45, 0.07, 0.088, 0.016, 0.003), (1.62, 0.055, 0.07, 0.011, 0.003), (1.82, 0.0, 0.006, 0.004, 0.002)])
+        for k in range(6): lathe(bpy, 'wire_%d' % k, steel, [(0, 1.3 + k * 0.025), (0.04, 1.3 + k * 0.025), (0.04, 1.315 + k * 0.025), (0, 1.315 + k * 0.025)], n=10)
+        rag = P.mat(bpy, 'rag', 'clay_rust', 2)
+        loft(bpy, 'rag', rag, [(1.29, 0.03, 0.11, 0.012, 0.008), (1.22, 0.05, 0.13, 0.01, 0.006), (1.1, 0.08, 0.15, 0.008, 0.005), (1.0, 0.1, 0.15, 0.006, 0.004)])
+    elif name == 'w_pole':
+        # a polearm: a pipe topped with a glaive cut from a mower blade, two bolts, a rebar hook behind
+        post = P.mat(bpy, 'post', 'metal_painted', 2)
+        lathe(bpy, 'pole', post, [(0, 0), (0.03, 0), (0.03, 1.32), (0, 1.33)], n=12)
+        lathe(bpy, 'grip', tape, [(0, 0.35), (0.035, 0.35), (0.035, 0.6), (0, 0.6)], n=12)
+        blade = P.mat(bpy, 'blade', 'clay_rust', 2)
+        loft(bpy, 'blade', blade, [(1.18, -0.035, 0.07, 0.02, 0.014), (1.32, -0.035, 0.15, 0.016, 0.01), (1.48, -0.03, 0.16, 0.012, 0.006), (1.62, -0.01, 0.1, 0.008, 0.004), (1.72, 0.03, 0.045, 0.003, 0.002)])
+        loft(bpy, 'blade_edge', edge, [(1.18, 0.07, 0.085, 0.012, 0.003), (1.32, 0.15, 0.17, 0.009, 0.003), (1.48, 0.16, 0.18, 0.006, 0.002), (1.62, 0.1, 0.12, 0.004, 0.002), (1.72, 0.045, 0.05, 0.002, 0.001)])
+        for z in (1.22, 1.3): P.cyl(bpy, 'bolt_%d' % int(z * 100), steel, 0.014, 0.08, (0.0, 0, z), (math.radians(90), 0, 0), verts=8)
+        hook = P.mat(bpy, 'hook', 'clay_rust', 1)
+        P.rod(bpy, 'hook_a', hook, (-0.02, 0, 1.36), (-0.15, 0, 1.4), 0.01, 8); P.rod(bpy, 'hook_b', hook, (-0.15, 0, 1.4), (-0.17, 0, 1.31), 0.01, 8)
+    elif name == 'w_chain':
+        # a flail: a turned club handle, a chain off its head, a spiked iron ball on the chain, drawn in the plane
+        import mathutils
+        h0, h1 = mathutils.Vector((-0.3, 0, 0)), mathutils.Vector((0.08, 0, 0.42))
+        hd = lathe(bpy, 'handle', haft, [(0, 0), (0.045, 0), (0.048, 0.025), (0.032, 0.06), (0.03, 0.3), (0.038, 0.5), (0.044, 0.56), (0, 0.565)], n=16)
+        hd.rotation_mode = 'QUATERNION'; hd.rotation_quaternion = mathutils.Vector((0, 0, 1)).rotation_difference(h1 - h0); hd.location = h0
+        g_ = lathe(bpy, 'grip', tape, [(0, 0.05), (0.036, 0.05), (0.036, 0.24), (0, 0.24)], n=12)
+        g_.rotation_mode = 'QUATERNION'; g_.rotation_quaternion = hd.rotation_quaternion; g_.location = h0
+        top = h0 + (h1 - h0).normalized() * 0.57
+        cap = P.cyl(bpy, 'cap', steel, 0.05, 0.05, tuple(top), verts=12); cap.rotation_mode = 'QUATERNION'; cap.rotation_quaternion = hd.rotation_quaternion
+        # the chain droops off the head and down to the ball
+        pts = [top + mathutils.Vector((0.05 + 0.055 * k, 0, 0.03 - 0.012 * k * k)) for k in range(7)]
+        for k in range(len(pts) - 1):
+            link(bpy, 'link_%d' % k, steel, tuple((pts[k] + pts[k + 1]) / 2), tuple(pts[k + 1] - pts[k]), k % 2, major=0.026, minor=0.008)
+        ball_at = pts[-1] + mathutils.Vector((0.03, 0, -0.08))
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=18, ring_count=10, radius=0.085, location=tuple(ball_at)); P.put(bpy, bpy.context.active_object, 'ball', P.mat(bpy, 'ball', 'clay_rust', 1))
+        for k in range(14):                                     # bolts welded on as spikes
+            th, ph = rnd.uniform(0, 2 * math.pi), math.acos(rnd.uniform(-0.9, 0.9)); d = mathutils.Vector((math.sin(ph) * math.cos(th), math.sin(ph) * math.sin(th), math.cos(ph)))
+            bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.018, depth=0.06, location=tuple(ball_at + d * 0.1))
+            o = bpy.context.active_object; o.rotation_mode = 'QUATERNION'; o.rotation_quaternion = mathutils.Vector((0, 0, 1)).rotation_difference(d); P.put(bpy, o, 'spike_%d' % k, steel, smooth=False)
     elif name == 'w_machete':
         P.box(bpy, 'grip', dark, (0.03, 0.025, 0.14), (0, 0, 0.07), bevel=0.006)
         P.box(bpy, 'blade', steel, (0.05, 0.004, 0.45), (0.005, 0, 0.37)); P.box(bpy, 'rust_patch', rust, (0.035, 0.006, 0.08), (0.01, 0, 0.3))
@@ -62,24 +175,16 @@ def build(name, bpy, P):
     elif name == 'w_pipe':
         P.rod(bpy, 'pipe', P.mat(bpy, 'pipe', 'metal_painted', 1), (0, 0, 0), (0, 0, 0.62), 0.018, 10)
         P.cyl(bpy, 'elbow', steel, 0.028, 0.06, (0, 0, 0.64), verts=10); P.box(bpy, 'tape', dark, (0.04, 0.04, 0.12), (0, 0, 0.08))
-    elif name == 'w_spear':
-        P.rod(bpy, 'pole', wood, (0, 0, 0), (0, 0, 1.55), 0.018, 8)
-        P.rod(bpy, 'rebar', rust, (0, 0, 1.45), (0, 0, 1.82), 0.008, 6)
-        bpy.ops.mesh.primitive_cone_add(vertices=4, radius1=0.02, depth=0.08, location=(0, 0, 1.85)); P.put(bpy, bpy.context.active_object, 'tip', steel, smooth=False)
-        P.box(bpy, 'wire', P.mat(bpy, 'wire', 'tape_grey', 1), (0.03, 0.03, 0.1), (0, 0, 1.46))
-    elif name == 'w_pole':
-        P.rod(bpy, 'pole', P.mat(bpy, 'pole', 'metal_painted', 2), (0, 0, 0), (0, 0, 1.6), 0.016, 8)
-        P.box(bpy, 'hook', rust, (0.12, 0.02, 0.02), (0.05, 0, 1.6))
-    elif name == 'w_chain':
-        P.rod(bpy, 'bat', wood, (0, 0, 0), (0, 0, 0.82), 0.03, 10)
-        for k in range(9):                                     # a chain wound round the barrel
-            P.cyl(bpy, 'link_%d' % k, steel, 0.038, 0.012, (0, 0, 0.45 + k * 0.04), (0, rnd.uniform(-0.3, 0.3), k * 0.7), verts=8, smooth=False)
     elif name == 'w_bottles':
-        glass = P.mat(bpy, 'bottle', 'clay_mustard', 2); fuel = P.mat(bpy, 'fuel', 'clay_rust', 2)
-        P.cyl(bpy, 'body', glass, 0.055, 0.2, (0, 0, 0.1), verts=16); P.cyl(bpy, 'fuel', fuel, 0.056, 0.11, (0, 0, 0.06), verts=16)
-        P.cyl(bpy, 'shoulder', glass, 0.035, 0.04, (0, 0, 0.215), verts=12); P.cyl(bpy, 'neck', glass, 0.017, 0.08, (0, 0, 0.27), verts=10)
-        P.box(bpy, 'rag', P.mat(bpy, 'rag', 'clay_bone', 3), (0.05, 0.03, 0.13), (0.015, 0, 0.36), (0, 0.4, 0), bevel=0.01)
-        P.box(bpy, 'rag_tail', P.mat(bpy, 'rag_b', 'clay_bone', 2), (0.035, 0.025, 0.08), (0.05, 0, 0.3), (0, 1.0, 0))
+        # 10/23: a Molotov: a turned brown bottle, its paper label, tape round the neck, a rag stuffed in and hanging
+        # down its shoulder, the rag's tip black where it was lit once and went out
+        glass = P.mat(bpy, 'bottle', 'clay_rust', 1); label = P.mat(bpy, 'label', 'clay_bone', 3); rag = P.mat(bpy, 'rag', 'clay_bone', 2)
+        lathe(bpy, 'body', glass, [(0, 0), (0.036, 0), (0.042, 0.008), (0.043, 0.17), (0.04, 0.195), (0.028, 0.22), (0.017, 0.245), (0.0155, 0.3), (0.018, 0.303), (0.018, 0.315), (0, 0.316)], n=22)
+        lathe(bpy, 'label', label, [(0, 0.05), (0.0445, 0.05), (0.0445, 0.13), (0, 0.13)], n=22)
+        lathe(bpy, 'neck_tape', P.mat(bpy, 'neck_tape', 'tape_grey', 2), [(0, 0.255), (0.019, 0.255), (0.019, 0.285), (0, 0.285)], n=14)
+        loft(bpy, 'rag', rag, [(0.3, -0.016, 0.016, 0.012, 0.012), (0.34, -0.022, 0.024, 0.014, 0.01), (0.39, -0.01, 0.035, 0.012, 0.008), (0.41, 0.01, 0.04, 0.008, 0.006)])
+        loft(bpy, 'rag_tail', rag, [(0.15, 0.044, 0.064, 0.005, 0.004), (0.2, 0.038, 0.062, 0.006, 0.005), (0.26, 0.02, 0.05, 0.008, 0.006), (0.31, 0.012, 0.04, 0.01, 0.008)])
+        loft(bpy, 'rag_tip', P.mat(bpy, 'soot', 'cloth_black', 1), [(0.41, 0.01, 0.04, 0.008, 0.006), (0.435, 0.02, 0.038, 0.005, 0.004)])
     elif name == 's_food':
         # 10/22: two cans, one stood and one rolled over, rims and a ring pull, so it reads as tins at 96 px
         tin = P.mat(bpy, 'tin', 'chrome', 2); lab = P.mat(bpy, 'label', 'clay_rust', 2); lab2 = P.mat(bpy, 'label_band', 'clay_mustard', 2)
@@ -147,7 +252,7 @@ def model(name):
     # 10/22: AN ICON'S PROPORTIONS: a long thin thing (a spear, a pole, a rifle) is fattened across its length up to 2.2x,
     # the way every inventory icon draws it (at true girth a 1.8 m spear is a two-pixel line in a 96 px frame)
     bpy.context.view_layer.update(); d0 = P.dims(bpy); ax = int(np.argmax(d0)); mid = sorted(d0)[1]
-    fat = float(np.clip(d0[ax] / max(mid, 1e-3) / 5.0, 1.0, 2.2))
+    fat = GUN_GIRTH if name in GUNS else (1.0 if name in LONG else float(np.clip(d0[ax] / max(mid, 1e-3) / 5.0, 1.0, 2.2)))   # 10/23
     root.scale = tuple(1.0 if i == ax else fat for i in range(3))
     root.rotation_euler = (0, lean, 0)
     bpy.context.view_layer.update()

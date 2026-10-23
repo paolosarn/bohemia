@@ -158,6 +158,9 @@ LOOKS = {
                      trousers=dict(colour=(66, 66, 68), wide=0.03), shoes=dict(colour=(56, 56, 56), kind='boot', top=0.24)),
 }
 ORDER = sorted(LOOKS, key=lambda k: LOOKS[k]['order'])
+# A LOOK DRESSED AT BUILD (GARMENTS LEGS AND FEET, 10/23): name -> fn(L), called once on the look as its build starts, so a
+# person's trousers and shoes reach whichever caller made his look (the barber registers them; nothing else changes)
+DRESS = {}
 
 # [the print and the hands] (10/18): THE PRINT IS A MATERIAL ON THE GARMENT, never painted on the pixels. Each print is a
 # tile in METRES, made as an image the rig reads as the cloth's own colour (its source pass keeps a linked Base Color and
@@ -224,6 +227,7 @@ def build(name, outdir):
     import bpy, bmesh, mathutils
     V = mathutils.Vector
     L = LOOKS[name]; tag = name.lower()
+    if name in DRESS: DRESS.pop(name)(L)
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     bpy.ops.import_scene.gltf(filepath=BODY)
@@ -537,8 +541,14 @@ def build(name, outdir):
     Mn = L.get('mantle')
     if Mn:
         low = Mn['low']; mt = Mn.get('thick', 0.03); torn = Mn.get('torn', 0.0)
+        # a person in an OUTFIT (CHARACTER [the clothes look real], 10/23) wears it as a capelet: fastened at the throat, open
+        # down the front and off the forearms, so the coat and the shirt under it show (wrapped round the chest and to the
+        # wrists it hid every layer on five gangs); the fourteen looks above keep theirs as voted
+        lay_m = bool(L.get('layers')); cyf_m = section(1.0, ('torso',))['cy']
         def keepm(fm, c, low=low, torn=torn):
             lim = low + (torn * (0.5 + 0.5 * math.sin(9 * math.atan2(c.y, c.x))) if torn else 0)
+            if lay_m and (fm == 'fore' or (c.y < cyf_m and c.z < 1.13 and abs(c.x) < 0.085 * (1.0 + 0.4 * smooth(1.10, low, c.z)))):
+                return False
             return (fm in ('torso', 'neck', 'upper') or (fm == 'fore' and low < 0.9)) and lim <= c.z < 1.17
         made.append(lift('mantle', keepm, lambda p, low=low, mt=mt: mt + 0.03 * smooth(1.10, low, p.z) + (C['thick'] if C else 0), Mn['colour'], rim=0.016, subdiv=2))
     # 6. THE CAPE: hung from the shoulders down the back
@@ -709,7 +719,7 @@ def build(name, outdir):
     bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', export_skins=True, export_animations=True, export_apply=False, use_selection=False)
     model_top = max((o.matrix_world @ v.co).z for o in sc.objects if o.type == 'MESH' for v in o.data.vertices)
     real_h = RULER_M * (1 + 0.05 * D['height'])
-    stats = dict(look=name, shape=L['shape'], worn=L['worn'], dials=D, model=os.path.relpath(out, ROOT), from_body=os.path.relpath(BODY, ROOT),
+    stats = dict(look=name, shape=L['shape'], worn=L['worn'], dials=D, **({'layers': L['layers']} if L.get('layers') else {}), model=os.path.relpath(out, ROOT), from_body=os.path.relpath(BODY, ROOT),
                  body_top_m=round(body_top, 4), model_top_m=round(model_top, 4), real_height_m=round(real_h, 4),
                  real_height_for_rig=round(real_h * model_top / body_top, 4),
                  meshes={o.name: len(o.data.vertices) for o in sc.objects if o.type == 'MESH'},
