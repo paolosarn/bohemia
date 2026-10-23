@@ -312,6 +312,41 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-layers): 10/23 (y) LATEST -- *** THE CLOTHES LOOK REAL, LAYERS FIRST: EVERY PERSON WEARS AN OUTFIT OF LAYERS THAT SHOW; 110 OF RUN TWO'S 116 WEAR TWO OR MORE (WAS 40); THE COATS HANG IN FOLDS. ***
+TAB: NOT IN A TAB YET until RUN TWO renders again from main (its 152 were built at 03:01 from an older checkout, without
+the outfits). No card (rule 127). Sheet: records/target/character/the_clothes_look_real/CHARACTER_THE_LAYERS_BEFORE_AND_AFTER.png
+(eight of RUN TWO's people before and after, 1:1 and x3). Record: records/BOHEMIA_THE_CLOTHES_LOOK_REAL_LAYERS_10_23_26.md.
+Opened by the coordinator (rule 112), VAMILY, Opus. [the clothes look real] CLAIMED 10/23 (rule 129 as corrected: layers).
+WHAT: four real photographs scaled to 112 px (a tan jacket open on a red shirt, a tee over long sleeves, an overcoat on a
+white shirt, black leather on black) said a layer reads only as ANOTHER VALUE and shows 2 to 5 px (the V, the open-front
+stripe, a hem band, a cuff, a hood heap). RUN TWO's roll put top and coat in one gang hue (one blob), coats closed to the
+neck and the wrist, 76 of 116 in one top, the gang mantle wrapped chest and wrists. THE OUTFIT
+(tools/bohemia_character_the_outfit.py, off the id): the top or coat swapped for the same cut in another value when they
+read as one (45 tops, 11 coats); coats worn open to the neck, the hood heaped over the collar, the shirt collar out, the
+tail under a jacket or vest, the cuff past a short sleeve or the sleeves pushed up; no coat: an open shirt over his tee,
+his shirt open over a plain tee, his tee over a long-sleeve, his hoodie over a longer tee or under an open flannel with
+the hood out; the mantle a capelet open down the front. GARMENTS BASE and OUTER read L['layers'] (none: built as before).
+THE DRAPE: every coat skirt hangs in folds 11 cm apart, 12 mm deep at the hem (a pixel is 1.75 cm). The walk in eight
+holds. The outfit book: records/target/character/BOHEMIA_THE_OUTFITS.json (rule 128: the dials of every person's layers).
+FOR RUN TWO [no two people alike] (the outfits reach the game only through you): your builder takes the outfit unedited.
+(1) git pull main; (2) delete records/target/character/barber/person_* (and the fight's person renders) and run batch,
+bake, index and the fight's batch and pack again, as you did; (3) a person's top and coat may come back in another colour of
+the same cut: read base, mid and outer from records/target/character/BOHEMIA_THE_OUTFITS.json (or outfit(P) in
+tools/bohemia_character_the_outfit.py) for who(p), so the sheets name what he wears. Your NO_TOP and NO_COAT can stay.
+FOR ANIMATION: the layers ride the man's own weights (the open fronts, the hood heap, the mid top, the folds); idles on the
+same rig need nothing from you.
+SEEN, NOT DONE: the gang-coloured boots (SIGNAL RED, GRASS, COBALT) render hot pink, neon green and lilac under the rig's
+dust; cloth beyond colour and drape (sleeve bunching, knit against denim) is next on this row.
+GATES: THE ROLL CALL 8/0, ONE SKIN ONE PERSON 15/0, THE BARBER GATE 13/0, THE BARBER'S DOOR 8/0, THE HAIR GRAVEYARD 13/0,
+CHARACTER IN THE VOTE TAB 9/0, TOOLS RUN 8/0; REFERENCE CHECK and REUSE-FIRST red on other lanes' files only.
+[bb Battle Brothers draws body armour and helmet whole, slot over slot; ours are worn the way people wear them, open,
+pushed up and untucked, so the layer under shows at 112 px.]
+[analog horror: a hoodie gone sand-coloured under a cracked jacket, a shirt worn open because the buttons went for trade.]
+Lead line for DIRECTION (rule 113a): CHARACTER put every person in an outfit of layers that show (110 of 116 in two or more,
+the under layer another value) and hung the coats in folds; it reaches the game when RUN TWO renders again.
+NEXT: [the clothes look real] continues: sleeves that bunch, each cloth its own surface at 1.75 cm a pixel.
+PENDING Paolo: nothing.
+
 CHARACTER (character-hair-two): 10/20 (x) LATEST -- *** THE GAME'S 74 COATS ON THE 3D MAN: 70 IN VOTE ON THREE CARDS, 4 HELD; THE LIGHT ROW READS THE HEAD. ***
 TAB: VOTE, the cards character-outer-one-the-long-coats-10-20 (16 trenches, dusters, longcoats, split tails),
 character-outer-one-the-short-ones-10-20 (30 car coats, chore coats, jackets, vests) and
