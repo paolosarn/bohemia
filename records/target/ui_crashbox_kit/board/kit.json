@@ -1,0 +1,32 @@
+{
+ "ins": [
+  14,
+  6,
+  8,
+  6
+ ],
+ "P": 192,
+ "lip": 2,
+ "r": 1.5,
+ "up": 2,
+ "w": 204,
+ "h": 214,
+ "kind": "board",
+ "sun": {
+  "screen_deg": 155.4,
+  "elev_deg": 40.0
+ },
+ "tilt_deg": 25.0,
+ "wear": 0.45,
+ "snap": 0.3,
+ "samples": 128,
+ "engine": "CYCLES",
+ "fill": {
+  "rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "strength": 0.35
+ }
+}

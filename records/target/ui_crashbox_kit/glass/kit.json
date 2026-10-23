@@ -1,0 +1,32 @@
+{
+ "ins": [
+  8,
+  8,
+  10,
+  8
+ ],
+ "P": 128,
+ "lip": 2,
+ "r": 3.0,
+ "up": 2,
+ "w": 144,
+ "h": 146,
+ "kind": "glass",
+ "sun": {
+  "screen_deg": 155.4,
+  "elev_deg": 40.0
+ },
+ "tilt_deg": 25.0,
+ "wear": 0.45,
+ "snap": 0.3,
+ "samples": 128,
+ "engine": "CYCLES",
+ "fill": {
+  "rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "strength": 0.35
+ }
+}
