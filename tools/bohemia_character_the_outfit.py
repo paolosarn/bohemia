@@ -127,6 +127,7 @@ def outfit(spec):
     barber's own crowd, which wears his gang's look)"""
     top, coat = spec.get('top'), spec.get('coat')
     if top not in BASE.BY: return None
+    if os.environ.get('BOHEMIA_OUTFIT') == 'off': return None   # a measuring knob: the person as he was built before (the before sheet)
     gang = spec.get('gang')
     rng = random.Random('outfit:%s:%s' % (gang, spec.get('id')))
     ht, hc = held()
