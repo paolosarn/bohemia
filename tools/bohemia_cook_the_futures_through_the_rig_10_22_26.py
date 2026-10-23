@@ -228,6 +228,9 @@ NF.build = build; F.build = build
 
 def render(state, bid, region=None):
     STATE['s'] = state
+    # 10/23: a future is seen only where a place has fallen or been reclaimed: 24 adaptive samples, not the present day's
+    # 32 (a render is 15 of a block's 16 minutes, and there are 70 of them)
+    F.GROUND_SAMPLES = int(os.environ.get('COOK_FUTURE_SAMPLES', 24))
     out = os.path.join(BASE, state); os.makedirs(os.path.join(out, 'render'), exist_ok=True)
     F.OUT = NF.OUT = out; F.RENDER = os.path.join(out, 'render')
     NF.render(bid, region)
