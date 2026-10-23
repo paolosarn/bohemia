@@ -770,9 +770,11 @@ def carry_one(pid):
     glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
     kept = open(gj).read() if os.path.exists(gj) else None
     if not os.path.exists(glb) or kept is None:
+        bj = os.path.join(ROOT, PEOPLE_MODELS, tag + '.json'); bkept = open(bj).read() if os.path.exists(bj) else None
         run([py, 'tools/bohemia_run2_no_two_people_alike.py', 'build-one', pid], glb)
-        if kept is not None:
-            with open(gj, 'w') as f: f.write(kept)
+        for fn_, txt in ((gj, kept), (bj, bkept)):   # RUN TWO's committed records of the build stand as they are
+            if txt is not None:
+                with open(fn_, 'w') as f: f.write(txt)
     h = json.load(open(gj))['real_height_for_rig']
     posed = os.path.join(ROOT, POSED, tag + '_carry.glb')
     run([py, os.path.abspath(__file__), 'pose_sets', glb, posed, 'carry'], posed)
@@ -803,9 +805,11 @@ def work_one(pid):
     glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
     kept = open(gj).read() if os.path.exists(gj) else None
     if not os.path.exists(glb) or kept is None:
+        bj = os.path.join(ROOT, PEOPLE_MODELS, tag + '.json'); bkept = open(bj).read() if os.path.exists(bj) else None
         run([py, 'tools/bohemia_run2_no_two_people_alike.py', 'build-one', pid], glb)
-        if kept is not None:
-            with open(gj, 'w') as f: f.write(kept)
+        for fn_, txt in ((gj, kept), (bj, bkept)):   # RUN TWO's committed records of the build stand as they are
+            if txt is not None:
+                with open(fn_, 'w') as f: f.write(txt)
     h = json.load(open(gj))['real_height_for_rig']; job = job_of(tag)
     posed = os.path.join(ROOT, POSED, tag + '_work.glb')
     run([py, os.path.abspath(__file__), 'pose_work', glb, posed, job, str(h)], posed)
@@ -883,9 +887,11 @@ def person_idles(pid):
     glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
     kept = open(gj).read() if os.path.exists(gj) else None   # RUN TWO's committed record of his build: his real height stays its own
     if not os.path.exists(glb) or kept is None:
+        bj = os.path.join(ROOT, PEOPLE_MODELS, tag + '.json'); bkept = open(bj).read() if os.path.exists(bj) else None
         run([py, 'tools/bohemia_run2_no_two_people_alike.py', 'build-one', pid], glb)
-        if kept is not None:
-            with open(gj, 'w') as f: f.write(kept)
+        for fn_, txt in ((gj, kept), (bj, bkept)):   # RUN TWO's committed records of the build stand as they are
+            if txt is not None:
+                with open(fn_, 'w') as f: f.write(txt)
     body = os.path.join(ROOT, PEOPLE_MODELS, tag + '.glb')
     if os.path.exists(body): os.remove(body)   # the mannequin under him: the build's own scrap (RUN TWO deletes it too)
     posed = os.path.join(ROOT, POSED, tag + '.glb')
