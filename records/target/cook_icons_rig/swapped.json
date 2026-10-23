@@ -78,5 +78,69 @@
    96,
    78
   ]
+ },
+ "w_axe": {
+  "file": "slices/market_icons/w_axe.png",
+  "sha1": "31c4a4632a75b1347d643e4c3f26be80db4bba15",
+  "size": [
+   40,
+   96
+  ]
+ },
+ "w_sledge": {
+  "file": "slices/market_icons/w_sledge.png",
+  "sha1": "128c8cc0ac4d86435cde37b6f9bbd61a4a6565a3",
+  "size": [
+   51,
+   96
+  ]
+ },
+ "w_spear": {
+  "file": "slices/market_icons/w_spear.png",
+  "sha1": "01386cf9046e270cd1e62590192c9608cb925d2c",
+  "size": [
+   76,
+   96
+  ]
+ },
+ "w_pole": {
+  "file": "slices/market_icons/w_pole.png",
+  "sha1": "dd2e74162bbf1163e6c5ae04aebe879b7b8ae39f",
+  "size": [
+   64,
+   96
+  ]
+ },
+ "w_chain": {
+  "file": "slices/market_icons/w_chain.png",
+  "sha1": "4140b8309c9ebfded6f87a01d21927539314fe55",
+  "size": [
+   75,
+   96
+  ]
+ },
+ "w_bottles": {
+  "file": "slices/market_icons/w_bottles.png",
+  "sha1": "e02252c4fb084faa02462fdbed76bcf87c78d67c",
+  "size": [
+   44,
+   96
+  ]
+ },
+ "w_rifle": {
+  "file": "slices/market_icons/w_rifle.png",
+  "sha1": "2beab51f5321e29003ce39d2be0f759496a6a47e",
+  "size": [
+   96,
+   55
+  ]
+ },
+ "w_shotgun": {
+  "file": "slices/market_icons/w_shotgun.png",
+  "sha1": "19a86464379bc5c62cffd64a0bdb9cf3e3c1f45a",
+  "size": [
+   96,
+   78
+  ]
  }
 }

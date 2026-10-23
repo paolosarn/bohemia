@@ -105,7 +105,7 @@
   "item_icons": {
    "where": "the settlement's market and the crew screen, slices/market_icons/*.png (2 buildings, 4 supplies, 12 weapons)",
    "total": 18,
-   "flat": 8,
+   "flat": 0,
    "in_3d": [
     "b_armourer",
     "b_smith",
@@ -113,10 +113,18 @@
     "s_meds",
     "s_rounds",
     "s_water",
+    "w_axe",
+    "w_bottles",
+    "w_chain",
     "w_cleaver",
     "w_machete",
     "w_pipe",
-    "w_pistol"
+    "w_pistol",
+    "w_pole",
+    "w_rifle",
+    "w_shotgun",
+    "w_sledge",
+    "w_spear"
    ]
   }
  },
@@ -140,7 +148,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 193,
+ "total_flat": 185,
  "log": [
   {
    "at": "10/20 start",
@@ -200,6 +208,17 @@
    "fight_floor_futures": 70,
    "fight_lights": 0,
    "item_icons": 8
+  },
+  {
+   "at": "10/23 the eight long weapons' icons as icons (turned hafts, heads at 1.5 to 1.7x with a ground edge, the flail's chain and ball, the Molotov's rag; the guns at 1.6x girth)",
+   "total_flat": 185,
+   "fight_floor": 31,
+   "fight_cover": 1,
+   "settlement_backdrops": 14,
+   "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
   }
  ]
 }
