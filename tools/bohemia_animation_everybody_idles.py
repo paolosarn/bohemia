@@ -380,11 +380,10 @@ def pack_map(index):
         m = json.load(open(os.path.join(ROOT, 'slices', f + '.json')))
         p_ = np.asarray(Image.open(os.path.join(ROOT, 'slices', f + '.png')).convert('RGBA')); p_ = p_[p_[..., 3] > 0][:, :3]
         pal[which] = (m, np.array(sorted(set(map(tuple, p_.tolist()))), np.int32))
-    def to_pal(a, P):
-        rgb = a[..., :3].reshape(-1, 3).astype(np.int32); o = np.empty_like(rgb)
-        for i in range(0, len(rgb), 65536):
-            c = rgb[i:i + 65536]; dd = ((c[:, None, :] - P[None, :, :]) ** 2).sum(2); o[i:i + 65536] = P[dd.argmin(1)]
-        a[..., :3] = o.reshape(a.shape[:2] + (3,)).astype(np.uint8); return a
+    def to_pal(a, P):   # each distinct colour matched once
+        u, inv = np.unique(a[..., :3].reshape(-1, 3), axis=0, return_inverse=True)
+        dd = ((u.astype(np.int32)[:, None, :] - P[None, :, :]) ** 2).sum(2)
+        a[..., :3] = P[dd.argmin(1)][inv.reshape(-1)].reshape(a.shape[:2] + (3,)).astype(np.uint8); return a
     for name, which, rec in map_models():
         d = os.path.join(ROOT, RENDERS, 'map_' + name)
         if not os.path.exists(os.path.join(d, 'rig.json')): continue
@@ -577,11 +576,10 @@ def pack():
         fx0 = cx0 + rj['ground_px'][0] - fl['foot'][0]; fy0 = cy0 + rj['ground_px'][1] - fl['foot'][1]   # the fight cell's origin in the full frame
         sheet_pal = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', fl['file'])).convert('RGBA'))
         pal = np.array(sorted(set(map(tuple, sheet_pal[sheet_pal[..., 3] > 0][:, :3].tolist()))), np.int32)   # his painted colours only
-        def to_pal(a):
-            rgb = a[..., :3].reshape(-1, 3).astype(np.int32); out = np.empty_like(rgb)
-            for i in range(0, len(rgb), 65536):
-                c = rgb[i:i + 65536]; dd = ((c[:, None, :] - pal[None, :, :]) ** 2).sum(2); out[i:i + 65536] = pal[dd.argmin(1)]
-            a[..., :3] = out.reshape(a.shape[:2] + (3,)).astype(np.uint8); return a
+        def to_pal(a):   # each distinct colour matched once, then laid back on every pixel
+            u, inv = np.unique(a[..., :3].reshape(-1, 3), axis=0, return_inverse=True)
+            dd = ((u.astype(np.int32)[:, None, :] - pal[None, :, :]) ** 2).sum(2)
+            a[..., :3] = pal[dd.argmin(1)][inv.reshape(-1)].reshape(a.shape[:2] + (3,)).astype(np.uint8); return a
         cells, imgs, gcells, gimgs = {}, {}, {}, []   # a sheet per set: the fight loads only the gun-held poses, a town only the bare
         def full(fn, cb):
             a = np.asarray(Image.open(fn).convert('RGBA')).copy()
