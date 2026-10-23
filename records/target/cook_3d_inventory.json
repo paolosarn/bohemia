@@ -439,6 +439,17 @@
    "fight_floor_futures": 70,
    "fight_lights": 0,
    "item_icons": 0
+  },
+  {
+   "at": "10/23 the second camp (day and night)",
+   "total_flat": 132,
+   "fight_floor": 24,
+   "fight_cover": 0,
+   "settlement_backdrops": 4,
+   "map_districts": 34,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
   }
  ]
 }
