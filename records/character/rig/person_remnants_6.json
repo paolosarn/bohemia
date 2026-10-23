@@ -6,14 +6,25 @@
   "base": "OLIVE HENLEY",
   "outer": "GRASS WRAP COAT",
   "head": "STORM KNIT CAP",
-  "legs": "OLIVE WIDE TROUSER",
-  "feet": "OLIVE STACK BOOT"
+  "legs": "OLIVE SHORTS",
+  "feet": "SLOUCH BOOT",
+  "outfit": []
  },
  "dials": {
   "height": -0.18,
   "belly": 0.85,
   "shoulders": 0.8,
   "hips": 0.3
+ },
+ "layers": {
+  "base": {
+   "under": "WRAP COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039
+  }
  },
  "model": "records/character/rig/person_remnants_6.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,8 +34,7 @@
  "real_height_for_rig": 1.7336,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_remnants_6_trouser": 2568,
-  "person_remnants_6_shoe": 3916,
+  "person_remnants_6_shoe": 4316,
   "person_remnants_6_shirt": 67428,
   "person_remnants_6_collar": 1536,
   "person_remnants_6_placket": 126,
@@ -37,6 +47,13 @@
   "person_remnants_6_belt": 1792,
   "person_remnants_6_wrap_edge": 198,
   "person_remnants_6_knot": 68,
+  "person_remnants_6_trouser": 21202,
+  "person_remnants_6_shorts_hem": 2048,
+  "person_remnants_6_sole_1": 242,
+  "person_remnants_6_midsole_1": 242,
+  "person_remnants_6_sole_0": 242,
+  "person_remnants_6_midsole_0": 242,
+  "person_remnants_6_slouch": 16884,
   "person_remnants_6_hair": 17968,
   "person_remnants_6_hat": 4548,
   "person_remnants_6_hat_brim": 2362,
@@ -50,9 +67,9 @@
    0.8
   ],
   "person_remnants_6_belt": [
-   0.0513,
+   0.0545,
    0.1878,
-   0.011
+   0.013
   ],
   "person_remnants_6_buttons": [
    0.1329,
@@ -60,14 +77,14 @@
    0.0545
   ],
   "person_remnants_6_coat": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_6_coat_skirt": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_6_collar": [
    0.0666,
@@ -105,9 +122,19 @@
    0.0262
   ],
   "person_remnants_6_knot": [
-   0.0513,
+   0.0545,
    0.1878,
-   0.011
+   0.013
+  ],
+  "person_remnants_6_midsole_0": [
+   0.013,
+   0.013,
+   0.0168
+  ],
+  "person_remnants_6_midsole_1": [
+   0.013,
+   0.013,
+   0.0168
   ],
   "person_remnants_6_placket": [
    0.0666,
@@ -120,34 +147,54 @@
    0.0262
   ],
   "person_remnants_6_shoe": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.0343,
+   0.0343,
+   0.0452
   ],
   "person_remnants_6_shoes": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.0343,
+   0.0343,
+   0.0452
+  ],
+  "person_remnants_6_shorts_hem": [
+   0.0242,
+   0.0307,
+   0.0103
   ],
   "person_remnants_6_skin": [
    0.2051,
    0.0976,
    0.0685
   ],
+  "person_remnants_6_slouch": [
+   0.0343,
+   0.0343,
+   0.0452
+  ],
+  "person_remnants_6_sole_0": [
+   0.013,
+   0.013,
+   0.016
+  ],
+  "person_remnants_6_sole_1": [
+   0.013,
+   0.013,
+   0.016
+  ],
   "person_remnants_6_trouser": [
-   0.0545,
-   0.0545,
-   0.0578
+   0.0561,
+   0.0704,
+   0.0232
   ],
   "person_remnants_6_trousers": [
-   0.0545,
-   0.0545,
-   0.0578
+   0.0561,
+   0.0704,
+   0.0232
   ],
   "person_remnants_6_wrap_edge": [
-   0.0513,
+   0.0545,
    0.1878,
-   0.011
+   0.013
   ]
  }
 }

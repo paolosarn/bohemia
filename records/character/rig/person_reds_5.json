@@ -4,14 +4,32 @@
  "worn": {
   "hair": "DRY TAPER",
   "base": "BRICK HENLEY",
-  "legs": "BRICK WIDE TROUSER",
-  "feet": "BRICK STACK BOOT"
+  "feet": "COLUMN PANT-BOOT",
+  "waist": "LEATHER BELT",
+  "hands": "OXBLOOD GLOVES",
+  "outfit": [
+   "an open PATINA PLAID FLANNEL over the BRICK HENLEY"
+  ],
+  "mid": "PATINA PLAID FLANNEL"
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_reds_5.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -21,14 +39,27 @@
  "real_height_for_rig": 1.7908,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_reds_5_trouser": 2568,
-  "person_reds_5_shoe": 3916,
+  "person_reds_5_shoe": 3148,
   "person_reds_5_shirt": 67536,
   "person_reds_5_collar": 1536,
   "person_reds_5_placket": 126,
   "person_reds_5_buttons": 102,
   "person_reds_5_cuffs": 2048,
   "person_reds_5_hem": 1792,
+  "person_reds_5_column": 74570,
+  "person_reds_5_column_sole_1": 242,
+  "person_reds_5_column_sole_0": 242,
+  "person_reds_5_leather_belt": 1792,
+  "person_reds_5_leather_belt_buckle": 34,
+  "person_reds_5_oxblood_gloves_L": 392,
+  "person_reds_5_oxblood_gloves_R": 392,
+  "person_reds_5_oxblood_gloves_cuff": 2048,
+  "person_reds_5_mid_shirt": 66420,
+  "person_reds_5_mid_collar": 1536,
+  "person_reds_5_mid_collar_points": 180,
+  "person_reds_5_mid_front_edge": 396,
+  "person_reds_5_mid_cuffs": 2048,
+  "person_reds_5_mid_tail": 1818,
   "person_reds_5_hair": 17968,
   "person_reds_5_hand_L": 392,
   "person_reds_5_hand_R": 392
@@ -40,14 +71,29 @@
    0.8
   ],
   "person_reds_5_buttons": [
-   0.3864,
-   0.0704,
-   0.0382
+   0.3185,
+   0.0762,
+   0.0497
   ],
   "person_reds_5_collar": [
    0.2195,
    0.0369,
    0.0212
+  ],
+  "person_reds_5_column": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_reds_5_column_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_reds_5_column_sole_1": [
+   0.007,
+   0.006,
+   0.007
   ],
   "person_reds_5_cuffs": [
    0.2195,
@@ -69,6 +115,71 @@
    0.0369,
    0.0212
   ],
+  "person_reds_5_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_reds_5_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_reds_5_mid_collar": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_reds_5_mid_collar_points": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_reds_5_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_5_mid_cuffs": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_reds_5_mid_front_edge": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_reds_5_mid_shirt": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_reds_5_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_5_mid_tail": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_reds_5_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_5_oxblood_gloves": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_5_oxblood_gloves_cuff": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
   "person_reds_5_placket": [
    0.2195,
    0.0369,
@@ -80,29 +191,24 @@
    0.0212
   ],
   "person_reds_5_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_reds_5_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_reds_5_skin": [
    0.5841,
    0.3231,
    0.2016
   ],
-  "person_reds_5_trouser": [
-   0.0887,
-   0.0319,
-   0.0296
-  ],
   "person_reds_5_trousers": [
-   0.0887,
-   0.0319,
-   0.0296
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

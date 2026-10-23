@@ -5,14 +5,32 @@
   "hair": "TEMPLE TAPER",
   "base": "OLIVE DRAB TEE",
   "head": "STORM KNIT CAP",
-  "legs": "OLIVE WIDE TROUSER",
-  "feet": "OLIVE STACK BOOT"
+  "legs": "OLIVE PANTS",
+  "feet": "GRASS SNEAKERS",
+  "back": "RUCK PACK",
+  "outfit": [
+   "an open DUST PLAID SHIRT over the OLIVE DRAB TEE"
+  ],
+  "mid": "DUST PLAID SHIRT"
  },
  "dials": {
   "height": -0.18,
   "belly": 0.85,
   "shoulders": 0.8,
   "hips": 0.3
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_remnants_3.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,12 +40,35 @@
  "real_height_for_rig": 1.7336,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_remnants_3_trouser": 2568,
-  "person_remnants_3_shoe": 3916,
+  "person_remnants_3_shoe": 3500,
   "person_remnants_3_shirt": 39556,
   "person_remnants_3_collar": 1536,
-  "person_remnants_3_sleeve_hem": 2048,
   "person_remnants_3_hem": 1792,
+  "person_remnants_3_trouser": 43706,
+  "person_remnants_3_rolled_hem": 2048,
+  "person_remnants_3_crease": 180,
+  "person_remnants_3_sole_1": 242,
+  "person_remnants_3_midsole_1": 242,
+  "person_remnants_3_sole_0": 242,
+  "person_remnants_3_midsole_0": 242,
+  "person_remnants_3_tongue_1": 98,
+  "person_remnants_3_laces_1": 200,
+  "person_remnants_3_heel_1": 90,
+  "person_remnants_3_tongue_0": 98,
+  "person_remnants_3_laces_0": 200,
+  "person_remnants_3_heel_0": 90,
+  "person_remnants_3_ruck_pack_pack": 98,
+  "person_remnants_3_ruck_pack_flap": 26,
+  "person_remnants_3_ruck_pack_pocket": 26,
+  "person_remnants_3_ruck_pack_straps": 252,
+  "person_remnants_3_ruck_pack_chest_strap": 90,
+  "person_remnants_3_ruck_pack_buckle": 34,
+  "person_remnants_3_mid_shirt": 39236,
+  "person_remnants_3_mid_collar": 1536,
+  "person_remnants_3_mid_collar_points": 180,
+  "person_remnants_3_mid_front_edge": 396,
+  "person_remnants_3_mid_sleeve_hem": 2048,
+  "person_remnants_3_mid_tail": 1818,
   "person_remnants_3_hair": 17968,
   "person_remnants_3_hat": 4548,
   "person_remnants_3_hat_brim": 2362,
@@ -44,6 +85,11 @@
    0.0666,
    0.0823,
    0.0262
+  ],
+  "person_remnants_3_crease": [
+   0.0561,
+   0.0704,
+   0.0232
   ],
   "person_remnants_3_eyes": [
    0.0212,
@@ -65,10 +111,125 @@
    0.0648,
    0.0762
   ],
+  "person_remnants_3_heel_0": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
+  "person_remnants_3_heel_1": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
   "person_remnants_3_hem": [
    0.0666,
    0.0823,
    0.0262
+  ],
+  "person_remnants_3_laces_0": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
+  "person_remnants_3_laces_1": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
+  "person_remnants_3_mid_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_remnants_3_mid_collar_points": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_remnants_3_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_3_mid_front_edge": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_remnants_3_mid_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_remnants_3_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_3_mid_sleeve_hem": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_remnants_3_mid_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_3_mid_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_remnants_3_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_3_midsole_0": [
+   0.3763,
+   0.6867,
+   0.2086
+  ],
+  "person_remnants_3_midsole_1": [
+   0.3763,
+   0.6867,
+   0.2086
+  ],
+  "person_remnants_3_rolled_hem": [
+   0.1119,
+   0.1441,
+   0.0467
+  ],
+  "person_remnants_3_ruck_pack_buckle": [
+   0.2664,
+   0.1413,
+   0.0529
+  ],
+  "person_remnants_3_ruck_pack_chest_strap": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_remnants_3_ruck_pack_flap": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_remnants_3_ruck_pack_pack": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_remnants_3_ruck_pack_pocket": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_remnants_3_ruck_pack_straps": [
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_remnants_3_shirt": [
    0.0666,
@@ -76,34 +237,49 @@
    0.0262
   ],
   "person_remnants_3_shoe": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_3_shoes": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_3_skin": [
    0.1384,
    0.0467,
    0.0252
   ],
-  "person_remnants_3_sleeve_hem": [
-   0.0666,
-   0.0823,
-   0.0262
+  "person_remnants_3_sole_0": [
+   0.0704,
+   0.1714,
+   0.0296
+  ],
+  "person_remnants_3_sole_1": [
+   0.0704,
+   0.1714,
+   0.0296
+  ],
+  "person_remnants_3_tongue_0": [
+   0.2016,
+   0.4508,
+   0.0999
+  ],
+  "person_remnants_3_tongue_1": [
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_3_trouser": [
-   0.0545,
-   0.0545,
-   0.0578
+   0.0561,
+   0.0704,
+   0.0232
   ],
   "person_remnants_3_trousers": [
-   0.0545,
-   0.0545,
-   0.0578
+   0.0561,
+   0.0704,
+   0.0232
   ]
  }
 }

@@ -5,14 +5,22 @@
   "hair": "DRY TAPER",
   "base": "ROLLED FLANNEL",
   "outer": "OXBLOOD PONCHO",
-  "legs": "BRICK WIDE TROUSER",
-  "feet": "BRICK STACK BOOT"
+  "legs": "SLATE WORK PANTS",
+  "feet": "BONE STACK BOOT",
+  "waist": "SOOT TOOL BELT",
+  "back": "CHARCOAL ROAD CAPE",
+  "outfit": []
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_reds_6.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,8 +30,8 @@
  "real_height_for_rig": 1.7908,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_reds_6_trouser": 2568,
-  "person_reds_6_shoe": 3916,
+  "person_reds_6_shoe": 3836,
+  "person_reds_6_cape": 4674,
   "person_reds_6_shirt": 61820,
   "person_reds_6_collar": 1536,
   "person_reds_6_collar_points": 180,
@@ -33,6 +41,20 @@
   "person_reds_6_tail": 2016,
   "person_reds_6_poncho": 23728,
   "person_reds_6_poncho_neck": 1536,
+  "person_reds_6_trouser": 43706,
+  "person_reds_6_rolled_hem": 2048,
+  "person_reds_6_double_knee": 252,
+  "person_reds_6_hammer_loop": 50,
+  "person_reds_6_sole_1": 242,
+  "person_reds_6_midsole_1": 242,
+  "person_reds_6_sole_0": 242,
+  "person_reds_6_midsole_0": 242,
+  "person_reds_6_boot_collar": 2048,
+  "person_reds_6_boot_collar_line": 2048,
+  "person_reds_6_soot_tool_belt": 1792,
+  "person_reds_6_soot_tool_belt_pouch_1": 26,
+  "person_reds_6_soot_tool_belt_pouch_0": 26,
+  "person_reds_6_soot_tool_belt_buckle": 34,
   "person_reds_6_hair": 17968,
   "person_reds_6_hand_L": 392,
   "person_reds_6_hand_R": 392
@@ -43,9 +65,24 @@
    0.8,
    0.8
   ],
+  "person_reds_6_boot_collar": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_reds_6_boot_collar_line": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_reds_6_buttons": [
-   0.3864,
-   0.0704,
+   0.3185,
+   0.0762,
+   0.0497
+  ],
+  "person_reds_6_cape": [
+   0.0382,
+   0.0343,
    0.0382
   ],
   "person_reds_6_collar": [
@@ -63,6 +100,11 @@
    0.8,
    0.8
   ],
+  "person_reds_6_double_knee": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
   "person_reds_6_eyes": [
    0.0212,
    0.0103,
@@ -72,6 +114,21 @@
    0.0194,
    0.0116,
    0.008
+  ],
+  "person_reds_6_hammer_loop": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_reds_6_midsole_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_reds_6_midsole_1": [
+   0.2122,
+   0.1746,
+   0.1046
   ],
   "person_reds_6_placket": [
    0.2195,
@@ -89,7 +146,7 @@
    0.0176
   ],
   "person_reds_6_poncho_band": [
-   0.2874,
+   0.2789,
    0.0578,
    0.0369
   ],
@@ -99,9 +156,14 @@
    0.0086
   ],
   "person_reds_6_roll": [
-   0.3864,
-   0.0704,
-   0.0382
+   0.3185,
+   0.0762,
+   0.0497
+  ],
+  "person_reds_6_rolled_hem": [
+   0.1248,
+   0.1559,
+   0.2016
   ],
   "person_reds_6_shirt": [
    0.2195,
@@ -119,19 +181,49 @@
    0.8
   ],
   "person_reds_6_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_reds_6_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_reds_6_skin": [
    0.3916,
    0.162,
    0.0723
+  ],
+  "person_reds_6_sole_0": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_reds_6_sole_1": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_reds_6_soot_tool_belt": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_reds_6_soot_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_reds_6_soot_tool_belt_pouch_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_reds_6_soot_tool_belt_pouch_1": [
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_reds_6_tail": [
    0.2195,
@@ -144,14 +236,14 @@
    0.8
   ],
   "person_reds_6_trouser": [
-   0.0887,
-   0.0319,
-   0.0296
+   0.0612,
+   0.0762,
+   0.0999
   ],
   "person_reds_6_trousers": [
-   0.0887,
-   0.0319,
-   0.0296
+   0.0612,
+   0.0762,
+   0.0999
   ]
  }
 }

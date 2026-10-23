@@ -6,13 +6,20 @@
   "base": "WORK COVERALLS",
   "head": "STORM KNIT CAP",
   "legs": "OLIVE WIDE TROUSER",
-  "feet": "OLIVE STACK BOOT"
+  "feet": "OLIVE STACK BOOT",
+  "neck": "BONE SCARF",
+  "outfit": []
  },
  "dials": {
   "height": -0.18,
   "belly": 0.85,
   "shoulders": 0.8,
   "hips": 0.3
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_remnants_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,7 +30,7 @@
  "meshes": {
   "Cesium_Man": 3273,
   "person_remnants_0_trouser": 2568,
-  "person_remnants_0_shoe": 3916,
+  "person_remnants_0_shoe": 3836,
   "person_remnants_0_shirt": 71260,
   "person_remnants_0_collar": 1536,
   "person_remnants_0_collar_points": 180,
@@ -32,6 +39,15 @@
   "person_remnants_0_pocket": 180,
   "person_remnants_0_flap": 108,
   "person_remnants_0_belt": 1792,
+  "person_remnants_0_sole_1": 242,
+  "person_remnants_0_midsole_1": 242,
+  "person_remnants_0_sole_0": 242,
+  "person_remnants_0_midsole_0": 242,
+  "person_remnants_0_boot_collar": 2048,
+  "person_remnants_0_boot_collar_line": 2048,
+  "person_remnants_0_bone_scarf": 3072,
+  "person_remnants_0_bone_scarf_tail": 162,
+  "person_remnants_0_bone_scarf_fringe": 54,
   "person_remnants_0_hair": 17968,
   "person_remnants_0_hat": 4548,
   "person_remnants_0_hat_brim": 2362,
@@ -48,6 +64,31 @@
    0.0185,
    0.0242,
    0.0123
+  ],
+  "person_remnants_0_bone_scarf": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_remnants_0_bone_scarf_fringe": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_remnants_0_bone_scarf_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_remnants_0_boot_collar": [
+   0.1329,
+   0.1683,
+   0.0545
+  ],
+  "person_remnants_0_boot_collar_line": [
+   0.0262,
+   0.0331,
+   0.0116
   ],
   "person_remnants_0_collar": [
    0.0437,
@@ -89,6 +130,16 @@
    0.0648,
    0.0762
   ],
+  "person_remnants_0_midsole_0": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_remnants_0_midsole_1": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
   "person_remnants_0_placket": [
    0.0185,
    0.0242,
@@ -105,19 +156,29 @@
    0.0232
   ],
   "person_remnants_0_shoe": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.0666,
+   0.0823,
+   0.0262
   ],
   "person_remnants_0_shoes": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.0666,
+   0.0823,
+   0.0262
   ],
   "person_remnants_0_skin": [
    0.7454,
    0.5089,
    0.3278
+  ],
+  "person_remnants_0_sole_0": [
+   0.0273,
+   0.0319,
+   0.016
+  ],
+  "person_remnants_0_sole_1": [
+   0.0273,
+   0.0319,
+   0.016
   ],
   "person_remnants_0_trouser": [
    0.0437,

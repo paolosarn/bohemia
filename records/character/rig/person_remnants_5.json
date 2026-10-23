@@ -1,19 +1,37 @@
 {
  "look": "PERSON_REMNANTS_5",
- "shape": "person_remnants_5: a person of the Remnants, his own skin skin_light 1, FIELD SHORTALLS under OLIVE VEST",
+ "shape": "person_remnants_5: a person of the Remnants, his own skin skin_light 1, FIELD SHORTALLS under BONE VEST",
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "FIELD SHORTALLS",
-  "outer": "OLIVE VEST",
+  "outer": "BONE VEST",
   "head": "STORM KNIT CAP",
   "legs": "OLIVE WIDE TROUSER",
-  "feet": "OLIVE STACK BOOT"
+  "feet": "GRASS BOOTS",
+  "waist": "SOOT TOOL BELT",
+  "outfit": [
+   "FIELD SHORTALLS read as one with OLIVE VEST (63 and 76 of 255) and no colour of that top reads apart: the same coat in BONE VEST (154)",
+   "BONE VEST worn open to the neck"
+  ]
  },
  "dials": {
   "height": -0.18,
   "belly": 0.85,
   "shoulders": 0.8,
   "hips": 0.3
+ },
+ "layers": {
+  "base": {
+   "under": "VEST"
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.005,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_remnants_5.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,14 +42,26 @@
  "meshes": {
   "Cesium_Man": 3273,
   "person_remnants_5_trouser": 1368,
-  "person_remnants_5_shoe": 3916,
+  "person_remnants_5_shoe": 3716,
   "person_remnants_5_belt": 1792,
   "person_remnants_5_bib": 12216,
   "person_remnants_5_straps": 364,
   "person_remnants_5_buttons": 68,
   "person_remnants_5_pocket": 90,
-  "person_remnants_5_coat": 21498,
+  "person_remnants_5_coat": 20978,
   "person_remnants_5_lapels": 396,
+  "person_remnants_5_sole_1": 242,
+  "person_remnants_5_midsole_1": 242,
+  "person_remnants_5_sole_0": 242,
+  "person_remnants_5_midsole_0": 242,
+  "person_remnants_5_boot_collar": 2048,
+  "person_remnants_5_boot_collar_line": 2048,
+  "person_remnants_5_eyelets_1": 120,
+  "person_remnants_5_eyelets_0": 120,
+  "person_remnants_5_soot_tool_belt": 1792,
+  "person_remnants_5_soot_tool_belt_pouch_1": 26,
+  "person_remnants_5_soot_tool_belt_pouch_0": 26,
+  "person_remnants_5_soot_tool_belt_buckle": 34,
   "person_remnants_5_hair": 17968,
   "person_remnants_5_hat": 4548,
   "person_remnants_5_hat_brim": 2362,
@@ -54,15 +84,35 @@
    0.0561,
    0.0232
   ],
+  "person_remnants_5_boot_collar": [
+   0.3763,
+   0.6867,
+   0.2086
+  ],
+  "person_remnants_5_boot_collar_line": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
   "person_remnants_5_buttons": [
    0.0908,
    0.1095,
    0.0452
   ],
   "person_remnants_5_coat": [
-   0.0666,
-   0.0823,
-   0.0262
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_remnants_5_eyelets_0": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
+  "person_remnants_5_eyelets_1": [
+   0.0545,
+   0.1878,
+   0.013
   ],
   "person_remnants_5_eyes": [
    0.0212,
@@ -85,9 +135,19 @@
    0.0762
   ],
   "person_remnants_5_lapels": [
-   0.0262,
-   0.0331,
-   0.0116
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_remnants_5_midsole_0": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
+  "person_remnants_5_midsole_1": [
+   0.0545,
+   0.1878,
+   0.013
   ],
   "person_remnants_5_pocket": [
    0.0437,
@@ -100,19 +160,49 @@
    0.0232
   ],
   "person_remnants_5_shoe": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_5_shoes": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_5_skin": [
    0.2051,
    0.0976,
    0.0685
+  ],
+  "person_remnants_5_sole_0": [
+   0.0704,
+   0.1714,
+   0.0296
+  ],
+  "person_remnants_5_sole_1": [
+   0.0704,
+   0.1714,
+   0.0296
+  ],
+  "person_remnants_5_soot_tool_belt": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_remnants_5_soot_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_remnants_5_soot_tool_belt_pouch_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_remnants_5_soot_tool_belt_pouch_1": [
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_remnants_5_straps": [
    0.0185,

@@ -5,14 +5,33 @@
   "hair": "TEMPLE TAPER",
   "base": "MOSS GREEN SHIRT",
   "head": "STORM KNIT CAP",
-  "legs": "OLIVE WIDE TROUSER",
-  "feet": "OLIVE STACK BOOT"
+  "feet": "COAL COLUMN",
+  "gear": "SOOT CHEST PLATE",
+  "outfit": [
+   "an open RED PLAID FLANNEL over the MOSS GREEN SHIRT",
+   "its sleeves rolled"
+  ],
+  "mid": "RED PLAID FLANNEL"
  },
  "dials": {
   "height": -0.18,
   "belly": 0.85,
   "shoulders": 0.8,
   "hips": 0.3
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05,
+   "sleeves": "rolled"
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_remnants_2.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,12 +41,22 @@
  "real_height_for_rig": 1.7336,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_remnants_2_trouser": 2568,
-  "person_remnants_2_shoe": 3916,
+  "person_remnants_2_shoe": 3148,
   "person_remnants_2_shirt": 67428,
   "person_remnants_2_collar": 1536,
   "person_remnants_2_cuffs": 2048,
   "person_remnants_2_hem": 1792,
+  "person_remnants_2_column": 74570,
+  "person_remnants_2_column_sole_1": 242,
+  "person_remnants_2_column_sole_0": 242,
+  "person_remnants_2_soot_chest_plate": 6018,
+  "person_remnants_2_soot_chest_plate_x": 196,
+  "person_remnants_2_mid_shirt": 57676,
+  "person_remnants_2_mid_collar": 1536,
+  "person_remnants_2_mid_collar_points": 180,
+  "person_remnants_2_mid_front_edge": 396,
+  "person_remnants_2_mid_roll": 2048,
+  "person_remnants_2_mid_tail": 1818,
   "person_remnants_2_hair": 17968,
   "person_remnants_2_hat": 4548,
   "person_remnants_2_hat_brim": 2362,
@@ -41,14 +70,29 @@
    0.8
   ],
   "person_remnants_2_collar": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
+  ],
+  "person_remnants_2_column": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_remnants_2_column_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_remnants_2_column_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
   ],
   "person_remnants_2_cuffs": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_2_eyes": [
    0.0212,
@@ -71,39 +115,99 @@
    0.0762
   ],
   "person_remnants_2_hem": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
+  ],
+  "person_remnants_2_mid_collar": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_remnants_2_mid_collar_points": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_remnants_2_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_2_mid_front_edge": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_remnants_2_mid_roll": [
+   0.3185,
+   0.0762,
+   0.0497
+  ],
+  "person_remnants_2_mid_shirt": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_remnants_2_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_2_mid_tail": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_remnants_2_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
   ],
   "person_remnants_2_shirt": [
-   0.1301,
-   0.5149,
-   0.0262
+   0.2016,
+   0.4508,
+   0.0999
   ],
   "person_remnants_2_shoe": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_remnants_2_shoes": [
-   0.0395,
-   0.0395,
-   0.0395
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_remnants_2_skin": [
    0.5972,
    0.4072,
    0.2542
   ],
-  "person_remnants_2_trouser": [
-   0.0545,
-   0.0545,
-   0.0578
+  "person_remnants_2_soot_chest_plate": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_remnants_2_soot_chest_plate_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_remnants_2_soot_chest_plate_rivets": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_remnants_2_soot_chest_plate_x": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_remnants_2_trousers": [
-   0.0545,
-   0.0545,
-   0.0578
+   0.0296,
+   0.0296,
+   0.0356
   ]
  }
 }

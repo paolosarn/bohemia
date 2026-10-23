@@ -5,15 +5,32 @@
   "hair": "TEMPLE TAPER",
   "base": "BRICK HENLEY",
   "head": "DUST WORK CAP",
-  "legs": "DUST TROUSERS",
-  "feet": "STACKED SOLE BOOT",
-  "waist": "SOOT TOOL BELT"
+  "legs": "PATCHED WORK PANTS",
+  "feet": "GOLD STACK BOOT",
+  "waist": "SOOT TOOL BELT",
+  "outfit": [
+   "an open DUST PLAID SHIRT over the BRICK HENLEY"
+  ],
+  "mid": "DUST PLAID SHIRT"
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_trades_5.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,8 +40,7 @@
  "real_height_for_rig": 1.7112,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_trades_5_trouser": 2568,
-  "person_trades_5_shoe": 3916,
+  "person_trades_5_shoe": 3836,
   "person_trades_5_belt": 346,
   "person_trades_5_pouch": 24,
   "person_trades_5_pouch.001": 24,
@@ -34,6 +50,23 @@
   "person_trades_5_buttons": 102,
   "person_trades_5_cuffs": 2048,
   "person_trades_5_hem": 1792,
+  "person_trades_5_trouser": 43706,
+  "person_trades_5_rolled_hem": 2048,
+  "person_trades_5_double_knee": 252,
+  "person_trades_5_hammer_loop": 50,
+  "person_trades_5_patches": 252,
+  "person_trades_5_sole_1": 242,
+  "person_trades_5_midsole_1": 242,
+  "person_trades_5_sole_0": 242,
+  "person_trades_5_midsole_0": 242,
+  "person_trades_5_boot_collar": 2048,
+  "person_trades_5_boot_collar_line": 2048,
+  "person_trades_5_mid_shirt": 39260,
+  "person_trades_5_mid_collar": 1536,
+  "person_trades_5_mid_collar_points": 180,
+  "person_trades_5_mid_front_edge": 396,
+  "person_trades_5_mid_sleeve_hem": 2048,
+  "person_trades_5_mid_tail": 1818,
   "person_trades_5_hair": 17968,
   "person_trades_5_hat": 3092,
   "person_trades_5_visor": 48,
@@ -51,10 +84,20 @@
    0.0176,
    0.016
   ],
+  "person_trades_5_boot_collar": [
+   0.9911,
+   0.855,
+   0.3712
+  ],
+  "person_trades_5_boot_collar_line": [
+   0.3813,
+   0.2623,
+   0.0723
+  ],
   "person_trades_5_buttons": [
-   0.3864,
-   0.0704,
-   0.0382
+   0.3185,
+   0.0762,
+   0.0497
   ],
   "person_trades_5_collar": [
    0.2195,
@@ -66,6 +109,11 @@
    0.0369,
    0.0212
   ],
+  "person_trades_5_double_knee": [
+   0.0343,
+   0.0595,
+   0.0976
+  ],
   "person_trades_5_eyes": [
    0.0212,
    0.0103,
@@ -75,6 +123,11 @@
    0.0194,
    0.0116,
    0.008
+  ],
+  "person_trades_5_hammer_loop": [
+   0.0343,
+   0.0595,
+   0.0976
   ],
   "person_trades_5_hat": [
    0.2159,
@@ -86,10 +139,80 @@
    0.0369,
    0.0212
   ],
+  "person_trades_5_mid_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_trades_5_mid_collar_points": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_trades_5_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_5_mid_front_edge": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_trades_5_mid_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_trades_5_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_5_mid_sleeve_hem": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_trades_5_mid_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_5_mid_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_trades_5_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_5_midsole_0": [
+   0.3813,
+   0.2623,
+   0.0723
+  ],
+  "person_trades_5_midsole_1": [
+   0.3813,
+   0.2623,
+   0.0723
+  ],
+  "person_trades_5_patches": [
+   0.1812,
+   0.2664,
+   0.3663
+  ],
   "person_trades_5_placket": [
    0.2195,
    0.0369,
    0.0212
+  ],
+  "person_trades_5_rolled_hem": [
+   0.1812,
+   0.2664,
+   0.3663
   ],
   "person_trades_5_shirt": [
    0.2195,
@@ -97,29 +220,39 @@
    0.0212
   ],
   "person_trades_5_shoe": [
-   0.016,
-   0.0091,
-   0.0086
+   0.8469,
+   0.6795,
+   0.2918
   ],
   "person_trades_5_shoes": [
-   0.016,
-   0.0091,
-   0.0086
+   0.8469,
+   0.6795,
+   0.2918
   ],
   "person_trades_5_skin": [
    0.1441,
    0.0545,
    0.0296
   ],
+  "person_trades_5_sole_0": [
+   0.4342,
+   0.2623,
+   0.0319
+  ],
+  "person_trades_5_sole_1": [
+   0.4342,
+   0.2623,
+   0.0319
+  ],
   "person_trades_5_trouser": [
-   0.063,
-   0.0409,
-   0.0343
+   0.0865,
+   0.1356,
+   0.2051
   ],
   "person_trades_5_trousers": [
-   0.063,
-   0.0409,
-   0.0343
+   0.0865,
+   0.1356,
+   0.2051
   ]
  }
 }

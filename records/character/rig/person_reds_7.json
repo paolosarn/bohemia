@@ -1,18 +1,38 @@
 {
  "look": "PERSON_REDS_7",
- "shape": "person_reds_7: a person of the Reds, his own skin skin_mid 1, SCAVENGER FLANNEL under BRICK CAR COAT",
+ "shape": "person_reds_7: a person of the Reds, his own skin skin_mid 1, SAGE FLANNEL under BRICK CAR COAT",
  "worn": {
   "hair": "DRY TAPER",
-  "base": "SCAVENGER FLANNEL",
+  "base": "SAGE FLANNEL",
   "outer": "BRICK CAR COAT",
-  "legs": "BRICK WIDE TROUSER",
-  "feet": "BRICK STACK BOOT"
+  "legs": "DROP RISE TROUSER",
+  "feet": "RED CLAY BOOTS",
+  "waist": "SCAV TOOL BELT",
+  "back": "OXBLOOD SATCHEL",
+  "outfit": [
+   "SCAVENGER FLANNEL read as one with BRICK CAR COAT (79 and 68 of 255): the same cut in SAGE FLANNEL (99)",
+   "BRICK CAR COAT worn open to the neck"
+  ]
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "CAR COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.048,
+   "collar_z": 1.11,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_reds_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,8 +42,7 @@
  "real_height_for_rig": 1.7908,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_reds_7_trouser": 2568,
-  "person_reds_7_shoe": 3916,
+  "person_reds_7_shoe": 3716,
   "person_reds_7_shirt": 71212,
   "person_reds_7_collar": 1536,
   "person_reds_7_collar_points": 180,
@@ -31,13 +50,31 @@
   "person_reds_7_buttons": 204,
   "person_reds_7_cuffs": 2048,
   "person_reds_7_tail": 2016,
-  "person_reds_7_coat": 73232,
-  "person_reds_7_coat_skirt": 5670,
-  "person_reds_7_collar.001": 1536,
+  "person_reds_7_coat": 71722,
+  "person_reds_7_coat_skirt": 5454,
+  "person_reds_7_collar.001": 1170,
   "person_reds_7_lapels": 396,
   "person_reds_7_cuffs.001": 2048,
   "person_reds_7_pockets": 252,
   "person_reds_7_pocket_flaps": 252,
+  "person_reds_7_trouser": 43706,
+  "person_reds_7_drop_yoke": 5600,
+  "person_reds_7_ankle": 2048,
+  "person_reds_7_sole_1": 242,
+  "person_reds_7_midsole_1": 242,
+  "person_reds_7_sole_0": 242,
+  "person_reds_7_midsole_0": 242,
+  "person_reds_7_boot_collar": 2048,
+  "person_reds_7_boot_collar_line": 2048,
+  "person_reds_7_eyelets_1": 120,
+  "person_reds_7_eyelets_0": 120,
+  "person_reds_7_scav_tool_belt": 1792,
+  "person_reds_7_scav_tool_belt_pouch_1": 26,
+  "person_reds_7_scav_tool_belt_pouch_0": 26,
+  "person_reds_7_scav_tool_belt_buckle": 34,
+  "person_reds_7_oxblood_satchel_bag": 98,
+  "person_reds_7_oxblood_satchel_flap": 26,
+  "person_reds_7_oxblood_satchel_strap": 1792,
   "person_reds_7_hair": 17968,
   "person_reds_7_hand_L": 392,
   "person_reds_7_hand_R": 392
@@ -48,10 +85,25 @@
    0.8,
    0.8
   ],
-  "person_reds_7_buttons": [
-   0.3864,
+  "person_reds_7_ankle": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_reds_7_boot_collar": [
+   0.3763,
+   0.1413,
+   0.0704
+  ],
+  "person_reds_7_boot_collar_line": [
    0.1195,
-   0.0343
+   0.0307,
+   0.0152
+  ],
+  "person_reds_7_buttons": [
+   0.1878,
+   0.2623,
+   0.162
   ],
   "person_reds_7_coat": [
    0.2195,
@@ -64,14 +116,14 @@
    0.0212
   ],
   "person_reds_7_collar": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_reds_7_collar_points": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_reds_7_collar_print": [
    0.8,
@@ -79,9 +131,24 @@
    0.8
   ],
   "person_reds_7_cuffs": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_reds_7_drop_yoke": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_reds_7_eyelets_0": [
+   0.1195,
+   0.0307,
+   0.0152
+  ],
+  "person_reds_7_eyelets_1": [
+   0.1195,
+   0.0307,
+   0.0152
   ],
   "person_reds_7_eyes": [
    0.0212,
@@ -98,10 +165,35 @@
    0.0168,
    0.011
   ],
-  "person_reds_7_placket": [
-   0.2159,
-   0.0595,
+  "person_reds_7_midsole_0": [
+   0.1195,
+   0.0307,
+   0.0152
+  ],
+  "person_reds_7_midsole_1": [
+   0.1195,
+   0.0307,
+   0.0152
+  ],
+  "person_reds_7_oxblood_satchel_bag": [
+   0.1441,
+   0.0252,
    0.0176
+  ],
+  "person_reds_7_oxblood_satchel_flap": [
+   0.2789,
+   0.0578,
+   0.0369
+  ],
+  "person_reds_7_oxblood_satchel_strap": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_reds_7_placket": [
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_reds_7_placket_print": [
    0.8,
@@ -118,10 +210,30 @@
    0.0369,
    0.0212
   ],
+  "person_reds_7_scav_tool_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_reds_7_scav_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_reds_7_scav_tool_belt_pouch_0": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_reds_7_scav_tool_belt_pouch_1": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
   "person_reds_7_shirt": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_reds_7_shirt_print": [
    0.8,
@@ -134,24 +246,34 @@
    0.8
   ],
   "person_reds_7_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.2542,
+   0.0704,
+   0.0296
   ],
   "person_reds_7_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.2542,
+   0.0704,
+   0.0296
   ],
   "person_reds_7_skin": [
    0.1384,
    0.0467,
    0.0252
   ],
+  "person_reds_7_sole_0": [
+   0.0273,
+   0.013,
+   0.008
+  ],
+  "person_reds_7_sole_1": [
+   0.0273,
+   0.013,
+   0.008
+  ],
   "person_reds_7_tail": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.0931,
+   0.1441,
+   0.0823
   ],
   "person_reds_7_tail_print": [
    0.8,
@@ -159,14 +281,19 @@
    0.8
   ],
   "person_reds_7_trouser": [
-   0.0887,
-   0.0319,
-   0.0296
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_reds_7_trousers": [
-   0.0887,
-   0.0319,
-   0.0296
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_reds_7_yoke_drape": [
+   0.0152,
+   0.013,
+   0.0152
   ]
  }
 }

@@ -6,15 +6,22 @@
   "base": "BRICK HOODIE",
   "outer": "DUST PONCHO",
   "head": "DUST WORK CAP",
-  "legs": "DUST TROUSERS",
+  "legs": "GOLD DROP TROUSER",
   "feet": "STACKED SOLE BOOT",
-  "waist": "SOOT TOOL BELT"
+  "waist": "SOOT TOOL BELT",
+  "hands": "OXBLOOD GLOVES",
+  "outfit": []
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
  },
  "model": "records/character/rig/person_trades_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,8 +31,7 @@
  "real_height_for_rig": 1.7112,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_trades_0_trouser": 2568,
-  "person_trades_0_shoe": 3916,
+  "person_trades_0_shoe": 3836,
   "person_trades_0_belt": 346,
   "person_trades_0_pouch": 24,
   "person_trades_0_pouch.001": 24,
@@ -38,6 +44,18 @@
   "person_trades_0_cuffs": 2048,
   "person_trades_0_poncho": 23728,
   "person_trades_0_poncho_neck": 1536,
+  "person_trades_0_trouser": 43706,
+  "person_trades_0_drop_yoke": 5600,
+  "person_trades_0_ankle": 2048,
+  "person_trades_0_sole_1": 242,
+  "person_trades_0_midsole_1": 242,
+  "person_trades_0_sole_0": 242,
+  "person_trades_0_midsole_0": 242,
+  "person_trades_0_boot_collar": 2048,
+  "person_trades_0_boot_collar_line": 2048,
+  "person_trades_0_oxblood_gloves_L": 392,
+  "person_trades_0_oxblood_gloves_R": 392,
+  "person_trades_0_oxblood_gloves_cuff": 2048,
   "person_trades_0_hair": 17968,
   "person_trades_0_hat": 3092,
   "person_trades_0_visor": 48,
@@ -50,10 +68,25 @@
    0.8,
    0.8
   ],
+  "person_trades_0_ankle": [
+   0.3813,
+   0.2623,
+   0.0723
+  ],
   "person_trades_0_belt": [
    0.0212,
    0.0176,
    0.016
+  ],
+  "person_trades_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_trades_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_trades_0_collar": [
    0.2195,
@@ -66,9 +99,14 @@
    0.0212
   ],
   "person_trades_0_drawstrings": [
-   0.3864,
-   0.0704,
-   0.0382
+   0.3185,
+   0.0762,
+   0.0497
+  ],
+  "person_trades_0_drop_yoke": [
+   0.8469,
+   0.6795,
+   0.2918
   ],
   "person_trades_0_eyes": [
    0.0212,
@@ -89,6 +127,26 @@
    0.2195,
    0.0369,
    0.0212
+  ],
+  "person_trades_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_trades_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_trades_0_oxblood_gloves": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_trades_0_oxblood_gloves_cuff": [
+   0.0482,
+   0.0103,
+   0.0086
   ],
   "person_trades_0_pocket": [
    0.2195,
@@ -116,34 +174,49 @@
    0.0212
   ],
   "person_trades_0_shoe": [
-   0.016,
-   0.0091,
-   0.0086
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_trades_0_shoes": [
-   0.016,
-   0.0091,
-   0.0086
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_trades_0_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
+  "person_trades_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_trades_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_trades_0_trouser": [
-   0.063,
-   0.0409,
-   0.0343
+   0.8469,
+   0.6795,
+   0.2918
   ],
   "person_trades_0_trousers": [
-   0.063,
-   0.0409,
-   0.0343
+   0.8469,
+   0.6795,
+   0.2918
   ],
   "person_trades_0_waistband": [
    0.2195,
    0.0369,
    0.0212
+  ],
+  "person_trades_0_yoke_drape": [
+   0.3813,
+   0.2623,
+   0.0723
   ]
  }
 }

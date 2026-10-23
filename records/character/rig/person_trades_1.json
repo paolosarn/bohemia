@@ -1,20 +1,47 @@
 {
  "look": "PERSON_TRADES_1",
- "shape": "person_trades_1: a person of the Trades, his own skin skin_deep 3, RUST HOODIE under LEATHER JACKET",
+ "shape": "person_trades_1: a person of the Trades, his own skin skin_deep 3, SAND HOODIE under LEATHER JACKET",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "RUST HOODIE",
+  "base": "SAND HOODIE",
   "outer": "LEATHER JACKET",
   "head": "DUST WORK CAP",
-  "legs": "DUST TROUSERS",
-  "feet": "STACKED SOLE BOOT",
-  "waist": "SOOT TOOL BELT"
+  "legs": "SLATE STACK PANT",
+  "feet": "STACKED MID BOOT",
+  "waist": "SOOT TOOL BELT",
+  "outfit": [
+   "RUST HOODIE read as one with LEATHER JACKET (79 and 69 of 255): the same cut in SAND HOODIE (111)",
+   "LEATHER JACKET worn open to the neck",
+   "the hood heaped over the coat's collar",
+   "the hoodie's hem below the jacket",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "hood_over": 0.022,
+   "hem_drop": 0.05,
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.006,
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.12,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_trades_1.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,24 +51,29 @@
  "real_height_for_rig": 1.7112,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_trades_1_trouser": 2568,
-  "person_trades_1_shoe": 3916,
+  "person_trades_1_shoe": 4036,
   "person_trades_1_belt": 346,
   "person_trades_1_pouch": 24,
   "person_trades_1_pouch.001": 24,
   "person_trades_1_shirt": 68920,
   "person_trades_1_collar": 1536,
-  "person_trades_1_hood": 13916,
+  "person_trades_1_hood": 14480,
   "person_trades_1_drawstrings": 100,
   "person_trades_1_pocket": 182,
-  "person_trades_1_waistband": 1792,
   "person_trades_1_cuffs": 2048,
-  "person_trades_1_coat": 68226,
-  "person_trades_1_collar.001": 1536,
+  "person_trades_1_tail": 2464,
+  "person_trades_1_coat": 53566,
   "person_trades_1_lapels": 396,
   "person_trades_1_zip": 324,
-  "person_trades_1_waistband.001": 1792,
-  "person_trades_1_cuffs.001": 2048,
+  "person_trades_1_waistband": 1792,
+  "person_trades_1_pushed": 2048,
+  "person_trades_1_trouser": 43706,
+  "person_trades_1_sole_1": 242,
+  "person_trades_1_midsole_1": 242,
+  "person_trades_1_sole_0": 242,
+  "person_trades_1_midsole_0": 242,
+  "person_trades_1_boot_collar": 2048,
+  "person_trades_1_boot_collar_line": 2048,
   "person_trades_1_hair": 17968,
   "person_trades_1_hat": 3092,
   "person_trades_1_visor": 48,
@@ -59,25 +91,35 @@
    0.0176,
    0.016
   ],
+  "person_trades_1_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_trades_1_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_trades_1_coat": [
    0.1301,
    0.0513,
    0.016
   ],
   "person_trades_1_collar": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.2423,
+   0.1529,
+   0.0561
   ],
   "person_trades_1_cuffs": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.2423,
+   0.1529,
+   0.0561
   ],
   "person_trades_1_drawstrings": [
-   0.3864,
-   0.1195,
-   0.0343
+   0.4072,
+   0.2831,
+   0.1221
   ],
   "person_trades_1_eyes": [
    0.0212,
@@ -95,54 +137,89 @@
    0.0802
   ],
   "person_trades_1_hood": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.2423,
+   0.1529,
+   0.0561
   ],
   "person_trades_1_lapels": [
    0.0545,
    0.0222,
    0.0075
   ],
+  "person_trades_1_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_trades_1_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_trades_1_pocket": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_trades_1_pushed": [
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_trades_1_shirt": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.2423,
+   0.1529,
+   0.0561
   ],
   "person_trades_1_shoe": [
-   0.016,
-   0.0091,
-   0.0086
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_trades_1_shoes": [
-   0.016,
-   0.0091,
-   0.0086
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_trades_1_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
+  "person_trades_1_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_trades_1_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_trades_1_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
   "person_trades_1_trouser": [
-   0.063,
-   0.0409,
-   0.0343
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_trades_1_trouser_folds": [
+   0.0262,
+   0.0319,
+   0.0437
   ],
   "person_trades_1_trousers": [
-   0.063,
-   0.0409,
-   0.0343
+   0.0612,
+   0.0762,
+   0.0999
   ],
   "person_trades_1_waistband": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_trades_1_zip": [
    0.0545,

@@ -2,7 +2,7 @@
  "head_px": 128,
  "head_m": 0.3846,
  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.385 m",
- "ppm": 332.851,
+ "ppm": 332.854,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -32,12 +32,12 @@
   "M": "records/target/character/barber/person_network_6/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  38,
+  36,
   40,
-  181,
+  182,
   218
  ],
  "model": "records/character/rig/barber_person_network_6.glb",
  "body_rig": "rig.json",
- "colours": 28724
+ "colours": 29194
 }

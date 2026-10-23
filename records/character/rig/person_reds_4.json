@@ -1,18 +1,39 @@
 {
  "look": "PERSON_REDS_4",
- "shape": "person_reds_4: a person of the Reds, his own skin skin_mid 3, RUST STRIPED TEE under DRIFTER'S COAT",
+ "shape": "person_reds_4: a person of the Reds, his own skin skin_mid 3, STRIPED TEE under DRIFTER'S COAT",
  "worn": {
   "hair": "DRY TAPER",
-  "base": "RUST STRIPED TEE",
+  "base": "STRIPED TEE",
   "outer": "DRIFTER'S COAT",
-  "legs": "BRICK WIDE TROUSER",
-  "feet": "BRICK STACK BOOT"
+  "legs": "STORM GREY SWEATS",
+  "feet": "SIGNAL RED BOOTS",
+  "outfit": [
+   "RUST STRIPED TEE read as one with DRIFTER'S COAT (79 and 56 of 255): the same cut in STRIPED TEE (154)",
+   "DRIFTER'S COAT worn open to the neck",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "LONGCOAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.046,
+   "collar_z": 1.1,
+   "fo_add": 0.25,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_reds_4.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,18 +43,27 @@
  "real_height_for_rig": 1.7908,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_reds_4_trouser": 2568,
-  "person_reds_4_shoe": 3916,
+  "person_reds_4_shoe": 3716,
   "person_reds_4_shirt": 40088,
   "person_reds_4_collar": 1536,
-  "person_reds_4_sleeve_hem": 2048,
   "person_reds_4_hem": 1792,
-  "person_reds_4_coat": 73232,
-  "person_reds_4_coat_skirt": 7770,
-  "person_reds_4_collar.001": 1536,
+  "person_reds_4_coat": 62446,
+  "person_reds_4_coat_skirt": 7474,
+  "person_reds_4_collar.001": 1170,
   "person_reds_4_lapels": 396,
+  "person_reds_4_pushed": 2048,
   "person_reds_4_pockets": 252,
   "person_reds_4_pocket_flaps": 252,
+  "person_reds_4_trouser": 43706,
+  "person_reds_4_cuff": 2048,
+  "person_reds_4_sole_1": 242,
+  "person_reds_4_midsole_1": 242,
+  "person_reds_4_sole_0": 242,
+  "person_reds_4_midsole_0": 242,
+  "person_reds_4_boot_collar": 2048,
+  "person_reds_4_boot_collar_line": 2048,
+  "person_reds_4_eyelets_1": 120,
+  "person_reds_4_eyelets_0": 120,
   "person_reds_4_hair": 17968,
   "person_reds_4_hand_L": 392,
   "person_reds_4_hand_R": 392
@@ -43,6 +73,16 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_reds_4_boot_collar": [
+   0.5149,
+   0.15,
+   0.1274
+  ],
+  "person_reds_4_boot_collar_line": [
+   0.2051,
+   0.0222,
+   0.0168
   ],
   "person_reds_4_coat": [
    0.1441,
@@ -55,14 +95,29 @@
    0.0176
   ],
   "person_reds_4_collar": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_reds_4_collar_print": [
    0.8,
    0.8,
    0.8
+  ],
+  "person_reds_4_cuff": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_reds_4_eyelets_0": [
+   0.2051,
+   0.0222,
+   0.0168
+  ],
+  "person_reds_4_eyelets_1": [
+   0.2051,
+   0.0222,
+   0.0168
   ],
   "person_reds_4_eyes": [
    0.0212,
@@ -75,14 +130,24 @@
    0.008
   ],
   "person_reds_4_hem": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_reds_4_lapels": [
    0.0482,
    0.0103,
    0.0086
+  ],
+  "person_reds_4_midsole_0": [
+   0.2051,
+   0.0222,
+   0.0168
+  ],
+  "person_reds_4_midsole_1": [
+   0.2051,
+   0.0222,
+   0.0168
   ],
   "person_reds_4_pocket_flaps": [
    0.0482,
@@ -94,10 +159,15 @@
    0.0252,
    0.0176
   ],
-  "person_reds_4_shirt": [
-   0.2159,
-   0.0595,
+  "person_reds_4_pushed": [
+   0.1441,
+   0.0252,
    0.0176
+  ],
+  "person_reds_4_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_reds_4_shirt_print": [
    0.8,
@@ -110,39 +180,39 @@
    0.8
   ],
   "person_reds_4_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_reds_4_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_reds_4_skin": [
    0.6105,
    0.3515,
    0.1714
   ],
-  "person_reds_4_sleeve_hem": [
-   0.2159,
-   0.0595,
-   0.0176
+  "person_reds_4_sole_0": [
+   0.2346,
+   0.0203,
+   0.0144
   ],
-  "person_reds_4_sleeve_hem_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_reds_4_sole_1": [
+   0.2346,
+   0.0203,
+   0.0144
   ],
   "person_reds_4_trouser": [
-   0.0887,
-   0.0319,
-   0.0296
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_reds_4_trousers": [
-   0.0887,
-   0.0319,
-   0.0296
+   0.0595,
+   0.0648,
+   0.0802
   ]
  }
 }

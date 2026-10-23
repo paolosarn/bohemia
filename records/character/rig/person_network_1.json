@@ -5,14 +5,31 @@
   "hair": "TEMPLE TAPER",
   "base": "PATINA WORK SHIRT",
   "outer": "RANGER LONGCOAT",
-  "legs": "STACKED JERSEY PANT",
-  "feet": "SLOUCH BOOT"
+  "legs": "BLACK DENIM",
+  "feet": "TALL MOTO BOOTS",
+  "gear": "THIGH HOLSTER",
+  "outfit": [
+   "PATINA WORK SHIRT and RANGER LONGCOAT read as one, and no colour of either cut reads apart",
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "LONGCOAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_network_1.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,8 +39,7 @@
  "real_height_for_rig": 1.7908,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_network_1_trouser": 2568,
-  "person_network_1_shoe": 3836,
+  "person_network_1_shoe": 4484,
   "person_network_1_shirt": 71212,
   "person_network_1_collar": 1536,
   "person_network_1_collar_points": 180,
@@ -33,12 +49,31 @@
   "person_network_1_tail": 2016,
   "person_network_1_pocket": 180,
   "person_network_1_flap": 108,
-  "person_network_1_coat": 73232,
+  "person_network_1_coat": 63584,
   "person_network_1_coat_skirt": 8190,
   "person_network_1_collar.001": 1536,
   "person_network_1_lapels": 396,
+  "person_network_1_pushed": 2048,
   "person_network_1_pockets": 252,
   "person_network_1_pocket_flaps": 252,
+  "person_network_1_trouser": 43706,
+  "person_network_1_rolled_hem": 2048,
+  "person_network_1_fly": 70,
+  "person_network_1_front_pockets": 100,
+  "person_network_1_seat_pockets": 252,
+  "person_network_1_seat_seams": 252,
+  "person_network_1_sole_1": 242,
+  "person_network_1_midsole_1": 242,
+  "person_network_1_sole_0": 242,
+  "person_network_1_midsole_0": 242,
+  "person_network_1_boot_collar": 2048,
+  "person_network_1_boot_collar_line": 2048,
+  "person_network_1_boot_strap": 2048,
+  "person_network_1_thigh_holster": 26,
+  "person_network_1_thigh_holster_grip": 8,
+  "person_network_1_thigh_holster_leg_0": 1024,
+  "person_network_1_thigh_holster_leg_1": 1024,
+  "person_network_1_thigh_holster_hip": 50,
   "person_network_1_hair": 17968,
   "person_network_1_hand_L": 392,
   "person_network_1_hand_R": 392
@@ -48,6 +83,21 @@
    0.8,
    0.8,
    0.8
+  ],
+  "person_network_1_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_network_1_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_network_1_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
   ],
   "person_network_1_buttons": [
    0.1329,
@@ -89,6 +139,16 @@
    0.1651,
    0.1095
   ],
+  "person_network_1_fly": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_network_1_front_pockets": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
   "person_network_1_hair": [
    0.0194,
    0.0116,
@@ -98,6 +158,16 @@
    0.0242,
    0.0685,
    0.0452
+  ],
+  "person_network_1_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_network_1_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
   ],
   "person_network_1_placket": [
    0.063,
@@ -119,40 +189,95 @@
    0.1651,
    0.1095
   ],
+  "person_network_1_pushed": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_rolled_hem": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_network_1_seat_pockets": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_network_1_seat_seams": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
   "person_network_1_shirt": [
    0.063,
    0.1651,
    0.1095
   ],
   "person_network_1_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_network_1_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_network_1_skin": [
    0.2051,
    0.0976,
    0.0685
   ],
+  "person_network_1_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_network_1_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
   "person_network_1_tail": [
    0.063,
    0.1651,
    0.1095
   ],
+  "person_network_1_thigh_holster": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_network_1_thigh_holster_grip": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "person_network_1_thigh_holster_hip": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_network_1_thigh_holster_leg_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_network_1_thigh_holster_leg_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_network_1_trouser": [
-   0.063,
-   0.063,
-   0.0648
+   0.0242,
+   0.0273,
+   0.0409
   ],
   "person_network_1_trousers": [
-   0.063,
-   0.063,
-   0.0648
+   0.0242,
+   0.0273,
+   0.0409
   ]
  }
 }

@@ -2,7 +2,7 @@
  "head_px": 128,
  "head_m": 0.4235,
  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.424 m",
- "ppm": 302.226,
+ "ppm": 302.228,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -32,12 +32,12 @@
   "M": "records/target/character/barber/person_remnants_0/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  54,
+  50,
   38,
-  171,
+  172,
   218
  ],
  "model": "records/character/rig/barber_person_remnants_0.glb",
  "body_rig": "rig.json",
- "colours": 24367
+ "colours": 27561
 }

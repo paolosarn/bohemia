@@ -33,11 +33,11 @@
  },
  "crop_box_px": [
   43,
-  40,
-  174,
+  39,
+  175,
   218
  ],
  "model": "records/character/rig/barber_person_reds_7.glb",
  "body_rig": "rig.json",
- "colours": 20298
+ "colours": 21751
 }

@@ -1,20 +1,40 @@
 {
  "look": "PERSON_MOB_7",
- "shape": "person_mob_7: a person of the Mob, his own skin skin_light 2, BLACK TANK under RUST VEST",
+ "shape": "person_mob_7: a person of the Mob, his own skin skin_light 2, BONE TANK under RUST VEST",
  "worn": {
   "hair": "DRY TAPER",
-  "base": "BLACK TANK",
-  "back": "CHARCOAL SHOULDER MANTLE",
-  "legs": "CHARCOAL CROP TROUSER",
-  "feet": "STACKED SOLE BOOT",
+  "base": "BONE TANK",
+  "back": "SALVAGE SATCHEL",
+  "legs": "RUST CARGOS",
+  "feet": "ASH SLOUCH BOOT",
   "waist": "LEATHER BELT",
-  "outer": "RUST VEST"
+  "outer": "RUST VEST",
+  "hands": "SOOT GLOVES",
+  "outfit": [
+   "BLACK TANK read as one with RUST VEST (42 and 79 of 255): the same cut in BONE TANK (154)",
+   "RUST VEST worn open to the neck",
+   "the tank's hem below the vest"
+  ]
  },
  "dials": {
   "height": 0.45,
   "belly": -0.45,
   "shoulders": -0.25,
   "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0028,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_mob_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,13 +44,29 @@
  "real_height_for_rig": 1.7672,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_mob_7_shoe": 3516,
-  "person_mob_7_mantle": 16650,
+  "person_mob_7_shoe": 4316,
+  "person_mob_7_mantle": 10414,
   "person_mob_7_cape": 5002,
   "person_mob_7_belt": 346,
   "person_mob_7_shirt": 21164,
-  "person_mob_7_coat": 22870,
+  "person_mob_7_tail": 2016,
+  "person_mob_7_coat": 22326,
   "person_mob_7_lapels": 396,
+  "person_mob_7_trouser": 43706,
+  "person_mob_7_rolled_hem": 2048,
+  "person_mob_7_cargo_pockets": 252,
+  "person_mob_7_cargo_flaps": 108,
+  "person_mob_7_sole_1": 242,
+  "person_mob_7_midsole_1": 242,
+  "person_mob_7_sole_0": 242,
+  "person_mob_7_midsole_0": 242,
+  "person_mob_7_slouch": 16884,
+  "person_mob_7_salvage_satchel_bag": 98,
+  "person_mob_7_salvage_satchel_flap": 26,
+  "person_mob_7_salvage_satchel_strap": 1792,
+  "person_mob_7_soot_gloves_L": 392,
+  "person_mob_7_soot_gloves_R": 392,
+  "person_mob_7_soot_gloves_cuff": 2048,
   "person_mob_7_hair": 17968,
   "person_mob_7_hand_L": 392,
   "person_mob_7_hand_R": 392
@@ -51,10 +87,20 @@
    0.0296,
    0.0319
   ],
-  "person_mob_7_coat": [
-   0.2159,
+  "person_mob_7_cargo_flaps": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_mob_7_cargo_pockets": [
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
+  ],
+  "person_mob_7_coat": [
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_mob_7_eyes": [
    0.0212,
@@ -76,30 +122,95 @@
    0.0296,
    0.0319
   ],
+  "person_mob_7_midsole_0": [
+   0.0232,
+   0.0232,
+   0.0262
+  ],
+  "person_mob_7_midsole_1": [
+   0.0232,
+   0.0232,
+   0.0262
+  ],
+  "person_mob_7_rolled_hem": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_mob_7_salvage_satchel_bag": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_mob_7_salvage_satchel_flap": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_mob_7_salvage_satchel_strap": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
   "person_mob_7_shirt": [
-   0.0232,
-   0.0232,
-   0.0356
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_mob_7_shoe": [
-   0.016,
-   0.0097,
-   0.0091
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_mob_7_shoes": [
-   0.016,
-   0.0097,
-   0.0091
+   0.0612,
+   0.0612,
+   0.0704
   ],
   "person_mob_7_skin": [
    0.5841,
    0.3231,
    0.2016
   ],
-  "person_mob_7_trousers": [
-   0.0343,
+  "person_mob_7_slouch": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_mob_7_sole_0": [
    0.0232,
-   0.0212
+   0.0232,
+   0.0252
+  ],
+  "person_mob_7_sole_1": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_mob_7_soot_gloves": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_7_soot_gloves_cuff": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_mob_7_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_mob_7_trouser": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_mob_7_trousers": [
+   0.2122,
+   0.0595,
+   0.0185
   ]
  }
 }

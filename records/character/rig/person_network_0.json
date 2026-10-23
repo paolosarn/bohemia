@@ -1,18 +1,38 @@
 {
  "look": "PERSON_NETWORK_0",
- "shape": "person_network_0: a person of the Network, his own skin skin_mid 2, TEAL WORK SHIRT under TEAL COCOON COAT",
+ "shape": "person_network_0: a person of the Network, his own skin skin_mid 2, STORM GREY TEE under TEAL COCOON COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "TEAL WORK SHIRT",
+  "base": "STORM GREY TEE",
   "outer": "TEAL COCOON COAT",
-  "legs": "STACKED JERSEY PANT",
-  "feet": "SLOUCH BOOT"
+  "legs": "SOOT CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "neck": "DRAPED COWL",
+  "gear": "ELBOW PADS",
+  "outfit": [
+   "TEAL WORK SHIRT read as one with TEAL COCOON COAT (152 and 152 of 255): the same cut in STORM GREY TEE (72)",
+   "TEAL COCOON COAT worn open to the neck"
+  ]
  },
  "dials": {
   "height": 0.75,
   "belly": -0.25,
   "shoulders": 0.25,
   "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "COCOON COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.044,
+   "collar_z": 1.1,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_network_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -22,18 +42,30 @@
  "real_height_for_rig": 1.7908,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_network_0_trouser": 2568,
-  "person_network_0_shoe": 3836,
+  "person_network_0_shoe": 3716,
   "person_network_0_shirt": 40088,
   "person_network_0_collar": 1536,
-  "person_network_0_sleeve_hem": 2048,
   "person_network_0_hem": 1792,
-  "person_network_0_pocket": 180,
-  "person_network_0_flap": 108,
-  "person_network_0_coat": 73232,
-  "person_network_0_coat_skirt": 5886,
-  "person_network_0_collar.001": 1536,
+  "person_network_0_coat": 72272,
+  "person_network_0_coat_skirt": 5670,
+  "person_network_0_collar.001": 1098,
   "person_network_0_lapels": 396,
+  "person_network_0_trouser": 43706,
+  "person_network_0_rolled_hem": 2048,
+  "person_network_0_cargo_pockets": 252,
+  "person_network_0_cargo_flaps": 108,
+  "person_network_0_sole_1": 242,
+  "person_network_0_midsole_1": 242,
+  "person_network_0_sole_0": 242,
+  "person_network_0_midsole_0": 242,
+  "person_network_0_boot_collar": 2048,
+  "person_network_0_boot_collar_line": 2048,
+  "person_network_0_eyelets_1": 120,
+  "person_network_0_eyelets_0": 120,
+  "person_network_0_draped_cowl": 30002,
+  "person_network_0_elbow_pads": 10252,
+  "person_network_0_elbow_pads_strap": 2048,
+  "person_network_0_elbow_pads_strap.001": 2048,
   "person_network_0_hair": 17968,
   "person_network_0_hand_L": 392,
   "person_network_0_hand_R": 392
@@ -44,30 +76,70 @@
    0.8,
    0.8
   ],
+  "person_network_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_network_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_network_0_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_network_0_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
   "person_network_0_coat": [
-   0.0086,
-   0.521,
-   0.3372
+   0.0865,
+   0.4179,
+   0.3278
   ],
   "person_network_0_coat_skirt": [
-   0.0086,
-   0.521,
-   0.3372
+   0.0865,
+   0.4179,
+   0.3278
   ],
   "person_network_0_collar": [
-   0.0086,
-   0.521,
-   0.3372
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_network_0_draped_cowl": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_network_0_elbow_pads": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_network_0_elbow_pads_strap": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_network_0_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_network_0_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_network_0_eyes": [
    0.0212,
    0.0103,
    0.008
-  ],
-  "person_network_0_flap": [
-   0.0086,
-   0.521,
-   0.3372
   ],
   "person_network_0_hair": [
    0.0194,
@@ -75,54 +147,69 @@
    0.008
   ],
   "person_network_0_hem": [
-   0.0086,
-   0.521,
-   0.3372
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_network_0_lapels": [
-   0.004,
-   0.1912,
-   0.1274
+   0.011,
+   0.1779,
+   0.1248
   ],
-  "person_network_0_pocket": [
-   0.0086,
-   0.521,
-   0.3372
+  "person_network_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_network_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_network_0_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
   "person_network_0_shirt": [
-   0.0086,
-   0.521,
-   0.3372
+   0.0595,
+   0.0648,
+   0.0802
   ],
   "person_network_0_shoe": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_network_0_shoes": [
-   0.007,
-   0.006,
-   0.006
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_network_0_skin": [
    0.3916,
    0.162,
    0.0723
   ],
-  "person_network_0_sleeve_hem": [
-   0.0086,
-   0.521,
-   0.3372
+  "person_network_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_network_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
   ],
   "person_network_0_trouser": [
-   0.063,
-   0.063,
-   0.0648
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_network_0_trousers": [
-   0.063,
-   0.063,
-   0.0648
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

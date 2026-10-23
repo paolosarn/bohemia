@@ -5,15 +5,34 @@
   "hair": "TEMPLE TAPER",
   "base": "SAND HOODIE",
   "head": "DUST WORK CAP",
-  "legs": "DUST TROUSERS",
-  "feet": "STACKED SOLE BOOT",
-  "waist": "SOOT TOOL BELT"
+  "legs": "SOOT CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "waist": "SOOT TOOL BELT",
+  "gear": "KHAKI ELBOW PADS",
+  "outfit": [
+   "an open OXBLOOD PLAID FLANNEL over his SAND HOODIE, the hood out over its collar"
+  ],
+  "mid": "OXBLOOD PLAID FLANNEL"
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "hood_over": 0.028,
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.016,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_trades_4.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,18 +42,38 @@
  "real_height_for_rig": 1.7112,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_trades_4_trouser": 2568,
-  "person_trades_4_shoe": 3916,
+  "person_trades_4_shoe": 3716,
   "person_trades_4_belt": 346,
   "person_trades_4_pouch": 24,
   "person_trades_4_pouch.001": 24,
   "person_trades_4_shirt": 68920,
   "person_trades_4_collar": 1536,
-  "person_trades_4_hood": 13916,
+  "person_trades_4_hood": 14480,
   "person_trades_4_drawstrings": 100,
   "person_trades_4_pocket": 182,
   "person_trades_4_waistband": 1792,
   "person_trades_4_cuffs": 2048,
+  "person_trades_4_trouser": 43706,
+  "person_trades_4_rolled_hem": 2048,
+  "person_trades_4_cargo_pockets": 252,
+  "person_trades_4_cargo_flaps": 108,
+  "person_trades_4_sole_1": 242,
+  "person_trades_4_midsole_1": 242,
+  "person_trades_4_sole_0": 242,
+  "person_trades_4_midsole_0": 242,
+  "person_trades_4_boot_collar": 2048,
+  "person_trades_4_boot_collar_line": 2048,
+  "person_trades_4_eyelets_1": 120,
+  "person_trades_4_eyelets_0": 120,
+  "person_trades_4_khaki_elbow_pads": 10460,
+  "person_trades_4_khaki_elbow_pads_strap": 2048,
+  "person_trades_4_khaki_elbow_pads_strap.001": 2048,
+  "person_trades_4_mid_shirt": 66956,
+  "person_trades_4_mid_collar": 1536,
+  "person_trades_4_mid_collar_points": 180,
+  "person_trades_4_mid_front_edge": 396,
+  "person_trades_4_mid_cuffs": 2048,
+  "person_trades_4_mid_tail": 1818,
   "person_trades_4_hair": 17968,
   "person_trades_4_hat": 3092,
   "person_trades_4_visor": 48,
@@ -52,6 +91,26 @@
    0.0176,
    0.016
   ],
+  "person_trades_4_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_trades_4_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_trades_4_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_trades_4_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
   "person_trades_4_collar": [
    0.2423,
    0.1529,
@@ -66,6 +125,16 @@
    0.4072,
    0.2831,
    0.1221
+  ],
+  "person_trades_4_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_trades_4_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_trades_4_eyes": [
    0.0212,
@@ -87,10 +156,80 @@
    0.1529,
    0.0561
   ],
+  "person_trades_4_khaki_elbow_pads": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_trades_4_khaki_elbow_pads_strap": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_trades_4_mid_collar": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_trades_4_mid_collar_points": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_trades_4_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_4_mid_cuffs": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_trades_4_mid_front_edge": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_trades_4_mid_shirt": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_trades_4_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_4_mid_tail": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_trades_4_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_4_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_trades_4_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_trades_4_pocket": [
    0.2423,
    0.1529,
    0.0561
+  ],
+  "person_trades_4_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
   "person_trades_4_shirt": [
    0.2423,
@@ -98,29 +237,39 @@
    0.0561
   ],
   "person_trades_4_shoe": [
-   0.016,
-   0.0091,
-   0.0086
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_trades_4_shoes": [
-   0.016,
-   0.0091,
-   0.0086
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_trades_4_skin": [
    0.6105,
    0.3515,
    0.1714
   ],
+  "person_trades_4_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_trades_4_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
   "person_trades_4_trouser": [
-   0.063,
-   0.0409,
-   0.0343
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_trades_4_trousers": [
-   0.063,
-   0.0409,
-   0.0343
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_trades_4_waistband": [
    0.2423,
