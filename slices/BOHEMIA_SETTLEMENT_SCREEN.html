@@ -154,6 +154,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="bohemia_board_shelf.js"></script>  <!-- RUN TWO [the board's quests are people]: the board's people from QUESTS' act-one shelf; the phone picks the same -->
 <script src="../engine/bohemia_livingmap.js"></script>  <!-- RUN TWO [the bar names the news]: the map's own dice for every town (traitsFor), so the news is what you find there -->
 <script src="bohemia_bar_news.js"></script>  <!-- RUN TWO [the bar names the news]: the keeper's free one, a true thing from a town near here (ECONOMY day 75) -->
+<script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: the valley's 116 rolled people, every piece CHARACTER made -->
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: every person in the place is a 3D model (rule 121e) -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
@@ -834,18 +835,30 @@ function crowdCount(){
   if(view.night) n = Math.ceil(n/2);
   return n;
 }
+/* NO TWO PEOPLE ALIKE (RUN TWO, 10/23, rule 121(i), Paolo 10/19: 'THERE'S SO MANY OF THE SAME HATS AND SHIT ON THE
+   CHARACTERS... ALL THE CLAY PEOPLE HAVE LIKE 2 OPTIONS FOR CUSTOMIZATIONS, IT'S INSANE'): the keepers and the crowd were
+   thirteen gang looks drawn with repeats, so a town showed the same Red twice. Now a place deals ONE HAND from the valley's
+   116 rolled people (engine/bohemia_people_mix.js: his own cut, hair, face, skin, beard, mark, hat, face piece, top and coat
+   inside his gang's colours) and each keeper's door and each crowd spot takes its own card: nobody on the screen is anybody
+   else, a spot keeps its man at night and on market day, and every town is its own people */
+function dealt(){
+  var n = ORDER.length + (CROWD_BASE.town || 5) + 7, B = window.BohemiaRigBodies;   /* every door and the fullest crowd (market day) */
+  if(!B || !B.cast) return GANG_LOOKS.slice(0, n);
+  if(VAR.hand && VAR.hand.length >= n && VAR.handOf === S.place.name) return VAR.hand;
+  VAR.handOf = S.place.name; return (VAR.hand = B.cast(n, S.place.name + ':people'));
+}
 function folkList(){
   if(!VAR || !GANG_LOOKS.length) return [];
   var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
   if(VAR.folkKey === key) return VAR.folk;
-  var R = rng(seedOf(S.place.name + ':folk')), looks = GANG_LOOKS, out = [];
+  var R = rng(seedOf(S.place.name + ':folk')), hand = dealt(), out = [];
   ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
-    var lp = KEEPER_LOOPS[i % KEEPER_LOOPS.length];
-    out.push({k:k, keeper:true, look:looks[Math.floor(R()*looks.length)], clip:KEEPER_CLIP[k] || 'wait', face:lp[0], loop:lp, beat:Math.floor(R()*4),
+    var lp = KEEPER_LOOPS[i % KEEPER_LOOPS.length]; R();   /* the die the gang look took: everybody keeps his spot */
+    out.push({k:k, keeper:true, look:hand[i], clip:KEEPER_CLIP[k] || 'wait', face:lp[0], loop:lp, beat:Math.floor(R()*4),
       x:(b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, y:b[3] - 2, ph:R()}); });
   var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount();
   for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7, lq = CROWD_LOOPS[Math.floor(R()*CROWD_LOOPS.length)];
-    out.push({crowd:true, slot:q, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:lq[0], loop:lq, beat:Math.floor(R()*4),
+    R(); out.push({crowd:true, slot:q, look:hand[ORDER.length + q], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:lq[0], loop:lq, beat:Math.floor(R()*4),
       x:(st[0]+st[2])/2 + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, st[3] + personH()*.94 + R()*8), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall */
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
@@ -962,7 +975,11 @@ var METKEY = 'bohemia.met.v1';
 function metRec(){ if(!S.met){ try{ S.met = JSON.parse(localStorage.getItem(METKEY) || 'null'); }catch(e){} if(!S.met || typeof S.met !== 'object') S.met = {}; } return S.met; }
 function metSave(){ try{ localStorage.setItem(METKEY, JSON.stringify(S.met)); }catch(e){} }
 function crowdKey(p){ return S.place.name + ':' + p.slot; }
-function crowdRoll(p){ return window.BohemiaNames ? BohemiaNames.roll('crowd:' + crowdKey(p), {sex: BohemiaNames.faceReads(p.look)}) : null; }
+/* the name reads as the face he wears: a rolled person's beard reads as a man and his skin band picks the people the name
+   comes from (rule 120(d): a name, a face and a body are one person) */
+function crowdRoll(p){ if(!window.BohemiaNames) return null;
+  var P = window.BohemiaRigBodies && BohemiaRigBodies.person && BohemiaRigBodies.person(p.look);
+  return BohemiaNames.roll('crowd:' + crowdKey(p), {sex: BohemiaNames.faceReads(p.look) || (P && P.sex), skin: P ? P.skin : undefined}); }
 function crowdName(p){ var m = metRec()[crowdKey(p)]; return m ? m.name : null; }
 var SAYS_NAME = ["{full}. I'm out here most days, by the stall.",
   "Me? {full}. Now you know, so don't forget it.",

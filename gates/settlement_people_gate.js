@@ -39,6 +39,10 @@ const srv = http.createServer((rq, rs) => {
     const r = await p.evaluate(() => { const L = BohemiaSettlement.folk();
       return { keepers: L.filter(x => x.keeper).map(x => x.k), crowd: L.filter(x => x.crowd).length, order: BohemiaSettlement.order().filter(k => k !== 'lot' && k !== 'build') }; });
     counts[tier + (night ? '_night' : '')] = r.crowd;
+    /* NO TWO PEOPLE ALIKE (RUN TWO, 10/23, rule 121(i), his 'SO MANY OF THE SAME HATS... 2 OPTIONS FOR CUSTOMIZATIONS'):
+       nobody on the screen is anybody else, keepers and crowd, and they are the rolled people, not the thirteen gang looks */
+    const mix = await p.evaluate(() => { const L = BohemiaSettlement.folk().map(x => x.look); return { n: L.length, uniq: new Set(L).size, rolled: L.filter(l => /^person_/.test(l)).length, dup: L.filter((l, i) => L.indexOf(l) !== i) }; });
+    ok('  NO TWO ALIKE: every keeper and every man in the crowd is a different person, rolled from every piece', mix.n > 0 && mix.uniq === mix.n && mix.rolled === mix.n, mix.uniq + ' different of ' + mix.n + ', ' + mix.rolled + ' rolled' + (mix.dup.length ? ', twice: ' + mix.dup.slice(0, 3).join(' ') : ''));
     ok(tier + (night ? ' at night' : '') + ': a keeper at every building\'s door', r.keepers.length === r.order.length && r.order.every(k => r.keepers.indexOf(k) >= 0), r.keepers.join(','));
     /* drawn: the canvas at a keeper's feet changes between two beats (he moves) and differs from the bare picture */
     const moved = await p.evaluate(async () => {
@@ -60,7 +64,9 @@ const srv = http.createServer((rq, rs) => {
     const SCREEN = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
     ok('EVERY PERSON IS A 3D MODEL: the screen never names the old flat people sheets', !/settlement_people\//.test(SCREEN.replace(/\/\*[\s\S]*?\*\//g, '')));
     ok('  and never asked for one while six places opened', !asked.some(u => /settlement_people\/|fight_people\//.test(u)), asked.filter(u => /settlement_people\/|fight_people\//.test(u)).slice(0, 2).join(' '));
-    const rig = asked.filter(u => /records\/target\/character\/rig\/[a-z]+\/rig_[NSEW]+\.png$/.test(u));
+    /* NO TWO PEOPLE ALIKE (10/23, rule 121(i)): the valley's rolled people stand in their own renders, made with CHARACTER's
+       person builder in records/target/character/barber/person_<id>/ */
+    const rig = asked.filter(u => /records\/target\/character\/(rig\/[a-z]+|barber\/person_[a-z0-9_]+)\/rig_[NSEW]+\.png$/.test(u));
     ok('  the bodies came from CHARACTER\'s own standing renders', rig.length >= 8, rig.length + ' renders asked for');
     const who = await p.evaluate(() => BohemiaSettlement.folk().map(q => ({ look: q.look, g: BohemiaRigBodies.gangOf(q.look),
       body: !!(BohemiaRigBodies.standing(q.look, q.face)), face: BohemiaCrewFaces.has(q.look) })));
@@ -88,6 +94,18 @@ const srv = http.createServer((rq, rs) => {
     if (ids[0] === 'market_day' || !ids.length) await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_PEOPLE_' + (ids[0] ? 'MARKET_DAY' : 'TOWN') + '_10_10.png') });
   }
   ok('market day fills the street, raided and sick empty it', tr.market_day > tr.plain && tr.raided <= 1 && tr.sickness <= 1, JSON.stringify(tr));
+  /* NO TWO ALIKE on the fullest street, and a spot keeps its man when the crowd thins; two towns are two towns' people */
+  {
+    const folk = async (name, ids, night) => { await p.evaluate(o => BohemiaSettlement.open({ place: { tier: 'town', name: o.name }, traits: o.ids, night: o.night }), { name, ids, night }); await p.waitForTimeout(300);
+      return p.evaluate(() => BohemiaSettlement.folk().map(x => (x.keeper ? 'k:' + x.k : 'c:' + x.slot) + '=' + x.look)); };
+    const full = await folk('THE WASH, NORTH LAS VEGAS', ['market_day'], false), dark = await folk('THE WASH, NORTH LAS VEGAS', [], true);
+    const looks = full.map(x => x.split('=')[1]);
+    ok('NO TWO ALIKE on market day: the fullest street is all different people', new Set(looks).size === looks.length, new Set(looks).size + ' of ' + looks.length);
+    ok('  and the night keeps each spot\'s man (the crowd thins, nobody changes face)', dark.every(x => full.indexOf(x) >= 0), dark.filter(x => full.indexOf(x) < 0).slice(0, 2).join(' ') || dark.length + ' kept');
+    const other = (await folk('HENDERSON', [], false)).map(x => x.split('=')[1]), here = (await folk('THE WASH, NORTH LAS VEGAS', [], false)).map(x => x.split('=')[1]);
+    const same = other.filter(l => here.indexOf(l) >= 0).length;
+    ok('  and two towns are mostly two towns\' people', same <= Math.ceil(here.length / 3), same + ' of ' + here.length + ' in both');
+  }
   /* A PERSON IS A DOOR TALL: measured on the screen, not in the code. Shoot the town with its people and with them
      hidden, and the tallest changed run of pixels at a keeper is his height; the door is DOOR_PX at the screen's scale */
   for (const tier of ['camp', 'town', 'fortress']) {

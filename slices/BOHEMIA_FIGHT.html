@@ -605,6 +605,16 @@ const FIGHT = (function () {
     const n = DB.beastAttacks.by_enemy[id];
     return n ? DB.beastAttacks.rows.filter(function (r) { return r.id === n.attack; })[0] || null : null;
   }
+  /* NO TWO PEOPLE ALIKE (RUN TWO [no two people alike], rule 121(i), Paolo 10/19: 'THERE'S SO MANY OF THE SAME HATS AND SHIT
+     ON THE CHARACTERS... ALL THE CLAY PEOPLE HAVE LIKE 2 OPTIONS FOR CUSTOMIZATIONS'): a band's pool holds its gangs' rolled
+     people (ours.people_looks.band, each his own sheet in slices/fight_rig), and a man takes the first look in the pool from
+     his own place that nobody on the board wears yet, so nobody stands beside himself; only a pool smaller than the board
+     repeats, and only then */
+  let LOOKS_TAKEN = null;
+  function freeLook(pool, i) {
+    for (let t = 0; t < pool.length; t++) { const l = pool[(i + t) % pool.length]; if (!LOOKS_TAKEN || !LOOKS_TAKEN.has(l)) { if (LOOKS_TAKEN) LOOKS_TAKEN.add(l); return l; } }
+    return pool[i % pool.length];
+  }
   function enemyUnit(id, i) {
     const r = DB.enemies.rows.filter(function (e) { return e.id === id; })[0];
     if (!r) throw new Error('the fight has no enemy row ' + id);
@@ -621,7 +631,7 @@ const FIGHT = (function () {
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
     const pl = R('ours.people_looks').band, pool = pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
-    return makeUnit({ look: pool[i % pool.length], beast: beast, id: 'e' + i, side: 'them', name: r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks, S.days),
+    return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks, S.days),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
@@ -768,7 +778,9 @@ const FIGHT = (function () {
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
     const band = bandOf(opts);
+    LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
     const bandUnits = band.map(enemyUnit);
+    LOOKS_TAKEN = null;
     /* THE BOARD FITS THE PARTY (rule 79): a few against a few get a small board cut from the dealt one; the full board only
        for the endgame or three parties at once */
     const big = opts.board || opts.endgame || ((opts.party && opts.party.parties) || opts.parties || 1) >= R('ours.board_fit').big_parties;

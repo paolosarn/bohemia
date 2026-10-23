@@ -26,7 +26,16 @@
   var BASE = '../records/target/portrait/crew/';   /* the screens live in slices/; Pages publishes records/target */
   var SIZE = 128, SOUND_MS = 250;                   /* half a beat at 120 BPM, the alpha's VISEME_MS */
   var READ = false, WAIT = [];
-  function has(look) { return LOOKS.indexOf(look) >= 0; }
+  /* NO TWO PEOPLE ALIKE (RUN TWO, 10/23, rule 121(i)): a rolled person (engine/bohemia_people_mix.js) talks under the head
+     rendered from his own model, rest and the four mouths (records/target/character/barber/person_<id>/face/), so the face
+     wears his cut, his beard and his hat (ONE ID, ONE WHOLE PERSON) */
+  var PBASE = '../records/target/character/barber/';
+  var ROLLED = null;
+  function rolled(look) {
+    if (!ROLLED) { var M = root.BOHEMIA_PEOPLE_MIX; if (!M) return false; ROLLED = {}; M.people.forEach(function (p) { ROLLED[p.look] = 1; }); }
+    return ROLLED[look] === 1;
+  }
+  function has(look) { return LOOKS.indexOf(look) >= 0 || rolled(look); }
   /* RUN TWO [every speaker has a face], 10/18: a look PORTRAIT adds to its manifest wears its face the moment the file
      says so (the faction looks the street wears are next on PORTRAIT's board) */
   function ready(cb) { if (READ) { if (cb) cb(); } else if (cb) WAIT.push(cb); }
@@ -40,7 +49,9 @@
   }
   function src(look, key, size) {
     if (!has(look)) return null;
-    return (root.BOHEMIA_CREW_FACES_BASE || BASE) + look + '/' + (key || 'rest') + '_' + ((size || SIZE) > 64 ? 128 : 64) + '.png';
+    var file = (key || 'rest') + '_' + ((size || SIZE) > 64 ? 128 : 64) + '.png';
+    if (LOOKS.indexOf(look) < 0) return (root.BOHEMIA_PEOPLE_BASE || PBASE) + look + '/face/' + file;
+    return (root.BOHEMIA_CREW_FACES_BASE || BASE) + look + '/' + file;
   }
   var cache = {};
   function image(u, cb) {

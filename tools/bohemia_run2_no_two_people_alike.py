@@ -22,12 +22,14 @@ THE METHOD, NOTHING DRAWN NEW (rule 121(b), implementation only):
            the_rig.py): the movers' light pass off, Cycles persistent data, samples 24, no calibration, no id pass, the
            dents off. Stand:1 and Anim_0:6 (his eight turns standing and his six-key walk in eight) and a 128 portrait of
            the same head (ONE ID, ONE WHOLE PERSON). Into records/target/character/barber/person_<id>/ (CHARACTER's how_to_build).
-  bake     RUN's bake (tools/bohemia_bake_the_rig_cast.py bake(), unedited) over those folders into ONE sheet:
-           slices/BOHEMIA_RIG_MIX.png / .json, the same index as the gangs' sheet, plus who each person is.
+  bake     RUN's bake (tools/bohemia_bake_the_rig_cast.py bake(), unedited) over those folders, one sheet a gang:
+           slices/rig_mix/<gang>.png / .json, the same index as the gangs' sheet, plus who each person is (the map).
+  index    engine/bohemia_people_mix.js, who everybody is, for the towns, the crew screen and the faces.
 Run:
     python3 tools/bohemia_run2_no_two_people_alike.py roll [per_gang 8] [town 12]
     python3 tools/bohemia_run2_no_two_people_alike.py batch [workers 2]      (build + render every person not yet rendered)
     python3 tools/bohemia_run2_no_two_people_alike.py bake
+    python3 tools/bohemia_run2_no_two_people_alike.py index
     BOHEMIA_BPY=<venv>/bin/python   (bpy 4.2 on python3.11; see tools/bohemia_direction_master_rig.py)
 """
 import colorsys, json, os, random, subprocess, sys, time
@@ -155,8 +157,9 @@ def build_one(pid):
     os.remove(one)
 
 
-def render_code(glb, out, h):
-    """DIRECTION's master rig, patched in memory the way COMBAT renders the fight"""
+def render_code(glb, out, h, clips=None):
+    """DIRECTION's master rig, patched in memory the way COMBAT renders the fight; clips: the fight's poses instead of the
+    street's stand and walk and the portrait"""
     src = open(os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py')).read()
     a, b = 'lights.append(light_footprint(', "sc.render.engine = G['engine'];"
     assert src.count(a) == 1 and src.count(b) == 1, 'the master rig changed: re-read it before patching in memory'
@@ -164,9 +167,12 @@ def render_code(glb, out, h):
     src = src.replace(a, 'False and lights.append(light_footprint(').replace(b, "sc.render.use_persistent_data = True; " +
         ("sc.render.threads_mode = 'FIXED'; sc.render.threads = %d; " % th if th else '') + b)
     argv = ['bohemia_direction_master_rig.py', glb, out, '--real-height', str(h), '--family', 'none',
-            '--set', 'samples=%d' % SAMPLES, '--set', 'dent_m=0', '--no-calibration', '--no-id-pass',
-            '--clip', 'Stand:1', '--clip', 'Anim_0:6', '--portrait', '128']
-    for e in MOUTH: argv += ['--expression', e]   # the face talks: PORTRAIT's head keeps its four speak-along mouths
+            '--set', 'samples=%d' % SAMPLES, '--set', 'dent_m=0', '--no-calibration', '--no-id-pass']
+    if clips:
+        for c, k in clips: argv += ['--clip', '%s:%d' % (c, k)]
+    else:
+        argv += ['--clip', 'Stand:1', '--clip', 'Anim_0:6', '--portrait', '128']
+        for e in MOUTH: argv += ['--expression', e]   # the face talks: PORTRAIT's head keeps its four speak-along mouths
     return ('import sys; sys.argv = %r; __file__ = %r\n' % (argv, os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py'))) + src
 
 
@@ -224,6 +230,145 @@ def make(pid):
         print('MADE %s build %.0fs render %.0fs' % (pid, t1 - t0, time.time() - t1), flush=True)
 
 
+# ---- THE FIGHT (the same people on COMBAT's board) ----------------------------------------------------------------
+# The fight draws a man from his look's sheet in slices/fight_rig (COMBAT [the fight wears the 3D models]): his stand and
+# walk, the gun up, the blow, the blow that rocks him, the fall, and the carry, eight facings, and his gun from a second
+# sheet rendered in his look's hands with his body as a holdout. A rolled person gets the same: COMBAT's poses laid on his
+# own model (tools/bohemia_combat_the_fight_poses.py, unedited), the six fight clips rendered on the master rig the way
+# COMBAT renders them, his stand and walk taken from his street render (the same rig, the same 57 px a metre and the same
+# camera, so the same pixels), all of it packed INTO HIS GANG'S CELL (its box, its ground point) so the gang's gun sheet
+# sits in his hands as it sits in theirs: the skeleton, the poses and the scale are one, only the clothes differ. The
+# people of a place (no gang) take YOU's cell and guns. 144 frames a person instead of 504 with his own three guns.
+FIGHT_CLIPS = [('Aim', 3), ('Swing', 3), ('Hit', 2), ('Fall', 3), ('Carry', 1), ('CarryWalk', 6)]
+FIGHT_RENDERS = 'records/target/combat/rig'   # COMBAT's render folder (regenerated, its .gitignore)
+FIGHT_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
+FIGHT_COLS = [('stand', 'Stand', 1), ('walk', 'Anim_0', 6), ('aim', 'Aim', 3), ('swing', 'Swing', 3), ('hit', 'Hit', 2), ('fall', 'Fall', 3),
+              ('carry', 'Carry', 1), ('carrywalk', 'CarryWalk', 6)]   # COMBAT's pack(), column for column
+PER_GANG_FIGHT = 4
+
+
+def fight_ref(p):
+    return 'faction_' + p['gang'].lower() if p['gang'] != TOWN else 'you'
+
+
+def fight_list():
+    """who goes on the board, in the order they are made: each gang's first PER_GANG_FIGHT and the place's people (the
+    hall's hires), dealt round by round so a short run still covers every band"""
+    R = json.load(open(ROLL)); out = []
+    for k in range(max(PER_GANG_FIGHT, 12)):
+        for g in GANGS + [TOWN]:
+            mine = [p for p in R if p['gang'] == g]
+            if k < len(mine) and (g == TOWN or k < PER_GANG_FIGHT): out.append(mine[k])
+    return out
+
+
+def fight_todo():
+    return [p['id'] for p in fight_list() if not os.path.exists(os.path.join(ROOT, FIGHT_RENDERS, 'person_' + p['id'].lower(), 'rig.json'))]
+
+
+def fight_make(pid):
+    py = os.environ.get('BOHEMIA_BPY') or 'python3.11'
+    tag = 'person_' + pid.lower()
+    glb = os.path.join(ROOT, 'records/character/rig/barber_%s.glb' % tag)
+    posed = os.path.join(ROOT, 'records/combat/rig/%s.glb' % tag)
+    out = os.path.join(ROOT, FIGHT_RENDERS, tag)
+    t0 = time.time()
+    if not os.path.exists(posed):
+        if not os.path.exists(glb) and not run([py, os.path.abspath(__file__), 'build-one', pid], glb): return
+        os.makedirs(os.path.dirname(posed), exist_ok=True)
+        if not run([py, os.path.join(ROOT, 'tools/bohemia_combat_the_fight_poses.py'), glb, posed], posed): return
+    h = json.load(open(glb.replace('.glb', '.json')))['real_height_for_rig']
+    t1 = time.time()
+    if run([py, '-c', render_code(posed, out, h, FIGHT_CLIPS)], os.path.join(out, 'rig.json')):
+        for f in os.listdir(out):
+            if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
+        for f in (glb, posed, os.path.join(ROOT, 'records/character/rig/%s.glb' % tag)):
+            if os.path.exists(f): os.remove(f)
+        print('FOUGHT %s build+pose %.0fs render %.0fs' % (pid, t1 - t0, time.time() - t1), flush=True)
+
+
+def fight_batch(n=2):
+    left = fight_todo(); print('%d to put on the board, %d workers' % (len(left), n), flush=True)
+    env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, os.cpu_count() // n)))
+    procs = [subprocess.Popen([sys.executable, os.path.abspath(__file__), 'fight-worker', str(w), str(n)], cwd=ROOT, env=env) for w in range(n)]
+    for p in procs: p.wait()
+
+
+def fight_worker(w, n):
+    for i, pid in enumerate(fight_todo()):
+        if i % n == w: fight_make(pid)
+
+
+def fight_pack():
+    """every rolled person with a fight render, packed into slices/fight_rig/person_<id>.webp in his gang's cell (COMBAT's
+    pack(): the same columns, the one-pixel day rim, 64 colours lossless), his face added to the fight's face strip, and the
+    bands' pools in ours.people_looks taught his look after the first of each pool (that one stands as it was)"""
+    import numpy as np
+    from PIL import Image
+    FR = os.path.join(ROOT, 'slices/fight_rig'); ip = os.path.join(FR, 'fight_rig.json'); I = json.load(open(ip))
+    want = [n + ('@%d' % k if c != 'Stand' else '') for n, c, ks in FIGHT_COLS for k in range(ks)]
+    assert I['cols'] == want, 'COMBAT changed the fight sheet\'s columns: re-read its pack() before packing people'
+    RIM = tuple(I['rim'])
+    for k in [k for k, v in I['looks'].items() if v.get('kind') == 'person']: del I['looks'][k]
+    made = []
+    for p in fight_list():
+        tag = 'person_' + p['id'].lower(); fd = os.path.join(ROOT, FIGHT_RENDERS, tag); sd = os.path.join(ROOT, OUT, tag)
+        if not (os.path.exists(os.path.join(fd, 'rig.json')) and os.path.exists(os.path.join(sd, 'face', 'rest_128.png'))): continue
+        ref = fight_ref(p); L = I['looks'][ref]; w, h = L['w'], L['h']; fx, fy = L['foot']
+        fr = json.load(open(os.path.join(fd, 'rig.json'))); sr = json.load(open(os.path.join(sd, 'rig.json')))
+        sheet = np.zeros((h * len(FIGHT_DIRS), w * len(want), 4), np.uint8); lost = 0
+        for row, f in enumerate(FIGHT_DIRS):
+            col = 0
+            for n, c, ks in FIGHT_COLS:
+                for k in range(ks):
+                    if c == 'Stand': fn, gp = os.path.join(sd, 'rig_%s.png' % f), sr['ground_px']
+                    elif c == 'Anim_0': fn, gp = os.path.join(sd, 'rig_Anim_0_%s_k%02d.png' % (f, k)), sr['ground_px']
+                    else: fn, gp = os.path.join(fd, 'rig_%s_%s_k%02d.png' % (c, f, k)), fr['ground_px']
+                    a = np.asarray(Image.open(fn).convert('RGBA'))
+                    ox, oy = fx - gp[0], fy - gp[1]   # his ground pixel on his gang's: the gang's gun sits in his hands
+                    cell = np.zeros((h, w, 4), np.uint8)
+                    x0, y0 = max(0, ox), max(0, oy); x1, y1 = min(w, ox + a.shape[1]), min(h, oy + a.shape[0])
+                    cell[y0:y1, x0:x1] = a[y0 - oy:y1 - oy, x0 - ox:x1 - ox]
+                    lost += int((a[..., 3] > 0).sum()) - int((cell[..., 3] > 0).sum())
+                    op = cell[..., 3] > 0; near = np.zeros_like(op)
+                    near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
+                    cell[near & ~op] = RIM
+                    sheet[row * h:(row + 1) * h, col * w:(col + 1) * w] = cell; col += 1
+        q = Image.fromarray(sheet[..., :3]).quantize(64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
+        im = Image.fromarray(np.dstack([np.asarray(q), sheet[..., 3]]), 'RGBA')
+        im.save(os.path.join(FR, tag + '.webp'), 'WEBP', lossless=True, quality=100, method=6)
+        I['looks'][tag] = dict(file=tag + '.webp', w=w, h=h, foot=L['foot'], height_m=fr['real_dims_m'][2], kind='person', ref=ref,
+                               guns=L.get('guns'), gang=p['gang'].lower() if p['gang'] != TOWN else 'town',
+                               rig=os.path.relpath(os.path.join(fd, 'rig.json'), ROOT))
+        made.append((p, tag)); print('PACKED %s in %s\'s cell, %d px outside it, %d KB' % (tag, ref, lost, os.path.getsize(os.path.join(FR, tag + '.webp')) // 1024))
+    # THE FACES: the strip the fight's bar and turn row draw from, its own looks as they were and the people after them
+    F = I['faces']; strip = Image.open(os.path.join(FR, F['file'])).convert('RGBA'); S = F['size']
+    keep = [l for l in F['order'] if not l.startswith('person_')]
+    tiles = [strip.crop((F['order'].index(l) * S, 0, F['order'].index(l) * S + S, S)) for l in keep]
+    for p, tag in made: tiles.append(Image.open(os.path.join(ROOT, OUT, tag, 'face', 'rest_128.png')).convert('RGBA').resize((S, S), Image.BOX))
+    out = Image.new('RGBA', (S * len(tiles), S), (0, 0, 0, 0))
+    for i, t in enumerate(tiles): out.paste(t, (i * S, 0))
+    out.save(os.path.join(FR, F['file']), 'WEBP', quality=85, alpha_quality=100, method=6)
+    F['order'] = keep + [tag for p, tag in made]
+    F['people'] = OUT + '/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)'
+    I['people'] = "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them"
+    with open(ip, 'w') as f: f.write(json.dumps(I, indent=1))
+    # THE BANDS: each pool keeps its first look and then deals the rolled people of every gang it names
+    op_ = os.path.join(ROOT, 'records/target/bb/ours.json'); O = json.load(open(op_)); PL = O['people_looks']['value']
+    by = {}
+    for p, tag in made: by.setdefault(p['gang'].lower(), []).append(tag)
+    for kind, pool in PL['band'].items():
+        base = [l for l in pool if not l.startswith('person_')]
+        gangs = [l.replace('faction_', '') for l in base if l.startswith('faction_')]
+        PL['band'][kind] = base[:1] + [t for g in gangs for t in by.get(g, [])] + [l for l in base[1:] if not by.get(l.replace('faction_', ''))]
+    O['people_looks']['why'] = O['people_looks']['why'].split(' (10/23, RUN TWO')[0] + (
+        " (10/23, RUN TWO [no two people alike], rule 121(i), his 'SO MANY OF THE SAME HATS... 2 OPTIONS FOR CUSTOMIZATIONS': after "
+        "each pool's first look, its gangs' rolled people, each his own mix of CHARACTER's pieces; the fight hands a man the first "
+        "look nobody on the board wears)")
+    with open(op_, 'w') as f: f.write(json.dumps(O, indent=1, ensure_ascii=False) + '\n')
+    print('fight people', len(made), {k: len(v) for k, v in by.items()})
+
+
 def todo():
     return [p['id'] for p in json.load(open(ROLL))
             if not os.path.exists(os.path.join(ROOT, OUT, 'person_' + p['id'].lower(), 'face', 'M_128.png'))]
@@ -244,27 +389,64 @@ def worker(w, n):
         if i % n == w: make(pid)
 
 
+BAND = {'porcelain': 'very light', 'chalk': 'very light', 'pale': 'very light', 'fair': 'light', 'olive': 'intermediate',
+        'tan': 'tan', 'bronze': 'tan', 'brown': 'brown', 'deep': 'dark', 'ebony': 'dark', 'onyx': 'dark'}   # CHARACTER's tones on the ITA bands engine/bohemia_names.js reads skin by
+
+
+def who(p):
+    """one person as the screens read him: his look, his gang ('town' for a person of the place), every piece he wears,
+    and what his face reads as for his name (a beard or stubble reads as a man; a clean face is not read)"""
+    return dict(look='person_' + p['id'].lower(), gang=p['gang'].lower() if p['gang'] != TOWN else 'town',
+                cut=p['hair_cut'], hat=p.get('hat'), face=p.get('eyewear'), beard=p.get('facial_hair'), mark=p.get('mark_name'),
+                top=p.get('top'), coat=p.get('coat'), heritage=p['heritage'], skin=BAND.get(p['tone']),
+                sex='m' if (p.get('facial_hair') or p.get('stubble')) else None)
+
+
+def index():
+    """engine/bohemia_people_mix.js: everyone rendered, read by engine/bohemia_rig_bodies.js (the body) and
+    engine/bohemia_crew_faces.js (the talking face) before any screen draws a man"""
+    people = [who(p) for p in json.load(open(ROLL)) if p['id'] not in todo()]
+    by = {}
+    for q in people: by.setdefault(q['gang'], []).append(q['look'])
+    J = lambda v: json.dumps(v, ensure_ascii=False, separators=(',', ':'))
+    head = dict(what="RUN TWO [no two people alike] (rule 121(i)): every person rolled from CHARACTER's pieces inside his gang's colours, "
+                     "built by CHARACTER's person builder, rendered on DIRECTION's master rig; nobody on one screen is the same man",
+                src=OUT + '/person_<id> (rig_<turn>.png standing, rig_Anim_0_<turn>_k<nn>.png the walk, face/<key>_<64|128>.png)',
+                tool='tools/bohemia_run2_no_two_people_alike.py', roll=os.path.relpath(ROLL, ROOT), draft=True)
+    with open(os.path.join(ROOT, 'engine/bohemia_people_mix.js'), 'w') as f:
+        f.write('/* BOHEMIA PEOPLE MIX -- written by tools/bohemia_run2_no_two_people_alike.py index; do not edit by hand, roll again */\n')
+        f.write('(function (root) { root.BOHEMIA_PEOPLE_MIX = {\n')
+        for k, v in head.items(): f.write(' %s: %s,\n' % (k, J(v)))
+        f.write(' people: [\n%s\n ],\n' % ',\n'.join('  ' + J(q) for q in people))
+        f.write(' by_gang: {\n%s\n }\n' % ',\n'.join('  %s: %s' % (J(g), J(v)) for g, v in by.items()))
+        f.write('}; })(typeof window !== \'undefined\' ? window : this);\n')
+    print('index', len(people), {k: len(v) for k, v in by.items()})
+
+
 def bake():
-    """RUN's bake over the person folders: one sheet, the same index as the gangs', plus who each one is"""
+    """RUN's bake (tools/bohemia_bake_the_rig_cast.py bake(), unedited) over the person folders, ONE SHEET A GANG
+    (slices/rig_mix/<gang>.png / .json, 'town' for the place's people): the same index as the gangs' sheet, so the map's
+    own rigSheetSet() cuts it as it is, and a map fetches a gang's sheet only when that gang is first drawn (one sheet of
+    116 people would be 126,000 px tall, past what a phone decodes)"""
     import bohemia_bake_the_rig_cast as BK
-    people = [p for p in json.load(open(ROLL)) if not todo().count(p['id'])]
-    looks = ['person_' + p['id'].lower() for p in people]
-    BK.SET = dict(looks=looks, src=lambda g: os.path.join(ROOT, OUT, g),
-                  png=os.path.join(ROOT, 'slices/BOHEMIA_RIG_MIX.png'), json=os.path.join(ROOT, 'slices/BOHEMIA_RIG_MIX.json'),
-                  what='RUN TWO [no two people alike] 10/22: every person rolled from CHARACTER\'s pieces inside his gang\'s colours, rendered on the rig, one row per person and turn',
-                  frm=OUT + '/person_<id> (tools/bohemia_run2_no_two_people_alike.py)')
-    BK.GANGS = looks
-    BK.bake()
-    meta = json.load(open(BK.SET['json']))
-    meta['people'] = [dict(look='person_' + p['id'].lower(), gang=p['gang'].lower() if p['gang'] != TOWN else None,
-                           cut=p['hair_cut'], hat=p.get('hat'), face=p.get('eyewear'), beard=p.get('facial_hair'),
-                           mark=p.get('mark_name'), top=p.get('top'), coat=p.get('coat'), skin=p['tone'])
-                      for p in people]
-    meta['by_gang'] = {}
-    for q in meta['people']: meta['by_gang'].setdefault(q['gang'] or 'town', []).append(q['look'])
-    with open(BK.SET['json'], 'w') as f:
-        json.dump(meta, f, indent=1); f.write('\n')
-    print('people', len(people), {k: len(v) for k, v in meta['by_gang'].items()})
+    done = set(todo())
+    people = [who(p) for p in json.load(open(ROLL)) if p['id'] not in done]
+    by = {}
+    for q in people: by.setdefault(q['gang'], []).append(q)
+    od = os.path.join(ROOT, 'slices/rig_mix'); os.makedirs(od, exist_ok=True)
+    for g, qs in by.items():
+        looks = [q['look'] for q in qs]
+        BK.SET = dict(looks=looks, src=lambda l: os.path.join(ROOT, OUT, l),
+                      png=os.path.join(od, g + '.png'), json=os.path.join(od, g + '.json'),
+                      what="RUN TWO [no two people alike] 10/23: the %s, every man his own roll of CHARACTER's pieces, rendered on the rig, one row per person and turn" % g,
+                      frm=OUT + '/person_<id> (tools/bohemia_run2_no_two_people_alike.py)')
+        BK.GANGS = looks
+        BK.bake()
+        meta = json.load(open(BK.SET['json']))
+        meta['people'] = qs
+        with open(BK.SET['json'], 'w') as f:
+            json.dump(meta, f, indent=1); f.write('\n')
+    print('people', len(people), {k: len(v) for k, v in by.items()})
 
 
 if __name__ == '__main__':
@@ -275,4 +457,9 @@ if __name__ == '__main__':
     elif cmd == 'batch': batch(int(sys.argv[2]) if len(sys.argv) > 2 else 2)
     elif cmd == 'worker': worker(int(sys.argv[2]), int(sys.argv[3]))
     elif cmd == 'bake': bake()
+    elif cmd == 'index': index()
+    elif cmd == 'fight-make': fight_make(sys.argv[2])
+    elif cmd == 'fight-batch': fight_batch(int(sys.argv[2]) if len(sys.argv) > 2 else 2)
+    elif cmd == 'fight-worker': fight_worker(int(sys.argv[2]), int(sys.argv[3]))
+    elif cmd == 'fight-pack': fight_pack()
     else: print(__doc__)
