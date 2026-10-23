@@ -73,5 +73,10 @@
   "file": "slices/fight_ground/block_works_0_reclaimed.webp",
   "sha1": "4324c34d9a0a8f034255ca20fe23d8a924973c15",
   "master": "records/target/cook_floor_futures/reclaimed/block_works_0.webp"
+ },
+ "strip.1.reclaimed": {
+  "file": "slices/fight_ground/block_strip_1_reclaimed.webp",
+  "sha1": "b67246fba759032eece7a3c6850399047ae27dab",
+  "master": "records/target/cook_floor_futures/reclaimed/block_strip_1.webp"
  }
 }
