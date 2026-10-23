@@ -188,8 +188,10 @@
   "fight_floor_futures": {
    "where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp",
    "total": 70,
-   "flat": 70,
-   "in_3d": []
+   "flat": 69,
+   "in_3d": [
+    "subs.1.reclaimed"
+   ]
   },
   "fight_lights": {
    "where": "the fight, slices/fight_ground/light_*.webp (two lamp posts, the oil drum, the slot glow)",
@@ -248,7 +250,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 87,
+ "total_flat": 86,
  "log": [
   {
    "at": "10/20 start",
@@ -614,6 +616,17 @@
    "settlement_backdrops": 0,
    "map_districts": 0,
    "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 subs.1 reclaimed (the first future in 3D)",
+   "total_flat": 86,
+   "fight_floor": 17,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 69,
    "fight_lights": 0,
    "item_icons": 0
   }
