@@ -1,0 +1,28 @@
+{
+  "_about": "COMBAT [ghosts and apparitions] 10/23 (rule 134, Paolo 10/23: 'like in Battle Brothers, one of the enemies are ghosts and apparitions... it fits our world too good'). The Geist's racial skills, each copied from its wiki page in the library the way weapons.json copies a knife; the fight reads this file (DB.racial). An enemy's skills are listed under by_enemy by its enemies.json id.",
+  "rows": {
+    "horrific_scream": {
+      "name": "Horrific Scream", "ap": 6, "fatigue": 0, "range_tiles": 3, "checks": 4, "modifier": 0,
+      "says": "Horrific Scream will cause resolve-checks with a range of 3 tiles",
+      "checks_say": "Their Horrific Scream causes four morale checks with no modifier.",
+      "page": "Horrific Scream (0 fatigue)",
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1025_Horrific Scream (0 fatigue).txt",
+      "checks_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0831_Geist.txt"
+    },
+    "incorporeal": {
+      "name": "Incorporeal", "per_tile_melee_defense": 10, "per_tile_ranged_defense": 10, "from_range": 2,
+      "says": "Incorporeal grants +10 Melee Defense and +10 Ranged Defense for each tile range away from a Geist (active at range 2+)",
+      "page": "Incorporeal",
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1071_Incorporeal.txt"
+    },
+    "crosses_any_ground": {
+      "name": "Crosses any ground", "walls": true,
+      "says": "They can traverse steep cliffs (verify). | rule 134(a): 'it fights your men's nerve from range, slips over ground and walls, is fragile up close, drops nothing'",
+      "page": "Geist",
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0831_Geist.txt"
+    }
+  },
+  "by_enemy": {
+    "geist": ["horrific_scream", "incorporeal", "crosses_any_ground"]
+  }
+}

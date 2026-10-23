@@ -242,7 +242,9 @@ const DATA_FILES = [
   /* CHARACTER's armour tiers, so the line can name what he wears (rule 120(b): 'your pipe barely dents his plate') */
   '../records/target/bb/armor_tiers.json',
   /* Battle Brothers' sweeps as shapes on our squares (COMBAT [weapon shapes], rules 33i and 46d) */
-  '../records/target/bb/weapon_shapes.json'];
+  '../records/target/bb/weapon_shapes.json',
+  /* the Geist's racial skills, each from its wiki page (COMBAT [ghosts and apparitions], rule 134) */
+  '../records/target/bb/racial_skills.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
@@ -251,7 +253,7 @@ function loadAll() {
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
       DB.perks = a[9]; DB.perkNames = a[10]; DB.rig = a[11]; DB.wlines = a[12];
       DB.groundEffects = a[13]; DB.boardKinds = a[14]; DB.beastAttacks = a[15];
-      DB.armorTiers = a[16]; DB.shapes = a[17];
+      DB.armorTiers = a[16]; DB.shapes = a[17]; DB.racial = a[18];
     });
 }
 function R(path) {
@@ -589,7 +591,10 @@ const FIGHT = (function () {
     return T.phases.filter(function (ph) { return ph.from_day <= d; }).pop().name;
   }
   function partyFor(p) {
-    const T = R('ours.enemy_tiers'), phase = tierPhase(p.days, p.difficulty), mix = T.mix[p.faction || 'brigands'][phase];
+    const T = R('ours.enemy_tiers'), phase = tierPhase(p.days, p.difficulty), raw = T.mix[p.faction || 'brigands'][phase];
+    /* THE ACT WEIGHS EVERY KIND (rule 134(b), ours.act_weights): the mix times the kind's weight in the act the fight is told */
+    const AW = R('ours.act_weights'), act = Math.max(1, Math.min(AW.acts, p.act || S.act || 1)), mix = {};
+    Object.keys(raw).forEach(function (k) { mix[k] = raw[k] * (AW.by_kind[k] || AW.default)[act - 1]; });
     const out = [], ids = Object.keys(mix), lead = ids.filter(function (k) { return /leader/.test(k); })[0];
     if (lead && p.count >= T.leader_from_count) out.push(lead);
     while (out.length < p.count) {
@@ -639,7 +644,8 @@ const FIGHT = (function () {
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
     const pl = R('ours.people_looks').band, pool = pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
-    return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks, S.days),
+    return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
+      racial: (DB.racial && DB.racial.by_enemy[id]) || [], ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, job: w.class, perks: perksByName(r.perks, S.days),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
@@ -821,6 +827,7 @@ const FIGHT = (function () {
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
+    S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
     /* THE COMPANY THE ORIGIN BUILT (RUN 10/5, rule 75a: 'depending on your origin, that's how many people will be in your
        group'): the map hands its men (a background and a level each, from records/target/bb/origins.json); each keeps the
        kit and the look of his place in the line, and the line stops at the cap. Nothing handed = the twelve, as before. */
@@ -1076,7 +1083,7 @@ const FIGHT = (function () {
   }
   function beginTurn(u) {
     emit({ t: 'turn', id: u.id });
-    u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false;   /* 'until your next turn' ends here */
+    u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     if (u.morale === 'Fleeing' && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
       const p = R('parsed.morale_stop_fleeing');
       if (check(u, 'pos', p.per_round * u.roundsFleeing, true)) { u.morale = STATES()[STATES().indexOf('Wavering')]; emit({ t: 'rally', id: u.id }); }
@@ -1119,7 +1126,7 @@ const FIGHT = (function () {
       if (!through && (n.x !== u.x || n.y !== u.y) && zocOn(u, n.x, n.y).length) continue;
       DIRS.forEach(function (d) {
         const x = n.x + d[0], y = n.y + d[1];
-        if (!passable(x, y) || squeezes(n.x, n.y, x, y)) return;
+        if (crosses(u) ? !inBoard(x, y) : (!passable(x, y) || squeezes(n.x, n.y, x, y))) return;   /* a ghost slips through walls (rule 134a) */
         /* PASS ONE OF YOUR OWN, NEVER TWO (rule 70): through one of his own company's men, never two in a row,
            never through an enemy; nobody stops on a friend's tile, and the brains never stop in a reach on one */
         const occ = unitAt(x, y), mate = occ && occ !== u;
@@ -1130,8 +1137,8 @@ const FIGHT = (function () {
         if (best[key(x, y)] === undefined || c < best[key(x, y)]) { best[key(x, y)] = c; prev[key(x, y)] = key(n.x, n.y); open.push({ x: x, y: y, c: c, ally: !!mate }); }
       });
     }
-    /* a friend's tile is a way through, never a place to stand */
-    Object.keys(best).forEach(function (k) { k = Number(k); const o = unitAt(k % S.w, Math.floor(k / S.w)); if (o && o !== u) delete best[k]; });
+    /* a friend's tile is a way through, never a place to stand; nor is a wall a ghost slipped through */
+    Object.keys(best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w), o = unitAt(x, y); if ((o && o !== u) || ((x !== u.x || y !== u.y) && !passable(x, y))) delete best[k]; });
     return { best: best, prev: prev, key: key };
   }
   function pathTo(u, x, y, field) {
@@ -1208,7 +1215,7 @@ const FIGHT = (function () {
     if (!isRanged(w)) {
       let sk = a.mskill * moraleMult(a, 'melee_skill') * injMult(a, 'melee_skill_pct') * loneMult(a) * overMult(a);
       if (inWater(a)) sk *= R('hit_chance.terrain_swamp').melee_skill;
-      let df = t.mdef + shieldDef(t, 'melee_defense') + defenceBonus(t, 'melee_defense_bonus') + coverDef(t, 'melee_defense');
+      let df = t.mdef + shieldDef(t, 'melee_defense') + defenceBonus(t, 'melee_defense_bonus') + coverDef(t, 'melee_defense') + ghostDef(a, t, 'per_tile_melee_defense');
       if (t.reachStacks) df += t.reachStacks * perkRow('reach_advantage').numbers.melee_defense_per_stack;
       const around = foes(t).filter(function (f) { return dist(f, t) === 1 && !f.stunned && !isRanged(f.weapon) && f.morale !== 'Fleeing'; }).length;
       const bs = PK(a, 'backstabber'), ud = PK(t, 'underdog');
@@ -1225,7 +1232,7 @@ const FIGHT = (function () {
       const nightM = darkAt(t.x, t.y) ? R('hit_chance.night.multiplier') : 1, nightD = darkAt(a.x, a.y) ? R('hit_chance.night.multiplier') : 1;
       if (S.night) parts.push(nightM === 1 ? 'lit' : 'dark');
       const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM * loneMult(a) * overMult(a);
-      let df = t.rdef + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense');
+      let df = t.rdef + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense') + ghostDef(a, t, 'per_tile_ranged_defense');
       const an = PK(t, 'anticipation');
       if (an) df += Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + t.rdef * an.ranged_defense_per_tile_pct_of_base / 100) * dist(a, t));
       df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightD * loneMult(t);
@@ -1439,6 +1446,7 @@ const FIGHT = (function () {
   /* Resolve is the base chance; the result moves one rung (Morale page) */
   function check(u, kind, mod, quiet) {
     if (u.resolve === null || u.resolve === undefined) return true;
+    if (u.immune && u.immune.indexOf('Morale') >= 0) return true;   /* the wiki's immune list: a Geist never wavers */
     const nl = PK(u, 'nine_lives');
     const cap0 = R('ours.captain_aura'), led = ledBy(u);
     let c = (u.resolve + (nl && u.nineUp ? nl.resolve_bonus : 0)) * moraleMult(u, 'resolve') * loneMult(u) * (led ? 1 + cap0.resolve_pct / 100 : 1) + mod;
@@ -1551,6 +1559,45 @@ const FIGHT = (function () {
       foes(u).forEach(function (f) { if (!canSweep(u, f, s.name) || !sideSees(u.side, f)) return; const k = shapeFoes(u, f, s).length; if (k > n) { n = k; best = { t: f, skill: s.name }; } });
     });
     return best;
+  }
+  /* ---------------- GHOSTS AND APPARITIONS (COMBAT [ghosts and apparitions], rule 134, Paolo 10/23: 'like in Battle Brothers,
+     one of the enemies are ghosts and apparitions... it fits our world too good') ----------------
+     Battle Brothers' Geist (enemies.json geist; records/target/bb/racial_skills.json, each skill its wiki page): 1 hitpoint,
+     resolve 130 and never a morale check of its own, a ranged defence nothing passes; Incorporeal: harder to hit the farther it is
+     (+10 melee and ranged defence a tile from two); Horrific Scream: four morale checks with no modifier on a man within three
+     tiles, for 6 AP; it slips through walls; Ghastly Touch (beast_attacks.json) when nobody in reach can still break. In act one
+     they are the Amalgamation's haunting as act one sees it (rule 134(e)): the data-portraits of the dead, its broadcast scream. */
+  function racial(u, id) { return u && u.racial && u.racial.indexOf(id) >= 0 && DB.racial ? DB.racial.rows[id] : null; }
+  function crosses(u) { const r = racial(u, 'crosses_any_ground'); return !!(r && r.walls); }
+  function ghostDef(a, t, key) { const r = racial(t, 'incorporeal'), d = dist(a, t); return r && d >= r.from_range ? r[key] * d : 0; }
+  function canScream(u, t) {
+    const r = racial(u, 'horrific_scream'); if (!r || !onField(u) || !onField(t) || t.side === u.side) return false;
+    return u.ap >= r.ap && u.fat + r.fatigue <= fatMax(u) && dist(u, t) <= r.range_tiles && sees(u, t);
+  }
+  function scream(u, t) {
+    if (S.over || current() !== u || !canScream(u, t)) return false;
+    const r = racial(u, 'horrific_scream'); u.ap -= r.ap; u.fat += r.fatigue;
+    emit({ t: 'skill', id: u.id, skill: 'horrific_scream', to: t.id });
+    for (let i = 0; i < r.checks && onField(t) && t.morale !== 'Fleeing'; i++) check(t, 'neg', r.modifier);
+    afterAction(u); return true;
+  }
+  /* who a scream should find: a man in reach who can still break (never one fleeing, never one beyond morale), the weakest nerve */
+  function screamTarget(u) {
+    return foes(u).filter(function (f) { return canScream(u, f) && sideSees(u.side, f) && f.morale !== 'Fleeing' && f.resolve !== null && !(f.immune && f.immune.indexOf('Morale') >= 0); })
+      .sort(function (p, q) { return p.resolve - q.resolve || dist(u, p) - dist(u, q); })[0] || null;
+  }
+  /* the screamer's ground: a tile inside its scream of a man who can still break, out of his reach when it can be */
+  function screamGround(u) {
+    const r = racial(u, 'horrific_scream'), f = reach(u), them = foes(u).filter(function (o) { return o.morale !== 'Fleeing' && o.resolve !== null; });
+    if (!them.length) return null;
+    let best = null, bs = Infinity;
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w), at = { x: x, y: y };
+      const d = Math.min.apply(null, them.map(function (o) { return dist(o, at); }));
+      const sc = (d > r.range_tiles ? (d - r.range_tiles) * S.w : 0) + (d <= 1 ? S.w : 0) + f.best[k] / Math.max(1, u.apTurn);
+      if (sc < bs) { bs = sc; best = at; }
+    });
+    return best && (best.x !== u.x || best.y !== u.y) ? best : null;
   }
   /* a magazine reloads only when it is empty (rule 117(b): one clear next thing) */
   function canReload(a) {
@@ -1800,6 +1847,12 @@ const FIGHT = (function () {
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
+    /* THE GEIST (ai.json screamer): it screams at the weakest nerve inside three tiles; with nobody there it drifts to where its
+       scream reaches, out of arm's length; with nobody left who can break, it touches */
+    if (A.screams && racial(u, 'horrific_scream')) {
+      const st = screamTarget(u); if (st) return scream(u, st);
+      if (!u.drifted) { const g = screamGround(u); if (g) { u.drifted = true; if (moveTo(u, g.x, g.y)) return true; } }
+    }
     if (ranged && !u.club && adj.length && A.step_out_of_melee && canUse(u, 'footwork')) {
       /* sidestep out of reach without the free swing */
       const out = skillTargets(u, 'footwork').filter(function (q) { return !zocOn(u, q.x, q.y).length; })[0];
@@ -1880,6 +1933,7 @@ const FIGHT = (function () {
   return {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
+    racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
@@ -2582,7 +2636,10 @@ function startAnim(a) {
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'nine') pop(u, perkName('nine_lives'), '#f0d296', true);
     if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
-    if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
+    /* THE SCREAM (rule 134): his approved tape_pull, the tape dragged through the heads, the Amalgamation's broadcast as act one
+       hears it, until SOUNDS makes a scream of its own; the man it was aimed at in the line */
+    if (e.t === 'skill' && e.skill === 'horrific_scream') { sfx('tape_pull'); pop(u, '', '#b49ce0', true, u.name + ' screams at ' + nameOf(e.to) + '.'); }
+    else if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
   }
   if (a.k === 'over') showOver(e.result);
 }
@@ -3076,6 +3133,7 @@ function blitMan(v, X, feet, now, alpha) {
   }
   const ox = Math.round(X * DPR) - L.foot[0] * s, oy = Math.round(feet * DPR) - L.foot[1] * s;
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
+  if (v.ghost) { ghostBlit(v, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, now, alpha); cx.restore(); return; }
   cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
      holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across
@@ -3093,8 +3151,39 @@ function blitMan(v, X, feet, now, alpha) {
     window.BOHEMIA_AURA.draw('tear', 'front', cx, { k: k, X: X, feet: feet, frame: fr, face: DIR8[v._face || 0], t: now - UI.t0, beat: beatMs(), size: 'fight' });
   }
 }
+/* THE GHOST'S LOOK (COMBAT [ghosts and apparitions], rule 134(a) 'static, dead signal, wrong in the frame', (e) 'the dead who came
+   back are its generative data-portraits... purple stays its wordless tell'): a dead man's own rig picture played off a worn tape:
+   its rows torn sideways in bands on the sixteenth, every other line of it gone, a cold grey wash, a purple and a cyan copy a
+   pixel either side (the Amalgamation's tell, never a word), and on some sixteenths it nearly drops out. Remade only when the pose
+   or the sixteenth changes; the frame between reuses it. ANIMATION and COOK's own ghost through the rig replaces the picture under
+   it the day it lands; the tape stays. */
+const GHOST_WASH = 'rgba(146,150,176,.5)', GHOST_SPLIT = [['rgba(170,90,230,1)', -1], ['rgba(80,210,220,1)', 1]];
+function ghostCoin(a, b) { let h = (a * 374761393 + b * 668265263) >>> 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+function ghostBlit(v, img, sx0, sy0, sw, sh, ox, oy, s, now, alpha) {
+  const w = Math.round(sw * s), h = Math.round(sh * s), slot = Math.floor((now - UI.t0) / (beatMs() / 4)), seed = v.id.charCodeAt(v.id.length - 1);
+  const key = sx0 + ':' + sy0 + ':' + w + ':' + slot;
+  if (v._gkey !== key) {
+    v._gkey = key;
+    const mk = function (c) { if (!c || c.width !== w || c.height !== h) { c = document.createElement('canvas'); c.width = w; c.height = h; } const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.imageSmoothingEnabled = false; g.clearRect(0, 0, w, h); return c; };
+    const src = v._gsrc = mk(v._gsrc), out = v._gout = mk(v._gout);
+    src.getContext('2d').drawImage(img, sx0, sy0, sw, sh, 0, 0, w, h);
+    const g = out.getContext('2d'), band = Math.max(2, Math.round(s * 3)), px = Math.max(1, Math.round(s));
+    for (let y = 0; y < h; y += band) { const k = ghostCoin(slot * 31 + seed, y); g.drawImage(src, 0, y, w, band, k < .22 ? Math.round((k - .11) * 40) * px : 0, y, w, band); }
+    g.globalCompositeOperation = 'source-atop'; g.fillStyle = GHOST_WASH; g.fillRect(0, 0, w, h);
+    g.globalCompositeOperation = 'destination-out'; g.fillStyle = 'rgba(0,0,0,.6)';
+    for (let y = 0; y < h; y += px * 2) g.fillRect(0, y, w, px);
+    v._gsplit = GHOST_SPLIT.map(function (q, i) { const c = mk((v._gsplit || [])[i]), t = c.getContext('2d'); t.drawImage(out, 0, 0); t.globalCompositeOperation = 'source-atop'; t.fillStyle = q[0]; t.fillRect(0, 0, w, h); return c; });
+  }
+  const px = Math.max(1, Math.round(s)), drop = ghostCoin(slot + 977, seed) < .12;
+  cx.globalAlpha = alpha * (drop ? .25 : .45);
+  v._gsplit.forEach(function (c, i) { cx.drawImage(c, ox + GHOST_SPLIT[i][1] * px * 2, oy); });
+  cx.globalAlpha = alpha * (drop ? .35 : .8);
+  cx.drawImage(v._gout, ox, oy);
+  UI.ghostDrawn = (UI.ghostDrawn || 0) + 1;
+}
 /* the fallen stay where they fell: a body on the ground, no word over it */
 function drawBody(v, tw, th) {
+  if (v.ghost && performance.now() - v._fallAt > beatMs()) return;   /* a ghost leaves no body: its fall plays, then the signal is gone */
   const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th), h = manH();
   if (v.dead && performance.now() - v._fallAt > beatMs()) { cx.fillStyle = 'rgba(105,18,12,.55)'; cx.beginPath(); cx.ellipse(X, feet - h * .06, h * .3, h * .07, 0, 0, Math.PI * 2); cx.fill(); }
   blitMan(v, X, feet, performance.now(), 1);
@@ -3187,6 +3276,13 @@ function drawPortrait(g, v, S) {
   } else if (img && fi >= 0) {
     g.imageSmoothingEnabled = S < F.size;
     g.drawImage(img, fi * F.size, 0, F.size, F.size, 0, 0, S, S);
+    /* a ghost's face is the same data-portrait off the same tape (rule 134(e)): the cold wash, every other line gone, a row torn */
+    if (v.ghost) {
+      g.globalCompositeOperation = 'source-atop'; g.fillStyle = GHOST_WASH; g.fillRect(0, 0, S, S);
+      g.globalCompositeOperation = 'destination-out'; g.fillStyle = 'rgba(0,0,0,.6)';
+      const ln = Math.max(1, Math.round(S / 24)); for (let y = 0; y < S; y += ln * 2) g.fillRect(0, y, S, ln);
+      g.globalCompositeOperation = 'source-over'; g.drawImage(g.canvas, 0, Math.round(S * .55), S, ln * 3, ln * 2, Math.round(S * .55), S, ln * 3);
+    }
   }
   if (unseen) { g.globalCompositeOperation = 'source-atop'; g.fillStyle = 'rgba(20,16,12,.92)'; g.fillRect(0, 0, S, S); g.globalCompositeOperation = 'source-over'; }
   if (!FIGHT.onField(v)) { g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(0, 0, S, S); }

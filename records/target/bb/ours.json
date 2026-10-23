@@ -532,6 +532,20 @@
       "frenzied_direwolf": 2,
       "schrat": 1
      }
+    },
+    "ghosts": {
+     "first": {
+      "geist": 1
+     },
+     "early": {
+      "geist": 1
+     },
+     "middle": {
+      "geist": 1
+     },
+     "late": {
+      "geist": 1
+     }
     }
    }
   },
@@ -543,7 +557,8 @@
    "record": "records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md",
    "quote": "the starting kit, the first band and the tutorial fight are built around shooting / In the early game Brigand groups usually consist of Thugs and sometimes Raiders",
    "why": "THE FIRST BAND IS BUILT TO BE SHOT AT: the company's first week (days 1 to 7) meets thugs alone, the wiki's early band before its 'sometimes Raiders'; the lesser raider (75 health, 55 to 110 body armour) joins from day 8. Measured 10/19 before it: a fresh crew of three met two raiders in one band of three and lost every time, whatever it carried. The beasts' first week is their early pack. TUNING owns the day."
-  }
+  },
+  "ghosts": "COMBAT [ghosts and apparitions] 10/23, rule 134: a party of the Amalgamation's haunting is Geists only (bb_all/0831_Geist.txt: 'Graveyards sometimes have nothing but a lot of Geists guarding them'); every phase the same, the act decides how often they come"
  },
  "captain_aura": {
   "value": {
@@ -734,5 +749,81 @@
   "source": "slices/fight_rig/fight_rig.json (COMBAT [the fight wears the 3D models], tools/bohemia_combat_the_fight_wears_the_rig.py): ANIMATION's redone dire wolf, cave hyena and feral shepherd through DIRECTION's master rig",
   "quote": "BRO EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY 8 BIT SHIT... WTF TRYING TO COMBINE THE TWO",
   "why": "rule 121(e): no old sheet beside a rig model; which rig beast an enemy wears on the board: the wolves the redone dire wolf (his NO on the grey one was answered by it), the hyenas the cave hyena, the war dogs the feral shepherd; beast_looks stays as the flat sheet a fight falls back on if a rig sheet is missing"
+ },
+ "act_weights": {
+  "value": {
+   "acts": 3,
+   "default": [
+    1,
+    1,
+    1
+   ],
+   "by_kind": {
+    "brigand_leader": [
+     1,
+     1,
+     1
+    ],
+    "brigand_marauder": [
+     1,
+     1,
+     1
+    ],
+    "brigand_marksman": [
+     1,
+     1,
+     1
+    ],
+    "brigand_poacher": [
+     1,
+     1,
+     1
+    ],
+    "brigand_raider": [
+     1,
+     1,
+     1
+    ],
+    "brigand_thug": [
+     1,
+     1,
+     1
+    ],
+    "direwolf": [
+     1,
+     1,
+     1
+    ],
+    "frenzied_direwolf": [
+     1,
+     1,
+     1
+    ],
+    "geist": [
+     3,
+     1,
+     0.25
+    ],
+    "hyena": [
+     1,
+     1,
+     1
+    ],
+    "lower_brigand_raider": [
+     1,
+     1,
+     1
+    ],
+    "schrat": [
+     1,
+     1,
+     1
+    ]
+   }
+  },
+  "source": "VAMILY.md rule 134(b) and (e); records/BOHEMIA_PAOLO_GHOSTS_AND_APPARITIONS_10_23_26.md",
+  "quote": "maybe they're way more around for the first act than the third act; there's gonna be enemy types around more in different acts than another, that's just how it is",
+  "why": "COMBAT [ghosts and apparitions] 10/23: every enemy type the fight can field carries a weight for each of the three acts (act one, two, three); the fight multiplies a party's mix by the act it is told (FIGHT_OPTS.act, act one when none), and the map's spawner reads the same row to choose which parties walk (RUN, WORLD). Ghosts three times as often in act one, as often as anything in act two, a quarter in act three: they are the Amalgamation's haunting as act one sees it (rule 134(e)), and by acts two and three people know what they are. The numbers are a draft (tuned: false): TUNING owns them.",
+  "tuned": false
  }
 }
