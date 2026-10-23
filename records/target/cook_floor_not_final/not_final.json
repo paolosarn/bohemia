@@ -1373,5 +1373,35 @@
    "fires": []
   },
   "file": "records/target/cook_floor_not_final/block_casino_1.webp"
+ },
+ "casino.2": {
+  "seconds": 923,
+  "junk": {
+   "bags": 0,
+   "paper": 0,
+   "card": 0,
+   "cloth": 0,
+   "weeds": 0,
+   "mattresses": 0,
+   "couches": 0,
+   "fires": 0,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 0,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 19,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_not_final/block_casino_2.webp"
  }
 }
