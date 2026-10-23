@@ -1800,5 +1800,67 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_landfill_0.webp",
   "future": null
+ },
+ "landfill.1": {
+  "seconds": 600,
+  "junk": {
+   "bags": 0,
+   "paper": 802,
+   "card": 201,
+   "cloth": 82,
+   "weeds": 1462,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 1,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 44,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 32,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     27.33,
+     28.61,
+     1.0
+    ],
+    [
+     11.42,
+     55.84,
+     2.68
+    ],
+    [
+     40.25,
+     48.53,
+     2.94
+    ],
+    [
+     31.73,
+     39.04,
+     3.02
+    ],
+    [
+     28.06,
+     30.89,
+     2.75
+    ],
+    [
+     54.21,
+     31.59,
+     2.9
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_landfill_1.webp",
+  "future": null
  }
 }
