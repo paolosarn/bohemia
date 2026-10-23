@@ -163,5 +163,10 @@
   "file": "slices/fight_ground/block_casino_0.webp",
   "sha1": "8f50beb591be16b2169f86111244f01722d624b4",
   "master": "records/target/cook_floor_not_final/block_casino_0.webp"
+ },
+ "casino.1": {
+  "file": "slices/fight_ground/block_casino_1.webp",
+  "sha1": "06a8727ef58df8579d8500df29e373fc3214b49e",
+  "master": "records/target/cook_floor_not_final/block_casino_1.webp"
  }
 }
