@@ -18,3 +18,7 @@ The GEIST rides with the undead and breaks your men's nerve: it stays a few tile
 ## WHERE IT GOES
 
 COMBAT's board: [ghosts and apparitions], after the rows it is on. The roster's data carries a weight per act for every enemy type (rule 22's data line). No card.
+
+## CORRECTED THE SAME HOUR (the coordinator, from his own canon)
+
+The 'through the tear' default in point 4 is WITHDRAWN. His 7/24 lock (laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md) already says what the ghosts are: in act one the Amalgamation is presented as a haunting (ghost, demon, otherworldly), never as a machine, until the end of act one. So act one's ghosts and apparitions ARE its haunting: the dead who came back are its generative data-portraits, the scream is its broadcast (the 9/29 bestiary draft's Geist-as-siren), the possessed are its NeuroLinked. That is why they are thick in act one and thin by act three: after the reveal, people know what they are, and the ghosts give way to its faithful and its machines. Purple stays its wordless tell.
