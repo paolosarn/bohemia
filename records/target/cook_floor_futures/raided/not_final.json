@@ -301,5 +301,72 @@
    "rafters": 0,
    "rubble": 132
   }
+ },
+ "corner.0": {
+  "seconds": 1072,
+  "junk": {
+   "bags": 28,
+   "paper": 480,
+   "card": 106,
+   "cloth": 43,
+   "weeds": 256,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 3,
+   "tracks": 36,
+   "tidy_house": 1,
+   "burnt_house": 4
+  },
+  "grime": {
+   "materials": 97,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     53.32,
+     12.6,
+     3.2
+    ],
+    [
+     20.76,
+     52.61,
+     1.0
+    ],
+    [
+     50.12,
+     13.41,
+     3.94
+    ],
+    [
+     13.64,
+     47.6,
+     3.97
+    ],
+    [
+     21.45,
+     43.77,
+     2.4
+    ],
+    [
+     35.42,
+     11.26,
+     2.95
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_corner_0.webp",
+  "future": {
+   "holes": 667,
+   "char": 313,
+   "rafters": 0,
+   "rubble": 94
+  }
  }
 }
