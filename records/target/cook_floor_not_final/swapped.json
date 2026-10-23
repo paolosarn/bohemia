@@ -33,5 +33,10 @@
   "file": "slices/fight_ground/block_subs_1.webp",
   "sha1": "a6dfdd6d0b46fa3a05ca4d01e724b8381a31fbb7",
   "master": "records/target/cook_floor_not_final/block_subs_1.webp"
+ },
+ "ruin.0": {
+  "file": "slices/fight_ground/block_ruin_0.webp",
+  "sha1": "929c33db4f99fb128a617c3507b23f4dfd84122a",
+  "master": "records/target/cook_floor_not_final/block_ruin_0.webp"
  }
 }
