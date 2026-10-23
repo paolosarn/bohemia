@@ -663,5 +663,39 @@
    "panels": 138,
    "beds": 8
   }
+ },
+ "culdesac.1": {
+  "seconds": 642,
+  "junk": {
+   "bags": 0,
+   "paper": 418,
+   "card": 103,
+   "cloth": 42,
+   "weeds": 358,
+   "mattresses": 1,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 4,
+   "tidy_house": 1,
+   "burnt_house": 5
+  },
+  "grime": {
+   "materials": 77,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_culdesac_1.webp",
+  "future": {
+   "panels": 134,
+   "beds": 9
+  }
  }
 }

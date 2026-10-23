@@ -183,5 +183,10 @@
   "file": "slices/fight_ground/block_culdesac_0_reclaimed.webp",
   "sha1": "4d1e90c7b36bc4086e15aab56445b79283be4d78",
   "master": "records/target/cook_floor_futures/reclaimed/block_culdesac_0.webp"
+ },
+ "culdesac.1.reclaimed": {
+  "file": "slices/fight_ground/block_culdesac_1_reclaimed.webp",
+  "sha1": "96bd36b904f4a98e11eb9e9a83e972d35c8cf165",
+  "master": "records/target/cook_floor_futures/reclaimed/block_culdesac_1.webp"
  }
 }
