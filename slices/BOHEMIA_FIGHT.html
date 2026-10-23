@@ -2204,6 +2204,39 @@ const SND = {
   fall: function (dead) { sfx(dead ? 'kill' : 'went_down'); },
   flee: function () { tone(220, 0.15, 0.06, 'triangle'); tone(196, 0.3, 0.05, 'triangle'); }
 };
+/* ---------------- THE FIGHT DRIVES THE MUSIC (COMBAT [the fight drives the music], rule 126, Paolo 10/23: 'the combat should
+   feel a lot better; we have a whole intensity system with the music, wtf bro'; the same hour: 'when it's the enemies' turn
+   have it at the low intensity, I want to hear it's my turn time') ----------------
+   The shell's ladder (INTENSITY, KILLMUS in the demo) has listened for these since 8/20 and this file never sent one, so
+   the song sat flat through every fight since 10/2. Each goes up at the moment he SEES the thing, not when the rules decide
+   it (the rules run a whole act ahead of the motion):
+     BOHEMIA_COMBAT_STARTED   the board is up: the threat, the song lifts at the next bar
+     BOHEMIA_PLAYER_HIT       a blow lands on one of his
+     BOHEMIA_SHOT_RESULT      outcome 'killshot': a man of theirs falls (the second climbs it to the top)
+     BOHEMIA_FIGHT_TURN       side 'you' | 'them' as the turn passes: their turn is the bottom of the ladder, his the top
+   The end is the BOHEMIA_FIGHT_OVER this file already sends; the shell settles on it. BOHEMIA_COMBAT_END is never sent:
+   it is the frozen fight's settle, and its handler takes him home through cityFightHome at once, before the recap's beats. */
+function toShell(m) { (UI.told = UI.told || []).push(m.type + (m.side ? ' ' + m.side : '')); if (UI.told.length > 80) UI.told.shift();   /* what the fight told the music, for the gates */
+  try { if (window.parent && window.parent !== window) window.parent.postMessage(m, '*'); } catch (_e) {} }
+const MUSIC = {
+  started: function () { UI.musSide = null; toShell({ type: 'BOHEMIA_COMBAT_STARTED', fight: 'rebuilt' }); },
+  hit: function (t, e) { toShell({ type: 'BOHEMIA_PLAYER_HIT', hp: t.hp, dmg: e.hp | 0, who: t.name, fight: 'rebuilt' }); },
+  /* no zone and no patMeta: the shell's two old shot bridges log it and arm nothing (a zone would drop the anim tab's man) */
+  kill: function (u) { toShell({ type: 'BOHEMIA_SHOT_RESULT', outcome: 'killshot', who: u.name, fight: 'rebuilt' }); },
+  turn: function (side) { if (UI.musSide === side) return; UI.musSide = side; toShell({ type: 'BOHEMIA_FIGHT_TURN', side: side }); },
+  /* A SKIPPED TURN IS STILL HEARD (rule 126(c): every hit, kill and fall, none silent): a tap that skips their move resolves
+     it with no motion, so the ladder hears every hit on his and every man of theirs who fell, and the ear gets one of each
+     sound the skip held, a quarter beat apart (a burst of twelve would be noise, nothing at all a lie) */
+  skipped: function (all) {
+    const heard = [], add = function (s) { if (heard.indexOf(s) < 0) heard.push(s); };
+    all.forEach(function (e) {
+      if (e.t === 'attack' && e.hit) { const t = FIGHT.byId(e.to), a = FIGHT.byId(e.id); if (!t) return;
+        if (t.side === 'you') { MUSIC.hit(t, e); add('hurt'); } else add(e.head ? 'vital' : (e.shot === undefined ? a && FIGHT.isRanged(a.weapon) : e.shot) ? 'hit' : 'melee_hit'); }
+      if (e.t === 'dead' || e.t === 'down') { const v = FIGHT.byId(e.id); if (v && v.side === 'them') MUSIC.kill(v); add(e.t === 'dead' ? 'kill' : 'went_down'); }
+    });
+    heard.forEach(function (s, i) { setTimeout(function () { sfx(s); }, beatMs() / 4 * i); });
+  }
+};
 
 /* ---------------- the events become motion, paced on the beat ---------------- */
 /* THE NOTES' LENGTHS (rule 121 [smooth]: 'turns flow without dead pauses'): a note holds the board only as long as it shows
@@ -2382,7 +2415,7 @@ function startAnim(a) {
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
     setTimeout(ranged ? SND.shot : SND.swing, beatMs() * 0.35);
-    setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e); }, beatMs() * 0.45);
+    setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e); }, beatMs() * 0.45);
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
     if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, beatMs() * 0.8);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
@@ -2394,7 +2427,8 @@ function startAnim(a) {
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
     if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = performance.now();   /* the fall plays from here (poseOf) */
-      if (u.side === 'them' && !u._seen) a.dur = 0; }   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
+      if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
+      if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
     if (e.t === 'dead') { SND.fall(true); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
     if (e.t === 'down') { SND.fall(false); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); }
     if (e.t === 'fled') SND.flee();
@@ -2502,6 +2536,7 @@ function tick(now) {
     if (!UI.pinched && !(gest && gest.moved) && (!allFramed() || f.z > UI.zoom * FIT_CLOSER)) glideTo(f.cx, f.cy, f.z, beatMs(), !allFramed()); }
   const u = FIGHT.current();
   if (!u) return;
+  MUSIC.turn(u.side === 'you' ? 'you' : 'them');   /* rule 126(e): the turn is heard, after the last act's motion, not when the rules pass it */
   const sayEl = document.getElementById('say');
   if (crewControlled(u)) {
     /* HIS TURN WITH AN EMPTY GUN (rule 124): the click as it comes to him, and the line says the one thing to do first */
@@ -2536,6 +2571,7 @@ function skipTurn() {
     FIGHT.aiStep(u); all.push.apply(all, S.events); S.events = [];
   }
   all.forEach(function (e) { const v = FIGHT.byId(e.id); if ((e.t === 'dead' || e.t === 'down') && v) { v.seenFall = true; v._fallAt = performance.now() - beatMs() * 9; } });
+  MUSIC.skipped(all);
   const over = all.filter(function (e) { return e.t === 'over'; })[0];
   if (over) UI.anim.push({ k: 'over', e: over, dur: beatMs() });
   UI.nextAI = 0; UI.skipped = (UI.skipped || 0) + 1; hud();
@@ -3594,6 +3630,7 @@ function start() {
     fitNow();   /* BOTH TEAMS ON ONE SCREEN (rule 104a): the open holds every man of both teams, no swipe; the man still 112 */
     UI.t0 = performance.now(); UI.openUntil = UI.t0 + beatMs() * 4.5;
     document.getElementById('load').style.display = 'none';
+    MUSIC.started();   /* rule 126: the board is up, the song lifts at the next bar */
     /* the open's line names whose move it is: a pack of wolves (initiative 150) moves before his men, and 'tap inside the chalk'
        under a wolf's turn tells him to do something he cannot (COMBAT [the fight holds the grid]) */
     const first = FIGHT.current();
