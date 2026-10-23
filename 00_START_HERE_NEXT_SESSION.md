@@ -326,7 +326,8 @@ read as one (45 tops, 11 coats); coats worn open to the neck, the hood heaped ov
 tail under a jacket or vest, the cuff past a short sleeve or the sleeves pushed up; no coat: an open shirt over his tee,
 his shirt open over a plain tee, his tee over a long-sleeve, his hoodie over a longer tee or under an open flannel with
 the hood out; the mantle a capelet open down the front. GARMENTS BASE and OUTER read L['layers'] (none: built as before).
-THE DRAPE: every coat skirt hangs in folds 11 cm apart, 12 mm deep at the hem (a pixel is 1.75 cm). The walk in eight
+THE DRAPE: every coat skirt hangs in folds 11 cm apart, 12 mm deep at the hem (a pixel is 1.75 cm). A rolled belt or tool belt
+crosses a CLOSED coat (cinched over it); under an open one it stays on the trousers. The walk in eight
 holds. The outfit book: records/target/character/BOHEMIA_THE_OUTFITS.json (rule 128: the dials of every person's layers).
 FOR RUN TWO [no two people alike] (the outfits reach the game only through you): your builder takes the outfit unedited.
 (1) git pull main; (2) delete records/target/character/barber/person_* (and the fight's person renders) and run batch,

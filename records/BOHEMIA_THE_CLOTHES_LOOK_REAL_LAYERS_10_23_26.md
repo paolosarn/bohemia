@@ -51,6 +51,8 @@ RNWY-08 (every layer's hem lower than the one over it), RNWY-06 (each layer read
   turtleneck or runway tee; his own shirt worn open over a plain tee; his tee or tank over a long-sleeve of another value
   (the dark sleeves out of the light tee); his hoodie over a longer tee whose hem shows under the band, or under an open
   flannel with the hood out over its collar.
+* THE BELT (GEAR 1, later the same round): a rolled belt or tool belt is cinched OVER a closed longcoat, car coat, chore
+  coat, cocoon, comma or asymmetric coat at the coat's own waist offset; under an open coat it stays on the trousers.
 * THE MANTLE, for a person in an outfit: a capelet, fastened at the throat, open down the front and off the forearms.
   The fourteen looks keep theirs as voted.
 
@@ -75,6 +77,11 @@ by RUN TWO's own build-one and rendered by DIRECTION's master rig (standing, 16 
 stripe down the open leather jacket, its hood on the jacket's back and its band under the jacket's hem; the striped tee
 in the open drifter's coat; the white tee's band under the blue hoodie; the bone henley's sleeves and hem out of the
 leather vest under the olive capelet; the striped tee over black sleeves under the Church's gold capelet.
+
+`records/target/character/the_clothes_look_real/CHARACTER_THE_LAYERS_CROWD_BEFORE_AND_AFTER_X2.png`: the same eight in a line
+as a street shows them (facing S, then SE; before above after; at x2), the latest pass on each (the drape, the loud
+eight turned down, the belt over the closed car coat): before, eight one-colour blobs and neon boots; after, a V or a
+stripe under every coat, hem bands, sleeves out from under, dyed cloth that reads worn.
 
 The walk in eight (six keys) on two of them: the open jacket, the hood heap, the open shirt and the tee move with the
 body, nothing pokes through (every piece takes the man's nearest weights; the hanging pieces blend hip to thigh).
