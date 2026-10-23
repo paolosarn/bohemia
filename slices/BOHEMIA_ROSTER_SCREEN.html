@@ -251,7 +251,7 @@ function faceCanvas(m){
   return c;
 }
 function draw(){
-  document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.filter(function(m){ return !m.dead; }).length + ' / 20';
+  document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.filter(function(m){ return !m.dead; }).length + ' / ' + (S.cap || 20);
   ['front','back'].forEach(function(row){
     var el = document.getElementById(row); el.textContent = '';
     S[row].forEach(function(ix, si){
@@ -462,9 +462,23 @@ function moveMan(fromRow, fromI, toRow, toI){
     else if(p[0] === 'bag' && q[0] === 'gear') equip(+p[1], q[1]);
   });
 })();
+var LOADED = false;
 function open(o){
   o = o || {};
-  if(Array.isArray(o.crew) && o.crew.length) S.crew = o.crew; else if(!S.crew.length) S.crew = C.startingCrew();
+  if(!LOADED){ S.pending = o; return; }   /* the door's post can come before the company's files are read: it waits for them */
+  if(Array.isArray(o.crew) && o.crew.length) S.crew = o.crew;
+  /* THE COMPANY THE ORIGIN BUILT (TUNING's change 9, rule 133): the men the origin gave him, each in the place in the line the
+     fight gives him (ours.crew's place, his origin's background and level over it: the fight's own mapping), so a crew of
+     three is three on this screen too; his roster cap with it */
+  else if(Array.isArray(o.company) && o.company.length && !S.fromOrigin){
+    var defs = (C.data.ours && C.data.ours.crew && C.data.ours.crew.value) || [];
+    S.crew = o.company.map(function(m, i){ var d = Object.assign({}, defs[i % Math.max(1, defs.length)] || {});
+      if(i >= defs.length){ d.main = false; d.name = (d.name || 'MAN') + ' II'; }
+      if(m && m.background) d.background = m.background; if(m && m.level) d.level = m.level;
+      return C.manOf(d, i); });
+    S.fromOrigin = true; if(o.roster) S.cap = o.roster;
+  }
+  else if(!S.crew.length) S.crew = C.startingCrew();
   /* men hired at the posts (the settlement screen keeps them here until the game's save does):
      same stats and stars as on the card he was hired from */
   try{ var hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]');
@@ -487,7 +501,7 @@ window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFigh
 window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN') open(d); if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
 document.getElementById('sortbag').addEventListener('click', function(){ if(!window.BohemiaBagSort) return; S.bag = BohemiaBagSort.sort(S.bag); saveBag(); post('sort', {bag:S.bag.map(function(i){ return i.id; })}); say('Sorted: weapons, armour, heads, then the rest.'); draw(); });   /* RUN TWO [the bag sorts] */
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
-C.load().then(function(){ open({}); }).catch(function(err){ say('The company did not load.'); });
+C.load().then(function(){ LOADED = true; open(S.pending || {}); }).catch(function(err){ say('The company did not load.'); });
 })();
 </script>
 </body>

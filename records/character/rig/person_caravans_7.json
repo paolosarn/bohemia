@@ -1,19 +1,38 @@
 {
  "look": "PERSON_CARAVANS_7",
- "shape": "person_caravans_7: a person of the Caravans, his own skin skin_deep 4, RUST STRIPED TEE",
+ "shape": "person_caravans_7: a person of the Caravans, his own skin skin_deep 4, BONE HENLEY",
  "worn": {
   "hair": "COIL CROWN",
-  "base": "RUST STRIPED TEE",
+  "base": "BONE HENLEY",
   "back": "OLIVE SHOULDER MANTLE",
   "head": "CHINESE RICE FARMER HAT",
-  "legs": "DUST TROUSERS",
-  "feet": "SANDWALKERS"
+  "legs": "CHARCOAL SHORTS",
+  "feet": "COAL MID BOOT",
+  "neck": "DRAPED COWL",
+  "outfit": [
+   "his RUST STRIPED TEE over a BONE HENLEY, its sleeves and hem out from under"
+  ],
+  "mid": "RUST STRIPED TEE"
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "hem_drop": 0.04,
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": false,
+   "ohw": 0.0
+  },
+  "outer": {}
  },
  "model": "records/character/rig/person_caravans_7.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,13 +42,27 @@
  "real_height_for_rig": 1.8051,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_caravans_7_trouser": 2568,
-  "person_caravans_7_shoe": 2508,
-  "person_caravans_7_mantle": 17626,
-  "person_caravans_7_shirt": 39752,
+  "person_caravans_7_shoe": 3916,
+  "person_caravans_7_mantle": 10842,
+  "person_caravans_7_shirt": 67448,
   "person_caravans_7_collar": 1536,
-  "person_caravans_7_sleeve_hem": 2048,
-  "person_caravans_7_hem": 1792,
+  "person_caravans_7_placket": 126,
+  "person_caravans_7_buttons": 102,
+  "person_caravans_7_cuffs": 2048,
+  "person_caravans_7_tail": 2016,
+  "person_caravans_7_trouser": 21202,
+  "person_caravans_7_shorts_hem": 2048,
+  "person_caravans_7_sole_1": 242,
+  "person_caravans_7_midsole_1": 242,
+  "person_caravans_7_sole_0": 242,
+  "person_caravans_7_midsole_0": 242,
+  "person_caravans_7_boot_collar": 2048,
+  "person_caravans_7_boot_collar_line": 2048,
+  "person_caravans_7_draped_cowl": 29526,
+  "person_caravans_7_mid_shirt": 39752,
+  "person_caravans_7_mid_collar": 1536,
+  "person_caravans_7_mid_sleeve_hem": 2048,
+  "person_caravans_7_mid_hem": 1792,
   "person_caravans_7_hair": 17968,
   "person_caravans_7_hat": 128,
   "person_caravans_7_hand_L": 392,
@@ -41,15 +74,35 @@
    0.8,
    0.8
   ],
-  "person_caravans_7_collar": [
-   0.2159,
-   0.0595,
-   0.0176
+  "person_caravans_7_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
-  "person_caravans_7_collar_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_caravans_7_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_caravans_7_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_caravans_7_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_caravans_7_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_caravans_7_draped_cowl": [
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_7_eyes": [
    0.0212,
@@ -66,65 +119,110 @@
    0.1559,
    0.0802
   ],
-  "person_caravans_7_hem": [
-   0.2159,
-   0.0595,
-   0.0176
-  ],
   "person_caravans_7_mantle": [
    0.0976,
    0.0762,
    0.0423
   ],
-  "person_caravans_7_shirt": [
-   0.2159,
+  "person_caravans_7_mid_collar": [
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
   ],
-  "person_caravans_7_shirt_print": [
+  "person_caravans_7_mid_collar_print": [
    0.8,
    0.8,
    0.8
   ],
-  "person_caravans_7_shirt_print.001": [
+  "person_caravans_7_mid_hem": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_caravans_7_mid_shirt": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_caravans_7_mid_shirt_print": [
    0.8,
    0.8,
    0.8
+  ],
+  "person_caravans_7_mid_sleeve_hem": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_caravans_7_mid_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_caravans_7_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_caravans_7_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_caravans_7_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_caravans_7_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_caravans_7_shoe": [
-   0.1022,
-   0.0865,
-   0.0704
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_7_shoes": [
-   0.1022,
-   0.0865,
-   0.0704
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_caravans_7_shorts_hem": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_caravans_7_skin": [
    0.5972,
    0.4072,
    0.2542
   ],
-  "person_caravans_7_sleeve_hem": [
-   0.2159,
-   0.0595,
-   0.0176
+  "person_caravans_7_sole_0": [
+   0.007,
+   0.006,
+   0.007
   ],
-  "person_caravans_7_sleeve_hem_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_caravans_7_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_caravans_7_tail": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_caravans_7_trouser": [
-   0.0887,
-   0.063,
-   0.0482
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_7_trousers": [
-   0.0887,
-   0.063,
-   0.0482
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

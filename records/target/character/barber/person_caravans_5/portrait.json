@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3861,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.386 m",
- "ppm": 331.541,
+ "head_m": 0.3846,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.385 m",
+ "ppm": 332.824,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -32,12 +32,12 @@
   "M": "records/target/character/barber/person_caravans_5/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  43,
+  45,
   35,
-  186,
+  189,
   218
  ],
  "model": "records/character/rig/barber_person_caravans_5.glb",
  "body_rig": "rig.json",
- "colours": 23891
+ "colours": 25456
 }

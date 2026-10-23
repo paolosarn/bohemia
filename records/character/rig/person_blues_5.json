@@ -1,19 +1,36 @@
 {
  "look": "PERSON_BLUES_5",
- "shape": "person_blues_5: a person of the Blues, his own skin skin_deep 4, STEEL STRIPED TEE under DENIM VEST",
+ "shape": "person_blues_5: a person of the Blues, his own skin skin_deep 4, CHARCOAL STRIPED TEE under DENIM VEST",
  "worn": {
   "hair": "DRY TAPER",
-  "base": "STEEL STRIPED TEE",
+  "base": "CHARCOAL STRIPED TEE",
   "outer": "DENIM VEST",
-  "back": "COBALT SHOULDER MANTLE",
-  "legs": "COBALT WIDE TROUSER",
-  "feet": "COBALT STACK BOOT"
+  "back": "OXBLOOD SATCHEL",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "COBALT SNEAKERS",
+  "outfit": [
+   "STEEL STRIPED TEE read as one with DENIM VEST (88 and 78 of 255): the same cut in CHARCOAL STRIPED TEE (52)",
+   "DENIM VEST worn open to the neck"
+  ]
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "under": "VEST"
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_blues_5.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -23,17 +40,30 @@
  "real_height_for_rig": 1.7002,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_blues_5_trouser": 2568,
-  "person_blues_5_shoe": 3916,
-  "person_blues_5_mantle": 11634,
+  "person_blues_5_shoe": 3500,
+  "person_blues_5_mantle": 10634,
   "person_blues_5_shirt": 39752,
   "person_blues_5_collar": 1536,
   "person_blues_5_sleeve_hem": 2048,
   "person_blues_5_hem": 1792,
-  "person_blues_5_coat": 22194,
+  "person_blues_5_coat": 21594,
   "person_blues_5_lapels": 396,
   "person_blues_5_chest_pockets": 252,
   "person_blues_5_chest_flaps": 252,
+  "person_blues_5_trouser": 43706,
+  "person_blues_5_sole_1": 242,
+  "person_blues_5_midsole_1": 242,
+  "person_blues_5_sole_0": 242,
+  "person_blues_5_midsole_0": 242,
+  "person_blues_5_tongue_1": 98,
+  "person_blues_5_laces_1": 200,
+  "person_blues_5_heel_1": 90,
+  "person_blues_5_tongue_0": 98,
+  "person_blues_5_laces_0": 200,
+  "person_blues_5_heel_0": 90,
+  "person_blues_5_oxblood_satchel_bag": 98,
+  "person_blues_5_oxblood_satchel_flap": 26,
+  "person_blues_5_oxblood_satchel_strap": 1792,
   "person_blues_5_hair": 17968,
   "person_blues_5_hand_L": 392,
   "person_blues_5_hand_R": 392
@@ -60,9 +90,9 @@
    0.1946
   ],
   "person_blues_5_collar": [
-   0.063,
-   0.1046,
-   0.1651
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_blues_5_collar_print": [
    0.8,
@@ -79,10 +109,30 @@
    0.0116,
    0.008
   ],
+  "person_blues_5_heel_0": [
+   0.0097,
+   0.0612,
+   0.3005
+  ],
+  "person_blues_5_heel_1": [
+   0.0097,
+   0.0612,
+   0.3005
+  ],
   "person_blues_5_hem": [
-   0.063,
-   0.1046,
-   0.1651
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_blues_5_laces_0": [
+   0.1119,
+   0.3372,
+   0.9647
+  ],
+  "person_blues_5_laces_1": [
+   0.1119,
+   0.3372,
+   0.9647
   ],
   "person_blues_5_lapels": [
    0.0176,
@@ -94,10 +144,35 @@
    0.1119,
    0.2384
   ],
+  "person_blues_5_midsole_0": [
+   0.1119,
+   0.3372,
+   0.9647
+  ],
+  "person_blues_5_midsole_1": [
+   0.1119,
+   0.3372,
+   0.9647
+  ],
+  "person_blues_5_oxblood_satchel_bag": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_blues_5_oxblood_satchel_flap": [
+   0.2874,
+   0.0578,
+   0.0369
+  ],
+  "person_blues_5_oxblood_satchel_strap": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
   "person_blues_5_shirt": [
-   0.063,
-   0.1046,
-   0.1651
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_blues_5_shirt_print": [
    0.8,
@@ -110,14 +185,14 @@
    0.8
   ],
   "person_blues_5_shoe": [
-   0.0423,
-   0.0409,
-   0.0452
+   0.0252,
+   0.159,
+   0.7379
   ],
   "person_blues_5_shoes": [
-   0.0423,
-   0.0409,
-   0.0452
+   0.0252,
+   0.159,
+   0.7379
   ],
   "person_blues_5_skin": [
    0.5972,
@@ -125,24 +200,49 @@
    0.2542
   ],
   "person_blues_5_sleeve_hem": [
-   0.063,
-   0.1046,
-   0.1651
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_blues_5_sleeve_hem_print": [
    0.8,
    0.8,
    0.8
   ],
+  "person_blues_5_sole_0": [
+   0.0185,
+   0.0595,
+   0.2051
+  ],
+  "person_blues_5_sole_1": [
+   0.0185,
+   0.0595,
+   0.2051
+  ],
+  "person_blues_5_tongue_0": [
+   0.0252,
+   0.159,
+   0.7379
+  ],
+  "person_blues_5_tongue_1": [
+   0.0252,
+   0.159,
+   0.7379
+  ],
   "person_blues_5_trouser": [
-   0.1046,
-   0.1022,
-   0.107
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_blues_5_trouser_folds": [
+   0.0116,
+   0.0116,
+   0.0137
   ],
   "person_blues_5_trousers": [
-   0.1046,
-   0.1022,
-   0.107
+   0.0296,
+   0.0296,
+   0.0356
   ]
  }
 }

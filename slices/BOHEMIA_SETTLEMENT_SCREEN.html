@@ -107,6 +107,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 /* the hire card: face, name, background, eight stats, the starred one gold, the price */
 .hire{display:grid;grid-template-columns:64px 1fr;gap:4px 8px;padding:6px;border:1px solid var(--line);border-radius:4px;background:#16110c;margin-top:6px}
 .hire .face{width:64px;height:64px;flex:none}
+.hire.picked{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}   /* the man you tapped at the post (RUN TWO, change 7) */
 canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 at 72 css px scales smooth, never nearest at 1.7x (RUN TWO 10/18) */
 .hire .nm{color:var(--gold);font-size:11px;letter-spacing:1px}
 .hstats{display:grid;grid-template-columns:repeat(4,auto);gap:1px 8px;font-size:10px;color:var(--dim);margin-top:3px}
@@ -844,16 +845,24 @@ function crowdCount(){
 function dealt(){
   var n = ORDER.length + (CROWD_BASE.town || 5) + 7 + 24, B = window.BohemiaRigBodies;   /* every door, the fullest crowd (market day), and the people busy on the paths (a cast keeps its first cards whatever n is) */
   if(!B || !B.cast) return GANG_LOOKS.slice(0, n);
-  if(VAR.hand && VAR.hand.length >= n && VAR.handOf === S.place.name) return VAR.hand;
-  VAR.handOf = S.place.name; return (VAR.hand = B.cast(n, S.place.name + ':people'));
+  if(!(VAR.hand && VAR.hand.length >= n && VAR.handOf === S.place.name)){ VAR.handOf = S.place.name; VAR.hand = B.cast(n, S.place.name + ':people'); }
+  /* the men waiting at the post and the men in your company are not on the street too (nobody twice on one screen) */
+  var gone = {}; postMen().forEach(function(r){ gone[r.look] = 1; });
+  try{ ((window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || []).concat(JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]')).forEach(function(m){ if(m && m.look) gone[m.look] = 1; }); }catch(e){}
+  return VAR.hand.filter(function(l){ return !gone[l]; });
 }
+/* THE MEN WAITING ARE FOR HIRE (RUN TWO [the ten changes: the town and the hire], rule 133, TUNING's change 7: '12 aimed taps
+   found the barber, the doc, the stall, the smith... never the hiring post'; 'the people standing in the line ARE the hiring
+   post'): the men at the post are standing at it, along its rail, each tappable, and a tap opens the post on his card. Only a
+   man with a standing body of his own (a rolled man the fight can draw) stands there; the post's list is the same list */
+function postMen(){ try{ return VAR && VAR.boxes.hall && window.BohemiaRigBodies && BohemiaRigBodies.person ? recruitsHere().filter(function(r){ return BohemiaRigBodies.person(r.look); }) : []; }catch(e){ return []; } }
 /* where the crowd stands when the stall's front is not open ground (10/23: in COOK's 3D towns the block south-east of the
    stall comes up to y 556 to 680, so a crowd under the stall stood on its roof; NOBODY WALKS ON A WALL OR A ROOF): the open
    sand west of the stall, read by eye off the picture */
 var CROWD_AT = {'town_0.webp': {x:905, y:742}, 'town_1.webp': {x:905, y:742}};
 function folkList(){
   if(!VAR || !GANG_LOOKS.length) return [];
-  var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
+  var pm = postMen(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + pm.map(function(r){ return r.look; }).join(',');
   if(VAR.folkKey === key) return VAR.folk;
   var R = rng(seedOf(S.place.name + ':folk')), hand = dealt(), out = [];
   ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
@@ -864,6 +873,10 @@ function folkList(){
   for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7, lq = CROWD_LOOPS[Math.floor(R()*CROWD_LOOPS.length)];
     R(); out.push({crowd:true, slot:q, look:hand[ORDER.length + q], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:lq[0], loop:lq, beat:Math.floor(R()*4),
       x:(at ? at.x : (st[0]+st[2])/2) + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, (at ? at.y + R()*8 : st[3] + personH()*.94 + R()*8) + (q % 2) * 24), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall; every other one a step nearer, so a crowd is a knot of people, not a line (rule 130: never a chess row) */
+  var hb = VAR.boxes.hall;
+  pm.forEach(function(r, i){ var lq = CROWD_LOOPS[(i + 2) % CROWD_LOOPS.length];
+    out.push({post:true, k:'hall', rid:r.id, look:r.look, clip:'wait', face:lq[0], loop:lq, beat:(i + 1) % 4,
+      x:hb[0] + (i + .5) * (hb[2] - hb[0]) / pm.length, y:Math.min(picH()-4, hb[3] + 16 + (i % 2) * 18), ph:0}); });
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
 }
@@ -995,6 +1008,12 @@ function draw(){
   cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
   var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
   cx.fillStyle = gb; cx.fillRect(0, view.oy+picH()*s-fe, W, fe);
+  /* THE THREE DOORS THAT MATTER (TUNING's change 7, rule 133): work (the board), hands (the post) and a drink (the bar)
+     catch the light on the beat until he has opened each once in this place; no words on the picture, the building's own
+     pixels brightened, softer than the one under his finger */
+  if(!view.noGlow) try{ var seen = litSeen(), bt = (performance.now()-t0)/500; LIT_DOORS.forEach(function(k){ var b2 = VAR.boxes[k]; if(!b2 || seen[k] || k === (view.lit || S.open)) return;
+    cx.save(); cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = .09 + .07*Math.max(0, Math.sin(bt*Math.PI));
+    cx.drawImage(im, b2[0], b2[1], b2[2]-b2[0], b2[3]-b2[1], view.ox + b2[0]*s, view.oy + b2[1]*s, (b2[2]-b2[0])*s, (b2[3]-b2[1])*s); cx.restore(); }); }catch(e){}
   /* THE LIT ONE: the building under the finger (or open) catches light, from its own pixels */
   var k = view.lit || S.open, b = k && VAR.boxes[k];
   if(b){
@@ -1076,6 +1095,7 @@ function askCrowd(p){
 }
 function openPerson(p, said){
   if(p.keeper){ openB(p.k); return; }
+  if(p.post){ openB('hall'); var hc = document.querySelector('#sbody .hire[data-id="' + p.rid + '"]'); if(hc){ hc.classList.add('picked'); try{ hc.scrollIntoView({block:'nearest'}); }catch(e){} } return; }
   S.open = 'person'; S.person = p;
   var body = document.getElementById('sbody'); body.textContent = '';
   var r = null, line = said;
@@ -1380,7 +1400,11 @@ function act(label, right, fn, off){
 }
 
 /* ---------- THE BUILDINGS ---------- */
+var LIT_DOORS = ['board', 'hall', 'bar'], LITKEY = 'bohemia.litdoors.v1';
+function litAll(){ if(!S.litAll){ try{ S.litAll = JSON.parse(localStorage.getItem(LITKEY) || 'null'); }catch(e){} if(!S.litAll || typeof S.litAll !== 'object') S.litAll = {}; } return S.litAll; }
+function litSeen(){ var a = litAll(), id = String(S.place.id || S.place.name); return a[id] || (a[id] = {}); }
 function openB(k, line){
+  if(LIT_DOORS.indexOf(k) >= 0 && !litSeen()[k]){ litSeen()[k] = 1; try{ localStorage.setItem(LITKEY, JSON.stringify(litAll())); }catch(e){} }
   if(k==='clinic' && S.open!=='clinic') sfx('door_open', view.night ? NIGHT_TRIM : null);
   S.open = k;
   if(window.BohemiaHeard){ BohemiaHeard.night(view.night); BohemiaHeard.opened(k, view.night ? NIGHT_TRIM : null); }   /* SOUNDS 10/18: the building answers with its recording */
@@ -1628,7 +1652,11 @@ function bandOf(v){
   for(var i=0;i<B9.length;i++) if(v >= B9[i].lo && v <= B9[i].hi + .999) return B9[i].id;
   return v < 0 ? B9[0].id : B9[B9.length-1].id;
 }
-function arrivalLine(){ return traitLine('board') || TIER_LINE[S.place.tier] || TIER_LINE.town; }
+/* THE FIRST TOWN (TUNING's change 7, rule 133): the first time ever, the elder says where the three things are, once (draft) */
+var FIRST_TOWN_LINE = "Work's on the board, mijo. Men for hire wait at the posts, and the bar has drink.";
+var FIRSTKEY = 'bohemia.firsttown.v1';
+function firstTown(){ try{ return !localStorage.getItem(FIRSTKEY); }catch(e){ return false; } }
+function arrivalLine(){ if(firstTown()) return FIRST_TOWN_LINE; return traitLine('board') || TIER_LINE[S.place.tier] || TIER_LINE.town; }
 function arrivalTag(title, line){
   var F1 = '22px "BohemiaCasing", ui-sans-serif, sans-serif', F2 = '12px "BohemiaROM", ui-monospace, monospace';
   var c = document.createElement('canvas'), x = c.getContext('2d');
@@ -1663,6 +1691,7 @@ function arrive(){
   var traits = (S.traits||[]).map(function(t){ return t.name || t.id; });
   var op = opinionNow();
   var band = bandOf(op), line = arrivalLine();
+  try{ localStorage.setItem(FIRSTKEY, S.place.name); }catch(e){}
   var o = document.createElement('div'); o.id = 'arrive'; o.dataset.place = S.place.name; o.dataset.tier = tier; o.dataset.band = band;
   o.appendChild(arrivalTag(String(S.place.name).toUpperCase(), tw + (traits.length ? '  ·  ' + traits.join(', ').toUpperCase() : '')));
   var w = speak('board', line); w.dataset.line = line; o.appendChild(w);
@@ -1733,7 +1762,7 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

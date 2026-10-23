@@ -1,20 +1,40 @@
 {
  "look": "PERSON_CARAVANS_5",
- "shape": "person_caravans_5: a person of the Caravans, his own skin skin_deep 4, RUST HENLEY under LEATHER VEST",
+ "shape": "person_caravans_5: a person of the Caravans, his own skin skin_deep 4, BONE HENLEY under LEATHER VEST",
  "worn": {
   "hair": "COIL CROWN",
-  "base": "RUST HENLEY",
+  "base": "BONE HENLEY",
   "outer": "LEATHER VEST",
   "back": "OLIVE SHOULDER MANTLE",
   "head": "CHINESE RICE FARMER HAT",
-  "legs": "DUST TROUSERS",
-  "feet": "SANDWALKERS"
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "BONE STACK BOOT",
+  "waist": "SOOT TOOL BELT",
+  "outfit": [
+   "RUST HENLEY read as one with LEATHER VEST (79 and 69 of 255): the same cut in BONE HENLEY (154)",
+   "LEATHER VEST worn open to the neck",
+   "the henley's hem below the vest"
+  ]
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_caravans_5.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,18 +44,30 @@
  "real_height_for_rig": 1.8051,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_caravans_5_trouser": 2568,
-  "person_caravans_5_shoe": 2508,
-  "person_caravans_5_mantle": 17626,
+  "person_caravans_5_shoe": 3836,
+  "person_caravans_5_mantle": 10842,
   "person_caravans_5_shirt": 67448,
   "person_caravans_5_collar": 1536,
   "person_caravans_5_placket": 126,
   "person_caravans_5_buttons": 102,
   "person_caravans_5_cuffs": 2048,
-  "person_caravans_5_hem": 1792,
-  "person_caravans_5_coat": 22194,
+  "person_caravans_5_tail": 2016,
+  "person_caravans_5_coat": 21594,
   "person_caravans_5_lapels": 396,
   "person_caravans_5_zip": 324,
+  "person_caravans_5_trouser": 35674,
+  "person_caravans_5_turn_up": 2048,
+  "person_caravans_5_turn_up_edge": 2048,
+  "person_caravans_5_sole_1": 242,
+  "person_caravans_5_midsole_1": 242,
+  "person_caravans_5_sole_0": 242,
+  "person_caravans_5_midsole_0": 242,
+  "person_caravans_5_boot_collar": 2048,
+  "person_caravans_5_boot_collar_line": 2048,
+  "person_caravans_5_soot_tool_belt": 1792,
+  "person_caravans_5_soot_tool_belt_pouch_1": 26,
+  "person_caravans_5_soot_tool_belt_pouch_0": 26,
+  "person_caravans_5_soot_tool_belt_buckle": 34,
   "person_caravans_5_hair": 17968,
   "person_caravans_5_hat": 128,
   "person_caravans_5_hand_L": 392,
@@ -47,10 +79,20 @@
    0.8,
    0.8
   ],
+  "person_caravans_5_boot_collar": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_caravans_5_boot_collar_line": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_caravans_5_buttons": [
-   0.3864,
-   0.1195,
-   0.0343
+   0.5776,
+   0.5271,
+   0.3712
   ],
   "person_caravans_5_coat": [
    0.1301,
@@ -58,14 +100,14 @@
    0.016
   ],
   "person_caravans_5_collar": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_caravans_5_cuffs": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_caravans_5_eyes": [
    0.0212,
@@ -82,11 +124,6 @@
    0.1559,
    0.0802
   ],
-  "person_caravans_5_hem": [
-   0.2159,
-   0.0595,
-   0.0176
-  ],
   "person_caravans_5_lapels": [
    0.0545,
    0.0222,
@@ -97,40 +134,95 @@
    0.0762,
    0.0423
   ],
+  "person_caravans_5_midsole_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_caravans_5_midsole_1": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_caravans_5_placket": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_caravans_5_shirt": [
-   0.2159,
-   0.0595,
-   0.0176
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_caravans_5_shoe": [
-   0.1022,
-   0.0865,
-   0.0704
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_caravans_5_shoes": [
-   0.1022,
-   0.0865,
-   0.0704
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_caravans_5_skin": [
    0.5972,
    0.4072,
    0.2542
   ],
+  "person_caravans_5_sole_0": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_caravans_5_sole_1": [
+   0.2016,
+   0.1746,
+   0.1221
+  ],
+  "person_caravans_5_soot_tool_belt": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_caravans_5_soot_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_caravans_5_soot_tool_belt_pouch_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_caravans_5_soot_tool_belt_pouch_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_caravans_5_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
   "person_caravans_5_trouser": [
-   0.0887,
-   0.063,
-   0.0482
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_caravans_5_trousers": [
-   0.0887,
-   0.063,
-   0.0482
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_caravans_5_turn_up": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_caravans_5_turn_up_edge": [
+   0.0152,
+   0.013,
+   0.0152
   ],
   "person_caravans_5_zip": [
    0.0545,

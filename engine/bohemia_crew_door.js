@@ -28,8 +28,16 @@
       } else if (o.onAct) try { o.onAct(d); } catch (x) {}
     };
     window.addEventListener('message', on);
-    f.addEventListener('load', function () { try { f.contentWindow.postMessage({ type: 'BOHEMIA_ROSTER_OPEN' }, '*'); } catch (x) {} });
+    /* THE CREW SCREEN SHOWS YOUR CREW (RUN TWO [the ten changes: the town and the hire], rule 133, TUNING's change 9: 'CREW opens
+       YOUR COMPANY 12 / 20 with twelve named men while the crew is 3'): the company the origin built, read where the shell keeps
+       it (BOH_START.picks(), the same picks the fight is handed), so the screen opens on those men and his roster cap */
+    var p = origin();
+    f.addEventListener('load', function () { try { f.contentWindow.postMessage({ type: 'BOHEMIA_ROSTER_OPEN', company: p && p.company || null, roster: p && p.roster || null }, '*'); } catch (x) {} });
     cur = { wrap: wrap, frame: f, on: on }; return f;
+  }
+  function origin() {
+    try { for (var w = window, i = 0; w && i < 5; i++) { if (w.BOH_START && w.BOH_START.picks) return w.BOH_START.picks(); if (w.parent === w) break; w = w.parent; } } catch (e) {}
+    return null;
   }
   function company() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
   root.BohemiaCrewDoor = { open: open, close: close, company: company, isOpen: function () { return !!cur; }, KEY: KEY };

@@ -7,14 +7,32 @@
   "outer": "QUILTED VEST",
   "back": "OLIVE SHOULDER MANTLE",
   "head": "CHINESE RICE FARMER HAT",
-  "legs": "DUST TROUSERS",
-  "feet": "SANDWALKERS"
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "BROWN BOOTS",
+  "outfit": [
+   "QUILTED VEST worn open to the neck",
+   "the flannel's hem below the vest"
+  ]
  },
  "dials": {
   "height": -0.3,
   "belly": 0.55,
   "shoulders": 0.6,
   "hips": 0.15
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_caravans_3.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -24,18 +42,28 @@
  "real_height_for_rig": 1.8051,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_caravans_3_trouser": 2568,
-  "person_caravans_3_shoe": 2508,
-  "person_caravans_3_mantle": 17626,
+  "person_caravans_3_shoe": 3716,
+  "person_caravans_3_mantle": 10842,
   "person_caravans_3_shirt": 71276,
   "person_caravans_3_collar": 1536,
   "person_caravans_3_collar_points": 180,
   "person_caravans_3_placket": 162,
   "person_caravans_3_buttons": 204,
   "person_caravans_3_cuffs": 2048,
-  "person_caravans_3_tail": 2016,
-  "person_caravans_3_coat": 22194,
+  "person_caravans_3_tail": 2912,
+  "person_caravans_3_coat": 21594,
   "person_caravans_3_lapels": 396,
+  "person_caravans_3_trouser": 43706,
+  "person_caravans_3_rolled_hem": 2048,
+  "person_caravans_3_crease": 180,
+  "person_caravans_3_sole_1": 242,
+  "person_caravans_3_midsole_1": 242,
+  "person_caravans_3_sole_0": 242,
+  "person_caravans_3_midsole_0": 242,
+  "person_caravans_3_boot_collar": 2048,
+  "person_caravans_3_boot_collar_line": 2048,
+  "person_caravans_3_eyelets_1": 120,
+  "person_caravans_3_eyelets_0": 120,
   "person_caravans_3_hair": 17968,
   "person_caravans_3_hat": 128,
   "person_caravans_3_hand_L": 392,
@@ -47,10 +75,20 @@
    0.8,
    0.8
   ],
+  "person_caravans_3_boot_collar": [
+   0.3278,
+   0.1413,
+   0.0529
+  ],
+  "person_caravans_3_boot_collar_line": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
   "person_caravans_3_buttons": [
-   0.3864,
-   0.1195,
-   0.0343
+   0.3231,
+   0.1248,
+   0.0513
   ],
   "person_caravans_3_coat": [
    0.2307,
@@ -58,24 +96,39 @@
    0.0953
   ],
   "person_caravans_3_collar": [
-   0.2159,
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
   ],
   "person_caravans_3_collar_points": [
-   0.2159,
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
   ],
   "person_caravans_3_collar_print": [
    0.8,
    0.8,
    0.8
   ],
+  "person_caravans_3_crease": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
   "person_caravans_3_cuffs": [
-   0.2159,
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
+  ],
+  "person_caravans_3_eyelets_0": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
+  "person_caravans_3_eyelets_1": [
+   0.0802,
+   0.0273,
+   0.0075
   ],
   "person_caravans_3_eyes": [
    0.0212,
@@ -102,20 +155,35 @@
    0.0762,
    0.0423
   ],
+  "person_caravans_3_midsole_0": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
+  "person_caravans_3_midsole_1": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
   "person_caravans_3_placket": [
-   0.2159,
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
   ],
   "person_caravans_3_placket_print": [
    0.8,
    0.8,
    0.8
   ],
+  "person_caravans_3_rolled_hem": [
+   0.2664,
+   0.1413,
+   0.0529
+  ],
   "person_caravans_3_shirt": [
-   0.2159,
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
   ],
   "person_caravans_3_shirt_print": [
    0.8,
@@ -128,24 +196,34 @@
    0.8
   ],
   "person_caravans_3_shoe": [
-   0.1022,
-   0.0865,
-   0.0704
+   0.1946,
+   0.0648,
+   0.0152
   ],
   "person_caravans_3_shoes": [
-   0.1022,
-   0.0865,
-   0.0704
+   0.1946,
+   0.0648,
+   0.0152
   ],
   "person_caravans_3_skin": [
    0.7454,
    0.5089,
    0.3278
   ],
+  "person_caravans_3_sole_0": [
+   0.016,
+   0.0091,
+   0.0052
+  ],
+  "person_caravans_3_sole_1": [
+   0.016,
+   0.0091,
+   0.0052
+  ],
   "person_caravans_3_tail": [
-   0.2159,
+   0.2122,
    0.0595,
-   0.0176
+   0.0185
   ],
   "person_caravans_3_tail_print": [
    0.8,
@@ -153,14 +231,14 @@
    0.8
   ],
   "person_caravans_3_trouser": [
-   0.0887,
-   0.063,
-   0.0482
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_caravans_3_trousers": [
-   0.0887,
-   0.063,
-   0.0482
+   0.1413,
+   0.0742,
+   0.0273
   ]
  }
 }

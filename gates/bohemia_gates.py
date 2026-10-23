@@ -9492,6 +9492,11 @@ GATES = [
      "tier has rolled people walking its lanes on their own walk sheets (more on market day, fewer at night, one when raided), "
      "nobody on the screen twice, each stops at the ends of his round, two on a lane never walk as one, a tap never opens one, "
      "the keepers and the crowd stand still over 12 s. green at registration, 10/0, about 1 min", True),
+    ('THE TOWN AND THE HIRE', ['node', 'gates/the_town_and_the_hire_gate.js'],
+     "RUN TWO gate, 10/23, row [the ten changes: the town and the hire] (rule 133, TUNING's changes 7 and 9: '12 aimed taps never "
+     "found the hiring post'; 'CREW opens twelve named men while the crew is 3'): the crew screen opens on the company the origin "
+     "built (3 for three, 1 for a lone wolf, his roster cap), the board, the post and the bar glow on the beat until opened once in "
+     "that place and stay out on the next visit, the barber never. green at registration, 8/0, about 40 s", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],
