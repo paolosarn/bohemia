@@ -421,5 +421,87 @@
    ]
   },
   "file": "records/target/cook_floor_not_final/block_scrub_0.webp"
+ },
+ "landfill.0": {
+  "seconds": 815,
+  "junk": {
+   "bags": 0,
+   "paper": 807,
+   "card": 202,
+   "cloth": 82,
+   "weeds": 1471,
+   "mattresses": 1,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 24,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 30,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     47.23,
+     50.79,
+     1.0
+    ],
+    [
+     5.99,
+     -0.14,
+     1.0
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_not_final/block_landfill_0.webp"
+ },
+ "ruin.1": {
+  "seconds": 1160,
+  "junk": {
+   "bags": 23,
+   "paper": 582,
+   "card": 142,
+   "cloth": 58,
+   "weeds": 749,
+   "mattresses": 3,
+   "couches": 2,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 2,
+   "tracks": 0,
+   "tidy_house": 0,
+   "burnt_house": 1
+  },
+  "grime": {
+   "materials": 104,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     16.53,
+     35.87,
+     3.2
+    ],
+    [
+     53.85,
+     8.39,
+     1.0
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_not_final/block_ruin_1.webp"
  }
 }
