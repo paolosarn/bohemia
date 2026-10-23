@@ -188,5 +188,10 @@
   "file": "slices/fight_ground/block_culdesac_1_reclaimed.webp",
   "sha1": "96bd36b904f4a98e11eb9e9a83e972d35c8cf165",
   "master": "records/target/cook_floor_futures/reclaimed/block_culdesac_1.webp"
+ },
+ "suburb_stem.0.reclaimed": {
+  "file": "slices/fight_ground/block_suburb_stem_0_reclaimed.webp",
+  "sha1": "1b144cb98d05dd18fb5c24ab52616fb020b6d458",
+  "master": "records/target/cook_floor_futures/reclaimed/block_suburb_stem_0.webp"
  }
 }

@@ -697,5 +697,73 @@
    "panels": 134,
    "beds": 9
   }
+ },
+ "suburb_stem.0": {
+  "seconds": 714,
+  "junk": {
+   "bags": 38,
+   "paper": 440,
+   "card": 93,
+   "cloth": 38,
+   "weeds": 277,
+   "mattresses": 1,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 3,
+   "tracks": 0,
+   "tidy_house": 7,
+   "burnt_house": 3
+  },
+  "grime": {
+   "materials": 95,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_suburb_stem_0.webp",
+  "future": {
+   "panels": 188,
+   "beds": 11
+  }
+ },
+ "suburb_stem.1": {
+  "seconds": 704,
+  "junk": {
+   "bags": 34,
+   "paper": 444,
+   "card": 90,
+   "cloth": 37,
+   "weeds": 264,
+   "mattresses": 3,
+   "couches": 2,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 1,
+   "tracks": 4,
+   "tidy_house": 2,
+   "burnt_house": 5
+  },
+  "grime": {
+   "materials": 97,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_suburb_stem_1.webp",
+  "future": {
+   "panels": 199,
+   "beds": 11
+  }
  }
 }
