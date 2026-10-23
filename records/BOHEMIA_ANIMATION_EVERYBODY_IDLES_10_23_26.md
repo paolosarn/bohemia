@@ -106,6 +106,41 @@ on that model, rendered on the master rig at the street's own settings. Measured
 against the still the settlement draws, silhouette 1.000 and colour step 0.2 in all four facings checked: the same man.
 Cost on this box: build 68 s, pose 17 s, render 240 pictures 3 min 51 s (11 CPU minutes).
 
+## THE ROLLED PEOPLE (session two)
+RUN TWO's 152 (each his own cut, face, skin, top and coat, all rebuilt in CHARACTER's layers) are every keeper, every man
+in a town's crowd, every man at the post, and every man in a gang's party or a crowd on the map. Each is BUILT by RUN TWO's
+own build (its tool run, never edited; its committed record of his height kept), the bare idles laid on that model as it
+is (the street's still is its own Stand), RENDERED at the street's settings (24 samples, the same real height and camera),
+and PACKED (`people_pack`): his own 64 colours, each cell in his render's full frame, `feet` facing by facing where his
+still stands (the still's middle column and the row under its lowest painted pixel: the two numbers the settlement draws
+the still by), and on the map his ten on RUN TWO's own map sheet's frame and colours (slices/rig_idles/map_<sheet>.webp,
+map_people.json). A man whose Stand does not match the still the screens draw keeps his still (silhouette 0.98, colour 4).
+The engine reads per-facing feet and the map's people; the map's block finds a rolled man's set on RIG_MIX's sheets; the
+fight's block refuses a street-frame cell (a rolled man on the board keeps his still until his gun-held idles exist).
+Cost on this box: about 12 CPU minutes a man (build 68 s, pose 17 s, 240 pictures), four at a time.
+
+## THE WORK (rule 131, Paolo 10/23: 'characters you can't even interact with walking around the settlement, doing something,
+## doing important things')
+Each walker RUN TWO puts on a settlement's lanes has ONE JOB, seeded off his look inside his gang's leaning (the source's
+work.by_gang: the caravans haul crates, the church sweeps, the homeless drag scrap, the gangs that hold ground stand guard,
+the trades fix walls, everybody hauls batteries). He WALKS his lane carrying the job's thing, held, never swung (his 10/19
+'weapons just swing with the hand'), and at each end of his round he WORKS it in a loop of whole beats:
+- BATTERY: a car battery in both hands at his belt; at the stop he crouches, sets it on the ground and lifts it again.
+- CRATE: a slatted crate against his chest; the same set-down and lift.
+- HAMMER: the hammer hanging in his right hand; at the stop his left hand holds a board to the wall, his right lifts,
+  winds up and drives the nail, THE BLOW ON THE BEAT (the gate holds it: a hammer a key early is caught).
+- BROOM: carried brush-down; at the stop he sweeps the ground in front of him left, middle, right.
+- SCRAP: a sheet of rusted tin dragged behind him by one hand, its far end on the ground; at the stop he leans back and tugs.
+- GUARD: a rifle at the low ready in both hands; at the stop he looks down the street one way, then the other.
+The props are models in the scene (a skinned bone each, placed in metres against his body; his hands REACH them, two-bone,
+elbows down and back; a free arm keeps the walk's swing), lit by the one sun, grimed by the rig like everything else. The
+work is written into RUN TWO's own walk sheet layout (`work_sheets`: his still, his walk, then the carrying walk and the
+job's poses; 'walk' names the carrying walk, 'walk_plain' his own, 'work' the stop's loop three keys a beat), so RUN TWO's
+screen plays it with no code: its busyAt already played 'work' columns at a stop. Measured on the real settlement: the
+first battery hauler walks the street with it in his hands; RUN TWO's own gate THE SETTLEMENT IS BUSY 10/0 on the new sheet.
+FOUND BY MY OWN GATE: the hammer's loop went from the follow-through straight back to the wind-up in one key (a jump and a
+jump back); a lift pose sits between them now, and the blow still lands on the beat.
+
 ## [bb idles] HOW BATTLE BROTHERS DID IT
 Battle Brothers spends its pictures on the HIT; a man between turns is essentially still, and on the map there is no
 body at all (reference/library/battle_brothers/10_UI_AND_FEEL.md; records/BOHEMIA_BB_SCHOOL_WHERE_A_BODY_SPENDS_ITS_PICTURES_9_27_26.md).
@@ -136,5 +171,5 @@ people on one seed). 26 passed, 0 failed.
   that stance (the feet never move), so from the side he breathes in a stride. COMBAT's still, named on its board.
 - RUN TWO's rolled people (BOHEMIA_RIG_MIX, [no two people alike], not on main yet): when they land, the settlement and
   the map can play their idles the same way: `pose` and the master rig on each rolled person, a NOTE on RUN TWO's board.
-- The settlement's background people who WORK (rule 131(a)) are RUN TWO's [the settlement is busy]; the work clips are
-  a separate ask (the coordinator's NOTE on this board).
+- The settlement's background people who WORK (rule 131(a)): built this session (THE WORK above). Not built: cooking and
+  trading at a stall (they belong to a place's fixed things, a pot and a stall, not to a walker's hands).
