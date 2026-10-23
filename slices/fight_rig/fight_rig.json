@@ -592,6 +592,771 @@
      17
     ]
    }
+  },
+  "person_anarchists_0": {
+   "file": "person_anarchists_0.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.748,
+   "kind": "person",
+   "ref": "faction_anarchists",
+   "guns": "faction_anarchists_guns.webp",
+   "gang": "anarchists",
+   "rig": "records/target/combat/rig/person_anarchists_0/rig.json"
+  },
+  "person_blues_0": {
+   "file": "person_blues_0.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.722,
+   "kind": "person",
+   "ref": "faction_blues",
+   "guns": "faction_blues_guns.webp",
+   "gang": "blues",
+   "rig": "records/target/combat/rig/person_blues_0/rig.json"
+  },
+  "person_caravans_0": {
+   "file": "person_caravans_0.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.737,
+   "kind": "person",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "gang": "caravans",
+   "rig": "records/target/combat/rig/person_caravans_0/rig.json"
+  },
+  "person_cartel_0": {
+   "file": "person_cartel_0.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.743,
+   "kind": "person",
+   "ref": "faction_cartel",
+   "guns": "faction_cartel_guns.webp",
+   "gang": "cartel",
+   "rig": "records/target/combat/rig/person_cartel_0/rig.json"
+  },
+  "person_church_0": {
+   "file": "person_church_0.webp",
+   "w": 135,
+   "h": 160,
+   "foot": [
+    67,
+    109
+   ],
+   "height_m": 1.749,
+   "kind": "person",
+   "ref": "faction_church",
+   "guns": "faction_church_guns.webp",
+   "gang": "church",
+   "rig": "records/target/combat/rig/person_church_0/rig.json"
+  },
+  "person_colorful_0": {
+   "file": "person_colorful_0.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.767,
+   "kind": "person",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "gang": "colorful",
+   "rig": "records/target/combat/rig/person_colorful_0/rig.json"
+  },
+  "person_homeless_0": {
+   "file": "person_homeless_0.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.728,
+   "kind": "person",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "gang": "homeless",
+   "rig": "records/target/combat/rig/person_homeless_0/rig.json"
+  },
+  "person_mob_0": {
+   "file": "person_mob_0.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.737,
+   "kind": "person",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "gang": "mob",
+   "rig": "records/target/combat/rig/person_mob_0/rig.json"
+  },
+  "person_network_0": {
+   "file": "person_network_0.webp",
+   "w": 150,
+   "h": 165,
+   "foot": [
+    69,
+    112
+   ],
+   "height_m": 1.735,
+   "kind": "person",
+   "ref": "faction_network",
+   "guns": "faction_network_guns.webp",
+   "gang": "network",
+   "rig": "records/target/combat/rig/person_network_0/rig.json"
+  },
+  "person_reds_0": {
+   "file": "person_reds_0.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.772,
+   "kind": "person",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "gang": "reds",
+   "rig": "records/target/combat/rig/person_reds_0/rig.json"
+  },
+  "person_remnants_0": {
+   "file": "person_remnants_0.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.742,
+   "kind": "person",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "gang": "remnants",
+   "rig": "records/target/combat/rig/person_remnants_0/rig.json"
+  },
+  "person_trades_0": {
+   "file": "person_trades_0.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.738,
+   "kind": "person",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "gang": "trades",
+   "rig": "records/target/combat/rig/person_trades_0/rig.json"
+  },
+  "person_volunteers_0": {
+   "file": "person_volunteers_0.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.755,
+   "kind": "person",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "gang": "volunteers",
+   "rig": "records/target/combat/rig/person_volunteers_0/rig.json"
+  },
+  "person_town_0": {
+   "file": "person_town_0.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.732,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_0/rig.json"
+  },
+  "person_anarchists_1": {
+   "file": "person_anarchists_1.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.727,
+   "kind": "person",
+   "ref": "faction_anarchists",
+   "guns": "faction_anarchists_guns.webp",
+   "gang": "anarchists",
+   "rig": "records/target/combat/rig/person_anarchists_1/rig.json"
+  },
+  "person_blues_1": {
+   "file": "person_blues_1.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.735,
+   "kind": "person",
+   "ref": "faction_blues",
+   "guns": "faction_blues_guns.webp",
+   "gang": "blues",
+   "rig": "records/target/combat/rig/person_blues_1/rig.json"
+  },
+  "person_caravans_1": {
+   "file": "person_caravans_1.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.729,
+   "kind": "person",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "gang": "caravans",
+   "rig": "records/target/combat/rig/person_caravans_1/rig.json"
+  },
+  "person_cartel_1": {
+   "file": "person_cartel_1.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.732,
+   "kind": "person",
+   "ref": "faction_cartel",
+   "guns": "faction_cartel_guns.webp",
+   "gang": "cartel",
+   "rig": "records/target/combat/rig/person_cartel_1/rig.json"
+  },
+  "person_church_1": {
+   "file": "person_church_1.webp",
+   "w": 135,
+   "h": 160,
+   "foot": [
+    67,
+    109
+   ],
+   "height_m": 1.728,
+   "kind": "person",
+   "ref": "faction_church",
+   "guns": "faction_church_guns.webp",
+   "gang": "church",
+   "rig": "records/target/combat/rig/person_church_1/rig.json"
+  },
+  "person_colorful_1": {
+   "file": "person_colorful_1.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.722,
+   "kind": "person",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "gang": "colorful",
+   "rig": "records/target/combat/rig/person_colorful_1/rig.json"
+  },
+  "person_homeless_1": {
+   "file": "person_homeless_1.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.735,
+   "kind": "person",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "gang": "homeless",
+   "rig": "records/target/combat/rig/person_homeless_1/rig.json"
+  },
+  "person_mob_1": {
+   "file": "person_mob_1.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.743,
+   "kind": "person",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "gang": "mob",
+   "rig": "records/target/combat/rig/person_mob_1/rig.json"
+  },
+  "person_network_1": {
+   "file": "person_network_1.webp",
+   "w": 150,
+   "h": 165,
+   "foot": [
+    69,
+    112
+   ],
+   "height_m": 1.708,
+   "kind": "person",
+   "ref": "faction_network",
+   "guns": "faction_network_guns.webp",
+   "gang": "network",
+   "rig": "records/target/combat/rig/person_network_1/rig.json"
+  },
+  "person_reds_1": {
+   "file": "person_reds_1.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.735,
+   "kind": "person",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "gang": "reds",
+   "rig": "records/target/combat/rig/person_reds_1/rig.json"
+  },
+  "person_remnants_1": {
+   "file": "person_remnants_1.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.723,
+   "kind": "person",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "gang": "remnants",
+   "rig": "records/target/combat/rig/person_remnants_1/rig.json"
+  },
+  "person_trades_1": {
+   "file": "person_trades_1.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.722,
+   "kind": "person",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "gang": "trades",
+   "rig": "records/target/combat/rig/person_trades_1/rig.json"
+  },
+  "person_volunteers_1": {
+   "file": "person_volunteers_1.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.738,
+   "kind": "person",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "gang": "volunteers",
+   "rig": "records/target/combat/rig/person_volunteers_1/rig.json"
+  },
+  "person_town_1": {
+   "file": "person_town_1.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.741,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_1/rig.json"
+  },
+  "person_anarchists_2": {
+   "file": "person_anarchists_2.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.735,
+   "kind": "person",
+   "ref": "faction_anarchists",
+   "guns": "faction_anarchists_guns.webp",
+   "gang": "anarchists",
+   "rig": "records/target/combat/rig/person_anarchists_2/rig.json"
+  },
+  "person_blues_2": {
+   "file": "person_blues_2.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.725,
+   "kind": "person",
+   "ref": "faction_blues",
+   "guns": "faction_blues_guns.webp",
+   "gang": "blues",
+   "rig": "records/target/combat/rig/person_blues_2/rig.json"
+  },
+  "person_caravans_2": {
+   "file": "person_caravans_2.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.769,
+   "kind": "person",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "gang": "caravans",
+   "rig": "records/target/combat/rig/person_caravans_2/rig.json"
+  },
+  "person_cartel_2": {
+   "file": "person_cartel_2.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.714,
+   "kind": "person",
+   "ref": "faction_cartel",
+   "guns": "faction_cartel_guns.webp",
+   "gang": "cartel",
+   "rig": "records/target/combat/rig/person_cartel_2/rig.json"
+  },
+  "person_church_2": {
+   "file": "person_church_2.webp",
+   "w": 135,
+   "h": 160,
+   "foot": [
+    67,
+    109
+   ],
+   "height_m": 1.753,
+   "kind": "person",
+   "ref": "faction_church",
+   "guns": "faction_church_guns.webp",
+   "gang": "church",
+   "rig": "records/target/combat/rig/person_church_2/rig.json"
+  },
+  "person_colorful_2": {
+   "file": "person_colorful_2.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.766,
+   "kind": "person",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "gang": "colorful",
+   "rig": "records/target/combat/rig/person_colorful_2/rig.json"
+  },
+  "person_homeless_2": {
+   "file": "person_homeless_2.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.733,
+   "kind": "person",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "gang": "homeless",
+   "rig": "records/target/combat/rig/person_homeless_2/rig.json"
+  },
+  "person_mob_2": {
+   "file": "person_mob_2.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.759,
+   "kind": "person",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "gang": "mob",
+   "rig": "records/target/combat/rig/person_mob_2/rig.json"
+  },
+  "person_network_2": {
+   "file": "person_network_2.webp",
+   "w": 150,
+   "h": 165,
+   "foot": [
+    69,
+    112
+   ],
+   "height_m": 1.723,
+   "kind": "person",
+   "ref": "faction_network",
+   "guns": "faction_network_guns.webp",
+   "gang": "network",
+   "rig": "records/target/combat/rig/person_network_2/rig.json"
+  },
+  "person_reds_2": {
+   "file": "person_reds_2.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.741,
+   "kind": "person",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "gang": "reds",
+   "rig": "records/target/combat/rig/person_reds_2/rig.json"
+  },
+  "person_remnants_2": {
+   "file": "person_remnants_2.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.749,
+   "kind": "person",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "gang": "remnants",
+   "rig": "records/target/combat/rig/person_remnants_2/rig.json"
+  },
+  "person_trades_2": {
+   "file": "person_trades_2.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.734,
+   "kind": "person",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "gang": "trades",
+   "rig": "records/target/combat/rig/person_trades_2/rig.json"
+  },
+  "person_volunteers_2": {
+   "file": "person_volunteers_2.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.748,
+   "kind": "person",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "gang": "volunteers",
+   "rig": "records/target/combat/rig/person_volunteers_2/rig.json"
+  },
+  "person_town_2": {
+   "file": "person_town_2.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.752,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_2/rig.json"
+  },
+  "person_town_3": {
+   "file": "person_town_3.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.727,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_3/rig.json"
+  },
+  "person_town_4": {
+   "file": "person_town_4.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.738,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_4/rig.json"
+  },
+  "person_town_5": {
+   "file": "person_town_5.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.723,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_5/rig.json"
+  },
+  "person_town_6": {
+   "file": "person_town_6.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.725,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_6/rig.json"
+  },
+  "person_town_7": {
+   "file": "person_town_7.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.709,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_7/rig.json"
+  },
+  "person_town_8": {
+   "file": "person_town_8.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.733,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_8/rig.json"
+  },
+  "person_town_9": {
+   "file": "person_town_9.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.728,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_9/rig.json"
+  },
+  "person_town_10": {
+   "file": "person_town_10.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.732,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_10/rig.json"
+  },
+  "person_town_11": {
+   "file": "person_town_11.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.714,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_11/rig.json"
   }
  },
  "faces": {
@@ -625,9 +1390,61 @@
    "faction_trades",
    "faction_volunteers",
    "tier_thug",
-   "tier_poacher"
+   "tier_poacher",
+   "person_anarchists_0",
+   "person_blues_0",
+   "person_caravans_0",
+   "person_cartel_0",
+   "person_church_0",
+   "person_colorful_0",
+   "person_homeless_0",
+   "person_mob_0",
+   "person_network_0",
+   "person_reds_0",
+   "person_remnants_0",
+   "person_trades_0",
+   "person_volunteers_0",
+   "person_town_0",
+   "person_anarchists_1",
+   "person_blues_1",
+   "person_caravans_1",
+   "person_cartel_1",
+   "person_church_1",
+   "person_colorful_1",
+   "person_homeless_1",
+   "person_mob_1",
+   "person_network_1",
+   "person_reds_1",
+   "person_remnants_1",
+   "person_trades_1",
+   "person_volunteers_1",
+   "person_town_1",
+   "person_anarchists_2",
+   "person_blues_2",
+   "person_caravans_2",
+   "person_cartel_2",
+   "person_church_2",
+   "person_colorful_2",
+   "person_homeless_2",
+   "person_mob_2",
+   "person_network_2",
+   "person_reds_2",
+   "person_remnants_2",
+   "person_trades_2",
+   "person_volunteers_2",
+   "person_town_2",
+   "person_town_3",
+   "person_town_4",
+   "person_town_5",
+   "person_town_6",
+   "person_town_7",
+   "person_town_8",
+   "person_town_9",
+   "person_town_10",
+   "person_town_11"
   ],
-  "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)"
+  "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
+  "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"
  },
  "guns": {
   "order": [
@@ -685,5 +1502,6 @@
    "firearm": "shotgun"
   },
   "src": "COOK's guns (reference/models/bohemia/gun_*_a.glb) rendered in each look's hands with his body as a holdout, tools/bohemia_combat_the_guns_in_their_hands.py"
- }
+ },
+ "people": "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them"
 }

@@ -393,50 +393,99 @@
    "band": {
     "brigand_thug": [
      "tier_thug",
-     "faction_homeless",
-     "faction_anarchists",
-     "faction_reds",
-     "faction_trades",
-     "faction_caravans"
+     "person_homeless_0",
+     "person_homeless_1",
+     "person_homeless_2",
+     "person_anarchists_0",
+     "person_anarchists_1",
+     "person_anarchists_2",
+     "person_reds_0",
+     "person_reds_1",
+     "person_reds_2",
+     "person_trades_0",
+     "person_trades_1",
+     "person_trades_2",
+     "person_caravans_0",
+     "person_caravans_1",
+     "person_caravans_2"
     ],
     "lower_brigand_raider": [
      "faction_mob",
-     "faction_cartel"
+     "person_mob_0",
+     "person_mob_1",
+     "person_mob_2",
+     "person_cartel_0",
+     "person_cartel_1",
+     "person_cartel_2"
     ],
     "default": [
      "faction_remnants",
-     "faction_network",
-     "faction_volunteers"
+     "person_remnants_0",
+     "person_remnants_1",
+     "person_remnants_2",
+     "person_network_0",
+     "person_network_1",
+     "person_network_2",
+     "person_volunteers_0",
+     "person_volunteers_1",
+     "person_volunteers_2"
     ],
     "brigand_raider": [
      "faction_mob",
-     "faction_cartel"
+     "person_mob_0",
+     "person_mob_1",
+     "person_mob_2",
+     "person_cartel_0",
+     "person_cartel_1",
+     "person_cartel_2"
     ],
     "brigand_marauder": [
      "faction_remnants",
-     "faction_blues"
+     "person_remnants_0",
+     "person_remnants_1",
+     "person_remnants_2",
+     "person_blues_0",
+     "person_blues_1",
+     "person_blues_2"
     ],
     "brigand_leader": [
-     "faction_church"
+     "faction_church",
+     "person_church_0",
+     "person_church_1",
+     "person_church_2"
     ],
     "brigand_marksman": [
      "faction_network",
-     "faction_colorful"
+     "person_network_0",
+     "person_network_1",
+     "person_network_2",
+     "person_colorful_0",
+     "person_colorful_1",
+     "person_colorful_2"
     ],
     "lower_brigand_marksman": [
      "faction_network",
-     "faction_colorful"
+     "person_network_0",
+     "person_network_1",
+     "person_network_2",
+     "person_colorful_0",
+     "person_colorful_1",
+     "person_colorful_2"
     ],
     "brigand_poacher": [
      "tier_poacher",
-     "faction_volunteers",
-     "faction_caravans"
+     "person_volunteers_0",
+     "person_volunteers_1",
+     "person_volunteers_2",
+     "person_caravans_0",
+     "person_caravans_1",
+     "person_caravans_2"
     ]
    }
   },
   "source": "records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md",
   "quote": "I wanna see all my character art that we've worked so hard on doing good work live in the game please even if it's new combat",
-  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft) (10/19, COMBAT [the fight wears the 3D models], rule 121: the thug and the poacher bands lead with COOK THREE's own thug and poacher, modelled with PORTRAIT's head on their own body; the rest of each band wears the gangs' rig models)"
+  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft) (10/19, COMBAT [the fight wears the 3D models], rule 121: the thug and the poacher bands lead with COOK THREE's own thug and poacher, modelled with PORTRAIT's head on their own body; the rest of each band wears the gangs' rig models) (10/23, RUN TWO [no two people alike], rule 121(i), his 'SO MANY OF THE SAME HATS... 2 OPTIONS FOR CUSTOMIZATIONS': after each pool's first look, its gangs' rolled people, each his own mix of CHARACTER's pieces; the fight hands a man the first look nobody on the board wears)"
  },
  "formation_depth_lines": {
   "value": 2,

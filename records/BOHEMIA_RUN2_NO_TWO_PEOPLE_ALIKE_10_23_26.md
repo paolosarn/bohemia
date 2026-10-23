@@ -67,13 +67,31 @@ tools/bohemia_run2_no_two_people_alike.py, nothing drawn new (rule 121(b)):
   keeper lines 48/0, roster and posts 28/0, one man one look 8/0, equip 7/0, no face from a body 23/0, each man his own
   skin 5/0. Four of this lane's source-shape legs re-aimed at the new code, same meaning.
 
-## STILL TO DO IN THIS ROW
+## MEASURED AFTER (the last ship: the layers, the fight and the hall)
 
-- THE LAYERS: CHARACTER [the clothes look real] landed while these rendered (rule 129: layers that show; his trousers,
-  shoes and gear rolled off each person's id). The 152 are rebuilt with it and swapped in place (same files).
-- THE FIGHT AND THE HALL: 51 people (each gang's first three and the hall's twelve) through COMBAT's poses, packed into
-  their gang's cell with their gang's guns (one man measured: the gun sits in his hands as in the gang's own man's); the
-  hall then deals only rolled men the fight can draw. The gate's hall, crew and fight legs land with them.
+- THE LAYERS: all 152 rebuilt with CHARACTER [the clothes look real] (rule 129: the outfit's layers that show, his
+  trousers, shoes and gear off his id, the loud colours down) and swapped in place: towns, map sheets, walk sheets.
+  The rebuild ran 2 h 15 min on 4 cores (a layered man renders in about 5.5 minutes a worker, the old one in 4).
+- THE FIGHT: 51 rolled men (each gang's first three and the places' twelve) on COMBAT's poses, packed into their gang's
+  cell with their gang's guns (YOU's for the places' people): 14 MB of sheets, 246 to 276 KB a man, at most 707 px of
+  a cape outside the cell. The band pools hold their first look and then the gangs' rolled men (the thugs 16 looks, the
+  raiders 7, the leader 4); a board of 4 of yours and 12 of theirs drew 16 different men, 11 of the 12 rolled, every
+  one from his own sheet, with guns and his own face in the fight's strip.
+- THE HALL: the men at the post are rolled men the fight can draw (the places' twelve first), never one already in your
+  company; 4 stand at the post's rail in a town and a tap opens the post on his card; nobody at the post is on the
+  street too.
+- GATES: NO TWO PEOPLE ALIKE 23/0 (its second half landed: the hall, the crew screen, the post, the fight), the fight
+  reads only sourced numbers 10/0, the fight holds the whole grid 17/0, one man one look 8/0, equip 7/0, climbing 15/0,
+  the hire price 10/0, names wired 66/0, the town and the hire 8/0, people of the place 40/0, busy 10/0.
+
+## THE BARBER'S CHAIR (the next row; measured, not built)
+
+Every piece on the 3D man is in the render, not a live model: changing one man's cut is a new render of that man (about
+5.5 minutes for his street pass and 9 for his fight pass on this box). A chair that offers every cut needs one of two
+things: the cuts rendered on HIM in advance (21 cuts x 14.5 minutes, 5 hours for the player alone), or THE HAIR AS ITS
+OWN LAYER over a bald head, rendered once per cut with the head as a holdout the way COMBAT renders a gun in a man's
+hands, and laid over any man at his skull (every rolled man wears PORTRAIT's one starred head; the face dials move the
+face, not the crown). The second is the way; it needs CHARACTER's tool to render a cut alone with the head held out.
 
 ## FOUND ON THE WAY
 
