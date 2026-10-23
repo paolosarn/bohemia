@@ -45485,7 +45485,7 @@ function mapHash(a, b){ var h = (a * 73856093) ^ (b * 19349663); h = (h ^ (h >>>
 var MAP_IDLE_CV = {};
 function mapIdleFrame(set, face, beat, still){
   var B = window.BohemiaIdles; if (!B || !B.ready() || !still) return null;
-  var M = B.meta().map; if (!M) return null;
+  var M = B.map(); if (!M) return null;
   if (set.__look === undefined) { set.__look = null;
     [RIG_CAST, RIG_PEOPLE].forEach(function(S){ for (var k in S.sets) if (S.sets[k] === set) set.__look = k; }); }
   var L = set.__look && M.looks[set.__look]; if (!L) return null;

@@ -88,6 +88,9 @@ ok('S4 MUTATION: left to right in one key is caught', any('lookL to lookR' in x 
 I = json.load(open(IDX)) if os.path.exists(IDX) else None
 ok('P0 the pictures are in (slices/rig_idles/rig_idles.json)', I is not None)
 if I is None: done()
+RI = os.path.dirname(IDX)
+for k in list(I['looks']): I['looks'][k] = json.load(open(os.path.join(RI, I['looks'][k]['json'])))   # each look's cells, its own file
+if I.get('map'): I['map'] = json.load(open(os.path.join(RI, I['map']['json'])))
 F = json.load(open(FR))
 men = [k for k, v in F['looks'].items() if v.get('kind') != 'beast']
 beasts = [k for k, v in F['looks'].items() if v.get('kind') == 'beast']
@@ -191,8 +194,9 @@ if Mp:
 
 # ---------------------------------------------------------------------------------------------------- X the player
 PLAYER = r'''
-const fs = require('fs'); const M = JSON.parse(fs.readFileSync(process.argv[2]));
-global.window = { BOHEMIA_IDLES_BASE: 'x/' }; global.fetch = () => Promise.resolve({ ok: true, json: () => M });
+const fs = require('fs'), path = require('path'), D = path.dirname(process.argv[2]);
+global.window = { BOHEMIA_IDLES_BASE: 'x/' };
+global.fetch = (u) => Promise.resolve({ ok: true, json: () => JSON.parse(fs.readFileSync(path.join(D, u.replace(/^x\//, '')))) });
 const B = require(process.argv[3]); const same = process.argv[4] === 'same';
 if (same) { const h = B.hash; }
 B.load(function () {

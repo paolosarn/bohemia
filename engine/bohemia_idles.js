@@ -26,7 +26,8 @@
                                               where his body hides all of it
      BohemiaIdles.frame(look, seed, now, f, o)   at() and cell() in one: the cell to draw now, or null
      BohemiaIdles.image(file)                 one of the sheets once it is in (null and it starts loading)
-     BohemiaIdles.meta()                      the index ('map': the map's own models, their cells and poses)
+     BohemiaIdles.map()                       the map's own models, their cells and poses, once in (null and it starts loading)
+     BohemiaIdles.meta()                      the index: the timelines, the sets, the idles, which looks have pictures
      BohemiaIdles.DIRS                        S SE E NE N NW W SW */
 (function (root) {
   'use strict';
@@ -46,7 +47,20 @@
     } catch (e) { done(false); }
   }
   function ready() { if (!state) load(); return state === 2; }
-  function has(look) { return ready() && !!META.looks[look]; }
+  /* a look's cells are their own small file, fetched the first time a screen asks for him (the whole cast is 600 KB of
+     numbers; a fight needs a dozen men's) */
+  var DATA = {};
+  function data(name) {
+    var e = DATA[name];
+    if (!e) {
+      e = DATA[name] = { d: null };
+      try { fetch(BASE + name).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { e.d = d; }, function () {}); } catch (x) {}
+    }
+    return e.d;
+  }
+  function look_(look) { var L = ready() && META.looks[look]; return L ? data(L.json) : null; }
+  function has(look) { return !!look_(look); }
+  function map() { return ready() && META.map ? data(META.map.json) : null; }
   /* a small integer hash: the same person, the same numbers, on every screen */
   function hash(a, b) {
     var h = 2166136261 >>> 0, s = String(a) + '|' + (b === undefined ? '' : b);
@@ -98,7 +112,7 @@
   }
   function cell(look, set, pose, f) {
     if (!has(look)) return null;
-    var L = META.looks[look], ps = L.poses[set || 'bare'], col = ps && ps[pose], Sh = L.sheets[set || 'bare'];
+    var L = look_(look), ps = L.poses[set || 'bare'], col = ps && ps[pose], Sh = L.sheets[set || 'bare'];
     if (!col || !Sh) return null;
     var i = col[((f | 0) % 8 + 8) % 8]; if (i === null || i === undefined) return null;
     var img = sheet(Sh.file); if (!img) return null;   /* a set a sheet: only what this screen plays is loaded */
@@ -107,7 +121,7 @@
   }
   function gun(look, g, pose, f) {
     if (!has(look)) return null;
-    var G = META.looks[look].guns; if (!G || !G.poses[g] || !G.poses[g][pose]) return null;
+    var G = look_(look).guns; if (!G || !G.poses[g] || !G.poses[g][pose]) return null;
     var i = G.poses[g][pose][((f | 0) % 8 + 8) % 8];
     if (i === null) return { hidden: true };   /* his body hides the whole gun in this facing: nothing to lay over him */
     if (i === undefined) return null;
@@ -122,7 +136,7 @@
     c.kind = a.kind; c.pose = a.pose; return c;
   }
   root.BohemiaIdles = { load: load, ready: ready, has: has, at: at, cell: cell, gun: gun, frame: frame, hash: hash, DIRS: DIRS,
-    image: sheet,
+    image: sheet, map: map,
     meta: function () { return META; } };
   if (typeof module !== 'undefined') module.exports = root.BohemiaIdles;
 })(typeof window !== 'undefined' ? window : this);

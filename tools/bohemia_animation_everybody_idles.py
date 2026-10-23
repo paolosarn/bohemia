@@ -425,7 +425,9 @@ def pack_map(index):
     im = Image.new('RGBA', (W, y + sh), (0, 0, 0, 0))
     for i, (a, _, _) in enumerate(imgs): im.paste(Image.fromarray(a, 'RGBA'), (rects[i][0], rects[i][1]))
     im.save(os.path.join(ROOT, OUT, 'map.webp'), 'WEBP', lossless=True, quality=100, method=6)
-    index['map'] = dict(file='map.webp', cells=rects, looks=out, sets=dict(gangs='BOHEMIA_RIG_CAST', people='BOHEMIA_RIG_PEOPLE'))
+    json.dump(dict(file='map.webp', cells=rects, looks=out, sets=dict(gangs='BOHEMIA_RIG_CAST', people='BOHEMIA_RIG_PEOPLE')),
+              open(os.path.join(ROOT, OUT, 'map.json'), 'w'), separators=(',', ':'))
+    index['map'] = dict(json='map.json')
     print('PACKED map', im.size, os.path.getsize(os.path.join(ROOT, OUT, 'map.webp')), len(out), 'looks', flush=True)
 
 
@@ -632,7 +634,8 @@ def pack():
             gim, grects = atlas(gimgs, 1024)
             gim.save(os.path.join(ROOT, OUT, look + '_guns.webp'), 'WEBP', lossless=True, quality=100, method=6)
             entry['guns'] = dict(file=look + '_guns.webp', cells=grects, poses=gcells)
-        index['looks'][look] = entry
+        json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))   # a look's cells, fetched only by a screen that draws him
+        index['looks'][look] = dict(json=look + '.json')
         print('PACKED', look, {k: v['size'] for k, v in entry['sheets'].items()}, 'guns', gimgs and gim.size, flush=True)
     pack_map(index)
     json.dump(index, open(os.path.join(ROOT, OUT, 'rig_idles.json'), 'w'), separators=(',', ':'))
