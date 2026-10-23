@@ -414,7 +414,95 @@ def build(bpy, gid_full, seed, quick=False):
     h = co.reshape(g.shape[0], g.shape[1], 3)[..., 2] if co.size == g.shape[0] * g.shape[1] * 3 else np.zeros(g.shape, np.float32)
     junk, fires, counts = litter(bpy, g, h, houses, seed + 77)
     LEDGER['fires'] = fires; LEDGER['junk'] = counts
+    if OPEN_KEEP.get('bid') == bid:                             # 10/23: the open ground's bushes and fences, as things
+        junk += open_things(bpy, g, h, seed + 91)
     return objs + junk, g
+
+
+# ---- 10/23: THE OPEN GROUND IS THE PLAN, NOT THE OLD PICTURE ------------------------------------------------------------
+# The plan's `keep` (the shipped pixel still equals COMBAT TWO's maker) is how the floor tool tells ground it may rebuild
+# from a pixel a later round painted. On the open blocks it now says almost nothing: COOK TWO's 10/19 recolour (his
+# 'camouflage' NO) moved every desert pixel off the maker's orange, so keep is 2.6% of scrub.1 and 15% of lots.0, and the
+# compose laid the render on that 2.6% and the OLD FLAT PICTURE everywhere else (measured 10/23: scrub.1 came back
+# byte-identical to the old block, and lots.0, swapped 10/22, is 87% its old pixels). On these kinds nothing was painted
+# over the maker but the recolour, so the plan's grounds are the truth: every pixel is the render. What the maker drew
+# that is not ground becomes a thing: each cluster of its shrub dots a creosote bush (a dusty olive mound of leaf lumps on
+# its dark stems, its footprint the cluster's), each run of its fence wire on the desert kinds a ranch fence (posts every
+# 2.4 m, three strands); the rest (the freeway's patches, the wash's bank line) is the nearest ground.
+OPEN_KINDS = ('scrub', 'wash', 'scrubroad', 'freeway', 'freewayo', 'lots')
+OPEN_KEEP = {}
+
+
+def open_plan(bid, gid, ship):
+    from scipy import ndimage
+    a = ship.astype(np.int16); no = gid == 255
+    lumv = a.mean(2); sat = a.max(2) - a.min(2)
+    green = no & (a[..., 1] > a[..., 0] + 12) & (a[..., 1] > a[..., 2] + 4)
+    lab, n = ndimage.label(ndimage.binary_dilation(green, iterations=9))
+    bushes = []
+    for i, sl in enumerate(ndimage.find_objects(lab)):
+        m = (lab[sl] == i + 1) & green[sl]
+        if m.sum() < 25: continue
+        ys, xs = np.nonzero(m); y0, y1, x0, x1 = ys.min() + sl[0].start, ys.max() + sl[0].start, xs.min() + sl[1].start, xs.max() + sl[1].start
+        w = float(np.clip((x1 - x0) / F.PPM, 0.5, 2.6)); d = float(np.clip((y1 - y0) / (F.PPM * 0.7071), 0.4, 2.0))
+        bushes.append(((x0 + x1) / 2 / F.PPM, F.SIDE * (1 - (y0 + y1) / 2 / F.H), w, d))
+    wire = no & ~green & (lumv < 85) & (sat < 16)
+    lab, n = ndimage.label(ndimage.binary_closing(wire, iterations=3))
+    fences = []
+    for i, sl in enumerate(ndimage.find_objects(lab) if bid.split('.')[0] in ('scrub', 'scrubroad', 'wash') else []):
+        hh, ww = sl[0].stop - sl[0].start, sl[1].stop - sl[1].start
+        if ww >= 40 and ww >= 4 * hh:                          # a run of wire across the picture (east-west, as the maker draws it)
+            fences.append((sl[1].start / F.PPM, sl[1].stop / F.PPM, F.SIDE * (1 - sl[0].stop / F.H)))
+    OPEN_KEEP.clear(); OPEN_KEEP.update(bid=bid, bushes=bushes, fences=fences)
+    LEDGER['open'] = dict(bushes=len(bushes), fences=len(fences), not_ground_px=int(no.sum()))
+
+
+def srgb_mat(bpy, name, rgb, role='clay_teal'):
+    m = bpy.data.materials.new('junk_' + name); m.use_nodes = True
+    b = m.node_tree.nodes['Principled BSDF']
+    b.inputs['Base Color'].default_value = tuple(((c / 255.0) / 12.92 if c <= 10 else ((c / 255.0 + 0.055) / 1.055) ** 2.4) for c in rgb) + (1,)
+    b.inputs['Roughness'].default_value = 1.0; b.inputs['Specular IOR Level'].default_value = 0.0
+    m['palette_role'] = role; m['palette_step'] = 1
+    return m
+
+
+def open_things(bpy, g, h, seed):
+    rng = np.random.RandomState(seed); STEP = F.STEP; SIDE = F.SIDE; ny, nx = g.shape
+    def z_at(x, y):
+        c = int(round((x + 1.0) / STEP)); r = int(round(((SIDE + 1.0) - y) / STEP))
+        return float(h[min(max(r, 0), ny - 1), min(max(c, 0), nx - 1)])
+    ico_v, ico_f = F.ico(bpy); lump = (ico_v * 0.5 + np.array([0, 0, 0.5], np.float32), ico_f); box = (CUBE_V, CUBE_F)
+    leaf_a, leaf_b, stems = [], [], []
+    for (x, y, w, d) in OPEN_KEEP.get('bushes', []):
+        z0 = z_at(x, y); top = float(np.clip(0.55 * max(w, d) + rng.uniform(-0.1, 0.25), 0.45, 1.5))
+        for k in range(rng.randint(3, 6)):                     # the stems, splayed out of one crown
+            a_ = rng.uniform(0, 6.3); L_ = top * rng.uniform(0.6, 0.95)
+            stems.append((x + math.cos(a_) * 0.12, y + math.sin(a_) * 0.12, z0, 0.035, 0.035, L_, a_, rng.uniform(0.2, 0.55)))
+        for k in range(int(np.clip(w * d * 26, 14, 48))):      # the leaf lumps: many and small, an airy crown, never a ball
+            u, v = rng.uniform(-1, 1), rng.uniform(-1, 1)
+            if u * u + v * v > 1: continue
+            s_ = rng.uniform(0.1, 0.2) * max(w, d) + 0.06
+            zz = z0 + top * rng.uniform(0.15, 0.95) * (1.0 - 0.35 * (u * u + v * v)) - s_ * 0.4
+            (leaf_a if rng.rand() < 0.55 else leaf_b).append((x + u * w * 0.45, y + v * d * 0.45, zz, s_, s_ * rng.uniform(0.8, 1.1), s_ * rng.uniform(0.6, 0.85), rng.uniform(0, 6.3), 0.0))
+    posts, wires = [], []
+    for (x0, x1, y) in OPEN_KEEP.get('fences', []):
+        n = max(1, int(round((x1 - x0) / 2.4)))
+        xs = [x0 + (x1 - x0) * k / n for k in range(n + 1)]
+        for x in xs:
+            posts.append((x + rng.uniform(-0.1, 0.1), y, z_at(x, y) - 0.05, 0.1, 0.1, rng.uniform(1.15, 1.3), rng.uniform(-0.2, 0.2), rng.uniform(-0.06, 0.06)))
+        for k in range(n):
+            if rng.rand() < 0.15: continue                     # a span cut and gone
+            xm = (xs[k] + xs[k + 1]) / 2; zg = z_at(xm, y)
+            for zz in (0.45, 0.75, 1.05):
+                wires.append((xm, y - 0.06, zg + zz - rng.uniform(0, 0.08), xs[k + 1] - xs[k], 0.025, 0.025, rng.uniform(-0.01, 0.01), 0.0))
+    M = dict(leaf_a=srgb_mat(bpy, 'creosote_a', (78, 84, 52)), leaf_b=srgb_mat(bpy, 'creosote_b', (58, 64, 42)),
+             stem=material(bpy, 'creosote_stem', 'clay_rust', 0, 0.9), post=material(bpy, 'fence_post', 'clay_bone', 1),
+             wire=material(bpy, 'fence_wire', 'tape_grey', 1))
+    out = [instances(bpy, 'junk_bush_stems', box, stems, M['stem'], 0.0, rng), instances(bpy, 'junk_bush_a', lump, leaf_a, M['leaf_a'], 0.7, rng),
+           instances(bpy, 'junk_bush_b', lump, leaf_b, M['leaf_b'], 0.7, rng), instances(bpy, 'junk_fence_posts', box, posts, M['post'], 0.0, rng),
+           instances(bpy, 'junk_fence_wire', box, wires, M['wire'], 0.0, rng)]
+    LEDGER['open_things'] = dict(bushes=len(OPEN_KEEP.get('bushes', [])), leaf_lumps=len(leaf_a) + len(leaf_b), fence_posts=len(posts))
+    return [o for o in out if o is not None]
 
 
 def laf(sc, A):
@@ -444,6 +532,12 @@ def load_plan(bid):
         slab = slab | (sm & (gid == 255) & (sat < 30))
         gid = gid.copy(); gid[slab] = F.ID['concrete']; ground = ground | slab
         LEDGER['slab_px'] = int(slab.sum())
+    if bid.split('.')[0] in OPEN_KINDS:                       # 10/23: the plan is the truth on the open blocks (OPEN_KINDS above)
+        open_plan(bid, gid, ship)
+        lum = lum.copy(); lum[gid == 255] = 255
+        ground = np.ones_like(ground)
+    else:
+        OPEN_KEEP.clear()
     return gid, ground, lum, ship, kit
 
 

@@ -17,6 +17,7 @@ rig (cook_cover_rig); nothing here moves a tile.
 
   <venv>/bin/python tools/bohemia_cook_the_odd_blocks_through_the_rig_10_22_26.py <block> ...   (about 5 min a block)
   <venv>/bin/python tools/bohemia_cook_the_floor_not_final_10_20_26.py --swap <block> ...
+  <venv>/bin/python tools/bohemia_cook_the_odd_blocks_through_the_rig_10_22_26.py <reclaimed|raided> <block> ...   (10/23: the futures)
 
 REFERENCE CHECK (the 9/4 standing duty): the old blocks are the twins (where the water is, where each piece of trash lay,
 the carpet's colour); real places: Lake Mead's bathtub-ring shore at low water, the Apex landfill's working cells, an
@@ -199,5 +200,8 @@ F.build = build
 if __name__ == '__main__':
     a = sys.argv[1:]
     if not os.path.exists(os.path.join(NF.ORIG, 'fight_ground.json')): NF.orig()
-    for b in a: NF.render(b)
+    if a and a[0] in ('reclaimed', 'raided'):                              # 10/23: the odd blocks' futures, the futures tool's render
+        for b in a[1:]: FU.render(a[0], b)
+    else:
+        for b in a: NF.render(b)
     sys.stdout.flush(); os._exit(0)
