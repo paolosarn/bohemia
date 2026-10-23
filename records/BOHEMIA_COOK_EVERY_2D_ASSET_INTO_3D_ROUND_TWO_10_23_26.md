@@ -13,9 +13,8 @@ handoff block; this one carries it.
 
 ## THE COUNT
 
-193 at the start of this round. THE MAP (69 of 69), THE SETTLEMENT BACKDROPS (14 of 14), THE COVER (51 of 51), THE ICONS
-(18 of 18) and THE LIGHTS (4 of 4) are all 3D. What is left is the fight floor's present-day blocks (rendering, one
-every 7 to 20 minutes) and their 70 futures. The live number is the inventory's `total_flat`.
+193 at the start of this round, 0 at its end. THE MAP (69 of 69), THE SETTLEMENT BACKDROPS (14 of 14), THE COVER (51 of
+51), THE ICONS (18 of 18), THE LIGHTS (4 of 4), THE FIGHT FLOOR (35 of 35) and ITS FUTURES (70 of 70) are all 3D.
 
 ## WHAT WENT IN, FAMILY BY FAMILY
 
@@ -116,9 +115,10 @@ inventory's in_3d list is the live record). Things the looking caught on the way
 ALL 35 PRESENT-DAY BLOCKS ARE 3D (10/23 10:40). On the real fight (`BOHEMIA_FIGHT.html` on the driver's phone profile,
 seed 1), the casino, freeway and landfill boards played with 0 page errors on the new ground.
 
-### The futures
+### The futures (70 of 70)
 
-`tools/bohemia_cook_the_futures_through_the_rig_10_22_26.py`: the same 3D scene as the present day, grown (reclaimed) or
+`tools/bohemia_cook_the_futures_through_the_rig_10_22_26.py` (24 adaptive samples, not the present day's 32: a future is
+seen only where a place has fallen or been reclaimed): the same 3D scene as the present day, grown (reclaimed) or
 fallen (raided). What the looking caught: the SOLAR PANELS took the houses' 0.6 wear and came out pale grey squares
 (glass on a dark cell now, out of the houses' wear, never on a chimney, a flue or a cooler, softer glass so the sun is not
 a white dot in every panel); the BEDS went into the gutter on a shallow front yard (only on open ground now, else the
@@ -177,4 +177,125 @@ and tried again. The worker restarted once mid-round; the queues were restarted 
 
 ## THE LOG
 
-(the inventory's own log)
+THE COUNT IS ZERO (10/23 15:48): 261 flat pictures on 10/20, 193 at this round's start, 0 now. Every picture the
+demo's map, fight and settlement screen draw (measured in round one) is a render through the rig: the map's 69 district
+pictures, the settlement's 14 backdrops, the fight's 35 floor blocks and their 70 futures, its 51 cover pieces and 4
+lights, the market's 18 icons. The inventory's own log, one line per step where the count moved:
+
+- 10/20 start: 261
+- 10/20 the suburb's first two blocks grimier, the first sixteen cover pieces: 243
+- 10/20 the cover, most of it: 250
+- 10/20 all the cover and the lights: 205
+- 10/20 corner.0, the slot glow: 203
+- 10/22 COOK: ten item icons through the rig (the cans, the rounds, the water, the med case, the anvil, the armourer's bench, the machete, the cleaver, : 193
+- 10/23 the eight long weapons' icons as icons (turned hafts, heads at 1.5 to 1.7x with a ground edge, the flail's chain and ball, the Molotov's rag; th: 185
+- 10/23 corner.1 (the first board's crossroads) into the fight: 184
+- 10/23 rubble_11, the last cover piece, and all twelve rubble heaps given a body (a mound of fines, the lumps through it: they hovered over their shado: 183
+- 10/23 subs.2 into the fight: 182
+- 10/23 subs.1 into the fight: 181
+- 10/23 the map's first fifteen districts through the rig (the mountain first): 165
+- 10/23 the settlement screen's town (day and night) through the rig: 164
+- 10/23 ruin.0 into the fight: 163
+- 10/23 scrub.0 into the fight (the open fix's first block): 162
+- 10/23 the settlement's second town (day and night): 160
+- 10/23 the map's next twenty districts through the rig: 140
+- 10/23 the home block (day and night): 138
+- 10/23 ruin.1 into the fight: 137
+- 10/23 the camp (day and night): 135
+- 10/23 strip.0 into the fight: 132
+- 10/23 strip.1 into the fight: 131
+- 10/23 the map: 57 districts re-finished (the pull to his colours at 0.15, the bank indexed by hue family): 106
+- 10/23 wash.1 into the fight: 105
+- 10/23 wash.0 and the fortress (day and night): 102
+- 10/23 the map's last nine (the water districts) and three re-done: all 69 districts in 3D: 93
+- 10/23 works.0 into the fight: 92
+- 10/23 the second fortress (day and night): every settlement backdrop in 3D: 90
+- 10/23 corner.2 into the fight: 89
+- 10/23 scrub.1 into the fight: 88
+- 10/23 scrub.2 into the fight: 87
+- 10/23 subs.1 reclaimed (the first future in 3D): 86
+- 10/23 main.0 into the fight: 85
+- 10/23 main.1 into the fight: 84
+- 10/23 landfill.0 and subs.2 reclaimed: 82
+- 10/23 landfill.1 into the fight: 81
+- 10/23 subs.0 reclaimed: 80
+- 10/23 subs.3 reclaimed: 79
+- 10/23 culdesac.0 into the fight: 78
+- 10/23 corner.0 reclaimed: 77
+- 10/23 culdesac.1 into the fight: 76
+- 10/23 corner.1 reclaimed: 75
+- 10/23 suburb_stem.0 into the fight: 74
+- 10/23 corner.2 reclaimed: 73
+- 10/23 lots.0 reclaimed: 72
+- 10/23 suburb_stem.1 into the fight: 71
+- 10/23 ruin.0 reclaimed: 70
+- 10/23 scrubroad.0 into the fight: 69
+- 10/23 ruin.1 reclaimed: 68
+- 10/23 scrubroad.1 into the fight: 67
+- 10/23 subs.0 raided: 66
+- 10/23 shore.0 into the fight: 65
+- 10/23 strip.0 reclaimed: 64
+- 10/23 shore.1 into the fight: 63
+- 10/23 subs.1 raided: 62
+- 10/23 freeway.0 into the fight: 61
+- 10/23 subs.2 raided: 60
+- 10/23 freewayo.0 into the fight: 59
+- 10/23 casino.0 into the fight: 58
+- 10/23 works.0 reclaimed: 57
+- 10/23 strip.1 reclaimed: 56
+- 10/23 casino.1 into the fight: 55
+- 10/23 scrub.0 reclaimed: 54
+- 10/23 scrub.1 reclaimed: 53
+- 10/23 casino.2 into the fight: 52
+- 10/23 wash.0 reclaimed: 51
+- 10/23 wash.1 reclaimed: 50
+- 10/23 subs.3 raided: 49
+- 10/23 corner.0 raided: 48
+- 10/23 corner.1 raided: 47
+- 10/23 corner.2 raided: 46
+- 10/23 lots.0 raided: 45
+- 10/23 ruin.0 raided: 44
+- 10/23 ruin.1 raided: 43
+- 10/23 strip.0 raided: 42
+- 10/23 strip.1 raided: 41
+- 10/23 works.0 raided: 40
+- 10/23 scrub.0 raided: 39
+- 10/23 scrub.1 raided: 38
+- 10/23 wash.0 raided: 37
+- 10/23 wash.1 raided: 36
+- 10/23 main.0 reclaimed: 35
+- 10/23 main.1 reclaimed: 34
+- 10/23 culdesac.0 reclaimed: 33
+- 10/23 culdesac.1 reclaimed: 32
+- 10/23 suburb_stem.0 reclaimed: 31
+- 10/23 suburb_stem.1 reclaimed: 30
+- 10/23 scrubroad.0 reclaimed: 29
+- 10/23 scrubroad.1 reclaimed: 28
+- 10/23 landfill.0 reclaimed: 27
+- 10/23 landfill.1 reclaimed: 26
+- 10/23 freeway.0 reclaimed: 25
+- 10/23 freewayo.0 reclaimed: 24
+- 10/23 shore.0 reclaimed: 23
+- 10/23 shore.1 reclaimed: 22
+- 10/23 casino.0 reclaimed: 21
+- 10/23 casino.1 reclaimed: 20
+- 10/23 casino.2 reclaimed: 19
+- 10/23 main.0 raided: 18
+- 10/23 main.1 raided: 17
+- 10/23 culdesac.0 raided: 16
+- 10/23 culdesac.1 raided: 15
+- 10/23 suburb_stem.0 raided: 14
+- 10/23 suburb_stem.1 raided: 13
+- 10/23 scrubroad.0 raided: 12
+- 10/23 scrubroad.1 raided: 11
+- 10/23 landfill.0 raided: 10
+- 10/23 landfill.1 raided: 9
+- 10/23 freeway.0 raided: 8
+- 10/23 freewayo.0 raided: 7
+- 10/23 shore.0 raided: 6
+- 10/23 shore.1 raided: 5
+- 10/23 casino.0 raided: 4
+- 10/23 casino.1 raided: 3
+- 10/23 casino.2 raided: 2
+- 10/23 scrub.2 reclaimed: 1
+- 10/23 scrub.2 raided: 0
