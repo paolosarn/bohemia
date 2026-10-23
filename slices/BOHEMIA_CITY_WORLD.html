@@ -45178,11 +45178,18 @@ function rigMixFor(group, key, i, peek){
   if (!L.length) return null;
   if (peek) return rigSheetSet(at[L[0]], L[0]);   /* 'is anybody in yet': a question, not a person on the screen */
   var used = RIG_MIX.now.used, seat = RIG_MIX.seats[key];
+  /* a crowd that has used up the places' people borrows from a gang whose sheet is already in for its parties: a man in
+     a crowd may wear his gang's colours, and no sheet is fetched for a crowd alone */
+  var M = L;
+  if (group === 'town') Object.keys(RIG_MIX.sheets).forEach(function(n){ var S = RIG_MIX.sheets[n];
+    if (S.state === 2 && names.indexOf(n) < 0) S.meta.gangs.forEach(function(l){ if (!at[l]) { at[l] = S; M = M === L ? L.slice() : M; M.push(l); } }); });
   if (!seat || used[seat] || !at[seat]) {
     seat = null;
     var k0 = ((i % L.length) + L.length) % L.length;
     for (var pass = 0; pass < 2 && !seat; pass++)
       for (var t = 0; t < L.length; t++) { var c = L[(k0 + t) % L.length]; if (!used[c] && (pass || !RIG_MIX.last[c])) { seat = c; break; } }
+    for (var pass2 = 0; pass2 < 2 && !seat; pass2++)
+      for (var t2 = L.length; t2 < M.length; t2++) { var c2 = M[t2]; if (!used[c2] && (pass2 || !RIG_MIX.last[c2])) { seat = c2; break; } }
     seat = seat || L[k0];
     RIG_MIX.seats[key] = seat;
   }

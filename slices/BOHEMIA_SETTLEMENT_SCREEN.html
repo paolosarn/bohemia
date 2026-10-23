@@ -1092,7 +1092,9 @@ function recruitLooks(key, n){
   var deal = function(L){ return L.map(function(p){ return {l:p.look, k:seedOf(key + ':' + p.look)}; }).sort(function(a, b){ return a.k - b.k; }).map(function(x){ return x.l; }); };
   var pool = deal(ready.filter(function(p){ return p.gang === 'town'; })).concat(deal(ready.filter(function(p){ return p.gang !== 'town'; })))
     .filter(function(l){ return !mine[l]; });
-  for(var q = 0; q < n; q++) out.push(pool.length ? pool[q % pool.length] : 'cast_' + CAST12[seedOf(key + ':look:' + q) % 12]);
+  /* more men at the post than rolled men ready: the rest are the cast looks, each once */
+  var cast = CAST12.map(function(c){ return 'cast_' + c; }).filter(function(l){ return !mine[l]; });
+  for(var q = 0; q < n; q++) out.push(q < pool.length ? pool[q] : cast.length ? cast[(q - pool.length) % cast.length] : pool[q % Math.max(1, pool.length)] || 'cast_' + CAST12[q % 12]);
   return out;
 }
 var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['butcher_s_cleaver','leather_wraps'], brawler:[null,'sackcloth'],
