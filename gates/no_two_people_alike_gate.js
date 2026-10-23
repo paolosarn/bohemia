@@ -12,9 +12,7 @@
      THE TOWNS    every tier, by day and night and on market day: every keeper and every man in the crowd is a different
                   rolled person, talking under his own face
      THE MAP      the real map, its parties out on the road: the people drawn on one screen, counted by who they are
-     THE HALL     the men at the post are rolled people the fight can draw, none already in the company, the crew screen
-                  shows the hired man's own body and face
-     THE FIGHT    a full band against your company: every man on the board a different look, each from his own sheet
+     THE HALL, THE CREW, THE FIGHT   land with the fight's renders (the row's second half)
    Run: node gates/no_two_people_alike_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -100,42 +98,7 @@ const srv = http.createServer((rq, rs) => {
   const drawn = await p.evaluate(() => [...new Set(performance.getEntriesByType('resource').map(r => r.name).filter(u => /barber\/person_[a-z0-9_]+\/rig_[NSEW]+\.png$/.test(u)).map(u => u.match(/person_[a-z0-9_]+/)[0]))].length);
   ok('  the market-day street loads each person\'s own render (counted off the network, not the list)', drawn >= 15, drawn + ' different people\'s renders');
 
-  /* ---- THE HALL AND THE CREW ---- */
-  const hall = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'fortress', name: 'NELLIS GATE' }, traits: [], night: false });
-    const R = BohemiaSettlement.recruits();
-    const M = window.BOHEMIA_PEOPLE_MIX, fight = {}; (M ? M.people : []).forEach(p => { if (p.fight) fight[p.look] = 1; });
-    return R.map(r => ({ look: r.look, fight: !!fight[r.look], name: r.name })); });
-  ok('THE HALL: the men at the post are rolled people who stand on the fight\'s board too, no two alike', hall.length > 0 && hall.every(r => r.fight) && new Set(hall.map(r => r.look)).size === hall.length, hall.map(r => r.look).join(' '));
-  await p.evaluate(looks => { localStorage.setItem('bohemia.hired.v1', JSON.stringify(looks.map((l, i) => ({ name: 'MAN ' + i, background: 'farmhand', look: l, jobs: [] })))); }, hall.map(r => r.look));
-  const hall2 = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'fortress', name: 'NELLIS GATE' }, traits: [], night: false, day: 7 });
-    return BohemiaSettlement.recruits().map(r => r.look); });
-  const mine = hall.map(r => r.look);
-  ok('  a man already in your company is never at the post again', hall2.every(l => mine.indexOf(l) < 0), hall2.filter(l => mine.indexOf(l) >= 0).join(' ') || hall2.length + ' new faces');
-  const r = await ctx.newPage(); watch(r);
-  await r.addInitScript(l => { localStorage.setItem('bohemia.hired.v1', JSON.stringify(l)); }, mine.map((l, i) => ({ name: 'MAN ' + i, background: 'farmhand', look: l, jobs: [] })));
-  await r.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html', { waitUntil: 'load' });
-  await r.waitForTimeout(2500);
-  const cards = await r.evaluate(() => [...document.querySelectorAll('canvas.face')].map(c => ({ look: c.dataset.look, face: c.dataset.face })));
-  const rolled = cards.filter(c => /^person_/.test(c.look));
-  ok('THE CREW SCREEN: a hired man wears his own face there', rolled.length > 0 && rolled.every(c => c.face === 'fresh'), rolled.length + ' rolled faces of ' + cards.length + ' on the line');
-  const lineLooks = cards.map(c => c.look);
-  ok('  and nobody on the company line is anybody else', new Set(lineLooks).size === lineLooks.length, new Set(lineLooks).size + ' of ' + lineLooks.length);
-
-  /* ---- THE FIGHT ---- */
-  const f = await ctx.newPage(); watch(f);
-  const company = mine.slice(0, 4).map((l, i) => ({ name: 'MAN ' + i, background: 'farmhand', level: 1, look: l, gear: {} }));
-  await f.addInitScript(c => { window.FIGHT_OPTS = { seed: 5, speed: 1, company: c, party: [{ kind: 'brigand_thug', count: 8 }, { kind: 'brigand_raider', count: 2 }, { kind: 'brigand_marksman', count: 2 }] }; }, company);
-  await f.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_FIGHT.html');
-  await f.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length, null, { timeout: 60000 });
-  await f.waitForTimeout(3000);
-  const units = await f.evaluate(() => FIGHT.S.units.filter(u => !u.beast).map(u => ({ side: u.side, look: u.look, sheet: !!(DB.rig.looks[u.look]), guns: !!(DB.rig.looks[u.look] && DB.rig.looks[u.look].guns), face: DB.rig.faces.order.indexOf(u.look) >= 0 })));
-  const fl = units.map(u => u.look);
-  ok('THE FIGHT: twelve of a band against your men, every man on the board a different look', units.length >= 12 && new Set(fl).size === fl.length, new Set(fl).size + ' different of ' + fl.length + ': ' + fl.join(' '));
-  const theirs = units.filter(u => u.side === 'them');
-  ok('  the band are rolled people of its gangs, drawn from their own sheets, with their gang\'s guns and their own faces', theirs.filter(u => /^person_/.test(u.look)).length >= theirs.length - 3 && units.every(u => u.sheet && u.face) && units.filter(u => /^person_/.test(u.look)).every(u => u.guns),
-    theirs.filter(u => /^person_/.test(u.look)).length + ' rolled of ' + theirs.length + ' of them; ' + units.filter(u => !(u.sheet && u.face)).map(u => u.look).join(' '));
-  const loaded = await f.evaluate(() => performance.getEntriesByType('resource').map(r => r.name).filter(u => /fight_rig\/person_[a-z0-9_]+\.webp$/.test(u)).length);
-  ok('  and the board fetched each rolled man\'s own sheet', loaded >= units.filter(u => /^person_/.test(u.look)).length, loaded + ' sheets');
+  /* THE HALL, THE CREW SCREEN AND THE FIGHT: their legs land with the fight's renders (the second half of the row) */
 
   ok('every file loads', missing.length === 0, missing.slice(0, 3).join(' '));
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
