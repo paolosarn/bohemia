@@ -141,6 +141,41 @@ first battery hauler walks the street with it in his hands; RUN TWO's own gate T
 FOUND BY MY OWN GATE: the hammer's loop went from the follow-through straight back to the wind-up in one key (a jump and a
 jump back); a lift pose sits between them now, and the blow still lands on the beat.
 
+## THE FIGHT'S ROLLED MEN (session two, after RUN TWO put 51 on the board mid-round)
+RUN TWO [no two people alike] shipped the fight and the hall while this round rendered: 51 rolled men on COMBAT's board,
+each packed into his gang's cell by his ground pixel with his gang's guns. They arrived standing like chess pieces (the
+fight's block refused their street-frame cells, by design). Each now has GUN-HELD idles: the carry set (COMBAT's low ready,
+imported) laid on his own model, rendered at the street's settings, cut into his gang's cell by the same ground pixel, in
+his fight sheet's colours with its one-pixel rim, and his gang's gun-held idle guns in his hands (the same skeleton, poses
+and cell RUN TWO relied on for his gun sheet); his bare idles are his street sheet's very cells, moved into the fight cell
+(no second picture). slices/rig_idles/fight_person_<id>.json; the fight's block reads 'fight_<look>' first. Looked at beside
+his own fight sheet's carry cell: the same feet, the rifle in his hands, the gun checked in his idle.
+
+## THE NUMBERS, END OF THE ROUND
+- THE ROLLED PEOPLE: 150 of RUN TWO's 152 idle in the towns (keepers, crowd, the men at the post), on the crew card and on
+  the map; the 2 left keep their still (below). 114 of the 116 walkers carry their job and work it at their stops.
+  50 of the 51 fight men idle with their guns.
+- THE CAST, THE GANGS, THE BEASTS (session one): the fight's 28 men and 3 beasts, the map's 17 own models.
+- BYTES: slices/rig_idles 68 MB (539 files: a man's bare sheet about 220 KB, his map cells about 75 KB inside his map
+  sheet's, a fight man's gun-held sheet about 150 KB), slices/rig_walk 16 MB (a walker's sheet about 150 KB with his work,
+  was about 75). Every sheet is fetched only when a screen draws that man.
+- RENDER: about 320 passes on this box's four cores (152 men's idles at 240 pictures each, 116 walkers' work at about 90,
+  51 fight men's gun-held idles at 168), 07:04 to 20:30, shipped to main in batches about every hour, the gate green at
+  every push.
+- GATE: EVERYBODY IDLES 41/0 (S source, P pictures, C not a chess piece, F feet, M map, R rolled people, K work, X player,
+  W wired and on the real fight, the real settlement and the real map).
+
+## THE TWO WHO KEEP THEIR STILL, MEASURED
+person_blues_1 and person_blues_4: built again from main (twice, the same result), their trousers come out darker than
+the stills RUN TWO committed (colour step 6.4 and 6.8 against the 4 allowed; silhouette 0.999). CHARACTER's builder moved
+after those two were rendered; an idle in other trousers would be a different man, so both keep RUN TWO's still and walk
+sheet (the packer puts RUN TWO's own sheet back, byte for byte as its tool makes it). When RUN TWO renders them again, one
+run of this tool gives them theirs. A NOTE on RUN TWO's board says so.
+
+## A CONTAINER RESTART, AND WHAT IT COST
+The container restarted once mid-batch (about 15:20). The renders, the venv and the queue files survived on disk; only the
+running renders died (four men's in-flight pictures, rendered again). The queue was rebuilt from what each man still needed.
+
 ## [bb idles] HOW BATTLE BROTHERS DID IT
 Battle Brothers spends its pictures on the HIT; a man between turns is essentially still, and on the map there is no
 body at all (reference/library/battle_brothers/10_UI_AND_FEEL.md; records/BOHEMIA_BB_SCHOOL_WHERE_A_BODY_SPENDS_ITS_PICTURES_9_27_26.md).
@@ -165,11 +200,10 @@ mutations (a key short, a one-key turn, a man whose every idle is his still, a m
 people on one seed). 26 passed, 0 failed.
 
 ## NOT DONE, STATED
+- person_blues_1 and person_blues_4 keep their stills (THE TWO WHO KEEP THEIR STILL above).
 - The map's job crew (COOK THREE's thug, marksman, poacher on a job) keep their stills: the rebuilt models no longer
   match the map's pictures, and an idle that is a different man than the walk is worse than a still.
 - The thug's base pose (COMBAT's Stand for a tier, the walk's passing pose) is mid-stride from the side; his idles keep
   that stance (the feet never move), so from the side he breathes in a stride. COMBAT's still, named on its board.
-- RUN TWO's rolled people (BOHEMIA_RIG_MIX, [no two people alike], not on main yet): when they land, the settlement and
-  the map can play their idles the same way: `pose` and the master rig on each rolled person, a NOTE on RUN TWO's board.
 - The settlement's background people who WORK (rule 131(a)): built this session (THE WORK above). Not built: cooking and
   trading at a stall (they belong to a place's fixed things, a pot and a stall, not to a walker's hands).
