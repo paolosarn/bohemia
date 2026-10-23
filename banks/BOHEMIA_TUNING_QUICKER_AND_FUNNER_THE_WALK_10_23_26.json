@@ -1,0 +1,57 @@
+{
+  "draft": true,
+  "what": "TUNING [quicker and funner for normies] (rule 133(e), research only): a stranger's first walk through the committed demo, every step timed and every tap counted. Nothing in the game reads this file.",
+  "record": "records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md",
+  "demo": { "file": "slices/BOHEMIA_DEMO.html", "stamp": "DEMO - BUILD 10/20a - ONE SONG ONLY", "last_commit_touching_it": "17d14e1e" },
+  "box": "this session's container, Playwright Chromium, phone portrait 390x844 at 3x, touch; full CPU unless a row says 4x",
+  "load": {
+    "quoted_from": "records/target/BOHEMIA_THE_ONE_STOPWATCH.json via the VAMILY stopwatch line (RUN 10/19): title 1.6 s, NEW GAME ready 12.6 s on the 4x phone profile, median of 5",
+    "begin_to_map_takes_a_finger_s": { "full_cpu": 0.5, "phone_4x": 2.5 },
+    "crew_pick_screen": {
+      "rows": ["THE FIGHTS: NEW HERE / SEEN IT / OUTLIVED IT", "THE SHELVES: FULL / THIN / BARE", "WHO YOU WERE: 15 origins, swipe", "YOUR CREW'S NAME + ANOTHER"],
+      "defaults": { "combat": "seen", "econ": "thin", "origin": "newcrew" },
+      "defaults_source": "slices/BOHEMIA_DEMO.html line 13506",
+      "taps_to_play_on_defaults": 1
+    }
+  },
+  "map_first_screen": {
+    "top_bar": ["DAY 1", "3/12", "240 batteries", "a red box reading 0", "medkit -", "ammo -", "water -", "district name"],
+    "phone": ["@CHURCH 2 BLOCKS W Ride shotgun to the salt camp, 1 skull, 30 BATT", "@COLORFUL 13 BLOCKS W Bring medicine down from the lodge, 2 skulls, 60 BATT"],
+    "speed_pad": [0, 1, 2, 3, 5],
+    "clock": "moves only when the party moves (I MOVE YOU MOVE); 06:00 held still for 15 s of standing"
+  },
+  "steps": [
+    { "n": 1, "tap": "the CHURCH job on the phone", "result": "the card lights; nothing else; the clock does not move", "moved": false },
+    { "n": 2, "tap": "the word CHURCH on the map (it sits on a moving patrol beside the town)", "result": "set out; 3.9 s later, 2 blocks out, a fight; no warning line, no flee", "seconds": 3.9, "game_minutes": 63, "fight": "3 v 3" },
+    { "n": 3, "tap": "FIGHT then AUTO", "result": "won in 6 rounds, 28.6 s; one of ours at 0 hp; back to the map with no loot, no pay, no line about the win; the speed pad on PAUSE", "seconds": 28.6, "rounds": 6 },
+    { "n": 4, "tap": "CHURCH again", "result": "a route of 2 blocks set; nothing moves (the pad is on PAUSE)", "moved": false, "watched_s": 15 },
+    { "n": 5, "tap": "1x", "result": "ARRIVED: 2 BLOCKS CROSSED; no town opens; the phone now says @CHURCH 6 BLOCKS S (the word was the patrol, not the town)", "seconds": 1.8 },
+    { "n": 6, "how": "route to the real town (set by script, the same route a finger would set)", "blocks": 22, "seconds_at_1x": 11.2, "game_minutes": 124, "blocks_per_second_at_1x": 2.0 },
+    { "n": 7, "how": "the town opens (the touch on the town where he stands)", "result": "a painted street, no words on it; top: Church, 240 BATTERIES, CREW, LEAVE" },
+    { "n": 8, "tap": "12 aimed taps on the picture's buildings and people", "found": ["THE BARBER (cut, 1 battery)", "THE DOC (nobody hurt)", "THE STALL (food, water, meds, six rounds: 1 battery each)", "THE SMITH (pistol 23b, 44b, 125b; hook 44b, 100b; chain 38b, 63b; axe 138b; cleaver 163b)", "THE ELDER at a desk = the two contracts", "YOU: search the lot, 4 hours", "SOMEBODY ON THE STREET (the line of 11 people standing in front of the stall)"], "not_found": ["the hiring post (the 'posts' hotspot)", "the bar"] },
+    { "n": 9, "tap": "CREW", "result": "YOUR COMPANY 12 / 20 with twelve named men (YOU, RAUL, BOOKIE, OSO, MARISOL, LUPE, DEUCE, DESI, TINA, CHEWY, GRIZ, NENA) while the picks say company 3, cap 12, the bar says 3/12 and both fights had 3" },
+    { "n": 10, "tap": "the Elder, the job card, Take it", "taps": 3, "result": "Held: 1 of 2 contracts; the job is 2 brigands (A FEW), 1 skull, 30 batteries, 7 blocks out" },
+    { "n": 11, "tap": "LEAVE, then to the JOB (route set by script)", "seconds_at_1x": 3.5, "result": "the fight starts on arrival" },
+    { "n": 12, "tap": "FIGHT then AUTO", "result": "won in 4 rounds, 23.3 s; 240 -> 270 batteries; one line on the map: PAID 30 BATTERY; the speed pad on PAUSE; the phone still lists the finished job ('5H AGO')", "seconds": 23.3, "rounds": 4 }
+  ],
+  "first_pay": {
+    "best_path_taps_for_someone_who_knows": 11,
+    "best_path_taps": ["BEGIN", "the town", "1x after a fight if paused", "the Elder", "the job", "Take it", "LEAVE", "the JOB flag", "1x if paused", "FIGHT", "AUTO"],
+    "best_path_play_seconds_with_auto": "about 50 (travel 11 + town 5 + travel 3.5 + fight 23 + the taps)",
+    "stranger_wrong_taps_before_the_town": 4,
+    "stranger_unplanned_fights_before_the_town": 1
+  },
+  "purse": { "06:00": 240, "11:10_before_pay": 240, "after_pay": 270, "note": "nothing was charged in five game hours; TUNING 10/19 found nothing is charged in the first hour and no origin carries food" },
+  "code_checked": {
+    "nfOpts_reads_only_d_party": "slices/BOHEMIA_DEMO.html lines 12422-12430 (TUNING 10/19's one-line fix has not landed)",
+    "street_crew_handover_sends_a_roster_and_no_party": "slices/BOHEMIA_CITY_WORLD.html streetFightOnStep() at line 71427",
+    "fight_fallback_band": "slices/BOHEMIA_FIGHT.html line 599: opts.band || R('ours.first_band') (nine brigands, TUNING 10/19)",
+    "fight_saves_only_formation_and_teach_flags": "slices/BOHEMIA_FIGHT.html localStorage FORMATION_KEY, TEACH_KEY; the map flushes on pagehide/visibilitychange (BOHEMIA_CITY_WORLD.html 63192-63195)",
+    "town_picture_rule": "slices/settlement_ground_packs/settlement_ground.json note: 'name it only when touched; no text on the picture'"
+  },
+  "not_measured": [
+    "a fight played by hand (both fights were on AUTO); the hand time is the number COMBAT owes",
+    "nightfall's reckoning card at 22:00 (the walk ended at 11:10)",
+    "a real phone; every number is this container's Chromium"
+  ]
+}
