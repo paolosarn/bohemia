@@ -148,5 +148,10 @@
   "file": "slices/fight_ground/block_shore_1.webp",
   "sha1": "45bf202b46a45e1c9c140bd508412ac74cd028b7",
   "master": "records/target/cook_floor_not_final/block_shore_1.webp"
+ },
+ "freeway.0": {
+  "file": "slices/fight_ground/block_freeway_0.webp",
+  "sha1": "12d0e3ca4adcda724a0ec8b9ea9fcce0fa2f078c",
+  "master": "records/target/cook_floor_not_final/block_freeway_0.webp"
  }
 }
