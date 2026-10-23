@@ -45857,10 +45857,26 @@ function vbCityCore(inp){
   /* per texel: the colour index and the lift (texels). Colour index = class * 16 + part */
   var PART = { ground: 0, roof: 1, roofL: 2, top: 3, side: 4, line: 5, edge: 6, spot: 7, burn: 8, hole: 9, tree: 10, row: 11, neon: 12, window: 13, lampspot: 14 };
   function idx(c, p){ return c * 16 + p; }
+  /* __THE_MAP_STANDS_UP__ (RUN [the map stands up], 10/23; his YES on the painted map: 'yes but it's flat, not elevated').
+     MEASURED on his opening screen (a block 18 CSS px, 24 texels): a house rose Q = 2 texels, 0.75 CSS px, under one phone
+     pixel of wall; a flat roof 0.75 to 1.5 px; the freeway, the rail and the trees lay on the ground; nothing cast a shadow.
+     So the carpet read flat. NOW every built thing stands at its height in T (one texel at 24 a block, 4 m of drawn ground):
+     a house a 3 T wall under a 2 T gable, its ridge across its long way, the roof's two pitches lit by the sun; a works or
+     shop block one to three boxes 4 to 9 T with a parapet and plant on the roof; towers and casinos on a podium; trees
+     3 T crowns; the freeway on a 3 T berm with its banks, the knots 6 T; the rail on a 1 T bank; the solar rows on stands.
+     And the sun (the land's own, from the north-west, upper left on the glass) casts every one of them onto what is below
+     (one sweep, the shadow falling down-right on the glass), which is what reads as height from above. */
+  var T = Q / 2, FWY = function (c){ return c === VB_CLASS.freeway; };
   for (var cy = 0; cy < N; cy++) for (var cx = 0; cx < N; cx++) {
     var cl = cls[cy * N + cx], h0 = vbHash(cx, cy, sd), h1 = vbHash(cy, cx, sd + 1), h2 = vbHash(cx + 7, cy + 3, sd + 2);
     var burned = (cl === VB_CLASS.houses || cl === VB_CLASS.roof) && h2 < 0.16;   /* act one is the ruin */
     var horiz = (clsAt(cx - 1, cy) === cl || clsAt(cx + 1, cy) === cl), vert = (clsAt(cx, cy - 1) === cl || clsAt(cx, cy + 1) === cl);
+    /* the berm's banks: which sides of a freeway block meet ground that is not freeway (__THE_MAP_STANDS_UP__) */
+    var bW = cl === VB_CLASS.freeway && !FWY(clsAt(cx - 1, cy)), bE = cl === VB_CLASS.freeway && !FWY(clsAt(cx + 1, cy)),
+        bN = cl === VB_CLASS.freeway && !FWY(clsAt(cx, cy - 1)), bS = cl === VB_CLASS.freeway && !FWY(clsAt(cx, cy + 1));
+    var knot = cl === VB_CLASS.freeway && !bW && !bE && !bN && !bS;   /* freeway on all four sides: a knot, the flyover */
+    /* a works block is one, two or three boxes (__THE_MAP_STANDS_UP__) */
+    var nBox = h1 < 0.45 ? 1 : h1 < 0.8 ? 2 : 3, boxAlongX = h0 < 0.5;
     for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
       var qx = (tx / Q) | 0, qy = (ty / Q) | 0;
       var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u, v, sd + 5), rq = Q === 1 ? r : vbHash(((cx + PAD) * 12 + qx), ((cy + PAD) * 12 + qy), sd + 5);
@@ -45871,32 +45887,61 @@ function vbCityCore(inp){
           else if (along === mid - 1 && ((horiz ? qx : qy) % 4) < 2) part = PART.line;
           if (cl === VB_CLASS.blvd && (qx === 0 || qy === 0 || qx === SQ - 1 || qy === SQ - 1) && rq < 0.35) part = PART.neon;
           if (cl === VB_CLASS.road && (along === 0 || along === SQ - 1) && ((horiz ? qx : qy) % 4) === 1) part = PART.lampspot;
+          if (cl === VB_CLASS.freeway) {   /* __THE_MAP_STANDS_UP__: the freeway on its berm, banked down to the ground it crosses */
+            var top3 = (knot ? 6 : 3) * T, dB = 1e9;
+            if (bW) dB = Math.min(dB, tx); if (bE) dB = Math.min(dB, S - 1 - tx); if (bN) dB = Math.min(dB, ty); if (bS) dB = Math.min(dB, S - 1 - ty);
+            lift = Math.min(top3, (dB + 0.5) * 1.1);
+          }
           break; }
-        case VB_CLASS.rail: part = ((horiz ? qx : qy) % 2 === 0) ? PART.line : PART.ground; break;
+        case VB_CLASS.rail: part = ((horiz ? qx : qy) % 2 === 0) ? PART.line : PART.ground; lift = T; break;
         case VB_CLASS.houses: {
-          var lx = qx % 4, ly = qy % 4, lot = (qx >> 2) + 2 * (qy >> 2), hh = vbHash(cx * 2 + (qx >> 2), cy * 2 + (qy >> 2), sd + 9);
-          var ox = hh < 0.5 ? 0 : 1, oy = hh < 0.25 || hh > 0.75 ? 0 : 1;
-          if (lx >= ox && lx < ox + 3 && ly >= oy && ly < oy + 3) { lift = Q; part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : ((lx - ox) < 1.5 ? PART.roofL : PART.roof); if (lx === ox + 1 && ly === oy + 1 && !burned) part = PART.window; }
+          /* __THE_MAP_STANDS_UP__: a block is four big lots (two by two, 6 q) or nine small ones (4 q), by its own roll; each
+             lot one house, longer one way, set back in its yard by the lot's roll, a wall under a gable whose ridge runs the
+             long way, one in seven two storeys. The yard between is wider than a wall is tall, so a yard still shows behind it. */
+          var LQ = h0 < 0.6 ? 6 : 4, lgx = (qx / LQ) | 0, lgy = (qy / LQ) | 0, lx = qx - lgx * LQ, ly = qy - lgy * LQ;
+          var hh = vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 9), hl = vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 29);
+          var longX = hl < 0.5, wq = LQ === 6 ? (longX ? 4 : 3) : (longX ? 3 : 2), dq2 = LQ === 6 ? (longX ? 3 : 4) : (longX ? 2 : 3);
+          var ox = Math.floor(vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 37) * (LQ - wq)), oy = Math.floor(vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 41) * (LQ - dq2));
+          if (lx >= ox && lx < ox + wq && ly >= oy && ly < oy + dq2) {
+            var hx = (lgx * LQ + ox) * Q, hy = (lgy * LQ + oy) * Q, fx2 = (tx - hx + 0.5) / (wq * Q), fy2 = (ty - hy + 0.5) / (dq2 * Q);
+            var dr = Math.abs((longX ? fy2 : fx2) - 0.5) * 2, wall = (hl > 0.86 ? 4 : 2) * T;
+            lift = burned && hh < 0.7 ? (r < 0.3 ? 0.5 * T : 1.5 * T) : wall + 1.6 * T * (1 - dr);
+            part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : (hh < 0.5 ? PART.roofL : PART.roof);
+            if (part !== PART.hole && part !== PART.burn && dr < 0.34 && Math.abs((longX ? fx2 : fy2) - 0.5) < 0.18) part = PART.window;   /* the chimney by day, the lit window at night */
+          }
           else if (r < 0.06) part = PART.spot;
           break; }
         case VB_CLASS.roof: {
-          if (qx >= 1 && qx < 11 && qy >= 1 && qy < 11) { lift = Q * (1 + (h0 < 0.4 ? 1 : 0)); part = burned ? (r < 0.35 ? PART.hole : PART.burn) : (r < 0.08 ? PART.spot : PART.roof); if (!burned && qx === 2 && qy % 2 === 0) part = PART.window; }
+          /* __THE_MAP_STANDS_UP__: one to three boxes on the block, an alley between, each its own height, a parapet, plant on the roof */
+          if (qx >= 1 && qx < 11 && qy >= 1 && qy < 11) {
+            var ax = boxAlongX ? qx : qy, bi = nBox === 1 ? 0 : Math.min(nBox - 1, Math.floor((ax - 1) * nBox / 10)), b0 = 1 + Math.ceil(bi * 10 / nBox), b1 = 1 + Math.ceil((bi + 1) * 10 / nBox) - 1;
+            var gap = nBox > 1 && ((ax === b1 && bi < nBox - 1));
+            if (!gap) {
+              var bh = (4 + Math.floor(vbHash(cx * 3 + bi, cy, sd + 31) * 6)) * T, ring = (qx === 1 || qx === 10 || qy === 1 || qy === 10 || ax === b0 || ax === b1 - (bi < nBox - 1 ? 1 : 0));
+              lift = burned ? (r < 0.35 ? T : 2 * T) : bh + (ring ? T : 0);
+              part = burned ? (r < 0.35 ? PART.hole : PART.burn) : (r < 0.08 ? PART.spot : PART.roof);
+              if (!burned && part === PART.spot) lift += 1.5 * T;
+              if (!burned && qx === 2 && qy % 2 === 0) part = PART.window;
+            }
+          }
           break; }
         case VB_CLASS.tower: case VB_CLASS.casino: {
           var half = S >> 1, two = h0 < 0.45, q4 = S >> 2;
           var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= Q && (tx % half) < half - Q && (ty % half) >= Q && (ty % half) < half - Q)
                         : (tx >= q4 && tx < S - q4 && ty >= q4 && ty < S - q4);
           if (inT) { var th = ((cl === VB_CLASS.casino ? 3 : 4) + Math.floor((two ? vbHash(cx + (tx < half ? 0 : 1), cy, sd + 11) : h1) * (cl === VB_CLASS.casino ? 6 : 11))) * S / 8; lift = th; part = PART.top; }
+          else if (qx >= 1 && qx < 11 && qy >= 1 && qy < 11) { lift = 3 * T; part = r < 0.05 ? PART.spot : PART.ground; }   /* the podium (__THE_MAP_STANDS_UP__) */
           else if (r < 0.05) part = PART.spot;
           break; }
-        case VB_CLASS.green: if (rq < 0.12) { part = PART.tree; lift = Q; } break;
+        case VB_CLASS.green: if (rq < 0.12) { part = PART.tree; lift = 3 * T; } break;
         case VB_CLASS.water: part = PART.ground; break;
-        case VB_CLASS.land: if (r < 0.07) part = PART.spot; else if (r > 0.965) part = PART.row; break;
+        case VB_CLASS.land: if (r < 0.07) part = PART.spot; else if (r > 0.965) part = PART.row;
+          lift = Math.max(0, vbNoise(u / (9 * Q), v / (9 * Q), sd + 53) - 0.45) * 5 * T; break;   /* __THE_MAP_STANDS_UP__: the open ground rolls, a knoll here and there */
         case VB_CLASS.mountain: {
           var fxm = (tx + 0.5) / S, fym = (ty + 0.5) / S, xa = Math.min(N - 1, cx + 1), ya = Math.min(N - 1, cy + 1);
           var hm = (MH[cy * N + cx] * (1 - fxm) + MH[cy * N + xa] * fxm) * (1 - fym) + (MH[ya * N + cx] * (1 - fxm) + MH[ya * N + xa] * fxm) * fym;
           lift = hm * S + (vbNoise(u / (5 * Q), v / (5 * Q), sd + 13) - 0.5) * 2 * Q; if (lift < 0) lift = 0; if (r < 0.06) part = PART.spot; break; }
-        case VB_CLASS.solar: part = (qy % 2 === 0 && qx > 0 && qx < 11) ? PART.row : PART.ground; break;
+        case VB_CLASS.solar: part = (qy % 2 === 0 && qx > 0 && qx < 11) ? PART.row : PART.ground; if (part === PART.row) lift = T; break;
         case VB_CLASS.field: part = ((qx + qy) % 5 === 0 && rq < 0.5) ? PART.line : PART.ground; break;
         case VB_CLASS.dam: lift = 2 * Q; part = PART.top; break;
         default: if (r < 0.1) part = PART.spot;
@@ -45904,6 +45949,16 @@ function vbCityCore(inp){
       HS[o] = lift; COLI[o] = idx(cl, part) + (burned ? 16 * 32 : 0);
     }
   }
+  /* __THE_MAP_STANDS_UP__: THE SUN CASTS. One sweep down the sun's line (it comes from -u and a little -v, the land's north-
+     west, so on the glass a shadow falls down and a little right): the shadow's top drops SUN_DROP texels a step, and a
+     texel whose own lift is under it is in shade. SHD holds how deep, so the edge of a shadow is soft by one texel. */
+  var SHD = new Float32Array(P * P), SHH = new Float32Array(P * P), SUN_DROP = 0.78;
+  for (var su = 0; su < P; su++) for (var sv = 0; sv < P; sv++) {
+    var so = sv * P + su, hs = HS[so], tp = hs;
+    if (su > 0) { var pv = sv - (su & 1); if (pv >= 0) { var cast = SHH[pv * P + su - 1] - SUN_DROP; if (cast > hs) { SHD[so] = cast - hs; tp = cast; } } }
+    SHH[so] = tp;
+  }
+  SHH = null;
   function base(ci){
     var burned = ci >= 16 * 32; if (burned) ci -= 16 * 32;
     var cl = ci >> 4, part = ci & 15;
@@ -45928,6 +45983,7 @@ function vbCityCore(inp){
   }
   /* the picture: along each view diagonal, near to far, the nearest column that rises over a texel owns it */
   var day = new Uint8ClampedArray(P * P * 4), night = new Uint8ClampedArray(P * P * 4), lights = new Uint8ClampedArray(P * P * 4), dq = new Int32Array(P), NM = [0.26, 0.254, 0.295];
+  var ST = { built: 0, wall: 0, shade: 0, top: 0, houseMax: 0, fwyMax: 0 };   /* __THE_MAP_STANDS_UP__: what the gate reads */
   for (var dg = -(P - 1); dg <= P - 1; dg++) {
     var ua = Math.max(0, dg), ub = Math.min(P - 1, P - 1 + dg), head = 0, tail = 0;
     for (var uu = ub; uu >= ua; uu--) {
@@ -45939,9 +45995,16 @@ function vbCityCore(inp){
       var Hq = HS[qo], liftk = qu - uu, top = (Hq - liftk) < 1, sh, b = base(ci), cl2 = (ci % (16 * 32)) >> 4, part2 = ci & 15;
       var sxp = qu + 1 < P ? HS[qo + 1] : Hq, sxm = qu > 0 ? HS[qo - 1] : Hq, syp = qv + 1 < P ? HS[qo + P] : Hq;
       if (top) { var sl = (sxp - sxm) * 0.5; sh = 1 + (cl2 === VB_CLASS.mountain ? 0.42 * Math.max(-1, Math.min(1, sl * 0.9)) - 0.12 * Math.max(-1, Math.min(1, (syp - Hq) * 0.5)) : 0);
-        if (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) { if (part2 === PART.top) b = cl2 === VB_CLASS.casino ? C.gold : C.towerTop; } }
+        if (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) { if (part2 === PART.top) b = cl2 === VB_CLASS.casino ? C.gold : C.towerTop; }
+        else if (cl2 !== VB_CLASS.mountain) {   /* __THE_MAP_STANDS_UP__: a pitch facing the sun is lit, the far pitch is not (a box's edge is not a pitch) */
+          var sym = qv > 0 ? HS[qo - P] : Hq, J = 1.6 * T;
+          var gu = (Math.abs(sxp - Hq) < J && Math.abs(sxm - Hq) < J) ? (sxp - sxm) * 0.5 : 0, gv = (Math.abs(syp - Hq) < J && Math.abs(sym - Hq) < J) ? (syp - sym) * 0.5 : 0;
+          sh += 0.4 * Math.max(-1, Math.min(1, gu)) + 0.2 * Math.max(-1, Math.min(1, gv)); } }
       else sh = (sxp < syp) ? 0.56 : 0.76;
       sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu, qv, sd + 17));
+      if (top && SHD[qo] > 0) sh *= SHD[qo] >= 1 ? 0.62 : 1 - 0.38 * SHD[qo];   /* __THE_MAP_STANDS_UP__: in the shade of what stands nearer the sun */
+      if (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof || cl2 === VB_CLASS.freeway) { ST.built++; if (!top) ST.wall++; if (cl2 === VB_CLASS.houses && Hq > ST.houseMax) ST.houseMax = Hq; if (cl2 === VB_CLASS.freeway && Hq > ST.fwyMax) ST.fwyMax = Hq; }
+      if (top) { ST.top++; if (SHD[qo] > 0) ST.shade++; }
       var o8 = (vv * P + uu) * 4;
       for (var z = 0; z < 3; z++) { day[o8 + z] = b[z] * sh; night[o8 + z] = b[z] * sh * NM[z]; }
       day[o8 + 3] = 255; night[o8 + 3] = 255;
@@ -45957,7 +46020,8 @@ function vbCityCore(inp){
       }
     }
   }
-  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, ms: Math.round(performance.now() - t0) };
+  ST.T = T;
+  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, stand: ST, ms: Math.round(performance.now() - t0) };
 }
 function vbInput(m){
   var V = m || om;   /* any valley: the one he is in, or one a checker rolls */
@@ -46015,7 +46079,7 @@ function vbCityLand(r){
   VBC.busy = false;
   if (!r || r.seed !== om.seed) return;
   function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
-  VBC.day = cv(r.day); VBC.night = cv(r.night); VBC.lights = r.lights ? cv(r.lights) : null; VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P;
+  VBC.day = cv(r.day); VBC.night = cv(r.night); VBC.lights = r.lights ? cv(r.lights) : null; VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P; VBC.stand = r.stand;
   try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
 }
 function vbCityReady(){
@@ -46038,7 +46102,10 @@ function vbCityReady(){
    painted-10-2) draws the same cells as one picture: the freeway one band, the streets one net, the districts apart.
    So it now carries the map up to a block 24 px, and the pack tiles take over by 34, where a block is big enough for
    its own art. Was: painted below 6, tiles above 10. */
-var VB_CITY_FULL = 16, VB_CITY_NONE = 34;   /* CSS px a block: all painting below 16, the opening zoom (18) 0.89 painting over the tiles, tiles above 34 */
+var VB_CITY_FULL = 26, VB_CITY_NONE = 30;   /* CSS px a block: all painting up to 26 (the opening zoom, 18, is the painting alone), tiles above 30.
+   __THE_MAP_STANDS_UP__ (10/23): was 16 and 34, a cross-fade over eighteen px of zoom; now that the painting stands up and the block
+   pictures stand up their own way, a long fade was two cities ghosted through each other (measured at a block 29 px: 0.29 of one,
+   0.71 of the other, every tower doubled). The hand-over is four px of zoom now. */
 function vbCityDraw(ox, oy, night){
   if (TW >= VB_CITY_NONE || !vbCityReady()) return;
   var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
