@@ -66,8 +66,9 @@ NEW GAME words went dark on dark board: caught on the real surface, scoped out, 
 ## LEGIBILITY (rule 73)
 
 Words on each piece's middle, the 20th percentile ground for dark ink, plain and with a quarter of white over both (the
-sun): tin 10.3 / 5.3, amber 9.4 / 4.9, paper 11.6 / 5.7; light ink on olive 10.4 / 5.0, board 9.5 / 4.6, glass 11.3 / 5.3,
-a pocket 11.4 / 5.4. On the real surface: END TURN 10.6 / 5.4, AUTO 10.6 / 5.4, CREW 10.6 / 5.4, LEAVE 10.3 / 5.3, DONE
+sun): tin 10.3 / 5.3, amber 9.4 / 4.9, paper 11.6 / 5.7; light ink on olive 10.4 / 5.0, board 10.8 / 5.1, plain board
+11.2 / 5.3, glass 11.3 / 5.3, a pocket 11.4 / 5.4. (The board went a step darker in the round, from 9.5 / 4.6: the crew
+screen's gold name read 3.94 in the sun on the first board.) On the real surface: END TURN 10.6 / 5.4, AUTO 10.6 / 5.4, CREW 10.6 / 5.4, LEAVE 10.3 / 5.3, DONE
 10.7 / 5.4, the day 10.6 / 5.4, NOTES 10.4 / 5.3.
 
 ## GATES (rule 13: my own runs, by name)
@@ -76,7 +77,9 @@ THE UI BELONGS TO THE WORLD (new, in the suite): the kit on disk (numbers, nine 
 and on the real surface (each screen wears its pieces, nothing grows, every picture loads, every word 4.5 to 1 in the sun,
 the front screen untouched), four planted defects caught.
 
-Re-aimed, all UI's own: SETTINGS IN OUR MATERIALS (a rendered board counts as a picture from the materials), THE FIGHT'S
+Re-aimed (UI's own, and one leg of COMBAT's THE REBUILT FIGHT PLAYS, the leg that reads the UI's materials, as UI did 10/22):
+THE REBUILT FIGHT PLAYS (the bar's materials: a canvas picture or a rendered kit picture both count), THE ROSTER AND THE
+POSTS LOOK (the pick may be the amber plate; a word read beside the word), SETTINGS IN OUR MATERIALS (a rendered board counts as a picture from the materials), THE FIGHT'S
 BAR IS STUDIO MADE (the slab's shadow is hard, no blur, at most two points off: the sun's), THE MAP'S BAR and THE FLIP OFF
 THE FACE (a tag is a slab lit from the left with its right bevel in shade, so a word is read against the ground right beside
 the word, not against the bevel; the lit speed may be the amber plate as well as the old gradient).
