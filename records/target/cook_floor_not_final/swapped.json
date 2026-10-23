@@ -128,5 +128,10 @@
   "file": "slices/fight_ground/block_suburb_stem_1.webp",
   "sha1": "0ee951791eae12fb3c683012c796e3667cdda04e",
   "master": "records/target/cook_floor_not_final/block_suburb_stem_1.webp"
+ },
+ "scrubroad.0": {
+  "file": "slices/fight_ground/block_scrubroad_0.webp",
+  "sha1": "65d5dc1677031771e3791c2e22eff11a3d2957d7",
+  "master": "records/target/cook_floor_not_final/block_scrubroad_0.webp"
  }
 }
