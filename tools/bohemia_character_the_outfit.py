@@ -19,7 +19,9 @@ THE OUTFIT (outfit(spec), decided once per person off his id, so the same person
           two read as one (the same cut, the next colour of the bank, a plain colour first, so the gang's colour stays on
           the outside where the street reads it);
   mid     a second top worn over the base when he wears no coat: an open shirt over a tee, a tank or a henley; his own
-          shirt worn open over a plain tee; his hoodie over a longer tee whose hem shows under its band;
+          shirt worn open over a plain tee; his tee or tank over a long-sleeve of another value (its sleeves and hem out
+          from under); his hoodie over a longer tee whose hem shows under its band, or under an open flannel with its
+          hood out over the flannel's collar;
   outer   RUN TWO's coat, worn the way people wear one: open down the front to the neck, the sleeves pushed up or ending
           short of the shirt's cuff, the hoodie's hood heaped over its collar, the shirt's collar out over its lapels,
           the shirt's tail or the hoodie's band below a jacket or a vest.
@@ -185,20 +187,37 @@ def outfit(spec):
         # 3. NO COAT: a second top, so nobody is one garment; the one on the outside in his gang's colour where one reads
         shirts = [g for g in BASE.BANK if g['shape'] in SHIRTS and g['fn'] == 'genTop' and g['name'] not in ht and not g['tatter'] and mine(g)]
         tees = [g for g in BASE.BANK if g['shape'] in ('TEE', 'TANK') and g['name'] not in ht and mine(g)]
+        longs = [g for g in BASE.BANK if g['shape'] in ('LONGSLEEVE', 'HENLEY') and g['sleeves'] == 'long' and g['name'] not in ht and mine(g)]
         r = rng.random()
-        if (Gt['shape'] in TEE_LIKE + ('TURTLENECK',) or (Gt['shape'] == 'THE RUNWAY CUTS' and Gt['cut'] != 'layered')) and r < 0.80:
+        tee_like = Gt['shape'] in TEE_LIKE + ('TURTLENECK',) or (Gt['shape'] == 'THE RUNWAY CUTS' and Gt['cut'] != 'layered') or \
+            (Gt['shape'] == 'TATTERED' and Gt['neck'] != 'button')
+        shirt_like = Gt['shape'] in SHIRTS or (Gt['shape'] == 'TATTERED' and Gt['neck'] == 'button')
+        if tee_like and Gt['shape'] in ('TEE', 'TANK') and not Gt['tatter'] and 0.55 <= r < 0.80:
+            # his tee or tank over a long-sleeve of another value: the dark sleeves out of the light tee (the photographs'
+            # strongest read at 112 px), the long-sleeve's hem a band under the tee's
+            g = contrast_pick(rng, longs, [Gt], plain)
+            if g:
+                mid, base = top, g['name']; Gt = g; L['base']['hem_drop'] = 0.040
+                why.append('his %s over a %s, its sleeves and hem out from under' % (mid, base))
+        if not mid and tee_like and r < 0.95:
             g = contrast_pick(rng, shirts, [Gt], ours, lambda g: not plain(g))
             if g:
                 mid = g['name']; why.append('an open %s over the %s' % (g['name'], top))
-        elif Gt['shape'] in SHIRTS and r < 0.80:
+        elif shirt_like and r < 0.90:
             g = contrast_pick(rng, tees, [Gt], plain)
             if g:
                 mid, base = top, g['name']; Gt = g; why.append('his %s worn open over a %s' % (mid, base))
-        elif Gt['shape'] == 'HOODIE' and r < 0.70:
+        elif Gt['shape'] == 'HOODIE' and r < 0.45:
             g = contrast_pick(rng, [t for t in tees if t['shape'] == 'TEE' and not t['pattern']], [Gt], plain)
             if g:
                 mid, base = top, g['name']; Gt = g; L['base']['hem_drop'] = 0.060
                 why.append('his %s over a longer %s, its hem under the band' % (mid, base))
+        elif Gt['shape'] == 'HOODIE' and r < 0.90:
+            # an open flannel over his hoodie, the hood out over the shirt's collar (the street's own layering)
+            g = contrast_pick(rng, [g for g in shirts if g['sleeves'] == 'long'], [Gt], ours, lambda g: bool(g['pattern']))
+            if g:
+                mid = g['name']; L['base']['hood_over'] = round(base_weight(Gt) + 0.005 + 0.012, 4)
+                why.append('an open %s over his %s, the hood out over its collar' % (mid, top))
         if mid:
             Gm = BASE.BY[mid]
             L['mid'] = dict(role='mid', lift=round(base_weight(Gt) + 0.005, 4), open=Gm['neck'] == 'button',
@@ -244,7 +263,32 @@ def dress(L, O, name):
     return L
 
 
+OUTFITS = os.path.join(ROOT, 'records/target/character/BOHEMIA_THE_OUTFITS.json')
+
+
+def write(roll_path=os.path.join(ROOT, 'records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json')):
+    """THE OUTFIT BOOK: every person of a roll with the outfit his build wears (the base, the mid, the coat, how each sits,
+    and what moved from the roll), so a bake names what he wears and an era re-renders the same layers (rule 128)"""
+    from collections import Counter
+    roll = json.load(open(roll_path)); people = []; n = Counter()
+    for P in roll:
+        O = outfit(P)
+        if not O: n['no top'] += 1; continue
+        n['%d layers' % (1 + bool(O['mid']) + bool(O['outer']))] += 1
+        if O['base'] != P['top']: n['top swapped for value'] += 1
+        if O['outer'] != P.get('coat'): n['coat swapped for value'] += 1
+        people.append(dict(id=P['id'], gang=P['gang'], base=O['base'], mid=O['mid'], outer=O['outer'],
+                           rolled=dict(top=P['top'], coat=P.get('coat')), layers=O['layers'], why=O['why']))
+    out = dict(what='CHARACTER [the clothes look real] THE OUTFIT BOOK (rule 129 as corrected): each person of the roll and the '
+                    'layers his build wears (tools/bohemia_character_the_outfit.py outfit(), off his id; the barber builds them)',
+               roll=os.path.relpath(roll_path, ROOT), counts=dict(n), people=people)
+    with open(OUTFITS, 'w') as f:
+        json.dump(out, f, indent=1); f.write('\n')
+    print('wrote', os.path.relpath(OUTFITS, ROOT), dict(n))
+
+
 if __name__ == '__main__':
+    if sys.argv[1:2] == ['write']: write(); sys.exit(0)
     # the outfits of RUN TWO's roll, counted (what the build will put on each person)
     from collections import Counter
     roll = json.load(open(os.path.join(ROOT, 'records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json')))

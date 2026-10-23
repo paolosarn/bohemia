@@ -719,7 +719,7 @@ def build(name, outdir):
     bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', export_skins=True, export_animations=True, export_apply=False, use_selection=False)
     model_top = max((o.matrix_world @ v.co).z for o in sc.objects if o.type == 'MESH' for v in o.data.vertices)
     real_h = RULER_M * (1 + 0.05 * D['height'])
-    stats = dict(look=name, shape=L['shape'], worn=L['worn'], dials=D, model=os.path.relpath(out, ROOT), from_body=os.path.relpath(BODY, ROOT),
+    stats = dict(look=name, shape=L['shape'], worn=L['worn'], dials=D, **({'layers': L['layers']} if L.get('layers') else {}), model=os.path.relpath(out, ROOT), from_body=os.path.relpath(BODY, ROOT),
                  body_top_m=round(body_top, 4), model_top_m=round(model_top, 4), real_height_m=round(real_h, 4),
                  real_height_for_rig=round(real_h * model_top / body_top, 4),
                  meshes={o.name: len(o.data.vertices) for o in sc.objects if o.type == 'MESH'},
