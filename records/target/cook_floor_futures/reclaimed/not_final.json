@@ -827,5 +827,67 @@
   },
   "file": "records/target/cook_floor_futures/reclaimed/block_scrubroad_1.webp",
   "future": null
+ },
+ "landfill.0": {
+  "seconds": 480,
+  "junk": {
+   "bags": 0,
+   "paper": 807,
+   "card": 202,
+   "cloth": 82,
+   "weeds": 1471,
+   "mattresses": 1,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 24,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 22,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_landfill_0.webp",
+  "future": null
+ },
+ "landfill.1": {
+  "seconds": 488,
+  "junk": {
+   "bags": 0,
+   "paper": 802,
+   "card": 201,
+   "cloth": 82,
+   "weeds": 1462,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 1,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 44,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 22,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_landfill_1.webp",
+  "future": null
  }
 }
