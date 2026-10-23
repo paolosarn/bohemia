@@ -368,6 +368,13 @@ def build(cut):
 
     made = []
     b = spec['bank']
+    # UNDER A HOOD UP (10/23): a person whose top or coat has its hood up wears no hat, and a cut bigger than a short one goes
+    # under the hood as the taper (looking: a coil crown swallowed the hood whole)
+    hood_up_ = (spec.get('top') in BASE_ONE.BY and BASE_ONE.BY[spec['top']]['hood_up']) or \
+        (spec.get('coat') in OUTER_ONE.BY and OUTER_ONE.BY[spec['coat']]['hood'])
+    if hood_up_ and spec.get('hair_cut'):
+        import bohemia_character_the_barbers_book as BOOK
+        if spec['hair_cut'] not in BOOK.SHORT: spec['hair_cut'] = 'TEMPLE TAPER'
     hc = spec.get('hair_cut')        # A PERSON names his cut; every other entry is its own cut
     cut_ = hc if hc in ORDER else spec.get('as_cut', cut)   # a garment's head wears one of the three cuts (TEMPLE TAPER) under it
 
@@ -590,7 +597,7 @@ def build(cut):
         made += HATS_ONE.build(cut, locals())
     elif cut in EYE_ONE.CUTS:
         made += EYE_ONE.build(cut, locals())
-    if spec.get('hat'): made += HATS_ONE.build(spec['hat'], locals())          # a person's hat over his cut (a short cut only)
+    if spec.get('hat') and not hood_up_: made += HATS_ONE.build(spec['hat'], locals())   # a person's hat over his cut (a short cut only; never under his hood)
     if spec.get('eyewear'): made += EYE_ONE.build(spec['eyewear'], locals())   # and his face piece
     if cut in FACES_ONE.CUTS or spec.get('new_beard') or spec.get('mark'):     # FACES 1: the new facial hair and marks, after the cut
         made += FACES_ONE.build(cut, locals())
@@ -599,6 +606,12 @@ def build(cut):
     if cut in OUTER_ONE.CUTS and OUTER_ONE.BY[spec['garment']]['hood']:   # a hooded poncho's hood up over the head (BASE 1's hood)
         _G = OUTER_ONE.BY[spec['garment']]
         made += BASE_ONE.head(cut, locals(), G=dict(neck='hood', hood_up=True, mid=_G['mid']))
+    # A PERSON's top and coat that ride the head (10/23): his turtleneck's roll up the neck, his hood up, a hooded poncho's hood;
+    # the barber built them only for its own cards, so RUN TWO's roll left those tops and coats out of the crowd
+    if spec.get('top') in BASE_ONE.BY:
+        made += BASE_ONE.head(cut, locals(), G=BASE_ONE.BY[spec['top']])
+    if spec.get('coat') in OUTER_ONE.BY and OUTER_ONE.BY[spec['coat']]['hood']:
+        made += BASE_ONE.head(cut, locals(), G=dict(neck='hood', hood_up=True, mid=OUTER_ONE.BY[spec['coat']]['mid']))
 
     for m in made:
         if isinstance(m, tuple): skin_to(m[1], m[2]); strand_normals(m[1])
