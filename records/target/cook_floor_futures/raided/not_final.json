@@ -2105,5 +2105,57 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_shore_1.webp",
   "future": null
+ },
+ "casino.0": {
+  "seconds": 560,
+  "junk": {
+   "bags": 0,
+   "paper": 0,
+   "card": 0,
+   "cloth": 0,
+   "weeds": 0,
+   "mattresses": 0,
+   "couches": 0,
+   "fires": 0,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 0,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 19,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     12.19,
+     13.94,
+     2.93
+    ],
+    [
+     18.74,
+     53.44,
+     3.15
+    ],
+    [
+     11.76,
+     45.24,
+     3.28
+    ],
+    [
+     7.37,
+     43.03,
+     3.02
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_casino_0.webp",
+  "future": null
  }
 }
