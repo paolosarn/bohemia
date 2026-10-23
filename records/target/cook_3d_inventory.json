@@ -8,7 +8,7 @@
   "fight_floor": {
    "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
    "total": 35,
-   "flat": 6,
+   "flat": 5,
    "in_3d": [
     "corner.0",
     "corner.1",
@@ -28,6 +28,7 @@
     "scrubroad.0",
     "scrubroad.1",
     "shore.0",
+    "shore.1",
     "strip.0",
     "strip.1",
     "subs.0",
@@ -272,7 +273,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 64,
+ "total_flat": 63,
  "log": [
   {
    "at": "10/20 start",
@@ -876,6 +877,17 @@
    "at": "10/23 strip.0 reclaimed",
    "total_flat": 64,
    "fight_floor": 6,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 58,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 shore.1 into the fight",
+   "total_flat": 63,
+   "fight_floor": 5,
    "fight_cover": 0,
    "settlement_backdrops": 0,
    "map_districts": 0,
