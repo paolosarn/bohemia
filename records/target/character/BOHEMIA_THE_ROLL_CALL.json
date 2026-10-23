@@ -20,17 +20,17 @@
   "garments: hands"
  ],
  "count": {
-  "eyewear: not yet": 1,
+  "eyewear: in 3D, the player's own": 1,
   "eyewear: shown, not approved": 14,
   "garment: approved, not final": 49,
-  "garment: built, not shown": 13,
-  "garment: in the people, no card": 66,
-  "garment: not yet": 58,
+  "garment: built, not shown": 7,
+  "garment: in 3D, the player's own": 4,
+  "garment: in the people, no card": 126,
   "garment: shown, not approved": 125,
   "hair: dead, never rebuilt": 34,
   "hair: not yet": 2,
   "hair: shown, not approved": 10,
-  "hat: not yet": 1,
+  "hat: in 3D, the player's own": 1,
   "hat: shown, not approved": 21
  },
  "portrait_unmapped": [],
@@ -2083,8 +2083,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -2096,8 +2097,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -2145,8 +2147,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: hands"
   },
@@ -2158,8 +2161,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: hands"
   },
@@ -2402,8 +2406,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -3360,8 +3365,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -3373,8 +3379,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -3386,8 +3393,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -3435,8 +3443,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: hands"
   },
@@ -3448,8 +3457,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: hands"
   },
@@ -3461,8 +3471,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: waist"
   },
@@ -3656,8 +3667,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -3669,8 +3681,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -3682,8 +3695,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -3695,8 +3709,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -3710,8 +3725,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -3761,8 +3777,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -3835,8 +3852,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -3862,8 +3880,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -3893,8 +3912,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -3906,8 +3926,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -3921,8 +3942,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -3972,8 +3994,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -3985,8 +4008,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -4033,8 +4057,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: waist"
   },
@@ -4098,8 +4123,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -4111,8 +4137,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -4124,8 +4151,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -4137,8 +4165,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: waist"
   },
@@ -4186,8 +4215,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -4669,8 +4699,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -5199,8 +5230,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5212,8 +5244,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5225,8 +5258,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5238,8 +5272,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5251,8 +5286,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5264,8 +5300,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5279,8 +5316,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "built, not shown",
-    "by": "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5292,8 +5330,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5305,8 +5344,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5318,8 +5358,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5367,8 +5408,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5380,8 +5422,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5393,8 +5436,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5406,8 +5450,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5419,8 +5464,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -5432,8 +5478,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -5445,8 +5492,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -5458,8 +5506,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -5471,8 +5520,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -6307,8 +6357,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -6320,8 +6371,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: gear"
   },
@@ -6890,8 +6942,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -6903,8 +6956,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: neck"
   },
@@ -6916,8 +6970,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: hands"
   },
@@ -6929,8 +6984,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: hands"
   },
@@ -6978,8 +7034,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: waist"
   },
@@ -6991,8 +7048,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: waist"
   },
@@ -7004,8 +7062,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -7017,8 +7076,9 @@
    "worn_by": [],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null
+    "state": "in the people, no card",
+    "by": "CHARACTER, modelled on the 3D man (GEAR 1), rolled into RUN TWO's people",
+    "rule": "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"
    },
    "batch": "garments: back"
   },
@@ -7546,9 +7606,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null,
-    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+    "state": "in 3D, the player's own",
+    "by": "CHARACTER, the paper doll on the 3D man (THE FIRST LOOK; build FIRST)",
+    "note": "the player's own: his first look is his, never the crowd's roll"
    },
    "batch": "eyewear 1"
   },
@@ -7565,7 +7625,7 @@
    "new_look": {
     "state": "not yet",
     "by": null,
-    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+    "note": "his painted curtain bob stays his (the roll call); CHIN BOB is in the graveyard, so no new bob is cut"
    },
    "batch": "hair 1 (his first: strands and clumps, never a mesh)"
   },
@@ -7580,9 +7640,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null,
-    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+    "state": "in 3D, the player's own",
+    "by": "CHARACTER, the paper doll on the 3D man (THE FIRST LOOK; build FIRST)",
+    "note": "the player's own: his first look is his, never the crowd's roll"
    },
    "batch": "hats 1"
   },
@@ -7597,9 +7657,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null,
-    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+    "state": "in 3D, the player's own",
+    "by": "CHARACTER, the paper doll on the 3D man (THE FIRST LOOK; build FIRST)",
+    "note": "the player's own: his first look is his, never the crowd's roll"
    },
    "batch": "garments: jacket"
   },
@@ -7614,9 +7674,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null,
-    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+    "state": "in 3D, the player's own",
+    "by": "CHARACTER, the paper doll on the 3D man (THE FIRST LOOK; build FIRST)",
+    "note": "the player's own: his first look is his, never the crowd's roll"
    },
    "batch": "garments: pants"
   },
@@ -7631,9 +7691,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null,
-    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+    "state": "in 3D, the player's own",
+    "by": "CHARACTER, the paper doll on the 3D man (THE FIRST LOOK; build FIRST)",
+    "note": "the player's own: his first look is his, never the crowd's roll"
    },
    "batch": "garments: shirt"
   },
@@ -7648,9 +7708,9 @@
    ],
    "aliases": [],
    "new_look": {
-    "state": "not yet",
-    "by": null,
-    "note": "the player's first look (YOU's portrait wears his platinum long cut, not this)"
+    "state": "in 3D, the player's own",
+    "by": "CHARACTER, the paper doll on the 3D man (THE FIRST LOOK; build FIRST)",
+    "note": "the player's own: his first look is his, never the crowd's roll"
    },
    "batch": "garments: shoes"
   }

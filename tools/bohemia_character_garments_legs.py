@@ -136,7 +136,8 @@ HELD = {}
 # rows more (+0.03)
 SHOE = {'SNEAKERS': ('sneaker', 0.11), 'BOOT': ('boot', 0.16), 'MID BOOT': ('boot', 0.22), 'TALL BOOT': ('boot', 0.38),
         'SLOUCH BOOT': ('boot', 0.34), 'STACK BOOT': ('boot', 0.19), 'STACKED MID BOOT': ('boot', 0.25), 'SANDALS': ('sandal', 0.07),
-        'COLUMN': ('boot', 0.0)}
+        'COLUMN': ('boot', 0.0),
+        'RUNWAY SNEAKERS': ('sneaker', 0.12)}   # the player's first look (the paper doll's balenciaga): a chunky sneaker on a stacked sole
 # the trouser's hem and the shin it leaves bare (the body tool's crop paints the shin under it skin)
 HEM = {'SHORTS': at_leg(0.42), 'CROPPED': at_leg(0.68), 'WRAP SKIRT': at_leg(0.72), 'ANKLE SKIRT': 0.105}
 
@@ -361,6 +362,10 @@ def pieces(Gl, Gf, X):
             made.append(paint(g, dk, 'skirt_edge', lambda c: c.y < -0.03 and abs(c.x - (0.10 - 0.42 * (0.62 - c.z) / (0.62 - hem))) < 0.012))
             made.append(band('skirt_tie', [K_['waist_ring'](0.640, weight + 0.006)], 0.022, 0.008, dk))
         # THE HEMS
+        if S == 'LEGWARMERS':   # the player's first look: slim leather, knit warmers bunched from the ankle to under the knee
+            def keep_w(fm, c): return fm == 'shin' and 0.100 < c.z < 0.300
+            made.append(cloth('legwarmers', keep_w, lambda p: weight + 0.010 + 0.004 * max(0.0, math.cos(2 * math.pi * p.z / 0.022)) ** 2
+                              + 0.005 * sstep(0.30, 0.12, p.z), lt, rim=0.005, levels=2, fams=('shin',)))
         if S in ('TROUSERS', 'JEANS', 'CARGOS', 'WORK PANTS'):   # the rolled hem, in the light
             made.append(band('rolled_hem', leg_rings(0.112, weight + 0.001), 0.022, 0.007, lt))
         if S == 'SWEATS':   # the ribbed cuff, gathered tight on the ankle
@@ -429,7 +434,7 @@ def pieces(Gl, Gf, X):
             made.append(cloth('column', keep_c, thick_c, mid, rim=0.005, levels=2, fams=('torso', 'thigh', 'shin', 'foot')))
             for sx in (1, -1): made.append(slab('column_sole_%d' % (sx > 0), sx, -0.001, 0.014, 0.026, sole))
         else:
-            stack = S in ('STACK BOOT', 'STACKED MID BOOT')
+            stack = S in ('STACK BOOT', 'STACKED MID BOOT', 'RUNWAY SNEAKERS')
             grow = shell + (0.014 if stack else 0.004)
             sole_h = 0.034 if stack else 0.016 if kind != 'sandal' else 0.014
             for sx in (1, -1):

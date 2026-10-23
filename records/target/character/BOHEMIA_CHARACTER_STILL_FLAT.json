@@ -4,9 +4,9 @@
  "rule": "123(b)",
  "draft": true,
  "total": {
-  "flat": 67,
-  "3d, not rolled": 20,
-  "3d, rolled": 273
+  "flat": 1,
+  "3d, not rolled": 26,
+  "3d, rolled": 333
  },
  "dead_not_counted": 34,
  "by_family": {
@@ -41,9 +41,9 @@
    "3d, rolled": 17
   },
   "scarves and cowls": {
-   "flat": 9,
+   "flat": 0,
    "3d, not rolled": 0,
-   "3d, rolled": 0
+   "3d, rolled": 9
   },
   "face pieces": {
    "flat": 0,
@@ -51,110 +51,34 @@
    "3d, rolled": 14
   },
   "gloves": {
-   "flat": 6,
-   "3d, not rolled": 0,
-   "3d, rolled": 0
-  },
-  "belts": {
-   "flat": 5,
-   "3d, not rolled": 0,
-   "3d, rolled": 2
-  },
-  "gear": {
-   "flat": 28,
-   "3d, not rolled": 0,
-   "3d, rolled": 0
-  },
-  "bags, capes and mantles": {
-   "flat": 12,
+   "flat": 0,
    "3d, not rolled": 0,
    "3d, rolled": 6
   },
-  "the player's first look": {
-   "flat": 7,
+  "belts": {
+   "flat": 0,
    "3d, not rolled": 0,
+   "3d, rolled": 7
+  },
+  "gear": {
+   "flat": 0,
+   "3d, not rolled": 0,
+   "3d, rolled": 28
+  },
+  "bags, capes and mantles": {
+   "flat": 0,
+   "3d, not rolled": 0,
+   "3d, rolled": 18
+  },
+  "the player's first look": {
+   "flat": 1,
+   "3d, not rolled": 6,
    "3d, rolled": 0
   }
  },
  "flat": {
-  "scarves and cowls": [
-   "DUST SCARF",
-   "OXBLOOD SCARF",
-   "PATINA SCARF",
-   "CHARCOAL SCARF",
-   "SAGE SCARF",
-   "BONE SCARF",
-   "TRAILING SCARF",
-   "DRAPED COWL",
-   "ASH COWL"
-  ],
-  "gloves": [
-   "LEATHER GLOVES",
-   "SOOT GLOVES",
-   "DUST GLOVES",
-   "OXBLOOD GLOVES",
-   "HAND WRAPS",
-   "SOOT HAND WRAPS"
-  ],
-  "belts": [
-   "CHARCOAL BELT",
-   "SCAV TOOL BELT",
-   "HIP SASH",
-   "WIDE WAIST WRAP",
-   "LEAD WAIST WRAP"
-  ],
-  "gear": [
-   "SCAV KNEEPADS",
-   "SCRAP PAULDRON",
-   "CHEST RIG",
-   "WORK SUSPENDERS",
-   "SHIN GUARDS",
-   "WORN BRACERS",
-   "THIGH HOLSTER",
-   "SHELL BANDOLIER",
-   "ELBOW PADS",
-   "FIELD LEG WRAPS",
-   "BLANKET SHOULDER ROLL",
-   "SCRAP CHEST PLATE",
-   "SAND KNEEPADS",
-   "STEEL PAULDRON",
-   "SPIKED PAULDRON",
-   "STEEL SPIKED PAULDRON",
-   "OLIVE CHEST RIG",
-   "BRICK SUSPENDERS",
-   "STEEL SHIN GUARDS",
-   "OXBLOOD BRACERS",
-   "RUST THIGH HOLSTER",
-   "DUST BROWN BANDOLIER",
-   "SOOT CHEST PLATE",
-   "KHAKI ELBOW PADS",
-   "OLIVE LEG WRAPS",
-   "BRICK SHOULDER ROLL",
-   "RUST GORGET",
-   "SOOT GORGET"
-  ],
-  "bags, capes and mantles": [
-   "RUCK PACK",
-   "SALVAGE SATCHEL",
-   "BEDROLL",
-   "ROAD CAPE",
-   "SCRAP QUIVER",
-   "CHARCOAL ROAD CAPE",
-   "OLIVE RUCK PACK",
-   "OXBLOOD SATCHEL",
-   "DUST BEDROLL",
-   "RUST QUIVER",
-   "ONE-SHOULDER DRAPE",
-   "BONE SHOULDER DRAPE"
-  ],
   "the player's first look": [
-   "glasses/shades",
-   "hair/curtain-bob",
-   "hat/durag",
-   "jacket/japanese-fuzz_hoodDown",
-   "pants/leather-legwarmer",
-   "shirt/cowl-hoodie",
-   "shoes/balenciaga"
+   "hair/curtain-bob"
   ]
  }
 }

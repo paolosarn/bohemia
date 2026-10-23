@@ -148,7 +148,8 @@ def main():
     BASE_CARD = dict(BASE_CARD, **OUTER_CARD); BASE_HELD = BASE_HELD | OUTER_HELD
     HELD_RECORD = {'base': 'records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md', 'outer': 'records/BOHEMIA_OUTER_ONE_THE_74_COATS_10_20_26.md'}
     PP = portrait_pieces()
-    RULE_123 = dict(legs=BARBER.LEGS_ONE, feet=BARBER.LEGS_ONE)
+    RULE_123 = dict(legs=BARBER.LEGS_ONE, feet=BARBER.LEGS_ONE, back=BARBER.GEAR_ONE, gear=BARBER.GEAR_ONE, neck=BARBER.GEAR_ONE,
+                    waist=BARBER.GEAR_ONE, hands=BARBER.GEAR_ONE)
 
     rows, seen = [], set()
 
@@ -229,9 +230,14 @@ def main():
         if slot in ('body', 'facial'):
             continue
         kind = {'hair': 'hair', 'hat': 'hat', 'glasses': 'eyewear'}.get(slot, 'garment')
+        nl = {'state': 'not yet', 'by': None, 'note': "the player's first look (YOU's portrait wears his platinum long cut, not this)"}
+        if PLAIN.get(key) in BARBER.FIRST.BY:   # THE FIRST LOOK (10/23, rule 123: no card): in 3D, the player's own, never rolled
+            nl = {'state': "in 3D, the player's own", 'by': "CHARACTER, the paper doll on the 3D man (THE FIRST LOOK; build FIRST)",
+                  'note': BARBER.FIRST.HELD[PLAIN[key]]}
+        elif PLAIN.get(key) in BARBER.FIRST.HIS_OWN:
+            nl['note'] = BARBER.FIRST.HIS_OWN[PLAIN[key]]
         rows.append({'name': key, 'plain': PLAIN.get(key), 'kind': kind, 'slot': slot, 'old': 'paper doll', 'worn_by': ['you'],
-                     'aliases': [], 'new_look': {'state': 'not yet', 'by': None, 'note': "the player's first look (YOU's portrait wears his platinum long cut, not this)"},
-                     'batch': BATCH.get(kind, 'garments: %s' % slot)})
+                     'aliases': [], 'new_look': nl, 'batch': BATCH.get(kind, 'garments: %s' % slot)})
     # aliases: PORTRAIT's head pieces and the rig's sculpt styles, mapped by the look's own worn list
     by = dict((r['name'], r) for r in rows)
     portrait_unmapped = []

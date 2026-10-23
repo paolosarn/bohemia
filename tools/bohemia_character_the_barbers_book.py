@@ -38,6 +38,7 @@ import bohemia_character_eyewear_one as EYE  # noqa: E402
 import bohemia_character_garments_base as TOPS  # noqa: E402
 import bohemia_character_garments_outer as COATS  # noqa: E402
 import bohemia_character_garments_legs as LEGS  # noqa: E402   (the 45 trousers and 40 shoes, 10/23)
+import bohemia_character_garments_gear as GEAR  # noqa: E402   (the 68 bags, capes, pads, scarves, belts and gloves, 10/23)
 
 BOOK = os.path.join(ROOT, 'records/target/character/BOHEMIA_THE_BARBERS_BOOK.json')
 REG = os.path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json')
@@ -144,6 +145,7 @@ def book():
         # LEGS AND FEET (10/23, rule 123: no card, straight into the people): every person rolls his own pair (roll_one, below)
         trousers=[dict(name=G['name'], build='LEGS ' + G['name'], shape=G['shape'], held=G['name'] in LEGS.HELD) for G in LEGS.LEGS],
         shoes=[dict(name=G['name'], build='FEET ' + G['name'], shape=G['shape'], held=G['name'] in LEGS.HELD) for G in LEGS.FEET],
+        kit=[dict(name=G['name'], build='KIT ' + G['name'], slot=G['slot'], kind=G['kind'], held=G['name'] in GEAR.HELD) for G in GEAR.BANK],
         hair_colours=[dict(step=list(s), weight=w, name=nm) for s, w, nm in HAIR_COLOURS],
         skins=dict(census=sk['mix']['target_census'], tones=HERITAGE_TONES, rig_table=sk['rig_table'], source=sk['mix']['source']),
         roll=dict(facial_hair=0.45, mark=0.20, hat=0.12, hat_only_over='a short cut', face_piece=0.10, gang_cut_weight=3,
@@ -153,7 +155,8 @@ def book():
     B['count'] = dict(cuts=n_cuts, face_shapes=len(B['face_shapes']), facial_hair=len(B['facial_hair']) + 1, marks=len(B['marks']) + 1,
                       hair_colours=len(HAIR_COLOURS), skins=len(sk['rig_table']), hats=len(B['hats']), face_pieces=len(B['face_pieces']),
                       tops=sum(1 for t in B['tops'] if not t['held']), coats=sum(1 for t in B['coats'] if not t['held']),
-                      trousers=sum(1 for t in B['trousers'] if not t['held']), shoes=sum(1 for t in B['shoes'] if not t['held']))
+                      trousers=sum(1 for t in B['trousers'] if not t['held']), shoes=sum(1 for t in B['shoes'] if not t['held']),
+                      kit=sum(1 for t in B['kit'] if not t['held']))
     c = B['count']
     B['count']['heads'] = c['cuts'] * c['face_shapes'] * c['facial_hair'] * c['marks'] * c['hair_colours'] * c['skins']
     json.dump(B, open(BOOK, 'w'), indent=1)
@@ -197,11 +200,12 @@ def roll_one(B, gang, pid):
     if rng.random() < B['roll']['face_piece']:
         P['eyewear'] = rng.choice([f['name'] for f in B['face_pieces']])
     P.update(LEGS.roll_wear(gang, pid))   # his trousers and shoes, on their own random stream (every draw above unchanged)
+    P['kit'] = GEAR.roll_kit(gang, pid)   # his bag, scarf, belt, pads or gloves, none to a few, on their own stream
     return P
 
 
 def key(P):
-    return tuple(json.dumps(P.get(k), sort_keys=True) for k in ('skin', 'hair_cut', 'hair', 'face', 'beard', 'new_beard', 'stubble', 'scar', 'mark', 'hat', 'eyewear', 'legs', 'feet'))
+    return tuple(json.dumps(P.get(k), sort_keys=True) for k in ('skin', 'hair_cut', 'hair', 'face', 'beard', 'new_beard', 'stubble', 'scar', 'mark', 'hat', 'eyewear', 'legs', 'feet', 'kit'))
 
 
 def roll(gang, n, out):

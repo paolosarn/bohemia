@@ -49,7 +49,7 @@ def modelled():
         for t in B.get(k, []): out[t['name']] = (not t['held'], 'LEGS AND FEET 1' + (' (held)' if t['held'] else ''))
     # the further families, once the barber builds them (each module carries BY, HELD and LABEL; a module the barber does
     # not import is not in the game, whatever is on disk)
-    for attr in ('GEAR_ONE',):
+    for attr in ('GEAR_ONE', 'FIRST'):
         m = getattr(BS, attr, None)
         if m is None: continue
         for n in m.BY: out[n] = (n not in m.HELD, m.LABEL + (' (held)' if n in m.HELD else ''))
@@ -69,7 +69,8 @@ def main(label=''):
             dead += 1; continue
         f = FAMILY.get(r['slot'], r['slot'])
         if r['old'] == 'paper doll': f = "the player's first look"
-        st = 'flat' if r['name'] not in M else '3d, rolled' if M[r['name']][0] else '3d, not rolled'
+        n = r['name'] if r['name'] in M else r.get('plain') if r.get('plain') in M else None   # the paper doll by its plain name
+        st = 'flat' if n is None else '3d, rolled' if M[n][0] else '3d, not rolled'
         d = fam.setdefault(f, {'flat': 0, '3d, not rolled': 0, '3d, rolled': 0})
         d[st] += 1
         if st == 'flat': flat_names.setdefault(f, []).append(r['name'])
