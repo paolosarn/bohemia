@@ -71,6 +71,25 @@ feet 3 px low on lookR facing S (the model itself never moved: its ankles read t
 leg (F1) caught it. Fix: the props are SKINNED to two bones of their own (prop_cigarette, prop_smoke), keyed tiny in
 Stand and every pose that does not show them. Every man was rendered again; about 25 minutes of renders thrown away.
 
+## THE SECOND BUG, ON THE REAL MAP
+Looked at on the map itself (the demo, headless, his party at rest): he and his two men had NO HEADS. My map cells were
+placed from the old render's `ground_px`, and CHARACTER's body was rendered before the master rig's round seven, when
+`ground_px` was the look point, not the feet: 50 px off, so his head sat above the map's 112 frame and was cut. Fix:
+the cells are placed on the full frame both renders share (the same model, still and camera, checked: the same res), never
+on that field. Gate leg M3 (every map idle where its still is, soles 2 px, crown 6 px, every facing) and its mutation M4
+(a cell 24 px high) now hold it.
+
+## THE NUMBERS
+- 28 men (the player, the twelve cast, the thirteen gangs, the thug and the poacher) x 48 poses x 8 facings, and 19 of
+  those poses with each of three guns in his hands; 3 beasts x 12 x 8; 17 of the map's 20 people x 10 x 8.
+- Rendered on this box at about 6.5 minutes a pair of men (two container restarts cost the in-flight looks, rerun).
+- slices/rig_idles: 14 MB, 121 files. A man is about 2048 x 450 (bare) + 2048 x 330 (gun-held) + 1024 x 280 (guns);
+  the fight loads only the gun-held sheet and the guns (about 3 MB decoded a man, against 18.5 for his fight sheet).
+- A look's cells are a 22 KB json of its own; the index is 4 KB.
+- 40 people over two minutes: no two share half their poses (the worst pair 46 percent, the median 9).
+- THE MAP: 17 of 20 matched (silhouette 0.956 and up, colour step under 9 on the gangs); the job crew's three (the thug,
+  the poacher: their rebuilt still is a new frame; the marksman: silhouette 0.61, his builder moved on) keep their stills.
+
 ## [bb idles] HOW BATTLE BROTHERS DID IT
 Battle Brothers spends its pictures on the HIT; a man between turns is essentially still, and on the map there is no
 body at all (reference/library/battle_brothers/10_UI_AND_FEEL.md; records/BOHEMIA_BB_SCHOOL_WHERE_A_BODY_SPENDS_ITS_PICTURES_9_27_26.md).
@@ -90,9 +109,15 @@ breathing a little harder): [Vagrus devlog 25](https://lostpilgrims.itch.io/vagr
 
 ## GATE
 gates/everybody_idles_gate.py (S the source, P the pictures, C not a chess piece in the pixels, F the feet, M the map
-match, X the shipped player under node, W wired on all four screens and on the real fight headless), four mutations.
+match and frame, X the shipped player under node, W wired on all four screens and on the real fight headless), six
+mutations (a key short, a one-key turn, a man whose every idle is his still, a man sunk 4 px, a map cell 24 px high, twelve
+people on one seed). 26 passed, 0 failed.
 
 ## NOT DONE, STATED
+- The map's job crew (COOK THREE's thug, marksman, poacher on a job) keep their stills: the rebuilt models no longer
+  match the map's pictures, and an idle that is a different man than the walk is worse than a still.
+- The thug's base pose (COMBAT's Stand for a tier, the walk's passing pose) is mid-stride from the side; his idles keep
+  that stance (the feet never move), so from the side he breathes in a stride. COMBAT's still, named on its board.
 - RUN TWO's rolled people (BOHEMIA_RIG_MIX, [no two people alike], not on main yet): when they land, the settlement and
   the map can play their idles the same way: `pose` and the master rig on each rolled person, a NOTE on RUN TWO's board.
 - The settlement's background people who WORK (rule 131(a)) are RUN TWO's [the settlement is busy]; the work clips are
