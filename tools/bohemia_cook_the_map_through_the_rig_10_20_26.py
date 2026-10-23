@@ -228,7 +228,10 @@ def to_bank(names=None):
         if (names and d not in names) or not os.path.exists(p): continue
         im = Image.open(p).convert('RGBA')
         assert im.size == (h['w'], h['h']), (d, im.size, h['w'], h['h'])
-        buf = io.BytesIO(); im.save(buf, 'PNG', optimize=True)
+        # 10/23: as an indexed PNG (tools/bohemia_cook_master_to_palette.py): truecolour, fifteen masters took the bank
+        # from 28.5 MB to 56.9 MB and all 69 would pass the 100 MB GitHub refuses
+        import bohemia_cook_master_to_palette as MP
+        buf = io.BytesIO(); MP.to_palette(im).save(buf, 'PNG', optimize=True, transparency=255)
         h['b64'] = base64.b64encode(buf.getvalue()).decode()
         r, g, b, _a = HF._pad_colour(im); h['pad'] = '#%02x%02x%02x' % (r, g, b)
         h['through_the_rig'] = '10/20 COOK [every 2D asset into 3D]: the factory\'s scene rendered through the master rig (tools/bohemia_cook_the_map_through_the_rig_10_20_26.py)'

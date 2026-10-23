@@ -296,6 +296,17 @@
    "fight_floor_futures": 70,
    "fight_lights": 0,
    "item_icons": 0
+  },
+  {
+   "at": "10/23 the district bank's rig masters as indexed PNGs (the bank 56.9 MB -> 28.3 MB)",
+   "total_flat": 165,
+   "fight_floor": 28,
+   "fight_cover": 0,
+   "settlement_backdrops": 13,
+   "map_districts": 54,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
   }
  ]
 }
