@@ -45831,14 +45831,19 @@ function vbClassOf(d){
   if (/^(commercial|industrial|warehouse|mall|convention|school|prison|jail|library|firestation|policestation|robofactory|datafort|arsenal|fueldepot|granary|storage|substation|pumpstation|watertreat|radio|battery|reclaim|terminal|chapel|fort|swapmeet)$/.test(d)) return VB_CLASS.roof;
   return VB_CLASS.lot;
 }
-var VB_CCOL = { yard: '#76694d', yard2: '#6a5f46', roofA: '#8a6650', roofB: '#9c8c72', roofC: '#625a52', burn: '#2e2924', ash: '#4a423a',
-  asphalt: '#3b3834', line: '#7d725c', conc: '#5c5852', edge: '#47433d', neon: '#c9a456', roof: '#8a8882', hvac: '#64625c',
-  tower: '#9a9c98', towerTop: '#c4c6c0', gold: '#b89a5c', green: '#5f6a45', tree: '#3f4a30', water: '#2f4a5e', shore: '#4e6d7a',
-  floor: '#8f7d59', brush: '#5f5440', pebble: '#b09c74', solar: '#36424e', solarRow: '#56677a', field: '#4c4842', mark: '#857a62',
+/* __THE_MAP_STANDS_UP__ (10/23): the painting wears COOK's 3D pictures' own palette (the suburb's roofs #b5aea5 and walls #877f72,
+   the dark windows, the resort's grey concrete, read off slices/BOHEMIA_CITY_TILES_*.js), so the hand-over to those pictures at a
+   block 26 to 30 px is one city, not a reddish one turning grey. Was reddish roofs on tan yards and a bright gold Strip. The homes
+   are warmed to the suburb picture as the map draws it (his 'more tan' cast over it, __THE_DISTRICTS_READ_APART__ 10/18): its mean
+   123, 108, 88; an estate wears a muted terracotta tile so it still reads apart. */
+var VB_CCOL = { yard: '#8c7b63', yard2: '#80705a', roofA: '#bba98e', roofB: '#aa997f', roofC: '#3a3733', burn: '#2e2924', ash: '#4a423a',
+  asphalt: '#3b3834', line: '#7d725c', conc: '#5c5852', edge: '#47433d', neon: '#c9a456', roof: '#8a857c', hvac: '#5e5a54',
+  tower: '#8c877f', towerTop: '#aaa498', gold: '#a3916a', green: '#5f6a45', tree: '#3f4a30', water: '#2f4a5e', shore: '#4e6d7a',
+  floor: '#90826b', brush: '#5f5440', pebble: '#b09c74', solar: '#36424e', solarRow: '#56677a', field: '#4c4842', mark: '#857a62',
   rail: '#4a4038', tie: '#6b5a48', dam: '#a8aaa8', lit: '#e3b866', lamp: '#f0d488', neonN: '#e8708a',
   /* __THE_DISTRICTS_READ_APART__ (10/23): the families' own roofs and grounds, tan and dust, never bright (his 'more tan') */
-  lawn: '#525a3c', pool: '#3f4f45', poolDry: '#8f897c', wallG: '#8d8270', roofE: '#a8896a', roofE2: '#98765e', gravel: '#7b7467', trailer: '#9a978d', trailer2: '#82807a',
-  slab: '#857b6f', court: '#605b52', park: '#3e3c38', stripe: '#6b665b', shop: '#8a857a', rust: '#7c5c45', dirt: '#6d6250' };
+  lawn: '#4f553b', pool: '#3f4f45', poolDry: '#8f897c', wallG: '#8d8270', roofE: '#a08270', roofE2: '#8e7262', gravel: '#716a5e', trailer: '#8f877a', trailer2: '#7a7367',
+  slab: '#8f877b', court: '#5a554d', park: '#3e3c38', stripe: '#6b665b', shop: '#837e75', rust: '#74604f', dirt: '#6d6556' };
 /* a block's family inside its class: the houses (suburb 0, estate, gated, trailer, apartment) and the works (civic 0, shop, works) */
 var VB_SUB = { estate: 1, gated: 2, trailer: 3, apartment: 4, shop: 1, works: 2 };
 function vbSubOf(d){
@@ -46056,7 +46061,7 @@ function vbCityCore(inp){
           var gu = (Math.abs(sxp - Hq) < J && Math.abs(sxm - Hq) < J) ? (sxp - sxm) * 0.5 : 0, gv = (Math.abs(syp - Hq) < J && Math.abs(sym - Hq) < J) ? (syp - sym) * 0.5 : 0;
           sh += 0.4 * Math.max(-1, Math.min(1, gu)) + 0.2 * Math.max(-1, Math.min(1, gv)); } }
       else { sh = (sxp < syp) ? 0.56 : 0.76;
-        if ((cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || cl2 === VB_CLASS.roof) && liftk > 1 && (liftk % 2) === 1 && Hq - liftk > 1) sh *= 0.8; }   /* __THE_MAP_STANDS_UP__: a storey a window band */
+        if ((cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || cl2 === VB_CLASS.roof || (cl2 === VB_CLASS.houses && (ci >> 10) === VB_SUB.apartment)) && liftk > 1 && (liftk % 2) === 1 && Hq - liftk > 1) sh *= cl2 === VB_CLASS.roof ? 0.8 : cl2 === VB_CLASS.houses ? 0.74 : 0.55; }   /* __THE_MAP_STANDS_UP__: a storey a window band, a tower's dark like COOK's */
       sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu, qv, sd + 17));
       if (top && SHD[qo] > 0) sh *= SHD[qo] >= 1 ? 0.62 : 1 - 0.38 * SHD[qo];   /* __THE_MAP_STANDS_UP__: in the shade of what stands nearer the sun */
       if (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof || cl2 === VB_CLASS.freeway) { ST.built++; if (!top) ST.wall++; if (cl2 === VB_CLASS.houses && (ci >> 10) < VB_SUB.trailer && Hq > ST.houseMax) ST.houseMax = Hq;   /* a house, not a trailer or a slab */ if (cl2 === VB_CLASS.freeway && Hq > ST.fwyMax) ST.fwyMax = Hq; }

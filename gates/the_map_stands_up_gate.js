@@ -23,7 +23,8 @@
      U6..U8 MUTATIONS, each must turn its leg red: the sun put out (U4), the houses laid flat (U1/U2),
         the berm cut (U3). A leg that cannot go red proves nothing.
      D1 the districts read apart on the painting (RUN [the districts connect on the map]): six families' mean colours,
-        the closest two at least 10 apart in RGB; D2 the mutation (no families handed over) turns it red
+        the closest two at least 10 apart in RGB; D2 the mutation (no families handed over) turns it red; D3 the painted
+        suburb within 14 of COOK's suburb picture as the map draws it, so the hand-over at 26 to 30 px is one city
      U9 nothing threw
    node gates/the_map_stands_up_gate.js
    ========================================================================== */
@@ -102,10 +103,16 @@ const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 3.5, U3: L.fwy >= 2.5
          and the ranges in front of them own their texels in the picture, so the reading would be the mountain's colour */
       const inp0 = vbCityInput(), inp = Object.assign({}, inp0, { cls: inp0.cls.map(c => c === VB_CLASS.mountain ? VB_CLASS.land : c) }), real = read(inp);
       const flat = Object.assign({}, inp, { sub: new Uint8Array(inp.sub.length) });
-      return { real, flat: read(flat) };
+      /* D3: the suburb picture as the map draws it (COOK's 3D picture under the family cast), its mean over its painted pixels */
+      let pic = null; try { const im = heroTint('suburb', HERO_IMG.suburb), c = document.createElement('canvas'); c.width = im.naturalWidth || im.width; c.height = im.naturalHeight || im.height;
+        const x = c.getContext('2d'); x.drawImage(im, 0, 0); const a = x.getImageData(0, 0, c.width, c.height).data, m = [0, 0, 0]; let n = 0;
+        for (let i = 0; i < a.length; i += 4) if (a[i + 3] > 200) { m[0] += a[i]; m[1] += a[i + 1]; m[2] += a[i + 2]; n++; } pic = m.map(v => v / n); } catch (_e) {}
+      return { real, flat: read(flat), pic };
     });
     const DMIN = 10; console.log('  family means ' + JSON.stringify(fam.real.m));
     ok('D1 the districts read apart: ' + fam.real.fams + ' families on the painting, the closest two (' + fam.real.pair + ') ' + fam.real.lo.toFixed(1) + ' apart in RGB (at least ' + DMIN + ')', fam.real.fams >= 5 && fam.real.lo >= DMIN);
+    const sub = fam.real.m.suburb, dpic = fam.pic ? Math.hypot(sub[0] - fam.pic[0], sub[1] - fam.pic[1], sub[2] - fam.pic[2]) : 999;
+    ok('D3 one city across the hand-over: the painted suburb (' + sub.join(', ') + ') sits within 14 of the suburb picture as the map draws it (' + (fam.pic ? fam.pic.map(Math.round).join(', ') : 'unread') + '; ' + dpic.toFixed(1) + ' apart)', dpic <= 14);
     ok('D2 mutation, no families handed to the painter: D1 goes red (closest ' + fam.flat.pair + ' ' + fam.flat.lo.toFixed(1) + ')', fam.flat.lo < DMIN);
     ok('U9 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
