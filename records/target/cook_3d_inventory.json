@@ -80,14 +80,32 @@
   "settlement_backdrops": {
    "where": "the settlement screen, slices/settlement_ground_packs/*.webp and slices/settlement_ground/home_0*.webp (day and night)",
    "total": 14,
-   "flat": 14,
-   "in_3d": []
+   "flat": 13,
+   "in_3d": [
+    "slices/settlement_ground_packs/town_0.webp"
+   ]
   },
   "map_districts": {
    "where": "the map (BOHEMIA_CITY_WORLD.html), HERO_SRC in slices/BOHEMIA_CITY_TILES_01..09.js: every district picture the valley is laid from, the mountain the biggest",
    "total": 69,
-   "flat": 69,
-   "in_3d": []
+   "flat": 54,
+   "in_3d": [
+    "apartment",
+    "arterial",
+    "commercial",
+    "desert",
+    "farm",
+    "fort",
+    "freeway",
+    "mountain",
+    "rail",
+    "resort",
+    "solar",
+    "strip",
+    "suburb",
+    "town",
+    "trailer"
+   ]
   },
   "fight_floor_futures": {
    "where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp",
@@ -152,7 +170,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 181,
+ "total_flat": 165,
  "log": [
   {
    "at": "10/20 start",
@@ -264,6 +282,17 @@
    "fight_cover": 0,
    "settlement_backdrops": 14,
    "map_districts": 69,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 the map's first fifteen districts through the rig (the mountain first)",
+   "total_flat": 165,
+   "fight_floor": 28,
+   "fight_cover": 0,
+   "settlement_backdrops": 13,
+   "map_districts": 54,
    "fight_floor_futures": 70,
    "fight_lights": 0,
    "item_icons": 0

@@ -42,6 +42,7 @@ BANK = os.path.join(R, 'banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt')
 CELL_M = 96.0                     # a district cell is 96 m a side (the factory's own comment)
 ZC = 0.8165                       # iso3d's height against a true 30-degree orthographic camera
 SAMPLES = 24
+ROAD_WEAR = 0.25                  # 10/23: a road's share of the dust (the asphalt stays dark the way the fight floor's does)
 WEAR = 0.3                        # the guide's 0.6 dusts every flat top, and a district picture is mostly flat tops: at 0.6 the
                                   # mountain's plate went from his brown to a pale grey (measured 10/20), the whole valley would shift; the
                                   # floor tool's ground runs 0.25 for the same reason
@@ -125,10 +126,14 @@ def build(bpy, sc):
     k = CELL_M / plate_units(sc)
     groups = {}
     cache = {}
+    road = {}
     for verts, n, m in sc['faces']:
         if m is None: continue
         mat = material_for(bpy, m, cache)
         groups.setdefault(mat.name, (mat, []))[1].append(verts)
+        if mat.name not in road:                               # 10/23: what is a road (the lot's asphalt, any dark flat paving)
+            c = m.get('asphalt') if m.get('t') == 'lot' else m.get('c')
+            road[mat.name] = bool(c) and m.get('t') != 'win' and max(c[:3]) < 92 and max(c[:3]) - min(c[:3]) < 26
     objs = []
     for name, (mat, quads) in groups.items():
         v = np.array([[p[1] * k, p[0] * k, p[2] * k * ZC] for q in quads for p in q], np.float32)
@@ -142,6 +147,7 @@ def build(bpy, sc):
         uvl.data.foreach_set('uv', np.tile(quv, (len(f), 1)).ravel())
         me.materials.append(mat)
         o = bpy.data.objects.new('o_' + name, me); bpy.context.scene.collection.objects.link(o); objs.append(o)
+        o['road'] = road.get(name, False) and float(v[:, 2].max()) <= 1.0      # flat at grade, never a dark wall
     return objs, k
 
 
@@ -169,7 +175,11 @@ def render(d, sc):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     s_ = bpy.context.scene
     objs, k = build(bpy, sc)
-    RIG.source_pass(objs, WEAR, 1.0, sum(map(ord, d)) % 7)
+    # 10/23: THE ROAD STAYS ASPHALT. At the ground's 0.3 the rig's sun-bleached dust on every flat top turned the strip's
+    # dark road the plate's pale grey (his map roads, 77b, are the read he asked for): a road takes a quarter of the dust
+    roads = [o for o in objs if o.get('road')]
+    RIG.source_pass([o for o in objs if not o.get('road')], WEAR, 1.0, sum(map(ord, d)) % 7)
+    if roads: RIG.source_pass(roads, WEAR * ROAD_WEAR, 1.0, sum(map(ord, d)) % 7)
     RIG.dent_pass(objs, 1.0)
     NF.ZS = ZC                                                 # the grime reads heights through this camera's squash
     NF.LEDGER.clear(); NF.LEDGER.update(fires=[], seed=sum(map(ord, d)) % 97, bid=d)
