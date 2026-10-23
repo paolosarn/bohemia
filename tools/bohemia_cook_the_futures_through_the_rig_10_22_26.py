@@ -149,7 +149,9 @@ def place_houses(bpy, houses, seed):
         add, what = (grow if STATE['s'] == 'reclaimed' else fall)(bpy, meshes, roots, rects, kinds, seed)
         holder = bpy.data.objects.new('future', None); bpy.context.scene.collection.objects.link(holder)
         for o in add: o.parent = holder                                      # the root's height squash reaches them too
-        meshes = meshes + [o for o in add if not o.name.startswith('fut_solar')]; roots = roots + [holder]   # 10/23: the glass keeps its own look
+        # 10/23: the glass and the burnt holes keep their own look (in the houses' 0.6 wear the panels and the holes both
+        # came out pale grey tiles): only the rubble, the beds and the rafters take the dust
+        meshes = meshes + [o for o in add if not o.name.startswith(('fut_solar', 'fut_hole'))]; roots = roots + [holder]
         NF.LEDGER['future'] = what
     return meshes, roots, rects, kinds
 
