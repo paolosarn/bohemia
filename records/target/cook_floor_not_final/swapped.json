@@ -103,5 +103,10 @@
   "file": "slices/fight_ground/block_landfill_0.webp",
   "sha1": "7fd4aa67e9473c5f3f91d410a61b05e5ad8821fd",
   "master": "records/target/cook_floor_not_final/block_landfill_0.webp"
+ },
+ "landfill.1": {
+  "file": "slices/fight_ground/block_landfill_1.webp",
+  "sha1": "9e54d6d1ba46a8105914336706bd46044f54bf73",
+  "master": "records/target/cook_floor_not_final/block_landfill_1.webp"
  }
 }
