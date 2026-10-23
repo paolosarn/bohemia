@@ -102,7 +102,19 @@ inventory's in_3d list is the live record). Things the looking caught on the way
   deep water and a murky teal shelf with slow lighter patches, a ripple and the sky in it, above the bed's rim; and the
   mask's closing ate 8 px at the picture's border, so a pale frame of shore ran round every lake: padded by its own edge
   first (`tools/bohemia_cook_the_odd_blocks_through_the_rig_10_22_26.py`, water_mat, load_plan).
+- THE FREEWAY (freeway.0, freewayo.0) came back from the open fix a blank strip of tarmac: the maker's lane paint and
+  median decode as asphalt or as nothing. Read off the old picture: what is bright or tan on the carriageway is paint,
+  the patches asphalt again, the shoulder's band concrete, the maker's darkness lifted off what it never called ground
+  (the patches had come out black), and the fence read only off the road (the patches had become fences). The
+  overpass's road is the street kit's own and is left out of the paint read: from above it is a road crossing over a
+  freeway that stops at its walks.
+- THE CASINO CARPET came out a pale pink under big dark blotches (his 'camouflage' NO): a deeper red under a twentieth of
+  the dust, few soft stains, a faded gold lattice, the chips 6 cm in piles.
+- THE LANDFILL'S CELLS: see below.
 - Every tool takes `--region x0,y0,x1,y1`: a test window at full pixels in about 3 minutes instead of a block in 12.
+
+ALL 35 PRESENT-DAY BLOCKS ARE 3D (10/23 10:40). On the real fight (`BOHEMIA_FIGHT.html` on the driver's phone profile,
+seed 1), the casino, freeway and landfill boards played with 0 page errors on the new ground.
 
 ### The futures
 
@@ -139,6 +151,15 @@ black discs came out pebble-sized. A working cell of the Apex landfill is a fiel
 crust of dirt: the discs are now TYRES (a real torus, flat or stacked two and three), and the cells' rough ground is
 filled with bags, boxes and scrap at about one a square metre, a fridge on its back, a mattress, a pallet. The odd tool
 takes `--region` (a test window) and a future state.
+
+## HOW THE ROUND RAN
+
+A block takes 7 to 20 minutes on the container's four cores, so the renders ran in the background from the scratchpad:
+one queue for the present day, one for the futures (later two runners on one queue file), and an auto-shipper that
+swapped each finished block into the game and pushed it the moment it landed, for the kinds already looked at; a new
+kind (the church, the lake, the freeway, the casino) was looked at first, at full pixels in a test window, fixed, and only
+then let through. One git writer at a time (a lock), and a rebase that a running render's ledger write broke is put back
+and tried again. The worker restarted once mid-round; the queues were restarted by hand from the inventory.
 
 ## FOR THE OTHER LANES
 
