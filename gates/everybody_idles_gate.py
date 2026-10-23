@@ -100,8 +100,14 @@ F = json.load(open(FR))
 men = [k for k, v in F['looks'].items() if v.get('kind') != 'beast']
 PEOPLE = [k for k, v in I['looks'].items() if v.get('person')]   # RUN TWO's rolled people (no fight cell of their own)
 beasts = [k for k, v in F['looks'].items() if v.get('kind') == 'beast']
+FPEOPLE = [k for k in men if F['looks'][k].get('kind') == 'person']   # RUN TWO's rolled men on the board: rendered in batches
+men = [k for k in men if k not in FPEOPLE]
 miss = [k for k in men + beasts if k not in I['looks']]
 ok('P1 every man and every beast the fight dresses has his idles (%d men, %d beasts)' % (len(men), len(beasts)), not miss, 'missing: ' + ', '.join(miss))
+FIGHTP = [k for k in I['looks'] if k.startswith('fight_person_')]
+print('  note P1b %d of the %d rolled men on the fight\'s board have their idles with their guns (the rest stand as their still until theirs are in)' % (len(FIGHTP), len(FPEOPLE)))
+bad_ref = [k for k in FIGHTP if I['looks'][k].get('person_of') not in FPEOPLE or I['looks'][k].get('foot') != F['looks'][I['looks'][k]['person_of']]['foot']]
+ok('P1c every rolled fight man\'s idles sit in his own fight cell (his foot on the fight sheet\'s)', not bad_ref, bad_ref[:4])
 holes = []
 for k, L in I['looks'].items():
     sets = ('beast',) if F['looks'].get(k, {}).get('kind') == 'beast' else ('bare',) if L.get('person') else ('bare', 'carry')
@@ -170,6 +176,12 @@ for s in ('bare', 'carry'):
 ok('C2 MUTATION: a man whose every idle is his still is caught', len(chess_faults(mut, [k0])) > 5)
 pal_bad = []
 for k, L in I['looks'].items():
+    if L.get('person_of'):   # a rolled fight man: his gun-held pictures in his fight sheet's colours (his bare ones are his street sheet's)
+        fs = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', F['looks'][L['person_of']]['file'])).convert('RGBA'))
+        have = set(map(tuple, fs[fs[..., 3] > 0][:, :3].tolist())) | {tuple(F['rim'][:3])}
+        a = sheet(L['sheets']['carry']['file']); extra = set(map(tuple, a[a[..., 3] > 0][:, :3].tolist())) - have
+        if extra: pal_bad.append('%s +%d colours' % (k, len(extra)))
+        continue
     if L.get('person'):   # no fight sheet: his own 64 (the fight sheet's count)
         a = sheet(L['sheets']['bare']['file']); n = len(set(map(tuple, a[a[..., 3] > 0][:, :3].tolist())))
         if n > 64: pal_bad.append('%s %d colours' % (k, n))
@@ -212,7 +224,7 @@ def feet_faults(I, looks):
     return out
 
 
-feet_bad = feet_faults(I, [k for k in men if k in I['looks']] + PEOPLE)
+feet_bad = feet_faults(I, [k for k in men if k in I['looks']] + PEOPLE + FIGHTP)
 held = ['%s (%s)' % (k, ', '.join(I['looks'][k]['held'])) for k in men if k in I['looks'] and I['looks'][k].get('held')]
 if held: print('  note F1 holds a weapon in his fist, so its swing below the soles is allowed up to 60 percent of the columns: ' + '; '.join(held))
 ok('F1 his soles stay on his ground line in every pose and facing (two pixels): nobody floats, sinks or skates', not feet_bad, '; '.join(feet_bad[:5]))

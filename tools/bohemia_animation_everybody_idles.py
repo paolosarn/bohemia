@@ -728,13 +728,16 @@ PEOPLE_MODELS = 'records/character/rig'
 
 
 def people_list():
+    """the men on COMBAT's board first (the fight is where he plays most), then every gang and the places' people a man at
+    a time"""
     R = json.load(open(os.path.join(ROOT, PEOPLE_ROLL))); groups = {}
     for p in R: groups.setdefault(p['gang'], []).append(p['id'])
     order = []
     for k in range(max(len(v) for v in groups.values())):
         for g in sorted(groups):
             if k < len(groups[g]): order.append(groups[g][k])
-    return order
+    fp = set(t[len('person_'):] for t in fight_people())
+    return [p for p in order if p.lower() in fp] + [p for p in order if p.lower() not in fp]
 
 
 def person_done(tag):
@@ -750,9 +753,44 @@ def walker(tag):
     return os.path.exists(os.path.join(ROOT, 'slices/rig_walk', tag + '.json'))
 
 
+def fight_people():
+    """RUN TWO's rolled men on COMBAT's board (slices/fight_rig/fight_rig.json, kind 'person'): their gang's cell and guns"""
+    F = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
+    return {k: v for k, v in F['looks'].items() if v.get('kind') == 'person'}
+
+
+def carry_done(tag):
+    return os.path.exists(os.path.join(ROOT, RENDERS, tag + '_carry', 'carry.txt'))
+
+
+def carry_one(pid):
+    """a fight man's gun-held idles (the carry set over COMBAT's low ready, imported) on his own model, at the street's
+    settings; his guns are his gang's, as on his fight sheet"""
+    tag = 'person_' + pid.lower(); py = sys.executable
+    glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
+    kept = open(gj).read() if os.path.exists(gj) else None
+    if not os.path.exists(glb) or kept is None:
+        run([py, 'tools/bohemia_run2_no_two_people_alike.py', 'build-one', pid], glb)
+        if kept is not None:
+            with open(gj, 'w') as f: f.write(kept)
+    h = json.load(open(gj))['real_height_for_rig']
+    posed = os.path.join(ROOT, POSED, tag + '_carry.glb')
+    run([py, os.path.abspath(__file__), 'pose_sets', glb, posed, 'carry'], posed)
+    out = os.path.join(ROOT, RENDERS, tag + '_carry')
+    render_model(posed, out, h, [('Stand', 1), ('IdleCarry', len(source()['sets']['carry']['poses']))])
+    os.remove(posed)
+    for f in os.listdir(out):
+        if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
+    with open(os.path.join(out, 'carry.txt'), 'w') as f: f.write('carry\n')
+    print('CARRY person', pid, flush=True)
+
+
 def person_one(pid):
     tag = 'person_' + pid.lower()
     if not person_done(tag): person_idles(pid)
+    if tag in fight_people() and not carry_done(tag):
+        try: carry_one(pid)
+        except BaseException as e: print('CARRY FAILED', pid, e, flush=True)
     if walker(tag) and not work_done(tag):
         try: work_one(pid)
         except BaseException as e: print('WORK FAILED', pid, e, flush=True)
@@ -1020,6 +1058,47 @@ def people_pack():
         print('PACKED map', n, im.size, os.path.getsize(os.path.join(ROOT, OUT, fn)), len(looks), 'people', flush=True)
     json.dump(mj, open(os.path.join(ROOT, OUT, 'map_people.json'), 'w'), separators=(',', ':'))
     index['map_people'] = dict(json='map_people.json')
+    # THE FIGHT'S ROLLED MEN (RUN TWO put 51 on COMBAT's board, each packed into his gang's cell by his ground pixel, his
+    # gang's guns in his hands): fight_<tag>.json, his cells in that cell's frame. Bare: the very cells of his street sheet,
+    # moved (no second picture). Gun-held: his carry renders, in his fight sheet's colours with its one-pixel rim, and his
+    # gang's gun-held idle guns (the same skeleton, poses and cell, as RUN TWO gave him his gang's gun sheet).
+    FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json'))); RIM = tuple(FR['rim'])
+    for k in [k for k in index['looks'] if k.startswith('fight_person_')]: del index['looks'][k]
+    nf = 0
+    for tag, fl in sorted(fight_people().items()):
+        sj = os.path.join(ROOT, OUT, tag + '.json'); cd_ = os.path.join(ROOT, RENDERS, tag + '_carry'); ref = fl.get('ref')
+        rj_ref = os.path.join(ROOT, OUT, (ref or '') + '.json')
+        if tag not in index['looks'] or not carry_done(tag) or not os.path.exists(rj_ref): continue
+        fj = os.path.join(ROOT, OUT, 'fight_' + tag + '.json')
+        if os.path.exists(fj) and os.path.getmtime(fj) >= max(os.path.getmtime(sj), os.path.getmtime(os.path.join(cd_, 'carry.txt'))):
+            index['looks']['fight_' + tag] = dict(json='fight_' + tag + '.json'); nf += 1; continue
+        S = json.load(open(sj)); rec = os.path.join(ROOT, PEOPLE_STILLS, tag); mine = json.load(open(os.path.join(rec, 'rig.json')))
+        gx, gy = mine['crop_box_px'][0] + mine['ground_px'][0], mine['crop_box_px'][1] + mine['ground_px'][1]
+        fx0, fy0 = gx - fl['foot'][0], gy - fl['foot'][1]   # his fight cell's origin in his street frame
+        bare = dict(S['sheets']['bare']); bare['cells'] = [[c[0], c[1], c[2], c[3], c[4] - fx0, c[5] - fy0] for c in bare['cells']]
+        rc = json.load(open(os.path.join(cd_, 'rig.json')))
+        off = (gx - rc['crop_box_px'][0] - rc['ground_px'][0], gy - rc['crop_box_px'][1] - rc['ground_px'][1])
+        fs = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', fl['file'])).convert('RGBA'))
+        P = np.array(sorted(set(map(tuple, fs[fs[..., 3] > 0][:, :3].tolist()))), np.int32)
+        imgs, cells = [], {}
+        for pi, p in enumerate(D['sets']['carry']['poses']):
+            for row, f in enumerate(FIGHT_DIRS):
+                c = cut(full(os.path.join(cd_, 'rig_IdleCarry_%s_k%02d.png' % (f, pi)), rc, off, mine['res']))
+                if c is None: continue
+                a, x0, y0 = c; a = np.pad(a, ((1, 1), (1, 1), (0, 0))); op = a[..., 3] > 0
+                near = np.zeros_like(op)
+                near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
+                a = to_pal(a, P); a[near & ~op] = RIM + (255,) if len(RIM) == 3 else RIM
+                cells.setdefault(p, [None] * 8)[row] = len(imgs); imgs.append((a, x0 - 1 - fx0, y0 - 1 - fy0))
+        body, rects = atlas(imgs, 2048); fn = 'fight_%s_carry.webp' % tag
+        body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+        G = json.load(open(rj_ref)).get('guns')
+        entry = dict(person_of=tag, fight=fl['file'], foot=fl['foot'], guns=G, guns_of=ref,
+                     sheets=dict(bare=bare, carry=dict(file=fn, cells=rects, size=list(body.size))),
+                     poses=dict(bare=S['poses']['bare'], carry={p: cells.get(p, [None] * 8) for p in D['sets']['carry']['poses']}))
+        json.dump(entry, open(fj, 'w'), separators=(',', ':'))
+        index['looks']['fight_' + tag] = dict(json='fight_' + tag + '.json'); nf += 1
+    print('PACKED fight people', nf, 'of', len(fight_people()), flush=True)
     json.dump(index, open(ip, 'w'), separators=(',', ':'))
     print('PACKED people', n_ok, 'with idles;', len(mj['looks']), 'on the map', flush=True)
 
@@ -1200,6 +1279,7 @@ if __name__ == '__main__':
     elif cmd == 'maps': maps(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 1)
     elif cmd == 'beasts': beasts(a[0] if a else 'ALL')
     elif cmd == 'person_one': person_one(a[0])
+    elif cmd == 'carry_one': carry_one(a[0])
     elif cmd == 'pose_work': pose_work(a[0], a[1], a[2], float(a[3]))
     elif cmd == 'work_one': work_one(a[0])
     elif cmd == 'work': work(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 4)

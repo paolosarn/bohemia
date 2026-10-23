@@ -3134,7 +3134,8 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   if (p.clip !== 'stand' && p.clip !== 'carry') { v._idleSince = undefined; return false; }
   if (!B) return false;
   if (L._key === undefined) L._key = Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k] === L; })[0] || null;
-  const look = L._key; if (!look || !B.has(look)) return false;   /* the look he is drawn in (a beast's rig look too) */
+  let look = L._key; if (look && B.has('fight_' + look)) look = 'fight_' + look;   /* a rolled man's own cells in his gang's fight cell */
+  if (!look || !B.has(look)) return false;   /* the look he is drawn in (a beast's rig look too) */
   if (v._idleSince === undefined) v._idleSince = now;
   const set = L.kind === 'beast' ? 'beast' : p.clip === 'carry' ? 'carry' : 'bare', f = v._face || 0;
   const c = B.frame(look, 'fight:' + v.id, now, f, { set: set, beatMs: beatMs(), since: v._idleSince, idles: set === 'bare' ? IDLE_FIGHT_BARE : null });
