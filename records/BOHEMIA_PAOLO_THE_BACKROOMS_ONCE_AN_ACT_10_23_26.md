@@ -18,3 +18,9 @@ VAMILY rule 132.
 HIS WORDS: "2 interactions"
 
 Two falls into the Backrooms in each act, not one.
+
+## ADDED THE SAME HOUR
+
+HIS WORDS: "Maybe for like a spiritual upgrade or level up bullshit I don't know maybe a side quest is involved maybe but like it will always be like a paranoid experience vibe type shit"
+
+Always a paranoid experience: watched, wrong, unsafe from the first step. The reward is open (his 'maybe'): a spiritual upgrade or a level-up is the lead idea, and a side quest may lead in or out. Decided when the feature is built.
