@@ -1,0 +1,346 @@
+{
+ "tin": {
+  "ins": [
+   12,
+   12,
+   14,
+   12
+  ],
+  "P": 64,
+  "lip": 2,
+  "r": 5.0,
+  "up": 2,
+  "w": 88,
+  "h": 90,
+  "kind": "plate",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "tin_dark": {
+  "ins": [
+   12,
+   12,
+   14,
+   12
+  ],
+  "P": 64,
+  "lip": 2,
+  "r": 5.0,
+  "up": 2,
+  "w": 88,
+  "h": 90,
+  "kind": "plate",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "tin_amber": {
+  "ins": [
+   12,
+   12,
+   14,
+   12
+  ],
+  "P": 64,
+  "lip": 2,
+  "r": 5.0,
+  "up": 2,
+  "w": 88,
+  "h": 90,
+  "kind": "plate",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "board": {
+  "ins": [
+   14,
+   6,
+   8,
+   6
+  ],
+  "P": 192,
+  "lip": 2,
+  "r": 1.5,
+  "up": 2,
+  "w": 204,
+  "h": 214,
+  "kind": "board",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "board_plain": {
+  "ins": [
+   6,
+   6,
+   8,
+   6
+  ],
+  "P": 192,
+  "lip": 2,
+  "r": 1.5,
+  "up": 2,
+  "w": 204,
+  "h": 206,
+  "kind": "board",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "receipt": {
+  "ins": [
+   6,
+   6,
+   7,
+   6
+  ],
+  "P": 96,
+  "lip": 1,
+  "r": 0.6,
+  "up": 2,
+  "w": 108,
+  "h": 109,
+  "kind": "paper",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "glass": {
+  "ins": [
+   8,
+   8,
+   10,
+   8
+  ],
+  "P": 64,
+  "lip": 2,
+  "r": 3.0,
+  "up": 2,
+  "w": 80,
+  "h": 82,
+  "kind": "glass",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "well": {
+  "ins": [
+   11,
+   6,
+   9,
+   12
+  ],
+  "P": 48,
+  "lip": 2,
+  "r": 3.0,
+  "up": 2,
+  "w": 66,
+  "h": 68,
+  "kind": "well",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "tray": {
+  "ins": [
+   11,
+   6,
+   9,
+   12
+  ],
+  "P": 128,
+  "lip": 2,
+  "r": 3.0,
+  "up": 2,
+  "w": 146,
+  "h": 148,
+  "kind": "well",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "well_full": {
+  "ins": [
+   11,
+   6,
+   9,
+   12
+  ],
+  "P": 48,
+  "lip": 2,
+  "r": 3.0,
+  "up": 2,
+  "w": 66,
+  "h": 68,
+  "kind": "well",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ },
+ "tape": {
+  "w": 96,
+  "h": 24,
+  "up": 2,
+  "single": "tape.png",
+  "kind": "tape",
+  "sun": {
+   "screen_deg": 155.4,
+   "elev_deg": 40.0
+  },
+  "tilt_deg": 25.0,
+  "wear": 0.45,
+  "snap": 0.3,
+  "samples": 128,
+  "engine": "CYCLES",
+  "fill": {
+   "rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "strength": 0.35
+  }
+ }
+}

@@ -11,11 +11,13 @@ renders a prop (rule 115a: one source):
   tin         a pressed tin plate painted bone, a rolled bead round its edge, a rivet in each corner, the paint chipped
               through to rust on the worn edges: the buttons you press
   tin_dark    the same plate painted a dead olive: the dark buttons, and the one that is not picked
+  tin_amber   the same plate in signal amber: the one that IS picked (the speed you run at, the fight you chose)
   board       corrugated cardboard, the top liner torn back along the top edge so the flutes show: the long bars
   board_plain the same board with its edges cut clean: the sheets and panels
   receipt     a strip of thermal paper with a slight curl: what the game prints (tags, hints, the drawer, the rows)
   glass       a pane of cracked phone glass on a bevel: SETTINGS, the glass presses
   well        a pocket pressed into a dark tin tray, cracked glass at its floor: an empty slot
+  tray        the same pocket long (its floor four times the period): what you carry, the turn's faces
   well_full   the same pocket lined with cardboard: a slot with something in it
   tape        a strip of yellowed packing tape, see-through, torn at both ends: what holds a card on
 Every one is lit by ONE SUN at the world's screen angle (the style guide's calibration: 155 degrees, up and to the
@@ -69,13 +71,15 @@ SNAP = 0.3
 # ---------------------------------------------------------------------------------------------------------------------
 PIECES = {
     'tin':         dict(kind='plate', paint=(0.93, 0.89, 0.78), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True),
-    'tin_dark':    dict(kind='plate', paint=(0.22, 0.22, 0.17), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True),
-    'board':       dict(kind='board', paint=(0.33, 0.245, 0.16), P=192, ins=[14, 6, 6, 6], T=4.7, r=1.5, flutes=True),
+    'tin_dark':    dict(kind='plate', paint=(0.22, 0.22, 0.17), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True, dust=0.25),
+    'tin_amber':   dict(kind='plate', paint=(0.88, 0.71, 0.30), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True),
+    'board':       dict(kind='board', paint=(0.30, 0.222, 0.145), P=192, ins=[14, 6, 6, 6], T=4.7, r=1.5, flutes=True),
     'board_plain': dict(kind='board', paint=(0.30, 0.225, 0.15), P=192, ins=[6, 6, 6, 6], T=4.7, r=1.5, flutes=False),
     'receipt':     dict(kind='paper', paint=(0.90, 0.87, 0.79), P=96, ins=[6, 6, 6, 6], T=2.4, r=0.6),
     'glass':       dict(kind='glass', paint=(0.10, 0.10, 0.10), P=64, ins=[8, 8, 8, 8], T=3.6, r=3.0),
-    'well':        dict(kind='well', paint=(0.20, 0.20, 0.16), floor='glass', P=32, ins=[11, 6, 7, 12], T=4.7, r=3.0),
-    'well_full':   dict(kind='well', paint=(0.20, 0.20, 0.16), floor='board', P=32, ins=[11, 6, 7, 12], T=4.7, r=3.0),
+    'well':        dict(kind='well', paint=(0.20, 0.20, 0.16), floor='glass', P=48, ins=[11, 6, 7, 12], T=4.7, r=3.0, crack_cells=2),
+    'tray':        dict(kind='well', paint=(0.20, 0.20, 0.16), floor='glass', P=128, ins=[11, 6, 7, 12], T=4.7, r=3.0, crack_cells=3),
+    'well_full':   dict(kind='well', paint=(0.20, 0.20, 0.16), floor='board', P=48, ins=[11, 6, 7, 12], T=4.7, r=3.0),
     'tape':        dict(kind='tape', paint=(0.84, 0.74, 0.47), W=96, H=24),
 }
 ORDER = list(PIECES)
@@ -108,7 +112,7 @@ def cracks(n, seed, cells=3):
                 d = np.hypot(xx - px - ox, yy - py - oy)
                 closer = d < d1; d2 = np.where(closer, d1, np.minimum(d2, d)); d1 = np.where(closer, d, d1)
     edge = np.clip(1.0 - (d2 - d1) / 1.1, 0, 1)
-    brk = pnoise(n, n / 4, seed + 1, 2) > 0.3                   # a crack runs, stops, runs on
+    brk = pnoise(n, n / 4, seed + 1, 2) > 0.42                  # a crack runs, stops, runs on
     return edge * brk
 
 
@@ -201,7 +205,7 @@ def lin(c):
     return tuple((v / 12.92) if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4 for v in c)
 
 
-def material(bpy, name, base, masks, P, G, kind, wear=WEAR, rough=None):
+def material(bpy, name, base, masks, P, G, kind, wear=WEAR, rough=None, dust=1.0):
     """THE RIG'S SOURCE PASS, KEY FOR KEY (master rig source_pass), every mask a periodic picture of period P points.
     base is an sRGB triple; masks = dict(height, drift_r, drift_g, drift_b, dust, grain, chip, extra) of Blender images."""
     m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; N = nt.nodes; L = nt.links
@@ -264,7 +268,7 @@ def material(bpy, name, base, masks, P, G, kind, wear=WEAR, rough=None):
     dcol = mix('MIX', bright, DUST, dark)
     # (the rig dusts what faces the sky; every face of a UI piece faces the glass, so at the rig's strength the dark
     # pieces read as camouflage, measured on the first sheet: the dust here is the top of its mask only, and light)
-    dustm = math_('MULTIPLY', mrange(bw(tex(masks['dust'])), 0.62, 0.95), {'tin': 0.2, 'board': 0.12, 'paper': 0.2, 'glass': 0.0}.get(kind, 0.2) * wear, True)
+    dustm = math_('MULTIPLY', mrange(bw(tex(masks['dust'])), 0.62, 0.95), {'tin': 0.2, 'board': 0.12, 'paper': 0.2, 'glass': 0.0}.get(kind, 0.2) * wear * dust, True)
     col = mix('MIX', dustm, col, dcol)
     # 4. a slow drift of colour (the three drift pictures as one colour), overlay
     drift = N.new('ShaderNodeCombineColor')
@@ -296,7 +300,7 @@ def material(bpy, name, base, masks, P, G, kind, wear=WEAR, rough=None):
     return m
 
 
-def masks_for(bpy, name, P, seed, kind):
+def masks_for(bpy, name, P, seed, kind, crack_cells=2):
     n = int(P * UP * 2)                      # two mask texels a render texel
     k = n / P                                # texels a point
     # the drift is one slow field (value) with a little hue riding it, centred on 0.5 the way Blender's noise sits, so
@@ -312,7 +316,7 @@ def masks_for(bpy, name, P, seed, kind):
         ms['extra'] = np.clip((pnoise(n, 40 * k, seed + 8, 3) - 0.55) * 2.0, 0, 1) * 0.5                     # a thermal fade, in patches
         ms['height'] = 0.7 * pnoise(n, 0.9 * k, seed + 9, 2) + 0.3 * ms['height']                            # the paper's tooth
     elif kind == 'glass':
-        ms['extra'] = cracks(n, seed + 8, 2) * 0.7
+        ms['extra'] = cracks(n, seed + 8, crack_cells) * 0.55
     elif kind == 'tin':
         ms['extra'] = np.clip((pnoise(n, 11 * k, seed + 8, 3) - 0.82) * 4.0, 0, 1)                            # a few rust blooms through the paint
         ms['grain'] = 0.5 + (ms['grain'] - 0.5) * 0.45                                                            # paint is smoother than board
@@ -326,9 +330,9 @@ def build(bpy, G, name, spec):
     P, ins, T = spec['P'], spec['ins'], spec['T']
     W = ins[3] + P + ins[1]; H = ins[2] + P + ins[0]; kind = spec['kind']
     seed = sum(map(ord, name))
-    mk = masks_for(bpy, name, P, seed, {'plate': 'tin', 'board': 'board', 'paper': 'paper', 'glass': 'glass', 'well': 'tin'}[kind])
+    mk = masks_for(bpy, name, P, seed, {'plate': 'tin', 'board': 'board', 'paper': 'paper', 'glass': 'glass', 'well': 'tin'}[kind], spec.get('crack_cells', 2))
     if kind == 'plate':
-        paint = material(bpy, name + '_paint', spec['paint'], mk, P, G, 'tin')
+        paint = material(bpy, name + '_paint', spec['paint'], mk, P, G, 'tin', dust=spec.get('dust', 1.0))
         slab(bpy, 'plate', rr_outline(0, 0, W, H, spec['r']), 0, T, paint, bevel=1.1)
         if spec.get('bead'):
             # the stamped panel: the middle of the plate pressed up 1.2 points on a soft 2.6 point slope, the way a tin
@@ -385,7 +389,7 @@ def build(bpy, G, name, spec):
     elif kind == 'well':
         tray = material(bpy, name + '_tray', spec['paint'], mk, P, G, 'tin')
         if spec['floor'] == 'glass':
-            floor = material(bpy, name + '_floor', (0.075, 0.075, 0.07), masks_for(bpy, name + 'g', P, seed + 50, 'glass'), P, G, 'glass', rough=0.6)
+            floor = material(bpy, name + '_floor', (0.075, 0.075, 0.07), masks_for(bpy, name + 'g', P, seed + 50, 'glass', spec.get('crack_cells', 2)), P, G, 'glass', rough=0.6)
         else:
             floor = material(bpy, name + '_floor', (0.30, 0.225, 0.15), masks_for(bpy, name + 'b', P, seed + 50, 'board'), P, G, 'board')
         lip = 3.2   # the tray's lip round the pocket
