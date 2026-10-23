@@ -205,7 +205,7 @@
   "fight_floor_futures": {
    "where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp",
    "total": 70,
-   "flat": 13,
+   "flat": 12,
    "in_3d": [
     "casino.0.reclaimed",
     "casino.1.reclaimed",
@@ -238,6 +238,7 @@
     "scrub.0.reclaimed",
     "scrub.1.raided",
     "scrub.1.reclaimed",
+    "scrubroad.0.raided",
     "scrubroad.0.reclaimed",
     "scrubroad.1.reclaimed",
     "shore.0.reclaimed",
@@ -323,7 +324,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 13,
+ "total_flat": 12,
  "log": [
   {
    "at": "10/20 start",
@@ -1492,6 +1493,17 @@
    "settlement_backdrops": 0,
    "map_districts": 0,
    "fight_floor_futures": 13,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 scrubroad.0 raided",
+   "total_flat": 12,
+   "fight_floor": 0,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 12,
    "fight_lights": 0,
    "item_icons": 0
   }

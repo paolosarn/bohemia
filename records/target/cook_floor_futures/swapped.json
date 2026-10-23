@@ -283,5 +283,10 @@
   "file": "slices/fight_ground/block_suburb_stem_1_raided.webp",
   "sha1": "5c0ab913ba9e4a352b08efc46695c42f2827b643",
   "master": "records/target/cook_floor_futures/raided/block_suburb_stem_1.webp"
+ },
+ "scrubroad.0.raided": {
+  "file": "slices/fight_ground/block_scrubroad_0_raided.webp",
+  "sha1": "5729451c435af096b1ccf59aaf0488bf13e4b447",
+  "master": "records/target/cook_floor_futures/raided/block_scrubroad_0.webp"
  }
 }

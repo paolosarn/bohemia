@@ -1609,5 +1609,67 @@
    "rafters": 0,
    "rubble": 116
   }
+ },
+ "scrubroad.0": {
+  "seconds": 720,
+  "junk": {
+   "bags": 0,
+   "paper": 432,
+   "card": 108,
+   "cloth": 45,
+   "weeds": 379,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 1,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 16,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 35,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     38.57,
+     -0.56,
+     1.0
+    ],
+    [
+     23.85,
+     47.95,
+     2.33
+    ],
+    [
+     8.24,
+     41.61,
+     3.39
+    ],
+    [
+     5.73,
+     34.54,
+     2.36
+    ],
+    [
+     53.56,
+     54.87,
+     3.88
+    ],
+    [
+     30.15,
+     40.23,
+     3.09
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_scrubroad_0.webp",
+  "future": null
  }
 }
