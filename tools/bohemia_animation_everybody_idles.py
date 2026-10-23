@@ -811,9 +811,9 @@ def work_sheets():
         stow = os.path.join(ROOT, 'records/run2/people', tag)
         src = stow if os.path.exists(os.path.join(stow, 'rig_S.png')) else os.path.join(ROOT, PEOPLE_STILLS, tag)
         rr = json.load(open(os.path.join(ROOT, PEOPLE_STILLS, tag, 'rig.json'))); rw = json.load(open(os.path.join(wd, 'rig.json')))
-        if rr['res'] != rw['res']: print('SKIP frame', tag); continue
         gx, gy = rr['crop_box_px'][0] + rr['ground_px'][0], rr['crop_box_px'][1] + rr['ground_px'][1]   # his ground pixel, in the full frame
-        cb_r, cb_w = rr['crop_box_px'][:2], rw['crop_box_px'][:2]
+        cb_r = rr['crop_box_px'][:2]
+        cb_w = (gx - rw['ground_px'][0], gy - rw['ground_px'][1])   # the work's crop laid so its ground pixel is his (a frame two pixels wider shifts)
         rows = []
         for t in dirs:
             row = [(Image.open(os.path.join(src, 'rig_%s.png' % t)).convert('RGBA'), cb_r)]
@@ -888,11 +888,14 @@ def people_pack():
     mix_meta, mix_pal = {}, {}
     dirty = set()   # the map sheets a newly packed man stands on: only those are drawn again
 
-    def full(fn, r):
-        a = np.asarray(Image.open(fn).convert('RGBA')).copy()
-        if a.shape[0] != r['res'] or a.shape[1] != r['res']:
-            z = np.zeros((r['res'], r['res'], 4), np.uint8); x0, y0, x1, y1 = r['crop_box_px']; z[y0:y1, x0:x1] = a; a = z
-        return a
+    def full(fn, r, off=(0, 0), res=None):
+        """a render laid in a full frame: its own, or (off, res) the still's, shifted so the two ground pixels agree"""
+        a = np.asarray(Image.open(fn).convert('RGBA')).copy(); R = res or r['res']
+        x0, y0 = r['crop_box_px'][:2] if a.shape[0] != r['res'] or a.shape[1] != r['res'] else (0, 0)
+        x0 += off[0]; y0 += off[1]; z = np.zeros((R, R, 4), np.uint8)
+        xa, ya = max(0, -x0), max(0, -y0); xb, yb = min(a.shape[1], R - x0), min(a.shape[0], R - y0)
+        if xb > xa and yb > ya: z[y0 + ya:y0 + yb, x0 + xa:x0 + xb] = a[ya:yb, xa:xb]
+        return z
 
     def cut(a):
         op = a[..., 3] > thr; a = a.copy(); a[..., 3] = np.where(op, 255, 0); a[~op] = 0
@@ -938,11 +941,15 @@ def people_pack():
                 L[1][tag] = mp
             continue
         rj = json.load(open(os.path.join(d, 'rig.json'))); mine = json.load(open(os.path.join(rec, 'rig.json')))
-        if rj['res'] != mine['res']: print('NO MATCH frame, keeps his still:', tag); continue
+        # his render laid on the still's frame by the two ground pixels (a model built again can be a millimetre deeper, and
+        # the master rig's frame two pixels wider: measured on person_trades_0, 230 against 232)
+        off = (mine['crop_box_px'][0] + mine['ground_px'][0] - rj['crop_box_px'][0] - rj['ground_px'][0],
+               mine['crop_box_px'][1] + mine['ground_px'][1] - rj['crop_box_px'][1] - rj['ground_px'][1])
+        mfull = lambda fn: full(fn, rj, off, mine['res'])
         # THE MATCH, all eight facings
         worst = (1.0, 0.0)
         for f in FIGHT_DIRS:
-            A = full(os.path.join(d, 'rig_%s.png' % f), rj).astype(np.int32); B = full(os.path.join(rec, 'rig_%s.png' % f), mine).astype(np.int32)
+            A = mfull(os.path.join(d, 'rig_%s.png' % f)).astype(np.int32); B = full(os.path.join(rec, 'rig_%s.png' % f), mine).astype(np.int32)
             oa, ob = A[..., 3] > 127, B[..., 3] > 127; ag = (oa & ob).sum() / max(1, (oa | ob).sum())
             st = float(np.abs(A[..., :3] - B[..., :3])[oa & ob].mean()) if (oa & ob).any() else 255.0
             worst = (min(worst[0], ag), max(worst[1], st))
@@ -957,7 +964,7 @@ def people_pack():
         cuts = {}
         for pi, p in enumerate(bare):
             for row, f in enumerate(FIGHT_DIRS):
-                c = cut(full(os.path.join(d, 'rig_IdleBare_%s_k%02d.png' % (f, pi)), rj))
+                c = cut(mfull(os.path.join(d, 'rig_IdleBare_%s_k%02d.png' % (f, pi))))
                 if c is not None: cuts[(p, row)] = c
         # his 64 colours (the fight sheet's count), read off his own idles by median cut
         mosaic = np.concatenate([c[0].reshape(-1, 4) for c in cuts.values()])
@@ -969,7 +976,7 @@ def people_pack():
             cells.setdefault(p, [None] * 8)[row] = len(imgs); imgs.append((to_pal(a, P), x0, y0))
         body, rects = atlas(imgs, 2048); fn = tag + '_bare.webp'
         body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
-        entry = dict(person=True, foot=feet[0], feet=feet, match=[round(worst[0], 3), round(worst[1], 1)],
+        entry = dict(person=True, foot=feet[0], feet=feet, match=[round(worst[0], 3), round(worst[1], 1)], frame_shift=list(off),
                      sheets=dict(bare=dict(file=fn, cells=rects, size=list(body.size))), poses=dict(bare={p: cells.get(p, [None] * 8) for p in bare}))
         json.dump(entry, open(os.path.join(ROOT, OUT, tag + '.json'), 'w'), separators=(',', ':'))
         index['looks'][tag] = dict(json=tag + '.json')
