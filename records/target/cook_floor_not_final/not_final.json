@@ -761,7 +761,7 @@
   "file": "records/target/cook_floor_not_final/block_corner_2.webp"
  },
  "main.0": {
-  "seconds": 705,
+  "seconds": 801,
   "junk": {
    "bags": 3,
    "paper": 368,
@@ -779,7 +779,7 @@
    "burnt_house": 2
   },
   "grime": {
-   "materials": 71,
+   "materials": 73,
    "occlusion_m": 1.6,
    "tint": [
     0.3,

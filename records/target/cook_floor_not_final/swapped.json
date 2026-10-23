@@ -88,5 +88,10 @@
   "file": "slices/fight_ground/block_scrub_2.webp",
   "sha1": "0aa394c6c9f7259f644479386bae634a32de0f0c",
   "master": "records/target/cook_floor_not_final/block_scrub_2.webp"
+ },
+ "main.0": {
+  "file": "slices/fight_ground/block_main_0.webp",
+  "sha1": "a808845e2e6984c0c4af215c5f499f4f78b1f96d",
+  "master": "records/target/cook_floor_not_final/block_main_0.webp"
  }
 }
