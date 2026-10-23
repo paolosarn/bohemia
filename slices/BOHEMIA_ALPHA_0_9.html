@@ -1554,7 +1554,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/23b - THE FIGHT DRIVES THE MUSIC</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/23c - THE FIRST HOUR, QUICKER</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12410,8 +12410,24 @@ function nfOpts(d){
   var o = { kind: nfKind(d && d.district), night: w.night === true };
   /* __THE_ORIGIN_SETS_THE_COMPANY__ (rule 75a): the company the origin built, and its field cap, to the fight */
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
+  /* __ONE_BILL_IN_DAYS__ (RUN 10/23): a man who walked when the batteries ran out does not come to the fight (the map keeps
+     who walked in bohemia.walked.v1; the company from the back, never YOU) */
+  try{ var gone = (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).filter(function(x){ return x && !x.hired; }).length;
+    if(o.company && gone > 0) o.company = o.company.slice(0, Math.max(1, o.company.length - gone)); }catch(_e){}
   /* __A_FEW_NOT_TWELVE__ (rule 75b): the party the map sized, to COMBAT's enemy math (it dresses it by tier) */
   try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands' }; }catch(_e){}
+  /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23, [the first hour, quicker], TUNING's change 1, rule 133). MEASURED: a
+     hand-over that carried a roster and no party (the street's crews, the bump, a tapped man, a door's room) reached the
+     fight with no o.party, so COMBAT fell back to ours.first_band, nine brigands, and a new crew of three won 0 in 100
+     (TUNING 10/19, 5ff7e86d). NOW ANY ROSTER IS A PARTY OF ITS LENGTH, nobody forgets who is coming. AND THE FIRST GAME
+     DAY PUTS NO MORE THAN THE COMPANY PLUS ONE ON THE BOARD (the map stamps firstDay; partyMath on the map holds the same
+     line, so the number the plate shows is the number the fight deals). Two- and three-skull jobs keep their size from
+     day two: he chooses to meet them. */
+  try{ var rs = d && d.roster; if(!o.party && Array.isArray(rs) && rs.length){
+    var pk = window.BOH_START && BOH_START.picks();
+    o.party = { count: rs.length, days: (w.day | 0) || 1, difficulty: (pk && pk.pkg != null) ? pk.pkg | 0 : 1, faction: 'brigands', fromRoster: true }; } }catch(_e){}
+  try{ var cn = (d && d.crewCount) | 0 || (o.company ? o.company.length : 0);
+    if(o.party && d && d.firstDay && cn > 0 && o.party.count > cn + 1){ o.party.count = cn + 1; o.party.dayOneCap = true; } }catch(_e){}
   return o;
 }
 function nfOpen(d){
@@ -13454,12 +13470,15 @@ function __loadStart(){
    batteries, the size of a job's crew, the pay): an origin's flavour is a line, never a promise of a
    rule that is not built. Words are draft:true attempts. The map reads the picks (BOHEMIA_START). */
 var BOH_START = (function(){
-  var COMBAT = [ { id:'new',  name:'NEW HERE',     sub:'crews one smaller', crew:-1, pkg:0 },
-                 { id:'seen', name:'SEEN IT',      sub:'as they come',      crew:0,  pkg:1 },
-                 { id:'out',  name:'OUTLIVED IT',  sub:'crews one bigger',  crew:1,  pkg:2 } ];      /* draft:true */
-  var ECON   = [ { id:'full', name:'FULL SHELVES', sub:'start rich, pay x1.5', mult:1.5 },
-                 { id:'thin', name:'THIN SHELVES', sub:'as it is',             mult:1 },
-                 { id:'bare', name:'BARE SHELVES', sub:'start poor, pay x0.75', mult:0.75 } ];        /* draft:true */
+  /* __THE_EASY_END_IS_THE_DEFAULT__ (RUN 10/23, [the first hour, quicker], TUNING's change 4, rule 133): each card says
+     what it does in plain words: 'start rich, pay x1.5' did not say whether he pays or is paid. draft:true, WORDS' to
+     overwrite. */
+  var COMBAT = [ { id:'new',  name:'NEW HERE',     sub:'every crew one man smaller', crew:-1, pkg:0 },
+                 { id:'seen', name:'SEEN IT',      sub:'crews as they come',         crew:0,  pkg:1 },
+                 { id:'out',  name:'OUTLIVED IT',  sub:'every crew one man bigger',  crew:1,  pkg:2 } ];      /* draft:true */
+  var ECON   = [ { id:'full', name:'FULL SHELVES', sub:'more to start, jobs pay half again', mult:1.5 },
+                 { id:'thin', name:'THIN SHELVES', sub:'less to start, jobs pay as posted',  mult:1 },
+                 { id:'bare', name:'BARE SHELVES', sub:'least to start, jobs pay a quarter less', mult:0.75 } ];   /* draft:true */
   /* __THE_ORIGIN_SETS_THE_COMPANY__ (RUN 10/5, [the origin sets the company], rule 75a). PAOLO 10/5: 'depending on your
      origin, that's how many people will be in your group... Lone Wolf by himself... peasant militia up to 16 instead of
      12... the demo has none of it.' MEASURED: the picks made no men at all; the origin's 'crew' changed the size of the
@@ -13489,7 +13508,11 @@ var BOH_START = (function(){
   ];
   var NAMES = ['THE NIGHT SHIFT','LOW BATTERY','DEAD AIR','THE LAST CREW','NO SIGNAL','THE GRID','BLACKOUT','THE METER READERS','STATIC','THE LATE CREW'];  /* draft:true */
   var D = ['','EASY','NORMAL','HARD','VERY HARD'];   /* the wiki has three: Easy, Medium (ours NORMAL), Hard */
-  var pick = { combat:'seen', econ:'thin', origin:'newcrew', name:0 };
+  /* __THE_EASY_END_IS_THE_DEFAULT__: A STRANGER WHO TAPS BEGIN PLAYS THE EASY END. MEASURED (TUNING, d4bc2e2c): the old
+     default, SEEN IT + THIN SHELVES, is Battle Brothers' Veteran with medium funds, 46 in 100 of the four first fights won;
+     NEW HERE + FULL SHELVES is rule 117's start, 78 in 100. The hard ends stay one tap away (rule 117(a): the sliders go
+     up from easy), and a returning player's own pick still wins (bohemia.start below). */
+  var pick = { combat:'new', econ:'full', origin:'newcrew', name:0 };
   try{ var sv = JSON.parse(localStorage.getItem('bohemia.start') || 'null'); if(sv) for(var k in pick) if(sv[k] != null) pick[k] = sv[k]; }catch(_e){}
   function find(list, id){ for(var i=0;i<list.length;i++) if(list[i].id===id) return list[i]; return list[1] || list[0]; }
   function save(){ try{ localStorage.setItem('bohemia.start', JSON.stringify(pick)); }catch(_e){} }

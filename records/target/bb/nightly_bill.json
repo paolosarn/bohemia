@@ -1,0 +1,20 @@
+{
+  "_about": "RUN [the first hour, quicker], 10/23 (rule 133(b), TUNING's change 5: 'one bill, in days: the hardcore under it'). What the crew costs a night, in batteries, taken at nightfall by the map (__ONE_BILL_IN_DAYS__ in slices/BOHEMIA_CITY_WORLD.html), and what happens when the purse cannot cover it. The map reads this file; nothing else types these numbers. MECHANISM-MINE / CONTENTS-PAOLO'S: every number carries its source; a modder edits this file, not the code.",
+  "per_man_per_night": {
+    "value": 2,
+    "about": "food and water for one man for one day, as one number: a ration ONE and four litres ONE at the counter",
+    "source": "ECONOMY Day 69's counter as worked in records/BOHEMIA_ECONOMY_DAY_74_WHAT_A_DAY_COSTS_IN_ONE_NUMBER_IS_DAYS_AND_AT_THE_117_START_IT_READS_27_TO_48_AGAINST_BATTLE_BROTHERS_46_10_18_26.md section 5 (a crew of three on plains, nothing carried: 6 batteries a day); Battle Brothers' own day is 2 food a man (records/target/bb/stash_rates.json foodByTerrain baseline)",
+    "worked": "A NEW CREW on FULL SHELVES: 290 batteries / (3 men x 2) = 48 days; THIN: 240 / 6 = 40; Battle Brothers' default company runs 46 (ECONOMY Day 74)"
+  },
+  "walks_when_short": {
+    "value": 1,
+    "about": "a night the purse cannot cover, one man walks (the newest hire first, then the company from the back); the main character never walks (rule 37); he says why, with his face (rule 19c)",
+    "source": "TUNING's change 5, records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md; Battle Brothers: an unpaid man deserts (reference/library/battle_brothers/07_ECONOMY.md)"
+  },
+  "red_at_days": {
+    "value": 2,
+    "about": "the days-left number reads red at this many nightfalls or fewer",
+    "source": "ECONOMY Day 74 section 6 (red at 2 days)"
+  },
+  "draft": true
+}

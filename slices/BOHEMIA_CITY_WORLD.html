@@ -42902,7 +42902,10 @@ function roadInterrupt(spentSeconds){
        card to press -- which is also what the row is called. A card with one
        button on it is a choice pretending it is not. */
     var _fought = false;
-    if(got.kind === 'forced'){ try{ _fought = roadContactFight(got); }catch(_e){} }
+    /* __LOOK_BEFORE_YOU_FIGHT__ (RUN 10/23, rule 68): ON THE MAP a forced party is a party he can see coming and run
+       from (huntSpawn), never a fight where he stands. The walk's own surface keeps the old contact. */
+    if(got.kind === 'forced' && typeof MODE !== 'undefined' && MODE === 'city' && typeof huntSpawn === 'function'){ try{ _fought = huntSpawn(got); }catch(_e){} }
+    else if(got.kind === 'forced'){ try{ _fought = roadContactFight(got); }catch(_e){} }
     /* and if the contact could not become a fight, it is a prompt again, so it does
        not get a card either. The refusal at the top is the rule; this is the same
        rule on the one path that gets past it. */
@@ -43768,14 +43771,23 @@ var TRAVEL = null;       /* {path:[[x,y],...], i, cells, mins, to:[x,y]} or null
    comes through cityHandOver and calls it there; RUN [road events] calls it the same way. */
 var TRAVEL_SPEEDS = [0, 1, 2, 3, 5];
 var TRAVEL_SPEED = 1;
+/* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23, [the first hour, quicker], TUNING's change 2, rule 133). MEASURED on the
+   stranger's walk (tools/bohemia_run_the_first_hour_walk.js): after the fight the pad sat on PAUSE, the next tap on a place
+   set a route that moved nothing, and he never reached the town in six taps. THE SPEED HE LAST CHOSE is kept here: a tap on
+   a place on PAUSE sets out at it (travelTo), and the map comes home from a fight at it (BOHEMIA_CITY_COMBAT_END). PAUSE
+   still holds the valley still while nothing is set; every block still pays its clock. */
+var TRAVEL_SPEED_LAST = 1;
 function travelSpeedSet(n){
   n = +n; if (TRAVEL_SPEEDS.indexOf(n) < 0) return false;
-  TRAVEL_SPEED = n;
+  TRAVEL_SPEED = n; if (n > 0) TRAVEL_SPEED_LAST = n;
   try{ window.__TRAVEL_SPEED = n; }catch(_e){}
   try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
   return true;
 }
+/* a journey he asked for on PAUSE goes at the speed he last chose */
+function travelGoes(){ if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); }
 function travelInterrupt(why){
+  if (TRAVEL_SPEED > 0) TRAVEL_SPEED_LAST = TRAVEL_SPEED;
   TRAVEL_SPEED = 0;
   try{ window.__TRAVEL_SPEED = 0; window.__TRAVEL_INTERRUPT = { why: String(why||''), at: performance.now() }; }catch(_e){}
   try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
@@ -43847,9 +43859,9 @@ function cityRoute(ax,ay,bx,by){
 }
 
 /* A TAP ON THE MAP. Canvas coordinates, the same ones cityTapPlot is handed. */
-function travelTo(sx,sy){
+function travelTo(sx,sy,cell){
   if(typeof LOOK!=='undefined'&&LOOK.on) return false;   /* looking, not walking (rule 38b) */
-  var c=null; try{ c=CBcellAt(sx,sy); }catch(_e){ c=null; }
+  var c=null; try{ c=cell ? [cell[0]|0, cell[1]|0] : CBcellAt(sx,sy); }catch(_e){ c=null; }   /* a town or a party tapped hands its own block (mapTapWhat) */
   if(!c) return false;
   var tx=c[0], ty=c[1];
   /* A THUMB IS 44 PX WIDE AND A ROOF IS NOT A REFUSAL. If the cell under the
@@ -43880,6 +43892,7 @@ function travelTo(sx,sy){
   if(!p){ travelSay('No way through to there.'); return false; }
   var mins=0; for(var i=1;i<p.length;i++) mins+=cityStepMins(p[i][0],p[i][1]);
   TRAVEL={ path:p, i:1, cells:0, mins:0, to:[tx,ty] };
+  try{ travelGoes(); }catch(_e){}   /* __THE_FIRST_TAP_GOES_SOMEWHERE__: a tap on a place always goes */
   travelSay('Setting out: '+(p.length-1)+' blocks, about '+Math.round(mins/60*10)/10+' h.');
   try{ render(); }catch(_e){}
   return true;
@@ -43900,6 +43913,9 @@ function travelNext(){
 }
 
 function travelStepped(moved){
+  try{ travelSteppedCore(moved); } finally { if(moved){ try{ mapStepWorld(); }catch(_e){} } }   /* __LOOK_BEFORE_YOU_FIGHT__: the hunters and the chase move on his step */
+}
+function travelSteppedCore(moved){
   if(!TRAVEL) return;
   if(!moved){ travelSay('The way is blocked.'); travelStop(); return; }
   TRAVEL.i++; TRAVEL.cells++;
@@ -43918,6 +43934,313 @@ function travelStepped(moved){
   }
 }
 /* ==== /__THE_MAP_IS_HOW_YOU_TRAVEL__ ==== */
+
+/* ==== __THE_FIRST_TAP_GOES_SOMEWHERE__ + __LOOK_BEFORE_YOU_FIGHT__ (RUN 10/23, [the first hour, quicker], rule 133) ====
+   PAOLO 10/23: 'the whole point of this project was to be like Battle Brothers but quicker and funner for normies, also
+   kind of hardcore vibes if you're fucking around too much.' TUNING's page: 'THE FIGHT IS NOT THE SLOW PART. THE MAP AND
+   THE TOWN ARE.' MEASURED FIRST, same stranger, real touches (tools/bohemia_run_the_first_hour_walk.js on BUILD 10/23b):
+     the phone's job touched           the card lit, the map did nothing (1 dead tap)
+     the town's NAME touched            the name is drawn 40 px above the town, so the finger set a route to the block
+                                        under the word; a forced road event fired 2 blocks out: a 3 v 3 he never asked for
+     after the fight                    the pad on PAUSE; the name touched again: a route that moved nothing
+     1x, then the name four more times  he stood on the block under the word: 'You are standing there.' The town never opened.
+   SEVEN WRONG TAPS AND ONE UNPLANNED FIGHT, AND NO TOWN.
+   WHAT IS BUILT HERE (TUNING's changes 2 and 3, RUN's half; UI owns how the plate looks, these are the map's own plates):
+     A TOWN TAKES THE TAP ON ITS NAME AND ON ITS BUILDING: the plate and the building are hit-tested before the ground
+       under them; standing at it opens it, anywhere else sets out for its gate.
+     THE PHONE'S JOB LIGHTS ITS TOWN: a post touched on the phone (BOH_PHONE_ROUTE, UI's board) draws the road to the town
+       that posted it, in the phone's amber, and lights the town (a ring on its ground, its name lit). The phone still only
+       SHOWS (rule 51): the next tap, on the lit town, goes.
+     A PARTY'S FIRST TAP IS A LOOK: how many, their skulls against HIS crew, where they are going, on a plate riding their
+       flag (a town's plate sits over a building; a party's moves with the party). The second tap on the same party
+       attacks: he sets out after it and the fight starts at contact.
+     A FORCED ROAD EVENT IS A PARTY YOU CAN SEE (rule 68: 'you see the roaming party and 95% of the time you can flee'):
+       on the map the bounty squad, the crazed man and the casino's bot no longer start a fight where he stands; they
+       appear five blocks off, inside his sight, their plate says how many, their skulls and the blocks to contact, and
+       the road away is lit. They move only when he moves (the world moves when you do, 7/5): a block for his block on
+       dirt, two for his three on a road (roads are his), and give up past nine blocks or forty of his steps. Contact is
+       the fight. Never inside the first sixty seconds (the second votes). Nothing stops the march (rule 68).
+   HARDCORE KEPT: every block still pays its clock; two taps and you fight; caught on dirt, you fight anyway. */
+var MAP_TOWN_HIT = [], MAP_PARTY_HIT = [];
+var PHONE_LIT = null, PHONE_LIT_PATH = null, PHONE_LIT_KEY = '';
+var PARTY_SEL = null, PARTY_CHASE = null, PARTY_SIZE = {}, PARTY_FOUGHT = {};
+var HUNT = null, HUNT_T0 = 0, HUNT_N = 0, HUNT_FLEE = null;
+var HUNT_SIGHT = 5, HUNT_GIVE_UP = 9, HUNT_MAX_STEPS = 40;   /* blocks; Battle Brothers' numbers when Grok ask 20 lands in TUNING's table */
+function mapNorm(v){ return String(v || '').toUpperCase().replace(/[\s_]/g, ''); }
+function mapIn(b, sx, sy, pad){ pad = pad || 0; return !!b && sx >= b.x - pad && sx <= b.x + b.w + pad && sy >= b.y - pad && sy <= b.y + b.h + pad; }
+/* the block a town is entered from: the nearest one he can stand on, within one of it (loopTownAt's own reach) */
+function townDoor(x, y){
+  var best = null, bd = 1e9;
+  for(var a = -1; a <= 1; a++) for(var b = -1; b <= 1; b++){
+    var cx = x + a, cy = y + b; if(!cityWalkable(cx, cy)) continue;
+    var d = Math.abs(cx - city.x) + Math.abs(cy - city.y); if(d < bd){ bd = d; best = [cx, cy]; } }
+  return best;
+}
+/* WHAT THE FINGER IS ON. A town's plate first (it is drawn last, over everything), then a party (drawn over the
+   buildings), then a town's building. Returns true when it answered. */
+function mapTapWhat(sx, sy){
+  if(typeof LOOK !== 'undefined' && LOOK.on) return false;
+  var r = mapTapWhich(sx, sy);
+  try{ window.__MAP_TAP = { sx: Math.round(sx), sy: Math.round(sy), what: r ? r.what : 'ground', name: r ? r.name : null, towns: MAP_TOWN_HIT.length, parties: MAP_PARTY_HIT.length }; }catch(_e){}
+  if(!r) return false;
+  if(r.what === 'town') return townTap(r.t);
+  return partyTap(r.h);
+}
+function mapTapWhich(sx, sy){
+  var i, t;
+  for(i = MAP_TOWN_HIT.length - 1; i >= 0; i--){ t = MAP_TOWN_HIT[i]; if(mapIn(t.plate, sx, sy, 4)) return { what: 'town', t: t, name: t.name }; }
+  if(HUNT && ((HUNT.box && mapIn(HUNT.box, sx, sy, 6)) || (HUNT.plateBox && mapIn(HUNT.plateBox, sx, sy, 4)))) return { what: 'party', h: { id: HUNT.id, hunt: true }, name: HUNT.name };
+  for(i = MAP_PARTY_HIT.length - 1; i >= 0; i--){ var h = MAP_PARTY_HIT[i]; if(mapIn(h.box, sx, sy, 4) || mapIn(h.plateBox, sx, sy, 4)) return { what: 'party', h: h, name: h.id }; }
+  /* the building's picture is wider than its blocks: it takes the tap only when the block under the finger is within two
+     of the town (its tall art over the blocks behind it), never the open road beside it (measured: the lit road away from a
+     hunter, three blocks out, opened the town) */
+  var cell = null; try{ cell = CBcellAt(sx, sy); }catch(_e){}
+  for(i = MAP_TOWN_HIT.length - 1; i >= 0; i--){ t = MAP_TOWN_HIT[i]; if(!mapIn(t.bld, sx, sy, 2)) continue;
+    if(cell && Math.max(Math.abs(cell[0] - t.x), Math.abs(cell[1] - t.y)) > 2) continue;
+    return { what: 'town', t: t, name: t.name }; }
+  return null;
+}
+function townTap(t){
+  PARTY_SEL = null;
+  if(Math.max(Math.abs(t.x - city.x), Math.abs(t.y - city.y)) <= 1){ travelStop(); loopArrived([city.x, city.y]); return true; }
+  var door = townDoor(t.x, t.y); if(!door){ travelSay('No way through to ' + t.name + '.'); return true; }
+  travelStop();
+  return travelTo(0, 0, door) || true;
+}
+/* ---- THE PHONE'S JOB LIGHTS ITS TOWN ---- */
+window.addEventListener('bohemia-phone-route', function(ev){
+  var r = ev && ev.detail;
+  PHONE_LIT = (r && r.place != null) ? { place: String(r.place), x: r.x | 0, y: r.y | 0, id: r.id || null, title: r.title || '' } : null;
+  PHONE_LIT_PATH = null; PHONE_LIT_KEY = '';
+  try{ render(); }catch(_e){}
+});
+function phoneLitPath(){
+  if(!PHONE_LIT) return null;
+  var k = city.x + ',' + city.y + '>' + PHONE_LIT.x + ',' + PHONE_LIT.y;
+  if(k === PHONE_LIT_KEY) return PHONE_LIT_PATH;
+  PHONE_LIT_KEY = k; PHONE_LIT_PATH = null;
+  var door = townDoor(PHONE_LIT.x, PHONE_LIT.y);
+  if(door) PHONE_LIT_PATH = (door[0] === city.x && door[1] === city.y) ? [[city.x, city.y]] : cityRoute(city.x, city.y, door[0], door[1]);
+  return PHONE_LIT_PATH;
+}
+function phoneRouteDraw(ox, oy){
+  var p = phoneLitPath(); if(!p) return;
+  g.save();
+  var beat = mapArtBeat();
+  for(var i = 1; i < p.length; i++){
+    var q = iso(p[i][0], p[i][1], ox, oy);
+    if(q.sx < -40 || q.sx > CVW + 40 || q.sy < -40 || q.sy > CVH + 40) continue;
+    var on = ((i + beat) % 3) === 0;   /* the dots walk toward the town on the beat */
+    g.globalAlpha = on ? 1 : 0.75; g.fillStyle = '#f0b44c';
+    var rr = Math.max(on ? 3 : 2.2, TW * (on ? 0.16 : 0.12));
+    g.beginPath(); g.ellipse(q.sx, q.sy + TH * 0.4, rr, rr * 0.55, 0, 0, 7); g.fill();
+  }
+  g.restore();
+  try{ MAP_DREW.phoneRoute = p.length; }catch(_e){}
+}
+/* ---- A PARTY'S SIZE, ITS SKULLS AGAINST HIS CREW, WHERE IT IS GOING ---- */
+function partySizeOf(p){
+  var id = p.id;
+  if(PARTY_SIZE[id] && PARTY_SIZE[id].day === loopDay()) return PARTY_SIZE[id].n;
+  var n = 3; try{ n = partyMath('roaming', { x: p.at.x | 0, y: p.at.y | 0 }).count; }catch(_e){}
+  if(p.agenda === 'caravan') n = Math.max(2, n - 1);
+  else if(p.agenda === 'crew') n = n + 1;
+  try{ var cc = crewCount(); if(loopDay() <= 1 && n > cc + 1) n = cc + 1; }catch(_e){}
+  PARTY_SIZE[id] = { n: n, day: loopDay() };
+  return n;
+}
+/* TUNING's line at early gear (10/19): an even crew wins about 70 in 100. One skull: fewer than his crew, he wins about 9
+   in 10. Two: up to one more than his. Three: bigger than that. TUNING's skull line for change 3 replaces this when it lands. */
+function partySkulls(n){ var c = 3; try{ c = crewCount(); }catch(_e){} return n < c ? 1 : n <= c + 1 ? 2 : 3; }
+function partyGoing(p){
+  try{ var leg = BohemiaParties.legOf(p); if(leg === 'back') return 'GOING HOME';
+    if(p.agenda === 'patrol') return 'ON THE BORDER';
+    return 'TO ' + String(p.toward || (p.to && p.to.faction) || 'THE ROAD').toUpperCase(); }catch(_e){ return ''; }
+}
+function partyById(id){ var ps = null; try{ ps = partiesAll(); }catch(_e){} if(!ps) return null; for(var i = 0; i < ps.length; i++) if(ps[i] && ps[i].id === id) return ps[i]; return null; }
+function partyTap(h){
+  if(PARTY_SEL !== h.id){
+    PARTY_SEL = h.id; window.__PARTY_LOOKS = (window.__PARTY_LOOKS | 0) + 1;
+    var info = h.hunt ? { id: HUNT.id, count: HUNT.count, skulls: partySkulls(HUNT.count), going: 'COMING FOR YOU', hunt: true }
+                      : (function(){ var p = h.p || partyById(h.id); if(!p) return null; var n = partySizeOf(p); return { id: h.id, count: n, skulls: partySkulls(n), going: partyGoing(p), faction: p.from && p.from.faction }; })();
+    window.__PARTY_PLATE = info;
+    try{ render(); }catch(_e){}
+    return true;
+  }
+  /* the second tap on the same party: go after it */
+  if(PARTY_FOUGHT[h.id] === loopDay()){ travelSay('You already met them today.'); return true; }
+  PARTY_CHASE = h.id;
+  var at = h.hunt ? HUNT.at : (function(){ var p = partyById(h.id); return p ? [p.at.x | 0, p.at.y | 0] : null; })();
+  if(!at) return true;
+  if(Math.max(Math.abs(at[0] - city.x), Math.abs(at[1] - city.y)) <= 1){ mapContact(); return true; }
+  travelStop();
+  var c = cityWalkable(at[0], at[1]) ? at : townDoor(at[0], at[1]) || at;
+  return travelTo(0, 0, c) || true;
+}
+/* ---- THE HUNTERS: A FORCED ROAD EVENT, ON THE MAP, IS A PARTY YOU CAN SEE ---- */
+window.addEventListener('message', function(ev){ var d = ev && ev.data; if(d && d.type === 'BOHEMIA_START' && !HUNT_T0) HUNT_T0 = performance.now(); });
+function huntSpawn(got){
+  if(HUNT) return true;                                                   /* one at a time: the one coming is the one coming */
+  if(!HUNT_T0 || performance.now() - HUNT_T0 < 60000) return true;        /* nothing in the first sixty seconds (the second votes) */
+  var P = null; try{ P = roadPartyOf(got && got.id); }catch(_e){}
+  if(!P) return false;   /* the animals are not road parties (CREATURES is open): they never fought here and do not start now */
+  var seq = (got && got.seq) | 0, to = TRAVEL && TRAVEL.to, best = null, bs = -1e9;
+  for(var i = 0; i < 40; i++){
+    var a = (seq * 7 + i * 11) % 40, side = Math.floor(a / 10), k = a % 10, r = HUNT_SIGHT;
+    var x = city.x + (side === 0 ? -r + k : side === 1 ? r : side === 2 ? r - k : -r), y = city.y + (side === 0 ? -r : side === 1 ? -r + k : side === 2 ? r : r - k);
+    if(!cityWalkable(x, y)) continue;
+    try{ if(loopTownAt(x, y, 2)) continue; }catch(_e){}   /* never on a town's gate: a crew coming for you is out on the road */
+    /* off the road ahead: the farther from where he is going, the better (he sees them coming from the side or behind) */
+    var s = to ? Math.max(Math.abs(x - to[0]), Math.abs(y - to[1])) : 0;
+    /* and ON THE GLASS: never under the phone or past the edge, or he cannot see them coming */
+    if(!mapOnGlass(x, y)) s -= 100;
+    if(s > bs){ bs = s; best = [x, y]; }
+  }
+  if(!best) return true;
+  var n = 3; try{ n = partyMath('roaming', { x: best[0], y: best[1] }).count; }catch(_e){}
+  if(P && P.n === 1 && !P.lo) n = Math.min(n, 2);                         /* a lone man is one or two, never a crowd */
+  HUNT = { id: 'hunt:' + (++HUNT_N), ev: got, name: String((got && got.name) || 'A crew'), arch: (P && P.arch) || 'human', count: n, at: best, steps: 0, made: performance.now() };
+  /* their plate is up from the first second (they are coming); his first tap on them is still a look, the second goes */
+  window.__PARTY_PLATE = { id: HUNT.id, count: n, skulls: partySkulls(n), going: 'COMING FOR YOU', hunt: true };
+  window.__HUNTS = (window.__HUNTS | 0) + 1;
+  huntFleeRoad();
+  try{ travelSay(HUNT.name + ': ' + n + ' coming for you. The lit road is away from them.'); }catch(_e){}   /* draft:true */
+  try{ render(); }catch(_e){}
+  return true;
+}
+/* the road away: the block within five of him, reachable by steps he could press, that leaves them farthest behind (a
+   road preferred: his speed); the lit dots are the way there. MEASURED: the first cut lit a straight four-block line in the
+   best of eight directions, and on a grid with walls that line let them close a block while he fled it. */
+function huntFleeRoad(){
+  HUNT_FLEE = null; if(!HUNT) return;
+  var n = 0; try{ n = om.n | 0; }catch(_e){ return; }
+  var K = function(x, y){ return y * n + x; }, from = {}, depth = {}, q = [[city.x, city.y]], head = 0, best = null, bs = -1e9;
+  depth[K(city.x, city.y)] = 0;
+  while(head < q.length){
+    var c = q[head++], dc = depth[K(c[0], c[1])];
+    if(dc > 0){
+      var paved = 0; try{ var t = om.at(c[0], c[1]); if(t && CITY_PAVED[t.district]) paved = 1; }catch(_e){}
+      var sc = Math.max(Math.abs(c[0] - HUNT.at[0]), Math.abs(c[1] - HUNT.at[1])) * 2 + paved - dc * 0.25;
+      if(sc > bs){ bs = sc; best = c; }
+    }
+    if(dc >= 5) continue;
+    for(var d = 0; d < DIRS.length; d++){
+      var nx = c[0] + DIRS[d][0], ny = c[1] + DIRS[d][1];
+      if(nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+      var k = K(nx, ny); if(depth[k] != null || !cityWalkable(nx, ny)) continue;
+      depth[k] = dc + 1; from[k] = c; q.push([nx, ny]);
+    }
+  }
+  if(!best) return;
+  var path = [best], cur = best;
+  while(from[K(cur[0], cur[1])] && !(from[K(cur[0], cur[1])][0] === city.x && from[K(cur[0], cur[1])][1] === city.y)){ cur = from[K(cur[0], cur[1])]; path.unshift(cur); }
+  HUNT_FLEE = path;
+}
+function huntDist(){ return HUNT ? Math.max(Math.abs(HUNT.at[0] - city.x), Math.abs(HUNT.at[1] - city.y)) : 99; }
+/* one of his steps: they close in (a road is his), the chase re-aims, and contact is the fight */
+function mapStepWorld(){
+  if(LOOP.fighting || (LOOP.frame && LOOP.frame.style.display === 'block')) return;
+  try{ if(CITY_CONTACT_POSTED) return; }catch(_e){}
+  if(HUNT){
+    HUNT.steps++;
+    var paved = false; try{ var t = om.at(city.x, city.y); paved = !!(t && CITY_PAVED[t.district]); }catch(_e){}
+    /* ON FOOT THEY ARE SLOWER THAN HIM: two blocks for his three on dirt, one for his two on a road. Walking on, he gets
+       away; walking into them, or toward them, he meets them (rule 68: 'most of the time you can flee'). */
+    if(paved ? (HUNT.steps % 2) === 0 : (HUNT.steps % 3) !== 0){
+      var dx = Math.sign(city.x - HUNT.at[0]), dy = Math.sign(city.y - HUNT.at[1]);
+      var tries = [[dx, dy], [dx, 0], [0, dy]];
+      for(var i = 0; i < tries.length; i++){ var nx = HUNT.at[0] + tries[i][0], ny = HUNT.at[1] + tries[i][1];
+        if((tries[i][0] || tries[i][1]) && cityWalkable(nx, ny)){ HUNT.at = [nx, ny]; break; } }
+    }
+    if(huntDist() > HUNT_GIVE_UP || HUNT.steps > HUNT_MAX_STEPS){
+      try{ travelSay(HUNT.name + ': they gave up on you.'); }catch(_e){}   /* draft:true */
+      if(PARTY_SEL === HUNT.id) PARTY_SEL = null; if(PARTY_CHASE === HUNT.id) PARTY_CHASE = null;
+      HUNT = null; HUNT_FLEE = null; window.__HUNT_GAVE_UP = (window.__HUNT_GAVE_UP | 0) + 1; return;
+    }
+    huntFleeRoad();
+  }
+  if(PARTY_CHASE && !(HUNT && PARTY_CHASE === HUNT.id)){
+    var p = partyById(PARTY_CHASE);
+    if(!p){ PARTY_CHASE = null; }
+    else if(TRAVEL && TRAVEL.to && Math.max(Math.abs(TRAVEL.to[0] - (p.at.x | 0)), Math.abs(TRAVEL.to[1] - (p.at.y | 0))) > 1){
+      var c = cityWalkable(p.at.x | 0, p.at.y | 0) ? [p.at.x | 0, p.at.y | 0] : townDoor(p.at.x | 0, p.at.y | 0);
+      if(c){ var keep = TRAVEL_SPEED; travelTo(0, 0, c); if(keep > 0) travelSpeedSet(keep); }
+    }
+  }
+  mapContact();
+}
+function mapContact(){
+  if(HUNT && huntDist() <= 1){
+    var H = HUNT; HUNT = null; HUNT_FLEE = null; PARTY_SEL = null; PARTY_CHASE = null;
+    var roster = []; for(var i = 0; i < H.count; i++) roster.push({ arch: H.arch });
+    var w = [city.x, city.y]; try{ w = roadWhere(); }catch(_e){}
+    var party = null; try{ party = partyMath('roaming', { x: city.x, y: city.y }); party.count = H.count; party.word = partyWord(H.count); }catch(_e){}
+    var ok = false;
+    try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: H.name, faction: null, draft: true, roster: roster, party: party,
+      street: true, why: 'road:' + (H.ev && H.ev.id) + ':caught', at: { gx: w[0] | 0, gy: w[1] | 0 } }); }catch(_e){}
+    if(ok){ try{ CITY_CONTACT_POSTED = true; }catch(_e){} window.__HUNT_CAUGHT = (window.__HUNT_CAUGHT | 0) + 1; }
+    return ok;
+  }
+  if(PARTY_CHASE){
+    var p = partyById(PARTY_CHASE); if(!p) { PARTY_CHASE = null; return false; }
+    if(Math.max(Math.abs((p.at.x | 0) - city.x), Math.abs((p.at.y | 0) - city.y)) > 1) return false;
+    var id = PARTY_CHASE; PARTY_CHASE = null; PARTY_SEL = null; PARTY_FOUGHT[id] = loopDay();
+    var n = partySizeOf(p), r = []; for(var k = 0; k < n; k++) r.push({ arch: 'human' });
+    var pm = null; try{ pm = partyMath('roaming', { x: city.x, y: city.y }); pm.count = n; pm.word = partyWord(n); pm.faction = 'brigands'; }catch(_e){}
+    var w2 = [city.x, city.y]; try{ w2 = roadWhere(); }catch(_e){}
+    var ok2 = false;
+    try{ travelStop(); ok2 = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: (p.from && p.from.faction ? p.from.faction + ' ' : '') + p.agenda, faction: (p.from && p.from.faction) || null,
+      draft: true, roster: r, party: pm, street: true, why: 'party:' + id, at: { gx: w2[0] | 0, gy: w2[1] | 0 } }); }catch(_e){}
+    if(ok2){ try{ CITY_CONTACT_POSTED = true; }catch(_e){} }
+    return ok2;
+  }
+  return false;
+}
+/* the hunters, drawn where they stand, under a dark red flag, their plate riding it; and the road away */
+function huntDraw(ox, oy){
+  if(!HUNT) return;
+  var q = iso(HUNT.at[0], HUNT.at[1], ox, oy), fy = q.sy + TH / 2 + 2, bt = mapArtBeat(), kp = MAP_PEOPLE_K;
+  if(HUNT_FLEE){
+    g.save();
+    for(var i = 0; i < HUNT_FLEE.length; i++){
+      var f = iso(HUNT_FLEE[i][0], HUNT_FLEE[i][1], ox, oy); g.globalAlpha = Math.max(0.45, 1 - i * 0.12); g.fillStyle = '#9fe08a';
+      var rr = Math.max(2.6, TW * 0.14); g.beginPath(); g.ellipse(f.sx, f.sy + TH * 0.4, rr, rr * 0.55, 0, 0, 7); g.fill(); }
+    g.restore();
+    try{ MAP_DREW.fleeRoad = HUNT_FLEE.length; }catch(_e){}
+  }
+  var L = null;
+  if(mapPeopleOf('job', 0)){
+    mapPersonDraw(mapPeopleOf('job', 7), 'S', bt + 1, q.sx + 7 * kp, fy - 2 * kp, 0.5);
+    L = mapPersonDraw(mapPeopleOf('job', 9), 'S', bt, q.sx - 3 * kp, fy + kp, 0);
+  }
+  var tall = (L ? L.h : 30 * kp) + 8 * kp;
+  mapFlagDraw(q.sx - 11 * kp, fy + kp, tall, '#7a1f1a', bt, true);
+  HUNT.box = { x: q.sx - 18 * kp, y: fy - tall - 4, w: 36 * kp, h: tall + 10 };
+  try{ MAP_DREW.hunt = 1; }catch(_e){}
+}
+/* THE PLATE ON A PARTY: how many, the skulls, where it is going (and for a hunter, the blocks to contact) */
+function partyPlatePush(id, sx, topY, info){
+  if(!info) return null;
+  var t = info.count + ' · ' + info.going + (info.hunt ? ' · ' + huntDist() + ' BLOCKS' : '');
+  g.font = '700 9px ' + FACE('casing');
+  var w = g.measureText(t).width + info.skulls * 8 + 4;
+  var lx = Math.max(2, Math.min(CVW - w - 8, sx - w / 2 - 3)), cx = lx + 3 + w / 2;   /* inside the glass at the edges */
+  var P = { t: t, lx: lx, ly: topY - 14, w: w, col: info.hunt ? '#ff8f7a' : '#f2d7a0', sx: cx - (info.skulls * 8 + 4) / 2, cy: topY, r: 0, sk: info.skulls, party: true };
+  MAP_PLATES.push(P);
+  try{ MAP_DREW.partyPlate = (MAP_DREW.partyPlate | 0) + 1; }catch(_e){}
+  return { x: P.lx, y: P.ly, w: w + 6, h: 11 };
+}
+/* a skull on a plate, drawn as marks (the phone draws its skulls as marks too, never a glyph a font may not carry) */
+function mapSkull(x, y, col){
+  var S = ['.####.', '######', '#.##.#', '######', '.####.', '.#..#.'];
+  g.fillStyle = col;
+  for(var r = 0; r < S.length; r++) for(var c = 0; c < 6; c++) if(S[r][c] === '#') g.fillRect(x + c, y + r + 1, 1, 1);
+}
+/* AND THE MAP COMES HOME FROM A FIGHT AT THE SPEED HE HAD (TUNING's change 2c): PAUSE was dropped at the bell (44a, the
+   valley does not run on while he fights); a fight he finished hands the pad back as he left it */
+window.addEventListener('message', function(ev){ var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END') return;
+  setTimeout(function(){ try{ if(TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); window.__RESUMED_AFTER_FIGHT = (window.__RESUMED_AFTER_FIGHT | 0) + 1; }catch(_e){} }, 0); });
+/* ==== /__THE_FIRST_TAP_GOES_SOMEWHERE__ + __LOOK_BEFORE_YOU_FIGHT__ ==== */
 
 /* ==== __THE_LOOP_ON_THE_MAP__ (RUN 10/1, [fold the loop], rules 52 and 58) ===================
    PAOLO 10/1: "I want the demo." RUN TWO built the whole Battle Brothers loop in one file
@@ -43953,7 +44276,9 @@ window.addEventListener('message', function(ev){
      CONTINUE posted the picks again and paid the start batteries onto the restored purse. The purse's own
      ledger is what survives a save: a 'start:' credit already in it means this crew was paid. */
   try{ var _pe = purseGet().entries || []; for(var _i = 0; _i < _pe.length; _i++) if(_pe[_i].ref && String(_pe[_i].ref).indexOf('start:') === 0) return; }catch(_e){}
+  try{ localStorage.removeItem(CREW_WALKED_KEY); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: a new crew; nobody has walked from it */
   try{ if(p.start > 0) BohemiaPurse.credit(purseGet(), 'electricity', p.start | 0, 'the crew starts: ' + p.originName, 'start:' + p.origin, loopDay()); }catch(_e){}
+  try{ billPublish(); }catch(_e){}
   try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@' + String(p.name || 'thecrew').toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: p.originName + '. ' + p.start + ' batteries between us. ' + p.combatName + ', ' + p.econName + '.', kind: 'mine', draft: true }); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
 });
@@ -43996,8 +44321,104 @@ function partyMath(kind, ctx){
   else { P = partyV('roaming'); var dist = (ctx.x != null) ? partyTownDistance(ctx.x, ctx.y) : 0;
     n = (P.base + P.per_day * (days - 1) + P.per_block_from_town * dist + P.per_strength * str) * mult; }
   n = Math.max(P.min, Math.min(P.max, Math.floor(n + 0.5)));
-  return { count: n, word: partyWord(n), days: days, difficulty: dif, faction: 'brigands', strength: str, kind: kind };
+  /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23, TUNING's change 1): ON THE FIRST GAME DAY no party is bigger than the
+     company plus one (a lone wolf meets two at most, three men meet four), so the first threat is survivable by accident;
+     from day two the math above stands whole. The shell holds the same line for a hand-over that never came through here. */
+  var cap1 = false; try{ var cc = crewCount(); if(loopDay() <= 1 && cc > 0 && n > cc + 1){ n = cc + 1; cap1 = true; } }catch(_e){}
+  return { count: n, word: partyWord(n), days: days, difficulty: dif, faction: 'brigands', strength: str, kind: kind, dayOneCap: cap1 };
 }
+/* HOW MANY ARE IN HIS CREW TONIGHT: the company the origin built, the men hired at the posts (the settlement screen keeps
+   them in bohemia.hired.v1 until the game's save does), less the men who walked when the batteries ran out (the bill,
+   __ONE_BILL_IN_DAYS__). One count, read by the fight's size, the party plate's skulls and the nightly bill. */
+var CREW_WALKED_KEY = 'bohemia.walked.v1';
+function crewWalked(){ try{ var a = JSON.parse(localStorage.getItem(CREW_WALKED_KEY) || '[]'); return Array.isArray(a) ? a : []; }catch(_e){ return []; } }
+function crewHired(){ try{ var a = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'); return Array.isArray(a) ? a.length : 0; }catch(_e){ return 0; } }
+function crewCount(){
+  var co = (LOOP.start && LOOP.start.company) || null;
+  var n = co ? co.length : 3;                           /* no picks yet: Battle Brothers' own three */
+  return Math.max(1, n + crewHired() - crewWalked().length);   /* the main character never walks */
+}
+/* ==== __ONE_BILL_IN_DAYS__ (RUN 10/23, [the first hour, quicker], TUNING's change 5, rule 133(b)) ====================
+   PAOLO 10/23: 'also kind of hardcore vibes if you're fucking around too much.' MEASURED (TUNING's walk and this lane's):
+   06:00 to 22:00 charged nothing for the crew; nightfall took one battery of rent; and THE CLOCK THEN STOPPED AT 22:00 FOR
+   GOOD (the old one-day demo's end, below), so a crew could stand still forever and fucking around cost nothing.
+   NOW ONE NIGHTLY BILL: the crew's food and water as one number, the men x records/target/bb/nightly_bill.json's
+   per_man_per_night (2: a ration and four litres at the counter, ECONOMY Day 69/74), paid at nightfall out of the
+   batteries, and shown as DAYS LEFT beside the battery count (how many more nightfalls at tonight's bill if nothing else
+   comes in: ECONOMY Day 74's definition). A NIGHT HE CANNOT COVER, ONE MAN WALKS, the newest hire first, then the company
+   from the back, and he says why with his own face (rule 19c); the main character never walks (rule 37). Never a game
+   over. The stall's food, meds and rounds stay for whoever wants them. */
+var BILL = { per_man: 2, red_at: 2, walks: 1, loaded: false, last: null };
+try{ fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(j){
+  if(j && j.per_man_per_night && j.per_man_per_night.value > 0) BILL.per_man = +j.per_man_per_night.value;
+  if(j && j.red_at_days && j.red_at_days.value >= 0) BILL.red_at = +j.red_at_days.value;
+  if(j && j.walks_when_short && j.walks_when_short.value >= 0) BILL.walks = +j.walks_when_short.value;
+  BILL.loaded = true; billPublish(); }).catch(function(){}); }catch(_e){}
+var CREW_DEFS = null;   /* ours.json's crew: the names and looks the crew screen and the fight give the company, in order */
+try{ fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); }).then(function(j){
+  CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] }; }).catch(function(){}); }catch(_e){}
+function billPerNight(){ return crewCount() * BILL.per_man; }
+function billDaysLeft(){ var p = billPerNight(); return p > 0 ? Math.floor(loopBats() / p) : null; }
+function billPublish(){
+  try{ window.__BILL = { perMan: BILL.per_man, crew: crewCount(), perNight: billPerNight(), daysLeft: billDaysLeft(), red: billDaysLeft() != null && billDaysLeft() <= BILL.red_at, last: BILL.last, loaded: BILL.loaded }; }catch(_e){}
+  return window.__BILL;
+}
+/* who walks: the newest hire first (he owes you least), then the company from the back; never YOU */
+function crewWhoWalks(){
+  var w = crewWalked(), hired = []; try{ hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []; }catch(_e){}
+  var hiredGone = w.filter(function(x){ return x.hired; }).length, coGone = w.filter(function(x){ return !x.hired; }).length;
+  var hLeft = hired.length - hiredGone;
+  if(hLeft > 0){ var d = hired[hLeft - 1] || {}; return { name: String(d.name || 'THE NEW MAN'), look: d.look || null, hired: true }; }
+  var co = (LOOP.start && LOOP.start.company) || [], left = co.length - coGone;
+  if(left <= 1) return null;                              /* only he is left, and he never walks */
+  var i = left - 1, men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [];
+  var nm = (men[i] && men[i].name) || ('MAN ' + i); if(i >= men.length && men.length) nm = (men[i % men.length].name || 'MAN') + ' II';
+  return { name: String(nm), look: looks[i] || null, i: i };
+}
+function crewBillNight(){
+  var crew = crewCount(), due = crew * BILL.per_man, have = loopBats(), paid = Math.min(due, Math.max(0, have)), walked = null;
+  if(paid > 0){ try{ BohemiaPurse.debit(purseGet(), 'electricity', paid, 'the crew ate: ' + crew + (crew === 1 ? ' man' : ' men') + ', food and water', 'bill:' + loopDay(), loopDay()); }catch(_e){} }
+  if(have < due && BILL.walks > 0){
+    walked = crewWhoWalks();
+    if(walked){ var w = crewWalked(); walked.day = loopDay(); w.push(walked); try{ localStorage.setItem(CREW_WALKED_KEY, JSON.stringify(w)); }catch(_e){}
+      try{ billSpeaks(walked); }catch(_e){} }
+  }
+  BILL.last = { day: loopDay(), crew: crew, due: due, paid: paid, short: due - paid, walked: walked ? walked.name : null };
+  window.__BILL_NIGHTS = (window.__BILL_NIGHTS | 0) + 1;
+  try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(walked ? (walked.name + ' walked: no batteries for food.') : ('The crew ate: ' + paid + ' batteries.'), 'bill'); }catch(_e){}   /* draft:true */
+  try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thecrew', txt: walked ? (walked.name + ' is gone. Sin baterías no hay comida.') : ('Ate tonight. ' + paid + ' batteries. ' + billDaysLeft() + ' days left like this.'), kind: 'mine', draft: true }); }catch(_e){}
+  billPublish();
+  try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
+  return BILL.last;
+}
+/* HE SAYS WHY, WITH HIS FACE (rule 19c: text from a mouth with a portrait). His fresh portrait (PORTRAIT's, through
+   engine/bohemia_crew_faces.js, the crew screen's own) says the line on the beat, at the foot of the map, above the pad,
+   for eight beats; a tap lets it go. Nothing stops the march and nothing waits on it. No face to draw, no words on the map:
+   the line is on the phone either way. */
+var BILL_FACES_ASKED = false;
+function billSpeaks(who){
+  var line = 'Sin baterías no hay comida, jefe. I’m gone.';   /* draft:true, WORDS' to overwrite */
+  var show = function(){
+    var F = window.BohemiaCrewFaces; if(!F || !who.look || !F.has(who.look)) return;
+    var el = document.getElementById('billtalk');
+    if(!el){ el = document.createElement('div'); el.id = 'billtalk';
+      el.setAttribute('style', 'position:fixed;left:12px;right:12px;bottom:118px;z-index:40;display:flex;gap:10px;align-items:center;padding:8px 10px;background:rgba(14,11,8,0.92);border:1px solid #5a4a32;color:#e8dcc0;font:12px ui-monospace,monospace;pointer-events:auto');
+      el.addEventListener('click', function(){ el.style.display = 'none'; });
+      document.body.appendChild(el); }
+    el.innerHTML = '';
+    var c = document.createElement('canvas'); c.width = c.height = F.SIZE || 128; c.style.cssText = 'width:56px;height:56px;image-rendering:pixelated;flex:none';
+    var tx = document.createElement('div'); tx.innerHTML = '<b style="color:#ffd27a">' + esc(who.name) + '</b><br>' + esc(line);
+    el.appendChild(c); el.appendChild(tx); el.style.display = 'flex';
+    try{ F.talk(c, who.look, line); }catch(_e){ try{ F.draw(c.getContext('2d'), who.look, F.SIZE || 128); }catch(_e2){} }
+    window.__BILL_SPOKE = { name: who.name, look: who.look, line: line, at: performance.now() };
+    clearTimeout(billSpeaks.t); billSpeaks.t = setTimeout(function(){ el.style.display = 'none'; }, 8 * 500);
+  };
+  if(window.BohemiaCrewFaces) return show();
+  if(BILL_FACES_ASKED) return;
+  BILL_FACES_ASKED = true;
+  try{ var sc = document.createElement('script'); sc.src = '../engine/bohemia_crew_faces.js'; sc.onload = function(){ try{ BohemiaCrewFaces.ready(show); }catch(_e){ show(); } }; document.head.appendChild(sc); }catch(_e){}
+}
+/* ==== /__ONE_BILL_IN_DAYS__ ==== */
 window.partyMath = partyMath;
 function loopJobCrew(base){ var p = LOOP.start; return Math.max(1, (base | 0) + (p ? (p.crew | 0) : 0)); }
 /* NEWS OF THE LOOP GOES TO THE PHONE (rule 61b: nothing sits over the map; the phone shows the
@@ -44043,6 +44464,7 @@ function loopPostOpen(){
 }
 function loopOpenTown(t){
   LOOP.open = t;
+  try{ if(PHONE_LIT && mapNorm(PHONE_LIT.place) === mapNorm(t.name)){ PHONE_LIT = null; PHONE_LIT_PATH = null; } }catch(_e){}   /* he is there: the light did its job */
   var f = loopFrame(); f.style.display = 'block';
   try{ travelStop(); }catch(_e){}
   if(LOOP.ready) loopPostOpen();
@@ -44050,9 +44472,29 @@ function loopOpenTown(t){
 function loopClose(){ if(LOOP.frame) LOOP.frame.style.display = 'none'; LOOP.open = null; try{ render(); }catch(_e){} }
 /* where a contract's crew waits: a block he can stand on, six to ten out from the town,
    in a direction the contract's own id picks, with a road to it */
+/* RUN 10/23 ([the first hour, quicker]): IS THIS BLOCK ON THE GLASS, where a finger can reach it: inside the map's own
+   margins and not under the phone. MEASURED: THE LOOP's second job landed up and to the right of the town, under the phone,
+   and no touch could reach it (THE LOOP PLAYS ON THE MAP L8, red on main since the phone grew). */
+function mapOnGlass(x, y){
+  try{ var sp = __CITY.isoAt(x, y), cv0 = document.getElementById('cv').getBoundingClientRect(), ph = document.getElementById('cityfeed');
+    var pr = (ph && ph.classList.contains('on')) ? ph.getBoundingClientRect() : null, gx = cv0.left + sp.sx, gy = cv0.top + sp.sy;
+    if(sp.sx < 24 || sp.sx > CVW - 24 || sp.sy < 60 || sp.sy > CVH - 150) return false;
+    if(pr && gx > pr.left - 20 && gx < pr.right + 20 && gy > pr.top - 30 && gy < pr.bottom + 10) return false;
+    return true; }catch(_e){ return true; }
+}
 function loopTarget(town, id){
   var h = 0; for(var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
   h = (h + LOOP.done * 7 + LOOP.held.length * 13) >>> 0;
+  /* first where he can see and touch it; only if nowhere is, anywhere the old way */
+  for(var k0 = 0; k0 < 8; k0++){
+    var d0 = (h + k0) % 8, E = DIRS[d0];
+    for(var r0 = 6 + (h % 3); r0 <= 10; r0++){
+      var x0 = town.x + E[0] * r0, y0 = town.y + E[1] * r0;
+      if(x0 < 1 || y0 < 1 || x0 >= om.n - 1 || y0 >= om.n - 1) continue;
+      if(!cityWalkable(x0, y0) || loopTownAt(x0, y0, 1) || !mapOnGlass(x0, y0)) continue;
+      if(cityRoute(city.x, city.y, x0, y0)) return { x: x0, y: y0 };
+    }
+  }
   for(var k = 0; k < 8; k++){
     var di = (h + k) % 8, D = DIRS[di];
     for(var r = 6 + (h % 3); r <= 10; r++){
@@ -44103,6 +44545,9 @@ function loopJobAt(x, y){
 }
 function loopArrived(to){
   var x = city.x, y = city.y;
+  /* RUN 10/23: ONE FIGHT PER JOB. MEASURED on the stranger's walk: a second touch on the JOB while the camera pulled back
+     into its fight called this again and handed the same job over twice; the pay never landed. A job in flight is in flight. */
+  if(LOOP.fighting) return;
   try{ if(typeof raidDefend === 'function' && raidDefend()) return; }catch(_e){}   /* __BUILT_ON_THE_MAP__ a raid at your gate (LIFE+CITY 10/9) */
   var job = loopJobAt(x, y);
   if(job){
@@ -44160,6 +44605,10 @@ window.addEventListener('message', function(ev){
     return;
   }
   var job = LOOP.held.splice(i, 1)[0];
+  /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23, TUNING's change 2e): A FINISHED JOB LEAVES THE PHONE. The phone lists
+     what a place offers less what he holds; a job done or lost was neither, so it came back on the phone ('5H AGO').
+     Done jobs are kept by id and the phone's board leaves them out the way it leaves out held ones. */
+  try{ LOOP.doneIds = (LOOP.doneIds || []).concat([job.id]).slice(-60); }catch(_e){}
   if(won){
     try{ BohemiaPurse.credit(purseGet(), 'electricity', job.pay, 'contract: ' + job.title, 'contract:' + job.id + ':' + LOOP.done, loopDay()); }catch(_e){}
     LOOP.done++;
@@ -44995,6 +45444,8 @@ function mapPlatesDraw(){
        unreadable on it -- checked on the real canvas, not assumed from the hex. */
     g.fillStyle = 'rgba(12,10,8,0.82)'; g.fillRect(P.lx, P.ly, P.w + 6, 11);
     g.fillStyle = P.col; g.fillText(P.t, P.sx, P.ly + 8.5);
+    /* __LOOK_BEFORE_YOU_FIGHT__: a party's plate carries its skulls after the words */
+    if (P.sk) { var __tw = g.measureText(P.t).width, __kx = P.sx + __tw / 2 + 4; for (var __s = 0; __s < P.sk; __s++) mapSkull(Math.round(__kx + __s * 8), Math.round(P.ly + 2), P.col); }
     /* AND A LEADER BACK TO THE GROUND IT NAMES, once it has been nudged. */
     if (P.ly < P.cy - P.r - 14) {
       g.globalAlpha = 0.5; g.strokeStyle = P.col; g.lineWidth = 1;
@@ -46524,6 +46975,7 @@ function renderCity(){
   cvKeepDpr();
   if(typeof LOOK!=='undefined'&&LOOK.on){ try{ lookRender(); }catch(_e){} return; }   /* __THE_NEAR_END_IS_THE_BLOCK__ */   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null, art: { crowdPeople: 0, partyPeople: 0, buildings: 0 } };
+  MAP_TOWN_HIT = []; MAP_PARTY_HIT = [];   /* __THE_FIRST_TAP_GOES_SOMEWHERE__: what this frame drew is what a tap is tested against */
   MAP_PLATES = [];   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: names are painted after the parties */
   try { mapArtScale(); } catch (_e) {}   /* the art scales with the zoom, the names do not */   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
   qlineFit();   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__: the phone comes and goes with the map */
@@ -47273,18 +47725,36 @@ function renderCity(){
         /* __/THE_LIVING_MAP__ gate crowd */
         __r = Math.max(__r, __ps.height - 4);      /* the name plate sits above the building */
         try { MAP_DREW.places[__tier] = (MAP_DREW.places[__tier] || 0) + 1; } catch (_e) {}
-        if(__named || __is || __norm(__n) === __norm(__near)){
+        /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23): the building is the town's to a finger, and the town the phone
+           lit wears a ring on its ground and its name lit, named at every zoom */
+        var __lit = !!(PHONE_LIT && __norm(__n) === __norm(PHONE_LIT.place));
+        try { var __bw = (__ps.width || 40); MAP_TOWN_HIT.push({ name: __n, x: __b.x | 0, y: __b.y | 0, plate: null,
+          bld: { x: __p.sx - __bw / 2, y: __cy + 6 - __ps.height, w: __bw, h: __ps.height + 8 } }); } catch (_e) {}
+        if (__lit) {
+          var __pulse = 0.55 + 0.35 * ((mapArtBeat() % 2) ? 1 : 0);
+          g.save(); g.globalAlpha = __pulse; g.strokeStyle = '#f0b44c'; g.lineWidth = 2;
+          g.beginPath(); g.ellipse(__p.sx, __cy + 8, Math.max(18, (__ps.width || 40) * 0.6), Math.max(7, (__ps.width || 40) * 0.24), 0, 0, 7); g.stroke(); g.restore();
+          __col = '#ffd27a';
+          try { MAP_DREW.townLit = 1; } catch (_e) {}
+        }
+        if(__named || __is || __lit || __norm(__n) === __norm(__near)){
           g.globalAlpha = 1;
           var __t = String(__n).toUpperCase();
           g.font = '700 9px ' + FACE('casing');
           g.textAlign = 'center';
           var __w = g.measureText(__t).width;
-          var __lx = __p.sx - __w/2 - 3, __ly = __cy - __r - 13;
+          /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23, TUNING's change 2d): A TOWN'S NAME SITS ON THE GROUND, at its
+             gate, under the people standing there. It floated 40 px over the building, in the air over the street the
+             parties walk, so the word CHURCH sat on a moving patrol and the finger meant for the town walked the crew into
+             it (measured, the stranger's walk). A party's plate rides its flag in the air; a town's is on the ground. */
+          var __lx = __p.sx - __w/2 - 3, __ly = __cy + 17;
           /* up to five nudges of one line each, then give up and draw it --
              a label that never lands is worse than one slightly close. */
           for(var __try=0; __try<5 && !__free(__lx, __ly, __w+6, 11); __try++)
-            __ly -= 12;
-          __boxes.push({ x:__lx, y:__ly, w:__w+6, h:11 });
+            __ly += 12;
+          if (__lit) { var __lx0 = __lx; __lx = Math.max(2, Math.min(CVW - __w - 8, __lx)); __p = { sx: __p.sx + (__lx - __lx0), sy: __p.sy }; }   /* the lit name reads whole at the glass's edge */
+          __boxes.push({ x:__lx, y:__ly, w:__w+6, h:11, t:__t });   /* the name rides with its box: a tap on it is the town's */
+          try { MAP_TOWN_HIT[MAP_TOWN_HIT.length - 1].plate = { x: __lx, y: __ly, w: __w + 6, h: 11 }; } catch (_e) {}
           /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the plate is PAINTED LATER, after the
              parties, so a crew walking past a town can never stand on its name. */
           MAP_PLATES.push({ t:__t, lx:__lx, ly:__ly, w:__w, col:__col, sx:__p.sx, cy:__cy, r:__r });
@@ -47353,8 +47823,18 @@ function renderCity(){
         mapArtDraw(__look.mask, mapArtBeat() + __pi2, __look.banner, __qp.sx, __qy + 2);
       }
       MAP_DREW.parties++;
+      /* __LOOK_BEFORE_YOU_FIGHT__ (RUN 10/23): where this party stands on the glass is what a finger is tested against,
+         and the one he looked at carries its plate on its flag */
+      try { var __kq = MAP_PEOPLE_K, __qid = __q.id != null ? __q.id : ('i' + __pi2);
+        var __ph = { id: __qid, p: __q, box: { x: __qp.sx - 18 * __kq, y: __qy - 44 * __kq, w: 36 * __kq, h: 48 * __kq }, plateBox: null };
+        if (PARTY_SEL === __qid) { var __n2 = partySizeOf(__q); __ph.plateBox = partyPlatePush(__qid, __qp.sx, __qy - 44 * __kq, { count: __n2, skulls: partySkulls(__n2), going: partyGoing(__q) }); }
+        MAP_PARTY_HIT.push(__ph); } catch (_e) {}
     }
   } catch (_e) {}
+  /* __LOOK_BEFORE_YOU_FIGHT__: the party coming for him, its plate always up (they are coming), and the road away */
+  try { if (HUNT) { huntDraw(ox, oy); var __hq = iso(HUNT.at[0], HUNT.at[1], ox, oy);
+    HUNT.plateBox = partyPlatePush(HUNT.id, __hq.sx, (HUNT.box ? HUNT.box.y : __hq.sy - 40), { count: HUNT.count, skulls: partySkulls(HUNT.count), going: 'COMING FOR YOU', hunt: true }); } } catch (_e) {}
+  try { phoneRouteDraw(ox, oy); } catch (_e) {}   /* __THE_FIRST_TAP_GOES_SOMEWHERE__: the phone's job, its road to the town */
   /* a party mid-glide keeps the map drawing until it lands, the same rule as his own glide */
   if (__partyMoving && !CITY_GLIDE.raf) CITY_GLIDE.raf = requestAnimationFrame(function(){ CITY_GLIDE.raf = 0;
     try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {} });
@@ -62416,6 +62896,10 @@ function cityHandOver(msg, skin){
   /* __THE_NEW_FIGHT_IS_THE_FIGHT__ (RUN 10/2): and the kind of block it starts on, which picks the
      rebuilt fight's board (COMBAT TWO cut its boards from the city's own block kinds) */
   try{ if(msg && !msg.district){ var _fa=(msg.at&&msg.at.length===2)?msg.at:[city.x,city.y], _ft=om.at(_fa[0]|0,_fa[1]|0); msg.district=_ft?_ft.district:null; } }catch(_e){}
+  /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23): which day it is and how many he has, on the one door, so the shell can
+     hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */
+  try{ if(msg){ msg.firstDay = loopDay() <= 1; msg.crewCount = crewCount(); } }catch(_e){}
+  try{ window.__LAST_HANDOVER = { why: msg && msg.why, label: msg && msg.label, n: (msg && msg.roster) ? msg.roster.length : null, party: (msg && msg.party) ? msg.party.count : null, at: performance.now() }; }catch(_e){}
   try{
     return fightZoomOut(function(){
       try{ window.parent.postMessage(msg,'*'); }catch(_e){}
@@ -62699,11 +63183,16 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
        both directions.
        AND A SECOND TAP CANCELS, which is volume 01's right-click: tapping while a
        journey is running stops it where it stands rather than queueing a new one. */
-    if(MODE==='city' && CB._tapStart && CB._tapMoved<8 && pts.size<=1){
+    if(MODE==='city' && CB._tapStart && CB._tapMoved<8 && pts.size<=1 && !FZOOMING){   /* RUN 10/23: no tap lands while the camera pulls back into a fight */
       var __tray=null; try{ __tray=document.getElementById('devtray'); }catch(_e){}
       var __trayOpen = !!(__tray && getComputedStyle(__tray).display!=='none');
       if(__trayOpen){ cityTapPlot(CB._tapStart.x,CB._tapStart.y); }
-      else if(TRAVEL){ travelStop(); travelSay('Stopped.'); }
+      /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23): a town's name or its building, a party, the lit town: what the
+         finger is ON decides, before the ground under it does (mapTapWhat) */
+      else if(mapTapWhat(CB._tapStart.x,CB._tapStart.y)){ /* answered */ }
+      /* a journey that is MOVING stops on a second tap (volume 01's right-click); one held on PAUSE is a route he
+         has not started, so a new tap is a new place to go and it goes */
+      else if(TRAVEL && TRAVEL_SPEED > 0){ travelStop(); travelSay('Stopped.'); }
       else { travelTo(CB._tapStart.x,CB._tapStart.y); }
     }
     if(MODE==='city') CB._tapStart=null;
@@ -64463,7 +64952,13 @@ window.addEventListener('message', function(ev){
    sleep. So the demo ends when day one is slept through, and the workshop never
    ends at all. */
 var CT_DEMO_DAYS = 1;
-function ctDemoOver(day){ return CT_IS_DEMO && (day|0) >= CT_DEMO_DAYS; }
+/* *** SUPERSEDED BY RULE 72, NEWEST DATE WINS (RUN 10/23, [the first hour, quicker]). *** The 8/4 'one good day' cut was
+   the cold open's demo (cold open, the vista, one day, sleep); the cold open is cut (rule 33h) and rule 72 (10/4) says the
+   demo's stop is 'a short contract chain that closes... and the map left open to keep playing' (RUN [demo end]). MEASURED
+   on BUILD 10/23b: at the first nightfall this sent the demo to its ending card, the card is refused (rule 19a), and the
+   map's clock stood at 22:00 for good: day two never came, no night was ever billed again, a crew could idle forever.
+   The day turns in the demo now; the stop is [demo end]'s to build. CT_DEMO_DAYS stays for that row to read. */
+function ctDemoOver(day){ return false; }
 
 /* ==== __CITY_FEEDBACK__ : THE BLACK BOX AND THE CARD (row 0f) ================
    MEASURED BEFORE THIS WAS WRITTEN, on the real demo build: a session that
@@ -65397,6 +65892,9 @@ function onNightfall(){
      failure state here, it is a refusal the ledger records -- what it COSTS you is
      BB-OBLIGATION-BURN's row, not this one. */
   try{ upkeepPost('day:ate', (DAYOPEN&&DAYOPEN.title)||'the day'); }catch(_e){}
+  /* __ONE_BILL_IN_DAYS__ (RUN 10/23): AND THE CREW EATS, IN BATTERIES: the one nightly bill, before the lights and the
+     rent, because the people who depend on you eat before anybody's landlord is paid */
+  try{ crewBillNight(); }catch(_e){}
   /* __WHAT_TODAY_COST__ -- THE NIGHT EATS POWER. One drain per lit circuit you
      HOLD, at nightfall, in the order the night takes them. */
   try{ nightPower(); }catch(_e){}
@@ -66166,7 +66664,10 @@ DAY.on('wake',function(){ try{ homeWake(); }catch(_e){}
      buries both. The wake is the empty moment in the loop.
      ONCE EVER, and it remembers: VISTA_SEEN is the same flag the walk-onto-it
      path sets, so seeing it either way spends it. */
-  try{ if(DAY.day===2 && !VISTA_SEEN && window.__VISTA) VISTA_ARMED=true; }catch(_e){}
+  /* RUN 10/23 ([the first hour, quicker]): NOT ON THE MAP. Day two never came in the demo until this round (the one-day end,
+     ctDemoOver); now that it does, this opened the overlook over the map by itself, 'TAP ANYWHERE TO GO BACK', a forced
+     stop (the second votes: nothing is forced; rule 133: quicker). The map's own pinch is the valley view (rule 50). */
+  try{ if(DAY.day===2 && !VISTA_SEEN && window.__VISTA && !(typeof MODE!=='undefined' && MODE==='city')) VISTA_ARMED=true; }catch(_e){}
 });
 /* __THE_VALLEY_IS_A_PLACE__ -- ARMED ON THE WAKE, PLAYED AFTER HE TAPS GET UP.
    *** I SHOT THIS AND LOOKED AT IT, and the first cut was wrong in exactly the
@@ -86125,6 +86626,7 @@ window.BOHEMIA_BAR = (function(){
     return h+'</span>';
   }
   function paintRead(){
+    try{ if(typeof billPublish==='function') billPublish(); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: window.__BILL.daysLeft moves with the purse, for UI's bar (the second of its two numbers) */
     var RD=document.getElementById('barread'), bar=document.getElementById('menubar');
     if(!RD||!bar) return;
     var onMap=false; try{ onMap=(typeof MODE!=='undefined' && MODE==='city'); }catch(_e){}

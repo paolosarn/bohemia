@@ -1,0 +1,138 @@
+{
+ "subs.2": {
+  "seconds": 1088,
+  "junk": {
+   "bags": 23,
+   "paper": 360,
+   "card": 87,
+   "cloth": 36,
+   "weeds": 265,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 3,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 2,
+   "tracks": 0,
+   "tidy_house": 0,
+   "burnt_house": 1
+  },
+  "grime": {
+   "materials": 87,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_subs_2.webp",
+  "future": {
+   "panels": 176,
+   "beds": 9
+  }
+ },
+ "subs.1": {
+  "seconds": 769,
+  "junk": {
+   "bags": 37,
+   "paper": 449,
+   "card": 88,
+   "cloth": 36,
+   "weeds": 274,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 3,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 0,
+   "tidy_house": 6,
+   "burnt_house": 5
+  },
+  "grime": {
+   "materials": 86,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_subs_1.webp",
+  "future": {
+   "panels": 164,
+   "beds": 11
+  }
+ },
+ "subs.0": {
+  "seconds": 881,
+  "junk": {
+   "bags": 52,
+   "paper": 452,
+   "card": 87,
+   "cloth": 36,
+   "weeds": 271,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 3,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 4,
+   "tracks": 0,
+   "tidy_house": 4,
+   "burnt_house": 1
+  },
+  "grime": {
+   "materials": 96,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_subs_0.webp",
+  "future": {
+   "panels": 192,
+   "beds": 9
+  }
+ },
+ "subs.3": {
+  "seconds": 878,
+  "junk": {
+   "bags": 51,
+   "paper": 488,
+   "card": 88,
+   "cloth": 36,
+   "weeds": 293,
+   "mattresses": 3,
+   "couches": 2,
+   "fires": 3,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 5,
+   "tracks": 34,
+   "tidy_house": 3,
+   "burnt_house": 8
+  },
+  "grime": {
+   "materials": 106,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_subs_3.webp",
+  "future": {
+   "panels": 212,
+   "beds": 12
+  }
+ }
+}

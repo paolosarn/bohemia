@@ -8,15 +8,21 @@
   "fight_floor": {
    "where": "the fight (BOHEMIA_FIGHT.html), slices/fight_ground/block_*.webp, present day",
    "total": 35,
-   "flat": 19,
+   "flat": 13,
    "in_3d": [
     "corner.0",
     "corner.1",
     "corner.2",
+    "landfill.0",
+    "landfill.1",
     "lots.0",
+    "main.0",
+    "main.1",
     "ruin.0",
     "ruin.1",
     "scrub.0",
+    "scrub.1",
+    "scrub.2",
     "strip.0",
     "strip.1",
     "subs.0",
@@ -186,8 +192,13 @@
   "fight_floor_futures": {
    "where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp",
    "total": 70,
-   "flat": 70,
-   "in_3d": []
+   "flat": 66,
+   "in_3d": [
+    "subs.0.reclaimed",
+    "subs.1.reclaimed",
+    "subs.2.reclaimed",
+    "subs.3.reclaimed"
+   ]
   },
   "fight_lights": {
    "where": "the fight, slices/fight_ground/light_*.webp (two lamp posts, the oil drum, the slot glow)",
@@ -246,7 +257,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 89,
+ "total_flat": 79,
  "log": [
   {
    "at": "10/20 start",
@@ -590,6 +601,105 @@
    "settlement_backdrops": 0,
    "map_districts": 0,
    "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 scrub.1 into the fight",
+   "total_flat": 88,
+   "fight_floor": 18,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 scrub.2 into the fight",
+   "total_flat": 87,
+   "fight_floor": 17,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 70,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 subs.1 reclaimed (the first future in 3D)",
+   "total_flat": 86,
+   "fight_floor": 17,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 69,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 main.0 into the fight",
+   "total_flat": 85,
+   "fight_floor": 16,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 69,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 main.1 into the fight",
+   "total_flat": 84,
+   "fight_floor": 15,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 69,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 landfill.0 and subs.2 reclaimed",
+   "total_flat": 82,
+   "fight_floor": 14,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 68,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 landfill.1 into the fight",
+   "total_flat": 81,
+   "fight_floor": 13,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 68,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 subs.0 reclaimed",
+   "total_flat": 80,
+   "fight_floor": 13,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 67,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 subs.3 reclaimed",
+   "total_flat": 79,
+   "fight_floor": 13,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 66,
    "fight_lights": 0,
    "item_icons": 0
   }

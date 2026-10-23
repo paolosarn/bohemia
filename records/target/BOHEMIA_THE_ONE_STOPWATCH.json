@@ -4,89 +4,89 @@
  "instrument": "tools/bohemia_first_load.js readOnce: a fresh browser, cold cache, no service worker, served like GitHub Pages, nobody touching the glass",
  "throttle": 4,
  "lingerMs": 20000,
- "taken": "2026-10-19T18:13:58.342Z",
+ "taken": "2026-10-23T05:54:19.630Z",
  "demo": {
-  "stamp": "DEMO - BUILD 10/19c - THE MAP IS PAINTED",
-  "hash": "1363db8c"
+  "stamp": "DEMO - BUILD 10/23c - THE FIRST HOUR, QUICKER",
+  "hash": "eadd8971"
  },
  "median": {
-  "titleMs": 1595.6,
-  "doorMs": 12607.8,
-  "bytesBeforeDoor": 3609914,
-  "bytesAfterDoor": 28356149,
-  "filesAfterDoor": 17
+  "titleMs": 1612.5,
+  "doorMs": 12370,
+  "bytesBeforeDoor": 3647485,
+  "bytesAfterDoor": 18654363,
+  "filesAfterDoor": 92
  },
  "spread": {
   "titleMs": [
-   1529.2,
-   1658.3
+   1518.8,
+   1914.7
   ],
   "doorMs": [
-   12395.4,
-   13349
+   11829.1,
+   13230.9
   ]
  },
  "readings": [
   {
-   "titleMs": 1649.5,
-   "buttonsMs": 2366.1,
-   "doorMs": 13349,
-   "firstPaintMs": 2076,
-   "bytesBeforeDoor": 3599862,
-   "bytesAfterDoor": 28356149,
-   "filesAfterDoor": 17,
-   "bytesAll": 31956011,
+   "titleMs": 1703.8,
+   "buttonsMs": 2337.1,
+   "doorMs": 12370,
+   "firstPaintMs": 2132,
+   "bytesBeforeDoor": 3647485,
+   "bytesAfterDoor": 18654363,
+   "filesAfterDoor": 92,
+   "bytesAll": 22301848,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1552.5,
-   "buttonsMs": 2135.8,
-   "doorMs": 13052,
-   "firstPaintMs": 1972,
-   "bytesBeforeDoor": 3599862,
-   "bytesAfterDoor": 28356149,
-   "filesAfterDoor": 17,
-   "bytesAll": 31956011,
+   "titleMs": 1914.7,
+   "buttonsMs": 2531.3,
+   "doorMs": 13230.9,
+   "firstPaintMs": 2328,
+   "bytesBeforeDoor": 3647485,
+   "bytesAfterDoor": 18654363,
+   "filesAfterDoor": 92,
+   "bytesAll": 22301848,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1595.6,
-   "buttonsMs": 2162.3,
-   "doorMs": 12528.5,
-   "firstPaintMs": 1972,
-   "bytesBeforeDoor": 3609914,
-   "bytesAfterDoor": 28356149,
-   "filesAfterDoor": 17,
-   "bytesAll": 31966063,
+   "titleMs": 1546.1,
+   "buttonsMs": 2112.8,
+   "doorMs": 11829.1,
+   "firstPaintMs": 1924,
+   "bytesBeforeDoor": 3647485,
+   "bytesAfterDoor": 18616085,
+   "filesAfterDoor": 91,
+   "bytesAll": 22263570,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1658.3,
-   "buttonsMs": 2391.6,
-   "doorMs": 12607.8,
-   "firstPaintMs": 2164,
-   "bytesBeforeDoor": 3609914,
-   "bytesAfterDoor": 28356149,
-   "filesAfterDoor": 17,
-   "bytesAll": 31966063,
+   "titleMs": 1612.5,
+   "buttonsMs": 2245.8,
+   "doorMs": 12778.8,
+   "firstPaintMs": 2032,
+   "bytesBeforeDoor": 3637433,
+   "bytesAfterDoor": 18654363,
+   "filesAfterDoor": 92,
+   "bytesAll": 22291796,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 1529.2,
-   "buttonsMs": 2129.2,
-   "doorMs": 12395.4,
-   "firstPaintMs": 1920,
-   "bytesBeforeDoor": 3609914,
-   "bytesAfterDoor": 28356149,
-   "filesAfterDoor": 17,
-   "bytesAll": 31966063,
+   "titleMs": 1518.8,
+   "buttonsMs": 2185.5,
+   "doorMs": 11901.7,
+   "firstPaintMs": 1996,
+   "bytesBeforeDoor": 3647485,
+   "bytesAfterDoor": 18654363,
+   "filesAfterDoor": 92,
+   "bytesAll": 22301848,
    "twice": 0,
    "errors": 0
   }
  ],
- "line": "THE DEMO (DEMO - BUILD 10/19c - THE MAP IS PAINTED, demo 1363db8c): title 1.6 s, the door (NEW GAME ready) 12.6 s on the 4x phone profile, median of 5 (12.4 to 13.3); 3.4 MB before the door, 27.0 MB in 17 files in the 20 s after it."
+ "line": "THE DEMO (DEMO - BUILD 10/23c - THE FIRST HOUR, QUICKER, demo eadd8971): title 1.6 s, the door (NEW GAME ready) 12.4 s on the 4x phone profile, median of 5 (11.8 to 13.2); 3.5 MB before the door, 17.8 MB in 92 files in the 20 s after it."
 }

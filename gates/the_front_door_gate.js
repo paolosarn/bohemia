@@ -14,7 +14,8 @@
    LEGS, on the baked demo, through the one driver (the picks are made with real touches in its
    beforeTap, then the driver opens the door as it always does):
      D1  the door offers 3 fights, 3 shelves, 15 origins and a name, every one a thumb (44 px)
-     D2  the middle is picked already (SEEN IT, THIN SHELVES, A NEW CREW)
+     D2  the easy end is picked already (NEW HERE, FULL SHELVES, A NEW CREW): RE-AIMED 10/23 by RUN [the first hour,
+         quicker], TUNING's change 4 (rule 133): a stranger who taps BEGIN plays rule 117's start, 78 in 100, not Veteran's 46
      D3  a pick is not BEGIN: touching one changes it and the door stays up
      D4  every number a card shows is the number the game applies (start, crews, pay)
      D5  BEGIN carries the picks to the map, and the purse starts with the origin's batteries
@@ -45,7 +46,7 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
         on: { combat: on('combat'), econ: on('econ'), origin: on('origin') }, front: getComputedStyle(document.getElementById('front')).display,
         began: !!window.__PLAY_BEGAN };
     });
-    try { await page.evaluate(() => { try { localStorage.removeItem('bohemia.start'); } catch (_e) {} if (window.BOH_START) { BOH_START.state.combat = 'seen'; BOH_START.state.econ = 'thin'; BOH_START.state.origin = 'newcrew'; BOH_START.state.name = 0; } }); } catch (_e) {}
+    try { await page.evaluate(() => { try { localStorage.removeItem('bohemia.start'); } catch (_e) {} if (window.BOH_START) { BOH_START.state.combat = 'new'; BOH_START.state.econ = 'full'; BOH_START.state.origin = 'newcrew'; BOH_START.state.name = 0; } }); } catch (_e) {}
     const before = await look();
     const tap = async (sel) => { const r = await page.evaluate((sel) => { const e = document.querySelector(sel); if (!e) return null; e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, sel); if (r) { await page.touchscreen.tap(r.x, r.y); await page.waitForTimeout(250); } return !!r; };
     const n0 = before.name;
@@ -66,7 +67,7 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
     const b = door.before, a = door.after, p = door.picks;
     ok('*** D1 THE DOOR OFFERS THE NEW COMPANY *** (' + b.fights + ' fights, ' + b.shelves + ' shelves, ' + b.origins + ' origins, name "' + b.name + '"; ' + b.small + ' under a thumb)',
       b.fights === 3 && b.shelves === 3 && b.origins === 15 && !!b.name && b.small === 0);
-    ok('D2 the middle is picked already (' + JSON.stringify(b.on) + ')', b.on.combat === 'seen' && b.on.econ === 'thin' && b.on.origin === 'newcrew');
+    ok('D2 the easy end is picked already (' + JSON.stringify(b.on) + ')', b.on.combat === 'new' && b.on.econ === 'full' && b.on.origin === 'newcrew');
     ok('D3 a pick is not BEGIN (' + JSON.stringify(a.on) + ', the door ' + a.front + ', play began ' + a.began + '; name "' + door.n0 + '" -> "' + a.name + '")',
       a.on.combat === 'out' && a.on.econ === 'full' && a.on.origin === 'truck' && a.front !== 'none' && !a.began && a.name !== door.n0);
     /* THE WATER TRUCK: pay +1; OUTLIVED IT: crews +1. RE-AIMED 10/5 (RUN [the origin sets the company], rule 75a): the start
@@ -79,11 +80,13 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
     const m = await fr.evaluate(() => ({ start: LOOP.start, bats: loopBats() }));
     ok('*** D5 BEGIN CARRIES THE PICKS TO THE MAP *** (' + (m.start && m.start.originName) + ', ' + m.bats + ' batteries)',
       !!m.start && m.start.origin === 'truck' && m.start.combat === 'out' && m.bats === p.start);
-    /* D6: a job taken now carries them: base pay 1 -> (1 + 1) x 1.5 = 3; crew 2 + 1 = 3; the fight's package 2 */
+    /* D6: a job taken now carries them: base pay 1 -> (1 + 1) x 1.5 = 3; the crew is the party math's for this company and the
+       fight's tier (RE-AIMED 10/23 by RUN: '2 + 1 = 3' was the pre-10/5 formula; [a few, not twelve] sizes it); the fight's package 2 */
     const j = await fr.evaluate(() => {
       const bs = ctBases() || {}; let t = null; for (const n in bs) { t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; break; }
       LOOP.open = t; loopTakeContract({ id: 'ct-gate', title: 'a gate job', pay: 1 }); LOOP.open = null;
       const job = LOOP.held[LOOP.held.length - 1] || null;
+      if (job) job.math = partyMath('job', { skulls: job.skulls || 1 }).count;   /* RE-AIMED 10/23 (RUN): the crew is the party math's since 10/5 ([a few, not twelve]) */
       let sent = null; const real = window.parent.postMessage.bind(window.parent);
       return { job };
     });
@@ -97,7 +100,7 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
       }), j.job);
     }
     ok('*** D6 EVERY JOB CARRIES THE PICKS *** (pay ' + (j.job && j.job.pay) + ', crew ' + (j.job && j.job.crew) + ', the fight\'s difficulty ' + pkg + ')',
-      !!j.job && j.job.pay === 3 && j.job.crew >= 3 && pkg === 2);
+      !!j.job && j.job.pay === 3 && j.job.crew >= 2 && j.job.crew === j.job.math && pkg === 2);
     ok('nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
     ok('the gate ran without throwing [' + String(e.message).slice(0, 160) + ']', false);
