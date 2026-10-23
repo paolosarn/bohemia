@@ -1560,7 +1560,7 @@
   var KIT = { /* slices/ui_kit/kit.json, the numbers the cut wrote (ins = top, right, bottom with the lip, left, in points) */
     tin: { ins: [12, 12, 14, 12], P: 64, r: 5 }, tin_dark: { ins: [12, 12, 14, 12], P: 64, r: 5 }, tin_amber: { ins: [12, 12, 14, 12], P: 64, r: 5 },
     board: { ins: [14, 6, 8, 6], P: 192, r: 1.5 }, board_plain: { ins: [6, 6, 8, 6], P: 192, r: 1.5 }, receipt: { ins: [6, 6, 7, 6], P: 96, r: 0.6 },
-    glass: { ins: [8, 8, 10, 8], P: 64, r: 3 }, well: { ins: [11, 6, 9, 12], P: 48, r: 3 }, tray: { ins: [11, 6, 9, 12], P: 128, r: 3 },
+    glass: { ins: [8, 8, 10, 8], P: 128, r: 3 }, well: { ins: [11, 6, 9, 12], P: 48, r: 3 }, tray: { ins: [11, 6, 9, 12], P: 128, r: 3 },
     well_full: { ins: [11, 6, 9, 12], P: 48, r: 3 } };
   var KIT_BASE = (function () {   /* absolute, from this file's own address, so a page in any folder or frame finds the kit */
     try { var s = document.currentScript && document.currentScript.src; if (s) return s.replace(/[^\/]*$/, '') + 'ui_kit/'; } catch (e) {}
@@ -1623,23 +1623,28 @@
     ['tin', 0.6, ['html[data-bm-roster] .cell.full'], ''],
     ['receipt', 1, ['html[data-bm-roster] .stats', 'html[data-bm-roster] #ghost'], ''],
     ['receipt', 0.5, ['html[data-bm-roster] .cell b'], ''],
-    /* THE START SCREEN AND THE FRONT DOOR: the three things stay three things (board, paper, glass), made real */
-    ['board_plain', 1, ['.bm-start .b.card'], ''],
-    ['receipt', 1, ['.bm-start .b.rec', '#newco .strip', '#newco .name'], ''],
-    ['glass', 1, ['.bm-start .b.pane'], ''],
-    ['glass', 0.75, ['#newco .name button'], ''],
-    ['tin_dark', 0.75, ['#newco .row button'], KIT_LIGHT],
-    ['tin_amber', 0.75, ['#newco .row button.on'], 'color:#120c06!important;text-shadow:none!important;'],
+    /* THE START SCREEN AND THE FRONT DOOR, ONLY WHEN THEY ARE NOT HIS: the front screen he loved (rule 127(b), 130(b): 'the
+       front screen's font he loved stays'; the door's just-the-font look, #front[data-look=just-the-font] and .bm-start.jtf)
+       is left exactly as it is; any other start screen's three things stay three things (board, paper, glass), made real */
+    ['board_plain', 1, ['.bm-start:not(.jtf) .b.card'], ''],
+    ['receipt', 1, ['.bm-start:not(.jtf) .b.rec', '#front:not([data-look="just-the-font"]) #newco .strip', '#front:not([data-look="just-the-font"]) #newco .name'], ''],
+    ['glass', 1, ['.bm-start:not(.jtf) .b.pane'], ''],
+    ['glass', 0.75, ['#front:not([data-look="just-the-font"]) #newco .name button'], ''],
+    ['tin_dark', 0.75, ['#front:not([data-look="just-the-font"]) #newco .row button'], KIT_LIGHT],
+    ['tin_amber', 0.75, ['#front:not([data-look="just-the-font"]) #newco .row button.on'], 'color:#120c06!important;text-shadow:none!important;'],
     /* THE SETTINGS: a sheet of board, the title printed, the buttons tin, the bars olive lit amber */
     ['board_plain', 1, ['#setcard'], ''],
     ['receipt', 1, ['#setcard .seth'], ''],
     ['tin', 0.75, ['#setcard .setbtn'], KIT_SHADOW + KIT_INK],
     ['tin_dark', 0.6, ['#setcard .setbars .vb'], ''],
-    ['tin_amber', 0.6, ['#setcard .setbars .vb.lit'], '']
+    ['tin_amber', 0.6, ['#setcard .setbars .vb.lit'], ''],
+    /* a browser drops a whole rule over one pseudo-element it does not know, so each engine's handle is its own rule */
+    ['tin', 0.5, ['#setcard .setslide input::-webkit-slider-thumb'], ''],
+    ['tin', 0.5, ['#setcard .setslide input::-moz-range-thumb'], '']
   ];
   /* the press: the slab goes down into its shadow (the individual translate composes with any rotate the rule set) */
   var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#menubar #bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
-    'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', 'html[data-bm-roster] .plist button', '#newco .row button', '#setcard .setbtn'];
+    'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', 'html[data-bm-roster] .plist button', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn'];
   function kitCSS() {
     var pre = 'html[data-kit] body ', out = [];
     var tape = 'url(' + KIT_BASE + 'tape/tape.png)', rec = 'url(' + KIT_BASE + 'receipt/c.png)', card = 'url(' + KIT_BASE + 'board_plain/c.png)', gl = 'url(' + KIT_BASE + 'glass/c.png)';

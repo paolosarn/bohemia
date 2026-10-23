@@ -76,7 +76,7 @@ PIECES = {
     'board':       dict(kind='board', paint=(0.30, 0.222, 0.145), P=192, ins=[14, 6, 6, 6], T=4.7, r=1.5, flutes=True),
     'board_plain': dict(kind='board', paint=(0.30, 0.225, 0.15), P=192, ins=[6, 6, 6, 6], T=4.7, r=1.5, flutes=False),
     'receipt':     dict(kind='paper', paint=(0.90, 0.87, 0.79), P=96, ins=[6, 6, 6, 6], T=2.4, r=0.6),
-    'glass':       dict(kind='glass', paint=(0.10, 0.10, 0.10), P=64, ins=[8, 8, 8, 8], T=3.6, r=3.0),
+    'glass':       dict(kind='glass', paint=(0.10, 0.10, 0.10), P=128, ins=[8, 8, 8, 8], T=3.6, r=3.0, crack_cells=3),
     'well':        dict(kind='well', paint=(0.20, 0.20, 0.16), floor='glass', P=48, ins=[11, 6, 7, 12], T=4.7, r=3.0, crack_cells=2),
     'tray':        dict(kind='well', paint=(0.20, 0.20, 0.16), floor='glass', P=128, ins=[11, 6, 7, 12], T=4.7, r=3.0, crack_cells=3),
     'well_full':   dict(kind='well', paint=(0.20, 0.20, 0.16), floor='board', P=48, ins=[11, 6, 7, 12], T=4.7, r=3.0),
