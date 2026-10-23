@@ -23,6 +23,7 @@ The rig's sun is bolted to its own camera's frame (upper left on the screen): he
 
   python3 tools/bohemia_cook_the_map_capture_10_20_26.py                      (step one, the scenes)
   <venv>/bin/python tools/bohemia_cook_the_map_through_the_rig_10_20_26.py render [district ...]   (masters/<d>.png)
+  python3 tools/bohemia_cook_the_map_through_the_rig_10_20_26.py finish [district ...]   (10/23: the masters again from the renders)
   python3 tools/bohemia_cook_the_map_through_the_rig_10_20_26.py bank [district ...]   (into the bank, then run the wire)
 
 REFERENCE CHECK (the 9/4 standing duty): the factory's own pictures are the twins (same geometry, same frame); Machine
@@ -42,6 +43,8 @@ BANK = os.path.join(R, 'banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt')
 CELL_M = 96.0                     # a district cell is 96 m a side (the factory's own comment)
 ZC = 0.8165                       # iso3d's height against a true 30-degree orthographic camera
 SAMPLES = 24
+SNAP = 0.15                       # 10/23: the pull toward his colours, the props' 0.35 halved: a district picture is a landmark and
+                                  # keeps its hue (the hue gate: the school went from 9 hue families to 8 at 0.35, 10 at 0.15)
 ROAD_WEAR = 0.25                  # 10/23: a road's share of the dust (the asphalt stays dark the way the fight floor's does)
 WEAR = 0.3                        # the guide's 0.6 dusts every flat top, and a district picture is mostly flat tops: at 0.6 the
                                   # mountain's plate went from his brown to a pale grey (measured 10/20), the whole valley would shift; the
@@ -63,6 +66,7 @@ def plate_units(sc):
 
 
 def material_for(bpy, m, cache):
+    while isinstance(m.get('c'), dict): m = m['c']             # 10/23: the medical campus nests one material in another
     key = json.dumps(m, sort_keys=True, default=str)
     if key in cache: return cache[key]
     mat = bpy.data.materials.new('map_%d' % len(cache)); mat.use_nodes = True
@@ -133,7 +137,9 @@ def build(bpy, sc):
         groups.setdefault(mat.name, (mat, []))[1].append(verts)
         if mat.name not in road:                               # 10/23: what is a road (the lot's asphalt, any dark flat paving)
             c = m.get('asphalt') if m.get('t') == 'lot' else m.get('c')
-            road[mat.name] = bool(c) and m.get('t') != 'win' and max(c[:3]) < 92 and max(c[:3]) - min(c[:3]) < 26
+            while isinstance(c, dict): c = c.get('c')
+            road[mat.name] = bool(c) and m.get('t') != 'win' and (max(c[:3]) < 92 and max(c[:3]) - min(c[:3]) < 26
+                                                                  or c[2] > c[0] + 12 and c[2] > 60)   # or water (a pool, a channel, the lake)
     objs = []
     for name, (mat, quads) in groups.items():
         v = np.array([[p[1] * k, p[0] * k, p[2] * k * ZC] for q in quads for p in q], np.float32)
@@ -176,7 +182,8 @@ def render(d, sc):
     s_ = bpy.context.scene
     objs, k = build(bpy, sc)
     # 10/23: THE ROAD STAYS ASPHALT. At the ground's 0.3 the rig's sun-bleached dust on every flat top turned the strip's
-    # dark road the plate's pale grey (his map roads, 77b, are the read he asked for): a road takes a quarter of the dust
+    # dark road the plate's pale grey (his map roads, 77b, are the read he asked for): a road takes a quarter of the dust;
+    # and the WATER stays water (the water district's lake had gone a dusty blue-grey): flat cool water takes the same share
     roads = [o for o in objs if o.get('road')]
     RIG.source_pass([o for o in objs if not o.get('road')], WEAR, 1.0, sum(map(ord, d)) % 7)
     if roads: RIG.source_pass(roads, WEAR * ROAD_WEAR, 1.0, sum(map(ord, d)) % 7)
@@ -202,14 +209,14 @@ def render(d, sc):
 
 
 def finish(d, sc, fn):
-    """the factory's own crop box, then the rig's population snap toward his colours"""
+    """the factory's own crop box, then the rig's population snap toward his colours (SNAP)"""
     from PIL import Image
     import bohemia_direction_master_rig as RIG
     a = np.asarray(Image.open(fn).convert('RGBA')).astype(float)
     op = a[..., 3] > 0
     pop, _b, _n = RIG.population('prop')
     px = a[..., :3][op]; bins = np.clip((px // 8).astype(int), 0, 31)
-    a[..., :3][op] = px + (pop[bins[:, 0], bins[:, 1], bins[:, 2]] - px) * 0.35
+    a[..., :3][op] = px + (pop[bins[:, 0], bins[:, 1], bins[:, 2]] - px) * SNAP
     im = Image.fromarray(a.round().clip(0, 255).astype(np.uint8), 'RGBA').crop(sc['bbox'])
     assert im.size == (sc['bank_w'], sc['bank_h']), (im.size, sc['bank_w'], sc['bank_h'])
     os.makedirs(MASTERS, exist_ok=True)
@@ -249,6 +256,12 @@ if __name__ == '__main__':
         for sc in S:
             if names and sc['district'] not in names: continue
             fn = render(sc['district'], sc)
+            print('  master', sc['district'], finish(sc['district'], sc, fn), flush=True)
+    elif cmd == 'finish':                                   # 10/23: the snap and the crop again from the renders, no Blender
+        S = pickle.load(open(os.path.join(OUT, 'scenes.pkl'), 'rb'))
+        for sc in S:
+            fn = os.path.join(OUT, 'render', '%s.png' % sc['district'])
+            if (names and sc['district'] not in names) or not os.path.exists(fn): continue
             print('  master', sc['district'], finish(sc['district'], sc, fn), flush=True)
     elif cmd == 'bank':
         to_bank(names or None)

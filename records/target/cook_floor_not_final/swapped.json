@@ -58,5 +58,10 @@
   "file": "slices/fight_ground/block_strip_1.webp",
   "sha1": "b868fb7669b1356eed2811282980d5110bdca85d",
   "master": "records/target/cook_floor_not_final/block_strip_1.webp"
+ },
+ "wash.1": {
+  "file": "slices/fight_ground/block_wash_1.webp",
+  "sha1": "010f14edcd11f2e2767368446d5e2cc7e374eb96",
+  "master": "records/target/cook_floor_not_final/block_wash_1.webp"
  }
 }
