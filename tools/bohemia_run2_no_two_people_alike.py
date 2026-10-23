@@ -423,6 +423,9 @@ def walk_sheets():
     for p in json.load(open(ROLL)):
         tag = 'person_' + p['id'].lower(); d = frames_of(tag)
         if standing_only(p['id']) or not os.path.exists(os.path.join(d, 'rig_Anim_0_S_k05.png')): continue
+        try:   # ANIMATION's sheet (his work and the walk with a load, tools/bohemia_animation_everybody_idles.py) is made from
+            if 'work' in json.load(open(os.path.join(od, tag + '.json'))): continue   # this one and is newer: kept as it is
+        except (OSError, ValueError): pass
         gx, gy = json.load(open(os.path.join(ROOT, OUT, tag, 'rig.json')))['ground_px']
         F = [[Image.open(os.path.join(d, 'rig_%s.png' % t)).convert('RGBA')] +
              [Image.open(os.path.join(d, 'rig_Anim_0_%s_k%02d.png' % (t, k))).convert('RGBA') for k in range(6)] for t in dirs]
@@ -437,7 +440,7 @@ def walk_sheets():
         with open(os.path.join(od, tag + '.json'), 'w') as f:
             json.dump(dict(w=w, h=h, foot=foot, mid=half, cols=7, dirs=dirs, walk=[1, 2, 3, 4, 5, 6], still=0, look=tag), f); f.write('\n')
         n += 1
-    print('walk sheets', n, '->', os.path.relpath(od, ROOT))
+    print('walk sheets', n, '->', os.path.relpath(od, ROOT), '(ANIMATION\'s sheets with work kept as they are; its tool remakes them)')
 
 
 def todo():
