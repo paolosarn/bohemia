@@ -636,5 +636,77 @@
    "rafters": 0,
    "rubble": 104
   }
+ },
+ "ruin.1": {
+  "seconds": 1006,
+  "junk": {
+   "bags": 23,
+   "paper": 582,
+   "card": 142,
+   "cloth": 58,
+   "weeds": 749,
+   "mattresses": 3,
+   "couches": 2,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 2,
+   "tracks": 0,
+   "tidy_house": 0,
+   "burnt_house": 1
+  },
+  "grime": {
+   "materials": 111,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     16.53,
+     35.87,
+     3.2
+    ],
+    [
+     53.85,
+     8.39,
+     1.0
+    ],
+    [
+     12.62,
+     14.35,
+     3.96
+    ],
+    [
+     28.44,
+     10.19,
+     2.86
+    ],
+    [
+     5.29,
+     5.99,
+     2.5
+    ],
+    [
+     4.51,
+     31.49,
+     2.96
+    ],
+    [
+     16.83,
+     39.6,
+     3.31
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_ruin_1.webp",
+  "future": {
+   "holes": 3998,
+   "char": 1448,
+   "rafters": 0,
+   "rubble": 130
+  }
  }
 }
