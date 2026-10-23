@@ -1981,5 +1981,67 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_freewayo_0.webp",
   "future": null
+ },
+ "shore.0": {
+  "seconds": 636,
+  "junk": {
+   "bags": 0,
+   "paper": 101,
+   "card": 23,
+   "cloth": 9,
+   "weeds": 196,
+   "mattresses": 1,
+   "couches": 1,
+   "fires": 1,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 10,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 30,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     15.36,
+     30.01,
+     1.0
+    ],
+    [
+     31.01,
+     46.46,
+     3.69
+    ],
+    [
+     30.68,
+     47.28,
+     3.58
+    ],
+    [
+     22.17,
+     46.79,
+     2.76
+    ],
+    [
+     48.61,
+     26.14,
+     3.36
+    ],
+    [
+     52.72,
+     33.11,
+     3.06
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_shore_0.webp",
+  "future": null
  }
 }

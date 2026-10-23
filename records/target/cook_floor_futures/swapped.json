@@ -313,5 +313,10 @@
   "file": "slices/fight_ground/block_freewayo_0_raided.webp",
   "sha1": "f7f93a6544cf9b8eaecc3d892f4433eefb34704a",
   "master": "records/target/cook_floor_futures/raided/block_freewayo_0.webp"
+ },
+ "shore.0.raided": {
+  "file": "slices/fight_ground/block_shore_0_raided.webp",
+  "sha1": "a3d07d37d3aa11874f7b9aed7e41c70ffc343d70",
+  "master": "records/target/cook_floor_futures/raided/block_shore_0.webp"
  }
 }
