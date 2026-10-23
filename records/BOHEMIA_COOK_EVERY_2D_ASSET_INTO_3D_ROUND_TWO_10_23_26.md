@@ -89,7 +89,30 @@ across the top the way the old picture's stakes did. `COOK_NIGHT_ONLY=1` renders
 
 ### The fight floor
 
-(the blocks as they land; see the log)
+Every block is the 10/20 not-final scene (one grime field across ground, curb, walls and roofs; what they left at the
+curbs; one tidy house, one burnt house) with its own buildings built on the old footprints. In this round: corner.1,
+corner.2, subs.1, subs.2, ruin.0, ruin.1, strip.0, strip.1, works.0, main.0, main.1, the open blocks rebuilt whole
+(lots.0, scrub.0, scrub.1, scrub.2, wash.0, wash.1), landfill.0, landfill.1, culdesac.0, and on through the queue (the
+inventory's in_3d list is the live record). Things the looking caught on the way:
+
+- THE CHURCH (main.0, main.1) was read as a plain house and came out a ranch with no tower: a church now, the nave's gable
+  to the street with its door and arched window, the bell tower with its louvre, its cross and its door
+  (`tools/bohemia_cook_the_town_blocks_through_the_rig_10_22_26.py`, is_church, church).
+- THE LAKE (shore.0, shore.1) was a flat near-black and a flat teal that read as a hole in the world: dark green-brown
+  deep water and a murky teal shelf with slow lighter patches, a ripple and the sky in it, above the bed's rim; and the
+  mask's closing ate 8 px at the picture's border, so a pale frame of shore ran round every lake: padded by its own edge
+  first (`tools/bohemia_cook_the_odd_blocks_through_the_rig_10_22_26.py`, water_mat, load_plan).
+- Every tool takes `--region x0,y0,x1,y1`: a test window at full pixels in about 3 minutes instead of a block in 12.
+
+### The futures
+
+`tools/bohemia_cook_the_futures_through_the_rig_10_22_26.py`: the same 3D scene as the present day, grown (reclaimed) or
+fallen (raided). What the looking caught: the SOLAR PANELS took the houses' 0.6 wear and came out pale grey squares
+(glass on a dark cell now, out of the houses' wear, never on a chimney, a flue or a cooler, softer glass so the sun is not
+a white dot in every panel); the BEDS went into the gutter on a shallow front yard (only on open ground now, else the
+back yard); the BURNT ROOFS were a clean grid of black squares that read as panels, then a scatter of black chips: now one
+surface draped through the roof's own points with a ragged edge that breaks up cell by cell, the charred beams across it,
+a burnt lip and the scorched shingles round it (drape). The odd blocks take a future state through their own tool.
 
 ### THE FINDING THAT CHANGED THE FLOOR: THE OPEN BLOCKS HAD NEVER BEEN REBUILT
 
@@ -116,10 +139,6 @@ black discs came out pebble-sized. A working cell of the Apex landfill is a fiel
 crust of dirt: the discs are now TYRES (a real torus, flat or stacked two and three), and the cells' rough ground is
 filled with bags, boxes and scrap at about one a square metre, a fridge on its back, a mattress, a pallet. The odd tool
 takes `--region` (a test window) and a future state.
-
-### The futures
-
-(as they land)
 
 ## FOR THE OTHER LANES
 
