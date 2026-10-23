@@ -1,0 +1,157 @@
+{
+ "_about": "THE MACHINE GUN SWEEPS (COMBAT [weapon shapes], rules 33i and 46d; Paolo 9/24: 'in Battle Brothers you have some weapons that can hit multiple tiles at the same times, six or three... maybe a machine gun is comparable to a great sword in Battle Brothers, or a battle axe'; records/BOHEMIA_PAOLO_NEWGROUNDS_AND_THE_MACHINE_GUN_9_24_26.md). Every Battle Brothers skill that hits more than one tile, by the skill's own name, with its SHAPE on our square board (the third votes: THE GRID IS SQUARE), beside the wiki's words and page. A skill with no row here hits one man. The fight reads a skill's shape off this file and nowhere else; a modder adds a row and a weapon that carries that skill sweeps. EVERY MAN STANDING IN THE SHAPE IS ROLLED FOR AND STRUCK ALONE, HIS OWN SIDE TOO: Battle Brothers' friendly fire (Dev Blog 132: 'smart positioning and watching out for friendly fire is important'; 'No matter if a tile is empty or not, you'll now always see which tiles are in the line of fire. Naturally, this goes for any melee attacks already in the game as well'), so the shape is lit on the tiles before the swing. 'say' is our word for the skill on the button (draft:true, WORDS owns it). 'not_built' names what the wiki's line does that this file does not yet (a stagger, a stun): the shape is built, those are not.",
+ "_square": {
+  "line": "Battle Brothers' 'N targets in a straight line': the man aimed at and the next N-1 tiles on past him, along the line from the striker through him (each step is the sign of the line's two parts, so an aim a knight's move away still runs straight on).",
+  "arc": "Battle Brothers' 'up to N targets counterclockwise' (on a hex, N of the six round him): N tiles of the ring at the aimed man's distance, THE MAN AIMED AT IN THE MIDDLE and one either side of him round the ring. On a hex the swing starts at him and runs one way; on a phone the finger is on the middle man, so ours is centred on him: which neighbours, never how many.",
+  "ring": "Battle Brothers' 'up to 6 targets' (every hex round him): every tile round him, which on a square board is eight.",
+  "cone": "the handgonne's 'can hit 5 tiles behind the target' (on a hex a fan of three rows, one, two and three wide): three rows on a square, the aimed man's and the two past him, each row centred on the line of fire. A square row cannot be two wide and centred, so the second rounds up to three and the third keeps three: 'rows' [1, 3, 3], seven tiles where the hex has six."
+ },
+ "_source_archive": "reference/library/grok/wiki/PAGES_ALL.tar.gz (bb_all/NNNN_Title.txt), the same pages weapons.json and beast_attacks.json cite",
+ "rows": {
+  "Split": {
+   "shape": "line",
+   "tiles": 2,
+   "say": "THROUGH",
+   "draft": true,
+   "bb": "Hits 2 targets in a straight line, -5% chance to hit, 30% Direct Damage",
+   "page": "1848_Split (30 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1848_Split (30 fatigue).txt"
+  },
+  "Swing": {
+   "shape": "arc",
+   "tiles": 3,
+   "say": "SWEEP",
+   "draft": true,
+   "bb": "Hits up to 3 targets counterclockwise, -5% chance to hit, 25% Direct Damage",
+   "page": "1908_Swing (30 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1908_Swing (30 fatigue).txt"
+  },
+  "Round Swing": {
+   "shape": "ring",
+   "say": "ROUND SWING",
+   "draft": true,
+   "bb": "Hits up to 6 targets, -15% chance to hit, -10% (30%) Direct Damage",
+   "page": "1713_Round Swing (35 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1713_Round Swing (35 fatigue).txt"
+  },
+  "Thresh": {
+   "shape": "ring",
+   "say": "THRESH",
+   "draft": true,
+   "bb": "Hits up to 6 targets, -15% chance to hit, 20% chance to stun target, 30% Direct Damage",
+   "page": "1988_Thresh (35 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1988_Thresh (35 fatigue).txt",
+   "not_built": [
+    "the 20% stun"
+   ]
+  },
+  "Shatter": {
+   "shape": "arc",
+   "tiles": 3,
+   "say": "SHATTER",
+   "draft": true,
+   "bb": "Hits up to 3 targets counterclockwise, -10% chance to hit, 33% chance to stagger target, 33% chance to knock back target, 40% Direct Damage",
+   "page": "1772_Shatter (30 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1772_Shatter (30 fatigue).txt",
+   "not_built": [
+    "the stagger",
+    "the knock back"
+   ]
+  },
+  "Reap": {
+   "shape": "arc",
+   "tiles": 3,
+   "say": "REAP",
+   "draft": true,
+   "bb": "Hits up to 3 targets counterclockwise; -5% (25%) Direct Damage; -15% chance to hit targets directly adjacent",
+   "page": "1647_Reap (30 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1647_Reap (30 fatigue).txt"
+  },
+  "Ignite": {
+   "shape": "line",
+   "tiles": 2,
+   "say": "BURN",
+   "draft": true,
+   "bb": "Can hit up to 2 targets; does 40-60 Damage with 90% Armor Damage and 20% Direct Damage",
+   "page": "1059_Ignite (5 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1059_Ignite (5 fatigue).txt",
+   "dev_blog": "it will spew fire in a straight line covering multiple tiles in front of the shooter",
+   "dev_blog_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0610_Dev Blog 132: Gunpowder Weapons.txt"
+  },
+  "Fire Handgonne": {
+   "shape": "cone",
+   "rows": [
+    1,
+    3,
+    3
+   ],
+   "say": "SPREAD",
+   "draft": true,
+   "bb": "+10% chance to hit, -10% chance to hit per tile of distance, chance is unaffected by objects or characters in the line of fire, can hit 5 tiles behind the target, 25% Direct Damage",
+   "page": "0766_Fire Handgonne (5 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt",
+   "dev_blog": "It fires shrapnel in a cone and can hit multiple targets with one shot... Because the Handgonne covers a wide cone, smart positioning and watching out for friendly fire is important.",
+   "dev_blog_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0610_Dev Blog 132: Gunpowder Weapons.txt"
+  },
+  "Sweep": {
+   "shape": "arc",
+   "tiles": 3,
+   "say": "SWEEP",
+   "draft": true,
+   "bb": "Sweep does knockback, will stagger the target, can hit up to 3 targets next to each other, does 40-80 Damage",
+   "page": "1906_Sweep (20 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1906_Sweep (20 fatigue).txt",
+   "not_built": [
+    "the stagger",
+    "the knock back"
+   ]
+  },
+  "Tail Slam Sweep": {
+   "shape": "arc",
+   "tiles": 3,
+   "say": "TAIL SWEEP",
+   "draft": true,
+   "bb": "will hit up to 3 targets next to each other",
+   "page": "1922_Tail Slam Sweep (20 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1922_Tail Slam Sweep (20 fatigue).txt",
+   "not_built": [
+    "the daze",
+    "the knock back"
+   ]
+  },
+  "Tail Slam Thresh": {
+   "shape": "ring",
+   "say": "TAIL THRESH",
+   "draft": true,
+   "bb": "will hit up to 6 targets right next to the tail",
+   "page": "1923_Tail Slam Thresh (25 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1923_Tail Slam Thresh (25 fatigue).txt",
+   "not_built": [
+    "the daze",
+    "the knock back",
+    "the stun"
+   ]
+  },
+  "Uproot": {
+   "shape": "line",
+   "tiles": 3,
+   "say": "UPROOT",
+   "draft": true,
+   "bb": "staggers the target for a turn (hits 3 tiles in a row)",
+   "page": "2156_Uproot (25 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2156_Uproot (25 fatigue).txt",
+   "not_built": [
+    "the stagger"
+   ]
+  },
+  "Spike": {
+   "shape": "line",
+   "tiles": 3,
+   "say": "SPIKE",
+   "draft": true,
+   "bb": "Hits 3 tiles in straight line",
+   "page": "1844_Spike (30 fatigue)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1844_Spike (30 fatigue).txt"
+  }
+ }
+}

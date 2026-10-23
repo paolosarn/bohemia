@@ -17,6 +17,15 @@
    "by": "records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md (WORDS words-8dqrnq, rule 75e)",
    "draft": true
   },
+  "machine_gun": {
+   "job": "machine_gun",
+   "name": "MACHINE GUN",
+   "base": "Two-handed sword",
+   "line": "Sweeps three men in one burst, or puts one through a man into the next. Your own men in the way get hit too.",
+   "by": "COMBAT [weapon shapes], a draft for WORDS from Battle Brothers' two-handed swords (Swing hits up to 3, Split hits 2 in a straight line) and Paolo 9/24: 'a machine gun is comparable to a great sword' (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "not a class of its own: a two-handed sword that carries Swing is the machine gun (ours.machine_gun); the fight names it by that rule",
+   "draft": true
+  },
   "crossbow": {
    "job": "rifle",
    "name": "RIFLE",

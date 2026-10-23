@@ -27,7 +27,8 @@ const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? 
 const SEEDS = 40;
 const ctx = engine(), F = ctx.FIGHT, T = F._t, DB = ctx.DB;
 const ORIGINS = J('records/target/bb/origins.json').origins;
-const gunName = u => u.weapon.of ? 'pistol' : u.weapon.class === 'crossbow' ? 'rifle' : u.weapon.class === 'firearm' ? 'shotgun' : null;
+/* the machine gun (COMBAT [weapon shapes], ours.machine_gun) is a long gun dealt by the eye, like the rifle; it rides a row as the pistol does */
+const gunName = u => u.weapon.mg ? 'machine_gun' : u.weapon.of ? 'pistol' : u.weapon.class === 'crossbow' ? 'rifle' : u.weapon.class === 'firearm' ? 'shotgun' : null;
 const mid = (bg, k) => { const v = DB.backgrounds.rows.filter(r => r.id === bg)[0].stats[k]; return (v[0] + v[v.length - 1]) / 2; };
 
 /* 1. every origin carries guns */

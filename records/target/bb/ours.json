@@ -90,11 +90,12 @@
    "shotgun": "handgonne",
    "rifle": "light_crossbow",
    "sledge": "two_handed_mallet",
-   "bottles": "bundle_of_throwing_axes"
+   "bottles": "bundle_of_throwing_axes",
+   "machine_gun": "rhomphaia"
   },
   "source": "VAMILY.md 04 COMBAT [rebuild]",
   "quote": "pistol = dagger, shotgun = the hand handgonne, car = the big one, rifle = crossbow, pipe = mace, sledge = hammer, car door = shield, bottles = throw",
-  "why": "each job takes the plainest row of its Battle Brothers class (a renamed thing keeps its number, rule 63d): a pipe is a bludgeon, a sledge the two-handed mallet, the rifle the light crossbow, bottles the throwing axes"
+  "why": "each job takes the plainest row of its Battle Brothers class (a renamed thing keeps its number, rule 63d): a pipe is a bludgeon, a sledge the two-handed mallet, the rifle the light crossbow, bottles the throwing axes; the machine gun the plainest two-handed sword that swings, the rhomphaia (the cheapest of the four, 45-65; COMBAT [weapon shapes], ours.machine_gun)"
  },
  "crew": {
   "value": [
@@ -122,8 +123,7 @@
     "name": "RAUL",
     "background": "brawler",
     "jobs": [
-     "pistol",
-     "car_door"
+     "machine_gun"
     ],
     "body": "padded_vest",
     "head": "leather_headband"
@@ -215,7 +215,7 @@
   ],
   "source": "VAMILY.md rule 63b",
   "quote": "12 on the field in a normal fight, the roster 20",
-  "why": "twelve hires, each a Battle Brothers background (stats rolled in its wiki range) carrying our jobs (rule 63's weapon list) in low-tier wiki armour; the names are drafts. GUNS FIRST (rule 120(a), Paolo 10/18: 'I wanna start off with the guns too... the guns were supposed to be the main way this is gonna be solved'): the kit runs guns first in the company's order, so every company the origin builds holds a pistol and a rifle from its first two men (three men: a pistol, a rifle, a pistol; four: and a rifle; six: four guns, a sledge and a pipe); past the first four the kit builds Battle Brothers' own shape, a shieldwall in front of the guns (twelve: two pistols, three rifles, a shotgun and bottles behind two sledges and three pipes with car doors; measured 10/19: nine shooters behind three melee men could not be screened, 10 in 100 of the shooters' turns ended past the front man and 21 in 100 of the fighting turns alone, against 2 and 15 with this kit); who carries which is guns_first_kit's (the best eye takes the long gun)",
+  "why": "twelve hires, each a Battle Brothers background (stats rolled in its wiki range) carrying our jobs (rule 63's weapon list) in low-tier wiki armour; the names are drafts. GUNS FIRST (rule 120(a), Paolo 10/18: 'I wanna start off with the guns too... the guns were supposed to be the main way this is gonna be solved'): the kit runs guns first in the company's order, so every company the origin builds holds a pistol and a rifle from its first two men (three men: a pistol, a rifle, a pistol; four: and a rifle; six: four guns, a sledge and a pipe); past the first four the kit builds Battle Brothers' own shape, a shieldwall in front of the guns (twelve: two pistols, three rifles, a shotgun and bottles behind two sledges and three pipes with car doors; measured 10/19: nine shooters behind three melee men could not be screened, 10 in 100 of the shooters' turns ended past the front man and 21 in 100 of the fighting turns alone, against 2 and 15 with this kit); who carries which is guns_first_kit's (the best eye takes the long gun) | 10/23 COMBAT [weapon shapes] (Paolo 9/24: 'a machine gun is comparable to a great sword'): RAUL's row carries the MACHINE GUN (ours.machine_gun, the rhomphaia), so every company of three and more opens its first fight with a pistol, a rifle and a machine gun that sweeps; measured on the live rules, AUTO both sides, a New Crew of three: 48 -> 51 in 60 against three thugs, 29 -> 33 against four, 37 -> 38 against a day-one party of four; four against six in the early weeks 19 -> 24 in 120 (records/target/BOHEMIA_COMBAT_THE_MACHINE_GUN_SWEEPS_MEASURED.json)",
   "guns_first": {
    "source": "VAMILY.md rule 120(a)",
    "record": "records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md",
@@ -305,11 +305,20 @@
     "overwhelm",
     "battle_forged",
     "duelist"
+   ],
+   "machine_gun": [
+    "adrenaline",
+    "bullseye",
+    "brawny",
+    "sword_mastery",
+    "footwork",
+    "battle_forged",
+    "killing_frenzy"
    ]
   },
   "source": "CORE_WIKITEXT.md # PAGE Perks",
   "quote": "With each new character level reached by your mercenary he will gain 1 Perk point... To unlock the second perk row, you need to spend one perk point.",
-  "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them; round two puts the seven skills a perk unlocks into the orders where a job would take them (the captain's ON ME, the sledge's COME AT ME and CATCH YOUR BREATH, the pistol's FIRST OUT THE DOOR and SWAP OUT, SIDESTEP for the quick ones) (10/19, rule 120: the pistol shoots now, and its mastery stays PISTOL WORK, Battle Brothers' dagger mastery: the shot at the stab's 3 AP, three shots a turn)"
+  "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them; round two puts the seven skills a perk unlocks into the orders where a job would take them (the captain's ON ME, the sledge's COME AT ME and CATCH YOUR BREATH, the pistol's FIRST OUT THE DOOR and SWAP OUT, SIDESTEP for the quick ones) (10/19, rule 120: the pistol shoots now, and its mastery stays PISTOL WORK, Battle Brothers' dagger mastery: the shot at the stab's 3 AP, three shots a turn) (COMBAT [weapon shapes]: the machine gunner the shotgun's heavy-gun order with Battle Brothers' own two-handed sword mastery, which takes a quarter off the sweep's wind and adds ten to Split and Swing, and Killing Frenzy for the sweep that drops two)"
  },
  "board_mix": {
   "value": {
@@ -654,7 +663,8 @@
   "value": {
    "by_eye": [
     "rifle",
-    "shotgun"
+    "shotgun",
+    "machine_gun"
    ],
    "by_arm": [
     "sledge",
@@ -734,5 +744,20 @@
   "source": "slices/fight_rig/fight_rig.json (COMBAT [the fight wears the 3D models], tools/bohemia_combat_the_fight_wears_the_rig.py): ANIMATION's redone dire wolf, cave hyena and feral shepherd through DIRECTION's master rig",
   "quote": "BRO EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY 8 BIT SHIT... WTF TRYING TO COMBINE THE TWO",
   "why": "rule 121(e): no old sheet beside a rig model; which rig beast an enemy wears on the board: the wolves the redone dire wolf (his NO on the grey one was answered by it), the hyenas the cave hyena, the war dogs the feral shepherd; beast_looks stays as the flat sheet a fight falls back on if a rig sheet is missing"
+ },
+ "machine_gun": {
+  "value": {
+   "class": "sword",
+   "skill": "Swing",
+   "reach": "bundle_of_javelins",
+   "reload": {
+    "rides": "light_crossbow",
+    "skill": "Reload"
+   }
+  },
+  "source": "records/BOHEMIA_PAOLO_NEWGROUNDS_AND_THE_MACHINE_GUN_9_24_26.md (rule 33i) and VAMILY.md 04 COMBAT [weapon shapes] (THE-MACHINE-GUN-SWEEPS, THE-MACHINE-GUN-IS-THE-GREATSWORD); records/target/bb/weapon_shapes.json",
+  "quote": "in battle Brothers you have some weapons that can hit multiple tiles at the same times six or three you know so yeah maybe I'm machine gun is like comparable to like a great sword in battle, Brothers, or like a battle ax or something",
+  "why": "his word made a rule: Battle Brothers' TWO-HANDED SWORD THAT SWINGS (the class 'sword' rows that carry Swing: the rhomphaia, the warbrand, the longsword, the greatsword) IS OUR MACHINE GUN, in anyone's hands. It keeps the sword's own damage, armour and skills: its Swing is the SWEEP, three tiles across the man aimed at; its Split is THROUGH, the man and the one behind him (weapon_shapes.json); its plain strike (Slash, Overhead Strike) one burst. It is a gun (rule 83: it fires from two tiles, a club at one, ours.gun_club; rule 103: no zone of control) and it fires the way the pistol does (ours.pistol_shot): Battle Brothers' one-handed missile's reach and hit table (the javelins, two to four tiles, +20 to hit and -10 a tile past two), the javelins' uses as the rounds in a belt, the crossbow's 4 AP Reload when the belt is out; the sword's skill keeps its own number on top (Swing -5, Split -5, Sword Mastery +10 to both). Every man it sweeps is rolled for alone, his own side too (Battle Brothers' friendly fire), so the tiles light before he fires.",
+  "tuned": false
  }
 }
