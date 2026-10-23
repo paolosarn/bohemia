@@ -12412,6 +12412,18 @@ function nfOpts(d){
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
   /* __A_FEW_NOT_TWELVE__ (rule 75b): the party the map sized, to COMBAT's enemy math (it dresses it by tier) */
   try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands' }; }catch(_e){}
+  /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23, [the first hour, quicker], TUNING's change 1, rule 133). MEASURED: a
+     hand-over that carried a roster and no party (the street's crews, the bump, a tapped man, a door's room) reached the
+     fight with no o.party, so COMBAT fell back to ours.first_band, nine brigands, and a new crew of three won 0 in 100
+     (TUNING 10/19, 5ff7e86d). NOW ANY ROSTER IS A PARTY OF ITS LENGTH, nobody forgets who is coming. AND THE FIRST GAME
+     DAY PUTS NO MORE THAN THE COMPANY PLUS ONE ON THE BOARD (the map stamps firstDay; partyMath on the map holds the same
+     line, so the number the plate shows is the number the fight deals). Two- and three-skull jobs keep their size from
+     day two: he chooses to meet them. */
+  try{ var rs = d && d.roster; if(!o.party && Array.isArray(rs) && rs.length){
+    var pk = window.BOH_START && BOH_START.picks();
+    o.party = { count: rs.length, days: (w.day | 0) || 1, difficulty: (pk && pk.pkg != null) ? pk.pkg | 0 : 1, faction: 'brigands', fromRoster: true }; } }catch(_e){}
+  try{ var cn = (d && d.crewCount) | 0 || (o.company ? o.company.length : 0);
+    if(o.party && d && d.firstDay && cn > 0 && o.party.count > cn + 1){ o.party.count = cn + 1; o.party.dayOneCap = true; } }catch(_e){}
   return o;
 }
 function nfOpen(d){

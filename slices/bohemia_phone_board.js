@@ -56,6 +56,7 @@
     var bs = null; try { bs = ctBases(); } catch (e) { bs = null; }
     if (!bs) return [];
     var held = []; try { held = (LOOP.held || []).map(function (h) { return h.id; }); } catch (e) {}
+    try { held = held.concat(LOOP.doneIds || []); } catch (e) {}   /* RUN 10/23 (TUNING's change 2e): a finished job leaves the phone too */
     var me = [0, 0]; try { me = [city.x | 0, city.y | 0]; } catch (e) {}
     var out = [], t = nowMin();
     Object.keys(bs).forEach(function (name) {
