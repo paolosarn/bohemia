@@ -138,5 +138,10 @@
   "file": "slices/fight_ground/block_scrubroad_1.webp",
   "sha1": "ee3696d5eb6b54e8502d5d31ade6d2ce0b9a3dd4",
   "master": "records/target/cook_floor_not_final/block_scrubroad_1.webp"
+ },
+ "shore.0": {
+  "file": "slices/fight_ground/block_shore_0.webp",
+  "sha1": "00a0c2c8dfc61d15acc706bfb72c034742a0b8f1",
+  "master": "records/target/cook_floor_not_final/block_shore_0.webp"
  }
 }
