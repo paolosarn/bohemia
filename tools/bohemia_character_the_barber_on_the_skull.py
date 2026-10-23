@@ -101,6 +101,7 @@ import bohemia_character_hats_one as HATS_ONE  # noqa: E402   (HATS 1: the 21 ca
 import bohemia_character_eyewear_one as EYE_ONE  # noqa: E402   (EYEWEAR 1: the 14 face pieces on the same head)
 import bohemia_character_garments_base as BASE_ONE  # noqa: E402   (GARMENTS BASE: the 80 tops, each on its own body)
 import bohemia_character_garments_outer as OUTER_ONE  # noqa: E402   (GARMENTS OUTER: the 74 coats, each on its own body, 10/20)
+import bohemia_character_garments_legs as LEGS_ONE  # noqa: E402   (GARMENTS LEGS AND FEET: the 45 trousers and 40 shoes, 10/23)
 CUTS.update(HAIR_ONE.CUTS)
 CUTS.update(HAIR_TWO.CUTS)
 CUTS.update(FACES_ONE.CUTS)
@@ -108,7 +109,8 @@ CUTS.update(HATS_ONE.CUTS)
 CUTS.update(EYE_ONE.CUTS)
 CUTS.update(BASE_ONE.CUTS)
 CUTS.update(OUTER_ONE.CUTS)
-ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + FACES_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER + OUTER_ONE.ORDER
+CUTS.update(LEGS_ONE.CUTS)
+ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + FACES_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER + OUTER_ONE.ORDER + LEGS_ONE.ORDER
 
 
 def sstep(a, b, t):
@@ -181,7 +183,16 @@ def build(cut):
     # a garment is worn on its own body (the mannequin in that top, GARMENTS BASE), built first; a cut on the mannequin
     if cut in BASE_ONE.CUTS: BASE_ONE.body(cut)
     if cut in OUTER_ONE.CUTS: OUTER_ONE.body(cut)
-    if spec.get('gang'): person_body(spec)   # A PERSON (RUN TWO [no two people alike]): his gang's look in his own skin
+    if cut in LEGS_ONE.CUTS: LEGS_ONE.body(cut)
+    if spec.get('gang'):
+        # HIS TROUSERS AND SHOES (GARMENTS LEGS AND FEET, 10/23, rule 123(c)): the roll's own pair, or the same draw made now off
+        # his id for a roll written before the book carried them; the body tool dresses the look whoever builds it (THIS
+        # LANE's person_body, or a caller's in its place), after the look's top and coat
+        import bohemia_character_the_thirteen_through_the_rig as CH
+        wear = dict(legs=spec.get('legs'), feet=spec.get('feet')) if (spec.get('legs') or spec.get('feet')) else \
+            LEGS_ONE.roll_wear(spec['gang'], str(spec.get('id', tag)).rsplit('_', 1)[-1])
+        CH.DRESS[tag.upper()] = lambda L, wear=wear: LEGS_ONE.dress(L, **wear)
+        person_body(spec)   # A PERSON (RUN TWO [no two people alike]): his gang's look in his own skin
     body_glb = spec.get('body', 'records/character/rig/barberbody.glb'); btag = os.path.basename(body_glb)[:-4]
     sk = tuple(spec.get('skin', ('skin_deep', 3)))   # the barber's mannequin is skin_deep 3; a person wears his own step
     # PORTRAIT's head on the bare body: a bare scalp (no hair object), no gear, no stubble; the skin is the body's own
@@ -696,6 +707,7 @@ if __name__ == '__main__':
                  else HATS_ONE.ORDER if sys.argv[2].upper() == 'HATS1' else EYE_ONE.ORDER if sys.argv[2].upper() == 'EYE1'
                  else BASE_ONE.ORDER if sys.argv[2].upper() == 'BASE1' else BASE_ONE.pick(sys.argv[2]) if sys.argv[2].upper().startswith('BASE1:')
                  else OUTER_ONE.ORDER if sys.argv[2].upper() == 'OUTER1' else OUTER_ONE.pick(sys.argv[2]) if sys.argv[2].upper().startswith('OUTER1:')
+                 else LEGS_ONE.pick(sys.argv[2]) if sys.argv[2].upper().split(':')[0] in ('LEGS1', 'FEET1')
                  else [n for n in ALL if CUTS[n]['tag'] == sys.argv[2].lower() or n == sys.argv[2].upper()])
         for n in names: build(n)
     elif cmd == 'sheet':

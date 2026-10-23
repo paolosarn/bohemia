@@ -148,6 +148,7 @@ def main():
     BASE_CARD = dict(BASE_CARD, **OUTER_CARD); BASE_HELD = BASE_HELD | OUTER_HELD
     HELD_RECORD = {'base': 'records/BOHEMIA_BASE_ONE_THE_80_TOPS_10_19_26.md', 'outer': 'records/BOHEMIA_OUTER_ONE_THE_74_COATS_10_20_26.md'}
     PP = portrait_pieces()
+    RULE_123 = dict(legs=BARBER.LEGS_ONE, feet=BARBER.LEGS_ONE)
 
     rows, seen = [], set()
 
@@ -205,6 +206,14 @@ def main():
                     nl['note'] = SAID
                 else:
                     nl['note'] = "his 10/18 on the thirteen: 'Nice direction very good not final'"
+            elif kind == 'garment' and layer in RULE_123 and name in RULE_123[layer].BY:
+                # LEGS AND FEET 1 and GEAR 1 (10/23, rule 123: no card): modelled on the 3D man and rolled into every person by
+                # the barber's book; he meets them in the crowd and corrects what he hates
+                M_ = RULE_123[layer]
+                nl = {'state': 'in the people, no card' if name not in M_.HELD else 'built, held',
+                      'by': "CHARACTER, modelled on the 3D man (%s), rolled into RUN TWO's people" % ('LEGS AND FEET 1' if M_ is BARBER.LEGS_ONE else M_.LABEL),
+                      'rule': "123 (Paolo 10/20: 'all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites')"}
+                if name in M_.HELD: nl['held'] = M_.HELD[name]
             elif worn_by:
                 nl = {'state': 'built, not shown', 'by': "PORTRAIT's crew bodies, built with CHARACTER's rig tool under each head (never shown as a body)"}
             else:

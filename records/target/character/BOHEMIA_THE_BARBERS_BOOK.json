@@ -2493,6 +2493,520 @@
    "held": false
   }
  ],
+ "trousers": [
+  {
+   "name": "BLUE JEANS",
+   "build": "LEGS BLUE JEANS",
+   "shape": "JEANS",
+   "held": false
+  },
+  {
+   "name": "BLACK CARGOS",
+   "build": "LEGS BLACK CARGOS",
+   "shape": "CARGOS",
+   "held": false
+  },
+  {
+   "name": "GREY SWEATS",
+   "build": "LEGS GREY SWEATS",
+   "shape": "SWEATS",
+   "held": false
+  },
+  {
+   "name": "DUST TROUSERS",
+   "build": "LEGS DUST TROUSERS",
+   "shape": "TROUSERS",
+   "held": false
+  },
+  {
+   "name": "PATCHED WORK PANTS",
+   "build": "LEGS PATCHED WORK PANTS",
+   "shape": "WORK PANTS",
+   "held": false
+  },
+  {
+   "name": "SOOT CARGOS",
+   "build": "LEGS SOOT CARGOS",
+   "shape": "CARGOS",
+   "held": false
+  },
+  {
+   "name": "BLACK DENIM",
+   "build": "LEGS BLACK DENIM",
+   "shape": "JEANS",
+   "held": false
+  },
+  {
+   "name": "OLIVE PANTS",
+   "build": "LEGS OLIVE PANTS",
+   "shape": "TROUSERS",
+   "held": false
+  },
+  {
+   "name": "KHAKI CARGOS",
+   "build": "LEGS KHAKI CARGOS",
+   "shape": "CARGOS",
+   "held": false
+  },
+  {
+   "name": "SLATE WORK PANTS",
+   "build": "LEGS SLATE WORK PANTS",
+   "shape": "WORK PANTS",
+   "held": false
+  },
+  {
+   "name": "CUTOFF DENIM SHORTS",
+   "build": "LEGS CUTOFF DENIM SHORTS",
+   "shape": "SHORTS",
+   "held": false
+  },
+  {
+   "name": "OLIVE SHORTS",
+   "build": "LEGS OLIVE SHORTS",
+   "shape": "SHORTS",
+   "held": false
+  },
+  {
+   "name": "FIELD GREEN PANTS",
+   "build": "LEGS FIELD GREEN PANTS",
+   "shape": "TROUSERS",
+   "held": false
+  },
+  {
+   "name": "STORM GREY SWEATS",
+   "build": "LEGS STORM GREY SWEATS",
+   "shape": "SWEATS",
+   "held": false
+  },
+  {
+   "name": "BONE WORK PANTS",
+   "build": "LEGS BONE WORK PANTS",
+   "shape": "WORK PANTS",
+   "held": false
+  },
+  {
+   "name": "RUST CARGOS",
+   "build": "LEGS RUST CARGOS",
+   "shape": "CARGOS",
+   "held": false
+  },
+  {
+   "name": "SAGE TROUSERS",
+   "build": "LEGS SAGE TROUSERS",
+   "shape": "TROUSERS",
+   "held": false
+  },
+  {
+   "name": "STEEL BLUE JEANS",
+   "build": "LEGS STEEL BLUE JEANS",
+   "shape": "JEANS",
+   "held": false
+  },
+  {
+   "name": "DUST BROWN TROUSERS",
+   "build": "LEGS DUST BROWN TROUSERS",
+   "shape": "TROUSERS",
+   "held": false
+  },
+  {
+   "name": "KHAKI SHORTS",
+   "build": "LEGS KHAKI SHORTS",
+   "shape": "SHORTS",
+   "held": false
+  },
+  {
+   "name": "CHARCOAL SHORTS",
+   "build": "LEGS CHARCOAL SHORTS",
+   "shape": "SHORTS",
+   "held": false
+  },
+  {
+   "name": "WRAP SKIRT",
+   "build": "LEGS WRAP SKIRT",
+   "shape": "WRAP SKIRT",
+   "held": false
+  },
+  {
+   "name": "ANKLE WRAP SKIRT",
+   "build": "LEGS ANKLE WRAP SKIRT",
+   "shape": "ANKLE SKIRT",
+   "held": false
+  },
+  {
+   "name": "COBALT WORK PANTS",
+   "build": "LEGS COBALT WORK PANTS",
+   "shape": "WORK PANTS",
+   "held": false
+  },
+  {
+   "name": "TEAL WORK PANTS",
+   "build": "LEGS TEAL WORK PANTS",
+   "shape": "WORK PANTS",
+   "held": false
+  },
+  {
+   "name": "GOLD WRAP SKIRT",
+   "build": "LEGS GOLD WRAP SKIRT",
+   "shape": "ANKLE SKIRT",
+   "held": false
+  },
+  {
+   "name": "CHARCOAL WRAP SKIRT",
+   "build": "LEGS CHARCOAL WRAP SKIRT",
+   "shape": "ANKLE SKIRT",
+   "held": false
+  },
+  {
+   "name": "COBALT WIDE TROUSER",
+   "build": "LEGS COBALT WIDE TROUSER",
+   "shape": "WIDE LEG",
+   "held": false
+  },
+  {
+   "name": "BRICK WIDE TROUSER",
+   "build": "LEGS BRICK WIDE TROUSER",
+   "shape": "WIDE LEG",
+   "held": false
+  },
+  {
+   "name": "GRASS DROP TROUSER",
+   "build": "LEGS GRASS DROP TROUSER",
+   "shape": "DROP RISE",
+   "held": false
+  },
+  {
+   "name": "LEATHER STACK PANT",
+   "build": "LEGS LEATHER STACK PANT",
+   "shape": "STACKED",
+   "held": false
+  },
+  {
+   "name": "OLIVE WIDE TROUSER",
+   "build": "LEGS OLIVE WIDE TROUSER",
+   "shape": "WIDE LEG",
+   "held": false
+  },
+  {
+   "name": "CHARCOAL CROP TROUSER",
+   "build": "LEGS CHARCOAL CROP TROUSER",
+   "shape": "CROPPED",
+   "held": false
+  },
+  {
+   "name": "DROP RISE TROUSER",
+   "build": "LEGS DROP RISE TROUSER",
+   "shape": "DROP RISE",
+   "held": false
+  },
+  {
+   "name": "BONE DROP TROUSER",
+   "build": "LEGS BONE DROP TROUSER",
+   "shape": "DROP RISE",
+   "held": false
+  },
+  {
+   "name": "WIDE PLEAT TROUSER",
+   "build": "LEGS WIDE PLEAT TROUSER",
+   "shape": "WIDE LEG",
+   "held": false
+  },
+  {
+   "name": "BONE WIDE TROUSER",
+   "build": "LEGS BONE WIDE TROUSER",
+   "shape": "WIDE LEG",
+   "held": false
+  },
+  {
+   "name": "STACKED JERSEY PANT",
+   "build": "LEGS STACKED JERSEY PANT",
+   "shape": "STACKED",
+   "held": false
+  },
+  {
+   "name": "SLATE STACK PANT",
+   "build": "LEGS SLATE STACK PANT",
+   "shape": "STACKED",
+   "held": false
+  },
+  {
+   "name": "CROPPED WORK TROUSER",
+   "build": "LEGS CROPPED WORK TROUSER",
+   "shape": "CROPPED",
+   "held": false
+  },
+  {
+   "name": "CROPPED BLACK DENIM",
+   "build": "LEGS CROPPED BLACK DENIM",
+   "shape": "CROPPED",
+   "held": false
+  },
+  {
+   "name": "GOLD DROP TROUSER",
+   "build": "LEGS GOLD DROP TROUSER",
+   "shape": "DROP RISE",
+   "held": false
+  },
+  {
+   "name": "TEAL STACK PANT",
+   "build": "LEGS TEAL STACK PANT",
+   "shape": "STACKED",
+   "held": false
+  },
+  {
+   "name": "BRICK CROP TROUSER",
+   "build": "LEGS BRICK CROP TROUSER",
+   "shape": "CROPPED",
+   "held": false
+  },
+  {
+   "name": "COBALT DROP TROUSER",
+   "build": "LEGS COBALT DROP TROUSER",
+   "shape": "DROP RISE",
+   "held": false
+  }
+ ],
+ "shoes": [
+  {
+   "name": "WHITE SNEAKERS",
+   "build": "FEET WHITE SNEAKERS",
+   "shape": "SNEAKERS",
+   "held": false
+  },
+  {
+   "name": "BROWN BOOTS",
+   "build": "FEET BROWN BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "WRAPPED BOOTS",
+   "build": "FEET WRAPPED BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "SANDWALKERS",
+   "build": "FEET SANDWALKERS",
+   "shape": "SANDALS",
+   "held": false
+  },
+  {
+   "name": "RED CLAY BOOTS",
+   "build": "FEET RED CLAY BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "GREY SNEAKERS",
+   "build": "FEET GREY SNEAKERS",
+   "shape": "SNEAKERS",
+   "held": false
+  },
+  {
+   "name": "OXBLOOD BOOTS",
+   "build": "FEET OXBLOOD BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "SLATE SNEAKERS",
+   "build": "FEET SLATE SNEAKERS",
+   "shape": "SNEAKERS",
+   "held": false
+  },
+  {
+   "name": "BONE SNEAKERS",
+   "build": "FEET BONE SNEAKERS",
+   "shape": "SNEAKERS",
+   "held": false
+  },
+  {
+   "name": "OLIVE BOOTS",
+   "build": "FEET OLIVE BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "STEEL SNEAKERS",
+   "build": "FEET STEEL SNEAKERS",
+   "shape": "SNEAKERS",
+   "held": false
+  },
+  {
+   "name": "DUST BROWN BOOTS",
+   "build": "FEET DUST BROWN BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "FIELD BOOTS",
+   "build": "FEET FIELD BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "RUST BOOTS",
+   "build": "FEET RUST BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "TALL MOTO BOOTS",
+   "build": "FEET TALL MOTO BOOTS",
+   "shape": "TALL BOOT",
+   "held": false
+  },
+  {
+   "name": "RANCH BOOTS",
+   "build": "FEET RANCH BOOTS",
+   "shape": "TALL BOOT",
+   "held": false
+  },
+  {
+   "name": "SIGNAL RED BOOTS",
+   "build": "FEET SIGNAL RED BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "VESTMENT GOLD BOOTS",
+   "build": "FEET VESTMENT GOLD BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "GRASS SNEAKERS",
+   "build": "FEET GRASS SNEAKERS",
+   "shape": "SNEAKERS",
+   "held": false
+  },
+  {
+   "name": "COBALT BOOTS",
+   "build": "FEET COBALT BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "COBALT SNEAKERS",
+   "build": "FEET COBALT SNEAKERS",
+   "shape": "SNEAKERS",
+   "held": false
+  },
+  {
+   "name": "CHARCOAL BOOTS",
+   "build": "FEET CHARCOAL BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "COBALT STACK BOOT",
+   "build": "FEET COBALT STACK BOOT",
+   "shape": "STACK BOOT",
+   "held": false
+  },
+  {
+   "name": "BRICK STACK BOOT",
+   "build": "FEET BRICK STACK BOOT",
+   "shape": "STACK BOOT",
+   "held": false
+  },
+  {
+   "name": "GRASS BOOTS",
+   "build": "FEET GRASS BOOTS",
+   "shape": "BOOT",
+   "held": false
+  },
+  {
+   "name": "LEATHER STACK BOOT",
+   "build": "FEET LEATHER STACK BOOT",
+   "shape": "STACK BOOT",
+   "held": false
+  },
+  {
+   "name": "STACKED SOLE BOOT",
+   "build": "FEET STACKED SOLE BOOT",
+   "shape": "STACK BOOT",
+   "held": false
+  },
+  {
+   "name": "BONE STACK BOOT",
+   "build": "FEET BONE STACK BOOT",
+   "shape": "STACK BOOT",
+   "held": false
+  },
+  {
+   "name": "MID SHAFT BOOT",
+   "build": "FEET MID SHAFT BOOT",
+   "shape": "MID BOOT",
+   "held": false
+  },
+  {
+   "name": "COAL MID BOOT",
+   "build": "FEET COAL MID BOOT",
+   "shape": "MID BOOT",
+   "held": false
+  },
+  {
+   "name": "SLOUCH BOOT",
+   "build": "FEET SLOUCH BOOT",
+   "shape": "SLOUCH BOOT",
+   "held": false
+  },
+  {
+   "name": "ASH SLOUCH BOOT",
+   "build": "FEET ASH SLOUCH BOOT",
+   "shape": "SLOUCH BOOT",
+   "held": false
+  },
+  {
+   "name": "STACKED MID BOOT",
+   "build": "FEET STACKED MID BOOT",
+   "shape": "STACKED MID BOOT",
+   "held": false
+  },
+  {
+   "name": "COLUMN PANT-BOOT",
+   "build": "FEET COLUMN PANT-BOOT",
+   "shape": "COLUMN",
+   "held": false
+  },
+  {
+   "name": "COAL COLUMN",
+   "build": "FEET COAL COLUMN",
+   "shape": "COLUMN",
+   "held": false
+  },
+  {
+   "name": "ASH COLUMN",
+   "build": "FEET ASH COLUMN",
+   "shape": "COLUMN",
+   "held": false
+  },
+  {
+   "name": "GOLD STACK BOOT",
+   "build": "FEET GOLD STACK BOOT",
+   "shape": "STACK BOOT",
+   "held": false
+  },
+  {
+   "name": "TEAL COLUMN",
+   "build": "FEET TEAL COLUMN",
+   "shape": "COLUMN",
+   "held": false
+  },
+  {
+   "name": "COBALT COLUMN",
+   "build": "FEET COBALT COLUMN",
+   "shape": "COLUMN",
+   "held": false
+  },
+  {
+   "name": "OLIVE STACK BOOT",
+   "build": "FEET OLIVE STACK BOOT",
+   "shape": "STACK BOOT",
+   "held": false
+  }
+ ],
  "hair_colours": [
   {
    "step": [
@@ -2677,6 +3191,8 @@
   "face_pieces": 14,
   "tops": 77,
   "coats": 70,
+  "trousers": 45,
+  "shoes": 40,
   "heads": 2594592
  }
 }

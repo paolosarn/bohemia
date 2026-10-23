@@ -1,0 +1,992 @@
+{
+ "what": "CHARACTER [every old asset into the new look], GARMENTS LEGS AND FEET: the 45 canon trousers and the 40 canon shoes, the options read off the alpha",
+ "legs": {
+  "TROUSERS": [
+   "DUST TROUSERS",
+   "OLIVE PANTS",
+   "FIELD GREEN PANTS",
+   "SAGE TROUSERS",
+   "DUST BROWN TROUSERS"
+  ],
+  "JEANS": [
+   "BLUE JEANS",
+   "BLACK DENIM",
+   "STEEL BLUE JEANS"
+  ],
+  "CARGOS": [
+   "BLACK CARGOS",
+   "SOOT CARGOS",
+   "KHAKI CARGOS",
+   "RUST CARGOS"
+  ],
+  "WORK PANTS": [
+   "PATCHED WORK PANTS",
+   "SLATE WORK PANTS",
+   "BONE WORK PANTS",
+   "COBALT WORK PANTS",
+   "TEAL WORK PANTS"
+  ],
+  "SWEATS": [
+   "GREY SWEATS",
+   "STORM GREY SWEATS"
+  ],
+  "SHORTS": [
+   "CUTOFF DENIM SHORTS",
+   "OLIVE SHORTS",
+   "KHAKI SHORTS",
+   "CHARCOAL SHORTS"
+  ],
+  "CROPPED": [
+   "CHARCOAL CROP TROUSER",
+   "CROPPED WORK TROUSER",
+   "CROPPED BLACK DENIM",
+   "BRICK CROP TROUSER"
+  ],
+  "WIDE LEG": [
+   "COBALT WIDE TROUSER",
+   "BRICK WIDE TROUSER",
+   "OLIVE WIDE TROUSER",
+   "WIDE PLEAT TROUSER",
+   "BONE WIDE TROUSER"
+  ],
+  "DROP RISE": [
+   "GRASS DROP TROUSER",
+   "DROP RISE TROUSER",
+   "BONE DROP TROUSER",
+   "GOLD DROP TROUSER",
+   "COBALT DROP TROUSER"
+  ],
+  "STACKED": [
+   "LEATHER STACK PANT",
+   "STACKED JERSEY PANT",
+   "SLATE STACK PANT",
+   "TEAL STACK PANT"
+  ],
+  "WRAP SKIRT": [
+   "WRAP SKIRT"
+  ],
+  "ANKLE SKIRT": [
+   "ANKLE WRAP SKIRT",
+   "GOLD WRAP SKIRT",
+   "CHARCOAL WRAP SKIRT"
+  ]
+ },
+ "feet": {
+  "SNEAKERS": [
+   "WHITE SNEAKERS",
+   "GREY SNEAKERS",
+   "SLATE SNEAKERS",
+   "BONE SNEAKERS",
+   "STEEL SNEAKERS",
+   "GRASS SNEAKERS",
+   "COBALT SNEAKERS"
+  ],
+  "BOOT": [
+   "BROWN BOOTS",
+   "WRAPPED BOOTS",
+   "RED CLAY BOOTS",
+   "OXBLOOD BOOTS",
+   "OLIVE BOOTS",
+   "DUST BROWN BOOTS",
+   "FIELD BOOTS",
+   "RUST BOOTS",
+   "SIGNAL RED BOOTS",
+   "VESTMENT GOLD BOOTS",
+   "COBALT BOOTS",
+   "CHARCOAL BOOTS",
+   "GRASS BOOTS"
+  ],
+  "MID BOOT": [
+   "MID SHAFT BOOT",
+   "COAL MID BOOT"
+  ],
+  "TALL BOOT": [
+   "TALL MOTO BOOTS",
+   "RANCH BOOTS"
+  ],
+  "SLOUCH BOOT": [
+   "SLOUCH BOOT",
+   "ASH SLOUCH BOOT"
+  ],
+  "STACK BOOT": [
+   "COBALT STACK BOOT",
+   "BRICK STACK BOOT",
+   "LEATHER STACK BOOT",
+   "STACKED SOLE BOOT",
+   "BONE STACK BOOT",
+   "GOLD STACK BOOT",
+   "OLIVE STACK BOOT"
+  ],
+  "STACKED MID BOOT": [
+   "STACKED MID BOOT"
+  ],
+  "SANDALS": [
+   "SANDWALKERS"
+  ],
+  "COLUMN": [
+   "COLUMN PANT-BOOT",
+   "COAL COLUMN",
+   "ASH COLUMN",
+   "TEAL COLUMN",
+   "COBALT COLUMN"
+  ]
+ },
+ "pieces": [
+  {
+   "name": "BLUE JEANS",
+   "slot": "legs",
+   "tag": "legs_blue_jeans",
+   "fn": "genPants",
+   "ramp": "DENIM",
+   "shape": "JEANS",
+   "options": {}
+  },
+  {
+   "name": "BLACK CARGOS",
+   "slot": "legs",
+   "tag": "legs_black_cargos",
+   "fn": "genPants",
+   "ramp": "CARGO",
+   "shape": "CARGOS",
+   "options": {}
+  },
+  {
+   "name": "GREY SWEATS",
+   "slot": "legs",
+   "tag": "legs_grey_sweats",
+   "fn": "genPants",
+   "ramp": "SWEAT",
+   "shape": "SWEATS",
+   "options": {}
+  },
+  {
+   "name": "DUST TROUSERS",
+   "slot": "legs",
+   "tag": "legs_dust_trousers",
+   "fn": "genPants",
+   "ramp": "DUSTSAND",
+   "shape": "TROUSERS",
+   "options": {}
+  },
+  {
+   "name": "PATCHED WORK PANTS",
+   "slot": "legs",
+   "tag": "legs_patched_work_pants",
+   "fn": "genPants",
+   "ramp": "FADEWORK",
+   "shape": "WORK PANTS",
+   "options": {}
+  },
+  {
+   "name": "SOOT CARGOS",
+   "slot": "legs",
+   "tag": "legs_soot_cargos",
+   "fn": "genPants",
+   "ramp": "CHARCLOTH",
+   "shape": "CARGOS",
+   "options": {}
+  },
+  {
+   "name": "BLACK DENIM",
+   "slot": "legs",
+   "tag": "legs_black_denim",
+   "fn": "genPants",
+   "ramp": "BLKDENIM",
+   "shape": "JEANS",
+   "options": {}
+  },
+  {
+   "name": "OLIVE PANTS",
+   "slot": "legs",
+   "tag": "legs_olive_pants",
+   "fn": "genPants",
+   "ramp": "OLIVEPANT",
+   "shape": "TROUSERS",
+   "options": {}
+  },
+  {
+   "name": "KHAKI CARGOS",
+   "slot": "legs",
+   "tag": "legs_khaki_cargos",
+   "fn": "genPants",
+   "ramp": "KHAKI",
+   "shape": "CARGOS",
+   "options": {}
+  },
+  {
+   "name": "SLATE WORK PANTS",
+   "slot": "legs",
+   "tag": "legs_slate_work_pants",
+   "fn": "genPants",
+   "ramp": "SLATEW",
+   "shape": "WORK PANTS",
+   "options": {}
+  },
+  {
+   "name": "CUTOFF DENIM SHORTS",
+   "slot": "legs",
+   "tag": "legs_cutoff_denim_shorts",
+   "fn": "genPants",
+   "ramp": "DENIM",
+   "shape": "SHORTS",
+   "options": {
+    "cut": "short"
+   }
+  },
+  {
+   "name": "OLIVE SHORTS",
+   "slot": "legs",
+   "tag": "legs_olive_shorts",
+   "fn": "genPants",
+   "ramp": "OLIVEPANT",
+   "shape": "SHORTS",
+   "options": {
+    "cut": "short"
+   }
+  },
+  {
+   "name": "FIELD GREEN PANTS",
+   "slot": "legs",
+   "tag": "legs_field_green_pants",
+   "fn": "genPants",
+   "ramp": "FIELDGRN",
+   "shape": "TROUSERS",
+   "options": {}
+  },
+  {
+   "name": "STORM GREY SWEATS",
+   "slot": "legs",
+   "tag": "legs_storm_grey_sweats",
+   "fn": "genPants",
+   "ramp": "STORMGRY",
+   "shape": "SWEATS",
+   "options": {}
+  },
+  {
+   "name": "BONE WORK PANTS",
+   "slot": "legs",
+   "tag": "legs_bone_work_pants",
+   "fn": "genPants",
+   "ramp": "BONECLO",
+   "shape": "WORK PANTS",
+   "options": {}
+  },
+  {
+   "name": "RUST CARGOS",
+   "slot": "legs",
+   "tag": "legs_rust_cargos",
+   "fn": "genPants",
+   "ramp": "RUSTIRON",
+   "shape": "CARGOS",
+   "options": {}
+  },
+  {
+   "name": "SAGE TROUSERS",
+   "slot": "legs",
+   "tag": "legs_sage_trousers",
+   "fn": "genPants",
+   "ramp": "SAGE",
+   "shape": "TROUSERS",
+   "options": {}
+  },
+  {
+   "name": "STEEL BLUE JEANS",
+   "slot": "legs",
+   "tag": "legs_steel_blue_jeans",
+   "fn": "genPants",
+   "ramp": "STEELB",
+   "shape": "JEANS",
+   "options": {}
+  },
+  {
+   "name": "DUST BROWN TROUSERS",
+   "slot": "legs",
+   "tag": "legs_dust_brown_trousers",
+   "fn": "genPants",
+   "ramp": "DUSTBRN",
+   "shape": "TROUSERS",
+   "options": {}
+  },
+  {
+   "name": "KHAKI SHORTS",
+   "slot": "legs",
+   "tag": "legs_khaki_shorts",
+   "fn": "genPants",
+   "ramp": "KHAKI",
+   "shape": "SHORTS",
+   "options": {
+    "cut": "short"
+   }
+  },
+  {
+   "name": "CHARCOAL SHORTS",
+   "slot": "legs",
+   "tag": "legs_charcoal_shorts",
+   "fn": "genPants",
+   "ramp": "CHARCLOTH",
+   "shape": "SHORTS",
+   "options": {
+    "cut": "short"
+   }
+  },
+  {
+   "name": "WRAP SKIRT",
+   "slot": "legs",
+   "tag": "legs_wrap_skirt",
+   "fn": "genPants",
+   "ramp": "DUSTSAND",
+   "shape": "WRAP SKIRT",
+   "options": {
+    "cut": "skirt"
+   }
+  },
+  {
+   "name": "ANKLE WRAP SKIRT",
+   "slot": "legs",
+   "tag": "legs_ankle_wrap_skirt",
+   "fn": "genPants",
+   "ramp": "OXBLOOD",
+   "shape": "ANKLE SKIRT",
+   "options": {
+    "cut": "longskirt"
+   }
+  },
+  {
+   "name": "COBALT WORK PANTS",
+   "slot": "legs",
+   "tag": "legs_cobalt_work_pants",
+   "fn": "genPants",
+   "ramp": "COBALT",
+   "shape": "WORK PANTS",
+   "options": {}
+  },
+  {
+   "name": "TEAL WORK PANTS",
+   "slot": "legs",
+   "tag": "legs_teal_work_pants",
+   "fn": "genPants",
+   "ramp": "TEALBRT",
+   "shape": "WORK PANTS",
+   "options": {}
+  },
+  {
+   "name": "GOLD WRAP SKIRT",
+   "slot": "legs",
+   "tag": "legs_gold_wrap_skirt",
+   "fn": "genPants",
+   "ramp": "GOLDLEAF",
+   "shape": "ANKLE SKIRT",
+   "options": {
+    "cut": "longskirt"
+   }
+  },
+  {
+   "name": "CHARCOAL WRAP SKIRT",
+   "slot": "legs",
+   "tag": "legs_charcoal_wrap_skirt",
+   "fn": "genPants",
+   "ramp": "CHARCLOTH",
+   "shape": "ANKLE SKIRT",
+   "options": {
+    "cut": "longskirt"
+   }
+  },
+  {
+   "name": "COBALT WIDE TROUSER",
+   "slot": "legs",
+   "tag": "legs_cobalt_wide_trouser",
+   "fn": "genPants",
+   "ramp": "COBALT",
+   "shape": "WIDE LEG",
+   "options": {
+    "cut": "wide"
+   }
+  },
+  {
+   "name": "BRICK WIDE TROUSER",
+   "slot": "legs",
+   "tag": "legs_brick_wide_trouser",
+   "fn": "genPants",
+   "ramp": "BRICK",
+   "shape": "WIDE LEG",
+   "options": {
+    "cut": "wide"
+   }
+  },
+  {
+   "name": "GRASS DROP TROUSER",
+   "slot": "legs",
+   "tag": "legs_grass_drop_trouser",
+   "fn": "genPants",
+   "ramp": "GRASSGRN",
+   "shape": "DROP RISE",
+   "options": {
+    "cut": "drop"
+   }
+  },
+  {
+   "name": "LEATHER STACK PANT",
+   "slot": "legs",
+   "tag": "legs_leather_stack_pant",
+   "fn": "genPants",
+   "ramp": "LEATHERV",
+   "shape": "STACKED",
+   "options": {
+    "cut": "stack"
+   }
+  },
+  {
+   "name": "OLIVE WIDE TROUSER",
+   "slot": "legs",
+   "tag": "legs_olive_wide_trouser",
+   "fn": "genPants",
+   "ramp": "OLIVEDRAB",
+   "shape": "WIDE LEG",
+   "options": {
+    "cut": "wide"
+   }
+  },
+  {
+   "name": "CHARCOAL CROP TROUSER",
+   "slot": "legs",
+   "tag": "legs_charcoal_crop_trouser",
+   "fn": "genPants",
+   "ramp": "CHARCLOTH",
+   "shape": "CROPPED",
+   "options": {
+    "cut": "crop"
+   }
+  },
+  {
+   "name": "DROP RISE TROUSER",
+   "slot": "legs",
+   "tag": "legs_drop_rise_trouser",
+   "fn": "genPants",
+   "ramp": "CHARCLOTH",
+   "shape": "DROP RISE",
+   "options": {
+    "cut": "drop"
+   }
+  },
+  {
+   "name": "BONE DROP TROUSER",
+   "slot": "legs",
+   "tag": "legs_bone_drop_trouser",
+   "fn": "genPants",
+   "ramp": "BONECLO",
+   "shape": "DROP RISE",
+   "options": {
+    "cut": "drop"
+   }
+  },
+  {
+   "name": "WIDE PLEAT TROUSER",
+   "slot": "legs",
+   "tag": "legs_wide_pleat_trouser",
+   "fn": "genPants",
+   "ramp": "STORMGRY",
+   "shape": "WIDE LEG",
+   "options": {
+    "cut": "wide"
+   }
+  },
+  {
+   "name": "BONE WIDE TROUSER",
+   "slot": "legs",
+   "tag": "legs_bone_wide_trouser",
+   "fn": "genPants",
+   "ramp": "BONECLO",
+   "shape": "WIDE LEG",
+   "options": {
+    "cut": "wide"
+   }
+  },
+  {
+   "name": "STACKED JERSEY PANT",
+   "slot": "legs",
+   "tag": "legs_stacked_jersey_pant",
+   "fn": "genPants",
+   "ramp": "FADEDBLK",
+   "shape": "STACKED",
+   "options": {
+    "cut": "stack"
+   }
+  },
+  {
+   "name": "SLATE STACK PANT",
+   "slot": "legs",
+   "tag": "legs_slate_stack_pant",
+   "fn": "genPants",
+   "ramp": "SLATEW",
+   "shape": "STACKED",
+   "options": {
+    "cut": "stack"
+   }
+  },
+  {
+   "name": "CROPPED WORK TROUSER",
+   "slot": "legs",
+   "tag": "legs_cropped_work_trouser",
+   "fn": "genPants",
+   "ramp": "CARGO",
+   "shape": "CROPPED",
+   "options": {
+    "cut": "crop"
+   }
+  },
+  {
+   "name": "CROPPED BLACK DENIM",
+   "slot": "legs",
+   "tag": "legs_cropped_black_denim",
+   "fn": "genPants",
+   "ramp": "BLKDENIM",
+   "shape": "CROPPED",
+   "options": {
+    "cut": "crop"
+   }
+  },
+  {
+   "name": "GOLD DROP TROUSER",
+   "slot": "legs",
+   "tag": "legs_gold_drop_trouser",
+   "fn": "genPants",
+   "ramp": "GOLDLEAF",
+   "shape": "DROP RISE",
+   "options": {
+    "cut": "drop"
+   }
+  },
+  {
+   "name": "TEAL STACK PANT",
+   "slot": "legs",
+   "tag": "legs_teal_stack_pant",
+   "fn": "genPants",
+   "ramp": "TEALBRT",
+   "shape": "STACKED",
+   "options": {
+    "cut": "stack"
+   }
+  },
+  {
+   "name": "BRICK CROP TROUSER",
+   "slot": "legs",
+   "tag": "legs_brick_crop_trouser",
+   "fn": "genPants",
+   "ramp": "BRICK",
+   "shape": "CROPPED",
+   "options": {
+    "cut": "crop"
+   }
+  },
+  {
+   "name": "COBALT DROP TROUSER",
+   "slot": "legs",
+   "tag": "legs_cobalt_drop_trouser",
+   "fn": "genPants",
+   "ramp": "COBALT",
+   "shape": "DROP RISE",
+   "options": {
+    "cut": "drop"
+   }
+  },
+  {
+   "name": "WHITE SNEAKERS",
+   "slot": "feet",
+   "tag": "feet_white_sneakers",
+   "fn": "genShoes",
+   "ramp": "SNK",
+   "shape": "SNEAKERS",
+   "options": {}
+  },
+  {
+   "name": "BROWN BOOTS",
+   "slot": "feet",
+   "tag": "feet_brown_boots",
+   "fn": "genShoes",
+   "ramp": "BOOT",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "WRAPPED BOOTS",
+   "slot": "feet",
+   "tag": "feet_wrapped_boots",
+   "fn": "genShoes",
+   "ramp": "CHARCLOTH",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "SANDWALKERS",
+   "slot": "feet",
+   "tag": "feet_sandwalkers",
+   "fn": "genShoes",
+   "ramp": "SANDBOOT",
+   "shape": "SANDALS",
+   "options": {}
+  },
+  {
+   "name": "RED CLAY BOOTS",
+   "slot": "feet",
+   "tag": "feet_red_clay_boots",
+   "fn": "genShoes",
+   "ramp": "REDCLAY",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "GREY SNEAKERS",
+   "slot": "feet",
+   "tag": "feet_grey_sneakers",
+   "fn": "genShoes",
+   "ramp": "GREYSNK",
+   "shape": "SNEAKERS",
+   "options": {}
+  },
+  {
+   "name": "OXBLOOD BOOTS",
+   "slot": "feet",
+   "tag": "feet_oxblood_boots",
+   "fn": "genShoes",
+   "ramp": "OXBOOT",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "SLATE SNEAKERS",
+   "slot": "feet",
+   "tag": "feet_slate_sneakers",
+   "fn": "genShoes",
+   "ramp": "SLATESNK",
+   "shape": "SNEAKERS",
+   "options": {}
+  },
+  {
+   "name": "BONE SNEAKERS",
+   "slot": "feet",
+   "tag": "feet_bone_sneakers",
+   "fn": "genShoes",
+   "ramp": "BONECLO",
+   "shape": "SNEAKERS",
+   "options": {}
+  },
+  {
+   "name": "OLIVE BOOTS",
+   "slot": "feet",
+   "tag": "feet_olive_boots",
+   "fn": "genShoes",
+   "ramp": "OLIVEDRAB",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "STEEL SNEAKERS",
+   "slot": "feet",
+   "tag": "feet_steel_sneakers",
+   "fn": "genShoes",
+   "ramp": "STEELB",
+   "shape": "SNEAKERS",
+   "options": {}
+  },
+  {
+   "name": "DUST BROWN BOOTS",
+   "slot": "feet",
+   "tag": "feet_dust_brown_boots",
+   "fn": "genShoes",
+   "ramp": "DUSTBRN",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "FIELD BOOTS",
+   "slot": "feet",
+   "tag": "feet_field_boots",
+   "fn": "genShoes",
+   "ramp": "FIELDGRN",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "RUST BOOTS",
+   "slot": "feet",
+   "tag": "feet_rust_boots",
+   "fn": "genShoes",
+   "ramp": "RUSTIRON",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "TALL MOTO BOOTS",
+   "slot": "feet",
+   "tag": "feet_tall_moto_boots",
+   "fn": "genShoes",
+   "ramp": "FADEDBLK",
+   "shape": "TALL BOOT",
+   "options": {
+    "shaft": "tall"
+   }
+  },
+  {
+   "name": "RANCH BOOTS",
+   "slot": "feet",
+   "tag": "feet_ranch_boots",
+   "fn": "genShoes",
+   "ramp": "DUSTBRN",
+   "shape": "TALL BOOT",
+   "options": {
+    "shaft": "tall"
+   }
+  },
+  {
+   "name": "SIGNAL RED BOOTS",
+   "slot": "feet",
+   "tag": "feet_signal_red_boots",
+   "fn": "genShoes",
+   "ramp": "REDBRIGHT",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "VESTMENT GOLD BOOTS",
+   "slot": "feet",
+   "tag": "feet_vestment_gold_boots",
+   "fn": "genShoes",
+   "ramp": "GOLDLEAF",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "GRASS SNEAKERS",
+   "slot": "feet",
+   "tag": "feet_grass_sneakers",
+   "fn": "genShoes",
+   "ramp": "GRASSGRN",
+   "shape": "SNEAKERS",
+   "options": {}
+  },
+  {
+   "name": "COBALT BOOTS",
+   "slot": "feet",
+   "tag": "feet_cobalt_boots",
+   "fn": "genShoes",
+   "ramp": "COBALT",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "COBALT SNEAKERS",
+   "slot": "feet",
+   "tag": "feet_cobalt_sneakers",
+   "fn": "genShoes",
+   "ramp": "COBALT",
+   "shape": "SNEAKERS",
+   "options": {}
+  },
+  {
+   "name": "CHARCOAL BOOTS",
+   "slot": "feet",
+   "tag": "feet_charcoal_boots",
+   "fn": "genShoes",
+   "ramp": "CHARCLOTH",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "COBALT STACK BOOT",
+   "slot": "feet",
+   "tag": "feet_cobalt_stack_boot",
+   "fn": "genShoes",
+   "ramp": "COBALT",
+   "shape": "STACK BOOT",
+   "options": {
+    "sole_kind": "stack"
+   }
+  },
+  {
+   "name": "BRICK STACK BOOT",
+   "slot": "feet",
+   "tag": "feet_brick_stack_boot",
+   "fn": "genShoes",
+   "ramp": "BRICK",
+   "shape": "STACK BOOT",
+   "options": {
+    "sole_kind": "stack"
+   }
+  },
+  {
+   "name": "GRASS BOOTS",
+   "slot": "feet",
+   "tag": "feet_grass_boots",
+   "fn": "genShoes",
+   "ramp": "GRASSGRN",
+   "shape": "BOOT",
+   "options": {}
+  },
+  {
+   "name": "LEATHER STACK BOOT",
+   "slot": "feet",
+   "tag": "feet_leather_stack_boot",
+   "fn": "genShoes",
+   "ramp": "LEATHERV",
+   "shape": "STACK BOOT",
+   "options": {
+    "sole_kind": "stack"
+   }
+  },
+  {
+   "name": "STACKED SOLE BOOT",
+   "slot": "feet",
+   "tag": "feet_stacked_sole_boot",
+   "fn": "genShoes",
+   "ramp": "CHARCLOTH",
+   "shape": "STACK BOOT",
+   "options": {
+    "sole_kind": "stack"
+   }
+  },
+  {
+   "name": "BONE STACK BOOT",
+   "slot": "feet",
+   "tag": "feet_bone_stack_boot",
+   "fn": "genShoes",
+   "ramp": "BONECLO",
+   "shape": "STACK BOOT",
+   "options": {
+    "sole_kind": "stack"
+   }
+  },
+  {
+   "name": "MID SHAFT BOOT",
+   "slot": "feet",
+   "tag": "feet_mid_shaft_boot",
+   "fn": "genShoes",
+   "ramp": "BLKBOOT",
+   "shape": "MID BOOT",
+   "options": {
+    "shaft": "mid"
+   }
+  },
+  {
+   "name": "COAL MID BOOT",
+   "slot": "feet",
+   "tag": "feet_coal_mid_boot",
+   "fn": "genShoes",
+   "ramp": "CHARCLOTH",
+   "shape": "MID BOOT",
+   "options": {
+    "shaft": "mid"
+   }
+  },
+  {
+   "name": "SLOUCH BOOT",
+   "slot": "feet",
+   "tag": "feet_slouch_boot",
+   "fn": "genShoes",
+   "ramp": "CHARC",
+   "shape": "SLOUCH BOOT",
+   "options": {
+    "shaft": "slouch"
+   }
+  },
+  {
+   "name": "ASH SLOUCH BOOT",
+   "slot": "feet",
+   "tag": "feet_ash_slouch_boot",
+   "fn": "genShoes",
+   "ramp": "ASHGREY",
+   "shape": "SLOUCH BOOT",
+   "options": {
+    "shaft": "slouch"
+   }
+  },
+  {
+   "name": "STACKED MID BOOT",
+   "slot": "feet",
+   "tag": "feet_stacked_mid_boot",
+   "fn": "genShoes",
+   "ramp": "CHARCLOTH",
+   "shape": "STACKED MID BOOT",
+   "options": {
+    "shaft": "mid",
+    "sole_kind": "stack"
+   }
+  },
+  {
+   "name": "COLUMN PANT-BOOT",
+   "slot": "feet",
+   "tag": "feet_column_pant-boot",
+   "fn": "genPants",
+   "ramp": "CHARCLOTH",
+   "shape": "COLUMN",
+   "options": {
+    "cut": "column"
+   }
+  },
+  {
+   "name": "COAL COLUMN",
+   "slot": "feet",
+   "tag": "feet_coal_column",
+   "fn": "genPants",
+   "ramp": "FADEDBLK",
+   "shape": "COLUMN",
+   "options": {
+    "cut": "column"
+   }
+  },
+  {
+   "name": "ASH COLUMN",
+   "slot": "feet",
+   "tag": "feet_ash_column",
+   "fn": "genPants",
+   "ramp": "ASHGREY",
+   "shape": "COLUMN",
+   "options": {
+    "cut": "column"
+   }
+  },
+  {
+   "name": "GOLD STACK BOOT",
+   "slot": "feet",
+   "tag": "feet_gold_stack_boot",
+   "fn": "genShoes",
+   "ramp": "GOLDLEAF",
+   "shape": "STACK BOOT",
+   "options": {
+    "sole_kind": "stack"
+   }
+  },
+  {
+   "name": "TEAL COLUMN",
+   "slot": "feet",
+   "tag": "feet_teal_column",
+   "fn": "genPants",
+   "ramp": "TEALBRT",
+   "shape": "COLUMN",
+   "options": {
+    "cut": "column"
+   }
+  },
+  {
+   "name": "COBALT COLUMN",
+   "slot": "feet",
+   "tag": "feet_cobalt_column",
+   "fn": "genPants",
+   "ramp": "COBALT",
+   "shape": "COLUMN",
+   "options": {
+    "cut": "column"
+   }
+  },
+  {
+   "name": "OLIVE STACK BOOT",
+   "slot": "feet",
+   "tag": "feet_olive_stack_boot",
+   "fn": "genShoes",
+   "ramp": "OLIVEDRAB",
+   "shape": "STACK BOOT",
+   "options": {
+    "sole_kind": "stack"
+   }
+  }
+ ]
+}
