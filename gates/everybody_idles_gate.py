@@ -173,17 +173,42 @@ for k, L in I['looks'].items():
 ok('C3 every idle wears his own fight sheet\'s colours, not one more', not pal_bad, pal_bad[:4])
 
 # ---------------------------------------------------------------------------------------------------- F the feet
-feet_bad = []
-for k in men:
-    if k not in I['looks']: continue
-    L = I['looks'][k]
-    for f in range(8):
-        a, c = cell(L, 'bare', 'C', f); base = c[5] + np.nonzero(a[..., 3] > 0)[0].max()
-        for s in ('bare', 'carry'):
-            for p in D['sets'][s]['poses']:
-                a, c = cell(L, s, p, f); low = c[5] + np.nonzero(a[..., 3] > 0)[0].max()
-                if abs(low - base) > 2: feet_bad.append('%s %s %s %s %+d' % (k, s, p, I['dirs'][f], low - base))
+def soles(L, s, p, f):
+    """the lowest painted row of every column, in the fight cell's frame"""
+    a, c = cell(L, s, p, f); op = a[..., 3] > 0; out = {}
+    for x in range(op.shape[1]):
+        ys = np.nonzero(op[:, x])[0]
+        if len(ys): out[c[4] + x] = c[5] + ys.max()
+    return out
+
+
+def feet_faults(I, looks):
+    """THE SOLES, column by column: among the columns where standing square and the pose both paint the bottom eight
+    rows, a quarter or more moving over two pixels is a man floating, sinking or skating (a club swinging below his feet
+    moves three columns, his two feet are twenty)"""
+    out = []
+    for k in looks:
+        L = I['looks'][k]
+        for f in range(8):
+            C = soles(L, 'bare', 'C', f); band = max(C.values()) - 8
+            for s in ('bare', 'carry'):
+                for p in D['sets'][s]['poses']:
+                    P = soles(L, s, p, f)
+                    shared = [x for x in C if C[x] >= band and P.get(x, -1) >= band]
+                    moved = [x for x in shared if abs(P[x] - C[x]) > 2]
+                    lim = 0.6 if L.get('held') else 0.25   # a weapon modelled in his fist swings through the sole band (the thug's pipe: 11 of 19 columns on roll_back, his feet untouched, looked at 10/23)
+                    if len(shared) < 4 or len(moved) > len(shared) * lim:
+                        out.append('%s %s %s %s: %d of %d sole columns moved' % (k, s, p, I['dirs'][f], len(moved), len(shared)))
+    return out
+
+
+feet_bad = feet_faults(I, [k for k in men if k in I['looks']])
+held = ['%s (%s)' % (k, ', '.join(I['looks'][k]['held'])) for k in men if k in I['looks'] and I['looks'][k].get('held')]
+if held: print('  note F1 holds a weapon in his fist, so its swing below the soles is allowed up to 60 percent of the columns: ' + '; '.join(held))
 ok('F1 his soles stay on his ground line in every pose and facing (two pixels): nobody floats, sinks or skates', not feet_bad, '; '.join(feet_bad[:5]))
+mf = json.loads(json.dumps(I)); kf = [k for k in men if k in mf['looks']][0]; Lf = mf['looks'][kf]
+for i in Lf['poses']['bare']['lookL']: Lf['sheets']['bare']['cells'][i][5] += 4   # one pose sunk four pixels in every facing
+ok('F2 MUTATION: a man sunk four pixels into the ground in one pose is caught', any('lookL' in x for x in feet_faults(mf, [kf])))
 
 # ---------------------------------------------------------------------------------------------------- M the map
 Mp = I.get('map')

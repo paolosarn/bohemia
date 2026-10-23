@@ -626,6 +626,11 @@ def pack():
             for i, (a, _, _) in enumerate(items): im.paste(Image.fromarray(a, 'RGBA'), (rects[i][0], rects[i][1]))
             return im, rects
         entry = dict(fight=fl['file'], foot=fl['foot'], sheets={}, poses={s: {p: cells[s][p] for p in sets[s]} for s in sets if s in cells})
+        # what his model holds in a fist (COOK THREE's tiers: the thug's pipe, the poacher's hatchet), read off the render's
+        # own parts: it swings with his arm below his soles, and the feet gate is told so
+        parts = set(k for c in rj['clips'].values() for f in c['motion_px'] for key in c['motion_px'][f] for k in key)
+        held = sorted(p for p in parts if any(w in p.lower() for w in ('pipe', 'hatchet', 'club', 'bat', 'knife', 'axe', 'machete', 'spear')))
+        if held: entry['held'] = held
         for s_, lst in imgs.items():
             body, rects = atlas(lst, 2048); fn = '%s_%s.webp' % (look, s_)
             body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
