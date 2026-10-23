@@ -1000,5 +1000,46 @@
    ]
   },
   "file": "records/target/cook_floor_not_final/block_culdesac_0.webp"
+ },
+ "culdesac.1": {
+  "seconds": 870,
+  "junk": {
+   "bags": 0,
+   "paper": 418,
+   "card": 103,
+   "cloth": 42,
+   "weeds": 358,
+   "mattresses": 1,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 4,
+   "tidy_house": 1,
+   "burnt_house": 5
+  },
+  "grime": {
+   "materials": 82,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     55.27,
+     12.86,
+     3.2
+    ],
+    [
+     50.03,
+     59.88,
+     1.0
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_not_final/block_culdesac_1.webp"
  }
 }

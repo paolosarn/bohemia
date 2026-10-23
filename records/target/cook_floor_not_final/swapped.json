@@ -113,5 +113,10 @@
   "file": "slices/fight_ground/block_culdesac_0.webp",
   "sha1": "6a98167c15fbb0c5a2d3f87ccc1383ae8cac2e41",
   "master": "records/target/cook_floor_not_final/block_culdesac_0.webp"
+ },
+ "culdesac.1": {
+  "file": "slices/fight_ground/block_culdesac_1.webp",
+  "sha1": "4c0ba45dab861accb067c62b300125e4f72ac434",
+  "master": "records/target/cook_floor_not_final/block_culdesac_1.webp"
  }
 }
