@@ -1187,5 +1187,77 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_wash_1.webp",
   "future": null
+ },
+ "main.0": {
+  "seconds": 773,
+  "junk": {
+   "bags": 3,
+   "paper": 368,
+   "card": 92,
+   "cloth": 38,
+   "weeds": 306,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 12,
+   "paths": 2,
+   "bins": 0,
+   "tracks": 20,
+   "tidy_house": 1,
+   "burnt_house": 2
+  },
+  "grime": {
+   "materials": 80,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     6.78,
+     12.6,
+     3.2
+    ],
+    [
+     51.47,
+     17.29,
+     1.0
+    ],
+    [
+     36.69,
+     31.92,
+     3.37
+    ],
+    [
+     24.3,
+     42.05,
+     3.45
+    ],
+    [
+     42.14,
+     48.12,
+     3.9
+    ],
+    [
+     22.51,
+     38.5,
+     2.75
+    ],
+    [
+     16.59,
+     53.12,
+     3.27
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_futures/raided/block_main_0.webp",
+  "future": {
+   "holes": 2770,
+   "char": 1069,
+   "rafters": 0,
+   "rubble": 63
+  }
  }
 }
