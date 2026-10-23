@@ -71,7 +71,7 @@ tools/bohemia_run2_no_two_people_alike.py, nothing drawn new (rule 121(b)):
 
 - THE LAYERS: CHARACTER [the clothes look real] landed while these rendered (rule 129: layers that show; his trousers,
   shoes and gear rolled off each person's id). The 152 are rebuilt with it and swapped in place (same files).
-- THE FIGHT AND THE HALL: 64 people (each gang's first four and the hall's twelve) through COMBAT's poses, packed into
+- THE FIGHT AND THE HALL: 51 people (each gang's first three and the hall's twelve) through COMBAT's poses, packed into
   their gang's cell with their gang's guns (one man measured: the gun sits in his hands as in the gang's own man's); the
   hall then deals only rolled men the fight can draw. The gate's hall, crew and fight legs land with them.
 

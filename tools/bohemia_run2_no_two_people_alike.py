@@ -268,7 +268,7 @@ FIGHT_RENDERS = 'records/target/combat/rig'   # COMBAT's render folder (regenera
 FIGHT_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 FIGHT_COLS = [('stand', 'Stand', 1), ('walk', 'Anim_0', 6), ('aim', 'Aim', 3), ('swing', 'Swing', 3), ('hit', 'Hit', 2), ('fall', 'Fall', 3),
               ('carry', 'Carry', 1), ('carrywalk', 'CarryWalk', 6)]   # COMBAT's pack(), column for column
-PER_GANG_FIGHT = 4
+PER_GANG_FIGHT = 3   # a band of a few (change 1: sized to the crew) needs at most its pool: tier + 3 a gang it names; 4 cost 25 more minutes for no screen that needs it
 
 
 def fight_ref(p):
