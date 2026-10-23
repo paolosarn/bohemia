@@ -49,9 +49,31 @@ tools/bohemia_run2_no_two_people_alike.py, nothing drawn new (rule 121(b)):
 - THE FIGHT: the band pools keep their first look and then deal their gangs' rolled people; each man takes the first look
   in his pool nobody on the board wears (his men's included).
 
-## MEASURED AFTER
+## MEASURED AFTER (round 2, the first ship: the towns and the map)
 
-(filled when the gates ran; see below)
+- THE ROLL: 152 people, 152 different by every piece; in play 21 cuts, 8 hair colours, 13 face shapes, 11 skin tones,
+  69 tops, 46 coats, 7 hats (9 people, hats rare), 9 face pieces, 11 beards, 8 marks; no cone hat, no wrap on a head.
+- THE TOWNS: 36 screens (camp, town and fortress at four places, by day, by night, on market day), 460 people drawn,
+  nobody twice on any screen, all rolled, each talking under his own head; the market-day street fetched 56 different
+  people's renders; two towns share at most a third of their people. Was: 13 gang looks with repeats.
+- THE MAP (the demo's own map, the parties out on the road): at the default zoom 95 different of 95 drawn (was 19 of
+  95), at 1.4 69 of 69 (was 14 of 69), at 2.4 10 of 10 (was 4 of 10); 15 people sheets fetched by then.
+- BYTES: the map's 17 sheets 7.7 MB in all, each fetched the first time its gang is drawn (a crowd never fetches one);
+  the towns fetch each person's own 8 stills and faces (the published people 36 MB; the 78 MB of walk and portrait
+  frames are source, kept unpublished in records/run2/people).
+- GATES: NO TWO PEOPLE ALIKE 15/0 (new, in the suite), THE PEOPLE OF THE PLACE 40/0 (was 31; a NO TWO ALIKE leg on every
+  tier and night, market day, the night keeps each spot's man, two towns), settlement 74/0, every speaker 10/0, ask the
+  crowd 46/0, names wired 66/0, who the face is 46/0, the map has its people 19/0, the living map 22/0, keepers 26/0,
+  keeper lines 48/0, roster and posts 28/0, one man one look 8/0, equip 7/0, no face from a body 23/0, each man his own
+  skin 5/0. Four of this lane's source-shape legs re-aimed at the new code, same meaning.
+
+## STILL TO DO IN THIS ROW
+
+- THE LAYERS: CHARACTER [the clothes look real] landed while these rendered (rule 129: layers that show; his trousers,
+  shoes and gear rolled off each person's id). The 152 are rebuilt with it and swapped in place (same files).
+- THE FIGHT AND THE HALL: 64 people (each gang's first four and the hall's twelve) through COMBAT's poses, packed into
+  their gang's cell with their gang's guns (one man measured: the gun sits in his hands as in the gang's own man's); the
+  hall then deals only rolled men the fight can draw. The gate's hall, crew and fight legs land with them.
 
 ## FOUND ON THE WAY
 
