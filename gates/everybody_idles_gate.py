@@ -299,6 +299,81 @@ if PEOPLE:
         for i in v1['poses']['C']: mm2['files'][v1['file']][i][5] -= 24
         ok('R6 MUTATION: a rolled man laid 24 px high on the map is caught', any(l1 in x for x in mix_faults(mm2)))
 
+# ---------------------------------------------------------------------------------------------------- K the work (rule 131)
+WK = D.get('work')
+ok('K0 the work clips\' kept source is in the repo (rule 131: hauling batteries, carrying crates, fixing a wall, sweeping, dragging scrap, a guard\'s round)',
+   bool(WK) and {'battery', 'crate', 'hammer', 'broom', 'scrap', 'guard'} <= set(WK['jobs']), WK and sorted(WK['jobs']))
+
+
+def work_faults(WK):
+    """a stop's loop is whole beats (three keys each) so it comes round on the beat; every pose it names is the job's; two
+    sides of a swing never touch; the hammer lands at the top of a beat; every gang (and the places' people) has jobs"""
+    out = []
+    pairs = [set(p) for p in WK.get('never_adjacent', [])]
+    for j, J in WK['jobs'].items():
+        tl = J['timeline']; n = sum(k for _, k in tl)
+        if n % 3: out.append('%s loops in %d keys, not whole beats' % (j, n))
+        miss = [p for p, _ in tl if p not in J['poses']]
+        if miss: out.append('%s names %s' % (j, miss))
+        if J['prop'] not in WK['props']: out.append('%s carries %s, never modelled' % (j, J['prop']))
+        seq = [p for p, k in tl for _ in range(k)]
+        for a, b in zip(seq, seq[1:] + seq[:1]):
+            if {a, b} in pairs: out.append('%s goes %s to %s in one key' % (j, a, b))
+    hm = WK['jobs'].get('hammer')
+    if hm:
+        seq = [p for p, k in hm['timeline'] for _ in range(k)]
+        if 'strike' not in seq or seq.index('strike') % 3: out.append('the hammer lands off the beat (key %s)' % (seq.index('strike') if 'strike' in seq else None))
+    for g in ['anarchists', 'blues', 'caravans', 'cartel', 'church', 'colorful', 'homeless', 'mob', 'network', 'reds', 'remnants', 'trades', 'volunteers', 'body']:
+        if not [x for x in WK['by_gang'].get(g, []) if x in WK['jobs']]: out.append('%s has no job' % g)
+    return out
+
+
+if WK:
+    wf = work_faults(WK)
+    ok('K1 every stop loops in whole beats, names its own poses, never swings side to side in one key, the hammer lands on the beat, every gang has work', not wf, '; '.join(wf[:4]))
+    mw = json.loads(json.dumps(WK)); mw['jobs']['hammer']['timeline'] = [['raise', 2], ['strike', 2], ['after', 2]]
+    ok('K2 MUTATION: a hammer that lands a key early is caught', any('off the beat' in x for x in work_faults(mw)))
+    RW = os.path.join(ROOT, 'slices/rig_walk')
+    sheets = {}
+    for fn in sorted(os.listdir(RW)):
+        if fn.endswith('.json'):
+            m = json.load(open(os.path.join(RW, fn)))
+            if m.get('work'): sheets[fn[:-5]] = m
+    print('  note K3 %d of the walkers carry their work' % len(sheets))
+
+    def sheet_faults(sheets, shown=('S', 'N')):
+        """on each walker's own sheet: the columns the json names are there; the carrying walk is not his plain walk (the
+        thing is in his hands, in the pixels); every work pose is a picture of its own; and at the stop, in the turns a stop
+        faces, his soles are where his still's are, column by column"""
+        out = []
+        for look, m in sheets.items():
+            a = np.asarray(Image.open(os.path.join(RW, look + '.png')).convert('RGBA'))
+            def cellp(r, c): return a[r * m['h']:(r + 1) * m['h'], c * m['w']:(c + 1) * m['w']]
+            if max(m['work'] + m['walk']) >= m['cols'] or len(m['walk']) != 6: out.append('%s names a column it does not have' % look); continue
+            if m.get('job') not in WK['jobs']: out.append('%s has no job' % look)
+            for t in shown:
+                r = m['dirs'].index(t)
+                for k in range(6):
+                    d = int((np.abs(cellp(r, m['walk'][k]).astype(int) - cellp(r, m['walk_plain'][k]).astype(int)).max(2) > 0).sum())
+                    if d < 40: out.append('%s %s walk key %d carries nothing (%d px)' % (look, t, k, d))
+                still = cellp(r, m['still'])
+                op = still[..., 3] > 0; band = m['foot'] - 8
+                sole = {x: np.nonzero(op[:, x])[0].max() for x in range(op.shape[1]) if op[:, x].any() and np.nonzero(op[:, x])[0].max() >= band}
+                for c in sorted(set(m['work'])):
+                    P = cellp(r, c); opp = P[..., 3] > 0
+                    if int((np.abs(P.astype(int) - still.astype(int)).max(2) > 0).sum()) < 12: out.append('%s %s work column %d is his still' % (look, t, c))
+                    # a sole column moved when it lifts or empties; one painted LOWER is the thing he set down in front of his
+                    # feet (the battery on the ground, seen from the front), not a foot
+                    moved = [x for x in sole if not opp[:, x].any() or np.nonzero(opp[:, x])[0].max() < sole[x] - 2]
+                    if len(sole) < 4 or len(moved) > len(sole) * 0.4:
+                        out.append('%s %s work column %d: %d of %d sole columns moved' % (look, t, c, len(moved), len(sole)))
+        return out
+    if sheets:
+        sf_ = sheet_faults(sheets)
+        ok('K4 on every walker\'s own sheet: the named columns are there, the carrying walk carries the thing, every work pose is its own picture, the feet stay planted at the stop', not sf_, '; '.join(sf_[:4]))
+        l0 = list(sheets)[0]; ms_ = json.loads(json.dumps({l0: sheets[l0]})); ms_[l0]['walk'] = list(ms_[l0]['walk_plain'])
+        ok('K5 MUTATION: a walker whose carrying walk is his plain walk is caught', any('carries nothing' in x for x in sheet_faults(ms_)))
+
 # ---------------------------------------------------------------------------------------------------- X the player
 PLAYER = r'''
 const fs = require('fs'), path = require('path'), D = path.dirname(process.argv[2]);
@@ -433,6 +508,43 @@ const srv = http.createServer((rq, rs) => {
         R3 = json.loads(l3[-1]) if l3 else {'err': r3.stdout[-300:] + r3.stderr[-300:]}
         K = R3.get('kinds') or {}
         lazy = [k for k in K if len(K[k]) < 2]
+        # W4 THE REAL MAP (the demo, booted): every rolled man the map carries idles for, laid on his own map sheet the way the
+        # map lays him (rigSheetSet, mapIdleFrame), stands as an idle picture that changes over eight seconds
+        drv4 = r'''
+const drive = require(process.argv[2]);
+(async () => {
+  const d = await drive.open({ keepCards: true }), fr = d.fr, errs = [];
+  d.page.on('pageerror', e => errs.push(String(e)));
+  await fr.waitForFunction(() => typeof PARTIES !== 'undefined' && !!PARTIES && window.BohemiaIdles && BohemiaIdles.ready() && BohemiaIdles.mapPeople(), null, { timeout: 90000 });
+  const looks = await fr.evaluate(() => { const M = BohemiaIdles.mapPeople(); Object.values(M.looks).forEach(v => { const S = RIG_MIX.sheets[v.mix] || (RIG_MIX.sheets[v.mix] = { state: 0, meta: null, img: null, sets: {}, drew: 0 }); rigSheetLoad(S, 'rig_mix/' + v.mix); }); return Object.keys(M.looks); });
+  await fr.waitForFunction(() => Object.values(BohemiaIdles.mapPeople().looks).every(v => RIG_MIX.sheets[v.mix].state === 2), null, { timeout: 60000 }).catch(() => {});
+  await fr.waitForFunction(() => { const M = BohemiaIdles.mapPeople(); return Object.keys(M.looks).every(k => { const S = RIG_MIX.sheets[M.looks[k].mix], set = S && S.state === 2 && rigSheetSet(S, k); return set && mapIdleFrame(set, 'S', 0, set.S.idle); }); }, null, { timeout: 60000 }).catch(() => {});
+  const seen = {};
+  for (let t = 0; t < 8; t++) {
+    const r = await fr.evaluate(() => { const M = BohemiaIdles.mapPeople(), out = {};
+      for (const k in M.looks) { const S = RIG_MIX.sheets[M.looks[k].mix], set = S && S.state === 2 && rigSheetSet(S, k); if (!set) { out[k] = 'nosheet'; continue; }
+        const c = mapIdleFrame(set, 'S', 0, set.S.idle); if (!c) { out[k] = null; continue; }
+        const x = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let h = 0; for (let i = 3; i < x.length; i += 4) if (x[i]) h = (h * 31 + i) >>> 0; out[k] = String(h); }
+      return out; });
+    for (const k in r) { (seen[k] = seen[k] || {}); seen[k][r[k]] = 1; }
+    await d.page.waitForTimeout(1000);
+  }
+  console.log(JSON.stringify({ looks: looks.length, seen: seen, errs: errs }));
+  try { await d.browser.close(); } catch (e) {}
+  process.exit(0);
+})().catch(e => { console.log(JSON.stringify({ err: String(e) })); process.exit(0); });
+'''
+        js4 = os.path.join(ROOT, 'gates', '.everybody_idles_map.js'); open(js4, 'w').write(drv4)
+        try:
+            r4 = subprocess.run(['node', js4, os.path.join(ROOT, 'tools/bohemia_drive_the_demo.js')], capture_output=True, text=True, timeout=400, cwd=ROOT)
+        finally:
+            os.remove(js4)
+        l4 = [l for l in r4.stdout.splitlines() if l.startswith('{')]
+        R4 = json.loads(l4[-1]) if l4 else {'err': r4.stdout[-300:] + r4.stderr[-300:]}
+        S4 = R4.get('seen') or {}
+        flat = [k for k, v in S4.items() if 'null' in v or 'nosheet' in v or len(v) < 2]
+        ok('W4 on the real map, every rolled man it carries idles for stands as his idle on his own map sheet and moves over eight seconds, no page error',
+           S4 and not flat and not R4.get('errs') and not R4.get('err'), 'looks %s, still or missing %s, errors %s' % (R4.get('looks'), flat[:4], (R4.get('errs') or [R4.get('err')])[:2]))
         ok('W3 on the real settlement, every keeper and man in the crowd whose look has idles is idling (two kinds or more in eight seconds), no page error',
            R3.get('found') and not lazy and not R3.get('errs') and not R3.get('err'),
            'found %s, kinds %s, errors %s' % (bool(R3.get('found')), {k: sorted(v) for k, v in K.items()}, (R3.get('errs') or [R3.get('err')])[:2]))

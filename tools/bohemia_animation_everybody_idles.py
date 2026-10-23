@@ -221,6 +221,215 @@ def pose(src, out, sets=('bare', 'carry')):
     print('POSED', out, made)
 
 
+# ------------------------------------------------------------------------------------------------ the work (bpy)
+def job_of(tag):
+    """his job, seeded off his look inside his gang's leaning (the source's work.by_gang)"""
+    W = source()['work']; P = next((p for p in json.load(open(os.path.join(ROOT, PEOPLE_ROLL))) if 'person_' + p['id'].lower() == tag), None)
+    g = (P['gang'] if P else 'body').lower()
+    jobs = W['by_gang'].get(g) or W['by_gang']['body']
+    h = 2166136261
+    for ch in tag: h = ((h ^ ord(ch)) * 16777619) & 0xffffffff
+    return jobs[h % len(jobs)]
+
+
+def pose_work(src, out, job, real_h):
+    """THE WORK (rule 131): his job's prop modelled in the scene and skinned to a bone of its own, then two actions beside
+    the ones the model came with: WorkWalk (the walk's six keys as the master rig samples them, his arms holding the thing,
+    his feet walking) and Work (the job's distinct poses on his still, the feet planted); the prop is hidden in Stand, so
+    the still and its box are his own"""
+    import bpy, mathutils
+    D = source(); W = D['work']; J = W['jobs'][job]; Bn = D['bones']
+    bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene
+    bpy.ops.import_scene.gltf(filepath=os.path.abspath(src))
+    for o in list(sc.objects):
+        if o.type == 'MESH' and o.name.startswith('Icosphere') and o.parent is None and len(o.data.vertices) == 42:
+            bpy.data.objects.remove(o, do_unlink=True)
+    arm = [o for o in sc.objects if o.type == 'ARMATURE'][0]
+    ad = arm.animation_data or arm.animation_data_create()
+    acts = list(bpy.data.actions)
+    for x in acts:
+        if not any(s.action == x for t in ad.nla_tracks for s in t.strips):
+            nm = x.name.split('_Armature')[0]
+            t = ad.nla_tracks.new(); t.name = nm; t.strips.new(nm, int(x.frame_range[0]), x); t.mute = True
+    stand = [x for x in acts if x.name.startswith('Stand')][0]; walk_act = [x for x in acts if x.name.startswith('Anim_0')][0]
+    ad.action = stand; f0, f1 = stand.frame_range; still = (f0 + f1) / 2
+    sc.frame_set(int(still), subframe=still - int(still)); bpy.context.view_layer.update()
+    PB = arm.pose.bones
+    base = {pb.name: pb.matrix_basis.copy() for pb in PB}
+    order = []
+    def walk(b):
+        order.append(b.name)
+        for c in b.children: walk(c)
+    for b in arm.data.bones:
+        if b.parent is None: walk(b)
+    V = lambda t: mathutils.Vector(t)
+    Fv, Uv, Lv = V(F), V(U), V(L)
+    # model units a real metre: the model stands model_top_m tall for real_height_for_rig (CHARACTER's build record)
+    gj = os.path.join(os.path.dirname(os.path.abspath(src)), os.path.basename(src)[:-4] + '.json')
+    k = (json.load(open(gj))['model_top_m'] / real_h) if os.path.exists(gj) else 0.89
+    la, ra = PB[Bn['LA']].head.copy(), PB[Bn['RA']].head.copy()
+    G0 = (la + ra) / 2; G0 = G0 - Uv * G0.dot(Uv)   # the ground between his feet (the floor is the armature's zero height)
+    legs = [(Bn['LT'], Bn['LS'], Bn['LA']), (Bn['RT'], Bn['RS'], Bn['RA'])]
+    feet = {a: (PB[a].head.copy(), PB[a].matrix.to_3x3().copy()) for _, _, a in legs}
+
+    def rot(pb, P, R):
+        pb.matrix = mathutils.Matrix.Translation(P) @ R @ mathutils.Matrix.Translation(-P) @ pb.matrix
+        bpy.context.view_layer.update()
+
+    def two_bone(b1, b2, b3, target, pole):
+        """the chain's end on the target (or as near as it reaches), the middle joint toward the pole"""
+        H = PB[b1].head.copy(); K0 = PB[b2].head.copy(); A0 = PB[b3].head.copy()
+        l1, l2 = (K0 - H).length, (A0 - K0).length
+        d = target - H; dist = min(d.length, (l1 + l2) * 0.999); n = d.normalized()
+        p = pole - n * pole.dot(n); p = p.normalized() if p.length > 1e-6 else Fv
+        a_ = (l1 * l1 - l2 * l2 + dist * dist) / (2 * dist); h = math.sqrt(max(0.0, l1 * l1 - a_ * a_))
+        K = H + n * a_ + p * h
+        q = (K0 - H).rotation_difference(K - H); rot(PB[b1], H, q.to_matrix().to_4x4())
+        K1 = PB[b2].head.copy(); A1 = PB[b3].head.copy()
+        q = (A1 - K1).rotation_difference((H + n * dist) - K1); rot(PB[b2], K1, q.to_matrix().to_4x4())
+
+    def plant():
+        for t, s, a in legs:
+            At, Rf = feet[a]
+            two_bone(t, s, a, At, Fv)
+            M = Rf.to_4x4(); M.translation = PB[a].matrix.translation; PB[a].matrix = M
+            bpy.context.view_layer.update()
+
+    def point(spec):
+        ref, (f_, u_, l_) = spec
+        o = G0 if ref == 'G' else PB[Bn['P']].head.copy()
+        return o + (Fv * f_ + Uv * u_ + Lv * l_) * k
+
+    # THE PROP: a mesh in the armature's space, its own frame at the armature's origin (f, u, l -> the armature's axes),
+    # skinned to a parentless bone whose pose matrix IS where the prop is
+    P_ = W['props'][J['prop']]
+    verts, faces, mats, fmat = [], [], [], []
+    def matidx(rgb):
+        key = tuple(round(c, 3) for c in rgb)
+        if key not in mats: mats.append(key)
+        return mats.index(key)
+    def quad(a, b, c, d, mi): faces.append((a, b, c, d)); fmat.append(mi)
+    def box(c, s, rgb):
+        mi = matidx(rgb); i0 = len(verts)
+        for dx in (-0.5, 0.5):
+            for dy in (-0.5, 0.5):
+                for dz in (-0.5, 0.5):
+                    verts.append(Fv * (c[0] + dx * s[0]) * k + Uv * (c[1] + dy * s[1]) * k + Lv * (c[2] + dz * s[2]) * k)
+        for a, b, c_, d in ((0, 1, 3, 2), (4, 6, 7, 5), (0, 4, 5, 1), (2, 3, 7, 6), (0, 2, 6, 4), (1, 5, 7, 3)): quad(i0 + a, i0 + b, i0 + c_, i0 + d, mi)
+    def cyl(p0, p1, r, rgb, n=8):
+        mi = matidx(rgb); a0 = (Fv * p0[0] + Uv * p0[1] + Lv * p0[2]) * k; a1 = (Fv * p1[0] + Uv * p1[1] + Lv * p1[2]) * k
+        ax = (a1 - a0).normalized(); e1 = ax.orthogonal().normalized(); e2 = ax.cross(e1)
+        i0 = len(verts)
+        for i in range(n):
+            t = 2 * math.pi * i / n; o = (e1 * math.cos(t) + e2 * math.sin(t)) * r * k
+            verts.append(a0 + o); verts.append(a1 + o)
+        for i in range(n):
+            j = (i + 1) % n; quad(i0 + 2 * i, i0 + 2 * j, i0 + 2 * j + 1, i0 + 2 * i + 1, mi)
+        faces.append(tuple(i0 + 2 * i for i in range(n))[::-1]); fmat.append(mi); faces.append(tuple(i0 + 2 * i + 1 for i in range(n))); fmat.append(mi)
+    for part in P_['parts']:
+        if part[0] == 'box': box(part[1], part[2], tuple(part[3]))
+        else: cyl(part[1], part[2], part[3], tuple(part[4]))
+    me = bpy.data.meshes.new('prop_' + J['prop']); me.from_pydata([tuple(v) for v in verts], [], faces); me.update()
+    for rgb in mats:
+        m = bpy.data.materials.new('prop_%s_%d' % (J['prop'], len(me.materials))); m.use_nodes = True; bs = m.node_tree.nodes['Principled BSDF']
+        bs.inputs['Base Color'].default_value = rgb + (1,); bs.inputs['Roughness'].default_value = 0.85
+        me.materials.append(m)
+    for i, poly in enumerate(me.polygons): poly.material_index = fmat[i]
+    ob = bpy.data.objects.new('prop_' + J['prop'], me); sc.collection.objects.link(ob)
+    bpy.ops.object.select_all(action='DESELECT'); bpy.context.view_layer.objects.active = arm; arm.select_set(True)
+    bpy.ops.object.mode_set(mode='EDIT')
+    eb = arm.data.edit_bones.new('prop_' + J['prop']); eb.head = (0, 0, 0); eb.tail = (0, 0.05, 0); eb.roll = 0; eb.use_deform = True
+    bpy.ops.object.mode_set(mode='OBJECT')
+    PB = arm.pose.bones; pbp = PB['prop_' + J['prop']]
+    rest = arm.data.bones['prop_' + J['prop']].matrix_local.copy()
+    ob.parent = arm; ob.matrix_world = arm.matrix_world.copy()
+    vg = ob.vertex_groups.new(name='prop_' + J['prop']); vg.add(list(range(len(me.vertices))), 1.0, 'REPLACE')
+    mo = ob.modifiers.new('Armature', 'ARMATURE'); mo.object = arm
+    base['prop_' + J['prop']] = mathutils.Matrix.Identity(4)
+    order.append('prop_' + J['prop'])
+    TINY = mathutils.Matrix.Diagonal((1e-4, 1e-4, 1e-4, 1.0))
+
+    def place(spec):
+        """the prop's frame: 'at' a point (its axes the body's), or 'from' its origin 'to' a point along its +u"""
+        if 'at' in spec:
+            M = mathutils.Matrix.Translation(point(spec['at']))
+        else:
+            a, b = point(spec['from']), point(spec['to']); u = (b - a).normalized()
+            q = Uv.rotation_difference(u); M = mathutils.Matrix.Translation(a) @ q.to_matrix().to_4x4()
+        pbp.matrix = M @ rest; bpy.context.view_layer.update()
+        return M
+
+    def reach(spec, M):
+        """each hand's wrist on its grip: a number is a length along the prop's +u in metres, a list a point on the prop
+        ([f, u, l] in its frame) or on the body (['G'|'P', [f, u, l]])"""
+        for side, val in spec.items():
+            u1, f1, h1 = (Bn['RU'], Bn['RF'], Bn['RH']) if side == 'R' else (Bn['LU'], Bn['LF'], Bn['LH'])
+            if isinstance(val, (int, float)): tgt = M @ (Uv * val * k)
+            elif isinstance(val[0], str): tgt = point(val)
+            else: tgt = M @ ((Fv * val[0] + Uv * val[1] + Lv * val[2]) * k)
+            side_v = -Lv if side == 'R' else Lv
+            two_bone(u1, f1, h1, tgt, (-Uv * 0.5 - Fv * 0.6 + side_v * 0.7))
+
+    def ops_apply(ops):
+        nm = lambda op: Bn[op[1]] if op[0] == 'MOVE' else Bn[op[0]]
+        for op in sorted(ops, key=lambda op: order.index(nm(op)) if nm(op) in order else -1):
+            if op[0] == 'MOVE':
+                pb = PB[Bn[op[1]]]; v = (Fv * op[2][0] + Uv * op[2][1] + Lv * op[2][2])
+                pb.matrix = mathutils.Matrix.Translation(v) @ pb.matrix; bpy.context.view_layer.update()
+            else:
+                pb = PB[Bn[op[0]]]
+                rot(pb, pb.matrix.translation.copy(), mathutils.Matrix.Rotation(math.radians(op[2]), 4, V(AX[op[1]])))
+
+    def key_all(fr):
+        for pb in PB:
+            for ch in ('location', 'rotation_quaternion', 'scale'): pb.keyframe_insert(ch, frame=fr)
+
+    # the prop hidden in Stand and the walk the model came with
+    for a_ in (stand, walk_act):
+        ad.action = a_
+        for fr in a_.frame_range: pbp.matrix_basis = TINY; pbp.keyframe_insert('scale', frame=fr); pbp.keyframe_insert('location', frame=fr); pbp.keyframe_insert('rotation_quaternion', frame=fr)
+    # WorkWalk: the walk's six keys, the arms laid back to the still's and then on the prop
+    ad.action = walk_act; w0, w1 = walk_act.frame_range; unders = []
+    for i in range(6):
+        fr = w0 + (w1 - w0) * (i + 0.5) / 6
+        sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr)); bpy.context.view_layer.update()
+        unders.append({pb.name: pb.matrix_basis.copy() for pb in PB})
+    act = bpy.data.actions.new('WorkWalk'); ad.action = act
+    held = set(J['walk']['reach'])   # an arm that holds nothing keeps the walk's own swing
+    chains = {'R': set(arm_chain(arm, Bn['RU'])), 'L': set(arm_chain(arm, Bn['LU']))}
+    for fr, i in [(0, 0)] + [(2 * i + 1, i) for i in range(6)] + [(12, 5)]:
+        for pb in PB:
+            if pb.name == pbp.name: continue
+            if any(pb.name in chains[s_] for s_ in held): pb.matrix_basis = base[pb.name].copy()
+            else: pb.matrix_basis = unders[i][pb.name].copy()
+        bpy.context.view_layer.update()
+        M = place(J['walk']['place']); reach(J['walk']['reach'], M); key_all(fr)
+    t = ad.nla_tracks.new(); t.name = 'WorkWalk'; t.strips.new('WorkWalk', 0, act); t.mute = True
+    # Work: the job's distinct poses on his still, the feet planted
+    names = list(J['poses']); act = bpy.data.actions.new('Work'); ad.action = act; n = len(names)
+    for fr, i in [(0, 0)] + [(2 * i + 1, i) for i in range(n)] + [(2 * n, n - 1)]:
+        for pb in PB: pb.matrix_basis = base[pb.name].copy()
+        bpy.context.view_layer.update()
+        Pz = J['poses'][names[i]]
+        ops_apply(Pz['body']); plant()
+        M = place(Pz['place']); reach(Pz['reach'], M); key_all(fr)
+    t = ad.nla_tracks.new(); t.name = 'Work'; t.strips.new('Work', 0, act); t.mute = True
+    ad.action = None
+    for pb in PB: pb.matrix_basis = base[pb.name].copy()
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    bpy.ops.export_scene.gltf(filepath=os.path.abspath(out), export_format='GLB', export_skins=True, export_animations=True, export_apply=False,
+                              use_selection=False, export_animation_mode='NLA_TRACKS', export_force_sampling=True)
+    print('POSED WORK', job, out, names)
+
+
+def arm_chain(arm, top):
+    out = []
+    def down(b):
+        out.append(b.name)
+        for c in b.children: down(c)
+    down(arm.data.bones[top]); return out
+
+
 # ------------------------------------------------------------------------------------------------ the beasts (bpy)
 def pose_beast(src, out):
     """THE BEASTS GET THEIRS (the row: sniff, pant, shake): the beast set laid on a four-legged model (the fox's skeleton every
@@ -532,9 +741,107 @@ def person_done(tag):
     return os.path.exists(os.path.join(ROOT, RENDERS, tag, 'made.txt'))
 
 
+def work_done(tag):
+    return os.path.exists(os.path.join(ROOT, RENDERS, tag + '_work', 'work.txt'))
+
+
+def walker(tag):
+    """a man RUN TWO walks on the settlement's lanes: he has a walk sheet of his own"""
+    return os.path.exists(os.path.join(ROOT, 'slices/rig_walk', tag + '.json'))
+
+
 def person_one(pid):
+    tag = 'person_' + pid.lower()
+    if not person_done(tag): person_idles(pid)
+    if walker(tag) and not work_done(tag):
+        try: work_one(pid)
+        except BaseException as e: print('WORK FAILED', pid, e, flush=True)
+
+
+def work_one(pid):
+    """rule 131: his job's prop and clips on his own model (kept by the idles' pass, else built again), rendered at the
+    street's settings into <tag>_work"""
     tag = 'person_' + pid.lower(); py = sys.executable
-    if person_done(tag): return
+    glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
+    kept = open(gj).read() if os.path.exists(gj) else None
+    if not os.path.exists(glb) or kept is None:
+        run([py, 'tools/bohemia_run2_no_two_people_alike.py', 'build-one', pid], glb)
+        if kept is not None:
+            with open(gj, 'w') as f: f.write(kept)
+    h = json.load(open(gj))['real_height_for_rig']; job = job_of(tag)
+    posed = os.path.join(ROOT, POSED, tag + '_work.glb')
+    run([py, os.path.abspath(__file__), 'pose_work', glb, posed, job, str(h)], posed)
+    out = os.path.join(ROOT, RENDERS, tag + '_work')
+    render_model(posed, out, h, [('Stand', 1), ('WorkWalk', 6), ('Work', len(source()['work']['jobs'][job]['poses']))])
+    os.remove(posed)
+    for f in os.listdir(out):
+        if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
+    with open(os.path.join(out, 'work.txt'), 'w') as f: f.write(job + '\n')
+    print('WORK person', pid, job, flush=True)
+
+
+def work(arg='ALL', workers=4):
+    todo = [p for p in people_list() if (arg.upper() == 'ALL' or p == arg) and walker('person_' + p.lower()) and not work_done('person_' + p.lower())]
+    env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // max(1, workers))),
+               BOHEMIA_BPY=os.environ.get('BOHEMIA_BPY') or sys.executable)
+    procs = []
+    for w in range(max(1, workers)):
+        mine = todo[w::max(1, workers)]
+        if not mine: continue
+        sh = ' ; '.join('%s %s work_one %s' % (sys.executable, os.path.abspath(__file__), x) for x in mine)
+        procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
+    for p in procs: p.wait()
+
+
+def work_sheets():
+    """RUN TWO's walk sheet of every walker with his work rendered, made again the way its own walk_sheets() makes it (his
+    still, then the six keys of his walk, eight turns, every cell one box with his ground pixel at one spot, his own 256
+    colours) with the work after it: the six keys of his walk carrying the job's thing, then the job's poses. The json
+    says which: 'walk' is the carrying walk (the screen's own key, so no code changes), 'walk_plain' his walk without it,
+    'work' the stop's loop, three keys a beat, column by column as the source's timeline holds them."""
+    from PIL import Image
+    D = source(); WJ = D['work']['jobs']
+    od = os.path.join(ROOT, 'slices/rig_walk'); n = 0
+    dirs = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
+    for fn in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
+        if not fn.endswith('_work') or not work_done(fn[:-5]): continue
+        tag = fn[:-5]; wd = os.path.join(ROOT, RENDERS, fn)
+        if not walker(tag): continue
+        job = open(os.path.join(wd, 'work.txt')).read().strip(); J = WJ[job]; names = list(J['poses'])
+        stow = os.path.join(ROOT, 'records/run2/people', tag)
+        src = stow if os.path.exists(os.path.join(stow, 'rig_S.png')) else os.path.join(ROOT, PEOPLE_STILLS, tag)
+        rr = json.load(open(os.path.join(ROOT, PEOPLE_STILLS, tag, 'rig.json'))); rw = json.load(open(os.path.join(wd, 'rig.json')))
+        if rr['res'] != rw['res']: print('SKIP frame', tag); continue
+        gx, gy = rr['crop_box_px'][0] + rr['ground_px'][0], rr['crop_box_px'][1] + rr['ground_px'][1]   # his ground pixel, in the full frame
+        cb_r, cb_w = rr['crop_box_px'][:2], rw['crop_box_px'][:2]
+        rows = []
+        for t in dirs:
+            row = [(Image.open(os.path.join(src, 'rig_%s.png' % t)).convert('RGBA'), cb_r)]
+            row += [(Image.open(os.path.join(src, 'rig_Anim_0_%s_k%02d.png' % (t, k))).convert('RGBA'), cb_r) for k in range(6)]
+            row += [(Image.open(os.path.join(wd, 'rig_WorkWalk_%s_k%02d.png' % (t, k))).convert('RGBA'), cb_w) for k in range(6)]
+            row += [(Image.open(os.path.join(wd, 'rig_Work_%s_k%02d.png' % (t, k))).convert('RGBA'), cb_w) for k in range(len(names))]
+            rows.append(row)
+        bb = [(cb[0] + b[0], cb[1] + b[1], cb[0] + b[2], cb[1] + b[3]) for row in rows for im, cb in row for b in [im.getbbox()] if b]
+        half = max(max(gx - b[0], b[2] - gx) for b in bb) + 1
+        top, bot = min(b[1] for b in bb), max(b[3] for b in bb)
+        w, h, foot = 2 * half, bot - top + 1, gy - top
+        cols = len(rows[0])
+        sheet = Image.new('RGBA', (w * cols, h * 8), (0, 0, 0, 0))
+        for r, row in enumerate(rows):
+            for c, (im, cb) in enumerate(row): sheet.alpha_composite(im, (c * w + half - gx + cb[0], r * h - top + cb[1]))
+        sheet.quantize(256, method=Image.FASTOCTREE, dither=Image.NONE).save(os.path.join(od, tag + '.png'), optimize=True)
+        first = 13
+        loop = [first + names.index(p) for p, keys in J['timeline'] for _ in range(keys)]
+        with open(os.path.join(od, tag + '.json'), 'w') as f:
+            json.dump(dict(w=w, h=h, foot=foot, mid=half, cols=cols, dirs=dirs, walk=[7, 8, 9, 10, 11, 12], still=0, look=tag,
+                           walk_plain=[1, 2, 3, 4, 5, 6], work=loop, job=job, work_poses=names,
+                           work_src='ANIMATION [everybody idles] rule 131: records/target/animation/BOHEMIA_EVERYBODY_IDLES.json work.jobs.' + job), f); f.write('\n')
+        n += 1
+    print('work sheets', n, '->', os.path.relpath(od, ROOT))
+
+
+def person_idles(pid):
+    tag = 'person_' + pid.lower(); py = sys.executable
     glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
     kept = open(gj).read() if os.path.exists(gj) else None   # RUN TWO's committed record of his build: his real height stays its own
     if not os.path.exists(glb) or kept is None:
@@ -703,10 +1010,16 @@ def people(arg='ALL', workers=4):
 
 # ------------------------------------------------------------------------------------------------ preview (bpy)
 def preview(glb, out, set_name='bare', facings='S,SE,E,N'):
+    if set_name.startswith('work:'):   # work:<job>: the WorkWalk's six and the job's poses, one row each
+        J = source()['work']['jobs'][set_name[5:]]
+        return preview_clips(glb, out, [('WorkWalk', 6), ('Work', len(J['poses']))], facings)
+    return preview_clips(glb, out, [(CLIP[set_name], len(pose_list(source(), set_name)))], facings, beast=set_name == 'beast')
+
+
+def preview_clips(glb, out, clips, facings='S,SE,E,N', beast=False):
     """a quick look at every pose of a set at four facings (Cycles 8 samples, 3x), to judge the bone turns before the real
     render; never shipped"""
     import bpy, mathutils
-    D = source(); poses = pose_list(D, set_name); name = CLIP[set_name]
     sys.path.insert(0, os.path.join(ROOT, 'tools'))
     import bohemia_direction_master_rig as MR
     MR.bpy = bpy
@@ -716,7 +1029,6 @@ def preview(glb, out, set_name='bare', facings='S,SE,E,N'):
         if o.type == 'MESH' and o.name.startswith('Icosphere') and o.parent is None and len(o.data.vertices) == 42: bpy.data.objects.remove(o, do_unlink=True)
     objs = [o for o in sc.objects if o.type == 'MESH']
     root = bpy.data.objects.new('turntable', None); sc.collection.objects.link(root)
-    beast = set_name == 'beast'
     MR.clip_actions(sc, 'Walk' if beast else 'Stand'); sc.frame_set(1); lo, hi = MR.bounds(sc, objs)
     centre = mathutils.Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)); k = (1.7 / max(hi.x - lo.x, hi.y - lo.y)) if beast else 1.72 / (hi.z - lo.z)
     for o in list(sc.objects):
@@ -727,18 +1039,20 @@ def preview(glb, out, set_name='bare', facings='S,SE,E,N'):
     t = math.radians(45); cam.rotation_euler = (t, 0, 0); cam.location = mathutils.Vector((0, 0, 1.25)) - mathutils.Vector((0, math.sin(t), -math.cos(t))) * 30
     sc.render.resolution_x = sc.render.resolution_y = 240
     MR.light_and_film(sc, dict(sun_rot=list(MR.G['sun_rot_deg']))); sc.cycles.samples = 8; sc.render.film_transparent = True
-    a0, a1 = MR.clip_actions(sc, name); n = len(poses)
     from PIL import Image
     FA = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']; fs = facings.split(',')
-    sheet = Image.new('RGBA', (240 * n, 240 * len(fs)), (70, 66, 60, 255))
+    cols = max(n for _, n in clips)
+    sheet = Image.new('RGBA', (240 * cols, 240 * len(fs) * len(clips)), (70, 66, 60, 255))
     tmp = os.path.join(os.path.dirname(os.path.abspath(out)), '_pv.png')
-    for i in range(n):
-        fr = a0 + (a1 - a0) * (i + 0.5) / n; sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
-        for r, f in enumerate(fs):
-            root.rotation_euler = (0, 0, math.radians(180 - 45 * FA.index(f)))
-            sc.render.filepath = tmp; bpy.ops.render.render(write_still=True)
-            im = Image.open(tmp).convert('RGBA'); sheet.alpha_composite(im, (240 * i, 240 * r))
-    sheet.save(out); print('PREVIEW', out, [p[0] for p in poses])
+    for ci, (name, n) in enumerate(clips):
+        a0, a1 = MR.clip_actions(sc, name)
+        for i in range(n):
+            fr = a0 + (a1 - a0) * (i + 0.5) / n; sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
+            for r, f in enumerate(fs):
+                root.rotation_euler = (0, 0, math.radians(180 - 45 * FA.index(f)))
+                sc.render.filepath = tmp; bpy.ops.render.render(write_still=True)
+                im = Image.open(tmp).convert('RGBA'); sheet.alpha_composite(im, (240 * i, 240 * (r + ci * len(fs))))
+    sheet.save(out); print('PREVIEW', out, clips)
 
 
 # ------------------------------------------------------------------------------------------------ pack (python3)
@@ -857,6 +1171,10 @@ if __name__ == '__main__':
     elif cmd == 'maps': maps(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 1)
     elif cmd == 'beasts': beasts(a[0] if a else 'ALL')
     elif cmd == 'person_one': person_one(a[0])
+    elif cmd == 'pose_work': pose_work(a[0], a[1], a[2], float(a[3]))
+    elif cmd == 'work_one': work_one(a[0])
+    elif cmd == 'work': work(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 4)
+    elif cmd == 'work_sheets': work_sheets()
     elif cmd == 'people_pack': people_pack()
     elif cmd == 'people': people(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 4)
     elif cmd == 'preview': preview(*a)

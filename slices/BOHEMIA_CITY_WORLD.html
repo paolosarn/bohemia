@@ -45504,7 +45504,7 @@ function mapIdleFrame(set, face, beat, still){
     var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
     x.drawImage(img, q[0], q[1], q[2], q[3], 56 - m.w / 2 + q[4], Math.round(H * 0.93) - m.foot + q[5], q[2], q[3]);
   }
-  if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.idling = (MAP_DREW.art.idling | 0) + 1;
+  if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.idling = (MAP_DREW.art.idling | 0) + 1; if (set.__mix) MAP_DREW.art.idlingMix = (MAP_DREW.art.idlingMix | 0) + 1; }
   return c;
 }
 /* ==== end __EVERYBODY_IDLES__ ==== */

@@ -3138,7 +3138,7 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   if (v._idleSince === undefined) v._idleSince = now;
   const set = L.kind === 'beast' ? 'beast' : p.clip === 'carry' ? 'carry' : 'bare', f = v._face || 0;
   const c = B.frame(look, 'fight:' + v.id, now, f, { set: set, beatMs: beatMs(), since: v._idleSince, idles: set === 'bare' ? IDLE_FIGHT_BARE : null });
-  if (!c) return false;
+  if (!c || c.person) return false;   /* a rolled man of the valley: his cells sit in his street frame, not a fight cell; his still */
   let g = null;
   if (gs) { g = B.gun(look, DB.rig.guns.order[gs.row], c.pose, f); if (!g) return false; }   /* never a man without his gun: the still until it is in */
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);

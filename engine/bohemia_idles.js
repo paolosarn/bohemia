@@ -121,7 +121,7 @@
     var i = col[((f | 0) % 8 + 8) % 8]; if (i === null || i === undefined) return null;
     var img = sheet(Sh.file); if (!img) return null;   /* a set a sheet: only what this screen plays is loaded */
     var c = Sh.cells[i];
-    return { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5], foot: (L.feet && L.feet[((f | 0) % 8 + 8) % 8]) || L.foot };
+    return { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5], foot: (L.feet && L.feet[((f | 0) % 8 + 8) % 8]) || L.foot, person: !!L.person };
   }
   function gun(look, g, pose, f) {
     if (!has(look)) return null;
