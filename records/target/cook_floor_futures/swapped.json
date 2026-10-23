@@ -33,5 +33,10 @@
   "file": "slices/fight_ground/block_corner_2_reclaimed.webp",
   "sha1": "cfad3a993b691961b414c369c74824d7d698b5e8",
   "master": "records/target/cook_floor_futures/reclaimed/block_corner_2.webp"
+ },
+ "lots.0.reclaimed": {
+  "file": "slices/fight_ground/block_lots_0_reclaimed.webp",
+  "sha1": "f6f554c994b18526887a67eb3731759af1987c4c",
+  "master": "records/target/cook_floor_futures/reclaimed/block_lots_0.webp"
  }
 }

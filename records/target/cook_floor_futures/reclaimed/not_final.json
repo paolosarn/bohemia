@@ -236,5 +236,36 @@
    "panels": 132,
    "beds": 10
   }
+ },
+ "lots.0": {
+  "seconds": 853,
+  "junk": {
+   "bags": 0,
+   "paper": 523,
+   "card": 131,
+   "cloth": 54,
+   "weeds": 364,
+   "mattresses": 1,
+   "couches": 1,
+   "fires": 1,
+   "dead_lawn": 0,
+   "paths": 0,
+   "bins": 0,
+   "tracks": 0,
+   "tidy_house": -1,
+   "burnt_house": -1
+  },
+  "grime": {
+   "materials": 14,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": []
+  },
+  "file": "records/target/cook_floor_futures/reclaimed/block_lots_0.webp",
+  "future": null
  }
 }
