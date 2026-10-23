@@ -75,7 +75,9 @@ async function beforeBegin(page) {
   ok('IN THE GAME THE GEAR OPENS THE CARD WITH ALL, MUSIC, AMBIENCE, EFFECTS, MUTE, TEXT, BRIGHT', a.open && ['ALL', 'MUSIC', 'AMBIENCE', 'EFFECTS', 'MUTE', 'TEXT', 'BRIGHT'].every(k => a.labs.indexOf(k) >= 0), a.labs.join(' '));
   const small = a.ctrls.filter(c => c.w < 44 || c.h < 44);
   ok('EVERY CONTROL IS A THUMB (44 x 44 or more)', a.ctrls.length >= 20 && small.length === 0, a.ctrls.length + ' controls, small: ' + small.map(c => c.t + ' ' + Math.round(c.w) + 'x' + Math.round(c.h)).join(', '));
-  ok('THE CARD IS DRAWN FROM THE MATERIALS (a cardboard picture, not a flat fill)', /url\("?data:image/.test(a.bg), a.bg.slice(0, 40));
+  /* UI 10/23 [the UI the Crashbox way]: the card is now the kit's board, rendered through the rig (slices/ui_kit/); a canvas
+     picture or a rendered one both count, a flat fill never does */
+  ok('THE CARD IS DRAWN FROM THE MATERIALS (a cardboard picture, not a flat fill)', /url\("?data:image/.test(a.bg) || /ui_kit\/board/.test(a.bg), a.bg.slice(0, 40));
   ok('  its words are the game\'s CASING face, loaded', a.casing && a.labFam === 'BohemiaCasing' && a.btns.every(b => b.fam === 'BohemiaCasing'), a.labFam + ' / ' + a.btns.map(b => b.fam).join(','));
   ok('  buttons read from the left (no centred words) and cast no soft shadow', a.btns.length >= 5 && a.btns.every(b => b.tx <= 14 && b.sh === 'none'),
      a.btns.map(b => b.t + ' +' + b.tx + ' ' + (b.sh === 'none' ? '' : b.sh)).join(', '));

@@ -69,7 +69,9 @@ const done = () => { console.log('\nTHE FIGHT\'S BAR IS STUDIO MADE: ' + pass + 
   ok('NO TAG ON THE BAR IS A CENTRED LABEL: each reads from the left', a.tags.every(t => t.align !== 'center' && t.tx !== null && t.tx <= 12),
      a.tags.map(t => t.id + ' ' + t.align + ' text at +' + t.tx + 'px').join(', '));
   ok('  each tag carries its printed mark (12 px, drawn)', a.tags.every(t => t.mark), a.tags.map(t => t.id + '=' + t.mark).join(' '));
-  ok('PAPER CASTS A HARD ONE-PIXEL EDGE, NEVER A SOFT DROP SHADOW', a.tags.every(t => t.shadow === 'none' && /drop-shadow\(rgba\([^)]*\) 0px 1px 0px\)/.test(t.filter)) && a.say.sh === 'none',
+  /* UI 10/23 [the UI the Crashbox way]: a tin slab casts its shadow from the world's sun (up and to the left), two points
+     right and one down; still hard (no blur), still a contact edge, never a soft glow */
+  ok('PAPER CASTS A HARD ONE-PIXEL EDGE, NEVER A SOFT DROP SHADOW', a.tags.every(t => t.shadow === 'none' && /drop-shadow\(rgba\([^)]*\) [0-2]px [0-2]px 0px\)/.test(t.filter)) && a.say.sh === 'none',
      a.tags.map(t => t.id + ' ' + t.shadow + ' / ' + t.filter).join(' | '));
   ok('THE HINT IS NEVER CUT OFF, AND STAYS ON THE GLASS', a.say.shown && !a.say.cut && a.say.l >= 0 && a.say.r <= a.say.vw, '"' + a.say.text + '" ' + a.say.l + '..' + a.say.r + ' of ' + a.say.vw);
   ok('THE CARDBOARD SHOWS ITS CUT EDGE along the top of the bar', a.edge >= 2, a.edge + ' layers');

@@ -72,10 +72,10 @@ SNAP = 0.3
 PIECES = {
     'tin':         dict(kind='plate', paint=(0.93, 0.89, 0.78), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True),
     'tin_dark':    dict(kind='plate', paint=(0.22, 0.22, 0.17), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True, dust=0.25),
-    'tin_amber':   dict(kind='plate', paint=(0.88, 0.71, 0.30), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True),
+    'tin_amber':   dict(kind='plate', paint=(0.97, 0.82, 0.44), P=64, ins=[12, 12, 12, 12], T=4.7, r=5.0, bead=True, rivets=True),
     'board':       dict(kind='board', paint=(0.30, 0.222, 0.145), P=192, ins=[14, 6, 6, 6], T=4.7, r=1.5, flutes=True),
     'board_plain': dict(kind='board', paint=(0.30, 0.225, 0.15), P=192, ins=[6, 6, 6, 6], T=4.7, r=1.5, flutes=False),
-    'receipt':     dict(kind='paper', paint=(0.90, 0.87, 0.79), P=96, ins=[6, 6, 6, 6], T=2.4, r=0.6),
+    'receipt':     dict(kind='paper', paint=(0.95, 0.92, 0.84), P=96, ins=[6, 6, 6, 6], T=2.4, r=0.6),
     'glass':       dict(kind='glass', paint=(0.10, 0.10, 0.10), P=128, ins=[8, 8, 8, 8], T=3.6, r=3.0, crack_cells=3),
     'well':        dict(kind='well', paint=(0.20, 0.20, 0.16), floor='glass', P=48, ins=[11, 6, 7, 12], T=4.7, r=3.0, crack_cells=2),
     'tray':        dict(kind='well', paint=(0.20, 0.20, 0.16), floor='glass', P=128, ins=[11, 6, 7, 12], T=4.7, r=3.0, crack_cells=3),
@@ -350,8 +350,8 @@ def build(bpy, G, name, spec):
             # the board under the liner: the face stops short of the top, the medium (the flutes) shows in the band, and
             # the liner's torn line wanders (a periodic wander, so the edge repeats)
             n = 384; wander = pnoise(n, 30, 77, 3)[0] * 2.6 + pnoise(n, 3, 78, 2)[0] * 0.9
-            def tear(x):
-                return float(np.interp((x % P) / P * n, np.arange(n), wander))
+            def tear(x):   # periodic: the sample past the last wraps to the first, so the torn line repeats with the board
+                return float(np.interp((x % P) / P * n, np.arange(n + 1), np.append(wander, wander[0])))
             # build the face as a polygon: bottom edge left->right, then the torn top right->left
             poly = [(0, 0), (W, 0), (W, H - band - tear(W))] + [(x, H - band - tear(x)) for x in np.arange(W - 0.5, 0.0, -0.5)] + [(0, H - band - tear(0))]
             slab(bpy, 'board', poly, 0, T, board, bevel=0.6, seg=2)

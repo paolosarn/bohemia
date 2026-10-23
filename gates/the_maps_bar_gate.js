@@ -37,14 +37,19 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
     const hour = document.querySelector(NEW ? '#bmtb [data-f=day]' : '#barread .rd[data-k="hour"]'), sixP = document.querySelector(NEW ? '#bmtb .g' : '#barread .rd.six'), note = document.getElementById(NEW ? 'notebtn' : 'noteplate');
     const pad = document.getElementById('speedpad'), plates = pad ? Array.from(pad.querySelectorAll('.sp')) : [];
     const box = el => { const r = el.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
+    /* UI 10/23 [the UI the Crashbox way]: a tag is now a tin slab lit from the left, its right bevel in shade, so a word is
+       read against the ground right beside it, inside the slab (the word's own box, read off its text) */
+    const tbox = el => { const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); let n, best = null;
+      while ((n = tw.nextNode())) if (n.textContent.trim() && (!best || n.textContent.trim().length > best.textContent.trim().length)) best = n;
+      if (!best) return box(el); const rg = document.createRange(); rg.selectNodeContents(best); const r = rg.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
     return { NEW, six, mats: { bar: /url\(/.test(bg(document.getElementById('menubar'))), hour: /url\(/.test(bg(hour)), note: /url\(/.test(bg(note)), six: /url\(/.test(bg(sixP)),
-        pad: /url\(/.test(bg(pad)), plates: plates.every(p => /url\(/.test(bg(p)) || p.classList.contains('now')), lit: plates.filter(p => p.classList.contains('now')).every(p => /gradient/.test(bg(p))) },
+        pad: /url\(/.test(bg(pad)), plates: plates.every(p => /url\(/.test(bg(p)) || p.classList.contains('now')), lit: plates.filter(p => p.classList.contains('now')).every(p => /gradient|ui_kit\/tin_amber/.test(bg(p))) },
       radius: pad ? parseFloat(getComputedStyle(pad).borderTopLeftRadius) : null, thumbs: plates.map(p => [Math.round(p.getBoundingClientRect().width), Math.round(p.getBoundingClientRect().height)]),
-      words: [ { k: NEW ? 'the day on receipt' : 'the hour on receipt', box: box(hour), col: getComputedStyle(hour).color, side: 'right' },
-               { k: 'NOTES on receipt', box: box(note), col: getComputedStyle(note).color, side: 'right' },
+      words: [ { k: NEW ? 'the day on receipt' : 'the hour on receipt', box: tbox(hour), col: getComputedStyle(hour).color, side: 'text' },
+               { k: 'NOTES on receipt', box: tbox(note), col: getComputedStyle(note).color, side: 'text' },
                { k: 'a count on glass', box: box(sixP), col: getComputedStyle(sixP.querySelector('b')).color, side: 'right' } ]
-        .concat(plates.filter(p => !p.classList.contains('now')).slice(0, 1).map(p => ({ k: 'a speed on glass', box: box(p), col: getComputedStyle(p).color, side: 'edge' })))
-        .concat(plates.filter(p => p.classList.contains('now')).map(p => ({ k: 'the lit speed', box: box(p), col: getComputedStyle(p).color, side: 'edge' }))),
+        .concat(plates.filter(p => !p.classList.contains('now')).slice(0, 1).map(p => ({ k: 'a speed on glass', box: tbox(p), col: getComputedStyle(p).color, side: 'text' })))
+        .concat(plates.filter(p => p.classList.contains('now')).map(p => ({ k: 'the lit speed', box: tbox(p), col: getComputedStyle(p).color, side: 'text' }))),
       off: (() => { const r = window.frameElement ? window.frameElement.getBoundingClientRect() : { x: 0, y: 0 }; return [r.x, r.y]; })() };
   });
   ok('THE SIX ARE DRAWN OBJECTS FROM THE MATERIALS FILE, in rule 47a\'s order', a.six.map(s => s.k).join(' ') === (a.NEW ? 'batteries food meds rounds water' : 'batteries food meds rounds tape water') && a.six.every(s => s.img && s.drawn && s.nat === 30),
@@ -61,7 +66,7 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
     const sc = im.width / innerWidth, LUM = (r, gg, b) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(gg) + 0.0722 * f(b); };
     const CR = (x, y) => (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05), SUN = q => q.map(v => v + (255 - v) * 0.25);
     return words.map(w => { const [x, y, ww, hh] = w.box, X = x + off[0], Y = y + off[1];
-      const bx = w.side === 'right' ? [X + ww - 5, Y + 3, 3, hh - 6] : [X + 3, Y + 3, 4, hh - 6];
+      const bx = w.side === 'text' ? [X + ww + 2, Y + 2, 3, Math.max(2, hh - 4)] : w.side === 'right' ? [X + ww - 5, Y + 3, 3, hh - 6] : [X + 3, Y + 3, 4, hh - 6];
       const d = g.getImageData(Math.round(bx[0] * sc), Math.round(bx[1] * sc), Math.max(1, Math.round(bx[2] * sc)), Math.max(1, Math.round(bx[3] * sc))).data, S = [];
       for (let i = 0; i < d.length; i += 4) S.push([d[i], d[i + 1], d[i + 2]]); S.sort((p, q) => LUM(...p) - LUM(...q));
       const t = w.col.match(/\d+/g).slice(0, 3).map(Number), tl = LUM(...t), bg = S[Math.floor(S.length * (tl > 0.3 ? 0.8 : 0.2))];
