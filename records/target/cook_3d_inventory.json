@@ -205,7 +205,7 @@
   "fight_floor_futures": {
    "where": "the fight when a place is raided or reclaimed, slices/fight_ground/block_*_{raided,reclaimed}.webp",
    "total": 70,
-   "flat": 41,
+   "flat": 40,
    "in_3d": [
     "corner.0.raided",
     "corner.0.reclaimed",
@@ -235,6 +235,7 @@
     "subs.3.reclaimed",
     "wash.0.reclaimed",
     "wash.1.reclaimed",
+    "works.0.raided",
     "works.0.reclaimed"
    ]
   },
@@ -295,7 +296,7 @@
   "slices/fight_beasts": 1,
   "slices/settlement_people": 25
  },
- "total_flat": 41,
+ "total_flat": 40,
  "log": [
   {
    "at": "10/20 start",
@@ -1156,6 +1157,17 @@
    "settlement_backdrops": 0,
    "map_districts": 0,
    "fight_floor_futures": 41,
+   "fight_lights": 0,
+   "item_icons": 0
+  },
+  {
+   "at": "10/23 works.0 raided",
+   "total_flat": 40,
+   "fight_floor": 0,
+   "fight_cover": 0,
+   "settlement_backdrops": 0,
+   "map_districts": 0,
+   "fight_floor_futures": 40,
    "fight_lights": 0,
    "item_icons": 0
   }
