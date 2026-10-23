@@ -312,7 +312,7 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
-CHARACTER (character-layers): 10/23 (y) LATEST -- *** THE CLOTHES LOOK REAL, LAYERS FIRST: EVERY PERSON WEARS AN OUTFIT OF LAYERS THAT SHOW; 110 OF RUN TWO'S 116 WEAR TWO OR MORE (WAS 40); THE COATS HANG IN FOLDS. ***
+CHARACTER (character-layers): 10/23 (y) LATEST -- *** THE CLOTHES LOOK REAL, LAYERS FIRST: EVERY PERSON WEARS AN OUTFIT OF LAYERS THAT SHOW; 143 OF RUN TWO'S 152 WEAR TWO OR MORE (110 OF THE FIRST 116, WAS 40); THE COATS HANG IN FOLDS. ***
 TAB: NOT IN A TAB YET until RUN TWO renders again from main (its 152 were built at 03:01 from an older checkout, without
 the outfits). No card (rule 127). Sheet: records/target/character/the_clothes_look_real/CHARACTER_THE_LAYERS_BEFORE_AND_AFTER.png
 (eight of RUN TWO's people before and after, 1:1 and x3). Record: records/BOHEMIA_THE_CLOTHES_LOOK_REAL_LAYERS_10_23_26.md.
@@ -343,7 +343,7 @@ CHARACTER IN THE VOTE TAB 9/0, TOOLS RUN 8/0; REFERENCE CHECK and REUSE-FIRST re
 [bb Battle Brothers draws body armour and helmet whole, slot over slot; ours are worn the way people wear them, open,
 pushed up and untucked, so the layer under shows at 112 px.]
 [analog horror: a hoodie gone sand-coloured under a cracked jacket, a shirt worn open because the buttons went for trade.]
-Lead line for DIRECTION (rule 113a): CHARACTER put every person in an outfit of layers that show (110 of 116 in two or more,
+Lead line for DIRECTION (rule 113a): CHARACTER put every person in an outfit of layers that show (143 of 152 in two or more,
 the under layer another value) and hung the coats in folds; it reaches the game when RUN TWO renders again.
 NEXT: [the clothes look real] continues: sleeves that bunch, each cloth its own surface at 1.75 cm a pixel.
 PENDING Paolo: nothing.

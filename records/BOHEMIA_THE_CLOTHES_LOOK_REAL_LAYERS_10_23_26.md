@@ -60,7 +60,8 @@ open, ohw, collar_z, fo_add, collar, neck_top, sleeve_to, push). With no layer e
 coat and top cards, the fourteen looks). The barber's person build decides the outfit before the body, so RUN TWO's
 builder (`tools/bohemia_run2_no_two_people_alike.py build-one`) takes it unedited.
 
-**THE COUNT** (RUN TWO's 116, `records/target/character/BOHEMIA_THE_OUTFITS.json`): two layers or more on 110 (was 40);
+**THE COUNT** (RUN TWO's first 116, `records/target/character/BOHEMIA_THE_OUTFITS.json`; over its full roll of 152 since,
+143 in two layers or more, 58 tops and 14 coats in another colour, 9 in one): two layers or more on 110 (was 40);
 45 tops and 11 coats in another colour of the same cut so the two read apart; 6 still one garment (two work
 coveralls, which are one garment by nature, and four left bare by the roll's 1 in 20 to 1 in 10: a tank in the heat, a
 henley, a short-sleeve shirt, a flannel). Every person also keeps GEAR 1's kit (bags, straps, scarves,

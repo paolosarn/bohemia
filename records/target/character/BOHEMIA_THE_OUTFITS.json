@@ -2,10 +2,10 @@
  "what": "CHARACTER [the clothes look real] THE OUTFIT BOOK (rule 129 as corrected): each person of the roll and the layers his build wears (tools/bohemia_character_the_outfit.py outfit(), off his id; the barber builds them)",
  "roll": "records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json",
  "counts": {
-  "2 layers": 110,
-  "top swapped for value": 45,
-  "coat swapped for value": 11,
-  "1 layers": 6
+  "2 layers": 143,
+  "top swapped for value": 58,
+  "coat swapped for value": 14,
+  "1 layers": 9
  },
  "people": [
   {
@@ -3149,6 +3149,1010 @@
    },
    "why": [
     "his BLACK TANK over a SAGE STRIPED HENLEY, its sleeves and hem out from under"
+   ]
+  },
+  {
+   "id": "town_12",
+   "gang": "Body",
+   "base": "STRIPED TEE",
+   "mid": null,
+   "outer": "CAR COAT",
+   "rolled": {
+    "top": "STRIPED TEE",
+    "coat": "CAR COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "CAR COAT",
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.048,
+     "collar_z": 1.11,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "CAR COAT worn open to the neck"
+   ]
+  },
+  {
+   "id": "town_13",
+   "gang": "Body",
+   "base": "ROLLED FLANNEL",
+   "mid": null,
+   "outer": "KHAKI JACKET",
+   "rolled": {
+    "top": "ROLLED FLANNEL",
+    "coat": "KHAKI JACKET"
+   },
+   "layers": {
+    "base": {
+     "under": "JACKET",
+     "hem_drop": 0.05,
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039
+    }
+   },
+   "why": [
+    "the rolled sleeve's hem below the jacket"
+   ]
+  },
+  {
+   "id": "town_14",
+   "gang": "Body",
+   "base": "LONGLINE JERSEY",
+   "mid": "DUST PLAID SHIRT",
+   "outer": null,
+   "rolled": {
+    "top": "LONGLINE JERSEY",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": true,
+     "ohw": 0.05
+    },
+    "outer": {}
+   },
+   "why": [
+    "an open DUST PLAID SHIRT over the LONGLINE JERSEY"
+   ]
+  },
+  {
+   "id": "town_15",
+   "gang": "Body",
+   "base": "RED PLAID FLANNEL",
+   "mid": null,
+   "outer": "RANGER LONGCOAT",
+   "rolled": {
+    "top": "RED PLAID FLANNEL",
+    "coat": "RANGER LONGCOAT"
+   },
+   "layers": {
+    "base": {
+     "under": "LONGCOAT",
+     "collar_out": 0.0199,
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.046,
+     "collar_z": 1.1,
+     "fo_add": 0.25,
+     "collar": false,
+     "neck_top": 1.1,
+     "sleeve_to": 1.42,
+     "push": true
+    }
+   },
+   "why": [
+    "RANGER LONGCOAT worn open to the neck",
+    "the shirt's collar out over the lapels",
+    "the sleeves pushed up the forearm"
+   ]
+  },
+  {
+   "id": "town_16",
+   "gang": "Body",
+   "base": "LAYERED JERSEY",
+   "mid": null,
+   "outer": null,
+   "rolled": {
+    "top": "LAYERED JERSEY",
+    "coat": null
+   },
+   "layers": {
+    "base": {},
+    "mid": {},
+    "outer": {}
+   },
+   "why": []
+  },
+  {
+   "id": "town_17",
+   "gang": "Body",
+   "base": "ARC SHOULDER TEE",
+   "mid": null,
+   "outer": null,
+   "rolled": {
+    "top": "ARC SHOULDER TEE",
+    "coat": null
+   },
+   "layers": {
+    "base": {},
+    "mid": {},
+    "outer": {}
+   },
+   "why": []
+  },
+  {
+   "id": "town_18",
+   "gang": "Body",
+   "base": "STEEL PLAID FLANNEL",
+   "mid": null,
+   "outer": "OXBLOOD PONCHO",
+   "rolled": {
+    "top": "STEEL PLAID FLANNEL",
+    "coat": "OXBLOOD PONCHO"
+   },
+   "layers": {
+    "base": {},
+    "mid": {},
+    "outer": {}
+   },
+   "why": []
+  },
+  {
+   "id": "town_19",
+   "gang": "Body",
+   "base": "MOSS GREEN SHIRT",
+   "mid": null,
+   "outer": "LEATHER WRAP COAT",
+   "rolled": {
+    "top": "FADED BLACK LONGSLEEVE",
+    "coat": "LEATHER WRAP COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "WRAP COAT",
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "sleeve_to": 1.42,
+     "push": true
+    }
+   },
+   "why": [
+    "FADED BLACK LONGSLEEVE read as one with LEATHER WRAP COAT (48 and 69 of 255): the same cut in MOSS GREEN SHIRT (160)",
+    "the sleeves pushed up the forearm"
+   ]
+  },
+  {
+   "id": "town_20",
+   "gang": "Body",
+   "base": "STRIPED TEE",
+   "mid": "STORM BUTTON-UP",
+   "outer": null,
+   "rolled": {
+    "top": "STORM BUTTON-UP",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": true,
+     "ohw": 0.05
+    },
+    "outer": {}
+   },
+   "why": [
+    "his STORM BUTTON-UP worn open over a STRIPED TEE"
+   ]
+  },
+  {
+   "id": "town_21",
+   "gang": "Body",
+   "base": "TEAL STRIPED TEE",
+   "mid": "OXBLOOD PLAID FLANNEL",
+   "outer": null,
+   "rolled": {
+    "top": "TEAL STRIPED TEE",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": true,
+     "ohw": 0.05,
+     "sleeves": "rolled"
+    },
+    "outer": {}
+   },
+   "why": [
+    "an open OXBLOOD PLAID FLANNEL over the TEAL STRIPED TEE",
+    "its sleeves rolled"
+   ]
+  },
+  {
+   "id": "town_22",
+   "gang": "Body",
+   "base": "TATTERED TEE",
+   "mid": "RED PLAID FLANNEL",
+   "outer": null,
+   "rolled": {
+    "top": "TATTERED TEE",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": true,
+     "ohw": 0.05,
+     "sleeves": "rolled"
+    },
+    "outer": {}
+   },
+   "why": [
+    "an open RED PLAID FLANNEL over the TATTERED TEE",
+    "its sleeves rolled"
+   ]
+  },
+  {
+   "id": "town_23",
+   "gang": "Body",
+   "base": "STEEL WORK SHIRT",
+   "mid": null,
+   "outer": "GRASS WRAP COAT",
+   "rolled": {
+    "top": "STEEL WORK SHIRT",
+    "coat": "GRASS WRAP COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "WRAP COAT",
+     "arms_covered": true,
+     "cuff_to": 1.89
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "sleeve_to": 1.7
+    }
+   },
+   "why": [
+    "the sleeve ends short of the cuff under it"
+   ]
+  },
+  {
+   "id": "town_24",
+   "gang": "Body",
+   "base": "TEAL WORK SHIRT",
+   "mid": null,
+   "outer": "KHAKI DUSTER",
+   "rolled": {
+    "top": "TEAL WORK SHIRT",
+    "coat": "KHAKI DUSTER"
+   },
+   "layers": {
+    "base": {
+     "under": "DUSTER",
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.06,
+     "collar_z": 1.1,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "KHAKI DUSTER worn open to the neck"
+   ]
+  },
+  {
+   "id": "town_25",
+   "gang": "Body",
+   "base": "BONE TANK",
+   "mid": "RED PLAID FLANNEL",
+   "outer": null,
+   "rolled": {
+    "top": "BONE TANK",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.01,
+     "open": true,
+     "ohw": 0.05
+    },
+    "outer": {}
+   },
+   "why": [
+    "an open RED PLAID FLANNEL over the BONE TANK"
+   ]
+  },
+  {
+   "id": "town_26",
+   "gang": "Body",
+   "base": "COBALT SHIRT",
+   "mid": null,
+   "outer": "BRICK COMMA COAT",
+   "rolled": {
+    "top": "COBALT SHIRT",
+    "coat": "BRICK COMMA COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "COMMA COAT",
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.044,
+     "collar_z": 1.1,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "BRICK COMMA COAT worn open to the neck"
+   ]
+  },
+  {
+   "id": "town_27",
+   "gang": "Body",
+   "base": "STRIPED TEE",
+   "mid": null,
+   "outer": "LEATHER SPLIT-TAIL COAT",
+   "rolled": {
+    "top": "STEEL STRIPED TEE",
+    "coat": "LEATHER SPLIT-TAIL COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "SPLIT TAIL",
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039
+    }
+   },
+   "why": [
+    "STEEL STRIPED TEE read as one with LEATHER SPLIT-TAIL COAT (88 and 69 of 255): the same cut in STRIPED TEE (154)"
+   ]
+  },
+  {
+   "id": "town_28",
+   "gang": "Body",
+   "base": "PATINA PLAID FLANNEL",
+   "mid": null,
+   "outer": "GRASS CAR COAT",
+   "rolled": {
+    "top": "PATINA PLAID FLANNEL",
+    "coat": "GRASS CAR COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "CAR COAT",
+     "collar_out": 0.0199,
+     "arms_covered": true,
+     "cuff_to": 1.89
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.048,
+     "collar_z": 1.11,
+     "fo_add": 0.25,
+     "collar": false,
+     "neck_top": 1.1,
+     "sleeve_to": 1.7
+    }
+   },
+   "why": [
+    "GRASS CAR COAT worn open to the neck",
+    "the shirt's collar out over the lapels",
+    "the sleeve ends short of the cuff under it"
+   ]
+  },
+  {
+   "id": "town_29",
+   "gang": "Body",
+   "base": "SAGE STRIPED HENLEY",
+   "mid": "RED PLAID FLANNEL",
+   "outer": null,
+   "rolled": {
+    "top": "SAGE STRIPED HENLEY",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": true,
+     "ohw": 0.05,
+     "sleeves": "rolled"
+    },
+    "outer": {}
+   },
+   "why": [
+    "an open RED PLAID FLANNEL over the SAGE STRIPED HENLEY",
+    "its sleeves rolled"
+   ]
+  },
+  {
+   "id": "town_30",
+   "gang": "Body",
+   "base": "SAND HOODIE",
+   "mid": null,
+   "outer": "BRICK CAR COAT",
+   "rolled": {
+    "top": "RUST HOODIE",
+    "coat": "BRICK CAR COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "CAR COAT",
+     "hood_over": 0.022,
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.006,
+     "open": true,
+     "ohw": 0.048,
+     "collar_z": 1.11,
+     "fo_add": 0.25,
+     "collar": false,
+     "neck_top": 1.12
+    }
+   },
+   "why": [
+    "RUST HOODIE read as one with BRICK CAR COAT (79 and 68 of 255): the same cut in SAND HOODIE (111)",
+    "BRICK CAR COAT worn open to the neck",
+    "the hood heaped over the coat's collar"
+   ]
+  },
+  {
+   "id": "town_31",
+   "gang": "Body",
+   "base": "STORM HENLEY",
+   "mid": "DUST PLAID SHIRT",
+   "outer": null,
+   "rolled": {
+    "top": "STORM HENLEY",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": true,
+     "ohw": 0.05
+    },
+    "outer": {}
+   },
+   "why": [
+    "an open DUST PLAID SHIRT over the STORM HENLEY"
+   ]
+  },
+  {
+   "id": "town_32",
+   "gang": "Body",
+   "base": "WIDE SHOULDER TEE",
+   "mid": null,
+   "outer": "KHAKI JACKET",
+   "rolled": {
+    "top": "WIDE SHOULDER TEE",
+    "coat": "STORM JACKET"
+   },
+   "layers": {
+    "base": {
+     "under": "JACKET",
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.05,
+     "collar_z": 1.12,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "WIDE SHOULDER TEE read as one with STORM JACKET (52 and 72 of 255) and no colour of that top reads apart: the same coat in KHAKI JACKET (111)",
+    "KHAKI JACKET worn open to the neck"
+   ]
+  },
+  {
+   "id": "town_33",
+   "gang": "Body",
+   "base": "COBALT SHIRT",
+   "mid": null,
+   "outer": "BRICK LONGCOAT",
+   "rolled": {
+    "top": "SIGNAL RED SHIRT",
+    "coat": "BRICK LONGCOAT"
+   },
+   "layers": {
+    "base": {
+     "under": "LONGCOAT",
+     "arms_covered": true,
+     "cuff_to": 1.89
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.046,
+     "collar_z": 1.1,
+     "fo_add": 0.25,
+     "sleeve_to": 1.7
+    }
+   },
+   "why": [
+    "SIGNAL RED SHIRT read as one with BRICK LONGCOAT (81 and 68 of 255): the same cut in COBALT SHIRT (104)",
+    "BRICK LONGCOAT worn open to the neck",
+    "the sleeve ends short of the cuff under it"
+   ]
+  },
+  {
+   "id": "town_34",
+   "gang": "Body",
+   "base": "BONE HENLEY",
+   "mid": "OLIVE DRAB TEE",
+   "outer": null,
+   "rolled": {
+    "top": "OLIVE DRAB TEE",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "hem_drop": 0.04,
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": false,
+     "ohw": 0.0
+    },
+    "outer": {}
+   },
+   "why": [
+    "his OLIVE DRAB TEE over a BONE HENLEY, its sleeves and hem out from under"
+   ]
+  },
+  {
+   "id": "town_35",
+   "gang": "Body",
+   "base": "MOB PINSTRIPE SHIRT",
+   "mid": null,
+   "outer": "COBALT COCOON COAT",
+   "rolled": {
+    "top": "MOB PINSTRIPE SHIRT",
+    "coat": "COBALT COCOON COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "COCOON COAT",
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039
+    }
+   },
+   "why": []
+  },
+  {
+   "id": "town_36",
+   "gang": "Body",
+   "base": "BONE BUTTON-UP",
+   "mid": null,
+   "outer": "SLATE COCOON COAT",
+   "rolled": {
+    "top": "FIELD BUTTON-UP",
+    "coat": "SLATE COCOON COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "COCOON COAT",
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.044,
+     "collar_z": 1.1,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "FIELD BUTTON-UP read as one with SLATE COCOON COAT (76 and 77 of 255): the same cut in BONE BUTTON-UP (154)",
+    "SLATE COCOON COAT worn open to the neck"
+   ]
+  },
+  {
+   "id": "town_37",
+   "gang": "Body",
+   "base": "WHITE TEE",
+   "mid": null,
+   "outer": "STORM VEST",
+   "rolled": {
+    "top": "CHARCOAL STRIPED TEE",
+    "coat": "STORM VEST"
+   },
+   "layers": {
+    "base": {
+     "under": "VEST",
+     "hem_drop": 0.04
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.056,
+     "collar_z": 1.115,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "CHARCOAL STRIPED TEE read as one with STORM VEST (52 and 72 of 255): the same cut in WHITE TEE (208)",
+    "STORM VEST worn open to the neck",
+    "the tee's hem below the vest"
+   ]
+  },
+  {
+   "id": "town_38",
+   "gang": "Body",
+   "base": "FIELD SHORTALLS",
+   "mid": null,
+   "outer": null,
+   "rolled": {
+    "top": "FIELD SHORTALLS",
+    "coat": null
+   },
+   "layers": {
+    "base": {},
+    "mid": {},
+    "outer": {}
+   },
+   "why": []
+  },
+  {
+   "id": "town_39",
+   "gang": "Body",
+   "base": "WHITE TEE",
+   "mid": "GREEN FLANNEL",
+   "outer": null,
+   "rolled": {
+    "top": "GREEN FLANNEL",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": true,
+     "ohw": 0.05,
+     "sleeves": "rolled"
+    },
+    "outer": {}
+   },
+   "why": [
+    "his GREEN FLANNEL worn open over a WHITE TEE",
+    "its sleeves rolled"
+   ]
+  },
+  {
+   "id": "town_40",
+   "gang": "Body",
+   "base": "BONE HENLEY",
+   "mid": "BRICK TEE",
+   "outer": null,
+   "rolled": {
+    "top": "BRICK TEE",
+    "coat": null
+   },
+   "layers": {
+    "base": {
+     "hem_drop": 0.04,
+     "under": "mid",
+     "arms_covered": true
+    },
+    "mid": {
+     "role": "mid",
+     "lift": 0.012,
+     "open": false,
+     "ohw": 0.0
+    },
+    "outer": {}
+   },
+   "why": [
+    "his BRICK TEE over a BONE HENLEY, its sleeves and hem out from under"
+   ]
+  },
+  {
+   "id": "town_41",
+   "gang": "Body",
+   "base": "SAGE FLANNEL",
+   "mid": null,
+   "outer": "SOOT TRENCH",
+   "rolled": {
+    "top": "FOREST PLAID FLANNEL",
+    "coat": "SOOT TRENCH"
+   },
+   "layers": {
+    "base": {
+     "under": "TRENCH",
+     "collar_out": 0.0199,
+     "arms_covered": true,
+     "cuff_to": 1.89
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.046,
+     "collar_z": 1.1,
+     "fo_add": 0.25,
+     "collar": false,
+     "neck_top": 1.1,
+     "sleeve_to": 1.7
+    }
+   },
+   "why": [
+    "FOREST PLAID FLANNEL read as one with SOOT TRENCH (76 and 70 of 255): the same cut in SAGE FLANNEL (99)",
+    "SOOT TRENCH worn open to the neck",
+    "the shirt's collar out over the lapels",
+    "the sleeve ends short of the cuff under it"
+   ]
+  },
+  {
+   "id": "town_42",
+   "gang": "Body",
+   "base": "SLATE PLAID FLANNEL",
+   "mid": null,
+   "outer": "KHAKI JACKET",
+   "rolled": {
+    "top": "SLATE PLAID FLANNEL",
+    "coat": "WORK JACKET"
+   },
+   "layers": {
+    "base": {
+     "under": "JACKET",
+     "collar_out": 0.0199,
+     "hem_drop": 0.05,
+     "arms_covered": true
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.05,
+     "collar_z": 1.12,
+     "fo_add": 0.25,
+     "collar": false,
+     "neck_top": 1.1,
+     "sleeve_to": 1.42,
+     "push": true
+    }
+   },
+   "why": [
+    "SLATE PLAID FLANNEL read as one with WORK JACKET (77 and 80 of 255) and no colour of that top reads apart: the same coat in KHAKI JACKET (111)",
+    "KHAKI JACKET worn open to the neck",
+    "the shirt's collar out over the lapels",
+    "the flannel's hem below the jacket",
+    "the sleeves pushed up the forearm"
+   ]
+  },
+  {
+   "id": "town_43",
+   "gang": "Body",
+   "base": "SHOULDER LONGLINE",
+   "mid": null,
+   "outer": "GRASS WRAP COAT",
+   "rolled": {
+    "top": "SHOULDER LONGLINE",
+    "coat": "ASH WRAP COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "WRAP COAT",
+     "arms_covered": true,
+     "cuff_to": 1.89
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "sleeve_to": 1.7
+    }
+   },
+   "why": [
+    "SHOULDER LONGLINE read as one with ASH WRAP COAT (72 and 70 of 255) and no colour of that top reads apart: the same coat in GRASS WRAP COAT (160)",
+    "the sleeve ends short of the cuff under it"
+   ]
+  },
+  {
+   "id": "town_44",
+   "gang": "Body",
+   "base": "COAL HOODIE",
+   "mid": null,
+   "outer": "BARN COAT",
+   "rolled": {
+    "top": "SAND HOODIE",
+    "coat": "BARN COAT"
+   },
+   "layers": {
+    "base": {
+     "under": "CHORE COAT",
+     "hood_over": 0.022,
+     "arms_covered": true,
+     "cuff_to": 1.89
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.006,
+     "open": true,
+     "ohw": 0.048,
+     "collar_z": 1.11,
+     "fo_add": 0.25,
+     "collar": false,
+     "neck_top": 1.12,
+     "sleeve_to": 1.7
+    }
+   },
+   "why": [
+    "SAND HOODIE read as one with BARN COAT (111 and 111 of 255): the same cut in COAL HOODIE (48)",
+    "BARN COAT worn open to the neck",
+    "the hood heaped over the coat's collar",
+    "the sleeve ends short of the cuff under it"
+   ]
+  },
+  {
+   "id": "town_45",
+   "gang": "Body",
+   "base": "WHITE TEE",
+   "mid": null,
+   "outer": "BONE VEST",
+   "rolled": {
+    "top": "WHITE TEE",
+    "coat": "BONE VEST"
+   },
+   "layers": {
+    "base": {
+     "under": "VEST",
+     "hem_drop": 0.04
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.056,
+     "collar_z": 1.115,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "BONE VEST worn open to the neck",
+    "the tee's hem below the vest"
+   ]
+  },
+  {
+   "id": "town_46",
+   "gang": "Body",
+   "base": "STRIPED TEE",
+   "mid": null,
+   "outer": "TACTICAL VEST",
+   "rolled": {
+    "top": "SAGE TEE",
+    "coat": "TACTICAL VEST"
+   },
+   "layers": {
+    "base": {
+     "under": "VEST",
+     "hem_drop": 0.04
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.056,
+     "collar_z": 1.115,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "SAGE TEE read as one with TACTICAL VEST (99 and 63 of 255): the same cut in STRIPED TEE (154)",
+    "TACTICAL VEST worn open to the neck",
+    "the tee's hem below the vest"
+   ]
+  },
+  {
+   "id": "town_47",
+   "gang": "Body",
+   "base": "TATTERED FLANNEL",
+   "mid": null,
+   "outer": "LEATHER VEST",
+   "rolled": {
+    "top": "TATTERED FLANNEL",
+    "coat": "LEATHER VEST"
+   },
+   "layers": {
+    "base": {
+     "under": "VEST",
+     "hem_drop": 0.04
+    },
+    "mid": {},
+    "outer": {
+     "lift": 0.0039,
+     "open": true,
+     "ohw": 0.056,
+     "collar_z": 1.115,
+     "fo_add": 0.25
+    }
+   },
+   "why": [
+    "LEATHER VEST worn open to the neck",
+    "the tattered's hem below the vest"
    ]
   }
  ]
