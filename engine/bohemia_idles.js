@@ -2,14 +2,15 @@
    now everyone's standing still, making my brain fry; it's looking like a chess man and I don't want that vibe at all').
    NOBODY STANDS LIKE A CHESS PIECE: one player for every screen with a person on it.
 
-   THE PICTURES: slices/rig_idles/<look>.webp, every distinct idle pose of that man in eight facings, rendered on the rig the
+   THE PICTURES: slices/rig_idles/<look>_<set>.webp, every distinct idle pose of that man in eight facings (a sheet per set:
+   bare, carry, beast), rendered on the rig the
    way the fight renders him (tools/bohemia_animation_everybody_idles.py, the source records/target/animation/
    BOHEMIA_EVERYBODY_IDLES.json); slices/rig_idles/<look>_guns.webp, the three guns in his hands on the gun-held poses.
    Each cell is cut to what is drawn; [x, y, w, h, dx, dy] puts it back where it stood in the fight sheet's cell, so his feet
    are where they were (foot = the fight sheet's foot).
 
    THE PLAY: time is cut into SLOTS of two bars (24 keys, three a beat at 120). A slot is one slow breath with the weight on
-   one leg (the next breath on the other), or one of his idles; every slot starts and ends standing square, so any follows
+   one leg (the next breath on the other; slow, short or a sigh, his roll), or one of his idles; every slot starts and ends standing square, so any follows
    any. Each person has his own offset (no two in step), his own handful of idles (one a habit he does more), his own
    fidget (how often), all from his seed; nothing is stored, the same seed at the same time is the same pose.
 
@@ -21,8 +22,11 @@
                                               stops walking does not land in the middle of a stretch), o.beatMs (500)
      BohemiaIdles.cell(look, set, pose, f)    {img, x, y, w, h, dx, dy, foot} for facing f (0..7, S SE E NE N NW W SW), once
                                               the sheet is in (null and it starts loading)
-     BohemiaIdles.gun(look, gun, pose, f)     the same for his gun ('pistol'|'rifle'|'shotgun') on a gun-held pose
+     BohemiaIdles.gun(look, gun, pose, f)     the same for his gun ('pistol'|'rifle'|'shotgun') on a gun-held pose; {hidden: true}
+                                              where his body hides all of it
      BohemiaIdles.frame(look, seed, now, f, o)   at() and cell() in one: the cell to draw now, or null
+     BohemiaIdles.image(file)                 one of the sheets once it is in (null and it starts loading)
+     BohemiaIdles.meta()                      the index ('map': the map's own models, their cells and poses)
      BohemiaIdles.DIRS                        S SE E NE N NW W SW */
 (function (root) {
   'use strict';
@@ -75,7 +79,8 @@
     var p = person(seed, set, o.idles);
     var k = Math.floor(now / keyMs) + p.off, slot = Math.floor(k / SLOT), kin = k - slot * SLOT;
     var odd = ((slot % 2) + 2) % 2;
-    var br = (META.breathe && META.breathe[set]) || ['breatheR', 'breatheL'], kind = br[odd];   /* a man's weight on one leg, then the other */
+    var br = (META.breathe && META.breathe[set]) || [['breatheR'], ['breatheL']], side = br[odd];   /* a man's weight on one leg, then the other */
+    var kind = side[hash(seed, 'b' + slot) % side.length];   /* which breath, his roll for this slot */
     /* an idle only on his odd slots (never two in a row), never the slot he began to stand in */
     var still = o.since !== undefined && Math.floor((Math.floor(o.since / keyMs) + p.off) / SLOT) === slot;
     if (odd && !still && p.idles.length && unit(seed, slot) < p.fidget) kind = p.idles[hash(seed, 'i' + slot) % p.idles.length];
@@ -93,17 +98,19 @@
   }
   function cell(look, set, pose, f) {
     if (!has(look)) return null;
-    var L = META.looks[look], ps = L.poses[set || 'bare'], col = ps && ps[pose];
-    if (!col) return null;
+    var L = META.looks[look], ps = L.poses[set || 'bare'], col = ps && ps[pose], Sh = L.sheets[set || 'bare'];
+    if (!col || !Sh) return null;
     var i = col[((f | 0) % 8 + 8) % 8]; if (i === null || i === undefined) return null;
-    var img = sheet(L.file); if (!img) return null;
-    var c = L.cells[i];
+    var img = sheet(Sh.file); if (!img) return null;   /* a set a sheet: only what this screen plays is loaded */
+    var c = Sh.cells[i];
     return { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5], foot: L.foot };
   }
   function gun(look, g, pose, f) {
     if (!has(look)) return null;
     var G = META.looks[look].guns; if (!G || !G.poses[g] || !G.poses[g][pose]) return null;
-    var i = G.poses[g][pose][((f | 0) % 8 + 8) % 8]; if (i === null || i === undefined) return null;
+    var i = G.poses[g][pose][((f | 0) % 8 + 8) % 8];
+    if (i === null) return { hidden: true };   /* his body hides the whole gun in this facing: nothing to lay over him */
+    if (i === undefined) return null;
     var img = sheet(G.file); if (!img) return null;
     var c = G.cells[i];
     return { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5] };
@@ -115,6 +122,7 @@
     c.kind = a.kind; c.pose = a.pose; return c;
   }
   root.BohemiaIdles = { load: load, ready: ready, has: has, at: at, cell: cell, gun: gun, frame: frame, hash: hash, DIRS: DIRS,
+    image: sheet,
     meta: function () { return META; } };
   if (typeof module !== 'undefined') module.exports = root.BohemiaIdles;
 })(typeof window !== 'undefined' ? window : this);

@@ -28,7 +28,8 @@ THE STEPS (Blender's Python for pose/render/guns: bpy 4.2 in a python3.11 venv, 
         are the look's own, into records/target/animation/idles/<look>/; then COMBAT's guns rendered in his hands on the
         carry idles (its own tool run with two changes made in memory: the clip list and where the carry is read)
     python3 tools/bohemia_animation_everybody_idles.py pack
-        slices/rig_idles/<look>.webp (every distinct pose, eight facings, each cell cut to what is drawn, packed tight),
+        slices/rig_idles/<look>_<set>.webp (every distinct pose of the set, eight facings, each cell cut to what is drawn,
+        packed tight; a set a sheet, so the fight loads only the gun-held poses and a town only the bare ones),
         <look>_guns.webp (the three guns on the carry cells), and slices/rig_idles/rig_idles.json: the cells, the feet,
         the timelines and the sets; the colours are the look's own fight sheet's (slices/fight_rig/<look>.webp), so a man
         who stops walking keeps every colour he walked in
@@ -45,6 +46,7 @@ import json, math, os, subprocess, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'records/target/animation/BOHEMIA_EVERYBODY_IDLES.json')
 POSED = 'records/animation/idles'                 # the posed models (regenerated, .gitignore)
+COMBAT_POSED = 'records/combat/rig'              # COMBAT's posed men and beasts (its tool's `bodies`)
 RENDERS = 'records/target/animation/idles'        # the master rig's renders (regenerated, .gitignore)
 OUT = 'slices/rig_idles'
 CLIP = {'bare': 'IdleBare', 'carry': 'IdleCarry', 'beast': 'IdleBeast', 'map': 'IdleMap'}
@@ -133,33 +135,21 @@ def pose(src, out, sets=('bare', 'carry')):
     def named(ops):   # the source names bones by their short names
         return [(['MOVE', B[o[1]], o[2]] if o[0] == 'MOVE' else [B[o[0]], o[1], o[2]]) for o in ops]
 
-    # THE PROPS: a cigarette in his right hand and the breath he lets out, rigid parts on their bones, shown only in the
-    # smoke poses (scale keyed), so every other clip and the still the master rig measures him by never carry them
-    props = {}
-    def prop_obj(nm, bone, build):
-        bpy.ops.object.select_all(action='DESELECT')
-        objs = build(); ob = objs[0]
-        if len(objs) > 1:
-            for o in objs: o.select_set(True)
-            bpy.context.view_layer.objects.active = ob; bpy.ops.object.join()
-        ob.name = nm
-        pb = PB[bone]; bl = arm.data.bones[bone]
-        W = ob.matrix_world.copy()
-        ob.parent = arm; ob.parent_type = 'BONE'; ob.parent_bone = bone
-        ob.matrix_parent_inverse = (arm.matrix_world @ pb.matrix @ mathutils.Matrix.Translation((0, bl.length, 0))).inverted()
-        ob.matrix_basis = W
-        props[nm] = ob
-        return ob
-
-    def mat(nm, rgb, emit=None, alpha=1.0):
+    # THE PROPS: a cigarette in his right hand and the breath he lets out, each SKINNED to a bone of its own (prop_<name>, a
+    # child of the hand or the head), never a separate rigid part: the master rig's HOLD anchors a skinned part to the
+    # nearest rigid part, and a cigarette there carried his shoes with his head's turn (measured 10/23, the longcoat's feet
+    # 3 px low on lookR facing S). Shown only in the smoke poses (the prop bone's scale keyed), hidden everywhere else and
+    # in the still the master rig measures him by (keyed into Stand too). Made in the REST pose, where skinning reads them.
+    def mat(nm, rgb, emit=None):
         m = bpy.data.materials.new(nm); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
         b.inputs['Base Color'].default_value = rgb + (1,); b.inputs['Roughness'].default_value = 1.0
         if emit: b.inputs['Emission Color'].default_value = emit + (1,); b.inputs['Emission Strength'].default_value = 2.0
-        if alpha < 1: b.inputs['Alpha'].default_value = alpha
         return m
-
-    W = arm.matrix_world
+    arm.data.pose_position = 'REST'; bpy.context.view_layer.update()
+    W = arm.matrix_world; Winv = W.inverted()
     rh = W @ PB[B['RH']].head; rf = W @ PB[B['RF']].head; hand = (rh - rf).normalized()
+    hd = W @ PB[B['H']].head; facing = (W.to_3x3() @ mathutils.Vector(F)).normalized(); left = (W.to_3x3() @ mathutils.Vector(L)).normalized()
+    up = (W.to_3x3() @ mathutils.Vector(U)).normalized()
     def cig():
         c = rh + hand * 0.13   # past the fingers, so the fist does not swallow it
         bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=0.009, depth=0.075, location=c)
@@ -167,19 +157,44 @@ def pose(src, out, sets=('bare', 'carry')):
         o.data.materials.append(mat('cig_paper', (0.78, 0.74, 0.66)))
         bpy.ops.mesh.primitive_uv_sphere_add(segments=8, ring_count=6, radius=0.0095, location=c + hand * 0.04)
         e = bpy.context.active_object; e.data.materials.append(mat('cig_ember', (0.55, 0.16, 0.05), emit=(0.9, 0.3, 0.08)))
-        return [o, e]
-    hd = W @ PB[B['H']].head; facing = W.to_3x3() @ mathutils.Vector(F)
+        return [o, e], c
     def puff():
         out_ = []
-        for i, (fw, up, sd, r) in enumerate([(0.1, 0.06, -0.1, 0.03), (0.13, 0.12, -0.15, 0.04), (0.15, 0.2, -0.17, 0.05)]):   # up and off to his right, beside his head from the front: the head is tipped back, the breath goes up
-            loc = hd + facing.normalized() * fw + mathutils.Vector((0, 0, up)) + (W.to_3x3() @ mathutils.Vector(L)).normalized() * sd
-            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=r, location=loc)
+        for i, (fw, u_, sd, r) in enumerate([(0.1, 0.06, -0.1, 0.03), (0.13, 0.12, -0.15, 0.04), (0.15, 0.2, -0.17, 0.05)]):   # up and off to his right, beside his head from the front: the head is tipped back, the breath goes up
+            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=r, location=hd + facing * fw + up * u_ + left * sd)
             o = bpy.context.active_object; o.data.materials.append(mat('smoke_%d' % i, (0.52, 0.5, 0.47))); out_.append(o)
-        return out_
-    for nm, P in D['props'].items():
-        prop_obj(nm, B[P['bone']], cig if nm == 'cigarette' else puff)
+        return out_, hd + facing * 0.12 + up * 0.1 + left * -0.13
+    made_props = []
+    for nm, P_ in D['props'].items():
+        bpy.ops.object.select_all(action='DESELECT')
+        objs, at = (cig if nm == 'cigarette' else puff)()
+        for o in objs: o.select_set(True)
+        bpy.context.view_layer.objects.active = objs[0]
+        if len(objs) > 1: bpy.ops.object.join()
+        ob = bpy.context.active_object; ob.name = nm
+        bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)   # its vertices in the world, its origin the world's
+        made_props.append((nm, B[P_['bone']], at, ob))
+    bpy.ops.object.select_all(action='DESELECT'); bpy.context.view_layer.objects.active = arm; arm.select_set(True)
+    bpy.ops.object.mode_set(mode='EDIT')
+    for nm, parent, at, ob in made_props:
+        eb = arm.data.edit_bones.new('prop_' + nm); eb.head = Winv @ at; eb.tail = eb.head + mathutils.Vector((0, 0, 0.04))
+        eb.parent = arm.data.edit_bones[parent]; eb.use_connect = False; eb.use_deform = True
+    bpy.ops.object.mode_set(mode='OBJECT')
+    PB = arm.pose.bones
+    for nm, parent, at, ob in made_props:
+        ob.parent = arm; ob.matrix_parent_inverse = W.inverted()
+        vg = ob.vertex_groups.new(name='prop_' + nm); vg.add(list(range(len(ob.data.vertices))), 1.0, 'REPLACE')
+        mo = ob.modifiers.new('Armature', 'ARMATURE'); mo.object = arm
+        base['prop_' + nm] = mathutils.Matrix.Identity(4)
+    arm.data.pose_position = 'POSE'; bpy.context.view_layer.update()
     TINY = (1e-4, 1e-4, 1e-4)
-    for ob in props.values(): ob.scale = TINY
+    props = {nm: 'prop_' + nm for nm, _, _, _ in made_props}
+    # hidden in the still: the Stand action gets the prop bones' scale keyed tiny at both its ends
+    ad.action = stand
+    for nm, bn in props.items():
+        PB[bn].scale = TINY
+        for fr in (f0, f1): PB[bn].keyframe_insert('scale', frame=fr)
+    ad.action = None
 
     carry = [list(o) for o in CP.carry_ops()]   # (bone, axis vector, deg): COMBAT's low ready
     made = []
@@ -188,23 +203,15 @@ def pose(src, out, sets=('bare', 'carry')):
         under = carry if D['sets'][set_name]['base'] == 'carry' else []
         name = CLIP[set_name]
         act = bpy.data.actions.new(name); ad.action = act
-        pacts = {}
-        for nm, ob in props.items():
-            pa = bpy.data.actions.new(name + '_' + nm); ob.animation_data_create().action = pa; pacts[nm] = pa
         n = len(poses)
         keys = [(0, poses[0])] + [(2 * k + 1, poses[k]) for k in range(n)] + [(2 * n, poses[-1])]
         for fr, (pname, ops) in keys:
             apply(under + named(ops))
+            for nm, bn in props.items(): PB[bn].scale = (1, 1, 1) if pname in D['props'][nm]['show'] else TINY
+            bpy.context.view_layer.update()
             for pb in PB:
                 for ch in ('location', 'rotation_quaternion', 'scale'): pb.keyframe_insert(ch, frame=fr)
-            for nm, ob in props.items():
-                ob.scale = (1, 1, 1) if pname in D['props'][nm]['show'] else TINY
-                ob.keyframe_insert('scale', frame=fr)
         t = ad.nla_tracks.new(); t.name = name; t.strips.new(name, 0, act); t.mute = True
-        for nm, ob in props.items():
-            pad = ob.animation_data; pad.action = None
-            tt = pad.nla_tracks.new(); tt.name = name; tt.strips.new(name, 0, pacts[nm]); tt.mute = True
-            ob.scale = TINY
         made.append((name, n))
     ad.action = None
     for pb in PB: pb.matrix_basis = base[pb.name].copy()
@@ -275,7 +282,7 @@ def beasts(arg='ALL'):
     CF = combat(); py = sys.executable; n = len(source()['sets']['beast']['poses'])
     for name, kind, src in CF.pick(arg):
         if kind != 'beast': continue
-        posed = os.path.join(ROOT, CF.POSED, name + '.glb')
+        posed = os.path.join(ROOT, COMBAT_POSED, name + '.glb')
         if not os.path.exists(posed): run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], posed)
         glb = os.path.join(ROOT, POSED, name + '.glb')
         run([py, os.path.abspath(__file__), 'pose_beast', posed, glb], glb)
@@ -371,8 +378,8 @@ def pack_map(index):
     pal = {}
     for which, f in (('gangs', 'BOHEMIA_RIG_CAST'), ('people', 'BOHEMIA_RIG_PEOPLE')):
         m = json.load(open(os.path.join(ROOT, 'slices', f + '.json')))
-        p_ = np.asarray(Image.open(os.path.join(ROOT, 'slices', f + '.png')).convert('RGB')).reshape(-1, 3)
-        pal[which] = (m, np.array(sorted(set(map(tuple, p_.tolist())))[:256], np.int32))
+        p_ = np.asarray(Image.open(os.path.join(ROOT, 'slices', f + '.png')).convert('RGBA')); p_ = p_[p_[..., 3] > 0][:, :3]
+        pal[which] = (m, np.array(sorted(set(map(tuple, p_.tolist()))), np.int32))
     def to_pal(a, P):
         rgb = a[..., :3].reshape(-1, 3).astype(np.int32); o = np.empty_like(rgb)
         for i in range(0, len(rgb), 65536):
@@ -449,7 +456,7 @@ def run(cmd, out):
 def fight_one(name):
     CF = combat()
     D = source(); py = sys.executable
-    src = os.path.join(ROOT, CF.POSED, name + '.glb')
+    src = os.path.join(ROOT, COMBAT_POSED, name + '.glb')
     if not os.path.exists(src):   # COMBAT's own build of this man, as its tool makes it
         run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
     glb = os.path.join(ROOT, POSED, name + '.glb')
@@ -466,7 +473,7 @@ def guns(name):
     """COMBAT's guns tool on the carry idles: its own render() with two changes made in memory (the clip list is IdleCarry
     only; IdleCarry is held like the Carry it is built on), reading this look's rig.json"""
     D = source(); n = len(D['sets']['carry']['poses'])
-    if os.path.exists(os.path.join(ROOT, RENDERS, name, 'guns', 'shotgun_IdleCarry_SW_k%02d.png' % (n - 1))): return
+    if os.path.exists(os.path.join(ROOT, RENDERS, name, 'guns', 'shotgun_IdleCarry_NW_k%02d.png' % (n - 1))): return
     code = open(os.path.join(ROOT, 'tools/bohemia_combat_the_guns_in_their_hands.py')).read()
     a = "CLIPS = [('Carry', 1), ('CarryWalk', 6), ('Aim', 3), ('Hit', 2), ('Swing', 3)]"
     b = "elif clip in ('Carry', 'CarryWalk'):"
@@ -477,12 +484,12 @@ def guns(name):
     prog = ('import sys; sys.argv = [%r]; __file__ = %r\n' % ('guns', os.path.join(ROOT, 'tools/bohemia_combat_the_guns_in_their_hands.py'))) + code + '\nrender(%r)\n' % name
     for i in range(3):
         subprocess.call([sys.executable, '-c', prog], cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        if os.path.exists(os.path.join(ROOT, RENDERS, name, 'guns', 'shotgun_IdleCarry_SW_k%02d.png' % (n - 1))): return
+        if os.path.exists(os.path.join(ROOT, RENDERS, name, 'guns', 'shotgun_IdleCarry_NW_k%02d.png' % (n - 1))): return
     raise SystemExit('GUNS FAILED ' + name)
 
 
 def fight(arg, workers=1):
-    todo = [l[0] for l in men(arg) if not os.path.exists(os.path.join(ROOT, RENDERS, l[0], 'guns', 'shotgun_IdleCarry_SW_k%02d.png' % (len(source()['sets']['carry']['poses']) - 1)))]
+    todo = [l[0] for l in men(arg) if not os.path.exists(os.path.join(ROOT, RENDERS, l[0], 'guns', 'shotgun_IdleCarry_NW_k%02d.png' % (len(source()['sets']['carry']['poses']) - 1)))]
     if workers <= 1:
         for nm in todo: fight_one(nm)
         return
@@ -558,20 +565,20 @@ def pack():
         if look not in FR['looks'] or not os.path.exists(os.path.join(d, 'rig.json')): continue
         rj = json.load(open(os.path.join(d, 'rig.json')))
         fl = FR['looks'][look]
-        if fl.get('kind') != 'beast' and not os.path.exists(os.path.join(d, 'guns', 'shotgun_IdleCarry_SW_k%02d.png' % (len(sets['carry']) - 1))):
+        if fl.get('kind') != 'beast' and not os.path.exists(os.path.join(d, 'guns', 'shotgun_IdleCarry_NW_k%02d.png' % (len(sets['carry']) - 1))):
             print('SKIP', look, 'his guns are not rendered yet'); continue
         # the look's own fight cell is the frame of reference: the same model, still and camera (Stand first), so the same
         # full frame; his feet are the one point both know (the fight sheet's foot, this render's ground pixel)
         cx0, cy0, cx1, cy1 = rj['crop_box_px']
         fx0 = cx0 + rj['ground_px'][0] - fl['foot'][0]; fy0 = cy0 + rj['ground_px'][1] - fl['foot'][1]   # the fight cell's origin in the full frame
-        sheet_pal = Image.open(os.path.join(ROOT, 'slices/fight_rig', fl['file'])).convert('RGB')
-        pal = np.array(sorted(set(map(tuple, np.asarray(sheet_pal).reshape(-1, 3).tolist()))), np.int32)
+        sheet_pal = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', fl['file'])).convert('RGBA'))
+        pal = np.array(sorted(set(map(tuple, sheet_pal[sheet_pal[..., 3] > 0][:, :3].tolist()))), np.int32)   # his painted colours only
         def to_pal(a):
             rgb = a[..., :3].reshape(-1, 3).astype(np.int32); out = np.empty_like(rgb)
             for i in range(0, len(rgb), 65536):
                 c = rgb[i:i + 65536]; dd = ((c[:, None, :] - pal[None, :, :]) ** 2).sum(2); out[i:i + 65536] = pal[dd.argmin(1)]
             a[..., :3] = out.reshape(a.shape[:2] + (3,)).astype(np.uint8); return a
-        cells, imgs, gcells, gimgs = {}, [], {}, []
+        cells, imgs, gcells, gimgs = {}, {}, {}, []   # a sheet per set: the fight loads only the gun-held poses, a town only the bare
         def full(fn, cb):
             a = np.asarray(Image.open(fn).convert('RGBA')).copy()
             if a.shape[0] != rj['res']:   # a cropped render: lay it back into the full frame
@@ -597,7 +604,8 @@ def pack():
                     r = cut(a, int(G['alpha_threshold']))
                     if r is None: continue
                     a, x0, y0 = r; a = to_pal(a)
-                    cells.setdefault(s, {}).setdefault(p, [None] * 8)[row] = len(imgs); imgs.append((a, x0 - fx0, y0 - fy0))
+                    lst = imgs.setdefault(s, [])
+                    cells.setdefault(s, {}).setdefault(p, [None] * 8)[row] = len(lst); lst.append((a, x0 - fx0, y0 - fy0))
                     if s == 'carry':
                         for gun in index['guns']:
                             ga = full(os.path.join(d, 'guns', '%s_%s_%s_k%02d.png' % (gun, clip, f, pi)), (0, 0, rj['res'], rj['res']))
@@ -615,16 +623,17 @@ def pack():
             H = y + sh; im = Image.new('RGBA', (width, H), (0, 0, 0, 0))
             for i, (a, _, _) in enumerate(items): im.paste(Image.fromarray(a, 'RGBA'), (rects[i][0], rects[i][1]))
             return im, rects
-        body, rects = atlas(imgs, 2048)
-        body.save(os.path.join(ROOT, OUT, look + '.webp'), 'WEBP', lossless=True, quality=100, method=6)
-        entry = dict(file=look + '.webp', fight=fl['file'], foot=fl['foot'], cells=rects,
-                     poses={s: {p: cells[s][p] for p in sets[s]} for s in sets if s in cells})
+        entry = dict(fight=fl['file'], foot=fl['foot'], sheets={}, poses={s: {p: cells[s][p] for p in sets[s]} for s in sets if s in cells})
+        for s_, lst in imgs.items():
+            body, rects = atlas(lst, 2048); fn = '%s_%s.webp' % (look, s_)
+            body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+            entry['sheets'][s_] = dict(file=fn, cells=rects, size=list(body.size))
         if gimgs:
             gim, grects = atlas(gimgs, 1024)
             gim.save(os.path.join(ROOT, OUT, look + '_guns.webp'), 'WEBP', lossless=True, quality=100, method=6)
             entry['guns'] = dict(file=look + '_guns.webp', cells=grects, poses=gcells)
         index['looks'][look] = entry
-        print('PACKED', look, body.size, os.path.getsize(os.path.join(ROOT, OUT, look + '.webp')), 'guns', gimgs and gim.size, flush=True)
+        print('PACKED', look, {k: v['size'] for k, v in entry['sheets'].items()}, 'guns', gimgs and gim.size, flush=True)
     pack_map(index)
     json.dump(index, open(os.path.join(ROOT, OUT, 'rig_idles.json'), 'w'), separators=(',', ':'))
     print('INDEX', os.path.join(OUT, 'rig_idles.json'), len(index['looks']), 'looks')

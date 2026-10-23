@@ -3144,7 +3144,7 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(c.img), c.x, c.y, c.w, c.h, ox + c.dx * s, oy + c.dy * s, c.w * s, c.h * s);
-  if (g) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);
+  if (g && !g.hidden) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);
   UI.clipSeen['idle:' + c.kind] = (UI.clipSeen['idle:' + c.kind] || 0) + 1;
   return true;
 }

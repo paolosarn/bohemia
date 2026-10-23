@@ -2061,6 +2061,188 @@
     "C",
     9
    ]
+  ],
+  "breatheR2": [
+   [
+    "R_out",
+    7
+   ],
+   [
+    "R_mid",
+    2
+   ],
+   [
+    "R_in",
+    5
+   ],
+   [
+    "R_mid",
+    1
+   ],
+   [
+    "R_out",
+    6
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "breatheR3": [
+   [
+    "R_out",
+    3
+   ],
+   [
+    "R_mid",
+    3
+   ],
+   [
+    "R_in",
+    9
+   ],
+   [
+    "R_mid",
+    2
+   ],
+   [
+    "R_out",
+    4
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "breatheL2": [
+   [
+    "L_out",
+    7
+   ],
+   [
+    "L_mid",
+    2
+   ],
+   [
+    "L_in",
+    5
+   ],
+   [
+    "L_mid",
+    1
+   ],
+   [
+    "L_out",
+    6
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "breatheL3": [
+   [
+    "L_out",
+    3
+   ],
+   [
+    "L_mid",
+    3
+   ],
+   [
+    "L_in",
+    9
+   ],
+   [
+    "L_mid",
+    2
+   ],
+   [
+    "L_out",
+    4
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "bbreathe2": [
+   [
+    "b_out",
+    3
+   ],
+   [
+    "C",
+    2
+   ],
+   [
+    "b_in",
+    4
+   ],
+   [
+    "C",
+    1
+   ],
+   [
+    "b_out",
+    3
+   ],
+   [
+    "C",
+    2
+   ],
+   [
+    "b_in",
+    4
+   ],
+   [
+    "C",
+    1
+   ],
+   [
+    "b_out",
+    2
+   ],
+   [
+    "C",
+    2
+   ]
+  ],
+  "mbreatheR2": [
+   [
+    "R_out",
+    5
+   ],
+   [
+    "R_in",
+    12
+   ],
+   [
+    "R_out",
+    4
+   ],
+   [
+    "C",
+    3
+   ]
+  ],
+  "mbreatheL2": [
+   [
+    "L_out",
+    5
+   ],
+   [
+    "L_in",
+    12
+   ],
+   [
+    "L_out",
+    4
+   ],
+   [
+    "C",
+    3
+   ]
   ]
  },
  "idles": {
@@ -2120,22 +2302,79 @@
   ]
  },
  "breathe": {
-  "why": "the two breaths a set alternates, slot by slot: a man shifts his weight, a beast does not",
+  "why": "each slot a man breathes on one leg and the next slot on the other (a beast does not shift); which breath of the set (slow, short, a deep sigh) is his roll for that slot, so two men who stand on the same beat still breathe apart",
   "bare": [
-   "breatheR",
-   "breatheL"
+   [
+    "breatheR",
+    "breatheR2",
+    "breatheR3"
+   ],
+   [
+    "breatheL",
+    "breatheL2",
+    "breatheL3"
+   ]
   ],
   "carry": [
-   "breatheR",
-   "breatheL"
+   [
+    "breatheR",
+    "breatheR2",
+    "breatheR3"
+   ],
+   [
+    "breatheL",
+    "breatheL2",
+    "breatheL3"
+   ]
   ],
   "beast": [
-   "bbreathe",
-   "bbreathe"
+   [
+    "bbreathe",
+    "bbreathe2"
+   ],
+   [
+    "bbreathe",
+    "bbreathe2"
+   ]
   ],
   "map": [
-   "mbreatheR",
-   "mbreatheL"
+   [
+    "mbreatheR",
+    "mbreatheR2"
+   ],
+   [
+    "mbreatheL",
+    "mbreatheL2"
+   ]
+  ]
+ },
+ "never_adjacent": {
+  "why": "AN ENVELOPE RAMPS SLOWER THAN THE GRID: one side to the other in one drawn key is a jump and a jump back (his 'tweaking', 9/21); every turn passes through standing square or a half pose; the sniff's two small turns of the nose are each held three keys or more, so they are poses the eye reads, not a flicker",
+  "pairs": [
+   [
+    "lookL",
+    "lookR"
+   ],
+   [
+    "lookL_h",
+    "lookR_h"
+   ],
+   [
+    "shake_l",
+    "shake_r"
+   ],
+   [
+    "blook_l",
+    "blook_r"
+   ],
+   [
+    "R_in",
+    "L_in"
+   ],
+   [
+    "R_out",
+    "L_out"
+   ]
   ]
  }
 }

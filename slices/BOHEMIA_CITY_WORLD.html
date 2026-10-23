@@ -45475,10 +45475,40 @@ function mapFactionColour(faction){
   return null;
 }
 function mapHash(a, b){ var h = (a * 73856093) ^ (b * 19349663); h = (h ^ (h >>> 13)) >>> 0; return h; }
+/* ==== __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... it's looking
+   like a chess man'). ANIMATION's block, RUN's file: a person standing on the map (his party at rest, a crowd at a place, a
+   party that has stopped) is never a still: he breathes on one leg then the other, looks about, scratches, smokes, each on
+   his own offset (engine/bohemia_idles.js, the 'map' set: ten poses, one picture a beat). The pictures are the map's OWN
+   models (CHARACTER's gangs, his body, the barber's cuts, COOK THREE's tiers) rebuilt by their own builders and rendered
+   on the rig (slices/rig_idles/map.webp), laid in the same 112 frame rigSheetSet cuts, so a man who stops walking is the
+   same man; a model whose rebuild no longer matched the map's picture keeps its still. ==== */
+var MAP_IDLE_CV = {};
+function mapIdleFrame(set, face, beat, still){
+  var B = window.BohemiaIdles; if (!B || !B.ready() || !still) return null;
+  var M = B.meta().map; if (!M) return null;
+  if (set.__look === undefined) { set.__look = null;
+    [RIG_CAST, RIG_PEOPLE].forEach(function(S){ for (var k in S.sets) if (S.sets[k] === set) set.__look = k; }); }
+  var L = set.__look && M.looks[set.__look]; if (!L) return null;
+  var di = B.DIRS.indexOf(face); if (di < 0) return null;
+  var a = B.at('map:' + set.__look + ':' + (beat - mapArtBeat()), performance.now(), { set: 'map' }); if (!a) return null;
+  var ci = L.poses[a.pose] && L.poses[a.pose][di]; if (ci === null || ci === undefined) return null;
+  var img = B.image(M.file); if (!img) return null;
+  var key = set.__look + '|' + a.pose + '|' + di + '|' + still.height, c = MAP_IDLE_CV[key];
+  if (!c) {
+    var m = (L.sheet === 'people' ? RIG_PEOPLE : RIG_CAST).meta, q = M.cells[ci], H = still.height;
+    c = MAP_IDLE_CV[key] = document.createElement('canvas'); c.width = still.width; c.height = H;
+    var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+    x.drawImage(img, q[0], q[1], q[2], q[3], 56 - m.w / 2 + q[4], Math.round(H * 0.93) - m.foot + q[5], q[2], q[3]);
+  }
+  if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.idling = (MAP_DREW.art.idling | 0) + 1;
+  return c;
+}
+/* ==== end __EVERYBODY_IDLES__ ==== */
 /* one of the cast, standing with his feet on the point, breathing on the beat */
 function mapPersonDraw(set, face, beat, sx, footY, walkPh){
   var f = set && (set[face] || set.S); if (!f || !f.idle) return null;
   var fr = (f.breathe && f.breathe.length) ? f.breathe[((beat % f.breathe.length) + f.breathe.length) % f.breathe.length] : f.idle;
+  if (walkPh == null) { var __idle = mapIdleFrame(set, face, beat, f.idle); if (__idle) fr = __idle; }   /* __EVERYBODY_IDLES__ */
   /* __THE_PARTIES_WALK__: on the move, the stride's own picture (one stride = two steps of the glide) */
   if (walkPh != null && f.walk && f.walk.length) { fr = f.walk[Math.floor((((walkPh % 1) + 1) % 1) * f.walk.length) % f.walk.length]; if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.walking = (MAP_DREW.art.walking | 0) + 1; }
   var s56 = 56 / Math.max(56, fr.width);   /* a 112 body is drawn at the size a 56 one was: one art pixel to one device pixel on a 3x phone */
@@ -46961,6 +46991,7 @@ function lookRender(){
   var you = null;
   try { var YOU = (!window.__RIG_CAST_OFF && mapPeopleOf('you', 0)) || PLAYER_CV;   /* __THE_MAP_IS_ALL_RIG__: his 3D body here too */
     var set = YOU && (YOU.S || YOU[Object.keys(YOU)[0]]), spr = set && set.idle;
+    if (spr && YOU !== PLAYER_CV) { var __q = mapIdleFrame(YOU, YOU.S ? 'S' : Object.keys(YOU)[0], mapArtBeat(), spr); if (__q) spr = __q; }   /* __EVERYBODY_IDLES__: he stands alive (ANIMATION) */
     if (spr) { var b = spriteAt(spr, 32), bw = 112, bh = b.height * (112 / b.width), fx = W / 2 + dxp, fy = H / 2 + dyp;
       g.fillStyle = 'rgba(10,8,6,0.45)'; g.beginPath(); g.ellipse(fx, fy, bw * 0.2, bw * 0.06, 0, 0, 7); g.fill();
       g.imageSmoothingEnabled = false; g.drawImage(b, Math.round(fx - bw / 2), Math.round(fy - bh * 0.93), bw, bh); you = { w: bw, h: bh }; } } catch (_e) {}
@@ -47912,6 +47943,7 @@ function renderCity(){
       const __st=strideOf({u:__G.u,n:CITY_GLIDE.n});
       if(__set&&__moving&&__set.walk&&__set.walk.length)
         __spr=__set.walk[Math.floor((__st==null?0:__st)*__set.walk.length)%__set.walk.length];
+      if(__rigYou&&!__moving&&__spr){ const __q=mapIdleFrame(__rigYou,__src[__face]?__face:'S',mapArtBeat(),__spr); if(__q) __spr=__q; }   /* __EVERYBODY_IDLES__: he stands alive (ANIMATION) */
       if(__spr){ __body=spriteAt(__spr,32); __how=__rigYou?'rig3d':'rig'; }   /* the 112 box, drawn at half: his 56 on the glass at the rig's own pixels */
     }catch(_e){ __body=null; }
     /* __THE_PARTIES_WALK__ (rule 65: the party marker is three real dressed people): TWO OF HIS COMPANY walk
@@ -87306,4 +87338,5 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
+<script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>
