@@ -541,8 +541,14 @@ def build(name, outdir):
     Mn = L.get('mantle')
     if Mn:
         low = Mn['low']; mt = Mn.get('thick', 0.03); torn = Mn.get('torn', 0.0)
+        # a person in an OUTFIT (CHARACTER [the clothes look real], 10/23) wears it as a capelet: fastened at the throat, open
+        # down the front and off the forearms, so the coat and the shirt under it show (wrapped round the chest and to the
+        # wrists it hid every layer on five gangs); the fourteen looks above keep theirs as voted
+        lay_m = bool(L.get('layers')); cyf_m = section(1.0, ('torso',))['cy']
         def keepm(fm, c, low=low, torn=torn):
             lim = low + (torn * (0.5 + 0.5 * math.sin(9 * math.atan2(c.y, c.x))) if torn else 0)
+            if lay_m and (fm == 'fore' or (c.y < cyf_m and c.z < 1.13 and abs(c.x) < 0.085 * (1.0 + 0.4 * smooth(1.10, low, c.z)))):
+                return False
             return (fm in ('torso', 'neck', 'upper') or (fm == 'fore' and low < 0.9)) and lim <= c.z < 1.17
         made.append(lift('mantle', keepm, lambda p, low=low, mt=mt: mt + 0.03 * smooth(1.10, low, p.z) + (C['thick'] if C else 0), Mn['colour'], rim=0.016, subdiv=2))
     # 6. THE CAPE: hung from the shoulders down the back

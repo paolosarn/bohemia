@@ -338,14 +338,31 @@ def kit(X):
     return dict((k, v) for k, v in locals().items() if k != 'X')
 
 
-def pieces(G, X):
-    """the top on the man (called inside THIS LANE's build with its locals): repaint the body, return the pieces"""
+def pieces(G, X, layer=None):
+    """the top on the man (called inside THIS LANE's build with its locals): repaint the body, return the pieces.
+    THE LAYER (CHARACTER [the clothes look real], 10/23, tools/bohemia_character_the_outfit.py): how this top sits in a
+    person's outfit, read off the build's look (L['layers']['base']) unless a caller passes it (the mid top): role 'mid'
+    (worn over another top: the man is not repainted, the cloth stands off by lift), open (a shirt worn open down the
+    front, ohw its half width), sleeves (rolled up), hem_drop (its hem below a shorter layer over it), hood_over (the hood
+    heaped over a coat's collar, by that much), collar_out (the collar points out over the lapels, by that much), cuff_to
+    (the cuff past a coat's sleeve). With no layer the top is built exactly as before."""
+    if layer is None: layer = ((X.get('L') or {}).get('layers') or {}).get('base') or {}
     K_ = kit(X)
     (bpy, bmesh, V, BVHTree, KDTree, body, arm, M, Mi, R, P, fam_v, ffam, finish, tube, sc, tag, bvh, kd, gname, vw, B, Aw, SH, EL, WR, cy_n, arm_s, weigh, new_obj, cloth, surf, front, strip, ring_pts, band, arm_ring, neck_ring, waist_ring, buttons) = (K_[n] for n in ('bpy', 'bmesh', 'V', 'BVHTree', 'KDTree', 'body', 'arm', 'M', 'Mi', 'R', 'P', 'fam_v', 'ffam', 'finish', 'tube', 'sc', 'tag', 'bvh', 'kd', 'gname', 'vw', 'B', 'Aw', 'SH', 'EL', 'WR', 'cy_n', 'arm_s', 'weigh', 'new_obj', 'cloth', 'surf', 'front', 'strip', 'ring_pts', 'band', 'arm_ring', 'neck_ring', 'waist_ring', 'buttons'))
     mid, dk, lt = G['mid'], G['dk'], G['lt']
     coverall, bib = G['fn'] == 'genCoverall', G['bib']
     sleeves = 'long' if coverall and not bib else ('none' if bib else G['sleeves'])
+    if layer.get('sleeves') and sleeves == 'long': sleeves = layer['sleeves']
     neck = 'button' if coverall and not bib else G['neck']
+    mid_role = layer.get('role') == 'mid'
+    arms_in = bool(layer.get('arms_covered'))   # a sleeved layer over it: what stood off its own sleeves stays under that sleeve
+    drop = float(layer.get('hem_drop', 0.0))
+    opened = bool(layer.get('open')) and neck == 'button' and not coverall
+    ohw = float(layer.get('ohw', 0.050))
+    cy_f = X['section'](1.0, ('torso',))['cy']
+    def opening(c):
+        """an open shirt: the front cut away down the middle, a little wider toward the hem"""
+        return opened and c.y < cy_f and abs(c.x) < ohw * (1.0 + 0.30 * sstep(1.06, 0.70, c.z))
     sleeve_end = {'none': -1.0, 'short': 0.52, 'rolled': 1.45, 'long': 1.93}[sleeves]
     def neck_z(c):
         """the neckline's height round the neck: front (-y) to back"""
@@ -376,16 +393,19 @@ def pieces(G, X):
         if fm in ('upper', 'fore'): return arm_s(fm, c) <= sleeve_end
         return False
 
-    # 1. THE MAN'S OWN SURFACE REPAINTED: the shirt where the top covers him, skin where it does not
-    for f in body.data.polygons:
-        fm = ffam(f); c = M @ f.center
-        if fm in ('torso', 'neck', 'upper', 'fore'): f.material_index = 1 if covered(fm, c) else 0
-    body.data.update()
+    # 1. THE MAN'S OWN SURFACE REPAINTED: the shirt where the top covers him, skin where it does not (a top worn over
+    # another leaves him as the one under it painted him)
+    if not mid_role:
+        for f in body.data.polygons:
+            fm = ffam(f); c = M @ f.center
+            if fm in ('torso', 'neck', 'upper', 'fore'): f.material_index = 1 if covered(fm, c) else 0
+        body.data.update()
 
     made = []
 
     # 2. THE BODY OF THE TOP, cut finer and lifted by the cloth's weight
     weight = 0.011 if neck == 'hood' else 0.009 if coverall else 0.005 if sleeves == 'none' else 0.007
+    weight += float(layer.get('lift', 0.0))
     def keep_top(fm, c):
         if fm not in ('torso', 'neck', 'upper', 'fore'): return False
         if hole(c) and fm == 'torso' and c.z < 1.06: return False
@@ -394,13 +414,14 @@ def pieces(G, X):
             if G['tatter']: s += 0.10 * (abs(((7 * math.atan2(c.y, c.z - 1.0) + 31 * c.x) % 2.0) - 1.0) - 0.5)   # torn cuffs, in points
             return s <= sleeve_end
         if fm == 'neck': return neck == 'turtle' and c.z < 1.166
+        if opening(c): return False
         if sleeves == 'none' and not coverall and tank_bare(c): return False
         if bib: return False
         return c.z < neck_z(c) and c.z > 0.615
     def thick_top(p):
         t = weight
         q = V((abs(p.x), p.y, p.z))
-        if sleeves == 'short': t += 0.007 * sstep(0.12, 0.26, q.x) * sstep(1.12, 0.98, p.z)              # a tee's sleeve stands off the arm
+        if sleeves == 'short' and not arms_in: t += 0.007 * sstep(0.12, 0.26, q.x) * sstep(1.12, 0.98, p.z)   # a tee's sleeve stands off the arm
         if G['shoulder'] == 'wide':   # the square pad's height (its width is shift_top, below)
             t += 0.010 * sstep(0.06, 0.13, q.x) * sstep(0.22, 0.17, q.x) * sstep(0.99, 1.06, p.z)
         if G['shoulder'] == 'arc':    # the cocoon dome: one curve neck to elbow, no point
@@ -428,45 +449,59 @@ def pieces(G, X):
         # the stand round the neck, two collar points falling onto the chest, the placket down to the tail, six buttons
         made.append(band('collar', [neck_ring(lambda c: neck_z(c) + 0.004, weight + 0.002)], 0.022, 0.007, mid))
         pts = []
+        spread = opened or layer.get('collar_out')   # worn open, or out over a coat's lapels: the points fall wide on the chest
         for sx in (1, -1):
-            pts.append([front(sx * 0.052, 1.145), front(sx * 0.044, 1.118), front(sx * 0.030, 1.086)])
-        made.append(strip('collar_points', pts, lambda t: 0.034 * (1.0 - 0.75 * t), weight + 0.010, mid, across=5))
+            pts.append([front(sx * 0.064, 1.145), front(sx * 0.068, 1.112), front(sx * 0.058, 1.076)] if spread else
+                       [front(sx * 0.052, 1.145), front(sx * 0.044, 1.118), front(sx * 0.030, 1.086)])
+        made.append(strip('collar_points', pts, lambda t: 0.034 * (1.0 - 0.75 * t), weight + 0.010 + float(layer.get('collar_out', 0.0)), mid, across=5))
         zs = [1.105 - k * 0.075 for k in range(6)] if not coverall else []
-        made.append(strip('placket', [[front(0.0, z) for z in (1.118, 1.0, 0.85, 0.70, 0.62)]], 0.026 if not coverall else 0.012,
-                          weight + 0.003, mid if not coverall else dk))
-        if zs: made.append(buttons('buttons', [front(0.0, z) for z in zs], dk if lum(mid) > 120 else lt, lift_=weight + 0.006))
+        if opened:   # the two fronts' edges down the opening, each a lip of the cloth turned back, no buttons done up
+            made.append(strip('front_edge', [[front(sx * ohw * (1.0 + 0.30 * sstep(1.06, 0.70, z)), z) for z in (1.10, 1.0, 0.90, 0.80, 0.70, 0.63)]
+                                             for sx in (-1, 1)], 0.014, weight + 0.003, mid))
+        else:
+            made.append(strip('placket', [[front(0.0, z) for z in (1.118, 1.0, 0.85, 0.70, 0.62)]], 0.026 if not coverall else 0.012,
+                              weight + 0.003, mid if not coverall else dk))
+            if zs: made.append(buttons('buttons', [front(0.0, z) for z in zs], dk if lum(mid) > 120 else lt, lift_=weight + 0.006))
     if neck == 'hood':
         made.append(band('collar', [neck_ring(nz, weight + 0.003)], 0.020, 0.010, mid))
         if not G['hood_up']:   # the hood lies in a heap on the upper back
             # cycle 2 (looking, OLIVE HOODIE): a 40 mm heap read at 1:1 as a pale fur collar (its top takes the rig's dust);
             # 55 mm, rounder and higher, it rises to the base of the skull as a folded hood does
-            def keep_h(fm, c): return fm in ('torso', 'neck') and c.y > -0.005 and abs(c.x) < 0.115 and 0.99 < c.z < 1.175
+            # under a coat (the outfit's hood_over) the whole heap stands out over the coat's collar, a little wider
+            ho = float(layer.get('hood_over', 0.0))
+            def keep_h(fm, c): return fm in ('torso', 'neck') and c.y > -0.005 and abs(c.x) < (0.115 + 0.02 * (ho > 0)) and 0.99 < c.z < 1.175
             def thick_h(p):
-                return weight + 0.006 + 0.055 * math.exp(-((p.x / 0.085) ** 2)) * math.exp(-(((p.z - 1.115) / 0.065) ** 2))
+                return weight + 0.006 + ho * sstep(0.135, 0.10, abs(p.x)) + 0.055 * math.exp(-((p.x / 0.085) ** 2)) * math.exp(-(((p.z - 1.115) / 0.065) ** 2))
             made.append(cloth('hood', keep_h, thick_h, mid, rim=0.006, fams=('torso', 'neck')))
         cords = [[front(sx * 0.024, 1.116), front(sx * 0.026, 1.07), front(sx * 0.027, 1.035)] for sx in (1, -1)]
         made.append(strip('drawstrings', cords, 0.0065, weight + 0.006, lt, across=3, rim=0.003))
         if G['pocket']:
             made.append(strip('pocket', [[front(0.0, z) for z in (0.815, 0.77, 0.72, 0.675)]], lambda t: 0.120 + 0.050 * t, weight + 0.004, mid, across=7))
-        made.append(band('waistband', [waist_ring(0.640, weight + 0.001)], 0.040, 0.007, mid, groove=lambda a: 0.0012 * max(0.0, math.cos(90 * a)) ** 2))
+        if not drop:
+            made.append(band('waistband', [waist_ring(0.640, weight + 0.001)], 0.040, 0.007, mid, groove=lambda a: 0.0012 * max(0.0, math.cos(90 * a)) ** 2))
 
     # 4. THE SLEEVES' ENDS
-    if sleeves == 'short':
+    if sleeves == 'short' and not arms_in:
         made.append(band('sleeve_hem', arm_ring(0.50, weight + 0.012), 0.014, 0.005, mid))
     if sleeves == 'long' or (coverall and not bib):
-        made.append(band('cuffs', arm_ring(1.86, weight + 0.001), 0.030 if neck == 'hood' else 0.024, 0.006, dk if coverall else mid,
+        made.append(band('cuffs', arm_ring(float(layer.get('cuff_to', 1.86)), weight + 0.001), 0.030 if neck == 'hood' else 0.024, 0.006, dk if coverall else mid,
                          groove=(lambda a: 0.0010 * max(0.0, math.cos(24 * a)) ** 2) if neck == 'hood' else None))
-    if sleeves == 'rolled':
+    if sleeves == 'rolled' and not arms_in:
         made.append(band('roll', arm_ring(1.40, weight + 0.002), 0.034, 0.013, lt))
 
     # 5. THE HEM
     sec = X['section']
     if neck == 'button' and not coverall:   # the shirt's curved tail, longer at the front and the back
-        made.append(tube('tail', 0.70, lambda a: 0.588 + 0.036 * abs(math.cos(a)) ** 2, lambda z: weight + 0.008 + 0.004 * sstep(0.66, 0.59, z), mid, thick=0.005))
+        made.append(tube('tail', 0.70, lambda a: 0.588 - drop + 0.036 * abs(math.cos(a)) ** 2, lambda z: weight + 0.008 + 0.004 * sstep(0.66, 0.59 - drop, z), mid, thick=0.005,
+                         ang_ok=(lambda a, z: abs(a - 1.5 * math.pi) > 0.36) if opened else (lambda a, z: True)))
     elif G['tatter']:
         rag = lambda a: 0.565 + 0.055 * abs(((9 * a / math.pi + 0.3 * math.sin(3 * a)) % 2.0) - 1.0)   # torn in points, 5.5 cm deep
         made.append(tube('tail', 0.70, rag, lambda z: weight + 0.008, mid, thick=0.005,
                          ang_ok=lambda a, z: (0.5 + 0.5 * math.sin(13 * a) * math.cos(40 * z + 2 * a)) < 0.93))
+    elif drop and not G['cut'] and not coverall:   # under a shorter layer (THE OUTFIT): the hem carries on below its edge
+        hz = (0.640 - 0.020 if neck == 'hood' else 0.622) - drop
+        cinch = (lambda z: 0.004 * sstep(hz + 0.042, hz + 0.030, z)) if neck == 'hood' else (lambda z: 0.0)   # a hoodie's band hugs him
+        made.append(tube('tail', 0.70, lambda a: hz, lambda z: weight + 0.008 + 0.006 * sstep(0.66, hz, z) - cinch(z), mid, thick=0.005))
     elif sleeves != 'none' and neck in ('crew', 'henley', 'turtle') and not G['cut']:
         made.append(band('hem', [waist_ring(0.628, weight + 0.001)], 0.012, 0.005, mid))
     if G['cut'] == 'long':      # longline: the hem carries past the hip to mid-thigh, one mass over the legs
@@ -478,9 +513,10 @@ def pieces(G, X):
     # 6. POCKETS
     if G['pockets'] or (coverall and not bib):
         pk = []; flap = []
+        px = max(0.052, ohw + 0.032) if opened else 0.052   # an open shirt's pockets ride its fronts
         for sx in (1, -1):
-            pk.append([front(sx * 0.052, z) for z in (1.030, 1.0, 0.965)])
-            flap.append([front(sx * 0.052, z) for z in (1.036, 1.020)])
+            pk.append([front(sx * px, z) for z in (1.030, 1.0, 0.965)])
+            flap.append([front(sx * px, z) for z in (1.036, 1.020)])
         made.append(strip('pocket', pk, 0.046, weight + 0.004, dk if coverall else mid, across=5))
         made.append(strip('flap', flap, 0.050, weight + 0.009, dk if coverall else mid, across=5))
 

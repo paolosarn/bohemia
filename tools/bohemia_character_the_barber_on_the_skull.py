@@ -104,6 +104,7 @@ import bohemia_character_garments_outer as OUTER_ONE  # noqa: E402   (GARMENTS O
 import bohemia_character_garments_legs as LEGS_ONE  # noqa: E402   (GARMENTS LEGS AND FEET: the 45 trousers and 40 shoes, 10/23)
 import bohemia_character_garments_gear as GEAR_ONE  # noqa: E402   (GEAR 1: the 68 bags, capes, pads, scarves, belts and gloves, 10/23)
 import bohemia_character_the_first_look as FIRST  # noqa: E402   (THE FIRST LOOK: the player's paper doll in 3D, 10/23)
+import bohemia_character_the_outfit as OUTFIT  # noqa: E402   (THE OUTFIT: a person's layers that show, 10/23)
 CUTS.update(HAIR_ONE.CUTS)
 CUTS.update(HAIR_TWO.CUTS)
 CUTS.update(FACES_ONE.CUTS)
@@ -199,7 +200,12 @@ def build(cut):
             LEGS_ONE.roll_wear(spec['gang'], str(spec.get('id', tag)).rsplit('_', 1)[-1])
         pid_ = str(spec.get('id', tag)).rsplit('_', 1)[-1]
         kit = spec['kit'] if 'kit' in spec else GEAR_ONE.roll_kit(spec['gang'], pid_)   # GEAR 1: his bag, scarf, belt, gloves...
-        CH.DRESS[tag.upper()] = lambda L, wear=wear, kit=kit: GEAR_ONE.dress(LEGS_ONE.dress(L, **wear), kit)
+        # THE OUTFIT (CHARACTER [the clothes look real], 10/23): his top and coat as layers that show; the top or the coat a
+        # caller rolled may come back in another colour of the same cut so the two read apart, and the build (a caller's
+        # person_body too) wears what the outfit says; the mid top and how each layer sits ride the DRESS hook
+        O = OUTFIT.outfit(spec)
+        if O: spec['top'], spec['coat'] = O['base'], O['outer']
+        CH.DRESS[tag.upper()] = lambda L, wear=wear, kit=kit, O=O, nm=tag.upper(): OUTFIT.dress(GEAR_ONE.dress(LEGS_ONE.dress(L, **wear), kit), O, nm)
         person_body(spec)   # A PERSON (RUN TWO [no two people alike]): his gang's look in his own skin
     body_glb = spec.get('body', 'records/character/rig/barberbody.glb'); btag = os.path.basename(body_glb)[:-4]
     sk = tuple(spec.get('skin', ('skin_deep', 3)))   # the barber's mannequin is skin_deep 3; a person wears his own step

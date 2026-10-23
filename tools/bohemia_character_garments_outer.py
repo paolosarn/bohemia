@@ -144,8 +144,15 @@ def body(cut):
     CH.build(name, RIG_DIR)
 
 
-def pieces(G, X):
-    """the coat on the man (called inside THIS LANE's build with its locals), on BASE 1's toolkit; returns the pieces"""
+def pieces(G, X, layer=None):
+    """the coat on the man (called inside THIS LANE's build with its locals), on BASE 1's toolkit; returns the pieces.
+    THE LAYER (CHARACTER [the clothes look real], 10/23, tools/bohemia_character_the_outfit.py): how the coat is worn over
+    what is under it, read off the build's look (L['layers']['outer']): lift (it stands further off a bulky top), open
+    (worn open: ohw its half width, collar_z how high the front opens, fo_add the skirt's front opened wider), collar False
+    (no standing collar: a hood or a shirt's collar sits over it; neck_top where its neck stops), sleeve_to (the sleeve
+    ends short of the cuff under it) and push (the sleeve pushed up the forearm in a bunched roll). With no layer the coat
+    is built exactly as before."""
+    if layer is None: layer = ((X.get('L') or {}).get('layers') or {}).get('outer') or {}
     K_ = BASE.kit(X)
     V, M, Mi, body, sc, tag = K_['V'], K_['M'], K_['Mi'], K_['body'], K_['sc'], K_['tag']
     arm_s, cloth, strip, band, buttons, front, surf = K_['arm_s'], K_['cloth'], K_['strip'], K_['band'], K_['buttons'], K_['front'], K_['surf']
@@ -161,9 +168,15 @@ def pieces(G, X):
     closed = S == 'WRAP COAT'
     hem = hem_z(G)
     weight = 0.016 if ('QUILTED' in w or S in ('COCOON COAT', 'COMMA COAT')) else 0.010 if 'LEATHER' in w else 0.013
+    weight += float(layer.get('lift', 0.0))
     # the opening's half width down the front: a coat's narrow slit, a duster hanging open, a vest fully open
     ohw = 0.060 if S == 'DUSTER' else 0.050 if vest else 0.042 if jacket else 0.036
     collar_z = 1.115 if vest else 1.040   # the coat is closed above this (genCoat: three rows at the collar), a vest never
+    worn_open = bool(layer.get('open')) and not closed
+    if worn_open:   # THE OUTFIT: worn open down the front to the neck, so the layer under it shows in a V and a stripe
+        ohw = max(ohw, float(layer['ohw'])); collar_z = max(collar_z, float(layer['collar_z']))
+    neck_top = float(layer.get('neck_top', 1.150))
+    sleeve_to = float(layer.get('sleeve_to', 1.93))
     cy_f = section(1.0, ('torso',))['cy']
 
     def opening(c):
@@ -172,8 +185,8 @@ def pieces(G, X):
     # 1. THE COAT'S BODY AND SLEEVES, cut finer and lifted by the cloth's weight
     if not (poncho or apron):
         def keep(fm, c):
-            if fm == 'neck': return (not vest) and c.z < 1.150
-            if fm in ('upper', 'fore'): return (not vest) and arm_s(fm, c) <= 1.93
+            if fm == 'neck': return (not vest) and c.z < neck_top and not opening(c)
+            if fm in ('upper', 'fore'): return (not vest) and arm_s(fm, c) <= sleeve_to
             if fm != 'torso': return False
             if vest and abs(c.x) > 0.085 and c.z > 0.94: return False                       # the armholes
             if opening(c): return False
@@ -208,6 +221,7 @@ def pieces(G, X):
             if fo and abs(a - 1.5 * math.pi) < fo * 0.5: return False                          # the open front
             if z < vent_z and abs(a - 0.5 * math.pi) < 0.035 + 0.30 * sstep(vent_z, hem, z): return False   # the vent
             return True
+        fo += float(layer.get('fo_add', 0.0)) if worn_open and fo else 0.0
         def off(z):
             if S in ('COCOON COAT', 'COMMA COAT'):   # widest at the hip, narrowing to the hem: the A-line turned over
                 return weight + 0.040 - 0.032 * sstep(0.70, hem, z)
@@ -215,10 +229,16 @@ def pieces(G, X):
         made.append(tube('coat_skirt', 0.72, hem_a, off, mid, ang_ok=ok, thick=0.012))
 
     # 3. THE COLLAR AND THE LAPELS
-    if not (vest or poncho or apron):
+    if not (vest or poncho or apron) and layer.get('collar', True):
         tall = 0.034 if S in ('LONGCOAT', 'TRENCH', 'DUSTER', 'SPLIT TAIL', 'CAR COAT') else 0.024
-        made.append(band('collar', [neck_ring(lambda c: 1.150 + 0.012 * (c.y > -0.02), weight + 0.004)], tall, 0.011,
-                         dk if (S == 'CHORE COAT' and 'BARN' in w) or not runway else mid))
+        ccol = dk if (S == 'CHORE COAT' and 'BARN' in w) or not runway else mid
+        if worn_open:   # open at the throat: the collar turned down round the back of the neck, its two ends beside the V
+            ring = [p for p, d in neck_ring(lambda c: 1.140 + 0.010 * (c.y > -0.02), weight + 0.006)]
+            back = [p for p in ring if p.y > K_['cy_n'] - 0.035]
+            back.sort(key=lambda p: math.atan2(p.x, p.y - K_['cy_n']))
+            made.append(strip('collar', [back], tall + 0.006, weight + 0.006, ccol, across=5))
+        else:
+            made.append(band('collar', [neck_ring(lambda c: 1.150 + 0.012 * (c.y > -0.02), weight + 0.004)], tall, 0.011, ccol))
     if not (closed or poncho or apron):
         edge = [[front(sx * ohw * (1.0 + 0.35 * sstep(1.04, 0.70, z)), z) for z in (collar_z, 0.98, 0.90, 0.82, 0.74, 0.67)] for sx in (-1, 1)]
         made.append(strip('lapels', edge, 0.016 if not vest else 0.012, weight + 0.004, dk))
@@ -228,8 +248,10 @@ def pieces(G, X):
     # 4. THE JACKET'S BAND AND CUFFS, THE TRENCH'S BELT AND BUTTONS, THE WRAP'S DIAGONAL AND BELT
     if jacket:
         made.append(band('waistband', [waist_ring(0.690, weight + 0.006)], 0.045, 0.010, dk, groove=lambda a: 0.0012 * max(0.0, math.cos(80 * a)) ** 2))
-    if jacket or S in ('CHORE COAT', 'CAR COAT', 'TRENCH'):
-        made += [band('cuffs', arm_ring(1.90, weight + 0.004), 0.030, 0.008, dk)]
+    if (jacket or S in ('CHORE COAT', 'CAR COAT', 'TRENCH')) and not layer.get('push'):
+        made += [band('cuffs', arm_ring(sleeve_to - 0.03, weight + 0.004), 0.030, 0.008, dk)]
+    if layer.get('push') and not (vest or poncho or apron):   # pushed up the forearm: the cloth bunched in a fat roll of folds
+        made += [band('pushed', arm_ring(sleeve_to - 0.02, weight + 0.006), 0.058, 0.017, mid, groove=lambda a: 0.0035 * max(0.0, math.cos(5 * a)) ** 2)]
     if S in ('TRENCH', 'WRAP COAT'):
         made.append(band('belt', [waist_ring(0.700, weight + 0.008)], 0.038, 0.010, dk))
     if S == 'TRENCH':
