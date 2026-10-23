@@ -80,7 +80,7 @@
   "file": "records/target/cook_floor_not_final/block_subs_0.webp"
  },
  "lots.0": {
-  "seconds": 452,
+  "seconds": 847,
   "junk": {
    "bags": 0,
    "paper": 523,
@@ -759,5 +759,46 @@
    ]
   },
   "file": "records/target/cook_floor_not_final/block_corner_2.webp"
+ },
+ "main.0": {
+  "seconds": 705,
+  "junk": {
+   "bags": 3,
+   "paper": 368,
+   "card": 92,
+   "cloth": 38,
+   "weeds": 306,
+   "mattresses": 3,
+   "couches": 1,
+   "fires": 2,
+   "dead_lawn": 12,
+   "paths": 2,
+   "bins": 0,
+   "tracks": 20,
+   "tidy_house": 1,
+   "burnt_house": 2
+  },
+  "grime": {
+   "materials": 71,
+   "occlusion_m": 1.6,
+   "tint": [
+    0.3,
+    0.255,
+    0.2
+   ],
+   "fires": [
+    [
+     6.78,
+     12.6,
+     3.2
+    ],
+    [
+     51.47,
+     17.29,
+     1.0
+    ]
+   ]
+  },
+  "file": "records/target/cook_floor_not_final/block_main_0.webp"
  }
 }
