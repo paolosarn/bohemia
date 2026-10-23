@@ -1,0 +1,37 @@
+{
+ "cut": "PERSON network_4",
+ "tag": "person_network_4",
+ "bank": {
+  "kind": "person",
+  "gang": "Network"
+ },
+ "worn_by": "Network, rolled",
+ "model": "records/character/rig/barber_person_network_4.glb",
+ "body": "records/character/rig/person_network_4.glb (the mannequin in None)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "tape_grey",
+  1
+ ],
+ "hair_rgb": [
+  102,
+  99,
+  96
+ ],
+ "skin_rgb": [
+  125,
+  88,
+  74
+ ],
+ "model_top_m": 1.5346,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7271,
+ "pieces": {
+  "barber_comb_over_ring": 80466,
+  "h2_comb_over_thin": 9509,
+  "barber_comb_over_strands": 8274,
+  "f1_person_network_4": 150
+ }
+}

@@ -1,0 +1,108 @@
+{
+ "look": "PERSON_TOWN_1",
+ "shape": "person_town_1: a person of the Body, his own skin skin_deep 2, OLIVE HENLEY",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "OLIVE HENLEY",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_1_trouser": 2568,
+  "person_town_1_shoe": 3148,
+  "person_town_1_shirt": 67584,
+  "person_town_1_collar": 1536,
+  "person_town_1_placket": 126,
+  "person_town_1_buttons": 102,
+  "person_town_1_cuffs": 2048,
+  "person_town_1_hem": 1792,
+  "person_town_1_hair": 17968,
+  "person_town_1_hand_L": 392,
+  "person_town_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_1_buttons": [
+   0.1329,
+   0.1683,
+   0.0545
+  ],
+  "person_town_1_collar": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_town_1_cuffs": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_town_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_1_hem": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_town_1_placket": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_town_1_shirt": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_town_1_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_1_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_1_skin": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "person_town_1_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_1_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

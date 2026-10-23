@@ -1,0 +1,139 @@
+{
+ "look": "PERSON_NETWORK_6",
+ "shape": "person_network_6: a person of the Network, his own skin skin_light 3, PATINA PLAID FLANNEL",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "PATINA PLAID FLANNEL",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_network_6.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.7908,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_network_6_trouser": 2568,
+  "person_network_6_shoe": 3836,
+  "person_network_6_shirt": 71212,
+  "person_network_6_collar": 1536,
+  "person_network_6_collar_points": 180,
+  "person_network_6_placket": 162,
+  "person_network_6_buttons": 204,
+  "person_network_6_cuffs": 2048,
+  "person_network_6_tail": 2016,
+  "person_network_6_hair": 17968,
+  "person_network_6_hand_L": 392,
+  "person_network_6_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_6_buttons": [
+   0.1329,
+   0.3005,
+   0.2016
+  ],
+  "person_network_6_collar": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_6_collar_points": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_6_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_6_cuffs": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_6_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_network_6_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_network_6_placket": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_6_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_6_shirt": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_6_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_6_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_6_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_network_6_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_network_6_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_network_6_tail": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_6_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_6_trouser": [
+   0.063,
+   0.063,
+   0.0648
+  ],
+  "person_network_6_trousers": [
+   0.063,
+   0.063,
+   0.0648
+  ]
+ }
+}

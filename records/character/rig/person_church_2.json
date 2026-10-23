@@ -1,0 +1,147 @@
+{
+ "look": "PERSON_CHURCH_2",
+ "shape": "person_church_2: a person of the Church, his own skin skin_deep 4, KHAKI BUTTON-UP under LEATHER VEST",
+ "worn": {
+  "hair": "COIL CROWN",
+  "base": "KHAKI BUTTON-UP",
+  "back": "GOLD SHOULDER MANTLE",
+  "head": "BONE KNIT CAP",
+  "legs": "GOLD DROP TROUSER",
+  "feet": "BROWN BOOTS",
+  "outer": "LEATHER VEST"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_church_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5476,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.807,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_church_2_trouser": 2568,
+  "person_church_2_shoe": 3716,
+  "person_church_2_mantle": 17882,
+  "person_church_2_shirt": 71212,
+  "person_church_2_collar": 1536,
+  "person_church_2_collar_points": 180,
+  "person_church_2_placket": 162,
+  "person_church_2_buttons": 204,
+  "person_church_2_cuffs": 2048,
+  "person_church_2_tail": 2016,
+  "person_church_2_coat": 22934,
+  "person_church_2_lapels": 396,
+  "person_church_2_zip": 324,
+  "person_church_2_hair": 17968,
+  "person_church_2_hat": 1518,
+  "person_church_2_hand_L": 392,
+  "person_church_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_church_2_buttons": [
+   0.3864,
+   0.2664,
+   0.1119
+  ],
+  "person_church_2_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_church_2_collar": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_church_2_collar_points": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_church_2_cuffs": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_church_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_church_2_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_church_2_hat": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "person_church_2_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_church_2_mantle": [
+   0.5149,
+   0.402,
+   0.1746
+  ],
+  "person_church_2_placket": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_church_2_shirt": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_church_2_shoe": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "person_church_2_shoes": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "person_church_2_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_church_2_tail": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_church_2_trouser": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "person_church_2_trousers": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "person_church_2_zip": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

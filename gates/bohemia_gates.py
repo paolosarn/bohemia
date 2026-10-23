@@ -9478,6 +9478,12 @@ GATES = [
      "every face beside the 3D body it stands beside on the crew card and in a settlement, read with EYES' own read (ITA band "
      "equal or next, 12 L* or less), 24 of 26 PASS; the two faces BACK the round it landed (PORTRAIT's, paused) frozen, the list "
      "only shrinks; a dark face beside a light body is caught. green at registration, 5/0, 6 s", False),
+    ('NO TWO PEOPLE ALIKE', ['node', 'gates/no_two_people_alike_gate.js'],
+     "RUN TWO gate, 10/23, row [no two people alike] (rule 121(i), his 10/19: 'THERE'S SO MANY OF THE SAME HATS AND SHIT ON THE "
+     "CHARACTERS... ALL THE CLAY PEOPLE HAVE LIKE 2 OPTIONS FOR CUSTOMIZATIONS, IT'S INSANE'): 152 people rolled from every piece "
+     "CHARACTER made, no two alike, the pieces in play counted; every one rendered on the rig with his own talking head; on 36 town "
+     "screens nobody twice; on the demo's map at three zooms nobody on the glass twice (95 of 95 at the default). green at "
+     "registration, 15/0, about 4 min", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

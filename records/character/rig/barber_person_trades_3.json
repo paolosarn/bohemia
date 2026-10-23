@@ -1,0 +1,36 @@
+{
+ "cut": "PERSON trades_3",
+ "tag": "person_trades_3",
+ "bank": {
+  "kind": "person",
+  "gang": "Trades"
+ },
+ "worn_by": "Trades, rolled",
+ "model": "records/character/rig/barber_person_trades_3.glb",
+ "body": "records/character/rig/person_trades_3.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  76,
+  50,
+  44
+ ],
+ "model_top_m": 1.5597,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7553,
+ "pieces": {
+  "barber_deep_taper_fade": 30645,
+  "barber_deep_taper": 155242,
+  "hat_storm_knit_cap_cap": 193954
+ }
+}

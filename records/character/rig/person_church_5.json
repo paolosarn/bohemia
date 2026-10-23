@@ -1,0 +1,128 @@
+{
+ "look": "PERSON_CHURCH_5",
+ "shape": "person_church_5: a person of the Church, his own skin skin_light 3, RUST HOODIE",
+ "worn": {
+  "hair": "COIL CROWN",
+  "base": "RUST HOODIE",
+  "back": "GOLD SHOULDER MANTLE",
+  "head": "BONE KNIT CAP",
+  "legs": "GOLD DROP TROUSER",
+  "feet": "BROWN BOOTS"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_church_5.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5476,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.807,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_church_5_trouser": 2568,
+  "person_church_5_shoe": 3716,
+  "person_church_5_mantle": 17882,
+  "person_church_5_shirt": 69000,
+  "person_church_5_collar": 1536,
+  "person_church_5_hood": 14388,
+  "person_church_5_drawstrings": 100,
+  "person_church_5_pocket": 182,
+  "person_church_5_waistband": 1792,
+  "person_church_5_cuffs": 2048,
+  "person_church_5_hair": 17968,
+  "person_church_5_hat": 1518,
+  "person_church_5_hand_L": 392,
+  "person_church_5_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_church_5_collar": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_church_5_cuffs": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_church_5_drawstrings": [
+   0.3864,
+   0.1195,
+   0.0343
+  ],
+  "person_church_5_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_church_5_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_church_5_hat": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "person_church_5_hood": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_church_5_mantle": [
+   0.5149,
+   0.402,
+   0.1746
+  ],
+  "person_church_5_pocket": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_church_5_shirt": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_church_5_shoe": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "person_church_5_shoes": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "person_church_5_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_church_5_trouser": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "person_church_5_trousers": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "person_church_5_waistband": [
+   0.2159,
+   0.0595,
+   0.0176
+  ]
+ }
+}

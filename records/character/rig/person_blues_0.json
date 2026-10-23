@@ -1,0 +1,171 @@
+{
+ "look": "PERSON_BLUES_0",
+ "shape": "person_blues_0: a person of the Blues, his own skin skin_light 3, STEEL PLAID FLANNEL under DENIM VEST",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "STEEL PLAID FLANNEL",
+  "outer": "DENIM VEST",
+  "back": "COBALT SHOULDER MANTLE",
+  "legs": "COBALT WIDE TROUSER",
+  "feet": "COBALT STACK BOOT"
+ },
+ "dials": {
+  "height": -0.3,
+  "belly": 0.55,
+  "shoulders": 0.6,
+  "hips": 0.15
+ },
+ "model": "records/character/rig/person_blues_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.6942,
+ "real_height_for_rig": 1.7002,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_blues_0_trouser": 2568,
+  "person_blues_0_shoe": 3916,
+  "person_blues_0_mantle": 11634,
+  "person_blues_0_shirt": 71276,
+  "person_blues_0_collar": 1536,
+  "person_blues_0_collar_points": 180,
+  "person_blues_0_placket": 162,
+  "person_blues_0_buttons": 204,
+  "person_blues_0_cuffs": 2048,
+  "person_blues_0_tail": 2016,
+  "person_blues_0_coat": 22194,
+  "person_blues_0_lapels": 396,
+  "person_blues_0_chest_pockets": 252,
+  "person_blues_0_chest_flaps": 252,
+  "person_blues_0_hair": 17968,
+  "person_blues_0_hand_L": 392,
+  "person_blues_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_blues_0_buttons": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_blues_0_chest_flaps": [
+   0.0176,
+   0.0319,
+   0.0823
+  ],
+  "person_blues_0_chest_pockets": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "person_blues_0_coat": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "person_blues_0_collar": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_blues_0_collar_points": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_blues_0_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_blues_0_cuffs": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_blues_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_blues_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_blues_0_lapels": [
+   0.0176,
+   0.0319,
+   0.0823
+  ],
+  "person_blues_0_mantle": [
+   0.0612,
+   0.1119,
+   0.2384
+  ],
+  "person_blues_0_placket": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_blues_0_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_blues_0_shirt": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_blues_0_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_blues_0_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_blues_0_shoe": [
+   0.0423,
+   0.0409,
+   0.0452
+  ],
+  "person_blues_0_shoes": [
+   0.0423,
+   0.0409,
+   0.0452
+  ],
+  "person_blues_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_blues_0_tail": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_blues_0_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_blues_0_trouser": [
+   0.1046,
+   0.1022,
+   0.107
+  ],
+  "person_blues_0_trousers": [
+   0.1046,
+   0.1022,
+   0.107
+  ]
+ }
+}

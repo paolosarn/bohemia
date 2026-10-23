@@ -1,0 +1,104 @@
+{
+ "look": "PERSON_HOMELESS_7",
+ "shape": "person_homeless_7: a person of the Homeless, his own skin skin_mid 2, BONE TANK under BONE VEST",
+ "worn": {
+  "hair": "LAYERED FALL",
+  "base": "BONE TANK",
+  "back": "SHOULDER MANTLE",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT",
+  "outer": "BONE VEST"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_homeless_7.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5436,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6851,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_homeless_7_trouser": 2568,
+  "person_homeless_7_shoe": 3916,
+  "person_homeless_7_mantle": 19230,
+  "person_homeless_7_shirt": 21064,
+  "person_homeless_7_coat": 22450,
+  "person_homeless_7_lapels": 396,
+  "person_homeless_7_hair": 30198,
+  "person_homeless_7_hair_fall": 2646,
+  "person_homeless_7_hand_L": 392,
+  "person_homeless_7_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_homeless_7_coat": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_homeless_7_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_homeless_7_hair": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "person_homeless_7_hair_fall": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "person_homeless_7_lapels": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_homeless_7_mantle": [
+   0.305,
+   0.2874,
+   0.2462
+  ],
+  "person_homeless_7_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_homeless_7_shoe": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "person_homeless_7_shoes": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "person_homeless_7_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_homeless_7_trouser": [
+   0.013,
+   0.0116,
+   0.0116
+  ],
+  "person_homeless_7_trousers": [
+   0.013,
+   0.0116,
+   0.0116
+  ]
+ }
+}

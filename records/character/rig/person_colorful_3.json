@@ -1,0 +1,139 @@
+{
+ "look": "PERSON_COLORFUL_3",
+ "shape": "person_colorful_3: a person of the Colorful, his own skin skin_deep 3, WORK COVERALLS",
+ "worn": {
+  "hair": "SHAG",
+  "base": "WORK COVERALLS",
+  "head": "ROSE KNIT CAP",
+  "legs": "GRASS DROP TROUSER",
+  "feet": "GRASS BOOTS"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_colorful_3.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5613,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.7044,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_colorful_3_trouser": 2568,
+  "person_colorful_3_shoe": 3916,
+  "person_colorful_3_shirt": 71252,
+  "person_colorful_3_collar": 1536,
+  "person_colorful_3_collar_points": 180,
+  "person_colorful_3_placket": 162,
+  "person_colorful_3_cuffs": 2048,
+  "person_colorful_3_pocket": 180,
+  "person_colorful_3_flap": 108,
+  "person_colorful_3_belt": 1792,
+  "person_colorful_3_hair": 30198,
+  "person_colorful_3_hair_fall": 2254,
+  "person_colorful_3_hat": 4548,
+  "person_colorful_3_hat_brim": 2362,
+  "person_colorful_3_hand_L": 392,
+  "person_colorful_3_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_3_belt": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_colorful_3_collar": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_colorful_3_collar_points": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_colorful_3_cuffs": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_colorful_3_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_colorful_3_flap": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_colorful_3_hair": [
+   0.0612,
+   0.0273,
+   0.016
+  ],
+  "person_colorful_3_hair_fall": [
+   0.0612,
+   0.0273,
+   0.016
+  ],
+  "person_colorful_3_hat": [
+   0.552,
+   0.0612,
+   0.0887
+  ],
+  "person_colorful_3_hat_brim": [
+   0.552,
+   0.0612,
+   0.0887
+  ],
+  "person_colorful_3_placket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_colorful_3_pocket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_colorful_3_shirt": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_colorful_3_shoe": [
+   0.2159,
+   0.1981,
+   0.162
+  ],
+  "person_colorful_3_shoes": [
+   0.2159,
+   0.1981,
+   0.162
+  ],
+  "person_colorful_3_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_colorful_3_trouser": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_colorful_3_trousers": [
+   0.0437,
+   0.0561,
+   0.0232
+  ]
+ }
+}

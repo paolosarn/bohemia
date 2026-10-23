@@ -1,0 +1,135 @@
+{
+ "look": "PERSON_COLORFUL_2",
+ "shape": "person_colorful_2: a person of the Colorful, his own skin skin_deep 4, TEAL STRIPED TEE",
+ "worn": {
+  "hair": "SHAG",
+  "base": "TEAL STRIPED TEE",
+  "head": "ROSE KNIT CAP",
+  "legs": "GRASS DROP TROUSER",
+  "feet": "GRASS BOOTS"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_colorful_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5613,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.7044,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_colorful_2_trouser": 2568,
+  "person_colorful_2_shoe": 3916,
+  "person_colorful_2_shirt": 39960,
+  "person_colorful_2_collar": 1536,
+  "person_colorful_2_sleeve_hem": 2048,
+  "person_colorful_2_hem": 1792,
+  "person_colorful_2_hair": 30198,
+  "person_colorful_2_hair_fall": 2254,
+  "person_colorful_2_hat": 4548,
+  "person_colorful_2_hat_brim": 2362,
+  "person_colorful_2_hand_L": 392,
+  "person_colorful_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_2_collar": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_colorful_2_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_colorful_2_hair": [
+   0.0612,
+   0.0273,
+   0.016
+  ],
+  "person_colorful_2_hair_fall": [
+   0.0612,
+   0.0273,
+   0.016
+  ],
+  "person_colorful_2_hat": [
+   0.552,
+   0.0612,
+   0.0887
+  ],
+  "person_colorful_2_hat_brim": [
+   0.552,
+   0.0612,
+   0.0887
+  ],
+  "person_colorful_2_hem": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_colorful_2_shirt": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_colorful_2_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_2_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_2_shoe": [
+   0.2159,
+   0.1981,
+   0.162
+  ],
+  "person_colorful_2_shoes": [
+   0.2159,
+   0.1981,
+   0.162
+  ],
+  "person_colorful_2_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_colorful_2_sleeve_hem": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_colorful_2_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_2_trouser": [
+   0.1559,
+   0.1413,
+   0.107
+  ],
+  "person_colorful_2_trousers": [
+   0.1559,
+   0.1413,
+   0.107
+  ]
+ }
+}

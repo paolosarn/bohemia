@@ -1,0 +1,108 @@
+{
+ "look": "PERSON_VOLUNTEERS_5",
+ "shape": "person_volunteers_5: a person of the Volunteers, his own skin skin_deep 3, SLATE HENLEY",
+ "worn": {
+  "hair": "HEAVY FRINGE",
+  "base": "SLATE HENLEY",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "COLUMN PANT-BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_volunteers_5.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5455,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6872,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_volunteers_5_trouser": 2568,
+  "person_volunteers_5_shoe": 4116,
+  "person_volunteers_5_shirt": 67512,
+  "person_volunteers_5_collar": 1536,
+  "person_volunteers_5_placket": 126,
+  "person_volunteers_5_buttons": 102,
+  "person_volunteers_5_cuffs": 2048,
+  "person_volunteers_5_hem": 1792,
+  "person_volunteers_5_hair": 21846,
+  "person_volunteers_5_hand_L": 392,
+  "person_volunteers_5_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_5_buttons": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
+  "person_volunteers_5_collar": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_5_cuffs": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_5_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_volunteers_5_hair": [
+   0.006,
+   0.0052,
+   0.0044
+  ],
+  "person_volunteers_5_hem": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_5_placket": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_5_shirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_5_shoe": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_5_shoes": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_5_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_volunteers_5_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_volunteers_5_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

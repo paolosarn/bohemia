@@ -1,0 +1,43 @@
+{
+ "head_px": 128,
+ "head_m": 0.3846,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.385 m",
+ "ppm": 332.834,
+ "res": 218,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "expressions": [
+  "A",
+  "E",
+  "O",
+  "M"
+ ],
+ "files": [
+  "records/target/character/barber/person_anarchists_5/rig_portrait_S.png",
+  "records/target/character/barber/person_anarchists_5/rig_portrait_SE.png",
+  "records/target/character/barber/person_anarchists_5/rig_portrait_SW.png"
+ ],
+ "expression_files": {
+  "A": "records/target/character/barber/person_anarchists_5/rig_portrait_S_A.png",
+  "E": "records/target/character/barber/person_anarchists_5/rig_portrait_S_E.png",
+  "O": "records/target/character/barber/person_anarchists_5/rig_portrait_S_O.png",
+  "M": "records/target/character/barber/person_anarchists_5/rig_portrait_S_M.png"
+ },
+ "crop_box_px": [
+  33,
+  36,
+  187,
+  218
+ ],
+ "model": "records/character/rig/barber_person_anarchists_5.glb",
+ "body_rig": "rig.json",
+ "colours": 21366
+}

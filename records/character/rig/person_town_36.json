@@ -1,0 +1,134 @@
+{
+ "look": "PERSON_TOWN_36",
+ "shape": "person_town_36: a person of the Body, his own skin skin_deep 3, FIELD BUTTON-UP under SLATE COCOON COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "FIELD BUTTON-UP",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "outer": "SLATE COCOON COAT"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_36.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_36_trouser": 2568,
+  "person_town_36_shoe": 3148,
+  "person_town_36_shirt": 71204,
+  "person_town_36_collar": 1536,
+  "person_town_36_collar_points": 180,
+  "person_town_36_placket": 162,
+  "person_town_36_buttons": 204,
+  "person_town_36_cuffs": 2048,
+  "person_town_36_tail": 2016,
+  "person_town_36_coat": 73272,
+  "person_town_36_coat_skirt": 4142,
+  "person_town_36_collar.001": 1536,
+  "person_town_36_lapels": 396,
+  "person_town_36_hair": 17968,
+  "person_town_36_hand_L": 392,
+  "person_town_36_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_36_buttons": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_town_36_coat": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_town_36_coat_skirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_town_36_collar": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_36_collar_points": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_36_cuffs": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_36_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_36_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_36_lapels": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_town_36_placket": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_36_shirt": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_36_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_36_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_36_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_town_36_tail": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_36_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_36_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

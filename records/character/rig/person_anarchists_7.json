@@ -1,0 +1,127 @@
+{
+ "look": "PERSON_ANARCHISTS_7",
+ "shape": "person_anarchists_7: a person of the Anarchists, his own skin skin_mid 3, STORM BUTTON-UP",
+ "worn": {
+  "hair": "LAYERED FALL",
+  "base": "STORM BUTTON-UP",
+  "head": "CHARCOAL WATCH CAP",
+  "legs": "LEATHER STACK PANT",
+  "feet": "LEATHER STACK BOOT"
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.45,
+  "shoulders": -0.25,
+  "hips": -0.25
+ },
+ "model": "records/character/rig/person_anarchists_7.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5486,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7821,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_anarchists_7_shoe": 4036,
+  "person_anarchists_7_shirt": 71212,
+  "person_anarchists_7_collar": 1536,
+  "person_anarchists_7_collar_points": 180,
+  "person_anarchists_7_placket": 162,
+  "person_anarchists_7_buttons": 204,
+  "person_anarchists_7_cuffs": 2048,
+  "person_anarchists_7_tail": 2016,
+  "person_anarchists_7_hair": 30198,
+  "person_anarchists_7_hair_fall": 2646,
+  "person_anarchists_7_hat": 3444,
+  "person_anarchists_7_hat_brim": 2106,
+  "person_anarchists_7_hand_L": 392,
+  "person_anarchists_7_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_7_buttons": [
+   0.1248,
+   0.1384,
+   0.1651
+  ],
+  "person_anarchists_7_collar": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_collar_points": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_cuffs": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_anarchists_7_hair": [
+   0.0212,
+   0.0144,
+   0.0116
+  ],
+  "person_anarchists_7_hair_fall": [
+   0.0212,
+   0.0144,
+   0.0116
+  ],
+  "person_anarchists_7_hat": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_anarchists_7_hat_brim": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_anarchists_7_placket": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_shirt": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_anarchists_7_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_anarchists_7_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_anarchists_7_tail": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_anarchists_7_trousers": [
+   0.0482,
+   0.0212,
+   0.0369
+  ]
+ }
+}

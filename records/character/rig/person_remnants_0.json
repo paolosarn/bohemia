@@ -1,0 +1,133 @@
+{
+ "look": "PERSON_REMNANTS_0",
+ "shape": "person_remnants_0: a person of the Remnants, his own skin skin_light 3, WORK COVERALLS",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WORK COVERALLS",
+  "head": "STORM KNIT CAP",
+  "legs": "OLIVE WIDE TROUSER",
+  "feet": "OLIVE STACK BOOT"
+ },
+ "dials": {
+  "height": -0.18,
+  "belly": 0.85,
+  "shoulders": 0.8,
+  "hips": 0.3
+ },
+ "model": "records/character/rig/person_remnants_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5544,
+ "real_height_m": 1.7045,
+ "real_height_for_rig": 1.7336,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_remnants_0_trouser": 2568,
+  "person_remnants_0_shoe": 3916,
+  "person_remnants_0_shirt": 71260,
+  "person_remnants_0_collar": 1536,
+  "person_remnants_0_collar_points": 180,
+  "person_remnants_0_placket": 162,
+  "person_remnants_0_cuffs": 2048,
+  "person_remnants_0_pocket": 180,
+  "person_remnants_0_flap": 108,
+  "person_remnants_0_belt": 1792,
+  "person_remnants_0_hair": 17968,
+  "person_remnants_0_hat": 4548,
+  "person_remnants_0_hat_brim": 2362,
+  "person_remnants_0_hand_L": 392,
+  "person_remnants_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_0_belt": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_remnants_0_collar": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_remnants_0_collar_points": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_remnants_0_cuffs": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_remnants_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_remnants_0_flap": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_remnants_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_remnants_0_hat": [
+   0.0612,
+   0.0648,
+   0.0762
+  ],
+  "person_remnants_0_hat_brim": [
+   0.0612,
+   0.0648,
+   0.0762
+  ],
+  "person_remnants_0_placket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_remnants_0_pocket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_remnants_0_shirt": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_remnants_0_shoe": [
+   0.0395,
+   0.0395,
+   0.0395
+  ],
+  "person_remnants_0_shoes": [
+   0.0395,
+   0.0395,
+   0.0395
+  ],
+  "person_remnants_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_remnants_0_trouser": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_remnants_0_trousers": [
+   0.0437,
+   0.0561,
+   0.0232
+  ]
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "cut": "PERSON volunteers_2",
+ "tag": "person_volunteers_2",
+ "bank": {
+  "kind": "person",
+  "gang": "Volunteers"
+ },
+ "worn_by": "Volunteers, rolled",
+ "model": "records/character/rig/barber_person_volunteers_2.glb",
+ "body": "records/character/rig/person_volunteers_2.glb (the mannequin in None)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "tape_grey",
+  1
+ ],
+ "hair_rgb": [
+  102,
+  99,
+  96
+ ],
+ "skin_rgb": [
+  203,
+  171,
+  138
+ ],
+ "model_top_m": 1.5535,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7484,
+ "pieces": {
+  "barber_layered_fall_cap": 248538,
+  "barber_layered_fall_curtain": 24258,
+  "barber_layered_fall_locks": 15014
+ }
+}

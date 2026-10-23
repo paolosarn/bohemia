@@ -1,0 +1,507 @@
+{
+ "engine": "CYCLES",
+ "res": 214,
+ "ortho_scale": 3.754385964912281,
+ "real_dims_m": [
+  0.496,
+  0.468,
+  1.744
+ ],
+ "scale_from_model": 1.1168,
+ "still_frame": 1.021,
+ "still": "the passing pose of Stand, frame 1.02",
+ "ground_screen": [
+  107.0,
+  156.70684999999997
+ ],
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "source_pass": {
+  "wear": 0.6,
+  "materials": [
+   "barber_person_town_24_hair",
+   "f1_person_town_24_beard_hair",
+   "person_town_24_capelet",
+   "person_town_24_coat",
+   "person_town_24_coat_skirt",
+   "person_town_24_collar",
+   "person_town_24_flap",
+   "person_town_24_hem",
+   "person_town_24_lapels",
+   "person_town_24_pocket",
+   "person_town_24_shirt",
+   "person_town_24_shoe",
+   "person_town_24_shoes",
+   "person_town_24_skin",
+   "person_town_24_sleeve_hem",
+   "person_town_24_trouser",
+   "person_town_24_trousers",
+   "portrait_barber_person_town_24_buzz",
+   "portrait_barber_person_town_24_iris",
+   "portrait_barber_person_town_24_lips",
+   "portrait_barber_person_town_24_mouth",
+   "portrait_barber_person_town_24_pupil",
+   "portrait_barber_person_town_24_sclera",
+   "portrait_barber_person_town_24_skin"
+  ],
+  "wear_by_material": {
+   "barber_person_town_24_hair": 0.15,
+   "person_town_24_skin": 0.25,
+   "f1_person_town_24_beard_hair": 0.15,
+   "portrait_barber_person_town_24_skin": 0.25
+  },
+  "what": [
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+   "crevice grime from the model's own ambient occlusion (0.25 m)",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+   "a 20 cm colour drift across the body (overlay, 0.27)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+  ],
+  "seed": 0,
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1168)"
+ },
+ "proportions": null,
+ "calibration": null,
+ "id_table": null,
+ "obj_table": null,
+ "model": "records/character/rig/barber_person_town_24.glb",
+ "rig_round": 7,
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "none",
+ "snap": null,
+ "ring": 8.0,
+ "contact_shadow": true,
+ "files": [
+  "records/target/character/barber/person_town_24/rig_N.png",
+  "records/target/character/barber/person_town_24/rig_NE.png",
+  "records/target/character/barber/person_town_24/rig_E.png",
+  "records/target/character/barber/person_town_24/rig_SE.png",
+  "records/target/character/barber/person_town_24/rig_S.png",
+  "records/target/character/barber/person_town_24/rig_SW.png",
+  "records/target/character/barber/person_town_24/rig_W.png",
+  "records/target/character/barber/person_town_24/rig_NW.png"
+ ],
+ "crop_box_px": [
+  90,
+  54,
+  126,
+  169
+ ],
+ "shadow_files": [
+  "records/target/character/barber/person_town_24/shadow_N.png",
+  "records/target/character/barber/person_town_24/shadow_NE.png",
+  "records/target/character/barber/person_town_24/shadow_E.png",
+  "records/target/character/barber/person_town_24/shadow_SE.png",
+  "records/target/character/barber/person_town_24/shadow_S.png",
+  "records/target/character/barber/person_town_24/shadow_SW.png",
+  "records/target/character/barber/person_town_24/shadow_W.png",
+  "records/target/character/barber/person_town_24/shadow_NW.png"
+ ],
+ "ground_px": [
+  17,
+  103
+ ],
+ "look_px": [
+  17,
+  53
+ ],
+ "colours": 10791,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {
+  "Stand": {
+   "keys": 1,
+   "beats": 0.3333333333333333,
+   "frame_range": [
+    1.0,
+    2.0
+   ],
+   "frames": [
+    1.5
+   ],
+   "motion_px": {
+    "N": [
+     {
+      "barber_shag_cap": 0.0,
+      "barber_shag_locks": 0.0,
+      "Cesium_Man": 0.0,
+      "f1_person_town_24": 0.0,
+      "person_town_24_capelet": 0.0,
+      "person_town_24_coat": 0.0,
+      "person_town_24_coat_skirt": 0.0,
+      "person_town_24_collar": 0.0,
+      "person_town_24_collar.001": 0.0,
+      "person_town_24_flap": 0.0,
+      "person_town_24_hand_L": 0.0,
+      "person_town_24_hand_R": 0.0,
+      "person_town_24_hem": 0.0,
+      "person_town_24_lapels": 0.0,
+      "person_town_24_pocket": 0.0,
+      "person_town_24_shirt": 0.0,
+      "person_town_24_shoe": 0.0,
+      "person_town_24_sleeve_hem": 0.0,
+      "person_town_24_trouser": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "NE": [
+     {
+      "barber_shag_cap": 0.0,
+      "barber_shag_locks": 0.0,
+      "Cesium_Man": 0.0,
+      "f1_person_town_24": 0.0,
+      "person_town_24_capelet": 0.0,
+      "person_town_24_coat": 0.0,
+      "person_town_24_coat_skirt": 0.0,
+      "person_town_24_collar": 0.0,
+      "person_town_24_collar.001": 0.0,
+      "person_town_24_flap": 0.0,
+      "person_town_24_hand_L": 0.0,
+      "person_town_24_hand_R": 0.0,
+      "person_town_24_hem": 0.0,
+      "person_town_24_lapels": 0.0,
+      "person_town_24_pocket": 0.0,
+      "person_town_24_shirt": 0.0,
+      "person_town_24_shoe": 0.0,
+      "person_town_24_sleeve_hem": 0.0,
+      "person_town_24_trouser": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "E": [
+     {
+      "barber_shag_cap": 0.0,
+      "barber_shag_locks": 0.0,
+      "Cesium_Man": 0.0,
+      "f1_person_town_24": 0.0,
+      "person_town_24_capelet": 0.0,
+      "person_town_24_coat": 0.0,
+      "person_town_24_coat_skirt": 0.0,
+      "person_town_24_collar": 0.0,
+      "person_town_24_collar.001": 0.0,
+      "person_town_24_flap": 0.0,
+      "person_town_24_hand_L": 0.0,
+      "person_town_24_hand_R": 0.0,
+      "person_town_24_hem": 0.0,
+      "person_town_24_lapels": 0.0,
+      "person_town_24_pocket": 0.0,
+      "person_town_24_shirt": 0.0,
+      "person_town_24_shoe": 0.0,
+      "person_town_24_sleeve_hem": 0.0,
+      "person_town_24_trouser": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "SE": [
+     {
+      "barber_shag_cap": 0.0,
+      "barber_shag_locks": 0.0,
+      "Cesium_Man": 0.0,
+      "f1_person_town_24": 0.0,
+      "person_town_24_capelet": 0.0,
+      "person_town_24_coat": 0.0,
+      "person_town_24_coat_skirt": 0.0,
+      "person_town_24_collar": 0.0,
+      "person_town_24_collar.001": 0.0,
+      "person_town_24_flap": 0.0,
+      "person_town_24_hand_L": 0.0,
+      "person_town_24_hand_R": 0.0,
+      "person_town_24_hem": 0.0,
+      "person_town_24_lapels": 0.0,
+      "person_town_24_pocket": 0.0,
+      "person_town_24_shirt": 0.0,
+      "person_town_24_shoe": 0.0,
+      "person_town_24_sleeve_hem": 0.0,
+      "person_town_24_trouser": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "S": [
+     {
+      "barber_shag_cap": 0.0,
+      "barber_shag_locks": 0.0,
+      "Cesium_Man": 0.0,
+      "f1_person_town_24": 0.0,
+      "person_town_24_capelet": 0.0,
+      "person_town_24_coat": 0.0,
+      "person_town_24_coat_skirt": 0.0,
+      "person_town_24_collar": 0.0,
+      "person_town_24_collar.001": 0.0,
+      "person_town_24_flap": 0.0,
+      "person_town_24_hand_L": 0.0,
+      "person_town_24_hand_R": 0.0,
+      "person_town_24_hem": 0.0,
+      "person_town_24_lapels": 0.0,
+      "person_town_24_pocket": 0.0,
+      "person_town_24_shirt": 0.0,
+      "person_town_24_shoe": 0.0,
+      "person_town_24_sleeve_hem": 0.0,
+      "person_town_24_trouser": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "SW": [
+     {
+      "barber_shag_cap": 0.0,
+      "barber_shag_locks": 0.0,
+      "Cesium_Man": 0.0,
+      "f1_person_town_24": 0.0,
+      "person_town_24_capelet": 0.0,
+      "person_town_24_coat": 0.0,
+      "person_town_24_coat_skirt": 0.0,
+      "person_town_24_collar": 0.0,
+      "person_town_24_collar.001": 0.0,
+      "person_town_24_flap": 0.0,
+      "person_town_24_hand_L": 0.0,
+      "person_town_24_hand_R": 0.0,
+      "person_town_24_hem": 0.0,
+      "person_town_24_lapels": 0.0,
+      "person_town_24_pocket": 0.0,
+      "person_town_24_shirt": 0.0,
+      "person_town_24_shoe": 0.0,
+      "person_town_24_sleeve_hem": 0.0,
+      "person_town_24_trouser": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "W": [
+     {
+      "barber_shag_cap": 0.0,
+      "barber_shag_locks": 0.0,
+      "Cesium_Man": 0.0,
+      "f1_person_town_24": 0.0,
+      "person_town_24_capelet": 0.0,
+      "person_town_24_coat": 0.0,
+      "person_town_24_coat_skirt": 0.0,
+      "person_town_24_collar": 0.0,
+      "person_town_24_collar.001": 0.0,
+      "person_town_24_flap": 0.0,
+      "person_town_24_hand_L": 0.0,
+      "person_town_24_hand_R": 0.0,
+      "person_town_24_hem": 0.0,
+      "person_town_24_lapels": 0.0,
+      "person_town_24_pocket": 0.0,
+      "person_town_24_shirt": 0.0,
+      "person_town_24_shoe": 0.0,
+      "person_town_24_sleeve_hem": 0.0,
+      "person_town_24_trouser": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ],
+    "NW": [
+     {
+      "barber_shag_cap": 0.0,
+      "barber_shag_locks": 0.0,
+      "Cesium_Man": 0.0,
+      "f1_person_town_24": 0.0,
+      "person_town_24_capelet": 0.0,
+      "person_town_24_coat": 0.0,
+      "person_town_24_coat_skirt": 0.0,
+      "person_town_24_collar": 0.0,
+      "person_town_24_collar.001": 0.0,
+      "person_town_24_flap": 0.0,
+      "person_town_24_hand_L": 0.0,
+      "person_town_24_hand_R": 0.0,
+      "person_town_24_hem": 0.0,
+      "person_town_24_lapels": 0.0,
+      "person_town_24_pocket": 0.0,
+      "person_town_24_shirt": 0.0,
+      "person_town_24_shoe": 0.0,
+      "person_town_24_sleeve_hem": 0.0,
+      "person_town_24_trouser": 0.0,
+      "portrait_head": 0.0,
+      "portrait_head_eyes": 0.0,
+      "portrait_head_lids": 0.0,
+      "portrait_neck": 0.0
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
+   "files": [
+    "records/target/character/barber/person_town_24/rig_Stand_N_k00.png",
+    "records/target/character/barber/person_town_24/rig_Stand_NE_k00.png",
+    "records/target/character/barber/person_town_24/rig_Stand_E_k00.png",
+    "records/target/character/barber/person_town_24/rig_Stand_SE_k00.png",
+    "records/target/character/barber/person_town_24/rig_Stand_S_k00.png",
+    "records/target/character/barber/person_town_24/rig_Stand_SW_k00.png",
+    "records/target/character/barber/person_town_24/rig_Stand_W_k00.png",
+    "records/target/character/barber/person_town_24/rig_Stand_NW_k00.png"
+   ],
+   "light_files": []
+  }
+ },
+ "card": {
+  "family": "prop",
+  "out": 1,
+  "rows": [
+   "OK   long side >= floor 96: 115",
+   "OUT  colours >= 2330: 1940",
+   "OK   top 8 carry <= 11%: 1.9",
+   "OK   value span >= 118: 130",
+   "OK   saturation <= 0.81: 0.351",
+   "OK   light: top minus bottom >= -2.5: 0.3",
+   "OK   edge between -35 and +7: -14.6",
+   "OK   grain <= 2.22 px a run: 1.56"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 3.8%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OUT  light from above (180 to 360 degrees, or flat): 126.3"
+  ],
+  "verdict": "1 of 8 out -> to DIRECTION",
+  "file": "records/target/character/barber/person_town_24/rig_S.png"
+ },
+ "cls": "person",
+ "card_guide": {
+  "cls": "person",
+  "out": 0,
+  "rows": [
+   "OK   long side >= floor 96: 115",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2331 px): 1940",
+   "OK   top 8 carry <= 11%: 1.9",
+   "OK   value span >= 118: 130",
+   "OK   saturation <= 0.81: 0.351",
+   "OK   light: top minus bottom >= -2.5: 0.3",
+   "OK   edge between -35 and +7: -14.6",
+   "OK   grain <= 2.22 px a run: 1.56"
+  ],
+  "reread": [
+   "colours by field 5"
+  ],
+  "verdict": "0 of 8 out under the style guide",
+  "size_px": [
+   28,
+   110
+  ],
+  "opaque_px": 2331,
+  "colours": 1940
+ },
+ "rig_settings": {
+  "engine": "CYCLES",
+  "device": "CPU",
+  "samples": 24,
+  "denoise": false,
+  "filter_px": 0.01,
+  "view_transform": "Standard",
+  "film_transparent": true,
+  "motion_blur": false,
+  "depth_of_field": false,
+  "ppm": 57.0,
+  "tilt_deg": 45.0,
+  "sun_rot_deg": [
+   40.0,
+   0.0,
+   -35.0
+  ],
+  "sun_angle_deg": 3,
+  "sun_energy": 3.0,
+  "fill_rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "fill_strength": 0.35,
+  "wear": 0.6,
+  "ring": 8.0,
+  "contact_shadow": true,
+  "shadow_alpha_max": 0.42,
+  "alpha_threshold": 127,
+  "keys_per_beat": 3,
+  "bpm": 120,
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
+ },
+ "breaks": [
+  "dent_m",
+  "samples"
+ ],
+ "guide": {
+  "file": "records/target/BOHEMIA_STYLE_GUIDE.json",
+  "schema": 1
+ },
+ "portrait": "portrait.json"
+}

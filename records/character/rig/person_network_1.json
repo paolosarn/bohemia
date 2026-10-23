@@ -1,0 +1,158 @@
+{
+ "look": "PERSON_NETWORK_1",
+ "shape": "person_network_1: a person of the Network, his own skin skin_light 1, PATINA WORK SHIRT under RANGER LONGCOAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "PATINA WORK SHIRT",
+  "outer": "RANGER LONGCOAT",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_network_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.7908,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_network_1_trouser": 2568,
+  "person_network_1_shoe": 3836,
+  "person_network_1_shirt": 71212,
+  "person_network_1_collar": 1536,
+  "person_network_1_collar_points": 180,
+  "person_network_1_placket": 162,
+  "person_network_1_buttons": 204,
+  "person_network_1_cuffs": 2048,
+  "person_network_1_tail": 2016,
+  "person_network_1_pocket": 180,
+  "person_network_1_flap": 108,
+  "person_network_1_coat": 73232,
+  "person_network_1_coat_skirt": 8190,
+  "person_network_1_collar.001": 1536,
+  "person_network_1_lapels": 396,
+  "person_network_1_pockets": 252,
+  "person_network_1_pocket_flaps": 252,
+  "person_network_1_hair": 17968,
+  "person_network_1_hand_L": 392,
+  "person_network_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_1_buttons": [
+   0.1329,
+   0.3005,
+   0.2016
+  ],
+  "person_network_1_coat": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_coat_skirt": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_collar": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_collar_points": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_cuffs": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_network_1_flap": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_network_1_lapels": [
+   0.0242,
+   0.0685,
+   0.0452
+  ],
+  "person_network_1_placket": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_pocket": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_pocket_flaps": [
+   0.0242,
+   0.0685,
+   0.0452
+  ],
+  "person_network_1_pockets": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_shirt": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_network_1_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_network_1_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_network_1_tail": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_1_trouser": [
+   0.063,
+   0.063,
+   0.0648
+  ],
+  "person_network_1_trousers": [
+   0.063,
+   0.063,
+   0.0648
+  ]
+ }
+}

@@ -1,0 +1,127 @@
+{
+ "look": "PERSON_HOMELESS_6",
+ "shape": "person_homeless_6: a person of the Homeless, his own skin skin_light 3, SLATE SHORT-SLEEVE",
+ "worn": {
+  "hair": "LAYERED FALL",
+  "base": "SLATE SHORT-SLEEVE",
+  "back": "SHOULDER MANTLE",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_homeless_6.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5436,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6851,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_homeless_6_trouser": 2568,
+  "person_homeless_6_shoe": 3916,
+  "person_homeless_6_mantle": 19230,
+  "person_homeless_6_shirt": 43700,
+  "person_homeless_6_collar": 1536,
+  "person_homeless_6_collar_points": 180,
+  "person_homeless_6_placket": 162,
+  "person_homeless_6_buttons": 204,
+  "person_homeless_6_sleeve_hem": 2048,
+  "person_homeless_6_tail": 2016,
+  "person_homeless_6_hair": 30198,
+  "person_homeless_6_hair_fall": 2646,
+  "person_homeless_6_hand_L": 392,
+  "person_homeless_6_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_homeless_6_buttons": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
+  "person_homeless_6_collar": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_homeless_6_collar_points": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_homeless_6_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_homeless_6_hair": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "person_homeless_6_hair_fall": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "person_homeless_6_mantle": [
+   0.305,
+   0.2874,
+   0.2462
+  ],
+  "person_homeless_6_placket": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_homeless_6_shirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_homeless_6_shoe": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "person_homeless_6_shoes": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "person_homeless_6_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_homeless_6_sleeve_hem": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_homeless_6_tail": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_homeless_6_trouser": [
+   0.013,
+   0.0116,
+   0.0116
+  ],
+  "person_homeless_6_trousers": [
+   0.013,
+   0.0116,
+   0.0116
+  ]
+ }
+}

@@ -1,0 +1,159 @@
+{
+ "look": "PERSON_TOWN_35",
+ "shape": "person_town_35: a person of the Body, his own skin skin_light 1, MOB PINSTRIPE SHIRT under COBALT COCOON COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "MOB PINSTRIPE SHIRT",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "outer": "COBALT COCOON COAT"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_35.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_35_trouser": 2568,
+  "person_town_35_shoe": 3148,
+  "person_town_35_shirt": 71204,
+  "person_town_35_collar": 1536,
+  "person_town_35_collar_points": 180,
+  "person_town_35_placket": 162,
+  "person_town_35_buttons": 204,
+  "person_town_35_cuffs": 2048,
+  "person_town_35_tail": 2016,
+  "person_town_35_coat": 73272,
+  "person_town_35_coat_skirt": 4142,
+  "person_town_35_collar.001": 1536,
+  "person_town_35_lapels": 396,
+  "person_town_35_hair": 17968,
+  "person_town_35_hand_L": 392,
+  "person_town_35_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_35_buttons": [
+   0.227,
+   0.107,
+   0.0
+  ],
+  "person_town_35_coat": [
+   0.0252,
+   0.159,
+   0.7379
+  ],
+  "person_town_35_coat_skirt": [
+   0.0252,
+   0.159,
+   0.7379
+  ],
+  "person_town_35_collar": [
+   0.521,
+   0.2542,
+   0.0009
+  ],
+  "person_town_35_collar_points": [
+   0.521,
+   0.2542,
+   0.0009
+  ],
+  "person_town_35_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_35_cuffs": [
+   0.521,
+   0.2542,
+   0.0009
+  ],
+  "person_town_35_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_35_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_35_lapels": [
+   0.0097,
+   0.0612,
+   0.3005
+  ],
+  "person_town_35_placket": [
+   0.521,
+   0.2542,
+   0.0009
+  ],
+  "person_town_35_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_35_shirt": [
+   0.521,
+   0.2542,
+   0.0009
+  ],
+  "person_town_35_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_35_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_35_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_35_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_35_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_town_35_tail": [
+   0.521,
+   0.2542,
+   0.0009
+  ],
+  "person_town_35_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_35_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_35_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

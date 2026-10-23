@@ -1,0 +1,109 @@
+{
+ "look": "PERSON_REMNANTS_2",
+ "shape": "person_remnants_2: a person of the Remnants, his own skin skin_deep 4, MOSS GREEN SHIRT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "MOSS GREEN SHIRT",
+  "head": "STORM KNIT CAP",
+  "legs": "OLIVE WIDE TROUSER",
+  "feet": "OLIVE STACK BOOT"
+ },
+ "dials": {
+  "height": -0.18,
+  "belly": 0.85,
+  "shoulders": 0.8,
+  "hips": 0.3
+ },
+ "model": "records/character/rig/person_remnants_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5544,
+ "real_height_m": 1.7045,
+ "real_height_for_rig": 1.7336,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_remnants_2_trouser": 2568,
+  "person_remnants_2_shoe": 3916,
+  "person_remnants_2_shirt": 67428,
+  "person_remnants_2_collar": 1536,
+  "person_remnants_2_cuffs": 2048,
+  "person_remnants_2_hem": 1792,
+  "person_remnants_2_hair": 17968,
+  "person_remnants_2_hat": 4548,
+  "person_remnants_2_hat_brim": 2362,
+  "person_remnants_2_hand_L": 392,
+  "person_remnants_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_2_collar": [
+   0.1301,
+   0.5149,
+   0.0262
+  ],
+  "person_remnants_2_cuffs": [
+   0.1301,
+   0.5149,
+   0.0262
+  ],
+  "person_remnants_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_remnants_2_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_remnants_2_hat": [
+   0.0612,
+   0.0648,
+   0.0762
+  ],
+  "person_remnants_2_hat_brim": [
+   0.0612,
+   0.0648,
+   0.0762
+  ],
+  "person_remnants_2_hem": [
+   0.1301,
+   0.5149,
+   0.0262
+  ],
+  "person_remnants_2_shirt": [
+   0.1301,
+   0.5149,
+   0.0262
+  ],
+  "person_remnants_2_shoe": [
+   0.0395,
+   0.0395,
+   0.0395
+  ],
+  "person_remnants_2_shoes": [
+   0.0395,
+   0.0395,
+   0.0395
+  ],
+  "person_remnants_2_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_remnants_2_trouser": [
+   0.0545,
+   0.0545,
+   0.0578
+  ],
+  "person_remnants_2_trousers": [
+   0.0545,
+   0.0545,
+   0.0578
+  ]
+ }
+}

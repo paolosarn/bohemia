@@ -1,0 +1,36 @@
+{
+ "cut": "PERSON anarchists_2",
+ "tag": "person_anarchists_2",
+ "bank": {
+  "kind": "person",
+  "gang": "Anarchists"
+ },
+ "worn_by": "Anarchists, rolled",
+ "model": "records/character/rig/barber_person_anarchists_2.glb",
+ "body": "records/character/rig/person_anarchists_2.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  106,
+  66,
+  48
+ ],
+ "model_top_m": 1.5415,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7348,
+ "pieces": {
+  "h2_razor_skull_shadow": 107305,
+  "h2_razor_skull_scabs": 78,
+  "hat_brick_watch_cap_cap": 168274
+ }
+}

@@ -1,0 +1,165 @@
+{
+ "look": "PERSON_TOWN_13",
+ "shape": "person_town_13: a person of the Body, his own skin skin_deep 4, ROLLED FLANNEL under KHAKI JACKET",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "ROLLED FLANNEL",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "outer": "KHAKI JACKET"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_13.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_13_trouser": 2568,
+  "person_town_13_shoe": 3148,
+  "person_town_13_shirt": 61868,
+  "person_town_13_collar": 1536,
+  "person_town_13_collar_points": 180,
+  "person_town_13_placket": 162,
+  "person_town_13_buttons": 204,
+  "person_town_13_roll": 2048,
+  "person_town_13_tail": 2016,
+  "person_town_13_coat": 68114,
+  "person_town_13_collar.001": 1536,
+  "person_town_13_lapels": 396,
+  "person_town_13_waistband": 1792,
+  "person_town_13_cuffs": 2048,
+  "person_town_13_hair": 17968,
+  "person_town_13_hand_L": 392,
+  "person_town_13_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_13_buttons": [
+   0.3864,
+   0.0704,
+   0.0382
+  ],
+  "person_town_13_coat": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_town_13_collar": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_13_collar_points": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_13_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_13_cuffs": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_town_13_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_13_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_13_lapels": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_town_13_placket": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_13_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_13_roll": [
+   0.3864,
+   0.0704,
+   0.0382
+  ],
+  "person_town_13_shirt": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_13_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_13_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_13_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_13_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_13_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_town_13_tail": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_13_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_13_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_13_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_13_waistband": [
+   0.1022,
+   0.0685,
+   0.0242
+  ]
+ }
+}

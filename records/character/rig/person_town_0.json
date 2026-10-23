@@ -1,0 +1,136 @@
+{
+ "look": "PERSON_TOWN_0",
+ "shape": "person_town_0: a person of the Body, his own skin skin_deep 3, BONE HENLEY under DUST BROWN TRENCH",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE HENLEY",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "outer": "DUST BROWN TRENCH"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_0_trouser": 2568,
+  "person_town_0_shoe": 3148,
+  "person_town_0_shirt": 67584,
+  "person_town_0_collar": 1536,
+  "person_town_0_placket": 126,
+  "person_town_0_buttons": 102,
+  "person_town_0_cuffs": 2048,
+  "person_town_0_hem": 1792,
+  "person_town_0_coat": 73272,
+  "person_town_0_coat_skirt": 8938,
+  "person_town_0_collar.001": 1536,
+  "person_town_0_lapels": 396,
+  "person_town_0_cuffs.001": 2048,
+  "person_town_0_belt": 1792,
+  "person_town_0_buttons.001": 204,
+  "person_town_0_hair": 17968,
+  "person_town_0_hand_L": 392,
+  "person_town_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_0_belt": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_town_0_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_town_0_coat": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_town_0_coat_skirt": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_town_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_0_lapels": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_town_0_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_0_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_0_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_town_0_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_0_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

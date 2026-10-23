@@ -1,0 +1,158 @@
+{
+ "look": "PERSON_TOWN_23",
+ "shape": "person_town_23: a person of the Body, his own skin skin_deep 4, STEEL WORK SHIRT under GRASS WRAP COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "STEEL WORK SHIRT",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "outer": "GRASS WRAP COAT"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_23.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_23_trouser": 2568,
+  "person_town_23_shoe": 3148,
+  "person_town_23_shirt": 71204,
+  "person_town_23_collar": 1536,
+  "person_town_23_collar_points": 180,
+  "person_town_23_placket": 162,
+  "person_town_23_buttons": 204,
+  "person_town_23_cuffs": 2048,
+  "person_town_23_tail": 2016,
+  "person_town_23_pocket": 180,
+  "person_town_23_flap": 108,
+  "person_town_23_coat": 76012,
+  "person_town_23_coat_skirt": 6048,
+  "person_town_23_collar.001": 1536,
+  "person_town_23_belt": 1792,
+  "person_town_23_wrap_edge": 198,
+  "person_town_23_knot": 68,
+  "person_town_23_hair": 17968,
+  "person_town_23_hand_L": 392,
+  "person_town_23_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_23_belt": [
+   0.0513,
+   0.1878,
+   0.011
+  ],
+  "person_town_23_buttons": [
+   0.1329,
+   0.2051,
+   0.305
+  ],
+  "person_town_23_coat": [
+   0.1301,
+   0.5149,
+   0.0262
+  ],
+  "person_town_23_coat_skirt": [
+   0.1301,
+   0.5149,
+   0.0262
+  ],
+  "person_town_23_collar": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_23_collar_points": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_23_cuffs": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_23_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_23_flap": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_23_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_23_knot": [
+   0.0513,
+   0.1878,
+   0.011
+  ],
+  "person_town_23_placket": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_23_pocket": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_23_shirt": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_23_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_23_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_23_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_town_23_tail": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_town_23_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_23_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_23_wrap_edge": [
+   0.0513,
+   0.1878,
+   0.011
+  ]
+ }
+}

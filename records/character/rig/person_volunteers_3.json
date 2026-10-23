@@ -1,0 +1,116 @@
+{
+ "look": "PERSON_VOLUNTEERS_3",
+ "shape": "person_volunteers_3: a person of the Volunteers, his own skin skin_light 3, BONE SHOULDER SHIRT under BONE COCOON COAT",
+ "worn": {
+  "hair": "HEAVY FRINGE",
+  "base": "BONE SHOULDER SHIRT",
+  "outer": "BONE COCOON COAT",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "COLUMN PANT-BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_volunteers_3.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5455,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6872,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_volunteers_3_trouser": 2568,
+  "person_volunteers_3_shoe": 4116,
+  "person_volunteers_3_shirt": 67512,
+  "person_volunteers_3_collar": 1536,
+  "person_volunteers_3_cuffs": 2048,
+  "person_volunteers_3_hem": 1792,
+  "person_volunteers_3_coat": 73288,
+  "person_volunteers_3_coat_skirt": 5886,
+  "person_volunteers_3_collar.001": 1536,
+  "person_volunteers_3_lapels": 396,
+  "person_volunteers_3_hair": 21846,
+  "person_volunteers_3_hand_L": 392,
+  "person_volunteers_3_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_3_coat": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_3_coat_skirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_3_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_3_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_3_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_volunteers_3_hair": [
+   0.006,
+   0.0052,
+   0.0044
+  ],
+  "person_volunteers_3_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_3_lapels": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_volunteers_3_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_3_shoe": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_3_shoes": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_3_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_volunteers_3_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_volunteers_3_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

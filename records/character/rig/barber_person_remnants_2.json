@@ -1,0 +1,41 @@
+{
+ "cut": "PERSON remnants_2",
+ "tag": "person_remnants_2",
+ "bank": {
+  "kind": "person",
+  "gang": "Remnants"
+ },
+ "worn_by": "Remnants, rolled",
+ "model": "records/character/rig/barber_person_remnants_2.glb",
+ "body": "records/character/rig/person_remnants_2.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  203,
+  171,
+  138
+ ],
+ "model_top_m": 1.5541,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7491,
+ "pieces": {
+  "barber_deep_taper_fade": 37781,
+  "barber_deep_taper": 154362,
+  "face_wraparound_shades_lens": 2066,
+  "face_wraparound_shades_rim": 248,
+  "face_wraparound_shades_arm_l": 88,
+  "face_wraparound_shades_arm_r": 88,
+  "f1_person_remnants_2_seam": 202,
+  "f1_person_remnants_2_stitches": 140
+ }
+}

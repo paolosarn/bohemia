@@ -1,0 +1,139 @@
+{
+ "look": "PERSON_VOLUNTEERS_0",
+ "shape": "person_volunteers_0: a person of the Volunteers, his own skin skin_mid 3, SAGE FLANNEL",
+ "worn": {
+  "hair": "HEAVY FRINGE",
+  "base": "SAGE FLANNEL",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "COLUMN PANT-BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_volunteers_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5455,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6872,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_volunteers_0_trouser": 2568,
+  "person_volunteers_0_shoe": 4116,
+  "person_volunteers_0_shirt": 71252,
+  "person_volunteers_0_collar": 1536,
+  "person_volunteers_0_collar_points": 180,
+  "person_volunteers_0_placket": 162,
+  "person_volunteers_0_buttons": 204,
+  "person_volunteers_0_cuffs": 2048,
+  "person_volunteers_0_tail": 2016,
+  "person_volunteers_0_hair": 21846,
+  "person_volunteers_0_hand_L": 392,
+  "person_volunteers_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_0_buttons": [
+   0.1878,
+   0.2623,
+   0.162
+  ],
+  "person_volunteers_0_collar": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_0_collar_points": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_0_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_0_cuffs": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_volunteers_0_hair": [
+   0.006,
+   0.0052,
+   0.0044
+  ],
+  "person_volunteers_0_placket": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_0_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_0_shirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_0_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_0_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_0_shoe": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_0_shoes": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_0_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_volunteers_0_tail": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_0_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_0_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_volunteers_0_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

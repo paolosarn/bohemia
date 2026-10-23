@@ -1,0 +1,133 @@
+{
+ "look": "PERSON_REMNANTS_5",
+ "shape": "person_remnants_5: a person of the Remnants, his own skin skin_light 1, FIELD SHORTALLS under OLIVE VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "FIELD SHORTALLS",
+  "outer": "OLIVE VEST",
+  "head": "STORM KNIT CAP",
+  "legs": "OLIVE WIDE TROUSER",
+  "feet": "OLIVE STACK BOOT"
+ },
+ "dials": {
+  "height": -0.18,
+  "belly": 0.85,
+  "shoulders": 0.8,
+  "hips": 0.3
+ },
+ "model": "records/character/rig/person_remnants_5.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5544,
+ "real_height_m": 1.7045,
+ "real_height_for_rig": 1.7336,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_remnants_5_trouser": 1368,
+  "person_remnants_5_shoe": 3916,
+  "person_remnants_5_belt": 1792,
+  "person_remnants_5_bib": 12216,
+  "person_remnants_5_straps": 364,
+  "person_remnants_5_buttons": 68,
+  "person_remnants_5_pocket": 90,
+  "person_remnants_5_coat": 21498,
+  "person_remnants_5_lapels": 396,
+  "person_remnants_5_hair": 17968,
+  "person_remnants_5_hat": 4548,
+  "person_remnants_5_hat_brim": 2362,
+  "person_remnants_5_hand_L": 392,
+  "person_remnants_5_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_remnants_5_belt": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_remnants_5_bib": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_remnants_5_buttons": [
+   0.0908,
+   0.1095,
+   0.0452
+  ],
+  "person_remnants_5_coat": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_remnants_5_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_remnants_5_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_remnants_5_hat": [
+   0.0612,
+   0.0648,
+   0.0762
+  ],
+  "person_remnants_5_hat_brim": [
+   0.0612,
+   0.0648,
+   0.0762
+  ],
+  "person_remnants_5_lapels": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_remnants_5_pocket": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_remnants_5_shirt": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_remnants_5_shoe": [
+   0.0395,
+   0.0395,
+   0.0395
+  ],
+  "person_remnants_5_shoes": [
+   0.0395,
+   0.0395,
+   0.0395
+  ],
+  "person_remnants_5_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_remnants_5_straps": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_remnants_5_trouser": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_remnants_5_trousers": [
+   0.0437,
+   0.0561,
+   0.0232
+  ]
+ }
+}

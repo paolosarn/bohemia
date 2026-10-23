@@ -1,0 +1,92 @@
+{
+ "look": "PERSON_CHURCH_3",
+ "shape": "person_church_3: a person of the Church, his own skin skin_deep 3, RUST TANK",
+ "worn": {
+  "hair": "COIL CROWN",
+  "base": "RUST TANK",
+  "back": "GOLD SHOULDER MANTLE",
+  "head": "BONE KNIT CAP",
+  "legs": "GOLD DROP TROUSER",
+  "feet": "BROWN BOOTS"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_church_3.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5476,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.807,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_church_3_trouser": 2568,
+  "person_church_3_shoe": 3716,
+  "person_church_3_mantle": 17882,
+  "person_church_3_shirt": 21152,
+  "person_church_3_hair": 17968,
+  "person_church_3_hat": 1518,
+  "person_church_3_hand_L": 392,
+  "person_church_3_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_church_3_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_church_3_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_church_3_hat": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "person_church_3_mantle": [
+   0.5149,
+   0.402,
+   0.1746
+  ],
+  "person_church_3_shirt": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_church_3_shoe": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "person_church_3_shoes": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "person_church_3_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_church_3_trouser": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "person_church_3_trousers": [
+   0.5149,
+   0.4678,
+   0.3712
+  ]
+ }
+}

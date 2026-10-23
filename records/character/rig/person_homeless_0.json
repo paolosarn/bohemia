@@ -1,0 +1,141 @@
+{
+ "look": "PERSON_HOMELESS_0",
+ "shape": "person_homeless_0: a person of the Homeless, his own skin skin_light 3, SAGE STRIPED HENLEY",
+ "worn": {
+  "hair": "LAYERED FALL",
+  "base": "SAGE STRIPED HENLEY",
+  "back": "SHOULDER MANTLE",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_homeless_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5436,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6851,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_homeless_0_trouser": 2568,
+  "person_homeless_0_shoe": 3916,
+  "person_homeless_0_mantle": 19230,
+  "person_homeless_0_shirt": 67512,
+  "person_homeless_0_collar": 1536,
+  "person_homeless_0_placket": 126,
+  "person_homeless_0_buttons": 102,
+  "person_homeless_0_cuffs": 2048,
+  "person_homeless_0_hem": 1792,
+  "person_homeless_0_hair": 30198,
+  "person_homeless_0_hair_fall": 2646,
+  "person_homeless_0_hand_L": 392,
+  "person_homeless_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_homeless_0_buttons": [
+   0.1878,
+   0.2623,
+   0.162
+  ],
+  "person_homeless_0_collar": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_homeless_0_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_homeless_0_cuffs": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_homeless_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_homeless_0_hair": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "person_homeless_0_hair_fall": [
+   0.305,
+   0.1878,
+   0.0802
+  ],
+  "person_homeless_0_hem": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_homeless_0_mantle": [
+   0.305,
+   0.2874,
+   0.2462
+  ],
+  "person_homeless_0_placket": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_homeless_0_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_homeless_0_shirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_homeless_0_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_homeless_0_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_homeless_0_shoe": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "person_homeless_0_shoes": [
+   0.0482,
+   0.0369,
+   0.0252
+  ],
+  "person_homeless_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_homeless_0_trouser": [
+   0.013,
+   0.0116,
+   0.0116
+  ],
+  "person_homeless_0_trousers": [
+   0.013,
+   0.0116,
+   0.0116
+  ]
+ }
+}

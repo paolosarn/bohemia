@@ -1,0 +1,38 @@
+{
+ "cut": "PERSON colorful_3",
+ "tag": "person_colorful_3",
+ "bank": {
+  "kind": "person",
+  "gang": "Colorful"
+ },
+ "worn_by": "Colorful, rolled",
+ "model": "records/character/rig/barber_person_colorful_3.glb",
+ "body": "records/character/rig/person_colorful_3.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5533,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7481,
+ "pieces": {
+  "h2_half_shave_roots": 34117,
+  "barber_half_shave_cap": 146114,
+  "barber_half_shave_sweep": 20366,
+  "f1_person_colorful_3_seam": 202,
+  "f1_person_colorful_3_stitches": 140
+ }
+}

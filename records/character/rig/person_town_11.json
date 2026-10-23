@@ -1,0 +1,78 @@
+{
+ "look": "PERSON_TOWN_11",
+ "shape": "person_town_11: a person of the Body, his own skin skin_light 3, BLACK TANK",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BLACK TANK",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_11.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_11_trouser": 2568,
+  "person_town_11_shoe": 3148,
+  "person_town_11_shirt": 21856,
+  "person_town_11_hair": 17968,
+  "person_town_11_hand_L": 392,
+  "person_town_11_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_11_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_11_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_11_shirt": [
+   0.0232,
+   0.0232,
+   0.0356
+  ],
+  "person_town_11_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_11_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_11_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_town_11_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_11_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

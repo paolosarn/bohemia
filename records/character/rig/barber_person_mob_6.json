@@ -1,0 +1,35 @@
+{
+ "cut": "PERSON mob_6",
+ "tag": "person_mob_6",
+ "bank": {
+  "kind": "person",
+  "gang": "Mob"
+ },
+ "worn_by": "Mob, rolled",
+ "model": "records/character/rig/barber_person_mob_6.glb",
+ "body": "records/character/rig/person_mob_6.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5485,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7427,
+ "pieces": {
+  "barber_dry_taper_fade": 32533,
+  "barber_dry_taper": 157858
+ }
+}

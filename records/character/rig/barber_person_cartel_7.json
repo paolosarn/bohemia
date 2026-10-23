@@ -1,0 +1,38 @@
+{
+ "cut": "PERSON cartel_7",
+ "tag": "person_cartel_7",
+ "bank": {
+  "kind": "person",
+  "gang": "Cartel"
+ },
+ "worn_by": "Cartel, rolled",
+ "model": "records/character/rig/barber_person_cartel_7.glb",
+ "body": "records/character/rig/person_cartel_7.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_rust",
+  1
+ ],
+ "hair_rgb": [
+  95,
+  38,
+  23
+ ],
+ "skin_rgb": [
+  125,
+  88,
+  74
+ ],
+ "model_top_m": 1.5335,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7258,
+ "pieces": {
+  "barber_box_braids_scalp": 52694,
+  "barber_box_braids_braids": 87560,
+  "face_rose_bandana_triangle": 8174,
+  "face_rose_bandana_knot": 86,
+  "face_rose_bandana_tie": 296
+ }
+}

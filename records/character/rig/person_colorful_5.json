@@ -1,0 +1,158 @@
+{
+ "look": "PERSON_COLORFUL_5",
+ "shape": "person_colorful_5: a person of the Colorful, his own skin skin_light 2, PATINA WORK SHIRT under OLIVE VEST",
+ "worn": {
+  "hair": "SHAG",
+  "base": "PATINA WORK SHIRT",
+  "outer": "OLIVE VEST",
+  "head": "ROSE KNIT CAP",
+  "legs": "GRASS DROP TROUSER",
+  "feet": "GRASS BOOTS"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_colorful_5.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5613,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.7044,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_colorful_5_trouser": 2568,
+  "person_colorful_5_shoe": 3916,
+  "person_colorful_5_shirt": 71252,
+  "person_colorful_5_collar": 1536,
+  "person_colorful_5_collar_points": 180,
+  "person_colorful_5_placket": 162,
+  "person_colorful_5_buttons": 204,
+  "person_colorful_5_cuffs": 2048,
+  "person_colorful_5_tail": 2016,
+  "person_colorful_5_pocket": 180,
+  "person_colorful_5_flap": 108,
+  "person_colorful_5_coat": 22450,
+  "person_colorful_5_lapels": 396,
+  "person_colorful_5_hair": 30198,
+  "person_colorful_5_hair_fall": 2254,
+  "person_colorful_5_hat": 4548,
+  "person_colorful_5_hat_brim": 2362,
+  "person_colorful_5_hand_L": 392,
+  "person_colorful_5_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_colorful_5_buttons": [
+   0.1329,
+   0.3005,
+   0.2016
+  ],
+  "person_colorful_5_coat": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_colorful_5_collar": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_5_collar_points": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_5_cuffs": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_5_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_colorful_5_flap": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_5_hair": [
+   0.0612,
+   0.0273,
+   0.016
+  ],
+  "person_colorful_5_hair_fall": [
+   0.0612,
+   0.0273,
+   0.016
+  ],
+  "person_colorful_5_hat": [
+   0.552,
+   0.0612,
+   0.0887
+  ],
+  "person_colorful_5_hat_brim": [
+   0.552,
+   0.0612,
+   0.0887
+  ],
+  "person_colorful_5_lapels": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_colorful_5_placket": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_5_pocket": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_5_shirt": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_5_shoe": [
+   0.2159,
+   0.1981,
+   0.162
+  ],
+  "person_colorful_5_shoes": [
+   0.2159,
+   0.1981,
+   0.162
+  ],
+  "person_colorful_5_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "person_colorful_5_tail": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_colorful_5_trouser": [
+   0.1559,
+   0.1413,
+   0.107
+  ],
+  "person_colorful_5_trousers": [
+   0.1559,
+   0.1413,
+   0.107
+  ]
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "cut": "PERSON volunteers_6",
+ "tag": "person_volunteers_6",
+ "bank": {
+  "kind": "person",
+  "gang": "Volunteers"
+ },
+ "worn_by": "Volunteers, rolled",
+ "model": "records/character/rig/barber_person_volunteers_6.glb",
+ "body": "records/character/rig/person_volunteers_6.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  1
+ ],
+ "hair_rgb": [
+  125,
+  77,
+  29
+ ],
+ "skin_rgb": [
+  168,
+  112,
+  76
+ ],
+ "model_top_m": 1.5386,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7316,
+ "pieces": {
+  "barber_curtain_cut_cap": 235170,
+  "barber_curtain_cut_locks": 24324,
+  "f1_person_volunteers_6": 214
+ }
+}

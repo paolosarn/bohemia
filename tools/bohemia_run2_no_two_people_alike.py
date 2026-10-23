@@ -197,6 +197,28 @@ def faces(out):
         for n in (64, 128): sq.resize((n, n), Image.BOX).save(os.path.join(od, '%s_%d.png' % (k, n)))
 
 
+STOW = 'records/run2/people'   # the source frames the bake and the fight pack read; committed, never published (Pages publishes records/target)
+
+
+def stow(tag):
+    """what the screens fetch stays published (the eight stills, the faces, the two jsons); the walk and the rig's three
+    portraits and four mouths, read only by the bake and the fight pack, go to STOW with a copy of the stills"""
+    import shutil
+    src, dst = os.path.join(ROOT, OUT, tag), os.path.join(ROOT, STOW, tag)
+    if not os.path.isdir(src): return
+    os.makedirs(dst, exist_ok=True)
+    for f in os.listdir(src):
+        if not f.endswith('.png'): continue
+        if f.startswith(('rig_Anim_', 'rig_portrait_')): shutil.move(os.path.join(src, f), os.path.join(dst, f))
+        elif f.startswith('rig_'): shutil.copy2(os.path.join(src, f), os.path.join(dst, f))
+
+
+def frames_of(tag):
+    """the folder holding his stills and his walk: STOW once stowed, else the render's own"""
+    d = os.path.join(ROOT, STOW, tag)
+    return d if os.path.exists(os.path.join(d, 'rig_S.png')) else os.path.join(ROOT, OUT, tag)
+
+
 def prune(out):
     """what the screens and the bake read stays (the eight stills, the walk, the three portraits, the faces, the two
     jsons); the rig's raw frames, its shadows and the Stand clip (the stills again) go: 1.2 MB a person"""
@@ -225,7 +247,7 @@ def make(pid):
     h = json.load(open(glb.replace('.glb', '.json')))['real_height_for_rig']
     t1 = time.time()
     if run([py, '-c', render_code(glb, out, h, stand_only=standing_only(pid))], os.path.join(out, 'rig.json')):
-        faces(out); prune(out)
+        faces(out); prune(out); stow(tag)
         for f in (glb, os.path.join(ROOT, 'records/character/rig/%s.glb' % tag)):   # 25 MB a person, rebuilt from the roll on demand
             if os.path.exists(f): os.remove(f)
         print('MADE %s build %.0fs render %.0fs' % (pid, t1 - t0, time.time() - t1), flush=True)
@@ -314,10 +336,10 @@ def fight_pack():
     for k in [k for k, v in I['looks'].items() if v.get('kind') == 'person']: del I['looks'][k]
     made = []
     for p in fight_list():
-        tag = 'person_' + p['id'].lower(); fd = os.path.join(ROOT, FIGHT_RENDERS, tag); sd = os.path.join(ROOT, OUT, tag)
-        if not (os.path.exists(os.path.join(fd, 'rig.json')) and os.path.exists(os.path.join(sd, 'face', 'rest_128.png'))): continue
+        tag = 'person_' + p['id'].lower(); fd = os.path.join(ROOT, FIGHT_RENDERS, tag); sd = frames_of(tag)
+        if not (os.path.exists(os.path.join(fd, 'rig.json')) and os.path.exists(os.path.join(ROOT, OUT, tag, 'face', 'rest_128.png'))): continue
         ref = fight_ref(p); L = I['looks'][ref]; w, h = L['w'], L['h']; fx, fy = L['foot']
-        fr = json.load(open(os.path.join(fd, 'rig.json'))); sr = json.load(open(os.path.join(sd, 'rig.json')))
+        fr = json.load(open(os.path.join(fd, 'rig.json'))); sr = json.load(open(os.path.join(ROOT, OUT, tag, 'rig.json')))
         sheet = np.zeros((h * len(FIGHT_DIRS), w * len(want), 4), np.uint8); lost = 0
         for row, f in enumerate(FIGHT_DIRS):
             col = 0
@@ -463,7 +485,7 @@ def bake():
         if f.endswith(('.png', '.json')) and f[:-5 if f.endswith('.json') else -4] not in sheets and f != 'index.json': os.remove(os.path.join(od, f))
     for g, qs in sheets.items():
         looks = [q['look'] for q in qs]
-        BK.SET = dict(looks=looks, src=lambda l: os.path.join(ROOT, OUT, l),
+        BK.SET = dict(looks=looks, src=frames_of,
                       png=os.path.join(od, g + '.png'), json=os.path.join(od, g + '.json'),
                       what="RUN TWO [no two people alike] 10/23: the %s, every man his own roll of CHARACTER's pieces, rendered on the rig, one row per person and turn" % g,
                       frm=OUT + '/person_<id> (tools/bohemia_run2_no_two_people_alike.py)')
@@ -488,6 +510,8 @@ if __name__ == '__main__':
     elif cmd == 'worker': worker(int(sys.argv[2]), int(sys.argv[3]))
     elif cmd == 'bake': bake()
     elif cmd == 'index': index()
+    elif cmd == 'stow':
+        for q in json.load(open(ROLL)): stow('person_' + q['id'].lower())
     elif cmd == 'fight-make': fight_make(sys.argv[2])
     elif cmd == 'fight-batch': fight_batch(int(sys.argv[2]) if len(sys.argv) > 2 else 2)
     elif cmd == 'fight-worker': fight_worker(int(sys.argv[2]), int(sys.argv[3]))

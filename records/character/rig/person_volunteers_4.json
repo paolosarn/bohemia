@@ -1,0 +1,152 @@
+{
+ "look": "PERSON_VOLUNTEERS_4",
+ "shape": "person_volunteers_4: a person of the Volunteers, his own skin skin_light 2, SLATE PLAID FLANNEL under SAGE VEST",
+ "worn": {
+  "hair": "HEAVY FRINGE",
+  "base": "SLATE PLAID FLANNEL",
+  "outer": "SAGE VEST",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "COLUMN PANT-BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_volunteers_4.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5455,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6872,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_volunteers_4_trouser": 2568,
+  "person_volunteers_4_shoe": 4116,
+  "person_volunteers_4_shirt": 71252,
+  "person_volunteers_4_collar": 1536,
+  "person_volunteers_4_collar_points": 180,
+  "person_volunteers_4_placket": 162,
+  "person_volunteers_4_buttons": 204,
+  "person_volunteers_4_cuffs": 2048,
+  "person_volunteers_4_tail": 2016,
+  "person_volunteers_4_coat": 22450,
+  "person_volunteers_4_lapels": 396,
+  "person_volunteers_4_hair": 21846,
+  "person_volunteers_4_hand_L": 392,
+  "person_volunteers_4_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_4_buttons": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
+  "person_volunteers_4_coat": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_4_collar": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_4_collar_points": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_4_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_4_cuffs": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_4_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_volunteers_4_hair": [
+   0.006,
+   0.0052,
+   0.0044
+  ],
+  "person_volunteers_4_lapels": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_volunteers_4_placket": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_4_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_4_shirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_4_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_4_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_4_shoe": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_4_shoes": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_4_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "person_volunteers_4_tail": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_volunteers_4_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_4_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_volunteers_4_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

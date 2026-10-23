@@ -1,0 +1,36 @@
+{
+ "cut": "PERSON town_12",
+ "tag": "person_town_12",
+ "bank": {
+  "kind": "person",
+  "gang": "Body"
+ },
+ "worn_by": "Body, rolled",
+ "model": "records/character/rig/barber_person_town_12.glb",
+ "body": "records/character/rig/person_town_12.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_rust",
+  1
+ ],
+ "hair_rgb": [
+  95,
+  38,
+  23
+ ],
+ "skin_rgb": [
+  203,
+  171,
+  138
+ ],
+ "model_top_m": 1.5445,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7382,
+ "pieces": {
+  "barber_box_braids_scalp": 51770,
+  "barber_box_braids_braids": 91800,
+  "f1_person_town_12": 16571
+ }
+}

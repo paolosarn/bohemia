@@ -1,0 +1,96 @@
+{
+ "look": "PERSON_TOWN_14",
+ "shape": "person_town_14: a person of the Body, his own skin skin_light 1, LONGLINE JERSEY",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "LONGLINE JERSEY",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_14.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_14_trouser": 2568,
+  "person_town_14_shoe": 3148,
+  "person_town_14_shirt": 67584,
+  "person_town_14_collar": 1536,
+  "person_town_14_cuffs": 2048,
+  "person_town_14_longline": 4256,
+  "person_town_14_hair": 17968,
+  "person_town_14_hand_L": 392,
+  "person_town_14_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_14_collar": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_14_cuffs": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_14_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_14_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_14_longline": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_14_shirt": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_14_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_14_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_14_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_town_14_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_14_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

@@ -1,0 +1,109 @@
+{
+ "look": "PERSON_TOWN_45",
+ "shape": "person_town_45: a person of the Body, his own skin skin_mid 2, WHITE TEE under BONE VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WHITE TEE",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "outer": "BONE VEST"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_45.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_45_trouser": 2568,
+  "person_town_45_shoe": 3148,
+  "person_town_45_shirt": 40296,
+  "person_town_45_collar": 1536,
+  "person_town_45_sleeve_hem": 2048,
+  "person_town_45_hem": 1792,
+  "person_town_45_coat": 23806,
+  "person_town_45_lapels": 396,
+  "person_town_45_hair": 17968,
+  "person_town_45_hand_L": 392,
+  "person_town_45_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_45_coat": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_45_collar": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_town_45_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_45_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_45_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_town_45_lapels": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_town_45_shirt": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_town_45_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_45_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_45_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_town_45_sleeve_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_town_45_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_45_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

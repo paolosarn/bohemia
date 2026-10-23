@@ -1,0 +1,140 @@
+{
+ "look": "PERSON_VOLUNTEERS_1",
+ "shape": "person_volunteers_1: a person of the Volunteers, his own skin skin_deep 3, TATTERED TEE under SAGE FIELD COAT",
+ "worn": {
+  "hair": "HEAVY FRINGE",
+  "base": "TATTERED TEE",
+  "outer": "SAGE FIELD COAT",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "COLUMN PANT-BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_volunteers_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5455,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6872,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_volunteers_1_trouser": 2568,
+  "person_volunteers_1_shoe": 4116,
+  "person_volunteers_1_shirt": 38256,
+  "person_volunteers_1_collar": 1536,
+  "person_volunteers_1_sleeve_hem": 2048,
+  "person_volunteers_1_tail": 2414,
+  "person_volunteers_1_coat": 73288,
+  "person_volunteers_1_coat_skirt": 7770,
+  "person_volunteers_1_collar.001": 1536,
+  "person_volunteers_1_lapels": 396,
+  "person_volunteers_1_pockets": 252,
+  "person_volunteers_1_pocket_flaps": 252,
+  "person_volunteers_1_chest_pockets": 252,
+  "person_volunteers_1_chest_flaps": 252,
+  "person_volunteers_1_hair": 21846,
+  "person_volunteers_1_hand_L": 392,
+  "person_volunteers_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_1_chest_flaps": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_volunteers_1_chest_pockets": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_1_coat": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_1_coat_skirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_1_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_volunteers_1_hair": [
+   0.006,
+   0.0052,
+   0.0044
+  ],
+  "person_volunteers_1_lapels": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_volunteers_1_pocket_flaps": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_volunteers_1_pockets": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_volunteers_1_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_1_shoe": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_1_shoes": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_1_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_volunteers_1_sleeve_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_1_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_1_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_volunteers_1_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

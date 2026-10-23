@@ -48,7 +48,7 @@ const TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
   MIX.people.forEach(q => {
     const d = path.join(BARBER, q.look);
     TURNS.forEach(t => { if (!fs.existsSync(path.join(d, 'rig_' + t + '.png'))) miss.push(q.look + ' stand ' + t);
-      if (!q.stands) for (let k = 0; k < 6; k++) if (!fs.existsSync(path.join(d, 'rig_Anim_0_' + t + '_k0' + k + '.png'))) miss.push(q.look + ' walk ' + t + k); });
+      if (!q.stands) for (let k = 0; k < 6; k++) if (!fs.existsSync(path.join(ROOT, 'records/run2/people', q.look, 'rig_Anim_0_' + t + '_k0' + k + '.png'))) miss.push(q.look + ' walk ' + t + k); });   /* the walk is source, kept unpublished */
     ['rest', 'A', 'E', 'O', 'M'].forEach(k => [64, 128].forEach(s => { if (!fs.existsSync(path.join(d, 'face', k + '_' + s + '.png'))) miss.push(q.look + ' face ' + k + s); }));
   });
   ok('THE RENDERS: every rolled person in the game is on the rig, standing in eight turns (walking too, but for the places\' people who only stand), talking under his own head', MIX.people.length >= 152 && !miss.length, MIX.people.length + ' people' + (miss.length ? ', missing ' + miss.slice(0, 3).join('; ') : ''));

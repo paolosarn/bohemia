@@ -1,0 +1,238 @@
+{
+ "what": "RUN TWO [no two people alike]: the map's people, a sheet of twelve at most, read by the map's seat keeper",
+ "pools": {
+  "anarchists": [
+   "anarchists"
+  ],
+  "blues": [
+   "blues"
+  ],
+  "caravans": [
+   "caravans"
+  ],
+  "cartel": [
+   "cartel"
+  ],
+  "church": [
+   "church"
+  ],
+  "colorful": [
+   "colorful"
+  ],
+  "homeless": [
+   "homeless"
+  ],
+  "mob": [
+   "mob"
+  ],
+  "network": [
+   "network"
+  ],
+  "reds": [
+   "reds"
+  ],
+  "remnants": [
+   "remnants"
+  ],
+  "trades": [
+   "trades"
+  ],
+  "volunteers": [
+   "volunteers"
+  ],
+  "town": [
+   "town",
+   "town_2",
+   "town_3",
+   "town_4"
+  ]
+ },
+ "sheets": {
+  "anarchists": [
+   "person_anarchists_0",
+   "person_anarchists_1",
+   "person_anarchists_2",
+   "person_anarchists_3",
+   "person_anarchists_4",
+   "person_anarchists_5",
+   "person_anarchists_6",
+   "person_anarchists_7"
+  ],
+  "blues": [
+   "person_blues_0",
+   "person_blues_1",
+   "person_blues_2",
+   "person_blues_3",
+   "person_blues_4",
+   "person_blues_5",
+   "person_blues_6",
+   "person_blues_7"
+  ],
+  "caravans": [
+   "person_caravans_0",
+   "person_caravans_1",
+   "person_caravans_2",
+   "person_caravans_3",
+   "person_caravans_4",
+   "person_caravans_5",
+   "person_caravans_6",
+   "person_caravans_7"
+  ],
+  "cartel": [
+   "person_cartel_0",
+   "person_cartel_1",
+   "person_cartel_2",
+   "person_cartel_3",
+   "person_cartel_4",
+   "person_cartel_5",
+   "person_cartel_6",
+   "person_cartel_7"
+  ],
+  "church": [
+   "person_church_0",
+   "person_church_1",
+   "person_church_2",
+   "person_church_3",
+   "person_church_4",
+   "person_church_5",
+   "person_church_6",
+   "person_church_7"
+  ],
+  "colorful": [
+   "person_colorful_0",
+   "person_colorful_1",
+   "person_colorful_2",
+   "person_colorful_3",
+   "person_colorful_4",
+   "person_colorful_5",
+   "person_colorful_6",
+   "person_colorful_7"
+  ],
+  "homeless": [
+   "person_homeless_0",
+   "person_homeless_1",
+   "person_homeless_2",
+   "person_homeless_3",
+   "person_homeless_4",
+   "person_homeless_5",
+   "person_homeless_6",
+   "person_homeless_7"
+  ],
+  "mob": [
+   "person_mob_0",
+   "person_mob_1",
+   "person_mob_2",
+   "person_mob_3",
+   "person_mob_4",
+   "person_mob_5",
+   "person_mob_6",
+   "person_mob_7"
+  ],
+  "network": [
+   "person_network_0",
+   "person_network_1",
+   "person_network_2",
+   "person_network_3",
+   "person_network_4",
+   "person_network_5",
+   "person_network_6",
+   "person_network_7"
+  ],
+  "reds": [
+   "person_reds_0",
+   "person_reds_1",
+   "person_reds_2",
+   "person_reds_3",
+   "person_reds_4",
+   "person_reds_5",
+   "person_reds_6",
+   "person_reds_7"
+  ],
+  "remnants": [
+   "person_remnants_0",
+   "person_remnants_1",
+   "person_remnants_2",
+   "person_remnants_3",
+   "person_remnants_4",
+   "person_remnants_5",
+   "person_remnants_6",
+   "person_remnants_7"
+  ],
+  "trades": [
+   "person_trades_0",
+   "person_trades_1",
+   "person_trades_2",
+   "person_trades_3",
+   "person_trades_4",
+   "person_trades_5",
+   "person_trades_6",
+   "person_trades_7"
+  ],
+  "volunteers": [
+   "person_volunteers_0",
+   "person_volunteers_1",
+   "person_volunteers_2",
+   "person_volunteers_3",
+   "person_volunteers_4",
+   "person_volunteers_5",
+   "person_volunteers_6",
+   "person_volunteers_7"
+  ],
+  "town": [
+   "person_town_0",
+   "person_town_1",
+   "person_town_2",
+   "person_town_3",
+   "person_town_4",
+   "person_town_5",
+   "person_town_6",
+   "person_town_7",
+   "person_town_8",
+   "person_town_9",
+   "person_town_10",
+   "person_town_11"
+  ],
+  "town_2": [
+   "person_town_12",
+   "person_town_13",
+   "person_town_14",
+   "person_town_15",
+   "person_town_16",
+   "person_town_17",
+   "person_town_18",
+   "person_town_19",
+   "person_town_20",
+   "person_town_21",
+   "person_town_22",
+   "person_town_23"
+  ],
+  "town_3": [
+   "person_town_24",
+   "person_town_25",
+   "person_town_26",
+   "person_town_27",
+   "person_town_28",
+   "person_town_29",
+   "person_town_30",
+   "person_town_31",
+   "person_town_32",
+   "person_town_33",
+   "person_town_34",
+   "person_town_35"
+  ],
+  "town_4": [
+   "person_town_36",
+   "person_town_37",
+   "person_town_38",
+   "person_town_39",
+   "person_town_40",
+   "person_town_41",
+   "person_town_42",
+   "person_town_43",
+   "person_town_44",
+   "person_town_45",
+   "person_town_46",
+   "person_town_47"
+  ]
+ }
+}

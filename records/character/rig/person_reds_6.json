@@ -1,0 +1,157 @@
+{
+ "look": "PERSON_REDS_6",
+ "shape": "person_reds_6: a person of the Reds, his own skin skin_mid 2, ROLLED FLANNEL under OXBLOOD PONCHO",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "ROLLED FLANNEL",
+  "outer": "OXBLOOD PONCHO",
+  "legs": "BRICK WIDE TROUSER",
+  "feet": "BRICK STACK BOOT"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_reds_6.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.7908,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_reds_6_trouser": 2568,
+  "person_reds_6_shoe": 3916,
+  "person_reds_6_shirt": 61820,
+  "person_reds_6_collar": 1536,
+  "person_reds_6_collar_points": 180,
+  "person_reds_6_placket": 162,
+  "person_reds_6_buttons": 204,
+  "person_reds_6_roll": 2048,
+  "person_reds_6_tail": 2016,
+  "person_reds_6_poncho": 23728,
+  "person_reds_6_poncho_neck": 1536,
+  "person_reds_6_hair": 17968,
+  "person_reds_6_hand_L": 392,
+  "person_reds_6_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_6_buttons": [
+   0.3864,
+   0.0704,
+   0.0382
+  ],
+  "person_reds_6_collar": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_reds_6_collar_points": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_reds_6_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_6_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_reds_6_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_reds_6_placket": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_reds_6_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_6_poncho": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_6_poncho_band": [
+   0.2874,
+   0.0578,
+   0.0369
+  ],
+  "person_reds_6_poncho_neck": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_reds_6_roll": [
+   0.3864,
+   0.0704,
+   0.0382
+  ],
+  "person_reds_6_shirt": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_reds_6_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_6_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_6_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_reds_6_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_reds_6_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_reds_6_tail": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_reds_6_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_6_trouser": [
+   0.0887,
+   0.0319,
+   0.0296
+  ],
+  "person_reds_6_trousers": [
+   0.0887,
+   0.0319,
+   0.0296
+  ]
+ }
+}

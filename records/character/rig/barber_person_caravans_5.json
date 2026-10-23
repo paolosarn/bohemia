@@ -1,0 +1,36 @@
+{
+ "cut": "PERSON caravans_5",
+ "tag": "person_caravans_5",
+ "bank": {
+  "kind": "person",
+  "gang": "Caravans"
+ },
+ "worn_by": "Caravans, rolled",
+ "model": "records/character/rig/barber_person_caravans_5.glb",
+ "body": "records/character/rig/person_caravans_5.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  203,
+  171,
+  138
+ ],
+ "model_top_m": 1.5438,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7375,
+ "pieces": {
+  "barber_static_cap": 217714,
+  "barber_static_tufts": 47414,
+  "f1_person_caravans_5": 163
+ }
+}

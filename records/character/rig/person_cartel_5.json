@@ -1,0 +1,116 @@
+{
+ "look": "PERSON_CARTEL_5",
+ "shape": "person_cartel_5: a person of the Cartel, his own skin skin_mid 1, SAGE TEE",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "SAGE TEE",
+  "back": "STEEL ROAD CAPE",
+  "head": "CHARCOAL WATCH CAP",
+  "legs": "DUST TROUSERS",
+  "feet": "STACKED SOLE BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_cartel_5.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5437,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6852,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_cartel_5_trouser": 2568,
+  "person_cartel_5_shoe": 3916,
+  "person_cartel_5_cape": 4674,
+  "person_cartel_5_shirt": 39960,
+  "person_cartel_5_collar": 1536,
+  "person_cartel_5_sleeve_hem": 2048,
+  "person_cartel_5_hem": 1792,
+  "person_cartel_5_hair": 17968,
+  "person_cartel_5_hat": 3444,
+  "person_cartel_5_hat_brim": 2106,
+  "person_cartel_5_hand_L": 392,
+  "person_cartel_5_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_5_cape": [
+   0.0545,
+   0.0529,
+   0.0578
+  ],
+  "person_cartel_5_collar": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_5_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_cartel_5_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_cartel_5_hat": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_cartel_5_hat_brim": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_cartel_5_hem": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_5_shirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_5_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_cartel_5_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_cartel_5_skin": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "person_cartel_5_sleeve_hem": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_cartel_5_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_cartel_5_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

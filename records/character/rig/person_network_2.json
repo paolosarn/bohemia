@@ -1,0 +1,148 @@
+{
+ "look": "PERSON_NETWORK_2",
+ "shape": "person_network_2: a person of the Network, his own skin skin_mid 2, TEAL STRIPED TEE under RANGER LONGCOAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "TEAL STRIPED TEE",
+  "outer": "RANGER LONGCOAT",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_network_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.7908,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_network_2_trouser": 2568,
+  "person_network_2_shoe": 3836,
+  "person_network_2_shirt": 40088,
+  "person_network_2_collar": 1536,
+  "person_network_2_sleeve_hem": 2048,
+  "person_network_2_hem": 1792,
+  "person_network_2_coat": 73232,
+  "person_network_2_coat_skirt": 8190,
+  "person_network_2_collar.001": 1536,
+  "person_network_2_lapels": 396,
+  "person_network_2_pockets": 252,
+  "person_network_2_pocket_flaps": 252,
+  "person_network_2_hair": 17968,
+  "person_network_2_hand_L": 392,
+  "person_network_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_2_coat": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_2_coat_skirt": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_2_collar": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_2_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_network_2_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_network_2_hem": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_2_lapels": [
+   0.0242,
+   0.0685,
+   0.0452
+  ],
+  "person_network_2_pocket_flaps": [
+   0.0242,
+   0.0685,
+   0.0452
+  ],
+  "person_network_2_pockets": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_network_2_shirt": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_2_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_2_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_2_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_network_2_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_network_2_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_network_2_sleeve_hem": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_2_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_2_trouser": [
+   0.063,
+   0.063,
+   0.0648
+  ],
+  "person_network_2_trousers": [
+   0.063,
+   0.063,
+   0.0648
+  ]
+ }
+}

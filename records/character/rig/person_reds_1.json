@@ -1,10 +1,10 @@
 {
  "look": "PERSON_REDS_1",
- "shape": "person_reds_1: a person of the Reds, his own skin skin_light 3",
+ "shape": "person_reds_1: a person of the Reds, his own skin skin_light 3, BRICK TEE under LEATHER HALF APRON",
  "worn": {
   "hair": "DRY TAPER",
-  "base": "SIGNAL RED SHIRT",
-  "outer": "BRICK SPLIT-TAIL DUSTER",
+  "base": "BRICK TEE",
+  "outer": "LEATHER HALF APRON",
   "legs": "BRICK WIDE TROUSER",
   "feet": "BRICK STACK BOOT"
  },
@@ -24,8 +24,12 @@
   "Cesium_Man": 3273,
   "person_reds_1_trouser": 2568,
   "person_reds_1_shoe": 3916,
-  "person_reds_1_coat": 17338,
-  "person_reds_1_coat_skirt": 8508,
+  "person_reds_1_shirt": 40088,
+  "person_reds_1_collar": 1536,
+  "person_reds_1_sleeve_hem": 2048,
+  "person_reds_1_hem": 1792,
+  "person_reds_1_apron": 1850,
+  "person_reds_1_apron_ties": 1792,
   "person_reds_1_hair": 17968,
   "person_reds_1_hand_L": 392,
   "person_reds_1_hand_R": 392
@@ -36,15 +40,20 @@
    0.8,
    0.8
   ],
-  "person_reds_1_coat": [
+  "person_reds_1_apron": [
    0.1301,
-   0.0437,
-   0.0382
+   0.0513,
+   0.016
   ],
-  "person_reds_1_coat_skirt": [
-   0.1301,
-   0.0437,
-   0.0382
+  "person_reds_1_apron_ties": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_reds_1_collar": [
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_reds_1_eyes": [
    0.0212,
@@ -56,9 +65,14 @@
    0.0116,
    0.008
   ],
+  "person_reds_1_hem": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
   "person_reds_1_shirt": [
-   0.305,
-   0.0296,
+   0.2195,
+   0.0369,
    0.0212
   ],
   "person_reds_1_shoe": [
@@ -75,6 +89,11 @@
    0.7454,
    0.5089,
    0.3278
+  ],
+  "person_reds_1_sleeve_hem": [
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_reds_1_trouser": [
    0.0887,

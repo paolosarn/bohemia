@@ -1,0 +1,114 @@
+{
+ "look": "PERSON_VOLUNTEERS_6",
+ "shape": "person_volunteers_6: a person of the Volunteers, his own skin skin_mid 2, BONE BUTTON-UP",
+ "worn": {
+  "hair": "HEAVY FRINGE",
+  "base": "BONE BUTTON-UP",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "COLUMN PANT-BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_volunteers_6.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5455,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6872,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_volunteers_6_trouser": 2568,
+  "person_volunteers_6_shoe": 4116,
+  "person_volunteers_6_shirt": 71252,
+  "person_volunteers_6_collar": 1536,
+  "person_volunteers_6_collar_points": 180,
+  "person_volunteers_6_placket": 162,
+  "person_volunteers_6_buttons": 204,
+  "person_volunteers_6_cuffs": 2048,
+  "person_volunteers_6_tail": 2016,
+  "person_volunteers_6_hair": 21846,
+  "person_volunteers_6_hand_L": 392,
+  "person_volunteers_6_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_volunteers_6_buttons": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_volunteers_6_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_6_collar_points": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_6_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_6_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_volunteers_6_hair": [
+   0.006,
+   0.0052,
+   0.0044
+  ],
+  "person_volunteers_6_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_6_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_6_shoe": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_6_shoes": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "person_volunteers_6_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_volunteers_6_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_volunteers_6_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_volunteers_6_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

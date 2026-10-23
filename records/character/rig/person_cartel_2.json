@@ -1,0 +1,134 @@
+{
+ "look": "PERSON_CARTEL_2",
+ "shape": "person_cartel_2: a person of the Cartel, his own skin skin_mid 3, ASH HOODIE",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "ASH HOODIE",
+  "back": "STEEL ROAD CAPE",
+  "head": "CHARCOAL WATCH CAP",
+  "legs": "DUST TROUSERS",
+  "feet": "STACKED SOLE BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_cartel_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5437,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6852,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_cartel_2_trouser": 2568,
+  "person_cartel_2_shoe": 3916,
+  "person_cartel_2_cape": 4674,
+  "person_cartel_2_shirt": 68960,
+  "person_cartel_2_collar": 1536,
+  "person_cartel_2_hood": 14348,
+  "person_cartel_2_drawstrings": 100,
+  "person_cartel_2_pocket": 182,
+  "person_cartel_2_waistband": 1792,
+  "person_cartel_2_cuffs": 2048,
+  "person_cartel_2_hair": 17968,
+  "person_cartel_2_hat": 3444,
+  "person_cartel_2_hat_brim": 2106,
+  "person_cartel_2_hand_L": 392,
+  "person_cartel_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_2_cape": [
+   0.0545,
+   0.0529,
+   0.0578
+  ],
+  "person_cartel_2_collar": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_cartel_2_cuffs": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_cartel_2_drawstrings": [
+   0.1248,
+   0.1384,
+   0.1651
+  ],
+  "person_cartel_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_cartel_2_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_cartel_2_hat": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_cartel_2_hat_brim": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_cartel_2_hood": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_cartel_2_pocket": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_cartel_2_shirt": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_cartel_2_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_cartel_2_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_cartel_2_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_cartel_2_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_cartel_2_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_cartel_2_waistband": [
+   0.0595,
+   0.0648,
+   0.0802
+  ]
+ }
+}

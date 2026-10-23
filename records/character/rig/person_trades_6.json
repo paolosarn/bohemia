@@ -1,0 +1,125 @@
+{
+ "look": "PERSON_TRADES_6",
+ "shape": "person_trades_6: a person of the Trades, his own skin skin_mid 1, RUST HENLEY",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "RUST HENLEY",
+  "head": "DUST WORK CAP",
+  "legs": "DUST TROUSERS",
+  "feet": "STACKED SOLE BOOT",
+  "waist": "SOOT TOOL BELT"
+ },
+ "dials": {
+  "height": -0.3,
+  "belly": 0.55,
+  "shoulders": 0.6,
+  "hips": 0.15
+ },
+ "model": "records/character/rig/person_trades_6.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5437,
+ "real_height_m": 1.6942,
+ "real_height_for_rig": 1.7112,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_trades_6_trouser": 2568,
+  "person_trades_6_shoe": 3916,
+  "person_trades_6_belt": 346,
+  "person_trades_6_pouch": 24,
+  "person_trades_6_pouch.001": 24,
+  "person_trades_6_shirt": 67448,
+  "person_trades_6_collar": 1536,
+  "person_trades_6_placket": 126,
+  "person_trades_6_buttons": 102,
+  "person_trades_6_cuffs": 2048,
+  "person_trades_6_hem": 1792,
+  "person_trades_6_hair": 17968,
+  "person_trades_6_hat": 3092,
+  "person_trades_6_visor": 48,
+  "person_trades_6_hand_L": 392,
+  "person_trades_6_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_6_belt": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "person_trades_6_buttons": [
+   0.3864,
+   0.1195,
+   0.0343
+  ],
+  "person_trades_6_collar": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_trades_6_cuffs": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_trades_6_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_trades_6_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_trades_6_hat": [
+   0.2159,
+   0.1559,
+   0.0802
+  ],
+  "person_trades_6_hem": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_trades_6_placket": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_trades_6_shirt": [
+   0.2159,
+   0.0595,
+   0.0176
+  ],
+  "person_trades_6_shoe": [
+   0.016,
+   0.0091,
+   0.0086
+  ],
+  "person_trades_6_shoes": [
+   0.016,
+   0.0091,
+   0.0086
+  ],
+  "person_trades_6_skin": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "person_trades_6_trouser": [
+   0.063,
+   0.0409,
+   0.0343
+  ],
+  "person_trades_6_trousers": [
+   0.063,
+   0.0409,
+   0.0343
+  ]
+ }
+}

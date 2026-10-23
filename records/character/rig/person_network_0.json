@@ -1,0 +1,128 @@
+{
+ "look": "PERSON_NETWORK_0",
+ "shape": "person_network_0: a person of the Network, his own skin skin_mid 2, TEAL WORK SHIRT under TEAL COCOON COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "TEAL WORK SHIRT",
+  "outer": "TEAL COCOON COAT",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_network_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.7908,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_network_0_trouser": 2568,
+  "person_network_0_shoe": 3836,
+  "person_network_0_shirt": 40088,
+  "person_network_0_collar": 1536,
+  "person_network_0_sleeve_hem": 2048,
+  "person_network_0_hem": 1792,
+  "person_network_0_pocket": 180,
+  "person_network_0_flap": 108,
+  "person_network_0_coat": 73232,
+  "person_network_0_coat_skirt": 5886,
+  "person_network_0_collar.001": 1536,
+  "person_network_0_lapels": 396,
+  "person_network_0_hair": 17968,
+  "person_network_0_hand_L": 392,
+  "person_network_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_network_0_coat": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_0_coat_skirt": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_0_collar": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_network_0_flap": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_network_0_hem": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_0_lapels": [
+   0.004,
+   0.1912,
+   0.1274
+  ],
+  "person_network_0_pocket": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_0_shirt": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_0_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_network_0_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_network_0_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_network_0_sleeve_hem": [
+   0.0086,
+   0.521,
+   0.3372
+  ],
+  "person_network_0_trouser": [
+   0.063,
+   0.063,
+   0.0648
+  ],
+  "person_network_0_trousers": [
+   0.063,
+   0.063,
+   0.0648
+  ]
+ }
+}

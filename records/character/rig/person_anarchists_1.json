@@ -1,0 +1,109 @@
+{
+ "look": "PERSON_ANARCHISTS_1",
+ "shape": "person_anarchists_1: a person of the Anarchists, his own skin skin_light 3, ARC SHOULDER TEE",
+ "worn": {
+  "hair": "LAYERED FALL",
+  "base": "ARC SHOULDER TEE",
+  "head": "CHARCOAL WATCH CAP",
+  "legs": "LEATHER STACK PANT",
+  "feet": "LEATHER STACK BOOT"
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.45,
+  "shoulders": -0.25,
+  "hips": -0.25
+ },
+ "model": "records/character/rig/person_anarchists_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5486,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7821,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_anarchists_1_shoe": 4036,
+  "person_anarchists_1_shirt": 40088,
+  "person_anarchists_1_collar": 1536,
+  "person_anarchists_1_sleeve_hem": 2048,
+  "person_anarchists_1_hem": 1792,
+  "person_anarchists_1_hair": 30198,
+  "person_anarchists_1_hair_fall": 2646,
+  "person_anarchists_1_hat": 3444,
+  "person_anarchists_1_hat_brim": 2106,
+  "person_anarchists_1_hand_L": 392,
+  "person_anarchists_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_anarchists_1_collar": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_anarchists_1_hair": [
+   0.0212,
+   0.0144,
+   0.0116
+  ],
+  "person_anarchists_1_hair_fall": [
+   0.0212,
+   0.0144,
+   0.0116
+  ],
+  "person_anarchists_1_hat": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_anarchists_1_hat_brim": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_anarchists_1_hem": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_1_shirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_1_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_anarchists_1_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_anarchists_1_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_anarchists_1_sleeve_hem": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_1_trousers": [
+   0.0482,
+   0.0212,
+   0.0369
+  ]
+ }
+}

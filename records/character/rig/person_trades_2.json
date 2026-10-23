@@ -1,0 +1,131 @@
+{
+ "look": "PERSON_TRADES_2",
+ "shape": "person_trades_2: a person of the Trades, his own skin skin_deep 3, RED SHIRT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "RED SHIRT",
+  "head": "DUST WORK CAP",
+  "legs": "DUST TROUSERS",
+  "feet": "STACKED SOLE BOOT",
+  "waist": "SOOT TOOL BELT"
+ },
+ "dials": {
+  "height": -0.3,
+  "belly": 0.55,
+  "shoulders": 0.6,
+  "hips": 0.15
+ },
+ "model": "records/character/rig/person_trades_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5437,
+ "real_height_m": 1.6942,
+ "real_height_for_rig": 1.7112,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_trades_2_trouser": 2568,
+  "person_trades_2_shoe": 3916,
+  "person_trades_2_belt": 346,
+  "person_trades_2_pouch": 24,
+  "person_trades_2_pouch.001": 24,
+  "person_trades_2_shirt": 71276,
+  "person_trades_2_collar": 1536,
+  "person_trades_2_collar_points": 180,
+  "person_trades_2_placket": 162,
+  "person_trades_2_buttons": 204,
+  "person_trades_2_cuffs": 2048,
+  "person_trades_2_tail": 2016,
+  "person_trades_2_hair": 17968,
+  "person_trades_2_hat": 3092,
+  "person_trades_2_visor": 48,
+  "person_trades_2_hand_L": 392,
+  "person_trades_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_trades_2_belt": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "person_trades_2_buttons": [
+   0.7305,
+   0.0802,
+   0.0545
+  ],
+  "person_trades_2_collar": [
+   0.4508,
+   0.0356,
+   0.0252
+  ],
+  "person_trades_2_collar_points": [
+   0.4508,
+   0.0356,
+   0.0252
+  ],
+  "person_trades_2_cuffs": [
+   0.4508,
+   0.0356,
+   0.0252
+  ],
+  "person_trades_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_trades_2_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_trades_2_hat": [
+   0.2159,
+   0.1559,
+   0.0802
+  ],
+  "person_trades_2_placket": [
+   0.4508,
+   0.0356,
+   0.0252
+  ],
+  "person_trades_2_shirt": [
+   0.4508,
+   0.0356,
+   0.0252
+  ],
+  "person_trades_2_shoe": [
+   0.016,
+   0.0091,
+   0.0086
+  ],
+  "person_trades_2_shoes": [
+   0.016,
+   0.0091,
+   0.0086
+  ],
+  "person_trades_2_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_trades_2_tail": [
+   0.4508,
+   0.0356,
+   0.0252
+  ],
+  "person_trades_2_trouser": [
+   0.063,
+   0.0409,
+   0.0343
+  ],
+  "person_trades_2_trousers": [
+   0.063,
+   0.0409,
+   0.0343
+  ]
+ }
+}

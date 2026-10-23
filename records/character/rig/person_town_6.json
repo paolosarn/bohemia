@@ -1,0 +1,158 @@
+{
+ "look": "PERSON_TOWN_6",
+ "shape": "person_town_6: a person of the Body, his own skin skin_mid 3, COAL HOODIE under FIELD GREEN COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "COAL HOODIE",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "outer": "FIELD GREEN COAT"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_6.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_6_trouser": 2568,
+  "person_town_6_shoe": 3148,
+  "person_town_6_shirt": 69088,
+  "person_town_6_collar": 1536,
+  "person_town_6_hood": 14452,
+  "person_town_6_drawstrings": 100,
+  "person_town_6_pocket": 182,
+  "person_town_6_waistband": 1792,
+  "person_town_6_cuffs": 2048,
+  "person_town_6_coat": 73272,
+  "person_town_6_coat_skirt": 7770,
+  "person_town_6_collar.001": 1536,
+  "person_town_6_lapels": 396,
+  "person_town_6_pockets": 252,
+  "person_town_6_pocket_flaps": 252,
+  "person_town_6_chest_pockets": 252,
+  "person_town_6_chest_flaps": 252,
+  "person_town_6_hair": 17968,
+  "person_town_6_hand_L": 392,
+  "person_town_6_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_6_chest_flaps": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_6_chest_pockets": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_6_coat": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_6_coat_skirt": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_6_collar": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_6_cuffs": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_6_drawstrings": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_town_6_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_6_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_6_hood": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_6_lapels": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_6_pocket": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_6_pocket_flaps": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_6_pockets": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_town_6_shirt": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_town_6_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_6_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_6_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_town_6_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_6_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_6_waistband": [
+   0.0296,
+   0.0296,
+   0.0356
+  ]
+ }
+}

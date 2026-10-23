@@ -1,0 +1,172 @@
+{
+ "look": "PERSON_CARTEL_7",
+ "shape": "person_cartel_7: a person of the Cartel, his own skin skin_light 1, SLATE PLAID FLANNEL under STORM VEST",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "SLATE PLAID FLANNEL",
+  "back": "STEEL ROAD CAPE",
+  "head": "CHARCOAL WATCH CAP",
+  "legs": "DUST TROUSERS",
+  "feet": "STACKED SOLE BOOT",
+  "outer": "STORM VEST"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_cartel_7.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5437,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6852,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_cartel_7_trouser": 2568,
+  "person_cartel_7_shoe": 3916,
+  "person_cartel_7_cape": 4674,
+  "person_cartel_7_shirt": 71252,
+  "person_cartel_7_collar": 1536,
+  "person_cartel_7_collar_points": 180,
+  "person_cartel_7_placket": 162,
+  "person_cartel_7_buttons": 204,
+  "person_cartel_7_cuffs": 2048,
+  "person_cartel_7_tail": 2016,
+  "person_cartel_7_coat": 22450,
+  "person_cartel_7_lapels": 396,
+  "person_cartel_7_hair": 17968,
+  "person_cartel_7_hat": 3444,
+  "person_cartel_7_hat_brim": 2106,
+  "person_cartel_7_hand_L": 392,
+  "person_cartel_7_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_7_buttons": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
+  "person_cartel_7_cape": [
+   0.0545,
+   0.0529,
+   0.0578
+  ],
+  "person_cartel_7_coat": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_cartel_7_collar": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cartel_7_collar_points": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cartel_7_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_7_cuffs": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cartel_7_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_cartel_7_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_cartel_7_hat": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_cartel_7_hat_brim": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "person_cartel_7_lapels": [
+   0.0242,
+   0.0273,
+   0.0343
+  ],
+  "person_cartel_7_placket": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cartel_7_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_7_shirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cartel_7_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_7_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_7_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_cartel_7_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_cartel_7_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_cartel_7_tail": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cartel_7_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cartel_7_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "person_cartel_7_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}

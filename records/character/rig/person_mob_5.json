@@ -1,0 +1,153 @@
+{
+ "look": "PERSON_MOB_5",
+ "shape": "person_mob_5: a person of the Mob, his own skin skin_deep 4, SAGE FLANNEL",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "SAGE FLANNEL",
+  "back": "CHARCOAL SHOULDER MANTLE",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "STACKED SOLE BOOT",
+  "waist": "LEATHER BELT"
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.45,
+  "shoulders": -0.25,
+  "hips": -0.25
+ },
+ "model": "records/character/rig/person_mob_5.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5357,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7672,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_mob_5_shoe": 3516,
+  "person_mob_5_mantle": 16650,
+  "person_mob_5_cape": 5002,
+  "person_mob_5_belt": 346,
+  "person_mob_5_shirt": 71212,
+  "person_mob_5_collar": 1536,
+  "person_mob_5_collar_points": 180,
+  "person_mob_5_placket": 162,
+  "person_mob_5_buttons": 204,
+  "person_mob_5_cuffs": 2048,
+  "person_mob_5_tail": 2016,
+  "person_mob_5_hair": 17968,
+  "person_mob_5_hand_L": 392,
+  "person_mob_5_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_5_belt": [
+   0.0452,
+   0.0212,
+   0.013
+  ],
+  "person_mob_5_buttons": [
+   0.1878,
+   0.2623,
+   0.162
+  ],
+  "person_mob_5_cape": [
+   0.0319,
+   0.0296,
+   0.0319
+  ],
+  "person_mob_5_collar": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_mob_5_collar_points": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_mob_5_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_5_cuffs": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_mob_5_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_mob_5_hair": [
+   0.013,
+   0.0103,
+   0.0091
+  ],
+  "person_mob_5_mantle": [
+   0.0319,
+   0.0296,
+   0.0319
+  ],
+  "person_mob_5_placket": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_mob_5_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_5_shirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_mob_5_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_5_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_5_shoe": [
+   0.016,
+   0.0097,
+   0.0091
+  ],
+  "person_mob_5_shoes": [
+   0.016,
+   0.0097,
+   0.0091
+  ],
+  "person_mob_5_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_mob_5_tail": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_mob_5_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_5_trousers": [
+   0.0343,
+   0.0232,
+   0.0212
+  ]
+ }
+}

@@ -1,0 +1,158 @@
+{
+ "look": "PERSON_REDS_3",
+ "shape": "person_reds_3: a person of the Reds, his own skin skin_deep 3, OXBLOOD PLAID FLANNEL under LEATHER VEST",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "OXBLOOD PLAID FLANNEL",
+  "outer": "LEATHER VEST",
+  "legs": "BRICK WIDE TROUSER",
+  "feet": "BRICK STACK BOOT"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/person_reds_3.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.7908,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_reds_3_trouser": 2568,
+  "person_reds_3_shoe": 3916,
+  "person_reds_3_shirt": 71212,
+  "person_reds_3_collar": 1536,
+  "person_reds_3_collar_points": 180,
+  "person_reds_3_placket": 162,
+  "person_reds_3_buttons": 204,
+  "person_reds_3_cuffs": 2048,
+  "person_reds_3_tail": 2016,
+  "person_reds_3_coat": 22934,
+  "person_reds_3_lapels": 396,
+  "person_reds_3_zip": 324,
+  "person_reds_3_hair": 17968,
+  "person_reds_3_hand_L": 392,
+  "person_reds_3_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_3_buttons": [
+   0.2874,
+   0.0578,
+   0.0369
+  ],
+  "person_reds_3_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_reds_3_collar": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_3_collar_points": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_3_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_3_cuffs": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_3_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_reds_3_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_reds_3_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_reds_3_placket": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_3_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_3_shirt": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_3_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_3_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_3_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_reds_3_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "person_reds_3_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_reds_3_tail": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_3_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_reds_3_trouser": [
+   0.0887,
+   0.0319,
+   0.0296
+  ],
+  "person_reds_3_trousers": [
+   0.0887,
+   0.0319,
+   0.0296
+  ],
+  "person_reds_3_zip": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

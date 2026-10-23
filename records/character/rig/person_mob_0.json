@@ -1,0 +1,130 @@
+{
+ "look": "PERSON_MOB_0",
+ "shape": "person_mob_0: a person of the Mob, his own skin skin_mid 3, CHARCOAL STRIPED TEE",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "CHARCOAL STRIPED TEE",
+  "back": "CHARCOAL SHOULDER MANTLE",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "STACKED SOLE BOOT",
+  "waist": "LEATHER BELT"
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.45,
+  "shoulders": -0.25,
+  "hips": -0.25
+ },
+ "model": "records/character/rig/person_mob_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5357,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7672,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_mob_0_shoe": 3516,
+  "person_mob_0_mantle": 16650,
+  "person_mob_0_cape": 5002,
+  "person_mob_0_belt": 346,
+  "person_mob_0_shirt": 40088,
+  "person_mob_0_collar": 1536,
+  "person_mob_0_sleeve_hem": 2048,
+  "person_mob_0_hem": 1792,
+  "person_mob_0_hair": 17968,
+  "person_mob_0_hand_L": 392,
+  "person_mob_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_0_belt": [
+   0.0452,
+   0.0212,
+   0.013
+  ],
+  "person_mob_0_cape": [
+   0.0319,
+   0.0296,
+   0.0319
+  ],
+  "person_mob_0_collar": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_0_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_mob_0_hair": [
+   0.013,
+   0.0103,
+   0.0091
+  ],
+  "person_mob_0_hem": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_0_mantle": [
+   0.0319,
+   0.0296,
+   0.0319
+  ],
+  "person_mob_0_shirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_0_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_0_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_0_shoe": [
+   0.016,
+   0.0097,
+   0.0091
+  ],
+  "person_mob_0_shoes": [
+   0.016,
+   0.0097,
+   0.0091
+  ],
+  "person_mob_0_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_mob_0_sleeve_hem": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mob_0_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mob_0_trousers": [
+   0.0343,
+   0.0232,
+   0.0212
+  ]
+ }
+}

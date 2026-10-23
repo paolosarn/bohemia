@@ -1,0 +1,182 @@
+{
+ "look": "PERSON_TOWN_2",
+ "shape": "person_town_2: a person of the Body, his own skin skin_deep 4, DUST PLAID SHIRT under SAGE CAR COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "DUST PLAID SHIRT",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "outer": "SAGE CAR COAT"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_town_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_town_2_trouser": 2568,
+  "person_town_2_shoe": 3148,
+  "person_town_2_shirt": 43916,
+  "person_town_2_collar": 1536,
+  "person_town_2_collar_points": 180,
+  "person_town_2_placket": 162,
+  "person_town_2_buttons": 204,
+  "person_town_2_sleeve_hem": 2048,
+  "person_town_2_tail": 2016,
+  "person_town_2_coat": 73272,
+  "person_town_2_coat_skirt": 5670,
+  "person_town_2_collar.001": 1536,
+  "person_town_2_lapels": 396,
+  "person_town_2_cuffs": 2048,
+  "person_town_2_pockets": 252,
+  "person_town_2_pocket_flaps": 252,
+  "person_town_2_hair": 17968,
+  "person_town_2_hand_L": 392,
+  "person_town_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_2_buttons": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_town_2_coat": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_town_2_coat_skirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_town_2_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_2_collar_points": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_2_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_2_cuffs": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_town_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_town_2_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_town_2_lapels": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_town_2_placket": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_2_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_2_pocket_flaps": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_town_2_pockets": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_town_2_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_2_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_2_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_2_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_2_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "person_town_2_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_town_2_sleeve_hem": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_2_sleeve_hem_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_2_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_2_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_town_2_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "person_town_2_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

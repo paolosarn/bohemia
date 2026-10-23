@@ -1,0 +1,35 @@
+{
+ "cut": "PERSON homeless_3",
+ "tag": "person_homeless_3",
+ "bank": {
+  "kind": "person",
+  "gang": "Homeless"
+ },
+ "worn_by": "Homeless, rolled",
+ "model": "records/character/rig/barber_person_homeless_3.glb",
+ "body": "records/character/rig/person_homeless_3.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  205,
+  160,
+  115
+ ],
+ "model_top_m": 1.5486,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7429,
+ "pieces": {
+  "barber_dry_taper_fade": 34561,
+  "barber_dry_taper": 157858
+ }
+}
