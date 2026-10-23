@@ -108,5 +108,10 @@
   "file": "slices/fight_ground/block_landfill_1.webp",
   "sha1": "9e54d6d1ba46a8105914336706bd46044f54bf73",
   "master": "records/target/cook_floor_not_final/block_landfill_1.webp"
+ },
+ "culdesac.0": {
+  "file": "slices/fight_ground/block_culdesac_0.webp",
+  "sha1": "6a98167c15fbb0c5a2d3f87ccc1383ae8cac2e41",
+  "master": "records/target/cook_floor_not_final/block_culdesac_0.webp"
  }
 }
