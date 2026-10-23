@@ -333,5 +333,10 @@
   "file": "slices/fight_ground/block_casino_1_raided.webp",
   "sha1": "6058490eca6d5547309ac0ad291fdb7a096cde8d",
   "master": "records/target/cook_floor_futures/raided/block_casino_1.webp"
+ },
+ "casino.2.raided": {
+  "file": "slices/fight_ground/block_casino_2_raided.webp",
+  "sha1": "195d4e31d8733c22d8e5b8ded5370d3a64104093",
+  "master": "records/target/cook_floor_futures/raided/block_casino_2.webp"
  }
 }
