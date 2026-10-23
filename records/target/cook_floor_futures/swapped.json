@@ -228,5 +228,10 @@
   "file": "slices/fight_ground/block_freewayo_0_reclaimed.webp",
   "sha1": "3a826534c889ce7146b38c331313e076df8c7a77",
   "master": "records/target/cook_floor_futures/reclaimed/block_freewayo_0.webp"
+ },
+ "shore.0.reclaimed": {
+  "file": "slices/fight_ground/block_shore_0_reclaimed.webp",
+  "sha1": "5a99386c48c8c17dce3d789b7fb51a1a510d3e8c",
+  "master": "records/target/cook_floor_futures/reclaimed/block_shore_0.webp"
  }
 }
