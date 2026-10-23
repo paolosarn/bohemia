@@ -123,5 +123,10 @@
   "file": "slices/fight_ground/block_suburb_stem_0.webp",
   "sha1": "73cf3428e415df7ec7e776c6f076b580d45d9ff3",
   "master": "records/target/cook_floor_not_final/block_suburb_stem_0.webp"
+ },
+ "suburb_stem.1": {
+  "file": "slices/fight_ground/block_suburb_stem_1.webp",
+  "sha1": "0ee951791eae12fb3c683012c796e3667cdda04e",
+  "master": "records/target/cook_floor_not_final/block_suburb_stem_1.webp"
  }
 }
