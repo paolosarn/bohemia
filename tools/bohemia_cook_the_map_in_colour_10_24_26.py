@@ -48,7 +48,10 @@ import bohemia_cook_the_map_through_the_rig_10_20_26 as MR
 
 OUT = os.path.join(R, 'records/target/cook_map_colour')
 SCENES = os.path.join(OUT, 'scenes.pkl.gz')
-DIALS = json.load(open(os.path.join(R, 'banks/BOHEMIA_MAP_COLOUR_DIALS_10_24_26.json')))
+# the era's dials (rule 128): act one's by default; BOHEMIA_COLOUR_DIALS=<bank> renders another era from the same scenes
+# (10/24 COOK [no rainbow]: the bright set is act three's, banks/BOHEMIA_MAP_COLOUR_DIALS_ACT3_THE_HEALED_10_24_26.json)
+DIALS_FILE = os.environ.get('BOHEMIA_COLOUR_DIALS') or 'banks/BOHEMIA_MAP_COLOUR_DIALS_10_24_26.json'
+DIALS = json.load(open(os.path.join(R, DIALS_FILE)))
 PAL = {k: tuple(v) for k, v in DIALS['palette'].items()}
 MR.OUT = OUT
 MR.MASTERS = os.path.join(OUT, 'masters')
@@ -182,7 +185,7 @@ def recolour(d, sc):
         if k == 'flat0' and SP.get('bright_flat') and lab(c3)[0] > 70:
             out.append((v, n, {'c': PAL[SP['bright_flat']]})); changed += 1; continue
         L, C, h, _ = lab(c3)
-        out.append((v, n, {'c': sat(c3, 1.25) if C >= 8 else c3})); kept += 1
+        out.append((v, n, {'c': sat(c3, float(DIALS.get('keep_sat', 1.25))) if C >= 8 else c3})); kept += 1   # act one 0.55 (rule 159)
     dressed = dress(d, sc, out, T, gmap)
     return out + dressed, dict(theme=DIALS['district_theme'].get(d, 'block'), faces=len(faces), recoloured=changed,
                                kept=kept, added=len(dressed), grounds=len(gmap))
@@ -409,9 +412,12 @@ def load_scenes():
 
 
 def ledger_put(d, row):
-    L = json.load(open(LEDGER)) if os.path.exists(LEDGER) else {}
-    L.setdefault(d, {}).update(row)
-    json.dump(L, open(LEDGER, 'w'), indent=1, sort_keys=True)
+    import fcntl                                               # two render queues share the ledger (10/24 [no rainbow])
+    with open(LEDGER + '.lock', 'w') as lk:
+        fcntl.flock(lk, fcntl.LOCK_EX)
+        L = json.load(open(LEDGER)) if os.path.exists(LEDGER) else {}
+        L.setdefault(d, {}).update(row)
+        json.dump(L, open(LEDGER, 'w'), indent=1, sort_keys=True)
 
 
 if __name__ == '__main__':
@@ -440,7 +446,7 @@ if __name__ == '__main__':
         bank = json.load(open(MR.BANK))
         for h in bank['heroes']:
             if h['district'] in done:
-                h['in_colour'] = '10/24 COOK [the map remade, in colour]: the scene through the rig with banks/BOHEMIA_MAP_COLOUR_DIALS_10_24_26.json (tools/bohemia_cook_the_map_in_colour_10_24_26.py)'
+                h['in_colour'] = '10/24 COOK [no rainbow] (rule 159): the scene through the rig with ' + DIALS_FILE + ' (era ' + str(DIALS.get('era')) + ', tools/bohemia_cook_the_map_in_colour_10_24_26.py)'
         json.dump(bank, open(MR.BANK, 'w'))
     elif cmd == 'sand':
         import base64, io

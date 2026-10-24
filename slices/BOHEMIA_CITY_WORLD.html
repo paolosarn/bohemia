@@ -45882,6 +45882,14 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
    at the phone's own pixels, then a dark edge all round (his own street's line colour),
    so it reads as a THING standing on the map and not more ground. */
 var __mapBaseBaked = {};
+/* ==== __THE_TOWN_SITS_IN_THE_GROUND__ (COOK 10/24, rule 154, Paolo 10/24: 'I asked you a long time ago to fix the settlements
+   so they're part of the map instead of a sticker on top; they still look like that'). The 10/1 dark edge all round (pale on
+   his own) and the dark oval under it are what made a town a sticker: 154(b) bans the frame, the outline and the shadow that
+   lifts it. ON: the picture is drawn as it is; COOK's town, fort and trailer pictures carry no slab now, their plate's edges
+   dissolve into the map in scrub- and rubble-sized blobs (tools/bohemia_cook_the_town_sits_in_the_ground_10_24_26.py), so the
+   painting's ground and roads run in under the town's own dirt. His own town still reads first by its pale name and flag. ==== */
+var TOWN_IN_GROUND = { on: true };
+/* ==== /__THE_TOWN_SITS_IN_THE_GROUND__ ==== */
 function mapBaseSprite(key, im, w, h, mine){
   var q = (typeof CV_DPR === 'number' && CV_DPR) || 1;
   var id = key + '|' + w + '|' + q + '|' + (mine ? 1 : 0);
@@ -45890,6 +45898,7 @@ function mapBaseSprite(key, im, w, h, mine){
   var a = document.createElement('canvas'); a.width = W; a.height = H;
   var ax = a.getContext('2d'); ax.imageSmoothingEnabled = true; ax.imageSmoothingQuality = 'high';
   ax.drawImage(im, 0, 0, W, H);
+  if (TOWN_IN_GROUND.on) return (__mapBaseBaked[id] = { c: a, pad: 0 });   /* __THE_TOWN_SITS_IN_THE_GROUND__: no edge all round */
   var sil = document.createElement('canvas'); sil.width = W; sil.height = H;
   var sx2 = sil.getContext('2d'); sx2.drawImage(a, 0, 0);
   sx2.globalCompositeOperation = 'source-in'; sx2.fillStyle = mine ? '#e8dcc0' : '#12100c'; sx2.fillRect(0, 0, W, H);
@@ -45903,8 +45912,9 @@ function mapBaseDraw(tier, faction, sx, footY, mine, beat){
   var im = HERO_IMG[MAP_TIER_HERO[tier] || 'trailer'];
   if (!im || !im.complete || !im.naturalWidth) return null;
   var w = Math.max(30, Math.round(MAP_BASE_W * MAP_ART_K / 2) * 2), h = im.naturalHeight * (w / im.naturalWidth);   /* whole even sizes: each is baked once */
+  if (!TOWN_IN_GROUND.on) {   /* __THE_TOWN_SITS_IN_THE_GROUND__: no oval under it lifting it off the map */
   g.fillStyle = mine ? 'rgba(232,220,192,0.35)' : 'rgba(10,8,6,0.5)';
-  g.beginPath(); g.ellipse(sx, footY - h * 0.12, w * 0.52, w * 0.2, 0, 0, 7); g.fill();
+  g.beginPath(); g.ellipse(sx, footY - h * 0.12, w * 0.52, w * 0.2, 0, 0, 7); g.fill(); }
   var spr = mapBaseSprite(MAP_TIER_HERO[tier] || 'trailer', im, w, h, mine);
   var q = (typeof CV_DPR === 'number' && CV_DPR) || 1, pad = spr.pad / q;
   g.imageSmoothingEnabled = false;
