@@ -114,3 +114,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_63_AMBITIONS_2026_10_24.md | ambitions, renown, goals
 - 2026-10-24 | ASK | GROK_ASK_64_RETIREMENT_2026_10_24.md | retirement, endings, score
 - 2026-10-24 | ASK | GROK_ASK_65_RELATIONS_2026_10_24.md | relations, factions, prices
+- 2026-10-24 | ASK | GROK_ASK_66_REPUTATION_2026_10_24.md | reputation, karma, contracts
