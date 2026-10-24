@@ -777,7 +777,8 @@
     "machines": "necromancer"
    },
    "count_scale": {
-    "machines": 0.85
+    "machines": 0.85,
+    "kids": 0.6
    }
   },
   "source": "bb_all/0299_Brigands.txt (the tactics), bb_all/0290_Brigand Leader.txt, bb_all/0293_Brigand Marauder.txt, bb_all/0297_Brigand Raider.txt, bb_all/0294_Brigand Marksman.txt (Bullseye after day 20); reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md; bb_all/1409_Necromancer.txt (the mechanic's party: 'There is rarely more than one of them'), bb_all/0878_Goblins.txt, bb_all/1505_Orcs.txt",
@@ -791,7 +792,7 @@
   },
   "ghosts": "COMBAT [ghosts and apparitions] 10/23, rule 134: a party of the Amalgamation's haunting is Geists only (bb_all/0831_Geist.txt: 'Graveyards sometimes have nothing but a lot of Geists guarding them'); every phase the same, the act decides how often they come",
   "bestiary": "COMBAT [bestiary] 10/24: three factions added from the bestiary count (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md): machines (the Necromancer's zombies: his machines and the one MECHANIC at their head, heads.machines, always first, never two), kids (the goblin skirmishers and one wolfrider in four), heavies (orc warriors with the young). The mixes are drafts (tuned: false); TUNING owns them.",
-  "count_scale_why": "COMBAT [bestiary] 10/24 (rule 133, sized to the crew): a party the map hands is counted in brigands; a faction whose men are tougher fields fewer of them. MEASURED on today's fight, AUTO both sides, 40 seeds a cell, a new crew of farmhands: machines (the MECHANIC and his dead) at the same count as the crew win 31/40 (3 men), 30/40 (6), 20/40 (12); at 0.85 of it 31/40, 36/40, 33/40 (12 vs 10), on TUNING's 70-in-100 line or above. Draft; TUNING owns it."
+  "count_scale_why": "COMBAT [bestiary] 10/24 (rule 133, sized to the crew): a party the map hands is counted in brigands; a faction whose men are tougher fields fewer of them. MEASURED on today's fight, AUTO both sides, 40 seeds a cell, a new crew of farmhands: machines (the MECHANIC and his dead) at the same count as the crew win 31/40 (3 men), 30/40 (6), 20/40 (12); at 0.85 of it 31/40, 36/40, 33/40 (12 vs 10), on TUNING's 70-in-100 line or above. Draft; TUNING owns it. KIDS (the skirmishers and their runners, fragile but evasive, the net): at the crew's own count they win 5/30 (3 men vs 3), 4/30 (6 vs 6); at 0.6 of it 22/30 (3 vs 2), 20/30 (6 vs 4), 24/30 (12 vs 7)."
  },
  "captain_aura": {
   "value": {
@@ -1153,7 +1154,7 @@
     "armored_wiederganger": "PLATED MACHINE",
     "goblin_skirmisher": "KID",
     "lower_goblin_skirmisher": "KID",
-    "goblin_wolfrider": "QUAD RIDER",
+    "goblin_wolfrider": "RUNNER",
     "orc_warrior": "HEAVY",
     "lower_orc_warrior": "HEAVY",
     "orc_young": "BRUISER"
@@ -1165,13 +1166,22 @@
      "armored_wiederganger"
     ],
     "drop_when_he_falls": true
+   },
+   "look_pools": {
+    "necromancer": "mechanic",
+    "goblin_skirmisher": "runner",
+    "lower_goblin_skirmisher": "runner",
+    "goblin_wolfrider": "runner",
+    "orc_warrior": "heavy",
+    "lower_orc_warrior": "heavy"
    }
   },
   "source": "records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md (the 9/29 draft; NECROMANCER -> THE MECHANIC is marked his words); VAMILY.md COMBAT [bestiary]",
   "quote": "NECROMANCER -> THE MECHANIC (his words): a man who keeps reviving his robots; kill him and the machines drop.",
   "why": "COMBAT [bestiary] 10/24: the names the board and the feed call each new kind (draft:true for WORDS), and THE MECHANIC's one rule that is ours and not Battle Brothers': when the last mechanic falls, every machine he kept running drops where it stands and never gets up (in Battle Brothers the undead fight on). The lesson in one meeting: kill him first.",
   "tuned": false,
-  "draft": true
+  "draft": true,
+  "look_pools_why": "CHARACTER [the enemies' looks] 10/24 packs its three types on the 3D man into ours.people_looks.band under 'mechanic', 'runner' and 'heavy' (tools/bohemia_character_the_three_enemies.py POOL): the fight wears those the moment they exist, and until then the stand-in looks under each enemy's own id."
  },
  "road_factions": {
   "value": {
@@ -1180,19 +1190,19 @@
    "by_act": [
     {
      "brigands": 4,
-     "kids": 0,
+     "kids": 1.5,
      "machines": 1,
      "heavies": 0
     },
     {
      "brigands": 4,
-     "kids": 0,
+     "kids": 1,
      "machines": 1.5,
      "heavies": 0
     },
     {
      "brigands": 4,
-     "kids": 0,
+     "kids": 0.5,
      "machines": 2,
      "heavies": 0
     }
@@ -1202,6 +1212,6 @@
   "quote": "there's gonna be enemy types around more in different acts than another, that's just how it is",
   "why": "COMBAT [bestiary] 10/24 (no card, rule 127: he meets them in his next fights): the map hands every roaming party as plain brigands today, so the three new kinds would never reach his glass. From his second fight on, a party handed as brigands is one of the valley's factions, drawn by the act it is fought in (the same weights as act_weights: the kids the ruin's, the machines and the heavies the reclaimed future's); his first fight stays brigands (the lessons of the first fight). A party the map names with its own faction (ghosts, beasts) keeps it. The day the map's parties carry their faction (RUN, WORLD), this table is the spawner's and the fight stops rolling. Drafts; TUNING owns them.",
   "tuned": false,
-  "held": "kids and heavies at 0 until their own rules land (COMBAT [bestiary], ship each the moment it works)"
+  "held": "heavies at 0 until their own rules land (COMBAT [bestiary], ship each the moment it works)"
  }
 }

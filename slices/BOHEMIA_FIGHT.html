@@ -520,7 +520,7 @@ const FIGHT = (function () {
   function fatMax(u) { return Math.max(0, Math.round((u.fatigue + gearFat(u)) * injMult(u, 'max_fatigue_pct'))); }
   function curIni(u) {
     const rl = PK(u, 'relentless');
-    return u.initiative * injMult(u, 'initiative_pct') - u.fat * (rl ? rl.initiative_reduced_by_fatigue_pct / 100 : 1) + gearFat(u);
+    return u.initiative * injMult(u, 'initiative_pct') * netCut(u) - u.fat * (rl ? rl.initiative_reduced_by_fatigue_pct / 100 : 1) + gearFat(u);
   }
   function makeUnit(o) {
     const u = Object.assign({ fat: 0, ap: 0, morale: R('morale.default_state'), injuries: [], loaded: true,
@@ -667,12 +667,16 @@ const FIGHT = (function () {
   function enemyUnit(id, i) {
     const r = DB.enemies.rows.filter(function (e) { return e.id === id; })[0];
     if (!r) throw new Error('the fight has no enemy row ' + id);
-    const gear = (r.gear || []).slice().sort(function () { return rng() - rng(); });
+    let gear = (r.gear || []).slice().sort(function () { return rng() - rng(); });
     const kind = DB.ai.kinds[id] ? R('ai.kinds.' + id) : 'line', Ak = DB.ai.archetypes[kind] ? R('ai.archetypes.' + kind) : {};
     const wantRanged = kind === 'backline' || !!Ak.throws;
     let w = null;
     /* GUNS FIRST (rule 120(a)): the MECHANIC's knife or dagger is the pistol in his hand (ours.pistol_shot) */
     if (Ak.gun) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && pistolShot(x)) w = x; });
+    /* THE KIDS' SLING (the skirmisher's bolas): the thrown weapon first; the net is never his weapon, it is his net */
+    const notNet = function (x) { return x && x.class !== 'throwable_item'; };
+    if (Ak.throws) gear.forEach(function (n) { const x = weaponByName(n); if (notNet(x) && !w && strikeSkill(x) && x.class === 'throwing' && !pistolShot(x)) w = x; });
+    gear = gear.filter(function (n) { return notNet(weaponByName(n)) || !weaponByName(n); });
     /* a pistol is picked last: the wiki's early bands carry no shooters, and its knife is a gun in our hands (ours.pistol_shot) */
     gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && isRanged(x) === wantRanged && x.class !== 'throwing' && !pistolShot(x)) w = x; });
     if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && !pistolShot(x)) w = x; });
@@ -681,13 +685,17 @@ const FIGHT = (function () {
     if (!w) throw new Error('the fight cannot arm ' + id + ': ' + (DB.beastAttacks.refused[id] || 'no weapon in its gear and no attack page'));
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
-    const pl = R('ours.people_looks').band, pool = pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
+    /* THE KIDS (COMBAT [bestiary]): the blade he carries beside the sling for when the stones run out, and his net (the page's chance) */
+    let side = null; if (Ak.throws) gear.forEach(function (n) { const x = weaponByName(n); if (notNet(x) && !side && strikeSkill(x) && !isRanged(x) && !pistolShot(x)) side = x; });
+    const netRow = (DB.racial.by_enemy[id] || []).indexOf('throw_net') >= 0 && (r.gear || []).indexOf('Throwing Net') >= 0 ? DB.racial.rows.throw_net : null;
+    const lp = R('ours.bestiary').look_pools[id], pl = R('ours.people_looks').band, pool = (lp && pl[lp]) || pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
     return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: R('ours.bestiary').names[id] || r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
       racial: (DB.racial && DB.racial.by_enemy[id]) || [], ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: perksByName(r.perks, S.days),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
       captain: (r.perks || []).concat(r.skills || []).some(function (x) { return /^captain$/i.test(String(x)); }),
+      sideArm: side, nets: netRow && rng() * 100 < netRow.carry_chance_pct ? 1 : 0,
       armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind });
   }
 
@@ -1187,6 +1195,10 @@ const FIGHT = (function () {
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
+    u.threw = false; u.kited = false;
+    /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
+    if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
+      if (die() <= ch) { u.netted = null; emit({ t: 'free', id: u.id }); } else { u.netted.fails++; emit({ t: 'stuck', id: u.id, chance: Math.max(0, Math.round(ch)) }); } }
     if (u.morale === 'Fleeing' && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
       const p = R('parsed.morale_stop_fleeing');
       if (check(u, 'pos', p.per_round * u.roundsFleeing, true)) { u.morale = STATES()[STATES().indexOf('Wavering')]; emit({ t: 'rally', id: u.id }); }
@@ -1220,7 +1232,7 @@ const FIGHT = (function () {
   function reach(u, budget, through) {
     budget = budget === undefined || budget === null ? u.ap : budget;
     const key = function (x, y) { return y * S.w + x; };
-    const best = {}; const prev = {}; const open = [{ x: u.x, y: u.y, c: 0 }];
+    const best = {}; const prev = {}; const open = u.netted ? [] : [{ x: u.x, y: u.y, c: 0 }];   /* THE NET: rooted in place */
     best[key(u.x, u.y)] = 0;
     while (open.length) {
       open.sort(function (a, b) { return a.c - b.c; });
@@ -1318,7 +1330,7 @@ const FIGHT = (function () {
     if (!isRanged(w)) {
       let sk = a.mskill * moraleMult(a, 'melee_skill') * injMult(a, 'melee_skill_pct') * loneMult(a) * overMult(a);
       if (inWater(a)) sk *= R('hit_chance.terrain_swamp').melee_skill;
-      let df = t.mdef + shieldDef(t, 'melee_defense') + defenceBonus(t, 'melee_defense_bonus') + coverDef(t, 'melee_defense') + ghostDef(a, t, 'per_tile_melee_defense');
+      let df = t.mdef * netCut(t) + shieldDef(t, 'melee_defense') + defenceBonus(t, 'melee_defense_bonus') + coverDef(t, 'melee_defense') + ghostDef(a, t, 'per_tile_melee_defense');
       if (t.reachStacks) df += t.reachStacks * perkRow('reach_advantage').numbers.melee_defense_per_stack;
       const around = foes(t).filter(function (f) { return dist(f, t) === 1 && !f.stunned && !isRanged(f.weapon) && f.morale !== 'Fleeing'; }).length;
       const bs = PK(a, 'backstabber'), ud = PK(t, 'underdog');
@@ -1335,7 +1347,7 @@ const FIGHT = (function () {
       const nightM = darkAt(t.x, t.y) ? R('hit_chance.night.multiplier') : 1, nightD = darkAt(a.x, a.y) ? R('hit_chance.night.multiplier') : 1;
       if (S.night) parts.push(nightM === 1 ? 'lit' : 'dark');
       const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM * loneMult(a) * overMult(a);
-      let df = t.rdef + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense') + ghostDef(a, t, 'per_tile_ranged_defense');
+      let df = t.rdef * netCut(t) + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense') + ghostDef(a, t, 'per_tile_ranged_defense');
       const an = PK(t, 'anticipation');
       if (an) df += Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + t.rdef * an.ranged_defense_per_tile_pct_of_base / 100) * dist(a, t));
       df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightD * loneMult(t);
@@ -1589,6 +1601,7 @@ const FIGHT = (function () {
       a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
       if (reloadSkill(a.weapon) && !a.weapon.mag) a.loaded = false;
       if (a.weapon.ammo && a.ammo !== null) a.ammo--;
+      if (isRanged(a.weapon)) a.threw = true;   /* THE KIDS: after the throw, the step back */
       S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
       const also = shapeFoes(a, t, s).filter(function (o) { return o !== t; });   /* a blow with a shape (the shotgun's blast) */
       const q = resolveAttack(a, t, s, forced);
@@ -1739,6 +1752,46 @@ const FIGHT = (function () {
       o.hp = 0; o.dead = true; if (a) a.kills = (a.kills || 0) + 1;
       emit({ t: 'dead', id: o.id, by: a ? a.id : null, unplugged: true }); experience(o, a);
     });
+  }
+  /* ---------------- THE KIDS AND RUNNERS (COMBAT [bestiary]; the 9/29 draft: 'GOBLINS (kiting, nets, poison, wolf riders) -> KIDS
+     AND RUNNERS on bikes and dirt quads with slings and nets') ----------------
+     Battle Brothers' Goblin Skirmisher (enemies.json; racial_skills.json throw_net, its page): fragile, evasive, the throwing
+     weapon from range (the bolas, our sling), the net on the man who comes for them (3 tiles, 4 AP; it roots him and cuts his
+     initiative and both defences by 45 in 100 until he tears free on his own turn), and after the throw the step back out of
+     reach ('will Footwork often'). The runner is the Wolfrider: 13 AP, round the side for the man the others hold. The lesson
+     in one meeting: do not chase them, shoot them. */
+  function netCut(u) { return u && u.netted ? 1 - DB.racial.rows.throw_net.cut_pct / 100 : 1; }
+  function canNet(u, t) {
+    const r = racial(u, 'throw_net');
+    if (!r || !(u.nets > 0) || !onField(u) || !onField(t) || t.side === u.side || t.netted || t.ghost || t.beast) return false;
+    return u.ap >= r.ap && u.fat + r.fatigue <= fatMax(u) && dist(u, t) <= r.range_tiles && sees(u, t);
+  }
+  function throwNet(u, t) {
+    if (S.over || current() !== u || !canNet(u, t)) return false;
+    const r = racial(u, 'throw_net'); u.ap -= r.ap; u.fat += r.fatigue; u.nets--; t.netted = { fails: 0, by: u.id };
+    emit({ t: 'skill', id: u.id, skill: 'throw_net', to: t.id });
+    afterAction(u); return true;
+  }
+  /* the man to net: the nearest blade coming for them */
+  function netTarget(u) {
+    return foes(u).filter(function (f) { return canNet(u, f) && sideSees(u.side, f) && !isRanged(f.weapon) && f.morale !== 'Fleeing'; })
+      .sort(function (p, q) { return dist(u, p) - dist(u, q); })[0] || null;
+  }
+  /* the step back after the throw: the reachable tile out of every blade's reach that puts the most ground between him and the
+     nearest blade, keeping a man in his throw where it can */
+  function kiteGround(u) {
+    const f = reach(u), blades = foes(u).filter(function (o) { return !isRanged(o.weapon) && o.morale !== 'Fleeing'; });
+    if (!blades.length) return null;
+    const room = function (at) { return Math.min.apply(null, blades.map(function (o) { return dist(o, at); })); };
+    let best = null, bs = room(u);
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const at = { x: k % S.w, y: Math.floor(k / S.w) };
+      if (zocOn(u, at.x, at.y).length) return;
+      const ox = u.x, oy = u.y; u.x = at.x; u.y = at.y; const inThrow = foes(u).some(function (t2) { return inRange(u, t2); }); u.x = ox; u.y = oy;
+      const sc = room(at) + (inThrow ? 1 : 0);
+      if (sc > bs) { bs = sc; best = at; }
+    });
+    return best;
   }
   /* a magazine reloads only when it is empty (rule 117(b): one clear next thing) */
   function canReload(a) {
@@ -1992,6 +2045,10 @@ const FIGHT = (function () {
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
+    /* THE KIDS (ai.json kid): out of stones, the blade; the net on the man coming; after the throw, the step back */
+    if (A.throws && u.weapon.ammo && u.ammo !== null && u.ammo <= 0 && u.sideArm) { u.weapon = u.sideArm; u.club = clubFor(u.weapon); u.ammo = null; u.ammoMax = null; }
+    if (A.nets && u.nets > 0) { const nt = netTarget(u); if (nt) return throwNet(u, nt); }
+    if (A.kites && u.threw && !u.kited) { u.kited = true; const kg = kiteGround(u); if (kg && moveTo(u, kg.x, kg.y)) return true; }
     /* THE MECHANIC (ai.json mechanic): a fallen machine of his comes back up whenever he can, twice a turn */
     if (A.raises && racial(u, 'raise_undead')) { const rt = raiseTarget(u); if (rt) return raise(u, rt); }
     /* THE GEIST (ai.json screamer): it screams at the weakest nerve inside three tiles; with nobody there it drifts to where its
@@ -2132,7 +2189,7 @@ const FIGHT = (function () {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
-    canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine,
+    canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
@@ -2644,7 +2701,7 @@ function bullet(moment, a, t, e) {
 /* THE NOTES' LENGTHS (rule 121 [smooth]: 'turns flow without dead pauses'): a note holds the board only as long as it shows
    something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
    quarter, a morale word or an injury nothing (they are rings on the man already) */
-const NOTE_BEATS = { dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
+const NOTE_BEATS = { free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
 function take() {
   const ev = FIGHT.S.events; FIGHT.S.events = [];
   let swing = null;   /* WEAPON SHAPES: the other men a sweep strikes ride the one swing (one motion, one beat, every man it caught) */
@@ -2800,7 +2857,8 @@ const TEACH = {   /* draft:true */
   auto: 'We have this one, carnal. AUTO finishes it.',
   ghost: 'Ay. That is {name}. We buried them in March.',
   ghost_hit: 'Walk up and hit it, compa. They break like smoke.',
-  mechanic: 'Oye, shoot the one in back first. His machines drop.'
+  mechanic: 'Oye, shoot the one in back first. His machines drop.',
+  kids: 'Those kids throw and run. Do not chase them. Shoot them.'
 };
 /* the moment each queued line belongs to: past it, the line is dropped, never said late */
 const TEACH_STILL = {
@@ -2811,7 +2869,8 @@ const TEACH_STILL = {
   auto: function () { return oddsGlow(); },
   ghost: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
   ghost_hit: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
-  mechanic: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'raise_undead') && FIGHT.onField(v); }); }
+  mechanic: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'raise_undead') && FIGHT.onField(v); }); },
+  kids: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'throw_net') && FIGHT.onField(v); }); }
 };
 function teachSoon(k) {
   const T = taughtNow(); UI.teachQ = UI.teachQ || [];
@@ -2899,7 +2958,9 @@ function startAnim(a) {
     /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
-    setTimeout(function () { ranged ? SND.shot(bullet('fired', u, t, e)) : SND.swing(); }, beatMs() * 0.35);
+    const sling = ranged && u.weapon.class === 'throwing' && !FIGHT.isGun(u.weapon);   /* THE KIDS' SLING: a whoosh, never a gunshot */
+    setTimeout(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(); }, beatMs() * 0.35);
+    if (sling && e.hit) setTimeout(function () { sfx('stone_bite', { side: u.side }); }, beatMs() * 0.45);
     setTimeout(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf) : SND.miss(bf); if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also); }, beatMs() * 0.45);
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
     if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, beatMs() * 0.8);
@@ -2933,6 +2994,8 @@ function startAnim(a) {
     if (e.t === 'reload' && u) { sfx('mag_home'); pop(u, '', '#f0d296', false, u.name + ' reloads.');
       if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + r.left + ' rounds.' : '.')); } }
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
+    if (e.t === 'free' && u) { sfx('cloth_on', { side: u.side }); pop(u, 'tears free', '#c9b48a'); }
+    if (e.t === 'stuck' && u) pop(u, 'still netted', '#c9b48a');
     if (e.t === 'nine') pop(u, perkName('nine_lives'), '#f0d296', true);
     if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
     /* THE SCREAM (rule 134): his approved tape_pull, the tape dragged through the heads, the Amalgamation's broadcast as act one
@@ -2940,6 +3003,11 @@ function startAnim(a) {
     if (e.t === 'skill' && e.skill === 'horrific_scream') { sfx('tape_pull'); pop(u, '', '#b49ce0', true, u.name + ' screams at ' + nameOf(e.to) + '.'); }
     /* THE REBOOT (COMBAT [bestiary], THE MECHANIC): his approved power_on, the dead machine's lamp coming back, and it stands up
        out of its fall flickering for a beat; the first time, his veteran says who to shoot */
+    /* THE NET (COMBAT [bestiary], THE KIDS): thrown with a whoosh, it lands as cloth; the man under it stays put till he tears free */
+    else if (e.t === 'skill' && e.skill === 'throw_net') { const t = FIGHT.byId(e.to); sfx('swing_air');
+      setTimeout(function () { sfx('cloth_on', { side: t ? t.side : null }); }, beatMs() * 0.3);
+      if (t) { pop(t, '', '#c9b48a', true, u.name + ' nets ' + t.name + '. He cannot move.'); if (crewControlled(t)) say(t.name + ' is netted. He can shoot, not walk.'); }
+      teachSoon('kids'); }
     else if (e.t === 'skill' && e.skill === 'raise_undead') { const t = FIGHT.byId(e.to);
       sfx('power_on', { side: 'them', who: t ? t.name : null });
       if (t) { t._fallAt = undefined; t.seenFall = false; t._rebootAt = performance.now(); pop(t, '', '#7fd6c4', true, u.name + ' reboots ' + t.name + '.'); }
@@ -3677,6 +3745,18 @@ function chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha) {
     if (lit) { cx.globalAlpha = alpha * .35; cx.fillRect(Math.round(nx - px * 2), Math.round(ny - px * 2), px * 6, px * 6); cx.globalAlpha = alpha; } }
   UI.chipDrawn = (UI.chipDrawn || 0) + 1;
 }
+/* THE NET OVER HIM (COMBAT [bestiary], THE KIDS): a fishing net thrown over his head and shoulders to the knees, rope in a diamond
+   mesh, darker where it doubles, its lead weights at the hem; it hangs till he tears free (the rules' netted) */
+const NET_ROPE = ['rgba(52,40,24,.85)', 'rgba(176,150,104,.9)'];
+function netOver(X, Y, h) {
+  const top = Y - h * 1.02, bot = Y - h * .3, half = h * .26, step = Math.max(4, h * .1), lw = Math.max(1, Math.round(h / 60));
+  cx.save(); cx.beginPath(); cx.moveTo(X - half * .55, top); cx.lineTo(X + half * .55, top); cx.lineTo(X + half, bot); cx.lineTo(X - half, bot); cx.closePath(); cx.clip();
+  NET_ROPE.forEach(function (c, i) { cx.strokeStyle = c; cx.lineWidth = lw; cx.beginPath();
+    for (let k = -h; k < h; k += step) { cx.moveTo(X + k - i * lw, top); cx.lineTo(X + k + (bot - top) - i * lw, bot); cx.moveTo(X + k - i * lw, top); cx.lineTo(X + k - (bot - top) - i * lw, bot); }
+    cx.stroke(); });
+  cx.restore();
+  cx.fillStyle = '#2b2722'; for (let k = -2; k <= 2; k++) cx.fillRect(Math.round(X + k * half * .42 - lw), Math.round(bot - lw), lw * 2 + 1, lw * 2 + 1);
+}
 /* the fallen stay where they fell: a body on the ground, no word over it */
 function drawBody(v, tw, th) {
   if (v.ghost && performance.now() - v._fallAt > beatMs()) return;   /* a ghost leaves no body: its fall plays, then the signal is gone */
@@ -3708,6 +3788,7 @@ function drawMan(v, tw, th) {
   }
   mkOff();
   blitMan(v, X, Y, now, v.morale === 'Fleeing' ? .7 : 1);
+  if (v.netted) netOver(X, Y, h);
   /* bars over a man only while he acts or is picked (rule 67a), as wide as the man, three points tall */
   if (h > 26 && (FIGHT.current() === v || (UI.pend && UI.pend.target === v) || UI.allBars)) {
     const bw = Math.round(Math.max(18, h * .42)), bx = Math.round(X - bw / 2), by = Math.round(Y - h - 9);   /* on whole pixels: no soft edge */
