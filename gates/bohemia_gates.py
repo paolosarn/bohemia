@@ -9514,7 +9514,8 @@ GATES = [
      "RUN TWO gate, 10/23, row [the ten changes: the town and the hire] (rule 133, TUNING's changes 7 and 9: '12 aimed taps never "
      "found the hiring post'; 'CREW opens twelve named men while the crew is 3'): the crew screen opens on the company the origin "
      "built (3 for three, 1 for a lone wolf, his roster cap), the board, the post and the bar glow on the beat until opened once in "
-     "that place and stay out on the next visit, the barber never. green at registration, 8/0, about 40 s", True),
+     "that place and stay out on the next visit, the barber never; ROUND 2 (10/24): the post hangs a pistol and the bar a bottle, COOK's "
+     "3D renders, drawn over everyone, one tap on the sign opens the door at a camp, a town and a fortress. green, 11/0, about 1 min", True),
     ('THE FACE IS HIS OWN FACE', ['node', 'gates/the_face_is_his_own_face_gate.js'],
      "RUN TWO gate, 10/24, row [the face is his own face] (rule 120(d), 121(e)(i), his 10/18: 'the portraits don't look like the "
      "people... Black people looking like white people'; 10/19: 'EVERYTHING IS A 3D MODEL NOW'): every rolled person's face is the "

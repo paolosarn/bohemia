@@ -18,8 +18,15 @@ const srv = http.createServer((rq, rs) => {
   await new Promise(r => srv.listen(PORT, '127.0.0.1', r));
   const src = fs.readFileSync(path.join(ROOT, 'slices/market_icons/SOURCES.txt'), 'utf8');
   const pairs = src.split('\n').filter(l => / <- /.test(l)).map(l => l.split(' <- '));
-  const same = pairs.every(([k, v]) => fs.readFileSync(path.join(ROOT, 'slices/market_icons', k + '.png')).equals(fs.readFileSync(path.join(ROOT, 'reference/art_bank/prop', v))));
-  ok('every market icon is his pack tile byte for byte (no pixel changed)', pairs.length >= 18 && same, pairs.length + ' icons');
+  /* AMENDED 10/24 (RUN TWO, rule 123(c): 'the converter swaps its own drop-ins into the game itself (same file, same size, same
+     anchor)'): COOK swapped every icon for its own render through the rig (records/target/cook_icons_rig/swapped.json, a sha1 per
+     file); an icon passes as his pack tile byte for byte, or as COOK's swapped render byte for byte, nothing else */
+  const SW = (() => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/cook_icons_rig/swapped.json'), 'utf8')); } catch (e) { return {}; } })();
+  const sha1 = b => require('crypto').createHash('sha1').update(b).digest('hex');
+  const whose = pairs.map(([k, v]) => { const f = fs.readFileSync(path.join(ROOT, 'slices/market_icons', k + '.png'));
+    return f.equals(fs.readFileSync(path.join(ROOT, 'reference/art_bank/prop', v))) ? 'pack' : SW[k] && SW[k].sha1 === sha1(f) ? 'rig' : 'other:' + k; });
+  ok('every market icon is his pack tile, or COOK\'s render of it through the rig, byte for byte (no other pixel changed)', pairs.length >= 18 && whose.every(w => w === 'pack' || w === 'rig'),
+     pairs.length + ' icons: ' + whose.filter(w => w === 'rig').length + ' rig, ' + whose.filter(w => w === 'pack').length + ' pack' + (whose.some(w => /^other/.test(w)) ? ', red ' + whose.filter(w => /^other/.test(w)).join(' ') : ''));
   const { chromium } = require('playwright');
   const b = await chromium.launch();
   const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });

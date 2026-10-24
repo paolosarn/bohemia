@@ -115,10 +115,10 @@ const srv = http.createServer((rq, rs) => {
       BohemiaSettlement.where(k.k); await new Promise(r => setTimeout(r, 200));
       const c = document.querySelector('canvas'), dpr = c.width / c.clientWidth, sc = BohemiaSettlement.scale();
       const grab = () => { const g = document.createElement('canvas'); g.width = c.width; g.height = c.height; g.getContext('2d').drawImage(c, 0, 0); return g.getContext('2d').getImageData(0, 0, c.width, c.height).data; };
-      BohemiaSettlement.walkers(false); if (BohemiaSettlement.glow) BohemiaSettlement.glow(false);   /* 10/23: the walkers and the doors' glow off while the keeper is measured, or they read as his height */
+      BohemiaSettlement.walkers(false); if (BohemiaSettlement.glow) BohemiaSettlement.glow(false); if (BohemiaSettlement.signs) BohemiaSettlement.signs(false);   /* 10/24: and the door signs' flicker */   /* 10/23: the walkers and the doors' glow off while the keeper is measured, or they read as his height */
       await new Promise(r => setTimeout(r, 80));
       const keep = L.slice(); const A = grab(); L.length = 0; L.push(k); await new Promise(r => setTimeout(r, 120)); const B0 = grab(); L.length = 0; await new Promise(r => setTimeout(r, 120)); const Z = grab(); keep.forEach(x => L.push(x));
-      BohemiaSettlement.walkers(true); if (BohemiaSettlement.glow) BohemiaSettlement.glow(true);
+      BohemiaSettlement.walkers(true); if (BohemiaSettlement.glow) BohemiaSettlement.glow(true); if (BohemiaSettlement.signs) BohemiaSettlement.signs(true);
       const v = BohemiaSettlement._view(), cx = Math.round((v.ox + k.x * v.s) * dpr), fy = Math.round((v.oy + k.y * v.s) * dpr), hw = Math.round(30 * dpr);
       let top = null, bot = null;
       for (let y = Math.max(0, fy - Math.round(200 * dpr)); y < Math.min(c.height, fy + Math.round(6 * dpr)); y++) for (let x = Math.max(0, cx - hw); x < Math.min(c.width, cx + hw); x++) {

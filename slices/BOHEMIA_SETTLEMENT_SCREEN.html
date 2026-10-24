@@ -946,6 +946,42 @@ function busyAt(w, now){
   if(t < 2*D + w.stop){ var u = t - D - w.stop; return {x:w.b - v*u, turn:'W', walking:u}; }
   return {x:w.a, turn:w.face, working:t - 2*D - w.stop};
 }
+/* THE DOORS NAME THEMSELVES IN PICTURES (RUN TWO [the ten changes: the town and the hire] round 2, rule 133, TUNING's change 7:
+   'a flickering sign that is a picture... still no words on the picture'; measured on the demo, 12 aimed taps found the barber, the
+   doc, the stall, the smith, the Elder at a desk and the lot, never the hiring post or the bar). The two a stranger never found
+   hang a sign over their door: a pistol over the post (men with guns, for hire), a bottle over the bar; each is COOK's own 3D
+   render of the thing (slices/market_icons, swapped in through the rig), on a dark plate, lit, flickering on the beat with a
+   dropout now and then (analog horror, never a clean neon); it stays after he has been in (a sign is a name; only the glow goes).
+   The board needs none: every stranger found the Elder's desk. A tap on a sign is a tap on its building (tapBox holds it). */
+var DOOR_SIGNS = {hall:'w_pistol', bar:'w_bottles'}, SIGN_IM = {}, SIGN_AT = .58;
+Object.keys(DOOR_SIGNS).forEach(function(k){ var im = new Image(); im.src = 'market_icons/' + DOOR_SIGNS[k] + '.png'; SIGN_IM[k] = im; });
+function signRect(k){   /* in picture pixels: a plate over the door, the upper part of the front */
+  var b = VAR && VAR.boxes[k]; if(!b || ORDER.indexOf(k) < 0) return null;
+  /* over a building's front, or, where the post is a rail the men stand along, over their heads (a sign the people never cover) */
+  var w = Math.min(140, Math.max(110, (b[2]-b[0])*.28)), h = w*.8, x = (b[0]+b[2])/2 - w/2, up = personH()*1.2 + h/2 > (b[3]-b[1])*SIGN_AT;
+  var y = b[3] - Math.max((b[3]-b[1])*SIGN_AT, personH()*1.2 + h/2) - h/2;
+  return up ? [x, y, x + w, y + h, b[3]] : [x, y, x + w, y + h];   /* a fifth number: a pole down to the ground the rail stands on */
+}
+function drawSigns(s, poles){
+  if(!VAR || view.noSigns) return;
+  var bt = (performance.now() - t0) / 500, six = Math.floor(bt * 4);
+  Object.keys(DOOR_SIGNS).forEach(function(k, i){
+    var r = signRect(k), im = SIGN_IM[k]; if(!r || !im.complete || !im.naturalWidth) return;
+    var x = view.ox + r[0]*s, y = view.oy + r[1]*s, w = (r[2]-r[0])*s, h = (r[3]-r[1])*s;
+    var drop = ((Math.imul(six + 1, 2654435761) ^ (i * 97)) >>> 0) % 23 === 0;   /* one sixteenth in about 23 the tube drops out */
+    var lit = drop ? .3 : .82 + .18*Math.max(0, Math.sin(bt*Math.PI));
+    if(poles){ if(r[4] != null){ cx.fillStyle = 'rgba(28,22,16,.95)'; cx.fillRect(Math.round(x + w/2 - Math.max(1, s*4)), Math.round(y + h), Math.max(2, Math.round(s*8)), Math.round(view.oy + r[4]*s - (y + h))); } return; }   /* the pole */
+    cx.save();
+    cx.fillStyle = 'rgba(10,8,6,.86)'; cx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+    cx.strokeStyle = 'rgba(200,170,110,' + (.35 + .3*lit) + ')'; cx.lineWidth = Math.max(1, s*3); cx.strokeRect(Math.round(x)+.5, Math.round(y)+.5, Math.round(w)-1, Math.round(h)-1);
+    var f = Math.min(w*.8/im.naturalWidth, h*.8/im.naturalHeight), iw = im.naturalWidth*f, ih = im.naturalHeight*f;
+    cx.globalAlpha = lit; cx.imageSmoothingEnabled = true;
+    cx.drawImage(im, Math.round(x + (w-iw)/2), Math.round(y + (h-ih)/2), Math.round(iw), Math.round(ih));
+    cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = lit*.25; cx.drawImage(im, Math.round(x + (w-iw)/2), Math.round(y + (h-ih)/2), Math.round(iw), Math.round(ih));   /* the tube's own light */
+    cx.restore();
+  });
+  view.signs = Object.keys(DOOR_SIGNS).filter(function(k){ return !!signRect(k); });
+}
 var BENCH_IM = {};
 ['smith','armourer'].forEach(function(k){ var im = new Image(); im.src = 'market_icons/b_' + k + '.png'; BENCH_IM[k] = im; });
 function drawBenches(s){
@@ -1035,7 +1071,9 @@ function draw(){
   drawTraitLooks(s);
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
   try{ drawBenches(s); }catch(e){}
+  try{ drawSigns(s, true); }catch(e){}   /* a raised sign's pole, behind the men who stand along the rail */
   try{ drawPeople(s); }catch(e){}
+  try{ drawSigns(s); }catch(e){}   /* the post and the bar name themselves in pictures (TUNING's change 7, round 2), hung over their heads */
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
   var fe = 18; var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
   cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
@@ -1144,8 +1182,17 @@ function openPerson(p, said){
   document.getElementById('sheet').classList.add('on');
   post('talk', {who:who, look:p.look, line:line, rumour:r ? r.id : null, name:name});
 }
+/* a sign under the finger (its plate, never under a thumb's 44 points): it hangs in front of everything, so a tap on it is its door */
+function signAt(x, y){
+  if(!VAR || view.noSigns) return null;
+  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, m = 22/view.s, hit = null;
+  Object.keys(DOOR_SIGNS).forEach(function(k){ var r = signRect(k); if(!r) return; var cxp = (r[0]+r[2])/2, cyp = (r[1]+r[3])/2, hw = Math.max((r[2]-r[0])/2, m), hh = Math.max((r[3]-r[1])/2, m);
+    if(Math.abs(px - cxp) <= hw && Math.abs(py - cyp) <= hh) hit = k; });
+  return hit;
+}
 function hitAt(x, y){
   if(!VAR) return null;
+  var sg = signAt(x, y); if(sg) return sg;
   var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, best = null, area = Infinity;
   ORDER.forEach(function(k){ if(!VAR.boxes[k]) return; var b = tapBox(k);
     if(px >= b[0] && px <= b[2] && py >= b[1] && py <= b[3]){ var a = (b[2]-b[0])*(b[3]-b[1]); if(a < area){ area = a; best = k; } } });
@@ -1173,7 +1220,9 @@ function where(k){
   window.addEventListener('pointerup', function(e){
     if(x0 === null) return; x0 = null; view.lit = null;
     if(moved) return;
-    var r = cv.getBoundingClientRect(), pe = personAt(e.clientX - r.left, e.clientY - r.top);
+    var r = cv.getBoundingClientRect(), sk = signAt(e.clientX - r.left, e.clientY - r.top);
+    if(sk){ openB(sk); return; }   /* the sign hangs in front of everybody: its door, one tap (TUNING's change 7) */
+    var pe = personAt(e.clientX - r.left, e.clientY - r.top);
     var k = hitAt(e.clientX - r.left, e.clientY - r.top);
     /* a building's own tap spot beats the crowd standing in front of it; a keeper opens his building anyway */
     if(pe && !(k && pe.crowd)){ openPerson(pe); return; }
@@ -1934,7 +1983,7 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
