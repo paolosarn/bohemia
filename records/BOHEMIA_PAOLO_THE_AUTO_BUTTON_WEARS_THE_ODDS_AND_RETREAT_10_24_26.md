@@ -30,3 +30,7 @@ THE RULING: the odds measure the chance of a CLEAN WIN (won with none of his men
 HIS WORDS, LATER THE SAME HOUR: "And yeah, I would say that if any members die during your mathematical projections, then that's leaning towards like Red you know"
 
 A run where any of his men dies counts toward red even if the fight was won; won with a man down but alive sits between; only clean wins push green. Rule 144(f).
+
+HIS WORDS, LATER THE SAME HOUR: "And honestly, I don't want. I don't want clear like if it's clear could go either way that means it's gonna be risky."
+
+No clear middle: green only where a clean win is likely; an even fight reads red, deepening with the risk. Rule 144(g).
