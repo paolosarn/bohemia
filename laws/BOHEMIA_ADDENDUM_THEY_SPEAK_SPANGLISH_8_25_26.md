@@ -105,3 +105,11 @@ records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md.
 "Chill with the Spanglish bro. Some characters might speak Spanglish to you, doesn't mean you
 will." Some characters speak Spanglish; the player's own lines never do. The language gate gains
 a leg: zero Spanish in lines the player says. laws/BOHEMIA_ADDENDUM_THE_FIRST_VOTES_9_22_26.md, rule 27.
+
+## AMENDED 10/24 (Paolo, rule 143(a), LOCKED): TEN TO FIFTEEN PERCENT OF SPOKEN LINES, ROLLED PER LINE
+"I mentioned it one time that I want like 10% of spoken conversation being Spanglish, and now all my crew
+members are in Spanglish; it should be 10 to 15% randomized... it's shoving it in my face."
+'Spanglish gets the most lines' is dead. About one spoken line in eight carries Spanglish, rolled per line
+(engine/bohemia_spanglish.js, one dial for every mouth), some people leaning more, never the player. A
+person's register is how much they lean, not what every line is. Gate: language_gate.js section H (a long
+play over every mouth, 10 to 15 percent). Record: records/BOHEMIA_WORDS_THE_PERSONALITIES_10_24_26.md.

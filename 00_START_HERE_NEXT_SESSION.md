@@ -2053,6 +2053,23 @@ lane's to drive.
 
 TAB: NOT IN VOTE -- a correction and a note, not a look.
 PENDING Paolo: nothing.
+WORDS (words-spanglish): 10/24 (n) LATEST -- [spanglish at ten percent, and the personalities] SHIPPED 5e3459c0 (rule 143(a)(c)(d)).
+SPANGLISH: one dial for every mouth (engine/bohemia_spanglish.js): every line rolls, a man leans 10 percent, one in five 25, a
+valley Spanish speaker always leans, never the player. Wired: the fight's veteran (teach), COMBAT's crew calls (regFor), the
+settlement's speak() (every keeper, the elder), the busy town's six banks (English + a Spanglish twin), people.js linesFor, quirk
+lineFor, the asks, the hostile button. Measured: language_gate H, a long play over seven mouths, 12.2% of 87,800 lines (veteran
+13.6, keepers 12.7, mutters 13.9, people 10.1, quirks 12.2, hostiles 12.7, crew calls 13.1); GREEN 104/0. Was: the veteran 10 of
+13 lines, the keepers' prices 5 of 5. The dial's own bug (regFor read every man as 'en', nobody leaned) fixed the same round.
+PERSONALITIES: records/target/bb/crew_voices.json, COMBAT's shape, 18 types x 10 moments (retreat included), 679 lines + 183
+Spanglish twins; extras waiting for COMBAT: near, enemy (ghost/beast/machine), last_stand, wipe ({by}). Source and build:
+tools/words_personalities/ (never edit the JSON by hand). COMBAT's gate 9/0, its retreat gate 7/0.
+TAB: COMBAT (every fight: the veteran and the crew's calls) and the town screen (the keepers). No card (rule 127).
+NOT TOUCHED: the dead walk's inlined copies (inlined_fresh_gate red on main before this round: the resync tool refuses on
+bohemia_followers' banner). the_squiggle_creepier_gate's Praat leg red on main too (no Praat here).
+[bb]: Battle Brothers' fight is silent; its brothers' personalities live in traits and backgrounds. Ours gives the trait a mouth.
+ANALOG HORROR: Shell-Shocked hears the static ("{name} is the one from the static"); a call is a subtitle burned over the tape.
+NEXT: COMBAT's drafts CLASS_SAYS, WIPE_SAYS, THEY_ARE (its note); the wipe lines into RUN's waking-in-town when it lands.
+
 WORDS (words-8dqrnq): 10/10 (m) LATEST -- *** YOU PUT THIS LANE ON HOLD. I STOPPED BEFORE
 SHIPPING ANYTHING, NOT AFTER. ***
 TAB: nothing to show; this lane is paused.
