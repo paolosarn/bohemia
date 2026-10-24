@@ -47,6 +47,16 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
     const p = await fr.evaluate(([x, y]) => { const r = document.getElementById('cv').getBoundingClientRect(); const q = __CITY.isoAt(x, y); return { x: r.left + q.sx, y: r.top + q.sy + TH / 2 }; }, [x, y]);
     await d.tapAt(p.x, p.y);
   };
+  /* RUN TWO's SPOILS (rule 156, 10/24) lies over a WON fight and waits for LEAVE: a finger on LEAVE, as he would (WORLD 10/24:
+     measured on main 05dbe718, L7 went red here, won on AUTO and never home, because nothing pressed it) */
+  const spoilsLeave = async () => {
+    for (let i = 0; i < 50; i++) { if (await d.page.evaluate(() => !!(window.SPOILS && SPOILS.frame) || !CITYFIGHT)) break; await d.page.waitForTimeout(300); }
+    const h = await d.page.$('#spoilsdoor iframe'); if (!h) return false;
+    const sf = await h.contentFrame(), box = await h.boundingBox();
+    const b = sf ? await sf.waitForFunction(() => { const e = document.getElementById('leave'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, null, { timeout: 10000 }).then(x => x.jsonValue()).catch(() => null) : null;
+    if (b) await d.page.touchscreen.tap(box.x + b[0], box.y + b[1]); else await d.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+    return true;
+  };
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn()) return true; await d.page.waitForTimeout(300); } return false; };
   try {
     await d.page.waitForTimeout(2500);
@@ -135,11 +145,13 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
       const t0 = Date.now();
       while (Date.now() - t0 < 150000) { if (await cf.evaluate(() => FIGHT.S.over).catch(() => true)) break; await d.page.waitForTimeout(500); }
       res = await cf.evaluate(() => FIGHT.S.result).catch(() => null);
+      if (res === 'won') await spoilsLeave();
       await waitFor(async () => !(await shell()).fight, 15000);
       await d.page.waitForTimeout(1500);
     }
     const s7 = await fr.evaluate(() => { render(); return { held: LOOP.held.length, done: LOOP.done, jobs: MAP_DREW.jobs | 0, bats: loopBats() }; });
-    const kept = res === 'won' ? (s7.held === 0 && s7.done === 1 && s7.bats === bats0 + job.pay) : res === 'lost' ? (s7.held === 0 && s7.done === 0 && s7.bats === bats0) : false;
+    /* a won fight's SPOILS credit what the beaten men carried (rule 156): the pay is the floor, never less */
+    const kept = res === 'won' ? (s7.held === 0 && s7.done === 1 && s7.bats >= bats0 + job.pay) : res === 'lost' ? (s7.held === 0 && s7.done === 0 && s7.bats === bats0) : false;
     ok('*** L7 THE FIGHT PLAYS OUT AND THE LOOP KEEPS ITS WORD *** (' + res + ' on AUTO; home; contract held ' + s7.held + ', done ' + s7.done + ', batteries ' + bats0 + ' -> ' + s7.bats + ')',
       !(await shell()).fight && kept && s7.jobs === 0);
 
@@ -158,6 +170,7 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
       const ff2 = f2 ? await fightFrame() : { f: null };
       if (ff2.f) {
         await ff2.f.evaluate(() => { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });   /* the card and message a cleared fight shows */
+        await spoilsLeave();
         await waitFor(async () => !(await shell()).fight, 15000);
         await d.page.waitForTimeout(1500);
       } else f2 = false;
@@ -172,7 +185,7 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
     await d.page.waitForTimeout(1500);
     const ph = await fr.evaluate(() => { const f = document.getElementById('cityfeed'); const q = document.getElementById('qline');
       return { feed: f ? f.innerText : '', qShown: !!(q && getComputedStyle(q).display !== 'none' && q.getBoundingClientRect().width > 0) }; });
-    ok('*** L8b THE PHONE SAYS IT *** (' + (/Paid 1 battery/.test(ph.feed) ? 'a post: Paid 1 battery' : 'no post') + ')', /Paid \d+ battery/.test(ph.feed) && /Contract from/.test(ph.feed));
+    ok('*** L8b THE PHONE SAYS IT *** (' + (/Paid \d+ battery/.test(ph.feed) ? 'a post: Paid' : 'no post: ' + JSON.stringify(ph.feed.slice(0, 400))) + ')', /Paid \d+ battery/.test(ph.feed) && /Contract from/.test(ph.feed));
     ok('L8c nothing sits over the map: the quest line is not on the map (rule 61b)', !ph.qShown);
 
     /* L9 */

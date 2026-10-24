@@ -22,8 +22,9 @@
      V   DEFEND: the HOLD mark at the client's gate with the nights left; standing on it the waves come, one fight each, the
          next by itself; all held pays the job, part held its share
      R   RECOVER: the thing with whoever holds it; the fight there; he has it; back to the client; paid
+     P   PATROL: two posts on the map; past each a crew comes out on the road; both walked, back, paid flat and a head
 
-   node gates/every_job_kind_gate.js [escort|find|hunt|camp|carry|hold|recover]
+   node gates/every_job_kind_gate.js [escort|find|hunt|camp|carry|hold|recover|patrol]
    ========================================================================== */
 'use strict';
 const path = require('path');
@@ -62,6 +63,15 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
   const fightFrame = async () => { for (let i = 0; i < 120; i++) { const h = await d.page.$('#fightFrame');
       if (h) { const f = await h.contentFrame(); if (f && await f.evaluate(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && typeof FIGHT !== 'undefined' && !!FIGHT.S.board).catch(() => false)) return { f, box: await h.boundingBox() }; }
       await d.page.waitForTimeout(200); } return { f: null, box: null }; };
+  /* RUN TWO's SPOILS (rule 156) after a won fight waits for LEAVE: a finger on LEAVE, as he would */
+  const spoilsLeave = async () => {
+    const up = await waitFor(() => d.page.evaluate(() => !!(window.SPOILS && SPOILS.frame) || !CITYFIGHT), 15000);
+    const h = await d.page.$('#spoilsdoor iframe'); if (!h) return false;
+    const sf = await h.contentFrame(), box = await h.boundingBox();
+    const b = sf ? await sf.waitForFunction(() => { const e = document.getElementById('leave'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, null, { timeout: 10000 }).then(x => x.jsonValue()).catch(() => null) : null;
+    if (b) await d.page.touchscreen.tap(box.x + b[0], box.y + b[1]); else await d.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+    return up;
+  };
   /* the fight on AUTO, to its end, and home */
   const autoFight = async () => {
     const ff = await fightFrame(); if (!ff.f) return null;
@@ -72,6 +82,7 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
     const t0 = Date.now();
     while (Date.now() - t0 < 150000) { if (await cf.evaluate(() => FIGHT.S.over).catch(() => true)) break; await d.page.waitForTimeout(500); }
     const res = await cf.evaluate(() => FIGHT.S.result).catch(() => null);
+    await spoilsLeave();
     await waitFor(async () => !(await shell()).fight, 20000);
     await d.page.waitForTimeout(1500);
     await fr.evaluate(async () => { for (let i = 0; i < 40 && typeof FZOOMING !== 'undefined' && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); });
@@ -82,6 +93,7 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
   const forceWin = async () => {
     const ff = await fightFrame(); if (!ff.f) return null;
     await ff.f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });
+    await spoilsLeave();
     await waitFor(async () => !(await shell()).fight, 20000);
     await d.page.waitForTimeout(1500); await unpause();
     return 'won (ended by the gate)';
@@ -127,9 +139,9 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
     await fr.waitForFunction(() => window.BohemiaJobKinds && BohemiaJobKinds.ready(), null, { timeout: 20000 }).catch(() => {});
     const k0 = await fr.evaluate(() => { const sh = BohemiaBoardShelf && BohemiaBoardShelf.shelf(); if (!sh || !window.BohemiaJobKinds) return null;
       const by = {}; sh.offers.forEach(o => { const k = BohemiaJobKinds.kindOf(o); by[k] = (by[k] || 0) + 1; });
-      return { n: sh.offers.length, by, built: ['haul-caravan', 'find-place', 'find-person', 'hunt-kind', 'clear-camp', 'carry', 'hold-defend', 'recover-return'].filter(k => BohemiaJobKinds.built(k)).length }; });
-    ok('K0 the kinds are in the map: ' + (k0 ? k0.n + ' board people, ' + JSON.stringify(k0.by) + ', ' + k0.built + ' of 8 kinds built' : 'no module'),
-      !!k0 && k0.built === 8 && (k0.by['haul-caravan'] | 0) >= 5 && (k0.by['find-place'] | 0) >= 3 && (k0.by['hunt-kind'] | 0) >= 3 && (k0.by['clear-camp'] | 0) >= 2
+      return { n: sh.offers.length, by, built: ['haul-caravan', 'find-place', 'find-person', 'hunt-kind', 'clear-camp', 'carry', 'hold-defend', 'recover-return', 'patrol'].filter(k => BohemiaJobKinds.built(k)).length }; });
+    ok('K0 the kinds are in the map: ' + (k0 ? k0.n + ' board people, ' + JSON.stringify(k0.by) + ', ' + k0.built + ' of 9 kinds built' : 'no module'),
+      !!k0 && k0.built === 9 && (k0.by['patrol'] | 0) >= 2 && (k0.by['haul-caravan'] | 0) >= 5 && (k0.by['find-place'] | 0) >= 3 && (k0.by['hunt-kind'] | 0) >= 3 && (k0.by['clear-camp'] | 0) >= 2
         && (k0.by['hold-defend'] | 0) >= 4 && (k0.by['recover-return'] | 0) >= 8 && (k0.by['carry'] | 0) >= 1 && (k0.by['clear-crew'] | 0) >= 1);
 
     const t0 = await toTown(null);
@@ -332,6 +344,30 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
           const paid = (await fr.evaluate(() => window.__JOB_PAID || [])).filter(p => p.id === 'qd-c02')[0];
           ok('R3 BACK AT ' + j.from + ', PAID (' + (paid ? paid.paid : 'nothing') + '; ' + b0 + ' -> ' + await bats() + ')', !!paid && paid.paid === j.pay);
         }
+      }
+    }
+    /* ---------------- PATROL ---------------- */
+    if (!ONLY || ONLY === 'patrol') {
+      await reset();
+      if (!(await settleOpen())) await toTown(null);
+      const here = await fr.evaluate(() => LOOP.open && LOOP.open.name);
+      const title = await take('jk-patrol-wash'); await leave();
+      let j = await job('jk-patrol-wash');
+      ok('P1 PATROL taken at ' + here + ': "' + title + '" -> ' + (j ? j.posts.map(p => p.name || (p.x + ',' + p.y)).join(' and ') + ', ' + j.flat + ' flat + ' + j.perHead + ' a head up to ' + j.cap : 'no job'),
+        !!j && j.plays === 'patrol' && j.posts.length === 2);
+      const dr = await drew();
+      ok('P2 the posts are on the map (' + dr.hits + ' marks)', dr.hits >= 1);
+      if (j) {
+        const b0 = await bats();
+        for (let k = 0; k < 10; k++) {
+          const jj = await job('jk-patrol-wash'); if (!jj) break;
+          if ((await shell()).fight) { await forceWin(); continue; }
+          await goCell(jj.target.x, jj.target.y);
+          await waitFor(async () => (await shell()).fight || !(await job('jk-patrol-wash')) || await fr.evaluate(() => !TRAVEL), 90000);
+          if (jj.stage === 'back' && !(await shell()).fight && await job('jk-patrol-wash')) await toTown(jj.from);
+        }
+        const paid = (await fr.evaluate(() => window.__JOB_PAID || [])).filter(p => p.id === 'jk-patrol-wash')[0];
+        ok('P3 BOTH POSTS WALKED, BACK, PAID FLAT AND A HEAD (' + (paid ? paid.paid + ' of ' + paid.of : 'nothing') + '; ' + b0 + ' -> ' + await bats() + ')', !!paid && paid.paid >= j.flat && paid.paid <= j.pay);
       }
     }
     ok('Z nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 140) : '') + '; module ' + (await fr.evaluate(() => window.__JOB_ERR || window.__JOB_DRAW_ERR || 'clean')) + ')',

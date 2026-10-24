@@ -24,7 +24,17 @@
     if (SHELF || LOADING || typeof fetch === 'undefined') return;
     LOADING = true;
     fetch(url || '../records/target/BOHEMIA_BOARD_SHELF.json').then(function (r) { return r.json(); })
-      .then(set).catch(function () { LOADING = false; });
+      .then(withMore).then(set).catch(function () { LOADING = false; });
+  }
+  /* WORLD [every job kind] (rule 153(b), 10/24): the people the job kinds' file adds for a kind no act-one design carries (a
+     PATROL), appended to the shelf the same way a modder adds a row; a shelf without that file is the shelf as it was */
+  function withMore(doc) {
+    if (!doc || !Array.isArray(doc.offers)) return doc;
+    return fetch('../records/target/BOHEMIA_JOB_KINDS.json').then(function (r) { return r.json(); }).then(function (k) {
+      var more = (k && k.board_people && k.board_people.rows) || [], have = {};
+      doc.offers.forEach(function (o) { have[o.id] = 1; });
+      more.forEach(function (o) { if (o && o.id && !have[o.id] && /\{pay\}/.test(o.says || '')) doc.offers.push(o); });
+      return doc; }).catch(function () { return doc; });
   }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   /* a copy that is safe to hand around: {crew} said, the client copied */

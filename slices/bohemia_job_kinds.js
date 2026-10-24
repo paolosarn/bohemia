@@ -32,7 +32,7 @@
 (function (root) {
   'use strict';
   var DATA = null, LOADING = false, WAIT = [];
-  var BUILT = { 'haul-caravan': 1, 'find-place': 1, 'find-person': 1, 'hunt-kind': 1, 'clear-camp': 1, 'carry': 1, 'hold-defend': 1, 'recover-return': 1 };
+  var BUILT = { 'haul-caravan': 1, 'find-place': 1, 'find-person': 1, 'hunt-kind': 1, 'clear-camp': 1, 'carry': 1, 'hold-defend': 1, 'recover-return': 1, 'patrol': 1 };
   var HITS = [], STEPS = 0;
   function load(url, cb) {
     if (cb) { if (DATA) cb(DATA); else WAIT.push(cb); }
@@ -639,6 +639,73 @@
     save('contract:guards');
   };
 
+  /* ======================= PATROL: patrol ======================= */
+  /* walk two posts and come back (Battle Brothers: 'patrol two settlements and return; paid for heads; the closest camps
+     spawn roaming parties while you are on it'); the posts are other towns or road posts six to eighteen blocks out, marked
+     POST 1 and POST 2, walked in any order; past each a band comes out ahead on his road; every one put down on the patrol
+     counts; back at the client: half flat, half a head, capped (QR-AF P1: per head capped, the only kind besides CLEAR) */
+  MAKE['patrol'] = function (job, k, row, town, R) {
+    var b = k.post_blocks || [6, 18], posts = [];
+    var ts = towns().filter(function (t) { var d = cheb(t.x, t.y, town.x, town.y); return t.name !== town.name && d >= b[0] && d <= b[1]; });
+    ts.sort(function () { return R() - 0.5; });
+    for (var i = 0; i < ts.length && posts.length < 2; i++) { var g1 = gate(ts[i].x, ts[i].y);
+      if (g1 && route(city.x, city.y, g1[0], g1[1]) && !posts.some(function (p) { return cheb(p.x, p.y, g1[0], g1[1]) < 5; })) posts.push({ x: g1[0], y: g1[1], name: ts[i].name, done: false }); }
+    for (var t = 0; t < 10 && posts.length < 2; t++) { var s = spotOut(town.x, town.y, b[0], b[1], R, true);
+      if (s && !posts.some(function (p) { return cheb(p.x, p.y, s[0], s[1]) < 5; })) posts.push({ x: s[0], y: s[1], name: null, done: false }); }
+    if (posts.length < 2) return false;
+    var sk = clamp(job.skulls, 1, 3);
+    job.posts = posts; job.heads = 0; job.cap = row.cap || (k.cap_by_skulls || [4, 7, 10])[sk - 1];
+    job.bands = (k.bands_by_skulls || [1, 2, 2])[sk - 1]; job.band = null; job.walked = 0;
+    job.flat = Math.max(1, Math.round(job.pay * (k.flat == null ? 0.5 : k.flat)));
+    job.perHead = Math.max(1, Math.round((job.pay - job.flat) / job.cap));
+    job.target = { x: posts[0].x, y: posts[0].y };
+    job.stage = 'patrol';
+    job.sayTake = 'Contract from ' + town.name + ': walk the posts' + (posts[0].name ? ' at ' + posts[0].name : '') + (posts[1].name ? ' and ' + posts[1].name : '') +
+      ' and come back. ' + job.flat + ' batteries, and ' + job.perHead + ' for every one you put down on the way, up to ' + job.cap + '.';
+    return true;
+  };
+  function postNext(job) { var n = null; job.posts.forEach(function (p) { if (!p.done && !n) n = p; }); return n; }
+  function postWalked(job, p) {
+    p.done = true;
+    var left = job.posts.filter(function (q) { return !q.done; }).length, n = job.posts.length - left;
+    var line = 'Post ' + n + ' of ' + job.posts.length + ' walked' + (p.name ? ' at ' + p.name : '') + '.';
+    if (job.twist === 'event' && !job.twistDone && left === 0) {   /* the patrol's road event, kept as text (QR-AF P1: the crucified man) */
+      job.twistDone = true; line += ' A man is tied to the post sign, very still, facing the road. Nobody in the crew says anything.';   /* draft:true */
+    }
+    if (left) { var nx = postNext(job); job.target = { x: nx.x, y: nx.y }; line += ' On to the next.'; }
+    else { job.stage = 'back'; backTo(job); line += ' Back to ' + job.from + ' to be paid.'; }
+    if (job.bands > 0) { job.bands--; job.bandDue = (job.walked | 0) + 3; }
+    sayLine(line); save('contract:post');   /* draft:true */
+  }
+  function bandFight(job) { var b = job.band; return b ? fight(job, 'band', b.n, 'brigands', 'a crew on the patrol road') : false; }
+  STEP['patrol'] = function (job) {
+    if (job.stage !== 'patrol' && job.stage !== 'back') return false;
+    job.walked = (job.walked | 0) + 1;
+    if (job.band) { if (closeIn(job.band)) return bandFight(job); return false; }
+    if (job.bandDue && job.walked >= job.bandDue) {
+      job.bandDue = 0;
+      var at = aheadOf(job.id + ':band:' + job.walked);
+      if (at) { var n = 2; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
+        job.band = { x: at[0], y: at[1], n: n }; now('A crew on the patrol road, ' + n + ' of them, coming your way.'); try { render(); } catch (e) {} }   /* draft:true */
+    }
+    if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && cheb(q.x, q.y, city.x, city.y) <= 1) p = q; }); if (p) postWalked(job, p); }
+    return false;
+  };
+  ARRIVE['patrol'] = function (job, x, y) {
+    if (job.band && cheb(job.band.x, job.band.y, x, y) <= 1) return bandFight(job) || true;
+    if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && cheb(q.x, q.y, x, y) <= 1) p = q; }); if (p) postWalked(job, p); return false; }
+    if (job.stage === 'back' && atClient(job, x, y)) {
+      var heads = Math.min(job.cap, job.heads | 0), n = Math.min(job.pay, job.flat + heads * job.perHead);
+      paid(job, n, 'The patrol is walked. ' + heads + ' put down on the road. Paid ' + n + ' batteries.');   /* draft:true */
+    }
+    return false;
+  };
+  END['patrol'] = function (job, f, won, ran, o) {
+    job.heads = (job.heads | 0) + Math.max(0, o.dead | 0); job.band = null;
+    sayLine((won && !ran ? 'They are down. ' : 'You got clear of them. ') + 'Patrol: ' + Math.min(job.cap, job.heads) + ' of ' + job.cap + ' heads.');   /* draft:true */
+    save('contract:band');
+  };
+
   /* ---------- THE FIVE MOMENTS THE MAP'S LOOP HANDS OVER ---------- */
   /* 1. TAKEN at the board: the kind decides where the job is and what it says; false = it plays as today's crew */
   function make(job, c, town, tg) {
@@ -687,7 +754,8 @@
       if ((j.plays === 'find-place' || j.plays === 'find-person') && j.stage === 'look' && cheb(x, y, j.ring.x, j.ring.y) <= j.ring.r) return true;
       if (j.plays === 'carry' && ((j.thief && cheb(x, y, j.thief.x, j.thief.y) <= 1) || (j.stage === 'lair' && cheb(x, y, j.lair.x, j.lair.y) <= 1))) return true;
       if (j.plays === 'hold-defend' && j.stage === 'hold' && cheb(x, y, j.target.x, j.target.y) <= 1) return true;
-      if (j.plays === 'recover-return' && j.stage === 'get' && cheb(x, y, j.spot.x, j.spot.y) <= 1) return true; }
+      if (j.plays === 'recover-return' && j.stage === 'get' && cheb(x, y, j.spot.x, j.spot.y) <= 1) return true;
+      if (j.plays === 'patrol' && j.band && cheb(x, y, j.band.x, j.band.y) <= 1) return true; }
     return false;
   }
   /* the clock a block costs: the caravan's pace while cargo walks with him */
@@ -704,6 +772,7 @@
     if (job.plays === 'clear-camp') return 'CAMP · ' + job.camp.men;
     if (job.plays === 'carry') return job.stage === 'lair' ? 'STOLEN · THEIR LAIR' : 'CARRY TO ' + String(job.dest.name).toUpperCase();
     if (job.plays === 'hold-defend') return 'HOLD ' + String(job.from).toUpperCase() + ' · WAVE ' + Math.min(job.wave + 1, job.waves) + '/' + job.waves + ' · BY DAY ' + job.by;
+    if (job.plays === 'patrol') return job.stage === 'back' ? 'PATROL WALKED · BACK TO ' + String(job.from).toUpperCase() : 'PATROL ' + job.posts.filter(function (p) { return p.done; }).length + '/' + job.posts.length + ' · ' + Math.min(job.cap, job.heads | 0) + ' HEADS';
     if (job.plays === 'recover-return') return job.stage === 'get' ? 'GET ' + String(job.item).toUpperCase() : 'GOT IT · BACK TO ' + String(job.from).toUpperCase();
     if (job.stage === 'look') return 'FIND · ' + String(job.what).toUpperCase();
     if (job.stage === 'home') return job.cargo.n + ' HOME TO ' + String(job.from).toUpperCase();
@@ -878,6 +947,14 @@
       else hh = peopleDraw(q.sx, fy, bt, kp, '#c4553f', 6); }
     hit(j, plate('GET ' + String(j.item).toUpperCase(), q.sx, fy, '#f0b44c', hh + 14), [j.spot.x, j.spot.y]);
     HITS.push({ job: j.id, x: q.sx - 20 * kp, y: fy - hh - 4, w: 40 * kp, h: hh + 10, cell: [j.spot.x, j.spot.y], pack: null });
+  };
+  DRAWS['patrol'] = function (j, ox, oy, bt, kp) {
+    if (j.stage === 'patrol') j.posts.forEach(function (p, i) { if (p.done) return; var q = iso(p.x, p.y, ox, oy); if (!vis(q)) return;
+      hit(j, plate('POST ' + (i + 1), q.sx, q.sy + TH / 2 + 2, '#f0b44c', 30), [p.x, p.y]); });
+    if (j.stage === 'back') { var b = iso(j.target.x, j.target.y, ox, oy); if (vis(b)) hit(j, plate('GET PAID', b.sx, b.sy + TH / 2 + 2, '#9fe08a', 30), [j.target.x, j.target.y]); }
+    if (j.band) { var r = iso(j.band.x, j.band.y, ox, oy), fy = r.sy + TH / 2 + 2;
+      if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 5); hit(j, plate('CREW · ' + j.band.n, r.sx, fy, '#ff8f7a', hh + 14), [j.band.x, j.band.y]);
+        HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.band.x, j.band.y], pack: null }); } }
   };
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; },
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,

@@ -1,6 +1,6 @@
 {
   "_about": "WORLD [every job kind], 10/24/26, rule 153(b) (Paolo 10/24: 'right now the only jobs you have are pull up on people and kill them, but in Battle Brothers there were a lot of different jobs: find something on the map, or do a caravan, or roam around until you find a certain enemy type and kill a bunch of them; I want more quest types'). Every board job is ONE KIND from QUESTS' table (questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md, research only, read never asked), and the kind decides how it plays on the map: slices/bohemia_job_kinds.js reads this file and the map's one job loop (__THE_LOOP_ON_THE_MAP__ in slices/BOHEMIA_CITY_WORLD.html) hands every held job to it. A MODDER EDITS THIS FILE: give an offer id a kind under 'offers', or add a line to 'guess' (a title pattern) and every new board row gets it; a kind's numbers are shapes, TUNING owns their values. draft:true.",
-  "version": "job-kinds-10-24b",
+  "version": "job-kinds-10-24c",
   "draft": true,
   "source": "questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md (THE TABLE and THE ROWS); Battle Brothers' numbers quoted there from the wiki dump",
   "kinds": {
@@ -172,6 +172,33 @@
         "moved"
       ],
       "twist_why": "QR-AF R1: one in six; played as the thieves moved it, the place empty and fresh tracks two to four blocks on"
+    },
+    "patrol": {
+      "verb": "PATROL",
+      "word": "PATROL",
+      "bb": "Patrol",
+      "plays": "two posts (other towns, or road posts) marked POST 1 and POST 2, walked in any order; past each a crew comes out ahead on the road; every one put down on the patrol counts; back at the client: half flat and half a head, capped",
+      "post_blocks": [
+        6,
+        18
+      ],
+      "cap_by_skulls": [
+        4,
+        7,
+        10
+      ],
+      "cap_why": "Battle Brothers pays for up to 20 to 35 heads over five days; ours is a quicker patrol, a crew's worth or two",
+      "bands_by_skulls": [
+        1,
+        2,
+        2
+      ],
+      "flat": 0.5,
+      "twist_rate": 0.1,
+      "twists": [
+        "event"
+      ],
+      "twist_why": "QR-AF P1: the wiki's 10% crucified man kept as the patrol's road event, text only, never explained"
     }
   },
   "offers": {
@@ -406,9 +433,20 @@
       "item": "the ballot box",
       "where": "block seven",
       "guards": 0
+    },
+    "jk-patrol-dam": {
+      "kind": "patrol"
+    },
+    "jk-patrol-wash": {
+      "kind": "patrol"
     }
   },
   "guess": [
+    {
+      "re": "^(walk|ride) the .*(posts|line|road) and",
+      "kind": "patrol",
+      "why": "there and back on a route: a patrol, before the escort's 'walk'"
+    },
     {
       "re": "^(walk|haul|ride|escort|move) ",
       "kind": "haul-caravan",
@@ -444,5 +482,48 @@
     }
   ],
   "default": "clear-crew",
-  "default_why": "a job no row names and no pattern matches is today's job, a crew marked on the map, so a new board row is never broken by this file"
+  "default_why": "a job no row names and no pattern matches is today's job, a crew marked on the map, so a new board row is never broken by this file",
+  "board_people": {
+    "_about": "WORLD [every job kind]: board people this file adds to the shelf (slices/bohemia_board_shelf.js appends them when both load), for a kind none of QUESTS' 96 act-one designs carries. Shaped exactly like the shelf's rows: two sentences, the pay in the second as {pay}. Names and words are attempts, draft:true; QUESTS or RUN TWO may replace them with a design.",
+    "rows": [
+      {
+        "id": "jk-patrol-dam",
+        "title": "Walk the two pump posts and back",
+        "skulls": 2,
+        "pay": 60,
+        "tiers": [
+          "town",
+          "fortress"
+        ],
+        "when": null,
+        "client": {
+          "name": "Ingeniero Robles",
+          "from": "who keeps the turbines",
+          "look": "cast_longcoat",
+          "draft": true
+        },
+        "says": "Two pump posts on the dam road went quiet this week, and quiet out there means somebody is listening. Walk to both and back, and it pays {pay} batteries at most, part of it for every crew you stop on the way.",
+        "draft": true
+      },
+      {
+        "id": "jk-patrol-wash",
+        "title": "Ride the wash line and back",
+        "skulls": 1,
+        "pay": 30,
+        "tiers": [
+          "camp",
+          "town"
+        ],
+        "when": null,
+        "client": {
+          "name": "Doña Inés",
+          "from": "who counts the water",
+          "look": "cast_apron",
+          "draft": true
+        },
+        "says": "Somebody cuts our hose along the wash at night, never the same place twice. Ride out to the two posts and back, and {pay} batteries are yours at most, more of it if you catch them at it.",
+        "draft": true
+      }
+    ]
+  }
 }
