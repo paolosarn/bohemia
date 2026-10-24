@@ -1658,6 +1658,8 @@ const FIGHT = (function () {
   }
   /* WHY A STRIKE IS REFUSED, the real reason (EYES [eyes: the reason is AP], 10/24: a pistol man three tiles off with 3 AP was told
      'out of reach' when the shot cost more AP than he had): the same tests canStrike makes, in the order a player reads them */
+  /* what his own blow or shot costs from where he stands, his weapon as it is (no target): the walk's line says if a walk leaves too little */
+  function strikeCost(a) { const s = strikeSkill(a.weapon); return { ap: skillAP(a.weapon, s, a), shot: isRanged(a.weapon) }; }
   function strikeWhy(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return { why: 'cannot' };
     return wielding(a, t, function () {
@@ -2349,7 +2351,7 @@ const FIGHT = (function () {
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
-    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, onField: onField, alive: alive,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
@@ -4922,7 +4924,7 @@ const WIPE_SAYS = {   /* draft:true */
   count: '{dead} of yours dead, {down} down.',
   next: 'Somebody drags you to the nearest town. {who} have your men and your gear.'
 };
-const REFUSE_SAYS = { ap: 'Not enough AP: {what} costs {need}, {name} has {have}.', fat: '{name} is too tired for it. WAIT, or END TURN.' };   /* draft:true */
+const REFUSE_SAYS = { ap: 'Not enough AP: {what} costs {need}, {name} has {have}.', fat: '{name} is too tired for it. WAIT, or END TURN.', walk: 'Leaves {left} AP: {what} costs {need}.' };   /* draft:true */
 const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.', left: 'Left behind: {names}.' };   /* draft:true */
 const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead' };   /* draft:true */
 function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
@@ -5267,7 +5269,11 @@ function tapAt(px, py) {
   /* what standing there does (rule 59; rule 117b: only where the ground changes something) and what the walk costs in swings;
      the AP and 'tap again' are no longer sentences: the tag on the tile and the big button say WALK and its AP */
   const gs = FIGHT.groundSay(p.x, p.y);
-  say((gs || '') + (swings ? (gs ? ' ' : '') + swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : ''));
+  /* WHAT THE WALK LEAVES (EYES [eyes: the reason is AP], 10/24: 'the chalk shows before the walk what a walk will leave'): when the
+     AP left after it will not pay for his blow or shot, the line says so before he commits */
+  const sc = FIGHT.strikeCost(u), leftAP = u.ap - (UI.pend.cost || 0), foeSeen = S.units.some(function (v) { return v.side === 'them' && FIGHT.onField(v) && FIGHT.shown(v); });
+  const short = foeSeen && sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
+  say([gs || '', swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
   if (S.cover[p.y][p.x]) teach('cover');
   hud();
 }

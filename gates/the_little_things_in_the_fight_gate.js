@@ -48,6 +48,17 @@ const CREW3 = [{ background: 'companion_2hand', name: 'RAUL' }, { background: 'c
       const said = await p.evaluate(() => document.getElementById('say').innerText);
       const far = await p.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(), t = S.units.filter(v => v.side === 'them' && FIGHT.onField(v))[0];
         u.ap = u.apTurn; t.x = S.w - 1; t.y = S.h - 1; return FIGHT.strikeWhy(u, t); });
+      /* and the walk's line says what a walk will leave, before he commits to it */
+      const wl = await p.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(); u.ap = u.apTurn; FIGHT_UI.pend = null;
+        const th = S.units.filter(v => v.side === 'them' && FIGHT.onField(v))[0]; th.x = Math.min(S.w - 1, u.x + 3); th.y = u.y;   /* a man of theirs in sight: the line only warns when there is someone to shoot */ const sc = FIGHT.strikeCost(u), f = FIGHT.reach(u, null, true);
+        const onGlass = k => { const X = sx((k % S.w + .5) * FIGHT_UI.tw), Y = sy((Math.floor(k / S.w) + .5) * FIGHT_UI.th); return X > 20 && X < W - 20 && Y > TOPH + 20 && Y < H - BOTH - 20; };
+        const k = Object.keys(f.best).map(Number).find(k => u.ap - f.best[k] < sc.ap && onGlass(k) && !S.units.some(v => FIGHT.onField(v) && Math.abs(v.x - k % S.w) <= 1 && Math.abs(v.y - Math.floor(k / S.w)) <= 1)); if (k === undefined) return null;
+        const x = k % S.w, y = Math.floor(k / S.w);
+        return { x: sx((x + .5) * FIGHT_UI.tw), y: sy((y + .5) * FIGHT_UI.th), left: u.ap - f.best[k], need: sc.ap }; });
+      if (wl) { await p.waitForTimeout(150); await p.touchscreen.tap(wl.x, wl.y); await p.waitForTimeout(150); }
+      const walkSaid = await p.evaluate(() => { const t = document.getElementById('say').innerText; FIGHT_UI.pend = null; return t; });
+      leg(wl && new RegExp('Leaves ' + wl.left + ' AP').test(walkSaid), '  and before a walk, the line says what it leaves when that will not pay for his blow or shot',
+        wl ? '"' + walkSaid + '" (leaves ' + wl.left + ', costs ' + wl.need + ')' : 'no such tile');
       leg(!r.can && r.why && r.why.why === 'ap' && /Not enough AP/.test(said) && new RegExp('has ' + r.ap).test(said) && !/out of reach/.test(said) && far && far.why === 'range',
         '*** [eyes: the reason is AP] ***: a man in reach with too few AP hears the AP it costs and the AP he has, never \'out of reach\'; out of reach still says so',
         '"' + said + '"; far: ' + JSON.stringify(far));
