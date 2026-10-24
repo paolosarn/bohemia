@@ -26,3 +26,7 @@ HIS WORDS: "Now there's a difference between winning the battle with one charact
 THE ANSWER TO HIS QUESTION: today, no. The odds count a win as a win, whether one man is left at one hitpoint or nobody was touched.
 
 THE RULING: the odds measure the chance of a CLEAN WIN (won with none of his men down or dead), weighing how many fell when not; the player never sees a number, only the AUTO button's colour, on one continuous opacity scale from the deepest red to the deepest green. VAMILY rule 144(e).
+
+HIS WORDS, LATER THE SAME HOUR: "And yeah, I would say that if any members die during your mathematical projections, then that's leaning towards like Red you know"
+
+A run where any of his men dies counts toward red even if the fight was won; won with a man down but alive sits between; only clean wins push green. Rule 144(f).
