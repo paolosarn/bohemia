@@ -89,6 +89,21 @@
   },
   "theme": "block"
  },
+ "boneyard": {
+  "added": 168,
+  "faces": 643,
+  "grounds": 2,
+  "kept": 313,
+  "recoloured": 330,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.022,
+   "green": 0.1607,
+   "red": 0.0753,
+   "sand": 0.1413
+  },
+  "theme": "glitz"
+ },
  "campus": {
   "added": 243,
   "faces": 1002,
@@ -269,6 +284,21 @@
   },
   "theme": "block"
  },
+ "drivein": {
+  "added": 81,
+  "faces": 186,
+  "grounds": 3,
+  "kept": 36,
+  "recoloured": 150,
+  "register_iou": 0.9998,
+  "sand_after": {
+   "blue": 0.0008,
+   "green": 0.0625,
+   "red": 0.0232,
+   "sand": 0.1184
+  },
+  "theme": "block"
+ },
  "farm": {
   "added": 0,
   "faces": 102,
@@ -299,6 +329,21 @@
   },
   "theme": "block"
  },
+ "fort": {
+  "added": 54,
+  "faces": 452,
+  "grounds": 4,
+  "kept": 39,
+  "recoloured": 413,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0124,
+   "green": 0.0223,
+   "red": 0.2168,
+   "sand": 0.013
+  },
+  "theme": "industry"
+ },
  "freeway": {
   "added": 0,
   "faces": 646,
@@ -314,6 +359,21 @@
   },
   "theme": "road"
  },
+ "fueldepot": {
+  "added": 54,
+  "faces": 1472,
+  "grounds": 2,
+  "kept": 1045,
+  "recoloured": 427,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0975,
+   "green": 0.0261,
+   "red": 0.0466,
+   "sand": 0.0016
+  },
+  "theme": "industry"
+ },
  "golf": {
   "added": 243,
   "faces": 347,
@@ -328,6 +388,21 @@
    "sand": 0.1085
   },
   "theme": "green"
+ },
+ "gypsum": {
+  "added": 110,
+  "faces": 443,
+  "grounds": 2,
+  "kept": 12,
+  "recoloured": 431,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0293,
+   "green": 0.003,
+   "red": 0.5435,
+   "sand": 0.0026
+  },
+  "theme": "rock"
  },
  "industrial": {
   "added": 54,
@@ -358,6 +433,21 @@
    "sand": 0.1398
   },
   "theme": "road"
+ },
+ "jail": {
+  "added": 81,
+  "faces": 467,
+  "grounds": 2,
+  "kept": 55,
+  "recoloured": 412,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.3023,
+   "red": 0.0477,
+   "sand": 0.0181
+  },
+  "theme": "block"
  },
  "landfill": {
   "added": 88,
@@ -419,6 +509,21 @@
   },
   "theme": "block"
  },
+ "minigp": {
+  "added": 168,
+  "faces": 267,
+  "grounds": 3,
+  "kept": 91,
+  "recoloured": 176,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0162,
+   "green": 0.0818,
+   "red": 0.149,
+   "sand": 0.2385
+  },
+  "theme": "glitz"
+ },
  "mountain": {
   "added": 110,
   "faces": 296,
@@ -478,6 +583,21 @@
    "sand": 0.012
   },
   "theme": "block"
+ },
+ "quarry": {
+  "added": 110,
+  "faces": 377,
+  "grounds": 2,
+  "kept": 35,
+  "recoloured": 342,
+  "register_iou": 0.9999,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.0034,
+   "red": 0.4685,
+   "sand": 0.0021
+  },
+  "theme": "rock"
  },
  "rail": {
   "added": 54,
@@ -644,6 +764,21 @@
   },
   "theme": "glitz"
  },
+ "substation": {
+  "added": 54,
+  "faces": 667,
+  "grounds": 2,
+  "kept": 40,
+  "recoloured": 627,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0004,
+   "green": 0.0226,
+   "red": 0.1011,
+   "sand": 0.0154
+  },
+  "theme": "industry"
+ },
  "suburb": {
   "added": 170,
   "faces": 166,
@@ -791,6 +926,21 @@
    "green": 0.0016,
    "red": 0.2264,
    "sand": 0.0286
+  },
+  "theme": "water"
+ },
+ "watertreat": {
+  "added": 81,
+  "faces": 765,
+  "grounds": 2,
+  "kept": 216,
+  "recoloured": 549,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.266,
+   "green": 0.0016,
+   "red": 0.0158,
+   "sand": 0.0126
   },
   "theme": "water"
  }
