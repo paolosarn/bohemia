@@ -9546,7 +9546,7 @@ GATES = [
      "at the post, buy a gun at the smith, CREW, drag it onto a hire's hand and the other hire to the back, never DONE; the door "
      "hands the fight both hires, the gun and the line; every man on the line stands on the board, the armed hire holds it, the "
      "moved one is in the back; again after a reload (the gun used to vanish); NEW GAME wipes the old hires. The old door read "
-     "red 9 of 16 (3 of 5 men in the fight); ONE CREW SCREEN leg (rule 147(b)). green at registration, 17/0, about 1 min", True),
+     "red 9 of 16 (3 of 5 men in the fight); ONE CREW SCREEN leg (rule 147(b)); W8 AFTER A FIGHT (the dead stay dead, the fallen sit out their days, the crew screen climbs them). green, 21/0, about 1 min", True),
     ('THE STARS SIT WITH THE WORDS', ['node', 'gates/the_stars_sit_with_the_words_gate.js'],
      "RUN TWO gate, 10/24, row [the stars sit with the words] (rule 146(e), Paolo 10/24: 'even on the hire screen the stars are a "
      "little too big and not nicely put with the UI's letters, so make the stars smaller'): on the hall's hire cards and a man's "

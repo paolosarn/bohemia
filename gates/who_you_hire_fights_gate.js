@@ -13,6 +13,9 @@
      W5 the fight: every man on the line stands on the board, the armed hire holding the weapon he bought, the moved man in
         the back line
      W6 AFTER A RELOAD: the crew screen opens with the hire still holding it, and the door and the fight do the same again
+     W8 AFTER A FIGHT where the armed hire died and the other was struck down (the fight's own rows, kept by the shell's
+        nfAfterKeep): the next fight has neither; the crew screen opens with the dead man gone, the fallen one laid up his
+        days and YOU climbed; on the day he is healed he stands in the fight again, the crew screen never reopened
      W7 a new game is a new company: the door's NEW GAME wipes the old hires out of the hand-over
    Run: node gates/who_you_hire_fights_gate.js */
 'use strict';
@@ -27,6 +30,8 @@ const DOOR = [cut(/var BOH_START = \(function\(\)\{[\s\S]*?\nwindow\.BOH_START =
   cut(/function nfKind\(district\)\{[\s\S]*?\n\}/, 'nfKind'), cut(/function nfOpts\(d\)\{[\s\S]*?\n\}/, 'nfOpts'), 'window.nfOpts = nfOpts;'].join('\n');
 /* NEW GAME's own wipe, read out of the demo too (the title's forget()) */
 const FORGET = cut(/function forget\(\)\{[\s\S]*?\n  \}/, 'forget');
+/* the shell's keeper of the fight's rows (nfOverIn calls it with the fight's one message) */
+const AFTER = cut(/function nfAfterKeep\(d\)\{[\s\S]*?\n\}/, 'nfAfterKeep');
 const srv = http.createServer((rq, rs) => {
   const u = decodeURIComponent(rq.url.split('?')[0]);
   if (u === '/slices/__door.html') { rs.setHeader('content-type', 'text/html'); return rs.end('<!doctype html><meta charset="utf-8"><body><div id="newco"></div></body>'); }
@@ -110,8 +115,8 @@ const B = 'http://127.0.0.1:' + PORT;
   ok('  the other hire dragged to the back line', at.back === emptyBack && at.front < 0, moved + ' back:' + at.back);
   const onLine = await R.evaluate(() => { const s = BohemiaRosterScreen.state; return s.front.concat(s.back).filter(i => i != null).map(i => s.crew[i].name); });
   /* ---- W4 the game's own door, never DONE tapped ---- */
-  const theDoor = async () => { const d = await ctx.newPage(); d.on('pageerror', e => errs.push('door: ' + e.message)); await d.goto(B + '/slices/__door.html'); await door(d);
-    const o = await d.evaluate(() => { const o = nfOpts({ district: 'downtown', world: { night: false, day: 2 }, at: { gx: 4, gy: 4 } }); return JSON.parse(JSON.stringify(o)); }); await d.close(); return o; };
+  const theDoor = async (day) => { const d = await ctx.newPage(); d.on('pageerror', e => errs.push('door: ' + e.message)); await d.goto(B + '/slices/__door.html'); await d.evaluate(() => { window.NF = {}; }); await door(d);
+    const o = await d.evaluate(day => { const o = nfOpts({ district: 'downtown', world: { night: false, day: day || 2 }, at: { gx: 4, gy: 4 } }); return JSON.parse(JSON.stringify(o)); }, day); await d.close(); return o; };
   const fight = async (o) => { const f = await ctx.newPage(); f.on('pageerror', e => errs.push('fight: ' + e.message));
     await f.addInitScript(o => { window.FIGHT_OPTS = Object.assign({ seed: 5, speed: 1 }, o); }, o);
     await f.goto(B + '/slices/BOHEMIA_FIGHT.html');
@@ -143,6 +148,31 @@ const B = 'http://127.0.0.1:' + PORT;
   const back = await F().evaluate(n => { const s = BohemiaRosterScreen.state, m = s.crew.find(x => x.name === n); return { held: m && m.gear.main && m.gear.main.id, bag: s.bag.filter(i => i.kind === 'weapon').length }; }, armed);
   ok('W6 AFTER A RELOAD the crew screen opens with the hire still holding the weapon he bought (it used to vanish)', back.held === bought.id, armed + ' holds ' + back.held);
   await check('W6');
+  /* ---- W8 after a fight ---- */
+  const k8 = await ctx.newPage(); await k8.goto(B + '/slices/__door.html');
+  const rows = [{ name: line0.crew[0], main: true, level: 1, xpGained: 1300, dead: false, down: false, laidUpDays: 0, injury: null },
+    { name: armed, main: false, level: 1, xpGained: 40, dead: true, down: true, laidUpDays: 0, injury: null },
+    { name: moved, main: false, level: 1, xpGained: 60, dead: false, down: true, laidUpDays: 3, injury: { id: 'brain_damage', name: 'Brain Damage', line: 'he forgets things' } }];
+  const kept8 = await k8.evaluate(a => { window.NF = { day: 2 }; (0, eval)(a.src + '\nwindow.__k = nfAfterKeep;'); return window.__k({ type: 'BOHEMIA_FIGHT_OVER', result: 'won', crew: a.rows }); }, { src: AFTER, rows });
+  await k8.close();
+  const o8 = await theDoor(2), n8 = (o8.company || []).map(m => m && m.name);
+  ok('W8 the shell kept the fight\'s rows, and the next fight has neither the dead hire nor the fallen one', kept8 === 1 && n8.indexOf(armed) < 0 && n8.indexOf(moved) < 0 && n8.length === 3, n8.join(', '));
+  const us8 = await fight(o8);
+  ok('  THE FIGHT after it: three men, none of them the dead or the fallen', us8.length === 3 && !us8.some(u => u.name === armed || u.name === moved), us8.map(u => u.name).join(', '));
+  /* the crew screen opens on the map's day 2 */
+  await p.evaluate(() => { window.mapState = () => ({ day: 2 }); const c = document.getElementById('crewdoor'); if (c) BohemiaCrewDoor.close(); });
+  await p.click('#crew'); await p.waitForTimeout(300);
+  for (let i = 0; i < 80 && !(F() && await F().evaluate(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready).catch(() => false)); i++) await p.waitForTimeout(250);
+  await p.waitForTimeout(400);
+  const cs = await F().evaluate(a => { const S = BohemiaRosterScreen.state, f = n => S.crew.find(m => m.name === n), you = S.crew.find(m => m.main);
+    return { dead: !!(f(a.armed) && f(a.armed).dead), laid: f(a.moved) && f(a.moved).hurt ? f(a.moved).hurt.days : 0, strip: [...document.querySelectorAll('#hurt .cell')].length,
+      onLine: S.front.concat(S.back).filter(i => i != null).map(i => S.crew[i].name), youLevel: you.level, queue: localStorage.getItem('bohemia.fight.after.v1') }; }, { armed, moved });
+  ok('  the crew screen read it: the dead hire is gone from the line, the fallen one laid up 3 days in the strip, YOU climbed, the queue empty',
+     cs.dead && cs.laid === 3 && cs.strip === 1 && cs.onLine.indexOf(armed) < 0 && cs.onLine.indexOf(moved) < 0 && cs.youLevel > 1 && !cs.queue, JSON.stringify(cs).slice(0, 160));
+  await p.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (e) {} });
+  const o9 = await theDoor(4), o10 = await theDoor(5);
+  ok('  the fallen hire stays home on day 4 and stands in the fight on day 5, healed (the crew screen never reopened)', !(o9.company || []).some(m => m.name === moved) && (o10.company || []).some(m => m.name === moved) && !(o10.company || []).some(m => m.name === armed),
+     'day 4: ' + (o9.company || []).length + ' men; day 5: ' + (o10.company || []).map(m => m.name).join(', '));
   /* ---- W7 NEW GAME is a new company ---- */
   const w7 = await ctx.newPage(); await w7.goto(B + '/slices/__door.html');
   await w7.evaluate(src => { const T = { forgets: 0 }, KEY_SAVE = 'bohemia_city_save', DEADMARK = '{"bohemia":"DEAD"}'; (0, eval)('(function(T, KEY_SAVE, DEADMARK){ ' + src + '; forget(); })')(T, KEY_SAVE, DEADMARK); }, FORGET);

@@ -222,12 +222,39 @@ function handOver(){
   if(main >= 0 && order.indexOf(main) > 0){ order.splice(order.indexOf(main), 1); order.unshift(main); }   /* YOU are the fight's first man */
   var num = {}; order.forEach(function(ci, k){ num[ci] = k; });
   var at = function(row){ return S[row].map(function(ci){ return ci != null && num[ci] != null ? num[ci] : null; }); };
-  var co = C.company(order.map(function(i){ return S.crew[i]; })), line = {front:at('front'), back:at('back'), origin:S.origin || null, men:co.map(function(m){ return m.name; })};
+  var co = C.company(order.map(function(i){ return S.crew[i]; })), line = {front:at('front'), back:at('back'), origin:S.origin || null, men:co.map(function(m){ return m.name; }),
+    known: S.crew.map(function(m){ return m.name; }),   /* every man this screen knows, the dead and the benched too: the door never adds one back */
+    /* a man laid up waits on the bench with the day he can stand again, so the door brings him back that day even if this
+       screen is not opened (the map's day, from the door) */
+    bench: S.crew.filter(function(m){ return laid(m) && !m.dead; }).map(function(m){ return {man: C.company([m])[0], until: S.today && m.hurt.day0 != null ? (m.hurt.day0 | 0) + (m.hurt.days | 0) : null}; }),
+    today: S.today || null};
   try{ localStorage.setItem(HKEY, JSON.stringify(co)); localStorage.setItem(LKEY, JSON.stringify(line)); }catch(e){}
   window.__HANDOVER = {company:co, line:line, n:(window.__HANDOVER ? window.__HANDOVER.n : 0) + 1};
   return window.__HANDOVER;
 }
 function keep(){ saveClimb(); }
+/* AFTER THE FIGHT (rule 147(a); the struck-down pillar; [climbing]): the fights the game kept since this screen was last open
+   (the shell's nfAfterKeep, bohemia.fight.after.v1) land here in order: the dead are dead, the fallen laid up their days from
+   that fight's day, every man's XP climbs him. Then the queue is empty. */
+var AKEY = 'bohemia.fight.after.v1';
+function afterTheFights(){
+  var q = []; try{ q = JSON.parse(localStorage.getItem(AKEY) || '[]') || []; }catch(e){ q = []; }
+  if(!q.length) return 0;
+  q.forEach(function(f){ afterFight(f.rows || []);
+    (f.rows || []).forEach(function(r){ var m = S.crew.filter(function(x){ return x.name === r.name; })[0]; if(m && m.hurt && r.down && r.injury && !r.main) m.hurt.day0 = f.day | 0; }); });
+  try{ localStorage.removeItem(AKEY); }catch(e){}
+  saveClimb(); return q.length;
+}
+/* the days a laid-up man has lain since (by the map's day): he heals them, one healDay a day (PEOPLE's) */
+function healToToday(){
+  if(!S.today) return 0; var back = [];
+  S.crew.forEach(function(m){ if(!laid(m) || m.dead) return; if(m.hurt.day0 == null){ m.hurt.day0 = S.today; return; }
+    var n = Math.max(0, S.today - (m.hurt.day0 | 0));
+    for(var k = 0; k < n && m.hurt.days > 0; k++){ var f = window.BohemiaLongInjury ? BohemiaLongInjury.healDay({days:m.hurt.days}) : {days:m.hurt.days - 1}; m.hurt.days = f.days; }
+    m.hurt.day0 = S.today; if(m.hurt.days === 0) back.push(m.name); });
+  if(back.length){ benchHurt(); saveForm(); say(back.join(', ') + ' can stand in the line again.'); draw(); }
+  saveClimb(); return back.length;
+}
 /* a man who walked when the bill went unpaid (the map's bohemia.walked.v1, by name) is gone from the company; YOU never walk */
 function walkedNames(){ try{ return (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).map(function(w){ return w && w.name; }).filter(Boolean); }catch(e){ return []; } }
 /* ==== end __WHO_YOU_HIRE_FIGHTS__ ==== */
@@ -550,6 +577,7 @@ function open(o){
   /* __WHO_YOU_HIRE_FIGHTS__: a man who walked is not on this screen (he stood on it, and in the fight's count, after he left) */
   var wn = walkedNames(); if(wn.length) S.crew = S.crew.filter(function(m){ return m.main || wn.indexOf(m.name) < 0; });
   if(o.origin) S.origin = o.origin;
+  if(o.day) S.today = o.day | 0;   /* the map's day, from the door: a laid-up man's days count by it */
   if(Array.isArray(o.bag)) S.bag = o.bag.slice(0, BAG_SLOTS); else { try{ var b = JSON.parse(localStorage.getItem(BAGKEY)||'[]'); if(Array.isArray(b)) S.bag = b; }catch(e){} }
   var f = o.formation; if(!f){ try{ f = JSON.parse(localStorage.getItem(FKEY)||'null'); }catch(e){} }
   if(f && f.front && f.front.length === N && f.back && f.back.length === N && [].concat(f.front, f.back).every(function(i){ return i == null || S.crew[i]; })){ S.front = f.front.slice(); S.back = f.back.slice(); }
@@ -559,7 +587,9 @@ function open(o){
   S.crew.forEach(function(m, i){ if(laid(m) || m.dead || S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;   /* never a laid-up or dead man (he stood in the line AND the laid-up strip, measured 10/18) */
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
   S.sel = S.front.concat(S.back).filter(function(i){ return i != null; })[0] || 0;
-  S.ready = true; draw(); keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
+  S.ready = true; draw();
+  afterTheFights(); healToToday();
+  keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
   if(Array.isArray(o.fight)) afterFight(o.fight);
 }
 window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed};

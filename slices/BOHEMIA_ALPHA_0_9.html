@@ -1554,7 +1554,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/24k - TWO HANDS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/24l - THE FIGHT REMEMBERS WHO FELL</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12428,10 +12428,18 @@ function nfOpts(d){
     var walked = (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).map(function(x){ return x && x.name; }).filter(Boolean);
     var same = !(hl && hl.origin && hp && hp.origin && hl.origin !== hp.origin), useH = Array.isArray(hk) && hk.length > 0 && same;
     var co = useH ? hk : (o.company ? o.company.slice() : null), keepAt = {}, kept = [];
+    /* AFTER THE FIGHT: a fight the crew screen has not read yet still counts: its dead stay dead, its fallen are laid up their
+       days from that fight's day; and a man the crew screen benched hurt comes back on the day he is healed */
+    var today = (w.day | 0) || 1, gone2 = [];
+    try{ (JSON.parse(localStorage.getItem('bohemia.fight.after.v1') || '[]') || []).forEach(function(f){ (f.rows || []).forEach(function(r){
+      if(!r || r.main) return; if(r.dead || (r.down && r.injury && today < (f.day | 0) + (r.laidUpDays | 0))) gone2.push(r.name); }); }); }catch(_e){}
+    NF.day = today;
     if(co){
-      co.forEach(function(m, i){ if(i > 0 && m && m.name && walked.indexOf(m.name) >= 0) return; keepAt[i] = kept.length; kept.push(m); });
+      co.forEach(function(m, i){ if(i > 0 && m && m.name && (walked.indexOf(m.name) >= 0 || gone2.indexOf(m.name) >= 0)) return; keepAt[i] = kept.length; kept.push(m); });
+      if(useH && hl && Array.isArray(hl.bench)) hl.bench.forEach(function(b){ if(b && b.man && b.until != null && today >= (b.until | 0) && gone2.indexOf(b.man.name) < 0 && walked.indexOf(b.man.name) < 0) kept.push(b.man); });
       var have = kept.map(function(m){ return m && m.name; });
-      hired.forEach(function(h){ if(!h || !h.name || have.indexOf(h.name) >= 0 || walked.indexOf(h.name) >= 0) return; var g = h.gear || {};
+      var known = (useH && hl && Array.isArray(hl.known)) ? hl.known : [];   /* every man the crew screen knows, the dead and the benched too */
+      hired.forEach(function(h){ if(!h || !h.name || have.indexOf(h.name) >= 0 || known.indexOf(h.name) >= 0 || walked.indexOf(h.name) >= 0 || gone2.indexOf(h.name) >= 0) return; var g = h.gear || {};
         kept.push({ name: h.name, background: h.background, level: h.level || 1, look: h.look, stats: h.stats, traits: Array.isArray(h.traits) ? h.traits.slice() : undefined,
                     perks: [], gear: { main: g.main || null, off: null, body: g.body || null, head: null } }); have.push(h.name); });
       o.company = kept;
@@ -12516,6 +12524,21 @@ function nfOpen(d){
 }
 /* four beats to read the card, on the game's one clock */
 function nfReadMs(){ try{ return 4 * 60000 / (window.BPM || 120); }catch(_e){ return 2000; } }
+/* ==== __WHO_YOU_HIRE_FIGHTS__, AFTER THE FIGHT (RUN TWO's block in RUN's file, NOTE on RUN's board; rule 147(a), the
+   struck-down pillar (laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md: 20% dead, else a long injury) and
+   [climbing]). MEASURED: the fight's one message carries every man's row (his XP, dead, down, the injury and its days) and
+   nothing in the game kept it: the crew screen only heard it if it happened to be open, so nobody ever climbed, died or
+   was laid up in the game, and with the hand-over a man killed in one fight would stand in the next. NOW the rows are
+   kept (bohemia.fight.after.v1, with the map's day) until the crew screen applies them; the door below reads them too. */
+function nfAfterKeep(d){
+  if(!d || !Array.isArray(d.crew) || !d.crew.length) return 0;
+  var q = []; try{ q = JSON.parse(localStorage.getItem('bohemia.fight.after.v1') || '[]') || []; }catch(_e){ q = []; }
+  q.push({ day: (NF && NF.day) | 0, rows: d.crew.map(function(r){ return { name: r.name, main: !!r.main, level: r.level, xpGained: r.xpGained | 0, dead: !!r.dead, down: !!r.down,
+    laidUpDays: r.laidUpDays | 0, injury: r.injury || null, perks: Array.isArray(r.perks) ? r.perks.slice() : undefined }; }) });
+  try{ localStorage.setItem('bohemia.fight.after.v1', JSON.stringify(q.slice(-30))); }catch(_e){}
+  return q.length;
+}
+/* ==== end __WHO_YOU_HIRE_FIGHTS__, AFTER THE FIGHT ==== */
 function nfOverIn(d, src){
   if (!NF.frame || src !== NF.frame.contentWindow || NF.over) return false;
   var won = d.result === 'won', fell = 0, dead = 0, ran = 0, theirs = 0;
@@ -12524,6 +12547,7 @@ function nfOverIn(d, src){
   var outcome = { result: won ? 'win' : 'loss', victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
     alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: (function(){ try{ return nfFight(NF.frame.contentWindow).S.board; }catch(_e){ return NF.opts && NF.opts.kind; } })(), kind: NF.opts && NF.opts.kind, newFight: true };
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
+  try{ nfAfterKeep(d); }catch(_e){}   /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO): who died, who fell, who climbed, kept for the crew screen */
   try{ if (window.STING) STING.play(won ? 'win' : 'loss'); }catch(_e){}
   try{ if (window.FIGHTMUS) FIGHTMUS.leave(); }catch(_e){}
   G.combatLog.push({ t: Date.now(), outcome: won ? 'encounter-won' : 'encounter-lost', recorded: true, newFight: true });
@@ -13885,7 +13909,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });
