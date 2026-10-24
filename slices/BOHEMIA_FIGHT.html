@@ -684,7 +684,7 @@ const FIGHT = (function () {
     if (!w) w = naturalOf(id);
     if (!w) throw new Error('the fight cannot arm ' + id + ': ' + (DB.beastAttacks.refused[id] || 'no weapon in its gear and no attack page'));
     let sh = null;
-    if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
+    if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && (Ak.shoves || rng() < rng())) sh = x; });   /* THE HEAVY: his crash-bar always */
     /* THE KIDS (COMBAT [bestiary]): the blade he carries beside the sling for when the stones run out, and his net (the page's chance) */
     let side = null; if (Ak.throws) gear.forEach(function (n) { const x = weaponByName(n); if (notNet(x) && !side && strikeSkill(x) && !isRanged(x) && !pistolShot(x)) side = x; });
     const netRow = (DB.racial.by_enemy[id] || []).indexOf('throw_net') >= 0 && (r.gear || []).indexOf('Throwing Net') >= 0 ? DB.racial.rows.throw_net : null;
@@ -1195,7 +1195,7 @@ const FIGHT = (function () {
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
-    u.threw = false; u.kited = false;
+    u.threw = false; u.kited = false; u.shoved = false;
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
     if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
       if (die() <= ch) { u.netted = null; emit({ t: 'free', id: u.id }); } else { u.netted.fails++; emit({ t: 'stuck', id: u.id, chance: Math.max(0, Math.round(ch)) }); } }
@@ -1793,6 +1793,49 @@ const FIGHT = (function () {
     });
     return best;
   }
+  /* ---------------- THE HEAVY (COMBAT [bestiary]; the 9/29 draft: 'ORCS (mass, shove) -> THE HEAVY: exo-suit men, crash-bar
+     shields, they push you off the tile') ----------------
+     Battle Brothers' Orc Warrior (enemies.json orc_warrior; racial_skills.json line_breaker and shield_bash, each its page): slow,
+     heavy, a mountain of plate; Line Breaker knocks the man beside him one tile back, never misses, 4 AP, 10 fatigue on the man,
+     and with his shield (our crash-bar) Shield Bash adds 10-25 with half of it on the armour. 'They can't push a brother if there
+     is nowhere to push': a man with his back to a wall, a house or another man stays put. He shoves the man out of his cover or
+     out of the way of a shooter and walks into the hole. The lesson in one meeting: put your back to a wall, and shoot him
+     before he reaches the line. */
+  function pushTile(u, t) {
+    const sx = Math.sign(t.x - u.x), sy = Math.sign(t.y - u.y);
+    const tries = [[sx, sy]].concat(sx && sy ? [[sx, 0], [0, sy]] : sx ? [[sx, 1], [sx, -1]] : [[1, sy], [-1, sy]]);
+    for (let i = 0; i < tries.length; i++) { const x = t.x + tries[i][0], y = t.y + tries[i][1];
+      if (inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !squeezes(t.x, t.y, x, y)) return { x: x, y: y }; }
+    return null;   /* nowhere to push */
+  }
+  function canShove(u, t) {
+    const r = racial(u, 'line_breaker');
+    if (!r || !onField(u) || !onField(t) || t.side === u.side || dist(u, t) > r.range_tiles || t.ghost) return false;
+    if ((t.immune || []).indexOf('Forced movement') >= 0 || t.indomitable) return false;
+    return u.ap >= r.ap && u.fat + r.fatigue <= fatMax(u) && !!pushTile(u, t);
+  }
+  function shove(u, t) {
+    if (S.over || current() !== u || !canShove(u, t)) return false;
+    const r = racial(u, 'line_breaker'), q = pushTile(u, t), from = { x: t.x, y: t.y };
+    u.ap -= r.ap; u.fat += r.fatigue; u.shoved = true; t.fat = Math.min(fatMax(t), t.fat + r.target_fatigue);
+    emit({ t: 'skill', id: u.id, skill: 'line_breaker', to: t.id });
+    emit({ t: 'step', id: t.id, fx: t.x, fy: t.y, x: q.x, y: q.y, shoved: true }); t.x = q.x; t.y = q.y;
+    const sb = u.shield && racial(u, 'shield_bash');
+    if (sb) {   /* the crash-bar: 10-25, half of it on his armour; what the armour cannot hold goes through */
+      const dmg = rint(sb.damage_min, sb.damage_max), ar = Math.round(dmg * sb.armor_pct / 100), held = Math.min(t.armB, ar);
+      t.fat = Math.min(fatMax(t), t.fat + sb.target_fatigue);
+      apply(u, t, { hit: true, head: false, hp: ar - held, armour: held, chance: 100 }, { skill: 'shield_bash' });
+    }
+    u.hole = from; afterAction(u); return true;
+  }
+  /* whom he shoves: the man in cover first, then the man between him and a shooter of theirs, then whoever stands in his way */
+  function shoveTarget(u) {
+    const near = foes(u).filter(function (f) { return canShove(u, f); });
+    if (!near.length) return null;
+    const shooter = foes(u).some(function (f) { return isRanged(f.weapon) && dist(u, f) > 1 && f.morale !== 'Fleeing'; });
+    return near.sort(function (p, q) { return (S.cover[q.y][q.x] ? 1 : 0) - (S.cover[p.y][p.x] ? 1 : 0) || (isRanged(p.weapon) ? 1 : 0) - (isRanged(q.weapon) ? 1 : 0); })
+      .filter(function (f) { return S.cover[f.y][f.x] || shooter || !isRanged(f.weapon); })[0] || null;
+  }
   /* a magazine reloads only when it is empty (rule 117(b): one clear next thing) */
   function canReload(a) {
     const s = reloadSkill(a.weapon);
@@ -2049,6 +2092,9 @@ const FIGHT = (function () {
     if (A.throws && u.weapon.ammo && u.ammo !== null && u.ammo <= 0 && u.sideArm) { u.weapon = u.sideArm; u.club = clubFor(u.weapon); u.ammo = null; u.ammoMax = null; }
     if (A.nets && u.nets > 0) { const nt = netTarget(u); if (nt) return throwNet(u, nt); }
     if (A.kites && u.threw && !u.kited) { u.kited = true; const kg = kiteGround(u); if (kg && moveTo(u, kg.x, kg.y)) return true; }
+    /* THE HEAVY (ai.json heavy): once a turn the man beside him goes back a tile, and he walks into the hole */
+    if (A.shoves && !u.shoved) { const sv = shoveTarget(u); if (sv) return shove(u, sv); }
+    if (A.shoves && u.hole && !unitAt(u.hole.x, u.hole.y)) { const hh = u.hole; u.hole = null; if (moveTo(u, hh.x, hh.y)) return true; }
     /* THE MECHANIC (ai.json mechanic): a fallen machine of his comes back up whenever he can, twice a turn */
     if (A.raises && racial(u, 'raise_undead')) { const rt = raiseTarget(u); if (rt) return raise(u, rt); }
     /* THE GEIST (ai.json screamer): it screams at the weakest nerve inside three tiles; with nobody there it drifts to where its
@@ -2189,7 +2235,7 @@ const FIGHT = (function () {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
-    canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
+    canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
@@ -2858,7 +2904,8 @@ const TEACH = {   /* draft:true */
   ghost: 'Ay. That is {name}. We buried them in March.',
   ghost_hit: 'Walk up and hit it, compa. They break like smoke.',
   mechanic: 'Oye, shoot the one in back first. His machines drop.',
-  kids: 'Those kids throw and run. Do not chase them. Shoot them.'
+  kids: 'Those kids throw and run. Do not chase them. Shoot them.',
+  heavy: 'Big suit shoves. Put your back to a wall.'
 };
 /* the moment each queued line belongs to: past it, the line is dropped, never said late */
 const TEACH_STILL = {
@@ -2870,7 +2917,8 @@ const TEACH_STILL = {
   ghost: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
   ghost_hit: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
   mechanic: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'raise_undead') && FIGHT.onField(v); }); },
-  kids: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'throw_net') && FIGHT.onField(v); }); }
+  kids: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'throw_net') && FIGHT.onField(v); }); },
+  heavy: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'line_breaker') && FIGHT.onField(v); }); }
 };
 function teachSoon(k) {
   const T = taughtNow(); UI.teachQ = UI.teachQ || [];
@@ -3008,6 +3056,11 @@ function startAnim(a) {
       setTimeout(function () { sfx('cloth_on', { side: t ? t.side : null }); }, beatMs() * 0.3);
       if (t) { pop(t, '', '#c9b48a', true, u.name + ' nets ' + t.name + '. He cannot move.'); if (crewControlled(t)) say(t.name + ' is netted. He can shoot, not walk.'); }
       teachSoon('kids'); }
+    /* THE SHOVE (COMBAT [bestiary], THE HEAVY): the crash-bar on him (block) and his boots dragged a tile (door_drag) */
+    else if (e.t === 'skill' && e.skill === 'line_breaker') { const t = FIGHT.byId(e.to); sfx('block', { side: t ? t.side : null });
+      setTimeout(function () { sfx('door_drag'); }, beatMs() * 0.2);
+      if (t) { pop(t, '', '#d0a070', true, u.name + ' shoves ' + t.name + ' off his tile.'); if (crewControlled(t)) say(t.name + ' got shoved back. A wall behind you stops it.'); }
+      teachSoon('heavy'); }
     else if (e.t === 'skill' && e.skill === 'raise_undead') { const t = FIGHT.byId(e.to);
       sfx('power_on', { side: 'them', who: t ? t.name : null });
       if (t) { t._fallAt = undefined; t.seenFall = false; t._rebootAt = performance.now(); pop(t, '', '#7fd6c4', true, u.name + ' reboots ' + t.name + '.'); }
