@@ -2927,11 +2927,16 @@ function teachSoon(k) {
   UI.teachQ.push(k);
 }
 function teachNext() {
-  if (UI.vet && TEACH_STILL[UI.vet.k] && !TEACH_STILL[UI.vet.k]()) vetSkip();   /* its moment is gone (the line set, their turn over): it goes */
+  if (UI.vet && TEACH_STILL[UI.vet.k] && !TEACH_STILL[UI.vet.k]()) vetSkip();
+  if (UI.vet && !speaks(FIGHT.byId(UI.vet.who))) vetSkip();   /* rule 143(d): the down do not talk */   /* its moment is gone (the line set, their turn over): it goes */
   const Q = UI.teachQ; if (UI.vet || !Q || !Q.length) return;
   while (Q.length && (taughtNow()[Q[0]] || (TEACH_STILL[Q[0]] && !TEACH_STILL[Q[0]]()))) Q.shift();
   if (Q.length && teach(Q[0])) Q.shift();
 }
+/* who may speak (rule 143(d)): a man on his feet, in the fight, never the down, the dead or the ones who ran */
+function speaks(v) { return !!v && FIGHT.onField(v) && !FIGHT.S.over; }
+/* and his voice stops with him: the shell's one voice is told (BOHEMIA_VOICE_STOP, for SOUNDS to honour; harmless unheard) */
+function voiceStop(v) { try { if (v) window.top.postMessage({ type: 'BOHEMIA_VOICE_STOP', speaker: 'face:' + v.look }, '*'); } catch (_e) {} }
 function vetSkip() { if (!UI.vet) return; document.getElementById('vet').style.display = 'none'; UI.vet = null; }
 /* a face is there to teach: his veteran on the field and the lessons on; the strip then keeps no how-to of its own */
 function faceTeaches() { return (window.FIGHT_OPTS || {}).teach !== false && !UI.auto && !!veteran(); }
@@ -2964,6 +2969,9 @@ function teach(k) {
 }
 function tickVet(now) {
   const V = UI.vet; if (!V) return;
+  /* THE DOWN DO NOT TALK (COMBAT [the loss is understood], rule 143(d), Paolo 10/24: 'people died but they were still
+     speaking'): the moment the man saying it is down, dead or gone, his line goes with him, mid-word */
+  const sp = FIGHT.byId(V.who); if (!sp || !FIGHT.onField(sp)) { voiceStop(sp); vetSkip(); return; }
   const beat = beatMs(), slot = Math.floor((now - V.t) / (beat / 6)), n = Math.min(V.line.length, slot * TYPE_PER_BEAT / 6);
   const ln = document.getElementById('vetline'); if (ln.textContent.length !== n) ln.textContent = V.line.slice(0, n);
   const typing = n < V.line.length;
