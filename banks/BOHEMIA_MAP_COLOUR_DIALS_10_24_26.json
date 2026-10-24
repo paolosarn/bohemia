@@ -626,6 +626,11 @@
    74,
    66
   ],
+  "redrock_dust_light": [
+   150,
+   122,
+   108
+  ],
   "limestone_dust": [
    150,
    147,
@@ -1030,15 +1035,19 @@
     "mosaic": [
      [
       "varnish_dust",
+      0.22
+     ],
+     [
+      "redrock_dust",
+      0.26
+     ],
+     [
+      "desert_grey",
       0.3
      ],
      [
-      "redrock_dust_dark",
-      0.34
-     ],
-     [
-      "basalt_dust",
-      0.36
+      "limestone_dust",
+      0.22
      ]
     ],
     "blob_m": 26
@@ -1046,10 +1055,10 @@
    "bands": [
     "basalt_dust",
     "varnish_dust",
-    "basalt_dust",
     "redrock_dust_dark",
     "redrock_dust",
-    "varnish_dust",
+    "redrock_dust",
+    "redrock_dust_light",
     "limestone_dust",
     "limestone_dust"
    ],

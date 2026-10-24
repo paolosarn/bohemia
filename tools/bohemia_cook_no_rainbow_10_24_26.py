@@ -25,6 +25,9 @@ to records/target). So the regrade is a new set of dials, not a new painter:
 
   python3 tools/bohemia_cook_no_rainbow_10_24_26.py write    # act one's dials into the bank (act three's kept first)
   python3 tools/bohemia_cook_no_rainbow_10_24_26.py check    # every colour's L, C, h and its family
+  python3 tools/bohemia_cook_no_rainbow_10_24_26.py painter  # act one of the painter's own two tables (VB_COL, VB_CCOL in
+      slices/BOHEMIA_CITY_WORLD.html, act three's as RUN pasted them): the block __ACT_ONE_IN_THE_PAINTER__ carries the
+      result, with the lawns, the park and the trees set dead by hand after
 
 REFERENCE CHECK (the 9/4 standing duty): Battle Brothers' map (9/24): value does the work and ONE saturated marker wins;
 its ground is muted and its colour is the banner. The analog horror bible (9/20): the grime, the film and the hand,
@@ -153,6 +156,7 @@ MATERIALS = {
     'varnish_dust':     [70, 62, 57],
     'redrock_dust':     [124, 92, 80],      # the Calico Hills, under ten years of dust
     'redrock_dust_dark': [96, 74, 66],
+    'redrock_dust_light': [150, 122, 108],
     'limestone_dust':   [150, 147, 141],
     'desert_grey':      [146, 140, 130],
     'desert_pale':      [164, 161, 154],
@@ -214,8 +218,12 @@ def themes():
     }
     rock = {
         'rock': True,
-        'ground': {'mosaic': [['varnish_dust', 0.3], ['redrock_dust_dark', 0.34], ['basalt_dust', 0.36]], 'blob_m': 26},
-        'bands': ['basalt_dust', 'varnish_dust', 'basalt_dust', 'redrock_dust_dark', 'redrock_dust', 'varnish_dust', 'limestone_dust', 'limestone_dust'],
+        # the open ground at a range's foot is the fan's grey-brown wash, the basalt is the high bands (E13: a black foot
+        # read 18 to 20 at every hour and split from the land beside it)
+        'ground': {'mosaic': [['varnish_dust', 0.22], ['redrock_dust', 0.26], ['desert_grey', 0.3], ['limestone_dust', 0.22]], 'blob_m': 26},
+        # act three's order of values kept (dark foot, red middle, pale crest), only the colour dusted: E13 reads the light on
+        # a few texels of a rim range and a black band mid-height read 18 at every hour
+        'bands': ['basalt_dust', 'varnish_dust', 'redrock_dust_dark', 'redrock_dust', 'redrock_dust', 'redrock_dust_light', 'limestone_dust', 'limestone_dust'],
         'roof': ['redrock_dust', 'limestone_dust', 'basalt_dust', 'varnish_dust'],
         'wall': ['redrock_dust_dark', 'basalt_dust', 'varnish_dust'],
         'fence': ['basalt_dust'],
@@ -333,8 +341,33 @@ def act_one(bright):
     return d
 
 
+def painter():
+    """the painter's tables read out of the world page (the act three values RUN pasted), each key its own value with its
+    chroma cut to a third and capped (rust, red rock, the Strip's gold a little more), the pools black and the lake murk"""
+    import re, math
+    s = open(os.path.join(R, 'slices/BOHEMIA_CITY_WORLD.html'), encoding='utf8').read()
+    i = s.index('var VB_COL = {'); col = dict(re.findall(r"(\w+): vbHex\('(#[0-9a-f]{6})'\)", s[i:i + 800]))
+    i = s.index('var VB_CCOL = {'); j = s.index('};', i); ccol = dict(re.findall(r"(\w+): '(#[0-9a-f]{6})'", s[i:j]))
+    h2r = lambda h: [int(h[k:k + 2], 16) for k in (1, 3, 5)]
+    r2h = lambda c: '#%02x%02x%02x' % tuple(max(0, min(255, v)) for v in c)
+    CAP = {'rock': 11, 'rust': 11, 'gold': 12, 'shop': 10, 'tie': 9, 'fan': 7}
+    KEEP = {'lit', 'lamp', 'neon', 'neonN', 'burn', 'ash', 'roofC', 'asphalt', 'conc', 'edge', 'road'}
+    def act(k, h):
+        if k in KEEP: return None
+        if k == 'pool': return '#2f3431'
+        L, a, b = lab(h2r(h)); C = math.hypot(a, b); hh = math.atan2(b, a)
+        L2, C2 = (min(L, 30), min(C * 0.3, 7)) if k == 'water' else (L, min(C * 0.35, CAP.get(k, 7)))
+        if C <= C2 + 0.3: return None
+        return r2h(rgb(L2, C2 * math.cos(hh), C2 * math.sin(hh)))
+    for name, t in (('col', col), ('ccol', ccol)):
+        out = {k: act(k, v) for k, v in t.items()}
+        print(name, json.dumps({k: v for k, v in out.items() if v}))
+
+
 def main():
     a = sys.argv[1:] or ['check']
+    if a[0] == 'painter':
+        painter(); return
     if a[0] == 'write':
         bank = json.load(open(BANK))
         if not os.path.exists(ACT3):
