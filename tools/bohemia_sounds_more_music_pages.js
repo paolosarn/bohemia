@@ -33,6 +33,10 @@ function page(song, M, file) {
     FILE: { song: rel(M.song.file), his: rel(H[P].file), two: rel(H[S2].file) },
     SCALE: { song: A.scale, his: pr.scale, two: sr.scale },
     ROOT: { song: pc(A.root), his: pc(pr.root), two: pc(sr.root) },
+    /* EQUALLY LOUD ON A PHONE: the three files sit at their own levels (his songs at the engine's, with headroom where
+       his engine clips); the page brings each down to the quietest of the three through a phone's speaker, never up */
+    GAIN: (() => { const L = { song: M.song.audio.phone_rms_db, his: H[P].audio.phone_rms_db, two: H[S2].audio.phone_rms_db }, lo = Math.min(L.song, L.his, L.two), g = {};
+      Object.keys(L).forEach(k => { g[k] = +(lo - L[k]).toFixed(2); }); return g; })(),
     LABEL: { song: 'A. ' + song.name + ', the new one, with the machine party in the hall on tape.',
       his: 'B. Your ' + P + ', the first minute, as the map plays it now.', two: 'C. Your ' + S2 + ', the first minute, as the map plays it now.' }
   };
@@ -80,7 +84,7 @@ function page(song, M, file) {
   'use strict';
   var AC=null, OUT=null, n=document.getElementById('num'), mode=null, bed=null, bedT=null, clock=null, BUF={}, cur=null, t0=0;
   var CFG=${JSON.stringify(cfg)};
-  var FILE=CFG.FILE, SCALE=CFG.SCALE, ROOT=CFG.ROOT, LABEL=CFG.LABEL;
+  var FILE=CFG.FILE, SCALE=CFG.SCALE, ROOT=CFG.ROOT, LABEL=CFG.LABEL, GAIN=CFG.GAIN;
   function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
   function load(p){ if(BUF[p]) return Promise.resolve(BUF[p]);
     return fetch(p).then(function(r){ if(!r.ok) throw new Error(p+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[p]=b); }); }
@@ -104,14 +108,14 @@ function page(song, M, file) {
   function mark(id){ ['song','his','two'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
   function go(id){
     ctx(); songOff(); mode=id; mark(id); n.textContent=LABEL[id]; bedOn();
-    load(FILE[id]).then(function(b){ if(mode!==id) return; var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; g.gain.setValueAtTime(0,AC.currentTime); g.gain.linearRampToValueAtTime(1,AC.currentTime+0.03);
+    load(FILE[id]).then(function(b){ if(mode!==id) return; var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; g.gain.setValueAtTime(0,AC.currentTime); g.gain.linearRampToValueAtTime(Math.pow(10,(GAIN[id]||0)/20),AC.currentTime+0.03);
         s.connect(g); g.connect(OUT); t0=AC.currentTime+0.02; s.start(t0); cur={src:s,g:g,buffer:b}; clock=setInterval(where,250);
         s.onended=function(){ if(cur&&cur.src===s){ cur=null; if(clock){ clearInterval(clock); clock=null; } n.textContent='That was the first minute. Tap it again, or another one.'; } }; })
       .catch(function(e){ n.textContent='the song did not load: '+e.message; });
   }
   ['song','his','two'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
   document.getElementById('stop').onclick=function(){ if(!AC) return; songOff(); bedOff(); mode=null; mark(null); n.textContent='Stopped.'; };
-  window.__moremusic=function(){ return { mode:mode, playing:!!cur, file:cur?(mode&&FILE[mode]):null, seconds:cur?+(AC.currentTime-t0).toFixed(2):0, bed:!!bed, loaded:Object.keys(BUF), text:n.textContent }; };
+  window.__moremusic=function(){ return { gain_db:mode?GAIN[mode]:null, mode:mode, playing:!!cur, file:cur?(mode&&FILE[mode]):null, seconds:cur?+(AC.currentTime-t0).toFixed(2):0, bed:!!bed, loaded:Object.keys(BUF), text:n.textContent }; };
 })();
 </script>
 </body></html>

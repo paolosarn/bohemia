@@ -194,10 +194,15 @@ async function record(which) {
   const hisTake = async name => {
     const f = path.join(HISD, 'his_' + slug(name) + '.mp3');
     if (his[name] && fs.existsSync(f) && md5(fs.readFileSync(f)) === his[name].mp3_md5 && his[name].tune) return his[name];
-    const r = await render({ remakes: name, name }, 'his', null), t = await render({ remakes: name, name }, 'his', 'tune');
+    /* HEADROOM, MEASURED: his engine plays some of his songs past full scale with no limiter (his SLOW BLEED clipped
+       468,029 samples, SLOW CREEP 770,155), and a clipped recording is not his song. So a song that clips is recorded
+       again 6 dB down until it does not; the gain is written beside it, and the new song is matched to the file as heard. */
+    let og = 1, r;
+    for (;;) { r = await render({ remakes: name, name, out_gain: og }, 'his', null); if (!r.clipped || og < 0.1) break; og /= 2; }
+    const t = await render({ remakes: name, name, out_gain: og }, 'his', 'tune');
     const [m, mt] = measure([r.raw, t.raw]);
     const dec = toMp3(r.raw, f, 0);
-    his[name] = { file: path.relative(ROOT, f), mp3_md5: md5(fs.readFileSync(f)), bytes: fs.statSync(f).size, clipped_samples: r.clipped, render: m, heard: measure([dec])[0],
+    his[name] = { file: path.relative(ROOT, f), mp3_md5: md5(fs.readFileSync(f)), bytes: fs.statSync(f).size, clipped_samples: r.clipped, gain_db: +(20 * Math.log10(og)).toFixed(2), render: m, heard: measure([dec])[0],
       tune: { phone_rms_db: mt.phone_rms_db, tune_on_a_phone_vs_the_mix_db: +(mt.phone_rms_db - m.phone_rms_db).toFixed(2) } };
     fs.writeFileSync(HISM, JSON.stringify(his, null, 1) + '\n');
     return his[name];

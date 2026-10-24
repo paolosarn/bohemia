@@ -53,7 +53,9 @@ async function pass(p, song, mode, bars, audio, only) {
     MUS.audio();
     const OAC = new OfflineAudioContext(1, Math.ceil(SR * secs), SR);
     const save = { AC: MUS.AC, MAST: MUS.MAST, OUT: MUS.OUT, cur: MUS.cur, curSlot: MUS.curSlot, layers: MUS.layers, step: MUS.step, on: CITYMUS.on };
-    const out0 = OAC.createGain(); out0.gain.value = 1; out0.connect(OAC.destination);
+    /* song.out_gain (SOUNDS 10/24, [more music]): headroom for a song his engine plays past full scale (his SLOW BLEED and
+       SLOW CREEP clip 468,029 and 770,155 samples at gain 1); absent = 1, so REPO MAN's takes are what they were */
+    const out0 = OAC.createGain(); out0.gain.value = song.out_gain || 1; out0.connect(OAC.destination);
     const MPq = window.MACHINEPARTY;
     let bus = { music: out0, machine: out0 };
     if (mode !== 'his') {

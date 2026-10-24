@@ -118,6 +118,9 @@ for (const D of MM.DESIGNS) {
   const pg = c && path.join(ROOT, 'slices', c.show.src), html = pg && fs.existsSync(pg) ? fs.readFileSync(pg, 'utf8') : '';
   const rel = x => path.relative(path.join(ROOT, 'slices'), path.join(ROOT, x)).split(path.sep).join('/');
   ok('  its page is there and plays the three files', !!html && [sm, hp, h2].every(x => html.indexOf(rel(x.file)) >= 0), c && c.show.src);
+  const gm = html.match(/"GAIN":(\{[^}]*\})/), G = gm ? JSON.parse(gm[1]) : null;
+  const heardAt = G && [sm.audio.phone_rms_db + G.song, hp.audio.phone_rms_db + G.his, h2.audio.phone_rms_db + G.two];
+  ok('  the page plays all three equally loud on a phone (inside 0.5 dB, only ever turned down)', !!G && G.song <= 0 && G.his <= 0 && G.two <= 0 && Math.max.apply(null, heardAt) - Math.min.apply(null, heardAt) <= 0.5, G ? heardAt.map(x => x.toFixed(2)).join(' / ') + ' dB' : 'no GAIN');
   const it = REG.items.find(i => i.id === (c && c.id));
   ok('  in the registry with a sha, the page its show', !!it && !!it.sha && it.kind === 'song' && it.show && it.show.src === c.show.src, it ? it.sha : 'not registered');
 }

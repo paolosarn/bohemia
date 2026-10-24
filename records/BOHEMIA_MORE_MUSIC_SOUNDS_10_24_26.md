@@ -44,6 +44,12 @@ SONGS_TABLE
   out of key; engine/bohemia_machine_party.js now takes machine.motor.transpose (absent = 0, so REPO MAN plays exactly
   as before; its own gate is the proof).
 
+- His engine plays his SLOW BLEED and SLOW CREEP past full scale with no limiter: recorded at gain 1 they clipped
+  468,029 and 770,155 samples, so three cards would have played a distorted canon song. Each song that clips is now
+  recorded again 6 dB down until it does not (the gain is in his_night_songs/measured.json), and the new song is matched
+  to the file as heard. A second consequence: on a page whose C song sits louder than its A and B, the page turns each
+  button down to the quietest of the three through a phone (never up), so A, B and C play inside 0.5 dB of each other.
+
 ## EYES
 Rule 119(c) wants EYES AND EARS' one line (same game? analog horror?) before VOTE. EYES is running (rule 150) and its
 row [the new song beside his songs] is open. Rule 158(d) (10/24, newer) and this round's brief put each song in the VOTE
