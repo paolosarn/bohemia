@@ -45,13 +45,13 @@
   var DAY_LINES = ["Hot one today, eh.", "Where's Chuy at?", "That stall's out again.", "Watch the fence tonight.", "They paid you yet?",
     "Two batteries, that's it.", "Water's late again.", "Same as always.", "Busy, busy.", "You see the price on that?", "Almost done here."];
   var DAY_ES = ["Órale, ¿qué onda?", "Ya mero, carnal.", "Two batteries, no más.", "Ni modo, pues.", "Mira nomás.", "Ándale, ándale."];
-  var DAY_ANSWERS = ["Mm.", "Yeah.", "Yeah, yeah.", "Right.", "I know."], DAY_ANSWERS_ES = ["Sí, sí.", "Pues sí.", "Ya sé.", "Órale."];
+  var DAY_ANSWERS = ["Mm.", "Yeah.", "Yeah, yeah.", "Right.", "I know."], DAY_ANSWERS_ES = ["Sí, sí.", "Pues sí.", "Ya sé.", "Órale, pues."];
   var NIGHT_LINES = ["Shh. Lights off.", "You hear that?", "Stay off the road.", "Something's out past the wash.", "Keep it down.",
     "Don't look at it.", "Who's walking out there?"];
-  var NIGHT_ES = ["Stay off the road, mijo.", "Cállate. Lights off."];
+  var NIGHT_ES = ["Stay off the road, mijo.", "Cállate, mijo. Lights off."];
   var NIGHT_ANSWERS = ["Mm.", "Shh.", "No.", "Go inside."], NIGHT_ANSWERS_ES = ["Shh. Ya.", "Ándale, inside."];
-  var GREET_DAY = ["Still open?", "Hey.", "Afternoon.", "Hey, you made it."], GREET_DAY_ES = ["Buenas.", "¿Qué tal, jefe?", "Ey, buenas tardes."];
-  var GREET_NIGHT = ["Lock it tonight.", "Evening."], GREET_NIGHT_ES = ["Buenas noches."];
+  var GREET_DAY = ["Still open?", "Hey.", "Afternoon.", "Hey, you made it."], GREET_DAY_ES = ["Buenas, mijo.", "¿Qué tal, jefe?", "Buenas tardes, compa."];
+  var GREET_NIGHT = ["Lock it tonight.", "Evening."], GREET_NIGHT_ES = ["Buenas noches, mija."];
   var DARK_LINES = ["Come out here.", "I know you're awake.", "Open up, it's only me.", "Mijo. Mijo, over here."];
   /* the twin bank for each bank; a line is said from the twin on the face's roll */
   function spBank(L){ return L === DAY_LINES ? DAY_ES : L === DAY_ANSWERS ? DAY_ANSWERS_ES : L === NIGHT_LINES ? NIGHT_ES : L === NIGHT_ANSWERS ? NIGHT_ANSWERS_ES

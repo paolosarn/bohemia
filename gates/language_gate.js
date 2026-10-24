@@ -603,6 +603,135 @@ ok('and the card says what they speak, without you having to ask', !!speaks, spe
    module at all. That is two good guard rails leaving a gap between them.
    VERIFY ON THE REAL SURFACE: check the shipped bytes, not the engine's.
    ========================================================================== */
+/* ==========================================================================
+   H. *** TEN TO FIFTEEN PERCENT OF SPOKEN LINES, ROLLED PER LINE (Paolo 10/24,
+   rule 143a, LOCKED) ***
+   "I mentioned it one time that I want like 10% of spoken conversation being
+    Spanglish, and now all my crew members are in Spanglish; it should be 10 to
+    15% randomized... it's shoving it in my face."
+   MEASURED BEFORE THIS LEG: the veteran who teaches every fight said 10 of his
+   13 lines in Spanglish, the keepers' five price lines 5 of 5, the town's day
+   mutters 6 of 11. The dial lived on the PERSON; it lives on the LINE now
+   (engine/bohemia_spanglish.js) and this is the long play that holds it:
+   every mouth the game has, thousands of lines, counted with the one ruler
+   (esWordsIn), overall 10 to 15, each mouth near it, some people leaning,
+   never the player.
+   ========================================================================== */
+head('H. TEN TO FIFTEEN PERCENT, ROLLED PER LINE, NEVER THE PLAYER (Paolo 10/24)');
+(function () {
+  global.window = global.window || global;
+  var SPG = require(ROOT + '/engine/bohemia_spanglish.js');
+  global.BohemiaSpanglish = SPG;
+  SPG.setSeed(20261024);
+  var fightSrc = fs.readFileSync('slices/BOHEMIA_FIGHT.html', 'utf8');
+  var settleSrc = fs.readFileSync('slices/BOHEMIA_SETTLEMENT_SCREEN.html', 'utf8');
+  var busySrc = fs.readFileSync('slices/bohemia_busy_heard.js', 'utf8');
+  function carries(t) { return P.esWordsIn(t).length > 0; }
+
+  /* the lines each mouth holds, read off the files that ship */
+  var tm = fightSrc.match(/const TEACH = \{[^\n]*\n([\s\S]*?)\n\};/);
+  var TEACH = [];
+  if (tm) tm[1].replace(/^\s*(\w+):\s*'((?:\\'|[^'])*)'/gm, function (_m, k, v) { TEACH.push([k, v.replace(/\\'/g, "'")]); });
+  ok('the veteran\'s lines were read off the fight', TEACH.length >= 10, TEACH.length + ' lines');
+  var KEEP = [], km, kre = /(["'])((?:\\.|(?!\1)[^\\\n]){12,300})\1/g;
+  while ((km = kre.exec(settleSrc))) {
+    var kt = km[2];
+    if (/[<>{}=;_]|\bfunction\b|\+/.test(kt) || !/^[A-Z][^]*[.!?]$/.test(kt) || !/[a-z] [a-z]/.test(kt)) continue;
+    if (/^[A-Z\s.,']+$/.test(kt)) continue;
+    KEEP.push(kt);
+  }
+  ok('the keepers\' lines were read off the settlement screen', KEEP.length > 30, KEEP.length + ' lines');
+
+  /* WIRED: every surface he plays loads the dial and calls it */
+  ok('the fight loads the dial and the veteran speaks through it',
+    /src="\.\.\/engine\/bohemia_spanglish\.js"/.test(fightSrc) && /BohemiaSpanglish\.say\(v\.id \|\| v\.name, TEACH\[k\]/.test(fightSrc));
+  ok('the settlement screen loads the dial and every keeper speaks through it',
+    /src="\.\.\/engine\/bohemia_spanglish\.js"/.test(settleSrc) && /function speak\(k, line\)\{[\s\S]{0,300}BohemiaSpanglish\.say\(/.test(settleSrc));
+  ok('the town\'s mutters pick their twin on the dial\'s roll', /BohemiaSpanglish\.roll\('face:'/.test(busySrc));
+
+  /* THE OFF SWITCH EXISTS FOR EVERY LINE: the plain English under a Spanglish
+     line carries no Spanish, or the dial could never say it plain */
+  var stuck = [];
+  TEACH.forEach(function (t) { if (carries(SPG.plain(t[1]))) stuck.push(t[1]); });
+  KEEP.forEach(function (t) { if (carries(t) && carries(SPG.plain(t))) stuck.push(t); });
+  ok('every Spanglish line the veteran and the keepers hold has a plain English twin', stuck.length === 0,
+    stuck.length ? stuck.slice(0, 3).join(' | ') : (TEACH.length + KEEP.length) + ' lines');
+
+  /* THE LONG PLAY: every mouth, many speakers, many lines */
+  var mouths = {}, perSpeaker = {};
+  function count(m, who, line) {
+    if (line == null) return;
+    var c = mouths[m] || (mouths[m] = { n: 0, es: 0 }); c.n++;
+    var sp = perSpeaker[who] || (perSpeaker[who] = { n: 0, es: 0 }); sp.n++;
+    if (carries(line)) { c.es++; sp.es++; }
+  }
+  var R = (function () { var v = 20261024; return function () { v = (Math.imul(v, 1664525) + 1013904223) >>> 0; return v / 4294967296; }; })();
+  /* the veteran: 1,200 plays, a fresh veteran each, his lines once each (taught once a phone) */
+  for (var pv = 0; pv < 1200; pv++) TEACH.forEach(function (t) { count('fight veteran', 'vet' + pv, SPG.say('vet' + pv, t[1], 'teach:' + t[0])); });
+  /* the keepers: 40 places, 8 keepers each, 60 lines a keeper over the play */
+  var KK = ['arms', 'smith', 'armourer', 'bar', 'clinic', 'board', 'barber', 'hall'];
+  for (var pl = 0; pl < 40; pl++) KK.forEach(function (k) {
+    var who = 'keeper:' + k + ':place' + pl;
+    for (var kl = 0; kl < 60; kl++) count('settlement keepers', who, SPG.say(who, KEEP[Math.floor(R() * KEEP.length)], 'settle:' + k));
+  });
+  /* the town's mutters: 400 faces, 30 mutters each, day and night banks */
+  var BH = null; try { require(ROOT + '/slices/bohemia_busy_heard.js'); BH = global.BohemiaBusyHeard; } catch (e) { BH = null; }
+  ok('the town\'s mutter pick is reachable for the count', !!(BH && BH.lineOf && BH.BANKS));
+  if (BH && BH.lineOf) {
+    var banks = ['day', 'dayAnswers', 'night', 'nightAnswers', 'greetDay', 'greetNight'];
+    for (var fc = 0; fc < 400; fc++) for (var ml = 0; ml < 30; ml++) {
+      var who = { look: 'look' + fc }, bk = BH.BANKS[banks[ml % banks.length]];
+      count('town mutters', 'face:look' + fc, BH.lineOf(bk, who, R));
+    }
+  }
+  /* the valley's people: 600 derived people, 25 speakings each, in their own register */
+  var acts = ['work', 'home', 'free', 'errand', 'watch', 'sleep', 'scav'];
+  for (var vp = 0; vp < 600; vp++) {
+    var person = P.personOf(9000 + vp, { id: 'H' + (vp % 14 + 1) + '-1', seed: vp * 7 + 1, role: ['worker', 'keeper', 'scav', 'watch'][vp % 4] }, { householdSize: 3, asked: true });
+    for (var sk = 0; sk < 25; sk++) {
+      var ls = P.linesFor(person, { at: acts[sk % acts.length] });
+      count('valley people', 'person' + vp, ls && ls.length ? ls[Math.floor(R() * ls.length)] : null);
+    }
+  }
+  /* the quirks: 800 people, 10 tellings each, in their register */
+  var Q = null; try { Q = require(ROOT + '/engine/bohemia_quirk.js'); } catch (e) { Q = null; }
+  if (Q) for (var qp = 0; qp < 800; qp++) {
+    var qwho = { id: 'q' + qp, key: 'q' + qp, seed: qp };
+    var qlang = P.langOf(qp * 31 + 7, 'P:' + qp + ':H1-1');
+    qwho.lang = qlang;
+    for (var qt = 0; qt < 10; qt++) count('quirks', 'q' + qp, Q.lineFor(qwho, qt % 2 === 1, qlang));
+  }
+  /* the hostile crews' button: 6,000 corners */
+  var HO = null; try { HO = require(ROOT + '/engine/bohemia_hostiles.js'); } catch (e) { HO = null; }
+  if (HO) for (var hx = 0; hx < 6000; hx++) { var wd = HO.words({ why: hx % 2 ? 'you' : 'odds', at: [hx % 97, Math.floor(hx / 97)] }); count('hostile button', 'crew' + hx, wd && wd.text); }
+
+  var tot = { n: 0, es: 0 };
+  Object.keys(mouths).forEach(function (m) {
+    var c = mouths[m], share = c.es / c.n * 100; tot.n += c.n; tot.es += c.es;
+    ok('  ' + m + ' speaks Spanglish near the dial (7 to 18 percent)', share >= 7 && share <= 18,
+      share.toFixed(1) + '% of ' + c.n + ' lines');
+  });
+  var all = tot.es / tot.n * 100;
+  ok('*** OVER THE LONG PLAY, 10 TO 15 PERCENT OF EVERY SPOKEN LINE IS SPANGLISH (Paolo 10/24) ***',
+    all >= 10 && all <= 15 && tot.n > 50000, all.toFixed(1) + '% of ' + tot.n + ' lines, ' + Object.keys(mouths).length + ' mouths');
+
+  /* SOME PEOPLE LEAN MORE: a speaker's share, among those heard enough to know */
+  var shares = Object.keys(perSpeaker).filter(function (w) { return perSpeaker[w].n >= 25; })
+    .map(function (w) { return perSpeaker[w].es / perSpeaker[w].n; }).sort(function (a, b) { return a - b; });
+  var med = shares[Math.floor(shares.length / 2)], top = shares[Math.floor(shares.length * 0.9)];
+  ok('some people lean to it more: the top tenth says it well over twice as often as the middle',
+    shares.length > 500 && top >= med * 2.5 && top >= 0.2,
+    shares.length + ' speakers, middle ' + (med * 100).toFixed(0) + '%, top tenth ' + (top * 100).toFixed(0) + '%');
+  ok('and nobody says every line in it (randomized per line, never a whole voice)',
+    shares[shares.length - 1] < 0.9, 'most ' + (shares[shares.length - 1] * 100).toFixed(0) + '%');
+
+  /* NEVER THE PLAYER (first votes 9/21, rule 27) */
+  var pl1 = SPG.say('you', 'Ándale. Drag a man to where you want him, mijo.', 'p');
+  var pl2 = SPG.say({ player: true }, 'Walk up and hit it.', 'p');
+  ok('the player never says it, however a line was written', !carries(pl1) && !carries(pl2) && SPG.regFor('player', 'x', 'spanglish') === 'en',
+    pl1 + ' / ' + pl2);
+})();
+
 head('F. THE SHIPPED FRAMES CARRY THE CURRENT MODULE');
 [['slices/BOHEMIA_RUN_CURRENT.html', 'the RUN frame'],
  ['slices/BOHEMIA_CITY_WORLD.html', 'the CITY frame']].forEach(function (pair) {
