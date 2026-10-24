@@ -94,7 +94,10 @@
   var RE_CALL = new RegExp(',\\s*(?:' + CALLS.join('|') + ')(?=\\s*[.!?,;:]|\\s*$)', 'gi');
   var RE_PHRASE = [
     [/,?\s*gracias a Dios/gi, ', thank God'],
-    [/\bgracias\b/gi, 'thanks']
+    [/,\s*ya sabes(?=\s*[.!?]|\s*$)/gi, ''],
+    [/\bno más\b/gi, 'that\'s it'],
+    [/\bGracias\b/g, 'Thanks'],
+    [/\bgracias\b/g, 'thanks']
   ];
   /* the tag words, for a quick "does this still carry Spanish" read where the
      people engine's lexicon is not loaded (the fight, the settlement screen) */

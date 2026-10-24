@@ -39,15 +39,27 @@
   };
   var DAY = ['crate', 'hammer', 'pot', 'broom'], NIGHT_REST = ['fire', 'crate'];
   var NIGHT_TRIM = 0.6;   /* the valley is quieter after dark (the screen's NIGHT_TRIM for its buildings is 0.5); the watchman's boots are not trimmed: they are the night */
-  /* draft:true, never shown: the squiggle's letters (they speak Spanglish; the player does not, the first votes) */
-  var DAY_LINES = ["Órale, ¿qué onda?", "Ya mero, carnal.", "Hot one today, eh.", "Two batteries, no más.", "Where's Chuy at?",
-    "Ni modo, pues.", "That stall's out again.", "Watch the fence tonight.", "Mira nomás.", "They paid you yet?", "Ándale, ándale."];
-  var DAY_ANSWERS = ["Mm.", "Sí, sí.", "Yeah.", "Pues sí.", "Ya sé.", "Órale."];
-  var NIGHT_LINES = ["Shh. Lights off.", "You hear that?", "Stay off the road, mijo.", "Something's out past the wash.", "Keep it down.",
+  /* draft:true, never shown: the squiggle's letters (the player does not speak Spanglish, the first votes). WORDS [spanglish at
+     ten percent] (rule 143a, Paolo 10/24: 'it should be 10 to 15% randomized'): every bank is English with a Spanglish twin, and the
+     twin is said on BohemiaSpanglish's roll for that face (about 1 in 8, some lean more); 6 of 11 day lines were Spanish before */
+  var DAY_LINES = ["Hot one today, eh.", "Where's Chuy at?", "That stall's out again.", "Watch the fence tonight.", "They paid you yet?",
+    "Two batteries, that's it.", "Water's late again.", "Same as always.", "Busy, busy.", "You see the price on that?", "Almost done here."];
+  var DAY_ES = ["Órale, ¿qué onda?", "Ya mero, carnal.", "Two batteries, no más.", "Ni modo, pues.", "Mira nomás.", "Ándale, ándale."];
+  var DAY_ANSWERS = ["Mm.", "Yeah.", "Yeah, yeah.", "Right.", "I know."], DAY_ANSWERS_ES = ["Sí, sí.", "Pues sí.", "Ya sé.", "Órale."];
+  var NIGHT_LINES = ["Shh. Lights off.", "You hear that?", "Stay off the road.", "Something's out past the wash.", "Keep it down.",
     "Don't look at it.", "Who's walking out there?"];
-  var NIGHT_ANSWERS = ["Mm.", "Shh.", "No.", "Go inside."];
-  var GREET_DAY = ["Buenas.", "¿Qué tal, jefe?", "Ey, buenas tardes.", "Still open?"], GREET_NIGHT = ["Buenas noches.", "Lock it tonight."];
+  var NIGHT_ES = ["Stay off the road, mijo.", "Cállate. Lights off."];
+  var NIGHT_ANSWERS = ["Mm.", "Shh.", "No.", "Go inside."], NIGHT_ANSWERS_ES = ["Shh. Ya.", "Ándale, inside."];
+  var GREET_DAY = ["Still open?", "Hey.", "Afternoon.", "Hey, you made it."], GREET_DAY_ES = ["Buenas.", "¿Qué tal, jefe?", "Ey, buenas tardes."];
+  var GREET_NIGHT = ["Lock it tonight.", "Evening."], GREET_NIGHT_ES = ["Buenas noches."];
   var DARK_LINES = ["Come out here.", "I know you're awake.", "Open up, it's only me.", "Mijo. Mijo, over here."];
+  /* the twin bank for each bank; a line is said from the twin on the face's roll */
+  function spBank(L){ return L === DAY_LINES ? DAY_ES : L === DAY_ANSWERS ? DAY_ANSWERS_ES : L === NIGHT_LINES ? NIGHT_ES : L === NIGHT_ANSWERS ? NIGHT_ANSWERS_ES
+    : L === GREET_DAY ? GREET_DAY_ES : L === GREET_NIGHT ? GREET_NIGHT_ES : null; }
+  function lineOf(L, who, R){
+    var es = spBank(L), sp = es && (window.BohemiaSpanglish ? window.BohemiaSpanglish.roll('face:' + (who && who.look), 'mutter') : R() < 0.125);
+    var B = sp ? es : L; return B[Math.floor(R()*B.length)];
+  }
   var GAP = { day:9000, market:7000, night:16000 };   /* now and then: a few words every ten seconds at most by day, rarer after dark */
   var ONLY = null;   /* a measurement may hear one half alone: 'jobs' or 'talk' */
   var CHANCE = { day:0.6, night:0.45 }, ANSWER = { day:0.6, night:0.3 };
@@ -150,7 +162,7 @@
     var S = squiggle(k && k.AC); if(!S || !k) return null;
     var BV = window.BOH_VOICE, AC = k.AC, nt = !!ctx.night;
     var L = greet ? (nt ? GREET_NIGHT : GREET_DAY) : nt ? NIGHT_LINES : DAY_LINES, A = nt ? NIGHT_ANSWERS : DAY_ANSWERS;
-    var line = L[Math.floor(R()*L.length)], mood = nt ? {arousal:-0.7, valence:-0.4} : undefined;
+    var line = lineOf(L, a, R), mood = nt ? {arousal:-0.7, valence:-0.4} : undefined;
     var when = AC.currentTime + (t0 + Math.ceil((now - t0 + 60) / BEAT) * BEAT - now) / 1000;   /* on the next beat */
     var out = [];
     function say(who, text, at){
@@ -164,7 +176,7 @@
     var h1 = say(a, line, when); if(!h1) return null;
     if(b && R() < (nt ? ANSWER.night : ANSWER.day)){
       var at2 = when + Math.min(h1.tail || h1.seconds, h1.seconds + 0.6) + 0.5; at2 = AC.currentTime + Math.ceil((at2 - AC.currentTime) / 0.5) * 0.5;   /* a beat after, on the grid */
-      say(b, A[Math.floor(R()*A.length)], at2);
+      say(b, lineOf(A, b, R), at2);
     }
     return out;
   }
