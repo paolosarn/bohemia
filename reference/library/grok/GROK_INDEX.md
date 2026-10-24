@@ -86,3 +86,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_35_WORLD_FRESH_2026_10_24.md | world generation, fresh start
 - 2026-10-24 | ASK | GROK_ASK_36_CITY_SIGHT_2026_10_24.md | city sight, encounter card, retinue
 - 2026-10-24 | ASK | GROK_ASK_37_VIRAL_LOOK_2026_10_24.md | viral look, shareable moments
+- 2026-10-24 | ASK | GROK_ASK_38_MAP_SIZE_2026_10_24.md | map size, diameter, hex count
