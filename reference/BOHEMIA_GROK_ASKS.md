@@ -38,6 +38,14 @@
 #    fights, exactly: the hit flash, blood spray by damage, blood decals on tiles and how long they stay, the pool under the fallen,
 #    corpses and what they keep, dropped gear, severed heads, what the undead and beasts leave instead. Cite the page, or say the
 #    page does not say.
+# ASK 34. THE FIRST MINUTES THAT MAKE A PLAYER CARE (rule 146, his words: 'we have a short amount of time to make people really give a
+#    fuck... understand what's going on, each play unique... whether we get a cutscene or a text box or straight into the journey...
+#    depending on our origin... search up online what people want'). What do studies and the best games say makes a player care about
+#    a new playthrough in the first five minutes? Give sources. How does Battle Brothers start each origin, and how do the best
+#    run-based and sandbox games open (cutscene, text, straight in)? Rank what works.
+# ASK 35. A WORLD THAT FEELS MADE FRESH (rule 146: 'I'm not getting procedurally generated world vibes; every time I start new I spawn
+#    next to the church settlement'). How does Battle Brothers generate its world and choose the start (settlement placement, roads,
+#    factions, names)? What makes players FEEL a world is new at the first look? Cite each.
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
