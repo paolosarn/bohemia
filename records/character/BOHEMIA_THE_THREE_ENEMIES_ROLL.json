@@ -1,0 +1,396 @@
+[
+ {
+  "id": "mechanic_0",
+  "gang": "Mechanic",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "legs": "PATCHED WORK PANTS",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SCAV TOOL BELT",
+   "SOOT GLOVES"
+  ],
+  "type": "Mechanic",
+  "top": "WORK COVERALLS",
+  "coat": "SPLIT-TAIL WORK COAT",
+  "hat": "WELDER UP",
+  "pieces": [
+   "cables"
+  ],
+  "dials": {
+   "height": 0.35,
+   "belly": -0.15,
+   "shoulders": 0.1,
+   "hips": -0.1
+  }
+ },
+ {
+  "id": "mechanic_1",
+  "gang": "Mechanic",
+  "heritage": "mixed",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "legs": "SOOT CARGOS",
+  "feet": "DUST BROWN BOOTS",
+  "kit": [
+   "SOOT TOOL BELT",
+   "LEATHER GLOVES",
+   "WORK SUSPENDERS"
+  ],
+  "type": "Mechanic",
+  "top": "ROLLED WORK SHIRT",
+  "coat": "LEATHER SPLIT-TAIL COAT",
+  "hat": "WELDER UP",
+  "pieces": [
+   "cables"
+  ],
+  "dials": {
+   "height": 0.1,
+   "belly": 0.3,
+   "shoulders": 0.25,
+   "hips": 0.05
+  }
+ },
+ {
+  "id": "mechanic_2",
+  "gang": "Mechanic",
+  "heritage": "black",
+  "tone": "ebony",
+  "skin": [
+   "skin_mid",
+   1
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "eyes.gap": 3,
+   "nose.w": 2,
+   "face.noseY": -1,
+   "face.len": 37,
+   "face.chinW": 15,
+   "face.jawW": 24,
+   "face.cheekW": 28
+  },
+  "face_name": "HAWK",
+  "mark_name": "BROKEN NOSE",
+  "mark": "broken_nose",
+  "legs": "SLATE WORK PANTS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "SCAV TOOL BELT",
+   "SALVAGE SATCHEL",
+   "SOOT GLOVES"
+  ],
+  "type": "Mechanic",
+  "top": "STEEL WORK SHIRT",
+  "coat": "RUST WORK COAT",
+  "hat": "WELDER UP",
+  "pieces": [
+   "cables"
+  ],
+  "dials": {
+   "height": 0.55,
+   "belly": -0.4,
+   "shoulders": -0.1,
+   "hips": -0.2
+  }
+ },
+ {
+  "id": "runner_0",
+  "gang": "Runners",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "SPRING CURLS",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "legs": "DROP RISE TROUSER",
+  "feet": "GREY SNEAKERS",
+  "kit": [
+   "TRAILING SCARF",
+   "HAND WRAPS"
+  ],
+  "type": "Runners",
+  "top": "HOOD-UP COAL HOODIE",
+  "eyewear": "FACE ASH FACE WRAP",
+  "pieces": [
+   "sling"
+  ],
+  "dials": {
+   "height": -0.85,
+   "belly": -0.55,
+   "shoulders": -0.55,
+   "hips": -0.1
+  }
+ },
+ {
+  "id": "runner_1",
+  "gang": "Runners",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": null,
+  "face_name": "THE STARRED FACE",
+  "legs": "GREY SWEATS",
+  "feet": "WHITE SNEAKERS",
+  "kit": [
+   "SALVAGE SATCHEL",
+   "SOOT HAND WRAPS"
+  ],
+  "type": "Runners",
+  "top": "LAYERED JERSEY",
+  "coat": "STORM JACKET",
+  "eyewear": "FACE OUTLAW BANDANA",
+  "pieces": [
+   "sling"
+  ],
+  "dials": {
+   "height": -0.6,
+   "belly": -0.45,
+   "shoulders": -0.45,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "runner_2",
+  "gang": "Runners",
+  "heritage": "black",
+  "tone": "ebony",
+  "skin": [
+   "skin_mid",
+   1
+  ],
+  "hair_cut": "STATIC",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "legs": "BLACK CARGOS",
+  "feet": "BONE SNEAKERS",
+  "kit": [
+   "OXBLOOD SATCHEL",
+   "HAND WRAPS"
+  ],
+  "type": "Runners",
+  "top": "ASH HOODIE",
+  "coat": "DENIM VEST",
+  "eyewear": "FACE FACE WRAP",
+  "pieces": [
+   "sling"
+  ],
+  "dials": {
+   "height": -1.0,
+   "belly": -0.5,
+   "shoulders": -0.6,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "heavy_0",
+  "gang": "Heavy",
+  "heritage": "black",
+  "tone": "onyx",
+  "skin": [
+   "skin_light",
+   0
+  ],
+  "hair_cut": "HORSESHOE",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "legs": "SLATE WORK PANTS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "SCAV KNEEPADS",
+   "LEATHER GLOVES"
+  ],
+  "type": "Heavy",
+  "top": "WORK COVERALLS",
+  "coat": "QUILTED VEST",
+  "eyewear": "FACE RUBBER GAS MASK",
+  "pieces": [
+   "exo",
+   "crashbar"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": 0.85,
+   "shoulders": 1.0,
+   "hips": 0.3
+  }
+ },
+ {
+  "id": "heavy_1",
+  "gang": "Heavy",
+  "heritage": "black",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "mark_name": "LIP SCAR",
+  "scar": "lip",
+  "legs": "KHAKI CARGOS",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SOOT GLOVES",
+   "SOOT GORGET"
+  ],
+  "type": "Heavy",
+  "top": "STEEL WORK SHIRT",
+  "coat": "TACTICAL VEST",
+  "hat": "HAT SCRAP HELM",
+  "pieces": [
+   "exo",
+   "crashbar"
+  ],
+  "dials": {
+   "height": 0.1,
+   "belly": 1.0,
+   "shoulders": 0.9,
+   "hips": 0.4
+  }
+ },
+ {
+  "id": "heavy_2",
+  "gang": "Heavy",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "legs": "SOOT CARGOS",
+  "feet": "RUST BOOTS",
+  "kit": [
+   "STEEL SHIN GUARDS",
+   "LEATHER GLOVES"
+  ],
+  "type": "Heavy",
+  "top": "OLIVE DRAB TEE",
+  "coat": "LEATHER VEST",
+  "eyewear": "FACE SHIELD VISOR",
+  "pieces": [
+   "exo",
+   "crashbar"
+  ],
+  "dials": {
+   "height": 0.45,
+   "belly": 0.6,
+   "shoulders": 1.0,
+   "hips": 0.2
+  }
+ }
+]
