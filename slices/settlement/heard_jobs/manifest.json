@@ -1,0 +1,227 @@
+{
+ "_readme": "RUN TWO [the busy town talks] 10/24: one event per file, played on the beat by slices/BOHEMIA_SETTLEMENT_SCREEN.html (BUSY_HEARD). Every source is CC0 at Freesound through ESC-50, from SOUNDS' bank, through SOUNDS' chain (tools/bohemia_from_a_recording.py), outdoors. Made by tools/bohemia_run2_job_sounds.py.",
+ "lane": "RUN TWO",
+ "made": "10/24/26",
+ "clips": [
+  {
+   "id": "crate_a",
+   "job": "crate",
+   "what": "a crate set down on dirt: a real big wood door knock, slowed into a heavy box landing",
+   "seconds": 0.968,
+   "peak_db": -3.52,
+   "sources": [
+    {
+     "stem": "2-133889-A-30",
+     "window": [
+      0.2,
+      0.8
+     ],
+     "speed": 0.62,
+     "author": "aroth4",
+     "freesound": "http://www.freesound.org/people/aroth4/sounds/133889/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "crate_b",
+   "job": "crate",
+   "what": "a second crate, a real knock on a drum shell slowed into a lighter box",
+   "seconds": 0.345,
+   "peak_db": -3.33,
+   "sources": [
+    {
+     "stem": "1-103995-A-30",
+     "window": [
+      0.0,
+      0.2
+     ],
+     "speed": 0.58,
+     "author": "RutgerMuller",
+     "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/103995/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "hammer_a",
+   "job": "hammer",
+   "what": "one hammer strike on a board: a real door knock, the first of four",
+   "seconds": 0.2,
+   "peak_db": -3.33,
+   "sources": [
+    {
+     "stem": "5-235644-A-30",
+     "window": [
+      0.13,
+      0.33
+     ],
+     "speed": 1.0,
+     "author": "Coonick",
+     "freesound": "http://www.freesound.org/people/Coonick/sounds/235644/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "hammer_b",
+   "job": "hammer",
+   "what": "one hammer strike, a different knock of the same hand, so two strikes never match",
+   "seconds": 0.179,
+   "peak_db": -3.43,
+   "sources": [
+    {
+     "stem": "5-235644-A-30",
+     "window": [
+      0.5,
+      0.69
+     ],
+     "speed": 1.06,
+     "author": "Coonick",
+     "freesound": "http://www.freesound.org/people/Coonick/sounds/235644/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "pot_a",
+   "job": "pot",
+   "what": "a pot on a grate: a real heavy can set down, slowed into a cooking pot",
+   "seconds": 0.513,
+   "peak_db": -2.82,
+   "sources": [
+    {
+     "stem": "5-252248-A-34",
+     "window": [
+      0.05,
+      0.45
+     ],
+     "speed": 0.78,
+     "author": "Reitanna",
+     "freesound": "http://www.freesound.org/people/Reitanna/sounds/252248/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "pot_b",
+   "job": "pot",
+   "what": "a lid on the pot: a real soda can's tab, slowed into a tin lid",
+   "seconds": 0.306,
+   "peak_db": -2.27,
+   "sources": [
+    {
+     "stem": "2-144031-A-34",
+     "window": [
+      0.02,
+      0.24
+     ],
+     "speed": 0.72,
+     "author": "timgormly",
+     "freesound": "http://www.freesound.org/people/timgormly/sounds/144031/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "broom_a",
+   "job": "broom",
+   "what": "one broom stroke: a real sneaker scuffing gravel, the low end taken off so it is bristles",
+   "seconds": 0.32,
+   "peak_db": -3.66,
+   "sources": [
+    {
+     "stem": "4-218304-B-25",
+     "window": [
+      1.1,
+      1.42
+     ],
+     "speed": 1.0,
+     "author": "MentalSanityOff",
+     "freesound": "http://www.freesound.org/people/MentalSanityOff/sounds/218304/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "broom_b",
+   "job": "broom",
+   "what": "the stroke back, another scuff of the same gravel",
+   "seconds": 0.362,
+   "peak_db": -3.69,
+   "sources": [
+    {
+     "stem": "4-218304-B-25",
+     "window": [
+      2.04,
+      2.38
+     ],
+     "speed": 0.94,
+     "author": "MentalSanityOff",
+     "freesound": "http://www.freesound.org/people/MentalSanityOff/sounds/218304/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "boot_a",
+   "job": "guard",
+   "what": "the night guard's boot: a real step on a factory hall's concrete",
+   "seconds": 0.283,
+   "peak_db": -3.29,
+   "sources": [
+    {
+     "stem": "1-155858-E-25",
+     "window": [
+      0.36,
+      0.62
+     ],
+     "speed": 0.92,
+     "author": "RutgerMuller",
+     "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/155858/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "boot_b",
+   "job": "guard",
+   "what": "his other boot, the next step of the same walker",
+   "seconds": 0.283,
+   "peak_db": -3.34,
+   "sources": [
+    {
+     "stem": "1-155858-E-25",
+     "window": [
+      0.9,
+      1.16
+     ],
+     "speed": 0.92,
+     "author": "RutgerMuller",
+     "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/155858/",
+     "licence": "CC0"
+    }
+   ]
+  },
+  {
+   "id": "fire",
+   "job": "fire",
+   "what": "a cook fire after dark: a real fire crackling, two seconds of it",
+   "seconds": 2.2,
+   "peak_db": -5.18,
+   "sources": [
+    {
+     "stem": "4-181563-A-12",
+     "window": [
+      0.4,
+      2.6
+     ],
+     "speed": 1.0,
+     "author": "kingsrow",
+     "freesound": "http://www.freesound.org/people/kingsrow/sounds/181563/",
+     "licence": "CC0"
+    }
+   ]
+  }
+ ]
+}
