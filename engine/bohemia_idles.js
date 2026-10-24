@@ -141,6 +141,9 @@
   }
   root.BohemiaIdles = { load: load, ready: ready, has: has, at: at, cell: cell, gun: gun, frame: frame, hash: hash, DIRS: DIRS,
     image: sheet, map: map, mapPeople: mapPeople,
-    meta: function () { return META; } };
+    meta: function () { return META; },
+    /* __THE_TOWN_LETS_GO__ (RUN 10/24, rule 141(e)): a screen that is put away lets go of every sheet it drew from (the town's
+       idles were 188 MB decoded across three places and none was ever let go); the next frame() fetches what it needs again */
+    release: function () { IM = {}; } };
   if (typeof module !== 'undefined') module.exports = root.BohemiaIdles;
 })(typeof window !== 'undefined' ? window : this);

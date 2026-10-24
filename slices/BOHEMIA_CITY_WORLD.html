@@ -45506,9 +45506,8 @@ function mapIdleFrame(set, face, beat, still){
   if (!c) {
     var m = set.__mix ? RIG_MIX.sheets[set.__mix].meta : (L.sheet === 'people' ? RIG_PEOPLE : RIG_CAST).meta;
     var q = (L.file && M.files ? M.files[L.file] : M.cells)[ci], H = still.height;
-    c = MAP_IDLE_CV[key] = document.createElement('canvas'); c.width = still.width; c.height = H;
-    var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-    x.drawImage(img, q[0], q[1], q[2], q[3], 56 - m.w / 2 + q[4], Math.round(H * 0.93) - m.foot + q[5], q[2], q[3]);
+    /* __THE_MAP_DRAWS_FROM_THE_SHEET__: the pose's rectangle on the idles sheet, not a canvas kept forever */
+    c = MAP_IDLE_CV[key] = rigFrame(img, q[0], q[1], q[2], q[3], 56 - m.w / 2 + q[4], Math.round(H * 0.93) - m.foot + q[5], still.width, H);
   }
   if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.idling = (MAP_DREW.art.idling | 0) + 1; if (set.__mix) MAP_DREW.art.idlingMix = (MAP_DREW.art.idlingMix | 0) + 1; }
   return c;
@@ -45527,7 +45526,7 @@ function mapPersonDraw(set, face, beat, sx, footY, walkPh){
     g.fillStyle = 'rgba(10,8,6,0.45)';
     g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill(); }
   g.imageSmoothingEnabled = false;
-  g.drawImage(fr, mapSnap(sx - w / 2), mapSnap(footY - h * 0.93), w, h);
+  rigBlit(fr, mapSnap(sx - w / 2), mapSnap(footY - h * 0.93), w, h);   /* __THE_MAP_DRAWS_FROM_THE_SHEET__ */
   return { w: w, h: h * 0.93 };
 }
 /* a flag on a pole: the faction's colour, a dark edge, a fold that moves with the beat */
@@ -45572,6 +45571,38 @@ function mapPartyFace(p){
    mapPersonDraw draws it at the cast's size (one art pixel to two phone pixels): the body is the same height as
    the people beside it. All thirteen walk (10/19, CHARACTER's walk of every look, his YES: 728 frames, 895 KB). */
 var RIG_CAST = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
+/* ==== __THE_MAP_DRAWS_FROM_THE_SHEET__ (RUN 10/24/26, row [the crash and the save], rule 141: 'I didn't like the game
+   crashing'). MEASURED on his phone's profile (tools/bohemia_run_the_crash_hunt.js): the map held 3,590 canvases, 284 MB of
+   backing store, and 252.8 MB of it was this file cutting every man's every frame (eight facings, a still and a walk, for
+   every gang, every rolled sheet and the people's) into a 112-wide canvas of its own the first time a party of that gang
+   was drawn, and the idles one canvas per pose per facing per man, kept forever. A phone tab that holds that much is the
+   tab the phone kills. Now a frame is its RECTANGLE ON THE SHEET (rigFrame) and the map draws it straight from the sheet
+   it is already holding (rigBlit): the same pixels in the same box, 0 bytes of canvas. A reader that needs a real canvas
+   (his outlined body, a gate reading the pixels) gets one from a small cache of 48 (rigCanvas), the oldest let go. ==== */
+var RIG_FRAME_ID = 0, RIG_LRU = new Map(), RIG_LRU_MAX = 48;
+function RigFrame(img, sx, sy, sw, sh, ox, oy, W, H){ this.__sheet = img; this.sx = sx; this.sy = sy; this.sw = sw; this.sh = sh; this.ox = ox; this.oy = oy; this.width = W; this.height = H; this.__id = ++RIG_FRAME_ID; }
+RigFrame.prototype.getContext = function(t){ return rigCanvas(this).getContext(t); };
+function rigFrame(img, sx, sy, sw, sh, ox, oy, W, H){ return new RigFrame(img, sx, sy, sw, sh, ox, oy, W, H); }
+function rigCanvas(fr){
+  if (!fr || !(fr instanceof RigFrame)) return fr;
+  var c = RIG_LRU.get(fr.__id);
+  if (c) { RIG_LRU.delete(fr.__id); RIG_LRU.set(fr.__id, c); return c; }
+  c = document.createElement('canvas'); c.width = fr.width; c.height = fr.height;
+  var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+  x.drawImage(fr.__sheet, fr.sx, fr.sy, fr.sw, fr.sh, fr.ox, fr.oy, fr.sw, fr.sh);
+  RIG_LRU.set(fr.__id, c);
+  while (RIG_LRU.size > RIG_LRU_MAX) RIG_LRU.delete(RIG_LRU.keys().next().value);
+  return c;
+}
+/* the frame into its box on the glass (dx, dy, w, h), clipped to the box the canvas was */
+function rigBlit(fr, dx, dy, w, h){
+  if (!(fr instanceof RigFrame)) { g.drawImage(fr, dx, dy, w, h); return; }
+  var kx = w / fr.width, ky = h / fr.height;
+  var x0 = Math.max(0, fr.ox), y0 = Math.max(0, fr.oy), x1 = Math.min(fr.width, fr.ox + fr.sw), y1 = Math.min(fr.height, fr.oy + fr.sh);
+  if (x1 <= x0 || y1 <= y0) return;
+  g.drawImage(fr.__sheet, fr.sx + (x0 - fr.ox), fr.sy + (y0 - fr.oy), x1 - x0, y1 - y0, dx + x0 * kx, dy + y0 * ky, (x1 - x0) * kx, (y1 - y0) * ky);
+}
+/* ==== /__THE_MAP_DRAWS_FROM_THE_SHEET__ ==== */
 function rigSheetLoad(S, name){
   if (S.state) return; S.state = 1;
   try {
@@ -45590,11 +45621,9 @@ function rigSheetSet(S, key){
   if (gi < 0) return (S.sets[key] = null);
   var H = 130, walks = m.walks.indexOf(key) >= 0, set = {};
   while (Math.round(H * 0.93) < m.foot) H++;   /* the tallest hat inside the picture (10/19: all thirteen walk, the feet sit at 124; the people's at 135) */
+  /* __THE_MAP_DRAWS_FROM_THE_SHEET__ (RUN 10/24): a frame is its rectangle on the sheet, not a canvas of its own */
   var cut = function(row, col){
-    var c = document.createElement('canvas'); c.width = 112; c.height = H;
-    var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-    x.drawImage(S.img, col * m.w, row * m.h, m.w, m.h, 56 - m.w / 2, Math.round(H * 0.93) - m.foot, m.w, m.h);
-    return c;
+    return rigFrame(S.img, col * m.w, row * m.h, m.w, m.h, 56 - m.w / 2, Math.round(H * 0.93) - m.foot, 112, H);
   };
   for (var di = 0; di < m.dirs.length; di++) {
     var row = gi * m.dirs.length + di, f = { idle: cut(row, 0) };
@@ -69512,6 +69541,7 @@ function spriteAt(spr,C){
   /* SIZE-AWARE (RUN 10/4): the ladder is in 56-px boxes -- 4x past 64, 2x past 32, half under 17, else 1x --
      and the body may arrive at 56 (the old bake) or 112 (the rig's own size, CAST_PX 112). The box it
      returns is the same either way; at 112 the 2x rung is the rig's real pixels instead of EPX's guess. */
+  if(spr instanceof RigFrame) spr = rigCanvas(spr);   /* __THE_MAP_DRAWS_FROM_THE_SHEET__: the outline needs a real canvas, from the small cache */
   var want = C>=64 ? 4 : C>=32 ? 2 : C<17 ? 0.5 : 1, k = want*56/Math.max(1, spr.width), key = '_k'+k;
   if(spr[key]) return spr[key];
   var c = spr;

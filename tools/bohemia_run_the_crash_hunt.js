@@ -93,7 +93,8 @@ const ARM = `(() => {
                bufsAt: top(by(bufs, (x) => x.at.split(' | ')[0]), 4) },
       canvas: { made: L.canv.length, alive: canv.length, onPage: canv.filter((x) => x.o.isConnected).length,
                 MB: +(canv.reduce((s, x) => s + (x.o.width * x.o.height * 4), 0) / 1048576).toFixed(1),
-                aliveAt: top(by(canv.filter((x) => !x.o.isConnected), 'at'), 4) },
+                aliveAt: top(by(canv.filter((x) => !x.o.isConnected), 'at'), 4),
+                MBAt: top((() => { const m = {}; canv.forEach((x) => { const k = x.at.split(' | ')[0]; m[k] = +((m[k] || 0) + x.o.width * x.o.height * 4 / 1048576).toFixed(1); }); return m; })(), 8) },
       images: { made: L.imgs.length, alive: imgs.length, files: (() => { const u = {}; imgs.forEach((x) => { u[x.o.currentSrc || x.o.src || ''] = 1; }); return Object.keys(u).length; })(),
                 /* one decoded copy per FILE (the browser shares it between Image objects of the same src) */
                 MB: +((() => { const u = {}; imgs.forEach((x) => { u[x.o.currentSrc || x.o.src || ''] = (x.o.naturalWidth || 0) * (x.o.naturalHeight || 0) * 4; }); return Object.values(u).reduce((a, b) => a + b, 0); })() / 1048576).toFixed(1),

@@ -127,5 +127,7 @@
     return null;
   }
   root.BohemiaRigBodies = { TURNS: TURNS, GANGS: GANGS, LOOKS: LOOKS, FIG_H: FIG_H, has: has, src: src, image: image,
-    gangOf: gangOf, standing: standing, people: people, person: person, cast: cast, isCompany: isCompany, canWalk: canWalk, walk: walk };
+    gangOf: gangOf, standing: standing, people: people, person: person, cast: cast, isCompany: isCompany, canWalk: canWalk, walk: walk,
+    /* __THE_TOWN_LETS_GO__ (RUN 10/24, rule 141(e)): the settlement screen, put away, lets go of the bodies and walks it drew */
+    release: function () { cache = {}; STAND = {}; WALK = {}; } };
 })(typeof window !== 'undefined' ? window : this);

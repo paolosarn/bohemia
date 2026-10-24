@@ -1133,7 +1133,29 @@ function heardInput(now){
     market:(S.traits||[]).some(function(t){ return t.id === 'market_day'; }), shown:!!H.shown, unlocked:!!H.unlocked}};
 }
 function busyHeard(now){ if(!window.BohemiaBusyHeard || !VAR || !S.place) return; var I = heardInput(now); try{ BohemiaBusyHeard.tick(now, I.walkers, I.crowd, I.ctx); }catch(e){} }
-function loop(){ draw(); busyHeard(performance.now()); requestAnimationFrame(loop); }
+/* __THE_TOWN_LETS_GO__ (RUN 10/24/26, row [the crash and the save], rule 141(e): 'I was in the settlement menu, I just
+   talked to everyone, and then it crashed'). MEASURED (tools/bohemia_run_the_town_weight.js): three places, every door and
+   every person tapped, and this screen held 392 picture files, 633 MB decoded, and never let one go: the map hides this frame
+   on LEAVE, it never unloads it, so every place's sheets stacked on the last place's and on the map's own. Now, hidden, the
+   screen draws nothing and lets go of every sheet it fetched (the men at the post, the idles, the 3D bodies); the next visit
+   fetches what that place needs again from the browser's cache. */
+var TOWN_LET_GO = false;
+function townHidden(){
+  if(document.hidden) return true;
+  try{ var fe = window.frameElement; if(fe && (fe.style.display === 'none' || getComputedStyle(fe).display === 'none')) return true; }catch(e){}
+  return false;
+}
+function townLetGo(){
+  HIRE_IMS = {}; HIRE.figs = [];
+  try{ if(window.BohemiaIdles && BohemiaIdles.release) BohemiaIdles.release(); }catch(e){}
+  try{ if(window.BohemiaRigBodies && BohemiaRigBodies.release) BohemiaRigBodies.release(); }catch(e){}
+  window.__TOWN_LET_GO = (window.__TOWN_LET_GO | 0) + 1;
+}
+function loop(){
+  if(window.frameElement && townHidden()){ if(!TOWN_LET_GO){ TOWN_LET_GO = true; townLetGo(); } setTimeout(function(){ requestAnimationFrame(loop); }, 250); return; }
+  TOWN_LET_GO = false;
+  draw(); busyHeard(performance.now()); requestAnimationFrame(loop);
+}
 /* a small thing (the board on its pole) still takes a thumb: its tap area is at least 44 px */
 function tapBox(k){
   var b = VAR.boxes[k], m = 44/view.s, w = b[2]-b[0], h = b[3]-b[1];
@@ -1372,7 +1394,9 @@ function hireTick(){
   HIRE.figs.forEach(function(e){
     var L = R && R.looks[e.r.look]; if(!L) return;
     var kind = e.gun && R.guns.by_class[e.gun['class']], gr = R.guns.order.indexOf(kind), f = HIRE_FACE;
-    var body = UI_IM(L.file), guns = L.guns ? UI_IM(L.guns) : null;
+    /* __THE_TOWN_LETS_GO__ (RUN 10/24, rule 141(e)): his fight sheet and his gun sheet (up to 2250 x 3960, 34 MB each once
+       decoded) are fetched only when the idle cannot draw him, never before; was: both fetched for every man every tick */
+    var body = null, guns = null;
     var x = e.c.getContext('2d'), ox = Math.round(e.W/2 - L.foot[0]), oy = Math.round(e.H - 6 - L.foot[1]), z = e.k;
     var key = null, draws = [];
     var ic = I && I.has && I.has('fight_' + e.r.look) ? I.frame('fight_' + e.r.look, 'hire:' + S.place.name + ':' + e.r.id, now, f, {set:'carry'}) : null;
@@ -1381,7 +1405,7 @@ function hireTick(){
       key = 'i' + ic.pose; draws.push([ic.img, ic.x, ic.y, ic.w, ic.h, ic.dx, ic.dy]);
       if(ig && !ig.hidden) draws.push([ig.img, ig.x, ig.y, ig.w, ig.h, ig.dx, ig.dy]);
       e.c.dataset.idle = ic.kind || 'idle';
-    } else if(body){   /* his fight sheet's carry still (the stand when he holds no gun), his gun's own cell over it */
+    } else if((body = UI_IM(L.file), guns = L.guns ? UI_IM(L.guns) : null, body)){   /* his fight sheet's carry still (the stand when he holds no gun), his gun's own cell over it */
       var col = R.cols.indexOf(gr >= 0 ? 'carry@0' : 'stand'); if(col < 0) col = 0;
       key = 's' + col; draws.push([body, col * L.w, f * L.h, L.w, L.h, 0, 0]);
       if(gr >= 0 && guns) draws.push([guns, 0, (gr * 8 + f) * L.h, L.w, L.h, 0, 0]);
@@ -1393,6 +1417,11 @@ function hireTick(){
     draws.forEach(function(d){ x.drawImage(d[0], d[1], d[2], d[3], d[4], (ox + d[5])*z, (oy + d[6])*z, d[3]*z, d[4]*z); });
     e.c.dataset.drawn = '1'; e.c.dataset.held = draws.length > 1 ? '1' : (gr >= 0 ? 'hidden' : '0');   /* his gun's own cell over him (hidden: his body covers it this pose) */
   });
+  /* __THE_TOWN_LETS_GO__: a still stays on his card once drawn (the canvas keeps it), so a sheet no man still waiting to be
+     drawn needs is let go; a card that needs it again fetches it again (the browser's cache, one decode) */
+  var need = {};
+  HIRE.figs.forEach(function(e){ if(e.shown) return; var L = R && R.looks[e.r.look]; if(L){ need[L.file] = 1; if(L.guns) need[L.guns] = 1; } });
+  Object.keys(HIRE_IMS).forEach(function(k){ if(!need[k] && HIRE_IMS[k].complete) delete HIRE_IMS[k]; });
   requestAnimationFrame(hireTick);
 }
 var HIRE_IMS = {};
