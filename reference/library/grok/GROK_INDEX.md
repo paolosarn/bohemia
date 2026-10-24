@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | CRISES | GROK_LATE_GAME_CRISIS_LIST_2026_10_24.md | four crises, day 80 to 100 start
 - 2026-10-24 | ORIGINS | GROK_ORIGIN_LIST_STARTING_DIFFERENCES_2026_10_24.md | Lone Wolf, Peasant Militia, starting differences
 - 2026-10-24 | CONTRACTS | GROK_CONTRACT_AMBITION_LIST_2026_10_24.md | early contracts, renown changes, ambitions
 - 2026-10-24 | XP | GROK_EXPERIENCE_LEVEL_UP_RULES_2026_10_24.md | level thresholds, stars, 20 percent killer, veteran levels
