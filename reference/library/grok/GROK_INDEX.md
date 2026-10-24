@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | ASK | GROK_ASK_35_WORLD_FEELS_FRESH_2026_10_24.md | world generation, settlements, roads, what feels new
 - 2026-10-24 | ASK | GROK_ASK_33_WHAT_BB_LEAVES_ON_THE_GROUND_2026_10_24.md | hit and death visuals, what the wiki does not say
 - 2026-10-24 | ASK | GROK_ASK_34_FIRST_MINUTES_2026_10_24.md | first five minutes, origins, what ranks
 - 2026-10-24 | LOCATIONS | GROK_ATTACHED_LOCATIONS_BB_LIST_2026_10_24.md | full attached location list, goods, recruits, prices
