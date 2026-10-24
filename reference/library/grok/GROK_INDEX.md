@@ -120,3 +120,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_69_COMPANY_ROSTER_AND_FIELDING_2026_10_24.md | roster, fielding, reserves
 - 2026-10-24 | ASK | GROK_ASK_70_WAGES_AND_DESERTION_2026_10_24.md | wages, desertion, mood
 - 2026-10-24 | ASK | GROK_ASK_71_PROVISIONS_AND_FOOD_2026_10_24.md | provisions, food, spoiling
+- 2026-10-24 | ASK | GROK_ASK_72_TOOLS_AND_REPAIRS_2026_10_24.md | tools, repairs, durability
