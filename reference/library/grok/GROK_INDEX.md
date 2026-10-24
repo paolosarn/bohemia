@@ -105,3 +105,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_54_ORIGINS_2026_10_24.md | origins, lone wolf, militia
 - 2026-10-24 | ASK | GROK_ASK_55_EVENTS_2026_10_24.md | events, random, triggers
 - 2026-10-24 | ASK | GROK_ASK_56_CONTRACTS_2026_10_24.md | contracts, renown, relations
+- 2026-10-24 | ASK | GROK_ASK_57_RENOWN_RELATIONS_2026_10_24.md | renown, relations, prices
