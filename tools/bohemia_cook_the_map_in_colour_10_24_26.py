@@ -325,10 +325,13 @@ def install():
         mid = ramp.color_ramp.interpolation != 'CONSTANT'
         L.new(sp.outputs['Result'], ramp.inputs['Fac'])
         cols = m['mosaic']; tot = sum(w for _c, w in cols); acc = 0.0
+        mean = np.sum([np.array(PAL[cn], float) * w for cn, w in cols], 0) / tot
+        soft = float(DIALS.get('mosaic_soften', 0.0))
+        tone = lambda cn: tuple(int(round(v)) for v in np.array(PAL[cn], float) * (1 - soft) + mean * soft)
         els = ramp.color_ramp.elements
         while len(els) < len(cols): els.new(0.5)
         for i, (cn, w) in enumerate(cols):
-            els[i].position = (acc + (w / 2 if mid else 0)) / tot; els[i].color = MR.lin3(PAL[cn]) + (1,); acc += w
+            els[i].position = (acc + (w / 2 if mid else 0)) / tot; els[i].color = MR.lin3(tone(cn)) + (1,); acc += w
         L.new(ramp.outputs['Color'], b.inputs['Base Color'])
         cache[key] = mat
         return mat

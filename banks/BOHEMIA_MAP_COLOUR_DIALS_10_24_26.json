@@ -912,18 +912,18 @@
     "mosaic": [
      [
       "shore_ring",
-      0.34
-     ],
-     [
-      "gravel_grey",
       0.3
      ],
      [
+      "gravel_grey",
+      0.4
+     ],
+     [
       "gravel_red",
-      0.36
+      0.3
      ]
     ],
-    "blob_m": 8
+    "blob_m": 12
    },
    "roof": [
     "concrete_white",
@@ -933,7 +933,7 @@
    "wall": [
     "concrete_white",
     "concrete_grey",
-    "rust",
+    "block_grey",
     "paint_teal"
    ],
    "fence": [
@@ -955,26 +955,22 @@
     "mosaic": [
      [
       "weeds",
-      0.1
-     ],
-     [
-      "gravel_grey",
-      0.38
-     ],
-     [
-      "asphalt_patch",
-      0.22
-     ],
-     [
-      "rust",
       0.12
      ],
      [
+      "gravel_grey",
+      0.44
+     ],
+     [
+      "asphalt_patch",
+      0.24
+     ],
+     [
       "gravel_red",
-      0.18
+      0.2
      ]
     ],
-    "blob_m": 12
+    "blob_m": 14
    },
    "ground_more": [
     {
@@ -1216,5 +1212,7 @@
  "mosaic_detail": 1.2,
  "mosaic_interp": "LINEAR",
  "_mosaic": "a ground is a soft field of close colours in metres (LINEAR between them, in this order), never hard blobs of far ones: hard blobs of red, grey and black read as camouflage (his NO on the casino carpet, 10/22)",
- "_sand_in_the_palette": "stucco_cream, stucco_yellow, desert_tan, desert_pink, dirt, glass_gold and lawn_dead are IN the sand family (the measure's own test): they stay because the valley really has them, but only as one choice among many, never a whole theme's walls (10/24: the commercial block came out all cream, 36% sand)"
+ "_sand_in_the_palette": "stucco_cream, stucco_yellow, desert_tan, desert_pink, dirt, glass_gold and lawn_dead are IN the sand family (the measure's own test): they stay because the valley really has them, but only as one choice among many, never a whole theme's walls (10/24: the commercial block came out all cream, 36% sand)",
+ "mosaic_soften": 0.32,
+ "_mosaic_soften": "each ground's colours are pulled this far toward the ground's own mean before the ramp: the yard still varies, it never reads as camouflage"
 }
