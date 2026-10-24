@@ -693,6 +693,10 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 159. IT IS AN ECONOMIC APOCALYPSE: NO RAINBOW (PAOLO 10/24, LOCKED: 'I said I don't want the world drowned in grey yellow desert sand, but now I'm seeing you make buildings look rainbow coloured, adding grass and greens... do you have any idea what an economic apocalypse means? Maybe on the Strip, maybe, but some of the houses are turquoise blue... we're not one right now; maybe in act three things get better, part of that transformation over time; but it's an economic apocalypse, it just happened; there shouldn't be so much colour'; records/BOHEMIA_PAOLO_NO_RAINBOW_IT_IS_AN_ECONOMIC_APOCALYPSE_10_24_26.md). AMENDS 137(b), whose list of colours (green lawns, blue pools, painted houses) was the COORDINATOR'S, not his, and caused it. (a) Act one is a city ten years after the money died: colour is FADED, DIRTY and RARE: sun-bleached and peeled paint gone toward grey, dead brown lawns and dust, grey and stained concrete, rust, char, tarp, plywood, oil; variety comes from material, value, wear and light, NOT from hue. (b) No grey-yellow sand flood AND no rainbow: the old 'a third' measure stays for sand, and saturation stays low (his 9/23 vote stands: 'the bright colours not so bright, vibrance turned down'). (c) Colour as an ACCENT only: the Strip's neon (maybe, he said), the factions' own colours where they claim ground (COLOUR IS TERRITORY), a faded sign, a single painted door; never whole houses in turquoise, never green grass in act one. (d) Colour comes back over the acts (act three things get better, rule 128): the same scenes re-rendered with more colour as the world heals. (e) COOK regrades the map's 69 district pictures and anything else that went bright, now, first.
 160. TODAY'S ASKS ARE ONE BIG UPDATE, AND ALL OF IT GETS DONE (PAOLO 10/24, LOCKED: 'everything I talked to you about today, it's a pretty huge update; once you get everything I said, I want it done'). (a) records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md lists every ask of 10/24 with its rule, its lane and its status (48 lines). (b) Every check-in updates it from main and reopens the lane of every line not shipped, until all are. (c) When the last line ships, RUN cuts BUILD THE BIG UPDATE and the coordinator tells him in one message, the list attached in plain words.
 161. THE MAYOR ARC IS NOT FORGOTTEN (PAOLO 10/24, LOCKED, not immediately: 'there's this whole thing where I wanted to slowly over time become the pseudo-mayor of Bohemia and be able to build things... there's a city grid for a reason, this is meant to implement changes to the city... research how we're going to do this, it has to be lore friendly, the costs have to sound right, it's a big cost to revamp a whole city over three acts... what is the purpose, every building needs to come with a purpose, it has to look right... not immediately, but keep that in mind'; records/BOHEMIA_PAOLO_THE_MAYOR_ARC_IS_NOT_FORGOTTEN_10_24_26.md). (a) The canon stands: the Mayor Arc (laws/BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md: friendly territory, then a popular mandate, then the pseudo-mayor), the city-builder model (laws/BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md: zone, the society builds, road, power and water access, Pocket City 2), the mobile camp (laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md), building inside a home base's settlement screen, the city grid as where change happens. (b) RESEARCH FIRST, not built now: how it plays across three acts, lore-friendly costs that sound right for rebuilding a dead city (batteries, the six resources, labour, years), a PURPOSE for every building (what it does for the company, the people and the economy), and how each looks in each act (the palette of 159: act one faded, colour returning as it heals). ECONOMY researches (lifted when it runs; Grok ask 39). (c) records/BOHEMIA_THE_WHOLE_GAME.md carries it as its own section so no lane loses sight of it.
+162. THE KILLER COMPANY: STATS AND LEVEL-UPS (PAOLO 10/24, LOCKED: 'in Battle Brothers, to create the most killer group, almost unstoppable: equipment is one thing, but stat-wise you'd have three people with guns in the back line whose priority was ranged attack, melee attack and fatigue and health, and the nine others whose priority was fatigue, melee attack and melee defence... now since we have more ranged, to form the best team you have to care a lot more about ranged defence... in Battle Brothers you had to really prioritise when you levelled, min-max a killer group who barely get hit and whose hits always land, with enough fatigue for everything plus the heavy armour... an endgame team will need more points in ranged defence too, so we might have to give more points per level... and the rolls that gave a better amount to resolve, whether they flee or not, morale, mattered'; records/BOHEMIA_PAOLO_THE_KILLER_COMPANY_STATS_AND_LEVEL_UPS_10_24_26.md). (a) LEVEL-UPS ARE BATTLE BROTHERS': on each level you raise a few attributes from a rolled range (the man's talent stars widen the roll), choosing which; the min-max a veteran player loves stays. (b) RANGED DEFENCE MATTERS MORE than in Battle Brothers because guns lead (rule 120): an endgame company needs it on top of melee skill, melee defence, ranged skill, fatigue, hitpoints and resolve, so the points per level may rise (TUNING sets it: three picks or more) so a killer company can be built. (c) The shape he knows works, as the floor the numbers are tested against: a back line of three shooters (ranged skill, fatigue, hitpoints) and a front of nine (fatigue, melee skill, melee defence), now with ranged defence across all twelve. (d) Resolve (morale) rolls matter. (e) TUNING sets the numbers (research only); RUN TWO builds the level-up choice; COMBAT's fight uses them; no card.
+163. SPACEBAR PAUSES, AND THE CAMERA KEEPS YOUR PARTY CENTRED (PAOLO 10/24, LOCKED: 'when I play on PC, spacebar definitely has to be pause; it was a good experience; just when the team is moving around the map they should definitely be in the centre of the screen until they reach the whole map's edges, which means farther than the outside settlements; keep this in mind as I zoom in and zoom out'; records/BOHEMIA_PAOLO_SPACEBAR_PAUSES_AND_THE_CAMERA_FOLLOWS_10_24_26.md). (a) On a computer the spacebar pauses and unpauses the map (Battle Brothers' key). (b) While the party travels, the camera keeps it in the centre of the screen; the camera stops following only where its view would pass the edge of the whole map, and the map's edge lies beyond the outermost settlements, so they are never at the screen's border. (c) It holds at every zoom of the one map's pinch (142); a pinch or a drag by hand lets the camera go, and the next move brings it back. (d) RUN; no card.
+164. THE PC PLAYTEST: THIRTY-ONE THINGS (PAOLO 10/24 evening, LOCKED: 'I'm playing this on my PC and I'm so fucking impressed, we've come such a long way, but I have a lot of feedback'; records/BOHEMIA_PAOLO_THE_PC_PLAYTEST_AND_THE_TWENTY_DOLLARS_10_24_26.md, every item in his words with its lane). The short form: Battle Brothers' keyboard keys; every currency on the bar; a job's place named and marked on the map; stat icons like Battle Brothers'; night longer and no daily recap; the UI never AI slop; a way to drop a job; where am I (the golden arrow); no flags or route lines; the freeway and the Strip; the AUTO colour before the first tap; house heights that read; switching weapons from two bag slots; the combat UI better than Battle Brothers' and mobile first; who is on my team; selling in one tap; the squiggle short, one at a time, cut when you leave, more voices; a pistol in one hand; men in cover look in cover; the song after a battle replaced by one of his; the camera; the loot screen not slop; the roster scales the enemy; the end screen stays until he closes it; city travel without buildings in the lanes; zoom in to see sidewalks and the crew; more animations. Later: the Strip is the one place you walk; the city grows about 17% in act two and 33% in act three with how you help it. (a) Every item is an OPEN row on its lane's board. (b) records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md carries them as lines 54 to 84.
+165. THE TWENTY DOLLARS (PAOLO 10/24: 'I just spent $20 for 20 more credits... I use the full usage every week and I haven't bought extra in a long time... turn me up, everything I've said make it happen'). (a) The weekly limit hit about 22:30 UTC and stopped every lane mid-round. (b) The $20 is about one lane round at this week's rates; it buys PLUMBER's [the stalled work onto main]: every lane branch the limit stranded rebased, gated and merged, the demo re-cut, so nothing built tonight is lost. (c) Everything else resumes at the reset, 10/25 05:00 UTC (10 PM his time), running the 10/24 list in its order. (d) Extra usage beyond his $20 is never spent without his word. (e) MEASURED THE SAME HOUR: almost nothing was stranded (WORLD's nine job kinds, COOK's act-one palette and part of the towns in the ground, COMBAT's dark tiles and five EYES rows, UI and WORDS' nine little things and three of RUN's EYES rows all reached main before the limit). So the $20 goes to ONE RUN round on the biggest share of his list left: the spacebar and the camera, no flags or route lines and the golden arrow, night longer and no daily recap, the speed and the encounter card, the wipe's wake, the job's stars, the fresh start and the fog.
 77b. THE MAP'S ROADS (PAOLO 10/10 on the freeway round two: 'BRO ON THE MAP NOT ON THE COMBAT, and even then it's looking like shit'): his 10/9 freeway complaint was the MAP's freeway and streets; one road kit, lanes agreeing, nothing across a road, on the map's far and middle stops; RUN [the far end at two million pixels], WORLD [the roads] and COOK [the far end painted by hand] carry it; the fight's freeway work stands.
 83. MELEE ONE TILE, GUNS TWO (PAOLO 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a melee weapon reaches the next tile; every gun needs at least two tiles to its target and cannot fire at a man beside the shooter; COMBAT [guns need two tiles] FIRST; amends the VIA GROK pistol-is-the-dagger one-tile line (the pistol is a two-tile gun, or a club at one).
 84. AN ACT IS A YEAR (PAOLO 10/10: 'most people will only spend a maximum of 300 to 450 days in a single act, so a year passes; this mechanic is ass'): no mechanic needs more than a year inside one act; DYNASTY's old-body trade is RETIRED; aging shows between acts.
@@ -49161,6 +49165,24 @@ The rebuilt fight waits for a quarter-beat of its OWN clock (slices/BOHEMIA_FIGH
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_SPACEBAR_PAUSES_AND_THE_CAMERA_FOLLOWS_10_24_26.md
+# source: records/BOHEMIA_PAOLO_SPACEBAR_PAUSES_AND_THE_CAMERA_FOLLOWS_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: SPACEBAR PAUSES, AND THE CAMERA KEEPS YOUR PARTY CENTRED (LOCKED)
+
+## HIS WORDS (verbatim)
+
+"bro so when i play on pc spacebar def has to be pause it was a good experience just when the team is moving around the map they should def be in the center of the screen until they reach the whole map edges type shit which means farther than the outside settlements but keep this in mind as i zoom in soom out as well type shit"
+
+## THE RULINGS (VAMILY rule 163)
+
+1. On a computer the spacebar pauses and unpauses the map.
+2. While the party travels the camera keeps it centred, stopping only where the view would pass the edge of the whole map; that edge lies beyond the outermost settlements.
+3. It holds at every zoom; a hand pinch or drag lets the camera go and the next move brings it back.
+4. He played on PC and called it a good experience.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_THE_PHONE_TWO_JOBS_TWO_HANDS_AND_STAY_ON_TOP_OF_THE_LITTLE_THINGS_10_24_26.md
 # source: records/BOHEMIA_PAOLO_THE_PHONE_TWO_JOBS_TWO_HANDS_AND_STAY_ON_TOP_OF_THE_LITTLE_THINGS_10_24_26.md
 ====================================================================================================
@@ -49371,6 +49393,27 @@ HIS WORDS: "And keep in mind it's crashing for like different reasons to crash o
 
 1. THE CLUE: the crash came on the settlement screen after talking to everyone, right after the talking town (10/24d) and the recorded squiggle (10/24c) landed. Suspect what each talk creates and never frees; there may be more than one cause. (Rule 141(e).)
 2. ONE MAP AT EVERY ZOOM: zoomed out it is the 3D map, zooming in it fades to the old 2D map, and at the closest it shows the old skeleton rough draft: three maps. It must be one map at every zoom; the old layers retired. (Rule 142.)
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_KILLER_COMPANY_STATS_AND_LEVEL_UPS_10_24_26.md
+# source: records/BOHEMIA_PAOLO_THE_KILLER_COMPANY_STATS_AND_LEVEL_UPS_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: THE KILLER COMPANY, STATS AND LEVEL-UPS (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also, I need you to understand OK so in battle Brothers to create the most crazy killer of a group where it's like almost unstoppable you know equipment is one thing right get the best equipment you know that's one thing but stat wise the best group available you had to pretty much you would have three people with the gun in the back line and they were they would just be there their main priority was range attack, Malay attack and fatigue/health and then the nine other people their main priority was fatigue Malay attack in Malay defense so I want you to understand that one when it comes to building the Teams ultimately that's what's gonna be the most that was what was most successful for battle Brothers but now since we have more rain shit going on now I think to form the best possible team. It's really going to be everything I kind of just said, but now you gotta care you gotta care a lot more about range defense now right so keep that in mind so when it comes to statin point distribution when you level up in a different perks and stuff keep that in mind so in battle Brothers pretty much you couldn't you couldn't play around with stat points every time you leveled up like you had a really prioritize to MinnMax for a killer Group of people who barely could get hit and would always hit their hits would always land hits would barely land on them and then they had enough fatigue to you know do everything they needed to do plus where the heavy ass armor that they wore so I imagine if an endgame team might look something similar, but they will need to have more points as well in range defense you know so keep that in mind as we level up, we might have to because I see that, and that's the vision, we might just have to give more points for to have a endgame killer group. You know it was always important during a couple level ups of the battle Brothers when when it rolled that it would be a better amount of points towards that skill that you would you know work on what's it called like whether they would flee or not resilience or I forget what it's called but you know you know what I mean like like like morale and shit like that so keep that in mind"
+
+('Malay' is MELEE; 'rain shit' is RANGED; 'resilience' is RESOLVE.)
+
+## THE RULINGS (VAMILY rule 162)
+
+1. Level-ups are Battle Brothers': raise a few attributes from a rolled range widened by talent stars, choosing which; the min-max stays.
+2. Ranged defence matters more because guns lead; an endgame company needs it on top of the rest, so the points per level may rise. TUNING sets the numbers.
+3. His shape is the floor the numbers are tested against: three shooters (ranged skill, fatigue, hitpoints) and nine in front (fatigue, melee skill, melee defence), now with ranged defence across all twelve.
+4. Resolve rolls matter.
+5. TUNING the numbers, RUN TWO the level-up choice, COMBAT the fight.
 
 
 ====================================================================================================
@@ -49585,6 +49628,56 @@ He asked on 10/10 ('not organic with the map'). COOK FOUR's row [the place sits 
 
 1. Every settlement and city on the map is built into the ground: streets running out into the map's roads, edges dissolving into lots, scrub and rubble, the same light, shadow and colour, no slab, frame, outline or lifting shadow; checked at every zoom. COOK first, now.
 2. No row waits on his vote: anything marked 'his word next' or 'in VOTE' is built with the lane's best default the next time its lane runs; the coordinator audits every check-in.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_PC_PLAYTEST_AND_THE_TWENTY_DOLLARS_10_24_26.md
+# source: records/BOHEMIA_PAOLO_THE_PC_PLAYTEST_AND_THE_TWENTY_DOLLARS_10_24_26.md
+====================================================================================================
+# PAOLO 10/24 EVENING: THE PC PLAYTEST, THIRTY-ONE THINGS, AND THE TWENTY DOLLARS (LOCKED)
+
+He played on his PC: "I'm so fucking impressed bro, we've come such a long way, but I have a lot of feedback." Then: "I just spent $20 for 20 more credits... turn me up, bro, everything I've said make it happen." (His full messages are in the coordinator's chat of 10/24; the lines below keep his words.)
+
+## THE THIRTY-ONE, IN HIS WORDS AND WHO BUILDS EACH
+
+1. KEYBOARD: "find out all the keyboard button clicks that were on Battle Brothers and do pretty much the exact same for Bohemia"; space pauses; C opens the crew. UI (Grok ask 40 lists them).
+2. THE TOP BAR SHOWS EVERY CURRENCY: "we have four different currencies in this game, you're only showing batteries, it's insane." UI; ECONOMY reconciles his 'four' with the game's resources (the demo names batteries, water, tape, food, ammo/rounds, scrap).
+3. A JOB NAMES A PLACE HE CAN FIND: "take three carts to Prim, and it's really just the blue settlement." WORLD and UI: every place a job names is named on the map and marked.
+4. STAT ICONS: "we need awesome logos for everything... Battle Brothers has logos too, a heart, a shield." UI makes them; COOK draws them the 3D way.
+5. NIGHT LONGER: "I don't know why night is so short... I actually want it to be night more, it was fun." RUN.
+6. NO DAILY RECAP: "a whole daily recap I never asked for." RUN removes it.
+7. THE UI NEVER LOOKS LIKE AI SLOP; it is placeholder now. UI.
+8. TURN A JOB OFF: "it's not clear how to cut a quest off... let's say I don't wanna do it anymore." WORLD and UI: an abandon, Battle Brothers' way (its cost to standing).
+9. WHERE AM I: "it's really hard to see where anything is on my character; there's always a golden arrow facing northeast, I have no clue what that is." RUN: the party marker reads at a glance; the arrow goes or explains itself.
+10. NO FLAGS, NO ROUTE LINES for the player (repeat of 151f). RUN.
+11. THE FREEWAY AND THE STRIP STILL LOOK BAD. COOK.
+12. THE AUTO COLOUR BEFORE ANYTHING: "before I can even press anything... I should know the colour of the Auto button." COMBAT.
+13. THE COMBAT MAP: "the best it's ever been... a little glitching... more organic... I'm getting the procedurally generated vibes." COMBAT and COOK.
+14. HOUSE HEIGHTS MEAN SOMETHING YOU CAN SEE: "one-story versus two-story or even a three-story building, I don't know how that helps me and it's hard to tell visually." COMBAT: what each height gives (cover, height, sight) is shown.
+15. SWITCH WEAPONS: "you can't switch weapon... Battle Brothers has two slots to bring shit into combat... it takes up stamina." RUN TWO (the bag slots), COMBAT (the switch).
+16. THE COMBAT UI BETTER THAN BATTLE BROTHERS', MOBILE FIRST: "if Battle Brothers went to mobile... this is one thing that holds them back." COMBAT and UI.
+17. WHO IS ON MY TEAM: "it's hard to tell who's on my team." COMBAT.
+18. SELLING IS EASY: "every time selling shit was so painful, one of the things I hated most about Battle Brothers." RUN TWO: sell the junk in one tap.
+19. THE SQUIGGLE STOPS: "they just kept running and running and overlapping each other, and even when I left the city I was still hearing them." SOUNDS: one at a time, short, cut when you leave.
+20. THE SQUIGGLE HAS MORE VOICES: "they're getting repetitive, not that different from each other." SOUNDS.
+21. A PISTOL IS HELD IN ONE HAND: "if they're using pistols they shouldn't look like they're holding rifles." ANIMATION.
+22. IN COVER, THEY TAKE COVER: "when they're in a building they get extra cover stats... they shouldn't be standing up, they should look like they're in cover." ANIMATION and COMBAT.
+23. THE SONG AFTER A BATTLE IS TERRIBLE. SOUNDS: it becomes one of his songs (122).
+24. THE CAMERA CENTRED AT EVERY ZOOM, FREE TO PAN WHEN STILL (163, repeated). RUN.
+25. LOOT ALL AND LEAVE: the screen is AI slop. UI and RUN TWO.
+26. THE ROSTER SCALES THE ENEMY: "Battle Brothers matches you with opponents by the amount of people on your roster... if I fill up my roster, the opponents go up too." WORLD and COMBAT (the library's spawn math, GROK_111).
+27. AUTO IS FOR THE WEAK ONES: "when you've set up a good team with good equipment and some low-tier enemy rolls up, it will auto it." Kept (144).
+28. THE END SCREEN STAYS: "it goes away way too quickly, I can't read it." RUN TWO and COMBAT: one end screen with the result, the loot and the level-ups, gone only when he says.
+29. CITY TRAVEL: "the auto movement is sometimes janky... there are some buildings in the street lanes." RUN (the path) and COOK (the buildings).
+30. ZOOM IN AND SEE DETAIL: "I want to zoom in and see more detail, the sidewalks, my team." RUN and COOK.
+31. MORE AND BETTER ANIMATIONS when people hold things. ANIMATION.
+
+## FOR LATER (kept, not now)
+- THE STRIP IS THE ONE PLACE YOU WALK: "the only place you can kind of walk around, actually through a city vibe, is the Strip; that will always be the case."
+- THE CITY GROWS OVER THE ACTS: "act two maybe 17% bigger than act one, from the outskirts; act three maybe 33% bigger, depending on what we do to help the city grow." (rule 161)
+
+## THE TWENTY DOLLARS
+He bought $20 of extra usage on 10/24 ('the first time for myself') because the weekly limit hit at about 22:30 UTC and he wants today's asks to happen. At the rates the lanes cost this week (one lane round about $10 to $20), $20 is about one lane round. It is spent on the one job that saves the most: getting the stalled lanes' finished work onto main and into the demo; everything else resumes at the weekly reset, 10/25 05:00 UTC (10 PM his time).
 
 
 ====================================================================================================
@@ -58785,7 +58878,7 @@ Status as of 10/24: BUILT = in the demo and working; THIN = a first version, far
 - Side quests (152 researched in the questbook; people, places and things, never a card), rumours at the bar, ambitions, road events, the feed on the phone (what you did, what the world did, life), hunts, the haunting as side content (136), the wipe's mini side quest (143e). Mostly THIN or MISSING in the demo.
 
 ## 7. THE COMPANY
-- Hiring (stars and one trait up front, the whole 3D man with his gun), the crew screen (ONE face a man, tap for gear, rule 147), the battle line, two hands (a long gun fills both; a pistol leaves room for a shield like a car door, 149), gear and armour attachments, levels and perks, injuries (20% death else a long injury; the main character never dies), veterans, PERSONALITY TYPES with UFC-style commentary (143c), friends and rivals (idea, not ruled), wages, food and upkeep that bite (151b, 'money teaches'), the RETINUE of followers at the camp (151d), no two people alike, layered runway clothes. Hire and traits: BUILT. Hires reaching the fight: BROKEN (147). Crew screen: BROKEN (shown twice). Two hands, personalities, retinue: MISSING.
+- Levels the Battle Brothers way (rule 162): each level raises a few attributes from a rolled range widened by talent stars, the player min-maxing a killer company; ranged defence matters more because guns lead; maybe more points a level; resolve matters. Hiring (stars and one trait up front, the whole 3D man with his gun), the crew screen (ONE face a man, tap for gear, rule 147), the battle line, two hands (a long gun fills both; a pistol leaves room for a shield like a car door, 149), gear and armour attachments, levels and perks, injuries (20% death else a long injury; the main character never dies), veterans, PERSONALITY TYPES with UFC-style commentary (143c), friends and rivals (idea, not ruled), wages, food and upkeep that bite (151b, 'money teaches'), the RETINUE of followers at the camp (151d), no two people alike, layered runway clothes. Hire and traits: BUILT. Hires reaching the fight: BROKEN (147). Crew screen: BROKEN (shown twice). Two hands, personalities, retinue: MISSING.
 
 ## 8. THE FIGHT
 - Rogue Fable 4 on the beat at 120 BPM first, Battle Brothers second; square house tiles; the board cut from the map cell you stood on, no two the same; guns first (reach in tiles); the dial for the important shot, a routine hit costs one; AUTO whose colour means a clean win (144e-g); speed, take back a step, the turn ends itself (125); the reload loud (124); morale; RETREAT by the edge (144c); the wipe as an event (143e); a superior enemy reads (143b); the down silent (143d); a hit flashes and bleeds and the ground remembers (145); what each hand holds shows (149b); the music lifts with the fight and drops on their turn (126); teaching lines; terrain from Battle Brothers' tile table. Core: BUILT. AUTO colour, retreat, blood, wipe, commentary, two hands: in progress or MISSING.
@@ -59655,6 +59748,11 @@ refused by the coordinator.
 #    Orleans after Katrina, post-war cities), in money, labour and years? How do the best games make building feel earned and every
 #    building matter (any game, rule 139)? Propose twenty building kinds for Bohemia, each with its purpose, its cost in batteries and
 #    the six resources, and how it looks in each act.
+# ASK 40. BATTLE BROTHERS' KEYBOARD, ITS DROPPED CONTRACT, ITS ROSTER SCALING (rule 164, his words: 'find out all the keyboard button
+#    clicks that were on Battle Brothers and do the exact same for Bohemia'; 'how do we turn a quest off'; 'Battle Brothers matches you with
+#    opponents by the amount of people on your roster'). (1) Every key and shortcut Battle Brothers has, on the world map, in towns, in the
+#    fight and in menus, with what each does. (2) What happens when you abandon or fail a contract (the cost). (3) Exactly how party
+#    strength scales with roster size, days and difficulty. Cite each page or say it does not say.
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.

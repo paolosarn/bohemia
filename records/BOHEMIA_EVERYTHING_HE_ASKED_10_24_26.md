@@ -59,3 +59,34 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 51 | EYES' first playtest: 30 small wrong things filed on six boards (the dead stand up, a squeeze zooms to space, the shop's Battle Brothers names, the gear floating over screens, and the rest) | 150 | RUN, RUN TWO, COMBAT, UI, WORDS | REOPENED 21:35 |
 | 52 | Spacebar pauses on PC | 163 | RUN | QUEUED (RUN running) |
 | 53 | The camera keeps the party centred to the map's edge, beyond the outer settlements, at every zoom | 163 | RUN | QUEUED (RUN running) |
+| 54 | Battle Brothers' keyboard keys (UI) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 55 | Every currency on the top bar (UI, ECONOMY) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 56 | A job's place named and marked on the map (WORLD) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 57 | Stat icons like Battle Brothers' (UI, COOK) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 58 | Night longer (RUN, $20 round) | 164 | see the item | RUNNING ($20 RUN round) |
+| 59 | No daily recap (RUN, $20 round) | 164 | see the item | RUNNING ($20 RUN round) |
+| 60 | The UI never AI slop (UI) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 61 | A way to drop a job (WORLD, UI) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 62 | Where am I: the golden arrow, the marker (RUN, $20 round) | 164 | see the item | RUNNING ($20 RUN round) |
+| 63 | No flags, no route lines (RUN, $20 round) | 164 | see the item | RUNNING ($20 RUN round) |
+| 64 | The freeway and the Strip (COOK) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 65 | The AUTO colour before the first tap (COMBAT) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 66 | The fight board more organic, no glitches (COMBAT, COOK) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 67 | House heights that read (COMBAT) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 68 | Switch weapons from two bag slots (RUN TWO, COMBAT) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 69 | The fight's UI better than Battle Brothers', mobile first (COMBAT, UI) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 70 | Who is on my team (COMBAT) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 71 | Selling in one tap (RUN TWO) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 72 | The squiggle short, one at a time, cut when you leave (SOUNDS) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 73 | More squiggle voices (SOUNDS) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 74 | A pistol in one hand (ANIMATION) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 75 | Men in cover look in cover (ANIMATION, COMBAT) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 76 | The song after a battle replaced (SOUNDS) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 77 | The camera centred at every zoom, free when still (RUN, $20 round) | 164 | see the item | RUNNING ($20 RUN round) |
+| 78 | The loot screen not slop (UI, RUN TWO) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 79 | The roster scales the enemy (WORLD, COMBAT) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 80 | AUTO for the weak ones (kept) | 164 | see the item | KEPT |
+| 81 | The end screen stays until closed (RUN TWO) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 82 | City travel without buildings in the lanes (RUN, COOK) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 83 | Zoom in to see the sidewalks and the crew (RUN, COOK) | 164 | see the item | QUEUED for the 05:00 UTC reset |
+| 84 | More and better animations (ANIMATION) | 164 | see the item | QUEUED for the 05:00 UTC reset |

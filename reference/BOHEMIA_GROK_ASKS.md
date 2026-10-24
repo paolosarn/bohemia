@@ -67,6 +67,11 @@
 #    Orleans after Katrina, post-war cities), in money, labour and years? How do the best games make building feel earned and every
 #    building matter (any game, rule 139)? Propose twenty building kinds for Bohemia, each with its purpose, its cost in batteries and
 #    the six resources, and how it looks in each act.
+# ASK 40. BATTLE BROTHERS' KEYBOARD, ITS DROPPED CONTRACT, ITS ROSTER SCALING (rule 164, his words: 'find out all the keyboard button
+#    clicks that were on Battle Brothers and do the exact same for Bohemia'; 'how do we turn a quest off'; 'Battle Brothers matches you with
+#    opponents by the amount of people on your roster'). (1) Every key and shortcut Battle Brothers has, on the world map, in towns, in the
+#    fight and in menus, with what each does. (2) What happens when you abandon or fail a contract (the cost). (3) Exactly how party
+#    strength scales with roster size, days and difficulty. Cite each page or say it does not say.
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
