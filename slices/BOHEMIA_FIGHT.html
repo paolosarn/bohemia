@@ -610,10 +610,16 @@ const FIGHT = (function () {
     const T = R('ours.enemy_tiers'), phase = tierPhase(p.days, p.difficulty), raw = T.mix[p.faction || 'brigands'][phase];
     /* THE ACT WEIGHS EVERY KIND (rule 134(b), ours.act_weights): the mix times the kind's weight in the act the fight is told */
     const AW = R('ours.act_weights'), act = Math.max(1, Math.min(AW.acts, p.act || S.act || 1)), mix = {};
+    /* SIZED TO THE CREW (COMBAT [bestiary], rule 133; ours.enemy_tiers.count_scale): a tougher faction fields fewer for the same count */
+    const csc = (T.count_scale || {})[p.faction], count = csc ? Math.max(1, Math.round(p.count * csc)) : p.count;
     Object.keys(raw).forEach(function (k) { mix[k] = raw[k] * (AW.by_kind[k] || AW.default)[act - 1]; });
     const out = [], ids = Object.keys(mix), lead = ids.filter(function (k) { return /leader/.test(k); })[0];
-    if (lead && p.count >= T.leader_from_count) out.push(lead);
-    while (out.length < p.count) {
+    if (lead && count >= T.leader_from_count) out.push(lead);
+    /* THE HEAD OF A FACTION (COMBAT [bestiary], ours.enemy_tiers.heads): the machines come with their one MECHANIC, first, never
+       two ('There is rarely more than one of them'); a party of one is a lone machine */
+    const head = (T.heads || {})[p.faction || 'brigands'];
+    if (head && count > 1 && !out.length) out.push(head);
+    while (out.length < count) {
       const pool = ids.filter(function (k) { return !(/leader/.test(k) && out.filter(function (o) { return o === k; }).length >= T.leaders_max); });
       let r = rng() * pool.reduce(function (t, k) { return t + mix[k]; }, 0);
       out.push(pool.filter(function (k) { r -= mix[k]; return r < 0; })[0] || pool[0]);
@@ -662,9 +668,11 @@ const FIGHT = (function () {
     const r = DB.enemies.rows.filter(function (e) { return e.id === id; })[0];
     if (!r) throw new Error('the fight has no enemy row ' + id);
     const gear = (r.gear || []).slice().sort(function () { return rng() - rng(); });
-    const kind = DB.ai.kinds[id] ? R('ai.kinds.' + id) : 'line';
-    const wantRanged = kind === 'backline';
+    const kind = DB.ai.kinds[id] ? R('ai.kinds.' + id) : 'line', Ak = DB.ai.archetypes[kind] ? R('ai.archetypes.' + kind) : {};
+    const wantRanged = kind === 'backline' || !!Ak.throws;
     let w = null;
+    /* GUNS FIRST (rule 120(a)): the MECHANIC's knife or dagger is the pistol in his hand (ours.pistol_shot) */
+    if (Ak.gun) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && pistolShot(x)) w = x; });
     /* a pistol is picked last: the wiki's early bands carry no shooters, and its knife is a gun in our hands (ours.pistol_shot) */
     gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && isRanged(x) === wantRanged && x.class !== 'throwing' && !pistolShot(x)) w = x; });
     if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && !pistolShot(x)) w = x; });
@@ -674,8 +682,8 @@ const FIGHT = (function () {
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
     const pl = R('ours.people_looks').band, pool = pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
-    return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
-      racial: (DB.racial && DB.racial.by_enemy[id]) || [], ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, job: w.class, perks: perksByName(r.perks, S.days),
+    return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: R('ours.bestiary').names[id] || r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
+      racial: (DB.racial && DB.racial.by_enemy[id]) || [], ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: perksByName(r.perks, S.days),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
@@ -799,6 +807,18 @@ const FIGHT = (function () {
     order.forEach(function (t) { if (!used[t.y * S.w + t.x]) put(t, g.rows[Math.floor(rng() * g.rows.length)]); });
     return B;
   }
+  /* THE ROAD SETS THE ENEMY (rule 75; COMBAT [bestiary], ours.road_factions): the map hands every roaming party as brigands; from
+     his second fight (opts.met, the screen's count) a party handed so is one of the valley's factions, drawn by the act. The
+     hand-over itself is never changed (the kept fight's key reads it) */
+  function roadOpts(opts) {
+    const p = opts.party, rf = R('ours.road_factions');
+    if (!p || Array.isArray(p) || !p.count || (p.faction || rf.from) !== rf.from || (opts.met || 0) < rf.after_fights) return opts;
+    const w = rf.by_act[Math.max(1, Math.min(rf.by_act.length, S.act)) - 1], ks = Object.keys(w);
+    let r = rng() * ks.reduce(function (t, k) { return t + w[k]; }, 0);
+    const f = ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0];
+    S.roadFaction = f;
+    return Object.assign({}, opts, { party: Object.assign({}, p, { faction: f }) });
+  }
   function graveyardBand(opts, men) {
     const g = R('ours.graveyard'), AW = R('ours.act_weights'), act = Math.max(1, Math.min(AW.acts, opts.act || (opts.party && opts.party.act) || 1));
     const w = AW.by_kind[g.ghost_kind] || AW.default, base = opts.party && opts.party.count ? opts.party.count : bandFor(men).length;
@@ -906,7 +926,7 @@ const FIGHT = (function () {
     }
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
-    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
+    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
     S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
@@ -923,7 +943,7 @@ const FIGHT = (function () {
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
-    const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) ? graveyardBand(opts, crewUnits.length) : bandOf(opts, crewUnits.length);
+    const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);
     LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
     const bandUnits = band.map(enemyUnit);
     LOOKS_TAKEN = null;
@@ -1166,6 +1186,7 @@ const FIGHT = (function () {
   function beginTurn(u) {
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
+    u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
     if (u.morale === 'Fleeing' && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
       const p = R('parsed.morale_stop_fleeing');
       if (check(u, 'pos', p.per_round * u.roundsFleeing, true)) { u.morale = STATES()[STATES().indexOf('Wavering')]; emit({ t: 'rally', id: u.id }); }
@@ -1443,7 +1464,7 @@ const FIGHT = (function () {
       t.nineUsed = true; t.nineUp = true; t.hp = rint(nl.hitpoints_left_min, nl.hitpoints_left_max);
       emit({ t: 'nine', id: t.id });
     }
-    if (t.hp <= 0) { fall(t, a); return; }
+    if (t.hp <= 0) { t.headGone = !!r.head; fall(t, a); return; }   /* THE MECHANIC: a head shot that kills takes the chip too */
     injure(t, a, r);
     const s = R('parsed.morale_struck'), fs = PK(a, 'fearsome');
     if (fs && r.hp >= fs.min_hitpoint_damage_to_trigger)
@@ -1492,6 +1513,7 @@ const FIGHT = (function () {
       if (bz && !a.berserkUsed) { a.berserkUsed = true; a.ap = Math.min(a.apTurn, a.ap + bz.ap_regained_on_kill); emit({ t: 'berserk', id: a.id }); }
     }
     ripple(t, a, 'dies');
+    if (t.side === 'them') unplug(t, a);
   }
   /* a kill's experience: 20% to the killer, 80% shared by the whole party, all less the wiki's flat 15% */
   function experience(t, a) {
@@ -1681,6 +1703,43 @@ const FIGHT = (function () {
     });
     return best && (best.x !== u.x || best.y !== u.y) ? best : null;
   }
+  /* ---------------- THE MECHANIC (COMBAT [bestiary], the coordinator's round on Paolo 10/24: 'let's have fun, let's be creative';
+     his own words in the 9/29 draft, records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md: 'NECROMANCER -> THE
+     MECHANIC: a man who keeps reviving his robots; kill him and the machines drop') ----------------
+     Battle Brothers' Necromancer (enemies.json necromancer; racial_skills.json raise_undead and no_spells_in_melee, each its
+     page): he stays far behind his dead, Raise Undead stands a fallen one back up with half its hitpoints, 3 AP, twice a turn,
+     from anywhere, never on a body somebody stands on or one whose head was smashed, never while a man is on him with a blade.
+     OURS (ours.bestiary.mechanic, his words): when the last mechanic falls, every machine of his drops where it stands and
+     never gets up. The lesson in one meeting: shoot the man in the back first; a head shot keeps a machine down. */
+  function isMachine(u) { return !!u && R('ours.bestiary').mechanic.machines.indexOf(u.kind) >= 0; }
+  function engaged(u) { return foes(u).some(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon) && f.morale !== 'Fleeing'; }); }
+  function canRaise(u, t) {
+    const r = racial(u, 'raise_undead');
+    if (!r || !onField(u) || !t || t.side !== u.side || !t.dead || t.headGone || t.unplugged || r.raises.indexOf(t.kind) < 0) return false;
+    if (racial(u, 'no_spells_in_melee') && engaged(u)) return false;
+    if (S.units.some(function (o) { return onField(o) && o.x === t.x && o.y === t.y; })) return false;   /* somebody stands on the body */
+    return u.ap >= r.ap && u.fat + r.fatigue <= fatMax(u) && (u.raised || 0) < r.per_turn;
+  }
+  function raise(u, t) {
+    if (S.over || current() !== u || !canRaise(u, t)) return false;
+    const r = racial(u, 'raise_undead'); u.ap -= r.ap; u.fat += r.fatigue; u.raised = (u.raised || 0) + 1;
+    t.dead = false; t.hp = Math.max(1, Math.round(t.hpMax * r.hp_pct / 100)); t.reboots = (t.reboots || 0) + 1;
+    emit({ t: 'skill', id: u.id, skill: 'raise_undead', to: t.id });
+    afterAction(u); return true;
+  }
+  /* the body he stands up: the biggest machine down */
+  function raiseTarget(u) { return S.units.filter(function (t) { return canRaise(u, t); }).sort(function (p, q) { return q.hpMax - p.hpMax; })[0] || null; }
+  function unplug(t, a) {
+    const M = R('ours.bestiary').mechanic;
+    if (!M.drop_when_he_falls || t.kind !== M.kind) return;
+    if (S.units.some(function (o) { return o !== t && o.side === t.side && o.kind === M.kind && onField(o); })) return;   /* another mechanic still works */
+    S.units.filter(function (o) { return o.side === t.side && isMachine(o); }).forEach(function (o) {
+      o.unplugged = true;
+      if (!onField(o)) return;
+      o.hp = 0; o.dead = true; if (a) a.kills = (a.kills || 0) + 1;
+      emit({ t: 'dead', id: o.id, by: a ? a.id : null, unplugged: true }); experience(o, a);
+    });
+  }
   /* a magazine reloads only when it is empty (rule 117(b): one clear next thing) */
   function canReload(a) {
     const s = reloadSkill(a.weapon);
@@ -1865,6 +1924,10 @@ const FIGHT = (function () {
     if (tz && canStrike(u, tz)) return tz;                    /* taunted: he goes for the man who called him */
     const A = arche(u);
     let best = null, bs = -Infinity;
+    /* THE MECHANIC FIRST (ai.json crew.head, the Necromancer's page: 'One of tactics against them is sniping'): a man who keeps
+       the dead getting up is the blow's first choice whenever it can reach him */
+    const heads = A.snipes_the_head ? foes(u).filter(function (t) { return racial(t, 'raise_undead') && canStrike(u, t) && sideSees(u.side, t); }) : [];
+    if (heads.length) return heads[0];
     foes(u).forEach(function (t) {
       if (!canStrike(u, t) || (A.sees_only && !sideSees(u.side, t))) return;   /* 70b: never a man his side cannot see */
       let s = expected(u, t);
@@ -1929,6 +1992,8 @@ const FIGHT = (function () {
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
+    /* THE MECHANIC (ai.json mechanic): a fallen machine of his comes back up whenever he can, twice a turn */
+    if (A.raises && racial(u, 'raise_undead')) { const rt = raiseTarget(u); if (rt) return raise(u, rt); }
     /* THE GEIST (ai.json screamer): it screams at the weakest nerve inside three tiles; with nobody there it drifts to where its
        scream reaches, out of arm's length; with nobody left who can break, it touches */
     if (A.screams && racial(u, 'horrific_scream')) {
@@ -2067,6 +2132,7 @@ const FIGHT = (function () {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
+    canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
@@ -2594,7 +2660,7 @@ function take() {
     }
     else if (e.t === 'attack' && e.sweep && swing && swing.e.id === e.id) { (swing.also = swing.also || []).push(e); swing.dur += beatMs() / 4; }
     else if (e.t === 'attack') { swing = { k: 'attack', e: e, dur: beatMs() }; UI.anim.push(swing); }
-    else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: beatMs() * NOTE_BEATS[e.t] });
+    else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: e.unplugged ? beatMs() / 4 : beatMs() * NOTE_BEATS[e.t] });   /* his machines drop a sixteenth apart */
     else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
   });
 }
@@ -2733,7 +2799,8 @@ const TEACH = {   /* draft:true */
   back: 'Wrong step, mijo? BACK takes it back. One a turn.',
   auto: 'We have this one, carnal. AUTO finishes it.',
   ghost: 'Ay. That is {name}. We buried them in March.',
-  ghost_hit: 'Walk up and hit it, compa. They break like smoke.'
+  ghost_hit: 'Walk up and hit it, compa. They break like smoke.',
+  mechanic: 'Oye, shoot the one in back first. His machines drop.'
 };
 /* the moment each queued line belongs to: past it, the line is dropped, never said late */
 const TEACH_STILL = {
@@ -2743,7 +2810,8 @@ const TEACH_STILL = {
   back: function () { return backOk(FIGHT.current()); },
   auto: function () { return oddsGlow(); },
   ghost: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
-  ghost_hit: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); }
+  ghost_hit: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
+  mechanic: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'raise_undead') && FIGHT.onField(v); }); }
 };
 function teachSoon(k) {
   const T = taughtNow(); UI.teachQ = UI.teachQ || [];
@@ -2781,7 +2849,10 @@ function teach(k) {
   drawPortrait(document.getElementById('vetface').getContext('2d'), v, document.getElementById('vetface').width);
   document.getElementById('vetname').textContent = v.name; document.getElementById('vetline').textContent = '';
   const el = document.getElementById('vet'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
-  feed(v.name + ': ' + line); return true;
+  feed(v.name + ': ' + line);
+  /* HIS VETERAN IS HEARD (SOUNDS [the squiggle, creepier], rule 135: 'every time people speak'): the same look, the same voice as on the map */
+  try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: line }, '*'); } catch (_e) {}
+  return true;
 }
 function tickVet(now) {
   const V = UI.vet; if (!V) return;
@@ -2851,7 +2922,8 @@ function startAnim(a) {
     if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = performance.now();   /* the fall plays from here (poseOf) */
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
       if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
-    if (e.t === 'dead') { SND.fall(true, { side: u.side }); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
+    if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
+    else if (e.t === 'dead') { SND.fall(true, { side: u.side }); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
     if (e.t === 'down') { SND.fall(false, { side: u.side }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); }
     if (e.t === 'fled') SND.flee();
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
@@ -2866,6 +2938,12 @@ function startAnim(a) {
     /* THE SCREAM (rule 134): his approved tape_pull, the tape dragged through the heads, the Amalgamation's broadcast as act one
        hears it, until SOUNDS makes a scream of its own; the man it was aimed at in the line */
     if (e.t === 'skill' && e.skill === 'horrific_scream') { sfx('tape_pull'); pop(u, '', '#b49ce0', true, u.name + ' screams at ' + nameOf(e.to) + '.'); }
+    /* THE REBOOT (COMBAT [bestiary], THE MECHANIC): his approved power_on, the dead machine's lamp coming back, and it stands up
+       out of its fall flickering for a beat; the first time, his veteran says who to shoot */
+    else if (e.t === 'skill' && e.skill === 'raise_undead') { const t = FIGHT.byId(e.to);
+      sfx('power_on', { side: 'them', who: t ? t.name : null });
+      if (t) { t._fallAt = undefined; t.seenFall = false; t._rebootAt = performance.now(); pop(t, '', '#7fd6c4', true, u.name + ' reboots ' + t.name + '.'); }
+      teachSoon('mechanic'); }
     else if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
   }
   if (a.k === 'over') showOver(e.result);
@@ -3514,6 +3592,7 @@ function blitMan(v, X, feet, now, alpha) {
   const ox = Math.round(X * DPR) - L.foot[0] * s, oy = Math.round(feet * DPR) - L.foot[1] * s;
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
   if (v.ghost) { ghostBlit(v, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, now, alpha); cx.restore(); return; }
+  if (v.machine) { chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha); cx.restore(); return; }
   const idled = idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
   if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
@@ -3561,6 +3640,42 @@ function ghostBlit(v, img, sx0, sy0, sw, sh, ox, oy, s, now, alpha) {
   cx.globalAlpha = alpha * (drop ? .35 : .8);
   cx.drawImage(v._gout, ox, oy);
   UI.ghostDrawn = (UI.ghostDrawn || 0) + 1;
+}
+/* THE MACHINE'S LOOK (COMBAT [bestiary], THE MECHANIC; rule 20 analog horror, rule 121(e): the rig's man, never a flat sprite):
+   one of the valley's rolled dead from the rig cast, run on a chip: the body drained to a cold grey-green (his colour gone, the
+   shape his own), a red diode at the nape blinking on the beat, a one-pixel twitch on some sixteenths (a machine's idle is a
+   tic), and for a beat after a reboot the picture rolls like a tape catching sync. Down for good (a head shot, or the mechanic
+   gone) the diode is dark. COOK and ANIMATION's own machine through the rig replaces the body under it the day it lands. */
+const CHIP_SHEETS = new WeakMap(), CHIP_LED = ['#ff3b2a', '#4a0d08'];
+function chipSheet(img) {
+  let c = CHIP_SHEETS.get(img); if (c) return c;
+  c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+  const g = c.getContext('2d'); g.drawImage(img, 0, 0);
+  g.globalCompositeOperation = 'saturation'; g.fillStyle = 'rgba(128,128,128,.8)'; g.fillRect(0, 0, c.width, c.height);
+  g.globalCompositeOperation = 'destination-in'; g.drawImage(img, 0, 0);   /* the blend paints the empty cells too: keep only the body */
+  g.globalCompositeOperation = 'source-atop'; g.fillStyle = 'rgba(70,110,96,.22)'; g.fillRect(0, 0, c.width, c.height);
+  CHIP_SHEETS.set(img, c); return c;
+}
+function chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha) {
+  const slot = Math.floor((now - UI.t0) / (beatMs() / 4)), seed = v.id.charCodeAt(v.id.length - 1), px = Math.max(1, Math.round(s));
+  const boot = v._rebootAt !== undefined && now - v._rebootAt < beatMs();
+  const tic = !boot && v._fallAt === undefined && ghostCoin(slot * 7 + seed, 3) < .14 ? (ghostCoin(slot, seed) < .5 ? -px : px) : 0;
+  const sh = chipSheet(img), sx0 = p.col * L.w, sy0 = (v._face || 0) * L.h;
+  if (boot) {   /* catching sync: the body in bands, rolled sideways, half there */
+    const k = (now - v._rebootAt) / beatMs(), band = Math.max(2, Math.round(s * 4));
+    cx.globalAlpha = alpha * (.45 + .55 * k);
+    for (let y = 0; y < L.h; y += band / s) { const off = ghostCoin(slot * 13 + seed, Math.round(y)) < .5 * (1 - k) ? Math.round((ghostCoin(slot, Math.round(y)) - .5) * 12) * px : 0;
+      cx.drawImage(sh, sx0, sy0 + y, L.w, Math.min(band / s, L.h - y), ox + off, oy + y * s, L.w * s, Math.min(band, (L.h - y) * s)); }
+    cx.globalAlpha = alpha;
+  } else cx.drawImage(sh, sx0, sy0, L.w, L.h, ox + tic, oy, L.w * s, L.h * s);
+  if (gs) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
+    if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox + tic, oy, L.w * s, L.h * s); }
+  /* the diode at the nape: lit on the beat's first half while the chip runs, dark for good when it is gone */
+  const lit = !v.headGone && !v.unplugged && v._fallAt === undefined && ((now - UI.t0) % beatMs()) < beatMs() / 2;
+  const nx = ox + tic + (L.foot[0] + (v._face === 2 ? -3 : v._face === 6 ? 3 : 0)) * s, ny = oy + (L.foot[1] - DB.rig.ruler.px * .84) * s;
+  if (v._fallAt === undefined || !lit) { cx.fillStyle = CHIP_LED[lit ? 0 : 1]; cx.fillRect(Math.round(nx), Math.round(ny), px * 2, px * 2);
+    if (lit) { cx.globalAlpha = alpha * .35; cx.fillRect(Math.round(nx - px * 2), Math.round(ny - px * 2), px * 6, px * 6); cx.globalAlpha = alpha; } }
+  UI.chipDrawn = (UI.chipDrawn || 0) + 1;
 }
 /* the fallen stay where they fell: a body on the ground, no word over it */
 function drawBody(v, tw, th) {
@@ -4314,6 +4429,7 @@ function frame(now) {
   try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); oddsTick(now); keptTick(); if (++hudN % 6 === 0) hud(); }
   catch (e) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
 }
+const MET_KEY = 'bohemia.fight.met.v1';
 function start() {
   const o = window.FIGHT_OPTS || {};
   if (o.seed !== undefined) SEED = o.seed >>> 0;
@@ -4322,6 +4438,9 @@ function start() {
   MAN_IDLE = o.manPx > 0 ? o.manPx : MAN_DEFAULT;
   UI.finish = false; UI.back = null; UI.backUsed = null; UI.theirsPace = o.theirsPace || 0; oddsReset();
   handSpeed(o.hand || storedSpeed(), true);
+  /* THE ROAD SETS THE ENEMY (COMBAT [bestiary]): how many fights this phone has opened, so his first stays the lesson fight */
+  let met = 0; try { met = Number(localStorage.getItem(MET_KEY)) || 0; localStorage.setItem(MET_KEY, String(met + 1)); } catch (_e) {}
+  if (o.met === undefined) o.met = met;
   FIGHT.setup(o);
   /* change 10(e): the same fight opened again (a fresh page: the tab died, a phone call) goes on from his last turn's start;
      AGAIN, or a fight started on this page, starts clean and clears the copy */

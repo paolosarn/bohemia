@@ -520,12 +520,96 @@
      "person_caravans_0",
      "person_caravans_1",
      "person_caravans_2"
+    ],
+    "necromancer": [
+     "faction_trades",
+     "person_trades_0",
+     "person_trades_1",
+     "person_trades_2"
+    ],
+    "wiederganger": [
+     "person_homeless_0",
+     "person_homeless_1",
+     "person_homeless_2",
+     "person_caravans_0",
+     "person_caravans_1",
+     "person_caravans_2",
+     "person_reds_0",
+     "person_reds_1",
+     "person_reds_2",
+     "person_volunteers_0",
+     "person_volunteers_1",
+     "person_volunteers_2"
+    ],
+    "armored_wiederganger": [
+     "faction_blues",
+     "person_blues_0",
+     "person_blues_1",
+     "person_blues_2",
+     "faction_remnants",
+     "person_remnants_0"
+    ],
+    "lower_goblin_skirmisher": [
+     "faction_colorful",
+     "person_colorful_0",
+     "person_colorful_1",
+     "person_colorful_2",
+     "faction_anarchists",
+     "person_anarchists_0",
+     "person_anarchists_1",
+     "person_anarchists_2"
+    ],
+    "goblin_skirmisher": [
+     "faction_colorful",
+     "person_colorful_0",
+     "person_colorful_1",
+     "person_colorful_2",
+     "faction_anarchists",
+     "person_anarchists_0",
+     "person_anarchists_1",
+     "person_anarchists_2"
+    ],
+    "goblin_wolfrider": [
+     "faction_anarchists",
+     "person_anarchists_2",
+     "person_anarchists_1",
+     "faction_colorful",
+     "person_colorful_2"
+    ],
+    "lower_orc_warrior": [
+     "faction_remnants",
+     "person_remnants_0",
+     "person_remnants_1",
+     "person_remnants_2",
+     "faction_blues",
+     "person_blues_0",
+     "person_blues_1"
+    ],
+    "orc_warrior": [
+     "faction_remnants",
+     "person_remnants_0",
+     "person_remnants_1",
+     "person_remnants_2",
+     "faction_blues",
+     "person_blues_0",
+     "person_blues_1"
+    ],
+    "orc_young": [
+     "faction_mob",
+     "person_mob_0",
+     "person_mob_1",
+     "person_mob_2",
+     "faction_cartel",
+     "person_cartel_0",
+     "person_cartel_1",
+     "person_cartel_2"
     ]
    }
   },
   "source": "records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md",
   "quote": "I wanna see all my character art that we've worked so hard on doing good work live in the game please even if it's new combat",
-  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft) (10/19, COMBAT [the fight wears the 3D models], rule 121: the thug and the poacher bands lead with COOK THREE's own thug and poacher, modelled with PORTRAIT's head on their own body; the rest of each band wears the gangs' rig models) (10/23, RUN TWO [no two people alike], rule 121(i), his 'SO MANY OF THE SAME HATS... 2 OPTIONS FOR CUSTOMIZATIONS': after each pool's first look, its gangs' rolled people, each his own mix of CHARACTER's pieces; the fight hands a man the first look nobody on the board wears) (10/24, RUN TWO [the face is his own face], rule 120(d) and 121(e)(i), his 'the portraits don't look like the people... Black people looking like white people': your eleven are eleven of the valley's rolled people the fight already draws (the places' own, person_town_*), each his own body, his own skin and the face rendered off that same head; a name that reads a woman's wears a face with no beard; nobody else in the valley is dealt them)"
+  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft) (10/19, COMBAT [the fight wears the 3D models], rule 121: the thug and the poacher bands lead with COOK THREE's own thug and poacher, modelled with PORTRAIT's head on their own body; the rest of each band wears the gangs' rig models) (10/23, RUN TWO [no two people alike], rule 121(i), his 'SO MANY OF THE SAME HATS... 2 OPTIONS FOR CUSTOMIZATIONS': after each pool's first look, its gangs' rolled people, each his own mix of CHARACTER's pieces; the fight hands a man the first look nobody on the board wears) (10/24, RUN TWO [the face is his own face], rule 120(d) and 121(e)(i), his 'the portraits don't look like the people... Black people looking like white people': your eleven are eleven of the valley's rolled people the fight already draws (the places' own, person_town_*), each his own body, his own skin and the face rendered off that same head; a name that reads a woman's wears a face with no beard; nobody else in the valley is dealt them)",
+  "bestiary": "COMBAT [bestiary] 10/24: THE MECHANIC wears the Trades (the valley's tradesmen: the man who knows machines); his machines wear the rolled dead of the valley under the chip's look; THE KIDS the Colorful and the Anarchists (the young); THE HEAVY the Remnants and the Blues (the men who kept their suits). One man, one look: no two alike on a board (freeLook)."
  },
  "formation_depth_lines": {
   "value": 2,
@@ -635,10 +719,68 @@
      "late": {
       "geist": 1
      }
+    },
+    "machines": {
+     "first": {
+      "wiederganger": 1
+     },
+     "early": {
+      "wiederganger": 1
+     },
+     "middle": {
+      "wiederganger": 3,
+      "armored_wiederganger": 1
+     },
+     "late": {
+      "wiederganger": 1,
+      "armored_wiederganger": 2
+     }
+    },
+    "kids": {
+     "first": {
+      "lower_goblin_skirmisher": 3,
+      "goblin_wolfrider": 1
+     },
+     "early": {
+      "lower_goblin_skirmisher": 3,
+      "goblin_wolfrider": 1
+     },
+     "middle": {
+      "goblin_skirmisher": 3,
+      "goblin_wolfrider": 1
+     },
+     "late": {
+      "goblin_skirmisher": 2,
+      "goblin_wolfrider": 1
+     }
+    },
+    "heavies": {
+     "first": {
+      "lower_orc_warrior": 1,
+      "orc_young": 2
+     },
+     "early": {
+      "lower_orc_warrior": 1,
+      "orc_young": 2
+     },
+     "middle": {
+      "orc_warrior": 2,
+      "orc_young": 2
+     },
+     "late": {
+      "orc_warrior": 3,
+      "orc_young": 1
+     }
     }
+   },
+   "heads": {
+    "machines": "necromancer"
+   },
+   "count_scale": {
+    "machines": 0.85
    }
   },
-  "source": "bb_all/0299_Brigands.txt (the tactics), bb_all/0290_Brigand Leader.txt, bb_all/0293_Brigand Marauder.txt, bb_all/0297_Brigand Raider.txt, bb_all/0294_Brigand Marksman.txt (Bullseye after day 20); reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md",
+  "source": "bb_all/0299_Brigands.txt (the tactics), bb_all/0290_Brigand Leader.txt, bb_all/0293_Brigand Marauder.txt, bb_all/0297_Brigand Raider.txt, bb_all/0294_Brigand Marksman.txt (Bullseye after day 20); reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md; bb_all/1409_Necromancer.txt (the mechanic's party: 'There is rarely more than one of them'), bb_all/0878_Goblins.txt, bb_all/1505_Orcs.txt",
   "quote": "In the early game Brigand groups usually consist of Thugs and sometimes Raiders. Later, Raiders become more common, ranged attackers appear and their numbers increase, and armored Marauders can spawn. In the late game you will usually see a Brigand Leader and other elite enemies among them. / Brigand Leaders start appearing in the middle game. Late game brigand groups usually have a Leader. It's rare to see simultaneously more than one. / Melee skill is 65 before day 40, 70 after. / (GROK_60) Combat difficulty, set at the start, raises both the count and the tier. Higher tier means more leaders and fewer thugs. Day scaling for those stops at day 100. A few is 2 to 3. Some is 4 to 6. / (Brigand Marksman) Ranged defense is 10 before day 40, 15 after.",
   "why": "COMBAT [the enemy math] (Paolo 10/5, rule 75b: 'the beginning is a lot different from the end'). The map hands the party (RUN [a few, not twelve]: the count, the days, the difficulty); the fight dresses it by tier. The phase boundaries are the wiki's own day gates (perks after day 20, the raider's skill after day 40, the marauder's best armour after day 60) and Grok's day 100 where roaming scaling stops; each combat difficulty above Veteran moves the tier as if the party were 20 days later (Beginner and Veteran the same); a party of 'some' (4) or more in the late phase brings its one leader. The mix weights are ours from the tactics paragraph; TUNING owns every one. A skill or a defence the wiki gives as a range (65-70, 10-15) is the before-and-after of skill_day, never a roll. THE BEASTS (COMBAT [the fight holds the grid], rule 117(e), 10/18): the pack's make-up is FACTIONS' draft for the lab-made beasts (records/target/bb/factions.json, faction beasts: early four dire wolves to two hyenas, late three dire wolves, two frenzied, one schrat); the middle phase keeps the early pack until a source says when the frenzied ones join; TUNING owns every weight.",
   "first_week": {
@@ -647,7 +789,9 @@
    "quote": "the starting kit, the first band and the tutorial fight are built around shooting / In the early game Brigand groups usually consist of Thugs and sometimes Raiders",
    "why": "THE FIRST BAND IS BUILT TO BE SHOT AT: the company's first week (days 1 to 7) meets thugs alone, the wiki's early band before its 'sometimes Raiders'; the lesser raider (75 health, 55 to 110 body armour) joins from day 8. Measured 10/19 before it: a fresh crew of three met two raiders in one band of three and lost every time, whatever it carried. The beasts' first week is their early pack. TUNING owns the day."
   },
-  "ghosts": "COMBAT [ghosts and apparitions] 10/23, rule 134: a party of the Amalgamation's haunting is Geists only (bb_all/0831_Geist.txt: 'Graveyards sometimes have nothing but a lot of Geists guarding them'); every phase the same, the act decides how often they come"
+  "ghosts": "COMBAT [ghosts and apparitions] 10/23, rule 134: a party of the Amalgamation's haunting is Geists only (bb_all/0831_Geist.txt: 'Graveyards sometimes have nothing but a lot of Geists guarding them'); every phase the same, the act decides how often they come",
+  "bestiary": "COMBAT [bestiary] 10/24: three factions added from the bestiary count (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md): machines (the Necromancer's zombies: his machines and the one MECHANIC at their head, heads.machines, always first, never two), kids (the goblin skirmishers and one wolfrider in four), heavies (orc warriors with the young). The mixes are drafts (tuned: false); TUNING owns them.",
+  "count_scale_why": "COMBAT [bestiary] 10/24 (rule 133, sized to the crew): a party the map hands is counted in brigands; a faction whose men are tougher fields fewer of them. MEASURED on today's fight, AUTO both sides, 40 seeds a cell, a new crew of farmhands: machines (the MECHANIC and his dead) at the same count as the crew win 31/40 (3 men), 30/40 (6), 20/40 (12); at 0.85 of it 31/40, 36/40, 33/40 (12 vs 10), on TUNING's 70-in-100 line or above. Draft; TUNING owns it."
  },
  "captain_aura": {
   "value": {
@@ -907,13 +1051,59 @@
      1,
      1,
      1
+    ],
+    "necromancer": [
+     1,
+     1.5,
+     2
+    ],
+    "wiederganger": [
+     1,
+     1.5,
+     2
+    ],
+    "armored_wiederganger": [
+     1,
+     1.5,
+     2
+    ],
+    "goblin_skirmisher": [
+     1.5,
+     1,
+     0.5
+    ],
+    "lower_goblin_skirmisher": [
+     1.5,
+     1,
+     0.5
+    ],
+    "goblin_wolfrider": [
+     1.5,
+     1,
+     0.5
+    ],
+    "orc_warrior": [
+     0.5,
+     1,
+     1.5
+    ],
+    "lower_orc_warrior": [
+     0.5,
+     1,
+     1.5
+    ],
+    "orc_young": [
+     0.5,
+     1,
+     1.5
     ]
    }
   },
   "source": "VAMILY.md rule 134(b) and (e); records/BOHEMIA_PAOLO_GHOSTS_AND_APPARITIONS_10_23_26.md",
   "quote": "maybe they're way more around for the first act than the third act; there's gonna be enemy types around more in different acts than another, that's just how it is",
   "why": "COMBAT [ghosts and apparitions] 10/23: every enemy type the fight can field carries a weight for each of the three acts (act one, two, three); the fight multiplies a party's mix by the act it is told (FIGHT_OPTS.act, act one when none), and the map's spawner reads the same row to choose which parties walk (RUN, WORLD). Ghosts three times as often in act one, as often as anything in act two, a quarter in act three: they are the Amalgamation's haunting as act one sees it (rule 134(e)), and by acts two and three people know what they are. The numbers are a draft (tuned: false): TUNING owns them.",
-  "tuned": false
+  "tuned": false,
+  "bestiary": "COMBAT [bestiary] 10/24 (rule 134(b): 'every enemy type carries a weight per act'): THE MECHANIC's machines grow as the world gets its tech back (1 / 1.5 / 2: the future is reclaimed and techy, his second votes); THE KIDS AND RUNNERS are the ruin's children (1.5 / 1 / 0.5: fewer once the towns hold); THE HEAVY needs a working suit (0.5 / 1 / 1.5). Drafts; TUNING owns them."
  },
  "graveyard": {
   "value": {
@@ -954,5 +1144,64 @@
   "quote": "a place full of them is our graveyard",
   "why": "COMBAT 10/24 [ghosts and apparitions]: the cemetery (WORLD's district 'cemetery', or a fight told place 'graveyard') is dealt on the valley's open scrub (no twin beside its twin) and dressed with the field: one row of headstones a tile (one piece of cover there), an aisle every aisle_every columns, a path across path_row, the crypt (it blocks a step) and the obelisks on field tiles, the fresh graves in the bottom fresh_rows_from_bottom rows; each line's own open_cols_each_line columns stay open to stand in. A row's foot stands at foot_m (metres into its tile, across and down). The band is the place's own: the ghosts faction, crowd times the handed party (or the company's own line, fallback_band_by_company), times the Geist's act weight over act one's (3 / 1 / 0.25: the graveyard full in act one, one ghost by act three). MEASURED 10/24 (AUTO, 40 seeds a cell, on the graveyard): 3 men beat 2 ghosts 90%, 3 ghosts 40%, 5 ghosts 0%; 6 men beat 5 ghosts 50%, 6 ghosts 35%, 9 ghosts 0%; 12 men beat 11 ghosts 78%, 12 ghosts 83%, 18 ghosts 0%. A crowd of 2 (twice the crew) is a graveyard no company leaves; crowd 1 is the hardest fight on the line (rule 133(b): hardcore if you mess around), and the lesson (walk up and hit it) is the way through. TUNING owns the numbers.",
   "draft": true
+ },
+ "bestiary": {
+  "value": {
+   "names": {
+    "necromancer": "MECHANIC",
+    "wiederganger": "MACHINE",
+    "armored_wiederganger": "PLATED MACHINE",
+    "goblin_skirmisher": "KID",
+    "lower_goblin_skirmisher": "KID",
+    "goblin_wolfrider": "QUAD RIDER",
+    "orc_warrior": "HEAVY",
+    "lower_orc_warrior": "HEAVY",
+    "orc_young": "BRUISER"
+   },
+   "mechanic": {
+    "kind": "necromancer",
+    "machines": [
+     "wiederganger",
+     "armored_wiederganger"
+    ],
+    "drop_when_he_falls": true
+   }
+  },
+  "source": "records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md (the 9/29 draft; NECROMANCER -> THE MECHANIC is marked his words); VAMILY.md COMBAT [bestiary]",
+  "quote": "NECROMANCER -> THE MECHANIC (his words): a man who keeps reviving his robots; kill him and the machines drop.",
+  "why": "COMBAT [bestiary] 10/24: the names the board and the feed call each new kind (draft:true for WORDS), and THE MECHANIC's one rule that is ours and not Battle Brothers': when the last mechanic falls, every machine he kept running drops where it stands and never gets up (in Battle Brothers the undead fight on). The lesson in one meeting: kill him first.",
+  "tuned": false,
+  "draft": true
+ },
+ "road_factions": {
+  "value": {
+   "after_fights": 1,
+   "from": "brigands",
+   "by_act": [
+    {
+     "brigands": 4,
+     "kids": 0,
+     "machines": 1,
+     "heavies": 0
+    },
+    {
+     "brigands": 4,
+     "kids": 0,
+     "machines": 1.5,
+     "heavies": 0
+    },
+    {
+     "brigands": 4,
+     "kids": 0,
+     "machines": 2,
+     "heavies": 0
+    }
+   ]
+  },
+  "source": "VAMILY.md rule 75 (Paolo 10/5, THE ORIGIN SETS THE COMPANY, AND THE ROAD SETS THE ENEMY) and rule 134(b) (Paolo 10/23); records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md",
+  "quote": "there's gonna be enemy types around more in different acts than another, that's just how it is",
+  "why": "COMBAT [bestiary] 10/24 (no card, rule 127: he meets them in his next fights): the map hands every roaming party as plain brigands today, so the three new kinds would never reach his glass. From his second fight on, a party handed as brigands is one of the valley's factions, drawn by the act it is fought in (the same weights as act_weights: the kids the ruin's, the machines and the heavies the reclaimed future's); his first fight stays brigands (the lessons of the first fight). A party the map names with its own faction (ghosts, beasts) keeps it. The day the map's parties carry their faction (RUN, WORLD), this table is the spawner's and the fight stops rolling. Drafts; TUNING owns them.",
+  "tuned": false,
+  "held": "kids and heavies at 0 until their own rules land (COMBAT [bestiary], ship each the moment it works)"
  }
 }

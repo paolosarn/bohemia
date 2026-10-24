@@ -1,8 +1,13 @@
 {
-  "_about": "COMBAT [ghosts and apparitions] 10/23 (rule 134, Paolo 10/23: 'like in Battle Brothers, one of the enemies are ghosts and apparitions... it fits our world too good'). The Geist's racial skills, each copied from its wiki page in the library the way weapons.json copies a knife; the fight reads this file (DB.racial). An enemy's skills are listed under by_enemy by its enemies.json id.",
+  "_about": "COMBAT [ghosts and apparitions] 10/23 (rule 134, Paolo 10/23: 'like in Battle Brothers, one of the enemies are ghosts and apparitions... it fits our world too good'). The Geist's racial skills, each copied from its wiki page in the library the way weapons.json copies a knife; the fight reads this file (DB.racial). An enemy's skills are listed under by_enemy by its enemies.json id. COMBAT [bestiary] 10/24 adds THE MECHANIC's (the Necromancer's Raise Undead and his rule against casting in melee), THE KIDS' (the Throwing Net) and THE HEAVY's (Line Breaker, Shield Bash), each from its page.",
   "rows": {
     "horrific_scream": {
-      "name": "Horrific Scream", "ap": 6, "fatigue": 0, "range_tiles": 3, "checks": 4, "modifier": 0,
+      "name": "Horrific Scream",
+      "ap": 6,
+      "fatigue": 0,
+      "range_tiles": 3,
+      "checks": 4,
+      "modifier": 0,
       "says": "Horrific Scream will cause resolve-checks with a range of 3 tiles",
       "checks_say": "Their Horrific Scream causes four morale checks with no modifier.",
       "page": "Horrific Scream (0 fatigue)",
@@ -10,19 +15,115 @@
       "checks_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0831_Geist.txt"
     },
     "incorporeal": {
-      "name": "Incorporeal", "per_tile_melee_defense": 10, "per_tile_ranged_defense": 10, "from_range": 2,
+      "name": "Incorporeal",
+      "per_tile_melee_defense": 10,
+      "per_tile_ranged_defense": 10,
+      "from_range": 2,
       "says": "Incorporeal grants +10 Melee Defense and +10 Ranged Defense for each tile range away from a Geist (active at range 2+)",
       "page": "Incorporeal",
       "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1071_Incorporeal.txt"
     },
     "crosses_any_ground": {
-      "name": "Crosses any ground", "walls": true,
+      "name": "Crosses any ground",
+      "walls": true,
       "says": "They can traverse steep cliffs (verify). | rule 134(a): 'it fights your men's nerve from range, slips over ground and walls, is fragile up close, drops nothing'",
       "page": "Geist",
       "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0831_Geist.txt"
+    },
+    "raise_undead": {
+      "name": "Raise Undead",
+      "ap": 3,
+      "fatigue": 10,
+      "hp_pct": 50,
+      "per_turn": 2,
+      "range_tiles": null,
+      "raises": [
+        "wiederganger",
+        "armored_wiederganger"
+      ],
+      "says": "Raise Undead will raise any type of wiedergangers and skeletons (with 50% of their Hitpoints) and any dead humans; cannot be used if the target was decapitated or its head was smashed, or if someone is standing on the corpse; can be used 2 times a turn (has unlimited range)",
+      "page": "Raise Undead (10 fatigue)",
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1631_Raise Undead (10 fatigue).txt",
+      "ours": "his machines only: a dead hire rising on their side is off for the demo (VIA GROK, GROK_04_CHIP_BODY_OPTIONS, the coordinator's 10/1 sweep E); a killing blow to the head is 'its head was smashed' (the chip is gone)"
+    },
+    "no_spells_in_melee": {
+      "name": "No spells in melee",
+      "says": "They can't cast spells if engaged in melee.",
+      "page": "Necromancer",
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1409_Necromancer.txt"
+    },
+    "throw_net": {
+      "name": "Throw Net",
+      "ap": 4,
+      "fatigue": 25,
+      "range_tiles": 3,
+      "roots": true,
+      "cut_pct": 45,
+      "cuts": [
+        "initiative",
+        "melee_defense",
+        "ranged_defense"
+      ],
+      "free_penalty": -10,
+      "free_per_fail": 10,
+      "carry_chance_pct": 50,
+      "says": "Roots a target in place, preventing movement and Rotation | Reduces target's Initiative, Melee Defense, Ranged Defense by 45% | Removing a Throwing Net is based on melee skill and initially has -10 points penalty | Each failed attempt to Break Free or Free Ally will give +10 points to remove the net",
+      "carry_says": "a Throwing Net (50% chance)",
+      "page": "Throwing Net",
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2004_Throwing Net.txt",
+      "skill_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1998_Throw Net (25 fatigue).txt",
+      "carry_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0872_Goblin Skirmisher.txt",
+      "ours": "the roll to break free is made for the netted man at the start of his own turn, with no AP of his own spent (rule 117(b): one clear next thing; the library carries no Break Free page and no AP for it)"
+    },
+    "line_breaker": {
+      "name": "Line Breaker",
+      "ap": 4,
+      "fatigue": 30,
+      "range_tiles": 1,
+      "knock_tiles": 1,
+      "never_misses": true,
+      "target_fatigue": 10,
+      "says": "Line Breaker will knock a target 1 tile back, never misses and the target suffers 10 Fatigue, removes Shieldwall, Spearwall, Riposte when applied (has a range of 1 tile)",
+      "nowhere_says": "They can't push a brother if there is nowhere to push.",
+      "page": "Line Breaker (30 fatigue)",
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1182_Line Breaker (30 fatigue).txt",
+      "nowhere_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1501_Orc Warrior.txt"
+    },
+    "shield_bash": {
+      "name": "Shield Bash",
+      "damage_min": 10,
+      "damage_max": 25,
+      "armor_pct": 50,
+      "target_fatigue": 10,
+      "says": "Shield Bash will cause knock back from shields to also inflict 10-25 Damage with 50% Armor Damage in addition to any falling damage and the target gets additional 10Fatigue",
+      "page": "Shield Bash",
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1776_Shield Bash.txt",
+      "ours": "the heavy's crash-bar shield is the shield the push comes from"
     }
   },
   "by_enemy": {
-    "geist": ["horrific_scream", "incorporeal", "crosses_any_ground"]
+    "geist": [
+      "horrific_scream",
+      "incorporeal",
+      "crosses_any_ground"
+    ],
+    "necromancer": [
+      "raise_undead",
+      "no_spells_in_melee"
+    ],
+    "goblin_skirmisher": [
+      "throw_net"
+    ],
+    "lower_goblin_skirmisher": [
+      "throw_net"
+    ],
+    "orc_warrior": [
+      "line_breaker",
+      "shield_bash"
+    ],
+    "lower_orc_warrior": [
+      "line_breaker",
+      "shield_bash"
+    ]
   }
 }
