@@ -90,6 +90,29 @@
     skull: ['000000000000', '000111111000', '001111111100', '011111111110', '011001100110', '011001100110',
             '011111111110', '001110011100', '000111111000', '000101101000', '000111111000', '000000000000']
   };
+  /* ==== __THE_STARS_SIT_WITH_THE_WORDS__ (RUN TWO's block in UI's file, NOTE on UI's board; rule 146(e), Paolo 10/24: 'even
+     on the hire screen the stars are a little too big and not nicely put with the UI's letters, so make the stars smaller';
+     'jobs should just have stars as well'). MEASURED at his phone's size: the star was 10 points against capitals 7 to 8 tall
+     (Casing at 10 and 11), centred or dropped a point below the line, touching the number. NOW ONE STAR, SEVEN CELLS ON
+     SEVEN, drawn one cell to one point (so it is crisp at one, two and three device pixels a point), standing on the
+     words' baseline at their capital height, a point apart. The same star a job's difficulty uses: BohemiaMaterials.stars(n)
+     hands a row of n, ink or gold (rule 146(e): one mark, stars, everywhere). ==== */
+  var STAR_CAP = ['0001000', '0001000', '1111111', '0111110', '0011100', '0110110', '1100011'];
+  function starCap(ink) {
+    const c = canvas(21, 21), g = c.getContext('2d'); g.fillStyle = ink;
+    STAR_CAP.forEach(function (r, y) { for (let x = 0; x < 7; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
+    return c;
+  }
+  function stars(n, o) {
+    o = o || {}; starVars();
+    const w = document.createElement('span'); w.className = 'bmstars'; w.dataset.stars = n | 0; w.setAttribute('aria-label', (n | 0) + ' star' + ((n | 0) === 1 ? '' : 's'));
+    w.style.cssText = 'display:inline;white-space:nowrap;letter-spacing:0';
+    for (let i = 0; i < (n | 0); i++) { const s = document.createElement('i'); s.className = 'bmstar'; s.setAttribute('aria-hidden', 'true');
+      s.style.cssText = 'display:inline-block;width:7px;height:7px;margin-left:' + (i ? 1 : (o.gap == null ? 2 : o.gap)) + 'px;background:var(' + (o.ink ? '--bm-mark-star-ink' : '--bm-mark-star') + ') 0 0/7px 7px no-repeat;image-rendering:pixelated;vertical-align:baseline';
+      w.appendChild(s); }
+    return w;
+  }
+  /* ==== end __THE_STARS_SIT_WITH_THE_WORDS__ ==== */
   function mark(k, ink) {
     const rows = MARKS[k], c = canvas(36, 36), g = c.getContext('2d');
     g.fillStyle = ink || '#2a221a';
@@ -994,7 +1017,8 @@
     + 'html[data-bm-roster] .stats{padding:9px 10px 14px;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));gap:3px 14px}'
     + 'html[data-bm-roster] .stats div{border-bottom:1px dotted rgba(42,34,26,.35);align-items:center}'
     + 'html[data-bm-roster] .stats div>span:first-child{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.4px}'
-    + 'html[data-bm-roster] .stats .stars,html[data-bm-roster] .stats .bmstars{display:inline-flex;gap:1px;margin-left:4px;vertical-align:-1px}'
+    + 'html[data-bm-roster] .stats .stars,html[data-bm-roster] .stats .bmstars{display:inline;margin-left:3px;letter-spacing:0;vertical-align:baseline}'
+    + 'html[data-bm-roster] .stats .stars .bmstar:first-child{margin-left:0}'
     + 'html[data-bm-roster] .gain{color:#1d5a12;font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
     + 'html[data-bm-roster] .gslot{border:1px solid #0d0a07;border-radius:2px;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.12);color:#f2e4c6;text-align:left;padding:4px;min-height:64px}'
     + 'html[data-bm-roster] .gslot.full{background:linear-gradient(rgba(12,8,4,.45),rgba(12,8,4,.45)),#16130f var(--bm-glass) center/cover}'
@@ -1014,7 +1038,7 @@
     + 'html[data-bm-roster] #ghost{border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
     + 'html[data-bm-roster] #done:active,html[data-bm-roster] .plist button:active{filter:none;transform:translateY(1px)}'
     /* the drawn stars, wherever a star was typed */
-    + '.bmstar{display:inline-block;width:10px;height:10px;background:var(--bm-mark-star) center/10px 10px no-repeat;image-rendering:pixelated;vertical-align:-1px}'
+    + '.bmstar{display:inline-block;width:7px;height:7px;margin-left:1px;background:var(--bm-mark-star) 0 0/7px 7px no-repeat;image-rendering:pixelated;vertical-align:baseline}'
     + 'html[data-bm-roster] .stats .bmstar,#sheet .hstats .bmstar{background-image:var(--bm-mark-star-ink)}'
     /* THE SCREENS PAST THE PHONE (UI [the screens past the phone], rule 62's four classes, 10/22): from 700 wide (a phone on
        its side, a tablet) up to where the screen's own laptop rule takes over at 1100, the company screen stops being the
@@ -1032,9 +1056,10 @@
     + 'html body #sheet .hire .nm{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;letter-spacing:.8px;font-size:12px;color:#f4cf7c}'
     + 'html body #sheet .hire .hstats{margin-top:6px;padding:6px 8px 10px;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));'
     +   'font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;letter-spacing:.4px}'   /* the stamped face: the dot face thins to grey at 10 points */
-    + 'html body #sheet .hire .hstats span{color:#1f1710;display:inline-flex;align-items:center;gap:1px;white-space:nowrap}'
-    + '.bmstar{display:inline-block;width:10px;height:10px;background:var(--bm-mark-star) center/10px 10px no-repeat;image-rendering:pixelated;vertical-align:-1px}'
-    + 'html body #sheet .hire .hstats .bmstar{background-image:var(--bm-mark-star-ink)}';
+    + 'html body #sheet .hire .hstats span{color:#1f1710;display:inline-flex;align-items:baseline;gap:0;white-space:nowrap}'
+    + '.bmstar{display:inline-block;width:7px;height:7px;margin-left:1px;background:var(--bm-mark-star) 0 0/7px 7px no-repeat;image-rendering:pixelated;vertical-align:baseline}'
+    + 'html body #sheet .hire .hstats .bmstar{background-image:var(--bm-mark-star-ink)}'
+    + 'html body #sheet .hire .hstats .bmstar:first-of-type{margin-left:3px}';   /* __THE_STARS_SIT_WITH_THE_WORDS__: a point of air after the number */
   /* every typed star becomes a drawn one: the text node is split, the star count kept for a screen reader */
   function drawStars(root) {
     if (!root) return;
@@ -1050,8 +1075,8 @@
   }
   function starVars() {
     var R = document.documentElement.style;
-    if (!R.getPropertyValue('--bm-mark-star')) { R.setProperty('--bm-mark-star', 'url(' + mark('star', '#f4cf7c').toDataURL('image/png') + ')');
-      R.setProperty('--bm-mark-star-ink', 'url(' + mark('star', '#3e1608').toDataURL('image/png') + ')'); }
+    if (!R.getPropertyValue('--bm-mark-star')) { R.setProperty('--bm-mark-star', 'url(' + starCap('#f4cf7c').toDataURL('image/png') + ')');   /* __THE_STARS_SIT_WITH_THE_WORDS__ */
+      R.setProperty('--bm-mark-star-ink', 'url(' + starCap('#3e1608').toDataURL('image/png') + ')'); }
   }
   function dressRoster() {
     if (!document.getElementById('lines') || !document.getElementById('card') || !document.getElementById('bag')) return false;
@@ -2113,6 +2138,6 @@
 
   window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
-    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars,
+    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
     hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT };
 })();

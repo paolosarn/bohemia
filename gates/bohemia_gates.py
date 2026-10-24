@@ -9547,6 +9547,12 @@ GATES = [
      "hands the fight both hires, the gun and the line; every man on the line stands on the board, the armed hire holds it, the "
      "moved one is in the back; again after a reload (the gun used to vanish); NEW GAME wipes the old hires. The old door read "
      "red 9 of 16 (3 of 5 men in the fight); ONE CREW SCREEN leg (rule 147(b)). green at registration, 17/0, about 1 min", True),
+    ('THE STARS SIT WITH THE WORDS', ['node', 'gates/the_stars_sit_with_the_words_gate.js'],
+     "RUN TWO gate, 10/24, row [the stars sit with the words] (rule 146(e), Paolo 10/24: 'even on the hire screen the stars are a "
+     "little too big and not nicely put with the UI's letters, so make the stars smaller'): on the hall's hire cards and a man's "
+     "page at his phone's size, every star drawn, one size (7 points, no taller than the capitals beside it), standing on the "
+     "words' baseline, a point of air after the number; BohemiaMaterials.stars(n) is the same star for a job's difficulty. The old "
+     "star read red 5 of 8 (10 points, 5 off the line, touching). green at registration, 8/0, 20 s", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

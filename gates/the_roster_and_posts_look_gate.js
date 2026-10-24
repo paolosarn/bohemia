@@ -92,19 +92,26 @@ async function roster(profile) {
     const { d, p } = await roster('phone_portrait');
     const st = await p.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew[S.sel];
       return { typed: (document.getElementById('card').textContent.match(/★/g) || []).length, drawn: document.querySelectorAll('#card .bmstar').length,
-        drawnW: [...document.querySelectorAll('#card .bmstar')].every(e => e.getBoundingClientRect().width >= 9),
+        drawnW: [...document.querySelectorAll('#card .bmstar')].every(e => Math.round(e.getBoundingClientRect().width) === 7),   /* AMENDED 10/24 (RUN TWO, rule 146(e): 'the stars are a little too big... make the stars smaller'): the seven-point star at the words' capital height; it was >= 9 */
         own: Object.values(m.stars || {}).reduce((a, b) => a + (b | 0), 0), name: m.name,
         gear: [...document.querySelectorAll('#card .gslot')].map(g => ({ slot: g.dataset.slot, full: g.classList.contains('full'), icon: g.querySelector('.bm-icon') ? g.querySelector('.bm-icon').dataset.id : null, want: m.gear[g.dataset.slot] ? m.gear[g.dataset.slot].id : null })) }; });
     ok('NO TYPED STAR IS LEFT ON HIS PAGE; THE DRAWN STARS ARE EXACTLY HIS OWN', st.typed === 0 && st.drawn === st.own && st.own > 0 && st.drawnW, st.name + ': ' + st.drawn + ' drawn, ' + st.own + ' his, ' + st.typed + ' typed');
     ok('HIS GEAR WEARS ITS ICONS, EACH THE ITEM IN THAT SLOT', st.gear.filter(g => g.full).length > 0 && st.gear.every(g => g.full ? g.icon === g.want : !g.icon), st.gear.map(g => g.slot + ' ' + (g.icon || '-')).join(', '));
     /* a real finger takes the weapon off; the bag's slot wears the same icon */
     const main = await p.evaluate(() => { const g = document.querySelector('#card .gslot[data-slot=main]'); g.scrollIntoView({ block: 'center' }); const r = g.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, id: BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel].gear.main.id }; });
-    await p.touchscreen.tap(main.x, main.y); await p.waitForTimeout(900);
+    await p.touchscreen.tap(main.x, main.y); await p.waitForTimeout(400);
+    /* ONE CREW SCREEN (RUN TWO, rule 147(b), 10/24): a tap on a slot opens the bag cut to it on his page; TAKE OFF is a real tap too */
+    const offB = await p.evaluate(() => { const b = document.querySelector('#card #picker .slot.off'); if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (offB) await p.touchscreen.tap(offB.x, offB.y); await p.waitForTimeout(900);
     const bag = await p.evaluate(() => { const S = BohemiaRosterScreen.state, i = S.bag.length - 1, sl = document.querySelectorAll('#bag .slot')[i]; return { n: S.bag.length, id: S.bag[i] && S.bag[i].id, icon: sl && sl.querySelector('.bm-icon') ? sl.querySelector('.bm-icon').dataset.id : null }; });
     ok('  a real finger takes his weapon off, and the bag\'s slot wears the same icon', bag.id === main.id && bag.icon === main.id, 'bag ' + bag.n + ', slot icon ' + bag.icon + ', item ' + bag.id);
     /* put it back so the page reads as he left it */
     await p.evaluate(() => { const sl = document.querySelectorAll('#bag .slot'); sl[sl.length ? BohemiaRosterScreen.state.bag.length - 1 : 0].click(); }); await p.waitForTimeout(700);
 
+    /* ONE CREW SCREEN (RUN TWO, rule 147(b), 10/24): his page opens right under the line, so the words are measured where he
+       reads them: the page just under the sticky bar (it sat under it after the slot was scrolled to the middle), and the
+       screen's head at the top, each on its own picture */
+    await p.evaluate(() => { const c = document.getElementById('card'), b = document.getElementById('bar'); window.scrollTo(0, c.getBoundingClientRect().top + scrollY - b.getBoundingClientRect().height - 8); }); await p.waitForTimeout(300);
     const jobs = await p.evaluate(() => {
       const r = s => { const e = typeof s === 'string' ? document.querySelector(s) : s; return e && e.getBoundingClientRect(); }, c = r('#card'), col = s => getComputedStyle(typeof s === 'string' ? document.querySelector(s) : s).color;
       const J = [];
@@ -112,10 +119,12 @@ async function roster(profile) {
       const st = r('#card .stats'); document.querySelectorAll('#card .stats div > span:first-child').forEach((e, i) => { if (i < 2) J.push({ k: 'stat ' + e.textContent.trim().toLowerCase(), box: [st.left + 12, st.bottom - 11, st.width - 24, 3], ink: getComputedStyle(e).color, dark: false }); });
       document.querySelectorAll('#card .gslot').forEach((g, i) => { if (i > 1) return; const q = g.getBoundingClientRect(), lab = g.querySelector('i'); J.push({ k: 'gear label ' + i, box: [q.right - 8, q.top + 3, 4, 10], ink: getComputedStyle(lab).color, dark: true }); });
       const dn = r('#done'); J.push({ k: 'DONE', box: [dn.right - 9, dn.top + 8, 4, dn.height - 16], ink: col('#done'), dark: false });
-      const h = r('.h'); J.push({ k: 'the head', box: [h.right - 14, h.top + 2, 8, Math.max(2, h.height - 4)], ink: col('.h'), dark: true });
       return J;
     });
-    const cr = await contrasts(p, jobs);
+    const cr1 = await contrasts(p, jobs);
+    await p.evaluate(() => window.scrollTo(0, 0)); await p.waitForTimeout(300);
+    const jobs2 = await p.evaluate(() => { const h = document.querySelector('.h').getBoundingClientRect(); return [{ k: 'the head', box: [h.right - 14, h.top + 2, 8, Math.max(2, h.height - 4)], ink: getComputedStyle(document.querySelector('.h')).color, dark: true }]; });
+    const cr = cr1.concat(await contrasts(p, jobs2));
     ok('EVERY WORD ON HIS PAGE PASSES 4.5 TO 1 ON WHAT IT SITS ON, PLAIN AND IN THE SUN', cr.length >= 8 && passes(cr), worst(cr) + ' | ' + show(cr));
 
     /* CLIMBING: a point to spend (the screen's own state, as a level-up leaves it), then a real finger */
@@ -149,7 +158,7 @@ async function roster(profile) {
     const xy = await q.evaluate(() => BohemiaSettlement.where('hall')); await q.mouse.click(xy.x, xy.y); await q.waitForTimeout(1200);
     const H = await q.evaluate(() => [...document.querySelectorAll('#sbody .hire')].map(h => { const r = h.getBoundingClientRect(), hs = h.querySelector('.hstats'), sr = hs.getBoundingClientRect(), nm = h.querySelector('.nm'), a = h.querySelector('.act');
       return { y: r.top, bg: getComputedStyle(h).backgroundImage, tape: getComputedStyle(h, '::before').backgroundImage, receipt: getComputedStyle(hs).backgroundImage, nmFam: getComputedStyle(nm).fontFamily.split(',')[0].replace(/["']/g, ''),
-        typed: (h.textContent.match(/★/g) || []).length, drawn: h.querySelectorAll('.bmstar').length, drawnW: [...h.querySelectorAll('.bmstar')].every(e => e.getBoundingClientRect().width >= 9),
+        typed: (h.textContent.match(/★/g) || []).length, drawn: h.querySelectorAll('.bmstar').length, drawnW: [...h.querySelectorAll('.bmstar')].every(e => Math.round(e.getBoundingClientRect().width) === 7),   /* rule 146(e), was >= 9 */
         actH: a ? a.getBoundingClientRect().height : 0, onScreen: r.top >= 0 && r.bottom <= innerHeight,
         jobs: [{ k: 'name', box: [r.right - 10, nm.getBoundingClientRect().top + 2, 5, nm.getBoundingClientRect().height - 4], ink: getComputedStyle(nm).color, dark: true },
                { k: 'stats', box: [sr.left + 10, sr.bottom - 10, sr.width - 20, 3], ink: getComputedStyle(hs.querySelector('span')).color, dark: false }] }; }));
