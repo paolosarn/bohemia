@@ -277,7 +277,187 @@ fight is quick on AUTO.
 
 ## 5. THE BOHEMIA PLAN: TEN CHANGES, RANKED, BY ORIGIN, WITH THE LANE THAT BUILDS EACH
 
-IN PROGRESS.
+RANKED BY: how much of "it is the same start every time" each one removes, times how early he meets it,
+with the ones the rest stand on first. Every change keeps his standing rulings: nothing is forced, nothing
+speaks in the first 60 s of play, a person stands there and can be walked past, no authored first fight, the
+Strip stays sacred, the death rules stand. Every word below is an attempt (draft:true) for WORDS to
+overwrite; every number is a starting line for TUNING's one table.
+
+### 1. A NEW VALLEY FOR EVERY NEW GAME  [RUN (the door, the save) + WORLD (the generator) + PLUMBER (the gates)]
+- BATTLE BROTHERS: a new map every campaign from a seed, with a seed box for anyone who wants a known one (wiki).
+- OUR DEMO: one seed text, 'bohemia', every boot; the generator that rolls per seed (his 7/5 ruling) never
+  rolls. 1 valley in 4 of 4 boots.
+- THE CHANGE: (a) NEW GAME rolls a seed and the save keeps it; CONTINUE loads the save's; every frame (the
+  map, the fight's board, the builder) reads THE SAVE'S seed. The 7/28 ONE MAP fix keeps its point (one
+  game, one Las Vegas, in every frame) and drops its side effect (one Las Vegas for every game): one seed
+  PER SAVE. (b) THE START TEST, every seed must pass it before a game may use it (Compton's curated list
+  until the generator passes on its own): a town (a faction seat) within 6 blocks of the start; a 1-skull job
+  within 8 blocks; no roaming party bigger than the crew plus one within 5 blocks in the first game hour
+  (TUNING 10/19, the first fight sized to the crew); the Strip, the dam, the rim and the solar field where his
+  7/4 law puts them. Start with a list of 200 seeds that pass; widen it as the generator learns. (c) PLUMBER:
+  the gates that read 2691674296 by number (the one-seed check in the integration gate, AVG_WEIGHT_MEASURED,
+  a fixed house cell) run across five listed seeds instead of one; the check becomes "every frame reads the
+  SAME seed", never "the seed is 'bohemia'".
+- NUMBERS: valleys a stranger can meet, 1 to 200 on day one of the change; start screens that match, 4 of 4
+  to 0 of 4 (masked pixels over 50% apart, section 3's test).
+- HARDCORE KEPT: the test sets a floor, not a soft start. Battle Brothers' "the first 10 days are the hardest"
+  stays true.
+- COORDINATOR: rule 146(c) is newer than ONE MAP (7/27) and wins; the line on the law should say "one seed
+  per save".
+
+### 2. THE ORIGIN PICKS THE CORNER  [RUN (placing the crew) + WORLD (the district kinds) + FACTIONS (who is near)]
+- BATTLE BROTHERS: the Southern Mercenaries start "in the southern part of the world"; the Militia get "a home
+  village that idolizes you"; the Raiders start with two of three houses hostile (wiki, Dev Blogs 113, 114).
+  Kenshi and Project Zomboid: the start IS a place.
+- OUR DEMO: 15 origins, 1 cell (48,48 on the valley; 6205,6271 fine). UP FROM HENDERSON "came north on the
+  95" and stands in the same suburb as THE LONE WOLF.
+- THE CHANGE: each origin names a KIND of corner from the generator's own district list; the seed picks
+  WHICH one; the corner must pass change 1's test. The table below (draft:true, WORLD and WORDS own it).
+- NUMBERS: start corners across the 15 origins, 1 to 15 kinds, times however many of each kind the seed
+  drew; the district word on the bar changes from SUBURB every time to the corner's own word.
+- HARDCORE KEPT: the hard origins get hard corners (the Raiders outside the beltway where bands roam, the
+  Deserters in sight of the seat they walked off), shown by the difficulty word already on the card.
+
+| origin (its own line) | the corner (district kinds the generator already has) | the first sight there, from this world's state | the first job's hook |
+|---|---|---|---|
+| THE CREW THAT IS LEFT ("a debt paid off, and a name to fix") | storage or warehouse at a suburb's edge: the old crew's base | the base burned, one wall standing, the old crew's mark sprayed over by the outfit that did it | the outfit that burned it posts a job against a smaller crew |
+| A NEW CREW ("Start clean") | any suburb or trailer park, rolled | the block's people at a standpipe, the price on a board | the nearest town's 1-skull job |
+| UP FROM HENDERSON ("came north on the 95") | the south edge where the freeway enters the valley | the 95 itself, a stalled line of cars, a checkpoint of whoever holds the south | a convoy north wants guns |
+| THE WATER TRUCK ("the water gets more respect than you do") | a truck stop, the water treatment works or a pump station, on a road | the tank, a queue forming on sight | carry water to the nearest seat that is dry |
+| THE BLOCK WATCH ("Twelve neighbours with pipes") | their own block: a suburb or a gated estate, held as HOME (better prices, the Militia's lesson) | the barricade they built, their families inside | something took from the block last night |
+| THE SCAVENGERS ("every gutted store from here to the dam") | the mall, the swap meet or the boneyard | a store already stripped, fresh tracks out | a buyer for what the store still hides |
+| THE PROMISE KEEPERS ("a promise you made at a grave") | the cemetery | the grave, with a name the seed rolled | the grave's name points at someone alive |
+| THE DESERTERS ("They have not forgotten") | in sight of the seat of the faction they walked off (rolled) | that faction's patrol on the road, looking | anyone who is not that faction, quietly |
+| THE RAIDERS ("the valley knows your faces") | the desert or mountain edge, outside the beltway | the last place they hit, still smoking | the only post that will deal with them |
+| THE LAB RATS ("the lab the animals broke out of") | the campus or the medical tower, wherever the seed put the lab | the broken pens, tracks leading out (the beasts are lab-made, 9/29) | the lab's own people want something back |
+| THE FAITHFUL ("something you pray to that is not a god") | a chapel | the congregation, and what they pray to | an offering wanted, the first ask of the faith |
+| THE DEBT COLLECTORS ("Four of you owe the other two") | downtown, the courthouse or city hall | a debtor's door, his name rolled | collect from him, or cover him |
+| THE HUNTERS ("It tracks you back") | the wash or the springs (Tule Springs, the valley's fossils) | a kill left out, too big for a dog | the beast that made it |
+| THE FIGHT PIT ("off a casino floor that charged to watch") | a casino on the Strip, or the stadium | the floor they fought on, the crowd that paid | a fight with a purse, the Strip's own |
+| THE LONE WOLF ("Just you") | rolled anywhere that is not a town, nobody near | nothing but the road, and one figure far off | the first town he reaches decides |
+
+### 3. THE ORIGIN SPEAKS AT THE DOOR, WITH FACES  [WORDS (the lines) + PORTRAIT (the faces) + SOUNDS (the voice) + RUN (the card)]
+- BATTLE BROTHERS: one picture, one paragraph, one button per origin: who you are, what you lost or want, a
+  direction; the best end on a question ("Is it true still?"). FTL and RimWorld open the same way.
+- STUDIES: S6 (making and seeing your people raises identification), S4 (a gap of the right size), S8 (people
+  skip what does not matter: keep it short).
+- OUR DEMO: a grey one-line card; the company is a count; no face, no voice.
+- THE CHANGE: when an origin's card is picked at the door, its people show as faces with names (the thumb
+  each face already comes with), and the lead says the origin in 25 to 40 words, ending on a question. It
+  plays while he picks, BEFORE play, so the 60-second quiet on the map is untouched; BEGIN at any moment cuts
+  it; nothing waits for it (rule 19: from a mouth with a portrait; nothing pops up). Three attempts
+  (draft:true, WORDS overwrites, WORDS decides the Spanglish: the crew are people, the player is not):
+  - THE CREW THAT IS LEFT: "They burned the shop with Tavo inside. We paid what he owed, every battery. Three
+    of us, and his name on the wall under theirs. You want to paint over it, or paint over them?"
+  - UP FROM HENDERSON: "Henderson's gone dark. We walked the 95 at night with three guns and a map that
+    stops at the Strip. Somebody up here pays for guns. Who, though?"
+  - THE LONE WOLF: "Just me. Always was. The valley eats crews of one. Does it?"
+- NUMBERS: words he hears before play, 0 to 25-40; faces at the door, 0 to the crew's size; taps added, 0.
+
+### 4. A SIGHT ONLY THIS WORLD HAS, AT HIS CORNER  [WORLD (what happened) + LIFE+CITY and COOK FOUR (what it looks like) + FACTIONS (who did it)]
+- SOURCE: Dwarf Fortress and Caves of Qud (a past he did not see happen, new every world); S4.
+- OUR DEMO: the corner is a suburb with crowds walking; nothing there happened before him.
+- THE CHANGE: the seed's day-zero state leaves one sight at the start corner (the table's third column): a
+  place and people, SEEN, never said; it stands there and can be walked past (the second votes); it is the
+  reason for one of the first two jobs; the first post on the phone names it from a stranger's handle.
+- NUMBERS: start corners with a sight of their own, 0 to 15 of 15; sights repeated across two games on one
+  origin, under 1 in 10.
+
+### 5. THE FIRST TWO JOBS COME FROM HIS CORNER  [RUN (the phone's first posts) + WORLD (who posts) + ECONOMY (the pay)]
+- BATTLE BROTHERS: contracts come from the settlement you stand in; the skulls are on the card (rule 146(b)).
+- OUR DEMO: @church, 2 blocks W, 1 skull, 30, and @colorful, 13 blocks W, 2 skulls, 60, on 4 of 4 boots and
+  every origin.
+- THE CHANGE: the two first posts come from the two towns nearest the corner; one carries the origin's hook
+  (the table's fourth column); the first is 1 skull within 8 blocks (change 1's test); the second may be 2.
+- NUMBERS: first-job pairs that repeat across ten seeds, 10 of 10 to 1 or fewer.
+
+### 6. THE WORLD'S NAMES ARE NEW, AND HIS CREW'S NAME IS HIS  [FACTIONS (the bosses) + PEOPLE (the cast's names) + WORDS (the banks) + RUN (the door's name box)]
+- BATTLE BROTHERS: noble houses with new coats of arms, descriptions and "procedurally generated leaders"
+  every campaign (wiki). RimWorld: three colonists, each a name and a past. Minecraft: a seed you can say.
+- STUDIES: S5 (he values what he made, only once it is finished), S6.
+- OUR DEMO: the crew's name is the first of 10 in order (THE NIGHT SHIFT on 4 of 4 boots); the men have no
+  names at the door.
+- THE CHANGE: (a) the crew's name is TYPED, or rolled from a bank of 200 or more two-word names with ANOTHER;
+  (b) each of his men gets a rolled name and face at the door; (c) each faction's boss is rolled per seed
+  (a name and a face), and the first posts name them; (d) the valley's seed shows as two words on the door
+  and the pause screen, the engine's "SIN CITY", so a world can be named and handed to a friend.
+- NUMBERS: crew names, 10 to 200 or typed; boss names that repeat across ten seeds, 10 of 10 to under 2.
+
+### 7. THE DOOR DROPS INTO HIS CORNER  [RUN (the cut) + UI (the frame)]
+- SOURCE: Pocket City 2, in its own department (the city-mode drop-in transition and the zoom range, 7/1 and
+  9/30).
+- STUDIES: S3 (the first glance decides).
+- OUR DEMO: BEGIN opens straight on the near stop at the same corner; he never sees that the valley is a
+  valley until he pinches out.
+- THE CHANGE: after BEGIN the camera starts on the whole valley (the far stop, already painted) and drops to
+  his corner in about 2 seconds; any touch lands it at once; nothing speaks and nothing waits (a camera move,
+  not an interaction, so the second votes hold; if he reads it as something happening in the first second,
+  it goes).
+- NUMBERS: seconds added, about 2, 0 with a touch; the fraction of the valley he has seen before his first
+  tap, under 1% to all of it.
+
+### 8. THE FIRST WIN IS SEEN BY SOMEONE  [PEOPLE (the client) + WORDS + SOUNDS + UI]
+- SOURCE: S1 (relatedness), S5 (finished work); TUNING 10/23 change 6 (a win is a moment) is the sound half.
+- OUR DEMO: paid 30 on the map; the number jumps; the post is from his own crew's handle.
+- THE CHANGE: the client of the first job stands at the town when he returns and says one line with his
+  face (thanks, or a jab at how long it took); a stranger's handle posts it, naming his crew by the name HE
+  gave it.
+- NUMBERS: faces that react to his first win, 0 to 1; posts by others naming his crew in the first five
+  minutes, 0 to 1.
+
+### 9. THE FIRST BAND HE MEETS KEEPS A SURVIVOR WITH A NAME  [COMBAT (who walks off) + FACTIONS (where he goes) + PEOPLE (his face)]
+- SOURCE: Shadow of Mordor's Nemesis (the orc that beat you remembers you; src 11); Battle Brothers'
+  Hoggart, a named enemy in two sentences (wiki). Never a fixed villain (the fifth votes: no authored first fight).
+- OUR DEMO: a beaten band is gone; nobody remembers.
+- THE CHANGE: of the first band he beats or runs from, one man walks off the board with a rolled name and
+  face, joins the nearest band of his faction, and turns up again inside the first game week (a post first,
+  then on the map); beat him again and the feed says so. For THE CREW THAT IS LEFT, the man whose outfit burned
+  the base is that rival from the door.
+- NUMBERS: named rivals in the first week, 0 to 1; per origin, always one.
+- HARDCORE KEPT: he comes back with his band's gear and the days' growth, never softened.
+
+### 10. A GOAL HE PICKS ON THE FIRST NIGHT  [RUN (the offer) + UI (the phone) + ECONOMY (the reward)]
+- BATTLE BROTHERS: ambitions, one picked from a short list, at least 100 renown and the company's mood;
+  cancelling costs morale (wiki).
+- STUDIES: S1 (autonomy), S2 (a complex game needs teaching, and a goal teaches what matters), S5.
+- OUR DEMO: no goal beyond the two jobs; nothing tells him what a good first week is.
+- THE CHANGE: at the first night (never the first minute), the phone offers three goals for the crew,
+  shaped by the origin and the corner (hire to six; put 500 batteries away; clear the corner of whoever burned
+  the base); one tap; a reward in the crew's mood and pay.
+- NUMBERS: goals he chose by the end of the first night, 0 to 1; taps, 1.
+
+### THE TEN IN ONE LIST, FOR THE COORDINATOR
+
+1. A new valley for every new game: RUN + WORLD + PLUMBER (the rest stands on it).
+2. The origin picks the corner: RUN + WORLD + FACTIONS.
+3. The origin speaks at the door, with faces: WORDS + PORTRAIT + SOUNDS + RUN.
+4. A sight only this world has, at his corner: WORLD + LIFE+CITY + COOK FOUR + FACTIONS.
+5. The first two jobs come from his corner: RUN + WORLD + ECONOMY.
+6. The world's names are new, and his crew's name is his: FACTIONS + PEOPLE + WORDS + RUN.
+7. The door drops into his corner: RUN + UI.
+8. The first win is seen by someone: PEOPLE + WORDS + SOUNDS + UI.
+9. The first band keeps a survivor with a name: COMBAT + FACTIONS + PEOPLE.
+10. A goal he picks on the first night: RUN + UI + ECONOMY.
+
+WHAT THIS PAGE DID NOT MEASURE, SAID OUT LOUD: a boot on another seed (the seed is a constant in the slice
+and this lane builds nothing); the 12 origins not booted (they read the same code path: the start cell
+never reads the picks); how a stranger rates two starts side by side (the test in section 3 is for EYES).
+
+## ROUTED
+
+- RUN: changes 1, 2, 5, 7, 10, and the door's half of 3 and 6.
+- WORLD: changes 1 (the generator and the start test), 2, 4, 5.
+- PLUMBER: change 1's gates across five seeds.
+- FACTIONS: changes 2, 4, 6 (the bosses), 9.
+- WORDS: every line on this page (draft:true), changes 3, 6, 8.
+- PORTRAIT and SOUNDS: change 3's faces and voice, change 8's face.
+- PEOPLE: changes 6, 8, 9.
+- LIFE+CITY and COOK FOUR: change 4's sights.
+- ECONOMY: changes 5 and 10.
+- COMBAT: change 9.
+- UI: changes 7, 8, 10.
+- EYES: section 3's side-by-side test once 1 and 2 land.
+- COORDINATOR: ONE MAP (7/27) re-read as one seed per save, rule 146(c) being newer.
 
 ## SOURCES
 
