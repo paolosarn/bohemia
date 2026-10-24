@@ -1,10 +1,17 @@
-source: Grok, unverified, written 2026-10-01
+source: Grok, unverified, written 2026-10-24
 PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing newer than his rulings is contradicted, the open items are in VOTE marked VIA GROK; every number carries a wiki, code or press link or says (recall))
 
 # GROK INDEX
 
 Newest first.
 
+- 2026-10-24 | ASK | GROK_ASK_32_WHAT_WE_DO_NOT_KNOW_2026_10_24.md | missing systems, weak systems, what needs many more rounds
+- 2026-10-24 | ASK | GROK_ASK_31_HAUNTING_SIDE_CONTENT_2026_10_24.md | purple-aura ghosts, Backrooms twice an act, paranoid without jump scares
+- 2026-10-24 | ASK | GROK_ASK_30_MAP_IN_COLOUR_2026_10_24.md | Battle Brothers contrast method, real Las Vegas valley colours
+- 2026-10-24 | ASK | GROK_ASK_29_EVERY_SOUND_2026_10_24.md | Battle Brothers sounds, missing UI ticks, ambience layers, material footsteps
+- 2026-10-24 | ASK | GROK_ASK_28_SETTLEMENT_ALIVE_WALKUP_2026_10_24.md | walk-up timing, background people, day night, small reactions
+- 2026-10-24 | ASK | GROK_ASK_27_FIGHT_TILE_RPG_VIBE_2026_10_24.md | camera bursts, momentum, simultaneous reactions inside the locks
+- 2026-10-24 | ASK | GROK_ASK_26_MAP_SIZE_NUMBERS_2026_10_24.md | Battle Brothers map scale, settlements, what the wiki does not say
 - 2026-10-01 | BUILD | GROK_30_BUILD_ORDER_2026_10_01.md | fight, three weapons, block menu, day. Stop there.
 - 2026-09-30 | WIKI | GROK_29_WIKI_BULK_5_2026_09_30.md | traits, wardog bite, named gear rolls
 - 2026-09-30 | WIKI | GROK_28_WIKI_BULK_4_2026_09_30.md | retinue effects and armor add-ons
