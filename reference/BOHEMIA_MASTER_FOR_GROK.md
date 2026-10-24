@@ -1,4 +1,4 @@
-# BOHEMIA: THE MASTER FOR GROK (everything current, one file; built 2026-10-18)
+# BOHEMIA: THE MASTER FOR GROK (everything current, one file; built 2026-10-24)
 # Public repo: https://github.com/paolosarn/bohemia . Raw file: https://raw.githubusercontent.com/paolosarn/bohemia/main/reference/BOHEMIA_MASTER_FOR_GROK.md
 # NEWEST DATE WINS on any conflict. Paolo decides; the coordinator files; Grok researches and never rules.
 
@@ -462,7 +462,7 @@ laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 13. "I RAN THE SUITE" MEANS TWO THINGS AND ONLY TWO (coordinator 9/13, from three lanes measuring the same wall: 331 of 603 gates NEVER RAN in a 45-minute budget, 56 of 372 that did run were red, the floor is 71 minutes; records/BOHEMIA_COORDINATOR_SWING_HOW_BIG_SHOPS_RUN_A_SUITE_THAT_CANNOT_FINISH_9_13_26.md). (a) You ran the PRE-PUSH PASS, the gates that read the files in your diff, and it was green. (b) You read THE SUITE LINE, the last full run PLUMBER posts on this front page (sha, ran, green, red, never ran, flaked), and you name which of its reds are yours. Nobody runs the whole 70 minutes alone any more, and nobody writes "suite green" over gates that never ran. A gate on the QUARANTINE list still runs and never decides a ship. Until PLUMBER posts the first line, the honest sentence is "pre-push pass green; full suite unmeasured since <sha>".
 THE SUITE LINE (coordinator 10/4 sweep P, from the lanes' own runs; PLUMBER [suite line] still owes the machine-posted version): the suite does not finish inside 40 minutes, so every lane runs its own gates by name and the ones it touched, and says so (rule 13). GREEN THIS SWEEP: MAP DENSITY 13/0 (was 8/4), THE MAP AT THE PHONE'S PIXELS 16/0, THE FAR END IS PAINTED 9/0, THE ZOOM GOES THROUGH CLOUDS 8/0, THE NEAR END IS THE BLOCK 9/0, THE VALLEY HAS AN EDGE 14/0 (one light, E13 worst split 0.004), THE REBUILT FIGHT PLAYS 38/0, THE PERKS ARE LIVE 45/0, THE FIGHT READS ONLY SOURCED NUMBERS, the settlement screen 28/0, THE LOOP PLAYS ON THE MAP 12/0, the cut's fight-door leg 29/0, nothing_on_the_ground 11/0, HEIRS 83/0, followers 44/0, GROK FENCE 5/0, GROK FILTER 6/0 (all 102 pages stamped). RED ON MAIN, KNOWN, WITH AN OWNER: PAGES PUBLISH (size; PLUMBER [excavate]'s 145-file move); NO OVERLAP red on purpose (UI [danger line] under BUILD HERE; RUN's quest-line half is gone with the card); INLINED FRESH (engine/bohemia_ambitions.js has no closing banner, PEOPLE, one line); six RUN checkers that press the dead day card (RUN [the sign fix]); one_mode 7/4 and combat_floor 12/1 belong to the FROZEN fight, unreachable from the demo since fd016146 (COMBAT retires or re-aims them); the speed pad's 2.5x leg (PLUMBER [grid budget]); THE FACE ON THE MAP IS HIS 17/1 (RUN); the first sound gate one run in five (PLUMBER [flaky gate]); vote_tab 30/1 (TUNING's sha-less item). 292 checkers open a browser; the self-built-door baseline is 288 and may only shrink. *** SWEEP AF adds: A FRESH PHONE SEES THE DOOR 9/0 (RUN), FOUR LEGS 22/0, the people gate 17/0, the settlement gate 59/0, FACTIONS 41/0; RED: SOURCED on main from LIFE+CITY's typed numbers (routed), the one-file loop 12/1 (the hire leg, RUN). ***
 THE DEPLOY LINE (coordinator 10/16 sweep AL; one builder, the `pages` workflow): 10/17 sweep AM: pages run for b7666287 SUCCESS at 22:49, the whole hour live; one run (5efc414c) CANCELLED at 22:44 under cancel-in-progress false, its content rode the next run; PLUMBER reads why.
-THE STOPWATCH LINE (PLUMBER posts it, row [the one stopwatch]; the only load number any lane quotes; THE ONE STOPWATCH in the suite refuses another door or title time; RUN re-runs `node tools/bohemia_one_stopwatch.js 5` in the same commit as a cut): THE DEMO (DEMO - BUILD 10/13b - THE MAP PEOPLE COME BAKED, demo 6bc210fb): title 1.5 s, the door (NEW GAME ready) 9.2 s on the 4x phone profile, median of 5 (9.1 to 9.3); 3.4 MB before the door, 25.3 MB in 12 files in the 20 s after it.
+THE STOPWATCH LINE (PLUMBER posts it, row [the one stopwatch]; the only load number any lane quotes; THE ONE STOPWATCH in the suite refuses another door or title time; RUN re-runs `node tools/bohemia_one_stopwatch.js 5` in the same commit as a cut): THE DEMO (DEMO - BUILD 10/24a - THE BULLET LANDS, demo 33f9cba7): title 2.1 s, the door (NEW GAME ready) 13.4 s on the 4x phone profile, median of 5 (13.1 to 13.8); 3.5 MB before the door, 18.1 MB in 92 files in the 20 s after it. (SOUNDS 10/24, on this session's box, in the commit after its cut, RUN closed; the bullet lands' 1.4 MB loads 25 s after the music runs and is not in the 92; 10/23c read 12.4 s on RUN's box.)
 THE CUT LINE (coordinator 10/4 sweep P, rule 33h; records/BOHEMIA_THE_REVAMP_LIST_9_24_26.md): DONE: the walk pad and DROP IN stripped; the cell board deleted; the cold open and its banner; the asks as a text stream; the noise recipe; the builder as a mode; HE IS ON THE MAP AS HIMSELF with crowds, buildings by tier and moving parties; the speed pad on the map; no two texts overlap on the demo; THE REBUILT FIGHT IS THE DEMO'S FIGHT (fd016146, the frozen fight unreachable); THE LOOP ON THE REAL MAP (tap the BOARD building, take a job, the job is on the map, fight it, get paid); the front door picks the fights, the shelves, fifteen origins and the crew's name; the quest card removed; the map at the phone's pixels with a painted far end, clouds into the fight, the near end a block at the walk's scale, the far stop keeping the land under one light; the settlement screen's buildings are the buttons. STILL LIVE AND DEAD BY RULE: the three names at the door (67: the heirs are made on entering the act, DYNASTY [heirs made on entry]); the thumb shelf under the settlement picture (71a, RUN TWO round four decides below or gone); the loading screen as a screen (66: a start screen with NEW GAME, CONTINUE, SETTINGS; RUN [the start screen]). NEXT CUT = RUN's four open lines in his order: the start screen, you can flee, screen fit, one song; then RUN TWO's painted place. *** 10/17 AM: BUILD 10/13b stands; RUN is mid-round on the map at Battle Brothers' size and re-cuts when it lands; the STOP block stands (a 1,433 ms worst stall on a walk that did not count); the older notes are in records/BOHEMIA_COORDINATOR_ROUND_10_17_26_AM.md.
 THE COOK LINE (rule 22e; the coordinator reads the registry every VAMILY): 10/17 sweep AM: 608 items, 417 verdicts; 24 items from the hour tagged, 7 new reds (one per lane: the region, the formation is kept, one screen, the face performs, the straight-roof family, the settlement heard whole, the map's four numbers); the cap of twelve stands; 389 older untagged items wait behind the fold and are not his to clear (rule 113c: the tab does not grow).
 14. THE FIVE MINUTES (folded to one line 10/16 by rule 96: no lane named it for 33 sweeps; the full text is laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md, and records/BOHEMIA_EVAPORATED_10_16_26.md).
@@ -646,9 +646,32 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 112. A NEW AGE: HE NEVER ENTERS A LANE CHAT AGAIN (PAOLO 10/16, LOCKED: 'we're entering a new age... I don't even wanna be talking into the chats individual anymore... almost 30 chats at this point... I can't be entering the chats ever again to approve anything'; records/BOHEMIA_PAOLO_A_NEW_AGE_HE_NEVER_ENTERS_A_LANE_CHAT_AGAIN_10_16_26.md). (a) He talks to ONE chat, the coordinator; his other door is the VOTE tab; rule 40h (he sends the word to whoever he likes) is DEAD, the coordinator sends it. (b) The coordinator runs the fleet every sweep, not only the big swing day: it reads the sessions it opened, archives every finished one the same sweep, opens a fresh session for every running lane with an OPEN row and no running session ('lane name, VAMILY' first); never two on one lane, so a chat he opened by hand is archived once the coordinator's exists. (c) The hourly wake-up is STANDING, stops only on his word or a reported usage limit, re-arms on his go; 111(c)'s 'end of the day he named' is dead. (d) 111(d) holds for every tool; a prompt is reported by tool name and fixed the same sweep. (e) The coordinator's reply is his whole view of the fleet: what landed, in which tab, the rounding list as a count, the plate; nothing that only lives in a lane chat reached him. A lane that reads this rule and finds itself typed into by him anyway treats his words as a ruling, files them, and tells the coordinator in its handoff block. AMENDED 10/17 (sweep AM, school round fifteen, THE GROUND STOP): when the usage window is reported closed (his word, or a lane's summary reporting a limit), (b) opens NO sessions that sweep; finished sessions are still archived and the board still written; the next sweep after the window reopens releases the lanes in rule 113(b)'s order (build first while the STOP block stands, then art, design, QA, presentation, research), the count open at once following the hours split.
 113. RUN IT LIKE THE BEST STUDIOS: FIVE LEADS, ONE PRODUCER, HIS FIFTEEN MINUTES (PAOLO 10/16, LOCKED: 'find out how the best game studios on planet Earth divide the time and resources and money towards the different departments... almost 30 chats, I cannot individually ever enter them again... I can't be having an extra part-time job... you gotta turn me up'; records/BOHEMIA_PAOLO_RUN_IT_LIKE_A_STUDIO_AND_IT_CANNOT_LOOK_VIBE_CODED_10_16_26.md; the numbers from records/BOHEMIA_RESEARCH_HOW_STUDIOS_SPLIT_PEOPLE_HOURS_AND_MONEY_10_16_26.md and records/BOHEMIA_RESEARCH_HOW_ONE_DIRECTOR_RUNS_A_STUDIO_WITHOUT_A_SECOND_JOB_10_16_26.md). What the research found: no studio runs one director over 26 departments; managers hold 5 to 9 reports; the shape everywhere (Santa Monica, FromSoftware, Naughty Dog, Nintendo) is LEADS plus a PRODUCER, and the director sees a finished slice in one room at a milestone, never a department at a time; Insomniac's Price: 'I was the bottleneck', fixed by naming a proxy; Miyazaki scaled by sharing his logic with leads, not by more reviews; Pixar's Braintrust names the problem and never the fix; three good decisions a day is the ceiling. (a) FIVE LEADS, ONE PRODUCER. The coordinator is the producer and the dailies director: it reads every lane every sweep and he reads only it. Five lanes are LEADS and roll up the lanes under them: DIRECTION (art lead: COOK, COOK TWO, COOK THREE, COOK FOUR, PORTRAIT, ANIMATION, CHARACTER), RUN (build lead: RUN TWO, PLUMBER; MODS reports here), COMBAT (design lead: COMBAT TWO, WORLD, LIFE+CITY, ECONOMY, DYNASTY, FACTIONS, PEOPLE; TUNING reports here, QUESTS reports to WORLD), UI (presentation lead: WORDS, SOUNDS), EYES AND EARS (QA lead, the strike team). A lead's handoff block ends with ONE LINE PER LANE UNDER IT each round: what it made, the tab, and one word of three, COOKING / STUCK / FROZEN. A lead never redirects a lane's work; the board does. (b) THE HOURS SPLIT. While the build is unstable (a STOP block standing, rule 94; Cerny: still pre-production until a publishable first playable): build and pipeline 35 percent of the fleet's hours (RUN, RUN TWO, PLUMBER), art and animation 25 (DIRECTION and its seven), design and systems 20 (COMBAT and its seven), QA 10 (EYES), UI, words and sound 7, research 3 (TUNING, MODS, QUESTS). Once the demo is stable and plays on his phone: art 40, build 20, design 15, QA 12, UI words sound 10, research 3. The split is applied by the coordinator in the order and count of sessions it opens each sweep (rule 112b) and in which lanes wait when the usage is short: research first, then UI words sound, never the build while the STOP block stands. The numbers are the research page's proposal, taken as the ruling until he moves them. (c) HIS FIFTEEN MINUTES. His day: one brief (the coordinator's reply, bottom-up, eighth grade) and the VOTE tab, about fifteen minutes; the tab shows at most THREE decision groups a day and holds at most ABOUT TWENTY items waiting on him; past the cap the lanes keep cooking and the coordinator keeps culling, the tab does not grow (the keep-rate record 8/16: never grow the ballot). His week: ONE SITTING of thirty to forty-five minutes where he plays the newest build on his phone and talks; every sentence becomes a ruling or a job before the reply ends; the weekly brief ends with the FLEET SCORECARD, 26 lines grouped under the five leads, one sentence each. Once a month the coordinator writes the milestone page: where the demo stands against the ladder (slice, alpha, beta) and the one thing blocking everything. (d) WHAT NEVER REACHES HIM: work in progress; any question that starts with 'how should we'; anything technical, prioritisation or ownership (rule 8/15); anything that failed a gate; a fourth version; a text-only item. WHAT DOES: names and identity he reserved, a pillar, a reference game, an ending, a true fork with no defensible default, anything he asked to see. (e) THE FOUR SIGNALS the coordinator watches for him and prints in the weekly brief: the build stamp moved and the link plays on his phone; the VOTE tab's keep rate (under about 40 percent for two sittings means weak candidates, tighten the filter, never grow the ballot); the queue waiting on him (over twenty items or more than one bold question means the coordinator stopped shielding); fourth versions and post-kill rebuilds (zero). (f) A RULING WITHOUT ITS REASON IS UNFINISHED (Miyazaki's shared logic): every rule the coordinator writes carries his words and the why, so a lane decides the way he would without asking.
 114. IT CANNOT LOOK VIBE CODED (PAOLO 10/16, LOCKED: 'anything that coming to graphics, it can't look like it's vibe coded... read everything you can on how to not look like every other vibe coded bullshit... it has to look like it was not made by you like a freaking AI guy... I'm gonna keep asking you to do rounds'; records/BOHEMIA_PAOLO_RUN_IT_LIKE_A_STUDIO_AND_IT_CANNOT_LOOK_VIBE_CODED_10_16_26.md; round one: records/BOHEMIA_RESEARCH_HOW_NOT_TO_LOOK_VIBE_CODED_ROUND_ONE_10_16_26.md, 32 tells with a numeric test each, 13 master practices, the twenty-field style guide, ten gate checks ranked). What the research found: the AI look is not one defect, it is about thirty small measurable ones with one root, NOBODY DECIDED ANYTHING, so detail is everywhere, light is from nowhere, colours are from everywhere and the grid disagrees with itself. The five biggest, in order: MIXELS (two native pixel sizes in one scene; ours came from different chats at different sizes), NO SHARED PALETTE and too many colours per sprite (over 16 is a tell), NO ONE LIGHT DIRECTION across the sprites of a scene, STRAIGHT DARKENING with no hue shift in the ramps (the signature of a shade() function), and THE SAME DETAIL EVERYWHERE with no rest area and no focal point. (a) THE STYLE GUIDE IS LAW. DIRECTION writes the pixel-art style guide with the twenty fields of the research page's Section C filled with REAL NUMBERS (one native pixel size and integer display scale; the master palette file with roles and 4-to-5-step ramps hue-shifting at least 8 degrees; a colour cap per asset class; one key light for every asset; three values minimum, shadows never black; the outline rule per class; AA and dither rules; proportions and one silhouette feature per enemy class; a detail budget per class with a flat rest region; two variants per base tile and no run over four; the contact line under every standing thing; UI with the project's pixel font, no gradients, no blur, no glow, radius 0 or 1, no system fonts; the tie-breaker: readability at 1x over everything, palette over detail, silhouette over colour; a do-and-don't pair per field; the review procedure) as a data file the gates read, inside the analog horror bible's folder. Every field is a gate (rule: a law without a machine gate is not enforced). Until the file exists, the five biggest tells are the review, by hand, on every new sheet. (b) THE TEN GATES. PLUMBER builds Section D's ten checks as the NOT VIBE CODED family in the suite, in the research page's order (pixel size, palette and colour count, light direction, hue shift, detail distribution, silhouette separation, three-value read, clean lines, repetition and variation, UI defaults), each a pure image or data-file test over the PNGs a VOTE sheet carries and over the demo's screenshots; every VOTE sheet carries its report; a sheet that fails the first five never reaches the tab (the coordinator culls it, rule 113d). (c) EVERY COOK, FROM THIS ROUND: a sheet names its pixel size, its palette file and its light direction in its caption; hero assets (the player, a boss, the house on screen) are hand-finished after the pipe; a tile ships with its two variants; nothing is drawn by darkening. The reference check compares art to the world; these gates compare art to itself, the half that was missing. (d) ROUNDS CONTINUE. Each time he asks, the coordinator runs the next research round on a new angle (round two's first candidates: how Dead Cells' 3D-to-pixel pipe is hand-finished so it reads drawn; how Blasphemous and Eastward budgeted detail; how a 2D studio runs art QA with contact sheets at 1x), numbered, cited, and folded into the style guide's numbers and the gates, never into a reply only. (e) Rule 108 stands: nothing is FINAL before his moodboard; these gates make the candidates honest, they do not make them final.
-115. THE RIG'S LOOK IS THE LOOK (PAOLO 10/17, LOCKED; the thirteenth votes and his words: 'Holy shit you're making like 3-D looking 2-D sprites. I think we have to do that for the rest of the game... the first thing I've been impressed with visual wise in a long time'; 'you made a truck and a robot and I fell in love, this analog 3-D, HBO early kids show kind of vibe, I love that art direction... the character models compared to the terrain and the buildings look like dogshit... I don't know if we have to remake all the assets character model wise... whatever is easy for you to keep up the flow and continue to make shit like that'; 'for everything to start looking better it has to come from the same source'; 'just make sure everything's looking the same'; records/BOHEMIA_PAOLO_NEVER_ASK_ME_TO_APPROVE_AGAIN_AND_THE_CLAY_RIG_IS_THE_LOOK_10_17_26.md). (a) THE METHOD IS FINAL: every character, beast, vehicle and prop is MODELLED AT THE SOURCE and rendered to pixels through DIRECTION's master rig, the clay-and-tape way the robot and the truck were made, so everything comes from one source and looks the same. The old roads for these are DEAD: the 2D parts grammar (his 10/17 NO twice: 'this isn't that', 'one of the worst cooks'), cutting flat garments into pieces for the rig (his NO: 'glitchy and fucked up'), hand-drawn eight-direction sprites. (b) WHAT STAYS ON THE PACKS: the ground (his YES on the curb, the crossing, the 47 corners, the recolour; his NO on the Vegas block is a composition NO, not a method NO) and, until DIRECTION rules from the two research pages, the buildings (his YES on the straight-roof family, the corner shop, the motel; his note: roofs more tan, never bright medieval orange or metal blue). (c) THE CHARACTER MODELS ARE REMADE through the rig: the player's body and the thirteen first (CHARACTER models the runway clothes ON the rig, never cut from flat art), then the beasts (ANIMATION; the dire wolf redone, his NO: the grey one is the ugliest, the fox is better), then the faces (PORTRAIT renders the HD face from the same model), then the enemy tiers (COOK THREE; a trenchcoat must read as a trenchcoat, his NO). The old flat sprites stay in the game until each replacement passes the VOTE tab; assets are still candidates one by one (rule 108 stands for assets; the METHOD no longer waits on the moodboard). (d) THE LOOK BIBLE: DIRECTION owns it from two research pages, records/BOHEMIA_RESEARCH_THE_TOP_TEN_ANALOG_HORROR_GAMES_WHAT_THEIR_LOOK_IS_MADE_OF_10_17_26.md (a GENRE STUDY; no game in it becomes a reference game; nothing in it is copied) and records/BOHEMIA_RESEARCH_THE_CREEPY_CLAYMATION_KIDS_SHOW_LOOK_AND_HOW_A_RIG_GETS_IT_10_17_26.md (the shows are candidates until he names them); the rig's recipe (frame stepping, no motion blur, clay shading, one hard light, the analog pass, the palette) becomes rows of the style guide (rule 114a) so the gates read it. (e) RESEARCH ROUNDS CONTINUE on his ask (rule 114d). (f) His smaller words from the same votes, each a job: the shadow line behind the main character (ANIMATION); the ragdoll choppy and too slow (ANIMATION); the blue or orange outline around people in the lit fight (COMBAT); the map 'really fat' and the view changes with the orientation (COMBAT, rule 104a's plain form); the map must look good on the phone AND on a laptop, where widescreen is a more zoomed-out phone view (RUN); too many birds and insects for a desert city (SOUNDS); the recap voice unusable (SOUNDS); the title's hiss too loud and the music behind it bad (SOUNDS); a whole app on the phone to integrate (UI); no more cards with quests, make the quest, the pixels and the sound (QUESTS, WORLD, RUN TWO; the law A QUEST IS PEOPLE, PLACES AND THINGS stands); the fifty perk names as a list is a NO (COMBAT: names come from a mouth, in play). (g) THE DEMO WEARS THE RIG (PAOLO 10/18: 'is the demo changing, I liked the robot that got made type shit'; records/BOHEMIA_PAOLO_KEEP_GOING_TWO_HOURS_IS_THE_DEMO_CHANGING_10_18_26.md): the look he liked reaches the DEMO, not only the tab; the first rig-made things that pass the VOTE tab ride RUN's next cut (the party's people and the first beast first); until a replacement passes, the demo keeps the old sprite; RUN [the demo wears the rig]. ROUND TWO of rule 114's research is the rig itself (how 3D-to-pixel studios keep a render from reading as a render; the hand-finish; the source settings; ten gate checks): records/BOHEMIA_RESEARCH_HOW_NOT_TO_LOOK_VIBE_CODED_ROUND_TWO_THE_RIG_10_18_26.md, folded into DIRECTION's look bible when it lands. (h) THE FIRST STAR (PAOLO 10/18, the fourteenth votes, on PORTRAIT's poacher face built as a 3D head on the body's own model: 'You might change the game with this one big star event... this is the first star I've handed out'; records/BOHEMIA_PAOLO_THE_FIRST_STAR_AND_EASIER_THAN_BATTLE_BROTHERS_10_18_26.md): the face from the same model is the method for EVERY face, and it replaces the old portraits on the screens he named first (RUN TWO's crew and scavenge screens: 'the portrait sucks', 'the portrait is ass'). A STAR is his highest mark; a starred card's method becomes the fleet's default the same sweep; RUN TWO adds a STAR button to the VOTE tab. AMENDED 10/18 (his note on RUN TWO's starred-faces card: 'I liked it when it was the portrait, not when you zoom in on the creepy model's face... it has to be made fresh portrait'; records/BOHEMIA_PAOLO_A_FRESH_PORTRAIT_NEVER_A_ZOOM_ON_THE_MODEL_10_18_26.md): A FRESH PORTRAIT, NEVER A ZOOM ON THE MODEL: the face is the head modelled on the body's own model and rendered for the portrait with its own camera, framing and light; a crop or zoom of a body sprite or render is never a portrait, not even as a stopgap; PORTRAIT makes the fresh one before a screen ships.
+115. THE RIG'S LOOK IS THE LOOK (PAOLO 10/17, LOCKED; the thirteenth votes and his words: 'Holy shit you're making like 3-D looking 2-D sprites. I think we have to do that for the rest of the game... the first thing I've been impressed with visual wise in a long time'; 'you made a truck and a robot and I fell in love, this analog 3-D, HBO early kids show kind of vibe, I love that art direction... the character models compared to the terrain and the buildings look like dogshit... I don't know if we have to remake all the assets character model wise... whatever is easy for you to keep up the flow and continue to make shit like that'; 'for everything to start looking better it has to come from the same source'; 'just make sure everything's looking the same'; records/BOHEMIA_PAOLO_NEVER_ASK_ME_TO_APPROVE_AGAIN_AND_THE_CLAY_RIG_IS_THE_LOOK_10_17_26.md). (a) THE METHOD IS FINAL: every character, beast, vehicle and prop is MODELLED AT THE SOURCE and rendered to pixels through DIRECTION's master rig, the clay-and-tape way the robot and the truck were made, so everything comes from one source and looks the same. The old roads for these are DEAD: the 2D parts grammar (his 10/17 NO twice: 'this isn't that', 'one of the worst cooks'), cutting flat garments into pieces for the rig (his NO: 'glitchy and fucked up'), hand-drawn eight-direction sprites. (b) WHAT STAYS ON THE PACKS: the ground (his YES on the curb, the crossing, the 47 corners, the recolour; his NO on the Vegas block is a composition NO, not a method NO) and, until DIRECTION rules from the two research pages, the buildings (his YES on the straight-roof family, the corner shop, the motel; his note: roofs more tan, never bright medieval orange or metal blue). (c) THE CHARACTER MODELS ARE REMADE through the rig: the player's body and the thirteen first (CHARACTER models the runway clothes ON the rig, never cut from flat art), then the beasts (ANIMATION; the dire wolf redone, his NO: the grey one is the ugliest, the fox is better), then the faces (PORTRAIT renders the HD face from the same model), then the enemy tiers (COOK THREE; a trenchcoat must read as a trenchcoat, his NO). The old flat sprites stay in the game until each replacement passes the VOTE tab; assets are still candidates one by one (rule 108 stands for assets; the METHOD no longer waits on the moodboard). (d) THE LOOK BIBLE: DIRECTION owns it from two research pages, records/BOHEMIA_RESEARCH_THE_TOP_TEN_ANALOG_HORROR_GAMES_WHAT_THEIR_LOOK_IS_MADE_OF_10_17_26.md (a GENRE STUDY; no game in it becomes a reference game; nothing in it is copied) and records/BOHEMIA_RESEARCH_THE_CREEPY_CLAYMATION_KIDS_SHOW_LOOK_AND_HOW_A_RIG_GETS_IT_10_17_26.md (the shows are candidates until he names them); the rig's recipe (frame stepping, no motion blur, clay shading, one hard light, the analog pass, the palette) becomes rows of the style guide (rule 114a) so the gates read it. (e) RESEARCH ROUNDS CONTINUE on his ask (rule 114d). (f) His smaller words from the same votes, each a job: the shadow line behind the main character (ANIMATION); the ragdoll choppy and too slow (ANIMATION); the blue or orange outline around people in the lit fight (COMBAT); the map 'really fat' and the view changes with the orientation (COMBAT, rule 104a's plain form); the map must look good on the phone AND on a laptop, where widescreen is a more zoomed-out phone view (RUN); too many birds and insects for a desert city (SOUNDS); the recap voice unusable (SOUNDS); the title's hiss too loud and the music behind it bad (SOUNDS); a whole app on the phone to integrate (UI); no more cards with quests, make the quest, the pixels and the sound (QUESTS, WORLD, RUN TWO; the law A QUEST IS PEOPLE, PLACES AND THINGS stands); the fifty perk names as a list is a NO (COMBAT: names come from a mouth, in play). (g) THE DEMO WEARS THE RIG (PAOLO 10/18: 'is the demo changing, I liked the robot that got made type shit'; records/BOHEMIA_PAOLO_KEEP_GOING_TWO_HOURS_IS_THE_DEMO_CHANGING_10_18_26.md): the look he liked reaches the DEMO, not only the tab; the first rig-made things that pass the VOTE tab ride RUN's next cut (the party's people and the first beast first); until a replacement passes, the demo keeps the old sprite; RUN [the demo wears the rig]. ROUND TWO of rule 114's research is the rig itself (how 3D-to-pixel studios keep a render from reading as a render; the hand-finish; the source settings; ten gate checks): records/BOHEMIA_RESEARCH_HOW_NOT_TO_LOOK_VIBE_CODED_ROUND_TWO_THE_RIG_10_18_26.md, folded into DIRECTION's look bible when it lands. (h) THE FIRST STAR (PAOLO 10/18, the fourteenth votes, on PORTRAIT's poacher face built as a 3D head on the body's own model: 'You might change the game with this one big star event... this is the first star I've handed out'; records/BOHEMIA_PAOLO_THE_FIRST_STAR_AND_EASIER_THAN_BATTLE_BROTHERS_10_18_26.md): the face from the same model is the method for EVERY face, and it replaces the old portraits on the screens he named first (RUN TWO's crew and scavenge screens: 'the portrait sucks', 'the portrait is ass'). A STAR is his highest mark; a starred card's method becomes the fleet's default the same sweep; RUN TWO adds a STAR button to the VOTE tab. AMENDED 10/18 (his note on RUN TWO's starred-faces card: 'I liked it when it was the portrait, not when you zoom in on the creepy model's face... it has to be made fresh portrait'; records/BOHEMIA_PAOLO_A_FRESH_PORTRAIT_NEVER_A_ZOOM_ON_THE_MODEL_10_18_26.md): A FRESH PORTRAIT, NEVER A ZOOM ON THE MODEL: the face is the head modelled on the body's own model and rendered for the portrait with its own camera, framing and light; a crop or zoom of a body sprite or render is never a portrait, not even as a stopgap; PORTRAIT makes the fresh one before a screen ships. AMENDED (d) 10/18 (HE NAMED CRASHBOX; Grok 160 and 159 in the Grok folder, brought onto main 10/18; records/BOHEMIA_PAOLO_LOOK_AGAIN_GROKS_MUSIC_AND_CRASHBOX_ARE_IN_10_18_26.md): the creepy HBO claymation kids' show is CRASHBOX (HBO Family, 1999 to 2000, Cuppa Coffee Studios): stop-motion clay with puppets and cutouts inside a handmade broken game computer, rusty tin robots, clay that still looks like clay, faces simple and a little wrong, held poses not smooth motion, nothing glows. It is the look bible's reference (art only, DIRECTION); Moral Orel is out by his word; the other shows Grok listed stay candidates.
 116. THE FLEET RUNS ON WHATEVER MODEL HAS USAGE, AND THE COORDINATOR SWITCHES IT (PAOLO 10/18, LOCKED: 'the Fable 5 limit was reached bro, I'm not changing them one by one man, u do it'; records/BOHEMIA_PAOLO_THE_FABLE_LIMIT_WAS_REACHED_YOU_DO_IT_10_18_26.md). (a) A lane session that fails on one model's usage limit is archived and reopened on the next model that has usage by the coordinator, the same sweep, its first message telling it to resume its CLAIMED row; he never switches a chat's model. (b) Only the coordinator's own chat is switched by him, and only when it is the one at the limit. (c) The hourly routine stops only when EVERY model reports a limit, or on his word (amends 111(c) and 112(c)). (d) Claim before work (rule 5) and commit small: a session that dies mid-round loses its uncommitted work, never its job. Applied 10/18 03:26 to 03:55 UTC: all 23 lanes moved from Fable to Opus 5.5. AMENDED 10/18 (PAOLO: 'Can you make sure they run on Opus 5.5 Extra, let's not use the extra usage right now'): every lane opens on Opus 5.5 at the Extra effort (.claude/settings.json effortLevel xhigh, capped there by maxEffortLevel so nothing runs at Max); NO EXTRA USAGE: a lane that hits the usage cap stops and waits for the reset, it never runs on extra (paid) usage; the coordinator reads each session's overage flag every sweep and stops any lane that shows it.
-117. EASIER THAN BATTLE BROTHERS (PAOLO 10/18, LOCKED, on TUNING's numbers card: 'I want you to be easier than Battle Brothers... bringing Battle Brothers into this fun, like Nintendo simplified way kind of vibes, like minimalist vibes... if there's a lot to do, let's just make the people feel that they're successfully doing it, really good vibes'; records/BOHEMIA_PAOLO_THE_FIRST_STAR_AND_EASIER_THAN_BATTLE_BROTHERS_10_18_26.md). Battle Brothers is the model for HOW a system works (rule 41), never for how hard it is. (a) Every felt number starts EASIER than Battle Brothers' and the difficulty sliders go up from there; its default sits at our hard end. (b) Nintendo-simple and minimalist on the screen: fewer numbers shown, fewer buttons, one clear next thing; the depth (formation and gear, rule 37) lives under the surface. (c) The player feels successful: every good choice gets a visible and audible win; a busy screen shows progress, never a to-do list. (d) His trade of realism for fun, made (the realism-first law gives him the call). TUNING writes it into the one table (research only); COMBAT, RUN TWO and UI build to it; a design page that sets a number harder than Battle Brothers' without his word is a NO before he sees it.
+117. EASIER THAN BATTLE BROTHERS (PAOLO 10/18, LOCKED, on TUNING's numbers card: 'I want you to be easier than Battle Brothers... bringing Battle Brothers into this fun, like Nintendo simplified way kind of vibes, like minimalist vibes... if there's a lot to do, let's just make the people feel that they're successfully doing it, really good vibes'; records/BOHEMIA_PAOLO_THE_FIRST_STAR_AND_EASIER_THAN_BATTLE_BROTHERS_10_18_26.md). Battle Brothers is the model for HOW a system works (rule 41), never for how hard it is. (a) Every felt number starts EASIER than Battle Brothers' and the difficulty sliders go up from there; its default sits at our hard end. (b) Nintendo-simple and minimalist on the screen: fewer numbers shown, fewer buttons, one clear next thing; the depth (formation and gear, rule 37) lives under the surface. (c) The player feels successful: every good choice gets a visible and audible win; a busy screen shows progress, never a to-do list. (d) His trade of realism for fun, made (the realism-first law gives him the call). TUNING writes it into the one table (research only); COMBAT, RUN TWO and UI build to it; a design page that sets a number harder than Battle Brothers' without his word is a NO before he sees it. (e) A TUNING NUMBER IS A GRID, NEVER ONE AVERAGE (PAOLO 10/18: 'how are you even testing these fights... against animals, against different group sizes, one person, three, six, up to 14... a 12-man Lone Wolf squad can go up to 36 or 40 enemies... we don't even have all the equipment in the game... what are you even testing?'; records/BOHEMIA_PAOLO_WHAT_ARE_YOU_EVEN_TESTING_A_TUNING_NUMBER_IS_A_GRID_10_18_26.md): the fight bench covers the company at 1, 3, 6, 12 and 14, the enemy from a few to 36 to 40, human bands and every beast that exists, early, middle and late gear; one row per cell, the worst cells first; every number DRAFT until the gear is coordinated; no VOTE card shows one average as the game's difficulty.
+118. THE COORDINATOR SAYS 'IN THE VOTE TAB' ONLY FOR A CARD ON HIS FIRST SCREEN (PAOLO 10/18, LOCKED: 'A lot of the votes you saying were on a card visible we're not visible for me'; records/BOHEMIA_PAOLO_THE_CARDS_YOU_NAMED_WERE_NOT_ON_MY_SCREEN_10_18_26.md). Five of the fourteen things the coordinator sent him to the VOTE tab for had no card (the district fight boards, the bare front screen, the tuning grid, the freeway as one road, the middle-ground song): it wrote what a lane planned as if it were on his screen. (a) A reply names a thing as in the VOTE tab only after its card id is found in the registry, unvoted, and tagged red or shown first; the round record lists the ids; anything else is said as 'coming, NOT IN A TAB YET'. (b) A lane that writes IN VOTE writes the card id, and the card is in the registry in the same push ('my cards' with no id is a broken promise). (c) A lane that pulls a card says so on its row, and the coordinator stops naming it. (d) The gate is PLUMBER's [the card I name is on his screen]; EYES [does his screen show it] checks the deployed tab once a sweep.
+119. A NEW SONG IS MADE WITH HIS SONGS' OWN MACHINE AND SOUNDS LIKE THEM (PAOLO 10/18, LOCKED, NO on The Long Road: 'both songs not giving analog horror vibes I was hoping the research that Grok helped you do would make it easier to do what you needed to do not like have a whole revamp process where you're like making songs I don't fit aesthetic'; records/BOHEMIA_PAOLO_BOTH_NEW_SONGS_ARE_NOT_ANALOG_HORROR_10_18_26.md). (a) A new song starts from his canon songs' own instruments, kits and arrangement (MLOOPS, synthV, drumV, SONG_ARR), read and reused, never edited; the pure chip style is dead as the sound of a song (two misses: Over the Ridge, The Long Road); a chip voice may sit inside a song only if it fits. (b) Research (Grok's PASSED music pages and every study) makes the song cleaner and quicker to make, never a new style. (c) Before VOTE the song plays beside two canon songs and EYES AND EARS writes one line: same game? analog horror? If no, it does not go to VOTE. (d) The card plays the new song next to the canon song it came from.
+120. GUNS FIRST, THE FIGHT SAYS WHAT IS WEAK, THE ONE YOU CONTROL WEARS THE AURA, AND THE FACE IS THE BODY'S FACE (PAOLO 10/18, LOCKED: 'the combat is still so fucking ass... the game doesn't explain to you at all that your weapon sucks... I wanna start off with the guns too... the guns were supposed to be the main way this is gonna be solved... when you're controlling a person there should be some aura, fifth dimension, electric Amalgamation vibes, analog horror... around that character even on the big map, not just a portrait... the portraits don't even look alike, Black people looking like white people'; records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md). (a) GUNS FIRST: every origin's first fight has guns in the company's hands, and the gun is the main way a fight is won (rule 83 stands: guns two tiles and more, melee one); the starting kit, the first band and the tutorial fight are built around shooting. (b) THE FIGHT SAYS WHAT IS WEAK: before a shot or a swing, under the finger, the hit chance and what it does to that target's armour, and one plain line when the weapon is bad for it ('your pipe barely dents his plate'); after it, what it did. Battle Brothers hides this in a tooltip; we show it (rule 80). (c) THE AURA: the man you control wears a fifth-dimensional, electric, analog horror aura in the fight and on the big map's party marker, on the beat, drawn in the rig's look (rule 115); never a coloured outline (his NO on the blue and orange lines stands); the Amalgamation's ambiguity stays locked. (d) THE FACE IS THE BODY'S FACE: every portrait matches its body's skin tone, hair and build; a face whose skin does not match its body is a defect a gate refuses (ONE ID, ONE WHOLE PERSON). (e) 'So fucking hard' is rule 117 measured in the demo's first fights.
+121. THE WORK WEEK: FOUR LANES, SAVE HIS TOKENS, THE 3D MODELS IN (PAOLO 10/19, LOCKED: 'starting my work week, so you can't be using all these credits like that, so dedicate which ones you want to run... finish your previous implementations, and then we need this full 3D shit in there now'; 'MAKE CHANGES TRY TO SAVE MY TOKENS TOO'; records/BOHEMIA_PAOLO_THE_WORK_WEEK_FOUR_LANES_AND_THE_3D_MODELS_IN_10_19_26.md). (a) Only RUN, COMBAT, UI and RUN TWO run; every other lane's MODE reads PAUSED (rule 121) until he lifts it. (b) The work is implementation of what exists, never new art: the 3D rig models into the demo on every screen with a person (the map, the fight, the settlement and crew screens). (c) The coordinator wakes every three hours, opens no lane beyond the four, and keeps its own turns short. (d) A lane ends its round when its rows are done; it does not invent new work. (e) EVERYTHING IS A 3D MODEL NOW (PAOLO 10/19, NO on PORTRAIT's faces: 'BRO EVERYTHING IS A 3D MODEL NOW FUCK THE UGLY 8 BIT SHIT... WTF TRYING TO COMBINE THE TWO'; NO on EYES' faces: 'the 3d models not in yet????'): no old sprite, painted face or 8-bit body ever stands beside a rig model; a portrait is a render of the rig's own head; the two are never combined. (f) THE AURA IS THE TEAR, COMBAT ONLY (his YES: 'combat only... I'm fucking with the tear, but you displayed it as if it would fuck the whole world map'): amends 120(c): the man you control wears B, the tear, in the fight only, never on the map. (g) THE UI IS HIS BIGGEST CONCERN ('Battle Brothers revamp will lead the way and we will do more than Battle Brothers did, but my biggest concern right now is the UI is AI dogshit slop that needs so much love'). (h) The fight floor is a NO again ('looks like shit'): the floor goes the 3D way too. (i) NO TWO PEOPLE ALIKE (PAOLO 10/19: 'THERE'S SO MANY OF THE SAME HATS AND SHIT ON THE CHARACTERS... ALL THE CLAY PEOPLE HAVE LIKE 2 OPTIONS FOR CUSTOMIZATIONS, IT'S INSANE'): measured, the game's rig cast (slices/BOHEMIA_RIG_CAST.json) is 13 looks, one per gang, so every member of a gang is the same man; CHARACTER's 21 hats, 14 face pieces, the barber's cuts and 27 tops were made on the 3D head and never baked into the cast. Every person rolls his own mix of hat, face piece, cut and top inside his gang's colours, and customization offers every piece. (j) EVERYTHING THE CRASHBOX WAY (PAOLO 10/19: 'even the floor tiles and building tiles and all accessories have to get remade with this analog horror Crashbox style. Everything. Everything.'): every floor tile, map ground tile, building and accessory is remade through the rig like the robot, the truck and the people (rule 115), analog horror; nothing drawn flat stays beside it. COOK runs as the fifth lane for this (COOK TWO, COOK FOUR stay paused; their files are COOK's for this); COMBAT and RUN wire what COOK hands over. (k) REMODEL EVERYTHING, AND THE MUSIC TOO (PAOLO 10/19: 'Remodel everything 3D grimey Crashbox analog horror machine party vibes. And the music too man.'; 'Request me again for the chats to work'): the look of everything is 3D, grimy, Crashbox, analog horror, a machine party; COOK, SOUNDS and CHARACTER run beside the four (seven lanes) for it; the music is remade in that vibe through his songs' own machine (rule 119). (l) MACHINE PARTY IS THE GAME, AND EVERY 2D ASSET GOES 3D (PAOLO 10/19, the twentieth votes: 'I'm fucking with everything, very good job, just keep in mind when I say Machine Party I mean the game that's out now, I've referred to it in the past, but hey your understanding created more 5 star art, I like it; we need all the 2D assets made into 3D assets now though'). Machine Party is the named visual reference of 8/3 (laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md, records/BOHEMIA_RESEARCH_MACHINE_PARTY_8_3_26.md, records/BOHEMIA_REFERENCE_MACHINE_PARTY_8_3_26.md): the grime pass that crosses object boundaries is its lesson; what the lanes made from the words is kept, he called it five-star. Every 2D asset left (props, buildings, ground, items and their icons, vehicles, beasts) is remade as a rig model, family by family.
+122. ONE SONG ONLY, AND THE VOLUME SLIDERS (PAOLO 10/20, LOCKED: 'all the music sucks except for the new one you just made, the overworld night track, so I shouldn't be hearing anything other than that ever; if I hear any other song ever again I'm shutting this whole shit down'; 'the background ambience, the radio, has to go way down; anything volume wise, I should be seeing a slider for it in the settings'; records/BOHEMIA_PAOLO_ONE_SONG_ONLY_AND_THE_VOLUME_SLIDERS_10_20_26.md). (a) AMENDED THE SAME HOUR (PAOLO: 'And ALL OF THE OVERWORLD NIGHT TRACKS TOO'): the only songs the game plays are REPO MAN, THE MACHINE PARTY (slices/vote/songs/repo_man_the_machine_party.json) and every song in the MUSIC tab's OVERWORLD NIGHT category (PAOLO: 'It's in the music tab!!!'; the list is whatever he has tagged there, his saved tags first, the baked CAT_DEFAULTS behind them: today CAMPFIRE CONFESSION, GHOST IN THE GRID, REPO MAN, SATELLITE PRAYER, SLOW BLEED, SLOW CREEP, THE ORGAN IN THE DROWNED CHAPEL, THE PIT BOSS IS GONE, THE VAULT), on every screen, until he names another; every other song (the menu's, the day's, dusk and dawn, the factions', the fights') is silent, never deleted. A gate fails if a song outside that set can play. (b) The ambience, radio and hum under everything start far down by default. (c) The settings card has a slider for music, ambience and effects at least, each saved and applied at once. (d) A new song may be made only to VOTE, never wired, until he says it joins.
+123. NO MORE CARDS, ALL THE ENERGY INTO THE 3D REVAMP (PAOLO 10/20, LOCKED: 'at this point with the conversions you're doing with the 3-D sprites I've been very impressed... all the time you spend using tokens to present me a card to show it to me, that all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites... analog horror Crashbox vibes, go crazy'; records/BOHEMIA_PAOLO_NO_MORE_CARDS_ALL_THE_ENERGY_INTO_THE_3D_REVAMP_10_20_26.md). (a) The revamp of every 2D asset into a 3D rig model ships STRAIGHT INTO THE GAME: no VOTE card, no before-and-after sheet, no card why, no picture made for him. He meets it while playing and corrects what he hates. (b) Every row's 'in VOTE with its card id' or 'before and after in the VOTE tab' clause is void for conversion work; rule 89 does not apply to it; COOK EVERY ROUND is met by the converted family in the game, counted on the lane's inventory (records/), and the cook gate's red on a revamp lane is expected until PLUMBER teaches it this rule (a row-level red, never a push blocker, never a reason to make a card). (c) The converter swaps its own drop-ins into the game itself (same file, same size, same anchor), so a family lands without a handover round; only a change that needs code goes to the lane that owns the code, as a row. (d) The vibe goes up, not down: analog horror, Crashbox, grimy, Machine Party (121(j)(k)(l)); the floor is still 'not final', so it gets dirtier. (e) Unchanged: a new song still goes to VOTE only (122(d)); identity and names still go to him; anything he asks to see is shown. (f) The coordinator spends its own tokens the same way: no card is named to him for the revamp; the reply says what family went in and where he will meet it.
+124. THE RELOAD IS LOUD, AND THE FIRST SOLO WIN (PAOLO 10/20, LOCKED: 'if I need to reload it needs to be very apparent on the screen that I need to reload, it has to be super clear; I don't know the way it is right now. I just won my first solo combat mission and it's getting that let's-keep-going feeling. It's getting better. And when I mean combat reload, I mean combat reload'; records/BOHEMIA_PAOLO_THE_RELOAD_HAS_TO_BE_SUPER_CLEAR_AND_THE_FIRST_SOLO_WIN_10_20_26.md). (a) COMBAT RELOAD: the gun in the fight, never a page or save reload. The moment the man you control has an empty gun, the screen says so without reading, on the man, on the button and in the sound; a tap that would fire an empty gun never fails silently. (b) THE FIRST SOLO WIN IS THE BAR: he won his first fight alone and wanted another; the fight keeps its direction and gets better from here, never restarted. (c) No card for this (rule 123's spirit): he meets it in his next fight.
+125. THE TURN ENDS ITSELF (PAOLO 10/20, LOCKED: 'the combat's a lot better, but even Battle Brothers has the auto end system: if you only have one movement left and you can't even move a tile... that's why they have the stamina and the numbers... unless I have enough energy for that tile... you gotta do that a lot better, right now'; records/BOHEMIA_PAOLO_THE_TURN_ENDS_ITSELF_10_20_26.md). (a) When the man you control cannot afford any action (one tile of movement, a strike, a reload, any skill), his turn ends by itself after a short beat that shows why. (b) The numbers say why, Battle Brothers' way: the action points and fatigue left and the cost of the next tile, where he is looking. (c) It never ends a turn while anything is affordable; WAIT and END TURN stay. (d) First on COMBAT's board with the reload (rule 124); no card, he meets it in his next fight.
+126. THE FIGHT DRIVES THE MUSIC (PAOLO 10/23, LOCKED: 'I almost played a first day; the combat should feel a lot better; we have a whole intensity system with the music, wtf bro'; records/BOHEMIA_PAOLO_THE_FIGHT_DRIVES_THE_MUSIC_10_23_26.md). (a) Measured: the demo's intensity system (window.INTENSITY) listens for BOHEMIA_COMBAT_STARTED, BOHEMIA_PLAYER_HIT, BOHEMIA_SHOT_RESULT 'killshot' and BOHEMIA_COMBAT_END, and the rebuilt fight posts none of them, so the music has not risen in a single fight since 10/2. (b) The fight posts all four: the song lifts when a fight starts, holds when your man is hit, climbs with every kill, settles at the end, at the top of a bar, in his allowed songs only (rule 122 stands). (c) Every hit, kill and fall in the fight is heard. (d) First on COMBAT's board; no card, he hears it in his next fight. (e) AMENDED THE SAME HOUR (PAOLO 10/23: 'and when it's the enemies' turn have it at the low intensity, I want to hear it's my turn time'): THE TURN IS HEARD. On the enemy's turn the song drops to its lowest arrangement; on your turn it comes back up to the fight's level, on the beat, so he hears 'my turn' without looking. The fight posts BOHEMIA_FIGHT_TURN {side:'you'|'them'}; the shell's INTENSITY takes it. COMBAT does both halves this round (the listener is one small marked block beside KILLMUS in slices/BOHEMIA_DEMO.html; RUN, open on the map, keeps the rest of the demo file).
+127. NO VOTES NEEDED, SPEND ON WHAT HE LOVES (PAOLO 10/23, LOCKED: 'I haven't seen any votes in the alpha, it's okay if not; if you know there's something I'm in love with, just use tokens towards that... I've been getting satisfied recently, it's been nice'). (a) Rule 123's no-cards reaches every lane: an empty VOTE tab is fine. (b) Tokens go to what he has said he loves, made more and put in the game: the 3D Crashbox look and the conversions, the fight's let's-keep-going feel, his OVERWORLD NIGHT songs and REPO MAN THE MACHINE PARTY, the front screen's font. (c) A card only for a genuinely new direction that needs his eye, or anything he asks to see. (d) The current direction is working; keep it, never restart it.
+128. EVERY ASSET CARRIES THREE ACTS (PAOLO 10/23, LOCKED: 'I saw the church settlement, it was looking really good, the terrain now looks like it's with the people... you have to keep everything in mind, everything has to be customizable for two more acts... once I'm happy with all the assets, then it's time to do act two'). (a) His YES on the church settlement: the 3D ground now sits with the 3D people; keep that bar. (b) Every 3D asset is built ONCE as a kept scene (the model, its parts, its materials and its dials committed beside the picture), so act two and act three are a re-render with the era's dials (wear, grime, light, materials, parts swapped: the ruin, then reclaimed and techy, then the third era), never a redraw; the fight floor's raided and reclaimed futures are the pattern that already exists. A picture that cannot be re-rendered from its kept scene is a defect. (c) People the same way: every piece is a part on the 3D man, so each act adds its own wardrobe to the same cast. (d) No act-two art until he says he is happy with act one's assets; then act two starts.
+129. THE CLOTHES HAVE TO LOOK GOOD: LEATHER AND LAYERING (PAOLO 10/23, LOCKED: 'I am concerned that you're not making the clothing good enough to look good: leather, layering, layering'; records/BOHEMIA_PAOLO_THE_CLOTHES_HAVE_TO_LOOK_GOOD_LEATHER_AND_LAYERING_10_23_26.md). (a) Quality before count for clothes: a garment is done when it reads as its material at the game's size (leather's sheen, grain, creases and scuffed edges; denim, canvas, wool, nylon and knit each different; wear where a body wears it). (b) Layering shows: collars over jackets, hoodies under coats, hems under hems, straps, belts and holsters crossing; a person is an outfit, never one garment. (c) The runway bar (Rick Owens, Balenciaga, Bottega Veneta) inside the grime. (d) The pieces already made get this pass before more are made. (e) No card (rule 127); checked against a real photograph of the same garment at 1:1 (rule 82). (f) CORRECTED THE SAME HOUR (PAOLO 10/23: 'I didn't mean to say leather, I just meant to say layers, so don't worry about leather'): 'leather' was a slip. THE ASK IS LAYERS: (b) leads; (a) stays only as each garment reading as its own cloth, with no special push on leather.
+130. EVERYBODY MOVES, AND THE UI GOES CRASHBOX (PAOLO 10/23, LOCKED: 'I think we need a lot of idle animations; right now everyone's standing still, making my brain fry; it's looking like a chess man and I don't want that vibe at all; and the UI kind of still sucks, it doesn't look as elevated as the Crashbox style we're going for'; records/BOHEMIA_PAOLO_EVERYBODY_MOVES_AND_THE_UI_GOES_CRASHBOX_10_23_26.md). (a) LOTS OF IDLES: nobody stands still like a chess piece on any screen (the fight's waiting men, the map's party, the settlement's keepers and crowd, the crew screen): every person breathes and shifts and has several idles of his own (look around, check the gun, roll the shoulders, smoke, scratch, stretch, lean), each starting at its own offset so no two move in step, made through the rig like every other clip; the beasts too. ANIMATION runs for it (lifted from rule 121's pause). (b) THE UI THE CRASHBOX WAY: every panel, button, bar and menu built with the same light, form and grime as the 3D world (rule 9/20: all the UI looks 3-D), analog horror, so the UI belongs to the world it sits on; the front screen's font he loved stays. UI runs for it. (c) No card (rule 127): he meets both in the game.
+131. THE SETTLEMENT IS BUSY (PAOLO 10/23, LOCKED: 'in the settlement you don't have to make every character matter; I would like to see characters you can't even interact with walking around the settlement, doing something, doing important things; but everyone that needs to get clicked on stands still, always'; records/BOHEMIA_PAOLO_THE_SETTLEMENT_IS_BUSY_10_23_26.md). (a) Background people: a settlement has people you cannot tap, walking its paths and doing jobs that look important (hauling batteries, carrying crates, fixing a wall, standing guard and walking a round, cooking, sweeping, trading at a stall, dragging scrap), each with his own look (121(i)) and his own route, coming and going. (b) The people you can tap (the keepers, anyone with a job for you) stay on their spot, always, so a tap never misses; they idle in place (rule 130(a)) and never walk off. (c) The two read apart at a glance. (d) RUN TWO places and moves them on the settlement screen; ANIMATION makes the walks and the work clips through the rig. No card (rule 127).
+132. THE BACKROOMS, TWICE AN ACT (PAOLO 10/23, LOCKED, LONG-TERM, NOT NOW: 'I'd like interactions each act where you accidentally fall into the back rooms and then you fight monsters... keep that in mind long-term... that's part of the swag aesthetic I'm going for: an awesome side quest that is weird like that'; records/BOHEMIA_PAOLO_THE_BACKROOMS_ONCE_AN_ACT_10_23_26.md). (a) Once in each act, a side quest where the player falls by accident into the Backrooms (the endless yellowed liminal rooms of analog horror, his own named reference) and fights monsters there, then finds the way out. (b) Weird on purpose: part of the game's swag. (c) Long-term: no lane builds it until act one's assets are where he wants them (rule 128(d)); every lane keeps it in mind (a fight board, a tileset, a monster family and a way in per act). (d) It belongs to the analog horror direction; nothing else is taken from it. (e) AMENDED THE SAME HOUR (PAOLO 10/23: '2 interactions'): TWO falls into the Backrooms in each act, not one; (a) and (c) read 'twice' and 'two ways in'. (f) ADDED THE SAME HOUR (PAOLO 10/23: 'maybe for like a spiritual upgrade or level up, I don't know, maybe a side quest is involved, maybe, but it will always be a paranoid experience vibe'): ALWAYS PARANOID: every visit feels watched, wrong and unsafe from the first step, never a power trip. What you come back with is OPEN, his 'maybe': a spiritual upgrade or a level-up is the lead idea, a side quest may lead in or out; decide it when the feature is built, not before.
+133. BATTLE BROTHERS, QUICKER AND FUNNER FOR NORMIES (PAOLO 10/23, LOCKED: 'the whole point of this project was to be like Battle Brothers but quicker and funner for normies, also kind of hardcore vibes if you're fucking around too much... all the way from the traversal to the combat to the way you interact with the world, it just has to be quicker, funner... like someone who plays Stardew Valley would play it'; records/BOHEMIA_PAOLO_QUICKER_AND_FUNNER_FOR_NORMIES_10_23_26.md). (a) THE POINT OF THE PROJECT, above every other rule's taste: every system (the map and travel, the fight, every way you touch the world) is judged by 'is this quicker and funner than Battle Brothers for someone who never played it'. (b) Hardcore underneath: messing around too much still gets punished. (c) STARDEW VALLEY, his named reference for the FEEL ONLY: a casual player picks it up and keeps going (clear, inviting, a loop that pulls you back); nothing of its art, farming or systems. (d) He puts the game at about 45 to 50 percent of the full Battle Brothers experience. (e) TUNING runs the big research, research only: [quicker and funner for normies].
+134. GHOSTS AND APPARITIONS (PAOLO 10/23, LOCKED: 'like in Battle Brothers, one of the enemies are ghosts and apparitions; I think we can put that in, it fits our world too good; maybe they're way more around for the first act than the third act; there's gonna be enemy types around more in different acts than another, that's just how it is'; records/BOHEMIA_PAOLO_GHOSTS_AND_APPARITIONS_10_23_26.md). (a) An enemy family in the analog horror look (static, dead signal, wrong in the frame), keeping Battle Brothers' Geist lesson: it fights your men's nerve from range, slips over ground and walls, is fragile up close, drops nothing; a place full of them is our graveyard. (b) More in act one, fewer by act three; every enemy type carries a weight per act in the roster's data. (c) THE COORDINATOR'S DEFAULT, his to correct: they come through the tear (121(f)); act one's ruin is full of rips, reclaiming the world closes them, so they thin out by act three. A ghost is not a beast; rule 42a's lab-made law is untouched. (d) COMBAT builds it after its current rows; no card. (e) CORRECTED THE SAME HOUR BY THE COORDINATOR, FROM HIS OWN CANON (laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md, newest of his words on it): (c)'s 'through the tear' default is WITHDRAWN. In act one THE GHOSTS ARE THE AMALGAMATION'S HAUNTING as act one sees it: the dead who came back are its generative data-portraits, the whisper and the scream are its broadcast (the 9/29 bestiary draft's Geist-as-siren), the possessed are its NeuroLinked; nobody in act one knows it is a machine, so they are ghosts. That is why there are more in act one: the reveal comes at the end of act one, and by acts two and three people know what they are, so the ghosts give way to its faithful and its machines. Purple stays its wordless tell (the purple reservation).
+135. THE SQUIGGLE, UPGRADED AND CREEPIER (PAOLO 10/24, LOCKED: 'we have squiggle voices... every time people speak... we might have to revamp or upgrade or remake from scratch the squiggle voices; it's supposed to be this Animal Crossing style squiggle voice, but maybe it could be more creepy'; records/BOHEMIA_PAOLO_THE_SQUIGGLE_CREEPIER_10_24_26.md). (a) It exists: engine/bohemia_voice.js (SOUNDS 8/9, formant synthesis, one voice per person from his seed), six of eight voices UP 8/11 with 'just remove the clicking'; people squiggle and the machine narrates (9/29). (b) Upgrade it to true Animal Crossing class by Animalese's own method now that real recordings are allowed (9/23): real recorded syllables per letter, re-timed and pitch-shifted per person, one voice per person kept. (c) Creepier inside analog horror: a little wrong (a dropped or doubled syllable, tape wobble, a breath that should not be there, a sag at a line's end, a room on it), never comedy, still a person. (d) No clicking. (e) SOUNDS, after [the bullet lands]; no card.
+136. PURPLE-AURA GHOSTS, NOT MAIN QUEST, AND NO POSSESSION (PAOLO 10/24, LOCKED: 'I don't know about that possession shit, but yeah, slightly purple aura ghosts originating from the Amalgamation; it's not some main quest shit, so keep that in mind'; records/BOHEMIA_PAOLO_PURPLE_GHOSTS_NOT_MAIN_QUEST_AND_THE_MAP_REMADE_NO_SAND_FLOOD_10_24_26.md). (a) No possession: the 7/24 lock's possessed strand is dropped from act one's haunting. (b) The ghosts carry a slight purple aura and come from the Amalgamation (134(e)). (c) The haunting is never the main quest's spine: it lives in the world, the fights and side quests.
+137. THE MAP REMADE, AND NO GREY-YELLOW SAND FLOOD (PAOLO 10/24, LOCKED: 'the map still looks like shit, so we have to remake all the map assets, and let's be careful having everything look like a grey yellow sand color, I don't want that to flood all of our art'). (a) Every map asset is remade: ground, roads, districts, settlements, water, hills, props, the map's people and markers, judged beside Battle Brothers' map at the same zoom (the map's reference, 9/24) and across the whole pinch (Pocket City 2's zoom range, 9/30). (b) NO SAND FLOOD, for ALL art from now: Las Vegas is many colours (red rock, black basalt, green lawns and golf courses gone wild, blue pools and Lake Mead, white and grey concrete, rust, sun-bleached paint, the Strip's neon, the factions' colours, COLOUR IS TERRITORY); analog horror stays in the grime, film and hand, never as a beige wash over everything. Every art lane checks a new picture's colour spread before it ships. (c) COOK runs the remake; RUN keeps the map's code.
+138. THE WALK-UP (PAOLO 10/24, LOCKED: 'on the settlement screen... the main character of the group, or any member with the highest level... when you click anything or someone, you still talk to them at pretty much the same speed, but you see your main guy or woman walking up to them... extra interactivity and engagement'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) Your lead stands in the settlement: the main character, or the company's highest-level member. (b) Tap a person or a place and your lead walks up to it in the town while the talk opens at today's speed; the walk never adds a wait. (c) RUN TWO builds it with ANIMATION's walk; no card.
+139. EVERY GAME IS A LEARNING BLOCK FOR THE LITTLE THINGS (PAOLO 10/24, LOCKED: 'this has to be the best game ever made; I want all the features, not a single thing missed, not any sounds that could be used; the games that have ever existed before us are learning blocks of what little things we can add'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) Research (TUNING, QUESTS, Grok) may study ANY game for small features and touches, each named with its source game. (b) This loosens the reference law for little things only: the named references keep their departments, and no unnamed game becomes a department. (c) EYES' Grok filter reads (1) accordingly: a little thing from any game passes when it is marked as one.
+140. FIGHT THE TILE-RPG VIBE, AND GROK DIGS WHAT WE CANNOT (PAOLO 10/24, LOCKED: 'it's getting closer to feel like Battle Brothers, but I'm trying to fight this tile turn-based RPG vibe... it has to be a lot better... it's gonna take lots of research... Grok is still connected, so set up whatever you need, know what you don't know, what features need lots and lots of rounds of research more than you can provide, and make it available for Grok to see, because I'm gonna start talking to him'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) The fight must not feel like a generic grid RPG; that is research first. (b) The Grok master (reference/BOHEMIA_MASTER_FOR_GROK.md) is rebuilt and reference/BOHEMIA_GROK_ASKS.md carries a fresh 10/24 list of what we do not know (asks 26 to 32); Grok reads them at the raw link; what he and Grok land on reaches the coordinator in his words (9/30 law).
 77b. THE MAP'S ROADS (PAOLO 10/10 on the freeway round two: 'BRO ON THE MAP NOT ON THE COMBAT, and even then it's looking like shit'): his 10/9 freeway complaint was the MAP's freeway and streets; one road kit, lanes agreeing, nothing across a road, on the map's far and middle stops; RUN [the far end at two million pixels], WORLD [the roads] and COOK [the far end painted by hand] carry it; the fight's freeway work stands.
 83. MELEE ONE TILE, GUNS TWO (PAOLO 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a melee weapon reaches the next tile; every gun needs at least two tiles to its target and cannot fire at a man beside the shooter; COMBAT [guns need two tiles] FIRST; amends the VIA GROK pistol-is-the-dagger one-tile line (the pistol is a two-tile gun, or a club at one).
 84. AN ACT IS A YEAR (PAOLO 10/10: 'most people will only spend a maximum of 300 to 450 days in a single act, so a year passes; this mechanic is ass'): no mechanic needs more than a year inside one act; DYNASTY's old-body trade is RETIRED; aging shows between acts.
@@ -49064,6 +49087,428 @@ File: `bohemia_combat_v12.html`. Engine: phase-lock baked into `bohemia_engine.m
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_PURPLE_GHOSTS_NOT_MAIN_QUEST_AND_THE_MAP_REMADE_NO_SAND_FLOOD_10_24_26.md
+# source: records/BOHEMIA_PAOLO_PURPLE_GHOSTS_NOT_MAIN_QUEST_AND_THE_MAP_REMADE_NO_SAND_FLOOD_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: PURPLE-AURA GHOSTS, NOT MAIN QUEST; THE MAP REMADE; NO SAND FLOOD (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"I dont know about that possesion shit bro but yeah slightly purple aura ghost shits originating to the amalgamation its not some main quest shit so keep that in mind.
+
+Also the map still looks like shit so we have to remake all the map assests and lets be careful having everything look like a grey yellow sand color I dont want that to flood all of our art man u feel"
+
+(Said after the coordinator described act one's haunting: whispers, the dead on screens, the possessed, a presence, things moving, unkillable, purple light, the ghosts in fights.)
+
+## THE RULINGS
+
+1. NO POSSESSION. The 'possessed' strand of the 7/24 lock (laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md: people moving wrong, speaking in others' words) is DROPPED from act one's haunting. Newest date wins.
+2. THE GHOSTS HAVE A SLIGHT PURPLE AURA and come from the Amalgamation (rule 134(e) stands; purple is its tell, the purple reservation).
+3. IT IS NOT MAIN QUEST. The haunting lives in the world, the fights and side quests (rule 132's Backrooms are side quests too), never as the spine of the main quest. The 7/24 lock's demo direction (descending into the wash chasing the ghost as the spine) is read under this: the haunting is a presence and an enemy family, not the main quest's driver.
+4. THE MAP STILL LOOKS LIKE SHIT: every map asset is remade (the ground, roads, districts, settlements, water, hills, props, the map's people and markers).
+5. NO GREY-YELLOW SAND FLOOD: the art must not drown in one grey-yellow sand colour. Las Vegas is not one colour: red rock, black basalt, green irrigated lawns and golf courses gone wild, blue pools and Lake Mead, white and grey concrete, rust, sun-bleached paint in many colours, the Strip's neon, the factions' own colours (COLOUR IS TERRITORY). Analog horror stays (grime, film, the VHS hand), but grime is not a beige wash over everything.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_SQUIGGLE_CREEPIER_10_24_26.md
+# source: records/BOHEMIA_PAOLO_THE_SQUIGGLE_CREEPIER_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: THE SQUIGGLE VOICE, UPGRADED AND CREEPIER (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also, I don't know if you remember this, but we we have like squiggle voices that I'm trying to pull off for the shit too like every time people speaks like it's in the project files somewhere. I already know it is but we might have to revamp or upgrade or remake from scratch the squiggle voices you know it's supposed to be like this animal crossing style squiggle voice, but maybe it could be like more creepy and shit but yeah like we got started on that and I just like where is that?"
+
+## WHERE IT IS (the coordinator, measured the same turn)
+
+- engine/bohemia_voice.js, SOUNDS 8/9/26, inlined in the demo (slices/BOHEMIA_DEMO.html, the BOHEMIA SQUIGGLE VOICES block). Each person gets a voice from his identity seed: pitch, vocal-tract length (who is speaking), speed, wave, grit, vibrato.
+- His verdicts 8/11 (records/BOHEMIA_VOICE_VERDICT_8_11_26.txt): six of eight voices UP, 'I like it all, just remove the clicking'.
+- His 9/29 ruling (records/BOHEMIA_PAOLO_TWO_VOICES_THE_AI_SLOP_NARRATOR_AND_THE_SQUIGGLE_9_29_26.md): people speak in the squiggle, every person his own; the narrator is a separate, creepy AI-slop machine voice for events and text.
+- Why it may sound thin: it was built from synthesis (formant filters on a buzz) because the demo then forbade audio files. Animal Crossing's Animalese is the other way: a real human recorded saying every letter, then cut, sped up and pitch-shifted per villager. Since 9/23 ('no sand, sounds from real material') real recordings are allowed, and SOUNDS just made the bullets from real recordings.
+
+## WHAT IT MEANS
+
+1. Upgrade or remake the people's squiggle so it is truly Animal Crossing class: the Animalese method (real recorded syllables, per letter, re-timed and pitch-shifted per person), keeping one voice per person from his seed and the six voice types he passed.
+2. CREEPIER: inside analog horror: a little wrong (a syllable that drops or repeats, tape wobble, a breath where none should be, a pitch that sags at the end of a line, a room on it), never comedy, and still readable as a person.
+3. No clicking (his 8/11 note stands).
+4. The two-voice rule stands: people squiggle; the machine narrates.
+
+## WHERE IT GOES
+
+SOUNDS, right after [the bullet lands]: [the squiggle, creepier]. No card (rule 127): he hears it the next time someone talks.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md
+# source: records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: THE WALK-UP, EVERY GAME IS A LEARNING BLOCK, AND GROK DIGS WHAT WE CANNOT (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"And also, can we have the settlement menu set up in a way where that like? Your character respond in like the main character I guess of the group maybe the maybe any member of the group with the highest level potentially and when you click anything or someone on the settlement screen like you'll still talk to them like pretty much the same speed that you do but like just on the settlement screen, you'll see your main your main guy or a woman like walking up to them in the settlement screen just to give that like extra interactivity you know an engagement and that's kind of what I'm referring to. I wanna see more of that like this has to be the best game ever made like I want all the features. I want everything not not a single fucking thing was missed not any sounds that could be used. Nothing nothing at all the games that have ever existed before us are learning blocks of what little things we can add here in their type shit bro because right Now it's getting closer to feel like battle Brothers, but like I'm trying to I'm trying to fight dislike tile turn base like RPG vibe because that's definitely what means if it has to be a lot better you know there's a lot of things that have to happen and it's gonna take lots of research and shit too but yeah I mean also set up because Grok is still connected so set up whatever you need to set up and know what you don't know or what features need lots and lots of rounds of research more than you can provide and then make it available for the Grok robot to see cause I'm gonna start talking to him but yeah"
+
+## THE RULINGS
+
+1. THE WALK-UP. On the settlement screen your lead stands in the town: the main character, or the highest-level member of the company. Tap a person or a place and your lead walks up to it while the talk opens at the same speed it does today (never a wait added). Extra interactivity and engagement. RUN TWO builds it; ANIMATION's walk.
+2. THE BEST GAME EVER MADE: every feature, every sound that could be used; nothing missed.
+3. EVERY GAME THAT EVER EXISTED IS A LEARNING BLOCK FOR THE LITTLE THINGS. Research may study any game for the small touches we can add, each named with its source game. This loosens 'never add a reference game he has not named' FOR LITTLE THINGS ONLY: the named references keep their departments (Battle Brothers the campaign, map and company; Rogue Fable 4 the fight on the beat; and the rest as listed), and no unnamed game becomes a department.
+4. FIGHT THE TILE TURN-BASED RPG VIBE. It is getting close to Battle Brothers; it has to be a lot better than a generic grid RPG. This needs a lot of research.
+5. GROK IS STILL CONNECTED. Set it up: the master file rebuilt with everything current, and a fresh ask list of what we do not know and what needs more rounds of research than the lanes can give. He is going to talk to Grok.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_QUICKER_AND_FUNNER_FOR_NORMIES_10_23_26.md
+# source: records/BOHEMIA_PAOLO_QUICKER_AND_FUNNER_FOR_NORMIES_10_23_26.md
+====================================================================================================
+# PAOLO 10/23: BATTLE BROTHERS, QUICKER AND FUNNER FOR NORMIES (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"But yeah, we're getting closer to like having this full battle brothers experience so now that we're like I don't know probably like 50% done or 45% done but like that's a long way that we've gone together, bro, but like the whole point of this project was to be like battle Brothers, but quicker and funner for Normie's. That's also kind of like hard-core vibes if you're fucking around too much type shit like so I don't know what type of big grain research we need to do but like all the way from the traversal to the combat to the way you interact with the world like it just has to be like quicker funner like a fucking crazy like like an Asian girl would play in Japan like she like Stardew Valley type shit like so keep that in mind."
+
+('big grain research' is BIG BRAIN RESEARCH.)
+
+## WHAT IT MEANS
+
+1. He puts the project at about 45 to 50 percent of the full Battle Brothers experience.
+2. THE POINT OF THE PROJECT: Battle Brothers, quicker and funner, for normal players. Hardcore underneath: a player who messes around too much still gets punished.
+3. EVERYTHING, end to end: the traversal (the map), the combat, and every way you interact with the world, judged by "is this quicker and funner than Battle Brothers for someone who has never played it".
+4. The bar for how inviting it feels: a casual player who loves Stardew Valley should pick it up and keep going. Stardew Valley is his named reference for that feel only (pick-up-and-play, clear, a loop that pulls you back), not for its art, its farming or its systems.
+5. "Big brain research": TUNING (research only, rule 7 of 9/28) runs it: where Battle Brothers is slow or confusing for a new player, and how quicker, friendlier games fix the same moment, across traversal, combat and world interaction; the output is a short ranked list of changes with numbers that the building lanes take as rows.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_CLOTHES_HAVE_TO_LOOK_GOOD_LEATHER_AND_LAYERING_10_23_26.md
+# source: records/BOHEMIA_PAOLO_THE_CLOTHES_HAVE_TO_LOOK_GOOD_LEATHER_AND_LAYERING_10_23_26.md
+====================================================================================================
+# PAOLO 10/23: THE CLOTHES HAVE TO LOOK GOOD: LEATHER, LAYERING (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"I am concerned that you're not making the clothing good enough to look good leather, layering and shit layering and shit so that is my concern but yeah"
+
+## WHAT THE COORDINATOR SAW (the same turn)
+
+CHARACTER's round since 01:24 put 45 trousers, 40 shoes and 68 bags, capes, pads, holsters, scarves, belts and gloves on the 3D man in about forty minutes, each rolled into every person. That is the count going down, which rule 123 asked for, but at that speed a garment is a shape with a colour, and his worry is exactly that: the clothes do not read as real material or real layers.
+
+## WHAT IT MEANS
+
+1. QUALITY BEFORE COUNT for clothes. A garment is done when it reads as its material at the game's size: leather with its sheen, grain, creases at the elbow and knee, and scuffed edges; denim, canvas, wool, nylon and knit each reading differently; wear where a body wears it.
+2. LAYERING: people dress in layers and the layers show: a shirt collar over a jacket, a hoodie under a coat, a hem below a hem, a scarf over a strap, a belt and a holster crossing a coat, sleeves pushed up over a cuff. A person is an outfit, not one garment.
+3. The runway bar stays (Rick Owens, Balenciaga, Bottega Veneta: leather, drape, layering, inside analog horror and the grime), and the families he loves stay (the 3D Crashbox look).
+4. The existing pieces get the material and layering pass before more pieces are made.
+
+## WHERE IT GOES
+
+CHARACTER, first on its board: [the clothes look real]. No card (rule 127): he meets it in the game; CHARACTER's own check is the garment beside a real photograph of the same thing at 1:1, the way rule 82 always asked.
+
+## CORRECTED THE SAME HOUR
+
+HIS WORDS: "Also, I didn't mean to say leather. I just meant to say layers so don't worry about leather."
+
+'Leather' was a slip. The ask is LAYERS. Each garment still reads as its own cloth, with no special push on leather. CHARACTER was restarted with layers first.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_BACKROOMS_ONCE_AN_ACT_10_23_26.md
+# source: records/BOHEMIA_PAOLO_THE_BACKROOMS_ONCE_AN_ACT_10_23_26.md
+====================================================================================================
+# PAOLO 10/23: THE BACKROOMS, ONCE AN ACT (LOCKED, LONG-TERM)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also, I'd like to interactions each act where you accidentally fall in the back rooms and then you fight monsters type shit so keep that in mind long-term long-term shit but yeah like I already see that like that would be awesome. Like that's part of the swag aesthetic. I'm going for awesome side quest that is weird like that."
+
+## WHAT IT MEANS
+
+1. Once in each act, the player falls by accident into the Backrooms (the endless yellowed liminal rooms of analog horror) and fights monsters there, then finds the way out.
+2. A weird side quest on purpose: part of the game's swag.
+3. Long-term. Nothing is built until act one's assets are where he wants them (rule 128(d)). Every lane keeps it in mind: per act, a way in, a fight board and tileset, and a monster family.
+4. He named it himself; it sits with the analog horror direction and nothing else is taken from it.
+
+VAMILY rule 132.
+
+## AMENDED THE SAME HOUR
+
+HIS WORDS: "2 interactions"
+
+Two falls into the Backrooms in each act, not one.
+
+## ADDED THE SAME HOUR
+
+HIS WORDS: "Maybe for like a spiritual upgrade or level up bullshit I don't know maybe a side quest is involved maybe but like it will always be like a paranoid experience vibe type shit"
+
+Always a paranoid experience: watched, wrong, unsafe from the first step. The reward is open (his 'maybe'): a spiritual upgrade or a level-up is the lead idea, and a side quest may lead in or out. Decided when the feature is built.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_GHOSTS_AND_APPARITIONS_10_23_26.md
+# source: records/BOHEMIA_PAOLO_GHOSTS_AND_APPARITIONS_10_23_26.md
+====================================================================================================
+# PAOLO 10/23: GHOSTS AND APPARITIONS (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Like in battle Brothers, like one of the enemies are like ghost and apparition so I think we can actually put that in like it just fits our world too good like maybe they're way more around for the first act you know than the third act but still like there's gonna be enemy types that are gonna be around more in different action than another so that's just how it is, but yeah like ghost and apparitions like I could definitely see that"
+
+## WHAT BATTLE BROTHERS DID (the library, records/target/bb/enemies.json)
+
+The GEIST rides with the undead and breaks your men's nerve: it stays a few tiles back screaming (Horrific Scream: four morale checks), turns to melee with its touch when your men's resolve holds, waits for a fleeing man to be rallied so it can break him again, crosses ground nobody else can, and drops nothing. Some graveyards hold nothing but Geists. The RACHEGEIST, a legendary boss, comes back as a ghost when killed and calls ten Geists. The lesson: an enemy that fights your nerve, not your armour, and is fragile once you reach it.
+
+## WHAT IT MEANS FOR BOHEMIA
+
+1. Ghosts and apparitions are an enemy family, in the analog horror look: a figure in VHS static and dead signal, wrong in the frame.
+2. The lesson kept: they attack nerve and morale from range, slip over ground and walls, are fragile up close, and leave nothing behind. A place full of them (a dead casino floor, a chapel, a dead broadcast tower) is the Bohemia graveyard.
+3. MORE IN ACT ONE, FEWER BY ACT THREE. Every enemy type has its own weight per act; that is how the world works.
+4. THE COORDINATOR'S DEFAULT FOR WHERE THEY COME FROM (EVERYTHING IS A THUMB; he corrects it if wrong): they come through THE TEAR, the fifth-dimension rip the game already shows around the man you control in a fight (rule 121(f)). The ruin of act one is thin and full of rips; as the world is reclaimed and rebuilt the rips close, so the ghosts thin out by act three. It ties his 'more in act one' to the world instead of a number, and it never touches the beasts' law (every beast is lab-made, rule 42a): a ghost is not a beast.
+
+## WHERE IT GOES
+
+COMBAT's board: [ghosts and apparitions], after the rows it is on. The roster's data carries a weight per act for every enemy type (rule 22's data line). No card.
+
+## CORRECTED THE SAME HOUR (the coordinator, from his own canon)
+
+The 'through the tear' default in point 4 is WITHDRAWN. His 7/24 lock (laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md) already says what the ghosts are: in act one the Amalgamation is presented as a haunting (ghost, demon, otherworldly), never as a machine, until the end of act one. So act one's ghosts and apparitions ARE its haunting: the dead who came back are its generative data-portraits, the scream is its broadcast (the 9/29 bestiary draft's Geist-as-siren), the possessed are its NeuroLinked. That is why they are thick in act one and thin by act three: after the reveal, people know what they are, and the ghosts give way to its faithful and its machines. Purple stays its wordless tell.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_EVERY_ASSET_CARRIES_THREE_ACTS_10_23_26.md
+# source: records/BOHEMIA_PAOLO_EVERY_ASSET_CARRIES_THREE_ACTS_10_23_26.md
+====================================================================================================
+# PAOLO 10/23: EVERY ASSET CARRIES THREE ACTS (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"I saw the church settlement. It was looking really good like like the terrain now was looking like it's with the people. I'm just yeah, so yeah I don't know what you have to do, but you have to keep everything in mind like everything has to be customizable for two more acts by the way, so like I don't know if that's a big challenge for you or like that's gonna be easy to know that but like once I'm happy with all the assets then like then it's like OK now it's time to do act two shit so yeah"
+
+## WHAT IT MEANS
+
+1. YES on the church settlement: the ground and the people now read as one world (the 3D revamp working).
+2. Every asset must be ready for acts two and three. Because the revamp builds each thing as a 3D scene, an era is a re-render with new dials (wear, grime, light, materials, swapped parts), not a redraw, as long as the scene is kept. The fight floor's raided and reclaimed futures already work this way.
+3. Act one's assets first. When he is happy with them, act two starts.
+
+VAMILY rule 128; notes on COOK's and CHARACTER's boards.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_SETTLEMENT_IS_BUSY_10_23_26.md
+# source: records/BOHEMIA_PAOLO_THE_SETTLEMENT_IS_BUSY_10_23_26.md
+====================================================================================================
+# PAOLO 10/23: THE SETTLEMENT IS BUSY (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also in the settlement so you don't have to make every character matters so for example I would like to see like characters that you can't even interact with like walking around the settlement kind of vibes like doing something like doing important things, but yeah, like everyone that needs to get clicked on like we stand still always"
+
+## WHAT IT MEANS
+
+1. Background people you cannot tap walk the settlement and do jobs that look important: hauling batteries, carrying crates, fixing a wall, a guard's round, cooking, sweeping, trading, dragging scrap. Each has his own look and route.
+2. The people you can tap stay on their spot, always, idling in place, so a tap never misses.
+3. The two read apart at a glance.
+
+RUN TWO places and moves them; ANIMATION makes the walks and work clips through the rig. VAMILY rule 131. No card.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_FIGHT_DRIVES_THE_MUSIC_10_23_26.md
+# source: records/BOHEMIA_PAOLO_THE_FIGHT_DRIVES_THE_MUSIC_10_23_26.md
+====================================================================================================
+# PAOLO 10/23: THE FIGHT DRIVES THE MUSIC (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Bro i almost played a first day bro the combat should feel alot better we have music that we have a whole intensity system with the music wtf bro"
+
+## WHAT THE COORDINATOR MEASURED (the same turn)
+
+- The intensity system is real and live in the demo: `window.INTENSITY` (KILLMUS) in slices/BOHEMIA_DEMO.html, built 8/20 and 8/26-27. Level 1 calm, level 2 when an enemy is trying to hurt you (a fight starting, your man hit), level 3 after two kills or a crowd; it lifts the song's arrangement (MUS.layers 0, 2, 4) at the top of the next bar.
+- The shell listens for four messages: BOHEMIA_COMBAT_STARTED (threat on), BOHEMIA_PLAYER_HIT (threat on), BOHEMIA_SHOT_RESULT with outcome 'killshot' (a kill), BOHEMIA_COMBAT_END (reset).
+- The rebuilt fight (slices/BOHEMIA_FIGHT.html, COMBAT 10/2, rule 63) posts NONE of them. It posts BOHEMIA_SFX (sounds), its home message and its formation. So in every fight since 10/2 the music never rises: the system exists and nothing in the new fight drives it. That is what he heard.
+
+## WHAT IT MEANS
+
+1. The fight drives the music: the moment it starts, the song lifts; when your man is hit, it holds high; every kill pushes it; the end brings it down. Through the system that exists, in his allowed songs only (rule 122 stands).
+2. "The combat should feel a lot better": the music is the biggest missing piece he named; every hit, kill and fall is also heard (rule 54b's events), never silent.
+3. He almost played a whole first day: the game is close to holding him; the fight is where it slips.
+
+## WHERE IT GOES
+
+COMBAT, first on its board: [the fight drives the music]. The fight file posts the four messages the shell already reads; no change to the music engine is needed. No card: he hears it in his next fight.
+
+## AMENDED THE SAME HOUR: THE TURN IS HEARD
+
+HIS WORDS: "Yeah and when its the enemies turn have it at the low intensity i want to hear its my turn time shit"
+
+On the enemy's turn the song drops to its lowest arrangement; on his turn it comes back up to the fight's level, on the beat, so he hears it is his turn without looking. The fight posts BOHEMIA_FIGHT_TURN {side}; one small marked block beside KILLMUS in the demo file takes it (COMBAT does both halves this round; RUN keeps the rest of the demo file).
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_EVERYBODY_MOVES_AND_THE_UI_GOES_CRASHBOX_10_23_26.md
+# source: records/BOHEMIA_PAOLO_EVERYBODY_MOVES_AND_THE_UI_GOES_CRASHBOX_10_23_26.md
+====================================================================================================
+# PAOLO 10/23: EVERYBODY MOVES, AND THE UI GOES CRASHBOX (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also, I think we need a lot of idle animations. I think that would help me a lot because right now everyone's standing still making my fucking brain fry. It's looking like a chest man and I don't want that vibe at all in the UI kind of still sucks it doesn't look as elevated as the crash box style that we're going for so"
+
+('chest man' is CHESS MAN: people standing like chess pieces.)
+
+## WHAT IT MEANS
+
+1. Lots of idle animations, on every screen with a person: breathing and weight shift always, plus several idles each (look around, check the gun, roll the shoulders, smoke, scratch, stretch, lean), each at its own offset so no two move in step; beasts too. Nobody stands like a chess piece. ANIMATION runs for it (lifted from rule 121's pause).
+2. The UI is still not at the Crashbox level: every panel, button, bar and menu gets the same light, form and grime as the 3D world. UI runs for it.
+3. No cards (rule 127).
+
+VAMILY rule 130; ANIMATION's [everybody idles] and UI's [the UI the Crashbox way].
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_RELOAD_HAS_TO_BE_SUPER_CLEAR_AND_THE_FIRST_SOLO_WIN_10_20_26.md
+# source: records/BOHEMIA_PAOLO_THE_RELOAD_HAS_TO_BE_SUPER_CLEAR_AND_THE_FIRST_SOLO_WIN_10_20_26.md
+====================================================================================================
+# PAOLO 10/20: THE RELOAD HAS TO BE SUPER CLEAR, AND THE FIRST SOLO WIN (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also, if I need to reload and it needs to be very apparent like on the screen that I need to reload type shit bro has to be super clear. I don't know the way it is right now. I just won my first solo combat mission and I'm getting like bro. It's getting that like let's keep going for this feeling. It's getting better.
+And when I mean, combat reload, I mean, combat reload"
+
+## WHAT IT MEANS
+
+1. COMBAT RELOAD, the gun in the fight. Not a page reload, not a save reload. He said it twice so nobody reads it wrong.
+2. When a man's gun is empty, the SCREEN says so, loud, without reading. Today the only sign is a small disabled-or-enabled square in the skills row (#breload in slices/BOHEMIA_FIGHT.html) and the strike quietly refusing; he "doesn't know the way it is right now", which means it is invisible.
+3. THE FIRST SOLO WIN: he won his first fight alone and felt "let's keep going". That feeling is the bar the fight is held to from here. It is getting better; keep the direction, do not restart it.
+
+## WHERE IT GOES
+
+COMBAT, first on its board: [the reload is loud]. No card (rules 123 and 124): he meets it in his next fight.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_NO_MORE_CARDS_ALL_THE_ENERGY_INTO_THE_3D_REVAMP_10_20_26.md
+# source: records/BOHEMIA_PAOLO_NO_MORE_CARDS_ALL_THE_ENERGY_INTO_THE_3D_REVAMP_10_20_26.md
+====================================================================================================
+# PAOLO 10/20: NO MORE CARDS, ALL THE ENERGY INTO THE 3D REVAMP (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Bro, at this point with the conversions you're doing with the 3-D sprites I've been very impressed bro. Just do everything you need to bro like all the time you spend using tokens to present me a card to show it to me that all that energy has to be spent towards just revamping all the 2-D assets into these 3-D sprites and stuff so analog horror crash box vibes go crazy"
+
+## WHAT IT MEANS
+
+1. He trusts the 3D conversions. He has said YES to every family so far (the people, the accessories, the buildings, the ranches, the strip and town, the floor), with "not final" on the floor.
+2. The revamp of every 2D asset into a 3D rig model ships STRAIGHT INTO THE GAME. No VOTE card, no before-and-after sheet, no card "why", no picture from the game's camera made for him. The tokens a card cost go into converting the next family.
+3. The vibe is unchanged and turned up: analog horror, Crashbox, grimy, Machine Party (rules 121(j)(k)(l)). "Go crazy."
+4. He meets the result while playing and corrects what he hates (EVERYTHING IS A THUMB, 8/9). That is the only review.
+
+## WHAT IT AMENDS
+
+- COOK EVERY ROUND (9/21, rule 22): for the revamp, the made thing is the converted family IN THE GAME, counted on the lane's inventory, not a registered VOTE item. The cook gate's red on a revamp lane is expected until PLUMBER teaches the gate this rule; it is a row-level red, never a push blocker, and never a reason to make a card.
+- Rule 89 (before and after on every look item) does not apply to revamp work, because there is no item.
+- Every row that says "in VOTE with its card id" or "before and after in the VOTE tab" for 3D conversion work: that clause is void.
+- Rule 121(c) (save his tokens) stands: the saving now comes from cutting the cards, and the spend goes to conversion.
+
+## WHAT IT DOES NOT CHANGE
+
+- A new song still goes to VOTE only (rule 122(d)); he named that himself.
+- Identity and names he reserved still go to him.
+- Anything he asks to see still gets shown.
+- The UI's open picks already in VOTE stay there; no new UI card is made unless he asks.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_ONE_SONG_ONLY_AND_THE_VOLUME_SLIDERS_10_20_26.md
+# source: records/BOHEMIA_PAOLO_ONE_SONG_ONLY_AND_THE_VOLUME_SLIDERS_10_20_26.md
+====================================================================================================
+# PAOLO 10/20: ONE SONG ONLY, AND THE VOLUME SLIDERS (LOCKED; rule 122)
+
+## His words, verbatim (00:45 UTC)
+"Also, all the music sucks except for the new one you just made in all of the overworld night track so I shouldn't be hearing anything other than that ever if I hear any other song ever again I'm shutting this whole shit down / Overworld night"
+
+"Also, when I'm playing the demo like the background like ambience, I think they call it radio or whatever but just like the background bullshit like that I've only must go way down so anything that's volume wise. I should be seeing a slider for it in the settings."
+
+## Read plainly
+- 'the new one you just made... the overworld night track': REPO MAN, THE MACHINE PARTY (SOUNDS, 10/19, sounds-repo-man-the-machine-party-10-19, slices/vote/songs/repo_man_the_machine_party.json), the remake that plays over the map; he voted YES on it.
+- 'I shouldn't be hearing anything other than that ever': it is the only song the game plays, on every screen (the menu, the map day and night, the settlement, the fight), until he names another. Every other song is silent, never deleted (his canon songs stay on disk, locked).
+- 'the background ambience... radio... has to go way down': the ambience, the radio and the hum under everything turned far down by default.
+- 'anything volume wise, I should see a slider for it in the settings': the settings card carries a slider for music, ambience and effects at least, each saved.
+
+## The ruling (rule 122)
+
+## Amended the same hour
+His words: "And ALL OF THE OVERWORLD NIGHT TRACKS TOO". The allowed set is REPO MAN THE MACHINE PARTY plus every song in his OVERWORLD NIGHT category (CAT_DEFAULTS: CAMPFIRE CONFESSION, THE VAULT, THE CHOIR THAT STAYED, THE ORGAN IN THE DROWNED CHAPEL and the old overworld six moved to NIGHT on 7/19). Everything else silent.
+
+## 'It's in the music tab!!!'
+The list is the MUSIC tab's OVERWORLD NIGHT category, read at play time (his saved tags, CAT_DEFAULTS behind them). Today's baked nine: CAMPFIRE CONFESSION, GHOST IN THE GRID, REPO MAN, SATELLITE PRAYER, SLOW BLEED, SLOW CREEP, THE ORGAN IN THE DROWNED CHAPEL, THE PIT BOSS IS GONE, THE VAULT. THE CHOIR THAT STAYED is not in it; the coordinator named it from an old note by mistake.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_TURN_ENDS_ITSELF_10_20_26.md
+# source: records/BOHEMIA_PAOLO_THE_TURN_ENDS_ITSELF_10_20_26.md
+====================================================================================================
+# PAOLO 10/20: THE TURN ENDS ITSELF (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Bro, the combats a lot better but even battle Brothers has the auto enter system like if you only have like one movement left and you can't even move a tile you know that's why they have the stamina and stuff the way that they numeric why you like but yeah like unless I'm able to move to a different time unless I have enough energy you know for that time but yeah like even better has an auto turn and you like you gotta do that a lot better like right now"
+
+("auto enter" is AUTO END; "time" is TILE; "numeric why you like" is the numbers on the action points and fatigue.)
+
+## WHAT IT MEANS
+
+1. The fight is a lot better (his second "better" this hour).
+2. AUTO END TURN, like Battle Brothers: when the man you control cannot afford anything (not one tile of movement, not a strike, not a reload, no skill), his turn ends by itself. He never has to hunt for END TURN on a man who can do nothing.
+3. The numbers say why: Battle Brothers shows action points and fatigue as numbers, so you can see a tile costs more than you have. Ours does the same: the cost of the next tile and what is left, where he is looking, so the auto end never feels like the game took the turn from him.
+4. "Right now": it goes first on COMBAT's board, beside the reload.
+
+## WHAT IT DOES NOT DO
+
+It never ends a turn while any action is still affordable. WAIT stays. END TURN stays for ending early.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_WHAT_IS_THE_PLAN_FOR_COMBAT_TOUCH_UI_UNDERSTANDING_10_19_26.md
+# source: records/BOHEMIA_PAOLO_WHAT_IS_THE_PLAN_FOR_COMBAT_TOUCH_UI_UNDERSTANDING_10_19_26.md
+====================================================================================================
+# PAOLO 10/19: WHAT IS THE PLAN FOR COMBAT: TOUCH, UI, AND PEOPLE UNDERSTANDING IT (the coordinator's plan; rule 120 extended)
+
+## His words, verbatim (00:30 UTC)
+"What plans do you have to make combat better and better for the touch and better for the UI and for people that understand where / Combat is so bad right now is"
+
+## Where it is bad now (read off slices/BOHEMIA_FIGHT.html and his own votes, not guessed)
+1. YOU START WITH CLUBS AND PIPES. The guns exist in the data (pistol, rifle) but the first fight hands the crew melee kit (rule 120(a), his 10/18).
+2. THE FIGHT HIDES WHY YOU MISS OR LOSE. The hit chance is a small number inside the 46-point STRIKE button, and only after you tap an enemy once (tapAt, hud: bs b.textContent = chance + '%'). No damage shown, no armour shown, no line that says the weapon is bad for that target, and after the hit nothing says what it did beyond the pops (his 10/18: 'the game doesn't explain to you at all that your weapon sucks').
+3. TOUCH IS TAP, READ A SENTENCE, TAP AGAIN. Walking and hitting both need a second tap on the same spot, and the only thing telling you is a line of small text ('Tap inside the chalk to walk. Tap a marked man to hit.', 'Walk there, 4 AP. Tap again.'). It is easy to tap twice by accident or not know a second tap is needed. Enemy turns are skipped by tapping the board.
+4. THE LOOK: the floor (his NO 10/18: 'I hate the ground. I hate the floor'), the men a little too big (his 10/18), the falls choppy and slow (his 10/13; better 10/18), and no way to feel which man is yours (rule 120(c), the aura).
+5. TOO HARD for a first fight (his 'so fucking hard', rule 117).
+
+## The plan, in the order he will feel it
+A. GUNS FIRST (COMBAT [guns from the first fight], TUNING [the first kit is guns], ECONOMY [the first bullets], SOUNDS the gun sounds, COOK the guns in the rig's look).
+B. THE FIGHT TELLS YOU EVERYTHING BEFORE YOU COMMIT (COMBAT [the fight says your weapon is weak]; UI hands COMBAT the look): tap an enemy and, ON HIM, big and sun-readable: the hit chance; the chunk of armour and health the hit would take, shown on his own bars; one plain line when the weapon is bad for him. After the hit, what it did, in one beat. Battle Brothers puts this in a hover tooltip; a phone has no hover, so ours shows it on the target (rule 80, better than Battle Brothers).
+C. ONE TAP TO SEE, ONE TAP TO DO, AND THE SCREEN SHOWS WHICH (COMBAT [one tap to see, one tap to do]): the first tap on a tile or an enemy shows the whole result right there (the path and its cost, or SHOOT 72% on the enemy); the second tap on the same spot does it; any other tap changes the choice; the one big button bottom right always says what it will do (WALK, SHOOT, END TURN); every touch target 44 points or more; no body ever covers a tile you need; the instruction sentences go away once the screen shows it.
+D. THE FIRST FIGHT TEACHES BY DOING (COMBAT [the first fight teaches]): no tutorial card (a quest is people, nothing pops up): one veteran with a portrait says three short lines at the moments they matter (aim, cover, reload), each once, never in the first second; then never again.
+E. THE LOOK (COOK TWO [the fight floor he hates], COMBAT [the people a little smaller], ANIMATION [the aura of the one you control], DIRECTION judges each).
+F. EASIER AND QUICKER (TUNING, rule 117): a routine fight 2 to 4 minutes.
+G. THE YARDSTICK (EYES AND EARS [the first fight on his phone]): the first fight played on 390 x 844 by machine, measured: taps per turn, seconds per turn, whether the hit chance and the damage are on screen before every shot, how many words he must read; before and after every round, so 'better' is a number, not a claim.
+Every piece comes to the VOTE tab as a before and after from the game's camera with its card id (rule 118); RUN puts each YES into the demo.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_WORK_WEEK_FOUR_LANES_AND_THE_3D_MODELS_IN_10_19_26.md
+# source: records/BOHEMIA_PAOLO_THE_WORK_WEEK_FOUR_LANES_AND_THE_3D_MODELS_IN_10_19_26.md
+====================================================================================================
+# PAOLO 10/19: THE WORK WEEK: FOUR LANES, SAVE MY TOKENS, AND THE 3D MODELS IN THE GAME (LOCKED; rule 121)
+
+## His words, verbatim (16:00 UTC)
+"Okay, bro, so fix the main menu screen on the demo. We have to do a full implementation of the 3D models, so that's top priority. Combat is still not smooth, it still sucks. It looks like it's been coded by a fifth grader. The UI is still ass. I still don't like the top bar at the, the top of the screen. Like, you could put so much things in the more in the top of the screen. And then during combat, like, it doesn't go away. Like, it's all fucked up, bro. Starting my work week, so you can't be using all these credits like that. So dedicate which ones you want to run, but... Yeah, bro. Finish your previous implementations you needed, and then we need this full 3D shit in there now because it's just looking so fucking bad. And then the main map is looking so bad, bro. Like, it's really sad. / MAKE CHANGES TRY TO SAVE MY TOKENS TOO THOUGH MAN"
+
+## The ruling (rule 121)
+FOUR LANES RUN: RUN, COMBAT, UI, RUN TWO. Every other lane is PAUSED until he lifts it. The work is IMPLEMENTATION of what is already made, not new art: the 3D rig models (CHARACTER's fourteen looks, COOK THREE's tiers, the truck, the beasts, COOK's guns, the matched faces) go into the demo everywhere he sees a person. The coordinator checks in every three hours, not every hour, and spends little.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_I_HAVE_NOT_HEARD_A_NEW_SONG_IN_A_LONG_TIME_10_18_26.md
 # source: records/BOHEMIA_PAOLO_I_HAVE_NOT_HEARD_A_NEW_SONG_IN_A_LONG_TIME_10_18_26.md
 ====================================================================================================
@@ -49140,6 +49585,29 @@ The other words, each a job: PORTRAIT [every face from the same model]; RUN TWO 
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_WHAT_ARE_YOU_EVEN_TESTING_A_TUNING_NUMBER_IS_A_GRID_10_18_26.md
+# source: records/BOHEMIA_PAOLO_WHAT_ARE_YOU_EVEN_TESTING_A_TUNING_NUMBER_IS_A_GRID_10_18_26.md
+====================================================================================================
+# PAOLO 10/18: "WHAT ARE YOU EVEN TESTING?" (LOCKED; rule 117(e): a tuning number is a grid, never one average)
+
+## His words, verbatim
+
+"My thing is, how are you even testing these fights like bro like there's so many different type of fights against animals against different group sizes when you got one person when you got three people when you got six people when you got up to 14 people and how many like bro when I play battle Brothers and I play and I have a 12 man Lone wolf squad like you can go up to 36 or 40 Enemies like so what are you even testing? We don't even have all the equipment in the game we haven't even coordinated so I don't know if you're fucked up with the tuning but like what do you even testing bro some bullshit that's what you're doing."
+
+## What the bench actually tested (records/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_MEASURED_10_18_26.md, read by the coordinator)
+
+FOUR fights, 300 times each, at 12 settings = 14,400: (1) the demo's first fight, the twelve against the first band, day 1; (2) a new crew's first job, three men, one skull, day 3; (3) the grown company, eight men at level 3, two skulls, day 22; (4) a tough one, the twelve at level 4, three skulls, day 65. Every enemy a human brigand; NO beasts; no one-man, six-man or fourteen-man party; no fight against 36 to 40; every man in the starting kit of his place in the line (the bench says so itself: 'by day 65 a Battle Brothers company has bought better armour, so A TOUGH ONE reads harder than Battle Brothers' real day 65'); both sides played by the fight's own AUTO brain.
+
+## What that number is and is not
+
+It IS a fair comparison between settings: the same four fights, the same dice, only the knob changes, so 'this lever makes it easier' is true. It is NOT how hard the game is: four fights, no beasts, no big fights, placeholder gear. He is right. Showing him '78 in 100' as the game's difficulty was wrong; it was one average of four narrow fights.
+
+## The ruling
+
+RULE 117(e) A TUNING NUMBER IS A GRID, NEVER ONE AVERAGE: TUNING's fight bench covers the fights a player meets the Battle Brothers way: the company at 1 (a lone wolf), 3, 6, 12 and 14; the enemy from a few to 36 to 40; human bands and every beast that exists; early, middle and late gear; one row per cell and the worst cells named first. Until the gear is coordinated (CHARACTER's roll-call and COMBAT's equipment), every tuning number carries DRAFT: THE GEAR IS NOT IN. A card in his VOTE tab never shows one average as the game's difficulty again. The 'about 70 in 100' target is set across the grid, not on four fights.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_THE_FRONT_SCREEN_JUST_THE_FONT_NO_PLATE_10_18_26.md
 # source: records/BOHEMIA_PAOLO_THE_FRONT_SCREEN_JUST_THE_FONT_NO_PLATE_10_18_26.md
 ====================================================================================================
@@ -49194,6 +49662,88 @@ PORTRAIT shipped all 13 fresh portraits for the crew (eb12c4a2, 17:48: the playe
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md
+# source: records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md
+====================================================================================================
+# PAOLO 10/18: THE COMBAT IS STILL ASS; GUNS FIRST; THE GAME SAYS YOUR WEAPON IS WEAK; THE AURA OF THE ONE YOU CONTROL; THE FACE IS THE BODY'S FACE (LOCKED; rule 120)
+
+## His words, verbatim (voice to text, to the coordinator, 23:45 UTC)
+
+"Bro and the combat is still so fucking ass, bro the game doesn't explain to you at all like that your weapon suck and shit bro like I wanna start off with the guns too, bro with like bro no fucking way bro the guns were supposed to be the main way this is gonna be solved bro like yeah so the rain shit yeah sothe.com the combat is still very disappointing, bro very bad so fucking high and like the portraits don't look like the people and then when you're controlling a person, there should be like some aura like some fit dimensional you know, analog horror, shit even in the early files of my creativity of this like the fifth dimension Electric amalgamation vibes, bro so like I need to be able to see that more and when it's when I'm in control of a character, but it has to have or around that character even unlike the big map not just a portrait because the porches don't even look alike, bro it's all fucked up Black people looking like white people and shit like"
+
+## Read plainly (garbles named, never taken literally)
+- 'the combat is still so fucking ass... still very disappointing, very bad': the fight, as he plays it in the demo, is still bad.
+- 'the game doesn't explain to you at all that your weapon sucks': the fight never tells him his weapon is weak against what he is hitting.
+- 'I wanna start off with the guns too... the guns were supposed to be the main way this is gonna be solved': the company starts with guns, and guns are the main way a fight is won.
+- 'so the rain shit yeah sothe.com': a garble; read as 'so the range shit', the gun ranges (rule 83: melee one tile, guns two and more). Not a new term.
+- 'so fucking high': a garble; read as 'so fucking hard' (rule 117: easier than Battle Brothers).
+- 'when you're controlling a person, there should be some aura... fifth dimension, electric Amalgamation vibes, analog horror... around that character, even on the big map, not just a portrait': the man you control wears a visible aura in the fight and on the map. It comes from his early canon: the fifth dimension the Amalgamation brushes (laws/BOHEMIA_GDD_v2.md, v3; laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md's fifth-dimension mechanic; laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md section 5). Permanent ambiguity stays locked canon: the aura is a look, never an explanation.
+- 'the portraits don't look like the people... Black people looking like white people': a face on the screen does not match its body; skin tone is wrong. The ONE ID, ONE WHOLE PERSON law and THE FACE PERFORMS were broken where he can see it.
+
+## The ruling: rule 120 on the VAMILY front page
+## Routed (rows first on their boards)
+COMBAT [guns from the first fight], [the fight says your weapon is weak]; PORTRAIT [the face is the body's face]; EYES AND EARS [every face beside its body]; CHARACTER [one skin, one person]; ANIMATION [the aura of the one you control]; RUN [the aura on the map] after the cut; TUNING [the first kit is guns]; ECONOMY [the first bullets]; DIRECTION judges the aura.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_LOOK_AGAIN_GROKS_MUSIC_AND_CRASHBOX_ARE_IN_10_18_26.md
+# source: records/BOHEMIA_PAOLO_LOOK_AGAIN_GROKS_MUSIC_AND_CRASHBOX_ARE_IN_10_18_26.md
+====================================================================================================
+# PAOLO 10/18: "LOOK AGAIN, GROK FIXED IT" (the coordinator was wrong; 38 Grok pages brought onto main; rule 115(d) amended: he named CRASHBOX)
+
+## His words, verbatim
+
+"Look again grok fixed it reference/library/grok/."
+
+## What was wrong
+
+The coordinator's last answer said no Grok music research was in the repo. It looked only at main. Grok writes to its own branch, grok, which carried 254 commits not yet on main, all inside the Grok folder (the GROK FENCE gate: 0 outside). On that branch, written 10/17 in his own Grok chats: 38 new pages (Grok 158 to 195), 12 of them on music. The coordinator should have read the branch; the fence record (records/BOHEMIA_THE_FENCE_AND_THE_STAMP_FOR_GROK_10_1_26.md) says the branch is where Grok's work lands.
+
+## What was done
+
+The whole Grok folder brought from the branch onto main (234 files: the 38 pages and the Battle Brothers wiki's pages), the Grok master rebuilt, GROK FENCE 5/0 and GROK FILTER 6/0. The pages are "source: Grok, unverified" until EYES stamps them PASSED FILTER; lanes may read them now and cite them by path once stamped (EYES [the Grok pages, stamped], music first).
+
+## What the pages say, in plain lines
+
+MUSIC (Grok 184 to 195; his words to Grok: 'big brain research on how Claude can make better songs at 120 BPM using music that could be played on HTML... a lot of it has been underwhelming... it sounds like crushed sand... He likes 8-bit'): songs are 8-BIT CHIP, NES-style: two square leads with the four duty cycles, a triangle bass, LFSR noise for drums, three or four voices, arpeggios and the three-note 'famichord' instead of full chords; built in pure Web Audio, scheduled on the audio clock with a lookahead scheduler, never setTimeout; every note on a gain envelope that reaches near zero before it stops; high-pass everything but the bass, a gentle low-pass on the squares, small volumes; NO bit crushing, no heavy compression or limiting, no muddy low end: that stack is the 'crushed sand'. Short looping code or note data, not big audio files.
+
+THE LOOK (Grok 158 to 183): the creepy HBO claymation kids' show he meant is CRASHBOX (HBO Family, 1999 to 2000, Cuppa Coffee Studios: stop-motion clay mixed with puppets and cutouts, framed inside a handmade broken game computer of rubber bands, belts, gears and junk; rusty tin robots; clay that still looks like clay; faces simple and a little wrong; stop-motion holds, never smooth; nothing glows). Grok first filed Moral Orel and he said it was not the show (Grok 159); the other shows on those pages are Grok's candidates, not his. The rest: pixel rules, a studio asset pipeline, palette, outline and silhouette pages, and animation pages (holds not tweens, 12 frames a second, stiffness as the point, tagged sprite sheets).
+
+## The rulings
+
+RULE 115(d) AMENDED: he NAMED the show: CRASHBOX is the look's reference for DIRECTION's look bible (an art reference only, owned by DIRECTION; the analog horror games stay a genre study; Moral Orel is out by his word; every other show on Grok's pages stays a candidate).
+
+THE SONGS ARE 8-BIT (his word to Grok, relayed on Grok 184): SOUNDS [a new song every round] is built the Grok 184 to 195 way: clean NES-style chip at 120 BPM, no crushed sand; the analog horror lives in the melody, the mood and the room the song plays in, never in grinding the sound down.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_BOTH_NEW_SONGS_ARE_NOT_ANALOG_HORROR_10_18_26.md
+# source: records/BOHEMIA_PAOLO_BOTH_NEW_SONGS_ARE_NOT_ANALOG_HORROR_10_18_26.md
+====================================================================================================
+# PAOLO 10/18: BOTH NEW SONGS ARE NOT ANALOG HORROR (LOCKED; rule 119)
+
+## His words, verbatim (on THE LONG ROAD's card, NO; the seventeenth votes)
+
+"Im not a fan of this song bith songs not giving analog horrir vibes I was hoping the research that Grok helped you do would make it easier to do what you needed to do not like have a whole revamp process where you're like making songs I don't fit aesthetic you know"
+
+And on OVER THE RIDGE, the round before (YES, with a question): "Awesome I like it, but I just questioned like the aesthetic inspiration of what I'm hearing like I'm questioning whether it really goes with the vibe of bohemia... it sounds very different than the rest of our songs... I wonder if there's like a middleground"
+
+## What it means, plain
+
+1. Both songs SOUNDS made this round (Over the Ridge, 474f7bb0; The Long Road, ca4d29fa) were built on a new chip engine (engine/bohemia_chip_song.js, the NES's four voices). Neither sounds like Bohemia. He said so twice.
+2. He did not ask for a new way to make music. He asked for new songs. The Grok research (the music pages EYES stamped PASSED FILTER: 11 of 12) was supposed to make songs in HIS sound easier to make, not to start a revamp.
+3. His sound is his canon songs (laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md, never edited, only read) inside the analog horror law (laws/BOHEMIA_LAW_ANALOG_HORROR_FOR_EVERY_PIXEL_AND_EVERY_SOUND_9_20_26.md): 120 BPM, worn, uneasy, the desert.
+
+## The ruling (rule 119 on the VAMILY front page)
+
+A NEW SONG IS MADE WITH HIS SONGS' OWN MACHINE AND SOUNDS LIKE THEM; RESEARCH MAKES IT EASIER, NEVER DIFFERENT.
+(a) A new song starts from his canon songs' own instruments, kits and arrangement code (MLOOPS, synthV, drumV, SONG_ARR), read and reused, never edited; the pure chip style is dead as the sound of a song (two misses). The chip engine may stay as one voice inside a song if it fits, never the whole song.
+(b) Grok's PASSED music pages and every other study are used to make the new song cleaner and quicker to make (mixing, structure, what makes a loop not tire), never to choose a new style.
+(c) Before VOTE, the new song is played beside two of his canon songs and EYES AND EARS writes one line: does it sound like the same game, and is it analog horror. If no, it does not go to VOTE.
+(d) The card plays the new song next to the canon song it came from, so he hears the match.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_THE_FABLE_LIMIT_WAS_REACHED_YOU_DO_IT_10_18_26.md
 # source: records/BOHEMIA_PAOLO_THE_FABLE_LIMIT_WAS_REACHED_YOU_DO_IT_10_18_26.md
 ====================================================================================================
@@ -49216,6 +49766,58 @@ All 23 lane sessions archived and reopened on Opus 5.5 between 03:26 and 03:55 U
 ## The ruling (rule 116)
 
 THE FLEET RUNS ON WHATEVER MODEL HAS USAGE, AND THE COORDINATOR SWITCHES IT. (a) When a lane session fails on one model's usage limit, the coordinator archives it and reopens the lane on the next model that has usage, the same sweep, with the same first message plus 'resume your claimed row'. He never switches a chat's model. (b) The coordinator's own chat is switched by him once when it is the one that hit the limit (only he can do that); every lane after that is the coordinator's job. (c) The routine stops only when every model reports a limit, or on his word; rule 111(c)'s 'stop on a usage limit' and rule 112(c) are amended. (d) Lanes commit a claim before work (rule 5) so a session that dies mid-round loses only the uncommitted hour, never the job; a lane that holds an hour of uncommitted work is told to commit smaller.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_CARDS_YOU_NAMED_WERE_NOT_ON_MY_SCREEN_10_18_26.md
+# source: records/BOHEMIA_PAOLO_THE_CARDS_YOU_NAMED_WERE_NOT_ON_MY_SCREEN_10_18_26.md
+====================================================================================================
+# PAOLO 10/18: THE CARDS YOU NAMED WERE NOT ON MY SCREEN (LOCKED; rule 118; the seventeenth votes)
+
+## His words, verbatim
+
+"A lot of the votes you saying were on a card visible we're not visible for me"
+
+(sent with the seventeenth VOTE export, records/BOHEMIA_THE_SEVENTEENTH_VOTES_10_18_26.txt)
+
+## What the coordinator checked, card by card
+
+The coordinator read its own last eight replies to him and listed every thing it sent him to the VOTE tab for, then looked each one up in records/target/BOHEMIA_VOTE_REGISTRY.json and the triage file.
+
+ON HIS SCREEN AND VOTED (the claim was true):
+- Over the Ridge, the title song (sounds-over-the-ridge-10-18): YES with his question.
+- The Long Road, the map song (sounds-the-long-road-10-18): NO. SOUNDS pulled it from the registry (2d380123) before he heard it, and his tab still showed it; he voted it anyway.
+- The church (cook4-the-church-10-18), the casino (cook4-the-casino-10-18), the raider (cook3-the-raider-through-the-rig-10-18), the crushed sand (eyes-where-the-sand-is-10-18), the barber's cuts on the starred face (character-the-barber-on-the-skull-10-18), the fresh portraits (run2-the-fresh-portraits-10-18), the bar names the news (run2-the-bar-names-the-news-10-18).
+
+NAMED AS 'IN THE VOTE TAB' OR 'CHECK THE VOTE TAB FOR IT' AND NEVER A CARD (the claim was false):
+1. THE DISTRICT FIGHT BOARDS. COMBAT TWO built five boards (1e24171e: the Strip, downtown, the suburbs, the wash, the industrial edge) and its commit says 'sprites for all four of my cards', but no card was ever registered. The coordinator told him to check the VOTE tab for them.
+2. THE BARE FRONT SCREEN. UI built it behind a switch (ab9e772c, 32edf016, 284caad5, 90bd03cc) and is making its card now (ui-opus-f's first step); the coordinator said 'the UI chat is making sure the before-and-after shows in the VOTE tab' and then 'check the VOTE tab for the front screen'.
+3. THE TUNING GRID CHART. Not built yet (TUNING [the whole grid] is claimed); the coordinator said it 'lands in the VOTE tab'.
+4. THE FREEWAY AS ONE ROAD. WORLD shipped it as data (9024d2af); there is nothing to see until RUN draws it; the coordinator listed it as 'next up in the VOTE tab'.
+5. THE MIDDLE-GROUND SONG. Not made yet (SOUNDS [the middle ground] is claimed); the coordinator said 'check the VOTE tab for the song'.
+
+Five of the fourteen things named were not there. The coordinator wrote what a lane PLANNED as if it were on his screen. That is the coordinator's mistake, not the tab's.
+
+## The ruling (rule 118 on the VAMILY front page)
+
+THE COORDINATOR SAYS 'IN THE VOTE TAB' ONLY FOR A CARD THAT IS ON HIS FIRST SCREEN.
+(a) Before a reply names a thing as in the VOTE tab, the coordinator finds its card id in the registry, unvoted, and tagged red (or shown first by RUN TWO's [new cards show first]); the round record lists those ids. Anything else is said as 'coming, NOT IN A TAB YET', in those words (the NAME THE TAB law).
+(b) A lane's row or commit that says IN VOTE carries the card id, and the card is in the registry in the same push; 'my cards' with no id is a broken promise (COMBAT TWO's five boards).
+(c) A lane that pulls a card says so on its row and in the registry's history, and the coordinator stops naming it.
+(d) The gate: PLUMBER [the card I name is on his screen] builds it (the coordinator does not write gates); EYES [does his screen show it] checks the deployed tab on his phone's size, once a sweep.
+
+## His notes in the same export, routed
+
+- SOUNDS, NO on The Long Road, about BOTH new songs: 'Im not a fan of this song both songs not giving analog horror vibes I was hoping the research that Grok helped you do would make it easier to do what you needed to do not like have a whole revamp process where you're like making songs I don't fit aesthetic you know'. Rule 119, records/BOHEMIA_PAOLO_BOTH_NEW_SONGS_ARE_NOT_ANALOG_HORROR_10_18_26.md.
+- COMBAT, YES on the marks on the board: 'Can the characters just be a little smaller'. COMBAT [the people a little smaller].
+- COMBAT, NO on the ground fights: 'The floor tiles are all shit. It's so terrible so bad I hate. I hate the ground. I hate the floor. He just looks like shit. It's so fucking bad.' COOK TWO [the fight floor he hates], first on its board; COMBAT TWO and COMBAT notes.
+- EYES, NO on where the sand is: 'That whole city is looking like shit shit I'm not talking to that shit'. The card's sound sat over the map, and the map is what he answered. EYES note (a sound card plays over a screen he said YES to, or over black); DIRECTION note; RUN [the districts connect on the map] stands.
+- COOK THREE, NO on the raider: 'It's kind of funny telling you that we were gonna have like this that's insane'. COOK THREE note.
+- YES with no words: the casino, the boards' people, the block wars cover, the barber on the skull, the rig round six, the bar names the news. RUN [the demo keeps up] carries every YES into the demo.
+
+## CORRECTION (sweep AY, 20:35)
+
+Two of the five were registered around the time he wrote. COMBAT TWO registered combat2-a-board-from-every-district-10-18 at 0142e111 (20:06) but UNTAGGED, so the tab of that hour put it behind MORE (RUN TWO's [new cards show first], 3b415b32, landed at 20:08); its reopened chat (combat2-opus55-e) measured it red and second above the fold at 390 x 844 and is fixing the card's picture and its wrong 'REDONE' line. UI registered ui-the-front-screen-just-the-font-10-18 at f0d6a050 after sweep AX. The coordinator checked an older copy of main and called both 'never a card'. What he saw stands: none of the five was on his screen when he wrote. By sweep AY both are red on his first screen. The tuning grid, the freeway and the in-between song still have no card.
 
 
 ====================================================================================================
@@ -49244,6 +49846,31 @@ RULE 114 ROUND TWO: the research turns to the rig itself, how the studios that r
 ## Where the fleet was when he wrote
 
 22 lane sessions released at 02:53 to 02:56 UTC; by 03:02 four had claimed their rows (COOK THREE the thug through the rig, SOUNDS the desert bed, PEOPLE and FACTIONS research pages). The window closes again around 07:40 UTC by the five-hour rhythm; his "two hours" is read as the time he will be watching.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_VOTES_ARENT_LOADING_AND_THE_DEMO_IS_OLD_10_18_26.md
+# source: records/BOHEMIA_PAOLO_THE_VOTES_ARENT_LOADING_AND_THE_DEMO_IS_OLD_10_18_26.md
+====================================================================================================
+# PAOLO 10/18: "THE VOTES AREN'T LOADING WHAT YOU'RE TELLING ME. ALSO THE DEMO HAS NOT BEEN FIXED AND UPDATED IN A LONG TIME." (LOCKED; two fixes the same turn)
+
+## His words, verbatim
+
+"The votes arent loading what youre telling me
+
+Also demo has not been fixed and updated in a long time"
+
+## 1. THE VOTES: what was wrong (measured)
+
+The deploys were fine (the pages run for e2387a9c SUCCESS at 19:56). The VOTE tab sorts by the coordinator's triage file: RED shows first (up to twelve), everything else (yellow AND anything not tagged yet) waits behind the MORE fold, green and gray never show. The coordinator stopped tagging new cards after sweep AP; every card since was untagged, so his main list showed NOTHING and the 10 newest cards (the bar names the news, the raider, the casino, the marks on the board, the ground fights, the block war's cover, the board's people, where the sand is, the barber on the skull, the rig round six) sat behind MORE. The coordinator's failure, not a lane's.
+
+FIX NOW: the 10 tagged red (sweep AW). FIX FOR GOOD (a law without a machine is not enforced): RUN TWO [new cards show first]: a card the coordinator has not tagged shows in the main list, newest first, up to the cap; tags only DEMOTE (yellow to the fold, green and gray hidden). The coordinator still tags every sweep.
+
+## 2. THE DEMO: what was wrong
+
+The demo is BUILD 10/18b (the rig truck on the map), cut at 05:39, over fourteen hours ago. Since then he said YES to: the crew's fresh portraits, the streets joining across districts, the gangs on the map wearing their 3D models, the fat map with no blue, the title song, the phone's front screen, the fight's props, the poacher's body, and he ruled the front screen in words ('I don't want the card behind it, just the crazy font'). None of it reached the demo, because RUN was sent to the freeway instead of a cut. Rule 93 makes the cut RUN's call; the coordinator never told RUN to make it.
+
+FIX: RUN stopped and reopened with THE CUT first: every YES since 10/18b into the demo, the bare front screen flipped on (CUE 6.95, his words are the ruling), the stopwatch walked on the new cut (rule 94), the build stamp new; then the freeway. From now on the demo is cut at least every few hours whenever he has said YES to something it can wear (RUN [the demo keeps up]).
 
 
 ====================================================================================================
@@ -57308,6 +57935,12 @@ CRISES (late-game arcs): THE WAR OF THE NOBLE HOUSES (houses fight; contracts to
 settlements change hands), THE GREENSKIN INVASION (orc and goblin hosts sweep in; settlements burn),
 THE UNDEAD SCOURGE (undead spread from the south; ancient dead legions), later HOLY WAR (Blazing Deserts)
 and others. A crisis changes what every town needs and what contracts appear.
+TAKING A TOWN (FACTIONS 10/18, read off the wiki tarball, records/BOHEMIA_FACTIONS_TAKING_A_TOWN_THE_BATTLE_BROTHERS_WAY_10_18_26.md):
+the company NEVER owns a town (the developer: a permanent base "will make the player very stationary");
+houses take each other's towns in the Noble War and hire you for the siege (Siege Fortification: hold the
+siege, a surrender or an assault or fire, then "the defenders send their last attack force at you"); the
+town is Conquered "for 3 days" after; a crisis is foretold day 50-70, starts day 80-100, lasts 30-100 days,
+gated on days passed and roster, not renown (Late Game Crises).
 LEGENDARY LOCATIONS: the Goblin City, the Kraken, the Sunken Library, the Ijirok, the Black Monolith,
 the Witch Hut, the Rachegeist; each a named fight with a named reward.
 RENDERING (sourced 9/28, DIRECTION [bb density]; records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md): the
@@ -58459,6 +59092,45 @@ refused by the coordinator.
 # PAGE BOHEMIA_GROK_ASKS.md
 # source: reference/BOHEMIA_GROK_ASKS.md
 ====================================================================================================
+# 10/24/26, ROUND FOUR: PAOLO IS TALKING TO YOU AGAIN. READ THIS BLOCK FIRST.
+# The master file is rebuilt as of 10/24 with everything since 10/20: the VAMILY rules 118 to 140 on its front page and his
+# newest words in records/BOHEMIA_PAOLO_*_10_2*_26.md. The biggest changes since you last read: every person, building, floor
+# and prop is a 3D model now (no flat 2D art left, 10/23); the fight drives the music; there are idle animations; the people's
+# squiggle voice was rebuilt from real recordings; the ghosts (purple aura, from the Amalgamation, side content, never the main
+# quest, no possession); the Backrooms twice an act (long term); 'Battle Brothers quicker and funner for normies, hardcore
+# underneath' is the point of the project (rule 133); NO GREY-YELLOW SAND FLOOD in any art (rule 137).
+# HIS NEW RULE FOR YOU (139): EVERY GAME THAT EVER EXISTED IS A LEARNING BLOCK FOR THE LITTLE THINGS. You may name ANY game for a
+# small feature or touch, as long as you mark it 'A LITTLE THING FROM <game>'. The named references still own their departments.
+# Keep the four rules at the top of this file (plain full sentences, his words apart from yours, numbers with their page, no wiki copying).
+#
+# ASK 26. THE LITTLE THINGS, EVERYWHERE (his words: 'this has to be the best game ever made, I want all the features, not a single
+#    thing missed... the games that have ever existed before us are learning blocks of what little things we can add'). For each
+#    part of our game (the map and travel; the settlement screen; hiring and the company; the camp; the fight; the UI and the feel
+#    of a tap; the sound; progression and levels; road events; side quests), find the ten best small touches any game ever did,
+#    the source game for each, why players loved it, and how it would look in Bohemia. Rank them by fun per hour of work.
+# ASK 27. FIGHT THE TILE-RPG VIBE (his words: 'I'm trying to fight this tile turn-based RPG vibe... it has to be a lot better').
+#    What did the tactics games that do NOT feel like a board game do differently? Look at camera, momentum, reactions, simultaneous
+#    turns, the speed of a turn, what happens on the screen between your tap and the result, how a hit feels. Name each game and
+#    the exact trick. Our locks: square house-sized tiles, Rogue Fable 4 on the beat at 120 BPM leads the fight, guns first, a
+#    routine fight 2 to 4 minutes. Which tricks fit inside those locks?
+# ASK 28. THE SETTLEMENT THAT FEELS ALIVE, AND THE WALK-UP (rule 138: your lead walks up to whoever you tap while the talk opens at
+#    the same speed). How do the best games make a town screen feel alive without slowing the player: walking to talk without a
+#    wait, background people with jobs, day and night, sound beds, small reactions to the player? Name the games and the tricks.
+# ASK 29. EVERY SOUND THAT COULD BE USED (his words: 'not any sounds that could be used'). Extend ask 23: every sound Battle Brothers
+#    plays and when, then every sound category a great game uses that we do not have yet (UI ticks, a hover, a coin, a page, the
+#    ambience layers per place and hour, the footsteps per ground, the crowd), with the game that does it best.
+# ASK 30. THE MAP IN COLOUR (rule 137: 'the map still looks like shit... I don't want a grey yellow sand color to flood all of our
+#    art'). What makes Battle Brothers' world map read at a glance at a phone's size (contrast, outlines, landmarks, roads, the
+#    party marker, settlement icons)? And what colours does the real Las Vegas valley have from above and from the street (red
+#    rock, basalt, lawns, golf courses, pools, Lake Mead, concrete, rust, neon), with photos or sources, so our map is not beige?
+# ASK 31. THE HAUNTING AS SIDE CONTENT (rules 134 and 136: slightly purple-aura ghosts from the Amalgamation, not the main quest,
+#    no possession; rule 132: the Backrooms twice an act, always paranoid). What do the best analog horror works and ghost
+#    encounters in games do to make a player paranoid without a jump scare? Give side-quest shapes that fit a Battle Brothers
+#    style company. Analog horror is our genre, so analog horror works are fine to study.
+# ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
+#    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
+#    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
+#
 # THREE THINGS THE COORDINATOR NEEDS FROM YOU (10/3, Paolo asked what Grok could do better)
 # 1. WRITE EVERY PAGE IN PLAIN FULL SENTENCES. Paolo read one and said 'not even proper English'. No shorthand, no fragments.
 # 2. SEPARATE HIS WORDS FROM YOURS, EVERY TIME. Two headings on every page: 'PAOLO SAID IN THIS CHAT:' (as close to verbatim

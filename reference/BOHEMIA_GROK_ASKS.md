@@ -1,3 +1,42 @@
+# 10/24/26, ROUND FOUR: PAOLO IS TALKING TO YOU AGAIN. READ THIS BLOCK FIRST.
+# The master file is rebuilt as of 10/24 with everything since 10/20: the VAMILY rules 118 to 140 on its front page and his
+# newest words in records/BOHEMIA_PAOLO_*_10_2*_26.md. The biggest changes since you last read: every person, building, floor
+# and prop is a 3D model now (no flat 2D art left, 10/23); the fight drives the music; there are idle animations; the people's
+# squiggle voice was rebuilt from real recordings; the ghosts (purple aura, from the Amalgamation, side content, never the main
+# quest, no possession); the Backrooms twice an act (long term); 'Battle Brothers quicker and funner for normies, hardcore
+# underneath' is the point of the project (rule 133); NO GREY-YELLOW SAND FLOOD in any art (rule 137).
+# HIS NEW RULE FOR YOU (139): EVERY GAME THAT EVER EXISTED IS A LEARNING BLOCK FOR THE LITTLE THINGS. You may name ANY game for a
+# small feature or touch, as long as you mark it 'A LITTLE THING FROM <game>'. The named references still own their departments.
+# Keep the four rules at the top of this file (plain full sentences, his words apart from yours, numbers with their page, no wiki copying).
+#
+# ASK 26. THE LITTLE THINGS, EVERYWHERE (his words: 'this has to be the best game ever made, I want all the features, not a single
+#    thing missed... the games that have ever existed before us are learning blocks of what little things we can add'). For each
+#    part of our game (the map and travel; the settlement screen; hiring and the company; the camp; the fight; the UI and the feel
+#    of a tap; the sound; progression and levels; road events; side quests), find the ten best small touches any game ever did,
+#    the source game for each, why players loved it, and how it would look in Bohemia. Rank them by fun per hour of work.
+# ASK 27. FIGHT THE TILE-RPG VIBE (his words: 'I'm trying to fight this tile turn-based RPG vibe... it has to be a lot better').
+#    What did the tactics games that do NOT feel like a board game do differently? Look at camera, momentum, reactions, simultaneous
+#    turns, the speed of a turn, what happens on the screen between your tap and the result, how a hit feels. Name each game and
+#    the exact trick. Our locks: square house-sized tiles, Rogue Fable 4 on the beat at 120 BPM leads the fight, guns first, a
+#    routine fight 2 to 4 minutes. Which tricks fit inside those locks?
+# ASK 28. THE SETTLEMENT THAT FEELS ALIVE, AND THE WALK-UP (rule 138: your lead walks up to whoever you tap while the talk opens at
+#    the same speed). How do the best games make a town screen feel alive without slowing the player: walking to talk without a
+#    wait, background people with jobs, day and night, sound beds, small reactions to the player? Name the games and the tricks.
+# ASK 29. EVERY SOUND THAT COULD BE USED (his words: 'not any sounds that could be used'). Extend ask 23: every sound Battle Brothers
+#    plays and when, then every sound category a great game uses that we do not have yet (UI ticks, a hover, a coin, a page, the
+#    ambience layers per place and hour, the footsteps per ground, the crowd), with the game that does it best.
+# ASK 30. THE MAP IN COLOUR (rule 137: 'the map still looks like shit... I don't want a grey yellow sand color to flood all of our
+#    art'). What makes Battle Brothers' world map read at a glance at a phone's size (contrast, outlines, landmarks, roads, the
+#    party marker, settlement icons)? And what colours does the real Las Vegas valley have from above and from the street (red
+#    rock, basalt, lawns, golf courses, pools, Lake Mead, concrete, rust, neon), with photos or sources, so our map is not beige?
+# ASK 31. THE HAUNTING AS SIDE CONTENT (rules 134 and 136: slightly purple-aura ghosts from the Amalgamation, not the main quest,
+#    no possession; rule 132: the Backrooms twice an act, always paranoid). What do the best analog horror works and ghost
+#    encounters in games do to make a player paranoid without a jump scare? Give side-quest shapes that fit a Battle Brothers
+#    style company. Analog horror is our genre, so analog horror works are fine to study.
+# ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
+#    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
+#    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
+#
 # THREE THINGS THE COORDINATOR NEEDS FROM YOU (10/3, Paolo asked what Grok could do better)
 # 1. WRITE EVERY PAGE IN PLAIN FULL SENTENCES. Paolo read one and said 'not even proper English'. No shorthand, no fragments.
 # 2. SEPARATE HIS WORDS FROM YOURS, EVERY TIME. Two headings on every page: 'PAOLO SAID IN THIS CHAT:' (as close to verbatim
