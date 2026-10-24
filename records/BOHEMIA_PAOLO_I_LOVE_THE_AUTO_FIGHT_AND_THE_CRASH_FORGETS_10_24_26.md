@@ -16,3 +16,10 @@
 ## WHERE IT GOES
 
 RUN owns the save and the demo (its lane header). RUN, first: [the crash and the save]. No card.
+
+## ADDED THE SAME HOUR: THE CLUE, AND ONE MAP
+
+HIS WORDS: "And keep in mind it's crashing for like different reasons to crash on me previously because like I was in the settlement menu when I opened up I just talked to everyone and then it crashed bro so I'm like trying to figure out what's going on, but yeah, I don't know if I have a particular answer of White crashing. I don't know if it's like memory bullshit but yeah also like the map when it's zoomed out looks a certain way and then when it zooms in it like fades until like the 2-D shit we had previously I don't know why it's just not gonna be. It should just be the same the same map I don't know why it's like two maps right now actually it's like three maps when the map when the map blows up, I see like the skeleton, ugly old, 2-D bullshit like rough draft horseshit so yeah"
+
+1. THE CLUE: the crash came on the settlement screen after talking to everyone, right after the talking town (10/24d) and the recorded squiggle (10/24c) landed. Suspect what each talk creates and never frees; there may be more than one cause. (Rule 141(e).)
+2. ONE MAP AT EVERY ZOOM: zoomed out it is the 3D map, zooming in it fades to the old 2D map, and at the closest it shows the old skeleton rough draft: three maps. It must be one map at every zoom; the old layers retired. (Rule 142.)
