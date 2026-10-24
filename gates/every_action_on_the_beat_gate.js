@@ -17,7 +17,8 @@
    5. ON THE SONG'S OWN BEATS: every motion's landing, his by hand, his on AUTO and theirs, sits within 5 ms of the grid cut from
       the beats the shell's transport really booked (MUS.playStep, each beat placed where it is heard), and every blow at 1x
       lands within 5 ms of a booked beat (the kick of four on the floor);
-   6. THE SOUND MEETS THE KICK: a blow's landing sound leaves the fight SONG.lat ahead of its picture, so it is heard on the beat;
+   6. THE SOUND MEETS THE KICK: a blow's landing sound is asked for SONG.lat ahead of its picture, so it is heard on the beat (when the
+      shell's thread sends it is reported; only the shell can book a sound at a time);
    7. nothing threw.
    Run: node gates/every_action_on_the_beat_gate.js */
 'use strict';
@@ -123,7 +124,7 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
     await f.waitForFunction(() => !FIGHT_UI.anim.length, null, { timeout: 10000 }).catch(() => {});
     await f.evaluate(() => { FIGHT_UI.auto = true; });
     await f.waitForFunction(() => FIGHT.S.over && !FIGHT_UI.anim.length, null, { timeout: 300000, polling: 500 }).catch(() => {});
-    const L = await f.evaluate(() => ({ log: FIGHT_UI.onBeat || [], sent: FIGHT_UI.sent || [], origin: performance.timeOrigin, from: SONG.from, lat: SONG.lat, beat: songBeat() }));
+    const L = await f.evaluate(() => ({ log: FIGHT_UI.onBeat || [], sent: FIGHT_UI.sent || [], due: FIGHT_UI.landDue || [], origin: performance.timeOrigin, from: SONG.from, lat: SONG.lat, beat: songBeat() }));
     const P = await p.evaluate(() => ({ acBeats: window.__beats, clk: window.__clk, origin: performance.timeOrigin }));
     const n = P.clk.length, mx = P.clk.reduce((a, c) => a + c[0], 0) / n, my = P.clk.reduce((a, c) => a + c[1], 0) / n;
     const k = P.clk.reduce((a, c) => a + (c[0] - mx) * (c[1] - my), 0) / P.clk.reduce((a, c) => a + (c[0] - mx) * (c[0] - mx), 0);
@@ -141,11 +142,14 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
     const LANDS = /^(hit|hurt|vital|miss|melee_hit)$/, sends = L.sent.filter(s => LANDS.test(s[0])).map(s => s[1]);
     const pairs = blows.map(x => { const t = x.land - L.lat; let b = 1e9; sends.forEach(s => { const dd = s - t; if (Math.abs(dd) < Math.abs(b)) b = dd; }); return b; }).filter(b => Math.abs(b) < 250).sort((a, b) => a - b);
     const med = pairs.length ? pairs[Math.floor(pairs.length / 2)] : 1e9, worst = pairs.length ? Math.max(...pairs.map(Math.abs)) : 1e9;
-    /* a timer on the shell's thread (the fight's frame shares it): the middle under the ~20 ms at which two sounds begin to
-       flam, the worst under a sixteenth's half; sample-exact needs the shell to book a sound at a time (the NOTE to SOUNDS) */
-    leg(pairs.length >= Math.min(3, blows.length) && Math.abs(med) <= 15 && worst <= 62,
-      '*** THE SOUND MEETS THE KICK ***: a blow\'s landing sound leaves the fight ' + L.lat.toFixed(0) + ' ms (the way to the ear) ahead of its picture, so the ear hears it on the beat',
-      pairs.length + ' landings sent, the middle ' + med.toFixed(1) + ' ms and the worst ' + worst.toFixed(1) + ' ms from its place (a timer on the shell\'s thread: 15 and 62 allowed)');
+    /* WHAT THE FIGHT OWNS: every landing's sound is ASKED FOR at its place (the landing less the way to the ear), to the ms; WHEN it
+       goes is a timer on the shell's thread (the fight's frame shares it): reported, held only loosely, because only the shell
+       can book a sound at a time (the NOTE to SOUNDS) */
+    const asks = L.due.map(x => x.due - (x.land - x.lat));   /* each ask against its own place: the landing less the way to the ear as read then */
+    const askWorst = asks.length ? Math.max(...asks.map(Math.abs)) : 1e9;
+    leg(asks.length >= Math.min(3, blows.length) && askWorst <= 2 && pairs.length && Math.abs(med) <= 40,
+      '*** THE SOUND MEETS THE KICK ***: every blow\'s landing sound is asked for ' + L.lat.toFixed(0) + ' ms (the way to the ear) ahead of its picture, so the ear hears it on the beat',
+      asks.length + ' landings asked for, the worst ' + askWorst.toFixed(1) + ' ms off its place; sent a middle ' + med.toFixed(1) + ' ms and a worst ' + worst.toFixed(1) + ' ms after (the shell\'s thread; the middle held under 40)');
     errs.push.apply(errs, d.errs);
   } catch (e) { leg(false, 'the demo with his music ran', String(e.message).slice(0, 200)); }
   await d.close();

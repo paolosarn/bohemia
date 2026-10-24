@@ -291,7 +291,9 @@ const DATA_FILES = [
   /* the Geist's racial skills, each from its wiki page (COMBAT [ghosts and apparitions], rule 134) */
   '../records/target/bb/racial_skills.json',
   /* OUR GRAVEYARD's pieces, each a model through the master rig (COMBAT [ghosts and apparitions], rule 134(a)) */
-  'fight_ghosts/graveyard.json'];
+  'fight_ghosts/graveyard.json',
+  /* the traits' own effects, so a man's sight is his (COMBAT [what the crew can't see reads dark], rule 157(c)) */
+  '../records/target/bb/traits.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
@@ -301,6 +303,7 @@ function loadAll() {
       DB.perks = a[9]; DB.perkNames = a[10]; DB.rig = a[11]; DB.wlines = a[12];
       DB.groundEffects = a[13]; DB.boardKinds = a[14]; DB.beastAttacks = a[15];
       DB.armorTiers = a[16]; DB.shapes = a[17]; DB.racial = a[18]; DB.graveyard = a[19];
+      DB.traits = a[20];
     });
 }
 function R(path) {
@@ -472,11 +475,29 @@ const FIGHT = (function () {
     for (let i = 1; i < pts.length - 1; i++) if (sightBlock(pts[i].x, pts[i].y)) return false;
     return true;
   }
-  /* how far a man sees a man: the wiki's night takes two tiles off, unless the one looked at stands in a pool of light */
+  /* HOW FAR A MAN SEES (COMBAT [what the crew can't see reads dark], rule 157(c), the library's Vision, bb_all/0160_Attributes:
+     'Commonly, a hired mercenary has a Vision value of 7... Heavier helmets can reduce Vision. Certain Traits... Vision cannot be
+     reduced below 1. Elevation is taken into account after the cap... applied only vs lower positioned opponents (or terrain)'):
+     7; his traits' vision (traits.json: Eagle Eyes +1, Short Sighted -1, Old -1; Night Owl +1 and Night Blind -1 only at night);
+     his helmet's (armor.json head rows' vision); Bow Mastery's vision_bonus (perks.json); the night's -2 unless the tile looked
+     at stands in a pool of light; never under 1; then the height, after the cap, toward lower ground only (ours.sight: the
+     library names no number for it). A trait the fight is handed by name or by id. */
+  function traitVision(u, night) {
+    const T = DB.traits && DB.traits.traits; if (!T || !u.traits || !u.traits.length) return 0;
+    let n = 0;
+    u.traits.forEach(function (k) { const r = T.filter(function (t) { return t.id === k || t.name === k; })[0]; if (!r || !r.effects) return;
+      const atNight = /during nighttime/.test(r.effects_cell || '');
+      r.effects.forEach(function (e) { if (e.stat === 'vision' && typeof e.n === 'number' && (!atNight || night)) n += e.n; }); });
+    return n;
+  }
   function vision(u, t) {
-    let v = R('board.vision_default');
+    let v = R('board.vision_default') + traitVision(u, S.night);
+    if (u.headRow && typeof u.headRow.vision === 'number') v += u.headRow.vision;
+    const bm = PK(u, 'bow_mastery'); if (bm && bm.vision_bonus) v += bm.vision_bonus;
     if (S.night && !(t && litAt(t.x, t.y))) v += R('hit_chance.night.nighttime_status').vision;
-    return Math.max(R('board.vision_floor'), v);
+    v = Math.max(R('board.vision_floor'), v);
+    if (t && inBoard(t.x, t.y) && inBoard(u.x, u.y)) { const up = level(u.x, u.y) - level(t.x, t.y); if (up > 0) v += up * R('ours.sight').per_level; }
+    return v;
   }
   /* a live lamp or burning drum lights the tiles its pool touches (COMBAT TWO's lights, ours.night_lights) */
   function litAt(x, y) { return !!(S.lit && S.lit[y] && S.lit[y][x]); }
@@ -567,10 +588,19 @@ const FIGHT = (function () {
     u.ammo = ammo ? Number(ammo[0]) : null; u.ammoMax = u.ammo;
     S.units.push(u); return u;
   }
+  function seedOfRules(t) { let h = 2166136261; for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function mulberryRules(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function crewUnit(c, i) {
     const bg = DB.backgrounds.rows.filter(function (r) { return r.id === c.background; })[0];
+    /* HIS OWN NUMBERS EVERY FIGHT (EYES [eyes: hitpoints drift], 10/24: the same men started three fights at 64, 61, 63 health):
+       a man the company hands without his card's numbers rolls them once, from who he is (his name, his look, his background),
+       inside his background's range, the same in every fight; the fight's die is still drawn, so everybody after him rolls as before */
+    const who = (c.name || '') + '|' + (c.look || '') + '|' + c.background + '|' + (c.main ? 'main' : i);
     const st = bg.stats, roll = function (k) { const v = rint(st[k][0], st[k][st[k].length - 1]);   /* drawn either way: the dice stream is the same for everybody after him */
-      return c.stats && typeof c.stats[k] === 'number' ? c.stats[k] : v; };   /* a man hired at the post fights as his card said, his trait on him (RUN TWO [the trait before you hire], 10/24) */
+      if (c.stats && typeof c.stats[k] === 'number') return c.stats[k];   /* a man hired at the post fights as his card said, his trait on him (RUN TWO [the trait before you hire], 10/24) */
+      if (!c.name && !c.look) return v;   /* a man with no name and no look (a bench's kit) is nobody yet: the fight's die, as before */
+      const lo = st[k][0], hi = st[k][st[k].length - 1], own = mulberryRules(seedOfRules(who + ':' + k))();
+      return v >= lo ? lo + Math.floor(own * (hi - lo + 1)) : v; };
     const rows = R('ours.weapon_rows');
     let job = c.jobs.filter(function (j) { return j !== 'car_door'; })[0];
     /* what he wears on the roster is what he fights with (RUN TWO [equip from the stash]): the company's gear ids win,
@@ -592,7 +622,7 @@ const FIGHT = (function () {
     /* ONE MAN, ONE LOOK (RUN TWO [eyes: one man, one look], 10/19, rule 120(d)): a man the company hands with his look
        (engine/bohemia_roster.js company()) fights in it, so a death or a new order never moves him into another body;
        else the place in this list, as before */
-    return makeUnit({ injuries: carried, look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
+    return makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head,
@@ -722,7 +752,7 @@ const FIGHT = (function () {
     const netRow = (DB.racial.by_enemy[id] || []).indexOf('throw_net') >= 0 && (r.gear || []).indexOf('Throwing Net') >= 0 ? DB.racial.rows.throw_net : null;
     const lp = R('ours.bestiary').look_pools[id], pl = R('ours.people_looks').band, pool = (lp && pl[lp]) || pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
     return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: R('ours.bestiary').names[id] || r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
-      racial: (DB.racial && DB.racial.by_enemy[id]) || [], ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: perksByName(r.perks, S.days),
+      racial: (DB.racial && DB.racial.by_enemy[id]) || [], traits: (r.traits || []).slice(), ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: perksByName(r.perks, S.days),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
@@ -1626,6 +1656,20 @@ const FIGHT = (function () {
       return inRange(a, t);
     });
   }
+  /* WHY A STRIKE IS REFUSED, the real reason (EYES [eyes: the reason is AP], 10/24: a pistol man three tiles off with 3 AP was told
+     'out of reach' when the shot cost more AP than he had): the same tests canStrike makes, in the order a player reads them */
+  function strikeWhy(a, t) {
+    if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return { why: 'cannot' };
+    return wielding(a, t, function () {
+      const s = strikeSkill(a.weapon), need = skillAP(a.weapon, s, a);
+      if (!inRange(a, t)) return { why: 'range' };
+      if (a.ap < need) return { why: 'ap', need: need, have: a.ap, shot: isRanged(a.weapon) };
+      if (a.fat + skillFat(a, s) > fatMax(a)) return { why: 'fat' };
+      if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return { why: 'reload' };
+      if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return { why: 'ammo' };
+      return null;
+    });
+  }
   function strike(a, t, forced) {
     if (S.over || current() !== a || !canStrike(a, t)) return null;
     const r = wielding(a, t, function () {
@@ -1998,7 +2042,9 @@ const FIGHT = (function () {
     const cur = current();
     S.units.filter(function (u) { return u.side === 'you' && onField(u) && onEdge(u); }).forEach(getOut);
     afterAction(cur);
-    if (!S.over && cur && cur.side === 'you') { if (cur.fled) advance(cur); else endTurn(cur); }
+    /* the man up when it is ordered runs too, with the AP he has (EYES [eyes: the man up stays], 10/24: it ended his turn where he
+       stood and he was downed there): his turn stays his, and the director plays it as every retreating man's, retreatStep */
+    if (!S.over && cur && cur.side === 'you' && cur.fled) advance(cur);
     return true;
   }
   function retreatStep(u) {
@@ -2303,7 +2349,7 @@ const FIGHT = (function () {
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
-    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, onEdge: onEdge, sideSees: sideSees, onField: onField, alive: alive,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, onField: onField, alive: alive,
     level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
@@ -2920,7 +2966,10 @@ function endAnim(a) {
   }
 }
 function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
-function say(s, wrap) { const e = document.getElementById('say'); e.classList.toggle('aim', !!wrap); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
+function say(s, wrap) { const e = document.getElementById('say'); e.classList.toggle('aim', !!wrap); e.textContent = s; e.style.display = s ? 'block' : 'none';
+  /* an aim or a refusal belongs to the turn it was said in (EYES [eyes: the stale line], 10/24: 'out of reach' stood through AUTO's
+     next two rounds): the director clears it when the turn passes */
+  UI.sayTurn = wrap && s && FIGHT.S && FIGHT.S.order ? turnKeyOf(FIGHT.current()) : null; }
 /* ---------------- THE FIGHT SAYS WHAT IS WEAK (rule 120(b), Paolo 10/18: 'the game doesn't explain to you at all that your
    weapon sucks') ----------------
    A finger on a man he can hit: the chance and what one blow does (the health, the armour), from the rules' own damage math
@@ -3323,6 +3372,7 @@ function startAnim(a) {
   /* a motion begun late (behind the last one's end, a frame, a busy timer) still sends its sounds on their place: SONG.lat
      before the picture's moment, never the late start's */
   const D = a.at - SONG.lat - performance.now(), sd = function (ms) { return Math.max(0, ms + D); };
+  if (a.k === 'attack') { (UI.landDue = UI.landDue || []).push({ due: performance.now() + sd(B * 0.45), land: a.at + B * 0.45, lat: SONG.lat }); if (UI.landDue.length > 240) UI.landDue.shift(); }   /* when the landing's sound is asked for, against its place (the beat gate) */
   if (a.k === 'step') { SND.step();
     const span = [a.path[0], a.path[a.path.length - 1]];   /* the walk's two ends, so the walk itself stays on the glass */
     if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
@@ -3499,6 +3549,7 @@ function tick(now) {
   if (!u) return;
   MUSIC.turn(u.side === 'you' ? 'you' : 'them');   /* rule 126(e): the turn is heard, after the last act's motion, not when the rules pass it */
   const sayEl = document.getElementById('say');
+  if (UI.sayTurn && UI.sayTurn !== turnKeyOf(u)) say('');
   if (crewControlled(u)) {
     /* HIS TURN WITH AN EMPTY GUN (rule 124): the click as it comes to him, and the line says the one thing to do first */
     const tk = u.id + ':' + FIGHT.S.round + ':' + FIGHT.S.idx;
@@ -3846,6 +3897,7 @@ function draw(now) {
   if (UI.groundOnly) return;
   const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
   const busy = UI.anim.length > 0;
+  drawFog(now);   /* rule 157: what none of his men can see reads dark, under the marks so the chalk still reads */
   mkOn();
   /* YOUR FORMATION: your two columns in one chalk line (where your men can go); once a man is picked, a chalk dot on every free
      tile he may stand on, and tape on his */
@@ -3964,6 +4016,80 @@ function draw(now) {
     cx.globalAlpha = 1;
   });
   mkOff();
+}
+/* ---------------- WHAT YOUR CREW CAN'T SEE READS DARK (COMBAT [what the crew can't see reads dark], rule 157, Paolo 10/24:
+   'some enemies behind the line don't get shown; if you want a vision system in combat you have to do a lot better: if there
+   are tiles that our team, with their vision all together, can't see, you've gotta be able to tell; a different opacity, maybe
+   a grey darkness to it... it's gotta be done a lot better') ----------------
+   ONE SIGHT FOR THE WHOLE CREW: a tile is seen when any man of his on the field has it inside his vision (the rules' own, the
+   library's: his traits, his helmet, Bow Mastery, the night unless the tile is lit, the height toward lower ground) with nothing
+   that blocks sight between (the rules' sees(): the houses and the walls); FIGHT.sideSees, the same test that hides a man of
+   theirs. Every other tile wears a grey dark by opacity with a soft static over it that steps on the song's sixteenths (a dead
+   channel, analog horror; never flat black), and it lifts over a quarter beat the moment one of his sees it. A man of theirs on
+   a dark tile is not drawn (FIGHT.shown); one seen and then lost leaves a faint rust ring where he was last seen, until he is
+   seen again or falls. Nothing while he sets his line (both lines are shown then, rule 110b). The look is ours.sight. */
+function fogSeen() {
+  const S = FIGHT.S, mine = S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); });
+  const key = S.w + 'x' + S.h + ':' + (S.night ? 1 : 0) + ':' + S.round + ':' + mine.map(function (v) { return v.id + '@' + v.x + ',' + v.y; }).join(';');
+  if (UI.fogKey === key && UI.fogSeen) return UI.fogSeen;
+  const seen = new Uint8Array(S.w * S.h);
+  for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) seen[y * S.w + x] = FIGHT.sideSees('you', { x: x, y: y }) ? 1 : 0;
+  UI.fogKey = key; UI.fogSeen = seen; return seen;
+}
+/* four frames of static, cells of two device pixels, light specks on nothing: the pattern steps one frame a sixteenth */
+function fogStatic(k) {
+  UI.fogPat = UI.fogPat || [];
+  if (!UI.fogPat[k]) {
+    const G = R('ours.sight'), c = document.createElement('canvas'), N = 64; c.width = c.height = N; const g = c.getContext('2d'), rnd = mulberry(7919 * (k + 1));
+    g.globalAlpha = G.dark_alpha; g.fillStyle = G.dark; g.fillRect(0, 0, N, N);   /* the dark and its static in one tile of pattern: one fill a frame */
+    for (let y = 0; y < N; y += 2) for (let x = 0; x < N; x += 2) { const r = rnd(); if (r < G.static_density) { const v = 150 + Math.floor(rnd() * 90); g.globalAlpha = G.static_alpha * (.35 + rnd() * .65); g.fillStyle = 'rgb(' + v + ',' + v + ',' + (v - 6) + ')'; g.fillRect(x, y, 2, 2); } }
+    UI.fogPat[k] = cx.createPattern(c, 'repeat');
+  }
+  return UI.fogPat[k];
+}
+function drawFog(now) {
+  const S = FIGHT.S; if (!S || S.deploy || !S.w) { UI.fogA = null; return; }
+  const G = R('ours.sight'), seen = fogSeen(), n = S.w * S.h;
+  if (!UI.fogA || UI.fogA.length !== n) { UI.fogA = new Float32Array(n); for (let i = 0; i < n; i++) UI.fogA[i] = seen[i] ? 0 : 1; }
+  const dt = Math.max(0, Math.min(100, now - (UI.fogT || now))); UI.fogT = now;
+  const step = dt / Math.max(1, beatMs() * G.lift_beats), slot = Math.floor((now - SONG.at) / (songBeat() / 4)), pat = fogStatic(((slot % 4) + 4) % 4);
+  let dark = 0;
+  mkOn();
+  /* the whole dark in one path (a run of dark tiles along a row is one rectangle), two fills a frame; only a tile still lifting
+     or falling is drawn on its own */
+  const full = new Path2D(), part = [], vw = W * DPR, vh = H * DPR;
+  for (let y = 0; y < S.h; y++) {
+    let run = -1;
+    for (let x = 0; x <= S.w; x++) {
+      const i = y * S.w + x; let a = 0;
+      if (x < S.w) { const want = seen[i] ? 0 : 1; a = UI.fogA[i]; a = want > a ? Math.min(want, a + step) : Math.max(want, a - step); UI.fogA[i] = a; if (a >= .01) dark++; }
+      const solid = x < S.w && a >= .999;
+      if (solid && run < 0) run = x;
+      if (!solid && run >= 0) { const A = mkTile(run, y), Bt = mkTile(x - 1, y); const X = A.x0 * MKU, Y = A.y0 * MKU, X1 = Bt.x1 * MKU, Y1 = A.y1 * MKU;
+        if (X1 > 0 && Y1 > 0 && X < vw && Y < vh) full.rect(X, Y, X1 - X, Y1 - Y); run = -1; }
+      if (x < S.w && a >= .01 && a < .999) part.push(i);
+    }
+  }
+  cx.globalAlpha = 1; cx.fillStyle = pat; cx.fill(full);
+  part.forEach(function (i) { const T = mkTile(i % S.w, Math.floor(i / S.w));
+    cx.globalAlpha = UI.fogA[i]; cx.fillRect(T.x0 * MKU, T.y0 * MKU, (T.x1 - T.x0) * MKU, (T.y1 - T.y0) * MKU); });
+  cx.globalAlpha = 1;
+  /* the last seen: a man of theirs lost from sight leaves his ring where he stood when they last saw him */
+  const lost = [];
+  S.units.forEach(function (v) {
+    if (v.side === 'you') return;
+    if (!FIGHT.onField(v)) { v._lastSeen = null; return; }
+    if (FIGHT.shown(v)) { v._lastSeen = { x: v.x, y: v.y }; v._lostAt = undefined; return; }
+    if (v._lastSeen) { if (v._lostAt === undefined) v._lostAt = now; lost.push(v); }
+  });
+  lost.forEach(function (v) {
+    const k = Math.min(1, (now - v._lostAt) / (songBeat() * G.lost_beats)), a = G.lost_alpha[0] + (G.lost_alpha[1] - G.lost_alpha[0]) * k;
+    const X = sx((v._lastSeen.x + .5) * UI.tw), Y = sy((v._lastSeen.y + .9) * UI.th), r = Math.max(5, Math.min(UI.tw * UI.zoom * .4, manH() * RING_W));
+    cx.globalAlpha = a; mkEllipse(X, Y + 1, r, r * .36, MK.ink, 'rim'); mkEllipse(X, Y, r, r * .36, MK.rust, 'rim');
+  });
+  cx.globalAlpha = 1;
+  mkOff();
+  UI.fogDark = dark; UI.fogLost = lost.length;
 }
 /* ---------------- THE RIG ON THE BOARD (COMBAT [the fight wears the 3D models], rule 121, Paolo 10/19: 'a full
    implementation of the 3D models, that's top priority'; 'EVERYTHING IS A 3D MODEL NOW... WTF TRYING TO COMBINE THE TWO') ----
@@ -4796,12 +4922,16 @@ const WIPE_SAYS = {   /* draft:true */
   count: '{dead} of yours dead, {down} down.',
   next: 'Somebody drags you to the nearest town. {who} have your men and your gear.'
 };
-const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.' };   /* draft:true */
+const REFUSE_SAYS = { ap: 'Not enough AP: {what} costs {need}, {name} has {have}.', fat: '{name} is too tired for it. WAIT, or END TURN.' };   /* draft:true */
+const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.', left: 'Left behind: {names}.' };   /* draft:true */
 const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead' };   /* draft:true */
 function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
 function isWipe(result) {
   if (result !== 'lost') return false;
   const mine = FIGHT.S.units.filter(function (v) { return v.side === 'you'; }), main = mine.filter(function (v) { return v.main; })[0];
+  /* A RETREAT IS NEVER A WIPE (rule 144(c)): a man of his who got out makes it a retreat, whoever was caught (EYES [eyes: retreat
+     recap], 10/24: the main man caught read it as a wipe and nobody was told who got out) */
+  if (FIGHT.S.retreat && mine.some(function (v) { return v.fled && v.escaped; })) return false;
   return main ? !main.fled : mine.length > 0 && mine.every(function (v) { return !v.fled; });
 }
 function theirFaction() { const o = window.FIGHT_OPTS || {}; return FIGHT.S.roadFaction || (o.party && !Array.isArray(o.party) && o.party.faction) || (hauntedFight() ? 'ghosts' : 'brigands'); }
@@ -4858,7 +4988,9 @@ function showOver(result) {
   const theirs = S.units.filter(function (v) { return v.side === 'them'; });
   let html = wiped ? UI.wipe.lines.concat([UI.wipe.next]).map(function (t, i, a) { return '<p' + (i === a.length - 1 ? ' class="what"' : '') + '>' + t + '</p>'; }).join('') : '';
   if (pulled) { const mine = S.units.filter(function (v) { return v.side === 'you'; }), out = mine.filter(function (v) { return v.escaped; }).length;
-    html += '<p class="what">' + wfill(RETREAT_RECAP.line, { out: out, caught: mine.length - out }) + '</p>'; }
+    html += '<p class="what">' + wfill(RETREAT_RECAP.line, { out: out, caught: mine.length - out }) + '</p>';
+    const left = mine.filter(function (v) { return !v.escaped; }).map(function (v) { return v.name + (v.dead ? ' (dead)' : v.down ? ' (down)' : ''); });
+    if (left.length) html += '<p class="what">' + wfill(RETREAT_RECAP.left, { names: left.join(', ') }) + '</p>'; }
   html += '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
     + theirs.filter(function (v) { return v.dead; }).length + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.</p>';
   html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
@@ -5114,7 +5246,10 @@ function tapAt(px, py) {
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
     if (FIGHT.dryAt(u, who)) { UI.pend = null; dryTap(u); hud(); return; }   /* rule 124: never a silent refusal, never 'out of reach' */
     if (!FIGHT.canStrike(u, who)) { const rr = FIGHT.rounds(u), spent = rr && rr.left <= 0 && !FIGHT.reloadSkill(u.weapon);
-      say(spent ? 'No ' + armName(u, u.weapon) + ' left.' : who.name + ' is out of reach.' + reachWords(u), true); if (spent) sfx('ui_deny'); UI.pend = null; return; }
+      const why = FIGHT.strikeWhy(u, who) || { why: 'range' };
+      say(spent ? 'No ' + armName(u, u.weapon) + ' left.' : why.why === 'ap' ? wfill(REFUSE_SAYS.ap, { what: why.shot ? 'the shot' : 'the blow', need: why.need, name: u.name, have: why.have })
+        : why.why === 'fat' ? wfill(REFUSE_SAYS.fat, { name: u.name }) : who.name + ' is out of reach.' + reachWords(u), true);
+      if (spent || why.why === 'ap' || why.why === 'fat') sfx('ui_deny'); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
     UI.pend = { target: who, pv: FIGHT.preview(u, who) }; aimSay(u, who);
     /* the first fight teaches (COMBAT [the first fight teaches]): the first aim; the first man in cover */

@@ -1263,5 +1263,24 @@
   "quote": "when an enemy gets hurt, or even your own player, I want them to turn slightly faint red opacity, and then I wanna see blood come out, maybe blood splatters too... if an enemy gets down he might fall on the ground, a pile of blood underneath him",
   "why": "COMBAT [a hit shows, the ground remembers] 10/24: the man hit flashes red at flash_alpha fading over flash_beats; a hit throws one drop per hp_per_drop of health it took, drops_min to drops_max, each landing as a stain that stays (the last stains_kept kept, a whole long fight); a pool spreads under the fallen over pool_beats. Drafts for TUNING, tuned:false.",
   "tuned": false
+ },
+ "sight": {
+  "value": {
+   "per_level": 1,
+   "dark": "#1f1e1c",
+   "dark_alpha": 0.6,
+   "static_alpha": 0.24,
+   "static_density": 0.1,
+   "lift_beats": 0.25,
+   "lost_beats": 8,
+   "lost_alpha": [
+    0.75,
+    0.3
+   ]
+  },
+  "source": "VAMILY.md rule 157 (Paolo 10/24); the library: reference/library/grok/wiki/pages/0160_Attributes.txt (Vision)",
+  "quote": "if there are tiles that our team, with their vision all together, can't see, you've gotta be able to tell; a different opacity, maybe a grey darkness to it... it's gotta be done a lot better",
+  "why": "COMBAT [what the crew can't see reads dark] 10/24: a tile none of his men sees wears dark at dark_alpha with a static of light specks (static_density of its cells) at static_alpha over it, lifting or falling over lift_beats; a man of theirs lost from sight leaves a rust ring at lost_alpha[0] fading to lost_alpha[1] over lost_beats, until seen again. per_level: the library says height adds vision toward lower ground ('Elevation is taken into account after the cap... applied only vs lower positioned opponents') and names no number: one tile a level.",
+  "tuned": false
  }
 }

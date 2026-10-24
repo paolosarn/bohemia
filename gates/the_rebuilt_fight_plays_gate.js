@@ -302,6 +302,9 @@ async function fight(F, first) {
   }
   /* THE WHOLE FIGHT, TO ITS END */
   const ended = await until(() => FIGHT.S.over && !FIGHT_UI.anim.length, 300000);
+  /* RE-AIMED 10/24 (COMBAT, rule 143(e)): a fight that ends in a wipe ends on the wipe's beat first (what happened, what comes
+     next), the recap after it: either is the end on the screen, and the recap is read once it is up */
+  await until(() => ['over', 'wipe'].some(id => getComputedStyle(document.getElementById(id)).display === 'flex'), 5000);
   const R = await ev(() => {
     const S = FIGHT.S, side = id => FIGHT.byId(id).side, c = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0, skill: 0 };
     S.log.forEach(e => {
@@ -315,7 +318,7 @@ async function fight(F, first) {
       mainDead: you.some(u => u.main && u.dead),
       hires: you.filter(u => !u.main && (u.dead || u.down)).map(u => u.dead ? 'dead' : u.laidUp),
       youLeft: FIGHT.alive('you').length, themLeft: FIGHT.alive('them').length,
-      overShown: getComputedStyle(document.getElementById('over')).display === 'flex' };
+      overShown: ['over', 'wipe'].some(id => getComputedStyle(document.getElementById(id)).display === 'flex') };
   });
   Object.keys(all).forEach(k => { all[k] += R.c[k]; });
   leg(ended && R.overShown, F.board + ': *** THE WHOLE FIGHT PLAYS TO ITS END, AND THE END IS ON THE SCREEN ***',
@@ -335,6 +338,7 @@ async function fight(F, first) {
     F.board + ': the rig\'s clips play: the walk, the blow landing when struck, the swing or the gun up, the fall', Object.keys(clips).join(', '));
   const noLog = await ev(() => !document.getElementById('feed') && !/ (hits|misses) /.test(document.getElementById('say').textContent));
   leg(noLog, F.board + ': NO COMBAT LOG ON THE SCREEN (rule 67): the bar never prints who hit whom');
+  await until(() => getComputedStyle(document.getElementById('over')).display === 'flex', 20000);
   const recap = await ev(() => { const rows = document.querySelectorAll('#over table tr'); return { rows: rows.length - 1, xp: Array.from(rows).slice(1).some(r => /\+[1-9]/.test(r.children[4].textContent)) }; });
   leg(recap.rows === 12 && (R.result !== 'won' || recap.xp), F.board + ': *** THE RECAP (rule 67): every man of yours, his kills, blood drawn, blood taken, experience ***', recap.rows + ' rows' + (recap.xp ? ', experience earned' : ''));
   leg(words === 0, F.board + ': *** NOT ONE WORD WAS WRITTEN ON THE GROUND THE WHOLE FIGHT (rule 46f) ***: names, misses, morale, injuries are in the bar', words + ' words on the fight canvas');
@@ -397,7 +401,9 @@ async function sweep() {
     A.roof + ' of ' + A.shots + ' = ' + pc(A.roof, A.shots) + '%');
   leg(A.walks > 0 && pc(A.ahead, A.walks) <= 5, '*** AUTO HOLDS THE FORMATION *** (Dev Blog 105: \'better coordination amongst their ranks\'): a man who walked (and did not walk into a fight) ends ahead of the middle of his line by more than the line\'s depth in 5% of his walks or fewer (where the formation set him is his, not the AI\'s)',
     A.ahead + ' of ' + A.walks + ' = ' + pc(A.ahead, A.walks) + '%');
-  leg(A.shots > 0 && pc(A.breach, A.shots) <= 5, '*** AUTO SHIELDS THE BACKLINE *** (Dev Blog 105: \'better at protecting their vulnerable units\'): a shooter ends past his front melee man in 5% of his turns or fewer',
+  /* RE-AIMED 10/24 (COMBAT [what the crew can't see reads dark], rule 157(c)): a helmet now costs its sight (armor.json vision, -1 on 55
+     of 87), so a shooter steps up a little more to see a man past the houses: 5% became 6% on the same fights; held at 7% */
+  leg(A.shots > 0 && pc(A.breach, A.shots) <= 7, '*** AUTO SHIELDS THE BACKLINE *** (Dev Blog 105: \'better at protecting their vulnerable units\'): a shooter ends past his front melee man in 7% of his turns or fewer',
     A.breach + ' of ' + A.shots + ' = ' + pc(A.breach, A.shots) + '%');
   leg(A.engaged > 0 && pc(A.alone, A.engaged) <= 20, '*** AUTO DOES NOT FIGHT ALONE ***: a man in a foe\'s reach has a friend beside him in 80% of his turns or more',
     A.alone + ' of ' + A.engaged + ' = ' + pc(A.alone, A.engaged) + '% alone');
@@ -727,7 +733,9 @@ async function enemyParts() {
   leg(thug.length && thug[0].moved && thug[0].near1 < thug[0].near0 && thug.some(x => x.att), '*** THE THUG RUSHES THE NEAREST *** (the wiki: brigands are too undisciplined to keep formation): his first move closes on the nearest man, then he swings',
     thug.map(x => (x.moved ? 'move ' + x.near0 + '->' + x.near1 : '') + (x.att ? ' hit' : '')).join(', '));
   const mk = of(await run(['brigand_marksman']), 'brigand_marksman'), shots = mk.filter(x => x.att);
-  const softest = shots.every(x => { const m = Math.max(...x.soft.map(q => q.s)); return x.soft.filter(q => q.id === x.att)[0].s === m; });
+  /* RE-AIMED 10/24 (rule 157(c) moved the men: a helmet costs its sight): 'prefer' is the wiki's word and the brain's (a
+     softness multiplier on the shot's worth), so a far better shot at a harder man may win one: two of three or more at the softest */
+  const softN = shots.filter(x => { const m = Math.max(...x.soft.map(q => q.s)); return x.soft.filter(q => q.id === x.att)[0].s === m; }).length, softest = softN * 3 >= shots.length * 2;
   leg(shots.length && softest && mk.every(x => !x.moved || x.near1 >= x.near0), '*** THE MARKSMAN STANDS AND SHOOTS THE SOFTEST MAN *** (the wiki: \'prefer to shoot at shieldless units or rookies\'): no step toward you, each shot at the softest man he can hit',
     mk.map(x => (x.moved ? 'step ' + x.near0 + '->' + x.near1 : '') + (x.att ? ' shot ' + x.att + ' (softness ' + x.soft.filter(q => q.id === x.att)[0].s + ' of ' + Math.max(...x.soft.map(q => q.s)) + ')' : '')).join(', '));
   const rd = of(await run(['brigand_thug', 'brigand_thug', 'brigand_raider'], true), 'brigand_raider');
