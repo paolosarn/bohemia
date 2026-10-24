@@ -178,6 +178,15 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 4px 10px rgba(0,0,0,.6);padding:12px 12px 14px;font-size:11px;transform:rotate(-.4deg)}
 #drawer .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px dashed rgba(42,34,26,.3)}
 #drawer .p{display:flex;gap:6px;align-items:center;margin-top:4px;font-weight:700}
+#wipe{position:fixed;inset:0;display:none;z-index:7;pointer-events:none;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(rgba(6,4,3,0) 0,rgba(6,4,3,.82) 26%,rgba(6,4,3,.9) 50%,rgba(6,4,3,.82) 74%,rgba(6,4,3,0) 100%)}
+#wipe .osd{position:absolute;left:14px;top:max(14px,env(safe-area-inset-top));font:700 15px/1 ui-monospace,monospace;color:#f2ead8;letter-spacing:.12em;text-shadow:2px 0 #c4553f,-2px 0 #3a7fb0}
+#wipe h2{margin:0 16px 12px;font:700 22px/1.15 ui-monospace,monospace;letter-spacing:.08em;color:#ff5a40;text-align:center;text-shadow:3px 0 rgba(58,127,176,.7),-3px 0 rgba(255,214,150,.35)}
+#wipe p{margin:3px 18px;max-width:420px;font:700 12px/1.35 ui-monospace,monospace;color:#e6d9c2;text-align:center;opacity:0;transition:opacity 120ms linear}
+#wipe p.on{opacity:1}
+#wipe p.next{color:#f0d296;margin-top:10px}
+#over .what{font-weight:700}
+body.wiped #cv{filter:grayscale(1) contrast(1.25) brightness(.55)}
 #over{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,6,4,.78);z-index:6}
 #over .box{width:min(92vw,420px);color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover;
   box-shadow:0 8px 24px rgba(0,0,0,.7);padding:16px 14px 14px;transform:rotate(-.5deg)}
@@ -236,6 +245,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 <div id="num"></div>
 <div id="pick"></div>
 <div id="vet"><canvas id="vetface" width="132" height="132"></canvas><div><b id="vetname"></b><span id="vetline"></span></div></div>
+<div id="wipe"><div class="osd">&#9632; STOP</div><h2 id="wh"></h2><div id="wb"></div></div>
 <div id="over"><div class="box"><h2 id="oh"></h2><div id="ob"></div><button id="oagain">AGAIN</button></div></div>
 <div id="load">LOADING THE GROUND</div>
 
@@ -2828,7 +2838,7 @@ function lvOf(v) { if (v.side === 'you') return v.level || 1; const X = R('parse
 function classOf(t) {
   const S = FIGHT.S, crew = S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); });
   const key = S.round + ':' + t.armB + ':' + t.armH + ':' + crew.map(function (v) { return v.id + v.weapon.class; }).join(',');
-  if (t._cls && t._clsKey === key) return t._cls;
+  if (t._cls && (t._clsKey === key || !crew.length)) return t._cls;   /* with nobody of his standing, the last read stands (the wipe's words) */
   const O = R('ours.outclass'), cap = R('hit_chance.cap'), sc = R('hit_chance.defense_soft_cap');
   const soft = function (d) { return d > sc.threshold ? sc.threshold + (d - sc.threshold) * sc.over_threshold_multiplier : d; };
   const top = crew.reduce(function (m, v) { return Math.max(m, lvOf(v)); }, 1), lv = lvOf(t);
@@ -3149,7 +3159,7 @@ function startAnim(a) {
       teachSoon('mechanic'); }
     else if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
   }
-  if (a.k === 'over') showOver(e.result);
+  if (a.k === 'over') { if (isWipe(e.result)) wipeBeat(e.result); else showOver(e.result); }
 }
 /* THE NUMBER SHOWN (a turn you can read): a receipt tag over the struck man, his chance to be hit, then what it cost him;
    numbers only, never a word on the ground (rule 46f), never who hit whom (rule 67) */
@@ -4370,6 +4380,72 @@ document.getElementById('card').onclick = function () { UI.drawer = !UI.drawer; 
 document.getElementById('drawer').onclick = function () { UI.drawer = false; UI.wcard = null; this.style.display = 'none'; };
 /* our draft name for a Battle Brothers perk (records/target/bb/perk_translation.json) */
 function perkName(id) { const r = DB.perkNames.rows.filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
+/* ---------------- THE WIPE IS AN EVENT (COMBAT [the loss is understood], rule 143(e), Paolo 10/24: 'when I die it was very hard
+   to tell what happened next... if everyone in the party dies or gets down... you're still where you were before you entered
+   the battle and it just feels clunky... spawn in the nearest town... a mini side quest, because literally your whole squad
+   got wiped, that's pretty important') ----------------
+   The fight is lost and the man he is (YOU) did not run: that is a wipe. Before the recap, one clear beat on the board itself:
+   the picture drains to grey like a tape on STOP, YOUR WHOLE CREW IS DOWN, and then, a line a beat, WHAT HAPPENED (who keeps
+   the field; the man of theirs who outclassed you, dodged you or wore too much armour, with the numbers; how many of yours are
+   dead and down) and WHAT COMES NEXT (somebody drags you to the nearest town; they have your men and your gear). The recap
+   carries the same words. Home, the fight says it twice: BOHEMIA_FIGHT_OVER with wipe:true, and BOHEMIA_COMBAT_END with
+   wipe:true and the same facts (wipeInfo), for RUN to wake him in the nearest town and start the mini side quest (rule 143(e));
+   COMBAT's marked block in the shell keeps that message from taking him home before the recap's beats. Nobody speaks in it:
+   they are all down (143(d)). Words are drafts for WORDS (draft:true). */
+const WIPE_SAYS = {   /* draft:true */
+  head: 'YOUR WHOLE CREW IS DOWN', recap: 'WIPED OUT',
+  took: '{who} keep the field.',
+  outclassed: '{name} outclassed you: LV {lv} against your best, LV {top}.',
+  dodged: '{name} dodged {n} of your {m} shots.',
+  armoured: '{name} wore {a} armour. Your best arm needed {b} hits.',
+  count: '{dead} of yours dead, {down} down.',
+  next: 'Somebody drags you to the nearest town. {who} have your men and your gear.'
+};
+const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead' };   /* draft:true */
+function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
+function isWipe(result) {
+  if (result !== 'lost') return false;
+  const mine = FIGHT.S.units.filter(function (v) { return v.side === 'you'; }), main = mine.filter(function (v) { return v.main; })[0];
+  return main ? !main.fled : mine.length > 0 && mine.every(function (v) { return !v.fled; });
+}
+function theirFaction() { const o = window.FIGHT_OPTS || {}; return FIGHT.S.roadFaction || (o.party && !Array.isArray(o.party) && o.party.faction) || (hauntedFight() ? 'ghosts' : 'brigands'); }
+/* what happened, in numbers he can read: the one man of theirs who did it, and how */
+function wipeInfo() {
+  const S = FIGHT.S, mine = S.units.filter(function (v) { return v.side === 'you'; }), theirs = S.units.filter(function (v) { return v.side === 'them'; });
+  const f = theirFaction(), who = THEY_ARE[f] || THEY_ARE.brigands;
+  const top = mine.reduce(function (m, v) { return Math.max(m, lvOf(v)); }, 1);
+  /* the standout: the one who outclassed you most, else the best dodger, else the one who took the most of your blows */
+  const scored = theirs.map(function (t) { const c = classOf(t); return { t: t, c: c, oc: c.outclass ? 1 : 0, dg: t._tried ? (t._dodged || 0) / t._tried : 0 }; })
+    .sort(function (a, b) { return b.oc - a.oc || (b.c.lv - a.c.lv) || (b.t._dodged || 0) - (a.t._dodged || 0); });
+  const st = scored[0] || null, lines = [wfill(WIPE_SAYS.took, { who: who })];
+  if (st) {
+    const t = st.t, c = st.c;
+    if (c.lv - top >= R('ours.outclass').level_gap) lines.push(wfill(WIPE_SAYS.outclassed, { name: titleName(t.name), lv: c.lv, top: top }));
+    const dg = theirs.filter(function (v) { return (v._tried || 0) > 1 && (v._dodged || 0) * (1 + 1) > v._tried; }).sort(function (a, b) { return (b._dodged || 0) - (a._dodged || 0); })[0];
+    if (dg) lines.push(wfill(WIPE_SAYS.dodged, { name: titleName(dg.name), n: dg._dodged, m: dg._tried }));
+    if (c.armour) lines.push(wfill(WIPE_SAYS.armoured, { name: titleName(t.name), a: c.armourPts, b: c.blows }));
+  }
+  const dead = mine.filter(function (v) { return v.dead; }), down = mine.filter(function (v) { return v.down; }), fled = mine.filter(function (v) { return v.fled; });
+  lines.push(wfill(WIPE_SAYS.count, { dead: dead.length, down: down.length }));
+  const o = window.FIGHT_OPTS || {};
+  return { by: f, byName: who, lines: lines, next: wfill(WIPE_SAYS.next, { who: who }),
+    standout: st ? { name: st.t.name, kind: st.t.kind, lv: st.c.lv, outclass: st.c.outclass, dodged: st.t._dodged || 0, tried: st.t._tried || 0, armour: st.c.armourPts } : null,
+    dead: dead.map(function (v) { return v.name; }), down: down.map(function (v) { return v.name; }), fled: fled.map(function (v) { return v.name; }),
+    district: o.district || null, cell: o.cell || null, kind: o.kind || null };
+}
+function wipeBeat(result) {
+  const W = UI.wipe = wipeInfo(), el = document.getElementById('wipe'), b = document.getElementById('wb');
+  vetSkip(); say('');
+  document.body.classList.add('wiped');
+  document.getElementById('wh').textContent = WIPE_SAYS.head;
+  b.textContent = '';
+  W.lines.concat([W.next]).forEach(function (t, i, all) { const q = document.createElement('p'); q.textContent = t; if (i === all.length - 1) q.className = 'next'; b.appendChild(q); });
+  el.style.display = 'flex';
+  sfx('wipe', { side: 'you', by: W.by });
+  const ps = b.querySelectorAll('p'), beat = beatMs(), Wr = R('ours.wipe');
+  ps.forEach(function (q, i) { setTimeout(function () { q.classList.add('on'); }, beat * Wr.beats_per_line * (i + 1)); });
+  setTimeout(function () { el.style.display = 'none'; showOver(result); }, beat * (Wr.beats_per_line * (ps.length + 1) + Wr.hold_beats));
+}
 /* THE RECAP (rule 67: 'a recap screen after every fight: blood drawn, kills, experience, like Battle Brothers') */
 function showOver(result) {
   /* THE RECAP (sixth votes, rule 54b): this screen is the recap, and it played no
@@ -4380,9 +4456,11 @@ function showOver(result) {
   UI.finish = false; keptClear();
   const S = FIGHT.S, o = document.getElementById('over');
   const secs = Math.round(UI.beats * 60 / R('ours.beat_bpm'));
-  document.getElementById('oh').textContent = hauntedFight() && actOne() ? HAUNT_RECAP[result === 'won' ? 'won' : 'lost'] : result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
+  const wiped = !!UI.wipe;
+  document.getElementById('oh').textContent = wiped ? WIPE_SAYS.recap : hauntedFight() && actOne() ? HAUNT_RECAP[result === 'won' ? 'won' : 'lost'] : result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
   const theirs = S.units.filter(function (v) { return v.side === 'them'; });
-  let html = '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
+  let html = wiped ? UI.wipe.lines.concat([UI.wipe.next]).map(function (t, i, a) { return '<p' + (i === a.length - 1 ? ' class="what"' : '') + '>' + t + '</p>'; }).join('') : '';
+  html += '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
     + theirs.filter(function (v) { return v.dead; }).length + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.</p>';
   html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
   S.units.filter(function (v) { return v.side === 'you'; }).forEach(function (v) {
@@ -4402,11 +4480,21 @@ function showOver(result) {
      from the build box yet. GRAVEYARD IS FINAL for the engine-spoken recap:
      gates/narrator_gate.js now proves this screen never calls speak(). */
   try { if (window.parent !== window) window.parent.postMessage(homeMessage(result), '*'); } catch (_e) {}
+  /* THE WIPE GOES HOME AS AN EVENT (rule 143(e)): the frozen fight's end message, wipe:true, for RUN's nearest town and the side
+     quest; the shell's COMBAT block holds it on the recap (it rides NF.over into cityFightHome's outcome) */
+  if (wiped) try { if (window.parent !== window) window.parent.postMessage(endMessage(), '*'); } catch (_e) {}
+}
+function endMessage() {
+  const S = FIGHT.S, W = UI.wipe, mine = S.units.filter(function (v) { return v.side === 'you'; });
+  return { type: 'BOHEMIA_COMBAT_END', newFight: true, wipe: true, victory: false, result: 'loss', reason: 'wipe', turns: S.round,
+    alive: S.units.filter(function (v) { return v.side === 'them' && FIGHT.onField(v); }).length,
+    dead: W.dead.length, fled: W.fled.length, spared: 0, fates: mine.map(function (v) { return { name: v.name, main: !!v.main, dead: !!v.dead, down: !!v.down, fled: !!v.fled }; }),
+    wipeInfo: W };
 }
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
 function homeMessage(result) {
   const S = FIGHT.S;
-  return { type: 'BOHEMIA_FIGHT_OVER', result: result, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
       main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null }; }) };
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
@@ -4668,6 +4756,7 @@ function start() {
   UI.resumed = !UI.pageStarted && keptRead(o); UI.pageStarted = true;
   if (!UI.resumed) { keptClear(); haunt(); }   /* 134(e): in act one a ghost is one of the dead (before the board loads their bodies) */
   UI.hauntSeen = null; UI.hauntName = null;
+  UI.wipe = null; UI.dodge = {}; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();

@@ -1225,5 +1225,15 @@
   "quote": "when everyone dies in a match it's kind of hard to understand... an enemy just kept dodging all of my bullets, I don't know how we can make it clear visually that the enemy is superior",
   "why": "COMBAT [the loss is understood] 10/24: an enemy reads LV n, his level on Battle Brothers' own worth scale (1 + (xp - 100) / 30, the brother formula run backwards); he OUTCLASSES YOU when that level is level_gap or more over the best man of yours still standing, or when he both dodges (the best man of yours, skill against his defence alone, hits him dodge_chance_at_most in 100 or less) and is armoured (the arm of yours that drops him fastest needs blows_at_least blows or more, weapon_says_weak's count); a shot he dodges throws him aside for dodge_lean_beats of a beat. Drafts for TUNING, tuned:false.",
   "tuned": false
+ },
+ "wipe": {
+  "value": {
+   "beats_per_line": 1,
+   "hold_beats": 3
+  },
+  "source": "VAMILY.md rule 143(e) (Paolo 10/24); records/BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md",
+  "quote": "when I die it was very hard to tell what happened next... if everyone in the party dies or gets down you're still where you were before you entered the battle and it just feels clunky... literally your whole squad got wiped, that's pretty important",
+  "why": "COMBAT [the loss is understood] 10/24: the wipe's beat on the board before the recap: the head at once, then one line of what happened a beat (beats_per_line), the last line what comes next, held hold_beats; at 120 BPM a five-line wipe reads in five seconds, then the recap's own four beats. Drafts for TUNING, tuned:false.",
+  "tuned": false
  }
 }
