@@ -30,12 +30,12 @@
   'use strict';
   var DIR = 'settlement/heard_jobs/', BEAT = 500, AHEAD = 150, ONSET = 0.038;   /* the clips' own onset (encoder delay + air), measured */
   var JOBS = {
-    crate:  { gain:0.20, what:'hauls crates' },
-    hammer: { gain:0.15, what:'fixes a wall' },
-    pot:    { gain:0.13, what:'cooks' },
-    broom:  { gain:0.10, what:'sweeps' },
-    guard:  { gain:0.09, what:'walks the night round' },
-    fire:   { gain:0.12, what:'keeps the cook fire' }
+    crate:  { gain:0.32, what:'hauls crates' },   /* measured 10/24: a job's loudest 93 ms sits 20 to 25 dB under a building's own tap */
+    hammer: { gain:0.24, what:'fixes a wall' },
+    pot:    { gain:0.21, what:'cooks' },
+    broom:  { gain:0.16, what:'sweeps' },
+    guard:  { gain:0.14, what:'walks the night round' },
+    fire:   { gain:0.19, what:'keeps the cook fire' }
   };
   var DAY = ['crate', 'hammer', 'pot', 'broom'], NIGHT_REST = ['fire', 'crate'];
   var NIGHT_TRIM = 0.6;   /* the valley is quieter after dark (the screen's NIGHT_TRIM for its buildings is 0.5); the watchman's boots are not trimmed: they are the night */
@@ -46,8 +46,11 @@
   var NIGHT_LINES = ["Shh. Lights off.", "You hear that?", "Stay off the road, mijo.", "Something's out past the wash.", "Keep it down.",
     "Don't look at it.", "Who's walking out there?"];
   var NIGHT_ANSWERS = ["Mm.", "Shh.", "No.", "Go inside."];
+  var GREET_DAY = ["Buenas.", "¿Qué tal, jefe?", "Ey, buenas tardes.", "Still open?"], GREET_NIGHT = ["Buenas noches.", "Lock it tonight."];
   var DARK_LINES = ["Come out here.", "I know you're awake.", "Open up, it's only me.", "Mijo. Mijo, over here."];
-  var GAP = { day:6000, market:4000, night:14000 }, CHANCE = { day:0.6, night:0.45 }, ANSWER = { day:0.6, night:0.3 };
+  var GAP = { day:9000, market:7000, night:16000 };   /* now and then: a few words every ten seconds at most by day, rarer after dark */
+  var ONLY = null;   /* a measurement may hear one half alone: 'jobs' or 'talk' */
+  var CHANCE = { day:0.6, night:0.45 }, ANSWER = { day:0.6, night:0.3 };
 
   function hash(s){ var h = 2166136261 >>> 0; s = String(s); for(var i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h >>> 0; }
   function rng(seed){ var t = seed >>> 0; return function(){ t = (t + 0x6D2B79F5) >>> 0; var r = Math.imul(t ^ (t >>> 15), 1 | t); r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r; return ((r ^ (r >>> 14)) >>> 0) / 4294967296; }; }
@@ -132,7 +135,7 @@
   }
 
   /* ---------- the walkers' state across frames ---------- */
-  var W = {}, PASS = {}, live = [], lastTalk = -1e9, place = null, night = null, t0 = 0, openedAt = 0, dark = null;
+  var HOLD = false, W = {}, PASS = {}, live = [], lastTalk = -1e9, place = null, night = null, t0 = 0, openedAt = 0, dark = null;
   function reset(ctx, now){
     W = {}; PASS = {}; stopTalk(); lastTalk = now - 3000; place = ctx.place; night = ctx.night; openedAt = now;
     var R = rng(hash(ctx.place + ':dark:' + Math.floor(now / 60000)));
@@ -143,10 +146,10 @@
   function levelOf(w, Wd){ var g = 0.55 + 0.45 * clamp(w.py, 0, 1); if(w.x < -20 || w.x > Wd + 20) g *= 0.35; return g; }
 
   /* ONE MUTTER: who says what, when, at what level; null if nobody speaks */
-  function mutter(k, now, a, b, ctx, R){
+  function mutter(k, now, a, b, ctx, R, greet){
     var S = squiggle(k && k.AC); if(!S || !k) return null;
     var BV = window.BOH_VOICE, AC = k.AC, nt = !!ctx.night;
-    var L = nt ? NIGHT_LINES : DAY_LINES, A = nt ? NIGHT_ANSWERS : DAY_ANSWERS;
+    var L = greet ? (nt ? GREET_NIGHT : GREET_DAY) : nt ? NIGHT_LINES : DAY_LINES, A = nt ? NIGHT_ANSWERS : DAY_ANSWERS;
     var line = L[Math.floor(R()*L.length)], mood = nt ? {arousal:-0.7, valence:-0.4} : undefined;
     var when = AC.currentTime + (t0 + Math.ceil((now - t0 + 60) / BEAT) * BEAT - now) / 1000;   /* on the next beat */
     var out = [];
@@ -180,6 +183,7 @@
      crowd: [{x, py, look}]; ctx: {W, night, open, place, t0, market, shown, unlocked}. opt.dry: no context, log what would play. */
   function tick(now, walkers, crowd, ctx, opt){
     opt = opt || {};
+    if(HOLD && !opt.dry) return;   /* held for a measurement (the gate drives the clock itself) */
     if(!opt.dry && (!ctx.unlocked || !ctx.shown)){ if(live.length) stopTalk(); return; }   /* a phone plays nothing before a tap; a hidden frame is silent */
     var k = opt.dry ? null : sink(); if(!opt.dry && !k) return;
     if(k && !preloaded){ preloaded = true; preload(k); }   /* every clip in before the first stop, so the first crate is heard too */
@@ -209,16 +213,18 @@
       due.forEach(function(e){
         if(e.at < now - 60) return;   /* the frame came too late for it: dropped, never played off the beat */
         var gain = J.gain * e.g * (job === 'guard' ? 1 : trim) * levelOf(w, ctx.W), pan = panOf(w.x, ctx.W);
+        if(ONLY === 'talk') return;
         var played = opt.dry ? true : playClip(k, e.clip, Math.max(k.AC.currentTime, k.AC.currentTime + (e.at - now) / 1000 - ONSET), gain, e.rate, pan);
-        LOG.push({t:e.at, kind:'job', job:job, clip:e.clip, look:w.look, gain:+gain.toFixed(4), pan:+pan.toFixed(2), rate:+e.rate.toFixed(3), played:played, night:nt, beat:((e.at - t0) % BEAT + BEAT) % BEAT});
+        LOG.push({t:e.at, kind:'job', job:job, clip:e.clip, look:w.look, gain:+gain.toFixed(4), pan:+pan.toFixed(2), on:w.x >= -20 && w.x <= ctx.W + 20, rate:+e.rate.toFixed(3), played:played, night:nt, beat:((e.at - t0) % BEAT + BEAT) % BEAT});
       });
     });
-    if(LOG.length > 600) LOG.splice(0, LOG.length - 600);
-    /* WHO PASSES WHOM: a walker crossing another on his lane, or crossing a man in the crowd */
+    if(LOG.length > 3000) LOG.splice(0, LOG.length - 3000);
+    /* WHO PASSES WHOM: a walker crossing another, on his lane or across the street (a word called over), or going by a man
+       who stands (the crowd, or a keeper at his door: the walker says it, the keeper keeps his voice for you, b is null) */
     var pairs = [];
     walkers.forEach(function(a, i){ if(!a.drawn) return;
-      walkers.forEach(function(b, j){ if(j <= i || !b.drawn || a.lane !== b.lane) return; pairs.push(['w' + a.slot + ':w' + b.slot, a.x - b.x, a, b]); });
-      if(a.walking != null) (crowd || []).forEach(function(c, j){ if(Math.abs(c.py - a.py) < 0.06) pairs.push(['w' + a.slot + ':c' + j, a.x - c.x, a, c]); });
+      walkers.forEach(function(b, j){ if(j <= i || !b.drawn || Math.abs(a.py - b.py) > 0.25) return; pairs.push(['w' + a.slot + ':w' + b.slot, a.x - b.x, a, b]); });
+      if(a.walking != null) (crowd || []).forEach(function(c, j){ if(Math.abs(c.py - a.py) < 0.08) pairs.push(['w' + a.slot + ':' + (c.keeper ? 'k' : 'c') + j, a.x - c.x, a, c.keeper ? null : c]); });
     });
     pairs.forEach(function(pr){
       var key = pr[0], sg = pr[1] < 0 ? -1 : 1, was = PASS[key];
@@ -226,12 +232,12 @@
       if(was == null || was === sg || Math.abs(pr[1]) > 40) return;
       /* they just crossed */
       var gap = nt ? GAP.night : ctx.market ? GAP.market : GAP.day;
-      if(ctx.open || now - lastTalk < gap) return;
+      if(ctx.open || now - lastTalk < gap || ONLY === 'jobs') return;
       if(pr[2].x < 0 || pr[2].x > ctx.W) return;   /* off the glass: not for you */
       var R = rng(hash(ctx.place + ':' + key + ':' + Math.floor(now / BEAT)));
       if(R() >= (nt ? CHANCE.night : CHANCE.day)) return;
       lastTalk = now;
-      var said = opt.dry ? [{look:pr[2].look, dry:true}] : mutter(k, now, pr[2], pr[3], ctx, R);
+      var said = opt.dry ? [{look:pr[2].look, dry:true}] : mutter(k, now, pr[2], pr[3], ctx, R, /:k\d+$/.test(key));
       if(said) said.forEach(function(s){ s.t = now; s.kind = 'mutter'; s.who = key; LOG.push(s); });
     });
     if(nt && dark && !dark.done && now >= dark.at && !ctx.open){ if(opt.dry){ dark.done = true; LOG.push({t:now, kind:'dark', dry:true}); } else fromTheDark(k, now, ctx); }
@@ -243,6 +249,7 @@
     reset:function(){ place = null; night = null; },
     squiggle:function(){ var s = SQ; return { have:!!(s && s.ready()), borrowed:!!(s && s.borrowed), err:s ? s.err : null }; },
     preload:function(){ var k = sink(); if(k) preload(k); },
-    live:function(){ return live.length; }
+    live:function(){ return live.length; }, hold:function(on){ HOLD = on !== false; if(HOLD) stopTalk(); },
+    duck:function(){ return JB ? JB.gain.value : null; }, only:function(w){ ONLY = w || null; }, GAP:GAP
   };
 })();

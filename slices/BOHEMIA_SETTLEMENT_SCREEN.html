@@ -1122,7 +1122,7 @@ function heardInput(now){
   var walkers = L.map(function(w){ var a = busyAt(w, now);
     return {slot:w.slot, look:w.look, x:view.ox + a.x*view.s, py:w.y/pH, lane:w.lane, walking:a.walking != null ? a.walking : null,
       working:a.working != null ? a.working : null, end:a.walking != null ? null : (Math.abs(a.x - w.b) < 1 ? 'b' : 'a'), stop:w.stop, drawn:!!B.walk(w.look)}; });
-  var crowd = folkList().filter(function(p){ return p.crowd; }).map(function(p){ return {x:view.ox + p.x*view.s, py:p.y/pH, look:p.look}; });
+  var crowd = folkList().filter(function(p){ return p.crowd || p.keeper; }).map(function(p){ return {x:view.ox + p.x*view.s, py:p.y/pH, look:p.look, keeper:!!p.keeper}; });   /* the ones a walker goes by (a keeper is greeted, never answers: his voice is for you) */
   var H = window.BohemiaHeard ? BohemiaHeard.state() : {};
   return {walkers:walkers, crowd:crowd, ctx:{W:view.W, night:!!view.night, open:!!S.open, place:S.place ? S.place.name + ':' + S.place.tier : '', t0:t0,
     market:(S.traits||[]).some(function(t){ return t.id === 'market_day'; }), shown:!!H.shown, unlocked:!!H.unlocked}};
