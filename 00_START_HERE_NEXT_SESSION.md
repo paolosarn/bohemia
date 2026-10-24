@@ -925,6 +925,32 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sounds-bullet-lands): 10/24 LATEST (round thirty-one, [the bullet lands], rule 120: guns first; rule 127: no card) --
+*** THE BULLET LANDS, IN THE GAME: THE REAL GUNS AND WHERE EVERY BULLET GOES. BUILD 10/24a - THE BULLET LANDS. ***
+The coordinator: 'every shot is heard landing... per gun... from real material, analog horror, no sand; fired by the fight's
+own events.' MEASURED BEFORE, through the game's own chain: five shots in six at -41.8 dB, a miss and a head hit silent, the
+nine real guns of [the guns heard] in a VOTE card. NOW: the fight's BOHEMIA_SFX asks engine/bohemia_bullet_lands.js first
+(tools/bohemia_bullet_lands_patch.py, idempotent: one block __THE_BULLET_LANDS__, a two-line hook in playSFX, the one SFX line);
+every shot plays its real gun, every bullet lands from real recordings: flesh, plate, through, the head, wood, stone, steel, a
+car, the dirt over there, the dirt at your man's feet, the spray, a ricochet, a man going down dead and alive, the machine gun's
+own burst and sweep (ready for the day it rides). THE CRACK PAST YOUR EAR IS A REAL BULLET: the Free Firearm Sound Library's
+far and mid mics stand downrange, so each hears the bullet's supersonic crack 12 to 33 ms before the report; 13 cut out whole.
+The rest from CC0 ESC-50 clips (a clap, wet feet, a door, train steel, an alarm clock's bell, gravel, glass, a fly quickened
+eight times for the whine, two breaths); tools/bohemia_bullet_lands.py, one sprite slices/fight_heard/lands.mp3 (104 takes,
+735 KB). LEVELS through MUS.audio's compressor and brickwall (tools/bohemia_bullet_lands_level.js -> index.json): the guns
++12.2 dB to -20, a hit about -20 over there, a fall -13, none over -1 dBFS after the chain. WITH ev ALONE (today) it guesses
+from the turn, the last shot and each side's gun off the roster; with COMBAT's fields it is exact (NOTE on COMBAT's board).
+A blade, a fist, a step: untouched; his hurt still plays on top. Sprites load 25 s after the music runs or when a fight starts.
+THE COUNT-UP (TUNING change 6): BOHEMIA_COUNT_UP {from,to} -> a real electromechanical tick a 16th on the song's grid, the
+battery dropped in steel with a bell on the beat (down: dull, no bell), answered with BOHEMIA_COUNT_UP_PLAN (NOTE on UI's
+board: UI posts the moment). Gate THE BULLET LANDS 14/0 (new): in the demo's road fight on AUTO, 8 of 8 shots real guns,
+9 landings, nothing threw. THE FIGHT DRIVES THE MUSIC 10/0, ONE SONG ONLY 16/0, demo build green; guns heard 32/1 (its
+YES leg re-aimed to rule 127; the 30-second card leg red on a clean main too); first fight 5/6 on main alike (RUN's dead card).
+RUN closed: the demo cut was this lane's for this change (NOTE on RUN's board). Record: records/BOHEMIA_THE_BULLET_LANDS_10_24_26.md.
+NEXT: when COMBAT posts the fields, nothing to change here (the gate proves the exact path); the machine gun is heard the day
+it rides; [the machine party] stays stopped. PENDING Paolo: nothing.
+UNDER UI (rule 113a): SOUNDS put the real guns and every bullet's landing into the fight, the demo, SHIPPED.
+
 SOUNDS (sounds-one-song): 10/20 LATEST (round thirty, [one song only], rule 122) --
 *** ONLY HIS SONGS PLAY NOW: THE OVERWORLD NIGHT CATEGORY, REPO MAN AS THE MACHINE PARTY; THE AMBIENCE DOWN; THREE SLIDERS. ***
 His 10/20: 'if I hear any other song ever again I'm shutting this whole shit down'; 'and ALL OF THE OVERWORLD NIGHT
