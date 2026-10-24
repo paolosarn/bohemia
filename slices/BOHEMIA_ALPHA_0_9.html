@@ -23615,11 +23615,15 @@ drawLogoBig();requestAnimationFrame(loop);
         } catch (_e) {}
 
         var live = [], t = t0, said = 0, n = 0, lastTake = {}, creep = { dropped: [], doubled: [], breath: null, sag: sagN ? +sagD.toFixed(3) : 0 };
-        var lastWeird = -9, i, ch;
+        var lastWeird = -9, rates = [], i, ch;
 
         function blip(at, take, rate0, rate1, gain, dropped) {
           var s = AC.createBufferSource(), g = AC.createGain(), node = g, dur = take[1];
           s.buffer = buf;
+          /* A NEW GAIN IS 1 UNTIL ITS FIRST EVENT. A source started between two samples hands out its first frame before the
+             envelope's 0 applies, and at gain 1 that frame is a one-sample spike: the click the gate found on a doubled
+             syllable (60.9 dB over its neighbours, 10/24). Born at zero, there is no such frame. */
+          g.gain.value = 0; s.playbackRate.value = rate0;
           s.playbackRate.setValueAtTime(rate0, at);
           if (Math.abs(rate1 - rate0) > 1e-4) s.playbackRate.linearRampToValueAtTime(rate1, at + dur / ((rate0 + rate1) / 2));
           var real = dur / ((rate0 + rate1) / 2);          /* how long the take lasts at this speed */
@@ -23672,6 +23676,7 @@ drawLogoBig();requestAnimationFrame(loop);
             r0 *= 1 - sagD * Math.pow(k0, 1.4); r1 = r1 * (1 - sagD * Math.pow(k1, 1.4));
             adv = step * (1 + sagD * 1.6 * k1); gain *= Math.pow(10, (-1.5 * k1) / 20);
           }
+          rates.push(+r0.toFixed(4));
           var odd = (said >= 2 && fromEnd >= 2 && said - lastWeird > 6) ? rand() : 1;
           if (odd < NUM.DROP_P) {
             blip(t, take, r0, r1, gain * 0.17, true); creep.dropped.push(said); lastWeird = said;
@@ -23693,7 +23698,7 @@ drawLogoBig();requestAnimationFrame(loop);
         this.said++;
         var h = {
           blips: n, seconds: +(t - t0).toFixed(3), tail: +(end - t0).toFixed(3), start: t0, mood: m, recorded: true,
-          family: fam.id, lpb: lpb, pitch: +pitch.toFixed(4), creep: creep,
+          family: fam.id, lpb: lpb, pitch: +pitch.toFixed(4), creep: creep, rates: rates,
           stop: function () {
             var now = AC.currentTime;
             for (var k = 0; k < live.length; k++) {

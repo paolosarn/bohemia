@@ -11,7 +11,7 @@
    voice at the mark.
    THE CLICK RULER: a click is broadband, and every take is band-limited at 7.2 kHz in the file; the highest a person's
    playback rate goes is +4 semitones and a shout's +3 (x1.5), so nothing a syllable says reaches 13 kHz, and energy above
-   13 kHz in a dry render is a click (old and new side by side; the old's hiss bursts are broadband by design).
+   13 kHz in a dry render that jumps 20 dB over its neighbours in half a millisecond is a click (old and new side by side).
      node tools/bohemia_squiggle_level.js            (run after tools/bohemia_squiggle_from_a_recording.py) */
 'use strict';
 const fs = require('fs');
@@ -61,8 +61,10 @@ const PAGE_LIB = `
     return 10 * Math.log10(m / k + 1e-20); };
   /* THE CLICK RULER. A click is a step: broadband and over in a millisecond. Real speech up there (the skirt of an 's') is
      noise-like and lasts tens of ms. So: everything above the ruler (an 8th-order high-pass as four biquads), its energy
-     in 0.5 ms frames, and a click is a frame 15 dB over the median of the 40 frames around it and loud enough to hear
-     (within 45 dB of the line's own peak). Returns the count and the worst such jump. */
+     in 0.5 ms frames, and a click is a frame 20 dB over the median of the 40 frames around it and loud enough to hear
+     (within 45 dB of the line's own peak). WHY 20: a real stop's release (a t, a k) is itself a transient and measured up to
+     13.9 dB over its neighbours in these recordings; the one real click this voice ever had (a gain born at 1, 10/24) stood
+     60.9 dB over them and the planted ones 92. Returns the count and the worst such jump. */
   window.clicks = async function (buf, hz) {
     const AC = new OfflineAudioContext(1, buf.length, SR), s = AC.createBufferSource(); s.buffer = buf; let n = s;
     for (let i = 0; i < 4; i++) { const f = AC.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = hz; f.Q.value = [0.51, 0.6, 0.9, 2.56][i]; n.connect(f); n = f; }
@@ -75,7 +77,7 @@ const PAGE_LIB = `
       const around = []; for (let j = k - 20; j <= k + 20; j++) if (Math.abs(j - k) > 1) around.push(e[j]);
       around.sort((a, b) => a - b); const med = around[around.length >> 1] + 1e-20, jump = 10 * Math.log10(e[k] / med);
       if (jump > worst) worst = jump;
-      if (jump > 15) { count++; k += 2; }
+      if (jump > 20) { count++; k += 2; }
     }
     return { count: count, worst: +worst.toFixed(1) }; };
   /* THE PLANTED CLICKS, so the ruler is proven able to see one: a take started at its own loudest sample with no ramp (a
@@ -100,7 +102,8 @@ const PAGE_LIB = `
   };
 `;
 
-(async () => {
+module.exports = { PAGE_LIB, lines, MARK, RULER_HZ };
+if (require.main === module) (async () => {
   await new Promise(r => srv.listen(PORT, r));
   const br = await chromium.launch();
   const pg = await br.newPage();
@@ -110,7 +113,7 @@ const PAGE_LIB = `
   await pg.addScriptTag({ url: 'http://127.0.0.1:' + PORT + '/engine/bohemia_voice_recorded.js' });
   await pg.evaluate(PAGE_LIB);
   const L = lines();
-  const res = await pg.evaluate(async ({ L, base, hz }) => {
+  const res = await pg.evaluate(async ({ L, base, hz, mark }) => {
     window.S = BOH_VOICE_RECORDED.make({ dir: base + 'slices/voice_heard/' });
     const AC0 = new OfflineAudioContext(1, 44100, 44100);
     await S.load(AC0);
@@ -119,37 +122,43 @@ const PAGE_LIB = `
     const people = ['cand-1', 'cand-2', 'cand-3', 'cand-4', 'cand-6', 'cand-7'].map(BOH_VOICE.voiceOf)
       .concat([0, 1, 2, 3, 4, 5].map(i => BOH_VOICE.castVoice('face:person_reds_' + i)));
     const out = { old: [], neu: [], clickOld: [], clickNew: [], creep: { lines: 0, breath: 0, inside: 0, dropped: 0, doubled: 0, sag: 0, letters: 0 }, fam: {}, shift: S.shift };
-    for (let i = 0; i < L.length; i++) {
-      const v = people[i % people.length];
-      const text = BOH_VOICE.opener(L[i]);
+    /* the same lines, each by the next person; the old engine once, the new at a gain found BY STEPS: the chain's compressor
+       bends the level (at 0 dB the new voice is squashed, at -11 it is not), so one subtraction lands it 3 dB off */
+    const said = L.map((l, i) => ({ v: people[i % people.length], text: BOH_VOICE.opener(l) }));
+    async function newLevel(g) { const a = []; for (const x of said) { const n = await render('new', x.text, x.v, true, g); if (n.h) a.push(level(n.buf.getChannelData(0))); } return a.reduce((s, y) => s + y, 0) / a.length; }
+    for (let i = 0; i < said.length; i++) {
+      const { v, text } = said[i];
       const o = await render('old', text, v, true), n = await render('new', text, v, true);
       if (!n.h || !o.h) { out.skipped = (out.skipped || []).concat([text]); continue; }
       out.old.push(level(o.buf.getChannelData(0))); out.neu.push(level(n.buf.getChannelData(0)));
       const od = await render('old', text, v, false), nd = await render('new', text, v, false);
       const co = await clicks(od.buf, hz), cn = await clicks(nd.buf, hz); out.clickOld.push(co.count); out.clickNew.push(cn.count);
-      out.worstNew = Math.max(out.worstNew == null ? -99 : out.worstNew, cn.worst);
       out.secOld = (out.secOld || 0) + o.h.seconds; out.secNew = (out.secNew || 0) + n.h.seconds;
+      out.worstNew = Math.max(out.worstNew == null ? -99 : out.worstNew, cn.worst);
       const c = n.h.creep; out.creep.lines++; out.creep.letters += n.h.blips;
       if (c.breath) { out.creep.breath++; if (c.breath.inside) out.creep.inside++; }
       out.creep.dropped += c.dropped.length; out.creep.doubled += c.doubled.length; if (c.sag) out.creep.sag++;
       out.fam[n.h.family] = (out.fam[n.h.family] || 0) + 1;
     }
+    let g = mark - out.neu.reduce((s, y) => s + y, 0) / out.neu.length; out.steps = [];
+    for (let k = 0; k < 6; k++) { const m = await newLevel(g); out.steps.push([+g.toFixed(2), +m.toFixed(2)]); if (Math.abs(m - mark) < 0.1) break; g += mark - m; }
+    out.gain = +g.toFixed(2); out.atGain = out.steps[out.steps.length - 1][1];
     out.planted = await planted();
     return out;
-  }, { L, base: 'http://127.0.0.1:' + PORT + '/', hz: RULER_HZ });
+  }, { L, base: 'http://127.0.0.1:' + PORT + '/', hz: RULER_HZ, mark: MARK });
   await br.close(); srv.close();
   if (res.err) { console.log('THE SQUIGGLE LEVEL: the sprite did not load: ' + res.err); process.exit(1); }
   const mean = a => a.reduce((s, x) => s + x, 0) / a.length;
-  const gain = +(MARK - mean(res.neu)).toFixed(2);
+  const gain = res.gain;
   const idx = JSON.parse(fs.readFileSync(IDX, 'utf8'));
   idx.gain_db = gain;
   idx.level = { measured: '10/24/26', chain: 'MUS.audio: compressor -14 dB 6:1 knee 8 2 ms/120 ms, brickwall -5 dB 20:1 1 ms/80 ms',
-    mark_db: MARK, old_db: +mean(res.old).toFixed(2), new_at_0_db: +mean(res.neu).toFixed(2), lines: res.old.length, ruler_hz: RULER_HZ,
+    mark_db: MARK, at_gain_db: res.atGain, steps: res.steps, old_db: +mean(res.old).toFixed(2), new_at_0_db: +mean(res.neu).toFixed(2), lines: res.old.length, ruler_hz: RULER_HZ,
     seconds_old: +(res.secOld / res.old.length).toFixed(2), seconds_new: +(res.secNew / res.old.length).toFixed(2),
     clicks_old: res.clickOld.reduce((a, b) => a + b, 0), clicks_new: res.clickNew.reduce((a, b) => a + b, 0), worst_jump_new_db: res.worstNew, planted: res.planted, creep: res.creep };
   fs.writeFileSync(IDX, JSON.stringify(idx));
   console.log('THE SQUIGGLE LEVEL over ' + res.old.length + ' lines, his six and six cast from his envelope:');
-  console.log('  the old voice after the chain ' + mean(res.old).toFixed(1) + ' dB, the new at 0 dB ' + mean(res.neu).toFixed(1) + ' dB -> gain_db ' + gain + ' (the mark ' + MARK + '); a line ' + (res.secOld / res.old.length).toFixed(2) + ' s old, ' + (res.secNew / res.old.length).toFixed(2) + ' s new');
-  console.log('  clicks (a 0.5 ms frame above ' + RULER_HZ / 1000 + ' kHz, 15 dB over its neighbours): old ' + idx.level.clicks_old + ', new ' + idx.level.clicks_new + ' (the new\'s worst frame ' + res.worstNew + ' dB over its neighbours); the planted click: ' + JSON.stringify(res.planted));
+  console.log('  the old voice after the chain ' + mean(res.old).toFixed(1) + ' dB, the new at 0 dB ' + mean(res.neu).toFixed(1) + ' dB -> gain_db ' + gain + ' (the mark ' + MARK + ', found in ' + res.steps.length + ' steps: ' + JSON.stringify(res.steps) + '); a line ' + (res.secOld / res.old.length).toFixed(2) + ' s old, ' + (res.secNew / res.old.length).toFixed(2) + ' s new');
+  console.log('  clicks (a 0.5 ms frame above ' + RULER_HZ / 1000 + ' kHz, 20 dB over its neighbours): old ' + idx.level.clicks_old + ', new ' + idx.level.clicks_new + ' (the new\'s worst frame ' + res.worstNew + ' dB over its neighbours); the planted click: ' + JSON.stringify(res.planted));
   console.log('  the creep: ' + JSON.stringify(res.creep) + '  families ' + JSON.stringify(res.fam) + '  the decoder shift ' + res.shift.toFixed(4) + ' s');
 })().catch(e => { console.error(e); process.exit(1); });
