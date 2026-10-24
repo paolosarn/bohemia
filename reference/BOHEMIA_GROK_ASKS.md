@@ -46,6 +46,10 @@
 # ASK 35. A WORLD THAT FEELS MADE FRESH (rule 146: 'I'm not getting procedurally generated world vibes; every time I start new I spawn
 #    next to the church settlement'). How does Battle Brothers generate its world and choose the start (settlement placement, roads,
 #    factions, names)? What makes players FEEL a world is new at the first look? Cite each.
+# ASK 36. HOW FAR YOU CAN SEE IN A CITY (rule 151(g), his words: 'research how far people can realistically see, because it's a city;
+#    you should only see things straight down a street you're near'). Real sight distances in a city street by day and night, around
+#    corners and from a roof, with sources; and how games with city fog of war handle line of sight down streets. Also Battle Brothers'
+#    exact encounter card (what it shows before a fight: faces, numbers, terrain, the fall-back chance) and its followers (the retinue).
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
