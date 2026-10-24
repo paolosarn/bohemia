@@ -107,3 +107,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_56_CONTRACTS_2026_10_24.md | contracts, renown, relations
 - 2026-10-24 | ASK | GROK_ASK_57_RENOWN_RELATIONS_2026_10_24.md | renown, relations, prices
 - 2026-10-24 | ASK | GROK_ASK_58_SETTLEMENTS_2026_10_24.md | settlements, attached, situations
+- 2026-10-24 | ASK | GROK_ASK_59_WORLD_MAP_2026_10_24.md | world map, terrain, generation
