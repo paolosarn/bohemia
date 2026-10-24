@@ -17,9 +17,11 @@
      with stars, his four gear slots, his perks, his one pain line. YOUR BAG (the same 36 slots the
      market fills) sits under it: drag an item onto a gear slot (or tap it) and he wears it, and what
      he wore goes back in the bag.
-     WHO IS WEARING WHAT (RUN TWO [the crew screen reads the stash], 10/18; his twelfth vote): under the
-     lines every living man is one row with his face and his four slots FILLED; tap a slot and the bag
-     opens inside his row cut to what fits it; tap one and they swap, TAKE OFF empties the slot.
+     ONE CREW SCREEN (RUN TWO [who you hire fights, one crew screen], 10/24, rule 147(b); his 'why is it
+     showing me the crew twice?'): each man once, his face on the line; tap him and his page opens under
+     the line with his four slots FILLED; tap a slot and the bag opens inside his page cut to what fits
+     it; tap one and they swap, TAKE OFF empties the slot. (The 10/18 rows, WHO IS WEARING WHAT, are gone.)
+     Every change is kept the moment it happens, and the fight gets it (__WHO_YOU_HIRE_FIGHTS__).
 
      HOW THE GAME PLUGS IT IN: frame this page and post {type:'BOHEMIA_ROSTER_OPEN', crew?, bag?,
      formation?}. It posts back {type:'BOHEMIA_ROSTER', act:'formation', formation:{front:[idx|null x9],
@@ -78,27 +80,16 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 .slot{aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;touch-action:none}
 .slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
 .slot i{font-style:normal;font-size:15px;color:var(--gold);line-height:1}
-/* WHO IS WEARING WHAT (RUN TWO [the crew screen reads the stash], 10/18): every man in one row, his four slots filled */
-#wear{margin:0 12px 4px}
-.wrow{display:grid;grid-template-columns:40px 58px repeat(4,1fr);gap:4px;align-items:stretch;margin-bottom:4px;min-height:48px}
-.wrow.laidrow{opacity:.55}
-.wrow.sel .wname{color:var(--gold)}
-.wface{width:40px;height:40px;align-self:center;border:1px solid var(--line);border-radius:3px;image-rendering:pixelated;background:#0b0907}
-canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 shown at 72 css px scales smooth, never nearest at 1.7x (RUN TWO 10/18) */
-.wname{align-self:center;font-size:9px;line-height:1.2;overflow:hidden}
-.wname b{display:block;font-size:10px;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wname i{font-style:normal;color:var(--dim)}
-.wslot{min-height:48px;min-width:44px;background:#16110c;border:1px dashed var(--line);border-radius:3px;color:var(--ink);font:inherit;font-size:8px;line-height:1.1;padding:2px 1px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;overflow:hidden;touch-action:manipulation}
-.wslot.full{border-style:solid;background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
-.wslot.pick{outline:2px solid var(--gold);outline-offset:-1px}
-.wslot em{font-style:normal;color:var(--dim);font-size:7px;letter-spacing:.5px}
-.wslot b.arm,.gslot b.arm{display:block;font-weight:700;color:var(--gold);font-size:8px;letter-spacing:.3px;line-height:1.15;white-space:nowrap}
-.wslot b.arm.rd,.gslot b.arm.rd{color:var(--ink);font-weight:400}
-.gslot b.arm{font-size:9px;white-space:normal}
-.wslot span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wslot img.pk{width:auto;height:20px;max-width:90%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
-.wslot .bm-icon,.wslot canvas{width:22px;height:22px;image-rendering:pixelated}
-#picker{grid-column:1 / -1;display:flex;gap:4px;flex-wrap:wrap;padding:6px;border:1px solid var(--gold);border-radius:4px;background:#1a140e}
+canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 shown at 44 to 72 css px scales smooth, never nearest (RUN TWO 10/18) */
+/* __ONE_CREW_SCREEN__ (rule 147(b)): his four slots on his page, each with what he wears; a tap opens the bag cut to it */
+.gslot{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1px;cursor:pointer;min-height:64px}
+.gslot.pick{outline:2px solid var(--gold);outline-offset:-1px}
+.gslot .gn{font-size:9px;line-height:1.15;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.gslot img.pk{width:auto;height:20px;max-width:90%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
+.gslot .bm-icon,.gslot canvas{width:22px;height:22px;image-rendering:pixelated}
+.gslot b.arm{display:block;font-weight:700;color:var(--gold);font-size:9px;letter-spacing:.3px;line-height:1.15;white-space:normal}
+.gslot b.arm.rd{color:var(--ink);font-weight:400}
+#picker{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;padding:6px;border:1px solid var(--gold);border-radius:4px;background:#1a140e}
 #picker .slot{width:52px;flex:0 0 52px;min-height:52px;font-size:8px;border-color:#4a3b2c}
 #picker .slot.off{border-style:dashed;color:var(--dim)}
 #picker .none{align-self:center;color:var(--dim);font-size:10px;padding:0 4px}
@@ -131,12 +122,10 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <body>
 <div id="bar"><span class="t" id="title">YOUR COMPANY</span><button id="done">DONE</button></div>
 <div id="cols"><div id="left">
-<div class="h">THE LINE. DRAG A MAN TO MOVE HIM. FRONT FIGHTS, BACK SHOOTS.</div>
+<div class="h">YOUR LINE. TAP A MAN FOR HIS GEAR. DRAG HIM TO MOVE HIM. FRONT FIGHTS, BACK SHOOTS.</div>
 <div id="lines"><div class="ln">FRONT</div><div class="line" id="front"></div><div class="ln">BACK</div><div class="line" id="back"></div></div>
 <div class="ln" id="hurth" style="margin:0 12px;display:none">LAID UP. HE HEALS ON THE ROAD; HE CANNOT STAND IN THE LINE.</div>
 <div class="line" id="hurt" style="margin:0 12px 6px"></div>
-<div class="h" id="wearh">WHO IS WEARING WHAT. TAP A SLOT TO SWAP IT FROM THE BAG.</div>
-<div id="wear"></div>
 </div><div id="right">
 <div id="card"></div>
 <div id="said"></div>
@@ -311,25 +300,28 @@ function draw(){
     S[row].forEach(function(ix, si){
       var d = document.createElement('div'); d.className = 'cell' + (ix != null ? ' full' : '') + (ix === S.sel ? ' sel' : '');
       d.dataset.drop = row + ':' + si;
-      if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.appendChild(headCanvas(m));
+      if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.dataset.man = ix; d.appendChild(headCanvas(m));
         var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b); d.setAttribute('aria-label', m.name); }   /* a hire's name is two words (PEOPLE [the names wired in]); the 48 px slot carries the first, his card the whole */
       el.appendChild(d);
     });
   });
   var hu = document.getElementById('hurt'); hu.textContent = ''; var any = false;
   S.crew.forEach(function(m, i){ if(!laid(m)) return; any = true;
-    var d = document.createElement('div'); d.className = 'cell full laid' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:hurt:' + i; d.dataset.hurt = i;
+    var d = document.createElement('div'); d.className = 'cell full laid' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:hurt:' + i; d.dataset.hurt = i; d.dataset.man = i;
     d.appendChild(headCanvas(m)); var b = document.createElement('b'); var bn = document.createElement('span'); bn.className = 'nmx'; bn.textContent = m.name; b.appendChild(bn);
     b.appendChild(document.createTextNode(m.hurt.days + 'd')); d.appendChild(b); hu.appendChild(d); });   /* his name beside his days where there is room (a phone upright) */
   document.getElementById('hurth').style.display = any ? 'block' : 'none';
-  drawWear(); drawCard(); drawBag();
+  drawCard(); drawBag(); talkOnLine();
 }
-/* WHO IS WEARING WHAT (RUN TWO [the crew screen reads the stash], 10/18; his twelfth vote: 'still not a button for me to
-   view my crew, equip them with items from my storage'). Every living man is one row: his face, his name and level, his
-   four slots FILLED with what he wears (the pack's own tile for a weapon, the materials' icon for the rest, rule 101:
-   placeholders). Tap a slot and the bag opens right under his row, showing ONLY what fits that slot; tap one and they
-   swap: he wears it, what he wore goes back in the bag. TAKE OFF empties the slot into the bag. Nothing pops up over
-   the screen (rule 19a): the picker is a strip inside his row. */
+/* ==== __ONE_CREW_SCREEN__ (RUN TWO [who you hire fights, one crew screen], rule 147(b), Paolo 10/24: 'the crew page is fucked
+   up, why is it showing me the crew twice? It should be simplified: one face, all the inventory; there's one for the battle
+   line and one for their inventory, but when I click them it should be the same, I don't need to see the crew twice').
+   EACH MAN ONCE, ONE FACE: his face stands on the line (front or back) and nowhere else; the second list (WHO IS WEARING
+   WHAT, 10/18) is gone. TAP HIM and his page opens right under the line on this same screen, Battle Brothers' way: his
+   whole body (the 3D model), his name, level, stats and stars, and his FOUR SLOTS with what he wears (the pack's own tile for
+   a weapon, the materials' icon for the rest, rule 101: placeholders) and his gun's reach. Tap a slot and the bag opens
+   inside his page cut to what fits it; tap one and they swap, TAKE OFF puts his back in the bag; or drag from the bag below.
+   He says his line with the face on the line (rule 19c). Nothing pops up over the screen (rule 19a). ==== */
 var SLOT_NAME = {main:'MAIN HAND', off:'OFF HAND', body:'BODY', head:'HEAD'};
 var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'w_rifle', firearm:'w_shotgun', throwing:'w_bottles', throwable_item:'w_bottles',
   sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole'};
@@ -345,29 +337,18 @@ function itemPic(it, px){
   var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; g.style.fontSize = '15px'; g.style.color = 'var(--gold)'; return g;
 }
 function fits(it, slot){ return !!it && C.slotFor(it) === slot; }
-function drawWear(){
-  var el = document.getElementById('wear'); el.textContent = '';
-  S.crew.forEach(function(m, i){
-    if(m.dead) return;
-    var r = document.createElement('div'); r.className = 'wrow' + (i === S.sel ? ' sel' : '') + (laid(m) ? ' laidrow' : ''); r.dataset.man = i;
-    var fc = faceCanvas(m); fc.className = 'wface'; r.appendChild(fc);
-    var nm = document.createElement('div'); nm.className = 'wname';
-    var b = document.createElement('b'); b.textContent = m.name; nm.appendChild(b);
-    var lv = document.createElement('i'); lv.textContent = laid(m) ? 'LAID UP ' + m.hurt.days + 'd' : 'LEVEL ' + m.level; nm.appendChild(lv); r.appendChild(nm);
-    ['main','off','body','head'].forEach(function(s){
-      var it = m.gear[s], d = document.createElement('button'); d.className = 'wslot' + (it ? ' full' : '') + (S.pick && S.pick.man === i && S.pick.slot === s ? ' pick' : '');
-      d.dataset.wslot = s; d.dataset.man = i; d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[s] + ': ' + (it ? it.name : 'empty'));
-      var lab = document.createElement('em'); lab.textContent = SLOT_NAME[s].replace(' HAND',''); d.appendChild(lab);
-      if(it){ d.appendChild(itemPic(it, 22)); var n = document.createElement('span'); n.textContent = shortName(it); d.appendChild(n);
-        var al = s === 'main' && armLine(it); if(al){ var ar = document.createElement('b'); ar.className = 'arm'; ar.dataset.reach = al.reach; ar.textContent = al.reach; d.appendChild(ar);
-          if(al.rounds){ var rd = document.createElement('b'); rd.className = 'arm rd'; rd.textContent = al.rounds; d.appendChild(rd); } } }
-      else { var e = document.createElement('span'); e.textContent = '—'; e.style.color = 'var(--dim)'; d.appendChild(e); }
-      d.addEventListener('click', function(){ if(S.dragged) return; togglePick(i, s); });
-      r.appendChild(d);
-    });
-    if(S.pick && S.pick.man === i) r.appendChild(pickerFor(m, i, S.pick.slot));
-    el.appendChild(r);
-  });
+/* he says his line with the face on the line, once each time he is picked */
+function talkOnLine(){
+  if(S.talked === S.sel) return; S.talked = S.sel;
+  var m = S.crew[S.sel], F = window.BohemiaCrewFaces; if(!m || !S.line || !F) return;
+  var c = document.querySelector('.cell[data-man="' + S.sel + '"] canvas.head');
+  if(c && c.dataset.face === 'fresh') F.talk(c, m.look, S.line);
+}
+/* his page opens under the line: if it is below the glass, the screen brings it up (the line stays in sight above it) */
+function reveal(){
+  var c = document.getElementById('card'); if(!c || !c.getBoundingClientRect) return;
+  var r = c.getBoundingClientRect(), h = window.innerHeight || 800;
+  if(r.top > h * 0.72) window.scrollBy({top: r.top - h * 0.42, behavior: 'smooth'});
 }
 function togglePick(i, s){
   if(S.pick && S.pick.man === i && S.pick.slot === s){ S.pick = null; draw(); return; }
@@ -396,7 +377,8 @@ function stars(n){ return n ? '★'.repeat(n) : ''; }
 function drawCard(){
   var el = document.getElementById('card'); el.textContent = '';
   var m = S.crew[S.sel]; if(!m) return;
-  var top = document.createElement('div'); top.className = 'top'; var rb = rigBody(m, S.sel); if(rb) top.appendChild(rb); var fc = faceCanvas(m); top.appendChild(fc);
+  /* __ONE_CREW_SCREEN__: his page is his whole body; his face is the one on the line (a man with no model yet keeps his face here) */
+  var top = document.createElement('div'); top.className = 'top'; var rb = rigBody(m, S.sel); top.appendChild(rb || faceCanvas(m));
   var t = document.createElement('div');
   t.innerHTML = '<div class="nm"></div><div class="sub"></div><div class="pain"></div>';
   t.querySelector('.nm').textContent = m.name;
@@ -407,7 +389,7 @@ function drawCard(){
   t.querySelector('.sub').appendChild(xb);
   var pl = m.mark && window.BohemiaLongInjury ? BohemiaLongInjury.painLine(m.mark.id) : null;
   t.querySelector('.pain').textContent = '“' + (pl || m.pain) + '”';
-  if(fc.dataset.face === 'fresh') BohemiaCrewFaces.talk(fc, m.look, pl || m.pain);   /* his line, said: the mouth moves on the beat (RUN TWO 10/18) */
+  S.line = pl || m.pain;   /* he says it with the face on the line (talkOnLine) */
   top.appendChild(t); el.appendChild(top);
   var st = document.createElement('div'); st.className = 'stats';
   C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.textContent = C.STAT_NAME[k];
@@ -416,17 +398,21 @@ function drawCard(){
     r.appendChild(a); r.appendChild(v); r.dataset.stat = k; st.appendChild(r); });
   el.appendChild(st);
   var g = document.createElement('div'); g.className = 'gear';
-  [['main','MAIN HAND'],['off','OFF HAND'],['body','BODY'],['head','HEAD']].forEach(function(p){
-    var it = m.gear[p[0]], d = document.createElement('div'); d.className = 'gslot' + (it ? ' full' : ''); d.dataset.drop = 'gear:' + p[0]; d.dataset.slot = p[0];
-    var lab = document.createElement('i'); lab.textContent = p[1]; d.appendChild(lab);
-    if(it){ var nm = document.createElement('div'); nm.textContent = it.name; d.appendChild(nm); var al = p[0] === 'main' && armLine(it, true);
-      var n2 = document.createElement('i'); n2.textContent = al ? String(it.nums).replace(/\s+reach \d+/, '') : it.nums; d.appendChild(n2); d.dataset.drag = 'gear:' + p[0];   /* the reach is his arm's in the fight, below; the row's own number would contradict it */ if(al){ var ar = document.createElement('b'); ar.className = 'arm'; ar.textContent = al.reach; d.appendChild(ar);
+  ['main','off','body','head'].forEach(function(sl){
+    var it = m.gear[sl], d = document.createElement('div'); d.className = 'gslot' + (it ? ' full' : '') + (S.pick && S.pick.man === S.sel && S.pick.slot === sl ? ' pick' : '');
+    d.dataset.drop = 'gear:' + sl; d.dataset.slot = sl; d.setAttribute('role', 'button'); d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[sl] + ': ' + (it ? it.name : 'empty'));
+    var lab = document.createElement('i'); lab.textContent = SLOT_NAME[sl]; d.appendChild(lab);
+    if(it){ var pic = itemPic(it, 22); pic.classList.add('bm-icon'); pic.dataset.id = it.id; d.appendChild(pic);   /* the kit's own icon mark, so the paint layer never adds a second */
+      var nm = document.createElement('div'); nm.className = 'gn'; nm.textContent = it.name; d.appendChild(nm); var al = sl === 'main' && armLine(it, true);
+      var n2 = document.createElement('i'); n2.textContent = al ? String(it.nums).replace(/\s+reach \d+/, '') : it.nums; d.appendChild(n2); d.dataset.drag = 'gear:' + sl;   /* the reach is his arm's in the fight, below; the row's own number would contradict it */
+      if(al){ var ar = document.createElement('b'); ar.className = 'arm'; ar.dataset.reach = al.reach; ar.textContent = al.reach; d.appendChild(ar);
         if(al.rounds){ var rd = document.createElement('b'); rd.className = 'arm rd'; rd.textContent = al.rounds; d.appendChild(rd); } } }
     else { var e = document.createElement('div'); e.textContent = '—'; d.appendChild(e); }
-    d.addEventListener('click', function(){ if(S.dragged) return; if(m.gear[p[0]]) unequip(p[0]); });
+    d.addEventListener('click', function(){ if(S.dragged) return; togglePick(S.sel, sl); });   /* the bag, cut to what fits, opens here */
     g.appendChild(d);
   });
   el.appendChild(g);
+  if(S.pick && S.pick.man === S.sel) el.appendChild(pickerFor(m, S.sel, S.pick.slot));
   if(m.mark){ var hb = document.createElement('div'); hb.className = 'hurtbox';
     var h1 = document.createElement('b'); h1.textContent = laid(m) ? 'LAID UP ' + m.hurt.days + ' OF ' + m.hurt.of + ' DAYS' : 'HEALED, BUT MARKED'; hb.appendChild(h1);
     var h2 = document.createElement('i'); h2.className = 'mark'; h2.textContent = 'FOR GOOD: ' + m.mark.name.toUpperCase() + (m.mark.line ? ', ' + m.mark.line : ''); hb.appendChild(h2);
@@ -501,7 +487,7 @@ function moveMan(fromRow, fromI, toRow, toI){
     if(!src) return; var s = src; src = null; ghost.style.display = 'none'; if(over) over.classList.remove('over');
     var p = s.split(':');
     if(!S.dragged){
-      if(p[0] === 'man'){ S.sel = p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]; draw(); }
+      if(p[0] === 'man'){ var was = S.sel; S.sel = p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]; if(S.sel !== was) S.pick = null; draw(); reveal(); }
       return;
     }
     var t = document.elementFromPoint(e.clientX, e.clientY), dz = t && t.closest('[data-drop]');

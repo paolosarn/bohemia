@@ -9546,7 +9546,7 @@ GATES = [
      "at the post, buy a gun at the smith, CREW, drag it onto a hire's hand and the other hire to the back, never DONE; the door "
      "hands the fight both hires, the gun and the line; every man on the line stands on the board, the armed hire holds it, the "
      "moved one is in the back; again after a reload (the gun used to vanish); NEW GAME wipes the old hires. The old door read "
-     "red 9 of 16 (3 of 5 men in the fight). green at registration, 16/0, about 1 min", True),
+     "red 9 of 16 (3 of 5 men in the fight); ONE CREW SCREEN leg (rule 147(b)). green at registration, 17/0, about 1 min", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

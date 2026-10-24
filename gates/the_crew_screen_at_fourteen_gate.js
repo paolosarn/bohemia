@@ -42,9 +42,10 @@ const READ = () => {
     const f = c.querySelector('canvas'), b = c.querySelector('b'), r = f.getBoundingClientRect();
     return { face: f.dataset.face, on: on(r) && on(c.getBoundingClientRect()), w: Math.round(r.width), text: b ? b.textContent : '', whole: b ? b.scrollWidth <= b.clientWidth + 1 : false, hurt: c.classList.contains('laid') };
   });
-  const slots = [...document.querySelectorAll('#wear .wslot')].map(e => e.getBoundingClientRect());
+  /* ONE CREW SCREEN (rule 147(b), 10/24): the rows are gone; the slots are the picked man's four, on his page */
+  const slots = [...document.querySelectorAll('#card .gslot')].map(e => e.getBoundingClientRect());
   const card = document.getElementById('card').getBoundingClientRect(), bag = [...document.querySelectorAll('#bag .slot')].map(e => e.getBoundingClientRect());
-  const rows = [...document.querySelectorAll('#wear .wrow')].map(e => e.getBoundingClientRect());
+  const rows = [...document.querySelectorAll('#lines')].map(e => e.getBoundingClientRect());
   return { W, H, docW: document.documentElement.scrollWidth, men, crew: BohemiaRosterScreen.state.crew.map(m => ({ name: m.name, laid: !!(m.hurt && m.hurt.days > 0) })),
     slotsOn: slots.every(r => on(r)), slotsBig: slots.every(r => r.width >= 44 && r.height >= 44), nSlots: slots.length,
     cardTop: Math.round(card.top + window.scrollY), cardLeft: Math.round(card.left), wearLeft: Math.round((rows[0] || card).left),
@@ -73,7 +74,7 @@ const READ = () => {
     ok('  every man in the line and the laid-up strip is a fresh face on the glass, 44 wide, his whole name beside it', r.men.length === living && r.men.every(m => m.face === 'fresh' && m.on && m.w >= 44 && m.whole)
        && r.crew.every(c => r.men.some(m => m.text.indexOf(c.name) >= 0)), r.men.length + ' of ' + living + (r.men.filter(m => !m.whole || !m.on).map(m => ' cut:' + m.text).join('')));
     ok('  a laid-up man shows his name and his days', r.men.filter(m => m.hurt).length === laidN && r.men.filter(m => m.hurt).every(m => /\d+d$/.test(m.text) && /[A-Za-z]{3}/.test(m.text)), r.men.filter(m => m.hurt).map(m => m.text).join(', ') || 'none laid up');
-    ok('  every man\'s four gear slots are on the glass and thumb-sized', r.nSlots === living * 4 && r.slotsOn && r.slotsBig, r.nSlots + ' slots');
+    ok('  the picked man\'s four gear slots, on his page, are on the glass and thumb-sized', r.nSlots === 4 && r.slotsOn && r.slotsBig, r.nSlots + ' slots');
   }
   /* a man dragged from FRONT to BACK still moves, the line standing up */
   const mv = await p.evaluate(() => { const s = BohemiaRosterScreen.state; const i = s.front.findIndex(x => x != null), j = s.back.findIndex(x => x == null); return { i, j, man: s.front[i] }; });

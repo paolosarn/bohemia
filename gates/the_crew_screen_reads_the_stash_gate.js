@@ -41,48 +41,54 @@ const STASH = [
   await p.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready, null, { timeout: 30000 });
   await p.waitForTimeout(900);
   ok('every file the screen loads is there', missing.length === 0, missing.slice(0, 2).join(' '));
-  /* 1. every living man is a row with four slots, his gear filled in */
-  const rows = await p.evaluate(() => { const S = BohemiaRosterScreen.state, live = S.crew.filter(m => !m.dead);
-    const rs = [].slice.call(document.querySelectorAll('#wear .wrow'));
-    return { live: live.length, rows: rs.length, slots: rs.map(r => r.querySelectorAll('.wslot').length),
-      filled: rs.map(r => { const m = S.crew[+r.dataset.man]; return ['main', 'off', 'body', 'head'].every(s => { const d = r.querySelector('.wslot[data-wslot="' + s + '"]');
-        return !!m.gear[s] === d.classList.contains('full') && (!m.gear[s] || d.textContent.indexOf(m.gear[s].name.replace(/^(a|an) /, '').split(' ').slice(-1)[0]) >= 0); }); }),
-      faces: rs.map(r => { const c = r.querySelector('canvas.wface'); if (!c) return 0; const d = c.getContext('2d').getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; }),
-      tiles: rs.filter(r => r.querySelector('.wslot[data-wslot="main"] img.pk')).length,
-      worn: live.filter(m => m.gear.main).length }; });
-  ok('every living man is one row on the company screen', rows.rows === rows.live && rows.live >= 3, rows.rows + ' rows for ' + rows.live + ' men');
-  ok('  each row has his four slots (main, off, body, head)', rows.slots.every(n => n === 4), rows.slots.join(','));
-  ok('  and every slot reads what he wears: full where he has it, empty where he does not, the name on it', rows.filled.every(Boolean), rows.filled.filter(Boolean).length + ' of ' + rows.filled.length);
-  ok('  his face on every row, drawn from his own sheet', rows.faces.every(n => n > 400), rows.faces.join(','));
-  ok('  a worn weapon shows the pack\'s own tile, not a glyph', rows.tiles === rows.worn && rows.worn >= 1, rows.tiles + ' of ' + rows.worn);
+  /* ONE CREW SCREEN (rule 147(b), Paolo 10/24: 'why is it showing me the crew twice? ... one face, all the inventory... when
+     I click them it should be the same'): the rows of 10/18 are gone; each man is his face on the line, and a tap on it opens
+     his page on the same screen with his four slots filled. Every leg below is that screen. */
+  const tapMan = async (i) => { await p.locator('#lines .cell[data-man="' + i + '"]').first().click(); await p.waitForTimeout(200); };
+  /* 1. every living man once on the line; tap each and his page reads his four slots */
+  const live = await p.evaluate(() => BohemiaRosterScreen.state.crew.map((m, i) => ({ i, dead: m.dead, laid: !!(m.hurt && m.hurt.days > 0) })).filter(m => !m.dead && !m.laid).map(m => m.i));
+  const cells = await p.evaluate(() => [].slice.call(document.querySelectorAll('#lines .cell[data-man]')).map(c => +c.dataset.man));
+  const noWear = await p.evaluate(() => !document.getElementById('wear') && !document.querySelector('.wrow'));
+  ok('every living man is on the line once, and nowhere else (no second list)', cells.length === live.length && live.every(i => cells.filter(x => x === i).length === 1) && noWear,
+     cells.length + ' faces on the line for ' + live.length + ' men');
+  const pages = [];
+  for (const i of live) { await tapMan(i); pages.push(await p.evaluate(i => { const S = BohemiaRosterScreen.state, m = S.crew[i], c = document.getElementById('card');
+    return { sel: S.sel === i, name: (c.querySelector('.nm') || {}).textContent === m.name, slots: c.querySelectorAll('.gslot').length,
+      filled: ['main', 'off', 'body', 'head'].every(s => { const d = c.querySelector('.gslot[data-slot="' + s + '"]'); return d && !!m.gear[s] === d.classList.contains('full') && (!m.gear[s] || d.textContent.indexOf(m.gear[s].name) >= 0); }),
+      tile: !m.gear.main || !!c.querySelector('.gslot[data-slot="main"] img.pk'), face: (() => { const f = document.querySelector('#lines .cell[data-man="' + i + '"] canvas.head'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, f.width, f.height).data; let n = 0; for (let k = 3; k < d.length; k += 4) if (d[k] > 0) n++; return n; })() }; }, i)); }
+  ok('  a tap on each face opens his page on the same screen, his name on it', pages.every(x => x.sel && x.name), pages.filter(x => x.sel && x.name).length + ' of ' + pages.length);
+  ok('  his page has his four slots (main, off, body, head)', pages.every(x => x.slots === 4), pages.map(x => x.slots).join(','));
+  ok('  and every slot reads what he wears: full where he has it, empty where he does not, the name on it', pages.every(x => x.filled), pages.filter(x => x.filled).length + ' of ' + pages.length);
+  ok('  his face on the line is drawn', pages.every(x => x.face > 400), pages.map(x => x.face).join(','));
+  ok('  a worn weapon shows the pack\'s own tile, not a glyph', pages.every(x => x.tile));
   /* 2. thumb-sized and on the glass */
-  const fit = await p.evaluate(() => { const ss = [].slice.call(document.querySelectorAll('#wear .wslot')).map(e => e.getBoundingClientRect());
+  const fit = await p.evaluate(() => { const ss = [].slice.call(document.querySelectorAll('#card .gslot, #lines .cell')).map(e => e.getBoundingClientRect());
     return { small: ss.filter(r => r.height < 44 || r.width < 44).length, over: Math.max.apply(null, ss.map(r => r.right)) <= window.innerWidth, w: Math.round(Math.min.apply(null, ss.map(r => r.width))), h: Math.round(Math.min.apply(null, ss.map(r => r.height))) }; });
-  ok('every slot is thumb-sized (44 or more) and no row runs off the glass', fit.small === 0 && fit.over, 'smallest ' + fit.w + 'x' + fit.h);
+  ok('every slot and every face is thumb-sized (44 or more) and nothing runs off the glass', fit.small === 0 && fit.over, 'smallest ' + fit.w + 'x' + fit.h);
   /* 3. the stash is the bag */
   const inBag = await p.evaluate(ids => ids.every(id => BohemiaRosterScreen.state.bag.some(i => i.id === id)), STASH.map(i => i.id));
-  ok('the stash\'s three items are in the bag under the rows', inBag);
-  /* 4. tap the second man's HEAD slot: the picker opens inside his row with ONLY what fits a head */
+  ok('the stash\'s three items are in the bag under his page', inBag);
+  /* 4. tap the second man's face, then his HEAD slot: the picker opens inside his page with ONLY what fits a head */
   const who = await p.evaluate(() => { const S = BohemiaRosterScreen.state; const i = S.crew.findIndex((m, k) => !m.dead && k !== S.sel); return { i, name: S.crew[i].name, oldHead: S.crew[i].gear.head && S.crew[i].gear.head.id }; });
-  await p.click('#wear .wrow[data-man="' + who.i + '"] .wslot[data-wslot="head"]'); await p.waitForTimeout(300);
-  const pk = await p.evaluate(i => { const r = document.querySelector('#wear .wrow[data-man="' + i + '"]'), pkr = r && r.querySelector('#picker');
+  await tapMan(who.i); await p.click('#card .gslot[data-slot="head"]'); await p.waitForTimeout(300);
+  const pk = await p.evaluate(i => { const r = document.getElementById('card'), pkr = r && r.querySelector('#picker');
     return { inRow: !!pkr, offered: pkr ? [].slice.call(pkr.querySelectorAll('.slot.full')).map(e => e.getAttribute('aria-label')) : [], off: !!(pkr && pkr.querySelector('.slot.off')),
-      sel: BohemiaRosterScreen.state.sel, said: document.getElementById('said').textContent, lit: !!r.querySelector('.wslot.pick[data-wslot="head"]') }; }, who.i);
-  ok('tap his HEAD slot and the bag opens inside his row, the slot lit, his card below', pk.inRow && pk.lit && pk.sel === who.i, who.name + ': ' + pk.said);
+      sel: BohemiaRosterScreen.state.sel, said: document.getElementById('said').textContent, lit: !!r.querySelector('.gslot.pick[data-slot="head"]') }; }, who.i);
+  ok('tap his face, then his HEAD slot, and the bag opens inside his page, the slot lit', pk.inRow && pk.lit && pk.sel === who.i, who.name + ': ' + pk.said);
   ok('  it offers only what fits a head: the hard hat, never the rifle or the vest', pk.offered.length === 1 && /hard hat/.test(pk.offered[0]), pk.offered.join(' | '));
   ok('  and TAKE OFF, since he wears something there', pk.off === !!who.oldHead, 'wore ' + who.oldHead);
   /* 5. tap the hat: he wears it, what he wore goes back in the bag */
-  await p.click('#wear .wrow[data-man="' + who.i + '"] #picker .slot.full'); await p.waitForTimeout(300);
+  await p.click('#card #picker .slot.full'); await p.waitForTimeout(300);
   const h = await p.evaluate(i => { const S = BohemiaRosterScreen.state, m = S.crew[i]; return { head: m.gear.head && m.gear.head.id, bagHas: S.bag.some(x => x.id === 'kettle_hat'), bagOld: S.bag.map(x => x.id),
-    rowText: document.querySelector('#wear .wrow[data-man="' + i + '"] .wslot[data-wslot="head"]').textContent, picker: !!document.getElementById('picker'),
+    rowText: document.querySelector('#card .gslot[data-slot="head"]').textContent, picker: !!document.getElementById('picker'),
     post: (window.__rosterLog || []).filter(x => x.act === 'equip' && x.who === m.idx && x.slot === 'head' && x.item && x.item.id === 'kettle_hat').length }; }, who.i);
-  ok('tap the hat and he wears it: his row reads hat, the bag lost it, the picker closed', h.head === 'kettle_hat' && !h.bagHas && /hat/.test(h.rowText) && !h.picker, who.name + ' head -> ' + h.head);
+  ok('tap the hat and he wears it: his page reads hat, the bag lost it, the picker closed', h.head === 'kettle_hat' && !h.bagHas && /hat/.test(h.rowText) && !h.picker, who.name + ' head -> ' + h.head);
   ok('  what he wore went back in the bag', !who.oldHead || h.bagOld.indexOf(who.oldHead) >= 0, 'bag: ' + h.bagOld.join(', '));
   ok('  and the game was told who put on what', h.post === 1);
   /* 6. swap his main hand for the rifle: the old gun is back in the bag, the bag's count unchanged */
   const bagN = await p.evaluate(() => BohemiaRosterScreen.state.bag.length);
   const oldMain = await p.evaluate(i => BohemiaRosterScreen.state.crew[i].gear.main && BohemiaRosterScreen.state.crew[i].gear.main.id, who.i);
-  await p.click('#wear .wrow[data-man="' + who.i + '"] .wslot[data-wslot="main"]'); await p.waitForTimeout(250);
+  await p.click('#card .gslot[data-slot="main"]'); await p.waitForTimeout(250);
   const offered = await p.evaluate(() => [].slice.call(document.querySelectorAll('#picker .slot.full')).map(e => e.getAttribute('aria-label')));
   ok('tap his MAIN slot: the rifle is offered, the hat and the vest are not', offered.length === 1 && /rifle/.test(offered[0]), offered.join(' | '));
   await p.screenshot({ path: SHOT });
@@ -90,13 +96,15 @@ const STASH = [
   const sw = await p.evaluate(a => { const S = BohemiaRosterScreen.state, m = S.crew[a.i]; return { main: m.gear.main && m.gear.main.id, bagN: S.bag.length, same: S.bag.length === a.n, ids: S.bag.map(x => x.id) }; }, { i: who.i, n: bagN });
   ok('tap the rifle and they swap: he holds the rifle, his old gun is in the bag, the bag\'s count unchanged', sw.main === 'light_crossbow' && (!oldMain || sw.ids.indexOf(oldMain) >= 0) && sw.same, oldMain + ' -> ' + sw.main + ', bag ' + sw.bagN);
   /* 7. TAKE OFF empties a slot into the bag */
-  await p.click('#wear .wrow[data-man="' + who.i + '"] .wslot[data-wslot="head"]'); await p.waitForTimeout(250);
+  await p.click('#card .gslot[data-slot="head"]'); await p.waitForTimeout(250);
   await p.click('#picker .slot.off'); await p.waitForTimeout(300);
-  const off = await p.evaluate(i => { const S = BohemiaRosterScreen.state; return { head: S.crew[i].gear.head, inBag: S.bag.some(x => x.id === 'kettle_hat'), row: document.querySelector('#wear .wrow[data-man="' + i + '"] .wslot[data-wslot="head"]').classList.contains('full') }; }, who.i);
-  ok('TAKE OFF empties the slot into the bag and the row reads empty', !off.head && off.inBag && !off.row);
+  const off = await p.evaluate(i => { const S = BohemiaRosterScreen.state; return { head: S.crew[i].gear.head, inBag: S.bag.some(x => x.id === 'kettle_hat'), row: document.querySelector('#card .gslot[data-slot="head"]').classList.contains('full') }; }, who.i);
+  ok('TAKE OFF empties the slot into the bag and his page reads empty', !off.head && off.inBag && !off.row);
   /* 8. the company the fight reads carries what the rows show */
   const co = await p.evaluate(i => { const S = BohemiaRosterScreen.state, c = BohemiaRosterScreen.company().find(m => m.name === S.crew[i].name); return c && c.gear; }, who.i);
   ok('the company handed to the fight carries the rifle in his main hand and nothing on his head', co && co.main === 'light_crossbow' && co.head === null, JSON.stringify(co));
+  const ho = await p.evaluate(i => { const n = BohemiaRosterScreen.state.crew[i].name, c = JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]').find(m => m.name === n); return c && c.gear; }, who.i);
+  ok('  and the game already holds it, DONE never tapped (rule 147(a), the hand-over)', ho && ho.main === 'light_crossbow' && ho.head === null, JSON.stringify(ho));
   ok('nothing threw on the company screen', errs.length === 0, errs.slice(0, 2).join(' | '));
   /* 9. the same rows through the one door from the settlement screen (the CREW button in its bar) */
   const s = await ctx.newPage(); const errs2 = []; s.on('pageerror', e => errs2.push(String(e.message)));
@@ -107,9 +115,11 @@ const STASH = [
   const F = () => s.frames().find(f => /ROSTER_SCREEN/.test(f.url()));
   for (let i = 0; i < 60 && !(F() && await F().evaluate(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready).catch(() => false)); i++) await s.waitForTimeout(250);
   const R = F(); await s.waitForTimeout(600);
-  const door = R ? await R.evaluate(() => { const S = BohemiaRosterScreen.state; return { rows: document.querySelectorAll('#wear .wrow').length, live: S.crew.filter(m => !m.dead).length,
-    rifle: document.querySelector('#wear .wslot[data-wslot="main"] img.pk[src*="w_rifle"]') ? 1 : 0, kept: S.crew.some(m => m.gear.main && m.gear.main.id === 'light_crossbow') }; }) : null;
-  ok('CREW in the settlement\'s bar opens the same rows over the place, and the rifle he put on is still in his hand', door && door.rows === door.live && door.live >= 3 && door.kept && door.rifle === 1, door && (door.rows + ' rows, rifle tile ' + door.rifle));
+  const armedI = R ? await R.evaluate(() => BohemiaRosterScreen.state.crew.findIndex(m => m.gear.main && m.gear.main.id === 'light_crossbow')) : -1;
+  if (R && armedI >= 0) { await s.frameLocator('#crewdoor iframe').locator('#lines .cell[data-man="' + armedI + '"]').first().click(); await s.waitForTimeout(300); }
+  const door = R ? await R.evaluate(() => { const S = BohemiaRosterScreen.state; return { faces: document.querySelectorAll('#lines .cell[data-man]').length, live: S.crew.filter(m => !m.dead && !(m.hurt && m.hurt.days > 0)).length,
+    rifle: document.querySelector('#card .gslot[data-slot="main"] img.pk[src*="w_rifle"]') ? 1 : 0, kept: S.crew.some(m => m.gear.main && m.gear.main.id === 'light_crossbow') }; }) : null;
+  ok('CREW in the settlement\'s bar opens the same screen over the place, and the rifle he put on is still in his hand', door && door.faces === door.live && door.live >= 3 && door.kept && door.rifle === 1, door && (door.faces + ' faces, rifle tile ' + door.rifle));
   ok('nothing threw through the door', errs2.length === 0, errs2.slice(0, 2).join(' | '));
   await b.close(); srv.close();
   console.log('\nTHE CREW SCREEN READS THE STASH: ' + pass + ' ok, ' + fail + ' failed');

@@ -86,6 +86,10 @@ const B = 'http://127.0.0.1:' + PORT;
   const R = F(); await p.waitForTimeout(500);
   const line0 = await R.evaluate(() => { const s = BohemiaRosterScreen.state; const on = s.front.concat(s.back).filter(i => i != null).map(i => s.crew[i].name); return { on, crew: s.crew.map(m => m.name) }; });
   ok('W3 the company screen: the origin\'s three and both hires stand on the line', line0.crew.length === 5 && hired.every(n => line0.on.indexOf(n) >= 0), line0.on.join(', '));
+  /* ONE CREW SCREEN (rule 147(b)): each man once, one face, on the line; no second list of the same crew */
+  const once = await R.evaluate(() => { const S = BohemiaRosterScreen.state, ids = [].slice.call(document.querySelectorAll('#lines .cell[data-man]')).map(c => +c.dataset.man);
+    return { faces: document.querySelectorAll('canvas.head, canvas.wface, #card canvas.face').length, men: S.crew.length, once: S.crew.every((m, i) => ids.filter(x => x === i).length === 1), list: !!document.getElementById('wear') || !!document.querySelector('.wrow') }; });
+  ok('  ONE CREW SCREEN: each man once, one face on the line, no second list', once.once && once.faces === once.men && !once.list, once.faces + ' faces for ' + once.men + ' men');
   const fr = p.frameLocator('#crewdoor iframe');
   const centre = async (loc) => { await loc.scrollIntoViewIfNeeded(); const q = await loc.boundingBox(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; };
   const drag = async (a, z) => { await p.mouse.move(a.x, a.y); await p.mouse.down(); await p.mouse.move(a.x + 10, a.y - 10, { steps: 3 }); await p.mouse.move(z.x, z.y, { steps: 14 }); await p.mouse.up(); await p.waitForTimeout(400); };

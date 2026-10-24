@@ -50,13 +50,15 @@ const srv = http.createServer((rq, rs) => {
      the portrait, not when you zoom in on the creepy model's face'): every face on the line, the wear rows and the card is
      PORTRAIT's fresh portrait, drawn, never a crop of a body (gates/no_face_from_a_body_gate.js reads every pixel) */
   await p.waitForTimeout(600);
+  /* ONE CREW SCREEN (rule 147(b), 10/24): each man once, one face: the line's faces and the laid-up strip's, never a second list */
   const rig = await p.evaluate(() => { const cs = [].slice.call(document.querySelectorAll('canvas.head, canvas.wface, #card canvas.face'));
     const drawn = c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n > c.width * c.height * 0.5; };
-    return { n: cs.length, rig: cs.filter(c => c.dataset.face === 'fresh').length, drawn: cs.filter(drawn).length }; });
-  ok('  every face on the screen is PORTRAIT\'s fresh portrait and drawn, never a crop of a body', rig.n >= 25 && rig.rig === rig.n && rig.drawn === rig.n, rig.rig + ' fresh of ' + rig.n + ', ' + rig.drawn + ' drawn');
+    const men = BohemiaRosterScreen.state.crew.filter(m => !m.dead).length;
+    return { n: cs.length, men: men, rig: cs.filter(c => c.dataset.face === 'fresh').length, drawn: cs.filter(drawn).length }; });
+  ok('  every face on the screen is PORTRAIT\'s fresh portrait and drawn, never a crop of a body; each man\'s face once', rig.n === rig.men && rig.rig === rig.n && rig.drawn === rig.n, rig.rig + ' fresh of ' + rig.n + ' for ' + rig.men + ' men, ' + rig.drawn + ' drawn');
   const card = await p.evaluate(() => { const c = document.getElementById('card'); return { stats: c.querySelectorAll('.stats > div').length, stars: c.querySelectorAll('.stars').length, gear: c.querySelectorAll('.gslot').length,
-    pain: (c.querySelector('.pain') || {}).textContent || '', sub: (c.querySelector('.sub') || {}).textContent || '', face: (() => { const f = c.querySelector('canvas.face'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
-  ok('a man\'s card: his face, background, level, wage, eight stats, stars, four gear slots, one pain line',
+    pain: (c.querySelector('.pain') || {}).textContent || '', sub: (c.querySelector('.sub') || {}).textContent || '', face: (() => { const f = c.querySelector('canvas.rbody, canvas.face'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, f.width, f.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
+  ok('a man\'s card: his whole body (his face is the one on the line), background, level, wage, eight stats, stars, four gear slots, one pain line',
      card.face > 400 && card.stats === 8 && card.stars >= 1 && card.gear === 4 && card.pain.length > 10 && /LEVEL 1/.test(card.sub) && /BATT A DAY/.test(card.sub),
      card.sub + ' | stars on ' + card.stars + ' | ' + card.pain.slice(0, 40));
   /* drag a man from the front line to an empty back slot */
@@ -72,8 +74,7 @@ const srv = http.createServer((rq, rs) => {
   ok('  and the game gets the formation the fight reads ({front, back} of nine crew indices)', posted && posted.front.length === 9 && posted.back.length === 9 && JSON.stringify(posted) === JSON.stringify(after));
   /* drag the rifle from the bag onto the selected man's main hand */
   const who = await p.evaluate(() => { const s = BohemiaRosterScreen.state; const m = s.crew[s.sel]; return { name: m.name, old: m.gear.main && m.gear.main.name }; });
-  /* WHO IS WEARING WHAT (10/18) put twelve rows above the card, so the card's gear and the bag sit below the glass on
-     his phone until he scrolls: bring the gear row to the top so the bag's first row is on the glass with it */
+  /* bring the gear row to the top so the bag's first row is on the glass with it */
   await p.evaluate(() => document.querySelector('#card .gear').scrollIntoView({ block: 'start' })); await p.waitForTimeout(150);
   const bagA = await box('#bag .slot.full'), mainZ = await box('#card .gslot[data-slot="main"]');
   await p.mouse.move(bagA.x, bagA.y); await p.mouse.down(); await p.mouse.move(bagA.x + 10, bagA.y - 10, { steps: 3 }); await p.mouse.move(mainZ.x, mainZ.y, { steps: 10 }); await p.mouse.up();
@@ -82,9 +83,11 @@ const srv = http.createServer((rq, rs) => {
   ok('drag the rifle from the bag onto his main hand and he wears it', eq.main === 'solid rifle' && eq.post >= 1, who.name + ' now ' + eq.main);
   ok('  and what he carried goes back in the bag', !who.old || eq.bag.indexOf(who.old) >= 0, 'bag: ' + eq.bag.join(', '));
   await p.screenshot({ path: SHOT });
+  /* ONE CREW SCREEN (rule 147(b)): a tap on a slot opens the bag cut to it on his page, TAKE OFF among them */
   await p.click('#card .gslot[data-slot="main"]'); await p.waitForTimeout(250);
+  await p.click('#card #picker .slot.off'); await p.waitForTimeout(250);
   const off = await p.evaluate(() => { const s = BohemiaRosterScreen.state; return { main: s.crew[s.sel].gear.main, bag: s.bag.length }; });
-  ok('tap a worn slot and it comes off into the bag', !off.main && off.bag >= 1, 'bag ' + off.bag);
+  ok('tap a worn slot, then TAKE OFF, and it comes off into the bag', !off.main && off.bag >= 1, 'bag ' + off.bag);
   /* THE WARDROBE MAKES A SOUND (row [the soundscape], 10/9): 'equip' is already an approved,
      frozen bank event ("CLOTHES GO ON") that nothing on this screen ever posted. Both the drag-on
      above and the tap-off just above should each have posted it once, zero new content. */

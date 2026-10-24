@@ -122,10 +122,13 @@ const talked = (label, w) => {
   await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html', { waitUntil: 'load' });
   await p.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready, null, { timeout: 30000 });
   await p.evaluate(() => { window.__sheetSrc = l => BohemiaRoster.sheetSrc(l); });
-  const card = await watch(p, '#card canvas.face', 20000);
-  talked('the crew screen: the man on the card says his line, the mouth on the beat, then rests', card);
+  /* ONE CREW SCREEN (RUN TWO, rule 147(b), Paolo 10/24: 'one face... I don't need to see the crew twice'): the man you picked
+     says his line with his face on the line; his page shows his body */
+  const card = await watch(p, '#lines .cell.sel canvas.head', 20000);
+  talked('the crew screen: the man you picked says his line with his face on the line, the mouth on the beat, then rests', card);
   const rrows = await p.evaluate(async () => { const out = []; for (const c of document.querySelectorAll('canvas.head, canvas.wface, #card canvas.face')) out.push(await window.__whence(c)); return out; });
-  ok('the crew screen shows at least the line, who is wearing what and the card (25 faces)', rrows.length >= 25, rrows.length + ' faces');
+  const menN = await p.evaluate(() => BohemiaRosterScreen.state.crew.filter(m => !m.dead).length);
+  ok('the crew screen shows each man once, his face on the line (rule 147(b))', rrows.length === menN && menN >= 3, rrows.length + ' faces for ' + menN + ' men');
   judge('the crew screen', rrows);
   const crop = await p.evaluate(() => window.__crop());
   ok('CONTROL: a body\'s head cut from the fight sheet and zoomed x4, labelled fresh, is caught', crop.from === 'unknown', JSON.stringify(crop));
