@@ -44,6 +44,36 @@
   },
   "theme": "road"
  },
+ "ballpark": {
+  "added": 243,
+  "faces": 5076,
+  "grounds": 7,
+  "kept": 902,
+  "recoloured": 4174,
+  "register_iou": 0.9958,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.2467,
+   "red": 0.0277,
+   "sand": 0.0992
+  },
+  "theme": "green"
+ },
+ "basin": {
+  "added": 81,
+  "faces": 257,
+  "grounds": 3,
+  "kept": 52,
+  "recoloured": 205,
+  "register_iou": 0.9895,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.0578,
+   "red": 0.0978,
+   "sand": 0.0321
+  },
+  "theme": "water"
+ },
  "campus": {
   "added": 243,
   "faces": 1002,
@@ -59,6 +89,21 @@
   },
   "theme": "green"
  },
+ "casino": {
+  "added": 168,
+  "faces": 612,
+  "grounds": 3,
+  "kept": 151,
+  "recoloured": 461,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.1223,
+   "green": 0.0611,
+   "red": 0.1041,
+   "sand": 0.3237
+  },
+  "theme": "glitz"
+ },
  "commercial": {
   "added": 81,
   "faces": 367,
@@ -71,6 +116,36 @@
    "green": 0.0357,
    "red": 0.1832,
    "sand": 0.0544
+  },
+  "theme": "block"
+ },
+ "convention": {
+  "added": 81,
+  "faces": 562,
+  "grounds": 3,
+  "kept": 66,
+  "recoloured": 496,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0096,
+   "green": 0.0309,
+   "red": 0.0016,
+   "sand": 0.0183
+  },
+  "theme": "block"
+ },
+ "datafort": {
+  "added": 81,
+  "faces": 442,
+  "grounds": 2,
+  "kept": 398,
+  "recoloured": 44,
+  "register_iou": 0.9964,
+  "sand_after": {
+   "blue": 0.0374,
+   "green": 0.0136,
+   "red": 0.0108,
+   "sand": 0.0022
   },
   "theme": "block"
  },
@@ -194,6 +269,21 @@
   },
   "theme": "industry"
  },
+ "railyard": {
+  "added": 54,
+  "faces": 1467,
+  "grounds": 2,
+  "kept": 1178,
+  "recoloured": 289,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.1539,
+   "green": 0.0105,
+   "red": 0.0038,
+   "sand": 0.0211
+  },
+  "theme": "industry"
+ },
  "resort": {
   "added": 168,
   "faces": 637,
@@ -209,6 +299,21 @@
   },
   "theme": "glitz"
  },
+ "school": {
+  "added": 81,
+  "faces": 3661,
+  "grounds": 4,
+  "kept": 2028,
+  "recoloured": 1633,
+  "register_iou": 0.9997,
+  "sand_after": {
+   "blue": 0.018,
+   "green": 0.0394,
+   "red": 0.1452,
+   "sand": 0.035
+  },
+  "theme": "block"
+ },
  "solar": {
   "added": 54,
   "faces": 265,
@@ -221,6 +326,36 @@
    "green": 0.0198,
    "red": 0.0614,
    "sand": 0.0001
+  },
+  "theme": "industry"
+ },
+ "speedway": {
+  "added": 81,
+  "faces": 2090,
+  "grounds": 2,
+  "kept": 1560,
+  "recoloured": 530,
+  "register_iou": 0.9981,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.1642,
+   "red": 0.0543,
+   "sand": 0.007
+  },
+  "theme": "block"
+ },
+ "storage": {
+  "added": 54,
+  "faces": 130,
+  "grounds": 2,
+  "kept": 90,
+  "recoloured": 40,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.0352,
+   "red": 0.1019,
+   "sand": 0.0031
   },
   "theme": "industry"
  },
@@ -266,6 +401,36 @@
    "green": 0.1495,
    "red": 0.1785,
    "sand": 0.0947
+  },
+  "theme": "house"
+ },
+ "town": {
+  "added": 170,
+  "faces": 737,
+  "grounds": 4,
+  "kept": 82,
+  "recoloured": 655,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0103,
+   "green": 0.2344,
+   "red": 0.0916,
+   "sand": 0.0909
+  },
+  "theme": "house"
+ },
+ "trailer": {
+  "added": 170,
+  "faces": 274,
+  "grounds": 3,
+  "kept": 52,
+  "recoloured": 222,
+  "register_iou": 0.9965,
+  "sand_after": {
+   "blue": 0.0085,
+   "green": 0.2936,
+   "red": 0.1417,
+   "sand": 0.1385
   },
   "theme": "house"
  },
