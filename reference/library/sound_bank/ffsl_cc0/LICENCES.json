@@ -165,6 +165,21 @@
     11.274
    ]
   },
+  "B_21_0_crack": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "1917",
+   "kind": "crack",
+   "master_track": "Master Tracks/1917/B_21.wav",
+   "onset_s": 1.812,
+   "report_s": 1.8265,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    1.81,
+    1.825
+   ]
+  },
   "B_21_0_far": {
    "clipped_source_samples": 0,
    "event": 0,
@@ -176,6 +191,21 @@
    "window_s": [
     1.512,
     3.812
+   ]
+  },
+  "B_21_1_crack": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "1917",
+   "kind": "crack",
+   "master_track": "Master Tracks/1917/B_21.wav",
+   "onset_s": 6.9045,
+   "report_s": 6.919,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    6.9025,
+    6.9175
    ]
   },
   "B_22_0_far": {
@@ -215,6 +245,122 @@
    "window_s": [
     4.338,
     6.638
+   ]
+  },
+  "C_17_0_crack": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "AK-47",
+   "kind": "crack",
+   "master_track": "Master Tracks/AK-47/C_17.wav",
+   "onset_s": 0.34,
+   "report_s": 0.352,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    0.338,
+    0.3505
+   ]
+  },
+  "C_17_1_crack": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "AK-47",
+   "kind": "crack",
+   "master_track": "Master Tracks/AK-47/C_17.wav",
+   "onset_s": 4.404,
+   "report_s": 4.4155,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    4.402,
+    4.414
+   ]
+  },
+  "C_29_0_burst": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "AK-47",
+   "kind": "burst",
+   "master_track": "Master Tracks/AK-47/C_29.wav",
+   "onset_s": 1.068,
+   "source_rate": 192000,
+   "what": "a short full-auto burst, yours mic",
+   "window_s": [
+    1.058,
+    2.668
+   ]
+  },
+  "C_32_0_burst": {
+   "clipped_source_samples": 19,
+   "event": 0,
+   "gun_folder": "AK-47",
+   "kind": "burst",
+   "master_track": "Master Tracks/AK-47/C_32.wav",
+   "onset_s": 0.73,
+   "source_rate": 192000,
+   "what": "a short full-auto burst, theirs mic",
+   "window_s": [
+    0.72,
+    2.33
+   ]
+  },
+  "D_25_0_crack": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "AR-15",
+   "kind": "crack",
+   "master_track": "Master Tracks/AR-15/D_25.wav",
+   "onset_s": 0.745,
+   "report_s": 0.761,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    0.743,
+    0.7595
+   ]
+  },
+  "D_25_1_crack": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "AR-15",
+   "kind": "crack",
+   "master_track": "Master Tracks/AR-15/D_25.wav",
+   "onset_s": 4.216,
+   "report_s": 4.2315,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    4.214,
+    4.23
+   ]
+  },
+  "G_22_0_burst": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Carl Gustav M45_Swedish K",
+   "kind": "burst",
+   "master_track": "Master Tracks/Carl Gustav M45_Swedish K/G_22.wav",
+   "onset_s": 0.274,
+   "source_rate": 192000,
+   "what": "a short full-auto burst, theirs mic",
+   "window_s": [
+    0.264,
+    1.874
+   ]
+  },
+  "G_33_0_burst": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Carl Gustav M45_Swedish K",
+   "kind": "burst",
+   "master_track": "Master Tracks/Carl Gustav M45_Swedish K/G_33.wav",
+   "onset_s": 0.29,
+   "source_rate": 192000,
+   "what": "a short full-auto burst, yours mic",
+   "window_s": [
+    0.28,
+    1.89
    ]
   },
   "H_15_0_far": {
@@ -490,6 +636,51 @@
     3.074
    ]
   },
+  "M_26_0_crack": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Mosin Nagant",
+   "kind": "crack",
+   "master_track": "Master Tracks/Mosin Nagant/M_26.wav",
+   "onset_s": 2.1075,
+   "report_s": 2.1215,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    2.1055,
+    2.12
+   ]
+  },
+  "M_26_1_crack": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Mosin Nagant",
+   "kind": "crack",
+   "master_track": "Master Tracks/Mosin Nagant/M_26.wav",
+   "onset_s": 10.395,
+   "report_s": 10.409,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    10.393,
+    10.4075
+   ]
+  },
+  "M_26_2_crack": {
+   "clipped_source_samples": 0,
+   "event": 2,
+   "gun_folder": "Mosin Nagant",
+   "kind": "crack",
+   "master_track": "Master Tracks/Mosin Nagant/M_26.wav",
+   "onset_s": 20.129,
+   "report_s": 20.143,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    20.127,
+    20.1415
+   ]
+  },
   "M_2_0_motion": {
    "clipped_source_samples": 0,
    "event": 0,
@@ -659,6 +850,34 @@
     1.504
    ]
   },
+  "P_18_0_burst": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "PPSh",
+   "kind": "burst",
+   "master_track": "Master Tracks/PPSh/P_18.wav",
+   "onset_s": 1.23,
+   "source_rate": 192000,
+   "what": "a short full-auto burst, theirs mic",
+   "window_s": [
+    1.22,
+    2.83
+   ]
+  },
+  "P_32_0_burst": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "PPSh",
+   "kind": "burst",
+   "master_track": "Master Tracks/PPSh/P_32.wav",
+   "onset_s": 0.804,
+   "source_rate": 192000,
+   "what": "a short full-auto burst, yours mic",
+   "window_s": [
+    0.794,
+    2.404
+   ]
+  },
   "V_20_0_shot": {
    "clipped_source_samples": 0,
    "event": 0,
@@ -737,6 +956,21 @@
     2.708
    ]
   },
+  "W_23_0_crack": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Tikka",
+   "kind": "crack",
+   "master_track": "Master Tracks/Tikka/W_23.wav",
+   "onset_s": 0.922,
+   "report_s": 0.936,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    0.92,
+    0.9345
+   ]
+  },
   "W_23_0_far": {
    "clipped_source_samples": 0,
    "event": 0,
@@ -748,6 +982,51 @@
    "window_s": [
     0.622,
     2.922
+   ]
+  },
+  "W_23_1_crack": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Tikka",
+   "kind": "crack",
+   "master_track": "Master Tracks/Tikka/W_23.wav",
+   "onset_s": 9.7945,
+   "report_s": 9.809,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    9.7925,
+    9.8075
+   ]
+  },
+  "W_25_0_crack": {
+   "clipped_source_samples": 0,
+   "event": 0,
+   "gun_folder": "Tikka",
+   "kind": "crack",
+   "master_track": "Master Tracks/Tikka/W_25.wav",
+   "onset_s": 0.71,
+   "report_s": 0.724,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    0.708,
+    0.7225
+   ]
+  },
+  "W_25_1_crack": {
+   "clipped_source_samples": 0,
+   "event": 1,
+   "gun_folder": "Tikka",
+   "kind": "crack",
+   "master_track": "Master Tracks/Tikka/W_25.wav",
+   "onset_s": 7.341,
+   "report_s": 7.356,
+   "source_rate": 192000,
+   "what": "the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives",
+   "window_s": [
+    7.339,
+    7.3545
    ]
   },
   "W_27_0_shot": {
