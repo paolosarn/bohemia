@@ -65,7 +65,13 @@ through loopJobPay), and saves with the loop's own save (LOOP.held is written wh
 
 ## 3. PLAYED END TO END IN THE DEMO (gates/every_job_kind_gate.js, real touches; AUTO in the rebuilt fight)
 
-See the gate's own output in the commit message for each push.
+- ESCORT 10/0 alone (2 carts Church to Mob, raiders, won, 45 of 45; on a rerun 1 of 2 carts arrived and paid 22: the per-crate
+  partial); FIND, HUNT, CAMP with it 23/0; DELIVER 6/0, HOLD 8/0 (wave 1, wave 2 by itself, 45 of 45), RECOVER 6/0.
+- After RUN TWO's SPOILS landed on main (a won fight waits for LEAVE): all seven together 34/0 (CAMP won, 108 of 135: 81 flat
+  and 3 heads at 9); PATROL 6/0 once the test left the town screen a post opened (a crew met on the road, 2 heads, 35 of 45).
+- THE LOOP PLAYS ON THE MAP (RUN's) measures the crew path alone with window.__JOB_KINDS_OFF; it was red on main 05dbe718 at L7
+  (measured on a clean worktree of main: won on AUTO, never home); the LEAVE tap ported; L8b stays red on main (the two-job phone).
+- 130 static gates that read the touched files, before and after: no new red (handoff_gate went from a timeout to green).
 
 ## 4. WHAT I COULD NOT DO, SAID
 

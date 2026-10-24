@@ -686,7 +686,8 @@
       job.bandDue = 0;
       var at = aheadOf(job.id + ':band:' + job.walked);
       if (at) { var n = 2; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
-        job.band = { x: at[0], y: at[1], n: n }; now('A crew on the patrol road, ' + n + ' of them, coming your way.'); try { render(); } catch (e) {} }   /* draft:true */
+        job.band = { x: at[0], y: at[1], n: n }; window.__JOB_BANDS = (window.__JOB_BANDS | 0) + 1;
+        now('A crew on the patrol road, ' + n + ' of them, coming your way.'); try { render(); } catch (e) {} }   /* draft:true */
     }
     if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && cheb(q.x, q.y, city.x, city.y) <= 1) p = q; }); if (p) postWalked(job, p); }
     return false;

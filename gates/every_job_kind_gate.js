@@ -167,8 +167,10 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
         const res = await autoFight();
         const j2 = await job('qd-ae09');
         const ends = await fr.evaluate(() => window.__JOB_ENDS || []);
-        ok('E5 the fight ends and the cargo keeps count (' + res + '; ' + (j2 ? j2.cargo.n + ' of ' + j2.cargo.of + ' left' : 'job gone') + ')',
-          !!res && ends.length >= 1 && (j2 ? (j2.cargo.n >= 1 && j2.cargo.n <= j2.cargo.of && !j2.raid) : true));
+        /* a LOST fight is the map's death rule (__DEATH_IS_A_RELOAD__, Paolo 7/26; RUN's): back to the save at the bell, so the
+           job is as it was when the fight began; a won or walked-out fight is the kind's to settle (the crates that got through) */
+        ok('E5 the fight ends and the cargo keeps count (' + res + '; ' + (j2 ? j2.cargo.n + ' of ' + j2.cargo.of + ' left' : 'job gone') + (res === 'lost' ? ', the save at the bell' : '') + ')',
+          !!res && ends.length >= 1 && (res === 'lost' ? (!!j2 && j2.cargo.n === j.cargo.n) : (j2 ? (j2.cargo.n >= 1 && j2.cargo.n <= j2.cargo.of && !j2.raid) : true)));
         if (j2) {
           for (let k = 0; k < 4; k++) {
             if (!(await job('qd-ae09'))) break;
@@ -362,12 +364,15 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
         for (let k = 0; k < 10; k++) {
           const jj = await job('jk-patrol-wash'); if (!jj) break;
           if ((await shell()).fight) { await forceWin(); continue; }
+          if (await settleOpen()) await leave();   /* a post that is a town opens it; he leaves to walk on */
           await goCell(jj.target.x, jj.target.y);
           await waitFor(async () => (await shell()).fight || !(await job('jk-patrol-wash')) || await fr.evaluate(() => !TRAVEL), 90000);
           if (jj.stage === 'back' && !(await shell()).fight && await job('jk-patrol-wash')) await toTown(jj.from);
         }
         const paid = (await fr.evaluate(() => window.__JOB_PAID || [])).filter(p => p.id === 'jk-patrol-wash')[0];
-        ok('P3 BOTH POSTS WALKED, BACK, PAID FLAT AND A HEAD (' + (paid ? paid.paid + ' of ' + paid.of : 'nothing') + '; ' + b0 + ' -> ' + await bats() + ')', !!paid && paid.paid >= j.flat && paid.paid <= j.pay);
+        const bands = await fr.evaluate(() => window.__JOB_BANDS | 0), ends = (await fr.evaluate(() => window.__JOB_ENDS || [])).filter(e => e.id === 'jk-patrol-wash');
+        ok('P3 BOTH POSTS WALKED, A CREW ON THE ROAD, BACK, PAID FLAT AND A HEAD (' + bands + ' crew, ' + ends.length + ' fight; ' + (paid ? paid.paid + ' of ' + paid.of : 'nothing') + '; ' + b0 + ' -> ' + await bats() + ')',
+          !!paid && paid.paid >= j.flat && paid.paid <= j.pay && bands >= 1);
       }
     }
     ok('Z nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 140) : '') + '; module ' + (await fr.evaluate(() => window.__JOB_ERR || window.__JOB_DRAW_ERR || 'clean')) + ')',
