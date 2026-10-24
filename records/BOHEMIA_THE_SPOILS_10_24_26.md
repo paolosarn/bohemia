@@ -51,4 +51,4 @@ much as it can and stops, similar to Battle Brothers... there's a whole inventor
   fight is COMBAT's when it wants it; the report already carries the live numbers.
 - Rounds are counted into resources; guns still load full every fight (no ammo pile spends them yet).
 - Beasts' trophies (Battle Brothers' only beast loot) are not in the game.
-- The stash is reachable from a town's CREW button and from PICK A PERK; the map itself has no stash button (UI's HUD).
+- The stash opens from the map's top bar (UI's crew cell calls the one crew door), a town's CREW button, and the spoils' CHOOSE HIS LEVEL-UP.
