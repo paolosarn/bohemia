@@ -796,13 +796,17 @@ async function turnPace() {
   const acts = await p.evaluate(e => window.__acts.filter(a => a.t > e), tEnd), gaps = acts.slice(1).map((a, i) => a.t - acts[i].t);
   const nums = await p.evaluate(() => window.__nums);
   leg(still, 'his own turn has no timer: three seconds on, it is still his, waiting for his finger');
-  const beat = await p.evaluate(() => beatMs()), stills = acts.slice(1).map(a => a.t - a.prevEnd);
+  /* THEIR TURNS AT DOUBLE PACE (COMBAT [the ten changes], TUNING's change 10(b), rule 133): their acts keep their own beat, his
+     beat over the pace their turn plays at */
+  const beat = await p.evaluate(() => beatMs() / (typeof THEIRS_PACE !== 'undefined' ? THEIRS_PACE : 1)), stills = acts.slice(1).map(a => a.t - a.prevEnd);
   leg(acts.length >= 6 && acts.every(a => a.busy === 0) && gaps.every(g => g >= beat * 0.6) && stills.every(x => x >= 0 && x <= beat * 0.375 + 60),
     '*** A TURN YOU CAN READ, AND NO DEAD PAUSE *** (VIA GROK 10/9, amended by his 10/19 \'not smooth\'): every act of theirs plays whole before the next, and the board stands still at most an eighth of a beat and the wait for the next quarter beat between two',
     acts.length + ' acts in ' + ((tBack - tEnd) / 1000).toFixed(1) + ' s, the shortest from act to act ' + Math.round(Math.min(...gaps)) + ' ms, the longest still ' + Math.round(Math.max(...stills)) + ' ms (at most ' + Math.round(beat * 0.375 + 60) + ')');
   leg(nums.some(t => /^\d+%$/.test(t)) && nums.some(t => /^-\d+$/.test(t)) && !nums.some(t => /[a-z]/i.test(t)), 'the struck man shows the number: his chance to be hit, then what it cost him, numbers only (no word on the ground, rule 46f)', nums.slice(0, 6).join(' '));
   await p.touchscreen.tap(end[0], end[1]);
-  await p.waitForTimeout(1200);
+  /* tapped while they move: at their double pace (change 10(b)) their whole turn can be over inside a fixed 1.2 s wait, so the
+     leg waits for one of theirs mid-act */
+  await p.waitForFunction(() => { const u = FIGHT.current(); return u && u.side === 'them' && FIGHT_UI.anim.length > 0; }, null, { timeout: 3000 }).catch(() => {});
   const theirs = await p.evaluate(() => { const u = FIGHT.current(); return u && u.side === 'them'; });
   const t0 = Date.now(); await p.touchscreen.tap(195, 330); const back = await wait(8000);
   leg(theirs && back && Date.now() - t0 < 1500 && !d.errs.length, 'a tap on the board while they move skips the rest of their turn, and it is his again', (Date.now() - t0) + ' ms' + (d.errs[0] ? ' ' + d.errs[0] : ''));
