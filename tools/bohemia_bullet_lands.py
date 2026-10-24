@@ -107,6 +107,11 @@ ESC = {   # stem: what it is, as its author named it (the licence line is frozen
 CRACKS = [('1917', 'B_21', 0), ('1917', 'B_21', 1), ('Mosin Nagant', 'M_26', 0), ('Mosin Nagant', 'M_26', 1), ('Mosin Nagant', 'M_26', 2),
           ('Tikka', 'W_23', 0), ('Tikka', 'W_23', 1), ('Tikka', 'W_25', 0), ('Tikka', 'W_25', 1), ('AR-15', 'D_25', 0), ('AR-15', 'D_25', 1),
           ('AK-47', 'C_17', 0), ('AK-47', 'C_17', 1)]
+MIC = {   # the library's Master Sheet, word for word: where each microphone stood (every crack mic is in FRONT of the shooter)
+    'B_21': 'far distance, front of shooter', 'M_26': 'mid distance, front of shooter', 'W_23': 'far distance, front of shooter',
+    'W_25': 'far distance, front of shooter', 'D_25': 'far distance, front of shooter', 'C_17': 'far distance, front of shooter',
+    'C_29': 'near distance, front of shooter', 'P_32': 'near distance, front of shooter', 'G_33': 'near distance, front of shooter',
+    'C_32': 'mid distance, front of shooter', 'P_18': 'far distance, front of shooter', 'G_22': 'mid distance, front of shooter'}
 # the machine gun's bursts: (folder, track) near (yours) and mid (theirs), short bursts
 BURSTS = {'yours': [('AK-47', 'C_29'), ('PPSh', 'P_32'), ('Carl Gustav M45_Swedish K', 'G_33')],
           'theirs': [('AK-47', 'C_32'), ('PPSh', 'P_18'), ('Carl Gustav M45_Swedish K', 'G_22')]}
@@ -147,7 +152,7 @@ def make_bank():
         sf.write(os.path.join(FFSL_BANK, bid + '.flac'), y, SR, subtype='PCM_24')
         lic['windows'][bid] = dict(gun_folder=folder, master_track='Master Tracks/%s/%s.wav' % (folder, track), event=k, kind='crack',
                                    onset_s=round(t, 4), report_s=round(tb, 4), window_s=[round(t - 0.002, 4), round(tb - 0.0015, 4)], source_rate=sr,
-                                   clipped_source_samples=int((np.abs(x[a:b]) >= 0.999).sum()),
+                                   clipped_source_samples=int((np.abs(x[a:b]) >= 0.999).sum()), mic=MIC[track],
                                    what="the bullet's supersonic crack on a mic downrange, cut before the gun's report arrives")
     for side, picks in BURSTS.items():
         for folder, track in picks:
@@ -158,7 +163,7 @@ def make_bank():
             sf.write(os.path.join(FFSL_BANK, bid + '.flac'), y, SR, subtype='PCM_24')
             lic['windows'][bid] = dict(gun_folder=folder, master_track='Master Tracks/%s/%s.wav' % (folder, track), event=0, kind='burst',
                                        onset_s=round(t, 4), window_s=[round(t - 0.01, 4), round(t + 1.6, 4)], source_rate=sr,
-                                       clipped_source_samples=int((np.abs(x[a:b]) >= 0.999).sum()), what='a short full-auto burst, ' + side + ' mic')
+                                       clipped_source_samples=int((np.abs(x[a:b]) >= 0.999).sum()), mic=MIC[track], what='a short full-auto burst, for ' + side)
     json.dump(lic, open(lic_path, 'w'), indent=1, sort_keys=True)
     print('banked %d cracks, %d bursts, %d clips' % (len(CRACKS), sum(len(v) for v in BURSTS.values()), len(ESC)))
 
@@ -361,6 +366,22 @@ def burst(side, k):
         lay(out, y, r * g, 0.0)
     return out, dict(gun=folder, track=track, rounds=n_rounds, grid_s=g, source_rounds_s=[round(t, 4) for t in on[:n_rounds]])
 
+# THE COUNT-UP (TUNING's change 6, 'a win is a moment'; UI posts the moment, this plays it): the battery number counting
+# up where it lives is an electromechanical counter, so every step of it is one real tick of an old Soviet electromechanical
+# clock (the 'Yantar', ST303, CC0; the machine party's own hat), and the number landing is a battery dropped into a steel
+# crate (the wagons' steel) with an alarm clock's bell struck once over it. Counting DOWN (a lost fight, 'what it cost'):
+# the same ticks and a dull drop, no bell.
+YANTAR = '3-171041-A-38'
+
+def v_tick(k):
+    return [L(YANTAR, k, 0.08, spd=1.0 + 0.04 * (k % 3), db=0.0, hp=300.0)]
+
+def v_tally(up, k):
+    if up:
+        return [L(WAGON[k % 2], k + 4, 0.3, spd=1.2, db=-2.0, hp=180.0), L(BELL, k + 3, 0.6, spd=1.0, db=0.0, at=0.004, hp=600.0),
+                L(YANTAR, k + 1, 0.08, spd=1.0, db=-6.0)]
+    return [L(WAGON[(k + 1) % 2], k + 2, 0.3, spd=0.8, db=0.0, hp=150.0), L(DOOR, k, 0.3, spd=1.4, db=-4.0, at=0.003)]
+
 # the voices: name -> (builder, cut length, loudness under the shotgun's shot in dB)
 FEW = 3   # the rarer voices (the head, cover, the spray, the ricochet, the falls) carry three takes, still never one twice running
 
@@ -380,6 +401,9 @@ def voices():
     V['ricochet'] = (v_ricochet, CUT, -9.0)
     V['down_dead'] = (lambda k: v_down(True, k), DOWN_CUT, -7.0)
     V['down_hurt'] = (lambda k: v_down(False, k), DOWN_CUT, -7.0)
+    V['tick'] = (v_tick, 0.25, -17.0)
+    V['tally_up'] = (lambda k: v_tally(True, k), CUT, -9.0)
+    V['tally_down'] = (lambda k: v_tally(False, k), CUT, -11.0)
     return V
 
 def chain(x, cut, agc_max=AGC_MAX, r0=STREET_R0):
@@ -391,6 +415,14 @@ def chain(x, cut, agc_max=AGC_MAX, r0=STREET_R0):
     f = int(BEAT / 4 * SR); y[-f:] *= np.linspace(1, 0, f, dtype=np.float32) ** 2
     fi = int(0.001 * SR); y[:fi] *= np.linspace(0, 1, fi, dtype=np.float32)
     return FR.limit(y, -1.0)
+
+def chain_hand(x, cut):
+    """The count-up is the number in your hands, not a thing out in the street: the tape and the machine's band, no canyon."""
+    y = GH.tape(x.astype(np.float32)); y = GH.vhs_band(y)
+    n = int(cut * SR); y = y[:n] if len(y) >= n else np.concatenate([y, np.zeros(n - len(y), np.float32)])
+    f = min(n // 3, int(BEAT / 4 * SR)); y[-f:] *= np.linspace(1, 0, f, dtype=np.float32) ** 2
+    fi = int(0.001 * SR); y[:fi] *= np.linspace(0, 1, fi, dtype=np.float32)
+    return y
 
 def fit(y, want):
     """To its loudness and no further: a plain gain, then, only if a peak would pass -1 dBFS, the whole take comes down
@@ -407,9 +439,9 @@ def render():
     G = top_db(); takes = []; man_voices = {}
     for name, (fn, cut, rel) in voices().items():
         cuts = []
-        for k in range(N if name.split('_')[0] in ('flesh', 'armour', 'ground', 'crack') else FEW):
+        for k in range(N if name.split('_')[0] in ('flesh', 'armour', 'ground', 'crack', 'tick') else FEW):
             layers = fn(k); x, info = mix(layers, cut + 0.1)
-            y = chain(x, cut, agc_max=DOWN_AGC if name.startswith('down_') else AGC_MAX)
+            y = chain_hand(x, cut) if name in ('tick', 'tally_up', 'tally_down') else chain(x, cut, agc_max=DOWN_AGC if name.startswith('down_') else AGC_MAX)
             cuts.append((y, info))
         want = G + rel
         man_voices[name] = dict(cut_s=cut, loud_100ms_db=round(want, 2), takes=[])
