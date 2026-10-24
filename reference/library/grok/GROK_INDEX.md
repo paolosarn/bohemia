@@ -91,3 +91,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_40_FIRST_MINUTES_2026_10_24.md | first minutes, fight start, no scripted fight
 - 2026-10-24 | ASK | GROK_ASK_41_INJURIES_2026_10_24.md | injuries, temporary, permanent, healing
 - 2026-10-24 | ASK | GROK_ASK_42_MORALE_2026_10_24.md | morale states, checks, resolve
+- 2026-10-24 | ASK | GROK_ASK_43_FATIGUE_2026_10_24.md | fatigue, recovery, costs
