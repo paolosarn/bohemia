@@ -33,6 +33,11 @@
 #    no possession; rule 132: the Backrooms twice an act, always paranoid). What do the best analog horror works and ghost
 #    encounters in games do to make a player paranoid without a jump scare? Give side-quest shapes that fit a Battle Brothers
 #    style company. Analog horror is our genre, so analog horror works are fine to study.
+# ASK 33. WHAT BATTLE BROTHERS LEAVES ON THE GROUND (rule 145, his words: 'what happens in Battle Brothers during combat, the
+#    live effects that get left on the ground... a pile of blood underneath him'). Every visual effect of a hit and a death in its
+#    fights, exactly: the hit flash, blood spray by damage, blood decals on tiles and how long they stay, the pool under the fallen,
+#    corpses and what they keep, dropped gear, severed heads, what the undead and beasts leave instead. Cite the page, or say the
+#    page does not say.
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.

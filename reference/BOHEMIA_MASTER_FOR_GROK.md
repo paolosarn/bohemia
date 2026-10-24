@@ -672,6 +672,11 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 138. THE WALK-UP (PAOLO 10/24, LOCKED: 'on the settlement screen... the main character of the group, or any member with the highest level... when you click anything or someone, you still talk to them at pretty much the same speed, but you see your main guy or woman walking up to them... extra interactivity and engagement'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) Your lead stands in the settlement: the main character, or the company's highest-level member. (b) Tap a person or a place and your lead walks up to it in the town while the talk opens at today's speed; the walk never adds a wait. (c) RUN TWO builds it with ANIMATION's walk; no card.
 139. EVERY GAME IS A LEARNING BLOCK FOR THE LITTLE THINGS (PAOLO 10/24, LOCKED: 'this has to be the best game ever made; I want all the features, not a single thing missed, not any sounds that could be used; the games that have ever existed before us are learning blocks of what little things we can add'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) Research (TUNING, QUESTS, Grok) may study ANY game for small features and touches, each named with its source game. (b) This loosens the reference law for little things only: the named references keep their departments, and no unnamed game becomes a department. (c) EYES' Grok filter reads (1) accordingly: a little thing from any game passes when it is marked as one.
 140. FIGHT THE TILE-RPG VIBE, AND GROK DIGS WHAT WE CANNOT (PAOLO 10/24, LOCKED: 'it's getting closer to feel like Battle Brothers, but I'm trying to fight this tile turn-based RPG vibe... it has to be a lot better... it's gonna take lots of research... Grok is still connected, so set up whatever you need, know what you don't know, what features need lots and lots of rounds of research more than you can provide, and make it available for Grok to see, because I'm gonna start talking to him'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) The fight must not feel like a generic grid RPG; that is research first. (b) The Grok master (reference/BOHEMIA_MASTER_FOR_GROK.md) is rebuilt and reference/BOHEMIA_GROK_ASKS.md carries a fresh 10/24 list of what we do not know (asks 26 to 32); Grok reads them at the raw link; what he and Grok land on reaches the coordinator in his words (9/30 law).
+141. THE CRASH, THE SAVE, AND HIS YES ON THE AUTO FIGHT (PAOLO 10/24, LOCKED: 'it's feeling great, I love it; I love the auto fight system, especially letting me know your percentage of victory; I didn't like the game crashing, and when it crashes and I reload, it doesn't remember what I just got done'; records/BOHEMIA_PAOLO_I_LOVE_THE_AUTO_FIGHT_AND_THE_CRASH_FORGETS_10_24_26.md). (a) YES on AUTO and the chance-of-victory read: keep both. (b) The game must not crash on his phone: RUN finds why (memory, the size of what a screen loads, a loop) and fixes the cause. (c) THE SAVE REMEMBERS: saved after every meaningful thing (a fight's end, a hire, a buy, a job taken, a town reached, the night) and the game reopens exactly where he was after a crash or a reload. (d) RUN first; no card. (e) HIS CLUE THE SAME HOUR ('it's crashing for different reasons... I was in the settlement menu, I just talked to everyone, and then it crashed'): the crash he can name came on the settlement screen after talking to every person there, right after BUILD 10/24d (the busy town talks) and 10/24c (the recorded squiggle): suspect what each talk creates and never frees (audio buffers and nodes, voice clips, portraits, listeners) first; there may be more than one cause.
+142. ONE MAP AT EVERY ZOOM (PAOLO 10/24, LOCKED: 'the map when it's zoomed out looks a certain way, and when it zooms in it fades to the 2D shit we had previously... it should just be the same map; it's like two maps right now, actually three: when the map blows up I see the skeleton, ugly old 2D rough-draft horseshit'). (a) ONE map: the same 3D map from the farthest pinch to the closest, no fade to the old 2D layer, no skeleton or rough-draft layer at any zoom; the old layers are retired from the map he plays. (b) Pocket City 2's zoom range stands (one continuous pinch, the same HUD). (c) RUN makes the map one in code; COOK's remade map pictures (rule 137) are what it shows; no card.
+143. SPANGLISH AT 10 TO 15 PERCENT, THE WIPE, THE COMMENTARY, THE MAP'S PEOPLE (PAOLO 10/24, LOCKED; records/BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md). (a) SPANGLISH: about 10 to 15 percent of spoken lines, randomized per line, some people leaning to it more, never the player; amends the 8/25 law ('Spanglish gets the most lines' is dead). (b) A SUPERIOR ENEMY READS AS SUPERIOR before and during the fight (level, dodge, armour, a plain 'this one outclasses you'), so a loss is understood. (c) PERSONALITIES AND COMMENTARY: every crew member has a personality type (many types), and the crew reacts to the moment in readable lines like the commentary of UFC's video game (his named reference for that feel only, rule 139), shaped by the enemy, the numbers and who stands beside whom. (d) THE DOWN DO NOT TALK. (e) THE WIPE IS AN EVENT, the coordinator's default from his words: when the whole party is down you wake in the nearest town and a mini side quest starts to get back your downed men and your gear from whoever beat you; the main character never dies. (f) THE MAP: the squad's marker looks like his crew's 3D models; no flags on anyone walking the map; the cities sit IN the ground, never a sticker on top. (g) The bar: mainstream, the Stardew Valley player (rule 133).
+144. THE AUTO BUTTON WEARS THE ODDS, AND YOU CAN RETREAT (PAOLO 10/24, LOCKED: 'how good is the auto combat system, and how good is it at detecting the percentage of victory... this is a good direction to have that option... maybe the auto button can be green, or turns a very tiny opacity greenish, or red when the auto chance of victory is not... also, can you retreat in this game?'). (a) The odds stay his favourite read (141(a)): the fight plays the rest out on AUTO 24 times from the board as it stands and counts the wins; today the number shows only at 80 percent or better. (b) The AUTO button always wears the odds once they are read: a faint green tint when the fight is likely won, a faint red when it is likely lost, the number under the word, never loud. (c) RETREAT, Battle Brothers' way (records/target/bb/rules.json: men on the edge retreat safely, the others move to the edge with a zone-of-control defence bonus): a RETREAT button in the fight; who reaches the board's edge escapes, who is caught fights on; you leave with no pay; a retreat is never a wipe. (d) COMBAT; no card. (e) AMENDED THE SAME HOUR (PAOLO 10/24: 'there's a difference between winning with one character left standing at one HP and winning without taking a single casualty... I wouldn't press AUTO unless I'm guaranteed none of my members would die... maybe we don't show the percentages, a number in the background the player never sees, they only see the colour... an opacity, varying levels of the colour on a scale, not five colours: green green green, red red'): THE ODDS COUNT CASUALTIES and THE NUMBER IS HIDDEN. What the colour measures is the chance of a CLEAN WIN (won with none of yours down or dead), each run also weighing how many of yours fell; the player sees ONLY the colour: one continuous scale (never steps) from the deepest red (a loss, or men lost) through nothing to the deepest green (a near-certain clean win), as the button's tint by opacity; no percentage on the screen. Amends (b) and 141(a)'s 'letting me know your percentage': the colour is that read now. (f) ADDED THE SAME HOUR (PAOLO 10/24: 'if any members die during your mathematical projections, then that's leaning towards red'): A DEATH PULLS RED. A run in which any of his men dies counts toward red even if the fight was won; a run won with a man down but alive sits between; only runs won with nobody down push green. (g) ADDED THE SAME HOUR (PAOLO 10/24: 'I don't want clear; if it's clear, could go either way, that means it's gonna be risky'): NO CLEAR MIDDLE. The scale has no neutral: it is green only where a clean win is likely, and everything from 'could go either way' down is red, deepening as the risk grows; the turn from green to red sits high (a fight that is merely even reads red).
+145. A HIT SHOWS, AND THE GROUND REMEMBERS (PAOLO 10/24, LOCKED: 'when an enemy gets hurt, or even your own player, I want them to turn slightly faint red opacity, and then I wanna see blood come out, maybe blood splatters too... what happens in Battle Brothers during combat, the live effects that get left on the ground... if an enemy gets down he might fall on the ground, a pile of blood underneath him... we need a little bit more of that'; records/BOHEMIA_PAOLO_A_HIT_SHOWS_AND_THE_GROUND_REMEMBERS_10_24_26.md). (a) Anyone hit (theirs or yours) flashes a faint red by opacity, and blood comes out of the hit, with splatter on the ground behind him. (b) THE GROUND REMEMBERS for the whole fight, Battle Brothers' way (recall, to be checked: blood splatter left on the tiles where men are hit, a pool under every man who falls, the fallen staying where they fell, dropped weapons and shields on the ground, a severed head on a killing blow): a downed man lies in a spreading pool. (c) Machines and ghosts bleed their own way (oil and sparks; static and the purple aura, rule 136), never red blood. (d) Made the 3D way, inside analog horror (grime and film, never cartoon); COMBAT builds it; Grok's ask 33 checks Battle Brothers' exact effects; no card.
 77b. THE MAP'S ROADS (PAOLO 10/10 on the freeway round two: 'BRO ON THE MAP NOT ON THE COMBAT, and even then it's looking like shit'): his 10/9 freeway complaint was the MAP's freeway and streets; one road kit, lanes agreeing, nothing across a road, on the map's far and middle stops; RUN [the far end at two million pixels], WORLD [the roads] and COOK [the far end painted by hand] carry it; the fight's freeway work stands.
 83. MELEE ONE TILE, GUNS TWO (PAOLO 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a melee weapon reaches the next tile; every gun needs at least two tiles to its target and cannot fire at a man beside the shooter; COMBAT [guns need two tiles] FIRST; amends the VIA GROK pistol-is-the-dagger one-tile line (the pistol is a two-tile gun, or a club at one).
 84. AN ACT IS A YEAR (PAOLO 10/10: 'most people will only spend a maximum of 300 to 450 days in a single act, so a year passes; this mechanic is ass'): no mechanic needs more than a year inside one act; DYNASTY's old-body trade is RETIRED; aging shows between acts.
@@ -49110,6 +49115,48 @@ Also the map still looks like shit so we have to remake all the map assests and 
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_AUTO_BUTTON_WEARS_THE_ODDS_AND_RETREAT_10_24_26.md
+# source: records/BOHEMIA_PAOLO_THE_AUTO_BUTTON_WEARS_THE_ODDS_AND_RETREAT_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: THE AUTO BUTTON WEARS THE ODDS, AND RETREAT (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Let me ask you how good is the auto combat system and on top of the how good is it at detecting the percentage of victory and battle based off numbers and stuff like that like that's really intriguing to me because that's that that's this is this is a good direction to have that option you know and then you know it could be like a wreck like I don't know maybe the auto button can be green or or turns into just a very tiny opacity greenish you were red when it's you know, the Auto chance of victory is not also, can you retreat in this game? Are you able to like retreat?"
+
+## WHAT THE COORDINATOR MEASURED (slices/BOHEMIA_FIGHT.html)
+
+- THE ODDS: a second copy of the fight's own rules is fed the board as it stands and plays the rest of the fight out on AUTO 24 times, six milliseconds a frame so nothing stutters; the share it wins is the number. It is shown once 12 runs are in, and today only at 80 percent or better (AUTO glows on the beat with WIN n%). It is redone every turn.
+- How good: it is honest (the same rules, the same dice math, the real dice put back so nothing is rolled twice). Two limits: 24 runs means the number can be about 10 points off near 50 percent (much tighter near 0 or 100); and it assumes both sides fight the way AUTO does, so a player who plays better by hand wins more often than it says.
+- AUTO itself plays with the enemies' own brain (the archetypes' switches). TUNING timed AUTO winning a stranger's first two fights in 28.6 and 23.3 seconds; COMBAT timed a routine fight by hand at 67 to 98 seconds.
+- RETREAT: there is no retreat button in the fight today. Before contact the map has a flee road (RUN, 10/23). Battle Brothers' rule is in the library (records/target/bb/rules.json): men on the board's edge retreat safely; the others move to the edge with a defence bonus.
+
+## THE RULINGS
+
+1. The odds read stays (his favourite, rule 141(a)).
+2. The AUTO button always wears the odds: faint green when likely won, faint red when likely lost, the number under it.
+3. Retreat, Battle Brothers' way: a RETREAT button; who reaches the edge escapes; no pay; never a wipe.
+
+VAMILY rule 144; COMBAT's [the auto button wears the odds] and [retreat].
+
+## AMENDED THE SAME HOUR: A CLEAN WIN, AND ONLY THE COLOUR
+
+HIS WORDS: "Now there's a difference between winning the battle with one character left standing with one HP left and winning the battle without you know taking a single casualty. You know there's a huge difference with that so do you count for that in your percentage because that's pretty fucking important. I know personally me. I wouldn't press the Auto button unless I'm guaranteed that none of my members would die and maybe we don't have to show the percentages and odds of like the things that like that could be a number in the background that the player never sees they only see the color like like the strongest green or the strongest red, you know and again I don't want it to be like I want it to be an opacity, but you know I'll be like varying levels of the color maybe on like a scale instead of just like five colors you know like if it if it's if it's green and you can tell that it's green green green then you know you know what I'm saying same goes for if it's like red red"
+
+THE ANSWER TO HIS QUESTION: today, no. The odds count a win as a win, whether one man is left at one hitpoint or nobody was touched.
+
+THE RULING: the odds measure the chance of a CLEAN WIN (won with none of his men down or dead), weighing how many fell when not; the player never sees a number, only the AUTO button's colour, on one continuous opacity scale from the deepest red to the deepest green. VAMILY rule 144(e).
+
+HIS WORDS, LATER THE SAME HOUR: "And yeah, I would say that if any members die during your mathematical projections, then that's leaning towards like Red you know"
+
+A run where any of his men dies counts toward red even if the fight was won; won with a man down but alive sits between; only clean wins push green. Rule 144(f).
+
+HIS WORDS, LATER THE SAME HOUR: "And honestly, I don't want. I don't want clear like if it's clear could go either way that means it's gonna be risky."
+
+No clear middle: green only where a clean win is likely; an even fight reads red, deepening with the risk. Rule 144(g).
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_THE_SQUIGGLE_CREEPIER_10_24_26.md
 # source: records/BOHEMIA_PAOLO_THE_SQUIGGLE_CREEPIER_10_24_26.md
 ====================================================================================================
@@ -49139,6 +49186,59 @@ SOUNDS, right after [the bullet lands]: [the squiggle, creepier]. No card (rule 
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_I_LOVE_THE_AUTO_FIGHT_AND_THE_CRASH_FORGETS_10_24_26.md
+# source: records/BOHEMIA_PAOLO_I_LOVE_THE_AUTO_FIGHT_AND_THE_CRASH_FORGETS_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: I LOVE THE AUTO FIGHT AND ITS CHANCE OF VICTORY; THE GAME CRASHES AND THE RELOAD FORGETS (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"It's feeling great I love it. I love the auto fight system especially letting me know your percentage of victory type shit yeah I thought I didn't like the Skamy crashing and then when he crashes and I reloaded like it doesn't like remember what I just got done it's it's crazy but you know it's feeling better."
+
+('the Skamy crashing' is THE GAME CRASHING.)
+
+## WHAT IT MEANS
+
+1. YES on the auto fight and on the screen telling him his percentage chance of victory: keep both, never lose them.
+2. THE GAME CRASHES while he plays (on his phone).
+3. AND THE RELOAD FORGETS: when he reopens the game after a crash, what he just did is gone. The save must hold everything he did up to the moment of the crash: save after every meaningful thing (a fight's end, a hire, a buy, a job taken, arriving in a town, the night), and reopen exactly where he was.
+4. It is feeling better overall.
+
+## WHERE IT GOES
+
+RUN owns the save and the demo (its lane header). RUN, first: [the crash and the save]. No card.
+
+## ADDED THE SAME HOUR: THE CLUE, AND ONE MAP
+
+HIS WORDS: "And keep in mind it's crashing for like different reasons to crash on me previously because like I was in the settlement menu when I opened up I just talked to everyone and then it crashed bro so I'm like trying to figure out what's going on, but yeah, I don't know if I have a particular answer of White crashing. I don't know if it's like memory bullshit but yeah also like the map when it's zoomed out looks a certain way and then when it zooms in it like fades until like the 2-D shit we had previously I don't know why it's just not gonna be. It should just be the same the same map I don't know why it's like two maps right now actually it's like three maps when the map when the map blows up, I see like the skeleton, ugly old, 2-D bullshit like rough draft horseshit so yeah"
+
+1. THE CLUE: the crash came on the settlement screen after talking to everyone, right after the talking town (10/24d) and the recorded squiggle (10/24c) landed. Suspect what each talk creates and never frees; there may be more than one cause. (Rule 141(e).)
+2. ONE MAP AT EVERY ZOOM: zoomed out it is the 3D map, zooming in it fades to the old 2D map, and at the closest it shows the old skeleton rough draft: three maps. It must be one map at every zoom; the old layers retired. (Rule 142.)
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_A_HIT_SHOWS_AND_THE_GROUND_REMEMBERS_10_24_26.md
+# source: records/BOHEMIA_PAOLO_A_HIT_SHOWS_AND_THE_GROUND_REMEMBERS_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: A HIT SHOWS, AND THE GROUND REMEMBERS (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"When an enemy gets hurt, I want or even your own player gets hurt. I want them to turn like to slightly faint, red opacity kind of vibe and then I wanna see blood come out you know maybe even blood batters too. I mean I don't know if you need to research on what happens in battle Brothers during combat like the type of live effects that happens in that get left on the ground you know but yeah, like if an enemy gets down he might you might fall on the ground. there's like a pile of blood underneath him or something. You know we need a little bit more of that as well."
+
+('blood batters' is BLOOD SPLATTERS.)
+
+## THE RULINGS
+
+1. Anyone hit, theirs or yours, flashes a faint red by opacity; blood comes out of the hit; splatter lands on the ground.
+2. The ground remembers for the whole fight, the Battle Brothers way. From recall, to be checked against the game (Grok ask 33): blood marks stay on the tiles where men were hit, a pool forms under every man who falls, the fallen stay where they fell, dropped weapons and shields lie on the ground, a killing blow can take a head. A downed man lies in a spreading pool.
+3. Machines leak oil and sparks; the ghosts break into static with their purple aura; never red blood for them.
+4. Made the 3D way, inside analog horror, never cartoon. COMBAT builds it.
+
+VAMILY rule 145; COMBAT's [a hit shows, the ground remembers].
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md
 # source: records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md
 ====================================================================================================
@@ -49155,6 +49255,29 @@ SOUNDS, right after [the bullet lands]: [the squiggle, creepier]. No card (rule 
 3. EVERY GAME THAT EVER EXISTED IS A LEARNING BLOCK FOR THE LITTLE THINGS. Research may study any game for the small touches we can add, each named with its source game. This loosens 'never add a reference game he has not named' FOR LITTLE THINGS ONLY: the named references keep their departments (Battle Brothers the campaign, map and company; Rogue Fable 4 the fight on the beat; and the rest as listed), and no unnamed game becomes a department.
 4. FIGHT THE TILE TURN-BASED RPG VIBE. It is getting close to Battle Brothers; it has to be a lot better than a generic grid RPG. This needs a lot of research.
 5. GROK IS STILL CONNECTED. Set it up: the master file rebuilt with everything current, and a fresh ask list of what we do not know and what needs more rounds of research than the lanes can give. He is going to talk to Grok.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md
+# source: records/BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: SPANGLISH AT 10 TO 15 PERCENT, THE WIPE, THE COMMENTARY, AND THE MAP (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also like bro, like there's a lot of Spanish going on like the Spanglish shit like I mentioned it one time that like I want like 10% while spoken conversation of being Spanglish and like now all my fucking crew members are in Spanglish like it should be like a 1015% like randomized by like he's like shoving me in my fucking piss. Also when everyone dies in a match, it's kinda hard to understand like first off. It's spot an enemy and like you just kept dodging all of my bullets so like I don't know how we can make it clear visually that like the enemy is superior or you know maybe I'll hard your enemy. I do like how during, I believe our team members are speaking and I like that but yeah, it should definitely be like some awesome customize shit like like maybe like everyone gets assigned personality you know there's lots of different personality types and they just work together and like depending on the enemy or how many enemies are you know kind of like how UFC the video game does it like that's like commentary vibe that people can read like reacting to shit like if someone dies be like oh fuck they got shot but also when I die and it was very hard to tell like what happened next like like people died I guess but they were still speaking. They said they said we got over or something. I don't know if they're they can't speak anymore so and then it's not clear like like if everyone in the party dies or gets down like you like you just like you're still like where you were at before you enter the battle and like it just feels clunky like it's like I mean I guess maybe you should spawn in the nearest town or something like and it's like like a mini side quest bro because literally your whole squad got white that's pretty important and also on the map the people on my Mac icon that represent my squad. They don't look like and also I'm tired of this idea. I keep seeing on the Mac when people are walking around like they have like flags and shit like it's so awkward bro like fuck is not gonna be walking around with flathead so I don't even wanna see that shit like the city still look fucked up they look like like a sticker on top of the map and the map is still so fucked up and type shit. It's like this is this is not gonna go mainstream. This is not gonna get the girls like to play Stardew Valley into this shit bro."
+
+('1015%' is 10 TO 15 PERCENT; 'Mac' is MAP; 'white' is WIPED; 'flathead' is FLAGS.)
+
+## THE RULINGS
+
+1. SPANGLISH AT 10 TO 15 PERCENT. About one spoken line in eight carries Spanglish, randomized per line (some people lean to it more than others), never the player (first votes 9/21). Today every crew member speaks it. Amends the 8/25 law's 'Spanglish gets the most lines'.
+2. A SUPERIOR ENEMY READS AS SUPERIOR. When an enemy keeps dodging every bullet, the screen shows why before and during the fight: he is better than you (his level, his dodge, his armour, a clear 'this one outclasses you'), so a loss is understood, not mysterious.
+3. HE LIKES THE CREW TALKING IN THE FIGHT. Make it deep: every crew member has a PERSONALITY TYPE (many types), and they react to what happens like the commentary in UFC's video game: readable lines reacting to the moment ('oh fuck, they got shot'), shaped by the enemy, how many there are, and who is beside whom. UFC's game is his named reference for that commentary feel only (rule 139).
+4. THE DOWN DO NOT TALK. A man who is down or dead says nothing; today the fallen kept speaking ('we got it over' or the like).
+5. THE WIPE IS AN EVENT. When the whole party is down, it must be clear what happened and what comes next: today he is simply back where he stood before the fight, which is clunky. THE COORDINATOR'S DEFAULT from his words: you wake in the nearest town (someone dragged you there), and a MINI SIDE QUEST starts from the wipe (get back what was taken: your downed men and your gear, held by whoever beat you). The main character never dies (third votes); the 20 percent rule stands for the others.
+6. THE MAP: the squad's marker must look like HIS crew (their 3D models); NO FLAGS on anyone walking the map ('nobody walks around with flags'); the cities look like stickers on top of the map and must sit IN the ground; the map is still bad (rules 137 and 142 stand).
+7. THE BAR: 'this is not gonna go mainstream; this is not gonna get the people who play Stardew Valley into this' (rule 133).
 
 
 ====================================================================================================
@@ -59127,6 +59250,11 @@ refused by the coordinator.
 #    no possession; rule 132: the Backrooms twice an act, always paranoid). What do the best analog horror works and ghost
 #    encounters in games do to make a player paranoid without a jump scare? Give side-quest shapes that fit a Battle Brothers
 #    style company. Analog horror is our genre, so analog horror works are fine to study.
+# ASK 33. WHAT BATTLE BROTHERS LEAVES ON THE GROUND (rule 145, his words: 'what happens in Battle Brothers during combat, the
+#    live effects that get left on the ground... a pile of blood underneath him'). Every visual effect of a hit and a death in its
+#    fights, exactly: the hit flash, blood spray by damage, blood decals on tiles and how long they stay, the pool under the fallen,
+#    corpses and what they keep, dropped gear, severed heads, what the undead and beasts leave instead. Cite the page, or say the
+#    page does not say.
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
