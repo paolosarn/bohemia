@@ -43617,7 +43617,9 @@ setInterval(()=>{
   if(TRAV!==null && moved && TRAVEL_SPEED>1){
     travelStepped(moved); travDone=true;
     const N=TRAVEL_SPEED;
-    for(let k=1;k<N;k++){
+    /* __ONE_POINT_TWO_TWO__: a speed that is not a whole number carries its fraction from beat to beat */
+    TRAVEL_ACC += N - 1; const XTRA = Math.floor(TRAVEL_ACC + 1e-9); TRAVEL_ACC -= XTRA;
+    for(let k=1;k<=XTRA;k++){
       setTimeout(function(){
         if(!TRAVEL || TRAVEL_SPEED!==N) return;
         try{ if(typeof MODE==='undefined' || MODE!=='city') return; }catch(_e){ return; }
@@ -43628,7 +43630,7 @@ setInterval(()=>{
            to 1x's 5. The map glide redraws itself every frame while it moves; it only has to
            NOTICE the new block, which asking it where the picture is does, for free. */
         try{ if(typeof cityGlidePos==='function') cityGlidePos(performance.now()); }catch(_e){}
-      }, Math.round(k*BEAT/N));
+      }, Math.round(k*BEAT/(XTRA+1)));
     }
   }
   if(moved) glideStart(_gfr[0], _gfr[1], _gsp);   /* __WALK_FEEL_SLIDE__ */
@@ -43769,23 +43771,30 @@ var TRAVEL = null;       /* {path:[[x,y],...], i, cells, mins, to:[x,y]} or null
    the hour does not move, because nothing in this valley moves until you do (7/5).
    A ROAD EVENT DROPS IT TO PAUSE (44a): travelInterrupt() is the one door; the fight already
    comes through cityHandOver and calls it there; RUN [road events] calls it the same way. */
-var TRAVEL_SPEEDS = [0, 1, 2, 3, 5];
-var TRAVEL_SPEED = 1;
+/* __ONE_POINT_TWO_TWO__ (RUN 10/24, rule 151(c), Paolo: 'make the default speed 1.22 and let's keep that for now... I don't
+   even like having the button to go five times faster'): the map goes at 1.22 blocks a beat (an extra block on about one beat
+   in five, carried in TRAVEL_ACC so it never bursts), and the pad is PAUSE and GO; the fast speeds stay in the code behind
+   MAP_FAST_ON for other uses, never on the map */
+var TRAVEL_DEFAULT = 1.22, MAP_FAST_ON = false, TRAVEL_ACC = 0;
+var TRAVEL_SPEEDS_ALL = [0, 1, 2, 3, 5];
+var TRAVEL_SPEEDS = MAP_FAST_ON ? TRAVEL_SPEEDS_ALL : [0, TRAVEL_DEFAULT];
+var TRAVEL_SPEED = TRAVEL_DEFAULT;
 /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23, [the first hour, quicker], TUNING's change 2, rule 133). MEASURED on the
    stranger's walk (tools/bohemia_run_the_first_hour_walk.js): after the fight the pad sat on PAUSE, the next tap on a place
    set a route that moved nothing, and he never reached the town in six taps. THE SPEED HE LAST CHOSE is kept here: a tap on
    a place on PAUSE sets out at it (travelTo), and the map comes home from a fight at it (BOHEMIA_CITY_COMBAT_END). PAUSE
    still holds the valley still while nothing is set; every block still pays its clock. */
-var TRAVEL_SPEED_LAST = 1;
+var TRAVEL_SPEED_LAST = TRAVEL_DEFAULT;
 function travelSpeedSet(n){
-  n = +n; if (TRAVEL_SPEEDS.indexOf(n) < 0) return false;
+  n = +n; if (!MAP_FAST_ON && n > 0) n = TRAVEL_DEFAULT;   /* any 'go' is the one speed */
+  if (TRAVEL_SPEEDS.indexOf(n) < 0) return false;
   TRAVEL_SPEED = n; if (n > 0) TRAVEL_SPEED_LAST = n;
   try{ window.__TRAVEL_SPEED = n; }catch(_e){}
   try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
   return true;
 }
 /* a journey he asked for on PAUSE goes at the speed he last chose */
-function travelGoes(){ if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); }
+function travelGoes(){ if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); }
 function travelInterrupt(why){
   if (TRAVEL_SPEED > 0) TRAVEL_SPEED_LAST = TRAVEL_SPEED;
   TRAVEL_SPEED = 0;
@@ -43991,6 +44000,13 @@ function mapTapWhat(sx, sy){
 function mapTapWhich(sx, sy){
   var i, t;
   for(i = MAP_TOWN_HIT.length - 1; i >= 0; i--){ t = MAP_TOWN_HIT[i]; if(mapIn(t.plate, sx, sy, 4)) return { what: 'town', t: t, name: t.name }; }
+  /* __A_TAP_ON_A_TOWN_GOES_TO_THE_TOWN__ (RUN 10/24, EYES [the plate on the town], rule 150): MEASURED, a roaming party's plate
+     and body box stood over MOB's building and took the tap, so a tap on the town did nothing; the town's building now answers
+     before any party (a party in front of a town is still tapped off the building) */
+  var cell0 = null; try{ cell0 = CBcellAt(sx, sy); }catch(_e){}
+  for(i = MAP_TOWN_HIT.length - 1; i >= 0; i--){ t = MAP_TOWN_HIT[i]; if(!mapIn(t.bld, sx, sy, 2)) continue;
+    if(cell0 && Math.max(Math.abs(cell0[0] - t.x), Math.abs(cell0[1] - t.y)) > 2) continue;
+    return { what: 'town', t: t, name: t.name }; }
   if(HUNT && ((HUNT.box && mapIn(HUNT.box, sx, sy, 6)) || (HUNT.plateBox && mapIn(HUNT.plateBox, sx, sy, 4)))) return { what: 'party', h: { id: HUNT.id, hunt: true }, name: HUNT.name };
   for(i = MAP_PARTY_HIT.length - 1; i >= 0; i--){ var h = MAP_PARTY_HIT[i]; if(mapIn(h.box, sx, sy, 4) || mapIn(h.plateBox, sx, sy, 4)) return { what: 'party', h: h, name: h.id }; }
   /* the building's picture is wider than its blocks: it takes the tap only when the block under the finger is within two
@@ -44232,7 +44248,7 @@ function partyPlatePush(id, sx, topY, info){
             info: { count: info.count, skulls: info.skulls, going: info.going, hunt: !!info.hunt, blocks: info.hunt ? huntDist() : null } };   /* UI [the ten changes], change 3: the tag's look is the materials' */
   MAP_PLATES.push(P);
   try{ MAP_DREW.partyPlate = (MAP_DREW.partyPlate | 0) + 1; }catch(_e){}
-  return { x: P.lx, y: P.ly, w: w + 6, h: 11 };
+  return (P.box = { x: P.lx, y: P.ly, w: w + 6, h: 11 });
 }
 /* a skull on a plate, drawn as marks (the phone draws its skulls as marks too, never a glyph a font may not carry) */
 function mapSkull(x, y, col){
@@ -44808,9 +44824,16 @@ function setZoomAt(z,pvx,pvy){
      1 down to zmin and its later moves, now sitting on zmin, asked for less and opened
      the sky. He never got to SEE the valley; one gesture used two rungs of the ladder.
      Same guard, same reason: a gesture that crosses is finished. */
-  if(z<zmin&&CZOOM<=zmin+1e-3){ SEAM_GUARD=true; skyEnter(); return; }
+  /* __THE_FIRST_PINCH_STAYS_ON_THE_MAP__ (RUN 10/24, EYES [one squeeze to space], rule 142). MEASURED on the demo (phone):
+     from the opening zoom one squeeze climbed to the far stop AND, sitting on it, its later moves opened the sky (black space,
+     a moon); 'same guard' above was SEAM_GUARD, which only ends a gesture AFTER it crossed. A gesture crosses into the sky only
+     when it STARTED at the far stop, the rule the near end already keeps (ONE GESTURE, ONE RUNG). */
+  if(z<zmin&&CZOOM<=zmin+1e-3&&ZGEST.z0<=zmin+1e-3){ SEAM_GUARD=true; skyEnter(); return; }
   z=Math.max(zmin,Math.min(zmax,z));
   if(pvx===undefined){ pvx=CVW/2; pvy=CVH/2; }
+  /* and a pinch back in from the far stop comes back to the crew, not to wherever the fingers were (EYES: the camera came back
+     over the Black Mountains): the way in from the whole valley is toward him */
+  if(z>CZOOM&&ZGEST.z0<=zmin*1.05){ try{ var __u=MAP_DREW&&MAP_DREW.you; if(__u&&isFinite(__u.x)&&isFinite(__u.y)){ pvx=__u.x; pvy=__u.y; window.__PINCH_TO_CREW=(window.__PINCH_TO_CREW|0)+1; } }catch(_e){} }
   const k=z/CZOOM;                                   // keep the pivot point fixed
   panX=(pvx-CVW/2)*(1-k)+panX*k;
   panY=(pvy-CVH/2)*(1-k)+panY*k;
@@ -45456,6 +45479,14 @@ function mapFaceNow(){
    COOK's masks stay as the fallback for the first seconds, before the cast arrives. */
 var MAP_PLATES = [];
 function mapPlatesDraw(){
+  /* __A_TAP_ON_A_TOWN_GOES_TO_THE_TOWN__: a party's plate never lies on a town's name or building; it is lifted clear above them
+     (its leader line still names the party), and its tap box goes with it */
+  try { for (var pi = 0; pi < MAP_PLATES.length; pi++) { var Pp = MAP_PLATES[pi]; if (!Pp.party) continue;
+    for (var tries = 0; tries < 6; tries++) { var hitT = null, bx = { x: Pp.lx, y: Pp.ly, w: Pp.w + 6, h: 11 };
+      for (var ti = 0; ti < MAP_TOWN_HIT.length && !hitT; ti++) { var T = MAP_TOWN_HIT[ti];
+        [T.plate, T.bld].forEach(function(b){ if (!hitT && b && bx.x < b.x + b.w && bx.x + bx.w > b.x && bx.y < b.y + b.h && bx.y + bx.h > b.y) hitT = b; }); }
+      if (!hitT) break;
+      Pp.ly = hitT.y - 13; if (Pp.box) Pp.box.y = Pp.ly; try { MAP_DREW.platesLifted = (MAP_DREW.platesLifted | 0) + 1; } catch (_e) {} } } } catch (_e) {}
   for (var i = 0; i < MAP_PLATES.length; i++) {
     var P = MAP_PLATES[i];
     g.globalAlpha = 1;
@@ -45547,7 +45578,11 @@ function mapPersonDraw(set, face, beat, sx, footY, walkPh){
   return { w: w, h: h * 0.93 };
 }
 /* a flag on a pole: the faction's colour, a dark edge, a fold that moves with the beat */
+/* __NO_FLAGS_ON_THE_ROAD__ (RUN 10/24, rule 143(f), Paolo: 'I keep seeing people walking around the map with flags, nobody
+   walks around with flags'): a flag stands on a base (moving false); a party, a job's crew or the hunters carry none */
+var MAP_WALKERS_CARRY_FLAGS = false;
 function mapFlagDraw(px, footY, tall, col, beat, moving){
+  if (moving && !MAP_WALKERS_CARRY_FLAGS) { try { MAP_DREW.flagsOff = (MAP_DREW.flagsOff | 0) + 1; } catch (_e) {} return; }
   var top = footY - tall;
   g.fillStyle = '#1b1813'; g.fillRect(mapSnap(px - 0.67), mapSnap(top), 1.34, tall);
   var fw = Math.max(5, Math.round(11 * MAP_PEOPLE_K)), fh = Math.max(3, Math.round(7 * MAP_PEOPLE_K)), k = moving ? (beat % 2) : 0;
@@ -45787,6 +45822,7 @@ function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
 /* his banner (COOK's, cook-the-map-has-markers-9-24) and his company's two passes, out of the marker's own block so it
    stays short (FACE ON THE MAP A3 reads a window of it) */
 function mapYouBanner(__gx,__gy,__moving){
+    if(!MAP_WALKERS_CARRY_FLAGS) return;   /* __NO_FLAGS_ON_THE_ROAD__: his crew walks with no banner either */
     const __flagH = 30;                                   /* the pole, screen px */
     const __px = __gx + 10, __py = __gy;
     if(!MAP_PARTY_AS_ONE.on){   /* __THE_PARTY_WALKS_AS_ONE__: as one, no pole behind his back and no cloth beside him */
@@ -47040,7 +47076,11 @@ function vbViewLand(r){
 }
 /* drawn into the ground picture right after the bake's land, in the glass's own pixels (1:1, unsmoothed) */
 function vbViewDraw(ox, oy){
-  if (!VB_SHARP) return false;   /* __THE_FAR_END_BACK__: off by default */
+  /* __THE_LAND_PAST_THE_CITY_AT_THE_CITY_DETAIL__ (RUN 10/24, EYES [the valley blocks], rule 142): the far stop keeps the hazed
+     bake he liked (rule 104f), but once the camera is in past it (a block wider than VB_SHARP_FROM px) the land past the city is
+     painted at the glass's own pixels, the city's detail beside it: MEASURED, at the opening zoom the bake's land was a texel of
+     9 px, its ranges diamonds of ~40 px you could count beside a city drawn in full */
+  if (!VB_SHARP && !(TW > VB_SHARP_FROM)) return false;   /* __THE_FAR_END_BACK__: off at the far stop */
   if (typeof MAP_GROUND === 'undefined' || g !== MAP_GROUND.x) return false;
   var M = Math.min(220, Math.max(64, Math.ceil(TW * 4)));   /* the ground picture's own margin (mapGroundBegin) */
   var ok = !!VBV.cv && VBV.key === vbViewKey();
@@ -47055,6 +47095,7 @@ function vbViewDraw(ox, oy){
   g.imageSmoothingEnabled = sm; VBV.draws++;
   return true;
 }
+var VB_SHARP_FROM = 4.5;   /* px a block: the old far stop draws a block ~3.9 px, the opening zoom 18 */
 var VB_VIEW_SETTLE_MS = 220;   /* a still camera for a beat's half, then the sharp land is asked for */
 function vbSeam(ox, oy, night){
   if (!VB.seam || VB.seed !== om.seed) return;
@@ -86993,8 +87034,8 @@ window.BOHEMIA_BAR = (function(){
    ============================================================================ */
 var speedPadPaint = null;
 (function(){
-  var LABEL = { 0:'II', 1:'1x', 2:'2x', 3:'3x', 5:'5x' };
-  var NAME  = { 0:'pause', 1:'normal speed', 2:'double speed', 3:'triple speed', 5:'five times speed' };
+  var LABEL = { 0:'II', 1:'1x', 2:'2x', 3:'3x', 5:'5x', 1.22:'\u25B6' };   /* __ONE_POINT_TWO_TWO__: PAUSE and GO on the map */
+  var NAME  = { 0:'pause', 1:'normal speed', 2:'double speed', 3:'triple speed', 5:'five times speed', 1.22:'go' };
   function css(){
     if(document.getElementById('speedpadcss')) return;
     var st=document.createElement('style'); st.id='speedpadcss';

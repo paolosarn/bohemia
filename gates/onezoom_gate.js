@@ -45,7 +45,7 @@ const done = () => { console.log('ONE ZOOM GATE: ' + pass + ' passed, ' + fail +
   const c = fs.readFileSync(CITY, 'utf8');
   ok('the third zoom band is in the city he walks', c.indexOf('__ONE_ZOOM_TO_THE_MOON__') >= 0);
   ok('the zmin WALL is gone -- pulling out at the valley fit hands off instead of clamping',
-     /if\(z<zmin&&Math\.abs\(CZOOM-zmin\)<1e-3\)\{\s*skyEnter\(\);/.test(c));
+     /if\(z<zmin&&CZOOM<=zmin\+1e-3&&ZGEST\.z0<=zmin\+1e-3\)\{\s*SEAM_GUARD=true;\s*skyEnter\(\);/.test(c));   /* RUN 10/24: and only a gesture that started on the far stop */
   ok('the phone can move the run\'s camera', c.indexOf('bohemiaPhoneGo') >= 0);
   ok('the 7/25 law that parked this band still exists to be completed', fs.existsSync(LAW));
   const law = fs.readFileSync(LAW, 'utf8').replace(/\s+/g, ' ');
@@ -77,7 +77,9 @@ const done = () => { console.log('ONE ZOOM GATE: ' + pass + ' passed, ' + fail +
        already at the lowest stop, so it is driven until the mode actually flips
        rather than once and hoped. */
     for (let i = 0; i < 12 && MODE === 'human'; i++) { setHZoom(HLEVELS[0] * 0.9); push(); }
-    for (let i = 0; i < 90 && !SKY && MODE === 'city'; i++) { setZoomAt(CZOOM * 0.877); push(); }
+    /* RUN 10/24 (EYES [one squeeze to space], rule 142): one gesture reaches the far stop and STOPS there; the sky is a
+       second gesture that starts on it, so the pull lifts its fingers at the far stop (ZGEST.fresh) and squeezes again */
+    for (let i = 0; i < 90 && !SKY && MODE === 'city'; i++) { if (Math.abs(CZOOM - zoomBounds()[0]) < 1e-3) ZGEST.fresh = true; setZoomAt(CZOOM * 0.877); push(); }
     for (let i = 0; i < 30 && SKY && SKYU < 1; i++) { skyZoom(-1); push(); }
     const out = { outward: seen, u: SKYU, drawn: window.__SKY_DRAWN || 0 };
 
@@ -107,7 +109,7 @@ const done = () => { console.log('ONE ZOOM GATE: ' + pass + ' passed, ' + fail +
       return h;
     };
     for (let i = 0; i < 12 && MODE === 'human'; i++) setHZoom(HLEVELS[0] * 0.9);
-    for (let i = 0; i < 90 && !SKY && MODE === 'city'; i++) setZoomAt(CZOOM * 0.877);
+    for (let i = 0; i < 90 && !SKY && MODE === 'city'; i++) { if (Math.abs(CZOOM - zoomBounds()[0]) < 1e-3) ZGEST.fresh = true; setZoomAt(CZOOM * 0.877); }
     const out = {};
     render(); out.region = grab();
     while (SKY && skyBand() !== 'PLANET') skyZoom(-1);
