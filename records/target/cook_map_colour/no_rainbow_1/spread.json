@@ -1,0 +1,150 @@
+{
+ "label": "no_rainbow_1",
+ "zoomBounds": [
+  0.21443298969072166,
+  4.7407407407407405
+ ],
+ "stops": {
+  "z0_far": {
+   "czoom": 0.214,
+   "tw": 3.86,
+   "px": 652860,
+   "share": {
+    "sand": 0.7593,
+    "neutral": 0.0252,
+    "dark": 0.1949,
+    "red": 0.0022,
+    "green": 0.0055,
+    "blue": 0.0073,
+    "violet": 0.0009,
+    "yellow_sat": 0.0046
+   },
+   "saturated": 0.0009,
+   "meanL": 42.4,
+   "mean_rgb": [
+    113,
+    99,
+    74
+   ],
+   "colourfulness": 26.5
+  },
+  "z1_valley": {
+   "czoom": 0.214,
+   "tw": 3.85,
+   "px": 652860,
+   "share": {
+    "sand": 0.7603,
+    "neutral": 0.025,
+    "dark": 0.1945,
+    "red": 0.0022,
+    "green": 0.0055,
+    "blue": 0.0072,
+    "violet": 0.0009,
+    "yellow_sat": 0.0043
+   },
+   "saturated": 0.0008,
+   "meanL": 42.4,
+   "mean_rgb": [
+    113,
+    99,
+    74
+   ],
+   "colourfulness": 26.5
+  },
+  "z2_district": {
+   "czoom": 0.5,
+   "tw": 9,
+   "px": 652860,
+   "share": {
+    "sand": 0.5284,
+    "neutral": 0.132,
+    "dark": 0.3067,
+    "red": 0.0056,
+    "green": 0.009,
+    "blue": 0.0129,
+    "violet": 0.0013,
+    "yellow_sat": 0.0041
+   },
+   "saturated": 0.0012,
+   "meanL": 39.5,
+   "mean_rgb": [
+    103,
+    93,
+    74
+   ],
+   "colourfulness": 28.5
+  },
+  "z3_opening": {
+   "czoom": 1,
+   "tw": 18,
+   "px": 652860,
+   "share": {
+    "sand": 0.161,
+    "neutral": 0.3141,
+    "dark": 0.4714,
+    "red": 0.0122,
+    "green": 0.0166,
+    "blue": 0.0195,
+    "violet": 0.0025,
+    "yellow_sat": 0.0026
+   },
+   "saturated": 0.0023,
+   "meanL": 33.1,
+   "mean_rgb": [
+    82,
+    78,
+    72
+   ],
+   "colourfulness": 17.8
+  },
+  "z4_step": {
+   "czoom": 2.6,
+   "tw": 46.8,
+   "px": 652860,
+   "share": {
+    "sand": 0.1508,
+    "neutral": 0.3254,
+    "dark": 0.4977,
+    "red": 0.0064,
+    "green": 0.0038,
+    "blue": 0.0105,
+    "violet": 0.0005,
+    "yellow_sat": 0.0049
+   },
+   "saturated": 0.0049,
+   "meanL": 32.5,
+   "mean_rgb": [
+    81,
+    77,
+    70
+   ],
+   "colourfulness": 16.1
+  },
+  "z5_near": {
+   "czoom": 4.741,
+   "tw": 85.33,
+   "px": 652860,
+   "share": {
+    "sand": 0.1693,
+    "neutral": 0.3111,
+    "dark": 0.5019,
+    "red": 0.0033,
+    "green": 0.003,
+    "blue": 0.0033,
+    "violet": 0,
+    "yellow_sat": 0.0081
+   },
+   "saturated": 0.008,
+   "meanL": 31.8,
+   "mean_rgb": [
+    80,
+    75,
+    68
+   ],
+   "colourfulness": 17.8
+  }
+ },
+ "worst_sand": 0.7603,
+ "bar": "sand <= 0.3333 at every stop",
+ "pass": false
+}
