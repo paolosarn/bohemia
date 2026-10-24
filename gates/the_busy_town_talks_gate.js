@@ -160,16 +160,18 @@ const done = () => { console.log('THE BUSY TOWN TALKS GATE: ' + pass + ' ok, ' +
     jobsLive.length + ' job sounds played; ' + mut.map(m => m.look + ' "' + m.text + '" ' + m.seconds + ' s').join(' | '));
   ok('  QUIET: every job sound and every mutter at least 10 dB under a building\'s own tap, at the same slider',
     tapDb > -60 && jobAlone.length >= 3 && jobDb > -70 && jobDb < tapDb - 10 && mutDb > -70 && mutDb < tapDb - 10, jobAlone.length + ' jobs alone on the glass; tap ' + tapDb.toFixed(1) + ' dB, loudest job ' + jobDb.toFixed(1) + ' dB, mutter ' + mutDb.toFixed(1) + ' dB (loudest 93 ms on the effects bus)');
-  /* T6: a mutter live, then a sheet opens */
+  /* T6: a mutter live, then a sheet opens the way a tap opens it (a building under his finger) */
   let cut = null;
-  for (let k = 0; k < 40 && !cut; k++) {
-    await p.waitForTimeout(500);
-    cut = await p.evaluate(() => { if (BohemiaBusyHeard.live() < 1) return null; const before = BohemiaBusyHeard.live(); document.querySelector('#scene') && BohemiaSettlement.state && (BohemiaSettlement.state.open = 'stall'); return { before }; });
+  for (let k = 0; k < 60 && !cut; k++) {
+    await p.waitForTimeout(400);
+    const n = await p.evaluate(() => BohemiaBusyHeard.live());
+    if (n >= 1) { const w = await p.evaluate(() => BohemiaSettlement.where(BohemiaSettlement.order().indexOf('stall') >= 0 ? 'stall' : BohemiaSettlement.order()[0]));
+      await p.mouse.click(w.x, w.y); cut = { before: n }; }
   }
-  await p.waitForTimeout(400);
-  const after = await p.evaluate(() => ({ live: BohemiaBusyHeard.live(), duck: BohemiaBusyHeard.duck() }));
-  await p.evaluate(() => { BohemiaSettlement.state.open = null; });
-  ok('T6 A SHEET OPENING CUTS THE MUTTER AND DUCKS THE JOBS', !!cut && after.live === 0 && after.duck != null && after.duck < 0.5, cut ? 'talking ' + cut.before + ' -> ' + after.live + ', the jobs at ' + (after.duck || 0).toFixed(2) : 'no mutter caught live in 20 s');
+  await p.waitForTimeout(450);
+  const after = await p.evaluate(() => ({ live: BohemiaBusyHeard.live(), duck: BohemiaBusyHeard.duck(), open: BohemiaSettlement.state.open }));
+  await p.evaluate(() => { const c = document.getElementById('close'); if (c && c.offsetParent) c.click(); });
+  ok('T6 A SHEET OPENING CUTS THE MUTTER AND DUCKS THE JOBS', !!cut && !!after.open && after.live === 0 && after.duck != null && after.duck < 0.5, cut ? 'talking ' + cut.before + ' -> ' + after.live + ' with ' + after.open + ' open, the jobs at ' + (after.duck || 0).toFixed(2) : 'no mutter caught live in 24 s');
   /* the whisper: a night mutter is quieter and filtered closer than the day's */
   await open({ tier: 'town', name: 'HENDERSON', tr: ['market_day'], night: true }); await sheets();
   const wh = await p.evaluate(async () => { BohemiaBusyHeard.clear(); BohemiaBusyHeard.reset(); BohemiaBusyHeard.hold(false);

@@ -100,7 +100,7 @@
   }
 
   /* ---------- the sound, on the screen's own context ---------- */
-  var BUF = {}, LOAD = {}, JB = null, JBAC = null, duckOn = false, LOG = (window.__busyHeardLog = []);
+  var BUF = {}, LOAD = {}, JB = null, JBAC = null, duckOn = false, DUCK_TO = 1, LOG = (window.__busyHeardLog = []);
   function sink(){ var H = window.BohemiaHeard; return H && H.sink ? H.sink() : null; }
   function jobsBus(k){
     if(JB && JBAC === k.AC) return JB;
@@ -126,10 +126,11 @@
     s.buffer = b; s.playbackRate.value = rate;
     g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(gain, when + 0.004);   /* born at zero: never a click */
     s.connect(g); g.connect(p); p.connect(jobsBus(k)); s.start(when); s.stop(when + b.duration / rate + 0.02);
+    s.onended = function(){ try{ s.disconnect(); g.disconnect(); p.disconnect(); }catch(e){} };   /* let go of the graph the moment it is heard (WebKit keeps a connected node) */
     return true;
   }
   function duck(k, on){
-    if(on === duckOn || !k) return; duckOn = on; var b = jobsBus(k), t = k.AC.currentTime;
+    if(on === duckOn || !k) return; duckOn = on; DUCK_TO = on ? 0.35 : 1; var b = jobsBus(k), t = k.AC.currentTime;
     try{ b.gain.cancelScheduledValues(t); b.gain.setValueAtTime(b.gain.value, t); b.gain.linearRampToValueAtTime(on ? 0.35 : 1, t + 0.3); }catch(e){ b.gain.value = on ? 0.35 : 1; }
   }
 
@@ -173,6 +174,8 @@
       var lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = nt ? 2600 : 6000; lp.Q.value = 0.5;
       var p = panner(AC, panOf(who.x, ctx.W)); g.connect(lp); lp.connect(p); p.connect(k.fx);
       var h = S.say(text, BV.castVoice('face:' + who.look), AC, g, at, mood);
+      var gone = function(){ try{ g.disconnect(); lp.disconnect(); p.disconnect(); }catch(e){} };
+      if(h) setTimeout(gone, ((at - AC.currentTime) + (h.tail || h.seconds || 0) + 1) * 1000); else gone();   /* the line's chain let go after it is said */
       if(h){ live.push(h); out.push({look:who.look, text:text, at:at, seconds:h.seconds, tail:h.tail, gain:g.gain.value, pan:+panOf(who.x, ctx.W).toFixed(2), recorded:!!h.recorded, night:nt}); }
       return h;
     }
@@ -191,6 +194,7 @@
     var p = panner(AC, dark.side * 0.95); g.connect(lp); lp.connect(p); p.connect(k.fx);
     var h = S.say(dark.line, window.BOH_VOICE.castVoice('dark:' + ctx.place), AC, g, AC.currentTime + 0.05, {arousal:-0.9, valence:-0.8});
     dark.done = true;
+    setTimeout(function(){ try{ g.disconnect(); lp.disconnect(); p.disconnect(); }catch(e){} }, ((h ? (h.tail || h.seconds) : 0) + 1.5) * 1000);
     if(h){ live.push(h); LOG.push({t:now, kind:'dark', text:dark.line, seconds:h.seconds, pan:dark.side * 0.95, gain:0.09}); }
   }
 
@@ -269,7 +273,7 @@
     squiggle:function(){ var s = SQ; return { have:!!(s && s.ready()), borrowed:!!(s && s.borrowed), err:s ? s.err : null }; },
     preload:function(){ var k = sink(); if(k) preload(k); },
     live:function(){ return live.length; }, hold:function(on){ HOLD = on !== false; if(HOLD) stopTalk(); },
-    duck:function(){ return JB ? JB.gain.value : null; }, only:function(w){ ONLY = w || null; }, GAP:GAP,
+    duck:function(){ return JB ? DUCK_TO : null; }, only:function(w){ ONLY = w || null; }, GAP:GAP,   /* duck: where the jobs' bus is going (an idle node's .value is not recomputed in Chromium) */
     /* WORDS [spanglish at ten percent]: the banks and the one pick, for the language gate's long play */
     lineOf:lineOf, BANKS:{ day:DAY_LINES, dayAnswers:DAY_ANSWERS, night:NIGHT_LINES, nightAnswers:NIGHT_ANSWERS, greetDay:GREET_DAY, greetNight:GREET_NIGHT }
   };
