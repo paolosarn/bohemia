@@ -1,0 +1,324 @@
+{
+ "look": "PERSON_MECHANIC_0",
+ "shape": "person_mechanic_0: a scavenger engineer who keeps reviving his robots: a long split coat over coveralls, tool belt, cables crossing him, the welding mask pushed up, his own skin skin_deep 3, WORK COVERALLS under WASTELAND DUSTER",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WORK COVERALLS",
+  "outer": "WASTELAND DUSTER",
+  "feet": "TALL MOTO BOOTS",
+  "waist": "SCAV TOOL BELT",
+  "hands": "SOOT GLOVES",
+  "outfit": [
+   "WASTELAND DUSTER worn open to the neck",
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.35,
+  "belly": -0.15,
+  "shoulders": 0.1,
+  "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "DUSTER",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.005,
+   "open": true,
+   "ohw": 0.06,
+   "collar_z": 1.1,
+   "fo_add": 0.25,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_mechanic_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7501,
+ "real_height_for_rig": 1.7563,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_mechanic_0_trouser": 2568,
+  "person_mechanic_0_shoe": 4484,
+  "person_mechanic_0_shirt": 71188,
+  "person_mechanic_0_collar": 1536,
+  "person_mechanic_0_collar_points": 180,
+  "person_mechanic_0_placket": 162,
+  "person_mechanic_0_cuffs": 2048,
+  "person_mechanic_0_pocket": 180,
+  "person_mechanic_0_flap": 108,
+  "person_mechanic_0_belt": 1792,
+  "person_mechanic_0_coat": 61042,
+  "person_mechanic_0_coat_skirt": 7254,
+  "person_mechanic_0_collar.001": 1170,
+  "person_mechanic_0_lapels": 396,
+  "person_mechanic_0_pushed": 2048,
+  "person_mechanic_0_capelet": 34516,
+  "person_mechanic_0_cable_0": 1792,
+  "person_mechanic_0_cable_tail_0": 82,
+  "person_mechanic_0_cable_plug_0": 26,
+  "person_mechanic_0_cable_prongs_0": 24,
+  "person_mechanic_0_cable_1": 1792,
+  "person_mechanic_0_cable_tail_1": 82,
+  "person_mechanic_0_cable_plug_1": 26,
+  "person_mechanic_0_cable_prongs_1": 24,
+  "person_mechanic_0_cable_coil": 576,
+  "person_mechanic_0_cable_arm_0": 768,
+  "person_mechanic_0_cable_arm_1": 768,
+  "person_mechanic_0_cable_arm_2": 768,
+  "person_mechanic_0_sole_1": 242,
+  "person_mechanic_0_midsole_1": 242,
+  "person_mechanic_0_sole_0": 242,
+  "person_mechanic_0_midsole_0": 242,
+  "person_mechanic_0_boot_collar": 2048,
+  "person_mechanic_0_boot_collar_line": 2048,
+  "person_mechanic_0_boot_strap": 2048,
+  "person_mechanic_0_scav_tool_belt": 1792,
+  "person_mechanic_0_scav_tool_belt_pouch_1": 26,
+  "person_mechanic_0_scav_tool_belt_pouch_0": 26,
+  "person_mechanic_0_scav_tool_belt_buckle": 34,
+  "person_mechanic_0_soot_gloves_L": 392,
+  "person_mechanic_0_soot_gloves_R": 392,
+  "person_mechanic_0_soot_gloves_cuff": 2048,
+  "person_mechanic_0_hair": 17968,
+  "person_mechanic_0_hand_L": 392,
+  "person_mechanic_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_mechanic_0_belt": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_mechanic_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_mechanic_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_mechanic_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_mechanic_0_cable_0": [
+   0.305,
+   0.0931,
+   0.0232
+  ],
+  "person_mechanic_0_cable_1": [
+   0.013,
+   0.0123,
+   0.0116
+  ],
+  "person_mechanic_0_cable_arm_0": [
+   0.107,
+   0.1022,
+   0.0931
+  ],
+  "person_mechanic_0_cable_arm_1": [
+   0.107,
+   0.1022,
+   0.0931
+  ],
+  "person_mechanic_0_cable_arm_2": [
+   0.107,
+   0.1022,
+   0.0931
+  ],
+  "person_mechanic_0_cable_coil": [
+   0.305,
+   0.0931,
+   0.0232
+  ],
+  "person_mechanic_0_cable_plug_0": [
+   0.4342,
+   0.3916,
+   0.305
+  ],
+  "person_mechanic_0_cable_plug_1": [
+   0.107,
+   0.1022,
+   0.0931
+  ],
+  "person_mechanic_0_cable_prongs_0": [
+   0.305,
+   0.2623,
+   0.1559
+  ],
+  "person_mechanic_0_cable_prongs_1": [
+   0.305,
+   0.2623,
+   0.1559
+  ],
+  "person_mechanic_0_cable_tail_0": [
+   0.305,
+   0.0931,
+   0.0232
+  ],
+  "person_mechanic_0_cable_tail_1": [
+   0.013,
+   0.0123,
+   0.0116
+  ],
+  "person_mechanic_0_capelet": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_mechanic_0_coat": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_mechanic_0_coat_skirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_mechanic_0_collar": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_mechanic_0_collar_points": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_mechanic_0_cuffs": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_mechanic_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_mechanic_0_flap": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_mechanic_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_mechanic_0_lapels": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_mechanic_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_mechanic_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_mechanic_0_placket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_mechanic_0_pocket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_mechanic_0_pushed": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_mechanic_0_scav_tool_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_mechanic_0_scav_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_mechanic_0_scav_tool_belt_pouch_0": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_mechanic_0_scav_tool_belt_pouch_1": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_mechanic_0_shirt": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_mechanic_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_mechanic_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_mechanic_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_mechanic_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_mechanic_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_mechanic_0_soot_gloves": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_mechanic_0_soot_gloves_cuff": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_mechanic_0_trouser": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_mechanic_0_trousers": [
+   0.0437,
+   0.0561,
+   0.0232
+  ]
+ }
+}

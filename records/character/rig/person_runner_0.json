@@ -1,0 +1,254 @@
+{
+ "look": "PERSON_RUNNER_0",
+ "shape": "person_runner_0: teenagers in oversized layered streetwear, hoods up or down, scarves over their faces, a sling in the fist, his own skin skin_light 3, HOOD-UP COAL HOODIE",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "HOOD-UP COAL HOODIE",
+  "legs": "DROP RISE TROUSER",
+  "feet": "GREY SNEAKERS",
+  "neck": "TRAILING SCARF",
+  "hands": "HAND WRAPS",
+  "outfit": []
+ },
+ "dials": {
+  "height": -0.85,
+  "belly": -0.55,
+  "shoulders": -0.55,
+  "hips": -0.1
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
+ },
+ "model": "records/character/rig/person_runner_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.6469,
+ "real_height_for_rig": 1.6527,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_runner_0_shoe": 3500,
+  "person_runner_0_shirt": 68920,
+  "person_runner_0_collar": 1536,
+  "person_runner_0_drawstrings": 100,
+  "person_runner_0_pocket": 182,
+  "person_runner_0_waistband": 1792,
+  "person_runner_0_cuffs": 2048,
+  "person_runner_0_sling_cords": 100,
+  "person_runner_0_sling_pouch": 314,
+  "person_runner_0_sling_stone": 42,
+  "person_runner_0_trouser": 43706,
+  "person_runner_0_drop_yoke": 5600,
+  "person_runner_0_ankle": 2048,
+  "person_runner_0_sole_1": 242,
+  "person_runner_0_midsole_1": 242,
+  "person_runner_0_sole_0": 242,
+  "person_runner_0_midsole_0": 242,
+  "person_runner_0_tongue_1": 98,
+  "person_runner_0_laces_1": 200,
+  "person_runner_0_heel_1": 90,
+  "person_runner_0_tongue_0": 98,
+  "person_runner_0_laces_0": 200,
+  "person_runner_0_heel_0": 90,
+  "person_runner_0_trailing_scarf": 3072,
+  "person_runner_0_trailing_scarf_tail": 162,
+  "person_runner_0_trailing_scarf_fringe": 54,
+  "person_runner_0_hand_wraps_L": 392,
+  "person_runner_0_hand_wraps_R": 392,
+  "person_runner_0_hand_wraps_wrap_0": 2048,
+  "person_runner_0_hand_wraps_wrap_1": 2048,
+  "person_runner_0_hand_wraps_wrap_2": 2048,
+  "person_runner_0_hair": 17968,
+  "person_runner_0_hand_L": 392,
+  "person_runner_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_runner_0_ankle": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_runner_0_collar": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_runner_0_cuffs": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_runner_0_drawstrings": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_runner_0_drop_yoke": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_runner_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_runner_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_runner_0_hand_wraps": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_runner_0_hand_wraps_wrap_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_runner_0_hand_wraps_wrap_1": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_runner_0_hand_wraps_wrap_2": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_runner_0_heel_0": [
+   0.0595,
+   0.0648,
+   0.0762
+  ],
+  "person_runner_0_heel_1": [
+   0.0595,
+   0.0648,
+   0.0762
+  ],
+  "person_runner_0_laces_0": [
+   0.2582,
+   0.2705,
+   0.305
+  ],
+  "person_runner_0_laces_1": [
+   0.2582,
+   0.2705,
+   0.305
+  ],
+  "person_runner_0_midsole_0": [
+   0.2582,
+   0.2705,
+   0.305
+  ],
+  "person_runner_0_midsole_1": [
+   0.2582,
+   0.2705,
+   0.305
+  ],
+  "person_runner_0_pocket": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_runner_0_shirt": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_runner_0_shoe": [
+   0.1356,
+   0.1441,
+   0.1683
+  ],
+  "person_runner_0_shoes": [
+   0.1356,
+   0.1441,
+   0.1683
+  ],
+  "person_runner_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_runner_0_sling_cords": [
+   0.0612,
+   0.0343,
+   0.0176
+  ],
+  "person_runner_0_sling_pouch": [
+   0.107,
+   0.0482,
+   0.0212
+  ],
+  "person_runner_0_sling_stone": [
+   0.162,
+   0.15,
+   0.1329
+  ],
+  "person_runner_0_sole_0": [
+   0.016,
+   0.016,
+   0.0194
+  ],
+  "person_runner_0_sole_1": [
+   0.016,
+   0.016,
+   0.0194
+  ],
+  "person_runner_0_tongue_0": [
+   0.1356,
+   0.1441,
+   0.1683
+  ],
+  "person_runner_0_tongue_1": [
+   0.1356,
+   0.1441,
+   0.1683
+  ],
+  "person_runner_0_trailing_scarf": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_runner_0_trailing_scarf_fringe": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_runner_0_trailing_scarf_tail": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_runner_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_runner_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_runner_0_waistband": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_runner_0_yoke_drape": [
+   0.0152,
+   0.013,
+   0.0152
+  ]
+ }
+}
