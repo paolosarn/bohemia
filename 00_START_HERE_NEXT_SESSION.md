@@ -926,7 +926,8 @@ list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] 
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
 SOUNDS (sounds-squiggle): 10/24 LATEST (round thirty-two, [the squiggle, creepier], rule 135; rule 127: no card) --
-*** THE SQUIGGLE, FROM A RECORDING, A LITTLE WRONG, AND EVERY TALKING FACE SAYS IT. BUILD 10/24c - THE SQUIGGLE, CREEPIER. ***
+*** THE SQUIGGLE, FROM A RECORDING, A LITTLE WRONG, AND EVERY TALKING FACE SAYS IT. BUILD 10/24c - THE SQUIGGLE, CREEPIER
+(0a344ede, pages run 3674 SUCCESS). ***
 His 10/24: 'we might have to revamp or upgrade or remake from scratch the squiggle voices... Animal Crossing style... but more
 creepy.' MEASURED BEFORE: every talking portrait in the demo (the map's voice, the walking man, the greeter, every keeper, the
 crew) moved its mouth in SILENCE (engine/bohemia_crew_faces.js talk() never asked for a voice); the old voice was formant
