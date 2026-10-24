@@ -30,7 +30,7 @@
   ],
   "type": "Mechanic",
   "top": "WORK COVERALLS",
-  "coat": "SPLIT-TAIL WORK COAT",
+  "coat": "WASTELAND DUSTER",
   "hat": "WELDER UP",
   "pieces": [
    "cables"
@@ -72,8 +72,8 @@
    "WORK SUSPENDERS"
   ],
   "type": "Mechanic",
-  "top": "ROLLED WORK SHIRT",
-  "coat": "LEATHER SPLIT-TAIL COAT",
+  "top": "BONE HENLEY",
+  "coat": "SOOT TRENCH",
   "hat": "WELDER UP",
   "pieces": [
    "cables"
@@ -119,8 +119,8 @@
    "SOOT GLOVES"
   ],
   "type": "Mechanic",
-  "top": "STEEL WORK SHIRT",
-  "coat": "RUST WORK COAT",
+  "top": "RUST HENLEY",
+  "coat": "SPLIT-TAIL COAT",
   "hat": "WELDER UP",
   "pieces": [
    "cables"
@@ -264,7 +264,7 @@
    "skin_light",
    0
   ],
-  "hair_cut": "HORSESHOE",
+  "hair_cut": "DEEP TAPER",
   "hair": [
    "clay_mustard",
    1
@@ -310,7 +310,7 @@
    "skin_light",
    1
   ],
-  "hair_cut": "RAZOR SKULL",
+  "hair_cut": "DRY TAPER",
   "hair": [
    "tape_grey",
    1
@@ -357,7 +357,7 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "RAZOR SKULL",
+  "hair_cut": "DRY TAPER",
   "hair": [
    "cloth_black",
    0

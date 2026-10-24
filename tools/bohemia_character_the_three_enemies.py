@@ -75,8 +75,11 @@ TYPES = {
                dict(height=0.55, belly=-0.40, shoulders=-0.10, hips=-0.20)],
         look=dict(shirt=dict(colour=(60, 66, 48), sleeve='long'), coat=dict(colour=(92, 66, 44), hem=0.20, flare=0.03, thick=0.016, v=0.05, front_open=0.45, back_slit=0.55),
                   trousers=dict(colour=OIL, wide=0.012), shoes=dict(colour=SOOT, kind='boot', top=0.22), belt=None),
-        tops=['WORK COVERALLS', 'ROLLED WORK SHIRT', 'STEEL WORK SHIRT'],
-        coats=['SPLIT-TAIL WORK COAT', 'LEATHER SPLIT-TAIL COAT', 'RUST WORK COAT'],
+        # cycle 1 (looking, mechanic_0): the olive coveralls and the brown work coat read as one (63 and 69 of 255), so the
+        # outfit put him in a pale barn coat to the hip; the coat is LONG (the Rick Owens drape) and a value away from
+        # what is under it: a sand duster on dark coveralls, a soot trench on a bone henley, a black split tail on rust
+        tops=['WORK COVERALLS', 'BONE HENLEY', 'RUST HENLEY'],
+        coats=['WASTELAND DUSTER', 'SOOT TRENCH', 'SPLIT-TAIL COAT'],
         legs=['PATCHED WORK PANTS', 'SOOT CARGOS', 'SLATE WORK PANTS'],
         feet=['TALL MOTO BOOTS', 'DUST BROWN BOOTS', 'FIELD BOOTS'],
         kit=[['SCAV TOOL BELT', 'SOOT GLOVES'], ['SOOT TOOL BELT', 'LEATHER GLOVES', 'WORK SUSPENDERS'], ['SCAV TOOL BELT', 'SALVAGE SATCHEL', 'SOOT GLOVES']],
@@ -109,7 +112,9 @@ TYPES = {
         feet=['FIELD BOOTS', 'TALL MOTO BOOTS', 'RUST BOOTS'],
         kit=[['SCAV KNEEPADS', 'LEATHER GLOVES'], ['SOOT GLOVES', 'SOOT GORGET'], ['STEEL SHIN GUARDS', 'LEATHER GLOVES']],
         hats=[None, 'HAT SCRAP HELM', None], eyewear=['FACE RUBBER GAS MASK', None, 'FACE SHIELD VISOR'],
-        pieces=['exo', 'crashbar'], cuts=['TEMPLE TAPER', 'RAZOR SKULL', 'HOME CLIPPERS', 'HORSESHOE', 'DRY TAPER']),
+        # cycle 1 (looking, heavy_0): a bald or shaved crown takes the rig's up-face dust and a deep skin read as a pale
+        # egg; the Heavy wears short hair or the helm
+        pieces=['exo', 'crashbar'], cuts=['TEMPLE TAPER', 'HOME CLIPPERS', 'DRY TAPER', 'DEEP TAPER']),
 }
 ORDER = ['Mechanic', 'Runners', 'Heavy']
 POOL = {'Mechanic': 'mechanic', 'Runners': 'runner', 'Heavy': 'heavy'}   # ours.people_looks.band keys (COMBAT's enemy ids, see the note)
@@ -263,7 +268,7 @@ def body_pieces(names, X):
         if nm == 'cables':
             for k, (slope, z_c, col, lift) in enumerate(((-1, 0.900, CABLE_ORANGE, 0.012), (1, 0.880, CABLE_BLACK, 0.024))):
                 ring = tilted(z_c, slope, over + lift)
-                made.append(weighted(band('cable_%d' % k, [ring], 0.020, 0.020, col, seg=8), torso_w))
+                made.append(weighted(band('cable_%d' % k, [ring], 0.026, 0.024, col, seg=8), torso_w))   # cycle 1: 2 cm read as a pencil line
                 # the plug at the hip end of the run (his left for the orange, his right for the black), hanging on its tail
                 lo = min(ring, key=lambda pd: pd[0].z)[0]; sx = 1 if lo.x > 0 else -1
                 bm = bmesh.new(); pipe(bm, [lo, lo + V((sx * 0.012, -0.010, -0.050)), lo + V((sx * 0.018, -0.018, -0.110))], 0.009)
@@ -287,20 +292,27 @@ def body_pieces(names, X):
         # ---- THE RUNNER'S SLING ----
         elif nm == 'sling':
             hb, wr, ax, wd, th, ln, width = next(h for h in X['hands'] if h[1].x < 0)   # his right hand
-            grip = wr + ax * (ln * 0.55); pouch = wr + ax * (ln + 0.30)
+            # cycle 1 (looking, runner_0): 7 mm cords broke into dots at 1:1 and, laid along the fist's own axis, the sling
+            # stuck out forward once he stood; it hangs along his FOREARM's line (straight down when the arm hangs), the
+            # cords 1.2 cm, the pouch 7 cm
+            fa = (joint('Skeleton_arm_joint_R__3_') - joint('Skeleton_arm_joint_R__2_')).normalized()
+            wd = (wd - fa * wd.dot(fa)).normalized(); th = fa.cross(wd).normalized()
+            grip = wr + fa * (ln * 0.55); pouch = wr + fa * (ln + 0.24)
             bm = bmesh.new()
             for s in (-1, 1):
-                pipe(bm, [grip + wd * (0.006 * s), grip + ax * 0.12 + wd * (0.010 * s), pouch - ax * 0.02 + wd * (0.024 * s)], 0.0035, seg=6)
+                pipe(bm, [grip + wd * (0.008 * s), grip + fa * 0.10 + wd * (0.014 * s), pouch - fa * 0.02 + wd * (0.028 * s)], 0.006, seg=6)
             made.append(solid('sling_cords', bm, CORD, hb, 0))
             bm = bmesh.new(); ball(bm, pouch, 1.0, seg=12, ring=7)
             for v in bm.verts:   # the pouch: a cupped leather oval round its stone
-                d = v.co - pouch; v.co = pouch + ax * (d.dot(ax) * 0.030) + wd * (d.dot(wd) * 0.040) + th * (d.dot(th) * 0.022)
+                d = v.co - pouch; v.co = pouch + fa * (d.dot(fa) * 0.036) + wd * (d.dot(wd) * 0.046) + th * (d.dot(th) * 0.026)
             made.append(solid('sling_pouch', bm, POUCH, hb, 1))
-            bm = bmesh.new(); ball(bm, pouch + th * 0.012, 0.018, seg=8, ring=6)
+            bm = bmesh.new(); ball(bm, pouch + th * 0.014, 0.020, seg=8, ring=6)
             made.append(solid('sling_stone', bm, STONE, hb, 0))
         # ---- THE HEAVY'S EXO FRAME ----
         elif nm == 'exo':
-            R_ = 0.014
+            # cycle 1 (looking, heavy_0 at 1:1 and x4): 2.8 cm bars read as wire and he stood no wider than a plain man;
+            # the bars are 4 cm, the discs 8, and a motor housing sits on each shoulder and a piston rides each thigh
+            R_ = 0.020
             for sx, side in ((1, 'L'), (-1, 'R')):
                 hip, knee, ank = joint('leg_joint_%s_1' % side), joint('leg_joint_%s_2' % side), joint('leg_joint_%s_3' % side)
                 def out_at(z):
@@ -311,8 +323,12 @@ def body_pieces(names, X):
                 made.append(solid('exo_thigh_%s' % side, bm, STEEL, 'leg_joint_%s_1' % side, 0))
                 bm = bmesh.new(); cyl(bm, k_p - V((0, 0, 0.030)), a_p, R_)
                 made.append(solid('exo_shin_%s' % side, bm, STEEL, 'leg_joint_%s_2' % side, 0))
+                # the piston: a thinner rod beside the thigh bar, its cylinder fat at the hip end
+                bm = bmesh.new(); cyl(bm, h_p + V((0, -0.040, -0.04)), h_p.lerp(k_p, 0.55) + V((0, -0.040, 0)), 0.017, seg=10)
+                cyl(bm, h_p.lerp(k_p, 0.50) + V((0, -0.040, 0)), k_p + V((0, -0.040, 0.05)), 0.008, seg=8)
+                made.append(solid('exo_piston_%s' % side, bm, STEEL_DK, 'leg_joint_%s_1' % side, 0))
                 for nm_, p, bn in (('hip', h_p + V((0, 0, 0.02)), 'leg_joint_%s_1' % side), ('knee', k_p, 'leg_joint_%s_2' % side)):
-                    bm = bmesh.new(); cyl(bm, p - V((sx * 0.012, 0, 0)), p + V((sx * 0.014, 0, 0)), 0.034, seg=16)
+                    bm = bmesh.new(); cyl(bm, p - V((sx * 0.012, 0, 0)), p + V((sx * 0.018, 0, 0)), 0.042, seg=16)
                     made.append(solid('exo_%s_disc_%s' % (nm_, side), bm, STEEL_DK, bn, 0))
                     bm = bmesh.new(); cyl(bm, p + V((sx * 0.014, 0, 0)), p + V((sx * 0.020, 0, 0)), 0.012, seg=10)
                     made.append(solid('exo_%s_bolt_%s' % (nm_, side), bm, RUSTED, bn, 0))
@@ -340,6 +356,14 @@ def body_pieces(names, X):
                 f2 = front(sx * 0.105, 0.90); f2 = f2 + V((0, -(over + 0.030), 0))
                 bm = bmesh.new(); pipe(bm, [V((0, back - 0.01, 1.14)), top, sh_top, f1, f2], R_)
                 made.append(weighted(solid('exo_yoke_%d' % (sx > 0), bm, STEEL, 'torso_joint_3', 0), lambda p: {'torso_joint_3': 1.0}))
+                # the shoulder motor: a drum on the point of the shoulder, its axis front to back, the yoke through it
+                SHj = joint('Skeleton_arm_joint_L__4_' if sx > 0 else 'Skeleton_arm_joint_R')
+                hit = bvh.ray_cast(V((SHj.x, SHj.y, 1.60)), V((0, 0, -1)), 1.0)
+                mc = (hit[0] if hit[0] else SHj + V((0, 0, 0.06))) + V((sx * 0.010, 0, over + 0.040))
+                bm = bmesh.new(); cyl(bm, mc + V((0, -0.060, 0)), mc + V((0, 0.060, 0)), 0.050, seg=16)
+                made.append(weighted(solid('exo_motor_%d' % (sx > 0), bm, STEEL_DK, 'torso_joint_3', 0), lambda p: {'torso_joint_3': 1.0}))
+                bm = bmesh.new(); cyl(bm, mc + V((0, -0.064, 0)), mc + V((0, -0.058, 0)), 0.034, seg=12)
+                made.append(weighted(solid('exo_motor_cap_%d' % (sx > 0), bm, RUSTED, 'torso_joint_3', 0), lambda p: {'torso_joint_3': 1.0}))
                 # the hip ring's pivot to each leg bar
                 c, r = leg_c(0.66, sx)
                 bm = bmesh.new(); cyl(bm, V((sx * (r + abs(c.x) + 0.02), c.y, 0.66)), V((sx * (r + abs(c.x) + 0.045), c.y, 0.66)), 0.030, seg=14)
