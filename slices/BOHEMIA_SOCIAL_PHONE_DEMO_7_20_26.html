@@ -1123,7 +1123,11 @@ function renderLock(){
   var offers=ctx.quests.feedOffers().length, nf='';
   var neigh=THREADS.filter(function(t){ return t.unread; })[0];
   if(neigh){ var last=neigh.msgs[neigh.msgs.length-1]; nf+=notifCard(avatar('@'+neigh.av), neigh.who, last.t); }
-  if(offers) nf+=notifCard('<div class="av sm" style="background:'+AV_COLORS[0]+'">&#9670;</div>','Network', offers+' quest'+(offers>1?'s':'')+' available near you');
+  /* RULE 148 (UI [the phone shows two jobs], Paolo 10/24: 'the phone really should only be displaying the top two jobs...
+     it doesn't need to display so much information'): the count of every quest near you ('41 quests available near you')
+     is off the front screen; the two jobs that pay most are on the phone's face on the map, and a count of forty-one is the
+     busy first screen rule 117c bans (UI's own 10/18 front-screen study said so first). One message from one mouth stays. */
+  void offers;
   if(!nf) nf=notifCard('<div class="av sm" style="background:'+AV_COLORS[1]+'">&#9679;</div>','Network','all quiet on the feed');
   /* __ONE_CLOCK__ (8/24). This was the string literal '07:14', in 48px type,
      the first thing the eye lands on when he opens the phone -- while the city HUD
