@@ -89,3 +89,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_38_MAP_SIZE_2026_10_24.md | map size, diameter, hex count
 - 2026-10-24 | ASK | GROK_ASK_39_GROUND_EFFECTS_2026_10_24.md | ground effects, blood, corpses, drops
 - 2026-10-24 | ASK | GROK_ASK_40_FIRST_MINUTES_2026_10_24.md | first minutes, fight start, no scripted fight
+- 2026-10-24 | ASK | GROK_ASK_41_INJURIES_2026_10_24.md | injuries, temporary, permanent, healing
