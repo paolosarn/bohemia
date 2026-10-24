@@ -109,3 +109,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_58_SETTLEMENTS_2026_10_24.md | settlements, attached, situations
 - 2026-10-24 | ASK | GROK_ASK_59_WORLD_MAP_2026_10_24.md | world map, terrain, generation
 - 2026-10-24 | ASK | GROK_ASK_60_CAMPS_LOCATIONS_2026_10_24.md | camps, locations, destroy
+- 2026-10-24 | ASK | GROK_ASK_61_PARTIES_ROAMING_2026_10_24.md | parties, roaming, tracks
