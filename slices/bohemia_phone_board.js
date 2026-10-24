@@ -14,11 +14,21 @@
    traits from BohemiaLivingMap), so it still never offers a job the place does not. The settlement's OFFERS stay the
    fallback until the shelf is in.
 
-   The look (a world post, the handle stamped, the skulls as drawn marks) is the materials' (dressPhone).
+   *** RULE 148, THE PHONE SHOWS TWO JOBS (UI [the phone shows two jobs], Paolo 10/24: 'the phone really should only be
+   displaying the top two jobs, the two highest paying jobs in the whole Bohemia city, and it doesn't need to display so
+   much information, it's overkill with the amount of text you put on the phone'). MEASURED BEFORE: the phone's face
+   carried 226 words (two posts nearest-first, each a handle, the distance, a two-line ask, skulls, BATT and an age, then
+   twenty-odd chat posts). NOW: the two asks that PAY MOST anywhere in the valley (pay, then stars, then the nearer), each
+   one card: a short what (records/target/BOHEMIA_PHONE_JOB_WHAT.json, a data file, draft:true), its stars (rule 146(e):
+   the hire's star, BohemiaMaterials.stars), its pay beside the bar's own battery mark, and its place. Nothing else until
+   it is tapped: a tap shows the job's full words and the one touch that goes (TOUCH CHURCH ON THE MAP), lights the road
+   (BOH_PHONE_ROUTE, RUN's map) and beats with it; the chat stream is off the face (the materials hide it). ***
+
+   The look (one card a job, the stars and the battery drawn) is the materials' (dressPhone).
    Included by BOHEMIA_CITY_WORLD.html after bohemia_ui_materials.js. Gate: gates/the_phones_board_gate.js */
 (function () {
   'use strict';
-  var OFFERS = null, TIERS = null, SEEN = {}, PICK = null, BOX = null, SIG = '', SHOW = 2;
+  var OFFERS = null, TIERS = null, SEEN = {}, PICK = null, BOX = null, SIG = '', SHOW = 2, WHAT = null;
 
   function load() {
     try {
@@ -35,13 +45,13 @@
         try { OFFERS = Function('return ' + m[1])(); TIERS = Function('return ' + k[1])(); } catch (e) { OFFERS = null; }
       }).catch(function () {});
     } catch (e) {}
+    /* rule 148: the short what a job shows on the face (a data file a modder edits); without it the title, cut to the glass */
+    try {
+      fetch('../records/target/BOHEMIA_PHONE_JOB_WHAT.json').then(function (r) { return r.json(); })
+        .then(function (d) { WHAT = (d && d.what) || {}; SIG = ''; }).catch(function () {});
+    } catch (e) {}
   }
   function nowMin() { try { return ((T.day | 0) * 1440) + (T.min | 0); } catch (e) { return 0; } }
-  function ago(m) {
-    if (m < 60) return 'JUST POSTED';
-    if (m < 1440) return Math.floor(m / 60) + 'H AGO';
-    return Math.floor(m / 1440) + 'D AGO';
-  }
   /* which way on the screen: the map is drawn at 45 degrees, so up the glass is where x and y both shrink */
   function way(dx, dy) {
     var sx = dx - dy, sy = dx + dy;
@@ -49,8 +59,8 @@
     var a = Math.atan2(-sy, sx) * 180 / Math.PI, W = ['E', 'NE', 'N', 'NW', 'W', 'SW', 'S', 'SE'];
     return W[(Math.round(((a + 360) % 360) / 45)) % 8];
   }
-  /* every open ask in the valley right now, nearest first: each place offers as many as its tier lets its board offer
-     (the settlement's own TIER_OFFERS), skipping what is already taken (the settlement's own rule) */
+  /* every open ask in the valley right now: each place offers as many as its tier lets its board offer (the settlement's
+     own TIER_OFFERS), skipping what is already taken (the settlement's own rule); the best paid first (rule 148) */
   function asks() {
     if (!OFFERS || !TIERS) return [];
     var bs = null; try { bs = ctBases(); } catch (e) { bs = null; }
@@ -62,7 +72,7 @@
     Object.keys(bs).forEach(function (name) {
       var b = bs[name]; if (!b) return;
       var tier = 'camp'; try { tier = mapTierOf(name) || 'camp'; } catch (e) {}
-      var n = TIERS[tier] || 1, shown = 0, SH = window.BohemiaBoardShelf, list = null;
+      var n = TIERS[tier] || 1, SH = window.BohemiaBoardShelf, list = null;
       if (SH && SH.ready()) {   /* the place's own people (RUN TWO 10/18): the same pick the settlement's board makes */
         var day = Math.floor(t / 1440), tr = [];
         try { tr = BohemiaLivingMap.traitsFor(LIVING_MAP.traits, name, day).map(function (x) { return x.id; }); } catch (e) {}
@@ -70,34 +80,43 @@
       }
       if (!list) list = OFFERS.filter(function (o) { return held.indexOf(o.id) < 0; }).slice(0, n);
       for (var i = 0; i < list.length; i++) {
-        var o = list[i]; shown++;
+        var o = list[i];
         var key = name + '|' + o.id; if (SEEN[key] == null) SEEN[key] = t;
-        out.push({ key: key, place: name, x: b.x | 0, y: b.y | 0, tier: tier, id: o.id, title: o.title, skulls: o.skulls || 1, pay: o.pay,
+        /* stars (146(e)): the job's own stars once RUN's [the job's stars] hands them, its skulls until then (one to three) */
+        var st = Math.max(1, Math.min(3, (o.stars | 0) || (o.skulls | 0) || 1));
+        out.push({ key: key, place: name, x: b.x | 0, y: b.y | 0, tier: tier, id: o.id, title: o.title, skulls: o.skulls || 1, stars: st, pay: o.pay | 0,
           dist: Math.max(Math.abs((b.x | 0) - me[0]), Math.abs((b.y | 0) - me[1])), way: way((b.x | 0) - me[0], (b.y | 0) - me[1]), age: t - SEEN[key] });
       }
     });
-    out.sort(function (a, b) { return a.dist - b.dist || b.skulls - a.skulls || (a.key < b.key ? -1 : 1); });
+    out.sort(function (a, b) { return b.pay - a.pay || b.stars - a.stars || a.dist - b.dist || (a.key < b.key ? -1 : 1); });
     return out;
   }
-  function handle(name) { return '@' + String(name).toLowerCase().replace(/[^a-z0-9]+/g, ''); }
+  function placeWord(name) { return String(name).toUpperCase(); }
+  function whatOf(a) { var w = WHAT && WHAT[a.id]; return w ? String(w) : String(a.title || ''); }
   function post(a) {
-    var d = document.createElement('div');
+    var M = window.BohemiaMaterials, d = document.createElement('div');
     d.className = 'fp world job in' + (PICK === a.key ? ' picked' : '');
-    d.setAttribute('role', 'button'); d.dataset.job = a.id; d.dataset.place = a.place;
-    d.setAttribute('aria-label', a.place + ' needs: ' + a.title + '. ' + a.skulls + ' skull, ' + a.pay + ' batteries, ' + a.dist + ' blocks. Tap to mark it on the map.');
-    var w = document.createElement('div'); w.className = 'who';
-    w.textContent = handle(a.place) + ' · ' + (a.dist ? a.dist + ' BLOCKS ' + a.way : 'HERE');
-    var x = document.createElement('div'); x.className = 'txt'; x.textContent = a.title;   /* the settlement's own words, draft:true there */
+    d.setAttribute('role', 'button'); d.dataset.job = a.id; d.dataset.place = a.place; d.dataset.pay = a.pay; d.dataset.stars = a.stars;
+    d.setAttribute('aria-label', a.place + ': ' + a.title + '. ' + a.stars + ' star' + (a.stars > 1 ? 's' : '') + ', ' + a.pay + ' batteries. Tap to light the road.');
+    var x = document.createElement('div'); x.className = 'txt';
+    x.textContent = PICK === a.key ? a.title : whatOf(a);   /* the short what; the job's full words once tapped */
     var m = document.createElement('div'); m.className = 'meta';
-    for (var i = 0; i < a.skulls; i++) { var s = document.createElement('i'); s.className = 'sk'; m.appendChild(s); }
-    var p = document.createElement('span'); p.textContent = a.pay + ' BATT · ' + ago(a.age); m.appendChild(p);
-    d.appendChild(w); d.appendChild(x); d.appendChild(m);
+    var st = null; try { st = M && M.stars ? M.stars(a.stars, { gap: 0, ink: PICK === a.key }) : null; } catch (e) { st = null; }
+    if (!st) { st = document.createElement('span'); st.className = 'bmstars'; st.textContent = new Array(a.stars + 1).join('★'); }
+    m.appendChild(st);
+    var pay = document.createElement('span'); pay.className = 'pay';
+    var src = ''; try { src = M && M.supplyIcon ? M.supplyIcon('batteries') : ''; } catch (e) {}
+    if (src) { var im = document.createElement('img'); im.className = 'batt'; im.alt = ''; im.src = src; pay.appendChild(im); }
+    pay.appendChild(document.createTextNode(String(a.pay)));
+    m.appendChild(pay);
+    var at = document.createElement('span'); at.className = 'at'; at.textContent = placeWord(a.place); m.appendChild(at);
+    d.appendChild(x); d.appendChild(m);
     /* UI [the ten changes], change 2 (rule 133; TUNING: 'tapping a job on the phone lights the card and nothing else'): the
-       picked post says what the map now shows and the one touch that goes, and it beats with the road's dots (the map's beat
-       is performance.now() over BEAT, so the card's pulse is started on the same clock). The phone still only shows (51). */
+       picked card says the one touch that goes, and it beats with the road's dots (the map's beat is performance.now() over
+       BEAT, so the card's pulse is started on the same clock). The phone still only shows (51). */
     if (PICK === a.key) {
       var go = document.createElement('div'); go.className = 'go';
-      go.textContent = a.dist ? 'ROAD LIT \u00b7 TOUCH ' + String(a.place).toUpperCase() + ' ON THE MAP' : 'YOU ARE HERE \u00b7 TOUCH ' + String(a.place).toUpperCase();
+      go.textContent = 'TOUCH ' + placeWord(a.place) + ' ON THE MAP';
       d.appendChild(go);
       try { var B = (typeof BEAT === 'number' && BEAT > 0) ? BEAT : 500; d.style.animationDelay = (-(performance.now() % B)) + 'ms'; d.style.animationDuration = B + 'ms'; } catch (e) {}
     }
@@ -114,15 +133,24 @@
     var feed = document.getElementById('cityfeed'), list = document.getElementById('cityfeedlist');
     if (!feed || !list || !feed.classList.contains('on')) return;
     if (!BOX || !BOX.parentNode) {
-      BOX = document.createElement('div'); BOX.id = 'bmboard'; BOX.setAttribute('role', 'list'); BOX.setAttribute('aria-label', 'the valley\'s open contracts');
+      BOX = document.createElement('div'); BOX.id = 'bmboard'; BOX.setAttribute('role', 'list'); BOX.setAttribute('aria-label', 'the two best paid jobs in the valley');
       list.parentNode.insertBefore(BOX, list);
     }
-    /* WHO IS OFFERING WHAT: one ask per place, the nearest places first, so two posts are two places, not one place twice */
-    var all = asks(), top = [], from = {};
-    for (var i = 0; i < all.length && top.length < SHOW; i++) if (!from[all[i].place]) { from[all[i].place] = 1; top.push(all[i]); }
+    /* RULE 148: THE TWO THAT PAY MOST in the whole valley, wherever they are (the list is sorted best paid first); two
+       different jobs, and from two places when the pay allows (measured: the shelf deals one job to two fortresses, and two
+       cards with the same words read as one job shown twice) */
+    var all = asks(), top = [], ids = {}, from = {}, i;
+    for (i = 0; i < all.length && top.length < SHOW; i++) {
+      var c = all[i]; if (ids[c.id] || from[c.place]) continue;
+      ids[c.id] = 1; from[c.place] = 1; top.push(c);
+    }
+    for (i = 0; i < all.length && top.length < SHOW; i++) if (!ids[all[i].id] && top.indexOf(all[i]) < 0) { ids[all[i].id] = 1; top.push(all[i]); }
+    top.sort(function (a, b) { return b.pay - a.pay || b.stars - a.stars || a.dist - b.dist; });
     if (PICK && !all.some(function (a) { return a.key === PICK; })) { PICK = null; window.BOH_PHONE_ROUTE = null; }   /* taken: it disappears, and so does its mark */
-    var sig = top.map(function (a) { return a.key + a.dist + ago(a.age) + (PICK === a.key); }).join(';');
-    window.__PHONE_BOARD = { asks: all.length, shown: top.map(function (a) { return { place: a.place, id: a.id, title: a.title, pay: a.pay, skulls: a.skulls, dist: a.dist }; }) };
+    if (PICK && !top.some(function (a) { return a.key === PICK; })) { var pk = all.filter(function (a) { return a.key === PICK; })[0]; if (pk) top[top.length - 1] = pk; }   /* the lit one stays lit */
+    var sig = top.map(function (a) { return a.key + a.pay + a.stars + (PICK === a.key); }).join(';') + (WHAT ? 'w' : '');
+    window.__PHONE_BOARD = { asks: all.length, shown: top.map(function (a) { return { place: a.place, id: a.id, title: a.title, what: whatOf(a), pay: a.pay, stars: a.stars, skulls: a.skulls, dist: a.dist }; }),
+      best: all.slice(0, 6).map(function (a) { return a.pay; }) };
     if (sig === SIG) return; SIG = sig;
     BOX.textContent = '';
     top.forEach(function (a) { BOX.appendChild(post(a)); });
@@ -130,5 +158,5 @@
   }
   load();
   setInterval(paint, 1000);
-  window.BohemiaPhoneBoard = { asks: asks, paint: paint, loaded: function () { return !!OFFERS; } };
+  window.BohemiaPhoneBoard = { asks: asks, paint: paint, loaded: function () { return !!OFFERS; }, what: function () { return WHAT; } };
 })();

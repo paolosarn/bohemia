@@ -44,7 +44,8 @@ const done = () => { console.log('\nTHE FLIP OFF THE FACE: ' + pass + ' ok, ' + 
   await fr.evaluate(() => { BohemiaActs.resetAll(); try { ctActFlipPaint(); } catch (e) {} });
   await p.waitForTimeout(900);
   ok('BEFORE THE CRISIS: NOTHING ON THE PHONE\'S FACE SWITCHES ACTS (no family card painted on it)', (await faceCards()) === 0, (await faceCards()) + ' cards on the face');
-  const list = (await R('#cityfeedlist'))[0];
+  /* rule 148: the chat stream is off the face; the finger opens the phone on the glass under the two jobs */
+  const sc = (await R('#cityfeedscreen'))[0], list = { x: sc.x, y: sc.y + sc.h - 72, w: sc.w, h: 64 };
   await tapAt(list);
   const e0 = (await R('#bmtimes')).filter(r => r.vis);
   ok('  a real finger opens the phone, and there is no switch anywhere in it', (await isOpen()) && e0.length === 0, 'open ' + (await isOpen()) + ', entries ' + e0.length);

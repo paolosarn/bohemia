@@ -9,8 +9,9 @@
      - the phone wears the materials and the game's faces are loaded in its frame
      - THE OBJECT IS KEPT: the drawn fracture, the chips, the island, no tape, 19.5 by 9
      - a hard contact edge under it, never a soft blurred shadow (rule 71)
-     - the hour and the handles are stamped in CASING, the posts printed in ROM
-     - EVERY POST on the glass (its handle and its words), the hour and the signal pass 4.5 to 1 against the
+     - the hour and the job's place are stamped in CASING, the job's what printed in ROM (RE-AIMED 10/24 by rule 148:
+       the face is the hour and two jobs, the chat stream is off the glass, so the posts read are the two job cards)
+     - EVERY CARD on the glass (its what, its pay and its place), the hour and the signal pass 4.5 to 1 against the
        glass, plain and with a quarter white added (the sun, rule 73)
      - the family face is a card from the bar's cardboard (or the bar's amber when it is you), its name passes
        4.5 to 1 plain and in the sun
@@ -52,7 +53,7 @@ async function contrasts(page, jobs) {
   const d = await open({ door: 120000 });
   if (!d.doorIsBehindUs()) { ok('the driver got past the door', false); await d.close(); done(); }
   const p = d.page, fr = d.fr;
-  const t0 = Date.now(); while (Date.now() - t0 < 20000) { if (await fr.evaluate(() => { const f = document.getElementById('cityfeed'); return f && f.classList.contains('on') && document.querySelectorAll('#cityfeedlist .fp.in').length >= 2; })) break; await p.waitForTimeout(300); }
+  const t0 = Date.now(); while (Date.now() - t0 < 20000) { if (await fr.evaluate(() => { const f = document.getElementById('cityfeed'); return f && f.classList.contains('on') && document.querySelectorAll('#bmboard .fp.job').length >= 2; })) break; await p.waitForTimeout(300); }
   await p.waitForTimeout(1200);
   const fb = await (await fr.frameElement()).boundingBox();
 
@@ -72,8 +73,8 @@ async function contrasts(page, jobs) {
       island: getComputedStyle(document.getElementById('cityfeedbar'), '::before').content !== 'none',
       w: r.width, h: r.height, outer, blurs: outer.map(s => { const n = s.replace(/rgba?\([^)]*\)|#[0-9a-f]+/gi, '').match(/-?[\d.]+px/g) || []; return parseFloat(n[2] || '0'); }),
       clockFam: getComputedStyle(document.getElementById('cityfeedclock')).fontFamily.split(',')[0].replace(/["']/g, ''),
-      whoFam: [...document.querySelectorAll('#cityfeedlist .fp .who')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/["']/g, '')),
-      txtFam: [...document.querySelectorAll('#cityfeedlist .fp .txt')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/["']/g, ''))
+      whoFam: [...document.querySelectorAll('#bmboard .fp.job .meta .at')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/["']/g, '')),
+      txtFam: [...document.querySelectorAll('#bmboard .fp.job .txt')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/["']/g, ''))
     };
   });
   ok('the phone is on the map and wears the materials', base.on && base.dressed, JSON.stringify({ on: base.on, dressed: base.dressed }));
@@ -82,23 +83,23 @@ async function contrasts(page, jobs) {
      base.cracks + ' crack paths, ' + base.chips + ' chips, island ' + base.island + ', tape ' + base.tape);
   ok('  and it is still the shape of a phone, 19.5 by 9', Math.abs(base.h / base.w - 2.167) < 0.12, Math.round(base.w) + 'x' + Math.round(base.h));
   ok('A HARD EDGE UNDER IT, NOT A SOFT SHADOW', base.outer.length > 0 && base.blurs.every(b => b === 0), base.outer.join(' | '));
-  ok('THE HOUR AND THE HANDLES ARE STAMPED (CASING), THE POSTS PRINTED (ROM)',
+  ok('THE HOUR AND THE JOB\'S PLACE ARE STAMPED (CASING), THE WHAT PRINTED (ROM)',
      base.clockFam === 'BohemiaCasing' && base.whoFam.length > 0 && base.whoFam.every(f => f === 'BohemiaCasing') && base.txtFam.every(f => f === 'BohemiaROM'),
      base.clockFam + ' / ' + [...new Set(base.whoFam)].join() + ' / ' + [...new Set(base.txtFam)].join());
 
   /* THE SUN TEST ON EVERY POST. The glass is read in the gap under each post (no words there), the ink is
      the post's own computed colour; the hour and the signal against the status row's glass between them. */
   const jobs = await fr.evaluate(({ ox, oy }) => {
-    const scr = document.getElementById('cityfeedscreen').getBoundingClientRect(), list = document.getElementById('cityfeedlist').getBoundingClientRect();
+    const scr = document.getElementById('cityfeedscreen').getBoundingClientRect();
     const out = [];
-    /* the feed's posts AND the board's (UI [phone contracts], 10/9: the valley's asks are world posts above the feed, and
-       with them on the glass the feed fits fewer whole posts, so both are read) */
-    document.querySelectorAll('#bmboard .fp.job, #cityfeedlist .fp.in').forEach((fp, i) => {
-      const r = fp.getBoundingClientRect(), inList = !!fp.closest('#cityfeedlist');
-      if (inList ? (r.bottom > list.bottom - 24 || r.top < list.top) : (r.top < scr.top || r.bottom > scr.bottom)) return;   /* only what is fully on the glass, clear of the fade */
+    /* rule 148: the face carries the two job cards and nothing else to read; each card's what, pay and place */
+    document.querySelectorAll('#bmboard .fp.job').forEach((fp, i) => {
+      const r = fp.getBoundingClientRect();
+      if (r.top < scr.top || r.bottom > scr.bottom) return;   /* only what is fully on the glass */
       const box = [ox + r.left + 4, oy + r.bottom + 1, r.width - 8, 4];
-      out.push({ k: 'post ' + i + ' handle', box, ink: getComputedStyle(fp.querySelector('.who')).color, dark: true });
       out.push({ k: 'post ' + i + ' words', box, ink: getComputedStyle(fp.querySelector('.txt')).color, dark: true });
+      out.push({ k: 'post ' + i + ' pay', box, ink: getComputedStyle(fp.querySelector('.meta .pay')).color, dark: true });
+      out.push({ k: 'post ' + i + ' place', box, ink: getComputedStyle(fp.querySelector('.meta .at')).color, dark: true });
     });
     const bar = document.getElementById('cityfeedbar').getBoundingClientRect(), ck = document.getElementById('cityfeedclock').getBoundingClientRect();
     const gap = [ox + ck.right + 4, oy + bar.top + 3, 6, bar.height - 6];
@@ -108,8 +109,8 @@ async function contrasts(page, jobs) {
   }, { ox: fb.x, oy: fb.y });
   const cr = await contrasts(p, jobs);
   const posts = cr.filter(c => /^post/.test(c.k));
-  ok('EVERY POST ON THE GLASS PASSES 4.5 TO 1, PLAIN AND IN THE SUN (handle and words)', posts.length >= 4 && posts.every(c => c.plain >= 4.5 && c.sun >= 4.5),
-     posts.length / 2 + ' posts; worst ' + posts.reduce((m, c) => Math.min(m, c.sun), 99) + ' in the sun; ' + posts.filter(c => c.sun < 4.5).map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
+  ok('EVERY CARD ON THE GLASS PASSES 4.5 TO 1, PLAIN AND IN THE SUN (what, pay and place)', posts.length >= 6 && posts.every(c => c.plain >= 4.5 && c.sun >= 4.5),
+     posts.length / 3 + ' cards; worst ' + posts.reduce((m, c) => Math.min(m, c.sun), 99) + ' in the sun; ' + posts.filter(c => c.sun < 4.5).map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
   const bar = cr.filter(c => !/^post/.test(c.k));
   ok('  and so do the hour and the signal', bar.every(c => c.plain >= 4.5 && c.sun >= 4.5), bar.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
 
@@ -121,7 +122,8 @@ async function contrasts(page, jobs) {
     await fr.evaluate(() => { try { if (!BohemiaActs.crisisStarted()) BohemiaActs.crisis(90); } catch (e) {} });
     await p.waitForTimeout(900);
     if (!(await fr.evaluate(() => document.getElementById('phonewrap').classList.contains('on')))) {
-      const l = await fr.evaluate(() => { const r = document.getElementById('cityfeedlist').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + 20 }; });
+      /* rule 148: the chat stream is off the face, so the finger opens the phone on the glass under the two jobs */
+      const l = await fr.evaluate(() => { const r = document.getElementById('cityfeedscreen').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.bottom - 40 }; });
       await p.touchscreen.tap(fb.x + l.x, fb.y + l.y); await p.waitForTimeout(900); }
     if (!(await fr.evaluate(() => { const q = document.getElementById('bmtimespanel'); return !!(q && q.classList.contains('on')); }))) {
       const e = await fr.evaluate(() => { const b = document.getElementById('bmtimes'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });

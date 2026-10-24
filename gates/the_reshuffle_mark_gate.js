@@ -34,7 +34,7 @@ const done = () => { console.log('\nTHE RESHUFFLE MARK: ' + pass + ' ok, ' + fai
   const fb = await (await fr.frameElement()).boundingBox();
   /* THE FAMILY LIVES IN THE OPENED PHONE NOW (UI [the flip off the face]): after the crisis a real finger opens the phone and
      its SWITCH TIMELINE entry, and the reshuffle is read on the cards there */
-  { const l = await fr.evaluate(() => { const r = document.getElementById('cityfeedlist').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + 20 }; });
+  { const l = await fr.evaluate(() => { const r = document.getElementById('cityfeedscreen').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.bottom - 40 }; });   /* rule 148: the glass under the two jobs */
     await p.touchscreen.tap(fb.x + l.x, fb.y + l.y); await p.waitForTimeout(900);
     const e = await fr.evaluate(() => { const b = document.getElementById('bmtimes'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     if (e) { await p.touchscreen.tap(fb.x + e.x, fb.y + e.y); await p.waitForTimeout(900); } }

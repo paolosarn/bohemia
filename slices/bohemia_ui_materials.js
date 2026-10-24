@@ -935,21 +935,30 @@
     + 'html body #actedit .aeb{height:44px;border:0;border-radius:2px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;color:#f2e4c6;'
     +   'background:linear-gradient(rgba(12,8,4,.25),rgba(12,8,4,.25)),#3a2c1e var(--bm-cardboard) 0 0/128px 128px;box-shadow:inset 0 1px 0 rgba(255,220,170,.22),0 1px 0 #000}'
     + 'html body #actedit .aeb.on{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650)}'
-    /* THE BOARD (UI [phone contracts], bohemia_phone_board.js): the valley's open asks above the feed, each a world post
-       a thumb can press (44 pt), the skulls drawn, the one marked for the map lit amber like the speed you are at */
-    + 'html body #bmboard{flex:0 0 auto;position:relative;z-index:1;padding:4px 5px 3px;border-bottom:1px solid #2e261a}'
-    + 'html body #bmboard .fp.job{margin:0 0 3px;padding:5px 6px 6px;min-height:44px;box-sizing:border-box;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;'
-    +   'border-radius:2px;background:rgba(240,196,126,.07);box-shadow:inset 2px 0 0 #f0c47e}'
-    + 'html body #bmboard .fp.job .txt{margin-top:2px;line-height:1.3}'
-    + 'html body #bmboard .fp.job .meta{display:flex;align-items:center;gap:2px;margin-top:3px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;letter-spacing:.4px;color:#eadcb4}'
-    + 'html body #bmboard .fp.job .meta span{margin-left:4px}'
-    + 'html body #bmboard .fp.job .sk{display:block;width:10px;height:10px;background:var(--bm-mark-skull) center/10px 10px no-repeat;image-rendering:pixelated}'
+    /* THE PHONE SHOWS TWO JOBS (UI [the phone shows two jobs], rule 148, Paolo 10/24: 'the phone really should only be
+       displaying the top two jobs, the two highest paying jobs in the whole Bohemia city, and it doesn't need to display so
+       much information, it's overkill with the amount of text you put on the phone'). The face is the hour and two cards;
+       the chat stream (#cityfeedlist, still fed underneath for whoever reads it) is off the glass. A card is a thumb's 44
+       points: the short what printed (ROM, one line), under it the stars (146(e)'s 7-point star), the pay beside the bar's
+       own battery mark and the place stamped (CASING) at the right. The one marked for the map is lit amber like the speed
+       you are at, shows the job's full words and the one touch that goes, and beats with the road. */
+    + 'html body #cityfeed #cityfeedlist,html body #cityfeed #cityfeedfade{display:none!important}'
+    + 'html body #bmboard{flex:0 0 auto;position:relative;z-index:1;padding:6px 5px 3px}'
+    + 'html body #bmboard .fp.job{display:flex;flex-direction:column;justify-content:center;gap:4px;margin:0 0 5px;padding:6px 6px 6px 7px;min-height:44px;box-sizing:border-box;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;'
+    +   'border-radius:2px;background:rgba(240,196,126,.08);box-shadow:inset 2px 0 0 #f0c47e}'
+    + 'html body #bmboard .fp.job .txt{margin:0;line-height:1.15;white-space:nowrap;overflow:hidden}'
+    + 'html body #bmboard .fp.job .meta{display:flex;align-items:center;gap:6px;margin:0;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;line-height:1;color:#eadcb4;white-space:nowrap}'
+    + 'html body #bmboard .fp.job .meta .bmstars{line-height:1}'
+    + 'html body #bmboard .fp.job .meta .bmstar{vertical-align:top}'
+    + 'html body #bmboard .fp.job .meta .pay{display:inline-flex;align-items:center;gap:2px;color:#f4e2b4}'
+    + 'html body #bmboard .fp.job .meta .batt{width:10px;height:10px;image-rendering:pixelated;display:block}'
+    + 'html body #bmboard .fp.job .meta .at{margin-left:auto;color:#f0c47e;overflow:hidden}'
     + 'html body #bmboard .fp.job.picked{background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c;outline:2px solid transparent;outline-offset:1px;animation:bm-roadbeat 500ms steps(1,end) infinite}'
-    /* UI [the ten changes], change 2: the picked post beats with the road's dots (its delay set on the map's clock) and says the next touch */
+    + 'html body #bmboard .fp.job.picked .txt{white-space:normal;line-height:1.3}'
+    /* UI [the ten changes], change 2: the picked card beats with the road's dots (its delay set on the map's clock) and says the next touch */
     + '@keyframes bm-roadbeat{0%{outline-color:#f0b44c}50%{outline-color:transparent}}'
-    + 'html body #bmboard .fp.job .go{margin-top:4px;padding:3px 4px 4px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;line-height:1.2;color:#f2e4c6;background:#1f1710;box-shadow:0 1px 0 #000}'
-    + 'html body #bmboard .fp.job.picked .who,html body #bmboard .fp.job.picked .txt,html body #bmboard .fp.job.picked .meta{color:#120c06}'
-    + 'html body #bmboard .fp.job.picked .sk{background-image:var(--bm-mark-skull-ink)}'
+    + 'html body #bmboard .fp.job .go{padding:3px 4px 4px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;line-height:1.2;color:#f2e4c6;background:#1f1710;box-shadow:0 1px 0 #000}'
+    + 'html body #bmboard .fp.job.picked .txt,html body #bmboard .fp.job.picked .meta,html body #bmboard .fp.job.picked .meta .pay,html body #bmboard .fp.job.picked .meta .at{color:#120c06}'
     /* WHEN THE PHONE TURNS (UI [landscape], rule 50b, his Pocket City 2 shot 06): the same buttons re-laid to the corners.
        The bar stays across the top, the speed pad keeps the bottom right (the big action's corner), and the phone, which
        carries the family's faces, goes to the LEFT, where Pocket City keeps its face: from under the bar (its box starts at the bar's foot) to the foot of the
