@@ -50,6 +50,10 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn()) return true; await d.page.waitForTimeout(300); } return false; };
   try {
     await d.page.waitForTimeout(2500);
+    /* WORLD [every job kind] (rule 153(b), 10/24): a board's job now plays as its KIND (an escort walks a cargo to another town,
+       a find rings a place, a hunt puts packs on the map: gates/every_job_kind_gate.js plays every one). THIS gate measures the
+       loop's own path, a crew marked on the map, fought and paid, so it asks the map to play every job as that crew */
+    await fr.evaluate(() => { window.__JOB_KINDS_OFF = true; });
     ok('L1 the demo opens on the map', await fr.evaluate(() => MODE === 'city'));
 
     /* L2..L5 as one walk, so L8 can take a second contract the same way */

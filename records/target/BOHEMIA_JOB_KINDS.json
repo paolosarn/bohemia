@@ -1,0 +1,448 @@
+{
+  "_about": "WORLD [every job kind], 10/24/26, rule 153(b) (Paolo 10/24: 'right now the only jobs you have are pull up on people and kill them, but in Battle Brothers there were a lot of different jobs: find something on the map, or do a caravan, or roam around until you find a certain enemy type and kill a bunch of them; I want more quest types'). Every board job is ONE KIND from QUESTS' table (questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md, research only, read never asked), and the kind decides how it plays on the map: slices/bohemia_job_kinds.js reads this file and the map's one job loop (__THE_LOOP_ON_THE_MAP__ in slices/BOHEMIA_CITY_WORLD.html) hands every held job to it. A MODDER EDITS THIS FILE: give an offer id a kind under 'offers', or add a line to 'guess' (a title pattern) and every new board row gets it; a kind's numbers are shapes, TUNING owns their values. draft:true.",
+  "version": "job-kinds-10-24b",
+  "draft": true,
+  "source": "questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md (THE TABLE and THE ROWS); Battle Brothers' numbers quoted there from the wiki dump",
+  "kinds": {
+    "clear-crew": {
+      "verb": "CLEAR",
+      "word": "CLEAR",
+      "bb": "Drive Away Bandits",
+      "plays": "the crew is marked a few blocks out; reach it, the fight, paid there. Today's job, unchanged.",
+      "twist_rate": 0
+    },
+    "haul-caravan": {
+      "verb": "HAUL",
+      "word": "ESCORT",
+      "bb": "Escort Caravan",
+      "plays": "the cargo is a truck that follows you to another town; it is slow (every block costs the clock more); you still tap where to go and where to stop; raiders come for it on the road; each crate that arrives pays its share; a lost fight loses half of what is left; nothing left and the job is lost",
+      "crates_by_skulls": [
+        3,
+        4,
+        6
+      ],
+      "pace": 1.6,
+      "pace_why": "Battle Brothers: you lose control and walk at the caravan's speed; ours keeps the controls and keeps the slowness as the clock (QR-AF H1 DIFFERENT)",
+      "dest_blocks": [
+        8,
+        30
+      ],
+      "ambush_by_skulls": [
+        1,
+        1,
+        2
+      ],
+      "ambush_why": "Battle Brothers' escort meets one or two parties on the road; a three-star caravan is the one worth two",
+      "ambush_foe": "brigands",
+      "ambush_extra": 1,
+      "ambush_extra_why": "raiders who come for a cargo come with one more than a party on the road",
+      "lost_fight_takes": 0.5,
+      "lost_fight_why": "the wiki: losing some cargo halves the pay; ours, per crate, so a lost fight takes half of what is left",
+      "fallen_drop": 1,
+      "fallen_why": "a man of yours who went down dropped the crate he was guarding",
+      "twist_rate": 0.2,
+      "twists": [
+        "T18",
+        "T13"
+      ],
+      "twist_why": "QR-AF: one escort in five; T18 a third party says the cargo is stolen (one more fight at the gate), T13 your own crew eyes the cargo (a crate walks off in the night)"
+    },
+    "find-place": {
+      "verb": "FIND",
+      "word": "FIND",
+      "bb": "Discover Location",
+      "plays": "the client says which way and how far; the map rings where to look; walk inside the ring and it turns up within two blocks; go back to the client to be paid (Battle Brothers pays on the return)",
+      "blocks": [
+        9,
+        18
+      ],
+      "ring": 4,
+      "seen_at": 2,
+      "twist_rate": 0.2,
+      "twists": [
+        "T22"
+      ],
+      "twist_why": "QR-AF F1: the 20% the directions lead into an ambush, a fight where you find it"
+    },
+    "find-person": {
+      "verb": "FIND",
+      "word": "FIND",
+      "bb": "Discover Location + the kidnapping twist",
+      "plays": "a FIND, and the ones you found walk home with you like a caravan's cargo, a head for a crate; paid at the client's town for every head that comes home",
+      "blocks": [
+        9,
+        16
+      ],
+      "ring": 4,
+      "seen_at": 2,
+      "heads_by_skulls": [
+        2,
+        3,
+        5
+      ],
+      "pace": 1.3,
+      "twist_rate": 0.25,
+      "twists": [
+        "T21"
+      ],
+      "twist_why": "QR-AF F3: one in four, the found do not all want to come; one stays"
+    },
+    "hunt-kind": {
+      "verb": "HUNT",
+      "word": "HUNT",
+      "bb": "Hunting [a beast kind] / Roaming Beasts",
+      "plays": "packs of the named kind roam the ground around the town; meet them (tap a pack and you go after it, contact is the fight), kill until the count on the job reaches what the client asked, then go back to the client to be paid; packs that are gone are replaced, farther out",
+      "need_by_skulls": [
+        4,
+        7,
+        10
+      ],
+      "packs": 3,
+      "pack_size": [
+        2,
+        4
+      ],
+      "pack_blocks": [
+        6,
+        15
+      ],
+      "foe": "beasts",
+      "twist_rate": 0.1,
+      "twists": [
+        "T23"
+      ],
+      "twist_why": "QR-AF B2: the rarest, one hunt in ten, the last of them a mother with young"
+    },
+    "clear-camp": {
+      "verb": "CLEAR",
+      "word": "CAMP",
+      "bb": "Destroy a camp",
+      "plays": "a camp stands on the map, bigger than a party (a fire, its men); reach it, the fight; paid there, part flat and part a head for every one put down, capped at the camp's size",
+      "extra_men": 2,
+      "flat": 0.6,
+      "per_head_share": 0.4,
+      "twist_rate": 0.25,
+      "twists": [
+        "T17"
+      ],
+      "twist_why": "QR-AF K2: one in four, the client lied: half of them are families, not fighters; fewer stand up, the pay is the same"
+    },
+    "carry": {
+      "verb": "CARRY",
+      "word": "CARRY",
+      "bb": "Deliver Item",
+      "plays": "one thing in the bag to another town, no truck and no slowness; paid when it is signed for there; thieves may wait on the road, and if they win it goes to their lair, a camp off the road, to be taken back",
+      "dest_blocks": [
+        8,
+        26
+      ],
+      "twist_rate": 0.2,
+      "twists": [
+        "stolen"
+      ],
+      "twist_why": "QR-AF C1: one delivery in five; the wiki's 'brigands steal it and leave tracks to their lair', which turns it into a CLEAR"
+    },
+    "hold-defend": {
+      "verb": "HOLD",
+      "word": "HOLD",
+      "bb": "Defend Settlement",
+      "plays": "the client's gate is marked HOLD with the nights left; stand on it before then and they come, wave after wave, one fight each; every wave held pays its share, all held pays the job; not there in time and the place is raided",
+      "waves_by_skulls": [
+        1,
+        2,
+        3
+      ],
+      "waves_why": "Battle Brothers: up to three parties attack",
+      "days": 2,
+      "days_why": "QR-AF rule: a clock only on HOLD; the client's words say the nights",
+      "twist_rate": 0,
+      "twist_why": "QR-AF D1's 20% kidnapping (T10) needs the chase this lane has not built; the HOLD's own clock is its hardness"
+    },
+    "recover-return": {
+      "verb": "RECOVER",
+      "word": "GET",
+      "bb": "Return Item / Obtain Item",
+      "plays": "the thing is somewhere in the valley with whoever has it now (men, beasts, or nobody); reach it, the fight where somebody holds it, take it, bring it back to the client to be paid; a lost fight leaves it there and the job open",
+      "blocks": [
+        6,
+        14
+      ],
+      "twist_rate": 0.17,
+      "twists": [
+        "moved"
+      ],
+      "twist_why": "QR-AF R1: one in six; played as the thieves moved it, the place empty and fresh tracks two to four blocks on"
+    }
+  },
+  "offers": {
+    "qd-ae09": {
+      "kind": "haul-caravan",
+      "cargo": "the water carts",
+      "crates": 2,
+      "unit": "cart"
+    },
+    "qd-s03": {
+      "kind": "haul-caravan",
+      "cargo": "two tankers of water",
+      "crates": 2,
+      "unit": "tanker"
+    },
+    "qd-s04": {
+      "kind": "haul-caravan",
+      "cargo": "eighty tyres",
+      "crates": 4,
+      "unit": "stack"
+    },
+    "qd-ar05": {
+      "kind": "haul-caravan",
+      "cargo": "three carts under tarps",
+      "crates": 3,
+      "unit": "cart"
+    },
+    "qd-a02": {
+      "kind": "haul-caravan",
+      "cargo": "the salt",
+      "crates": 3,
+      "unit": "sack"
+    },
+    "qd-ar02": {
+      "kind": "haul-caravan",
+      "cargo": "the relief shift",
+      "crates": 4,
+      "unit": "man"
+    },
+    "qd-s06": {
+      "kind": "haul-caravan",
+      "cargo": "the fever camp",
+      "crates": 4,
+      "unit": "family"
+    },
+    "ct-escort-water": {
+      "kind": "haul-caravan",
+      "cargo": "the water cart",
+      "crates": 2,
+      "unit": "barrel"
+    },
+    "qd-s17": {
+      "kind": "find-place",
+      "what": "the late caravan",
+      "found": "Found it: the trucks on their sides in a wash, the drivers sitting in the shade of them, alive."
+    },
+    "qd-aq03": {
+      "kind": "recover-return",
+      "item": "the battery bank",
+      "where": "level three of the parking structure"
+    },
+    "qd-ar06": {
+      "kind": "find-place",
+      "what": "the lodge's pharmacy",
+      "found": "Found it: the lodge, the pharmacy shelf, eleven sealed bottles behind the counter."
+    },
+    "qd-aa09": {
+      "kind": "find-place",
+      "what": "the lab's freezer",
+      "found": "Found it: the freezer on its own panels, still humming, still cold."
+    },
+    "qd-ap11": {
+      "kind": "find-place",
+      "what": "the box of little bulbs",
+      "found": "Found it: the church on Lamb, the box of bulbs on the altar, and people who only watch."
+    },
+    "qd-ar10": {
+      "kind": "find-person",
+      "what": "the Salcedos",
+      "heads": 5,
+      "unit": "Salcedo"
+    },
+    "qd-ap05": {
+      "kind": "find-person",
+      "what": "the cook's man",
+      "heads": 1,
+      "unit": "man"
+    },
+    "ct-find-the-kid": {
+      "kind": "find-person",
+      "what": "the Ortiz kid",
+      "heads": 1,
+      "unit": "kid"
+    },
+    "qd-ar03": {
+      "kind": "hunt-kind",
+      "what": "the pack",
+      "foe": "beasts",
+      "need": 6
+    },
+    "qd-ae10": {
+      "kind": "hunt-kind",
+      "what": "the wolves",
+      "foe": "beasts",
+      "need": 7
+    },
+    "qd-aa01": {
+      "kind": "hunt-kind",
+      "what": "the dogs",
+      "foe": "beasts",
+      "need": 11
+    },
+    "qd-aa15": {
+      "kind": "hunt-kind",
+      "what": "the show's cats",
+      "foe": "beasts",
+      "need": 2
+    },
+    "qd-ap03": {
+      "kind": "hunt-kind",
+      "what": "the hyenas",
+      "foe": "beasts",
+      "need": 4
+    },
+    "qd-t06": {
+      "kind": "clear-camp",
+      "what": "their fire in the dry wash",
+      "men": 6
+    },
+    "qd-s01": {
+      "kind": "clear-camp",
+      "what": "the crew on the intake deck"
+    },
+    "qd-ap19": {
+      "kind": "clear-camp",
+      "what": "the dogs in the wrecks",
+      "foe": "beasts"
+    },
+    "ct-dogs": {
+      "kind": "clear-camp",
+      "what": "the dog lot",
+      "foe": "beasts"
+    },
+    "ct-road-crew": {
+      "kind": "clear-crew"
+    },
+    "qd-ar08": {
+      "kind": "carry",
+      "item": "the sealed letter"
+    },
+    "qd-r01": {
+      "kind": "hold-defend",
+      "what": "the farm tower",
+      "waves": 2,
+      "days": 3
+    },
+    "qd-ap02": {
+      "kind": "hold-defend",
+      "what": "the hole in the wall",
+      "waves": 2,
+      "days": 2
+    },
+    "qd-t02": {
+      "kind": "hold-defend",
+      "what": "the wall",
+      "waves": 2,
+      "days": 1
+    },
+    "qd-s15": {
+      "kind": "hold-defend",
+      "what": "the counting room",
+      "waves": 3,
+      "days": 3
+    },
+    "qd-ar09": {
+      "kind": "hold-defend",
+      "what": "the gate",
+      "waves": 2,
+      "days": 2
+    },
+    "qd-ap01": {
+      "kind": "recover-return",
+      "item": "the light regulator",
+      "where": "the pump station",
+      "guards": 6
+    },
+    "qd-ap07": {
+      "kind": "recover-return",
+      "item": "the valve",
+      "where": "the Canal boys"
+    },
+    "qd-ap10": {
+      "kind": "recover-return",
+      "item": "three solar panels",
+      "where": "their lookout"
+    },
+    "qd-ap16": {
+      "kind": "recover-return",
+      "item": "the chapel bell",
+      "where": "the dealer"
+    },
+    "qd-ap13": {
+      "kind": "recover-return",
+      "item": "the pump",
+      "where": "the nursery on Rainbow",
+      "foe": "beasts"
+    },
+    "qd-ap08": {
+      "kind": "recover-return",
+      "item": "two crates",
+      "where": "the basement at Sunrise",
+      "foe": "beasts"
+    },
+    "qd-ap09": {
+      "kind": "recover-return",
+      "item": "six cells",
+      "where": "the white limo on Koval",
+      "guards": 0
+    },
+    "qd-ap15": {
+      "kind": "recover-return",
+      "item": "the pigment",
+      "where": "the art store on Charleston",
+      "foe": "beasts"
+    },
+    "qd-c02": {
+      "kind": "recover-return",
+      "item": "the cold box"
+    },
+    "qd-s08": {
+      "kind": "recover-return",
+      "item": "the ballot box",
+      "where": "block seven",
+      "guards": 0
+    }
+  },
+  "guess": [
+    {
+      "re": "^(walk|haul|ride|escort|move) ",
+      "kind": "haul-caravan",
+      "why": "the client's own verb: a thing or people walked to another place"
+    },
+    {
+      "re": "^carry .* (over|to) ",
+      "kind": "carry"
+    },
+    {
+      "re": "^find .*(kid|man|family|son|daughter|people)",
+      "kind": "find-person"
+    },
+    {
+      "re": "^find ",
+      "kind": "find-place"
+    },
+    {
+      "re": "^(hunt|run off|put down) ",
+      "kind": "hunt-kind"
+    },
+    {
+      "re": "^(hit|burn) ",
+      "kind": "clear-camp"
+    },
+    {
+      "re": "^(hold|stand|guard|sit .* at|defend) ",
+      "kind": "hold-defend"
+    },
+    {
+      "re": "^(bring|fetch|get|take back|buy back|carry .* from) ",
+      "kind": "recover-return"
+    }
+  ],
+  "default": "clear-crew",
+  "default_why": "a job no row names and no pattern matches is today's job, a crew marked on the map, so a new board row is never broken by this file"
+}

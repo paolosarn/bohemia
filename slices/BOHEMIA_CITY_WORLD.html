@@ -43812,6 +43812,7 @@ function cityStepMins(x,y){
   var dm = 1;
   try{ if (typeof BohemiaFollowers!=='undefined' && typeof CT_FOLLOWERS!=='undefined')
        dm = BohemiaFollowers.travelMultiplier(CT_FOLLOWERS); }catch(_e){}
+  try{ if (window.BohemiaJobKinds) dm *= BohemiaJobKinds.pace(); }catch(_e){}   /* __EVERY_JOB_KIND__: a caravan walks slow */
   return base*f*dm;
 }
 
@@ -43885,7 +43886,7 @@ function travelTo(sx,sy,cell){
     /* __THE_LOOP_ON_THE_MAP__: a touch on the JOB or the town he is standing at IS the arrival:
        the fight starts, the town opens. Without this a walked-out job could never be retried
        from where he stood (driven: the second touch said "You are standing there"). */
-    try{ if(loopJobAt(city.x,city.y) || loopTownAt(city.x,city.y,1)){ travelStop(); loopArrived([city.x,city.y]); return true; } }catch(_e){}
+    try{ if(loopJobAt(city.x,city.y) || loopTownAt(city.x,city.y,1) || (window.BohemiaJobKinds && BohemiaJobKinds.here(city.x,city.y))){ travelStop(); loopArrived([city.x,city.y]); return true; } }catch(_e){}
   }
   if(tx===city.x && ty===city.y){ travelStop(); travelSay('You are standing there.'); return false; }
   var p=cityRoute(city.x,city.y,tx,ty);
@@ -43980,6 +43981,7 @@ function townDoor(x, y){
    buildings), then a town's building. Returns true when it answered. */
 function mapTapWhat(sx, sy){
   if(typeof LOOK !== 'undefined' && LOOK.on) return false;
+  try{ if(window.BohemiaJobKinds && BohemiaJobKinds.tap(sx, sy)) return true; }catch(_e){}   /* __EVERY_JOB_KIND__: a pack, the raiders, a camp, a ring */
   var r = mapTapWhich(sx, sy);
   try{ window.__MAP_TAP = { sx: Math.round(sx), sy: Math.round(sy), what: r ? r.what : 'ground', name: r ? r.name : null, towns: MAP_TOWN_HIT.length, parties: MAP_PARTY_HIT.length }; }catch(_e){}
   if(!r) return false;
@@ -44141,6 +44143,7 @@ function huntDist(){ return HUNT ? Math.max(Math.abs(HUNT.at[0] - city.x), Math.
 function mapStepWorld(){
   if(LOOP.fighting || (LOOP.frame && LOOP.frame.style.display === 'block')) return;
   try{ if(CITY_CONTACT_POSTED) return; }catch(_e){}
+  try{ if(window.BohemiaJobKinds && BohemiaJobKinds.step()) return; }catch(_e){}   /* __EVERY_JOB_KIND__: the cargo follows, the packs and the raiders move */
   if(HUNT){
     HUNT.steps++;
     var paved = false; try{ var t = om.at(city.x, city.y); paved = !!(t && CITY_PAVED[t.district]); }catch(_e){}
@@ -44520,9 +44523,12 @@ function loopTakeContract(c){
   var job = { id: c.id, title: String(c.title || 'a job'), pay: loopJobPay(c.pay), from: town.name,
               target: tg, skulls: (c.skulls | 0) || 1 };
   job.party = partyMath('job', { skulls: job.skulls }); job.crew = job.party.count;   /* __A_FEW_NOT_TWELVE__: sized by the math */
+  /* __EVERY_JOB_KIND__ (WORLD [every job kind], rule 153(b), Paolo 10/24: 'I want more quest types'): the job's KIND decides where it
+     is and how it plays (escort, find, hunt, camp: slices/bohemia_job_kinds.js); a kind not built yet plays as this crew */
+  try{ if(window.BohemiaJobKinds) BohemiaJobKinds.make(job, c, town, tg); }catch(_e){}
   LOOP.held.push(job);
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Took a contract in ' + town.name + ': ' + job.title + '.', 'contract'); }catch(_e){}
-  loopSay('Contract from ' + town.name + ': ' + job.title + '. Pay ' + job.pay + ' battery. The JOB is marked on the map.');
+  loopSay(job.sayTake || ('Contract from ' + town.name + ': ' + job.title + '. Pay ' + job.pay + ' battery. The JOB is marked on the map.'));
   return true;
 }
 function loopSettleBats(n, why){
@@ -44546,6 +44552,7 @@ window.addEventListener('message', function(ev){
 });
 function loopJobAt(x, y){
   for(var i = 0; i < LOOP.held.length; i++){ var t = LOOP.held[i].target;
+    try{ if(window.BohemiaJobKinds && BohemiaJobKinds.owns(LOOP.held[i])) continue; }catch(_e){}   /* __EVERY_JOB_KIND__: the kind says what is there */
     if(Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) <= 1) return LOOP.held[i]; }
   return null;
 }
@@ -44555,6 +44562,7 @@ function loopArrived(to){
      into its fight called this again and handed the same job over twice; the pay never landed. A job in flight is in flight. */
   if(LOOP.fighting) return;
   try{ if(typeof raidDefend === 'function' && raidDefend()) return; }catch(_e){}   /* __BUILT_ON_THE_MAP__ a raid at your gate (LIFE+CITY 10/9) */
+  try{ if(window.BohemiaJobKinds && BohemiaJobKinds.arrived(x, y)) return; }catch(_e){}   /* __EVERY_JOB_KIND__: a pack, a camp, a ring, a cargo home */
   var job = loopJobAt(x, y);
   if(job){
     LOOP.fighting = job.id;
@@ -44600,6 +44608,7 @@ window.addEventListener('message', function(ev){
   var i = -1; LOOP.held.forEach(function(h, k){ if(h.id === id) i = k; });
   if(i < 0) return;
   var o = d.outcome || {}, won = !!(o.victory || o.result === 'win');
+  try{ if(window.BohemiaJobKinds && BohemiaJobKinds.owns(LOOP.held[i])){ BohemiaJobKinds.fightEnd(LOOP.held[i], o); return; } }catch(_e){}   /* __EVERY_JOB_KIND__ */
   var line;
   /* WALKING OUT IS NOT THE JOB. The fight lets him leave by the way out and calls that a win
      (COMBAT V239: "leaving before it is over"); the crew he was paid to move is still standing,
@@ -44630,7 +44639,9 @@ window.addEventListener('message', function(ev){
 });
 /* the JOB on the map: three of the cast under a red flag, named on a plate */
 function loopJobsDraw(ox, oy){
+  try{ if(window.BohemiaJobKinds) BohemiaJobKinds.draw(ox, oy); }catch(_e){}   /* __EVERY_JOB_KIND__: the cargo, the ring, the packs, the camp */
   for(var i = 0; i < LOOP.held.length; i++){
+    try{ if(window.BohemiaJobKinds && BohemiaJobKinds.owns(LOOP.held[i])) continue; }catch(_e){}
     var j = LOOP.held[i], p = iso(j.target.x, j.target.y, ox, oy);
     if(p.sx < -40 || p.sx > CVW + 40 || p.sy < -60 || p.sy > CVH + 60) continue;
     var fy = p.sy + TH / 2 + 2, bt = mapArtBeat();
@@ -87583,5 +87594,6 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
+<script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>
