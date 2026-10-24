@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | STATS | GROK_FIRST_ENEMY_STATS_SKILLS_2026_10_24.md | thug, orc young, orc warrior, goblin skirmisher, wiederganger stats and skills
 - 2026-10-24 | ENEMIES | GROK_ENEMY_LIST_BOHEMIA_OPTIONS_2026_10_24.md | full enemy list, robot/drone/chip-body options
 - 2026-10-24 | PARTIES | GROK_FACTION_PARTIES_BB_WAY_2026_10_24.md | factions send parties, scaling by days and strength, no scripted first fight
 - 2026-10-24 | ASK | GROK_ASK_35_WORLD_FEELS_FRESH_2026_10_24.md | world generation, settlements, roads, what feels new
