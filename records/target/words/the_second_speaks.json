@@ -1,0 +1,85 @@
+{
+ "what": "THE SECOND SPEAKS: the lines the map's one voice says (UI [the ten changes: the UI's part], 10/24/26; rule 133; TUNING's changes 6 and 8, records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md). Read at load by slices/bohemia_ui_materials.js (THE TEN CHANGES). WORDS overwrites any line here; a modder may too.",
+ "draft": true,
+ "owner": "WORDS (the words); UI (when they are said and the plate they are said on)",
+ "rules": [
+  "Each teaching line is said once, the first time its thing happens, by his second (the first man of his company after him who is still with him).",
+  "Nothing is said in the first sixty seconds of play (the second votes); a line asked then waits, and goes stale after its ttl in seconds.",
+  "Nothing stops the march; a tap on the face lets it go. A line with no face is never shown (rule 19c).",
+  "Twelve words or fewer. The thing he needs to know is in English; a word of Spanish is flavour only and comes from the declared lexicon (engine/bohemia_people.js ES_LEX), never the required part (the language gate's hard rule).",
+  "The voice tells him what a thing is, never what to do (TUNING: hardcore kept)."
+ ],
+ "lines": {
+  "phone_job": {
+   "line": "Oye. Posts on the phone are work. Touch one, it lights up.",
+   "ttl": 120,
+   "when": "a job shows on the phone and he has taken none",
+   "draft": true
+  },
+  "party_sight": {
+   "line": "Crew on the road. One touch sizes them up, a second goes.",
+   "ttl": 30,
+   "when": "a party within eight blocks and he has never looked at one",
+   "draft": true
+  },
+  "first_town": {
+   "line": "Town ahead. Inside: work on the board, and men for hire.",
+   "ttl": 30,
+   "when": "on the way to a town before he has been inside one",
+   "draft": true
+  },
+  "first_fight": {
+   "line": "",
+   "owner": "COMBAT ([the first fight teaches]: aim, cover, reload, said inside the fight)",
+   "draft": true
+  },
+  "first_pay": {
+   "line": "That's the work, mano: fight, get paid. Batteries feed us.",
+   "ttl": 90,
+   "when": "the first job paid",
+   "draft": true
+  },
+  "first_hurt": {
+   "line": "{name} heals in camp. A dead man doesn't. Cuidado.",
+   "ttl": 90,
+   "when": "the first man laid up",
+   "draft": true
+  },
+  "first_hire": {
+   "line": "New blood eats too. {per} batteries a night, every man.",
+   "ttl": 60,
+   "when": "the first hire",
+   "draft": true
+  },
+  "first_night": {
+   "line": "Every night the crew eats. No batteries, a man walks.",
+   "ttl": 90,
+   "when": "the first nightfall, after the tally",
+   "draft": true
+  },
+  "client_pay": {
+   "line": "{pay} batteries, like we said. Gracias.",
+   "ttl": 45,
+   "who": "the client who posted the job (the board's own person)",
+   "draft": true
+  },
+  "hurt": {
+   "line": "They got me. {days} days, then I'm back.",
+   "ttl": 45,
+   "who": "the man the fight laid up",
+   "draft": true
+  },
+  "dead": {
+   "line": "{name} didn't get up, carnal. He's gone.",
+   "ttl": 45,
+   "who": "his second",
+   "draft": true
+  },
+  "tally": {
+   "line": "{fights} won. {in} in, {out} out. {days} days left.",
+   "ttl": 60,
+   "who": "his second, at nightfall",
+   "draft": true
+  }
+ }
+}

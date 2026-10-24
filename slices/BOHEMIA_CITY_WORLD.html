@@ -44225,7 +44225,8 @@ function partyPlatePush(id, sx, topY, info){
   g.font = '700 9px ' + FACE('casing');
   var w = g.measureText(t).width + info.skulls * 8 + 4;
   var lx = Math.max(2, Math.min(CVW - w - 8, sx - w / 2 - 3)), cx = lx + 3 + w / 2;   /* inside the glass at the edges */
-  var P = { t: t, lx: lx, ly: topY - 14, w: w, col: info.hunt ? '#ff8f7a' : '#f2d7a0', sx: cx - (info.skulls * 8 + 4) / 2, cy: topY, r: 0, sk: info.skulls, party: true };
+  var P = { t: t, lx: lx, ly: topY - 14, w: w, col: info.hunt ? '#ff8f7a' : '#f2d7a0', sx: cx - (info.skulls * 8 + 4) / 2, cy: topY, r: 0, sk: info.skulls, party: true,
+            info: { count: info.count, skulls: info.skulls, going: info.going, hunt: !!info.hunt, blocks: info.hunt ? huntDist() : null } };   /* UI [the ten changes], change 3: the tag's look is the materials' */
   MAP_PLATES.push(P);
   try{ MAP_DREW.partyPlate = (MAP_DREW.partyPlate | 0) + 1; }catch(_e){}
   return { x: P.lx, y: P.ly, w: w + 6, h: 11 };
@@ -45439,6 +45440,9 @@ function mapPlatesDraw(){
   for (var i = 0; i < MAP_PLATES.length; i++) {
     var P = MAP_PLATES[i];
     g.globalAlpha = 1;
+    /* UI [the ten changes], change 3 (rule 133): a party's plate is a tin tag from the kit (how many beside a drawn man, the
+       skulls, the danger in a word, where it is going), drawn by the materials; this dark strip is the fallback */
+    if (P.party && P.info && window.BohemiaMaterials && BohemiaMaterials.partyPlate) { try { if (BohemiaMaterials.partyPlate(g, P)) continue; } catch (_e) {} }
     g.font = '700 9px ' + FACE('casing'); g.textAlign = 'center';
     /* A PLATE UNDER THE WORD. The valley floor is a light tan by day and the label was
        unreadable on it -- checked on the real canvas, not assumed from the hex. */

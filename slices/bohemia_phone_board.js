@@ -92,6 +92,15 @@
     for (var i = 0; i < a.skulls; i++) { var s = document.createElement('i'); s.className = 'sk'; m.appendChild(s); }
     var p = document.createElement('span'); p.textContent = a.pay + ' BATT · ' + ago(a.age); m.appendChild(p);
     d.appendChild(w); d.appendChild(x); d.appendChild(m);
+    /* UI [the ten changes], change 2 (rule 133; TUNING: 'tapping a job on the phone lights the card and nothing else'): the
+       picked post says what the map now shows and the one touch that goes, and it beats with the road's dots (the map's beat
+       is performance.now() over BEAT, so the card's pulse is started on the same clock). The phone still only shows (51). */
+    if (PICK === a.key) {
+      var go = document.createElement('div'); go.className = 'go';
+      go.textContent = a.dist ? 'ROAD LIT \u00b7 TOUCH ' + String(a.place).toUpperCase() + ' ON THE MAP' : 'YOU ARE HERE \u00b7 TOUCH ' + String(a.place).toUpperCase();
+      d.appendChild(go);
+      try { var B = (typeof BEAT === 'number' && BEAT > 0) ? BEAT : 500; d.style.animationDelay = (-(performance.now() % B)) + 'ms'; d.style.animationDuration = B + 'ms'; } catch (e) {}
+    }
     d.addEventListener('click', function (ev) {
       try { ev.stopPropagation(); } catch (e) {}   /* a tap on a job is not a tap on the phone */
       PICK = (PICK === a.key) ? null : a.key;

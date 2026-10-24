@@ -598,6 +598,9 @@
          (records/BOHEMIA_GRAVEYARD_UI_THE_TAPE_RING_10_13_26.md) */
       case 'tape': break;
       case 'water': rect(3, 3, 4, 6, 'blue'); rect(4, 1, 2, 2, 'cap'); rect(3, 5, 4, 1, 'paper'); break;
+      /* the nights the batteries still feed the crew (UI [the ten changes], change 5): a moon, cut by the night it counts */
+      case 'nights': rect(3, 1, 4, 1, 'paper'); rect(2, 2, 3, 1, 'paper'); rect(1, 3, 3, 4, 'paper'); rect(2, 7, 3, 1, 'paper'); rect(3, 8, 4, 1, 'paper');
+        put(7, 7, 'paper'); put(6, 7, 'paper'); put(7, 2, 'paper'); break;
     }
     var get = function (x, y) { return (x < 0 || y < 0 || x >= N || y >= N) ? null : G[y * N + x]; };
     var S3 = 3, cv = document.createElement('canvas'); cv.width = cv.height = N * S3; var g = cv.getContext('2d');
@@ -684,6 +687,8 @@
     }
     return cv.toDataURL('image/png');
   }
+  /* UI [the ten changes] (10/24): the state of the moments the bar and the voice carry (filled in THE TEN CHANGES below) */
+  var TEN = { count: null };
   /* every fact asked of the game, nothing kept here; null where the game knows nothing (the 10/19 lay's reads) */
   function tbFacts() {
     var f = { day: null, min: null, batteries: null, food: null, perDay: 1, crew: null, cap: null, place: null, six: {} };
@@ -694,6 +699,19 @@
     try { var p = window.parent.BOH_START && window.parent.BOH_START.picks(); if (p && p.company) {
       f.cap = p.cap || null;
       f.crew = p.company.map(function (m) { return (typeof m.hp === 'number' && typeof m.hpMax === 'number' && m.hpMax > 0) ? m.hp / m.hpMax : 1; }); } } catch (_e) {}
+    /* UI [the ten changes], change 5 (rule 133, TUNING's ONE BILL IN DAYS): the bill is the map's (RUN 10/23, window.__BILL):
+       the crew it feeds is the crew (a man who walked is gone from the count), and the nights the batteries cover is the
+       second number. A man the fight laid up (the crew screen's bohemia.climb.v1) is a red tick until he is back. */
+    try { var B = window.__BILL; if (B && typeof B.crew === 'number') {
+      f.days = typeof B.daysLeft === 'number' ? B.daysLeft : null; f.red = !!B.red;
+      var n = Math.max(1, B.crew | 0), c = f.crew || [], out = [];
+      for (var i = 0; i < n; i++) out.push(i < c.length ? c[i] : 1);
+      f.crew = out; } } catch (_e) {}
+    try { var cl = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}') || {}, men = (window.CREW_DEFS && CREW_DEFS.men) || [];
+      if (f.crew) f.crew = f.crew.map(function (hp, i) { var m = men[i] && cl[men[i].name]; return (m && m.hurt && m.hurt.days > 0) ? Math.min(hp, 0.2) : hp; }); } catch (_e) {}
+    /* the figure never jumps (change 6): mid-count it is the count; a change not yet counted shows what was there */
+    if (TEN.count) f.batteries = TEN.count.shown; else if (TEN.armed && TEN.last != null) f.batteries = TEN.last;
+    try { if (f.days != null && window.__BILL.perNight > 0 && typeof f.batteries === 'number') f.days = Math.floor(f.batteries / __BILL.perNight); } catch (_e) {}   /* the nights walk with the figure */
     return f;
   }
   var TOPBAR_CSS = ''
@@ -725,6 +743,13 @@
     + '#bmtb .s b{font-weight:normal} #bmtb .s.none b{color:#ddd2b8} #bmtb .s.none img{opacity:.6}'
     + '#bmtb .s b.low{color:#4a0a05;padding:3px 5px;background:#e2dac6 var(--bm-receipt) center/100% 100%;box-shadow:0 1px 0 #000}'
     + '#bmtb .where{flex:0 1 auto;min-width:0;margin-left:auto;overflow:hidden;white-space:nowrap;font-size:11px;letter-spacing:1px;color:#f2e4c6}'
+    /* the two numbers (change 5): the batteries big, the nights beside them with the word, so a stranger reads 'days left' */
+    + '#bmtb .s.bats b{font-size:16px;min-width:3ch} #bmtb .s.days b{font-size:16px} #bmtb .s.days i{font-style:normal;font-size:10px;letter-spacing:.8px;color:#ddd2b8;margin-left:2px}'
+    + '#bmtb .s.days.red i{color:#ff9a7e}'
+    /* a win counting up where the number lives (change 6): the figure lit amber on the beat while it climbs */
+    + '#bmtb .s.bats.counting b{color:#120c06;padding:2px 5px;background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c,0 1px 0 #000}'
+    + '#bmtb .s.bats.counting.down b{background:#d98a6e;box-shadow:inset 0 1px 0 #f6c2a8,inset 0 -2px 0 #6e2a12,0 1px 0 #000}'
+    + '@media (max-width:359px){#bmtb .s.days i{display:none}}'
     /* a phone under 360 points keeps every fact and drops only the cap's '/12' */
     + '@media (max-width:359px){#bmtb .t.crew em{display:none} #bmtb .g{gap:7px}}'
     /* on its side, and on any screen 700 wide (a tablet, a computer): one row, the reads between the day and the crew */
@@ -745,11 +770,21 @@
       f.crew.forEach(function (hp) { var px = Math.max(2, Math.round(14 * hp)); crew += '<i class="' + (hp >= 0.66 ? '' : (hp >= 0.33 ? 'hurt' : 'bad')) + '"><b style="height:' + px + 'px"></b></i>'; });
       crew += '</span>';
     } else crew += '<b>–</b>';
-    var g = TB_STORES.map(function (k) {
+    /* UI [the ten changes], change 5 (rule 133; TUNING: 'the bar shows two numbers, not five'): the batteries, and the
+       nights they still feed the crew. The stall's food, meds and rounds are bought where they are sold; the bill is one
+       number in batteries, so the three dashes and the food chip are off the bar. Until the map's bill is read (a page
+       without it) the bar keeps the five it had. */
+    var g;
+    if (f.days != null) {
+      var cnt = TEN.count ? ' counting' : '';
+      g = '<span class="s bats' + cnt + '" data-f="batteries"><img alt="BATTERIES" src="' + supplyIcon('batteries') + '"><b>' + (typeof f.batteries === 'number' ? f.batteries : '–') + '</b></span>'
+        + '<span class="s days' + (f.red ? ' red' : '') + '" data-f="days"><img alt="NIGHTS" src="' + supplyIcon('nights') + '"><b' + (f.red ? ' class="low"' : '') + '>' + f.days + '</b><i>' + (f.days === 1 ? 'DAY LEFT' : 'DAYS LEFT') + '</i></span>';
+    } else g = TB_STORES.map(function (k) {
       var n = k === 'batteries' ? f.batteries : (k === 'food' ? f.food : (f.six ? f.six[k] : null)), has = typeof n === 'number';
       var low = k === 'food' && has && Math.floor(n / f.perDay) < 3;
       return '<span class="s' + (has ? '' : ' none') + '" data-f="' + k + '"><img alt="' + k.toUpperCase() + '" src="' + supplyIcon(k) + '"><b' + (low ? ' class="low"' : '') + '>' + (has ? n : '–') + '</b></span>';
-    }).join('') + (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
+    }).join('');
+    g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
     var parts = { day: day, crew: crew, g: g };
     Object.keys(parts).forEach(function (k) { var e = root.querySelector('[data-tb=' + k + ']'); if (e && e.__was !== parts[k]) { e.innerHTML = parts[k]; e.__was = parts[k]; } });
     /* the shell's floating gear steps aside only while this one can be pressed (a screen over the map hides the bar) */
@@ -872,7 +907,10 @@
     + 'html body #bmboard .fp.job .meta{display:flex;align-items:center;gap:2px;margin-top:3px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;letter-spacing:.4px;color:#eadcb4}'
     + 'html body #bmboard .fp.job .meta span{margin-left:4px}'
     + 'html body #bmboard .fp.job .sk{display:block;width:10px;height:10px;background:var(--bm-mark-skull) center/10px 10px no-repeat;image-rendering:pixelated}'
-    + 'html body #bmboard .fp.job.picked{background:linear-gradient(#f4cf7c,#d9a650);box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55)}'
+    + 'html body #bmboard .fp.job.picked{background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c;outline:2px solid transparent;outline-offset:1px;animation:bm-roadbeat 500ms steps(1,end) infinite}'
+    /* UI [the ten changes], change 2: the picked post beats with the road's dots (its delay set on the map's clock) and says the next touch */
+    + '@keyframes bm-roadbeat{0%{outline-color:#f0b44c}50%{outline-color:transparent}}'
+    + 'html body #bmboard .fp.job .go{margin-top:4px;padding:3px 4px 4px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;line-height:1.2;color:#f2e4c6;background:#1f1710;box-shadow:0 1px 0 #000}'
     + 'html body #bmboard .fp.job.picked .who,html body #bmboard .fp.job.picked .txt,html body #bmboard .fp.job.picked .meta{color:#120c06}'
     + 'html body #bmboard .fp.job.picked .sk{background-image:var(--bm-mark-skull-ink)}'
     /* WHEN THE PHONE TURNS (UI [landscape], rule 50b, his Pocket City 2 shot 06): the same buttons re-laid to the corners.
@@ -1680,7 +1718,352 @@
   dressKit();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressKit);
 
-  window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
+  /* ======================================================================================================
+     THE TEN CHANGES, THE UI'S PART  (UI [the ten changes: the UI's part], 10/24/26; rule 133, Paolo 10/23: 'the whole
+     point of this project was to be like Battle Brothers but quicker and funner for normies... also kind of hardcore
+     vibes if you're fucking around too much'; TUNING's page, records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md)
+     RUN built the map's half of changes 1 to 5 on 10/23. Five are the screen's:
+       2  THE PHONE'S LIT TOWN: a job touched on the phone says, on the phone, what to touch next, and the picked post is
+          the amber tin beating with the road's dots (the line is printed by slices/bohemia_phone_board.js).
+       3  THE PARTY PLATE: RUN's plate on a party's flag (how many, skulls against his crew, where it is going) is a tin tag
+          from the kit: the count beside a drawn man, the skulls, the danger in one word; a crew coming for him is the
+          same tag rusted red (mapPlatesDraw asks partyPlate below; the old dark strip stays the fallback).
+       5  TWO NUMBERS ON THE BAR: the batteries and the days they feed the crew (topBar above).
+       6  A WIN IS A MOMENT: the battery number never jumps: every change counts where it lives, one tick an eighth note,
+          at most six beats, each tick posted as BOHEMIA_MOMENT (SOUNDS plays it; this file makes no sound); what a fight
+          dropped flies into the crew tag; the man it laid up shows his face and his days; a paid job is paid by its
+          client's face; nightfall is the day's tally said by his second (fights won, batteries in and out, days left),
+          one tap.
+       8  ONE VOICE: his second says one line the first time each of seven things happens (the first fight's three are
+          COMBAT's), never in the first sixty seconds of play, never stopping the march, a tap lets it go, each once.
+     NOTHING POPS UP (rule 117(c); the second votes): a spoken line is a face at the foot of the map that the march walks
+     past, and no line without a face is ever shown (rule 19c). The words are WORDS' to overwrite, draft:true:
+     records/target/words/the_second_speaks.json, read at load; if it cannot be read, nobody speaks.
+     ====================================================================================================== */
+  var TEN_PAGE = (function () { try { var p = location.pathname; return /BOHEMIA_CITY_WORLD/.test(p) ? 'map' : (/BOHEMIA_(DEMO|ALPHA_0_9)\.html$/.test(p) ? 'shell' : ''); } catch (e) { return ''; } })();
+  function tenBeat() { try { return (typeof window.BEAT === 'number' && window.BEAT > 0) ? window.BEAT : 60000 / (window.BPM || 120); } catch (e) { return 500; } }
+  function tenPost(m) {
+    m.type = 'BOHEMIA_MOMENT'; m.at = Math.round(performance.now());
+    try { TEN.moments = (TEN.moments || []).concat([m]).slice(-80); window.__MOMENTS = TEN.moments; } catch (e) {}
+    try { window.dispatchEvent(new CustomEvent('bohemia-moment', { detail: m })); } catch (e) {}
+    try { if (window.parent && window.parent !== window) window.parent.postMessage(m, '*'); } catch (e) {}
+  }
+  /* ---- THE SHELL: the fight's own word home carries who it laid up; kept for the map, which hears only won or lost ---- */
+  if (TEN_PAGE === 'shell') window.addEventListener('message', function (ev) {
+    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_FIGHT_OVER') return;
+    try { window.__BM_FIGHT_OVER = { at: Date.now(), result: d.result, rounds: d.rounds | 0, drops: Array.isArray(d.drops) ? d.drops.slice(0, 8) : null,
+      crew: (d.crew || []).map(function (c) { return { name: c.name, main: !!c.main, dead: !!c.dead, down: !!c.down, days: c.laidUpDays | 0, injury: c.injury ? c.injury.name : null }; }) }; } catch (e) {}
+  });
+
+  /* ---- THE COUNT: the bar's battery figure walks to what the purse holds, one tick an eighth note ---- */
+  function tenReal() { try { return typeof window.loopBats === 'function' ? window.loopBats() : (purseBalances().electricity | 0); } catch (e) { return null; } }
+  function tenCount(to) {
+    var C = TEN.count, from = C ? C.shown : TEN.last;
+    if (from == null || to == null || from === to) return;
+    var ticks = Math.min(12, Math.abs(to - from)), eighth = tenBeat() / 2;
+    if (C) { C.from = C.shown; C.to = to; C.n = 0; C.ticks = ticks; C.down = to < C.shown; C.t0 = performance.now(); return; }   /* a second change mid-count: walk on to the new number */
+    C = TEN.count = { from: from, to: to, shown: from, n: 0, ticks: ticks, down: to < from, why: TEN.why || (to > from ? 'in' : 'out') };
+    TEN.why = null;
+    tenPost({ kind: 'count_up', from: from, to: to, ticks: ticks, beats: ticks / 2, tick_ms: eighth, why: C.why, down: C.down });
+    /* every tick sits on the game's own eighth notes (the map's beat is performance.now() over BEAT), counted from the clock,
+       never from the last timer: a slow frame skips a figure, it never stretches the six beats */
+    C.t0 = performance.now() + (eighth - (performance.now() % eighth));
+    var tick = function () {
+      var K = TEN.count; if (!K) return;
+      var n = Math.min(K.ticks, Math.floor((performance.now() - K.t0) / eighth + 0.001) + 1); if (n <= K.n) n = K.n + 1;
+      K.n = Math.min(K.ticks, n); K.shown = K.n >= K.ticks ? K.to : Math.round(K.from + (K.to - K.from) * K.n / K.ticks);
+      tenPost({ kind: 'count_tick', n: K.n, of: K.ticks, value: K.shown, why: K.why, down: K.down });
+      try { tbPaint(); } catch (e) {}
+      if (K.n < K.ticks) { TEN.countT = setTimeout(tick, Math.max(0, K.t0 + K.n * eighth - performance.now())); return; }
+      TEN.countT = setTimeout(function () { TEN.last = K.to; TEN.count = null; tenPost({ kind: 'count_done', value: K.to, why: K.why }); try { tbPaint(); } catch (e) {} }, tenBeat());
+    };
+    TEN.countT = setTimeout(tick, Math.max(0, C.t0 - performance.now()));
+    try { tbPaint(); } catch (e) {}
+  }
+  function tenWatch() {
+    var r = tenReal(); if (r == null) return;
+    /* nothing counts until the game has begun and settled (the start's own grant is not a moment), nor while a place is
+       open over the bar: what was bought there counts when the bar is back on the glass */
+    if (playS() < 3) { TEN.last = r; TEN.armed = false; return; }
+    try { if (LOOP.frame && LOOP.frame.style.display === 'block') return; } catch (e) {}
+    TEN.armed = true;
+    if (TEN.last == null) { TEN.last = r; return; }
+    if (TEN.count ? r !== TEN.count.to : r !== TEN.last) tenCount(r);
+    var root = document.getElementById('bmtb'); if (root) { var b = root.querySelector('.s.bats'); if (b) b.classList.toggle('down', !!(TEN.count && TEN.count.down)); }
+  }
+
+  /* ---- THE VOICE: one face, one line, at the foot of the map; the march walks past it ---- */
+  var VOICE = { q: [], on: null, el: null, said: {}, lines: null, t0: 0, shown: [], nights: 0, won: {}, hires: null, wasTown: false };
+  var VOICE_KEY = 'bohemia.voice.once.v1';
+  try { VOICE.said = JSON.parse(localStorage.getItem(VOICE_KEY) || '{}') || {}; } catch (e) { VOICE.said = {}; }
+  var VOICE_CSS = ''
+    + 'html body #bmvoice{position:fixed;z-index:41;left:8px;right:8px;max-width:440px;margin:0 auto;display:none;align-items:center;gap:8px;box-sizing:border-box;'
+    +   'padding:7px 10px 10px 8px;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;' + kit('board_plain', 1) + KIT_SHADOW + '}'
+    + 'html body #bmvoice.on{display:flex}'
+    + 'html body #bmvoice .face{flex:0 0 auto;width:62px;height:62px;box-sizing:border-box;padding:5px 4px 6px 6px;display:flex;align-items:center;justify-content:center;' + kit('well', 1) + '}'
+    + 'html body #bmvoice .face canvas{display:block;width:50px;height:50px;image-rendering:pixelated}'
+    + 'html body #bmvoice .say{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px}'
+    + 'html body #bmvoice .hd{display:flex;align-items:center;gap:6px;max-width:100%}'
+    + 'html body #bmvoice .who{font-size:11px;letter-spacing:1px;line-height:1;padding:4px 7px 5px;white-space:nowrap;' + kit('receipt', 0.75) + KIT_INK + '}'
+    + 'html body #bmvoice .tag{font-size:11px;letter-spacing:1px;line-height:1;padding:4px 7px 5px;white-space:nowrap;color:#120c06;' + kit('tin_amber', 0.5) + '}'
+    + 'html body #bmvoice .tag.red{' + kit('tin', 0.5) + 'color:#6e140c!important}'
+    + 'html body #bmvoice .line{align-self:stretch;font-family:"BohemiaROM",ui-monospace,monospace;font-size:12px;line-height:1.35;padding:6px 8px 7px;min-height:18px;' + kit('receipt', 1) + KIT_INK + '}'
+    + 'html body #bmvoice .line i{font-style:normal;visibility:hidden} html body #bmvoice .line i.on{visibility:visible}'
+    + 'html body #bmvoice .more{font-size:9px;letter-spacing:1px;color:#f2e4c6;text-shadow:0 1px 0 #000;margin-left:auto}'
+    /* RUN's walking man (#billtalk, the bill's own face) wears the same plate: one voice on the map, not two */
+    + 'html body #billtalk{' + kit('board_plain', 1) + KIT_SHADOW + 'color:#1f1710!important;font-family:"BohemiaROM",ui-monospace,monospace!important;left:8px!important;right:8px!important;max-width:440px;margin:0 auto}'
+    + 'html body #billtalk canvas{box-sizing:border-box;width:62px!important;height:62px!important;padding:5px 4px 6px 6px;' + kit('well', 1) + '}'
+    + 'html body #billtalk>div{flex:1 1 auto;padding:6px 8px 7px;' + kit('receipt', 1) + KIT_INK + '}'
+    + 'html body #billtalk>div b{color:#6e140c!important;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:normal;letter-spacing:1px}';
+  function voiceLines() {
+    if (VOICE.lines || VOICE.asked) return; VOICE.asked = true;
+    try { fetch('../records/target/words/the_second_speaks.json').then(function (r) { return r.json(); }).then(function (j) { if (j && j.lines) VOICE.lines = j; }).catch(function () {}); } catch (e) {}
+  }
+  function voiceFaces(cb) {
+    if (window.BohemiaCrewFaces) return cb && cb();
+    if (!VOICE.facesAsked) { VOICE.facesAsked = true;
+      if (![].slice.call(document.scripts).some(function (s) { return /bohemia_crew_faces\.js/.test(s.src || ''); })) {
+        try { var sc = document.createElement('script'); sc.src = '../engine/bohemia_crew_faces.js'; document.head.appendChild(sc); } catch (e) {} } }
+  }
+  function L(id) { var j = VOICE.lines; return j && j.lines && j.lines[id] ? j.lines[id] : null; }
+  function fill(t, o) { return String(t || '').replace(/\{(\w+)\}/g, function (m, k) { return o && o[k] != null ? o[k] : m; }); }
+  /* his second: the first man of the company after him who is still with him (ours.json's names and looks, the fight's
+     and the crew screen's own) */
+  function tenSecond(not) {
+    var D = window.CREW_DEFS, men = (D && D.men) || [], looks = (D && D.looks) || [];
+    var n = 3; try { n = (LOOP.start && LOOP.start.company && LOOP.start.company.length) || 3; } catch (e) {}
+    var gone = {}; try { (window.crewWalked() || []).forEach(function (w) { gone[String(w.name).toUpperCase()] = 1; }); } catch (e) {}
+    if (not) gone[String(not).toUpperCase()] = 1;
+    for (var i = 1; i < Math.max(2, n); i++) { var m = men[i]; if (m && looks[i] && !gone[String(m.name).toUpperCase()]) return { name: String(m.name), look: looks[i] }; }
+    return null;
+  }
+  function lookOfMan(name) {
+    var D = window.CREW_DEFS, men = (D && D.men) || [], looks = (D && D.looks) || [];
+    for (var i = 0; i < men.length; i++) if (String(men[i].name).toUpperCase() === String(name).toUpperCase()) return looks[i] || null;
+    return null;
+  }
+  /* the client who posted a job: the board's own person (RUN TWO's shelf), else the town's people */
+  function clientOf(job) {
+    try { var S = window.BohemiaBoardShelf && BohemiaBoardShelf.shelf(); if (S) for (var i = 0; i < S.offers.length; i++) if (S.offers[i].id === job.id && S.offers[i].client && S.offers[i].client.look) return { name: S.offers[i].client.name, look: S.offers[i].client.look }; } catch (e) {}
+    var f = 'faction_' + String(job.from || '').toLowerCase().replace(/[^a-z]/g, '');
+    try { if (window.BohemiaCrewFaces && BohemiaCrewFaces.has(f)) return { name: String(job.from).toUpperCase(), look: f }; } catch (e) {}
+    return null;
+  }
+  function playS() { var t0 = window.HUNT_T0 || VOICE.t0; return t0 ? (performance.now() - t0) / 1000 : -1; }
+  /* say: o = { id, line, who {name, look}, tag, red, prio (lower first), ttl (s), once, hold (beats), kind } */
+  function say(o) {
+    if (!o || !o.line || !o.who || !o.who.look) return false;
+    if (o.once && VOICE.said[o.id]) return false;
+    if (VOICE.q.some(function (x) { return x.id === o.id; }) || (VOICE.on && VOICE.on.id === o.id)) return false;
+    o.asked = performance.now(); VOICE.q.push(o); voicePump(); return true;
+  }
+  function voiceBlocked() {
+    if (playS() < 60) return 'the first sixty seconds';
+    var bt = document.getElementById('billtalk'); if (bt && bt.style.display !== 'none' && bt.offsetWidth > 0) return 'the walking man';
+    try { if (LOOP.frame && LOOP.frame.style.display === 'block') return 'a place is open'; } catch (e) {}
+    try { if (window.parent !== window && window.parent.eval('typeof CITYFIGHT!=="undefined"&&!!CITYFIGHT')) return 'a fight'; } catch (e) {}
+    if (!window.BohemiaCrewFaces) return 'no faces yet';
+    return '';
+  }
+  function voiceSyl(w) { var m = String(w).toLowerCase().match(/[aeiouy]+/g); return Math.max(1, m ? m.length : 1); }
+  function voiceShow(o) {
+    var F = window.BohemiaCrewFaces; if (!F || !F.has(o.who.look)) return false;   /* no face, no line (rule 19c) */
+    if (!document.getElementById('bm-voice')) style('bm-voice', VOICE_CSS);
+    var el = VOICE.el;
+    if (!el) {
+      el = VOICE.el = document.createElement('div'); el.id = 'bmvoice'; el.setAttribute('role', 'status'); el.setAttribute('aria-live', 'polite');
+      el.addEventListener('click', function (e) { try { e.stopPropagation(); } catch (_e) {} voiceHide('tap'); });
+      ['pointerdown', 'touchstart', 'mousedown'].forEach(function (k) { el.addEventListener(k, function (e) { try { e.stopPropagation(); } catch (_e) {} }, { passive: true }); });
+      document.body.appendChild(el);
+    }
+    var c = document.createElement('canvas'); c.width = c.height = F.SIZE || 128;
+    var words = String(o.line).split(/\s+/), at = 0, half = tenBeat() / 2, html = '';
+    var times = words.map(function (w) { var t = at; at += voiceSyl(w) * half; return t; });
+    words.forEach(function (w, i) { html += (i ? ' ' : '') + '<i>' + esc(w) + '</i>'; });
+    el.innerHTML = '<div class="face"></div><div class="say"><div class="hd"><span class="who"></span>' + (o.tag ? '<span class="tag' + (o.red ? ' red' : '') + '"></span>' : '') + '</div><div class="line">' + html + '</div></div>';
+    el.querySelector('.face').appendChild(c);
+    el.querySelector('.who').textContent = String(o.who.name).toUpperCase();
+    if (o.tag) el.querySelector('.tag').textContent = o.tag;
+    voicePlace(el); el.classList.add('on');
+    try { F.talk(c, o.who.look, o.line); } catch (e) { try { F.draw(c.getContext('2d'), o.who.look, F.SIZE || 128); } catch (_e) {} }
+    /* the receipt prints the words as the mouth says them */
+    var is = el.querySelectorAll('.line i'); VOICE.wordT = times.map(function (t, i) { return setTimeout(function () { if (is[i]) is[i].classList.add('on'); }, t); });
+    var beats = Math.max(6, Math.min(20, Math.ceil(at / tenBeat()) + (o.hold || 3)));   /* the words said, then three beats to read them */
+    VOICE.on = o; o.shownAt = performance.now(); o.until = o.shownAt + beats * tenBeat();
+    if (o.once) { VOICE.said[o.id] = Date.now(); try { localStorage.setItem(VOICE_KEY, JSON.stringify(VOICE.said)); } catch (e) {} }
+    VOICE.shown.push({ id: o.id, kind: o.kind || 'line', who: o.who.name, look: o.who.look, line: o.line, tag: o.tag || null, s: Math.round(playS() * 10) / 10, beats: beats });
+    window.__VOICE = { on: o.id, shown: VOICE.shown.slice(-40), q: VOICE.q.map(function (x) { return x.id; }) };
+    tenPost({ kind: 'voice', id: o.id, who: o.who.name });
+    return true;
+  }
+  function voiceHide(why) {
+    var o = VOICE.on; if (!o) return;
+    (VOICE.wordT || []).forEach(clearTimeout); VOICE.wordT = null;
+    if (VOICE.el) VOICE.el.classList.remove('on');
+    o.gone = why; VOICE.on = null; VOICE.gap = performance.now() + tenBeat();   /* a beat of nothing between two faces */
+    if (window.__VOICE) { window.__VOICE.on = null; window.__VOICE.last = { id: o.id, why: why }; }
+  }
+  /* above the speed pad, inside the glass, and clear of the phone (on its side the phone is on the left) */
+  function voicePlace(el) {
+    var H = window.innerHeight, b = 118;
+    try { var p = document.getElementById('speedpad'), r = p && p.getBoundingClientRect(); if (r && r.height > 0 && r.top < H) b = Math.round(H - r.top + 8); } catch (e) {}
+    el.style.bottom = b + 'px'; el.style.left = ''; el.style.top = '';
+    try { var ph = document.getElementById('cityfeed'), q = ph && ph.getBoundingClientRect(), v = el.getBoundingClientRect();
+      if (q && q.width > 0 && ph.classList.contains('on') && q.bottom > H - b - 80 && q.right < window.innerWidth / 2) el.style.left = Math.round(q.right + 8) + 'px'; } catch (e) {}
+  }
+  function voicePump() {
+    var now = performance.now();
+    if (VOICE.on) { if (now >= VOICE.on.until) voiceHide('time'); else return; }
+    VOICE.q = VOICE.q.filter(function (x) { return now - x.asked < (x.ttl || 45) * 1000; });
+    if (!VOICE.q.length || (VOICE.gap && now < VOICE.gap)) return;
+    var why = voiceBlocked(); VOICE.blocked = why; if (why) return;
+    VOICE.q.sort(function (a, b) { return (a.prio || 5) - (b.prio || 5) || a.asked - b.asked; });
+    while (VOICE.q.length) { var o = VOICE.q.shift(); if (voiceShow(o)) break; }
+  }
+
+  /* ---- WHAT HAPPENED: the fight home, the pay, the hurt, the night ---- */
+  function tenDay() { try { return window.loopDay ? loopDay() : (T.day | 0); } catch (e) { return 0; } }
+  function tenFightHome(d) {
+    var o = d.outcome || {}, won = !!(o.victory || o.result === 'win'), job = null;
+    try { var id = LOOP.fighting; (LOOP.held || []).forEach(function (h) { if (h.id === id) job = h; }); } catch (e) {}
+    var paid = !!(job && won && !((o.alive | 0) > 0));
+    var day = tenDay(); if (won && !((o.alive | 0) > 0)) VOICE.won[day] = (VOICE.won[day] | 0) + 1;
+    TEN.why = paid ? 'pay' : (won ? 'win' : 'loss');
+    var snap = null; try { snap = window.parent.__BM_FIGHT_OVER; if (!snap || Date.now() - snap.at > 60000) snap = null; } catch (e) {}
+    TEN.lastFight = { won: won, paid: paid, job: job ? job.id : null, pay: job ? job.pay : 0, snap: snap, s: Math.round(playS() * 10) / 10 };
+    var sec = tenSecond();
+    if (paid) {
+      var cl = clientOf(job), l = L('client_pay');
+      if (cl && l) say({ id: 'pay:' + job.id, kind: 'pay', who: cl, line: fill(l.line, { pay: job.pay }), tag: '+' + job.pay, prio: 1, ttl: l.ttl || 45 });
+      var f1 = L('first_pay'); if (f1 && sec) say({ id: 'first_pay', kind: 'teach', once: true, who: sec, line: f1.line, prio: 1, ttl: f1.ttl || 90 });
+    }
+    if (snap) snap.crew.forEach(function (c) {
+      if (c.main) return;
+      var lk = lookOfMan(c.name);
+      var other = tenSecond(c.name);   /* the one who says it about him is never him */
+      if (c.dead) { var ld = L('dead'); if (ld && other) say({ id: 'dead:' + c.name + ':' + day, kind: 'dead', who: other, line: fill(ld.line, { name: c.name }), tag: 'DEAD', red: true, prio: 1, ttl: 45 }); return; }
+      if (c.down && c.days > 0 && lk) {
+        var lh = L('hurt'); if (lh) say({ id: 'hurt:' + c.name + ':' + day, kind: 'hurt', who: { name: c.name, look: lk }, line: fill(lh.line, { days: c.days, name: c.name }), tag: 'OUT ' + c.days + ' DAYS', red: true, prio: 2, ttl: 45 });
+        var fh = L('first_hurt'); if (fh && other) say({ id: 'first_hurt', kind: 'teach', once: true, who: other, line: fill(fh.line, { name: c.name }), prio: 2, ttl: 90 });
+      }
+    });
+    if (snap && snap.drops && snap.drops.length) setTimeout(function () { tenDrops(snap.drops); }, tenBeat());
+  }
+  /* what a fight dropped flies into the crew tag (COMBAT names the drop in its word home: drops [{id, kind, name}]) */
+  function tenDrops(list) {
+    var tag = document.querySelector('#bmtb .t.crew'); if (!tag) return;
+    var r = tag.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
+    list.forEach(function (it, i) {
+      var c = null; try { c = itemIcon(it, 36); } catch (e) {} if (!c) return;
+      c.style.position = 'fixed'; c.style.zIndex = 42; c.style.left = Math.round(W / 2 - 18 + (i - (list.length - 1) / 2) * 40) + 'px'; c.style.top = Math.round(H * 0.45) + 'px';
+      c.style.transition = 'transform ' + (2 * tenBeat()) + 'ms steps(8,end),opacity ' + tenBeat() + 'ms steps(2,end) ' + (2 * tenBeat()) + 'ms';
+      document.body.appendChild(c);
+      setTimeout(function () { var b = c.getBoundingClientRect(); c.style.transform = 'translate(' + Math.round(r.left + r.width / 2 - b.left - 18) + 'px,' + Math.round(r.top + r.height / 2 - b.top - 18) + 'px) scale(.5)'; c.style.opacity = '0'; }, 30 + i * tenBeat() / 2);
+      setTimeout(function () { try { c.remove(); } catch (e) {} }, 4 * tenBeat() + i * tenBeat());
+    });
+    tenPost({ kind: 'drops', n: list.length });
+  }
+  /* nightfall: the day's tally, said by his second (fights won, batteries in and out, days left); one tap */
+  function tenNight() {
+    var B = window.__BILL || {}, last = B.last || {}, day = last.day || (tenDay() - 1) || 1, inn = 0, out = 0;
+    try { purseGet().entries.forEach(function (e) { if (e.currency !== 'electricity' || e.day !== day) return; if (/^start:/.test(String(e.ref || '')) || /^the crew starts/i.test(String(e.reason || ''))) return;   /* the start's own grant is not the day's */ if (e.amount > 0) inn += e.amount; else out -= e.amount; }); } catch (e) {}
+    TEN.lastNight = { day: day, won: VOICE.won[day] | 0, in: inn, out: out, days: B.daysLeft, walked: last.walked || null };
+    var sec = tenSecond(), l = L('tally');
+    var won = VOICE.won[day] | 0;
+    if (sec && l) say({ id: 'tally:' + day, kind: 'tally', who: sec, line: fill(l.line, { day: day, won: won, fights: won === 1 ? '1 fight' : won + ' fights', in: inn, out: out, days: B.daysLeft }), tag: 'DAY ' + day, red: !!B.red, prio: 2, ttl: 60, hold: 12 });
+    var f = L('first_night'); if (f && sec) say({ id: 'first_night', kind: 'teach', once: true, who: sec, line: f.line, prio: 2, ttl: 90 });
+  }
+  /* the seven of the eight that are the map's (the first fight's three are COMBAT's): states read on the beat */
+  function tenTeach() {
+    if (!VOICE.lines) return;
+    var sec = tenSecond(); if (!sec) return;
+    var t = function (id, why) { var l = L(id); if (!l || VOICE.said[id]) return; if (why === 'done') { VOICE.said[id] = Date.now(); try { localStorage.setItem(VOICE_KEY, JSON.stringify(VOICE.said)); } catch (e) {} return; }
+      if (why) say({ id: id, kind: 'teach', once: true, who: sec, line: fill(l.line, { per: (window.__BILL && __BILL.perMan) || 2 }), prio: 4, ttl: l.ttl || 30 }); };
+    var held = 0, done = 0; try { held = LOOP.held.length; done = LOOP.done | 0; } catch (e) {}
+    /* a job on the phone: said only while he has not taken one (a man who already works knows) */
+    var post = document.querySelector('#bmboard .fp.job');
+    if (held || done || window.BOH_PHONE_ROUTE) t('phone_job', 'done'); else if (post && post.offsetWidth > 0) t('phone_job', 'now');
+    /* a crew in sight: while he has never looked at one */
+    var near = false; try { if (window.HUNT) near = true; var pa = (MAP_DREW && MAP_DREW.partyAt) || {}; for (var k in pa) { var g2 = pa[k]; if (Math.max(Math.abs(g2[0] - city.x), Math.abs(g2[1] - city.y)) <= 8) { near = true; break; } } } catch (e) {}
+    if ((window.__PARTY_LOOKS | 0) > 0) t('party_sight', 'done'); else if (near) t('party_sight', 'now');
+    /* the first town: on the way to one, before he has ever been inside */
+    try { if (LOOP.frame && LOOP.frame.style.display === 'block') VOICE.wasTown = true; } catch (e) {}
+    var going = false; try { going = !!window.BOH_PHONE_ROUTE || !!(window.loopTownAt && loopTownAt(city.x, city.y, 3)); } catch (e) {}
+    if (VOICE.wasTown) t('first_town', 'done'); else if (going) t('first_town', 'now');
+    /* the first hire: the crew screen's hires grew */
+    var hires = 0; try { hires = (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).length; } catch (e) {}
+    if (VOICE.hires == null) VOICE.hires = hires; else if (hires > VOICE.hires) { VOICE.hires = hires; t('first_hire', 'now'); }
+  }
+  function tenTick() {
+    try { var n = window.__BILL_NIGHTS | 0; if (n > VOICE.nights) { VOICE.nights = n; TEN.why = 'night'; tenNight(); } } catch (e) {}
+    try { tenWatch(); } catch (e) {}
+    try { tenTeach(); } catch (e) {}
+    try { voicePump(); } catch (e) {}
+  }
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  /* ---- THE PARTY PLATE (change 3): a tin tag on the flag, drawn into the map's own canvas ---- */
+  var PLATE = { img: {}, cache: {} };
+  var PLATE_WORD = ['', 'EASY', 'EVEN', 'BAD ODDS'], PLATE_INK = ['#1f1710', '#1f1710', '#7a4a08', '#7a140c'];
+  function plateImg(piece, part) { var k = piece + '/' + part, im = PLATE.img[k]; if (!im) { im = PLATE.img[k] = new Image(); im.src = KIT_BASE + k + '.png'; } return im.complete && im.naturalWidth ? im : null; }
+  /* the nine pieces laid at s points a texel (corners kept, edges and middle repeated by their period), red when he is hunted */
+  function plateSlab(piece, w, h, s, red, dpr) {
+    var key = piece + w + 'x' + h + (red ? 'r' : '') + dpr, c = PLATE.cache[key]; if (c) return c;
+    var K = KIT[piece], parts = ['tl', 't', 'tr', 'l', 'c', 'r', 'bl', 'b', 'br'], im = {};
+    for (var i = 0; i < parts.length; i++) { im[parts[i]] = plateImg(piece, parts[i]); if (!im[parts[i]]) return null; }
+    c = document.createElement('canvas'); c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+    var x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.scale(dpr, dpr);
+    var t = K.ins[0] * s, r = K.ins[1] * s, b = K.ins[2] * s, l = K.ins[3] * s, P = K.P * s;
+    var tile = function (img, x0, y0, ww, hh, rx, ry) { for (var yy = y0; yy < y0 + hh; yy += (ry ? P : hh)) for (var xx = x0; xx < x0 + ww; xx += (rx ? P : ww)) {
+      var cw = rx ? Math.min(P, x0 + ww - xx) : ww, ch = ry ? Math.min(P, y0 + hh - yy) : hh;
+      x.drawImage(img, 0, 0, img.naturalWidth * (cw / (rx ? P : ww)), img.naturalHeight * (ch / (ry ? P : hh)), xx, yy, cw, ch); } };
+    tile(im.c, l, t, w - l - r, h - t - b, true, true);
+    tile(im.t, l, 0, w - l - r, t, true, false); tile(im.b, l, h - b, w - l - r, b, true, false);
+    tile(im.l, 0, t, l, h - t - b, false, true); tile(im.r, w - r, t, r, h - t - b, false, true);
+    x.drawImage(im.tl, 0, 0, l, t); x.drawImage(im.tr, w - r, 0, r, t); x.drawImage(im.bl, 0, h - b, l, b); x.drawImage(im.br, w - r, h - b, r, b);
+    if (red) { x.globalCompositeOperation = 'source-atop'; x.fillStyle = 'rgba(150,40,22,.55)'; x.fillRect(0, 0, w, h); x.globalCompositeOperation = 'source-over'; }
+    return (PLATE.cache[key] = c);
+  }
+  function plateShade(slab) {
+    if (slab.__shade) return slab.__shade;
+    var c = document.createElement('canvas'); c.width = slab.width; c.height = slab.height; var x = c.getContext('2d');
+    x.drawImage(slab, 0, 0); x.globalCompositeOperation = 'source-in'; x.fillStyle = 'rgba(10,6,3,.6)'; x.fillRect(0, 0, c.width, c.height);
+    return (slab.__shade = c);
+  }
+  function plateMan(g, x, y, ink) { for (var yy = 0; yy < TB_MAN.length; yy++) for (var xx = 0; xx < TB_MAN[yy].length; xx++) if (TB_MAN[yy][xx] !== '.') { g.fillStyle = ink; g.fillRect(x + xx, y + yy, 1, 1); } }
+  function plateSkull(g, x, y, ink) { var S = ['.####.', '######', '#.##.#', '######', '.####.', '.#..#.']; g.fillStyle = ink; for (var yy = 0; yy < S.length; yy++) for (var xx = 0; xx < 6; xx++) if (S[yy][xx] === '#') g.fillRect(x + xx, y + yy, 1, 1); }
+  /* g: the map's canvas; P: RUN's plate (P.info = how many, skulls, where, hunted); true when drawn */
+  function partyPlate(g, P) {
+    var I = P && P.info; if (!I) return false;
+    var dpr = 1; try { dpr = window.CV_DPR || window.devicePixelRatio || 1; } catch (e) {}
+    var face = '"BohemiaCasing",ui-sans-serif,sans-serif', top = String(I.count), word = PLATE_WORD[Math.max(1, Math.min(3, I.skulls | 0))];
+    var low = String(I.going || '') + (I.hunt && typeof I.blocks === 'number' ? ' · ' + I.blocks + ' BLOCKS' : '');
+    g.save(); g.font = '12px ' + face; var wTop = g.measureText(top).width, wWord = g.measureText(word).width; g.font = '9px ' + face; var wLow = g.measureText(low).width;
+    var row1 = 10 + 3 + wTop + 6 + (I.skulls | 0) * 8 + 4 + wWord, w = Math.ceil(Math.max(row1, wLow) + 16), h = 34;
+    var slab = plateSlab('tin', w, h, 0.5, !!I.hunt, dpr); if (!slab) { g.restore(); return false; }
+    var cw = (window.CVW || g.canvas.width / dpr), lx = Math.round(Math.max(2, Math.min(cw - w - 2, P.sx - w / 2))), ly = Math.round(P.cy - h - 4);
+    g.globalAlpha = 1; g.drawImage(plateShade(slab), lx + 2, ly + 1, w, h);   /* the hard shadow, down and right from the one sun */
+    g.drawImage(slab, lx, ly, w, h);
+    var ink = I.hunt ? '#3a0a04' : '#1f1710', x0 = lx + 8, y0 = ly + 5;
+    plateMan(g, x0, y0 + 1, ink); g.font = '12px ' + face; g.textAlign = 'left'; g.textBaseline = 'alphabetic'; g.fillStyle = ink; g.fillText(top, x0 + 13, y0 + 10);
+    var kx = x0 + 13 + wTop + 6; for (var s = 0; s < (I.skulls | 0); s++) plateSkull(g, kx + s * 8, y0 + 3, PLATE_INK[Math.min(3, I.skulls | 0)]);
+    g.fillStyle = PLATE_INK[Math.min(3, I.skulls | 0)]; g.fillText(word, kx + (I.skulls | 0) * 8 + 4, y0 + 10);
+    g.font = '9px ' + face; g.fillStyle = ink; g.fillText(low, x0, y0 + 22);
+    g.restore();
+    try { MAP_DREW.partyPlateKit = (MAP_DREW.partyPlateKit | 0) + 1; window.__PLATE_KIT = { x: lx, y: ly, w: w, h: h, top: top, word: word, low: low, hunt: !!I.hunt }; } catch (e) {}
+    return true;
+  }
+
+  if (TEN_PAGE === 'map') {
+    window.addEventListener('message', function (ev) { var d = ev && ev.data; if (!d) return;
+      if (d.type === 'BOHEMIA_START' && !VOICE.t0) VOICE.t0 = performance.now();
+      if (d.type === 'BOHEMIA_CITY_COMBAT_END') { try { tenFightHome(d); } catch (e) {} } });
+    voiceLines(); voiceFaces();
+    setInterval(tenTick, 125);
+  }
+  TEN.say = say; TEN.voice = VOICE; TEN.partyPlate = partyPlate; TEN.count_ = tenCount;
+
+  window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
     itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars,
     hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT };
