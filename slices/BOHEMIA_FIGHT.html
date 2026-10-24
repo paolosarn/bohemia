@@ -2889,9 +2889,12 @@ const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOU
 const MISS_MARK = { dodged: '\u2194', cover: '\u25AE' };
 function lvOf(v) { if (v.side === 'you') return v.level || 1; const X = R('parsed.brother_xp'); return Math.max(1, Math.round(1 + ((v.xp || X.base) - X.base) / X.per_level)); }
 function classOf(t) {
-  const S = FIGHT.S, crew = S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); });
-  const key = S.round + ':' + t.armB + ':' + t.armH + ':' + crew.map(function (v) { return v.id + v.weapon.class; }).join(',');
-  if (t._cls && (t._clsKey === key || !crew.length)) return t._cls;   /* with nobody of his standing, the last read stands (the wipe's words) */
+  const S = FIGHT.S;
+  /* cheap to ask every frame: the read is kept until the round, his armour or the count of the fallen moves */
+  const key = S.round * 1e6 + t.armB * 1e3 + t.armH + (UI.fallN || 0) * 1e9;
+  if (t._cls && t._clsKey === key) return t._cls;
+  const crew = S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); });
+  if (t._cls && !crew.length) return t._cls;   /* with nobody of his standing, the last read stands (the wipe's words) */
   const O = R('ours.outclass'), cap = R('hit_chance.cap'), sc = R('hit_chance.defense_soft_cap');
   const soft = function (d) { return d > sc.threshold ? sc.threshold + (d - sc.threshold) * sc.over_threshold_multiplier : d; };
   const top = crew.reduce(function (m, v) { return Math.max(m, lvOf(v)); }, 1), lv = lvOf(t);
@@ -3194,7 +3197,7 @@ function tickCall(now) {
   }
   if (!CALL.bank || S.over || now < UI.openUntil) return;
   /* WORDS' last_stand: the last of his men on his feet (YOU aside), once, after the crew had more */
-  if (!UI.callLast && !S.deploy) { const up = S.units.filter(function (u) { return u.side === 'you' && !u.main && !u.beast && FIGHT.onField(u); }).length;
+  if (!UI.callLast && !S.deploy && UI.callFallSeen !== (UI.fallN || 0)) { UI.callFallSeen = UI.fallN || 0; const up = S.units.filter(function (u) { return u.side === 'you' && !u.main && !u.beast && FIGHT.onField(u); }).length;
     UI.callCrewMax = Math.max(UI.callCrewMax || 0, up);
     if (up === 1 && UI.callCrewMax >= 1 + 1) { UI.callLast = true; callSoon('last_stand'); } }
   /* the odds once a fight, in its first rounds: theirs standing outnumber his by the ratio; asked until it is said */
@@ -3289,6 +3292,7 @@ function startAnim(a) {
   }
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
+    if ((e.t === 'dead' || e.t === 'down' || e.t === 'fled') && u) UI.fallN = (UI.fallN || 0) + 1;   /* the class read and the last stand look again */
     if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = performance.now();   /* the fall plays from here (poseOf) */
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
       if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
@@ -5058,7 +5062,7 @@ function start() {
   UI.resumed = !UI.pageStarted && keptRead(o); UI.pageStarted = true;
   if (!UI.resumed) { keptClear(); haunt(); }   /* 134(e): in act one a ghost is one of the dead (before the board loads their bodies) */
   UI.hauntSeen = null; UI.hauntName = null;
-  UI.wipe = null; UI.dodge = {}; UI.stains = []; UI.drops = []; UI.flash = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; UI.callLast = false; UI.callCrewMax = 0; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
+  UI.wipe = null; UI.dodge = {}; UI.stains = []; UI.drops = []; UI.flash = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; UI.callLast = false; UI.callCrewMax = 0; UI.callFallSeen = -1; UI.fallN = 0; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();

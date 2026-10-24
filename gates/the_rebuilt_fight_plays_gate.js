@@ -30,7 +30,7 @@ const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
 const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed: 9, taps: false }];
 /* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar); a bar is three CSS
    points tall, counted only in CSS space (the marks on the board are laid in device pixels, a cell three tall on his phone) */
-const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_rig/")>=0&&!/faces|_guns/.test(img.src))window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3&&this.getTransform().a===(window.devicePixelRatio||1))window.__bars++;return fr.apply(this,arguments);};})();';
+const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&(img.src.indexOf("fight_rig/")>=0||img.src.indexOf("rig_idles/")>=0)&&!/faces|_guns/.test(img.src))window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3&&this.getTransform().a===(window.devicePixelRatio||1))window.__bars++;return fr.apply(this,arguments);};})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
 /* THE MARKS ON THE BOARD, read in the page (COMBAT [the marks on the board]): one frame with the marks, one with only the ground
    (to count the ground's own grid strokes out), one with AUTO on (his reach, the rings and the walk gone, the people kept) */
@@ -162,7 +162,9 @@ async function fight(F, first) {
   const blits = await ev(() => window.__bank);
   leg(bank.loaded && /master rig/.test(bank.src) && !bank.handDrawn, F.board + ': *** EVERY FIGHTER IS HIS RIG MODEL (rules 69, 121), nothing hand-drawn, no old flat sheet ***',
     bank.looks + ' looks on the board, from ' + bank.src.split(':')[0]);
-  leg(blits >= bank.visible, F.board + ': the board blits the bank\'s frames for every man it shows', blits + ' bank frames in ~18 frames for ' + bank.visible + ' men');
+  /* RE-AIMED 10/24 (COMBAT; RUN TWO's 10/24 finding): since ANIMATION's [everybody idles] (rule 130(a)) a man standing between
+     turns is drawn from slices/rig_idles, the same rig model's idle bank, so a frame of the bank is a frame of either folder */
+  leg(blits >= bank.visible, F.board + ': the board blits the bank\'s frames (the rig\'s sheets or its idle bank) for every man it shows', blits + ' bank frames in ~18 frames for ' + bank.visible + ' men');
   leg(bank.faceFromBank, F.board + ': the turn strip and the bar carry his face: PORTRAIT\'s fresh portrait of the same model (rule 115(h))');
   const man = await ev(() => Math.round(manH()));
   leg(Math.abs(man - IDLE) <= 2 && IDLE >= 80, F.board + ': *** THE MAN READS AS A MAN (rule 66): at the idle stop he stands at his size, the page\'s MAN_IDLE, never under 80 ***', man + ' css px tall, his size ' + IDLE + ' (was 17 before round three)');
@@ -704,13 +706,17 @@ async function enemyParts() {
     const pipes = JSON.stringify([['sellsword', 'bludgeon', 'wooden_shield', 'padded_surcoat', 'open_leather_cap'], ['militia', 'bludgeon', 'wooden_shield', 'gambeson', 'hood'],
       ['brawler', 'two_handed_mallet', null, 'padded_vest', 'leather_headband'], ['retired_soldier', 'bludgeon', 'wooden_shield', 'padded_surcoat', 'aketon_cap']]
       .map(g => ({ background: g[0], gear: { main: g[1], off: g[2], body: g[3], head: g[4] } })));   /* the four the crew rows fielded before the guns */
-    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,auto:true,cap:4,days:30,company:' + pipes + ',party:' + JSON.stringify(party) + '}' });
-    await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT._t && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 });
+    /* RE-AIMED 10/24 (COMBAT): the board opens in the line set (no AUTO yet), the men are set up there, then AUTO starts the fight:
+       with AUTO in the options the fight was already moving while the pike went into the raider's hands, a race the gate lost
+       whenever the box was busy (two runs of the same tree: hits at 1 then 2, or 2 from the start) */
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,cap:4,days:30,company:' + pipes + ',party:' + JSON.stringify(party) + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT._t && FIGHT.S && FIGHT.S.round && FIGHT.S.deploy && typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board, null, { timeout: 30000 });
     await d.page.evaluate(LOG);
     /* the men watched live long enough to choose (10/19: with Battle Brothers' Beginner aim the four pipes dropped the lone thug
        before his first swing); the leg is their brain, never how long they last */
     await d.page.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them').forEach(u => { u.hp = u.hpMax = 9999; }));
     if (pike) await d.page.evaluate(() => { const r = FIGHT.S.units.find(u => u.kind === 'brigand_raider'); r.weapon = DB.weapons.rows.find(w => w.id === 'pike'); });
+    await d.page.evaluate(() => { FIGHT.startFight(); FIGHT_UI.auto = true; hud(); });
     const t0 = Date.now(); while (Date.now() - t0 < 40000) { if ((await d.page.evaluate(() => window.__dec.length)) >= 12 || await d.page.evaluate(() => FIGHT.S.over)) break; await d.page.waitForTimeout(300); }
     const r = { dec: await d.page.evaluate(() => window.__dec), err: d.errs[0] };
     if (party.indexOf('brigand_leader') >= 0) r.led = await d.page.evaluate(() => { const S = FIGHT.S, L = S.units.find(u => u.kind === 'brigand_leader'), T = FIGHT._t;
