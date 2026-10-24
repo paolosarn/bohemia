@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | RETINUE | GROK_RETINUE_FOLLOWER_RULES_2026_10_24.md | five slots, renown unlocks, followers
 - 2026-10-24 | ITEMS | GROK_NAMED_LEGENDARY_ITEM_RULES_2026_10_24.md | named drops, champions, legendary locations
 - 2026-10-24 | CRISES | GROK_LATE_GAME_CRISIS_LIST_2026_10_24.md | four crises, day 80 to 100 start
 - 2026-10-24 | ORIGINS | GROK_ORIGIN_LIST_STARTING_DIFFERENCES_2026_10_24.md | Lone Wolf, Peasant Militia, starting differences
