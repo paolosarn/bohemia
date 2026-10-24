@@ -3124,7 +3124,7 @@ function tickVet(now) {
    (143(d)): a down, dead or fled man is never picked and his line goes the moment he falls. SPANGLISH (143(a)): WORDS' one dial
    (engine/bohemia_spanglish.js, regFor) picks the line's Spanglish twin about one line in eight, by the man's own lean; YOU
    never speaks here. Each line is heard in the shell's one voice with his map look (BOHEMIA_VOICE) and kept in the feed. */
-const CALL = { bank: null, PRIO: { man_down: 5, retreat: 4, superior: 4, kill: 3, outnumbered: 3, win: 3, dodged: 2, hit: 1, miss: 1, their_turn: 0 } };
+const CALL = { bank: null, PRIO: { man_down: 5, last_stand: 5, retreat: 4, superior: 4, kill: 3, outnumbered: 3, win: 3, dodged: 2, hit: 1, miss: 1, their_turn: 0 } };
 fetch('../records/target/bb/crew_voices.json').then(function (r) { return r.json(); }).then(function (j) { CALL.bank = j; }).catch(function () {});
 function crewType(v) {
   const B = CALL.bank; if (!B || !B.types) return null;
@@ -3143,12 +3143,22 @@ function callPace() { return CALL.bank && CALL.bank.pace ? CALL.bank.pace.value 
 function callSpeaker(about) {
   const c = FIGHT.S.units.filter(function (v) { return v.side === 'you' && !v.main && !v.beast && speaks(v, about === 'win') && v !== about; });
   if (!c.length) return null;
+  /* WORDS' 'near' (the bank, 10/24): the man who stood beside the fallen says it first */
+  if (about && typeof about === 'object' && (about.dead || about.down)) { const nb = c.filter(function (v) { return Math.max(Math.abs(v.x - about.x), Math.abs(v.y - about.y)) <= 1; })[0]; if (nb) { nb._near = true; return nb; } }
   const fresh = c.filter(function (v) { return v.id !== UI.callLastWho; }), pool = fresh.length ? fresh : c;
   return pool[Math.floor(Math.random() * pool.length)];
 }
+/* what the fight is against, when it is one kind (WORDS' 'enemy' lines: ghosts, beasts, machines) */
+function enemyKind() {
+  const t = FIGHT.S.units.filter(function (u) { return u.side === 'them'; }); if (!t.length) return null;
+  return t.every(function (u) { return u.ghost; }) ? 'ghost' : t.every(function (u) { return u.beast; }) ? 'beast' : t.filter(function (u) { return u.machine; }).length * (1 + 1) > t.length ? 'machine' : null;
+}
 function callLine(v, moment, o) {
   const B = CALL.bank, k = crewType(v), L = k && B.types[k].lines && B.types[k].lines[moment]; if (!L) return null;
-  const sp = !!(L.sp && L.sp.length) && crewSpeaksSp(v, 'call:' + moment), list = sp ? L.sp : L.en; if (!list || !list.length) return null;
+  const near = v._near && L.near && L.near.length; v._near = false;
+  const ek = enemyKind(), EL = ek && B.enemy && B.enemy[ek] && B.enemy[ek][moment];
+  if (!near && EL && EL.length && Math.random() < .5) return { text: wfill(EL[Math.floor(Math.random() * EL.length)], o || {}), sp: false };
+  const sp = !near && !!(L.sp && L.sp.length) && crewSpeaksSp(v, 'call:' + moment), list = near ? L.near : sp ? L.sp : L.en; if (!list || !list.length) return null;
   return { text: wfill(list[Math.floor(Math.random() * list.length)], o || {}), sp: sp };
 }
 /* a moment asks for the floor; the biggest one waiting wins it within a beat, a small one only part of the time */
@@ -3183,6 +3193,10 @@ function tickCall(now) {
     else if (now - C.t > beat * P.hold_beats) callHide(false);
   }
   if (!CALL.bank || S.over || now < UI.openUntil) return;
+  /* WORDS' last_stand: the last of his men on his feet (YOU aside), once, after the crew had more */
+  if (!UI.callLast && !S.deploy) { const up = S.units.filter(function (u) { return u.side === 'you' && !u.main && !u.beast && FIGHT.onField(u); }).length;
+    UI.callCrewMax = Math.max(UI.callCrewMax || 0, up);
+    if (up === 1 && UI.callCrewMax >= 1 + 1) { UI.callLast = true; callSoon('last_stand'); } }
   /* the odds once a fight, in its first rounds: theirs standing outnumber his by the ratio; asked until it is said */
   const waiting = UI.callQ && performance.now() < UI.callQ.until ? UI.callQ.moment : null;
   if (!UI.callOdds && !S.deploy && S.round <= 1 + 1 && waiting !== 'outnumbered') {
@@ -5044,7 +5058,7 @@ function start() {
   UI.resumed = !UI.pageStarted && keptRead(o); UI.pageStarted = true;
   if (!UI.resumed) { keptClear(); haunt(); }   /* 134(e): in act one a ghost is one of the dead (before the board loads their bodies) */
   UI.hauntSeen = null; UI.hauntName = null;
-  UI.wipe = null; UI.dodge = {}; UI.stains = []; UI.drops = []; UI.flash = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
+  UI.wipe = null; UI.dodge = {}; UI.stains = []; UI.drops = []; UI.flash = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; UI.callLast = false; UI.callCrewMax = 0; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();
