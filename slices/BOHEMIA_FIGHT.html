@@ -2339,7 +2339,70 @@ let MAN_IDLE = MAN_DEFAULT;
 function manH() { return rigScale() * DB.rig.ruler.px / DPR; }   /* upright he is always MAN_IDLE (rule 21); only a glass wider than tall caps him at MAN_ROWS rows */
 const MAN_ROWS = 2.8;
 
-function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed / (UI.hand || 1) / paceNow(); }   /* the hand's speed and the turn's pace (THE FIGHT BY HAND, QUICKER) */
+function beatMs() { return songBeat() / UI.speed / (UI.hand || 1) / paceNow(); }   /* the song's beat over the hand's speed and the turn's pace (THE FIGHT BY HAND, QUICKER) */
+/* ===== THE SONG IS THE CLOCK (COMBAT 10/24, row [every action on the music's beat], rule 158) =====
+   PAOLO 10/24: 'every time you press a button it's a request, and the game does those actions on the BPM, everything is
+   supposed to be on the BPM clock of the music, and we totally lost sight of that in this revamp... if I press AUTO or I'm
+   fighting turn by turn manually, it's a request to be on the same BPM with any action'.
+   MEASURED BEFORE: the fight cut time from its own start (UI.t0, a quarter of beatMs() over the speed, the hand and the pace),
+   so its acts fell anywhere against the song the shell was playing, and a tap of his played the frame it came, on no grid.
+   THE CLOCK IS THE SONG'S: the shell's transport (MUS: a step a sixteenth, step 0 the bar's one, nextT the audio time of the
+   next step it books), read across the frame, in this order: SOUNDS' ONE BEAT (window.BOHEMIA_BEAT, SOUNDS [more music, on
+   the one beat], 10/24: every booked beat stamped as heard, the grid kept through a swap, a stall and a silence); else the
+   transport the shell already lends (BULLET.clock() and __sfxOut()'s audio context); else the heartbeat's next beat
+   (__pulseNextBeat), the song not in yet; else the fight's own 120 from its start (the fight opened alone). Audio time comes onto this
+   page's clock through the context's output timestamp, so a beat is placed where it is HEARD, and SONG.lat is how long a
+   sound asked for now takes to reach the ear: the sound goes that far ahead of the picture and both land on the kick.
+   THE GRID IS ONE FIGHT BEAT FROM A BEAT OF THE SONG. The hand (1x, 2x, 4x), their turns (2x) and AUTO's finish (4x) are
+   powers of two, so a faster fight lands on halves and quarters of the same beat, never off it (158(b)). */
+const SONG = { at: 0, beat: 0, lat: 0, from: 'own', read: -1e9, n: 0 };
+const SONG_READ_MS = 200, SONG_JUMP_MS = 30, SONG_FOLLOW = .25, SONG_LAT_MAX = 400;
+function songBeat() { return SONG.beat || 60000 / R('ours.beat_bpm'); }
+/* the shell's audio time onto this page's clock, as heard */
+function audioToPage(AC, P) {
+  const shift = P.performance.timeOrigin - performance.timeOrigin; let ts = null;
+  try { ts = AC.getOutputTimestamp ? AC.getOutputTimestamp() : null; } catch (_e) { ts = null; }
+  if (ts && ts.contextTime > 0 && ts.performanceTime > 0) return function (t) { return ts.performanceTime + (t - ts.contextTime) * 1000 + shift; };
+  const pn = P.performance.now(), ct = AC.currentTime, out = ((AC.outputLatency || 0) + (AC.baseLatency || 0)) * 1000;
+  return function (t) { return pn + (t - ct) * 1000 + out + shift; };
+}
+function songFromShell(own) {
+  const P = window.parent; if (!P || P === window) return null;
+  /* the transport first, so nothing here ever makes an audio context the shell has not made (__sfxOut makes one if none) */
+  const c = P.BULLET && typeof P.BULLET.clock === 'function' ? P.BULLET.clock() : null;
+  const song = !!(c && c.playing && c.nextT > 0), pb = !song && typeof P.__pulseNextBeat === 'function' ? P.__pulseNextBeat() : null;
+  const o = (song || pb > 0) && typeof P.__sfxOut === 'function' ? P.__sfxOut() : null, AC = o && o.AC && o.AC.state === 'running' ? o.AC : null;
+  const heard = AC ? audioToPage(AC, P) : null, lat = heard ? Math.max(0, Math.min(SONG_LAT_MAX, heard(AC.currentTime) - performance.now())) : 0;
+  /* SOUNDS' ONE BEAT (window.BOHEMIA_BEAT, handed to this frame by the shell; records/BOHEMIA_THE_ONE_BEAT_SOUNDS_10_24_26.md):
+     every beat the transport books, stamped as heard, the grid kept through a song swap, a stall and a silence; the fight
+     takes its beat from it, and its own reading below only for the way to the ear */
+  let B = null; try { B = window.BOHEMIA_BEAT || P.BOHEMIA_BEAT || null; } catch (_e) { B = null; }
+  if (B && typeof B.epoch === 'function' && typeof B.now === 'function') {
+    const st = B.now(), e = B.epoch();
+    if (e > 0 && st && st.beatMs > 0) return { at: e - performance.timeOrigin, beat: st.beatMs, lat: lat, from: st.src === 'song' ? 'song' : 'beat-' + st.src, exact: true };
+  }
+  if (!heard) return null;
+  const step = own / 4000;
+  if (song) return { at: heard(c.nextT + ((4 - (c.step % 4)) % 4) * step), beat: own, lat: lat, from: 'song' };
+  return { at: heard(pb), beat: own, lat: lat, from: 'pulse' };
+}
+function songRead(now) {
+  if (now - SONG.read < SONG_READ_MS) return;
+  SONG.read = now; SONG.n++;
+  const own = 60000 / R('ours.beat_bpm'); let got = null;
+  try { got = songFromShell(own); } catch (_e) { got = null; }
+  if (!got) { SONG.at = UI.t0; SONG.beat = own; SONG.lat = 0; SONG.from = 'own'; return; }
+  /* the same song: a reading's few ms of jitter (the audio clock ticks in render quanta) are averaged and its slow drift against
+     this page's clock followed, so the grid never jitters; a new song, a re-anchored transport or a jump moves it at once */
+  const ph = (((got.at - SONG.at) % got.beat) + got.beat) % got.beat, e = ph > got.beat / 2 ? ph - got.beat : ph;
+  if (got.exact || SONG.from !== got.from || SONG.beat !== got.beat || Math.abs(e) > SONG_JUMP_MS) SONG.at = got.at; else SONG.at += e * SONG_FOLLOW;   /* the one beat is stamped per booked beat: taken as it is */
+  SONG.beat = got.beat; SONG.lat = got.lat; SONG.from = got.from;
+}
+/* the first time at or after t on the song's grid cut every g ms (a fight beat, or a quarter of one for a hurried walk) */
+function songGrid(t, g) { return SONG.at + Math.ceil((t - SONG.at) / g - 1e-6) * g; }
+/* where in the beat a time falls, 0 to 1, for everything that pulses (the reload's blink, AUTO's glow, the dead lamp) */
+function beatPh(now) { const b = beatMs(); return (((now - SONG.at) % b) + b) % b / b; }
+/* ===== /THE SONG IS THE CLOCK ===== */
 /* what the HUD covers from the top and from the bottom of the glass, the floating plates' margins included */
 function hudEdges() {
   const t = document.getElementById('top').getBoundingClientRect(), b = document.getElementById('bot').getBoundingClientRect();
@@ -2733,6 +2796,7 @@ function noise(d, v, f) {
    approved sound through its one engine (the mix, the space, the ambience trim, the voice
    limiter) -- reusing that is the whole reason this is not a second sound system. */
 function sfx(ev, facts) { (UI.heard = UI.heard || []).push(ev); if (UI.heard.length > 40) UI.heard.shift();   /* what the fight asked to be heard, for the gates */
+  (UI.sent = UI.sent || []).push([ev, performance.now()]); if (UI.sent.length > 240) UI.sent.shift();   /* and when (rule 158: the beat gate) */
   try { if (window.parent && window.parent !== window) window.parent.postMessage(Object.assign({ type: 'BOHEMIA_SFX', ev: ev }, facts || {}), '*'); } catch (_e) {} }
 const SND = {
   step: function () { tone(70, 0.05, 0.05, 'triangle'); },
@@ -2838,7 +2902,9 @@ function take() {
 function footfall(u, q) { SND.step(); }
 function walkTick(a, now) {
   const p = walkAt(a, now), u = FIGHT.byId(a.e.id); if (!u) return;
-  const done = Math.min(a.path.length - 1, Math.floor(ease((now - a.at) / a.dur) * (a.path.length - 1) + 1e-6));
+  /* the feet keep the song's time (rule 158): a footfall every TILE_BEATS of the walk's beat from its first on the beat, the
+     eased glide drawn over them, and each sound SONG.lat early so it is heard where it falls */
+  const done = Math.min(a.path.length - 1, Math.floor((now + SONG.lat - a.at) / a.dur * (a.path.length - 1) + 1e-6));
   while ((a.crossed || 0) < done) {
     const i = a.crossed || 0, q = a.path[i + 1], o = a.path[i]; a.crossed = i + 1; footfall(u, q);
     /* HE TAKES THE HIGH GROUND (rule 59's height row; rule 117c: a good choice gets a visible and audible win) */
@@ -2921,7 +2987,7 @@ function classLine(t) {
 }
 /* the board's mark: three red chevrons stacked over the head of a man who outclasses you, cells on whole pixels, no word */
 function classMark(v, X, top, h) {
-  const c = Math.max(1, Math.round(h / 40)), lit = ((performance.now() - UI.t0) % beatMs() + beatMs()) % beatMs() / beatMs() < BLINK_ON;
+  const c = Math.max(1, Math.round(h / 40)), lit = beatPh(performance.now()) < BLINK_ON;
   for (let k = 0; k < 3; k++) {
     const y0 = Math.round(top - (k + 1) * c * 4);
     for (let i = -3; i <= 3; i++) {
@@ -3252,7 +3318,11 @@ function resultSay(e, also) {
   say(s, true);
 }
 function startAnim(a) {
-  const e = a.e;
+  if (a.at === undefined) a.at = performance.now();   /* played straight, off the queue (a bench, a gate): from now */
+  const e = a.e, B = a.b || beatMs();   /* the beat it was put on the song with (rule 158): its sounds go now, SONG.lat before a.at, its picture from a.at */
+  /* a motion begun late (behind the last one's end, a frame, a busy timer) still sends its sounds on their place: SONG.lat
+     before the picture's moment, never the late start's */
+  const D = a.at - SONG.lat - performance.now(), sd = function (ms) { return Math.max(0, ms + D); };
   if (a.k === 'step') { SND.step();
     const span = [a.path[0], a.path[a.path.length - 1]];   /* the walk's two ends, so the walk itself stays on the glass */
     if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
@@ -3263,29 +3333,29 @@ function startAnim(a) {
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
     const sling = ranged && u.weapon.class === 'throwing' && !FIGHT.isGun(u.weapon);   /* THE KIDS' SLING: a whoosh, never a gunshot */
-    setTimeout(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(); }, beatMs() * 0.35);
-    if (sling && e.hit) setTimeout(function () { sfx('stone_bite', { side: u.side }); }, beatMs() * 0.45);
+    setTimeout(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(); }, sd(B * 0.35));
+    if (sling && e.hit) setTimeout(function () { sfx('stone_bite', { side: u.side }); }, sd(B * 0.45));
     setTimeout(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf) : SND.miss(bf); if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also);
       /* THE CREW CALLS IT (rule 143(c)): his men's shots, a hit or a miss, the man of theirs who slips it */
-      if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, beatMs() * 0.45);
+      if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, sd(B * 0.45));
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
-    if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, beatMs() * 0.8);
-    if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; goreHit(t, u, e.hp, performance.now() + beatMs() * 0.45); }
+    if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, sd(B * 0.8));
+    if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = a.at + B * 1.5; goreHit(t, u, e.hp, a.at + B * 0.45); }
     /* WEAPON SHAPES: every other man the sweep caught, a sixteenth apart after the first, his own sound and his own mark */
     (a.also || []).forEach(function (o, i) {
       const ot = FIGHT.byId(o.to); if (!ot) return;
-      setTimeout(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf) : SND.miss(bf); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, beatMs() * (0.45 + 0.25 * (i + 1)));
-      if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = performance.now() + beatMs() * 1.5; goreHit(ot, u, o.hp, performance.now() + beatMs() * (0.45 + 0.25 * (i + 1))); }
+      setTimeout(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf) : SND.miss(bf); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, sd(B * (0.45 + 0.25 * (i + 1))));
+      if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = a.at + B * 1.5; goreHit(ot, u, o.hp, a.at + B * (0.45 + 0.25 * (i + 1))); }
       pop(ot, '', o.hit ? (o.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', o.hit && o.head,
         u.name + "'s " + (o.skill || 'sweep').toLowerCase() + (o.hit ? ' catches ' + ot.name + ', -' + o.hp + ' health' : ' misses ' + ot.name) + ' (' + o.chance + '%)');
     });
     /* A DODGE SHOWS AS A DODGE (rule 143(b)): a shot or blow that misses throws him aside at the landing, the tag carries the sidestep mark, never a word (rule 46f; the block
        when the round went into the piece he stands behind); a man of theirs keeps count of what he dodged for the end's words */
     const into = !e.hit && ranged && bulletLands(e, t) === 'cover';
-    if (!e.hit) { UI.dodge = UI.dodge || {}; UI.dodge[t.id] = { t: performance.now() + beatMs() * 0.45, dir: (t.x - u.x) >= 0 ? 1 : -1 };
+    if (!e.hit) { UI.dodge = UI.dodge || {}; UI.dodge[t.id] = { t: a.at + B * 0.45, dir: (t.x - u.x) >= 0 ? 1 : -1 };
       if (u.side === 'you') t._dodged = (t._dodged || 0) + 1; }
     if (u.side === 'you') t._tried = (t._tried || 0) + 1;
-    numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : into ? MISS_MARK.cover : MISS_MARK.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
+    numTag(t, e.chance + '%', null, a.at - performance.now() + B * 0.45, e.hit ? '-' + e.hp : into ? MISS_MARK.cover : MISS_MARK.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
         : ' misses ' + t.name) + ' (' + e.chance + '%)');
@@ -3293,7 +3363,7 @@ function startAnim(a) {
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
     if ((e.t === 'dead' || e.t === 'down' || e.t === 'fled') && u) UI.fallN = (UI.fallN || 0) + 1;   /* the class read and the last stand look again */
-    if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = performance.now();   /* the fall plays from here (poseOf) */
+    if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = a.at;   /* the fall plays from here (poseOf) */
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
       if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
@@ -3318,17 +3388,17 @@ function startAnim(a) {
        out of its fall flickering for a beat; the first time, his veteran says who to shoot */
     /* THE NET (COMBAT [bestiary], THE KIDS): thrown with a whoosh, it lands as cloth; the man under it stays put till he tears free */
     else if (e.t === 'skill' && e.skill === 'throw_net') { const t = FIGHT.byId(e.to); sfx('swing_air');
-      setTimeout(function () { sfx('cloth_on', { side: t ? t.side : null }); }, beatMs() * 0.3);
+      setTimeout(function () { sfx('cloth_on', { side: t ? t.side : null }); }, sd(B * 0.3));
       if (t) { pop(t, '', '#c9b48a', true, u.name + ' nets ' + t.name + '. He cannot move.'); if (crewControlled(t)) say(t.name + ' is netted. He can shoot, not walk.'); }
       teachSoon('kids'); }
     /* THE SHOVE (COMBAT [bestiary], THE HEAVY): the crash-bar on him (block) and his boots dragged a tile (door_drag) */
     else if (e.t === 'skill' && e.skill === 'line_breaker') { const t = FIGHT.byId(e.to); sfx('block', { side: t ? t.side : null });
-      setTimeout(function () { sfx('door_drag'); }, beatMs() * 0.2);
+      setTimeout(function () { sfx('door_drag'); }, sd(B * 0.2));
       if (t) { pop(t, '', '#d0a070', true, u.name + ' shoves ' + t.name + ' off his tile.'); if (crewControlled(t)) say(t.name + ' got shoved back. A wall behind you stops it.'); }
       teachSoon('heavy'); }
     else if (e.t === 'skill' && e.skill === 'raise_undead') { const t = FIGHT.byId(e.to);
       sfx('power_on', { side: 'them', who: t ? t.name : null });
-      if (t) { t._fallAt = undefined; t.seenFall = false; t._rebootAt = performance.now(); pop(t, '', '#7fd6c4', true, u.name + ' reboots ' + t.name + '.'); }
+      if (t) { t._fallAt = undefined; t.seenFall = false; t._rebootAt = a.at; pop(t, '', '#7fd6c4', true, u.name + ' reboots ' + t.name + '.'); }
       teachSoon('mechanic'); }
     else if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
   }
@@ -3398,18 +3468,20 @@ function tick(now) {
   /* motion first: nothing new happens while something is still moving. BACK TO BACK (rule 121 [smooth]): the next motion
      starts on the exact time the last one ends, in the same frame (there was a frame between every two, and in it the man
      stood on the tile he was walking to) */
+  songRead(performance.now());
   if (UI.anim.length) {
     for (let guard = 0; UI.anim.length && guard < 64; guard++) {
       const a = UI.anim[0];
-      if (!a.at) { a.at = UI.animEnd && now - UI.animEnd < 120 ? UI.animEnd : now; startAnim(a); UI.beats += a.dur / beatMs(); }
+      if (!a.at && !onTheBeat(a, now)) return;   /* rule 158: the request waits for its beat on the song */
       if (a.k === 'step') walkTick(a, Math.min(now, a.at + a.dur));
       if (now - a.at < a.dur) break;
       UI.anim.shift(); UI.animEnd = a.at + a.dur; endAnim(a);
     }
     if (UI.anim.length) return;
-    /* the board breathes an eighth of a beat after the last motion, and the next man moves on the next quarter beat (it held
-       two whole beats from the start of every act of theirs, whatever the act: 55% of an AUTO fight stood still, 10/19) */
-    const next = onBeat(UI.animEnd + beatMs() * BREATH_BEATS);
+    /* the board breathes an eighth of a beat after the last motion and the next man decides (it held two whole beats from
+       the start of every act of theirs, whatever the act: 55% of an AUTO fight stood still, 10/19); what he does then waits
+       for its own beat on the song (onTheBeat), so a decision cut to the grid here would cost a second wait */
+    const next = UI.animEnd + beatMs() * BREATH_BEATS;
     if (next > UI.nextAI) { UI.beats += (next - Math.max(UI.nextAI, UI.animEnd)) / beatMs(); UI.nextAI = next; }
   }
   if (FIGHT.S.over) return;
@@ -3451,8 +3523,36 @@ const BREATH_BEATS = .125, THEIRS_SAY = 'Their move. Tap the board to skip it.',
 /* once his veteran has said the skip (change 8), the strip only says whose move it is */
 function theirsSay() { return taughtNow().skip || faceTeaches() ? THEIRS_SHORT : THEIRS_SAY; }
 function isTheirsSay(t) { return t === THEIRS_SAY || t === THEIRS_SHORT; }
-/* the next quarter beat from the fight's own clock: every act starts on the grid the beat is cut into */
-function onBeat(t) { const h = beatMs() / 4; return UI.t0 + Math.ceil((t - UI.t0) / h - 1e-6) * h; }
+/* A TAP IS A REQUEST (rule 158(a)): a motion, his by hand, his on AUTO or theirs, begins when its beat comes round on the
+   song, never on the frame it was asked for. A blow or a shot lands on the beat (its landing, LAND_BEATS of its own beat in,
+   is the kick); a walk's first foot, a fall's first key, a reload, a ring start on it; a note with nothing to show takes no
+   beat. Back to back motions stay back to back when the last one ends on the grid. The grid is the motion's own beat (the
+   song's at 1x, a half at 2x, a quarter at 4x), a quarter of it for a walk he hurried. The motion's sounds go SONG.lat ahead
+   of its picture, so the ear and the eye meet on the kick. UI.onBeat keeps the last REQ_LOG for the gate. */
+const LAND_BEATS = 0.45, REQ_LOG = 240;
+function landOf(a) { return a.k === 'attack' ? a.b * LAND_BEATS : 0; }
+function onTheBeat(a, now) {
+  const t = performance.now();
+  if (a.qAt === undefined) {
+    const from = UI.animEnd && now - UI.animEnd < 120 ? UI.animEnd : now, u = a.e && FIGHT.byId(a.e.id);
+    const unseen = a.k === 'note' && (a.e.t === 'dead' || a.e.t === 'down') && u && u.side === 'them' && !u._seen;
+    a.b = beatMs();
+    const land = landOf(a);
+    const g = a.dur > 0 && !unseen ? (a.hurry ? a.b / 4 : a.b) : 0;
+    a.qAt = g ? songGrid(from + land, g) - land : from;
+    (UI.onBeat = UI.onBeat || []).push({ k: a.k, t: a.e && a.e.t, side: u ? u.side : null, asked: from, at: a.qAt, land: a.qAt + land, g: g, song: SONG.from, songAt: SONG.at });
+    if (UI.onBeat.length > REQ_LOG) UI.onBeat.shift();
+  }
+  const lead = a.dur > 0 ? SONG.lat : 0;
+  if (t < a.qAt - lead - 1) {
+    /* a timer, not the next frame, starts it: a frame is 16 ms late at best and a busy phone's far more */
+    if (UI.beatFor !== a.qAt) { clearTimeout(UI.beatT); UI.beatFor = a.qAt;
+      UI.beatT = setTimeout(function () { UI.beatFor = null; try { tick(performance.now()); } catch (e) { setTimeout(function () { throw e; }); } }, Math.max(0, a.qAt - lead - t)); }
+    return false;
+  }
+  a.at = a.qAt; startAnim(a); UI.beats += a.dur / beatMs();
+  return true;
+}
 /* a tap on the board while they move: their turn ends at once, everything they do resolved, no animation; on AUTO it runs
    to the end of the round. His own turn never ends without his finger. */
 function skipTurn() {
@@ -3483,8 +3583,11 @@ function skipTurn() {
      (d) the turn ends itself (rule 125, shipped 10/20);
      (e) THE FIGHT SAVES EVERY TURN: the rules' whole state at the start of each of his turns, read back when the same fight
          opens again (the shell hears BOHEMIA_FIGHT_KEPT and BOHEMIA_FIGHT_RESUMED);
-   and the speed control: one pane of the map's own speed pad (the kit's tin, UI's), 1x / 2x / 3x, kept on the phone. */
-const THEIRS_PACE = 2, SPEEDS = [1, 2, 3], FINISH_PACE = 3, SPEED_KEY = 'bohemia.fight.speed';
+   and the speed control: one pane of the map's own speed pad (the kit's tin, UI's), 1x / 2x / 4x (rule 158: on the song's
+   halves and quarters), kept on the phone. */
+/* rule 158(b): every pace a power of two, so a faster fight lands on halves and quarters of the song's beat, never off it (the
+   hand's top was 3x, a third of a beat, off the song: it is 4x, a quarter; a phone that kept 3 keeps the top) */
+const THEIRS_PACE = 2, SPEEDS = [1, 2, 4], FINISH_PACE = 4, SPEED_KEY = 'bohemia.fight.speed';
 const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000;
 const KEPT_KEY = 'bohemia.fight.kept.v1', KEPT_HOURS = 6;
 function paceNow() {
@@ -3492,7 +3595,7 @@ function paceNow() {
   const S = FIGHT.S; if (!UI.board || !S || S.over || S.deploy || !S.order || !S.order.length) return 1;
   const u = FIGHT.current(); return u && u.side === 'them' ? (UI.theirsPace || THEIRS_PACE) : 1;
 }
-function storedSpeed() { try { const v = Number(localStorage.getItem(SPEED_KEY)); return SPEEDS.indexOf(v) >= 0 ? v : 1; } catch (_e) { return 1; } }
+function storedSpeed() { try { const v = Number(localStorage.getItem(SPEED_KEY)); return v === 3 ? 4 : SPEEDS.indexOf(v) >= 0 ? v : 1; } catch (_e) { return 1; } }
 function handSpeed(v, quiet) {
   UI.hand = SPEEDS.indexOf(v) >= 0 ? v : 1;
   if (!quiet) try { localStorage.setItem(SPEED_KEY, String(UI.hand)); } catch (_e) {}
@@ -3503,7 +3606,7 @@ function placeSpeed() { const sp = document.getElementById('speedpad'), a = docu
 /* (b) a tap while his man walks: the rest of the walk in a quarter beat */
 function hurryWalk() {
   const now = performance.now(), q = beatMs() / 4;
-  UI.anim.forEach(function (a) { if (a.k !== 'step') return; if (!a.at) { a.dur = Math.min(a.dur, q); return; } if (a.at + a.dur - now > q) a.dur = now - a.at + q; });
+  UI.anim.forEach(function (a) { if (a.k !== 'step') return; if (!a.at) { a.dur = Math.min(a.dur, q); a.hurry = true; a.qAt = undefined; return; } if (a.at + a.dur - now > q) a.dur = now - a.at + q; });   /* one not begun waits only for the next quarter of the beat (rule 158) */
   UI.hurried = (UI.hurried || 0) + 1;
 }
 /* (c) the walk that can be taken back: the state before it, and the die's place after it */
@@ -3925,12 +4028,12 @@ function turnTo(v, want, now) {
 function poseOf(v, now) {
   const a = UI.anim[0], L = lookOf(v);
   if (v._fallAt !== undefined) {   /* the fall, three keys a beat, then the body as it lies */
-    const k = Math.floor((now - v._fallAt) / (beatMs() / DB.rig.keys_per_beat));
+    const k = Math.floor(Math.max(0, now - v._fallAt) / (beatMs() / DB.rig.keys_per_beat));   /* a fall put on the beat may be asked for a frame before it */
     return { col: clipCol('fall', k, L), clip: 'fall' };
   }
   const w = walkOf(v);
   if (w) { const p = walkAt(w, now); turnTo(v, p.face, now); v._face = p.face;
-    return { col: clipCol('walk', Math.floor((now - w.at) / (beatMs() / 6)) % 6, L), clip: 'walk' }; }
+    return { col: clipCol('walk', Math.floor(Math.max(0, now - w.at) / (beatMs() / 6)) % 6, L), clip: 'walk' }; }
   if (a && a.at && a.k === 'attack') {
     const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
     if (a.e.id === v.id) {
@@ -4027,7 +4130,7 @@ function blitMan(v, X, feet, now, alpha) {
   if (v === FIGHT.current() && crewControlled(v) && !FIGHT.S.deploy && !FIGHT.S.over && v._fallAt === undefined && window.BOHEMIA_AURA) {
     const k = s / DPR, fr = { img: img, sx: p.col * L.w, sy: (v._face || 0) * L.h, sw: L.w, sh: L.h, dx: X - 56 * k, dy: feet - 108 * k, dw: 112 * k, dh: 112 * k };
     UI.tearAt = now;
-    window.BOHEMIA_AURA.draw('tear', 'front', cx, { k: k, X: X, feet: feet, frame: fr, face: DIR8[v._face || 0], t: now - UI.t0, beat: beatMs(), size: 'fight' });
+    window.BOHEMIA_AURA.draw('tear', 'front', cx, { k: k, X: X, feet: feet, frame: fr, face: DIR8[v._face || 0], t: now - SONG.at, beat: beatMs(), size: 'fight' });
   }
 }
 /* THE GHOST'S LOOK (COMBAT [ghosts and apparitions], rule 134(a) 'static, dead signal, wrong in the frame', (e) 'the dead who came
@@ -4039,7 +4142,7 @@ function blitMan(v, X, feet, now, alpha) {
 const GHOST_WASH = 'rgba(146,150,176,.5)', GHOST_SPLIT = [['rgba(170,90,230,1)', -1], ['rgba(80,210,220,1)', 1]];
 function ghostCoin(a, b) { let h = (a * 374761393 + b * 668265263) >>> 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
 function ghostBlit(v, img, sx0, sy0, sw, sh, ox, oy, s, now, alpha) {
-  const w = Math.round(sw * s), h = Math.round(sh * s), slot = Math.floor((now - UI.t0) / (beatMs() / 4)), seed = v.id.charCodeAt(v.id.length - 1);
+  const w = Math.round(sw * s), h = Math.round(sh * s), slot = Math.floor((now - SONG.at) / (beatMs() / 4)), seed = v.id.charCodeAt(v.id.length - 1);
   const key = sx0 + ':' + sy0 + ':' + w + ':' + slot;
   if (v._gkey !== key) {
     v._gkey = key;
@@ -4076,7 +4179,7 @@ function chipSheet(img) {
   CHIP_SHEETS.set(img, c); return c;
 }
 function chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha) {
-  const slot = Math.floor((now - UI.t0) / (beatMs() / 4)), seed = v.id.charCodeAt(v.id.length - 1), px = Math.max(1, Math.round(s));
+  const slot = Math.floor((now - SONG.at) / (beatMs() / 4)), seed = v.id.charCodeAt(v.id.length - 1), px = Math.max(1, Math.round(s));
   const boot = v._rebootAt !== undefined && now - v._rebootAt < beatMs();
   const tic = !boot && v._fallAt === undefined && ghostCoin(slot * 7 + seed, 3) < .14 ? (ghostCoin(slot, seed) < .5 ? -px : px) : 0;
   const sh = chipSheet(img), sx0 = p.col * L.w, sy0 = (v._face || 0) * L.h;
@@ -4090,7 +4193,7 @@ function chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha) {
   if (gs) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
     if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox + tic, oy, L.w * s, L.h * s); }
   /* the diode at the nape: lit on the beat's first half while the chip runs, dark for good when it is gone */
-  const lit = !v.headGone && !v.unplugged && v._fallAt === undefined && ((now - UI.t0) % beatMs()) < beatMs() / 2;
+  const lit = !v.headGone && !v.unplugged && v._fallAt === undefined && beatPh(now) < .5;
   const nx = ox + tic + (L.foot[0] + (v._face === 2 ? -3 : v._face === 6 ? 3 : 0)) * s, ny = oy + (L.foot[1] - DB.rig.ruler.px * .84) * s;
   if (v._fallAt === undefined || !lit) { cx.fillStyle = CHIP_LED[lit ? 0 : 1]; cx.fillRect(Math.round(nx), Math.round(ny), px * 2, px * 2);
     if (lit) { cx.globalAlpha = alpha * .35; cx.fillRect(Math.round(nx - px * 2), Math.round(ny - px * 2), px * 6, px * 6); cx.globalAlpha = alpha; } }
@@ -4235,7 +4338,7 @@ function drawMan(v, tw, th) {
        the beat, before the second tap */
     const pv = UI.pend && UI.pend.target === v && UI.pend.pv;
     if (pv && crewControlled(FIGHT.current())) {
-      const lit = ((now - UI.t0) % beatMs() + beatMs()) % beatMs() / beatMs() < BLINK_ON, am = Math.max(1, v.armBMax + v.armHMax), ar = v.armB + v.armH;
+      const lit = beatPh(now) < BLINK_ON, am = Math.max(1, v.armBMax + v.armHMax), ar = v.armB + v.armH;
       const ta = Math.min(ar, pv.armour), th2 = Math.min(Math.max(0, v.hp), pv.hp), seg = function (from, len, y) { const a = Math.round(bx + from), b = Math.round(bx + from + len); if (b > a) cx.fillRect(a, y, b - a, BAR_PT); };
       cx.fillStyle = lit ? '#f2ead8' : '#5c5040';
       seg(bw * (ar - ta) / am, bw * ta / am, by); seg(bw * (v.hp - th2) / v.hpMax, bw * th2 / v.hpMax, by + BAR_PT + 1);
@@ -4259,7 +4362,7 @@ function roundsMark(v, X, top, now) {
   const r = FIGHT.rounds(v); if (!r || !r.of) return;
   const dry = FIGHT.emptyGun(v), last = !dry && r.of > 1 && r.left === 1, k = dry ? DRY_K : 1;
   const n = Math.min(r.of, RD_MAX), pw = PIP_W * k, ph = PIP_H * k, gap = PIP_GAP * k, pad = 2 * k;
-  const beat = beatMs(), f = ((now - UI.t0) % beat + beat) % beat / beat, kicked = UI.dryAt && now - UI.dryAt < beat;
+  const beat = beatMs(), f = beatPh(now), kicked = UI.dryAt && now - UI.dryAt < beat;
   const on = f < BLINK_ON, slip = dry && (f < SLIP || kicked);
   mkOn();
   const w = n * pw + (n - 1) * gap, x0 = mc(X) - Math.floor(w / 2), y1 = mc(top) - 3, y0 = y1 - ph;
@@ -4507,7 +4610,7 @@ function hud() {
     const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : ''; bs.appendChild(bt);
     br.textContent = ''; br.disabled = !canR; br.style.display = u && FIGHT.reloadSkill(u.weapon) ? '' : 'none'; br.title = 'RELOAD';
     br.className = 'sq' + (dry ? ' big' : '') + (lastRd ? ' last' : '') + (br.classList.contains('poke') ? ' poke' : '');
-    br.style.setProperty('--beat', beatMs() + 'ms'); br.style.setProperty('--ph', -Math.round((performance.now() - UI.t0) % beatMs()) + 'ms');
+    br.style.setProperty('--beat', beatMs() + 'ms'); br.style.setProperty('--ph', -Math.round(beatPh(performance.now()) * beatMs()) + 'ms');   /* the glow breathes on the song's beat (rule 158) */
     br.appendChild(roundsCanvas(rd || { left: 0, of: 1 }, dry ? '#ff5a40' : lastRd ? '#f0b04a' : '#e0b062', dry ? 26 : 30, dry));
     if (dry) {
       const rl = document.createElement('span'); rl.className = 'rl'; rl.textContent = canR ? 'RELOAD' : 'RELOAD NEXT TURN'; br.appendChild(rl);
@@ -5090,7 +5193,7 @@ function start() {
   if (!UI.resumed) { keptClear(); haunt(); }   /* 134(e): in act one a ghost is one of the dead (before the board loads their bodies) */
   UI.hauntSeen = null; UI.hauntName = null;
   UI.wipe = null; UI.dodge = {}; UI.stains = []; UI.drops = []; UI.flash = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; UI.callLast = false; UI.callCrewMax = 0; UI.callFallSeen = -1; UI.fallN = 0; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
-  UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
+  UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = []; clearTimeout(UI.beatT); UI.beatFor = null; UI.onBeat = []; SONG.read = -1e9;
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();
   return bakeBoard().then(function () {
@@ -5099,7 +5202,7 @@ function start() {
        Two beats of stillness (nothing happens in the first second). */
     const dep = FIGHT.S.deploy && !UI.auto;
     fitNow();   /* BOTH TEAMS ON ONE SCREEN (rule 104a): the open holds every man of both teams, no swipe; the man still 112 */
-    UI.t0 = performance.now(); UI.openUntil = UI.t0 + beatMs() * 4.5;
+    UI.t0 = performance.now(); SONG.read = -1e9; songRead(UI.t0); UI.openUntil = UI.t0 + beatMs() * 4.5;
     document.getElementById('load').style.display = 'none';
     MUSIC.started();   /* rule 126: the board is up, the song lifts at the next bar */
     /* the open's line names whose move it is: a pack of wolves (initiative 150) moves before his men, and 'tap inside the chalk'

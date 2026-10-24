@@ -11,7 +11,8 @@
    3. THE ODDS READ AND THE DIE UNTOUCHED: on his turn the odds are read inside a person's decision (2.65 s, the
       Keystroke-Level Model), and the real die is exactly where it was;
    4. AUTO WEARS THE ODDS AND ONE TAP FINISHES (re-aimed 10/24 by rule 144(b)(e)(f)(g)): a clean win nearly certain tints AUTO
-      green and lights it on the beat, with NO number on it; one tap plays the rest on AUTO at the top pace to the recap; a fight
+      green and lights it on the beat, with NO number on it; one tap plays the rest on AUTO at the top pace (4x, rule 158(b))
+      to the recap; a fight
       he cannot win reads red and does not glow; a death in a run pulls it red; an even fight reads red (no clear middle);
    5. THEIR TURNS AT DOUBLE PACE: on their turn the beat the motion keeps is half his;
    6. A TAP SKIPS HIS WALK: a tap while his man walks puts him at the walk's end inside a quarter beat;
@@ -85,7 +86,10 @@ leg(endA === endB, '*** THE FIGHT KEPT: FROZEN TO PLAIN DATA AND THAWED, THE SAM
     const f0 = await p.evaluate(() => ({ auto: FIGHT_UI.auto, finish: FIGHT_UI.finish, pace: paceNow(), t: performance.now() }));
     await p.waitForFunction(() => FIGHT.S.over && document.getElementById('over').style.display === 'flex', null, { timeout: 60000 }).catch(() => {});
     const f1 = await p.evaluate(() => ({ over: FIGHT.S.over, result: FIGHT.S.result, shown: document.getElementById('over').style.display === 'flex', t: performance.now(), bullets: (FIGHT_UI.bullets || []).slice(), kept: localStorage.getItem('bohemia.fight.kept.v1') }));
-    leg(f0.auto && f0.finish && f0.pace === 3 && f1.over && f1.shown, '*** ONE TAP FINISHES IT: AUTO AT THE TOP PACE TO THE RECAP ***', 'auto ' + f0.auto + ', pace ' + f0.pace + 'x, ' + f1.result + ' in ' + ((f1.t - f0.t) / 1000).toFixed(1) + ' s');
+    /* RE-AIMED 10/24 by rule 158(b) (a faster fight lands on halves and quarters of the song's beat, never off it): the top pace
+       is the page's own FINISH_PACE, a power of two (it was 3, a third of a beat) */
+    const fin = await p.evaluate(() => FINISH_PACE);
+    leg(f0.auto && f0.finish && f0.pace === fin && Math.log2(fin) % 1 === 0 && fin > 1 && f1.over && f1.shown, '*** ONE TAP FINISHES IT: AUTO AT THE TOP PACE TO THE RECAP ***', 'auto ' + f0.auto + ', pace ' + f0.pace + 'x, ' + f1.result + ' in ' + ((f1.t - f0.t) / 1000).toFixed(1) + ' s');
     const fired = f1.bullets.filter(b => /^fired /.test(b)).length, lands = f1.bullets.filter(b => /^lands (man|armour|cover|dirt|past_ear) /.test(b)).length;
     leg(fired > 0 && lands >= fired, '*** THE BULLET\'S MOMENTS: EVERY SHOT OF A GUN POSTS FIRED AND WHERE IT LANDS, FOR SOUNDS ***', fired + ' fired, ' + lands + ' landed: ' + f1.bullets.slice(0, 4).join(' | '));
     leg(!f1.kept, '  the end clears the kept fight', f1.kept ? 'STILL KEPT' : 'cleared');
