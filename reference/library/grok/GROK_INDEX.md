@@ -78,3 +78,4 @@ Newest first.
 - 2026-09-30 | ask 1 | GROK_01_THE_BEAST_TABLE_2026_09_30.md | Battle Brothers beast table, wiki-sourced
 - 2026-10-24 | STATS | GROK_BIG_BEASTS_STATS_SKILLS_2026_10_24.md | lindwurm, schrat, kraken, ifrit, nachzehrer
 - 2026-10-24 | STATS | GROK_ORC_ANCIENT_STATS_SKILLS_2026_10_24.md | orc young, warrior, warlord, ancient legionary
+- 2026-10-24 | STATS | GROK_WIEDERGANGER_BARBARIAN_STATS_2026_10_24.md | wiederganger, barbarian thrall, chosen
