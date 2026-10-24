@@ -117,8 +117,11 @@
     if(AC.createStereoPanner){ var p = AC.createStereoPanner(); p.pan.value = clamp(pan, -1, 1); return p; }
     var g = AC.createGain(); return g;   /* no panner on this phone: centred, never silent */
   }
+  var PLAYING = [], MAX_AT_ONCE = 8;   /* the street's job sounds never hold more than eight voices of the phone's audio at once (rule 141(e)) */
   function playClip(k, id, when, gain, rate, pan){
     var AC = k.AC, b = BUF[id]; if(!b){ load(AC, id); return false; }   /* not in yet: this one is skipped, the next one plays */
+    if(PLAYING.length >= MAX_AT_ONCE) return false;
+    PLAYING.push(when + b.duration / rate + 0.02);
     var s = AC.createBufferSource(), g = AC.createGain(), p = panner(AC, pan);
     s.buffer = b; s.playbackRate.value = rate;
     g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(gain, when + 0.004);   /* born at zero: never a click */
@@ -199,6 +202,10 @@
     if(!opt.dry && (!ctx.unlocked || !ctx.shown)){ if(live.length) stopTalk(); return; }   /* a phone plays nothing before a tap; a hidden frame is silent */
     var k = opt.dry ? null : sink(); if(!opt.dry && !k) return;
     if(k && !preloaded){ preloaded = true; preload(k); }   /* every clip in before the first stop, so the first crate is heard too */
+    /* A FINISHED MUTTER IS LET GO (rule 141(e), Paolo 10/24: 'I just talked to everyone, and then it crashed'; measured: a handle
+       kept every syllable's node alive until a sheet opened, about 25 nodes a mutter, so a town left open held them all) */
+    if(k && live.length) live = live.filter(function(h){ return h.start == null || k.AC.currentTime < h.start + (h.tail || h.seconds || 0) + 0.25; });
+    if(k) PLAYING = PLAYING.filter(function(t){ return t > k.AC.currentTime; });
     t0 = ctx.t0 || 0;
     if(ctx.place !== place || ctx.night !== night) reset(ctx, now);
     if(k) duck(k, !!ctx.open);
