@@ -28,7 +28,8 @@ for p in sorted(glob.glob('records/BOHEMIA_PAOLO_*.md'), key=date_key, reverse=T
     add('HIS WORDS ' + os.path.basename(p), p)
 for p in sorted(glob.glob('reference/library/battle_brothers/*.md')):
     add('BATTLE BROTHERS LIBRARY ' + os.path.basename(p), p)
-for p in ['records/BOHEMIA_THE_BATTLE_BROTHERS_TRANSLATION_TABLE_9_29_26.md',
+for p in ['records/BOHEMIA_THE_WHOLE_GAME.md',
+          'records/BOHEMIA_THE_BATTLE_BROTHERS_TRANSLATION_TABLE_9_29_26.md',
           'records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md',
           'records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_SEVENTEEN_BEAST_MECHANICS_9_29_26.md',
           'records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_WEAPON_CLASSES_AND_OUR_ARSENAL_9_29_26.md',
