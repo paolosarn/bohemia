@@ -130,3 +130,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_79_LATE_GAME_CRISES_2026_10_24.md | late game crises, timing, types
 - 2026-10-24 | ASK | GROK_ASK_80_AMBITIONS_AND_RETIREMENT_2026_10_24.md | ambitions, retirement, endings
 - 2026-10-24 | ASK | GROK_ASK_81_RELATIONS_AND_REPUTATION_2026_10_24.md | relations, reputation, prices
+- 2026-10-24 | ASK | GROK_ASK_82_THE_RETINUE_2026_10_24.md | retinue, followers, slots
