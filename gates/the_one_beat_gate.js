@@ -23,6 +23,11 @@
      B9 a division is a power of two of the same grid (3 snaps to 2; a half-beat point is a beat point or halfway)
      B10 an offline render (the song tools) never moves the grid
      B11 nothing threw
+   THE TWO CLOCKS. The transport books on the audio context's clock; the grid is stamped in wall time as HEARD. On a loaded
+   box the audio can slip (an underrun: the context's clock stops while the wall clock runs), and the heard beat really
+   moves; measured 10/24 on the alpha with a song render beside it: one slip of 30 ms. So the beat claims (B3, B4, B6, B7)
+   are held on the transport's own clock, which cannot slip against itself, and the heard stamps' slips are COUNTED and
+   printed, failing only past three in four seconds (a broken stamp, not a busy box).
    node gates/the_one_beat_gate.js            (the demo)
    node gates/the_one_beat_gate.js --alpha    (the alpha)
    ========================================================================== */
@@ -76,24 +81,26 @@ const ARM = `(function(){ window.__beats = []; window.__errs = []; window.addEve
     /* B3 the grid is the song: sample the reader's answer at random instants and hold every booked beat against it */
     const asks = [];
     for (let i = 0; i < 12; i++) {
-      asks.push(await P.evaluate(() => { const n = performance.timeOrigin + performance.now(); return { at: n, e1: n + BOHEMIA_BEAT.next(1), e4: n + BOHEMIA_BEAT.next(4) }; }));
+      asks.push(await P.evaluate(() => { const n = performance.timeOrigin + performance.now(); return { at: n, g: BOHEMIA_BEAT.epoch(), e1: n + BOHEMIA_BEAT.next(1), e4: n + BOHEMIA_BEAT.next(4) }; }));
       await P.waitForTimeout(170 + (i * 37) % 120);
     }
     const b3 = await P.evaluate(() => window.__beats.slice());
     const run = b3.filter(b => b.cur === b3[b3.length - 1].cur).slice(-8);
-    const gaps = run.slice(1).map((b, i) => b.e - run[i].e).filter(g => g < 900);
-    const worstGap = gaps.length ? Math.max(...gaps.map(g => Math.abs(g - 500))) : 999;
-    const ref = run.length ? run[run.length - 1].e : 0;
-    const worstAsk = Math.max(...asks.map(a => Math.max(off(a.e1, ref, 500), off(a.e4, ref, 125))));
-    ok('B3 THE GRID IS THE SONG: ' + run.length + ' booked beats ' + gaps.length + ' gaps, worst ' + worstGap.toFixed(2) + ' ms off 500; 12 asks, the worst ' + worstAsk.toFixed(2) + ' ms off the booked beats',
-      run.length >= 6 && worstGap <= TOL && worstAsk <= TOL, JSON.stringify({ gaps, asks: asks.slice(0, 3) }));
+    const tg = run.slice(1).map((b, i) => (b.T - run[i].T) * 1000);
+    const worstT = tg.length ? Math.max(...tg.map(g => Math.abs(g - 500))) : 999;
+    /* the heard stamps: each one's offset from its booked time; a change is a slip */
+    const offs = run.map(b => b.e - b.T * 1000), slips = offs.slice(1).filter((o, i) => Math.abs(o - offs[i]) > TOL).length;
+    /* every ask, held against the stamp current at that instant: the reader names that stamp's grid */
+    const worstAsk = Math.max(...asks.map(a => Math.max(off(a.e1, a.g, 500), off(a.e4, a.g, 125))));
+    ok('B3 THE GRID IS THE SONG: ' + run.length + ' booked beats, worst ' + worstT.toFixed(3) + ' ms off 500 on the transport\'s clock; 12 asks name the heard grid, worst ' + worstAsk.toFixed(2) + ' ms off; heard slips ' + slips,
+      run.length >= 6 && worstT <= 0.5 && worstAsk <= TOL && slips <= 3, JSON.stringify({ tg, offs: offs.map(o => o.toFixed(1)) }));
 
     /* B4 / B5: swap the song mid-beat, the new way and the old way */
     async function swapMid(oldWay) {
       return P.evaluate(async (oldWay) => {
         const wait = ms => new Promise(r => setTimeout(r, ms));
         for (let i = 0; i < 40 && Math.abs(BOHEMIA_BEAT.now().phase - 0.35) > 0.08; i++) await wait(10);
-        const g = BOHEMIA_BEAT.epoch(), before = window.__beats.length, cur = MUS.cur, keep = window.__beatNext;
+        const before = window.__beats.length, last = window.__beats[before - 1], g = last ? last.T * 1000 : 0, cur = MUS.cur, keep = window.__beatNext;
         if (oldWay) window.__beatNext = null;
         try { CITYMUS.on = true; CITYMUS.play(); } finally { window.__beatNext = keep; }
         const swappedTo = MUS.cur, stepAfter = MUS.step;
@@ -103,11 +110,11 @@ const ARM = `(function(){ window.__beats = []; window.__errs = []; window.addEve
       }, oldWay);
     }
     const sw = await swapMid(false);
-    const swOff = sw.first ? off(sw.first.e, sw.g, 500) : 999;
+    const swOff = sw.first ? off(sw.first.T * 1000, sw.g, 500) : 999;
     ok('B4 A SONG CHANGE KEEPS THE BEAT: swapped mid-beat, the new song\'s first beat lands ' + swOff.toFixed(2) + ' ms off the old grid, from its own bar 1',
       sw.first && swOff <= TOL && sw.first.step === 0 && sw.stepAfter === 0, JSON.stringify(sw));
     const swOld = await swapMid(true);
-    const oldOff = swOld.first ? off(swOld.first.e, swOld.g, 500) : 0;
+    const oldOff = swOld.first ? off(swOld.first.T * 1000, swOld.g, 500) : 0;
     ok('B5 THE NET BITES: the same mid-beat swap the old way lands ' + oldOff.toFixed(1) + ' ms off the grid',
       swOld.first && oldOff > 60, JSON.stringify(swOld));
     await P.waitForTimeout(1200);
@@ -118,25 +125,25 @@ const ARM = `(function(){ window.__beats = []; window.__errs = []; window.addEve
       const held = MUS.drumsHeld, dv = window.drumV; let drums = 0;
       MUS.drumsHeld = function(){ return true; }; window.drumV = function(){ drums++; return dv.apply(this, arguments); };
       await wait(600);
-      const before = window.__beats.length, g = BOHEMIA_BEAT.epoch(); drums = 0;
+      const before = window.__beats.length, g = window.__beats[before - 1].T * 1000; drums = 0;
       await wait(4000);
       MUS.drumsHeld = held; window.drumV = dv;
       return { g, beats: window.__beats.slice(before), drums };
     });
-    const humOff = hum.beats.length ? Math.max(...hum.beats.map(b => off(b.e, hum.g, 500))) : 999;
+    const humOff = hum.beats.length ? Math.max(...hum.beats.map(b => off(b.T * 1000, hum.g, 500))) : 999;
     ok('B6 THE CLOCK RUNS UNDER A HUM: the drums held (' + hum.drums + ' kit hits), ' + hum.beats.length + ' beats booked in 4 s, the worst ' + humOff.toFixed(2) + ' ms off the grid',
       hum.beats.length >= 7 && humOff <= TOL, JSON.stringify({ n: hum.beats.length, drums: hum.drums }));
 
     /* B7 stopped, then started */
     const st = await P.evaluate(async () => {
       const wait = ms => new Promise(r => setTimeout(r, ms));
-      const g = BOHEMIA_BEAT.epoch(); MUS.stop(); await wait(1700);
+      const g = BOHEMIA_BEAT.epoch(), lastT = window.__beats[window.__beats.length - 1].T * 1000; MUS.stop(); await wait(1700);
       const n = performance.timeOrigin + performance.now(), held = BOHEMIA_BEAT.now(), e = n + BOHEMIA_BEAT.next(1);
       const before = window.__beats.length; MUS.start(); await wait(1500);
-      return { g, src: held.src, e, first: window.__beats[before] || null };
+      return { g, lastT, src: held.src, e, first: window.__beats[before] || null };
     });
-    ok('B7 STOPPED, THE GRID RUNS ON (' + st.src + ', ' + off(st.e, st.g, 500).toFixed(2) + ' ms off); STARTED AGAIN, the song comes in ' + (st.first ? off(st.first.e, st.g, 500).toFixed(2) : '?') + ' ms off it',
-      st.src === 'held' && off(st.e, st.g, 500) <= TOL && st.first && off(st.first.e, st.g, 500) <= TOL && st.first.step === 0, JSON.stringify(st));
+    ok('B7 STOPPED, THE GRID RUNS ON (' + st.src + ', ' + off(st.e, st.g, 500).toFixed(2) + ' ms off); STARTED AGAIN, the song comes in ' + (st.first ? off(st.first.T * 1000, st.lastT, 500).toFixed(2) : '?') + ' ms off it',
+      st.src === 'held' && off(st.e, st.g, 500) <= TOL && st.first && off(st.first.T * 1000, st.lastT, 500) <= 0.5 && st.first.step === 0, JSON.stringify(st));
 
     /* B8 the fight reads it: a stand-in frame by the fight's name */
     const fr = await P.evaluate(async () => {

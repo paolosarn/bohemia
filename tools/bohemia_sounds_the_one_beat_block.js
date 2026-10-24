@@ -33,7 +33,7 @@
 (function(){
   'use strict';
   if (window.BOHEMIA_BEAT) return;
-  var G = { epoch: null, step: 0, at: null, free: null, booked: 0, lastBeat: -1 };
+  var G = { epoch: null, step: 0, at: null, ac: null, free: null, booked: 0 };
   function now(){ return performance.timeOrigin + performance.now(); }
   function live(){
     try{
@@ -84,13 +84,15 @@
   /* the transport's scheduler calls this for every step it books into the live context */
   window.__beatBooked = function(T, step){
     var A = live(); if (!A || step % 4 !== 0) return;
-    G.at = T; G.step = step; G.epoch = heard(A, T); G.booked++;
+    G.at = T; G.ac = A; G.step = step; G.epoch = heard(A, T); G.booked++;
     var w = fightWin();
     if (w){ try{ if (!w.BOHEMIA_BEAT) w.BOHEMIA_BEAT = window.BOHEMIA_BEAT; }catch(_e){} tell(w); }
   };
   /* the first beat of the grid at or after context time minT: where a song starts, swaps or picks up after a stall */
   window.__beatNext = function(minT){
     var A = live(); if (!A) return minT;
+    /* the same context the last beat was booked on: count whole beats on the transport's own clock, exact */
+    if (G.at != null && G.ac === A){ var bs = beatS(); return G.at + Math.ceil((minT - G.at) / bs - 1e-9) * bs; }
     var g = grid(); if (g.src === 'free') return minT;   /* no music has ever played: the first song sets the grid */
     var e = heard(A, minT), k = Math.ceil((e - g.e) / g.bm - 1e-6);
     return minT + (g.e + k * g.bm - e) / 1000;

@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"f97df24113f49ea5",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"fa0ca3bb11f628ad",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -22345,7 +22345,7 @@ drawLogoBig();requestAnimationFrame(loop);
 (function(){
   'use strict';
   if (window.BOHEMIA_BEAT) return;
-  var G = { epoch: null, step: 0, at: null, free: null, booked: 0, lastBeat: -1 };
+  var G = { epoch: null, step: 0, at: null, ac: null, free: null, booked: 0 };
   function now(){ return performance.timeOrigin + performance.now(); }
   function live(){
     try{
@@ -22396,13 +22396,15 @@ drawLogoBig();requestAnimationFrame(loop);
   /* the transport's scheduler calls this for every step it books into the live context */
   window.__beatBooked = function(T, step){
     var A = live(); if (!A || step % 4 !== 0) return;
-    G.at = T; G.step = step; G.epoch = heard(A, T); G.booked++;
+    G.at = T; G.ac = A; G.step = step; G.epoch = heard(A, T); G.booked++;
     var w = fightWin();
     if (w){ try{ if (!w.BOHEMIA_BEAT) w.BOHEMIA_BEAT = window.BOHEMIA_BEAT; }catch(_e){} tell(w); }
   };
   /* the first beat of the grid at or after context time minT: where a song starts, swaps or picks up after a stall */
   window.__beatNext = function(minT){
     var A = live(); if (!A) return minT;
+    /* the same context the last beat was booked on: count whole beats on the transport's own clock, exact */
+    if (G.at != null && G.ac === A){ var bs = beatS(); return G.at + Math.ceil((minT - G.at) / bs - 1e-9) * bs; }
     var g = grid(); if (g.src === 'free') return minT;   /* no music has ever played: the first song sets the grid */
     var e = heard(A, minT), k = Math.ceil((e - g.e) / g.bm - 1e-6);
     return minT + (g.e + k * g.bm - e) / 1000;

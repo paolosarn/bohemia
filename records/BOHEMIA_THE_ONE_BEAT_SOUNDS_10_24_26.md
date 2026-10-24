@@ -27,6 +27,17 @@ tools/bohemia_sounds_the_one_beat_block.js, inlined into the alpha by tools/bohe
   started again the song comes in 0.07 ms off it.
 - Every booked beat within 0.12 ms of 500 ms apart; twelve random asks within 0.14 ms of the booked beats.
 
+## ROUND TWO OF THE SAME PART: EXACT ON THE TRANSPORT'S CLOCK, AND THE SLIP
+- A swap, a start and a stall on the same audio context now count whole beats from the last booked beat on the
+  transport's own clock (exact: 0.00 ms), instead of converting through the heard stamps (0.06 ms of stamp jitter).
+- FOUND: the first alpha run with a song render running beside it went red with one heard gap of 530 ms. The transport
+  booked that beat exactly 500 ms after the last one; the AUDIO slipped 30 ms (an underrun: the context's clock stops
+  while the wall clock runs), so the beat he would hear really moved, and the grid followed it, which is the job. Alone
+  on a quiet box the alpha is 12/0. The gate now holds the beat claims on the transport's clock (it cannot slip against
+  itself) and COUNTS the heard slips, failing past three in four seconds. This is the phone story PLUMBER measured on
+  9/18 (one beat in twelve late on a phone-shaped CPU): on a phone the heard beat slips, and a fight that reads
+  BOHEMIA_BEAT at the moment of the request lands on the beat the speaker is actually playing.
+
 ## THE NOTE FOR COMBAT: EXACTLY HOW THE FIGHT READS THE BEAT
 The fight runs in the iframe #fightFrame. The shell hands it the reader on its own window: `window.BOHEMIA_BEAT` inside
 the fight is set by the shell on the first beat after the frame exists (and `window.parent.BOHEMIA_BEAT` is the same
