@@ -15,7 +15,8 @@
      D3 YOUR CREW: every man of his on it with the XP the fight gave him; the one who climbed says LEVEL UP and PICK A PERK
      D4 WHAT THEY LEFT: pieces off the dead through the drop rules (none off the one who ran); LOOT ALL (a real tap) moves
         them into the stash and the batteries into the purse, once
-     D5 PICK A PERK (a real tap) opens the one crew screen on the man who climbed; he takes a perk (a real tap); the looted
+     D5 CHOOSE YOUR LEVEL-UP (a real tap) opens the one crew screen on the man who climbed; he picks three of the eight
+        rolled stats and a perk (real taps, rule 162(a)); the looted
         weapon is in the bag there and goes into a man's hand (real taps on his face, his slot, the piece)
      D6 LEAVE (a real tap): the spoils are gone and he is home on the map
      D7 the game's own door hands the next fight that man holding the looted weapon, and in the next road fight he holds it
@@ -118,7 +119,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     /* ---- D3 your crew ---- */
     const youRow = s0.men.find(m => m.main);
     ok('D3 YOUR CREW: every man of his, each with a face and the XP the fight gave him', s0.rows === ours.men.length && s0.heads === s0.rows && s0.men.every(m => m.gained > 0), s0.men.map(m => m.name + ' +' + m.gained).join(', '));
-    ok('    the one who climbed says LEVEL UP and PICK A PERK', !!youRow && youRow.up && s0.perk >= 1, youRow ? 'YOU to level ' + youRow.to : 'no YOU');
+    ok('    the one who climbed says LEVEL UP and CHOOSE YOUR LEVEL-UP', !!youRow && youRow.up && s0.perk >= 1, youRow ? 'YOU to level ' + youRow.to : 'no YOU');
     /* ---- D4 what they left, LOOT ALL ---- */
     const weapon = s0.ground.find(i => i.kind === 'weapon');
     ok('D4 WHAT THEY LEFT: pieces off the dead through the drop rules, none off the man who ran', s0.ground.length > 0 && !!weapon && s0.from === ours.dead,
@@ -141,7 +142,16 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     const R = RF(), RL = SFL.frameLocator('#crewdoor iframe');
     await p.waitForTimeout(600);
     const r0 = R ? await R.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew[S.sel]; return { sel: m && m.name, main: m && m.main, points: m && m.points, level: m && m.level }; }) : null;
-    ok('D5 PICK A PERK (a real tap) opens the one crew screen on the man who climbed, with his point to spend', !!r0 && r0.main && r0.points > 0, r0 && (r0.sel + ' level ' + r0.level + ', ' + r0.points + ' to spend'));
+    ok('D5 CHOOSE YOUR LEVEL-UP (a real tap) opens the one crew screen on the man who climbed, with his levels and points waiting', !!r0 && r0.main && r0.points > 0, r0 && (r0.sel + ' level ' + r0.level + ', ' + r0.points + ' to spend'));
+    /* rule 162(a): his level-up is his choice: three of the eight rolled stats, real taps */
+    const rolls = R ? await R.evaluate(() => [].map.call(document.querySelectorAll('#levelup [data-raise]'), b => b.dataset.raise)) : [];
+    const st0 = R ? await R.evaluate(() => Object.assign({}, BohemiaRosterScreen.state.crew.find(x => x.main).stats)) : {};
+    for (const k of ['ranged_defense', 'melee_skill', 'hp']) { await RL.locator('#levelup [data-raise="' + k + '"]').first().tap(); await p.waitForTimeout(80); }
+    await RL.locator('#raise').tap(); await p.waitForTimeout(250);
+    const st1 = R ? await R.evaluate(() => { const m = BohemiaRosterScreen.state.crew.find(x => x.main); return { st: Object.assign({}, m.stats), left: (m.rolls || []).length }; }) : { st: {} };
+    const rose = Object.keys(st1.st).filter(k => st1.st[k] > st0[k]);
+    ok('    he chooses his level-up: of the eight rolled stats he taps RANGED DEF, MELEE SKILL and HITPOINTS, and only those rise', rolls.length === 8 && rose.length === 3 && ['ranged_defense', 'melee_skill', 'hp'].every(k => rose.indexOf(k) >= 0),
+      rose.map(k => k + ' ' + st0[k] + '->' + st1.st[k]).join(', ') + '; ' + st1.left + ' more levels waiting');
     let perk = null;
     if (r0 && r0.points > 0) {
       await RL.locator('#pick').tap(); await p.waitForTimeout(250);

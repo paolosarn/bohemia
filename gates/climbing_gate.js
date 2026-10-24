@@ -3,7 +3,7 @@
    (slices/BOHEMIA_FIGHT.html, on auto) inside a host frame, catches its BOHEMIA_FIGHT_OVER with each
    man's XP (COMBAT counts it the Battle Brothers way: killer 20, party 80, less 15), hands it to the
    roster screen, which levels him on the wiki's table (rules.json experience, the Level and Experience
-   page), raises three stats by his star column (the Talents page) and gives a perk point; taps PICK A
+   page), rolls all eight stats on his star column (the Talents page) and he CHOOSES three (rule 162(a)), and gives a perk point; taps PICK A
    PERK and a tier-1 perk; then boots a second fight with the roster's company and finds the perk on
    the man. Shots: slices/vote/RUN2_CLIMBING_BEFORE_10_10.png and _AFTER_.
    Run: node gates/climbing_gate.js */
@@ -63,10 +63,23 @@ const srv = http.createServer((rq, rs) => {
   const after = await p.evaluate(n => { const s = BohemiaRosterScreen.state, m = s.crew.find(x => x.name === n); return { lv: m.level, xp: m.xp, st: Object.assign({}, m.stats), pts: m.points, sel: s.crew[s.sel].name,
     sub: document.querySelector('#card .sub').textContent, said: document.getElementById('said').textContent, gains: document.querySelectorAll('#card .gain').length, bar: !!document.querySelector('#card .xpbar i') }; }, top.name);
   ok('he climbs on Battle Brothers\' table: 200 XP is level 2', before.lv === 1 && after.lv === 2 && after.xp >= 200, top.name + ' ' + before.lv + ' -> ' + after.lv + ' at ' + after.xp + ' XP');
-  const up = Object.keys(after.st).filter(k => after.st[k] > before.st[k]);
-  const inCol = up.every(k => { const d = after.st[k] - before.st[k], s = before.stars[k] || 0; return d >= 1 && d <= 6 && (s < 2 || d >= 3); });
-  ok('  three different stats go up, each by his star column (the Talents page)', up.length === 3 && inCol, up.map(k => k + ' +' + (after.st[k] - before.st[k])).join(', '));
-  ok('  the card shows the level, the XP bar and the green gains', /LEVEL 2/.test(after.sub) && after.bar && after.gains === 3, after.said);
+  /* HIS LEVEL-UP IS HIS CHOICE (rule 162(a), RUN TWO 10/24): nothing rises on its own; all eight stats show what they rolled
+     on his star column; he taps three (real taps) and RAISE THEM; those three rise by exactly what they showed */
+  const roll = await p.evaluate(() => { const rows = [].map.call(document.querySelectorAll('#levelup [data-raise]'), b => ({ k: b.dataset.raise, g: +b.querySelector('b').textContent.replace('+', '') }));
+    const go = document.getElementById('raise'); return { rows, label: go && go.textContent, off: go && go.disabled }; });
+  const rose0 = Object.keys(after.st).filter(k => after.st[k] > before.st[k]);
+  const inCol = roll.rows.every(r => { const s = before.stars[r.k] || 0; return r.g >= 1 && r.g <= 6 && (s < 2 || r.g >= 3); });
+  ok('  nothing rises on its own: all eight stats show what they rolled on his star column, RAISE waits', rose0.length === 0 && roll.rows.length === 8 && inCol && roll.off && /PICK 3 MORE/.test(roll.label),
+    roll.rows.map(r => r.k + ' +' + r.g).join(', '));
+  const pickK = roll.rows.slice().sort((a, c) => c.g - a.g).slice(0, 3).map(r => r.k);
+  for (const k of pickK) { await p.click('#levelup [data-raise="' + k + '"]'); await p.waitForTimeout(80); }
+  await p.click('#raise'); await p.waitForTimeout(250);
+  const raised = await p.evaluate(n => { const m = BohemiaRosterScreen.state.crew.find(x => x.name === n); return { st: Object.assign({}, m.stats), left: (m.rolls || []).length,
+    gains: document.querySelectorAll('#card .gain').length, panel: !!document.getElementById('levelup'), post: (window.__rosterLog || []).filter(x => x.act === 'raise').length }; }, top.name);
+  const up = Object.keys(raised.st).filter(k => raised.st[k] > before.st[k]);
+  ok('  he taps three and RAISE THEM: exactly those three rise, each by what it showed', up.length === 3 && pickK.every(k => raised.st[k] - before.st[k] === roll.rows.find(r => r.k === k).g) && raised.left === 0 && !raised.panel && raised.post === 1,
+    pickK.map(k => k + ' +' + (raised.st[k] - before.st[k])).join(', '));
+  ok('  the card shows the level, the XP bar and the green gains', /LEVEL 2/.test(after.sub) && after.bar && raised.gains === 3, after.said);
   ok('  he gets one perk point and the card opens on him', after.pts === 1 && after.sel === top.name);
   /* 3. PICK A PERK */
   await p.click('#pick'); await p.waitForTimeout(200);
@@ -94,6 +107,10 @@ const srv = http.createServer((rq, rs) => {
   await f2.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length, null, { timeout: 60000 });
   const u = await f2.evaluate(n => { const v = FIGHT.S.units.find(x => x.side === 'you' && x.name === n); return v && { lv: v.level, perks: v.perks }; }, top.name);
   ok('the next fight: he walks in at level 2 with the perk he picked', u && u.lv === 2 && u.perks.indexOf(want) >= 0, u && (u.lv + ' ' + u.perks.join(',')));
+  const fs2 = await f2.evaluate(n => { const v = FIGHT.S.units.find(x => x.side === 'you' && x.name === n); return v && { hp: v.hpMax, mskill: v.mskill, rskill: v.rskill, mdef: v.mdef, rdef: v.rdef, resolve: v.resolve, initiative: v.initiative }; }, top.name);
+  const want2 = { hp: 'hp', mskill: 'melee_skill', rskill: 'ranged_skill', mdef: 'melee_defense', rdef: 'ranged_defense', resolve: 'resolve', initiative: 'initiative' };
+  ok('  *** AND HE FIGHTS WITH THE STATS HE CHOSE *** (rule 162(e): the crew screen\'s numbers are the fight\'s)', !!fs2 && ['mskill', 'rskill', 'mdef', 'rdef', 'initiative'].every(k => fs2[k] === raised.st[want2[k]]),
+    fs2 && Object.keys(want2).map(k => k + ' ' + fs2[k] + '/' + raised.st[want2[k]]).join(', '));
   const fresh = await f2.evaluate(() => FIGHT.S.units.filter(x => x.side === 'you' && x.level === 1).every(x => x.perks.length === 0));
   ok('  and a man with no points spent has no perks the roster did not give him', fresh);
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));

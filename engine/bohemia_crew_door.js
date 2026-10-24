@@ -32,7 +32,7 @@
        YOUR COMPANY 12 / 20 with twelve named men while the crew is 3'): the company the origin built, read where the shell keeps
        it (BOH_START.picks(), the same picks the fight is handed), so the screen opens on those men and his roster cap */
     var p = origin();
-    f.addEventListener('load', function () { try { f.contentWindow.postMessage({ type: 'BOHEMIA_ROSTER_OPEN', company: p && p.company || null, roster: p && p.roster || null, origin: p && p.origin || null, day: mapDay() }, '*'); } catch (x) {} });
+    f.addEventListener('load', function () { try { f.contentWindow.postMessage({ type: 'BOHEMIA_ROSTER_OPEN', company: p && p.company || null, roster: p && p.roster || null, origin: p && p.origin || null, day: mapDay(), select: o.select || null }, '*'); } catch (x) {} });   /* select: the man to open on (the spoils' LEVEL UP) */
     cur = { wrap: wrap, frame: f, on: on }; return f;
   }
   function origin() {

@@ -19,8 +19,8 @@
      NOW, Battle Brothers' way ('the after-combat-report always leads the player to the loot screen before
      allowing him to return to the worldmap', the library's dev blog): after every won fight this one screen,
      and it waits for him.
-       YOUR CREW: each man once, his face, the XP he got on a bar, LEVEL UP when he climbed (and PICK A PERK,
-         which opens the one crew screen on him: the perk is his choice there, Battle Brothers' tree), who is
+       YOUR CREW: each man once, his face, the XP he got on a bar, LEVEL UP when he climbed (and CHOOSE HIS LEVEL-UP,
+         which opens the one crew screen on him: there he picks which stats rise from what each rolled, and his perk, Battle Brothers' way, rule 162), who is
          laid up how many days with what, who fell for good.
        WHAT THEY LEFT: what the dead carried, through Battle Brothers' own drop conditions (records/target/bb/
          loot.json: a weapon 90%, a shield 90%, a helmet 70%, armour only with a quarter of it left), as pieces;
@@ -175,7 +175,7 @@ function drawCrew(){
     else if(m.down && m.injury){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'LAID UP ' + m.days + ' DAYS: ' + String(m.injury.name || '').toUpperCase(); }
     if(st) w.appendChild(st);
     if(m.up && !m.dead){ ups++;
-      var b = document.createElement('button'); b.className = 'perk'; b.type = 'button'; b.textContent = 'PICK A PERK'; b.dataset.perk = m.name;
+      var b = document.createElement('button'); b.className = 'perk'; b.type = 'button'; b.textContent = m.main ? 'CHOOSE YOUR LEVEL-UP' : 'CHOOSE HIS LEVEL-UP'; b.dataset.perk = m.name;
       b.addEventListener('click', function(){ openCrew(m.name); }); w.appendChild(b); }
     d.appendChild(w); el.appendChild(d);
   });
@@ -186,8 +186,8 @@ function drawCrew(){
 function openCrew(name){
   if(!window.BohemiaCrewDoor) return;
   sfx('equip');
-  BohemiaCrewDoor.open({ base:'', onDone:function(){ S.stash = readJ(BAGKEY, []) || []; drawStash(); say('Back to the spoils.'); } });
-  say((name ? name + ' climbed. ' : '') + 'Pick his perk, then DONE.');
+  BohemiaCrewDoor.open({ base:'', select:name || null, onDone:function(){ S.stash = readJ(BAGKEY, []) || []; drawStash(); say('Back to the spoils.'); } });
+  say((name ? name + ' climbed. ' : '') + 'Pick three stats and a perk, then DONE.');
 }
 
 /* ---------- WHAT THEY LEFT ---------- */

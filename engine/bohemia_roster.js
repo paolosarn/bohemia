@@ -138,18 +138,25 @@
   }
   function levelOf(xp) { var max = D.xp.veteran_level_rules.value.max_level, l = 1; while (l < max && xp >= xpFor(l + 1)) l++; return l; }
   function range(txt, R) { var m = String(txt).split('-').map(Number); var a = m[0], b = m.length > 1 ? m[1] : m[0]; return a + Math.floor(R() * (b - a + 1)); }
-  /* one level up: three different stats raised (per_level.attributes_raised), each by its star column;
-     past 11 no perk point and +1 on three (veteran_level_rules) */
+  /* one level up, BATTLE BROTHERS' WAY, HIS CHOICE (VAMILY rule 162(a), Paolo 10/24: 'in Battle Brothers you had to really
+     prioritise when you levelled, min-max a killer group'; RUN TWO [the end of the fight, the loot, the stash] round 2): every
+     one of the eight stats is ROLLED on his star column (the Talents page: more stars, a wider and higher roll), he sees all
+     eight and CHOOSES which per_level.attributes_raised of them to take (raise() below); past 11 each roll is the veteran +1
+     and no perk point (veteran_level_rules). The rolls wait on him (m.rolls, oldest first) and nothing rises until he picks. */
   function levelUp(m, R) {
-    var nxt = m.level + 1, vet = nxt > 11, gains = {}, pool = STATS.slice();
-    var n = D.xp.per_level.value.attributes_raised;
-    for (var i = 0; i < n; i++) {
-      var k = pool.splice(Math.floor(R() * pool.length), 1)[0];
-      var g = vet ? D.xp.veteran_level_rules.value.max_per_stat : range(D.xp.stat_gains_by_stars.value[STAT_KEY[k]][m.stars[k] || 0], R);
-      m.stats[k] += g; gains[k] = g;
-    }
+    var nxt = m.level + 1, vet = nxt > 11, rolls = {};
+    STATS.forEach(function (k) { rolls[k] = vet ? D.xp.veteran_level_rules.value.max_per_stat : range(D.xp.stat_gains_by_stars.value[STAT_KEY[k]][m.stars[k] || 0], R); });
     m.level = nxt; if (!vet) m.points = (m.points || 0) + D.xp.per_level.value.perk_points;
-    return gains;
+    m.rolls = (m.rolls || []).concat([{ level: nxt, gains: rolls, pick: D.xp.per_level.value.attributes_raised }]);
+    return {};
+  }
+  /* raise(man, [stat keys]): he takes the oldest waiting level's rolls on exactly the stats he chose; returns what rose */
+  function raise(m, keys) {
+    var r = (m.rolls || [])[0]; if (!r) return null;
+    var ks = (keys || []).filter(function (k, i, a) { return STATS.indexOf(k) >= 0 && a.indexOf(k) === i; });
+    if (ks.length !== r.pick) return null;
+    var got = {}; ks.forEach(function (k) { m.stats[k] += r.gains[k]; got[k] = r.gains[k]; });
+    m.rolls.shift(); return got;
   }
   /* grant(man, xp): the fight's XP lands, he climbs as many levels as it buys; returns what moved */
   function grant(m, xp, seedText) {
@@ -173,7 +180,7 @@
   /* what the fight reads: opts.company = [{background, level, perks, marks}] in crew order (marks: the permanent injuries he carries; each adds to his death roll) */
   function company(crew) { return crew.map(function (m) { var g = m.gear || {}, id = function (it) { return it ? it.id : null; };
     return { name: m.name, background: m.bgId, level: m.level, look: m.look, perks: (m.perks || []).slice(), marks: m.marks || (m.mark ? [m.mark] : []),
-             stats: m.hired && m.stats ? Object.assign({}, m.stats) : undefined, traits: Array.isArray(m.traits) ? m.traits.slice() : undefined,   /* a man hired at the post fights as his card said, his trait on him (RUN TWO 10/24) */
+             stats: m.stats ? Object.assign({}, m.stats) : undefined, traits: Array.isArray(m.traits) ? m.traits.slice() : undefined,   /* every man fights as his card says: the stats he chose at each level go to the fight (rule 162(e)); a hire his card's and his trait (RUN TWO 10/24) */
              gear: { main: id(g.main), off: id(g.off), body: id(g.body), head: id(g.head) } }; }); }
   /* WHAT HIS ARM DOES IN A FIGHT (RUN TWO [the guns on the crew screen], 10/22; rule 120(a): the company starts with guns; rule
      83: 'melee weapons work on one tile away, all guns 2+ minimum... the pistol is a two-tile gun, or a club at one'): read the
@@ -204,7 +211,7 @@
     if (!long) return { reach: reach, rounds: shots };
     return { reach: 'REACH ' + reach + (a.club ? ', A CLUB AT 1' : ''), rounds: shots ? shots + (a.gun ? ', THEN RELOAD' : '') : null };
   }
-  var API = { load: load, armOf: armOf, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
+  var API = { load: load, armOf: armOf, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);
