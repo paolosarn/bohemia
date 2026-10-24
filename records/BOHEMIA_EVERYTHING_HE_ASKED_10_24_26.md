@@ -57,3 +57,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 49 | The pseudo-mayor arc and building the city, researched first | 161 | ECONOMY, GROK | QUEUED (research) |
 | 50 | The killer company: Battle Brothers' level-ups, ranged defence, more points a level | 162 | RUN TWO, TUNING | LEVEL-UP CHOICE SHIPPED (10/24p); TUNING's numbers QUEUED |
 | 51 | EYES' first playtest: 30 small wrong things filed on six boards (the dead stand up, a squeeze zooms to space, the shop's Battle Brothers names, the gear floating over screens, and the rest) | 150 | RUN, RUN TWO, COMBAT, UI, WORDS | REOPENED 21:35 |
+| 52 | Spacebar pauses on PC | 163 | RUN | QUEUED (RUN running) |
+| 53 | The camera keeps the party centred to the map's edge, beyond the outer settlements, at every zoom | 163 | RUN | QUEUED (RUN running) |
