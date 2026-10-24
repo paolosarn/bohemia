@@ -186,7 +186,56 @@ IN PROGRESS.
 
 ## 4. OUR DEMO'S FIRST FIVE MINUTES AS IT STANDS, MEASURED
 
-IN PROGRESS.
+HOW: four fresh boots of the committed demo (DEMO - BUILD 10/24e, then 10/24f when main moved mid-round)
+with an empty save, through the fleet's one driver on the phone profile (390 x 844, touch), the picks set
+through the door's own saved key: A NEW CREW twice, THE LONE WOLF, UP FROM HENDERSON. Then the code that
+places the crew was read. The raw numbers: banks/BOHEMIA_TUNING_THE_FIRST_MINUTES_FOUR_BOOTS_10_24_26.json
+(draft:true; nothing in the game reads it).
+
+### THE FINDING THAT PROVES US WRONG
+
+**WE ALREADY OWN A WORLD GENERATOR. THE GAME PINS IT TO ONE SEED AND ONE SPOT.** His sentence reads like we
+have no procedural world. We do. The valley is built by engine/bohemia_overmap.js from a seed, and HE RULED
+on 7/5 that it rolls per seed with the Strip kept sacred (laws/BOHEMIA_ADDENDUM_VEGAS_GEOGRAPHY_7_4_26.md,
+"SEED-DRIVEN LAYOUT ROLLS"): the Strip's side of centre, the freeway's side, the mountains' axis, the
+campus, the mid-block streets and the industrial cluster all roll. The engine's save takes a seed ("the
+world + all randomness derive from this") and was written so players could share "human-readable seeds
+('SIN CITY')" (engine/bohemia_engine.js). Then on 7/28, to stop two frames drawing two different Las
+Vegases, every frame was pinned to ONE seed text, 'bohemia' (2691674296), and that fix never learned to say
+"one seed PER GAME". So every new game is the same valley, the same towns, the same first jobs, and the crew
+stands on the same cell: "the game opens the player at (48,48)" (the city frame's own comment, 9/5).
+
+### WHAT THE FOUR BOOTS SHOWED
+
+| | A NEW CREW | THE LONE WOLF | UP FROM HENDERSON | A NEW CREW again |
+|---|---|---|---|---|
+| where the crew stands (fine cell) | 6205, 6271 | 6205, 6271 | 6205, 6271 | 6205, 6271 |
+| district on the bar | SUBURB | SUBURB | SUBURB | SUBURB |
+| the first job on the phone | @church, 2 blocks W, ride shotgun to the salt camp, 1 skull, 30 | the same | the same | the same |
+| the second job | @colorful, 13 blocks W, bring medicine down from the lodge, 2 skulls, 60 | the same | the same | the same |
+| the first posts | "still no moving the Church off their town", "water is one battery today", "queue at the standpipe" | the same | the same | the same |
+| what differs | 3 men, 290 batteries | 1 man, 125 batteries | 3 men, 290 batteries | nothing |
+| pixels that differ from the first boot | | 2.1% | 2.1% | 2.1% |
+
+The 2.1% is the crowds walking. The ground, the towns, the phone and the posts are one picture. UP FROM
+HENDERSON's own line says "You came north on the 95", and he starts in the same suburb two blocks from the
+Church as everybody else. The crew's name is the first of ten on a list (THE NIGHT SHIFT) unless he taps
+ANOTHER, which steps through the same ten in the same order; nothing is typed.
+
+### THE FIRST FIVE MINUTES, STEP BY STEP, AS THEY STAND
+
+| when | what he gets | what a caring player needs there (section 1) | gap |
+|---|---|---|---|
+| the door | title, NEW GAME, a crew pick: the fights, the shelves, 15 origins as cards with one line each, a name from 10; 1 tap (BEGIN) on the defaults (TUNING 10/23) | who these people are (S6), what they lost or want (S4, Battle Brothers' paragraph) | the origin is a line of grey text; no faces, no voice, no place |
+| second 0 on the map | 06:00, the same suburb, the same Church 2 blocks west, the same two jobs | a first glance that says THIS world (S3, S9) | identical every game and every origin |
+| the first minute | nothing speaks (the second votes, kept); the clock moves only when he moves | a choice that changes something (S1) | the only choice is which of the same two jobs |
+| minutes 1 to 3 | tap CHURCH or a job; a fight in under a minute (the 10/23 walk: a patrol beside CHURCH walked the crew into a fight 3.9 s after the tap) | a first win he made (S5) | the win exists (AUTO wins in 23 to 29 s) but nobody in the world notices |
+| minutes 3 to 5 | paid 30 on the map; the feed posts the deed | a face that knows him, a name to chase (S1, S10) | the deed posts as text from the crew's own handle; no enemy, no grudge, no question about this world |
+
+WHAT IS RIGHT AND STAYS: the door is short (1 tap on the defaults); nothing speaks in the first minute; the
+phone's posts are built from the world's own state ("420 blocks with anything in them", "5 outfits holding a
+fortress"), so a new world would already say new things; the skulls and the pay sit on the job card; the
+fight is quick on AUTO.
 
 ## 5. THE BOHEMIA PLAN: TEN CHANGES, RANKED, BY ORIGIN, WITH THE LANE THAT BUILDS EACH
 

@@ -1,0 +1,170 @@
+{
+ "draft": true,
+ "what": "TUNING [the first minutes that make you care] (rule 146, research only): four fresh boots of the committed demo with an empty save, three origins, the same box; where the crew stands and what the first screen says. Nothing in the game reads this file.",
+ "record": "records/BOHEMIA_TUNING_THE_FIRST_MINUTES_THAT_MAKE_YOU_CARE_10_24_26.md",
+ "demo": {
+  "file": "slices/BOHEMIA_DEMO.html",
+  "stamps_seen": [
+   "DEMO - BUILD 10/24e (first boot)",
+   "DEMO - BUILD 10/24f (main moved during the round)"
+  ]
+ },
+ "box": "this session's container, Playwright Chromium through tools/bohemia_drive_the_demo.js (phone portrait 390x844, touch, full CPU); the picks set before boot through the door's own saved key bohemia.start (combat new, econ full, name 0)",
+ "boots": [
+  {
+   "tag": "newcrew_a",
+   "origin": "newcrew",
+   "origin_name": "A NEW CREW",
+   "start_batteries": 290,
+   "crew_name": "THE NIGHT SHIFT",
+   "party_cell_fine": [
+    6205,
+    6271
+   ],
+   "top_bar": [
+    "DAY 1",
+    "3/12",
+    "NOTES",
+    "290",
+    "48",
+    "NIGHTS LEFT",
+    "SUBURB",
+    "\u25ae\u25ae\u25ae"
+   ],
+   "phone_first_lines": [
+    "@church \u00b7 2 BLOCKS W",
+    "Ride shotgun to the salt camp",
+    "30 BATT \u00b7 JUST POSTED",
+    "@colorful \u00b7 13 BLOCKS W",
+    "Bring medicine down from the lodge",
+    "60 BATT \u00b7 JUST POSTED",
+    "@thevalley",
+    "still no moving the Church off their town. everybody knows it.",
+    "@marisol_v",
+    "water is one battery today. no se, pero we drink anyway.",
+    "@waterline"
+   ]
+  },
+  {
+   "tag": "wolf",
+   "origin": "wolf",
+   "origin_name": "THE LONE WOLF",
+   "start_batteries": 125,
+   "crew_name": "THE NIGHT SHIFT",
+   "party_cell_fine": [
+    6205,
+    6271
+   ],
+   "top_bar": [
+    "DAY 1",
+    "1/12",
+    "NOTES",
+    "125",
+    "62",
+    "NIGHTS LEFT",
+    "SUBURB",
+    "\u25ae\u25ae\u25ae"
+   ],
+   "phone_first_lines": [
+    "@church \u00b7 2 BLOCKS W",
+    "Ride shotgun to the salt camp",
+    "30 BATT \u00b7 JUST POSTED",
+    "@colorful \u00b7 13 BLOCKS W",
+    "Bring medicine down from the lodge",
+    "60 BATT \u00b7 JUST POSTED",
+    "@thevalley",
+    "still no moving the Church off their town. everybody knows it.",
+    "@marisol_v",
+    "water is one battery today. no se, pero we drink anyway.",
+    "@waterline"
+   ]
+  },
+  {
+   "tag": "south",
+   "origin": "south",
+   "origin_name": "UP FROM HENDERSON",
+   "start_batteries": 290,
+   "crew_name": "THE NIGHT SHIFT",
+   "party_cell_fine": [
+    6205,
+    6271
+   ],
+   "top_bar": [
+    "DAY 1",
+    "3/12",
+    "NOTES",
+    "290",
+    "48",
+    "NIGHTS LEFT",
+    "SUBURB",
+    "\u25ae\u25ae\u25ae"
+   ],
+   "phone_first_lines": [
+    "@church \u00b7 2 BLOCKS W",
+    "Ride shotgun to the salt camp",
+    "30 BATT \u00b7 JUST POSTED",
+    "@colorful \u00b7 13 BLOCKS W",
+    "Bring medicine down from the lodge",
+    "60 BATT \u00b7 JUST POSTED",
+    "@thevalley",
+    "still no moving the Church off their town. everybody knows it.",
+    "@marisol_v",
+    "water is one battery today. no se, pero we drink anyway.",
+    "@waterline"
+   ]
+  },
+  {
+   "tag": "newcrew_b",
+   "origin": "newcrew",
+   "origin_name": "A NEW CREW",
+   "start_batteries": 290,
+   "crew_name": "THE NIGHT SHIFT",
+   "party_cell_fine": [
+    6205,
+    6271
+   ],
+   "top_bar": [
+    "DAY 1",
+    "3/12",
+    "NOTES",
+    "290",
+    "48",
+    "NIGHTS LEFT",
+    "SUBURB",
+    "\u25ae\u25ae\u25ae"
+   ],
+   "phone_first_lines": [
+    "@church \u00b7 2 BLOCKS W",
+    "Ride shotgun to the salt camp",
+    "30 BATT \u00b7 JUST POSTED",
+    "@colorful \u00b7 13 BLOCKS W",
+    "Bring medicine down from the lodge",
+    "60 BATT \u00b7 JUST POSTED",
+    "@thevalley",
+    "still no moving the Church off their town. everybody knows it.",
+    "@marisol_v",
+    "water is one battery today. no se, pero we drink anyway.",
+    "@waterline"
+   ]
+  }
+ ],
+ "pixels_changed_over_16_vs_newcrew_a": {
+  "wolf": 2.1,
+  "south": 2.1,
+  "newcrew_b": 2.1,
+  "note": "the 2.1% is the walking crowds; the ground, the towns, the phone and the posts are the same picture"
+ },
+ "code_read": {
+  "the_seed": "slices/BOHEMIA_CITY_WORLD.html: const BOH_SEED_TEXT='bohemia'; seed=BOH_ONE_SEED() -> 2691674296 every boot (the ONE MAP fix of 7/28, which made every frame read the same seed)",
+  "the_generator_rolls": "engine/bohemia_overmap.js layoutFromSeed(): the Strip's side, the axis, the freeway side, UNLV's latitude, mid-block streets and the industrial cluster all roll per seed (laws/BOHEMIA_ADDENDUM_VEGAS_GEOGRAPHY_7_4_26.md, SEED-DRIVEN LAYOUT ROLLS, LOCKED 7/5 by Paolo)",
+  "the_save_takes_a_seed": "engine/bohemia_engine.js newSave(seedText): 'the world + all randomness derive from this'; the RNG header: 'Seeded from a string so players can share human-readable seeds (\"SIN CITY\")'",
+  "the_start_cell": "slices/BOHEMIA_CITY_WORLD.html (FACTION-TOWNS comment, 9/5): 'the game opens the player at (48,48)'; the four boots: fine cell 6205,6271 every time",
+  "the_crew_name": "slices/BOHEMIA_DEMO.html BOH_START: NAMES has 10, the default is index 0 THE NIGHT SHIFT, ANOTHER steps through them in order; no typing",
+  "no_map_picture_is_baked": "the city frame names no map image file (grep for png/webp/jpg); the map is drawn from the overmap at run time, so a new seed draws a new map; but numbers measured on 2691674296 are pinned in code (AVG_WEIGHT_MEASURED, a house at 37,22) and gates read that seed"
+ },
+ "not_measured": [
+  "a boot with a different seed (research only: the seed is a const in the slice; nothing was edited)",
+  "the other 12 origins (the three read the same code path: the start cell is not read from the picks)",
+  "how long the first five minutes take by hand (TUNING 10/23's walk stands: 11 taps and about 50 s to the first pay on AUTO)"
+ ]
+}
