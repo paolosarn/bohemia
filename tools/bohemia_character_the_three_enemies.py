@@ -350,16 +350,19 @@ def body_pieces(names, X):
             made.append(weighted(band('exo_hip_ring', [ring], 0.050, 0.020, STEEL_DK), torso_w))
             for sx in (1, -1):
                 top = V((sx * 0.060, back - 0.010, 1.140))
-                hit = bvh.ray_cast(V((sx * 0.125, sh['cy'], 1.60)), V((0, 0, -1)), 1.0)   # the top of his shoulder, measured
+                # the top of his shoulder, measured from under the jaw (the 1.2x head is 15 cm wide: from above, the ray
+                # found the skull at 1.43 m and the yoke went over his head; the shoulder's top is near 1.11)
+                hit = bvh.ray_cast(V((sx * 0.130, sh['cy'], 1.19)), V((0, 0, -1)), 0.5)
                 sh_top = (hit[0] if hit[0] else V((sx * 0.125, sh['cy'], 1.15))) + V((0, 0, over + 0.030))
                 f1 = front(sx * 0.115, 1.02); f1 = f1 + V((0, -(over + 0.035), 0))
                 f2 = front(sx * 0.105, 0.90); f2 = f2 + V((0, -(over + 0.030), 0))
                 bm = bmesh.new(); pipe(bm, [V((0, back - 0.01, 1.14)), top, sh_top, f1, f2], R_)
                 made.append(weighted(solid('exo_yoke_%d' % (sx > 0), bm, STEEL, 'torso_joint_3', 0), lambda p: {'torso_joint_3': 1.0}))
                 # the shoulder motor: a drum on the point of the shoulder, its axis front to back, the yoke through it
+                # (cycle 2, looking: a ray cast down at the joint's x hit the skull, the 1.2x head is that wide, and the two
+                # drums stood on his head like ears; the drum sits on the joint itself, off it by the shoulder's own flesh)
                 SHj = joint('Skeleton_arm_joint_L__4_' if sx > 0 else 'Skeleton_arm_joint_R')
-                hit = bvh.ray_cast(V((SHj.x, SHj.y, 1.60)), V((0, 0, -1)), 1.0)
-                mc = (hit[0] if hit[0] else SHj + V((0, 0, 0.06))) + V((sx * 0.010, 0, over + 0.040))
+                mc = SHj + V((sx * 0.030, 0, 0.070 + over))
                 bm = bmesh.new(); cyl(bm, mc + V((0, -0.060, 0)), mc + V((0, 0.060, 0)), 0.050, seg=16)
                 made.append(weighted(solid('exo_motor_%d' % (sx > 0), bm, STEEL_DK, 'torso_joint_3', 0), lambda p: {'torso_joint_3': 1.0}))
                 bm = bmesh.new(); cyl(bm, mc + V((0, -0.064, 0)), mc + V((0, -0.058, 0)), 0.034, seg=12)
