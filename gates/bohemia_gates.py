@@ -9539,6 +9539,14 @@ GATES = [
      "beat; the gun named with its reach and rounds in the crew screen's own words; three stats starred, his price and his night "
      "(nightly_bill.json); hired, he is on the crew screen with that gun in his main hand and his cloth on, the bag gets the rest; "
      "the old kit armed 2 of 6 backgrounds. green at registration, 10/0, about 1 min", True),
+    ('WHO YOU HIRE FIGHTS', ['node', 'gates/who_you_hire_fights_gate.js'],
+     "RUN TWO gate, 10/24, row [who you hire fights, one crew screen] (rule 147(a), Paolo 10/24: 'I hired new people and put them "
+     "in my crew and they were on the line, but when it was battle time they weren't there; also I bought a weapon and put it in my "
+     "crew slot'): his whole path with the real screens and the GAME'S OWN DOOR read out of the demo (BOH_START + nfOpts): hire two "
+     "at the post, buy a gun at the smith, CREW, drag it onto a hire's hand and the other hire to the back, never DONE; the door "
+     "hands the fight both hires, the gun and the line; every man on the line stands on the board, the armed hire holds it, the "
+     "moved one is in the back; again after a reload (the gun used to vanish); NEW GAME wipes the old hires. The old door read "
+     "red 9 of 16 (3 of 5 men in the fight). green at registration, 16/0, about 1 min", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

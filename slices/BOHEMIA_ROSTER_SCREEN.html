@@ -174,7 +174,7 @@ function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }c
 /* CLIMBING: what each man has earned, kept by name until the game's save holds it */
 var CKEY = 'bohemia.climb.v1';
 function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats, gear:m.gear, hurt:m.hurt||null, mark:m.mark||null, dead:!!m.dead}; });
-  try{ localStorage.setItem(CKEY, JSON.stringify(o)); }catch(e){} }
+  try{ localStorage.setItem(CKEY, JSON.stringify(o)); }catch(e){} handOver(); }   /* __WHO_YOU_HIRE_FIGHTS__: what he wears is the fight's too */
 function loadClimb(){ var o = {}; try{ o = JSON.parse(localStorage.getItem(CKEY)||'{}') || {}; }catch(e){}
   S.crew.forEach(function(m){ var c = o[m.name]; if(!c) return; m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; if(c.gear) m.gear = c.gear; m.hurt = c.hurt || null; m.mark = c.mark || null; m.dead = !!c.dead; }); }
 /* the fight's recap hands each man his XP (COMBAT counts it the Battle Brothers way); he climbs here */
@@ -211,7 +211,33 @@ function clinicPrice(m){ return Math.max(1, Math.round(20 * m.hurt.days * (1 + (
 }
 function company(){ return C.company(S.crew.filter(function(m){ return !m.dead && !laid(m); })); }
 function formation(){ return {front:S.front.slice(), back:S.back.slice()}; }
-function saveForm(){ try{ localStorage.setItem(FKEY, JSON.stringify(formation())); }catch(e){} post('formation', {formation:formation()}); }
+function saveForm(){ try{ localStorage.setItem(FKEY, JSON.stringify(formation())); }catch(e){} post('formation', {formation:formation()}); handOver(); }
+/* ==== __WHO_YOU_HIRE_FIGHTS__ (RUN TWO [who you hire fights, one crew screen], rule 147(a), Paolo 10/24: 'I hired new people
+   and put them in my crew and they were on the line, but when it was battle time they weren't there; also I bought a weapon
+   and put it in my crew slot'). MEASURED: (1) the line and the gear reached the game only on DONE, and the fight never read
+   them anyway (the shell handed it the origin's men: RUN's half, __WHO_YOU_HIRE_FIGHTS__ in the alpha's nfOpts); (2) a gun
+   put in a man's hand was saved NOWHERE: the bag lost it, his gear lived only in this page, and the next open dealt him his
+   old kit, so a bought weapon vanished. NOW EVERY CHANGE IS KEPT THE MOMENT IT HAPPENS: his gear by name (the climb file),
+   and THE HAND-OVER, the men on the line in the order the fight reads them (YOU first) with the line in those men's
+   numbers, the very thing the shell passes as opts.company and opts.formation. ==== */
+var HKEY = 'bohemia.company.v1', LKEY = 'bohemia.company.line.v1';
+function handOver(){
+  if(!S.ready) return null;
+  var on = S.front.concat(S.back).filter(function(i){ return i != null && S.crew[i] && !S.crew[i].dead && !laid(S.crew[i]); });
+  var main = S.crew.findIndex(function(m){ return m.main; });
+  var order = S.crew.map(function(m, i){ return i; }).filter(function(i){ return on.indexOf(i) >= 0; });
+  if(main >= 0 && order.indexOf(main) > 0){ order.splice(order.indexOf(main), 1); order.unshift(main); }   /* YOU are the fight's first man */
+  var num = {}; order.forEach(function(ci, k){ num[ci] = k; });
+  var at = function(row){ return S[row].map(function(ci){ return ci != null && num[ci] != null ? num[ci] : null; }); };
+  var co = C.company(order.map(function(i){ return S.crew[i]; })), line = {front:at('front'), back:at('back'), origin:S.origin || null, men:co.map(function(m){ return m.name; })};
+  try{ localStorage.setItem(HKEY, JSON.stringify(co)); localStorage.setItem(LKEY, JSON.stringify(line)); }catch(e){}
+  window.__HANDOVER = {company:co, line:line, n:(window.__HANDOVER ? window.__HANDOVER.n : 0) + 1};
+  return window.__HANDOVER;
+}
+function keep(){ saveClimb(); }
+/* a man who walked when the bill went unpaid (the map's bohemia.walked.v1, by name) is gone from the company; YOU never walk */
+function walkedNames(){ try{ return (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).map(function(w){ return w && w.name; }).filter(Boolean); }catch(e){ return []; } }
+/* ==== end __WHO_YOU_HIRE_FIGHTS__ ==== */
 /* who stands where to start: Battle Brothers puts the shooters behind; a rifle, a bow or bottles go back */
 function defaultForm(){
   S.front = new Array(N).fill(null); S.back = new Array(N).fill(null);
@@ -442,12 +468,12 @@ function equip(bi, slot){
   var s = slot || C.slotFor(it);
   if(slot && C.slotFor(it) !== slot){ say('That does not go there.'); return; }
   var old = m.gear[s]; m.gear[s] = it; S.bag.splice(bi, 1); if(old) S.bag.push(old);
-  saveBag(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); sfx('equip'); say(m.name + ' takes ' + it.name + '.'); draw();
+  saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); sfx('equip'); say(m.name + ' takes ' + it.name + '.'); draw();
 }
 function unequip(slot){
   var m = S.crew[S.sel], it = m && m.gear[slot]; if(!it) return;
   if(S.bag.length >= BAG_SLOTS){ say('Your bag is full.'); return; }
-  m.gear[slot] = null; S.bag.push(it); saveBag(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); sfx('equip'); say(m.name + ' puts down ' + it.name + '.'); draw();
+  m.gear[slot] = null; S.bag.push(it); saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); sfx('equip'); say(m.name + ' puts down ' + it.name + '.'); draw();
 }
 function moveMan(fromRow, fromI, toRow, toI){
   if(fromRow === 'hurt'){ var hm = S.crew[fromI]; say(hm.name + ' is laid up ' + hm.hurt.days + ' more days. He cannot stand in the line.'); post('refused', {who:hm.name}); return; }
@@ -510,6 +536,9 @@ function open(o){
       if(def.trait) m.trait = def.trait; if(Array.isArray(def.traits)) m.traits = def.traits.slice();   /* the trait he was hired with (RUN TWO [the trait before you hire], 10/24) */
       var g = def.gear || {};   /* he walks in wearing what he held at the post (RUN TWO [the hire shows the whole man], 10/24) */
       m.gear = {main:C.itemOf('weapon', g.main), off:null, body:C.itemOf('body', g.body), head:null}; S.crew.push(m); }); }catch(e){}
+  /* __WHO_YOU_HIRE_FIGHTS__: a man who walked is not on this screen (he stood on it, and in the fight's count, after he left) */
+  var wn = walkedNames(); if(wn.length) S.crew = S.crew.filter(function(m){ return m.main || wn.indexOf(m.name) < 0; });
+  if(o.origin) S.origin = o.origin;
   if(Array.isArray(o.bag)) S.bag = o.bag.slice(0, BAG_SLOTS); else { try{ var b = JSON.parse(localStorage.getItem(BAGKEY)||'[]'); if(Array.isArray(b)) S.bag = b; }catch(e){} }
   var f = o.formation; if(!f){ try{ f = JSON.parse(localStorage.getItem(FKEY)||'null'); }catch(e){} }
   if(f && f.front && f.front.length === N && f.back && f.back.length === N && [].concat(f.front, f.back).every(function(i){ return i == null || S.crew[i]; })){ S.front = f.front.slice(); S.back = f.back.slice(); }
@@ -519,7 +548,7 @@ function open(o){
   S.crew.forEach(function(m, i){ if(laid(m) || m.dead || S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;   /* never a laid-up or dead man (he stood in the line AND the laid-up strip, measured 10/18) */
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
   S.sel = S.front.concat(S.back).filter(function(i){ return i != null; })[0] || 0;
-  S.ready = true; draw();
+  S.ready = true; draw(); keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
   if(Array.isArray(o.fight)) afterFight(o.fight);
 }
 window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed};

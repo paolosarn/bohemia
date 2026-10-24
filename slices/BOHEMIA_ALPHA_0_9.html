@@ -1554,7 +1554,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/24f - THE TRAIT BEFORE YOU HIRE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/24g - WHO YOU HIRE FIGHTS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12414,6 +12414,34 @@ function nfOpts(d){
      who walked in bohemia.walked.v1; the company from the back, never YOU) */
   try{ var gone = (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).filter(function(x){ return x && !x.hired; }).length;
     if(o.company && gone > 0) o.company = o.company.slice(0, Math.max(1, o.company.length - gone)); }catch(_e){}
+  /* ==== __WHO_YOU_HIRE_FIGHTS__ (RUN TWO's block in RUN's file, NOTE on RUN's board; rule 147(a), Paolo 10/24: 'I hired new
+     people and put them in my crew and they were on the line, but when it was battle time they weren't there; also I bought a
+     weapon and put it in my crew slot'). MEASURED: this door handed the fight the ORIGIN's men and nothing else (a background
+     and a level each), so a hire never stood in a fight, a gun put in a man's hand never reached it, and the line set on the
+     crew screen was never passed. NOW THE CREW SCREEN'S HAND-OVER IS THE COMPANY (slices/BOHEMIA_ROSTER_SCREEN.html keeps it
+     the moment anything changes): the men on his line in the fight's order, YOU first, each with his name, look, level,
+     perks, stats, trait and the ids of what is in his slots, and THE LINE ITSELF as opts.formation. A man hired since the
+     crew screen was last open joins at the end in what he walked in wearing (the fight stands him in the first empty slot);
+     a man who walked when the bill went unpaid stays home; a hand-over from another origin (an old game) is not read. */
+  try{ var hk = JSON.parse(localStorage.getItem('bohemia.company.v1') || 'null'), hl = JSON.parse(localStorage.getItem('bohemia.company.line.v1') || 'null');
+    var hp = window.BOH_START && BOH_START.picks(), hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || [];
+    var walked = (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).map(function(x){ return x && x.name; }).filter(Boolean);
+    var same = !(hl && hl.origin && hp && hp.origin && hl.origin !== hp.origin), useH = Array.isArray(hk) && hk.length > 0 && same;
+    var co = useH ? hk : (o.company ? o.company.slice() : null), keepAt = {}, kept = [];
+    if(co){
+      co.forEach(function(m, i){ if(i > 0 && m && m.name && walked.indexOf(m.name) >= 0) return; keepAt[i] = kept.length; kept.push(m); });
+      var have = kept.map(function(m){ return m && m.name; });
+      hired.forEach(function(h){ if(!h || !h.name || have.indexOf(h.name) >= 0 || walked.indexOf(h.name) >= 0) return; var g = h.gear || {};
+        kept.push({ name: h.name, background: h.background, level: h.level || 1, look: h.look, stats: h.stats, traits: Array.isArray(h.traits) ? h.traits.slice() : undefined,
+                    perks: [], gear: { main: g.main || null, off: null, body: g.body || null, head: null } }); have.push(h.name); });
+      o.company = kept;
+      if(useH && hl && Array.isArray(hl.front) && Array.isArray(hl.back)){
+        var at = function(row){ return row.map(function(k){ return k != null && keepAt[k] != null ? keepAt[k] : null; }); };
+        o.formation = { front: at(hl.front), back: at(hl.back) };
+      }
+      window.__NF_HANDED = { from: useH ? 'crew screen' : 'origin', men: kept.map(function(m){ return m && m.name; }), formation: o.formation || null };
+    } }catch(_e){}
+  /* ==== end __WHO_YOU_HIRE_FIGHTS__ ==== */
   /* __A_FEW_NOT_TWELVE__ (rule 75b): the party the map sized, to COMBAT's enemy math (it dresses it by tier) */
   try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands' }; }catch(_e){}
   /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23, [the first hour, quicker], TUNING's change 1, rule 133). MEASURED: a
@@ -13855,6 +13883,9 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
   function forget(){
     T.forgets++; window.__BOH_FORGET = true;
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
+    /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
+       the hand-over never walk into it (the fight now reads them) */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });
