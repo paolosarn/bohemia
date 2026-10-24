@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Last Bus To Henderson</title>
+<!-- SOUNDS lane, 10/24, row [more music, on the one beat]. RULE 158(d), PAOLO 10/24: 'a big thing is we need more
+     music'. Rule 119: made with his songs' own machine, never edited.
+
+     THE SONG: THE LAST BUS TO HENDERSON, his SLOW CREEP's own row with 2 things changed (inst.l, inst.b), each
+     taken from one of his canon songs (slices/vote/songs/the_last_bus_to_henderson.json, provenance), played by his engine
+     with REPO MAN THE MACHINE PARTY's machine (engine/bohemia_machine_party.js, his YES 10/19) playing along, the motor
+     in this song's key, in the concrete hall on the worn tape.
+
+     WHAT THIS PAGE IS: the real valley map (slices/BOHEMIA_MAP_CURRENT.html, untouched) from its own camera, the recorded
+     desert under it at the map's level, A the new song, B his SLOW CREEP and C his SATELLITE PRAYER as the map plays them now,
+     all recorded from the alpha's own engine by tools/bohemia_sounds_more_music.js at the same loudness through a phone.
+     EYES AND EARS' line (rule 119(c)) is owed; rule 158(d) put the card in the tab. Nothing is wired before his YES
+     (rule 122(d)). Gate: gates/more_music_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{display:flex;flex-direction:column}
+  #map{flex:1 1 auto;min-height:0;width:100%;border:0;background:#0d0b08}
+  #bar{flex:0 0 auto;box-sizing:border-box;padding:10px 16px 12px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.old{background:#b9a77e}
+  .num{font-size:12px;color:#b9a77e;margin-top:8px;min-height:3em}
+</style></head><body>
+<iframe id="map" src="BOHEMIA_MAP_CURRENT.html" title="the valley map"></iframe>
+<div id="bar">
+  <div class="row">
+    <button id="song">A. THE LAST BUS TO HENDERSON</button>
+    <button id="his" class="old">B. YOUR SLOW CREEP</button>
+    <button id="two" class="old">C. YOUR SATELLITE PRAYER</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="num">Tap A, then B. A is new, made in your songs' own machine with the machine party playing along. B and C are your songs. Same engine, same loudness on a phone. The desert is under all three.</div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var AC=null, OUT=null, n=document.getElementById('num'), mode=null, bed=null, bedT=null, clock=null, BUF={}, cur=null, t0=0;
+  var CFG={"FILE":{"song":"vote/songs/the_last_bus_to_henderson/song.mp3","his":"vote/songs/his_night_songs/his_slow_creep.mp3","two":"vote/songs/his_night_songs/his_satellite_prayer.mp3"},"SCALE":{"song":[0,1,5,6,10],"his":[0,1,5,6,10],"two":[0,2,4,7,9]},"ROOT":{"song":11,"his":11,"two":6},"LABEL":{"song":"A. THE LAST BUS TO HENDERSON, the new one, with the machine party in the hall on tape.","his":"B. Your SLOW CREEP, the first minute, as the map plays it now.","two":"C. Your SATELLITE PRAYER, the first minute, as the map plays it now."}};
+  var FILE=CFG.FILE, SCALE=CFG.SCALE, ROOT=CFG.ROOT, LABEL=CFG.LABEL;
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function load(p){ if(BUF[p]) return Promise.resolve(BUF[p]);
+    return fetch(p).then(function(r){ if(!r.ok) throw new Error(p+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[p]=b); }); }
+  /* the desert under the map, the same file, loop and level as the alpha's MAPDESERT */
+  function bedOn(){ if(bed) return; var my=bed=AC.createGain(); my.gain.setValueAtTime(0,AC.currentTime); my.gain.linearRampToValueAtTime(0.45,AC.currentTime+1.5); my.connect(OUT);
+    load('vote/settlement_heard/bed_day.mp3').then(function(b){ var XF=1.0, step=b.duration-XF;
+      (function one(at){ if(bed!==my) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(my);
+        v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF); v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+        s.start(at); bedT=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000)); })(AC.currentTime+0.05); }); }
+  function bedOff(){ if(bedT) clearTimeout(bedT); bedT=null; if(bed){ var x=bed; bed=null; x.gain.cancelScheduledValues(AC.currentTime); x.gain.setValueAtTime(x.gain.value,AC.currentTime); x.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); setTimeout(function(){ try{x.disconnect();}catch(e){} },900); } }
+
+  /* his form, as his engine plays it (MUS.ARR, the first 32 bars), and the key it moves to (MUS.RT on the scale) */
+  var ARR=['A','B','B','A','C','B','D','B'], RT=[0,0,2,0,3,2,0,1];
+  var PART={ A:'the core: the bass, the kick, one drifting note on beat one', B:'the tune', C:'the strip: kick and bass only', D:'the tune an octave up' };
+  var MACH={ A:'the coupling on the kick, the clock on the hat', B:'the coupling, the clock, steel every other bar', C:'the motor comes up', D:'the machine stamps four to the bar' };
+  var NOTE=["C","C sharp","D","E flat","E","F","F sharp","G","A flat","A","B flat","B"];
+  function where(){ if(!cur) return; var t=AC.currentTime-t0; if(t<0) return; var b=Math.min(32,Math.floor(Math.max(0,t)/2)+1), si=Math.floor((b-1)/4);
+    var sc=SCALE[mode], key=NOTE[(ROOT[mode]+sc[RT[si]%sc.length])%12];
+    n.textContent=LABEL[mode]+'  Bar '+b+' of 32: '+PART[ARR[si]]+', in '+key+(b<=8?', no drums yet (the beat arrives late)':'')+(mode==='song'?(b<=8?'; the motor is already running':'; '+MACH[ARR[si]]):'')+'.'; }
+  function songOff(){ if(cur){ var h=cur; cur=null; try{ h.g.gain.cancelScheduledValues(AC.currentTime); h.g.gain.setValueAtTime(h.g.gain.value,AC.currentTime); h.g.gain.linearRampToValueAtTime(0,AC.currentTime+0.15); h.src.stop(AC.currentTime+0.2); }catch(e){} } if(clock){ clearInterval(clock); clock=null; } }
+  function mark(id){ ['song','his','two'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
+  function go(id){
+    ctx(); songOff(); mode=id; mark(id); n.textContent=LABEL[id]; bedOn();
+    load(FILE[id]).then(function(b){ if(mode!==id) return; var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; g.gain.setValueAtTime(0,AC.currentTime); g.gain.linearRampToValueAtTime(1,AC.currentTime+0.03);
+        s.connect(g); g.connect(OUT); t0=AC.currentTime+0.02; s.start(t0); cur={src:s,g:g,buffer:b}; clock=setInterval(where,250);
+        s.onended=function(){ if(cur&&cur.src===s){ cur=null; if(clock){ clearInterval(clock); clock=null; } n.textContent='That was the first minute. Tap it again, or another one.'; } }; })
+      .catch(function(e){ n.textContent='the song did not load: '+e.message; });
+  }
+  ['song','his','two'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
+  document.getElementById('stop').onclick=function(){ if(!AC) return; songOff(); bedOff(); mode=null; mark(null); n.textContent='Stopped.'; };
+  window.__moremusic=function(){ return { mode:mode, playing:!!cur, file:cur?(mode&&FILE[mode]):null, seconds:cur?+(AC.currentTime-t0).toFixed(2):0, bed:!!bed, loaded:Object.keys(BUF), text:n.textContent }; };
+})();
+</script>
+</body></html>

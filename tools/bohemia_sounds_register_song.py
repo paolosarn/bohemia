@@ -16,7 +16,12 @@ and refuses unless BOTH say yes and neither says no or not.
 
 EYES PAUSED (the coordinator 10/19, row [the machine party]: 'EYES is paused: say so on the card instead of waiting'):
 with --eyes-paused the tool registers without EYES' line only when EYES AND EARS' own MODE line on the board reads
-PAUSED and the card's why says, in those words, 'EYES AND EARS is paused'. The day EYES runs again the flag refuses. Then it appends the card to
+PAUSED and the card's why says, in those words, 'EYES AND EARS is paused'. The day EYES runs again the flag refuses.
+
+RULE 158 (SOUNDS 10/24, row [more music, on the one beat]): with --rule-158 the tool registers without EYES' line only
+when the board carries rule 158 (Paolo 10/24: 'we need more music'; a new song waits in the VOTE tab, rule 158(d)) and
+the card's why says, in those words, "EYES AND EARS' line is owed". An EYES line that exists still decides (a NO keeps
+the song out). Then it appends the card to
 records/target/BOHEMIA_VOTE_REGISTRY.json with the sha of the commit that last touched the song's file (rule 118b: the
 card id goes on SOUNDS' row in the same push). It never edits anybody else's card.
 """
@@ -63,6 +68,18 @@ def main():
             print('NOT REGISTERED: the card has to say so: its why must carry the words "EYES AND EARS is paused".')
             return 5
         hit = ('EYES AND EARS is PAUSED (' + mode[0][:60] + '); the card says so', 'yes', 'yes')
+    if not hit and '--rule-158' in sys.argv:
+        # RULE 158(d) (Paolo 10/24: 'we need more music'; the coordinator's round: each new song goes in the VOTE tab with
+        # its card id) is newer than 119(c), and rule 154(c) says no row waits. EYES' line is still owed and the card says
+        # so out loud; an EYES line that says NO still keeps the song out (checked above, it wins when it exists).
+        board = open(VAM, encoding='utf-8').read()
+        if not re.search(r'^158\. EVERY ACTION IS A REQUEST ON THE MUSIC\'S BEAT, AND MORE MUSIC', board, re.M):
+            print('NOT REGISTERED: --rule-158, but rule 158 is not on the board.')
+            return 6
+        if "EYES AND EARS' line is owed" not in card.get('why', ''):
+            print('NOT REGISTERED: the card has to say so: its why must carry the words "EYES AND EARS\' line is owed".')
+            return 7
+        hit = ("rule 158(d) (10/24): EYES AND EARS' line is owed; the card says so", 'yes', 'yes')
     if not hit:
         print('NOT REGISTERED: no EYES AND EARS line on the board names ' + song['name'] + ' with both answers (rule 119c).')
         return 2

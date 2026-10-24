@@ -112,7 +112,10 @@
       if (!MP.on) return r;
       if (s === 0 && sc.barIn === 0) {
         var semi = f.scale[sc.rs % f.scale.length] || 0;
-        motor(AC, t, 64 * sd, semi, spec.motor.gain * (sc.sec === 'C' ? spec.motor.strip : 1), bus.machine);
+        /* spec.motor.transpose (SOUNDS 10/24, [more music, on the one beat]): the motor's recording is cut on REPO MAN's
+           G; a song on another root carries its distance from G here (inside six semitones either way), so the motor
+           whines in that song's key. Absent = 0, so REPO MAN plays exactly as it did. */
+        motor(AC, t, 64 * sd, semi + (spec.motor.transpose || 0), spec.motor.gain * (sc.sec === 'C' ? spec.motor.strip : 1), bus.machine);
         MP.log.push(['motor', t, s, sc.sec, semi]);
       }
       if (held) return r;

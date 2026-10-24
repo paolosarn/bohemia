@@ -1,0 +1,215 @@
+{
+ "_readme": "MORE MUSIC (SOUNDS 10/24/26, row [more music, on the one beat], rule 158(d); Paolo 10/24: 'a big thing is we need more music'). One row in the shape of his MLOOPS rows, his REPO MAN's own row with 2 fields changed, each taken from one of his canon songs (provenance), played by his own engine with REPO MAN THE MACHINE PARTY's machine playing along (engine/bohemia_machine_party.js, the kit in slices/vote/songs/machine_party_kit/). Made by tools/bohemia_sounds_more_music.js; gate gates/more_music_gate.js. Never in MLOOPS on disk, never in the fence or CAT_DEFAULTS, until his YES (rule 122(d)).",
+ "id": "the-meter-reader",
+ "name": "THE METER READER",
+ "made": "10/24",
+ "lane": "sounds",
+ "draft": true,
+ "parent": "REPO MAN",
+ "beside": [
+  "REPO MAN",
+  "SLOW BLEED"
+ ],
+ "story": "the man who still comes round to read the meter on houses that have had no power for a year",
+ "changed": [
+  "inst.l",
+  "am"
+ ],
+ "row": {
+  "n": "THE METER READER",
+  "acc": "#b09048",
+  "root": 41,
+  "scale": [
+   0,
+   2,
+   3,
+   7,
+   8
+  ],
+  "wave": "sawtooth",
+  "kick": [
+   0,
+   8
+  ],
+  "bass": [
+   0,
+   7,
+   10,
+   12
+  ],
+  "hat": [
+   4,
+   12
+  ],
+  "inst": {
+   "b": "powergrid",
+   "l": "brokenkeys"
+  },
+  "am": "dreadbed",
+  "kit": {
+   "k": "boom",
+   "h": "tight"
+  },
+  "mel": "call",
+  "swing": 0,
+  "feel": "half",
+  "klay": "melody",
+  "ff": true
+ },
+ "provenance": {
+  "inst.l": [
+   "PAWNSHOP PSALM",
+   "the pawnshop's piano with keys that stick and die: REPO MAN's cold piano, after somebody pawned it"
+  ],
+  "am": [
+   "THE PIT BOSS IS GONE",
+   "the dread bed his PIT BOSS hums under beat one, in place of the dead satellite"
+  ],
+  "acc": [
+   "PAWNSHOP PSALM",
+   "its colour in the MUSIC tab, the lead's song's"
+  ],
+  "root": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "scale": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "wave": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "kick": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "bass": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "hat": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "inst.b": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "kit.k": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "kit.h": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "mel": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "swing": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "feel": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "klay": [
+   "REPO MAN",
+   "his row, as it is"
+  ],
+  "ff": [
+   "REPO MAN",
+   "his row, as it is"
+  ]
+ },
+ "analog_horror_at_the_source": [
+  "the tune is his engine's, drawn from the name, on brokenkeys (PAWNSHOP PSALM)",
+  "under every bar powergrid, and on beat one of the core dreadbed: the rooms the song is set in, from his own voices",
+  "the beat arrives late (no drums for the first eight bars on the map, his 9/12 rule) and his strip sections leave only the kick and the bass",
+  "the machine is REPO MAN THE MACHINE PARTY's, real recordings of real machines (a train coupling, an electromechanical clock, steel, a washing machine's motor in the song's key), in one concrete hall on a worn tape: the wear is in what plays, no noise is added (NO SAND)"
+ ],
+ "machine": {
+  "press": {
+   "gain": 0.24,
+   "fill": 0.15,
+   "on": "his kick (drumV with the row's kit.k)",
+   "is": "a coupling slamming between two train wagons"
+  },
+  "relay": {
+   "gain": 0.08,
+   "on": "his hat (drumV with the row's kit.h)",
+   "is": "a Soviet electromechanical clock ticking"
+  },
+  "party": {
+   "sections": [
+    "D"
+   ],
+   "steps": [
+    4,
+    12
+   ],
+   "gain": 0.18,
+   "is": "the press on beats two and four in his D sections: four to the bar"
+  },
+  "clank": {
+   "sections": [
+    "B",
+    "D"
+   ],
+   "step": 6,
+   "every": 2,
+   "gain": 0.12,
+   "is": "steel on steel on the and of two, every other bar"
+  },
+  "motor": {
+   "gain": 0.05,
+   "strip": 1.6,
+   "is": "a washing machine's motor whining in this song's key (+0 semitones from REPO MAN's G3), changing speed with his key moves; louder in his C sections, where the song strips to kick and bass",
+   "transpose": 0
+  },
+  "hall": {
+   "music": 0.12,
+   "machine": 0.35,
+   "is": "one concrete hall, 10 x 18 x 7 m, the machine wetter than the music"
+  },
+  "tape": {
+   "bump_db": 2.5,
+   "drive": 1.6,
+   "wow": 0.0008,
+   "wow_hz": 0.6,
+   "flutter": 0.00025,
+   "flutter_hz": 5.1,
+   "top_hz": 9000,
+   "is": "the from-a-recording tool's tape: a head bump, a soft tanh, wow and flutter, a gentle 2:1, a 9 kHz top"
+  },
+  "from": "slices/vote/songs/repo_man_the_machine_party.json (his YES 10/19, sounds-repo-man-the-machine-party-10-19), every number but the motor's key"
+ },
+ "takes": {
+  "A": {
+   "hall": true,
+   "tape": true
+  }
+ },
+ "card": {
+  "id": "sounds-the-meter-reader-10-24",
+  "kind": "song",
+  "lane": "sounds",
+  "sha": "",
+  "made": "10/24",
+  "title": "A NEW NIGHT SONG: THE METER READER",
+  "why": "You said we need more music. This is a new night song made in your songs' own machine: your REPO MAN with 2 things changed, each taken from one of your songs: a pawned piano with keys that stick from your PAWNSHOP PSALM and a low dread hum from your THE PIT BOSS IS GONE. It is the man who still comes round to read the meter on houses that have had no power for a year. The REPO MAN machine party plays along: the train coupling on the kick, the old clock on the hat, the motor in its key, in the concrete hall on a worn tape. A is the new song, B your REPO MAN, C your SLOW BLEED, same loudness on a phone, over the real map, on the 120 beat. It is not in the game until you say yes. EYES AND EARS' line is owed (rule 119(c)); rule 158(d) put it here.",
+  "options": [
+   "A, THE METER READER joins your night songs",
+   "B, no, not this one"
+  ],
+  "show": {
+   "how": "page",
+   "src": "BOHEMIA_THE_METER_READER_10_24_26.html"
+  },
+  "draft": true
+ }
+}
