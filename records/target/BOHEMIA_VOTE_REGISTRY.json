@@ -15158,6 +15158,60 @@
     "src": "BOHEMIA_THE_MALL_AFTER_CLOSING_10_24_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-the-meter-reader-10-24",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "c85b6dd0",
+   "made": "10/24",
+   "title": "A NEW NIGHT SONG: THE METER READER",
+   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your REPO MAN with a pawned piano with keys that stick from your PAWNSHOP PSALM and a low dread hum from your song THE PIT BOSS IS GONE, the man who still comes round to read the meter on houses that have had no power for a year, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your REPO MAN and C your SLOW BLEED at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
+   "options": [
+    "A, THE METER READER joins your night songs",
+    "B, no, not this one"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_METER_READER_10_24_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-lobby-piano-still-plays-10-24",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "c85b6dd0",
+   "made": "10/24",
+   "title": "A NEW NIGHT SONG: THE LOBBY PIANO STILL PLAYS",
+   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your SLOW BLEED with a drowned piano from your song THE SENDING, an undertow bass from your song THE SENDING and a ride cymbal from your song THE SENDING, a hotel lobby with the water up to the carpet, and the player piano in the corner still going, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your SLOW BLEED and C your song THE VAULT at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
+   "options": [
+    "A, THE LOBBY PIANO STILL PLAYS joins your night songs",
+    "B, no, not this one"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_LOBBY_PIANO_STILL_PLAYS_10_24_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-last-bus-to-henderson-10-24",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "c85b6dd0",
+   "made": "10/24",
+   "title": "A NEW NIGHT SONG: THE LAST BUS TO HENDERSON",
+   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your SLOW CREEP with a ghost flute from your WHERE THE PROCESSION DROWNED and a deep abyss bass from your WHERE THE PROCESSION DROWNED, a bus stop on Boulder Highway at two in the morning, waiting on a bus that stopped running a year ago, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your SLOW CREEP and C your SATELLITE PRAYER at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
+   "options": [
+    "A, THE LAST BUS TO HENDERSON joins your night songs",
+    "B, no, not this one"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_LAST_BUS_TO_HENDERSON_10_24_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
