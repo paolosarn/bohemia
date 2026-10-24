@@ -269,6 +269,8 @@
     squiggle:function(){ var s = SQ; return { have:!!(s && s.ready()), borrowed:!!(s && s.borrowed), err:s ? s.err : null }; },
     preload:function(){ var k = sink(); if(k) preload(k); },
     live:function(){ return live.length; }, hold:function(on){ HOLD = on !== false; if(HOLD) stopTalk(); },
-    duck:function(){ return JB ? JB.gain.value : null; }, only:function(w){ ONLY = w || null; }, GAP:GAP
+    duck:function(){ return JB ? JB.gain.value : null; }, only:function(w){ ONLY = w || null; }, GAP:GAP,
+    /* WORDS [spanglish at ten percent]: the banks and the one pick, for the language gate's long play */
+    lineOf:lineOf, BANKS:{ day:DAY_LINES, dayAnswers:DAY_ANSWERS, night:NIGHT_LINES, nightAnswers:NIGHT_ANSWERS, greetDay:GREET_DAY, greetNight:GREET_NIGHT }
   };
 })();

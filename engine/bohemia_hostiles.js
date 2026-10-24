@@ -249,20 +249,25 @@
      draft:true, every one. ALWAYS MAKE AN ATTEMPT (8/11): the words ship as a
      real attempt, the ruling waits. Spanglish per the 8/25 law.
      Nothing here promises a fight, because this module cannot start one. */
+  /* 10/24 (WORDS [spanglish at ten percent], rule 143a, Paolo: 'it should be 10 to 15% randomized'): the English is the button,
+     the Spanglish twin comes up on the crew's own roll, about 1 in 8 (it was 2 of 6) */
   var WORDS = {
-    you:  ['they know your face', 'esos te conocen', 'that one has your name'],
-    odds: ['they are watching everybody', 'nadie pasa por aqui', 'this is their corner']
+    you:  ['they know your face', 'that one has your name', 'they have seen you before'],
+    odds: ['they are watching everybody', 'this is their corner', 'nobody walks through here']
   };
+  var WORDS_ES = { you: ['esos te conocen'], odds: ['nadie pasa por aqui'] };
+  var ES_RATE = 0.125;
   function words(crew) {
     if (!crew) return null;
-    var list = WORDS[crew.why] || WORDS.odds;
+    var es = h(crew.at[0], crew.at[1], 0, 0x51) < ES_RATE;
+    var list = (es ? WORDS_ES[crew.why] || WORDS_ES.odds : WORDS[crew.why] || WORDS.odds);
     var i = Math.floor(h(crew.at[0], crew.at[1], 0, 0x77) * list.length);
     return { text: list[Math.min(i, list.length - 1)], draft: true };
   }
 
   return {
     VERSION: VERSION, SEE_YOU: SEE_YOU, CLOSE_AT: CLOSE_AT,
-    SPACING: SPACING, CREW: CREW, CORRIDOR: CORRIDOR, WORDS: WORDS,
+    SPACING: SPACING, CREW: CREW, CORRIDOR: CORRIDOR, WORDS: WORDS, WORDS_ES: WORDS_ES,
     dangerous: dangerous, near: near, stateOf: stateOf, ring: ring,
     words: words, hash: h
   };

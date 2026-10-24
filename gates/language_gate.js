@@ -187,7 +187,8 @@ if (sweepQ) {
     if (!sq) continue;
     for (var sd = 0; sd < 2; sd++) {
       var sline = null;
-      try { sline = sweepQ.lineFor(swho, sd === 1, 'spanglish'); } catch (e) { continue; }
+      /* exact: the Spanglish FORM, no roll (10/24: a telling rolls; this sweeps what the roll can land on) */
+      try { sline = sweepQ.lineFor(swho, sd === 1, 'spanglish', true); } catch (e) { continue; }
       if (!sline) continue;
       swept++;
       if (P.esWordsIn(sline).length === 0 && dry.length < 5) dry.push(String(sline).slice(0, 70));
@@ -563,9 +564,10 @@ ok('EVERY spanglish bucket actually switches languages somewhere in it',
    ========================================================================== */
 head('E. AND SOMEBODY CAN ACTUALLY SAY IT');
 var per = { key: 'x', role: 'worker', faction: null };
-var enLine = P.linesFor({ key: 'x', role: 'worker', lang: 'en' }, { at: 'work' })[0];
-var sgLine = P.linesFor({ key: 'x', role: 'worker', lang: 'spanglish' }, { at: 'work' })[0];
-var esLine = P.linesFor({ key: 'x', role: 'worker', lang: 'es' }, { at: 'work' })[0];
+/* opts.lang forces the register (10/24: without it each speaking rolls, rule 143a; section H measures the roll) */
+var enLine = P.linesFor({ key: 'x', role: 'worker', lang: 'en' }, { at: 'work', lang: 'en' })[0];
+var sgLine = P.linesFor({ key: 'x', role: 'worker', lang: 'spanglish' }, { at: 'work', lang: 'spanglish' })[0];
+var esLine = P.linesFor({ key: 'x', role: 'worker', lang: 'es' }, { at: 'work', lang: 'es' })[0];
 ok('an english worker gets an english line', !!enLine && BohemiaPeople.esWordsIn(enLine).length === 0, enLine);
 ok('a spanglish worker gets a DIFFERENT line, and it switches',
   !!sgLine && sgLine !== enLine && BohemiaPeople.esWordsIn(sgLine).length > 0, sgLine);
@@ -582,7 +584,7 @@ var noRegKey = Object.keys(P.LINES).filter(function (k) {
 })[0];
 ok('there is still a bucket with no register written for it, to test with',
   !!noRegKey, noRegKey);
-var noReg = noRegKey ? P.linesFor({ key: noRegKey, role: 'worker', lang: 'spanglish' }, {}) : [];
+var noReg = noRegKey ? P.linesFor({ key: noRegKey, role: 'worker', lang: 'spanglish' }, { lang: 'spanglish' }) : [];
 ok('A BUCKET WITH NO REGISTER FALLS BACK TO ENGLISH RATHER THAN GOING MUTE',
   noReg.length > 0 && BohemiaPeople.esWordsIn(noReg[0]).length === 0,
   noRegKey + ' -> ' + JSON.stringify(noReg[0]));

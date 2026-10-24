@@ -419,10 +419,21 @@
      shape, the noun and the light are unchanged, only the mouth moves. And
      the fallback is the hard rule again -- a shape with no register written
      for it speaks English rather than going silent. */
-  function lineFor(who, dark, lang) {
+  /* 10/24 (WORDS [spanglish at ten percent], rule 143a, Paolo: 'it should be
+     10 to 15% randomized'): lang is how the person LEANS, and each telling
+     rolls (engine/bohemia_spanglish.js): the register line about four times in
+     ten for a Spanish speaker, the English one otherwise. exact=true says it in
+     the register asked, no roll (the language gate's sweep of the Spanglish form). */
+  function lineFor(who, dark, lang, exact) {
     var q = quirkOf(who);
     if (!q) return null;
     var k = dark ? "dark" : "lit";
+    if (lang && !exact) {
+      var SPG = root.BohemiaSpanglish || null;
+      if (!SPG && HASREQ) { try { SPG = require('./bohemia_spanglish.js'); } catch (e) { SPG = null; } }
+      if (SPG) lang = SPG.regFor(who || '', 'quirk|' + k, lang);
+      if (lang === 'en') lang = null;
+    }
     var r = lang && q[lang];
     return (r && r[k]) || q[k];
   }

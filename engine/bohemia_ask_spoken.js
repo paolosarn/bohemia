@@ -123,7 +123,12 @@
     var place = opts.where || String(ask.where);
     /* A COORDINATE IS NOT AN ADDRESS (see placeClause). Nobody says a cell. */
     if (!isAddress(place)) return null;
-    var lines = [ m.open, m.ask + ' ' + placeClause(place) ];
+    /* 10/24 (WORDS [spanglish at ten percent], rule 143a): the asker's lines roll through the one dial, his word of Spanish
+       about 1 in 8; the player's answers below never do (rule 27) */
+    var SPG = root.BohemiaSpanglish || null;
+    if (!SPG && HASREQ) { try { SPG = require('./bohemia_spanglish.js'); } catch (e) { SPG = null; } }
+    var said = function (l, k) { return SPG ? SPG.say(ask.who || 'ask', l, 'ask|' + ask.changes + '|' + k) : l; };
+    var lines = [ said(m.open, 'open'), said(m.ask + ' ' + placeClause(place), 'ask') ];
     return {
       who: ask.who,
       name: opts.name || null,          /* null is honest: PEOPLE owns names */
@@ -133,8 +138,8 @@
       /* WHAT HE CAN SAY BACK. Taking it and refusing it, and the refusal is a
          real answer with a real line, never a greyed-out row. */
       back: [
-        { text: "I'll go.",            takes: true,  reply: m.yes },
-        { text: "Not right now.",      takes: false, reply: m.no  }
+        { text: "I'll go.",            takes: true,  reply: said(m.yes, 'yes') },
+        { text: "Not right now.",      takes: false, reply: said(m.no, 'no')  }
       ],
       /* THE PROMISE, IN THE GENERATOR'S OWN WORDS (rule 2 above). */
       visible: ask.visible,

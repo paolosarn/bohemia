@@ -196,6 +196,20 @@
     }
     return 'en';
   }
+  /* THE PER-LINE ROLL (10/24, rule 143a). One dial for every mouth lives in
+     engine/bohemia_spanglish.js; this asks it, and carries a copy of its
+     arithmetic only for a page that inlines this module without it. */
+  function spanglishReg(person, at) {
+    var reg = (person && person.lang) || 'en';
+    var SPG = (typeof root !== 'undefined' && root && root.BohemiaSpanglish) || null;
+    if (!SPG && typeof require === 'function') { try { SPG = require('./bohemia_spanglish.js'); } catch (e) { SPG = null; } }
+    if (SPG) return SPG.regFor(person || '', 'people|' + at, reg);
+    var hs = 2166136261, ks = String((person && person.key) || '') + '|' + at + '|' + Math.random();
+    for (var hi = 0; hi < ks.length; hi++) { hs ^= ks.charCodeAt(hi); hs = Math.imul(hs, 16777619) >>> 0; }
+    var lean = (reg === 'en') ? 0.07 : 0.38;
+    return (hs / 4294967296) < lean ? (reg === 'en' ? 'spanglish' : reg) : 'en';
+  }
+
 
   /* ---- THE CLOSED SET OF SPANISH WORDS THIS GAME MAY SAY -------------------
      Word -> what it means in English. GENERATED, not hand-kept:
@@ -2717,7 +2731,14 @@
          (Q056.W8: nobody here explains the collapse), which is what makes this
          the safe place for language to live and the objective line the unsafe
          one. */
-      var reg = (opts && opts.lang) || (person && person.lang) || 'en';
+      /* *** AND NOW PER LINE, NOT PER PERSON (10/24, WORDS [spanglish at ten
+         percent], rule 143a, Paolo: 'it should be 10 to 15% randomized'). ***
+         A person's register is how much they LEAN, not what every line is:
+         each speaking rolls (spanglishReg below, engine/bohemia_spanglish.js),
+         so a Spanglish neighbour says the English line most times and theirs
+         about four in ten, and an English one says a Spanglish bucket now and
+         then. opts.lang still forces a register (a probe, a gate). */
+      var reg = (opts && opts.lang) || spanglishReg(person, String(at == null ? '' : at)) || 'en';
       function bucket(k) { return k ? (LINES[k + '@' + reg] || LINES[k]) : null; }
       /* AND A REACTION IS IN THEIR MOUTH TOO. This is the half that would have
          made the register QUIETLY WEAKEN THE MORE YOU PLAY: a reaction outranks
