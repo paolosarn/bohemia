@@ -341,7 +341,7 @@
     root.appendChild(t);
     var m = document.createElement('div'); m.className = 'm';
     m.innerHTML = '<button class="b card" data-k="new"><span class="tp2"></span><span class="tx"><b>NEW GAME</b><i>PICK YOUR CREW</i></span></button>'
-      + '<button class="b rec" data-k="continue"><span class="tx"><b>CONTINUE</b><i>NO RUN SAVED</i></span></button>'
+      + '<button class="b rec" data-k="continue"><span class="tx"><b>CONTINUE</b><i>NO GAME SAVED</i></span></button>'
       + '<button class="b pane" data-k="settings"><span class="tx"><b>SETTINGS</b><i>SOUND &middot; TEXT &middot; BRIGHTNESS</i></span></button>';
     root.appendChild(m);
     var stamp = document.createElement('div'); stamp.className = 'stamp'; var bs = document.getElementById('buildstamp'); stamp.textContent = bs ? bs.textContent.trim() : ''; root.appendChild(stamp);
@@ -359,9 +359,9 @@
       root: root,
       paint: function (saved) {
         var c = q('continue'); c.disabled = !saved; root.classList.toggle('saved', !!saved);   /* the bare look lights the one next thing */
-        c.querySelector('i').textContent = saved ? ((saved.day ? 'DAY ' + saved.day : 'YOUR RUN') + (saved.min == null ? '' : ' \u00b7 ' + clockOf(saved.min))) : 'NO RUN SAVED';
+        c.querySelector('i').textContent = saved ? ((saved.day ? 'DAY ' + saved.day : 'YOUR GAME') + (saved.min == null ? '' : ' \u00b7 ' + clockOf(saved.min))) : 'NO GAME SAVED';   /* WORDS [eyes: no run saved], rule 150: there are no runs in this game */
       },
-      arm: function (line) { var n = q('new'); n.classList.add('armed'); n.querySelector('b').textContent = 'TAP AGAIN'; n.querySelector('i').textContent = line || 'YOUR RUN IS KEPT ASIDE'; },
+      arm: function (line) { var n = q('new'); n.classList.add('armed'); n.querySelector('b').textContent = 'TAP AGAIN'; n.querySelector('i').textContent = line || 'YOUR GAME IS KEPT ASIDE'; },
       disarm: function () { var n = q('new'); n.classList.remove('armed'); n.querySelector('b').textContent = 'NEW GAME'; n.querySelector('i').textContent = 'PICK YOUR CREW'; },
       destroy: function () { if (root.parentNode) root.parentNode.removeChild(root); }
     };
@@ -418,6 +418,10 @@
     + 'html body #sheet .slot.full{background:linear-gradient(rgba(12,8,4,.25),rgba(12,8,4,.25)),#3a2c1e var(--bm-cardboard) 0 0/256px 100%}'
     + 'html body #sheet .slot span{font-family:"BohemiaROM",ui-monospace,monospace;font-size:9px;color:#f0e2c4;text-shadow:0 1px 0 #000}'
     + 'html body #sheet .slot em{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;color:#f0c46a;text-shadow:0 1px 0 #000}'
+    /* THE MONEY IS SPELLED ONE WAY (UI [eyes: four spellings], rule 150): a tile's price is the number and the bar's own battery
+       mark, never '138b' (the settlement marks it em.money; --bm-batt is the kit's battery, set in dressSettlement) */
+    + 'html body #sheet .slot em.money{display:inline-flex;align-items:center;gap:2px}'
+    + 'html body #sheet .slot em.money::before{content:"";flex:0 0 auto;width:10px;height:10px;background:var(--bm-batt) center/contain no-repeat;image-rendering:pixelated}'
     + 'html body #sheet .gridh{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.4px;color:#e8d8b8}'
     /* THE SCREENS PAST THE PHONE (UI [the screens past the phone], 10/22): from 700 wide the building's sheet is a window, not
        the phone's drawer stretched to the glass (a stall's price rows ran 1,416 points on a computer): at most 1,040 wide and
@@ -433,6 +437,7 @@
   function dressSettlement() {
     if (!document.getElementById('sbody')) return false;
     rootVars(); style('bm-settle', SETTLE_CSS);
+    try { document.documentElement.style.setProperty('--bm-batt', 'url(' + supplyIcon('batteries') + ')'); } catch (e) {}
     try { document.fonts.load('13px "BohemiaCasing"'); document.fonts.load('11px "BohemiaROM"'); } catch (e) {}
     return true;
   }
@@ -825,10 +830,13 @@
     g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
     var parts = { day: day, crew: crew, g: g };
     Object.keys(parts).forEach(function (k) { var e = root.querySelector('[data-tb=' + k + ']'); if (e && e.__was !== parts[k]) { e.innerHTML = parts[k]; e.__was = parts[k]; } });
-    /* the shell's floating gear steps aside only while this one can be pressed (a screen over the map hides the bar) */
+    /* the shell's floating gear steps aside for good once the bar carries its own (UI [eyes: the gear on top], rule 150,
+       EYES 10/24 item 14: it used to come back whenever a screen covered the bar, and floated over the crew screen's FRONT,
+       its HITPOINTS and the town's picture). A screen over the map has its own way out (DONE, LEAVE, the fight's own bar);
+       the settings are one tap away on the map's bar the moment he is back. */
     try {
-      var gb = root.querySelector('.gear'), r = gb.getBoundingClientRect(), hit = r.width > 0 && document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
-      var on = !!(hit && gb.contains(hit)), P = window.parent && window.parent !== window ? window.parent.document : null;
+      var gb = root.querySelector('.gear');
+      var on = !!(gb && gb.isConnected), P = window.parent && window.parent !== window ? window.parent.document : null;
       if (P) { if (!P.getElementById('bm-tb-shell')) { var st = P.createElement('style'); st.id = 'bm-tb-shell'; st.textContent = TB_SHELL_CSS; P.head.appendChild(st); }
         P.documentElement.classList.toggle('bm-gear-in-bar', on); }
     } catch (_e) {}
@@ -961,6 +969,13 @@
        own battery mark and the place stamped (CASING) at the right. The one marked for the map is lit amber like the speed
        you are at, shows the job's full words and the one touch that goes, and beats with the road. */
     + 'html body #cityfeed #cityfeedlist,html body #cityfeed #cityfeedfade{display:none!important}'
+    /* A SMALL LIST IS A SMALL PHONE (UI [eyes: the empty phone], rule 150, EYES 10/24 item 20: on 10/24m the two jobs sat
+       at the top of a full 19.5 by 9 slab and the bottom two thirds was black glass over a third of the map). The closed
+       phone is as tall as what it holds: the hour and the jobs, the rail and the crack drawn round them; a picked job's
+       longer words grow it, and it never grows past the handset's 19.5 by 9. Under the jobs is the phone's home strip, a thumb's
+       48 points with the home bar drawn on it: the one place on the face that opens the phone (a job card marks the road). */
+    + 'html body #cityfeed{height:auto;max-height:calc(var(--skin-phonew,132px) * 19.5 / 9)}'
+    + 'html body #cityfeedscreen::after{content:"";flex:0 0 48px;order:99;background:linear-gradient(#c4b690,#c4b690) center 36px/40px 3px no-repeat}'
     + 'html body #bmboard{flex:0 0 auto;position:relative;z-index:1;padding:6px 5px 3px}'
     + 'html body #bmboard .fp.job{display:flex;flex-direction:column;justify-content:center;gap:4px;margin:0 0 5px;padding:6px 6px 6px 7px;min-height:44px;box-sizing:border-box;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;'
     +   'border-radius:2px;background:rgba(240,196,126,.08);box-shadow:inset 2px 0 0 #f0c47e}'
@@ -2132,7 +2147,7 @@
     var I = P && P.info; if (!I) return false;
     var dpr = 1; try { dpr = window.CV_DPR || window.devicePixelRatio || 1; } catch (e) {}
     var face = '"BohemiaCasing",ui-sans-serif,sans-serif', top = String(I.count), word = PLATE_WORD[Math.max(1, Math.min(3, I.skulls | 0))];
-    var low = String(I.going || '') + (I.hunt && typeof I.blocks === 'number' ? ' · ' + I.blocks + ' BLOCKS' : '');
+    var low = String(I.going || '') + (I.hunt && typeof I.blocks === 'number' ? ' · ' + I.blocks + (I.blocks === 1 ? ' BLOCK' : ' BLOCKS') : '');   /* WORDS [eyes: one blocks], rule 150 */
     g.save(); g.font = '12px ' + face; var wTop = g.measureText(top).width, wWord = g.measureText(word).width; g.font = '9px ' + face; var wLow = g.measureText(low).width;
     var row1 = 10 + 3 + wTop + 6 + (I.skulls | 0) * 8 + 4 + wWord, w = Math.ceil(Math.max(row1, wLow) + 16), h = 34;
     var slab = plateSlab('tin', w, h, 0.5, !!I.hunt, dpr); if (!slab) { g.restore(); return false; }

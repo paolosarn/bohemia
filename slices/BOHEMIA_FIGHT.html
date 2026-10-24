@@ -3113,6 +3113,15 @@ function roundsLine(u, t) {
 const THE_DEAD = ['RAMÓN', 'MARISOL', 'TÍO BETO', 'LUPE', 'KENNY', 'DOÑA ESPERANZA', 'HOLLIS', 'LA FLACA', 'JOEY', 'MRS. PARK', 'CHUY', 'DANA'];   /* draft:true */
 const HAUNT_RECAP = { won: 'THE DEAD WENT BACK DOWN', lost: 'THE DEAD KEPT THE FIELD' };   /* draft:true */
 function titleName(n) { return String(n).toLowerCase().replace(/(^|[\s.-])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }); }
+/* A LINE NEVER READS LIKE A FORM (WORDS [eyes: the broken template], rule 150, EYES 10/24 item 23: 'You dropped his wallet. I'm
+   holding it for him.', 'I was RIGHT next to Octavio Ellison!'): a mate is called by his first name ('El Guero' keeps its El),
+   the man he follows is 'the boss' (YOU never fills a slot meant for a third man), a man of theirs keeps his whole name */
+function callName(v) {
+  if (v.main) return 'the boss';
+  const w = String(v.name).split(/\s+/);
+  if (v.side !== 'you' || w.length < 2) return titleName(v.name);
+  return titleName(w.slice(0, /^(el|la|los|las|de|del|the|big|lil|old)$/i.test(w[0]) ? 2 : 1).join(' '));
+}
 function actOne() { return (FIGHT.S.act || 1) === 1; }
 function haunt() {
   const o = window.FIGHT_OPTS || {}, ghosts = FIGHT.S.units.filter(function (v) { return v.side === 'them' && v.ghost; });
@@ -3294,7 +3303,8 @@ function callSoon(moment, about) {
 function callShow(q) {
   const v = callSpeaker(q.about); if (!v) return false;
   const S = FIGHT.S, us = S.units.filter(function (u) { return u.side === 'you' && FIGHT.onField(u); }).length, them = S.units.filter(function (u) { return u.side === 'them' && FIGHT.onField(u); }).length;
-  const L = callLine(v, q.moment, { name: q.about ? titleName(q.about.name) : '', us: us, them: them }); if (!L) return false;
+  const L = callLine(v, q.moment, { name: q.about ? callName(q.about) : '', us: us, them: them }); if (!L) return false;
+  L.text = L.text.replace(/(^|[.!?]\s+)the boss/g, function (m, a) { return a + 'The boss'; });
   UI.call = { who: v.id, moment: q.moment, prio: q.prio, line: L.text, t: performance.now() }; UI.callLastWho = v.id; UI.callLastAt = performance.now();
   if (q.moment === 'superior') UI.callBetter = q.about ? q.about.id : true; if (q.moment === 'outnumbered') UI.callOdds = true;
   (UI.calls = UI.calls || []).push({ who: v.name, id: v.id, type: crewType(v), moment: q.moment, line: L.text, sp: L.sp, main: !!v.main }); if (UI.calls.length > 80) UI.calls.shift();
@@ -4694,7 +4704,18 @@ function hud() {
   const show = (UI.pend && UI.pend.target) || u || S.units[0];
   const fkey = show.id + ':' + show.morale + ':' + FIGHT.onField(show);
   if (UI.faceKey !== fkey) { UI.faceKey = fkey; drawPortrait(document.getElementById('face').getContext('2d'), show, document.getElementById('face').width); }
-  document.getElementById('cnm').textContent = show.name + (show.main ? ' *' : '');
+  /* A NAME FITS THE FIGHT BAR (UI [eyes: the cut name], rule 150, EYES 10/24 item 25: 'OCTAVIO ELLI'): the whole name when
+     it fits its plate, else the first name ('EL GUERO' keeps its EL), never a word cut in half */
+  const cnm = document.getElementById('cnm'), nmk = show.name + (show.main ? ' *' : ''), nmw = nmk + '|' + cnm.parentNode.clientWidth + '|' + document.fonts.status;
+  if (cnm.dataset.k !== nmw) {
+    cnm.dataset.k = nmw; cnm.textContent = nmk; cnm.style.fontSize = cnm.style.letterSpacing = '';
+    if (cnm.scrollWidth > cnm.clientWidth + 1) {
+      const w = String(show.name).split(/\s+/), lead = /^(el|la|los|las|de|del|the|big|lil|old)$/i.test(w[0]) && w[1] ? 2 : 1;
+      cnm.textContent = w.slice(0, lead).join(' ') + (show.main ? ' *' : '');
+      /* a first name longer than the plate ('MAXIMILIANO') sets a size smaller, never under 8 points, rather than lose letters */
+      for (let fs = parseFloat(getComputedStyle(cnm).fontSize) - 0.5; cnm.scrollWidth > cnm.clientWidth + 1 && fs >= 8; fs -= 0.5) { cnm.style.letterSpacing = '0'; cnm.style.fontSize = fs + 'px'; }
+    }
+  }
   const fm = FIGHT.fatMax(show), pct = function (a, b) { return Math.max(0, Math.min(100, 100 * a / Math.max(1, b))) + '%'; };
   const hpBar = document.getElementById('bhp'); hpBar.style.width = pct(show.hp, show.hpMax); hpBar.style.background = show.side === 'you' ? '#8fae6a' : '#c4553f';
   const ab = document.getElementById('barm'); ab.style.width = pct(show.armB + show.armH, show.armBMax + show.armHMax); ab.style.background = '#9aa6b0';

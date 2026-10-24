@@ -75,7 +75,7 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
        Battle Brothers' High funds, 1650 crowns at 10 to a battery = 165) -- the same number the card shows and BEGIN pays */
     const TRUCK = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'records/target/bb/origins.json'), 'utf8')).origins.find(o => o.id === 'truck');
     ok('*** D4 THE CARD SAYS WHAT THE GAME APPLIES *** ("' + door.card.replace(/\s+/g, ' ').slice(0, 120) + '" vs start ' + p.start + ', crews ' + p.crew + ', pay +' + p.pay + ')',
-      new RegExp('START ' + p.start + ' BATTERIES').test(door.card) && /PAY \+1/.test(door.card) && p.start === TRUCK.batteries.full && p.crew === 1 && p.pay === 1);
+      new RegExp('\\b' + p.start + ' BATTERIES').test(door.card) && /PAY \+1/.test(door.card) && p.start === TRUCK.batteries.full && p.crew === 1 && p.pay === 1);
     await d.page.waitForTimeout(1500);
     const m = await fr.evaluate(() => ({ start: LOOP.start, bats: loopBats() }));
     ok('*** D5 BEGIN CARRIES THE PICKS TO THE MAP *** (' + (m.start && m.start.originName) + ', ' + m.bats + ' batteries)',

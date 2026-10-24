@@ -107,7 +107,7 @@ async function look(page) {
     ok('THE START SCREEN\'S LOOK: THREE THINGS OF THREE MATERIALS', s.bs.length === 3 && s.bs.every(b => /url\(/.test(b.bg)) && new Set(kinds).size === 3, s.bs.map(b => b.k).join(' / '));
     ok('  each read from the left, 60 points or more, in CASING', s.bs.every(b => b.align !== 'center' && b.tx < 60 && b.h >= 60 && b.fam === 'BohemiaCasing'), s.bs.map(b => b.k + ' ' + Math.round(b.h) + ' +' + Math.round(b.tx) + ' ' + b.fam).join(', '));
   }
-  ok('  NO RUN: CONTINUE IS DARK AND SAYS SO', s.bs[1].dis && s.bs[1].sub === 'NO RUN SAVED', s.bs[1].dis + ' "' + s.bs[1].sub + '"');
+  ok('  NOTHING SAVED: CONTINUE IS DARK AND SAYS SO (a game, never a run: WORDS [eyes: no run saved])', s.bs[1].dis && s.bs[1].sub === 'NO GAME SAVED', s.bs[1].dis + ' "' + s.bs[1].sub + '"');
   await page.evaluate(() => __ss.paint({ day: 3, min: 600 }));
   const tapK = async (k) => { const b = await page.evaluate((k) => { const r = __ss.root.querySelector('[data-k="' + k + '"]').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, k);
     await page.touchscreen.tap(b[0], b[1]); await page.waitForTimeout(200); };

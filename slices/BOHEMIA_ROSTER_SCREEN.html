@@ -423,7 +423,7 @@ function drawCard(){
   var t = document.createElement('div');
   t.innerHTML = '<div class="nm"></div><div class="sub"></div><div class="pain"></div>';
   t.querySelector('.nm').textContent = m.name;
-  t.querySelector('.sub').textContent = m.background.toUpperCase() + '   LEVEL ' + m.level + '   ' + m.wage + ' BATT A DAY';
+  t.querySelector('.sub').textContent = m.background.toUpperCase() + '   LEVEL ' + m.level + '   ' + m.wage + (m.wage === 1 ? ' BATTERY A DAY' : ' BATTERIES A DAY');   /* UI [eyes: four spellings], rule 150: the money is spelled one way */
   if(m.trait){ var tt = document.createElement('div'); tt.className = 'trait'; tt.dataset.trait = m.trait.id; tt.textContent = m.trait.name.toUpperCase() + '  ' + (m.trait.says || '') + '  ' + (m.trait.line || ''); t.insertBefore(tt, t.querySelector('.pain')); }   /* his one trait, as on the card he was hired from */
   var a0 = C.xpFor(m.level), a1 = C.xpFor(m.level + 1), xb = document.createElement('div'); xb.className = 'xpbar'; xb.title = m.xp + ' / ' + a1 + ' XP';
   var xi = document.createElement('i'); xi.style.width = Math.max(0, Math.min(100, (m.xp - a0) / Math.max(1, a1 - a0) * 100)) + '%'; xb.appendChild(xi);

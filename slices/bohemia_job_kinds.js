@@ -288,7 +288,7 @@
     job.what = row.what || 'it';
     job.stage = 'look';
     var dist = cheb(c[0], c[1], town.x, town.y);
-    job.sayTake = 'Contract from ' + town.name + ': find ' + job.what + '. ' + cap(way(c[0] - town.x, c[1] - town.y)) + ', about ' + dist + ' blocks. Look inside the ring on the map.';
+    job.sayTake = 'Contract from ' + town.name + ': find ' + job.what + '. ' + cap(way(c[0] - town.x, c[1] - town.y)) + ', about ' + dist + (dist === 1 ? ' block' : ' blocks') + '. Look inside the ring on the map.';
     if (person) {
       var sk = clamp(job.skulls, 1, 3), n = row.heads || (k.heads_by_skulls || [2, 3, 5])[sk - 1];
       job.cargo = { what: job.what, unit: row.unit || 'person', n: n, of: n };

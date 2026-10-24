@@ -47,7 +47,7 @@ const ARM = (mode) => `(function(){ var F = window.fetch; window.fetch = functio
   } catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }
   try {
     const card = pre.cards.find(c => c.id === 'mod_test');
-    ok('*** A1 A MODDER\'S ORIGIN IS ON THE DOOR *** (' + (card ? '"' + card.text.slice(0, 90) + '"' : 'not there') + ')', !!card && /THE MODDERS/.test(card.text) && /2 MEN/.test(card.text) && /12 IN A FIGHT/.test(card.text));
+    ok('*** A1 A MODDER\'S ORIGIN IS ON THE DOOR *** (' + (card ? '"' + card.text.slice(0, 90) + '"' : 'not there') + ')', !!card && /THE MODDERS/.test(card.text) && /YOU AND 1 MAN\b/.test(card.text) && /ROOM FOR 12 IN A FIGHT/.test(card.text));   /* RE-AIMED 10/24 (WORDS [eyes: twelve in a fight]): two men = YOU and 1 man */
     const p = pre.picks;
     ok('A2 picking it builds its company and its start (' + p.originName + ': ' + (p.company ? p.company.map(m => m.background + ':' + (m.level || '')).join(',') : 'none') + ', start ' + p.start + ', cap ' + p.cap + ')',
       p.origin === 'mod_test' && !!p.company && p.company.length === 2 && p.company[0].background === 'thief' && p.company[0].level === 2 && p.start === MOD.batteries.thin && p.cap === 12);

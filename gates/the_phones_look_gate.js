@@ -7,7 +7,9 @@
 
    WHAT THIS HOLDS, on the demo's map at his phone's profile through the one driver:
      - the phone wears the materials and the game's faces are loaded in its frame
-     - THE OBJECT IS KEPT: the drawn fracture, the chips, the island, no tape, 19.5 by 9
+     - THE OBJECT IS KEPT: the drawn fracture, the chips, the island, no tape, never taller than 19.5 by 9
+     - A SMALL LIST IS A SMALL PHONE (UI [eyes: the empty phone], rule 150, EYES 10/24 item 20): the closed phone ends
+       under its last job (no slab of empty black glass over the map); planted: the old full-height slab is caught
      - a hard contact edge under it, never a soft blurred shadow (rule 71)
      - the hour and the job's place are stamped in CASING, the job's what printed in ROM (RE-AIMED 10/24 by rule 148:
        the face is the hour and two jobs, the chat stream is off the glass, so the posts read are the two job cards)
@@ -71,7 +73,9 @@ async function contrasts(page, jobs) {
       cracks: gl ? gl.querySelectorAll('svg path').length : 0, tape: !!document.querySelector('#cityfeed .tape,#cityfeedtape'),
       chips: ['::before', '::after'].filter(w => { const c = getComputedStyle(f, w); return c.content !== 'none' && parseFloat(c.width) > 1; }).length,
       island: getComputedStyle(document.getElementById('cityfeedbar'), '::before').content !== 'none',
-      w: r.width, h: r.height, outer, blurs: outer.map(s => { const n = s.replace(/rgba?\([^)]*\)|#[0-9a-f]+/gi, '').match(/-?[\d.]+px/g) || []; return parseFloat(n[2] || '0'); }),
+      w: r.width, h: r.height, outer,
+      under: (() => { const js = [...document.querySelectorAll('#bmboard .fp.job')]; if (!js.length) return null; return Math.round(r.bottom - js[js.length - 1].getBoundingClientRect().bottom); })(),
+      slab: (() => { const was = f.style.height; f.style.setProperty('height', 'calc(var(--skin-phonew,132px) * 19.5 / 9)', 'important'); const js = [...document.querySelectorAll('#bmboard .fp.job')], u = js.length ? Math.round(f.getBoundingClientRect().bottom - js[js.length - 1].getBoundingClientRect().bottom) : null; f.style.height = was; return u; })(), blurs: outer.map(s => { const n = s.replace(/rgba?\([^)]*\)|#[0-9a-f]+/gi, '').match(/-?[\d.]+px/g) || []; return parseFloat(n[2] || '0'); }),
       clockFam: getComputedStyle(document.getElementById('cityfeedclock')).fontFamily.split(',')[0].replace(/["']/g, ''),
       whoFam: [...document.querySelectorAll('#bmboard .fp.job .meta .at')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/["']/g, '')),
       txtFam: [...document.querySelectorAll('#bmboard .fp.job .txt')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/["']/g, ''))
@@ -81,7 +85,11 @@ async function contrasts(page, jobs) {
   ok('  the game\'s faces are loaded in its frame (CASING, ROM)', base.faces.every(Boolean), JSON.stringify(base.faces));
   ok('THE OBJECT IS KEPT: the drawn crack, two chips, the island, no tape', base.cracks >= 6 && base.chips >= 2 && base.island && !base.tape,
      base.cracks + ' crack paths, ' + base.chips + ' chips, island ' + base.island + ', tape ' + base.tape);
-  ok('  and it is still the shape of a phone, 19.5 by 9', Math.abs(base.h / base.w - 2.167) < 0.12, Math.round(base.w) + 'x' + Math.round(base.h));
+  /* RE-AIMED 10/24 (UI [eyes: the empty phone], rule 150): the phone is a phone's width and corner, as tall as what it holds */
+  ok('  and it is never taller than a phone, 19.5 by 9', base.h / base.w <= 2.167 + 0.12, Math.round(base.w) + 'x' + Math.round(base.h));
+  const SLAB = u => u != null && u <= 64;   /* the home strip (48) and the rail, no more */
+  ok('A SMALL LIST IS A SMALL PHONE: the glass ends under its last job and its home strip, no empty slab over the map', SLAB(base.under), base.under + ' px under the last job');
+  ok('  planted: the old full-height slab is caught by the same check', !SLAB(base.slab), base.slab + ' px under the last job');
   ok('A HARD EDGE UNDER IT, NOT A SOFT SHADOW', base.outer.length > 0 && base.blurs.every(b => b === 0), base.outer.join(' | '));
   ok('THE HOUR AND THE JOB\'S PLACE ARE STAMPED (CASING), THE WHAT PRINTED (ROM)',
      base.clockFam === 'BohemiaCasing' && base.whoFam.length > 0 && base.whoFam.every(f => f === 'BohemiaCasing') && base.txtFam.every(f => f === 'BohemiaROM'),

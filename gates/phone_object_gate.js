@@ -155,8 +155,10 @@ const ready = async (p, ms) => { const t0 = Date.now();
   /* 1b. AND IT IS THE SHAPE OF A PHONE. Measured off the old object: 132 x 349 is a ratio
      of 2.65, which is no phone anybody has held. A handset is 19.5 by 9, 2.17. */
   const ratio = seen.feed.h / seen.feed.w;
-  ok('*** AND IT IS THE SHAPE OF A PHONE *** -- tall by nine to nineteen and a half, not '
-     + 'the 2.65 slot the old body was', Math.abs(ratio - 2.167) < 0.12,
+  /* RE-AIMED 10/24 (UI [eyes: the empty phone], rule 150): the closed phone is as tall as what it holds, so its height is
+     a ceiling, never a slab; the_phones_look_gate holds the 'no empty glass' half */
+  ok('*** AND IT IS NEVER TALLER THAN A PHONE *** -- nine by nineteen and a half at most, not '
+     + 'the 2.65 slot the old body was', ratio <= 2.167 + 0.12,
      'ratio ' + ratio.toFixed(2) + ' (' + Math.round(seen.feed.w) + ' x ' + Math.round(seen.feed.h) + ')');
   ok('  and its corner is a phone\'s corner, about a seventh of its width',
      seen.round >= seen.feed.w / 10 && seen.round <= seen.feed.w / 4,

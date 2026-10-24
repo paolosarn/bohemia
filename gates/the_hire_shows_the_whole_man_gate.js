@@ -88,7 +88,7 @@ const HTML = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.h
   const said = cards.filter(c => c.gun && isGun(c.gun) && c.arm && c.want && c.arm === c.want && /TILE/.test(c.arm));
   ok('W2 WHAT HIS GUN DOES: every card names his gun and its reach and rounds in the crew screen\'s own words', said.length === cards.length,
      said.length + ' of ' + cards.length + (cards[0] ? ' (' + cards[0].gunName + ' ' + cards[0].arm + ')' : ''));
-  const three = cards.filter(c => c.stars === 3), priced = cards.filter(c => /\d+ batt/.test(c.btn) && new RegExp(night + ' a night').test(c.btn));
+  const three = cards.filter(c => c.stars === 3), priced = cards.filter(c => /\d+ batt/.test(c.btn) && new RegExp(night + ' batter(y|ies) a night').test(c.btn));
   ok('W3 HIRE WHAT YOU SEE: three stats starred on every card', three.length === cards.length, three.length + ' of ' + cards.length);
   ok('  his price and his night (the crew\'s one bill, ' + night + ' a man a night)', night > 0 && priced.length === cards.length, (cards[0] ? cards[0].btn.replace(/\s+/g, ' ') : '') + ', ' + priced.length + ' of ' + cards.length);
 

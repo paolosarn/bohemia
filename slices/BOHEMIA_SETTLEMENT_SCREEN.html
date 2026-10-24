@@ -290,8 +290,12 @@ function traitMult(){
 function fillTrait(t, line){
   return String(line).replace(/\{from\}/g, t.from || 'a town up the road').replace(/\{by\}/g, t.by || 'crew').replace(/\{ago\}/g, t.ago || 'a few nights back');
 }
+/* YOU NEVER SAY A KEEPER'S LINE (WORDS [eyes: the lot's line], rule 150, EYES 10/24 item 27: the lot put the stall's 'Market day.
+   Everybody is out...' in YOUR mouth): the place's 'any' line is a keeper's; where YOU stand (the lot), only a line written for
+   you is said, else none */
 function traitLine(k){
-  for(var i=0;i<(S.traits||[]).length;i++){ var t = S.traits[i]; if(t.says && (t.says[k] || t.says.any)) return fillTrait(t, t.says[k] || t.says.any); }
+  var mine = KEEPERS[k] && KEEPERS[k].who === 'you';
+  for(var i=0;i<(S.traits||[]).length;i++){ var t = S.traits[i], says = t.says && (t.says[k] || (mine ? null : t.says.any)); if(says) return fillTrait(t, says); }
   return null;
 }
 /* THE LOOK, drawn over the painted place until COMBAT TWO's trait pictures exist: a burnt house
@@ -418,13 +422,13 @@ var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'
   sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole',
   food:'s_food', water:'s_water', meds:'s_meds', rounds:'s_rounds'};
 function packIcon(key){ var f = PACK_ICON[key]; if(!f) return null; var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
-function iconTile(it, onTap, sub){
+function iconTile(it, onTap, sub, money){
   var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
   if(it){
     var pk = it.kind === 'weapon' ? packIcon(it.cls) : null;
     if(pk) b.appendChild(pk); else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }
     var n = document.createElement('span'); n.textContent = it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; b.appendChild(n);
-    if(sub){ var c = document.createElement('em'); c.textContent = sub; b.appendChild(c); }
+    if(sub != null){ var c = document.createElement('em'); c.textContent = sub; if(money) c.className = 'money'; b.appendChild(c); }
     b.setAttribute('aria-label', it.name);
     b.addEventListener('click', onTap);
   } else b.disabled = true;
@@ -442,7 +446,7 @@ function shopSheet(k, body, acts, line){
       var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
       var card = document.createElement('div'); card.className = 'slots'; card.textContent = it.nums + '   (was ' + it.was + ')'; sb.appendChild(card);
       var full = S.stash.length >= BAG_SLOTS;
-      sb.appendChild(act(full ? 'Your bag is full' : 'Buy it', it.price + ' batt', function(){
+      sb.appendChild(act(full ? 'Your bag is full' : 'Buy it', moneyWord(it.price), function(){
         if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
         P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
         S.stock[k].splice(S.stock[k].indexOf(it), 1); S.stash.push(it); bagSave();
@@ -450,7 +454,7 @@ function shopSheet(k, body, acts, line){
         post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB(k, 'Yours. It is in your bag.');
       }, full || bats() < it.price));
       sb.appendChild(act('Not this one', '', function(){ openB(k); }));
-    }, it.price + 'b'));
+    }, it.price, true));
   });
   var h2 = document.createElement('div'); h2.className = 'gridh'; h2.textContent = 'YOUR BAG  ' + S.stash.length + ' / ' + BAG_SLOTS; acts.appendChild(h2);
   /* RUN TWO [the bag sorts]: Battle Brothers' sort button, one shared function (engine/bohemia_bag_sort.js) */
@@ -465,12 +469,12 @@ function shopSheet(k, body, acts, line){
       bagG.appendChild(iconTile(it, function(){
         openB(k, 'Your ' + it.name.replace(/^(a|an) /,'') + '? I give you ' + back + ' for it.');
         var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
-        sb.appendChild(act('Sell it', '+' + back + ' batt', function(){
+        sb.appendChild(act('Sell it', '+' + moneyWord(back), function(){
           P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
           S.stash.splice(S.stash.indexOf(it), 1); bagSave(); post('sellArms', {item:it, got:back}); shelf(); openB(k, 'Pleasure. ' + back + ' batteries.');
         }));
         sb.appendChild(act('Keep it', '', function(){ openB(k); }));
-      }, it ? '+' + back : null));
+      }, it ? '+' + back : null, true));
     })(S.stash[si] || null);
   }
 }
@@ -605,6 +609,10 @@ var S = {
 };
 var P = window.BohemiaPurse;
 function bats(){ return P ? P.balance(S.purse,'electricity') : 0; }
+/* THE MONEY IS SPELLED ONE WAY (UI [eyes: four spellings], rule 150, EYES 10/24 item 26: '290 BATTERIES', '30 batt', '1 battery',
+   '138b' on one screen): in words it is always 'N batteries' / '1 battery'; where a tag has no room, the number and the kit's
+   battery mark (a tile's em.money, drawn by bohemia_ui_materials.js), never 'batt' or 'b' */
+function moneyWord(n){ return n + (n === 1 ? ' battery' : ' batteries'); }
 function post(act, o){
   var m = {type:'BOHEMIA_SETTLEMENT', act:act, place:S.place.name, batteries:bats()};
   for(var k in (o||{})) m[k]=o[k];
@@ -716,7 +724,7 @@ function buildSheet(body, acts, line){
   var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);
   body.appendChild(speak('build', line || (free ? 'One battery and a day for any of these. What goes up?' : 'Every lot here has something on it.')));
   list.forEach(function(e){
-    acts.appendChild(act(e.name, '1 batt  ' + buildDoes(e), function(){
+    acts.appendChild(act(e.name, '1 battery  ' + buildDoes(e), function(){
       var lot = buildFreeLot(); if(!lot) return openB('build', 'Every lot here has something on it.');
       var r = LB.start(b.site, S.purse, lot, e.id, buildDay(), hold);
       if(!r.ok) return openB('build', BUILD_NO[r.why] || 'It will not go up.');
@@ -1490,7 +1498,7 @@ function hireCard(r){
     e.className = (starOf[k] ? 'star' : '') + (ts.moved[k] ? (ts.moved[k] > 0 ? ' up' : ' down') : ''); st.appendChild(e); });
   t.appendChild(st); c.appendChild(t);
   var price = hallPrice(r), night = HIRE.bill;
-  c.appendChild(act('Hire', price + ' batt' + (night ? '  ·  ' + night + ' a night' : ''), function(){
+  c.appendChild(act('Hire', moneyWord(price) + (night ? '  ·  ' + moneyWord(night) + ' a night' : ''), function(){
     if(bats() < price) return openB('hall', r.name + ' wants ' + price + '. You have ' + bats() + '.');
     P.debit(S.purse, 'electricity', price, 'hire:' + r.backgroundId, S.place.name, S.day);
     S.taken[r.id] = true;
@@ -1627,7 +1635,7 @@ function face(k, who, look){
 }
 function speak(k, line){
   /* WORDS [spanglish at ten percent] (rule 143a, Paolo 10/24): the keeper's line is rolled per line, his word of Spanish now and then */
-  if(window.BohemiaSpanglish && typeof line === 'string') line = BohemiaSpanglish.say('keeper:' + k + ':' + ((S.place && (S.place.id || S.place.name)) || ''), line, 'settle:' + k);
+  if(window.BohemiaSpanglish && typeof line === 'string' && !(KEEPERS[k] && KEEPERS[k].who === 'you')) line = BohemiaSpanglish.say('keeper:' + k + ':' + ((S.place && (S.place.id || S.place.name)) || ''), line, 'settle:' + k);
   var w = document.createElement('div'); w.className = 'who';
   w.appendChild(mouth(face(k), line));
   var s = document.createElement('div'); s.className = 'say';
@@ -1669,7 +1677,7 @@ function clientLook(o){
 }
 function clientName(o){ return (o.client.name + ', ' + o.client.from).toUpperCase(); }
 function clientAct(o, full){
-  var b = act(o.title, '☠'.repeat(o.skulls||1) + '  ' + o.pay + ' batt', function(){ offerSpeak(o); }, full);
+  var b = act(o.title, '☠'.repeat(o.skulls||1) + '  ' + moneyWord(o.pay), function(){ offerSpeak(o); }, full);
   b.className = 'act client'; b.dataset.id = o.id;
   var f = face(null, clientWho(o), clientLook(o)); f.classList.add('small');
   var cl = document.createElement('div'); cl.className = 'cl';
@@ -1751,7 +1759,7 @@ function openB(k, line){
       /* the staff's price is what his line says, once, and the tap charges it (TUNING's screens seed: the button said
          '1 battery a night', the line '200 batteries, once', the tap charged nothing); a paymaster's cut is in the price */
       var sp = F.hirePrice ? F.hirePrice(id, S.hired) : 0;
-      acts.appendChild(act('Take the '+id+' on', sp + ' batt, once', function(){
+      acts.appendChild(act('Take the '+id+' on', moneyWord(sp) + ', once', function(){
         if(bats() < sp) return openB('hall', F.cantAffordLine ? F.cantAffordLine(id) + ' ' + sp + ', and you have ' + bats() + '.' : 'You are short.');
         P.debit(S.purse, 'electricity', sp, 'staff:' + id, S.place.name, S.day);
         S.hired[id] = true; post('hire',{role:id, price:sp}); heard(F.hireLine(id)); shelf(); openB('hall');
@@ -1809,7 +1817,7 @@ function openB(k, line){
     var bw = speak(k, line || (roundsLeft > 0 ? 'A round for the whole crew, ' + price + ' batter' + (price===1?'y':'ies') + '. Drink, and I tell you what I heard.' : 'That is enough for one night. Come back tomorrow.'));
     if(free){ bw.dataset.news = free.id; post('news', {free:true, rumour:free.id, about:free.place, trait:free.trait, line:free.says}); }
     body.appendChild(bw);
-    acts.appendChild(act('Buy the crew a round', price + ' batt', function(){
+    acts.appendChild(act('Buy the crew a round', moneyWord(price), function(){
       if(bats() < price) return openB('bar', 'No batteries, no round, compa.');
       P.debit(S.purse, 'electricity', price, 'bar:round', S.place.name, S.day);
       S.rounds = (S.rounds||0) + 1;
@@ -1841,7 +1849,7 @@ function openB(k, line){
       var row = document.createElement('div'); row.className = 'slots';
       row.textContent = w.name + ': ' + w.injuryName + ', ' + w.days + ' day' + (w.days===1?'':'s') + ' left' + (w.pain ? '. ' + w.pain : '');
       acts.appendChild(row);
-      acts.appendChild(act('Treat ' + w.name + ': ' + w.days + ' days to ' + Math.max(1, cut), price + ' batt', function(){
+      acts.appendChild(act('Treat ' + w.name + ': ' + w.days + ' days to ' + Math.max(1, cut), moneyWord(price), function(){
         if(bats() < price) return openB('clinic', 'That is ' + price + ' batteries for ' + w.name + '. You have ' + bats() + '.');
         P.debit(S.purse, 'electricity', price, 'clinic:' + w.name, S.place.name, S.day);
         var before = w.days; w.days = Math.max(1, cut); w.treated = true;

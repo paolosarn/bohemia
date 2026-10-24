@@ -78,7 +78,8 @@ async function measure(profile) {
     const pressed = [['gear', M.gear], ['NOTES', M.notes], ['phone', M.phone]].concat(M.speeds.map(s => [s.t, s]), M.faces.map((f, i) => ['face ' + i, f]));
     const small = pressed.filter(([, r]) => !r || r.w < 44 || r.h < 44);
     ok('  every pressed thing is 44 points', small.length === 0, small.map(([k, r]) => k + ' ' + (r ? Math.round(r.w) + 'x' + Math.round(r.h) : 'none')).join(', '));
-    ok('  the phone stays a phone, 19.5 by 9', !!M.phone && Math.abs(M.phone.h / M.phone.w - 2.167) < 0.12, M.phone && Math.round(M.phone.w) + 'x' + Math.round(M.phone.h));
+    /* RE-AIMED 10/24 (UI [eyes: the empty phone], rule 150): as tall as what it holds, never past 19.5 by 9 */
+    ok('  the phone stays a phone, never taller than 19.5 by 9', !!M.phone && M.phone.h / M.phone.w <= 2.167 + 0.12, M.phone && Math.round(M.phone.w) + 'x' + Math.round(M.phone.h));
     const g = M.three.glass, f3 = M.three.faces;
     /* RE-AIMED 10/11 by his eleventh votes ('it will never be on the UI display of the phone itself', UI [the flip off the
        face]): with all three unlocked the family is NOT on the phone's face either way up; it lives in the opened phone */

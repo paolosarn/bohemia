@@ -44240,7 +44240,7 @@ function huntDraw(ox, oy){
 /* THE PLATE ON A PARTY: how many, the skulls, where it is going (and for a hunter, the blocks to contact) */
 function partyPlatePush(id, sx, topY, info){
   if(!info) return null;
-  var t = info.count + ' · ' + info.going + (info.hunt ? ' · ' + huntDist() + ' BLOCKS' : '');
+  var t = info.count + ' · ' + info.going + (info.hunt ? ' · ' + huntDist() + (huntDist() === 1 ? ' BLOCK' : ' BLOCKS') : '');   /* WORDS [eyes: one blocks]: 1 BLOCK */
   g.font = '700 9px ' + FACE('casing');
   var w = g.measureText(t).width + info.skulls * 8 + 4;
   var lx = Math.max(2, Math.min(CVW - w - 8, sx - w / 2 - 3)), cx = lx + 3 + w / 2;   /* inside the glass at the edges */
@@ -44544,7 +44544,7 @@ function loopTakeContract(c){
   try{ if(window.BohemiaJobKinds) BohemiaJobKinds.make(job, c, town, tg); }catch(_e){}
   LOOP.held.push(job);
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Took a contract in ' + town.name + ': ' + job.title + '.', 'contract'); }catch(_e){}
-  loopSay(job.sayTake || ('Contract from ' + town.name + ': ' + job.title + '. Pay ' + job.pay + ' battery. The JOB is marked on the map.'));
+  loopSay(job.sayTake || ('Contract from ' + town.name + ': ' + job.title + '. Pays ' + job.pay + (job.pay === 1 ? ' battery' : ' batteries') + '. The job is marked on the map.'));   /* WORDS [eyes: one blocks], rule 150: '45 batteries', never '45 battery' */
   return true;
 }
 function loopSettleBats(n, why){

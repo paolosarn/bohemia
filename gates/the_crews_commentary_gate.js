@@ -55,9 +55,19 @@ leg(types.length >= 6 && !holes.length && B.draft === true && !!B.source, '*** T
       const t0 = performance.now();
       while (performance.now() - t0 < beatMs() * 2 && !(FIGHT_UI.call && FIGHT_UI.call.moment === 'man_down')) await new Promise(r => setTimeout(r, 30));
       const C = FIGHT_UI.call;
-      return { who: v.name, line: C && C.line, by: C && FIGHT.byId(C.who).name, ms: Math.round(performance.now() - t0) };
+      return { who: v.name, call: callName(v), line: C && C.line, by: C && FIGHT.byId(C.who).name, ms: Math.round(performance.now() - t0) };
     });
-    leg(!!s4.line && s4.line.toLowerCase().indexOf(s4.who.toLowerCase()) >= 0 && s4.by !== s4.who, '*** A MAN DOWN IS CALLED BY NAME ***, by another man, within two beats', s4.by + ': ' + s4.line + ' (' + s4.ms + ' ms)');
+    /* RE-AIMED 10/24 (WORDS [eyes: the broken template], rule 150): a mate is called by his first name, so the line carries
+       callName(v), and the forms that broke are held: YOU is 'the boss' at any place in a line, a two-word name is one word */
+    const s4b = await p.evaluate(() => {
+      const me = FIGHT.S.units.filter(u => u.main)[0] || { main: true, name: 'YOU', side: 'you' };
+      const fill = t => wfill(t, { name: callName(me) }).replace(/(^|[.!?]\s+)the boss/g, (m, a) => a + 'The boss');
+      return { a: fill("{name} dropped his wallet. I'm holding it for him."), b: fill('I was RIGHT next to {name}! Get them!'),
+        two: callName({ side: 'you', name: 'OCTAVIO ELLISON' }), el: callName({ side: 'you', name: 'EL GUERO SALAS' }), foe: callName({ side: 'them', name: 'BIG RAY CASTILLO' }) };
+    });
+    leg(s4b.a === "The boss dropped his wallet. I'm holding it for him." && s4b.b === 'I was RIGHT next to the boss! Get them!' && s4b.two === 'Octavio' && s4b.el === 'El Guero' && s4b.foe === 'Big Ray Castillo',
+      'A LINE NEVER READS LIKE A FORM: YOU fills a slot as the boss, a mate by his first name, a man of theirs by his whole name', [s4b.a, s4b.b, s4b.two, s4b.el, s4b.foe].join(' | '));
+    leg(!!s4.line && s4.line.toLowerCase().indexOf(s4.call.toLowerCase()) >= 0 && s4.by !== s4.who, '*** A MAN DOWN IS CALLED BY NAME ***, by another man, within two beats', s4.by + ': ' + s4.line + ' (' + s4.ms + ' ms)');
     /* 5: the speaker falls with his line up */
     const s5 = await p.evaluate(async () => {
       const C = FIGHT_UI.call; if (!C) return { up: false };

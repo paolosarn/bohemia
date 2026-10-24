@@ -69,8 +69,8 @@ const byId = {}; FILE.origins.forEach(o => { byId[o.id] = o; });
     const off = want.filter(w => { const g = pre.all.out.find(x => x.id === w.id && x.econ === w.econ); return !g || g.men !== w.men || g.bg !== w.bg || g.cap !== w.cap || g.start !== w.start; });
     ok('O2 the door reads it: every origin at every shelf builds the file\'s company, cap and start (' + (want.length - off.length) + ' of ' + want.length + (off.length ? '; off: ' + off.slice(0, 3).map(w => w.id + '/' + w.econ).join(' ') : '') + ')', off.length === 0);
     const cardOff = os.filter(o => { const c = pre.all.cards.find(x => x.id === o.id); if (!c) return true; const t = c.text;
-      return t.indexOf(o.name) < 0 || t.indexOf('START ' + o.batteries.bare) < 0 && t.indexOf('START ' + o.batteries.thin) < 0 && t.indexOf('START ' + o.batteries.full) < 0
-        || (o.men.length === 1 ? t.indexOf('JUST YOU') < 0 : t.indexOf(o.men.length + ' MEN') < 0) || t.indexOf(o.field_cap + ' IN A FIGHT') < 0; });
+      return t.indexOf(o.name) < 0 || t.indexOf(o.batteries.bare + ' BATTERIES') < 0 && t.indexOf(o.batteries.thin + ' BATTERIES') < 0 && t.indexOf(o.batteries.full + ' BATTERIES') < 0
+        || (o.men.length === 1 ? t.indexOf('JUST YOU') < 0 : t.indexOf('YOU AND ' + (o.men.length - 1) + (o.men.length === 2 ? ' MAN' : ' MEN')) < 0) || t.indexOf('ROOM FOR ' + o.field_cap + ' IN A FIGHT') < 0; });   /* RE-AIMED 10/24 (WORDS [eyes: twelve in a fight]): the first man is YOU, the cap is room */
     ok('O3 the card says what the game applies (' + (os.length - cardOff.length) + ' of ' + os.length + ' cards name the men, the cap and the start' + (cardOff.length ? '; off: ' + cardOff.map(o => o.id).join(' ') : '') + ')', cardOff.length === 0);
 
     await d.page.waitForTimeout(3000);

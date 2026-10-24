@@ -45,7 +45,8 @@ const done = () => { console.log('\nTHE FLIP OFF THE FACE: ' + pass + ' ok, ' + 
   await p.waitForTimeout(900);
   ok('BEFORE THE CRISIS: NOTHING ON THE PHONE\'S FACE SWITCHES ACTS (no family card painted on it)', (await faceCards()) === 0, (await faceCards()) + ' cards on the face');
   /* rule 148: the chat stream is off the face; the finger opens the phone on the glass under the two jobs */
-  const sc = (await R('#cityfeedscreen'))[0], list = { x: sc.x, y: sc.y + sc.h - 72, w: sc.w, h: 64 };
+  /* RE-AIMED 10/24 (UI [eyes: the empty phone], rule 150): the glass under the jobs is the phone's 48-point home strip now */
+  const sc = (await R('#cityfeedscreen'))[0], list = { x: sc.x, y: sc.y + sc.h - 48, w: sc.w, h: 48 };
   await tapAt(list);
   const e0 = (await R('#bmtimes')).filter(r => r.vis);
   ok('  a real finger opens the phone, and there is no switch anywhere in it', (await isOpen()) && e0.length === 0, 'open ' + (await isOpen()) + ', entries ' + e0.length);
@@ -87,7 +88,7 @@ const done = () => { console.log('\nTHE FLIP OFF THE FACE: ' + pass + ' ok, ' + 
     ok('  and a real finger on a card makes it the one you are', after !== before, 'act ' + before + ' -> ' + after);
     ok('  and the phone\'s face still carries none', (await faceCards()) === 0);
     await fr.evaluate(() => { const c = document.getElementById('phoneclose'); if (c) c.click(); }); await p.waitForTimeout(900);
-    await tapAt(list);
+    { const s2 = (await R('#cityfeedscreen'))[0]; await tapAt({ x: s2.x, y: s2.y + s2.h - 48, w: s2.w, h: 48 }); }   /* the phone is as tall as what it holds: read it again */
     const again = await fr.evaluate(() => ({ open: document.getElementById('phonewrap').classList.contains('on'), entry: !!(document.getElementById('bmtimes') || {}).offsetParent, panel: (document.getElementById('bmtimespanel') || { classList: { contains: () => false } }).classList.contains('on') }));
     ok('CLOSE SHUTS THE PANEL WITH THE PHONE; OPENED AGAIN, THE ENTRY IS THERE AND THE PANEL SHUT', again.open && again.entry && !again.panel, JSON.stringify(again));
   } else { ok('  its words pass', false); ok('A REAL FINGER ON IT OPENS THE FAMILY', false); ok('  a card flips', false); ok('  the face carries none', false); ok('CLOSE SHUTS THE PANEL', false); }
