@@ -140,3 +140,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_86_PROVISIONS_AND_SPOILING_2026_10_24.md | provisions, spoiling, consumption
 - 2026-10-24 | ASK | GROK_ASK_87_TOOLS_AND_REPAIRS_2026_10_24.md | tools, repairs, durability
 - 2026-10-24 | ASK | GROK_ASK_88_AMMUNITION_AND_RANGED_RELOADS_2026_10_24.md | ammunition, reloads, stockpile
+- 2026-10-24 | ASK | GROK_ASK_89_MEDICINE_AND_HEALING_2026_10_24.md | medicine, healing, injuries
