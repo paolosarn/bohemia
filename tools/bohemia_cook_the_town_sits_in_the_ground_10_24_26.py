@@ -20,8 +20,10 @@ only the ground it stands on thins at its feet. The second and third are RUN's c
 (__THE_TOWN_SITS_IN_THE_GROUND__) and a NOTE on RUN's board.
 
     python3 tools/bohemia_cook_the_town_sits_in_the_ground_10_24_26.py [town fort trailer]
-      reads and rewrites records/target/cook_map_colour/masters/<d>.png (run after the render's finish, before the bank);
-      idempotent by the ledger: a master already dissolved (its hash in the ledger) is left alone.
+      reads records/target/cook_map_colour/masters/<d>.png (after the render's finish) and the render it was cropped from,
+      and writes the MAP'S OWN town picture, slices/map_towns/BOHEMIA_TOWN_IN_GROUND_<d>.png, at 448 px wide (the map draws a
+      town at most 74 CSS px, 222 device px): the district TILE in the bank stays whole, a cell edge to edge (the square
+      icons gate, Paolo 8/11: 'nothing floats, the tile is its cell'); only the map's town wears the dissolve.
 
 REFERENCE CHECK (the 9/4 standing duty): Battle Brothers' map (9/24): a town is drawn INTO the terrain, its walls and roofs
 on the same grass and dirt as the field around it, no plate, no outline; the only thing over the ground is the banner.
@@ -38,6 +40,8 @@ MASTERS = os.path.join(R, 'records/target/cook_map_colour/masters')
 LEDGER = os.path.join(R, 'records/target/cook_map_colour/ledger.json')
 SETTLE = ('town', 'fort', 'trailer')     # MAP_TIER_HERO: fortress -> fort, town -> town, camp -> trailer
 FADE = 0.14                              # the outer share of the plate that thins out
+OUT_DIR = os.path.join(R, 'slices/map_towns')
+MAP_W = 448                              # twice the widest the map ever draws a town (74 CSS px x a 3x phone)
 
 
 def vnoise(H, W, cell, seed):
@@ -148,15 +152,14 @@ def ledger_put(d, row):
 
 def main():
     names = sys.argv[1:] or list(SETTLE)
-    L = json.load(open(LEDGER)) if os.path.exists(LEDGER) else {}
+    os.makedirs(OUT_DIR, exist_ok=True)
     for d in names:
-        fn = os.path.join(MASTERS, d + '.png')
-        h = hashlib.md5(open(fn, 'rb').read()).hexdigest()
-        if L.get(d, {}).get('sits_in_the_ground', {}).get('out') == h:
-            print('  %-8s already sits in the ground' % d); continue
         out, info = dissolve(d, sum(map(ord, d)) * 13 + 5)
-        out.save(fn, optimize=True)
-        info['out'] = hashlib.md5(open(fn, 'rb').read()).hexdigest()
+        w = MAP_W; h = int(round(out.height * w / out.width))
+        small = out.resize((w, h), Image.LANCZOS)
+        fn = os.path.join(OUT_DIR, 'BOHEMIA_TOWN_IN_GROUND_%s.png' % d)
+        small.save(fn, optimize=True)
+        info.update(map_picture=os.path.relpath(fn, R), size=[w, h], bytes=os.path.getsize(fn))
         ledger_put(d, {'sits_in_the_ground': info})
         print('  %-8s %s' % (d, json.dumps(info)))
 
