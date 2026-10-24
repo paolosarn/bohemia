@@ -6,6 +6,49 @@ runs the remake, RUN keeps the map's code. Rule 142 (the same hour): one map at 
 are what it shows. This is the part of the map COOK cannot swap, because it is not a picture: it is colour constants in
 `slices/BOHEMIA_CITY_WORLD.html`. Nothing here is edited by COOK.
 
+## 0. READ THIS FIRST (added at the round's end, after RUN's BUILD 10/24h)
+
+RUN's `__ONE_MAP_AT_EVERY_ZOOM__` (ff65d67b, rule 142) draws the painting at every zoom and never draws the per-block
+pictures once it is in. So since 19:44 the whole map's colour is the painting's: `VB_CCOL` (the city) and `VB_COL` (the
+land). COOK's 69 district pictures are all in colour now (aea0a744) and the painting does not show them. MEASURED on the
+map after both (`records/target/cook_map_colour/after/spread.json`): sand 79% far, 66% district, 42% opening, 42% step,
+35% near; the near stop was 31% with COOK's pictures drawing (`batch2`), and is the painting's tan now. Rule 142(c) says
+COOK's remade pictures are what the one map shows; the painting is RUN's way to be one map, so the painting must carry
+their colour. THE FASTEST FIX is the table in section 2b: the painting's keys re-read off the new pictures (k-means on
+each master, the rendered colour, the same method as 10/23), every value checked against the sand test.
+
+## 2b. VB_CCOL, MEASURED OFF THE NEW PICTURES (old -> new)
+
+| key | now | new | what it is |
+|---|---|---|---|
+| yard | #8c7b63 (sand) | #697160 | the suburb's yard (lawn, weeds and gravel), measured |
+| yard2 | #80705a (sand) | #7e8282 | grey gravel, measured |
+| roofA | #bba98e (sand) | #ae7770 | terracotta tile, measured |
+| roofB | #aa997f (sand) | #86655f | dark tile, measured |
+| lawn | #4f553b | #5a6d56 | the park's lawn, measured |
+| pool | #3f4f45 | #3f86b8 | a pool, blue |
+| poolDry | #8f897c (sand) | #a9adb0 | a drained pool |
+| gold | #a3916a (sand) | #c49a48 | the resort's gold glass |
+| floor | #90826b (sand) | #8c7672 | the desert floor, red-grey |
+| pebble | #b09c74 (sand) | #a39d9a | pale gravel |
+| wallG | #8d8270 (sand) | #bab7b0 | stucco, measured |
+| roofE / roofE2 | #a08270 / #8e7262 (sand) | #ae7770 / #86655f | the estate's tile |
+| trailer / trailer2 | #8f877a / #7a7367 (sand) | #a88f8a / #8a958c | pink and sage trailers |
+| slab | #8f877b (sand) | #8a8886 | concrete |
+| rust | #74604f (sand) | #7a4738 | rust, measured on the freeway |
+| dirt | #6d6556 (sand) | #6b6a66 | grey dirt |
+| line / mark | #7d725c / #857a62 (sand) | #9a9690 / #8a8682 | paint and marking |
+| tie | #6b5a48 (sand) | #5e4038 | rail ties |
+| shop | #837e75 (sand) | #7e4436 | brick, measured on the commercial block |
+| green / tree | #5f6a45 / #3f4a30 | #4f6e3e / #2c4327 | green, a tree, measured |
+| brush | #5f5440 (sand) | #4c5c36 | creosote |
+| towerTop / tower | #aaa498 (sand) / #8c877f | #a8aaae / #7f8590 | the towers' concrete |
+
+The pictures' own variety (a different stucco and tile a house, a pool in every third yard, the Strip's neon, the red
+rock and basalt on the rim) is what a palette of one colour a key cannot carry; the painting could roll each house's
+stucco and tile from `banks/BOHEMIA_MAP_COLOUR_DIALS_10_24_26.json`'s `themes.house.wall` and `.roof` the way it rolls
+its heights.
+
 ## THE MEASURE (tools/bohemia_cook_map_colour_spread_10_24_26.js, the map's own canvas, the one driver)
 
 The sand family (CIELAB L* 30 to 86, chroma 5 to 40, hue 45 to 105 degrees) on the glass, before this round:
