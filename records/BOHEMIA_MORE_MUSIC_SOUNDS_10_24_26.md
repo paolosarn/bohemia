@@ -31,7 +31,18 @@ phone's speaker (inside 0.5 dB), none clipped, its tune not buried (no more than
 -25 dB); the machine plays its
 five parts (press, clock, party, steel, motor) in every song.
 
-SONGS_TABLE
+| Song | Parent (his) | Fields changed (each from a canon song) | Card id | Phone rms vs parent | Tune vs mix (parent's) |
+|---|---|---|---|---|---|
+| THE METER READER | REPO MAN | lead brokenkeys (PAWNSHOP PSALM), accent dreadbed (THE PIT BOSS IS GONE) | sounds-the-meter-reader-10-24 | 0.00 dB | -14.7 dB (-15.0) |
+| THE SUBSTATION HUMS ALONE | GHOST IN THE GRID | lead cracklewire, accent vacancyhum, hat sizzle | sounds-the-substation-hums-alone-10-24 | +0.01 dB | -21.6 dB (-24.7) |
+| THE LOBBY PIANO STILL PLAYS | SLOW BLEED | lead drownedpiano, bass undertowbass, hat ride (THE SENDING) | sounds-the-lobby-piano-still-plays-10-24 | 0.00 dB | -12.4 dB (-12.7) |
+| THE CASHIER'S CAGE | THE VAULT | lead rotviola, accent chapelbreath, mel call | sounds-the-cashier-s-cage-10-24 | +0.01 dB | -12.6 dB (-17.2) |
+| THE MALL AFTER CLOSING | THE ORGAN IN THE DROWNED CHAPEL | lead atriumvox, accent deadsat, kick [0,10] | sounds-the-mall-after-closing-10-24 | +0.01 dB | -14.6 dB (-44.7) |
+| THE LAST BUS TO HENDERSON | SLOW CREEP | lead ghostflute, bass abyssbass | sounds-the-last-bus-to-henderson-10-24 | 0.00 dB | -20.5 dB (-11.8) |
+
+All six registered at sha c85b6dd0 (registry pushes 40b2b586, 40dfd96e, b63cd556). Verified on main by the parent: the
+six ids in records/target/BOHEMIA_VOTE_REGISTRY.json, no song name in a song row or song key of the alpha or the demo,
+MORE MUSIC 105/0, SONG LOCK 31/0.
 
 ## FOUND
 - THE CASHIER'S CAGE's first lead, A GASP IN THE VAULT's paper lung, measured its tune 33.9 dB under the mix on a phone

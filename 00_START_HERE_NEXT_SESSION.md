@@ -949,6 +949,51 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sounds-more-music): 10/24 LATEST (round thirty-three, [more music, on the one beat], rule 158) -- SHIPPED
+*** THE SONG'S BEAT IS ONE GRID THE FIGHT CAN READ, AND SIX NEW NIGHT SONGS ARE IN THE VOTE TAB. ***
+His 10/24: 'every time you press a button it's a request... everything is supposed to be on this BPM clock of the music...
+some of the songs are background hums without drums, but we made this universal BPM music thing for a whole reason'; 'we
+need more music'.
+(1) THE ONE BEAT (a311a777, 21820157; tools/bohemia_sounds_the_one_beat_block.js inlined by _patch.py, idempotent; demo re-cut).
+MEASURED FIRST: the transport (MUS) always booked every sixteenth under a hum, drums or not, but nobody could read it, and
+every song change (CITYMUS.play, the room's takeOver, the MUSIC tab's PLAY), a start with no pulse and a stall re-anchored
+the next note at now+0.06 s, a random phase: 239 ms off the beat it left. NOW: every booked beat is stamped as HEARD (the
+context's output timestamp, so a phone's or a Bluetooth speaker's delay is inside the number); a swap, a start and a stall
+count whole beats on the transport's own clock (0.00 ms off); the song's bar still starts over at step 0, so FIGHTMUS,
+the drum hold and the intensity read what they read before. window.BOHEMIA_BEAT: next(div, leadMs) (ms from now to the
+first heard grid point at 1/div of a beat, div 1/2/4/8/16, a delta true in any frame's clock), now(), epoch(), div(n).
+The fight frame (#fightFrame) is handed the object and gets {type:'BOHEMIA_BEAT', inMs, msPerBeat, beatInBar, bar,
+epoch} every beat; BOHEMIA_BEAT_ASK answered. Stopped, the grid runs on ('held'). Gate THE ONE BEAT 12/0 demo and alpha
+(registered; B5 the net: the old swap 240 ms off). FOUND: on the alpha with a song render beside it one heard gap read
+530 ms: the transport exact, the AUDIO slipped 30 ms (an underrun), the grid followed the heard beat; the gate holds the
+beat on the transport's clock and counts heard slips (fails past three in four seconds). Neighbours green: DEMO BUILD
+25/0, SONG LOCK 25/0 then 31/0, RUN BEAT 25/0, THE FIGHT DRIVES THE MUSIC 10/0.
+*** NOTE FOR COMBAT ([every action on the music's beat]): the drop-in for the fight's onBeat() is in
+records/BOHEMIA_THE_ONE_BEAT_SOUNDS_10_24_26.md: `const B = window.BOHEMIA_BEAT || parent.BOHEMIA_BEAT; if (B) { const n =
+performance.now(); return n + B.next(div, Math.max(0, t - n)); }` with the old own-clock line as the standalone fallback;
+the speed picks the division, BOHEMIA_BEAT.div(4 * UI.speed), never divides the clock. No block in the demo is needed
+from COMBAT: the reader is already in it. SOUNDS did not touch slices/BOHEMIA_FIGHT.html. ***
+(2) MORE MUSIC (c85b6dd0, pushes 40b2b586, 40dfd96e, f856c481, b63cd556; tools/bohemia_sounds_more_music.js and _pages.js,
+_sync_cards.py; gate MORE MUSIC 105/0 registered). SIX NEW NIGHT SONGS, each one of his OVERWORLD NIGHT songs' own row with
+two or three fields changed, every value from a canon song (the tool refuses any other), played by his engine with the
+REPO MAN machine party along (the hall, the worn tape, the motor moved into each song's key: engine/bohemia_machine_party.js
+motor.transpose, absent = 0, REPO MAN unchanged): THE METER READER (REPO MAN's), THE SUBSTATION HUMS ALONE (GHOST IN THE
+GRID's), THE LOBBY PIANO STILL PLAYS (SLOW BLEED's), THE CASHIER'S CAGE (THE VAULT's), THE MALL AFTER CLOSING (THE ORGAN IN
+THE DROWNED CHAPEL's), THE LAST BUS TO HENDERSON (SLOW CREEP's). VOTE cards sounds-the-meter-reader-10-24,
+sounds-the-substation-hums-alone-10-24, sounds-the-lobby-piano-still-plays-10-24, sounds-the-cashier-s-cage-10-24,
+sounds-the-mall-after-closing-10-24, sounds-the-last-bus-to-henderson-10-24; each page plays A the new song, B its parent,
+C a second of his, inside 0.5 dB on a phone. NEVER WIRED (rule 122): no row in MLOOPS, CAT_DEFAULTS or the fence; SONG LOCK
+31/0. EYES AND EARS' rule 119(c) line is OWED on all six (EYES runs again, rule 150; its row [the new song beside his
+songs]); they went in by rule 158(d) through tools/bohemia_sounds_register_song.py --rule-158, a door that refuses without
+rule 158 on the board and 'EYES AND EARS' line is owed' on the card. FOUND: his SLOW BLEED and SLOW CREEP clip at engine
+level (468,029 and 770,155 samples); their recordings take 6 dB of headroom (the game's limiter catches it live).
+Records: records/BOHEMIA_THE_ONE_BEAT_SOUNDS_10_24_26.md, records/BOHEMIA_MORE_MUSIC_SOUNDS_10_24_26.md.
+REDS SEEN, NOT THIS ROW'S: VOTE TAB 50/1 (DYNASTY's dynasty-flip-at-crisis-10-9 and dynasty-animal-era-10-10 have no 'where
+you see it'); THE MACHINE PARTY 41/1 (its 10/19 card's 'EYES paused' door, EYES running again; its engine checks green).
+NEXT: on his YES for any song, the cue is its row into MLOOPS and his OVERWORLD NIGHT category (RUN's cut); more songs the
+same way. PENDING Paolo: nothing.
+UNDER UI (rule 113a): SOUNDS put the song's beat where the fight can land on it, the demo, SHIPPED; and made six new night songs in his own machine, VOTE tab, COOKING.
+
 SOUNDS (sounds-squiggle): 10/24 LATEST (round thirty-two, [the squiggle, creepier], rule 135; rule 127: no card) --
 *** THE SQUIGGLE, FROM A RECORDING, A LITTLE WRONG, AND EVERY TALKING FACE SAYS IT. BUILD 10/24c - THE SQUIGGLE, CREEPIER
 (0a344ede, pages run 3674 SUCCESS). ***
