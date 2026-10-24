@@ -138,10 +138,17 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
       out.whoA = a1.h.family + '/' + a1.h.lpb; out.whoB = b1.h.family + '/' + b1.h.lpb;
       /* the ruler, proven, and a cut line */
       out.planted = await planted();
-      const AC = new OfflineAudioContext(1, 44100 * 3, 44100), g = AC.createGain(); g.connect(AC.destination);
-      const h = S.say('One battery and a day for any of these. What goes up?', people[0], AC, g, 0.05);
-      AC.suspend(0.6).then(() => { h.stop(); AC.resume(); });
-      out.cut = (await clicks(await AC.startRendering(), hz)).count;
+      /* A LINE CUT SHORT, at 54 points (three lines, his six, three cuts each, every cut somewhere new): the next line cuts the
+         one talking, so the cut is heard as often as a line starts. One cut passed by luck on 10/24 while 86 of 144 clicked. */
+      out.cut = 0; out.cuts = 0;
+      const CL = ['One battery and a day for any of these. What goes up?', 'My cousin says it is market day over by the Homeless.', 'Work is on the board, mijo.'];
+      for (let li = 0; li < CL.length; li++) for (let pi = 0; pi < 6; pi++) for (let k = 0; k < 3; k++) {
+        const tc = Math.round((0.25 + k * 0.81 + pi * 0.067 + li * 0.023) * 44100 / 128) * 128 / 44100;
+        const AC = new OfflineAudioContext(1, 44100 * 4, 44100), g = AC.createGain(); g.connect(AC.destination);
+        const h = S.say(CL[li], people[pi], AC, g, 0.05);
+        AC.suspend(tc).then(() => { h.stop(); AC.resume(); });
+        out.cut += (await clicks(await AC.startRendering(), hz)).count; out.cuts++;
+      }
       /* his one hard law, per family */
       /* the worst case of the two wobbles the player sums: the faster of the two rates, the two depths added as magnitudes */
       out.law = S.idx.families.map(f => ({ id: f.id, hz: Math.max(S.NUM.WOW_HZ, Math.min(S.NUM.CAP_HZ, Math.max(0.2, f.vib || 0.3))),
@@ -155,7 +162,7 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
     leg(R.same && R.differ, 'ONE VOICE PER PERSON: the same person saying the same words is the same samples every time, another person is not', R.whoA + ' vs ' + R.whoB);
     leg(R.clicks === 0 && R.planted.cut_in.count >= 1 && R.planted.stopped_dead.count >= 1 && R.cut === 0,
       '*** NO CLICKING *** (his 8/11 note): zero clicks in every line, by a ruler that sees both planted clicks, and a line cut short fades',
-      'clicks ' + R.clicks + ' over ' + LV.lines().length + ' lines; planted ' + R.planted.cut_in.count + '+' + R.planted.stopped_dead.count + '; the cut line ' + R.cut);
+      'clicks ' + R.clicks + ' over ' + LV.lines().length + ' lines; planted ' + R.planted.cut_in.count + '+' + R.planted.stopped_dead.count + '; cut short at ' + R.cuts + ' points: ' + R.cut + ' clicks');
     const mean = a => a.reduce((s, x) => s + x, 0) / a.length;
     const lvl = mean(R.levels), worst = Math.max(...R.peaks);   /* the player rides index.gain_db already */
     leg(Math.abs(lvl - LV.MARK) <= 1.0 && worst <= -1.0, 'THE LEVEL: through the game\'s own compressor and brickwall the lines land at the mark, none over -1 dBFS',
@@ -198,11 +205,15 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
   const p = d.page; const perr = []; p.on('pageerror', e => perr.push(String(e.message)));
   try {
     await p.waitForFunction(() => typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running' && window.SQUIGGLE, null, { timeout: 30000 });
+    /* every line the game's one voice says, logged at the call (the message listener calls window.speakLine when it runs) */
     await p.evaluate(() => { const L = window.__SQ = { msgs: [], rms: [], said: [] };
       addEventListener('message', ev => { const m = ev.data; if (m && m.type === 'BOHEMIA_VOICE') L.msgs.push({ speaker: m.speaker, text: m.text, t: performance.now() }); });
+      const real = window.speakLine;
+      window.speakLine = function (speaker, text) { const h = real(speaker, text);
+        if (h) L.said.push({ speaker: String(speaker), text: String(text), t: performance.now(), recorded: !!h.recorded, family: h.family, blips: h.blips, seconds: h.seconds });
+        return h; };
       const an = MUS.AC.createAnalyser(); an.fftSize = 2048; (window.__SFXBUS || MUS.OUT).connect(an); const b = new Float32Array(2048);
-      setInterval(() => { an.getFloatTimeDomainData(b); let s = 0; for (const v of b) s += v * v; L.rms.push({ t: performance.now(), db: 10 * Math.log10(s / b.length + 1e-20) });
-        const h = __lastSpoken(); if (h && (!L.said.length || L.said[L.said.length - 1].h !== h)) L.said.push({ h: h, t: performance.now(), recorded: !!h.recorded, family: h.family, blips: h.blips }); }, 50); });
+      setInterval(() => { an.getFloatTimeDomainData(b); let s = 0; for (const v of b) s += v * v; L.rms.push({ t: performance.now(), db: 10 * Math.log10(s / b.length + 1e-20) }); }, 50); });
     await p.waitForFunction(() => SQUIGGLE.ready(), null, { timeout: 60000 });
     const name = await d.fr.evaluate(() => { const bs = ctBases(), n = Object.keys(bs)[0], t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); return n; });
     let f = null, w = null, box = null, key = null;
@@ -214,20 +225,20 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
         const bb = ww && await (await fr.frameElement()).boundingBox();
         if (ww && bb && bb.width > 0) { f = fr; w = ww; box = bb; break; } } }
     await p.waitForTimeout(4500);
-    const first = await p.evaluate(() => ({ msgs: __SQ.msgs.slice(), said: __SQ.said.map(s => ({ recorded: s.recorded, family: s.family, blips: s.blips, t: s.t })) }));
+    const first = await p.evaluate(() => ({ msgs: __SQ.msgs.slice(), said: __SQ.said.slice() }));
     if (box) { await p.touchscreen.tap(box.x + w.x, box.y + w.y); await p.waitForTimeout(5000); }
-    const S = await p.evaluate(() => ({ msgs: __SQ.msgs, said: __SQ.said.map(s => ({ recorded: s.recorded, family: s.family, blips: s.blips, t: s.t, seconds: s.h.seconds })), rms: __SQ.rms.map(r => [Math.round(r.t), +r.db.toFixed(1)]), err: SQUIGGLE.err }));
+    const S = await p.evaluate(() => ({ msgs: __SQ.msgs, said: __SQ.said, rms: __SQ.rms.map(r => [Math.round(r.t), +r.db.toFixed(1)]), err: SQUIGGLE.err }));
     const sheet = f ? await f.evaluate(() => (document.querySelector('#sbody .say p') || {}).textContent || '').catch(() => '') : '';
-    const greet = first.msgs.find(m => /^face:/.test(m.speaker)), greetSaid = first.said.find(s => s.recorded);
+    const greet = first.msgs.find(m => /^face:/.test(m.speaker)), greetSaid = greet && first.said.find(s => s.speaker === greet.speaker && s.text === greet.text);
     const loudDuring = s => S.rms.filter(r => r[0] >= s.t && r[0] <= s.t + s.seconds * 1000 && r[1] > -45).length * 0.05;
-    const said0 = S.said.find(s => s.recorded);
-    leg(!!greet && !!greetSaid && SIX.includes(greetSaid.family) && said0 && loudDuring(said0) >= 0.4,
+    const said0 = greetSaid;
+    leg(!!greet && !!greetSaid && greetSaid.recorded && SIX.includes(greetSaid.family) && loudDuring(greetSaid) >= 0.4,
       '*** HE HEARS IT THE NEXT TIME SOMEBODY TALKS ***: a town opened from the map, the face that greets him speaks, the shell says his words in the recorded squiggle, the effects bus carries it',
       name + ': ' + (greet ? greet.speaker + ' "' + greet.text + '"' : 'no face spoke') + ' -> ' + (greetSaid ? greetSaid.family + ', ' + greetSaid.blips + ' syllables' : 'not said recorded') + '; over -45 dB on the bus for ' + (said0 ? loudDuring(said0).toFixed(2) : 0) + ' s');
     const later = S.msgs.filter(m => /^face:/.test(m.speaker) && (!greet || m.t > greet.t + 1));
-    const laterSaid = S.said.filter(s => s.recorded && (!greetSaid || s.t > greetSaid.t + 1));
-    leg(later.length >= 1 && laterSaid.length >= 1 && (!sheet || later.some(m => m.text === sheet)),
-      'a keeper tapped with a real touch (' + key + ') speaks too, in the squiggle, his own words', later.map(m => m.speaker + ' "' + m.text + '"').join(' | ') + (sheet ? '; on screen: "' + sheet + '"' : ''));
+    const laterSaid = S.said.filter(s => s.recorded && later.some(m => m.speaker === s.speaker && m.text === s.text));
+    leg(later.length >= 1 && laterSaid.length >= 1 && (!sheet || laterSaid.some(m => m.text === sheet)),
+      'a keeper tapped with a real touch (' + key + ') speaks too, in the squiggle, his own words', laterSaid.map(m => m.speaker + ' "' + m.text + '" -> ' + m.family + ', ' + m.blips + ' syllables').join(' | ') + (sheet ? '; on screen: "' + sheet + '"' : '') + '; every line said: ' + S.said.map(x => x.speaker + (x.recorded ? '' : ' (8/11 voice)')).join(', '));
   } catch (e) { leg(false, 'the demo\'s town ran', String(e.message).slice(0, 220)); }
   leg(!perr.length && !d.errs.length, 'nothing threw in the demo', perr.concat(d.errs).slice(0, 2).join(' | '));
   await d.close();

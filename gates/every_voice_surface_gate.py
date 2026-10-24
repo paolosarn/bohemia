@@ -47,6 +47,11 @@ SURFACES = [
     # the gate doing its job before a human had to.
     ('BOHEMIA_RUN_SLICE_7_26_26.html', 'the RUN\'s dev source, which the built run comes from'),
     ('BOHEMIA_ALPHA_0_9.html',     'the COLD OPEN caption -- the demo\'s first fifteen seconds'),
+    # THE DEMO (SOUNDS 10/24, [the squiggle, creepier]): the alpha cut, so it carries the cold open's caption marker
+    # and was found UNLISTED by this sweep on main before this row touched it (cutCaption, 2b0c5838). It is the
+    # surface he plays: every talking face in it says its line through the shell's speakLine, and
+    # gates/the_squiggle_creepier_gate.js presses a town's keeper in it and hears him.
+    ('BOHEMIA_DEMO.html',          'the DEMO, cut from the alpha: every talking face heard through speakLine'),
 ]
 
 # HOW A SURFACE IS RECOGNISED. The first version of this sweep looked for one

@@ -88,8 +88,12 @@ saying the same line is wrong in the same place every time, like a damaged tape,
   dies; never a question.
 - A ROOM ON IT: baked in by the tool, so the player builds no convolver (SCREECH LAW: no delay, no convolver, no waveshaper, no
   feedback anywhere in it).
-NO CLICKING: every take starts and ends on zero in the file, every gain starts at zero, ramps up in 5 ms and down to true zero
-before stop(); a line cut short by the next one fades in 15 ms.
+NO CLICKING: every take starts and ends on zero in the file, every gain is BORN at zero (a new gain is 1 until its first event,
+and a source started between two samples hands out one frame at 1 first: the one click the first build had, 60.9 dB over its
+neighbours on a doubled syllable), ramps up in 5 ms and down to true zero before stop(). A LINE CUT SHORT (the next line cuts
+the one talking, so it happens as often as a line starts) fades on the line's own output, which nothing else automates, in
+15 ms: the first build cancelled every syllable's own envelope instead and that clicked at 86 of 144 cut points (Chromium
+held the cancelled envelope wrong mid-ramp); now 0 of 144.
 
 ## INTO THE GAME (tools/bohemia_squiggle_patch.py; the demo cut by tools/bohemia_cut_the_demo.js)
 
@@ -109,13 +113,16 @@ before stop(); a line cut short by the next one fades in 15 ms.
 THE MARK: -22 dB after the game's compressor and brickwall (the loudest 100 ms windows, the top fifth): a person talking sits
 just under the gun (-20) and level with a bullet landing, and the music ducks for him. Measured over 19 of the game's lines
 said by his six and six people cast from his envelope: the old voice -27.7 dB, the new at 0 dB -10.5 dB, so the player rides
--11.54 dB. A line lasts 4.0 s (the old 3.1): every letter on the grid, a word gap a step, a comma two, a full stop three.
+-14.15 dB, FOUND BY STEPS (the chain's compressor bends the level: one subtraction from the 0 dB reading put it at -19.4,
+the second step at -22.0). A line lasts 4.0 s (the old 3.1): every letter on the grid, a word gap a step, a comma two, a full stop three.
 
 THE CLICK RULER: a click is a step, broadband and over in a millisecond; the skirt of a real 's' up there is noise-like and lasts
 tens of ms. So: everything above 13 kHz (nothing a syllable says reaches it: the band stops at 7.2 kHz and the most a playback
 rate lifts it is x1.5), in 0.5 ms frames, a click is a frame 15 dB over the median of the 40 around it and within 45 dB of the
 line's peak. PROVEN ON TWO PLANTED CLICKS (a take cut in at its loudest sample, the same take stopped dead there): both seen,
-92 dB over their neighbours. THE NEW VOICE: 0 clicks in 19 lines, its worst frame 11.8 dB over its neighbours. THE OLD: 8.
+92 dB over their neighbours. WHY 20 dB: a real stop's release (a t, a k) is itself a transient and measured up to 13.9 dB over its neighbours in these
+recordings; the click a gain born at 1 made stood 60.9 dB over them, the cut that cancelled envelopes up to 92, the planted 92.
+THE NEW VOICE: 0 clicks in 19 lines (its worst frame 13.9 dB) and 0 at 144 cut points (worst 9.3). THE OLD: 3 in 19 lines.
 
 ## MEASURED IN THE GAME (the demo, his phone's door, through the map)
 

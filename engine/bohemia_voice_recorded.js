@@ -177,6 +177,9 @@
         } catch (_e) {}
 
         var live = [], t = t0, said = 0, n = 0, lastTake = {}, creep = { dropped: [], doubled: [], breath: null, sag: sagN ? +sagD.toFixed(3) : 0 };
+        /* ONE OUTPUT FOR THE LINE, at 1 and never automated until a cut: a cut fades THIS, so it never has to cancel a
+           syllable's own envelope mid-ramp (measured 10/24: cancelling them clicked on 86 of 144 cut points) */
+        var lineOut = AC.createGain(); lineOut.gain.value = 1; lineOut.connect(dest);
         var lastWeird = -9, rates = [], i, ch;
 
         function blip(at, take, rate0, rate1, gain, dropped) {
@@ -195,7 +198,7 @@
           g.gain.linearRampToValueAtTime(0, at + real);      /* TRUE zero before stop(), the 8/11 fix */
           s.connect(g);
           if (dropped) { var lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 600; lp.Q.value = 0.5; g.connect(lp); node = lp; }
-          node.connect(dest);
+          node.connect(lineOut);
           s.start(at, Math.max(0, take[0] + self.shift), dur);
           s.stop(at + real + 0.01);
           live.push({ s: s, g: g });
@@ -262,15 +265,10 @@
           blips: n, seconds: +(t - t0).toFixed(3), tail: +(end - t0).toFixed(3), start: t0, mood: m, recorded: true,
           family: fam.id, lpb: lpb, pitch: +pitch.toFixed(4), creep: creep, rates: rates,
           stop: function () {
+            /* a cut line fades on its own output, it never stops dead (a click); then every syllable stops after the fade */
             var now = AC.currentTime;
-            for (var k = 0; k < live.length; k++) {
-              try {
-                var gp = live[k].g.gain;
-                if (gp.cancelAndHoldAtTime) gp.cancelAndHoldAtTime(now); else { var cur = gp.value; gp.cancelScheduledValues(now); gp.setValueAtTime(cur, now); }
-                gp.linearRampToValueAtTime(0, now + NUM.CUT_FADE);      /* a cut line fades, it never stops dead (a click) */
-                live[k].s.stop(now + NUM.CUT_FADE + 0.005);
-              } catch (_e) {}
-            }
+            try { lineOut.gain.setValueAtTime(1, now); lineOut.gain.linearRampToValueAtTime(0, now + NUM.CUT_FADE); } catch (_e) {}
+            for (var k = 0; k < live.length; k++) { try { live[k].s.stop(now + NUM.CUT_FADE + 0.005); } catch (_e) {} }
           }
         };
         this.log.push({ family: fam.id, blips: n, seconds: h.seconds, creep: creep });
