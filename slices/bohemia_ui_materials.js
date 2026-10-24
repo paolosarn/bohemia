@@ -770,6 +770,10 @@
     /* the two numbers (change 5): the batteries big, the nights beside them with the word, so a stranger reads 'nights left' */
     + '#bmtb .s.bats b{font-size:16px;min-width:3ch} #bmtb .s.days b{font-size:16px} #bmtb .s.days i{font-style:normal;font-size:10px;letter-spacing:.8px;color:#ddd2b8;margin-left:2px}'
     + '#bmtb .s.days.red i{color:#ff9a7e}'
+    /* the days on hold (rule 151(a)): the nights are off the glass until the pane is held (hovered with a mouse) */
+    + '#bmtb .s.days.hold{display:none} #bmtb .g.held .s.days.hold{display:inline-flex}'
+    + '#bmtb .g{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}'
+    + '#bmtb .g.held{box-shadow:inset 0 1px 0 rgba(255,236,200,.18),inset 0 0 0 1px #f0c47e,0 1px 0 #000}'
     /* a win counting up where the number lives (change 6): the figure lit amber on the beat while it climbs */
     + '#bmtb .s.bats.counting b{color:#120c06;padding:2px 5px;background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c,0 1px 0 #000}'
     + '#bmtb .s.bats.counting.down b{background:#d98a6e;box-shadow:inset 0 1px 0 #f6c2a8,inset 0 -2px 0 #6e2a12,0 1px 0 #000}'
@@ -803,11 +807,16 @@
        times ur gonna show how many days?') keeps DAY on the bar once. The stall's food, meds and rounds are bought where they are sold; the bill is one
        number in batteries, so the three dashes and the food chip are off the bar. Until the map's bill is read (a page
        without it) the bar keeps the five it had. */
+    /* UI [the days on hold] (rule 151(a), Paolo 10/24: 'it shouldn't show me how many days are left on the front; if I hold,
+       or if this was a mouse and I hover over the batteries, then it displays how many days I have left to fund my crew';
+       amends change 5's two numbers): the glass carries the batteries ONLY. The nights they feed the crew are in the same
+       pane, shown only while a finger holds it (a mouse hovers it) and gone when let go. At the bill's red line the
+       batteries themselves wear the red tag, so the warning is never only behind a hold. */
     var g;
     if (f.days != null) {
       var cnt = TEN.count ? ' counting' : '';
-      g = '<span class="s bats' + cnt + '" data-f="batteries"><img alt="BATTERIES" src="' + supplyIcon('batteries') + '"><b>' + (typeof f.batteries === 'number' ? f.batteries : '–') + '</b></span>'
-        + '<span class="s days' + (f.red ? ' red' : '') + '" data-f="nights"><img alt="NIGHTS" src="' + supplyIcon('nights') + '"><b' + (f.red ? ' class="low"' : '') + '>' + f.days + '</b><i>' + (f.days === 1 ? 'NIGHT LEFT' : 'NIGHTS LEFT') + '</i></span>';
+      g = '<span class="s bats' + cnt + '" data-f="batteries"><img alt="BATTERIES" src="' + supplyIcon('batteries') + '"><b' + (f.red && !cnt ? ' class="low"' : '') + '>' + (typeof f.batteries === 'number' ? f.batteries : '–') + '</b></span>'
+        + '<span class="s days hold' + (f.red ? ' red' : '') + '" data-f="nights"><img alt="NIGHTS" src="' + supplyIcon('nights') + '"><b' + (f.red ? ' class="low"' : '') + '>' + f.days + '</b><i>' + (f.days === 1 ? 'NIGHT LEFT' : 'NIGHTS LEFT') + '</i></span>';
     } else g = TB_STORES.map(function (k) {
       var n = k === 'batteries' ? f.batteries : (k === 'food' ? f.food : (f.six ? f.six[k] : null)), has = typeof n === 'number';
       var low = k === 'food' && has && Math.floor(n / f.perDay) < 3;
@@ -850,6 +859,15 @@
     r2.innerHTML = '<div class="g" data-tb="g"></div>';
     root.appendChild(r1); root.appendChild(r2);
     bar.classList.add('bmtb'); bar.appendChild(root);
+    /* the days on hold (rule 151(a)): a finger held on the batteries' pane shows the nights, let go and they go; a mouse
+       shows them while it hovers (no focus hook: a phone focuses after the finger lifts, and the nights would stick) */
+    var gp = r2.querySelector('.g'), hold = function (on) { if (gp.classList.contains('held') !== on) { gp.classList.toggle('held', on); TB.held = on; } };
+    gp.setAttribute('aria-label', 'your batteries; hold for the nights they feed the crew');
+    gp.addEventListener('pointerdown', function (e) { e.stopPropagation(); hold(true); });
+    ['pointerup', 'pointercancel'].forEach(function (k) { gp.addEventListener(k, function (e) { if (e.pointerType !== 'mouse') hold(false); }); });
+    gp.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hold(true); });
+    gp.addEventListener('pointerleave', function () { hold(false); });
+    gp.addEventListener('contextmenu', function (e) { e.preventDefault(); });
     var ct = r1.querySelector('.crew'); ct.setAttribute('role', 'button'); ct.setAttribute('tabindex', '0'); ct.setAttribute('aria-label', 'your company');
     ct.addEventListener('click', function (e) { e.stopPropagation(); crewDoor(); });
     r1.querySelector('.gear').addEventListener('click', function (e) { e.stopPropagation();

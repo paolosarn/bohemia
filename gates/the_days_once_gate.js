@@ -11,6 +11,11 @@
        RE-AIMED 10/24 (UI [the ten changes: the UI's part], rule 133, TUNING's change 5: 'the bar shows two numbers, not
        five'): the glass carries the batteries and the NIGHTS they feed the crew (the map's bill, window.__BILL), no dash and
        no food; the nights are red-inked at the bill's own red line; '0 DAYS' is planted on the nights now
+       RE-AIMED 10/24 AGAIN (UI [the days on hold], rule 151(a), Paolo: 'it shouldn't show me how many days are left on the
+       front; if I hold, or if this was a mouse and I hover over the batteries, then it displays how many days I have left
+       to fund my crew'): ONE number on the glass, the batteries; a real finger HELD on the pane (the browser's own touch
+       input, start and end) shows the nights, the bill's own count, and letting go takes them off; on a computer the mouse
+       hovering does the same; at the red line the batteries wear the red tag themselves
      - the gear and NOTES are 44 points or more; the bar fits the glass and nothing on it overlaps
      - the bar's gear opens the game's settings, and the shell's floating gear is not on the glass beside it
      - NOTES is the city's own button (it opens and closes the notes)
@@ -32,7 +37,7 @@ const done = () => { console.log('\nTHE DAYS ONCE: ' + pass + ' ok, ' + fail + '
 const CHECK = () => {
   const out = [], root = document.getElementById('bmtb'), W = innerWidth;
   if (!root) return [['the new bar is on the map', false, 'no #bmtb']];
-  const text = root.innerText.replace(/\s+/g, ' ').trim();
+  const text = root.textContent.replace(/\s+/g, ' ').trim();   /* textContent: the held nights count too, shown or not */
   out.push(['the word DAY is on the bar once', (text.match(/\bDAY\b/g) || []).length === 1, text]);
   out.push(['DAYS is never on the bar', !/\bDAYS?\b.*\bDAYS?\b/.test(text) && !/DAYS/.test(text), text]);
   out.push(['no hour\'s digits on the bar (the phone keeps the hour)', !/\d{1,2}:\d{2}/.test(text), text]);
@@ -45,9 +50,13 @@ const CHECK = () => {
   out.push(['the nights are the map\'s bill (the batteries over tonight\'s bill)', B.perNight > 0 && n('nights') === String(Math.floor(pb.electricity / B.perNight)) && n('nights') === String(B.daysLeft), n('nights') + ' vs ' + B.daysLeft]);
   const nt = root.querySelector('[data-f=nights] b');
   out.push(['  red-inked at the bill\'s red line, plain above it', !!nt && nt.classList.contains('low') === !!B.red, nt && nt.className]);
+  const bt = root.querySelector('[data-f=batteries] b'), counting = !!root.querySelector('[data-f=batteries].counting');
+  out.push(['  and at the red line the batteries wear the red tag themselves (the warning is never only behind a hold)', !!bt && (counting || bt.classList.contains('low') === !!B.red), bt && bt.className]);
   out.push(['the crew is the company the door built', f && f.crew && n('crew') === String(f.crew.length) && root.querySelectorAll('[data-f=crew] .ticks i').length === f.crew.length, n('crew')]);
-  const figs = [...root.querySelectorAll('[data-tb=g] .s')].map(e => e.dataset.f), dash = [...root.querySelectorAll('[data-tb=g] .s b')].some(e => /^[–-]$/.test(e.textContent.trim()));
-  out.push(['two numbers on the glass, the batteries and the nights, no dash', figs.join(' ') === 'batteries nights' && !dash, figs.join(' ')]);
+  const shown = e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).display !== 'none'; };
+  const held = !!root.querySelector('[data-tb=g].held');
+  const figs = [...root.querySelectorAll('[data-tb=g] .s')].filter(shown).map(e => e.dataset.f), dash = [...root.querySelectorAll('[data-tb=g] .s b')].some(e => /^[–-]$/.test(e.textContent.trim()));
+  out.push(['one number on the glass, the batteries (the nights only on a hold), no dash', figs.join(' ') === (held ? 'batteries nights' : 'batteries') && !dash && !!root.querySelector('[data-f=nights]'), figs.join(' ') + (held ? ' (held)' : '')]);
   const presses = [root.querySelector('.gear'), document.getElementById('notebtn')].map(e => e ? e.getBoundingClientRect() : null);
   out.push(['the gear and NOTES are 44 points or more', presses.every(r => r && r.width >= 44 && r.height >= 44), presses.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ')]);
   const boxes = [...root.querySelectorAll('.t,#notebtn,.g')].map(e => e.getBoundingClientRect()).filter(r => r.width > 0);
@@ -80,6 +89,26 @@ async function side(profile) {
     await p.waitForTimeout(1200);
     const c = await fr.evaluate('(' + CHECK.toString() + ')()');
     c.forEach(([m, g, x]) => ok(m, g, x));
+    /* THE DAYS ON HOLD (rule 151(a)): a real finger held on the batteries' pane, through the browser's own touch input */
+    {
+      const fbx = await (await fr.frameElement()).boundingBox();
+      const pane = await fr.evaluate(() => { const r = document.querySelector('#bmtb [data-f=batteries]').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+      const X = fbx.x + pane.x, Y = fbx.y + pane.y, cdp = await p.context().newCDPSession(p);
+      const nights = () => fr.evaluate(() => { const e = document.querySelector('#bmtb [data-f=nights]'), r = e.getBoundingClientRect();
+        return { on: r.width > 0 && getComputedStyle(e).display !== 'none', txt: e.textContent.replace(/\s+/g, ' ').trim(), n: (e.querySelector('b') || {}).textContent, bill: (window.__BILL || {}).daysLeft,
+          inGlass: r.right <= innerWidth + 0.5, lap: (() => { const w = document.querySelector('#bmtb [data-f=place]'); if (!w || !(r.width > 0)) return 0; const q = w.getBoundingClientRect();
+            return Math.min(r.right, q.right) - Math.max(r.left, q.left) > 0.5 && Math.min(r.bottom, q.bottom) - Math.max(r.top, q.top) > 0.5 ? 1 : 0; })() }; });
+      const before = await nights();
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: X, y: Y }] }); await p.waitForTimeout(700);
+      const during = await nights();
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await p.waitForTimeout(500);
+      const after = await nights();
+      ok('THE DAYS ON HOLD: off the glass until held', !before.on, before.on ? 'shown: ' + before.txt : 'hidden');
+      ok('  a real finger held on the batteries shows the nights, the bill\'s own count, on the glass, over nothing', during.on && String(during.n) === String(during.bill) && /NIGHTS? LEFT/.test(during.txt) && during.inGlass && !during.lap,
+         during.txt + ' (bill ' + during.bill + ')' + (during.lap ? ' OVER THE PLACE' : ''));
+      ok('  and letting go takes them off', !after.on, after.on ? 'still shown' : 'gone');
+      await cdp.detach().catch(() => {});
+    }
     /* the shell's floating gear is not on the glass beside the bar's */
     const sg = await p.evaluate(() => getComputedStyle(document.getElementById('gearbtn')).display);
     ok('the shell\'s floating gear is not on the glass beside the bar\'s', sg === 'none', sg);
@@ -109,17 +138,19 @@ async function side(profile) {
       /* the narrowest phone anybody holds: every fact still there, nothing past the glass, nothing on top of anything */
       const was = p.viewportSize(); await p.setViewportSize({ width: 320, height: 700 }); await p.waitForTimeout(900);
       const n320 = await fr.evaluate('(' + CHECK.toString() + ')()');
-      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are 44 points or more', 'two numbers on the glass, the batteries and the nights, no dash'];
+      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are 44 points or more', 'one number on the glass, the batteries (the nights only on a hold), no dash'];
       ok('at 320 wide every fact stays, it fits, nothing overlaps, every press 44', want.every(w => (n320.find(x => x[0] === w) || [0, false])[1]),
         n320.filter(x => want.indexOf(x[0]) >= 0 && !x[1]).map(x => x[0] + ' ' + x[2]).join(' | '));
       await p.setViewportSize(was); await p.waitForTimeout(900);
       /* the planted defects, read through the same checks, then taken back out */
       const caught = await fr.evaluate(chk => { const C = eval('(' + chk + ')'), red = () => C().some(x => !x[1]), R = document.getElementById('bmtb'), got = {};
         const fb = R.querySelector('[data-f=nights]'), em = document.createElement('em'); em.textContent = '0 DAYS'; fb.appendChild(em); got.days = red(); em.remove();
+        fb.style.setProperty('display', 'inline-flex', 'important'); got.nights = red(); fb.style.removeProperty('display');
         const db = R.querySelector('[data-f=day]'), hr = document.createElement('i'); hr.textContent = '06:00'; db.appendChild(hr); got.hour = red(); hr.remove();
         const gb = R.querySelector('.gear'); gb.style.width = '40px'; got.gear = red(); gb.style.width = '';
         got.clean = !red(); return got; }, CHECK.toString());
       ok('PLANTED: \'0 DAYS\' on the nights is caught', caught.days);
+      ok('PLANTED: the nights back on the glass without a hold is caught', caught.nights);
       ok('PLANTED: the hour back on the day tag is caught', caught.hour);
       ok('PLANTED: a 40-point gear is caught', caught.gear);
       ok('  and the bar reads clean again once they are taken out', caught.clean);
