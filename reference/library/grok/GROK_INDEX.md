@@ -139,3 +139,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_85_WAGES_AND_MOOD_2026_10_24.md | wages, mood, desertion
 - 2026-10-24 | ASK | GROK_ASK_86_PROVISIONS_AND_SPOILING_2026_10_24.md | provisions, spoiling, consumption
 - 2026-10-24 | ASK | GROK_ASK_87_TOOLS_AND_REPAIRS_2026_10_24.md | tools, repairs, durability
+- 2026-10-24 | ASK | GROK_ASK_88_AMMUNITION_AND_RANGED_RELOADS_2026_10_24.md | ammunition, reloads, stockpile
