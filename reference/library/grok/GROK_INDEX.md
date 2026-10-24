@@ -134,3 +134,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_83_INVENTORY_AND_THE_CART_2026_10_24.md | inventory, cart upgrades, slots
 - 2026-10-24 | ASK | GROK_ASK_84_ROSTER_AND_FIELD_LIMITS_2026_10_24.md | roster, field limits, reserve
 - 2026-10-24 | ASK | GROK_ASK_85_WAGES_AND_MOOD_2026_10_24.md | wages, mood, desertion
+- 2026-10-24 | ASK | GROK_ASK_83_INVENTORY_AND_THE_CART_2026_10_24.md | inventory, cart, slots
