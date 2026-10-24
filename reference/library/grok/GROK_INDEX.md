@@ -84,3 +84,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_33_GROUND_EFFECTS_2026_10_24.md | hit effects, blood, corpses, drops
 - 2026-10-24 | ASK | GROK_ASK_34_FIRST_MINUTES_2026_10_24.md | origins open, first minutes care
 - 2026-10-24 | ASK | GROK_ASK_35_WORLD_FRESH_2026_10_24.md | world generation, fresh start
+- 2026-10-24 | ASK | GROK_ASK_36_CITY_SIGHT_2026_10_24.md | city sight, encounter card, retinue
