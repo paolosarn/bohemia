@@ -110,3 +110,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_59_WORLD_MAP_2026_10_24.md | world map, terrain, generation
 - 2026-10-24 | ASK | GROK_ASK_60_CAMPS_LOCATIONS_2026_10_24.md | camps, locations, destroy
 - 2026-10-24 | ASK | GROK_ASK_61_PARTIES_ROAMING_2026_10_24.md | parties, roaming, tracks
+- 2026-10-24 | ASK | GROK_ASK_62_LATE_GAME_CRISES_2026_10_24.md | crises, late game, invasion
