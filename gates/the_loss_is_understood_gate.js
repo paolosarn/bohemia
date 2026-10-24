@@ -9,7 +9,8 @@
    2. THE BETTER ENEMY READS: a marauder against a new crew reads LV n over theirs and OUTCLASSES YOU, on the plate (#cls) the
       moment the bar shows him, and first on the aim receipt; a thug against the same crew does not;
    3. HIS LEVEL IS BATTLE BROTHERS' WORTH: LV = 1 + (xp - 100) / 30 off his own row, the brother formula run backwards;
-   4. A DODGE SHOWS AS A DODGE: a missed blow throws the man aside on the board and the tag says DODGED;
+   4. A DODGE SHOWS AS A DODGE: a missed blow throws the man aside on the board and the tag carries the sidestep mark, no word
+      (rule 46f: numbers only on the ground);
    5. THE WIPE IS AN EVENT: a fight lost with YOU down plays the wipe's beat (YOUR WHOLE CREW IS DOWN, what happened, what comes
       next), then the recap says WIPED OUT with the same words; the home message carries wipe:true and the end message is
       BOHEMIA_COMBAT_END {newFight, wipe:true, wipeInfo} with who keeps the field and who of his is down and dead;
@@ -22,6 +23,7 @@
 'use strict';
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
+const MISS_DODGED = '\u2194';
 let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
 const done = () => { console.log('=== THE LOSS IS UNDERSTOOD GATE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
@@ -81,9 +83,9 @@ const OPEN = '__THE_WIPE_RIDES_HOME__';
       const u = FIGHT.S.units.filter(v => v.side === 'you' && v.main)[0], t = FIGHT.S.units.filter(v => v.side === 'them')[0];
       const h = manH(), x0 = dodgeLean(t, h, performance.now());
       startAnim({ k: 'attack', dur: beatMs(), e: { t: 'attack', id: u.id, to: t.id, hit: false, chance: 40, hp: 0, armour: 0, shot: false } });
-      await new Promise(r => setTimeout(r, beatMs() * 0.45 + beatMs() * 0.25 + 30));
-      const mid = dodgeLean(t, h, performance.now());
-      await new Promise(r => setTimeout(r, beatMs() * 0.4));
+      /* the peak of the sidestep over its window (one sample can land on its tail on a busy box) */
+      const t0 = performance.now(); let mid = 0;
+      while (performance.now() - t0 < beatMs() * 1.2) { const l = dodgeLean(t, h, performance.now()); if (Math.abs(l) > Math.abs(mid)) mid = l; await new Promise(r => setTimeout(r, 12)); }
       return { x0, mid, tag: document.getElementById('num').textContent, h };
     });
     return out;
@@ -96,8 +98,8 @@ const OPEN = '__THE_WIPE_RIDES_HOME__';
     '  the plate says it the moment the bar shows him', a.cls.plate + ' | thug: ' + a.cls.plateThug);
   leg(/outclasses you/.test(a.cls.aim), '  and the aim receipt says it first', a.cls.aim.replace(/<[^>]+>/g, ''));
   leg(a.cls.lvRight, '  HIS LEVEL IS BATTLE BROTHERS\' WORTH: LV = 1 + (xp - 100) / 30 off his own row', 'marauder xp ' + a.cls.marXp + ' -> LV ' + a.cls.marLv);
-  leg(a.dodge.x0 === 0 && Math.abs(a.dodge.mid) > a.dodge.h * .1 && a.dodge.tag === 'DODGED',
-    '*** A DODGE SHOWS AS A DODGE ***: the missed man is thrown aside on the board and the tag says DODGED', JSON.stringify(a.dodge));
+  leg(a.dodge.x0 === 0 && Math.abs(a.dodge.mid) > a.dodge.h * .1 && a.dodge.tag === MISS_DODGED,
+    '*** A DODGE SHOWS AS A DODGE ***: the missed man is thrown aside on the board and the tag carries the sidestep mark (no word on the ground, rule 46f)', JSON.stringify(a.dodge));
   leg(!a.errs.length, '  the page threw nothing', a.errs.join(' | '));
 
   /* 5: two green men against three marauders and a leader, on AUTO, to the end */

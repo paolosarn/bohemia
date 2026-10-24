@@ -2882,9 +2882,11 @@ function armName(v, arm) {
    ours.outclass.dodge_chance_at_most in 100 or less) and ARMOUR (the arm of yours that drops him fastest needs
    blows_at_least blows or more). Three levels over the best man of yours, or both marks at once, and he OUTCLASSES YOU: three
    red chevrons over his head from the moment he is seen (the line set included), the words on the plate whenever he is the
-   man the bar shows, and every shot he dodges throws him aside on the board with DODGED on the receipt tag (COVER when the
+   man the bar shows, and every shot he dodges throws him aside on the board with the sidestep mark on the receipt tag (a block when the
    round went into the piece he stands behind). The words are drafts for WORDS (draft:true). */
-const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOUR', dodged: 'DODGED', cover: 'COVER' };   /* draft:true */
+const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOUR' };   /* draft:true */
+/* the tag over a missed man carries a mark, never a word (rule 46f: numbers only on the ground): he slipped it, or it hit his cover */
+const MISS_MARK = { dodged: '\u2194', cover: '\u25AE' };
 function lvOf(v) { if (v.side === 'you') return v.level || 1; const X = R('parsed.brother_xp'); return Math.max(1, Math.round(1 + ((v.xp || X.base) - X.base) / X.per_level)); }
 function classOf(t) {
   const S = FIGHT.S, crew = S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); });
@@ -3187,7 +3189,9 @@ function tickCall(now) {
     const us = S.units.filter(function (u) { return u.side === 'you' && FIGHT.onField(u); }).length, them = S.units.filter(function (u) { return u.side === 'them' && FIGHT.onField(u); }).length;
     if (us && them >= us * P.outnumbered_ratio) callSoon('outnumbered'); else UI.callOdds = true; }
   /* the first man of theirs he sees who outclasses him is named, once a fight; asked until it is said (a lesson may hold the floor) */
-  if (!UI.callBetter && waiting !== 'superior') { const b = S.units.filter(function (t) { return t.side === 'them' && FIGHT.onField(t) && FIGHT.shown(t) && classOf(t).outclass; })[0];
+  /* once a beat, the cheap tests first (sight is the costly one: at night it walks the lights) */
+  if (!UI.callBetter && waiting !== 'superior' && now - (UI.callScanAt || 0) > beat) { UI.callScanAt = now;
+    const b = S.units.filter(function (t) { return t.side === 'them' && FIGHT.onField(t) && classOf(t).outclass && FIGHT.shown(t); })[0];
     if (b) callSoon('superior', b); }
   const q = UI.callQ; if (!q) return;
   if (now > q.until) { UI.callQ = null; return; }
@@ -3249,22 +3253,22 @@ function startAnim(a) {
       if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, beatMs() * 0.45);
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
     if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, beatMs() * 0.8);
-    if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
+    if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; goreHit(t, u, e.hp, performance.now() + beatMs() * 0.45); }
     /* WEAPON SHAPES: every other man the sweep caught, a sixteenth apart after the first, his own sound and his own mark */
     (a.also || []).forEach(function (o, i) {
       const ot = FIGHT.byId(o.to); if (!ot) return;
       setTimeout(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf) : SND.miss(bf); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, beatMs() * (0.45 + 0.25 * (i + 1)));
-      if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = performance.now() + beatMs() * 1.5; }
+      if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = performance.now() + beatMs() * 1.5; goreHit(ot, u, o.hp, performance.now() + beatMs() * (0.45 + 0.25 * (i + 1))); }
       pop(ot, '', o.hit ? (o.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', o.hit && o.head,
         u.name + "'s " + (o.skill || 'sweep').toLowerCase() + (o.hit ? ' catches ' + ot.name + ', -' + o.hp + ' health' : ' misses ' + ot.name) + ' (' + o.chance + '%)');
     });
-    /* A DODGE SHOWS AS A DODGE (rule 143(b)): a shot or blow that misses throws him aside at the landing, the tag says DODGED (COVER
+    /* A DODGE SHOWS AS A DODGE (rule 143(b)): a shot or blow that misses throws him aside at the landing, the tag carries the sidestep mark, never a word (rule 46f; the block
        when the round went into the piece he stands behind); a man of theirs keeps count of what he dodged for the end's words */
     const into = !e.hit && ranged && bulletLands(e, t) === 'cover';
     if (!e.hit) { UI.dodge = UI.dodge || {}; UI.dodge[t.id] = { t: performance.now() + beatMs() * 0.45, dir: (t.x - u.x) >= 0 ? 1 : -1 };
       if (u.side === 'you') t._dodged = (t._dodged || 0) + 1; }
     if (u.side === 'you') t._tried = (t._tried || 0) + 1;
-    numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : into ? CLASS_SAYS.cover : CLASS_SAYS.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
+    numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : into ? MISS_MARK.cover : MISS_MARK.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
         : ' misses ' + t.name) + ' (' + e.chance + '%)');
@@ -3809,6 +3813,8 @@ function draw(now) {
   /* the man acting: GAFFER TAPE on his tile's corners (his side's paint for theirs) */
   if (u && !S.over && !S.deploy) mkCorners(dx(u), dy(u), u.side === 'you' ? MK.tape : MK.rustLit);
   mkOff();
+  /* rule 145: the floor keeps every hit, under the fallen and the standing */
+  goreTick(now); drawStains();
   /* the fallen lie where they fell, from the moment their fall plays (rule 121: the fall plays whole) */
   S.units.filter(function (v) { return (v.dead || v.down) && v._fallAt !== undefined && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
   /* the people, back rows first */
@@ -3819,6 +3825,7 @@ function draw(now) {
     .sort(function (a, b) { return dy(a) - dy(b); });
   live.forEach(function (v) { drawMan(v, tw, th); });
   if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
+  drawDrops(now);   /* rule 145(b): the burst in the air, over the men */
   /* his rounds over the man you control, drawn after every man so nobody standing in front covers them (rule 124) */
   if (u && crewControlled(u) && !S.deploy && !S.over && FIGHT.onField(u) && manH() > 26) {
     const Y = sy((dy(u) + .9) * UI.th) - (FIGHT.level(u.x, u.y) ? th * .14 : 0);
@@ -3993,6 +4000,8 @@ function blitMan(v, X, feet, now, alpha) {
      when he clubs with it at one tile (ours.gun_club); only in the fall is it gone */
   if (gs && !idled) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
     if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); }
+  /* rule 145(a): a man hit flashes a faint red, his own picture tinted by opacity */
+  const fl = hitFlash(v, now); if (fl > 0 && !idled) tintOver(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, fl, '#d42a1a');
   cx.restore();
   /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the
      map): the picture cannot hold him; ANIMATION's module laid over his blit on the fight's own beat, in its own frame (the
@@ -4082,10 +4091,95 @@ function netOver(X, Y, h) {
   cx.fillStyle = '#2b2722'; for (let k = -2; k <= 2; k++) cx.fillRect(Math.round(X + k * half * .42 - lw), Math.round(bot - lw), lw * 2 + 1, lw * 2 + 1);
 }
 /* the fallen stay where they fell: a body on the ground, no word over it */
+/* ---------------- A HIT SHOWS, AND THE GROUND REMEMBERS (COMBAT [a hit shows, the ground remembers], rule 145, Paolo 10/24:
+   'when an enemy gets hurt, or even your own player, I want them to turn slightly faint red opacity, and then I wanna see blood
+   come out, maybe blood splatters too... what happens in Battle Brothers during combat, the live effects that get left on the
+   ground... if an enemy gets down he might fall on the ground, a pile of blood underneath him') ----------------
+   HOW BATTLE BROTHERS DID IT (as the library carries it, and Grok's ask 33 checks the rest): blood sprays from a hit and stays on
+   the tiles, a pool under the fallen, the fallen stay where they fell for the whole battle. OURS, in the board's own cells
+   (whole pixels, the grime palette, never a cartoon splash): (a) the man hit flashes a faint red by opacity for most of a beat,
+   his own picture tinted, never a box; (b) blood bursts from where it landed, a spray of cells thrown away from the man who
+   struck, as many as the blow was hard; (c) where each drop lands it STAYS for the fight, the floor keeping every hit; (d) a man
+   down or dead lies in a pool that spreads under him over a few beats, an irregular stain, never a perfect oval. Machines leak
+   black oil and throw sparks; ghosts break into static and their purple, and leave nothing on the ground (rule 136). The fallen
+   already stay where they fell (drawBody). The counts and the reds are drawing numbers (the felt ones in ours.gore). */
+const GORE_COL = { blood: ['#4a0b07', '#5e1009', '#72160d', '#360805'], oil: ['#0d0c0b', '#1d1a17', '#2b2621'], spark: ['#fff2c0', '#ffd27a', '#f0a040'], static: ['#e8e2d8', '#8f8a84', '#b49ce0'] };
+function goreKind(v) { return v.ghost ? 'static' : v.machine ? 'oil' : 'blood'; }
+/* a hit: the flash, the burst, the drops that will stay */
+function goreHit(t, u, hp, at) {
+  const G = R('ours.gore'), k = goreKind(t), n = Math.max(G.drops_min, Math.min(G.drops_max, Math.round((hp || 0) / G.hp_per_drop)));
+  UI.flash = UI.flash || {}; if (k === 'blood') UI.flash[t.id] = at;
+  const dir = u ? (t.x - u.x === 0 ? (t.y - u.y >= 0 ? 1 : -1) * .3 : Math.sign(t.x - u.x)) : 1, rnd = mulberry(seedOf(t.id + ':' + at.toFixed(0)));
+  UI.drops = UI.drops || [];
+  for (let i = 0; i < n + (k === 'oil' ? n : 0); i++) {
+    const spark = k === 'oil' && i >= n, a = dir * (.6 + rnd() * 1.1), up = -(.4 + rnd() * .9);
+    UI.drops.push({ id: t.id, fx: dx(t) + .5, fy: dy(t) + .9, hy: .5 + rnd() * .25, vx: a, vy: up, t: at, life: beatMs() * (.35 + rnd() * .3), kind: spark ? 'spark' : k,
+      col: (spark ? GORE_COL.spark : GORE_COL[k])[Math.floor(rnd() * (spark ? GORE_COL.spark : GORE_COL[k]).length)], sz: 1 + Math.floor(rnd() * (1 + 1)), seed: Math.floor(rnd() * 1e9) });
+  }
+}
+function mulberry(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+/* the drops in the air, and where they come down: the floor keeps them (static leaves nothing, a spark burns out) */
+function goreTick(now) {
+  if (!UI.drops || !UI.drops.length) return;
+  const h = manH(), keep = [];
+  UI.drops.forEach(function (d) {
+    const k = (now - d.t) / d.life; if (k < 0) { keep.push(d); return; }
+    if (k >= 1) { if (d.kind === 'blood' || d.kind === 'oil') { UI.stains = UI.stains || []; UI.stains.push({ fx: d.fx + d.vx * h * .55 / UI.tw / UI.zoom, fy: d.fy + d.vy * h * .04 / UI.th / UI.zoom, col: d.col, sz: d.sz + 1, seed: d.seed }); }
+      return; }
+    keep.push(d);
+  });
+  UI.drops = keep;
+  const cap = R('ours.gore').stains_kept; if (UI.stains && UI.stains.length > cap) UI.stains.splice(0, UI.stains.length - cap);
+}
+function cell(x, y, c, col) { cx.fillStyle = col; cx.fillRect(Math.round(x), Math.round(y), c, c); }
+/* the floor's memory, drawn on the ground under everything that stands */
+function drawStains() {
+  if (!UI.stains || !UI.stains.length) return;
+  const c = Math.max(1, Math.round(manH() / 48));
+  UI.stains.forEach(function (st) {
+    const X = sx(st.fx * UI.tw), Y = sy(st.fy * UI.th); if (X < -20 || Y < -20 || X > W + 20 || Y > H + 20) return;
+    const r = mulberry(st.seed);
+    for (let i = 0; i < st.sz + 1; i++) cell(X + (r() - .5) * c * st.sz * (1 + 1), Y + (r() - .5) * c * st.sz, c * (1 + (i === 0 ? 1 : 0)), st.col);
+  });
+}
+/* the drops in the air: cells on a short arc, out from the wound */
+function drawDrops(now) {
+  if (!UI.drops || !UI.drops.length) return;
+  const h = manH(), c = Math.max(1, Math.round(h / 48));
+  UI.drops.forEach(function (d) {
+    const k = (now - d.t) / d.life; if (k < 0 || k >= 1) return;
+    const X = sx(d.fx * UI.tw) + d.vx * h * .55 * k, Y = sy(d.fy * UI.th) - d.hy * h * (1 - k) + d.vy * h * .6 * k * (1 - k) + d.vy * h * .04 * k;   /* up from the wound, down to the floor */
+    if (d.kind === 'static') { cell(X + (Math.random() - .5) * c * 4, Y, c * d.sz, d.col); return; }
+    cell(X, Y, c * d.sz, d.col);
+  });
+}
+/* the flash: his own picture tinted red by opacity, fading over most of a beat */
+function hitFlash(v, now) { const t = UI.flash && UI.flash[v.id]; if (t === undefined) return 0; const k = (now - t) / (beatMs() * R('ours.gore').flash_beats); return k < 0 || k >= 1 ? 0 : R('ours.gore').flash_alpha * (1 - k); }
+function tintOver(img, sxp, syp, w, hgt, ox, oy, s, a, col, gun) {
+  const T = UI.tintCv || (UI.tintCv = document.createElement('canvas')), W2 = w * s, H2 = hgt * s;
+  if (T.width < W2) T.width = W2; if (T.height < H2) T.height = H2;
+  const g = T.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, T.width, T.height); g.imageSmoothingEnabled = false;
+  g.drawImage(img, sxp, syp, w, hgt, 0, 0, W2, H2); if (gun) g.drawImage(gun[0], gun[1], gun[2], w, hgt, 0, 0, W2, H2);
+  g.globalCompositeOperation = 'source-atop'; g.fillStyle = col; g.fillRect(0, 0, W2, H2);
+  const a0 = cx.globalAlpha; cx.globalAlpha = a; cx.drawImage(T, 0, 0, W2, H2, ox, oy, W2, H2); cx.globalAlpha = a0;
+}
+/* the pool: it spreads under a man who is down or dead over ours.gore.pool_beats, a stain with lobes, never an oval */
+function drawPool(v, X, feet, h, now) {
+  if (v.ghost) return;
+  const G = R('ours.gore'), k = Math.min(1, Math.max(0, (now - v._fallAt - beatMs() * .5) / (beatMs() * G.pool_beats)));
+  if (k <= 0) return;
+  const e = 1 - (1 - k) * (1 - k), rx = h * .32 * e * (v.dead ? 1 : .8), ry = rx * .3;
+  UI.pools = UI.pools || {}; UI.pools[v.id] = rx;   /* how far it has spread, for the gate */
+  const r = mulberry(seedOf('pool:' + v.id)), oil = v.machine;
+  cx.fillStyle = oil ? 'rgba(12,11,10,.8)' : 'rgba(92,13,8,.72)';
+  cx.beginPath(); cx.ellipse(X, feet - h * .05, rx, ry, 0, 0, Math.PI * 2); cx.fill();
+  for (let i = 0; i < 4; i++) { const a = r() * Math.PI * 2, d = rx * (.55 + r() * .4); cx.beginPath(); cx.ellipse(X + Math.cos(a) * d, feet - h * .05 + Math.sin(a) * d * .3, rx * (.25 + r() * .2), ry * (.4 + r() * .3), 0, 0, Math.PI * 2); cx.fill(); }
+  if (!oil && k > .2) { cx.fillStyle = 'rgba(128,26,16,.3)'; cx.beginPath(); cx.ellipse(X - rx * .25, feet - h * .06, rx * .35, ry * .35, 0, 0, Math.PI * 2); cx.fill(); }   /* the wet catch of light */
+}
 function drawBody(v, tw, th) {
   if (v.ghost && performance.now() - v._fallAt > beatMs()) return;   /* a ghost leaves no body: its fall plays, then the signal is gone */
   const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th), h = manH();
-  if (v.dead && performance.now() - v._fallAt > beatMs()) { cx.fillStyle = 'rgba(105,18,12,.55)'; cx.beginPath(); cx.ellipse(X, feet - h * .06, h * .3, h * .07, 0, 0, Math.PI * 2); cx.fill(); }
+  drawPool(v, X, feet, h, performance.now());   /* rule 145: a pool spreads under every man down or dead */
   blitMan(v, X, feet, performance.now(), 1);
 }
 /* the man he is dragging into his line stands under his finger, his feet a little above it so the finger does not cover him */
@@ -4950,7 +5044,7 @@ function start() {
   UI.resumed = !UI.pageStarted && keptRead(o); UI.pageStarted = true;
   if (!UI.resumed) { keptClear(); haunt(); }   /* 134(e): in act one a ghost is one of the dead (before the board loads their bodies) */
   UI.hauntSeen = null; UI.hauntName = null;
-  UI.wipe = null; UI.dodge = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
+  UI.wipe = null; UI.dodge = {}; UI.stains = []; UI.drops = []; UI.flash = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();

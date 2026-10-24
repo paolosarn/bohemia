@@ -28,7 +28,8 @@ normies (rule 133), so the numbers are on the plate:
   under the bars) whenever the bar shows him, and first on the aim receipt ("This one outclasses you. LV 8 · DODGES 61% ·
   ARMOUR 240.").
 - A DODGE SHOWS AS A DODGE: a missed shot or blow throws the man aside on the board (half a beat, away from the attacker) and
-  the receipt tag turns DODGED (COVER when the round went into the piece he stands behind).
+  the receipt tag carries a sidestep mark (a block when the round went into the piece he stands behind): a mark, never a
+  word, because rule 46f keeps the ground to numbers (THE REBUILT FIGHT PLAYS caught the first cut's DODGED, fixed the same round).
 Numbers in records/target/bb/ours.json `outclass` (tuned:false, for TUNING).
 
 ## 3. THE WIPE IS AN EVENT (143(e))
