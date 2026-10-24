@@ -43788,6 +43788,7 @@ var TRAVEL_SPEED_LAST = TRAVEL_DEFAULT;
 function travelSpeedSet(n){
   n = +n; if (!MAP_FAST_ON && n > 0) n = TRAVEL_DEFAULT;   /* any 'go' is the one speed */
   if (TRAVEL_SPEEDS.indexOf(n) < 0) return false;
+  if (n > 0 && TRAVEL_SPEED === 0 && TRAVEL) { try{ camHold(); }catch(_e){} }   /* __THE_CAMERA_KEEPS_THE_CREW__: GO takes the camera back */
   TRAVEL_SPEED = n; if (n > 0) TRAVEL_SPEED_LAST = n;
   try{ window.__TRAVEL_SPEED = n; }catch(_e){}
   try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
@@ -43902,6 +43903,7 @@ function travelTo(sx,sy,cell){
   if(!p){ travelSay('No way through to there.'); return false; }
   var mins=0; for(var i=1;i<p.length;i++) mins+=cityStepMins(p[i][0],p[i][1]);
   TRAVEL={ path:p, i:1, cells:0, mins:0, to:[tx,ty] };
+  try{ camHold(); }catch(_e){}   /* __THE_CAMERA_KEEPS_THE_CREW__: a journey takes the camera back */
   try{ travelGoes(); }catch(_e){}   /* __THE_FIRST_TAP_GOES_SOMEWHERE__: a tap on a place always goes */
   travelSay('Setting out: '+(p.length-1)+' blocks, about '+Math.round(mins/60*10)/10+' h.');
   try{ render(); }catch(_e){}
@@ -44768,7 +44770,51 @@ function clampPan(){
   // projected half-span plus a screen margin
   const N=om.n, hx2=(N*TW0*CZOOM)/2+CVW*0.5, hy2=(N*TH0*CZOOM)/2+CVH*0.5;
   panX=Math.max(-hx2,Math.min(hx2,panX)); panY=Math.max(-hy2,Math.min(hy2,panY));
+  /* __THE_CAMERA_KEEPS_THE_CREW__: a look around by hand stops at the whole map's edge too */
+  if(typeof CAMF!=='undefined'&&!CAMF.on){ try{ const p=camWorld(), c=camClampCentre({x:p.x-panX,y:p.y-panY}); panX=p.x-c.x; panY=p.y-c.y; }catch(_e){} }
 }
+/* __THE_CAMERA_KEEPS_THE_CREW__ (RUN 10/24, rule 163(b)(c), Paolo: 'when the team is moving around the map they should
+   definitely be in the centre of the screen until they reach the whole map's edges, which means farther than the outside
+   settlements; keep this in mind as I zoom in and zoom out'). MEASURED on the demo before: the camera was the crew plus a
+   pan, and a drag (or a pinch's pivot) left the pan where it was, so the crew walked a 12-block trip 150 px off the middle;
+   and the far stop snapped the pan to 0, which put the CREW in the middle and slid the valley half off the glass.
+   NOW the camera HOLDS the crew: every frame the pan is the one that puts the crew in the middle, except where the view would
+   pass the whole map's edge (the valley and CAMF.M blocks past it, so past every settlement; the region's places too when the
+   region is in); there it stops and the crew walks on toward the edge. It holds through every zoom (a pinch or the wheel
+   zooms about the crew while it holds). A drag by hand lets it go, so he can look around while he stands; the next journey,
+   GO or the spacebar takes it back, eased over 450 ms so it never jumps. */
+var CAMF = { on: true, from: null, t0: 0, M: 32, holds: 0, lets: 0, raf: 0 };
+function camWorld(){   /* the crew's DRAWN place about the valley's middle, in screen px at this zoom */
+  var G = (typeof CITY_GLIDE!=='undefined' && CITY_GLIDE.tx!==null) ? cityGlideAt(CITY_GLIDE, performance.now()) : { x: city.x, y: city.y };
+  var m = (om.n - 1) / 2;
+  return { x: (G.x - G.y) * TW / 2, y: (G.x + G.y - 2 * m) * TH / 2 };
+}
+function camEdge(){    /* the whole map's edge, the same frame */
+  var N = om.n, m = (N - 1) / 2, lo = -CAMF.M, hi = N - 1 + CAMF.M;
+  try { var R = window.BOH_REGION; if (R && R.ready && R.places) R.places.forEach(function(p){ lo = Math.min(lo, p.x - 12, p.y - 12); hi = Math.max(hi, p.x + 12, p.y + 12); }); } catch(_e){}
+  var ax = (hi - lo) * TW / 2;
+  return { x0: -ax, x1: ax, y0: (lo - m) * TH, y1: (hi - m) * TH };
+}
+function camClampCentre(c){   /* where the middle of the glass may be: the view never passes the edge; a view wider than the map sits on its middle */
+  var E = camEdge(), hw = CVW / 2, hh = CVH / 2;
+  var x = (E.x1 - E.x0 <= 2 * hw) ? (E.x0 + E.x1) / 2 : Math.max(E.x0 + hw, Math.min(E.x1 - hw, c.x));
+  var y = (E.y1 - E.y0 <= 2 * hh) ? (E.y0 + E.y1) / 2 : Math.max(E.y0 + hh, Math.min(E.y1 - hh, c.y));
+  return { x: x, y: y };
+}
+function camHold(){ if (!CAMF.on) { CAMF.on = true; CAMF.from = { x: panX, y: panY }; CAMF.t0 = performance.now(); CAMF.holds++; } }
+function camLetGo(){ if (CAMF.on) { CAMF.on = false; CAMF.from = null; CAMF.lets++; } }
+function camFollow(){
+  if (!CAMF.on || MODE !== 'city' || (typeof VISTA !== 'undefined' && VISTA) || (typeof LOOK !== 'undefined' && LOOK.on)) return;
+  var p = camWorld(), c = camClampCentre(p), tx = p.x - c.x, ty = p.y - c.y;
+  if (CAMF.from) {
+    var u = Math.min(1, (performance.now() - CAMF.t0) / 450), e = u * u * (3 - 2 * u);
+    tx = CAMF.from.x + (tx - CAMF.from.x) * e; ty = CAMF.from.y + (ty - CAMF.from.y) * e;
+    if (u >= 1) CAMF.from = null;
+    else if (!CAMF.raf) CAMF.raf = requestAnimationFrame(function(){ CAMF.raf = 0; try { render(); } catch(_e){} });
+  }
+  panX = tx; panY = ty;
+}
+try { window.CAMF = CAMF; window.camHold = camHold; window.camLetGo = camLetGo; } catch(_e){}
 var ZGEST = { t: 0, z0: 1, s0: null, down: false, fresh: false };   /* the zoom gesture: when it started and from where */
 function setZoomAt(z,pvx,pvy){
   if(MODE!=='city'||transing)return;
@@ -44841,7 +44887,7 @@ function setZoomAt(z,pvx,pvy){
   if(Math.abs(z-zmin)<1e-4){ panX=0; panY=0; }       // snap to centered at full fit
   clampPan(); renderSoon();
 }
-function recenter(){ panX=0; panY=0; setZoomAt(1); }
+function recenter(){ panX=0; panY=0; try{ camHold(); }catch(_e){} setZoomAt(1); }   /* __THE_CAMERA_KEEPS_THE_CREW__: the double tap takes the camera back */
 function fitMap(){ const [zmin]=zoomBounds(); panX=0; panY=0; setZoomAt(zmin); }
 function shade(hex,f){const n=parseInt(hex.slice(1),16);return'rgb('+Math.min(255,(n>>16&255)*f|0)+','+Math.min(255,(n>>8&255)*f|0)+','+Math.min(255,(n&255)*f|0)+')';}
 function lerpHex(a,b,t){const A=parseInt(a.slice(1),16),B=parseInt(b.slice(1),16);
@@ -62730,7 +62776,7 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__ (RUN 9/30): which view is up, said on the body, so a
      street-only hint can step out of the map's way in CSS rather than by hand in each caller. */
   try{ document.body.classList.toggle('onmap', MODE==='city'); }catch(_e){}
-  if(MODE==='city'){ screenFilter('city'); renderCity(); } else { screenFilter('human'); renderHuman(); } }
+  if(MODE==='city'){ screenFilter('city'); try{ camFollow(); }catch(_e){} renderCity(); } else { screenFilter('human'); renderHuman(); } }   /* __THE_CAMERA_KEEPS_THE_CREW__ */
 /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__ (8/27) -- THE PAD LOOKS LIKE WHAT IT WILL DO.
    Paolo: "it's so confusing". The pad does not move or hide when he zooms out,
    so his thumb is already on it, and a press there is a marker cell (96 metres,
@@ -63460,6 +63506,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     } else if(lastMid){                             // single-finger drag: pan
       const c=toCv(e);
       if(CB._tapStart)CB._tapMoved+=Math.abs(c.x-lastMid.x)+Math.abs(c.y-lastMid.y);   /* ZOOM-BUILD: a drag is never a tap */
+      if(!CB._tapStart||CB._tapMoved>=8){ try{ camLetGo(); }catch(_e){} }   /* __THE_CAMERA_KEEPS_THE_CREW__: a look around by hand lets it go */
       panX+=c.x-lastMid.x; panY+=c.y-lastMid.y; lastMid=c; clampPan(); render();
     }
   });
@@ -67244,6 +67291,26 @@ document.addEventListener('keydown', function(ev){
   }
 });
 /* ==== end __CLICK_OUTSIDE_CLOSES__ ============================================== */
+/* __SPACE_IS_PAUSE__ (RUN 10/24, rule 163(a), Paolo: 'when I play on PC, spacebar definitely has to be pause; it was a good
+   experience'). Battle Brothers' key: on the map the spacebar holds the valley still and lets it go again, the pad's II and
+   GO (travelSpeedSet, the one door). Never while he types, never in the sky, never over a town's screen (its own frame);
+   the fight is its own frame and keeps its keys. The alpha hands the key here when its own page has the focus. */
+function spacePause(){
+  if (typeof MODE === 'undefined' || MODE !== 'city' || SKY) return false;
+  try { if (LOOP.frame && LOOP.frame.style.display === 'block') return false; } catch(_e){}
+  if (TRAVEL_SPEED > 0) travelSpeedSet(0);
+  else { travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); try { camHold(); } catch(_e){} }
+  window.__SPACE_PAUSES = (window.__SPACE_PAUSES | 0) + 1;
+  return true;
+}
+try { window.spacePause = spacePause; } catch(_e){}
+document.addEventListener('keydown', function(ev){
+  if (ev.code !== 'Space' && ev.key !== ' ') return;
+  var t = ev.target, tag = t && t.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
+  if (ev.repeat) { ev.preventDefault(); return; }
+  if (spacePause()) ev.preventDefault();
+});
 
 
 /* __ONE_ZOOM_TO_THE_MOON__ -- THE THIRD BAND, and then two more.
