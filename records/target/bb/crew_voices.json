@@ -1,0 +1,711 @@
+{
+ "_about": "THE CREW'S COMMENTARY (COMBAT [the crew's commentary], rule 143(c), Paolo 10/24). PLACEHOLDER BANK, draft:true: COMBAT wrote these few lines so the hook plays today; WORDS' personality bank replaces this whole file (same shape: types.<id>.name, .lean, .lines.<moment>.en / .sp; {name} the man it is about, {them} and {us} the counts). Each crew member but YOU is one type (picked from his own id, so the same man is the same voice every fight, ONE ID ONE WHOLE PERSON) and speaks one line at a time at the fight's moments, never from the down. A line is Spanglish (the sp list) on about 10 to 15 percent of lines: spanglish.value.share times the man's own lean times his type's lean, rolled per line; never the player.",
+ "source": "VAMILY.md rule 143(a)(c)(d) (Paolo 10/24); records/BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md; UFC's video game is his named reference for the commentary feel only (rule 139)",
+ "draft": true,
+ "spanglish": {
+  "value": {
+   "share": 0.125,
+   "man_lean_min": 0.5,
+   "man_lean_max": 1.5
+  },
+  "source": "VAMILY.md rule 143(a) (Paolo 10/24)",
+  "quote": "I want like 10% while spoken conversation of being Spanglish... it should be like a 10-15% like randomized",
+  "why": "one line in eight on average: share x the man's lean (spread between man_lean_min and man_lean_max off his id) x his type's lean; the player never",
+  "tuned": false
+ },
+ "pace": {
+  "value": {
+   "gap_beats": 2,
+   "hold_beats": 4,
+   "their_turn_share": 0.25,
+   "hit_share": 0.5,
+   "miss_share": 0.4,
+   "outnumbered_ratio": 1.5
+  },
+  "source": "VAMILY.md rule 143(c) (Paolo 10/24)",
+  "quote": "people can read it reacting to shit, if someone dies, oh fuck they got shot",
+  "why": "one line at a time and readable: at least gap_beats between two lines, each held hold_beats; a routine hit or miss speaks hit_share / miss_share of the time, their turn their_turn_share, so the big moments (a man down, a better enemy, a kill) always get the floor; outnumbered when theirs standing are outnumbered_ratio times his or more. Drafts for TUNING.",
+  "tuned": false
+ },
+ "moments": [
+  "hit",
+  "miss",
+  "dodged",
+  "kill",
+  "man_down",
+  "outnumbered",
+  "superior",
+  "their_turn",
+  "win"
+ ],
+ "types": {
+  "hothead": {
+   "name": "Hothead",
+   "lean": 1.3,
+   "lines": {
+    "hit": {
+     "en": [
+      "Put him DOWN!",
+      "That's what I'm talking about!",
+      "Again! Hit him again!"
+     ],
+     "sp": [
+      "¡Dale, dale!",
+      "¡Eso, cabrón!"
+     ]
+    },
+    "miss": {
+     "en": [
+      "Are you kidding me?",
+      "Hit the man, not the air!"
+     ],
+     "sp": [
+      "¡No mames!",
+      "¡Ay, qué pendejo!"
+     ]
+    },
+    "dodged": {
+     "en": [
+      "He moved again? Pin him!",
+      "Stop dancing, coward!"
+     ],
+     "sp": [
+      "¡Este vato no se deja!"
+     ]
+    },
+    "kill": {
+     "en": [
+      "Who's next?!",
+      "Stay down!"
+     ],
+     "sp": [
+      "¡Uno menos!"
+     ]
+    },
+    "man_down": {
+     "en": [
+      "They got {name}! Kill them all!",
+      "{name}! Oh, they're DEAD for that."
+     ],
+     "sp": [
+      "¡Le dieron a {name}, carajo!"
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} of them? Good. More to hit."
+     ],
+     "sp": [
+      "¿{them}? Me vale."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} thinks he's tough. Watch this."
+     ],
+     "sp": [
+      "Ese {name} se cree mucho."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Come on then!"
+     ],
+     "sp": [
+      "¡Órale, vengan!"
+     ]
+    },
+    "win": {
+     "en": [
+      "Told you. Nobody touches us."
+     ],
+     "sp": [
+      "¡Así se hace, cabrones!"
+     ]
+    }
+   }
+  },
+  "deadpan": {
+   "name": "Deadpan",
+   "lean": 0.6,
+   "lines": {
+    "hit": {
+     "en": [
+      "That'll leave a mark.",
+      "Hm. Good."
+     ],
+     "sp": [
+      "Bien."
+     ]
+    },
+    "miss": {
+     "en": [
+      "Close. Not really.",
+      "The wall's fine, thanks."
+     ],
+     "sp": [
+      "Casi."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "He's quick. Annoying.",
+      "Slippery one."
+     ],
+     "sp": [
+      "Qué rápido."
+     ]
+    },
+    "kill": {
+     "en": [
+      "One fewer.",
+      "That's done."
+     ],
+     "sp": [
+      "Ya."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}'s down. That's bad.",
+      "Lost {name}. Focus."
+     ],
+     "sp": [
+      "Se cayó {name}."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} against {us}. Great math."
+     ],
+     "sp": [
+      "{them} contra {us}. Perfecto."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} is better than us. Noted."
+     ],
+     "sp": [
+      "{name} es mejor. Ni modo."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Their move. Keep your head down."
+     ],
+     "sp": [
+      "Les toca."
+     ]
+    },
+    "win": {
+     "en": [
+      "Well. That happened.",
+      "Still breathing. Good."
+     ],
+     "sp": [
+      "Ya estuvo."
+     ]
+    }
+   }
+  },
+  "worrier": {
+   "name": "Worrier",
+   "lean": 1.0,
+   "lines": {
+    "hit": {
+     "en": [
+      "Okay, okay, that worked!",
+      "Oh thank God."
+     ],
+     "sp": [
+      "¡Ay, sí, sí!"
+     ]
+    },
+    "miss": {
+     "en": [
+      "No no no no.",
+      "We're gonna die out here."
+     ],
+     "sp": [
+      "Ay, Dios mío."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "How is he DOING that?",
+      "He just moved out of it!"
+     ],
+     "sp": [
+      "¿Cómo le hace?"
+     ]
+    },
+    "kill": {
+     "en": [
+      "Is he- is he done?",
+      "Oh. Oh wow."
+     ],
+     "sp": [
+      "¿Ya? ¿Se murió?"
+     ]
+    },
+    "man_down": {
+     "en": [
+      "Oh fuck, they got {name}!",
+      "{name}! {name}, get up!"
+     ],
+     "sp": [
+      "¡No, {name}! ¡Levántate!"
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "There's {them} of them. There's {them}!",
+      "We should not be here."
+     ],
+     "sp": [
+      "Son {them}. Son muchos."
+     ]
+    },
+    "superior": {
+     "en": [
+      "That {name} is way out of our league.",
+      "Nope. Not {name}. Not that one."
+     ],
+     "sp": [
+      "Ese {name} nos va a matar."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Here they come. Here they come.",
+      "Don't look at me, don't look at me."
+     ],
+     "sp": [
+      "Ahí vienen."
+     ]
+    },
+    "win": {
+     "en": [
+      "We lived? We lived!"
+     ],
+     "sp": [
+      "¡Gracias a Dios!"
+     ]
+    }
+   }
+  },
+  "joker": {
+   "name": "Joker",
+   "lean": 1.1,
+   "lines": {
+    "hit": {
+     "en": [
+      "Ooh, right in the brand-new jacket.",
+      "Rate that a ten."
+     ],
+     "sp": [
+      "Uy, eso dolió, ¿verdad?"
+     ]
+    },
+    "miss": {
+     "en": [
+      "Warning shot. Totally meant it.",
+      "I'm saving bullets for later."
+     ],
+     "sp": [
+      "Era de advertencia, güey."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "Somebody give that guy a dance show.",
+      "He's doing ballet out there."
+     ],
+     "sp": [
+      "Baila bonito el vato."
+     ]
+    },
+    "kill": {
+     "en": [
+      "And he's taking a long nap.",
+      "Tell your friends."
+     ],
+     "sp": [
+      "Se durmió el angelito."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "Not funny. They got {name}.",
+      "{name}'s down. Joke's over."
+     ],
+     "sp": [
+      "Ya no es chiste. {name} cayó."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} on {us}? Fair fight, for them."
+     ],
+     "sp": [
+      "{them} contra {us}. Qué abusivos."
+     ]
+    },
+    "superior": {
+     "en": [
+      "Oh, {name} brought his good armour today."
+     ],
+     "sp": [
+      "Ese {name} vino bien vestido."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Their turn. Act natural."
+     ],
+     "sp": [
+      "Hazte el muerto, compa."
+     ]
+    },
+    "win": {
+     "en": [
+      "Same time next week?"
+     ],
+     "sp": [
+      "¿Y la propina?"
+     ]
+    }
+   }
+  },
+  "old_hand": {
+   "name": "Old hand",
+   "lean": 0.8,
+   "lines": {
+    "hit": {
+     "en": [
+      "Good. Keep doing that.",
+      "Clean."
+     ],
+     "sp": [
+      "Así mero."
+     ]
+    },
+    "miss": {
+     "en": [
+      "Breathe, then shoot.",
+      "Steady. Next one."
+     ],
+     "sp": [
+      "Con calma, mijo."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "He reads you. Flank him.",
+      "Good feet on that one. Close in."
+     ],
+     "sp": [
+      "Ese sabe moverse."
+     ]
+    },
+    "kill": {
+     "en": [
+      "One down. Eyes up.",
+      "Done. Next."
+     ],
+     "sp": [
+      "Uno menos. Ojo."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name} is down. Close the gap.",
+      "Lost {name}. Hold the line."
+     ],
+     "sp": [
+      "Cayó {name}. Aguanten."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} of them. Make them come to us."
+     ],
+     "sp": [
+      "Son {them}. Que vengan."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} outclasses us. Two on him, or leave him.",
+      "Don't trade blows with {name}."
+     ],
+     "sp": [
+      "Ese {name} es otro nivel."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Their move. Stay in cover."
+     ],
+     "sp": [
+      "Cúbranse."
+     ]
+    },
+    "win": {
+     "en": [
+      "Count your bullets. Then breathe."
+     ],
+     "sp": [
+      "Bien hecho, muchachos."
+     ]
+    }
+   }
+  },
+  "hype": {
+   "name": "Hype man",
+   "lean": 1.4,
+   "lines": {
+    "hit": {
+     "en": [
+      "OH, HE FELT THAT ONE!",
+      "WHAT A SHOT!"
+     ],
+     "sp": [
+      "¡QUÉ TIRO, HERMANO!"
+     ]
+    },
+    "miss": {
+     "en": [
+      "Ohhh, just wide!",
+      "So close, so close!"
+     ],
+     "sp": [
+      "¡Casi, casi!"
+     ]
+    },
+    "dodged": {
+     "en": [
+      "HE SLIPS IT! Unbelievable!",
+      "Can't touch him right now!"
+     ],
+     "sp": [
+      "¡Se escapa otra vez!"
+     ]
+    },
+    "kill": {
+     "en": [
+      "AND HE IS DOWN!",
+      "LIGHTS OUT!"
+     ],
+     "sp": [
+      "¡SE ACABÓ PARA ÉL!"
+     ]
+    },
+    "man_down": {
+     "en": [
+      "OH NO, {name} IS HURT BAD!",
+      "They dropped {name}! This is ugly!"
+     ],
+     "sp": [
+      "¡Tumbaron a {name}!"
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} on {us}! The odds are AWFUL!"
+     ],
+     "sp": [
+      "¡{them} contra {us}, qué locura!"
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} is a different class! LOOK at him!"
+     ],
+     "sp": [
+      "¡Ese {name} es un monstruo!"
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Here comes the answer!"
+     ],
+     "sp": [
+      "¡Ahora ellos!"
+     ]
+    },
+    "win": {
+     "en": [
+      "WHAT A FIGHT! WHAT A FIGHT!"
+     ],
+     "sp": [
+      "¡CAMPEONES!"
+     ]
+    }
+   }
+  },
+  "hustler": {
+   "name": "Hustler",
+   "lean": 0.9,
+   "lines": {
+    "hit": {
+     "en": [
+      "That's money.",
+      "Ka-ching."
+     ],
+     "sp": [
+      "Eso es lana."
+     ]
+    },
+    "miss": {
+     "en": [
+      "That bullet cost a battery.",
+      "Wasted. Somebody's paying for that."
+     ],
+     "sp": [
+      "Ahí va mi feria."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "Stop paying to miss him!",
+      "He's eating our ammo."
+     ],
+     "sp": [
+      "Nos está saliendo caro."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Check his pockets after.",
+      "That one had boots. Dibs."
+     ],
+     "sp": [
+      "Las botas son mías."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}! Who's gonna carry the bag now?",
+      "They got {name}. That's on my tab."
+     ],
+     "sp": [
+      "¡{name}, no te me mueras!"
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} of them. Somebody's paying extra."
+     ],
+     "sp": [
+      "Son {them}. Esto cuesta más."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name}'s gear costs more than all of us."
+     ],
+     "sp": [
+      "Ese {name} trae puro equipo caro."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Their turn. Protect the merchandise."
+     ],
+     "sp": [
+      "Cuiden la mercancía."
+     ]
+    },
+    "win": {
+     "en": [
+      "Payday. Strip them."
+     ],
+     "sp": [
+      "A cobrar."
+     ]
+    }
+   }
+  },
+  "quiet": {
+   "name": "Quiet one",
+   "lean": 0.5,
+   "lines": {
+    "hit": {
+     "en": [
+      "Yeah."
+     ],
+     "sp": [
+      "Sí."
+     ]
+    },
+    "miss": {
+     "en": [
+      "Tch."
+     ],
+     "sp": [
+      "Chale."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "Fast."
+     ],
+     "sp": [
+      "Rápido."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Down."
+     ],
+     "sp": [
+      "Abajo."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}...",
+      "No. Not {name}."
+     ],
+     "sp": [
+      "{name}..."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "Too many."
+     ],
+     "sp": [
+      "Muchos."
+     ]
+    },
+    "superior": {
+     "en": [
+      "Careful. {name}."
+     ],
+     "sp": [
+      "Cuidado con {name}."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Wait."
+     ],
+     "sp": [
+      "Espera."
+     ]
+    },
+    "win": {
+     "en": [
+      "Home."
+     ],
+     "sp": [
+      "Vámonos."
+     ]
+    }
+   }
+  }
+ }
+}

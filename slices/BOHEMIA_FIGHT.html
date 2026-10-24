@@ -151,6 +151,13 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
 #vet{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:8px;max-width:min(calc(100vw - 16px),420px);
   padding:6px 10px 8px 6px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.8));transform:rotate(.5deg)}
 #vet canvas{flex:0 0 auto;width:44px;height:44px;border-radius:2px;background:#0d0b09}
+#call{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:7px;max-width:min(calc(100vw - 16px),380px);
+  padding:4px 10px 5px 4px;color:#efe3cc;background:rgba(14,11,8,.86);border-left:3px solid var(--gold);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}
+#call canvas{flex:0 0 auto;width:34px;height:34px;border-radius:2px;background:#0d0b09}
+#call b{display:block;font-family:var(--face-casing,ui-monospace,monospace);font-weight:400;font-size:10px;letter-spacing:.5px;color:var(--gold)}
+#call span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:13px;font-weight:700;line-height:1.25}
+#call.hot{border-left-color:#ff5a40}#call.hot b{color:#ff8a6a}
+#over .quote{font-style:italic;margin-top:8px}
 #vet b{display:block;font-family:var(--face-casing,ui-monospace,monospace);font-weight:400;font-size:11px;letter-spacing:.5px;color:#5c2410}
 #vet span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:12px;line-height:1.3;min-height:1.3em}
 /* THE TURN ENDS ITSELF (COMBAT [the turn ends itself], rule 125): Battle Brothers' numbers on his bar (the AP and the wind
@@ -245,6 +252,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 <div id="num"></div>
 <div id="pick"></div>
 <div id="vet"><canvas id="vetface" width="132" height="132"></canvas><div><b id="vetname"></b><span id="vetline"></span></div></div>
+<div id="call"><canvas id="callface" width="102" height="102"></canvas><div><b id="callname"></b><span id="callline"></span></div></div>
 <div id="wipe"><div class="osd">&#9632; STOP</div><h2 id="wh"></h2><div id="wb"></div></div>
 <div id="over"><div class="box"><h2 id="oh"></h2><div id="ob"></div><button id="oagain">AGAIN</button></div></div>
 <div id="load">LOADING THE GROUND</div>
@@ -2719,7 +2727,7 @@ const MUSIC = {
   hit: function (t, e) { toShell({ type: 'BOHEMIA_PLAYER_HIT', hp: t.hp, dmg: e.hp | 0, who: t.name, fight: 'rebuilt' }); },
   /* no zone and no patMeta: the shell's two old shot bridges log it and arm nothing (a zone would drop the anim tab's man) */
   kill: function (u) { toShell({ type: 'BOHEMIA_SHOT_RESULT', outcome: 'killshot', who: u.name, fight: 'rebuilt' }); },
-  turn: function (side) { if (UI.musSide === side) return; UI.musSide = side; toShell({ type: 'BOHEMIA_FIGHT_TURN', side: side }); },
+  turn: function (side) { if (UI.musSide === side) return; UI.musSide = side; toShell({ type: 'BOHEMIA_FIGHT_TURN', side: side }); if (side === 'them') callSoon('their_turn'); },
   /* A SKIPPED TURN IS STILL HEARD (rule 126(c): every hit, kill and fall, none silent): a tap that skips their move resolves
      it with no motion, so the ladder hears every hit on his and every man of theirs who fell, and the ear gets one of each
      sound the skip held, a quarter beat apart (a burst of twelve would be noise, nothing at all a lie) */
@@ -3008,7 +3016,7 @@ function teachNext() {
   if (Q.length && teach(Q[0])) Q.shift();
 }
 /* who may speak (rule 143(d)): a man on his feet, in the fight, never the down, the dead or the ones who ran */
-function speaks(v) { return !!v && FIGHT.onField(v) && !FIGHT.S.over; }
+function speaks(v, after) { return !!v && FIGHT.onField(v) && (after || !FIGHT.S.over); }
 /* and his voice stops with him: the shell's one voice is told (BOHEMIA_VOICE_STOP, for SOUNDS to honour; harmless unheard) */
 function voiceStop(v) { try { if (v) window.top.postMessage({ type: 'BOHEMIA_VOICE_STOP', speaker: 'face:' + v.look }, '*'); } catch (_e) {} }
 function vetSkip() { if (!UI.vet) return; document.getElementById('vet').style.display = 'none'; UI.vet = null; }
@@ -3056,6 +3064,104 @@ function tickVet(now) {
   if (!typing && !V.done) V.done = now;
   if ((V.done && now - V.done > beat * TEACH_HOLD_BEATS) || FIGHT.S.over) { document.getElementById('vet').style.display = 'none'; UI.vet = null; }
 }
+/* ---------------- THE CREW'S COMMENTARY (COMBAT [the crew's commentary], rule 143(c), Paolo 10/24: 'I like how our team members
+   are speaking... everyone gets assigned a personality, lots of different personality types... depending on the enemy or how
+   many enemies, like how UFC the video game does its commentary, people can read it reacting to shit, if someone dies, oh
+   fuck they got shot') ----------------
+   Every man of his but YOU has a personality type out of the bank (records/target/bb/crew_voices.json: WORDS' bank replaces
+   COMBAT's placeholder, same shape), picked off his own look so the same man is the same voice every fight (ONE ID, ONE WHOLE
+   PERSON), unless the roster hands one (v.personality). He reacts to the fight's moments in one short readable line with his
+   face, the way the UFC game's booth calls a fight (his named reference, for that feel only, rule 139): a hit, a miss, a man
+   of theirs who dodges, a kill, a man of ours down (the line names him), outnumbered, a man of theirs who outclasses you
+   (named), their turn, a win (on the recap). ONE LINE AT A TIME: the biggest moment takes the floor (a man down, then a better
+   enemy, then a kill or the odds, then the shots, then their turn), a routine shot speaks only part of the time, lines are
+   pace.gap_beats apart and held pace.hold_beats; the veteran's lesson keeps the floor while it is up. NEVER FROM THE DOWN
+   (143(d)): a down, dead or fled man is never picked and his line goes the moment he falls. SPANGLISH (143(a)): WORDS' one dial
+   (engine/bohemia_spanglish.js, regFor) picks the line's Spanglish twin about one line in eight, by the man's own lean; YOU
+   never speaks here. Each line is heard in the shell's one voice with his map look (BOHEMIA_VOICE) and kept in the feed. */
+const CALL = { bank: null, PRIO: { man_down: 5, superior: 4, kill: 3, outnumbered: 3, win: 3, dodged: 2, hit: 1, miss: 1, their_turn: 0 } };
+fetch('../records/target/bb/crew_voices.json').then(function (r) { return r.json(); }).then(function (j) { CALL.bank = j; }).catch(function () {});
+function crewType(v) {
+  const B = CALL.bank; if (!B || !B.types) return null;
+  if (v.personality && B.types[v.personality]) return v.personality;
+  const ks = Object.keys(B.types).sort(); return ks.length ? ks[seedOf('type:' + (v.look || v.name)) % ks.length] : null;
+}
+/* the line's register: WORDS' dial when it is on the page, else the bank's own share and the type's lean */
+function crewSpeaksSp(v, key) {
+  if (!v || v.main) return false;   /* the player never speaks Spanglish (the first votes) */
+  if (window.BohemiaSpanglish) return BohemiaSpanglish.regFor(v.id || v.name, key) !== 'en';
+  const B = CALL.bank, S = B && B.spanglish ? B.spanglish.value : null, t = B && crewType(v) ? B.types[crewType(v)] : null;
+  return !!S && Math.random() < S.share * (t && t.lean ? t.lean : 1);
+}
+function callPace() { return CALL.bank && CALL.bank.pace ? CALL.bank.pace.value : { gap_beats: 2, hold_beats: 4, their_turn_share: .25, hit_share: .5, miss_share: .4, outnumbered_ratio: 1.5 }; }
+/* who says it: a man of his on his feet, never YOU, never the one it is about, not the last voice when another can */
+function callSpeaker(about) {
+  const c = FIGHT.S.units.filter(function (v) { return v.side === 'you' && !v.main && !v.beast && speaks(v, about === 'win') && v !== about; });
+  if (!c.length) return null;
+  const fresh = c.filter(function (v) { return v.id !== UI.callLastWho; }), pool = fresh.length ? fresh : c;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+function callLine(v, moment, o) {
+  const B = CALL.bank, k = crewType(v), L = k && B.types[k].lines && B.types[k].lines[moment]; if (!L) return null;
+  const sp = !!(L.sp && L.sp.length) && crewSpeaksSp(v, 'call:' + moment), list = sp ? L.sp : L.en; if (!list || !list.length) return null;
+  return { text: wfill(list[Math.floor(Math.random() * list.length)], o || {}), sp: sp };
+}
+/* a moment asks for the floor; the biggest one waiting wins it within a beat, a small one only part of the time */
+function callSoon(moment, about) {
+  const S = FIGHT.S; if (!CALL.bank || S.over || S.deploy && moment !== 'superior' && moment !== 'outnumbered') return;
+  if (performance.now() < UI.openUntil) return;
+  const P = callPace(), share = moment === 'hit' ? P.hit_share : moment === 'miss' || moment === 'dodged' ? P.miss_share : moment === 'their_turn' ? P.their_turn_share : 1;
+  if (Math.random() >= share) return;
+  const pr = CALL.PRIO[moment] || 0, q = UI.callQ;
+  if (q && q.prio > pr && performance.now() < q.until) return;
+  UI.callQ = { moment: moment, about: about || null, prio: pr, until: performance.now() + beatMs() * (pr >= 4 ? 4 : 1.5) };
+}
+function callShow(q) {
+  const v = callSpeaker(q.about); if (!v) return false;
+  const S = FIGHT.S, us = S.units.filter(function (u) { return u.side === 'you' && FIGHT.onField(u); }).length, them = S.units.filter(function (u) { return u.side === 'them' && FIGHT.onField(u); }).length;
+  const L = callLine(v, q.moment, { name: q.about ? titleName(q.about.name) : '', us: us, them: them }); if (!L) return false;
+  UI.call = { who: v.id, moment: q.moment, prio: q.prio, line: L.text, t: performance.now() }; UI.callLastWho = v.id; UI.callLastAt = performance.now();
+  if (q.moment === 'superior') UI.callBetter = q.about ? q.about.id : true; if (q.moment === 'outnumbered') UI.callOdds = true;
+  (UI.calls = UI.calls || []).push({ who: v.name, id: v.id, type: crewType(v), moment: q.moment, line: L.text, sp: L.sp, main: !!v.main }); if (UI.calls.length > 80) UI.calls.shift();
+  drawPortrait(document.getElementById('callface').getContext('2d'), v, document.getElementById('callface').width);
+  document.getElementById('callname').textContent = v.name; document.getElementById('callline').textContent = L.text;
+  const el = document.getElementById('call'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex'; el.classList.toggle('hot', q.prio >= 4);
+  feed(v.name + ': ' + L.text);
+  try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: L.text }, '*'); } catch (_e) {}
+  return true;
+}
+function callHide(cut) { const C = UI.call; if (!C) return; if (cut) voiceStop(FIGHT.byId(C.who)); document.getElementById('call').style.display = 'none'; UI.call = null; }
+function tickCall(now) {
+  const S = FIGHT.S, P = callPace(), beat = beatMs(), C = UI.call;
+  if (C) {
+    if (!speaks(FIGHT.byId(C.who)) || S.over) callHide(true);   /* the down do not talk (143(d)) */
+    else if (now - C.t > beat * P.hold_beats) callHide(false);
+  }
+  if (!CALL.bank || S.over || now < UI.openUntil) return;
+  /* the odds once a fight, in its first rounds: theirs standing outnumber his by the ratio; asked until it is said */
+  const waiting = UI.callQ && performance.now() < UI.callQ.until ? UI.callQ.moment : null;
+  if (!UI.callOdds && !S.deploy && S.round <= 1 + 1 && waiting !== 'outnumbered') {
+    const us = S.units.filter(function (u) { return u.side === 'you' && FIGHT.onField(u); }).length, them = S.units.filter(function (u) { return u.side === 'them' && FIGHT.onField(u); }).length;
+    if (us && them >= us * P.outnumbered_ratio) callSoon('outnumbered'); else UI.callOdds = true; }
+  /* the first man of theirs he sees who outclasses him is named, once a fight; asked until it is said (a lesson may hold the floor) */
+  if (!UI.callBetter && waiting !== 'superior') { const b = S.units.filter(function (t) { return t.side === 'them' && FIGHT.onField(t) && FIGHT.shown(t) && classOf(t).outclass; })[0];
+    if (b) callSoon('superior', b); }
+  const q = UI.callQ; if (!q) return;
+  if (now > q.until) { UI.callQ = null; return; }
+  if (UI.vet) return;   /* the veteran's lesson keeps the floor */
+  if (UI.call && !(q.prio >= 4 && UI.call.prio < q.prio)) return;
+  if (!UI.call && UI.callLastAt && now - UI.callLastAt < beat * P.gap_beats && q.prio < 4) return;
+  if (UI.call) callHide(false);
+  if (callShow(q)) UI.callQ = null;
+}
+/* the win, on the recap: one man of his still standing says it, quoted under the numbers */
+function callWin() {
+  const v = callSpeaker('win'); if (!v || !CALL.bank) return '';
+  const L = callLine(v, 'win', {}); if (!L) return '';
+  (UI.calls = UI.calls || []).push({ who: v.name, id: v.id, type: crewType(v), moment: 'win', line: L.text, sp: L.sp, main: false });
+  try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: L.text }, '*'); } catch (_e) {}
+  return '<p class="quote">"' + L.text.replace(/</g, '&lt;') + '" ' + v.name + '</p>';
+}
 /* A TAP THAT WOULD FIRE EMPTY (rule 124(a): 'a tap that would fire an empty gun never fails silently'): the gun's dry click,
    one line, and the big RELOAD kicks so the finger knows where to go; the mark over him glitches hard for the beat */
 function dryTap(u) {
@@ -3095,7 +3201,9 @@ function startAnim(a) {
     const sling = ranged && u.weapon.class === 'throwing' && !FIGHT.isGun(u.weapon);   /* THE KIDS' SLING: a whoosh, never a gunshot */
     setTimeout(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(); }, beatMs() * 0.35);
     if (sling && e.hit) setTimeout(function () { sfx('stone_bite', { side: u.side }); }, beatMs() * 0.45);
-    setTimeout(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf) : SND.miss(bf); if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also); }, beatMs() * 0.45);
+    setTimeout(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf) : SND.miss(bf); if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also);
+      /* THE CREW CALLS IT (rule 143(c)): his men's shots, a hit or a miss, the man of theirs who slips it */
+      if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, beatMs() * 0.45);
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
     if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, beatMs() * 0.8);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
@@ -3124,8 +3232,8 @@ function startAnim(a) {
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
       if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
-    else if (e.t === 'dead') { SND.fall(true, { side: u.side }); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
-    if (e.t === 'down') { SND.fall(false, { side: u.side }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); }
+    else if (e.t === 'dead') { SND.fall(true, { side: u.side }); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
+    if (e.t === 'down') { SND.fall(false, { side: u.side }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
     if (e.t === 'fled') SND.flee();
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
@@ -4469,6 +4577,7 @@ function showOver(result) {
     html += '<tr><td>' + v.name + '</td><td>' + (v.kills || 0) + '</td><td>' + (v.dealt || 0) + '</td><td>' + (v.taken || 0) + '</td><td>+' + gained + '</td><td>' + state + '</td></tr>';
   });
   html += '</table>';
+  if (result === 'won') html += callWin();   /* rule 143(c): a man of his still standing calls the win */
   document.getElementById('ob').innerHTML = html;
   o.style.display = 'flex';
   /* THE RECAP VOICE IS PULLED (SOUNDS, row [a desert, not a rainforest], 10/18). PAOLO
@@ -4735,7 +4844,7 @@ let hudN = 0;
 /* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
 function frame(now) {
   requestAnimationFrame(frame);
-  try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); oddsTick(now); keptTick(); if (++hudN % 6 === 0) hud(); }
+  try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); if (++hudN % 6 === 0) hud(); }
   catch (e) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
 }
 const MET_KEY = 'bohemia.fight.met.v1';
@@ -4756,7 +4865,7 @@ function start() {
   UI.resumed = !UI.pageStarted && keptRead(o); UI.pageStarted = true;
   if (!UI.resumed) { keptClear(); haunt(); }   /* 134(e): in act one a ghost is one of the dead (before the board loads their bodies) */
   UI.hauntSeen = null; UI.hauntName = null;
-  UI.wipe = null; UI.dodge = {}; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
+  UI.wipe = null; UI.dodge = {}; UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();
