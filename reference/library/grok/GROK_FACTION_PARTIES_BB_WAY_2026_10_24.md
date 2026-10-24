@@ -1,0 +1,13 @@
+# FACTION PARTIES THE WAY BATTLE BROTHERS DOES IT
+
+## PAOLO SAID IN THIS CHAT
+Throughout the different parts of the map, there's different factions. It's a whole thing. There's no guarantee first fight. It pulls from a pool depending on your level, how many people you have recruited, how many days it's been.
+
+## MY PROPOSAL
+Factions own locations on the world map and send parties from them. The developer blog on the strategic worldmap states that a strategic AI leads each faction toward its goal by using its resources. Parties leave locations with objectives such as patrolling, hunting for food, or raiding. The simulation runs even without the player. A village sends a trading caravan along the road. A nearby bandit camp can send scouts that ambush it. The village may then issue a contract. Noble houses send supply caravans between their own settlements. Civilian settlements send weakly guarded trading caravans and, when a hostile party is near, can send militia. Bandit camps send parties that prefer to ambush caravans and travelers. Orc clans and goblin states occupy territory and send patrols, hunting parties, and raiding parties near their land. Undead factions send scouts that return to report, then raiding parties.
+
+The wiki page on Game Mechanics states that difficulty of non-contract locations and roaming parties scales mostly with distance to civilization and time. Roaming parties also scale slightly with player strength. Player and forum posts state that roaming party scaling uses a combination of day count and player strength, and that the day scaling stops at day 100. Contract scaling uses the strength of the 12 strongest brothers. Each brother contributes 10 plus 2 times level past 1. Gear does not change the score. Camps can spit out patrols that lower the camp's remaining strength. If a hostile party is in sight of a location and is weaker than two-thirds of the location's resources, the location can spawn a defending party.
+
+The wiki does not say the exact number of days between party spawns or the precise resource cost of each party type. In Bohemia the same rules apply. Factions own places and send parties that follow their agenda. The pool of parties the player meets depends on days, the strength of the company, and which part of the map the player is in. Different parts have different factions. There is no scripted first fight.
+
+Sources: Battle Brothers developer blogs 7, 57, 58, 83, and the strategic worldmap post; wiki pages on Factions and Relations, Game Mechanics, and Civilian; player and forum posts on roaming party scaling and camp patrols.
