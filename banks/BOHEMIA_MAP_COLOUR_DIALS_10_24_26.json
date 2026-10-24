@@ -451,7 +451,8 @@
     "stucco_blue",
     "stucco_pink",
     "stucco_mint",
-    "stucco_yellow"
+    "stucco_peach",
+    "stucco_white"
    ],
    "fence": [
     "block_grey",
@@ -530,11 +531,11 @@
     "block_grey",
     "paint_teal",
     "paint_red",
-    "stucco_cream",
     "rust",
     "paint_blue",
     "stucco_white",
-    "paint_yellow"
+    "stucco_pink",
+    "stucco_mint"
    ],
    "fence": [
     "block_grey",
@@ -602,7 +603,7 @@
     "stucco_pink",
     "concrete_white",
     "glass_teal",
-    "neon_gold"
+    "neon_pink"
    ],
    "fence": [
     "neon_pink",
@@ -886,14 +887,13 @@
    "wall": [
     "concrete_grey",
     "concrete_white",
-    "rust",
     "block_grey",
-    "sign_green"
+    "gravel_pink",
+    "rust"
    ],
    "fence": [
     "rust",
-    "concrete_white",
-    "sign_green"
+    "concrete_white"
    ],
    "frame": "concrete_white",
    "dress": {
@@ -1004,8 +1004,9 @@
     "paint_blue",
     "concrete_grey",
     "rust_dark",
-    "paint_yellow",
-    "paint_red"
+    "paint_teal",
+    "paint_red",
+    "concrete_white"
    ],
    "fence": [
     "rust",
@@ -1214,5 +1215,6 @@
  },
  "mosaic_detail": 1.2,
  "mosaic_interp": "LINEAR",
- "_mosaic": "a ground is a soft field of close colours in metres (LINEAR between them, in this order), never hard blobs of far ones: hard blobs of red, grey and black read as camouflage (his NO on the casino carpet, 10/22)"
+ "_mosaic": "a ground is a soft field of close colours in metres (LINEAR between them, in this order), never hard blobs of far ones: hard blobs of red, grey and black read as camouflage (his NO on the casino carpet, 10/22)",
+ "_sand_in_the_palette": "stucco_cream, stucco_yellow, desert_tan, desert_pink, dirt, glass_gold and lawn_dead are IN the sand family (the measure's own test): they stay because the valley really has them, but only as one choice among many, never a whole theme's walls (10/24: the commercial block came out all cream, 36% sand)"
 }
