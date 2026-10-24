@@ -15,17 +15,17 @@
   "theme": "house"
  },
  "arsenal": {
-  "added": 54,
+  "added": 0,
   "faces": 557,
   "grounds": 2,
   "kept": 148,
   "recoloured": 409,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.006,
-   "green": 0.0076,
-   "red": 0.1306,
-   "sand": 0.0045
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0001,
+   "sand": 0.0819
   },
   "theme": "industry"
  },
@@ -60,7 +60,7 @@
   "theme": "road"
  },
  "ballpark": {
-  "added": 243,
+  "added": 108,
   "faces": 5076,
   "grounds": 7,
   "kept": 902,
@@ -68,69 +68,69 @@
   "register_iou": 0.9958,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.2467,
-   "red": 0.0277,
-   "sand": 0.0992
+   "green": 0.0049,
+   "red": 0.002,
+   "sand": 0.1155
   },
   "theme": "green"
  },
  "basin": {
-  "added": 81,
+  "added": 27,
   "faces": 257,
   "grounds": 3,
   "kept": 52,
   "recoloured": 205,
-  "register_iou": 0.9895,
+  "register_iou": 0.9977,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.0578,
-   "red": 0.0978,
-   "sand": 0.0321
+   "green": 0.0461,
+   "red": 0.0,
+   "sand": 0.0075
   },
   "theme": "water"
  },
  "battery": {
-  "added": 81,
+  "added": 27,
   "faces": 537,
   "grounds": 3,
   "kept": 359,
   "recoloured": 178,
-  "register_iou": 0.995,
+  "register_iou": 0.9952,
   "sand_after": {
-   "blue": 0.0689,
-   "green": 0.0597,
-   "red": 0.0564,
-   "sand": 0.0108
+   "blue": 0.0001,
+   "green": 0.0,
+   "red": 0.002,
+   "sand": 0.0376
   },
   "theme": "block"
  },
  "boneyard": {
-  "added": 168,
+  "added": 85,
   "faces": 643,
   "grounds": 2,
   "kept": 313,
   "recoloured": 330,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.022,
-   "green": 0.1607,
-   "red": 0.0753,
-   "sand": 0.1413
+   "blue": 0.0,
+   "green": 0.0027,
+   "red": 0.0,
+   "sand": 0.1168
   },
   "theme": "glitz"
  },
  "campus": {
-  "added": 243,
+  "added": 108,
   "faces": 1002,
   "grounds": 4,
   "kept": 123,
   "recoloured": 879,
-  "register_iou": 0.9973,
+  "register_iou": 0.9999,
   "sand_after": {
-   "blue": 0.0003,
-   "green": 0.1147,
-   "red": 0.0604,
-   "sand": 0.1203
+   "blue": 0.0002,
+   "green": 0.0001,
+   "red": 0.013,
+   "sand": 0.0915
   },
   "theme": "green"
  },
@@ -150,47 +150,47 @@
   "theme": "glitz"
  },
  "cemetery": {
-  "added": 135,
+  "added": 108,
   "faces": 608,
   "grounds": 2,
   "kept": 42,
   "recoloured": 566,
-  "register_iou": 0.9788,
+  "register_iou": 0.9937,
   "sand_after": {
-   "blue": 0.001,
-   "green": 0.5509,
-   "red": 0.0753,
-   "sand": 0.096
+   "blue": 0.0,
+   "green": 0.0038,
+   "red": 0.0385,
+   "sand": 0.2269
   },
   "theme": "green"
  },
  "chapel": {
-  "added": 168,
+  "added": 85,
   "faces": 599,
   "grounds": 4,
   "kept": 179,
   "recoloured": 420,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.072,
-   "green": 0.0949,
-   "red": 0.0008,
-   "sand": 0.0907
+   "blue": 0.0,
+   "green": 0.0007,
+   "red": 0.0,
+   "sand": 0.0496
   },
   "theme": "glitz"
  },
  "cityhall": {
-  "added": 81,
+  "added": 27,
   "faces": 616,
   "grounds": 3,
   "kept": 158,
   "recoloured": 458,
   "register_iou": 0.9989,
   "sand_after": {
-   "blue": 0.0079,
-   "green": 0.0644,
-   "red": 0.1722,
-   "sand": 0.0367
+   "blue": 0.0,
+   "green": 0.0001,
+   "red": 0.0023,
+   "sand": 0.0074
   },
   "theme": "block"
  },
@@ -210,77 +210,77 @@
   "theme": "block"
  },
  "convention": {
-  "added": 81,
+  "added": 27,
   "faces": 562,
   "grounds": 3,
   "kept": 66,
   "recoloured": 496,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0096,
-   "green": 0.0309,
-   "red": 0.0016,
-   "sand": 0.0183
+   "blue": 0.0,
+   "green": 0.0001,
+   "red": 0.0,
+   "sand": 0.0031
   },
   "theme": "block"
  },
  "courthouse": {
-  "added": 81,
+  "added": 27,
   "faces": 627,
   "grounds": 3,
   "kept": 41,
   "recoloured": 586,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0053,
-   "green": 0.0409,
-   "red": 0.0082,
-   "sand": 0.0116
+   "blue": 0.0008,
+   "green": 0.0,
+   "red": 0.001,
+   "sand": 0.0031
   },
   "theme": "block"
  },
  "dam": {
-  "added": 81,
+  "added": 27,
   "faces": 497,
   "grounds": 3,
   "kept": 80,
   "recoloured": 417,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0055,
-   "green": 0.004,
-   "red": 0.1183,
-   "sand": 0.0334
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0001,
+   "sand": 0.0714
   },
   "theme": "water"
  },
  "datafort": {
-  "added": 81,
+  "added": 27,
   "faces": 442,
   "grounds": 2,
   "kept": 398,
   "recoloured": 44,
   "register_iou": 0.9964,
   "sand_after": {
-   "blue": 0.0374,
-   "green": 0.0136,
-   "red": 0.0108,
-   "sand": 0.0022
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.0093
   },
   "theme": "block"
  },
  "desert": {
-  "added": 176,
+  "added": 154,
   "faces": 736,
   "grounds": 6,
   "kept": 350,
   "recoloured": 386,
-  "register_iou": 0.9993,
+  "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.1394,
-   "red": 0.1795,
-   "sand": 0.3858
+   "green": 0.0399,
+   "red": 0.0,
+   "sand": 0.0389
   },
   "theme": "desert"
  },
@@ -300,17 +300,17 @@
   "theme": "block"
  },
  "drivein": {
-  "added": 81,
+  "added": 27,
   "faces": 186,
   "grounds": 3,
   "kept": 36,
   "recoloured": 150,
   "register_iou": 0.9998,
   "sand_after": {
-   "blue": 0.0008,
-   "green": 0.0625,
-   "red": 0.0232,
-   "sand": 0.1184
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0003,
+   "sand": 0.1266
   },
   "theme": "block"
  },
@@ -323,14 +323,14 @@
   "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.4471,
-   "red": 0.3039,
-   "sand": 0.0917
+   "green": 0.0,
+   "red": 0.0547,
+   "sand": 0.6431
   },
   "theme": "field"
  },
  "firestation": {
-  "added": 81,
+  "added": 27,
   "faces": 245,
   "grounds": 2,
   "kept": 88,
@@ -338,24 +338,42 @@
   "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.0352,
-   "red": 0.2073,
-   "sand": 0.0525
+   "green": 0.0,
+   "red": 0.0025,
+   "sand": 0.191
   },
   "theme": "block"
  },
  "fort": {
-  "added": 54,
+  "added": 0,
   "faces": 452,
   "grounds": 4,
   "kept": 39,
   "recoloured": 413,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0124,
-   "green": 0.0223,
-   "red": 0.2168,
-   "sand": 0.013
+   "blue": 0.0122,
+   "green": 0.0205,
+   "red": 0.0,
+   "sand": 0.0143
+  },
+  "sits_in_the_ground": {
+   "bytes": 166001,
+   "crop": [
+    12,
+    258
+   ],
+   "fade": 0.14,
+   "ground": 0.0445,
+   "kept": 0.9596,
+   "map_picture": "slices/map_towns/BOHEMIA_TOWN_IN_GROUND_fort.png",
+   "register": 1.0,
+   "size": [
+    448,
+    386
+   ],
+   "slab": 0.0167,
+   "stands": 0.4683
   },
   "theme": "industry"
  },
@@ -375,17 +393,17 @@
   "theme": "road"
  },
  "fueldepot": {
-  "added": 54,
+  "added": 0,
   "faces": 1472,
   "grounds": 2,
   "kept": 1045,
   "recoloured": 427,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0975,
-   "green": 0.0261,
-   "red": 0.0466,
-   "sand": 0.0016
+   "blue": 0.0,
+   "green": 0.011,
+   "red": 0.0001,
+   "sand": 0.0749
   },
   "theme": "industry"
  },
@@ -395,7 +413,7 @@
   "grounds": 7,
   "kept": 72,
   "recoloured": 275,
-  "register_iou": 0.9926,
+  "register_iou": 0.9977,
   "sand_after": {
    "blue": 0.0,
    "green": 0.0059,
@@ -413,29 +431,29 @@
   "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.2763,
-   "red": 0.3575,
-   "sand": 0.0214
+   "green": 0.0,
+   "red": 0.2742,
+   "sand": 0.3007
   },
   "theme": "field"
  },
  "gypsum": {
-  "added": 110,
+  "added": 88,
   "faces": 443,
   "grounds": 2,
   "kept": 12,
   "recoloured": 431,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0294,
-   "green": 0.0049,
+   "blue": 0.0291,
+   "green": 0.0006,
    "red": 0.0,
-   "sand": 0.0843
+   "sand": 0.021
   },
   "theme": "gypsum"
  },
  "industrial": {
-  "added": 54,
+  "added": 0,
   "faces": 240,
   "grounds": 2,
   "kept": 151,
@@ -443,24 +461,24 @@
   "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.0103,
-   "red": 0.0084,
-   "sand": 0.0667
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.0537
   },
   "theme": "industry"
  },
  "intake": {
-  "added": 81,
+  "added": 27,
   "faces": 542,
   "grounds": 2,
   "kept": 322,
   "recoloured": 220,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.1366,
-   "green": 0.004,
-   "red": 0.0714,
-   "sand": 0.015
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0001,
+   "sand": 0.0368
   },
   "theme": "water"
  },
@@ -470,7 +488,7 @@
   "grounds": 2,
   "kept": 105,
   "recoloured": 240,
-  "register_iou": 0.9965,
+  "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
    "green": 0.0001,
@@ -480,7 +498,7 @@
   "theme": "road"
  },
  "jail": {
-  "added": 81,
+  "added": 27,
   "faces": 467,
   "grounds": 2,
   "kept": 55,
@@ -488,9 +506,9 @@
   "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.3023,
-   "red": 0.0477,
-   "sand": 0.0181
+   "green": 0.0,
+   "red": 0.0095,
+   "sand": 0.0417
   },
   "theme": "block"
  },
@@ -502,40 +520,40 @@
   "recoloured": 85,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0014,
-   "green": 0.0301,
-   "red": 0.3014,
-   "sand": 0.1766
+   "blue": 0.0024,
+   "green": 0.0016,
+   "red": 0.0148,
+   "sand": 0.3615
   },
   "theme": "dump"
  },
  "library": {
-  "added": 81,
+  "added": 27,
   "faces": 547,
   "grounds": 3,
   "kept": 73,
   "recoloured": 474,
   "register_iou": 0.9977,
   "sand_after": {
-   "blue": 0.0095,
-   "green": 0.0415,
-   "red": 0.0117,
-   "sand": 0.0078
+   "blue": 0.0002,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.2353
   },
   "theme": "block"
  },
  "mall": {
-  "added": 81,
+  "added": 27,
   "faces": 62,
   "grounds": 2,
   "kept": 11,
   "recoloured": 47,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.061,
-   "green": 0.1052,
-   "red": 0.0323,
-   "sand": 0.005
+   "blue": 0.0001,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.0038
   },
   "theme": "block"
  },
@@ -547,25 +565,25 @@
   "recoloured": 279,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0001,
+   "blue": 0.0,
    "green": 0.0,
    "red": 0.0,
-   "sand": 0.003
+   "sand": 0.0002
   },
   "theme": "block"
  },
  "minigp": {
-  "added": 168,
+  "added": 85,
   "faces": 267,
   "grounds": 3,
   "kept": 91,
   "recoloured": 176,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0162,
-   "green": 0.0818,
-   "red": 0.149,
-   "sand": 0.2385
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.1376
   },
   "theme": "glitz"
  },
@@ -578,24 +596,24 @@
   "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.006,
-   "red": 0.4337,
-   "sand": 0.0076
+   "green": 0.0007,
+   "red": 0.0227,
+   "sand": 0.063
   },
   "theme": "rock"
  },
  "park": {
-  "added": 243,
+  "added": 108,
   "faces": 200,
   "grounds": 3,
   "kept": 0,
   "recoloured": 200,
-  "register_iou": 0.9858,
+  "register_iou": 0.99,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.6028,
+   "green": 0.0443,
    "red": 0.0,
-   "sand": 0.0073
+   "sand": 0.1178
   },
   "theme": "park"
  },
@@ -607,40 +625,40 @@
   "recoloured": 63,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0007,
+   "blue": 0.0004,
    "green": 0.0,
    "red": 0.0,
-   "sand": 0.0077
+   "sand": 0.0239
   },
   "theme": "block"
  },
  "prison": {
-  "added": 81,
+  "added": 27,
   "faces": 578,
   "grounds": 4,
   "kept": 239,
   "recoloured": 339,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.1176,
-   "green": 0.0437,
-   "red": 0.0008,
-   "sand": 0.012
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.0571
   },
   "theme": "block"
  },
  "pumpstation": {
-  "added": 81,
+  "added": 27,
   "faces": 524,
   "grounds": 2,
   "kept": 329,
   "recoloured": 195,
   "register_iou": 0.9993,
   "sand_after": {
-   "blue": 0.035,
-   "green": 0.0033,
-   "red": 0.0623,
-   "sand": 0.0198
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.0019
   },
   "theme": "water"
  },
@@ -650,62 +668,62 @@
   "grounds": 2,
   "kept": 35,
   "recoloured": 342,
-  "register_iou": 0.9999,
+  "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.0034,
-   "red": 0.4685,
-   "sand": 0.0021
+   "green": 0.0005,
+   "red": 0.0272,
+   "sand": 0.0462
   },
   "theme": "rock"
  },
  "radio": {
-  "added": 81,
+  "added": 27,
   "faces": 1250,
   "grounds": 2,
   "kept": 46,
   "recoloured": 1204,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0062,
-   "green": 0.1611,
-   "red": 0.1045,
-   "sand": 0.0154
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0218,
+   "sand": 0.0225
   },
   "theme": "block"
  },
  "rail": {
-  "added": 54,
+  "added": 0,
   "faces": 572,
   "grounds": 4,
   "kept": 446,
   "recoloured": 126,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0863,
-   "green": 0.0504,
-   "red": 0.1118,
-   "sand": 0.0073
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0008,
+   "sand": 0.1669
   },
   "theme": "industry"
  },
  "railyard": {
-  "added": 54,
+  "added": 0,
   "faces": 1467,
   "grounds": 2,
   "kept": 1178,
   "recoloured": 289,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.1539,
-   "green": 0.0105,
-   "red": 0.0038,
-   "sand": 0.0211
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.019
   },
   "theme": "industry"
  },
  "reclaim": {
-  "added": 243,
+  "added": 108,
   "faces": 227,
   "grounds": 2,
   "kept": 113,
@@ -713,74 +731,74 @@
   "register_iou": 0.9965,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.242,
-   "red": 0.1135,
-   "sand": 0.1762
+   "green": 0.0023,
+   "red": 0.047,
+   "sand": 0.2191
   },
   "theme": "green"
  },
  "reservoir": {
-  "added": 81,
+  "added": 27,
   "faces": 523,
   "grounds": 2,
   "kept": 464,
   "recoloured": 59,
   "register_iou": 0.9984,
   "sand_after": {
-   "blue": 0.0067,
-   "green": 0.0029,
-   "red": 0.0414,
-   "sand": 0.0132
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.0016
   },
   "theme": "water"
  },
  "resort": {
-  "added": 168,
+  "added": 85,
   "faces": 637,
   "grounds": 3,
   "kept": 170,
   "recoloured": 467,
-  "register_iou": 0.9969,
+  "register_iou": 0.9982,
   "sand_after": {
-   "blue": 0.1425,
-   "green": 0.0365,
-   "red": 0.0372,
-   "sand": 0.1566
+   "blue": 0.0056,
+   "green": 0.0003,
+   "red": 0.0,
+   "sand": 0.0106
   },
   "theme": "glitz"
  },
  "school": {
-  "added": 81,
+  "added": 27,
   "faces": 3661,
   "grounds": 4,
   "kept": 2028,
   "recoloured": 1633,
   "register_iou": 0.9997,
   "sand_after": {
-   "blue": 0.018,
-   "green": 0.0394,
-   "red": 0.1452,
-   "sand": 0.035
+   "blue": 0.006,
+   "green": 0.001,
+   "red": 0.1159,
+   "sand": 0.0263
   },
   "theme": "block"
  },
  "solar": {
-  "added": 54,
+  "added": 0,
   "faces": 265,
   "grounds": 2,
   "kept": 160,
   "recoloured": 105,
   "register_iou": 0.9993,
   "sand_after": {
-   "blue": 0.0873,
-   "green": 0.0261,
-   "red": 0.0137,
-   "sand": 0.0004
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.0
   },
   "theme": "industry"
  },
  "speedway": {
-  "added": 81,
+  "added": 27,
   "faces": 2090,
   "grounds": 2,
   "kept": 1560,
@@ -788,9 +806,9 @@
   "register_iou": 0.9981,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.1642,
-   "red": 0.0543,
-   "sand": 0.007
+   "green": 0.0013,
+   "red": 0.0011,
+   "sand": 0.0027
   },
   "theme": "block"
  },
@@ -803,14 +821,14 @@
   "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.0072,
-   "red": 0.5539,
-   "sand": 0.0031
+   "green": 0.0,
+   "red": 0.213,
+   "sand": 0.1625
   },
   "theme": "block"
  },
  "storage": {
-  "added": 54,
+  "added": 0,
   "faces": 130,
   "grounds": 2,
   "kept": 90,
@@ -818,9 +836,9 @@
   "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.0352,
-   "red": 0.1019,
-   "sand": 0.0031
+   "green": 0.0,
+   "red": 0.0004,
+   "sand": 0.0977
   },
   "theme": "industry"
  },
@@ -855,17 +873,17 @@
   "theme": "glitz"
  },
  "substation": {
-  "added": 54,
+  "added": 0,
   "faces": 667,
   "grounds": 2,
   "kept": 40,
   "recoloured": 627,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0004,
-   "green": 0.0226,
-   "red": 0.1011,
-   "sand": 0.0154
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0001,
+   "sand": 0.0332
   },
   "theme": "industry"
  },
@@ -875,7 +893,7 @@
   "grounds": 2,
   "kept": 57,
   "recoloured": 109,
-  "register_iou": 0.9954,
+  "register_iou": 0.9934,
   "sand_after": {
    "blue": 0.0,
    "green": 0.0018,
@@ -885,32 +903,32 @@
   "theme": "house"
  },
  "swapmeet": {
-  "added": 168,
+  "added": 85,
   "faces": 620,
   "grounds": 2,
   "kept": 498,
   "recoloured": 122,
-  "register_iou": 0.9907,
+  "register_iou": 0.9901,
   "sand_after": {
-   "blue": 0.1097,
-   "green": 0.1145,
-   "red": 0.0561,
-   "sand": 0.085
+   "blue": 0.0012,
+   "green": 0.0005,
+   "red": 0.0001,
+   "sand": 0.1101
   },
   "theme": "glitz"
  },
  "terminal": {
-  "added": 81,
+  "added": 27,
   "faces": 679,
   "grounds": 3,
   "kept": 221,
   "recoloured": 458,
   "register_iou": 0.9958,
   "sand_after": {
-   "blue": 0.0036,
-   "green": 0.0457,
-   "red": 0.3822,
-   "sand": 0.0168
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.209,
+   "sand": 0.002
   },
   "theme": "block"
  },
@@ -928,15 +946,20 @@
    "sand": 0.1131
   },
   "sits_in_the_ground": {
+   "bytes": 151034,
    "crop": [
     12,
-    667
+    665
    ],
    "fade": 0.14,
    "ground": 0.0998,
-   "kept": 0.91,
-   "out": "e212dc193d4a8bfe46266917bc3dbb53",
+   "kept": 0.9102,
+   "map_picture": "slices/map_towns/BOHEMIA_TOWN_IN_GROUND_town.png",
    "register": 1.0,
+   "size": [
+    448,
+    281
+   ],
    "slab": 0.0233,
    "stands": 0.4754
   },
@@ -948,12 +971,30 @@
   "grounds": 3,
   "kept": 52,
   "recoloured": 222,
-  "register_iou": 0.9965,
+  "register_iou": 0.9888,
   "sand_after": {
    "blue": 0.0062,
    "green": 0.005,
    "red": 0.018,
    "sand": 0.0599
+  },
+  "sits_in_the_ground": {
+   "bytes": 109785,
+   "crop": [
+    12,
+    812
+   ],
+   "fade": 0.14,
+   "ground": 0.2252,
+   "kept": 0.7504,
+   "map_picture": "slices/map_towns/BOHEMIA_TOWN_IN_GROUND_trailer.png",
+   "register": 1.0,
+   "size": [
+    448,
+    242
+   ],
+   "slab": 0.0403,
+   "stands": 0.236
   },
   "theme": "house"
  },
@@ -973,32 +1014,32 @@
   "theme": "road"
  },
  "warehouse": {
-  "added": 54,
+  "added": 0,
   "faces": 455,
   "grounds": 2,
   "kept": 252,
   "recoloured": 203,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0096,
-   "green": 0.0106,
-   "red": 0.2448,
-   "sand": 0.0038
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.1386
   },
   "theme": "industry"
  },
  "wash": {
-  "added": 81,
+  "added": 27,
   "faces": 337,
   "grounds": 11,
   "kept": 75,
   "recoloured": 262,
-  "register_iou": 0.9858,
+  "register_iou": 0.9859,
   "sand_after": {
-   "blue": 0.0064,
-   "green": 0.0107,
-   "red": 0.3171,
-   "sand": 0.0385
+   "blue": 0.009,
+   "green": 0.0,
+   "red": 0.0003,
+   "sand": 0.1799
   },
   "theme": "water"
  },
@@ -1008,7 +1049,7 @@
   "grounds": 3,
   "kept": 0,
   "recoloured": 99,
-  "register_iou": 0.9916,
+  "register_iou": 1.0,
   "sand_after": {
    "blue": 0.0069,
    "green": 0.0,
@@ -1018,32 +1059,32 @@
   "theme": "water"
  },
  "waterpark": {
-  "added": 81,
+  "added": 27,
   "faces": 317,
   "grounds": 2,
   "kept": 207,
   "recoloured": 110,
   "register_iou": 0.9996,
   "sand_after": {
-   "blue": 0.0003,
-   "green": 0.0016,
-   "red": 0.2264,
-   "sand": 0.0286
+   "blue": 0.0,
+   "green": 0.0,
+   "red": 0.0005,
+   "sand": 0.1142
   },
   "theme": "water"
  },
  "watertreat": {
-  "added": 81,
+  "added": 27,
   "faces": 765,
   "grounds": 2,
   "kept": 216,
   "recoloured": 549,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.266,
-   "green": 0.0016,
-   "red": 0.0158,
-   "sand": 0.0126
+   "blue": 0.0021,
+   "green": 0.0,
+   "red": 0.0,
+   "sand": 0.002
   },
   "theme": "water"
  }

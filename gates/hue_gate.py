@@ -48,7 +48,12 @@ BUCKETS = 12                # hue families, 30 degrees each
 # THE FLOOR, set from what is already true on 7/29 (the ratchet's baseline).
 FLOOR_FAMILIES = 2          # no icon may carry fewer than this
 FLOOR_MEDIAN = 3            # the set's median may not drop below this
-FLOOR_BEST = 9              # the best icon (school, rebuilt on his notes) may not regress
+FLOOR_BEST = 8              # the best icon may not regress. RE-AIMED 10/24 by COOK [no rainbow] (rule 159, Paolo 10/24:
+                            # 'it's an economic apocalypse, it just happened, there shouldn't be so much colour'; variety from
+                            # material, value, wear and light, NOT from hue): was 9 (the school's yellow paint under 137(b)'s
+                            # colour push); act one's regrade took the school's yellow (one hue bucket) and it measures 8, the
+                            # set's best. The no-monochrome floor (2) and the median floor (3) are untouched and hold (median 4).
+                            # Act three's renders (rule 128, banks/BOHEMIA_MAP_COLOUR_DIALS_ACT3_THE_HEALED_10_24_26.json) carry 9+.
 
 passed = failed = 0
 def ok(name, cond, detail=''):
