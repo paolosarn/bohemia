@@ -46082,11 +46082,12 @@ var VB_OUT = { x0: [-1, 0], x1: [1, 0], y0: [0, -1], y1: [0, 1] };
 /* the colours: the city's own desert and the ranges' rock, the haze is the old fill */
 /* __THE_PAINTING_WEARS_COOK__ (RUN 10/24): the far land's colours are COOK's, measured off the real valley and checked against his
    sand test (records/BOHEMIA_COOK_NOTE_FOR_RUN_THE_MAP_IN_COLOUR_10_24_26.md section 1): grey-brown fans, red rock, black basalt,
-   limestone crests, creosote green, Lake Mead blue in its white bathtub ring; the haze is dust, grey, never beige (rule 137(b)) */
-var VB_COL = { floor: vbHex('#7a7470'), fan: vbHex('#8f665c'), low: vbHex('#6c5650'), rock: vbHex('#874632'),
-  high: vbHex('#363234'), crest: vbHex('#aaa6a2'), brush: vbHex('#4c5c36'), pebble: vbHex('#a29b98'),
-  road: vbHex('#3d3933'), shoulder: vbHex('#5a5654'), water: vbHex('#1f6290'), shore: vbHex('#d2d0cc'),
-  playa: vbHex('#dcdad6'), haze: vbHex('#7a7572') };
+   limestone crests, creosote, Lake Mead in its white bathtub ring; the haze is dust, grey, never beige (rule 137(b)); then ruined
+   the act-one way by COOK's ruin() (rule 159): the hue a ghost, the value doing the work; the lake ruined half as hard */
+var VB_COL = { floor: vbHex('#72706f'), fan: vbHex('#766966'), low: vbHex('#605a58'), rock: vbHex('#67554f'),
+  high: vbHex('#3b3a3a'), crest: vbHex('#9a9897'), brush: vbHex('#55594e'), pebble: vbHex('#92908f'),
+  road: vbHex('#3d3933'), shoulder: vbHex('#595757'), water: vbHex('#465f79'), shore: vbHex('#bbbab8'),
+  playa: vbHex('#c3c2c1'), haze: vbHex('#727170') };
 /* THE BAKE. Pure: everything it knows about the map comes in `inp` (so it can run in a worker). */
 function vbCore(inp){
   var t0 = performance.now();
@@ -46428,16 +46429,19 @@ function vbClassOf(d){
    block 26 to 30 px is one city, not a reddish one turning grey. Was reddish roofs on tan yards and a bright gold Strip. The homes
    are warmed to the suburb picture as the map draws it (his 'more tan' cast over it, __THE_DISTRICTS_READ_APART__ 10/18): its mean
    123, 108, 88; an estate wears a muted terracotta tile so it still reads apart. */
-/* __THE_PAINTING_WEARS_COOK__ (RUN 10/24): every key re-read by COOK off his new pictures (the note's section 2b), the sand gone;
+/* __THE_PAINTING_WEARS_COOK__ (RUN 10/24): every key re-read by COOK off his new pictures (the note's section 2b), the sand gone,
+   then ruined the act-one way by COOK's own ruin() (tools/bohemia_cook_no_rainbow_10_24_26.py: chroma x0.3, never past 9; rule
+   159: 'it is an economic apocalypse, there shouldn't be so much colour'); a shop's face pale concrete, a works block rust and tar,
+   so the families read apart by value and material, never by hue;
    the house, block, glitz, green, rock and desert families are rolled from his dials on top of these (cookPick) */
-var VB_CCOL = { yard: '#697160', yard2: '#7e8282', roofA: '#ae7770', roofB: '#86655f', roofC: '#3a3733', burn: '#2e2924', ash: '#4a423a',
-  asphalt: '#3b3834', line: '#9a9690', conc: '#5c5852', edge: '#47433d', neon: '#c9a456', roof: '#8a857c', hvac: '#5e5a54',
-  tower: '#7f8590', towerTop: '#a8aaae', gold: '#c49a48', green: '#4f6e3e', tree: '#2c4327', water: '#2f4a5e', shore: '#4e6d7a',
-  floor: '#8c7672', brush: '#4c5c36', pebble: '#a39d9a', solar: '#36424e', solarRow: '#56677a', field: '#4c4842', mark: '#8a8682',
-  rail: '#4a4038', tie: '#5e4038', dam: '#a8aaa8', lit: '#e3b866', lamp: '#f0d488', neonN: '#e8708a',
+var VB_CCOL = { yard: '#696c67', yard2: '#797a7a', roofA: '#8b7977', roofB: '#726765', roofC: '#3e3e3c', burn: '#343230', ash: '#4a4745',
+  asphalt: '#3b3834', line: '#8d8b8a', conc: '#5a5957', edge: '#494846', neon: '#c9a456', roof: '#7f7e7b', hvac: '#5c5b59',
+  tower: '#7b7d80', towerTop: '#9b9b9c', gold: '#9c9284', green: '#5e6659', tree: '#3e443c', water: '#3f4c57', shore: '#596970',
+  floor: '#7a7472', brush: '#55594e', pebble: '#939190', solar: '#434649', solarRow: '#60646a', field: '#4d4c4a', mark: '#807e7d',
+  rail: '#494643', tie: '#524946', dam: '#9a9b9a', lit: '#e3b866', lamp: '#f0d488', neonN: '#e8708a',
   /* __THE_DISTRICTS_READ_APART__ (10/23): the families' own roofs and grounds, tan and dust, never bright (his 'more tan') */
-  lawn: '#5a6d56', pool: '#3f86b8', poolDry: '#a9adb0', wallG: '#bab7b0', roofE: '#ae7770', roofE2: '#86655f', gravel: '#716a5e', trailer: '#a88f8a', trailer2: '#8a958c',
-  slab: '#8a8886', court: '#5a554d', park: '#3e3c38', stripe: '#6b665b', shop: '#7e4436', rust: '#7a4738', dirt: '#6b6a66' };
+  lawn: '#626760', pool: '#6e7b88', poolDry: '#9c9d9e', wallG: '#a7a6a4', roofE: '#987d78', roofE2: '#7f6a66', gravel: '#6a6864', trailer: '#908887', trailer2: '#868986',
+  slab: '#81807f', court: '#585654', park: '#424240', stripe: '#666461', shop: '#b9b7b2', rust: '#54473e', dirt: '#686766' , lotS: '#c6c4bf'};
 /* a block's family inside its class: the houses (suburb 0, estate, gated, trailer, apartment) and the works (civic 0, shop, works) */
 var VB_SUB = { estate: 1, gated: 2, trailer: 3, apartment: 4, shop: 1, works: 2 };
 function vbSubOf(d){
@@ -46620,7 +46624,7 @@ function vbCityCore(inp){
       if (part === PART.line) return C.stripe; if (part === PART.edge) return C.park;
       if (part === PART.roof || part === PART.window) return sb === VB_SUB.shop ? C.shop : C.rust;
       if (part === PART.spot) return C.hvac;
-      return sb === VB_SUB.works ? C.dirt : C.park;
+      return sb === VB_SUB.works ? C.dirt : C.lotS;   /* rule 159: a shop's lot is pale broken concrete, an apartment's court dark: apart by value */
     }
     switch (cl) {
       case VB_CLASS.road: return part === PART.line ? C.line : part === PART.lampspot ? C.edge : C.asphalt;

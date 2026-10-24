@@ -107,23 +107,25 @@ const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 3.5, U3: L.fwy >= 2.5
       const flat = Object.assign({}, inp, { sub: new Uint8Array(inp.sub.length) });
       const cook = inpC.thm ? read(inpC) : null;
       /* the sand family on the city's texels in COOK's colour (COOK's own bar, rule 137(b)): warm, low chroma, mid light */
-      let sand = null; if (inpC.thm) { const r = vbCityCore(inpC), P = r.P; let n = 0, k = 0; for (let o = 0; o < P * P * 4; o += 4 * 7) { if (!r.day[o + 3]) continue; const R = r.day[o], G = r.day[o + 1], B = r.day[o + 2], mx = Math.max(R, G, B), mn = Math.min(R, G, B);
-        n++; if (R >= G && G >= B && mx - mn > 12 && mx - mn < 70 && mx > 80 && mx < 210 && (R - B) > 18) k++; } sand = n ? k / n : null; }
+      let sand = null, chroma = null; if (inpC.thm) { const r = vbCityCore(inpC), P = r.P; let n = 0, k = 0, cs = 0; for (let o = 0; o < P * P * 4; o += 4 * 7) { if (!r.day[o + 3]) continue; const R = r.day[o], G = r.day[o + 1], B = r.day[o + 2], mx = Math.max(R, G, B), mn = Math.min(R, G, B);
+        n++; cs += mx - mn; if (R >= G && G >= B && mx - mn > 12 && mx - mn < 70 && mx > 80 && mx < 210 && (R - B) > 18) k++; } sand = n ? k / n : null; chroma = n ? cs / n : null; }
       /* ONE MAP (rule 142): the painting's weight at every zoom, and whether the old per-block pictures are switched off */
       const tw0 = TW, one = [6, 18, 28, 40, 85].map(t => { TW = t; return vbCityAlpha(); }); TW = tw0;
       /* D3: the suburb picture as the map draws it (COOK's 3D picture under the family cast), its mean over its painted pixels */
       let pic = null; try { const im = heroTint('suburb', HERO_IMG.suburb), c = document.createElement('canvas'); c.width = im.naturalWidth || im.width; c.height = im.naturalHeight || im.height;
         const x = c.getContext('2d'); x.drawImage(im, 0, 0); const a = x.getImageData(0, 0, c.width, c.height).data, m = [0, 0, 0]; let n = 0;
         for (let i = 0; i < a.length; i += 4) if (a[i + 3] > 200) { m[0] += a[i]; m[1] += a[i + 1]; m[2] += a[i + 2]; n++; } pic = m.map(v => v / n); } catch (_e) {}
-      return { real, flat: read(flat), pic, cook, sand, one, oneMap: typeof VB_ONE_MAP !== 'undefined' && VB_ONE_MAP };
+      return { real, flat: read(flat), pic, cook, sand, chroma, one, oneMap: typeof VB_ONE_MAP !== 'undefined' && VB_ONE_MAP, dials: !!(window.VB_COOK && VB_COOK.themes) };
     });
     const DMIN = 10; console.log('  family means ' + JSON.stringify(fam.real.m));
     ok('D1 the districts read apart: ' + fam.real.fams + ' families on the painting, the closest two (' + fam.real.pair + ') ' + fam.real.lo.toFixed(1) + ' apart in RGB (at least ' + DMIN + ')', fam.real.fams >= 5 && fam.real.lo >= DMIN);
     /* D3 RE-AIMED 10/24 (rule 142, ONE MAP AT EVERY ZOOM): there is no hand-over any more; the painting is the map at full weight
        at every zoom and the old per-block pictures are off (was: the painted suburb within 14 of the block picture it handed to) */
     ok('D3 one map: the painting at full weight at a block 6, 18, 28, 40 and 85 px (' + fam.one.join(', ') + '), the per-block pictures off', fam.oneMap && fam.one.every(a => a === 1));
-    const sub = fam.real.m.suburb, cs = fam.cook && fam.cook.m.suburb, dc = cs ? Math.hypot(sub[0] - cs[0], sub[1] - cs[1], sub[2] - cs[2]) : 0;
-    ok('D4 the painting wears COOK\'s colour: the suburb (' + (cs ? cs.join(', ') : 'no dials') + ') off the painter\'s own (' + sub.join(', ') + '; ' + dc.toFixed(1) + ' apart, at least 8), the sand family ' + (fam.sand == null ? '?' : (fam.sand * 100).toFixed(0) + '%') + ' of the city\'s texels (a third at most)', cs && dc >= 8 && fam.sand != null && fam.sand <= 1 / 3);
+    /* D4 RE-AIMED THE SAME ROUND by rule 159 ('it is an economic apocalypse, there shouldn't be so much colour'): the painting reads
+       COOK's dials, the sand family is a third of the city at most (137(b)) and the colour stays low (159(b): faded, dirty, rare) */
+    ok('D4 the painting wears COOK\'s act-one dials: read ' + fam.dials + ', the sand family ' + (fam.sand == null ? '?' : (fam.sand * 100).toFixed(0) + '%') + ' of the city\'s texels (a third at most), the colour ' + (fam.chroma == null ? '?' : fam.chroma.toFixed(1)) + ' on average (max minus min of a texel, 24 at most)',
+      fam.dials && fam.sand != null && fam.sand <= 1 / 3 && fam.chroma != null && fam.chroma <= 24);
     ok('D2 mutation, no families handed to the painter: D1 goes red (closest ' + fam.flat.pair + ' ' + fam.flat.lo.toFixed(1) + ')', fam.flat.lo < DMIN);
     ok('U9 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
