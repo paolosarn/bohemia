@@ -89,6 +89,10 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 .gslot .bm-icon,.gslot canvas{width:22px;height:22px;image-rendering:pixelated}
 .gslot b.arm{display:block;font-weight:700;color:var(--gold);font-size:9px;letter-spacing:.3px;line-height:1.15;white-space:normal}
 .gslot b.arm.rd{color:var(--ink);font-weight:400}
+/* __TWO_HANDS__ (rule 149): the off hand under a long gun is the gun's, greyed */
+.gslot.both{opacity:.55;border-style:solid}
+.gslot img.ghost,.gslot canvas.ghost{opacity:.6;filter:grayscale(1)}
+.gslot i.hands{display:block;font-style:normal;font-size:8px;letter-spacing:.5px;color:var(--dim)}
 #picker{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;padding:6px;border:1px solid var(--gold);border-radius:4px;background:#1a140e}
 #picker .slot{width:52px;flex:0 0 52px;min-height:52px;font-size:8px;border-color:#4a3b2c}
 #picker .slot.off{border-style:dashed;color:var(--dim)}
@@ -354,8 +358,9 @@ function togglePick(i, s){
   if(S.pick && S.pick.man === i && S.pick.slot === s){ S.pick = null; draw(); return; }
   S.pick = {man:i, slot:s}; S.sel = i; S.picking = false; draw();
   var m = S.crew[i], n = S.bag.filter(function(it){ return fits(it, s); }).length;
-  if(!n) say('Nothing in the bag goes on ' + m.name + "'s " + SLOT_NAME[s].toLowerCase() + '.' + (m.gear[s] ? ' TAKE OFF puts his back in the bag.' : ''));
-  else say(n + ' in the bag ' + (n === 1 ? 'fits' : 'fit') + ' ' + m.name + "'s " + SLOT_NAME[s].toLowerCase() + '. Tap one and they swap.');
+  var tw = s === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' A shield puts the ' + shortName(m.gear.main) + ' in the bag.' : '';   /* __TWO_HANDS__ */
+  if(!n) say('Nothing in the bag goes on ' + m.name + "'s " + SLOT_NAME[s].toLowerCase() + '.' + (m.gear[s] ? ' TAKE OFF puts his back in the bag.' : '') + (s === 'off' && tw ? ' His hands are on the ' + shortName(m.gear.main) + '.' : ''));
+  else say(n + ' in the bag ' + (n === 1 ? 'fits' : 'fit') + ' ' + m.name + "'s " + SLOT_NAME[s].toLowerCase() + '. Tap one and they swap.' + tw);
 }
 /* the bag, cut to what fits the slot he tapped; a tap swaps */
 function pickerFor(m, i, s){
@@ -364,7 +369,7 @@ function pickerFor(m, i, s){
     if(!fits(it, s)) return; any = true;
     var t = document.createElement('button'); t.className = 'slot full'; t.dataset.pick = bi; t.setAttribute('aria-label', it.name);
     t.appendChild(itemPic(it, 22)); var n = document.createElement('span'); n.textContent = shortName(it); t.appendChild(n);
-    var e2 = document.createElement('em'); e2.textContent = it.nums || ''; e2.style.fontSize = '7px'; e2.style.color = 'var(--dim)'; t.appendChild(e2);
+    var e2 = document.createElement('em'); e2.textContent = String(it.nums || '').replace(/\s+2 hands/i, '') + (C.twoHanded(it) ? '  2 HANDS' : ''); e2.style.fontSize = '7px'; e2.style.color = 'var(--dim)'; t.appendChild(e2);   /* __TWO_HANDS__ */
     t.addEventListener('click', function(){ S.sel = i; S.pick = null; equip(bi, s); });
     p.appendChild(t);
   });
@@ -398,16 +403,20 @@ function drawCard(){
     r.appendChild(a); r.appendChild(v); r.dataset.stat = k; st.appendChild(r); });
   el.appendChild(st);
   var g = document.createElement('div'); g.className = 'gear';
+  var both = m.gear.main && C.twoHanded(m.gear.main);   /* __TWO_HANDS__: the off hand is the long gun's too */
   ['main','off','body','head'].forEach(function(sl){
-    var it = m.gear[sl], d = document.createElement('div'); d.className = 'gslot' + (it ? ' full' : '') + (S.pick && S.pick.man === S.sel && S.pick.slot === sl ? ' pick' : '');
+    var it = m.gear[sl], d = document.createElement('div'); d.className = 'gslot' + (it ? ' full' : '') + (sl === 'off' && both ? ' both' : '') + (S.pick && S.pick.man === S.sel && S.pick.slot === sl ? ' pick' : '');
     d.dataset.drop = 'gear:' + sl; d.dataset.slot = sl; d.setAttribute('role', 'button'); d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[sl] + ': ' + (it ? it.name : 'empty'));
     var lab = document.createElement('i'); lab.textContent = SLOT_NAME[sl]; d.appendChild(lab);
     if(it){ var pic = itemPic(it, 22); pic.classList.add('bm-icon'); pic.dataset.id = it.id; d.appendChild(pic);   /* the kit's own icon mark, so the paint layer never adds a second */
       var nm = document.createElement('div'); nm.className = 'gn'; nm.textContent = it.name; d.appendChild(nm); var al = sl === 'main' && armLine(it, true);
-      var n2 = document.createElement('i'); n2.textContent = al ? String(it.nums).replace(/\s+reach \d+/, '') : it.nums; d.appendChild(n2); d.dataset.drag = 'gear:' + sl;   /* the reach is his arm's in the fight, below; the row's own number would contradict it */
+      var n2 = document.createElement('i'); n2.textContent = String(al ? String(it.nums).replace(/\s+reach \d+/, '') : it.nums).replace(/\s+2 hands/i, ''); d.appendChild(n2); d.dataset.drag = 'gear:' + sl;   /* the reach is his arm's in the fight, below; the row's own number would contradict it */
       if(al){ var ar = document.createElement('b'); ar.className = 'arm'; ar.dataset.reach = al.reach; ar.textContent = al.reach; d.appendChild(ar);
         if(al.rounds){ var rd = document.createElement('b'); rd.className = 'arm rd'; rd.textContent = al.rounds; d.appendChild(rd); } } }
+    else if(sl === 'off' && both){ var gp = itemPic(m.gear.main, 22); gp.classList.remove('bm-icon'); gp.classList.add('ghost'); d.appendChild(gp); var bh = document.createElement('div'); bh.className = 'gn'; bh.textContent = 'BOTH HANDS'; d.appendChild(bh);
+      d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[sl] + ': both hands on the ' + shortName(m.gear.main)); }
     else { var e = document.createElement('div'); e.textContent = '—'; d.appendChild(e); }
+    if(sl === 'main' && it && C.twoHanded(it)){ var two = document.createElement('i'); two.className = 'hands'; two.textContent = 'TWO HANDS'; d.appendChild(two); }
     d.addEventListener('click', function(){ if(S.dragged) return; togglePick(S.sel, sl); });   /* the bag, cut to what fits, opens here */
     g.appendChild(d);
   });
@@ -453,8 +462,24 @@ function equip(bi, slot){
   var m = S.crew[S.sel], it = S.bag[bi]; if(!m || !it) return;
   var s = slot || C.slotFor(it);
   if(slot && C.slotFor(it) !== slot){ say('That does not go there.'); return; }
-  var old = m.gear[s]; m.gear[s] = it; S.bag.splice(bi, 1); if(old) S.bag.push(old);
-  saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); sfx('equip'); say(m.name + ' takes ' + it.name + '.'); draw();
+  /* __TWO_HANDS__ (RUN TWO [two hands], rule 149): a long gun takes both hands, so the shield goes to the bag; a shield in a
+     hand that holds a long gun sends the gun to the bag (Battle Brothers' way). Never past the bag's 36. */
+  var freed = null;
+  if(s === 'main' && C.twoHanded(it) && m.gear.off) freed = 'off';
+  if(s === 'off' && m.gear.main && C.twoHanded(m.gear.main)) freed = 'main';
+  var old = m.gear[s];
+  if(S.bag.length - 1 + (old ? 1 : 0) + (freed ? 1 : 0) > BAG_SLOTS){ say('Your bag is full.'); return; }
+  var off = freed ? m.gear[freed] : null; if(freed) m.gear[freed] = null;
+  m.gear[s] = it; S.bag.splice(bi, 1); if(old) S.bag.push(old); if(off) S.bag.push(off);
+  saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); if(off) post('equip', {who:m.idx, name:m.name, slot:freed, item:null}); sfx('equip');
+  say(m.name + ' takes ' + it.name + (off ? (s === 'main' ? ' in both hands; ' : '; ') + off.name + ' goes in the bag.' : '.')); draw();
+}
+/* __TWO_HANDS__: a man kept from before this rule with a long gun and a shield puts the shield in the bag */
+function twoHandsKept(){
+  var moved = 0;
+  S.crew.forEach(function(m){ if(m.gear && m.gear.main && m.gear.off && C.twoHanded(m.gear.main) && S.bag.length < BAG_SLOTS){ S.bag.push(m.gear.off); m.gear.off = null; moved++; } });
+  if(moved){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} }
+  return moved;
 }
 function unequip(slot){
   var m = S.crew[S.sel], it = m && m.gear[slot]; if(!it) return;
@@ -529,7 +554,7 @@ function open(o){
   var f = o.formation; if(!f){ try{ f = JSON.parse(localStorage.getItem(FKEY)||'null'); }catch(e){} }
   if(f && f.front && f.front.length === N && f.back && f.back.length === N && [].concat(f.front, f.back).every(function(i){ return i == null || S.crew[i]; })){ S.front = f.front.slice(); S.back = f.back.slice(); }
   else defaultForm();
-  loadClimb(); benchHurt();
+  loadClimb(); benchHurt(); twoHandsKept();
   /* a man who joined since the line was set takes the first empty slot, front first */
   S.crew.forEach(function(m, i){ if(laid(m) || m.dead || S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;   /* never a laid-up or dead man (he stood in the line AND the laid-up strip, measured 10/18) */
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });

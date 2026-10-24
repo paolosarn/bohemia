@@ -59,7 +59,7 @@
       for (var i = 0; i < rows.length; i++) if (rows[i].id === id) r = rows[i];
       if (!r) return null;
       var c = CLASSNAME[r['class']] || r['class'];
-      return { id: r.id, kind: 'weapon', cls: r['class'], name: c, was: r.name, price: priceOf(r.value),
+      return { id: r.id, kind: 'weapon', cls: r['class'], name: c, was: r.name, price: priceOf(r.value), hands: handsOfRow(r),
         nums: 'dmg ' + r.damage_min + '-' + r.damage_max + (r.range_max ? '  reach ' + r.range_max : '') };
     }
     var list = kind === 'head' ? D.armor.head : kind === 'shield' ? D.armor.shields : D.armor.body, a = null;
@@ -97,6 +97,7 @@
     var jobs = def.jobs || [], main = null, off = null;
     jobs.forEach(function (jb) { var it = itemOf(jb === 'car_door' ? 'shield' : 'weapon', rowsW[jb]); if (!it) return; if (it.kind === 'shield') off = it; else if (!main) main = it; });
     if (off) off.name = jobs.indexOf('car_door') >= 0 ? 'a car door' : off.name;
+    if (main && off && twoHanded(main)) off = null;   /* TWO HANDS: a long gun leaves no hand for the door */
     return { id: 'm' + i, idx: i, name: def.name, main: !!def.main, background: bg.name || bg.id, bgId: bg.id,
       level: 1, xp: 0, points: 0, stats: st, stars: stars, perks: [], wage: Math.max(1, Math.round((bg.daily_wage || 10) / 10)),
       gear: { main: main, off: off, body: itemOf('body', def.body), head: itemOf('head', def.head) },
@@ -104,6 +105,18 @@
       pain: PAIN[bg.id] || PAIN._, draft: true };
   }
   function startingCrew() { return ((D.ours && D.ours.crew && D.ours.crew.value) || []).map(manOf); }
+  /* TWO HANDS (RUN TWO [two hands], rule 149, Paolo 10/24: 'if I have a rifle in my hand it should take up both the main hand
+     and the off hand slot... a pistol in one hand and a car door as a shield in the other'). Battle Brothers' own column: the
+     wiki's hands (1 or 2) per weapon row; a bow, a crossbow (our rifle) and a firearm (our shotgun) carry none on the wiki and
+     are two-handed in the game, so they are 2. An item kept before this knew its hands is read off its row by id. */
+  function handsOfRow(r) { if (!r) return 1; if (r.hands) return r.hands | 0; return /^(bow|crossbow|firearm)$/.test(r['class']) ? 2 : 1; }
+  function handsOf(it) {
+    if (!it || it.kind !== 'weapon') return 0;
+    var rows = (D.weapons && D.weapons.rows) || [];
+    for (var i = 0; i < rows.length; i++) if (rows[i].id === it.id) return handsOfRow(rows[i]);
+    return it.hands ? it.hands | 0 : 1;
+  }
+  function twoHanded(it) { return handsOf(it) === 2; }
   /* which slot an item goes in */
   function slotFor(it) { return !it ? null : it.kind === 'weapon' ? 'main' : it.kind === 'shield' ? 'off' : it.kind === 'head' ? 'head' : 'body'; }
   /* the look: a crop of the fight's own sheet (14 frames of 112 and the 64 face, rule 69) */
@@ -192,6 +205,6 @@
     return { reach: 'REACH ' + reach + (a.club ? ', A CLUB AT 1' : ''), rounds: shots ? shots + (a.gun ? ', THEN RELOAD' : '') : null };
   }
   var API = { load: load, armOf: armOf, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
-    slotFor: slotFor, sheetSrc: sheetSrc, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
+    slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);

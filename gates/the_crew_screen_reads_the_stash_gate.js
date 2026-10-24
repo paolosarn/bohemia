@@ -87,14 +87,16 @@ const STASH = [
   ok('  and the game was told who put on what', h.post === 1);
   /* 6. swap his main hand for the rifle: the old gun is back in the bag, the bag's count unchanged */
   const bagN = await p.evaluate(() => BohemiaRosterScreen.state.bag.length);
+  const oldOff = await p.evaluate(i => { const m = BohemiaRosterScreen.state.crew[i]; return m.gear.off && m.gear.off.id; }, who.i);
   const oldMain = await p.evaluate(i => BohemiaRosterScreen.state.crew[i].gear.main && BohemiaRosterScreen.state.crew[i].gear.main.id, who.i);
   await p.click('#card .gslot[data-slot="main"]'); await p.waitForTimeout(250);
   const offered = await p.evaluate(() => [].slice.call(document.querySelectorAll('#picker .slot.full')).map(e => e.getAttribute('aria-label')));
   ok('tap his MAIN slot: the rifle is offered, the hat and the vest are not', offered.length === 1 && /rifle/.test(offered[0]), offered.join(' | '));
   await p.screenshot({ path: SHOT });
   await p.click('#picker .slot.full'); await p.waitForTimeout(300);
-  const sw = await p.evaluate(a => { const S = BohemiaRosterScreen.state, m = S.crew[a.i]; return { main: m.gear.main && m.gear.main.id, bagN: S.bag.length, same: S.bag.length === a.n, ids: S.bag.map(x => x.id) }; }, { i: who.i, n: bagN });
-  ok('tap the rifle and they swap: he holds the rifle, his old gun is in the bag, the bag\'s count unchanged', sw.main === 'light_crossbow' && (!oldMain || sw.ids.indexOf(oldMain) >= 0) && sw.same, oldMain + ' -> ' + sw.main + ', bag ' + sw.bagN);
+  /* TWO HANDS (rule 149, 10/24): the rifle takes both hands, so a shield in his off hand goes to the bag too */
+  const sw = await p.evaluate(a => { const S = BohemiaRosterScreen.state, m = S.crew[a.i]; return { main: m.gear.main && m.gear.main.id, off: m.gear.off, bagN: S.bag.length, same: S.bag.length === a.n + (a.off ? 1 : 0), ids: S.bag.map(x => x.id) }; }, { i: who.i, n: bagN, off: oldOff });
+  ok('tap the rifle and they swap: he holds the rifle in both hands, his old gun (and any shield) in the bag, nothing lost', sw.main === 'light_crossbow' && !sw.off && (!oldMain || sw.ids.indexOf(oldMain) >= 0) && (!oldOff || sw.ids.indexOf(oldOff) >= 0) && sw.same, oldMain + (oldOff ? '+' + oldOff : '') + ' -> ' + sw.main + ', bag ' + sw.bagN);
   /* 7. TAKE OFF empties a slot into the bag */
   await p.click('#card .gslot[data-slot="head"]'); await p.waitForTimeout(250);
   await p.click('#picker .slot.off'); await p.waitForTimeout(300);

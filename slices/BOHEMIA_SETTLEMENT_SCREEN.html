@@ -348,8 +348,11 @@ function rng(seed){ var x = seed>>>0 || 1; return function(){ x ^= x<<13; x ^= x
 function weaponItem(r){
   var c = CLASSNAME[r['class']] || r['class'], same = BB.weapons.filter(function(x){ return x['class'] === r['class']; }).sort(function(a,b){ return a.value-b.value; });
   var nm = qualityWord(same.indexOf(r), same.length) + ' ' + c;
-  return {id:r.id, kind:'weapon', cls:r['class'], name:nm, was:r.name, price:priceOf(r.value), line:PLAIN[c]||'',
-          nums:'dmg '+r.damage_min+'-'+r.damage_max+(r.armor_damage_pct!=null?'  vs armour '+r.armor_damage_pct+'%':'')+(r.range_max?'  reach '+r.range_max:'')};
+  /* __TWO_HANDS__ (RUN TWO [two hands], rule 149): the shop says a long gun takes both hands, the wiki's hands column (a bow,
+     a crossbow, a firearm carry none and are two-handed); the crew screen holds the rule */
+  var hands = r.hands ? r.hands | 0 : (/^(bow|crossbow|firearm)$/.test(r['class']) ? 2 : 1);
+  return {id:r.id, kind:'weapon', cls:r['class'], name:nm, was:r.name, price:priceOf(r.value), line:PLAIN[c]||'', hands:hands,
+          nums:'dmg '+r.damage_min+'-'+r.damage_max+(r.armor_damage_pct!=null?'  vs armour '+r.armor_damage_pct+'%':'')+(r.range_max?'  reach '+r.range_max:'')+(hands === 2 ? '  2 hands' : '')};
 }
 function armourItem(kind, r){
   return {id:r.id, kind:kind==='body'?'body':kind==='head'?'head':'shield', name:armourName(kind, r.durability), was:r.name, price:priceOf(r.value),

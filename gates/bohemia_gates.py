@@ -9553,6 +9553,14 @@ GATES = [
      "page at his phone's size, every star drawn, one size (7 points, no taller than the capitals beside it), standing on the "
      "words' baseline, a point of air after the number; BohemiaMaterials.stars(n) is the same star for a job's difficulty. The old "
      "star read red 5 of 8 (10 points, 5 off the line, touching). green at registration, 8/0, 20 s", True),
+    ('TWO HANDS', ['node', 'gates/two_hands_gate.js'],
+     "RUN TWO gate, 10/24, row [two hands] (rule 149, Paolo 10/24: 'if I have a rifle in my hand it should take up both the main hand "
+     "and the off hand slot; if I have a pistol in one hand and a car door as a shield in the other, I should see that in the "
+     "combat'): every weapon knows its hands (the wiki's column; bow, crossbow, firearm two); on the one crew screen with real "
+     "taps a rifle takes both hands and sends the car door to the bag, the off hand reads BOTH HANDS greyed, a shield sends the "
+     "rifle to the bag, a pistol and the door are held together; the hand-over never pairs a long gun and a shield; the fight: "
+     "long guns with no shield, YOU with the pistol and the door; a man kept from before is fixed on open; the shop says 2 hands. "
+     "The old code throws at T1. green at registration, 9/0, about 1 min", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],
