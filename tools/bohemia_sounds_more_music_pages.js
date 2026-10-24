@@ -13,6 +13,7 @@ const NOTE = ['C', 'C sharp', 'D', 'E flat', 'E', 'F', 'F sharp', 'G', 'A flat',
 const pc = root => (((9 + root - 55) % 12) + 12) % 12;   /* noteHz(semi) = 110 * 2^(semi/12): 110 Hz is A */
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const yr = n => (/^(THE|A) /.test(n) ? 'your song ' : 'your ') + n;   /* 'your song THE VAULT', never 'your THE VAULT' */
 const title = s => s.split(' ').map(w => w.charAt(0) + w.slice(1).toLowerCase()).join(' ');
 
 const VOICE = {   /* plain words for the voices, for the card (his voices, named by what they sound like) */
@@ -122,17 +123,16 @@ function cardFor(song, pageName) {
   const said = song.changed.map(f => {
     const v = f === 'kick' ? null : (f.split('.').reduce((o, k) => o && o[k], song.row));
     const from = song.provenance[f][0];
-    if (f === 'kick') return 'the kick from your ' + from;
-    return (VOICE[v] || v) + ' from your ' + from;
+    if (f === 'kick') return 'the kick from ' + yr(from);
+    return (VOICE[v] || v) + ' from ' + yr(from);
   });
   const list = said.length > 1 ? said.slice(0, -1).join(', ') + ' and ' + said[said.length - 1] : said[0];
   return {
     id: 'sounds-' + song.id + '-10-24', kind: 'song', lane: 'sounds', sha: '', made: song.made,
     title: 'A NEW NIGHT SONG: ' + song.name,
-    why: 'You said we need more music. This is a new night song made in your songs\' own machine: your ' + P + ' with ' + song.changed.length +
-      ' things changed, each taken from one of your songs: ' + list + '. It is ' + song.story + '. The REPO MAN machine party plays along: the train ' +
-      'coupling on the kick, the old clock on the hat, the motor in its key, in the concrete hall on a worn tape. A is the new song, B your ' + P +
-      ', C your ' + S2 + ', same loudness on a phone, over the real map, on the 120 beat. It is not in the game until you say yes. EYES AND EARS\' line is owed (rule 119(c)); rule 158(d) put it here.',
+    why: 'You said we need more music, so this is a new night song made in your songs\' own machine: ' + yr(P) + ' with ' + list +
+      ', ' + song.story + ', with the REPO MAN machine party playing along in the concrete hall on a worn tape.' +
+      ' You hear it on this page over the real map, A the new song beside B ' + yr(P) + ' and C ' + yr(S2) + ' at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS\' line is owed, rule 119(c); rule 158(d) put it here).',
     options: ['A, ' + song.name + ' joins your night songs', 'B, no, not this one'],
     show: { how: 'page', src: pageName },
     draft: true
