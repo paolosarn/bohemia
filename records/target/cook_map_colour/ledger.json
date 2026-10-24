@@ -278,9 +278,9 @@
   "register_iou": 0.9993,
   "sand_after": {
    "blue": 0.0,
-   "green": 0.141,
-   "red": 0.1944,
-   "sand": 0.3576
+   "green": 0.1394,
+   "red": 0.1795,
+   "sand": 0.3858
   },
   "theme": "desert"
  },
@@ -427,12 +427,12 @@
   "recoloured": 431,
   "register_iou": 1.0,
   "sand_after": {
-   "blue": 0.0293,
-   "green": 0.003,
-   "red": 0.5435,
-   "sand": 0.0026
+   "blue": 0.0294,
+   "green": 0.0049,
+   "red": 0.0,
+   "sand": 0.0843
   },
-  "theme": "rock"
+  "theme": "gypsum"
  },
  "industrial": {
   "added": 54,
@@ -579,8 +579,8 @@
   "sand_after": {
    "blue": 0.0,
    "green": 0.006,
-   "red": 0.4207,
-   "sand": 0.0074
+   "red": 0.4337,
+   "sand": 0.0076
   },
   "theme": "rock"
  },
@@ -773,9 +773,9 @@
   "register_iou": 0.9993,
   "sand_after": {
    "blue": 0.0873,
-   "green": 0.0198,
-   "red": 0.0614,
-   "sand": 0.0001
+   "green": 0.0261,
+   "red": 0.0137,
+   "sand": 0.0004
   },
   "theme": "industry"
  },
@@ -877,10 +877,10 @@
   "recoloured": 109,
   "register_iou": 0.9954,
   "sand_after": {
-   "blue": 0.0232,
-   "green": 0.1495,
-   "red": 0.1785,
-   "sand": 0.0947
+   "blue": 0.0059,
+   "green": 0.209,
+   "red": 0.1816,
+   "sand": 0.0739
   },
   "theme": "house"
  },
