@@ -93,8 +93,16 @@
     }
     return out;
   }
+  /* THE MOUTH IS HEARD (SOUNDS 10/24/26, rule 135: 'every time people speak'): a face that says a line says it out loud, in
+     the squiggle, through the game's one voice (the shell's speakLine: his own voice from his look, one at a time, the music
+     ducked). Every screen that talks through this face (the map's voice, the walking man, the keepers, the crew) is heard
+     without a line of its own. Posted to the top window, where the voice lives; a page opened alone hears nothing. */
+  function heard(look, line) {
+    try { if (typeof window === 'undefined' || !window.top || !line) return; window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + look, text: String(line) }, '*'); } catch (e) {}
+  }
   function talk(c, look, line) {
     if (!c || !has(look)) return false;
+    heard(look, line);
     if (c.__talk) clearInterval(c.__talk);
     var x = c.getContext('2d'), size = c.width, seq = sounds(line), k = 0, frames = {};
     ['rest', 'A', 'E', 'O', 'M'].forEach(function (key) { image(src(look, key, size), function (im) { frames[key] = im; }); });

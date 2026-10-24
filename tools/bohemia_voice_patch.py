@@ -288,8 +288,12 @@ PANEL = r'''
       rule needs no clock: THE SAME PERSON SAYING THE SAME LINE TWICE IN A ROW
       IS A REPAINT. Any other line in between clears it, so a genuine repeat
       later still speaks. */
-   var sig = String(speaker)+'|'+line;
-   if(sig===LASTSAID) return null;
+   var sp0 = String(speaker||''), sig = String(speaker)+'|'+line;
+   /* __THE_SQUIGGLE_RECORDED__ (SOUNDS 10/24): a FACE calls once per showing, so the same face and line again AFTER the
+      last one finished is him opening the same keeper twice, a person saying it again, not a repaint */
+   var faceAgain = sp0.indexOf('face:')===0 && sig===LASTSAID && TALKING && TALKING.start!=null && MUS.AC
+                   && MUS.AC.currentTime > TALKING.start + (TALKING.tail || TALKING.seconds || 0);
+   if(sig===LASTSAID && !faceAgain) return null;
    LASTSAID = sig;
    if(TALKING && TALKING.stop) { try{ TALKING.stop(); }catch(e){} }
    var approved = window.__VOICES_APPROVED || [];
@@ -305,7 +309,9 @@ PANEL = r'''
       replacement, because those are the people who carry the story and they are
       not the place to use a voice he has never been played. */
    var v, gk = null;
-   if(sp.indexOf('city:')===0 && BOH_VOICE.castVoice){
+   /* __THE_SQUIGGLE_RECORDED__ (SOUNDS 10/24, rule 135): a FACE ('face:<look>', engine/bohemia_crew_faces.js) is one
+      person, ONE ID ONE WHOLE PERSON, so his look is his seed and his voice is cast from it like the city's people */
+   if((sp.indexOf('city:')===0 || sp.indexOf('face:')===0) && BOH_VOICE.castVoice){
      v = BOH_VOICE.castVoice(sp);
    } else {
      gk = (sp.indexOf('story:')===0) ? 'story' : null;
@@ -315,7 +321,9 @@ PANEL = r'''
    /* NO MOOD ARGUMENT ON PURPOSE: say() reads the line's own punctuation, so
       every surface in the game gets delivery for free without a single lane
       having to wire anything. A caller that knows better can still pass one. */
-   TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);
+   /* __THE_SQUIGGLE_RECORDED__ (SOUNDS 10/24, rule 135): said Animalese's way, real syllables per letter, his own pitch
+      and speed, a little wrong; the 8/11 voice until the bank is in */
+   TALKING = window.squiggleSay ? squiggleSay(line, v, MUS.AC, d, null) : BOH_VOICE.say(line, v, MUS.AC, d, null);
    /* AND THE MUSIC GETS OUT OF THE WAY (8/15). A squiggle line and a full song
       arrived at the same weight and the line lost, because a song is continuous
       and a voice is not. say() reports how long it will run, so the duck lasts
