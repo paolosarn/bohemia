@@ -50,6 +50,16 @@
 #    you should only see things straight down a street you're near'). Real sight distances in a city street by day and night, around
 #    corners and from a roof, with sources; and how games with city fog of war handle line of sight down streets. Also Battle Brothers'
 #    exact encounter card (what it shows before a fight: faces, numbers, terrain, the fall-back chance) and its followers (the retinue).
+# ASK 37. HOW BOHEMIA CAN LOOK VIRAL (rule 152, his words: 'I definitely need Grok to research how our game can look really good to
+#    people if they were to view it on social media... I'm trying to make it go viral... right now I don't think it's looking too good').
+#    Which indie games went viral on TikTok, Reels, Shorts and X from screenshots or clips, and why (the first second, the hook, motion,
+#    colour, contrast, faces, text on screen, the vertical frame, sound)? What does a scroller stop for? Give examples and numbers with
+#    sources, then tell him plainly what Bohemia's look must change to stop a scroll.
+# ASK 38. THE ANTI ZACH D FILMS (rule 152: 'AI videos like Zach D Films, but instead of safe fun facts, political things to get people
+#    thinking'). Break down Zach D. Films' format exactly (length, the hook, the 3D look, the voice, the pacing, the posting cadence,
+#    why it travels). Then a plan for the opposite: short AI-made videos about money, power and how economies really break (the dollar,
+#    debt, bubbles, the 2008 crash, circular vendor financing, Lucent and Nortel), told in Bohemia's world and look, that make people
+#    think. Ten first video ideas with a first-second hook each. Name the AI video tools that can make this today.
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
