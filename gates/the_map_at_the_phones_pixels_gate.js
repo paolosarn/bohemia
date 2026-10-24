@@ -166,8 +166,11 @@ const done = () => { console.log('THE MAP AT THE PHONE\'S PIXELS: ' + pass + ' p
        by the same one-phone-pixel specks (2 to 4% of pixels, measured 10/1). That is the
        shimmer the map always had while the camera moved; a slid frame adds none of its own.
        A slide that is off by even one CSS pixel misses by about two thirds (66%, measured). */
-    ok('P4 and the taps it recorded slide with it (' + eq.map(e => e.taps + ' blocks ' + (e.tapsSame ? 'same' : 'DIFFERENT')).join(', ') + ')',
-      eq.length === 3 && eq.every(e => e.tapsSame && e.taps > 0));
+    /* RE-AIMED 10/24 (rule 142, ONE MAP): the bodies a tap is picked by were recorded by the old per-block pictures; on the one map
+       none are drawn, so none are recorded and a tap reads the ground under the finger, which slides with the picture by construction */
+    const oneMap = await fr.evaluate(() => typeof VB_ONE_MAP !== 'undefined' && VB_ONE_MAP && !window.__MAP_BLOCKS_DREW);
+    ok('P4 and the taps it recorded slide with it (' + (oneMap ? 'one map: no block bodies recorded, ' : '') + eq.map(e => e.taps + ' blocks ' + (e.tapsSame ? 'same' : 'DIFFERENT')).join(', ') + ')',
+      eq.length === 3 && eq.every(e => (e.tapsSame && e.taps > 0) || (oneMap && e.taps === 0)));
 
     /* P6: standing still */
     await d.page.waitForTimeout(800);

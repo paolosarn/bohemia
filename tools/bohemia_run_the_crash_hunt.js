@@ -37,6 +37,7 @@ const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ?
 const ROUNDS = +arg('rounds', 6);
 const FILE = arg('file', 'BOHEMIA_DEMO.html');
 const OUT = arg('out', path.join(ROOT, 'records/run/THE_CRASH_HUNT.json'));
+const TOWNS = +arg('towns', 1);   /* RUN 10/24: the long play: this many towns in a row, everyone talked to in each, then LEAVE */
 
 /* armed in EVERY document before its own scripts: the counters live on window.__LEAK of each frame */
 const ARM = `(() => {
@@ -135,18 +136,19 @@ async function main() {
   try {
     await page.waitForTimeout(6000);   /* the squiggle bank loads 4 s after the music runs */
     H.rounds.push(await snapAll('on the map'));
-    /* into the nearest town (the scripted door: the talks are what is measured, and they are real touches) */
-    const town = await fr.evaluate(() => { const bs = ctBases() || {}; let n = null, best = 1e9;
-      for (const k in bs) { const b = bs[k], dd = Math.max(Math.abs(b.x - city.x), Math.abs(b.y - city.y)); if (dd < best) { best = dd; n = k; } }
-      const b = bs[n]; return { name: n, x: b.x, y: b.y, tier: mapTierOf(n) }; });
-    H.town = town;
+    /* into the nearest towns, one after another (the scripted door: the talks are what is measured, and they are real touches) */
+    const towns = await fr.evaluate((n) => { const bs = ctBases() || {}; return Object.keys(bs).map((k) => ({ name: k, x: bs[k].x, y: bs[k].y, tier: mapTierOf(k), d: Math.max(Math.abs(bs[k].x - city.x), Math.abs(bs[k].y - city.y)) }))
+      .sort((a, b) => a.d - b.d).slice(0, n); }, TOWNS);
+    H.towns = towns.map((t) => t.name);
+    for (let ti = 0; ti < towns.length; ti++) {
+    const town = towns[ti];
     await fr.evaluate((t) => loopOpenTown(t), town);
     const fh = await fr.waitForSelector('#settleFrame', { timeout: 20000 });
     const sf = await fh.contentFrame();
     await sf.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready() && BohemiaSettlement.folk().length > 0, null, { timeout: 30000 });
     await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 15000 }).catch(() => {});
     await page.waitForTimeout(1500);
-    H.rounds.push(await snapAll('in the town'));
+    H.rounds.push(await snapAll('in ' + town.name.slice(0, 9)));
     const off = async () => { const a = await (await fr.frameElement()).boundingBox(), b = await fh.boundingBox(); return { x: a.x + b.x, y: a.y + b.y }; };
     const close = async () => { if (await sf.evaluate(() => document.getElementById('sheet').classList.contains('on'))) {
       const b = await sf.evaluate(() => { const r = document.getElementById('close').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
@@ -181,6 +183,9 @@ async function main() {
       const row = await snapAll('round ' + round);
       row.talks = talks; row.opened = opened;
       H.rounds.push(row);
+    }
+    /* LEAVE, the way he does, and what the game still holds on the map */
+    if (TOWNS > 1 || ti > 0) { await fr.evaluate(() => loopClose()); await page.waitForTimeout(2500); H.rounds.push(await snapAll('left ' + town.name.slice(0, 7))); }
     }
     H.errors = d.errs.slice(0, 20);
   } finally {
