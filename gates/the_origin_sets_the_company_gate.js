@@ -85,8 +85,8 @@ const byId = {}; FILE.origins.forEach(o => { byId[o.id] = o; });
       let f = null; for (let i = 0; i < 150 && !f; i++) { const h = await d.page.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await d.page.waitForTimeout(200); }
       const got = f ? await f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'you').map(u => ({ name: u.name, kind: u.kind, level: u.level, main: !!u.main }))) : null;
       if (f) { await f.evaluate(() => { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); }); }
-      for (let i = 0; i < 60; i++) { if (await d.page.evaluate(() => !CITYFIGHT)) break; await d.page.waitForTimeout(250); }
-      try { await d.page.evaluate(() => { try { nfHome(); } catch (_e) {} }); } catch (_e) {}
+      for (let i = 0; i < 60; i++) { if (await d.page.evaluate(() => !CITYFIGHT || !!(window.SPOILS && SPOILS.frame))) break; await d.page.waitForTimeout(250); }
+      try { await d.page.evaluate(() => { try { if (typeof spoilsLeave === 'function') spoilsLeave(); else nfHome(); } catch (_e) {} }); } catch (_e) {}   /* __THE_SPOILS__ (RUN TWO 10/24): a won fight waits on the spoils; LEAVE them */
       await d.page.waitForTimeout(1500);
       return got;
     };

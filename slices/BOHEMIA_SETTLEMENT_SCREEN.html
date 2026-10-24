@@ -458,7 +458,10 @@ function shopSheet(k, body, acts, line){
   var bagG = document.createElement('div'); bagG.className = 'grid bag'; bagG.id = 'baggrid'; acts.appendChild(bagG);
   for(var si = 0; si < BAG_SLOTS; si++){
     (function(it){
-      var back = it ? Math.max(1, Math.floor((it.base || it.price) * (SELL_CUT + relPrice().sellAdd) * traitMult().sell)) : 0;
+      /* __THE_SPOILS__: a piece looted worn sells for what is left of it (Battle Brothers: an item is worth its value times its
+         condition; the Game Guide's repair table weighs worth against wear) */
+      var worn = it && it.condMax > 0 ? Math.max(0, Math.min(1, it.cond / it.condMax)) : 1;
+      var back = it ? Math.max(1, Math.floor((it.base || it.price) * worn * (SELL_CUT + relPrice().sellAdd) * traitMult().sell)) : 0;
       bagG.appendChild(iconTile(it, function(){
         openB(k, 'Your ' + it.name.replace(/^(a|an) /,'') + '? I give you ' + back + ' for it.');
         var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
@@ -2052,7 +2055,10 @@ function open(o){
   if(o.met && typeof o.met === 'object'){ S.met = o.met; metSave(); }   /* PEOPLE [ask the crowd]: the game's save hands who you have asked */
   if(typeof o.crewSize === 'number') S.crewSize = o.crewSize;
   if(o.place){ S.rounds = 0; S.heardIds = {}; S.freeSaid = false; }   /* a new visit, a new night at the bar, a new free one */
-  if(Array.isArray(o.bag)) S.stash = o.bag.slice(0, BAG_SLOTS); else if(!S.bagLoaded){ bagLoad(); }
+  /* __THE_SPOILS__ (RUN TWO 10/24, rule 156(c)): the stash is read on EVERY visit. MEASURED: the map keeps this screen's frame
+     between visits and never hands it the bag, and it was read only on the first, so what he looted after his first town was
+     not at the market, and the next buy or sell wrote the old bag over the stash and the loot was gone */
+  if(Array.isArray(o.bag)) S.stash = o.bag.slice(0, BAG_SLOTS); else bagLoad();
   S.bagLoaded = true;
   if(o.wounded) S.wounded = o.wounded.slice();
   if(o.veterans) S.veterans = o.veterans.slice();

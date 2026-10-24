@@ -222,8 +222,8 @@ function slotFor(it, where, i){
 function drawCounts(){
   var el = document.getElementById('counts'); el.textContent = '';
   var c = S.counts || {batteries:0, rounds:0, scrap:0};
-  [['batteries', 'BATTERIES', 'THE MONEY'], ['rounds', 'ROUNDS', 'OUT OF THEIR GUNS'], ['scrap', 'SCRAP', 'WHAT WAS LEFT OF IT']].forEach(function(k){
-    if(!(c[k[0]] > 0)) return;
+  [['batteries', 'BATTERIES', 'THE MONEY', 'BATTERY'], ['rounds', 'ROUNDS', 'OUT OF THEIR GUNS', 'ROUND'], ['scrap', 'SCRAP', 'WHAT WAS LEFT OF IT', 'SCRAP']].forEach(function(k){
+    if(!(c[k[0]] > 0)) return; if(c[k[0]] === 1) k[1] = k[3];
     var b = document.createElement('button'); b.type = 'button'; b.className = 'count' + (S.countsTaken ? ' taken' : ''); b.dataset.count = k[0];
     b.innerHTML = '<b>+' + c[k[0]] + ' ' + k[1] + '</b><span>' + (S.countsTaken ? 'TAKEN' : k[2]) + '</span>';
     b.addEventListener('click', function(){ takeCounts(); }); el.appendChild(b); });
@@ -292,7 +292,7 @@ function open(o){
   S.found = SP.found(f.spoils, S.L, dice(seed));
   S.ground = S.found.items.map(itemFor).filter(Boolean);
   S.counts = S.found.counts; S.countsTaken = false;
-  document.getElementById('rounds').textContent = f.rounds ? f.rounds + ' ROUNDS' : '';
+  document.getElementById('rounds').textContent = f.rounds ? f.rounds + (f.rounds === 1 ? ' ROUND' : ' ROUNDS') : '';
   document.getElementById('head').textContent = 'THE FIGHT IS WON';
   draw();
   say(S.ground.length ? 'Tap a piece to take it, or LOOT ALL.' : hasCounts() ? 'Take what was in their pockets.' : '');

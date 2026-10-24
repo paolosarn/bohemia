@@ -9547,6 +9547,15 @@ GATES = [
      "hands the fight both hires, the gun and the line; every man on the line stands on the board, the armed hire holds it, the "
      "moved one is in the back; again after a reload (the gun used to vanish); NEW GAME wipes the old hires. The old door read "
      "red 9 of 16 (3 of 5 men in the fight); ONE CREW SCREEN leg (rule 147(b)); W8 AFTER A FIGHT (the dead stay dead, the fallen sit out their days, the crew screen climbs them). green, 21/0, about 1 min", True),
+    ('THE SPOILS', ['node', 'gates/the_spoils_gate.js'],
+     "RUN TWO gate, 10/24, row [the end of the fight, the loot, the stash] (rule 156, Paolo 10/24: 'there isn't an end of battle "
+     "quick summary of who got experience, who leveled up, and what loot I'm able to take, with a loot button; if my inventory is "
+     "full it loots as much as it can and stops, similar to Battle Brothers'): Battle Brothers' drop rules quoted from the library "
+     "(records/target/bb/loot.json); the full stash STOPS; ON THE DEMO: a road fight through the map's door, theirs fall, THE SPOILS "
+     "lie over the fight and the game does not go home on its own (it did, after two seconds); every man with his face and XP, "
+     "LEVEL UP and PICK A PERK; pieces off the dead; LOOT ALL (a real tap) into the stash, the counts into the purse once; PICK A "
+     "PERK opens the one crew screen, a perk taken, the looted weapon into a man's hand; LEAVE home; the door and the next road "
+     "fight hand him the looted weapon. green at registration, 19/0, about 2 min", True),
     ('THE STARS SIT WITH THE WORDS', ['node', 'gates/the_stars_sit_with_the_words_gate.js'],
      "RUN TWO gate, 10/24, row [the stars sit with the words] (rule 146(e), Paolo 10/24: 'even on the hire screen the stars are a "
      "little too big and not nicely put with the UI's letters, so make the stars smaller'): on the hall's hire cards and a man's "

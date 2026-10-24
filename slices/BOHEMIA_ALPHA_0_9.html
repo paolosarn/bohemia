@@ -1554,7 +1554,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/24n - THE DAYS ON HOLD</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/24o - THE SPOILS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12539,6 +12539,56 @@ function nfAfterKeep(d){
   return q.length;
 }
 /* ==== end __WHO_YOU_HIRE_FIGHTS__, AFTER THE FIGHT ==== */
+/* ==== __THE_SPOILS__ (RUN TWO's block in RUN's file, NOTE on RUN's board; rule 156, Paolo 10/24: 'I've been killing enemies
+   all this time, winning battles, but there isn't an end of battle quick summary of who got experience, who leveled up, and
+   what loot I'm able to take, with a loot button; and if my inventory is full it loots as much as it can and stops, similar to
+   Battle Brothers'). MEASURED: the fight's recap card stood FOUR BEATS (two seconds) and this door took him home on its own;
+   nothing the beaten men carried ever reached him. NOW, Battle Brothers' way ('the after-combat-report always leads the player
+   to the loot screen before allowing him to return to the worldmap', the library's dev blog): after a WON fight the card
+   stands two beats, then THE SPOILS (slices/BOHEMIA_SPOILS_SCREEN.html) lies over the fight and WAITS: who grew, who is hurt,
+   what they left, LOOT ALL into the stash; LEAVE takes him home. A tap on the card opens it at once; nothing goes home past
+   it. The counts it hands back (batteries, rounds and scrap) are credited to the map's purse here, once. A lost fight, a
+   retreat and a wipe go home as before. */
+var SPOILS = { d: null, wrap: null, frame: null, left: false, paid: {} };
+window.SPOILS = SPOILS;
+function spoilsWanted(d){ return !!(d && d.result === 'won' && !d.retreat && !d.wipe); }
+function spoilsOpen(){
+  if(SPOILS.frame || !SPOILS.d) return false;
+  if(NF.spoilsAt){ clearTimeout(NF.spoilsAt); NF.spoilsAt = null; }
+  var wrap = document.createElement('div'); wrap.id = 'spoilsdoor';
+  wrap.style.cssText = 'position:fixed;inset:0;z-index:8000;background:#120e0a';
+  var f = document.createElement('iframe'); f.title = 'the spoils'; f.src = 'BOHEMIA_SPOILS_SCREEN.html';
+  f.style.cssText = 'border:0;width:100%;height:100%;display:block';
+  wrap.appendChild(f); document.body.appendChild(wrap);
+  SPOILS.wrap = wrap; SPOILS.frame = f; SPOILS.seq = Date.now(); SPOILS.opened = (SPOILS.opened | 0) + 1;
+  var d = SPOILS.d, sent = false, send = function(){ if(sent) return; sent = true;
+    try{ f.contentWindow.postMessage({ type: 'BOHEMIA_SPOILS_OPEN', fight: d, day: NF.day | 0, seq: SPOILS.seq }, '*'); }catch(_e){} };
+  f.addEventListener('load', send);
+  return true;
+}
+/* the counts take no room: batteries to the purse's electricity, rounds and scrap to its resources, each once by its seq */
+function spoilsPay(m){
+  var key = String(m.seq || SPOILS.seq); if(SPOILS.paid[key]) return false; SPOILS.paid[key] = true;
+  var cf = document.getElementById('cityFrame'), w = cf && cf.contentWindow;
+  try{ if(!w || !w.BohemiaPurse || typeof w.purseGet !== 'function') return false;
+    var day = typeof w.loopDay === 'function' ? w.loopDay() : (NF.day | 0);
+    if((m.batteries | 0) > 0) w.BohemiaPurse.credit(w.purseGet(), 'electricity', m.batteries | 0, 'loot: cells off their bodies', 'loot:' + key + ':cells', day);
+    if((m.resources | 0) > 0) w.BohemiaPurse.credit(w.purseGet(), 'resources', m.resources | 0, 'loot: ' + (m.rounds | 0) + ' rounds, ' + (m.scrap | 0) + ' scrap', 'loot:' + key + ':goods', day);
+    try{ if(typeof w.__barPaintRead === 'function') w.__barPaintRead(); }catch(_e){}
+    try{ if(typeof w.saveNow === 'function') w.saveNow('loot'); }catch(_e){}
+  }catch(_e){ return false; }
+  return true;
+}
+function spoilsClose(){ try{ if(SPOILS.wrap) SPOILS.wrap.remove(); }catch(_e){} SPOILS.wrap = null; SPOILS.frame = null; }
+/* LEAVE, from outside the screen (a checker that walks past the spoils to the next fight) */
+function spoilsLeave(){ SPOILS.left = true; spoilsClose(); return nfHome(); }
+window.spoilsLeave = spoilsLeave;
+window.addEventListener('message', function(ev){
+  var m = ev && ev.data; if(!m || m.type !== 'BOHEMIA_SPOILS' || !SPOILS.frame || ev.source !== SPOILS.frame.contentWindow) return;
+  if(m.act === 'counts') spoilsPay(m);
+  if(m.act === 'leave'){ SPOILS.left = true; spoilsClose(); nfHome(); }
+});
+/* ==== end __THE_SPOILS__ ==== */
 function nfOverIn(d, src){
   if (!NF.frame || src !== NF.frame.contentWindow || NF.over) return false;
   var won = d.result === 'won', fell = 0, dead = 0, ran = 0, theirs = 0;
@@ -12552,12 +12602,17 @@ function nfOverIn(d, src){
   try{ if (window.FIGHTMUS) FIGHTMUS.leave(); }catch(_e){}
   G.combatLog.push({ t: Date.now(), outcome: won ? 'encounter-won' : 'encounter-lost', recorded: true, newFight: true });
   if (G.combatLog.length > 40) G.combatLog.shift();
+  /* __THE_SPOILS__ (RUN TWO): a won fight's card stands two beats, then the spoils wait for him; everything else goes home as before */
+  SPOILS.d = null; SPOILS.left = false; spoilsClose();
+  if (spoilsWanted(d)) { SPOILS.d = d; NF.spoilsAt = setTimeout(spoilsOpen, nfReadMs() / 2); return true; }
   NF.homeAt = setTimeout(nfHome, nfReadMs());
   NF.cloudAt = setTimeout(function(){ try { nfcIn(); } catch (_e) {} }, Math.max(0, nfReadMs() - 60000 / 120));   /* the clouds close over the card in its last beat */
   return true;
 }
 function nfHome(){
   if (!NF.over || !CITYFIGHT) return false;
+  if (SPOILS.d && !SPOILS.left) { spoilsOpen(); return false; }   /* __THE_SPOILS__: nothing goes home past the spoils */
+  SPOILS.d = null;
   if (NF.homeAt) { clearTimeout(NF.homeAt); NF.homeAt = null; }
   if (NF.cloudAt) { clearTimeout(NF.cloudAt); NF.cloudAt = null; }
   try { if (NFC.state !== 'in') nfcIn(); setTimeout(nfcPart, 250); } catch (_e) {}   /* and part over the map */

@@ -550,6 +550,12 @@ function moveMan(fromRow, fromI, toRow, toI){
   });
 })();
 var LOADED = false;
+/* __THE_SPOILS__ (RUN TWO [the end of the fight, the loot, the stash], 10/24): a man comes in at the level his origin or the post
+   gave him, with that level's XP and the perk points it earned unspent (Battle Brothers' recruits: a level a point to 11), so
+   the spoils' LEVEL UP and this screen's climb agree; measured, manOf dealt every man level 1 and the fight a level-3 man.
+   His kept climb (loadClimb) still wins once he has one. */
+function startLevel(m, lv){ lv = lv | 0; if(m && lv > 1){ m.level = lv; m.xp = C.xpFor(lv);
+  var pp = (C.data.xp && C.data.xp.per_level && C.data.xp.per_level.value.perk_points) || 1; m.points = Math.min(lv, 11) - 1; m.points *= pp; } return m; }
 function open(o){
   o = o || {};
   if(!LOADED){ S.pending = o; return; }   /* the door's post can come before the company's files are read: it waits for them */
@@ -562,7 +568,7 @@ function open(o){
     S.crew = o.company.map(function(m, i){ var d = Object.assign({}, defs[i % Math.max(1, defs.length)] || {});
       if(i >= defs.length){ d.main = false; d.name = (d.name || 'MAN') + ' II'; }
       if(m && m.background) d.background = m.background; if(m && m.level) d.level = m.level;
-      return C.manOf(d, i); });
+      return startLevel(C.manOf(d, i), d.level); });
     S.fromOrigin = true; if(o.roster) S.cap = o.roster;
   }
   else if(!S.crew.length) S.crew = C.startingCrew();
@@ -570,7 +576,7 @@ function open(o){
      same stats and stars as on the card he was hired from */
   try{ var hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]');
     hired.forEach(function(def){ if(S.crew.some(function(m){ return m.name === def.name && m.hired; })) return;
-      var m = C.manOf(def, S.crew.length); m.hired = true; if(def.stats) m.stats = def.stats; if(def.stars) m.stars = def.stars; if(def.look) m.look = def.look;
+      var m = startLevel(C.manOf(def, S.crew.length), def.level); m.hired = true; if(def.stats) m.stats = def.stats; if(def.stars) m.stars = def.stars; if(def.look) m.look = def.look;
       if(def.trait) m.trait = def.trait; if(Array.isArray(def.traits)) m.traits = def.traits.slice();   /* the trait he was hired with (RUN TWO [the trait before you hire], 10/24) */
       var g = def.gear || {};   /* he walks in wearing what he held at the post (RUN TWO [the hire shows the whole man], 10/24) */
       m.gear = {main:C.itemOf('weapon', g.main), off:null, body:C.itemOf('body', g.body), head:null}; S.crew.push(m); }); }catch(e){}
