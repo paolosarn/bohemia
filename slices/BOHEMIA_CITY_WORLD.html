@@ -72510,15 +72510,21 @@ function __tilesArrived(){
        The countdown below is armed only when the last handful is in, as before. */
     var Q = [];
     for(var hk in HERO_SRC){ if(!HERO_IMG[hk]) (function(k){ Q.push(function(){ HERO_IMG[k]=mk(HERO_SRC[k]); }); })(hk); }
+    /* __ONE_MAP_AT_EVERY_ZOOM__ (RUN 10/24, rule 141): ON THE DEMO'S MAP NOTHING DRAWS THE STREET TILES ANY MORE (the painting
+       is the map at every zoom; the walk and the block close-up are gone from it), and making them pictures was 8,833 Image
+       objects, 54 MB decoded, held for the whole session (tools/bohemia_run_the_crash_hunt.js). The demo makes only the hero
+       pictures (the towns' own bases on the map); the workshop still makes everything. */
+    var __lean = (typeof VB_ONE_MAP !== 'undefined' && VB_ONE_MAP) && (typeof CT_IS_DEMO !== 'undefined' && CT_IS_DEMO);
+    window.__TILES_LEAN = __lean;
     /* a family is handed over whole, after its last picture is made: nothing reads a half-made family */
-    for(var tk in TP_TILES){ if(!TP_IMG[tk]) (function(k){ var arr=[];
+    if(!__lean) for(var tk in TP_TILES){ if(!TP_IMG[tk]) (function(k){ var arr=[];
       TP_TILES[k].forEach(function(b, i){ Q.push(function(){ arr[i]=mk('data:image/png;base64,'+b); }); });
       Q.push(function(){ TP_IMG[k]=arr; }); })(tk); }
     if(TP_CATS.length!==Object.keys(TP_TILES).length){
       TP_CATS.length=0; for(var ck in TP_TILES) TP_CATS.push(ck);
       if(!TP.cat) TP.cat=TP_CATS[0];      /* TP.cat was read off an empty TP_CATS at parse time */
     }
-    if(!DOOR_ANIM_IMG.length && DOOR_ANIM.length){
+    if(!__lean && !DOOR_ANIM_IMG.length && DOOR_ANIM.length){
       DOOR_ANIM.forEach(function(cl){ var arr=[];
         cl.forEach(function(b, i){ Q.push(function(){ arr[i]=mk('data:image/png;base64,'+b); }); });
         Q.push(function(){ DOOR_ANIM_IMG.push(arr); }); });

@@ -1,0 +1,2546 @@
+{
+ "file": "BOHEMIA_DEMO.html",
+ "when": "2026-10-24T19:51:46.292Z",
+ "box": "Playwright Chromium, phone 390x844 touch, full CPU",
+ "rounds": [
+  {
+   "label": "on the map",
+   "heapMB": 59.3,
+   "domNodes": 23382,
+   "listeners": 5854,
+   "documents": 13,
+   "frames": 13,
+   "audioMade": 4269,
+   "audioConnected": 204,
+   "audioCtxs": 1,
+   "audioBufMB": 57.6,
+   "canvasAlive": 1094,
+   "canvasOffPage": 1088,
+   "canvasMB": 118.2,
+   "imagesAlive": 903,
+   "imagesMB": 399.6,
+   "intervals": 46,
+   "perFrame": [
+    {
+     "url": "BOHEMIA_DEMO.html",
+     "audio": {
+      "made": 4269,
+      "alive": 204,
+      "connected": 204,
+      "connectedBy": {
+       "createGain": 87,
+       "createDynamicsCompressor": 2,
+       "createBiquadFilter": 37,
+       "createBufferSource": 47,
+       "createOscillator": 31
+      },
+      "connectedAt": [
+       [
+        " at blip (slices/BOHEMIA_DEMO.html:23677:22) | at Object.say (slices/BOHEMIA_DEMO.html:23744:13)",
+        41
+       ],
+       [
+        " at blip (slices/BOHEMIA_DEMO.html:23677:51) | at Object.say (slices/BOHEMIA_DEMO.html:23744:13)",
+        41
+       ],
+       [
+        " at synthV (slices/BOHEMIA_DEMO.html:16093:66) | at Object.playStep (slices/BOHEMIA_DEMO.html:19776:19)",
+        30
+       ],
+       [
+        " at synthV (slices/BOHEMIA_DEMO.html:16093:90) | at Object.playStep (slices/BOHEMIA_DEMO.html:19776:19)",
+        30
+       ]
+      ],
+      "ctxs": 1,
+      "bufs": 29,
+      "bufMB": 57.6,
+      "bufsAt": [
+       [
+        " at engine/bohemia_machine_party.js:38:51",
+        9
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:21996:77",
+        9
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:26235:70",
+        4
+       ],
+       [
+        " at noiseBuf (slices/BOHEMIA_DEMO.html:29557:18)",
+        1
+       ]
+      ]
+     },
+     "canvas": {
+      "made": 26,
+      "alive": 5,
+      "onPage": 4,
+      "MB": 1.6,
+      "aliveAt": [
+       [
+        " at canvas (slices/bohemia_ui_materials.js:13:46) | at keyMark (slices/bohemia_ui_materials.js:1178:15)",
+        1
+       ]
+      ],
+      "MBAt": [
+       [
+        " at canvas (slices/bohemia_ui_materials.js:13:46)",
+        1.4
+       ],
+       [
+        " at markCanvas (slices/bohemia_ui_materials.js:1196:22)",
+        0.3
+       ]
+      ]
+     },
+     "images": {
+      "made": 3,
+      "alive": 2,
+      "files": 1,
+      "MB": 0.2,
+      "byDir": [
+       [
+        "data:image/png;base6",
+        0.2
+       ]
+      ],
+      "biggest": [
+       [
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQVR4nFyddZxtddX/",
+        "400x130"
+       ]
+      ],
+      "at": [
+       [
+        " at drawLogoBig (slices/BOHEMIA_DEMO.html:13263:24)",
+        1
+       ],
+       [
+        " at build (slices/BOHEMIA_DEMO.html:13837:19)",
+        1
+       ]
+      ]
+     },
+     "timers": {
+      "intervals": 25,
+      "intervalsAt": [
+       [
+        " at slices/BOHEMIA_DEMO.html:1695:3 | at slices/BOHEMIA_DEMO.html:1715:3",
+        1
+       ],
+       [
+        " at frontJustTheFont (slices/bohemia_ui_materials.js:1429:5) | at wait (slices/bohemia_ui_materials.js:1583:54)",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:13954:3 | at slices/BOHEMIA_DEMO.html:13966:3",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:19119:3 | at slices/BOHEMIA_DEMO.html:19120:3",
+        1
+       ]
+      ],
+      "raf": 7515
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "BOHEMIA_CITY_WORLD.html",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 1383,
+      "alive": 1089,
+      "onPage": 2,
+      "MB": 116.6,
+      "aliveAt": [
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at Array.map (<anonymous>)",
+        800
+       ],
+       [
+        " at mapArtSprite (slices/BOHEMIA_CITY_WORLD.html:45357:20) | at mapArtDraw (slices/BOHEMIA_CITY_WORLD.html:45398:11)",
+        163
+       ],
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at slices/BOHEMIA_CITY_WORLD.html:70352:33",
+        96
+       ],
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at slices/BOHEMIA_CITY_WORLD.html:69718:12",
+        8
+       ]
+      ],
+      "MBAt": [
+       [
+        " at cv (slices/BOHEMIA_CITY_WORLD.html:46738:36)",
+        44
+       ],
+       [
+        " at mapGroundBegin (slices/BOHEMIA_CITY_WORLD.html:46022:29)",
+        16.3
+       ],
+       [
+        " at cv (slices/BOHEMIA_CITY_WORLD.html:46694:53)",
+        11.8
+       ],
+       [
+        " at mapBaseSprite (slices/BOHEMIA_CITY_WORLD.html:45885:20)",
+        0.5
+       ],
+       [
+        " at rigCanvas (slices/BOHEMIA_CITY_WORLD.html:45596:16)",
+        0.2
+       ],
+       [
+        " at outline1 (slices/BOHEMIA_CITY_WORLD.html:69645:22)",
+        0.2
+       ],
+       [
+        " at voiceShow (slices/bohemia_ui_materials.js:1919:22)",
+        0.2
+       ],
+       [
+        " at mapArtSprite (slices/BOHEMIA_CITY_WORLD.html:45357:20)",
+        0
+       ]
+      ]
+     },
+     "images": {
+      "made": 901,
+      "alive": 901,
+      "files": 891,
+      "MB": 399.4,
+      "byDir": [
+       [
+        "slices/rig_mix/",
+        195.9
+       ],
+       [
+        "slices/rig_idles/",
+        123.1
+       ],
+       [
+        "slices/",
+        50.4
+       ],
+       [
+        "data:image/png;base6",
+        29.5
+       ],
+       [
+        "records/target/character/barber/person_town_0/face/",
+        0.3
+       ],
+       [
+        "slices/ui_kit/tin/",
+        0.1
+       ]
+      ],
+      "biggest": [
+       [
+        "slices/BOHEMIA_RIG_CAST.png",
+        "546x14144"
+       ],
+       [
+        "slices/rig_mix/town.png",
+        "490x12192"
+       ],
+       [
+        "slices/BOHEMIA_RIG_PEOPLE.png",
+        "686x8008"
+       ],
+       [
+        "slices/rig_idles/map.webp",
+        "2048x2174"
+       ],
+       [
+        "slices/rig_mix/reds.png",
+        "490x8320"
+       ],
+       [
+        "slices/rig_mix/colorful.png",
+        "490x8256"
+       ],
+       [
+        "slices/rig_mix/volunteers.png",
+        "490x8192"
+       ],
+       [
+        "slices/rig_mix/town_2.png",
+        "364x10944"
+       ]
+      ],
+      "at": [
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:49818:46",
+        184
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:49819:46",
+        184
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:40356:12",
+        105
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:48572:12",
+        98
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:48563:12",
+        96
+       ]
+      ]
+     },
+     "timers": {
+      "intervals": 21,
+      "intervalsAt": [
+       [
+        " at slices/bohemia_ui_materials.js:2107:5 | at slices/bohemia_ui_materials.js:2118:3",
+        1
+       ],
+       [
+        " at slices/bohemia_phone_board.js:132:3 | at slices/bohemia_phone_board.js:134:3",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:43581:1",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:44596:1",
+        1
+       ]
+      ],
+      "raf": 1
+     }
+    }
+   ]
+  },
+  {
+   "label": "in the town",
+   "heapMB": 62,
+   "domNodes": 23691,
+   "listeners": 6093,
+   "documents": 14,
+   "frames": 14,
+   "audioMade": 4507,
+   "audioConnected": 144,
+   "audioCtxs": 1,
+   "audioBufMB": 57.6,
+   "canvasAlive": 1097,
+   "canvasOffPage": 1091,
+   "canvasMB": 118.3,
+   "imagesAlive": 1025,
+   "imagesMB": 539.9,
+   "intervals": 49,
+   "perFrame": [
+    {
+     "url": "BOHEMIA_DEMO.html",
+     "audio": {
+      "made": 4507,
+      "alive": 145,
+      "connected": 144,
+      "connectedBy": {
+       "createGain": 59,
+       "createDynamicsCompressor": 2,
+       "createBiquadFilter": 33,
+       "createBufferSource": 19,
+       "createOscillator": 31
+      },
+      "connectedAt": [
+       [
+        " at synthV (slices/BOHEMIA_DEMO.html:16093:66) | at Object.playStep (slices/BOHEMIA_DEMO.html:19776:19)",
+        27
+       ],
+       [
+        " at synthV (slices/BOHEMIA_DEMO.html:16093:90) | at Object.playStep (slices/BOHEMIA_DEMO.html:19776:19)",
+        27
+       ],
+       [
+        " at synthV (slices/BOHEMIA_DEMO.html:16093:109) | at Object.playStep (slices/BOHEMIA_DEMO.html:19776:19)",
+        27
+       ],
+       [
+        " at blip (slices/BOHEMIA_DEMO.html:23677:22) | at Object.say (slices/BOHEMIA_DEMO.html:23744:13)",
+        15
+       ]
+      ],
+      "ctxs": 1,
+      "bufs": 29,
+      "bufMB": 57.6,
+      "bufsAt": [
+       [
+        " at engine/bohemia_machine_party.js:38:51",
+        9
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:21996:77",
+        9
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:26235:70",
+        4
+       ],
+       [
+        " at noiseBuf (slices/BOHEMIA_DEMO.html:29557:18)",
+        1
+       ]
+      ]
+     },
+     "canvas": {
+      "made": 26,
+      "alive": 5,
+      "onPage": 4,
+      "MB": 1.6,
+      "aliveAt": [
+       [
+        " at canvas (slices/bohemia_ui_materials.js:13:46) | at keyMark (slices/bohemia_ui_materials.js:1178:15)",
+        1
+       ]
+      ],
+      "MBAt": [
+       [
+        " at canvas (slices/bohemia_ui_materials.js:13:46)",
+        1.4
+       ],
+       [
+        " at markCanvas (slices/bohemia_ui_materials.js:1196:22)",
+        0.3
+       ]
+      ]
+     },
+     "images": {
+      "made": 3,
+      "alive": 2,
+      "files": 1,
+      "MB": 0.2,
+      "byDir": [
+       [
+        "data:image/png;base6",
+        0.2
+       ]
+      ],
+      "biggest": [
+       [
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQVR4nFyddZxtddX/",
+        "400x130"
+       ]
+      ],
+      "at": [
+       [
+        " at drawLogoBig (slices/BOHEMIA_DEMO.html:13263:24)",
+        1
+       ],
+       [
+        " at build (slices/BOHEMIA_DEMO.html:13837:19)",
+        1
+       ]
+      ]
+     },
+     "timers": {
+      "intervals": 25,
+      "intervalsAt": [
+       [
+        " at slices/BOHEMIA_DEMO.html:1695:3 | at slices/BOHEMIA_DEMO.html:1715:3",
+        1
+       ],
+       [
+        " at frontJustTheFont (slices/bohemia_ui_materials.js:1429:5) | at wait (slices/bohemia_ui_materials.js:1583:54)",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:13954:3 | at slices/BOHEMIA_DEMO.html:13966:3",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:19119:3 | at slices/BOHEMIA_DEMO.html:19120:3",
+        1
+       ]
+      ],
+      "raf": 124
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "BOHEMIA_CITY_WORLD.html",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 1395,
+      "alive": 1090,
+      "onPage": 2,
+      "MB": 116.6,
+      "aliveAt": [
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at Array.map (<anonymous>)",
+        800
+       ],
+       [
+        " at mapArtSprite (slices/BOHEMIA_CITY_WORLD.html:45357:20) | at mapArtDraw (slices/BOHEMIA_CITY_WORLD.html:45398:11)",
+        163
+       ],
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at slices/BOHEMIA_CITY_WORLD.html:70352:33",
+        96
+       ],
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at slices/BOHEMIA_CITY_WORLD.html:69718:12",
+        8
+       ]
+      ],
+      "MBAt": [
+       [
+        " at cv (slices/BOHEMIA_CITY_WORLD.html:46738:36)",
+        44
+       ],
+       [
+        " at mapGroundBegin (slices/BOHEMIA_CITY_WORLD.html:46022:29)",
+        16.3
+       ],
+       [
+        " at cv (slices/BOHEMIA_CITY_WORLD.html:46694:53)",
+        11.8
+       ],
+       [
+        " at mapBaseSprite (slices/BOHEMIA_CITY_WORLD.html:45885:20)",
+        0.5
+       ],
+       [
+        " at rigCanvas (slices/BOHEMIA_CITY_WORLD.html:45596:16)",
+        0.2
+       ],
+       [
+        " at outline1 (slices/BOHEMIA_CITY_WORLD.html:69645:22)",
+        0.2
+       ],
+       [
+        " at voiceShow (slices/bohemia_ui_materials.js:1919:22)",
+        0.2
+       ],
+       [
+        " at mapArtSprite (slices/BOHEMIA_CITY_WORLD.html:45357:20)",
+        0
+       ]
+      ]
+     },
+     "images": {
+      "made": 901,
+      "alive": 901,
+      "files": 891,
+      "MB": 399.4,
+      "byDir": [
+       [
+        "slices/rig_mix/",
+        195.9
+       ],
+       [
+        "slices/rig_idles/",
+        123.1
+       ],
+       [
+        "slices/",
+        50.4
+       ],
+       [
+        "data:image/png;base6",
+        29.5
+       ],
+       [
+        "records/target/character/barber/person_town_0/face/",
+        0.3
+       ],
+       [
+        "slices/ui_kit/tin/",
+        0.1
+       ]
+      ],
+      "biggest": [
+       [
+        "slices/BOHEMIA_RIG_CAST.png",
+        "546x14144"
+       ],
+       [
+        "slices/rig_mix/town.png",
+        "490x12192"
+       ],
+       [
+        "slices/BOHEMIA_RIG_PEOPLE.png",
+        "686x8008"
+       ],
+       [
+        "slices/rig_idles/map.webp",
+        "2048x2174"
+       ],
+       [
+        "slices/rig_mix/reds.png",
+        "490x8320"
+       ],
+       [
+        "slices/rig_mix/colorful.png",
+        "490x8256"
+       ],
+       [
+        "slices/rig_mix/volunteers.png",
+        "490x8192"
+       ],
+       [
+        "slices/rig_mix/town_2.png",
+        "364x10944"
+       ]
+      ],
+      "at": [
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:49818:46",
+        184
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:49819:46",
+        184
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:40356:12",
+        105
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:48572:12",
+        98
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:48563:12",
+        96
+       ]
+      ]
+     },
+     "timers": {
+      "intervals": 21,
+      "intervalsAt": [
+       [
+        " at slices/bohemia_ui_materials.js:2107:5 | at slices/bohemia_ui_materials.js:2118:3",
+        1
+       ],
+       [
+        " at slices/bohemia_phone_board.js:132:3 | at slices/bohemia_phone_board.js:134:3",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:43581:1",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:44596:1",
+        1
+       ]
+      ],
+      "raf": 0
+     }
+    },
+    {
+     "url": "BOHEMIA_SETTLEMENT_SCREEN.html",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 82,
+      "alive": 2,
+      "onPage": 0,
+      "MB": 0.1,
+      "aliveAt": [
+       [
+        " at arrivalTag (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1978:20) | at arrive (slices/BOHEMIA_SETTLEMENT_SCREEN.html:2012:17)",
+        1
+       ],
+       [
+        " at face (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1605:20) | at speak (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1626:23)",
+        1
+       ]
+      ],
+      "MBAt": [
+       [
+        " at arrivalTag (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1978:20)",
+        0.1
+       ],
+       [
+        " at face (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1605:20)",
+        0.1
+       ]
+      ]
+     },
+     "images": {
+      "made": 124,
+      "alive": 122,
+      "files": 122,
+      "MB": 140.3,
+      "byDir": [
+       [
+        "slices/rig_idles/",
+        83
+       ],
+       [
+        "slices/rig_walk/",
+        37.1
+       ],
+       [
+        "slices/settlement_ground_packs/",
+        17.2
+       ],
+       [
+        "records/target/character/barber/person_mob_0/face/",
+        0.3
+       ],
+       [
+        "slices/settlement/lot/",
+        0.2
+       ],
+       [
+        "slices/market_icons/",
+        0.1
+       ],
+       [
+        "records/target/character/barber/person_anarchists_3/",
+        0.1
+       ],
+       [
+        "records/target/character/barber/person_church_0/",
+        0.1
+       ]
+      ],
+      "biggest": [
+       [
+        "slices/settlement_ground_packs/town_0.webp",
+        "2060x1092"
+       ],
+       [
+        "slices/settlement_ground_packs/town_0_night.webp",
+        "2060x1092"
+       ],
+       [
+        "slices/rig_walk/person_homeless_2.png",
+        "1800x1184"
+       ],
+       [
+        "slices/rig_walk/person_cartel_5.png",
+        "1440x1000"
+       ],
+       [
+        "slices/rig_walk/person_blues_2.png",
+        "1440x992"
+       ],
+       [
+        "slices/rig_walk/person_church_1.png",
+        "1248x1072"
+       ],
+       [
+        "slices/rig_walk/person_trades_3.png",
+        "1088x1064"
+       ],
+       [
+        "slices/rig_walk/person_caravans_6.png",
+        "1088x1056"
+       ]
+      ],
+      "at": [
+       [
+        " at load (engine/bohemia_rig_bodies.js:59:32)",
+        79
+       ],
+       [
+        " at sheet (engine/bohemia_idles.js:111:25)",
+        24
+       ],
+       [
+        " at slices/BOHEMIA_SETTLEMENT_SCREEN.html:646:12",
+        8
+       ],
+       [
+        " at image (engine/bohemia_crew_faces.js:61:32)",
+        5
+       ],
+       [
+        " at slices/BOHEMIA_SETTLEMENT_SCREEN.html:965:55",
+        2
+       ]
+      ]
+     },
+     "timers": {
+      "intervals": 3,
+      "intervalsAt": [
+       [
+        " at engine/bohemia_settlement_heard.js:154:3 | at engine/bohemia_settlement_heard.js:167:3",
+        1
+       ],
+       [
+        " at HTMLDocument.dressAll (slices/bohemia_ui_materials.js:1589:70)",
+        1
+       ],
+       [
+        " at HTMLDocument.dressAll (slices/bohemia_ui_materials.js:1591:55)",
+        1
+       ]
+      ],
+      "raf": 155
+     }
+    }
+   ]
+  },
+  {
+   "label": "round 1",
+   "heapMB": 66,
+   "domNodes": 24133,
+   "listeners": 6280,
+   "documents": 14,
+   "frames": 14,
+   "audioMade": 9410,
+   "audioConnected": 189,
+   "audioCtxs": 2,
+   "audioBufMB": 70.8,
+   "canvasAlive": 1135,
+   "canvasOffPage": 1128,
+   "canvasMB": 122.4,
+   "imagesAlive": 1110,
+   "imagesMB": 560.5,
+   "intervals": 48,
+   "perFrame": [
+    {
+     "url": "BOHEMIA_DEMO.html",
+     "audio": {
+      "made": 8792,
+      "alive": 176,
+      "connected": 176,
+      "connectedBy": {
+       "createGain": 81,
+       "createDynamicsCompressor": 2,
+       "createBiquadFilter": 31,
+       "createBufferSource": 32,
+       "createOscillator": 30
+      },
+      "connectedAt": [
+       [
+        " at blip (slices/BOHEMIA_DEMO.html:23677:22) | at Object.say (slices/BOHEMIA_DEMO.html:23744:13)",
+        28
+       ],
+       [
+        " at blip (slices/BOHEMIA_DEMO.html:23677:51) | at Object.say (slices/BOHEMIA_DEMO.html:23744:13)",
+        28
+       ],
+       [
+        " at synthV (slices/BOHEMIA_DEMO.html:16093:66) | at Object.playStep (slices/BOHEMIA_DEMO.html:19776:19)",
+        18
+       ],
+       [
+        " at synthV (slices/BOHEMIA_DEMO.html:16093:90) | at Object.playStep (slices/BOHEMIA_DEMO.html:19776:19)",
+        18
+       ]
+      ],
+      "ctxs": 1,
+      "bufs": 29,
+      "bufMB": 57.6,
+      "bufsAt": [
+       [
+        " at engine/bohemia_machine_party.js:38:51",
+        9
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:21996:77",
+        9
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:26235:70",
+        4
+       ],
+       [
+        " at noiseBuf (slices/BOHEMIA_DEMO.html:29557:18)",
+        1
+       ]
+      ]
+     },
+     "canvas": {
+      "made": 26,
+      "alive": 5,
+      "onPage": 4,
+      "MB": 1.6,
+      "aliveAt": [
+       [
+        " at canvas (slices/bohemia_ui_materials.js:13:46) | at keyMark (slices/bohemia_ui_materials.js:1178:15)",
+        1
+       ]
+      ],
+      "MBAt": [
+       [
+        " at canvas (slices/bohemia_ui_materials.js:13:46)",
+        1.4
+       ],
+       [
+        " at markCanvas (slices/bohemia_ui_materials.js:1196:22)",
+        0.3
+       ]
+      ]
+     },
+     "images": {
+      "made": 3,
+      "alive": 2,
+      "files": 1,
+      "MB": 0.2,
+      "byDir": [
+       [
+        "data:image/png;base6",
+        0.2
+       ]
+      ],
+      "biggest": [
+       [
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQVR4nFyddZxtddX/",
+        "400x130"
+       ]
+      ],
+      "at": [
+       [
+        " at drawLogoBig (slices/BOHEMIA_DEMO.html:13263:24)",
+        1
+       ],
+       [
+        " at build (slices/BOHEMIA_DEMO.html:13837:19)",
+        1
+       ]
+      ]
+     },
+     "timers": {
+      "intervals": 25,
+      "intervalsAt": [
+       [
+        " at slices/BOHEMIA_DEMO.html:1695:3 | at slices/BOHEMIA_DEMO.html:1715:3",
+        1
+       ],
+       [
+        " at frontJustTheFont (slices/bohemia_ui_materials.js:1429:5) | at wait (slices/bohemia_ui_materials.js:1583:54)",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:13954:3 | at slices/BOHEMIA_DEMO.html:13966:3",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_DEMO.html:19119:3 | at slices/BOHEMIA_DEMO.html:19120:3",
+        1
+       ]
+      ],
+      "raf": 2239
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "blank",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 0,
+      "alive": 0,
+      "onPage": 0,
+      "MB": 0,
+      "aliveAt": [],
+      "MBAt": []
+     },
+     "images": {
+      "made": 0,
+      "alive": 0,
+      "files": 0,
+      "MB": 0,
+      "byDir": [],
+      "biggest": [],
+      "at": []
+     },
+     "timers": {
+      "intervals": 0,
+      "intervalsAt": [],
+      "raf": 0
+     }
+    },
+    {
+     "url": "BOHEMIA_CITY_WORLD.html",
+     "audio": {
+      "made": 0,
+      "alive": 0,
+      "connected": 0,
+      "connectedBy": {},
+      "connectedAt": [],
+      "ctxs": 0,
+      "bufs": 0,
+      "bufMB": 0,
+      "bufsAt": []
+     },
+     "canvas": {
+      "made": 1545,
+      "alive": 1090,
+      "onPage": 2,
+      "MB": 116.6,
+      "aliveAt": [
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at Array.map (<anonymous>)",
+        800
+       ],
+       [
+        " at mapArtSprite (slices/BOHEMIA_CITY_WORLD.html:45357:20) | at mapArtDraw (slices/BOHEMIA_CITY_WORLD.html:45398:11)",
+        163
+       ],
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at slices/BOHEMIA_CITY_WORLD.html:70352:33",
+        96
+       ],
+       [
+        " at decodePlayerFrame (slices/BOHEMIA_CITY_WORLD.html:69701:22) | at slices/BOHEMIA_CITY_WORLD.html:69718:12",
+        8
+       ]
+      ],
+      "MBAt": [
+       [
+        " at cv (slices/BOHEMIA_CITY_WORLD.html:46738:36)",
+        44
+       ],
+       [
+        " at mapGroundBegin (slices/BOHEMIA_CITY_WORLD.html:46022:29)",
+        16.3
+       ],
+       [
+        " at cv (slices/BOHEMIA_CITY_WORLD.html:46694:53)",
+        11.8
+       ],
+       [
+        " at mapBaseSprite (slices/BOHEMIA_CITY_WORLD.html:45885:20)",
+        0.5
+       ],
+       [
+        " at rigCanvas (slices/BOHEMIA_CITY_WORLD.html:45596:16)",
+        0.2
+       ],
+       [
+        " at outline1 (slices/BOHEMIA_CITY_WORLD.html:69645:22)",
+        0.2
+       ],
+       [
+        " at voiceShow (slices/bohemia_ui_materials.js:1919:22)",
+        0.2
+       ],
+       [
+        " at mapArtSprite (slices/BOHEMIA_CITY_WORLD.html:45357:20)",
+        0
+       ]
+      ]
+     },
+     "images": {
+      "made": 901,
+      "alive": 901,
+      "files": 891,
+      "MB": 399.4,
+      "byDir": [
+       [
+        "slices/rig_mix/",
+        195.9
+       ],
+       [
+        "slices/rig_idles/",
+        123.1
+       ],
+       [
+        "slices/",
+        50.4
+       ],
+       [
+        "data:image/png;base6",
+        29.5
+       ],
+       [
+        "records/target/character/barber/person_town_0/face/",
+        0.3
+       ],
+       [
+        "slices/ui_kit/tin/",
+        0.1
+       ]
+      ],
+      "biggest": [
+       [
+        "slices/BOHEMIA_RIG_CAST.png",
+        "546x14144"
+       ],
+       [
+        "slices/rig_mix/town.png",
+        "490x12192"
+       ],
+       [
+        "slices/BOHEMIA_RIG_PEOPLE.png",
+        "686x8008"
+       ],
+       [
+        "slices/rig_idles/map.webp",
+        "2048x2174"
+       ],
+       [
+        "slices/rig_mix/reds.png",
+        "490x8320"
+       ],
+       [
+        "slices/rig_mix/colorful.png",
+        "490x8256"
+       ],
+       [
+        "slices/rig_mix/volunteers.png",
+        "490x8192"
+       ],
+       [
+        "slices/rig_mix/town_2.png",
+        "364x10944"
+       ]
+      ],
+      "at": [
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:49818:46",
+        184
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:49819:46",
+        184
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:40356:12",
+        105
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:48572:12",
+        98
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:48563:12",
+        96
+       ]
+      ]
+     },
+     "timers": {
+      "intervals": 21,
+      "intervalsAt": [
+       [
+        " at slices/bohemia_ui_materials.js:2107:5 | at slices/bohemia_ui_materials.js:2118:3",
+        1
+       ],
+       [
+        " at slices/bohemia_phone_board.js:132:3 | at slices/bohemia_phone_board.js:134:3",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:43581:1",
+        1
+       ],
+       [
+        " at slices/BOHEMIA_CITY_WORLD.html:44596:1",
+        1
+       ]
+      ],
+      "raf": 0
+     }
+    },
+    {
+     "url": "BOHEMIA_SETTLEMENT_SCREEN.html",
+     "audio": {
+      "made": 618,
+      "alive": 16,
+      "connected": 13,
+      "connectedBy": {
+       "createGain": 8,
+       "createBufferSource": 3,
+       "createStereoPanner": 2
+      },
+      "connectedAt": [
+       [
+        " at playClip (slices/bohemia_busy_heard.js:125:16) | at slices/bohemia_busy_heard.js:240:39",
+        2
+       ],
+       [
+        " at playClip (slices/bohemia_busy_heard.js:125:45) | at slices/bohemia_busy_heard.js:240:39",
+        2
+       ],
+       [
+        " at panner (slices/bohemia_busy_heard.js:117:43) | at playClip (slices/bohemia_busy_heard.js:125:63)",
+        2
+       ],
+       [
+        " at ac (engine/bohemia_settlement_heard.js:52:30) | at unlock (engine/bohemia_settlement_heard.js:142:60)",
+        1
+       ]
+      ],
+      "ctxs": 1,
+      "bufs": 24,
+      "bufMB": 13.2,
+      "bufsAt": [
+       [
+        " at engine/bohemia_settlement_heard.js:63:71",
+        13
+       ],
+       [
+        " at slices/bohemia_busy_heard.js:113:69",
+        11
+       ]
+      ]
+     },
+     "canvas": {
+      "made": 175,
+      "alive": 40,
+      "onPage": 1,
+      "MB": 4.2,
+      "aliveAt": [
+       [
+        " at itemIcon (slices/bohemia_ui_materials.js:517:31) | at slices/bohemia_ui_materials.js:564:20",
+        10
+       ],
+       [
+        " at face (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1605:20) | at speak (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1626:23)",
+        9
+       ],
+       [
+        " at hireFigure (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1383:20) | at hireCard (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1460:17)",
+        5
+       ],
+       [
+        " at hireCard (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1463:20) | at slices/BOHEMIA_SETTLEMENT_SCREEN.html:1742:47",
+        5
+       ]
+      ],
+      "MBAt": [
+       [
+        " at hireFigure (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1383:20)",
+        2
+       ],
+       [
+        " at face (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1605:20)",
+        1.7
+       ],
+       [
+        " at itemIcon (slices/bohemia_ui_materials.js:517:31)",
+        1
+       ],
+       [
+        " at hireCard (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1463:20)",
+        0.5
+       ],
+       [
+        " at arrivalTag (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1978:20)",
+        0.1
+       ],
+       [
+        " at canvas (slices/bohemia_ui_materials.js:13:46)",
+        0.1
+       ]
+      ]
+     },
+     "images": {
+      "made": 285,
+      "alive": 207,
+      "files": 202,
+      "MB": 160.9,
+      "byDir": [
+       [
+        "slices/rig_idles/",
+        99.1
+       ],
+       [
+        "slices/rig_walk/",
+        37.1
+       ],
+       [
+        "slices/settlement_ground_packs/",
+        17.2
+       ],
+       [
+        "records/target/character/barber/person_mob_0/face/",
+        0.3
+       ],
+       [
+        "records/target/character/barber/person_church_0/face/",
+        0.3
+       ],
+       [
+        "records/target/character/barber/person_mob_3/face/",
+        0.3
+       ],
+       [
+        "records/target/character/barber/person_town_14/face/",
+        0.3
+       ],
+       [
+        "records/target/character/barber/person_remnants_6/face/",
+        0.3
+       ]
+      ],
+      "biggest": [
+       [
+        "slices/settlement_ground_packs/town_0.webp",
+        "2060x1092"
+       ],
+       [
+        "slices/settlement_ground_packs/town_0_night.webp",
+        "2060x1092"
+       ],
+       [
+        "slices/rig_walk/person_homeless_2.png",
+        "1800x1184"
+       ],
+       [
+        "slices/rig_walk/person_cartel_5.png",
+        "1440x1000"
+       ],
+       [
+        "slices/rig_walk/person_blues_2.png",
+        "1440x992"
+       ],
+       [
+        "slices/rig_walk/person_church_1.png",
+        "1248x1072"
+       ],
+       [
+        "slices/rig_walk/person_trades_3.png",
+        "1088x1064"
+       ],
+       [
+        "slices/rig_walk/person_caravans_6.png",
+        "1088x1056"
+       ]
+      ],
+      "at": [
+       [
+        " at load (engine/bohemia_rig_bodies.js:59:32)",
+        79
+       ],
+       [
+        " at image (engine/bohemia_crew_faces.js:61:32)",
+        77
+       ],
+       [
+        " at sheet (engine/bohemia_idles.js:111:25)",
+        32
+       ],
+       [
+        " at slices/BOHEMIA_SETTLEMENT_SCREEN.html:646:12",
+        8
+       ],
+       [
+        " at packIcon (slices/BOHEMIA_SETTLEMENT_SCREEN.html:417:87)",
+        5
+       ]
+      ]
+     },
+     "timers": {
+      "intervals": 2,
+      "intervalsAt": [
+       [
+        " at engine/bohemia_settlement_heard.js:154:3 | at engine/bohemia_settlement_heard.js:167:3",
+        1
+       ],
+       [
+        " at Object.talk (engine/bohemia_crew_faces.js:110:16) | at mouth (slices/BOHEMIA_SETTLEMENT_SCREEN.html:1573:56)",
+        1
+       ]
+      ],
+      "raf": 2277
+     }
+    }
+   ],
+   "talks": 31,
+   "opened": 21
+  }
+ ],
+ "town": {
+  "name": "Church",
+  "x": 47,
+  "y": 50,
+  "tier": "town"
+ },
+ "errors": []
+}
