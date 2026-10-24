@@ -36,7 +36,8 @@
   "outnumbered",
   "superior",
   "their_turn",
-  "win"
+  "win",
+  "retreat"
  ],
  "types": {
   "hothead": {
@@ -122,6 +123,15 @@
      "sp": [
       "¡Así se hace, cabrones!"
      ]
+    },
+    "retreat": {
+     "en": [
+      "Running? Fine. FINE!",
+      "This isn't over!"
+     ],
+     "sp": [
+      "¡Esto no se queda así!"
+     ]
     }
    }
   },
@@ -205,6 +215,15 @@
      ],
      "sp": [
       "Ya estuvo."
+     ]
+    },
+    "retreat": {
+     "en": [
+      "Good call. Feet, move.",
+      "Living is the win today."
+     ],
+     "sp": [
+      "Vámonos."
      ]
     }
    }
@@ -292,6 +311,15 @@
      "sp": [
       "¡Gracias a Dios!"
      ]
+    },
+    "retreat": {
+     "en": [
+      "Yes! Go go go!",
+      "Run, run, don't look back!"
+     ],
+     "sp": [
+      "¡Corran, corran!"
+     ]
     }
    }
   },
@@ -374,6 +402,15 @@
      ],
      "sp": [
       "¿Y la propina?"
+     ]
+    },
+    "retreat": {
+     "en": [
+      "Strategic jogging, everybody!",
+      "We'll call it a draw."
+     ],
+     "sp": [
+      "Patitas, pa' qué las quiero."
      ]
     }
    }
@@ -459,6 +496,15 @@
      "sp": [
       "Bien hecho, muchachos."
      ]
+    },
+    "retreat": {
+     "en": [
+      "Fall back to the edge. Cover each other.",
+      "Pull out. Nobody stops."
+     ],
+     "sp": [
+      "Retirada. Cúbranse."
+     ]
     }
    }
   },
@@ -541,6 +587,15 @@
      ],
      "sp": [
       "¡CAMPEONES!"
+     ]
+    },
+    "retreat": {
+     "en": [
+      "AND THEY'RE BREAKING FOR THE EXIT!",
+      "Out of the cage, NOW!"
+     ],
+     "sp": [
+      "¡A correr, raza!"
      ]
     }
    }
@@ -625,6 +680,15 @@
      "sp": [
       "A cobrar."
      ]
+    },
+    "retreat": {
+     "en": [
+      "No pay, but we keep our boots.",
+      "Cut the losses, move!"
+     ],
+     "sp": [
+      "Nos vamos sin lana."
+     ]
     }
    }
   },
@@ -700,6 +764,15 @@
     "win": {
      "en": [
       "Home."
+     ],
+     "sp": [
+      "Vámonos."
+     ]
+    },
+    "retreat": {
+     "en": [
+      "Go.",
+      "Out."
      ],
      "sp": [
       "Vámonos."

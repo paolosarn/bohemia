@@ -72,7 +72,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 /* THE AUTO BUTTON WEARS THE ODDS (COMBAT [the auto button wears the odds], rule 144(b)(e)(f)(g)): a tint over the tin, its own
    layer (the tin untouched), green for a likely clean win, red for everything else, deeper as it gets surer; no number */
 #bauto .tint{position:absolute;inset:0;border-radius:2px;pointer-events:none;background-color:rgba(0,0,0,0);transition:background-color .7s linear;mix-blend-mode:multiply}
-#bauto .lbl{position:relative}
+#bauto .odds{position:relative}
 #bauto.glow::after{content:'';position:absolute;inset:-3px;border-radius:6px;pointer-events:none;border:2px solid #f0b04a;
   box-shadow:0 0 10px 2px rgba(240,176,74,.55);animation:autoGlow var(--beat,500ms) steps(1,end) infinite}
 @keyframes autoGlow{0%{opacity:1}62%{opacity:.35}}
@@ -174,6 +174,10 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
   font-family:var(--face-casing,ui-monospace,monospace);font-size:13px;letter-spacing:1px;color:#f2ead8;text-align:center;
   text-shadow:-1px 0 rgba(224,64,46,.9),1px 0 rgba(80,200,230,.65);animation:rlBlink var(--beat,500ms) steps(1,end) infinite}
 #outap small{display:block;font-size:10px;letter-spacing:.5px;margin-top:2px}
+#bflee{flex:0 0 auto;width:62px;height:46px;font:inherit;font-family:var(--face-casing,inherit);font-weight:400;font-size:11px;letter-spacing:.3px;color:#f2ead8;border:0;border-radius:3px;
+  background:var(--mat-tin-dark,#2a2420) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55);transform:rotate(-1deg)}
+#bflee.arm{color:#2a221a;background:#d9a85a;outline:2px solid #ff5a40}
+#bflee:disabled{opacity:.32}
 #bwait{flex:0 0 auto;width:56px;height:46px;font:inherit;font-weight:700;font-size:11px;color:var(--paper-ink);border:0;
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55);transform:rotate(1deg)}
 #bend:disabled,#bwait:disabled{opacity:.45}
@@ -224,6 +228,7 @@ html[data-screen=phone_landscape] #card,html[data-screen=tablet] #card,html[data
 html[data-screen=phone_landscape] #stats,html[data-screen=tablet] #stats,html[data-screen=computer] #stats{order:2;flex:0 0 200px}
 html[data-screen=phone_landscape] #skills,html[data-screen=tablet] #skills,html[data-screen=computer] #skills{order:3;flex:1;margin-left:6px}
 html[data-screen=phone_landscape] #bwait,html[data-screen=tablet] #bwait,html[data-screen=computer] #bwait{order:4}
+html[data-screen=phone_landscape] #bflee,html[data-screen=tablet] #bflee,html[data-screen=computer] #bflee{order:5}
 html[data-screen=phone_landscape] #bend,html[data-screen=tablet] #bend,html[data-screen=computer] #bend{order:5;height:56px}
 html[data-screen=phone_landscape] #top{padding:max(4px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) 4px max(8px,env(safe-area-inset-left))}
 html[data-screen=phone_landscape] #order{height:44px}
@@ -249,6 +254,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
   <div id="row2">
     <div id="skills"><button class="sq" id="bstrike" disabled></button><button class="sq" id="breload" disabled></button><button class="sq" id="bback" title="BACK" style="display:none"></button></div>
     <button id="bwait">WAIT</button>
+    <button id="bflee">RETREAT</button>
   </div>
 </div>
 <div id="outap"></div>
@@ -960,7 +966,7 @@ const FIGHT = (function () {
     }
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
-    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null;
+    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
     S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
@@ -1977,6 +1983,38 @@ const FIGHT = (function () {
     afterAction(u); return true;
   }
 
+  /* RETREAT (COMBAT [retreat], rule 144(c), Paolo 10/24: 'can you retreat in this game?'), Battle Brothers' way
+     (rules.json deployment.retreat_from_map_edge, Dev Blog 105: 'If your men are already on the edges of the map, you'll safely
+     retreat as before. If they aren't, they'll now attempt to speedily move to the edges of the map automatically and by
+     themselves until either they succeed or die'): the order given, every man of his on the board's edge gets out at once;
+     the rest are his no more to steer: each on his turn runs for the nearest edge, the way a fleeing man does, and is out the
+     moment he stands on it; caught, he fights on or falls. The page's zone-of-control defence bonus 'scales with the chosen
+     difficulty' and names no number: ours has none until TUNING finds one. A retreat ends lost (no pay), never a wipe. */
+  function onEdge(u) { return u.x === 0 || u.y === 0 || u.x === S.w - 1 || u.y === S.h - 1; }
+  function getOut(u) { u.fled = true; u.escaped = true; emit({ t: 'fled', id: u.id, retreat: true }); }
+  function retreat() {
+    if (S.over || S.deploy || S.retreat) return false;
+    S.retreat = true; emit({ t: 'retreat' });
+    const cur = current();
+    S.units.filter(function (u) { return u.side === 'you' && onField(u) && onEdge(u); }).forEach(getOut);
+    afterAction(cur);
+    if (!S.over && cur && cur.side === 'you') { if (cur.fled) advance(cur); else endTurn(cur); }
+    return true;
+  }
+  function retreatStep(u) {
+    if (onEdge(u)) { getOut(u); afterAction(u); advance(u); return true; }
+    const f = reach(u); let best = null, bs = Infinity;
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      const sc = Math.min(x, y, S.w - 1 - x, S.h - 1 - y) * S.w - foes(u).reduce(function (m, e) { return Math.min(m, dist(e, { x: x, y: y })); }, Infinity);
+      if (sc < bs) { bs = sc; best = { x: x, y: y }; }
+    });
+    if (best && (best.x !== u.x || best.y !== u.y) && moveTo(u, best.x, best.y)) {
+      if (!S.over && onField(u) && onEdge(u) && current() === u) { getOut(u); afterAction(u); if (!S.over) advance(u); }
+      return true;
+    }
+    endTurn(u); return false;
+  }
   /* a fleeing man runs for the nearest edge and leaves the field from it */
   function flee(u) {
     if (u.x === 0 || u.y === 0 || u.x === S.w - 1 || u.y === S.h - 1) {
@@ -2110,6 +2148,7 @@ const FIGHT = (function () {
   /* one action per call; false when the man is done for this turn */
   function aiStep(u) {
     if (S.over || current() !== u) return false;
+    if (S.retreat && u.side === 'you') return retreatStep(u);
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
@@ -2236,7 +2275,7 @@ const FIGHT = (function () {
     if (v.$shot) return pistolShot(rowOfToken(v.$shot));
     return JSON.parse(JSON.stringify(v));
   }
-  const KEPT_STATE = ['order', 'idx', 'round', 'over', 'result', 'contact', 'aimed', 'w', 'h', 'cols', 'crop', 'night', 'flat', 'power', 'ground', 'terrain',
+  const KEPT_STATE = ['retreat', 'order', 'idx', 'round', 'over', 'result', 'contact', 'aimed', 'w', 'h', 'cols', 'crop', 'night', 'flat', 'power', 'ground', 'terrain',
     'boardDef', 'solid', 'cover', 'coverCount', 'lit', 'days', 'difficulty', 'act', 'board', 'formationKept', 'formation', 'deploy'];
   function screenKey(k) { return k.charAt(0) === '_' || k.indexOf('seen') === 0; }
   function freeze() {
@@ -2264,7 +2303,7 @@ const FIGHT = (function () {
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
-    wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, onEdge: onEdge, sideSees: sideSees, onField: onField, alive: alive,
     level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
@@ -3083,7 +3122,7 @@ function tickVet(now) {
    (143(d)): a down, dead or fled man is never picked and his line goes the moment he falls. SPANGLISH (143(a)): WORDS' one dial
    (engine/bohemia_spanglish.js, regFor) picks the line's Spanglish twin about one line in eight, by the man's own lean; YOU
    never speaks here. Each line is heard in the shell's one voice with his map look (BOHEMIA_VOICE) and kept in the feed. */
-const CALL = { bank: null, PRIO: { man_down: 5, superior: 4, kill: 3, outnumbered: 3, win: 3, dodged: 2, hit: 1, miss: 1, their_turn: 0 } };
+const CALL = { bank: null, PRIO: { man_down: 5, retreat: 4, superior: 4, kill: 3, outnumbered: 3, win: 3, dodged: 2, hit: 1, miss: 1, their_turn: 0 } };
 fetch('../records/target/bb/crew_voices.json').then(function (r) { return r.json(); }).then(function (j) { CALL.bank = j; }).catch(function () {});
 function crewType(v) {
   const B = CALL.bank; if (!B || !B.types) return null;
@@ -3238,7 +3277,7 @@ function startAnim(a) {
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
     else if (e.t === 'dead') { SND.fall(true, { side: u.side }); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
     if (e.t === 'down') { SND.fall(false, { side: u.side }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
-    if (e.t === 'fled') SND.flee();
+    if (e.t === 'fled') { SND.flee(); if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
 
@@ -3328,7 +3367,7 @@ function spentCheck(u, now) {
   hideSpent(); FIGHT.endTurn(u); take(); hud(); return true;
 }
 /* ---------------- the director: whose turn, what happens next ---------------- */
-function crewControlled(u) { return u && u.side === 'you' && !UI.auto && u.morale !== 'Fleeing'; }
+function crewControlled(u) { return u && u.side === 'you' && !UI.auto && u.morale !== 'Fleeing' && !FIGHT.S.retreat; }
 function tick(now) {
   if (!UI.board) return;
   /* the skip tap cuts in at once, even mid-step */
@@ -3525,7 +3564,7 @@ function oddsTint(v) {
 }
 function autoFace() {
   const b = document.getElementById('bauto'), g = oddsGlow(), want = UI.finish ? 'FINISH' : 'AUTO';
-  if (b.dataset.face !== want) { b.dataset.face = want; b.innerHTML = '<i class="tint"></i><span class="lbl">AUTO' + (UI.finish ? '<span class="odds">FINISHING</span>' : '') + '</span>'; b.dataset.tint = ''; }
+  if (b.dataset.face !== want) { b.dataset.face = want; b.innerHTML = '<i class="tint"></i>AUTO' + (UI.finish ? '<span class="odds">FINISHING</span>' : ''); b.dataset.tint = ''; }
   const t = UI.auto || FIGHT.S.over || FIGHT.S.deploy ? null : oddsTint(oddsValue()), tk = t ? (t.green ? 'g' : 'r') + t.a.toFixed(2) : '';
   if (b.dataset.tint !== tk) { b.dataset.tint = tk; const el = b.querySelector('.tint');
     if (el) el.style.backgroundColor = t ? (t.green ? 'rgba(46,160,67,' : 'rgba(208,48,32,') + t.a.toFixed(3) + ')' : 'rgba(0,0,0,0)'; }
@@ -4392,6 +4431,7 @@ function hud() {
   const subT = act ? act.sub : ''; if (sub.textContent !== subT) sub.textContent = subT;
   ['go', 'walk', 'shoot', 'hit', 'throw'].forEach(function (k) { be.classList.toggle(k, !!act && (k === 'go' || k === act.k)); });
   document.getElementById('bwait').disabled = dep || !mine || u.waited;
+  const bf = document.getElementById('bflee'); bf.disabled = dep || !mine || !!S.retreat; if (UI.fleeArm && performance.now() - UI.fleeArm > beatMs() * 8) { UI.fleeArm = 0; bf.classList.remove('arm'); }
   be.disabled = dep ? false : !mine;
   document.getElementById('bauto').classList.toggle('on', UI.auto);
   autoFace();
@@ -4541,6 +4581,7 @@ const WIPE_SAYS = {   /* draft:true */
   count: '{dead} of yours dead, {down} down.',
   next: 'Somebody drags you to the nearest town. {who} have your men and your gear.'
 };
+const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.' };   /* draft:true */
 const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead' };   /* draft:true */
 function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
 function isWipe(result) {
@@ -4597,9 +4638,12 @@ function showOver(result) {
   const S = FIGHT.S, o = document.getElementById('over');
   const secs = Math.round(UI.beats * 60 / R('ours.beat_bpm'));
   const wiped = !!UI.wipe;
-  document.getElementById('oh').textContent = wiped ? WIPE_SAYS.recap : hauntedFight() && actOne() ? HAUNT_RECAP[result === 'won' ? 'won' : 'lost'] : result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
+  const pulled = !wiped && !!S.retreat;
+  document.getElementById('oh').textContent = wiped ? WIPE_SAYS.recap : pulled ? RETREAT_RECAP.head : hauntedFight() && actOne() ? HAUNT_RECAP[result === 'won' ? 'won' : 'lost'] : result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
   const theirs = S.units.filter(function (v) { return v.side === 'them'; });
   let html = wiped ? UI.wipe.lines.concat([UI.wipe.next]).map(function (t, i, a) { return '<p' + (i === a.length - 1 ? ' class="what"' : '') + '>' + t + '</p>'; }).join('') : '';
+  if (pulled) { const mine = S.units.filter(function (v) { return v.side === 'you'; }), out = mine.filter(function (v) { return v.escaped; }).length;
+    html += '<p class="what">' + wfill(RETREAT_RECAP.line, { out: out, caught: mine.length - out }) + '</p>'; }
   html += '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
     + theirs.filter(function (v) { return v.dead; }).length + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.</p>';
   html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
@@ -4635,7 +4679,7 @@ function endMessage() {
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
 function homeMessage(result) {
   const S = FIGHT.S;
-  return { type: 'BOHEMIA_FIGHT_OVER', result: result, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
       main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null }; }) };
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
@@ -4851,6 +4895,15 @@ function tapAt(px, py) {
   hud();
 }
 document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target, nm = UI.pend.sweep; UI.pend = null; UI.sweep = null; if (nm) FIGHT.sweep(u, t, null, nm); else FIGHT.strike(u, t); take(); } };
+/* RETREAT (rule 144(c)): one tap to see (the button arms and the line says what happens), one tap to do, within two bars */
+const RETREAT_SAYS = { arm: 'Retreat? Your men run for the nearest edge. Who reaches it gets out. No pay. Tap again.', go: 'RETREAT. Run for the edge.' };   /* draft:true */
+document.getElementById('bflee').onclick = function () {
+  audio(); const u = FIGHT.current(), b = this, S = FIGHT.S;
+  if (S.over || S.deploy || S.retreat || !crewControlled(u)) return;
+  if (!UI.fleeArm || performance.now() - UI.fleeArm > beatMs() * 8) { UI.fleeArm = performance.now(); b.classList.add('arm'); say(RETREAT_SAYS.arm); sfx('ui_tap'); return; }
+  UI.fleeArm = 0; b.classList.remove('arm'); UI.pend = null; UI.skillMode = null; UI.back = null;
+  FIGHT.retreat(); say(RETREAT_SAYS.go); callSoon('retreat'); take(); hud();
+};
 document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.wait(u); take(); } };
 document.getElementById('bend').onclick = function () { audio();
   if (FIGHT.S.deploy) { fightNow(); return; }
@@ -4897,7 +4950,7 @@ function start() {
   UI.resumed = !UI.pageStarted && keptRead(o); UI.pageStarted = true;
   if (!UI.resumed) { keptClear(); haunt(); }   /* 134(e): in act one a ghost is one of the dead (before the board loads their bodies) */
   UI.hauntSeen = null; UI.hauntName = null;
-  UI.wipe = null; UI.dodge = {}; UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
+  UI.wipe = null; UI.dodge = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();

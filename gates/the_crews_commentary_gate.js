@@ -25,7 +25,7 @@ let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
 const done = () => { console.log('=== THE CREW\'S COMMENTARY GATE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
 
-const MOMENTS = ['hit', 'miss', 'dodged', 'kill', 'man_down', 'outnumbered', 'superior', 'their_turn', 'win'];
+const MOMENTS = ['hit', 'miss', 'dodged', 'kill', 'man_down', 'outnumbered', 'superior', 'their_turn', 'win', 'retreat'];
 const B = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/crew_voices.json'), 'utf8'));
 const types = Object.keys(B.types || {}), holes = [];
 types.forEach(k => MOMENTS.forEach(m => { const L = (B.types[k].lines || {})[m]; if (!L || !Array.isArray(L.en) || !L.en.length) holes.push(k + '.' + m);
