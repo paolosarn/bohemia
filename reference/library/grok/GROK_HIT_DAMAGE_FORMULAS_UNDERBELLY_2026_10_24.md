@@ -1,0 +1,21 @@
+# GROK_HIT_DAMAGE_FORMULAS_UNDERBELLY_2026_10_24.md
+
+## PAOLO SAID IN THIS CHAT:
+
+VAMILY. That means do the next useful Bohemia pile without being told the topic, then one plain eighth-grade question, two sentences max. The wiki dump is the bible. Do not record Battle Brothers facts a second time. Research means a Bohemia translation or a clash with his locks. The main character is downed, never dead. Everything costs one. The fight is on square house tiles. Nothing glows. A boss is never an animal. No game he has not named. 10 crowns equal 1 battery. Gas is in the ammo pile. Tools skins are duct tape, zip ties, and a hammer. Medicine skins are old bandages, expired ibuprofen, and super glue. Undead translation is a body with a chip still in it, analog horror.
+
+## MY PROPOSAL:
+
+This page covers the underbelly numbers for how a hit lands and how damage is applied in Battle Brothers, so Bohemia can match the feel without inventing new math. The wiki page Combat Mechanics and the Hit Chance page give the formulas. The data does not say the exact base defense numbers for every enemy type beyond examples.
+
+A melee hit chance starts as the attacker's Melee Skill minus the target's Melee Defense, as a percentage. Defense above 50 is halved for the calculation only. Surrounding reduces the target's Melee Defense by 5 percent for each enemy past the first that is adjacent. Elevation gives plus 10 percent if the attacker is higher. Shields add their defense bonus, which Shieldwall can double. Morale multiplies the effective skill after the base math: Confident is 1.1 times, Wavering is 0.9, Breaking is 0.8, Fleeing is 0.7. The final chance is rolled on a d100. A second d100 decides if the hit is to the head, which is a critical. Ranged uses the same skill-minus-defense base, plus distance penalties that differ by weapon type, cover of minus 75 percent reduced to minus 50 percent by Bullseye, and height bonuses. The wiki does not say the precise scatter rules on a miss beyond that it can hit something else.
+
+Armor damage and hitpoints damage are rolled separately. Armor damage is base weapon damage times modifiers times the weapon's effectiveness against armor percentage. Hitpoints damage is base damage times modifiers times the ignoring-armor percentage, then minus 10 percent of the remaining armor value. If armor reaches zero, leftover damage from the non-ignoring part can spill over. A critical hit multiplies the hitpoints damage by 1.5. The wiki gives a worked example with a Billhook against an Orc Warrior helmet and body armor. Secondary effects like bleeding bypass armor. The wiki does not say every single perk and trait modifier in one place.
+
+Zone of control covers the six adjacent tiles for a melee unit. Leaving it can trigger free strikes from the controller. Those strikes cost the controller no fatigue. Footwork and Rotation let a unit exit safely. The wiki does not say any zone of control beyond the adjacent tiles.
+
+Every character recovers 15 fatigue at the start of their turn. Base action points are 9. Flat ground costs 2 action points per tile. Rough ground often costs 3. Swamp costs 4. Elevation change adds 1. One-handed strikes usually cost 4 action points. Two-handed usually cost 6. The wiki does not say the exact action point cost for every skill and item.
+
+For Bohemia, keep the same formulas so fights feel like Battle Brothers. Armor becomes scrap metal plates, rusty car doors, or duct-taped plastic that lose durability the same way. Tools repair them with duct tape, zip ties, or a hammer the way tools repair gear now. A critical or struck-down result on the main character downs him with a chip-body or scrap injury instead of killing him, matching the downed-never-dead lock. Nothing glows. House-sized square tiles stay. The first translation options for the armor pile are: scrap car door plate, duct-taped cooler lid, rusty tin robot chest, plastic bucket with zip ties, and expired medical vest with super glue seams. One of those becomes the skin after a vote.
+
+The wiki pages used are Combat Mechanics, Hit Chance, Damage, and Weapons. Numbers that are not on those pages are marked the wiki does not say.
