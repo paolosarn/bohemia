@@ -26,10 +26,37 @@ STATUS: IN PROGRESS. The list grows as the play goes; worst first inside each pa
    on the first screen, the phone covering about 40 percent of the map's width (p03). Not filed again.
 4. [RUN, in flight: RUN OPEN [the job's stars]] THE JOBS STILL WEAR SKULLS on the phone (one and two skulls,
    p03); his 146(e) is stars. Not filed again.
-5. [WORDS] THE TITLE SAYS 'CONTINUE  NO RUN SAVED' (p01). There are no runs in this game (the pillar).
-6. [WORDS] THE DOOR'S ORIGIN CARDS SAY 'START 290 BATTERIES · 3 MEN · 12 IN A FIGHT' (p02). A new player reads
+5. [RUN TWO, WORDS] THE SHOP PRINTS THE BATTLE BROTHERS NAMES. Every item card at the smith and the armourer
+   ends with where it was copied from: 'Solid fire axe... (was Head Splitter)', 'Good pistol... (was Qatal
+   Dagger)', 'A riot shield... (was Kite Shield)' (p13, p14). His 9/28: 'our own way, never a rip-off.'
+   Step: a town, the smith, tap any item on THEIR SHELF.
+6. [RUN TWO, COMBAT] THE 'GOOD PISTOL' IS A DAGGER. The smith's good pistol (125 batt) reads 'One house away...
+   dmg 30-45 vs armour 70% reach 1 (was Qatal Dagger)'; the crew's own pistol reads 'REACH 2 TO 4 TILES, A CLUB
+   AT 1'. A gun you buy reaches less than the gun you start with. Step: the smith, tap 'good pistol'.
+7. [RUN TWO] A FINGER CANNOT PICK A MAN IN THE CROWD. 16 people stand in the street; the game's own hit test
+   (personAt, every 3 px over the whole street at the stall's view) reaches 11 of them; 5 are never hit; 4 of
+   the 11 are a target of about 13 x 13 px (18 to 25 hits of 9 px), a tenth of a phone's 44-point finger. Aimed
+   at person_reds_5 the finger opens KAI CROWDER (person_remnants_3) beside him; aimed at person_volunteers_4,
+   AMBROSE YAMADA. 'Talk to everyone' cannot be done. Step: a town, tap people in the line one by one.
+8. [RUN TWO] THE KEEPER'S LINE RUNS UNDER THE CLOSE BUTTON. At the smith 'a blade sha[x]rp', the armourer
+   'before no[x]on', 'twenty-five batteries[x].', the board 'for marke[x]t day': the first line of a sheet is
+   cut by the x (p10, p11, p14). Step: a town, the smith.
+9. [RUN TWO, UI] THE CREW SCREEN SAYS 3 / 20, THE TOP BAR 3/12, THE DOOR '12 IN A FIGHT'. Three numbers for
+   one company (p07, p03, p02). Step: NEW GAME, BEGIN, tap the face chip on the top bar.
+10. [UI] THE SETTINGS GEAR FLOATS OVER EVERY SCREEN: on the crew screen it covers the FRONT label and the first
+   front place (p07) and, scrolled, the word HITPOINTS (p08: 'POINTS'); in the town it sits on the picture (p09).
+11. [RUN TWO, WORDS] YOU ARE PAID A WAGE AND CALLED A COMPANION. The crew screen's first card: 'YOU / COMPANION
+   (2HAND) LEVEL 1 1 BATT A DAY' while holding a pistol and a car door, and his line is about himself in the
+   third person: 'Does not talk about before. You do not ask.' (p07). Step: the face chip.
+12. [RUN TWO, WORDS] THE BAG LINE STOPS MID-SENTENCE: 'YOUR BAG 0 / 36 DRAG ONTO A SLOT ABOVE, OR TAP' (p08).
+13. [UI, WORDS] THE MONEY HAS FOUR SPELLINGS ON ONE SCREEN: '290 BATTERIES' (bar), '30 batt' (board),
+   '1 battery' (stall), '138b' (shelf) (p10, p11).
+14. [WORDS] YOU SAY THE STALL'S LINE: the lot's sheet puts 'Market day. Everybody is out, everything is moving.
+   Good day to sell, bad day to buy.' in YOUR mouth, the stall keeper's line word for word.
+15. [WORDS] THE TITLE SAYS 'CONTINUE  NO RUN SAVED' (p01). There are no runs in this game (the pillar).
+16. [WORDS] THE DOOR'S ORIGIN CARDS SAY 'START 290 BATTERIES · 3 MEN · 12 IN A FIGHT' (p02). A new player reads
    three men and twelve in a fight and cannot tell which is his crew.
-7. [UI] THE BUILD STAMP WRAPS on the title, one word ('WORDS') alone on the second line (p01).
+17. [UI] THE BUILD STAMP WRAPS on the title, one word ('WORDS') alone on the second line (p01).
 
 ## NOT A GAME DEFECT, FOR PLUMBER (the instrument)
 - The one driver (tools/bohemia_drive_the_demo.js) opened the demo and came back 'opened' after 163 s with the
