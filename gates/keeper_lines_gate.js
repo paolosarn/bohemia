@@ -89,6 +89,10 @@ head('D. EVERY LINE SPEAKS IN THE SAME SPANGLISH VOICE THE REAL FILE ALREADY USE
     var ctx = (k === 'smith' || k === 'armourer') ? { min: 5, max: 50 } : {};
     var line = K.priceLine(k, ctx);
     ok(k + ': the price line carries the same voice', MARK.test(line), line);
+    /* rule 143a (Paolo 10/24, 10 to 15 percent): the authored line is the Spanglish form; spoken, it rolls through
+       BohemiaSpanglish.say, so the plain English under it must stand on its own with no Spanish left in it */
+    var SPG = require(path.join(ROOT, 'engine/bohemia_spanglish.js')), en = SPG.plain(line);
+    ok(k + ': and its plain English twin carries no Spanish (what he hears most visits)', !MARK.test(en) && en.length > 20, en);
   });
   ok('*** [self-test] THIS LEG CAN FAIL: a flat, voiceless line would not match ***',
     !MARK.test('The price is five.'));

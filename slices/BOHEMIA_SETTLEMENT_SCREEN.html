@@ -178,6 +178,7 @@ html body #sheet .hire .hstats span.up{color:#2f5a14;font-weight:bold}html body 
 <!-- __/BUILD_ON_THE_SCREEN__ scripts -->
 <script src="bohemia_ui_materials.js"></script>
 <script src="../engine/bohemia_settlement_heard.js"></script>
+<script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every keeper line rolls; about 1 in 8 Spanglish, some lean more, never the player -->
 <script src="../engine/bohemia_voice.js"></script>  <!-- RUN TWO [the busy town talks] 10/24: a walker's voice is his face's voice (castVoice), the shell's own rule -->
 <script src="../engine/bohemia_voice_recorded.js"></script>  <!-- SOUNDS' recorded squiggle (rule 135): the walkers mutter in it; the bank is borrowed from the shell -->
 <script src="bohemia_busy_heard.js"></script>  <!-- RUN TWO [the busy town talks]: the jobs heard where they are done, the mutters as they pass, the night different -->  <!-- SOUNDS [the settlement's sounds] round four (10/18): the real recordings and the desert bed, his 10/17 UP -->  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
@@ -1590,6 +1591,8 @@ function face(k, who, look){
   return c;
 }
 function speak(k, line){
+  /* WORDS [spanglish at ten percent] (rule 143a, Paolo 10/24): the keeper's line is rolled per line, his word of Spanish now and then */
+  if(window.BohemiaSpanglish && typeof line === 'string') line = BohemiaSpanglish.say('keeper:' + k + ':' + ((S.place && (S.place.id || S.place.name)) || ''), line, 'settle:' + k);
   var w = document.createElement('div'); w.className = 'who';
   w.appendChild(mouth(face(k), line));
   var s = document.createElement('div'); s.className = 'say';

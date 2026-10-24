@@ -10,6 +10,7 @@
 <script src="vote/ANIMATION_THE_AURA.js"></script>
 <!-- __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... looking like a chess man'): a waiting man breathes and idles -->
 <script src="../engine/bohemia_idles.js"></script>
+<script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
      ground up; re-create Battle Brothers combat... too far gone").
@@ -2893,7 +2894,7 @@ function hauntedFight() { const t = FIGHT.S.units.filter(function (v) { return v
    cover, the empty gun, their turn, the step taken back, the fight AUTO can finish. A line that comes while another is up
    waits its turn (never two at once), one whose moment has passed is dropped, and a tap puts a line away (it never stops
    the march). YOU alone, the strip keeps one rule for him. */
-const TEACH = {   /* draft:true */
+const TEACH = {   /* draft:true; written in Spanglish, spoken through BohemiaSpanglish.say (rule 143a): mostly the plain English under it */
   deploy: 'Ándale. Drag a man to where you want him.',
   walk: 'Tap a chalk tile, then tap it again, compa. He walks.',
   aim: 'Mira. One tap shows your odds. Tap him again to shoot.',
@@ -2957,7 +2958,10 @@ function teach(k) {
   const T = taughtNow(); if (T[k]) return false;
   const v = veteran(); if (!v) return false;
   T[k] = 1; try { localStorage.setItem(TEACH_KEY, JSON.stringify(T)); } catch (_e) {}
-  const line = TEACH[k].replace('{name}', UI.hauntName ? titleName(UI.hauntName) : 'him');
+  /* WORDS [spanglish at ten percent] (rule 143a, Paolo 10/24: 'now all my crew members are in Spanglish'): the line is rolled for
+     the man who says it; plain English most times, his one word of Spanish about 1 in 8 (more if he leans to it) */
+  const said = window.BohemiaSpanglish ? BohemiaSpanglish.say(v.id || v.name, TEACH[k], 'teach:' + k) : TEACH[k];
+  const line = said.replace('{name}', UI.hauntName ? titleName(UI.hauntName) : 'him');
   UI.vet = { k: k, who: v.id, line: line, t: performance.now() };
   drawPortrait(document.getElementById('vetface').getContext('2d'), v, document.getElementById('vetface').width);
   document.getElementById('vetname').textContent = v.name; document.getElementById('vetline').textContent = '';

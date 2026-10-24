@@ -71,8 +71,11 @@ const ARRIVALS = [
     ok('  the elder speaks ONE line under a drawn face (never blank)', r.who === 'THE ELDER' && r.ink > 400 && r.said && r.said.split(/[.!?](\s|$)/).filter(s => s && s.trim()).length <= 2, r.ink + ' px of face: ' + r.said);
     /* 10/23 (TUNING's change 7, rule 133): the first town ever, the elder says where work, hands and a drink are, once */
     const FIRST = (require('fs').readFileSync(require('path').join(__dirname, '..', 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8').match(/var FIRST_TOWN_LINE = "([^"]+)"/) || [])[1];
-    if (!shots.firstSaid) { ok('  the first town he ever reaches: the elder says where the work, the hands and a drink are, once', !!FIRST && r.said === FIRST, r.said); shots.firstSaid = true; }
-    else ok('  the line is the trait\'s own when one stands, the tier\'s when none (and never the first town\'s again)', r.said !== FIRST && (A.traits.length ? r.said === traitSays(A.traits[0]) : (r.said && !TR.traits.some(t => Object.values(t.says).indexOf(r.said) >= 0))), r.said);
+    /* WORDS [spanglish at ten percent] (rule 143a): every keeper line rolls through BohemiaSpanglish, so the elder says the line
+       in plain English most visits and with his one word of Spanish now and then; the gate compares the English under both */
+    const PL = require('../engine/bohemia_spanglish.js').plain, said = PL(r.said);
+    if (!shots.firstSaid) { ok('  the first town he ever reaches: the elder says where the work, the hands and a drink are, once', !!FIRST && said === PL(FIRST), r.said); shots.firstSaid = true; }
+    else ok('  the line is the trait\'s own when one stands, the tier\'s when none (and never the first town\'s again)', said !== PL(FIRST) && (A.traits.length ? said === PL(traitSays(A.traits[0])) : (r.said && !TR.traits.some(t => Object.values(t.says).map(PL).indexOf(said) >= 0))), r.said);
     const v = A.opinion === undefined ? REL.start.value : A.opinion;
     ok('  the opinion bar sits on the wiki\'s band for ' + v, r.band === bandOf(v) && r.bandWord === bandOf(v).replace(/_/g, ' ').toUpperCase() && Math.abs(r.mark - v) < 0.01, r.bandWord + ' at ' + r.mark);
     ok('  the faction shows only when the game names one', A.faction ? (r.fac && r.fac.indexOf(A.faction.name.toUpperCase()) >= 0) : r.fac === null, r.fac || 'none');
