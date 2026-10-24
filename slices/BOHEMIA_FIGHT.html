@@ -89,6 +89,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #ap i{width:7px;height:5px;border-radius:1px;background:rgba(0,0,0,.5)}
 #ap i.on{background:var(--gold)}
 #picons{display:flex;gap:2px;overflow:hidden}
+#cls{font-size:9px;font-weight:700;color:#e8c9a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 0 #000;display:none;margin-top:1px}
+#cls .oc,#say .oc{color:#ff6a4c}
 #bend{flex:0 0 auto;width:76px;font:inherit;font-weight:700;font-size:12px;color:var(--paper-ink);border:0;
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 3px 4px rgba(0,0,0,.55);transform:rotate(-1.5deg)}
 #row2{display:flex;gap:6px;margin-top:8px;height:48px;align-items:center}
@@ -221,7 +223,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
   <div id="row1">
     <div id="card"><canvas id="face" width="144" height="144"></canvas><div id="cnm">-</div></div>
     <div id="stats"><div class="bar"><i id="bhp"></i></div><div class="bar"><i id="barm"></i></div><div class="bar"><i id="bfat"></i></div>
-      <div id="apicons"><div id="ap"></div><span id="apn"></span><div id="picons"></div></div></div>
+      <div id="apicons"><div id="ap"></div><span id="apn"></span><div id="picons"></div></div><div id="cls"></div></div>
     <button id="bend">END TURN</button>
   </div>
   <div id="row2">
@@ -2810,8 +2812,69 @@ function armName(v, arm) {
   const own = (arm.of || arm), L = DB.wlines.rows[own.class] || {}, n = (L.name || own.class).toLowerCase();
   return arm === v.club ? (DB.wlines.rows[(v.weapon.of || v.weapon).class] || {}).name.toLowerCase() + ' butt' : n;
 }
+/* ---------------- THE BETTER ENEMY READS (COMBAT [the loss is understood], rule 143(b), Paolo 10/24: 'an enemy just kept
+   dodging all of my bullets, I don't know how we can make it clear visually that the enemy is superior') ----------------
+   Battle Brothers never prints an enemy's level; it shows his gear and lets you learn the hard way. Ours is quicker for normies
+   (rule 133): every man of theirs carries LV n, his worth on Battle Brothers' own scale (the brother formula, XP value =
+   100 + 30 per level, run backwards off his row's xp), and two plain marks when they apply: DODGES (the best man of yours
+   still standing, his skill against this man's defence alone, the wiki's soft cap and 5-to-95 clamp, hits him
+   ours.outclass.dodge_chance_at_most in 100 or less) and ARMOUR (the arm of yours that drops him fastest needs
+   blows_at_least blows or more). Three levels over the best man of yours, or both marks at once, and he OUTCLASSES YOU: three
+   red chevrons over his head from the moment he is seen (the line set included), the words on the plate whenever he is the
+   man the bar shows, and every shot he dodges throws him aside on the board with DODGED on the receipt tag (COVER when the
+   round went into the piece he stands behind). The words are drafts for WORDS (draft:true). */
+const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOUR', dodged: 'DODGED', cover: 'COVER' };   /* draft:true */
+function lvOf(v) { if (v.side === 'you') return v.level || 1; const X = R('parsed.brother_xp'); return Math.max(1, Math.round(1 + ((v.xp || X.base) - X.base) / X.per_level)); }
+function classOf(t) {
+  const S = FIGHT.S, crew = S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); });
+  const key = S.round + ':' + t.armB + ':' + t.armH + ':' + crew.map(function (v) { return v.id + v.weapon.class; }).join(',');
+  if (t._cls && t._clsKey === key) return t._cls;
+  const O = R('ours.outclass'), cap = R('hit_chance.cap'), sc = R('hit_chance.defense_soft_cap');
+  const soft = function (d) { return d > sc.threshold ? sc.threshold + (d - sc.threshold) * sc.over_threshold_multiplier : d; };
+  const top = crew.reduce(function (m, v) { return Math.max(m, lvOf(v)); }, 1), lv = lvOf(t);
+  let best = null, blows = Infinity;
+  crew.forEach(function (f) {
+    const c = FIGHT.isRanged(f.weapon) ? f.rskill - soft(t.rdef) : f.mskill - soft(t.mdef);
+    best = best === null ? c : Math.max(best, c);
+    try { blows = Math.min(blows, FIGHT.preview(f, t).blows); } catch (_e) {}
+  });
+  const hit = best === null ? null : Math.max(cap.min, Math.min(cap.max, Math.round(best)));
+  const dodge = hit !== null && hit <= O.dodge_chance_at_most, armour = crew.length > 0 && blows >= O.blows_at_least;
+  const c = { lv: lv, gap: lv - top, hit: hit, dodge: dodge, armour: armour, armourPts: t.armB + t.armH, blows: blows,
+    outclass: t.side === 'them' && crew.length > 0 && (lv - top >= O.level_gap || (dodge && armour)) };
+  t._cls = c; t._clsKey = key; return c;
+}
+/* the plate's line for a man of theirs: the class first when he outclasses you, then LV, then the marks that apply */
+function classLine(t) {
+  const c = classOf(t), out = [];
+  if (c.outclass) out.push('<b class="oc">' + CLASS_SAYS.outclass + '</b>');
+  out.push('LV ' + c.lv);
+  if (c.dodge) out.push(CLASS_SAYS.dodge + ' ' + (100 - c.hit) + '%');
+  if (c.armour) out.push(CLASS_SAYS.armour + ' ' + c.armourPts);
+  return out.join(' · ');
+}
+/* the board's mark: three red chevrons stacked over the head of a man who outclasses you, cells on whole pixels, no word */
+function classMark(v, X, top, h) {
+  const c = Math.max(1, Math.round(h / 40)), lit = ((performance.now() - UI.t0) % beatMs() + beatMs()) % beatMs() / beatMs() < BLINK_ON;
+  for (let k = 0; k < 3; k++) {
+    const y0 = Math.round(top - (k + 1) * c * 4);
+    for (let i = -3; i <= 3; i++) {
+      const yy = y0 + Math.abs(i) * c;
+      cx.fillStyle = 'rgba(0,0,0,.7)'; cx.fillRect(Math.round(X + i * c) - 1, yy - 1, c + 2, c + 2);
+      cx.fillStyle = k === 2 && !lit ? '#7a2418' : '#e0432c'; cx.fillRect(Math.round(X + i * c), yy, c, c);
+    }
+  }
+}
+/* A DODGE SHOWS AS A DODGE: he is thrown aside, away from the shot, and back, over ours.outclass.dodge_lean_beats */
+function dodgeLean(v, h, now) {
+  const d = UI.dodge && UI.dodge[v.id]; if (!d) return 0;
+  const k = (now - d.t) / (beatMs() * R('ours.outclass').dodge_lean_beats);
+  if (k < 0 || k > 1) return 0;
+  return d.dir * h * .22 * Math.sin(Math.PI * k);
+}
 function aimLines(u, t) {
   const p = FIGHT.preview(u, t), out = [];
+  if (t.side === 'them' && classOf(t).outclass) out.push('<b class="oc">This one outclasses you.</b> ' + classLine(t).replace(/<[^>]+>/g, '').replace(CLASS_SAYS.outclass + ' · ', '') + '.');   /* draft:true */
   out.push('<b>' + p.chance + '%</b> to hit. A hit: <b>-' + p.hp + '</b> health, <b>-' + p.armour + '</b> armour.');
   if (p.club) out.push('Too close to shoot: he clubs with his ' + armName(u, p.arm) + '.');
   if (p.blows >= R('ours.weapon_says_weak').blows_at_least) {
@@ -3034,7 +3097,13 @@ function startAnim(a) {
       pop(ot, '', o.hit ? (o.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', o.hit && o.head,
         u.name + "'s " + (o.skill || 'sweep').toLowerCase() + (o.hit ? ' catches ' + ot.name + ', -' + o.hp + ' health' : ' misses ' + ot.name) + ' (' + o.chance + '%)');
     });
-    numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : '', e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
+    /* A DODGE SHOWS AS A DODGE (rule 143(b)): a shot or blow that misses throws him aside at the landing, the tag says DODGED (COVER
+       when the round went into the piece he stands behind); a man of theirs keeps count of what he dodged for the end's words */
+    const into = !e.hit && ranged && bulletLands(e, t) === 'cover';
+    if (!e.hit) { UI.dodge = UI.dodge || {}; UI.dodge[t.id] = { t: performance.now() + beatMs() * 0.45, dir: (t.x - u.x) >= 0 ? 1 : -1 };
+      if (u.side === 'you') t._dodged = (t._dodged || 0) + 1; }
+    if (u.side === 'you') t._tried = (t._tried || 0) + 1;
+    numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : into ? CLASS_SAYS.cover : CLASS_SAYS.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
         : ' misses ' + t.name) + ' (' + e.chance + '%)');
@@ -3834,10 +3903,10 @@ function drawBody(v, tw, th) {
 const DRAG_LIFT = 0.45;
 function skinOf(v) { return '#8c6a52'; }
 function drawMan(v, tw, th) {
-  const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th);
+  const h = manH(), you = v.side === 'you', now = performance.now();
+  const X = sx((dx(v) + .5) * UI.tw) + dodgeLean(v, h, now), feet = sy((dy(v) + .9) * UI.th);
   const lvl = FIGHT.level(v.x, v.y) ? th * .14 : 0;
-  const h = manH(), you = v.side === 'you';
-  const Y = feet - lvl, now = performance.now();
+  const Y = feet - lvl;
   v._seen = true;
   lampShadow(v, X, Y, h);
   /* THE RING IS HIS SHADOW (COMBAT [the marks on the board]; DIRECTION's F3 owner line, verdict 23: 'the gold rings to a thin dark
@@ -3871,6 +3940,8 @@ function drawMan(v, tw, th) {
       seg(bw * (ar - ta) / am, bw * ta / am, by); seg(bw * (v.hp - th2) / v.hpMax, bw * th2 / v.hpMax, by + BAR_PT + 1);
     }
   }
+  /* THE BETTER ENEMY READS ON THE BOARD (rule 143(b)): before and during the fight, over the head of a man who outclasses you */
+  if (!you && h > 26 && FIGHT.onField(v) && classOf(v).outclass) classMark(v, X, Math.round(Y - h - 12), h);
 }
 /* THE ROUNDS OVER HIM (COMBAT [the reload is loud], rule 124): the man you control carries his gun's rounds as bullets on a
    black plate over his bars, brass for a full one, an empty case for a spent one, the last one amber and blinking. EMPTY, the
@@ -4105,6 +4176,9 @@ function hud() {
   if (apn.textContent !== apt) apn.textContent = apt;
   apn.classList.toggle('low', show === u && crewControlled(u) && !!UI.spent);
   if (UI.drawer) drawer(show);
+  /* THE PLATE SAYS WHO HE IS (rule 143(b)): a man of theirs on the bar carries LV, his marks, and OUTCLASSES YOU when he does */
+  const cl = document.getElementById('cls'), clh = show.side === 'them' ? classLine(show) : '';
+  if (cl.dataset.h !== clh) { cl.dataset.h = clh; cl.innerHTML = clh; cl.style.display = clh ? 'block' : 'none'; }
   const mine = crewControlled(u) && !UI.anim.length && !S.over;
   /* the skill row: STRIKE with his weapon, RELOAD, then the skills his perks unlock, each a 46-point square */
   const tgt = mine && UI.pend && UI.pend.target && (UI.pend.sweep ? FIGHT.canSweep(u, UI.pend.target, UI.pend.sweep) : FIGHT.canStrike(u, UI.pend.target)) ? UI.pend.target : null;

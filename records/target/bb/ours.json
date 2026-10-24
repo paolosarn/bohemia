@@ -1213,5 +1213,17 @@
   "quote": "there's gonna be enemy types around more in different acts than another, that's just how it is",
   "why": "COMBAT [bestiary] 10/24 (no card, rule 127: he meets them in his next fights): the map hands every roaming party as plain brigands today, so the three new kinds would never reach his glass. From his second fight on, a party handed as brigands is one of the valley's factions, drawn by the act it is fought in (the same weights as act_weights: the kids the ruin's, the machines and the heavies the reclaimed future's); his first fight stays brigands (the lessons of the first fight). A party the map names with its own faction (ghosts, beasts) keeps it. The day the map's parties carry their faction (RUN, WORLD), this table is the spawner's and the fight stops rolling. Drafts; TUNING owns them.",
   "tuned": false
+ },
+ "outclass": {
+  "value": {
+   "level_gap": 3,
+   "dodge_chance_at_most": 40,
+   "blows_at_least": 5,
+   "dodge_lean_beats": 0.5
+  },
+  "source": "VAMILY.md rule 143(b) (Paolo 10/24); records/BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md; his level from rules.json parsed.brother_xp (bb_all/1316_Morale.txt: XP value of a brother is 100 + 30 * (his level - 1)), the same worth scale every enemy row carries as xp",
+  "quote": "when everyone dies in a match it's kind of hard to understand... an enemy just kept dodging all of my bullets, I don't know how we can make it clear visually that the enemy is superior",
+  "why": "COMBAT [the loss is understood] 10/24: an enemy reads LV n, his level on Battle Brothers' own worth scale (1 + (xp - 100) / 30, the brother formula run backwards); he OUTCLASSES YOU when that level is level_gap or more over the best man of yours still standing, or when he both dodges (the best man of yours, skill against his defence alone, hits him dodge_chance_at_most in 100 or less) and is armoured (the arm of yours that drops him fastest needs blows_at_least blows or more, weapon_says_weak's count); a shot he dodges throws him aside for dodge_lean_beats of a beat. Drafts for TUNING, tuned:false.",
+  "tuned": false
  }
 }
