@@ -58,6 +58,41 @@ STATUS: IN PROGRESS. The list grows as the play goes; worst first inside each pa
    three men and twelve in a fight and cannot tell which is his crew.
 17. [UI] THE BUILD STAMP WRAPS on the title, one word ('WORDS') alone on the second line (p01).
 
+## THE FIGHT (part 3, the first job: 'Ride shotgun to the salt camp', 5 of ours against 2 THUGs)
+
+WHAT IS RIGHT, SAID SO NOBODY RE-CHASES IT: both hires stood on the board in their line places holding what
+I gave them (Dante the fire axe, Octavio the good pistol): his 10/24 'hires missing from the fight' is FIXED on
+10/24j. Desi's rifle shows TWO HANDS / BOTH HANDS on the crew screen (p16). The AUTO button wears the odds as a
+tint (green at the start, faint red after my walk, p19), no number. A fallen thug lies in a pool of blood. The
+fight was won on AUTO and paid 45 (6 -> 51 batteries), the job counted done.
+
+18. [COMBAT] 'OUT OF REACH' WHEN IT IS THE AP. Raul walked to 3 tiles from a THUG (his pistol card: '2 to 4
+   tiles') with 3 of 9 AP left; a tap on the THUG says 'THUG is out of reach. Your pistol: 2 to 4 tiles, a club
+   at one.' The fight's own canStrike says no because the shot (skill 'Throw Javelin') needs more AP than 3; the
+   words name the wrong reason (p19). His 10/24 bar: 'a loss nobody understands'. Step: walk a pistol man
+   three tiles on rough ground, tap the enemy.
+19. [COMBAT] THAT LINE NEVER CLEARS. After AUTO took over, 'THUG is out of reach...' stayed on the screen through
+   rounds 2 and 3 under every other line (p20).
+20. [COMBAT, CHARACTER] MY MEN STAND ON EACH OTHER. Four men in one column of tiles (7,4 7,6 7,7 7,8) are drawn
+   about two tiles tall, so each one's head is drawn over the legs of the man in front (p18). His first votes:
+   'nobody stands on anybody'. Step: the first fight, before FIGHT.
+21. [COMBAT, in flight: RUN TWO/COMBAT CLAIMED [two hands]] THE CAR DOOR DOES NOT SHOW. YOU and RAUL hold a
+   pistol and a car door (the fight reads 'Wooden Shield' in the off hand); neither model shows a door (p18).
+   His 149(b). Not filed again.
+22. [COMBAT TWO, COOK TWO] THE BOARD HAS SEAMS. The canal ends in a straight vertical cut mid-board; above the
+   board a strip of a different, washed ground meets it at a hard straight line (p18).
+23. [RUN] THE FIGHT ENDS IN GIANT BLOCKS. The instant the fight was over, the whole glass was big brown blocks,
+   each about 60 px (p21), before the map came back. His 10/24: 'when the map blows up I see the skeleton.'
+24. [WORDS] A MAN SHOUTS HIS MATE'S FULL NAME: 'I was RIGHT next to Octavio Ellison! Get them!' (p20).
+25. [UI] THE NAME IS CUT: 'OCTAVIO ELLI' under his face on the fight bar (p18).
+26. [RUN TWO, WORDS] THE JOB SAYS 30, THE CONTRACT PAYS 45. The board and the phone offered 'Ride shotgun... 30
+   batt'; once taken, the phone's post and the pay are 'Pay 45 battery' (the door's FULL SHELVES 'jobs pay half
+   again', never shown on the job) (p17). Also 'Pay 45 battery' (one battery) and '@church · 1 BLOCKS W'.
+27. [RUN TWO, ECONOMY] ONE SHOPPING TRIP, ZERO NIGHTS. Two hires and two buys took 290 to 6 batteries; the map
+   then reads '6 / 0 NIGHTS LEFT' in red. Nothing at the counter said what a buy would leave (p17).
+28. [RUN TWO, WORDS] YOU AND DESI SAY THE SAME LINE: both crew cards read 'Does not talk about before. You do not
+   ask.'; Desi with a rifle in both hands is 'COMPANION (1HAND)', YOU with a pistol and a door '(2HAND)' (p16).
+
 ## NOT A GAME DEFECT, FOR PLUMBER (the instrument)
 - The one driver (tools/bohemia_drive_the_demo.js) opened the demo and came back 'opened' after 163 s with the
   TITLE STILL UP (title.via null) and the map alive under it: every reading after it was of a map nobody could
