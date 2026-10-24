@@ -81,3 +81,4 @@ Newest first.
 - 2026-10-24 | STATS | GROK_WIEDERGANGER_BARBARIAN_STATS_2026_10_24.md | wiederganger, barbarian thrall, chosen
 - 2026-10-24 | STATS | GROK_BRIGAND_NOBLE_STATS_2026_10_24.md | brigand thug, raider, footman, knight
 - 2026-10-24 | ASK | GROK_ASK_26_MAP_SIZE_2026_10_24.md | map size numbers, diameter, settlements
+- 2026-10-24 | ASK | GROK_ASK_33_GROUND_EFFECTS_2026_10_24.md | hit effects, blood, corpses, drops
