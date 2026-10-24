@@ -97,3 +97,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_46_HIT_CHANCE_2026_10_24.md | hit chance, formula, 5-95 clamp
 - 2026-10-24 | ASK | GROK_ASK_47_DAMAGE_2026_10_24.md | damage, armor HP, headshot
 - 2026-10-24 | ASK | GROK_ASK_48_ARMOR_DURABILITY_2026_10_24.md | armor durability, repair, tools
+- 2026-10-24 | ASK | GROK_ASK_49_WEAPON_DURABILITY_2026_10_24.md | weapon durability, break, blacksmith
