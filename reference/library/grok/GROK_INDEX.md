@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | BACKGROUNDS | GROK_CHARACTER_BACKGROUND_LIST_2026_10_24.md | backgrounds, wages, hire display
 - 2026-10-24 | SETTLEMENTS | GROK_SETTLEMENT_SITUATIONS_LIST_2026_10_24.md | situations, prices, durations
 - 2026-10-24 | TRADE | GROK_TRADE_GOODS_CARAVAN_RULES_2026_10_24.md | trade goods, escort caravan, well supplied
 - 2026-10-24 | RETINUE | GROK_RETINUE_FOLLOWER_RULES_2026_10_24.md | five slots, renown unlocks, followers
