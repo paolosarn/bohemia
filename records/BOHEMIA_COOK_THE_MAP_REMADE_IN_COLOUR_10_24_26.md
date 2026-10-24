@@ -73,11 +73,89 @@ warm-up comment; the 10/23 record).
 
 ## 3. WHAT WENT IN (the ledger: `records/target/cook_map_colour/ledger.json`, each picture's sand share after)
 
-(filled family by family below; the log is the commits)
+ALL 69 IN (pushed in nine swaps, the last aea0a744). Per picture: theme, faces recoloured, faces added (pools, trees, bushes), the picture's own sand / green / blue / red share after, and the registration to the old picture's pixels (IoU):
+
+| district | theme | recoloured | added | sand | green | blue | red | IoU |
+|---|---|---|---|---|---|---|---|---|
+| apartment | house | 555 | 33 | 26% | 0% | 0% | 1% | 1.0 |
+| arsenal | industry | 409 | 54 | 0% | 1% | 1% | 13% | 1.0 |
+| arterial | road | 70 | 0 | 0% | 0% | 0% | 0% | 1.0 |
+| arterial_x | road | 20 | 0 | 0% | 0% | 0% | 3% | 1.0 |
+| ballpark | green | 4174 | 243 | 10% | 25% | 0% | 3% | 0.9958 |
+| basin | water | 205 | 81 | 3% | 6% | 0% | 10% | 0.9895 |
+| battery | block | 178 | 81 | 1% | 6% | 7% | 6% | 0.995 |
+| boneyard | glitz | 330 | 168 | 14% | 16% | 2% | 8% | 1.0 |
+| campus | green | 879 | 243 | 12% | 11% | 0% | 6% | 0.9973 |
+| casino | glitz | 461 | 168 | 32% | 6% | 12% | 10% | 1.0 |
+| cemetery | green | 566 | 135 | 10% | 55% | 0% | 8% | 0.9788 |
+| chapel | glitz | 420 | 168 | 9% | 9% | 7% | 0% | 1.0 |
+| cityhall | block | 458 | 81 | 4% | 6% | 1% | 17% | 0.9989 |
+| commercial | block | 257 | 81 | 6% | 3% | 0% | 18% | 1.0 |
+| convention | block | 496 | 81 | 2% | 3% | 1% | 0% | 1.0 |
+| courthouse | block | 586 | 81 | 1% | 4% | 1% | 1% | 1.0 |
+| dam | water | 417 | 81 | 3% | 0% | 1% | 12% | 1.0 |
+| datafort | block | 44 | 81 | 0% | 1% | 4% | 1% | 0.9964 |
+| desert | desert | 386 | 176 | 39% | 14% | 0% | 18% | 0.9993 |
+| downtown | block | 171 | 0 | 0% | 1% | 0% | 4% | 1.0 |
+| drivein | block | 150 | 81 | 12% | 6% | 0% | 2% | 0.9998 |
+| farm | field | 92 | 0 | 9% | 45% | 0% | 30% | 1.0 |
+| firestation | block | 157 | 81 | 5% | 4% | 0% | 21% | 1.0 |
+| fort | industry | 413 | 54 | 1% | 2% | 1% | 22% | 1.0 |
+| freeway | road | 66 | 0 | 0% | 1% | 0% | 8% | 1.0 |
+| fueldepot | industry | 427 | 54 | 0% | 3% | 10% | 5% | 1.0 |
+| golf | green | 275 | 243 | 11% | 62% | 0% | 0% | 0.9926 |
+| granary | field | 446 | 0 | 2% | 28% | 0% | 36% | 1.0 |
+| gypsum | gypsum | 431 | 110 | 8% | 0% | 3% | 0% | 1.0 |
+| industrial | industry | 89 | 54 | 7% | 1% | 0% | 1% | 1.0 |
+| intake | water | 220 | 81 | 2% | 0% | 14% | 7% | 1.0 |
+| interchange | road | 240 | 108 | 14% | 2% | 0% | 9% | 0.9965 |
+| jail | block | 412 | 81 | 2% | 30% | 0% | 5% | 1.0 |
+| landfill | dump | 85 | 88 | 18% | 3% | 0% | 30% | 1.0 |
+| library | block | 474 | 81 | 1% | 4% | 1% | 1% | 0.9977 |
+| mall | block | 47 | 81 | 0% | 11% | 6% | 3% | 1.0 |
+| medical | block | 279 | 0 | 0% | 0% | 0% | 0% | 1.0 |
+| minigp | glitz | 176 | 168 | 24% | 8% | 2% | 15% | 1.0 |
+| mountain | rock | 258 | 110 | 1% | 1% | 0% | 43% | 1.0 |
+| park | park | 200 | 243 | 1% | 60% | 0% | 0% | 0.9858 |
+| policestation | block | 63 | 0 | 1% | 0% | 0% | 0% | 1.0 |
+| prison | block | 339 | 81 | 1% | 4% | 12% | 0% | 1.0 |
+| pumpstation | water | 195 | 81 | 2% | 0% | 4% | 6% | 0.9993 |
+| quarry | rock | 342 | 110 | 0% | 0% | 0% | 47% | 0.9999 |
+| radio | block | 1204 | 81 | 2% | 16% | 1% | 10% | 1.0 |
+| rail | industry | 126 | 54 | 1% | 5% | 9% | 11% | 1.0 |
+| railyard | industry | 289 | 54 | 2% | 1% | 15% | 0% | 1.0 |
+| reclaim | green | 114 | 243 | 18% | 24% | 0% | 11% | 0.9965 |
+| reservoir | water | 59 | 81 | 1% | 0% | 1% | 4% | 0.9984 |
+| resort | glitz | 467 | 168 | 16% | 4% | 14% | 4% | 0.9969 |
+| school | block | 1633 | 81 | 4% | 4% | 2% | 15% | 0.9997 |
+| solar | industry | 105 | 54 | 0% | 3% | 9% | 1% | 0.9993 |
+| speedway | block | 530 | 81 | 1% | 16% | 0% | 5% | 0.9981 |
+| stadium | block | 929 | 0 | 0% | 1% | 0% | 55% | 1.0 |
+| storage | industry | 40 | 54 | 0% | 4% | 0% | 10% | 1.0 |
+| strip | glitz | 246 | 0 | 6% | 0% | 2% | 9% | 1.0 |
+| strip_x | glitz | 180 | 0 | 0% | 0% | 1% | 12% | 1.0 |
+| substation | industry | 627 | 54 | 2% | 2% | 0% | 10% | 1.0 |
+| suburb | house | 109 | 170 | 7% | 21% | 1% | 18% | 0.9954 |
+| swapmeet | glitz | 122 | 168 | 8% | 11% | 11% | 6% | 0.9907 |
+| terminal | block | 458 | 81 | 2% | 5% | 0% | 38% | 0.9958 |
+| town | house | 655 | 170 | 9% | 23% | 1% | 9% | 1.0 |
+| trailer | house | 222 | 170 | 14% | 29% | 1% | 14% | 0.9965 |
+| truckstop | road | 100 | 0 | 1% | 0% | 0% | 2% | 1.0 |
+| warehouse | industry | 203 | 54 | 0% | 1% | 1% | 24% | 1.0 |
+| wash | water | 262 | 81 | 4% | 1% | 1% | 32% | 0.9858 |
+| water | water | 99 | 81 | 2% | 1% | 1% | 10% | 0.9916 |
+| waterpark | water | 110 | 81 | 3% | 0% | 0% | 23% | 0.9996 |
+| watertreat | water | 549 | 81 | 1% | 0% | 27% | 2% | 1.0 |
 
 ## 4. AFTER
 
-(the measure again at the end of the round)
+| map | far | district | opening | step | near |
+|---|---|---|---|---|---|
+| before | 78.8% | 66.0% | 46.0% | 42.7% | 39.7% |
+| 13 pictures in, the pictures still drawn from a block 27 px (batch2) | 78.7% | 65.9% | 45.8% | 34.4% | 31.4% |
+| all 69 in, after RUN's one map (after) | 78.5% | 65.5% | 41.9% | 42.1% | 35.0% |
+
+THE HONEST READ: with the pictures drawing, the step and near stops fell from 43% and 40% to 34% and 31% with 13 of 69 in. Then RUN's BUILD 10/24h (rule 142, `__ONE_MAP_AT_EVERY_ZOOM__`) made the PAINTING the map at every zoom and stopped drawing the per-block pictures, so on the map he plays the 69 coloured pictures are not on screen; what is on screen is the painting's palette (VB_CCOL) and the far land (VB_COL), both code, both tan. The bar (a third or less at every zoom) is NOT met on the map, and it cannot be met from pictures alone now: the painting's keys re-read off the new pictures are in RUN's note, section 2b, ready to paste (RUN's row [the far land in colour]). The pictures are still the map's source of truth for colour (rule 142c), the settlement and fight lanes' reference, and what any zoom that draws them shows.
 
 ## 5. FOR THE OTHER LANES
 
@@ -89,3 +167,20 @@ warm-up comment; the 10/23 record).
 - FOR DIRECTION: the rig's DUST constant is a beige on every flat top; on the map it is swapped for a grey by this tool's
   wrapper after the source pass (the rig file is untouched). If the beige wash is to go from ALL art (137b says for ALL
   art from now), the rig's own constant is yours.
+- FOR COOK FOUR / RUN TWO: the settlement pictures and the map's settlement stops (the plates with flags) were not
+  touched this round; 143(f) moves the stops into the ground (RUN's [the wipe, the marker, no flags]); their colour is the
+  next thing for this row once they sit in the ground.
+
+## 6. WHAT FOUGHT BACK
+
+- The mosaic grounds first came out as hard blobs of far colours: camouflage, his NO on the casino carpet. Now LINEAR
+  between close colours, pulled 0.32 to their own mean.
+- The commercial block came out all cream (36% sand): cream and yellow stucco are IN the sand family; they stay in the
+  houses' list as one choice of nine, and left the block, road and industry themes.
+- The freeway's sound wall came out sign green, the park's tiered trees came out pink and cream stucco, the gypsum works
+  red rock: a sound wall is block, the park has its own foliage theme, gypsum its own white theme.
+- The pool colour was hashed and three pools of four came out algae: now they cycle (blue, blue, algae, blue, drained).
+- The capture's crop is 1 to 2 px off on a rig picture (its alpha fit was against the factory's plastic): registered to
+  the old picture's own alpha now, IoU 0.995 to 1.0.
+- `pkill -f` on the render's own name killed this lane's shell (the 10/19 handoff warned); and three wait loops never
+  ended because `pgrep -f` matched their own command line: about twenty minutes lost. Kill by PID.
