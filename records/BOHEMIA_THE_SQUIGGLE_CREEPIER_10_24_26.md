@@ -151,6 +151,9 @@ NO FACE FROM A BODY 23/0, DEMO BUILD 25/0, THE BULLET LANDS 12/0 (--fast), ONE S
 code; the demo is in its list now). RED ON MAIN BEFORE THIS ROW AND THE SAME AFTER (run on a clean checkout of 2b0c5838):
 CITY UI VOICE 9/3 (the phone, close and sleep controls it measures are no longer in the city) and CITY TALK (a TimeoutError
 walking the old city's talk card); neither touches this row.
+THE STOPWATCH (re-run in this commit): BUILD 10/24c, the door 15.2 s on the 4x phone profile, median of 5 (14.7 to 15.7), 3.6 MB
+before the door; the cut before it (10/24b, never timed) read 17.8 s (12.2 to 18.2) with the same 3.6 MB, so the voice adds
+nothing before the door (its 737 KB loads 4 s after the music runs).
 
 ## NOTES LEFT (VAMILY)
 

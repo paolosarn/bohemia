@@ -4,89 +4,89 @@
  "instrument": "tools/bohemia_first_load.js readOnce: a fresh browser, cold cache, no service worker, served like GitHub Pages, nobody touching the glass",
  "throttle": 4,
  "lingerMs": 20000,
- "taken": "2026-10-24T00:57:26.336Z",
+ "taken": "2026-10-24T06:08:58.194Z",
  "demo": {
-  "stamp": "DEMO - BUILD 10/24a - THE BULLET LANDS",
-  "hash": "33f9cba7"
+  "stamp": "DEMO - BUILD 10/24c - THE SQUIGGLE, CREEPIER",
+  "hash": "142f4b7a"
  },
  "median": {
-  "titleMs": 2146.5,
-  "doorMs": 13373.8,
-  "bytesBeforeDoor": 3647437,
-  "bytesAfterDoor": 18997929,
-  "filesAfterDoor": 92
+  "titleMs": 2375.6,
+  "doorMs": 15151.6,
+  "bytesBeforeDoor": 3754454,
+  "bytesAfterDoor": 19744594,
+  "filesAfterDoor": 87
  },
  "spread": {
   "titleMs": [
-   2090.9,
-   2257.8
+   2311.1,
+   2447.9
   ],
   "doorMs": [
-   13067.8,
-   13781.5
+   14693.9,
+   15658.4
   ]
  },
  "readings": [
   {
-   "titleMs": 2090.9,
-   "buttonsMs": 2740.9,
-   "doorMs": 13373.8,
-   "firstPaintMs": 2500,
-   "bytesBeforeDoor": 3647437,
-   "bytesAfterDoor": 18997929,
-   "filesAfterDoor": 92,
-   "bytesAll": 22645366,
+   "titleMs": 2388.6,
+   "buttonsMs": 3121.9,
+   "doorMs": 15388,
+   "firstPaintMs": 2816,
+   "bytesBeforeDoor": 3754454,
+   "bytesAfterDoor": 19741382,
+   "filesAfterDoor": 87,
+   "bytesAll": 23495836,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 2134.9,
-   "buttonsMs": 2768.2,
-   "doorMs": 13067.8,
-   "firstPaintMs": 2540,
-   "bytesBeforeDoor": 3647437,
-   "bytesAfterDoor": 18997929,
-   "filesAfterDoor": 92,
-   "bytesAll": 22645366,
+   "titleMs": 2447.9,
+   "buttonsMs": 3231.3,
+   "doorMs": 15130.8,
+   "firstPaintMs": 2976,
+   "bytesBeforeDoor": 3754454,
+   "bytesAfterDoor": 19744594,
+   "filesAfterDoor": 88,
+   "bytesAll": 23499048,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 2257.8,
-   "buttonsMs": 2907.8,
-   "doorMs": 13607.4,
-   "firstPaintMs": 2680,
-   "bytesBeforeDoor": 3647437,
-   "bytesAfterDoor": 19036207,
-   "filesAfterDoor": 93,
-   "bytesAll": 22683644,
+   "titleMs": 2352.1,
+   "buttonsMs": 3002.1,
+   "doorMs": 15151.6,
+   "firstPaintMs": 2752,
+   "bytesBeforeDoor": 3754454,
+   "bytesAfterDoor": 20475480,
+   "filesAfterDoor": 87,
+   "bytesAll": 24229934,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 2165.3,
-   "buttonsMs": 2898.6,
-   "doorMs": 13781.5,
+   "titleMs": 2375.6,
+   "buttonsMs": 3192.3,
+   "doorMs": 15658.4,
+   "firstPaintMs": 2904,
+   "bytesBeforeDoor": 3744402,
+   "bytesAfterDoor": 19741382,
+   "filesAfterDoor": 87,
+   "bytesAll": 23485784,
+   "twice": 0,
+   "errors": 0
+  },
+  {
+   "titleMs": 2311.1,
+   "buttonsMs": 2944.4,
+   "doorMs": 14693.9,
    "firstPaintMs": 2660,
-   "bytesBeforeDoor": 3647437,
-   "bytesAfterDoor": 18997929,
-   "filesAfterDoor": 92,
-   "bytesAll": 22645366,
-   "twice": 0,
-   "errors": 0
-  },
-  {
-   "titleMs": 2146.5,
-   "buttonsMs": 2763.3,
-   "doorMs": 13312.8,
-   "firstPaintMs": 2544,
-   "bytesBeforeDoor": 3657489,
-   "bytesAfterDoor": 18997929,
-   "filesAfterDoor": 92,
-   "bytesAll": 22655418,
+   "bytesBeforeDoor": 3754454,
+   "bytesAfterDoor": 19744594,
+   "filesAfterDoor": 88,
+   "bytesAll": 23499048,
    "twice": 0,
    "errors": 0
   }
  ],
- "line": "THE DEMO (DEMO - BUILD 10/24a - THE BULLET LANDS, demo 33f9cba7): title 2.1 s, the door (NEW GAME ready) 13.4 s on the 4x phone profile, median of 5 (13.1 to 13.8); 3.5 MB before the door, 18.1 MB in 92 files in the 20 s after it."
+ "line": "THE DEMO (DEMO - BUILD 10/24c - THE SQUIGGLE, CREEPIER, demo 142f4b7a): title 2.4 s, the door (NEW GAME ready) 15.2 s on the 4x phone profile, median of 5 (14.7 to 15.7); 3.6 MB before the door, 18.8 MB in 87 files in the 20 s after it."
 }

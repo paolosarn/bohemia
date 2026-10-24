@@ -925,6 +925,49 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sounds-squiggle): 10/24 LATEST (round thirty-two, [the squiggle, creepier], rule 135; rule 127: no card) --
+*** THE SQUIGGLE, FROM A RECORDING, A LITTLE WRONG, AND EVERY TALKING FACE SAYS IT. BUILD 10/24c - THE SQUIGGLE, CREEPIER. ***
+His 10/24: 'we might have to revamp or upgrade or remake from scratch the squiggle voices... Animal Crossing style... but more
+creepy.' MEASURED BEFORE: every talking portrait in the demo (the map's voice, the walking man, the greeter, every keeper, the
+crew) moved its mouth in SILENCE (engine/bohemia_crew_faces.js talk() never asked for a voice); the old voice was formant
+synthesis at -27.7 dB after the game's chain, the quietest thing on the bus, 3 clicks in 19 lines by the new ruler.
+NOW, ANIMALESE'S OWN METHOD: one real syllable per letter, cut from LJ Speech (one woman reading LibriVox, public domain; the
+32 clips in coqui-ai/TTS's test data, the only host this box reaches), aligned to phones by PocketSphinx (pip, its own model),
+three takes a letter (h two), banked in reference/library/sound_bank/ljspeech_pd/; rendered as HIS SIX of 8/11 by Praat's
+'Change gender' (her f0 223 Hz and tract 1.17 measured; each family at his pitch, measured back within 1 Hz, his tract, his
+speed on the 120 BPM grid at 4, 5 or 6 letters a beat), the lane's own tape and a small room baked in; one sprite
+slices/voice_heard/squiggle.mp3 (462 takes, 2 breaths, 737 KB) + index.json (tools/bohemia_squiggle_from_a_recording.py).
+THE PLAYER engine/bohemia_voice_recorded.js: the person is still engine/bohemia_voice.js's voice from his seed; the nearest of
+his six by tract then pitch (his six are themselves), his pitch on the playback rate (4 semitones at most), one take a letter
+never twice running, declination, a question rises, the mood as before. CREEPIER, seeded (the same man saying the same words is
+wrong in the same place): a syllable drops (the tape lets go: a 600 Hz lowpass, a sixth of its level), one doubles (half a step
+later, 3% flatter), the tape wobbles inside his one hard law (0.73 Hz, 2.09%), a frightened breath (ESC-50 CC0) inside a line
+or after it on a third of lines, every statement sags 6 to 12% at its end, a room on it; 0.77 wrong things a line. NO CLICK:
+the first build's two clicks, both found by the gate's ruler (proven on planted clicks): a gain born at 1 (a one-sample spike,
+60.9 dB over its neighbours, on a doubled syllable): born at 0; a line cut short by the next one cancelled every syllable's
+envelope and clicked at 86 of 144 cut points: it fades its own output now, 0 of 144.
+INTO THE GAME (tools/bohemia_squiggle_patch.py, idempotent; the demo cut by its own tool): the player inlined, speakLine says it
+through squiggleSay (the 8/11 voice until the bank is in, never silence; the bank loads 4 s after the music runs), a FACE
+speaker ('face:<look>') cast from his look; engine/bohemia_crew_faces.js talk() posts each line it mouths (three additive lines,
+RUN TWO's module, NOTE on its board). THE FIGHT'S VETERAN is the one face left silent (COMBAT's file): the one line is on
+COMBAT's board. The judge in MUSIC and the cold open keep the 8/11 engine; the narrator untouched.
+LEVEL: -22 dB through the game's compressor and brickwall (just under the gun), found by steps (-14.15 dB on the player).
+MEASURED IN THE DEMO: a town opened from the map, its greeter (person_cartel_4) said 'Work's on the board, mijo...' in the
+recorded squiggle (cand-3, 19 syllables), the bar tapped with a real touch, MALACHI COYLE (person_reds_6) said 'My cousin says
+it's market day...' (cand-4, 41 syllables, two dropped, a breath after), the effects bus carrying both near -28 dB; nothing threw.
+Gate THE SQUIGGLE, CREEPIER (new, registered): 19/0, six planted defects each red (the gain born at 1, Math.random, no drops,
+the wobble past his law, no sag, the old cut that clicked at 28 of 54 points). On this tree: SQUIGGLE VOICE 41/0, VOICE MOOD
+19/0, VOICE VARIETY 3/0, VOICE AUDIBLE 2/0, TALKING PORTRAIT 34/0, NO FACE FROM A BODY 23/0, DEMO BUILD 25/0, THE BULLET LANDS
+12/0, ONE SONG ONLY 16/0, VOICE SURFACES 27/0 (25/1 on main before: the demo unlisted, now listed). Red on main before and the
+same after (a clean checkout of 2b0c5838): CITY UI VOICE 9/3, CITY TALK (TimeoutError); not this row's.
+THE STOPWATCH (re-run in this commit): BUILD 10/24c, the door 15.2 s on the 4x phone profile, median of 5 (14.7 to 15.7), 3.6 MB
+before the door; the cut before it (10/24b, never timed) read 17.8 s (12.2 to 18.2) with the same 3.6 MB, so the voice adds
+nothing before the door (its 737 KB loads 4 s after the music runs).
+Record: records/BOHEMIA_THE_SQUIGGLE_CREEPIER_10_24_26.md. RUN closed: the demo cut was this lane's for this change.
+NEXT: nothing in this row; a second speaker (a man's own recording) the day a public-domain or CC0 one reaches this box (LJ is
+one woman, so every family is her, moved); [the machine party] stays stopped. PENDING Paolo: nothing.
+UNDER UI (rule 113a): SOUNDS made people talk in a real recorded squiggle, a little wrong, on every talking face, the demo, SHIPPED.
+
 SOUNDS (sounds-bullet-lands): 10/24 LATEST (round thirty-one, [the bullet lands], rule 120: guns first; rule 127: no card) --
 *** THE BULLET LANDS, IN THE GAME: THE REAL GUNS AND WHERE EVERY BULLET GOES. BUILD 10/24a - THE BULLET LANDS. ***
 The coordinator: 'every shot is heard landing... per gun... from real material, analog horror, no sand; fired by the fight's
