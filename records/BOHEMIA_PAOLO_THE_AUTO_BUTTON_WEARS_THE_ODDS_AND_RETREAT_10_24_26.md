@@ -18,3 +18,11 @@
 3. Retreat, Battle Brothers' way: a RETREAT button; who reaches the edge escapes; no pay; never a wipe.
 
 VAMILY rule 144; COMBAT's [the auto button wears the odds] and [retreat].
+
+## AMENDED THE SAME HOUR: A CLEAN WIN, AND ONLY THE COLOUR
+
+HIS WORDS: "Now there's a difference between winning the battle with one character left standing with one HP left and winning the battle without you know taking a single casualty. You know there's a huge difference with that so do you count for that in your percentage because that's pretty fucking important. I know personally me. I wouldn't press the Auto button unless I'm guaranteed that none of my members would die and maybe we don't have to show the percentages and odds of like the things that like that could be a number in the background that the player never sees they only see the color like like the strongest green or the strongest red, you know and again I don't want it to be like I want it to be an opacity, but you know I'll be like varying levels of the color maybe on like a scale instead of just like five colors you know like if it if it's if it's green and you can tell that it's green green green then you know you know what I'm saying same goes for if it's like red red"
+
+THE ANSWER TO HIS QUESTION: today, no. The odds count a win as a win, whether one man is left at one hitpoint or nobody was touched.
+
+THE RULING: the odds measure the chance of a CLEAN WIN (won with none of his men down or dead), weighing how many fell when not; the player never sees a number, only the AUTO button's colour, on one continuous opacity scale from the deepest red to the deepest green. VAMILY rule 144(e).
