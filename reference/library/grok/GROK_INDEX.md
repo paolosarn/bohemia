@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | WEAPONS | GROK_WEAPON_LIST_SPECIAL_ABILITIES_2026_10_24.md | swords, axes, cleavers, polearms, bows, crossbows, handgonnes
 - 2026-10-24 | STATS | GROK_BIG_BEASTS_LATE_GAME_STATS_2026_10_24.md | lindwurm, kraken, schrat, hexe, ancient, warlord, chosen
 - 2026-10-24 | STATS | GROK_NEXT_ENEMY_STATS_SKILLS_2026_10_24.md | direwolf, unhold, ambusher, overseer, fallen hero, necromancer
 - 2026-10-24 | STATS | GROK_FIRST_ENEMY_STATS_SKILLS_2026_10_24.md | thug, orc young, orc warrior, goblin skirmisher, wiederganger stats and skills
