@@ -125,3 +125,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_74_MEDICINE_AND_HEALING_2026_10_24.md | medicine, healing, injuries
 - 2026-10-24 | ASK | GROK_ASK_75_DAY_LOOP_AND_CAMPING_2026_10_24.md | day loop, camping, night
 - 2026-10-24 | ASK | GROK_ASK_76_WORLD_MAP_GENERATION_2026_10_24.md | world map, generation, terrain
+- 2026-10-24 | ASK | GROK_ASK_77_CAMPS_AND_LOCATIONS_2026_10_24.md | camps, locations, legendary
