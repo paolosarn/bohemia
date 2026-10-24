@@ -93,6 +93,34 @@ fight was won on AUTO and paid 45 (6 -> 51 batteries), the job counted done.
 28. [RUN TWO, WORDS] YOU AND DESI SAY THE SAME LINE: both crew cards read 'Does not talk about before. You do not
    ask.'; Desi with a rifle in both hands is 'COMPANION (1HAND)', YOU with a pistol and a door '(2HAND)' (p16).
 
+## THE RETREAT (part 4, Mob's 2-skull job 'Clear the crew off the intake deck', 5 of ours against 3 THUGs)
+
+WHAT IS RIGHT: RETREAT asks once in plain words ('Retreat? Your men run for the nearest edge. Who reaches it gets
+out. No pay. Tap again.'), the second tap orders it, four men ran off the edge, the fight ended 'lost', no pay,
+and the phone said 'The job is lost... Nobody pays for that.'
+
+29. [COMBAT] THE MAN WHOSE TURN IT IS DOES NOT RUN. Octavio was the man up (9 of 9 AP) when RETREAT was pressed;
+   the order ended his turn where he stood (7,9) and he never moved again; the THUGs downed him there while the
+   other four got out (p23, p24). Step: the second fight, FIGHT, RETREAT twice on the first man's turn.
+30. [COMBAT, RUN] NOBODY SAYS WHAT HAPPENED. No result screen after the retreat: the board with 'Their move.' and
+   Octavio in his blood, then the map (p24, p25). Nothing names who got out, who was left, or what it cost.
+31. [COMBAT, RUN] THE MAN LEFT BEHIND COMES HOME WHOLE. After the retreat the crew is still 5/12 and Octavio's card
+   reads HITPOINTS 41 of 41, no injury, his gear in his hands (p26). The 9/27 law: struck down is 20 percent dead,
+   else a long injury. His 10/24 bar: 'a loss nobody understands'.
+32. [COMBAT TWO, COOK TWO] THE SUBURB BOARD IS A TOY TOWN. On the intake-deck board each man is drawn about four
+   houses tall over rows of tiny roofs (p23). 'For the combat a tile is as big as a house' (9/28).
+33. [RUN] THE 3-SKULL JOB IS THE 2-SKULL FIGHT. 'Bring up the crates from Sunrise' (three skulls, 90 batt: 'Something
+   big lives down there, from the fossil lab') holds the same party as the 2-skull job: count 3, 'A FEW', difficulty
+   0, brigands. The words promise a beast, the plate three skulls, the fight brigands. (In RUN's [the job's
+   stars], whose end state already says 'from the job's real party'; named here as the case that shows it.)
+34. [RUN TWO, WORLD] ONE JOB ON TWO BOARDS: 'Haul eighty tyres to the co-op, EL GUERO SALAS, THE YARD BOSS, 30
+   batt' is posted at Church and at Mob at once.
+35. [RUN] A PARTY'S PLATE COVERS THE TOWN: '2 ☠ EASY / GOING HOME' stood over the MOB label; a tap on the town
+   hit the plate and nothing moved; the town's own name had to be tapped (p22).
+36. [RUN TWO] THE WAGE CHANGES ON THE WAY HOME: the hall's card reads 'Hire 12 batt · 2 a night'; the same man on the
+   crew screen reads '1 BATT A DAY' (p26). The good pistol's reach: 'reach 1' at the smith, 'REACH 2 TO 4 TILES'
+   on the crew screen (p13, p26).
+
 ## NOT A GAME DEFECT, FOR PLUMBER (the instrument)
 - The one driver (tools/bohemia_drive_the_demo.js) opened the demo and came back 'opened' after 163 s with the
   TITLE STILL UP (title.via null) and the map alive under it: every reading after it was of a map nobody could
