@@ -16,10 +16,10 @@
 //   * EVERY LINE ROLLS. A spoken line comes out Spanglish on about 1 in 8 tries
 //     (RATE), rolled per line, so the same keeper says "Pick one." most visits
 //     and "Pick one, mijo." now and then.
-//   * SOME PEOPLE LEAN MORE. About one person in six leans (LEAN_HIGH, ~42%),
-//     the rest barely (LEAN_LOW, ~7.5%); a person the valley already rolled as a
+//   * SOME PEOPLE LEAN MORE. About one person in five leans (LEAN_HIGH, 25%),
+//     the rest less (LEAN_LOW, 10%); a person the valley already rolled as a
 //     Spanish speaker (people.js register 'spanglish' or 'es') always leans.
-//     The mean lands at ~12 to 13%.
+//     The mean lands at ~13%.
 //   * NEVER THE PLAYER (first votes 9/21, rule 27): say() for the player is
 //     always plain English.
 //   * BOTH FORMS EXIST FOR EVERY LINE. plain() takes the tag Spanish out of a
@@ -36,12 +36,15 @@
   var HASREQ = typeof module !== 'undefined' && module.exports;
 
   var RATE = 0.125;          // the target, his 10 to 15
-  var LEAN_LOW = 0.075;      // most people: a word now and then
-  var LEAN_HIGH = 0.42;      // the leaners: often, never always
-  var HIGH_SHARE = 0.18;     // how many lean, when nothing else says so
-  /* mean for a person with no register: 0.82 * 0.075 + 0.18 * 0.42 = 0.137.
-     For the valley's people: 0.85 * 0.075 + 0.15 * 0.42 = 0.127. Both inside;
-     the long play in language_gate H lands the whole game near 12. */
+  var LEAN_LOW = 0.10;       // most people: a word now and then (a crew with no leaner still sits at 10)
+  var LEAN_HIGH = 0.25;      // the leaners: two and a half times as often, never always
+  var HIGH_SHARE = 0.20;     // how many lean, when nothing else says so
+  /* mean for a person with no register: 0.80 * 0.10 + 0.20 * 0.25 = 0.130.
+     For the valley's people: 0.85 * 0.10 + 0.15 * 0.25 = 0.123. Both inside.
+     THE SPREAD IS SIZED FOR A CREW, not for the valley: a crew of eleven with no
+     leaner says 10 percent, one with four of them about 15.5. The first dial
+     (7.5 / 42) measured 6.9 percent on COMBAT's crew of eleven, the second
+     (10 / 32) 18.8 on the same men: a small crew magnifies the spread. */
 
   function hash(s) {
     var h = 2166136261; s = String(s == null ? '' : s);
@@ -164,10 +167,10 @@
   /* PICK: for a mouth that already holds both forms (the register buckets, the
      quirk lines): which one this line uses. Returns the register to speak in. */
   function regFor(who, key, reg) {
-    reg = reg || regOf(who) || 'en';
+    reg = reg || regOf(who) || null;   /* no register named: the man's own lean decides (never read as 'en') */
     if (isPlayer(who)) return 'en';
     if (!roll(who, key, reg)) return 'en';
-    return reg === 'en' ? 'spanglish' : reg;
+    return !reg || reg === 'en' ? 'spanglish' : reg;
   }
 
   var API = {

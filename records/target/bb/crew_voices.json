@@ -1,6 +1,6 @@
 {
- "_about": "THE CREW'S COMMENTARY (COMBAT [the crew's commentary], rule 143(c), Paolo 10/24). PLACEHOLDER BANK, draft:true: COMBAT wrote these few lines so the hook plays today; WORDS' personality bank replaces this whole file (same shape: types.<id>.name, .lean, .lines.<moment>.en / .sp; {name} the man it is about, {them} and {us} the counts). Each crew member but YOU is one type (picked from his own id, so the same man is the same voice every fight, ONE ID ONE WHOLE PERSON) and speaks one line at a time at the fight's moments, never from the down. A line is Spanglish (the sp list) on about 10 to 15 percent of lines: spanglish.value.share times the man's own lean times his type's lean, rolled per line; never the player.",
- "source": "VAMILY.md rule 143(a)(c)(d) (Paolo 10/24); records/BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md; UFC's video game is his named reference for the commentary feel only (rule 139)",
+ "_about": "THE CREW'S PERSONALITIES (WORDS [spanglish at ten percent, and the personalities], rule 143(a)(c)(d), Paolo 10/24), replacing COMBAT's placeholder in its own shape. 18 types; every type speaks every one of the fight's ten moments (retreat added by COMBAT [retreat], rule 144(c)) in short English lines he reads at a glance, with a Spanglish twin (sp) picked on WORDS' dial (engine/bohemia_spanglish.js regFor, about 1 line in 8, some men lean more, never the player). {name} is the man a line is about (every man_down and superior line names him), {them} and {us} the counts standing, {by} who beat you (wipe). Beyond the shape the fight reads today, each moment may carry 'near' (said by the man who stood beside him) and the bank carries 'enemy' (lines for ghosts, beasts and machines, any type) and two moments waiting for a caller: last_stand (the last of his men up, before he falls) and wipe (the first man to wake in the nearest town after the whole party went down, rule 143(e)). The down do not talk (143(d)). Never preachy: a believer prays under his breath, nobody gives a sermon. draft:true, every line (ALWAYS MAKE AN ATTEMPT, 8/11).",
+ "source": "VAMILY.md rule 143(a)(c)(d)(e) (Paolo 10/24); records/BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md; UFC's video game is his named reference for the commentary feel only (rule 139); records/BOHEMIA_WORDS_THE_PERSONALITIES_10_24_26.md",
  "draft": true,
  "spanglish": {
   "value": {
@@ -39,666 +39,910 @@
   "win",
   "retreat"
  ],
+ "moments_waiting": {
+  "last_stand": "the last of his men on his feet, the beat before he falls (a fight that calls it: COMBAT)",
+  "wipe": "the first of his men to wake in the nearest town after a wipe; {by} is who beat you (rule 143(e), the mini side quest: COMBAT and RUN)"
+ },
  "types": {
   "hothead": {
    "name": "Hothead",
-   "lean": 1.3,
+   "lean": 1.2,
+   "about": "Loud, fast, takes every hit personally. Swears at the enemy, never at you.",
    "lines": {
     "hit": {
      "en": [
       "Put him DOWN!",
       "That's what I'm talking about!",
-      "Again! Hit him again!"
+      "Again! Hit him again!",
+      "Yeah! Feel that?"
      ],
      "sp": [
-      "¡Dale, dale!",
-      "¡Eso, cabrón!"
+      "Eso, cabrón! Again!",
+      "Ándale, hit him again!"
      ]
     },
     "miss": {
      "en": [
       "Are you kidding me?",
-      "Hit the man, not the air!"
+      "Hit the man, not the air!",
+      "Come ON.",
+      "That was right there!"
      ],
      "sp": [
-      "¡No mames!",
-      "¡Ay, qué pendejo!"
+      "Ay, come on, güey!",
+      "Mira, he was RIGHT there."
      ]
     },
     "dodged": {
      "en": [
       "He moved again? Pin him!",
-      "Stop dancing, coward!"
+      "Stop dancing, coward!",
+      "Somebody stick that guy."
      ],
      "sp": [
-      "¡Este vato no se deja!"
+      "Este vato keeps moving, güey! Pin him!"
      ]
     },
     "kill": {
      "en": [
       "Who's next?!",
-      "Stay down!"
+      "Stay down!",
+      "One less. Who wants it?",
+      "Next one. Come on."
      ],
      "sp": [
-      "¡Uno menos!"
+      "One less! Who's next, cabrón?"
      ]
     },
     "man_down": {
      "en": [
       "They got {name}! Kill them all!",
-      "{name}! Oh, they're DEAD for that."
+      "{name}! Oh, they're DEAD for that.",
+      "{name} is down! Make them pay!"
      ],
      "sp": [
-      "¡Le dieron a {name}, carajo!"
+      "They got {name}, chingado! Make them pay!"
+     ],
+     "near": [
+      "I was RIGHT next to {name}! Get them!",
+      "{name} fell on my boots. They're done."
      ]
     },
     "outnumbered": {
      "en": [
-      "{them} of them? Good. More to hit."
+      "{them} of them? Good. More to hit.",
+      "{them} on {us}? I like it.",
+      "Line them up, I'll take them all."
      ],
      "sp": [
-      "¿{them}? Me vale."
+      "{them} of them? Nada. Let's go."
      ]
     },
     "superior": {
      "en": [
-      "{name} thinks he's tough. Watch this."
+      "{name} thinks he's hard. Let's see.",
+      "I don't care how good {name} is.",
+      "Big man, {name}. Bigger fall."
      ],
      "sp": [
-      "Ese {name} se cree mucho."
+      "{name} thinks he's la verga. We'll see."
      ]
     },
     "their_turn": {
      "en": [
-      "Come on then!"
+      "Come on then!",
+      "Let them come.",
+      "Bring it!"
      ],
      "sp": [
-      "¡Órale, vengan!"
+      "Ven, come on then!"
      ]
     },
     "win": {
      "en": [
-      "Told you. Nobody touches us."
+      "Told you. Nobody touches us.",
+      "Next time bring more.",
+      "That's how it's done."
      ],
      "sp": [
-      "¡Así se hace, cabrones!"
+      "Bueno. Nobody touches us."
      ]
+    },
+    "last_stand": {
+     "en": [
+      "Just me? FINE.",
+      "Come on, all of you!"
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "Where is my gun. Where is everybody's gun.",
+      "{by} took our stuff. We're getting it back."
+     ],
+     "sp": []
     },
     "retreat": {
      "en": [
       "Running? Fine. FINE!",
-      "This isn't over!"
+      "This isn't over!",
+      "We come back for them. Count on it."
      ],
      "sp": [
-      "¡Esto no se queda así!"
+      "Ándale, but this isn't over!"
      ]
     }
    }
   },
   "deadpan": {
    "name": "Deadpan",
-   "lean": 0.6,
+   "lean": 0.8,
+   "about": "Flat voice, dry as the wash. Says the worst things like the weather.",
    "lines": {
     "hit": {
      "en": [
       "That'll leave a mark.",
-      "Hm. Good."
+      "Yep.",
+      "He felt that one.",
+      "Good."
      ],
      "sp": [
-      "Bien."
+      "Sí. That'll do."
      ]
     },
     "miss": {
      "en": [
-      "Close. Not really.",
-      "The wall's fine, thanks."
+      "Wind, probably.",
+      "The air is dead now.",
+      "Classic.",
+      "Nice try."
      ],
      "sp": [
-      "Casi."
+      "Pues. The air is dead."
      ]
     },
     "dodged": {
      "en": [
       "He's quick. Annoying.",
-      "Slippery one."
+      "Slippery one.",
+      "He'll stop moving eventually."
      ],
      "sp": [
-      "Qué rápido."
+      "Slippery one, ¿sí?"
      ]
     },
     "kill": {
      "en": [
-      "One fewer.",
-      "That's done."
+      "And he's done.",
+      "That's one.",
+      "He's sleeping now.",
+      "Moving on."
      ],
      "sp": [
-      "Ya."
+      "Ya. He's done."
      ]
     },
     "man_down": {
      "en": [
       "{name}'s down. That's bad.",
-      "Lost {name}. Focus."
+      "{name}. Great. Perfect.",
+      "Well. They got {name}."
      ],
      "sp": [
-      "Se cayó {name}."
+      "{name}'s down. Ay. That's bad."
+     ],
+     "near": [
+      "{name} was standing right here. Now he isn't."
      ]
     },
     "outnumbered": {
      "en": [
-      "{them} against {us}. Great math."
+      "{them} against {us}. Cool.",
+      "So it's {them} to {us}. Fine.",
+      "Math isn't great today."
      ],
      "sp": [
-      "{them} contra {us}. Perfecto."
+      "{them} to {us}. Pues, fine."
      ]
     },
     "superior": {
      "en": [
-      "{name} is better than us. Noted."
+      "{name} is better than us. Noted.",
+      "That {name} knows what he's doing.",
+      "{name}. Yeah. Careful."
      ],
      "sp": [
-      "{name} es mejor. Ni modo."
+      "{name} is better than us. Cuidado."
      ]
     },
     "their_turn": {
      "en": [
-      "Their move. Keep your head down."
+      "Here they come.",
+      "Their go.",
+      "Heads down."
      ],
      "sp": [
-      "Les toca."
+      "Heads down, mano."
      ]
     },
     "win": {
      "en": [
+      "Huh. We lived.",
       "Well. That happened.",
-      "Still breathing. Good."
+      "Back to normal, I guess."
      ],
      "sp": [
-      "Ya estuvo."
+      "Bueno. We lived."
      ]
+    },
+    "last_stand": {
+     "en": [
+      "Just me. Typical.",
+      "Alright. Last one. Sure."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "We lost. Everything. Neat.",
+      "Somebody dragged us here. I'd like my boots back."
+     ],
+     "sp": []
     },
     "retreat": {
      "en": [
+      "Great. Running. My favorite.",
       "Good call. Feet, move.",
       "Living is the win today."
      ],
      "sp": [
-      "Vámonos."
+      "Ya. Feet, move."
      ]
     }
    }
   },
   "worrier": {
    "name": "Worrier",
-   "lean": 1.0,
+   "lean": 0.9,
+   "about": "Scared every second and still shows up. Counts the exits.",
    "lines": {
     "hit": {
      "en": [
-      "Okay, okay, that worked!",
-      "Oh thank God."
+      "Oh good, oh good.",
+      "Got him, right? Right?",
+      "Okay. Okay, that worked."
      ],
      "sp": [
-      "¡Ay, sí, sí!"
+      "Ay, okay, that worked."
      ]
     },
     "miss": {
      "en": [
       "No no no no.",
-      "We're gonna die out here."
+      "We're gonna die.",
+      "Why did he move?",
+      "Oh, that's bad."
      ],
      "sp": [
-      "Ay, Dios mío."
+      "Ay no, no no no."
      ]
     },
     "dodged": {
      "en": [
-      "How is he DOING that?",
-      "He just moved out of it!"
+      "He can't be hit! He can't be hit!",
+      "How is he still standing?",
+      "Why won't he stay still?"
      ],
      "sp": [
-      "¿Cómo le hace?"
+      "Dios, he can't be hit!"
      ]
     },
     "kill": {
      "en": [
-      "Is he- is he done?",
-      "Oh. Oh wow."
+      "Is he dead? He's dead. Okay.",
+      "One less. Breathe.",
+      "Okay. Okay, good."
      ],
      "sp": [
-      "¿Ya? ¿Se murió?"
+      "Okay. Gracias a Dios."
      ]
     },
     "man_down": {
      "en": [
-      "Oh fuck, they got {name}!",
-      "{name}! {name}, get up!"
+      "{name}! Oh no. Oh no.",
+      "They got {name}! What do we do?",
+      "Is {name} breathing? Is he?"
      ],
      "sp": [
-      "¡No, {name}! ¡Levántate!"
+      "{name}! Ay, Dios mío."
+     ],
+     "near": [
+      "{name} fell right next to me! I can't..."
      ]
     },
     "outnumbered": {
      "en": [
-      "There's {them} of them. There's {them}!",
-      "We should not be here."
+      "{them}?! There's {them} of them!",
+      "We're {us}. They're {them}. I hate this.",
+      "Too many. Way too many."
      ],
      "sp": [
-      "Son {them}. Son muchos."
+      "{them}? Ay, no, too many."
      ]
     },
     "superior": {
      "en": [
-      "That {name} is way out of our league.",
-      "Nope. Not {name}. Not that one."
+      "{name} is way better than us.",
+      "Don't let {name} get close. Please.",
+      "That {name} is going to kill somebody."
      ],
      "sp": [
-      "Ese {name} nos va a matar."
+      "{name} es muy bueno. Run?"
      ]
     },
     "their_turn": {
      "en": [
-      "Here they come. Here they come.",
-      "Don't look at me, don't look at me."
+      "Here they come here they come.",
+      "Get down!",
+      "I don't like this part."
      ],
      "sp": [
-      "Ahí vienen."
+      "Cuidado, here they come!"
      ]
     },
     "win": {
      "en": [
-      "We lived? We lived!"
+      "We're alive? We're alive.",
+      "I'm never doing that again.",
+      "Can we go home now?"
      ],
      "sp": [
-      "¡Gracias a Dios!"
+      "Gracias a Dios. We're alive."
      ]
+    },
+    "last_stand": {
+     "en": [
+      "It's just me? It can't be just me.",
+      "Please. Please."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "We're alive. Somehow. They took everything.",
+      "I told you. I told you that was a bad idea."
+     ],
+     "sp": []
     },
     "retreat": {
      "en": [
       "Yes! Go go go!",
-      "Run, run, don't look back!"
+      "Run, run, don't look back!",
+      "Best idea all day."
      ],
      "sp": [
-      "¡Corran, corran!"
+      "Vamos, vamos, don't look back!"
      ]
     }
    }
   },
   "joker": {
    "name": "Joker",
-   "lean": 1.1,
+   "lean": 1.0,
+   "about": "Gallows humor, cracks wise at the worst time. Gets quiet when it is real.",
    "lines": {
     "hit": {
      "en": [
-      "Ooh, right in the brand-new jacket.",
-      "Rate that a ten."
+      "Special delivery!",
+      "He'll feel that tomorrow.",
+      "Ooh, right in the receipts.",
+      "Tag, you're it."
      ],
      "sp": [
-      "Uy, eso dolió, ¿verdad?"
+      "Special delivery, compa!"
      ]
     },
     "miss": {
      "en": [
-      "Warning shot. Totally meant it.",
-      "I'm saving bullets for later."
+      "That bullet's got somewhere else to be.",
+      "Missed him by a whole zip code.",
+      "The wall had it coming."
      ],
      "sp": [
-      "Era de advertencia, güey."
+      "Missed by a mile, güey."
      ]
     },
     "dodged": {
      "en": [
-      "Somebody give that guy a dance show.",
-      "He's doing ballet out there."
+      "Somebody give that man a dance contract.",
+      "He moves like he owes money.",
+      "Can't hit what won't sit."
      ],
      "sp": [
-      "Baila bonito el vato."
+      "Mira, he dances better than you."
      ]
     },
     "kill": {
      "en": [
-      "And he's taking a long nap.",
-      "Tell your friends."
+      "And he's out!",
+      "That's a nap.",
+      "Ladies and gentlemen, he has left the building.",
+      "Lights out."
      ],
      "sp": [
-      "Se durmió el angelito."
+      "Lights out, mijo."
      ]
     },
     "man_down": {
      "en": [
       "Not funny. They got {name}.",
-      "{name}'s down. Joke's over."
+      "{name}. Okay. Jokes later.",
+      "Hey. HEY. {name} is down."
      ],
      "sp": [
-      "Ya no es chiste. {name} cayó."
+      "Not funny. They got {name}, carnal."
+     ],
+     "near": [
+      "{name} was just laughing at my joke."
      ]
     },
     "outnumbered": {
      "en": [
-      "{them} on {us}? Fair fight, for them."
+      "{them} of them. Somebody call more of us.",
+      "{them} on {us}? Who planned this?",
+      "Hope they brought snacks."
      ],
      "sp": [
-      "{them} contra {us}. Qué abusivos."
+      "{them} on {us}? Ay, who planned this?"
      ]
     },
     "superior": {
      "en": [
-      "Oh, {name} brought his good armour today."
+      "{name} looks like he does this for fun.",
+      "Is {name} the boss? He dresses like the boss.",
+      "{name} is out of our league."
      ],
      "sp": [
-      "Ese {name} vino bien vestido."
+      "{name} is out of our league, pues."
      ]
     },
     "their_turn": {
      "en": [
-      "Their turn. Act natural."
+      "Their turn. Everybody look busy.",
+      "Duck. Ducking is free.",
+      "Here comes the bad part."
      ],
      "sp": [
-      "Hazte el muerto, compa."
+      "Duck, compa. It's free."
      ]
     },
     "win": {
      "en": [
-      "Same time next week?"
+      "Same time next week?",
+      "Somebody write that down.",
+      "Good show, good show."
      ],
      "sp": [
-      "¿Y la propina?"
+      "Same time next week, ¿sí?"
      ]
+    },
+    "last_stand": {
+     "en": [
+      "Well. This is awkward.",
+      "Last guy at the party."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "So we lost. On the bright side, I'm alive to complain.",
+      "{by} has my boots. I want my boots."
+     ],
+     "sp": []
     },
     "retreat": {
      "en": [
-      "Strategic jogging, everybody!",
-      "We'll call it a draw."
+      "Tactical sprint!",
+      "We're not losing, we're leaving.",
+      "Exit stage left!"
      ],
      "sp": [
-      "Patitas, pa' qué las quiero."
+      "Tactical sprint, compa!"
      ]
     }
    }
   },
   "old_hand": {
-   "name": "Old hand",
-   "lean": 0.8,
+   "name": "Old Hand",
+   "lean": 1.0,
+   "about": "Has done this a hundred times. Calm, short, useful.",
    "lines": {
     "hit": {
      "en": [
-      "Good. Keep doing that.",
+      "Good shot.",
+      "That's how.",
+      "Keep doing that.",
       "Clean."
      ],
      "sp": [
-      "Así mero."
+      "Good shot, mijo."
      ]
     },
     "miss": {
      "en": [
-      "Breathe, then shoot.",
-      "Steady. Next one."
+      "Breathe, then pull.",
+      "Steady. Next one.",
+      "Slow down.",
+      "Happens."
      ],
      "sp": [
-      "Con calma, mijo."
+      "Steady, mijo. Next one."
      ]
     },
     "dodged": {
      "en": [
-      "He reads you. Flank him.",
-      "Good feet on that one. Close in."
+      "He's reading you. Change it up.",
+      "That one's good on his feet.",
+      "Wait for him to tire."
      ],
      "sp": [
-      "Ese sabe moverse."
+      "That one reads you. Cuidado."
      ]
     },
     "kill": {
      "en": [
-      "One down. Eyes up.",
-      "Done. Next."
+      "That's one.",
+      "Down. Next.",
+      "Good. Keep moving.",
+      "Done. Reload while you can."
      ],
      "sp": [
-      "Uno menos. Ojo."
+      "Ya. Next one."
      ]
     },
     "man_down": {
      "en": [
-      "{name} is down. Close the gap.",
-      "Lost {name}. Hold the line."
+      "{name}'s down. Hold the line.",
+      "Lost {name}. Don't stop.",
+      "{name} went down. Close the gap."
      ],
      "sp": [
-      "Cayó {name}. Aguanten."
+      "{name}'s down. Hold the line, hermano."
+     ],
+     "near": [
+      "{name}, I've got your spot. Stay down."
      ]
     },
     "outnumbered": {
      "en": [
-      "{them} of them. Make them come to us."
+      "{them} of them. Use the walls.",
+      "{them} on {us}. Make them come to us.",
+      "Too many to rush. Hold."
      ],
      "sp": [
-      "Son {them}. Que vengan."
+      "{them} of them. Use the walls, mijo."
      ]
     },
     "superior": {
      "en": [
-      "{name} outclasses us. Two on him, or leave him.",
-      "Don't trade blows with {name}."
+      "{name} is a real one. Two of us on him.",
+      "Watch {name}. He's done this before.",
+      "Don't trade with {name}. Outnumber him."
      ],
      "sp": [
-      "Ese {name} es otro nivel."
+      "Watch {name}, mijo. He knows what he's doing."
      ]
     },
     "their_turn": {
      "en": [
-      "Their move. Stay in cover."
+      "Get behind something.",
+      "Stay low.",
+      "Let them come."
      ],
      "sp": [
-      "Cúbranse."
+      "Stay low, mijo."
      ]
     },
     "win": {
      "en": [
-      "Count your bullets. Then breathe."
+      "Good work. Pick up what's useful.",
+      "We did fine.",
+      "That's a day."
      ],
      "sp": [
-      "Bien hecho, muchachos."
+      "Bueno. Pick up what's useful."
      ]
+    },
+    "last_stand": {
+     "en": [
+      "Been here before.",
+      "Alright. One more time."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "We got beat. It happens. Now we go get our men.",
+      "First we find {by}. Then we get it all back."
+     ],
+     "sp": []
     },
     "retreat": {
      "en": [
-      "Fall back to the edge. Cover each other.",
-      "Pull out. Nobody stops."
+      "Pull back. Nobody runs alone.",
+      "Live to fight. Go.",
+      "Edge. Now. Keep low."
      ],
      "sp": [
-      "Retirada. Cúbranse."
+      "Pull back, mijo. Nobody runs alone."
      ]
     }
    }
   },
   "hype": {
-   "name": "Hype man",
-   "lean": 1.4,
+   "name": "Hype Man",
+   "lean": 1.1,
+   "about": "Calls the fight like the booth on fight night. Every hit is the replay.",
    "lines": {
     "hit": {
      "en": [
-      "OH, HE FELT THAT ONE!",
-      "WHAT A SHOT!"
+      "AND HE CONNECTS!",
+      "OH, what a shot!",
+      "Right on the button!",
+      "He's ROCKED!"
      ],
      "sp": [
-      "¡QUÉ TIRO, HERMANO!"
+      "OH, qué shot! What a shot!"
      ]
     },
     "miss": {
      "en": [
-      "Ohhh, just wide!",
-      "So close, so close!"
+      "Ohh, just wide!",
+      "So close!",
+      "He slips it!",
+      "Swing and a miss!"
      ],
      "sp": [
-      "¡Casi, casi!"
+      "Ohh, casi! So close!"
      ]
     },
     "dodged": {
      "en": [
-      "HE SLIPS IT! Unbelievable!",
-      "Can't touch him right now!"
+      "He's untouchable tonight!",
+      "Can't lay a glove on him!",
+      "Footwork like that, you can't teach."
      ],
      "sp": [
-      "¡Se escapa otra vez!"
+      "Nadie can touch him tonight!"
      ]
     },
     "kill": {
      "en": [
-      "AND HE IS DOWN!",
-      "LIGHTS OUT!"
+      "DOWN GOES ONE!",
+      "IT IS ALL OVER for that man!",
+      "Lights OUT!",
+      "That's the finish!"
      ],
      "sp": [
-      "¡SE ACABÓ PARA ÉL!"
+      "Qué golpe! DOWN GOES ONE!"
      ]
     },
     "man_down": {
      "en": [
-      "OH NO, {name} IS HURT BAD!",
-      "They dropped {name}! This is ugly!"
+      "OH NO! {name} is DOWN!",
+      "{name} is hurt! {name} is down!",
+      "They dropped {name}! Huge!"
      ],
      "sp": [
-      "¡Tumbaron a {name}!"
+      "OH NO, {name} is DOWN, chingado!"
+     ],
+     "near": [
+      "{name} drops right beside me! Unbelievable!"
      ]
     },
     "outnumbered": {
      "en": [
-      "{them} on {us}! The odds are AWFUL!"
+      "{them} against {us}! The odds are AGAINST us!",
+      "It's {them} on {us}, folks!",
+      "Nobody gave us a chance!"
      ],
      "sp": [
-      "¡{them} contra {us}, qué locura!"
+      "{them} on {us}! Nadie gave us a chance!"
      ]
     },
     "superior": {
      "en": [
-      "{name} is a different class! LOOK at him!"
+      "{name} is the favorite here, no question.",
+      "{name}! Undefeated, they say.",
+      "Big danger in {name}!"
      ],
      "sp": [
-      "¡Ese {name} es un monstruo!"
+      "{name} es the favorite, no question."
      ]
     },
     "their_turn": {
      "en": [
-      "Here comes the answer!"
+      "Here comes the response!",
+      "They're coming forward!",
+      "Big round for them!"
      ],
      "sp": [
-      "¡Ahora ellos!"
+      "Aquí they come! Here they come!"
      ]
     },
     "win": {
      "en": [
-      "WHAT A FIGHT! WHAT A FIGHT!"
+      "AND STILL!",
+      "What a fight! What a FIGHT!",
+      "Your winners, ladies and gentlemen!"
      ],
      "sp": [
-      "¡CAMPEONES!"
+      "Qué fight! What a FIGHT!"
      ]
+    },
+    "last_stand": {
+     "en": [
+      "One man left! Can he do it?!",
+      "It all comes down to this!"
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "A shocking upset. We'll want the rematch.",
+      "{by} took it tonight. Rematch. Soon."
+     ],
+     "sp": []
     },
     "retreat": {
      "en": [
-      "AND THEY'RE BREAKING FOR THE EXIT!",
-      "Out of the cage, NOW!"
+      "He's calling it! He's pulling out!",
+      "The corner throws in the towel!",
+      "No shame, folks. Live to fight."
      ],
      "sp": [
-      "¡A correr, raza!"
+      "He's pulling out, señores! Ya!"
      ]
     }
    }
   },
   "hustler": {
    "name": "Hustler",
-   "lean": 0.9,
+   "lean": 1.1,
+   "about": "Everything is batteries. Prices the enemy's boots mid-fight.",
    "lines": {
     "hit": {
      "en": [
       "That's money.",
-      "Ka-ching."
+      "Worth every round.",
+      "Ka-ching.",
+      "Paid in full."
      ],
      "sp": [
-      "Eso es lana."
+      "That's money, mano."
      ]
     },
     "miss": {
      "en": [
-      "That bullet cost a battery.",
-      "Wasted. Somebody's paying for that."
+      "That round cost us.",
+      "Waste of a good bullet.",
+      "There goes a battery.",
+      "Ugh. Money in the dirt."
      ],
      "sp": [
-      "Ahí va mi feria."
+      "Ay, there goes la lana."
      ]
     },
     "dodged": {
      "en": [
-      "Stop paying to miss him!",
-      "He's eating our ammo."
+      "He's making us pay for every shot.",
+      "Stop wasting rounds on him!",
+      "He's costing us a fortune."
      ],
      "sp": [
-      "Nos está saliendo caro."
+      "He's costing us, mano."
      ]
     },
     "kill": {
      "en": [
+      "Mine's the boots.",
+      "Dibs on the gun.",
       "Check his pockets after.",
-      "That one had boots. Dibs."
+      "That's profit."
      ],
      "sp": [
-      "Las botas son mías."
+      "Dibs on the boots, compa."
      ]
     },
     "man_down": {
      "en": [
-      "{name}! Who's gonna carry the bag now?",
-      "They got {name}. That's on my tab."
+      "{name}! We need {name}, he owes me!",
+      "They got {name}. That's bad business.",
+      "{name}'s down. Somebody grab his gear."
      ],
      "sp": [
-      "¡{name}, no te me mueras!"
+      "{name}! He owes me, cabrón!"
+     ],
+     "near": [
+      "{name} dropped his wallet. I'm holding it for him."
      ]
     },
     "outnumbered": {
      "en": [
-      "{them} of them. Somebody's paying extra."
+      "{them} of them. That's {them} sets of boots.",
+      "{them} on {us}? More to loot.",
+      "Bad odds. Good haul."
      ],
      "sp": [
-      "Son {them}. Esto cuesta más."
+      "{them} of them. Mucho loot."
      ]
     },
     "superior": {
      "en": [
-      "{name}'s gear costs more than all of us."
+      "{name}'s gear is worth more than us.",
+      "I want {name}'s armor. Badly.",
+      "{name} is expensive. Hit him anyway."
      ],
      "sp": [
-      "Ese {name} trae puro equipo caro."
+      "{name}'s gear costs más than us."
      ]
     },
     "their_turn": {
      "en": [
-      "Their turn. Protect the merchandise."
+      "Protect the investment.",
+      "Watch your gear.",
+      "Don't get your coat shot."
      ],
      "sp": [
-      "Cuiden la mercancía."
+      "Cuidado with the coat."
      ]
     },
     "win": {
      "en": [
-      "Payday. Strip them."
+      "Count it up.",
+      "Now we get paid.",
+      "Loot first, cry later."
      ],
      "sp": [
-      "A cobrar."
+      "Bueno. Now we get paid."
      ]
+    },
+    "last_stand": {
+     "en": [
+      "Just me? I'm keeping everything then.",
+      "Bad deal. Bad deal."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "They took the gear. That's our money walking around.",
+      "{by} is wearing our batteries. We take them back."
+     ],
+     "sp": []
     },
     "retreat": {
      "en": [
-      "No pay, but we keep our boots.",
-      "Cut the losses, move!"
+      "Grab what you can carry!",
+      "Leave the cheap stuff.",
+      "Bad trade. Get out."
      ],
      "sp": [
-      "Nos vamos sin lana."
+      "Grab what you can, mano!"
      ]
     }
    }
   },
   "quiet": {
-   "name": "Quiet one",
-   "lean": 0.5,
+   "name": "Quiet One",
+   "lean": 0.6,
+   "about": "Barely talks. When he does, everybody listens.",
    "lines": {
     "hit": {
      "en": [
-      "Yeah."
+      "Hm.",
+      "Good.",
+      "There."
      ],
      "sp": [
       "Sí."
@@ -706,79 +950,1437 @@
     },
     "miss": {
      "en": [
-      "Tch."
+      "No.",
+      "Hm.",
+      "Again."
      ],
      "sp": [
-      "Chale."
+      "Otra vez."
      ]
     },
     "dodged": {
      "en": [
-      "Fast."
+      "Fast.",
+      "Watch him.",
+      "He's good."
      ],
      "sp": [
-      "Rápido."
+      "Cuidado."
      ]
     },
     "kill": {
      "en": [
+      "Done.",
+      "One.",
       "Down."
      ],
      "sp": [
-      "Abajo."
+      "Ya."
      ]
     },
     "man_down": {
      "en": [
-      "{name}...",
-      "No. Not {name}."
+      "{name}.",
+      "Not {name}.",
+      "{name}. No."
      ],
      "sp": [
-      "{name}..."
+      "{name}. No, mano."
+     ],
+     "near": [
+      "{name}. I'm here."
      ]
     },
     "outnumbered": {
      "en": [
-      "Too many."
+      "{them}.",
+      "{them} to {us}. Okay.",
+      "Many."
      ],
      "sp": [
-      "Muchos."
+      "{them}. Okay, pues."
      ]
     },
     "superior": {
      "en": [
-      "Careful. {name}."
+      "{name}. Careful.",
+      "{name} is dangerous.",
+      "Watch {name}."
      ],
      "sp": [
-      "Cuidado con {name}."
+      "{name}. Cuidado."
      ]
     },
     "their_turn": {
      "en": [
-      "Wait."
+      "Down.",
+      "Wait.",
+      "Still."
      ],
      "sp": [
-      "Espera."
+      "Quieto, mano."
      ]
     },
     "win": {
      "en": [
+      "Good.",
+      "We're done.",
       "Home."
      ],
      "sp": [
-      "Vámonos."
+      "Bueno."
      ]
+    },
+    "last_stand": {
+     "en": [
+      "Okay.",
+      "Just me."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "We go back.",
+      "They have our men. We get them."
+     ],
+     "sp": []
     },
     "retreat": {
      "en": [
       "Go.",
-      "Out."
+      "Out.",
+      "Edge."
      ],
      "sp": [
-      "Vámonos."
+      "Vamos."
      ]
     }
    }
+  },
+  "kid": {
+   "name": "The Kid",
+   "lean": 1.0,
+   "about": "Seventeen and thinks this is the movies until it is not.",
+   "lines": {
+    "hit": {
+     "en": [
+      "I got him! Did you see that?",
+      "Yes! YES!",
+      "Woo! Right there!",
+      "I'm actually good at this."
+     ],
+     "sp": [
+      "I got him! ¿Viste, güey?"
+     ]
+    },
+    "miss": {
+     "en": [
+      "That doesn't count.",
+      "Wait, let me try again.",
+      "My hands are shaking, okay?",
+      "He moved! Not fair."
+     ],
+     "sp": [
+      "No, no, that doesn't count, güey!"
+     ]
+    },
+    "dodged": {
+     "en": [
+      "How is he doing that?",
+      "He's like a ghost!",
+      "Teach me that move."
+     ],
+     "sp": [
+      "¿Cómo? How is he doing that?"
+     ]
+    },
+    "kill": {
+     "en": [
+      "Did I do that? I did that.",
+      "Whoa. He's not getting up.",
+      "Okay. Okay. That's real.",
+      "I'm telling everybody."
+     ],
+     "sp": [
+      "Whoa. He's not getting up, güey."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}?! {name}, get up!",
+      "They shot {name}! They actually shot him!",
+      "{name}, come on, this isn't funny."
+     ],
+     "sp": [
+      "{name}! Get up, por favor!"
+     ],
+     "near": [
+      "{name} was right here. He was RIGHT here."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them}?! That's so many!",
+      "We're {us}! They're {them}! Is that okay?",
+      "Oh, this is a lot of guys."
+     ],
+     "sp": [
+      "{them}?! That's mucho guys!"
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} looks like a final boss.",
+      "Is {name} even human?",
+      "I'm not fighting {name}. You fight {name}."
+     ],
+     "sp": [
+      "{name} looks like el jefe final."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Do I hide? I'm hiding.",
+      "Here they come!",
+      "Nobody shoot me please."
+     ],
+     "sp": [
+      "Here they come, ay!"
+     ]
+    },
+    "win": {
+     "en": [
+      "We WON! We actually won!",
+      "Best day of my life.",
+      "Can I keep his hat?"
+     ],
+     "sp": [
+      "Ganamos, compa! We actually won!"
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "Guys? Guys?!",
+      "I can do this. I can do this."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "Everyone's alive? Everyone's alive. Where's our stuff?",
+      "{by} took my first gun. I want it back."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "We're running? Okay! Running!",
+      "Wait for me!",
+      "Which way is out?!"
+     ],
+     "sp": [
+      "Wait for me, güey!"
+     ]
+    }
+   }
+  },
+  "believer": {
+   "name": "Believer",
+   "lean": 1.4,
+   "about": "Crosses himself before every shot. A prayer under his breath, never a sermon.",
+   "lines": {
+    "hit": {
+     "en": [
+      "Thank you, Lord.",
+      "God guided that one.",
+      "Blessed.",
+      "There. Amen."
+     ],
+     "sp": [
+      "Gracias a Dios.",
+      "Bendito, right in."
+     ]
+    },
+    "miss": {
+     "en": [
+      "Forgive me.",
+      "Not His will, I guess.",
+      "Lord, steady my hand.",
+      "Again. With faith."
+     ],
+     "sp": [
+      "Dios mío, steady my hand."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "The devil is quick.",
+      "Something is protecting him.",
+      "He moves like he made a deal."
+     ],
+     "sp": [
+      "That one made a deal con el diablo."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Go with God.",
+      "May he find peace.",
+      "Rest now.",
+      "God have mercy."
+     ],
+     "sp": [
+      "Go with Dios."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}! Lord, not {name}.",
+      "Hold on, {name}. Hold on.",
+      "God keep {name}."
+     ],
+     "sp": [
+      "Dios, not {name}. Por favor."
+     ],
+     "near": [
+      "I've got you, {name}. I'm praying."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} of them. God counts too.",
+      "{them} against {us}. We are not alone.",
+      "Lord, that is a lot of them."
+     ],
+     "sp": [
+      "{them} of them. Dios is with us."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} carries something dark.",
+      "Pray for us. {name} is strong.",
+      "Don't face {name} alone."
+     ],
+     "sp": [
+      "{name} carries something dark. Cuidado."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Lord, cover us.",
+      "Keep your heads down and your hearts up.",
+      "Here they come. Breathe."
+     ],
+     "sp": [
+      "Dios, cover us."
+     ]
+    },
+    "win": {
+     "en": [
+      "Thank God. Thank God.",
+      "We were watched over.",
+      "Light a candle for the ones we lost."
+     ],
+     "sp": [
+      "Gracias a Dios."
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "Into your hands.",
+      "Lord, it's just me now."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "We woke up. That's a miracle. Now we go get our brothers.",
+      "{by} has our people. God forgive me for what I'll do."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "Lord, light the way out.",
+      "Go. God sees the brave and the living.",
+      "Out, all of you."
+     ],
+     "sp": [
+      "Dios, light the way out."
+     ]
+    }
+   }
+  },
+  "sergeant": {
+   "name": "Sergeant",
+   "lean": 0.9,
+   "about": "Gives orders whether anyone asked or not. Usually right.",
+   "lines": {
+    "hit": {
+     "en": [
+      "Good hit! Again!",
+      "Keep the pressure on!",
+      "That's it, push!",
+      "Hit him while he's open!"
+     ],
+     "sp": [
+      "Good hit! Ándale, again!"
+     ]
+    },
+    "miss": {
+     "en": [
+      "Reset and fire!",
+      "Aim small, miss small!",
+      "Again! Faster!",
+      "Shake it off!"
+     ],
+     "sp": [
+      "Again, mijo! Faster!"
+     ]
+    },
+    "dodged": {
+     "en": [
+      "Pin him with two!",
+      "Cut off his room!",
+      "Stop feeding him free shots!"
+     ],
+     "sp": [
+      "Two on him, ya!"
+     ]
+    },
+    "kill": {
+     "en": [
+      "Target down! Next!",
+      "Good! Next target!",
+      "Clear! Move up!",
+      "That's one! Keep the line!"
+     ],
+     "sp": [
+      "Target down! Next, vamos!"
+     ]
+    },
+    "man_down": {
+     "en": [
+      "Man down! {name} is down!",
+      "Cover {name}! Close the line!",
+      "{name} is out! Fill his spot!"
+     ],
+     "sp": [
+      "Man down! {name}! Vamos, close the line!"
+     ],
+     "near": [
+      "{name} is down beside me! Nobody else falls!"
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} hostiles! Tighten up!",
+      "{them} on {us}! Nobody wanders off!",
+      "Hold together! Back to back!"
+     ],
+     "sp": [
+      "{them} hostiles! Todos together!"
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} is their best! Focus him!",
+      "Two on {name}, nobody alone!",
+      "Respect {name}. Then drop him."
+     ],
+     "sp": [
+      "{name} es their best! Focus him!"
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Brace!",
+      "Find cover!",
+      "Heads down, eyes up!"
+     ],
+     "sp": [
+      "Brace! Cuidado!"
+     ]
+    },
+    "win": {
+     "en": [
+      "Area clear. Good work.",
+      "Check your gear. Count your rounds.",
+      "That's how a unit fights."
+     ],
+     "sp": [
+      "Area clear. Bueno, good work."
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "Last man standing. Make it count.",
+      "Nobody leaves this alone. Not me either."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "We regroup. We get our men back. In that order.",
+      "{by} beat us once. Once."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "Fall back! Fall back to the edge!",
+      "Covering fire, then move!",
+      "Nobody gets left!"
+     ],
+     "sp": [
+      "Fall back! Vamos, to the edge!"
+     ]
+    }
+   }
+  },
+  "snob": {
+   "name": "Snob",
+   "lean": 0.7,
+   "about": "Dressed like a runway in the end of the world. Offended by everything, brave anyway.",
+   "lines": {
+    "hit": {
+     "en": [
+      "Tacky, but effective.",
+      "That was almost elegant.",
+      "Hm. Acceptable.",
+      "Finally, some taste."
+     ],
+     "sp": [
+      "Ay, almost elegant."
+     ]
+    },
+    "miss": {
+     "en": [
+      "How embarrassing.",
+      "Please don't do that again.",
+      "I can't watch this.",
+      "Amateurs."
+     ],
+     "sp": [
+      "Qué embarrassing."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "He moves well for someone dressed like that.",
+      "Annoyingly graceful.",
+      "At least he has footwork."
+     ],
+     "sp": [
+      "Annoyingly graceful, el tipo."
+     ]
+    },
+    "kill": {
+     "en": [
+      "He was poorly dressed anyway.",
+      "Off the runway.",
+      "Out of season.",
+      "And that's the end of that look."
+     ],
+     "sp": [
+      "Out of season, mijo."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}! They ruined {name}'s coat!",
+      "Not {name}. He had the only good boots.",
+      "They hurt {name}. Unforgivable."
+     ],
+     "sp": [
+      "Not {name}! Ay, qué horror."
+     ],
+     "near": [
+      "{name} bled on my sleeve. Get them."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} of them, all in the same ugly jacket.",
+      "{them} on {us}. Crowds are so common.",
+      "So many. So badly dressed."
+     ],
+     "sp": [
+      "{them} of them, todos ugly."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} is dressed for the job. Worrying.",
+      "{name} has good armor. I hate that.",
+      "{name} looks expensive. Careful."
+     ],
+     "sp": [
+      "{name} looks expensive. Cuidado."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Mind the fabric.",
+      "Don't get blood on me.",
+      "Here they come, the whole sale rack."
+     ],
+     "sp": [
+      "Cuidado with the fabric."
+     ]
+    },
+    "win": {
+     "en": [
+      "Lovely. Somebody find me a clean shirt.",
+      "We look terrible. We won.",
+      "Fine. That was fine."
+     ],
+     "sp": [
+      "Bueno. Find me a clean shirt."
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "If I die, burn the coat with me.",
+      "Just me. Of course it's me."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "They took my coat. This is now personal.",
+      "{by} is wearing my jacket somewhere. Unacceptable."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "Finally, an exit.",
+      "Mind the coat on the way out.",
+      "This was never my scene."
+     ],
+     "sp": [
+      "Finally. Vámonos, ya."
+     ]
+    }
+   }
+  },
+  "truther": {
+   "name": "Truther",
+   "lean": 1.0,
+   "about": "Knows the lab let the animals out on purpose. Sees a chip behind every ear.",
+   "lines": {
+    "hit": {
+     "en": [
+      "Got him! Check behind his ear!",
+      "That one was chipped, I swear.",
+      "Hit him! Did he flicker?",
+      "He bleeds. So he's real."
+     ],
+     "sp": [
+      "Got him! Mira behind his ear!"
+     ]
+    },
+    "miss": {
+     "en": [
+      "They know where we aim.",
+      "That's not normal. That's not normal.",
+      "Somebody's jamming us.",
+      "They're tracking the bullets."
+     ],
+     "sp": [
+      "They know where we aim, te digo."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "Nobody moves like that. Lab-made.",
+      "He saw that coming. They tell him.",
+      "He's got the chip. I knew it."
+     ],
+     "sp": [
+      "Lab-made, te lo digo. Nobody moves like that."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Check his neck for a number.",
+      "One less of THEM.",
+      "Don't touch the body. Seriously.",
+      "He's off the grid now."
+     ],
+     "sp": [
+      "Don't touch the body, en serio."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "They got {name}! They KNEW he was the one!",
+      "{name}! They targeted him. On purpose.",
+      "{name}'s down. This was planned."
+     ],
+     "sp": [
+      "They got {name}! Te digo, this was planned."
+     ],
+     "near": [
+      "{name} said they were watching us. He was right."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} of them. Somebody sent them.",
+      "{them} on {us}. Coordinated. Think about it.",
+      "This many? Somebody knew we'd be here."
+     ],
+     "sp": [
+      "{them} of them. Alguien sent them."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} is not from here. Look at him.",
+      "{name} has lab gear. Real lab gear.",
+      "{name} works for somebody bigger."
+     ],
+     "sp": [
+      "{name} has lab gear, te digo."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Here they come. Like they rehearsed it.",
+      "Don't look at the lights.",
+      "They're moving together. Creepy."
+     ],
+     "sp": [
+      "Cuidado, don't look at the lights."
+     ]
+    },
+    "win": {
+     "en": [
+      "They'll send more. They always send more.",
+      "Burn anything with a chip.",
+      "We won. For now. Remember that."
+     ],
+     "sp": [
+      "We won. Por ahora."
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "It's what they wanted. Just me.",
+      "Come on then. I know what you are."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "Somebody dragged us out. Ask yourself who.",
+      "{by} has our stuff. And our NAMES. Think about that."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "They WANT us to run that way. Run the other way.",
+      "Go, before they lock the grid.",
+      "Out. Out before the lamps turn."
+     ],
+     "sp": [
+      "Go, te digo, before they lock it."
+     ]
+    }
+   }
+  },
+  "bruiser": {
+   "name": "Bruiser",
+   "lean": 1.0,
+   "about": "Wants it close. Thinks guns are for people who cannot fight.",
+   "lines": {
+    "hit": {
+     "en": [
+      "Let me get a piece!",
+      "Now walk him over to me.",
+      "Good. Soften him up.",
+      "Bonk."
+     ],
+     "sp": [
+      "Bueno. Soften him up for me."
+     ]
+    },
+    "miss": {
+     "en": [
+      "Just walk up and hit him.",
+      "Guns. I hate guns.",
+      "Give it to me, I'll throw it at him.",
+      "Ugh."
+     ],
+     "sp": [
+      "Ay, just walk up and hit him."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "Let him dodge my fist.",
+      "Can't dodge a wall.",
+      "Pin him to something."
+     ],
+     "sp": [
+      "Pin him, mano. I'll do the rest."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Next one's mine.",
+      "Flattened.",
+      "Sit down.",
+      "That's a nap, big guy."
+     ],
+     "sp": [
+      "Next one's mine, carnal."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "They hit {name}?! Who? WHO?",
+      "{name}! I'm breaking somebody.",
+      "Somebody touched {name}. Bad move."
+     ],
+     "sp": [
+      "They hit {name}?! ¿Quién? WHO?"
+     ],
+     "near": [
+      "{name} went down next to me. Somebody's getting hugged."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them}! Plenty to go around.",
+      "{them} to {us}. I'll take half.",
+      "Good. I was bored."
+     ],
+     "sp": [
+      "{them}? Bueno, I was bored."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} wants a real fight? Fine.",
+      "Let me at {name}.",
+      "{name} is big. I'm bigger."
+     ],
+     "sp": [
+      "Let me at {name}, ándale."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Come close. Come close.",
+      "Let them walk into me.",
+      "I'm right here."
+     ],
+     "sp": [
+      "Ven. Come close."
+     ]
+    },
+    "win": {
+     "en": [
+      "That was a warm-up.",
+      "Who's hungry?",
+      "Good fight. I needed that."
+     ],
+     "sp": [
+      "Bueno. Who's hungry?"
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "Finally. Just me and all of you.",
+      "Line up."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "I don't remember falling. I remember who did it.",
+      "{by}. I'm going to find {by}."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "I wasn't done.",
+      "Fine. Next time.",
+      "Carry me out, I'm not walking."
+     ],
+     "sp": [
+      "Ay, I wasn't done."
+     ]
+    }
+   }
+  },
+  "mother": {
+   "name": "Mother Hen",
+   "lean": 1.3,
+   "about": "Keeps count of everybody. Patches people up and yells at them for getting hurt.",
+   "lines": {
+    "hit": {
+     "en": [
+      "Good, now get back in cover.",
+      "Nice. Don't get cocky.",
+      "That's it, baby.",
+      "Good. Careful now."
+     ],
+     "sp": [
+      "Good, mijo. Now get down."
+     ]
+    },
+    "miss": {
+     "en": [
+      "It's okay. Breathe.",
+      "You'll get the next one.",
+      "Don't rush it, baby.",
+      "Shake it off."
+     ],
+     "sp": [
+      "Tranquilo, mijo. Next one."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "Leave that one, he's too quick.",
+      "Don't chase him, sweetheart.",
+      "Let him come to you."
+     ],
+     "sp": [
+      "Don't chase him, mijo."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Good. Is everyone okay?",
+      "One down. Count off.",
+      "Okay. Who's hurt?",
+      "Good. Stay together."
+     ],
+     "sp": [
+      "Bueno. Is everyone okay?"
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}! Somebody get to {name}!",
+      "Stay down, {name}, I'm coming!",
+      "{name}! Don't you dare."
+     ],
+     "sp": [
+      "{name}! Ay, mijo, stay down!"
+     ],
+     "near": [
+      "I've got {name}. I've got him. Keep shooting."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} of them. Nobody be a hero.",
+      "{them} on {us}. Stay where I can see you.",
+      "Everyone close. Close."
+     ],
+     "sp": [
+      "{them} of them. Nadie be a hero."
+     ]
+    },
+    "superior": {
+     "en": [
+      "Don't you go near {name}.",
+      "{name} is too much for one of you. Two.",
+      "Nobody fights {name} alone, hear me?"
+     ],
+     "sp": [
+      "Don't you go near {name}, mijo."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Heads down, babies.",
+      "Everybody behind something.",
+      "Here they come. Stay small."
+     ],
+     "sp": [
+      "Heads down, mijo."
+     ]
+    },
+    "win": {
+     "en": [
+      "Everyone count off. Everyone.",
+      "Okay. Okay. Let me see those cuts.",
+      "Good. Now eat something."
+     ],
+     "sp": [
+      "Bueno. Let me see those cuts."
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "Nobody touches my boys again.",
+      "Just me. That's fine. Come here."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "Everybody wake up. Count off. Who's missing?",
+      "{by} has my boys. Get up. We're going."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "Everybody out! Count off at the edge!",
+      "Go, go, I'm right behind you.",
+      "Nobody stays. Nobody."
+     ],
+     "sp": [
+      "Everybody out, mijo! Count off!"
+     ]
+    }
+   }
+  },
+  "gambler": {
+   "name": "Gambler",
+   "lean": 1.0,
+   "about": "Reads every shot as odds. Bets on everything, including himself.",
+   "lines": {
+    "hit": {
+     "en": [
+      "Called it.",
+      "Easy money.",
+      "Odds were good.",
+      "That's a winner."
+     ],
+     "sp": [
+      "Called it, compa."
+     ]
+    },
+    "miss": {
+     "en": [
+      "Bad beat.",
+      "House wins that one.",
+      "Should've doubled down.",
+      "That's variance."
+     ],
+     "sp": [
+      "Bad beat, güey."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "He's running hot.",
+      "His luck runs out eventually.",
+      "Nobody's lucky forever."
+     ],
+     "sp": [
+      "He's running hot, pero not forever."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Cash out.",
+      "That's a payout.",
+      "He folded.",
+      "Pay the man."
+     ],
+     "sp": [
+      "Cash out, mano."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}! I had money on {name}!",
+      "They took {name}. Bad hand.",
+      "{name} is down. Odds just turned."
+     ],
+     "sp": [
+      "{name}! Ay, I had money on him."
+     ],
+     "near": [
+      "{name} went down right next to me. Bad hand."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} to {us}. I'll still take that bet.",
+      "Long odds. I love long odds.",
+      "{them} of them? Lay it down."
+     ],
+     "sp": [
+      "{them} to {us}? Pues, I'll take that bet."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} is the favorite. Bet against him.",
+      "Smart money's on {name}. I'm not smart.",
+      "{name} is a sure thing. Nothing's sure."
+     ],
+     "sp": [
+      "{name} es the favorite. Bet against him."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Their deal.",
+      "Let's see what they hold.",
+      "Their roll."
+     ],
+     "sp": [
+      "Their deal, mano."
+     ]
+    },
+    "win": {
+     "en": [
+      "Pay out!",
+      "I'd bet on us again.",
+      "House loses tonight."
+     ],
+     "sp": [
+      "Pay out, compa!"
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "All in.",
+      "One chip left. Watch this."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "We lost the pot. Not the game.",
+      "{by} took the table. We buy back in."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "Fold. Fold and walk.",
+      "Know when to fold.",
+      "Cash out. Now."
+     ],
+     "sp": [
+      "Fold, compa. Walk."
+     ]
+    }
+   }
+  },
+  "shellshock": {
+   "name": "Shell-Shocked",
+   "lean": 0.8,
+   "about": "Saw the first year after the dollar died. Something is still playing in his head.",
+   "lines": {
+    "hit": {
+     "en": [
+      "Got him. Got him. I think.",
+      "Did that happen? Good.",
+      "Okay. That one's real.",
+      "I heard it land."
+     ],
+     "sp": [
+      "Got him. Sí. I think."
+     ]
+    },
+    "miss": {
+     "en": [
+      "Not again. Not again.",
+      "I saw two of him.",
+      "My hands don't listen.",
+      "The noise. The noise."
+     ],
+     "sp": [
+      "Otra vez. Not again."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "He's not there when I look.",
+      "He flickers. Does he flicker?",
+      "Like the tape. Skipping."
+     ],
+     "sp": [
+      "He flickers, mano. Like the tape."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Stay down this time.",
+      "Don't get back up. Please.",
+      "I'll see that one later.",
+      "That's one I'll remember."
+     ],
+     "sp": [
+      "Stay down esta vez."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}. Like before. Just like before.",
+      "No. Not {name}. Not again.",
+      "{name} is down. I've seen this."
+     ],
+     "sp": [
+      "{name}. Otra vez. Like before."
+     ],
+     "near": [
+      "{name}'s breathing. I can hear it. Keep breathing."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them}. There's always more of them.",
+      "{them} on {us}. It's the same as last time.",
+      "I count {them}. I hear more."
+     ],
+     "sp": [
+      "{them}. Siempre more of them."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name}. I've seen his face before. I'm sure.",
+      "Don't look {name} in the eyes.",
+      "{name} is the one from the static."
+     ],
+     "sp": [
+      "{name}. I've seen that face, te juro."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Down. Get down. Stay down.",
+      "Here it comes again.",
+      "Count to four. Breathe."
+     ],
+     "sp": [
+      "Down. Get down, mano."
+     ]
+    },
+    "win": {
+     "en": [
+      "It's quiet. I hate when it's quiet.",
+      "We're okay. Say we're okay.",
+      "Done. For now."
+     ],
+     "sp": [
+      "Ya. It's quiet."
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "Just me again.",
+      "I always end up last."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "I dreamed this. I dreamed all of this.",
+      "{by} took them. I know the road. I know it."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "Like before. Run like before.",
+      "Don't look back. Don't.",
+      "The road. Find the road."
+     ],
+     "sp": [
+      "Like before, mano. Run."
+     ]
+    }
+   }
+  },
+  "dreamer": {
+   "name": "Dreamer",
+   "lean": 1.1,
+   "about": "Talks about the girl back home and the house he will build. Fights for both.",
+   "lines": {
+    "hit": {
+     "en": [
+      "That one's for her.",
+      "Closer to home.",
+      "Good. Let's go home.",
+      "One step closer."
+     ],
+     "sp": [
+      "That one's for mi vieja."
+     ]
+    },
+    "miss": {
+     "en": [
+      "She'd laugh at that.",
+      "Next one. For the house.",
+      "Focus. Think of home.",
+      "Okay. Breathe."
+     ],
+     "sp": [
+      "She'd laugh at that one, pues."
+     ]
+    },
+    "dodged": {
+     "en": [
+      "He's got somewhere to be too.",
+      "Somebody's waiting for him, I bet.",
+      "He really wants to live."
+     ],
+     "sp": [
+      "Somebody's waiting for him también."
+     ]
+    },
+    "kill": {
+     "en": [
+      "Somebody's waiting for him.",
+      "I hope it's quick.",
+      "One less road to walk.",
+      "Okay. Okay."
+     ],
+     "sp": [
+      "Somebody's waiting for him también."
+     ]
+    },
+    "man_down": {
+     "en": [
+      "{name}! You promised you'd see the coast!",
+      "Not {name}. He had plans.",
+      "{name}, get up, we're going home."
+     ],
+     "sp": [
+      "{name}, get up. Vamos home."
+     ],
+     "near": [
+      "{name} was telling me about his kids. Get up, {name}."
+     ]
+    },
+    "outnumbered": {
+     "en": [
+      "{them} of them between us and home.",
+      "{them} on {us}. I've got somewhere to be.",
+      "Too many. Doesn't matter. Home."
+     ],
+     "sp": [
+      "{them} of them between us y home."
+     ]
+    },
+    "superior": {
+     "en": [
+      "{name} has nothing to lose. We do.",
+      "{name} fights like nobody's waiting.",
+      "Beat {name}, then home."
+     ],
+     "sp": [
+      "Beat {name}, y then home."
+     ]
+    },
+    "their_turn": {
+     "en": [
+      "Not today. Not today.",
+      "Hold on to something.",
+      "Stay alive. That's the job."
+     ],
+     "sp": [
+      "Not today, Dios."
+     ]
+    },
+    "win": {
+     "en": [
+      "One more day. One more day closer.",
+      "I'm writing her about this.",
+      "We go home a little richer."
+     ],
+     "sp": [
+      "Un día closer. One more day."
+     ]
+    },
+    "last_stand": {
+     "en": [
+      "Tell her I tried.",
+      "I'm getting home. Somehow."
+     ],
+     "sp": []
+    },
+    "wipe": {
+     "en": [
+      "We're alive. That's what matters. Now the rest.",
+      "{by} has our men. Nobody stays behind. Nobody."
+     ],
+     "sp": []
+    },
+    "retreat": {
+     "en": [
+      "Home is that way. Go.",
+      "We're going home alive. Move.",
+      "Not today. Run."
+     ],
+     "sp": [
+      "Vamos home. Alive. Move."
+     ]
+    }
+   }
+  }
+ },
+ "enemy": {
+  "_about": "spoken by any type when the enemy is that kind; {them} the count, {name} the one who outclasses you",
+  "ghost": {
+   "outnumbered": [
+    "Those aren't people. Those are the dead.",
+    "{them} of them and none of them breathing.",
+    "Don't look at their faces."
+   ],
+   "kill": [
+    "It came apart like smoke.",
+    "Is it gone? Is it actually gone?",
+    "It went back to the static."
+   ],
+   "superior": [
+    "{name} was ours once. Don't listen to it.",
+    "That's {name}. We buried {name}.",
+    "Hit {name} anyway. It isn't him."
+   ]
+  },
+  "beast": {
+   "outnumbered": [
+    "That's a pack. Stay together.",
+    "{them} animals. Out of the lab, all of them.",
+    "Don't run. They chase running."
+   ],
+   "kill": [
+    "Big one down.",
+    "Stay down, animal.",
+    "Back in the dirt."
+   ],
+   "superior": [
+    "{name} is the size of a car.",
+    "Watch {name}'s jaws.",
+    "That {name} came out of the lab, not the wild."
+   ]
+  },
+  "machine": {
+   "outnumbered": [
+    "{them} machines. Find who runs them.",
+    "Somebody's driving all of those.",
+    "Count the lamps, not the bodies."
+   ],
+   "kill": [
+    "Its lamp went out.",
+    "Scrap.",
+    "That one's done twitching."
+   ],
+   "superior": [
+    "{name} has armor on armor.",
+    "Shoot the man behind {name}.",
+    "{name} doesn't feel pain. Don't wait for it to."
+   ]
   }
  }
 }
