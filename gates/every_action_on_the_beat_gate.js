@@ -141,9 +141,11 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
     const LANDS = /^(hit|hurt|vital|miss|melee_hit)$/, sends = L.sent.filter(s => LANDS.test(s[0])).map(s => s[1]);
     const pairs = blows.map(x => { const t = x.land - L.lat; let b = 1e9; sends.forEach(s => { const dd = s - t; if (Math.abs(dd) < Math.abs(b)) b = dd; }); return b; }).filter(b => Math.abs(b) < 250).sort((a, b) => a - b);
     const med = pairs.length ? pairs[Math.floor(pairs.length / 2)] : 1e9, worst = pairs.length ? Math.max(...pairs.map(Math.abs)) : 1e9;
-    leg(pairs.length >= Math.min(3, blows.length) && Math.abs(med) <= 8 && worst <= 40,
+    /* a timer on the shell's thread (the fight's frame shares it): the middle under the ~20 ms at which two sounds begin to
+       flam, the worst under a sixteenth's half; sample-exact needs the shell to book a sound at a time (the NOTE to SOUNDS) */
+    leg(pairs.length >= Math.min(3, blows.length) && Math.abs(med) <= 15 && worst <= 62,
       '*** THE SOUND MEETS THE KICK ***: a blow\'s landing sound leaves the fight ' + L.lat.toFixed(0) + ' ms (the way to the ear) ahead of its picture, so the ear hears it on the beat',
-      pairs.length + ' landings sent, the middle ' + med.toFixed(1) + ' ms and the worst ' + worst.toFixed(1) + ' ms from its place (a timer on a busy thread: 8 and 40 allowed)');
+      pairs.length + ' landings sent, the middle ' + med.toFixed(1) + ' ms and the worst ' + worst.toFixed(1) + ' ms from its place (a timer on the shell\'s thread: 15 and 62 allowed)');
     errs.push.apply(errs, d.errs);
   } catch (e) { leg(false, 'the demo with his music ran', String(e.message).slice(0, 200)); }
   await d.close();
