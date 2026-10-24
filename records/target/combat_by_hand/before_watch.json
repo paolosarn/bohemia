@@ -1,0 +1,383 @@
+{
+ "label": "before_watch",
+ "mode": "by hand, watches their turns",
+ "file": "/tmp/claude-0/-home-user-bohemia/6124886f-34bb-523c-b2ee-587bc80e0e9b/scratchpad/before/BOHEMIA_FIGHT.html",
+ "profile": "phone_portrait 390 x 844 at 3x, touch",
+ "klm": {
+  "M": 1.35,
+  "P": 1.1,
+  "K": 0.2,
+  "source": "Card, Moran and Newell 1980, CACM 23(7) 396-410: M 1.35 s, P 1.1 s, K 0.2 s"
+ },
+ "decide_s": 2.6500000000000004,
+ "confirm_s": 0.2,
+ "company": "rebuild",
+ "summary": [
+  {
+   "fight": "the road: 3 against 3",
+   "n": 3,
+   "won": 2,
+   "by_hand_s": 111.6,
+   "machine_s": 35.7,
+   "theirs_s": 14.6,
+   "his_motion_s": 10.9,
+   "finger_s": 75.9,
+   "his_turns": 14.7,
+   "rounds": 6,
+   "decisions": 27.3,
+   "confirms": 17.3
+  },
+  {
+   "fight": "the first job: 3 against 2",
+   "n": 3,
+   "won": 2,
+   "by_hand_s": 110.9,
+   "machine_s": 32.8,
+   "theirs_s": 14.9,
+   "his_motion_s": 10.2,
+   "finger_s": 78.1,
+   "his_turns": 21,
+   "rounds": 10,
+   "decisions": 28.7,
+   "confirms": 10.3
+  },
+  {
+   "fight": "a tough one: 3 against 5",
+   "n": 3,
+   "won": 0,
+   "by_hand_s": 166.3,
+   "machine_s": 65.4,
+   "theirs_s": 40,
+   "his_motion_s": 16,
+   "finger_s": 100.9,
+   "his_turns": 21.3,
+   "rounds": 10.7,
+   "decisions": 36.7,
+   "confirms": 18.7
+  }
+ ],
+ "fights": [
+  {
+   "fight": "the road: 3 against 3",
+   "seed": 11,
+   "result": "won",
+   "rounds": 4,
+   "his_turns": 12,
+   "men": "3 v 3",
+   "his_up_at_end": 3,
+   "taps": {
+    "decide": 18,
+    "confirm": 11,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "end": 6,
+     "aim": 11,
+     "confirm": 11
+    }
+   },
+   "seconds": {
+    "open": 3.567,
+    "formation_wait": 0.1,
+    "theirs": 10.516,
+    "his_motion": 7.883,
+    "out_of_ap": 3.767,
+    "auto_his": 0,
+    "recap": 1.533,
+    "waited_on_bot": 2.55
+   },
+   "machine_s": 27.3,
+   "finger_s": 49.9,
+   "by_hand_s": 77.2,
+   "bot_wall_s": 28.6,
+   "errors": []
+  },
+  {
+   "fight": "the road: 3 against 3",
+   "seed": 12,
+   "result": "won",
+   "rounds": 4,
+   "his_turns": 11,
+   "men": "3 v 3",
+   "his_up_at_end": 3,
+   "taps": {
+    "decide": 24,
+    "confirm": 18,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "aim": 18,
+     "confirm": 18,
+     "reload": 3,
+     "end": 2
+    }
+   },
+   "seconds": {
+    "open": 2.883,
+    "formation_wait": 0.133,
+    "theirs": 9.7,
+    "his_motion": 10.95,
+    "out_of_ap": 6.067,
+    "auto_his": 0,
+    "recap": 1.533,
+    "waited_on_bot": 3.749
+   },
+   "machine_s": 31.1,
+   "finger_s": 67.2,
+   "by_hand_s": 98.3,
+   "bot_wall_s": 34.1,
+   "errors": []
+  },
+  {
+   "fight": "the road: 3 against 3",
+   "seed": 13,
+   "result": "lost",
+   "rounds": 10,
+   "his_turns": 21,
+   "men": "3 v 3",
+   "his_up_at_end": 0,
+   "taps": {
+    "decide": 40,
+    "confirm": 23,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "end": 14,
+     "aim": 23,
+     "confirm": 23,
+     "reload": 2
+    }
+   },
+   "seconds": {
+    "open": 2.783,
+    "formation_wait": 0.117,
+    "theirs": 23.716,
+    "his_motion": 13.733,
+    "out_of_ap": 6.8,
+    "auto_his": 0,
+    "recap": 1.533,
+    "waited_on_bot": 5.2
+   },
+   "machine_s": 48.6,
+   "finger_s": 110.6,
+   "by_hand_s": 159.2,
+   "bot_wall_s": 53.4,
+   "errors": []
+  },
+  {
+   "fight": "the first job: 3 against 2",
+   "seed": 11,
+   "result": "won",
+   "rounds": 4,
+   "his_turns": 12,
+   "men": "3 v 2",
+   "his_up_at_end": 3,
+   "taps": {
+    "decide": 17,
+    "confirm": 9,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "end": 7,
+     "aim": 9,
+     "confirm": 9
+    }
+   },
+   "seconds": {
+    "open": 2.9,
+    "formation_wait": 0.1,
+    "theirs": 7.016,
+    "his_motion": 5.9,
+    "out_of_ap": 3.033,
+    "auto_his": 0,
+    "recap": 1.533,
+    "waited_on_bot": 2.283
+   },
+   "machine_s": 20.4,
+   "finger_s": 46.9,
+   "by_hand_s": 67.2,
+   "bot_wall_s": 21.7,
+   "errors": []
+  },
+  {
+   "fight": "the first job: 3 against 2",
+   "seed": 12,
+   "result": "won",
+   "rounds": 4,
+   "his_turns": 12,
+   "men": "3 v 2",
+   "his_up_at_end": 3,
+   "taps": {
+    "decide": 21,
+    "confirm": 13,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "aim": 13,
+     "confirm": 13,
+     "reload": 2,
+     "end": 5
+    }
+   },
+   "seconds": {
+    "open": 2.917,
+    "formation_wait": 0.133,
+    "theirs": 5.833,
+    "his_motion": 7.817,
+    "out_of_ap": 4.533,
+    "auto_his": 0,
+    "recap": 1.533,
+    "waited_on_bot": 3.283
+   },
+   "machine_s": 22.6,
+   "finger_s": 58.3,
+   "by_hand_s": 80.9,
+   "bot_wall_s": 24.9,
+   "errors": []
+  },
+  {
+   "fight": "the first job: 3 against 2",
+   "seed": 13,
+   "result": "lost",
+   "rounds": 22,
+   "his_turns": 39,
+   "men": "3 v 2",
+   "his_up_at_end": 0,
+   "taps": {
+    "decide": 48,
+    "confirm": 9,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "end": 36,
+     "aim": 9,
+     "confirm": 9,
+     "reload": 2
+    }
+   },
+   "seconds": {
+    "open": 2.8,
+    "formation_wait": 0.133,
+    "theirs": 31.882,
+    "his_motion": 16.999,
+    "out_of_ap": 2.317,
+    "auto_his": 0,
+    "recap": 1.517,
+    "waited_on_bot": 5.667
+   },
+   "machine_s": 55.5,
+   "finger_s": 129,
+   "by_hand_s": 184.5,
+   "bot_wall_s": 60.5,
+   "errors": []
+  },
+  {
+   "fight": "a tough one: 3 against 5",
+   "seed": 11,
+   "result": "lost",
+   "rounds": 13,
+   "his_turns": 27,
+   "men": "3 v 5",
+   "his_up_at_end": 0,
+   "taps": {
+    "decide": 47,
+    "confirm": 21,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "aim": 21,
+     "confirm": 21,
+     "reload": 3,
+     "end": 22
+    }
+   },
+   "seconds": {
+    "open": 2.917,
+    "formation_wait": 0.15,
+    "theirs": 54.248,
+    "his_motion": 18.766,
+    "out_of_ap": 4.633,
+    "auto_his": 0,
+    "recap": 1.533,
+    "waited_on_bot": 7.534
+   },
+   "machine_s": 82.1,
+   "finger_s": 128.8,
+   "by_hand_s": 210.8,
+   "bot_wall_s": 88.6,
+   "errors": []
+  },
+  {
+   "fight": "a tough one: 3 against 5",
+   "seed": 12,
+   "result": "lost",
+   "rounds": 11,
+   "his_turns": 18,
+   "men": "3 v 5",
+   "his_up_at_end": 0,
+   "taps": {
+    "decide": 33,
+    "confirm": 21,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "aim": 21,
+     "confirm": 21,
+     "reload": 1,
+     "end": 10
+    }
+   },
+   "seconds": {
+    "open": 2.85,
+    "formation_wait": 0.117,
+    "theirs": 28.132,
+    "his_motion": 13.75,
+    "out_of_ap": 6.05,
+    "auto_his": 0,
+    "recap": 1.517,
+    "waited_on_bot": 6.383
+   },
+   "machine_s": 52.3,
+   "finger_s": 91.7,
+   "by_hand_s": 143.9,
+   "bot_wall_s": 58,
+   "errors": []
+  },
+  {
+   "fight": "a tough one: 3 against 5",
+   "seed": 13,
+   "result": "lost",
+   "rounds": 8,
+   "his_turns": 19,
+   "men": "3 v 5",
+   "his_up_at_end": 0,
+   "taps": {
+    "decide": 30,
+    "confirm": 14,
+    "skip": 0,
+    "by": {
+     "fight": 1,
+     "end": 14,
+     "aim": 14,
+     "confirm": 14,
+     "reload": 1
+    }
+   },
+   "seconds": {
+    "open": 2.833,
+    "formation_wait": 0.117,
+    "theirs": 37.631,
+    "his_motion": 15.416,
+    "out_of_ap": 4.517,
+    "auto_his": 0,
+    "recap": 1.517,
+    "waited_on_bot": 4.8
+   },
+   "machine_s": 61.9,
+   "finger_s": 82.3,
+   "by_hand_s": 144.2,
+   "bot_wall_s": 65.9,
+   "errors": []
+  }
+ ]
+}

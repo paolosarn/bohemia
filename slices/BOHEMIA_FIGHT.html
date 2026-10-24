@@ -606,12 +606,26 @@ const FIGHT = (function () {
     }
     return out;
   }
-  function bandOf(opts) {
+  /* THE FALLBACK IS SIZED BY THE COMPANY (COMBAT [the ten changes: the fight's part], TUNING's change 1(b), rule 133, Paolo
+     10/23: 'quicker and funner for normies'): a company handed with no party and no band met first_band, nine brigands, and a
+     new crew of three won 0 in 100 (TUNING 10/19). The fallback is now the company's own size on TUNING's line
+     (ours.fallback_band_by_company: straight between its points, the last slope past its end), dealt as a resample of
+     first_band's own kinds, so the wiki's early mix holds. Nothing handed at all (the bench's twelve) still meets first_band. */
+  function bandFor(n) {
+    const L = R('ours.fallback_band_by_company').line, fb = R('ours.first_band');
+    let a = L[0], b = L[1];
+    for (let i = 1; i < L.length; i++) { a = L[i - 1]; b = L[i]; if (n <= b[0]) break; }
+    const count = Math.max(1, Math.round(a[1] + (n - a[0]) * (b[1] - a[1]) / (b[0] - a[0])));
+    const out = []; for (let i = 0; i < count; i++) out.push(fb[Math.floor(i * fb.length / count)]);
+    return out;
+  }
+  function bandOf(opts, men) {
     const p = opts.party;
     if (Array.isArray(p) && p.length && typeof p[0] === 'object') return p.reduce(function (a, q) { for (let i = 0; i < q.count; i++) a.push(q.kind); return a; }, []);
     if (Array.isArray(p)) return p.slice();
     if (p && p.count) return partyFor(p);
-    return opts.band || R('ours.first_band');
+    if (opts.band) return opts.band;
+    return men && Array.isArray(opts.company) && opts.company.length ? bandFor(men) : R('ours.first_band');
   }
   /* A BEAST'S WEAPON IS ITS BITE (COMBAT [the fight holds the grid], rule 117(e), Paolo 10/18: 'against animals... 36 or 40
      enemies'): an enemy whose gear holds no weapon fights with its racial skill, copied from the wiki's skill page into
@@ -843,7 +857,7 @@ const FIGHT = (function () {
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
-    const band = bandOf(opts);
+    const band = bandOf(opts, crewUnits.length);
     LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
     const bandUnits = band.map(enemyUnit);
     LOOKS_TAKEN = null;
@@ -1944,7 +1958,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { rangeMin: rangeMin, armIn: armIn, pistolShot: pistolShot, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { rangeMin: rangeMin, armIn: armIn, pistolShot: pistolShot, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
