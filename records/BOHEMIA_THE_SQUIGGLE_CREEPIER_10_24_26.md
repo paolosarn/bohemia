@@ -140,7 +140,17 @@ themselves; one voice per person: the same samples every time, another person no
 fades; the level at the mark, none over -1 dBFS; creepier never broken, over three passes of the game's lines; a statement falls,
 a question rises; the wobble inside his law), the game carries it (byte for byte in the alpha and the demo, routed, the faces
 heard, the SCREECH LAW, the narrator still the machine), and the real surface (the greeter and a tapped keeper heard).
-The result line is in the commit.
+RESULT on this tree: 19/0. PLANTED, each turning it red (SQUIGGLE_ENGINE=<a mutated copy>, --fast): the gain born at 1 (NO
+CLICKING: 2 clicks in 20 lines), Math.random for the seed (ONE VOICE PER PERSON), no drops or doubles (CREEPIER), the tape's
+wobble at 3 percent (HIS ONE HARD LAW: 3.91 percent), no sag (CREEPIER), and the first build's cut that cancelled every
+syllable's envelope (NO CLICKING: 28 clicks at 54 cut points).
+Beside it on this tree: SQUIGGLE VOICE 41/0 (its 'zero audio files' legs are about engine/bohemia_voice.js, which still loads
+none: the recording lives in the new player), VOICE MOOD 19/0, VOICE VARIETY 3/0, VOICE AUDIBLE 2/0, TALKING PORTRAIT 34/0,
+NO FACE FROM A BODY 23/0, DEMO BUILD 25/0, THE BULLET LANDS 12/0 (--fast), ONE SONG ONLY 16/0, VOICE SURFACES 27/0 (was
+25/1 on main before this row: its discovery sweep found the demo unlisted, cutCaption, since the demo carries the cold open's
+code; the demo is in its list now). RED ON MAIN BEFORE THIS ROW AND THE SAME AFTER (run on a clean checkout of 2b0c5838):
+CITY UI VOICE 9/3 (the phone, close and sleep controls it measures are no longer in the city) and CITY TALK (a TimeoutError
+walking the old city's talk card); neither touches this row.
 
 ## NOTES LEFT (VAMILY)
 
@@ -149,6 +159,9 @@ The result line is in the commit.
 - UI: #bmvoice is heard now (through the face it shows); the words still print as the mouth says them; nothing to change.
 - RUN: the demo cut was this lane's for this one change (BUILD 10/24c).
 - WORDS (paused): every line a face says is now heard; a line's first sentence is what is said (the 8/9 opener rule).
+- COMBAT: THE FIGHT'S VETERAN IS THE ONE TALKING FACE LEFT SILENT (his line types in and his face works on the slots in
+  slices/BOHEMIA_FIGHT.html teach(), and nothing asks for a voice). The one line that makes him heard, in the same voice he has on
+  the map, is on COMBAT's board; not done from this lane (COMBAT's file, read by a dozen of its gates).
 
 ## ANALOG HORROR LINE (rule 20, section 9)
 
