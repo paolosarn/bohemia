@@ -103,3 +103,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_52_TRAITS_2026_10_24.md | traits, random, effects
 - 2026-10-24 | ASK | GROK_ASK_53_BACKGROUNDS_2026_10_24.md | backgrounds, stats, wage
 - 2026-10-24 | ASK | GROK_ASK_54_ORIGINS_2026_10_24.md | origins, lone wolf, militia
+- 2026-10-24 | ASK | GROK_ASK_55_EVENTS_2026_10_24.md | events, random, triggers
