@@ -9520,6 +9520,12 @@ GATES = [
      "face his own, his card his own body, no beard under a woman's name; in six towns every keeper, man at the post, client and "
      "crowd speaker talks under his own head; no old cast or gang head and no fight_people sheet fetched; nobody in 16 places or "
      "the map's crowds is one of your eleven; the old crew list reads red. green at registration, 18/0, about 2 min", True),
+    ('THE HIRE SHOWS THE WHOLE MAN', ['node', 'gates/the_hire_shows_the_whole_man_gate.js'],
+     "RUN TWO gate, 10/24, row [the hire shows the whole man] (rule 121(b)(e), 120(a); TUNING's change 9, 'hire what you see'): at "
+     "six posts every card stands its man as his whole 3D model, the man at the rail, his gun in his hands, breathing on his own "
+     "beat; the gun named with its reach and rounds in the crew screen's own words; three stats starred, his price and his night "
+     "(nightly_bill.json); hired, he is on the crew screen with that gun in his main hand and his cloth on, the bag gets the rest; "
+     "the old kit armed 2 of 6 backgrounds. green at registration, 10/0, about 1 min", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

@@ -105,8 +105,13 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .slot span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .slot em{font-style:normal;color:var(--dim);font-size:9px}
 /* the hire card: face, name, background, eight stats, the starred one gold, the price */
-.hire{display:grid;grid-template-columns:64px 1fr;gap:4px 8px;padding:6px;border:1px solid var(--line);border-radius:4px;background:#16110c;margin-top:6px}
-.hire .face{width:64px;height:64px;flex:none}
+.hire{display:grid;grid-template-columns:96px 1fr;gap:4px 8px;padding:6px;border:1px solid var(--line);border-radius:4px;background:#16110c;margin-top:6px}
+.hire .face{width:40px;height:40px;flex:none}
+.hire .hfig{width:96px;height:120px;grid-row:1 / span 1;align-self:end}   /* the whole man, holding his gun (RUN TWO 10/24) */
+.hire .hhead{display:flex;align-items:center;gap:6px}
+.hire .hgun{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:11px;color:var(--ink,#e8dcc4)}
+.hire .hgun img,.hire .hgun canvas{width:28px;height:28px;image-rendering:pixelated}
+.hire .hgun .arm{color:var(--gold);letter-spacing:.5px}
 .hire.picked{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}   /* the man you tapped at the post (RUN TWO, change 7) */
 canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 at 72 css px scales smooth, never nearest at 1.7x (RUN TWO 10/18) */
 .hire .nm{color:var(--gold);font-size:11px;letter-spacing:1px}
@@ -158,6 +163,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: the valley's 116 rolled people, every piece CHARACTER made -->
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: every person in the place is a 3D model (rule 121e) -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): every keeper and every man in the crowd breathes and idles at his spot -->
+<script src="../engine/bohemia_roster.js"></script>  <!-- RUN TWO [the hire shows the whole man]: what a man's gun does in the fight, the crew screen's own line -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -1221,8 +1227,12 @@ function recruitLooks(key, n){
   for(var q = 0; q < n; q++) out.push(pool.length ? pool[q % pool.length] : 'cast_' + CAST12[q % 12]);
   return out;
 }
-var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['butcher_s_cleaver','leather_wraps'], brawler:[null,'sackcloth'],
-           thief:['knife','leather_tunic'], militia:['militia_spear','padded_surcoat']};
+/* GUNS FIRST AT THE POST (RUN TWO [the hire shows the whole man], 10/24, rule 120(a): 'the guns were supposed to be the main way
+   this is gonna be solved'): every man waiting for work holds a gun, the cheap one the fight draws as the pistol (Battle
+   Brothers' knife row, dagger class: ours.gun_classes, ours.pistol_shot), beside his background's own arm and cloth; Battle
+   Brothers' price formula takes the kit off the wiki's rows, so the knife adds its 30 crowns (3 batteries at most) */
+var KIT = {farmhand:['knife','bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['knife','butcher_s_cleaver','leather_wraps'], brawler:['knife','sackcloth'],
+           thief:['knife','leather_tunic'], militia:['knife','militia_spear','padded_surcoat']};
 function recruitsHere(){
   var tm = traitMult();
   if(!window.BohemiaGoodBros || tm.none) return [];
@@ -1242,26 +1252,120 @@ function recruitsHere(){
   return (S.recruits||[]).filter(function(r){ return !S.taken[r.id]; });
 }
 var STAT_SHORT = {hp:'HP', fatigue:'FAT', resolve:'RES', initiative:'INI', melee_skill:'MSK', ranged_skill:'RSK', melee_defense:'MDF', ranged_defense:'RDF'};
+/* THE HIRE SHOWS THE WHOLE MAN (RUN TWO [the hire shows the whole man], 10/24, rule 121(b)(e): the 3D models on every screen
+   with a person; 120(a) guns first; TUNING's change 9, 'hire what you see': 'a recruit's card shows his face, his 3 best things as
+   stars, his one trait in plain words, his price and his nightly cost'). A man at the post stands on his card as his whole 3D
+   model, in his own rolled look, holding his gun, breathing and shifting the way he does in the fight (ANIMATION's gun-held
+   idles off his own fight cell, slices/rig_idles/fight_<look>; his fight sheet's carry still until they are in), with what the
+   gun does beside him in the fight's own words (BohemiaRoster.armLine, the crew screen's line); his face; the three stats he is
+   best at, starred (Battle Brothers' talents, up to three; the post's own star first, PEOPLE's 60/30/10 split for the others);
+   his price; and his night, the crew's one bill (records/target/bb/nightly_bill.json, charged by the map at nightfall). NOT
+   SHOWN: a trait, because no sourced trait table with its numbers is in the repo (PEOPLE's rule: never one from memory). */
+var HIRE = {rig:null, bill:null, roster:false, figs:[], on:false};
+function hireLoad(){
+  if(HIRE.asked) return; HIRE.asked = true;
+  fetch('fight_rig/fight_rig.json').then(function(r){ return r.json(); }).then(function(j){ HIRE.rig = j; if(S.open === 'hall') openB('hall'); }).catch(function(){});
+  fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(j){ var v = j && j.per_man_per_night; HIRE.bill = +((v && v.value != null) ? v.value : v) || null; if(S.open === 'hall') openB('hall'); }).catch(function(){});
+  if(window.BohemiaRoster) BohemiaRoster.load().then(function(){ HIRE.roster = true; if(S.open === 'hall') openB('hall'); }).catch(function(){});
+}
+function hireGun(r){   /* the first gun in his kit, as the fight reads a gun (its class in ours' gun_classes) */
+  var D = window.BohemiaRoster && BohemiaRoster.data, gc = D && D.ours && D.ours.gun_classes && D.ours.gun_classes.value || ['dagger','firearm','crossbow'];
+  var kit = KIT[r.backgroundId] || [];
+  for(var i = 0; i < kit.length; i++){ var w = kit[i] && BB.weapons && BB.weapons.filter(function(x){ return x.id === kit[i]; })[0]; if(w && gc.indexOf(w['class']) >= 0) return w; }
+  return null;
+}
+/* the three stats he is best at: where his roll sits highest in his background's own range; the post's starred stat leads */
+function hireTalents(r){
+  if(r.talents) return r.talents;
+  var gb = window.BohemiaGoodBros && BohemiaGoodBros.byId(r.backgroundId), K = BohemiaGoodBros.STAT_KEYS;
+  var at = function(k){ var g = gb && gb.stats[k]; return g && g[1] > g[0] ? (r.stats[k] - g[0]) / (g[1] - g[0]) : 0; };
+  var rest = K.filter(function(k){ return k !== r.starredStat; }).sort(function(a, b){ return at(b) - at(a) || K.indexOf(a) - K.indexOf(b); });
+  var out = [{k:r.starredStat, n:r.starCount}];
+  rest.slice(0, 2).forEach(function(k, i){ out.push({k:k, n:BohemiaGoodBros.starCountFor(S.place.name + ':' + r.id + ':' + k + '|star-count-' + (i + 2))}); });
+  return (r.talents = out);
+}
+function hireFigure(r, gun){
+  var W = 96, H = 120, k = Math.max(1, Math.round(window.devicePixelRatio || 1));
+  var c = document.createElement('canvas'); c.width = W*k; c.height = H*k; c.style.width = W + 'px'; c.style.height = H + 'px';
+  c.className = 'hfig'; c.dataset.look = r.look; c.dataset.gun = gun ? gun.id : ''; c.setAttribute('aria-label', r.name);
+  HIRE.figs.push({c:c, r:r, gun:gun, k:k, W:W, H:H, shown:'', made:performance.now()});   /* not on the page yet: the tick keeps him until he has been */
+  if(!HIRE.on){ HIRE.on = true; requestAnimationFrame(hireTick); }
+  return c;
+}
+var HIRE_FACE = 1;   /* SE: three quarters to you, the gun across him reads */
+function hireTick(){
+  var R = HIRE.rig, I = window.BohemiaIdles, now = performance.now();
+  HIRE.figs = HIRE.figs.filter(function(e){ if(e.c.isConnected) e.seen = true; return e.c.isConnected || (!e.seen && now - e.made < 2000); });
+  if(!HIRE.figs.length){ HIRE.on = false; return; }
+  HIRE.figs.forEach(function(e){
+    var L = R && R.looks[e.r.look]; if(!L) return;
+    var kind = e.gun && R.guns.by_class[e.gun['class']], gr = R.guns.order.indexOf(kind), f = HIRE_FACE;
+    var body = UI_IM(L.file), guns = L.guns ? UI_IM(L.guns) : null;
+    var x = e.c.getContext('2d'), ox = Math.round(e.W/2 - L.foot[0]), oy = Math.round(e.H - 6 - L.foot[1]), z = e.k;
+    var key = null, draws = [];
+    var ic = I && I.has && I.has('fight_' + e.r.look) ? I.frame('fight_' + e.r.look, 'hire:' + S.place.name + ':' + e.r.id, now, f, {set:'carry'}) : null;
+    var ig = ic && gr >= 0 ? I.gun('fight_' + e.r.look, kind, ic.pose, f) : null;
+    if(ic && !ic.person && (gr < 0 || ig)){
+      key = 'i' + ic.pose; draws.push([ic.img, ic.x, ic.y, ic.w, ic.h, ic.dx, ic.dy]);
+      if(ig && !ig.hidden) draws.push([ig.img, ig.x, ig.y, ig.w, ig.h, ig.dx, ig.dy]);
+      e.c.dataset.idle = ic.kind || 'idle';
+    } else if(body){   /* his fight sheet's carry still (the stand when he holds no gun), his gun's own cell over it */
+      var col = R.cols.indexOf(gr >= 0 ? 'carry@0' : 'stand'); if(col < 0) col = 0;
+      key = 's' + col; draws.push([body, col * L.w, f * L.h, L.w, L.h, 0, 0]);
+      if(gr >= 0 && guns) draws.push([guns, 0, (gr * 8 + f) * L.h, L.w, L.h, 0, 0]);
+      e.c.dataset.idle = 'still';
+    }
+    if(!key || key === e.shown) return; e.shown = key;
+    x.setTransform(1, 0, 0, 1, 0, 0); x.imageSmoothingEnabled = false; x.clearRect(0, 0, e.c.width, e.c.height);
+    x.fillStyle = 'rgba(0,0,0,.35)'; x.beginPath(); x.ellipse(e.W/2*z, (e.H - 6)*z, 20*z, 5*z, 0, 0, 7); x.fill();
+    draws.forEach(function(d){ x.drawImage(d[0], d[1], d[2], d[3], d[4], (ox + d[5])*z, (oy + d[6])*z, d[3]*z, d[4]*z); });
+    e.c.dataset.drawn = '1'; e.c.dataset.held = draws.length > 1 ? '1' : (gr >= 0 ? 'hidden' : '0');   /* his gun's own cell over him (hidden: his body covers it this pose) */
+  });
+  requestAnimationFrame(hireTick);
+}
+var HIRE_IMS = {};
+function UI_IM(file){ var im = HIRE_IMS[file]; if(!im){ im = HIRE_IMS[file] = new Image(); im.src = 'fight_rig/' + file; } return im.complete && im.naturalWidth ? im : null; }
 function hireCard(r){
+  hireLoad();
   var c = document.createElement('div'); c.className = 'hire'; c.dataset.id = r.id;
-  var f = document.createElement('canvas'); f.width = 64; f.height = 64; f.className = 'face';
-  if(!crewFace(f, r.look)) sheetFace(f.getContext('2d'), r.look);   /* PORTRAIT's 3D head, else the dim shape (10/19, rule 121e: never the old paint) */
-  c.appendChild(f);
+  var gun = hireGun(r);
+  c.appendChild(hireFigure(r, gun));
   var t = document.createElement('div'); t.className = 'hiret';
-  var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + r.backgroundName.toUpperCase(); t.appendChild(nm);
+  var hd = document.createElement('div'); hd.className = 'hhead';
+  var f = document.createElement('canvas'); f.width = 64; f.height = 64; f.className = 'face';
+  if(!crewFace(f, r.look)) sheetFace(f.getContext('2d'), r.look);   /* his own 3D head, else the dim shape (10/19, rule 121e: never the old paint) */
+  hd.appendChild(f);
+  var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + r.backgroundName.toUpperCase(); hd.appendChild(nm);
+  t.appendChild(hd);
+  /* what his gun does in the fight, the crew screen's own line */
+  var al = gun && window.BohemiaRoster && HIRE.roster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', gun.id), false) : null;
+  if(gun){ var g = document.createElement('div'); g.className = 'hgun'; g.dataset.gun = gun.id;
+    var gi = packIcon(gun['class']); if(gi) g.appendChild(gi);
+    var gn = document.createElement('b'); gn.textContent = (CLASSNAME[gun['class']] || gun['class']).toUpperCase(); g.appendChild(gn);
+    if(al){ var gr = document.createElement('span'); gr.className = 'arm'; gr.textContent = al.reach + (al.rounds ? '  ·  ' + al.rounds : ''); g.appendChild(gr); }
+    t.appendChild(g); }
+  var tal = hireTalents(r), starOf = {}; tal.forEach(function(x){ starOf[x.k] = x.n; });
   var st = document.createElement('div'); st.className = 'hstats';
-  BohemiaGoodBros.STAT_KEYS.forEach(function(k){ var e = document.createElement('span'); e.textContent = STAT_SHORT[k] + ' ' + r.stats[k] + (k === r.starredStat ? ' ' + '★'.repeat(r.starCount) : ''); if(k === r.starredStat) e.className = 'star'; st.appendChild(e); });
+  BohemiaGoodBros.STAT_KEYS.forEach(function(k){ var e = document.createElement('span'); e.textContent = STAT_SHORT[k] + ' ' + r.stats[k] + (starOf[k] ? ' ' + '★'.repeat(starOf[k]) : ''); if(starOf[k]) e.className = 'star'; st.appendChild(e); });
   t.appendChild(st); c.appendChild(t);
-  var price = hallPrice(r);
-  c.appendChild(act('Hire', price + ' batt', function(){
+  var price = hallPrice(r), night = HIRE.bill;
+  c.appendChild(act('Hire', price + ' batt' + (night ? '  ·  ' + night + ' a night' : ''), function(){
     if(bats() < price) return openB('hall', r.name + ' wants ' + price + '. You have ' + bats() + '.');
     P.debit(S.purse, 'electricity', price, 'hire:' + r.backgroundId, S.place.name, S.day);
     S.taken[r.id] = true;
-    var kit = KIT[r.backgroundId] || [], def = {name:r.name.toUpperCase(), background:r.backgroundId, jobs:[], stats:r.stats, stars:(function(o){ o[r.starredStat] = r.starCount; return o; })({}), look:r.look, kit:kit};
+    var kit = KIT[r.backgroundId] || [], wears = hireWears(kit, gun);
+    var def = {name:r.name.toUpperCase(), background:r.backgroundId, jobs:[], stats:r.stats, stars:(function(o){ tal.forEach(function(x){ o[x.k] = x.n; }); return o; })({}), look:r.look, kit:kit, gear:wears};
     hireIntoCompany(def);
-    post('hireMan', {man:def, price:price}); shelf(); openB('hall', r.name + ' is yours. ' + (kit.filter(Boolean).length ? 'What they carry is in your bag.' : 'They came with nothing but their hands.'));
+    post('hireMan', {man:def, price:price}); shelf();
+    openB('hall', r.name + ' is yours. ' + (gun ? 'He walks in with the ' + (CLASSNAME[gun['class']] || 'gun') + ' in his hands' + (kit.filter(Boolean).length > (wears.body ? 2 : 1) ? ', the rest is in your bag.' : '.') : 'They came with nothing but their hands.'));
   }, bats() < price));
   return c;
+}
+/* what he wears in: his gun in his main hand, his cloth on his back (Battle Brothers' recruits come in their own gear); the rest goes in the bag */
+function hireWears(kit, gun){
+  var o = {main: gun ? gun.id : null, body: null};
+  kit.forEach(function(id){ if(!id || o.body) return; if(BB.armor && BB.armor.body.some(function(x){ return x.id === id; })) o.body = id; });
+  return o;
 }
 /* THE HIRE PRICE IS THE FORMULA (RUN TWO [the hire price is the formula], 10/19, rule 117; TUNING measured the hall asking
    up to 225 batteries for a level-one militiaman against Battle Brothers' own 49, a NO before he sees it). Battle Brothers'
@@ -1294,7 +1398,8 @@ function hallPrice(r){
 function hireIntoCompany(def){
   try{ var h = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'); h.push(def); localStorage.setItem('bohemia.hired.v1', JSON.stringify(h)); }catch(e){}
   /* his gear goes in the bag, as items the bag already speaks */
-  (def.kit||[]).forEach(function(id, i){ if(!id) return;
+  var worn = def.gear || {};
+  (def.kit||[]).forEach(function(id, i){ if(!id || id === worn.main || id === worn.body) return;   /* what he walks in wearing is on him, not in the bag (10/24) */
     var w = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0];
     if(w){ S.stash.push(weaponItem(w)); return; }
     var a = BB.armor && BB.armor.body.filter(function(x){ return x.id === id; })[0];

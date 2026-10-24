@@ -518,7 +518,8 @@ const srv = http.createServer((rq, rs) => {
   ok('the posts: a camp two, a town four, a fortress six, a quarter more on market day (the Seasonal Fair card)', posts.camp === 2 && posts.town === 4 && posts.fortress === 6 && posts['town+market'] === 5, JSON.stringify(posts));
   const card = await p.evaluate(() => { const c = document.querySelector('#sbody .hire'); return { stats: c.querySelectorAll('.hstats span').length, star: c.querySelectorAll('.hstats .star').length, nm: c.querySelector('.nm').textContent, price: c.querySelector('.act em').textContent,
     face: (() => { const d = c.querySelector('canvas.face').getContext('2d').getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
-  ok('  every hire card shows his face, name, background, eight stats with his star, and the price before you pay', card.stats === 8 && card.star === 1 && card.face > 300 && /batt/.test(card.price), card.nm + ' | ' + card.price);
+  /* 10/24 (RUN TWO [the hire shows the whole man], TUNING's change 9: 'his 3 best things as stars'): three starred stats, the post's own first */
+  ok('  every hire card shows his face, name, background, eight stats with his three stars, and the price before you pay', card.stats === 8 && card.star === 3 && card.face > 300 && /batt/.test(card.price), card.nm + ' | ' + card.price);
   await p.screenshot({ path: SHOT.replace('_10_1', '_POSTS_10_10') });
   await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 500, 'gate', null, 0));
   const h0 = await bat(), price = await p.evaluate(() => parseInt(document.querySelector('#sbody .hire .act em').textContent, 10));

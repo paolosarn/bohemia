@@ -181,7 +181,16 @@
     var mag = r.ammo ? num(r.ammo) : null, reload = (r.skills || []).some(function (k) { return /^Reload/.test(k.name); });
     return { lo: lo, hi: Math.max(lo, hi), club: gun, rounds: shot ? mag : reload ? 1 : mag, gun: gun };
   }
-  var API = { load: load, armOf: armOf, xpFor: xpFor, levelOf: levelOf, grant: grant, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
+  /* the words for it, one place for every screen (the crew screen's row and card, the hall's man: RUN TWO [the hire shows the
+     whole man], 10/24): short '2-4 TILES' over '5 RDS'; long 'REACH 2 TO 4 TILES, A CLUB AT 1' and '5 ROUNDS, THEN RELOAD' */
+  function armLine(it, long) {
+    var a = armOf(it); if (!a) return null;
+    var reach = a.lo === a.hi ? a.hi + (a.hi === 1 ? ' TILE' : ' TILES') : a.lo + (long ? ' TO ' : '-') + a.hi + ' TILES';
+    var shots = a.rounds ? a.rounds + (a.gun ? (a.rounds === 1 ? (long ? ' ROUND' : ' RD') : (long ? ' ROUNDS' : ' RDS')) : (long ? ' THROWS' : ' LEFT')) : null;   /* a bundle of bottles is thrown, not loaded */
+    if (!long) return { reach: reach, rounds: shots };
+    return { reach: 'REACH ' + reach + (a.club ? ', A CLUB AT 1' : ''), rounds: shots ? shots + (a.gun ? ', THEN RELOAD' : '') : null };
+  }
+  var API = { load: load, armOf: armOf, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     slotFor: slotFor, sheetSrc: sheetSrc, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);
