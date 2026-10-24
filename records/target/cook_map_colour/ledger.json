@@ -1,0 +1,104 @@
+{
+ "arterial": {
+  "added": 0,
+  "faces": 365,
+  "grounds": 0,
+  "kept": 295,
+  "recoloured": 70,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.0029,
+   "red": 0.0002,
+   "sand": 0.0001
+  },
+  "theme": "road"
+ },
+ "arterial_x": {
+  "added": 0,
+  "faces": 385,
+  "grounds": 0,
+  "kept": 365,
+  "recoloured": 20,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.005,
+   "red": 0.0278,
+   "sand": 0.0045
+  },
+  "theme": "road"
+ },
+ "commercial": {
+  "added": 81,
+  "faces": 367,
+  "grounds": 2,
+  "kept": 110,
+  "recoloured": 257,
+  "sand_after": {
+   "blue": 0.0004,
+   "green": 0.039,
+   "red": 0.0253,
+   "sand": 0.3597
+  },
+  "theme": "block"
+ },
+ "desert": {
+  "added": 176,
+  "faces": 736,
+  "grounds": 6,
+  "kept": 350,
+  "recoloured": 386,
+  "register_iou": 0.9993,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.141,
+   "red": 0.1944,
+   "sand": 0.3576
+  },
+  "theme": "desert"
+ },
+ "freeway": {
+  "added": 0,
+  "faces": 646,
+  "grounds": 0,
+  "kept": 580,
+  "recoloured": 66,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.0879,
+   "red": 0.0,
+   "sand": 0.0
+  },
+  "theme": "road"
+ },
+ "mountain": {
+  "added": 110,
+  "faces": 296,
+  "grounds": 2,
+  "kept": 38,
+  "recoloured": 258,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.006,
+   "red": 0.4207,
+   "sand": 0.0074
+  },
+  "theme": "rock"
+ },
+ "suburb": {
+  "added": 170,
+  "faces": 166,
+  "grounds": 2,
+  "kept": 57,
+  "recoloured": 109,
+  "register_iou": 0.9954,
+  "sand_after": {
+   "blue": 0.0232,
+   "green": 0.1495,
+   "red": 0.1785,
+   "sand": 0.0947
+  },
+  "theme": "house"
+ }
+}

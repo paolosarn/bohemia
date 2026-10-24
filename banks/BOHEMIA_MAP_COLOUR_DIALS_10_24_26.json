@@ -1,0 +1,1218 @@
+{
+ "_what": "COOK [the map remade, in colour] (rule 137, Paolo 10/24: 'the map still looks like shit, so we have to remake all the map assets, and let's be careful having everything look like a grey yellow sand color, I don't want that to flood all of our art'). THE DIALS of every map district picture (rule 128: the scene is kept, an era is a re-render with its own dials, never a redraw). The scene is the district factory's own geometry (tools/bohemia_district_hero_factory.py, captured by tools/bohemia_cook_the_map_capture_10_20_26.py); these dials say what colour each part of it is in ACT ONE (the ruin), and what is laid on the free ground (pools, trees, bushes, rocks). A modder edits this file. Read by tools/bohemia_cook_the_map_in_colour_10_24_26.py.",
+ "era": "act1_the_ruin",
+ "dust": [
+  0.5,
+  0.5,
+  0.49
+ ],
+ "_dust": "the rig's sun-bleached dust is (0.66, 0.60, 0.50) linear, a pale beige laid on every flat top; on the map that is the beige wash rule 137 bans. Here it is concrete dust, grey: the grime and the film stay, the beige goes.",
+ "snap": 0.06,
+ "snap_keep_chroma": 18,
+ "_snap": "the pull toward his pack colours (the props' 0.35, the map's 0.15 on 10/23) is 0.06, and a pixel with chroma past 18 is not pulled at all: his packs are mostly tan, and a pull toward them is a pull toward the sand.",
+ "palette": {
+  "lawn_wild": [
+   62,
+   112,
+   38
+  ],
+  "lawn_deep": [
+   38,
+   86,
+   34
+  ],
+  "lawn_dry": [
+   128,
+   132,
+   58
+  ],
+  "lawn_dead": [
+   150,
+   138,
+   84
+  ],
+  "weeds": [
+   86,
+   116,
+   48
+  ],
+  "palm": [
+   52,
+   96,
+   46
+  ],
+  "olive_tree": [
+   84,
+   104,
+   60
+  ],
+  "creosote": [
+   66,
+   88,
+   44
+  ],
+  "gravel_red": [
+   142,
+   66,
+   44
+  ],
+  "gravel_pink": [
+   160,
+   100,
+   82
+  ],
+  "gravel_grey": [
+   132,
+   132,
+   130
+  ],
+  "gravel_white": [
+   206,
+   204,
+   198
+  ],
+  "dirt": [
+   136,
+   114,
+   86
+  ],
+  "caliche": [
+   214,
+   210,
+   200
+  ],
+  "desert_tan": [
+   168,
+   140,
+   104
+  ],
+  "desert_pink": [
+   190,
+   140,
+   112
+  ],
+  "varnish": [
+   58,
+   46,
+   40
+  ],
+  "basalt": [
+   40,
+   38,
+   40
+  ],
+  "basalt_grey": [
+   70,
+   68,
+   70
+  ],
+  "redrock": [
+   160,
+   62,
+   38
+  ],
+  "redrock_light": [
+   192,
+   100,
+   62
+  ],
+  "redrock_dark": [
+   118,
+   48,
+   34
+  ],
+  "limestone": [
+   168,
+   164,
+   156
+  ],
+  "terracotta": [
+   152,
+   58,
+   36
+  ],
+  "terracotta_dark": [
+   112,
+   44,
+   30
+  ],
+  "tile_brown": [
+   98,
+   60,
+   44
+  ],
+  "tile_salmon": [
+   178,
+   94,
+   66
+  ],
+  "shingle_charcoal": [
+   66,
+   66,
+   72
+  ],
+  "shingle_slate": [
+   92,
+   100,
+   112
+  ],
+  "roof_white": [
+   222,
+   222,
+   218
+  ],
+  "roof_grey": [
+   168,
+   170,
+   172
+  ],
+  "stucco_cream": [
+   226,
+   210,
+   176
+  ],
+  "stucco_peach": [
+   216,
+   150,
+   116
+  ],
+  "stucco_sage": [
+   158,
+   172,
+   128
+  ],
+  "stucco_white": [
+   230,
+   228,
+   220
+  ],
+  "stucco_blue": [
+   150,
+   170,
+   186
+  ],
+  "stucco_pink": [
+   210,
+   142,
+   140
+  ],
+  "stucco_mint": [
+   150,
+   192,
+   166
+  ],
+  "stucco_yellow": [
+   222,
+   192,
+   104
+  ],
+  "concrete_white": [
+   204,
+   204,
+   200
+  ],
+  "concrete_grey": [
+   150,
+   150,
+   148
+  ],
+  "block_grey": [
+   128,
+   128,
+   126
+  ],
+  "asphalt_patch": [
+   64,
+   64,
+   70
+  ],
+  "rust": [
+   144,
+   70,
+   38
+  ],
+  "rust_dark": [
+   96,
+   48,
+   30
+  ],
+  "paint_teal": [
+   62,
+   132,
+   136
+  ],
+  "paint_red": [
+   168,
+   58,
+   48
+  ],
+  "paint_blue": [
+   54,
+   92,
+   150
+  ],
+  "paint_yellow": [
+   214,
+   170,
+   52
+  ],
+  "paint_green": [
+   64,
+   120,
+   74
+  ],
+  "sign_green": [
+   36,
+   108,
+   58
+  ],
+  "glass_gold": [
+   196,
+   150,
+   64
+  ],
+  "glass_bronze": [
+   118,
+   88,
+   60
+  ],
+  "glass_blue": [
+   70,
+   110,
+   150
+  ],
+  "glass_teal": [
+   60,
+   130,
+   130
+  ],
+  "neon_pink": [
+   236,
+   64,
+   160
+  ],
+  "neon_cyan": [
+   40,
+   214,
+   226
+  ],
+  "neon_gold": [
+   238,
+   188,
+   58
+  ],
+  "neon_red": [
+   226,
+   52,
+   52
+  ],
+  "pool_blue": [
+   24,
+   118,
+   214
+  ],
+  "pool_algae": [
+   52,
+   118,
+   92
+  ],
+  "pool_dry": [
+   176,
+   182,
+   186
+  ],
+  "coping": [
+   218,
+   214,
+   204
+  ],
+  "lake_blue": [
+   30,
+   92,
+   132
+  ],
+  "lake_deep": [
+   22,
+   64,
+   100
+  ],
+  "shore_ring": [
+   214,
+   212,
+   204
+  ],
+  "solar_blue": [
+   30,
+   52,
+   104
+  ],
+  "solar_frame": [
+   168,
+   174,
+   182
+  ],
+  "ballast": [
+   112,
+   110,
+   114
+  ],
+  "crop_green": [
+   86,
+   128,
+   48
+  ],
+  "crop_dead": [
+   160,
+   140,
+   76
+  ],
+  "earth_red": [
+   132,
+   70,
+   50
+  ],
+  "trash_a": [
+   70,
+   110,
+   160
+  ],
+  "trash_b": [
+   200,
+   60,
+   60
+  ],
+  "trash_c": [
+   220,
+   200,
+   80
+  ],
+  "trash_d": [
+   90,
+   140,
+   80
+  ]
+ },
+ "themes": {
+  "house": {
+   "ground": {
+    "mosaic": [
+     [
+      "lawn_wild",
+      0.26
+     ],
+     [
+      "weeds",
+      0.18
+     ],
+     [
+      "gravel_grey",
+      0.32
+     ],
+     [
+      "gravel_red",
+      0.24
+     ]
+    ],
+    "blob_m": 14
+   },
+   "ground_more": [
+    {
+     "mosaic": [
+      [
+       "lawn_deep",
+       0.3
+      ],
+      [
+       "lawn_wild",
+       0.4
+      ],
+      [
+       "gravel_grey",
+       0.3
+      ]
+     ],
+     "blob_m": 10
+    }
+   ],
+   "roof": [
+    "terracotta",
+    "terracotta_dark",
+    "tile_brown",
+    "shingle_charcoal",
+    "tile_salmon",
+    "terracotta",
+    "shingle_slate"
+   ],
+   "wall": [
+    "stucco_cream",
+    "stucco_peach",
+    "stucco_sage",
+    "stucco_white",
+    "stucco_blue",
+    "stucco_pink",
+    "stucco_mint",
+    "stucco_yellow"
+   ],
+   "fence": [
+    "block_grey",
+    "gravel_pink",
+    "concrete_grey"
+   ],
+   "frame": "stucco_white",
+   "dress": {
+    "pools": 4,
+    "trees": 6,
+    "pool": [
+     "pool_blue",
+     "pool_blue",
+     "pool_algae",
+     "pool_blue",
+     "pool_dry"
+    ],
+    "tree": [
+     "palm",
+     "olive_tree",
+     "lawn_deep"
+    ]
+   }
+  },
+  "block": {
+   "ground": {
+    "mosaic": [
+     [
+      "weeds",
+      0.14
+     ],
+     [
+      "concrete_grey",
+      0.44
+     ],
+     [
+      "asphalt_patch",
+      0.24
+     ],
+     [
+      "gravel_red",
+      0.18
+     ]
+    ],
+    "blob_m": 14
+   },
+   "ground_more": [
+    {
+     "mosaic": [
+      [
+       "gravel_grey",
+       0.5
+      ],
+      [
+       "weeds",
+       0.2
+      ],
+      [
+       "gravel_red",
+       0.3
+      ]
+     ],
+     "blob_m": 6
+    }
+   ],
+   "roof": [
+    "roof_white",
+    "roof_grey",
+    "roof_white",
+    "rust",
+    "concrete_grey",
+    "shingle_slate"
+   ],
+   "wall": [
+    "concrete_white",
+    "block_grey",
+    "paint_teal",
+    "paint_red",
+    "stucco_cream",
+    "rust",
+    "paint_blue",
+    "stucco_white",
+    "paint_yellow"
+   ],
+   "fence": [
+    "block_grey",
+    "rust"
+   ],
+   "frame": "concrete_white",
+   "dress": {
+    "pools": 0,
+    "trees": 3,
+    "tree": [
+     "palm",
+     "olive_tree"
+    ]
+   }
+  },
+  "glitz": {
+   "ground": {
+    "mosaic": [
+     [
+      "lawn_wild",
+      0.3
+     ],
+     [
+      "concrete_white",
+      0.42
+     ],
+     [
+      "concrete_grey",
+      0.16
+     ],
+     [
+      "gravel_red",
+      0.12
+     ]
+    ],
+    "blob_m": 12
+   },
+   "ground_more": [
+    {
+     "mosaic": [
+      [
+       "concrete_grey",
+       0.5
+      ],
+      [
+       "lawn_deep",
+       0.5
+      ]
+     ],
+     "blob_m": 5
+    }
+   ],
+   "roof": [
+    "roof_white",
+    "glass_gold",
+    "roof_grey",
+    "neon_pink",
+    "glass_teal"
+   ],
+   "wall": [
+    "glass_gold",
+    "stucco_white",
+    "glass_bronze",
+    "glass_blue",
+    "stucco_pink",
+    "concrete_white",
+    "glass_teal",
+    "neon_gold"
+   ],
+   "fence": [
+    "neon_pink",
+    "neon_cyan",
+    "neon_gold",
+    "neon_red"
+   ],
+   "frame": "neon_gold",
+   "dress": {
+    "pools": 3,
+    "trees": 6,
+    "pool": [
+     "pool_blue",
+     "pool_blue",
+     "pool_algae"
+    ],
+    "tree": [
+     "palm",
+     "palm",
+     "lawn_deep"
+    ]
+   }
+  },
+  "green": {
+   "ground": {
+    "mosaic": [
+     [
+      "lawn_deep",
+      0.26
+     ],
+     [
+      "lawn_wild",
+      0.44
+     ],
+     [
+      "weeds",
+      0.18
+     ],
+     [
+      "lawn_dry",
+      0.12
+     ]
+    ],
+    "blob_m": 14
+   },
+   "ground_more": [
+    {
+     "mosaic": [
+      [
+       "lawn_deep",
+       0.5
+      ],
+      [
+       "lawn_wild",
+       0.5
+      ]
+     ],
+     "blob_m": 6
+    },
+    {
+     "mosaic": [
+      [
+       "caliche",
+       0.7
+      ],
+      [
+       "lawn_dry",
+       0.3
+      ]
+     ],
+     "blob_m": 4
+    }
+   ],
+   "roof": [
+    "terracotta",
+    "roof_white",
+    "shingle_charcoal"
+   ],
+   "wall": [
+    "stucco_white",
+    "stucco_cream",
+    "rust",
+    "concrete_grey"
+   ],
+   "fence": [
+    "block_grey",
+    "rust"
+   ],
+   "frame": "stucco_white",
+   "dress": {
+    "pools": 0,
+    "trees": 9,
+    "tree": [
+     "palm",
+     "olive_tree",
+     "lawn_deep",
+     "lawn_deep"
+    ]
+   }
+  },
+  "rock": {
+   "rock": true,
+   "ground": {
+    "mosaic": [
+     [
+      "varnish",
+      0.26
+     ],
+     [
+      "redrock_dark",
+      0.34
+     ],
+     [
+      "redrock",
+      0.4
+     ]
+    ],
+    "blob_m": 26
+   },
+   "bands": [
+    "basalt",
+    "varnish",
+    "redrock_dark",
+    "redrock",
+    "redrock",
+    "redrock_light",
+    "limestone",
+    "limestone"
+   ],
+   "roof": [
+    "redrock",
+    "redrock_light",
+    "limestone",
+    "basalt_grey"
+   ],
+   "wall": [
+    "redrock_dark",
+    "basalt",
+    "redrock",
+    "varnish"
+   ],
+   "fence": [
+    "basalt"
+   ],
+   "frame": "limestone",
+   "dress": {
+    "pools": 0,
+    "trees": 0,
+    "bushes": 10,
+    "bush": [
+     "creosote",
+     "basalt"
+    ]
+   }
+  },
+  "desert": {
+   "ground": {
+    "mosaic": [
+     [
+      "creosote",
+      0.1
+     ],
+     [
+      "varnish",
+      0.08
+     ],
+     [
+      "gravel_red",
+      0.28
+     ],
+     [
+      "desert_tan",
+      0.36
+     ],
+     [
+      "caliche",
+      0.18
+     ]
+    ],
+    "blob_m": 11
+   },
+   "ground_more": [
+    {
+     "mosaic": [
+      [
+       "gravel_red",
+       0.5
+      ],
+      [
+       "desert_pink",
+       0.5
+      ]
+     ],
+     "blob_m": 6
+    },
+    {
+     "mosaic": [
+      [
+       "caliche",
+       0.6
+      ],
+      [
+       "gravel_white",
+       0.4
+      ]
+     ],
+     "blob_m": 5
+    }
+   ],
+   "roof": [
+    "creosote",
+    "olive_tree",
+    "rust",
+    "basalt_grey"
+   ],
+   "wall": [
+    "creosote",
+    "rust",
+    "varnish",
+    "basalt_grey"
+   ],
+   "fence": [
+    "rust",
+    "basalt_grey"
+   ],
+   "frame": "caliche",
+   "dress": {
+    "pools": 0,
+    "trees": 0,
+    "bushes": 16,
+    "bush": [
+     "creosote",
+     "creosote",
+     "varnish",
+     "redrock"
+    ]
+   }
+  },
+  "road": {
+   "ground": {
+    "mosaic": [
+     [
+      "weeds",
+      0.18
+     ],
+     [
+      "gravel_red",
+      0.38
+     ],
+     [
+      "gravel_grey",
+      0.26
+     ],
+     [
+      "caliche",
+      0.18
+     ]
+    ],
+    "blob_m": 10
+   },
+   "ground_more": [
+    {
+     "mosaic": [
+      [
+       "concrete_grey",
+       0.6
+      ],
+      [
+       "weeds",
+       0.4
+      ]
+     ],
+     "blob_m": 4
+    }
+   ],
+   "roof": [
+    "concrete_white",
+    "concrete_grey",
+    "roof_grey"
+   ],
+   "wall": [
+    "concrete_grey",
+    "concrete_white",
+    "rust",
+    "block_grey",
+    "sign_green"
+   ],
+   "fence": [
+    "rust",
+    "concrete_white",
+    "sign_green"
+   ],
+   "frame": "concrete_white",
+   "dress": {
+    "pools": 0,
+    "trees": 4,
+    "tree": [
+     "palm",
+     "palm",
+     "olive_tree"
+    ]
+   }
+  },
+  "water": {
+   "water": true,
+   "ground": {
+    "mosaic": [
+     [
+      "shore_ring",
+      0.34
+     ],
+     [
+      "gravel_grey",
+      0.3
+     ],
+     [
+      "gravel_red",
+      0.36
+     ]
+    ],
+    "blob_m": 8
+   },
+   "roof": [
+    "concrete_white",
+    "roof_grey",
+    "rust"
+   ],
+   "wall": [
+    "concrete_white",
+    "concrete_grey",
+    "rust",
+    "paint_teal"
+   ],
+   "fence": [
+    "rust",
+    "concrete_white"
+   ],
+   "frame": "concrete_white",
+   "dress": {
+    "pools": 0,
+    "trees": 3,
+    "tree": [
+     "palm",
+     "olive_tree"
+    ]
+   }
+  },
+  "industry": {
+   "ground": {
+    "mosaic": [
+     [
+      "weeds",
+      0.1
+     ],
+     [
+      "gravel_grey",
+      0.38
+     ],
+     [
+      "asphalt_patch",
+      0.22
+     ],
+     [
+      "rust",
+      0.12
+     ],
+     [
+      "gravel_red",
+      0.18
+     ]
+    ],
+    "blob_m": 12
+   },
+   "ground_more": [
+    {
+     "mosaic": [
+      [
+       "ballast",
+       0.6
+      ],
+      [
+       "rust_dark",
+       0.4
+      ]
+     ],
+     "blob_m": 3
+    }
+   ],
+   "roof": [
+    "rust",
+    "roof_grey",
+    "roof_white",
+    "rust_dark",
+    "paint_teal"
+   ],
+   "wall": [
+    "rust",
+    "block_grey",
+    "paint_blue",
+    "concrete_grey",
+    "rust_dark",
+    "paint_yellow",
+    "paint_red"
+   ],
+   "fence": [
+    "rust",
+    "block_grey"
+   ],
+   "frame": "concrete_white",
+   "dress": {
+    "pools": 0,
+    "trees": 2,
+    "tree": [
+     "olive_tree"
+    ]
+   }
+  },
+  "field": {
+   "fields": [
+    "crop_green",
+    "earth_red",
+    "crop_dead",
+    "lawn_wild",
+    "lawn_dry",
+    "weeds"
+   ],
+   "ground": {
+    "mosaic": [
+     [
+      "crop_green",
+      0.4
+     ],
+     [
+      "earth_red",
+      0.3
+     ],
+     [
+      "crop_dead",
+      0.3
+     ]
+    ],
+    "blob_m": 12
+   },
+   "roof": [
+    "rust",
+    "paint_red",
+    "roof_white"
+   ],
+   "wall": [
+    "paint_red",
+    "stucco_white",
+    "rust",
+    "concrete_grey"
+   ],
+   "fence": [
+    "rust",
+    "block_grey"
+   ],
+   "frame": "stucco_white",
+   "dress": {
+    "pools": 0,
+    "trees": 5,
+    "tree": [
+     "olive_tree",
+     "lawn_deep"
+    ]
+   }
+  },
+  "dump": {
+   "ground": {
+    "mosaic": [
+     [
+      "dirt",
+      0.24
+     ],
+     [
+      "rust",
+      0.2
+     ],
+     [
+      "trash_a",
+      0.14
+     ],
+     [
+      "trash_c",
+      0.14
+     ],
+     [
+      "trash_b",
+      0.14
+     ],
+     [
+      "trash_d",
+      0.14
+     ]
+    ],
+    "blob_m": 3
+   },
+   "roof": [
+    "rust",
+    "roof_grey"
+   ],
+   "wall": [
+    "rust",
+    "block_grey",
+    "trash_a"
+   ],
+   "fence": [
+    "rust"
+   ],
+   "frame": "concrete_grey",
+   "dress": {
+    "pools": 0,
+    "trees": 0,
+    "bushes": 8,
+    "bush": [
+     "trash_a",
+     "trash_b",
+     "trash_c",
+     "rust"
+    ]
+   }
+  }
+ },
+ "district_theme": {
+  "suburb": "house",
+  "apartment": "house",
+  "town": "house",
+  "trailer": "house",
+  "estate": "house",
+  "gated": "house",
+  "commercial": "block",
+  "mall": "block",
+  "convention": "block",
+  "cityhall": "block",
+  "courthouse": "block",
+  "library": "block",
+  "school": "block",
+  "medical": "block",
+  "firestation": "block",
+  "policestation": "block",
+  "jail": "block",
+  "prison": "block",
+  "downtown": "block",
+  "terminal": "block",
+  "battery": "block",
+  "datafort": "block",
+  "radio": "block",
+  "chapel": "glitz",
+  "resort": "glitz",
+  "casino": "glitz",
+  "strip": "glitz",
+  "strip_x": "glitz",
+  "stadium": "block",
+  "drivein": "block",
+  "minigp": "glitz",
+  "park": "green",
+  "golf": "green",
+  "cemetery": "green",
+  "ballpark": "green",
+  "campus": "green",
+  "speedway": "block",
+  "mountain": "rock",
+  "quarry": "rock",
+  "gypsum": "rock",
+  "desert": "desert",
+  "wash": "water",
+  "basin": "water",
+  "arterial": "road",
+  "arterial_x": "road",
+  "freeway": "road",
+  "interchange": "road",
+  "truckstop": "road",
+  "water": "water",
+  "reservoir": "water",
+  "intake": "water",
+  "watertreat": "water",
+  "waterpark": "water",
+  "dam": "water",
+  "pumpstation": "water",
+  "industrial": "industry",
+  "warehouse": "industry",
+  "storage": "industry",
+  "rail": "industry",
+  "railyard": "industry",
+  "solar": "industry",
+  "substation": "industry",
+  "fueldepot": "industry",
+  "arsenal": "industry",
+  "fort": "industry",
+  "reclaim": "green",
+  "farm": "field",
+  "granary": "field",
+  "landfill": "dump",
+  "swapmeet": "glitz",
+  "boneyard": "glitz"
+ },
+ "special": {
+  "solar": {
+   "win_wall": "solar_blue",
+   "win_frame": "solar_frame"
+  },
+  "golf": {
+   "bright_flat": "caliche"
+  },
+  "boneyard": {
+   "dress_neon": true
+  }
+ },
+ "mosaic_detail": 1.2,
+ "mosaic_interp": "LINEAR",
+ "_mosaic": "a ground is a soft field of close colours in metres (LINEAR between them, in this order), never hard blobs of far ones: hard blobs of red, grey and black read as camouflage (his NO on the casino carpet, 10/22)"
+}
