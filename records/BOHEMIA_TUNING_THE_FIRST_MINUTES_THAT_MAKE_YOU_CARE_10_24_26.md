@@ -182,7 +182,45 @@ this box; the seconds are how many screens and taps stand between NEW GAME and t
 
 ## 3. WHAT MAKES A WORLD FEEL GENERATED AT THE FIRST LOOK
 
-IN PROGRESS.
+Compton's rule decides this section (S9): only what he NOTICES counts. Ranked by how fast he notices it.
+
+1. **WHERE HE STANDS.** The loudest signal and the first one. Kenshi's start IS a place (the Hub, a random
+   waystation, rock bottom); Project Zomboid keeps one real map and moves the town and the house; Battle
+   Brothers sends the Southern Mercenaries south and gives the Militia a home village; RimWorld lets him pick
+   the spot on a whole planet. If the first glance is the same corner, every other change underneath reads
+   as the same game (S3: the first glance colours the rest).
+2. **WHAT IS NEXT TO HIM.** The nearest town, who holds it, and the two jobs it posts. Battle Brothers' three
+   noble houses are new each campaign "with a unique coat of arms, description and set of procedurally
+   generated leaders" (wiki). Ours: the same Church two blocks west, every time.
+3. **SOMETHING HAPPENED HERE BEFORE HE CAME.** Dwarf Fortress runs years of history before he settles; Caves
+   of Qud writes five sultans with 10 to 22 events each, new every world (src 19). A world feels generated
+   when it has a PAST he did not see happen: a burned seat, a convoy in a ditch, a dry standpipe with a
+   queue. One such sight, at his corner, from this world's own state, is worth more than a re-rolled street grid.
+4. **NAMES HE HAS NOT HEARD BEFORE.** New leaders, new faces, his own crew's names (RimWorld rolls three
+   colonists with a name, a childhood and an adult past; Shadows of Doubt names every citizen). Names are
+   cheap to roll and are read in the first minute.
+5. **THE WORLD'S STATE.** Who is at war with whom on day one, what water costs, which outfit holds the
+   fortress. Our posts already read the world's state ("5 outfits holding a fortress between them"), so a
+   new world would already post new lines.
+6. **THE SHAPE OF THE GROUND.** Coastlines, rivers, the Strip's side of centre. Real but slowest to notice:
+   he sees it on the zoomed-out map, not in the first ten seconds. It still matters on the second and third
+   game, when he starts to compare.
+7. **A NAME FOR THE WORLD.** Minecraft and Spelunky show the seed as a short string he can say and hand to a
+   friend. A valley with a name ("SIN CITY", our engine's own example) is a valley that is HIS.
+
+TWO GUARDS:
+- **KEEP WHAT MAKES IT VEGAS.** Caves of Qud keeps a few places fixed (Grit Gate) and rolls the rest; that is
+  our mix. His 7/5 ruling already keeps the Strip sacred, with the dam south, the mountains on the rim and
+  the solar field north (laws/BOHEMIA_ADDENDUM_VEGAS_GEOGRAPHY_7_4_26.md). Las Vegas is the city; the
+  valley rolls around its landmarks.
+- **CURATE BEFORE YOU TRUST THE DICE.** Compton kept a hand-picked list of good Spore seeds and dropped the
+  bad ones because it was faster than a better algorithm (src 10). A seed that puts the start four blocks from
+  a dire-wolf den is a different game, not a fresh one. Every start must pass a short test (section 5, change 1).
+
+THE TEST THAT SAYS IT WORKED (for EYES, by eye, and for PLUMBER, by machine): two new games side by side on
+the same origin. A stranger names three differences in the first ten seconds. The first screens differ by
+more than half their pixels once the walkers are masked (today 2.1%, all of it walkers). Across the fifteen
+origins the start corner differs in at least 13. Across ten seeds the first two jobs differ in at least nine.
 
 ## 4. OUR DEMO'S FIRST FIVE MINUTES AS IT STANDS, MEASURED
 
