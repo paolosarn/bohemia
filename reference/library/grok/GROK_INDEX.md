@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | WEAPONS | GROK_WEAPONS_DURABILITY_AND_BREAK_RULES_2026_10_24.md | melee lose 3 on armor hits, bows lose 2 per shot, Blacksmith saves broken
 - 2026-10-24 | GEAR | GROK_HELMETS_SHIELDS_DURABILITY_REPAIRS_2026_10_24.md | shields take 1 on block, Blacksmith saves broken, helmets like body armor
 - 2026-10-24 | ARMOR | GROK_ARMOR_ATTACHMENTS_AND_REPAIRS_2026_10_24.md | attachments one per body, tools 1 for 15 durability, repair rates
 - 2026-10-24 | COMBAT | GROK_HIT_DAMAGE_FORMULAS_UNDERBELLY_2026_10_24.md | hit chance, armor and HP damage, zone of control, AP and fatigue
