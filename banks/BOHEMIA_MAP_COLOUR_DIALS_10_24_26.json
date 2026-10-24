@@ -1201,6 +1201,60 @@
     ]
    },
    "_why": "the park's and the springs' own trees are tiered boxes in the factory: in the green theme they took stucco and tile and came out pink and cream (10/24); here everything that stands is foliage"
+  },
+  "gypsum": {
+   "rock": true,
+   "ground": {
+    "mosaic": [
+     [
+      "gravel_grey",
+      0.3
+     ],
+     [
+      "caliche",
+      0.4
+     ],
+     [
+      "gravel_white",
+      0.3
+     ]
+    ],
+    "blob_m": 18
+   },
+   "bands": [
+    "basalt_grey",
+    "limestone",
+    "gravel_white",
+    "caliche",
+    "limestone",
+    "gravel_white",
+    "caliche",
+    "caliche"
+   ],
+   "roof": [
+    "caliche",
+    "gravel_white",
+    "limestone"
+   ],
+   "wall": [
+    "limestone",
+    "basalt_grey",
+    "rust"
+   ],
+   "fence": [
+    "basalt"
+   ],
+   "frame": "limestone",
+   "dress": {
+    "pools": 0,
+    "trees": 0,
+    "bushes": 10,
+    "bush": [
+     "creosote",
+     "basalt"
+    ]
+   },
+   "_why": "gypsum is white: in the rock theme the gypsum works came out red rock (10/24)"
   }
  },
  "district_theme": {
@@ -1243,7 +1297,7 @@
   "speedway": "block",
   "mountain": "rock",
   "quarry": "rock",
-  "gypsum": "rock",
+  "gypsum": "gypsum",
   "desert": "desert",
   "wash": "water",
   "basin": "water",
