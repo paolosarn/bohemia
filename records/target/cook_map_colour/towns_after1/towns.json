@@ -1,0 +1,60 @@
+{
+ "label": "after1",
+ "stops": {
+  "z1_district": {
+   "czoom": 0.5,
+   "towns": 13,
+   "edgeOff": true,
+   "shots": [
+    "records/target/cook_map_colour/towns_after1/z1_district_Blues.png",
+    "records/target/cook_map_colour/towns_after1/z1_district_Caravans.png",
+    "records/target/cook_map_colour/towns_after1/z1_district_Cartel.png",
+    "records/target/cook_map_colour/towns_after1/z1_district_Church.png",
+    "records/target/cook_map_colour/towns_after1/z1_district_Colorful.png",
+    "records/target/cook_map_colour/towns_after1/z1_district_Custom.png"
+   ]
+  },
+  "z2_opening": {
+   "czoom": 1,
+   "towns": 10,
+   "edgeOff": true,
+   "shots": [
+    "records/target/cook_map_colour/towns_after1/z2_opening_Blues.png",
+    "records/target/cook_map_colour/towns_after1/z2_opening_Cartel.png",
+    "records/target/cook_map_colour/towns_after1/z2_opening_Church.png",
+    "records/target/cook_map_colour/towns_after1/z2_opening_Colorful.png",
+    "records/target/cook_map_colour/towns_after1/z2_opening_Custom.png",
+    "records/target/cook_map_colour/towns_after1/z2_opening_Mob.png"
+   ]
+  },
+  "z3_mid": {
+   "czoom": 1.8,
+   "towns": 6,
+   "edgeOff": true,
+   "shots": [
+    "records/target/cook_map_colour/towns_after1/z3_mid_Cartel.png",
+    "records/target/cook_map_colour/towns_after1/z3_mid_Church.png",
+    "records/target/cook_map_colour/towns_after1/z3_mid_Custom.png",
+    "records/target/cook_map_colour/towns_after1/z3_mid_Mob.png",
+    "records/target/cook_map_colour/towns_after1/z3_mid_Network.png",
+    "records/target/cook_map_colour/towns_after1/z3_mid_Volunteers.png"
+   ]
+  },
+  "z4_step": {
+   "czoom": 2.6,
+   "towns": 1,
+   "edgeOff": true,
+   "shots": [
+    "records/target/cook_map_colour/towns_after1/z4_step_Church.png"
+   ]
+  },
+  "z5_near": {
+   "czoom": 4.7407407407407405,
+   "towns": 1,
+   "edgeOff": true,
+   "shots": [
+    "records/target/cook_map_colour/towns_after1/z5_near_Church.png"
+   ]
+  }
+ }
+}
