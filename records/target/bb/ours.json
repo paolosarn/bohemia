@@ -1235,5 +1235,18 @@
   "quote": "when I die it was very hard to tell what happened next... if everyone in the party dies or gets down you're still where you were before you entered the battle and it just feels clunky... literally your whole squad got wiped, that's pretty important",
   "why": "COMBAT [the loss is understood] 10/24: the wipe's beat on the board before the recap: the head at once, then one line of what happened a beat (beats_per_line), the last line what comes next, held hold_beats; at 120 BPM a five-line wipe reads in five seconds, then the recap's own four beats. Drafts for TUNING, tuned:false.",
   "tuned": false
+ },
+ "odds_colour": {
+  "value": {
+   "turn": 0.8,
+   "glow_at": 0.92,
+   "down_value": 0.5,
+   "alpha_min": 0.18,
+   "alpha_max": 0.62
+  },
+  "source": "VAMILY.md rule 144(b)(e)(f)(g) (Paolo 10/24); amends 141(a)'s 'letting me know your percentage'",
+  "quote": "I wouldn't press AUTO unless I'm guaranteed none of my members would die... maybe we don't show the percentages, a number in the background the player never sees, they only see the colour... varying levels of the colour on a scale, not five colours... if any members die during your projections, then that's leaning towards red... I don't want clear; if it's clear, could go either way, that means it's gonna be risky",
+  "why": "COMBAT [the auto button wears the odds] 10/24: each of the 24 runs played out from the board as it stands is worth 1 won with nobody down or dead, down_value x the share still standing when won with men down and none dead, 0 lost or with any death; the worth's mean is the hidden number. At or over turn the AUTO tin is tinted green, under it red, each side from alpha_min (never clear) to alpha_max at its end (readable in the sun); the beat's light only at glow_at or over (and one tap then finishes the fight, as before). A fight that is merely even (0.5) reads red. Drafts for TUNING, tuned:false.",
+  "tuned": false
  }
 }

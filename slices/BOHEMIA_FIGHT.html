@@ -69,6 +69,10 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #speedpad .sp{width:34px;height:30px;padding:0;font:inherit;font-size:11px;letter-spacing:.5px}
 #bauto{position:relative}
 #bauto .odds{display:block;font-size:8px;letter-spacing:.3px;margin-top:2px;opacity:.9}
+/* THE AUTO BUTTON WEARS THE ODDS (COMBAT [the auto button wears the odds], rule 144(b)(e)(f)(g)): a tint over the tin, its own
+   layer (the tin untouched), green for a likely clean win, red for everything else, deeper as it gets surer; no number */
+#bauto .tint{position:absolute;inset:0;border-radius:2px;pointer-events:none;background-color:rgba(0,0,0,0);transition:background-color .7s linear;mix-blend-mode:multiply}
+#bauto .lbl{position:relative}
 #bauto.glow::after{content:'';position:absolute;inset:-3px;border-radius:6px;pointer-events:none;border:2px solid #f0b04a;
   box-shadow:0 0 10px 2px rgba(240,176,74,.55);animation:autoGlow var(--beat,500ms) steps(1,end) infinite}
 @keyframes autoGlow{0%{opacity:1}62%{opacity:.35}}
@@ -3420,7 +3424,7 @@ function skipTurn() {
          opens again (the shell hears BOHEMIA_FIGHT_KEPT and BOHEMIA_FIGHT_RESUMED);
    and the speed control: one pane of the map's own speed pad (the kit's tin, UI's), 1x / 2x / 3x, kept on the phone. */
 const THEIRS_PACE = 2, SPEEDS = [1, 2, 3], FINISH_PACE = 3, SPEED_KEY = 'bohemia.fight.speed';
-const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_GLOW = 80, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000;
+const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000;
 const KEPT_KEY = 'bohemia.fight.kept.v1', KEPT_HOURS = 6;
 function paceNow() {
   if (UI.finish) return FINISH_PACE;
@@ -3468,8 +3472,20 @@ function backIcon(css) {   /* a boot print walking back along a chalk arrow, in 
 }
 /* (a) the odds: a second copy of these rules, fed the board as it stands, played out on AUTO a slice at a time; the real die
    is put back after every slice, so the fight he plays rolls exactly what it would have */
-const ODDS = { F: null, key: null, runs: 0, won: 0, live: false, snap: null, seed: 0, steps: 0 };
-function oddsReset() { ODDS.key = null; ODDS.runs = 0; ODDS.won = 0; ODDS.live = false; ODDS.snap = null; }
+const ODDS = { F: null, key: null, runs: 0, won: 0, sum: 0, clean: 0, live: false, snap: null, seed: 0, steps: 0, shown: null };
+function oddsReset() { ODDS.key = null; ODDS.runs = 0; ODDS.won = 0; ODDS.sum = 0; ODDS.clean = 0; ODDS.live = false; ODDS.snap = null; ODDS.shown = null; }
+/* THE ODDS COUNT CASUALTIES (rule 144(e)(f), Paolo 10/24: 'there's a difference between winning with one character left standing
+   at one HP and winning without taking a single casualty... if any members die during your projections, that's leaning towards
+   red'): each run played out is worth 1 when won with nobody of his down or dead, ours.odds_colour.down_value times the share of
+   his still standing when won with men down but none dead, and 0 when lost or when any of his died. The worth is the number
+   in the background; the player sees only its colour. */
+function oddsRunValue(E) {
+  if (E.S.result !== 'won') return 0;
+  const mine = E.S.units.filter(function (v) { return v.side === 'you'; });
+  if (mine.some(function (v) { return v.dead; })) return 0;
+  const down = mine.filter(function (v) { return v.down || v.fled; }).length;
+  return down ? R('ours.odds_colour').down_value * (mine.length - down) / Math.max(1, mine.length) : 1;
+}
 function oddsEngine() {
   if (ODDS.F === null) { try { ODDS.F = new Function(document.getElementById('fight-rules').textContent + '\nreturn FIGHT;')(); } catch (_e) { ODDS.F = false; } }
   return ODDS.F || null;
@@ -3478,7 +3494,7 @@ function oddsTick(now) {
   const S = FIGHT.S, u = FIGHT.current(), o = window.FIGHT_OPTS || {};
   if (o.odds === false || !UI.board || S.over || S.deploy || UI.auto || !crewControlled(u) || UI.anim.length || now < UI.openUntil) return;
   const k = turnKeyOf(u) + ':' + S.log.length;
-  if (k !== ODDS.key) { ODDS.key = k; ODDS.runs = 0; ODDS.won = 0; ODDS.live = false; ODDS.snap = FIGHT.freeze(); ODDS.seed = (SEED ^ 0x9e3779b9) >>> 0; }
+  if (k !== ODDS.key) { ODDS.key = k; ODDS.runs = 0; ODDS.won = 0; ODDS.sum = 0; ODDS.clean = 0; ODDS.live = false; ODDS.snap = FIGHT.freeze(); ODDS.seed = (SEED ^ 0x9e3779b9) >>> 0; }
   if (ODDS.runs >= ODDS_RUNS) return;
   const E = oddsEngine(); if (!E) return;
   const real = SEED, t0 = performance.now(); SEED = ODDS.seed;
@@ -3486,17 +3502,33 @@ function oddsTick(now) {
     while (performance.now() - t0 < ODDS_SLICE_MS && ODDS.runs < ODDS_RUNS) {
       if (!ODDS.live) { E.thaw(ODDS.snap, false); E.S.deploy = false; ODDS.live = true; ODDS.steps = 0; }
       const v = E.current();
-      if (E.S.over || !v || ODDS.steps > ODDS_STEPS) { if (E.S.result === 'won') ODDS.won++; ODDS.runs++; ODDS.live = false; continue; }
+      if (E.S.over || !v || ODDS.steps > ODDS_STEPS) { if (E.S.result === 'won') ODDS.won++; const w = E.S.over ? oddsRunValue(E) : 0; ODDS.sum += w; if (w === 1) ODDS.clean++; ODDS.runs++; ODDS.live = false;
+        if (ODDS.runs >= ODDS_SHOW) ODDS.shown = ODDS.sum / ODDS.runs;   /* the colour moves only on a full enough read: it never flickers through a fresh turn */
+        continue; }
       E.aiStep(v); E.S.events = []; ODDS.steps++;
     }
-  } catch (_e) { ODDS.runs = ODDS_RUNS; ODDS.won = 0; ODDS.broke = String(_e && _e.message || _e); }   /* a copy that cannot play reads nothing */
+  } catch (_e) { ODDS.runs = ODDS_RUNS; ODDS.won = 0; ODDS.sum = 0; ODDS.shown = null; ODDS.broke = String(_e && _e.message || _e); }   /* a copy that cannot play reads nothing */
   ODDS.seed = SEED; SEED = real;
 }
-function oddsPct() { return ODDS.runs >= ODDS_SHOW ? Math.round(100 * ODDS.won / ODDS.runs) : null; }
-function oddsGlow() { const p = oddsPct(); return p !== null && p >= ODDS_GLOW && !UI.auto && !FIGHT.S.over && !FIGHT.S.deploy && crewControlled(FIGHT.current()); }
+/* the worth in the background, 0..1, the last full read (it holds through his men's moves and their turn until a new one is full) */
+function oddsValue() { return ODDS.shown; }
+function oddsPct() { const v = oddsValue(); return v === null ? null : Math.round(100 * v); }   /* the background number: never printed (144(e)) */
+/* the beat's light rides only the deepest green (144(b)): a clean win nearly certain */
+function oddsGlow() { const v = oddsValue(); return v !== null && v >= R('ours.odds_colour').glow_at && !UI.auto && !FIGHT.S.over && !FIGHT.S.deploy && crewControlled(FIGHT.current()); }
+/* ONE CONTINUOUS SCALE, NO CLEAR MIDDLE (144(e)(g)): at or over ours.odds_colour.turn it is green, deepening to the top; under it,
+   red, deepening to a sure loss; each side starts at alpha_min, so no read is ever clear; 'could go either way' is red */
+function oddsTint(v) {
+  if (v === null) return null;
+  const C = R('ours.odds_colour'), span = C.alpha_max - C.alpha_min;
+  if (v >= C.turn) return { green: true, a: C.alpha_min + span * Math.min(1, (v - C.turn) / Math.max(1e-6, 1 - C.turn)) };
+  return { green: false, a: C.alpha_min + span * Math.min(1, (C.turn - v) / Math.max(1e-6, C.turn)) };
+}
 function autoFace() {
-  const b = document.getElementById('bauto'), g = oddsGlow(), p = oddsPct(), want = g ? 'AUTO|' + p : UI.finish ? 'FINISH' : 'AUTO';
-  if (b.dataset.face !== want) { b.dataset.face = want; b.innerHTML = g ? 'AUTO<span class="odds">WIN ' + p + '%</span>' : UI.finish ? 'AUTO<span class="odds">FINISHING</span>' : 'AUTO'; }
+  const b = document.getElementById('bauto'), g = oddsGlow(), want = UI.finish ? 'FINISH' : 'AUTO';
+  if (b.dataset.face !== want) { b.dataset.face = want; b.innerHTML = '<i class="tint"></i><span class="lbl">AUTO' + (UI.finish ? '<span class="odds">FINISHING</span>' : '') + '</span>'; b.dataset.tint = ''; }
+  const t = UI.auto || FIGHT.S.over || FIGHT.S.deploy ? null : oddsTint(oddsValue()), tk = t ? (t.green ? 'g' : 'r') + t.a.toFixed(2) : '';
+  if (b.dataset.tint !== tk) { b.dataset.tint = tk; const el = b.querySelector('.tint');
+    if (el) el.style.backgroundColor = t ? (t.green ? 'rgba(46,160,67,' : 'rgba(208,48,32,') + t.a.toFixed(3) + ')' : 'rgba(0,0,0,0)'; }
   b.classList.toggle('glow', g); if (g) { b.style.setProperty('--beat', beatMs() + 'ms'); teachSoon('auto'); }
 }
 /* (e) the fight kept: one copy on the phone, the start of his last turn; the same fight (the same hand-over) reads it back */

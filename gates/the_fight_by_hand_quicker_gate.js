@@ -10,8 +10,9 @@
    and on his phone's profile (390 x 844 at 3x, touch), the real page:
    3. THE ODDS READ AND THE DIE UNTOUCHED: on his turn the odds are read inside a person's decision (2.65 s, the
       Keystroke-Level Model), and the real die is exactly where it was;
-   4. AUTO GLOWS AT 80 AND ONE TAP FINISHES: a fight he wins on AUTO 80 in 100 or better lights AUTO with the number; one tap
-      plays the rest on AUTO at the top pace to the recap; a fight he cannot win does not glow;
+   4. AUTO WEARS THE ODDS AND ONE TAP FINISHES (re-aimed 10/24 by rule 144(b)(e)(f)(g)): a clean win nearly certain tints AUTO
+      green and lights it on the beat, with NO number on it; one tap plays the rest on AUTO at the top pace to the recap; a fight
+      he cannot win reads red and does not glow; a death in a run pulls it red; an even fight reads red (no clear middle);
    5. THEIR TURNS AT DOUBLE PACE: on their turn the beat the motion keeps is half his;
    6. A TAP SKIPS HIS WALK: a tap while his man walks puts him at the walk's end inside a quarter beat;
    7. TAKE BACK THE LAST STEP, ONCE A TURN, NEVER A DIE: a walk that rolled nothing shows BACK; BACK puts him where he stood
@@ -70,13 +71,15 @@ leg(endA === endB, '*** THE FIGHT KEPT: FROZEN TO PLAIN DATA AND THAWED, THE SAM
     const p = d.page; await mine(p);
     const s0 = await p.evaluate(() => ({ seed: SEED, t: performance.now() }));
     await p.waitForFunction(() => ODDS.runs >= ODDS_RUNS || ODDS.broke, null, { timeout: 20000 }).catch(() => {});
-    const o = await p.evaluate(() => ({ seed: SEED, runs: ODDS.runs, won: ODDS.won, broke: ODDS.broke || '', pct: oddsPct(), glow: document.getElementById('bauto').classList.contains('glow'),
-      face: document.getElementById('bauto').innerText.replace(/\s+/g, ' ').trim(), showAt: null, t: performance.now() }));
+    const o = await p.evaluate(() => ({ seed: SEED, runs: ODDS.runs, won: ODDS.won, clean: ODDS.clean, broke: ODDS.broke || '', pct: oddsPct(), glow: document.getElementById('bauto').classList.contains('glow'),
+      face: document.getElementById('bauto').innerText.replace(/\s+/g, ' ').trim(), tint: (document.querySelector('#bauto .tint') || {}).style ? document.querySelector('#bauto .tint').style.backgroundColor : '', showAt: null, t: performance.now() }));
     const readMs = await p.evaluate(() => null);
     leg(o.runs >= 12 && !o.broke && o.seed === s0.seed && o.t - s0.t < 20000,
       '*** THE ODDS ARE READ ON HIS TURN, AND THE REAL DIE IS EXACTLY WHERE IT WAS ***', o.runs + ' played out, ' + o.won + ' won; the die ' + (o.seed === s0.seed ? 'untouched' : 'MOVED') + (o.broke ? '; BROKE ' + o.broke : ''));
     /* the read inside a person's decision: a fresh turn, the clock from his turn to ODDS_SHOW */
-    leg(o.glow && o.pct >= 80 && /AUTO/.test(o.face) && new RegExp(o.pct + '%').test(o.face), '*** AT 80 IN 100 OR BETTER AUTO GLOWS, WITH THE NUMBER ON IT ***', 'reads ' + o.pct + '%, "' + o.face + '", glow ' + o.glow);
+    /* RE-AIMED 10/24 by rule 144(e) (Paolo: 'a number in the background the player never sees, they only see the colour'): the
+       glow rides a near-certain CLEAN win, the tin wears green, and no number is on it */
+    leg(o.glow && /^rgba\(46, 160, 67/.test(o.tint) && o.face === 'AUTO' && !/%|\d/.test(o.face), '*** A CLEAN WIN NEARLY CERTAIN: AUTO GLOWS GREEN, WITH NO NUMBER ON IT ***', 'worth ' + o.pct + ' in the background (' + o.clean + ' of ' + o.runs + ' clean), tint ' + o.tint + ', face "' + o.face + '", glow ' + o.glow);
     const a = await p.evaluate(() => { const r = document.getElementById('bauto').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     await p.touchscreen.tap(a.x, a.y); await p.waitForTimeout(200);
     const f0 = await p.evaluate(() => ({ auto: FIGHT_UI.auto, finish: FIGHT_UI.finish, pace: paceNow(), t: performance.now() }));
@@ -93,8 +96,16 @@ leg(endA === endB, '*** THE FIGHT KEPT: FROZEN TO PLAIN DATA AND THAWED, THE SAM
     const d = await boot({ seed: 22, speed: 1, kind: 'suburb', flat: true, deploy: false, formation: null, company: CREW3.slice(0, 1), cap: 1, band: Array(5).fill('brigand_thug'), teach: false });
     const p = d.page; await mine(p);
     await p.waitForFunction(() => ODDS.runs >= ODDS_RUNS || ODDS.broke, null, { timeout: 20000 }).catch(() => {});
-    const o = await p.evaluate(() => ({ pct: oddsPct(), glow: document.getElementById('bauto').classList.contains('glow') }));
-    leg(o.pct !== null && o.pct < 80 && !o.glow, '  a fight he cannot win on AUTO does not glow', 'reads ' + o.pct + '%, glow ' + o.glow);
+    const o = await p.evaluate(() => ({ pct: oddsPct(), glow: document.getElementById('bauto').classList.contains('glow'), tint: document.querySelector('#bauto .tint').style.backgroundColor, face: document.getElementById('bauto').innerText.trim() }));
+    leg(o.pct !== null && o.pct < 80 && !o.glow && /^rgba\(208, 48, 32/.test(o.tint) && !/%/.test(o.face), '  a fight he cannot win on AUTO reads RED and does not glow', 'worth ' + o.pct + ', tint ' + o.tint + ', glow ' + o.glow);
+    /* A DEATH PULLS RED (144(f)) and the scale has no clear middle (144(g)): the run's worth and the colour, on the page's own functions */
+    const w = await p.evaluate(() => { const fake = (res, marks) => ({ S: { result: res, units: marks.map(m => ({ side: 'you', dead: m === 'dead', down: m === 'down', fled: false })) } });
+      const T = v => { const t = oddsTint(v); return (t.green ? 'G' : 'R') + t.a.toFixed(2); };
+      return { clean: oddsRunValue(fake('won', ['ok', 'ok', 'ok'])), down: oddsRunValue(fake('won', ['ok', 'down', 'ok'])), dead: oddsRunValue(fake('won', ['ok', 'dead', 'ok'])), lost: oddsRunValue(fake('lost', ['down', 'down', 'down'])),
+        even: T(0.5), turn: T(R('ours.odds_colour').turn), top: T(1), bottom: T(0), minA: R('ours.odds_colour').alpha_min }; });
+    leg(w.clean === 1 && w.down > 0 && w.down < 1 && w.dead === 0 && w.lost === 0, '  A DEATH PULLS RED: a clean win 1, a win with a man down between, a win with a death 0, a loss 0', JSON.stringify({ clean: w.clean, down: w.down, dead: w.dead, lost: w.lost }));
+    leg(/^R/.test(w.even) && /^G/.test(w.turn) && parseFloat(w.turn.slice(1)) >= w.minA && parseFloat(w.top.slice(1)) > parseFloat(w.turn.slice(1)) && parseFloat(w.bottom.slice(1)) > parseFloat(w.even.slice(1)),
+      '  NO CLEAR MIDDLE: an even fight reads red, the turn is already tinted, both ends the deepest', JSON.stringify(w));
     errs.push.apply(errs, d.errs); await d.close();
   }
   /* 5, 6, 7, 8, 9: three of his, one thug far off */
