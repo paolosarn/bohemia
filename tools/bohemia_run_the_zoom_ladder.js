@@ -46,14 +46,17 @@ async function main() {
     L.bounds = zb;
     const read = () => fr.evaluate(() => {
       const r = { czoom: +CZOOM.toFixed(3), tw: +TW.toFixed(1), mode: MODE, sky: !!(typeof SKY !== 'undefined' && SKY), look: !!(typeof LOOK !== 'undefined' && LOOK.on) };
-      try { r.paintedAlpha = (TW >= VB_CITY_NONE) ? 0 : +vbCityAlpha().toFixed(2); } catch (e) { r.paintedAlpha = null; }
-      try { r.blocks = !!(typeof __MAP_BLOCKS_DREW !== 'undefined' ? __MAP_BLOCKS_DREW : (TW > VB_CITY_HOLD)); } catch (e) { r.blocks = null; }
+      const one = typeof VB_ONE_MAP !== 'undefined' && VB_ONE_MAP;
+      try { r.paintedAlpha = (!one && TW >= VB_CITY_NONE) ? 0 : +vbCityAlpha().toFixed(2); } catch (e) { r.paintedAlpha = null; }
+      try { r.blocks = (typeof window.__MAP_BLOCKS_DREW !== 'undefined') ? !!window.__MAP_BLOCKS_DREW : (TW > VB_CITY_HOLD); } catch (e) { r.blocks = null; }
+      try { r.tiles = window.VBT ? { landed: VBT.landed, held: VBT.tiles.size, S: VBT.S, waiting: VBT.want | 0 } : null; } catch (e) { r.tiles = null; }
       return r; });
     const shots = [];
     for (let i = 0; i <= STEPS; i++) {
       const z = zb[0] * Math.pow(zb[1] / zb[0], i / STEPS);
       await fr.evaluate((z) => { ZGEST.fresh = true; setZoomAt(z); }, z);
-      await page.waitForTimeout(1600);
+      /* the sharper tiles land in the worker; give the glass the time a person gives it (up to 8 s), then the picture */
+      for (let k = 0; k < 16; k++) { await page.waitForTimeout(500); const w = await fr.evaluate(() => window.VBT ? (VBT.want | 0) + (VBT.busy ? 1 : 0) : 0).catch(() => 0); if (k >= 2 && !w) break; }
       const f = path.join(TMP, 's' + String(i).padStart(2, '0') + '.png');
       await d.shot(f);
       const r = await read(); r.i = i; L.steps.push(r); shots.push(f);
@@ -81,7 +84,7 @@ for n, im in enumerate(ims):
     S.paste(im.resize((tw, th), Image.LANCZOS), (x, y + 18)); dr.text((x + 4, y + 3), labs[n], fill=(230, 220, 190))
 S.save(sys.argv[3], 'WEBP', quality=80)
 `;
-    const labs = L.steps.map((s) => (s.i === 'past the closest' ? 'PAST CLOSEST ' : 'z' + s.czoom + ' ') + 'block ' + s.tw + 'px' + (s.look ? ' LOOK' : '') + (s.sky ? ' SKY' : '') + ' paint ' + s.paintedAlpha);
+    const labs = L.steps.map((s) => (s.i === 'past the closest' ? 'PAST CLOSEST ' : 'z' + s.czoom + ' ') + 'block ' + s.tw + 'px' + (s.look ? ' LOOK' : '') + (s.sky ? ' SKY' : '') + (s.blocks ? ' OLD BLOCKS' : '') + (s.tiles && s.tiles.held ? ' tiles@' + s.tiles.S : '') + ' paint ' + s.paintedAlpha);
     cp.execFileSync('python3', ['-c', py, JSON.stringify(shots), JSON.stringify(labs), out]);
     L.sheet = path.relative(ROOT, out);
     console.log('  sheet ' + L.sheet);

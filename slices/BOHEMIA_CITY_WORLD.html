@@ -44386,6 +44386,7 @@ function crewBillNight(){
   }
   BILL.last = { day: loopDay(), crew: crew, due: due, paid: paid, short: due - paid, walked: walked ? walked.name : null };
   window.__BILL_NIGHTS = (window.__BILL_NIGHTS | 0) + 1;
+  try{ setTimeout(function(){ saveNow('night'); }, 0); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: the night */
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(walked ? (walked.name + ' walked: no batteries for food.') : ('The crew ate: ' + paid + ' batteries.'), 'bill'); }catch(_e){}   /* draft:true */
   try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thecrew', txt: walked ? (walked.name + ' is gone. Sin baterías no hay comida.') : ('Ate tonight. ' + paid + ' batteries. ' + billDaysLeft() + ' days left like this.'), kind: 'mine', draft: true }); }catch(_e){}
   billPublish();
@@ -44471,6 +44472,7 @@ function loopOpenTown(t){
   var f = loopFrame(); f.style.display = 'block';
   try{ travelStop(); }catch(_e){}
   if(LOOP.ready) loopPostOpen();
+  try{ saveNow('town:' + t.name); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: a town reached */
 }
 function loopClose(){ if(LOOP.frame) LOOP.frame.style.display = 'none'; LOOP.open = null; try{ render(); }catch(_e){} }
 /* where a contract's crew waits: a block he can stand on, six to ten out from the town,
@@ -44538,6 +44540,7 @@ window.addEventListener('message', function(ev){
   if(d.act !== 'contract') loopSettleBats(d.batteries, 'settlement: ' + d.act);
   if(d.act === 'contract') loopTakeContract(d.contract || null);
   if(d.act === 'leave') loopClose();
+  try{ saveNow('settlement:' + d.act); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: a hire, a buy, a job taken, the way out */
   try{ if(typeof updHud === 'function') updHud(); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
 });
@@ -44620,6 +44623,7 @@ window.addEventListener('message', function(ev){
     line = 'The job is lost: ' + job.title + '. Nobody pays for that.';               /* draft:true */
   }
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(line, 'contract'); }catch(_e){}
+  try{ saveNow('fight:' + (won ? 'won' : 'lost')); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: a fight's end */
   setTimeout(function(){ loopSay(line);
     try{ if(typeof updHud === 'function') updHud(); }catch(_e){} try{ render(); }catch(_e){}
     try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){} }, 600);   /* the bar's battery number */
@@ -44772,7 +44776,9 @@ function setZoomAt(z,pvx,pvy){
      has no fingers, so for it a 250 ms gap is a new gesture */
   { const __now=performance.now(); if(ZGEST.fresh||(!ZGEST.down&&__now-ZGEST.t>250)){ ZGEST.fresh=false; ZGEST.z0=CZOOM; ZGEST.s0=(typeof LOOK!=='undefined'&&LOOK.on)?LOOK.s:null; } ZGEST.t=__now; }
   if(typeof LOOK!=='undefined'&&LOOK.on){ lookZoom(z/CZOOM); return; }
-  if(__demoMap&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&Math.abs(ZGEST.z0-zmax)<1e-3){ SEAM_GUARD=true; lookEnter(); return; }
+  /* __ONE_MAP_AT_EVERY_ZOOM__ (rule 142): past the near stop the demo map STOPS, like any camera; the old block close-up
+     (LOOK, the walk's street in its tiles: his 'skeleton, ugly old 2D rough-draft') is not opened from the map he plays */
+  if(__demoMap&&!VB_ONE_MAP&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&Math.abs(ZGEST.z0-zmax)<1e-3){ SEAM_GUARD=true; lookEnter(); return; }
   if(!__demoMap&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){
     SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: and so is pinching back in */
     SEAM_GUARD=true;
@@ -46439,19 +46445,23 @@ function vbSubOf(d){
 function vbCityCore(inp){
   var t0 = performance.now();
   var N = inp.N, S = inp.S, PAD = inp.PAD, D = N + 2 * PAD, P = D * S, sd = ((inp.seed | 0) ^ 0x7c1d) >>> 0;
+  /* __ONE_MAP_AT_EVERY_ZOOM__ (RUN 10/24): a TILE of the city is this same painting of a piece of it: org is the piece's
+     corner in the valley's blocks and NF the valley's size, and every roll below is made on the valley's own coordinates,
+     so a house stands where it stands in the whole painting, only drawn with more texels (Q scales every size) */
+  var X0 = inp.org ? inp.org[0] | 0 : 0, Y0 = inp.org ? inp.org[1] | 0 : 0, NF = inp.NF || N, XS = X0 * S, YS = Y0 * S, HP = inp.hashPad != null ? inp.hashPad : PAD;
   /* the picture was drawn at 12 texels a block; Q scales every size in it, so a finer S is the same city at more pixels (RUN 10/19) */
   var Q = Math.max(1, Math.round(S / 12));
   var C = {}; for (var k in VB_CCOL) C[k] = vbHex(VB_CCOL[k]);
   var cls = inp.cls, live = inp.live;
-  function clsAt(x, y){ return (x < 0 || y < 0 || x >= N || y >= N) ? -1 : cls[y * N + x]; }
+  function clsAt(x, y){ if (x < 0 || y < 0 || x >= N || y >= N) return -1; var c0 = cls[y * N + x]; return c0 === 255 ? -1 : c0; }   /* 255: past the valley's edge, in a tile (__ONE_MAP_AT_EVERY_ZOOM__) */
   /* the rim's height, continuous with the ranges outside: a blurred mountain mask, rising to the far
      edges and falling to the near ones (the near side never stands up as a wall in front of the city) */
   var MH = new Float32Array(N * N);
   for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
     if (cls[y * N + x] !== VB_CLASS.mountain) continue;
     var cnt = 0, tot = 0; for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++) { var c = clsAt(x + dx, y + dy); if (c < 0) continue; tot++; if (c === VB_CLASS.mountain) cnt++; }
-    var near = Math.min(N - 1 - x, N - 1 - y) + 0.5;
-    MH[y * N + x] = (cnt / tot) * (1.2 + 3.6 * vbFbm(x / 7, y / 7, sd + 3)) * vbSm(0, 3, near);
+    var near = Math.min(NF - 1 - (x + X0), NF - 1 - (y + Y0)) + 0.5;
+    MH[y * N + x] = (cnt / tot) * (1.2 + 3.6 * vbFbm((x + X0) / 7, (y + Y0) / 7, sd + 3)) * vbSm(0, 3, near);
   }
   var HS = new Float32Array(P * P), COLI = new Int32Array(P * P).fill(-1);
   /* per texel: the colour index and the lift (texels). Colour index = class * 16 + part */
@@ -46468,7 +46478,9 @@ function vbCityCore(inp){
      (one sweep, the shadow falling down-right on the glass), which is what reads as height from above. */
   var T = Q / 2, FWY = function (c){ return c === VB_CLASS.freeway; };
   for (var cy = 0; cy < N; cy++) for (var cx = 0; cx < N; cx++) {
-    var cl = cls[cy * N + cx], h0 = vbHash(cx, cy, sd), h1 = vbHash(cy, cx, sd + 1), h2 = vbHash(cx + 7, cy + 3, sd + 2);
+    var gx = cx + X0, gy = cy + Y0;   /* __ONE_MAP_AT_EVERY_ZOOM__: the valley's own block */
+    if (cls[cy * N + cx] === 255) continue;   /* past the valley's edge: nothing, like the whole painting's pad */
+    var cl = cls[cy * N + cx], h0 = vbHash(gx, gy, sd), h1 = vbHash(gy, gx, sd + 1), h2 = vbHash(gx + 7, gy + 3, sd + 2);
     var burned = (cl === VB_CLASS.houses || cl === VB_CLASS.roof) && h2 < 0.16;   /* act one is the ruin */
     var horiz = (clsAt(cx - 1, cy) === cl || clsAt(cx + 1, cy) === cl), vert = (clsAt(cx, cy - 1) === cl || clsAt(cx, cy + 1) === cl);
     /* the berm's banks: which sides of a freeway block meet ground that is not freeway (__THE_MAP_STANDS_UP__) */
@@ -46480,7 +46492,7 @@ function vbCityCore(inp){
     if (sb === VB_SUB.shop) nBox = Math.min(nBox, 2);
     for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
       var qx = (tx / Q) | 0, qy = (ty / Q) | 0;
-      var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u, v, sd + 5), rq = Q === 1 ? r : vbHash(((cx + PAD) * 12 + qx), ((cy + PAD) * 12 + qy), sd + 5);
+      var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u + XS, v + YS, sd + 5), rq = Q === 1 ? r : vbHash(((gx + HP) * 12 + qx), ((gy + HP) * 12 + qy), sd + 5);
       switch (cl) {
         case VB_CLASS.road: case VB_CLASS.freeway: case VB_CLASS.blvd: {
           var along = (horiz && !vert) ? qy : (vert && !horiz) ? qx : -1, mid = 6, SQ = 12;
@@ -46498,7 +46510,7 @@ function vbCityCore(inp){
         case VB_CLASS.houses: if (sb === VB_SUB.trailer) {
           /* __THE_DISTRICTS_READ_APART__ (10/23): a trailer park is rows of long low boxes on gravel, a lane between rows */
           var ra = boxAlongX ? qy : qx, rb = boxAlongX ? qx : qy;
-          if (ra % 3 === 1 && rb >= 1 && rb < 11 && (rb % 5) < 4) { lift = burned && r < 0.5 ? 0.5 * T : 1.6 * T; part = burned && r < 0.5 ? PART.burn : (vbHash(cx * 7 + ra, cy * 7 + (rb / 5 | 0), sd + 43) < 0.5 ? PART.roofL : PART.roof); }
+          if (ra % 3 === 1 && rb >= 1 && rb < 11 && (rb % 5) < 4) { lift = burned && r < 0.5 ? 0.5 * T : 1.6 * T; part = burned && r < 0.5 ? PART.burn : (vbHash(gx * 7 + ra, gy * 7 + (rb / 5 | 0), sd + 43) < 0.5 ? PART.roofL : PART.roof); }
           else if (r < 0.05) part = PART.spot;
           break;
         } else if (sb === VB_SUB.apartment) {
@@ -46517,9 +46529,9 @@ function vbCityCore(inp){
              lot one house, longer one way, set back in its yard by the lot's roll, a wall under a gable whose ridge runs the
              long way, one in seven two storeys. The yard between is wider than a wall is tall, so a yard still shows behind it. */
           var big = sb === VB_SUB.estate || sb === VB_SUB.gated, LQ = big || h0 < 0.6 ? 6 : 4, lgx = (qx / LQ) | 0, lgy = (qy / LQ) | 0, lx = qx - lgx * LQ, ly = qy - lgy * LQ;
-          var hh = vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 9), hl = vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 29);
+          var hh = vbHash(gx * 4 + lgx, gy * 4 + lgy, sd + 9), hl = vbHash(gx * 4 + lgx, gy * 4 + lgy, sd + 29);
           var longX = hl < 0.5, wq = big ? (longX ? 5 : 4) : LQ === 6 ? (longX ? 4 : 3) : (longX ? 3 : 2), dq2 = big ? (longX ? 4 : 5) : LQ === 6 ? (longX ? 3 : 4) : (longX ? 2 : 3);   /* an estate's house is a mansion */
-          var ox = Math.floor(vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 37) * (LQ - wq)), oy = Math.floor(vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 41) * (LQ - dq2));
+          var ox = Math.floor(vbHash(gx * 4 + lgx, gy * 4 + lgy, sd + 37) * (LQ - wq)), oy = Math.floor(vbHash(gx * 4 + lgx, gy * 4 + lgy, sd + 41) * (LQ - dq2));
           if (lx >= ox && lx < ox + wq && ly >= oy && ly < oy + dq2) {
             var hx = (lgx * LQ + ox) * Q, hy = (lgy * LQ + oy) * Q, fx2 = (tx - hx + 0.5) / (wq * Q), fy2 = (ty - hy + 0.5) / (dq2 * Q);
             var dr = Math.abs((longX ? fy2 : fx2) - 0.5) * 2, wall = (big ? 3 : hl > 0.86 ? 4 : 2) * T;
@@ -46527,7 +46539,7 @@ function vbCityCore(inp){
             part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : (hh < 0.5 ? PART.roofL : PART.roof);
             if (part !== PART.hole && part !== PART.burn && dr < 0.34 && Math.abs((longX ? fx2 : fy2) - 0.5) < 0.18) part = PART.window;   /* the chimney by day, the lit window at night */
           }
-          else if (big && ((lx === (ox === 0 ? LQ - 1 : 0)) && ly >= 1 && ly < 3)) part = vbHash(cx * 4 + lgx, cy * 4 + lgy, sd + 47) < 0.2 ? PART.row : PART.line;   /* an estate's pool, most of them dry */
+          else if (big && ((lx === (ox === 0 ? LQ - 1 : 0)) && ly >= 1 && ly < 3)) part = vbHash(gx * 4 + lgx, gy * 4 + lgy, sd + 47) < 0.2 ? PART.row : PART.line;   /* an estate's pool, most of them dry */
           else if (sb === VB_SUB.gated && (tx === 0 || ty === 0 || tx === S - 1 || ty === S - 1)) { lift = 1.2 * T; part = PART.edge; }   /* the gated block's wall */
           else if (r < 0.06) part = PART.spot;
           break; }
@@ -46539,7 +46551,7 @@ function vbCityCore(inp){
             var ax = boxAlongX ? qx : qy, bi = nBox === 1 ? 0 : Math.min(nBox - 1, Math.floor((ax - 1) * nBox / 10)), b0 = 1 + Math.ceil(bi * 10 / nBox), b1 = 1 + Math.ceil((bi + 1) * 10 / nBox) - 1;
             var gap = nBox > 1 && ((ax === b1 && bi < nBox - 1));
             if (!gap) {
-              var bh = (4 + Math.floor(vbHash(cx * 3 + bi, cy, sd + 31) * 6)) * T, ring = (qx === 1 || qx === 10 || qy === 1 || qy === 10 || ax === b0 || ax === b1 - (bi < nBox - 1 ? 1 : 0));
+              var bh = (4 + Math.floor(vbHash(gx * 3 + bi, gy, sd + 31) * 6)) * T, ring = (qx === 1 || qx === 10 || qy === 1 || qy === 10 || ax === b0 || ax === b1 - (bi < nBox - 1 ? 1 : 0));
               lift = burned ? (r < 0.35 ? T : 2 * T) : bh + (ring ? T : 0);
               part = burned ? (r < 0.35 ? PART.hole : PART.burn) : (r < 0.08 ? PART.spot : PART.roof);
               if (!burned && part === PART.spot) lift += 1.5 * T;
@@ -46551,7 +46563,7 @@ function vbCityCore(inp){
           var half = S >> 1, two = h0 < 0.45, q4 = S >> 2;
           var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= Q && (tx % half) < half - Q && (ty % half) >= Q && (ty % half) < half - Q)
                         : (tx >= q4 && tx < S - q4 && ty >= q4 && ty < S - q4);
-          if (inT) { var th = ((cl === VB_CLASS.casino ? 3 : 4) + Math.floor((two ? vbHash(cx + (tx < half ? 0 : 1), cy, sd + 11) : h1) * (cl === VB_CLASS.casino ? 6 : 11))) * S / 8; lift = th; part = PART.top;
+          if (inT) { var th = ((cl === VB_CLASS.casino ? 3 : 4) + Math.floor((two ? vbHash(gx + (tx < half ? 0 : 1), gy, sd + 11) : h1) * (cl === VB_CLASS.casino ? 6 : 11))) * S / 8; lift = th; part = PART.top;
             /* __THE_MAP_STANDS_UP__: a tall one sets back, its top a step in from its base (the Strip's wedding cakes) */
             if (th > 14 * T) { var ix0 = two ? (tx % half) : tx - q4, iy0 = two ? (ty % half) : ty - q4, iw = two ? half : S - 2 * q4, inset = Q;
               var edge = Math.min(ix0 - (two ? Q : 0), iy0 - (two ? Q : 0), (two ? half - Q : iw) - 1 - ix0, (two ? half - Q : iw) - 1 - iy0);
@@ -46562,11 +46574,11 @@ function vbCityCore(inp){
         case VB_CLASS.green: if (rq < 0.12) { part = PART.tree; lift = 3 * T; } break;
         case VB_CLASS.water: part = PART.ground; break;
         case VB_CLASS.land: if (r < 0.07) part = PART.spot; else if (r > 0.965) part = PART.row;
-          lift = Math.max(0, vbNoise(u / (9 * Q), v / (9 * Q), sd + 53) - 0.45) * 5 * T; break;   /* __THE_MAP_STANDS_UP__: the open ground rolls, a knoll here and there */
+          lift = Math.max(0, vbNoise((u + XS) / (9 * Q), (v + YS) / (9 * Q), sd + 53) - 0.45) * 5 * T; break;   /* __THE_MAP_STANDS_UP__: the open ground rolls, a knoll here and there */
         case VB_CLASS.mountain: {
           var fxm = (tx + 0.5) / S, fym = (ty + 0.5) / S, xa = Math.min(N - 1, cx + 1), ya = Math.min(N - 1, cy + 1);
           var hm = (MH[cy * N + cx] * (1 - fxm) + MH[cy * N + xa] * fxm) * (1 - fym) + (MH[ya * N + cx] * (1 - fxm) + MH[ya * N + xa] * fxm) * fym;
-          lift = hm * S + (vbNoise(u / (5 * Q), v / (5 * Q), sd + 13) - 0.5) * 2 * Q; if (lift < 0) lift = 0; if (r < 0.06) part = PART.spot; break; }
+          lift = hm * S + (vbNoise((u + XS) / (5 * Q), (v + YS) / (5 * Q), sd + 13) - 0.5) * 2 * Q; if (lift < 0) lift = 0; if (r < 0.06) part = PART.spot; break; }
         case VB_CLASS.solar: part = (qy % 2 === 0 && qx > 0 && qx < 11) ? PART.row : PART.ground; if (part === PART.row) lift = T; break;
         case VB_CLASS.field: part = ((qx + qy) % 5 === 0 && rq < 0.5) ? PART.line : PART.ground; break;
         case VB_CLASS.dam: lift = 2 * Q; part = PART.top; break;
@@ -46645,7 +46657,7 @@ function vbCityCore(inp){
           sh += 0.4 * Math.max(-1, Math.min(1, gu)) + 0.2 * Math.max(-1, Math.min(1, gv)); } }
       else { sh = (sxp < syp) ? 0.56 : 0.76;
         if ((cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || cl2 === VB_CLASS.roof || (cl2 === VB_CLASS.houses && (ci >> 10) === VB_SUB.apartment)) && liftk > 1 && (liftk % 2) === 1 && Hq - liftk > 1) sh *= cl2 === VB_CLASS.roof ? 0.8 : cl2 === VB_CLASS.houses ? 0.74 : 0.55; }   /* __THE_MAP_STANDS_UP__: a storey a window band, a tower's dark like COOK's */
-      sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu, qv, sd + 17));
+      sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu + XS, qv + YS, sd + 17));
       if (top && SHD[qo] > 0) sh *= SHD[qo] >= 1 ? 0.62 : 1 - 0.38 * SHD[qo];   /* __THE_MAP_STANDS_UP__: in the shade of what stands nearer the sun */
       if (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof || cl2 === VB_CLASS.freeway) { ST.built++; if (!top) ST.wall++; if (cl2 === VB_CLASS.houses && (ci >> 10) < VB_SUB.trailer && Hq > ST.houseMax) ST.houseMax = Hq;   /* a house, not a trailer or a slab */ if (cl2 === VB_CLASS.freeway && Hq > ST.fwyMax) ST.fwyMax = Hq; }
       if (top) { ST.top++; if (SHD[qo] > 0) ST.shade++; }
@@ -46655,7 +46667,7 @@ function vbCityCore(inp){
       /* NIGHT: light only where the block has power, the way the map's lamps already decide */
       var cxl = Math.floor(qu / S) - PAD, cyl = Math.floor(qv / S) - PAD, lv = cxl >= 0 && cyl >= 0 && cxl < N && cyl < N && live[cyl * N + cxl];
       if (lv) {
-        var lr = vbHash(qu, qv, sd + 19), Lc = null;
+        var lr = vbHash(qu + XS, qv + YS, sd + 19), Lc = null;
         if (part2 === PART.window && top) Lc = C.lit;
         else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) && (((liftk / Q) | 0) % 2 === 1) && lr < 0.45) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;
         else if (part2 === PART.lampspot) Lc = C.lamp;
@@ -46704,9 +46716,10 @@ function vbWorker(){
         + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';\nvar VB_SUB=' + JSON.stringify(VB_SUB) + ';\nvar VB_LAST=null;'
         + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'view\'){ var v=vbView(e.data); postMessage(v, v.px?[v.px.buffer]:[]); return; }'
         + ' if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer]); return; }'
+        + ' if(e.data&&e.data.kind===\'tile\'){ var t=vbCityCore(e.data); postMessage({kind:\'tile\',key:e.data.key,seed:e.data.seed,tx:e.data.tx,ty:e.data.ty,org:e.data.org,S:t.S,P:t.P,ms:t.ms,day:t.day,lights:t.lights},[t.day.buffer,t.lights.buffer]); return; }'
         + ' var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
       var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
-      w.onmessage = function (e) { if (e.data && e.data.kind === 'view') vbViewLand(e.data); else if (e.data && e.data.kind === 'city') vbCityLand(e.data); else vbLand(e.data); };
+      w.onmessage = function (e) { if (e.data && e.data.kind === 'view') vbViewLand(e.data); else if (e.data && e.data.kind === 'city') vbCityLand(e.data); else if (e.data && e.data.kind === 'tile') vbTileLand(e.data); else vbLand(e.data); };
       w.onerror = function (e) { VB.err = 'worker: ' + (e && e.message); VB.worker = null; };
       return w;
 }
@@ -46723,7 +46736,7 @@ function vbCityLand(r){
   VBC.busy = false;
   if (!r || r.seed !== om.seed) return;
   function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
-  VBC.day = cv(r.day); VBC.night = cv(r.night); VBC.lights = r.lights ? cv(r.lights) : null; VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P; VBC.stand = r.stand;
+  VBC.day = cv(r.day); VBC.night = null; VBC.lights = r.lights ? cv(r.lights) : null;   /* __ONE_MAP_AT_EVERY_ZOOM__: the night picture was a 2,400-square canvas (22 MB) nothing draws: the night pass lights the day picture */ VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P; VBC.stand = r.stand;
   try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
 }
 function vbCityReady(){
@@ -46753,19 +46766,94 @@ var VB_CITY_FULL = 16, VB_CITY_HOLD = 26, VB_CITY_NONE = 30, VB_CITY_GRAIN = 0.8
    standing up and the block pictures standing up their own way, a long fade was two cities ghosted through each other (measured at
    a block 29 px: 0.29 of one, 0.71 of the other, every tower doubled). The hand-over is four px of zoom now. */
 function vbCityAlpha(){
+  if (VB_ONE_MAP) return 1;   /* __ONE_MAP_AT_EVERY_ZOOM__: the painting is the map at every zoom, never faded under another */
   if (TW <= VB_CITY_FULL) return 1;
   if (TW <= VB_CITY_FULL + 2) return 1 - (1 - VB_CITY_GRAIN) * (TW - VB_CITY_FULL) / 2;
   if (TW <= VB_CITY_HOLD) return VB_CITY_GRAIN;
   return Math.max(0, VB_CITY_GRAIN * (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_HOLD));
 }
 function vbCityDraw(ox, oy, night){
-  if (TW >= VB_CITY_NONE || !vbCityReady()) return;
+  if ((!VB_ONE_MAP && TW >= VB_CITY_NONE) || !vbCityReady()) return;
   var a = vbCityAlpha(), S = VB_CS, sm = g.imageSmoothingEnabled;
   g.save(); g.imageSmoothingEnabled = (TW / S) * ((typeof CV_DPR === 'number' && CV_DPR) || 1) < 1; g.globalAlpha = a;   /* under a device pixel a texel: averaged down */
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
   g.drawImage(VBC.day, 0, 0);   /* unlit: the city's night pass lights it like everything else (rule 70a) */
   g.restore(); g.imageSmoothingEnabled = sm; VBC.draws++; VBC.alpha = a;
+  try { vbTilesDraw(ox, oy, false); } catch (_e) { VBT.err = String(_e && _e.message || _e); }   /* __ONE_MAP_AT_EVERY_ZOOM__ */
 }
+/* ==== __ONE_MAP_AT_EVERY_ZOOM__ (RUN 10/24/26, row [one map at every zoom], rule 142, Paolo 10/24: 'the map when it's zoomed
+   out looks a certain way, and when it zooms in it fades to the 2D shit we had previously... it should just be the same map;
+   it's like two maps right now, actually three: when the map blows up I see the skeleton, ugly old 2D rough-draft
+   horseshit'). MEASURED (tools/bohemia_run_the_zoom_ladder.js, fifteen steps from the far stop to the near one and one spread
+   past it): the painting to a block 22 px; from 26 it faded under the old per-block pictures and from 30 they were alone
+   (his 2D); past the near stop the old block close-up (his skeleton). NOW ONE MAP: the painting at full weight at every zoom,
+   the per-block pictures never drawn once it is in, no close-up past the near stop on the demo. AND THE SAME PAINTING GETS
+   SHARPER AS HE PINCHES IN: past a block 27 px the painter (the same vbCityCore, the same rolls on the valley's own
+   coordinates, so every house stands where it stood) repaints the blocks on the glass in tiles of 8 x 8 at about one texel to
+   a CSS pixel (36 to 96 texels a block), in the worker, nearest the middle first; until a tile lands the whole painting
+   shows under it, so the glass never goes blank and never changes city. A small cache keeps the last tiles (VBT.max). ==== */
+var VB_ONE_MAP = true, VB_TILE = 8, VB_TILE_M = 3, VB_TILE_FROM = 27;
+var VBT = { S: 0, seed: null, lk: null, tiles: new Map(), busy: false, asked: 0, landed: 0, drew: 0, max: 20, err: null, last: null };
+window.VBT = VBT;
+function vbTileS(){ var t = Math.ceil(TW / 1.1 / 12) * 12; return Math.max(36, Math.min(96, t)); }
+function vbTileKey(tx, ty, S){ return om.seed + ':' + (VBC.key || '') + ':' + S + ':' + tx + ',' + ty; }
+function vbTileInput(tx, ty, S){
+  var N = om.n, n = VB_TILE + 2 * VB_TILE_M, x0 = tx * VB_TILE - VB_TILE_M, y0 = ty * VB_TILE - VB_TILE_M;
+  var cls = new Uint8Array(n * n), live = new Uint8Array(n * n), sub = new Uint8Array(n * n);
+  for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) { var gx = x0 + x, gy = y0 + y, k = y * n + x;
+    if (gx < 0 || gy < 0 || gx >= N || gy >= N) { cls[k] = 255; continue; }
+    var t = om.at(gx, gy); cls[k] = vbClassOf(t && t.district); sub[k] = vbSubOf(t && t.district);
+    var lv = 0; try { lv = POWER && POWER.at(gx, gy).live ? 1 : 0; } catch (_e) {} live[k] = lv; }
+  return { kind: 'tile', N: n, NF: N, S: S, PAD: 0, hashPad: VB_CPAD, org: [x0, y0], seed: om.seed, cls: cls, live: live, sub: sub,
+           key: vbTileKey(tx, ty, S), tx: tx, ty: ty };
+}
+function vbTileLand(r){
+  VBT.busy = false;
+  if (!r || r.seed !== om.seed) return;
+  function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
+  var lit = false; for (var i = 3; i < r.lights.length; i += 4) if (r.lights[i]) { lit = true; break; }   /* a tile with no light in it keeps no lights canvas */
+  VBT.tiles.set(r.key, { day: cv(r.day), lights: lit ? cv(r.lights) : null, org: r.org, tx: r.tx, ty: r.ty, S: r.S, at: performance.now() });
+  VBT.landed++; VBT.last = { key: r.key, ms: r.ms, P: r.P };
+  while (VBT.tiles.size > VBT.max) VBT.tiles.delete(VBT.tiles.keys().next().value);   /* the oldest let go */
+  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
+}
+/* the tiles on the glass, each drawn as its own inner 8 x 8 blocks, so two tiles meet texel for texel */
+function vbTilesDraw(ox, oy, lights){
+  if (!VB_ONE_MAP || TW < VB_TILE_FROM || !VBC.key) return;
+  var S = vbTileS(), N = om.n, NT = Math.ceil(N / VB_TILE);
+  if (VBT.S !== S || VBT.seed !== om.seed) { VBT.S = S; VBT.seed = om.seed; }
+  var M = 2 * TW, pts = [[-M, -M], [CVW + M, -M], [-M, CVH + M], [CVW + M, CVH + M]], xs = [], ys = [];
+  pts.forEach(function (q) { var a = (q[0] - ox) / (TW / 2), b = (q[1] - oy) / (TH / 2); xs.push((a + b) / 2); ys.push((b - a) / 2); });
+  var tx0 = Math.max(0, Math.floor(Math.min.apply(null, xs) / VB_TILE)), tx1 = Math.min(NT - 1, Math.floor(Math.max.apply(null, xs) / VB_TILE)),
+      ty0 = Math.max(0, Math.floor(Math.min.apply(null, ys) / VB_TILE)), ty1 = Math.min(NT - 1, Math.floor(Math.max.apply(null, ys) / VB_TILE));
+  var want = [], cxs = CVW / 2, cys = CVH / 2, sm = g.imageSmoothingEnabled, dpr = (typeof CV_DPR === 'number' && CV_DPR) || 1;
+  for (var ty = ty0; ty <= ty1; ty++) for (var tx = tx0; tx <= tx1; tx++) {
+    /* only a tile whose blocks reach the glass (the corners of a box in the valley are off it) */
+    var c0 = iso(tx * VB_TILE, ty * VB_TILE, ox, oy), c1 = iso((tx + 1) * VB_TILE, ty * VB_TILE, ox, oy), c2 = iso(tx * VB_TILE, (ty + 1) * VB_TILE, ox, oy), c3 = iso((tx + 1) * VB_TILE, (ty + 1) * VB_TILE, ox, oy);
+    var lx = Math.min(c0.sx, c1.sx, c2.sx, c3.sx), hx = Math.max(c0.sx, c1.sx, c2.sx, c3.sx), ly = Math.min(c0.sy, c1.sy, c2.sy, c3.sy) - 2 * TW, hy = Math.max(c0.sy, c1.sy, c2.sy, c3.sy);
+    if (hx < -TW || lx > CVW + TW || hy < -TW || ly > CVH + TW) continue;
+    var key = vbTileKey(tx, ty, S), T = VBT.tiles.get(key);
+    if (!T) { var mx = (lx + hx) / 2 - cxs, my = (ly + hy) / 2 - cys; want.push({ tx: tx, ty: ty, d: mx * mx + my * my }); continue; }
+    VBT.tiles.delete(key); VBT.tiles.set(key, T);   /* in use: the newest */
+    var cv0 = lights ? T.lights : T.day; if (!cv0) continue;
+    var o = iso(T.org[0], T.org[1], ox, oy), ix = (tx * VB_TILE - T.org[0]) * S, iy = (ty * VB_TILE - T.org[1]) * S;
+    var w = Math.min(VB_TILE, N - tx * VB_TILE) * S, h = Math.min(VB_TILE, N - ty * VB_TILE) * S;
+    g.save(); g.imageSmoothingEnabled = (TW / S) * dpr < 1;
+    g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, o.sx, o.sy);
+    g.drawImage(cv0, ix, iy, w, h, ix, iy, w, h);
+    g.restore(); VBT.drew++;
+  }
+  g.imageSmoothingEnabled = sm;
+  if (!lights && want.length && !VBT.busy) {
+    want.sort(function (a, b) { return a.d - b.d; });
+    var t0 = want[0]; VBT.busy = true; VBT.asked++;
+    var inp = vbTileInput(t0.tx, t0.ty, S);
+    try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]); }
+    catch (e) { VBT.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights }); }, 0); }
+  }
+  VBT.want = want.length;
+}
+/* ==== /__ONE_MAP_AT_EVERY_ZOOM__ ==== */
 /* and its lights come AFTER that pass, the way the map's own lamps do, so a lit window cuts the dark */
 /* the far land's tile at a chosen block size: from altitude a block is under a pixel, and the tile at that
    size averages to one flat tan -- the "goes away" he saw -- so the sky draws it at a size it can be read at */
@@ -46782,12 +46870,13 @@ function vbPatternDraw(ox, oy, tw){
   g.restore();
 }
 function vbCityLightsDraw(ox, oy){
-  if (TW >= VB_CITY_NONE || !VBC.lights || VBC.seed !== om.seed) return;
+  if ((!VB_ONE_MAP && TW >= VB_CITY_NONE) || !VBC.lights || VBC.seed !== om.seed) return;
   var a = vbCityAlpha(), S = VB_CS, sm = g.imageSmoothingEnabled;
   g.save(); g.imageSmoothingEnabled = (TW / S) * ((typeof CV_DPR === 'number' && CV_DPR) || 1) < 1; g.globalAlpha = a;   /* under a device pixel a texel: averaged down */
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
-  g.drawImage(VBC.lights, 0, 0);
+  if (!(VB_ONE_MAP && TW >= VB_TILE_FROM)) g.drawImage(VBC.lights, 0, 0);   /* __ONE_MAP_AT_EVERY_ZOOM__: close in, the tiles carry their own lights */
   g.restore(); g.imageSmoothingEnabled = sm; VBC.lightDraws = (VBC.lightDraws | 0) + 1;
+  try { vbTilesDraw(ox, oy, true); } catch (_e) {}
 }
 function vbReady(){
   if (VB.seed !== om.seed && !VB.busy) vbAsk();
@@ -47080,8 +47169,12 @@ function renderCity(){
   // current tile size, so zooming out reveals the whole valley, in caps the work.
   const __M=__mg?__mg.M:0;   /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: the cache is the screen plus a margin */
   const R=Math.min(N,Math.ceil(Math.max((CVW+2*__M+2*Math.abs(panX))/TW,(CVH+2*__M+2*Math.abs(panY))/TH))+3);
+  /* __ONE_MAP_AT_EVERY_ZOOM__: once the painting is in it is the map at every zoom; the old per-block pictures under it are
+     not drawn at all (they were his 'fade to the 2D'; under the painting at full weight they were only work) */
+  const __oneMapIn = VB_ONE_MAP && !__vista && vbCityReady();
+  window.__MAP_BLOCKS_DREW = !__oneMapIn;   /* what the zoom ladder reads: did the old per-block pictures draw this paint */
   try {
-  for(let s=Math.max(0,city.x+city.y-2*R); s<=Math.min(2*(N-1),city.x+city.y+2*R); s++){
+  for(let s=Math.max(0,city.x+city.y-2*R); !__oneMapIn && s<=Math.min(2*(N-1),city.x+city.y+2*R); s++){
     for(let x=Math.max(0,s-(N-1),city.x-R); x<=Math.min(N-1,s,city.x+R); x++){
       const y=s-x; if(Math.abs(y-city.y)>R)continue;
       const t=om.at(x,y); if(!t)continue;
@@ -63707,7 +63800,11 @@ function citySnapshot(){
        (act 2, act 3), where he stands, and every reshuffle, typed name and chosen sex,
        so closing the tab does not give him one face again. Absent on any save written
        before this, which is correct: that save has one person. */
-    acts:(function(){ try{ return BohemiaActs.save(); }catch(_e){ return null; } })() };
+    acts:(function(){ try{ return BohemiaActs.save(); }catch(_e){ return null; } })(),
+    /* __THE_SAVE_REMEMBERS__ (RUN 10/24, rule 141(c)): THE MAP'S OWN GAME. The jobs he holds (where each one waits, its pay,
+       its crew), the jobs done and the ones finished (the phone leaves them off), and last night's bill were in memory only,
+       so a reload gave back the morning with no job on the map */
+    run:(function(){ try{ return { held: LOOP.held, done: LOOP.done | 0, doneIds: LOOP.doneIds || [], bill: BILL.last || null, nights: window.__BILL_NIGHTS | 0 }; }catch(_e){ return null; } })() };
 }
 /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- THE CITY REPORTS ITS OWN CHROME.
    The shell floats the cold-open invite over this iframe and it was landing ON
@@ -63818,6 +63915,30 @@ function flushState(){ if(_svT){clearTimeout(_svT);_svT=null;}
   try{ if(window.parent&&window.parent!==window)
     window.parent.postMessage({bohemiaCityState:citySnapshot()},'*'); }catch(_e){} }
 window.addEventListener('pagehide',flushState);
+/* ==== __THE_SAVE_REMEMBERS__ (RUN 10/24/26, row [the crash and the save], rule 141(c): 'when it crashes and I reload, it
+   doesn't remember what I just got done'). MEASURED (tools/bohemia_run_the_save_survives.js, the tab killed by
+   chrome://crash, which sends no pagehide, no unload, no last word, the way a phone kills a tab): on the map the save was
+   written only on a zoom, a mode change or a new morning (reportState's six callers are the old walk's), and pagehide and
+   friends never run in a killed tab. NOW THE SAVE BEATS: every 1.5 s it reads what a player would miss (the day and the
+   half hour, where the party stands, the batteries, the jobs held and done, the crew, the men hired and walked) and the
+   moment any of it changed it writes the whole save, synchronously, through the shell's two-slot save; a town reached, a
+   man hired, a thing bought, a job taken, a fight's end and the night write at once. Never before the old save has been
+   read back (RESTORE_ANSWERED), so a booting page can never write a blank game over the real one. ==== */
+var SAVE_SIG = '';
+function saveSig(){
+  try{ return [(typeof DAY !== 'undefined' ? DAY.day : 0), (typeof DAY !== 'undefined' ? Math.floor((DAY.min | 0) / 30) : 0), city.x, city.y, loopBats(),
+    LOOP.held.map(function(j){ return j.id; }).join(','), LOOP.done, crewCount(), (localStorage.getItem('bohemia.hired.v1') || '').length,
+    (localStorage.getItem(CREW_WALKED_KEY) || '').length].join('|'); }catch(_e){ return ''; }
+}
+function saveNow(why){
+  if(typeof RESTORE_ANSWERED === 'undefined' || !RESTORE_ANSWERED) return false;
+  SAVE_SIG = saveSig(); flushState();
+  window.__SAVE_BEATS = (window.__SAVE_BEATS | 0) + 1; window.__SAVE_LAST = { why: why || 'beat', at: Date.now(), sig: SAVE_SIG };
+  return true;
+}
+setInterval(function(){ if(typeof RESTORE_ANSWERED === 'undefined' || !RESTORE_ANSWERED) return; var s = saveSig(); if(s && s !== SAVE_SIG) saveNow('changed'); }, 1500);
+window.saveNow = saveNow;
+/* ==== /__THE_SAVE_REMEMBERS__ ==== */
 window.addEventListener('freeze',flushState);
 window.addEventListener('blur',flushState);
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden')flushState(); });
@@ -69080,6 +69201,10 @@ function applyRestore(st){
     try{ updQline(); }catch(_e){}
     if(DAY.phase==='ended')try{ showReckoning(); }catch(_e){} }
   city.x=st.cx; city.y=st.cy;
+  /* __THE_SAVE_REMEMBERS__: the map's own game comes back with him */
+  if(st.run){ try{ if(Array.isArray(st.run.held)) LOOP.held = st.run.held.filter(function(j){ return j && j.id && j.target; }).slice(0, LOOP_MAX);
+    LOOP.done = st.run.done | 0; LOOP.doneIds = Array.isArray(st.run.doneIds) ? st.run.doneIds.slice(-60) : [];
+    if(st.run.bill) BILL.last = st.run.bill; window.__BILL_NIGHTS = st.run.nights | 0; LOOP.fighting = null; }catch(_e){} }
   if(typeof st.hzoom==='number'){ HZOOM=st.hzoom; }
   if(typeof RIDING!=='undefined'){ RIDING=!!st.riding; document.getElementById('bikebtn').classList.toggle('on',RIDING); }
   if(st.mode==='human'){ MODE='human'; hx=st.hx; hy=st.hy; HC=HZOOM; }

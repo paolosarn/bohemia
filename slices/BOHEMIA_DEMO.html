@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"8749bc738197c8b0",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"1b26379f2a9ee2c5",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1568,7 +1568,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/24g - WHO YOU HIRE FIGHTS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/24h - THE GAME REMEMBERS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -40239,7 +40239,21 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
         if(buf.length>2000000){ try{rd.cancel();}catch(_e){} return; }
         return pump(); }); };
       return pump(); }).catch(function(){}); }
-  function show(nb){ if(document.getElementById('bwbanner'))return;
+  /* __THE_BANNER_WAITS__ (RUN 10/24/26, row [the crash and the save], rule 141: 'it crashed... and when I reload, it doesn't
+     remember'). MEASURED on the demo: this banner sat across the top 40 px of the screen, OVER THE SETTLEMENT'S LEAVE BUTTON,
+     and a tap on it reloads the whole game; and it showed for any stamp file that merely DIFFERED from the page (another
+     lane's cut left BOHEMIA_DEMO_STAMP.txt at 10/24e under a 10/24f page, so it stood on every load). He talked to everyone
+     in a town, tapped LEAVE, and the game started over. NOW: only a build that is NEWER than the one he is on (the stamp's
+     date and letter), and in the demo only while the title or the door is up, never over play; a newer build found during
+     play waits for the title (QUIT, or his next visit, which the network-first worker serves fresh anyway). */
+  function buildKey(t){ var m=String(t||'').match(/BUILD\s+(\d+)\/(\d+)([a-z]*)/i); if(!m) return null; var l=(m[3]||'').toLowerCase(), k=0; for(var i=0;i<l.length;i++) k=k*27+(l.charCodeAt(i)-96); return (+m[1])*1e7+(+m[2])*1e5+k; }
+  function newer(nb){ var a=buildKey(nb), b=buildKey(cur); return a!==null && b!==null ? a>b : false; }
+  function atTheDoor(){ try{ if(window.BOH_TITLE && BOH_TITLE.up && BOH_TITLE.up()) return true; }catch(_e){}
+    var f=document.getElementById('front')||document.getElementById('fronttap'); return !!(f && getComputedStyle(f).display!=='none' && f.getBoundingClientRect().height>0); }
+  var WAITING=null;
+  function show(nb){ if(!newer(nb)) return;
+    if(window.__BOHEMIA_DEMO_BUILD && !atTheDoor()){ WAITING=nb; return; }
+    if(document.getElementById('bwbanner'))return;
     var b=document.createElement('div'); b.id='bwbanner';
     b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:9999;background:#1d3a22;color:#8fe89a;border-bottom:1px solid #5fbf6a;font:12px ui-monospace,monospace;letter-spacing:1px;padding:12px;text-align:center';
     b.textContent='NEW BUILD READY: '+nb+' -- TAP TO RELOAD';
@@ -40252,6 +40266,7 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     fetch('BOHEMIA_DEMO_STAMP.txt',{cache:'no-store'}).then(function(r){ return r.ok ? r.text() : ''; })
       .then(function(t){ t=(t||'').trim(); if(t && cur && t!==cur.trim()) show(t); }).catch(function(){}); }
   setInterval(look,120000);
+  setInterval(function(){ if(WAITING && atTheDoor()){ var nb=WAITING; WAITING=null; show(nb); } }, 2000);   /* __THE_BANNER_WAITS__: it shows when the title is back */
   document.addEventListener('visibilitychange',function(){ if(!document.hidden)look(); });
   /* NO CHECK 15 s IN (RUN 10/10, [first load]): a page that just loaded IS the newest build, and on a phone 15 s is
      the middle of the boot; measured, that check pulled the whole demo page a second time (4.6 MB) before BEGIN was

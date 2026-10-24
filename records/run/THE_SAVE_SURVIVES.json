@@ -1,0 +1,105 @@
+{
+ "file": "BOHEMIA_DEMO.html",
+ "when": "2026-10-24T19:29:16.776Z",
+ "box": "Playwright Chromium, phone 390x844 touch, full CPU",
+ "waitMs": 3000,
+ "legs": [
+  {
+   "leg": "town",
+   "town": "Church",
+   "hiredOne": true,
+   "took": "Ride shotgun to the salt camp",
+   "before": {
+    "day": 1,
+    "hour": 6,
+    "at": [
+     48,
+     49
+    ],
+    "bats": 265,
+    "held": [
+     "qd-a02"
+    ],
+    "done": 0,
+    "hired": [
+     "GARRETT CARRASCO"
+    ],
+    "crew": 4
+   },
+   "reopenedVia": "continue",
+   "after": {
+    "day": 1,
+    "hour": 6,
+    "at": [
+     48,
+     49
+    ],
+    "bats": 265,
+    "held": [
+     "qd-a02"
+    ],
+    "done": 0,
+    "hired": [
+     "GARRETT CARRASCO"
+    ],
+    "crew": 4
+   },
+   "forgot": []
+  },
+  {
+   "leg": "fight",
+   "job": {
+    "id": "qd-a02",
+    "x": 54,
+    "y": 43
+   },
+   "before": {
+    "day": 1,
+    "hour": 7,
+    "at": [
+     54,
+     44
+    ],
+    "bats": 310,
+    "held": [],
+    "done": 1,
+    "hired": [
+     "GARRETT CARRASCO"
+    ],
+    "crew": 4
+   },
+   "reopenedVia": "continue",
+   "after": {
+    "day": 1,
+    "hour": 7,
+    "at": [
+     54,
+     44
+    ],
+    "bats": 310,
+    "held": [],
+    "done": 1,
+    "hired": [
+     "GARRETT CARRASCO"
+    ],
+    "crew": 4
+   },
+   "forgot": []
+  }
+ ],
+ "start": {
+  "day": 1,
+  "hour": 6,
+  "at": [
+   48,
+   48
+  ],
+  "bats": 290,
+  "held": [],
+  "done": 0,
+  "hired": [],
+  "crew": 3
+ },
+ "errors": [],
+ "ok": true
+}

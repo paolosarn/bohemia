@@ -80,7 +80,7 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['profile', 'alpha', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
+const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
                     'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
@@ -125,7 +125,13 @@ async function open(opts) {
      those blames the game for the test server. Off unless asked, so no other caller changes. */
   const zlib = require('zlib');
   const TEXTY = /\.(html?|js|mjs|json|css|txt|svg|md|webmanifest)$/i;
-  const server = http.createServer((req, res) => {
+  /* EXTENDED 10/24 (RUN, [the crash and the save], rule 141: 'when it crashes and I reload, it doesn't remember').
+     opts.again: a driver this one already opened. The game opens AGAIN on the SAME PHONE: the same browser, the same
+     context (so the same storage), the same server and port (storage is per origin, and the port is in the origin),
+     in a new tab, the way he reopens the link after the tab died. The old tab is the caller's to have crashed first
+     (page.goto('chrome://crash'): the renderer dies with no pagehide, no unload, no last word, like a phone killing it). */
+  const again = opts.again || null;
+  const server = again ? again.server : http.createServer((req, res) => {
     const u = decodeURIComponent(req.url.split('?')[0]);
     const f = serve[u] || path.join(ROOT, u.replace(/^\//, ''));
     if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end(); }
@@ -142,10 +148,10 @@ async function open(opts) {
     res.writeHead(200, head);
     fs.createReadStream(f).pipe(res);
   });
-  await new Promise(r => server.listen(0, '127.0.0.1', r));
+  if (!again) await new Promise(r => server.listen(0, '127.0.0.1', r));
   const port = server.address().port;
 
-  const browser = await chromium.launch();
+  const browser = again ? again.browser : await chromium.launch();
   /* A PHONE, because that is the only surface rule 14 talks about. */
   /* opts.noWorker (PLUMBER 9/29, [one driver], UI's ask 9/24): the alpha registers an
      always-fresh service worker (slices/sw.js), and a worker answers requests itself, so a
@@ -159,7 +165,7 @@ async function open(opts) {
     tablet: { viewport: { width: 820, height: 1180 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true },
     computer: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, hasTouch: false, isMobile: false } };
   const prof = PROFILES[opts.profile || 'phone_portrait'];
-  const ctx = await browser.newContext(Object.assign({}, prof, {
+  const ctx = again ? again.ctx : await browser.newContext(Object.assign({}, prof, {
     serviceWorkers: opts.noWorker ? 'block' : 'allow' }));
   /* EXTENDED 9/20 (PORTRAIT, rule 14(g), for [faces first]). opts.arm is a string of
      JavaScript run on EVERY new document BEFORE any page script, in the page AND in
@@ -170,7 +176,7 @@ async function open(opts) {
      to learn that a probe attached late reports a pass has run zero times about a pass
      that has already painted three bodies. Arm before the page, or measure nothing.
      Off unless a caller passes it, so no existing use of this driver changes. */
-  if (opts.arm) await ctx.addInitScript({ content: opts.arm });
+  if (opts.arm && !again) await ctx.addInitScript({ content: opts.arm });
   const page = await ctx.newPage();
   const errs = [];
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
@@ -587,7 +593,7 @@ async function open(opts) {
   };
 
   return {
-    page, fr, ctx, browser, errs,
+    page, fr, ctx, browser, errs, server,
     /* what loaded, and where the door was in that list (PLUMBER 9/15) */
     loads, cdp: cdpEarly, netlog,
     firstPaintMs: () => firstPaintAt,

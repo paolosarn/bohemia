@@ -1,0 +1,173 @@
+{
+ "file": "BOHEMIA_DEMO.html",
+ "tag": "after",
+ "when": "2026-10-24T19:42:25.805Z",
+ "steps": [
+  {
+   "czoom": 0.214,
+   "tw": 3.9,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 0
+  },
+  {
+   "czoom": 0.268,
+   "tw": 4.8,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 1
+  },
+  {
+   "czoom": 0.334,
+   "tw": 6,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 2
+  },
+  {
+   "czoom": 0.416,
+   "tw": 7.5,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 3
+  },
+  {
+   "czoom": 0.519,
+   "tw": 9.3,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 4
+  },
+  {
+   "czoom": 0.648,
+   "tw": 11.7,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 5
+  },
+  {
+   "czoom": 0.808,
+   "tw": 14.5,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 6
+  },
+  {
+   "czoom": 1.008,
+   "tw": 18.1,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 7
+  },
+  {
+   "czoom": 1.258,
+   "tw": 22.6,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": false,
+   "i": 8
+  },
+  {
+   "czoom": 1.569,
+   "tw": 28.2,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 1,
+   "blocks": true,
+   "i": 9
+  },
+  {
+   "czoom": 1.957,
+   "tw": 35.2,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 0,
+   "blocks": true,
+   "i": 10
+  },
+  {
+   "czoom": 2.442,
+   "tw": 44,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 0,
+   "blocks": true,
+   "i": 11
+  },
+  {
+   "czoom": 3.046,
+   "tw": 54.8,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 0,
+   "blocks": true,
+   "i": 12
+  },
+  {
+   "czoom": 3.8,
+   "tw": 68.4,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 0,
+   "blocks": true,
+   "i": 13
+  },
+  {
+   "czoom": 4.741,
+   "tw": 85.3,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 0,
+   "blocks": true,
+   "i": 14
+  },
+  {
+   "czoom": 4.741,
+   "tw": 85.3,
+   "mode": "city",
+   "sky": false,
+   "look": false,
+   "paintedAlpha": 0,
+   "blocks": true,
+   "i": "past the closest"
+  }
+ ],
+ "bounds": [
+  0.21443298969072166,
+  4.7407407407407405
+ ],
+ "errors": [],
+ "sheet": "slices/vote/RUN_THE_ZOOM_LADDER_AFTER_10_24.webp"
+}
