@@ -60,6 +60,13 @@
 #    why it travels). Then a plan for the opposite: short AI-made videos about money, power and how economies really break (the dollar,
 #    debt, bubbles, the 2008 crash, circular vendor financing, Lucent and Nortel), told in Bohemia's world and look, that make people
 #    think. Ten first video ideas with a first-second hook each. Name the AI video tools that can make this today.
+# ASK 39. BECOMING THE PSEUDO-MAYOR AND REBUILDING THE CITY (rule 161, his words: 'slowly over time become the pseudo-mayor of
+#    Bohemia and build things... research how we're going to do this, it has to be lore friendly, the costs have to sound right, it's a
+#    big cost to revamp a whole city over three acts... every building needs to come with a purpose; it has to look right'). Read the
+#    6/30 Mayor Arc law and the 7/1 city-builder law in the master. Then: what does rebuilding a real dead city cost (Detroit, New
+#    Orleans after Katrina, post-war cities), in money, labour and years? How do the best games make building feel earned and every
+#    building matter (any game, rule 139)? Propose twenty building kinds for Bohemia, each with its purpose, its cost in batteries and
+#    the six resources, and how it looks in each act.
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.

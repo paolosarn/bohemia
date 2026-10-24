@@ -37,7 +37,7 @@ Status as of 10/24: BUILT = in the demo and working; THIN = a first version, far
 - Batteries are the money; six resources; prices and situations; the nightly bill; scavenging; at least 12 factions with home bases and roaming parties, colour is territory, relations. THIN.
 
 ## 11. THE LOOK
-- Everything a 3D model, grimy Crashbox analog horror, Machine Party; no sand flood; looks viral in a vertical phone frame (152c); idles on everyone; layered clothes; every asset a kept scene so acts two and three are a re-render (128). Mostly BUILT, map in progress.
+- Everything a 3D model, grimy Crashbox analog horror, Machine Party; no sand flood AND NO RAINBOW: act one's colour faded, dirty and rare, accents only (rule 159); looks viral in a vertical phone frame (152c); idles on everyone; layered clothes; every asset a kept scene so acts two and three are a re-render (128). Mostly BUILT, map in progress.
 
 ## 12. SOUND
 - Only his songs (122); the fight drives the music (126); bullets land (BUILT); the creepier squiggle voice (BUILT); the machine narrator for events (THIN); ambience and sliders (BUILT).
@@ -51,5 +51,8 @@ Status as of 10/24: BUILT = in the demo and working; THIN = a first version, far
 ## 15. STORY
 - The Amalgamation (a ghost in act one, the reveal at its end, never the main quest's ghost spine, 136), Dubai, the family theme, the three generations, the Moon, three endings (Liberate, Respect, Become). Canon written; little playable.
 
-## 16. AROUND THE GAME
+## 16. THE MAYOR ARC AND BUILDING THE CITY (rule 161)
+- Slowly over the three acts you become the pseudo-mayor of Bohemia (friendly territory, then a popular mandate, then the mayor, 6/30 law) and change the city: zone and the society builds (Pocket City 2, 7/1 law), road, power and water access, building inside your home bases, the city grid as where change shows, every building with a purpose and a cost that sounds right, the look returning colour as the city heals (159). Research first (ECONOMY, Grok ask 39). MISSING in the game.
+
+## 17. AROUND THE GAME
 - Mods folder and data files; the one numbers table; difficulty sliders; the VOTE tab in the alpha; the Grok research partner; the social page side project (152).

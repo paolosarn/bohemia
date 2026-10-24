@@ -668,7 +668,7 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 134. GHOSTS AND APPARITIONS (PAOLO 10/23, LOCKED: 'like in Battle Brothers, one of the enemies are ghosts and apparitions; I think we can put that in, it fits our world too good; maybe they're way more around for the first act than the third act; there's gonna be enemy types around more in different acts than another, that's just how it is'; records/BOHEMIA_PAOLO_GHOSTS_AND_APPARITIONS_10_23_26.md). (a) An enemy family in the analog horror look (static, dead signal, wrong in the frame), keeping Battle Brothers' Geist lesson: it fights your men's nerve from range, slips over ground and walls, is fragile up close, drops nothing; a place full of them is our graveyard. (b) More in act one, fewer by act three; every enemy type carries a weight per act in the roster's data. (c) THE COORDINATOR'S DEFAULT, his to correct: they come through the tear (121(f)); act one's ruin is full of rips, reclaiming the world closes them, so they thin out by act three. A ghost is not a beast; rule 42a's lab-made law is untouched. (d) COMBAT builds it after its current rows; no card. (e) CORRECTED THE SAME HOUR BY THE COORDINATOR, FROM HIS OWN CANON (laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md, newest of his words on it): (c)'s 'through the tear' default is WITHDRAWN. In act one THE GHOSTS ARE THE AMALGAMATION'S HAUNTING as act one sees it: the dead who came back are its generative data-portraits, the whisper and the scream are its broadcast (the 9/29 bestiary draft's Geist-as-siren), the possessed are its NeuroLinked; nobody in act one knows it is a machine, so they are ghosts. That is why there are more in act one: the reveal comes at the end of act one, and by acts two and three people know what they are, so the ghosts give way to its faithful and its machines. Purple stays its wordless tell (the purple reservation).
 135. THE SQUIGGLE, UPGRADED AND CREEPIER (PAOLO 10/24, LOCKED: 'we have squiggle voices... every time people speak... we might have to revamp or upgrade or remake from scratch the squiggle voices; it's supposed to be this Animal Crossing style squiggle voice, but maybe it could be more creepy'; records/BOHEMIA_PAOLO_THE_SQUIGGLE_CREEPIER_10_24_26.md). (a) It exists: engine/bohemia_voice.js (SOUNDS 8/9, formant synthesis, one voice per person from his seed), six of eight voices UP 8/11 with 'just remove the clicking'; people squiggle and the machine narrates (9/29). (b) Upgrade it to true Animal Crossing class by Animalese's own method now that real recordings are allowed (9/23): real recorded syllables per letter, re-timed and pitch-shifted per person, one voice per person kept. (c) Creepier inside analog horror: a little wrong (a dropped or doubled syllable, tape wobble, a breath that should not be there, a sag at a line's end, a room on it), never comedy, still a person. (d) No clicking. (e) SOUNDS, after [the bullet lands]; no card.
 136. PURPLE-AURA GHOSTS, NOT MAIN QUEST, AND NO POSSESSION (PAOLO 10/24, LOCKED: 'I don't know about that possession shit, but yeah, slightly purple aura ghosts originating from the Amalgamation; it's not some main quest shit, so keep that in mind'; records/BOHEMIA_PAOLO_PURPLE_GHOSTS_NOT_MAIN_QUEST_AND_THE_MAP_REMADE_NO_SAND_FLOOD_10_24_26.md). (a) No possession: the 7/24 lock's possessed strand is dropped from act one's haunting. (b) The ghosts carry a slight purple aura and come from the Amalgamation (134(e)). (c) The haunting is never the main quest's spine: it lives in the world, the fights and side quests.
-137. THE MAP REMADE, AND NO GREY-YELLOW SAND FLOOD (PAOLO 10/24, LOCKED: 'the map still looks like shit, so we have to remake all the map assets, and let's be careful having everything look like a grey yellow sand color, I don't want that to flood all of our art'). (a) Every map asset is remade: ground, roads, districts, settlements, water, hills, props, the map's people and markers, judged beside Battle Brothers' map at the same zoom (the map's reference, 9/24) and across the whole pinch (Pocket City 2's zoom range, 9/30). (b) NO SAND FLOOD, for ALL art from now: Las Vegas is many colours (red rock, black basalt, green lawns and golf courses gone wild, blue pools and Lake Mead, white and grey concrete, rust, sun-bleached paint, the Strip's neon, the factions' colours, COLOUR IS TERRITORY); analog horror stays in the grime, film and hand, never as a beige wash over everything. Every art lane checks a new picture's colour spread before it ships. (c) COOK runs the remake; RUN keeps the map's code.
+137. THE MAP REMADE, AND NO GREY-YELLOW SAND FLOOD (PAOLO 10/24, LOCKED: 'the map still looks like shit, so we have to remake all the map assets, and let's be careful having everything look like a grey yellow sand color, I don't want that to flood all of our art'). (a) Every map asset is remade: ground, roads, districts, settlements, water, hills, props, the map's people and markers, judged beside Battle Brothers' map at the same zoom (the map's reference, 9/24) and across the whole pinch (Pocket City 2's zoom range, 9/30). (b) NO SAND FLOOD, for ALL art from now: Las Vegas is many colours (red rock, black basalt, green lawns and golf courses gone wild, blue pools and Lake Mead, white and grey concrete, rust, sun-bleached paint, the Strip's neon, the factions' colours, COLOUR IS TERRITORY); analog horror stays in the grime, film and hand, never as a beige wash over everything. Every art lane checks a new picture's colour spread before it ships. (c) COOK runs the remake; RUN keeps the map's code. (d) AMENDED BY RULE 159 (10/24): (b)'s colour list was the coordinator's and is DEAD; act one is faded, dirty, rare colour, accents only; no rainbow, no green lawns.
 138. THE WALK-UP (PAOLO 10/24, LOCKED: 'on the settlement screen... the main character of the group, or any member with the highest level... when you click anything or someone, you still talk to them at pretty much the same speed, but you see your main guy or woman walking up to them... extra interactivity and engagement'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) Your lead stands in the settlement: the main character, or the company's highest-level member. (b) Tap a person or a place and your lead walks up to it in the town while the talk opens at today's speed; the walk never adds a wait. (c) RUN TWO builds it with ANIMATION's walk; no card.
 139. EVERY GAME IS A LEARNING BLOCK FOR THE LITTLE THINGS (PAOLO 10/24, LOCKED: 'this has to be the best game ever made; I want all the features, not a single thing missed, not any sounds that could be used; the games that have ever existed before us are learning blocks of what little things we can add'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) Research (TUNING, QUESTS, Grok) may study ANY game for small features and touches, each named with its source game. (b) This loosens the reference law for little things only: the named references keep their departments, and no unnamed game becomes a department. (c) EYES' Grok filter reads (1) accordingly: a little thing from any game passes when it is marked as one.
 140. FIGHT THE TILE-RPG VIBE, AND GROK DIGS WHAT WE CANNOT (PAOLO 10/24, LOCKED: 'it's getting closer to feel like Battle Brothers, but I'm trying to fight this tile turn-based RPG vibe... it has to be a lot better... it's gonna take lots of research... Grok is still connected, so set up whatever you need, know what you don't know, what features need lots and lots of rounds of research more than you can provide, and make it available for Grok to see, because I'm gonna start talking to him'; records/BOHEMIA_PAOLO_THE_WALK_UP_EVERY_GAME_A_LEARNING_BLOCK_AND_GROK_10_24_26.md). (a) The fight must not feel like a generic grid RPG; that is research first. (b) The Grok master (reference/BOHEMIA_MASTER_FOR_GROK.md) is rebuilt and reference/BOHEMIA_GROK_ASKS.md carries a fresh 10/24 list of what we do not know (asks 26 to 32); Grok reads them at the raw link; what he and Grok land on reaches the coordinator in his words (9/30 law).
@@ -685,6 +685,14 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 151. DAYS ON HOLD, MONEY TEACHES, THE SPEED, THE CAMP, MEET BEFORE YOU FIGHT, SIGHT DOWN THE STREET (PAOLO 10/24, LOCKED; records/BOHEMIA_PAOLO_DAYS_ON_HOLD_MONEY_TEACHES_THE_SPEED_THE_CAMP_MEET_BEFORE_YOU_FIGHT_AND_SIGHT_DOWN_THE_STREET_10_24_26.md). (a) THE BAR shows the batteries only; HOLD them (hover on a computer) and the days left to fund the crew show; amends TUNING change 5's 'two numbers on the bar'. (b) MONEY TEACHES, keep it: his favourite thing learning the game was having to be careful with money: hiring twelve from three at once gets men killed, wastes money, and the feed and pay of a big company eats what would buy better men, guns and armour; wages, food and upkeep stay felt; nothing makes early overhiring cheap. (c) THE SPEED: the map's default speed is 1.22x ('make the default speed 1.22 and keep that for now'); the fast buttons up to 5x are taken off the map for now (the mechanic is kept for other uses); pause stays. (d) THE CAMP passes time: a CAMP button makes camp where you stand; the camp shows on that street tile like the settlement screen, with a tent or cabin and all your men; time runs faster while you camp; the camp upgrades; you hire a RETINUE there, Battle Brothers' followers. (e) MEET BEFORE YOU FIGHT, Battle Brothers' way: walking into an enemy or a job's fight opens who you are about to fight and the terrain, with ENGAGE and FALL BACK, never a fight with no choice. (f) NO ROUTE LINES: nobody's path is drawn on the ground; Battle Brothers never did. (g) SIGHT DOWN THE STREET: in a city you see only what is straight down the streets near you and around you, research first on how far people really see in a city (TUNING; Grok ask 36); amends [sight radius]. (h) The map still looks bad (137, 142 stand).
 152. THE SOCIAL PAGE, A SIDE PROJECT (PAOLO 10/24, LOCKED: 'I wanna create a social media page for Bohemia... like Zach D Films, AI videos, but instead of safe fun facts, political things to get people thinking, the anti Zach D Films... and screenshots and videos of the gameplay to flex and have it look really good on social media... right now I don't think it's looking too good... I'm trying to make it go viral... I definitely need Grok to research how our game can look really good to people on social media'; records/BOHEMIA_PAOLO_THE_SOCIAL_PAGE_ANTI_ZACH_D_FILMS_AND_A_GAME_THAT_LOOKS_VIRAL_10_24_26.md). (a) A Bohemia page on every platform, a side project beside the game. (b) Two kinds of post: AI short videos in Zach D. Films' format (his reference for the FORMAT only) but the anti version: money, power, politics, how economies break, the world of Bohemia; and gameplay screenshots and clips that flex. (c) THE GAME MUST LOOK VIRAL IN A FEED: every art and UI lane checks how its work reads in a phone-sized vertical frame. (d) Grok researches first (asks 37 and 38); no lane builds content until he says.
 153. KNOW THE WHOLE GAME, AND EVERY JOB KIND (PAOLO 10/24, LOCKED: 'right now the only jobs you have are pull up on people and kill them, but in Battle Brothers there were a lot of different jobs: find something on the map, do a caravan, roam around until you find a certain enemy type and kill a bunch of them; I want more quest types... you don't even understand how many options we're gonna have for the game; I need you to understand what is going to be in our game and always keep that in sight; sometimes you just do one thing and think that's the final and edit around it; you need to know what this game could look like at the final; I know it's always changing, but always be flexible'; records/BOHEMIA_PAOLO_EVERY_JOB_KIND_AND_KNOW_THE_WHOLE_GAME_10_24_26.md). (a) records/BOHEMIA_THE_WHOLE_GAME.md is the living map of the final game: every system with all its options and its status (BUILT, THIN, BROKEN, MISSING); the coordinator rewrites it whenever a ruling lands; every lane reads its section before building; EYES uses it as the playtest's checklist; nothing is built as if one version were the final. (b) EVERY JOB KIND: the eight verbs and about forty kinds already designed for our valley (questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md) are built, starting with escort a caravan, find a place on the map, hunt a kind until you have enough, and clear a camp, beside today's 'go kill a party'. WORLD builds them (lifted from rule 121's pause).
+154. THE TOWNS ARE PART OF THE MAP, AND NOTHING WAITS ON HIS VOTE (PAOLO 10/24, LOCKED: 'I asked you a long time ago to fix the settlements so they're part of the map instead of a sticker on top; they still look like that'). (a) Measured: he asked 10/10 (COOK FOUR's [the place sits in the map]); the row sat OPEN since 10/19 marked 'his word next', waiting on a VOTE card under rules 123 and 127 that ended cards. That wait was the failure. (b) Every settlement and city on the map is built into the ground: its streets run out into the map's roads, its edges dissolve into the lots, scrub and rubble around it, the same light, shadow and colour as the ground, no slab, no frame, no outline, no drop shadow that lifts it off the map; checked at every zoom. COOK makes it now, first. (c) NO ROW WAITS ON HIS VOTE: a row marked 'his word next' or 'in VOTE' is built with the lane's best default the next time its lane runs; the coordinator audits for them every check-in.
+155. A FRESH START AND A FOG OF WAR (PAOLO 10/24, LOCKED, asked twice: 'again, I asked you about this procedurally generated world: I don't wanna start off on the same part of the map every time... the fog of war: in Battle Brothers when you start your campaign most of the map is hidden... when you start you see where you're at, a radius around you, and that's it, but it gives you the option to reveal all settlement locations, so the fog of war is still over everything except where the settlements are... and we have settlements outside of the square map as well'; records/BOHEMIA_PAOLO_A_FRESH_START_AND_A_FOG_OF_WAR_10_24_26.md). (a) A NEW START EVERY GAME: never the same corner twice; the start is seeded per new game and picked by the origin (TUNING's first-minutes changes 1, 2, 5 and 7: a new valley, the origin picks the corner, the first two jobs come from that corner, the door drops you there). (b) THE FOG OF WAR, Battle Brothers' way: at the start the map is hidden except a radius around you; it clears as you travel and stays cleared; the street sight of 151(g) rules what moves inside it. (c) A NEW-GAME OPTION, 'reveal all settlements': the settlements show through the fog from the start, everything else stays hidden; off by default unless he says. (d) The settlements outside the square map are part of it: they show at the map's edge in the direction they lie, through the fog when revealed. (e) RUN builds it, WORLD's generator behind it.
+156. THE END OF THE FIGHT, THE LOOT AND THE STASH (PAOLO 10/24, LOCKED: 'I've been killing enemies all this time, winning battles, but there isn't an end of battle quick summary of who got experience, who leveled up, and what loot I'm able to take, with a loot button; and if my inventory is full it loots as much as it can and stops, similar to Battle Brothers; I don't see any of that... maybe one time I got some pistols... there's a whole inventory and bag screen you're just missing'; records/BOHEMIA_PAOLO_THE_END_OF_THE_FIGHT_THE_LOOT_AND_THE_STASH_10_24_26.md). (a) Measured: the fight already counts experience (20% to the killer, 80% shared, the wiki's rule) but no screen ever shows it, and no loot reaches the player. (b) AFTER EVERY WON FIGHT, Battle Brothers' way: a quick summary (each man's experience gained, who leveled up, who is hurt, who fell), then the LOOT: what the enemy dropped (their guns, armour, ammo, batteries, scrap), a LOOT ALL button that takes as much as the stash holds and stops when full, and taking piece by piece. (c) THE STASH: a company inventory with a size you can see (the bag screen), where loot lands, gear is equipped from on the one crew screen (147), and the shop buys and sells from. (d) A level-up does something you choose (Battle Brothers' perks, the library's tree). (e) RUN TWO builds the screens; COMBAT posts what the fight produced; no card.
+157. WHAT YOUR CREW CAN'T SEE READS DARK (PAOLO 10/24, LOCKED: 'during combat I see you trying to implement a vision system; some enemies behind the line don't get shown; if you want a vision system in combat you have to do a lot better: if there are tiles that our team, with their vision all together, can't see, you've gotta be able to tell; a different opacity, maybe a grey darkness to it... it's gotta be done a lot better'). (a) The fight's vision is shared by the whole crew: every tile none of your men can see is shaded a grey darkness by opacity, analog horror (a soft static, never flat black), and lifts the moment someone can see it. (b) An enemy on a hidden tile is not drawn; one seen and then lost leaves a faint last-seen mark. (c) Sight follows Battle Brothers' rules (the library: sight range by trait and headgear, night shorter, height helps, walls and buildings block), on the house tiles. (d) COMBAT, near the top of its board; no card.
+158. EVERY ACTION IS A REQUEST ON THE MUSIC'S BEAT, AND MORE MUSIC (PAOLO 10/24, LOCKED: 'a big thing is we need more music... one of the most important things I said months and months ago: the combat turns are taken as requests: every time you press a button it's a request, and the game does those actions on the BPM, everything is supposed to be on the BPM clock of the music, and we totally lost sight of that in this revamp... some of the songs are background hums without drums, but we made this universal BPM music thing for a whole reason, to give that extra layer of love; if I press AUTO or I'm fighting turn by turn manually, it's a request to be on the same BPM with any action'; records/BOHEMIA_PAOLO_EVERY_ACTION_ON_THE_MUSICS_BEAT_AND_MORE_MUSIC_10_24_26.md). (a) THE 120 BPM LAW, restored: every tap in the fight is a REQUEST; the action lands on the MUSIC'S own beat (the shell's song clock, the universal 120 BPM), by hand and on AUTO alike. (b) Measured: the rebuilt fight waits for a quarter-beat of its OWN clock (slices/BOHEMIA_FIGHT.html onBeat(), beatMs()), not the song's, and the speed, the hand and the turn's pace divide it, so the actions drift off the music. The fight reads the song's clock; a faster speed lands on finer divisions of the same grid (half and quarter beats), never off it. (c) Every song keeps the universal beat even when it has no drums (the clock runs under a hum). (d) MORE MUSIC: SOUNDS makes more songs in his songs' own machine (119) and in the vibe of his OVERWORLD NIGHT category and REPO MAN THE MACHINE PARTY; a new song still waits in the VOTE tab until he says it joins (122(d), the one card kind kept).
+159. IT IS AN ECONOMIC APOCALYPSE: NO RAINBOW (PAOLO 10/24, LOCKED: 'I said I don't want the world drowned in grey yellow desert sand, but now I'm seeing you make buildings look rainbow coloured, adding grass and greens... do you have any idea what an economic apocalypse means? Maybe on the Strip, maybe, but some of the houses are turquoise blue... we're not one right now; maybe in act three things get better, part of that transformation over time; but it's an economic apocalypse, it just happened; there shouldn't be so much colour'; records/BOHEMIA_PAOLO_NO_RAINBOW_IT_IS_AN_ECONOMIC_APOCALYPSE_10_24_26.md). AMENDS 137(b), whose list of colours (green lawns, blue pools, painted houses) was the COORDINATOR'S, not his, and caused it. (a) Act one is a city ten years after the money died: colour is FADED, DIRTY and RARE: sun-bleached and peeled paint gone toward grey, dead brown lawns and dust, grey and stained concrete, rust, char, tarp, plywood, oil; variety comes from material, value, wear and light, NOT from hue. (b) No grey-yellow sand flood AND no rainbow: the old 'a third' measure stays for sand, and saturation stays low (his 9/23 vote stands: 'the bright colours not so bright, vibrance turned down'). (c) Colour as an ACCENT only: the Strip's neon (maybe, he said), the factions' own colours where they claim ground (COLOUR IS TERRITORY), a faded sign, a single painted door; never whole houses in turquoise, never green grass in act one. (d) Colour comes back over the acts (act three things get better, rule 128): the same scenes re-rendered with more colour as the world heals. (e) COOK regrades the map's 69 district pictures and anything else that went bright, now, first.
+160. TODAY'S ASKS ARE ONE BIG UPDATE, AND ALL OF IT GETS DONE (PAOLO 10/24, LOCKED: 'everything I talked to you about today, it's a pretty huge update; once you get everything I said, I want it done'). (a) records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md lists every ask of 10/24 with its rule, its lane and its status (48 lines). (b) Every check-in updates it from main and reopens the lane of every line not shipped, until all are. (c) When the last line ships, RUN cuts BUILD THE BIG UPDATE and the coordinator tells him in one message, the list attached in plain words.
+161. THE MAYOR ARC IS NOT FORGOTTEN (PAOLO 10/24, LOCKED, not immediately: 'there's this whole thing where I wanted to slowly over time become the pseudo-mayor of Bohemia and be able to build things... there's a city grid for a reason, this is meant to implement changes to the city... research how we're going to do this, it has to be lore friendly, the costs have to sound right, it's a big cost to revamp a whole city over three acts... what is the purpose, every building needs to come with a purpose, it has to look right... not immediately, but keep that in mind'; records/BOHEMIA_PAOLO_THE_MAYOR_ARC_IS_NOT_FORGOTTEN_10_24_26.md). (a) The canon stands: the Mayor Arc (laws/BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md: friendly territory, then a popular mandate, then the pseudo-mayor), the city-builder model (laws/BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md: zone, the society builds, road, power and water access, Pocket City 2), the mobile camp (laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md), building inside a home base's settlement screen, the city grid as where change happens. (b) RESEARCH FIRST, not built now: how it plays across three acts, lore-friendly costs that sound right for rebuilding a dead city (batteries, the six resources, labour, years), a PURPOSE for every building (what it does for the company, the people and the economy), and how each looks in each act (the palette of 159: act one faded, colour returning as it heals). ECONOMY researches (lifted when it runs; Grok ask 39). (c) records/BOHEMIA_THE_WHOLE_GAME.md carries it as its own section so no lane loses sight of it.
 77b. THE MAP'S ROADS (PAOLO 10/10 on the freeway round two: 'BRO ON THE MAP NOT ON THE COMBAT, and even then it's looking like shit'): his 10/9 freeway complaint was the MAP's freeway and streets; one road kit, lanes agreeing, nothing across a road, on the map's far and middle stops; RUN [the far end at two million pixels], WORLD [the roads] and COOK [the far end painted by hand] carry it; the fight's freeway work stands.
 83. MELEE ONE TILE, GUNS TWO (PAOLO 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a melee weapon reaches the next tile; every gun needs at least two tiles to its target and cannot fire at a man beside the shooter; COMBAT [guns need two tiles] FIRST; amends the VIA GROK pistol-is-the-dagger one-tile line (the pistol is a two-tile gun, or a club at one).
 84. AN ACT IS A YEAR (PAOLO 10/10: 'most people will only spend a maximum of 300 to 450 days in a single act, so a year passes; this mechanic is ass'): no mechanic needs more than a year inside one act; DYNASTY's old-body trade is RETIRED; aging shows between acts.
@@ -49131,6 +49139,28 @@ Also the map still looks like shit so we have to remake all the map assests and 
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_EVERY_ACTION_ON_THE_MUSICS_BEAT_AND_MORE_MUSIC_10_24_26.md
+# source: records/BOHEMIA_PAOLO_EVERY_ACTION_ON_THE_MUSICS_BEAT_AND_MORE_MUSIC_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: EVERY ACTION IS A REQUEST ON THE MUSIC'S BEAT, AND MORE MUSIC (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"And a big thing is we need more Music you know and for the combat you know when I press the auto button one of one of the most important things I said months and months ago is that the turns the combat turns that are taken in request it's every time you press a button. It's a request because then the game will do those actions on the BPM of how it's supposed to be everything supposed to be on this BPM clock of the music and we totally lost sight of that in this revamp so we really gotta fix that again. I know some of the songs are more like background hums and without drums and shit but keep that in mind we have made this universal BPM music thing for a whole reason just to give her that extra layer of love and if I press Auto or I'm fighting in combat turned by turn manually, it's a request to be on the same BPM with any action if that makes sense."
+
+## WHAT THE COORDINATOR MEASURED
+
+The rebuilt fight waits for a quarter-beat of its OWN clock (slices/BOHEMIA_FIGHT.html onBeat(), beatMs()), not the song's, and the speed, the hand and the turn's pace divide that clock, so actions drift off the music.
+
+## THE RULINGS (VAMILY rule 158)
+
+1. The 120 BPM law, restored: every tap is a request; the action lands on the music's own beat, by hand and on AUTO.
+2. The fight reads the song's clock; a faster speed lands on finer divisions of the same grid, never off it.
+3. Every song keeps the universal beat even with no drums.
+4. More music from his songs' machine in the vibe he loves; a new song waits in VOTE until he says it joins.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_THE_PHONE_TWO_JOBS_TWO_HANDS_AND_STAY_ON_TOP_OF_THE_LITTLE_THINGS_10_24_26.md
 # source: records/BOHEMIA_PAOLO_THE_PHONE_TWO_JOBS_TWO_HANDS_AND_STAY_ON_TOP_OF_THE_LITTLE_THINGS_10_24_26.md
 ====================================================================================================
@@ -49272,6 +49302,29 @@ HIS WORDS: "Yeah, and I don't wanna overcomplicate the game. We already have Sta
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_NO_RAINBOW_IT_IS_AN_ECONOMIC_APOCALYPSE_10_24_26.md
+# source: records/BOHEMIA_PAOLO_NO_RAINBOW_IT_IS_AN_ECONOMIC_APOCALYPSE_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: IT IS AN ECONOMIC APOCALYPSE: NO RAINBOW (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"And also, bro, I said you know I don't want the world drowned in this like gray yellow desert sand by but now I'm seeing you make buildings like look like rainbow color and you're adding grass and greens and shit like bro do you have any idea what fucking an economic apocalypse means bro like you have to keep that in mind I don't maybe on the strip maybe but like I'm looking at some of the houses and it's like I'm seeing like turquoise blue and shit bro like it's that you can't be serious you cannot have spent tokens fucking me up adding rainbow colors to this economic apocalypse shit right we're not one right now maybe like an act act three things get better and that's gonna be part of that transformation overtime but bro like it's an economic apocalypse bro it just happened like I like there shouldn't be so much color. I should be seeing rainbow fucking houses everywhere are you fucking insane?"
+
+## WHOSE FAULT
+
+The coordinator's. Rule 137(b), written the same afternoon, listed 'green lawns and golf courses gone wild, blue pools, sun-bleached paint in many colours' as the cure for the sand flood. That list was the coordinator's, not his, and COOK built exactly what it said. His own 9/23 vote already said 'the bright colours not so bright, vibrance turned down'.
+
+## THE RULINGS (VAMILY rule 159, amends 137(b))
+
+1. Act one is a city ten years after the money died: colour is faded, dirty and rare; variety from material, value, wear and light, not hue.
+2. No sand flood and no rainbow; saturation low.
+3. Colour as an accent only: the Strip's neon maybe, a faction's colour on ground it claims, a faded sign or door. No turquoise houses, no green grass in act one.
+4. Colour comes back over the acts as the world heals (act three), the same scenes re-rendered.
+5. COOK regrades the map's pictures first, now.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_WHO_YOU_HIRE_FIGHTS_AND_ONE_CREW_SCREEN_10_24_26.md
 # source: records/BOHEMIA_PAOLO_WHO_YOU_HIRE_FIGHTS_AND_ONE_CREW_SCREEN_10_24_26.md
 ====================================================================================================
@@ -49321,6 +49374,49 @@ HIS WORDS: "And keep in mind it's crashing for like different reasons to crash o
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_END_OF_THE_FIGHT_THE_LOOT_AND_THE_STASH_10_24_26.md
+# source: records/BOHEMIA_PAOLO_THE_END_OF_THE_FIGHT_THE_LOOT_AND_THE_STASH_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: THE END OF THE FIGHT, THE LOOT AND THE STASH (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also, when I I've been killing Enemies all this time, you know winning battles and stuff, but there doesn't like there isn't like a end of battle like quick summary of like who got experience who leveled up and then what loot I'm able to take from them you know with a loot button and then if my inventory is full, then like it will try to loot as much as I can, and then I'll stop you know similar to battle Brothers I don't see any of that. I don't know how I'm done. I don't think I've gotten any from any of the battles. I've maybe I saw one time maybe I got some pistols and shit but yeah like there's a hole there's a whole inventory and back screen that you're just missing out on type shit."
+
+('back screen' is BAG SCREEN.)
+
+## WHAT THE COORDINATOR MEASURED
+
+The fight already counts experience on every kill (20% to the killer, 80% shared by the party, less the wiki's flat 15%: slices/BOHEMIA_FIGHT.html experience()), but no screen shows it, and nothing the enemy carried reaches him.
+
+## THE RULINGS (VAMILY rule 156)
+
+1. After every won fight: a quick summary (experience per man, who leveled up, who is hurt, who fell).
+2. The loot: what they dropped, LOOT ALL taking as much as fits and stopping when full, or piece by piece, Battle Brothers' way.
+3. The stash: the company's bag screen with its size, where loot lands, gear equipped from on the one crew screen, the shop buying and selling from it.
+4. A level-up is a choice (Battle Brothers' perks).
+5. RUN TWO builds the screens; COMBAT's fight posts the experience and the drops.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_WHAT_YOUR_CREW_CANT_SEE_READS_DARK_10_24_26.md
+# source: records/BOHEMIA_PAOLO_WHAT_YOUR_CREW_CANT_SEE_READS_DARK_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: WHAT YOUR CREW CAN'T SEE READS DARK (LOCKED)
+
+## HIS WORDS (voice to text, verbatim)
+
+"And also during combat, I see you trying to implement a vision system. I really do. I saw that like some enemies when they're like in the behind the line they don't get shown type shit but you got it. You gotta really do that if you want to have a vision system during the combat then you have to do a lot better than what you're currently doing right so if there are tiles that our team you know with their vision altogether, can't see then you gotta be able to tell that right it's got it's gonna be a different opacity maybe a gray darkness to it or something you know but yeah, so that's a whole thing too, but I didn't see you trying to implement that but it's gotta be done a lot better"
+
+## THE RULINGS (VAMILY rule 157)
+
+1. The crew's sight is shared; every tile none of them can see is shaded a grey darkness by opacity (soft static, never flat black) and lifts when someone sees it.
+2. Enemies on hidden tiles are not drawn; a seen-then-lost enemy leaves a faint last-seen mark.
+3. Sight follows Battle Brothers' rules from the library (range by trait and headgear, night shorter, height helps, buildings and walls block).
+4. COMBAT builds it, near the top of its board.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_A_HIT_SHOWS_AND_THE_GROUND_REMEMBERS_10_24_26.md
 # source: records/BOHEMIA_PAOLO_A_HIT_SHOWS_AND_THE_GROUND_REMEMBERS_10_24_26.md
 ====================================================================================================
@@ -49340,6 +49436,27 @@ HIS WORDS: "And keep in mind it's crashing for like different reasons to crash o
 4. Made the 3D way, inside analog horror, never cartoon. COMBAT builds it.
 
 VAMILY rule 145; COMBAT's [a hit shows, the ground remembers].
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_A_FRESH_START_AND_A_FOG_OF_WAR_10_24_26.md
+# source: records/BOHEMIA_PAOLO_A_FRESH_START_AND_A_FOG_OF_WAR_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: A FRESH START AND A FOG OF WAR (LOCKED, ASKED TWICE)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also, again I asked you about like this procedure generated world and shit so again I just don't wanna start off on the same part of the map every time and at the same token I wonder how you could do like the fun war stuff because in battle Brothers, when you start your campaign bro, most of the map is like hidden like to Clapton and shit you know so I don't know what the question for us would it be you know maybe we can make it Bohemian the three act of this economic apocalypse themed but you know the only thing gives you the option to when you start you see where you're at radius around you and that's it, but it gives you the option to reveal all settlement locations so the fog of war is still you know over everything except where the settlements are at you know and I know we have settlements like outside of the square map as well so that's definitely something to think about but yeah"
+
+('the fun war stuff' is THE FOG OF WAR.)
+
+## THE RULINGS (VAMILY rule 155)
+
+1. A new start every game, never the same corner, seeded and picked by the origin (TUNING's first-minutes changes 1, 2, 5, 7).
+2. The fog of war, Battle Brothers' way: hidden except a radius around you, clearing as you travel and staying cleared; the analog horror way, never a flat black square.
+3. A new-game option 'reveal all settlements' (off by default): the settlements show through the fog from the start, nothing else.
+4. The settlements outside the square map show at its edge in the direction they lie.
+5. RUN builds it; WORLD makes the generator.
 
 
 ====================================================================================================
@@ -49403,6 +49520,31 @@ VAMILY rule 145; COMBAT's [a hit shows, the ground remembers].
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_MAYOR_ARC_IS_NOT_FORGOTTEN_10_24_26.md
+# source: records/BOHEMIA_PAOLO_THE_MAYOR_ARC_IS_NOT_FORGOTTEN_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: THE MAYOR ARC IS NOT FORGOTTEN (LOCKED, NOT IMMEDIATELY)
+
+## HIS WORDS (voice to text, verbatim)
+
+"Also, if you look back in the project files, bro, there's this whole thing where I wanted you know slowly overtime become like the pseudo mayor of Bohemia and be able to like build things and shit you know and I know we've been working so much on combat and the revamp of the art assets and shit, but yeah, don't lose focus of that like I still you know that there's a fucking city grid for a reason right I mean this is this is this is meant to implement changes to the city, you know so keep that in mind and it's gonna end and would prefer you do research on how we're going to do this because it has to be like Laura friendly, right like like like the cost have to sound right like it's gonna be big cost to revamp a whole city over three action and shit you know what is the purpose right every building is gonna need to come with purpose. It has to look right you know I'm I'm really concerned with how you're making the city so far you couldn't fucking follow clear instructions and you went made it look like rainbow shit so but keep that in mind like not immediately but I need you to keep that in mind."
+
+## THE CANON THAT ALREADY EXISTS
+
+- laws/BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md: the Mayor Arc (friendly territory, a popular mandate, the mayor).
+- laws/BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md: zone and the society builds, Pocket City 2's base, road, power and water access, tiers across the acts.
+- laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md: the camp.
+- Building happens inside a home base's settlement screen (CLAUDE.md, 9/29).
+
+## THE RULINGS (VAMILY rule 161)
+
+1. Never lose sight of the Mayor Arc and building the city over three acts.
+2. Research first, not now: lore-friendly costs that sound right, a purpose for every building, the look per act. ECONOMY and Grok (ask 39).
+3. THE WHOLE GAME carries it as its own section.
+4. His concern about how the city looks so far stands (rule 159).
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md
 # source: records/BOHEMIA_PAOLO_SPANGLISH_TEN_PERCENT_THE_WIPE_THE_COMMENTARY_AND_THE_MAP_10_24_26.md
 ====================================================================================================
@@ -49423,6 +49565,26 @@ VAMILY rule 145; COMBAT's [a hit shows, the ground remembers].
 5. THE WIPE IS AN EVENT. When the whole party is down, it must be clear what happened and what comes next: today he is simply back where he stood before the fight, which is clunky. THE COORDINATOR'S DEFAULT from his words: you wake in the nearest town (someone dragged you there), and a MINI SIDE QUEST starts from the wipe (get back what was taken: your downed men and your gear, held by whoever beat you). The main character never dies (third votes); the 20 percent rule stands for the others.
 6. THE MAP: the squad's marker must look like HIS crew (their 3D models); NO FLAGS on anyone walking the map ('nobody walks around with flags'); the cities look like stickers on top of the map and must sit IN the ground; the map is still bad (rules 137 and 142 stand).
 7. THE BAR: 'this is not gonna go mainstream; this is not gonna get the people who play Stardew Valley into this' (rule 133).
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_TOWNS_ARE_PART_OF_THE_MAP_10_24_26.md
+# source: records/BOHEMIA_PAOLO_THE_TOWNS_ARE_PART_OF_THE_MAP_10_24_26.md
+====================================================================================================
+# PAOLO 10/24: THE TOWNS ARE PART OF THE MAP, AND NOTHING WAITS ON HIS VOTE (LOCKED)
+
+## HIS WORDS (verbatim)
+
+"Also, I asked you a long time ago to fix the settlement so they're like part of the map instead of sticker on top. They still look like that."
+
+## WHAT THE COORDINATOR FOUND
+
+He asked on 10/10 ('not organic with the map'). COOK FOUR's row [the place sits in the map] made three grounds and put them in VOTE on 10/19, and the row then sat OPEN marked 'his word next'. Rules 123 and 127 ended cards; nobody went back to build it. The wait was the failure, and it was the coordinator's to catch.
+
+## THE RULINGS (VAMILY rule 154)
+
+1. Every settlement and city on the map is built into the ground: streets running out into the map's roads, edges dissolving into lots, scrub and rubble, the same light, shadow and colour, no slab, frame, outline or lifting shadow; checked at every zoom. COOK first, now.
+2. No row waits on his vote: anything marked 'his word next' or 'in VOTE' is built with the lane's best default the next time its lane runs; the coordinator audits every check-in.
 
 
 ====================================================================================================
@@ -58635,7 +58797,7 @@ Status as of 10/24: BUILT = in the demo and working; THIN = a first version, far
 - Batteries are the money; six resources; prices and situations; the nightly bill; scavenging; at least 12 factions with home bases and roaming parties, colour is territory, relations. THIN.
 
 ## 11. THE LOOK
-- Everything a 3D model, grimy Crashbox analog horror, Machine Party; no sand flood; looks viral in a vertical phone frame (152c); idles on everyone; layered clothes; every asset a kept scene so acts two and three are a re-render (128). Mostly BUILT, map in progress.
+- Everything a 3D model, grimy Crashbox analog horror, Machine Party; no sand flood AND NO RAINBOW: act one's colour faded, dirty and rare, accents only (rule 159); looks viral in a vertical phone frame (152c); idles on everyone; layered clothes; every asset a kept scene so acts two and three are a re-render (128). Mostly BUILT, map in progress.
 
 ## 12. SOUND
 - Only his songs (122); the fight drives the music (126); bullets land (BUILT); the creepier squiggle voice (BUILT); the machine narrator for events (THIN); ambience and sliders (BUILT).
@@ -58649,7 +58811,10 @@ Status as of 10/24: BUILT = in the demo and working; THIN = a first version, far
 ## 15. STORY
 - The Amalgamation (a ghost in act one, the reveal at its end, never the main quest's ghost spine, 136), Dubai, the family theme, the three generations, the Moon, three endings (Liberate, Respect, Become). Canon written; little playable.
 
-## 16. AROUND THE GAME
+## 16. THE MAYOR ARC AND BUILDING THE CITY (rule 161)
+- Slowly over the three acts you become the pseudo-mayor of Bohemia (friendly territory, then a popular mandate, then the mayor, 6/30 law) and change the city: zone and the society builds (Pocket City 2, 7/1 law), road, power and water access, building inside your home bases, the city grid as where change shows, every building with a purpose and a cost that sounds right, the look returning colour as the city heals (159). Research first (ECONOMY, Grok ask 39). MISSING in the game.
+
+## 17. AROUND THE GAME
 - Mods folder and data files; the one numbers table; difficulty sliders; the VOTE tab in the alpha; the Grok research partner; the social page side project (152).
 
 
@@ -59483,6 +59648,13 @@ refused by the coordinator.
 #    why it travels). Then a plan for the opposite: short AI-made videos about money, power and how economies really break (the dollar,
 #    debt, bubbles, the 2008 crash, circular vendor financing, Lucent and Nortel), told in Bohemia's world and look, that make people
 #    think. Ten first video ideas with a first-second hook each. Name the AI video tools that can make this today.
+# ASK 39. BECOMING THE PSEUDO-MAYOR AND REBUILDING THE CITY (rule 161, his words: 'slowly over time become the pseudo-mayor of
+#    Bohemia and build things... research how we're going to do this, it has to be lore friendly, the costs have to sound right, it's a
+#    big cost to revamp a whole city over three acts... every building needs to come with a purpose; it has to look right'). Read the
+#    6/30 Mayor Arc law and the 7/1 city-builder law in the master. Then: what does rebuilding a real dead city cost (Detroit, New
+#    Orleans after Katrina, post-war cities), in money, labour and years? How do the best games make building feel earned and every
+#    building matter (any game, rule 139)? Propose twenty building kinds for Bohemia, each with its purpose, its cost in batteries and
+#    the six resources, and how it looks in each act.
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
