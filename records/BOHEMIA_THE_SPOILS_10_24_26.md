@@ -28,7 +28,7 @@ much as it can and stops, similar to Battle Brothers... there's a whole inventor
   COUNTS that take no stash room (his 7/26 law: loot is resources with a count): batteries to the purse's electricity,
   rounds and scrap to its resources.
 
-## WHAT SHIPPED (BUILD 10/24o, 44d0325d + e77a2b36)
+## WHAT SHIPPED (BUILD 10/24o, 44d0325d + 14cff2d7)
 - slices/BOHEMIA_FIGHT.html, COMBAT's file, block __THE_SPOILS__ (NOTE on COMBAT's board): .spoils on the fight's message:
   every man of theirs with what he wore when it ended, and the look of every man of ours. It decides nothing.
 - engine/bohemia_spoils.js: found / grew / take / takeAll (pure).
@@ -40,6 +40,11 @@ much as it can and stops, similar to Battle Brothers... there's a whole inventor
 - slices/BOHEMIA_ROSTER_SCREEN.html: a man's starting level, its XP and its perk points to spend.
 - slices/BOHEMIA_SETTLEMENT_SCREEN.html: the stash read every visit; a worn looted piece sells for what is left of it.
 - gates/the_spoils_gate.js: THE SPOILS 22/0 on the demo (proof shots with --shoot in records/target/spoils/).
+
+## ROUND 2 (BUILD 10/24p, 6c94e47e): THE LEVEL-UP IS HIS CHOICE (rule 162(a)(e))
+- Measured: a level raised three random stats, and the fight rolled its own stats for every man but a hire.
+- Now each level rolls all eight on his star column and waits; on the crew screen he taps three (per_level.attributes_raised,
+  TUNING's number) and RAISE THEM; the company hands the fight every man's stats. CLIMBING 17/0, THE SPOILS 23/0.
 
 ## KNOWN, NOT DONE
 - The fight reads armour by id at full durability: a looted helmet at 73% fights as new (it sells for 73%). Wear in the
