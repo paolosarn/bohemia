@@ -727,6 +727,7 @@
     + '#bmtb .t img{display:block;image-rendering:pixelated}'
     + '#bmtb .t.day b{font-weight:normal;font-size:15px;letter-spacing:1px}'
     + '#bmtb .t.crew b{font-weight:normal;font-size:14px} #bmtb .t.crew em{font-style:normal;font-size:10px}'
+    + '#bmtb .t.crew{cursor:pointer;-webkit-tap-highlight-color:transparent;padding-left:6px} #bmtb .t.crew img.me{image-rendering:auto;box-shadow:0 0 0 1px #1f1710,1px 1px 0 1px rgba(10,6,3,.5);background:#2a2016}'
     + '#bmtb .t.gear{width:44px;padding:0;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}'
     + 'html body #menubar #bmtb #notebtn{cursor:pointer;min-width:44px;justify-content:center;font-size:12px}'
     + 'html body #menubar #bmtb #noteplate{display:inline;padding:0!important;font-family:inherit;font-size:12px;letter-spacing:.8px;color:#1f1710!important;background:none!important;filter:none!important;box-shadow:none!important}'
@@ -743,7 +744,7 @@
     + '#bmtb .s b{font-weight:normal} #bmtb .s.none b{color:#ddd2b8} #bmtb .s.none img{opacity:.6}'
     + '#bmtb .s b.low{color:#4a0a05;padding:3px 5px;background:#e2dac6 var(--bm-receipt) center/100% 100%;box-shadow:0 1px 0 #000}'
     + '#bmtb .where{flex:0 1 auto;min-width:0;margin-left:auto;overflow:hidden;white-space:nowrap;font-size:11px;letter-spacing:1px;color:#f2e4c6}'
-    /* the two numbers (change 5): the batteries big, the nights beside them with the word, so a stranger reads 'days left' */
+    /* the two numbers (change 5): the batteries big, the nights beside them with the word, so a stranger reads 'nights left' */
     + '#bmtb .s.bats b{font-size:16px;min-width:3ch} #bmtb .s.days b{font-size:16px} #bmtb .s.days i{font-style:normal;font-size:10px;letter-spacing:.8px;color:#ddd2b8;margin-left:2px}'
     + '#bmtb .s.days.red i{color:#ff9a7e}'
     /* a win counting up where the number lives (change 6): the figure lit amber on the beat while it climbs */
@@ -764,21 +765,26 @@
     var root = document.getElementById('bmtb'); if (!root) return;
     var f = tbFacts();
     var day = '<img alt="" width="36" height="22" style="width:36px;height:22px" src="' + tbDial(f.min) + '"><b>DAY ' + (f.day == null ? '–' : f.day) + '</b>';
-    var crew = '<img alt="CREW" width="20" height="20" style="width:20px;height:20px" src="' + TB.man + '">';
+    /* UI [portrait menu] (rule 44b, Paolo 9/29: 'the portrait button that used to be the action button could be the character
+       menu'): the crew tag wears HIS face (PORTRAIT's 'you', the crew screen's own) and is the door to his company */
+    var me = null; try { me = window.BohemiaCrewFaces && BohemiaCrewFaces.has('you') ? BohemiaCrewFaces.src('you', 'rest', 64) : null; } catch (_e) {}
+    var crew = me ? '<img class="me" alt="YOUR COMPANY" width="30" height="30" style="width:30px;height:30px" src="' + me + '">'
+      : '<img alt="CREW" width="20" height="20" style="width:20px;height:20px" src="' + TB.man + '">';
     if (f.crew) {
       crew += '<b>' + f.crew.length + (f.cap ? '<em>/' + f.cap + '</em>' : '') + '</b><span class="ticks">';
       f.crew.forEach(function (hp) { var px = Math.max(2, Math.round(14 * hp)); crew += '<i class="' + (hp >= 0.66 ? '' : (hp >= 0.33 ? 'hurt' : 'bad')) + '"><b style="height:' + px + 'px"></b></i>'; });
       crew += '</span>';
     } else crew += '<b>–</b>';
     /* UI [the ten changes], change 5 (rule 133; TUNING: 'the bar shows two numbers, not five'): the batteries, and the
-       nights they still feed the crew. The stall's food, meds and rounds are bought where they are sold; the bill is one
+       nights they still feed the crew, said as NIGHTS: the bill is paid at nightfall, and his NO on the 10/19 bars ('How many
+       times ur gonna show how many days?') keeps DAY on the bar once. The stall's food, meds and rounds are bought where they are sold; the bill is one
        number in batteries, so the three dashes and the food chip are off the bar. Until the map's bill is read (a page
        without it) the bar keeps the five it had. */
     var g;
     if (f.days != null) {
       var cnt = TEN.count ? ' counting' : '';
       g = '<span class="s bats' + cnt + '" data-f="batteries"><img alt="BATTERIES" src="' + supplyIcon('batteries') + '"><b>' + (typeof f.batteries === 'number' ? f.batteries : '–') + '</b></span>'
-        + '<span class="s days' + (f.red ? ' red' : '') + '" data-f="days"><img alt="NIGHTS" src="' + supplyIcon('nights') + '"><b' + (f.red ? ' class="low"' : '') + '>' + f.days + '</b><i>' + (f.days === 1 ? 'DAY LEFT' : 'DAYS LEFT') + '</i></span>';
+        + '<span class="s days' + (f.red ? ' red' : '') + '" data-f="nights"><img alt="NIGHTS" src="' + supplyIcon('nights') + '"><b' + (f.red ? ' class="low"' : '') + '>' + f.days + '</b><i>' + (f.days === 1 ? 'NIGHT LEFT' : 'NIGHTS LEFT') + '</i></span>';
     } else g = TB_STORES.map(function (k) {
       var n = k === 'batteries' ? f.batteries : (k === 'food' ? f.food : (f.six ? f.six[k] : null)), has = typeof n === 'number';
       var low = k === 'food' && has && Math.floor(n / f.perDay) < 3;
@@ -794,6 +800,12 @@
       if (P) { if (!P.getElementById('bm-tb-shell')) { var st = P.createElement('style'); st.id = 'bm-tb-shell'; st.textContent = TB_SHELL_CSS; P.head.appendChild(st); }
         P.documentElement.classList.toggle('bm-gear-in-bar', on); }
     } catch (_e) {}
+  }
+  /* the one door to the company (RUN TWO's engine/bohemia_crew_door.js, the settlement's CREW calls the same) */
+  function crewDoor() {
+    var go = function () { try { if (!BohemiaCrewDoor.isOpen()) BohemiaCrewDoor.open({ base: '', onDone: function () { try { tbPaint(); } catch (e) {} } }); window.__CREW_DOOR = (window.__CREW_DOOR | 0) + 1; } catch (e) {} };
+    if (window.BohemiaCrewDoor) return go();
+    try { var sc = document.createElement('script'); sc.src = '../engine/bohemia_crew_door.js'; sc.onload = go; document.head.appendChild(sc); } catch (e) {}
   }
   function topBar() {
     var bar = document.getElementById('menubar'); if (!bar || !document.getElementById('barread')) return false;
@@ -815,6 +827,8 @@
     r2.innerHTML = '<div class="g" data-tb="g"></div>';
     root.appendChild(r1); root.appendChild(r2);
     bar.classList.add('bmtb'); bar.appendChild(root);
+    var ct = r1.querySelector('.crew'); ct.setAttribute('role', 'button'); ct.setAttribute('tabindex', '0'); ct.setAttribute('aria-label', 'your company');
+    ct.addEventListener('click', function (e) { e.stopPropagation(); crewDoor(); });
     r1.querySelector('.gear').addEventListener('click', function (e) { e.stopPropagation();
       try { var sg = window.parent.document.getElementById('gearbtn'); if (sg) sg.click(); } catch (_e) {} });
     tbPaint(); TB.built = true;
@@ -1682,7 +1696,7 @@
     ['tin', 0.5, ['#setcard .setslide input::-moz-range-thumb'], '']
   ];
   /* the press: the slab goes down into its shadow (the individual translate composes with any rotate the rule set) */
-  var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#menubar #bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
+  var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#bmtb .t.crew', '#menubar #bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
     'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn'];
   function kitCSS() {
     var pre = 'html[data-kit] body ', out = [];
@@ -1757,27 +1771,53 @@
 
   /* ---- THE COUNT: the bar's battery figure walks to what the purse holds, one tick an eighth note ---- */
   function tenReal() { try { return typeof window.loopBats === 'function' ? window.loopBats() : (purseBalances().electricity | 0); } catch (e) { return null; } }
+  /* SOUNDS' count-up (engine/bohemia_bullet_lands.js, BUILD 10/24a; its NOTE on UI's board): posted BOHEMIA_COUNT_UP {from, to}
+     at the moment the number starts to move, the shell answers BOHEMIA_COUNT_UP_PLAN {ticks, startMs, stepMs, landMs} in ITS
+     clock (a real counter ticking once a 16th on the song's grid, then a battery dropped in a crate on the beat after the last
+     tick, a bell when it climbs). The number takes one step a tick and the last number lands with the drop. No plan (no
+     sound yet, the sprites still loading, a page with no shell): the number walks on the game's own eighth notes instead. */
+  var COUNT_WAIT = 220;
+  if (TEN_PAGE === 'map') window.addEventListener('message', function (ev) {
+    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_COUNT_UP_PLAN') return;
+    var K = TEN.count; if (!K || K.plan) return;
+    var P = d.plan; if (!P || !(P.ticks > 0) || !(P.stepMs > 0)) { K.plan = 'none'; return; }
+    var off = 0; try { off = window.parent.performance.timeOrigin - performance.timeOrigin; } catch (e) {}
+    K.plan = { ticks: P.ticks | 0, startMs: P.startMs + off, stepMs: P.stepMs, landMs: P.landMs + off, onGrid: !!P.onGrid };
+    clearTimeout(TEN.countT); tenStep();
+  });
+  function tenValue(K, n) { return K.from + Math.round((K.to - K.from) * n / (K.ticks + 1)); }
+  function tenStep() {
+    var K = TEN.count; if (!K) return;
+    var now = performance.now(), P = K.plan && K.plan.ticks ? K.plan : null, n, next;
+    if (P) {   /* SOUNDS' ticks: the step that has sounded by now, the next one when it will */
+      K.ticks = P.ticks;
+      if (now >= P.landMs - 4) n = K.ticks + 1; else n = Math.max(0, Math.min(K.ticks, Math.floor((now - P.startMs) / P.stepMs + 0.001) + 1));
+      next = n <= K.ticks ? (n < K.ticks ? P.startMs + n * P.stepMs : P.landMs) : null;
+    } else {   /* the game's own eighth notes (the map's beat is performance.now() over BEAT) */
+      var e = tenBeat() / 2;
+      n = Math.max(0, Math.min(K.ticks + 1, Math.floor((now - K.t0) / e + 0.001) + 1));
+      next = n <= K.ticks ? K.t0 + n * e : null;
+    }
+    if (n > K.n) {
+      K.n = n; K.shown = n > K.ticks ? K.to : tenValue(K, n);
+      tenPost({ kind: n > K.ticks ? 'count_land' : 'count_tick', n: Math.min(n, K.ticks), of: K.ticks, value: K.shown, why: K.why, down: K.down, by: P ? 'sounds' : 'beat' });
+      try { tbPaint(); } catch (e2) {}
+    }
+    if (next != null) { TEN.countT = setTimeout(tenStep, Math.max(0, next - performance.now())); return; }
+    TEN.countT = setTimeout(function () { TEN.last = K.to; TEN.count = null; tenPost({ kind: 'count_done', value: K.to, why: K.why, by: P ? 'sounds' : 'beat' }); try { tbPaint(); } catch (e3) {} }, tenBeat() / 2);
+  }
   function tenCount(to) {
     var C = TEN.count, from = C ? C.shown : TEN.last;
     if (from == null || to == null || from === to) return;
+    clearTimeout(TEN.countT);
     var ticks = Math.min(12, Math.abs(to - from)), eighth = tenBeat() / 2;
-    if (C) { C.from = C.shown; C.to = to; C.n = 0; C.ticks = ticks; C.down = to < C.shown; C.t0 = performance.now(); return; }   /* a second change mid-count: walk on to the new number */
-    C = TEN.count = { from: from, to: to, shown: from, n: 0, ticks: ticks, down: to < from, why: TEN.why || (to > from ? 'in' : 'out') };
+    C = TEN.count = { from: from, to: to, shown: from, n: 0, ticks: ticks, down: to < from, why: (C && C.why) || TEN.why || (to > from ? 'in' : 'out'), plan: null,
+      t0: performance.now() + (eighth - (performance.now() % eighth)) };
     TEN.why = null;
-    tenPost({ kind: 'count_up', from: from, to: to, ticks: ticks, beats: ticks / 2, tick_ms: eighth, why: C.why, down: C.down });
-    /* every tick sits on the game's own eighth notes (the map's beat is performance.now() over BEAT), counted from the clock,
-       never from the last timer: a slow frame skips a figure, it never stretches the six beats */
-    C.t0 = performance.now() + (eighth - (performance.now() % eighth));
-    var tick = function () {
-      var K = TEN.count; if (!K) return;
-      var n = Math.min(K.ticks, Math.floor((performance.now() - K.t0) / eighth + 0.001) + 1); if (n <= K.n) n = K.n + 1;
-      K.n = Math.min(K.ticks, n); K.shown = K.n >= K.ticks ? K.to : Math.round(K.from + (K.to - K.from) * K.n / K.ticks);
-      tenPost({ kind: 'count_tick', n: K.n, of: K.ticks, value: K.shown, why: K.why, down: K.down });
-      try { tbPaint(); } catch (e) {}
-      if (K.n < K.ticks) { TEN.countT = setTimeout(tick, Math.max(0, K.t0 + K.n * eighth - performance.now())); return; }
-      TEN.countT = setTimeout(function () { TEN.last = K.to; TEN.count = null; tenPost({ kind: 'count_done', value: K.to, why: K.why }); try { tbPaint(); } catch (e) {} }, tenBeat());
-    };
-    TEN.countT = setTimeout(tick, Math.max(0, C.t0 - performance.now()));
+    tenPost({ kind: 'count_up', from: from, to: to, ticks: ticks, why: C.why, down: C.down });
+    try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_COUNT_UP', from: from, to: to }, '*'); } catch (e) {}
+    /* a short wait for SOUNDS' plan; without one, the eighth notes */
+    TEN.countT = setTimeout(function () { var K = TEN.count; if (K && !K.plan) { K.plan = 'none'; K.t0 = performance.now() + (eighth - (performance.now() % eighth)); tenStep(); } }, COUNT_WAIT);
     try { tbPaint(); } catch (e) {}
   }
   function tenWatch() {
@@ -1885,7 +1925,8 @@
     el.querySelector('.who').textContent = String(o.who.name).toUpperCase();
     if (o.tag) el.querySelector('.tag').textContent = o.tag;
     voicePlace(el); el.classList.add('on');
-    try { F.talk(c, o.who.look, o.line); } catch (e) { try { F.draw(c.getContext('2d'), o.who.look, F.SIZE || 128); } catch (_e) {} }
+    try { F.draw(c.getContext('2d'), o.who.look, F.SIZE || 128); } catch (e) {}   /* the face at rest from the first frame, then the mouth */
+    try { F.talk(c, o.who.look, o.line); } catch (e) {}
     /* the receipt prints the words as the mouth says them */
     var is = el.querySelectorAll('.line i'); VOICE.wordT = times.map(function (t, i) { return setTimeout(function () { if (is[i]) is[i].classList.add('on'); }, t); });
     var beats = Math.max(6, Math.min(20, Math.ceil(at / tenBeat()) + (o.hold || 3)));   /* the words said, then three beats to read them */
@@ -2005,7 +2046,9 @@
   /* ---- THE PARTY PLATE (change 3): a tin tag on the flag, drawn into the map's own canvas ---- */
   var PLATE = { img: {}, cache: {} };
   var PLATE_WORD = ['', 'EASY', 'EVEN', 'BAD ODDS'], PLATE_INK = ['#1f1710', '#1f1710', '#7a4a08', '#7a140c'];
-  function plateImg(piece, part) { var k = piece + '/' + part, im = PLATE.img[k]; if (!im) { im = PLATE.img[k] = new Image(); im.src = KIT_BASE + k + '.png'; } return im.complete && im.naturalWidth ? im : null; }
+  function plateImg(piece, part) { var k = piece + '/' + part, im = PLATE.img[k];
+    if (!im) { im = PLATE.img[k] = new Image(); im.onload = function () { try { if (typeof window.render === 'function') window.render(); } catch (e) {} }; im.src = KIT_BASE + k + '.png'; }
+    return im.complete && im.naturalWidth ? im : null; }
   /* the nine pieces laid at s points a texel (corners kept, edges and middle repeated by their period), red when he is hunted */
   function plateSlab(piece, w, h, s, red, dpr) {
     var key = piece + w + 'x' + h + (red ? 'r' : '') + dpr, c = PLATE.cache[key]; if (c) return c;
@@ -2059,9 +2102,14 @@
       if (d.type === 'BOHEMIA_START' && !VOICE.t0) VOICE.t0 = performance.now();
       if (d.type === 'BOHEMIA_CITY_COMBAT_END') { try { tenFightHome(d); } catch (e) {} } });
     voiceLines(); voiceFaces();
+    /* the tag's nine pieces are fetched now, so the first plate he asks for is already tin (the map draws on demand) */
+    ['tl', 't', 'tr', 'l', 'c', 'r', 'bl', 'b', 'br'].forEach(function (k) { plateImg('tin', k); });
     setInterval(tenTick, 125);
   }
-  TEN.say = say; TEN.voice = VOICE; TEN.partyPlate = partyPlate; TEN.count_ = tenCount;
+  /* UI [portrait menu] in the settlement: RUN TWO's CREW is already the same door (engine/bohemia_crew_door.js). His face on it
+     was tried this round and taken off: an image beside the word moved the button's box while it loaded and the word's own
+     read (THE UI BELONGS TO THE WORLD went 34/2); the button is RUN TWO's to dress with it, measured. */
+  TEN.say = say; TEN.voice = VOICE; TEN.partyPlate = partyPlate; TEN.count_ = tenCount; TEN.crewDoor = crewDoor;
 
   window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,

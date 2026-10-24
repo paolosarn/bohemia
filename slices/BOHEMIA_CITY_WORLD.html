@@ -44412,7 +44412,9 @@ function billSpeaks(who){
     el.appendChild(c); el.appendChild(tx); el.style.display = 'flex';
     try{ F.talk(c, who.look, line); }catch(_e){ try{ F.draw(c.getContext('2d'), who.look, F.SIZE || 128); }catch(_e2){} }
     window.__BILL_SPOKE = { name: who.name, look: who.look, line: line, at: performance.now() };
-    clearTimeout(billSpeaks.t); billSpeaks.t = setTimeout(function(){ el.style.display = 'none'; }, 8 * 500);
+    /* the eight beats start when the night's own work is done and the glass can show him (UI 10/24: with the faces already
+       loaded, show() runs inside nightfall's advance(), which held the thread 2 s and ate half his beats) */
+    clearTimeout(billSpeaks.t); billSpeaks.t = setTimeout(function(){ clearTimeout(billSpeaks.t); billSpeaks.t = setTimeout(function(){ el.style.display = 'none'; }, 8 * 500); }, 0);
   };
   if(window.BohemiaCrewFaces) return show();
   if(BILL_FACES_ASKED) return;

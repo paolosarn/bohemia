@@ -42,7 +42,7 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
     const tbox = el => { const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); let n, best = null;
       while ((n = tw.nextNode())) if (n.textContent.trim() && (!best || n.textContent.trim().length > best.textContent.trim().length)) best = n;
       if (!best) return box(el); const rg = document.createRange(); rg.selectNodeContents(best); const r = rg.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
-    return { NEW, six, mats: { bar: /url\(/.test(bg(document.getElementById('menubar'))), hour: /url\(/.test(bg(hour)), note: /url\(/.test(bg(note)), six: /url\(/.test(bg(sixP)),
+    return { NEW, BILL: !!(window.__BILL && typeof window.__BILL.daysLeft === 'number'), six, mats: { bar: /url\(/.test(bg(document.getElementById('menubar'))), hour: /url\(/.test(bg(hour)), note: /url\(/.test(bg(note)), six: /url\(/.test(bg(sixP)),
         pad: /url\(/.test(bg(pad)), plates: plates.every(p => /url\(/.test(bg(p)) || p.classList.contains('now')), lit: plates.filter(p => p.classList.contains('now')).every(p => /gradient|ui_kit\/tin_amber/.test(bg(p))) },
       radius: pad ? parseFloat(getComputedStyle(pad).borderTopLeftRadius) : null, thumbs: plates.map(p => [Math.round(p.getBoundingClientRect().width), Math.round(p.getBoundingClientRect().height)]),
       words: [ { k: NEW ? 'the day on receipt' : 'the hour on receipt', box: tbox(hour), col: getComputedStyle(hour).color, side: 'text' },
@@ -52,7 +52,9 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
         .concat(plates.filter(p => p.classList.contains('now')).map(p => ({ k: 'the lit speed', box: tbox(p), col: getComputedStyle(p).color, side: 'text' }))),
       off: (() => { const r = window.frameElement ? window.frameElement.getBoundingClientRect() : { x: 0, y: 0 }; return [r.x, r.y]; })() };
   });
-  ok('THE SIX ARE DRAWN OBJECTS FROM THE MATERIALS FILE, in rule 47a\'s order', a.six.map(s => s.k).join(' ') === (a.NEW ? 'batteries food meds rounds water' : 'batteries food meds rounds tape water') && a.six.every(s => s.img && s.drawn && s.nat === 30),
+  /* RE-AIMED 10/24 (UI [the ten changes: the UI's part], rule 133, TUNING's change 5: 'the bar shows two numbers, not five'): with
+     the map's nightly bill in, the glass carries the batteries and the nights they feed the crew, both drawn here */
+  ok('THE SIX ARE DRAWN OBJECTS FROM THE MATERIALS FILE, in rule 47a\'s order (with the bill: the batteries and the nights, change 5)', a.six.map(s => s.k).join(' ') === (a.NEW ? (a.BILL ? 'batteries nights' : 'batteries food meds rounds water') : 'batteries food meds rounds tape water') && a.six.every(s => s.img && s.drawn && s.nat === 30),
      a.six.map(s => s.k + (s.drawn ? '' : ' NOT DRAWN')).join(' '));
   ok('  different pictures, 10 points each on the old strip, 20 (a whole 2x) on the bar with the days once', new Set(a.six.map(s => s.src)).size === a.six.length && a.six.every(s => s.w === (a.NEW ? 20 : 10)), a.six.map(s => s.w).join(' '));
   ok('THE BAR IS CUT CARDBOARD; THE HOUR, THE PLACE AND NOTES ARE RECEIPT; THE SIX ARE ON GLASS', a.mats.bar && a.mats.hour && a.mats.note && a.mats.six, JSON.stringify(a.mats));

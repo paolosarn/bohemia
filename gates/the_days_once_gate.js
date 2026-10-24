@@ -8,6 +8,9 @@
      - the hour is still on the glass, once: the phone's clock says the game's own hour
      - every count is its own fact, read from the game the same moment: the day, the batteries, the food, the crew
      - a store the game does not count is a dash, never a number; the food is red-inked under three
+       RE-AIMED 10/24 (UI [the ten changes: the UI's part], rule 133, TUNING's change 5: 'the bar shows two numbers, not
+       five'): the glass carries the batteries and the NIGHTS they feed the crew (the map's bill, window.__BILL), no dash and
+       no food; the nights are red-inked at the bill's own red line; '0 DAYS' is planted on the nights now
      - the gear and NOTES are 44 points or more; the bar fits the glass and nothing on it overlaps
      - the bar's gear opens the game's settings, and the shell's floating gear is not on the glass beside it
      - NOTES is the city's own button (it opens and closes the notes)
@@ -38,12 +41,13 @@ const CHECK = () => {
   const pb = (() => { try { return purseBalances(); } catch (_e) { return {}; } })();
   out.push(['the day is the game\'s day', f && n('day') === 'DAY ' + T.day, n('day') + ' vs ' + T.day]);
   out.push(['the batteries are the purse\'s', String(pb.electricity) === n('batteries'), n('batteries') + ' vs ' + pb.electricity]);
-  out.push(['the food is the purse\'s, a count', String(pb.resources) === n('food'), n('food') + ' vs ' + pb.resources]);
-  const food = root.querySelector('[data-f=food] b');
-  out.push(['  red-inked under three, plain at three or more', !!food && food.classList.contains('low') === (pb.resources < 3), food && food.className]);
+  const B = window.__BILL || {};
+  out.push(['the nights are the map\'s bill (the batteries over tonight\'s bill)', B.perNight > 0 && n('nights') === String(Math.floor(pb.electricity / B.perNight)) && n('nights') === String(B.daysLeft), n('nights') + ' vs ' + B.daysLeft]);
+  const nt = root.querySelector('[data-f=nights] b');
+  out.push(['  red-inked at the bill\'s red line, plain above it', !!nt && nt.classList.contains('low') === !!B.red, nt && nt.className]);
   out.push(['the crew is the company the door built', f && f.crew && n('crew') === String(f.crew.length) && root.querySelectorAll('[data-f=crew] .ticks i').length === f.crew.length, n('crew')]);
-  const dash = ['meds', 'rounds', 'water'].every(k => { const v = f && f.six ? f.six[k] : null; return typeof v === 'number' ? n(k) === String(v) : n(k) === '–'; });
-  out.push(['a store the game does not count is a dash, never a number', dash, ['meds', 'rounds', 'water'].map(n).join(' ')]);
+  const figs = [...root.querySelectorAll('[data-tb=g] .s')].map(e => e.dataset.f), dash = [...root.querySelectorAll('[data-tb=g] .s b')].some(e => /^[–-]$/.test(e.textContent.trim()));
+  out.push(['two numbers on the glass, the batteries and the nights, no dash', figs.join(' ') === 'batteries nights' && !dash, figs.join(' ')]);
   const presses = [root.querySelector('.gear'), document.getElementById('notebtn')].map(e => e ? e.getBoundingClientRect() : null);
   out.push(['the gear and NOTES are 44 points or more', presses.every(r => r && r.width >= 44 && r.height >= 44), presses.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ')]);
   const boxes = [...root.querySelectorAll('.t,#notebtn,.g')].map(e => e.getBoundingClientRect()).filter(r => r.width > 0);
@@ -105,17 +109,17 @@ async function side(profile) {
       /* the narrowest phone anybody holds: every fact still there, nothing past the glass, nothing on top of anything */
       const was = p.viewportSize(); await p.setViewportSize({ width: 320, height: 700 }); await p.waitForTimeout(900);
       const n320 = await fr.evaluate('(' + CHECK.toString() + ')()');
-      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are 44 points or more', 'a store the game does not count is a dash, never a number'];
+      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are 44 points or more', 'two numbers on the glass, the batteries and the nights, no dash'];
       ok('at 320 wide every fact stays, it fits, nothing overlaps, every press 44', want.every(w => (n320.find(x => x[0] === w) || [0, false])[1]),
         n320.filter(x => want.indexOf(x[0]) >= 0 && !x[1]).map(x => x[0] + ' ' + x[2]).join(' | '));
       await p.setViewportSize(was); await p.waitForTimeout(900);
       /* the planted defects, read through the same checks, then taken back out */
       const caught = await fr.evaluate(chk => { const C = eval('(' + chk + ')'), red = () => C().some(x => !x[1]), R = document.getElementById('bmtb'), got = {};
-        const fb = R.querySelector('[data-f=food]'), em = document.createElement('em'); em.textContent = '0 DAYS'; fb.appendChild(em); got.days = red(); em.remove();
+        const fb = R.querySelector('[data-f=nights]'), em = document.createElement('em'); em.textContent = '0 DAYS'; fb.appendChild(em); got.days = red(); em.remove();
         const db = R.querySelector('[data-f=day]'), hr = document.createElement('i'); hr.textContent = '06:00'; db.appendChild(hr); got.hour = red(); hr.remove();
         const gb = R.querySelector('.gear'); gb.style.width = '40px'; got.gear = red(); gb.style.width = '';
         got.clean = !red(); return got; }, CHECK.toString());
-      ok('PLANTED: \'0 DAYS\' back on the food is caught', caught.days);
+      ok('PLANTED: \'0 DAYS\' on the nights is caught', caught.days);
       ok('PLANTED: the hour back on the day tag is caught', caught.hour);
       ok('PLANTED: a 40-point gear is caught', caught.gear);
       ok('  and the bar reads clean again once they are taken out', caught.clean);

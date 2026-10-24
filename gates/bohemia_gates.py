@@ -9579,6 +9579,14 @@ GATES = [
      "the bar's gear opens the settings and the shell's floating gear is off the glass; NOTES opens and closes; every word 4.5 to 1 plain and in the sun; "
      "in a road fight nothing crosses the top (TOPH 0), the round, the faces and AUTO ride the bottom bar and AUTO flips; five planted defects caught. "
      "Supersedes THE BAR SAYS THREE THINGS (the hour on the bar) and THE TOP BAR (the three candidates he said NO to), both TOLD_DEAD in gate_registry_gate.js.", True),
+    ('THE TEN CHANGES, THE UIS PART', ['node', 'gates/the_ten_changes_the_uis_part_gate.js'],
+     "UI gate, 10/24, rows [the ten changes: the UI's part] and [portrait menu] (rule 133, PAOLO 10/23: 'like Battle Brothers but quicker and funner for normies'; TUNING's changes 2, 3, 5, 6, 8). "
+     "THE STRANGER'S WALK (tools/bohemia_ui_the_ten_changes_walk.js, real touches, the committed demo): the bar carries two numbers, the batteries and the nights the map's bill covers, the crew the bill feeds; "
+     "the phone's picked job prints the next touch and beats with the road; a crew's plate is the kit's tin with the count, the skulls and the danger in a word; nothing speaks in the first sixty seconds; "
+     "a face with a drawn portrait, a tap lets it go, the map does not move, never over the pad; the job's pay counts up through between values (SOUNDS' counter, BOHEMIA_COUNT_UP), never jumps, inside 3.7 s; "
+     "the client pays with his face and the laid-up man shows his days; nightfall is the day's tally said by his second. THE BENCH: the sixty-second hold by the clock, no face no line, once is once, a credit counts, "
+     "the plate's ink 4.5 to 1 on its tin and the hunters' tag red, the words twelve or fewer and draft, his face on the crew tag opens his company. Planted: every leg bent at its own number, "
+     "and two defects served in the source (the hold removed, the count made a jump).", True),
     ('THE UI BELONGS TO THE WORLD', ['node', 'gates/the_ui_belongs_to_the_world_gate.js'],
      "UI gate, 10/23, row [the UI the Crashbox way] (rule 130(b), Paolo 10/23: 'the UI kind of still sucks, it doesn't look as elevated as the Crashbox style'; 121(g); the 9/20 rule ALL THE UI LOOKS 3-D). "
      "THE KIT ON DISK: the pieces the materials lay are the pieces tools/bohemia_ui_crashbox_kit.py cut (slices/ui_kit/kit.json), number for number; nine pictures a piece at the cut's sizes; "

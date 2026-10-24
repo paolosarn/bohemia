@@ -20,7 +20,7 @@
      U6b NIGHTFALL: the clock moved to 21:50 by script (marked), across 22:00; the day's tally said by his second
 
    node tools/bohemia_ui_the_ten_changes_walk.js [--before] [--out path.json] [--shots dir/]
-     --before  serves the three files as git HEAD has them (bohemia_ui_materials.js, bohemia_phone_board.js,
+     --before [--rev <commit>]  serves the three files as git HEAD (or <commit>) has them (bohemia_ui_materials.js, bohemia_phone_board.js,
                BOHEMIA_CITY_WORLD.html) through the driver's serve map, so the walk is the same and only the
                files differ. Run it before committing; after a commit HEAD is the after.
    ============================================================================ */
@@ -79,7 +79,7 @@ async function walk(opts) {
     const bar = async () => fr.evaluate(() => {
       const g = document.querySelector('#bmtb [data-tb=g]'); if (!g) return null;
       const s = [...g.querySelectorAll('.s')], nums = s.filter(x => /\d/.test(x.querySelector('b') ? x.querySelector('b').textContent : '')), dash = s.filter(x => /^[–-]$/.test((x.querySelector('b') || {}).textContent || ''));
-      const crewTag = document.querySelector('#bmtb .t.crew b'), dTag = g.querySelector('[data-f=days] b');
+      const crewTag = document.querySelector('#bmtb .t.crew b'), dTag = g.querySelector('[data-f=nights] b');
       return { figures: s.length, numbers: nums.length, dashes: dash.length, kinds: s.map(x => x.dataset.f), text: g.textContent.replace(/\s+/g, ' ').trim(),
         daysShown: dTag ? +dTag.textContent : null, bill: window.__BILL ? { daysLeft: window.__BILL.daysLeft, crew: window.__BILL.crew } : null,
         crewShown: crewTag ? parseInt(crewTag.textContent, 10) : null, crewTicks: document.querySelectorAll('#bmtb .ticks i').length,
@@ -100,42 +100,14 @@ async function walk(opts) {
     say('U2_phone', u2);
     await shot('phone', { x: 220, y: 110, width: 170, height: 230 });
 
-    /* ---- U3 A PARTY ---- */
-    const pty = await fr.evaluate(() => { render(); const pa = (MAP_DREW && MAP_DREW.partyAt) || {}; let best = null, bd = 1e9; const ph = document.getElementById('cityfeed'), q = ph ? ph.getBoundingClientRect() : null;
-      for (const id in pa) { const g = pa[id]; const p = __CITY.isoAt(g[0], g[1]); if (p.sx < 30 || p.sx > CVW - 30 || p.sy < 160 || p.sy > CVH - 140) continue;
-        if (q && p.sx > q.left - 20 && p.sy < q.bottom + 20) continue;   /* not under the phone */
-        const dd = Math.abs(g[0] - city.x) + Math.abs(g[1] - city.y); if (dd < bd && dd >= 2) { bd = dd; best = { id, sx: p.sx, sy: p.sy + TH / 2 - 8 }; } }
-      return best; });
-    let u3 = { party: pty };
-    if (pty) {
-      await touchCv(pty.sx, pty.sy); await page.waitForTimeout(1200);
-      Object.assign(u3, await fr.evaluate(() => ({ plate: window.__PARTY_PLATE || null, kit: window.__PLATE_KIT || null, kitDrawn: (MAP_DREW && MAP_DREW.partyPlateKit) | 0, fight: false })));
-      u3.fight = await shellFight();
-      /* the words' size and the danger word, as the map draws them */
-      u3.read = u3.kit ? { countPx: 12, wherePx: 9, dangerWord: u3.kit.word, fromKit: true } : (u3.plate ? { countPx: 9, wherePx: 9, dangerWord: null, fromKit: false } : null);
-      if (u3.kit) { const b = await fb(), r = await cvAt(); await shot('plate', { x: Math.max(0, b.x + r.x + u3.kit.x - 30), y: Math.max(0, b.y + r.y + u3.kit.y - 20), width: 220, height: 110 }); }
-      else if (u3.plate) { const b = await fb(), r = await cvAt(); await shot('plate', { x: Math.max(0, b.x + r.x + pty.sx - 110), y: Math.max(0, b.y + r.y + pty.sy - 90), width: 220, height: 110 }); }
-    }
-    say('U3_party', u3);
-
     /* ---- U8 THE VOICE: nothing in the first sixty seconds; after them, the line, the face, the tap ---- */
     const v0 = await voice();
     const early = v0.shown.filter(x => x.s < 60);
     const sNow = await playS();
     if (sNow < 61) await page.waitForTimeout((61 - sNow) * 1000);
-    const gotOne = await waitFor(async () => !!(await voice()).plate, 8000, 100);
-    let u8 = { earlyLines: early.length, shownBy61: v0.shown.length, firstAt: null, plate: null, tapLetsGo: null, mapMovedOnTap: null };
-    if (gotOne) {
-      const v1 = await voice(); u8.plate = v1.plate; u8.firstAt = v1.shown.length ? v1.shown[0].s : null; u8.lines = v1.shown.map(x => ({ id: x.id, who: x.who, line: x.line, s: x.s }));
-      await page.waitForTimeout(900); await shot('voice');
-      const m0 = await fr.evaluate(() => [city.x, city.y, !!TRAVEL]);
-      const b = await fb(); await page.touchscreen.tap(b.x + v1.plate.x + v1.plate.w * 0.7, b.y + v1.plate.y + v1.plate.h / 2);
-      await page.waitForTimeout(350);
-      const v2 = await voice(), m1 = await fr.evaluate(() => [city.x, city.y, !!TRAVEL]);
-      u8.tapLetsGo = !v2.plate; u8.mapMovedOnTap = m0.join() !== m1.join() && !m0[2];
-      const pad = await fr.evaluate(() => { const p = document.getElementById('speedpad'); if (!p) return null; const r = p.getBoundingClientRect(); return { y: r.y, h: r.height }; });
-      u8.overPad = pad ? (v1.plate.y + v1.plate.h > pad.y) : null;
-    }
+    const v1 = await voice();
+    let u8 = { earlyLines: early.length, linesBy61: v1.shown.length, first: v1.shown.length ? { id: v1.shown[0].id, s: v1.shown[0].s, who: v1.shown[0].who, line: v1.shown[0].line } : null,
+      lines: v1.shown.map(x => ({ id: x.id, s: x.s })) };
     say('U8_voice', u8);
 
     /* ---- U6a THE FIRST JOB WON ---- */
@@ -191,6 +163,20 @@ async function walk(opts) {
           const moments = await fr.evaluate(() => (window.__MOMENTS || []).map(m => m.kind));
           u6.count = { from: bats0, to: bats1, paid: bats1 - bats0, figures: seen.map(x => x.v), betweenValues: steps, jumped: steps === 0 && bats1 !== bats0,
             ms: (firstMove && last) ? last.ms - firstMove.ms : 0, ticksPosted: moments.filter(k => k === 'count_tick').length, countUpPosted: moments.filter(k => k === 'count_up').length };
+          /* THE TAP THAT LETS A FACE GO (U8): the first face after the fight, touched once; the map must not move */
+          if (await waitFor(async () => !!(await voice()).plate, 15000, 100)) {
+            const v1 = await voice(); await page.waitForTimeout(1200); await shot('voice');
+            const face = await fr.evaluate(() => { const c = document.querySelector('#bmvoice.on .face canvas'); if (!c) return 0; const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; });
+            const m0 = await fr.evaluate(() => [city.x, city.y, !!TRAVEL]);
+            const b = await fb(); await page.touchscreen.tap(b.x + v1.plate.x + v1.plate.w * 0.7, b.y + v1.plate.y + v1.plate.h / 2);
+            await page.waitForTimeout(350);
+            const v2 = await voice(), m1 = await fr.evaluate(() => [city.x, city.y, !!TRAVEL]);
+            const pad = await fr.evaluate(() => { const p = document.getElementById('speedpad'); if (!p) return null; const r = p.getBoundingClientRect(); return { y: r.y, h: r.height }; });
+            W.U8_tap = { line: v1.plate.text, box: { y: Math.round(v1.plate.y), h: Math.round(v1.plate.h), w: Math.round(v1.plate.w) }, tapLetsGo: !v2.plate || v2.plate.text !== v1.plate.text,
+              mapMovedOnTap: m0.join() !== m1.join() && !m0[2], overPad: pad ? (v1.plate.y + v1.plate.h > pad.y + 1) : null,
+              face: face };
+            if (!opts.quiet) console.log('  U8_tap: ' + JSON.stringify(W.U8_tap));
+          }
           /* the faces after the fight: the client paying, the laid-up man */
           await waitFor(async () => { const v = await voice(); return v.shown.some(x => /^pay:/.test(x.id)) && v.shown.some(x => /^hurt:/.test(x.id)); }, 20000, 200);
           const vv = await voice();
@@ -201,6 +187,34 @@ async function walk(opts) {
     }
     say('U6a_win', u6);
 
+    /* ---- U3 A PARTY ---- */
+    const pty = await fr.evaluate(() => { render(); const pa = (MAP_DREW && MAP_DREW.partyAt) || {}; let best = null, bd = 1e9; const ph = document.getElementById('cityfeed'), q = ph ? ph.getBoundingClientRect() : null;
+      for (const id in pa) { const g = pa[id]; const p = __CITY.isoAt(g[0], g[1]); if (p.sx < 30 || p.sx > CVW - 30 || p.sy < 160 || p.sy > CVH - 140) continue;
+        if (q && p.sx > q.left - 20 && p.sy < q.bottom + 20) continue;   /* not under the phone */
+        const dd = Math.abs(g[0] - city.x) + Math.abs(g[1] - city.y); if (dd < bd && dd >= 2) { bd = dd; best = { id, sx: p.sx, sy: p.sy + TH / 2 - 8 }; } }
+      return best; });
+    let u3 = { party: pty };
+    if (!pty) {   /* no crew on the glass: a forced road event's crew (SCRIPTED, marked; RUN's W10 the same way), its plate is up from the first second */
+      W.scripted.push('U3: no roaming crew on the glass, so the hunters were spawned (huntSpawn, the sixty-second guard set behind)');
+      u3.hunters = await fr.evaluate(() => { try { if (TRAVEL) travelStop(); } catch (_e) {} HUNT = null; HUNT_T0 = Math.min(HUNT_T0, performance.now() - 61000);
+        huntSpawn({ id: 'bounty_squad', name: 'Bounty squad', seq: 7, kind: 'forced' }); render(); return HUNT ? { at: HUNT.at.slice(), count: HUNT.count } : null; });
+      await page.waitForTimeout(800);
+      Object.assign(u3, await fr.evaluate(() => ({ plate: window.__PARTY_PLATE || null, kit: window.__PLATE_KIT || null, kitDrawn: (MAP_DREW && MAP_DREW.partyPlateKit) | 0 })));
+      u3.read = u3.kit ? { countPx: 12, wherePx: 9, dangerWord: u3.kit.word, fromKit: true } : (u3.plate ? { countPx: 9, wherePx: 9, dangerWord: null, fromKit: false } : null);
+      const hb = await fr.evaluate(() => HUNT && HUNT.box ? HUNT.box : null);
+      if (hb) { const b = await fb(), r = await cvAt(); const k = u3.kit || { x: hb.x - 40, y: hb.y - 40 }; await shot('plate', { x: Math.max(0, b.x + r.x + k.x - 30), y: Math.max(0, b.y + r.y + k.y - 20), width: 220, height: 130 }); }
+    }
+    if (pty) {
+      await touchCv(pty.sx, pty.sy); await page.waitForTimeout(1200);
+      Object.assign(u3, await fr.evaluate(() => ({ plate: window.__PARTY_PLATE || null, kit: window.__PLATE_KIT || null, kitDrawn: (MAP_DREW && MAP_DREW.partyPlateKit) | 0, fight: false })));
+      u3.fight = await shellFight();
+      /* the words' size and the danger word, as the map draws them */
+      u3.read = u3.kit ? { countPx: 12, wherePx: 9, dangerWord: u3.kit.word, fromKit: true } : (u3.plate ? { countPx: 9, wherePx: 9, dangerWord: null, fromKit: false } : null);
+      if (u3.kit) { const b = await fb(), r = await cvAt(); await shot('plate', { x: Math.max(0, b.x + r.x + u3.kit.x - 30), y: Math.max(0, b.y + r.y + u3.kit.y - 20), width: 220, height: 110 }); }
+      else if (u3.plate) { const b = await fb(), r = await cvAt(); await shot('plate', { x: Math.max(0, b.x + r.x + pty.sx - 110), y: Math.max(0, b.y + r.y + pty.sy - 90), width: 220, height: 110 }); }
+    }
+    say('U3_party', u3);
+
     /* ---- U6b NIGHTFALL (by script: the clock to 21:50, then twenty minutes across 22:00) ---- */
     W.scripted.push('U6b: advance() to 21:50, then one 20-minute advance across 22:00 (RUN\'s W9 the same way)');
     const n0 = await fr.evaluate(() => { const r = { before: loopBats() }; try { const need = ((DAY.NIGHT_MIN | 0) - 10) - (DAY.min | 0); if (need > 0) advance(need); advance(20); } catch (e) { r.err = String(e); } r.after = loopBats(); r.bill = window.__BILL ? window.__BILL.last : null; r.day = DAY.day; return r; });
@@ -208,7 +222,7 @@ async function walk(opts) {
     const vn = await voice();
     const tally = vn.shown.filter(x => /^tally:|^first_night/.test(x.id));
     if (tally.length) { await waitFor(async () => !!(await voice()).plate, 3000, 100); await page.waitForTimeout(1500); await shot('night'); }
-    say('U6b_night', { clock: n0, said: tally.map(x => ({ id: x.id, who: x.who, line: x.line, tag: x.tag })), saysNumbers: tally.some(x => /\d+ in, \d+ out/.test(x.line) && /days left/.test(x.line)) });
+    say('U6b_night', { clock: n0, said: tally.map(x => ({ id: x.id, who: x.who, line: x.line, tag: x.tag })), saysNumbers: tally.some(x => /\d+ in, \d+ out/.test(x.line) && /nights left/.test(x.line)) });
     const vAll = await voice();
     W.allLines = vAll.shown.map(x => ({ id: x.id, who: x.who, s: x.s }));
     W.errors = d.errs.slice(0, 5);
@@ -218,4 +232,4 @@ async function walk(opts) {
   return W;
 }
 module.exports = { walk, FILES };
-if (require.main === module) walk({ before: BEFORE, out: OUT, shots: SHOTS });
+if (require.main === module) walk({ before: BEFORE, rev: arg('--rev', null), out: OUT, shots: SHOTS });

@@ -1,0 +1,114 @@
+{
+ "when": "2026-10-24T01:39:05.839Z",
+ "before": true,
+ "box": "Playwright Chromium, phone 390x844 touch, full CPU",
+ "scripted": [
+  "U6a: one of his men struck down before the fight's own end, laid up 34 days (the fight's own fields)",
+  "U6b: advance() to 21:50, then one 20-minute advance across 22:00 (RUN's W9 the same way)"
+ ],
+ "openS": 125.5,
+ "U5_bar": {
+  "figures": 5,
+  "numbers": 2,
+  "dashes": 3,
+  "kinds": [
+   "batteries",
+   "food",
+   "meds",
+   "rounds",
+   "water"
+  ],
+  "text": "2900–––SUBURB",
+  "daysShown": null,
+  "bill": {
+   "daysLeft": 48,
+   "crew": 3
+  },
+  "crewShown": 3,
+  "crewTicks": 3,
+  "batteries": "290"
+ },
+ "U2_phone": {
+  "picked": true,
+  "text": "@church · 2 BLOCKS WRide shotgun to the salt camp30 BATT · JUST POSTED",
+  "saysNextTouch": false,
+  "next": null,
+  "beats": null,
+  "roadDrawn": 2,
+  "townLit": 1,
+  "tapped": true,
+  "s": 127.8
+ },
+ "U8_voice": {
+  "earlyLines": 0,
+  "linesBy61": 0,
+  "first": null,
+  "lines": []
+ },
+ "U6a_win": {
+  "took": "Ride shotgun to the salt camp",
+  "job": {
+   "id": "qd-a02",
+   "x": 54,
+   "y": 43,
+   "pay": 45
+  },
+  "count": {
+   "from": 290,
+   "to": 335,
+   "paid": 45,
+   "figures": [
+    "290",
+    "335"
+   ],
+   "betweenValues": 0,
+   "jumped": true,
+   "ms": 0,
+   "ticksPosted": 0,
+   "countUpPosted": 0
+  },
+  "faces": []
+ },
+ "U3_party": {
+  "party": {
+   "id": "Church:patrol:39,42",
+   "sx": 78,
+   "sy": 310
+  },
+  "plate": {
+   "id": "Church:patrol:39,42",
+   "count": 2,
+   "skulls": 1,
+   "going": "ON THE BORDER",
+   "faction": "Church"
+  },
+  "kit": null,
+  "kitDrawn": 0,
+  "fight": false,
+  "read": {
+   "countPx": 9,
+   "wherePx": 9,
+   "dangerWord": null,
+   "fromKit": false
+  }
+ },
+ "U6b_night": {
+  "clock": {
+   "before": 335,
+   "after": 326,
+   "bill": {
+    "day": 1,
+    "crew": 3,
+    "due": 6,
+    "paid": 6,
+    "short": 0,
+    "walked": null
+   },
+   "day": 2
+  },
+  "said": [],
+  "saysNumbers": false
+ },
+ "allLines": [],
+ "errors": []
+}

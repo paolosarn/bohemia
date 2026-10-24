@@ -1,0 +1,232 @@
+{
+ "when": "2026-10-24T01:38:45.817Z",
+ "before": false,
+ "box": "Playwright Chromium, phone 390x844 touch, full CPU",
+ "scripted": [
+  "U6a: one of his men struck down before the fight's own end, laid up 34 days (the fight's own fields)",
+  "U6b: advance() to 21:50, then one 20-minute advance across 22:00 (RUN's W9 the same way)"
+ ],
+ "openS": 125.4,
+ "U5_bar": {
+  "figures": 2,
+  "numbers": 2,
+  "dashes": 0,
+  "kinds": [
+   "batteries",
+   "nights"
+  ],
+  "text": "29048NIGHTS LEFTSUBURB",
+  "daysShown": 48,
+  "bill": {
+   "daysLeft": 48,
+   "crew": 3
+  },
+  "crewShown": 3,
+  "crewTicks": 3,
+  "batteries": "290"
+ },
+ "U2_phone": {
+  "picked": true,
+  "text": "@church · 2 BLOCKS WRide shotgun to the salt camp30 BATT · JUST POSTEDROAD LIT · TOUCH CHURCH ON THE MAP",
+  "saysNextTouch": true,
+  "next": "ROAD LIT · TOUCH CHURCH ON THE MAP",
+  "beats": "bm-roadbeat 0.5s",
+  "roadDrawn": 2,
+  "townLit": 1,
+  "tapped": true,
+  "s": 127.2
+ },
+ "U8_voice": {
+  "earlyLines": 0,
+  "linesBy61": 2,
+  "first": {
+   "id": "phone_job",
+   "s": 60.1,
+   "who": "DESI",
+   "line": "Oye. Posts on the phone are work. Touch one, it lights up."
+  },
+  "lines": [
+   {
+    "id": "phone_job",
+    "s": 60.1
+   },
+   {
+    "id": "first_town",
+    "s": 66.3
+   }
+  ]
+ },
+ "U8_tap": {
+  "line": "DESIThat's the work, mano: fight, get paid. Batteries feed us.",
+  "box": {
+   "y": 680,
+   "h": 86,
+   "w": 374
+  },
+  "tapLetsGo": true,
+  "mapMovedOnTap": false,
+  "overPad": false,
+  "face": 11106
+ },
+ "U6a_win": {
+  "took": "Ride shotgun to the salt camp",
+  "job": {
+   "id": "qd-a02",
+   "x": 54,
+   "y": 43,
+   "pay": 45
+  },
+  "count": {
+   "from": 290,
+   "to": 335,
+   "paid": 45,
+   "figures": [
+    "290",
+    "297",
+    "304",
+    "310",
+    "312",
+    "313",
+    "315",
+    "317",
+    "319",
+    "321",
+    "322",
+    "324",
+    "326",
+    "328",
+    "330",
+    "331",
+    "333",
+    "335"
+   ],
+   "betweenValues": 16,
+   "jumped": false,
+   "ms": 2451,
+   "ticksPosted": 18,
+   "countUpPosted": 1
+  },
+  "faces": [
+   {
+    "id": "pay:qd-a02",
+    "who": "Yesenia Ochoa",
+    "line": "45 batteries, like we said. Gracias.",
+    "tag": "+45",
+    "s": 144.2
+   },
+   {
+    "id": "first_pay",
+    "who": "DESI",
+    "line": "That's the work, mano: fight, get paid. Batteries feed us.",
+    "tag": null,
+    "s": 148.7
+   },
+   {
+    "id": "hurt:DESI:1",
+    "who": "DESI",
+    "line": "They got me. 34 days, then I'm back.",
+    "tag": "OUT 34 DAYS",
+    "s": 153.4
+   }
+  ]
+ },
+ "U3_party": {
+  "party": {
+   "id": "Church:patrol:39,42",
+   "sx": 78,
+   "sy": 310
+  },
+  "plate": {
+   "id": "Church:patrol:39,42",
+   "count": 2,
+   "skulls": 1,
+   "going": "ON THE BORDER",
+   "faction": "Church"
+  },
+  "kit": {
+   "x": 34,
+   "y": 236,
+   "w": 77,
+   "h": 34,
+   "top": "2",
+   "word": "EASY",
+   "low": "ON THE BORDER",
+   "hunt": false
+  },
+  "kitDrawn": 1,
+  "fight": false,
+  "read": {
+   "countPx": 12,
+   "wherePx": 9,
+   "dangerWord": "EASY",
+   "fromKit": true
+  }
+ },
+ "U6b_night": {
+  "clock": {
+   "before": 335,
+   "after": 326,
+   "bill": {
+    "day": 1,
+    "crew": 3,
+    "due": 6,
+    "paid": 6,
+    "short": 0,
+    "walked": null
+   },
+   "day": 2
+  },
+  "said": [
+   {
+    "id": "tally:1",
+    "who": "DESI",
+    "line": "1 fight won. 45 in, 9 out. 54 nights left.",
+    "tag": "DAY 1"
+   }
+  ],
+  "saysNumbers": true
+ },
+ "allLines": [
+  {
+   "id": "phone_job",
+   "who": "DESI",
+   "s": 60.1
+  },
+  {
+   "id": "first_town",
+   "who": "DESI",
+   "s": 66.3
+  },
+  {
+   "id": "party_sight",
+   "who": "DESI",
+   "s": 138
+  },
+  {
+   "id": "pay:qd-a02",
+   "who": "Yesenia Ochoa",
+   "s": 144.2
+  },
+  {
+   "id": "first_pay",
+   "who": "DESI",
+   "s": 148.7
+  },
+  {
+   "id": "hurt:DESI:1",
+   "who": "DESI",
+   "s": 153.4
+  },
+  {
+   "id": "first_hurt",
+   "who": "RAUL",
+   "s": 158.4
+  },
+  {
+   "id": "tally:1",
+   "who": "DESI",
+   "s": 163.5
+  }
+ ],
+ "errors": []
+}

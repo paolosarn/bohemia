@@ -76,7 +76,7 @@
    "draft": true
   },
   "tally": {
-   "line": "{fights} won. {in} in, {out} out. {days} days left.",
+   "line": "{fights} won. {in} in, {out} out. {days} nights left.",
    "ttl": 60,
    "who": "his second, at nightfall",
    "draft": true
