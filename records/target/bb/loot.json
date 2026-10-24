@@ -1,0 +1,55 @@
+{
+  "_about": "WHAT THE BEATEN PARTY LEAVES (RUN TWO [the end of the fight, the loot, the stash], VAMILY rule 156, Paolo 10/24: 'what loot I'm able to take from them, with a loot button; and if my inventory is full it loots as much as it can and stops, similar to Battle Brothers'). Read by engine/bohemia_spoils.js, held by gates/the_spoils_gate.js. Battle Brothers' own drop conditions are quoted from the library (the Game Guide page in reference/library/grok/wiki/PAGES_ALL.tar.gz). The fight reports every man of theirs and what he wore (slices/BOHEMIA_FIGHT.html spoilsOf, __THE_SPOILS__); this file decides what of it is found. Rows marked ours are ours, each with why. MECHANISM-MINE / CONTENTS-PAOLO'S: a modder edits this file, not the code.",
+  "school": {
+    "drop_conditions": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt, 'Drop conditions'",
+      "quote": "Items that belonged to slain enemies are not always found as loot. There are several conditions for an item to drop: Can be looted; Not in the bag (enemy throwing weapons); Belonged to the player or an enemy (not an ally) killed by the player; Enough durability left: Weapon: > 11 (ammo > 0 for throwing weapons), Shield: > 5 & >= 25%, Armor: > 30 & >= 25%, Helmet: > 30 & >= 25%; Successfully rolled: Weapon: 90%, Shield: 90%, Helmet: 70%."
+    },
+    "armour_wear_on_loot": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt, 'Drop conditions'",
+      "quote": "If a looted item that cannot be swapped in battle (armor) has more than 66% of its maximum durability, there's a 50% chance that its durability will be set to a value comprised between the durability and 35% of the maximum durability."
+    },
+    "weapons_never_wear": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt, 'Drop conditions'",
+      "quote": "Enemy weapons can apparently be more or less damaged at the start of a battle but they never lose durability during battle (and never break)."
+    },
+    "beasts_carry_nothing": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+      "quote": "Beasts carry no equipment and will only leave Trophies that can be sold or used as crafting components."
+    },
+    "ghosts_carry_nothing": {
+      "source": "records/target/bb/enemies.json (geist, bb_all/0831_Geist.txt)",
+      "quote": "Geists don't drop any loot."
+    },
+    "the_loot_screen_comes_first": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1415_News and Dev Blogs.txt",
+      "quote": "Changed the after-combat-report to always lead the player to the loot screen before allowing him or her to return to the worldmap."
+    },
+    "loot_all_stops_when_full": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1415_News and Dev Blogs.txt",
+      "quote": "Added optional 'Auto-Loot' setting. Enabling this will result in automatically taking everything you didn't already take on leaving the loot screen. Note that this may fail if you run out of space."
+    },
+    "ammunition_is_looted": {
+      "source": "reference/library/grok/wiki/pages/0055_Ammunition.txt",
+      "quote": "Can be looted after battle."
+    }
+  },
+  "drop": {
+    "weapon": { "min_durability_over": 11, "min_pct": 0, "roll_pct": 90, "thrown_needs_ammo": true, "source": "school.drop_conditions" },
+    "shield": { "min_durability_over": 5, "min_pct": 25, "roll_pct": 90, "source": "school.drop_conditions" },
+    "body": { "min_durability_over": 30, "min_pct": 25, "roll_pct": 100, "source": "school.drop_conditions", "why": "the guide's roll list names weapon, shield and helmet and no roll for body armour: it is found whenever enough of it is left" },
+    "head": { "min_durability_over": 30, "min_pct": 25, "roll_pct": 70, "source": "school.drop_conditions" },
+    "wear": { "above_pct": 66, "chance_pct": 50, "down_to_pct": 35, "parts": ["body", "head"], "source": "school.armour_wear_on_loot" },
+    "thrown_classes": ["throwing"],
+    "only_the_dead": true,
+    "nothing_from": ["beast", "ghost"]
+  },
+  "counts": {
+    "_about": "What is not an object you wear lands as a COUNT, never in a stash slot: Battle Brothers' supplies go to their counters (school.ammunition_is_looted), and his 7/26 law (laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md): 'the item will be resources... you found like three'. BATTERIES go to the purse's electricity (the money, his 9/4 law), ROUNDS and SCRAP to its resources (the purse's physical goods, engine/bohemia_purse.js CURRENCIES).",
+    "rounds": { "from": "the rounds left in a dead man's gun when the fight ended (the fight's own count, t.ammo)", "to": "resources", "ours": true, "why": "Battle Brothers loots ammunition after a battle; the gun's own rounds are the amount, no number typed" },
+    "scrap": { "per_wrecked_piece": 1, "to": "resources", "ours": true, "why": "Battle Brothers destroys a piece worn under its drop line; ours keeps what is left of it as one scrap, the purse's physical goods, so a fight that tore their armour up still leaves something" },
+    "batteries": { "pocket_chance_pct": 55, "pocket": 1, "machine_cell": 1, "to": "electricity", "ours": true,
+      "why": "a pocket cell on a dead man at the frozen fight's own LOOT_CHANCE 0.55 (his 8/25 'you get experience and loot OFF THEIR BODIES', measured in records/BOHEMIA_BB_STUDY_DAY_10_LOOT_IS_A_COUNTDOWN_8_28_26.md), one battery, the price table's floor (records/target/bb/price_table.json conversion.floorBatteries); a machine always carries its one cell (the robots run on batteries); Battle Brothers' bodies carry no crowns, so this row is ours" }
+  },
+  "stash": { "slots": 36, "source": "slices/BOHEMIA_ROSTER_SCREEN.html BAG_SLOTS and slices/BOHEMIA_SETTLEMENT_SCREEN.html BAG_SLOTS (the one bag, bohemia.bag.v1)", "why": "the stash the market fills and the crew screen equips from; its size is the same 36 everywhere" }
+}

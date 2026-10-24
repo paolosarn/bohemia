@@ -4788,11 +4788,38 @@ function endMessage() {
     dead: W.dead.length, fled: W.fled.length, spared: 0, fates: mine.map(function (v) { return { name: v.name, main: !!v.main, dead: !!v.dead, down: !!v.down, fled: !!v.fled }; }),
     wipeInfo: W };
 }
+/* ==== __THE_SPOILS__ (RUN TWO's block in COMBAT's file, NOTE on COMBAT's board; rule 156(e), Paolo 10/24: 'there isn't an end
+   of battle quick summary of who got experience, who leveled up, and what loot I'm able to take, with a loot button'). The fight
+   says WHAT IT PRODUCED and decides nothing: every man of theirs, dead or run, with what he wore when it ended (his weapon by
+   the id the bag speaks, a pistol by its own id, never the shot it rides; his shield; his body armour and helmet read off his
+   own gear list by the durability he came in with, and what is left of them now; the rounds left in his gun), and the look of
+   every man of ours. Battle Brothers' drop rules are applied by the spoils screen (engine/bohemia_spoils.js, read off
+   records/target/bb/loot.json), never here. */
+function spoilsOf() {
+  const S = FIGHT.S;
+  const wear = function (t, part, now, max) {
+    const r = (DB.enemies.rows.filter(function (e) { return e.id === t.kind; })[0] || {}).gear || [];
+    const rows = DB.armor[part].filter(function (a) { return r.indexOf(a.name) >= 0; });
+    if (!rows.length || !(max > 0)) return null;
+    const a = rows.slice().sort(function (x, y) { return Math.abs(x.durability - max) - Math.abs(y.durability - max); })[0];
+    return { id: a.id, now: Math.max(0, Math.round(now || 0)), max: Math.round(max) };
+  };
+  const row = function (w) { return w ? DB.weapons.rows.filter(function (r) { return r.id === w.id; })[0] || null : null; };
+  return { faction: theirFaction(), bodies: S.units.filter(function (v) { return v.side === 'them'; }).map(function (t) {
+      return { name: t.name, kind: t.kind, dead: !!t.dead, fled: !!t.fled, beast: !!t.beast, ghost: !!t.ghost, machine: !!t.machine,
+        weapon: row(t.weapon) ? { id: t.weapon.id, cls: row(t.weapon).class, durability: row(t.weapon).durability, gun: !!t.weapon.gun || isGunW(t.weapon), ammo: t.ammo, ammoMax: t.ammoMax } : null,
+        shield: t.shield ? { id: t.shield.id, durability: t.shield.durability } : null,
+        body: wear(t, 'body', t.armB, t.armBMax), head: wear(t, 'head', t.armH, t.armHMax) }; }),
+    looks: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, look: v.look || null }; }) };
+}
+function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; } catch (_e) { return false; } }
+/* ==== end __THE_SPOILS__ ==== */
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
 function homeMessage(result) {
   const S = FIGHT.S;
   return { type: 'BOHEMIA_FIGHT_OVER', result: result, retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
-      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null }; }) };
+      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null }; }),
+    spoils: (function () { try { return spoilsOf(); } catch (_e) { return null; } })() };   /* __THE_SPOILS__ */
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
 const touches = {}; let gest = null;
