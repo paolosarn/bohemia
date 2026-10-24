@@ -152,6 +152,30 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-first-minutes): 10/24 LATEST -- [the first minutes that make you care] SHIPPED 07347946 (rule 146(c)(d), research only,
+no card, no game code touched; the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
+RECORD: records/BOHEMIA_TUNING_THE_FIRST_MINUTES_THAT_MAKE_YOU_CARE_10_24_26.md. BANK (four fresh boots, draft:true):
+banks/BOHEMIA_TUNING_THE_FIRST_MINUTES_FOUR_BOOTS_10_24_26.json. Measured on DEMO 10/24e and 10/24f (main moved mid-round).
+THE FINDING THAT PROVES US WRONG: we already own the world generator. engine/bohemia_overmap.js rolls the valley per seed (his 7/5
+ruling, VEGAS GEOGRAPHY's SEED-DRIVEN LAYOUT ROLLS, the Strip sacred) and the engine's save takes a seed; the 7/28 ONE MAP fix pinned
+every frame AND every game to the text seed 'bohemia' (2691674296). Four fresh boots (A NEW CREW twice, THE LONE WOLF, UP FROM
+HENDERSON): one cell (6205,6271), the same SUBURB, the same @church 2 blocks W and @colorful 13 blocks W jobs, the same posts; 2.1% of
+pixels apart, all of it the crowds. Only the head count and the batteries change. The crew's name is the first of ten (THE NIGHT SHIFT).
+THE STUDIES (ten, sourced): choice, getting good and people predict fun and staying (Ryan, Rigby, Przybylski); tutorials pay only in
+complex games, up to +29% play time (Andersen, 45,000 players); the first glance is judged in 50 ms and colours the rest (Lindgaard);
+curiosity peaks at a middle gap (Loewenstein); you love what you made only once finished (IKEA effect); customising raises
+identification; a quarter of players gone before the first half hour (achievement proxies); 15% of talk skipped (Mass Effect 2);
+perceptual uniqueness is the real metric (Compton's oatmeal); a rival born from play (Nemesis).
+THE TEN, RANKED: 1 a new valley per new game, one seed per SAVE, a start test and a 200-seed curated list (RUN + WORLD + PLUMBER);
+2 the origin picks the corner from the generator's own districts, a 15-row table (RUN + WORLD + FACTIONS); 3 the origin spoken at the
+door by its own faces, before play (WORDS + PORTRAIT + SOUNDS + RUN); 4 one sight only this world has at his corner (WORLD + LIFE+CITY +
+COOK FOUR + FACTIONS); 5 the first two jobs from his corner (RUN + WORLD + ECONOMY); 6 new names, a typed crew name, a nameable seed
+(FACTIONS + PEOPLE + WORDS + RUN); 7 the door drops from the whole valley into his corner, Pocket City 2's department (RUN + UI); 8 the
+first win seen by a face (PEOPLE + WORDS + SOUNDS + UI); 9 the first band keeps a named survivor (COMBAT + FACTIONS + PEOPLE); 10 a goal
+picked on the first night (RUN + UI + ECONOMY). COORDINATOR: ONE MAP re-read as one seed per save (146(c) is newer).
+NOT MEASURED: a boot on another seed (a constant in the slice, nothing edited); the 12 origins not booted (same code path).
+NEXT ON THE BOARD: [the aim he sees], then [the first week's losses].
+
 TUNING (tuning-quicker-funner): 10/23 LATEST -- [quicker and funner for normies] SHIPPED c1fd56cf (rule 133(e), research only, no card,
 no game code touched; the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
 RECORD: records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md. BANK (the walk, draft:true):
