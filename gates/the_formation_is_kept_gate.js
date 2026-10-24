@@ -53,15 +53,20 @@ async function main() {
   };
   /* ---- 1. the open, waiting for his line, the enemy drawn (at night, where the rules do not see every man) ---- */
   leg(await loaded(), 'the ground loads and the fight waits for his line (FIGHT.S.deploy)');
-  await ev(() => { try { localStorage.removeItem(FIGHT.FORMATION_KEY); } catch (_e) {} });
+  /* a first-time player: no line kept and no lesson learned (the first open of this page has already said the line-set lesson) */
+  await ev(() => { try { localStorage.removeItem(FIGHT.FORMATION_KEY); localStorage.removeItem('bohemia.fight.taught'); } catch (_e) {} FIGHT_UI.taughtMem = null; });
   await restart({ seed: NIGHT_SEED, speed: SPEED, kind: KIND, night: true, formation: null });
   leg(await loaded(), 'a clean start at night (FIGHT_OPTS.formation null): the default line is dealt');
   await p.waitForTimeout(500);
   const o1 = await ev(() => { const S = FIGHT.S; const them = S.units.filter(u => u.side === 'them' && FIGHT.onField(u));
     return { night: S.night, them: them.length, drawn: __them.filter(id => them.some(u => u.id === id)).length, seen: them.filter(u => FIGHT.sideSees('you', u)).length,
-      kept: S.formationKept, say: document.getElementById('say').textContent, label: document.getElementById('bend').textContent.trim() }; });
+      kept: S.formationKept, say: document.getElementById('say').textContent, label: document.getElementById('bend').textContent.trim(),
+      /* ONE VOICE TEACHES (COMBAT [the ten changes], TUNING's change 8): with a veteran on the field the how-to is his face's, one
+         rule a line ('Drag a man...'), the strip quiet; 'kept' is still the strip's, after the drag (the leg below) */
+      face: (FIGHT_UI.vet && FIGHT_UI.vet.k === 'deploy') || (FIGHT_UI.teachQ || []).indexOf('deploy') >= 0, faceLine: TEACH.deploy }; });
   leg(o1.them > 0 && o1.drawn === o1.them, '*** THE ENEMY\'S LINE IS DRAWN WHILE HE SETS HIS *** (every man of theirs on the field, at night)', o1.drawn + ' of ' + o1.them + ' drawn; the rules see ' + o1.seen + ' of them; night ' + o1.night);
-  leg(!o1.kept && /drag a man/i.test(o1.say) && /kept for the next fight/i.test(o1.say) && o1.label === 'FIGHT', 'the first time, the hint says how: drag a man to a lit tile, it is kept for the next fight; the button reads FIGHT', o1.say);
+  leg(!o1.kept && ((/drag a man/i.test(o1.say) && /kept for the next fight/i.test(o1.say)) || (o1.face && !/drag/i.test(o1.say) && /drag a man/i.test(o1.faceLine))) && o1.label === 'FIGHT',
+    'the first time, the hint says how: drag a man (his veteran\'s face, or the strip when no face can say it); the button reads FIGHT', o1.face ? 'the face: "' + o1.faceLine + '"' : o1.say);
   /* ---- the board the picture is taken on: the same seed by day, before and after ---- */
   await restart({ seed: SEED, speed: SPEED, kind: KIND, night: false, formation: null });
   leg(await loaded(), 'a clean start by day, seed ' + SEED + ': the default line (the BEFORE picture)');

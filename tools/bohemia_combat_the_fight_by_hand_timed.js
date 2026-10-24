@@ -21,6 +21,8 @@
        --skip   the player taps the board on their turn (the strip's own 'Tap the board to skip it'); default is a player
                 who watches them
        --auto   AUTO from the open (the page's own AUTO button), the number TUNING timed
+       --glow   a newcomer who takes the glowing AUTO (change 10(a)): the moment AUTO glows, one tap finishes the fight
+       --hand 2 the speed pane at 2x (or 3), the fight's own speed control
      writes records/target/combat_by_hand/<label>.json */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -31,7 +33,7 @@ const KLM = { M: 1.35, P: 1.1, K: 0.2, source: 'Card, Moran and Newell 1980, CAC
 const DECIDE_S = KLM.M + KLM.P + KLM.K, CONFIRM_S = KLM.K;
 
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? (process.argv[i + 1] && !/^--/.test(process.argv[i + 1]) ? process.argv[i + 1] : true) : d; };
-const LABEL = arg('label', 'now'), FILE = arg('file', null), SKIP = !!arg('skip', false), AUTO = !!arg('auto', false);
+const LABEL = arg('label', 'now'), FILE = arg('file', null), SKIP = !!arg('skip', false), AUTO = !!arg('auto', false), GLOW = !!arg('glow', false), HAND = Number(arg('hand', 0)) || 0;
 const SEEDS = String(arg('seeds', '11,12,13')).split(',').map(Number);
 /* the stranger's first fights as TUNING walked them: THE CREW THAT IS LEFT (the door's default origin, three men) against
    three brigands on the road and against two on the first job, on day one */
@@ -70,7 +72,7 @@ const SAMPLER = function () {
   }
   requestAnimationFrame(loop);
 };
-const PLAN = function () {
+const PLAN = function (opt) {
   const U = window.FIGHT_UI, F = FIGHT, S = F.S;
   if (S.over) return { k: 'over' };
   if (!U.board || performance.now() < U.openUntil) return { k: 'wait' };
@@ -79,6 +81,10 @@ const PLAN = function () {
   const u = F.current(); if (!u) return { k: 'wait' };
   if (u.side !== 'you' || U.auto || u.morale === 'Fleeing') return { k: 'theirs' };
   if (U.anim.length || U.spent || (U.glide && U.glide.hold)) return { k: 'wait' };
+  /* the newcomer takes the glow: AUTO lit with the odds, one tap */
+  /* he looks at the screen before he decides (the 2.65 s the ruler gives him): the odds read in about half a second of it */
+  if (opt && opt.glow && typeof ODDS !== 'undefined' && ODDS.F !== false && !ODDS.broke && ODDS.runs < ODDS_SHOW) return { k: 'wait' };
+  if (opt && opt.glow && typeof oddsGlow === 'function' && oddsGlow()) return Object.assign({ k: 'finish', pct: oddsPct() }, btn('bauto'));
   const onGlass = (x, y) => { const X = sx((x + .5) * U.tw), Y = sy((y + .5) * U.th); return X > 8 && X < W - 8 && Y > TOPH + 8 && Y < H - BOTH - 8 ? { x: X, y: Y } : null; };
   /* the first tap on a man or a tile shows; the second on the same spot does */
   if (U.pend && U.pend.target) { const q = onGlass(U.pend.target.x, U.pend.target.y); if (q) return Object.assign({ k: 'confirm', what: 'hit' }, q); }
@@ -102,7 +108,7 @@ const PLAN = function () {
 };
 
 async function fight(file, fd, seed) {
-  const o = { seed: seed, company: COMPANY, cap: ORIGIN.field_cap, party: fd.party, kind: 'suburb', formation: null, auto: AUTO };
+  const o = Object.assign({ seed: seed, company: COMPANY, cap: ORIGIN.field_cap, party: fd.party, kind: 'suburb', formation: null, auto: AUTO }, HAND ? { hand: HAND } : {});
   const d = await open(Object.assign({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS=' + JSON.stringify(o) + ';(' + SAMPLER.toString() + ')();' },
     file ? { serve: { '/slices/BOHEMIA_FIGHT.html': file } } : {}));
   const p = d.page, taps = { decide: 0, confirm: 0, skip: 0, by: {} };
@@ -110,7 +116,7 @@ async function fight(file, fd, seed) {
   const wall0 = Date.now();
   let guard = 0, lastTheirsTap = 0;
   for (; guard < 4000; guard++) {
-    const pl = await p.evaluate(PLAN);
+    const pl = await p.evaluate(PLAN, { glow: GLOW });
     if (pl.k === 'over') break;
     if (pl.k === 'wait') { await p.waitForTimeout(40); continue; }
     if (pl.k === 'theirs') { if (SKIP && Date.now() - lastTheirsTap > 400) { await p.touchscreen.tap(195, 420); taps.skip++; lastTheirsTap = Date.now(); } await p.waitForTimeout(40); continue; }
@@ -151,7 +157,7 @@ async function fight(file, fd, seed) {
   sum.forEach(s => console.log('  == ' + s.fight + ': won ' + s.won + '/' + s.n + ', BY HAND ' + s.by_hand_s + ' s (machine ' + s.machine_s + ': theirs ' + s.theirs_s + ', his motion ' + s.his_motion_s + '; finger ' + s.finger_s + '), ' + s.his_turns + ' of his turns, ' + s.rounds + ' rounds'));
   const dir = path.join(ROOT, 'records/target/combat_by_hand'); fs.mkdirSync(dir, { recursive: true });
   const f = path.join(dir, LABEL + '.json');
-  fs.writeFileSync(f, JSON.stringify({ label: LABEL, mode: AUTO ? 'auto' : SKIP ? 'by hand, skips their turns' : 'by hand, watches their turns', file: FILE || 'slices/BOHEMIA_FIGHT.html',
+  fs.writeFileSync(f, JSON.stringify({ label: LABEL, mode: AUTO ? 'auto' : (SKIP ? 'by hand, skips their turns' : 'by hand, watches their turns') + (GLOW ? ', takes the glowing AUTO' : '') + (HAND ? ', speed ' + HAND + 'x' : ''), file: FILE || 'slices/BOHEMIA_FIGHT.html',
     profile: 'phone_portrait 390 x 844 at 3x, touch', klm: KLM, decide_s: DECIDE_S, confirm_s: CONFIRM_S, company: ORIGIN.id, summary: sum, fights: out }, null, 1));
   console.log('  wrote ' + path.relative(ROOT, f));
 })().catch(e => { console.error(e); process.exit(1); });

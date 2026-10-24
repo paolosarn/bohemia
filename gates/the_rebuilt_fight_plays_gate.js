@@ -1078,7 +1078,8 @@ async function actFramed() {
 async function flippedLook() {
   const rows = [];
   for (const profile of ['phone_landscape', 'tablet', 'computer', 'phone_portrait']) {
-    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false}' });
+    /* teach:false: the strip keeps its own line to be placed (with a veteran on the field the how-to is his face's, change 8) */
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false,teach:false}' });
     await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round && document.getElementById('say').textContent, null, { timeout: 30000 });
     await d.page.waitForTimeout(1500);
     const r = await d.page.evaluate(() => { const e = document.getElementById('say').getBoundingClientRect(), o = document.getElementById('order').getBoundingClientRect();

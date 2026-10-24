@@ -166,10 +166,16 @@ if (process.argv.indexOf('--write') >= 0) fs.writeFileSync(path.join(ROOT, 'reco
     leg(up, 'the glass: 14 against 40 dire wolves loads on his phone\'s profile');
     if (up) {
       await p.waitForTimeout(800);
-      const g = await p.evaluate(() => { const before = window.__beast; draw(performance.now()); return { you: FIGHT.alive('you').length, them: FIGHT.alive('them').length,
-        drawnOneFrame: window.__beast - before, shown: FIGHT.S.units.filter(u => u.beast && FIGHT.onField(u) && FIGHT.shown(u)).length, framed: allFramed(), strip: document.querySelectorAll('#order canvas').length, name: (FIGHT.S.units.find(u => u.beast) || {}).name }; });
+      /* counted at the blit (COMBAT 10/24): since the idles (ANIMATION [everybody idles], 10/23) a standing beast is drawn from its
+         rig model's idle cells, and the sheets reach the glass as canvases with no address, so the old count of drawImage calls
+         by a picture's address read 0 on main; now every beast the frame blits is counted, and its sheet must be its rig model */
+      const g = await p.evaluate(() => { let n = 0, rig = 0; const bm = window.blitMan;
+        window.blitMan = function (v) { if (v && v.beast) { n++; const im = sheetOf(v), src = im && (im.src || (im.dataset && im.dataset.src) || im.__src || ''); if (/fight_rig\/beast_/.test(String(src)) || (lookOf(v) && rigBeast(v))) rig++; } return bm.apply(this, arguments); };
+        try { draw(performance.now()); } finally { window.blitMan = bm; }
+        return { you: FIGHT.alive('you').length, them: FIGHT.alive('them').length, rig: rig,
+        drawnOneFrame: n, shown: FIGHT.S.units.filter(u => u.beast && FIGHT.onField(u) && FIGHT.shown(u)).length, framed: allFramed(), strip: document.querySelectorAll('#order canvas').length, name: (FIGHT.S.units.find(u => u.beast) || {}).name }; });
       /* the fight's fog (Battle Brothers': a man you cannot see is not drawn): every beast your men can see is drawn, once a frame */
-      leg(g.you === 14 && g.them === 40 && g.shown > 0 && g.drawnOneFrame === g.shown, '*** THE GLASS: all 54 on the board, every beast your men can see drawn from its rig model (ANIMATION\'s redone beasts through the master rig, rule 121) in one frame ***', JSON.stringify(g));
+      leg(g.you === 14 && g.them === 40 && g.shown > 0 && g.drawnOneFrame === g.shown && g.rig === g.drawnOneFrame, '*** THE GLASS: all 54 on the board, every beast your men can see drawn from its rig model (ANIMATION\'s redone beasts through the master rig, rule 121) in one frame ***', JSON.stringify(g));
       leg(g.framed, 'both teams framed at the open, no swipe (rule 104a), with 54 on the board');
       await p.evaluate(() => { FIGHT_UI.auto = true; FIGHT_UI.speed = 6; });
       await p.waitForTimeout(6000);
