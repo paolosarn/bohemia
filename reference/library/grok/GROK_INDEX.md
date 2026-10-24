@@ -122,3 +122,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_71_PROVISIONS_AND_FOOD_2026_10_24.md | provisions, food, spoiling
 - 2026-10-24 | ASK | GROK_ASK_72_TOOLS_AND_REPAIRS_2026_10_24.md | tools, repairs, durability
 - 2026-10-24 | ASK | GROK_ASK_73_AMMUNITION_AND_RANGED_RELOADS_2026_10_24.md | ammunition, reloads, stockpile
+- 2026-10-24 | ASK | GROK_ASK_74_MEDICINE_AND_HEALING_2026_10_24.md | medicine, healing, injuries
