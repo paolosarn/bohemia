@@ -94,3 +94,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_43_FATIGUE_2026_10_24.md | fatigue, recovery, costs
 - 2026-10-24 | ASK | GROK_ASK_44_ZONE_OF_CONTROL_2026_10_24.md | zone of control, free attacks, leaving
 - 2026-10-24 | ASK | GROK_ASK_45_SURROUNDING_2026_10_24.md | surrounding, +5 percent, backstabber
+- 2026-10-24 | ASK | GROK_ASK_46_HIT_CHANCE_2026_10_24.md | hit chance, formula, 5-95 clamp
