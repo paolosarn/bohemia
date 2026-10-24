@@ -99,10 +99,33 @@ first; the whole painting shows under a tile until it lands; each tile is drawn 
 texel for texel; the last 20 are kept. At the near stop: gabled houses, towers, roads, the town and its people, one painting,
 no seam found at 1:1.
 
+## 4. THE ONE MAP IN COOK'S COLOUR (rule 137(b)(c), 142(c))
+
+The painting reads COOK's dials (`__THE_PAINTING_WEARS_COOK__`: records/target/cook_map_colour/painting_dials.json, copied from
+his bank by tools/bohemia_run_the_painting_wears_cook.py): each block's theme is its district's; a house lot's roof and stucco,
+a tower's or works block's one colour, the ground's mosaic, the ranges' bands, all rolled on the valley's coordinates; neon is a
+sign's, never a whole roof; a share of COOK's dust on every face. And COOK's own measured tables for the far land (VB_COL) and
+the painting's keys (VB_CCOL) from his note, pasted exactly. COOK's spread tool, the sand family on the glass:
+
+| stop | before (COOK's measure) | after |
+|---|---|---|
+| far | 79% | 5% |
+| district | 66% | 5% |
+| opening | 46% | 10% |
+| step | 43% | 9% |
+| near | 40% | 10% |
+
+PASS at every stop (a third at most). The painter is not slower for it (1.7 s with the dials, 2.2 s without, this box).
+
+## 5. THE LONG PLAY (tools/bohemia_run_the_crash_hunt.js --towns 3, records/run/THE_CRASH_HUNT_LONG_10_24.json)
+
+Three towns in a row, everyone talked to in each, LEAVE: the decoded pictures go 552 -> 572 MB in a town and back to 434-436 MB
+after every LEAVE (they used to stack). A slow creep remains: about 4 MB of canvas and 4 MB of script a town (DOM nodes 23,358
+-> 24,832 over three towns): named, next.
+
 WHAT IS LEFT, SAID PLAINLY:
-- COOK's colour remake (rule 137) is recolouring the per-block district pictures, which the one map no longer draws (only the
-  towns' bases on the map use them). For COOK's colour to be what the map shows (142(c)), the painting has to wear COOK's
-  colour dials (banks/BOHEMIA_MAP_COLOUR_DIALS_10_24_26.json); that is RUN's code: NOTE on COOK's board, row on RUN's.
+- The slow creep above, and the map's people sheets (~400 MB decoded: rig_mix 196, rig_idles 135) and the shell's 57 MB of
+  decoded audio, which are the next biggest weights.
 - A near tile takes the worker a moment; on a phone the closest zoom sharpens over a second or two after a pinch.
 - The long play with fights and nights was walked through the save proof (a town, a fight) and the hunt (towns); a two-hour
   play on a real phone has not been run.
