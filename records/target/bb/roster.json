@@ -1,0 +1,3077 @@
+{
+ "_about": "THE ROSTER (COMBAT [bestiary], rule 42a): every Battle Brothers enemy type in the library, its Bohemia family, the ONE lesson the family teaches, its name on the board, its weight in each act, and whether the fight fields it yet. Built by tools/bohemia_combat_the_roster.py from enemies.json and ours.json, never by hand; a type's numbers stay on its row in enemies.json. Skins, names and lessons not yet in the fight are drafts for WORDS and WORLD (draft: true). A modder adds a family to ours.json's enemy_tiers.mix and act_weights and reruns the tool.",
+ "floor": {
+  "factions": 12,
+  "types": 75,
+  "beasts": 17,
+  "bosses": 3,
+  "champions": true,
+  "source": "records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md",
+  "quote": "THE FLOOR FOR BOHEMIA, HIS RULE: at least 12 factions, 75 enemy types, 17 beasts, 3 bosses, and champions."
+ },
+ "count": {
+  "families": 14,
+  "types": 131,
+  "types_in_the_fight": 18,
+  "beasts": 17,
+  "bosses": 5,
+  "champions": 21
+ },
+ "families": [
+  {
+   "family": "roaming_crews",
+   "bb_factions": [
+    "brigands"
+   ],
+   "skin": "ROAMING CREWS: scavengers, poachers, marksmen, a leader with a name",
+   "lesson": "Undisciplined: they run at you even when they should shoot; drop the leader and the rest waver.",
+   "types": [
+    "brigand_leader",
+    "brigand_marauder",
+    "brigand_marksman",
+    "brigand_poacher",
+    "brigand_raider",
+    "brigand_thug",
+    "disguised_bandit"
+   ],
+   "in_the_fight": [
+    "brigands"
+   ],
+   "draft": true
+  },
+  {
+   "family": "home_base_guards",
+   "bb_factions": [
+    "noble_houses"
+   ],
+   "skin": "THE FACTIONS' HOME-BASE GUARDS (the Mob, the Trades, the Network, the Reds...), armoured, in colour",
+   "lesson": "A shield line with long arms behind it: break the line or go round it.",
+   "types": [
+    "arbalester",
+    "armored_wardog",
+    "billman",
+    "footman",
+    "knight",
+    "man_at_arms",
+    "sergeant",
+    "standard_bearer",
+    "zweihander"
+   ],
+   "in_the_fight": [],
+   "draft": true
+  },
+  {
+   "family": "rival_companies",
+   "bb_factions": [
+    "mercenaries",
+    "bounty_hunters",
+    "oathbringers"
+   ],
+   "skin": "OTHER COMPANIES like yours, the rival crew with a runway look",
+   "lesson": "A crew like yours: every man has a job; read his gear before you pick the fight.",
+   "types": [
+    "bounty_hunter",
+    "bounty_hunter_marksman",
+    "hedge_knight",
+    "master_archer",
+    "mercenary",
+    "mercenary_marksman",
+    "oathbringer",
+    "swordmaster"
+   ],
+   "in_the_fight": [],
+   "draft": true
+  },
+  {
+   "family": "lab_breakout_keepers",
+   "bb_factions": [
+    "barbarians"
+   ],
+   "skin": "THE LAB-BREAKOUT PEOPLE: cult-like keepers who walk with beasts",
+   "lesson": "They come with beasts and a drum: the beast hits first, the keeper hits hardest.",
+   "types": [
+    "barbarian_beastmaster",
+    "barbarian_chosen",
+    "barbarian_drummer",
+    "barbarian_king",
+    "barbarian_madman",
+    "barbarian_reaver",
+    "barbarian_thrall",
+    "warhound"
+   ],
+   "in_the_fight": [],
+   "draft": true
+  },
+  {
+   "family": "desert_road_crews",
+   "bb_factions": [
+    "nomads"
+   ],
+   "skin": "the desert road crews",
+   "lesson": "Slings and fast blades from the dunes: they hit and fade into the sand.",
+   "types": [
+    "blade_dancer",
+    "desert_stalker",
+    "nomad_archer",
+    "nomad_cutthroat",
+    "nomad_executioner",
+    "nomad_leader",
+    "nomad_outlaw",
+    "nomad_slinger"
+   ],
+   "in_the_fight": [],
+   "draft": true
+  },
+  {
+   "family": "casino_security",
+   "bb_factions": [
+    "city_states"
+   ],
+   "skin": "THE STRIP'S CASINO SECURITY: the only faction with working heavy guns and a mortar",
+   "lesson": "Guns and a mortar: stay out of the open and close the distance.",
+   "types": [
+    "assassin",
+    "conscript",
+    "conscript_with_polearm",
+    "engineer",
+    "gladiator",
+    "gunner",
+    "indebted",
+    "mortar",
+    "officer"
+   ],
+   "in_the_fight": [],
+   "draft": true
+  },
+  {
+   "family": "the_faithful",
+   "bb_factions": [
+    "cultists"
+   ],
+   "skin": "THE AMALGAMATION'S FAITHFUL (act 2 and 3 grow them)",
+   "lesson": "They do not run.",
+   "types": [
+    "cultist"
+   ],
+   "in_the_fight": [],
+   "draft": true
+  },
+  {
+   "family": "townsfolk",
+   "bb_factions": [
+    "civilians"
+   ],
+   "skin": "the militia, the caravans and the townsfolk",
+   "lesson": "Many and green: their captain holds them together.",
+   "types": [
+    "armed_peasant",
+    "caravan_guard",
+    "caravan_hand",
+    "citizen",
+    "donkey",
+    "envoy",
+    "firstborn",
+    "militia",
+    "militia_captain",
+    "militia_marksman",
+    "militia_veteran",
+    "peasant"
+   ],
+   "in_the_fight": [],
+   "draft": true
+  },
+  {
+   "family": "kids_and_runners",
+   "bb_factions": [
+    "goblins",
+    "greenskins"
+   ],
+   "skin": "KIDS AND RUNNERS on bikes and dirt quads with slings and nets",
+   "lesson": "They throw, net you and run: do not chase them, shoot them.",
+   "types": [
+    "goblin_ambusher",
+    "goblin_overseer",
+    "goblin_shaman",
+    "goblin_skirmisher",
+    "goblin_wolf",
+    "goblin_wolfrider",
+    "greenskin_catapult"
+   ],
+   "in_the_fight": [
+    "kids"
+   ],
+   "draft": true
+  },
+  {
+   "family": "the_heavies",
+   "bb_factions": [
+    "orcs"
+   ],
+   "skin": "THE HEAVY: exo-suit men, crash-bar shields, they push you off the tile",
+   "lesson": "They shove you off your tile: put your back to a wall and shoot before they reach the line.",
+   "types": [
+    "orc_berserker",
+    "orc_warlord",
+    "orc_warrior",
+    "orc_young"
+   ],
+   "in_the_fight": [
+    "heavies"
+   ],
+   "draft": true
+  },
+  {
+   "family": "the_mechanics",
+   "bb_factions": [
+    "zombies"
+   ],
+   "skin": "THE MECHANIC (his words): a man who keeps reviving his robots; kill him and the machines drop",
+   "lesson": "Kill him first and the machines drop; a head shot keeps one down.",
+   "types": [
+    "armored_wiederganger",
+    "fallen_betrayer",
+    "fallen_hero",
+    "lost_treasure_hunter",
+    "necromancer",
+    "wiederganger",
+    "wiederganger_brother",
+    "wiederganger_nomad"
+   ],
+   "in_the_fight": [
+    "machines"
+   ],
+   "draft": true
+  },
+  {
+   "family": "old_orders_machines",
+   "bb_factions": [
+    "ancient_dead",
+    "undead_reliquary"
+   ],
+   "skin": "THE OLD ORDER'S MACHINES: security drones and exo-suited remains still running the last order they were given",
+   "lesson": "A line that holds and never breaks: bring armour-breakers and patience.",
+   "types": [
+    "ancient_auxiliary",
+    "ancient_honor_guard",
+    "ancient_honor_guard_with_polearm",
+    "ancient_legionary",
+    "ancient_legionary_with_polearm",
+    "ancient_priest",
+    "fault_finder",
+    "flesh_cradle",
+    "flesh_golem",
+    "greater_flesh_golem",
+    "necrosavant",
+    "phylactery",
+    "the_conqueror",
+    "the_grand_diviner",
+    "the_lorekeeper"
+   ],
+   "in_the_fight": [],
+   "draft": true
+  },
+  {
+   "family": "beasts",
+   "bb_factions": [
+    "beasts",
+    "animals"
+   ],
+   "skin": "DE-EXTINCT ANIMALS out of the labs when the dollar died (rule 42, laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md)",
+   "lesson": "Each beast its own lesson (below).",
+   "types": [
+    "alp",
+    "armored_frost_unhold",
+    "armored_unhold",
+    "bog_unhold",
+    "direwolf",
+    "frenzied_direwolf",
+    "frenzied_hyena",
+    "frost_unhold",
+    "hexe",
+    "hyena",
+    "ifrit_large",
+    "ifrit_medium",
+    "ifrit_small",
+    "kraken",
+    "kraken_tentacle",
+    "kraken_tentacle_enraged",
+    "lindwurm",
+    "lindwurm_tail",
+    "nachzehrer_large",
+    "nachzehrer_medium",
+    "nachzehrer_small",
+    "sapling",
+    "schrat",
+    "serpent",
+    "the_ijirok",
+    "unhold",
+    "wardog",
+    "webknecht",
+    "webknecht_eggs",
+    "wolf"
+   ],
+   "in_the_fight": [
+    "beasts"
+   ],
+   "draft": true
+  },
+  {
+   "family": "ghosts",
+   "bb_factions": [],
+   "skin": "THE AMALGAMATION'S HAUNTING as act one sees it (rule 134(e)): the dead who came back, the scream its broadcast",
+   "lesson": "They fight your nerve from range: walk up and hit them, they break like smoke.",
+   "types": [
+    "geist",
+    "lorekeepers_apparition",
+    "rachegeist",
+    "rachegeist_ghost",
+    "screaming_skull"
+   ],
+   "in_the_fight": [
+    "ghosts"
+   ],
+   "draft": true
+  }
+ ],
+ "beasts": [
+  {
+   "beast": "direwolf",
+   "rows": [
+    "direwolf"
+   ],
+   "skin": "the dire wolf (Colossal's real 2025 pups)",
+   "lesson": "They flank: keep your line closed.",
+   "in_the_fight": true,
+   "draft": true
+  },
+  {
+   "beast": "frenzied_direwolf",
+   "rows": [
+    "frenzied_direwolf"
+   ],
+   "skin": "the frenzied dire wolf",
+   "lesson": "Faster and harder: shoot them on the way in.",
+   "in_the_fight": true,
+   "draft": true
+  },
+  {
+   "beast": "hyena",
+   "rows": [
+    "hyena",
+    "frenzied_hyena"
+   ],
+   "skin": "the cave hyena",
+   "lesson": "They take the weak at the edge.",
+   "in_the_fight": true,
+   "draft": true
+  },
+  {
+   "beast": "nachzehrer",
+   "rows": [
+    "nachzehrer_small",
+    "nachzehrer_medium",
+    "nachzehrer_large"
+   ],
+   "skin": null,
+   "lesson": "They eat the dead and grow: leave no body for them.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "webknecht",
+   "rows": [
+    "webknecht",
+    "webknecht_eggs"
+   ],
+   "skin": "a swarm of lab things (no giant spiders)",
+   "lesson": "They net and poison: kill the nest.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "unhold",
+   "rows": [
+    "unhold",
+    "bog_unhold"
+   ],
+   "skin": "the short-faced bear or the ground sloth",
+   "lesson": "It regenerates and throws: finish it fast.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "armoured_unhold",
+   "rows": [
+    "armored_unhold"
+   ],
+   "skin": "the bear with lab plating",
+   "lesson": "Plate first, then the beast.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "frost_unhold",
+   "rows": [
+    "frost_unhold",
+    "armored_frost_unhold"
+   ],
+   "skin": null,
+   "lesson": "It regenerates and throws: finish it fast.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "alp",
+   "rows": [
+    "alp"
+   ],
+   "skin": "a night thing (the horror line, not an animal)",
+   "lesson": "It puts your men to sleep and blinks: wake them, then hunt it.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "hexe",
+   "rows": [
+    "hexe"
+   ],
+   "skin": null,
+   "lesson": "She charms your own: kill her and they are yours again.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "schrat",
+   "rows": [
+    "schrat",
+    "sapling"
+   ],
+   "skin": "the mesquite or Joshua-tree walker (a maybe)",
+   "lesson": "It spawns saplings: burn or break the trunk.",
+   "in_the_fight": true,
+   "draft": true
+  },
+  {
+   "beast": "lindwurm",
+   "rows": [
+    "lindwurm",
+    "lindwurm_tail"
+   ],
+   "skin": "the big monitor lizards the Vegas exotic-pet trade kept",
+   "lesson": "Two bodies and acid blood: hit the head, not the tail.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "serpent",
+   "rows": [
+    "serpent"
+   ],
+   "skin": null,
+   "lesson": "It drags and crushes: never stand alone at the water.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "ifrit",
+   "rows": [
+    "ifrit_small",
+    "ifrit_medium",
+    "ifrit_large"
+   ],
+   "skin": "the swarm (fought with fire, smoke, water and walls)",
+   "lesson": "It splits when hurt: hit it hard once.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "geist",
+   "rows": [
+    "geist"
+   ],
+   "skin": "the Amalgamation's haunting (rule 134)",
+   "lesson": "It screams at your nerve: walk up and hit it.",
+   "in_the_fight": true,
+   "draft": true
+  },
+  {
+   "beast": "kraken",
+   "rows": [
+    "kraken",
+    "kraken_tentacle",
+    "kraken_tentacle_enraged"
+   ],
+   "skin": "the reservoir's thing (Lake Mead)",
+   "lesson": "Cut the arms that hold your men, then the body.",
+   "in_the_fight": false,
+   "draft": true
+  },
+  {
+   "beast": "ijirok",
+   "rows": [
+    "the_ijirok"
+   ],
+   "skin": "the mammoth (OUT by his fifth votes: every beast survives the Mojave; WORLD replaces it)",
+   "lesson": "It freezes and teleports.",
+   "in_the_fight": false,
+   "draft": true
+  }
+ ],
+ "types": [
+  {
+   "type": "alp",
+   "bb_name": "Alp",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "alp"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0046_Alp.txt"
+  },
+  {
+   "type": "ancient_auxiliary",
+   "bb_name": "Ancient Auxiliary",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "ancient_auxiliary"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0082_Ancient Auxiliary.txt"
+  },
+  {
+   "type": "ancient_honor_guard",
+   "bb_name": "Ancient Honor Guard",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "ancient_honor_guard",
+    "ancient_honor_guard_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0089_Ancient Honor Guard.txt"
+  },
+  {
+   "type": "ancient_honor_guard_with_polearm",
+   "bb_name": "Ancient Honor Guard with Polearm",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "ancient_honor_guard_with_polearm"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0094_Ancient Honor Guard with Polearm.txt"
+  },
+  {
+   "type": "ancient_legionary",
+   "bb_name": "Ancient Legionary",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "ancient_legionary"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0096_Ancient Legionary.txt"
+  },
+  {
+   "type": "ancient_legionary_with_polearm",
+   "bb_name": "Ancient Legionary with Polearm",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "ancient_legionary_with_polearm"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0099_Ancient Legionary with Polearm.txt"
+  },
+  {
+   "type": "ancient_priest",
+   "bb_name": "Ancient Priest",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "ancient_priest"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0104_Ancient Priest.txt"
+  },
+  {
+   "type": "arbalester",
+   "bb_name": "Arbalester",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "arbalester"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0128_Arbalester.txt"
+  },
+  {
+   "type": "armed_peasant",
+   "bb_name": "Armed Peasant",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "armed_peasant"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0136_Armed Peasant.txt"
+  },
+  {
+   "type": "armored_frost_unhold",
+   "bb_name": "Armored Frost Unhold",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "armored_frost_unhold"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0146_Armored Unhold.txt"
+  },
+  {
+   "type": "armored_unhold",
+   "bb_name": "Armored Unhold",
+   "bb_faction": "barbarians",
+   "family": "beasts",
+   "rows": [
+    "armored_unhold"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0146_Armored Unhold.txt"
+  },
+  {
+   "type": "armored_wardog",
+   "bb_name": "Armored Wardog",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "armored_wardog"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1430_Noble Houses.txt#Squads"
+  },
+  {
+   "type": "armored_wiederganger",
+   "bb_name": "Armored Wiederganger",
+   "bb_faction": "zombies",
+   "family": "the_mechanics",
+   "rows": [
+    "armored_wiederganger"
+   ],
+   "name": "PLATED MACHINE",
+   "act_weights": [
+    1,
+    1.5,
+    2
+   ],
+   "fielded": [
+    "machines"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0147_Armored Wiederganger.txt"
+  },
+  {
+   "type": "assassin",
+   "bb_name": "Assassin",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "assassin"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0155_Assassin (Enemy).txt"
+  },
+  {
+   "type": "barbarian_beastmaster",
+   "bb_name": "Barbarian Beastmaster",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "barbarian_beastmaster"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0178_Barbarian Beastmaster.txt"
+  },
+  {
+   "type": "barbarian_chosen",
+   "bb_name": "Barbarian Chosen",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "barbarian_chosen",
+    "barbarian_chosen_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0179_Barbarian Chosen.txt"
+  },
+  {
+   "type": "barbarian_drummer",
+   "bb_name": "Barbarian Drummer",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "barbarian_drummer"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0182_Barbarian Drummer.txt"
+  },
+  {
+   "type": "barbarian_king",
+   "bb_name": "Barbarian King",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "barbarian_king",
+    "barbarian_king_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0185_Barbarian King.txt"
+  },
+  {
+   "type": "barbarian_madman",
+   "bb_name": "Barbarian Madman",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "barbarian_madman"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0188_Barbarian Madman.txt"
+  },
+  {
+   "type": "barbarian_reaver",
+   "bb_name": "Barbarian Reaver",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "barbarian_reaver"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0189_Barbarian Reaver.txt"
+  },
+  {
+   "type": "barbarian_thrall",
+   "bb_name": "Barbarian Thrall",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "barbarian_thrall"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0193_Barbarian Thrall.txt"
+  },
+  {
+   "type": "billman",
+   "bb_name": "Billman",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "billman"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0238_Billman.txt"
+  },
+  {
+   "type": "blade_dancer",
+   "bb_name": "Blade Dancer",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "blade_dancer",
+    "blade_dancer_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0246_Blade Dancer.txt"
+  },
+  {
+   "type": "bog_unhold",
+   "bb_name": "Bog Unhold",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "bog_unhold"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
+   "type": "bounty_hunter",
+   "bb_name": "Bounty Hunter",
+   "bb_faction": "bounty_hunters",
+   "family": "rival_companies",
+   "rows": [
+    "bounty_hunter"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0270_Bounty Hunter.txt"
+  },
+  {
+   "type": "bounty_hunter_marksman",
+   "bb_name": "Bounty Hunter Marksman",
+   "bb_faction": "bounty_hunters",
+   "family": "rival_companies",
+   "rows": [
+    "bounty_hunter_marksman"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0271_Bounty Hunter Marksman.txt"
+  },
+  {
+   "type": "brigand_leader",
+   "bb_name": "Brigand Leader",
+   "bb_faction": "brigands",
+   "family": "roaming_crews",
+   "rows": [
+    "brigand_leader",
+    "brigand_leader_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "brigands"
+   ],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0290_Brigand Leader.txt"
+  },
+  {
+   "type": "brigand_marauder",
+   "bb_name": "Brigand Marauder",
+   "bb_faction": "brigands",
+   "family": "roaming_crews",
+   "rows": [
+    "brigand_marauder"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "brigands"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0293_Brigand Marauder.txt"
+  },
+  {
+   "type": "brigand_marksman",
+   "bb_name": "Brigand Marksman",
+   "bb_faction": "brigands",
+   "family": "roaming_crews",
+   "rows": [
+    "brigand_marksman",
+    "lower_brigand_marksman"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "brigands"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0294_Brigand Marksman.txt"
+  },
+  {
+   "type": "brigand_poacher",
+   "bb_name": "Brigand Poacher",
+   "bb_faction": "brigands",
+   "family": "roaming_crews",
+   "rows": [
+    "brigand_poacher"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "brigands"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0295_Brigand Poacher.txt"
+  },
+  {
+   "type": "brigand_raider",
+   "bb_name": "Brigand Raider",
+   "bb_faction": "brigands",
+   "family": "roaming_crews",
+   "rows": [
+    "brigand_raider",
+    "lower_brigand_raider"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "brigands"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0297_Brigand Raider.txt"
+  },
+  {
+   "type": "brigand_thug",
+   "bb_name": "Brigand Thug",
+   "bb_faction": "brigands",
+   "family": "roaming_crews",
+   "rows": [
+    "brigand_thug"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "brigands"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0298_Brigand Thug.txt"
+  },
+  {
+   "type": "caravan_guard",
+   "bb_name": "Caravan Guard",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "caravan_guard"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0345_Caravan Guard.txt"
+  },
+  {
+   "type": "caravan_hand",
+   "bb_name": "Caravan Hand",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "caravan_hand"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0349_Caravan Hand (Enemy).txt"
+  },
+  {
+   "type": "citizen",
+   "bb_name": "Citizen",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "citizen"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0381_Citizen.txt"
+  },
+  {
+   "type": "conscript",
+   "bb_name": "Conscript",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "conscript"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0439_Conscript.txt"
+  },
+  {
+   "type": "conscript_with_polearm",
+   "bb_name": "Conscript with Polearm",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "conscript_with_polearm"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0440_Conscript with Polearm.txt"
+  },
+  {
+   "type": "cultist",
+   "bb_name": "Cultist",
+   "bb_faction": "cultists",
+   "family": "the_faithful",
+   "rows": [
+    "cultist"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0477_Cultist (Enemy).txt"
+  },
+  {
+   "type": "desert_stalker",
+   "bb_name": "Desert Stalker",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "desert_stalker",
+    "desert_stalker_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0562_Desert Stalker.txt"
+  },
+  {
+   "type": "direwolf",
+   "bb_name": "Direwolf",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "direwolf"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "beasts"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0629_Direwolf.txt"
+  },
+  {
+   "type": "disguised_bandit",
+   "bb_name": "Disguised Bandit",
+   "bb_faction": "brigands",
+   "family": "roaming_crews",
+   "rows": [
+    "disguised_bandit"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0644_Disguised Bandit.txt"
+  },
+  {
+   "type": "donkey",
+   "bb_name": "Donkey",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "donkey"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0657_Donkey.txt"
+  },
+  {
+   "type": "engineer",
+   "bb_name": "Engineer",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "engineer"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0691_Engineer.txt"
+  },
+  {
+   "type": "envoy",
+   "bb_name": "Envoy",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "envoy"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0701_Envoy.txt"
+  },
+  {
+   "type": "fallen_betrayer",
+   "bb_name": "Fallen Betrayer",
+   "bb_faction": "zombies",
+   "family": "the_mechanics",
+   "rows": [
+    "fallen_betrayer"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0731_Fallen Betrayer.txt"
+  },
+  {
+   "type": "fallen_hero",
+   "bb_name": "Fallen Hero",
+   "bb_faction": "zombies",
+   "family": "the_mechanics",
+   "rows": [
+    "fallen_hero",
+    "fallen_hero_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0732_Fallen Hero.txt"
+  },
+  {
+   "type": "fault_finder",
+   "bb_name": "Fault Finder",
+   "bb_faction": "undead_reliquary",
+   "family": "old_orders_machines",
+   "rows": [
+    "fault_finder"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0746_Fault Finder.txt"
+  },
+  {
+   "type": "firstborn",
+   "bb_name": "Firstborn",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "firstborn"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0772_Firstborn.txt"
+  },
+  {
+   "type": "flesh_cradle",
+   "bb_name": "Flesh Cradle",
+   "bb_faction": "undead_reliquary",
+   "family": "old_orders_machines",
+   "rows": [
+    "flesh_cradle"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0791_Flesh Cradle.txt"
+  },
+  {
+   "type": "flesh_golem",
+   "bb_name": "Flesh Golem",
+   "bb_faction": "undead_reliquary",
+   "family": "old_orders_machines",
+   "rows": [
+    "flesh_golem"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0792_Flesh Golem.txt"
+  },
+  {
+   "type": "footman",
+   "bb_name": "Footman",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "footman"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0801_Footman.txt"
+  },
+  {
+   "type": "frenzied_direwolf",
+   "bb_name": "Frenzied Direwolf",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "frenzied_direwolf"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "beasts"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0815_Frenzied Direwolf.txt"
+  },
+  {
+   "type": "frenzied_hyena",
+   "bb_name": "Frenzied Hyena",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "frenzied_hyena"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0816_Frenzied Hyena.txt"
+  },
+  {
+   "type": "frost_unhold",
+   "bb_name": "Frost Unhold",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "frost_unhold"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
+   "type": "geist",
+   "bb_name": "Geist",
+   "bb_faction": "zombies",
+   "family": "ghosts",
+   "rows": [
+    "geist"
+   ],
+   "name": null,
+   "act_weights": [
+    3,
+    1,
+    0.25
+   ],
+   "fielded": [
+    "ghosts"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0831_Geist.txt"
+  },
+  {
+   "type": "gladiator",
+   "bb_name": "Gladiator",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "gladiator",
+    "gladiator_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0843_Gladiator (Enemy).txt"
+  },
+  {
+   "type": "goblin_ambusher",
+   "bb_name": "Goblin Ambusher",
+   "bb_faction": "goblins",
+   "family": "kids_and_runners",
+   "rows": [
+    "goblin_ambusher",
+    "goblin_ambusher_champion",
+    "lower_goblin_ambusher"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0864_Goblin Ambusher.txt"
+  },
+  {
+   "type": "goblin_overseer",
+   "bb_name": "Goblin Overseer",
+   "bb_faction": "goblins",
+   "family": "kids_and_runners",
+   "rows": [
+    "goblin_overseer"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0868_Goblin Overseer.txt"
+  },
+  {
+   "type": "goblin_shaman",
+   "bb_name": "Goblin Shaman",
+   "bb_faction": "goblins",
+   "family": "kids_and_runners",
+   "rows": [
+    "goblin_shaman"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0870_Goblin Shaman.txt"
+  },
+  {
+   "type": "goblin_skirmisher",
+   "bb_name": "Goblin Skirmisher",
+   "bb_faction": "goblins",
+   "family": "kids_and_runners",
+   "rows": [
+    "goblin_skirmisher",
+    "goblin_skirmisher_champion",
+    "lower_goblin_skirmisher"
+   ],
+   "name": "KID",
+   "act_weights": [
+    1.5,
+    1,
+    0.5
+   ],
+   "fielded": [
+    "kids"
+   ],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0872_Goblin Skirmisher.txt"
+  },
+  {
+   "type": "goblin_wolf",
+   "bb_name": "Goblin Wolf",
+   "bb_faction": "goblins",
+   "family": "kids_and_runners",
+   "rows": [
+    "goblin_wolf"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0876_Goblin Wolf.txt"
+  },
+  {
+   "type": "goblin_wolfrider",
+   "bb_name": "Goblin Wolfrider",
+   "bb_faction": "goblins",
+   "family": "kids_and_runners",
+   "rows": [
+    "goblin_wolfrider"
+   ],
+   "name": "RUNNER",
+   "act_weights": [
+    1.5,
+    1,
+    0.5
+   ],
+   "fielded": [
+    "kids"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0877_Goblin Wolfrider.txt"
+  },
+  {
+   "type": "greater_flesh_golem",
+   "bb_name": "Greater Flesh Golem",
+   "bb_faction": "undead_reliquary",
+   "family": "old_orders_machines",
+   "rows": [
+    "greater_flesh_golem"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0907_Greater Flesh Golem.txt"
+  },
+  {
+   "type": "greenskin_catapult",
+   "bb_name": "Greenskin Catapult",
+   "bb_faction": "greenskins",
+   "family": "kids_and_runners",
+   "rows": [
+    "greenskin_catapult"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0912_Greenskin Catapult.txt"
+  },
+  {
+   "type": "gunner",
+   "bb_name": "Gunner",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "gunner"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0926_Gunner.txt"
+  },
+  {
+   "type": "hedge_knight",
+   "bb_name": "Hedge Knight",
+   "bb_faction": "mercenaries",
+   "family": "rival_companies",
+   "rows": [
+    "hedge_knight",
+    "hedge_knight_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/0975_Hedge Knight (Enemy).txt"
+  },
+  {
+   "type": "hexe",
+   "bb_name": "Hexe",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "hexe"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0991_Hexe.txt"
+  },
+  {
+   "type": "hyena",
+   "bb_name": "Hyena",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "hyena"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "beasts"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1054_Hyena.txt"
+  },
+  {
+   "type": "ifrit_large",
+   "bb_name": "Ifrit (Large)",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "ifrit_large"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1058_Ifrit.txt"
+  },
+  {
+   "type": "ifrit_medium",
+   "bb_name": "Ifrit (Medium)",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "ifrit_medium"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1058_Ifrit.txt"
+  },
+  {
+   "type": "ifrit_small",
+   "bb_name": "Ifrit (Small)",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "ifrit_small"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1058_Ifrit.txt"
+  },
+  {
+   "type": "indebted",
+   "bb_name": "Indebted",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "indebted"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1074_Indebted (Enemy).txt"
+  },
+  {
+   "type": "knight",
+   "bb_name": "Knight",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "knight",
+    "knight_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1127_Knight.txt"
+  },
+  {
+   "type": "kraken",
+   "bb_name": "Kraken",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "kraken"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": true,
+   "page": "bb_all/1134_Kraken.txt"
+  },
+  {
+   "type": "kraken_tentacle",
+   "bb_name": "Kraken Tentacle",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "kraken_tentacle"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1134_Kraken.txt"
+  },
+  {
+   "type": "kraken_tentacle_enraged",
+   "bb_name": "Kraken Tentacle (enraged)",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "kraken_tentacle_enraged"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1134_Kraken.txt"
+  },
+  {
+   "type": "lindwurm",
+   "bb_name": "Lindwurm",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "lindwurm"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1172_Lindwurm.txt"
+  },
+  {
+   "type": "lindwurm_tail",
+   "bb_name": "Lindwurm Tail",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "lindwurm_tail"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1172_Lindwurm.txt"
+  },
+  {
+   "type": "lorekeepers_apparition",
+   "bb_name": "Lorekeeper's Apparition",
+   "bb_faction": "ancient_dead",
+   "family": "ghosts",
+   "rows": [
+    "lorekeepers_apparition"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1202_Lorekeeper's Apparition.txt"
+  },
+  {
+   "type": "lost_treasure_hunter",
+   "bb_name": "Lost Treasure Hunter",
+   "bb_faction": "zombies",
+   "family": "the_mechanics",
+   "rows": [
+    "lost_treasure_hunter"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1207_Lost Treasure Hunter.txt"
+  },
+  {
+   "type": "man_at_arms",
+   "bb_name": "Man at Arms",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "man_at_arms"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1236_Man at Arms.txt"
+  },
+  {
+   "type": "master_archer",
+   "bb_name": "Master Archer",
+   "bb_faction": "mercenaries",
+   "family": "rival_companies",
+   "rows": [
+    "master_archer",
+    "master_archer_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1248_Master Archer.txt"
+  },
+  {
+   "type": "mercenary",
+   "bb_name": "Mercenary",
+   "bb_faction": "mercenaries",
+   "family": "rival_companies",
+   "rows": [
+    "lower_mercenary",
+    "mercenary"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1258_Mercenary.txt"
+  },
+  {
+   "type": "mercenary_marksman",
+   "bb_name": "Mercenary Marksman",
+   "bb_faction": "mercenaries",
+   "family": "rival_companies",
+   "rows": [
+    "mercenary_marksman"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1261_Mercenary Marksman.txt"
+  },
+  {
+   "type": "militia",
+   "bb_name": "Militia",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "militia"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1284_Militia.txt"
+  },
+  {
+   "type": "militia_captain",
+   "bb_name": "Militia Captain",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "militia_captain"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1286_Militia Captain.txt"
+  },
+  {
+   "type": "militia_marksman",
+   "bb_name": "Militia Marksman",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "militia_marksman"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1287_Militia Marksman.txt"
+  },
+  {
+   "type": "militia_veteran",
+   "bb_name": "Militia Veteran",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "militia_veteran"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1289_Militia Veteran.txt"
+  },
+  {
+   "type": "mortar",
+   "bb_name": "Mortar",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "mortar"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1321_Mortar.txt"
+  },
+  {
+   "type": "nachzehrer_large",
+   "bb_name": "Nachzehrer (Large)",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "nachzehrer_large"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1333_Nachzehrer.txt"
+  },
+  {
+   "type": "nachzehrer_medium",
+   "bb_name": "Nachzehrer (Medium)",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "nachzehrer_medium"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1333_Nachzehrer.txt"
+  },
+  {
+   "type": "nachzehrer_small",
+   "bb_name": "Nachzehrer (Small)",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "nachzehrer_small"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1333_Nachzehrer.txt"
+  },
+  {
+   "type": "necromancer",
+   "bb_name": "Necromancer",
+   "bb_faction": "zombies",
+   "family": "the_mechanics",
+   "rows": [
+    "necromancer",
+    "necromancer_champion"
+   ],
+   "name": "MECHANIC",
+   "act_weights": [
+    1,
+    1.5,
+    2
+   ],
+   "fielded": [
+    "machines"
+   ],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1409_Necromancer.txt"
+  },
+  {
+   "type": "necrosavant",
+   "bb_name": "Necrosavant",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "lower_necrosavant",
+    "necrosavant"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1412_Necrosavant.txt"
+  },
+  {
+   "type": "nomad_archer",
+   "bb_name": "Nomad Archer",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "nomad_archer"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1437_Nomad Archer.txt"
+  },
+  {
+   "type": "nomad_cutthroat",
+   "bb_name": "Nomad Cutthroat",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "nomad_cutthroat"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1438_Nomad Cutthroat.txt"
+  },
+  {
+   "type": "nomad_executioner",
+   "bb_name": "Nomad Executioner",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "nomad_executioner",
+    "nomad_executioner_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1439_Nomad Executioner.txt"
+  },
+  {
+   "type": "nomad_leader",
+   "bb_name": "Nomad Leader",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "nomad_leader",
+    "nomad_leader_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1443_Nomad Leader.txt"
+  },
+  {
+   "type": "nomad_outlaw",
+   "bb_name": "Nomad Outlaw",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "nomad_outlaw"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1449_Nomad Outlaw.txt"
+  },
+  {
+   "type": "nomad_slinger",
+   "bb_name": "Nomad Slinger",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "nomad_slinger"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1453_Nomad Slinger.txt"
+  },
+  {
+   "type": "oathbringer",
+   "bb_name": "Oathbringer",
+   "bb_faction": "oathbringers",
+   "family": "rival_companies",
+   "rows": [
+    "oathbringer",
+    "oathbringer_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1463_Oathbringer.txt"
+  },
+  {
+   "type": "officer",
+   "bb_name": "Officer",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "officer",
+    "officer_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1480_Officer.txt"
+  },
+  {
+   "type": "orc_berserker",
+   "bb_name": "Orc Berserker",
+   "bb_faction": "orcs",
+   "family": "the_heavies",
+   "rows": [
+    "orc_berserker"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1492_Orc Berserker.txt"
+  },
+  {
+   "type": "orc_warlord",
+   "bb_name": "Orc Warlord",
+   "bb_faction": "orcs",
+   "family": "the_heavies",
+   "rows": [
+    "orc_warlord",
+    "orc_warlord_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1498_Orc Warlord.txt"
+  },
+  {
+   "type": "orc_warrior",
+   "bb_name": "Orc Warrior",
+   "bb_faction": "orcs",
+   "family": "the_heavies",
+   "rows": [
+    "lower_orc_warrior",
+    "orc_warrior",
+    "orc_warrior_champion"
+   ],
+   "name": "HEAVY",
+   "act_weights": [
+    0.5,
+    1,
+    1.5
+   ],
+   "fielded": [
+    "heavies"
+   ],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1501_Orc Warrior.txt"
+  },
+  {
+   "type": "orc_young",
+   "bb_name": "Orc Young",
+   "bb_faction": "orcs",
+   "family": "the_heavies",
+   "rows": [
+    "lower_orc_young",
+    "orc_young"
+   ],
+   "name": "BRUISER",
+   "act_weights": [
+    0.5,
+    1,
+    1.5
+   ],
+   "fielded": [
+    "heavies"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1504_Orc Young.txt"
+  },
+  {
+   "type": "peasant",
+   "bb_name": "Peasant",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "peasant"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1532_Peasant.txt"
+  },
+  {
+   "type": "phylactery",
+   "bb_name": "Phylactery",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "phylactery"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1546_Phylactery.txt"
+  },
+  {
+   "type": "rachegeist",
+   "bb_name": "Rachegeist",
+   "bb_faction": "zombies",
+   "family": "ghosts",
+   "rows": [
+    "rachegeist"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1619_Rachegeist.txt"
+  },
+  {
+   "type": "rachegeist_ghost",
+   "bb_name": "Rachegeist (Ghost)",
+   "bb_faction": "beasts",
+   "family": "ghosts",
+   "rows": [
+    "rachegeist_ghost"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1619_Rachegeist.txt"
+  },
+  {
+   "type": "sapling",
+   "bb_name": "Sapling",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "sapling"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1733_Sapling.txt"
+  },
+  {
+   "type": "schrat",
+   "bb_name": "Schrat",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "schrat"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "beasts"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1737_Schrat.txt"
+  },
+  {
+   "type": "screaming_skull",
+   "bb_name": "Screaming Skull",
+   "bb_faction": "ancient_dead",
+   "family": "ghosts",
+   "rows": [
+    "screaming_skull"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1743_Screaming Skull.txt"
+  },
+  {
+   "type": "sergeant",
+   "bb_name": "Sergeant",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "sergeant"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1754_Sergeant.txt"
+  },
+  {
+   "type": "serpent",
+   "bb_name": "Serpent",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "serpent"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1757_Serpent.txt"
+  },
+  {
+   "type": "standard_bearer",
+   "bb_name": "Standard Bearer",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "standard_bearer"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1869_Standard Bearer.txt"
+  },
+  {
+   "type": "swordmaster",
+   "bb_name": "Swordmaster",
+   "bb_faction": "mercenaries",
+   "family": "rival_companies",
+   "rows": [
+    "swordmaster",
+    "swordmaster_champion"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": true,
+   "boss": false,
+   "page": "bb_all/1918_Swordmaster (Enemy).txt"
+  },
+  {
+   "type": "the_conqueror",
+   "bb_name": "The Conqueror",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "the_conqueror"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": true,
+   "page": "bb_all/1951_The Conqueror.txt"
+  },
+  {
+   "type": "the_grand_diviner",
+   "bb_name": "The Grand Diviner",
+   "bb_faction": "undead_reliquary",
+   "family": "old_orders_machines",
+   "rows": [
+    "the_grand_diviner"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": true,
+   "page": "bb_all/1959_The Grand Diviner.txt"
+  },
+  {
+   "type": "the_ijirok",
+   "bb_name": "The Ijirok",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "the_ijirok"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": true,
+   "page": "bb_all/1961_The Ijirok.txt"
+  },
+  {
+   "type": "the_lorekeeper",
+   "bb_name": "The Lorekeeper",
+   "bb_faction": "ancient_dead",
+   "family": "old_orders_machines",
+   "rows": [
+    "the_lorekeeper"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": true,
+   "page": "bb_all/1965_The Lorekeeper.txt"
+  },
+  {
+   "type": "unhold",
+   "bb_name": "Unhold",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "unhold"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
+   "type": "wardog",
+   "bb_name": "Wardog",
+   "bb_faction": "animals",
+   "family": "beasts",
+   "rows": [
+    "wardog"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2174_Wardog.txt"
+  },
+  {
+   "type": "warhound",
+   "bb_name": "Warhound",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "warhound"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2182_Warhound.txt"
+  },
+  {
+   "type": "webknecht",
+   "bb_name": "Webknecht",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "webknecht"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2195_Webknecht.txt"
+  },
+  {
+   "type": "webknecht_eggs",
+   "bb_name": "Webknecht Eggs",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "webknecht_eggs"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2197_Webknecht Eggs.txt"
+  },
+  {
+   "type": "wiederganger",
+   "bb_name": "Wiederganger",
+   "bb_faction": "zombies",
+   "family": "the_mechanics",
+   "rows": [
+    "wiederganger"
+   ],
+   "name": "MACHINE",
+   "act_weights": [
+    1,
+    1.5,
+    2
+   ],
+   "fielded": [
+    "machines"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2205_Wiederganger.txt"
+  },
+  {
+   "type": "wiederganger_brother",
+   "bb_name": "Wiederganger Brother",
+   "bb_faction": "zombies",
+   "family": "the_mechanics",
+   "rows": [
+    "wiederganger_brother"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2206_Wiederganger Brother.txt"
+  },
+  {
+   "type": "wiederganger_nomad",
+   "bb_name": "Wiederganger Nomad",
+   "bb_faction": "zombies",
+   "family": "the_mechanics",
+   "rows": [
+    "wiederganger_nomad"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2207_Wiederganger Nomad.txt"
+  },
+  {
+   "type": "wolf",
+   "bb_name": "Wolf",
+   "bb_faction": "animals",
+   "family": "beasts",
+   "rows": [
+    "wolf"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2230_Wolf.txt"
+  },
+  {
+   "type": "zweihander",
+   "bb_name": "Zweihander",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "zweihander"
+   ],
+   "name": null,
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2250_Zweihander.txt"
+  }
+ ],
+ "source": "records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md; records/target/bb/enemies.json; records/target/bb/ours.json"
+}

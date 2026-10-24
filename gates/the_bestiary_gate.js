@@ -143,5 +143,15 @@ const turn = (S, u) => { S.order = [u.id]; S.idx = 0; u.ap = u.apTurn; u.fat = 0
     '*** THE ROAD SETS THE ENEMY ***: his first fight stays brigands; from the second a brigand party is any of the three by the act (kids early, machines and heavies late); a party with its own faction keeps it',
     'first fight ' + (first ? 'brigands' : 'ROLLED') + '; ghosts ' + (kept ? 'kept' : 'ROLLED') + '; ' + t.map((n, i) => 'act ' + (i + 1) + ' ' + JSON.stringify(n)).join(' '));
 }
+/* 10: THE ROSTER FILE (MODS' line: every content kind in a data file a modder can edit) */
+{ let fresh = false; try { execSync('python3 ' + JSON.stringify(path.join(ROOT, 'tools/bohemia_combat_the_roster.py')) + ' --check', { stdio: 'pipe' }); fresh = true; } catch (_e) {}
+  const R = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/roster.json'), 'utf8')), fl = R.floor, c = R.count;
+  const mix = DB.ours.enemy_tiers.value.mix, fieldedKinds = new Set(); Object.keys(mix).forEach(f => Object.keys(mix[f]).forEach(ph => Object.keys(mix[f][ph]).forEach(k => fieldedKinds.add(k))));
+  const listed = [...fieldedKinds].every(k => R.types.some(t => t.rows.indexOf(k) >= 0 && t.fielded.length));
+  const lessons = R.families.every(f => f.lesson && f.skin);
+  leg(fresh && c.families >= fl.factions && c.types >= fl.types && c.beasts >= fl.beasts && c.bosses >= fl.bosses && c.champions > 0 && listed && lessons,
+    '*** THE ROSTER FILE ***: records/target/bb/roster.json is fresh from its tool and holds his floor (12 factions, 75 types, 17 beasts, 3 bosses, champions); every kind the fight fields is in it, every family has its skin and its lesson',
+    (fresh ? 'fresh' : 'STALE') + '; ' + c.families + ' families, ' + c.types + ' types (' + c.types_in_the_fight + ' in the fight), ' + c.beasts + ' beasts, ' + c.bosses + ' bosses, ' + c.champions + ' champions');
+}
 console.log('THE BESTIARY: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
