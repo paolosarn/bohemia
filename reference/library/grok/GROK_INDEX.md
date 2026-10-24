@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | LOCATIONS | GROK_ATTACHED_LOCATIONS_BB_LIST_2026_10_24.md | full attached location list, goods, recruits, prices
 - 2026-10-24 | SETTLEMENT | GROK_ATTACHED_LOCATIONS_BB_WAY_2026_10_24.md | full list of attached locations, what each produces and who it brings
 - 2026-10-24 | ASK | GROK_ASK_33_MAP_SIZE_NUMBERS_DETAILED_2026_10_24.md | exact hex counts the wiki does not give, modder measurements, days to cross not stated
 - 2026-10-24 | SETTLEMENT | GROK_SETTLEMENT_SCREEN_BB_WAY_2026_10_24.md | panorama layers, attached locations, walk-up timing, night and sound
