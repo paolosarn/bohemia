@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | ORIGINS | GROK_ORIGIN_LIST_STARTING_DIFFERENCES_2026_10_24.md | Lone Wolf, Peasant Militia, starting differences
 - 2026-10-24 | CONTRACTS | GROK_CONTRACT_AMBITION_LIST_2026_10_24.md | early contracts, renown changes, ambitions
 - 2026-10-24 | XP | GROK_EXPERIENCE_LEVEL_UP_RULES_2026_10_24.md | level thresholds, stars, 20 percent killer, veteran levels
 - 2026-10-24 | MORALE | GROK_MORALE_SYSTEM_CHECKS_2026_10_24.md | states, 15 health checks, Rally the Troops, banner
