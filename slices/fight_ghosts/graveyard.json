@@ -1,0 +1,108 @@
+{
+ "version": "graveyard-10-24",
+ "lane": "COMBAT [ghosts and apparitions]",
+ "built_by": "tools/bohemia_combat_the_graveyard_through_the_rig_10_24_26.py",
+ "rule": "134(a): a place full of them is our graveyard",
+ "px_per_metre": 42.916666666666664,
+ "pieces": {
+  "grave_row_0": {
+   "src": "grave_row_0.webp",
+   "h": 1.1,
+   "kind": "COVER",
+   "name": "A ROW OF GRAVES",
+   "l": 9.0,
+   "foot_px": [
+    198,
+    90
+   ],
+   "facing": "S"
+  },
+  "grave_row_1": {
+   "src": "grave_row_1.webp",
+   "h": 1.1,
+   "kind": "COVER",
+   "name": "A ROW OF GRAVES",
+   "l": 9.0,
+   "foot_px": [
+    197,
+    75
+   ],
+   "facing": "S"
+  },
+  "grave_row_2": {
+   "src": "grave_row_2.webp",
+   "h": 1.1,
+   "kind": "COVER",
+   "name": "A ROW OF GRAVES",
+   "l": 9.0,
+   "foot_px": [
+    198,
+    88
+   ],
+   "facing": "S"
+  },
+  "grave_row_3": {
+   "src": "grave_row_3.webp",
+   "h": 1.1,
+   "kind": "COVER",
+   "name": "A ROW OF GRAVES",
+   "l": 9.0,
+   "foot_px": [
+    197,
+    72
+   ],
+   "facing": "S"
+  },
+  "grave_fresh_0": {
+   "src": "grave_fresh_0.webp",
+   "h": 1.2,
+   "kind": "LOW_COVER",
+   "name": "A FRESH GRAVE",
+   "l": 2.4,
+   "foot_px": [
+    56,
+    75
+   ],
+   "facing": "S"
+  },
+  "grave_fresh_1": {
+   "src": "grave_fresh_1.webp",
+   "h": 1.2,
+   "kind": "LOW_COVER",
+   "name": "A FRESH GRAVE",
+   "l": 2.4,
+   "foot_px": [
+    52,
+    71
+   ],
+   "facing": "S"
+  },
+  "mausoleum": {
+   "src": "mausoleum.webp",
+   "h": 3.0,
+   "kind": "COVER",
+   "name": "THE CRYPT",
+   "l": 4.4,
+   "foot_px": [
+    89,
+    242
+   ],
+   "facing": "S",
+   "blocks_move": true
+  },
+  "obelisk": {
+   "src": "obelisk.webp",
+   "h": 2.4,
+   "kind": "COVER",
+   "name": "THE OBELISK",
+   "l": 1.2,
+   "foot_px": [
+    33,
+    121
+   ],
+   "facing": "S"
+  }
+ },
+ "draft": true,
+ "_readme": "Every picture here is a model of tools/bohemia_combat_the_graveyard_through_the_rig_10_24_26.py through the master rig at the fight's own px a metre; the fight lays them on the graveyard's field (BOHEMIA_FIGHT.html)."
+}

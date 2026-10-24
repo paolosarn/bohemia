@@ -14,7 +14,7 @@
       is a hundredth: the wiki writes 'effectiveness against armor %', and the row holds 60 for 60%);
    2. every R('...') path it reads resolves to a row with a value and a source;
    3. every data row the fight can read names its source;
-   4. the page fetches nothing but records/target/bb/, slices/fight_ground/, slices/fight_rig/ (the rig models, rule 121), slices/fight_people/, slices/fight_beasts/ (ANIMATION's
+   4. the page fetches nothing but records/target/bb/, slices/fight_ground/, slices/fight_ghosts/ (the graveyard's rig-made pieces, COMBAT 10/24, rule 134(a)), slices/fight_rig/ (the rig models, rule 121), slices/fight_people/, slices/fight_beasts/ (ANIMATION's
       baked beasts, the people's sibling, COMBAT [the fight holds the grid] 10/18) and WORLD's ground table and district list (rule 59, 10/18);
    5. the drawing script never writes a fighter's numbers (hp, armour, ap, fatigue, morale). */
 'use strict';
@@ -115,7 +115,7 @@ const fetches = [];
 const fr = /fetch\(\s*([^)]*)\)/g;
 let fm;
 while ((fm = fr.exec(html))) fetches.push(fm[1]);
-const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\/|fight_people\/|fight_rig\//.test(f) && !/^\s*(u|url|src|p)\s*$/.test(f); });
+const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\/|fight_people\/|fight_rig\/|fight_ghosts\//.test(f) && !/^\s*(u|url|src|p)\s*$/.test(f); });
 leg(fetches.length > 0 && strays.length === 0, 'the page loads only the bb data, COMBAT TWO\'s ground and the character bank\'s baked people',
   strays.join(' | '));
 const loader = html.match(/const DATA_FILES\s*=\s*\[([^\]]*)\]/);
@@ -123,7 +123,7 @@ leg(!!loader && /records\/target\/bb\//.test(html), 'the data list names the bb 
 /* rule 59 (COMBAT [the ground fights], 10/18): WORLD's one ground table and its district list are the only files from outside
    bb/, fight_ground/ and fight_people/ the fight may read; every number in them stays beside its source */
 const listed = loader ? (loader[1].replace(/\/\*[\s\S]*?\*\//g, '').match(/'([^']+)'/g) || []).map(function (q) { return q.slice(1, -1); }) : [];
-const outside = listed.filter(function (f) { return !/records\/target\/bb\/|^fight_ground\/|^fight_people\/|^fight_beasts\/|^fight_rig\//.test(f)
+const outside = listed.filter(function (f) { return !/records\/target\/bb\/|^fight_ground\/|^fight_people\/|^fight_beasts\/|^fight_rig\/|^fight_ghosts\//.test(f)
   && ['../records/target/BOHEMIA_GROUND_EFFECTS.json', '../records/target/BOHEMIA_BOARD_KINDS.json'].indexOf(f) < 0; });
 leg(listed.length > 0 && outside.length === 0, 'the data list reads bb, the ground, the people, the beasts, and WORLD\'s ground table and district list, nothing else',
   outside.join(' | '));

@@ -21,6 +21,20 @@
    and on his phone, the real page:
    9. THE TAPE: every Geist on the board is drawn through the tape (its picture washed, lined and torn), its face in the strip too;
       its scream is heard (his approved tape_pull); nothing threw.
+   OUR GRAVEYARD (rule 134(a), COMBAT 10/24: 'a place full of them is our graveyard'), headless:
+   10. THE PLACE DEALS ITSELF: the cemetery (WORLD's district, or place 'graveyard') is dealt on the valley's scrub, no block
+       beside its twin, never fitted to the park's envelope; the field: a row of stones on every field tile, the crypt (it
+       blocks a step) near the path, the obelisks, the fresh graves along the bottom; each line's own columns open;
+   11. EVERY PIECE IS THE RIG'S: every piece the field lays is in slices/fight_ghosts/graveyard.json and its picture exists,
+       each a model's render (the table names the model and the rig's json);
+   12. THE BAND IS THE PLACE'S OWN, BY THE ACT (134(b)): ghosts only, crowded in act one, fewer in act two, one in act three;
+   and on his phone (134(e), the haunting as act one sees it):
+   13. THE DEAD WHO CAME BACK: in act one every ghost wears a name of the dead (the company's own dead when the shell hands
+       them), his veteran's face names the first one he sees, the whisper is posted for SOUNDS; in act two a ghost is GHOST and
+       nobody is recognised;
+   14. NEVER A MACHINE IN ACT ONE: no word the act-one haunting puts on the glass (the names, the veteran's lines, the recap)
+       says machine, signal, broadcast, data, network, program, code, AI or the Amalgamation;
+   15. THE RECAP: a haunted fight won in act one says the dead went back down.
    Run: node gates/ghosts_and_apparitions_gate.js */
 'use strict';
 const path = require('path');
@@ -146,6 +160,32 @@ leg(can3 && !can4 && spent === 6 && ev.length === 1 && !atFleeing && g.morale ==
     if (!F.S.over) r.stuck++; else if (F.S.result === 'won') r.won++; else r.lost++; }
   leg(r.stuck === 0 && r.won >= 15 && r.screams > 0, '*** THE FIGHTS END ***: twenty fights against four Geists end, the company wins (rule 117), the screams land', JSON.stringify(r)); }
 
+/* 10-12: OUR GRAVEYARD */
+const MACHINE = /\b(machine|machines|signal|broadcast|data|network|program|code|ai|a\.i\.|amalgamation|neurolink|transmission|server|algorithm|computer)\b/i;
+{ const g = DB.ours.graveyard.value, Y = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_ghosts/graveyard.json'), 'utf8')), crew3 = [{ background: 'companion_2hand' }, { background: 'companion_1hand' }, { background: 'companion_ranged' }];
+  const boards = [3, 9, 27].map(seed => { ctx.setSeed(seed); F.setup({ district: 'cemetery', company: crew3, cap: 12, deploy: false, formation: null, act: 1 }); const S = F.S, B = S.boardDef;
+    const twins = B.blocks.some((r, by) => r.some((n, bx) => n === r[bx + 1] || (B.blocks[by + 1] && B.blocks[by + 1][bx] === n)));
+    const count = k => B.cover.filter(c => c.piece.indexOf(k) === 0).length, tile = c => ({ x: Math.floor(c.x_m / DB.ground.tile_metres), y: Math.floor(c.y_m / DB.ground.tile_metres) });
+    const crypt = B.cover.filter(c => c.piece === 'mausoleum').map(tile)[0], fresh = B.cover.filter(c => /^grave_fresh/.test(c.piece)).map(tile);
+    const openCols = S.units.filter(u => u.side !== 'none').every(u => !S.cover[u.y][u.x] || true) && [S.cols[0], S.cols[1]].every(x => S.cover.every(r => !r[x]));
+    return { name: B.name, family: B.family, scrub: B.blocks.every(r => r.every(n => g.blocks.indexOf(n) >= 0)), twins, rows: count('grave_row'), crypt, cryptSolid: crypt ? S.solid[crypt.y][crypt.x] : false,
+      obelisks: count('obelisk'), fresh: fresh.length, freshLow: fresh.every(t => t.y >= S.h - g.fresh_rows_from_bottom), openCols, fit: !!B.groundFit, pieces: Array.from(new Set(B.cover.map(c => c.piece))),
+      them: S.units.filter(u => u.side === 'them').map(u => u.kind) }; });
+  leg(boards.every(b => b.name === g.name && b.scrub && !b.twins && b.rows >= 60 && b.crypt && b.cryptSolid && b.obelisks === g.obelisks && b.fresh === g.fresh && b.freshLow && b.openCols && !b.fit),
+    '*** OUR GRAVEYARD DEALS ITSELF ***: the cemetery on the valley\'s scrub, no twin beside its twin, a row of stones a field tile, the crypt blocking a step, the obelisks, the fresh graves along the bottom, each line\'s columns open, never fitted to the park',
+    boards.map(b => b.rows + ' rows, crypt ' + (b.cryptSolid ? 'solid' : 'OPEN') + ', ' + b.obelisks + ' obelisks, ' + b.fresh + ' fresh' + (b.twins ? ', TWINS' : '') + (b.fit ? ', FITTED' : '')).join(' | '));
+  const used = Array.from(new Set([].concat.apply([], boards.map(b => b.pieces))));
+  const art = used.map(k => ({ k, row: Y.pieces[k], pic: Y.pieces[k] && fs.existsSync(path.join(ROOT, 'slices/fight_ghosts', Y.pieces[k].src)), rig: Y.pieces[k] && /rig/.test(JSON.stringify(Y)) }));
+  const rigs = Object.keys(Y.pieces).map(k => fs.existsSync(path.join(ROOT, 'records/target/combat_graveyard_rig', k, 'rig.json')) && fs.existsSync(path.join(ROOT, 'reference/models/bohemia/graveyard_' + k + '.glb')));
+  leg(art.every(a => a.row && a.pic) && rigs.every(Boolean) && Y.px_per_metre > 42 && Y.px_per_metre < 43,
+    '*** EVERY PIECE IS THE RIG\'S ***: each piece the field lays has its row and its picture in slices/fight_ghosts, each a model rendered through the master rig at the fight\'s own px a metre',
+    used.length + ' pieces laid: ' + used.join(', ') + '; ' + rigs.filter(Boolean).length + ' of ' + rigs.length + ' with their model and render');
+  const acts = [1, 2, 3].map(act => { ctx.setSeed(5); F.setup({ district: 'cemetery', company: crew3, cap: 12, deploy: false, formation: null, act }); return F.S.units.filter(u => u.side === 'them'); });
+  leg(acts.every(a => a.every(u => u.kind === 'geist')) && acts[0].length > acts[1].length && acts[1].length >= acts[2].length && acts[2].length === 1,
+    '*** THE BAND IS THE PLACE\'S OWN, BY THE ACT (134(b)) ***: ghosts only, crowded in act one, thinner in act two, one by act three',
+    acts.map((a, i) => 'act ' + (i + 1) + ': ' + a.length).join(', '));
+}
+
 /* 9: the phone */
 (async () => {
   const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
@@ -164,5 +204,34 @@ leg(can3 && !can4 && spent === 6 && ev.length === 1 && !atFleeing && g.morale ==
     leg(d.errs.length === 0, 'nothing threw', d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 160) : ''));
   } catch (e) { leg(false, 'the phone legs ran', String(e.message).slice(0, 200)); }
   await d.close();
+  /* 13-15: the haunting as act one sees it */
+  const crew = [{ background: 'companion_2hand' }, { background: 'companion_1hand' }, { background: 'companion_ranged' }];
+  const haunt = async (act, extra) => {
+    const o = Object.assign({ seed: 7, speed: 1, district: 'cemetery', deploy: false, formation: null, company: crew, cap: 12, act, odds: false }, extra || {});
+    const dd = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS=' + JSON.stringify(o) });
+    const q = dd.page; const r = { errs: dd.errs };
+    try {
+      await q.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round && performance.now() > FIGHT_UI.openUntil, null, { timeout: 40000 });
+      await q.waitForFunction(() => FIGHT_UI.vet && /^ghost/.test(FIGHT_UI.vet.k), null, { timeout: 12000 }).catch(() => {});
+      await q.waitForTimeout(1500);
+      Object.assign(r, await q.evaluate(() => ({ names: FIGHT.S.units.filter(v => v.ghost).map(v => v.name), dead: THE_DEAD.slice(), recap: HAUNT_RECAP, lines: [TEACH.ghost, TEACH.ghost_hit],
+        vet: FIGHT_UI.vet ? { k: FIGHT_UI.vet.k, line: FIGHT_UI.vet.line, who: FIGHT.byId(FIGHT_UI.vet.who) && FIGHT.byId(FIGHT_UI.vet.who).side } : null, seen: FIGHT_UI.hauntName,
+        feed: (FIGHT_UI.feedLines || []).map(l => l.text), heard: (FIGHT_UI.heard || []).slice(), looks: FIGHT.S.units.filter(v => v.ghost).map(v => v.look) })));
+      await q.evaluate(() => { FIGHT.S.units.forEach(v => { if (v.side === 'them') { v.dead = true; } }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });
+      r.head = await q.evaluate(() => document.getElementById('oh').textContent);
+    } catch (e) { r.err = String(e.message).slice(0, 160); }
+    await dd.close(); return r;
+  };
+  const a1 = await haunt(1), a2 = await haunt(2), own = await haunt(1, { dead: [{ name: 'Big Sal' }, { name: 'Nena' }] });
+  const recog = (a1.feed || []).filter(t => /That is /.test(t))[0] || '';
+  leg(!a1.err && a1.names.length > 0 && a1.names.every(n => a1.dead.indexOf(n) >= 0) && a1.heard.indexOf('ghost_whisper') >= 0 && a1.seen && a1.names.some(n => recog.toLowerCase().indexOf(n.toLowerCase()) >= 0)
+    && own.names && own.names[0] === 'BIG SAL' && own.names[1] === 'NENA' && a2.names && a2.names.every(n => n === 'GHOST') && !(a2.feed || []).some(t => /That is /.test(t)),
+    '*** THE DEAD WHO CAME BACK (134(e)) ***: in act one every ghost wears a name of the dead, the company\'s own dead when handed, his veteran names the first he sees, the whisper is posted; in act two a ghost is GHOST, nobody recognised',
+    (a1.err || '') + 'act one ' + (a1.names || []).join(', ') + ' | "' + recog + '" | his dead ' + (own.names || []).join(', ') + ' | act two ' + (a2.names || []).join(', '));
+  const words = [].concat(a1.dead || [], a1.lines || [], a1.feed || [], a1.recap ? [a1.recap.won, a1.recap.lost] : [], [a1.head || '']);
+  leg(words.length > 10 && !words.some(w => MACHINE.test(w)), '*** NEVER A MACHINE IN ACT ONE ***: no word of the act-one haunting on the glass says machine, signal, broadcast, data or the Amalgamation',
+    words.filter(w => MACHINE.test(w)).join(' | ') || words.length + ' words read');
+  leg(a1.head === a1.recap.won && a2.head !== a1.recap.won, '  the recap: a haunted fight won in act one says the dead went back down', '"' + a1.head + '" (act two: "' + a2.head + '")');
+  leg(!a1.errs.length && !a2.errs.length && !own.errs.length, '  the haunted pages threw nothing', [a1.errs[0], a2.errs[0], own.errs[0]].filter(Boolean).join(' | '));
   done();
 })();

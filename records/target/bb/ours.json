@@ -914,5 +914,45 @@
   "quote": "maybe they're way more around for the first act than the third act; there's gonna be enemy types around more in different acts than another, that's just how it is",
   "why": "COMBAT [ghosts and apparitions] 10/23: every enemy type the fight can field carries a weight for each of the three acts (act one, two, three); the fight multiplies a party's mix by the act it is told (FIGHT_OPTS.act, act one when none), and the map's spawner reads the same row to choose which parties walk (RUN, WORLD). Ghosts three times as often in act one, as often as anything in act two, a quarter in act three: they are the Amalgamation's haunting as act one sees it (rule 134(e)), and by acts two and three people know what they are. The numbers are a draft (tuned: false): TUNING owns them.",
   "tuned": false
+ },
+ "graveyard": {
+  "value": {
+   "places": [
+    "cemetery",
+    "graveyard"
+   ],
+   "name": "GRAVEYARD",
+   "blocks": [
+    "scrub.0",
+    "scrub.1",
+    "scrub.2"
+   ],
+   "open_cols_each_line": 2,
+   "aisle_every": 4,
+   "path_row": 7,
+   "foot_m": [
+    6.0,
+    8.5
+   ],
+   "rows": [
+    "grave_row_0",
+    "grave_row_1",
+    "grave_row_2",
+    "grave_row_3"
+   ],
+   "crypts": [
+    "mausoleum"
+   ],
+   "obelisks": 2,
+   "fresh": 3,
+   "fresh_rows_from_bottom": 2,
+   "faction": "ghosts",
+   "ghost_kind": "geist",
+   "crowd": 1
+  },
+  "source": "VAMILY.md rule 134(a) (Paolo 10/23: 'like in Battle Brothers, one of the enemies are ghosts and apparitions; I think we can put that in, it fits our world too good'): 'a place full of them is our graveyard'; 134(b) more in act one, fewer by act three; Woodlawn Cemetery, Las Vegas (1914): sections of upright stones in rows, aisles between sections, the old families' crypts and obelisks",
+  "quote": "a place full of them is our graveyard",
+  "why": "COMBAT 10/24 [ghosts and apparitions]: the cemetery (WORLD's district 'cemetery', or a fight told place 'graveyard') is dealt on the valley's open scrub (no twin beside its twin) and dressed with the field: one row of headstones a tile (one piece of cover there), an aisle every aisle_every columns, a path across path_row, the crypt (it blocks a step) and the obelisks on field tiles, the fresh graves in the bottom fresh_rows_from_bottom rows; each line's own open_cols_each_line columns stay open to stand in. A row's foot stands at foot_m (metres into its tile, across and down). The band is the place's own: the ghosts faction, crowd times the handed party (or the company's own line, fallback_band_by_company), times the Geist's act weight over act one's (3 / 1 / 0.25: the graveyard full in act one, one ghost by act three). MEASURED 10/24 (AUTO, 40 seeds a cell, on the graveyard): 3 men beat 2 ghosts 90%, 3 ghosts 40%, 5 ghosts 0%; 6 men beat 5 ghosts 50%, 6 ghosts 35%, 9 ghosts 0%; 12 men beat 11 ghosts 78%, 12 ghosts 83%, 18 ghosts 0%. A crowd of 2 (twice the crew) is a graveyard no company leaves; crowd 1 is the hardest fight on the line (rule 133(b): hardcore if you mess around), and the lesson (walk up and hit it) is the way through. TUNING owns the numbers.",
+  "draft": true
  }
 }

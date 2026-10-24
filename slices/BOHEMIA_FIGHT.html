@@ -258,7 +258,9 @@ const DATA_FILES = [
   /* Battle Brothers' sweeps as shapes on our squares (COMBAT [weapon shapes], rules 33i and 46d) */
   '../records/target/bb/weapon_shapes.json',
   /* the Geist's racial skills, each from its wiki page (COMBAT [ghosts and apparitions], rule 134) */
-  '../records/target/bb/racial_skills.json'];
+  '../records/target/bb/racial_skills.json',
+  /* OUR GRAVEYARD's pieces, each a model through the master rig (COMBAT [ghosts and apparitions], rule 134(a)) */
+  'fight_ghosts/graveyard.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
@@ -267,7 +269,7 @@ function loadAll() {
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
       DB.perks = a[9]; DB.perkNames = a[10]; DB.rig = a[11]; DB.wlines = a[12];
       DB.groundEffects = a[13]; DB.boardKinds = a[14]; DB.beastAttacks = a[15];
-      DB.armorTiers = a[16]; DB.shapes = a[17]; DB.racial = a[18];
+      DB.armorTiers = a[16]; DB.shapes = a[17]; DB.racial = a[18]; DB.graveyard = a[19];
     });
 }
 function R(path) {
@@ -752,6 +754,56 @@ const FIGHT = (function () {
     const shown = []; used.forEach(function (k) { const c = call(k); if (shown.indexOf(c) < 0) shown.push(c); });
     return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null };
   }
+  /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
+     src is the picture's path under slices/ */
+  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || null; }
+  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p); return d ? (G.cover[p] || G.cover_extra[p] ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }
+  /* ---------------- OUR GRAVEYARD (COMBAT [ghosts and apparitions], rule 134(a), Paolo 10/23: 'like in Battle Brothers, one of
+     the enemies are ghosts and apparitions... it fits our world too good'; 134(a): 'a place full of them is our graveyard') ----
+     The city's cemetery after the water stopped: the valley's open scrub (COMBAT TWO's scrub blocks, laid so no block stands
+     beside its twin) and on it the field (ours.graveyard): a row of headstones a tile, an aisle every few columns and a path
+     across the middle, the old family's crypt and obelisks, the new dead's hand-dug graves along the bottom; every piece a
+     model through the master rig (slices/fight_ghosts) and a cover piece like any other (a row of stones is one piece of cover
+     on its tile; the crypt blocks a step). Each line's own columns stay open to stand in. The band is the place's own: the
+     dead who came back, crowded in act one and thin by act three (134(b)). */
+  function isGraveyard(opts) { const g = R('ours.graveyard'); return opts.place === 'graveyard' || g.places.indexOf(opts.district) >= 0 || g.places.indexOf(opts.kind) >= 0; }
+  function graveyardDeal() {
+    const G = DB.ground, bt = G.block_tiles, lib = blockLibrary(), g = R('ours.graveyard');
+    const pool = g.blocks.filter(function (n) { return !!lib[n]; }), off = Math.floor(rng() * pool.length), grid = [];
+    for (let by = 0; by < S.h / bt; by++) { const row = []; for (let bx = 0; bx < S.w / bt; bx++) row.push(pool[(bx + by * (1 + 1) + off) % pool.length]); grid.push(row); }
+    const terrain = [];
+    for (let y = 0; y < S.h; y++) { terrain.push([]); for (let x = 0; x < S.w; x++) terrain[y].push(lib[grid[Math.floor(y / bt)][Math.floor(x / bt)]].terrain[y % bt][x % bt]); }
+    return { blocks: grid, terrain: terrain, cover: [], lights: [], name: g.name, kinds: ['graveyard'], family: 'graveyard', lead: 'graveyard' };
+  }
+  function layGraveyard(B) {
+    const G = DB.ground, tm = G.tile_metres, g = R('ours.graveyard'), ppm = DB.graveyard.px_per_metre, pym = G.tile_px[1] / tm, cols = S.cols;
+    const near = function (x) { return (x <= cols[0] && x > cols[0] - g.open_cols_each_line) || (x >= cols[1] && x < cols[1] + g.open_cols_each_line); };
+    const field = [];
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
+      if (near(x) || x % g.aisle_every === 0 || y === g.path_row) continue;
+      if (rowOf(B.terrain[y][x]) === 'obstacles') continue;
+      field.push({ x: x, y: y });
+    }
+    /* a piece stands its foot at foot_m into its tile (the picture's own foot, measured at the cut) */
+    const put = function (t, piece) {
+      const d = pieceDef(piece); if (!d) return;
+      const xm = Math.max(t.x * tm, Math.min((t.x + 1) * tm - tm / 100, t.x * tm + g.foot_m[0] - d.foot_px[0] / ppm));
+      const ym = Math.max(t.y * tm, Math.min((t.y + 1) * tm - tm / 100, t.y * tm + g.foot_m[1] - d.foot_px[1] / pym));
+      B.cover.push({ piece: piece, x_m: xm, y_m: ym, graveyard: true });
+    };
+    const order = shuffled(field), used = {};
+    const take = function (pred) { const t = order.filter(function (q) { return !used[q.y * S.w + q.x] && pred(q); })[0]; if (t) used[t.y * S.w + t.x] = true; return t; };
+    g.crypts.forEach(function (c) { const t = take(function (q) { return Math.abs(q.y - g.path_row) <= 1 + 1; }); if (t) put(t, c); });
+    for (let i = 0; i < g.obelisks; i++) { const t = take(function () { return true; }); if (t) put(t, 'obelisk'); }
+    for (let i = 0; i < g.fresh; i++) { const t = take(function (q) { return q.y >= S.h - g.fresh_rows_from_bottom; }); if (t) put(t, i % (1 + 1) ? 'grave_fresh_1' : 'grave_fresh_0'); }
+    order.forEach(function (t) { if (!used[t.y * S.w + t.x]) put(t, g.rows[Math.floor(rng() * g.rows.length)]); });
+    return B;
+  }
+  function graveyardBand(opts, men) {
+    const g = R('ours.graveyard'), AW = R('ours.act_weights'), act = Math.max(1, Math.min(AW.acts, opts.act || (opts.party && opts.party.act) || 1));
+    const w = AW.by_kind[g.ghost_kind] || AW.default, base = opts.party && opts.party.count ? opts.party.count : bandFor(men).length;
+    return partyFor({ faction: g.faction, count: Math.max(1, Math.round(base * g.crowd * w[act - 1] / w[0])), days: S.days, difficulty: S.difficulty, act: act });
+  }
   function applyBoard(B) {
     const G = DB.ground;
     S.terrain = B.terrain; S.boardDef = B;
@@ -761,7 +813,7 @@ const FIGHT = (function () {
     (B.cover || []).forEach(function (c) {
       const tx = Math.floor(c.x_m / G.tile_metres), ty = Math.floor(c.y_m / G.tile_metres);
       if (!inBoard(tx, ty)) return;
-      const def = G.cover[c.piece] || G.cover_extra[c.piece] || {};
+      const def = pieceDef(c.piece) || {};
       S.cover[ty][tx] = c.piece;
       S.coverCount[ty][tx]++;
       if (def.blocks_move) S.solid[ty][tx] = true;
@@ -793,7 +845,7 @@ const FIGHT = (function () {
       keys.forEach(function (k) { if (left / n > hi) { off[k] = true; left--; } });
       B.cover = B.cover.filter(function (c) { const t = tileOf(c); return !off[t.y * S.w + t.x]; });
     } else if (was < lo) {
-      const steps = function (c) { const d = G.cover[c.piece] || G.cover_extra[c.piece] || {}; return !d.blocks_move; };
+      const steps = function (c) { const d = pieceDef(c.piece) || {}; return !d.blocks_move; };
       /* the place's own pieces: those lying on the blocks of the kind it leads with (the mountain's boulders, never the landfill's cars) */
       const bt = G.block_tiles, lead = B.lead || (B.kinds || [])[0];
       const own = function (c) { const t = tileOf(c), r = B.blocks[Math.floor(t.y / bt)], nm = r && r[Math.floor(t.x / bt)]; return !!nm && kindOf(nm) === lead; };
@@ -846,6 +898,8 @@ const FIGHT = (function () {
     if (opts.board && G.boards[opts.board]) {
       const B = G.boards[opts.board];
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
+    } else if (isGraveyard(opts)) {
+      for (let tries = 0; tries < 100; tries++) { applyBoard(layGraveyard(graveyardDeal())); if (connected()) break; }
     } else {
       for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(ask)); if (connected()) break; }
       if (fromMap && !opts.flat) S.boardDef.groundFit = fitCover(S.ground.ground);
@@ -869,7 +923,7 @@ const FIGHT = (function () {
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
-    const band = bandOf(opts, crewUnits.length);
+    const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) ? graveyardBand(opts, crewUnits.length) : bandOf(opts, crewUnits.length);
     LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
     const bandUnits = band.map(enemyUnit);
     LOOKS_TAKEN = null;
@@ -2019,7 +2073,7 @@ const FIGHT = (function () {
     level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
-    deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw,
+    deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
     _t: { rangeMin: rangeMin, armIn: armIn, pistolShot: pistolShot, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
@@ -2102,7 +2156,7 @@ function bakeBoard() {
      the strip, sideways, measured 10/18) */
   surround().forEach(function (q) { if (names.indexOf(q.n) < 0) names.push(q.n); });
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
-    .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
+    .concat(covers.map(function (p) { return FIGHT.pieceSrc(p); }).filter(Boolean));
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
   (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
   all.push('fight_rig/' + DB.rig.faces.file);
@@ -2132,7 +2186,7 @@ function bakeBoard() {
       }); });
       const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres;
       (B.cover || []).forEach(function (cv2) {
-        const im = UI.imgs['fight_ground/' + (G.cover[cv2.piece] || G.cover_extra[cv2.piece]).src];
+        const im = UI.imgs[FIGHT.pieceSrc(cv2.piece)];
         if (im) g.drawImage(im, cv2.x_m * pxm * k, cv2.y_m * pym * k, im.width * k, im.height * k);
       });
       /* the grid, faint: what is two tiles away is always obvious (37f) */
@@ -2387,7 +2441,7 @@ function groundOn(cx) {
     if (on(x, y, w, h)) cx.drawImage(one ? im : mipFor(im, w), x, y, one ? im.width / DPR : w, one ? im.height / DPR : h);
   }); });
   (B.cover || []).forEach(function (cv2) {
-    const im = UI.imgs['fight_ground/' + (G.cover[cv2.piece] || G.cover_extra[cv2.piece] || {}).src]; if (!im) return;
+    const im = UI.imgs[FIGHT.pieceSrc(cv2.piece)]; if (!im) return;
     const x = snap(sx(cv2.x_m * pxm * k)), y = snap(sy(cv2.y_m * pym * k)), w = im.width * k * z, h = im.height * k * z;
     if (on(x, y, w, h)) cx.drawImage(im, x, y, w, h);
   });
@@ -2630,6 +2684,39 @@ function roundsLine(u, t) {
    phone), never in the first second, one at a time; his line types in on the beat while his face moves, holds, and goes.
    With nobody beside YOU there is no veteran, and the lesson waits for a fight with one. The words are drafts for WORDS
    (draft:true): the lesson in English, one word of flavour from the lexicon (LANGUAGE NEVER GATES REQUIRED INFORMATION). */
+/* ---------------- THE HAUNTING AS ACT ONE SEES IT (COMBAT [ghosts and apparitions], rule 134(e), the coordinator from his canon,
+   laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md: 'the dead who came back are its generative data-portraits,
+   the whisper and the scream are its broadcast... nobody in act one knows it is a machine, so they are ghosts') ----
+   In act one a ghost is somebody: it wears the name of one of the valley's dead (or, when the shell hands the company's own
+   dead as FIGHT_OPTS.dead, [{name, look}], one of his: their name and their body under the tape), his veteran knows the
+   first one he sees and says so, and the recap says the dead went back down. A whisper is posted the moment the first one
+   comes into sight (BOHEMIA_SFX 'ghost_whisper', for SOUNDS to lay a real recording; nothing plays from here). No word on
+   this screen in act one calls it a machine, a signal or a broadcast (the gate holds the lexicon). From act two people know
+   what they are: a ghost is GHOST again and nobody recognises anyone. Purple stays its wordless tell (the tape's copy). */
+const THE_DEAD = ['RAMÓN', 'MARISOL', 'TÍO BETO', 'LUPE', 'KENNY', 'DOÑA ESPERANZA', 'HOLLIS', 'LA FLACA', 'JOEY', 'MRS. PARK', 'CHUY', 'DANA'];   /* draft:true */
+const HAUNT_RECAP = { won: 'THE DEAD WENT BACK DOWN', lost: 'THE DEAD KEPT THE FIELD' };   /* draft:true */
+function titleName(n) { return String(n).toLowerCase().replace(/(^|[\s.-])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }); }
+function actOne() { return (FIGHT.S.act || 1) === 1; }
+function haunt() {
+  const o = window.FIGHT_OPTS || {}, ghosts = FIGHT.S.units.filter(function (v) { return v.side === 'them' && v.ghost; });
+  if (!actOne() || !ghosts.length) return;
+  const dead = Array.isArray(o.dead) ? o.dead.filter(Boolean) : [], off = seedOf(String(SEED)) % THE_DEAD.length;
+  ghosts.forEach(function (v, i) {
+    const d = dead[i];
+    v.name = d ? String(d.name || d).toUpperCase() : THE_DEAD[(off + i) % THE_DEAD.length];
+    if (d && d.look && DB.rig.looks[d.look]) v.look = d.look;
+  });
+}
+function hauntTick() {
+  const S = FIGHT.S; if (UI.hauntSeen || S.deploy || S.over || !UI.board || performance.now() < UI.openUntil) return;
+  const g = S.units.filter(function (v) { return v.side === 'them' && v.ghost && FIGHT.onField(v) && FIGHT.sideSees('you', v); })[0];
+  if (!g) return;
+  UI.hauntSeen = g.id; UI.hauntName = actOne() ? g.name : null; sfx('ghost_whisper', { side: 'them', who: g.name });
+  if (actOne()) teachSoon('ghost');
+  teachSoon('ghost_hit');
+}
+function hauntedFight() { const t = FIGHT.S.units.filter(function (v) { return v.side === 'them'; }); return t.length > 0 && t.every(function (v) { return v.ghost; }); }
+
 /* ONE VOICE TEACHES (COMBAT [the ten changes: the fight's part], TUNING's change 8, rule 133): the how-to that the paper strip
    printed from nobody ('Drag a man inside the chalk', 'Tap inside the chalk to walk. Tap a marked man to hit.') is said by his
    own veteran's face, ONE RULE A LINE, each once on the phone, in the order the fight meets them: the line, the walk, the aim,
@@ -2644,7 +2731,9 @@ const TEACH = {   /* draft:true */
   reload: 'Oye, that click means empty. Hit RELOAD before you aim.',
   skip: 'Their move. Tap the board if you are done watching, güey.',
   back: 'Wrong step, mijo? BACK takes it back. One a turn.',
-  auto: 'We have this one, carnal. AUTO finishes it.'
+  auto: 'We have this one, carnal. AUTO finishes it.',
+  ghost: 'Ay. That is {name}. We buried them in March.',
+  ghost_hit: 'Walk up and hit it, compa. They break like smoke.'
 };
 /* the moment each queued line belongs to: past it, the line is dropped, never said late */
 const TEACH_STILL = {
@@ -2652,7 +2741,9 @@ const TEACH_STILL = {
   walk: function () { return !FIGHT.S.deploy && crewControlled(FIGHT.current()); },
   skip: function () { const u = FIGHT.current(); return !FIGHT.S.deploy && !!u && u.side === 'them'; },
   back: function () { return backOk(FIGHT.current()); },
-  auto: function () { return oddsGlow(); }
+  auto: function () { return oddsGlow(); },
+  ghost: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
+  ghost_hit: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); }
 };
 function teachSoon(k) {
   const T = taughtNow(); UI.teachQ = UI.teachQ || [];
@@ -2685,11 +2776,12 @@ function teach(k) {
   const T = taughtNow(); if (T[k]) return false;
   const v = veteran(); if (!v) return false;
   T[k] = 1; try { localStorage.setItem(TEACH_KEY, JSON.stringify(T)); } catch (_e) {}
-  UI.vet = { k: k, who: v.id, line: TEACH[k], t: performance.now() };
+  const line = TEACH[k].replace('{name}', UI.hauntName ? titleName(UI.hauntName) : 'him');
+  UI.vet = { k: k, who: v.id, line: line, t: performance.now() };
   drawPortrait(document.getElementById('vetface').getContext('2d'), v, document.getElementById('vetface').width);
   document.getElementById('vetname').textContent = v.name; document.getElementById('vetline').textContent = '';
   const el = document.getElementById('vet'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
-  feed(v.name + ': ' + TEACH[k]); return true;
+  feed(v.name + ': ' + line); return true;
 }
 function tickVet(now) {
   const V = UI.vet; if (!V) return;
@@ -3952,7 +4044,7 @@ function showOver(result) {
   UI.finish = false; keptClear();
   const S = FIGHT.S, o = document.getElementById('over');
   const secs = Math.round(UI.beats * 60 / R('ours.beat_bpm'));
-  document.getElementById('oh').textContent = result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
+  document.getElementById('oh').textContent = hauntedFight() && actOne() ? HAUNT_RECAP[result === 'won' ? 'won' : 'lost'] : result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
   const theirs = S.units.filter(function (v) { return v.side === 'them'; });
   let html = '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
     + theirs.filter(function (v) { return v.dead; }).length + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.</p>';
@@ -4219,7 +4311,7 @@ let hudN = 0;
 /* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
 function frame(now) {
   requestAnimationFrame(frame);
-  try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); teachNext(); oddsTick(now); keptTick(); if (++hudN % 6 === 0) hud(); }
+  try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); oddsTick(now); keptTick(); if (++hudN % 6 === 0) hud(); }
   catch (e) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
 }
 function start() {
@@ -4234,7 +4326,8 @@ function start() {
   /* change 10(e): the same fight opened again (a fresh page: the tab died, a phone call) goes on from his last turn's start;
      AGAIN, or a fight started on this page, starts clean and clears the copy */
   UI.resumed = !UI.pageStarted && keptRead(o); UI.pageStarted = true;
-  if (!UI.resumed) keptClear();
+  if (!UI.resumed) { keptClear(); haunt(); }   /* 134(e): in act one a ghost is one of the dead (before the board loads their bodies) */
+  UI.hauntSeen = null; UI.hauntName = null;
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();
