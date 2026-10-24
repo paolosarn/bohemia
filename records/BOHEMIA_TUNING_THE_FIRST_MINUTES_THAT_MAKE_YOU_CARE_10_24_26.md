@@ -1,8 +1,15 @@
 # TUNING [the first minutes that make you care]: WHAT MAKES A PLAYER CARE FAST, AND A WORLD FEEL NEW (10/24)
 
-RESEARCH ONLY (rule 146(c)(d), rule 38g). Nothing was built, no card. This page is the report. It is
-committed in pieces while the round runs (his usage is nearly out), so a section marked IN PROGRESS is
-still being written.
+RESEARCH ONLY (rule 146(c)(d), rule 38g). Nothing was built, no card. This page is the report. It was
+committed in pieces while the round ran (his usage is nearly out).
+
+THE ANSWER IN FOUR LINES: (1) every new game today is the same valley, the same corner, the same two jobs and
+the same posts, for every origin (four fresh boots, 2.1% of pixels apart, all of it people walking); (2) the
+valley generator that would change that already exists and HE ruled on 7/5 that it rolls per seed, but a
+7/28 fix pinned every game to one seed; (3) the studies and the best games agree that a player cares fast
+when the first minutes give him a choice, a face, a small win he made, a gap to wonder about, and a first
+glance that is HIS; (4) the plan: a new valley per game, a corner per origin, the origin spoken by its own
+faces at the door, one sight only this world has, and six more, ranked in section 5.
 
 HIS WORDS (rule 146, 10/24): "I'm not really getting procedure generated world vibes. You know every time I
 start new like I just spawn next to the church settlement, which is not a bad thing but... maybe we gotta do
@@ -461,4 +468,54 @@ never reads the picks); how a stranger rates two starts side by side (the test i
 
 ## SOURCES
 
-IN PROGRESS.
+Read through search extracts on this box (most pages cannot be opened from here); "abstract" means only the
+abstract or a summary was seen. Battle Brothers lines marked "wiki" come from the repo's own dump:
+reference/library/grok/wiki/PAGES_ALL.tar.gz (pages: Origins, A New Company, Rebuilding a Company, Lone Wolf,
+Northern Raiders, Southern Mercenaries, Peasant Militia, Trading Caravan, Dev Blog 113, Dev Blog 114, Game
+Guide, Factions and Relations, Ambitions) and reference/library/battle_brothers/01_WORLDMAP.md.
+
+1. Ryan, Rigby, Przybylski (2006), The Motivational Pull of Video Games, Motivation and Emotion 30(4) (abstract):
+   https://www.rochester.edu/warner/lida/wp-content/uploads/2022/11/02bfe513dd59366750000000.pdf ;
+   https://www.sciencedaily.com/releases/2006/12/061226134706.htm ; the 2010 model: https://journals.sagepub.com/doi/10.1037/a0019440
+2. Andersen et al. (CHI 2012), The Impact of Tutorials on Games of Varying Complexity:
+   https://grail.cs.washington.edu/projects/game-abtesting/chi2012/ ; https://grail.cs.washington.edu/wp-content/uploads/2015/08/andersen2012tio.pdf
+3. Lindgaard et al. (2006), Behaviour and Information Technology 25 (summaries):
+   https://www.handmadeweb.com.au/web-users-judge-sites-in-just-50-milliseconds/ ; https://websiteoptimization.com/speed/tweak/blink/
+4. Loewenstein (1994), The Psychology of Curiosity, Psychological Bulletin 116(1) (summaries):
+   https://stafforini.com/works/loewenstein-1994-psychology-curiosity-review/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10243256 ;
+   https://nautil.us/curiosity-depends-on-what-you-already-know-235803
+5. Norton, Mochon, Ariely (2012), The IKEA Effect, Journal of Consumer Psychology 22(3) (abstract):
+   https://papers.ssrn.com/abstract=1777100 ; https://dash.harvard.edu/handle/1/12136084
+6. Avatar customisation and identification: Boffel et al. (2022), https://pmc.ncbi.nlm.nih.gov/articles/PMC8765231 ;
+   Koulouris et al. (2020), https://paper.nweon.com/?p=1291 ; the Lord of the Rings Online study,
+   https://www.irma-international.org/chapter/the-effects-of-avatar-based-customization-on-player-identification/126061
+7. Retention benchmarks: GameAnalytics 2026, https://gameindustrylibrary.com/documents/gameanalytics-mobile-and-pc-game-benchmarks-in-2026-sponsored-by-pwn-games ;
+   https://segwise.ai/blog/mobile-gaming-app-user-retention-strategies.md
+8. Achievement-proxy drop-off: https://lemmy.imagisphe.re/post/18531/62433 (Starfield, Fallout 4, Skyrim via
+   TrueAchievements and Steam) ; https://i1.truetrophies.com/n21452/resident-evil-7-trophy ; https://www.twoaveragegamers.com/game-completion-rates/
+9. Skipping: https://www.engadget.com/2010-09-07-half-of-mass-effect-2-players-imported-a-save-and-other-stats.html ;
+   https://frvr.com/blog/news/hideo-kojima-says-a-lot-of-people-skipped-death-stranding-cutscenes-but-they-are-part-of-the-game/
+10. Procedural oatmeal: https://en.wikipedia.org/wiki/Procedural_generation ; https://www.vice.com/en/article/no-mans-sky-review/ ;
+    https://gamedeveloper.com/design/practical-procedural-generation-for-everyone- ; https://emshort.blog/2016/09/21/bowls-of-oatmeal-and-text-generation/ ;
+    https://www.boristhebrave.com/2026/07/05/oatmeal-spice/
+11. Nemesis: https://www.warnerbros.co.uk/news/articles/2020/01/22/nemesis-system-middle-earth's-game-changing-mechanic ;
+    https://steamcommunity.com/app/241930/discussions/0/1470841715965381492
+12. RimWorld: https://rimworldwiki.com/wiki/Scenario_system ; https://rimworldwiki.com/wiki/Backstories
+13. Kenshi: https://almarsguides.com/Computer/Games/Kenshi/Walkthrough/ ; https://www.pressreader.com/usa/pc-gamer-us/20170620/281852938528105
+14. Project Zomboid: https://pzfans.com/survival_hacks_picking_zomboids_best_spawns_build_41_vs_42/ ;
+    https://gamerempire.net/project-zomboid-what-are-the-best-occupations/
+15. Mount & Blade II creation: https://primagames.com/gaming/mount-blade-ii-bannerlord-guide-character-creation-cultures-and-skills
+16. Mount & Blade II opening: https://nichegamer.com/2020/04/05/mount-blade-ii-bannerlord-hands-on-preview/ ; https://gamebanshee.com/9k6hh
+17. FTL: https://en.wikipedia.org/wiki/FTL:_Faster_Than_Light
+18. Slay the Spire, Neow: https://slaythespire.wiki.gg/wiki/First_Blessing
+19. Caves of Qud: https://wiki.cavesofqud.com/wiki/Sultan_history ; https://wiki.cavesofqud.com/wiki/World_generation ;
+    https://gdcvault.com/play/1024990/Procedurally-Generating-History-in-Caves
+20. Shadows of Doubt: https://store.steampowered.com/app/986130/Shadows_of_Doubt/ ; https://gematsu.com/games/shadows-of-doubt
+21. Stardew Valley opening skip: https://steamcommunity.com/app/413150/discussions/0/3192490350129431584
+22. Darkest Dungeon: https://tropedia.fandom.com/wiki/Darkest_Dungeon ; https://www.pushsquare.com/news/2025/01/actor-behind-darkest-dungeons-iconic-narrator-has-passed-away
+
+THE REPO, READ THIS ROUND: slices/BOHEMIA_CITY_WORLD.html (BOH_SEED_TEXT, the start cell comment in the
+FACTION-TOWNS block, the start batteries), slices/BOHEMIA_DEMO.html (BOH_START: the 15 origins, the 10 names,
+the picks), engine/bohemia_overmap.js (layoutFromSeed, the district list), engine/bohemia_engine.js (newSave,
+the seeded RNG), records/target/bb/origins.json, laws/BOHEMIA_ADDENDUM_VEGAS_GEOGRAPHY_7_4_26.md,
+laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md, records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md.
