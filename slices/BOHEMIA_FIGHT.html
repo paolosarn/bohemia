@@ -2514,8 +2514,8 @@ function bulletLands(e, t) {
 function bullet(moment, a, t, e) {
   if (!a || !t || !FIGHT.isGun(a.weapon)) return undefined;
   const S = FIGHT.S, m = { gun: a.job, side: a.side, tiles: Math.max(Math.abs(a.x - t.x), Math.abs(a.y - t.y)), at: { x: t.x, y: t.y } };
-  if (moment === 'lands') { m.lands = bulletLands(e, t); m.head = !!e.head; m.hp = e.hp | 0; m.armour = e.armour | 0; m.target = t.side;
-    m.cover = (S.cover[t.y] && S.cover[t.y][t.x]) || null; m.ground = (S.ground && S.ground.ground) || S.terrain[t.y][t.x]; }
+  if (moment === 'lands') Object.assign(m, { lands: bulletLands(e, t), head: !!e.head, hp: e.hp | 0, armour: e.armour | 0, target: t.side,
+    cover: (S.cover[t.y] && S.cover[t.y][t.x]) || null, ground: (S.ground && S.ground.ground) || S.terrain[t.y][t.x] });
   (UI.bullets = UI.bullets || []).push(moment + (m.lands ? ' ' + m.lands : '') + ' ' + m.gun); if (UI.bullets.length > 60) UI.bullets.shift();
   return m;
 }
