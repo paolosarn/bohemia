@@ -126,3 +126,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_75_DAY_LOOP_AND_CAMPING_2026_10_24.md | day loop, camping, night
 - 2026-10-24 | ASK | GROK_ASK_76_WORLD_MAP_GENERATION_2026_10_24.md | world map, generation, terrain
 - 2026-10-24 | ASK | GROK_ASK_77_CAMPS_AND_LOCATIONS_2026_10_24.md | camps, locations, legendary
+- 2026-10-24 | ASK | GROK_ASK_78_PARTIES_AND_ROAMING_2026_10_24.md | parties, roaming, scaling
