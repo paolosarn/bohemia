@@ -44,6 +44,21 @@
   },
   "theme": "road"
  },
+ "campus": {
+  "added": 243,
+  "faces": 1002,
+  "grounds": 4,
+  "kept": 123,
+  "recoloured": 879,
+  "register_iou": 0.9973,
+  "sand_after": {
+   "blue": 0.0003,
+   "green": 0.1147,
+   "red": 0.0604,
+   "sand": 0.1203
+  },
+  "theme": "green"
+ },
  "commercial": {
   "added": 81,
   "faces": 367,
@@ -104,6 +119,36 @@
   },
   "theme": "road"
  },
+ "golf": {
+  "added": 243,
+  "faces": 347,
+  "grounds": 7,
+  "kept": 72,
+  "recoloured": 275,
+  "register_iou": 0.9926,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.6184,
+   "red": 0.0023,
+   "sand": 0.1085
+  },
+  "theme": "green"
+ },
+ "industrial": {
+  "added": 54,
+  "faces": 240,
+  "grounds": 2,
+  "kept": 151,
+  "recoloured": 89,
+  "register_iou": 1.0,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.0103,
+   "red": 0.0084,
+   "sand": 0.0667
+  },
+  "theme": "industry"
+ },
  "mountain": {
   "added": 110,
   "faces": 296,
@@ -118,6 +163,21 @@
    "sand": 0.0074
   },
   "theme": "rock"
+ },
+ "park": {
+  "added": 243,
+  "faces": 200,
+  "grounds": 3,
+  "kept": 0,
+  "recoloured": 200,
+  "register_iou": 0.9858,
+  "sand_after": {
+   "blue": 0.0,
+   "green": 0.5019,
+   "red": 0.0324,
+   "sand": 0.0867
+  },
+  "theme": "green"
  },
  "rail": {
   "added": 54,
@@ -208,6 +268,21 @@
    "sand": 0.0947
   },
   "theme": "house"
+ },
+ "wash": {
+  "added": 81,
+  "faces": 337,
+  "grounds": 11,
+  "kept": 75,
+  "recoloured": 262,
+  "register_iou": 0.9858,
+  "sand_after": {
+   "blue": 0.0064,
+   "green": 0.0107,
+   "red": 0.3171,
+   "sand": 0.0385
+  },
+  "theme": "water"
  },
  "water": {
   "added": 81,

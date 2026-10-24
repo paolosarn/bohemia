@@ -1122,6 +1122,85 @@
      "rust"
     ]
    }
+  },
+  "park": {
+   "ground": {
+    "mosaic": [
+     [
+      "lawn_deep",
+      0.26
+     ],
+     [
+      "lawn_wild",
+      0.44
+     ],
+     [
+      "weeds",
+      0.18
+     ],
+     [
+      "lawn_dry",
+      0.12
+     ]
+    ],
+    "blob_m": 14
+   },
+   "ground_more": [
+    {
+     "mosaic": [
+      [
+       "lawn_deep",
+       0.5
+      ],
+      [
+       "lawn_wild",
+       0.5
+      ]
+     ],
+     "blob_m": 6
+    },
+    {
+     "mosaic": [
+      [
+       "caliche",
+       0.7
+      ],
+      [
+       "lawn_dry",
+       0.3
+      ]
+     ],
+     "blob_m": 4
+    }
+   ],
+   "roof": [
+    "lawn_deep",
+    "palm",
+    "olive_tree",
+    "weeds",
+    "lawn_wild"
+   ],
+   "wall": [
+    "lawn_deep",
+    "palm",
+    "olive_tree"
+   ],
+   "fence": [
+    "block_grey",
+    "rust"
+   ],
+   "frame": "stucco_white",
+   "dress": {
+    "pools": 0,
+    "trees": 9,
+    "tree": [
+     "palm",
+     "olive_tree",
+     "lawn_deep",
+     "lawn_deep"
+    ]
+   },
+   "_why": "the park's and the springs' own trees are tiered boxes in the factory: in the green theme they took stucco and tile and came out pink and cream (10/24); here everything that stands is foliage"
   }
  },
  "district_theme": {
@@ -1156,7 +1235,7 @@
   "stadium": "block",
   "drivein": "block",
   "minigp": "glitz",
-  "park": "green",
+  "park": "park",
   "golf": "green",
   "cemetery": "green",
   "ballpark": "green",
@@ -1195,7 +1274,8 @@
   "granary": "field",
   "landfill": "dump",
   "swapmeet": "glitz",
-  "boneyard": "glitz"
+  "boneyard": "glitz",
+  "springs": "park"
  },
  "special": {
   "solar": {
