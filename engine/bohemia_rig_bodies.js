@@ -31,7 +31,8 @@
      BohemiaRigBodies.person(look)                who he is (gang, cut, hat, face piece, beard, mark, top, coat, skin), or null
      BohemiaRigBodies.cast(n, seed, gangs)        n looks, NO TWO ALIKE, dealt from the people of those gangs (all of them when
                                                   none named), the same n for the same seed; a gang look only when the mix is
-                                                  not loaded
+                                                  not loaded; never one of your company (isCompany)
+     BohemiaRigBodies.isCompany(look)             one of your eleven (THE FACE IS HIS OWN FACE, 10/24): dealt to nobody else
      BohemiaRigBodies.canWalk(look) / walk(look)  a rolled walker and his walk sheet {im, meta: w h foot mid cols dirs walk still}
                                                   once in (slices/rig_walk), else null and it starts loading */
 (function (root) {
@@ -75,10 +76,13 @@
   }
   function person(look) { mix(); return WHO[look] || null; }
   function people(gang) { var M = mix(); return M && M.by_gang[gang] ? M.by_gang[gang].slice() : []; }
-  /* the same seed deals the same hand; a look is dealt once, so nobody stands beside himself */
+  /* the same seed deals the same hand; a look is dealt once, so nobody stands beside himself. THE FACE IS HIS OWN FACE
+     (RUN TWO, 10/24): your eleven are rolled people (ours.json people_looks.crew, marked company in the mix), so no town,
+     crowd or post is ever dealt one of them: he is in your company, not on somebody's street */
+  function isCompany(look) { var p = person(look); return !!(p && p.company); }
   function cast(n, seed, gangs) {
     var M = mix(), pool = [];
-    if (M) (gangs && gangs.length ? gangs : Object.keys(M.by_gang)).forEach(function (g) { pool = pool.concat(M.by_gang[g] || []); });
+    if (M) (gangs && gangs.length ? gangs : Object.keys(M.by_gang)).forEach(function (g) { pool = pool.concat((M.by_gang[g] || []).filter(function (l) { return !isCompany(l); })); });
     if (!pool.length) pool = GANGS.map(function (g) { return 'faction_' + g; });
     var h = 2166136261, s = String(seed), out = [];
     for (var i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619) >>> 0;
@@ -123,5 +127,5 @@
     return null;
   }
   root.BohemiaRigBodies = { TURNS: TURNS, GANGS: GANGS, LOOKS: LOOKS, FIG_H: FIG_H, has: has, src: src, image: image,
-    gangOf: gangOf, standing: standing, people: people, person: person, cast: cast, canWalk: canWalk, walk: walk };
+    gangOf: gangOf, standing: standing, people: people, person: person, cast: cast, isCompany: isCompany, canWalk: canWalk, walk: walk };
 })(typeof window !== 'undefined' ? window : this);

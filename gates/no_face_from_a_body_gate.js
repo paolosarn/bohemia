@@ -84,10 +84,14 @@ const srv = http.createServer((rq, rs) => {
   rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs);
 });
 const FACED = new Set(looks);
+/* AMENDED 10/24 (RUN TWO [the face is his own face], rule 120(d)): the hall's men (10/23), your crew and the board's clients
+   (10/24) are rolled people, each talking under the head rendered off his own model (records/target/character/barber/
+   person_<id>/face/); the face module knows them, so they are judged the same way, pixel for pixel against their own file */
+const ROLLED = /^person_[a-z]+_\d+$/;
 const judge = (label, rows) => {
-  const ours = rows.filter(r => FACED.has(r.look)), rest = rows.filter(r => !FACED.has(r.look));
+  const ours = rows.filter(r => FACED.has(r.look) || ROLLED.test(r.look)), rest = rows.filter(r => !(FACED.has(r.look) || ROLLED.test(r.look)));
   const good = ours.filter(r => r.k === 'fresh' && /^portrait:/.test(r.from));
-  ok(label + ': every face of a look PORTRAIT made is PORTRAIT\'s fresh portrait, pixel for pixel', ours.length > 0 && good.length === ours.length,
+  ok(label + ': every face of a look PORTRAIT made or a rolled person is that head\'s own fresh portrait, pixel for pixel', ours.length > 0 && good.length === ours.length,
      good.length + ' of ' + ours.length + (good.length < ours.length ? ', first bad ' + JSON.stringify(ours.find(r => !(r.k === 'fresh' && /^portrait:/.test(r.from)))) : ''));
   const other = rows.filter(r => !(r.k === 'fresh' && /^portrait:/.test(r.from)) && r.from !== 'none');
   ok('  and no other face there is a body or the old paint (' + rest.length + ' others; only the dim head passes, rule 121e)', other.length === 0, other.slice(0, 2).map(r => JSON.stringify(r)).join(' '));

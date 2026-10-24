@@ -31,8 +31,10 @@
      wears his cut, his beard and his hat (ONE ID, ONE WHOLE PERSON) */
   var PBASE = '../records/target/character/barber/';
   var ROLLED = null;
+  /* THE FACE IS HIS OWN FACE (RUN TWO, 10/24, rule 120(d)): your eleven are rolled people now, and a page that never loads
+     the mix (the map, when a man walks for want of food) still knows one by his name, person_<gang>_<n>, and shows his own face */
   function rolled(look) {
-    if (!ROLLED) { var M = root.BOHEMIA_PEOPLE_MIX; if (!M) return false; ROLLED = {}; M.people.forEach(function (p) { ROLLED[p.look] = 1; }); }
+    if (!ROLLED) { var M = root.BOHEMIA_PEOPLE_MIX; if (!M) return /^person_[a-z]+_\d+$/.test(String(look)); ROLLED = {}; M.people.forEach(function (p) { ROLLED[p.look] = 1; }); }
     return ROLLED[look] === 1;
   }
   function has(look) { return LOOKS.indexOf(look) >= 0 || rolled(look); }

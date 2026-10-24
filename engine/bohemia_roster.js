@@ -76,7 +76,9 @@
      dress him alike. The company carries the look (company() below) so a death or a new order never moves him. */
   function lookFor(def, i) {
     if (def.main) return 'you';
-    var known = function (l) { return !!(l && (!D.people || D.people.looks[l])); };
+    /* a rolled person is known too (THE FACE IS HIS OWN FACE, RUN TWO 10/24: your eleven and every hire are the valley's rolled
+       people, person_<gang>_<n>, whose body and face are their own renders, not a sheet in fight_people) */
+    var known = function (l) { return !!(l && (!D.people || D.people.looks[l] || /^person_[a-z]+_\d+$/.test(l))); };
     if (known(def.look)) return def.look;
     var pl = D.ours && D.ours.people_looks, crew = ((pl && (pl.value || pl).crew) || []).filter(function (l) { return l !== 'you'; });
     var fight = ((pl && (pl.value || pl).crew) || [])[i];

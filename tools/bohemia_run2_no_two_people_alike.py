@@ -501,8 +501,13 @@ def index():
     have = set(rendered())
     people = [who(p) for p in json.load(open(ROLL)) if p['id'] in have]
     fought = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))['looks']
+    # THE FACE IS HIS OWN FACE (RUN TWO, 10/24, rule 120(d), 121(e)(i)): your eleven are rolled people, named in the fight's
+    # own list (ours.json people_looks.crew, the one place they are named); marked here so no town, map crowd or hall deals them
+    ours = json.load(open(os.path.join(ROOT, 'records/target/bb/ours.json')))['people_looks']
+    company = set((ours.get('value') or ours).get('crew') or [])
     for q in people:
         if q['look'] in fought: q['fight'] = True   # his sheet is on the fight's board: the hall may hire him
+        if q['look'] in company: q['company'] = True   # one of your eleven: never dealt to anyone else
         if standing_only(q['look'][len('person_'):]): q['stands'] = True   # he only ever stands: no walk made
     by = {}
     for q in people: by.setdefault(q['gang'], []).append(q['look'])
@@ -518,6 +523,12 @@ def index():
         f.write(' people: [\n%s\n ],\n' % ',\n'.join('  ' + J(q) for q in people))
         f.write(' by_gang: {\n%s\n }\n' % ',\n'.join('  %s: %s' % (J(g), J(v)) for g, v in by.items()))
         f.write('}; })(typeof window !== \'undefined\' ? window : this);\n')
+    # the map's sheets name your company too, so its crowds skip them (slices/rig_mix/index.json, read by the map's seat keeper)
+    mi = os.path.join(ROOT, 'slices/rig_mix/index.json')
+    if os.path.exists(mi):
+        ix = json.load(open(mi)); ix['company'] = [q['look'] for q in people if q.get('company')]
+        with open(mi, 'w') as f:
+            json.dump(ix, f, indent=1); f.write('\n')
     print('index', len(people), {k: len(v) for k, v in by.items()})
 
 
@@ -554,6 +565,7 @@ def bake():
     with open(os.path.join(od, 'index.json'), 'w') as f:
         json.dump(dict(what="RUN TWO [no two people alike]: the map's people, a sheet of twelve at most, read by the map's seat keeper",
                        pools=pools, sheets={k: [q['look'] for q in v] for k, v in sheets.items()}), f, indent=1); f.write('\n')
+    index()   # writes the company into the map's index (and the people mix) again, so a bake never drops it
     print('people', len(people), {k: len(v) for k, v in by.items()}, 'sheets', len(sheets))
 
 

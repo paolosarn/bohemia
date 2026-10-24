@@ -418,17 +418,17 @@
   "value": {
    "crew": [
     "you",
-    "cast_longcoat",
-    "cast_barearms",
-    "cast_widebrim",
-    "cast_poncho",
-    "cast_shortcoat",
-    "cast_apron",
-    "cast_cape",
-    "cast_pack",
-    "cast_satchel",
-    "cast_skirt",
-    "cast_shorts"
+    "person_town_0",
+    "person_town_1",
+    "person_town_5",
+    "person_town_2",
+    "person_town_6",
+    "person_town_4",
+    "person_town_8",
+    "person_town_7",
+    "person_town_11",
+    "person_town_3",
+    "person_town_10"
    ],
    "band": {
     "brigand_thug": [
@@ -525,7 +525,7 @@
   },
   "source": "records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md",
   "quote": "I wanna see all my character art that we've worked so hard on doing good work live in the game please even if it's new combat",
-  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft) (10/19, COMBAT [the fight wears the 3D models], rule 121: the thug and the poacher bands lead with COOK THREE's own thug and poacher, modelled with PORTRAIT's head on their own body; the rest of each band wears the gangs' rig models) (10/23, RUN TWO [no two people alike], rule 121(i), his 'SO MANY OF THE SAME HATS... 2 OPTIONS FOR CUSTOMIZATIONS': after each pool's first look, its gangs' rolled people, each his own mix of CHARACTER's pieces; the fight hands a man the first look nobody on the board wears)"
+  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft) (10/19, COMBAT [the fight wears the 3D models], rule 121: the thug and the poacher bands lead with COOK THREE's own thug and poacher, modelled with PORTRAIT's head on their own body; the rest of each band wears the gangs' rig models) (10/23, RUN TWO [no two people alike], rule 121(i), his 'SO MANY OF THE SAME HATS... 2 OPTIONS FOR CUSTOMIZATIONS': after each pool's first look, its gangs' rolled people, each his own mix of CHARACTER's pieces; the fight hands a man the first look nobody on the board wears) (10/24, RUN TWO [the face is his own face], rule 120(d) and 121(e)(i), his 'the portraits don't look like the people... Black people looking like white people': your eleven are eleven of the valley's rolled people the fight already draws (the places' own, person_town_*), each his own body, his own skin and the face rendered off that same head; a name that reads a woman's wears a face with no beard; nobody else in the valley is dealt them)"
  },
  "formation_depth_lines": {
   "value": 2,

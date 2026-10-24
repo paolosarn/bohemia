@@ -236,7 +236,7 @@ ok('the post\'s fixed list is gone', !/var HIRE_NAMES\b/.test(SETTLE));
 ok('recruitsHere names a recruit after his face, by hireName (10/23: his look dealt by recruitLooks, a rolled man the fight can draw)', /var looks = recruitLooks\(key, n\);[\s\S]{0,200}r\.look = looks\[i\]; r\.name = hireName\(key, i, r\.look\);/.test(SETTLE));
 ok('hireName rolls at the post\'s key with the face\'s reading', !!hireSrc && /BohemiaNames\.roll\('post:' \+ key \+ ':' \+ i, \{sex: BohemiaNames\.faceReads\(look\)( \|\| \(P && P\.sex\), skin: P \? P\.skin : undefined)?\}\)\.full/.test(hireSrc));
 ok('keeperName rolls at the place and the building, with the face the place drew', !!keeperSrc &&
-  /BohemiaNames\.roll\('keeper:' \+ S\.place\.name \+ ':' \+ k, \{sex: look \? BohemiaNames\.faceReads\(look\) : null\}\)/.test(keeperSrc) && /lookOf\(k\)/.test(keeperSrc));
+  /BohemiaNames\.roll\('keeper:' \+ S\.place\.name \+ ':' \+ k, \{sex: look \? BohemiaNames\.faceReads\(look\)( \|\| \(P && P\.sex\))? : null(, skin: P \? P\.skin : undefined)?\}\)/.test(keeperSrc) && /lookOf\(k\)/.test(keeperSrc));
 ok('the keeper speaks under keeperName', /n\.textContent = keeperName\(k\);/.test(SETTLE) && !/KEEPERS\[k\]\.name/.test(SETTLE));
 var tagAt = SETTLE.indexOf('<script src="../engine/bohemia_names.js"></script>'), mainAt = SETTLE.indexOf('<script>\n(function(){');
 ok('the screen loads the roller before its own script', tagAt > 0 && mainAt > tagAt);

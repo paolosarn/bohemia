@@ -234,5 +234,18 @@
    "person_town_46",
    "person_town_47"
   ]
- }
+ },
+ "company": [
+  "person_town_0",
+  "person_town_1",
+  "person_town_2",
+  "person_town_3",
+  "person_town_4",
+  "person_town_5",
+  "person_town_6",
+  "person_town_7",
+  "person_town_8",
+  "person_town_10",
+  "person_town_11"
+ ]
 }

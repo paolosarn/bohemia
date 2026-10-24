@@ -45658,7 +45658,7 @@ function rigMixFor(group, key, i, peek){
   names.forEach(function(n){
     var S = RIG_MIX.sheets[n] || (RIG_MIX.sheets[n] = { state: 0, meta: null, img: null, sets: {}, drew: 0 });
     rigSheetLoad(S, 'rig_mix/' + n);
-    if (S.state === 2) S.meta.gangs.forEach(function(l){ L.push(l); at[l] = S; });
+    if (S.state === 2) S.meta.gangs.forEach(function(l){ if (!mixMine(l)) { L.push(l); at[l] = S; } });   /* your eleven are in your company, not in a crowd (RUN TWO 10/24) */
   });
   if (!L.length) return null;
   if (peek) return rigSheetSet(at[L[0]], L[0]);   /* 'is anybody in yet': a question, not a person on the screen */
@@ -45667,7 +45667,7 @@ function rigMixFor(group, key, i, peek){
      a crowd may wear his gang's colours, and no sheet is fetched for a crowd alone */
   var M = L;
   if (group === 'town') Object.keys(RIG_MIX.sheets).forEach(function(n){ var S = RIG_MIX.sheets[n];
-    if (S.state === 2 && names.indexOf(n) < 0) S.meta.gangs.forEach(function(l){ if (!at[l]) { at[l] = S; M = M === L ? L.slice() : M; M.push(l); } }); });
+    if (S.state === 2 && names.indexOf(n) < 0) S.meta.gangs.forEach(function(l){ if (!at[l] && !mixMine(l)) { at[l] = S; M = M === L ? L.slice() : M; M.push(l); } }); });
   if (!seat || used[seat] || !at[seat]) {
     seat = null;
     var k0 = ((i % L.length) + L.length) % L.length;
@@ -45683,6 +45683,7 @@ function rigMixFor(group, key, i, peek){
   if (set) at[seat].drew++;
   return set;
 }
+function mixMine(l){ var c = RIG_MIX.index && RIG_MIX.index.company; return !!(c && c.indexOf(l) >= 0); }
 function rigMixNum(p, idx){
   var k = p && p.id != null ? String(p.id) : 'i' + idx, h = 0;
   for (var c = 0; c < k.length; c++) h = (h * 31 + k.charCodeAt(c)) >>> 0;

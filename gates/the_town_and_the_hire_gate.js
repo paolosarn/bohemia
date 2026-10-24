@@ -57,7 +57,7 @@ const srv = http.createServer((rq, rs) => {
      turning in front of his door is not counted as light */
   const glow = async (k) => (await varOf(k, true)) - (await varOf(k, false));
   const varOf = async (k, on) => p.evaluate(async ({ k, on }) => {
-    BohemiaSettlement.walkers(false); BohemiaSettlement.glow(on); BohemiaSettlement.where(k);   /* the walkers held: only the door's own light is read */ await new Promise(r => setTimeout(r, 150));
+    BohemiaSettlement.walkers(false); BohemiaSettlement.still(true); BohemiaSettlement.glow(on); BohemiaSettlement.where(k);   /* the walkers and the idles held (10/24: the post's men idle since ANIMATION's round, and their breathing read as light): only the door's own light is read */ await new Promise(r => setTimeout(r, 150));
     const c = document.getElementById('cv'), x = c.getContext('2d'), cr = c.getBoundingClientRect(), dpr = c.width / c.clientWidth, pt = BohemiaSettlement.where(k);
     const grab = () => { const d = x.getImageData(Math.round((pt.x - cr.left - 20) * dpr), Math.round((pt.y - cr.top - 20) * dpr), Math.round(40 * dpr), Math.round(40 * dpr)).data; let s = 0; for (let i = 0; i < d.length; i += 4) s += d[i] + d[i + 1] + d[i + 2]; return s / (d.length / 4); };
     const a = []; for (let t = 0; t < 10; t++) { a.push(grab()); await new Promise(r => setTimeout(r, 100)); }

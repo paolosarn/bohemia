@@ -69,8 +69,11 @@ const moved = r => r.k !== 'fresh' || r.mouths >= 2;
   let posts = 0; const oneBad = [], postsSeen = new Set();
   const waiting = new Set(); let keepers = 0, keepBad = [], crowd = 0, crowdBad = [], fresh = 0, still = [], says = 0, sayNoFace = 0;
   for (const tier of ['camp', 'town', 'fortress']) {
+    await close();   /* 10/24: the last street speaker's sheet shut first, the way a finger would (open() shutting it moved the scene under the next taps) */
     await p.evaluate(t => BohemiaSettlement.open({ place: { name: 'FACES ' + t.toUpperCase(), tier: t }, traits: [], day: 4 }), tier);
     await p.waitForTimeout(400);
+    await p.waitForFunction(() => BohemiaSettlement.ready() && BohemiaSettlement.folk().length > 0, null, { timeout: 15000 }).catch(() => {});   /* 10/24: the new place's picture in before the first tap (a tap on the last place's boxes opened nothing) */
+    await p.waitForTimeout(300);
     for (const k of await p.evaluate(() => BohemiaSettlement.order())) {
       await close();
       const xy = await p.evaluate(k => BohemiaSettlement.where(k), k); if (!xy) continue;
@@ -136,8 +139,11 @@ const moved = r => r.k !== 'fresh' || r.mouths >= 2;
   const named = await L.evaluate(() => (window.BohemiaCrewFaces ? BohemiaCrewFaces.LOOKS : []).filter(l => /^faction_/.test(l)).length);
   const lit = new Set(), notLit = [];
   for (const tier of ['camp', 'town', 'fortress']) {
+    if (await L.evaluate(() => document.getElementById('sheet').classList.contains('on'))) { await L.click('#close'); await L.waitForTimeout(220); }   /* 10/24: shut first, as above */
     await L.evaluate(t => BohemiaSettlement.open({ place: { name: 'FACES ' + t.toUpperCase(), tier: t }, traits: [], day: 4 }), tier);
     await L.waitForTimeout(400);
+    await L.waitForFunction(() => BohemiaSettlement.ready() && BohemiaSettlement.folk().length > 0, null, { timeout: 15000 }).catch(() => {});
+    await L.waitForTimeout(300);
     const n = await L.evaluate(() => BohemiaSettlement.folk().length);
     for (let i = 0; i < n; i++) {
       if (await L.evaluate(() => document.getElementById('sheet').classList.contains('on'))) { await L.click('#close'); await L.waitForTimeout(220); }

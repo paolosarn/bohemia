@@ -990,8 +990,8 @@ function drawPeople(s){
   var k = rigScale(), now = performance.now(), H = personH()*s, items = [];
   L.forEach(function(p){
     if(!p.pre){ p.pre = 1; p.loop.forEach(function(t){ B.standing(p.look, t); }); }   /* every turn he will look, asked for once */
-    var idl = idlePerson(p, now, k, s, H); if(idl){ items.push({y:p.y, draw:idl}); return; }   /* __EVERYBODY_IDLES__: he breathes and idles at his post (ANIMATION) */
-    var r = B.standing(p.look, turnOf(p, now)) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one */
+    var idl = view.still ? null : idlePerson(p, now, k, s, H); if(idl){ items.push({y:p.y, draw:idl}); return; }   /* __EVERYBODY_IDLES__: he breathes and idles at his post (ANIMATION) */
+    var r = (!view.still && B.standing(p.look, turnOf(p, now))) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one (view.still: held for a measurement, his still facing the street) */
     items.push({y:p.y, draw:function(){
       var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;
       cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
@@ -1209,16 +1209,16 @@ function hireName(key, i, look){
 var CAST12 = ['longcoat','barearms','pack','skirt','widebrim','cape','apron','poncho','bedroll','shorts','satchel','shortcoat'];
 function recruitLooks(key, n){
   var M = window.BOHEMIA_PEOPLE_MIX, out = [];
-  var ready = M ? M.people.filter(function(p){ return p.fight; }) : [];
+  var ready = M ? M.people.filter(function(p){ return p.fight && !p.company; }) : [];   /* 10/24: your eleven are rolled men too, never at a post */
   if(!ready.length){ for(var i = 0; i < n; i++) out.push('cast_' + CAST12[seedOf(key + ':look:' + i) % 12]); return out; }
   var mine = {}; try{ ((window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || []).concat(JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'))
     .forEach(function(m){ if(m && m.look) mine[m.look] = 1; }); }catch(e){}   /* your company and the men hired since it was saved */
   var deal = function(L){ return L.map(function(p){ return {l:p.look, k:seedOf(key + ':' + p.look)}; }).sort(function(a, b){ return a.k - b.k; }).map(function(x){ return x.l; }); };
   var pool = deal(ready.filter(function(p){ return p.gang === 'town'; })).concat(deal(ready.filter(function(p){ return p.gang !== 'town'; })))
     .filter(function(l){ return !mine[l]; });
-  /* more men at the post than rolled men ready: the rest are the cast looks, each once */
-  var cast = CAST12.map(function(c){ return 'cast_' + c; }).filter(function(l){ return !mine[l]; });
-  for(var q = 0; q < n; q++) out.push(q < pool.length ? pool[q] : cast.length ? cast[(q - pool.length) % cast.length] : pool[q % Math.max(1, pool.length)] || 'cast_' + CAST12[q % 12]);
+  /* more men at the post than rolled men ready (40 for a post of eight at most): the pool again, never an old cast look
+     (THE FACE IS HIS OWN FACE, 10/24: every face at the post is the head rendered off that man's own body) */
+  for(var q = 0; q < n; q++) out.push(pool.length ? pool[q % pool.length] : 'cast_' + CAST12[q % 12]);
   return out;
 }
 var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['butcher_s_cleaver','leather_wraps'], brawler:[null,'sackcloth'],
@@ -1322,9 +1322,11 @@ function crewFace(c, look){
    a keeper tapped before the street's people are in (lookOf has nobody yet) still speaks under a fresh face, one of the
    cast looks by the place and who he is, never the dim head */
 function stand(who){
-  var F = window.BohemiaCrewFaces; if(!F || !who) return null;
-  var cast = GANG_LOOKS.filter(function(l){ return F.has(l); });   /* 10/19: the valley's people, the looks the posts' bodies wear */
-  return cast.length ? cast[seedOf(String(S.place.name) + ':' + who) % cast.length] : null;
+  var F = window.BohemiaCrewFaces, B = window.BohemiaRigBodies; if(!F || !who || !B || !B.cast) return null;
+  /* 10/24 (THE FACE IS HIS OWN FACE): a speaker with no door of his own is one of the valley's rolled people, past the cards
+     the place has on its screen, so his face is his own head and nobody on the screen is him */
+  var n = ORDER.length + (CROWD_BASE.town || 5) + 7 + 24, hand = B.cast(n + 24, S.place.name + ':people').slice(n);
+  return hand.length ? hand[seedOf(String(S.place.name) + ':' + who) % hand.length] : null;
 }
 /* and when he speaks, the mouth says the line on the beat */
 function mouth(c, line){ if(c && c.dataset.face === 'fresh') BohemiaCrewFaces.talk(c, c.dataset.look, line); return c; }
@@ -1333,7 +1335,16 @@ function dimHead(x){
   x.fillStyle='#3b3026'; x.fillRect(11,7,14,16); x.fillRect(7,26,22,10);
   x.fillStyle='#120e0a'; x.fillRect(14,13,2,2); x.fillRect(20,13,2,2);
 }
-function lookOf(k){ var L = folkList(), p = L.filter(function(q){ return q.keeper && q.k === k; })[0]; return p ? p.look : null; }
+function lookOf(k){ var L = folkList(), p = L.filter(function(q){ return q.keeper && q.k === k; })[0]; return p ? p.look : VAR ? null : keeperDealt(k); }
+/* THE FACE IS HIS OWN FACE (RUN TWO [the face is his own face], 10/24, rule 120(d) and 121(e), Paolo 10/18: 'the portraits
+   don't look like the people... Black people looking like white people'): a keeper who speaks before the picture is in (no
+   folk list yet) is the man the place deals his door, the same card folkList() gives him once it draws, so the face over his
+   words is the head rendered off his own body; never a stand-in gang head */
+function keeperDealt(k){
+  var B = window.BohemiaRigBodies, i = ORDER.indexOf(k); if(!B || !B.cast || i < 0 || !S.place || k === 'lot' || k === 'build') return null;   /* the lot is YOU */
+  var hand = B.cast(ORDER.length + (CROWD_BASE.town || 5) + 7 + 24, S.place.name + ':people');
+  return hand[i] && B.person(hand[i]) ? hand[i] : null;
+}
 /* PEOPLE [the names wired in]: this place's keeper, one person: the face the place drew for him and a name from the
    county's mix that reads as that face, the same every visit */
 function keeperName(k){
@@ -1341,7 +1352,8 @@ function keeperName(k){
   if(kp.name) return kp.name;
   if(!window.BohemiaNames) return kp.role;
   var look = lookOf(k);
-  return (BohemiaNames.roll('keeper:' + S.place.name + ':' + k, {sex: look ? BohemiaNames.faceReads(look) : null}).full + ', ' + kp.role).toUpperCase();
+  var P = look && window.BohemiaRigBodies && BohemiaRigBodies.person && BohemiaRigBodies.person(look);   /* a rolled keeper's name reads as his own face and skin (THE FACE IS HIS OWN FACE, 10/24) */
+  return (BohemiaNames.roll('keeper:' + S.place.name + ':' + k, {sex: look ? BohemiaNames.faceReads(look) || (P && P.sex) : null, skin: P ? P.skin : undefined}).full + ', ' + kp.role).toUpperCase();
 }
 function face(k, who, look){
   var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
@@ -1372,11 +1384,39 @@ function speak(k, line){
    is his face, his name and where he is from, what he needs in a word, and the skulls and pay at the right
    (the phone's board and the loop gates read the title span and the em, so they stay first and last). */
 function clientWho(o){ return 'settle-client:' + o.id; }
+/* THE CLIENT IS HIS OWN FACE (RUN TWO [the face is his own face], 10/24, rule 120(d), 121(e)(i)): the shelf named twelve old cast
+   looks for its 39 clients, one head for many people; a client now is one of the valley's rolled people, past every card the
+   place has on its screen and past its other speakers (so he is nobody standing there), the head rendered off his own body;
+   a name that reads as a woman's ('Mama Rosaura', 'Marisol Ortiz') is never given a beard, a Spanish name a face from the
+   valley's Hispanic or mixed people when the hand has one; the same person at this place every visit */
+var CLIENT_LOOK = {};
+var CLIENT_F = {mama:1, 'doña':1, 'señora':1, 'tía':1, tia:1, abuela:1, madre:1, sister:1, hermana:1, miss:1, mrs:1, ms:1, 'seño':1};
+var CLIENT_M = {don:1, 'señor':1, 'tío':1, tio:1, abuelo:1, padre:1, ingeniero:1, old:1, mister:1, mr:1, brother:1, hermano:1, profe:1};
+function nameSex(name){
+  var w = String(name || '').trim().split(/\s+/), i, x;
+  for(i = 0; i < w.length; i++){ x = w[i].toLowerCase().replace(/[^a-záéíóúñ]/g, '');
+    if(CLIENT_F[x]) return 'f'; if(CLIENT_M[x]) return 'm';
+    var sx = window.BohemiaNames && BohemiaNames.sexOf(w[i]); if(sx === 'f' || sx === 'm') return sx; }
+  x = (w[0] || '').toLowerCase();
+  return x.length > 2 && /a$/.test(x) ? 'f' : null;   /* Rosaura, Marta: a given name in -a reads a woman's */
+}
+function clientLook(o){
+  var B = window.BohemiaRigBodies, old = o && o.client && o.client.look;
+  if(!B || !B.cast || !B.person || !S.place || !o) return old;
+  var key = S.place.name + ':' + o.id; if(CLIENT_LOOK[key]) return CLIENT_LOOK[key];
+  var n = ORDER.length + (CROWD_BASE.town || 5) + 7 + 24, hand = B.cast(n + 48, S.place.name + ':people').slice(n + 24);   /* stand() keeps n to n+24 */
+  var taken = {}; Object.keys(CLIENT_LOOK).forEach(function(q){ if(q.indexOf(S.place.name + ':') === 0) taken[CLIENT_LOOK[q]] = 1; });
+  var want = nameSex(o.client.name), her = window.BohemiaNames && BohemiaNames.readsHispanic(o.client.name);
+  var ok = hand.filter(function(l){ var P = B.person(l); return P && !taken[l] && (want === 'm' || !P.sex); });
+  var best = her ? ok.filter(function(l){ var h = B.person(l).heritage; return h === 'hispanic' || h === 'mixed'; }) : ok;
+  var L = best.length ? best : ok.length ? ok : hand;
+  return L.length ? (CLIENT_LOOK[key] = L[seedOf(key) % L.length]) : old;
+}
 function clientName(o){ return (o.client.name + ', ' + o.client.from).toUpperCase(); }
 function clientAct(o, full){
   var b = act(o.title, '☠'.repeat(o.skulls||1) + '  ' + o.pay + ' batt', function(){ offerSpeak(o); }, full);
   b.className = 'act client'; b.dataset.id = o.id;
-  var f = face(null, clientWho(o), o.client.look); f.classList.add('small');
+  var f = face(null, clientWho(o), clientLook(o)); f.classList.add('small');
   var cl = document.createElement('div'); cl.className = 'cl';
   var cn = document.createElement('i'); cn.className = 'cn'; cn.textContent = clientName(o);
   cl.appendChild(b.firstChild);   /* the title span moves inside, still the first span */
@@ -1388,7 +1428,7 @@ function clientAct(o, full){
 function offerSpeak(o){
   S.open = 'board';
   var body = document.getElementById('sbody'); body.textContent = '';
-  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), o.client.look), o.says.replace(/\{pay\}/g, o.pay)));
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, o.pay)));
   var sy = document.createElement('div'); sy.className = 'say';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = clientName(o); sy.appendChild(nm);
   var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, o.pay); sy.appendChild(pp);
@@ -1399,7 +1439,7 @@ function offerSpeak(o){
   }, S.held.length>=SLOTS));
   acts.appendChild(act('Not now', '', function(){ post('declined',{contract:o.id}); openB('board', 'Ni modo. ' + o.client.name + ' will keep asking around, no hard feelings.'); }));
   body.appendChild(acts);
-  post('offer', {contract:o.id, who:clientWho(o), look:o.client.look});
+  post('offer', {contract:o.id, who:clientWho(o), look:clientLook(o)});
   document.getElementById('sheet').classList.add('on');
 }
 /* WHO STANDS AT THE BOARD (RUN TWO [the board's quests are people], 10/18; his 10/17 'no more cards with quests, make an
@@ -1789,7 +1829,7 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

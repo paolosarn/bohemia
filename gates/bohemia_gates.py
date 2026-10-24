@@ -9513,6 +9513,13 @@ GATES = [
      "found the hiring post'; 'CREW opens twelve named men while the crew is 3'): the crew screen opens on the company the origin "
      "built (3 for three, 1 for a lone wolf, his roster cap), the board, the post and the bar glow on the beat until opened once in "
      "that place and stay out on the next visit, the barber never. green at registration, 8/0, about 40 s", True),
+    ('THE FACE IS HIS OWN FACE', ['node', 'gates/the_face_is_his_own_face_gate.js'],
+     "RUN TWO gate, 10/24, row [the face is his own face] (rule 120(d), 121(e)(i), his 10/18: 'the portraits don't look like the "
+     "people... Black people looking like white people'; 10/19: 'EVERYTHING IS A 3D MODEL NOW'): every rolled person's face is the "
+     "head rendered off his own model in the run that rendered his body (152 of 152); the crew is YOU and eleven rolled men, each "
+     "face his own, his card his own body, no beard under a woman's name; in six towns every keeper, man at the post, client and "
+     "crowd speaker talks under his own head; no old cast or gang head and no fight_people sheet fetched; nobody in 16 places or "
+     "the map's crowds is one of your eleven; the old crew list reads red. green at registration, 18/0, about 2 min", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],
