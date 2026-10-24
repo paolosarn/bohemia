@@ -73,8 +73,11 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
     Object.entries(P).map(([k, v]) => k + ' ' + v[0] + '/' + Math.round(v[1])).join(' '));
 
   /* ---------------- 3 to 6: a bare page with both engines ---------------- */
+  /* PLANTED DEFECTS: SQUIGGLE_ENGINE=<a file> serves that file as the player, so a mutated copy can prove a leg bites */
+  const ENG = process.env.SQUIGGLE_ENGINE ? path.resolve(process.env.SQUIGGLE_ENGINE) : null;
   const srv = http.createServer((rq, rs) => {
-    const f = path.join(ROOT, decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, ''));
+    let f = path.join(ROOT, decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, ''));
+    if (ENG && /\/engine\/bohemia_voice_recorded\.js$/.test(rq.url.split('?')[0])) { rs.setHeader('content-type', 'text/javascript'); return fs.createReadStream(ENG).pipe(rs); }
     if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end('no'); }
     rs.setHeader('content-type', f.endsWith('.js') ? 'text/javascript' : f.endsWith('.json') ? 'application/json' : f.endsWith('.mp3') ? 'audio/mpeg' : 'text/html');
     fs.createReadStream(f).pipe(rs);
@@ -140,7 +143,9 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
       AC.suspend(0.6).then(() => { h.stop(); AC.resume(); });
       out.cut = (await clicks(await AC.startRendering(), hz)).count;
       /* his one hard law, per family */
-      out.law = S.idx.families.map(f => ({ id: f.id, hz: Math.min(S.NUM.CAP_HZ, Math.max(0.2, f.vib || 0.3)), depth: S.NUM.WOW + Math.min(S.NUM.CAP_DEPTH - S.NUM.WOW, (f.vibA || 0.008) * 0.5) }));
+      /* the worst case of the two wobbles the player sums: the faster of the two rates, the two depths added as magnitudes */
+      out.law = S.idx.families.map(f => ({ id: f.id, hz: Math.max(S.NUM.WOW_HZ, Math.min(S.NUM.CAP_HZ, Math.max(0.2, f.vib || 0.3))),
+        depth: Math.abs(S.NUM.WOW) + Math.abs(Math.min(S.NUM.CAP_DEPTH - S.NUM.WOW, (f.vibA || 0.008) * 0.5)) }));
       return out;
     }, { L: LV.lines(), mark: LV.MARK, hz: LV.RULER_HZ });
     if (!R.ready) { leg(false, 'the sprite loads in a browser', R.err); throw new Error('no sprite'); }
