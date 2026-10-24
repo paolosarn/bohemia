@@ -16,7 +16,8 @@
        higher than C's (the automatic gain breathing back); THE DROP-OUT: take three of every A voice dives and goes dull,
        never to zero (rule 6 of what analog horror sounds like); THEIRS under YOURS
      - WHAT PLAYS NOW: the pools the page plays as B are the alpha's own (APPROVED and SIBLINGS, re-read now), measured
-     - THE GAME UNTOUCHED: the fight, the alpha and the demo carry none of it until his YES (CUE 7.7)
+     - THE GAME CARRIES IT (re-aimed 10/24 to rule 127: no YES is waited for): the alpha and the demo carry the engine inside
+       THE BULLET LANDS' block, byte for byte; the fight, COMBAT's file, none of it
      - THE CARD: in the registry with this page, a draft, three options; CUE 7.7 names it
      - THE PAGE, his way: the fight loads once and is never reloaded by a tap; a gun fires within two seconds of a tap on
        a 1.6 Mbps network; B renders through the game's engine; C plays the clean files; the fight playing itself is heard
@@ -123,7 +124,13 @@ ok('measured in a real engine render: the game\'s shot today, his shot.3 and its
 
 /* ---------------- THE GAME UNTOUCHED ---------------- */
 const fight = rd('slices/BOHEMIA_FIGHT.html'), alpha = rd('slices/BOHEMIA_ALPHA_0_9.html'), demo = rd('slices/BOHEMIA_DEMO.html');
-ok('the fight, the alpha and the demo carry none of it until his YES (CUE 7.7)', ![fight, alpha, demo].some(s => /bohemia_guns_heard|guns_heard\//.test(s)));
+/* RE-AIMED 10/24 (SOUNDS [the bullet lands]) to rule 127 (Paolo 10/23: 'I haven't seen any votes in the alpha, it's okay if
+   not; if you know there's something I'm in love with, just use tokens towards that'): no YES is waited for any more, so the
+   real guns are IN the game, through the bullet lands' player: the alpha and the demo carry this engine byte for byte inside
+   that one block (gates/bullet_lands_gate.js holds the rest), and the fight, COMBAT's file, still carries none of it. */
+const eng = rd('engine/bohemia_guns_heard.js').trimEnd() + '\n';
+const inBlock = s => { const a = s.indexOf('<!-- __THE_BULLET_LANDS__ (SOUNDS 10/24, rule 120) -->'), b = s.indexOf('<!-- /__THE_BULLET_LANDS__ -->'); return a >= 0 && b > a && s.slice(a, b).indexOf(eng) >= 0 && s.split('BOH_GUNS_HEARD = {').length === 2; };
+ok('rule 127: the real guns are in the game, the alpha and the demo carry this engine byte for byte inside THE BULLET LANDS\' block, the fight (COMBAT\'s file) none of it', inBlock(alpha) && inBlock(demo) && !/bohemia_guns_heard|guns_heard\//.test(fight));
 
 /* ---------------- THE CARD ---------------- */
 const reg = JSON.parse(rd('records/target/BOHEMIA_VOTE_REGISTRY.json'));
