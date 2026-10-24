@@ -159,6 +159,8 @@
 
   window.BohemiaHeard = { opened:opened, closed:closed, handles:handles, event:event, night:night, left:left,
     taps:function(){ var o = {}; for(var k in TAPS) o[k] = TAPS[k]; return o; },
+    /* RUN TWO [the busy town talks] 10/24: the walkers' jobs and mutters play on this one context, through EFFECTS, ALL and MUTE (slices/bohemia_busy_heard.js) */
+    sink:function(){ return (unlocked && ac()) ? { AC:AC, fx:MASTER, amb:AMBG } : null; },
     state:function(){ return { unlocked:unlocked, shown:shown, night:isNight, bed:BED.id, murmur:MURMUR.id, open:openK, vol:vol(), amb:ambVol(), all:allVol(),
       live:AC ? { fx:MASTER.gain.value, amb:AMBG.gain.value, all:OUT.gain.value } : null }; },
     dir:DIR, bedLevel:BED_LEVEL };

@@ -173,7 +173,10 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_lotbuild.js"></script>
 <!-- __/BUILD_ON_THE_SCREEN__ scripts -->
 <script src="bohemia_ui_materials.js"></script>
-<script src="../engine/bohemia_settlement_heard.js"></script>  <!-- SOUNDS [the settlement's sounds] round four (10/18): the real recordings and the desert bed, his 10/17 UP -->  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
+<script src="../engine/bohemia_settlement_heard.js"></script>
+<script src="../engine/bohemia_voice.js"></script>  <!-- RUN TWO [the busy town talks] 10/24: a walker's voice is his face's voice (castVoice), the shell's own rule -->
+<script src="../engine/bohemia_voice_recorded.js"></script>  <!-- SOUNDS' recorded squiggle (rule 135): the walkers mutter in it; the bank is borrowed from the shell -->
+<script src="bohemia_busy_heard.js"></script>  <!-- RUN TWO [the busy town talks]: the jobs heard where they are done, the mutters as they pass, the night different -->  <!-- SOUNDS [the settlement's sounds] round four (10/18): the real recordings and the desert bed, his 10/17 UP -->  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
 <script>
 (function(){
 'use strict';
@@ -1110,7 +1113,22 @@ function draw(){
   g2.addColorStop(0,'rgba(0,0,0,0)'); g2.addColorStop(1,'rgba(0,0,0,.45)');
   cx.fillStyle = g2; cx.fillRect(0,0,W,H);
 }
-function loop(){ draw(); requestAnimationFrame(loop); }
+/* THE BUSY TOWN TALKS (RUN TWO [the busy town talks], 10/24/26, rules 131 and 135; slices/bohemia_busy_heard.js): what the
+   walkers' jobs and mouths need from the glass, once a frame: where each stands on the screen, which end of his round he works at,
+   who in the crowd he passes; and the hour, the open sheet, the beat. The people you tap are never in it: they stand and say
+   their own line when you tap them, through the shell's one voice */
+function heardInput(now){
+  var B = window.BohemiaRigBodies, L = (B && B.walk && !view.noBusy) ? busyList() : [], pH = picH() || 1;
+  var walkers = L.map(function(w){ var a = busyAt(w, now);
+    return {slot:w.slot, look:w.look, x:view.ox + a.x*view.s, py:w.y/pH, lane:w.lane, walking:a.walking != null ? a.walking : null,
+      working:a.working != null ? a.working : null, end:a.walking != null ? null : (Math.abs(a.x - w.b) < 1 ? 'b' : 'a'), stop:w.stop, drawn:!!B.walk(w.look)}; });
+  var crowd = folkList().filter(function(p){ return p.crowd; }).map(function(p){ return {x:view.ox + p.x*view.s, py:p.y/pH, look:p.look}; });
+  var H = window.BohemiaHeard ? BohemiaHeard.state() : {};
+  return {walkers:walkers, crowd:crowd, ctx:{W:view.W, night:!!view.night, open:!!S.open, place:S.place ? S.place.name + ':' + S.place.tier : '', t0:t0,
+    market:(S.traits||[]).some(function(t){ return t.id === 'market_day'; }), shown:!!H.shown, unlocked:!!H.unlocked}};
+}
+function busyHeard(now){ if(!window.BohemiaBusyHeard || !VAR || !S.place) return; var I = heardInput(now); try{ BohemiaBusyHeard.tick(now, I.walkers, I.crowd, I.ctx); }catch(e){} }
+function loop(){ draw(); busyHeard(performance.now()); requestAnimationFrame(loop); }
 /* a small thing (the board on its pole) still takes a thumb: its tap area is at least 44 px */
 function tapBox(k){
   var b = VAR.boxes[k], m = 44/view.s, w = b[2]-b[0], h = b[3]-b[1];
@@ -1483,7 +1501,13 @@ function stand(who){
   return hand.length ? hand[seedOf(String(S.place.name) + ':' + who) % hand.length] : null;
 }
 /* and when he speaks, the mouth says the line on the beat */
-function mouth(c, line){ if(c && c.dataset.face === 'fresh') BohemiaCrewFaces.talk(c, c.dataset.look, line); return c; }
+function mouth(c, line){
+  if(c && c.dataset.face === 'fresh') BohemiaCrewFaces.talk(c, c.dataset.look, line);
+  /* THE BUSY TOWN TALKS (RUN TWO 10/24, rule 135 'every time people speak'): a man whose head is still the dim shape (his file
+     missed, or he has none yet) is still heard, in his own voice, through the shell's one voice; the mouth only moves on a fresh face */
+  else if(c && line) try{ if(window.top && window.top !== window) window.top.postMessage({type:'BOHEMIA_VOICE', speaker:c.dataset.look ? 'face:' + c.dataset.look : 'city:settle:' + (S.place ? S.place.name : '') + ':' + (c.dataset.who || ''), text:String(line)}, '*'); }catch(e){}
+  return c;
+}
 function dimHead(x){
   x.fillStyle='#1a1410'; x.fillRect(0,0,64,64);
   x.fillStyle='#3b3026'; x.fillRect(11,7,14,16); x.fillRect(7,26,22,10);
@@ -1514,6 +1538,7 @@ function face(k, who, look){
   var kp = KEEPERS[k] || {who:who};
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
   look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null) || stand(kp.who);
+  if(look) c.dataset.look = look; c.dataset.who = kp.who || k || '';   /* who is heard when the head is the dim shape (the busy town talks) */
   /* PORTRAIT's 3D head, always: a face the game hands back (BOHEMIA_SETTLEMENT_FACE, the demo's painted face road) is the
      old paint and is kept, never drawn (RUN TWO 10/18, rule 115h amended; 10/19, rule 121(e)) */
   if(look && crewFace(c, look)) post('needFace',{who:kp.who, look:look});
@@ -1983,7 +2008,7 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
