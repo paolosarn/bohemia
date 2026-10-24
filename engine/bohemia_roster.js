@@ -160,6 +160,7 @@
   /* what the fight reads: opts.company = [{background, level, perks, marks}] in crew order (marks: the permanent injuries he carries; each adds to his death roll) */
   function company(crew) { return crew.map(function (m) { var g = m.gear || {}, id = function (it) { return it ? it.id : null; };
     return { name: m.name, background: m.bgId, level: m.level, look: m.look, perks: (m.perks || []).slice(), marks: m.marks || (m.mark ? [m.mark] : []),
+             stats: m.hired && m.stats ? Object.assign({}, m.stats) : undefined, traits: Array.isArray(m.traits) ? m.traits.slice() : undefined,   /* a man hired at the post fights as his card said, his trait on him (RUN TWO 10/24) */
              gear: { main: id(g.main), off: id(g.off), body: id(g.body), head: id(g.head) } }; }); }
   /* WHAT HIS ARM DOES IN A FIGHT (RUN TWO [the guns on the crew screen], 10/22; rule 120(a): the company starts with guns; rule
      83: 'melee weapons work on one tile away, all guns 2+ minimum... the pistol is a two-tile gun, or a club at one'): read the

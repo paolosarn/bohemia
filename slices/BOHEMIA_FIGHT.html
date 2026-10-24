@@ -538,7 +538,8 @@ const FIGHT = (function () {
   }
   function crewUnit(c, i) {
     const bg = DB.backgrounds.rows.filter(function (r) { return r.id === c.background; })[0];
-    const st = bg.stats, roll = function (k) { return rint(st[k][0], st[k][st[k].length - 1]); };
+    const st = bg.stats, roll = function (k) { const v = rint(st[k][0], st[k][st[k].length - 1]);   /* drawn either way: the dice stream is the same for everybody after him */
+      return c.stats && typeof c.stats[k] === 'number' ? c.stats[k] : v; };   /* a man hired at the post fights as his card said, his trait on him (RUN TWO [the trait before you hire], 10/24) */
     const rows = R('ours.weapon_rows');
     let job = c.jobs.filter(function (j) { return j !== 'car_door'; })[0];
     /* what he wears on the roster is what he fights with (RUN TWO [equip from the stash]): the company's gear ids win,
@@ -946,7 +947,7 @@ const FIGHT = (function () {
       ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
           if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
           if (m.look) t.look = m.look;   /* ONE MAN, ONE LOOK (RUN TWO, 10/19): the look he carries, read in crewUnit */
-          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; return t; })
+          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; return t; })
       : base);
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);

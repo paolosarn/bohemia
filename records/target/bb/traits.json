@@ -1,0 +1,1612 @@
+{
+ "_about": "Battle Brothers' traits, read off the wiki's own pages in the library (reference/library/grok/wiki/PAGES_ALL.tar.gz, bb_all/<n>_<Name>.txt, each page's <onlyinclude> row; the list is the Traits page's own, CORE_WIKITEXT.md). at_the_post: a recruit can be dealt it and every effect is a flat number on the eight stats the fight reads. 'says' is ours, draft:true. Made by tools/bohemia_run2_traits_from_the_wiki.py (RUN TWO, 10/24/26).",
+ "source": "the Battle Brothers wiki (battlebrothers.fandom.com), as held in the library",
+ "made": "10/24/26",
+ "lane": "RUN TWO",
+ "recruits": {
+  "value": "0 to 2 randomly selected traits; some backgrounds disallow some",
+  "quote": "New recruits to your mercenary company may have 0 to 2 randomly selected traits that affect their stats in positive and/or negative ways. Some backgrounds will disallow certain traits"
+ },
+ "card_shows": {
+  "value": 1,
+  "from": "TUNING's change 9: 'his one trait in plain words'"
+ },
+ "traits": [
+  {
+   "id": "acolyte_of_davkul",
+   "name": "Acolyte of Davkul",
+   "kind": "trait",
+   "wiki_page": "bb_all/0011_Acolyte of Davkul.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "addict",
+   "name": "Addict",
+   "kind": "trait",
+   "wiki_page": "bb_all/0014_Addict.txt",
+   "effects_cell": "<span style=\"color:red\">-10%</span> [[File:Resolve.png|25px|Resolve]]<br /><span style=\"color:red\">-10%</span> [[File:Melee_skill.png|25px|Melee Skill]]<br /><span style=\"color:red\">-10%</span> [[File:Ranged_skill.png|25px|Ranged Skill]]<br /><span style=\"color:red\">-10%</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /><span style=\"color:red\">-10%</span> [[File:Ranged_defense.png|25px|Ranged Defense]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -10,
+     "pct": true,
+     "flat_eight": false
+    },
+    {
+     "stat": "melee_skill",
+     "n": -10,
+     "pct": true,
+     "flat_eight": false
+    },
+    {
+     "stat": "ranged_skill",
+     "n": -10,
+     "pct": true,
+     "flat_eight": false
+    },
+    {
+     "stat": "melee_defense",
+     "n": -10,
+     "pct": true,
+     "flat_eight": false
+    },
+    {
+     "stat": "ranged_defense",
+     "n": -10,
+     "pct": true,
+     "flat_eight": false
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: melee_defense%, melee_skill%, ranged_defense%, ranged_skill%, resolve%",
+   "says": "Needs his fix.",
+   "draft": true
+  },
+  {
+   "id": "ailing",
+   "name": "Ailing",
+   "kind": "trait",
+   "wiki_page": "bb_all/0037_Ailing.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Poison effects last 1 additional turn",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Poison effects last 1 additional turn"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Sick a lot.",
+   "draft": true
+  },
+  {
+   "id": "arena_fighter",
+   "name": "Arena Fighter",
+   "kind": "trait",
+   "wiki_page": "bb_all/0132_Arena Fighter.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "arena_veteran",
+   "name": "Arena Veteran",
+   "kind": "trait",
+   "wiki_page": "bb_all/0134_Arena Veteran.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "asthmatic",
+   "name": "Asthmatic",
+   "kind": "trait",
+   "wiki_page": "bb_all/0157_Asthmatic.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:red\">-3</span> [[File:Fatigue.png|25px|Fatigue]] recovery per turn",
+   "effects": [
+    {
+     "stat": "fatigue",
+     "n": -3,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "-3 recovery per turn"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Wheezes.",
+   "draft": true
+  },
+  {
+   "id": "athletic",
+   "name": "Athletic",
+   "kind": "trait",
+   "wiki_page": "bb_all/0158_Athletic.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Builds up 2 less [[File:Fatigue.png|25px|Fatigue]] for each tile travelled",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Builds up 2 less for each tile travelled"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Never winded.",
+   "draft": true
+  },
+  {
+   "id": "bleeder",
+   "name": "Bleeder",
+   "kind": "trait",
+   "wiki_page": "bb_all/0254_Bleeder.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Bleed effects last 1 additional turn",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Bleed effects last 1 additional turn"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Bleeds bad.",
+   "draft": true
+  },
+  {
+   "id": "bloodthirsty",
+   "name": "Bloodthirsty",
+   "kind": "trait",
+   "wiki_page": "bb_all/0258_Bloodthirsty.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />All kills are fatalities",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "All kills are fatalities"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Likes it.",
+   "draft": true
+  },
+  {
+   "id": "brave",
+   "name": "Brave",
+   "kind": "trait",
+   "wiki_page": "bb_all/0278_Brave.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Does not scare easy.",
+   "draft": true
+  },
+  {
+   "id": "bright",
+   "name": "Bright",
+   "kind": "trait",
+   "wiki_page": "bb_all/0300_Bright.txt",
+   "effects_cell": "<span style=\"color:green\">+10%</span> [[File:Xp_received.png|25px|Expirience gained]]",
+   "effects": [
+    {
+     "stat": "xp",
+     "n": 10,
+     "pct": true,
+     "flat_eight": false
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: xp%",
+   "says": "Learns fast.",
+   "draft": true
+  },
+  {
+   "id": "brute",
+   "name": "Brute",
+   "kind": "trait",
+   "wiki_page": "bb_all/0319_Brute.txt",
+   "effects_cell": "<span style=\"color:green\">+15%</span> [[File:Dmgtohead.png|25px|Damage to Head]]<br /><span style=\"color:red\">-5</span> [[File:Melee_skill.png|25px|Melee Skill]]",
+   "effects": [
+    {
+     "stat": "dmgtohead",
+     "n": 15,
+     "pct": true,
+     "flat_eight": false
+    },
+    {
+     "stat": "melee_skill",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: dmgtohead%",
+   "says": "Hits like a truck.",
+   "draft": true
+  },
+  {
+   "id": "chosen_of_davkul",
+   "name": "Chosen of Davkul",
+   "kind": "trait",
+   "wiki_page": "bb_all/0380_Chosen of Davkul.txt",
+   "effects_cell": "<span style=\"color:green\">+20</span> [[File:Health.png|25px|Hitpoints]]<br /><span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]<br /><span style=\"color:green\">+5</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /><span style=\"color:green\">+5</span> [[File:Ranged_defense.png|25px|Ranged Defense]]",
+   "effects": [
+    {
+     "stat": "hp",
+     "n": 20,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "melee_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "ranged_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "clubfooted",
+   "name": "Clubfooted",
+   "kind": "trait",
+   "wiki_page": "bb_all/0411_Clubfooted.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:red\">+2</span> [[File:Fatigue.png|25px|Fatigue]] for each tile traveled.",
+   "effects": [
+    {
+     "stat": "fatigue",
+     "n": -2,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "+2 for each tile traveled."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Bad foot.",
+   "draft": true
+  },
+  {
+   "id": "clumsy",
+   "name": "Clumsy",
+   "kind": "trait",
+   "wiki_page": "bb_all/0412_Clumsy.txt",
+   "effects_cell": "<span style=\"color:red\">-5</span> [[File:Melee_skill.png|25px|Melee Skill]]",
+   "effects": [
+    {
+     "stat": "melee_skill",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "All thumbs.",
+   "draft": true
+  },
+  {
+   "id": "cocky",
+   "name": "Cocky",
+   "kind": "trait",
+   "wiki_page": "bb_all/0415_Cocky.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Resolve.png|25px|Resolve]]<br /><span style=\"color:red\">-5</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /><span style=\"color:red\">-5</span> [[File:Ranged_defense.png|25px|Ranged Defense]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "melee_defense",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "ranged_defense",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Thinks he is the best.",
+   "draft": true
+  },
+  {
+   "id": "craven",
+   "name": "Craven",
+   "kind": "trait",
+   "wiki_page": "bb_all/0452_Craven.txt",
+   "effects_cell": "<span style=\"color:red\">-10</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Runs first.",
+   "draft": true
+  },
+  {
+   "id": "dastard",
+   "name": "Dastard",
+   "kind": "trait",
+   "wiki_page": "bb_all/0509_Dastard.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Starts combat at wavering morale.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Starts combat at wavering morale."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "A coward, and he knows it.",
+   "draft": true
+  },
+  {
+   "id": "deathwish",
+   "name": "Deathwish",
+   "kind": "trait",
+   "wiki_page": "bb_all/0523_Deathwish.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />No morale check is triggered upon losing [[File:Health.png|25px|Hitpoints]] hitpoints.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "No morale check is triggered upon losing hitpoints."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Wants to die out there.",
+   "draft": true
+  },
+  {
+   "id": "determined",
+   "name": "Determined",
+   "kind": "trait",
+   "wiki_page": "bb_all/0576_Determined.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Starts combat at confident morale if his mood permits it.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Starts combat at confident morale if his mood permits it."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Will not quit.",
+   "draft": true
+  },
+  {
+   "id": "dexterous",
+   "name": "Dexterous",
+   "kind": "trait",
+   "wiki_page": "bb_all/0628_Dexterous.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Melee_skill.png|25px|Melee Skill]]",
+   "effects": [
+    {
+     "stat": "melee_skill",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Good hands.",
+   "draft": true
+  },
+  {
+   "id": "disciple_of_davkul",
+   "name": "Disciple of Davkul",
+   "kind": "trait",
+   "wiki_page": "bb_all/0639_Disciple of Davkul.txt",
+   "effects_cell": "<span style=\"color:green\">+20</span> [[File:Health.png|25px|Hitpoints]]<br /><span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "hp",
+     "n": 20,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "disloyal",
+   "name": "Disloyal",
+   "kind": "trait",
+   "wiki_page": "bb_all/0646_Disloyal.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />100% more likely to [[Desertion|desert]] if unhappy.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "100% more likely to desert if unhappy."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Will walk out.",
+   "draft": true
+  },
+  {
+   "id": "drunkard",
+   "name": "Drunkard",
+   "kind": "trait",
+   "wiki_page": "bb_all/0676_Drunkard.txt",
+   "effects_cell": "<span style=\"color:green\">+10%</span> [[File:Damage_dealt.png|25px|Damage dealt]]<br /><span style=\"color:green\">+5</span> [[File:Resolve.png|25px|Resolve]]<br /><span style=\"color:red\">-5</span> [[File:Melee_skill.png|25px|Melee Skill]]<br /><span style=\"color:red\">-10</span> [[File:Ranged_skill.png|25px|Ranged Skill]]",
+   "effects": [
+    {
+     "stat": "damage",
+     "n": 10,
+     "pct": true,
+     "flat_eight": false
+    },
+    {
+     "stat": "resolve",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "melee_skill",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "ranged_skill",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: damage%",
+   "says": "Drinks before a fight.",
+   "draft": true
+  },
+  {
+   "id": "dumb",
+   "name": "Dumb",
+   "kind": "trait",
+   "wiki_page": "bb_all/0680_Dumb.txt",
+   "effects_cell": "<span style=\"color:red\">-15%</span> [[File:Xp_received.png|25px|Experience gained]]",
+   "effects": [
+    {
+     "stat": "xp",
+     "n": -15,
+     "pct": true,
+     "flat_eight": false
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: xp%",
+   "says": "Slow to learn.",
+   "draft": true
+  },
+  {
+   "id": "eagle_eyes",
+   "name": "Eagle Eyes",
+   "kind": "trait",
+   "wiki_page": "bb_all/0681_Eagle Eyes.txt",
+   "effects_cell": "<span style=\"color:green\">+1</span> [[File:Vision.png|25p|Vision]]",
+   "effects": [
+    {
+     "stat": "vision",
+     "n": 1,
+     "pct": false,
+     "flat_eight": false
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: vision",
+   "says": "Sees far.",
+   "draft": true
+  },
+  {
+   "id": "fainthearted",
+   "name": "Fainthearted",
+   "kind": "trait",
+   "wiki_page": "bb_all/0726_Fainthearted.txt",
+   "effects_cell": "<span style=\"color:red\">-5</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Shakes when it starts.",
+   "draft": true
+  },
+  {
+   "id": "fanatic_of_davkul",
+   "name": "Fanatic of Davkul",
+   "kind": "trait",
+   "wiki_page": "bb_all/0737_Fanatic of Davkul.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "fat",
+   "name": "Fat",
+   "kind": "trait",
+   "wiki_page": "bb_all/0742_Fat.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Health.png|25px|Hitpoints]]<br /><span style=\"color:red\">-10</span> [[File:Fatigue.png|25px|Fatigue]]",
+   "effects": [
+    {
+     "stat": "hp",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "fatigue",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "suffered through events (the Traits page)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "fear_of_beasts",
+   "name": "Fear of Beasts",
+   "kind": "trait",
+   "wiki_page": "bb_all/0750_Fear of Beasts.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:red\">-10</span> [[File:Resolve.png|25px|Resolve]] when in battle with beasts.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "-10 when in battle with beasts."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Afraid of the lab beasts.",
+   "draft": true
+  },
+  {
+   "id": "fear_of_greenskins",
+   "name": "Fear of Greenskins",
+   "kind": "trait",
+   "wiki_page": "bb_all/0751_Fear of Greenskins.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:red\">-10</span> [[File:Resolve.png|25px|Resolve]] when in battle with greenskins.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "-10 when in battle with greenskins."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "fear_of_undead",
+   "name": "Fear of Undead",
+   "kind": "trait",
+   "wiki_page": "bb_all/0752_Fear of Undead.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:red\">-10</span> [[File:Resolve.png|25px|Resolve]] when in battle with undead.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "-10 when in battle with undead."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "fearless",
+   "name": "Fearless",
+   "kind": "trait",
+   "wiki_page": "bb_all/0753_Fearless.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Nothing scares him.",
+   "draft": true
+  },
+  {
+   "id": "fragile",
+   "name": "Fragile",
+   "kind": "trait",
+   "wiki_page": "bb_all/0813_Fragile.txt",
+   "effects_cell": "<span style=\"color:red\">-10</span> [[File:Health.png|25px|Hitpoints]]",
+   "effects": [
+    {
+     "stat": "hp",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Breaks easy.",
+   "draft": true
+  },
+  {
+   "id": "glorious_endurance",
+   "name": "Glorious Endurance",
+   "kind": "trait",
+   "wiki_page": "bb_all/0856_Glorious Endurance.txt",
+   "effects_cell": "[[Glorious Endurance]]<br />[[File:Trait_icon_70.png]]<!-- Trait -->",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Glorious Endurance"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "glorious_quickness",
+   "name": "Glorious Quickness",
+   "kind": "trait",
+   "wiki_page": "bb_all/0857_Glorious Quickness.txt",
+   "effects_cell": "[[Glorious Quickness]]<br />[[File:Trait_icon_71.png]]<!-- Trait -->",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Glorious Quickness"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "glorious_resolve",
+   "name": "Glorious Resolve",
+   "kind": "trait",
+   "wiki_page": "bb_all/0858_Glorious Resolve.txt",
+   "effects_cell": "[[Glorious Resolve]]<br />[[File:Trait_icon_72.png]]<!-- Trait -->",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Glorious Resolve"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "gluttonous",
+   "name": "Gluttonous",
+   "kind": "trait",
+   "wiki_page": "bb_all/0862_Gluttonous.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Eats 3, instead of 2 food per day.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Eats 3, instead of 2 food per day."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Always hungry.",
+   "draft": true
+  },
+  {
+   "id": "greedy",
+   "name": "Greedy",
+   "kind": "trait",
+   "wiki_page": "bb_all/0909_Greedy.txt",
+   "effects_cell": "<span style=\"color:red\">+15%</span> [[File:Asset_daily_money.png|25px|Daily Pay]]",
+   "effects": [
+    {
+     "stat": "asset_daily_money",
+     "n": -15,
+     "pct": true,
+     "flat_eight": false
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: asset_daily_money%",
+   "says": "Wants more batteries.",
+   "draft": true
+  },
+  {
+   "id": "hate_for_beasts",
+   "name": "Hate for Beasts",
+   "kind": "trait",
+   "wiki_page": "bb_all/0943_Hate for Beasts.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]] when in battle with beasts.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "+10 when in battle with beasts."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Hates the lab beasts.",
+   "draft": true
+  },
+  {
+   "id": "hate_for_greenskins",
+   "name": "Hate for Greenskins",
+   "kind": "trait",
+   "wiki_page": "bb_all/0944_Hate for Greenskins.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]] when in battle with greenskins.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "+10 when in battle with greenskins."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "hate_for_undead",
+   "name": "Hate for Undead",
+   "kind": "trait",
+   "wiki_page": "bb_all/0945_Hate for Undead.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]] when in battle with undead.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "+10 when in battle with undead."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "hesitant",
+   "name": "Hesitant",
+   "kind": "trait",
+   "wiki_page": "bb_all/0987_Hesitant.txt",
+   "effects_cell": "<span style=\"color:red\">-10</span> [[File:Initiative.png|25px|Initiative]]",
+   "effects": [
+    {
+     "stat": "initiative",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Slow to move.",
+   "draft": true
+  },
+  {
+   "id": "huge",
+   "name": "Huge",
+   "kind": "trait",
+   "wiki_page": "bb_all/1035_Huge.txt",
+   "effects_cell": "<span style=\"color:green\">+10%</span> [[File:Damage_dealt.png|25px|Melee Damage Dealt]]<br /><span style=\"color:red\">-5</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /><span style=\"color:red\">-5</span> [[File:Ranged_defense.png|25px|Ranged Defense]]",
+   "effects": [
+    {
+     "stat": "damage",
+     "n": 10,
+     "pct": true,
+     "flat_eight": false
+    },
+    {
+     "stat": "melee_defense",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "ranged_defense",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: damage%",
+   "says": "Big as a door.",
+   "draft": true
+  },
+  {
+   "id": "impatient",
+   "name": "Impatient",
+   "kind": "trait",
+   "wiki_page": "bb_all/1067_Impatient.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Always acts first in the first round of combat (<span style=\"color:green\">+1000</span> [[File:Initiative.png|25px|Initiative]]).",
+   "effects": [
+    {
+     "stat": "initiative",
+     "n": 1000,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "Always acts first in the first round of combat (+1000 )."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "First one in.",
+   "draft": true
+  },
+  {
+   "id": "insecure",
+   "name": "Insecure",
+   "kind": "trait",
+   "wiki_page": "bb_all/1086_Insecure.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Will never be of confident morale.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Will never be of confident morale."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Needs a pat on the back.",
+   "draft": true
+  },
+  {
+   "id": "iron_lungs",
+   "name": "Iron Lungs",
+   "kind": "trait",
+   "wiki_page": "bb_all/1093_Iron Lungs.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Recovers an extra 3 [[File:Fatigue.png|25px|Fatigue]] every turn.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Recovers an extra 3 every turn."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Never out of breath.",
+   "draft": true
+  },
+  {
+   "id": "iron_jaw",
+   "name": "Iron Jaw",
+   "kind": "trait",
+   "wiki_page": "bb_all/1092_Iron Jaw.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />The threshold to sustain injuries on getting hit is increased by <span style=\"color:green\">25%</span>.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "The threshold to sustain injuries on getting hit is increased by 25%."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Takes a hit.",
+   "draft": true
+  },
+  {
+   "id": "irrational",
+   "name": "Irrational",
+   "kind": "trait",
+   "wiki_page": "bb_all/1098_Irrational.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Has <span style=\"color:green\">+10</span> or <span style=\"color:red\">-10</span> [[File:Resolve.png|25px|Resolve]] randomly at every morale check.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "Has +10 or -10 randomly at every morale check."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Hard to read.",
+   "draft": true
+  },
+  {
+   "id": "loyal",
+   "name": "Loyal",
+   "kind": "trait",
+   "wiki_page": "bb_all/1217_Loyal.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />50% less likely to [[Desertion|desert]] if unhappy.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "50% less likely to desert if unhappy."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Stays.",
+   "draft": true
+  },
+  {
+   "id": "lucky",
+   "name": "Lucky",
+   "kind": "trait",
+   "wiki_page": "bb_all/1218_Lucky.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">10%</span> chance to require the attacker to make 2 successful attack rolls to hit you",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "10% chance to require the attacker to make 2 successful attack rolls to hit you"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Bullets miss him.",
+   "draft": true
+  },
+  {
+   "id": "mad",
+   "name": "Mad",
+   "kind": "trait",
+   "wiki_page": "bb_all/1225_Mad.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">+15</span> or <span style=\"color:red\">-15</span> [[File:Resolve.png|25px|Resolve]] at every morale check",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -15,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "+15 or -15 at every morale check"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Not right in the head.",
+   "draft": true
+  },
+  {
+   "id": "night_blind",
+   "name": "Night Blind",
+   "kind": "trait",
+   "wiki_page": "bb_all/1416_Night Blind.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:red\">-1</span> [[File:Vision.png|25p|Vision]] during nighttime",
+   "effects": [
+    {
+     "stat": "vision",
+     "n": -1,
+     "pct": false,
+     "flat_eight": false
+    },
+    {
+     "stat": "special",
+     "text": "-1 during nighttime"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special, vision",
+   "says": "Blind after dark.",
+   "draft": true
+  },
+  {
+   "id": "night_owl",
+   "name": "Night Owl",
+   "kind": "trait",
+   "wiki_page": "bb_all/1417_Night Owl.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">+1</span> [[File:Vision.png|25p|Vision]] during nighttime",
+   "effects": [
+    {
+     "stat": "vision",
+     "n": 1,
+     "pct": false,
+     "flat_eight": false
+    },
+    {
+     "stat": "special",
+     "text": "+1 during nighttime"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special, vision",
+   "says": "Sees in the dark.",
+   "draft": true
+  },
+  {
+   "id": "old",
+   "name": "Old",
+   "kind": "status",
+   "wiki_page": "bb_all/1483_Old.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]<br /><span style=\"color:red\">-10</span> [[File:Health.png|25px|Hitpoints]]<br /><span style=\"color:red\">-10</span> [[File:Fatigue.png|25px|Fatigue]]<br /><span style=\"color:red\">-10</span> [[File:Initiative.png|25px|Initiative]]<br /><span style=\"color:red\">-1</span> [[File:Vision.png|25p|Vision]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "hp",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "fatigue",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "initiative",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "vision",
+     "n": -1,
+     "pct": false,
+     "flat_eight": false
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "a status",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "optimist",
+   "name": "Optimist",
+   "kind": "trait",
+   "wiki_page": "bb_all/1488_Optimist.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">+5</span> [[File:Resolve.png|25px|Resolve]] at all positive morale checks.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "+5 at all positive morale checks."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Thinks it will be fine.",
+   "draft": true
+  },
+  {
+   "id": "paranoid",
+   "name": "Paranoid",
+   "kind": "trait",
+   "wiki_page": "bb_all/1523_Paranoid.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /><span style=\"color:green\">+5</span> [[File:Ranged_defense.png|25px|Ranged Defense]]<br /><span style=\"color:red\">-30</span> [[File:Initiative.png|25px|Initiative]]",
+   "effects": [
+    {
+     "stat": "melee_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "ranged_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "initiative",
+     "n": -30,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Watches his back.",
+   "draft": true
+  },
+  {
+   "id": "pessimist",
+   "name": "Pessimist",
+   "kind": "trait",
+   "wiki_page": "bb_all/1542_Pessimist.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:red\">-5</span> [[File:Resolve.png|25px|Resolve]] at negative morale checks.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "-5 at negative morale checks."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Thinks it will go wrong.",
+   "draft": true
+  },
+  {
+   "id": "pit_fighter",
+   "name": "Pit Fighter",
+   "kind": "trait",
+   "wiki_page": "bb_all/1561_Pit Fighter.txt",
+   "effects_cell": "",
+   "effects": [],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "player_character",
+   "name": "Player Character",
+   "kind": "trait",
+   "wiki_page": "bb_all/1567_Player Character.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "prophet_of_davkul",
+   "name": "Prophet of Davkul",
+   "kind": "trait",
+   "wiki_page": "bb_all/1606_Prophet of Davkul.txt",
+   "effects_cell": "<span style=\"color:green\">+20</span> [[File:Health.png|25px|Hitpoints]]<br /><span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]<br /><span style=\"color:green\">+5</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /><span style=\"color:green\">+5</span> [[File:Ranged_defense.png|25px|Ranged Defense]]",
+   "effects": [
+    {
+     "stat": "hp",
+     "n": 20,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "melee_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "ranged_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  },
+  {
+   "id": "quick",
+   "name": "Quick",
+   "kind": "trait",
+   "wiki_page": "bb_all/1612_Quick.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Initiative.png|25px|Initiative]]",
+   "effects": [
+    {
+     "stat": "initiative",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Moves first.",
+   "draft": true
+  },
+  {
+   "id": "short_sighted",
+   "name": "Short Sighted",
+   "kind": "trait",
+   "wiki_page": "bb_all/1786_Short Sighted.txt",
+   "effects_cell": "<span style=\"color:red\">-1</span> [[File:Vision.png|25p|Vision]]",
+   "effects": [
+    {
+     "stat": "vision",
+     "n": -1,
+     "pct": false,
+     "flat_eight": false
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: vision",
+   "says": "Cannot see far.",
+   "draft": true
+  },
+  {
+   "id": "spartan",
+   "name": "Spartan",
+   "kind": "trait",
+   "wiki_page": "bb_all/1836_Spartan.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Eats 1, instead of 2 food per day.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Eats 1, instead of 2 food per day."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Eats little.",
+   "draft": true
+  },
+  {
+   "id": "strong",
+   "name": "Strong",
+   "kind": "trait",
+   "wiki_page": "bb_all/1890_Strong.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Fatigue.png|25px|Fatigue]]",
+   "effects": [
+    {
+     "stat": "fatigue",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Carries more.",
+   "draft": true
+  },
+  {
+   "id": "superstitious",
+   "name": "Superstitious",
+   "kind": "trait",
+   "wiki_page": "bb_all/1897_Superstitious.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:red\">-10</span> [[File:Resolve.png|25px|Resolve]] at morale checks against fear, panic or mind-control effects.",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": -10,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "-10 at morale checks against fear, panic or mind-control effects."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Believes in the bad stuff.",
+   "draft": true
+  },
+  {
+   "id": "sure_footing",
+   "name": "Sure Footing",
+   "kind": "trait",
+   "wiki_page": "bb_all/1899_Sure Footing.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Melee_defense.png|25px|Melee Defense]]",
+   "effects": [
+    {
+     "stat": "melee_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Hard to knock down.",
+   "draft": true
+  },
+  {
+   "id": "survivor",
+   "name": "Survivor",
+   "kind": "trait",
+   "wiki_page": "bb_all/1901_Survivor.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">90%</span> chance to survive if reduced to 0 [[File:Health.png|25px|Hitpoints]]",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "90% chance to survive if reduced to 0"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Hard to kill.",
+   "draft": true
+  },
+  {
+   "id": "swift",
+   "name": "Swift",
+   "kind": "trait",
+   "wiki_page": "bb_all/1907_Swift.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Ranged_defense.png|25px|Ranged Defense]]",
+   "effects": [
+    {
+     "stat": "ranged_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Hard to hit from far.",
+   "draft": true
+  },
+  {
+   "id": "team_player",
+   "name": "Team Player",
+   "kind": "trait",
+   "wiki_page": "bb_all/1934_Team Player.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br />Has a <span style=\"color:green\">50%</span> lower chance to inflict friendly fire.",
+   "effects": [
+    {
+     "stat": "special",
+     "text": "Has a 50% lower chance to inflict friendly fire."
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Good in a crew.",
+   "draft": true
+  },
+  {
+   "id": "tiny",
+   "name": "Tiny",
+   "kind": "trait",
+   "wiki_page": "bb_all/2011_Tiny.txt",
+   "effects_cell": "<span style=\"color:green\">+5</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /><span style=\"color:green\">+5</span> [[File:Ranged_defense.png|25px|Ranged Defense]]<br /><span style=\"color:red\">-15%</span> [[File:Damage_dealt.png|Melee Damage Dealt|25px]]",
+   "effects": [
+    {
+     "stat": "melee_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "ranged_defense",
+     "n": 5,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "damage",
+     "n": -15,
+     "pct": true,
+     "flat_eight": false
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: damage%",
+   "says": "Small and quick.",
+   "draft": true
+  },
+  {
+   "id": "tough",
+   "name": "Tough",
+   "kind": "trait",
+   "wiki_page": "bb_all/2015_Tough.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Health.png|25px|Hitpoints]]",
+   "effects": [
+    {
+     "stat": "hp",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": true,
+   "why_not": null,
+   "says": "Takes a beating.",
+   "draft": true
+  },
+  {
+   "id": "weasel",
+   "name": "Weasel",
+   "kind": "trait",
+   "wiki_page": "bb_all/2193_Weasel.txt",
+   "effects_cell": "[[File:Special.png|25px]]<br /><span style=\"color:green\">+25</span> [[File:Melee_defense.png|25px|Melee Defense]] while retreating",
+   "effects": [
+    {
+     "stat": "melee_defense",
+     "n": 25,
+     "pct": false,
+     "flat_eight": true
+    },
+    {
+     "stat": "special",
+     "text": "+25 while retreating"
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "an effect the fight does not read yet: special",
+   "says": "Slips away.",
+   "draft": true
+  },
+  {
+   "id": "zealot_of_davkul",
+   "name": "Zealot of Davkul",
+   "kind": "trait",
+   "wiki_page": "bb_all/2248_Zealot of Davkul.txt",
+   "effects_cell": "<span style=\"color:green\">+10</span> [[File:Resolve.png|25px|Resolve]]",
+   "effects": [
+    {
+     "stat": "resolve",
+     "n": 10,
+     "pct": false,
+     "flat_eight": true
+    }
+   ],
+   "at_the_post": false,
+   "why_not": "not a recruit's (the cult, the arena, the player, or a thing the valley lacks)",
+   "says": null,
+   "draft": true
+  }
+ ],
+ "missing_pages": []
+}
