@@ -114,3 +114,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 100 | AUTO knows every enemy's lesson (kill the Mechanic first) | 182 | COMBAT | QUEUED (next in COMBAT) |
 | 101 | New music goes to the VOTE tab first, he hears it before the game does | 181 | SOUNDS | RUNNING |
 | 102 | The first fifty days reward a small strong crew; the Lone Wolf plays like he remembers | 183 | TUNING, RUN, RUN TWO, EYES | RUNNING (TUNING measures) |
+| 103 | Every origin starts like itself; the Lone Wolf a gilded god with three stars in the stats that matter | 184 | TUNING, RUN TWO, EYES | RUNNING (TUNING measures the fifteen) |
