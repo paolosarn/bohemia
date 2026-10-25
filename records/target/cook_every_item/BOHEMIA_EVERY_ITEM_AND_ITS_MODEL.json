@@ -7,7 +7,7 @@
  "rows_total": 310,
  "objects_total": 27,
  "objects_with_a_model_before": 3,
- "objects_with_a_model_now": 17,
+ "objects_with_a_model_now": 20,
  "objects": {
   "car_door": {
    "kind": "shield",
@@ -123,7 +123,7 @@
    "rows": 14,
    "glb": "reference/models/bohemia/item_cleaver.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
   },
   "chain": {
@@ -150,7 +150,7 @@
    "rows": 8,
    "glb": "reference/models/bohemia/item_compound_bow.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "club": {
@@ -249,7 +249,7 @@
    "rows": 29,
    "glb": "reference/models/bohemia/item_full_riot_helm.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   }
  },

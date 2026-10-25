@@ -1,0 +1,25 @@
+{
+ "size_m": [
+  0.182,
+  0.072,
+  1.122
+ ],
+ "lo": [
+  -0.119,
+  -0.027,
+  -0.561
+ ],
+ "hi": [
+  0.063,
+  0.045,
+  0.561
+ ],
+ "materials": [
+  "chrome 0",
+  "cloth_black 2",
+  "metal_painted 1",
+  "tape_masking 2"
+ ],
+ "verts": 564,
+ "parts": 26
+}

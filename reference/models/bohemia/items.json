@@ -754,6 +754,171 @@
     "left_x": 0.49
    },
    "left_x": 0.49
+  },
+  "full_riot_helm": {
+   "glb": "item_full_riot_helm.glb",
+   "kind": "worn_head",
+   "name": "a full riot helm",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "closed_and_padded_flat_top",
+    "ancient_honor_guard_helmet",
+    "barbute_helmet",
+    "closed_scrap_metal_helmet",
+    "nasal_helmet_with_mail",
+    "steppe_helmet_with_mail",
+    "southern_helmet_with_coif",
+    "bascinet_with_mail",
+    "kettle_hat_with_mail",
+    "gladiator_helmet",
+    "flat_top_with_mail",
+    "decayed_closed_flat_top_with_mail",
+    "covered_decayed_closed_flat_top_with_mail",
+    "nasal_helmet_with_closed_mail",
+    "decayed_full_helm",
+    "adorned_closed_flat_top",
+    "kettle_hat_with_closed_mail",
+    "heavy_horned_plate_helmet",
+    "heavy_lamellar_helmet",
+    "decayed_great_helm",
+    "nordic_helmet_with_closed_mail",
+    "conic_helmet_with_closed_mail",
+    "flat_top_with_closed_mail",
+    "conic_helmet_with_faceguard",
+    "closed_flat_top_with_mail",
+    "turban_helmet",
+    "adorned_full_helm",
+    "full_helm",
+    "decorated_full_helm"
+   ],
+   "sha1": "3fb8e51a85a22b3ef6b58727c30fe8f53f38895a",
+   "measured": {
+    "size_m": [
+     0.522,
+     0.512,
+     0.512
+    ],
+    "lo": [
+     -0.261,
+     -0.246,
+     1.068
+    ],
+    "hi": [
+     0.261,
+     0.267,
+     1.58
+    ],
+    "materials": [
+     "clay_rust 1",
+     "glass_eye 1",
+     "metal_painted 0",
+     "metal_painted 1",
+     "rubber 1"
+    ],
+    "verts": 3236,
+    "parts": 68,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_1",
+     "Skeleton_neck_joint_2"
+    ]
+   }
+  },
+  "compound_bow": {
+   "glb": "item_compound_bow.glb",
+   "kind": "held",
+   "name": "compound bow",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "wonky_bow",
+    "boondock_bow",
+    "short_bow",
+    "reinforced_boondock_bow",
+    "composite_bow",
+    "hunting_bow",
+    "war_bow",
+    "masterwork_bow"
+   ],
+   "sha1": "27b9288f678e983c213e1318fcf82dfbecda11a2",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     0.182,
+     0.072,
+     1.122
+    ],
+    "lo": [
+     -0.119,
+     -0.027,
+     -0.561
+    ],
+    "hi": [
+     0.063,
+     0.045,
+     0.561
+    ],
+    "materials": [
+     "chrome 0",
+     "cloth_black 2",
+     "metal_painted 1",
+     "tape_masking 2"
+    ],
+    "verts": 564,
+    "parts": 26
+   }
+  },
+  "cleaver": {
+   "glb": "item_cleaver.glb",
+   "kind": "held",
+   "name": "cleaver",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "antler_cleaver",
+    "butcher_s_cleaver",
+    "falx",
+    "blunt_cleaver",
+    "scramasax",
+    "khopesh",
+    "military_cleaver",
+    "head_chopper",
+    "thorned_whip",
+    "battle_whip",
+    "two_handed_saif",
+    "rusty_warblade",
+    "crypt_cleaver",
+    "two_handed_scimitar"
+   ],
+   "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.32,
+     0.039,
+     0.117
+    ],
+    "lo": [
+     -0.05,
+     -0.02,
+     -0.026
+    ],
+    "hi": [
+     0.27,
+     0.02,
+     0.091
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "clay_rust 1",
+     "rubber 0",
+     "tape_grey 1"
+    ],
+    "verts": 220,
+    "parts": 13
+   }
   }
  }
 }
