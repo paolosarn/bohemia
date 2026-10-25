@@ -126,3 +126,10 @@ the first fight's lessons say point to see, click to do. The rest of the look is
 - [what each hand holds shows]: OPEN. No Blender on this box and no shield model in the bank (only stop_sign.glb): NOTE on
   COOK's board (the car door, the crash-bar shield, the sign as models) and on ANIMATION's (the shield arm through the rig on
   its one-hand clips, its own offer). The fight already says which: u.shield, u.shieldBack, and the end message's held.off.
+- THE DEMO DOOR, ROBUST: on this four-core box with the demo shell drawing the map beside it, a read could be 10 runs at
+  the reveal. A fight's FIRST read now puts the colour on at 8 runs (the tin is bare, so nothing flickers; ODDS_FIRST) and
+  refines to 24; later reads still move the colour only at 12; the reveal may wait up to 3 s (ODDS_WAIT_MS).
+- THE BRAIN'S HEIGHT STAYS FLAT: AUTO scored a roof by its level (10 a level, double for a shooter), so a three-storey roof
+  was worth 60 and pulled shooters past their own front (THE REBUILT FIGHT PLAYS: backline 19% against 7%, men alone 23%
+  against 20%). The library's bonus for higher ground is flat (+10 however many levels), so heightGain is too; the extra
+  reach a level shows by itself in who he can hit.

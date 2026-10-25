@@ -2230,7 +2230,9 @@ const FIGHT = (function () {
     return { mid: all.length ? all[Math.floor(all.length / (1 + 1))] : null, front: melee.length ? melee[0] : null };
   }
   function heightGain(x, y, u, ranged) {
-    const g = (level(x, y) - level(u.x, u.y)) * R('hit_chance.height.higher_attacker_bonus');
+    /* the library's bonus for higher ground is flat (+10 however many levels up), so the brain's is too: a three-storey roof is
+       not three times the prize (rule 164 item 14 made levels 2 and 3 real; the extra reach a level shows in who he can hit) */
+    const dl = level(x, y) - level(u.x, u.y), g = (dl > 0 ? 1 : dl < 0 ? -1 : 0) * R('hit_chance.height.higher_attacker_bonus');
     return ranged ? g * (1 + 1) : g;
   }
   function huntField(u) {
@@ -3754,7 +3756,7 @@ function skipTurn() {
 /* rule 158(b): every pace a power of two, so a faster fight lands on halves and quarters of the song's beat, never off it (the
    hand's top was 3x, a third of a beat, off the song: it is 4x, a quarter; a phone that kept 3 keeps the top) */
 const THEIRS_PACE = 2, SPEEDS = [1, 2, 4], FINISH_PACE = 4, SPEED_KEY = 'bohemia.fight.speed';
-const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000, ODDS_WAIT_MS = 1500, ODDS_REST_MS = 16;
+const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_FIRST = 8, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000, ODDS_WAIT_MS = 3000, ODDS_REST_MS = 16;
 const KEPT_KEY = 'bohemia.fight.kept.v1', KEPT_HOURS = 6;
 function paceNow() {
   if (UI.finish) return FINISH_PACE;
@@ -3878,11 +3880,14 @@ function oddsFirst() {
   const until = performance.now() + ODDS_WAIT_MS;
   return new Promise(function (res) { (function wait() { if (ODDS.shown !== null || ODDS.broke || !ODDS.W || performance.now() > until) { UI.oddsWaited = performance.now() - until + ODDS_WAIT_MS; return res(); } setTimeout(wait, 16); })(); });
 }
+/* the first read of a fight puts its colour on the tin at ODDS_FIRST runs (the tin is bare, so nothing can flicker) and refines
+   to ODDS_RUNS; a later read moves the colour only at ODDS_SHOW */
+function oddsShowAt() { return ODDS.firstAt === null ? ODDS_FIRST : ODDS_SHOW; }
 function oddsHeard(m) {
   const d = m.data; if (!d || d.id !== ODDS.job) return;
   if (d.broke) { ODDS.runs = ODDS_RUNS; ODDS.won = 0; ODDS.sum = 0; ODDS.shown = null; ODDS.broke = d.broke; return; }
   ODDS.runs = d.runs; ODDS.won = d.won; ODDS.sum = d.sum; ODDS.clean = d.clean;
-  if (ODDS.runs >= ODDS_SHOW) { ODDS.shown = ODDS.sum / ODDS.runs; if (ODDS.firstAt === null) ODDS.firstAt = performance.now(); }
+  if (ODDS.runs >= oddsShowAt()) { ODDS.shown = ODDS.sum / ODDS.runs; if (ODDS.firstAt === null) ODDS.firstAt = performance.now(); }
   try { if (UI.board) autoFace(); } catch (_e) {}
 }
 /* what the read is of: on the formation, where his men stand (a man moved is a new line); after it, whose turn and how far in */
@@ -3909,7 +3914,7 @@ function oddsTick(now) {
       if (!ODDS.live) { E.thaw(ODDS.snap, false); E.S.deploy = false; ODDS.live = true; ODDS.steps = 0; }
       const v = E.current();
       if (E.S.over || !v || ODDS.steps > ODDS_STEPS) { if (E.S.result === 'won') ODDS.won++; const w = E.S.over ? oddsRunValue(E) : 0; ODDS.sum += w; if (w === 1) ODDS.clean++; ODDS.runs++; ODDS.live = false;
-        if (ODDS.runs >= ODDS_SHOW) { ODDS.shown = ODDS.sum / ODDS.runs; if (ODDS.firstAt === null) ODDS.firstAt = performance.now(); }   /* the colour moves only on a full enough read: it never flickers through a fresh turn */
+        if (ODDS.runs >= oddsShowAt()) { ODDS.shown = ODDS.sum / ODDS.runs; if (ODDS.firstAt === null) ODDS.firstAt = performance.now(); }   /* the colour moves only on a full enough read: it never flickers through a fresh turn */
         continue; }
       E.aiStep(v); E.S.events = []; ODDS.steps++;
     }
