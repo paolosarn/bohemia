@@ -145,3 +145,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_91_WORLD_MAP_GENERATION_2026_10_24.md | world map, seed, settlements
 - 2026-10-24 | ASK | GROK_ASK_92_CAMPS_AND_LOCATIONS_2026_10_24.md | camps, locations, fortifications
 - 2026-10-24 | ASK | GROK_ASK_93_PARTIES_AND_ROAMING_2026_10_24.md | parties, roaming, scaling
+- 2026-10-24 | ASK | GROK_ASK_94_LATE_GAME_CRISES_2026_10_24.md | crises, four types, timing
