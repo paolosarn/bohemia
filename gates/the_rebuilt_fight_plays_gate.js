@@ -145,8 +145,11 @@ async function fight(F, first) {
     leg(ui.faces.length > 0 && ui.faces.every(f => f >= 36 && f <= 44), 'the turn strip is faces in initiative order, 36 to 44 points', ui.faces.join(' '));
     leg(ui.mats, 'the bar is made of our materials (cardboard, receipt paper, cracked glass), drawn, not flat boxes');
     await p.waitForTimeout(400);
-    const bars = await ev(() => window.__bars);
-    leg(bars > 0 && bars <= 4 * 25, 'bars over a man only while he acts or is picked, three points tall', bars + ' three-point bars drawn in ~25 frames');
+    const bars = await ev(() => window.__bars), men = await ev(() => FIGHT.S.units.filter(v => FIGHT.onField(v) && FIGHT.shown(v)).length);
+    /* RE-AIMED 10/25 by rule 164 item 17 (COMBAT [the PC playtest: the fight's part], Paolo 10/24: 'it's hard to tell who's on my
+       team'; his 10/2 words, rule 67: 'health and armour bars above the people is cool'): bars over EVERY man on the field, not
+       only the one acting (67(a)'s Battle Brothers habit); the colours are THE PC PLAYTEST: THE FIGHT's to read */
+    leg(men > 0 && bars >= 2 * men, 'bars over every man on the field, three points tall (rule 164 item 17)', bars + ' three-point bars drawn in ~25 frames over ' + men + ' men');
   }
   /* RULE 69, AMENDED BY RULE 121 (10/19, COMBAT [the fight wears the 3D models]): every fighter is his RIG MODEL (slices/fight_rig:
      PORTRAIT's bodies, COOK THREE's tiers, ANIMATION's beasts through DIRECTION's master rig), his face PORTRAIT's fresh

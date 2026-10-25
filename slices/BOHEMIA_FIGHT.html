@@ -2372,7 +2372,7 @@ const cv = document.getElementById('cv'), cx = cv.getContext('2d');
 const UI = { zoom: 1, cx: 0, cy: 0, far: 1, near: 1, max: 1, sel: null, pend: null, auto: false, speed: 1,
   anim: [], pops: [], beats: 0, beat: 0, t0: 0, started: false, imgs: {}, board: null, tw: 160, th: 113, nextAI: 0, glide: null, idle: 0, drag: null };
 let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
-const NEAR_TILE = 121, BAR_PT = 3;   /* css px a house tile stands at the pinch's near stop (the old man's 104 at 0.86 of a tile): the ground's stop, never the man's */
+const NEAR_TILE = 121, BAR_PT = 3, SIDE_RIM = { you: '#d9a85a', them: '#b8452f' };   /* css px a house tile stands at the pinch's near stop (the old man's 104 at 0.86 of a tile): the ground's stop, never the man's */
 /* THE PEOPLE A LITTLE SMALLER (COMBAT [the people a little smaller], his YES on the marks on the board, 10/18: 'can the
    characters just be a little smaller'): the man is drawn MAN_DEFAULT css px tall on every fought screen (it was 104, the 112
    box's ~100 painted px of rule 21; the ground still zooms, the person still does not, at one size on every surface); a test
@@ -3651,7 +3651,7 @@ function skipTurn() {
 /* rule 158(b): every pace a power of two, so a faster fight lands on halves and quarters of the song's beat, never off it (the
    hand's top was 3x, a third of a beat, off the song: it is 4x, a quarter; a phone that kept 3 keeps the top) */
 const THEIRS_PACE = 2, SPEEDS = [1, 2, 4], FINISH_PACE = 4, SPEED_KEY = 'bohemia.fight.speed';
-const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000;
+const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000, ODDS_WAIT_MS = 1500;
 const KEPT_KEY = 'bohemia.fight.kept.v1', KEPT_HOURS = 6;
 function paceNow() {
   if (UI.finish) return FINISH_PACE;
@@ -3699,8 +3699,8 @@ function backIcon(css) {   /* a boot print walking back along a chalk arrow, in 
 }
 /* (a) the odds: a second copy of these rules, fed the board as it stands, played out on AUTO a slice at a time; the real die
    is put back after every slice, so the fight he plays rolls exactly what it would have */
-const ODDS = { F: null, key: null, runs: 0, won: 0, sum: 0, clean: 0, live: false, snap: null, seed: 0, steps: 0, shown: null };
-function oddsReset() { ODDS.key = null; ODDS.runs = 0; ODDS.won = 0; ODDS.sum = 0; ODDS.clean = 0; ODDS.live = false; ODDS.snap = null; ODDS.shown = null; }
+const ODDS = { F: null, W: undefined, job: 0, key: null, runs: 0, won: 0, sum: 0, clean: 0, live: false, snap: null, seed: 0, steps: 0, shown: null, firstAt: null };
+function oddsReset() { ODDS.key = null; ODDS.runs = 0; ODDS.won = 0; ODDS.sum = 0; ODDS.clean = 0; ODDS.live = false; ODDS.snap = null; ODDS.shown = null; ODDS.firstAt = null; ODDS.job++; }
 /* THE ODDS COUNT CASUALTIES (rule 144(e)(f), Paolo 10/24: 'there's a difference between winning with one character left standing
    at one HP and winning without taking a single casualty... if any members die during your projections, that's leaning towards
    red'): each run played out is worth 1 when won with nobody of his down or dead, ours.odds_colour.down_value times the share of
@@ -3717,31 +3717,101 @@ function oddsEngine() {
   if (ODDS.F === null) { try { ODDS.F = new Function(document.getElementById('fight-rules').textContent + '\nreturn FIGHT;')(); } catch (_e) { ODDS.F = false; } }
   return ODDS.F || null;
 }
+/* THE COLOUR BEFORE THE FIRST TAP (COMBAT [the PC playtest: the fight's part] (1), rule 164 item 12, Paolo 10/24: 'before I can
+   even press anything... I should know the colour of the Auto button'). MEASURED FIRST: every fight the demo opens starts on the
+   formation, and the read never ran there (40 looks over 11 s, 0 runs); it waited out the formation, the open's 4.5 beats and
+   his first turn. NOW the same copy of the rules plays its runs in a worker, off the frames: the read starts the moment the
+   fight is dealt, while the board still bakes; on the formation it reads the line as it stands (a man moved, a new read); the
+   colour is on the tin when the board comes up, and no frame pays for it. No worker on the phone: the frames' slices, as before. */
+function oddsWorkerMain() {
+  var JOB = null;
+  self.onmessage = function (m) {
+    const d = m.data;
+    if (d.db) { Object.keys(d.db).forEach(function (k) { DB[k] = d.db[k]; }); return; }
+    JOB = { id: d.id, snap: d.snap, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, n: 0, sum: 0, won: 0, clean: 0 };
+    const id = d.id; setTimeout(function () { run(id); }, 0);
+  };
+  function run(id) {
+    const J = JOB; if (!J || J.id !== id) return;   /* a newer board asked: this read is dropped */
+    try {
+      SEED = J.seed; FIGHT.thaw(J.snap, false); FIGHT.S.deploy = false;
+      let g = 0; while (!FIGHT.S.over && g <= J.steps) { const v = FIGHT.current(); if (!v) break; FIGHT.aiStep(v); FIGHT.S.events = []; g++; }
+      const w = FIGHT.S.over ? oddsRunValue(FIGHT) : 0;
+      if (FIGHT.S.result === 'won') J.won++; J.sum += w; if (w === 1) J.clean++; J.n++; J.seed = SEED;
+      self.postMessage({ id: id, runs: J.n, sum: J.sum, won: J.won, clean: J.clean });
+    } catch (e) { self.postMessage({ id: id, broke: String(e && e.message || e) }); JOB = null; return; }
+    if (J.n < J.runs) setTimeout(function () { run(id); }, 0); else JOB = null;
+  }
+}
+function oddsWorker() {
+  if (ODDS.W !== undefined) return ODDS.W;
+  ODDS.W = false;
+  if ((window.FIGHT_OPTS || {}).oddsWorker === false || typeof Worker === 'undefined' || typeof Blob === 'undefined') return ODDS.W;
+  try {
+    const src = 'var localStorage = { getItem: function () { return null; }, setItem: function () {}, removeItem: function () {} };\n' +
+      document.getElementById('fight-data').textContent + '\n' + document.getElementById('fight-rules').textContent + '\n' +
+      oddsRunValue.toString() + '\n(' + oddsWorkerMain.toString() + ')();';
+    const W = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+    const db = {}; Object.keys(DB).forEach(function (k) { if (k !== 'read') db[k] = DB[k]; });
+    W.onmessage = oddsHeard;
+    W.onerror = function (e) { if (e && e.preventDefault) e.preventDefault(); ODDS.W = false; ODDS.key = null; ODDS.wErr = String(e && e.message || 'worker'); };   /* back to the frames */
+    W.postMessage({ db: db });
+    ODDS.W = W;
+  } catch (_e) { ODDS.W = false; }
+  return ODDS.W;
+}
+/* the board comes up with the colour already on the tin: the open waits for the first full read, never past ODDS_WAIT_MS (a slow
+   phone's read never holds the fight) */
+function oddsFirst() {
+  const o = window.FIGHT_OPTS || {};
+  if (o.odds === false || UI.auto || !ODDS.W || ODDS.shown !== null) return null;
+  const until = performance.now() + ODDS_WAIT_MS;
+  return new Promise(function (res) { (function wait() { if (ODDS.shown !== null || ODDS.broke || !ODDS.W || performance.now() > until) { UI.oddsWaited = performance.now() - until + ODDS_WAIT_MS; return res(); } setTimeout(wait, 16); })(); });
+}
+function oddsHeard(m) {
+  const d = m.data; if (!d || d.id !== ODDS.job) return;
+  if (d.broke) { ODDS.runs = ODDS_RUNS; ODDS.won = 0; ODDS.sum = 0; ODDS.shown = null; ODDS.broke = d.broke; return; }
+  ODDS.runs = d.runs; ODDS.won = d.won; ODDS.sum = d.sum; ODDS.clean = d.clean;
+  if (ODDS.runs >= ODDS_SHOW) { ODDS.shown = ODDS.sum / ODDS.runs; if (ODDS.firstAt === null) ODDS.firstAt = performance.now(); }
+  try { if (UI.board) autoFace(); } catch (_e) {}
+}
+/* what the read is of: on the formation, where his men stand (a man moved is a new line); after it, whose turn and how far in */
+function oddsKeyNow() {
+  const S = FIGHT.S;
+  if (S.deploy) return 'deploy:' + S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return v.id + '@' + v.x + ',' + v.y; }).join(' ');
+  return turnKeyOf(FIGHT.current()) + ':' + S.log.length;
+}
 function oddsTick(now) {
   const S = FIGHT.S, u = FIGHT.current(), o = window.FIGHT_OPTS || {};
-  if (o.odds === false || !UI.board || S.over || S.deploy || UI.auto || !crewControlled(u) || UI.anim.length || now < UI.openUntil) return;
-  const k = turnKeyOf(u) + ':' + S.log.length;
-  if (k !== ODDS.key) { ODDS.key = k; ODDS.runs = 0; ODDS.won = 0; ODDS.sum = 0; ODDS.clean = 0; ODDS.live = false; ODDS.snap = FIGHT.freeze(); ODDS.seed = (SEED ^ 0x9e3779b9) >>> 0; }
-  if (ODDS.runs >= ODDS_RUNS) return;
+  if (o.odds === false || !S || !S.units || !S.units.length || S.over || UI.auto || !u) return;
+  /* when a read may start: the formation (the board stands still), his turn, or no read yet at all (their move comes first) */
+  if (!S.deploy && (UI.anim.length || !(crewControlled(u) || ODDS.shown === null))) return;
+  const k = oddsKeyNow();
+  if (k !== ODDS.key) {
+    ODDS.key = k; ODDS.runs = 0; ODDS.won = 0; ODDS.sum = 0; ODDS.clean = 0; ODDS.live = false; ODDS.snap = FIGHT.freeze(); ODDS.seed = (SEED ^ 0x9e3779b9) >>> 0; ODDS.job++;
+    ODDS.postAt = performance.now(); const W = oddsWorker(); if (W) W.postMessage({ id: ODDS.job, snap: ODDS.snap, seed: ODDS.seed, runs: ODDS_RUNS, steps: ODDS_STEPS });
+  }
+  if (ODDS.W || ODDS.runs >= ODDS_RUNS || !UI.board) return;   /* the worker plays it */
   const E = oddsEngine(); if (!E) return;
-  const real = SEED, t0 = performance.now(); SEED = ODDS.seed;
+  const real = SEED, t0 = performance.now(), was = ODDS.shown; SEED = ODDS.seed;
   try {
     while (performance.now() - t0 < ODDS_SLICE_MS && ODDS.runs < ODDS_RUNS) {
       if (!ODDS.live) { E.thaw(ODDS.snap, false); E.S.deploy = false; ODDS.live = true; ODDS.steps = 0; }
       const v = E.current();
       if (E.S.over || !v || ODDS.steps > ODDS_STEPS) { if (E.S.result === 'won') ODDS.won++; const w = E.S.over ? oddsRunValue(E) : 0; ODDS.sum += w; if (w === 1) ODDS.clean++; ODDS.runs++; ODDS.live = false;
-        if (ODDS.runs >= ODDS_SHOW) ODDS.shown = ODDS.sum / ODDS.runs;   /* the colour moves only on a full enough read: it never flickers through a fresh turn */
+        if (ODDS.runs >= ODDS_SHOW) { ODDS.shown = ODDS.sum / ODDS.runs; if (ODDS.firstAt === null) ODDS.firstAt = performance.now(); }   /* the colour moves only on a full enough read: it never flickers through a fresh turn */
         continue; }
       E.aiStep(v); E.S.events = []; ODDS.steps++;
     }
   } catch (_e) { ODDS.runs = ODDS_RUNS; ODDS.won = 0; ODDS.sum = 0; ODDS.shown = null; ODDS.broke = String(_e && _e.message || _e); }   /* a copy that cannot play reads nothing */
   ODDS.seed = SEED; SEED = real;
+  if (ODDS.shown !== was) autoFace();   /* the tin changes the frame the read lands */
 }
 /* the worth in the background, 0..1, the last full read (it holds through his men's moves and their turn until a new one is full) */
 function oddsValue() { return ODDS.shown; }
 function oddsPct() { const v = oddsValue(); return v === null ? null : Math.round(100 * v); }   /* the background number: never printed (144(e)) */
 /* the beat's light rides only the deepest green (144(b)): a clean win nearly certain */
-function oddsGlow() { const v = oddsValue(); return v !== null && v >= R('ours.odds_colour').glow_at && !UI.auto && !FIGHT.S.over && !FIGHT.S.deploy && crewControlled(FIGHT.current()); }
+function oddsGlow() { const v = oddsValue(); return v !== null && v >= R('ours.odds_colour').glow_at && !UI.auto && !FIGHT.S.over && (!!FIGHT.S.deploy || crewControlled(FIGHT.current())); }
 /* ONE CONTINUOUS SCALE, NO CLEAR MIDDLE (144(e)(g)): at or over ours.odds_colour.turn it is green, deepening to the top; under it,
    red, deepening to a sure loss; each side starts at alpha_min, so no read is ever clear; 'could go either way' is red */
 function oddsTint(v) {
@@ -3753,7 +3823,7 @@ function oddsTint(v) {
 function autoFace() {
   const b = document.getElementById('bauto'), g = oddsGlow(), want = UI.finish ? 'FINISH' : 'AUTO';
   if (b.dataset.face !== want) { b.dataset.face = want; b.innerHTML = '<i class="tint"></i>AUTO' + (UI.finish ? '<span class="odds">FINISHING</span>' : ''); b.dataset.tint = ''; }
-  const t = UI.auto || FIGHT.S.over || FIGHT.S.deploy ? null : oddsTint(oddsValue()), tk = t ? (t.green ? 'g' : 'r') + t.a.toFixed(2) : '';
+  const t = UI.auto || FIGHT.S.over ? null : oddsTint(oddsValue()), tk = t ? (t.green ? 'g' : 'r') + t.a.toFixed(2) : '';
   if (b.dataset.tint !== tk) { b.dataset.tint = tk; const el = b.querySelector('.tint');
     if (el) el.style.backgroundColor = t ? (t.green ? 'rgba(46,160,67,' : 'rgba(208,48,32,') + t.a.toFixed(3) + ')' : 'rgba(0,0,0,0)'; }
   b.classList.toggle('glow', g); if (g) { b.style.setProperty('--beat', beatMs() + 'ms'); teachSoon('auto'); }
@@ -4466,10 +4536,17 @@ function drawMan(v, tw, th) {
   mkOff();
   blitMan(v, X, Y, now, v.morale === 'Fleeing' ? .7 : 1);
   if (v.netted) netOver(X, Y, h);
-  /* bars over a man only while he acts or is picked (rule 67a), as wide as the man, three points tall */
-  if (h > 26 && (FIGHT.current() === v || (UI.pend && UI.pend.target === v) || UI.allBars)) {
+  /* WHO IS MINE AT A GLANCE (COMBAT [the PC playtest: the fight's part] (2), rule 164 item 17, Paolo 10/24: 'it's hard to tell
+     who's on my team'; his 10/2 words, rule 67: 'health and armour bars above the people is cool'). AMENDS 67(a)'s 'only while
+     he acts or is picked' (Battle Brothers' habit, the research's, not his words): every man on the field wears his bars over
+     his head, as wide as the man, three points tall; his men's on a gold rim with green health, theirs on a rust rim with red;
+     the one acting and the one picked a rim brighter. Nothing on the ground (rule 46f). */
+  if (h > 26 && FIGHT.onField(v)) {
     const bw = Math.round(Math.max(18, h * .42)), bx = Math.round(X - bw / 2), by = Math.round(Y - h - 9);   /* on whole pixels: no soft edge */
-    cx.fillStyle = 'rgba(0,0,0,.65)'; cx.fillRect(bx - 1, by - 1, bw + 2, BAR_PT * 2 + 3);
+    const lit = FIGHT.current() === v || (UI.pend && UI.pend.target === v);
+    cx.fillStyle = you ? (lit ? '#f0d296' : SIDE_RIM.you) : (lit ? '#f07a5e' : SIDE_RIM.them); cx.fillRect(bx - 2, by - 2, bw + 4, BAR_PT * 2 + 5);
+    cx.fillStyle = 'rgba(0,0,0,.82)'; cx.fillRect(bx - 1, by - 1, bw + 2, BAR_PT * 2 + 3);
+    v._bar = { x: bx - 2, y: by + 1, lit: lit, at: now };   /* a point on its rim (the left side: the rounds' plate sits over the middle), for the gates */
     cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), BAR_PT);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
     /* WHAT THE BLOW TAKES, ON HIS BARS (one tap to see): the part of his armour and of his health one hit takes, blinking on
@@ -4483,7 +4560,7 @@ function drawMan(v, tw, th) {
     }
   }
   /* THE BETTER ENEMY READS ON THE BOARD (rule 143(b)): before and during the fight, over the head of a man who outclasses you */
-  if (!you && h > 26 && FIGHT.onField(v) && classOf(v).outclass) classMark(v, X, Math.round(Y - h - 12), h);
+  if (!you && h > 26 && FIGHT.onField(v) && classOf(v).outclass) classMark(v, X, Math.round(Y - h - 12), h);   /* over the bars' rim */
 }
 /* THE ROUNDS OVER HIM (COMBAT [the reload is loud], rule 124): the man you control carries his gun's rounds as bullets on a
    black plate over his bars, brass for a full one, an empty case for a spent one, the last one amber and blinking. EMPTY, the
@@ -4542,7 +4619,12 @@ function drawPortrait(g, v, S) {
   }
   if (unseen) { g.globalCompositeOperation = 'source-atop'; g.fillStyle = 'rgba(20,16,12,.92)'; g.fillRect(0, 0, S, S); g.globalCompositeOperation = 'source-over'; }
   if (!FIGHT.onField(v)) { g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(0, 0, S, S); }
-  g.strokeStyle = you ? '#d9a85a' : '#c4553f'; g.lineWidth = Math.max(1, S * .04); g.strokeRect(0, 0, S, S);
+  /* WHO IS MINE (rule 164 item 17): a face wears its side, a band across the foot and a frame in the bars' own rim colour, his
+     gold, theirs rust, so the turn strip reads mine-theirs-mine at a glance */
+  const rim = you ? SIDE_RIM.you : SIDE_RIM.them, fw = Math.max(2, Math.round(S * .07)), band = Math.max(3, Math.round(S * .13));
+  g.fillStyle = rim; g.fillRect(0, S - band, S, band);
+  g.fillStyle = 'rgba(0,0,0,.35)'; g.fillRect(0, S - band, S, Math.max(1, Math.round(band * .2)));
+  g.strokeStyle = rim; g.lineWidth = fw; g.strokeRect(fw / 2, fw / 2, S - fw, S - fw);
 }
 function faceCanvas(v, css, now) {
   const c = document.createElement('canvas'), d = Math.min(window.devicePixelRatio || 1, 3);
@@ -5358,7 +5440,8 @@ function start() {
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = []; clearTimeout(UI.beatT); UI.beatFor = null; UI.onBeat = []; SONG.read = -1e9;
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();
-  return bakeBoard().then(function () {
+  try { oddsTick(performance.now()); } catch (_e) {}   /* rule 164 item 12: the AUTO colour's read starts while the board bakes */
+  return bakeBoard().then(function () { UI.bakedAt = performance.now(); return oddsFirst(); }).then(function () {
     resize();
     /* THE OPEN (rule 104a, amending 79's 'on your line, a pinch shows the rest'): both teams on the glass, the man at 112.
        Two beats of stillness (nothing happens in the first second). */
