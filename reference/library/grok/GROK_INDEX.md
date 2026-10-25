@@ -175,3 +175,4 @@ Newest first.
 - 2026-10-25 | ASK | GROK_ASK_121_LORE_HOLES_THREE_ACTS_2026_10_25.md | three acts, crisis placement, chip bodies, mayor
 - 2026-10-25 | ASK | GROK_ASK_122_SIXTY_MINI_BOSSES_2026_10_25.md | 60 mini bosses, verbs, legendary locations
 - 2026-10-25 | ASK | GROK_ASK_123_FOURTEEN_FACTIONS_OF_MUSIC_2026_10_25.md | 14 factions, music, relations, colour
+- 2026-10-25 | ASK | GROK_ASK_124_SOUNDSCAPE_RULE_2026_10_25.md | soundscape, analog horror, BB soundtrack, hold
