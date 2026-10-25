@@ -180,3 +180,4 @@ Newest first.
 - 2026-10-25 | ASK | GROK_ASK_126_HOUSE_YOU_GIVE_A_FUCK_ABOUT_2026_10_25.md | house you care about, face, memory, relations
 - 2026-10-25 | ASK | GROK_ASK_127_MAYOR_ARC_2026_10_25.md | mayor arc, three rungs, rebuild, seat
 - 2026-10-25 | ASK | GROK_ASK_128_VEHICLE_LADDER_2026_10_25.md | vehicle ladder, man-powered, cars later, speed
+- 2026-10-25 | ASK | GROK_ASK_129_THREE_CURRENCY_SYSTEM_2026_10_25.md | three currencies, batteries, medicine, resources
