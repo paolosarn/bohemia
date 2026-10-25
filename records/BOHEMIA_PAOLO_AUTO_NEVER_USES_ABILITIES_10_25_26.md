@@ -28,3 +28,12 @@ be used in the auto combat system so keep that in mind that's player use only ty
     scripted hand wins at least as often.
 COMBAT and TUNING carry it in [AUTO never wastes a turn], [AUTO keeps up], [a better AUTO brain and a true calculator] and
 [the odds keep up].
+
+## AMENDED THE SAME MINUTE: WHAT AN ABILITY IS (rule 180(g))
+HIS WORDS: "And when I mean, abilities, I mean buttons, you can press during combat that aren't like fire or attack with
+Malay you know"
+(g) AN ABILITY IS EVERY COMBAT BUTTON THAT IS NOT MOVE, FIRE OR THE MELEE ATTACK. AUTO moves, fires and makes the melee
+    attack, nothing else. Every other button (an aimed or special shot, a shield wall or guard, a swap from the bag, a
+    thrown or used item, anything a perk adds as a button) is the player's only.
+    The coordinator's reading, his to correct: reloading the gun a man fires counts as part of FIRE (an empty gun cannot
+    fire, and a man who never reloads stops fighting); AUTO reloads only to keep firing.
