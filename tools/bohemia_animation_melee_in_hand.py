@@ -71,6 +71,11 @@ def merged():
     return D
 
 
+def GROUP(clip):
+    """which of his own sheets a new key goes on: m the melee idle's, s the shield arm's, t the two-hander's"""
+    return 'm' if clip.startswith('M') else 's' if clip.startswith('S') else 't'
+
+
 def layer_clips(S, ly):
     """this lane's own body clips a layer's melee clips draw"""
     out = set()
@@ -412,6 +417,15 @@ def prop_files(layer, prop, D=None):
     return out
 
 
+def props_from(look, layer, S=None):
+    """the named look whose things this look holds on this layer (itself, or YOU for a cast look past the first layer)"""
+    S = S or source(); P = S.get('props_from', {})
+    if layer in P.get('layers', []):
+        for pre, who in P.items():
+            if pre not in ('layers', 'why') and look.startswith(pre): return who
+    return look
+
+
 def props_done(look, layer, prop):
     d = os.path.join(ROOT, RENDERS, look, 'props')
     return all(os.path.exists(os.path.join(d, fn)) for _, _, _, fn in prop_files(layer, prop))
@@ -573,7 +587,7 @@ def look_one(name):
         CF.render(name, clips=[('Stand', 1)] + miss, suffix=next_pass(name))
     S = source()
     for layer, L in S['layers'].items():
-        if layer not in S.get('layers_ready', S['layers']): continue
+        if layer not in S.get('layers_ready', S['layers']) or props_from(name, layer, S) != name: continue   # a cast look holds YOU's things there
         for prop in L['props']:
             for i in range(3):   # bpy 4.2 dies at exit now and then, after the frames are written
                 if props_done(name, layer, prop): break
@@ -629,7 +643,7 @@ def is_person(t): return t.startswith(('person_', 'enemy_'))
 def done(t):
     if is_person(t): return body_done(t)
     S = source()
-    return body_done(t) and all(props_done(t, ly, p) for ly, L in S['layers'].items() if ly in S.get('layers_ready', S['layers']) for p in L['props'])
+    return body_done(t) and all(props_done(t, ly, p) for ly, L in S['layers'].items() if ly in S.get('layers_ready', S['layers']) and props_from(t, ly, S) == t for p in L['props'])
 
 
 def all_(workers=4, only=None):
@@ -723,7 +737,7 @@ def pack(only=None):
         d = os.path.join(ROOT, RENDERS, look)
         if look not in FR['looks'] or not os.path.exists(os.path.join(d, 'rig.json')) or not clip_dir(look, 'MIdleX'): continue
         person = is_person(look); fl = FR['looks'][look]
-        ready = [ly for ly in S['layers'] if ly in S.get('layers_ready', S['layers']) and (person or all(props_done(look, ly, p_) for p_ in S['layers'][ly]['props']))]
+        ready = [ly for ly in S['layers'] if ly in S.get('layers_ready', S['layers']) and (person or all(props_done(props_from(look, ly, S), ly, p_) for p_ in S['layers'][ly]['props']))]
         if not person and 'm1' not in ready:
             print('SKIP', look, 'not every prop is rendered yet'); continue
         if person and fl.get('ref') not in index['looks']:
@@ -741,21 +755,32 @@ def pack(only=None):
             if a.shape[0] != rj['res'] or a.shape[1] != rj['res']:
                 cx0, cy0, cx1, cy1 = rj['crop_box_px']; z = np.zeros((rj['res'], rj['res'], 4), np.uint8); z[cy0:cy1, cx0:cx1] = a; a = z
             return a
-        imgs, cells, own = [], {}, set()
+        # ONE SHEET A GROUP, NEVER ONE FOR EVERYTHING (rule 173, no crash before a fight): his own keys split by what they are for
+        # (m the melee idle's, s the shield arm's, t the two-hander's) and a named look's things by layer, so a man with a pipe
+        # and no shield decodes the melee keys and the pipe's sheet and nothing of the shield or the sledge
+        groups, own = {}, set()
         for clip, n in new_clips(False):
             dd = clip_dir(look, clip)
             if not dd or not all(os.path.exists(os.path.join(dd, 'rig_%s_%s_k%02d.png' % (clip, f, k))) for f in FIGHT_DIRS for k in range(n)): continue   # not rendered yet: the next pass
             rj, fx0, fy0 = frame(dd)
             own |= set(k_ for c_ in rj.get('clips', {}).values() for f_ in c_.get('motion_px', {}) for key in c_['motion_px'][f_] for k_ in key)
+            gi = GROUP(clip); G_ = groups.setdefault(gi, dict(imgs=[], clips={}))
             for k in range(n):
                 for row, f in enumerate(FIGHT_DIRS):
                     r = cut(full(os.path.join(dd, 'rig_%s_%s_k%02d.png' % (clip, f, k)), rj))
                     ix = None
-                    if r is not None: ix = len(imgs); imgs.append((to_pal(r[0], bpal), r[1] - fx0, r[2] - fy0))
-                    cells.setdefault(clip, [[None] * 8 for _ in range(n)])[k][row] = ix
-        body, rects = shelf(imgs, 1024)
-        body.save(os.path.join(ROOT, OUT, look + '.webp'), 'WEBP', lossless=True, quality=100, method=6)
-        entry = dict(fight=fl['file'], foot=fl['foot'], sheet=dict(file=look + '.webp', size=list(body.size), cells=rects), clips=cells)
+                    if r is not None: ix = len(G_['imgs']); G_['imgs'].append((to_pal(r[0], bpal), r[1] - fx0, r[2] - fy0))
+                    G_['clips'].setdefault(clip, [[None] * 8 for _ in range(n)])[k][row] = ix
+        for old in [f_ for f_ in os.listdir(os.path.join(ROOT, OUT)) if f_.startswith(look + '_') or f_ == look + '.webp']:
+            if old.endswith('.webp') and (old == look + '.webp' or old[len(look) + 1:].split('.')[0] in ('m', 's', 't', 'props') or old[len(look) + 1:].startswith('props')):
+                os.remove(os.path.join(ROOT, OUT, old))   # the last pack's sheets (a sheet left behind is weight on the site)
+        sheets, cells = {}, {}
+        for gi, G_ in sorted(groups.items()):
+            im_, rects_ = shelf(G_['imgs'], 1024)
+            fn_ = '%s_%s.webp' % (look, gi); im_.save(os.path.join(ROOT, OUT, fn_), 'WEBP', lossless=True, quality=100, method=6)
+            sheets[gi] = dict(file=fn_, size=list(im_.size), cells=rects_)
+            for c_, k_ in G_['clips'].items(): cells[c_] = dict(g=gi, k=k_)
+        entry = dict(fight=fl['file'], foot=fl['foot'], sheets=sheets, clips=cells)
         hp = os.path.join(ROOT, 'slices/rig_hold', look + '.json')
         if os.path.exists(hp) and json.load(open(hp)).get('held'): entry['held'] = json.load(open(hp))['held']   # his own modelled weapon (the thug's pipe, the poacher's hatchet)
         if any('crashbar' in p_.lower() for p_ in own): entry['own_shield'] = sorted(p_ for p_ in own if 'crashbar' in p_.lower())   # the Heavy's own crash bar on his model: never a second shield
@@ -763,8 +788,10 @@ def pack(only=None):
         if person:
             entry['ref'] = fl['ref']
         else:
-            pimgs, by = [], {}
-            for ly in ready:
+            psheets, by = {}, {}
+            if any(props_from(look, ly, S) != look for ly in ready): entry['props_ref'] = next(props_from(look, ly, S) for ly in ready if props_from(look, ly, S) != look)
+            for ly in [l_ for l_ in ready if props_from(look, l_, S) == look]:
+                pimgs = []
                 for prop in S['layers'][ly]['props']:
                     for clip, j, f, fn in prop_files(ly, prop):
                         a_ = np.asarray(Image.open(os.path.join(d, "props", fn)).convert("RGBA"))   # a full frame
@@ -772,15 +799,16 @@ def pack(only=None):
                         ix = None
                         if r is not None: ix = len(pimgs); pimgs.append((to_pal(r[0], ppal), r[1] - fx0, r[2] - fy0))
                         nk = len(S['hold'][clip])
-                        by.setdefault(prop, {}).setdefault(clip, [[None] * 8 for _ in range(nk)])[j][FIGHT_DIRS.index(f)] = ix
-            pim, prects = shelf(pimgs, 2048)
-            pim.save(os.path.join(ROOT, OUT, look + '_props.webp'), 'WEBP', lossless=True, quality=100, method=6)
-            entry['props'] = dict(file=look + '_props.webp', size=list(pim.size), cells=prects, by=by)
+                        by.setdefault(prop, {}).setdefault(clip, dict(l=ly, k=[[None] * 8 for _ in range(nk)]))['k'][j][FIGHT_DIRS.index(f)] = ix
+                pim, prects = shelf(pimgs, 2048)
+                fn_ = '%s_props_%s.webp' % (look, ly); pim.save(os.path.join(ROOT, OUT, fn_), 'WEBP', lossless=True, quality=100, method=6)
+                psheets[ly] = dict(file=fn_, size=list(pim.size), cells=prects)
+            entry['props'] = dict(sheets=psheets, by=by)
 
-        entry['layers'] = [ly for ly in ready if all(c_ in cells for c_ in layer_clips(S, ly))]   # the layers whose own keys (and, a named look's, things) are on this sheet
+        entry['layers'] = [ly for ly in ready if all(c_ in cells for c_ in layer_clips(S, ly))]   # the layers whose own keys (and, a named look's, things) are on these sheets
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))
         index['looks'][look] = dict(json=look + '.json')
-        print('PACKED', look, body.size, 'props', entry['props']['size'] if 'props' in entry else 'his gang\'s (%s)' % entry.get('ref'), flush=True)
+        print('PACKED', look, {g_: s_['size'] for g_, s_ in sheets.items()}, 'things', {l_: s_['size'] for l_, s_ in entry['props']['sheets'].items()} if 'props' in entry else 'his gang\'s (%s)' % entry.get('ref'), flush=True)
     json.dump(index, open(ip, 'w'), separators=(',', ':'))
     print('INDEX', ip, len(index['looks']), 'looks')
 

@@ -2183,7 +2183,11 @@
   "why": "which is drawn last where the thing in his right hand and the shield on his left cross: the shield, but where his right side is toward the glass (SE, E, NE)"
  },
  "layers_ready": [
-  "m1"
+  "m1",
+  "m2",
+  "s1",
+  "s2",
+  "t2"
  ],
  "hold_by_prop": {
   "cleaver": {
@@ -2239,5 +2243,15 @@
  ],
  "thrown": [
   "bottle"
- ]
+ ],
+ "props_from": {
+  "cast_": "you",
+  "layers": [
+   "m2",
+   "s1",
+   "s2",
+   "t2"
+  ],
+  "why": "the crew's twelve cast looks hold YOU's things on every layer after the first (the same skeleton, scale and camera: their hands sit within a pixel of his, measured on the held sheets, the way his town men already hold his guns); each still has his own body keys. Five hours of renders saved, the first layer of things kept their own."
+ }
 }

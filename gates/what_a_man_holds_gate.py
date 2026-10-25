@@ -310,7 +310,7 @@ const { open } = require(process.argv[2]);
     line = [l for l in r.stdout.splitlines() if l.startswith('{')]
     R = json.loads(line[-1]) if line else {'err': r.stdout[-300:] + r.stderr[-300:]}
     seen = R.get('seen') or {}
-    pist = sorted(k[5:] for k in seen if k.startswith('hold:P'))
+    pist = sorted(k[5:] for k in seen if k.startswith('hold:P')) + (['shield arm'] if seen.get('prop:pistol') else [])   # a pistol man with a shield holds it one-handed on the shield arm (gates/melee_in_hand_gate.py)
     cov = sorted(k[5:] for k in seen if k.startswith('hold:Cover'))
     print('  note W2 pistols %s, the man in cover %s at %s; held clips drawn %s' % (len((R.get('set') or {}).get('pistols') or []), (R.get('set') or {}).get('cover'),
           (R.get('set') or {}).get('tile'), {k: v for k, v in seen.items() if k.startswith('hold:')}))
@@ -359,8 +359,8 @@ const drive = require(process.argv[2]);
     l3 = [l for l in r3.stdout.splitlines() if l.startswith('{')]
     R3 = json.loads(l3[-1]) if l3 else {'err': r3.stdout[-300:] + r3.stderr[-300:]}
     a3, b0, b3 = R3.get('a') or {}, R3.get('b0') or {}, R3.get('b') or {}
-    held = sorted(k[5:] for k in a3 if k.startswith('hold:'))
-    knelt = sorted(k[5:] for k in b3 if k.startswith('hold:Cover') and b3[k] > b0.get(k, 0))
+    held = sorted(k[5:] for k in a3 if k.startswith('hold:')) + sorted(k for k in a3 if k.startswith('melee:'))   # the shield arm and the melee clips hold things too
+    knelt = sorted(k[5:] for k in b3 if k.startswith('hold:Cover') and b3[k] > b0.get(k, 0)) + sorted(k for k in b3 if k.startswith('melee:') and 'Cover' in k and b3[k] > b0.get(k, 0))
     print('  note W3 the demo: a road fight %s; held before %s; %s; kneeling after %s' % (R3.get('started'), held, R3.get('moved'), knelt))
     ok('W3 IN THE DEMO (a road fight from the map, the fight inside the shell): his pistol men are drawn in held clips, and his man stood on cover kneels, no page error',
        R3.get('started') and held and knelt and not R3.get('errs') and not R3.get('err'), (R3.get('errs') or [R3.get('err')])[:2])

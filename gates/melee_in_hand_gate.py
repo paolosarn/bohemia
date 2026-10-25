@@ -130,7 +130,7 @@ def body(k, src, kk, f):
     """his body on this key, in his fight cell's frame: (alpha mask array, x0, y0)"""
     e = E[k]
     if src in D['clips']:   # this lane's own new keys (the melee idle's, the shield's)
-        i = e['clips'][src][kk][f]; c = e['sheet']['cells'][i]; a = sheet(e['sheet']['file'])[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
+        oc = e['clips'][src]; sh = e['sheets'][oc['g']]; i = oc['k'][kk][f]; c = sh['cells'][i]; a = sheet(sh['file'])[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
     elif src in FIGHT_COL:   # COMBAT's own clip on his fight sheet
         L = F['looks'][k]; col = (L.get('clips') or F['clips'])[FIGHT_COL[src]][kk]; a, c = fight_cell(k, col, f)
     else:
@@ -138,14 +138,24 @@ def body(k, src, kk, f):
     return a[..., 3] > 0, c[4], c[5]
 
 
+def owner(k, p, src, e=None):
+    """the entry whose sheet holds this thing on this clip (his own, else YOU's for a cast look), and the shift of feet"""
+    e = e or E[k]
+    if p in e.get('props', {}).get('by', {}) and src in e['props']['by'][p]: return e, 0, 0
+    r = e.get('props_ref')
+    if r and r in E and p in E[r]['props']['by'] and src in E[r]['props']['by'][p]:
+        return E[r], e['foot'][0] - E[r]['foot'][0], e['foot'][1] - E[r]['foot'][1]
+    raise KeyError('%s %s %s' % (k, p, src))
+
+
 def prop(k, p, src, kk, f, e=None):
-    e = e or E[k]; P = e['props']; i = P['by'][p][src][kk][f]
+    o, sx, sy = owner(k, p, src, e); P = o['props']; pk = P['by'][p][src]; i = pk['k'][kk][f]
     if i is None: return None
-    c = P['cells'][i]; a = sheet(P['file'])[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
-    return a[..., 3] > 0, c[4], c[5], a
+    sh = P['sheets'][pk['l']]; c = sh['cells'][i]; a = sheet(sh['file'])[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
+    return a[..., 3] > 0, c[4] + sx, c[5] + sy, a
 
 
-READY = D.get('layers_ready', list(D['layers']))
+READY = I.get('layers_ready', D.get('layers_ready', list(D['layers'])))   # what is LIVE: the layers the last pack put in the fight's index (the source may name layers still rendering)
 if '--layers' in sys.argv: READY = sys.argv[sys.argv.index('--layers') + 1].split(',')   # a layer still being made, asked of early
 
 
@@ -181,23 +191,28 @@ ppal = set(tuple(int(h.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4)) for r in PA
 for k, e in E.items():
     mine = e.get('layers', ['m1'])
     for n in [n_ for n_ in OWN if any(layer_of(c_) in mine for c_ in COMPOSITES if any(s_ == n_ for s_, _ in D['composite'][c_]))]:
-        C = D['clips'][n]; ck = e['clips'].get(n)
+        C = D['clips'][n]; ck = e['clips'].get(n, {}).get('k')
         if not ck or len(ck) != len(C['keys']) or any(len(r) != 8 or any(i is None for i in r) for r in ck): miss.append('%s %s' % (k, n))
-    a = sheet(e['sheet']['file']); H, W = a.shape[:2]
-    outside += ['%s body %d' % (k, i) for i, c in enumerate(e['sheet']['cells']) if c[0] < 0 or c[1] < 0 or c[0] + c[2] > W or c[1] + c[3] > H]
     fs = sheet(F['looks'][k]['file'], os.path.join(ROOT, 'slices/fight_rig'))
     have = set(map(tuple, fs[fs[..., 3] > 0][:, :3].tolist())) | {tuple(F['rim'][:3])}
-    extra = set(map(tuple, a[a[..., 3] > 0][:, :3].tolist())) - have
-    if extra: pal.append('%s body +%d colours' % (k, len(extra)))
+    for g_, sh in e['sheets'].items():   # one sheet a group of his own keys
+        a = sheet(sh['file']); H, W = a.shape[:2]
+        outside += ['%s body %s %d' % (k, g_, i) for i, c in enumerate(sh['cells']) if c[0] < 0 or c[1] < 0 or c[0] + c[2] > W or c[1] + c[3] > H]
+        extra = set(map(tuple, a[a[..., 3] > 0][:, :3].tolist())) - have
+        if extra: pal.append('%s body %s +%d colours' % (k, g_, len(extra)))
     if 'props' not in e: continue
-    P = e['props']; pa = sheet(P['file']); H, W = pa.shape[:2]
-    outside += ['%s props %d' % (k, i) for i, c in enumerate(P['cells']) if c[0] < 0 or c[1] < 0 or c[0] + c[2] > W or c[1] + c[3] > H]
-    extra = set(map(tuple, pa[pa[..., 3] > 0][:, :3].tolist())) - ppal
-    if extra: pal.append('%s props +%d colours off the palette' % (k, len(extra)))
+    P = e['props']
+    for l_, sh in P['sheets'].items():   # one sheet a layer of things
+        pa = sheet(sh['file']); H, W = pa.shape[:2]
+        outside += ['%s things %s %d' % (k, l_, i) for i, c in enumerate(sh['cells']) if c[0] < 0 or c[1] < 0 or c[0] + c[2] > W or c[1] + c[3] > H]
+        extra = set(map(tuple, pa[pa[..., 3] > 0][:, :3].tolist())) - ppal
+        if extra: pal.append('%s things %s +%d colours off the palette' % (k, l_, len(extra)))
     for ly in [l_ for l_ in READY if l_ in e.get('layers', ['m1'])]:
       for p in props_of(ly):
         for src, kk in keys_of(ly, p):
-            r = P['by'].get(p, {}).get(src)
+            try: o_ = owner(k, p, src)[0]
+            except KeyError: pmiss.append('%s %s %s k%d' % (k, p, src, kk)); continue
+            r = o_['props']['by'].get(p, {}).get(src, {}).get('k')
             if not r or kk >= len(r) or len(r[kk]) != 8: pmiss.append('%s %s %s k%d' % (k, p, src, kk)); continue
             if sum(1 for i in r[kk] if i is None) > HIDDEN_MAX: hid.append('%s %s %s k%d hidden in %d facings' % (k, p, src, kk, sum(1 for i in r[kk] if i is None)))
             seen_[(k, p)] = seen_.get((k, p), [0, 0]); seen_[(k, p)][0] += sum(1 for i in r[kk] if i is not None); seen_[(k, p)][1] += 8
@@ -207,6 +222,8 @@ hid += ['%s %s shows in only %d of %d pictures' % (k, p, s_[0], s_[1]) for (k, p
 ok('P4 a thing shows in at least three facings of every key, and in 70 percent of all its pictures (his body between only where it is)', not hid, hid[:4])
 ok('P5 every cell sits inside its sheet', not outside, outside[:4])
 ok('P6 his body wears his own fight sheet\'s colours; a prop the style palette\'s', not pal, pal[:4])
+big = ['%s %s %dx%d' % (k, s_['file'], s_['size'][0], s_['size'][1]) for k, e in E.items() for s_ in list(e['sheets'].values()) + list(e.get('props', {}).get('sheets', {}).values()) if s_['size'][0] * s_['size'][1] > 2048 * 1024]
+ok('P7 ONE SHEET A GROUP (rule 173, no crash before a fight): his own keys split melee, shield, two hands; a named look\'s things one sheet a layer; none over 2048 x 1024 (8 MB decoded)', not big, big[:4])
 
 
 # ---------------------------------------------------------------------------------------------------- H in his hand
@@ -275,12 +292,11 @@ sw = swing_faults(E)
 ok('H2 IT IS SWUNG: in profile the wind takes it up to his head, the blow out in front of him', not sw, sw[:4])
 tf = tap_faults(E)
 ok('H3 THE TAP crosses his middle facing the glass', not tf, tf[:4])
-k0 = next((k for k in named if 'props' in E[k]), None)
+k0 = next((k for k in named if D['layers']['m1']['props'][0] in E[k].get('props', {}).get('by', {})), None)
 if k0:
     me = json.loads(json.dumps(E[k0])); p0 = D['layers']['m1']['props'][0]
-    i = me['props']['by'][p0]['PIdle'][0][0]; me['props']['cells'][i] = list(me['props']['cells'][i]); me['props']['cells'][i][4] -= 30
-    j = me['props']['by'][p0]['Swing'][0][2]; jb = me['props']['by'][p0]['Swing'][2][2]
-    me['props']['by'][p0]['Swing'][0][2] = me['props']['by'][p0]['PHit'][1][2]   # the wind drawn as the thing hanging at his side
+    pk = me['props']['by'][p0]['PIdle']; cs = me['props']['sheets'][pk['l']]['cells']; i = pk['k'][0][0]; cs[i] = list(cs[i]); cs[i][4] -= 30
+    me['props']['by'][p0]['Swing']['k'][0][2] = me['props']['by'][p0]['PHit']['k'][1][2]   # the wind drawn as the thing hanging at his side
     ok('H4 MUTATION: a prop moved off his fist, and a wind that stays at his side, are both caught',
        any('PIdle k0 S' in x for x in hand_faults({k0: me})) and any('wind E' in x for x in swing_faults({k0: me})))
 
@@ -317,11 +333,12 @@ def shield_faults(E, only=None):
 if 's1' in READY:
     gf = shield_faults(E)
     ok('G1 THE SHIELD ARM facing the glass: carried on his left across his front, RAISED TO HIS FACE TO BLOCK, planted on the ground in cover', not gf, gf[:4])
-    ks = next((k for k in named if 's1' in E[k].get('layers', [])), None)
+    sh0 = [p_ for p_ in props_of('s1') if D['props'][p_].get('shield')][0]
+    ks = next((k for k in named if 's1' in E[k].get('layers', []) and sh0 in E[k].get('props', {}).get('by', {})), None)
     ok('G0 a named look carries the shield arm', bool(ks))
     if ks:
-        ms = json.loads(json.dumps(E[ks])); sh0 = [p_ for p_ in props_of('s1') if D['props'][p_].get('shield')][0]
-        ms['props']['by'][sh0]['SBlock'][0][0] = ms['props']['by'][sh0]['SIdle'][0][0]   # the block drawn as the carry: the shield never comes up
+        ms = json.loads(json.dumps(E[ks]))
+        ms['props']['by'][sh0]['SBlock']['k'][0][0] = ms['props']['by'][sh0]['SIdle']['k'][0][0]   # the block drawn as the carry: the shield never comes up
         ok('G2 MUTATION: a block that never raises the shield is caught', any('block' in x for x in shield_faults({ks: ms})))
 
 # ---------------------------------------------------------------------------------------------------- T two hands
@@ -347,11 +364,11 @@ def two_faults(E, only=None):
 if 't2' in READY:
     tf2 = two_faults(E)
     ok('T1 TWO HANDS in profile: the lean sets its head on the ground before him, the two-handed wind raises it over his crown', not tf2, tf2[:4])
-    kt = next((k for k in named if 't2' in E[k].get('layers', [])), None)
+    kt = next((k for k in named if 't2' in E[k].get('layers', []) and props_of('t2')[0] in E[k].get('props', {}).get('by', {})), None)
     ok('T0 a named look carries the two-handed things', bool(kt))
     if kt:
         mt = json.loads(json.dumps(E[kt])); p0 = props_of('t2')[0]
-        mt['props']['by'][p0]['T2Idle'][5][2] = mt['props']['by'][p0]['T2Idle'][0][2]   # the lean drawn as the carry: its head never set down
+        mt['props']['by'][p0]['T2Idle']['k'][5][2] = mt['props']['by'][p0]['T2Idle']['k'][0][2]   # the lean drawn as the carry: its head never set down
         ok('T2 MUTATION: a lean that never sets its head down is caught', any('lean E' in x for x in two_faults({kt: mt})))
 
 # ---------------------------------------------------------------------------------------------------- W wired
@@ -369,10 +386,10 @@ const { open } = require(process.argv[2]);
   await p.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length && HOLD.state === 2 && MELEE.state === 2, null, { timeout: 60000 });
   await p.waitForTimeout(6000);
   const set = await p.evaluate(() => {
-    const S = FIGHT.S; let mel = S.units.filter(v => FIGHT.onField(v) && !v.beast && meleeProp(v) && MELEE.meta.looks[lookOf(v)._key]), handed = null;
+    const S = FIGHT.S; let mel = S.units.filter(v => FIGHT.onField(v) && !v.beast && meleeProp(v) && (MELEE.meta.looks[lookOf(v)._key] || MELEE.meta.looks[lookOf(v).ref])), handed = null;
     if (!mel.length) {   /* nobody packed holds one on this board yet: a melee row off this board put in a packed man's hand (the bag's swap does it in play) */
       const w = (S.units.map(u => u.weapon).filter(x => x && meleeProp({ weapon: x }) && !meleeProp({ weapon: x })[1])[0] || DB.weapons.rows.filter(r => MELEE.meta.by_row[r.id])[0]);
-      const v = S.units.filter(u => FIGHT.onField(u) && !u.beast && MELEE.meta.looks[lookOf(u)._key])[0];
+      const v = S.units.filter(u => FIGHT.onField(u) && !u.beast && (MELEE.meta.looks[lookOf(u)._key] || MELEE.meta.looks[lookOf(u).ref]))[0];
       if (w && v) { v.weapon = w; v.shield = null; mel = [v]; handed = v.id + ' given ' + (w.of || w).id; }
     }
     const v = mel[0], foe = v && S.units.filter(u => u.side !== v.side && FIGHT.onField(u))[0];
@@ -427,9 +444,9 @@ const drive = require(process.argv[2]);
   }
   if (!f) { console.log(JSON.stringify({ started: st, err: 'no fight frame', errs })); process.exit(0); }
   const handed = await f.evaluate(() => {   /* as W2: when nobody packed holds one in this fight, a melee row of the fight in a packed man's hand */
-    const S = FIGHT.S; if (S.units.some(v => FIGHT.onField(v) && !v.beast && meleeProp(v) && MELEE.meta.looks[lookOf(v)._key])) return null;
+    const S = FIGHT.S; if (S.units.some(v => FIGHT.onField(v) && !v.beast && meleeProp(v) && (MELEE.meta.looks[lookOf(v)._key] || MELEE.meta.looks[lookOf(v).ref]))) return null;
     const w = (S.units.map(u => u.weapon).filter(x => x && meleeProp({ weapon: x }) && !meleeProp({ weapon: x })[1])[0] || DB.weapons.rows.filter(r => MELEE.meta.by_row[r.id])[0]);
-    const v = S.units.filter(u => FIGHT.onField(u) && !u.beast && MELEE.meta.looks[lookOf(u)._key])[0];
+    const v = S.units.filter(u => FIGHT.onField(u) && !u.beast && (MELEE.meta.looks[lookOf(u)._key] || MELEE.meta.looks[lookOf(u).ref]))[0];
     if (w && v) { v.weapon = w; v.shield = null; return v.id + ' given ' + (w.of || w).id; } return 'nobody packed';
   });
   await d.page.waitForTimeout(8000);

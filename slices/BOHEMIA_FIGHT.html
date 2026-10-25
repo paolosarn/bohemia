@@ -4705,7 +4705,7 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
    across him on one knee in cover. A rolled man's thing is his gang's, laid in his gang's cell (as his guns are); a man whose
    own model carries his weapon (the thug's pipe, the poacher's hatchet) is drawn without a second one. A row with no prop
    yet: as before. */
-const MELEE = { meta: null, state: 0, looks: {} };
+const MELEE = { meta: null, state: 0, looks: {}, bare: {} };
 const MELEE_FIGHT = { Swing: 'swing', Carry: 'carry', CarryWalk: 'carrywalk', Aim: 'aim', Hit: 'hit' };   /* COMBAT's own clips, drawn off his fight sheet */
 function meleeMeta() {
   if (!MELEE.state) {
@@ -4770,38 +4770,49 @@ function meleeClip(v, p, L, e, how, prop, kind, now) {
 function meleeBody(src, f, L, e, d) {
   if (MELEE_FIGHT[src[0]]) { const c = (L.clips || DB.rig.clips)[MELEE_FIGHT[src[0]]]; if (!c) return null;
     return [UI.imgs['fight_rig/' + L.file], [clipCol(MELEE_FIGHT[src[0]], src[1], L) * L.w, f * L.h, L.w, L.h, 0, 0]]; }
-  const own = e.clips[src[0]], sheet = own ? e : d, ck = own || d.clips[src[0]], ci = ck && ck[src[1]] && ck[src[1]][f];
+  const own = e.clips[src[0]];   /* his own keys: on the sheet of their group (the melee idle's, the shield's, the two-hander's) */
+  if (own) { const sh = e.sheets && e.sheets[own.g], ci = own.k && own.k[src[1]] && own.k[src[1]][f]; if (!sh || ci === null || ci === undefined) return null;
+    return [holdImg(sh.file, 'rig_melee/'), sh.cells[ci]]; }
+  const ck = d.clips[src[0]], ci = ck && ck[src[1]] && ck[src[1]][f];
   if (ci === null || ci === undefined) return null;
-  return [holdImg(sheet.sheet.file, own ? 'rig_melee/' : undefined), sheet.sheet.cells[ci]];
+  return [holdImg(d.sheet.file), d.sheet.cells[ci]];
 }
 function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const kind = gs ? DB.rig.guns.order[gs.row] : null;
   if (kind && kind !== 'pistol') return null;   /* a long gun is held in both hands: the held clips' */
-  const e = meleeLook(L._key); if (!e) return null;
-  const pe = e.props ? e : meleeLook(e.ref); if (!pe || !pe.props) return null;
+  /* his own keys, if they are in; a rolled man whose own keys are not in yet stands on his held sheets with his gang's things */
+  const M = MELEE.meta, e = meleeLook(L._key) || (M && L.ref && M.looks[L.ref] ? (MELEE.bare[L._key] = MELEE.bare[L._key] || { clips: {}, sheets: {}, ref: L.ref }) : null);
+  if (!e) return null;
+  /* where each thing comes from: his own sheet of things, else his gang's or his crew's (the cast hold YOU's), each layer on its own */
+  const srcs = [e.props ? e : null, meleeLook(e.ref || e.props_ref)].filter(function (q) { return q && q.props; }); if (!srcs.length) return null;
+  const thing = function (q, clip) { for (let i = 0; i < srcs.length; i++) { const by = srcs[i].props.by[q]; if (by && by[clip]) return [srcs[i], by[clip]]; } return null; };
+  const has = function (q) { return srcs.some(function (x) { return x.props.by[q]; }); };
   const mp = kind ? null : meleeProp(v), two = mp && mp[1];
-  const shield = two ? null : shieldProp(v), sh = shield && e.clips.SIdle && pe.props.by[shield] ? shield : null;
+  const shield = two ? null : shieldProp(v), sh = shield && e.clips.SIdle && has(shield) ? shield : null;
   const prop = kind === 'pistol' ? (sh ? 'pistol' : null) : mp && mp[0]; if (!prop && !sh) return null;
-  if (two && !(e.clips.T2Idle && pe.props.by[prop])) return null;   /* his two-handed keys or the thing not in yet: as before */
+  if (two && !(e.clips.T2Idle && has(prop))) return null;   /* his two-handed keys or the thing not in yet: as before */
   if (sh && kind === 'pistol' && (p.clip === 'stand' || p.clip === 'carry') && holdReload(v, kind, holdCovered(v), now)) return null;   /* the reload on his body (rule 124): his left hand leaves the shield for the magazine */
-  const M = MELEE.meta, mc = meleeClip(v, p, L, e, sh ? 'S' : two ? 'T' : 'M', prop, kind, now); if (!mc) return null;
+  const mc = meleeClip(v, p, L, e, sh ? 'S' : two ? 'T' : 'M', prop, kind, now); if (!mc) return null;
   const f = v._face || 0, src = M.composite[mc[0]] && M.composite[mc[0]][mc[1]]; if (!src) return null;
   const b = meleeBody(src, f, L, e, d); if (!b || !b[0]) return null;
   /* what he holds on this key: the thing in his fist (never a second one on a man whose own model carries his) and his shield */
-  const lay = [];
+  const lay = [];   /* [sheet, cell]: each thing off its layer's sheet (a man decodes only the layers he holds) */
   [prop, sh && !e.own_shield ? sh : null].forEach(function (q) {
     if (!q || (q === prop && e.held)) return;
-    const by = pe.props.by[q], pk = by && by[src[0]] && by[src[0]][src[1]];
-    if (!pk) { lay.push(false); return; }
-    if (pk[f] !== null && pk[f] !== undefined) lay.push(pk[f]);
+    const tg = thing(q, src[0]), pk = tg && tg[1], ix = pk && pk.k && pk.k[src[1]] && pk.k[src[1]][f], ps = pk && tg[0].props.sheets && tg[0].props.sheets[pk.l];
+    if (!pk || !ps || !pk.k || !pk.k[src[1]]) { lay.push(false); return; }
+    if (ix === null || ix === undefined) return;   /* behind him on this facing */
+    const im_ = holdImg(ps.file, 'rig_melee/'); if (!im_) { lay.push(false); return; }
+    /* a thing off another man's sheet sits from that man's fight cell: moved by the difference of their feet, so it is in this fist */
+    const fo = tg[0] === e ? null : DB.rig.looks[e.ref || e.props_ref];
+    lay.push([im_, ps.cells[ix], fo ? L.foot[0] - fo.foot[0] : 0, fo ? L.foot[1] - fo.foot[1] : 0]);
   });
   if (lay.indexOf(false) >= 0) return null;   /* never a man without what he holds: as before until it is in */
-  const pimg = lay.length ? holdImg(pe.props.file, 'rig_melee/') : null; if (lay.length && !pimg) return null;
   if (lay.length === 2 && !M.shield_over[DIR8[f]]) lay.reverse();   /* the weapon over the shield where his right side is toward the glass */
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; }, bc = b[1];
   cx.drawImage(im(b[0]), bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, bc[2] * s, bc[3] * s);
-  lay.forEach(function (ix) { const g = pe.props.cells[ix]; cx.drawImage(im(pimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); });
+  lay.forEach(function (q) { const g = q[1]; cx.drawImage(im(q[0]), g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s); });
   const fl = hitFlash(v, now); if (fl > 0) tintOver(b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
   UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
   if (sh) UI.clipSeen['shield:' + sh] = (UI.clipSeen['shield:' + sh] || 0) + 1;
