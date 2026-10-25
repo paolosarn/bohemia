@@ -2325,6 +2325,9 @@
    "cast_shortcoat": "you",
    "cast_shorts": "you",
    "cast_skirt": "you",
+   "faction_anarchists": "you",
+   "faction_church": "you",
+   "faction_network": "you",
    "faction_blues": "you",
    "faction_cartel": "you",
    "faction_colorful": "you",
@@ -2342,7 +2345,7 @@
    "s2",
    "t2"
   ],
-  "why": "measured 10/25: with the scale his model renders at within 0.006 of YOU's (1.101 to 1.110), a look's things on the held keys differ from YOU's by about one pixel at the edges (17 to 28 px of a thing's 88 differ, the order of a one-pixel shift of a thin haft; his rolled men already hold their gang's things on their own bodies the same way), so these twenty hold YOU's things past the first layer, moved by the difference of their feet. The rest render their own: a hat that makes the man taller makes him smaller in the frame (the wide brim 1.054, the caravans 1.058, 105 and 110 px of 88 off), and the anarchists, the church and the network sit two pixels off (29 to 44); the two tiers are their own build. About five hours of renders saved."
+  "why": "measured 10/25: with the scale his model renders at within 0.006 of YOU's (1.101 to 1.110), a look's things on the held keys differ from YOU's by about one pixel at the edges (17 to 28 px of a thing's 88 differ, the order of a one-pixel shift of a thin haft; his rolled men already hold their gang's things on their own bodies the same way), so these twenty hold YOU's things past the first layer, moved by the difference of their feet. The rest render their own: a hat that makes the man taller makes him smaller in the frame (the wide brim 1.054, the caravans 1.058, 105 and 110 px of 88 off), and the anarchists, the church and the network sit two pixels off (29 to 44); the two tiers are their own build. About five hours of renders saved. AMENDED 10/25 later the same round: COOK shipped its 24 models, so every look's own things would be drawn again; laid on their own bodies and checked by the gate's touch leg (H1: wherever the thing shows it is within 2 px of his body, on every key and facing), YOU's things hold in the anarchists', the church's and the network's fists too (two pixels off in scale) and in the first layer for all twenty-three, so they hold YOU's from the first layer; only the caravans and the wide brim (a hat that makes them smaller in the frame, 105 to 110 px off) and the two tiers (COOK THREE's thug and poacher, whose models carry their own weapon) draw their own."
  },
  "cook_models": {
   "dir": "reference/models/bohemia",
