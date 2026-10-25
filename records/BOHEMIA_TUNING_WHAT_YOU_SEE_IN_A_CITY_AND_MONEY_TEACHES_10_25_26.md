@@ -89,4 +89,75 @@ ROWS FOR THE ONE TABLE (proposed, draft; ids beside FACTIONS' map.sight.*):
   map.sight.roof = a circle of 4 blocks | map.sight.base_fraction_of_width 1/10: RETIRE for the city (keep it for the open desert past the
   city's edge, where Battle Brothers' plain is the right picture).
 
-PIECE 2 (money teaches) FOLLOWS.
+## 2. MONEY TEACHES: TWELVE IN THE FIRST WEEK, MEASURED ON THE LIVE FILES
+Bench: tools/bohemia_tuning_money_teaches.js reads the live money files (records/target/bb/nightly_bill.json, origins.json, price_table.json,
+records/target/BOHEMIA_HALL_PRICE.json, the six at the post in engine/bohemia_goodbros.js, the hall's KIT and hallPrice() in
+slices/BOHEMIA_SETTLEMENT_SCREEN.html matched once, party_math.json) and multiplies the first week out. The fights are the live fight
+(slices/BOHEMIA_FIGHT.html) through tools/bohemia_tuning_the_whole_grid.js --cell, 100 seeded fights each, played this round.
+
+HOW BATTLE BROTHERS MAKES IT HURT (the library; ECONOMY Day 72 for the week)
+- Every man has a WAGE, every day: 3 to 35 crowns by background (backgrounds.json daily_wage), x 1.1 a level to level 11 (x 2.59), then
+  x 1.03 a level (the Game Guide). Better men cost more to KEEP, not only to hire.
+- Every man EATS: 2 provisions a day on plains (bb_all/1608_Provisions).
+- The HIRE: the Game Guide's base range plus 1.25 x his kit plus 500 x (level - 1)^1.5.
+- The JOB grows with the company and the PAY does not: a contract's enemies scale with "the strength of your roster (the sum of
+  10 + 2 x (level - 1) of the 12 strongest brothers)" and its skulls (bb_all/0828_Game Mechanics), while "the crowns reward increases
+  with your company's Renown" (bb_all/0441_Contracts). More men means more enemies for the same purse.
+- Battle Brothers' week (the bench, A New Company on Medium, 2,400 crowns; the Game Guide's observed hire prices at the middle):
+  three men 54 crowns a day, 44 days of doing nothing; hire three more and it is 666 crowns, 19 days; hire six more and the purse is gone.
+
+OURS, AS MAIN PLAYS IT NOW (A NEW CREW on full shelves, 290 batteries, the door's default; the hall at the middle of each man's range)
+
+      company on night one    hired for   left   the bill a night   nights of food   a one-skull job: enemies, and nights its 30 buys
+      the three                    0       290          6                48            2 enemies, 5 nights
+      six (three hired)           58       232         12                19            5 enemies, 2.5 nights
+      nine (six hired)           123       167         18                 9            7 enemies, 1.7 nights
+      twelve (nine hired)        181       109         24                 4           10 enemies, 1.3 nights
+
+AND THE FIGHT KILLS THEM (the live fight, early stage, the map's own job size, 100 fights each):
+      the three against the job's 2      won 99 in 100   0.16 struck down a fight   1 dead in 100 fights
+      twelve against the job's 10        won 91 in 100   3.25 struck down a fight   62 dead in 100 fights
+So "a lot of people would be dying, I'd be wasting money" is already what main does: the twelve lose a man to death in nearly every
+other fight, a dead hire is 12 to 37 batteries thrown away, and every struck-down man who lives (80 in 100, rule 37g) lies up 30 to 40
+days ON THE BILL: 2 a night, 60 to 80 batteries of food each while he cannot fight. A first week of twelve on one-skull jobs runs out of
+food in four nights and buries about one man every two fights.
+
+THE FINDING THAT PROVES US WRONG: HE SAID "FED AND PAID", AND NOBODY IS PAID.
+The bill feeds the crew (2 a man a night: a ration and four litres) and charges NO WAGE. engine/bohemia_goodbros.js gives every man at the
+post wageChargedHere: 0 with the comment "bought once, rule 56, applied here too"; the one table carries it as hire.wage_charged 0, owner
+"paolo (the ruling)". Rule 56's words are "THE RETINUE IS BOUGHT ONCE, no wage": the retinue is Battle Brothers' followers (the cook, the
+scout, the paymaster), not the men who fight. It was a lane's stretch of a ruling about followers onto the company, and his 10/24 words
+(151(b): "wages, food and upkeep stay felt") are newer. What it costs: with no wage a sellsword eats the same 2 a night as a beggar and a
+level-11 killer the same as a recruit, so the half of his lesson that says a big company "would hurt my ability to hire better people"
+is gone: better men cost nothing more to keep. The roster already prints each man's wage ("N BATTERIES A DAY"); nothing charges it.
+
+THE NUMBERS THAT WOULD NEED TO CHANGE (draft; each a row; RUN owns the bill, RUN TWO the hall, the board and the roster)
+ 1. hire.wage_charged: 0 -> HIS WAGE IN THE NIGHTLY BILL: his background's wiki wage / 10, rounded, floor one, x 1.1 a level to 11 (the
+    rule the roster already prints and engine/bohemia_pricetable.js dailyWageBatteries already holds, uncalled). The six at the post all
+    cost 1 at level 1 and 2 to 3 at level 11; a sellsword or a hedge knight 4 at level 1 and 9 at level 11.
+ 2. bill.founding_crew_paid: no. THE FOUNDING CREW EATS, THE HIRE IS PAID: the origin's own men ("Three of you and nothing owed") pay
+    the food bill only; every man hired at a post pays food and wage. The three keep 48 nights (rule 117: easier than Battle Brothers'
+    44), and the hire bites harder:
+
+      company on night one    the bill a night   nights of food   a one-skull job buys
+      the three                      6                48             5 nights
+      six                           15                15             2 nights
+      nine                          24                 6             1.3 nights
+      twelve                        33                 3             0.9 nights: the job no longer feeds the men who fought it
+
+    (Paying the founding two as well gives the three 8 a night and 36 nights: harder than Battle Brothers at the start, a NO under rule 117.)
+ 3. contract.pay_by_renown: 1 -> it climbs. THE KILLER COMPANY STARVES ON TODAY'S PAY: twelve men at level 11 (two sellswords, a hedge
+    knight, a retired soldier, two militia, two hunters, a brawler, a thief, a farmhand, a butcher) cost 82 a night with the wage
+    (24 without it) and the board's best job, three skulls, pays 90: 1.1 nights. Battle Brothers keeps the late game alive because "the
+    crowns reward increases with your company's Renown"; the wiki prints no formula. THE PICK: the same job-to-keep ratio at the end as
+    at the start (a one-skull job buys the three 5 nights; a three-skull job should buy the late twelve about 5): about 410, so a
+    renown multiplier from x1 at the start to about x4.5 by the late game (Battle Brothers' bands: Unknown 0 ... Legendary 4,000). Ours,
+    marked, until the renown row exists.
+ 4. Keep, measured right: the bill 2 a man a night (food and water); the hall at four fifths of the formula (rule 117); the job's enemies
+    from the 12 strongest at 10 + 2 a level (the twelve meet 10 for the same 30); the day-one cap of the company plus one (RUN 10/23); the
+    struck-down eat while they lie up; one man walks when the bill cannot be paid (nightly_bill.json walks_when_short 1).
+ 5. The days-left number on the bar (151(a): hold the batteries) must read the bill WITH the wage once 1 lands, or it lies by a third.
+
+WHAT A STRANGER FEELS, IN ONE LINE: three men with 290 batteries have seven weeks; the same men who hire nine on night one have three
+nights, meet ten for every thirty batteries, and bury a man every second fight. That is a mistake you feel in the first week, and
+nothing on this page makes it cheap.

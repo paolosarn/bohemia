@@ -59,7 +59,10 @@ function week(n, rule) {
   /* hire n - 3 from the post on night one, round-robin through the six, each at the middle of his range (f = 0.5) */
   const hires = Array.from({ length: Math.max(0, n - 3) }, (_, i) => SIX[i % SIX.length]);
   const hireCost = hires.reduce((s, b) => s + hall(b, 0.5).batteries, 0);
-  const wageNight = rule === 'today' ? 0 : NC_MEN.slice(1).concat(hires).reduce((s, b) => s + wageB(b, 1), 0);
+  /* 'wage': every man but YOU paid his wage; 'hires_paid': the founding crew eats, only a man hired at a post is paid
+     (A NEW CREW: 'Three of you and nothing owed') */
+  const paid = rule === 'today' ? [] : rule === 'hires_paid' ? hires : NC_MEN.slice(1).concat(hires);
+  const wageNight = paid.reduce((s, b) => s + wageB(b, 1), 0);
   const night = n * per + wageNight;
   const left = purse - hireCost;
   return { men: n, hire_cost: hireCost, purse_after_hiring: left, bill_a_night: night, wage_share: wageNight,
@@ -81,13 +84,18 @@ function bbWeek(n) {
 const out = { draft: true, about: 'TUNING 10/25 [money teaches]: research only; nothing reads this', purse_full: purse, per_man_per_night: per, founding: NC_MEN,
   the_six_at_the_post: SIX.map(b => ({ id: b, hall_price_mid: hall(b, 0.5).batteries, hall_price_low: hall(b, 0).batteries, hall_price_high: hall(b, 1).batteries,
     kit_crowns: kitCrowns(b), wiki_wage_crowns: wageOf(b), wage_batteries_level1: wageB(b, 1), wage_batteries_level11: wageB(b, 11) })),
-  today: [3, 6, 9, 12].map(n => week(n, 'today')), with_the_wage: [3, 6, 9, 12].map(n => week(n, 'wage')), battle_brothers: [3, 6, 9, 12].map(bbWeek) };
+  today: [3, 6, 9, 12].map(n => week(n, 'today')), with_the_wage: [3, 6, 9, 12].map(n => week(n, 'wage')), hires_paid: [3, 6, 9, 12].map(n => week(n, 'hires_paid')),
+  /* the killer company's keep: twelve men at level 11 on the bill and their climbed wage (x 1.1 a level to 11), against the board's best job */
+  late_company: (() => { const men = ['sellsword', 'hedge_knight', 'retired_soldier', 'militia', 'hunter', 'brawler', 'thief', 'farmhand', 'butcher', 'militia', 'sellsword', 'hunter'];
+    const wage = men.reduce((s, b) => s + wageB(b, 11), 0), night = 12 * per + wage;
+    return { men: men, wages_a_night_level11: wage, bill_a_night: night, three_skull_job_pays: PAY[3], nights_a_three_skull_job_buys: Math.round(10 * PAY[3] / night) / 10 }; })(), battle_brothers: [3, 6, 9, 12].map(bbWeek) };
 if (process.argv.indexOf('--json') >= 0) console.log(JSON.stringify(out, null, 1));
 else {
   console.log('THE SIX AT THE POST (hall price low/mid/high; wage a day at level 1 and 11):');
   out.the_six_at_the_post.forEach(s => console.log('  ' + s.id.padEnd(10) + s.hall_price_low + '/' + s.hall_price_mid + '/' + s.hall_price_high + '   wage ' + s.wage_batteries_level1 + ' -> ' + s.wage_batteries_level11 + '  (wiki ' + s.wiki_wage_crowns + ' crowns)'));
-  ['today', 'with_the_wage'].forEach(k => { console.log(k.toUpperCase());
+  ['today', 'with_the_wage', 'hires_paid'].forEach(k => { console.log(k.toUpperCase());
     out[k].forEach(r => console.log('  ' + r.men + ' men: hire ' + r.hire_cost + ', left ' + r.purse_after_hiring + ', bill ' + r.bill_a_night + '/night, runway ' + r.nights_of_runway + ' nights; 1 skull: ' + r.a_one_skull_job.enemies + ' enemies for ' + r.a_one_skull_job.pays + ' = ' + r.a_one_skull_job.nights_it_pays + ' nights; 2 skulls: ' + r.a_two_skull_job.enemies + ' for 60 = ' + r.a_two_skull_job.nights_it_pays)); });
+  console.log('THE KILLER COMPANY AT LEVEL 11: ' + JSON.stringify(out.late_company));
   console.log('BATTLE BROTHERS (Medium 2,400 crowns)');
   out.battle_brothers.forEach(r => console.log('  ' + r.men + ' men: hire ' + r.hire_crowns + ', left ' + r.purse_after_hiring_crowns + ', ' + r.a_day_crowns + '/day, runway ' + r.days_of_runway + ' days'));
 }
