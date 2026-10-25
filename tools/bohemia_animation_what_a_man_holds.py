@@ -623,10 +623,10 @@ def pack(only=None):
             guns_e = dict(file=look + '_guns.webp', size=list(gim.size), cells=grects, clips=gcells)
         entry = dict(fight=fl['file'], foot=fl['foot'], sheet=dict(file=look + '.webp', size=list(body.size), cells=rects), clips=cells, guns=guns_e)
         if person: entry['ref'] = fl['ref']
-        # what his model holds in a fist (COOK THREE's tiers: the thug's pipe, the poacher's hatchet), read off the render's own
+        # what his model holds in a fist (COOK THREE's tiers: the thug's pipe, the poacher's hatchet; CHARACTER's Runners' sling), read off the render's own
         # parts as the idles pack reads them: it hangs below his soles, and the gate is told so
         parts = set(k for c in rj.get('clips', {}).values() for f_ in c.get('motion_px', {}) for key in c['motion_px'][f_] for k in key)
-        held = sorted(p_ for p_ in parts if any(w in p_.lower() for w in ('pipe', 'hatchet', 'club', 'bat', 'knife', 'axe', 'machete', 'spear')))
+        held = sorted(p_ for p_ in parts if any(w in p_.lower() for w in ('pipe', 'hatchet', 'club', 'bat', 'knife', 'axe', 'machete', 'spear', 'sling')))   # the Runners' sling: cords out of his right fist
         if held: entry['held'] = held
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))
         index['looks'][look] = dict(json=look + '.json')
